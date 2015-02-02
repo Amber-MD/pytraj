@@ -1,4 +1,4 @@
-[wiki] (https://github.com/hainm/pytraj/wiki)
+[wiki] (https://github.com/mdtools/pytraj/wiki)
 
 Welcom to pytraj!
 -------------------
