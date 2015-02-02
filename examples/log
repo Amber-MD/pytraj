@@ -1,0 +1,238 @@
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Reading '../tests/data/md1_prod.Tc5b.x' as Amber Trajectory
+---------- RUN BEGIN -------------------------------------------------
+
+PARAMETER FILES:
+ 0: '../tests/data/Tc5b.top', 304 atoms, 20 res, box: None, 1 mol, 10 frames
+
+INPUT TRAJECTORIES:
+ 0: 'md1_prod.Tc5b.x' is an AMBER trajectory, Parm ../tests/data/Tc5b.top (reading 10 of 10)
+  Coordinate processing will occur on 10 frames.
+TIME: Run Initialization took 0.0000 seconds.
+
+BEGIN TRAJECTORY PROCESSING:
+.....................................................
+ACTION SETUP FOR PARM '../tests/data/Tc5b.top' (1 actions):
+----- md1_prod.Tc5b.x (1-10, 1) -----
+
+Read 10 frames and processed 10 frames.
+TIME: Trajectory processing: 0.0025 s
+TIME: Avg. throughput= 4046.9446 frames / second.
+
+ACTION OUTPUT:
+
+DATASETS:
+  1 data set:
+	Dis_00000 "Dis_00000" (double, distance), size is 10
+---------- RUN END ---------------------------------------------------
+[ 22.9602  16.3942  16.9264  15.9005  18.3785  19.5137  16.8504  17.8605
+  16.8572  20.8188]
+Kool
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Reading '../tests/data/md1_prod.Tc5b.x' as Amber Trajectory
+---------- RUN BEGIN -------------------------------------------------
+
+PARAMETER FILES:
+ 0: '../tests/data/Tc5b.top', 304 atoms, 20 res, box: None, 1 mol, 10 frames
+
+INPUT TRAJECTORIES:
+ 0: 'md1_prod.Tc5b.x' is an AMBER trajectory, Parm ../tests/data/Tc5b.top (reading 10 of 10)
+  Coordinate processing will occur on 10 frames.
+TIME: Run Initialization took 0.0000 seconds.
+
+BEGIN TRAJECTORY PROCESSING:
+.....................................................
+ACTION SETUP FOR PARM '../tests/data/Tc5b.top' (1 actions):
+----- md1_prod.Tc5b.x (1-10, 1) -----
+
+Read 10 frames and processed 10 frames.
+TIME: Trajectory processing: 0.0013 s
+TIME: Avg. throughput= 7541.4781 frames / second.
+
+ACTION OUTPUT:
+---------- RUN END ---------------------------------------------------
+stripping time,  0.00136494636536
+304
+Error: ./data/Tc5b.top matches no files.
+Error: './data/Tc5b.top' matches no files.
+Error: ./data/md1_prod.Tc5b.x matches no files.
+Error: TrajectoryFile: Parm file is null.
+Error: trajout: Could not set up trajectory.
+Error: ./data/Tc5b.top matches no files.
+Error: './data/Tc5b.top' matches no files.
+-bash: line 328: 30054 Segmentation fault      (core dumped) python ./$py
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Reading '../tests/data/md1_prod.Tc5b.x' as Amber Trajectory
+[[-17.146  12.069  -9.756]
+ [-15.774   9.648  -7.087]
+ [-16.761   7.688  -3.829]
+ [-15.228   5.335  -1.254]
+ [-15.974   4.229   2.418]
+ [-14.016   1.006   2.992]
+ [-12.158  -1.711   1.129]
+ [-10.459  -5.137   2.023]
+ [ -9.524  -7.464  -0.965]
+ [ -8.858 -11.163  -0.287]
+ [ -7.71  -12.693   3.106]
+ [ -5.13  -11.608   5.838]
+ [ -1.73   -9.971   5.185]
+ [  1.379  -9.977   7.51 ]
+ [  4.659  -7.949   7.677]
+ [  8.367  -8.606   6.79 ]
+ [ 11.671  -7.68    8.742]
+ [ 12.513  -3.997   8.439]
+ [ 15.912  -2.833   6.877]
+ [ 19.12   -3.114   8.925]]
+[[-17.146  12.069  -9.756]
+ [-15.774   9.648  -7.087]
+ [-16.761   7.688  -3.829]
+ [-15.228   5.335  -1.254]
+ [-15.974   4.229   2.418]
+ [-14.016   1.006   2.992]
+ [-12.158  -1.711   1.129]
+ [-10.459  -5.137   2.023]
+ [ -9.524  -7.464  -0.965]
+ [ -8.858 -11.163  -0.287]
+ [ -7.71  -12.693   3.106]
+ [ -5.13  -11.608   5.838]
+ [ -1.73   -9.971   5.185]
+ [  1.379  -9.977   7.51 ]
+ [  4.659  -7.949   7.677]
+ [  8.367  -8.606   6.79 ]
+ [ 11.671  -7.68    8.742]
+ [ 12.513  -3.997   8.439]
+ [ 15.912  -2.833   6.877]
+ [ 19.12   -3.114   8.925]]
+[[-17.146  12.069  -9.756]
+ [-15.774   9.648  -7.087]
+ [-16.761   7.688  -3.829]
+ [-15.228   5.335  -1.254]
+ [-15.974   4.229   2.418]
+ [-14.016   1.006   2.992]
+ [-12.158  -1.711   1.129]
+ [-10.459  -5.137   2.023]
+ [ -9.524  -7.464  -0.965]
+ [ -8.858 -11.163  -0.287]
+ [ -7.71  -12.693   3.106]
+ [ -5.13  -11.608   5.838]
+ [ -1.73   -9.971   5.185]
+ [  1.379  -9.977   7.51 ]
+ [  4.659  -7.949   7.677]
+ [  8.367  -8.606   6.79 ]
+ [ 11.671  -7.68    8.742]
+ [ 12.513  -3.997   8.439]
+ [ 15.912  -2.833   6.877]
+ [ 19.12   -3.114   8.925]]
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Reading '../tests/data/Tc5b.crd' as Amber Restart
+time = 0.00693607330322
+10
+[ 6.4374346   6.03996786  4.6099478   4.95046486  3.7581756   4.29140426
+  4.24341934  4.43443543  4.27418182  4.38985132]
+	Reading '../tests/Test_RandomizeIons/adh206.ff10.tip3p.parm7.gz' as Amber Topology
+	Reading '../tests/Test_RandomizeIons/adh206.tip3p.rst7.gz' as Amber Restart
+    RANDOMIZEIONS: swapping the postions of the ions in mask [@Na+]
+                   with the solvent. No ions can get closer than 3.00 angstroms
+                   to another ion.
+                   No ion can get closer than 5.00 angstroms to mask [:1-16]
+	Ion mask is [@Na+] (14 atoms)
+	Around mask is [:1-16] (518 atoms)
+	Reading '../tests/Test_RandomizeIons/adh206.ff10.tip3p.parm7.gz' as Amber Topology
+	Reading '../tests/Test_RandomizeIons/random.crd.save' as Amber Trajectory
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Reading '../tests/data/md1_prod.Tc5b.x' as Amber Trajectory
+    STRIP: Stripping atoms in mask [@H*]
+    DISTANCE: :2@CA to :3@CA, center of mass.
+    RMSD: (@CA), reference is first frame (@CA), with fitting.
+test setup_actions
+number of actions =  3
+.....................................................
+ACTION SETUP FOR PARM '../tests/data/Tc5b.top' (3 actions):
+  0: [@H*]
+	Stripping 150 atoms.
+	Stripped parm: '../tests/data/Tc5b.top', 154 atoms, 20 res, box: None, 1 mol
+  1: [:2@CA :3@CA out ./output/_distance.dat]
+	:2@CA (1 atoms) to :3@CA (1 atoms), imaging off.
+  2: [rms first @CA out ./output/_rmsd.dat]
+	Target mask: [@CA](20)
+	Reference mask: [@CA](20)
+0.00145602226257
+10
+[3.928146254914651, 3.8957621847335595, 3.8735025493731126, 3.8343022833365654, 3.860169555861504, 3.8812668035062985, 3.9021154519055425, 3.846164193063006, 3.870842027259702, 3.7633392087347115]
+[5.410578593211278e-07, 9.75457220312519, 9.656289555930446, 11.172763050570577, 10.907736008899734, 10.39292387658765, 11.172729817541107, 11.005870738645399, 10.583729307453599, 11.465128344155994]
+['__class__', '__delattr__', '__doc__', '__format__', '__getattribute__', '__hash__', '__init__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '_add_dataset', 'add_datafile', 'add_dataset', 'clear', 'get_datafile', 'listinfo', 'process_data_file_args', 'remove_data_set', 'remove_datafile', 'reset_write_status', 'write_all_datafiles']
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Reading '../tests/data/md1_prod.Tc5b.x' as Amber Trajectory
+	Writing './output/test_gdt_0.pdb' as PDB
+	Writing './output/test_gdt_1.pdb' as PDB
+tmscore = 0.383 
+0.383
+Error: ./data/Tc5b.top matches no files.
+Error: './data/Tc5b.top' matches no files.
+-bash: line 328: 30063 Segmentation fault      (core dumped) python ./$py
+-bash: line 328: 30065 Segmentation fault      (core dumped) python ./$py
+TrajFormat
+['GMXTRX', 'AMBERRESTARTNC', 'CHARMMDCD', 'AMBERNETCDF', 'MOL2FILE', 'UNKNOWN_TRAJ', 'CONFLIB', 'SDF', 'PDBFILE', 'SQM', 'BINPOS', 'AMBERTRAJ', 'AMBERRESTART', 'CIF']
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Reading '../tests/data/md1_prod.Tc5b.x' as Amber Trajectory
+	Writing './output/subtraj_0_CHARMM.dcd' as Charmm DCD
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Reading './output/subtraj_0_CHARMM.dcd' as Charmm DCD
+0.0
+	Writing './output/subtraj_1_CHARMM.dcd' as Charmm DCD
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Reading './output/subtraj_1_CHARMM.dcd' as Charmm DCD
+5.18901050169e-07
+	Reading '../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7' as Amber Topology
+	Reading '../tests/data/Test_RemdTraj/rem.nc.002' as Amber NetCDF
+	Reading '../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7' as Amber Topology
+	Reading '../tests/data/Test_RemdTraj/rem.nc.000' as Amber NetCDF
+	Reading '../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7' as Amber Topology
+	Reading '../tests/data/Test_RemdTraj/rem.nc.001' as Amber NetCDF
+	Reading '../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7' as Amber Topology
+	Reading '../tests/data/Test_RemdTraj/rem.nc.003' as Amber NetCDF
+	Reading '../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7' as Amber Topology
+	Reading '../tests/data/Test_RemdTraj/temp0.crd.492.20' as Amber Trajectory
+rmsd between pycpptraj Frame and cpptraj Frame = 0.000453785732578 
+rmsd between pycpptraj Frame and cpptraj Frame = 0.000400110854736 
+rmsd between pycpptraj Frame and cpptraj Frame = 0.000496549016571 
+rmsd between pycpptraj Frame and cpptraj Frame = 0.000490139277729 
+rmsd between pycpptraj Frame and cpptraj Frame = 0.000480395760049 
+rmsd between pycpptraj Frame and cpptraj Frame = 0.000447413670887 
+rmsd between pycpptraj Frame and cpptraj Frame = 0.000487884662031 
+rmsd between pycpptraj Frame and cpptraj Frame = 0.000522752468345 
+rmsd between pycpptraj Frame and cpptraj Frame = 0.000465041144636 
+rmsd between pycpptraj Frame and cpptraj Frame = 0.00049500905759 
+array('d', [4.3478453626686875, 0.18808112361214402, 1.2859867334535175, 3.37988548183983, 0.6536363146521831, 1.1004827737977558, 3.4873455038124863, 1.0530179522254253, 0.09199553431773727, 3.176387595182115])
+array('d', [8.037, 5.207, 1.351, 7.069, 5.673, 1.166, 7.177, 6.072, 0.157, 6.866])
+YES, we can reproduce cpptraj output
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Reading '../tests/data/md1_prod.Tc5b.x' as Amber Trajectory
+-16.492
+(10, 304, 3)
+(304, 3)
+python ./Example_selecting_atoms.py
+python ./Randomize_ions.py
+python ./fancy_indexing_trajectory.py
+python ./extract_temperature_traj_remd.py
+python ./get_pyfiles.py
+python ./calc_GDTscore.py
+python ./pairwise_rmsd.py
+python ./API_test_2.py
+python ./write_newparm.py
+python ./API_test_3.py
+python ./API_test.py
+python ./example_write_traj.py
+python ./setup_single_file.py
+python ./example_using_cpptraj_action.py
+python ./Running_multiple_actions_0.py
+python ./calc_pairwise_distance.py
+Error: ./data/Tc5b.top matches no files.
+Error: './data/Tc5b.top' matches no files.
+-bash: line 328: 30071 Segmentation fault      (core dumped) python ./$py
+  File "./setup_single_file.py", line 12
+    ])))
+    ^
+SyntaxError: invalid syntax
+	Reading '../tests/data/Tc5b.top' as Amber Topology
+	Writing topology 0 (../tests/data/Tc5b.top) to './output/_Tcb5.onlyCA.top' with format Amber Topology

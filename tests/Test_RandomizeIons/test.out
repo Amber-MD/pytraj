@@ -1,0 +1,31 @@
+['../../bin/cpptraj', 'adh206.ff10.tip3p.parm7.gz', 'ptraj.in']
+
+CPPTRAJ: Trajectory Analysis. V15.22b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 01/09/15  02:14:35
+| Available memory: 762.969 MB
+
+INPUT: Reading Input from file ptraj.in
+  [trajin adh206.tip3p.rst7.gz]
+  [randomizeions @Na+ around :1-16 by 5.0 overlap 3.0]
+    RANDOMIZEIONS: swapping the postions of the ions in mask [@Na+]
+                   with the solvent. No ions can get closer than 3.00 angstroms
+                   to another ion.
+                   No ion can get closer than 5.00 angstroms to mask [:1-16]
+  [trajout random.crd title "Test"]
+	Writing 'random.crd' as Amber Trajectory
+  0: [randomizeions @Na+ around :1-16 by 5.0 overlap 3.0]
+	Ion mask is [@Na+] (14 atoms)
+	Around mask is [:1-16] (518 atoms)
+100% Complete.
+
+TIME: Total execution time: 0.3410 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+

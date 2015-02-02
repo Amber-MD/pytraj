@@ -1,0 +1,686 @@
+#!/bin/bash
+# CPPTRAJ standalone configure script
+# Daniel R. Roe
+# 2010-11-18
+# Simple script to set compiler vars. Create config.h, which will be used
+# by src/Makefile.
+# Usage: ./configure [gnu/intel] OPTIONS
+
+# Print help message
+Usage() {
+  echo "Usage: ./configure [gnu | intel | pgi] OPTIONS"
+  echo "  OPTIONS:"
+  echo "    --help     : Display this message."
+  echo "    -d, -debug : Turn on compiler debugging info"
+  echo "    -openmp    : Use openmp for parallelization of certain routines."
+  echo "    -mpi       : Use mpicc/mpicxx to compile."
+  echo "    -cray      : Use cray compiler wrappers (cc/CC/ftn)."
+  echo "    -debugon   : Add -DDEBUG flag to activate internal debugging"
+  echo "    -noopt     : Do not use optimized compiler flags (default when -d specified)"
+  echo "    -nolfs     : Do not enable large file support."
+  echo ""
+  echo "  Library linking options:"
+  echo "    --with-netcdf=<DIR>"
+  echo "    --with-zlib=<DIR>"
+  echo "    --with-bzlib=<DIR>"
+  echo "    --with-blas=<DIR>"
+  echo "    --with-lapack=<DIR>"
+  echo "    --with-arpack=<DIR>"
+  echo "    -static    : Use static linking."
+  echo "    -amberlib  : Use BLAS/ARPACK/LAPACK/NetCDF libraries from \$AMBERHOME"
+  echo "    -nobzlib   : Do not use libbz2 (bzip2)"
+  echo "    -nozlib    : Do not use zlib (gzip/zip)"
+  echo "    -nonetcdf  : Do not use NetCDF"
+  echo "    -nomathlib : Do not include routines which require ARPACK, LAPACK, or BLAS"
+  echo ""
+  echo "  EXPERIMENTAL OPTIONS:"
+  echo "    -profile   : Use Gnu compiler profiling (>= V4.5)"
+  echo "    -gprofile  : Use Gnu compiler GLIBC profiling (>= V4.5)"
+  echo "    -vtune     : Enable options for use with Intel Vtune"
+  echo "    -shared    : Enable options for share with pycpptraj"
+  echo "    NOTE: -openmp and -mpi are mutually exclusive, as are -profile and -gprofile."
+#  echo "   --with-hdf5=<DIR>"
+}
+
+# If arg is Key=Value, separate into Key and Value
+ParseArg() {
+  KEY=`echo "$1" | awk 'BEGIN{FS = "=";}{print $1;}'`
+  VALUE=`echo "$1" | awk 'BEGIN{FS = "=";}{print $2;}'`
+  if [[ $VALUE = $KEY ]] ; then
+    VALUE=""
+  fi
+}
+
+# CompileError "Compile Line"
+# Compile error message
+CompileError() {
+  echo "  Error: Unable to compile using:"
+  echo "         $1"
+  echo "  Please check your compiler settings or configure flags. Error follows:"
+  echo "  --------------------"
+  cat compile.err
+  echo "  --------------------"
+  echo ""
+  exit 1
+}
+
+# TestCxxProgram "TestName" "Lib"
+# Test compile test program testp.cpp
+TestCxxProgram() {
+  echo "$1"
+  COMPILELINE="$CXX $CXXFLAGS -o testp testp.cpp $2"
+  $COMPILELINE > /dev/null 2> compile.err
+  ./testp | grep "Testing" > /dev/null
+  status=$?
+  if [[ $status -gt 0 ]] ; then
+      CompileError "$COMPILELINE"
+  fi
+  /bin/rm -f testp.cpp testp
+  echo "  OK"
+}
+
+TestBzlib() {
+  if [[ ! -z $BZLIB ]] ; then
+    cat > testp.cpp <<EOF
+#include <cstdio>
+#include "bzlib.h"
+int main() { BZFILE *bfile; bfile=NULL; printf("Testing\n"); return 0; }
+EOF
+    TestCxxProgram "Checking BZLIB" "$BZLIB"
+  fi
+}
+
+TestZlib() {
+  if [[ ! -z $ZLIB ]] ; then
+    cat > testp.cpp <<EOF
+#include <cstdio>
+#include "zlib.h"
+int main() { gzFile gfile; gfile=NULL; printf("Testing\n"); return 0; }
+EOF
+    TestCxxProgram "Checking ZLIB" "$ZLIB"
+  fi
+}
+
+TestNetcdf() {
+  if [[ ! -z $NETCDFLIB ]] ; then
+    cat > testp.cpp <<EOF
+#include <cstdio>
+#include "netcdf.h"
+int main() { printf("Testing\n"); printf("%s\n",nc_strerror(0)); return 0; }
+EOF
+    TestCxxProgram "Checking NetCDF" "$NETCDFLIB"
+  fi
+}
+
+TestMathlib() {
+  if [[ ! -z $ARPACK ]] ; then # Assume BLAS and LAPACK also defined
+    cat > testp.cpp <<EOF
+#include <cstdio>
+extern "C" { 
+  void dsaupd_(int&, char&, int&, char*, int&, double&, double*,
+               int&, double*, int&, int*, int*, double*, double*,
+               int&, int&);
+}
+int main() {
+  int ival = 0; 
+  double dval = 0.0;
+  char cval = 'I'; 
+  dsaupd_(ival, cval, ival, &cval, ival, dval, &dval, 
+          ival, &dval, ival, &ival, &ival, &dval, &dval,
+          ival, ival);
+  printf("Testing\n"); return 0;
+}
+EOF
+    TestCxxProgram "Checking ARPACK/LAPACK/BLAS" "$ARPACK $LAPACK $BLAS $MKLLIB $FLIBS"
+  fi
+}
+
+# Test C/C++/Fortran compilers 
+TestCompile() {
+  # C
+  echo "Testing C compiler:"
+  cat > testp.c <<EOF
+#include <stdio.h>
+int main() { printf("Testing\n"); return 0; }
+EOF
+  $CC $CFLAGS -o testp testp.c > /dev/null 2> compile.err 
+  ./testp | grep "Testing" > /dev/null
+  status=$?
+  if [[ $status -gt 0 ]] ; then
+      CompileError "$CC $CFLAGS"
+  fi
+  /bin/rm -f testp.c testp
+  echo "  OK"
+  # C++
+  echo "Testing C++ compiler:"
+  cat > testp.cpp <<EOF
+#include <cstdio>
+int main() { printf("Testing\n"); return 0; }
+EOF
+  $CXX $CXXFLAGS -o testp testp.cpp > /dev/null 2> compile.err
+  ./testp | grep "Testing" > /dev/null
+  status=$?
+  if [[ $status -gt 0 ]] ; then
+      CompileError "$CXX $CXXFLAGS"
+  fi
+  /bin/rm -f testp.cpp testp
+  echo "  OK"
+  # Fortran
+  echo "Testing Fortran compiler:"
+  cat > testp.f <<EOF
+      program testf
+      write(6,*) 'testing a Fortran program'
+      end program testf
+EOF
+  $FC $FFLAGS -o testp testp.f > /dev/null 2> compile.err
+  ./testp | grep "testing a Fortran program" > /dev/null
+  status=$?
+  if [[ $status -gt 0 ]] ; then
+      CompileError "$FC $FFLAGS"
+  fi
+  /bin/rm -f testp.f testp
+  echo "  OK"
+}
+
+#---------------------------------------------------------------------
+
+if [[ -z $1  || $1 = "--help" ]] ; then
+  Usage
+  exit 0
+fi
+
+CONFIGURECMD="./configure $*"
+
+KEY=""
+VALUE=""
+echo ""
+
+# Process Options
+ARCHITECTURE="x86_64" # TODO: Actually determine
+OPT=1
+USEMPI=0
+USEOPENMP=0
+USETIMER=0
+PROFILE=0
+USECRAY=0
+CC=""
+CXX=""
+FC=""
+SFX=""
+CPPTRAJHOME=""
+CPPTRAJBIN=""
+DIRECTIVES=""
+DBGFLAGS=""
+OPTFLAGS=""
+OMPFLAGS=""
+FFLAGS=""
+FOPTFLAGS=""
+LFS="-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
+INCLUDE=""
+# Library flags
+LDFLAGS=""
+STATIC=0
+NETCDF_HOME=""
+BZLIB_HOME=""
+ZLIB_HOME=""
+BLAS_HOME=""
+LAPACK_HOME=""
+ARPACK_HOME=""
+READLINE_HOME="readline"
+NETCDFLIB="-lnetcdf"
+BZLIB="-lbz2"
+ZLIB="-lz"
+BLAS="-lblas"
+LAPACK="-llapack"
+ARPACK="-larpack"
+READLINE=$READLINE_HOME/libreadline.a
+USE_AMBER_LIB=0
+USEMKL=0
+FLIBS=""
+#HDF5LIB="-lhdf5_hl -lhdf5"
+HDF5LIB=""
+while [[ ! -z $1 ]] ; do
+  ParseArg $1
+  case "$KEY" in
+    "gnu" )
+      echo "Using gnu compilers"
+      CC=gcc
+      CXX=g++
+      FC=gfortran
+      OPTFLAGS="-O3 -Wall"
+      OMPFLAGS="-fopenmp"
+      FFLAGS="-ffree-form"
+      FOPTFLAGS="-O3"
+      FLIBS="$FLIBS -lgfortran -w"
+      ;;
+   "clang" )
+      echo "Using clang/gfortran compilers"
+      CC=clang
+      CXX=clang++
+      FC=gfortran
+      OPTFLAGS="-O3 -Weverything"
+      OMPFLAGS=""
+      FFLAGS="-ffree-form"
+      FOPTFLAGS="-O3"
+      FLIBS="$FLIBS -lgfortran -w"
+      ;; 
+    "intel" )
+      echo "Using intel compilers"
+      CC=icc
+      CXX=icpc
+      FC=ifort
+      OPTFLAGS="-O3 -Wall"
+      OMPFLAGS="-openmp"
+      FFLAGS="-FR"
+      FOPTFLAGS="-ip -O3"
+      FLIBS="$FLIBS -lifport -lifcore"
+      ;;
+    "pgi" )
+      echo "Using PGI compilers"
+      CC=pgcc
+      CXX=pgc++
+      FC=pgf90
+      OPTFLAGS="-O2"
+      OMPFLAGS="-mp"
+      FFLAGS="-Mfree"
+      FOPTFLAGS="-fast -O3"
+      FLIBS="-pgf90libs"
+      ;;
+    "cray" )
+      echo "Using Cray compilers"
+      USECRAY=1
+      CC=cc
+      CXX=CC
+      FC=ftn
+      OPTFLAGS=""
+      OMPFLAGS=""
+      FFLAGS="-f free -emf"
+      FOPTFLAGS=""
+      FLIBS=""
+      ;;
+    "-cray" )
+      echo "Using cray compiler wrappers (cc/CC/ftn)"
+      USECRAY=1
+      ;; 
+    "-debug" ) 
+      echo "Turning on compiler debug info"
+      DBGFLAGS="-g"
+      ;;
+    "-d" )
+      echo "Turning on compiler debug info and disabling optimization"
+      DBGFLAGS="-g"
+      OPT=0
+      ;;
+    "-debugon"      ) 
+      echo "Turning on cpptraj internal debug info"
+      DIRECTIVES="$DIRECTIVES -DDEBUG" 
+      ;;
+    "-noopt"        ) 
+      echo "Turning off optimization"
+      OPT=0 
+      ;;
+    "-mpi"          )
+      USEMPI=1
+      USEOPENMP=0
+      ;;
+    "-openmp"       )
+      USEOPENMP=1
+      USEMPI=0
+      ;;
+    "-profile"      ) PROFILE=1 ;;
+    "-gprofile"     ) PROFILE=2 ;;
+    "-vtune"        ) PROFILE=3 ;;
+    "-timer"        ) USETIMER=1 ;;
+    "-shared"       ) 
+      echo "Shared for pycpptraj"
+      DIRECTIVES="$DIRECTIVES -fPIC" 
+      ;;
+    "-nolfs"        )
+      echo "Disabling large file support"
+      LFS=""
+      ;;
+    "-static"       )
+      echo "Using static linking."
+      STATIC=1
+      ;;
+    "-amberlib"     )
+      if [[ -z $AMBERHOME ]] ; then
+        echo "Error: '-amberlib' set but AMBERHOME is not defined."
+        echo "       Set AMBERHOME and re-run configure."
+        exit 1
+      fi
+      echo "Using BLAS/LAPACK/ARPACK/NetCDF libraries in $AMBERHOME"
+      USE_AMBER_LIB=1 
+      ;;
+    "-mkl" )
+      if [[ -z $MKLROOT ]] ; then
+        if [[ -z $MKL_HOME ]] ; then
+          echo "MKLROOT/MKL_HOME not set."
+          exit 1
+        fi
+        MKLROOT=$MKL_HOME
+      fi
+      echo "Using MKL for BLAS/LAPACK in $MKLROOT"
+      USEMKL=1
+      ;;
+    "-nobzlib"      )
+      echo "Not using bzip2"
+      BZLIB=""
+    ;;
+    "-nozlib"       )
+      echo "Not using zlib (gzip/zip)"
+      ZLIB=""
+      ;;
+    "-nonetcdf"     )
+      echo "Not using netcdf"
+      NETCDFLIB=""
+      ;;
+    "-nomathlib")
+      echo "Not using BLAS/LAPACK/ARPACK routines."
+      DIRECTIVES="$DIRECTIVES -DNO_MATHLIB"
+      ARPACK=""
+      LAPACK=""
+      BLAS=""
+      ;;
+    "--with-bzlib"  )
+      INCLUDE="$INCLUDE -I$VALUE/include"
+      BZLIB_HOME="$VALUE"
+      echo "Using BZIP2 in $BZLIB_HOME"
+      ;;
+    "--with-zlib" )
+      INCLUDE="$INCLUDE -I$VALUE/include"
+      ZLIB_HOME="$VALUE"
+      echo "Using ZLIB in $ZLIB_HOME"
+      ;;
+    "--with-netcdf" )
+      INCLUDE="$INCLUDE -I$VALUE/include"
+      NETCDF_HOME="$VALUE"
+      echo "Using NETCDF in $NETCDF_HOME"
+      ;;
+    "--with-blas" )
+      INCLUDE="$INCLUDE -I$VALUE/include"
+      BLAS_HOME="$VALUE"
+      echo "Using BLAS in $BLAS_HOME"
+      ;;
+    "--with-lapack" )
+      INCLUDE="$INCLUDE -I$VALUE/include"
+      LAPACK_HOME="$VALUE"
+      echo "Using LAPACK in $LAPACK_HOME"
+      ;;
+    "--with-arpack" )
+      INCLUDE="$INCLUDE -I$VALUE/include"
+      ARPACK_HOME="$VALUE"
+      echo "Using ARPACK in $ARPACK_HOME"
+      ;;
+#    "--with-hdf5" )
+#      INCLUDE="$INCLUDE -I$VALUE/include"
+#      HDF5LIB="-I$VALUE/include $VALUE/lib/libhdf5_hl.a $VALUE/lib/libhdf5.a -lm"
+#      echo "Using HDF5LIB: $HDF5LIB"
+#      ;;
+    "--prefix" )
+      CPPTRAJHOME=$VALUE
+      CPPTRAJBIN=$VALUE
+      ;;
+    * )
+      echo "Unrecognized OPTION: $1"
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+# Check install directory
+if [[ -z $CPPTRAJHOME ]] ; then
+  # Default is to use current directory.
+  CPPTRAJHOME=`pwd`
+  CPPTRAJBIN=$CPPTRAJHOME/bin
+elif [[ ! -e $CPPTRAJHOME || ! -e $CPPTRAJBIN ]] ; then
+  echo "Error: Install directory '$CPPTRAJHOME' does not exist."
+  exit 1
+fi
+echo "Installing cpptraj binary to $CPPTRAJBIN"
+
+# Check for compilers
+if [[ -z $CC || -z $CXX || -z $FC ]] ; then
+  echo "No compiler specified."
+  echo "Specify 'gnu', 'intel', or 'pgi' as an argument to ./configure"
+  Usage
+  exit 1
+fi
+
+# If no netcdf specified and AMBERHOME defined use netcdf from AMBERHOME
+#if [[ $NETCDFLIB = "-lnetcdf" && ! -z $AMBERHOME ]] ; then
+#  echo "Using netcdf from AMBERHOME: $AMBERHOME"
+#  INCLUDE="$INCLUDE -I$AMBERHOME/AmberTools/src/netcdf/include"
+#  NETCDFLIB="-I$AMBERHOME/AmberTools/src/netcdf/include $AMBERHOME/AmberTools/src/netcdf/lib/libnetcdf.a"
+#fi
+
+# Add HDF5 flags to NETCDF
+if [[ ! -z $NETCDFLIB ]] ; then
+  NETCDFLIB="$NETCDFLIB $HDF5LIB"
+fi
+
+# Add directives
+if [[ ! -z $BZLIB ]] ; then
+  DIRECTIVES="$DIRECTIVES -DHASBZ2"
+fi
+if [[ ! -z $ZLIB ]] ; then
+  DIRECTIVES="$DIRECTIVES -DHASGZ"
+fi
+if [[ ! -z $NETCDFLIB ]] ; then
+  DIRECTIVES="$DIRECTIVES -DBINTRAJ"
+fi
+
+# Use libraries in AMBERHOME for stuff thats undefined 
+if [[ $USE_AMBER_LIB -eq 1 ]] ; then
+  INCLUDE="$INCLUDE -I$AMBERHOME/include"
+  if [[ -z $BLAS_HOME && ! -z $BLAS ]] ; then
+    BLAS_HOME=$AMBERHOME
+  fi
+  if [[ -z $ARPACK_HOME && ! -z $ARPACK ]] ; then
+    ARPACK_HOME=$AMBERHOME
+  fi
+  if [[ -z $LAPACK_HOME && ! -z $LAPACK ]] ; then
+    LAPACK_HOME=$AMBERHOME
+  fi
+  if [[ -z $NETCDF_HOME && ! -z $NETCDFLIB ]] ; then
+    NETCDF_HOME=$AMBERHOME
+  fi
+fi
+
+# Static/Dynamic linking options
+if [[ $STATIC -eq 1 ]] ; then
+  # Static linking
+  if [[ ! -z $BLAS_HOME && ! -z $BLAS ]] ; then
+    BLAS="$BLAS_HOME/lib/libblas.a"
+  fi
+  if [[ ! -z $ARPACK_HOME && ! -z $ARPACK ]] ; then
+    ARPACK="$ARPACK_HOME/lib/libarpack.a"
+  fi
+  if [[ ! -z $LAPACK_HOME && ! -z $LAPACK ]] ; then
+    LAPACK="$LAPACK_HOME/lib/liblapack.a"
+  fi
+  if [[ ! -z $NETCDF_HOME && ! -z $NETCDFLIB ]] ; then
+    NETCDFLIB="$NETCDF_HOME/lib/libnetcdf.a"
+  fi
+  if [[ ! -z $BZLIB_HOME && ! -z $BZLIB ]] ; then
+    BZLIB="$BZLIB_HOME/lib/libbz2.a"
+  fi
+  if [[ ! -z $ZLIB_HOME && ! -z $ZLIB ]] ; then
+    ZLIB="$ZLIB_HOME/lib/libz.a"
+  fi
+else
+  # Dynamic linking
+  if [[ ! -z $BLAS_HOME && ! -z $BLAS ]] ; then
+    BLAS="-L$BLAS_HOME/lib $BLAS"
+  fi
+  if [[ ! -z $ARPACK_HOME && ! -z $ARPACK ]] ; then
+    ARPACK="-L$ARPACK_HOME/lib $ARPACK"
+  fi
+  if [[ ! -z $LAPACK_HOME && ! -z $LAPACK ]] ; then
+    LAPACK="-L$LAPACK_HOME/lib $LAPACK"
+  fi
+  if [[ ! -z $NETCDF_HOME && ! -z $NETCDFLIB ]] ; then
+    NETCDFLIB="-L$NETCDF_HOME/lib $NETCDFLIB"
+  fi
+  if [[ ! -z $BZLIB_HOME && ! -z $BZLIB ]] ; then
+    BZLIB="-L$BZLIB_HOME/lib $BZLIB"
+  fi
+  if [[ ! -z $ZLIB_HOME && ! -z $ZLIB ]] ; then
+    ZLIB="-L$ZLIB_HOME/lib $ZLIB"
+  fi
+fi
+
+MKLLIB=""
+if [[ $USEMKL -eq 1 ]] ; then
+  # Use MKL for LAPACK/BLAS
+  if [[ $ARCHITECTURE = "x86_64" ]] ; then
+    MKLINTERFACE=libmkl_intel_lp64.a
+    MKLROOT="$MKLROOT/lib/intel64"
+    BLAS="-lmkl_blas95_lp64"
+    LAPACK="-lmkl_lapack95_lp64"
+  else # Assume 32 bit
+    MKLINTERFACE=libmkl_intel.a
+    MKLROOT="$MKLROOT/lib/32"
+    BLAS="-lmkl_blas95"
+    LAPACK="-lmkl_lapack95"
+  fi
+  # Assume GNU linker.
+  if [[ $USEOPENMP -eq 1 ]] ; then
+    MKLLIB="-L$MKLROOT $LAPACK $BLAS -Wl, --start-group $MKLROOT/$MKLINTERFACE $MKLROOT/libmkl_intel_thread.a $MKLROOT/libmkl_core.a -Wl,--end-group -liomp5 -lpthread"
+  else
+    MKLLIB="-L$MKLROOT $LAPACK $BLAS -Wl,--start-group $MKLROOT/$MKLINTERFACE $MKLROOT/libmkl_sequential.a $MKLROOT/libmkl_core.a -Wl,--end-group -lpthread"
+  fi
+  BLAS=""
+  LAPACK=""
+fi
+
+# Set up linking flags
+LDFLAGS="$ARPACK $LAPACK $BLAS $MKLLIB $NETCDFLIB $BZLIB $ZLIB $FLIBS"
+
+# Add options for Timer
+if [[ $USETIMER -eq 1 ]] ; then
+  DIRECTIVES="$DIRECTIVES -DTIMER"
+  LDFLAGS="$LDFLAGS -lrt"
+fi
+
+# For pgi on cray modify some flags
+if [[ $USECRAY -eq 1 && $CC = "pgcc" ]] ; then
+    OPTFLAGS="-fast"
+    OMPFLAGS="-mp=nonuma"
+    FOPTFLAGS="-fast"
+fi
+
+# Add flags for OPENMP if specified
+if [[ $USEOPENMP -eq 1 ]] ; then
+  if [[ $CC = "clang" ]] ; then
+    echo "Error: clang compiler does not yet support OpenMP."
+    exit 1
+  fi
+  echo "Using OPENMP"
+  DIRECTIVES="$OMPFLAGS $DIRECTIVES"
+  LDFLAGS="$OMPFLAGS $LDFLAGS"
+  SFX=".OMP"
+fi
+
+# Remove opt flags if specified
+if [[ $OPT -eq 0 ]] ; then
+  OPTFLAGS=""
+  FOPTFLAGS=""
+  DBGFLAGS="$DBGFLAGS -O0"
+fi
+
+# Add cray-specific flags
+if [[ $CC = "cc" ]] ; then
+  OPTFLAGS="-h gnu "$OPTFLAGS
+  if [[ $USEOPENMP -eq 0 ]] ; then
+    DIRECTIVES="-h noomp "$DIRECTIVES
+  fi
+fi
+
+# Change to MPI compiler wrappers if specified
+if [[ $USEMPI -eq 1 ]] ; then
+  echo "Using MPI"
+  DIRECTIVES="$DIRECTIVES -DMPI"
+  CC=mpicc
+  CXX=mpicxx
+  FC=mpif90
+  SFX=".MPI"
+fi
+
+# Set up compiler flags
+CFLAGS="$DBGFLAGS $OPTFLAGS $DIRECTIVES $LFS $INCLUDE"
+CXXFLAGS="$DBGFLAGS $OPTFLAGS $DIRECTIVES $LFS $INCLUDE"
+FFLAGS="$FFLAGS $DBGFLAGS $FOPTFLAGS $DIRECTIVES $LFS $INCLUDE"
+
+# Add debug flags for non-PGI compilers if debug info on
+if [[ ! -z $DBGFLAGS && $CXX != "pgc++" ]] ; then
+  CFLAGS="-Wall $CFLAGS"
+  CXXFLAGS="-Wall -fno-inline $CXXFLAGS"
+  FFLAGS="-Wall $FFLAGS"
+fi
+
+# Turn on profiling for GNU if specified
+if [[ $PROFILE -eq 1 && $CXX = "g++" ]] ; then
+  echo "Using $CXX profiling."
+  CFLAGS="-pg $CFLAGS"
+  CXXFLAGS="-pg $CXXFLAGS"
+  LDFLAGS="-pg $LDFLAGS"
+elif [[ $PROFILE -eq 2 && $CXX = "g++" ]] ; then
+  echo "Turning on GLIBC profiling for $CXX."
+  CXXFLAGS="-D_GLIBCXX_PROFILE $CXXFLAGS"
+elif [[ $PROFILE -eq 3 ]] ; then
+  echo "Turning on flags for Intel Vtune"
+  VTUNEFLAGS=""
+  if [[ $CXX = "icpc" ]] ; then
+    VTUNEFLAGS=$VTUNEFLAGS" -debug inline-debug-info"
+  fi
+  CFLAGS="-g $VTUNEFLAGS $CFLAGS"
+  CXXFLAGS="-g $VTUNEFLAGS $CXXFLAGS"
+  LDFLAGS="-shared-intel -shared-libgcc $LDFLAGS"
+fi
+
+# Use cray wrappers
+if [[ $USECRAY -eq 1 ]] ; then
+  CC=cc
+  CXX=CC
+  FC=ftn
+fi
+
+# Test compilers
+TestCompile
+TestBzlib
+TestZlib
+TestNetcdf
+TestMathlib
+
+# Write config.h
+cat > config.h <<EOF
+# config.h for cpptraj
+# configured using: $CONFIGURECMD
+
+CPPTRAJHOME=$CPPTRAJHOME
+CPPTRAJBIN=$CPPTRAJBIN
+
+DBGFLAGS=
+CC=$CC
+CXX=$CXX
+FC=$FC
+CFLAGS=$CFLAGS \$(DBGFLAGS)
+CXXFLAGS=$CXXFLAGS \$(DBGFLAGS)
+FFLAGS=$FFLAGS \$(DBGFLAGS)
+
+READLINE=$READLINE
+READLINE_HOME=$READLINE_HOME
+
+LDFLAGS=$LDFLAGS
+SFX=$SFX
+EOF
+
+# Create directories if necessary
+if [[ ! -e $CPPTRAJBIN ]] ; then
+  mkdir $CPPTRAJBIN
+fi
+
+echo ""
+exit 0

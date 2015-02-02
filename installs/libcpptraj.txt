@@ -1,0 +1,16 @@
+Install libcpptraj
+------------------
+
+* Downloading cpptraj from either:
+   * Official AmberTools: http://ambermd.org/AmberTools14-get.html
+   * Development version: https://github.com/mojyt/cpptraj 
+        (git clone https://github.com/mojyt/cpptraj)
+
+* Installing: libcpptraj.so
+   * (make sure to set AMBERHOME, CPPTRAJHOME and PYCPPTRAJ_HOME before installing)
+       * Example: cd pycpptraj && export PYCPPTRAJ_HOME=`pwd`
+   * cd $PYCPPTRAJ_HOME
+   * sh ./installs/install_cpptraj.sh (this will install included cpptraj V15.22b/ (development version))
+
+* Installing: pycpptraj
+   * read: ./pycpptraj.txt

@@ -1,0 +1,22 @@
+package:
+  name: pycpptraj
+
+source:
+  git_tag: v0.1.1.5
+  git_url: http://github.com/hainm/pycpptraj
+
+requirements:
+  build:
+    - python
+    - cython
+
+  run:
+    - python
+
+test:
+  imports:
+    - pycpptraj
+
+about:
+  home: http://github.com/hainm/pycpptraj 
+  license: BSD

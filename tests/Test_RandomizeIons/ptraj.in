@@ -1,0 +1,3 @@
+trajin adh206.tip3p.rst7.gz
+randomizeions @Na+ around :1-16 by 5.0 overlap 3.0
+trajout random.crd title "Test"

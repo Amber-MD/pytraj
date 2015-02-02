@@ -1,0 +1,88 @@
+import unittest
+from pytraj.base import *
+from pytraj.actions.Action_Strip import Action_Strip
+from pytraj import allactions
+from pytraj.actions import Action
+from pytraj.misc import strip
+from pytraj.TrajReadOnly import TrajReadOnly
+from pytraj.decorators import no_test
+
+print(dir(Action_Strip()))
+
+farray = FrameArray(top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
+
+class TestStrip(unittest.TestCase):
+    def test_master(self):
+        top = Topology("./data/Tc5b.top")
+        newtop = top.copy()
+        frame0 = farray[0].copy()
+        newframe = Frame()
+        act = Action_Strip()
+        act_surf = allactions.Action_Surf()
+
+        for i in range(1):
+            current_frame = farray[i]
+            newframe = Frame()
+            dslist = DataSetList()
+            act.master(command="strip !@CA", 
+                       current_top=top, 
+                       dslist=dslist,
+                       current_frame=frame0, 
+                       new_frame=newframe, 
+                       new_top=newtop)
+
+            act_surf.master(command="@CA", 
+                       current_top=top, 
+                       dslist=dslist,
+                       current_frame=farray)
+
+            act_surf.master(command="@H=", 
+                       current_top=top, 
+                       dslist=dslist,
+                       current_frame=farray)
+
+        print(newtop)
+        print(newframe)
+        print(dslist.is_empty())
+        print(dslist.size)
+        print(dir(dslist[0]))
+        dcast = cast_dataset(dslist[0], dtype='general')
+        print(dcast)
+        print(dcast.size)
+        print(dcast[:20])
+
+    #@no_test
+    def test_0(self):
+        print("newtop")
+        farray0 = farray.copy()
+        newtop = farray0.top.copy()
+        oldtop = farray0.top
+        
+        toplist = TopologyList()
+        toplist.add_parm(newtop)
+        dslist = DataSetList()
+        dflist = DataFileList()
+        
+        stripact = Action_Strip()
+        #stripact.read_input("strip !@CA", toplist)
+        stripact.read_input("strip !@CA", oldtop)
+        stripact.process(oldtop, newtop)
+
+        frame0 = Frame(farray.top.n_atoms)
+        stripact.do_action(0, farray[0], frame0)
+        print(frame0.size)
+        assert frame0.size == 60
+        assert frame0.size != farray0[0].size
+
+        stripact.do_action(0, farray[0], farray[0])
+        print("after stripping", farray[0].size)
+
+        frame0_view = farray0[0]
+        stripact.do_action(0, farray0[0], frame0_view)
+        print("after stripping", farray0[0].size)
+        print(frame0_view.n_atoms)
+        print(newtop.n_atoms)
+
+
+if __name__ == "__main__":
+    unittest.main()

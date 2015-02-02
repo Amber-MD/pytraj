@@ -1,0 +1,5 @@
+trajin md1_prod.Tc5b.x 1 10
+#strip !@CA
+#trajout stripAllButCA.Tc5b.x
+trajout _.x
+go

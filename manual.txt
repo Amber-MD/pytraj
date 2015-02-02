@@ -1,0 +1,48 @@
+TODO : finish this manual
+* Requirement
+    * Compiling: cython + cpptraj
+    * Running: pycpptraj
+
+* Frame
+    * Like cpptraj, Frame class is center of pycpptraj. pycpptraj added many fancy ways for indexing
+      >>> frame = mdio.load"./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[0]
+      >>> # using dictionary to get a sub-array with mask
+      >>> frame[dict(top=traj.top, mask='@CA')] 
+      >>> frame[:] # return a memoryview (eithe cython memview or numpy array (if numpy is available))
+      >>> frame[AtomMaskInstance] # return a subarray copy of frame with AtomMask instance
+      >>> frame[:10, :] # like numpy indexing, return a memoryview
+      >>> # expose a `view` to numpy array
+      >>> arr0 = np.asarray(frame[:]) # shape = (n_atoms, 3)
+      >>> arr1 = np.asarray(frame.buffer3d[:]) # shape = (n_atoms, 3), same as frame[:]
+      >>> arr2 = np.asarray(frame.buffer1d[:]) # shape = (3*n_atoms,) # some C/C++ program prefer to 
+      >>> # use 1D array for frame coordinates
+      >>> # more importantly, you can use cpptraj Action_* class to perform 'actions'
+      >>> # Action_Rmsd, Action_Strip, ...
+
+* FrameArray
+    * >>> farray = from pycpptraj import io as mdio
+      >>> traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", chunk=100).next()
+      >>> traj[:, :, :] 
+      >>> # return numpy array with shape of (100, 304, 3) if has_numpy
+      >>> # if not has_numpy: return a list of memoryview arrays (shape= (304, 3))
+      >>> # it's safer to use copy=True to convert to numpy array
+      >>> arr0 = np.array(traj[:, :, :], copy=True)
+
+* numpy
+    * pycpptraj does not depend on numpy but it does have limited feature numpy array-like
+      for Frame instance (fancy indexing, ...)
+    * to fully use numpy's power, you can expose Frame buffer like:
+        * arr0 = np.asarray(frame.buffer) (arr0.shape = (frame.size, ))
+        * arr1 = np.asarray(frame.buffer3d) (arr0.shape = (frame.size/3, 3))
+    
+* Atom mask:
+    * To make atom mask consitent with cpptraj, I use index of 1 as starting
+        (:2-10@CA --> choosing CA from residue 2 to residue 10)
+    * for other things, index starts from 0
+        frame.atoms(0) --> xyz coords of 1st atom
+* FAQ
+    * After updating source code, I got message saying wrong size
+        * Solution: run "sh ./clean_cpp.sh" to clean all *.cpp generated from *.pyx files and reinstall
+    * ts[0, 0, 0] is not the same as ts[0][0, 0] (ts is Trajing_Single)
+        * For some unknow reasons, C++ or Python deallocate memory too soon for ts[0, 0, 0]
+          Use ts[0][0, 0]

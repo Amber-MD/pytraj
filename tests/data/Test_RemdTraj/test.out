@@ -1,0 +1,271 @@
+['../../bin/cpptraj', '-i', 'remd.in']
+
+CPPTRAJ: Trajectory Analysis. V15.22b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 01/09/15  02:14:21
+| Available memory: 792.609 MB
+
+INPUT: Reading Input from file remd.in
+  [noprogress]
+	Progress bar will not be used during Run.
+  [parm ala2.99sb.mbondi2.parm7 ]
+  [trajin rem.crd.000 remdtraj remdtrajtemp 492.2 1 11 2]
+	Found 4 replicas.
+Warning: stop 11 > #Frames (10), setting to max.
+  [distance d1 out d1.offset.dat @1 @21]
+    DISTANCE: @1 to @21, center of mass.
+	REMD: OPENING 4 REMD TRAJECTORIES
+  0: [distance d1 out d1.offset.dat @1 @21]
+	@1 (1 atoms) to @21 (1 atoms), imaging off.
+
+
+DATASETS:
+  1 data set:
+	d1 "d1" (double, distance), size is 5
+
+DATAFILES:
+  d1.offset.dat (Standard Data File):  d1
+TIME: Total execution time: 0.0361 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+
+['../../bin/cpptraj', '-i', 'remd.in']
+
+CPPTRAJ: Trajectory Analysis. V15.22b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 01/09/15  02:14:22
+| Available memory: 792.914 MB
+
+INPUT: Reading Input from file remd.in
+  [noprogress]
+	Progress bar will not be used during Run.
+  [parm ala2.99sb.mbondi2.parm7 ]
+  [trajin rem.crd.000 remdtraj remdtrajtemp 492.2 ]
+	Found 4 replicas.
+  [distance d1 out d1.crd.dat @1 @21]
+    DISTANCE: @1 to @21, center of mass.
+	REMD: OPENING 4 REMD TRAJECTORIES
+  0: [distance d1 out d1.crd.dat @1 @21]
+	@1 (1 atoms) to @21 (1 atoms), imaging off.
+
+
+DATASETS:
+  1 data set:
+	d1 "d1" (double, distance), size is 10
+
+DATAFILES:
+  d1.crd.dat (Standard Data File):  d1
+TIME: Total execution time: 0.0197 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+
+['../../bin/cpptraj', '-i', 'remd.in']
+
+CPPTRAJ: Trajectory Analysis. V15.22b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 01/09/15  02:14:22
+| Available memory: 793.25 MB
+
+INPUT: Reading Input from file remd.in
+  [noprogress]
+	Progress bar will not be used during Run.
+  [parm ala2.99sb.mbondi2.parm7 ]
+  [trajin rem.nc.000 remdtraj remdtrajtemp 492.2]
+	Found 4 replicas.
+  [distance d1 out d1.nc.dat @1 @21]
+    DISTANCE: @1 to @21, center of mass.
+	REMD: OPENING 4 REMD TRAJECTORIES
+  0: [distance d1 out d1.nc.dat @1 @21]
+	@1 (1 atoms) to @21 (1 atoms), imaging off.
+
+
+DATASETS:
+  1 data set:
+	d1 "d1" (double, distance), size is 10
+
+DATAFILES:
+  d1.nc.dat (Standard Data File):  d1
+TIME: Total execution time: 0.0169 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+
+['../../bin/cpptraj', '-i', 'remd.in']
+
+CPPTRAJ: Trajectory Analysis. V15.22b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 01/09/15  02:14:22
+| Available memory: 792.078 MB
+
+INPUT: Reading Input from file remd.in
+  [noprogress]
+	Progress bar will not be used during Run.
+  [parm ala2.99sb.mbondi2.parm7 ]
+  [trajin rem.crd.000 remdtraj remdtrajtemp 300.00]
+	Found 4 replicas.
+  [trajout temp0.crd.300.00]
+	Writing 'temp0.crd.300.00' as Amber Trajectory
+	REMD: OPENING 4 REMD TRAJECTORIES
+
+TIME: Total execution time: 0.0226 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+
+['../../bin/cpptraj', '-i', 'remd.in']
+
+CPPTRAJ: Trajectory Analysis. V15.22b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 01/09/15  02:14:22
+| Available memory: 792.238 MB
+
+INPUT: Reading Input from file remd.in
+  [noprogress]
+	Progress bar will not be used during Run.
+  [parm ala2.99sb.mbondi2.parm7 ]
+  [trajin rem.crd.000 remdtraj remdtrajtemp 384.30]
+	Found 4 replicas.
+  [trajout temp0.crd.384.30]
+	Writing 'temp0.crd.384.30' as Amber Trajectory
+	REMD: OPENING 4 REMD TRAJECTORIES
+
+TIME: Total execution time: 0.0211 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+
+['../../bin/cpptraj', '-i', 'remd.in']
+
+CPPTRAJ: Trajectory Analysis. V15.22b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 01/09/15  02:14:22
+| Available memory: 792.426 MB
+
+INPUT: Reading Input from file remd.in
+  [noprogress]
+	Progress bar will not be used during Run.
+  [parm ala2.99sb.mbondi2.parm7 ]
+  [trajin rem.crd.000 remdtraj remdtrajtemp 492.20]
+	Found 4 replicas.
+  [trajout temp0.crd.492.20]
+	Writing 'temp0.crd.492.20' as Amber Trajectory
+	REMD: OPENING 4 REMD TRAJECTORIES
+
+TIME: Total execution time: 0.0211 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+
+['../../bin/cpptraj', '-i', 'remd.in']
+
+CPPTRAJ: Trajectory Analysis. V15.22b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 01/09/15  02:14:22
+| Available memory: 792.496 MB
+
+INPUT: Reading Input from file remd.in
+  [noprogress]
+	Progress bar will not be used during Run.
+  [parm ala2.99sb.mbondi2.parm7 ]
+  [trajin rem.crd.000 remdtraj remdtrajtemp 630.50]
+	Found 4 replicas.
+  [trajout temp0.crd.630.50]
+	Writing 'temp0.crd.630.50' as Amber Trajectory
+	REMD: OPENING 4 REMD TRAJECTORIES
+
+TIME: Total execution time: 0.0208 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+
+['../../bin/cpptraj', '-i', 'remd.in']
+
+CPPTRAJ: Trajectory Analysis. V15.22b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 01/09/15  02:14:22
+| Available memory: 792.75 MB
+
+INPUT: Reading Input from file remd.in
+  [noprogress]
+	Progress bar will not be used during Run.
+  [parm ala2.99sb.mbondi2.parm7 ]
+  [ensemble rem.crd.000 remdtraj remdtrajtemp 492.20 ]
+Warning: 'ensemble' does not use 'remdtraj', 'remdtrajidx' or 'remdtrajtemp'
+	Found 4 replicas.
+  [trajout temp.crd ]
+	Writing 'temp.crd' as Amber Trajectory
+  [distance d1 out d1.ensemble.dat @1 @21]
+    DISTANCE: @1 to @21, center of mass.
+  Ensemble Temperature Map:
+	    300.00 -> 0
+	    384.30 -> 1
+	    492.20 -> 2
+	    630.50 -> 3
+	Writing 'temp.crd.0' as Amber Trajectory
+	Writing 'temp.crd.1' as Amber Trajectory
+	Writing 'temp.crd.2' as Amber Trajectory
+	Writing 'temp.crd.3' as Amber Trajectory
+    DISTANCE: @1 to @21, center of mass.
+
+BEGIN ENSEMBLE PROCESSING:
+	REMD: OPENING 4 REMD TRAJECTORIES
+  0: [distance d1 out d1.ensemble.dat @1 @21]
+	@1 (1 atoms) to @21 (1 atoms), imaging off.
+
+Read 10 frames and processed 10 frames.
+TIME: Trajectory processing: 0.0056 s
+TIME: Avg. throughput= 1777.7778 frames / second.
+
+ENSEMBLE ACTION OUTPUT:
+
+ENSEMBLE DATASETS: Each member has 1 sets total.
+
+DATAFILES:
+  d1.ensemble.dat (Standard Data File):  d1 d1 d1 d1
+TIME: Total execution time: 0.0288 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+

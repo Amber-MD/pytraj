@@ -1,0 +1,5 @@
+Python2.7
+
+Memory tips:
+* use xrange or enumerate instead of range
+* use Trajin_Single for loading traj (but we can not inplaced-modify its frames)

@@ -1,0 +1,119 @@
+
+Error compiling Cython file:
+------------------------------------------------------------
+...
+# distutils: language = c++
+from datasets.DataSet_3D cimport *
+^
+------------------------------------------------------------
+
+datasets/DataSet_GridFlt.pxd:2:0: 'datasets/DataSet_3D.pxd' not found
+
+Error compiling Cython file:
+------------------------------------------------------------
+...
+# distutils: language = c++
+from datasets.DataSet_3D cimport *
+from Grid cimport *
+^
+------------------------------------------------------------
+
+datasets/DataSet_GridFlt.pxd:3:0: 'Grid.pxd' not found
+
+Error compiling Cython file:
+------------------------------------------------------------
+...
+from datasets.DataSet_3D cimport *
+from Grid cimport *
+
+
+cdef extern from "DataSet_GridFlt.h": 
+    cdef cppclass _DataSet_GridFlt "DataSet_GridFlt" (_DataSet_3D):
+                                                     ^
+------------------------------------------------------------
+
+datasets/DataSet_GridFlt.pxd:7:54: '_DataSet_3D' is not a type identifier
+
+Error compiling Cython file:
+------------------------------------------------------------
+...
+from datasets.DataSet_3D cimport *
+from Grid cimport *
+
+
+cdef extern from "DataSet_GridFlt.h": 
+    cdef cppclass _DataSet_GridFlt "DataSet_GridFlt" (_DataSet_3D):
+        ^
+------------------------------------------------------------
+
+datasets/DataSet_GridFlt.pxd:7:9: Base class '<error>' not a struct or class.
+
+Error compiling Cython file:
+------------------------------------------------------------
+...
+
+cdef extern from "DataSet_GridFlt.h": 
+    cdef cppclass _DataSet_GridFlt "DataSet_GridFlt" (_DataSet_3D):
+        _DataSet_GridFlt()
+        float& index_opr "operator[]"(size_t idx)
+        _DataSet * Alloc() 
+       ^
+------------------------------------------------------------
+
+datasets/DataSet_GridFlt.pxd:10:8: '_DataSet' is not a type identifier
+
+Error compiling Cython file:
+------------------------------------------------------------
+...
+cdef extern from "DataSet_GridFlt.h": 
+    cdef cppclass _DataSet_GridFlt "DataSet_GridFlt" (_DataSet_3D):
+        _DataSet_GridFlt()
+        float& index_opr "operator[]"(size_t idx)
+        _DataSet * Alloc() 
+        const _Grid[float]& InternalGrid() const 
+             ^
+------------------------------------------------------------
+
+datasets/DataSet_GridFlt.pxd:11:14: '_Grid' is not a type identifier
+
+Error compiling Cython file:
+------------------------------------------------------------
+...
+        const _Grid[float]& InternalGrid() const 
+        size_t Size() const 
+        int Sync() 
+        void Info() const 
+        int Allocate3D(size_t x, size_t y, size_t z)
+        void Write3D(_CpptrajFile&, int, int, int) const 
+                    ^
+------------------------------------------------------------
+
+datasets/DataSet_GridFlt.pxd:16:21: '_CpptrajFile' is not a type identifier
+
+Error compiling Cython file:
+------------------------------------------------------------
+...
+        size_t NX() const 
+        size_t NY() const 
+        size_t NZ() const 
+        #iterator begin() 
+        #iterator end() 
+        inline long int Increment(const _Vec3&, float)
+                                       ^
+------------------------------------------------------------
+
+datasets/DataSet_GridFlt.pxd:25:40: '_Vec3' is not a type identifier
+
+Error compiling Cython file:
+------------------------------------------------------------
+...
+        inline long int Increment(const double *, float)
+        inline long int Increment(int, int, int, float)
+        float GridVal(int x, int y, int z) const 
+        long int CalcIndex(int i, int j, int k) const 
+
+cdef class DataSet_GridFlt (DataSet_3D):
+    ^
+------------------------------------------------------------
+
+datasets/DataSet_GridFlt.pxd:31:5: 'DataSet_3D' is not declared

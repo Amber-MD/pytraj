@@ -1,0 +1,19 @@
+**************************************************************
+TEST: /mnt/raidc2/haichit/Study/Cython/pycpptraj_github_master/tests/Cpptraj_test/Test_RemdTraj
+  CPPTRAJ: CRD Replica Trajectory Run with offset
+  d1.offset.dat OK.
+  CPPTRAJ: CRD Replica Trajectory Run
+  d1.crd.dat OK.
+  CPPTRAJ: NETCDF Replica Trajectory Run
+  d1.nc.dat OK.
+  CPPTRAJ: CRD Replica Trajectory Run: Generating 300.00 traj
+  CPPTRAJ: CRD Replica Trajectory Run: Generating 384.30 traj
+  CPPTRAJ: CRD Replica Trajectory Run: Generating 492.20 traj
+  CPPTRAJ: CRD Replica Trajectory Run: Generating 630.50 traj
+  CPPTRAJ: CRD Replica Trajectory Run with remdout
+  d1.ensemble.dat OK.
+  temp.crd.0 OK.
+  temp.crd.1 OK.
+  temp.crd.2 OK.
+  temp.crd.3 OK.
+All 8 comparisons passed.

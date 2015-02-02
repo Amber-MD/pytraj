@@ -1,0 +1,7 @@
+1. Those files (gdt.h  gdt_.h) were copied from ClusCo-0.2.1 package
+    gdt.cpp was renamed to gdt_.h so we don't need to make a dynamic lib
+
+2. TODO : more clear about licenses?  
+
+3. Check license in ./COPY* files
+
