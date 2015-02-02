@@ -1,6 +1,3 @@
-[![Build Status](https://travis-ci.org/mdtools/pytraj.svg?branch=master)](https://travis-ci.org/mdtools/pytraj)
-[wiki] (https://github.com/mdtools/pytraj/wiki)
-
 Welcom to pytraj!
 -------------------
 
