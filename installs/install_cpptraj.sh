@@ -1,17 +1,17 @@
 #!/bin/sh
 
-# PYCPPTRAJ_HOME is the root folder of `pycpptraj`
+# PYTRAJHOME is the root folder of `pytraj`
 
-export PYCPPTRAJ_HOME=`pwd`
+export PYTRAJHOME=`pwd`
 cd ./Ambertools/V15.22b/cpptraj/
 export CPPTRAJHOME=`pwd`
 cd $CPPTRAJHOME
 mkdir lib
-#bash $PYCPPTRAJ_HOME/installs/configure_pycpptraj -nomathlib -shared gnu
-bash $PYCPPTRAJ_HOME/installs/cpptraj.V15.22b/configure_pycpptraj -nomathlib -shared -amberlib gnu
+#bash $PYTRAJHOME/installs/configure_pytraj -nomathlib -shared gnu
+bash $PYTRAJHOME/installs/cpptraj.V15.22b/configure_pytraj -nomathlib -shared -amberlib gnu
 cd $CPPTRAJHOME/src
-make -f $PYCPPTRAJ_HOME/installs/cpptraj.V15.22b/Makefile_libcpptraj libcpptraj
-cd $PYCPPTRAJ_HOME
+make -f $PYTRAJHOME/installs/cpptraj.V15.22b/Makefile_libcpptraj libcpptraj
+cd $PYTRAJHOME
 
 echo
 echo
