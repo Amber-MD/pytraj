@@ -127,7 +127,7 @@ if __name__ == "__main__":
     setup(
         #name="pytraj",
         name="pytraj",
-        version="0.1.beta.0",
+        version="0.1.beta",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/hainm/pytraj",
