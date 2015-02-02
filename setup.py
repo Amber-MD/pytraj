@@ -125,12 +125,11 @@ datalist = [[p[10:] for p in pxd_include_patterns]]
 
 if __name__ == "__main__":
     setup(
-        #name="pytraj",
         name="pytraj",
         version="0.1.beta",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
-        url="https://github.com/hainm/pytraj",
+        url="https://github.com/pytraj/pytraj",
         packages=packages,
         description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
         long_description=read("README.rst"),
@@ -140,7 +139,9 @@ if __name__ == "__main__":
                     'Operating System :: Unix',
                     'Intended Audience :: Science/Research',
                     'License :: OSI Approved :: BSD License',
-                    'Programming Language :: Python',
+                    'Programming Language :: Python 2.7',
+                    'Programming Language :: Python 3.3',
+                    'Programming Language :: Python 3.4',
                     'Programming Language :: Cython',
                     'Programming Language :: C',
                     'Programming Language :: C++',
