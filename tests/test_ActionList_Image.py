@@ -35,7 +35,7 @@ class TestActionList(unittest.TestCase):
         toplist.add_parm(farray.top)
     
         # add two actions: Action_Strip and Action_Distance
-        alist.add_action(allactions.Action_Image(), ArgList("center :2-11"), top=toplist)
+        alist.add_action(allactions.Action_Center(), ArgList(":2-11"), top=toplist)
         alist.add_action(allactions.Action_Image(), ArgList("center familiar com :6"), top=toplist)
     
         # 
@@ -66,19 +66,18 @@ class TestActionList(unittest.TestCase):
         print(farray2.size)
         assert farray2.n_frames == farray.n_frames
 
-        if file_exist("./CpptrajTest/Test_Image/image4.crd"):
-            fnew = mdio.load("./CpptrajTest/Test_Image/image4.crd", 
-                             "./data/tz2.truncoct.parm7")
-            assert fnew.size == 2
-            # make sure that pytraj reproduce cpptraj outputo
-            # TODO : not yet. double-check
-            print(fnew[0].same_coords_as(farray2[0]))
-            print(farray[0].same_coords_as(farray2[0]))
-            print(fnew[0, 0, :])
-            print(farray[0, 0, :])
-            print(farray2[0, 0, :])
-            print(fold[0].same_coords_as(farray2[0]))
-            print(fnew[0].rmsd(farray2[0]))
+        fsaved = mdio.load("./CpptrajTest/Test_Image/image4.crd.save", 
+                         "./data/tz2.truncoct.parm7")
+        assert fsaved.size == 2
+        # make sure that pytraj reproduce cpptraj outputo
+        # TODO : not yet. double-check
+        print(fsaved[0].same_coords_as(farray2[0]))
+        print(farray[0].same_coords_as(farray2[0]))
+        print(fsaved[0, 0, :])
+        print(farray[0, 0, :])
+        print(farray2[0, 0, :])
+        print(fold[0].same_coords_as(farray2[0]))
+        print(fsaved[0].rmsd(farray2[0]))
 
     
 if __name__ == "__main__":
