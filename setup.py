@@ -125,7 +125,6 @@ datalist = [[p[10:] for p in pxd_include_patterns]]
 
 if __name__ == "__main__":
     setup(
-        #name="pytraj",
         name="pytraj",
         version="0.1.beta.0",
         author="Hai Nguyen",
