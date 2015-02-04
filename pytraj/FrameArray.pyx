@@ -16,7 +16,7 @@ from pytraj._save_traj import _save
 
 # we don't allow sub-class in Python level since we will mess up with memory
 @cython.final
-cdef class FrameArray:
+cdef class FrameArray (object):
     def __cinit__(self, filename='', top=None, indices=None, 
                   bint warning=False, n_frames=None, flag=None):
         if isinstance(top, string_types):
