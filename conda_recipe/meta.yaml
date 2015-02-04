@@ -1,9 +1,9 @@
 package:
-  name: pycpptraj
+  name: pytraj
 
 source:
-  git_tag: v0.1.1.5
-  git_url: http://github.com/hainm/pycpptraj
+  git_tag: pytraj.v0.1.beta
+  git_url: http://github.com/pytraj/pytraj
 
 requirements:
   build:
@@ -15,8 +15,8 @@ requirements:
 
 test:
   imports:
-    - pycpptraj
+    - pytraj
 
 about:
-  home: http://github.com/hainm/pycpptraj 
+  home: http://github.com/pytraj/pytraj
   license: BSD

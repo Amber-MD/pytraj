@@ -48,6 +48,7 @@ except:
         cpptraj_dir = rootname + "/Ambertools/V15.22b/cpptraj/"
         cpptraj_include = cpptraj_dir + "/src/"
         libdir = cpptraj_dir + "/lib"
+        os.system("sh ./installs/install_cpptraj.sh")
     else:
         cpptraj_dir = ""
 
@@ -126,7 +127,7 @@ datalist = [[p[10:] for p in pxd_include_patterns]]
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.beta",
+        version="0.1.beta.1",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",

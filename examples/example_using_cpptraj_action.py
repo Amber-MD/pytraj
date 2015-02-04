@@ -6,7 +6,7 @@ from pytraj.cast_dataset import cast_dataset
 
 # load traj
 farray = mdio.load(top=Topology("../tests/data/Tc5b.top"), 
-                       filename='../tests/md1_prod.Tc5b.x',)
+                       filename='../tests/data/md1_prod.Tc5b.x',)
 
 # create dataset to hold data
 dslist = DataSetList()

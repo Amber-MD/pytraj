@@ -16,6 +16,7 @@ from pytraj.ArgList import ArgList
 from pytraj.AtomMask import AtomMask
 from pytraj.CpptrajState import CpptrajState
 from pytraj.TrajReadOnly import TrajReadOnly
+#from pytraj.Trajectory import Trajectory
 from pytraj.trajs.Trajout import Trajout
 from pytraj.cast_dataset import cast_dataset
 from pytraj.parms.ParmFile import ParmFile
