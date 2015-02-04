@@ -8,9 +8,10 @@ before_install:
     - sudo apt-get install gfortran
     - sudo apt-get install -qq libz-dev libbz2-dev
     - sh ./for_travis/install_cpptraj.sh
-    - sh ./for_travis/install_cython_git.sh
+      #- sh ./for_travis/install_cython_git.sh
 install:
     - pip install numpy
+    - pip install cython
     - pip install memory_profiler
     - pip install line_profiler
     - export AMBERHOME=`pwd`"/Ambertools/V15.22b/cpptraj/"
