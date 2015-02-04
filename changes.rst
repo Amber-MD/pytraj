@@ -1,5 +1,5 @@
 =======
-pytraj changelog
+pytraj change log
 ======
 
 Lastest change
@@ -7,8 +7,8 @@ Lastest change
 
 Features added
 --------------
-* (add her)
+* (add here)
 
 Bugs fixed
 ----------
-* (add her)
+* (add here)
