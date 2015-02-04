@@ -98,6 +98,7 @@ actions/Action_Bounds
 actions/Action_Box
 actions/Action_Center
 actions/Action_CheckStructure
+actions/Action_CheckChirality
 actions/Action_Closest
 actions/Action_ClusterDihedral
 actions/Action_Contacts

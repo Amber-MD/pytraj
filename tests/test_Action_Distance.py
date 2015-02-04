@@ -15,11 +15,11 @@ class TestDistance(unittest.TestCase):
         act_radgyr = allactions.Action_Radgyr()
 
         act.master(command="distance :1@CA :2@CA", 
-                   current_frame=farray,
+                   traj=farray,
                    current_top=farray.top, dslist=dslist)
 
         act_radgyr.master(command="radgyr @CA",
-                   current_frame=farray,
+                   traj=farray,
                    current_top=farray.top, dslist=dslist2)
        
         d1 = cast_dataset(dslist[0], dtype="general")
