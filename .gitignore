@@ -1,6 +1,7 @@
 MANIFEST
 NOGIT/*
 NOGIT/*/*
+*/libreadline.a
 tests/TestListTravis.sh
 *.pyc
 *.pyo

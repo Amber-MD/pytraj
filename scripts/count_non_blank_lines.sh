@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cat ./pycpptraj/*.p* ./examples/*.py ./pycpptraj/*/*.p* | sed '/^\s*$/d' | wc -l 
+cat ./pytraj/*.p* ./examples/*.py ./pytraj/*/*.p* | sed '/^\s*$/d' | wc -l 
