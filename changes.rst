@@ -7,7 +7,8 @@ Lastest change
 
 Features added
 --------------
-* Supported Python version: 2.7, 3.3, 3.4 (pytraj.v0.1.beta)
+* Support Python version: 2.7, 3.3, 3.4 (pytraj.v0.1.beta)
+* Support most cpptraj action classes (71 Actions)
 
 Bugs fixed
 ----------

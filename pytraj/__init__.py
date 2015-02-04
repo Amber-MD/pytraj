@@ -6,6 +6,7 @@ from pytraj import base
 
 # TODO : should we load those module here or use .base?
 from pytraj import io
+from pytraj.action_dict import adict
 from pytraj.run_tests import run_tests
 from pytraj.AtomSelect import AtomSelect
 from pytraj.Frame import Frame

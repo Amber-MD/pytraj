@@ -140,14 +140,15 @@ cdef class Action:
         act.baseptr = <_Action*> funct.ptr()
         return act
 
-    def master(self, command='', int idx=0,
-                   current_top=TopologyList(),current_frame=Frame(),
+    def run(self, command='', int idx=0,
+                   current_top=TopologyList(), current_frame=Frame(),
                    FrameList flist=FrameList(), 
                    DataSetList dslist=DataSetList(), 
                    DataFileList dflist=DataFileList(), 
                    new_top=Topology(),
                    new_frame=Frame(),
-                   int debug=0):
+                   int debug=0,
+                   update_frame=True):
         """combined all 3 steps
                 master(command='', int idx=0,
                        current_top=TopologyList(),current_frame=Frame(),
@@ -162,4 +163,18 @@ cdef class Action:
                         flist=flist, dslist=dslist,
                         dflist=dflist, debug=debug)
         self.process(current_top=current_top, new_top=new_top)
-        self.do_action(idx=idx, current_frame=current_frame, new_frame=new_frame)
+        if isinstance(current_frame, Frame):
+            frame = current_frame
+            self.do_action(idx=idx, current_frame=frame, new_frame=new_frame)
+        else:
+            if update_frame:
+                farray = FrameArray()
+            # assume trajectory instance (FrameArray, TrajReadOnly, ...)
+            for i, frame in enumerate(current_frame):
+                self.do_action(idx=i, current_frame=frame, new_frame=new_frame)
+                if update_frame:
+                    farray.append(new_frame)
+
+    def master(self, *args, **kwd):
+        """keep this method since some of examples uses them"""
+        self.run(*args, **kwd)

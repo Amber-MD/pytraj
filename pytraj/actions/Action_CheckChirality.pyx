@@ -2,10 +2,10 @@
 from cython.operator cimport dereference as deref
 
 
-cdef class Action_Rmsd (Action):
+cdef class Action_CheckChirality (Action):
     def __cinit__(self):
-        self.baseptr = <_Action*> new _Action_Rmsd()
-        self.thisptr = <_Action_Rmsd*> self.baseptr
+        self.baseptr = <_Action*> new _Action_CheckChirality()
+        self.thisptr = <_Action_CheckChirality*> self.baseptr
 
     def __dealloc__(self):
         if self.baseptr is not NULL:
@@ -17,6 +17,6 @@ cdef class Action_Rmsd (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-
+        
     def help(self):
         self.thisptr.Help()

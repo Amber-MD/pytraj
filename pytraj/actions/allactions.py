@@ -71,3 +71,4 @@ from pytraj.actions.Action_CreateReservoir import Action_CreateReservoir
 from pytraj.actions.Action_Strip import Action_Strip
 from pytraj.actions.Action_Grid import Action_Grid
 from pytraj.actions.Action_Center import Action_Center
+from pytraj.actions.Action_CheckChirality import Action_CheckChirality

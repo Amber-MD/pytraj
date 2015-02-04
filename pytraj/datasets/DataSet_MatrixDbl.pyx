@@ -13,6 +13,8 @@ cdef class DataSet_MatrixDbl (DataSet_2D):
 
     def __getitem__(self, int idx):
         if idx >= self.size:
+            # double-check
+            # what is self.size?
             raise IndexError("out of index")
         return self.thisptr.index_opr(idx)
 
@@ -42,12 +44,6 @@ cdef class DataSet_MatrixDbl (DataSet_2D):
 
     #def get_element(self,size_t x, size_t y):
     #    return self.thisptr.GetElement(x, y)
-
-    #def nrows(self):
-    #    return self.thisptr.Nrows()
-
-    #def ncols(self):
-    #    return self.thisptr.Ncols()
 
     #def double * MatrixArray(self):
     #def MatrixKind Kind(self):

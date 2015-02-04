@@ -28,5 +28,8 @@ class Test(unittest.TestCase):
         d0 = cast_dataset(dslist[0])
         print(d0[:10])
 
+    def test_action_2(self):
+        pass
+
 if __name__ == "__main__":
     unittest.main()
