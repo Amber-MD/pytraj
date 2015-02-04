@@ -226,6 +226,7 @@ cdef class FrameArray (object):
                         return _np.asarray(tmplist)
                     else:
                         return tmplist
+
                 if isinstance(self[idx_0], Frame):
                     frame = self[idx_0]
                     return frame[idxs[1:]]
@@ -242,9 +243,7 @@ cdef class FrameArray (object):
                     if idxs != -1:
                         raise ValueError("index is out of range")
                 # get memoryview
-                #frame.thisptr = &(self.frame_v[idx_1])
-                # change [] to `at` for bound-checking
-                frame.thisptr = &(self.frame_v.at(idx_1))
+                frame.thisptr = &(self.frame_v[idx_1])
                 return frame
         else:
             if self.warning:
