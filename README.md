@@ -31,11 +31,8 @@ Install
 
 Usage: 
 -----
-- Make sure to export LD_LIBRARY_PATH before using
-    + export LD_LIBRARY_PATH=$AMBERHOME/lib/:$LD_LIBRARY_PATH
-    + or export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:$LD_LIBRARY_PATH
-
-- Check ./examples/
+- Check ./examples/ folders
+- Chec pytraj-notebooks: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/Frame_class.ipynb)
 
 Version I am working on:
 ====================
