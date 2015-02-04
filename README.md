@@ -31,8 +31,8 @@ Install
 
 Usage: 
 -----
-- Check ./examples/ folders
-- Chec pytraj-notebooks: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/Frame_class.ipynb)
+- Check ./examples folders
+- Check pytraj-notebooks: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/Frame_class.ipynb)
 
 Support
 ====================
