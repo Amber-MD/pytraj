@@ -153,5 +153,6 @@ if __name__ == "__main__":
     print ()
     print ()
     print ("make sure to add libcpptraj to LD_LIBRARY_PATH before using pytraj")
+    print (libdir)
     print ()
     print ()
