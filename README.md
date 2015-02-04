@@ -2,29 +2,16 @@
 Welcom to pytraj!
 -------------------
 
-
-Aim: Write cpptraj wrapper for Python user
------------------------------------------
-- Short term goal: expose cpptraj library to Python
-- Very long term goal: glue most of useful library in [AMBER] (http://ambermd.org/) by Python: 
-    * tleap --> pyleap
-    * paramfit --> pyparamfit
-    * reduce --> pyreduce 
-    * ParmedTools
-    * (add many more)
+- pytraj is a Python package wrapping cpptraj program (a data analysis for biomolecular simulation)
 - Why using pytraj:
     * It's fast
-        * it's a wrapper of cpptraj (was written in C++ (by Daniel R. Roe))
+        * its core (cpptraj) was written in C++
         * it has interface with numpy. Data calculation are performed without copying to numpy array
         * (but it actually does not need `numpy` at all, just optional)
-    * It has clean syntax
-        * Python/Cython style with fancy indexing 
+    * It has clean Python/Cython syntax
     * It has been extensively testes
     * It's flexible: 
         * you can write extension modules in either high (Python) or low (C/C++ or Cython) level
-
-Status: pre-release version 0.1
-------------------------------
 
 Citing (optional):
 -----------------
@@ -40,7 +27,7 @@ Install
     ./installs/libcpptraj.txt (works well with cpptraj v15.22b)
 - installs pytraj: `pip install pytraj` or `pip install --upgrade pytraj`
     (further instruction ./installs/pytraj.txt)
-- wiki page : [wiki](http://www.github.com/hainm/pytraj/wiki)
+- wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
 
 Usage: 
 -----
