@@ -23,20 +23,17 @@ Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095
 
 Install
 -------
+- wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
 - install libcpptraj: 
     ./installs/libcpptraj.txt (works well with cpptraj v15.22b)
 - installs pytraj: `pip install pytraj` or `pip install --upgrade pytraj`
     (further instruction ./installs/pytraj.txt)
-- wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
 
 Usage: 
 -----
 - Check ./examples/ folders
 - Chec pytraj-notebooks: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/Frame_class.ipynb)
 
-Version I am working on:
+Support
 ====================
 * Development version of `cpptraj`: v15.22b
-* Python 2.7.8 :: Anaconda 2.1.0 (64-bit)
-* Cython 0.22pre (pre-verion of Cython 0.22)
-    * Development version: https://github.com/cython/cython
