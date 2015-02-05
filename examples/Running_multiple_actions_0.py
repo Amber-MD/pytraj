@@ -27,11 +27,11 @@ def run_0():
     toplist.add_parm(farray.top)
 
     # add actions: Action_Strip, Action_Distance and Action_Rmsd
-    alist.add_action(stripact, ArgList("@H*"), toplist, None, dsetlist, dflist)
+    alist.add_action(stripact, ArgList("@H*"), toplist, dsetlist, dflist)
     alist.add_action(allactions.Action_Distance(), ArgList(":2@CA :3@CA out ./output/_distance.dat"), 
-                     toplist, None, dsetlist, dflist)
+                     toplist, dsetlist, dflist)
     alist.add_action(allactions.Action_Rmsd(), ArgList("rms first @CA out ./output/_rmsd.dat"), 
-                     toplist, None, dsetlist, dflist)
+                     toplist, dsetlist, dflist)
 
     # 
     print("test setup_actions")
