@@ -50,7 +50,7 @@ cdef class Action:
 
     @makesureABC("Action")
     def read_input(self, command='', current_top=TopologyList(),
-                   FrameList flist=FrameList(), 
+                   #FrameList flist=FrameList(), 
                    DataSetList dslist=DataSetList(), 
                    DataFileList dflist=DataFileList(), 
                    int debug=0):
@@ -60,7 +60,7 @@ cdef class Action:
         command : str
             Type of actions, mask, ... (Get help: Action_Box().help())
         current_top : Topology or TopologyList instance, default=TopologyList()
-        flist : FrameList instance, default=FrameList()
+        #flist : FrameList instance, default=FrameList()
         dslist : DataSetList instance, default=DataSetList()
         dflist : DataFileList instance, default=DataFileList()
         debug : int, default=0
@@ -82,7 +82,8 @@ cdef class Action:
             arglist = <ArgList> command
 
         return self.baseptr.Init(arglist.thisptr[0], toplist.thisptr, 
-                       flist.thisptr, dslist.thisptr, dflist.thisptr,
+                       #flist.thisptr, dslist.thisptr, dflist.thisptr,
+                       dslist.thisptr, dflist.thisptr,
                        debug)
 
     @makesureABC("Action")
@@ -161,7 +162,7 @@ cdef class Action:
                   current_top=Topology(),
                   dslist=DataSetList(), 
                   dflist=DataFileList(), 
-                  flist=FrameList(), 
+                  #flist=FrameList(), 
                   new_top=Topology(),
                   new_frame=Frame(),
                   int idx=0,
@@ -170,7 +171,7 @@ cdef class Action:
         """combined all 3 steps
                 master(command='', int idx=0,
                        current_top=TopologyList(),current_frame=Frame(),
-                       FrameList flist=FrameList(), 
+                       #FrameList flist=FrameList(), 
                        DataSetList dslist=DataSetList(), 
                        DataFileList dflist=DataFileList(), 
                        new_top=Topology(),
@@ -178,7 +179,7 @@ cdef class Action:
                        int debug=0):
         """
         self.read_input(command=command, current_top=current_top, 
-                        flist=flist, dslist=dslist,
+                        dslist=dslist,
                         dflist=dflist, debug=debug)
         self.process(current_top=current_top, new_top=new_top)
         if isinstance(current_frame, Frame):

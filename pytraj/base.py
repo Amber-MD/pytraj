@@ -6,12 +6,10 @@ from pytraj.Atom import Atom
 from pytraj.Frame import Frame
 from pytraj.FrameArray import FrameArray
 from pytraj.FrameArray2 import FrameArray2 
-#from pytraj.ReferenceFrame import ReferenceFrame
 from pytraj.Topology import Topology
 from pytraj.ArgList import ArgList
 from pytraj.AtomMask import AtomMask
 from pytraj.CpptrajState import CpptrajState
-from pytraj.FrameList import FrameList
 from pytraj.TrajReadOnly import TrajReadOnly
 from pytraj.trajs.Trajout import Trajout
 from pytraj.TrajinList import TrajinList
@@ -29,9 +27,9 @@ from pytraj.parms.Parm_Amber import Parm_Amber
 __all__ = ['Atom',
            'Topology', 'TopologyList', 
            'Frame', 'FrameArray', 
-            'AtomMask', 
+           'AtomMask', 
            'ArgList', 'CpptrajState', 
-           'FrameList', 'TrajReadOnly', 
+           'TrajReadOnly', 
            'DataSetList', 'DataFileList', 
            'ActionList',
            'Trajout', 'TrajinList',

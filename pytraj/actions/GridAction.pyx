@@ -9,11 +9,11 @@ cdef class GridAction:
     def __dealloc__(self):
         del self.thisptr
 
-    def init(self, char* callingRoutine, ArgList arglist, DataSetList dslist, FrameList flist):
+    def init(self, char* callingRoutine, ArgList arglist, DataSetList dslist):
         cdef DataSet_GridFlt dset_gf = DataSet_GridFlt()
         # since we use memory view, we let cpptraj free memory
         dset_gf.py_free_mem = False
-        dset_gf.thisptr = self.thisptr.GridInit(callingRoutine, arglist.thisptr[0], dslist.thisptr[0], flist.thisptr[0])
+        dset_gf.thisptr = self.thisptr.GridInit(callingRoutine, arglist.thisptr[0], dslist.thisptr[0])
         return dset_gf
 
     def info(self, DataSet_GridFlt dset_gf):

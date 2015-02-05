@@ -17,7 +17,7 @@ cdef class ActionList:
     def add_action(self, actionobj, 
                          ArgList arglist, 
                          top=None, 
-                         FrameList flist=FrameList(), 
+                         #FrameList flist=FrameList(), 
                          DataSetList dlist=DataSetList(), 
                          DataFileList dflist=DataFileList()):
         """
@@ -28,7 +28,7 @@ cdef class ActionList:
         actionobj :: Action object
         arglist :: ArgList instance
         toplist :: TopologyList instance
-        flist :: FrameList instance
+        #flist :: FrameList instance
         dlist :: DataSetList 
         dflist :: DataFileList
         """
@@ -41,7 +41,7 @@ cdef class ActionList:
             toplist = top
         # add function pointer: How?
         return self.thisptr.AddAction(func.ptr, arglist.thisptr[0], 
-                                      toplist.thisptr, flist.thisptr, 
+                                      toplist.thisptr,
                                       dlist.thisptr, dflist.thisptr)
 
     def process(self, Topology top):
