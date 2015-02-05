@@ -145,7 +145,7 @@ class TestFrameArray2(unittest.TestCase):
         traj.load("./data/md1_prod.Tc5b.x")
         
         print(traj.data_format)
-        print(traj.data_type)
+        print(traj.dtype)
         print(traj.is_torsion_array())
         print(traj.is_empty())
         print(traj.ndim)

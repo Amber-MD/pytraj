@@ -12,7 +12,7 @@ farray = TrajReadOnly(top=Topology("./data/Tc5b.top"),
 class TestRadgyr(unittest.TestCase):
     def test_0(self):
         dslist = DataSetList()
-        act = adict['dssp']()
+        act = adict['dssp']
         dflist = DataFileList()
         act.read_input(":2-10 out test_dssp.out", farray.top, dslist=dslist, dflist=dflist)
         act.process(farray.top)

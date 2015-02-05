@@ -12,8 +12,7 @@ before_install:
 install:
     - pip install numpy
     - pip install cython
-    - pip install memory_profiler
-    - pip install line_profiler
+    - pip install coveralls
     - export AMBERHOME=`pwd`"/Ambertools/V15.22b/cpptraj/"
     - export CPPTRAJHOME=`pwd`"/Ambertools/V15.22b/cpptraj/"
     - python ./setup.py install
@@ -31,6 +30,9 @@ script:
     - cd ../examples
     - sh ./TestList.sh
     - echo "Kool"
+
+after_success:
+    coveralls
 
 notifications:
   email: false

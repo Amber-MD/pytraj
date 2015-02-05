@@ -17,9 +17,9 @@ class TestRadgyr(unittest.TestCase):
         dslist0 = DataSetList()
         dslist1 = DataSetList()
 
-        act1 = adict['distance']()
+        act1 = adict['distance']
         act1.run(":2@CA :10@CA", farray, farray.top, dslist1)
-        act0 = adict['radgyr']()
+        act0 = adict['radgyr']
         act0.run("@CA", farray, farray.top, dslist0)
 
         d0 = cast_dataset(dslist0[0])

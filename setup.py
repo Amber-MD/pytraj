@@ -90,6 +90,10 @@ for ext_name in pyxfiles:
                     language='c++',
                     library_dirs=[libdir,],
                     include_dirs=[cpptraj_include, pytraj_home])
+    extmod.cython_directives = {
+            'embedsignature':True,
+            'boundscheck': False,
+            }
     ext_modules.append(extmod)
 
 pxd_include_dirs = [

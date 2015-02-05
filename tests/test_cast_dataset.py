@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         #print dir(dset)
         print(dset.data_format)
         print(dset.is_empty())
-        print(dset.data_type)
+        print(dset.dtype)
         print(dset.column_width)
         db = cast_dataset(dset, dtype="general")
         #print cast_dataset.__doc__
