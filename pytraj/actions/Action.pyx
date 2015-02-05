@@ -39,6 +39,15 @@ cdef class Action:
     def __repr__(self):
         return self.__str__()
 
+    def __call__(self, *args, **kwd):
+        """
+        >>> from pytraj import *
+        >>> traj = io.load("../tz2.nc", "../tz2.parm7")
+        >>> dslist = DataSetList.DataSetList()
+        >>> adict['jcoupling']("outfile Jcoupling.dat kfile Karplus.txt", traj[0], traj.top, dslist=dslist)
+        """
+        self.run(*args, **kwd)
+
     @makesureABC("Action")
     def read_input(self, command='', current_top=TopologyList(),
                    FrameList flist=FrameList(), 
