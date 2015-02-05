@@ -10,7 +10,7 @@ def calc_pairwise_distance():
     traj = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
 
     # extract 11th frame (index start from 0)
-    frame0 = traj[10]
+    frame0 = traj[9]
 
     print(distance(frame0.coords[0:3], frame0.coords[96:99]))
     natoms = frame0.n_atoms
