@@ -6,7 +6,10 @@ from pytraj import base
 
 # TODO : should we load those module here or use .base?
 from pytraj import io
-from pytraj.action_dict import adict
+from pytraj.action_dict import ActionDict
+# make adict instance here so run_tests can use it.
+
+adict = ActionDict()
 from pytraj.run_tests import run_tests
 from pytraj.AtomSelect import AtomSelect
 from pytraj.Frame import Frame
@@ -34,3 +37,4 @@ except:
     raise EnvironmentError("must set AMBERHOME")
 
 __version__ = '0.1.1beta'
+# make adict instance of ActionDict

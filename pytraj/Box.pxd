@@ -1,5 +1,7 @@
 # distutils: language = c++
-from pytraj.Matrix_3x3 cimport *
+from pytraj.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
+from pytraj.Vec3 cimport _Vec3, Vec3
+from pytraj.cpp_vector cimport vector
 
 
 cdef extern from "Box.h": 

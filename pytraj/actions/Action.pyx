@@ -32,6 +32,13 @@ cdef class Action:
         #del self.baseptr
         pass
 
+    def __str__(self):
+        txt = "< %s object >" % (self.__class__.__name__)
+        return txt
+
+    def __repr__(self):
+        return self.__str__()
+
     @makesureABC("Action")
     def read_input(self, command='', current_top=TopologyList(),
                    FrameList flist=FrameList(), 
@@ -140,15 +147,17 @@ cdef class Action:
         act.baseptr = <_Action*> funct.ptr()
         return act
 
-    def run(self, command='', int idx=0,
-                   current_top=TopologyList(), current_frame=Frame(),
-                   FrameList flist=FrameList(), 
-                   DataSetList dslist=DataSetList(), 
-                   DataFileList dflist=DataFileList(), 
-                   new_top=Topology(),
-                   new_frame=Frame(),
-                   int debug=0,
-                   update_frame=True):
+    def run(self, command='',
+                  current_frame=Frame(),
+                  current_top=Topology(),
+                  dslist=DataSetList(), 
+                  dflist=DataFileList(), 
+                  flist=FrameList(), 
+                  new_top=Topology(),
+                  new_frame=Frame(),
+                  int idx=0,
+                  int debug=0,
+                  update_frame=False):
         """combined all 3 steps
                 master(command='', int idx=0,
                        current_top=TopologyList(),current_frame=Frame(),

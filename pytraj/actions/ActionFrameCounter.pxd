@@ -1,5 +1,5 @@
 # distutils: language = c++
-from ..ArgList cimport *
+from ..ArgList cimport _ArgList
 
 
 cdef extern from "ActionFrameCounter.h": 

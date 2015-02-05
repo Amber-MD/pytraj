@@ -28,8 +28,6 @@ cdef class DataSet:
         #if self.baseptr0 != NULL:
         #    del self.baseptr0
 
-    #def DataSet(self,DataType, int, int, int):
-
     def set_width(self,int widthIn):
         self.baseptr0.SetWidth(widthIn)
 
@@ -57,7 +55,7 @@ cdef class DataSet:
     def matches(self, string dsname, int idxnum, string aspectIn):
         return self.baseptr0.Matches(dsname, idxnum, aspectIn)
 
-    def scalar_description(self):
+    def scalar_descr(self):
         self.baseptr0.ScalarDescription()
 
     def is_empty(self):
@@ -84,13 +82,9 @@ cdef class DataSet:
         return self.baseptr0.ColumnWidth()
     
     @property
-    def data_type(self):
-        return get_key(self.baseptr0.Type(), DataTypeDict)
-
-    @property
     def dtype(self):
         """Using `dtype` keyword since this is commond term"""
-        return self.data_type
+        return get_key(self.baseptr0.Type(), DataTypeDict)
 
     @property
     def scalar_mode(self):

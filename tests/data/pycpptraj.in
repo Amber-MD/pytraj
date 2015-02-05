@@ -2,5 +2,6 @@ trajin md1_prod.Tc5b.x 1 10
 rms first out rmsd_allatoms_to_1st.Tc5b.dat
 rms first out rmsd_to_firstFrame_CA_allres.Tc5b.dat @CA
 distance d1 out CAres2_CAres10.Tc5b.dat :2@CA :10@CA
+radgyr @CA out radgyr.Tc5b.dat
 trajout md1_prod.fit_to_first.Tc5b.x
 go

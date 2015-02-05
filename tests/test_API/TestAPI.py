@@ -33,7 +33,7 @@ def create_state(top=None, trajin=None, ref=None):
         state.add_reference(ref)
     return state
 
-def do_calculation(action=None, input=None, state=None):
+def do_calculation(action=None, command=None, state=None):
     """Perform specific actions with cpptraj state
     Return data list (should convert to Python array or numpy array?)
 
@@ -45,7 +45,7 @@ def do_calculation(action=None, input=None, state=None):
     >>> state = create_state(top="./data/Tc5b.top", trajin="./data/md1_prod.Tc5b.x", ref=None)
     >>> distance = do_calculation(action=Action_Distance(), input="distance :2@CA :10@CA", state=state)
     """
-    state.add_action(action, ArgList(input))
+    state.add_action(action, ArgList(command))
     state.run()
     d1 = cast_dataset(state.datasetlist[0], dtype="general")
     return np.asarray(d1.data)

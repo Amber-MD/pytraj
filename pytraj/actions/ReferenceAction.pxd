@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from Trajin_Single cimport *
-from ReferenceFrame cimport *
+from pytraj.Trajin_Single cimport *
+from pytraj.ReferenceFrame cimport *
 
 
 cdef extern from "ReferenceAction.h": 

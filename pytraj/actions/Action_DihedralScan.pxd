@@ -2,7 +2,7 @@
 #from libcpp.vector cimport vector
 #from libcpp.string cimport string
 from pytraj.actions.Action cimport _Action, Action, FunctPtr, _DispatchObject
-from Action_CheckStructure cimport *
+#from Action_CheckStructure cimport *
 #from Random cimport *
 #from Trajout cimport *
 #from DihedralSearch cimport *
