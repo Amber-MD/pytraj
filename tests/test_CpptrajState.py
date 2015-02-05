@@ -57,15 +57,14 @@ class TestCpptrajState(unittest.TestCase):
         boxaction = allactions.Action_Box()
         boxaction.help()
         toplist = TopologyList()
-        framelist = FrameList()
         dsetlist = DataSetList()
         dflist = DataFileList()
 
         # add stuff
         toplist.add_parm("./data/Tc5b.top")
         #framelist.add_reference(ArgList("./data/Tc5b.nat.crd"), toplist)
-        distaction.read_input(ArgList(":2@CA :10@CA"), toplist, framelist, dsetlist, dflist, 0)
-        boxaction.read_input(ArgList("x 1000. y 1000. alpha 500."), toplist, framelist, dsetlist, dflist, 0)
+        distaction.read_input(ArgList(":2@CA :10@CA"), toplist, dsetlist, dflist, 0)
+        boxaction.read_input(ArgList("x 1000. y 1000. alpha 500."), toplist, dsetlist, dflist, 0)
         distaction.process(toplist[0])
 
         idx = 0

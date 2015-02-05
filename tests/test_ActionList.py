@@ -27,9 +27,9 @@ class TestActionList(unittest.TestCase):
         toplist.add_parm(farray.top)
     
         # add two actions: Action_Strip and Action_Distance
-        alist.add_action(stripact, ArgList("@H*"), toplist, None, dsetlist, dflist)
+        alist.add_action(stripact, ArgList("@H*"), toplist, dsetlist, dflist)
         alist.add_action(allactions.Action_Distance(), ArgList(":2@CA :3@CA out ./output/test_df.dat"), 
-                         toplist, None, dsetlist, dflist)
+                         toplist, dsetlist, dflist)
     
         # 
         print ("test setup_actions")

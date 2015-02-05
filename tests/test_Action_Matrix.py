@@ -4,6 +4,7 @@ from pytraj.base import *
 from pytraj import allactions
 from pytraj.cast_dataset import cast_dataset
 from pytraj import adict
+from pytraj.utils.check_and_assert import assert_almost_equal
 
 farray = TrajReadOnly(top=Topology("./data/Tc5b.top"), 
                     filename='data/md1_prod.Tc5b.x', 
@@ -27,6 +28,18 @@ class TestRadgyr(unittest.TestCase):
 
         for i in range(d1.size):
             print (d1[i])
+
+        # another way
+        d0 = adict['matrix']("byres @CA", farray, farray.top)
+        print (d0.size)
+        print (dir(d0))
+        print (d0.n_cols, d0.n_rows)
+        print (d0.dtype)
+        print (d0.ndim)
+        print (d0.kind)
+        print (d0.data_format)
+
+        assert_almost_equal (d0, d1)
 
 if __name__ == "__main__":
     unittest.main()
