@@ -164,13 +164,12 @@ cdef class Action:
                   current_top=Topology(),
                   dslist=DataSetList(), 
                   dflist=DataFileList(), 
-                  #flist=FrameList(), 
                   new_top=Topology(),
                   new_frame=Frame(),
                   int idx=0,
                   int debug=0,
                   update_frame=False,
-                  quick_get=True):
+                  quick_get=False):
         """
         TODO : add doc
         """
@@ -194,12 +193,13 @@ cdef class Action:
         # currently support only dtype = 'DOUBLE' or 'MATRIX_DBL'
         # we get the last dataset from dslist
         # (if we call self.run() several times, the result will be dumped to dslist)
-        idx = dslist.size - 1
-        dtype = dslist[idx].dtype.upper()
-        if dtype in ['DOUBLE', 'MATRIX_DBL']:
-            d0 = cast_dataset(dslist[idx], dtype=dtype)
-            return d0
+        if quick_get:
+            idx = dslist.size - 1
+            dtype = dslist[idx].dtype.upper()
+            if dtype in ['DOUBLE', 'MATRIX_DBL']:
+                d0 = cast_dataset(dslist[idx], dtype=dtype)
+                return d0
 
     def master(self, *args, **kwd):
         """keep this method since some of examples uses them"""
-        self.run(*args, **kwd)
+        return self.run(*args, **kwd)
