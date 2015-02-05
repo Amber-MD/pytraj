@@ -25,5 +25,8 @@ class TestRadgyr(unittest.TestCase):
         print (d1.data_format)
         # TODO : add assert to make sure reproducing cpptraj output
 
+        for i in range(d1.size):
+            print (d1[i])
+
 if __name__ == "__main__":
     unittest.main()
