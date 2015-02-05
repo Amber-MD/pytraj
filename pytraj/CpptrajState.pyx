@@ -16,7 +16,7 @@ cdef class CpptrajState:
     def __cinit__(self):
         self.thisptr = new _CpptrajState()
         self.toplist = TopologyList(py_free_mem=False)
-        self.framelist = FrameList(py_free_mem=False)
+        #self.framelist = FrameList(py_free_mem=False)
         self.datafilelist = DataFileList(py_free_mem=False)
         self.datasetlist = DataSetList(py_free_mem=False)
 
@@ -25,7 +25,7 @@ cdef class CpptrajState:
 
         # create memory view
         self.toplist.thisptr = self.thisptr.PFL()
-        self.framelist.thisptr = self.thisptr.FL()
+        #self.framelist.thisptr = self.thisptr.FL()
         self.datasetlist.thisptr = self.thisptr.DSL()
         self.datafilelist.thisptr = self.thisptr.DFL()
 
@@ -42,8 +42,8 @@ cdef class CpptrajState:
     def set_action_silence(self, bint b):
         self.thisptr.SetActionSilence(b)
 
-    def debug(self):
-        return self.thisptr.Debug()
+    #def debug(self):
+    #    return self.thisptr.Debug()
 
     def exit_on_error(self):
         return self.thisptr.ExitOnError()
@@ -103,18 +103,18 @@ cdef class CpptrajState:
         else:
             raise NotImplementedError()
 
-    def add_reference(self, arg):
-        cdef string name
-        cdef ArgList arglist
+    #def add_reference(self, arg):
+    #    cdef string name
+    #    cdef ArgList arglist
 
-        if isinstance(arg, str):
-            name = arg
-            self.thisptr.AddReference(name)
-        elif isinstance(arg, ArgList):
-            arglist = arg
-            self.thisptr.AddReference(arglist.thisptr[0])
-        else:
-            raise NotImplementedError()
+    #    if isinstance(arg, str):
+    #        name = arg
+    #        self.thisptr.AddReference(name)
+    #    elif isinstance(arg, ArgList):
+    #        arglist = arg
+    #        self.thisptr.AddReference(arglist.thisptr[0])
+    #    else:
+    #        raise NotImplementedError()
 
     def add_action(self, obj, ArgList arglist):
         # need to explicit casting to FunctPtr because self.thisptr.AddAction need to know type 

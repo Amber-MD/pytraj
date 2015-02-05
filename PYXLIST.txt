@@ -45,7 +45,7 @@ FrameArray2
 BaseIOtype
 trajs/TrajectoryIO
 trajs/Traj_AmberCoord
-FrameList
+#FrameList
 datasets/DataSet
 datasets/DataSet_1D
 datasets/DataSet_2D
@@ -56,7 +56,7 @@ datasets/DataSet_Coords_CRD
 datasets/DataSet_Coords_TRJ
 DataFileList
 #NetcdfFile
-ReferenceFrame
+#ReferenceFrame
 DataSetList
 ActionList
 AnalysisList

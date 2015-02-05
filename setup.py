@@ -43,9 +43,9 @@ try:
         libdir = cpptraj_dir + "/lib/"
 except:
     print ("have not set CPPTRAJHOME yet. \n")
-    use_preshipped_lib = raw_input("use preshipped lib in ./Ambertools/V15.22b/cpptraj y/n \n")
+    use_preshipped_lib = raw_input("use preshipped lib in ./Ambertools/dev/cpptraj y/n \n")
     if use_preshipped_lib.upper() in ['Y', 'YES']:
-        cpptraj_dir = rootname + "/Ambertools/V15.22b/cpptraj/"
+        cpptraj_dir = rootname + "/Ambertools/dev/cpptraj/"
         cpptraj_include = cpptraj_dir + "/src/"
         libdir = cpptraj_dir + "/lib"
         os.system("sh ./installs/install_cpptraj.sh")
@@ -131,7 +131,7 @@ datalist = [[p[10:] for p in pxd_include_patterns]]
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.beta.1",
+        version="0.1.beta.2",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",

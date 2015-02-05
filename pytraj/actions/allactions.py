@@ -47,7 +47,7 @@ from pytraj.actions.Action_Average import Action_Average
 from pytraj.actions.Action_DSSP import Action_DSSP
 from pytraj.actions.Action_Spam import Action_Spam
 from pytraj.actions.Action_Bounds import Action_Bounds
-from pytraj.actions.ActionFrameCounter import ActionFrameCounter
+#from pytraj.actions.ActionFrameCounter import ActionFrameCounter
 from pytraj.actions.Action_Scale import Action_Scale
 from pytraj.actions.Action_VelocityAutoCorr import Action_VelocityAutoCorr
 from pytraj.actions.Action_Rotate import Action_Rotate

@@ -136,22 +136,6 @@ class TestFrame(unittest.TestCase):
         #FRAME[start:stop:strip] = arr_tmp[start:stop:strip]
 
     #@no_test
-    def test_iter(self):
-        print("test iteration")
-        alist = []
-        frame = FRAME_orig.copy()
-        for x in frame:
-            alist += [int(a) for a in x]
-        print(alist)
-        assert alist == list(range(3 * N_ATOMS))
-
-        print("test enumerate")
-        alist = []
-        for idx, x in enumerate(frame):
-            alist += [int(a) for a in x]
-        assert alist == list(range(3 * N_ATOMS))
-        print(alist)
-        print("====================end test_iter")
 
     #@no_test
     def test_indexing(self):
@@ -286,6 +270,23 @@ class TestFrame(unittest.TestCase):
         assert frame.atoms(0) == array('d', [0., 0., 0.1])
         assert frame.atoms(3) ==  array('d', [1.1, 2.3, 3.])
 
+    def test_iter(self):
+        print("test iteration")
+        alist = []
+        frame = FRAME_orig.copy()
+
+        for x in frame:
+            alist += [int(a) for a in x]
+        print(alist)
+        assert alist == list(range(3 * N_ATOMS))
+
+        print("test enumerate")
+        alist = []
+        for idx, x in enumerate(frame):
+            alist += [int(a) for a in x]
+        assert alist == list(range(3 * N_ATOMS))
+        print(alist)
+        print("====================end test_iter")
 
 if __name__ == "__main__":
     unittest.main()

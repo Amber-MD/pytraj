@@ -10,7 +10,7 @@ from pytraj.trajs.Trajin import Trajin
 from pytraj.ArgList import ArgList
 from pytraj.Topology import Topology
 from pytraj.TopologyList import TopologyList
-from pytraj.ReferenceFrame import ReferenceFrame
+#from pytraj.ReferenceFrame import ReferenceFrame
 from pytraj.Energy import Energy_Amber
 from pytraj.AtomMask import AtomMask
 

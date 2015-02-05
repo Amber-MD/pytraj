@@ -5,7 +5,6 @@ from pytraj.DispatchObject cimport _DispatchObject, DispatchObject, DispatchAllo
 from pytraj.Topology cimport _Topology, Topology
 from pytraj.TopologyList cimport _TopologyList, TopologyList
 from pytraj.Frame cimport _Frame, Frame
-from pytraj.FrameList cimport _FrameList, FrameList
 from pytraj.DataSetList cimport _DataSetList, DataSetList
 from pytraj.DataFileList cimport _DataFileList, DataFileList
 from pytraj.FrameArray cimport FrameArray
@@ -21,7 +20,7 @@ cdef extern from "ActionList.h":
         void SetDebug(int)
         int Debug()
         int AddAction(DispatchAllocatorType, _ArgList&,
-                      _TopologyList*, _FrameList*,
+                      _TopologyList*, 
                       _DataSetList*, _DataFileList*)
         int SetupActions(_Topology**)
         bint DoActions(_Frame **, int)
@@ -34,6 +33,3 @@ cdef extern from "ActionList.h":
 
 cdef class ActionList:
     cdef _ActionList* thisptr
-    #cdef AddAction(self, FusedAction action, ArgList arglist, TopologyList toplist,
-    #               FrameList flist, DataSetList dlist, DataFileList dflist)
-    #cdef DispatchAllocatorType ActionAlloc(self,int i)

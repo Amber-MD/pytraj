@@ -13,6 +13,7 @@ from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
 from pytraj.ArgList import ArgList
 from pytraj.trajs.Trajout import Trajout
+from pytraj.externals.six import string_types
 
 # TODO : reogarnize memory view, there are too many ways to assess
 # need to finalize
@@ -111,9 +112,6 @@ cdef class Frame (object):
             else:
                 raise ValueError()
 
-    #def __init__(self, *args):
-    #    self.__dict__ = {}
-
     def __dealloc__(self):
         if self.py_free_mem and self.thisptr:
             del self.thisptr
@@ -204,7 +202,7 @@ cdef class Frame (object):
             idx['top'].set_integer_mask(atm)
             arr0 = np.asarray(self.buffer3d[:])
             return arr0[np.array(atm.selected_indices())]
-        elif isinstance(idx, basestring):
+        elif isinstance(idx, string_types):
             # Example: frame['@CA']
             if self.top is not None and not self.top.is_empty():
                 return self[self.top(idx)]
@@ -233,8 +231,13 @@ cdef class Frame (object):
 
     def __iter__(self):
         cdef int i
+
+        has_numpy, np = _import_numpy()
         for i in range(self.n_atoms):
-            yield self.buffer3d[i]
+            if has_numpy:
+                yield np.asarray(self.buffer3d[i])
+            else:
+                yield self.buffer3d[i]
 
     def __len__(self):
         return self.size
@@ -441,7 +444,7 @@ cdef class Frame (object):
         cdef AtomMask atm
         cdef Topology top
 
-        if isinstance(mask, basestring):
+        if isinstance(mask, string_types):
             # if providing mask string
             # create AtomMask instance
             atm = AtomMask(mask)

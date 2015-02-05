@@ -5,7 +5,6 @@ from pytraj.DispatchObject cimport DispatchAllocatorType
 from libcpp.vector cimport vector
 from pytraj.TrajinList cimport _TrajinList, TrajinList
 from pytraj.ArgList cimport _ArgList, ArgList
-from pytraj.FrameList cimport _FrameList, FrameList
 from pytraj.TopologyList cimport _TopologyList, TopologyList
 from pytraj.DataSetList cimport _DataSetList, DataSetList
 from pytraj.DataFileList cimport _DataFileList, DataFileList
@@ -20,13 +19,13 @@ cdef extern from "CpptrajState.h":
     cdef cppclass _CpptrajState "CpptrajState":
         _CpptrajState()
         _TopologyList * PFL()
-        _FrameList * FL()
+        #_FrameList * FL()
         _DataSetList * DSL()
         _DataFileList * DFL()
         void SetNoExitOnError()
         void SetNoProgress()
         void SetActionSilence(bint b)
-        int Debug()const 
+        #int Debug()const 
         bint ExitOnError()const 
         bint EmptyState()const 
         int AddTrajin(_ArgList &, bint)
@@ -36,8 +35,8 @@ cdef extern from "CpptrajState.h":
         _TrajinList& InputTrajList()const 
         inline int AddTrajout(const _ArgList&)
         inline int AddTrajout(const string&)
-        inline int AddReference(_ArgList &)
-        inline int AddReference(const string&)
+        #inline int AddReference(_ArgList &)
+        #inline int AddReference(const string&)
         inline int AddAction(DispatchAllocatorType, _ArgList &)
         inline int AddAnalysis(DispatchAllocatorType, _ArgList &)
         int WorldSize()
@@ -54,4 +53,4 @@ cdef class CpptrajState:
     cdef public TopologyList toplist
     cdef public DataFileList datafilelist
     cdef public DataSetList datasetlist
-    cdef public FrameList framelist
+    #cdef public FrameList framelist
