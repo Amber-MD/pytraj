@@ -29,3 +29,5 @@ Ambertools/v14/cpptraj/config.h
 Ambertools/V15.22b/cpptraj/src/*.o
 Ambertools/V15.22b/cpptraj/src/readline/*.o
 CpptrajTest.nogit
+Ambertools/dev/cpptraj/src/*.o
+Ambertools/dev/cpptraj/src/readline/*.o

@@ -2,7 +2,7 @@
 from libcpp.string cimport string
 from pytraj.trajs.TrajectoryFile cimport *
 from pytraj.Range cimport *
-from pytraj.actions.ActionFrameCounter cimport *
+#from pytraj.actions.ActionFrameCounter cimport *
 from pytraj.Frame cimport _Frame, Frame
 
 
