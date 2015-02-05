@@ -1,9 +1,7 @@
 # distutils: language = c++
 from pytraj.externals.six import PY3
 from pytraj.decorators import makesureABC
-
-if PY3:
-    basestring = str
+from pytraj.externals.six import string_types
 
 cdef class Analysis:
     """
@@ -60,7 +58,7 @@ cdef class Analysis:
         elif isinstance(top, TopologyList):
             toplist = <TopologyList> top
 
-        if isinstance(command, basestring):
+        if isinstance(command, string_types):
             arglist = ArgList(<string> command)
         elif isinstance(command, ArgList):
             arglist = <ArgList> command

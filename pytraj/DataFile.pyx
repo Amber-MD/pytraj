@@ -1,6 +1,7 @@
 # distutils: language = c++
 
 from pytraj.cpptraj_dict import DataFormatDict, get_key
+from pytraj.externals.six import string_types
 
 cdef class DataFile:
     def __cinit__(self, py_free_mem=True):
@@ -51,7 +52,7 @@ cdef class DataFile:
         cdef string s
         cdef ArgList argIn
 
-        if isinstance(arg, basestring):
+        if isinstance(arg, string_types):
             s = <string> arg
             return self.thisptr.ProcessArgs(s)
         elif isinstance(arg, ArgList):

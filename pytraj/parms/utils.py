@@ -1,6 +1,7 @@
 from pytraj.parms.ParmFile import ParmFile
 from pytraj.Topology import Topology
 from pytraj.cpptraj_dict import ParmFormatDict
+from pytraj.externals.six import string_types
 
 parmfile = ParmFile()
 parmtypes = ParmFormatDict.keys()
@@ -20,7 +21,7 @@ def writeparm(filename="", parm=None, fmt="AMBER", *args):
     fmt : parm format, default="AMBER"
     *args : optional args (not supported yet)
     """
-    if isinstance(parm, basestring):
+    if isinstance(parm, string_types):
         top = Topology(parm)
     elif isinstance(parm, Topology):
         top = parm
