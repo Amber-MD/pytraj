@@ -2,6 +2,8 @@
 from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
 
+from pytraj.cast_dataset import cast_dataset
+
 
 cdef class Action:
     """
@@ -46,7 +48,7 @@ cdef class Action:
         >>> dslist = DataSetList.DataSetList()
         >>> adict['jcoupling']("outfile Jcoupling.dat kfile Karplus.txt", traj[0], traj.top, dslist=dslist)
         """
-        self.run(*args, **kwd)
+        return self.run(*args, **kwd)
 
     @makesureABC("Action")
     def read_input(self, command='', current_top=TopologyList(),
@@ -193,6 +195,12 @@ cdef class Action:
                 self.do_action(idx=i, current_frame=frame, new_frame=new_frame)
                 if update_frame:
                     farray.append(new_frame)
+
+        # currently support only dtype = 'DOUBLE' or 'MATRIX_DBL'
+        dtype = dslist[0].dtype.upper()
+        if dtype in ['DOUBLE', 'MATRIX_DBL']:
+            d0 = cast_dataset(dslist[0], dtype=dtype)
+            return d0
 
     def master(self, *args, **kwd):
         """keep this method since some of examples uses them"""

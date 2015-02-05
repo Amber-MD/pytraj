@@ -12,13 +12,15 @@ def cast_dataset(DataSet dset, dtype='general'):
     ---------
     dset : DataSet instance
     dtype : str (default dtype=None)
-        {'general', 'matrix', '1D', '2D'}
+        {'general', 'matrix', '1D', '2D', 'double', 'matrix_dbl'}
     """
     # TODO : rename data set
     cdef DataSet_1D newset1D
     cdef DataSet_2D newset2D
     cdef DataSet_double newset_double
     cdef DataSet_MatrixDbl newset_MatrixDbl
+
+    dtype = dtype.upper()
 
     if dtype == '1D':
         newset1D = DataSet_1D()
@@ -34,7 +36,7 @@ def cast_dataset(DataSet dset, dtype='general'):
         newset2D.baseptr_1 = <_DataSet_2D*> dset.baseptr0
         return newset2D
 
-    elif dtype == 'general':
+    elif dtype in ['GENERAL', 'DOUBLE']: 
         newset_double = DataSet_double()
         # since we introduce memory view, we let cpptraj free memory
         newset_double.py_free_mem = False
@@ -44,7 +46,7 @@ def cast_dataset(DataSet dset, dtype='general'):
         newset_double.thisptr = <_DataSet_double*> dset.baseptr0
         return newset_double
 
-    elif dtype == 'matrix':
+    elif dtype in ['MATRIX', 'MATRIX_DBL']:
         newset_matrixdbl = DataSet_MatrixDbl()
         # since we introduce memory view, we let cpptraj free memory
         newset_matrixdbl.py_free_mem = False
