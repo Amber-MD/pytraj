@@ -11,7 +11,7 @@ farray = TrajReadOnly(top=Topology("./data/Tc5b.top"),
 class TestRadgyr(unittest.TestCase):
     def test_0(self):
         dslist = DataSetList()
-        act = adict['matrix']()
+        act = adict['matrix']
         act.run(command="byres @CA", current_frame=farray, 
                 current_top=farray.top, dslist=dslist)
 
