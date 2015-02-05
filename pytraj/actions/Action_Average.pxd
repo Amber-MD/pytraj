@@ -1,7 +1,6 @@
 # distutils: language = c++
 #from libcpp.string cimport string
 from pytraj.actions.Action cimport _Action, Action, FunctPtr, _DispatchObject
-from ActionFrameCounter cimport *
 
 
 cdef extern from "Action_Average.h": 

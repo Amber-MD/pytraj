@@ -1,6 +1,5 @@
 # distutil: language = c++
 
-from pytraj.DistRoutines cimport *
 from pytraj.Box cimport _Box, Box, BoxType
 
 cdef extern from "ImagedAction.h":

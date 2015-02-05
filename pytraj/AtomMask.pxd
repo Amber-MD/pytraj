@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.string cimport string
 from libcpp.vector cimport vector
-from pytraj.MaskToken cimport *
+#from pytraj.MaskToken cimport *
 from pytraj.cpp_vector cimport vector as cppvector
 
 

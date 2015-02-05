@@ -1,5 +1,6 @@
 # distutils: language = c++
-from pytraj.Atom cimport *
+from libcpp.string cimport string
+from pytraj.Atom cimport _Atom, Atom
 
 
 cdef extern from "MapAtom.h": 
