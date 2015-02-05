@@ -13,11 +13,11 @@ install:
     - pip install numpy
     - pip install cython
     - pip install coveralls
-    - export AMBERHOME=`pwd`"/Ambertools/V15.22b/cpptraj/"
-    - export CPPTRAJHOME=`pwd`"/Ambertools/V15.22b/cpptraj/"
+    - export AMBERHOME=`pwd`"/Ambertools/dev/cpptraj/"
+    - export CPPTRAJHOME=`pwd`"/Ambertools/dev/cpptraj/"
     - python ./setup.py install
 script:
-    - export AMBERHOME=`pwd`"/Ambertools/V15.22b/cpptraj/"
+    - export AMBERHOME=`pwd`"/Ambertools/dev/cpptraj/"
     - export PYCPPTRAJ_HOME=`pwd`
     - export LD_LIBRARY_PATH=$AMBERHOME/lib:$LD_LIBRARY_PATH
     - python ./for_travis/fake_test.py
