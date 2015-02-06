@@ -14,10 +14,9 @@ cdef class ActionList:
     def clear(self):
         self.thisptr.Clear()
 
-    def add_action(self, actionobj, 
-                         ArgList arglist, 
+    def add_action(self, action="", 
+                         command="", 
                          top=None, 
-                         #FrameList flist=FrameList(), 
                          DataSetList dlist=DataSetList(), 
                          DataFileList dflist=DataFileList()):
         """
@@ -32,15 +31,24 @@ cdef class ActionList:
         dlist :: DataSetList 
         dflist :: DataFileList
         """
-        cdef FunctPtr func = <FunctPtr> actionobj.alloc()
+        cdef FunctPtr func = <FunctPtr> action.alloc()
         cdef TopologyList toplist
+        cdef ArgList _arglist
+
         if isinstance(top, Topology):
             toplist = TopologyList()
             toplist.add_parm(top)
         elif isinstance(top, TopologyList):
             toplist = top
         # add function pointer: How?
-        return self.thisptr.AddAction(func.ptr, arglist.thisptr[0], 
+
+        if isinstance(command, ArgList):
+            _arglist = command
+        else:
+            # try creating arglist
+            _arglist = ArgList(command)
+
+        return self.thisptr.AddAction(func.ptr, _arglist.thisptr[0], 
                                       toplist.thisptr,
                                       dlist.thisptr, dflist.thisptr)
 

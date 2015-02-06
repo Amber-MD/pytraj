@@ -18,7 +18,7 @@ cdef class FrameArray:
 
     # used for warning memory view
     cdef public bint warning 
-    cdef void _join(FrameArray self, FrameArray other, mask=*)
+    #cdef void _join(FrameArray self, FrameArray other, mask=*)
 
     # create tmpfarray to hold sub FrameArray
     # traj[0:10][0] will give wrong answer
