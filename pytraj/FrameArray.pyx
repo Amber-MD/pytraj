@@ -164,7 +164,7 @@ cdef class FrameArray (object):
         frame.py_free_mem = False
 
         if self.warning:
-            print "return a Frame or sub-Framearray view of this instance"
+            print "return a Frame or sub-FrameArray view of this instance"
             print "Use with care. For safetype, use `copy` method"
 
         if len(self) == 0:
@@ -404,20 +404,22 @@ cdef class FrameArray (object):
             framein.py_free_mem = False
             self.frame_v.push_back(framein.thisptr[0])
 
-    def join(self, *args):
-        """join multiple FrameArray instances"""
-        for arg in args:
-            self._join(arg)
-
-    cdef void _join(self, FrameArray other, mask=None):
+    def join(self, traj, mask=None):
+        cdef FrameArray other, farray
         # TODO : do we need this method when we have `get_frames`
-        if self.top.n_atoms != other.top.n_atoms:
-            raise ValueError("n_atoms of two arrays do not match")
         if mask:
             raise NotImplementedError("not yet")
-        self.frame_v.reserve(self.frame_v.size() + other.frame_v.size())
-        self.frame_v.insert(self.frame_v.end(), 
-                            other.frame_v.begin(), other.frame_v.end())
+        if isinstance(traj, FrameArray):
+            other = <FrameArray> traj
+            if self.top.n_atoms != other.top.n_atoms:
+                raise ValueError("n_atoms of two arrays do not match")
+            self.frame_v.reserve(self.frame_v.size() + other.frame_v.size())
+            self.frame_v.insert(self.frame_v.end(), 
+                                other.frame_v.begin(), other.frame_v.end())
+        elif isinstance(traj, (list, tuple)):
+            # assume a list or tuple of FrameArray
+            for farray in traj:
+                self.join(farray)
 
     def resize(self, int n_frames):
         self.frame_v.resize(n_frames)

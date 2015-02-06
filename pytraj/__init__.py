@@ -36,5 +36,4 @@ try:
 except:
     raise EnvironmentError("must set AMBERHOME")
 
-__version__ = '0.1.1beta'
 # make adict instance of ActionDict
