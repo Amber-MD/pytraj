@@ -603,8 +603,9 @@ cdef class Frame (object):
         v.thisptr[0] = self.thisptr.CenterOnOrigin(useMassIn)
         return v
 
-    def rmsd(self, Frame frame, bint use_mass=False, get_mvv=False, 
-             mask=None, top=None, AtomMask atommask=None):
+    def rmsd(self, Frame frame, AtomMask atommask=None, 
+             mask=None, top=None,
+             bint use_mass=False, get_mvv=False):
         # TODO : add mask,
         """Calculate rmsd betwen two frames
         rmsd(Frame frame, bint use_mass=False, get_mvv=False):
