@@ -90,7 +90,7 @@ class TestFrameArray(unittest.TestCase):
         print(farray0)
         farray1 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(30, 40)))
         farray2 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(30, 40)))
-        farray0.join(farray1, farray2)
+        farray0.join((farray1, farray2))
         print(farray0)
 
     #@no_test

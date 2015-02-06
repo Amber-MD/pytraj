@@ -15,6 +15,5 @@ class Test(unittest.TestCase):
         #print (traj)
         #analdict['rms2d'](":2@CA :10@CA", traj, traj.top)
 
-
 if __name__ == "__main__":
     unittest.main()

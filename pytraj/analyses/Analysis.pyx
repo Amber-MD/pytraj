@@ -32,6 +32,9 @@ cdef class Analysis:
         #del self.baseptr
         pass
 
+    def __call__(self, *args, **kwd):
+        return self.run(*args, **kwd)
+
     @makesureABC("Analysis")
     def read_input(self, command='', 
                    top=TopologyList(),
@@ -59,7 +62,7 @@ cdef class Analysis:
             toplist = <TopologyList> top
 
         if isinstance(command, string_types):
-            arglist = ArgList(<string> command)
+            arglist = ArgList(command)
         elif isinstance(command, ArgList):
             arglist = <ArgList> command
 
@@ -75,3 +78,7 @@ cdef class Analysis:
         Parameters: None
         """
         self.baseptr.Analyze()
+
+    def run(self, *args, **kwd):
+        self.read_input(*args, **kwd)
+        return self.do_analysis()

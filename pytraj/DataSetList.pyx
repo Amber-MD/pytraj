@@ -78,10 +78,7 @@ cdef class DataSetList:
             raise ValueError("index is out of range")
         # get memoryview
         dset.baseptr0 = self.thisptr.index_opr(idx)
-        return dset
-
-    def set_debug(self,int id):
-        self.thisptr.SetDebug(id)
+        return cast_dataset(dset, dtype=dset.dtype)
 
     def set_ensemble_num(self,int i):
         self.thisptr.SetEnsembleNum(i)
@@ -96,38 +93,31 @@ cdef class DataSetList:
         cdef DataSet dset = DataSet()
         dset.baseptr0 = self.thisptr.GetSet(dsname, idx, attr_arg)
 
-    def get_dataset(self, string name="", idx=None, string dtype=""):
+    def get_dataset(self, idx=None, name=None):
         """
         return DataSet instance
         Input:
         =====
-        filename :: str
-        dtype : str
-            Type of dataset ('double', 'matrix', '1D', '2D')
+        name :: str, optional
+        idx :: integer, optional
         """
         cdef DataSet dset = DataSet()
-        if not name.empty() and idx is not None:
+
+        if name is not None and idx is not None:
             raise ValueError("name and idx must not be set at the same time")
         else:
-            if not name.empty():
+            if name is not None:
+                name = name.encode()
                 dset.baseptr0 = self.thisptr.GetDataSet(name)
             if idx is not None:
-                dset = self[idx]
-            if dtype.empty():
-                return dset
-            else:
-                return cast_dataset(dset, dtype=dtype)
-
+                dset.baseptr0 = self.thisptr.index_opr(idx)
+            return dset
 
     def get_multiple_sets(self, string s):
         """TODO: double-check cpptraj"""
         cdef DataSetList dlist = DataSetList()
         dlist.thisptr[0] = self.thisptr.GetMultipleSets(s)
         return dlist
-
-    # why need this?
-    #def generate_default_name(self, char* s):
-    #    return self.thisptr.GenerateDefaultName(s)
 
     def add_set(self, DataType dtype, string s, char * c):
         # TODO: check cpptraj for this method
@@ -142,40 +132,15 @@ cdef class DataSetList:
             raise MemoryError("Can not initialize pointer")
         return dset
 
-    #def DataSet * AddSetAspect(self,DataSet::DataType, string, string):
-
-    #def DataSet * AddSetIdxAspect(self,DataSet::DataType, string, int, string):
-
-    #def DataSet * AddSetIdxAspect(self,DataSet::DataType, string, int, string, string):
-
     def add_copy_of_set(self, DataSet dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
 
     def printlist(self):
         self.thisptr.List()
 
-    #def find_set_of_type(self, string filename, string key):
-    #    pass
-    #    # make sure to use upper case and there is no blank around
-    #    # "MyString  " --> "MYSTRING"
-    #    # TODO : segmentfault
-    #    # TODO : add more type
-    #    # currently work with "TRAJ"
-    #    key = key.upper().split()[0]
-    #    cdef DataType dtype = <DataType> DataTypeDict[key]
-    #    #cdef DataSet dtset = DataSet()
-    #    cdef DataSet_Coords_TRJ dtset = DataSet_Coords_TRJ()
-    #    dtset.thisptr = <_DataSet_Coords_TRJ*> self.thisptr.FindSetOfType(filename, dtype)
-    #    #print <_DataSet_Coords_TRJ*> self.thisptr.FindSetOfType(filename, dtype)
-    #    # add py_free_mem?
-    #    # make sure that all pointers pointing to the same addresses
-    #    dtset._recast()
-    #    return dtset
-
     def find_coords_set(self, string filename):
         cdef DataSet dtset = DataSet()
         dtset.baseptr0 = self.thisptr.FindCoordsSet(filename)
         if not dtset.baseptr0:
             raise MemoryError("Can not initialize pointer")
-        #dtset.baseptr0[0] = (self.thisptr.FindCoordsSet(filename))[0]
         return dtset

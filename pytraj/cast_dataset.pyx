@@ -5,7 +5,7 @@ from pytraj.datasets.DataSet_double cimport DataSet_double, _DataSet_double
 from pytraj.datasets.DataSet_MatrixDbl cimport DataSet_MatrixDbl, _DataSet_MatrixDbl
 from pytraj.datasets.DataSet cimport DataSet, _DataSet
 
-def cast_dataset(DataSet dset, dtype='general'):
+def cast_dataset(dsetin, dtype='general'):
     """create memoryview for DataSet instance. 
     DataSet instace is taken from DatatSetList
     Parameters
@@ -15,10 +15,16 @@ def cast_dataset(DataSet dset, dtype='general'):
         {'general', 'matrix', '1D', '2D', 'double', 'matrix_dbl'}
     """
     # TODO : rename data set
+    cdef DataSet dset
     cdef DataSet_1D newset1D
     cdef DataSet_2D newset2D
     cdef DataSet_double newset_double
     cdef DataSet_MatrixDbl newset_MatrixDbl
+
+    if not isinstance(dsetin, DataSet):
+        dset = <DataSet> dsetin.alloc()
+    else:
+        dset = <DataSet> dsetin
 
     dtype = dtype.upper()
 
