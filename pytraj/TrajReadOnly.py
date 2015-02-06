@@ -9,3 +9,12 @@ from pytraj.Trajin_Single import Trajin_Single
 class TrajReadOnly(Trajin_Single):
     def __init__(self, *args, **kwd):
         pass
+
+    @property
+    def topology(self):
+        """traditional name for Topology file"""
+        return self.top
+
+    @topology.setter
+    def topology(self, newtop):
+        self.top = newtop

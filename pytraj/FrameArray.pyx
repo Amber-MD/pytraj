@@ -81,6 +81,13 @@ cdef class FrameArray (object):
         for frame in self:
             del frame.thisptr
 
+    property topology:
+        def __get__(self):
+            """traditional name for Topology file"""
+            return self.top
+        def __set__(self, newtop):
+            self.top = newtop
+
     def load(self, filename='', Topology top=None, indices=None):
         # TODO : add more test cases
         # should we add hdf5 format here?
