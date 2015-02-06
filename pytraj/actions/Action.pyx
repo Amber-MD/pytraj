@@ -164,25 +164,19 @@ cdef class Action:
                   current_top=Topology(),
                   dslist=DataSetList(), 
                   dflist=DataFileList(), 
-                  #flist=FrameList(), 
                   new_top=Topology(),
                   new_frame=Frame(),
                   int idx=0,
                   int debug=0,
-                  update_frame=False):
-        """combined all 3 steps
-                master(command='', int idx=0,
-                       current_top=TopologyList(),current_frame=Frame(),
-                       #FrameList flist=FrameList(), 
-                       DataSetList dslist=DataSetList(), 
-                       DataFileList dflist=DataFileList(), 
-                       new_top=Topology(),
-                       new_frame=Frame(),
-                       int debug=0):
+                  update_frame=False,
+                  quick_get=False):
+        """
+        TODO : add doc
         """
         self.read_input(command=command, current_top=current_top, 
                         dslist=dslist,
                         dflist=dflist, debug=debug)
+
         self.process(current_top=current_top, new_top=new_top)
         if isinstance(current_frame, Frame):
             frame = current_frame
@@ -197,11 +191,15 @@ cdef class Action:
                     farray.append(new_frame)
 
         # currently support only dtype = 'DOUBLE' or 'MATRIX_DBL'
-        dtype = dslist[0].dtype.upper()
-        if dtype in ['DOUBLE', 'MATRIX_DBL']:
-            d0 = cast_dataset(dslist[0], dtype=dtype)
-            return d0
+        # we get the last dataset from dslist
+        # (if we call self.run() several times, the result will be dumped to dslist)
+        if quick_get:
+            idx = dslist.size - 1
+            dtype = dslist[idx].dtype.upper()
+            if dtype in ['DOUBLE', 'MATRIX_DBL']:
+                d0 = cast_dataset(dslist[idx], dtype=dtype)
+                return d0
 
     def master(self, *args, **kwd):
         """keep this method since some of examples uses them"""
-        self.run(*args, **kwd)
+        return self.run(*args, **kwd)

@@ -16,8 +16,12 @@ def run_tests():
     # test import action
     action_help()
     print ("all cpptraj actions")
-    print (adict.keys())
-
+    for key in sorted(adict.keys()):
+        print (key)
+        # make Action objects
+        # not sure why getting " free(): invalid next size (fast)" error
+        #adict[key]
+    #print (adict.keys())
     print ("OK")
 
 if __name__ == '__main__':

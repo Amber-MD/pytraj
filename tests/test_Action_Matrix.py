@@ -30,7 +30,7 @@ class TestRadgyr(unittest.TestCase):
             print (d1[i])
 
         # another way
-        d0 = adict['matrix']("byres @CA", farray, farray.top)
+        d0 = adict['matrix']("byres @CA", farray, farray.top, quick_get=True)
         print (d0.size)
         print (dir(d0))
         print (d0.n_cols, d0.n_rows)
@@ -39,7 +39,10 @@ class TestRadgyr(unittest.TestCase):
         print (d0.kind)
         print (d0.data_format)
 
-        assert_almost_equal (d0, d1)
+        assert_almost_equal(d0, d1)
+        d2 = adict['distance'](":2@CA :10@CA", farray, farray.top, quick_get=True)
+        print (d2.dtype) 
+        #assert d2[:] != d0[:]
 
 if __name__ == "__main__":
     unittest.main()
