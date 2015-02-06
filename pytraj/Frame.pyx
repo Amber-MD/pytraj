@@ -606,7 +606,7 @@ cdef class Frame (object):
     def rmsd(self, Frame frame, AtomMask atommask=None, 
              mask=None, top=None,
              bint use_mass=False, get_mvv=False):
-        # TODO : add mask,
+        # TODO : use_mass does not work properly
         """Calculate rmsd betwen two frames
         rmsd(Frame frame, bint use_mass=False, get_mvv=False):
         Parameters:

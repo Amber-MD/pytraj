@@ -9,6 +9,7 @@ class TestRandomizeIons(unittest.TestCase):
                     top="./Test_RandomizeIons/adh206.ff10.tip3p.parm7.gz")
         # get 1st frame from `traj`
         frame0 = traj[0]
+        fsaved = frame0.copy()
         
         # randomize ions for frame0
         randomize_ions(frame0,
@@ -20,6 +21,19 @@ class TestRandomizeIons(unittest.TestCase):
                           top="./Test_RandomizeIons/adh206.ff10.tip3p.parm7.gz")[0]
         
         assert frame0.rmsd(savedframe) < 1E-3
+        # all atoms
+        _rmsd = frame0.rmsd(fsaved)
+        print (_rmsd)
+        _rmsd = frame0.rmsd(fsaved, use_mass=True)
+        print (_rmsd)
+
+        # only P
+        _rmsd = frame0.rmsd(fsaved, traj.top("@P"))
+        print (_rmsd)
+
+        # another way
+        _rmsd = frame0.rmsd(fsaved, top=traj.top, mask="@P")
+        print (_rmsd)
 
 if __name__ == "__main__":
     unittest.main()
