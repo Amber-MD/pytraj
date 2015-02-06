@@ -83,6 +83,19 @@ class TestStrip(unittest.TestCase):
         print(frame0_view.n_atoms)
         print(newtop.n_atoms)
 
+    def test_1(self):
+        from pytraj import adict
+        farray0 = farray.copy()
+        act = adict['strip']
+        tmpframe = Frame()
+        newf = FrameArray()
+        newf.top = farray0.top.strip_atoms("!@CA", copy=True)
+
+        for i, _ in enumerate(farray0):
+            act("!CA", farray0[i], farray0.top.copy(), new_frame=tmpframe)
+            newf.append(tmpframe)
+
+        assert (newf[0].n_atoms == newf.top.n_atoms)
 
 if __name__ == "__main__":
     unittest.main()
