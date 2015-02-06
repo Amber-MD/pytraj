@@ -10,9 +10,10 @@ class Test(unittest.TestCase):
         print (analdict.keys())
 
     def test_1(self):
-        traj = mdio.load("./data/tz2.nc",  "./data/tz2.parm7")
-        print (traj)
-        analdict['rms2d'](":2@CA :10@CA", traj, traj.top)
+        pass
+        #traj = mdio.load("./data/tz2.nc",  "./data/tz2.parm7")
+        #print (traj)
+        #analdict['rms2d'](":2@CA :10@CA", traj, traj.top)
 
 
 if __name__ == "__main__":
