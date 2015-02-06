@@ -4,7 +4,7 @@ from pytraj.analyses import allanalyses
 ADICT = {}
 
 for key in allanalyses.__dict__.keys():
-    if "Action_" in key:
+    if "Analysis_" in key:
         act = key.split('Analysis_')[1]
         #print (act)
         # create dict of analysis objects
