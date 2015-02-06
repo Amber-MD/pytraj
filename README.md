@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/hainm/pytraj.svg?branch=master)](https://travis-ci.org/hainm/pytraj)
-Welcom to pytraj!
+Welcome to pytraj!
 -------------------
 
 - pytraj is a Python package wrapping cpptraj program (a data analysis for biomolecular simulation)
@@ -13,7 +13,7 @@ Welcom to pytraj!
     * It's flexible: 
         * you can write extension modules in either high (Python) or low (C/C++ or Cython) level
 
-Citing (optional):
+Citation (optional):
 -----------------
 - cpptraj : [PTRAJ and CPPTRAJ] (http://pubs.acs.org/doi/abs/10.1021/ct400341p): Software for Processing and Analysis of Molecular Dynamics Trajectory Data
 Daniel R. Roe and Thomas E. Cheatham, III
