@@ -40,9 +40,22 @@ class Test(unittest.TestCase):
         has_plot, _plt = _import('matplotlib.pyplot')
         print (has_plot)
         if has_plot:
-            plt = _plt.pyplot
-            plt.xlabel('snapshot #')
-            simple_plot(d2, 'ro')
+            pass
+            #plt = _plt.pyplot
+            #plt.xlabel('snapshot #')
+            #simple_plot(d2, 'ro')
+            #plt.close()
+
+    def test_1(self):
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
+        # print help
+        calculate()
+        # print help for `strip`
+        calculate(key='strip')
+        # try mix cases
+        calculate(key='RmSd')
+        calculate(key='RandomizeIonS')
 
 if __name__ == "__main__":
     unittest.main()
