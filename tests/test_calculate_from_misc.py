@@ -4,6 +4,8 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj import calculate, adict
 from pytraj.utils.Timer import Timer
+from pytraj.misc import simple_plot
+from pytraj import _import
 import numpy as np
 
 class Test(unittest.TestCase):
@@ -20,7 +22,7 @@ class Test(unittest.TestCase):
         np.testing.assert_almost_equal(d1[:], cppout[:d1.size], decimal=3)
 
         with Timer() as t:
-            trajlist = [traj for _ in range(1000)]
+            trajlist = [traj,]
         print ("time to add traj to list = ", t.time_gap)
 
         with Timer() as t:
@@ -34,7 +36,13 @@ class Test(unittest.TestCase):
         print ("time to do looping all frames = ", t.time_gap)
 
         np.testing.assert_almost_equal(d2[:][:10], cppout[:10], decimal=3)
-        print (d2.size)
+
+        has_plot, _plt = _import('matplotlib.pyplot')
+        print (has_plot)
+        if has_plot:
+            plt = _plt.pyplot
+            plt.xlabel('snapshot #')
+            simple_plot(d2, 'ro')
 
 if __name__ == "__main__":
     unittest.main()
