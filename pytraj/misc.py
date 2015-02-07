@@ -136,13 +136,17 @@ def show_code(func, get_txt=False):
 def calculate(action=None, command="", traj=None, top=None):
     """quick way to get data
     Parameters:
-    action : Action object, default=None
+    action : Action object or str, default=None
     command : str, default=None
-    traj : Trajectory object (FrameArray, TrajReadOnly, ...)
+    traj : Trajectory object (FrameArray, TrajReadOnly, ...) or list, tuple of traj object
     top : topology
     """
     if top is None:
-        top = traj.top
+        try:
+           top = traj.top
+        except:
+            # list, tuple of traj objects
+            top = traj[0].top
     if traj is None:
         raise ValueError("must have trajectory object")
     if isinstance(action, string_types):

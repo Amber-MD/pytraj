@@ -18,5 +18,9 @@ class Test(unittest.TestCase):
         d1 = calculate('distance', ':2@CA :10@CA', traj)
         np.testing.assert_almost_equal(d1[:], cppout[:d1.size], decimal=3)
 
+        d2 = calculate('distance', ':2@CA :10@CA', (traj, traj))
+        np.testing.assert_almost_equal(d2[:][:10], d2[:][10:], decimal=3)
+        print (d2.size)
+
 if __name__ == "__main__":
     unittest.main()
