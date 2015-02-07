@@ -32,6 +32,7 @@ from pytraj.data_sample.load_sample_data import load_sample_data
 # actions
 from pytraj.actions import allactions
 from pytraj.analyses import allanalyses
+from pytraj.misc import calculate
 
 try:
     amber_home = os.environ['AMBERHOME']
