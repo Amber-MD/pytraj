@@ -15,10 +15,15 @@ for key in allactions.__dict__.keys():
 class ActionDict:
     def __init__(self):
         self.adict = ADICT
+        self.action_holder = None
 
     def __getitem__(self, key):
         # return Action object
-        return self.adict[key]()
+        self.action_holder = self.adict[key]()
+        return self.action_holder
+
+    def __del__(self):
+        del self.action_holder
 
     def keys(self):
         return self.adict.keys()

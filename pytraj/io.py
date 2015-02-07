@@ -67,7 +67,7 @@ def writetraj(filename="", traj=None, top=None,
     else:
         fmt = fmt.upper()
 
-    if not traj or not top:
+    if traj is None or top is None:
         raise ValueError("Need non-empty traj and top files")
 
     with Trajout(filename=filename, top=top, fmt=fmt, overwrite=overwrite) as trajout:
@@ -83,13 +83,20 @@ def writetraj(filename="", traj=None, top=None,
 
             if indices is None:
                 # write all traj
-                for idx, frame in enumerate(traj2):
-                    trajout.writeframe(idx, frame, top)
+                if isinstance(traj2, (FrameArray, TrajReadOnly)):
+                    for idx, frame in enumerate(traj2):
+                        trajout.writeframe(idx, frame, top)
+                elif isinstance(traj2, (list, tuple)):
+                    # list, tuple
+                    for traj3 in traj2:
+                        for idx, frame in enumerate(traj3):
+                            trajout.writeframe(idx, frame, top)
             else:
                 if isinstance(traj2, (list, tuple)):
                     raise NotImplementedError("must be FrameArray or TrajReadOnly instance")
                 for idx in indices:
                     trajout.writeframe(idx, traj2[idx], top)
+
 
 def writeparm(filename=None, top=None, fmt='AMBERPARM'):
     # TODO : add *args
@@ -125,3 +132,8 @@ def loadpdb_rcsb(pdbid):
 def load_single_frame(frame=None, top=None):
     """load single Frame"""
     return load(frame, top)[0]
+
+# creat alias
+write_traj = writetraj
+write_parm = writeparm
+load_traj = loadtraj

@@ -1,8 +1,10 @@
 import unittest
 from pytraj.base import *
 import pytraj.io as mdio
+from pytraj.decorators import no_test
 
 class TestPyCpptrajIO(unittest.TestCase):
+    @no_test
     def test_save_traj_from_file(self):
         print("test_save_traj_from_file")
         Trajout().help()
