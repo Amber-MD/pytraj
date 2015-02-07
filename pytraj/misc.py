@@ -149,7 +149,8 @@ def calculate(action=None, command=None, traj=None, top=None, **kwd):
     from pytraj import adict
     if action is None and command is None and traj is None and top is None:
         if not kwd:
-            print (calculate.__doc__)
+            #
+            #print (calculate.__doc__)
             print ()
             print (adict.keys())
             print ()
