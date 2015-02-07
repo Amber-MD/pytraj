@@ -15,7 +15,7 @@ class Traj_AmberRestart : public TrajectoryIO {
     int processReadArgs(ArgList&);
     bool ID_TrajFormat(CpptrajFile&);
     int setupTrajin(std::string const&, Topology*);
-    int setupTrajout(std::string const&, Topology*, int, bool);
+    int setupTrajout(std::string const&, Topology*, CoordinateInfo const&,int, bool);
     int openTrajin();
     void closeTraj();
     int readFrame(int,Frame&);
@@ -37,6 +37,9 @@ class Traj_AmberRestart : public TrajectoryIO {
     bool singleWrite_;     ///< If false, frame # will be appended to output filename
     bool readAccess_;      ///< If true, presence/absence of velocity info is known
     bool useVelAsCoords_;  ///< If true read velocities in as coordinates.
+    bool outputTemp_;
+    bool outputVel_;
+    bool outputTime_;
     BufferedFrame file_;
 };
 #endif

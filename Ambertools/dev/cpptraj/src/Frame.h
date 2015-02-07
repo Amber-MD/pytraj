@@ -2,7 +2,7 @@
 #define INC_FRAME_H
 #include "Atom.h"
 #include "AtomMask.h"
-#include "Box.h"
+#include "CoordinateInfo.h"
 // Class: Frame
 /// Hold coordinates, perform various operations/transformations on them.
 /** Intended to hold coordinates e.g. from a trajectory or reference frame,
@@ -30,6 +30,7 @@
   */
 class Frame {
   public:
+    static void PrintCoordInfo( const char*, const char*, CoordinateInfo const&);
     // Construction/Destruction/Assignment
     Frame();
     ~Frame();
@@ -73,6 +74,7 @@ class Frame {
     int size()                        const { return ncoord_;        }
     int NrepDims()                    const { return (int)remd_indices_.size(); } // TODO: deprecate
     double Temperature()              const { return T_;             }
+    double Time()                     const { return time_;          }
     /// \return pointer to start of XYZ coords for given atom.
     const double* XYZ(int atnum)      const { return X_ + (atnum*3); } 
     /// \return pointer to specified coordinate.
@@ -89,14 +91,20 @@ class Frame {
     inline double* vAddress() { return V_;                }
     inline double* bAddress() { return box_.boxPtr();     }
     inline double* tAddress() { return &T_;               }
+    inline double* mAddress() { return &time_;            }
     inline int* iAddress()    { return &remd_indices_[0]; }
     inline const double* xAddress() const { return X_;                }
     inline const double* vAddress() const { return V_;                }
     inline const double* bAddress() const { return box_.boxPtr();     }
     inline const double* tAddress() const { return &T_;               }
+    inline const double* mAddress() const { return &time_;            }
     inline const int* iAddress()    const { return &remd_indices_[0]; }
     /// Set box alpha, beta, and gamma
     inline void SetBoxAngles(const double*);
+    /// Set temperature
+    void SetTemperature(double tIn) { T_ = tIn;   }
+    /// Set time
+    void SetTime(double tIn)        {time_ = tIn; }
     /// Allocate frame for given # atoms, no mass or velocity.
     int SetupFrame(int);
     /// Allocate frame for given # atoms with mass, no velocity. 
@@ -104,7 +112,7 @@ class Frame {
     /// Allocate frame with given XYZ coords and masses, no velocity.
     int SetupFrameXM(std::vector<double> const&, std::vector<double> const&);
     /// Allocate frame for given # atoms with mass and opt. velocity/indices.
-    int SetupFrameV(std::vector<Atom> const&,bool,int);
+    int SetupFrameV(std::vector<Atom> const&, CoordinateInfo const&);
     /// Allocate frame for selected # atoms, coords/mass only.
     int SetupFrameFromMask(AtomMask const&, std::vector<Atom> const&);
     /// Copy coordinates, box, and temp. from input frame according to mask. 
@@ -187,6 +195,7 @@ class Frame {
     int ncoord_;    ///< Number of coordinates stored in frame (natom * 3).
     Box box_;       ///< Box coords, 3xlengths, 3xangles
     double T_;      ///< Temperature
+    double time_;   ///< Time FIXME Should this be float?
     double* X_;     ///< Coord array, X0 Y0 Z0 X1 Y1 Z1 ...
     double* V_;     ///< Velocities (same arrangement as Coords).
     RemdIdxType remd_indices_; ///< replica indices.

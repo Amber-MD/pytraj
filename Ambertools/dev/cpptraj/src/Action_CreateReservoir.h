@@ -25,6 +25,7 @@ class Action_CreateReservoir : public Action {
     int iseed_;
     std::string filename_;
     bool trajIsOpen_;
+    bool useVelocity_;
     size_t nframes_;
 };
 #endif

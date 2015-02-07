@@ -43,14 +43,14 @@ Action::RetType Action_Box::Init(ArgList& actionArgs, TopologyList* PFL, DataSet
 // Action_Box::Setup()
 Action::RetType Action_Box::Setup(Topology* currentParm, Topology** parmAddress) {
   if (nobox_) {
-    currentParm->SetBox( Box() );
+    currentParm->SetParmBox( Box() );
     mprintf("\tRemoving box info.\n");
   } else {
     Box pbox( box_ );
     // Fill in missing parm box information from specified parm
     pbox.SetMissingInfo( currentParm->ParmBox() );
     mprintf("\tNew box type is %s\n", pbox.TypeName() );
-    currentParm->SetBox( pbox );
+    currentParm->SetParmBox( pbox );
   }
   return Action::OK;
 }

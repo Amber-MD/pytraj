@@ -19,6 +19,7 @@ int Traj_SQM::processWriteArgs(ArgList& argIn) {
 
 // Traj_SQM::setupTrajout()
 int Traj_SQM::setupTrajout(std::string const& fname, Topology* trajParm,
+                           CoordinateInfo const& cInfoIn,
                            int NframesToWrite, bool append)
 {
   if (trajParm==0) return 1;
@@ -26,6 +27,7 @@ int Traj_SQM::setupTrajout(std::string const& fname, Topology* trajParm,
     mprinterr("Error: Append not supported for SQM.\n");
     return 1;
   }
+  SetCoordInfo( cInfoIn );
   if (outfile_.SetupWrite( fname, debug_ )) return 1;
   sqmParm_ = trajParm;
   if (NframesToWrite==1) singleWrite_ = true;

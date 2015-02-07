@@ -70,7 +70,7 @@ Action::RetType Action_LESsplit::Setup(Topology* currentParm, Topology** parmAdd
     lesParm_ = currentParm->modifyStateByMask( lesMasks_[0] );
     if (lesParm_ == 0) return Action::ERR;
     // Set up frame to hold individual copy
-    lesFrame_.SetupFrameV(lesParm_->Atoms(), lesParm_->HasVelInfo(), lesParm_->NrepDim());
+    lesFrame_.SetupFrameV(lesParm_->Atoms(), lesParm_->ParmCoordInfo());
     if (lesSplit_) {
       // Set up output trajectories
       lesTraj_.clear();

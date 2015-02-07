@@ -15,7 +15,7 @@ class Traj_AmberRestartNC : public TrajectoryIO, private NetcdfFile {
     // Inherited functions
     bool ID_TrajFormat(CpptrajFile&);
     int setupTrajin(std::string const&, Topology*);
-    int setupTrajout(std::string const&, Topology*, int, bool);
+    int setupTrajout(std::string const&, Topology*, CoordinateInfo const&,int, bool);
     int openTrajin();
     void closeTraj();
     int readFrame(int,Frame&);
@@ -27,6 +27,10 @@ class Traj_AmberRestartNC : public TrajectoryIO, private NetcdfFile {
     double restartTime_;
     bool singleWrite_;
     bool useVelAsCoords_;
+    bool outputTemp_;
+    bool outputVel_;
+    bool outputTime_;
+    bool readAccess_;
     double time0_;
     double dt_;
     FileName filename_;

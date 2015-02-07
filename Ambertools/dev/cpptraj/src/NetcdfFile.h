@@ -1,7 +1,7 @@
 #ifndef INC_NETCDFFILE_H
 #define INC_NETCDFFILE_H
 #include <string>
-#include "ReplicaDimArray.h"
+#include "CoordinateInfo.h"
 /// The base interface to NetCDF trajectory files.
 class NetcdfFile {
   public:
@@ -19,8 +19,8 @@ class NetcdfFile {
     int NC_openRead(std::string const&);
     int NC_openWrite(std::string const&);
     int NC_createReservoir(bool, double, int, int&, int&);
-    int NC_create(std::string const&,NCTYPE,int,bool,bool,bool,bool,bool,
-                  bool, ReplicaDimArray const&, std::string const&);
+    int NC_create(std::string const&, NCTYPE, int, 
+                  CoordinateInfo const&, std::string const&);
     void NC_close();
 
     int SetupFrameDim();
@@ -38,9 +38,10 @@ class NetcdfFile {
     inline int Ncatom3()  const { return ncatom3_; }
     inline int Ncframe()  const { return ncframe_; }
     inline int CoordVID() const { return coordVID_; }
-    bool HasVelocities() { return (velocityVID_ != -1); }
-    bool HasCoords()     { return (coordVID_ != -1);    }
-
+    bool HasVelocities()   { return (velocityVID_ != -1); }
+    bool HasCoords()       { return (coordVID_ != -1);    }
+    bool HasTemperatures() { return (TempVID_ != -1);     }
+    bool HasTimes()        { return (timeVID_ != -1);     }
     inline void SetNcatom( int natomIn ) { ncatom_ = natomIn; }
   protected: // TODO: Make all private
     size_t start_[3];

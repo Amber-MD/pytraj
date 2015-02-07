@@ -433,10 +433,11 @@ cdef class Frame (object):
     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
         return self.thisptr.SetupFrameXM(Xin, massIn)
 
-    def set_frame_v(self, Topology top, bint has_vel=False, int n_repdims=0):
+    # BROKEN WITH NEW CPPTRAJ
+    def set_frame_v(self, Topology top):
         """TODO: add doc
         """
-        return self.thisptr.SetupFrameV(top.thisptr.Atoms(), has_vel, n_repdims)
+        return self.thisptr.SetupFrameV(top.thisptr.Atoms(), top.thisptr.ParmCoordInfo())
 
     def set_frame_from_mask(self, mask, atomlist_or_top):
         cdef Atom atom
@@ -689,6 +690,7 @@ cdef class Frame (object):
         return self.thisptr.CalcTemperature(mask.thisptr[0], deg_of_freedom)
 
     # use Action_Strip here?
+    # TODO : BROKEN
     cdef void _strip_atoms(Frame self, Topology top, string mask, bint update_top, bint has_box):
         """this method is too slow vs cpptraj
         if you use memory for numpy, you need to update after resizing Frame
@@ -712,9 +714,8 @@ cdef class Frame (object):
         top.thisptr.SetupIntegerMask(atm.thisptr[0])
         newtop.thisptr = top.thisptr.modifyStateByMask(atm.thisptr[0])
         if not has_box:
-            newtop.thisptr.SetBox(_Box())
-        tmpframe.thisptr.SetupFrameV(newtop.thisptr.Atoms(), newtop.thisptr.HasVelInfo(), 
-                                     newtop.thisptr.NrepDims()) 
+            newtop.thisptr.SetParmBox(_Box())
+        tmpframe.thisptr.SetupFrameV(newtop.thisptr.Atoms(), newtop.thisptr.ParmCoordInfo())
         tmpframe.thisptr.SetFrame(self.thisptr[0], atm.thisptr[0])
         self.thisptr[0] = tmpframe.thisptr[0]
         if update_top:

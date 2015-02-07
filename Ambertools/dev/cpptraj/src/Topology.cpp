@@ -20,15 +20,54 @@ Topology::Topology() :
   pindex_(0),
   nframes_(0),
   n_extra_pts_(0),
-  n_atom_types_(0),
-  hasVelInfo_(false),
-  nRepDim_(0)
+  n_atom_types_(0)
 { }
 
 // Topology::SetParmName()
 void Topology::SetParmName(std::string const& title, FileName const& filename) {
   parmName_ = title;
   fileName_ = filename;
+}
+
+/** Used to set expected coordinate info from currently associated
+  * trajectory. Modify box information as appropriate.
+  */
+void Topology::SetParmCoordInfo(CoordinateInfo const& cinfoIn)
+{
+  Box const& boxIn = cinfoIn.TrajBox();
+  Box parmBox = coordInfo_.TrajBox();
+  if (!boxIn.HasBox()) {
+    // No incoming box.
+    if ( parmBox.HasBox()) {
+      // No incoming box and parm has box - disable parm box.
+      mprintf("Warning: Box information present in parm but not in trajectory.\n"
+              "Warning: DISABLING BOX in parm '%s'!\n", c_str());
+      parmBox.SetNoBox();
+    }
+  } else {
+    // Incoming box.
+    if ( boxIn.BoxX() < Constants::SMALL || 
+         boxIn.BoxY() < Constants::SMALL || 
+         boxIn.BoxZ() < Constants::SMALL )
+    {
+      // Incoming box has no lengths - disable parm box.
+      mprintf("Warning: Box information present in trajectory but lengths are zero.\n"
+              "Warning: DISABLING BOX in parm '%s'!\n", c_str());
+      parmBox.SetNoBox();
+    } else {
+      // Incoming box is valid. Indicate if current box type differs from
+      // incoming box type.
+      if (parmBox.Type() != boxIn.Type()) {
+        mprintf("Warning: Trajectory box type is '%s' but topology box type is '%s'.\n"
+                "Warning: Setting topology box information from trajectory.\n",
+                boxIn.TypeName(), parmBox.TypeName());
+      }
+      parmBox = boxIn;
+    }
+  }
+  coordInfo_ = CoordinateInfo(cinfoIn.ReplicaDimensions(), parmBox,
+                              cinfoIn.HasVel(), cinfoIn.HasTemp(),
+                              cinfoIn.HasTime(), cinfoIn.HasForce());
 }
 
 // Topology::SetReferenceCoords()
@@ -199,7 +238,7 @@ void Topology::Summary() const {
   s2 = dihedrals_.size();
   if (s1 + s2 > 0)
     mprintf("\t\t%zu dihedrals (%zu with H, %zu other).\n", s1+s2, s1, s2);
-  mprintf("\t\tBox: %s\n",box_.TypeName());
+  mprintf("\t\tBox: %s\n", coordInfo_.TrajBox().TypeName());
   if (NsolventMolecules_>0) {
     mprintf("\t\t%i solvent molecules.\n", NsolventMolecules_);
   }
@@ -231,7 +270,7 @@ void Topology::Brief(const char* heading) const {
   else if (!parmName_.empty())
     mprintf(" %s,", parmName_.c_str());
   mprintf(" %zu atoms, %zu res, box: %s, %zu mol", atoms_.size(), 
-          residues_.size(), box_.TypeName(), molecules_.size());
+          residues_.size(), coordInfo_.TrajBox().TypeName(), molecules_.size());
   if (NsolventMolecules_>0)
     mprintf(", %i solvent", NsolventMolecules_);
   if (heading != 0)
@@ -1485,8 +1524,7 @@ Topology* Topology::ModifyByMap(std::vector<int> const& MapIn, bool setupFullPar
   // NOTE: Do NOT copy tag to avoid duplication.
   newParm->radius_set_ = radius_set_;
   newParm->debug_ = debug_;
-  newParm->hasVelInfo_ = hasVelInfo_;
-  newParm->nRepDim_ = nRepDim_;
+  newParm->coordInfo_ = coordInfo_; // TODO: Necessary? This should also copy box
   newParm->n_atom_types_ = n_atom_types_;
 
   // Reverse Atom map
@@ -1552,7 +1590,7 @@ Topology* Topology::ModifyByMap(std::vector<int> const& MapIn, bool setupFullPar
   newParm->pindex_ = pindex_;
   newParm->nframes_ = nframes_;
   // Copy box information
-  newParm->box_ = box_;
+  //newParm->box_ = box_;
   // If we dont care about setting up full parm information, exit now.
   if (!setupFullParm) return newParm;
 

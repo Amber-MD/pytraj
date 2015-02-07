@@ -271,8 +271,9 @@ cdef class Topology:
         maskString = maskString.encode()
         self.thisptr.PrintChargeMassInfo(maskString, idtype)
 
-    def has_vel(self):
-        return self.thisptr.HasVelInfo()
+    # BROKEN
+    #def has_vel(self):
+    #    return self.thisptr.HasVelInfo()
     
     def add_atom(self, Atom atom=Atom(), 
                  int resid=0, 
@@ -339,9 +340,10 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Nframes()
 
-    property n_repdims:
-        def __get__(self):
-            return self.thisptr.NrepDims()
+    # BROKEN
+    #property n_repdims:
+    #    def __get__(self):
+    #        return self.thisptr.NrepDims()
 
     property parm_name:
         def __get__(self):
@@ -372,7 +374,7 @@ cdef class Topology:
         self.thisptr.ScaleDihedralK(value)
 
     def set_box(self, Box boxin):
-        self.thisptr.SetBox(boxin.thisptr[0])
+        self.thisptr.SetParmBox(boxin.thisptr[0])
 
     def partial_modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
@@ -389,7 +391,7 @@ cdef class Topology:
         top.thisptr[0] = deref(self.thisptr.ModifyByMap(m))
         return top
 
-    def strip_atoms(Topology self, mask):
+    def strip_atoms(Topology self, mask, copy=False):
         # TODO : shorter way?
         """strip atoms with given mask"""
         cdef AtomMask atm = AtomMask()
@@ -400,7 +402,10 @@ cdef class Topology:
         atm.thisptr.InvertMask()
         self.thisptr.SetupIntegerMask(atm.thisptr[0])
         tmptop.thisptr = self.thisptr.modifyStateByMask(atm.thisptr[0])
-        self.thisptr[0] = tmptop.thisptr[0]
+        if copy:
+            return tmptop
+        else:
+            self.thisptr[0] = tmptop.thisptr[0]
 
     def tag(self):
         # what does this do?
@@ -444,3 +449,8 @@ cdef class Topology:
 
     def get_resname_set(self):
         return self.get_unique_resname()
+
+    def parm_coordinnfo(self):
+        cdef CoordinateInfo coordinfo = CoordinateInfo()
+        coordinfo.thisptr[0] = self.thisptr.ParmCoordInfo()
+        return coordinfo

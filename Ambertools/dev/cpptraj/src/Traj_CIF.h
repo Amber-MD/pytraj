@@ -20,7 +20,7 @@ class Traj_CIF : public TrajectoryIO {
     int processWriteArgs(ArgList&) { return 0; }
     int readVelocity(int, Frame&)  { return 1; }
     int processReadArgs(ArgList&)  { return 0; }
-    int setupTrajout(std::string const&, Topology*, int, bool) { return 1; }
+    int setupTrajout(std::string const&, Topology*, CoordinateInfo const&,int, bool) { return 1; }
     int writeFrame(int,Frame const&)                           { return 1; } 
 
     CIFfile file_;

@@ -38,7 +38,7 @@ int Parm_SDF::ReadParm(std::string const& fname, Topology &parmOut) {
     parmOut.AddBond( at1-1, at2-1 );
   }
   // No box
-  parmOut.SetBox( Box() );
+  parmOut.SetParmBox( Box() );
 
   mprintf("    SDF contains %i atoms, %zu bonds,\n", parmOut.Natom(), 
           parmOut.Bonds().size() + parmOut.BondsH().size());

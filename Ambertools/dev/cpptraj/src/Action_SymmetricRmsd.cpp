@@ -77,8 +77,7 @@ Action::RetType Action_SymmetricRmsd::Setup(Topology* currentParm, Topology** pa
   if (SRMSD_.SetupSymmRMSD( *currentParm, tgtMask_, remap_ )) return Action::ERR;
   if (remap_) {
     // Allocate space for remapped frame; same # atoms as original frame
-    remapFrame_.SetupFrameV( currentParm->Atoms(), currentParm->HasVelInfo(),
-                             currentParm->NrepDim() );
+    remapFrame_.SetupFrameV( currentParm->Atoms(), currentParm->ParmCoordInfo() );
     targetMap_.resize( currentParm->Natom() );
   }
   // Reference frame setup

@@ -18,7 +18,7 @@ double DIST2_ImageNonOrtho(Vec3 const& a1, Vec3 const& a2,
   * \param a2 Second set of XYZ coordinates.
   * \param ucell Unit cell vectors.
   * \param recip Fractional cell vectors.
-  * \return the shortest vector between the coordinates.
+  * \return the shortest vector from a1 to a2. 
   */
 Vec3 MinImagedVec(Vec3 const& a1, Vec3 const& a2,
                   Matrix_3x3 const& ucell, Matrix_3x3 const& recip)

@@ -394,6 +394,24 @@ Action::RetType Action_Hbond::Setup(Topology* currentParm, Topology** parmAddres
   return Action::OK;
 }
 
+double Action_Hbond::ImagedAngle(const double* xyz_a, const double* xyz_h, const double* xyz_d) const
+{
+  double angle;
+  Vec3 VH = Vec3(xyz_h);
+  Vec3 H_A = MinImagedVec(VH, Vec3(xyz_a), ucell_, recip_);
+  Vec3 H_D = Vec3(xyz_d) - VH;
+  double rha = H_A.Magnitude2();
+  double rhd = H_D.Magnitude2();
+  if (rha > Constants::SMALL && rhd > Constants::SMALL) {
+    angle = (H_A * H_D) / sqrt(rha * rhd);
+    if      (angle >  1.0) angle =  1.0;
+    else if (angle < -1.0) angle = -1.0;
+    angle = acos(angle);
+  } else
+    angle = 0.0;
+  return angle;
+}
+
 // Action_Hbond::AtomsAreHbonded()
 /** Used to determine if solute atoms are bonded to solvent atoms. */
 int Action_Hbond::AtomsAreHbonded(Frame const& currentFrame, int frameNum, 
@@ -414,9 +432,15 @@ int Action_Hbond::AtomsAreHbonded(Frame const& currentFrame, int frameNum,
          a_atom+1, (*currentParm)[a_atom].c_str(), sqrt(dist2));*/
   // For ions, donor atom will be same as h atom so no angle needed.
   if (d_atom != h_atom) {
-    angle = CalcAngle( currentFrame.XYZ(a_atom), 
-                       currentFrame.XYZ(h_atom),
-                       currentFrame.XYZ(d_atom) );
+    if (Image_.ImageType() == NOIMAGE) {
+      angle = CalcAngle( currentFrame.XYZ(a_atom), 
+                         currentFrame.XYZ(h_atom),
+                         currentFrame.XYZ(d_atom) );
+    } else {
+      angle = ImagedAngle( currentFrame.XYZ(a_atom),
+                           currentFrame.XYZ(h_atom),
+                           currentFrame.XYZ(d_atom) );
+    }
     if (angle < acut_) return 0;
   } else
     angle = 0.0;
@@ -471,9 +495,10 @@ int Action_Hbond::AtomsAreHbonded(Frame const& currentFrame, int frameNum,
 #define SoluteHbond(a_atom, d_atom, h_atom)  { \
   dist2 = DIST2(currentFrame->XYZ(a_atom), currentFrame->XYZ(d_atom), Image_.ImageType(), currentFrame->BoxCrd(), ucell_, recip_); \
   if (dist2 > dcut2_) continue; \
-  angle = CalcAngle( currentFrame->XYZ(a_atom), \
-                     currentFrame->XYZ(h_atom), \
-                     currentFrame->XYZ(d_atom)       ); \
+  if (Image_.ImageType() == NOIMAGE) \
+    angle = CalcAngle(currentFrame->XYZ(a_atom), currentFrame->XYZ(h_atom), currentFrame->XYZ(d_atom)); \
+  else \
+    angle = ImagedAngle(currentFrame->XYZ(a_atom), currentFrame->XYZ(h_atom), currentFrame->XYZ(d_atom)); \
   if (angle < acut_) continue; \
   ++numHB; \
   dist = sqrt(dist2); \

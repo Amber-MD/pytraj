@@ -50,14 +50,13 @@ int Trajin_Single::SetupTrajRead(std::string const& tnameIn, ArgList& argIn,
   if (trajio_->processReadArgs( argIn )) return 1;
   // Set up the format for reading and get the number of frames.
   if (SetupTrajIO( tnameIn, *trajio_, argIn )) return 1;
+  // Set trajectory coordinate info.
+  cInfo_ = trajio_->CoordInfo();
   // Check how many frames will actually be read
   if (setupFrameInfo() == 0) return 1;
   // Check traj box info against parm box info
-  if (checkBox) { 
-    Box parmBox = tparmIn->ParmBox();
-    if (CheckBoxInfo(tparmIn->c_str(), parmBox, trajio_->TrajBox())) return 1;
-    tparmIn->SetBox( parmBox );
-  }
+  // FIXME: Should this ever be done here?
+  if (checkBox) tparmIn->SetParmCoordInfo( cInfo_ );
   // Check if a separate mdvel file will be read
   if (argIn.Contains("mdvel")) {
     std::string mdvelname = argIn.GetStringKey("mdvel");
@@ -78,7 +77,10 @@ int Trajin_Single::SetupTrajRead(std::string const& tnameIn, ArgList& argIn,
                 mdvelname.c_str(), vel_frames, TotalFrames());
       return 1;
     }
+    cInfo_.SetVelocity( true );
   }
+  if (debug_ > 0)
+    Frame::PrintCoordInfo( TrajFilename().base(), TrajParm()->c_str(), cInfo_ );
   return 0;
 }
 
@@ -124,32 +126,15 @@ void Trajin_Single::PrintInfo(int showExtended) const {
   mprintf("'%s' ",TrajFilename().base());
   trajio_->Info();
   mprintf(", Parm %s",TrajParm()->c_str());
-  if (trajio_->HasBox()) mprintf(" (%s box)", trajio_->TrajBox().TypeName());
+  if (trajio_->CoordInfo().HasBox())
+    mprintf(" (%s box)", trajio_->CoordInfo().TrajBox().TypeName());
   if (showExtended==1) PrintFrameInfo(); 
   if (debug_>0)
-    mprintf(", %i atoms, Box %i",TrajParm()->Natom(),(int)trajio_->HasBox());
+    mprintf(", %i atoms, Box %i",TrajParm()->Natom(),(int)trajio_->CoordInfo().HasBox());
   mprintf("\n");
   if (velio_!=0) {
     mprintf("\tMDVEL: ");
     velio_->Info();
     mprintf("\n");
   }
-}
-
-// Trajin_Single::HasVelocity()
-bool Trajin_Single::HasVelocity() const {
-  if (trajio_!=0) {
-    if (velio_ == 0)
-      return trajio_->HasV();
-    else
-      return true;
-  }
-  return false;
-}
-
-int Trajin_Single::NreplicaDimension() const {
-  if (trajio_!=0) 
-    return trajio_->ReplicaDimensions().Ndims();
-  else
-    return 0;
 }

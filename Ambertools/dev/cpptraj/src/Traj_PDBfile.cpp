@@ -113,7 +113,8 @@ int Traj_PDBfile::setupTrajin(std::string const& fname, Topology* trajParm)
   if (numMismatch > 0)
     mprintf("Warning: In PDB file %s: %i name mismatches with parm %s.\n",
             file_.Filename().base(), numMismatch, trajParm->c_str());
-  SetBox( boxInfo );
+  // Set traj info - no velocity, temperature, time
+  SetCoordInfo( CoordinateInfo(boxInfo, false, false, false) );
   return Frames;
 }
 
@@ -193,9 +194,11 @@ int Traj_PDBfile::processWriteArgs(ArgList& argIn) {
   * number of frames to be written.
   */ 
 int Traj_PDBfile::setupTrajout(std::string const& fname, Topology* trajParm,
+                               CoordinateInfo const& cInfoIn,
                                int NframesToWrite, bool append)
 {
   if (trajParm==0) return 1;
+  SetCoordInfo( cInfoIn );
   pdbTop_ = trajParm;
   pdbAtom_ = pdbTop_->Natom();
   // Set up file
@@ -266,7 +269,7 @@ int Traj_PDBfile::setupTrajout(std::string const& fname, Topology* trajParm,
     if ( file_.OpenFile() ) return 1;
     if (!Title().empty()) file_.WriteTITLE( Title() );
   }
-  write_cryst1_ = (TrajBox().Type() != Box::NOBOX);
+  write_cryst1_ = (CoordInfo().TrajBox().Type() != Box::NOBOX);
   if (write_cryst1_) {
     if (pdbWriteMode_==MODEL)
       mprintf("Warning: For PDB with MODEL, box coords for first frame only will be written to CRYST1.\n");

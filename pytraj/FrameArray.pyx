@@ -480,7 +480,8 @@ cdef class FrameArray (object):
                 else:    
                     # get whole traj
                     frame = Frame()
-                    frame.set_frame_v(ts.top, ts.has_vel(), ts.n_repdims)
+                    #frame.set_frame_v(ts.top, ts.has_vel(), ts.n_repdims)
+                    frame.set_frame_v(ts.top)
                     ts.begin_traj()
                     for i in range(ts.max_frames):
                         ts.get_next_frame(frame)

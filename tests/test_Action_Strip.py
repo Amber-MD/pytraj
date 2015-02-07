@@ -12,6 +12,7 @@ print(dir(Action_Strip()))
 farray = FrameArray(top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
 
 class TestStrip(unittest.TestCase):
+    @no_test
     def test_master(self):
         top = Topology("./data/Tc5b.top")
         newtop = top.copy()
@@ -51,7 +52,7 @@ class TestStrip(unittest.TestCase):
         print(dcast.size)
         print(dcast[:20])
 
-    #@no_test
+    @no_test
     def test_0(self):
         print("newtop")
         farray0 = farray.copy()
@@ -83,6 +84,17 @@ class TestStrip(unittest.TestCase):
         print(frame0_view.n_atoms)
         print(newtop.n_atoms)
 
+    def test_1(self):
+        from pytraj import adict
+        farray0 = farray.copy()
+        act = adict['strip']
+        tmpframe = Frame()
+        newf = FrameArray()
+        newf.top = farray0.top.strip_atoms("!@CA", copy=True)
+
+        act("!@CA", farray0, farray0.top.copy(), new_frame=tmpframe)
+        print (farray0[0].n_atoms)
+        print (tmpframe.n_atoms)
 
 if __name__ == "__main__":
     unittest.main()

@@ -121,44 +121,6 @@ int Trajin::SetupTrajIO( std::string const& fname, TrajectoryIO& trajio, ArgList
   return 0;
 }
 
-int Trajin::CheckBoxInfo(const char* parmName, Box& parmBox, Box const& trajBox) const {
-  if (!trajBox.HasBox()) {
-    if ( parmBox.HasBox()) {
-      // No box in traj but box in parm - disable parm box.
-      mprintf("Warning: Box information present in parm but not in trajectory.\n");
-      mprintf("Warning: DISABLING BOX in parm '%s'!\n", parmName);
-      parmBox.SetNoBox();
-      return 0;
-    } else
-      // No box in traj or parm - exit.
-      return 0;
-  }
-  // Check for zero box lengths
-  if ( trajBox.BoxX() < Constants::SMALL || 
-       trajBox.BoxY() < Constants::SMALL || 
-       trajBox.BoxZ() < Constants::SMALL )
-  {
-    mprintf("Warning: Box information present in trajectory but lengths are zero.\n");
-    mprintf("Warning: DISABLING BOX in parm '%s'!\n", parmName);
-    parmBox.SetNoBox();
-    return 0;
-  }
-  // If box coords present but no box info in associated parm, print
-  // a warning. Set parm box from trajectory
-  if (!parmBox.HasBox()) {
-    mprintf("Warning: Box info present in trajectory %s but not in\n", TrajFilename().base());
-    mprintf("Warning: associated parm %s\n", parmName);
-    mprintf("Warning: Setting parm box information from trajectory.\n");
-    parmBox = trajBox;
-  } else if (parmBox.Type() != trajBox.Type()) {
-    mprintf("Warning: Trajectory box is %s but parm box is %s\n", 
-            trajBox.TypeName(), parmBox.TypeName());
-    mprintf("Warning: Setting parm box information from trajectory.\n");
-    parmBox = trajBox;
-  }
-  return 0;
-}
-
 // Trajin::setupFrameInfo()
 /** Calculate number of frames that will be read based on start, stop, and
   * offset (total_read_frames). 

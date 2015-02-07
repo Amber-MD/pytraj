@@ -784,7 +784,7 @@ Command::RetType LoadCrd(CpptrajState& State, ArgList& argIn, Command::AllocType
   }
   // Create input frame
   Frame frameIn;
-  frameIn.SetupFrameV(parm->Atoms(), trajin.HasVelocity(), trajin.NreplicaDimension());
+  frameIn.SetupFrameV(parm->Atoms(), trajin.TrajCoordInfo());
   // Get output set name; use base file name as set name if none specified. 
   // NOTE: Default name should NEVER get used.
   std::string setname = argIn.GetStringNext();
@@ -1627,7 +1627,7 @@ Command::RetType ParmBox(CpptrajState& State, ArgList& argIn, Command::AllocType
   else
     // Fill in missing parm box information from specified parm
     pbox.SetMissingInfo( parm->ParmBox() );
-  parm->SetBox( pbox );
+  parm->SetParmBox( pbox );
   return Command::C_OK;
 }
 

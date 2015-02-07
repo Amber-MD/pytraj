@@ -47,6 +47,7 @@ trajs/TrajectoryIO
 trajs/Traj_AmberCoord
 #FrameList
 datasets/DataSet
+datasets/DataSet_Modes
 datasets/DataSet_1D
 datasets/DataSet_2D
 datasets/DataSet_3D
@@ -166,3 +167,4 @@ analyses/Analysis_Rms2d
 analyses/Analysis_Lifetime
 gdt/gdt
 _save_traj
+CoordinateInfo

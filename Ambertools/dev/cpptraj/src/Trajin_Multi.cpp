@@ -12,9 +12,7 @@ Trajin_Multi::Trajin_Multi() :
   remdtrajtemp_(0.0),
   remdFrameFactor_(1.0),
   remdFrameOffset_(0),
-  Ndimensions_(0),
   lowestRepnum_(0),
-  hasVelocity_(false),
   replicasAreOpen_(false),
   targetType_(NONE),
   frameidx_(0)
@@ -212,11 +210,9 @@ int Trajin_Multi::SetupTrajRead(std::string const& tnameIn, ArgList& argIn, Topo
   
   // Loop over all filenames in replica_filenames 
   bool lowestRep = true;
-  bool repBoxInfo = false;
-  Ndimensions_ = -1;
-  hasVelocity_ = false;
+  int Ndimensions = -1;
+  cInfo_ = CoordinateInfo();
   TrajFormatType rep0format = TrajectoryFile::UNKNOWN_TRAJ;
-  ReplicaDimArray lowestRepDims;
   for (NameListType::iterator repfile = replica_filenames_.begin();
                               repfile != replica_filenames_.end(); ++repfile)
   {
@@ -232,28 +228,25 @@ int Trajin_Multi::SetupTrajRead(std::string const& tnameIn, ArgList& argIn, Topo
     if (lowestRep) {
       // Set up the lowest for reading and get the number of frames.
       if (SetupTrajIO( *repfile, *replica0, argIn )) return 1;
-      // If lowest has box coords, check type against parm box info 
-      Box parmBox = tparmIn->ParmBox();
-      if (CheckBoxInfo(tparmIn->c_str(), parmBox, replica0->TrajBox())) return 1;
-      tparmIn->SetBox( parmBox );
+      cInfo_ = replica0->CoordInfo();
+      Ndimensions = cInfo_.ReplicaDimensions().Ndims();
+      // If lowest has box coords, check type against parm box info
+      // FIXME: Should this ever be done here?
+      tparmIn->SetParmCoordInfo( cInfo_ ); 
       // If lowest rep has box info, all others must have box info.
-      repBoxInfo = replica0->HasBox();
       // If lowest rep has velocity, all others must have velocity.
-      hasVelocity_ = replica0->HasV();
       // If lowest rep has dimensions, all others must have same dimensions
-      lowestRepDims = replica0->ReplicaDimensions();
-      Ndimensions_ = lowestRepDims.Ndims();
       // Check that replica dimension valid for desired indices.
-      if (targetType_ == INDICES && Ndimensions_ != (int)remdtrajidx_.size())
+      if (targetType_ == INDICES && Ndimensions != (int)remdtrajidx_.size())
       {
         mprinterr("Error: RemdTraj: Replica # of dim (%i) not equal to target # dim (%zu)\n",
-                  Ndimensions_, remdtrajidx_.size());
+                  Ndimensions, remdtrajidx_.size());
         return 1;
       }
-      if (Ndimensions_ > 0) {
+      if (Ndimensions > 0) {
         mprintf("\tReplica dimensions:\n");
-        for (int rd = 0; rd < Ndimensions_; rd++)
-          mprintf("\t\t%i: %s\n", rd+1, lowestRepDims.Description(rd)); 
+        for (int rd = 0; rd < Ndimensions; rd++)
+          mprintf("\t\t%i: %s\n", rd+1, cInfo_.ReplicaDimensions().Description(rd)); 
       }
     } else {
       // Check total frames in this replica against lowest rep.
@@ -272,29 +265,35 @@ int Trajin_Multi::SetupTrajRead(std::string const& tnameIn, ArgList& argIn, Topo
         }
       }
       // Check box info against lowest rep.
-      if ( replica0->HasBox() != repBoxInfo ) {
+      if ( replica0->CoordInfo().HasBox() != cInfo_.HasBox() ) {
         mprinterr("Error: RemdTraj: Replica %s box info does not match first replica.\n",
                   (*repfile).c_str());
         return 1;
       }
+      // TODO: Check specific box type
       // Check velocity info against lowest rep.
-      if ( replica0->HasV() != hasVelocity_ ) {
+      if ( replica0->CoordInfo().HasVel() != cInfo_.HasVel() ) {
         mprinterr("Error: RemdTraj: Replica %s velocity info does not match first replica.\n",
                   (*repfile).c_str());
         return 1;
       }
       // Check # dimensions and types against lowest rep
-      if ( replica0->ReplicaDimensions() != lowestRepDims ) {
+      if ( replica0->CoordInfo().ReplicaDimensions() != cInfo_.ReplicaDimensions() ) {
         mprinterr("Error: RemdTraj: Replica %s dimension info does not match first replica.\n",
                   (*repfile).c_str());
-        ReplicaDimArray thisRepDims = replica0->ReplicaDimensions();
-        for (int rd = 0; rd < Ndimensions_; rd++)
+        ReplicaDimArray const& thisRepDims = replica0->CoordInfo().ReplicaDimensions();
+        for (int rd = 0; rd < Ndimensions; rd++)
           mprinterr("\t\t%i: %s\n", rd+1, thisRepDims.Description(rd)); 
         return 1;
       }
+      // If temperature/time info does not match set to false.
+      if (cInfo_.HasTemp() != replica0->CoordInfo().HasTemp())
+        cInfo_.SetTemperature( false );
+      if (cInfo_.HasTime() != replica0->CoordInfo().HasTime())
+        cInfo_.SetTime( false );
     }
     // Check for temperature information. Not needed if not sorting.
-    if ( !replica0->HasT() && !no_sort) {
+    if ( !replica0->CoordInfo().HasTemp() && !no_sort) {
       mprinterr("Error: RemdTraj: Replica %s does not have temperature info.\n",
                 (*repfile).c_str());
       return 1;
@@ -344,7 +343,7 @@ int Trajin_Multi::SetupTrajRead(std::string const& tnameIn, ArgList& argIn, Topo
     } else {
       // If dimensions are present index by replica indices, otherwise index
       // by temperature. 
-      if (Ndimensions_ > 0)
+      if (Ndimensions > 0)
         targetType_ = INDICES;
       else
         targetType_ = TEMP;
@@ -358,7 +357,8 @@ int Trajin_Multi::SetupTrajRead(std::string const& tnameIn, ArgList& argIn, Topo
     mprinterr("Error: Not all replica files were set up.\n");
     return 1;
   }
-  
+  if (debug_ > 0)
+    Frame::PrintCoordInfo( TrajFilename().base(), TrajParm()->c_str(), cInfo_ );
   return 0;
 }
 
@@ -521,7 +521,7 @@ int Trajin_Multi::EnsembleSetup( FrameArray& f_ensemble ) {
   if (frameidx_ != 0) delete[] frameidx_;
   frameidx_ = new int[ REMDtraj_.size() ];
   f_ensemble.resize( REMDtraj_.size() );
-  f_ensemble.SetupFrames( TrajParm()->Atoms(), HasVelocity(), NreplicaDimension() );
+  f_ensemble.SetupFrames( TrajParm()->Atoms(), cInfo_ );
   if (targetType_ == TEMP) {
     // Get a list of all temperature present in input REMD trajectories
     // by reading the first frame.
@@ -661,14 +661,14 @@ int Trajin_Multi::GetNextEnsemble( FrameArray& f_ensemble ) {
             parallel_send( (*frame).xAddress(), (*frame).size(), PARA_DOUBLE, recvrank, 1212 );
             parallel_send( (*frame).bAddress(), 6, PARA_DOUBLE, recvrank, 1213 );
             parallel_send( (*frame).tAddress(), 1, PARA_DOUBLE, recvrank, 1214 );
-            if (HasVelocity())
+            if (frame->HasVelocity())
               parallel_send( (*frame).vAddress(), (*frame).size(), PARA_DOUBLE, recvrank, 1215 );
           } else if (recvrank == worldrank) {
             //rprintf("RECEIVING FROM %i\n", sendrank); // DEBUG
             parallel_recv( f_ensemble[1].xAddress(), (*frame).size(), PARA_DOUBLE, sendrank, 1212 );
             parallel_recv( f_ensemble[1].bAddress(), 6, PARA_DOUBLE, sendrank, 1213 );
             parallel_recv( f_ensemble[1].tAddress(), 1, PARA_DOUBLE, sendrank, 1214 );
-            if (HasVelocity())
+            if (frame->HasVelocity())
               parallel_recv( f_ensemble[1].vAddress(), (*frame).size(), PARA_DOUBLE, sendrank, 1215 );
             // Since a frame was received, indicate position 1 should be used
             ensembleFrameNum_ = 1; 

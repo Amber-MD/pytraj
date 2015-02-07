@@ -50,6 +50,7 @@ int Traj_SDF::readFrame(int set, Frame& frameIn) {
 }
 
 int Traj_SDF::setupTrajout(std::string const& fname, Topology* trajParm,
+                           CoordinateInfo const& cInfoIn,
                                int NframesToWrite, bool append)
 {
   mprinterr("Error: SDF writes not yet implemented.\n");

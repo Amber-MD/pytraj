@@ -26,7 +26,7 @@ void Analysis_Modes::Help() {
           "\t[out <outfile>] [maskp <mask1> <mask2> [...]]\n"
           "    Options for 'trajout': (Generate pseudo-trajectory)\n"
           "\t[trajout <name> [<parm arg>] [trajoutfmt <format>] [trajoutmask <mask>]\n"
-          "\t  [pcmin <pcmin>] [pcmax <pcmax>] [trajmode <mode>]]\n"
+          "\t  [pcmin <pcmin>] [pcmax <pcmax>] [tmode <mode>]]\n"
           "  Perform one of the following analysis on calculated Eigenmodes.\n"
           "    fluct: rms fluctations from normal modes\n"
           "    displ: displacement of cartesian coordinates along normal mode directions\n"

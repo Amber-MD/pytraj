@@ -285,8 +285,6 @@ int Traj_GmxTrX::setupTrajin(std::string const& fname, Topology* trajParm)
     if (farray_ != 0) delete[] farray_;
     farray_ = new float[ natom3_ ];
   } 
-  // Set velocity info
-  SetVelocity( (v_size_ > 0) );
   // Attempt to determine # of frames in traj
   headerBytes_ = (size_t)file_.Tell();
   frameSize_ = headerBytes_ + (size_t)box_size_ + (size_t)vir_size_ + (size_t)pres_size_ +
@@ -311,16 +309,18 @@ int Traj_GmxTrX::setupTrajin(std::string const& fname, Topology* trajParm)
   if ( box_size_ > 0 ) {
     if ( ReadBox( box ) ) return TRAJIN_ERR;
   }
-  SetBox( box ); 
-  
+  // Set traj info - No time or temperature
+  SetCoordInfo( CoordinateInfo(Box(box), (v_size_ > 0), false, false) );
   closeTraj();
   return nframes;
 }
 
 int Traj_GmxTrX::setupTrajout(std::string const& fname, Topology* trajParm,
-                                 int NframesToWrite, bool append)
+                              CoordinateInfo const& cInfoIn,
+                              int NframesToWrite, bool append)
 {
   if (!append) {
+    SetCoordInfo( cInfoIn );
     natoms_ = trajParm->Natom();
     natom3_ = natoms_ * 3;
     // Default to little endian, precision 4, TRR
@@ -333,7 +333,7 @@ int Traj_GmxTrX::setupTrajout(std::string const& fname, Topology* trajParm,
     // Set size defaults, box, velocity etc
     ir_size_ = 0;
     e_size_ = 0;
-    if (HasBox())
+    if (CoordInfo().HasBox())
       box_size_ = precision_ * 9;
     else
       box_size_ = 0;
@@ -342,7 +342,7 @@ int Traj_GmxTrX::setupTrajout(std::string const& fname, Topology* trajParm,
     top_size_ = 0;
     sym_size_ = 0;
     x_size_ = natom3_ * precision_;
-    if (HasV())
+    if (CoordInfo().HasVel())
       v_size_ = natom3_ * precision_;
     else
       v_size_ = 0;
@@ -355,7 +355,7 @@ int Traj_GmxTrX::setupTrajout(std::string const& fname, Topology* trajParm,
     if (farray_ != 0) {delete[] farray_; farray_ = 0;}
     if (darray_ != 0) {delete[] darray_; darray_ = 0;}
     size_t arraySize = (size_t)natom3_;
-    if (HasV()) arraySize *= 2;
+    if (CoordInfo().HasVel()) arraySize *= 2;
     if (precision_ == sizeof(float)) 
       farray_ = new float[ arraySize ];
     else 

@@ -9,6 +9,7 @@ from pytraj.Frame cimport _Frame, Frame
 from pytraj.FileName cimport _FileName, FileName
 from pytraj.NameType cimport _NameType, NameType
 from pytraj.Box cimport _Box, Box, BoxType
+from pytraj.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator
@@ -105,7 +106,7 @@ cdef extern from "Topology.h":
         void PrintDihedrals(const DihedralArray&, const _AtomMask&, int&) const
         inline const _Box& Parm_Box() const 
         inline BoxType _BoxType() const 
-        void SetBox(const _Box& bIn)
+        void SetParmBox(const _Box& bIn)
         int AddTopAtom(const _Atom&, int, const _NameType&, const double *)
         void StartNewMol() 
         int CommonSetup(bint)
@@ -118,6 +119,9 @@ cdef extern from "Topology.h":
         _Topology* partialModifyStateByMask(const _AtomMask& m) const 
         _Topology* modifyStateByMask(const _AtomMask& m) const 
         _Topology* ModifyByMap(const vector[int]& m) const 
+        
+        # add more
+        _CoordinateInfo& ParmCoordInfo() const
 
 cdef class Topology:
     cdef _Topology* thisptr

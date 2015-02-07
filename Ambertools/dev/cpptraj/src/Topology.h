@@ -23,9 +23,8 @@ class Topology {
     void IncreaseFrames(int fIn)         { nframes_ += fIn;               }
     void SetNframes(int fIn)             { nframes_ = fIn;                }
     void SetTag(std::string const& t)    { parmTag_ = t;                  }
-    void SetVelInfo(bool v)              { hasVelInfo_ = v;               }
-    void SetNrepDim(int n)               { nRepDim_ = n;                  }
-    void SetGBradiiSet(std::string const& s) { radius_set_ = s;           }
+    void SetGBradiiSet(std::string const& s)   { radius_set_ = s;         }
+    void SetParmCoordInfo(CoordinateInfo const& c);
     void SetParmName(std::string const&, FileName const&);
     void SetReferenceCoords( Frame const& );
     // ----- Return internal variables -----------
@@ -38,8 +37,7 @@ class Topology {
     int Nsolvent()                 const { return NsolventMolecules_;     }
     int Nframes()                  const { return nframes_;               }
     int NextraPts()                const { return n_extra_pts_;           }
-    bool HasVelInfo()              const { return hasVelInfo_;            }
-    int NrepDim()                  const { return nRepDim_;               }
+    CoordinateInfo const& ParmCoordInfo() const { return coordInfo_;      }
     std::string const& ParmName()         const { return parmName_;       }
     FileName const& OriginalFilename()    const { return fileName_;       }
     std::string const& GBradiiSet()       const { return radius_set_;     }
@@ -121,9 +119,9 @@ class Topology {
     void PrintShortResInfo(std::string const&, int) const;
     int PrintChargeMassInfo(std::string const&, int) const;
     // ----- Routines to Access/Modify Box info --
-    inline Box const& ParmBox()   const { return box_;        }
-    inline Box::BoxType BoxType() const { return box_.Type(); }
-    void SetBox( Box const& bIn )       { box_ = bIn;         }
+    inline Box const& ParmBox()   const { return coordInfo_.TrajBox();        }
+    inline Box::BoxType BoxType() const { return coordInfo_.TrajBox().Type(); }
+    void SetParmBox( Box const& bIn )   { coordInfo_.SetBox( bIn );           }
     // ----- Setup routines ----------------------
     int AddTopAtom(Atom const&, int, NameType const&, const double*);
     void StartNewMol();
@@ -215,19 +213,17 @@ class Topology {
     // Extra atom info
     std::vector<AtomExtra> extra_;
 
-    Box box_;
+    CoordinateInfo coordInfo_; ///< Coordinate metadata. TODO: Make completely separate from topology.
     Frame refCoords_;
 
     double offset_;         ///< Offset used when searching for bonds
     int debug_;
     int ipol_;              ///< 0 if fixed charge, 1 if polarizable
-    int NsolventMolecules_;
-    int pindex_;
-    int nframes_;
-    int n_extra_pts_;
+    int NsolventMolecules_; ///< Number of molecules marked SOLVENT
+    int pindex_;            ///< Internal index used in TopologyList
+    int nframes_;           ///< Number of 'trajin' frames associated with topology.
+    int n_extra_pts_;       ///< Number of extra points.
     int n_atom_types_;      ///< Number of unique atom types.
-    bool hasVelInfo_; // TODO: This information should be passed separate from Topology
-    int nRepDim_;     // TODO: This information should be passed separate from Topology
 };
 // ----- INLINE FUNCTIONS ------------------------------------------------------
 NonbondType const& Topology::GetLJparam(int a1, int a2) const {

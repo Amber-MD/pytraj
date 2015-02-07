@@ -7,6 +7,7 @@ from pytraj.Box cimport _Box, Box, BoxType
 from pytraj.Topology cimport _Topology, Topology
 from pytraj.Vec3 cimport _Vec3, Vec3
 from pytraj.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
+from pytraj.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 
 ctypedef vector[float] CRDtype
 ctypedef vector[double] Darray
@@ -61,7 +62,7 @@ cdef extern from "Frame.h":
         int SetupFrame(int)
         int SetupFrameM(const vector[_Atom]&)
         int SetupFrameXM(const vector[double]&, const vector[double]&)
-        int SetupFrameV(const vector[_Atom]&, bint, int)
+        int SetupFrameV(const vector[_Atom]&, const _CoordinateInfo&)
         int SetupFrameFromMask(const _AtomMask&, const vector[_Atom]&)
         void SetCoordinates(const _Frame&, const _AtomMask&)
         void SetCoordinates(const _Frame&)

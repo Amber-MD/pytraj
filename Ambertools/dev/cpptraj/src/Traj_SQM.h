@@ -17,7 +17,7 @@ class Traj_SQM : public TrajectoryIO {
     int readVelocity(int, Frame&)                  { return 1;     }
     void closeTraj()                               { return;       }
     int processWriteArgs(ArgList&);
-    int setupTrajout(std::string const&, Topology*, int, bool);
+    int setupTrajout(std::string const&, Topology*, CoordinateInfo const&,int, bool);
     int writeFrame(int,Frame const&);
     void Info();
 

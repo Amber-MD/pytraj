@@ -112,10 +112,8 @@ void DataSet_Coords_TRJ::GetFrame(int idx, Frame& fIn) {
     else
       parmHasChanged = ( prevTraj->TrajParm()->Natom() != 
                             Traj_->TrajParm()->Natom()    );
-    if ( parmHasChanged || (readFrame_.HasVelocity() != 
-                            Traj_->HasVelocity()) )
-      readFrame_.SetupFrameV(Traj_->TrajParm()->Atoms(), Traj_->HasVelocity(),
-                             Traj_->NreplicaDimension());
+    if ( parmHasChanged || (readFrame_.HasVelocity() != Traj_->TrajCoordInfo().HasVel()) )
+      readFrame_.SetupFrameV(Traj_->TrajParm()->Atoms(), Traj_->TrajCoordInfo());
     if (Traj_->BeginTraj(false)) {
       mprinterr("Error: Could not open trajectory %i '%s'\n", desiredTrajNum,
                 Traj_->TrajFilename().full());

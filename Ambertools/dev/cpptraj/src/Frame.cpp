@@ -4,6 +4,18 @@
 #include "Constants.h" // SMALL
 #include "CpptrajStdio.h"
 
+// DEBUG
+void Frame::PrintCoordInfo(const char* name, const char* parm, CoordinateInfo const& cInfo) {
+  mprintf("DBG: '%s' parm '%s' CoordInfo={ box type %s", name, parm, cInfo.TrajBox().TypeName());
+  if (cInfo.ReplicaDimensions().Ndims() > 0) mprintf(", %i rep dims", cInfo.ReplicaDimensions().Ndims());
+  if (cInfo.HasVel()) mprintf(", velocities");
+  if (cInfo.HasTemp()) mprintf(", temps");
+  if (cInfo.HasTime()) mprintf(", times");
+  if (cInfo.HasForce()) mprintf(", forces");
+  mprintf(" }\n");
+}
+// DEBUG
+
 const size_t Frame::COORDSIZE_ = 3 * sizeof(double);
 
 // ---------- CONSTRUCTION/DESTRUCTION/ASSIGNMENT ------------------------------
@@ -13,6 +25,7 @@ Frame::Frame( ) :
   maxnatom_(0),
   ncoord_(0),
   T_(0.0),
+  time_(0.0),
   X_(0),
   V_(0)
 {}
@@ -30,6 +43,7 @@ Frame::Frame(int natomIn) :
   maxnatom_(natomIn),
   ncoord_(natomIn*3), 
   T_(0.0),
+  time_(0.0),
   X_(0),
   V_(0),
   Mass_(natomIn, 1.0)
@@ -44,6 +58,7 @@ Frame::Frame(std::vector<Atom> const& atoms) :
   maxnatom_(natom_),
   ncoord_(natom_*3),
   T_(0.0),
+  time_(0.0),
   X_(0),
   V_(0)
 {
@@ -62,6 +77,7 @@ Frame::Frame(Frame const& frameIn, AtomMask const& maskIn) :
   ncoord_(natom_*3),
   box_(frameIn.box_),
   T_( frameIn.T_ ),
+  time_( frameIn.time_ ),
   X_(0),
   V_(0),
   remd_indices_(frameIn.remd_indices_)
@@ -102,6 +118,7 @@ Frame::Frame(const Frame& rhs) :
   ncoord_(rhs.ncoord_),
   box_(rhs.box_),
   T_(rhs.T_),
+  time_(rhs.time_),
   X_(0),
   V_(0),
   remd_indices_(rhs.remd_indices_),
@@ -126,6 +143,7 @@ void Frame::swap(Frame &first, Frame &second) {
   swap(first.maxnatom_, second.maxnatom_);
   swap(first.ncoord_, second.ncoord_);
   swap(first.T_, second.T_);
+  swap(first.time_, second.time_);
   swap(first.X_, second.X_);
   swap(first.V_, second.V_);
   first.remd_indices_.swap(second.remd_indices_);
@@ -297,7 +315,7 @@ int Frame::SetupFrame(int natomIn) {
 
 // Frame::SetupFrameM()
 int Frame::SetupFrameM(std::vector<Atom> const& atoms) {
-  return SetupFrameV( atoms, false, 0 );
+  return SetupFrameV( atoms, CoordinateInfo() );
 }
 
 // Frame::SetupFrameXM()
@@ -315,10 +333,10 @@ int Frame::SetupFrameXM(Darray const& Xin, Darray const& massIn) {
 }
 
 // Frame::SetupFrameV()
-int Frame::SetupFrameV(std::vector<Atom> const& atoms, bool hasVelocity, int nDim) {
+int Frame::SetupFrameV(std::vector<Atom> const& atoms, CoordinateInfo const& cinfo) {
   bool reallocate = ReallocateX( atoms.size() );
   // Velocity
-  if (hasVelocity) {
+  if (cinfo.HasVel()) {
     if (reallocate || V_ == 0) {
       if (V_ != 0) delete[] V_;
       V_ = new double[ maxnatom_*3 ];
@@ -337,7 +355,7 @@ int Frame::SetupFrameV(std::vector<Atom> const& atoms, bool hasVelocity, int nDi
                                          atom != atoms.end(); ++atom)
     *(mass++) = (*atom).Mass();
   // Replica indices
-  remd_indices_.assign( nDim, 0 );
+  remd_indices_.assign( cinfo.ReplicaDimensions().Ndims(), 0 );
   return 0;
 }
 
@@ -370,6 +388,7 @@ void Frame::SetCoordinates(Frame const& frameIn, AtomMask const& maskIn) {
   ncoord_ = natom_ * 3;
   box_ = frameIn.box_;
   T_ = frameIn.T_;
+  time_ = frameIn.time_;
   remd_indices_ = frameIn.remd_indices_;
   double* newXptr = X_;
   for (AtomMask::const_iterator atom = maskIn.begin(); atom != maskIn.end(); ++atom)
@@ -403,6 +422,7 @@ void Frame::SetFrame(Frame const& frameIn, AtomMask const& maskIn) {
   // Copy T/box
   box_ = frameIn.box_;
   T_ = frameIn.T_;
+  time_ = frameIn.time_;
   remd_indices_ = frameIn.remd_indices_;
   double* newXptr = X_;
   Darray::iterator mass = Mass_.begin();
@@ -454,6 +474,7 @@ void Frame::SetCoordinatesByMap(Frame const& tgtIn, std::vector<int> const& mapI
   ncoord_ = natom_ * 3;
   box_ = tgtIn.box_;
   T_ = tgtIn.T_;
+  time_ = tgtIn.time_;
   remd_indices_ = tgtIn.remd_indices_;
   double* newXptr = X_;
   Darray::iterator newmass = Mass_.begin();

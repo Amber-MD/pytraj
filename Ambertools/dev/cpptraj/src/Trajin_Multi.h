@@ -20,8 +20,7 @@ class Trajin_Multi : public Trajin {
     void EndTraj();
     int ReadTrajFrame( int, Frame& );
     void PrintInfo(int) const;
-    bool HasVelocity()      const { return hasVelocity_; }
-    int NreplicaDimension() const { return Ndimensions_; }
+    CoordinateInfo const& TrajCoordInfo() const { return cInfo_; }
 
     void EnsembleInfo() const;
     int EnsembleSetup( FrameArray& );
@@ -47,14 +46,13 @@ class Trajin_Multi : public Trajin {
     typedef std::vector<TrajectoryIO*> IOarrayType;
     typedef std::vector<std::string> NameListType;
 
+    CoordinateInfo cInfo_;    ///< Collective coord information for all replicas.
     double remdtrajtemp_;     ///< Get frames with this temperature on read
     double remdFrameFactor_;  ///< For HREMD sort, # frames written per remlog entry
     int remdFrameOffset_;     ///< If traj written less often than log, +1
     RemdIdxType remdtrajidx_; ///< Get frames with these indices on read
-    int Ndimensions_;         ///< # of dimensions in each trajectory.
     IOarrayType REMDtraj_;    ///< Input replica trajectories
     int lowestRepnum_;        ///< Hold the lowest replica number
-    bool hasVelocity_;        ///< True if all trajs have velocities.
     bool replicasAreOpen_;    ///< True is replicas are open.
     bool badEnsemble_;        ///< True if problem with any frames in the ensemble
     TargetType targetType_;   ///< Hold type of REMD frame being searched for.

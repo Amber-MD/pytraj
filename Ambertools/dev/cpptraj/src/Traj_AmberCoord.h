@@ -18,6 +18,7 @@ class Traj_AmberCoord: public TrajectoryIO {
     int numBoxCoords_;    ///< Number of box coords, 3 (ortho or truncoct) or 6 (triclinic)
     const char* outfmt_;  ///< Format string for writing coordinates
     bool highPrecision_;  ///< If true output format will be 8.6 instead of 8.3
+    bool outputTemp_;     ///< If true temperature will be out to REMD line.
     BufferedFrame file_;  ///< Buffer reads/writes
     double boxAngle_[3];  ///< Hold default box angles in case traj has only box lengths
 
@@ -27,7 +28,7 @@ class Traj_AmberCoord: public TrajectoryIO {
     // Inherited functions
     bool ID_TrajFormat(CpptrajFile&);
     int setupTrajin(std::string const&, Topology*);
-    int setupTrajout(std::string const&, Topology*, int, bool);
+    int setupTrajout(std::string const&, Topology*, CoordinateInfo const&,int, bool);
     int openTrajin();
     void closeTraj();
     int readFrame(int,Frame&);

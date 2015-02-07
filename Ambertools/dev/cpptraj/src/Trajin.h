@@ -12,8 +12,7 @@ class Trajin : public TrajectoryFile {
     virtual int BeginTraj(bool) = 0;
     virtual void EndTraj() = 0;
     virtual void PrintInfo(int) const = 0;
-    virtual bool HasVelocity() const = 0;
-    virtual int NreplicaDimension() const = 0;
+    virtual CoordinateInfo const& TrajCoordInfo() const = 0;
 
     static int CheckFrameArgs(ArgList&, int, int&, int&, int&);
     inline bool CheckFinished();
@@ -21,7 +20,6 @@ class Trajin : public TrajectoryFile {
     inline int GetNextFrame(Frame&);
     inline void SetTotalFrames(int); 
     int SetupTrajIO( std::string const&, TrajectoryIO&, ArgList& );
-    int CheckBoxInfo(const char*, Box&, Box const&) const; 
     int setupFrameInfo();
     void PrepareForRead(bool);
     void PrintInfoLine() const;

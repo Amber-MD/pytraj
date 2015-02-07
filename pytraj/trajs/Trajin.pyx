@@ -326,16 +326,18 @@ cdef class Trajin (TrajectoryFile):
     #    self.check_allocated()
     #    self.baseptr_1.PrintInfo(showExtended)
 
+    # BROKEN
     #@abstractmethod('Trajin')
-    def has_vel(self):
-        self.check_allocated()
-        return self.baseptr_1.HasVelocity()
+    #def has_vel(self):
+    #    self.check_allocated()
+    #    return self.baseptr_1.HasVelocity()
 
+    # BROKEN
     #@abstractmethod('Trajin')
-    @property
-    def n_repdims(self):
-        self.check_allocated()
-        return self.baseptr_1.NreplicaDimension()
+    #@property
+    #def n_repdims(self):
+    #    self.check_allocated()
+    #    return self.baseptr_1.NreplicaDimension()
     # end virtual methods
 
     def save(self, filename="", fmt='unknown', overwrite=False):

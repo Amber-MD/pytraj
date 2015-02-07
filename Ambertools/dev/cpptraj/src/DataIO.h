@@ -31,12 +31,10 @@ class DataIO : public BaseIOtype {
   protected:
     // TODO: Move this to DataSet?
     static std::string SetupCoordFormat(size_t, Dimension const&, int, int);
-    static Dimension DetermineXdim( std::vector<double> const& );
     /// Indicate this DataIO is valid for given DataSet type
     void SetValid(DataSet::DataType t) { valid_.push_back( t ); }
     int debug_;
   private:
-    static Dimension DetermineXdim( std::vector<double> const&, int& );
     std::vector<DataSet::DataType> valid_; ///< Data sets for which DataIO is valid writer.
     bool valid1d_; ///< Valid for all 1D data sets.
     bool valid2d_; ///< Valid for all 2D data sets.

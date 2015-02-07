@@ -42,7 +42,7 @@ int Parm_Mol2::ReadParm(std::string const& fname, Topology &parmOut) {
   }
 
   // No box
-  parmOut.SetBox( Box() );
+  parmOut.SetParmBox( Box() );
 
   mprintf("    Mol2 contains %i atoms, %i residues,\n", parmOut.Natom(),parmOut.Nres());
   //mprintf("    %i bonds to H, %i other bonds.\n", parmOut.NbondsWithH,parmOut.NbondsWithoutH);

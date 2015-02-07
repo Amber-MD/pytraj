@@ -110,6 +110,7 @@ int Traj_Binpos::readFrame(int set, Frame& frameIn) {
 }
 
 int Traj_Binpos::setupTrajout(std::string const& fname, Topology* trajParm,
+                              CoordinateInfo const& cInfoIn,
                               int NframesToWrite, bool append)
 {
   if (!append) {
@@ -122,7 +123,7 @@ int Traj_Binpos::setupTrajout(std::string const& fname, Topology* trajParm,
     if (bpbuffer_!=0)
       delete[] bpbuffer_;
     bpbuffer_ = new float[ bpnatom3_ ];
-    if (HasBox()) 
+    if (CoordInfo().HasBox()) 
       mprintf("Warning: BINPOS format does not support writing of box coordinates.\n");
     if (file_.OpenFile()) return 1;
     // Always write header

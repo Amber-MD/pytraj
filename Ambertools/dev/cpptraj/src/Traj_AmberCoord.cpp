@@ -13,7 +13,8 @@ Traj_AmberCoord::Traj_AmberCoord() :
   headerSize_(0),
   numBoxCoords_(0),
   outfmt_("%8.3lf"),
-  highPrecision_(false)
+  highPrecision_(false),
+  outputTemp_(false)
 {
   boxAngle_[0] = 0.0; 
   boxAngle_[1] = 0.0; 
@@ -282,9 +283,8 @@ int Traj_AmberCoord::setupTrajin(std::string const& fname, Topology* trajParm)
             trajParm->Natom(), frame_size, title_size, numBoxCoords_, (int)seekable, Frames);
   // Close the file
   file_.CloseFile();
-  // Set trajectory info
-  SetBox( boxInfo );
-  SetTemperature( headerSize_ != 0 );
+  // Set trajectory info: no velocity, no time.
+  SetCoordInfo( CoordinateInfo(boxInfo, false, (headerSize_ != 0), false) );
   SetTitle( title );
   return Frames;
 }
@@ -296,7 +296,7 @@ void Traj_AmberCoord::WriteHelp() {
 
 // Traj_AmberCoord::processWriteArgs()
 int Traj_AmberCoord::processWriteArgs(ArgList& argIn) {
-  SetTemperature( argIn.hasKey("remdtraj") );
+  outputTemp_ = argIn.hasKey("remdtraj");
   if (argIn.hasKey("highprecision")) { 
     outfmt_ = "%8.6lf";
     highPrecision_ = true;
@@ -310,11 +310,18 @@ int Traj_AmberCoord::processWriteArgs(ArgList& argIn) {
   * size, necessary only for seeking when MPI writing. Allocate memory for
   * the frame buffer. 
   */
-int Traj_AmberCoord::setupTrajout(std::string const& fname, Topology* trajParm, 
+int Traj_AmberCoord::setupTrajout(std::string const& fname, Topology* trajParm,
+                                  CoordinateInfo const& cInfoIn, 
                                   int NframesToWrite, bool append)
 {
-  // Set Temperature Write 
-  if (HasT()) headerSize_ = REMD_HEADER_SIZE;
+  // Set Temperature Write
+  // FIXME: Check for temperatures in input frames and when appending.
+  SetCoordInfo( cInfoIn );
+  if (outputTemp_) {
+    headerSize_ = REMD_HEADER_SIZE;
+    if (!CoordInfo().HasTemp())
+      mprintf("Warning: No temperature information in input frames.\n");
+  }
   if (!append) {
     // Write the title if not appending
     if (file_.SetupWrite( fname, debug_ )) return 1;
@@ -344,7 +351,7 @@ int Traj_AmberCoord::setupTrajout(std::string const& fname, Topology* trajParm,
   natom3_ = trajParm->Natom() * 3;
   file_.SetupFrameBuffer( natom3_, 8, 10 );
   // If box coords are present, allocate extra space for them
-  switch (TrajBox().Type()) {
+  switch (CoordInfo().TrajBox().Type()) {
     case Box::NOBOX   : numBoxCoords_ = 0; break;
     case Box::ORTHO   :
     case Box::TRUNCOCT: numBoxCoords_ = 3; break;
@@ -360,7 +367,7 @@ int Traj_AmberCoord::setupTrajout(std::string const& fname, Topology* trajParm,
 
 // Traj_AmberCoord::Info()
 void Traj_AmberCoord::Info() {
-  if (HasT()) 
+  if (CoordInfo().HasTemp()) 
     mprintf("is an AMBER REMD trajectory");
   else
     mprintf("is an AMBER trajectory");

@@ -239,7 +239,8 @@ int Traj_CharmmDcd::setupTrajin(std::string const& fname, Topology* trajParm)
   if (boxBytes_) {
     if (ReadBox( box )) return TRAJIN_ERR;
   }
-  SetBox( box );
+  // Set traj info: No velocity, temperature, or time.
+  SetCoordInfo( CoordinateInfo( Box(box), false, false, false ) );
   // If there are fixed atoms read the first frame now
   // TODO: Deal with fixed atoms
   closeTraj();
@@ -462,9 +463,11 @@ int Traj_CharmmDcd::processWriteArgs(ArgList& argIn) {
   */
 // TODO: Check OS endianness!
 int Traj_CharmmDcd::setupTrajout(std::string const& fname, Topology* trajParm,
+                                 CoordinateInfo const& cInfoIn,
                                  int NframesToWrite, bool append)
 {
   if (!append) {
+    SetCoordInfo( cInfoIn );
     dcdatom_ = trajParm->Natom();
     // dcdframes = trajParm->parmFrames;
     dcdframes_ = 0;
@@ -524,7 +527,7 @@ int Traj_CharmmDcd::writeDcdHeader() {
   // Charmm version - Should this just be set to 0?
   buffer.i[19] = 35;
   // Box information
-  if (HasBox()) {
+  if (CoordInfo().HasBox()) {
     buffer.i[10] = 1;
     boxBytes_ = 48 + (2 * blockSize_);
   } else

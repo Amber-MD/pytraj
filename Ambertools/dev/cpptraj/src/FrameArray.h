@@ -9,9 +9,9 @@ class FrameArray {
     Frame& operator[](int idx)        { return farray_[idx];     }
     void AddFrame( const Frame& fIn ) { farray_.push_back( fIn );}
 
-    int SetupFrames(std::vector<Atom> const& Atoms, bool hasV, int Ndim) {
+    int SetupFrames(std::vector<Atom> const& Atoms, CoordinateInfo const& cInfo) {
       for (std::vector<Frame>::iterator myF = farray_.begin(); myF != farray_.end(); ++myF)
-        if ((*myF).SetupFrameV(Atoms, hasV, Ndim) != 0) return 1;
+        if (myF->SetupFrameV(Atoms, cInfo) != 0) return 1;
       return 0;
     }
  

@@ -217,7 +217,7 @@ Action::RetType Action_Closest::Setup(Topology* currentParm, Topology** parmAddr
   }
   newParm_->Brief("Closest parm:");
   // Allocate space for new frame
-  newFrame_.SetupFrameV( newParm_->Atoms(), newParm_->HasVelInfo(), newParm_->NrepDim() );
+  newFrame_.SetupFrameV( newParm_->Atoms(), newParm_->ParmCoordInfo() );
   // If prefix given then output stripped parm
   if (!prefix_.empty()) {
     ParmFile pfile;
