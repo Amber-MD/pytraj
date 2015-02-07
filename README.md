@@ -9,7 +9,7 @@ Welcome to pytraj!
         * it has interface with numpy. Data calculation are performed without copying to numpy array
         * (but it actually does not need `numpy` at all, just optional)
     * It has clean Python/Cython syntax
-    * It has been extensively testes
+    * It has been extensively tests
     * It's flexible: 
         * you can write extension modules in either high (Python) or low (C/C++ or Cython) level
 
