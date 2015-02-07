@@ -128,7 +128,7 @@ int main(int argc, char** argv) {
   ArgList trajArgs;
   if (trajin.SetupTrajRead(crdname, trajArgs, &parm, false)) return 1;
   Frame TrajFrame;
-  TrajFrame.SetupFrameV(parm.Atoms(), trajin.HasVelocity(), trajin.NreplicaDimension());
+  TrajFrame.SetupFrameV(parm.Atoms(), trajin.TrajCoordInfo());
   trajin.BeginTraj(false);
   if (trajin.ReadTrajFrame(0, TrajFrame)) return 1;
   trajin.EndTraj();

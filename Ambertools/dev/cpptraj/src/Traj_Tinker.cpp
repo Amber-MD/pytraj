@@ -37,8 +37,8 @@ int Traj_Tinker::setupTrajin(std::string const& fname, Topology* trajParm)
   }
   // Set title
   SetTitle( file_.TinkerTitle() );
-  // Set Box.
-  SetBox( file_.TinkerBox() ); 
+  // Set traj info - no velocity, temperature, time.
+  SetCoordInfo( CoordinateInfo(file_.TinkerBox(), false, false, false) );
   // Count how many frames can be read.
   int readMoreFrames = 1;
   while (readMoreFrames == 1) {
@@ -79,7 +79,8 @@ int Traj_Tinker::readFrame(int set, Frame& frameIn) {
   * number of frames to be written.
   */
 int Traj_Tinker::setupTrajout(std::string const& fname, Topology* trajParm,
-                                int NframesToWrite, bool append)
+                              CoordinateInfo const& cInfoIn,
+                              int NframesToWrite, bool append)
 {
   // No write yet.
   mprinterr("Error: WRITE not yet implemented for Tinker files.\n");

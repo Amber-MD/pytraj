@@ -186,18 +186,20 @@ int Trajout::WriteFrame(int set, Topology *tparmIn, Frame const& FrameOut) {
     if (debug_>0) rprintf("\tSetting up %s for WRITE, %i atoms, originally %i atoms.\n",
                           TrajFilename().base(),tparmIn->Natom(),TrajParm()->Natom());
     SetTrajParm( tparmIn );
-    // Use parm to set up box info for the traj unless nobox was specified.
+    // Use parm to set up coord info for the traj. If 'nobox' was specified
+    // remove any box info.
+    CoordinateInfo cInfo = tparmIn->ParmCoordInfo();
     if (nobox_) 
-      trajio_->SetBox( Box() );
-    else
-      trajio_->SetBox( tparmIn->ParmBox() );
+      cInfo.SetBox( Box() );
     // Determine how many frames will be written
     int NframesToWrite = TrajParm()->Nframes();
     if (hasRange_)
       NframesToWrite = FrameRange_.Size();
     // Set up write and open for the current parm file 
-    if (trajio_->setupTrajout(TrajFilename().Full(), TrajParm(), NframesToWrite, append_)) 
+    if (trajio_->setupTrajout(TrajFilename().Full(), TrajParm(), cInfo, NframesToWrite, append_)) 
       return 1;
+    if (debug_ > 0)
+      Frame::PrintCoordInfo(TrajFilename().base(), tparmIn->c_str(), trajio_->CoordInfo());
     trajIsOpen_ = true;
     // If a framerange is defined set it to the begining of the range
     if (hasRange_)
@@ -230,7 +232,7 @@ void Trajout::PrintInfo(int showExtended) const {
   mprintf("  '%s' ",TrajFilename().base());
   trajio_->Info();
   mprintf(", Parm %s",TrajParm()->c_str());
-  if (trajio_->HasBox()) mprintf(" (with box info)");
+  if (nobox_) mprintf(" (no box info)");
   if (hasRange_)
     FrameRange_.PrintRange(": Writing frames", 1);
   else {

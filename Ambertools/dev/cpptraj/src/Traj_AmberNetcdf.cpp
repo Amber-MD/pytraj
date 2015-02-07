@@ -13,7 +13,9 @@ Traj_AmberNetcdf::Traj_AmberNetcdf() :
   eptotVID_(-1),
   binsVID_(-1),
   useVelAsCoords_(false),
-  readAccess_(false)
+  readAccess_(false),
+  outputTemp_(false),
+  outputVel_(false)
 { }
 
 // DESTRUCTOR
@@ -86,7 +88,6 @@ int Traj_AmberNetcdf::setupTrajin(std::string const& fname, Topology* trajParm)
   }
   // Setup Coordinates/Velocities
   if ( SetupCoordsVelo( useVelAsCoords_ )!=0 ) return TRAJIN_ERR;
-  SetVelocity( HasVelocities() );
   // Check that specified number of atoms matches expected number.
   if (Ncatom() != trajParm->Natom()) {
     mprinterr("Error: Number of atoms in NetCDF file %s (%i) does not\n"
@@ -94,20 +95,20 @@ int Traj_AmberNetcdf::setupTrajin(std::string const& fname, Topology* trajParm)
               filename_.base(), Ncatom(), trajParm->Natom());
     return TRAJIN_ERR;
   }
-  // Setup Time
-  if ( SetupTime()!=0 ) return TRAJIN_ERR;
+  // Setup Time - FIXME: Allowed to fail silently
+  SetupTime();
   // Box info
   double boxcrd[6];
   if (SetupBox(boxcrd, NC_AMBERTRAJ) == 1) // 1 indicates an error
     return TRAJIN_ERR;
-  SetBox( boxcrd );
-  // Replica Temperatures - Allowed to fail silently
-  if (SetupTemperature() == 0)
-    SetTemperature( true );
+  // Replica Temperatures - FIXME: Allowed to fail silently
+  SetupTemperature();
   // Replica Dimensions
   ReplicaDimArray remdDim;
   if ( SetupMultiD(remdDim) == -1 ) return TRAJIN_ERR;
-  SetReplicaDims( remdDim );
+  // Set traj info: FIXME - no forces yet
+  SetCoordInfo( CoordinateInfo(remdDim, Box(boxcrd), HasVelocities(),
+                               HasTemperatures(), HasTimes(), false) ); 
   // NOTE: TO BE ADDED
   // labelDID;
   //int cell_spatialDID, cell_angularDID;
@@ -128,8 +129,8 @@ void Traj_AmberNetcdf::WriteHelp() {
 
 // Traj_AmberNetcdf::processWriteArgs()
 int Traj_AmberNetcdf::processWriteArgs(ArgList& argIn) {
-  SetTemperature(argIn.hasKey("remdtraj"));
-  SetVelocity(argIn.hasKey("velocity"));
+  outputTemp_ = argIn.hasKey("remdtraj");
+  outputVel_ = argIn.hasKey("velocity");
   return 0;
 }
 
@@ -137,18 +138,25 @@ int Traj_AmberNetcdf::processWriteArgs(ArgList& argIn) {
 /** Create Netcdf file specified by filename and set up dimension and
   * variable IDs. 
   */
-int Traj_AmberNetcdf::setupTrajout(std::string const& fname, Topology* trajParm, 
+int Traj_AmberNetcdf::setupTrajout(std::string const& fname, Topology* trajParm,
+                                   CoordinateInfo const& cInfoIn, 
                                    int NframesToWrite, bool append)
 {
   readAccess_ = false;
   if (!append) {
+    CoordinateInfo cInfo = cInfoIn;
+    // Deal with output options
+    // For backwards compatibility always write temperature if remdtraj is true.
+    if (outputTemp_ && !cInfo.HasTemp()) cInfo.SetTemperature(true);
+    // Explicitly write velocity - initial frames may not have velocity info.
+    if (outputVel_ && !cInfo.HasVel()) cInfo.SetVelocity(true);
+    SetCoordInfo( cInfo );
     filename_.SetFileName( fname );
     // Set up title
     if (Title().empty())
       SetTitle("Cpptraj Generated trajectory");
     // Create NetCDF file. TODO: Add option to set up replica indices.
-    if ( NC_create( filename_.Full(), NC_AMBERTRAJ, trajParm->Natom(), HasV(),
-                    false, HasBox(), HasT(), true, false, ReplicaDimArray(), Title() ) )
+    if (NC_create( filename_.Full(), NC_AMBERTRAJ, trajParm->Natom(), CoordInfo(), Title() ))
       return 1;
     if (debug_>1) NetcdfDebug();
     // Close Netcdf file. It will be reopened write.
@@ -160,6 +168,13 @@ int Traj_AmberNetcdf::setupTrajout(std::string const& fname, Topology* trajParm,
     // Call setupTrajin to set input parameters. This will also allocate
     // memory for coords.
     if (setupTrajin(fname, trajParm) == TRAJIN_ERR) return 1;
+    // Check output options.
+    if (outputTemp_ && !CoordInfo().HasTemp())
+      mprintf("Warning: Cannot append temperature data to NetCDF file '%s'; no temperature dimension.\n",
+              filename_.base());
+    if (outputVel_ && !CoordInfo().HasVel())
+      mprintf("Warning: Cannot append velocity data to NetCDF file '%s'; no velocity dimension.\n",
+              filename_.base());
     if (debug_ > 0)
       mprintf("\tNetCDF: Appending %s starting at frame %i\n", filename_.base(), Ncframe()); 
   }
@@ -177,10 +192,15 @@ int Traj_AmberNetcdf::setupTrajout(std::string const& fname, Topology* trajParm,
   * Coords are a 1 dimensional array of format X1,Y1,Z1,X2,Y2,Z2,...
   */
 int Traj_AmberNetcdf::readFrame(int set, Frame& frameIn) {
+  start_[0] = set;
+  start_[1] = 0;
+  start_[2] = 0;
+  count_[0] = 1;
+  count_[1] = Ncatom();
+  count_[2] = 3;
+
   // Get temperature
   if (TempVID_!=-1) {
-    start_[0] = set;
-    count_[0] = 1;
     if ( checkNCerr(nc_get_vara_double(ncid_, TempVID_, start_, count_, frameIn.tAddress())) ) {
       mprinterr("Error: Getting replica temperature for frame %i.\n", set+1); 
       return 1;
@@ -188,13 +208,15 @@ int Traj_AmberNetcdf::readFrame(int set, Frame& frameIn) {
     //fprintf(stderr,"DEBUG: Replica Temperature %lf\n",F->T);
   }
 
+  // Get time
+  if (timeVID_!=-1) {
+    if (checkNCerr(nc_get_vara_double(ncid_, timeVID_, start_, count_, frameIn.mAddress()))) {
+      mprinterr("Error: Getting time for frame %i.\n", set + 1);
+      return 1;
+    }
+  }
+
   // Read Coords 
-  start_[0] = set;
-  start_[1] = 0;
-  start_[2] = 0;
-  count_[0] = 1;
-  count_[1] = Ncatom();
-  count_[2] = 3;
   if ( checkNCerr(nc_get_vara_float(ncid_, coordVID_, start_, count_, Coord_)) ) {
     mprinterr("Error: Getting coordinates for frame %i\n", set+1);
     return 1;
@@ -238,7 +260,6 @@ int Traj_AmberNetcdf::readFrame(int set, Frame& frameIn) {
     }
   }
 
-
   return 0;
 }
 
@@ -278,8 +299,8 @@ int Traj_AmberNetcdf::writeFrame(int set, Frame const& frameOut) {
     return 1;
   }
 
-  // Write velocity.
-  if (HasV() && frameOut.HasVelocity()) {
+  // Write velocity. FIXME: Should check in setup
+  if (CoordInfo().HasVel() && frameOut.HasVelocity()) {
     DoubleToFloat(Coord_, frameOut.vAddress());
     if (checkNCerr(nc_put_vara_float(ncid_, velocityVID_, start_, count_, Coord_)) ) {
       mprinterr("Error: Netcdf writing velocity frame %i\n", set+1);
@@ -305,6 +326,15 @@ int Traj_AmberNetcdf::writeFrame(int set, Frame const& frameOut) {
   if (TempVID_!=-1) {
     if ( checkNCerr( nc_put_vara_double(ncid_,TempVID_,start_,count_,frameOut.tAddress())) ) {
       mprinterr("Error: Writing temperature frame %i.\n", set+1);
+      return 1;
+    }
+  }
+
+  // Write time
+  if (timeVID_ != -1) {
+    float tVal = (float)frameOut.Time();
+    if ( checkNCerr( nc_put_vara_float(ncid_,timeVID_,start_,count_,&tVal)) ) {
+      mprinterr("Error: Writing time frame %i.\n", set+1);
       return 1;
     }
   }
@@ -375,8 +405,8 @@ int Traj_AmberNetcdf::writeReservoir(int set, Frame& frame, double energy, int b
 void Traj_AmberNetcdf::Info() {
   mprintf("is a NetCDF AMBER trajectory");
   if (readAccess_ && !HasCoords()) mprintf(" (no coordinates)");
-  if (HasV()) mprintf(" containing velocities");
-  if (HasT()) mprintf(" with replica temperatures");
+  if (CoordInfo().HasVel()) mprintf(" containing velocities");
+  if (CoordInfo().HasTemp()) mprintf(" with replica temperatures");
   if (remd_dimension_ > 0) mprintf(", with %i dimensions", remd_dimension_);
 }
 #endif

@@ -400,7 +400,8 @@ int DataIO_Std::WriteDataNormal(CpptrajFile& file, DataSetList const& SetList) {
   // Set up X column.
   if (hasXcolumn_) {
     // Create format string for X column based on dimension in first data set.
-    if (Xdim.Step() == 1.0) xcol_precision = 0;
+    if (Xdata.Type() != DataSet::XYMESH && Xdim.Step() == 1.0)
+      xcol_precision = 0;
     x_col_format = SetupCoordFormat( maxFrames, Xdim, xcol_width, xcol_precision ); 
   } else {
     // If not writing an X-column, set the format for the first dataset

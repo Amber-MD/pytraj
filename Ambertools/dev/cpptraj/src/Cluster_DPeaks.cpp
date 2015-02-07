@@ -46,6 +46,89 @@ void Cluster_DPeaks::ClusteringInfo() {
     mprintf("\t\tDelta of distance minus running avg written to %s\n", radelta_.c_str());
 }
 
+#ifdef DISABLE
+// -----------------------------------------------------------------------------
+int Cluster_DPeaks::Cluster() {
+  mprintf("\tStarting DPeaks clustering.\n");
+  // First determine which frames are being clustered.
+  Points_.clear();
+  int oidx = 0;
+  for (int frame = 0; frame < (int)FrameDistances_.Nframes(); ++frame)
+    if (!FrameDistances_.IgnoringRow( frame ))
+      Points_.push_back( Cpoint(frame, oidx++) );
+  // Sanity check.
+  if (Points_.size() < 2) {
+    mprinterr("Error: Only 1 frame in initial clustering.\n");
+    return 1;
+  }
+
+  // Sort distances
+  std::vector<float> Distances;
+  for (ClusterMatrix::const_iterator mat = FrameDistances_.begin();
+                                     mat != FrameDistances_.end(); ++mat)
+    Distances.push_back( *mat );
+  std::sort( Distances.begin(), Distances.end() );
+  unsigned int idx = (unsigned int)((double)Distances.size() * 0.02);
+  double bandwidth = (double)Distances[idx];
+  mprintf("idx= %u, bandwidth= %g\n", idx, bandwidth);
+
+  // Density via Gaussian kernel
+  double maxDist = -1.0;
+  for (unsigned int i = 0; i != Points_.size(); i++) {
+    for (unsigned int j = i+1; j != Points_.size(); j++) {
+      double dist = FrameDistances_.GetFdist(Points_[i].Fnum(), Points_[j].Fnum());
+      maxDist = std::max( maxDist, dist );
+      dist /= bandwidth;
+      double gk = exp(-(dist *dist));
+      Points_[i].AddDensity( gk );
+      Points_[j].AddDensity( gk );
+    }
+  }
+  mprintf("Max dist= %g\n", maxDist);
+  CpptrajFile rhoOut;
+  rhoOut.OpenWrite("rho.dat");
+  for (unsigned int i = 0; i != Points_.size(); i++)
+    rhoOut.Printf("%u %g\n", i+1, Points_[i].Density());
+  rhoOut.CloseFile();
+  
+  // Sort by density, descending
+  std::stable_sort( Points_.begin(), Points_.end(), Cpoint::density_sort_descend() );
+  CpptrajFile ordrhoOut;
+  ordrhoOut.OpenWrite("ordrho.dat");
+  for (unsigned int i = 0; i != Points_.size(); i++)
+    ordrhoOut.Printf("%u %g %i %i\n", i+1, Points_[i].Density(), Points_[i].Fnum()+1,
+                     Points_[i].Oidx()+1);
+  ordrhoOut.CloseFile();
+
+  // Determine minimum distances
+  int first_idx = Points_[0].Oidx();
+  Points_[first_idx].SetDist( -1.0 );
+  Points_[first_idx].SetNearestIdx(-1);
+  for (unsigned int ii = 1; ii != Points_.size(); ii++) {
+    int ord_i = Points_[ii].Oidx();
+    Points_[ord_i].SetDist( maxDist );
+    for (unsigned int jj = 0; jj != ii; jj++) {
+      int ord_j = Points_[jj].Oidx();
+      double dist = FrameDistances_.GetFdist(Points_[ord_i].Fnum(), Points_[ord_j].Fnum());
+      if (dist < Points_[ord_i].Dist()) {
+        Points_[ord_i].SetDist( dist );
+        Points_[ord_j].SetNearestIdx( ord_j );
+      }
+    }
+  }
+  if (!dpeaks_.empty()) {
+    CpptrajFile output;
+    if (output.OpenWrite(dpeaks_)) return 1;
+    for (Carray::const_iterator point = Points_.begin(); point != Points_.end(); ++point)
+      output.Printf("%g %g %i\n", point->Density(), point->Dist(), point->NearestIdx()+1);
+    output.CloseFile();
+  }
+      
+  return 1;
+}
+#endif
+
+// -----------------------------------------------------------------------------
 int Cluster_DPeaks::Cluster() {
   mprintf("\tStarting DPeaks clustering.\n");
   Points_.clear();
@@ -58,9 +141,11 @@ int Cluster_DPeaks::Cluster() {
     mprinterr("Error: Only 1 frame in initial clustering.\n");
     return 1;
   }
-  // For each point, determine how many others are within epsilon
+  // For each point, determine how many others are within epsilon. Also
+  // determine maximum distance between any two points.
   mprintf("\tDetermining local density of each point.\n");
   ProgressBar cluster_progress( Points_.size() );
+  double maxDist = -1.0;
   for (Carray::iterator point0 = Points_.begin();
                         point0 != Points_.end(); ++point0)
   {
@@ -70,22 +155,33 @@ int Cluster_DPeaks::Cluster() {
                                 point1 != Points_.end(); ++point1)
     {
       if (point0 != point1) {
-        if ( FrameDistances_.GetFdist(point0->Fnum(), point1->Fnum()) < epsilon_ )
+        double dist = FrameDistances_.GetFdist(point0->Fnum(), point1->Fnum());
+        maxDist = std::max(maxDist, dist);
+        if ( dist < epsilon_ )
           density++;
       }
     }
     point0->SetDensity( density );
   }
+  mprintf("DBG: Max dist= %g\n", maxDist);
+  // DEBUG: Frame/Density
+  CpptrajFile fdout;
+  fdout.OpenWrite("fd.dat");
+  for (Carray::const_iterator point = Points_.begin(); point != Points_.end(); ++point)
+    fdout.Printf("%i %i\n", point->Fnum()+1, point->Density());
+  fdout.CloseFile();
   // Sort by density here. Otherwise array indices will be invalid later.
   std::sort( Points_.begin(), Points_.end(), Cpoint::density_sort() );
-  // For each point, find the closest point that has higher density.
+  // For each point, find the closest point that has higher density. Since 
+  // array is now sorted by density the last point has the highest density.
+  Points_.back().SetDist( maxDist );
   mprintf("\tFinding closest neighbor point with higher density for each point.\n");
-  cluster_progress.SetupProgress( Points_.size() );
-  for (unsigned int idx0 = 0; idx0 != Points_.size(); idx0++)
+  unsigned int lastidx = Points_.size() - 1;
+  cluster_progress.SetupProgress( lastidx );
+  for (unsigned int idx0 = 0; idx0 != lastidx; idx0++)
   {
     cluster_progress.Update( idx0 );
-    double min_dist = -1.0;
-    double max_dist = -1.0;
+    double min_dist = maxDist;
     int nearestIdx = -1; // Index of nearest neighbor with higher density
     Cpoint& point0 = Points_[idx0];
     //mprintf("\nDBG:\tSearching for nearest neighbor to idx %u with higher density than %i.\n",
@@ -93,38 +189,21 @@ int Cluster_DPeaks::Cluster() {
     // Since array is sorted by density we can start at the next point.
     for (unsigned int idx1 = idx0+1; idx1 != Points_.size(); idx1++)
     {
-        Cpoint const& point1 = Points_[idx1];
-        double dist1_2 = FrameDistances_.GetFdist(point0.Fnum(), point1.Fnum());
-        max_dist = std::max(max_dist, dist1_2); 
-        if (point1.Density() > point0.Density())
-        {
-          if (min_dist < 0.0) {
-            min_dist = dist1_2;
-            nearestIdx = (int)idx1;
-            //mprintf("DBG:\t\tNeighbor idx %i is first point (density %i), distance %g\n",
-            //        nearestIdx, point1.Density(), min_dist);
-          } else if (dist1_2 < min_dist) {
-            min_dist = dist1_2;
-            nearestIdx = (int)idx1;
-            //mprintf("DBG:\t\tNeighbor idx %i is closer (density %i, distance %g)\n",
-            //        nearestIdx, point1.Density(), min_dist);
-          }
+      Cpoint const& point1 = Points_[idx1];
+      double dist1_2 = FrameDistances_.GetFdist(point0.Fnum(), point1.Fnum());
+      if (point1.Density() > point0.Density())
+      {
+        if (dist1_2 < min_dist) {
+          min_dist = dist1_2;
+          nearestIdx = (int)idx1;
+          //mprintf("DBG:\t\tNeighbor idx %i is closer (density %i, distance %g)\n",
+          //        nearestIdx, point1.Density(), min_dist);
         }
+      }
     }
-    // If min_dist is -1 at this point there is no point with higher density
-    // i.e. this point has the highest density. Assign it the maximum observed
-    // distance. Check all the points that were skipped.
-    if (min_dist < 0.0) {
-      for (unsigned int idx1 = 0; idx1 != idx0; idx1++)
-        max_dist = std::max(max_dist, FrameDistances_.GetFdist(point0.Fnum(),Points_[idx1].Fnum()));
-      point0.SetDist( max_dist );
-      //mprintf("DBG:\tPoint %u has no neighbors with higher density."
-      //        " Max distance to another point is %g\n", idx0, max_dist);
-    } else {
-      point0.SetDist( min_dist );
-      //mprintf("DBG:\tClosest point to %u with higher density is %i (distance %g)\n",
-      //        idx0, nearestIdx, min_dist);
-    }
+    point0.SetDist( min_dist );
+    //mprintf("DBG:\tClosest point to %u with higher density is %i (distance %g)\n",
+    //        idx0, nearestIdx, min_dist);
     point0.SetNearestIdx( nearestIdx );
   }
   // Plot density vs distance for each point.
@@ -146,7 +225,33 @@ int Cluster_DPeaks::Cluster() {
   // Choose points for which the min distance to point with higher density is
   // anomalously high.
   // Right now all density values are discrete. Try to choose outliers at each
-  // value for which there is density.
+  // value for which there is density.;
+ 
+/*
+  // For each point, calculate average distance (X,Y) to points in next and
+  // previous density values.
+  const double dens_cut = 3.0 * 3.0;
+  const double dist_cut = 1.32 * 1.32;
+  for (Carray::const_iterator point0 = Points_.begin(); point0 != Points_.end(); ++point0)
+  {
+    int Npts = 0;
+    for (Carray::const_iterator point1 = Points_.begin(); point1 != Points_.end(); ++point1)
+    {
+      if (point0 != point1) {
+        // Only do this for close densities
+        double dX = (double)(point0->Density() - point1->Density());
+        double dX2 = dX * dX;
+        double dY = (point0->Dist() - point1->Dist());
+        double dY2 = dY * dY;
+        if (dX2 < dens_cut && dY2 < dist_cut) {
+          Npts++;
+        }
+      }
+    }
+    mprintf("%i %i %i\n", point0->Density(), point0->Fnum()+1, Npts);
+  }
+*/
+
 /*
   CpptrajFile tempOut;
   tempOut.OpenWrite("temp.dat");
@@ -186,6 +291,8 @@ int Cluster_DPeaks::Cluster() {
   }
   tempOut.CloseFile(); 
 */
+
+  // BEGIN CALCULATING WEIGHTED DISTANCE AVERAGE
   CpptrajFile tempOut;
   tempOut.OpenWrite("temp.dat");
   DataSet_Mesh weightedAverage;
@@ -267,6 +374,8 @@ int Cluster_DPeaks::Cluster() {
 */
   }
   tempOut.CloseFile();
+  // END CALCULATING WEIGHTED DISTANCE AVERAGE
+
 /*
   // TEST
   tempOut.OpenWrite("temp2.dat");
@@ -325,6 +434,8 @@ int Cluster_DPeaks::Cluster() {
   tempOut.CloseFile(); 
   // END TEST
 */
+
+  // BEGIN WEIGHTED RUNNING AVG/SD OF DISTANCES
   // For each point, determine if it is greater than the average of the
   // weighted average distances of the previous, current, and next densities.
   int width = 2;
@@ -376,8 +487,8 @@ int Cluster_DPeaks::Cluster() {
     if (delta > 0.0) {
       //delta *= log((double)currentDensity);
       if (raDelta.IsOpen())
-        raDelta.Printf("%8i %8.3f %8.3f %8.3f\n",
-                       currentDensity, delta, point->Dist(), currentAvg);
+        raDelta.Printf("%8i %8.3f %8i %8.3f %8.3f\n",
+                       currentDensity, delta, point->Fnum()+1, point->Dist(), currentAvg);
       candidateIdxs.push_back( point - Points_.begin() );
       candidateDeltas.push_back( delta );
       deltaAv += delta;
@@ -404,6 +515,8 @@ int Cluster_DPeaks::Cluster() {
               Points_[candidateIdxs[i]].Density(), cnum-1);
     }
   }
+  // END WEIGHTED AVG/SD OF DISTANCES
+
 /* 
   // Currently doing this by calculating the running average of density vs 
   // distance, then choosing points with distance > twice the SD of the 
@@ -608,6 +721,7 @@ int Cluster_DPeaks::Cluster() {
   return 0;
 }
 
+// -----------------------------------------------------------------------------
 /** This should never be called for the point with highest density
   * which by definition should be a cluster center.
   */

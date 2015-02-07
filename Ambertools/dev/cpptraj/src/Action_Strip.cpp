@@ -87,10 +87,10 @@ Action::RetType Action_Strip::Setup(Topology* currentParm, Topology** parmAddres
   }
   // Remove box information if asked
   if (removeBoxInfo_)
-    newParm_->SetBox( Box() ); 
+    newParm_->SetParmBox( Box() ); 
   newParm_->Brief("Stripped parm:");
   // Allocate space for new frame
-  newFrame_.SetupFrameV(newParm_->Atoms(), newParm_->HasVelInfo(), newParm_->NrepDim());
+  newFrame_.SetupFrameV(newParm_->Atoms(), newParm_->ParmCoordInfo());
 
   // If prefix given then output stripped parm
   if (!prefix_.empty()) {

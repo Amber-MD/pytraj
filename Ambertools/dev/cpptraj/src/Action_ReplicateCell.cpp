@@ -144,8 +144,7 @@ Action::RetType Action_ReplicateCell::Setup(Topology* currentParm, Topology** pa
         return Action::ERR;
       }
     }
-    combinedFrame_.SetupFrameV(combinedTop_.Atoms(), combinedTop_.HasVelInfo(),
-                               combinedTop_.NrepDim());
+    combinedFrame_.SetupFrameV(combinedTop_.Atoms(), combinedTop_.ParmCoordInfo());
     // Set up COORDS / output traj if necessary.
     if (coords_ != 0)
       coords_->SetTopology( combinedTop_ );

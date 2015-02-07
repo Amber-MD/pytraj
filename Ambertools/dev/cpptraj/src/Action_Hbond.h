@@ -105,5 +105,6 @@ class Action_Hbond : public Action {
     void SearchDonor(HBlistType&,AtomMask&,bool,bool);
     inline int AtomsAreHbonded(Frame const&, int, int, int, int, int,bool);
     inline void HbondTypeCalcAvg(HbondType&);
+    inline double ImagedAngle(const double*, const double*, const double*) const;
 };
 #endif

@@ -1183,7 +1183,7 @@ int Parm_Amber::ReadAmberParm( Topology &TopIn ) {
     }
     error_count_ += TopIn.SetExtraAtomInfo(values[NATYP], extra);
     if (values[IFBOX]>0) 
-      TopIn.SetBox( parmbox );
+      TopIn.SetParmBox( parmbox );
     TopIn.SetChamber( chamberParm );
   }
 

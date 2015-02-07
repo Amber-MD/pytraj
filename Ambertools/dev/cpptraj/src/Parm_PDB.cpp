@@ -24,7 +24,7 @@ int Parm_PDB::ReadParm(std::string const& fname, Topology &TopIn) {
     if (readBox_ && infile.RecType() == PDBfile::CRYST1) {
       // Box info from CRYST1 record.
       infile.pdb_Box( XYZ );
-      TopIn.SetBox( XYZ );
+      TopIn.SetParmBox( XYZ );
     } else if (infile.RecType() == PDBfile::ATOM) {
       // If this is an ATOM / HETATM keyword, add to topology.
       infile.pdb_XYZ( XYZ );

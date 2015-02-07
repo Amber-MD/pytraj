@@ -81,13 +81,6 @@ cdef class FrameArray (object):
         for frame in self:
             del frame.thisptr
 
-    property topology:
-        def __get__(self):
-            """traditional name for Topology file"""
-            return self.top
-        def __set__(self, newtop):
-            self.top = newtop
-
     def load(self, filename='', Topology top=None, indices=None):
         # TODO : add more test cases
         # should we add hdf5 format here?
@@ -487,7 +480,8 @@ cdef class FrameArray (object):
                 else:    
                     # get whole traj
                     frame = Frame()
-                    frame.set_frame_v(ts.top, ts.has_vel(), ts.n_repdims)
+                    #frame.set_frame_v(ts.top, ts.has_vel(), ts.n_repdims)
+                    frame.set_frame_v(ts.top)
                     ts.begin_traj()
                     for i in range(ts.max_frames):
                         ts.get_next_frame(frame)

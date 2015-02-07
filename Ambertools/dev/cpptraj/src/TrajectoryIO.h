@@ -1,7 +1,6 @@
 #ifndef INC_TRAJECTORYIO_H
 #define INC_TRAJECTORYIO_H
 #include "Topology.h" // Box
-#include "ReplicaDimArray.h"
 #include "CpptrajFile.h"
 #include "ArgList.h"
 #include "BaseIOtype.h"
@@ -12,7 +11,7 @@
   */
 class TrajectoryIO : public BaseIOtype {
   public:
-    TrajectoryIO() : debug_(0), hasV_(false), hasT_(false) {}
+    TrajectoryIO() : debug_(0) {}
     virtual ~TrajectoryIO() {} // virtual since this class is inherited.
     // -----------===== Inherited functions =====-----------
     /// \return true if file format matches trajectory type.
@@ -28,13 +27,13 @@ class TrajectoryIO : public BaseIOtype {
       */
     virtual int setupTrajin(std::string const&, Topology*) = 0;
     /// Set up and open trajectory IO for WRITE/APPEND 
-    /** Called on the first write call. First arg is the trajectory name.
-      * Second arg is the Topology that will be associated with this
-      * trajectory. Third argument specifies whether trajectory is being
-      * appended to. 
+    /** Called on the first write call. Args are: 1) trajectory file name,
+      * 2) Topology associated with this trajectory, 3) coordinate metadata
+      * (velocities, temperatures, etc), 4) number of frames expected to be
+      * written out, 5) whether trajectory should be appended to.
       * \return 0 on success, 1 on error.
       */
-    virtual int setupTrajout(std::string const&,Topology*,int,bool) = 0; 
+    virtual int setupTrajout(std::string const&,Topology*,CoordinateInfo const&,int,bool) = 0; 
     /// Open previously set-up input trajectory, prepare for IO.
     virtual int openTrajin() = 0;
     /// Read a frame from trajectory
@@ -67,26 +66,16 @@ class TrajectoryIO : public BaseIOtype {
     /// Process arguments relevant to reading trajectory (optional)
     virtual int processReadArgs(ArgList&) = 0;
     // -----------------------------------------------------
-    bool HasBox()              const { return box_.HasBox();               }
-    const Box& TrajBox()       const { return box_;                        }
-    bool HasV()                const { return hasV_;                       }
-    bool HasT()                const { return hasT_;                       }
-    std::string const& Title() const { return title_;                      }
-    ReplicaDimArray const& ReplicaDimensions() const { return remdDim_;    }
+    CoordinateInfo const& CoordInfo() const { return coordInfo_; }
+    std::string const& Title()        const { return title_;     }
 
-    void SetDebug(int dIn)                { debug_ = dIn;    }
-    void SetBox(Box const& bIn)           { box_ = bIn;      }
-    void SetVelocity(bool vIn)            { hasV_ = vIn;     }
-    void SetTemperature(bool tIn)         { hasT_ = tIn;     }
-    void SetTitle(std::string const& tIn) { title_ = tIn;    }
-    void SetReplicaDims(ReplicaDimArray const& rIn) { remdDim_ = rIn; }
+    void SetDebug(int dIn)                       { debug_ = dIn;     }
+    void SetTitle(std::string const& tIn)        { title_ = tIn;     }
   protected:
+    void SetCoordInfo(CoordinateInfo const& cIn) { coordInfo_ = cIn; }
     int debug_;               ///< Trajectory debug level.
   private:
-    Box box_;                 ///< Default box info for trajectory.
-    bool hasV_;               ///< True if trajectory has velocity info.
-    bool hasT_;               ///< True if trajectory has temperature info.
-    std::string title_;       ///< Set to trajectory title.
-    ReplicaDimArray remdDim_; ///< Hold info on replica dims if present. 
+    CoordinateInfo coordInfo_; ///< Metadata associated with coordinate Frame
+    std::string title_;        ///< Set to trajectory title.
 }; 
 #endif

@@ -72,7 +72,7 @@ Action::RetType Action_VelocityAutoCorr::Setup(Topology* currentParm,
     return Action::ERR;
   }
   // If using velocity info, check that it is present.
-  if (useVelInfo_ && !currentParm->HasVelInfo()) {
+  if (useVelInfo_ && !currentParm->ParmCoordInfo().HasVel()) {
     mprinterr("Error: 'usevelocity' specified but no velocity info assocated with %s\n",
               currentParm->c_str());
     return Action::ERR;

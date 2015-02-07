@@ -14,8 +14,7 @@ class Trajin_Single : public Trajin {
     void EndTraj();
     int ReadTrajFrame(int, Frame&);
     void PrintInfo(int) const;
-    bool HasVelocity() const;
-    int NreplicaDimension() const;
+    CoordinateInfo const& TrajCoordInfo() const { return cInfo_; }
     // -------------------------------------------
     std::string Title() {
       if (trajio_==0) return std::string("");
@@ -24,6 +23,7 @@ class Trajin_Single : public Trajin {
   private:
     TrajectoryIO* trajio_; ///< Hold class that will interface with traj format.
     TrajectoryIO* velio_;  ///< Hold class that will interface with opt. mdvel file.
+    CoordinateInfo cInfo_; ///< Hold coordinate metadata.
     bool trajIsOpen_;      ///< True if trajectory is open. 
 };
 #endif

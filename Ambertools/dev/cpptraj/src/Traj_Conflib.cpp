@@ -72,6 +72,7 @@ int Traj_Conflib::readFrame(int set, Frame& frameIn) {
 
 // Traj_Conflib::setupTrajout()
 int Traj_Conflib::setupTrajout(std::string const& fname, Topology* trajParm,
+                               CoordinateInfo const& cInfoIn,
                                int NframesToWrite, bool append)
 {
   mprinterr("Error: conflib writes not yet implemented.\n");

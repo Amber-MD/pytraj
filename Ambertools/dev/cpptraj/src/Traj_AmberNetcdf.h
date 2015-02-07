@@ -15,7 +15,7 @@ class Traj_AmberNetcdf : public TrajectoryIO, private NetcdfFile {
     // Inherited functions
     bool ID_TrajFormat(CpptrajFile&);
     int setupTrajin(std::string const&, Topology*);
-    int setupTrajout(std::string const&, Topology*, int, bool);
+    int setupTrajout(std::string const&, Topology*, CoordinateInfo const&,int, bool);
     int openTrajin();
     void closeTraj();
     int readFrame(int,Frame&);
@@ -34,6 +34,8 @@ class Traj_AmberNetcdf : public TrajectoryIO, private NetcdfFile {
     int binsVID_;
     bool useVelAsCoords_;
     bool readAccess_;
+    bool outputTemp_;
+    bool outputVel_;
 };
 // ----- INLINE FUNCTIONS ------------------------------------------------------
 int Traj_AmberNetcdf::createReservoir(bool hasBins, double reservoirT, int iseed) {

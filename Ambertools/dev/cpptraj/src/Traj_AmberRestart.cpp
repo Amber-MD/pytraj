@@ -15,7 +15,10 @@ Traj_AmberRestart::Traj_AmberRestart() :
   dt_(1.0),
   singleWrite_( false),
   readAccess_(false),
-  useVelAsCoords_(false)
+  useVelAsCoords_(false),
+  outputTemp_(false),
+  outputVel_(false),
+  outputTime_(false)
 {}
 
 /** Check for an integer (I5) followed by 0-2 scientific floats (E15.7) */
@@ -54,6 +57,7 @@ int Traj_AmberRestart::openTrajin() {
 
 void Traj_AmberRestart::WriteHelp() {
   mprintf("\tnovelocity: Do not write velocities to restart file.\n"
+          "\tnotime:     Do not write time to restart file.\n"
           "\tremdtraj:   Write temperature to restart file (will also write time).\n"
           "\ttime0:      Time for first frame (if not specified time is not written).\n"
           "\tdt:         Time step for subsequent frames, t=(time0+frame)*dt; (default 1.0)\n");
@@ -62,13 +66,11 @@ void Traj_AmberRestart::WriteHelp() {
 // Traj_AmberRestart::processWriteArgs()
 int Traj_AmberRestart::processWriteArgs(ArgList& argIn) {
   // For write, assume we want velocities unless specified
-  SetVelocity( !argIn.hasKey("novelocity") );
-  SetTemperature(argIn.hasKey("remdtraj"));
+  outputVel_ = !argIn.hasKey("novelocity");
+  outputTime_ = !argIn.hasKey("notime");
+  outputTemp_ = argIn.hasKey("remdtraj");
   time0_ = argIn.getKeyDouble("time0", -1.0);
   dt_ = argIn.getKeyDouble("dt",1.0);
-  // If temperature requested write time as well or format will break.
-  if (HasT() && time0_ < 0.0)
-    time0_ = 1.0;
   return 0;
 }
 
@@ -76,13 +78,27 @@ int Traj_AmberRestart::processWriteArgs(ArgList& argIn) {
 /** Allocate a character buffer based on number of coords and whether 
   * velocities/box info is present.
   */
-int Traj_AmberRestart::setupTrajout(std::string const& fname, Topology* trajParm, 
+int Traj_AmberRestart::setupTrajout(std::string const& fname, Topology* trajParm,
+                                    CoordinateInfo const& cInfoIn, 
                                     int NframesToWrite, bool append)
 {
   if (append) {
     mprinterr("Error: Append not supported for Amber Restart.\n");
     return 1;
   }
+  CoordinateInfo cInfo = cInfoIn;
+  if (!cInfo.HasTemp() && outputTemp_) cInfo.SetTemperature(true);
+  // If temperature requested write time as well or format will break.
+  if (cInfo.HasTemp()) {
+    outputTime_ = true;
+    if (!cInfo.HasTime() && time0_ < 0.0) time0_ = 1.0;
+  }
+  if (cInfo.HasVel() && !outputVel_) cInfo.SetVelocity(false);
+  if (outputTime_) {
+    if (!cInfo.HasTime() && time0_ >= 0) cInfo.SetTime(true);
+  } else
+    cInfo.SetTime(false);
+  SetCoordInfo( cInfo );
   if (file_.SetupWrite( fname, debug_ )) return 1;
   readAccess_ = false;
   // Set trajectory info
@@ -94,7 +110,7 @@ int Traj_AmberRestart::setupTrajout(std::string const& fname, Topology* trajParm
   // just in case. Velocity will not be written if V input is null.
   file_.ResizeBuffer( natom3_ );
   // If box coords are present, allocate extra space for them
-  if (HasBox()) {
+  if (CoordInfo().HasBox()) {
     numBoxCoords_ = 6;
     file_.ResizeBuffer( numBoxCoords_ );
   }
@@ -178,18 +194,21 @@ int Traj_AmberRestart::setupTrajin(std::string const& fname, Topology* trajParm)
     mprinterr("Error: AmberRestart::open(): Reading restart atoms/time.\n");
     return TRAJIN_ERR;
   }
-  SetTemperature(false);
+  bool hasTemp = false;
+  bool hasTime = false;
   int nread = sscanf(nextLine.c_str(),"%i %lE %lE",&restartAtoms_,&restartTime_,&restartTemp_);
   if (nread < 1) {
     mprinterr("Error: AmberRestart::open(): Getting restart atoms/time.\n");
     return TRAJIN_ERR;
-  } else if (nread == 1) {
+  } else if (nread == 1) { // # atoms only
     restartTime_ = 0.0;
     restartTemp_ = -1.0;
-  } else if (nread == 2) {
+  } else if (nread == 2) { // # atoms and time
+    hasTime = true;
     restartTemp_ = -1.0;
-  } else {
-    SetTemperature( true );
+  } else {                 // # atoms, time, and temperature
+    hasTime = true;
+    hasTemp = true; 
   }
   if (debug_ > 0) 
     mprintf("\tAmber restart: Atoms=%i Time=%lf Temp=%lf\n",restartAtoms_,
@@ -211,6 +230,7 @@ int Traj_AmberRestart::setupTrajin(std::string const& fname, Topology* trajParm)
     return TRAJIN_ERR; 
   }
   // Attempt a second read to get velocities or box coords
+  bool hasVel = false;
   Box boxInfo;
   nread = file_.AttemptReadFrame();
   if ( nread < 0 ) {
@@ -219,41 +239,41 @@ int Traj_AmberRestart::setupTrajin(std::string const& fname, Topology* trajParm)
   }
   size_t readSize = (size_t)nread;
   //mprintf("DEBUG: Restart readSize on second read = %i\n",readSize);
-  if (readSize == 0) {
-    // If 0 no box or velo 
-    SetVelocity( false );
-  } else if (readSize == file_.FrameSize()) {
-    // If filled framebuffer again, has velocity info. 
-    SetVelocity(true);
-    // If we can read 1 more line after velocity, should be box info.
-    nextLine = file_.GetLine();
-    if (!nextLine.empty()) {
+  // If 0 no box or velo 
+  if (readSize > 0) {
+    if (readSize == file_.FrameSize()) {
+      // If filled framebuffer again, has velocity info. 
+      hasVel = true;
+      // If we can read 1 more line after velocity, should be box info.
+      nextLine = file_.GetLine();
+      if (!nextLine.empty()) {
+        if (getBoxAngles(nextLine, boxInfo)) return TRAJIN_ERR;
+      } 
+    } else if (readSize<82) {
+      // If we read something but didnt fill framebuffer, should have box coords.
+      nextLine.assign(file_.Buffer(), readSize);
       if (getBoxAngles(nextLine, boxInfo)) return TRAJIN_ERR;
-    } 
-  } else if (readSize<82) {
-    // If we read something but didnt fill framebuffer, should have box coords.
-    SetVelocity( false );
-    nextLine.assign(file_.Buffer(), readSize);
-    if (getBoxAngles(nextLine, boxInfo)) return TRAJIN_ERR;
-  } else {
-    // Otherwise, who knows what was read?
-    mprinterr("Error: AmberRestart::setupTrajin(): When attempting to read in\n");
-    mprinterr("Error: box coords/velocity info got %lu chars, expected 0, 37,\n",readSize);
-    mprinterr("Error: 73, or %lu.\n",file_.FrameSize());
-    mprinterr("Error: This usually indicates a malformed or corrupted restart file.\n");
-    return TRAJIN_ERR;
+    } else {
+      // Otherwise, who knows what was read?
+      mprinterr("Error: AmberRestart::setupTrajin(): When attempting to read in\n"
+                "Error: box coords/velocity info got %lu chars, expected 0, 37,\n"
+                "Error: 73, or %lu.\n", readSize, file_.FrameSize());
+      mprinterr("Error: This usually indicates a malformed or corrupted restart file.\n");
+      return TRAJIN_ERR;
+    }
   }
-  SetBox( boxInfo );
-  if (useVelAsCoords_ && !HasV()) {
+  if (useVelAsCoords_ && !hasVel) {
     mprinterr("Error: 'usevelascoords' specified but no velocities in this restart.\n");
     return TRAJIN_ERR;
   }
   // Recalculate the frame size
-  if (HasV())
+  if (hasVel)
     file_.ResizeBuffer( natom3_ );
   if (boxInfo.HasBox())
     file_.ResizeBuffer( numBoxCoords_ );
   file_.CloseFile();
+  // Set coordinate info
+  SetCoordInfo( CoordinateInfo(boxInfo, hasVel, hasTemp, hasTime) );
   // Only 1 frame in restart by definition
   return 1;
 }
@@ -268,13 +288,16 @@ int Traj_AmberRestart::readFrame(int set, Frame& frameIn) {
     return 1;
   }
   // Set frame temp
-  if (HasT())
-    *(frameIn.tAddress()) = restartTemp_;
+  if (CoordInfo().HasTemp())
+    frameIn.SetTemperature( restartTemp_ );
+  // Set frame time
+  if (CoordInfo().HasTime())
+    frameIn.SetTime( restartTime_ );
   // Get coords from buffer
   file_.BufferBegin();
   file_.BufferToDouble(frameIn.xAddress(), natom3_);
   // Get velocity from buffer if present
-  if (HasV()) {
+  if (CoordInfo().HasVel()) {
     if (frameIn.HasVelocity()) {
       if (useVelAsCoords_) 
         file_.BufferToDouble(frameIn.xAddress(), natom3_);
@@ -292,7 +315,7 @@ int Traj_AmberRestart::readFrame(int set, Frame& frameIn) {
 
 // Traj_AmberRestart::readVelocity()
 int Traj_AmberRestart::readVelocity(int set, Frame& frameIn) {
-  if (HasV()) {
+  if (CoordInfo().HasVel()) {
     if ( file_.ReadFrame() ) {
       mprinterr("Error: AmberRestart::readVelocity(): Error reading file.\n");
       return 1;
@@ -320,12 +343,15 @@ int Traj_AmberRestart::writeFrame(int set, Frame const& frameOut) {
   // Write out atoms
   file_.Printf("%5i",restartAtoms_);
   // Write out restart time
-  if (time0_>=0) {
-    restartTime_ = (time0_ + (double)set) * dt_;
+  if (CoordInfo().HasTime()) {
+    if (time0_>=0)
+      restartTime_ = (time0_ + (double)set) * dt_;
+    else
+      restartTime_ = frameOut.Time();
     file_.Printf("%15.7lE",restartTime_);
   }
   // Write out temperature
-  if (HasT())
+  if (CoordInfo().HasTemp())
     file_.Printf("%15.7lE",frameOut.Temperature());
   file_.Printf("\n");
 
@@ -333,7 +359,7 @@ int Traj_AmberRestart::writeFrame(int set, Frame const& frameOut) {
   file_.BufferBegin();
   file_.DoubleToBuffer(frameOut.xAddress(), natom3_, "%12.7f");
   // Write velocity to buffer. Check V since velocity not known ahead of time
-  if (HasV() && frameOut.HasVelocity())
+  if (CoordInfo().HasVel() && frameOut.HasVelocity())
     file_.DoubleToBuffer(frameOut.vAddress(), natom3_, "%12.7f");
   // Write box to buffer
   if (numBoxCoords_!=0)
@@ -351,7 +377,7 @@ void Traj_AmberRestart::Info() {
   mprintf("is an AMBER restart file");
   if (readAccess_) {
     // If read access we know for sure whether there are velocities.
-    if (HasV())
+    if (CoordInfo().HasVel())
       mprintf(" with velocity info");
     else
       mprintf(", no velocities");
@@ -360,6 +386,7 @@ void Traj_AmberRestart::Info() {
     // If write, not sure yet whether velocities will be written since
     // it also depends on if the frame has velocity info, so only state
     // if novelocity was specified.
-    if (!HasV()) mprintf(", no velocities");
+    if (!outputVel_) mprintf(", no velocities");
+    if (!outputTime_) mprintf(", no time");
   }
 }

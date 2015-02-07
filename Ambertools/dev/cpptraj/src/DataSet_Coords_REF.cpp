@@ -41,8 +41,8 @@ int DataSet_Coords_REF::SetupRefFrame(std::string const& fname, std::string cons
     return 1;
   }
   // Set up reference frame
-  if (frame_.SetupFrameV(parmIn.Atoms(), traj.HasVelocity(),
-                         traj.NreplicaDimension())) return 1;
+  if (frame_.SetupFrameV(parmIn.Atoms(), traj.TrajCoordInfo()))
+    return 1;
   // Read reference frame
   traj.ReadTrajFrame( traj.Start(), frame_ );
   traj.EndTraj();

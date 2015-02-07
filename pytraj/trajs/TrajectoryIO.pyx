@@ -39,23 +39,25 @@ cdef class TrajectoryIO (BaseIOtype):
 
     #def virtual int processReadArgs(self,ArgList):
 
-    @makesureABC("TrajectoryIO")
-    def has_box(self):
-        return self.baseptr_1.HasBox()
+    # BROKEn
+    #@makesureABC("TrajectoryIO")
+    #def has_box(self):
+    #    return self.baseptr_1.HasBox()
 
-    @makesureABC("TrajectoryIO")
-    def traj_box(self):
-        cdef Box box = Box()
-        box.thisptr[0] = self.baseptr_1.TrajBox()
-        return box
+    #@makesureABC("TrajectoryIO")
+    #def traj_box(self):
+    #    cdef Box box = Box()
+    #    box.thisptr[0] = self.baseptr_1.TrajBox()
+    #    return box
 
-    @makesureABC("TrajectoryIO")
-    def has_velocity(self):
-        return self.baseptr_1.HasV()
+    #@makesureABC("TrajectoryIO")
+    #def has_velocity(self):
+    #    return self.baseptr_1.HasV()
 
-    @makesureABC("TrajectoryIO")
-    def has_temperature(self):
-        return self.baseptr_1.HasT()
+    # BROKEN
+    #@makesureABC("TrajectoryIO")
+    #def has_temperature(self):
+    #    return self.baseptr_1.HasT()
 
     #@property
     #def title(self):
@@ -65,28 +67,25 @@ cdef class TrajectoryIO (BaseIOtype):
     #def title(self, string tIn):
     #    self.baseptr_1.SetTitle(tIn)
 
-    @makesureABC("TrajectoryIO")
-    def replica_dim(self):
-        cdef ReplicaDimArray repdim = ReplicaDimArray()
-        repdim.thisptr[0] = self.baseptr_1.ReplicaDimensions()
-        return repdim
+    # BROKEN: 
+    #@makesureABC("TrajectoryIO")
+    #def replica_dim(self):
+    #    cdef ReplicaDimArray repdim = ReplicaDimArray()
+    #    repdim.thisptr[0] = self.baseptr_1.ReplicaDimensions()
+    #    return repdim
 
-    @makesureABC("TrajectoryIO")
-    def set_debug(self,int dIn):
-        self.baseptr_1.SetDebug(dIn)
+    #@makesureABC("TrajectoryIO")
+    #def set_box(self, Box bIn):
+    #    self.baseptr_1.SetBox(bIn.thisptr[0])
 
-    @makesureABC("TrajectoryIO")
-    def set_box(self, Box bIn):
-        self.baseptr_1.SetBox(bIn.thisptr[0])
+    #@makesureABC("TrajectoryIO")
+    #def set_velocity(self,bint vIn):
+    #    self.baseptr_1.SetVelocity(vIn)
 
-    @makesureABC("TrajectoryIO")
-    def set_velocity(self,bint vIn):
-        self.baseptr_1.SetVelocity(vIn)
+    #@makesureABC("TrajectoryIO")
+    #def set_temperature(self,bint tIn):
+    #    self.baseptr_1.SetTemperature(tIn)
 
-    @makesureABC("TrajectoryIO")
-    def set_temperature(self,bint tIn):
-        self.baseptr_1.SetTemperature(tIn)
-
-    @makesureABC("TrajectoryIO")
-    def set_replica_dims(self, ReplicaDimArray rIn):
-        self.baseptr_1.SetReplicaDims(rIn.thisptr[0])
+    #@makesureABC("TrajectoryIO")
+    #def set_replica_dims(self, ReplicaDimArray rIn):
+    #    self.baseptr_1.SetReplicaDims(rIn.thisptr[0])

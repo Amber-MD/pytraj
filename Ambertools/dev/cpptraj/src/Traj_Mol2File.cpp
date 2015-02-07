@@ -104,9 +104,11 @@ int Traj_Mol2File::processWriteArgs(ArgList& argIn) {
   * number of frames to be written.
   */
 int Traj_Mol2File::setupTrajout(std::string const& fname, Topology* trajParm,
+                                CoordinateInfo const& cInfoIn,
                                 int NframesToWrite, bool append)
 {
   if (trajParm==0) return 1;
+  SetCoordInfo( cInfoIn );
   mol2Top_ = trajParm;
   // Set up file
   if (append && mol2WriteMode_ != MULTI) {

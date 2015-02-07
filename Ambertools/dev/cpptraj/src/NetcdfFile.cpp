@@ -215,17 +215,17 @@ int NetcdfFile::SetupCoordsVelo(bool useVelAsCoords) {
 }
 
 // NetcdfFile::SetupTime()
-/** Set up timeVID and check units. */
+/** Determine if Netcdf file contains time; set up timeVID and check units. */
 int NetcdfFile::SetupTime() {
-  if ( checkNCerr( nc_inq_varid(ncid_, NCTIME, &timeVID_)) ) {
-    mprinterr("Getting Netcdf time VID.\n");
-    return 1;
+  if ( nc_inq_varid(ncid_, NCTIME, &timeVID_) == NC_NOERR ) {
+    std::string attrText = GetAttrText(timeVID_, "units");
+    if (attrText!="picosecond")
+      mprintf("Warning: Netcdf file has time units of %s - expected picosecond.\n",
+              attrText.c_str());
+    return 0;
   }
-  std::string attrText = GetAttrText(timeVID_, "units");
-  if (attrText!="picosecond")
-    mprintf("Warning: Netcdf file has time units of %s - expected picosecond.\n",
-            attrText.c_str());
-  return 0;
+  timeVID_=-1;
+  return 1;
 }
 
 // NetcdfFile::SetupTemperature()
@@ -466,9 +466,7 @@ int NetcdfFile::NC_createReservoir(bool hasBins, double reservoirT, int iseed,
 
 // NetcdfFile::NC_create()
 int NetcdfFile::NC_create(std::string const& Name, NCTYPE type, int natomIn,
-                          bool hasVelocity, bool hasFrc, bool hasBox, 
-                          bool hasTemperature, bool hasTime, bool hasIndices,
-                          ReplicaDimArray const& remdDim, std::string const& title) 
+                          CoordinateInfo const& coordInfo, std::string const& title) 
 {
   if (Name.empty()) return 1;
   int dimensionID[NC_MAX_VAR_DIMS];
@@ -477,7 +475,8 @@ int NetcdfFile::NC_create(std::string const& Name, NCTYPE type, int natomIn,
 
   if (ncdebug_>1)
     mprintf("DEBUG: NC_create: %s  natom=%i V=%i  box=%i  temp=%i  time=%i\n",
-            Name.c_str(),natomIn,(int)hasVelocity,(int)hasBox,(int)hasTemperature,(int)hasTime);
+            Name.c_str(),natomIn,(int)coordInfo.HasVel(),(int)coordInfo.HasBox(),
+            (int)coordInfo.HasTemp(),(int)coordInfo.HasTime());
 
   if ( checkNCerr( nc_create( Name.c_str(), NC_64BIT_OFFSET, &ncid_) ) )
     return 1;
@@ -510,7 +509,7 @@ int NetcdfFile::NC_create(std::string const& Name, NCTYPE type, int natomIn,
     dimensionID[0] = frameDID_;
   }
   // Time variable and units
-  if (hasTime) {
+  if (coordInfo.HasTime()) {
     if ( checkNCerr( nc_def_var(ncid_, NCTIME, dataType, NDIM-2, dimensionID, &timeVID_)) ) {
       mprinterr("Error: Defining time variable.\n");
       return 1;
@@ -555,7 +554,7 @@ int NetcdfFile::NC_create(std::string const& Name, NCTYPE type, int natomIn,
     return 1;
   }
   // Velocity variable
-  if (hasVelocity) {
+  if (coordInfo.HasVel()) {
     if ( checkNCerr( nc_def_var( ncid_, NCVELO, dataType, NDIM, dimensionID, &velocityVID_)) ) {
       mprinterr("Error: Defining velocities variable.\n");
       return 1;
@@ -573,7 +572,7 @@ int NetcdfFile::NC_create(std::string const& Name, NCTYPE type, int natomIn,
     }
   }
   // Force variable
-  if (hasFrc) {
+  if (coordInfo.HasForce()) {
     if ( checkNCerr( nc_def_var( ncid_, NCFRC, dataType, NDIM, dimensionID, &frcVID_)) ) {
       mprinterr("Error: Defining forces variable\n");
       return 1;
@@ -585,17 +584,18 @@ int NetcdfFile::NC_create(std::string const& Name, NCTYPE type, int natomIn,
     }
   }
   // Replica Temperature
-  if (hasTemperature) {
+  if (coordInfo.HasTemp()) {
     // NOTE: Setting dimensionID should be OK for Restart, will not be used.
     dimensionID[0] = frameDID_;
     if ( NC_defineTemperature( dimensionID, NDIM-2 ) ) return 1;
   }
   // Replica indices
   int remDimTypeVID = -1;
-  if (hasIndices) {
+  if (coordInfo.HasReplicaDims()) {
     // Define number of replica dimensions
     int remDimDID = -1;
-    if ( checkNCerr(nc_def_dim( ncid_, NCREMD_DIMENSION, remdDim.Ndims(), &remDimDID )) ) {
+    if ( checkNCerr(nc_def_dim(ncid_, NCREMD_DIMENSION, coordInfo.ReplicaDimensions().Ndims(),
+                                &remDimDID)) ) {
       mprinterr("Error: Defining replica indices dimension.\n");
       return 1;
     }
@@ -623,7 +623,7 @@ int NetcdfFile::NC_create(std::string const& Name, NCTYPE type, int natomIn,
     // remove from AmberNetcdf.F90.
   }
   // Box Info
-  if (hasBox) {
+  if (coordInfo.HasBox()) {
     // Cell Spatial
     if ( checkNCerr( nc_def_dim( ncid_, NCCELL_SPATIAL, 3, &cell_spatialDID_)) ) {
       mprinterr("Error: Defining cell spatial dimension.\n");
@@ -744,7 +744,7 @@ int NetcdfFile::NC_create(std::string const& Name, NCTYPE type, int natomIn,
     mprinterr("Error on NetCDF output of spatial VID 'x', 'y' and 'z'");
     return 1;
   }
-  if ( hasBox ) {
+  if ( coordInfo.HasBox() ) {
     xyz[0] = 'a'; 
     xyz[1] = 'b'; 
     xyz[2] = 'c';
@@ -766,7 +766,8 @@ int NetcdfFile::NC_create(std::string const& Name, NCTYPE type, int natomIn,
   }
 
   // Store the type of each replica dimension.
-  if (hasIndices) {
+  if (coordInfo.HasReplicaDims()) {
+    ReplicaDimArray const& remdDim = coordInfo.ReplicaDimensions();
     start_[0] = 0;
     count_[0] = remdDim.Ndims();
     int* tempDims = new int[ remdDim.Ndims() ];
