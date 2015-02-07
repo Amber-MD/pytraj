@@ -156,3 +156,4 @@ def calculate(action=None, command="", traj=None, top=None):
     else:
         act = action
     return act(command, traj, top, quick_get=True)
+
