@@ -9,6 +9,10 @@ from pytraj.Frame import Frame
 #from pytraj.Trajin_Single import Trajin_Single
 from pytraj.FrameArray import FrameArray
 from pytraj.actions import allactions
+from pytraj import adict
+
+# external
+from pytraj.externals.six import string_types
 
 __all__ = ['strip', 'fit', 'get_subframe', 'randomize_ions']
 
@@ -128,3 +132,23 @@ def show_code(func, get_txt=False):
         print (txt)
     else:
         return txt
+
+def calculate(action=None, command="", traj=None, top=None):
+    """quick way to get data
+    Parameters:
+    action : Action object, default=None
+    command : str, default=None
+    traj : Trajectory object (FrameArray, TrajReadOnly, ...)
+    top : topology
+    """
+    if top is None:
+        top = traj.top
+    if traj is None:
+        raise ValueError("must have trajectory object")
+    if isinstance(action, string_types):
+        # convert to action
+        from pytraj import adict
+        act = adict[action]
+    else:
+        act = action
+    return act(command, traj, top, quick_get=True)
