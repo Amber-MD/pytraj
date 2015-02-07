@@ -391,7 +391,7 @@ cdef class Topology:
         top.thisptr[0] = deref(self.thisptr.ModifyByMap(m))
         return top
 
-    def strip_atoms(Topology self, mask):
+    def strip_atoms(Topology self, mask, copy=False):
         # TODO : shorter way?
         """strip atoms with given mask"""
         cdef AtomMask atm = AtomMask()
@@ -402,7 +402,10 @@ cdef class Topology:
         atm.thisptr.InvertMask()
         self.thisptr.SetupIntegerMask(atm.thisptr[0])
         tmptop.thisptr = self.thisptr.modifyStateByMask(atm.thisptr[0])
-        self.thisptr[0] = tmptop.thisptr[0]
+        if copy:
+            return tmptop
+        else:
+            self.thisptr[0] = tmptop.thisptr[0]
 
     def tag(self):
         # what does this do?
