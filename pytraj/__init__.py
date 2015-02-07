@@ -3,6 +3,7 @@ pytraj
 """
 import os
 from pytraj import base
+from pytraj.utils.check_and_assert import _import
 
 # TODO : should we load those module here or use .base?
 from pytraj import io

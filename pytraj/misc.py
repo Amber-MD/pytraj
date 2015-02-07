@@ -157,3 +157,12 @@ def calculate(action=None, command="", traj=None, top=None):
         act = action
     return act(command, traj, top, quick_get=True)
 
+def simple_plot(d0, *args, **kwd):
+    # TODO : return object so we can update axis, label, ..
+    from pytraj import _import
+
+    has_plot, plt = _import('matplotlib.pyplot')
+    if not has_plot:
+        raise RuntimeError("require matplotlib installed")
+    fig = plt.pyplot.plot(range(d0.size), d0[:], *args, **kwd)
+    plt.pyplot.show()
