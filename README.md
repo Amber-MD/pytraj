@@ -31,7 +31,8 @@ Install
 
 Usage: 
 -----
-- Check ./examples folders
+- easiest: `calculate('distance', ':2@CA :10@CA', (traj, traj))`
+- Check ./examples folder
 - Check pytraj-notebooks: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/Frame_class.ipynb)
 
 Support
