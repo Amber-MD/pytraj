@@ -34,6 +34,9 @@ cdef class Action:
         #del self.baseptr
         pass
 
+    def __del__(self):
+        del self.baseptr
+
     def __str__(self):
         txt = "< %s object >" % (self.__class__.__name__)
         return txt
