@@ -2,6 +2,8 @@
 from pytraj.datasets.DataSet_1D cimport DataSet_1D, _DataSet_1D
 from pytraj.datasets.DataSet_2D cimport DataSet_2D, _DataSet_2D
 from pytraj.datasets.DataSet_double cimport DataSet_double, _DataSet_double
+from pytraj.datasets.DataSet_float cimport DataSet_float, _DataSet_float
+from pytraj.datasets.DataSet_string cimport DataSet_string, _DataSet_string
 from pytraj.datasets.DataSet_MatrixDbl cimport DataSet_MatrixDbl, _DataSet_MatrixDbl
 from pytraj.datasets.DataSet cimport DataSet, _DataSet
 
@@ -19,7 +21,9 @@ def cast_dataset(dsetin, dtype='general'):
     cdef DataSet_1D newset1D
     cdef DataSet_2D newset2D
     cdef DataSet_double newset_double
+    cdef DataSet_float newset_float
     cdef DataSet_MatrixDbl newset_MatrixDbl
+    cdef DataSet_string newset_string
 
     if not isinstance(dsetin, DataSet):
         dset = <DataSet> dsetin.alloc()
@@ -52,6 +56,26 @@ def cast_dataset(dsetin, dtype='general'):
         newset_double.thisptr = <_DataSet_double*> dset.baseptr0
         return newset_double
 
+    elif dtype in ['FLOAT']: 
+        newset_float = DataSet_float()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_float.py_free_mem = False
+        newset_float.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_float.baseptr_1 = <_DataSet_1D*> dset.baseptr0
+        newset_float.thisptr = <_DataSet_float*> dset.baseptr0
+        return newset_float
+
+    elif dtype in ['STRING']: 
+        newset_string = DataSet_string()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_string.py_free_mem = False
+        newset_string.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_string.baseptr_1 = <_DataSet_1D*> dset.baseptr0
+        newset_string.thisptr = <_DataSet_string*> dset.baseptr0
+        return newset_string
+
     elif dtype in ['MATRIX', 'MATRIX_DBL']:
         newset_matrixdbl = DataSet_MatrixDbl()
         # since we introduce memory view, we let cpptraj free memory
@@ -61,3 +85,6 @@ def cast_dataset(dsetin, dtype='general'):
         newset_matrixdbl.baseptr_1 = <_DataSet_2D*> dset.baseptr0
         newset_matrixdbl.thisptr = <_DataSet_MatrixDbl*> dset.baseptr0
         return newset_matrixdbl
+
+    else:
+        raise NotImplementedError("")

@@ -14,12 +14,13 @@ class TestRadgyr(unittest.TestCase):
         dslist = DataSetList()
         act = adict['dssp']
         dflist = DataFileList()
-        act.read_input("secstruct out test_dssp.out", farray.top, dslist=dslist, dflist=dflist)
+        act.read_input("out test_dssp.out", farray.top, dslist=dslist, dflist=dflist)
         act.process(farray.top)
        
         for i, frame in enumerate(farray):
             act.do_action(i, frame)
 
+        print (dslist.size)
         dflist.write_all_datafiles()
         print (dslist[0])
 
