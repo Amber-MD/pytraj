@@ -3,14 +3,6 @@ from pytraj.io import iterload
 from pytraj.base import *
 from pytraj.externals.six import next
 
-# test load single frame
-# TODO : got Segmentation fault (core dumped) if run this script several times
-# Reason: messed up with memoryview (FIXME) (see ./LOG/log_0.txt)
-# Posible reason:
-# firs, we assign a Frame view for farray[0] : frame0_0 = farray[0]
-# then we assign farray to new value --> frame0 was deallocated because the old `farray` address was gone
-# make copy?
-
 
 class TestIterLoad(unittest.TestCase):
     def test_iterload_0(self):

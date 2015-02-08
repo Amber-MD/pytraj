@@ -109,14 +109,14 @@ class TestTrajectory(unittest.TestCase):
         assert TRAJ2[1].atoms(0) == farray[2].atoms(0)
 
         # FIXME: arr = np.asarray(TRAJ2[0].buffer1d) does not rerturn correct view
-        arr = np.asarray(TRAJ2[0].buffer1d)
+        arr = np.asarray(TRAJ2[0].buffer1d[:])
         print("len")
         print(len(arr))
         print(TRAJ2[0].coords[:10])
         print("arr[:10]: ", arr[:10])
         print("test buffer1d view")
         frame0 = TRAJ2[0]
-        arr0 = np.asarray(frame0.buffer1d)
+        arr0 = np.asarray(frame0.buffer1d[:])
         print("arr0[:10]: ", arr0[:10])
         print(TRAJ2[0].coords[:10])
         print(frame0.coords[:10])
