@@ -678,6 +678,17 @@ cdef class Frame (object):
         """
         return self.thisptr.DISTRMSD(frame.thisptr[0])
 
+    def fit_to(self, ref=None, AtomMask atm=None):
+        """do the fitting to reference Frame by rotation and translation"""
+
+        # not yet dealed with `mass` and box
+        cdef Matrix_3x3 mat
+        cdef Vec3 v1
+
+        _, mat, v1, _ = self.rmsd(ref, atm, get_mvv=True)
+        self.rotate(mat)
+        self.translate(v1)
+
     def set_axis_of_rotation(self, int atom1, int atom2):
         cdef Vec3 vec = Vec3()
         vec.thisptr[0] = self.thisptr.SetAxisOfRotation(atom1, atom2)
@@ -786,3 +797,4 @@ cdef class Frame (object):
         with Trajout(filename=filename, top=top, fmt=fmt, 
                      overwrite=overwrite, more_args=None) as trajout:
             trajout.writeframe(0, self, top)
+
