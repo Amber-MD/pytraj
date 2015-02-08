@@ -58,5 +58,11 @@ class Test(unittest.TestCase):
         calculate(key='RmSd')
         calculate(key='RandomizeIonS')
 
+    def test_1(self):
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        from pytraj.common_actions import calc_distance
+        d0 = calc_distance(":2@CA :10@CA", traj)
+        print (d0[:])
+
 if __name__ == "__main__":
     unittest.main()
