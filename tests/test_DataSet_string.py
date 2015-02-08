@@ -11,7 +11,6 @@ class Test(unittest.TestCase):
         d0 = DataSet_string()
         print (d0)
         print (d0.dtype)
-        d0.append("test append")
 
 if __name__ == "__main__":
     unittest.main()

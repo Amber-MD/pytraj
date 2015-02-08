@@ -22,6 +22,8 @@ class TestDataSetDB(unittest.TestCase):
         # assign to numpy array
         dset0.data = np.arange(1000)
         assert dset0.size == 1000
+        print (dset0.size)
+        print (dset0.dtype)
         assert dset0[999] == 999.
 
         # test append dset

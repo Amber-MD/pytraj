@@ -41,7 +41,7 @@ cdef class DataSet_double (DataSet_1D):
     def __getitem__(self, idx):
         #return self.thisptr.index_opr(idx)
         # use self.data so we can use fancy indexing
-        return pyarray('d', self.data[idx])
+        return self.data[idx]
 
     def __setitem__(self, int idx, double value):
         cdef double* ptr
