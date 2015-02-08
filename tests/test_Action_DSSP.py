@@ -37,5 +37,17 @@ class TestRadgyr(unittest.TestCase):
         print (arr0[0].__len__())
         print (arr0[0])
 
+    def test_1(self):
+        dslist = DataSetList()
+        dflist = DataFileList()
+        adict['dssp'](":10-22 out ./output/_test_dssp_DPDP.dat", 
+            current_frame=farray, current_top=farray.top, 
+            dslist=dslist, dflist=dflist)
+        print (dslist.size)
+        arr0 = dslist.get_dataset(dtype="integer")
+
+        # Secondary structure for each residue in mask for 100 frames
+        print (arr0.shape)
+
 if __name__ == "__main__":
     unittest.main()

@@ -19,6 +19,9 @@ class ActionDict:
 
     def __getitem__(self, key):
         # return Action object
+        # why do we need action_holder?
+        # should we use dict in command.cpp in cpptraj for mapping keyword
+        # ('Action_DSSP' --> secstruct)
         self.action_holder = self.adict[key]()
         return self.action_holder
 

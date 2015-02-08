@@ -355,6 +355,10 @@ cdef class FrameArray (object):
         """same as self.size"""
         return self.size
 
+    @property
+    def n_atoms(self):
+        return self.top.n_atoms
+
     def __len__(self):
         return self.size
 
