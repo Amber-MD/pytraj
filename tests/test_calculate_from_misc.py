@@ -40,6 +40,7 @@ class Test(unittest.TestCase):
         has_plot, _plt = _import('matplotlib.pyplot')
         print (has_plot)
         if has_plot:
+            print ("pass")
             pass
             #plt = _plt.pyplot
             #plt.xlabel('snapshot #')

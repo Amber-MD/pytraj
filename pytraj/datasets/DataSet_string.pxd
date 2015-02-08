@@ -1,19 +1,18 @@
 # distutils: language = c++
-from DataSet_1D cimport *
+from libcpp.string cimport string
+from pytraj.datasets.DataSet cimport _DataSet, DataSet
+from pytraj.datasets.DataSet_1D cimport _DataSet_1D, DataSet_1D
 
 
 cdef extern from "DataSet_string.h": 
-    cdef cppclass _DataSet_string "DataSet_string":
-        _DataSet_string() : _DataSet_1D(STRING, 1, 0)
+    cdef cppclass _DataSet_string "DataSet_string" (_DataSet_1D):
+        _DataSet_string()
         _DataSet * Alloc() 
-        string & operator [ ](size_t idx)
+        string& index_opr "operator[]"(size_t idx)
         void AddElement(const string& s)
         void Resize(size_t sizeIn)
-        size_t Size() const 
-        int Sync() 
-        void Info() const 
-        int Allocate1D(size_t)
-        void Add(size_t, const void *)
-        double Dval(size_t idx)const 
-        double Xcrd(size_t idx)const 
-        void WriteBuffer(_CpptrajFile &, size_t)const 
+        int Size()
+
+cdef class DataSet_string(DataSet_1D):
+    cdef _DataSet_string* thisptr
+    cdef bint py_free_mem
