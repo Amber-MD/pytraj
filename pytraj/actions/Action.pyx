@@ -193,7 +193,7 @@ cdef class Action:
                 if update_frame:
                     farray.append(new_frame)
 
-        # currently support only dtype = 'DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT'
+        # currently support only dtype = 'DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER'
         # we get the last dataset from dslist
         # (if we call self.run() several times, the result will be dumped to dslist)
         # FIXME: add all dtype in cpptraj so we don't need to specify them
@@ -201,7 +201,7 @@ cdef class Action:
             idx = dslist.size - 1
             if hasattr(dslist[idx], 'dtype'):
                 dtype = dslist[idx].dtype.upper()
-                if dtype in ['DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT']:
+                if dtype in ['DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER']:
                     d0 = cast_dataset(dslist[idx], dtype=dtype)
                     return d0
                 else:

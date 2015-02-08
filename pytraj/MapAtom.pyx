@@ -1,7 +1,7 @@
 # distutils: language = c++
 
 
-cdef class MapAtom:
+cdef class MapAtom(Atom):
     def __cinit__(self, *args):
         cdef Atom atom
         cdef MapAtom map_atom

@@ -5,7 +5,6 @@ import unittest
 
 class Test(unittest.TestCase):
     def test_1(self):
-        # FIXME : segfault
         v1 = Vec3(0., 0., 0.)
         print(v1[:])
         v1[0] = 200.

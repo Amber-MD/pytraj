@@ -12,6 +12,7 @@ cdef extern from "DataSet_float.h":
         _DataSet * Alloc() 
         float& operator[](size_t idx)
         float& index_opr "operator[]"(size_t idx)
+        int Size()
 
 
 cdef class DataSet_float (DataSet_1D):

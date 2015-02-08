@@ -1,23 +1,22 @@
 # distutils: language = c++
-from DataSet_1D cimport *
+from libcpp.vector cimport vector
+from pytraj.datasets.DataSet cimport _DataSet, DataSet
+from pytraj.datasets.DataSet_1D cimport _DataSet_1D, DataSet_1D
+from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
 
 
 cdef extern from "DataSet_integer.h": 
-    cdef cppclass _DataSet_integer "DataSet_integer":
-        _DataSet_integer()
+    cdef cppclass _DataSet_integer "DataSet_integer" (_DataSet_1D):
+        _DataSet_integer() 
+        @staticmethod
         _DataSet * Alloc() 
-        int & operator [ ](size_t idx)
-        int operator [ ](size_t idx)const 
+        int& operator[](size_t idx)
+        int& index_opr "operator[]"(size_t idx)
         void AddElement(int i)
-        void Resize(size_t sizeIn)
-        inline void AddVal(size_t, int)
-        size_t Size() const 
-        int Sync() 
-        void Info() const 
-        int Allocate1D(size_t)
-        void Add(size_t, const void *)
-        double Dval(size_t idx)const 
-        double Xcrd(size_t idx)const 
-        void WriteBuffer(_CpptrajFile &, size_t)const 
-        #iterator begin() 
-        #iterator end() 
+        int Size()
+
+
+cdef class DataSet_integer (DataSet_1D):
+    cdef _DataSet_integer* thisptr
+    cdef bint py_free_mem 
+

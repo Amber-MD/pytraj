@@ -4,13 +4,13 @@ from cpython.array cimport array as pyarray
 # python level
 #from pytraj.optional_libs import HAS_NUMPY, ndarray
 
-cdef class DataSet_float (DataSet_1D):
+cdef class DataSet_integer (DataSet_1D):
     def __cinit__(self):
         # TODO : Use only one pointer? 
-        self.baseptr0 = <_DataSet*> new _DataSet_float()
+        self.baseptr0 = <_DataSet*> new _DataSet_integer()
         # make sure 3 pointers pointing to the same address?
         self.baseptr_1 = <_DataSet_1D*> self.baseptr0
-        self.thisptr = <_DataSet_float*> self.baseptr0
+        self.thisptr = <_DataSet_integer*> self.baseptr0
 
         # let Python/Cython free memory
         self.py_free_mem = True
@@ -27,7 +27,7 @@ cdef class DataSet_float (DataSet_1D):
 
     def __getitem__(self, idx):
         #return self.thisptr.index_opr(idx)
-        cdef pyarray arr0 = pyarray('f', [])
+        cdef pyarray arr0 = pyarray('i', [])
         cdef int i
 
         if isinstance(idx, (long, int)):
@@ -43,8 +43,8 @@ cdef class DataSet_float (DataSet_1D):
             raise NotImplementedError("only support single indexing or slice(None)")
 
 
-    def __setitem__(self, int idx, float value):
-        cdef float* ptr
+    def __setitem__(self, int idx, int value):
+        cdef int * ptr
         ptr = &(self.thisptr.index_opr(idx))
         ptr[0] = value
         
@@ -52,6 +52,9 @@ cdef class DataSet_float (DataSet_1D):
         cdef int i
         for i in range(self.size):
             yield self.thisptr.index_opr(i)
+
+    def add_element(self, int d):
+        self.thisptr.AddElement(d)
 
     @property
     def size(self):
