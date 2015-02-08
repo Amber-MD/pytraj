@@ -52,6 +52,10 @@ cdef class Trajin (TrajectoryFile):
         """
         return self.size
 
+    @property
+    def n_atoms(self):
+        return self.top.n_atoms
+
     @cython.boundscheck(False)
     @cython.wraparound(False)
     def __getitem__(self, idxs):
@@ -171,6 +175,7 @@ cdef class Trajin (TrajectoryFile):
         raise NotImplementedError("Read only Trajectory. Use FrameArray class for __setitem__")
 
     def frame_iter(self, int start=0, int chunk=1):
+        # TODO : add slice
         """iterately get Frames with start, chunk
         returning FrameArray or Frame instance depend on `chunk` value
         Parameters
@@ -221,10 +226,6 @@ cdef class Trajin (TrajectoryFile):
         self.check_allocated()
         return self.baseptr_1.SetupTrajIO(s, trajio.baseptr_1[0], arglist.thisptr[0])
 
-    #def check_box_info(self, char* parmName, Box parmBox, Box trajBox):
-    #    self.check_allocated()
-    #    return self.baseptr_1.CheckBoxInfo(parmName, parmBox.thisptr[0], trajBox.thisptr[0])
-
     def setup_frame_info(self):
         self.check_allocated()
         return self.baseptr_1.setupFrameInfo()
@@ -232,16 +233,6 @@ cdef class Trajin (TrajectoryFile):
     def prepare_for_read(self,bint b):
         self.check_allocated()
         self.baseptr_1.PrepareForRead(b)
-
-    # don't need this method
-    #def print_info_line(self):
-    #    self.check_allocated()
-    #    self.baseptr_1.PrintInfoLine()
-
-    # don't need this method
-    #def print_frame_info(self):
-    #    self.check_allocated()
-    #    self.baseptr_1.PrintFrameInfo()
 
     property max_frames:
         def __get__(self):
@@ -290,8 +281,6 @@ cdef class Trajin (TrajectoryFile):
         self.check_allocated()
         self.baseptr_1.SetEnsemble(b)
 
-    # Those are virtual methods. Only implement in sub-class
-    #@abstractmethod
     def load(self, tnameIn, Topology tparmIn, ArgList argIn, indices=None):
         """
         Load trajectory from file.
@@ -307,48 +296,16 @@ cdef class Trajin (TrajectoryFile):
         else:
             raise ValueError("File does not exist")
 
-    #@abstractmethod('Trajin')
     def begin_traj(self, bint showProgress=False):
         return self.baseptr_1.BeginTraj(showProgress)
 
-    #@abstractmethod('Trajin')
     def end_traj(self):
         self.baseptr_1.EndTraj()
 
-    #@abstractmethod('Trajin')
     def read_traj_frame(self, int currentFrame, Frame frameIn):
         # TODO : add checking frame.n_atoms == self.top.n_atoms?
         return self.baseptr_1.ReadTrajFrame(currentFrame, frameIn.thisptr[0])
 
-    #@abstractmethod('Trajin')
-    # don't need this method
-    #def print_info(self, int showExtended):
-    #    self.check_allocated()
-    #    self.baseptr_1.PrintInfo(showExtended)
-
-    # BROKEN
-    #@abstractmethod('Trajin')
-    #def has_vel(self):
-    #    self.check_allocated()
-    #    return self.baseptr_1.HasVelocity()
-
-    # BROKEN
-    #@abstractmethod('Trajin')
-    #@property
-    #def n_repdims(self):
-    #    self.check_allocated()
-    #    return self.baseptr_1.NreplicaDimension()
-    # end virtual methods
 
     def save(self, filename="", fmt='unknown', overwrite=False):
         _save(self, filename, fmt, overwrite)
-        #if fmt == 'unknown':
-        #    # convert to "UNKNOWN_TRAJ"
-        #    fmt = fmt.upper() + "_TRAJ"
-        #else:
-        #    fmt = fmt.upper()
-
-        #with Trajout(filename=filename, top=self.top, fmt=fmt, 
-        #             overwrite=overwrite, more_args=None) as trajout:
-        #    for idx, frame in enumerate(self):
-        #        trajout.writeframe(idx, frame, self.top)
