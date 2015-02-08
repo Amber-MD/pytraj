@@ -4,6 +4,8 @@ from cython.operator cimport preincrement as incr
 
 # python level
 from pytraj.cast_dataset import cast_dataset
+from pytraj.utils.check_and_assert import _import
+from collections import defaultdict
 
 # can not import cpptraj_dict here
 # if doing this, we introduce circle-import since cpptraj_dict already imported
@@ -21,6 +23,9 @@ cdef class DataSetList:
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
+
+    def __cal__(self, *args, **kwd):
+        return self.get_dataset(*args, **kwd)
 
     def clear(self):
         self.thisptr.Clear()
@@ -93,7 +98,7 @@ cdef class DataSetList:
         cdef DataSet dset = DataSet()
         dset.baseptr0 = self.thisptr.GetSet(dsname, idx, attr_arg)
 
-    def get_dataset(self, idx=None, name=None):
+    def get_dataset(self, idx=None, name=None, dtype=None):
         """
         return DataSet instance
         Input:
@@ -106,12 +111,27 @@ cdef class DataSetList:
         if name is not None and idx is not None:
             raise ValueError("name and idx must not be set at the same time")
         else:
-            if name is not None:
-                name = name.encode()
-                dset.baseptr0 = self.thisptr.GetDataSet(name)
-            if idx is not None:
-                dset.baseptr0 = self.thisptr.index_opr(idx)
-            return dset
+            if dtype is None: 
+                if name is not None:
+                    name = name.encode()
+                    dset.baseptr0 = self.thisptr.GetDataSet(name)
+                if idx is not None:
+                    dset.baseptr0 = self.thisptr.index_opr(idx)
+                return dset
+            else:
+                assert idx == None
+                assert name == None
+                dtype = dtype.upper()
+                dlist = []
+                for d0 in self:
+                    if d0.dtype == dtype:
+                        dlist.append(d0[:])
+                # return a list of arrays
+                has_numpy, np = _import('numpy')
+                if has_numpy:
+                    return np.array(dlist)
+                else:
+                    return dlist
 
     def get_multiple_sets(self, string s):
         """TODO: double-check cpptraj"""
