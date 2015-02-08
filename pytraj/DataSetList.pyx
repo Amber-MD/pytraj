@@ -31,18 +31,18 @@ cdef class DataSetList:
 
     def __iter__(self):
         cdef const_iterator it
-        cdef DataSet dtset
+        cdef DataSet dset
         it = self.thisptr.begin()
 
         while it != self.thisptr.end():
-            dtset = DataSet()
-            dtset.baseptr0 = deref(it)
-            yield dtset
+            dset = DataSet()
+            dset.baseptr0 = deref(it)
+            yield cast_dataset(dset, dtype=dset.dtype)
             incr(it)
 
     def __len__(self):
         cdef const_iterator it
-        cdef DataSet dtset
+        cdef DataSet dset
         cdef int i
         it = self.thisptr.begin()
 
@@ -65,8 +65,8 @@ cdef class DataSetList:
     def ensemble_num(self):
         return self.thisptr.EnsembleNum()
 
-    def remove_set(self, DataSet dtset):
-        self.thisptr.RemoveSet(dtset.baseptr0)
+    def remove_set(self, DataSet dset):
+        self.thisptr.RemoveSet(dset.baseptr0)
 
     def __getitem__(self, int idx):
         """return a DataSet instance
@@ -139,8 +139,8 @@ cdef class DataSetList:
         self.thisptr.List()
 
     def find_coords_set(self, string filename):
-        cdef DataSet dtset = DataSet()
-        dtset.baseptr0 = self.thisptr.FindCoordsSet(filename)
-        if not dtset.baseptr0:
+        cdef DataSet dset = DataSet()
+        dset.baseptr0 = self.thisptr.FindCoordsSet(filename)
+        if not dset.baseptr0:
             raise MemoryError("Can not initialize pointer")
-        return dtset
+        return dset
