@@ -193,16 +193,20 @@ cdef class Action:
                 if update_frame:
                     farray.append(new_frame)
 
-        # currently support only dtype = 'DOUBLE' or 'MATRIX_DBL'
+        # currently support only dtype = 'DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT'
         # we get the last dataset from dslist
         # (if we call self.run() several times, the result will be dumped to dslist)
+        # FIXME: add all dtype in cpptraj so we don't need to specify them
         if quick_get:
             idx = dslist.size - 1
-            if hasattr (dslist[idx], 'dtype'):
+            if hasattr(dslist[idx], 'dtype'):
                 dtype = dslist[idx].dtype.upper()
-                if dtype in ['DOUBLE', 'MATRIX_DBL']:
+                if dtype in ['DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT']:
                     d0 = cast_dataset(dslist[idx], dtype=dtype)
                     return d0
+                else:
+                    # return what?
+                    return None
             else:
                 raise RuntimeError("don't know how to cast dataset")
 

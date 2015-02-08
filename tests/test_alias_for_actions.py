@@ -14,6 +14,7 @@ class Test(unittest.TestCase):
         print (calc_angle(":2@CA :3@CA :10@CA", traj)[:])
         print (calc_radgyr("@CA", traj)[:])
         print (calc_molsurf("@CA", traj)[:])
+        print (type(calc_molsurf("@CA", traj)[:]))
 
 if __name__ == "__main__":
     unittest.main()
