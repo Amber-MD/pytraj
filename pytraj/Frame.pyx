@@ -176,7 +176,7 @@ cdef class Frame (object):
     def __getitem__(self, idx):
         # always return memoryview 
         has_numpy, np = _import_numpy()
-        if isinstance(idx, AtomMask) or isinstance(idx, np.ndarray):
+        if isinstance(idx, AtomMask):
             # return a sub-array copy with indices got from 
             # idx.selected_indices()
             # TODO : add doc
@@ -226,6 +226,8 @@ cdef class Frame (object):
         if isinstance(value, (tuple, list)):
             value = pyarray('d', value)
             self.buffer3d[idx] = value
+        elif isinstance(value, AtomMask):
+            raise NotImplementedError("not yet support AtomMask indexing")
         else:
             self.buffer3d[idx] = value
 
