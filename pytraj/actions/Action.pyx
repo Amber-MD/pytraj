@@ -198,10 +198,13 @@ cdef class Action:
         # (if we call self.run() several times, the result will be dumped to dslist)
         if quick_get:
             idx = dslist.size - 1
-            dtype = dslist[idx].dtype.upper()
-            if dtype in ['DOUBLE', 'MATRIX_DBL']:
-                d0 = cast_dataset(dslist[idx], dtype=dtype)
-                return d0
+            if hasattr (dslist[idx], 'dtype'):
+                dtype = dslist[idx].dtype.upper()
+                if dtype in ['DOUBLE', 'MATRIX_DBL']:
+                    d0 = cast_dataset(dslist[idx], dtype=dtype)
+                    return d0
+            else:
+                raise RuntimeError("don't know how to cast dataset")
 
     def master(self, *args, **kwd):
         """keep this method since some of examples uses them"""

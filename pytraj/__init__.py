@@ -29,6 +29,8 @@ from pytraj.cast_dataset import cast_dataset
 from pytraj.parms.ParmFile import ParmFile
 from pytraj.misc import action_help
 from pytraj.data_sample.load_sample_data import load_sample_data
+from pytraj.DataSetList import DataSetList
+from pytraj.DataFileList import DataFileList
 
 # actions
 from pytraj.actions import allactions

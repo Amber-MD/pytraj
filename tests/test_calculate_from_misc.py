@@ -40,6 +40,7 @@ class Test(unittest.TestCase):
         has_plot, _plt = _import('matplotlib.pyplot')
         print (has_plot)
         if has_plot:
+            print ("pass")
             pass
             #plt = _plt.pyplot
             #plt.xlabel('snapshot #')
@@ -56,6 +57,12 @@ class Test(unittest.TestCase):
         # try mix cases
         calculate(key='RmSd')
         calculate(key='RandomizeIonS')
+
+    def test_1(self):
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        from pytraj.common_actions import calc_distance
+        d0 = calc_distance(":2@CA :10@CA", traj)
+        print (d0[:])
 
 if __name__ == "__main__":
     unittest.main()
