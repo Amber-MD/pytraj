@@ -52,6 +52,7 @@ datasets/DataSet_1D
 datasets/DataSet_2D
 datasets/DataSet_3D
 datasets/DataSet_double
+datasets/DataSet_float
 datasets/DataSet_string
 datasets/DataSet_Coords
 datasets/DataSet_Coords_CRD

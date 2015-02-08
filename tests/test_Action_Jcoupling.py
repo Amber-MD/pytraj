@@ -15,6 +15,7 @@ class Test(unittest.TestCase):
                                frame, traj.top, 
                                dslist=dslist, dflist=dflist)
         print (dslist[0])
+        print (dslist[80])
         dflist.write_all_datafiles()
 
 if __name__ == "__main__":
