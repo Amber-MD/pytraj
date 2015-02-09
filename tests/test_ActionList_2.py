@@ -26,7 +26,6 @@ class TestActionList(unittest.TestCase):
                          traj.top, dslist, dflist)
         alist.add_action('matrix', "out ./output/_mat_alist.out", 
                          traj.top, dslist, dflist)
-        alist.process(traj.top)
         alist.do_actions((traj, traj))
         alist.do_actions((traj[0], traj[1], traj))
         dflist.write_all_datafiles()

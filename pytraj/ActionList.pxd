@@ -33,3 +33,9 @@ cdef extern from "ActionList.h":
 
 cdef class ActionList:
     cdef _ActionList* thisptr
+
+    # alias for TopologyList (self.process(top))
+    cdef object toplist
+
+    # check if self.process is already called or not
+    cdef bint top_is_processed
