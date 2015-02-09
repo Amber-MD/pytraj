@@ -2,6 +2,9 @@
 from cython.operator cimport dereference as deref
 
 # TODO : double-check C++ code
+from pytraj import TrajinList
+from pytraj.externals.six import string_types
+from pytraj.action_dict import ActionDict
 
 cdef class ActionList:
     def __cinit__(self):
@@ -31,7 +34,15 @@ cdef class ActionList:
         dlist :: DataSetList 
         dflist :: DataFileList
         """
-        cdef FunctPtr func = <FunctPtr> action.alloc()
+        cdef object _action
+
+        if isinstance(action, string_types):
+            # create action object from string
+            _action = ActionDict()[action]
+        else:
+            _action = action
+
+        cdef FunctPtr func = <FunctPtr> _action.alloc()
         cdef TopologyList toplist
         cdef ArgList _arglist
 
@@ -57,14 +68,25 @@ cdef class ActionList:
         top.py_free_mem = False
         return self.thisptr.SetupActions(&(top.thisptr))
 
-    def do_actions(self, int idx=0, Frame frame=Frame()):
+    def do_actions(self, traj=Frame(), int idx=0):
         # TODO : read cpptraj code to check memory stuff
         # set py_free_mem = False to let cpptraj does its job
-        if frame.is_empty():
-            raise ValueError("empty Frame, what can I do with this?")
 
-        frame.py_free_mem = False
-        return self.thisptr.DoActions(&(frame.thisptr), idx)
+        cdef Frame frame
+        cdef int i
+
+        if len(traj) == 0:
+            raise ValueError("empty Frame/Traj/List, what can I do with this?")
+        if isinstance(traj, Frame):
+            frame = <Frame> traj
+            frame.py_free_mem = False
+            self.thisptr.DoActions(&(frame.thisptr), idx)
+        elif hasattr(traj, 'n_frames'):
+            for i, frame in enumerate(traj):
+                self.do_actions(frame, i)
+        elif isinstance(traj, (list, tuple, TrajinList)):
+            for tmtraj in traj:
+                self.do_actions(tmtraj)
 
     def listinfo(self):
         self.thisptr.List()
