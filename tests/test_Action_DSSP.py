@@ -50,10 +50,15 @@ class TestRadgyr(unittest.TestCase):
         print (arr0.shape)
 
     # got error: undefined symbol: _ZN5Frame11SetupFrameVERKSt
-    #def test_2(self):
-    #    from pycpptraj.common_actions import calc_dssp
-    #    arr0 = calc_dssp(":10-22", farray)
-    #    print (arr0.shape)
+    def test_2(self):
+        def calc_dssp(command="", traj=None):
+            dslist = DataSetList()
+            adict['dssp'](command, 
+                          current_frame=traj, current_top=traj.top, 
+                          dslist=dslist)
+            return dslist.get_dataset(dtype="integer")
+        arr0 = calc_dssp(":10-22", farray[:2])
+        print (arr0.shape)
 
 if __name__ == "__main__":
     unittest.main()
