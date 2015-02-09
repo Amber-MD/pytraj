@@ -181,9 +181,7 @@ def to_string_ss(arr0):
     ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
     len_ss = len(ss)
     ssdict = dict(zip(range(len_ss), ss))
-    def _to_str(idx):
-        return ssdict[idx]
-    return map(_to_str, arr0)
+    return map(lambda idx: ssdict[idx], arr0)
 
 def calc_dssp(command="", traj=None, dtype='int'):
     dslist = DataSetList()
@@ -196,13 +194,8 @@ def calc_dssp(command="", traj=None, dtype='int'):
         return arr0
     elif dtype in ['STRING', 'STR']:
         shape = arr0.shape
-        tmplist = [x for x in to_string_ss(arr0.flatten())]
-        from pytraj import _import
-        has_numpy, np = _import('numpy')
-        if has_numpy:
-            return np.array(tmplist, dtype='str').reshape(shape)
-        else:
-            raise NotImplementedError("require numpy")
+        tmplist = [[x for x in to_string_ss(arr)] for arr in arr0]
+        return tmplist
     else:
         raise NotImplementedError("dtype = integer, int, string, str")
 
