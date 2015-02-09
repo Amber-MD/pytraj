@@ -31,6 +31,13 @@ print (traj[2:5, :])
 d0 = calculate('radgyr', "@CA", traj)
 print (d0[:])
 
+# calculate DSSP for first 3 frames, return either 'int' or 'str' array
+from pytraj.common_actions import calc_dssp
+arr0 = calc_dssp("@CA", traj[:3], dtype='int')
+arr1 = calc_dssp("@CA", traj[:3], dtype='str')
+print (arr0)
+print (arr1)
+
 # support reading trajectory file that cpptraj not yet handled
 # hdf5
 traj = mdio.load_hd5f("./data/ala2.h5")
