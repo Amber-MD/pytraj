@@ -55,7 +55,7 @@ class TestActionList(unittest.TestCase):
             # perform actions for each frame
             # we make a copy since we want to keep orginal Frame
             frame0 = frame.copy()
-            alist.do_actions(frame=frame0)
+            alist.do_actions(frame0)
             #alist.do_actions(frame)
     
             # we need to keep the modified frame in farray2

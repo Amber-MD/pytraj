@@ -51,5 +51,15 @@ class Test(unittest.TestCase):
         np.testing.assert_almost_equal(arr0, cpptraj_rmsd, decimal=3)
         np.testing.assert_almost_equal(arr1, cpptraj_rmsd, decimal=3)
 
+    def test_action_rmsd(self):
+        # TODO : fill me
+        from pytraj import adict
+        TRAJ = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        #print (TRAJ.top)
+        #act = adict['rmsd']
+        #d0 = act('reference ./data/Tc5b.crd rms reference @CA out ./output/_rmsd.dat', 
+        #         TRAJ, quick_get=True)
+        #print (d0)
+
 if __name__ == "__main__":
     unittest.main()
