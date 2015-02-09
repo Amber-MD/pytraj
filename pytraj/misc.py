@@ -10,6 +10,7 @@ from pytraj.Frame import Frame
 from pytraj.FrameArray import FrameArray
 from pytraj.actions import allactions
 from pytraj import adict
+from pytraj.DataSetList import DataSetList
 
 # external
 from pytraj.externals.six import string_types
@@ -174,12 +175,12 @@ def calculate(action=None, command=None, traj=None, top=None, **kwd):
         return act(command, traj, top, quick_get=True)
 
 # cant not run
-#def calc_dssp(command="", traj=None):
-#    dslist = DataSetList()
-#    adict['dssp'](command, 
-#                  current_frame=traj, current_top=traj.top, 
-#                  dslist=dslist)
-#    return dslist.get_dataset(dtype="integer")
+def calc_dssp(command="", traj=None):
+    dslist = DataSetList()
+    adict['dssp'](command, 
+                  current_frame=traj, current_top=traj.top, 
+                  dslist=dslist)
+    return dslist.get_dataset(dtype="integer")
 
 def simple_plot(d0, *args, **kwd):
     # TODO : return object so we can update axis, label, ..
@@ -190,3 +191,14 @@ def simple_plot(d0, *args, **kwd):
         raise RuntimeError("require matplotlib installed")
     fig = plt.pyplot.plot(range(d0.size), d0[:], *args, **kwd)
     plt.pyplot.show()
+
+ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
+ssdict = dict(zip(range(7), ss))
+
+def to_string_ss(arr0):
+    """
+    arr0 : ndarray
+    """
+    def _to_str(idx):
+        return ssdict[idx]
+    return map(_to_str, arr0)

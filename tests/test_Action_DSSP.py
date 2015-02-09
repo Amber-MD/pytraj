@@ -60,5 +60,14 @@ class TestRadgyr(unittest.TestCase):
         arr0 = calc_dssp(":10-22", farray[:2])
         print (arr0.shape)
 
+    def test_3(self):
+        from pytraj.common_actions import calc_dssp
+        from pytraj.misc import to_string_ss
+        arr0 = calc_dssp(":10-22", farray[:1])
+        print (arr0.shape)
+        print (to_string_ss(arr0.flatten()))
+        for s in to_string_ss(arr0.flatten()):
+            print (s)
+
 if __name__ == "__main__":
     unittest.main()
