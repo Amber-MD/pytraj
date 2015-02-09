@@ -3,6 +3,7 @@ from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
 
 from pytraj.cast_dataset import cast_dataset
+from pytraj import TrajinList
 
 
 cdef class Action:
@@ -147,7 +148,7 @@ cdef class Action:
         elif hasattr(current_frame, 'n_frames'):
             # Trajectory-like object
             traj = current_frame 
-            for i, frame enumerate(traj):
+            for i, frame in enumerate(traj):
                 self.do_action(idx, frame, new_frame)
         elif isinstance(current_frame, (list, tuple, TrajinList)):
             # assume Traj-like object
