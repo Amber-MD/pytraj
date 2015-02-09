@@ -192,13 +192,13 @@ def simple_plot(d0, *args, **kwd):
     fig = plt.pyplot.plot(range(d0.size), d0[:], *args, **kwd)
     plt.pyplot.show()
 
-ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
-ssdict = dict(zip(range(7), ss))
 
 def to_string_ss(arr0):
     """
     arr0 : ndarray
     """
+    ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
+    ssdict = dict(zip(range(7), ss))
     def _to_str(idx):
         return ssdict[idx]
     return map(_to_str, arr0)
