@@ -26,6 +26,13 @@ print (traj[2:5]['@CA'])
 # 3D array (n_frames, n_atoms, 3)
 print (traj[2:5, :])
 
+# expose cpptraj Frame object to numpy/scipy libray
+import numpy as np
+frame0 = traj[0]
+# all calculation with arr0 will update frame0
+arr0 = np.asarray(frame0.buffer3d[:])
+print (arr0.shape)
+
 # internally get the data from cpptraj
 # calculate radgyr for CA atoms using `traj`
 d0 = calculate('radgyr', "@CA", traj)
