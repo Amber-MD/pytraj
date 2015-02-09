@@ -173,6 +173,14 @@ def calculate(action=None, command=None, traj=None, top=None, **kwd):
             act = action
         return act(command, traj, top, quick_get=True)
 
+# cant not run
+#def calc_dssp(command="", traj=None):
+#    dslist = DataSetList()
+#    adict['dssp'](command, 
+#                  current_frame=traj, current_top=traj.top, 
+#                  dslist=dslist)
+#    return dslist.get_dataset(dtype="integer")
+
 def simple_plot(d0, *args, **kwd):
     # TODO : return object so we can update axis, label, ..
     from pytraj import _import

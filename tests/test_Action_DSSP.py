@@ -49,5 +49,11 @@ class TestRadgyr(unittest.TestCase):
         # Secondary structure for each residue in mask for 100 frames
         print (arr0.shape)
 
+    # got error: undefined symbol: _ZN5Frame11SetupFrameVERKSt
+    #def test_2(self):
+    #    from pycpptraj.common_actions import calc_dssp
+    #    arr0 = calc_dssp(":10-22", farray)
+    #    print (arr0.shape)
+
 if __name__ == "__main__":
     unittest.main()

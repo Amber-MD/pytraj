@@ -5,12 +5,14 @@ from pytraj.TrajReadOnly import TrajReadOnly
 from pytraj.FrameArray import FrameArray
 from pytraj.Topology import Topology
 from pytraj.utils.check_and_assert import make_sure_exist
+from pytraj.load_HD5F import load_hd5f
+
 try:
     from urllib.request import urlopen
 except ImportError:
     from urllib import urlopen
 
-__all__ = ['load', 'iterload', 'writetraj', 'readparm', 'writeparm']
+__all__ = ['load', 'iterload','load_hd5f', 'writetraj', 'readparm', 'writeparm']
 
 def load(*args, **kwd):
     """try loading and returning appropriate values"""

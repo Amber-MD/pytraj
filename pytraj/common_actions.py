@@ -4,7 +4,7 @@
 """
 from functools import partial
 from pytraj import adict
-from pytraj.misc import calculate
+from pytraj.misc import calculate, calc_dssp
 from pytraj.DistRoutines import distance 
 from pytraj.gdt.calc_score import calc_score
 
@@ -17,3 +17,4 @@ calc_molsurf = partial(calculate, 'molsurf')
 calc_molsurf = partial(calculate, 'molsurf')
 calc_distrmsd = partial(calculate, 'distrmsd')
 calc_protein_score = calc_score
+
