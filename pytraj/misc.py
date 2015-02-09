@@ -10,6 +10,7 @@ from pytraj.Frame import Frame
 from pytraj.FrameArray import FrameArray
 from pytraj.actions import allactions
 from pytraj import adict
+from pytraj.DataSetList import DataSetList
 
 # external
 from pytraj.externals.six import string_types
@@ -172,6 +173,38 @@ def calculate(action=None, command=None, traj=None, top=None, **kwd):
         else:
             act = action
         return act(command, traj, top, quick_get=True)
+
+def to_string_ss(arr0):
+    """
+    arr0 : ndarray
+    """
+    ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
+    len_ss = len(ss)
+    ssdict = dict(zip(range(len_ss), ss))
+    def _to_str(idx):
+        return ssdict[idx]
+    return map(_to_str, arr0)
+
+def calc_dssp(command="", traj=None, dtype='int'):
+    dslist = DataSetList()
+    adict['dssp'](command, 
+                  current_frame=traj, current_top=traj.top, 
+                  dslist=dslist)
+    dtype = dtype.upper()
+    arr0 = dslist.get_dataset(dtype="integer")
+    if dtype in ['INT', 'INTERGER']:
+        return arr0
+    elif dtype in ['STRING', 'STR']:
+        shape = arr0.shape
+        tmplist = [x for x in to_string_ss(arr0.flatten())]
+        from pytraj import _import
+        has_numpy, np = _import('numpy')
+        if has_numpy:
+            return np.array(tmplist, dtype='str').reshape(shape)
+        else:
+            raise NotImplementedError("require numpy")
+    else:
+        raise NotImplementedError("dtype = integer, int, string, str")
 
 def simple_plot(d0, *args, **kwd):
     # TODO : return object so we can update axis, label, ..

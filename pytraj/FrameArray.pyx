@@ -553,13 +553,6 @@ cdef class FrameArray (object):
 
     def save(self, filename="", fmt='unknown', overwrite=False):
         _save(self, filename, fmt, overwrite)
-        #if fmt == 'unknown':
-        #    # convert to "UNKNOWN_TRAJ"
-        #    fmt = fmt.upper() + "_TRAJ"
-        #else:
-        #    fmt = fmt.upper()
 
-        #with Trajout(filename=filename, top=self.top, fmt=fmt, 
-        #             overwrite=overwrite, more_args=None) as trajout:
-        #    for idx, frame in enumerate(self):
-        #        trajout.writeframe(idx, frame, self.top)
+    def write(self, *args, **kwd):
+        self.save(*args, **kwd)

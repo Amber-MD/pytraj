@@ -49,5 +49,23 @@ class TestRadgyr(unittest.TestCase):
         # Secondary structure for each residue in mask for 100 frames
         print (arr0.shape)
 
+    # got error: undefined symbol: _ZN5Frame11SetupFrameVERKSt
+    def test_2(self):
+        def calc_dssp(command="", traj=None):
+            dslist = DataSetList()
+            adict['dssp'](command, 
+                          current_frame=traj, current_top=traj.top, 
+                          dslist=dslist)
+            return dslist.get_dataset(dtype="integer")
+        arr0 = calc_dssp(":10-22", farray[:2])
+        print (arr0.shape)
+
+    def test_3(self):
+        from pytraj.common_actions import calc_dssp
+        arr0 = calc_dssp(":10-22", farray[:3], dtype='int')
+        arr1 = calc_dssp(":10-22", farray[:3], dtype='str')
+        print (arr0)
+        print (arr1)
+
 if __name__ == "__main__":
     unittest.main()
