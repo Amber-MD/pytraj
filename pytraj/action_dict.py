@@ -29,4 +29,4 @@ class ActionDict:
         del self.action_holder
 
     def keys(self):
-        return self.adict.keys()
+        return sorted(self.adict.keys())
