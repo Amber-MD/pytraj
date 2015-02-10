@@ -5,12 +5,12 @@ from pytraj.decorators import not_yet_supported
 from pytraj import io as mdio
 
 def test_generator(top):
-   for atom in top.atomiter:
+   for atom in top.atomiter():
        pass
        #print atom
    
    print("\nres_iterator for top")
-   for res in top.residueiter:
+   for res in top.residueiter():
        pass
        #print res
    

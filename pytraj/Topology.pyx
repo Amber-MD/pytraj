@@ -142,7 +142,6 @@ cdef class Topology:
         self.set_integer_mask(atm)
         return atm
 
-    @property
     def atomiter(self):
         cdef Atom atom
         cdef atom_iterator it
@@ -154,7 +153,6 @@ cdef class Topology:
             yield atom
             incr(it)
 
-    @property
     def residueiter(self):
         cdef Residue res
         cdef res_iterator it
@@ -226,7 +224,7 @@ cdef class Topology:
     @property
     def residuelist(self):
         reslist = []
-        for res in self.residueiter:
+        for res in self.residueiter():
             reslist.append(res)
         return reslist
 
@@ -433,14 +431,14 @@ cdef class Topology:
     @name_will_be_changed("")
     def get_unique_resname(self):
         s = set()
-        for res in self.residueiter:
+        for res in self.residueiter():
             s.add(res.name)
         return s
 
     @name_will_be_changed("")
     def get_unique_atomname(self):
         s = set()
-        for atom in self.atomiter:
+        for atom in self.atomiter():
             s.add(atom.name)
         return s
 
