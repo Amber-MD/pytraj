@@ -12,7 +12,7 @@ print(dir(Action_Strip()))
 farray = FrameArray(top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
 
 class TestStrip(unittest.TestCase):
-    @no_test
+    #@no_test
     def test_master(self):
         top = Topology("./data/Tc5b.top")
         newtop = top.copy()
@@ -52,7 +52,7 @@ class TestStrip(unittest.TestCase):
         print(dcast.size)
         print(dcast[:20])
 
-    @no_test
+    #@no_test
     def test_0(self):
         print("newtop")
         farray0 = farray.copy()
