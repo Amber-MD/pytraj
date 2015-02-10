@@ -14,5 +14,11 @@ class Test(unittest.TestCase):
         print(dir(atom0))
         print(atom0.resnum)
 
+        # test join
+        old_natoms = top.n_atoms
+        self.assertRaises(ValueError, lambda: top.join(top))
+        top.join(top.copy())
+        assert top.n_atoms == 2 * old_natoms
+
 if __name__ == "__main__":
     unittest.main()
