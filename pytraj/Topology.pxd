@@ -1,4 +1,5 @@
 # distutils: language = c++
+# TODO : add more methods
 from pytraj.cpp_vector cimport vector as cppvector
 from pytraj.Atom cimport _Atom, Atom
 from pytraj.Residue cimport _Residue, Residue
@@ -119,7 +120,7 @@ cdef extern from "Topology.h":
         _Topology* partialModifyStateByMask(const _AtomMask& m) const 
         _Topology* modifyStateByMask(const _AtomMask& m) const 
         _Topology* ModifyByMap(const vector[int]& m) const 
-        
+        int AppendTop(const _Topology &)
         # add more
         _CoordinateInfo& ParmCoordInfo() const
 

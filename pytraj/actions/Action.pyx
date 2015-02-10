@@ -187,11 +187,15 @@ cdef class Action:
         """
         TODO : add doc
         """
-        self.read_input(command=command, current_top=current_top, 
+        if current_top.is_empty():
+            _top = current_frame.top
+        else:
+            _top = current_top
+        self.read_input(command=command, current_top=_top, 
                         dslist=dslist,
                         dflist=dflist, debug=debug)
 
-        self.process(current_top=current_top, new_top=new_top)
+        self.process(current_top=_top, new_top=new_top)
         if isinstance(current_frame, Frame):
             frame = current_frame
             self.do_action(idx=idx, current_frame=frame, new_frame=new_frame)

@@ -36,7 +36,7 @@ class TestResidue(unittest.TestCase):
         # extract residue info
         print("1st atom: %s" % res1.first_atom_idx)
         print("last atom: %s" % res1.last_atom_idx)
-        print(res1.original_res_num)
+        print(res1.original_resnum)
         #print res1.c_str()
         #print res1.Name()
         print(res1.n_atoms)
@@ -64,6 +64,11 @@ class TestResidue(unittest.TestCase):
         print(res0.first_atom_idx)
         print(res0.last_atom_idx)
         print(res0.n_atoms)
+
+    def test_3(self):
+        res = Residue(0, "WAT", 0)
+        print (res)
+        assert (res.is_solvent() == True)
         
 if __name__ == '__main__':
     unittest.main()

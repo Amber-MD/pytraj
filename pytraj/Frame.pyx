@@ -226,8 +226,14 @@ cdef class Frame (object):
         if isinstance(value, (tuple, list)):
             value = pyarray('d', value)
             self.buffer3d[idx] = value
-        elif isinstance(value, AtomMask):
-            raise NotImplementedError("not yet support AtomMask indexing")
+        if isinstance(idx, AtomMask):
+            self.update_atoms(idx.selected_indices(), value.flatten())
+        elif isinstance(value, string_types):
+            # assume this is atom mask
+            if self.top is None:
+                raise ValueError("must set Topology for frame")
+            else:
+                self[self.top(idx)] = value
         else:
             self.buffer3d[idx] = value
 

@@ -40,9 +40,6 @@ cdef class DataSet_2D (DataSet):
         cdef int i
         cdef pyarray arr = pyarray('d', [])
 
-        # debug
-        print self.__class__.__name__
-        # end debug
         if self.baseptr_1.MatrixArray():
             for i in range(self.n_cols * self.n_rows):
                 arr.append(self.baseptr_1.MatrixArray()[i])
