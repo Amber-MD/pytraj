@@ -16,7 +16,6 @@ class Test(unittest.TestCase):
         print (traj.copy())
         traj.join(traj.copy())
         #print (traj.n_frames)
-        print (traj.trajlist)
         #print (traj.n_frames)
         for frame in traj:
             print (frame)
