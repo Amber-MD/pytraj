@@ -39,5 +39,18 @@ class Test(unittest.TestCase):
         print (frame0['@CA'][:])
         assert_almost_equal(frame0['@CA'][:].flatten(), arr0.flatten())
 
+    def test_2(self):
+        print ("test set Frame")
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        frame0 = traj[0]
+        newframe = Frame(20)
+        newframe.set_frame(frame0, traj.top('@CA'))
+        frame0.strip_atoms('!@CA', traj.top)
+        print (newframe[:10])
+        print (frame0[:10])
+        print (newframe.size)
+        print (frame0.size)
+        assert_almost_equal(frame0.coords, newframe.coords)
+
 if __name__ == "__main__":
     unittest.main()

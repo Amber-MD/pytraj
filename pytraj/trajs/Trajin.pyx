@@ -311,3 +311,7 @@ cdef class Trajin (TrajectoryFile):
 
     def write(self, *args, **kwd):
         self.save(*args, **kwd)
+
+    def get_subframes(self, mask, indices=None):
+        cdef FrameArray farray = FrameArray()
+        raise NotImplementedError("not yet")
