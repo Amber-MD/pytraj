@@ -27,6 +27,7 @@ class TestTrajinList(unittest.TestCase):
         trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "5 7")
         trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "1 last")
         print(trajlist.max_frames)
+        print (trajlist[0].n_frames)
         
         trajlist2 = TrajinList()
         trajlist2.add_traj("./data/Test_RemdTraj/rem.nc.000", 

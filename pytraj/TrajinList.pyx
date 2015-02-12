@@ -30,6 +30,7 @@ cdef class TrajinList:
         self.thisptr.AddTrajin(filename, arglist.thisptr[0], tlist.thisptr[0])
 
     def add_ensemble(self, filename, top, *args):
+        from glob import glob
         cdef TopologyList tlist = TopologyList()
         cdef ArgList arglist
 

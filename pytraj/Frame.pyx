@@ -7,7 +7,9 @@ from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
 from cpython.buffer cimport Py_buffer
 from pytraj._utils cimport _get_buffer1D
+from pytraj.TorsionRoutines cimport Torsion as cpptorsion, CalcAngle as cppangle
 
+import math
 from pytraj.decorators import for_testing, iter_warning
 from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
@@ -803,4 +805,14 @@ cdef class Frame (object):
         with Trajout(filename=filename, top=top, fmt=fmt, 
                      overwrite=overwrite, more_args=None) as trajout:
             trajout.writeframe(0, self, top)
+
+    def calc_dihedral(self, int idx1, int idx2, int idx3, int idx4):
+        """return torsion angle for four atoms with indices idx1-4"""
+        return math.degrees(cpptorsion(self.thisptr.XYZ(idx1), self.thisptr.XYZ(idx2),
+                          self.thisptr.XYZ(idx3), self.thisptr.XYZ(idx4)))
+
+    def calc_angle(self, int idx1, int idx2, int idx3):
+        """return angle for three atoms with indices idx1-3"""
+        return math.degrees(cppangle(self.thisptr.XYZ(idx1), self.thisptr.XYZ(idx2),
+                        self.thisptr.XYZ(idx3)))
 

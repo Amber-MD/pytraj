@@ -52,5 +52,17 @@ class Test(unittest.TestCase):
         print (frame0.size)
         assert_almost_equal(frame0.coords, newframe.coords)
 
+    def test_3(self):
+        from pytraj.common_actions import calc_dihedral, calc_angle
+        print ("test calc torsion, angle")
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        frame0 = traj[0]
+        dih_0 = frame0.calc_dihedral(1, 2, 3, 4)
+        ang_0 = frame0.calc_angle(1, 2, 3)
+        d0 = calc_dihedral("@2 @3 @4 @5", frame0, traj.top)
+        d1 = calc_angle("@2 @3 @4 @5", frame0, traj.top)
+        assert dih_0 == d0[0]
+        assert ang_0 == d1[0]
+
 if __name__ == "__main__":
     unittest.main()
