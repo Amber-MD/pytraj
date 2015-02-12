@@ -17,11 +17,6 @@ class Test(unittest.TestCase):
                                 dslist=dslist, dflist=dflist)
             print (dslist[0][:])
             print (dslist[1][:])
-            print (traj.top[":128"])
-            dfile = dflist.get_datafile('./output/_ws.agr')
-            print (dir(dfile))
-            print (dfile.dtype)
-            dflist.write_all_datafiles()
 
 if __name__ == "__main__":
     unittest.main()
