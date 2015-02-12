@@ -22,7 +22,8 @@ cdef class DataFileList:
     def remove_data_set(self,DataSet dsIn):
         self.thisptr.RemoveDataSet(dsIn.baseptr0)
         
-    def get_datafile(self, string datafilename):
+    def get_datafile(self, datafilename):
+        datafilename = datafilename.encode()
         cdef DataFile dfile = DataFile()
         dfile.py_free_mem = False
         dfile.thisptr = self.thisptr.GetDataFile(datafilename)

@@ -2,6 +2,8 @@
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 
+from pytraj.externals.six import string_types
+
 
 cdef class TrajinList:
     def __cinit__(self):
@@ -15,14 +17,30 @@ cdef class TrajinList:
     def clear(self):
         self.thisptr.Clear()
 
-    def set_debug(self,int dIn):
-        self.thisptr.SetDebug(dIn)
+    def add_traj(self, filename, top, *args):
+        cdef TopologyList tlist = TopologyList()
+        cdef ArgList arglist
 
-    def add_traj(self, string filename, ArgList arglist, TopologyList toplist):
-        return self.thisptr.AddTrajin(filename, arglist.thisptr[0], toplist.thisptr[0])
+        filename = filename.encode()
+        if args:
+            arglist = ArgList(args[0])
+        else:
+            arglist = ArgList()
+        tlist.add_parm(top)
+        self.thisptr.AddTrajin(filename, arglist.thisptr[0], tlist.thisptr[0])
 
-    def add_ensemble(self, string s, ArgList arglist, TopologyList toplist):
-        return self.thisptr.AddEnsemble(s, arglist.thisptr[0], toplist.thisptr[0])
+    def add_ensemble(self, filename, top, *args):
+        from glob import glob
+        cdef TopologyList tlist = TopologyList()
+        cdef ArgList arglist
+
+        filename = filename.encode()
+        if args:
+            arglist = ArgList(args[0])
+        else:
+            arglist = ArgList()
+        tlist.add_parm(top)
+        self.thisptr.AddEnsemble(filename, arglist.thisptr[0], tlist.thisptr[0])
 
     def __iter__(self):
         cdef Trajin trajin
@@ -88,7 +106,7 @@ cdef class TrajinList:
             s += 1
             incr(it)
 
-    def empty(self):
+    def is_empty(self):
         return self.thisptr.empty()
 
     def mode(self, updatedmode=False):
