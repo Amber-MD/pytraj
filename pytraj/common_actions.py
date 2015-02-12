@@ -16,5 +16,5 @@ calc_angle = partial(calculate, 'angle')
 calc_molsurf = partial(calculate, 'molsurf')
 calc_molsurf = partial(calculate, 'molsurf')
 calc_distrmsd = partial(calculate, 'distrmsd')
+calc_watershell = partial(calculate, 'watershell')
 calc_protein_score = calc_score
-
