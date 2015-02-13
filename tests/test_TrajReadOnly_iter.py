@@ -12,14 +12,11 @@ class TestTrajingIter(unittest.TestCase):
         for i in range(2):
             print() 
             print("loop number = %s-th" % i)
-            for farray in traj.frame_iter(start=0, chunk=9):
-                pass
-            
-            print(farray)
-            print(farray[0])
-            print(farray[0].coords[:10])
-            print(farray[0].buffer1d)
-            print(farray[0][0])
+            for frame in traj.frame_iter(start=0, chunk=1):
+                assert frame.n_atoms == traj.top.n_atoms
 
+        for frame in traj.frame_iter():
+            print (frame)
+            
 if __name__ == '__main__':
     unittest.main()

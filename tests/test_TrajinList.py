@@ -35,5 +35,26 @@ class TestTrajinList(unittest.TestCase):
                           "*")
         print (trajlist2.max_frames)
 
+    def test_0(self):
+        topname = "./data/Tc5b.top"
+        top = Topology(topname)
+
+        trajlist = TrajinList()
+        trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "1 3")
+        trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "4 9 2")
+        trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "5 7")
+        trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "1 last")
+        print(trajlist.max_frames)
+        print (trajlist[0].n_frames)
+
+        trajlist.top = top.copy()
+        print (trajlist.top)
+        for traj in trajlist:
+            pass
+            #for frame in traj:
+            #    print (frame)
+        # FIXME: segmentation fault
+        #print (traj[0].size)
+
 if __name__ == "__main__":
     unittest.main()

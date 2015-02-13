@@ -42,8 +42,46 @@ cdef class Trajin (TrajectoryFile):
             yield frame
         self.end_traj()
 
-    def frame_iter(self):
-        return self.__iter__()
+    def __str__(self):
+        name = self.__class__.__name__
+        n_atoms = 0 if self.top.is_empty() else self.top.n_atoms
+        tmps = """%s instance with %s frames, %s atoms/frame
+                  ID = %s
+               """ % (
+                name, self.size, n_atoms,
+                hex(id(self))
+                )
+        return tmps
+
+    def __repr__(self):
+        return self.__str__()
+
+    def frame_iter(self, start=0, chunk=1):
+        """iterately get Frames with start, chunk (or stride)
+        returning FrameArray or Frame instance depend on `chunk` value
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1, return Frame instance). 
+                if `chunk` > 1 : return FrameArray instance
+        """
+        """iterately get Frames with start, chunk
+        returning FrameArray or Frame instance depend on `chunk` value
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1, return Frame instance). 
+                if `chunk` > 1 : return FrameArray instance
+        """
+        cdef int newstart
+
+        newstart = start
+        if chunk + newstart >= self.size:
+            raise ValueError("start + chunk must be smaller than max frames")
+
+        while newstart <= self.size-chunk:
+            yield self[newstart:newstart+chunk].copy()
+            newstart += chunk
 
     def __len__(self):
         return self.size

@@ -46,6 +46,7 @@ cdef class TrajinList:
         cdef Trajin trajin
         cdef cppvector[_Trajin*].const_iterator it
         it = self.thisptr.begin()
+
         while it != self.thisptr.end():
             trajin = Trajin()
             # use memoryview rather making instance copy
@@ -54,6 +55,13 @@ cdef class TrajinList:
             trajin.baseptr0 = <_TrajectoryFile*> trajin.baseptr_1
             yield trajin
             incr(it)
+
+    def frame_iter(self):
+        if self.top == None:
+            raise ValueError("need to set top for TrajinList")
+        for traj in self:
+            for frame in traj:
+                yield frame
 
     @property
     def size(self):

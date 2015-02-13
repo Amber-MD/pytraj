@@ -49,7 +49,7 @@ class TestTopology(unittest.TestCase):
             pass
         
         print("test mol_iterator")
-        for mol in top.mol_iter:
+        for mol in top.mol_iter():
             pass
 
     def test_2(self):
