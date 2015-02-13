@@ -8,7 +8,7 @@ from cpython.array cimport array as pyarray
 
 from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
-from pytraj._ParmFile import TMPParmFile
+from pytraj.parms._ParmFile import TMPParmFile
 try:
     set
 except NameError:
