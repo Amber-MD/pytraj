@@ -397,7 +397,7 @@ cdef class FrameArray (object):
             yield frame
             incr(it)
 
-    def frame_iter(self, start=None, stride=None, stop=None, indices=None):
+    def frame_iter(self, start=None, stop=None, stride=None, indices=None):
         """iterately get Frames with start, stop, stride 
         Parameters
         ---------

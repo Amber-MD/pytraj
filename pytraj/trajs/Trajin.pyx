@@ -45,7 +45,7 @@ cdef class Trajin (TrajectoryFile):
     def __call__(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
 
-    def frame_iter(self, start=None, stride=None, stop=None, indices=None):
+    def frame_iter(self, start=None, stop=None, stride=None, indices=None):
         """iterately get Frames with start, stop, stride 
         Parameters
         ---------
