@@ -67,4 +67,4 @@ cdef class Residue:
 
     @property
     def name(self):
-        return self.thisptr.c_str()
+        return self.thisptr.c_str().decode()

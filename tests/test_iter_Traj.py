@@ -1,18 +1,21 @@
+import unittest
 from pytraj.base import *
-from time import time
+from pytraj import io as mdio
+from pytraj.utils.check_and_assert import assert_almost_equal
 
-traj = Trajectory()
-print(traj)
-top = Topology("data/Tc5b.top")
-traj.top = top
-traj.load("data/md1_prod.Tc5b.x")
-print(traj)
-print(traj.size)
-farray = FrameArray()
+class Test(unittest.TestCase):
+    def test_0(self):
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        farray = traj[:]
+        print (traj[0, 0])
+        print (traj[-1, 0])
 
-t0 = time()
-for frame in traj:
-    farray.append(frame)
+        print (traj)
+        for frame in traj.frame_iter():
+            print (frame[0])
 
-print(time() - t0)
-print(farray.size)
+        for frame0 in farray.frame_iter():
+            print (frame0[0])
+
+if __name__ == "__main__":
+    unittest.main()

@@ -249,6 +249,11 @@ cdef class Frame (object):
             else:
                 yield self.buffer3d[i]
 
+    def frame_iter(self):
+        """
+        """
+        yield self
+
     def __len__(self):
         return self.size
 

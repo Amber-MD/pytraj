@@ -17,5 +17,9 @@ class Test(unittest.TestCase):
         for i in range(frame.n_atoms):
             assert (frame[i, 0]) == 0.0
 
+        print ("test frame_iter")
+        for f0 in frame.frame_iter():
+            print (f0)
+
 if __name__ == "__main__":
     unittest.main()
