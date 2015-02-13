@@ -26,13 +26,22 @@ class TestActionList(unittest.TestCase):
                          traj.top, dslist, dflist)
         alist.add_action('matrix', "out ./output/_mat_alist.out", 
                          traj.top, dslist, dflist)
-        alist.do_actions((traj, traj))
+        # does not work with `strip` (output traj have the same n_atoms as originl traj)
+        #alist.add_action("strip", "!CA", traj.top)
+        alist.add_action("outtraj", "./output/test_trajout.nc", traj.top)
+        #alist.do_actions((traj, traj))
         alist.do_actions((traj[0], traj[1], traj))
+        Nframes = 2 + traj.n_frames
         dflist.write_all_datafiles()
         print (dslist.size)
         print (dslist[0][:])
         print (dslist[1][:])
         print (dslist.get_dataset(dtype='integer'))
+        traj2 = mdio.load("././output/test_trajout.nc", traj.top)
+        print (traj.n_frames)
+        print (traj2.n_frames)
+        print (traj2[0].n_atoms)
+        assert traj2.n_frames == Nframes
 
 if __name__ == "__main__":
     unittest.main()
