@@ -234,26 +234,6 @@ cdef class Trajin (TrajectoryFile):
     def __setitem__(self, idx, value):
         raise NotImplementedError("Read only Trajectory. Use FrameArray class for __setitem__")
 
-    def frame_iter(self, int start=0, int chunk=1):
-        # TODO : add slice
-        """iterately get Frames with start, chunk
-        returning FrameArray or Frame instance depend on `chunk` value
-        Parameters
-        ---------
-        start : int (default = 0)
-        chunk : int (default = 1, return Frame instance). 
-                if `chunk` > 1 : return FrameArray instance
-        """
-        cdef int newstart
-
-        newstart = start
-        if chunk + newstart >= self.size:
-            raise ValueError("start + chunk must be smaller than max frames")
-
-        while newstart <= self.size-chunk:
-            yield self[newstart:newstart+chunk].copy()
-            newstart += chunk
-
     def is_empty(self):
         return self.max_frames == 0
 
@@ -375,3 +355,12 @@ cdef class Trajin (TrajectoryFile):
     def get_subframes(self, mask, indices=None):
         cdef FrameArray farray = FrameArray()
         raise NotImplementedError("not yet")
+
+    @property
+    def temperatures(self):
+        """return a Python array of temperatures"""
+        cdef pyarray tarr = pyarray('d', [])
+
+        for frame in self:
+            tarr.append(frame.temperature)
+        return tarr
