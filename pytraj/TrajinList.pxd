@@ -28,3 +28,4 @@ cdef extern from "TrajinList.h":
 cdef class TrajinList:
     cdef _TrajinList* thisptr
     cdef bint py_free_mem
+    cdef public object top 
