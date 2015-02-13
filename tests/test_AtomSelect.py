@@ -35,9 +35,10 @@ class Test(unittest.TestCase):
 
     def test_2(self):
         print(dir(mdio))
-        top, traj = mdio.loadpdb_rcsb("2kxc")
+        traj = mdio.loadpdb_rcsb("2kxc")
+        top = traj.top
         farray = FrameArray()
-        farray.top = top
+        farray.top = traj.top.copy()
         s = AtomSelect(traj=traj, top=top)
 
         #print s.get_indices("@CA")
