@@ -392,7 +392,7 @@ cdef class FrameArray (object):
             yield frame
             incr(it)
 
-    def frame_iter(self, start=0, chunk=None, stride=None, stop=None):
+    def frame_iter(self, start=0, stride=None, stop=None):
         """iterately get Frames with start, chunk (or stride)
         returning FrameArray or Frame instance depend on `chunk` value
         Parameters
@@ -411,27 +411,17 @@ cdef class FrameArray (object):
         """
         cdef int newstart
 
-        if chunk is not None and stride is not None:
-            raise ValueError("can not use `chunk` and `stride` at the same time")
-        elif chunk is not None:
-            newstart = start
-            if chunk + newstart >= self.size:
-                raise ValueError("start + chunk must be smaller than max frames")
+        if stride is None or stride == 0:
+            stride = 1
+        if start is None: 
+            start = 0
+        if stop is None:
+            stop = self.n_frames - 1
 
-            while newstart <= self.size-chunk:
-                yield self[newstart:newstart+chunk]
-                newstart += chunk
-        elif stride is not None:
-            if stride == 0:
-                # make sure stride must be at least 1
-                print ("get stride = 0, reassigned to 1")
-                stride = 1
-            newstart = start
-            if stop is None:
-                stop = self.n_frames
-            while newstart < stop:
-                yield self[newstart]
-                newstart += stride
+        newstart = start
+        while newstart <= stop:
+            yield self[newstart]
+            newstart += stride
 
     def __add__(self, FrameArray other):
         self += other

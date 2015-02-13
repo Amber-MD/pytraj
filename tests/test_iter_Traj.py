@@ -45,5 +45,19 @@ class Test(unittest.TestCase):
             pass
         assert_almost_equal(traj[8].coords, frame0.coords)
 
+        count = 0
+        for frame0 in traj.frame_iter(start=2):
+            count += 1
+            pass
+        print ('count = ', count)
+        assert_almost_equal(traj[-1].coords, frame0.coords)
+
+        count = 0
+        for frame0 in traj.frame_iter(start=2, stop=7):
+            count += 1
+            pass
+        print ('count = ', count)
+        assert_almost_equal(traj[7].coords, frame0.coords)
+
 if __name__ == "__main__":
     unittest.main()

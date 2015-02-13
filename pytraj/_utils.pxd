@@ -45,3 +45,4 @@ cdef inline unicode _ustring(s):
         return unicode(s)
     else:
         raise TypeError("")
+
