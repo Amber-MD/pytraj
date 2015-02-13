@@ -59,5 +59,35 @@ class Test(unittest.TestCase):
         print ('count = ', count)
         assert_almost_equal(traj[7].coords, frame0.coords)
 
+        for frame0 in traj.frame_iter(indices=(1, 3, 4, 8)):
+            pass
+        assert_almost_equal(traj[8].coords, frame0.coords)
+
+        for frame0 in farray.frame_iter(indices=(1, 3, 4, 5)):
+            pass
+        assert_almost_equal(traj[5].coords, frame0.coords)
+
+        for frame0 in traj(indices=(1, 3, 4, 8)):
+            pass
+        assert_almost_equal(traj[8].coords, frame0.coords)
+
+        for frame0 in farray(indices=(1, 3, 4, 5)):
+            pass
+        assert_almost_equal(traj[5].coords, frame0.coords)
+
+        count = 0
+        for frame0 in traj(start=2, stop=7):
+            count += 1
+            pass
+        print ('count = ', count)
+        assert_almost_equal(traj[7].coords, frame0.coords)
+
+        count = 0
+        for frame0 in farray(start=2, stop=7):
+            count += 1
+            pass
+        print ('count = ', count)
+        assert_almost_equal(traj[7].coords, frame0.coords)
+
 if __name__ == "__main__":
     unittest.main()

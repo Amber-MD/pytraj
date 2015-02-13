@@ -42,36 +42,36 @@ cdef class Trajin (TrajectoryFile):
             yield frame
         self.end_traj()
 
-    def frame_iter(self, start=0, stride=None, stop=None):
-        """iterately get Frames with start, chunk (or stride)
-        returning FrameArray or Frame instance depend on `chunk` value
+    def __call__(self, *args, **kwd):
+        return self.frame_iter(*args, **kwd)
+
+    def frame_iter(self, start=None, stride=None, stop=None, indices=None):
+        """iterately get Frames with start, stop, stride 
         Parameters
         ---------
         start : int (default = 0)
-        chunk : int (default = 1, return Frame instance). 
-                if `chunk` > 1 : return FrameArray instance
+        chunk : int (default = 1)
+        stop : int (default = max_frames - 1)
         """
-        """iterately get Frames with start, chunk
-        returning FrameArray or Frame instance depend on `chunk` value
-        Parameters
-        ---------
-        start : int (default = 0)
-        chunk : int (default = 1, return Frame instance). 
-                if `chunk` > 1 : return FrameArray instance
-        """
-        cdef int newstart
+        cdef int newstart, i
 
-        if stride is None or stride == 0:
-            stride = 1
-        if start is None: 
-            start = 0
-        if stop is None:
-            stop = self.n_frames - 1
+        if indices is None:
+            if stride is None or stride == 0:
+                stride = 1
+            if start is None: 
+                start = 0
+            if stop is None:
+                stop = self.n_frames - 1
 
-        newstart = start
-        while newstart <= stop:
-            yield self[newstart]
-            newstart += stride
+            newstart = start
+            while newstart <= stop:
+                yield self[newstart]
+                newstart += stride
+        else:
+            if start is not None or stride is not None or stop is not None:
+                raise ValueError("can not have both indices and start/stop/stride")
+            for i in indices:
+                yield self[i]
 
     def __str__(self):
         name = self.__class__.__name__
