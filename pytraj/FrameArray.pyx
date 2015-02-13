@@ -204,7 +204,7 @@ cdef class FrameArray (object):
                             _farray.append(_frame)
                         return _farray
                 except:
-                    txt = "not supported keyword `%s`" % idxs
+                    txt = "not supported keyword `%s` or there's proble with your topology" % idxs
                     raise NotImplementedError(txt)
 
         if not isinstance(idxs, slice):
