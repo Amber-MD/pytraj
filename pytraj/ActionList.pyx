@@ -78,8 +78,9 @@ cdef class ActionList:
         cdef Frame frame
         cdef int i
 
-        if len(traj) == 0:
-            raise ValueError("empty Frame/Traj/List, what can I do with this?")
+        # turn off to use with frame_iter
+        #if len(traj) == 0:
+        #    raise ValueError("empty Frame/Traj/List, what can I do with this?")
         if not self.top_is_processed:
             self.process(self.toplist[0])
 
@@ -87,14 +88,12 @@ cdef class ActionList:
             frame = <Frame> traj
             frame.py_free_mem = False
             self.thisptr.DoActions(&(frame.thisptr), idx)
-        elif hasattr(traj, 'n_frames'):
-            for i, frame in enumerate(traj):
-                self.do_actions(frame, i)
         elif isinstance(traj, (list, tuple, TrajinList)):
             for tmtraj in traj:
                 self.do_actions(tmtraj)
         else:
-            raise NotImplementedError()
+            for i, frame in enumerate(traj):
+                self.do_actions(frame, i)
 
     def listinfo(self):
         self.thisptr.List()

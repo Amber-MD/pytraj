@@ -138,18 +138,15 @@ cdef class Action:
         # got double-free memory error when not using above flag
         # end debug
         #return self.baseptr.DoAction(idx, current_frame.thisptr, &(new_frame.thisptr))
-        if len(current_frame) == 0:
-            raise ValueError("require providing Frame/Traj/List")
+
+        # turn off to use with frame_iter
+        #if len(current_frame) == 0:
+        #    raise ValueError("require providing Frame/Traj/List")
 
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame
             frame.py_free_mem = False
             self.baseptr.DoAction(idx, frame.thisptr, &(new_frame.thisptr))
-        elif hasattr(current_frame, 'n_frames'):
-            # Trajectory-like object
-            traj = current_frame 
-            for i, frame in enumerate(traj):
-                self.do_action(idx, frame, new_frame)
         elif isinstance(current_frame, (list, tuple, TrajinList)):
             # assume Traj-like object
             # TODO : check new_frame
@@ -157,7 +154,10 @@ cdef class Action:
             for tmptraj in trajlist:
                 self.do_action(idx, tmptraj, new_frame)
         else:
-            raise NotImplementedError()
+            # Trajectory-like object
+            traj = current_frame 
+            for i, frame in enumerate(traj):
+                self.do_action(idx, frame, new_frame)
 
     @makesureABC("Action")
     def print_output(self):
