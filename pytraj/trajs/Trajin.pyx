@@ -42,6 +42,9 @@ cdef class Trajin (TrajectoryFile):
             yield frame
         self.end_traj()
 
+    def frame_iter(self):
+        return self.__iter__()
+
     def __len__(self):
         return self.size
 
@@ -77,17 +80,30 @@ cdef class Trajin (TrajectoryFile):
             else:
                 # return array with given mask
                 # traj[':@CA']
+                # traj[':@CA :frame']
                 try:
                     # use `mask` to avoid confusion
                     mask = idxs
-                    has_numpy, np = _import_numpy()
-                    if not has_numpy:
-                        raise NotImplementedError("must have numpy")
-                    N = self.top(mask).n_selected
-                    arr0 = np.empty(N*self.size*3).reshape(self.size, N, 3)
-                    for i, frame in enumerate(self):
-                        arr0[i] = frame[self.top(mask)]
-                    return arr0
+                    if ':frame' not in mask:
+                        # return numpy array
+                        has_numpy, np = _import_numpy()
+                        if not has_numpy:
+                            print ('must have numpy to get coords directly')
+                            print ("add :frame to mask to get sub-FrameArray")
+                            print ("example: traj['@CA :frame']")
+                            raise NotImplementedError("")
+                        N = self.top(mask).n_selected
+                        arr0 = np.empty(N*self.size*3).reshape(self.size, N, 3)
+                        for i, frame in enumerate(self):
+                            arr0[i] = frame[self.top(mask)]
+                        return arr0
+                    else:
+                        _farray = FrameArray()
+                        _farray.top = self.top.modify_state_by_mask(self.top(mask))
+                        for i, frame in enumerate(self):
+                            _frame = frame.get_subframe(mask, self.top)
+                            _farray.append(_frame)
+                        return _farray
                 except:
                     txt = "not supported keyword `%s`" % idxs
                     raise NotImplementedError(txt)
