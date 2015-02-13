@@ -392,8 +392,36 @@ cdef class FrameArray (object):
             yield frame
             incr(it)
 
-    def frame_iter(self):
-        return self.__iter__()
+    def frame_iter(self, start=0, stride=None, stop=None):
+        """iterately get Frames with start, chunk (or stride)
+        returning FrameArray or Frame instance depend on `chunk` value
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1, return Frame instance). 
+                if `chunk` > 1 : return FrameArray instance
+        """
+        """iterately get Frames with start, chunk
+        returning FrameArray or Frame instance depend on `chunk` value
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1, return Frame instance). 
+                if `chunk` > 1 : return FrameArray instance
+        """
+        cdef int newstart
+
+        if stride is None or stride == 0:
+            stride = 1
+        if start is None: 
+            start = 0
+        if stop is None:
+            stop = self.n_frames - 1
+
+        newstart = start
+        while newstart <= stop:
+            yield self[newstart]
+            newstart += stride
 
     def __add__(self, FrameArray other):
         self += other

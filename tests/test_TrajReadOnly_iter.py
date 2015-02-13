@@ -12,7 +12,7 @@ class TestTrajingIter(unittest.TestCase):
         for i in range(2):
             print() 
             print("loop number = %s-th" % i)
-            for frame in traj.frame_iter(start=0, chunk=1):
+            for frame in traj.frame_iter(start=0, stride=1):
                 assert frame.n_atoms == traj.top.n_atoms
 
         for frame in traj.frame_iter():

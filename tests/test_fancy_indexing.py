@@ -1,14 +1,14 @@
 import unittest
 from pytraj.base import *
 from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.utils import assert_almost_equal
 import numpy as np
 
 class Test(unittest.TestCase):
     def test_0(self):
         # create FrameArray from Trajing_Single
         # TODO : add more assert
-        traj = next(mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", chunk=9))
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         print(traj)
         print(traj[8][3, 0])
         print(traj[8][3, 0])
@@ -42,9 +42,15 @@ class Test(unittest.TestCase):
 
         # we don't support traj[:, idx] or traj[:, idx, idy] since this give wrong answer 
         #  got ~0.0 value 
-        assert_almost_equal(traj[:, 0, 0], traj[0][0])
+        print ("assert_almost_equal(traj[:, 0, 0], np.asarray(traj[0][0]))")
+        print (traj[:, 0, 0])
+        print (traj[0][0])
+        assert_almost_equal(traj[:, 0, 0], np.asarray(traj[0][0]))
 
         for i in range(traj[0].buffer3d.shape[0]):
+            print ("coords for atom %s" % i)
+            print (traj[:, :, 0][i])
+            print (traj[0].buffer3d[i])
             assert_almost_equal(traj[:, :, 0][i], traj[0].buffer3d[i])
 
 if __name__ == "__main__":
