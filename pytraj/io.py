@@ -129,7 +129,7 @@ def loadpdb_rcsb(pdbid):
             fh.write(txt)
     top = readparm("/tmp/._tmp")
     frames = load("/tmp/._tmp", top)
-    return top, frames
+    return frames
 
 def load_single_frame(frame=None, top=None):
     """load single Frame"""
