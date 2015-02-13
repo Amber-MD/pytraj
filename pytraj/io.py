@@ -1,6 +1,5 @@
 from pytraj.externals.six import string_types, PY3
 from pytraj.base import *
-from pytraj.iterload import _iterload
 from pytraj.TrajReadOnly import TrajReadOnly
 from pytraj.FrameArray import FrameArray
 from pytraj.Topology import Topology
@@ -12,7 +11,7 @@ try:
 except ImportError:
     from urllib import urlopen
 
-__all__ = ['load', 'iterload','load_hd5f', 'writetraj', 'readparm', 'writeparm']
+__all__ = ['load', 'load_hd5f', 'writetraj', 'readparm', 'writeparm']
 
 def load(*args, **kwd):
     """try loading and returning appropriate values"""
@@ -28,14 +27,6 @@ def load(*args, **kwd):
     else:
         # load traj
         return loadtraj(*args, **kwd)
-
-def iterload(filename=None, top=Topology(), start=0, chunk=None):
-    """iterload(filename=None, top=Topology(), start=0, chunk=None)"""
-    if not isinstance(top, Topology):
-        # string
-        top = Topology(top)
-    #filename = filename.encode("UTF-8")
-    return _iterload(top, filename, start, chunk)
 
 def loadtraj(filename=None, top=Topology(), readonly=True, indices=None):
     """load(filename=None, top=Topology(), readonly=True)"""
