@@ -33,6 +33,8 @@ class Test(unittest.TestCase):
         d0 = adict['radgyr']("@C*", [traj['@CA :frame'] for traj in trajlist], 
                              top2, quick_get=True)
         print (d0.size)
+        for traj in trajlist:
+            print (traj.temperatures)
 
 if __name__ == "__main__":
     unittest.main()
