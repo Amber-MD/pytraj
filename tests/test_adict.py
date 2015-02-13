@@ -17,7 +17,8 @@ class Test(unittest.TestCase):
         act = adict['matrix']
         print (act)
 
-        act("", traj, traj.top)
+        #act("", traj, traj.top)
+        act("", (traj, traj(1, 5, 1)), traj.top)
 
 if __name__ == "__main__":
     unittest.main()

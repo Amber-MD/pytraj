@@ -138,8 +138,10 @@ cdef class Action:
         # got double-free memory error when not using above flag
         # end debug
         #return self.baseptr.DoAction(idx, current_frame.thisptr, &(new_frame.thisptr))
-        if len(current_frame) == 0:
-            raise ValueError("require providing Frame/Traj/List")
+
+        # turn off to use with frame_iter
+        #if len(current_frame) == 0:
+        #    raise ValueError("require providing Frame/Traj/List")
 
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame

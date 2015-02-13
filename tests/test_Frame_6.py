@@ -63,6 +63,7 @@ class Test(unittest.TestCase):
         d1 = calc_angle("@2 @3 @4 @5", frame0, traj.top)
         assert dih_0 == d0[0]
         assert ang_0 == d1[0]
+        d3 = calc_angle("@2 @3 @4 @8", (traj, traj(2, 8, 2), traj[:5]), traj.top)
 
 if __name__ == "__main__":
     unittest.main()
