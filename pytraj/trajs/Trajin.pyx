@@ -34,18 +34,18 @@ cdef class Trajin (TrajectoryFile):
         cdef Frame frame = Frame(self.top.n_atoms)
         cdef int i
 
-        self.begin_traj()
-        for i in range(self.baseptr_1.TotalFrames()):
-            # don't use Python method to avoid overhead
-            #self.get_next_frame(frame)
-            self.baseptr_1.GetNextFrame(frame.thisptr[0])
-            yield frame
-        self.end_traj()
+        with self:
+           for i in range(self.baseptr_1.TotalFrames()):
+               # don't use Python method to avoid overhead
+               #self.get_next_frame(frame)
+               self.baseptr_1.GetNextFrame(frame.thisptr[0])
+               yield frame
 
     def __call__(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
 
     def frame_iter(self, start=None, stop=None, stride=None, indices=None):
+        # TODO : terriblly slow, should we keep this?
         """iterately get Frames with start, stop, stride 
         Parameters
         ---------
@@ -72,6 +72,27 @@ cdef class Trajin (TrajectoryFile):
                 raise ValueError("can not have both indices and start/stop/stride")
             for i in indices:
                 yield self[i]
+
+    def chunk_iter(self, int start=0, int chunk=1, stop=-1):
+        """iterately get Frames with start, chunk
+        returning FrameArray or Frame instance depend on `chunk` value
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1, return Frame instance). 
+                if `chunk` > 1 : return FrameArray instance
+        """
+        cdef int newstart
+
+        newstart = start
+        if stop == -1 or stop >= self.size:
+            stop = <int> self.size - 1
+        if chunk + newstart > stop:
+            raise ValueError("start + chunk must be smaller than max frames")
+
+        while newstart <= stop - chunk:
+            yield self[newstart:newstart+chunk]
+            newstart += chunk
 
     def __str__(self):
         name = self.__class__.__name__
