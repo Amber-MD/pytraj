@@ -145,7 +145,9 @@ cdef class Trajin (TrajectoryFile):
                         for i, frame in enumerate(self):
                             _frame = frame.get_subframe(mask, self.top)
                             _farray.append(_frame)
-                        return _farray
+                        self.tmpfarray = _farray
+                        # hold _farray in self.tmpfarray to avoid memory lost
+                        return self.tmpfarray
                 except:
                     txt = "not supported keyword `%s`" % idxs
                     raise NotImplementedError(txt)

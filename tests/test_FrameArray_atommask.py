@@ -61,5 +61,23 @@ class Test(unittest.TestCase):
         print (_farray[0])
         print (_farray[0, :2])
 
+    def test_2(self):
+        print ("test TrajReadOnly")
+        mask = "@CA"
+        # TrajReadOnly
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
+        # FrameArray
+        farray = traj[:]
+
+        frame0 = traj[0].copy()
+        frame0.strip_atoms("!@CA", traj.top)
+
+        frame1 = traj['@CA :frame'][0]
+        frame2 = farray['@CA :frame'][0]
+
+        assert frame0.rmsd(frame1) < 1E-3
+        assert frame2.rmsd(frame1) < 1E-3
+
 if __name__ == "__main__":
     unittest.main()

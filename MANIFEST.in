@@ -14,3 +14,4 @@ include examples/*py
 include examples/test_API/*py
 include pycpptraj/data_sample/*.py
 include pycpptraj/data_sample/Ala3*
+include installs/ins*

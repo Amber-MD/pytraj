@@ -4,8 +4,6 @@ import sys
 from distutils.core import setup
 from distutils.extension import Extension
 from random import shuffle
-from scripts.six import PY3 
-
 
 # convert raw_input to input
 PY3 = sys.version_info[0] == 3
@@ -43,14 +41,23 @@ try:
         libdir = cpptraj_dir + "/lib/"
 except:
     print ("have not set CPPTRAJHOME yet. \n")
-    use_preshipped_lib = raw_input("use preshipped lib in ./Ambertools/dev/cpptraj y/n \n")
-    if use_preshipped_lib.upper() in ['Y', 'YES']:
-        cpptraj_dir = rootname + "/Ambertools/dev/cpptraj/"
+    print ("use cpptraj git: git clone http://github.com/mojyt/cpptraj?")
+    use_cpptraj_git = raw_input("y/n \n")
+    if use_cpptraj_git.upper() in ['Y', 'YES']:
+        print ("download from http://github.com/mojyt/cpptraj")
+        cpptraj_dir = rootname + "/cpptraj/"
         cpptraj_include = cpptraj_dir + "/src/"
         libdir = cpptraj_dir + "/lib"
-        os.system("sh ./installs/install_cpptraj.sh")
+        os.system("./installs/install_cpptraj_git.sh")
     else:
-        cpptraj_dir = ""
+        use_preshipped_lib = raw_input("use preshipped lib in ./Ambertools/dev/cpptraj y/n \n")
+        if use_preshipped_lib.upper() in ['Y', 'YES']:
+            cpptraj_dir = rootname + "/Ambertools/dev/cpptraj/"
+            cpptraj_include = cpptraj_dir + "/src/"
+            libdir = cpptraj_dir + "/lib"
+            os.system("sh ./installs/install_cpptraj.sh")
+        else:
+            cpptraj_dir = ""
 
 if not os.path.exists(cpptraj_dir):
     print ("cpptraj_dir does not exist")
@@ -131,7 +138,7 @@ datalist = [[p[10:] for p in pxd_include_patterns]]
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.beta.3",
+        version="0.1.beta.7",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
@@ -144,9 +151,9 @@ if __name__ == "__main__":
                     'Operating System :: Unix',
                     'Intended Audience :: Science/Research',
                     'License :: OSI Approved :: BSD License',
-                    'Programming Language :: Python 2.7',
-                    'Programming Language :: Python 3.3',
-                    'Programming Language :: Python 3.4',
+                    'Programming Language :: Python',
+                    'Programming Language :: Python',
+                    'Programming Language :: Python',
                     'Programming Language :: Cython',
                     'Programming Language :: C',
                     'Programming Language :: C++',

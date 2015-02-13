@@ -4,7 +4,6 @@ import pytraj.io as mdio
 from pytraj.decorators import no_test
 
 class TestPyCpptrajIO(unittest.TestCase):
-    @no_test
     def test_save_traj_from_file(self):
         print("test_save_traj_from_file")
         Trajout().help()
@@ -45,8 +44,6 @@ class TestPyCpptrajIO(unittest.TestCase):
         print("test_load_and_save_0")
         # need to load to FrameArray to save
         traj = mdio.load(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")[:]
-        trajiter = mdio.iterload(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top", chunk=100)
-        print(trajiter)
         print(traj.size)
 
         indices = list(range(2, 3, 5)) + [3, 7, 9, 8]
@@ -72,8 +69,6 @@ class TestPyCpptrajIO(unittest.TestCase):
     def test_load_and_save_1(self):
         print("test_load_and_save_1")
         traj = mdio.load(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
-        trajiter = mdio.iterload(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top", chunk=9)
-        print(trajiter)
 
         indices = list(range(2, 4)) + [3, 7, 9, 8]
         mdio.writetraj(filename="./output/test_io_saved.pdb", 
