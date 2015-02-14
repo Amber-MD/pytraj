@@ -2,6 +2,7 @@ from __future__ import print_function, absolute_import
 import os
 import sys
 from distutils.core import setup
+from distutils import ccompiler
 from distutils.extension import Extension
 from random import shuffle
 
@@ -154,7 +155,7 @@ datalist = [[p[10:] for p in pxd_include_patterns]]
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.beta.9",
+        version="0.1.beta.10",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
