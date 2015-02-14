@@ -34,18 +34,18 @@ cdef class Trajin (TrajectoryFile):
         cdef Frame frame = Frame(self.top.n_atoms)
         cdef int i
 
-        self.begin_traj()
-        for i in range(self.baseptr_1.TotalFrames()):
-            # don't use Python method to avoid overhead
-            #self.get_next_frame(frame)
-            self.baseptr_1.GetNextFrame(frame.thisptr[0])
-            yield frame
-        self.end_traj()
+        with self:
+           for i in range(self.baseptr_1.TotalFrames()):
+               # don't use Python method to avoid overhead
+               #self.get_next_frame(frame)
+               self.baseptr_1.GetNextFrame(frame.thisptr[0])
+               yield frame
 
     def __call__(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
 
     def frame_iter(self, start=None, stop=None, stride=None, indices=None):
+        # TODO : terriblly slow, should we keep this?
         """iterately get Frames with start, stop, stride 
         Parameters
         ---------
@@ -53,7 +53,9 @@ cdef class Trajin (TrajectoryFile):
         chunk : int (default = 1)
         stop : int (default = max_frames - 1)
         """
-        cdef int newstart, i
+        cdef int i, nmax
+        cdef pyarray _indices = pyarray('i', [])
+        cdef Frame frame = Frame(<int> self.n_atoms)
 
         if indices is None:
             if stride is None or stride == 0:
@@ -63,15 +65,41 @@ cdef class Trajin (TrajectoryFile):
             if stop is None:
                 stop = self.n_frames - 1
 
-            newstart = start
-            while newstart <= stop:
-                yield self[newstart]
-                newstart += stride
+            _indices = pyarray('i', range(start, stop+1, stride))
+            nmax = stop
         else:
-            if start is not None or stride is not None or stop is not None:
-                raise ValueError("can not have both indices and start/stop/stride")
-            for i in indices:
-                yield self[i]
+            # ignore others
+            _indices = pyarray('i', indices)
+            # support this is sorted _indices
+            nmax = _indices[-1]
+
+        # need to open traj
+        with self:
+            for i in range(nmax+1):
+                if i in _indices:
+                    self.read_traj_frame(i, frame)
+                    yield frame
+
+    def chunk_iter(self, int start=0, int chunk=1, stop=-1):
+        """iterately get Frames with start, chunk
+        returning FrameArray or Frame instance depend on `chunk` value
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1, return Frame instance). 
+                if `chunk` > 1 : return FrameArray instance
+        """
+        cdef int newstart
+
+        newstart = start
+        if stop == -1 or stop >= self.size:
+            stop = <int> self.size - 1
+        if chunk + newstart > stop:
+            raise ValueError("start + chunk must be smaller than max frames")
+
+        while newstart <= stop - chunk:
+            yield self[newstart:newstart+chunk]
+            newstart += chunk
 
     def __str__(self):
         name = self.__class__.__name__
@@ -234,26 +262,6 @@ cdef class Trajin (TrajectoryFile):
     def __setitem__(self, idx, value):
         raise NotImplementedError("Read only Trajectory. Use FrameArray class for __setitem__")
 
-    def frame_iter(self, int start=0, int chunk=1):
-        # TODO : add slice
-        """iterately get Frames with start, chunk
-        returning FrameArray or Frame instance depend on `chunk` value
-        Parameters
-        ---------
-        start : int (default = 0)
-        chunk : int (default = 1, return Frame instance). 
-                if `chunk` > 1 : return FrameArray instance
-        """
-        cdef int newstart
-
-        newstart = start
-        if chunk + newstart >= self.size:
-            raise ValueError("start + chunk must be smaller than max frames")
-
-        while newstart <= self.size-chunk:
-            yield self[newstart:newstart+chunk].copy()
-            newstart += chunk
-
     def is_empty(self):
         return self.max_frames == 0
 
@@ -341,7 +349,7 @@ cdef class Trajin (TrajectoryFile):
         self.check_allocated()
         self.baseptr_1.SetEnsemble(b)
 
-    def load(self, tnameIn, Topology tparmIn, ArgList argIn, indices=None):
+    def load(self, tnameIn, Topology tparmIn, ArgList argIn):
         """
         Load trajectory from file.
 
@@ -375,3 +383,12 @@ cdef class Trajin (TrajectoryFile):
     def get_subframes(self, mask, indices=None):
         cdef FrameArray farray = FrameArray()
         raise NotImplementedError("not yet")
+
+    @property
+    def temperatures(self):
+        """return a Python array of temperatures"""
+        cdef pyarray tarr = pyarray('d', [])
+
+        for frame in self:
+            tarr.append(frame.temperature)
+        return tarr

@@ -8,7 +8,7 @@ from cpython.array cimport array as pyarray
 
 from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
-from pytraj._ParmFile import TMPParmFile
+from pytraj.parms._ParmFile import TMPParmFile
 try:
     set
 except NameError:
@@ -142,6 +142,9 @@ cdef class Topology:
         self.set_integer_mask(atm)
         return atm
 
+    def __iter__(self):
+        return self.atom_iter()
+
     def atom_iter(self):
         cdef Atom atom
         cdef atom_iterator it
@@ -185,16 +188,21 @@ cdef class Topology:
         return self.thisptr.c_str()
 
     def trunc_res_atom_name(self, int atom):
-        return self.thisptr.TruncResAtomName(atom)
+        return self.thisptr.TruncResAtomName(atom).decode()
 
     def atom_mask_name(self, int atom):
         return self.thisptr.AtomMaskName(atom)
 
     def trunc_resname_num(self, int res):
-        return self.thisptr.TruncResNameNum(res)
+        return self.thisptr.TruncResNameNum(res).decode()
 
-    def find_atom_in_residue(self, int res, NameType atname):
-        return self.thisptr.FindAtomInResidue(res, atname.thisptr[0])
+    def find_atom_in_residue(self, int res, atname):
+        cdef NameType _atomnametype
+        if isinstance(atname, string_types):
+            _atomnametype = NameType(atname)
+        elif isinstance(atname, NameType):
+            _atomnametype = <NameType> atname 
+        return self.thisptr.FindAtomInResidue(res, _atomnametype.thisptr[0])
     
     def find_residue_max_natom(self):
         return self.thisptr.FindResidueMaxNatom()

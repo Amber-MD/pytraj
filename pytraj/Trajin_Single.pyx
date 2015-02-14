@@ -2,7 +2,7 @@
 import os
 
 cdef class Trajin_Single(Trajin):
-    def __cinit__(self, filename=None, top=None, *args):
+    def __cinit__(self, filename=None, top=None, *args, **kwd):
         # thisptr is from Trajin class
         # now it points to derived class
         self.baseptr0 = <_TrajectoryFile*> new _Trajin_Single()
@@ -18,7 +18,7 @@ cdef class Trajin_Single(Trajin):
                 if not self.top.is_empty():
                     print "Repalce self.top with new provided top"
                 self.top = top_.copy()
-            self.load(filename)
+            self.load(filename, *args, **kwd)
         
     def __dealloc__(self):
         if self.thisptr:

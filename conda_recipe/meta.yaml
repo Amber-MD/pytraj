@@ -2,21 +2,23 @@ package:
   name: pytraj
 
 source:
-  git_tag: pytraj.v0.1.beta
+  git_tag: master
   git_url: http://github.com/pytraj/pytraj
 
 requirements:
   build:
+    - libnetcdf
+      #- libcpptraj
     - python
     - cython
-
   run:
     - python
+    - libcpptraj
+    - libnetcdf
 
 test:
   imports:
     - pytraj
-
 about:
   home: http://github.com/pytraj/pytraj
   license: BSD

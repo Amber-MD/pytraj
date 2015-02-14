@@ -1,4 +1,5 @@
 import unittest
+import numpy as np
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
@@ -7,6 +8,11 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
+        for i, f0 in enumerate(traj):
+            for j, x in enumerate(f0.coords):
+                if np.abs(x-5.707) < 1E-3:
+                    print ("catch index index %s in %s-frame" % (j, i))
+
         print (traj[0, 0])
         print (traj[-1, 0])
 
@@ -37,8 +43,20 @@ class Test(unittest.TestCase):
             pass
         assert_almost_equal(traj[8].coords, frame0.coords)
 
+        arr0 = traj[6][0]
+        print ("traj[6][0]")
+        print (arr0)
         for frame0 in traj.frame_iter(start=2, stride=4, stop=8):
             pass
+        print ("traj[6][0]")
+        print (traj[6][0])
+
+        for frame0 in traj.frame_iter(start=2, stride=4, stop=8):
+            pass
+        print ("traj[6][0]")
+        print (traj[6][0])
+        print (traj[5][0])
+        print ('frame0', frame[0])
         assert_almost_equal(traj[6].coords, frame0.coords)
 
         for frame0 in traj.frame_iter(start=2, stride=2):
@@ -102,6 +120,7 @@ class Test(unittest.TestCase):
             pass
         print ('count = ', count)
         assert_almost_equal(traj[6].coords, frame0.coords)
+
 
 if __name__ == "__main__":
     unittest.main()

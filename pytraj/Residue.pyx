@@ -24,7 +24,7 @@ cdef class Residue:
         del self.thisptr
 
     def __str__(self):
-        txt = "<Residue object with name %s " % self.thisptr.c_str().decode()
+        txt = "%s-%s" % (self.thisptr.c_str().decode(), self.original_resnum-1)
         return txt
 
     def __repr__(self):

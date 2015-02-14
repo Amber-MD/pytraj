@@ -7,7 +7,7 @@ cd ./Ambertools/dev/cpptraj
 export CPPTRAJHOME=`pwd`
 cd $CPPTRAJHOME
 mkdir lib
-bash ./configure -nomathlib -shared -amberlib gnu
+bash ./configure -nomathlib -shared gnu
 cd $CPPTRAJHOME/src
 make libcpptraj
 cd $PYTRAJHOME
