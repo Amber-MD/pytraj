@@ -55,7 +55,7 @@ cdef class Trajin (TrajectoryFile):
         """
         cdef int i, nmax
         cdef pyarray _indices = pyarray('i', [])
-        cdef Frame frame = Frame(self.n_atoms)
+        cdef Frame frame = Frame(<int> self.n_atoms)
 
         if indices is None:
             if stride is None or stride == 0:
@@ -349,7 +349,7 @@ cdef class Trajin (TrajectoryFile):
         self.check_allocated()
         self.baseptr_1.SetEnsemble(b)
 
-    def load(self, tnameIn, Topology tparmIn, ArgList argIn, indices=None):
+    def load(self, tnameIn, Topology tparmIn, ArgList argIn):
         """
         Load trajectory from file.
 

@@ -26,6 +26,7 @@ cdef class TrajinList:
             arglist = ArgList(args[0])
         else:
             arglist = ArgList()
+        print ('arglist from TrajinList', arglist)
         tlist.add_parm(top)
         self.thisptr.AddTrajin(filename, arglist.thisptr[0], tlist.thisptr[0])
 
