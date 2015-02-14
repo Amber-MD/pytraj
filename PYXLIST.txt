@@ -6,7 +6,7 @@ DistRoutines
 #ComplexArray
 trajs/Trajin
 trajs/Trajout
-trajs/Traj_PDBfile
+#trajs/Traj_PDBfile
 ArgList
 DispatchObject
 _FunctPtr
@@ -44,7 +44,7 @@ FrameArray
 FrameArray2
 BaseIOtype
 trajs/TrajectoryIO
-trajs/Traj_AmberCoord
+#trajs/Traj_AmberCoord
 #FrameList
 datasets/DataSet
 datasets/DataSet_Modes
@@ -68,7 +68,7 @@ AnalysisList
 trajs/TrajectoryFile
 ReplicaDimArray
 DihedralSearch
-BufferedFrame
+#BufferedFrame
 actions/ActionFrameCounter
 actions/Action
 analyses/Analysis

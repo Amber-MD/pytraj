@@ -53,7 +53,9 @@ cdef class Trajin (TrajectoryFile):
         chunk : int (default = 1)
         stop : int (default = max_frames - 1)
         """
-        cdef int newstart, i
+        cdef int i, nmax
+        cdef pyarray _indices = pyarray('i', [])
+        cdef Frame frame = Frame(self.n_atoms)
 
         if indices is None:
             if stride is None or stride == 0:
@@ -63,15 +65,20 @@ cdef class Trajin (TrajectoryFile):
             if stop is None:
                 stop = self.n_frames - 1
 
-            newstart = start
-            while newstart <= stop:
-                yield self[newstart]
-                newstart += stride
+            _indices = pyarray('i', range(start, stop+1, stride))
+            nmax = stop
         else:
-            if start is not None or stride is not None or stop is not None:
-                raise ValueError("can not have both indices and start/stop/stride")
-            for i in indices:
-                yield self[i]
+            # ignore others
+            _indices = pyarray('i', indices)
+            # support this is sorted _indices
+            nmax = _indices[-1]
+
+        # need to open traj
+        with self:
+            for i in range(nmax+1):
+                if i in _indices:
+                    self.read_traj_frame(i, frame)
+                    yield frame
 
     def chunk_iter(self, int start=0, int chunk=1, stop=-1):
         """iterately get Frames with start, chunk
