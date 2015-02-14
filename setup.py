@@ -6,15 +6,40 @@ from distutils import ccompiler
 from distutils.extension import Extension
 from random import shuffle
 
-def find_netcdef():
+def find_amberhome():
+    try:
+        amber_home = os.environ['AMBERHOME']
+        return amber_home
+    except:
+        return None
+
+def find_libnetcdef():
     compiler=ccompiler.new_compiler()
     _lib_dirs = os.environ['PATH'].split(":") 
     home_dir = os.environ['HOME']
     lib_dirs = _lib_dirs + [src + "/lib" for src in _lib_dirs ] +  [home_dir + "/anaconda3/lib/", ]
-    libnetcdf_dir = compiler.find_library_file(lib_dirs, 'netcdf')
-    return libnetcdf_dir
+    libnetcdf = compiler.find_library_file(lib_dirs, 'netcdf')
+    return libnetcdf
 
-has_netcdf = True if find_netcdef() else False
+has_netcdf = True if find_libnetcdef() else False
+
+def write_install_file(fh1, fh2):
+    # assume libnetcdf*so in $NETCDF_HOME/lib
+    # and header file is in $NETCDF_HOME/include
+    fh1 = "./installs/" + fh1
+    fh2 = "./installs/" + fh2
+    # always use $AMBERHOME/lib for libnetcdf
+    # if not, use others
+    if find_amberhome() is None:
+        libnetcdf_dir = find_libnetcdef().split("lib")[0]
+    else:
+        libnetcdf_dir = find_amberhome()
+
+    new_chunk = "-shared --with-netcdf=%s gnu" % libnetcdf_dir
+    with open(fh1, 'r') as _fh1, open(fh2, 'w') as _fh2:
+        txt = _fh1.read()
+        txt = txt.replace("-shared gnu", new_chunk)
+        _fh2.write(txt)
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -52,6 +77,7 @@ try:
         libdir = cpptraj_dir + "/lib/"
 except:
     print ("have not set CPPTRAJHOME yet. \n")
+    print ("you have two options: using cpptraj in github or use preshipped version")
     print ("use cpptraj git: git clone http://github.com/mojyt/cpptraj?")
     use_cpptraj_git = raw_input("y/n \n")
     if use_cpptraj_git.upper() in ['Y', 'YES']:
@@ -60,21 +86,25 @@ except:
         cpptraj_include = cpptraj_dir + "/src/"
         libdir = cpptraj_dir + "/lib"
         if has_netcdf:
-            os.system("./installs/install_cpptraj_git.sh")
+            old_file = "install_cpptraj_git.sh"
+            new_file = "_" + old_file
+            write_install_file(old_file, new_file)
+            os.system("sh ./installs/" + new_file)
         else:
-            os.system("./installs/install_cpptraj_git_nonetcdf.sh")
+            os.system("sh ./installs/" + old_file)
     else:
         use_preshipped_lib = raw_input("use preshipped lib in ./Ambertools/dev/cpptraj y/n \n")
         if use_preshipped_lib.upper() in ['Y', 'YES']:
             cpptraj_dir = rootname + "/Ambertools/dev/cpptraj/"
             cpptraj_include = cpptraj_dir + "/src/"
             libdir = cpptraj_dir + "/lib"
-            if has_netcdf:
-                os.system("sh ./installs/install_cpptraj.sh")
-            else:
-                os.system("sh ./installs/install_cpptraj_nonetcdf.sh")
+        if has_netcdf:
+            old_file = "install_cpptraj.sh"
+            new_file = "_" + old_file
+            write_install_file(old_file, new_file)
+            os.system("sh ./installs/" + new_file)
         else:
-            cpptraj_dir = ""
+            os.system("sh ./installs/" + old_file)
 
 if not os.path.exists(cpptraj_dir):
     print ("cpptraj_dir does not exist")
