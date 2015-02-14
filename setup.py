@@ -5,6 +5,19 @@ from distutils.core import setup
 from distutils.extension import Extension
 from random import shuffle
 
+def find_netcdef():
+    compiler=ccompiler.new_compiler()
+    _lib_dirs = os.environ['PATH'].split(":") 
+    home_dir = os.environ['HOME']
+    lib_dirs = _lib_dirs + [src + "/lib" for src in _lib_dirs ] +  [home_dir + "/anaconda3/lib/", ]
+    libnetcdf_dir = compiler.find_library_file(lib_dirs, 'netcdf')
+    return libnetcdf_dir
+
+has_netcdf = True if find_netcdef() else False
+
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 # convert raw_input to input
 PY3 = sys.version_info[0] == 3
 if PY3:
@@ -23,9 +36,6 @@ except:
     else:
         sys.exit("I can't install pytraj without cython")
 
-# this setup.py file was adapted from setup.py file in Cython package
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 class PathError(Exception):
     def __init__(self, msg):
@@ -48,14 +58,20 @@ except:
         cpptraj_dir = rootname + "/cpptraj/"
         cpptraj_include = cpptraj_dir + "/src/"
         libdir = cpptraj_dir + "/lib"
-        os.system("./installs/install_cpptraj_git.sh")
+        if has_netcdf:
+            os.system("./installs/install_cpptraj_git.sh")
+        else:
+            os.system("./installs/install_cpptraj_git_nonetcdf.sh")
     else:
         use_preshipped_lib = raw_input("use preshipped lib in ./Ambertools/dev/cpptraj y/n \n")
         if use_preshipped_lib.upper() in ['Y', 'YES']:
             cpptraj_dir = rootname + "/Ambertools/dev/cpptraj/"
             cpptraj_include = cpptraj_dir + "/src/"
             libdir = cpptraj_dir + "/lib"
-            os.system("sh ./installs/install_cpptraj.sh")
+            if has_netcdf:
+                os.system("sh ./installs/install_cpptraj.sh")
+            else:
+                os.system("sh ./installs/install_cpptraj_nonetcdf.sh")
         else:
             cpptraj_dir = ""
 
