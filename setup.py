@@ -2,6 +2,7 @@ from __future__ import print_function, absolute_import
 import os
 import sys
 from distutils.core import setup
+from distutils import ccompiler
 from distutils.extension import Extension
 from random import shuffle
 
