@@ -1,5 +1,5 @@
 Install pytraj (after installing `libcpptraj.so`)
-   (git clone https://github.com/hainm/pytraj # if you have not done so)
+   (git clone https://github.com/pytraj/pytraj # if you have not done so)
    cd pytraj
    (export $PYCPPTRAJ_HOME=`pwd` # if you have not done so)
    (export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:$LD_LIBRARY_PATH:$AMBERHOME/lib #if you have not done so)

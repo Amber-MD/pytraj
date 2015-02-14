@@ -8,7 +8,7 @@ from cpython.array cimport array as pyarray
 
 from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
-from pytraj.parms._ParmFile import TMPParmFile
+from pytraj._ParmFile import TMPParmFile
 try:
     set
 except NameError:
@@ -142,10 +142,8 @@ cdef class Topology:
         self.set_integer_mask(atm)
         return atm
 
-    def __iter__(self):
-        return self.atom_iter()
-
-    def atom_iter(self):
+    @property
+    def atomiter(self):
         cdef Atom atom
         cdef atom_iterator it
 
@@ -156,7 +154,8 @@ cdef class Topology:
             yield atom
             incr(it)
 
-    def residue_iter(self):
+    @property
+    def residueiter(self):
         cdef Residue res
         cdef res_iterator it
         it = self.thisptr.ResStart()
@@ -167,7 +166,8 @@ cdef class Topology:
             yield res
             incr(it)
         
-    def mol_iter(self):
+    @property
+    def moliter(self):
         cdef Molecule mol
         cdef mol_iterator it
         it = self.thisptr.MolStart()
@@ -188,21 +188,16 @@ cdef class Topology:
         return self.thisptr.c_str()
 
     def trunc_res_atom_name(self, int atom):
-        return self.thisptr.TruncResAtomName(atom).decode()
+        return self.thisptr.TruncResAtomName(atom)
 
     def atom_mask_name(self, int atom):
         return self.thisptr.AtomMaskName(atom)
 
     def trunc_resname_num(self, int res):
-        return self.thisptr.TruncResNameNum(res).decode()
+        return self.thisptr.TruncResNameNum(res)
 
-    def find_atom_in_residue(self, int res, atname):
-        cdef NameType _atomnametype
-        if isinstance(atname, string_types):
-            _atomnametype = NameType(atname)
-        elif isinstance(atname, NameType):
-            _atomnametype = <NameType> atname 
-        return self.thisptr.FindAtomInResidue(res, _atomnametype.thisptr[0])
+    def find_atom_in_residue(self, int res, NameType atname):
+        return self.thisptr.FindAtomInResidue(res, atname.thisptr[0])
     
     def find_residue_max_natom(self):
         return self.thisptr.FindResidueMaxNatom()
@@ -231,7 +226,7 @@ cdef class Topology:
     @property
     def residuelist(self):
         reslist = []
-        for res in self.residue_iter():
+        for res in self.residueiter:
             reslist.append(res)
         return reslist
 
@@ -276,9 +271,8 @@ cdef class Topology:
         maskString = maskString.encode()
         self.thisptr.PrintChargeMassInfo(maskString, idtype)
 
-    # BROKEN
-    #def has_vel(self):
-    #    return self.thisptr.HasVelInfo()
+    def has_vel(self):
+        return self.thisptr.HasVelInfo()
     
     def add_atom(self, Atom atom=Atom(), 
                  int resid=0, 
@@ -345,10 +339,9 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Nframes()
 
-    # BROKEN
-    #property n_repdims:
-    #    def __get__(self):
-    #        return self.thisptr.NrepDims()
+    property n_repdims:
+        def __get__(self):
+            return self.thisptr.NrepDims()
 
     property parm_name:
         def __get__(self):
@@ -379,7 +372,7 @@ cdef class Topology:
         self.thisptr.ScaleDihedralK(value)
 
     def set_box(self, Box boxin):
-        self.thisptr.SetParmBox(boxin.thisptr[0])
+        self.thisptr.SetBox(boxin.thisptr[0])
 
     def partial_modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
@@ -438,14 +431,14 @@ cdef class Topology:
     @name_will_be_changed("")
     def get_unique_resname(self):
         s = set()
-        for res in self.residue_iter():
+        for res in self.residueiter:
             s.add(res.name)
         return s
 
     @name_will_be_changed("")
     def get_unique_atomname(self):
         s = set()
-        for atom in self.atom_iter():
+        for atom in self.atomiter:
             s.add(atom.name)
         return s
 
@@ -454,21 +447,3 @@ cdef class Topology:
 
     def get_resname_set(self):
         return self.get_unique_resname()
-
-    def parm_coordinnfo(self):
-        cdef CoordinateInfo coordinfo = CoordinateInfo()
-        coordinfo.thisptr[0] = self.thisptr.ParmCoordInfo()
-        return coordinfo
-
-    def join(self, top):
-        cdef Topology _top
-        if isinstance(top, Topology):
-            _top = top
-            if _top == self:
-                raise ValueError("can not join yourself, use copy() method")
-        elif isinstance(top, string_types):
-            _top = Topology(top)
-        else:
-            raise ValueError("support only Topology object or top filename")
-
-        self.thisptr.AppendTop(_top.thisptr[0])

@@ -43,5 +43,10 @@ class Test(unittest.TestCase):
         print(a100.is_bonded_to(120))
         print(a100.n_bonds)
 
+    def test_0(self):
+        top = Topology("./data/HP36.top")
+        for atom in top:
+            print (atom)
+
 if __name__ == "__main__":
     unittest.main()

@@ -84,11 +84,15 @@ cdef class Atom:
         return self.thisptr.NoMol()
 
     def __str__(self):
-        txt = "Atom object with name %s " % self.thisptr.c_str()
+        name = self.thisptr.c_str()
+        name = name.decode()
+        txt = "%s - resnum %s" % (name, self.resnum)
         return txt
 
     def __repr__(self):
-        txt = "<Atom object: %s>" % self.thisptr.c_str()
+        name = self.thisptr.c_str()
+        name = name.decode()
+        txt = "<%s - resnum %s>" % (name, self.resnum)
         return txt
 
     @property
