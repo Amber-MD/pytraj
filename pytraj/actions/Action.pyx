@@ -147,17 +147,23 @@ cdef class Action:
             frame = <Frame> current_frame
             frame.py_free_mem = False
             self.baseptr.DoAction(idx, frame.thisptr, &(new_frame.thisptr))
-        elif isinstance(current_frame, (list, tuple, TrajinList)):
-            # assume Traj-like object
-            # TODO : check new_frame
-            trajlist = current_frame
-            for tmptraj in trajlist:
-                self.do_action(idx, tmptraj, new_frame)
-        else:
+        elif hasattr(current_frame, 'n_frames'):
             # Trajectory-like object
             traj = current_frame 
             for i, frame in enumerate(traj):
                 self.do_action(idx, frame, new_frame)
+        elif isinstance(current_frame, (list, tuple)):
+            # assume Traj-like object
+            # TODO : check new_frame
+            trajlist = current_frame
+            for tmptraj in trajlist:
+                if isinstance(tmptraj, Frame) or hasattr(tmptraj, 'new_frame'):
+                    # if Frame or traj-like object
+                    self.do_action(idx, tmptraj, new_frame)
+                else:
+                    # iterator
+                    for tmp in tmptraj:
+                        self.do_action(tmp)
 
     @makesureABC("Action")
     def print_output(self):

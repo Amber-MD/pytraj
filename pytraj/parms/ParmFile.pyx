@@ -43,7 +43,7 @@ cdef class ParmFile:
         cdef debug = 0
         cdef Topology _top = <Topology> top
 
-        filename = filename.encode("UTF-8")
+        filename = filename.encode()
 
         if not args:
             self.thisptr.ReadTopology(_top.thisptr[0], filename, debug)
@@ -102,7 +102,7 @@ cdef class ParmFile:
         cdef int err
         # change `fmt` to upper
         cdef ParmFormatType parmtype 
-        filename = filename.encode("UTF-8")
+        filename = filename.encode()
         
         if fmt == "":
             parmtype = UNKNOWN_PARM

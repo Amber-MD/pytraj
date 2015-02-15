@@ -188,13 +188,13 @@ cdef class Topology:
         return self.thisptr.c_str()
 
     def trunc_res_atom_name(self, int atom):
-        return self.thisptr.TruncResAtomName(atom).decode()
+        return self.thisptr.TruncResAtomName(atom)
 
     def atom_mask_name(self, int atom):
         return self.thisptr.AtomMaskName(atom)
 
     def trunc_resname_num(self, int res):
-        return self.thisptr.TruncResNameNum(res).decode()
+        return self.thisptr.TruncResNameNum(res)
 
     def find_atom_in_residue(self, int res, atname):
         cdef NameType _atomnametype

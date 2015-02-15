@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         print (act)
 
         #act("", traj, traj.top)
-        act("", (traj, traj(1, 5, 1)), traj.top)
+        act("", (traj, traj(1, 5, 1), traj.chunk_iter(chunk=2)), traj.top)
 
 if __name__ == "__main__":
     unittest.main()

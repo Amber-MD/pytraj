@@ -90,7 +90,10 @@ cdef class Trajout:
     def close(self):
         self.thisptr.EndTraj()
 
-    def writeframe(self, int idx=0, Frame frame=Frame(), top=Topology()):
+    def writeframe(self, *args, **kwd):
+        self.write_frame(*args, **kwd)
+
+    def write_frame(self, int idx=0, Frame frame=Frame(), top=Topology()):
         """write trajout for Frame with given Topology
         Parameters:
         ----------
@@ -108,7 +111,6 @@ cdef class Trajout:
             # we use `len` here since we don't know if this is string or 
             # Topology object
             raise ValueError("require non-empty topology")
-
         self.thisptr.WriteFrame(idx, top_.thisptr, frame.thisptr[0])
 
     def print_info(self, int idx):
