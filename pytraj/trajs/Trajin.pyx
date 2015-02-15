@@ -57,6 +57,7 @@ cdef class Trajin (TrajectoryFile):
         #cdef pyarray _indices = pyarray('i', [])
         cdef int[:] _indices
         cdef Frame frame = Frame(<int> self.n_atoms)
+        cdef int _start, _stop, _stride
 
         if indices is None:
             if stride is None or stride == 0:
@@ -67,7 +68,9 @@ cdef class Trajin (TrajectoryFile):
                 stop = self.n_frames - 1
 
             #_indices = pyarray('i', range(start, stop+1, stride))
-            _indices = pyarray('i', range(start, stop+1, stride))
+            # make a local copy with typed variables to make Cython knows at compiling time
+            _start, _stop, _stride = start, stop, stride
+            _indices = pyarray('i', range(_start, _stop+1, _stride))
             nmax = stop
         else:
             # ignore others
@@ -76,13 +79,46 @@ cdef class Trajin (TrajectoryFile):
             nmax = _indices[-1]
 
         # need to open traj
-        with self:
-            for i in range(nmax+1):
-                if i in _indices:
-                    self.read_traj_frame(i, frame)
-                    yield frame
+        #with self:
+        self.begin_traj()
+        for i in range(nmax+1):
+            if i in _indices:
+                self.read_traj_frame(i, frame)
+                yield frame
+        self.end_traj()
 
-    def chunk_iter(self, int start=0, int chunk=1, stop=-1):
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    @cython.profile(True)
+    @cython.infer_types(True)
+    def frame_iter_2(self, int start=0, int stop=-1, stride=1):
+        # TODO : terriblly slow, should we keep this?
+        """iterately get Frames with start, stop, stride 
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1)
+        stop : int (default = max_frames - 1)
+        """
+        cdef int i
+        cdef Frame frame = Frame(self.n_atoms)
+        cdef int _end
+
+        self.begin_traj()
+        if stop == -1:
+            _end = <int> self.n_frames 
+        else:
+            _end = stop + 1
+
+        i = start
+        #for i in range(start, _end, stride):
+        while i < _end:
+            self.baseptr_1.ReadTrajFrame(i, frame.thisptr[0])
+            yield frame
+            i += stride
+        self.end_traj()
+
+    def chunk_iter(self, int start=0, int chunk=1, int stop=-1):
         """iterately get Frames with start, chunk
         returning FrameArray or Frame instance depend on `chunk` value
         Parameters

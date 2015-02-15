@@ -60,6 +60,9 @@ def writetraj(filename="", traj=None, top=None,
     else:
         fmt = fmt.upper()
 
+    if isinstance(top, string_types):
+        top = Topology(top)
+
     if traj is None or top is None:
         raise ValueError("Need non-empty traj and top files")
 
