@@ -88,7 +88,7 @@ cdef class ActionList:
             frame = <Frame> traj
             frame.py_free_mem = False
             self.thisptr.DoActions(&(frame.thisptr), idx)
-        elif isinstance(traj, (list, tuple, TrajinList)):
+        elif isinstance(traj, (list, tuple)):
             for tmtraj in traj:
                 self.do_actions(tmtraj)
         else:

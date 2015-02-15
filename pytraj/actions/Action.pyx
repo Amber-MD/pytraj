@@ -147,7 +147,7 @@ cdef class Action:
             frame = <Frame> current_frame
             frame.py_free_mem = False
             self.baseptr.DoAction(idx, frame.thisptr, &(new_frame.thisptr))
-        elif isinstance(current_frame, (list, tuple, TrajinList)):
+        elif isinstance(current_frame, (list, tuple)):
             # assume Traj-like object
             # TODO : check new_frame
             trajlist = current_frame

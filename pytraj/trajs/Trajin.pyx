@@ -54,7 +54,8 @@ cdef class Trajin (TrajectoryFile):
         stop : int (default = max_frames - 1)
         """
         cdef int i, nmax
-        cdef pyarray _indices = pyarray('i', [])
+        #cdef pyarray _indices = pyarray('i', [])
+        cdef int[:] _indices
         cdef Frame frame = Frame(<int> self.n_atoms)
 
         if indices is None:
@@ -65,6 +66,7 @@ cdef class Trajin (TrajectoryFile):
             if stop is None:
                 stop = self.n_frames - 1
 
+            #_indices = pyarray('i', range(start, stop+1, stride))
             _indices = pyarray('i', range(start, stop+1, stride))
             nmax = stop
         else:
