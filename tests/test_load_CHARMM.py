@@ -1,7 +1,9 @@
 import unittest
 from array import array
 from pytraj.base import *
+from pytraj import io as mdio
 import numpy as np
+from pytraj.utils import assert_almost_equal
 
 class TestCHARMM(unittest.TestCase):
     def test_0(self):
@@ -32,6 +34,18 @@ class TestCHARMM(unittest.TestCase):
         frame.zero_coords()
         print(frame[0])
         print(atm.is_char_mask())
+
+    def test_1(self):
+        traj = mdio.load("./data/ala3.dcd", "./data/ala3.psf")
+        print (traj)
+        print("save to AMBER")
+        traj.save("./output/_save_charmm_to_amber.x", overwrite=True)
+        # test loading
+        trajamber = mdio.load("./output/_save_charmm_to_amber.x", 
+                              "./data/ala3.psf")
+        print (trajamber)
+        for i in range(traj.size):
+            assert_almost_equal(trajamber[i].coords, traj[i].coords)
 
 if __name__ == "__main__":
     unittest.main()
