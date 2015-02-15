@@ -448,7 +448,6 @@ cdef class Frame (object):
     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
         return self.thisptr.SetupFrameXM(Xin, massIn)
 
-    # BROKEN WITH NEW CPPTRAJ
     def set_frame_v(self, Topology top):
         """TODO: add doc
         """
@@ -482,7 +481,13 @@ cdef class Frame (object):
         else:
             raise NotImplementedError("must be list of Atom objects or Topology")
 
-    def set_coord(self, Frame frame, *args):
+    def set_coords(self, Frame frame, *args):
+        """set coords for Frame with given mask
+        Paramters:
+        ---------
+        frame : Frame object
+        atmask : AtomMask object (optional)
+        """
         cdef AtomMask atmask 
         if not args:
             self.thisptr.SetCoordinates(frame.thisptr[0])
@@ -555,8 +560,10 @@ cdef class Frame (object):
         return v3
 
     def translate(self, *args):
+        # TODO : doc
         """
-        Args:
+        Paramters:
+        ---------
                (Vec3, first_atom_idx, last_atom_idx)
             or (Vec3, atom_idx) 
             or (Vec3)
