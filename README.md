@@ -13,13 +13,13 @@ Welcome to pytraj!
     * It's flexible: 
         * you can write extension modules in either high (Python) or low (C/C++ or Cython) level
 
-Citation (optional):
+Citation:
 -----------------
 - cpptraj : [PTRAJ and CPPTRAJ] (http://pubs.acs.org/doi/abs/10.1021/ct400341p): Software for Processing and Analysis of Molecular Dynamics Trajectory Data
 Daniel R. Roe and Thomas E. Cheatham, III
 Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095 
 
-- pytraj : (in preparation)
+- pytraj : Hai Nguyen et al. (2015) (in preperation)
 
 Install
 -------
@@ -28,8 +28,8 @@ Install
     - cpptraj
 - wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
 - install libcpptraj: 
-    ./installs/libcpptraj.txt (works well with cpptraj v15.22b)
-- installs pytraj: `pip install pytraj` or `pip install --upgrade pytraj`
+    ./installs/libcpptraj.txt (works well with development version of cpptraj)
+- installs pytraj: [wiki](http://www.github.com/pytraj/pytraj/wiki)
     (further instruction ./installs/pytraj.txt)
 
 Usage: 
@@ -40,4 +40,4 @@ Usage:
 
 Support
 ====================
-* Development version of `cpptraj`: v15.22b
+* Development version of [cpptraj] (https://github.com/mojyt/cpptraj)
