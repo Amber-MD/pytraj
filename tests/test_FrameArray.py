@@ -65,9 +65,8 @@ class TestFrameArray(unittest.TestCase):
         print(farray[:100:2])
         print(farray[9:2:-2])
 
-    @no_test
+    #@no_test
     def test_load_CHARMM(sefl):
-        # TODO : check Segmentation fault
         datadir = "./data/"
         print("test_load_CHARMM")
         farray = FrameArray()
@@ -80,7 +79,7 @@ class TestFrameArray(unittest.TestCase):
         #print farray.top
         ts = TrajReadOnly()
         ts.top = farray.top.copy()
-        ts.load("ala3.dcd")
+        ts.load("./data/ala3.dcd")
         print(ts.size)
         print(ts[0])
 
