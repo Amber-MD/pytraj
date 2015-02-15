@@ -30,9 +30,9 @@ class TestActionList(unittest.TestCase):
         # does not work with `strip` (output traj have the same n_atoms as originl traj)
         #alist.add_action("strip", "!CA", traj.top)
         alist.add_action("outtraj", "./output/test_trajout.nc", traj.top)
-        alist.do_actions([traj[0], traj[1], traj, traj(1, 6, 2), 
+        alist.do_actions([traj[0], traj[1], traj,
                           traj.chunk_iter(chunk=4)])
-        Nframes = 5 + traj.n_frames + 8
+        Nframes = 2 + traj.n_frames + 8
         dflist.write_all_datafiles()
         print (dslist.size)
         print (dslist[0][:])
@@ -40,7 +40,7 @@ class TestActionList(unittest.TestCase):
         print (dslist.get_dataset(dtype='integer'))
         traj2 = mdio.load("./output/test_trajout.nc", traj.top)
         print (traj.n_frames)
-        print ('test_trajout.nc has %s frames' %traj2.n_frames)
+        print ('test_trajout.nc has %s frames' % traj2.n_frames)
         print (traj2[0].n_atoms)
         assert traj2.n_frames == Nframes
 
