@@ -11,6 +11,7 @@ nohup.out
 *.swp
 test.parm7
 tests/output/test*
+tests/*nogit*
 tests_python3/output/test*
 test*.pyx
 temp.*
