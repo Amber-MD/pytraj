@@ -118,7 +118,7 @@ cdef class Trajin (TrajectoryFile):
             i += stride
         self.end_traj()
 
-    def chunk_iter(self, int start=0, int chunk=1, int stop=-1):
+    def chunk_iter(self, int chunk=1, int start=0, int stop=-1):
         """iterately get Frames with start, chunk
         returning FrameArray or Frame instance depend on `chunk` value
         Parameters

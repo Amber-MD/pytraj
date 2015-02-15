@@ -191,7 +191,10 @@ cdef class Action:
                   update_frame=False,
                   quick_get=False):
         """
-        TODO : add doc
+        TODO : (do we need this method?)
+            + add doc
+            + don't work with `chunk_iter`
+
         """
         if current_top.is_empty():
             _top = current_frame.top

@@ -29,12 +29,13 @@ class Test(unittest.TestCase):
 
             # try loading traj with pseudotop 
             traj = FrameArray()
-            traj.top = pseudotop.copy()
-            print(traj.top)
+            traj.top = pseudotop
+            print('pseudotop: ', traj.top)
 
-            # TODO : segmentation fault
-            #traj.load("./data/md1_prod.Tc5b.top")
-            #print traj.is_empty()
+            traj.load("./data/md1_prod.Tc5b.x")
+            traj0 = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            for i in range(traj.size):
+                assert_almost_equal(traj[i].coords, traj[i].coords)
 
 if __name__ == "__main__":
     unittest.main()

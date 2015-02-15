@@ -9,12 +9,14 @@ class Test(unittest.TestCase):
     def test_0(self):
         dslist = DataSetList()
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        #trajlist = (traj, traj.chunk_iter(chunk=2))
-        #trajlist = (traj, traj[:])
-        trajlist = traj
+        traj_iter = traj.chunk_iter(chunk=2)
+        trajlist = (traj, traj_iter)
         calc_distance = adict['distance']
         calc_distance(":2@CA :10@CA", trajlist, traj.top, dslist=dslist)
         print (dslist[0].size)
+
+        # TODO : not match
+        #assert dslist[0].size == 18
 
 if __name__ == "__main__":
     unittest.main()
