@@ -2,7 +2,7 @@
 from cython.operator cimport dereference as deref
 
 # TODO : double-check C++ code
-from pytraj import TrajinList, TrajReadOnly
+from pytraj import TrajinList
 from pytraj.externals.six import string_types
 from pytraj.action_dict import ActionDict
 
@@ -88,17 +88,17 @@ cdef class ActionList:
             frame = <Frame> traj
             frame.py_free_mem = False
             self.thisptr.DoActions(&(frame.thisptr), idx)
-        elif isinstance(traj, (FrameArray, TrajReadOnly)):
+        elif hasattr(traj, 'n_frames'):
             for i, frame in enumerate(traj):
                 self.do_actions(frame, i)
         elif isinstance(traj, (list, tuple)):
             for tmtraj in traj:
                 if hasattr(tmtraj, 'n_frames') or isinstance(tmtraj, Frame):
-                    self.do_actions(tmtraj)
+                    self.do_actions(tmtraj, idx)
                 else:
                     _traj_iter = tmtraj
                     for tmtraj2 in _traj_iter:
-                        self.do_actions(tmtraj2)
+                        self.do_actions(tmtraj2, idx)
         else:
             for i, frame in enumerate(traj):
                 self.do_actions(frame, i)
