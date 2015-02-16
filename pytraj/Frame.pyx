@@ -827,4 +827,3 @@ cdef class Frame (object):
         """return angle for three atoms with indices idx1-3"""
         return math.degrees(cppangle(self.thisptr.XYZ(idx1), self.thisptr.XYZ(idx2),
                         self.thisptr.XYZ(idx3)))
-

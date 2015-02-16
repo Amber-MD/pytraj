@@ -5,6 +5,7 @@ cimport cython
 from cpython.array cimport array as pyarray
 from pytraj._utils cimport get_positive_idx
 from pytraj.FrameArray cimport FrameArray
+from pytraj.AtomMask cimport AtomMask
 
 from pytraj.utils.check_and_assert import _import_numpy
 from .Trajout import Trajout
@@ -48,16 +49,21 @@ cdef class Trajin (TrajectoryFile):
     @cython.wraparound(False)
     @cython.profile(True)
     @cython.infer_types(True)
-    def frame_iter(self, int start=0, int stop=-1, int stride=1):
+    def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
+    #def frame_iter(self, int start=0, int stop=-1, int stride=1):
         """iterately get Frames with start, stop, stride 
         Parameters
         ---------
         start : int (default = 0)
         chunk : int (default = 1)
         stop : int (default = max_frames - 1)
+        mask : str (default=None)
+            take coords with given mask
         """
         cdef int i
         cdef Frame frame = Frame(self.n_atoms)
+        cdef Frame frame2
+        cdef AtomMask atm
         cdef int _end
 
         if stop == -1:
@@ -69,7 +75,13 @@ cdef class Trajin (TrajectoryFile):
         with self:
             while i < _end:
                 self.baseptr_1.ReadTrajFrame(i, frame.thisptr[0])
-                yield frame
+                if mask is not None:
+                    atm = self.top(mask)
+                    frame2 = Frame(atm.n_selected)
+                    frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])
+                    yield frame2
+                else:
+                    yield frame
                 i += stride
 
     def chunk_iter(self, int chunk=1, int start=0, int stop=-1):

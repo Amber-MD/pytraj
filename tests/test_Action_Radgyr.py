@@ -32,7 +32,6 @@ class TestRadgyr(unittest.TestCase):
         print(d0_0[:10])
         print(d1_0[:10])
 
-        # TODO : (fail)
         assert (rmsd(d1.data[:10], d1_0)) < 1E-3
         assert (rmsd(d0.data[:10], d0_0)) < 1E-3
 

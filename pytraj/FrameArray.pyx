@@ -4,6 +4,7 @@ cimport cython
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from pytraj.Topology cimport Topology
+from pytraj.AtomMask cimport AtomMask
 from pytraj._utils cimport get_positive_idx
 
 # python level
@@ -357,7 +358,7 @@ cdef class FrameArray (object):
     @cython.wraparound(False)
     @cython.profile(True)
     @cython.infer_types(True)
-    def frame_iter(self, int start=0, int stop=-1, int stride=1):
+    def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         """iterately get Frames with start, stop, stride 
         Parameters
         ---------
@@ -367,6 +368,8 @@ cdef class FrameArray (object):
         """
         cdef int i
         cdef Frame frame = Frame(self.n_atoms)
+        cdef Frame frame2
+        cdef AtomMask atm
         cdef int _end
 
         if stop == -1:
@@ -377,7 +380,13 @@ cdef class FrameArray (object):
         i = start
         while i < _end:
             frame = self[i]
-            yield frame
+            if mask is not None:
+                atm = self.top(mask)
+                frame2 = Frame(atm.n_selected)
+                frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])
+                yield frame2
+            else:
+                yield frame
             i += stride
 
     def reverse(self):
