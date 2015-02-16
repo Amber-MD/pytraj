@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
         i = 0
         print ('test frame_iter with stride')
         print (farray.n_frames)
-        for frame0 in farray.frame_iter(start=0, stride=0):
+        for frame0 in farray.frame_iter(start=0, stride=1):
             print (frame0)
             i += 1
 
@@ -77,21 +77,21 @@ class Test(unittest.TestCase):
         print ('count = ', count)
         assert_almost_equal(traj[7].coords, frame0.coords)
 
-        for frame0 in traj.frame_iter(indices=(1, 3, 4, 8)):
+        for frame0 in traj.frame_iter():
             pass
-        assert_almost_equal(traj[8].coords, frame0.coords)
+        assert_almost_equal(traj[-1].coords, frame0.coords)
 
-        for frame0 in farray.frame_iter(indices=(1, 3, 4, 5)):
+        for frame0 in farray.frame_iter():
             pass
-        assert_almost_equal(traj[5].coords, frame0.coords)
+        assert_almost_equal(traj[-1].coords, frame0.coords)
 
-        for frame0 in traj(indices=(1, 3, 4, 8)):
+        for frame0 in traj():
             pass
-        assert_almost_equal(traj[8].coords, frame0.coords)
+        assert_almost_equal(traj[-1].coords, frame0.coords)
 
-        for frame0 in farray(indices=(1, 3, 4, 5)):
+        for frame0 in farray():
             pass
-        assert_almost_equal(traj[5].coords, frame0.coords)
+        assert_almost_equal(farray[-1].coords, frame0.coords)
 
         count = 0
         for frame0 in traj(start=2, stop=7):
@@ -121,6 +121,38 @@ class Test(unittest.TestCase):
         print ('count = ', count)
         assert_almost_equal(traj[6].coords, frame0.coords)
 
+    def test_1(self):
+        print ("test frame_iter with mask")
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        top2 = traj.top.copy()
+
+        for frame in traj(mask='@CA'):
+            pass
+        top2.strip_atoms("!@CA")
+        assert frame.n_atoms == top2.n_atoms
+
+        for frame in traj():
+            pass
+        assert frame.n_atoms == traj[0].n_atoms
+
+        for frame in traj[:](mask='@CA'):
+            pass
+        top2.strip_atoms("!@CA")
+        print (frame.n_atoms)
+        assert frame.n_atoms == top2.n_atoms
+
+        for frame in traj[:]():
+            pass
+        print (frame.n_atoms)
+        assert frame.n_atoms == traj[0].n_atoms
+
+    def test_2(self):
+        print ("test frame_iter with mask")
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        farray = traj[:]
+        for frame in farray(mask='@CA'):
+            pass
+        print (frame.n_atoms)
 
 if __name__ == "__main__":
     unittest.main()
