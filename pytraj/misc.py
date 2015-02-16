@@ -219,7 +219,7 @@ def frame_iter(self, start=0, stop=-1, stride=1):
     stop : int (default = max_frames - 1)
     """
     if isinstance(self, Frame):
-        return self
+        yield self
 
     frame = Frame(self.top.n_atoms)
     if stop == -1 or stop >= self.n_frames:
