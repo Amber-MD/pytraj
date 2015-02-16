@@ -11,7 +11,9 @@ class TestSubFrame(unittest.TestCase):
         f0 = farray[0]
         print (f0)
         f1sub = f0.get_subframe("@CA", farray.top)
+        f1sub_ = f0.get_subframe(farray.top('@CA'))
         assert f1sub.n_atoms == 20
+        assert f1sub_.n_atoms == 20
         f2sub = farray[0].strip_atoms("!@CA", top=farray.top, copy=True)
 
         # make sure to raise ValueError when using empty Topology

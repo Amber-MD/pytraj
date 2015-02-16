@@ -793,20 +793,17 @@ cdef class Frame (object):
         # idea: use np.asarray(frame) rather using np.asarray(frame.buffer)
         pass
 
-    def get_subframe(self, mask=None, top=None, atommask=None):
+    def get_subframe(self, mask=None, top=None):
         cdef AtomMask atm
 
-        if top is None and atommask is None:
-            raise ValueError("topology and atommask can not be both empty")
-        elif top is not None and atommask is not None:
-            raise ValueError("topology and atommask can not both exist")
+        if isinstance(mask, string_types):
+            assert top is not None
+            atm = AtomMask(mask)
+            top.set_integer_mask(atm)
+        elif isinstance(mask, AtomMask):
+            atm = <AtomMask> mask
         else:
-            if top is not None:
-                assert mask is not None
-                atm = AtomMask(mask)
-                top.set_integer_mask(atm)
-            else:
-                atm = <AtomMask> atommask
+            raise NotImplementedError('mask mut string  or AtomMask object')
         return Frame(self, atm)
 
     def set_top(self, value):
