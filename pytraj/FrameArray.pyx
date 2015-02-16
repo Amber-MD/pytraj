@@ -118,19 +118,8 @@ cdef class FrameArray (object):
                 # we loop all traj frames and extract frame-ith in indices 
                 # TODO : check negative indexing?
                 # increase size of vector
-                old_size = self.size
-                indices_len = len(indices)
-
-                # make more room for vector
-                self.frame_v.resize(old_size + indices_len, _Frame())
-
-                for idx in range(ts.size):
-                    # TODO : make it faster
-                    # really need?
-                    if idx in indices:
-                        # only work with `list` or `tuple`
-                        idx_idx = indices.index(idx)
-                        self[old_size + idx_idx] = ts[idx]
+                for idx in indices:
+                    self.append(ts[idx])
 
         elif isinstance(filename, (list, tuple)):
             # list of files
