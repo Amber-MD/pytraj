@@ -345,6 +345,40 @@ cdef class FrameArray (object):
 
     def __repr__(self):
         return self.__str__()
+    
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        # we don't do anythin here. Just create the same API for TrajReadOnly
+        pass
+
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    @cython.profile(True)
+    @cython.infer_types(True)
+    def frame_iter(self, int start=0, int stop=-1, int stride=1):
+        """iterately get Frames with start, stop, stride 
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1)
+        stop : int (default = max_frames - 1)
+        """
+        cdef int i
+        cdef Frame frame = Frame(self.n_atoms)
+        cdef int _end
+
+        if stop == -1:
+            _end = <int> self.n_frames 
+        else:
+            _end = stop + 1
+
+        i = start
+        while i < _end:
+            frame = self[i]
+            yield frame
+            i += stride
 
     def reverse(self):
         # should we just create a fake operator?

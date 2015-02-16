@@ -33,5 +33,47 @@ class Test(unittest.TestCase):
             print(farray)
         print ("count = %s" % count)
 
+    def test_2(self):
+        from pytraj.misc import frame_iter
+        print ("test frame_iter for both pytraj/cpptraj Traj objects")
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        farray = traj[:]
+        print (traj.n_frames)
+        count = 0
+        for frame in frame_iter(traj):
+            count += 1
+        print ("count = %s" % count)
+        assert_almost_equal(frame.coords, traj[-1].coords)
+
+        count = 0
+        for frame in frame_iter(farray):
+            count += 1
+        print ("count = %s" % count)
+        assert_almost_equal(frame.coords, traj[-1].coords)
+
+    def test_3(self):
+        from pytraj.misc import frame_iter
+        print ("test frame_iter for both pytraj/cpptraj Traj objects")
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
+        count = 0
+        for frame in traj.frame_iter():
+            count += 1
+        print ("count = %s" % count)
+        assert_almost_equal(frame.coords, traj[-1].coords)
+
+        count = 0
+        for frame in traj.frame_iter(2, 8, 2):
+            count += 1
+        print ("count = %s" % count)
+        assert count == 4
+        assert_almost_equal(frame.coords, traj[8].coords)
+
+        count = 0
+        for frame in traj[:].frame_iter():
+            count += 1
+        print ("count = %s" % count)
+        assert_almost_equal(frame.coords, traj[-1].coords)
+
 if __name__ == "__main__":
     unittest.main()
