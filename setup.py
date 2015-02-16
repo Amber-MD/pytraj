@@ -23,7 +23,7 @@ def find_libnetcdef():
 
 has_netcdf = True if find_libnetcdef() else False
 
-def write_install_file(fh1, fh2):
+def add_netcdf_to_install_file(fh1, fh2):
     # assume libnetcdf*so in $NETCDF_HOME/lib
     # and header file is in $NETCDF_HOME/include
     fh1 = "./installs/" + fh1
@@ -88,7 +88,7 @@ except:
         if has_netcdf:
             old_file = "install_cpptraj_git.sh"
             new_file = "_" + old_file
-            write_install_file(old_file, new_file)
+            add_netcdf_to_install_file(old_file, new_file)
             os.system("sh ./installs/" + new_file)
         else:
             os.system("sh ./installs/" + old_file)
@@ -101,7 +101,7 @@ except:
         if has_netcdf:
             old_file = "install_cpptraj.sh"
             new_file = "_" + old_file
-            write_install_file(old_file, new_file)
+            add_netcdf_to_install_file(old_file, new_file)
             os.system("sh ./installs/" + new_file)
         else:
             os.system("sh ./installs/" + old_file)
@@ -185,7 +185,7 @@ datalist = [[p[10:] for p in pxd_include_patterns]]
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.beta.10",
+        version="0.1.beta.11",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
