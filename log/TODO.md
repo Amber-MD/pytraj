@@ -1,7 +1,8 @@
 TODO
 ----
 
-* `frame_iter` is very slow, enhance this
+* rewrite cpptraj classes for pytraj (more flexibility): ActionList, CpptrajState, TrajinList, AnalysisList
+* `frame_iter` is very slow, enhance this : DONE
 * protein view using `ivew` (like mdtraj package)
 * organize codes to subfolder
 * compat with official cpptraj in Ambertools14: DONE

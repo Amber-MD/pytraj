@@ -17,7 +17,7 @@ def find_libnetcdef():
     compiler=ccompiler.new_compiler()
     _lib_dirs = os.environ['PATH'].split(":") 
     home_dir = os.environ['HOME']
-    lib_dirs = _lib_dirs + [src + "/lib" for src in _lib_dirs ] +  [home_dir + "/anaconda3/lib/", ]
+    lib_dirs = _lib_dirs + [src + "/lib" for src in _lib_dirs ] +  [home_dir + "/anaconda/lib/", ]
     libnetcdf = compiler.find_library_file(lib_dirs, 'netcdf')
     return libnetcdf
 

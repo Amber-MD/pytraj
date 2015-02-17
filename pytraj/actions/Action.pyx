@@ -227,8 +227,10 @@ cdef class Action:
             # FIXME: correct `idx`
             # make sure to check ActionList class to avoid duplication
             for traj in trajlist:
-                for frame in traj:
-                    self.do_action(idx=idx, current_frame=frame, new_frame=new_frame)
+                # recursive
+                self.do_action(idx=0, current_frame=traj, new_frame=new_frame)
+                #for frame in traj:
+                #    self.do_action(idx=idx, current_frame=frame, new_frame=new_frame)
         else:
             raise NotImplementedError("not yet")
 
