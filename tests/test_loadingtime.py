@@ -24,25 +24,25 @@ class TestLoadingTime(unittest.TestCase):
             traj[indices]
             return time()- t0
         
-        print("slice: ", get_time_2(slice(0, 250, 1)))
-        print(get_time(list(range(250))))
-        print(get_time(list(range(0, 250, 1))))
-        print("slice: ", get_time(slice(0, 250, 1)))
-        print(get_time(list(range(100)) + list(range(500, 200, -2))))
-        print(get_time(sorted(list(range(100)) + list(range(500, 200, -2)))))
+        print("slice: ", get_time_2(slice(0, 5, 1)))
+        print(get_time(list(range(5))))
+        print(get_time(list(range(0, 5, 1))))
+        print("slice: ", get_time(slice(0, 5, 1)))
+        print(get_time(list(range(1)) + list(range(5, 2, -2))))
+        print(get_time(sorted(list(range(1)) + list(range(5, 2, -2)))))
         
-        print(get_time_3(slice(0, 250, 1)))
+        print(get_time_3(slice(0, 5, 1)))
         
         traj = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
-        print(traj[:100])
-        print(traj[300:500:2])
-        print(traj[600:])
-        print(traj[:100] + traj[300:500:2] + traj[600:])
+        print(traj[:1])
+        print(traj[3:5:2])
+        print(traj[6:])
+        print(traj[:1] + traj[3:5:2] + traj[6:])
         
         traj2 = FrameArray()
         traj2.top = traj.top.copy()
-        traj2 += traj[:100]
-        traj2 += traj[200:500]
+        traj2 += traj[:1]
+        traj2 += traj[2:5]
         print(traj2)
         
 if __name__ == "__main__":

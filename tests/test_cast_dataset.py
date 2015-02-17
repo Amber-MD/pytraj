@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         #print dir(db)
 
     #@no_test
-    def test_addtrajin(self):
+    def test_add_trajin(self):
         traj = FrameArray2()
         traj.top = Topology("data/Tc5b.top")
         traj.load("data/md1_prod.Tc5b.x")
@@ -35,20 +35,20 @@ class Test(unittest.TestCase):
         print(db)
 
     #@no_test
-    def test_addtrajin_from_emptyTRJ(self):
+    def test_add_trajin_from_emptyTRJ(self):
         traj = FrameArray2()
         traj.top = Topology("data/Tc5b.top")
         traj.top.summary()
         trajin = TrajReadOnly(filename="data/md1_prod.Tc5b.x", top=traj.top)
-        traj.addtraj(trajin)
-        traj.addtraj(trajin)
-        traj.addtraj(trajin)
-        traj.addtraj(trajin)
-        traj.addtraj(trajin)
-        traj.addtraj(trajin)
-        traj.addtraj(trajin)
-        traj.addtraj(trajin)
-        traj.addtraj(trajin)
+        traj.add_traj(trajin)
+        traj.add_traj(trajin)
+        traj.add_traj(trajin)
+        traj.add_traj(trajin)
+        traj.add_traj(trajin)
+        traj.add_traj(trajin)
+        traj.add_traj(trajin)
+        traj.add_traj(trajin)
+        traj.add_traj(trajin)
         print(traj[5])
         print(traj[9])
         print(traj.size)

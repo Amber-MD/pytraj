@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         print ("test mix traj/frame")
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
-        d0 = calc_molsurf("@CA", (traj, traj[0], traj[:10]))
+        d0 = calc_molsurf("@CA", (traj, traj[:2], traj[:], traj.frame_iter()))
         print (d0.size)
         print (d0)
 
