@@ -101,7 +101,7 @@ cdef class Trajin (TrajectoryFile):
         if chunk + newstart > stop:
             raise ValueError("start + chunk must be smaller than max frames")
 
-        while newstart <= stop - chunk:
+        while newstart <= stop:
             yield self[newstart:newstart+chunk]
             newstart += chunk
 
