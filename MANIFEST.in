@@ -6,12 +6,13 @@ include manual.txt
 recursive-include contributors 
 recursive-include development 
 recursive-include licenses 
-include pycpptraj/gdt/src/*h
+include pytraj/gdt/src/*h
 include tests/*py
 include tests/test_API/*
 include tests/output/README
 include examples/*py
 include examples/test_API/*py
-include pycpptraj/data_sample/*.py
-include pycpptraj/data_sample/Ala3*
+include pytraj/data_sample/*.py
+include pytraj/data_sample/Ala3*
 include installs/ins*
+recursive-include pytraj *.pyx *.pxd
