@@ -36,7 +36,7 @@ class TestFrameArray(unittest.TestCase):
     def test_silly_index(self):
         farray = FrameArray()
         farray.top = Topology(datadir + "Tc5b.top")
-        farray.load("./data/md1_prod.Tc5b.x", indices=list(range(100)))
+        farray.load("./data/md1_prod.Tc5b.x", indices=list(range(8)))
         # got segmentation fault
         #print farray[:][0][0]
         # got segmentation fault
@@ -85,10 +85,10 @@ class TestFrameArray(unittest.TestCase):
 
     #@no_test
     def test_default_load(self):
-        farray0 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=slice(0, 10, 2))
+        farray0 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=slice(0, 9, 2))
         print(farray0)
-        farray1 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(30, 40)))
-        farray2 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(30, 40)))
+        farray1 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
+        farray2 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
         farray0.join((farray1, farray2))
         print(farray0)
 
@@ -113,7 +113,7 @@ class TestFrameArray(unittest.TestCase):
         # add slice
         farray.load(filename="./data/md1_prod.Tc5b.x", top=ts.top, indices=slice(0, ts.size, 2))
         farray.load(filename="./data/md1_prod.Tc5b.x", top=ts.top, indices=slice(0, ts.size, 2))
-        farray.load(filename="./data/md1_prod.Tc5b.x", top=ts.top, indices=(1, 3, 99, 500))
+        farray.load(filename="./data/md1_prod.Tc5b.x", top=ts.top, indices=(1, 3, 9, 5))
 
         # load list of files
         flist = ["./data/md1_prod.Tc5b.x", "./data/md1_prod.Tc5b.x"]

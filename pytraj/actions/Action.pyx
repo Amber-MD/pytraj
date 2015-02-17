@@ -147,8 +147,8 @@ cdef class Action:
             frame = <Frame> current_frame
             frame.py_free_mem = False
             self.baseptr.DoAction(idx, frame.thisptr, &(new_frame.thisptr))
-        elif hasattr(current_frame, 'n_frames'):
-            # Trajectory-like object
+        elif hasattr(current_frame, 'n_frames') or hasattr(current_frame, 'gi_running'):
+            # Trajectory-like object or generator
             traj = current_frame 
             for i, frame in enumerate(traj):
                 self.do_action(idx, frame, new_frame)
@@ -211,7 +211,9 @@ cdef class Action:
         if isinstance(current_frame, Frame):
             frame = current_frame
             self.do_action(idx=idx, current_frame=frame, new_frame=new_frame)
-        elif hasattr(current_frame, 'n_frames'):
+        elif hasattr(current_frame, 'n_frames') or hasattr(current_frame, 'gi_running'):
+            # if Traj-like object or iterator. We used `gi_running` to regconize generator
+            # for some reasons, `inspect.isgenerator` does not work properly
             if update_frame:
                 farray = FrameArray()
             # assume trajectory instance (FrameArray, TrajReadOnly, ...)
@@ -219,6 +221,14 @@ cdef class Action:
                 self.do_action(idx=i, current_frame=frame, new_frame=new_frame)
                 if update_frame:
                     farray.append(new_frame)
+        elif isinstance(current_frame, (list, tuple, TrajinList)):
+            # creat alias to avoid confusion
+            trajlist = current_frame
+            # FIXME: correct `idx`
+            # make sure to check ActionList class to avoid duplication
+            for traj in trajlist:
+                for frame in traj:
+                    self.do_action(idx=idx, current_frame=frame, new_frame=new_frame)
         else:
             raise NotImplementedError("not yet")
 
