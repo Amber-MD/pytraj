@@ -17,8 +17,9 @@ class Test(unittest.TestCase):
         act = adict['matrix']
         print (act)
 
-        #act("", traj, traj.top)
-        act("", (traj, traj(1, 5, 1), traj.chunk_iter(chunk=2)), traj.top)
+        # FIXME: not work with combination of chunk_iter in the list or tuple (but still work with frame_iter)
+        act("", current_frame=(traj, traj(1, 5, 1), traj.chunk_iter(chunk=2)), current_top=traj.top)
+        #act("@CA", (traj, traj(1, 5, 1), traj.frame_iter(stride=2)), traj.top)
 
 if __name__ == "__main__":
     unittest.main()
