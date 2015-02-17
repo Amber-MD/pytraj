@@ -59,7 +59,7 @@ class TestTopologyList(unittest.TestCase):
         print("test adding top instances from python list")
         tmplist = [Topology(), Topology(), Topology()]
         tlist_2 = TopologyList()
-        tlist_2.get_parm_from_pylist(tmplist)
+        tlist_2.add_parm_from_pylist(tmplist)
 
 if __name__ == "__main__":
     unittest.main()

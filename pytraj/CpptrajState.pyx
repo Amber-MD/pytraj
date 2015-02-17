@@ -51,14 +51,14 @@ cdef class CpptrajState:
     def is_empty(self):
         return self.thisptr.EmptyState()
 
-    def add_trajin(self, arg, isEnsemble=False):
+    def add_trajin(self, arg, is_ensemble=False):
         # TODO: add trajector instance?
         cdef string filename
         cdef ArgList argIn
         
         if isinstance(arg, ArgList):
             argIn = arg
-            self.thisptr.AddTrajin(argIn.thisptr[0], isEnsemble)
+            self.thisptr.AddTrajin(argIn.thisptr[0], is_ensemble)
         elif isinstance(arg, string_types):
             filename = arg.encode()
             self.thisptr.AddTrajin(filename)

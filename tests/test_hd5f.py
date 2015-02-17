@@ -15,9 +15,9 @@ if has_h5py:
 class Test(unittest.TestCase):
     def test_0(self):
         if has_h5py:
+            print ("has_h5py")
             from pytraj.load_HD5F import load_hd5f
             h5 = HD5F()
-            # FIXME : *** Error in `python': double free or corruption
             farray = h5.load_toframearray("./data/ala2.h5")
             print (farray)
             print (farray[0])

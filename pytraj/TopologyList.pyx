@@ -83,7 +83,7 @@ cdef class TopologyList:
             #top.thisptr[0] = deref(self.thisptr.GetParm(argIn.thisptr[0]))
         return top
 
-    def get_parm_from_pylist(self, list listin):
+    def add_parm_from_pylist(self, list listin):
         cdef Topology top
         for top in listin:
             self.add_parm(top)
