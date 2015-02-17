@@ -79,7 +79,7 @@ try:
 except:
     print ()
     print ("You have not yet set CPPTRAJHOME. \n")
-    print ("you have four options: \n")
+    print ("you have three options: \n")
     print ("Option 1. escape and export/setenv CPPTRAJHOME and/or install libcpptraj")
     print ("        + export CPPTRAJHOME=your_favorite_dir (if using bash) / setenv CPPTRAJHOME your_favorite_dir")
     print ("        + if not install libcpptraj yet, please follow")
@@ -87,9 +87,8 @@ except:
     print ("        + (./configure -shared gnu)")
     print ("        + (make libcpptraj)\n")
     print ("Option 2. use cpptraj development verions in github: https://github.com/mojyt/cpptraj \n")
-    print ("Option 3. use preshipped cpptraj verion in ./Ambertools/dev/cpptraj \n") 
-    print ("Option 4. Quit and say goodbye")
-    print ("choose 1 2, 3 or 4? \n")
+    print ("Option 3. Quit and say goodbye")
+    print ("choose 1 2, 3? \n")
     
     answer = int(raw_input("\n"))
     if answer == 1:
@@ -97,8 +96,6 @@ except:
     elif answer == 2:
         use_cpptraj_git = True
     elif answer == 3:
-        use_cpptraj_git = False
-    else:
         print ("Bye bye ^_^")
         print ("Quit ....")
         from scripts.acsii_art import batman
@@ -209,7 +206,7 @@ sample_data = ["data_sample/Ala3/Ala3.*",]
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.beta.15",
+        version="0.1.beta.17",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
@@ -237,5 +234,7 @@ if __name__ == "__main__":
     print ()
     print ("make sure to add libcpptraj to LD_LIBRARY_PATH before using pytraj")
     print (libdir)
+    print ()
+    print ("or move libcpptraj.so to existing LD_LIBRARY_PATH")
     print ()
     print ()
