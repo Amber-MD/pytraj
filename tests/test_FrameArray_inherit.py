@@ -1,0 +1,16 @@
+import unittest
+from pytraj.base import *
+from pytraj import io as mdio
+from pytraj.utils.check_and_assert import assert_almost_equal
+
+class Test(unittest.TestCase):
+    def test_0(self):
+        def test_class(self):
+            class FA(FrameArray):
+                pass
+            fa = FA("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            print (fa)
+        self.assertRaises(TypeError, lambda: test_class())
+
+if __name__ == "__main__":
+    unittest.main()
