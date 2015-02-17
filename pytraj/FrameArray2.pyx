@@ -7,7 +7,6 @@ from pytraj._utils cimport get_positive_idx
 # experimental wrapperr for DataSet_Coords_TRJ class
 # see also ./datasets/DataSet_Coords_TRJ.pyx
 
-
 cdef class FrameArray2(DataSet_Coords):
     # TODO : how to change internal data for this cpptraj class
     """Readonly FrameArray2
@@ -131,10 +130,10 @@ cdef class FrameArray2(DataSet_Coords):
             self.top = top.copy()
         return self.thisptr.AddSingleTrajin(filename, arglist.thisptr[0], top.thisptr)
 
-    def addframe(self, Frame frame):
+    def add_frame(self, Frame frame):
         self.thisptr.AddFrame(frame.thisptr[0])
 
-    def addtraj(self, trajin):
+    def add_traj(self, trajin):
         """add Trajin instance"""
         # use FunctPtr so that trajin could be anything classes having `baseptr_1`
         # TODO : how to combine instead of using 2 temp variables?
@@ -156,19 +155,6 @@ cdef class FrameArray2(DataSet_Coords):
     def info(self):
         self.thisptr.Info()
 
-    # use base class?
-    #def allocate1D(self,size_t t):
-    #    self.thisptr.Allocate1D(t)
-
-    #def void Add(self,size_t, void *):
-
-    #def double Dval(self,size_t):
-
-    #def double Xcrd(self,size_t idx):
-
-    #def void WriteBuffer(self,CpptrajFile, size_t):
-
-
     def set_crd(self,int idx, Frame fIn): 
         """"""
         raise NotImplementedError()
@@ -182,4 +168,3 @@ cdef class FrameArray2(DataSet_Coords):
         else:
             atm_in = args[0]
             self.thisptr._GetFrame(idx, frame_in.thisptr[0], atm_in.thisptr[0])
-

@@ -1,7 +1,9 @@
 import os
+import unittest
 from pytraj import io as mdio
 from pytraj.base import *
 from pytraj import allactions
+from pytraj import adict
 
 # setup filenames
 datadir = "./data/"
@@ -13,24 +15,19 @@ trajinname = datadir + "md1_prod.Tc5b.x"
 
 #creat TrajinList instance
 trajininput= """
-parm ./data/Tc5b.top
+##parm ./data/Tc5b.top
 trajin ./data/md1_prod.Tc5b.x
 dih :1@C :2@N :2@CA :2@C
 """
 
 argIn = ArgList(trajininput)
-
-import unittest
-
 class TestCpptrajState(unittest.TestCase):
     
     def test_run(self):
         print("test_process_input")
         state2 = CpptrajState()
-
         toplist = state2.toplist
         toplist.add_parm("./data/Tc5b.top")
-
         state2.add_trajin("./data/md1_prod.Tc5b.x")
 
         #state2.add_reference("./data/Tc5b.nat.crd")
@@ -40,6 +37,7 @@ class TestCpptrajState(unittest.TestCase):
                           ArgList("distance :2@CA :10@CA out ./output/dist_test.txt"))
 
         state2.add_action(allactions.Action_Distance(), ArgList("distance :4@CA :10@CA"))
+        state2.add_action(adict['distance'], ArgList("distance :4@CA :10@CA"))
 
         #state2.framelist.set_active_ref(0)
         print("test framelist.list()")

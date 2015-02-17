@@ -55,8 +55,8 @@ cdef class Action:
         return self.run(*args, **kwd)
 
     @makesureABC("Action")
-    def read_input(self, command='', current_top=TopologyList(),
-                   #FrameList flist=FrameList(), 
+    def read_input(self, command='', 
+                   current_top=TopologyList(),
                    DataSetList dslist=DataSetList(), 
                    DataFileList dflist=DataFileList(), 
                    int debug=0):
@@ -196,19 +196,22 @@ cdef class Action:
             + don't work with `chunk_iter`
 
         """
+        cdef Frame _new_frame
         if current_top.is_empty():
             _top = current_frame.top
         else:
             _top = current_top
-        self.read_input(command=command, current_top=_top, 
+        self.read_input(command=command, 
+                        current_top=_top, 
                         dslist=dslist,
                         dflist=dflist, debug=debug)
 
         self.process(current_top=_top, new_top=new_top)
+
         if isinstance(current_frame, Frame):
             frame = current_frame
             self.do_action(idx=idx, current_frame=frame, new_frame=new_frame)
-        else:
+        elif hasattr(current_frame, 'n_frames'):
             if update_frame:
                 farray = FrameArray()
             # assume trajectory instance (FrameArray, TrajReadOnly, ...)
@@ -216,6 +219,8 @@ cdef class Action:
                 self.do_action(idx=i, current_frame=frame, new_frame=new_frame)
                 if update_frame:
                     farray.append(new_frame)
+        else:
+            raise NotImplementedError("not yet")
 
         # currently support only dtype = 'DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER'
         # we get the last dataset from dslist

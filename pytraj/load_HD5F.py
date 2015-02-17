@@ -1,5 +1,7 @@
-from pytraj.FrameArray import FrameArray
-from pytraj.Frame import Frame
+from __future__ import absolute_import
+from .Topology import Topology
+from .FrameArray import FrameArray
+from .Frame import Frame
 
 def load_hd5f(filename):
     farray = FrameArray()
@@ -17,4 +19,11 @@ def load_hd5f(filename):
     for idx, arr in enumerate(crd):
         farray[idx] = Frame(shape[1])
         farray[idx].set_from_crd(arr.flatten().astype(np.float64))
-    return farray
+
+    # TODO : load Topology from h5py object
+    #pseudotop = Topology()
+    #for mdatom in mtop.atoms:
+    #    atom = Atom(mdatom.name, mdatom.name)
+    #    mdres = mdatom.residue
+    #    pseudotop.add_atom(atom=atom, resid=mdres.index, resname=mdres.name)
+    #return farray

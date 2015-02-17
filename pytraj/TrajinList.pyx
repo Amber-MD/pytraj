@@ -1,8 +1,11 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
+from pytraj._utils cimport get_positive_idx
 
 from pytraj.externals.six import string_types
+from pytraj.cpptraj_dict import TrajModeDict, get_key
+
 
 
 cdef class TrajinList:
@@ -17,30 +20,46 @@ cdef class TrajinList:
     def clear(self):
         self.thisptr.Clear()
 
-    def add_traj(self, filename, top, *args):
+    def add_traj(self, filename not None, top=None, arglist=None):
         cdef TopologyList tlist = TopologyList()
-        cdef ArgList arglist
+        cdef ArgList _arglist
 
         filename = filename.encode()
-        if args:
-            arglist = ArgList(args[0])
+        if arglist is not None:
+            _arglist = ArgList(arglist)
         else:
-            arglist = ArgList()
-        tlist.add_parm(top)
-        self.thisptr.AddTrajin(filename, arglist.thisptr[0], tlist.thisptr[0])
+            _arglist = ArgList()
+        if top is None:
+            # use self.top
+            tlist.add_parm(self.top)
+        else:
+            tlist.add_parm(top)
+            # update self.top too
+            self.top = top
+        self.thisptr.AddTrajin(filename, _arglist.thisptr[0], tlist.thisptr[0])
 
-    def add_ensemble(self, filename, top, *args):
-        from glob import glob
+    def add_ensemble(self, filename not None, top=None, arglist=None):
         cdef TopologyList tlist = TopologyList()
-        cdef ArgList arglist
+        cdef ArgList _arglist
 
         filename = filename.encode()
-        if args:
-            arglist = ArgList(args[0])
+        if arglist is not None:
+            if isinstance(arglist, ArgList):
+                _arglist = <ArgList> arglist
+            else:
+                _arglist = ArgList(arglist)
         else:
             arglist = ArgList()
+
+        if top is None:
+            # use self.top
+            tlist.add_parm(self.top)
+        else:
+            tlist.add_parm(top)
+            # update self.top too
+            self.top = top
         tlist.add_parm(top)
-        self.thisptr.AddEnsemble(filename, arglist.thisptr[0], tlist.thisptr[0])
+        self.thisptr.AddEnsemble(filename, _arglist.thisptr[0], tlist.thisptr[0])
 
     def __iter__(self):
         cdef Trajin trajin
@@ -49,6 +68,10 @@ cdef class TrajinList:
 
         while it != self.thisptr.end():
             trajin = Trajin()
+            # FIXME: got segmentation fault if we set topology here
+            # is this because we're using pointer?
+            # we need to sub-class at Python level (not Cython level)
+            #trajin.top = self.top.copy()
             # use memoryview rather making instance copy
             trajin.baseptr_1 = deref(it)
             # recast trajin.baseptr0 too
@@ -77,25 +100,12 @@ cdef class TrajinList:
         """return Trajin instance
         TODO: return Trajin or Trajin_Single instance?
         """
-        cdef Trajin trajin
-        cdef cppvector[_Trajin*].const_iterator it
-        it = self.thisptr.begin()
+        cdef int s = 0
 
-        if idx < 0 or idx >= self.size:
-            raise ValueError("index is out of range")
-
-        s = 0
-        while it != self.thisptr.end():
-            if idx == s:
-                trajin = Trajin()
-                # use memoryview rather making instance copy
-                trajin.baseptr_1 = deref(it)
-                # recast trajin.baseptr0 too
-                trajin.baseptr0 = <_TrajectoryFile*> trajin.baseptr_1
-                return trajin
+        for traj in self:
+            if s == idx:
+                return traj
             s += 1
-            incr(it)
-        return Trajin()
 
     def __setitem__(self, int idx, Trajin other):
         "TODO: validate"
@@ -117,19 +127,9 @@ cdef class TrajinList:
     def is_empty(self):
         return self.thisptr.empty()
 
-    def mode(self, updatedmode=False):
-        # Use "updatedmode" in case Dan Roe updates his TrajinList.Mode()
-        
-        TrajModeType_dict = {
-                UNDEFINED : "UNDEFINED",
-                NORMAL : "NORMAL",
-                ENSEMBLE : "ENSEMBLE",
-        }
-
-        if not updatedmode:
-            return TrajModeType_dict[self.thisptr.Mode()]
-        else:
-            raise NotImplementedError()
+    @property
+    def mode(self):
+        return get_key(self.thisptr.Mode(), TrajModeDict)
 
     def front(self):
         # TODO: add doc
