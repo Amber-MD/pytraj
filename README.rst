@@ -1,4 +1,4 @@
-Welcom to pycpptraj!
+Welcom to pytraj!
 
 Python API for cpptraj library: a data analysis package for biomolecular simulation
 
