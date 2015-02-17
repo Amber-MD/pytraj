@@ -1,9 +1,11 @@
 # distutils: language = c++
 from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
+from pytraj.utils import is_generator
 
 from pytraj.cast_dataset import cast_dataset
 from pytraj import TrajinList
+from pytraj.TrajReadOnly import TrajReadOnly
 
 
 cdef class Action:
@@ -134,36 +136,35 @@ cdef class Action:
         cdef object traj, tmptraj
 
         new_frame.py_free_mem = False
-        #current_frame.py_free_mem = False
-        # got double-free memory error when not using above flag
-        # end debug
-        #return self.baseptr.DoAction(idx, current_frame.thisptr, &(new_frame.thisptr))
-
-        # turn off to use with frame_iter
-        #if len(current_frame) == 0:
-        #    raise ValueError("require providing Frame/Traj/List")
 
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame
             frame.py_free_mem = False
             self.baseptr.DoAction(idx, frame.thisptr, &(new_frame.thisptr))
-        elif hasattr(current_frame, 'n_frames') or hasattr(current_frame, 'gi_running'):
-            # Trajectory-like object or generator
+        #elif hasattr(current_frame, 'n_frames'):
+        elif isinstance(current_frame, (FrameArray, TrajReadOnly)):
+            # Trajectory-like object
             traj = current_frame 
             for i, frame in enumerate(traj):
-                self.do_action(idx, frame, new_frame)
+                self.do_action(i, current_frame=frame, new_frame=new_frame)
         elif isinstance(current_frame, (list, tuple)):
-            # assume Traj-like object
-            # TODO : check new_frame
+            # creat alias to avoid con
             trajlist = current_frame
+            # FIXME: correct `idx`
+            # FIXME: ugly
+            # make sure to check ActionList class to avoid duplication
             for tmptraj in trajlist:
-                if isinstance(tmptraj, Frame) or hasattr(tmptraj, 'new_frame'):
-                    # if Frame or traj-like object
+                # recursive
+                # why doesn't this work with chunk_iter?
+                if hasattr(tmptraj, 'n_frames') or isinstance(tmptraj, Frame):
                     self.do_action(idx, tmptraj, new_frame)
                 else:
-                    # iterator
-                    for tmp in tmptraj:
-                        self.do_action(tmp)
+                    # chunk_iter
+                    for tmptraj2 in tmptraj:
+                        self.do_action(idx, tmptraj2, new_frame)
+        else:
+            for i, frame in enumerate(current_frame):
+                self.do_action(i, current_frame, new_frame)
 
     @makesureABC("Action")
     def print_output(self):
@@ -196,7 +197,6 @@ cdef class Action:
             + don't work with `chunk_iter`
 
         """
-        cdef Frame _new_frame
         if current_top.is_empty():
             _top = current_frame.top
         else:
@@ -207,30 +207,7 @@ cdef class Action:
                         dflist=dflist, debug=debug)
 
         self.process(current_top=_top, new_top=new_top)
-
-        if isinstance(current_frame, Frame):
-            frame = current_frame
-            self.do_action(idx=idx, current_frame=frame, new_frame=new_frame)
-        elif hasattr(current_frame, 'n_frames') or hasattr(current_frame, 'gi_running'):
-            # if Traj-like object or iterator. We used `gi_running` to regconize generator
-            # for some reasons, `inspect.isgenerator` does not work properly
-            if update_frame:
-                farray = FrameArray()
-            # assume trajectory instance (FrameArray, TrajReadOnly, ...)
-            for i, frame in enumerate(current_frame):
-                self.do_action(idx=i, current_frame=frame, new_frame=new_frame)
-                if update_frame:
-                    farray.append(new_frame)
-        elif isinstance(current_frame, (list, tuple, TrajinList)):
-            # creat alias to avoid confusion
-            trajlist = current_frame
-            # FIXME: correct `idx`
-            # make sure to check ActionList class to avoid duplication
-            for traj in trajlist:
-                for frame in traj:
-                    self.do_action(idx=idx, current_frame=frame, new_frame=new_frame)
-        else:
-            raise NotImplementedError("not yet")
+        self.do_action(idx, current_frame, new_frame)
 
         # currently support only dtype = 'DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER'
         # we get the last dataset from dslist

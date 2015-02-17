@@ -2,6 +2,14 @@ def file_exist(filename):
     import os
     return os.path.isfile(filename)
 
+def is_generator(iter_obj):
+    # use this method instead of `inspect` in python since this does not work with Cython
+    # Reason: unknow
+    if iter_obj.__class__.__name__ == 'generator':
+        return True
+    else:
+        return False
+
 def make_sure_exist(filename):
     if not file_exist(filename):
         txt = "can not find %s" % filename
