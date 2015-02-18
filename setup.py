@@ -77,7 +77,7 @@ try:
         cpptraj_include = cpptraj_dir + "/src/"
         libdir = cpptraj_dir + "/lib/"
 except:
-    using_pip = "pin" in os.path.basename(os.path.dirname(__file__))
+    using_pip = "pip" in os.path.basename(os.path.dirname(__file__))
     print (os.path.basename(os.path.dirname(__file__)))
     print ("using_pip = %s" % using_pip)
     if using_pip:
