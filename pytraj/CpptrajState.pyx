@@ -7,7 +7,6 @@ cdef class CpptrajState:
     """
     CpptrajState hold instances of:
     + TopologyList
-    + FrameList (having reference frames)
     + DataSetList (having output data)
     + DataFileList
 
@@ -16,16 +15,13 @@ cdef class CpptrajState:
     def __cinit__(self):
         self.thisptr = new _CpptrajState()
         self.toplist = TopologyList(py_free_mem=False)
-        #self.framelist = FrameList(py_free_mem=False)
         self.datafilelist = DataFileList(py_free_mem=False)
         self.datasetlist = DataSetList(py_free_mem=False)
 
         # cpptraj will take care of memory deallocating from self.thisptr.PFL(FL, DSL, DFL)
         # We don't free memory again (example: self.toplist.thisptr and self.thisptr.PFL() point to the same address)
-
         # create memory view
         self.toplist.thisptr = self.thisptr.PFL()
-        #self.framelist.thisptr = self.thisptr.FL()
         self.datasetlist.thisptr = self.thisptr.DSL()
         self.datafilelist.thisptr = self.thisptr.DFL()
 
@@ -33,21 +29,6 @@ cdef class CpptrajState:
         if self.thisptr is not NULL:
             del self.thisptr
     
-    def set_no_exit_on_error(self):
-        self.thisptr.SetNoExitOnError()
-
-    def set_no_progress(self):
-        self.thisptr.SetNoProgress()
-
-    def set_action_silence(self, bint b):
-        self.thisptr.SetActionSilence(b)
-
-    #def debug(self):
-    #    return self.thisptr.Debug()
-
-    def exit_on_error(self):
-        return self.thisptr.ExitOnError()
-
     def is_empty(self):
         return self.thisptr.EmptyState()
 
@@ -85,6 +66,8 @@ cdef class CpptrajState:
         
         if self.thisptr:
             trajlist.thisptr[0] = self.thisptr.InputTrajList()
+
+            # does not work when using address (const)
             #trajlist.thisptr = &(self.thisptr.InputTrajList())
             return trajlist
         else:
@@ -103,18 +86,25 @@ cdef class CpptrajState:
         else:
             raise NotImplementedError()
 
-    #def add_reference(self, arg):
-    #    cdef string name
-    #    cdef ArgList arglist
+    def add_reference(self, *args):
+        cdef string name
+        cdef ArgList arglist
 
-    #    if isinstance(arg, str):
-    #        name = arg
-    #        self.thisptr.AddReference(name)
-    #    elif isinstance(arg, ArgList):
-    #        arglist = arg
-    #        self.thisptr.AddReference(arglist.thisptr[0])
-    #    else:
-    #        raise NotImplementedError()
+        if len(args) == 1:
+            if isinstance(args[0], string_types):
+                name =  args[0].encode(0)
+                self.thisptr.AddReference(name)
+            else:
+                raise NotImplementedError()
+        elif len(args) == 2:
+                name =  args[0].encode(0)
+                if isinstance(args[1], string_types):
+                    arglist = ArgList(args[1])
+                else:
+                    arglist = <ArgList> args[1]
+                self.thisptr.AddReference(name, arglist.thisptr[0])
+        else:
+            raise NotImplementedError()
 
     def add_action(self, obj, ArgList arglist):
         # need to explicit casting to FunctPtr because self.thisptr.AddAction need to know type 
@@ -125,29 +115,18 @@ cdef class CpptrajState:
     def add_analysis(self, obj, ArgList arglist):
         """temp doc: add_analysis(self, obj, ArgList arglist)
         obj :: Action or Analysis instance
-        >>> obj = Action_Rmsd()
         """
         cdef FunctPtr alloc_funct = <FunctPtr> obj.alloc()
         return self.thisptr.AddAnalysis(alloc_funct.ptr, arglist.thisptr[0])
 
-    # what is it?
-    #def world_size(self):
-    #    return self.thisptr.WorldSize()
-
     def list_all(self, ArgList arglist):
         return self.thisptr.ListAll(arglist.thisptr[0])
-
-    def set_list_debug(self, ArgList arglist):
-        return self.thisptr.SetListDebug(arglist.thisptr[0])
 
     def clear_list(self, ArgList arglist):
         return self.thisptr.ClearList(arglist.thisptr[0])
 
     def remove_data_set(self, ArgList alist):
         return self.thisptr.RemoveDataSet(alist.thisptr[0])
-
-    def traj_length(self, string topname, vector[string] trajlist):
-        return self.thisptr.TrajLength(topname, trajlist)
 
     def run(self):
         return self.thisptr.Run()
