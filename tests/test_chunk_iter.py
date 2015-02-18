@@ -18,13 +18,14 @@ class Test(unittest.TestCase):
         act = calc_distance
         act.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
         act.process(traj.top)
-        act.do_action(0, (traj.chunk_iter(2),))
+        act.do_action((traj.chunk_iter(2),))
         assert dslist.size == 1
         print (dslist[0].size)
         assert dslist[0].size == traj.n_frames
         cppout = np.loadtxt("./data/CAres2_CAres10.Tc5b.dat", skiprows=1).transpose()[1]
         assert_almost_equal(dslist[0][:], cppout)
-        act.do_action(0, (traj.chunk_iter(chunk=4, stop=8),))
+        act.do_action((traj.chunk_iter(chunk=4, stop=8),))
+        print (act.n_frames)
         print (dslist[0].size)
 
         # TODO : fail

@@ -24,14 +24,14 @@ cdef class TopologyList:
         self.thisptr.SetDebug(id)
 
     def __getitem__(self, int idx):
-        """return a copy of topology instance in TopologyList with index idx
+        """return a reference of topology instance in TopologyList with index idx
         Input:
         =====
         idx : int
         """
 
         try:
-           return (self.get_parm(idx)).copy()
+           return self.get_parm(idx)
         except:
             raise ValueError("index is out of range? do you have empty list?")
 

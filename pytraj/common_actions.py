@@ -21,6 +21,8 @@ calc_molsurf = partial(calculate, 'molsurf')
 calc_distrmsd = partial(calculate, 'distrmsd')
 calc_protein_score = calc_score
 
+do_translation = partial(calculate, 'translate')
+
 def calc_watershell(command, traj, top=Topology()):
     """return a DataSetList object having the number of water 
     in 1st and 2nd water shell for each frame

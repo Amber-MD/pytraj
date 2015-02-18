@@ -200,13 +200,19 @@ packages = [
         'pytraj.data_sample.Ala3',
         ]
 
-datalist = [[p[10:] for p in pxd_include_patterns]]
+pylen = len('pytraj') + 1
+print (pylen)
+# remove `pytraj` name 
+#datalist = [[p[pylen:] for p in pxd_include_patterns]]
+datalist = [p for p in pxd_include_patterns]
 sample_data = ["data_sample/Ala3/Ala3.*",]
+datalist += sample_data
+print (datalist)
 
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.beta.17",
+        version="0.1.beta.19",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
@@ -227,7 +233,7 @@ if __name__ == "__main__":
                     'Topic :: Scientific/Engineering'],
         ext_modules = ext_modules,
         cmdclass = {'build_ext': Cython.Distutils.build_ext},
-        package_data = {'pytraj' : sample_data},
+        package_data = {'pytraj' : datalist},
     )
 
     print ()

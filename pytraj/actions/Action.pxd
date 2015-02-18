@@ -28,3 +28,4 @@ cdef extern from "Action.h":
 
 cdef class Action:
     cdef _Action* baseptr
+    cdef public int n_frames
