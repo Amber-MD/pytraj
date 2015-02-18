@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         print(act.process.__doc__)
 
         for i, frame in enumerate(traj):
-            act.do_action(i, frame)
+            act.do_action(frame)
 
         d0 = cast_dataset(dslist[0])
         print(d0[:10])

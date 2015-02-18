@@ -70,16 +70,16 @@ class TestStrip(unittest.TestCase):
         stripact.process(oldtop, newtop)
 
         frame0 = Frame(farray.top.n_atoms)
-        stripact.do_action(0, farray[0], frame0)
+        stripact.do_action(farray[0], frame0)
         print(frame0.size)
         assert frame0.size == 60
         assert frame0.size != farray0[0].size
 
-        stripact.do_action(0, farray[0], farray[0])
+        stripact.do_action(farray[0], farray[0])
         print("after stripping", farray[0].size)
 
         frame0_view = farray0[0]
-        stripact.do_action(0, farray0[0], frame0_view)
+        stripact.do_action(farray0[0], frame0_view)
         print("after stripping", farray0[0].size)
         print(frame0_view.n_atoms)
         print(newtop.n_atoms)
