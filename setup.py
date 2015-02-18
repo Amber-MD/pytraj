@@ -36,6 +36,7 @@ def add_netcdf_to_install_file(fh1, fh2):
     else:
         libnetcdf_dir = find_amberhome()
 
+    # add netcdf flag
     new_chunk = "-shared --with-netcdf=%s gnu" % libnetcdf_dir
     with open(fh1, 'r') as _fh1, open(fh2, 'w') as _fh2:
         txt = _fh1.read()
@@ -49,7 +50,8 @@ def read(fname):
 PY3 = sys.version_info[0] == 3
 if PY3:
     raw_input = input
-# import/install Cython
+
+# check Cython
 try:
     import Cython.Distutils.build_ext
     from Cython.Build import cythonize
@@ -62,11 +64,6 @@ except:
         os.system("pip install --upgrade git+git://github.com/cython/cython@master")
     else:
         sys.exit("I can't install pytraj without cython")
-
-
-class PathError(Exception):
-    def __init__(self, msg):
-        pass
 
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
@@ -136,7 +133,6 @@ if not os.path.exists(cpptraj_dir):
     cpptraj_dir = raw_input("Please specify your cpptraj_dir: \n")
     cpptraj_include = cpptraj_dir + "/src/"
     libdir = cpptraj_dir + "/lib/"
-    #raise PathError("cpptraj_dir does not exist")
 
 # get *.pyx files
 pyxfiles = []
@@ -148,12 +144,6 @@ with open("pyxlist.txt", 'r') as f:
 #" use shuffle so we can use "python ./setup.py build" several times
 # to make the compiling faster (really?)
 shuffle(pyxfiles)
-
-USE_PYX = True
-if not USE_PYX:
-    ext = ".cpp"
-else:
-    ext = ".pyx"
 
 ext_modules = []
 for ext_name in pyxfiles:
