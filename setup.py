@@ -77,15 +77,19 @@ try:
         cpptraj_include = cpptraj_dir + "/src/"
         libdir = cpptraj_dir + "/lib/"
 except:
-    if 'pip' in __file__:
+    using_pip = "pip" in os.path.basename(os.path.dirname(__file__))
+    print (os.path.basename(os.path.dirname(__file__)))
+    print ("using_pip = %s" % using_pip)
+    if using_pip:
         print ("You're using pip to install pytraj. You need to:")
         print ("1. Install libcpptraj")
-        print ("2. Export CPPTRAJHOME to let pytraj know where the header files and libcpptraj are")
-        print ("(Easiest' way is to)")
-        print ("git clone https://github.com/pytraj/pytraj")
-        print ("cd pytraj")
-        print ("python setup.py install")
-        print ("(I will take care of installing libcpptraj)")
+        print ("2. Export CPPTRAJHOME to let pytraj know where the header files and libcpptraj are\n")
+        print ("(Easiest' way is to follow:")
+        print ("1. git clone https://github.com/pytraj/pytraj")
+        print ("2 cd pytraj")
+        print ("3. python setup.py install")
+        print ("       (I will take care of installing libcpptraj)\n")
+        sys.exit()
     print ()
     print ("You have not yet set CPPTRAJHOME. \n")
     print ("To avoid below message everytime you install/build ..., just set CPPTRAJHOME")
