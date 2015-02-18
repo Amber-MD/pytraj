@@ -89,6 +89,7 @@ except:
         print ("cd pytraj")
         print ("python setup.py install")
         print ("(I will take care of installing libcpptraj)")
+        sys.exit()
     print ()
     print ("You have not yet set CPPTRAJHOME. \n")
     print ("To avoid below message everytime you install/build ..., just set CPPTRAJHOME")
