@@ -1,0 +1,3 @@
+sphinx-apidoc -F -o docs pytraj
+cd docs/
+make html
