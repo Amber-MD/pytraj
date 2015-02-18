@@ -19,7 +19,6 @@ from pytraj.DataSetList import DataSetList
 from pytraj.ActionList import ActionList
 from pytraj.cast_dataset import cast_dataset
 from pytraj import cpptraj_dict
-from pytraj.parms.Parm_Amber import Parm_Amber
 
 
 
@@ -34,6 +33,5 @@ __all__ = ['Atom',
            'ActionList',
            'Trajout', 'TrajinList',
            'FrameArray2',
-           'Parm_Amber', 
            'cast_dataset',
            'cpptraj_dict']
