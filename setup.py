@@ -90,9 +90,9 @@ except:
     print ()
     print ("You have not yet set CPPTRAJHOME. \n")
     print ("To avoid below message everytime you install/build ..., just set CPPTRAJHOME")
-    print ("you have three options: \n")
+    print ("you have two options: \n")
     print ()
-    print ("Option 1. escape and export/setenv CPPTRAJHOME and/or install libcpptraj")
+    print ("Option 1. Quit and export/setenv CPPTRAJHOME and/or install libcpptraj")
     print ("        + export CPPTRAJHOME=your_favorite_dir (if using bash) / setenv CPPTRAJHOME your_favorite_dir")
     print ("        + if not install libcpptraj yet, please follow")
     print ("        + (cd $CPPTRAJHOME)")
@@ -100,20 +100,17 @@ except:
     print ("        + (make libcpptraj)\n")
     print ("Option 2. use cpptraj development version in github: https://github.com/mojyt/cpptraj")
     print ("         (Bonus: I will automatically install it for you, don't worry)\n")
-    print ("Option 3. Quit and say goodbye\n")
-    print ("choose 1 2, 3? \n")
+    print ("choose Quit (1) or Stay (2)? \n")
     
-    answer = int(raw_input("\n"))
-    if answer == 1:
-        sys.exit()
-    elif answer == 2:
-        use_cpptraj_git = True
-    elif answer == 3:
+    answer = raw_input("\n")
+    if answer.lower() in ['q', 'quite', '1']:
         print ("Bye bye ^_^")
         print ("Quit ....")
         from scripts.acsii_art import batman
         print (batman)
         sys.exit()
+    else:
+        use_cpptraj_git = True
 
     if use_cpptraj_git:
         print ("download from http://github.com/mojyt/cpptraj")
@@ -145,6 +142,7 @@ with open("pyxlist.txt", 'r') as f:
 # to make the compiling faster (really?)
 shuffle(pyxfiles)
 
+ext = ".pyx"
 ext_modules = []
 for ext_name in pyxfiles:
     pyxfile = pytraj_home + ext_name + ext
