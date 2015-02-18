@@ -24,7 +24,7 @@ class TestTopologyList(unittest.TestCase):
         #tlist[3].summary()
         
         t_0 = tlist[0]
-        t_0.copy(tlist[2])
+        t_0 = tlist[2].copy()
         #t_0.summary()
 
         # make sure changing t_0 does not affect tlist[0] since we make a copy
