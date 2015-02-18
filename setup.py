@@ -77,7 +77,10 @@ try:
         cpptraj_include = cpptraj_dir + "/src/"
         libdir = cpptraj_dir + "/lib/"
 except:
-    if 'pip' in __file__:
+    using_pip = "pin" in os.path.basename(os.path.dirname(__file__))
+    print (os.path.basename(os.path.dirname(__file__)))
+    print ("using_pip = %s" % using_pip)
+    if using_pip:
         print ("You're using pip to install pytraj. You need to:")
         print ("1. Install libcpptraj")
         print ("2. Export CPPTRAJHOME to let pytraj know where the header files and libcpptraj are")
