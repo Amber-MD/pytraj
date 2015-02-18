@@ -6,6 +6,7 @@ from distutils.core import setup
 from distutils import ccompiler
 from distutils.extension import Extension
 from random import shuffle
+import time
 
 # global
 cpptraj_include = "" 
@@ -92,10 +93,12 @@ pytraj_home = rootname + "/pytraj/"
 
 # find/install libcpptraj
 try:
-        cpptraj_dir = os.environ['CPPTRAJHOME'] 
-        cpptraj_include = cpptraj_dir + "/src/"
-        libdir = cpptraj_dir + "/lib/"
+    cpptraj_dir = os.environ['CPPTRAJHOME'] 
+    cpptraj_include = cpptraj_dir + "/src/"
+    libdir = cpptraj_dir + "/lib/"
+    has_cpptrajhome = True
 except:
+    has_cpptrajhome = False
     using_pip = "pip" in os.path.basename(os.path.dirname(__file__))
     print (os.path.basename(os.path.dirname(__file__)))
     print ("using_pip = %s" % using_pip)
@@ -111,7 +114,6 @@ except:
         print ("or I will take care of installing libcpptraj)\n")
         print ("sleep 5s")
         install_cpptraj_git()
-        time.sleep(5)
     else:
         print ()
         print ("You have not yet set CPPTRAJHOME. \n")
@@ -221,7 +223,7 @@ print (datalist)
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.beta.20",
+        version="0.1.0.0",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
