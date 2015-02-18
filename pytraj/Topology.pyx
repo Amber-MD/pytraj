@@ -181,14 +181,33 @@ cdef class Topology:
     def set_parm_name(self, string title, FileName filename):
         self.thisptr.SetParmName(title, filename.thisptr[0])
 
-    def set_reference_coords(self, Frame frameIn):
+    def set_reference_coord(self, Frame frameIn):
         self.thisptr.SetReferenceCoords(frameIn.thisptr[0])
 
     def file_path(self):
         return self.thisptr.c_str()
 
-    def trunc_res_atom_name(self, int atom):
-        return self.thisptr.TruncResAtomName(atom)
+    def trunc_res_atom_name(self, id_or_mask):
+        """return str or list iterator of str with format like "TYR_3@CA"
+        Parameters
+        ---------
+        id_or_mask : int or str (no default)
+            int : return single str for atom with specific ID
+            str : return a list iterator of str for atoms with given mask
+
+        """
+        cdef int index 
+        cdef AtomMask atm
+        cdef list namelist = []
+
+        if isinstance(id_or_mask, (int, long)):
+            index = <int> id_or_mask
+            return self.thisptr.TruncResAtomName(index)
+        elif isinstance(id_or_mask, string_types):
+            atm = self(id_or_mask)
+            for index in atm.selected_indices():
+                namelist.append(self.trunc_res_atom_name(index))
+            return namelist
 
     def atom_mask_name(self, int atom):
         return self.thisptr.AtomMaskName(atom)

@@ -16,3 +16,4 @@ include pytraj/data_sample/*.py
 include pytraj/data_sample/Ala3*
 include installs/ins*
 recursive-include pytraj *.pyx *.pxd
+recursive-include scripts *.sh *.py

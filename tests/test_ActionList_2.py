@@ -31,8 +31,8 @@ class TestActionList(unittest.TestCase):
         #alist.add_action("strip", "!CA", traj.top)
         alist.add_action("outtraj", "./output/test_trajout.nc", traj.top)
         alist.do_actions([traj[0], traj[1], traj,
-                          traj.chunk_iter(chunk=4), traj.frame_iter()])
-        Nframes = 2 + traj.n_frames + 8 + traj.n_frames
+                          traj.chunk_iter(chunk=4, stop=8) , traj.frame_iter()])
+        Nframes = 1 + 1 + traj.n_frames + 9 + traj.n_frames
         dflist.write_all_datafiles()
         print (dslist.size)
         print (dslist[0][:])
@@ -42,6 +42,7 @@ class TestActionList(unittest.TestCase):
         print (traj.n_frames)
         print ('test_trajout.nc has %s frames' % traj2.n_frames)
         print (traj2[0].n_atoms)
+        print (traj2.n_frames)
         assert traj2.n_frames == Nframes
 
 if __name__ == "__main__":

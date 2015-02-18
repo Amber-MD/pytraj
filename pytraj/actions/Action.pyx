@@ -29,7 +29,7 @@ cdef class Action:
     """
     def __cinit__(self):
         # don't directly create instance of this ABC class.
-        pass
+        self.n_frames = 0
         #self.baseptr = new _Action()
 
     def __dealloc__(self):
@@ -114,7 +114,7 @@ cdef class Action:
         return self.baseptr.Setup(current_top.thisptr, &(new_top.thisptr))
 
     @makesureABC("Action")
-    def do_action(self, int idx=0, current_frame=Frame(), Frame new_frame=Frame()):
+    def do_action(self, current_frame=Frame(), Frame new_frame=Frame()):
         """
         Perform action on Frame. Depend on what action you want to perform, you might get
         new_frame or get data from dslist or dflist...
@@ -140,13 +140,14 @@ cdef class Action:
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame
             frame.py_free_mem = False
-            self.baseptr.DoAction(idx, frame.thisptr, &(new_frame.thisptr))
+            self.baseptr.DoAction(self.n_frames, frame.thisptr, &(new_frame.thisptr))
+            self.n_frames += 1
         #elif hasattr(current_frame, 'n_frames'):
         elif isinstance(current_frame, (FrameArray, TrajReadOnly)):
             # Trajectory-like object
             traj = current_frame 
-            for i, frame in enumerate(traj):
-                self.do_action(i, current_frame=frame, new_frame=new_frame)
+            for frame in traj:
+                self.do_action(current_frame=frame, new_frame=new_frame)
         elif isinstance(current_frame, (list, tuple)):
             # creat alias to avoid con
             trajlist = current_frame
@@ -157,14 +158,14 @@ cdef class Action:
                 # recursive
                 # why doesn't this work with chunk_iter?
                 if hasattr(tmptraj, 'n_frames') or isinstance(tmptraj, Frame):
-                    self.do_action(idx, tmptraj, new_frame)
+                    self.do_action(tmptraj, new_frame)
                 else:
                     # chunk_iter
                     for tmptraj2 in tmptraj:
-                        self.do_action(idx, tmptraj2, new_frame)
+                        self.do_action(tmptraj2, new_frame)
         else:
-            for i, frame in enumerate(current_frame):
-                self.do_action(i, current_frame, new_frame)
+            for frame in current_frame:
+                self.do_action(current_frame, new_frame)
 
     @makesureABC("Action")
     def print_output(self):
@@ -187,7 +188,6 @@ cdef class Action:
                   dflist=DataFileList(), 
                   new_top=Topology(),
                   new_frame=Frame(),
-                  int idx=0,
                   int debug=0,
                   update_frame=False,
                   quick_get=False):
@@ -207,7 +207,7 @@ cdef class Action:
                         dflist=dflist, debug=debug)
 
         self.process(current_top=_top, new_top=new_top)
-        self.do_action(idx, current_frame, new_frame)
+        self.do_action(current_frame, new_frame)
 
         # currently support only dtype = 'DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER'
         # we get the last dataset from dslist
@@ -225,6 +225,9 @@ cdef class Action:
                     return None
             else:
                 raise RuntimeError("don't know how to cast dataset")
+
+    def reset_counter(self):
+        self.new_frame = 0
 
     def master(self, *args, **kwd):
         """keep this method since some of examples uses them"""

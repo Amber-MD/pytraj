@@ -94,16 +94,32 @@ cdef class Trajin (TrajectoryFile):
                 if `chunk` > 1 : return FrameArray instance
         """
         cdef int newstart
+        cdef int n_chunk, i 
 
-        newstart = start
-        if stop == -1 or stop >= self.size:
+        # check `start`
+        if start < 0 or start >= self.n_frames:
+            start = 0
+
+        # check `stop`
+        if stop <= 0 or stop >= self.n_frames:
             stop = <int> self.size - 1
-        if chunk + newstart > stop:
+
+        if chunk <= 0:
+            raise ValueError("chunk must be positive")
+
+        if chunk + start > stop:
             raise ValueError("start + chunk must be smaller than max frames")
 
-        while newstart <= stop:
-            yield self[newstart:newstart+chunk]
-            newstart += chunk
+        n_chunk = int((stop- start)/chunk)
+        if ((stop - start) % chunk ) != 0:
+            n_chunk += 1
+
+        for i in range(n_chunk):
+            if i != n_chunk - 1:
+                yield self[start + chunk*i : start + chunk*(i+1)]
+            else:
+                # use `stop + 1` since Python ignore last index
+                yield self[start + chunk*i : stop+1]
 
     def __str__(self):
         name = self.__class__.__name__
