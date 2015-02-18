@@ -1,3 +1,4 @@
+"""python write_action_pxd.py cpptraj_header_file.h"""
 import re
 from glob import glob
 
