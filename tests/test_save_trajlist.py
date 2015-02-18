@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         traj0_new = traj2[:Nsize]
 
         for frame0, frame0_new in zip(traj0, traj0_new):
-            assert (frame0.rmsd(frame0_new) < 1E-4)
+            assert (frame0.rmsd(frame0_new) < 1E-3)
 
 if __name__ == "__main__":
     unittest.main()
