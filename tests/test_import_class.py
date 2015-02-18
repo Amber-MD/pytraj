@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-
+import unittest
 import sys
 import os
 
 modlist = []
-with open(os.environ['PYCPPTRAJ_HOME'] + "/PYXLIST.txt") as pylist:
+with open("../pyxlist.txt") as pylist:
     lines = pylist.readlines()
     for line in lines:
         if "#" not in line:

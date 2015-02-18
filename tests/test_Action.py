@@ -3,7 +3,7 @@ import pytraj
 from importlib import import_module
 
 # get action list
-pylist = "../PYXLIST.txt"
+pylist = "../pyxlist.txt"
 
 actions = []
 with open(pylist, 'r') as fh:
