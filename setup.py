@@ -6,6 +6,12 @@ from distutils.core import setup
 from distutils import ccompiler
 from distutils.extension import Extension
 from random import shuffle
+import time
+
+# global
+cpptraj_include = "" 
+cpptraj_dir = "" 
+libdir = ""
 
 def find_amberhome():
     try:
@@ -22,6 +28,23 @@ def find_libnetcdef():
     libnetcdf = compiler.find_library_file(lib_dirs, 'netcdf')
     return libnetcdf
 
+def install_cpptraj_git():
+    global cpptraj_include
+    global cpptraj_dir
+    global libdir
+
+    print ("download from http://github.com/mojyt/cpptraj")
+    cpptraj_dir = rootname + "/cpptraj/"
+    cpptraj_include = cpptraj_dir + "/src/"
+    libdir = cpptraj_dir + "/lib"
+    if has_netcdf:
+        old_file = "install_cpptraj_git.sh"
+        new_file = "_" + old_file
+        add_netcdf_to_install_file(old_file, new_file)
+        os.system("sh ./installs/" + new_file)
+    else:
+        os.system("sh ./installs/" + old_file)
+
 has_netcdf = True if find_libnetcdef() else False
 
 def add_netcdf_to_install_file(fh1, fh2):
@@ -36,6 +59,7 @@ def add_netcdf_to_install_file(fh1, fh2):
     else:
         libnetcdf_dir = find_amberhome()
 
+    # add netcdf flag
     new_chunk = "-shared --with-netcdf=%s gnu" % libnetcdf_dir
     with open(fh1, 'r') as _fh1, open(fh2, 'w') as _fh2:
         txt = _fh1.read()
@@ -49,7 +73,8 @@ def read(fname):
 PY3 = sys.version_info[0] == 3
 if PY3:
     raw_input = input
-# import/install Cython
+
+# check Cython
 try:
     import Cython.Distutils.build_ext
     from Cython.Build import cythonize
@@ -63,80 +88,66 @@ except:
     else:
         sys.exit("I can't install pytraj without cython")
 
-
-class PathError(Exception):
-    def __init__(self, msg):
-        pass
-
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 
 # find/install libcpptraj
 try:
-        cpptraj_dir = os.environ['CPPTRAJHOME'] 
-        cpptraj_include = cpptraj_dir + "/src/"
-        libdir = cpptraj_dir + "/lib/"
+    cpptraj_dir = os.environ['CPPTRAJHOME'] 
+    cpptraj_include = cpptraj_dir + "/src/"
+    libdir = cpptraj_dir + "/lib/"
+    has_cpptrajhome = True
 except:
+    has_cpptrajhome = False
     using_pip = "pip" in os.path.basename(os.path.dirname(__file__))
     print (os.path.basename(os.path.dirname(__file__)))
     print ("using_pip = %s" % using_pip)
     if using_pip:
-        print ("You're using pip to install pytraj. You need to:")
+        print ("You're using pip to install pytraj. You need to: Quite (Ctrl-C)")
         print ("1. Install libcpptraj")
         print ("2. Export CPPTRAJHOME to let pytraj know where the header files and libcpptraj are\n")
         print ("(Easiest' way is to follow:")
         print ("1. git clone https://github.com/pytraj/pytraj")
         print ("2 cd pytraj")
         print ("3. python setup.py install")
-        print ("       (I will take care of installing libcpptraj)\n")
-        sys.exit()
-    print ()
-    print ("You have not yet set CPPTRAJHOME. \n")
-    print ("To avoid below message everytime you install/build ..., just set CPPTRAJHOME")
-    print ("you have three options: \n")
-    print ()
-    print ("Option 1. escape and export/setenv CPPTRAJHOME and/or install libcpptraj")
-    print ("        + export CPPTRAJHOME=your_favorite_dir (if using bash) / setenv CPPTRAJHOME your_favorite_dir")
-    print ("        + if not install libcpptraj yet, please follow")
-    print ("        + (cd $CPPTRAJHOME)")
-    print ("        + (./configure -shared gnu)")
-    print ("        + (make libcpptraj)\n")
-    print ("Option 2. use cpptraj development version in github: https://github.com/mojyt/cpptraj")
-    print ("         (Bonus: I will automatically install it for you, don't worry)\n")
-    print ("Option 3. Quit and say goodbye\n")
-    print ("choose 1 2, 3? \n")
-    
-    answer = int(raw_input("\n"))
-    if answer == 1:
-        sys.exit()
-    elif answer == 2:
-        use_cpptraj_git = True
-    elif answer == 3:
-        print ("Bye bye ^_^")
-        print ("Quit ....")
-        from scripts.acsii_art import batman
-        print (batman)
-        sys.exit()
-
-    if use_cpptraj_git:
-        print ("download from http://github.com/mojyt/cpptraj")
-        cpptraj_dir = rootname + "/cpptraj/"
-        cpptraj_include = cpptraj_dir + "/src/"
-        libdir = cpptraj_dir + "/lib"
-        if has_netcdf:
-            old_file = "install_cpptraj_git.sh"
-            new_file = "_" + old_file
-            add_netcdf_to_install_file(old_file, new_file)
-            os.system("sh ./installs/" + new_file)
+        print ()
+        print ("or I will take care of installing libcpptraj)\n")
+        print ("sleep 5s")
+        install_cpptraj_git()
+    else:
+        print ()
+        print ("You have not yet set CPPTRAJHOME. \n")
+        print ("To avoid below message everytime you install/build ..., just set CPPTRAJHOME")
+        print ("you have two options: \n")
+        print ()
+        print ("Option 1. Quit and export/setenv CPPTRAJHOME and/or install libcpptraj")
+        print ("        + export CPPTRAJHOME=your_favorite_dir (if using bash) / setenv CPPTRAJHOME your_favorite_dir")
+        print ("        + if not install libcpptraj yet, please follow")
+        print ("        + (cd $CPPTRAJHOME)")
+        print ("        + (./configure -shared gnu)")
+        print ("        + (make libcpptraj)\n")
+        print ("Option 2. use cpptraj development version in github: https://github.com/mojyt/cpptraj")
+        print ("         (Bonus: I will automatically install it for you, don't worry)\n")
+        print ("choose Quit (1) or Stay (2)? \n")
+        
+        answer = raw_input("\n")
+        if answer.lower() in ['q', 'quite', '1']:
+            print ("Bye bye ^_^")
+            print ("Quit ....")
+            from scripts.acsii_art import batman
+            print (batman)
+            sys.exit()
         else:
-            os.system("sh ./installs/" + old_file)
+            use_cpptraj_git = True
+
+        if use_cpptraj_git:
+            install_cpptraj_git()
 
 if not os.path.exists(cpptraj_dir):
     print ("cpptraj_dir does not exist")
     cpptraj_dir = raw_input("Please specify your cpptraj_dir: \n")
     cpptraj_include = cpptraj_dir + "/src/"
     libdir = cpptraj_dir + "/lib/"
-    #raise PathError("cpptraj_dir does not exist")
 
 # get *.pyx files
 pyxfiles = []
@@ -149,12 +160,7 @@ with open("pyxlist.txt", 'r') as f:
 # to make the compiling faster (really?)
 shuffle(pyxfiles)
 
-USE_PYX = True
-if not USE_PYX:
-    ext = ".cpp"
-else:
-    ext = ".pyx"
-
+ext = ".pyx"
 ext_modules = []
 for ext_name in pyxfiles:
     pyxfile = pytraj_home + ext_name + ext
@@ -217,7 +223,7 @@ print (datalist)
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.beta.20",
+        version="0.1.0.0",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",

@@ -26,6 +26,10 @@ cdef class Energy_Amber:
     def E_nonbond(self, Frame frame, Topology top, AtomMask mask, double Eelec):
         return self.thisptr.E_Nonbond(frame.thisptr[0], top.thisptr[0], mask.thisptr[0], Eelec)
 
+    def E_solv_igb8(self, Frame frame, Topology top, AtomMask mask):
+        """add EGB for igb8 here"""
+        pass
+
     def set_debug(self, int d):
         self.thisptr.SetDebug(d)
 

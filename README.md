@@ -34,7 +34,8 @@ Install
 
 Usage: 
 -----
-- easiest: `calculate('distance', ':2@CA :10@CA', (traj, traj))`
+- easiest: dist = `calculate('distance', ':2@CA :10@CA', (traj, traj))`
+-                 `calculate('matrix', '@CA', frame, top)`
 - Check ./examples folder
 - Check pytraj-notebooks: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/Frame_class.ipynb)
 
