@@ -77,17 +77,29 @@ try:
         cpptraj_include = cpptraj_dir + "/src/"
         libdir = cpptraj_dir + "/lib/"
 except:
+    if 'pip' in __file__:
+        print ("You're using pip to install pytraj. You need to:")
+        print ("1. Install libcpptraj")
+        print ("2. Export CPPTRAJHOME to let pytraj know where the header files and libcpptraj are")
+        print ("(Easiest' way is to)")
+        print ("git clone https://github.com/pytraj/pytraj")
+        print ("cd pytraj")
+        print ("python setup.py install")
+        print ("(I will take care of installing libcpptraj)")
     print ()
     print ("You have not yet set CPPTRAJHOME. \n")
+    print ("To avoid below message everytime you install/build ..., just set CPPTRAJHOME")
     print ("you have three options: \n")
+    print ()
     print ("Option 1. escape and export/setenv CPPTRAJHOME and/or install libcpptraj")
     print ("        + export CPPTRAJHOME=your_favorite_dir (if using bash) / setenv CPPTRAJHOME your_favorite_dir")
     print ("        + if not install libcpptraj yet, please follow")
     print ("        + (cd $CPPTRAJHOME)")
     print ("        + (./configure -shared gnu)")
     print ("        + (make libcpptraj)\n")
-    print ("Option 2. use cpptraj development verions in github: https://github.com/mojyt/cpptraj \n")
-    print ("Option 3. Quit and say goodbye")
+    print ("Option 2. use cpptraj development version in github: https://github.com/mojyt/cpptraj")
+    print ("         (Bonus: I will automatically install it for you, don't worry)\n")
+    print ("Option 3. Quit and say goodbye\n")
     print ("choose 1 2, 3? \n")
     
     answer = int(raw_input("\n"))
@@ -109,17 +121,6 @@ except:
         libdir = cpptraj_dir + "/lib"
         if has_netcdf:
             old_file = "install_cpptraj_git.sh"
-            new_file = "_" + old_file
-            add_netcdf_to_install_file(old_file, new_file)
-            os.system("sh ./installs/" + new_file)
-        else:
-            os.system("sh ./installs/" + old_file)
-    else:
-        cpptraj_dir = rootname + "/Ambertools/dev/cpptraj/"
-        cpptraj_include = cpptraj_dir + "/src/"
-        libdir = cpptraj_dir + "/lib"
-        if has_netcdf:
-            old_file = "install_cpptraj.sh"
             new_file = "_" + old_file
             add_netcdf_to_install_file(old_file, new_file)
             os.system("sh ./installs/" + new_file)
@@ -212,7 +213,7 @@ print (datalist)
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.beta.19",
+        version="0.1.beta.20",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",

@@ -227,7 +227,7 @@ cdef class Action:
                 raise RuntimeError("don't know how to cast dataset")
 
     def reset_counter(self):
-        self.new_frame = 0
+        self.n_frames = 0
 
     def master(self, *args, **kwd):
         """keep this method since some of examples uses them"""
