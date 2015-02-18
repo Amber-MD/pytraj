@@ -28,6 +28,8 @@ def find_libnetcdef():
     libnetcdf = compiler.find_library_file(lib_dirs, 'netcdf')
     return libnetcdf
 
+has_netcdf = True if find_libnetcdef() else False
+
 def install_cpptraj_git():
     global cpptraj_include
     global cpptraj_dir
@@ -42,8 +44,6 @@ def install_cpptraj_git():
     add_netcdf_to_install_file(old_file, new_file, has_netcdf)
     os.system("sh ./installs/" + new_file)
 
-has_netcdf = True if find_libnetcdef() else False
-
 def add_netcdf_to_install_file(fh1, fh2, has_netcdf):
     # assume libnetcdf*so in $NETCDF_HOME/lib
     # and header file is in $NETCDF_HOME/include
@@ -52,7 +52,10 @@ def add_netcdf_to_install_file(fh1, fh2, has_netcdf):
     # always use $AMBERHOME/lib for libnetcdf
     # if not, use others
     if find_amberhome() is None:
-        libnetcdf_dir = find_libnetcdef().split("lib")[0]
+        if find_libnetcdef():
+            libnetcdf_dir = find_libnetcdef().split("lib")[0]
+        else:
+            libnetcdf_dir = None
     else:
         libnetcdf_dir = find_amberhome()
 
