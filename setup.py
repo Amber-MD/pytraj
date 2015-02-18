@@ -37,17 +37,14 @@ def install_cpptraj_git():
     cpptraj_dir = rootname + "/cpptraj/"
     cpptraj_include = cpptraj_dir + "/src/"
     libdir = cpptraj_dir + "/lib"
-    if has_netcdf:
-        old_file = "install_cpptraj_git.sh"
-        new_file = "_" + old_file
-        add_netcdf_to_install_file(old_file, new_file)
-        os.system("sh ./installs/" + new_file)
-    else:
-        os.system("sh ./installs/" + old_file)
+    old_file = "install_cpptraj_git.sh"
+    new_file = "_" + old_file
+    add_netcdf_to_install_file(old_file, new_file, has_netcdf)
+    os.system("sh ./installs/" + new_file)
 
 has_netcdf = True if find_libnetcdef() else False
 
-def add_netcdf_to_install_file(fh1, fh2):
+def add_netcdf_to_install_file(fh1, fh2, has_netcdf):
     # assume libnetcdf*so in $NETCDF_HOME/lib
     # and header file is in $NETCDF_HOME/include
     fh1 = "./installs/" + fh1
@@ -60,7 +57,10 @@ def add_netcdf_to_install_file(fh1, fh2):
         libnetcdf_dir = find_amberhome()
 
     # add netcdf flag
-    new_chunk = "-shared --with-netcdf=%s gnu" % libnetcdf_dir
+    if has_netcdf:
+        new_chunk = "-shared --with-netcdf=%s gnu" % libnetcdf_dir
+    else:
+        new_chunk = "-shared -nonetcdf gnu"
     with open(fh1, 'r') as _fh1, open(fh2, 'w') as _fh2:
         txt = _fh1.read()
         txt = txt.replace("-shared gnu", new_chunk)
