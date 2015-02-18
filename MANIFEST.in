@@ -1,11 +1,11 @@
 include README.md
 include README.rst
-include PYXLIST.txt
+include pyxlist.txt
 include requirements.txt
-include manual.txt
-recursive-include contributors 
-recursive-include development 
-recursive-include licenses 
+include note-books/manual.txt
+recursive-include contributors *
+recursive-include development *
+recursive-include licenses *
 include pytraj/gdt/src/*h
 include tests/*py
 include tests/test_API/*
