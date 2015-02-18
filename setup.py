@@ -135,7 +135,7 @@ if not os.path.exists(cpptraj_dir):
 
 # get *.pyx files
 pyxfiles = []
-with open("PYXLIST.txt", 'r') as f:
+with open("pyxlist.txt", 'r') as f:
     for line in f.readlines():
         if "#" not in line:
             pyxfiles.append(line.split("\n")[0])
