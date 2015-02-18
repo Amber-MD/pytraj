@@ -18,7 +18,7 @@ class TestRadgyr(unittest.TestCase):
         act.process(farray.top)
        
         for i, frame in enumerate(farray):
-            act.do_action(i, frame)
+            act.do_action(frame)
 
         print (dslist.size)
         dflist.write_all_datafiles()

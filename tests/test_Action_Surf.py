@@ -27,7 +27,7 @@ class TestSurf(unittest.TestCase):
         stripact.process(oldtop, newtop)
 
         frame0 = Frame(farray.top.n_atoms)
-        stripact.do_action(0, farray[0], frame0)
+        stripact.do_action(farray[0], frame0)
         #d0db = cast_dataset(d0, dtype='dataset_double')
         d0db = cast_dataset(dslist[0], dtype='general')
         print(d0db.data)

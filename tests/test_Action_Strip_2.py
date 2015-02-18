@@ -12,13 +12,13 @@ class Test(unittest.TestCase):
         act = adict['strip']
         act.read_input('!@CA', traj.top.copy())
         act.process(traj.top.copy())
-        act.do_action(0, f0)
+        act.do_action(f0)
         newf = Frame()
-        act.do_action(0, f0, newf)
+        act.do_action(f0, newf)
         print (f0)
         print (newf)
         print (newf[1])
-        act.do_action(0, traj, newf)
+        act.do_action(traj, newf)
         flast = traj[-1]
         flast.strip_atoms("!@CA", traj.top)
         print (newf)
@@ -43,7 +43,7 @@ class Test(unittest.TestCase):
         farray = FrameArray()
         newf = Frame()
         for i, frame in enumerate(traj):
-            act.do_action(i, frame, newf)
+            act.do_action(frame, newf)
             farray.append(newf)
 
         for frame in farray:

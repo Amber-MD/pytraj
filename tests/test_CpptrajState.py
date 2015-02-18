@@ -67,10 +67,10 @@ class TestCpptrajState(unittest.TestCase):
 
         idx = 0
         farray = FrameArray("./data/Tc5b.nat.crd", "./data/Tc5b.top")
-        distaction.do_action(0, farray[idx])
+        distaction.do_action(farray[idx])
         frame0 = farray[idx]
         # update Frame instance with new Box info
-        boxaction.do_action(idx, frame0)
+        boxaction.do_action(frame0)
         print(frame0.get_box())
         mdio.writetraj(filename="./output/test_withbox.r", traj=frame0, 
                        top=farray.top, fmt='AMBERRESTART',

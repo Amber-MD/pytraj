@@ -26,7 +26,7 @@ class TestRadgyr(unittest.TestCase):
         f2 = FrameArray()
         f2.top = farray.top.copy()
 
-        act.do_action(0, farray)
+        act.do_action(farray)
 
         print(farray[0, 0, :])
         print(f_old[0, 0, :])
