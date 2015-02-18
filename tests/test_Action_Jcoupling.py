@@ -1,4 +1,3 @@
-import unittest
 import os
 from pytraj.base import *
 from pytraj import io as mdio
