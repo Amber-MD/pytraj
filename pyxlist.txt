@@ -61,7 +61,7 @@ DataFileList
 DataSetList
 ActionList
 AnalysisList
-#Command
+Command
 trajs/TrajectoryFile
 ReplicaDimArray
 DihedralSearch
