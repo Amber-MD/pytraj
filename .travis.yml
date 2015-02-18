@@ -9,6 +9,7 @@ before_install:
     - sudo apt-get install -qq libz-dev libbz2-dev
     - sh ./development/for_travis/install_cpptraj.sh
 install:
+    - pip install --upgrade pip
     - pip install numpy
     - pip install cython
     - export AMBERHOME=`pwd`"/cpptraj/"
