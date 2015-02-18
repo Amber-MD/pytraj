@@ -4,7 +4,7 @@ import sys
 import os
 
 modlist = []
-with open("../pyxlist.txt") as pylist:
+with open("./pyxlist.txt") as pylist:
     lines = pylist.readlines()
     for line in lines:
         if "#" not in line:
