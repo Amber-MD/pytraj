@@ -6,7 +6,6 @@ DistRoutines
 #ComplexArray
 trajs/Trajin
 trajs/Trajout
-#trajs/Traj_PDBfile
 ArgList
 DispatchObject
 _FunctPtr
@@ -25,7 +24,6 @@ Matrix_3x3
 MaskToken
 Molecule
 NameType
-parms/Parm_Amber
 parms/ParmIO
 ParameterTypes
 parms/ParmFile
@@ -44,7 +42,6 @@ FrameArray
 FrameArray2
 BaseIOtype
 trajs/TrajectoryIO
-#trajs/Traj_AmberCoord
 #FrameList
 datasets/DataSet
 datasets/DataSet_Modes
@@ -78,7 +75,6 @@ _utils
 Timer
 Energy
 PDBfile
-#trajs/Traj_Mol2File
 #ClusterList
 #clusters/ClusterDist
 #datasets/DataSet_Vector
