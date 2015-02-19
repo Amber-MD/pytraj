@@ -27,4 +27,4 @@ if __name__ == '__main__':
     classlist = find_class()
     for x in classlist:
         if (not x.startswith("Action")) and  (not x.startswith("Analysis")):
-            print x
+            print(x)

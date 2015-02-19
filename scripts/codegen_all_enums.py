@@ -1,7 +1,7 @@
 import os
 import sys
-from codegen_enum import create_enum_of_dict
-from find_class_name import find_class
+from .codegen_enum import create_enum_of_dict
+from .find_class_name import find_class
 
 try:
     mode = sys.argv[1]

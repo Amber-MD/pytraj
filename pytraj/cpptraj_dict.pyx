@@ -261,6 +261,37 @@ DataTypeDict = {
         "XYMESH" : XYMESH, 
         "TRAJ" : TRAJ, 
     }
+
+    # DataSet.h
+    # DataSet.h
+scalarModeDict = {
+        "M_DISTANCE" : M_DISTANCE,
+        "M_ANGLE" : M_ANGLE,
+        "M_TORSION" : M_TORSION,
+        "M_PUCKER" : M_PUCKER,
+        "M_RMS" : M_RMS,
+        "UNKNOWN_MODE" : UNKNOWN_MODE,
+}
+    # DataSet.h
+scalarDict = {
+        "ALPHA" : ALPHA,
+        "BETA" : BETA,
+        "GAMMA" : GAMMA,
+        "DELTA" : DELTA,
+        "EPSILON" : EPSILON,
+        "ZETA" : ZETA,
+        "PUCKER" : PUCKER,
+        "CHI" : CHI,
+        "H1P" : H1P,
+        "C2P" : C2P,
+        "PHI" : PHI,
+        "PSI" : PSI,
+        "PCHI" : PCHI,
+        "OMEGA" : OMEGA,
+        "NOE" : NOE,
+        "UNDEFINED" : UNDEFINEDSCALARTYPE,
+}
+
 # DataSet_2D
 #from DataSet_2D cimport *
 MatrixDict = {

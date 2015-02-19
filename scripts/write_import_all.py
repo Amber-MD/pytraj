@@ -12,4 +12,4 @@ for excluded_action in exlucdedList:
     actionlist.remove(excluded_action)
 
 for action in actionlist:
-    print "from pycpptraj.actions.%s import %s" % (action, action)
+    print("from pycpptraj.actions.%s import %s" % (action, action))

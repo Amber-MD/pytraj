@@ -21,7 +21,7 @@ cpptraj
 CpptrajState
 Dimension
 Matrix_3x3
-MaskToken
+#MaskToken
 Molecule
 NameType
 parms/ParmIO

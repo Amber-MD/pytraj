@@ -19,24 +19,21 @@ cdef extern from "CpptrajState.h":
     cdef cppclass _CpptrajState "CpptrajState":
         _CpptrajState()
         _TopologyList * PFL()
-        #_FrameList * FL()
         _DataSetList * DSL()
         _DataFileList * DFL()
         void SetNoExitOnError()
         void SetNoProgress()
         void SetActionSilence(bint b)
-        #int Debug()const 
         bint ExitOnError()const 
         bint EmptyState()const 
         int AddTrajin(_ArgList &, bint)
         int AddTrajin(const string&)
         int RunAnalyses()
-        #const _TrajinList& InputTrajList()const 
         _TrajinList& InputTrajList()const 
         inline int AddTrajout(const _ArgList&)
         inline int AddTrajout(const string&)
-        #inline int AddReference(_ArgList &)
-        #inline int AddReference(const string&)
+        int AddReference(const string&, _ArgList &)
+        inline int AddReference(const string&)
         inline int AddAction(DispatchAllocatorType, _ArgList &)
         inline int AddAnalysis(DispatchAllocatorType, _ArgList &)
         int WorldSize()
@@ -53,4 +50,3 @@ cdef class CpptrajState:
     cdef public TopologyList toplist
     cdef public DataFileList datafilelist
     cdef public DataSetList datasetlist
-    #cdef public FrameList framelist

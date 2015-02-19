@@ -11,6 +11,6 @@ with open(sys.argv[1]) as f:
 
 result = dict(counter)
 
-for key, value in result.iteritems():
+for key, value in result.items():
     if value > 1 and key and ".h" not in key:
-        print key, value
+        print(key, value)
