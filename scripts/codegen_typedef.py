@@ -1,5 +1,5 @@
 import os
-from util import Line_codegen
+from .util import Line_codegen
 import sys
 
 cpp_src = os.environ['AMBERHOME'] + "AmberTools/src/cpptraj/src/"
@@ -14,5 +14,5 @@ with open(fname, 'r') as fh:
             linegen.replace(";", "")
             linegen.replace("typedef", "ctypedef")
             linegen.replace_waka()
-            print linegen.myline
+            print(linegen.myline)
 

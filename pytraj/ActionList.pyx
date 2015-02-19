@@ -31,7 +31,6 @@ cdef class ActionList:
         actionobj :: Action object
         arglist :: ArgList instance
         toplist :: TopologyList instance
-        #flist :: FrameList instance
         dlist :: DataSetList 
         dflist :: DataFileList
         """

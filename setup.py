@@ -102,21 +102,14 @@ try:
     has_cpptrajhome = True
 except:
     has_cpptrajhome = False
-    using_pip = "pip" in os.path.basename(os.path.dirname(__file__))
+    using_pip = "pip" in os.path.dirname(__file__)
     print (os.path.basename(os.path.dirname(__file__)))
     print ("using_pip = %s" % using_pip)
     if using_pip:
-        print ("You're using pip to install pytraj. You need to: Quite (Ctrl-C)")
-        print ("1. Install libcpptraj")
-        print ("2. Export CPPTRAJHOME to let pytraj know where the header files and libcpptraj are\n")
-        print ("(Easiest' way is to follow:")
-        print ("1. git clone https://github.com/pytraj/pytraj")
-        print ("2 cd pytraj")
-        print ("3. python setup.py install")
-        print ()
-        print ("or I will take care of installing libcpptraj)\n")
-        print ("sleep 5s")
-        install_cpptraj_git()
+        sys.exit()
+        os.system("pip install -d . pytraj")
+        os.chdir("./pytraj")
+        os.system("python ./setup.py install")
     else:
         print ()
         print ("You have not yet set CPPTRAJHOME. \n")

@@ -3,7 +3,7 @@
     I need to write *.pxd header files for cython based on Cpptraj *.h header file.
     this script will print list of files that have not been written'''
 
-from __future__ import print_function
+
 import os
 from glob import glob
 

@@ -4,8 +4,8 @@
 # cppframe['methods']['public'][12]['name']
 import os
 import CppHeaderParser
-from util import print_blank_line, Line_codegen
-from util import find_class
+from .util import print_blank_line, Line_codegen
+from .util import find_class
 import sys
 
 cpptrajsrc = os.environ['CPPTRAJHOME'] + "/src/"
@@ -25,18 +25,18 @@ cpp = CppHeaderParser.CppHeader(file)
 
 # print header line "c++" so Cython know it is c++ code
 # (adding to setup.py seems not work)
-print "# distutils: language = c++"
+print("# distutils: language = c++")
 print_blank_line(2)
 
 # make assumption that there's only one class in header file
-for classname in cpp.classes.keys():
+for classname in list(cpp.classes.keys()):
     # declare cpp class
-    print 'cdef class %s:' % (classname)
-    print '    def __cinit__(self):'
-    print '        self.thisptr = new _%s()' %classname
+    print('cdef class %s:' % (classname))
+    print('    def __cinit__(self):')
+    print('        self.thisptr = new _%s()' %classname)
     print_blank_line(1)
-    print '    def __dealloc__(self):'
-    print '        del self.thisptr'
+    print('    def __dealloc__(self):')
+    print('        del self.thisptr')
     print_blank_line(1)
 
     methods = cpp.classes[classname]['methods']['public']
@@ -55,5 +55,5 @@ for classname in cpp.classes.keys():
             line.remove_preassignment()
             line.insert_self_word()
             if not line.has_ignored_words():
-                print "%sdef %s" % (indent, line.myline)
+                print("%sdef %s" % (indent, line.myline))
                 print_blank_line(1)

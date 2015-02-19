@@ -3,8 +3,8 @@
 # TODO: should re-write, looks ugly
 import os
 import CppHeaderParser
-from util import print_blank_line, Line_codegen
-from util import find_class
+from .util import print_blank_line, Line_codegen
+from .util import find_class
 import sys
 
 #cpptrajsrc = os.environ['AMBERHOME'] + "AmberTools/src/cpptraj/src/"
@@ -27,7 +27,7 @@ if short_filename.startswith("Action") or short_filename.startswith("Analysis"):
 
 # print header line "c++" so Cython know it is c++ code
 # (adding to setup.py seems not work)
-print "# distutils: language = c++"
+print("# distutils: language = c++")
 
 #add vector, string if having ones
 stdlist = ['vector', 'string']
@@ -35,7 +35,7 @@ with open(filename, 'r') as fh:
     linelist = " ".join(fh.readlines())
     for word in stdlist:
         if word in linelist:
-            print "from libcpp.%s cimport %s" % (word, word)
+            print("from libcpp.%s cimport %s" % (word, word))
 
 for f_include in cpp.includes:
     # remove "
@@ -43,31 +43,31 @@ for f_include in cpp.includes:
         f_include = f_include.split('"')[1]
     # import stuff (in cpptraj header files, need to add libcpp.* too)
     if not f_include.startswith("<"):
-        print "from %s cimport *" % (f_include.split(".")[0])
+        print("from %s cimport *" % (f_include.split(".")[0]))
 
 print_blank_line(2)
-print 'cdef extern from "%s": ' % short_filename
+print('cdef extern from "%s": ' % short_filename)
 
 # make assumption that there's only one class in header file
-for classname in cpp.classes.keys():
+for classname in list(cpp.classes.keys()):
     #create enum
     if cpp.classes[classname]['enums']['public']:
         for enumlist in cpp.classes[classname]['enums']['public']:
-            print indent + "# %s" % sys.argv[1]
+            print(indent + "# %s" % sys.argv[1])
             enumname = enumlist['name']
             enumext = classname + "::" + enumname
-            print indent + 'ctypedef enum %s "%s":' % (enumname, enumext)
+            print(indent + 'ctypedef enum %s "%s":' % (enumname, enumext))
             for enumvar in enumlist['values']:
                 enumvarname = enumvar['name']
                 enumvarnameext = classname + "::" + enumvarname
-                print indent * 2 + '%s "%s"' % (enumvarname, enumvarnameext)
+                print(indent * 2 + '%s "%s"' % (enumvarname, enumvarnameext))
     
     # declare cpp class
     extcl = "_" + classname
     if not need_extra_line:
-        print '%scdef cppclass %s "%s":' % (indent, extcl, classname)
+        print('%scdef cppclass %s "%s":' % (indent, extcl, classname))
     else:
-        print '%scdef cppclass %s "%s" (_%s):' % (indent, extcl, classname, actionroot)
+        print('%scdef cppclass %s "%s" (_%s):' % (indent, extcl, classname, actionroot))
     methods = cpp.classes[classname]['methods']['public']
     for method in methods:
         line = Line_codegen(method['debug'])
@@ -81,13 +81,13 @@ for classname in cpp.classes.keys():
         line.swap_const()
         line.remove_unsupported()
         line.remove_preassignment()
-        print indent * 2 + line.myline
+        print(indent * 2 + line.myline)
     print_blank_line(2)
 
-for classname in cpp.classes.keys():
+for classname in list(cpp.classes.keys()):
     if not need_extra_line:
-        print "cdef class %s:" %classname
+        print("cdef class %s:" %classname)
     else:
-        print "cdef class %s (%s):" %(classname, actionroot)
-    print "%scdef _%s* thisptr" %(indent, classname)
-    print 
+        print("cdef class %s (%s):" %(classname, actionroot))
+    print("%scdef _%s* thisptr" %(indent, classname))
+    print() 

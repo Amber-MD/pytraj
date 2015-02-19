@@ -29,7 +29,8 @@ cdef class DataFileList:
         dfile.thisptr = self.thisptr.GetDataFile(datafilename)
         return dfile
 
-    def add_datafile(self, string datafilename, *args):
+    def add_datafile(self, datafilename, *args):
+        datafilename = datafilename.encode()
         cdef DataFile dfile = DataFile()
         cdef ArgList argIn
 
@@ -40,12 +41,13 @@ cdef class DataFileList:
             dfile.thisptr[0] = deref(self.thisptr.AddDataFile(datafilename, argIn.thisptr[0]))
         return dfile
 
-    def add_dataset(self, string datafilename, ds):
+    def add_dataset(self, datafilename, ds):
+        datafilename = datafilename.encode()
         """we need to use alloc method to cast to DataSet object"""
         dfile = self._add_dataset(datafilename, ds.alloc())
         return dfile
 
-    def _add_dataset(self, string datafilename, DataSet dsetIn):
+    def _add_dataset(self, datafilename, DataSet dsetIn):
         cdef DataFile dfile = DataFile()
         dfile.thisptr[0] = deref(self.thisptr.AddSetToFile(datafilename, dsetIn.baseptr0))
         return dfile

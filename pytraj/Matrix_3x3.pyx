@@ -149,10 +149,10 @@ cdef class Matrix_3x3:
     def transpose(self):
         self.thisptr.Transpose()
 
-    def rotation_around__zaxis(self, idx, idy):
+    def rotation_around_zaxis(self, idx, idy):
         self.thisptr.RotationAroundZ(idx, idy)
 
-    def rotation_around__yaxis(self, idx, idz):
+    def rotation_around_yaxis(self, idx, idz):
         self.thisptr.RotationAroundY(idx, idz)
 
     def __mul__(Matrix_3x3 self, other):

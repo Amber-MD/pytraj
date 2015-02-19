@@ -12,4 +12,4 @@ if oldword in txt:
     with open("./tmp/" + oldfile, 'w') as fh2:
         fh2.write(txt)
 else:
-    print "no word to replace"
+    print("no word to replace")

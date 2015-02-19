@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 def print_blank_line(num):
     for i in range(num):
-        print
+        print()
 
 def _to_lower_case(word):
     """convert function name from C/C++ to Python style
@@ -34,7 +34,7 @@ def func_c_to_py(code):
         foundlist= re.findall(pattern, line)
         if foundlist:
             func = foundlist[0]
-            print func
+            print(func)
             newfunc = _to_lower_case(func)
             code[i] = code[i].replace(func, newfunc, 1)
 
@@ -119,7 +119,7 @@ class Line_codegen:
         # replace < > to []
         table = string.maketrans("<>", "[]")
         self.myline = self.myline.translate(table)
-        for key, value in self.replace_dict.iteritems():
+        for key, value in self.replace_dict.items():
             self.replace(key, value)
         # self.replace(r"{", "")
         # self.replace(r";", "")

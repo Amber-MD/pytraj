@@ -7,7 +7,7 @@ import re
 for fname in glob("*_pxd.pxd"):
     fnewname = re.sub("_pxd", "", fname) 
     #print fnewname
-    print "change %s to %s" % (fname, fnewname)
+    print("change %s to %s" % (fname, fnewname))
     os.rename(fname, fnewname)
     
 

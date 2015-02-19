@@ -1,5 +1,5 @@
 import sys
-from util import func_c_to_py
+from .util import func_c_to_py
 
 fname = sys.argv[1]
 try:
