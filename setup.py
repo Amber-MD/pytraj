@@ -88,6 +88,7 @@ except:
 
     if try_cython.upper() in ['Y', 'YES']:
         os.system("pip install --upgrade git+git://github.com/cython/cython@master")
+        os.system("python setup.py install")
     else:
         sys.exit("I can't install pytraj without cython")
 
@@ -213,7 +214,7 @@ print (pylen)
 #datalist = [[p[pylen:] for p in pxd_include_patterns]]
 datalist = [p for p in pxd_include_patterns]
 sample_data = ["data_sample/Ala3/Ala3.*",]
-datalist += sample_data
+datalist.extend(sample_data)
 print (datalist)
 
 if __name__ == "__main__":

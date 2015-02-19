@@ -37,9 +37,9 @@ from pytraj.actions import allactions
 from pytraj.analyses import allanalyses
 from pytraj.misc import calculate
 
-try:
-    amber_home = os.environ['AMBERHOME']
-except:
-    raise EnvironmentError("must set AMBERHOME")
+#try:
+#    amber_home = os.environ['AMBERHOME']
+#except:
+#    raise EnvironmentError("must set AMBERHOME")
 
 # make adict instance of ActionDict
