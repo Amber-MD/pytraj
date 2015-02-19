@@ -45,5 +45,20 @@ class TestActionList(unittest.TestCase):
         print (traj2.n_frames)
         assert traj2.n_frames == Nframes
 
+    def test_run_1(self):
+        # load traj
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        print (traj)
+        dslist = DataSetList()
+        dflist = DataFileList()
+    
+        # creat ActionList to hold actions
+        alist = ActionList()
+        alist.add_action(adict['distance'], ":2@CA :10@CA out ./output/_dist.out", 
+                         traj.top, dslist, dflist)
+        alist.do_actions(traj.frame_iter())
+        assert dslist.size == 1
+        assert dslist[0].size == traj.size
+
 if __name__ == "__main__":
     unittest.main()
