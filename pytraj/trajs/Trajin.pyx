@@ -84,7 +84,7 @@ cdef class Trajin (TrajectoryFile):
                     yield frame
                 i += stride
 
-    def chunk_iter(self, int chunk=1, int start=0, int stop=-1):
+    def chunk_iter(self, int chunk=2, int start=0, int stop=-1):
         """iterately get Frames with start, chunk
         returning FrameArray or Frame instance depend on `chunk` value
         Parameters
@@ -104,8 +104,8 @@ cdef class Trajin (TrajectoryFile):
         if stop <= 0 or stop >= self.n_frames:
             stop = <int> self.size - 1
 
-        if chunk <= 0:
-            raise ValueError("chunk must be positive")
+        if chunk <= 1:
+            raise ValueError("chunk must be >= 2")
 
         if chunk + start > stop:
             raise ValueError("start + chunk must be smaller than max frames")

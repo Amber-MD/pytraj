@@ -1,4 +1,5 @@
 # distutils: language = c++
+from __future__ import print_function
 from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
 from pytraj.utils import is_generator
@@ -114,26 +115,20 @@ cdef class Action:
         return self.baseptr.Setup(current_top.thisptr, &(new_top.thisptr))
 
     @makesureABC("Action")
-    def do_action(self, current_frame=Frame(), Frame new_frame=Frame()):
+    def do_action(self, current_frame=None, Frame new_frame=Frame()):
         """
-        Perform action on Frame. Depend on what action you want to perform, you might get
-        new_frame or get data from dslist or dflist...
-        TODO : add FrameArray
+        Perform action on Frame. 
         Parameters:
         ----------
-        idx : int, defaul=0 
-            id of Frame
         current_frame : Frame instance need to be processed, default=Frame() 
+
         new_frame : Frame instance, defaul=Frame()
             if action change Frame, you need to have this
-        >>> from pytraj._cast import cast_dataset
-        >>> # dslist is DataSetList (list of DataSet instance)
-        >>> d0 = cast_dataset(dslist[0], dtype='DataSet_double')
         """
         # debug
         cdef Frame frame
         cdef int i
-        cdef object traj, tmptraj
+        cdef object traj, tmptraj, farray
 
         new_frame.py_free_mem = False
 
@@ -142,19 +137,20 @@ cdef class Action:
             frame.py_free_mem = False
             self.baseptr.DoAction(self.n_frames, frame.thisptr, &(new_frame.thisptr))
             self.n_frames += 1
-        #elif hasattr(current_frame, 'n_frames'):
-        elif isinstance(current_frame, (FrameArray, TrajReadOnly)):
+        elif hasattr(current_frame, 'n_frames'):
             # Trajectory-like object
             traj = current_frame 
             for frame in traj:
                 self.do_action(current_frame=frame, new_frame=new_frame)
         elif isinstance(current_frame, (list, tuple)):
+            print ("Action.pyx: list, tuple")
             # creat alias to avoid con
             trajlist = current_frame
             # FIXME: correct `idx`
             # FIXME: ugly
             # make sure to check ActionList class to avoid duplication
             for tmptraj in trajlist:
+                # recursive
                 # recursive
                 # why doesn't this work with chunk_iter?
                 if hasattr(tmptraj, 'n_frames') or isinstance(tmptraj, Frame):
@@ -164,8 +160,17 @@ cdef class Action:
                     for tmptraj2 in tmptraj:
                         self.do_action(tmptraj2, new_frame)
         else:
+            # assuming frame_iter or chunk_iter
+            # "recursively do_action" does not work here. Why?
             for frame in current_frame:
-                self.do_action(current_frame, new_frame)
+                if isinstance(frame, FrameArray):
+                    farray = <FrameArray> frame
+                    for f0 in farray:
+                        self.do_action(f0, new_frame)
+                elif isinstance(frame, Frame):
+                    self.do_action(frame, new_frame)
+                else:
+                    raise ValueError("must be Frame or FrameArray")
 
     @makesureABC("Action")
     def print_output(self):

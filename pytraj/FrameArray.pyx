@@ -326,10 +326,8 @@ cdef class FrameArray (object):
         name = self.__class__.__name__
         n_atoms = 0 if self.top.is_empty() else self.top.n_atoms
         tmps = """%s instance with %s frames, %s atoms/frame
-                  ID = %s
                """ % (
                 name, self.size, n_atoms,
-                hex(id(self))
                 )
         return tmps
 
