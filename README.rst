@@ -7,3 +7,7 @@ Why bother using pytraj?
     * It has clean syntax of Python/Cython
     * It has been extensively tested
     * It's flexible (you can write extension modules in either high (Python) or low (C/C++ or Cython) level)
+
+Question?
+--------
+* ask [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)

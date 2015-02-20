@@ -10,6 +10,10 @@ for key in allactions.__dict__.keys():
         # create dict of action objects
         ADICT[act.lower()] = allactions.__dict__[key]
 
+# add some commond words to ADICT
+ADICT['surf_LCPO'] = adict['surf']
+ADICT['surf_lcpo'] = adict['surf']
+
 # make another dict to convert something like 'MolSurf' to 'molsurf'
 
 class ActionDict:
