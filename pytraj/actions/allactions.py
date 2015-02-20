@@ -47,7 +47,6 @@ from pytraj.actions.Action_Average import Action_Average
 from pytraj.actions.Action_DSSP import Action_DSSP
 from pytraj.actions.Action_Spam import Action_Spam
 from pytraj.actions.Action_Bounds import Action_Bounds
-#from pytraj.actions.ActionFrameCounter import ActionFrameCounter
 from pytraj.actions.Action_Scale import Action_Scale
 from pytraj.actions.Action_VelocityAutoCorr import Action_VelocityAutoCorr
 from pytraj.actions.Action_Rotate import Action_Rotate
@@ -60,7 +59,7 @@ from pytraj.actions.Action_AtomicCorr import Action_AtomicCorr
 from pytraj.actions.Action_Mask import Action_Mask
 from pytraj.actions.Action_Box import Action_Box
 from pytraj.actions.Action_Rotdif import Action_Rotdif
-#from pytraj.actions.Action_MRT import Action_MRT
+#from pytraj.actions.Action_MRT import Action_MRT # can not compile
 from pytraj.actions.Action_PairDist import Action_PairDist
 from pytraj.actions.Action_NativeContacts import Action_NativeContacts
 from pytraj.actions.Action_FixAtomOrder import Action_FixAtomOrder
@@ -72,3 +71,9 @@ from pytraj.actions.Action_Strip import Action_Strip
 from pytraj.actions.Action_Grid import Action_Grid
 from pytraj.actions.Action_Center import Action_Center
 from pytraj.actions.Action_CheckChirality import Action_CheckChirality
+from pytraj.actions.Action_AreaPerMol import Action_AreaPerMol
+from pytraj.actions.Action_Energy import Action_Energy
+from pytraj.actions.Action_Channel import Action_Channel
+from pytraj.actions.Action_ReplicateCell import Action_ReplicateCell
+from pytraj.actions.Action_MultiVector import Action_MultiVector
+from pytraj.actions.Action_MinImage import Action_MinImage

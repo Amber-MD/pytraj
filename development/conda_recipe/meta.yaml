@@ -7,17 +7,11 @@ source:
 
 requirements:
   build:
-    - libnetcdf
     - python
     - cython
   run:
     - python
-    - libcpptraj
-    - libnetcdf
 
-test:
-  imports:
-    - pytraj
 about:
   home: http://github.com/pytraj/pytraj
   license: BSD

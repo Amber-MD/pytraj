@@ -127,7 +127,7 @@ actions/Action_MakeStructure
 actions/Action_Mask
 actions/Action_Matrix
 actions/Action_Molsurf
-#actions/Action_MRT
+#actions/Action_MRT #can not compile
 actions/Action_MultiDihedral
 actions/Action_NAstruct
 actions/Action_NativeContacts
@@ -161,6 +161,11 @@ actions/Action_VelocityAutoCorr
 actions/Action_Volmap
 actions/Action_Watershell
 actions/Action_Energy
+actions/Action_Channel
+actions/Action_AreaPerMol
+actions/Action_ReplicateCell
+actions/Action_MultiVector
+actions/Action_MinImage
 DataFile
 analyses/Analysis_Matrix
 analyses/Analysis_Rms2d
