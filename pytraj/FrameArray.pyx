@@ -184,7 +184,7 @@ cdef class FrameArray (object):
                             print ("add :frame to mask to get sub-FrameArray")
                             print ("example: traj['@CA :frame']")
                             raise NotImplementedError("")
-                        N = self.top(mask).n_selected
+                        N = self.top(mask).n_atoms
                         arr0 = np.empty(N*self.size*3).reshape(self.size, N, 3)
                         for i, frame in enumerate(self):
                             arr0[i] = frame[self.top(mask)]
@@ -369,7 +369,7 @@ cdef class FrameArray (object):
             frame = self[i]
             if mask is not None:
                 atm = self.top(mask)
-                frame2 = Frame(atm.n_selected)
+                frame2 = Frame(atm.n_atoms)
                 frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])
                 yield frame2
             else:

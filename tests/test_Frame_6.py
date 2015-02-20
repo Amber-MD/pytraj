@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
         top = traj.top
         print (frame0[top('@CA')])
         atm = top("@CA")
-        arr0 = np.arange(atm.n_selected*3).reshape(atm.n_selected, 3)
+        arr0 = np.arange(atm.n_atoms*3).reshape(atm.n_atoms, 3)
         frame0.set_top(top)
         print (frame0['@CA'][:] == arr0)
         print (frame0['@CA'][:])

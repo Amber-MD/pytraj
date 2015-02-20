@@ -160,6 +160,7 @@ actions/Action_Vector
 actions/Action_VelocityAutoCorr
 actions/Action_Volmap
 actions/Action_Watershell
+actions/Action_Energy
 DataFile
 analyses/Analysis_Matrix
 analyses/Analysis_Rms2d

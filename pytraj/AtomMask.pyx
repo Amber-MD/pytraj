@@ -3,6 +3,7 @@ from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarrary
+from pytraj.decorators import deprecated
 
 # FIXME : property does not work properly
 
@@ -53,23 +54,35 @@ cdef class AtomMask(object):
         return self.thisptr.back()
 
     @property
+    @deprecated
     def n_selected(self):
         return self.thisptr.Nselected()
 
-    #def  int operator[](self,int idx):
+    property n_atoms:
+        def __get__(self):
+            """the number of selected atoms based on mask"""
+            return self.thisptr.Nselected()
+        def __set__(self, int value):
+            self.thisptr.SetNatom(value)
+
     def __getitem__(self, int idx):
         return self.thisptr.index_opr(idx)
 
-    def mask_string(self):
-        return self.thisptr.MaskString()
+    property mask_string:
+        def __get__(self):
+            return self.thisptr.MaskString()
+        def __set__(self, value):
+            self.thisptr.SetMaskString(value.encode())
 
     def mask_expression(self):
-        return self.thisptr.MaskExpression()
+        cdef string t
+        t = self.thisptr.MaskExpression()
+        return t.decode()
 
-    def mask_string_set(self):
+    def mask_string_was_set(self):
         return self.thisptr.MaskStringSet()
 
-    def none(self):
+    def is_empty(self):
         return self.thisptr.None()
 
     def is_char_mask(self):
@@ -102,12 +115,9 @@ cdef class AtomMask(object):
     def add_mask_at_position(self, AtomMask atm, int pos):
         self.thisptr.AddMaskAtPosition(atm.thisptr[0], pos)
 
-    def print_mask_atoms(self, char* mask):
-        self.thisptr.PrintMaskAtoms(mask)
-
-    def set_mask_string(self, mask):
+    def print_mask_atoms(self, mask):
         mask = mask.encode()
-        return self.thisptr.SetMaskString(mask)
+        self.thisptr.PrintMaskAtoms(mask)
 
     def setup_int_mask(self, char *charmask, int natom, int debug=0):
         self.thisptr.SetupIntMask(charmask, natom, debug)
@@ -123,9 +133,6 @@ cdef class AtomMask(object):
         elif len(args) == 2:
             begin, end = args
             return self.thisptr.AtomsInCharMask(begin, end)
-
-    def set_natom(self,int a):
-        self.thisptr.SetNatom(a)
 
     def convert_to_char_mask(self):
         return self.thisptr.ConvertToCharMask()
