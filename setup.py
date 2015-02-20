@@ -196,6 +196,7 @@ setup_args = {}
 packages = [
         'pytraj',
         'pytraj.utils',
+        'pytraj.html',
         'pytraj.actions',
         'pytraj.analyses',
         'pytraj.datasets',
@@ -214,7 +215,8 @@ print (pylen)
 #datalist = [[p[pylen:] for p in pxd_include_patterns]]
 datalist = [p for p in pxd_include_patterns]
 sample_data = ["data_sample/Ala3/Ala3.*",]
-datalist.extend(sample_data)
+html_data = ["html/static/*"] 
+datalist = datalist +  sample_data + html_data
 print (datalist)
 
 if __name__ == "__main__":
