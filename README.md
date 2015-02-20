@@ -39,6 +39,10 @@ Usage:
 - Check ./examples folder
 - Check pytraj-notebooks: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/Frame_class.ipynb)
 
+Question?
+--------
+* ask [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)
+
 Support
 ====================
 * Development version of [cpptraj] (https://github.com/mojyt/cpptraj)
