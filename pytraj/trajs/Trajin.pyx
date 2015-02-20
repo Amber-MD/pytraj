@@ -412,3 +412,17 @@ cdef class Trajin (TrajectoryFile):
         for frame in self:
             tarr.append(frame.temperature)
         return tarr
+
+    def fit_to(self, ref=None):
+        txt = """
+        This is immutatble class. You can not use with fit_to
+        You FrameArray class or you can iterate to get Frame (mutable)
+
+        >>> farray = FrameArray()
+        >>> for frame in traj:
+        >>>     frame.fit_to(ref)
+        >>>     farray.append(frame)
+        >>>     # or do anything interesting with `frame`
+        """
+        __doc__ = txt
+        raise NotImplementedError(txt)

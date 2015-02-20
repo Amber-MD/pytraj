@@ -15,11 +15,11 @@ class TestCHARMM(unittest.TestCase):
         reslit = top.residuelist
         print(reslit[0])
         atm = AtomMask("@CA")
-        print(atm.n_selected)
+        print(atm.n_atoms)
         print(atm)
         print(dir(atm))
         top.set_integer_mask(atm)
-        print(atm.n_selected)
+        print(atm.n_atoms)
         print(atm.atoms_in_char_mask())
         atm.invert_mask()
         atm.mask_info()
@@ -27,7 +27,7 @@ class TestCHARMM(unittest.TestCase):
         atm.mask_info()
 
         atm.invert_mask()
-        frame = Frame(atm.n_selected)
+        frame = Frame(atm.n_atoms)
         frame[:10] = np.asarray(array('d', list(range(30)))).reshape(10, 3)
         print(frame[0])
         print(dir(frame))

@@ -97,18 +97,18 @@ class TestFrameArray(unittest.TestCase):
         traj = ts[:]
         print(type(traj["@CA"]))
         print(traj["@CA"].shape)
-        assert traj["@CA"].shape == (traj.size, traj.top("@CA").n_selected, 3)
+        assert traj["@CA"].shape == (traj.size, traj.top("@CA").n_atoms, 3)
         print(traj[2:4]["@CA"])
-        assert traj[2:4]["@CA"].shape == (2, traj.top("@CA").n_selected, 3)
+        assert traj[2:4]["@CA"].shape == (2, traj.top("@CA").n_atoms, 3)
 
     def test_mask_indexing(self):
         # Trajin_Single
         traj = ts
         print(type(traj["@CA"]))
         print(traj["@CA"].shape)
-        assert traj["@CA"].shape == (traj.size, traj.top("@CA").n_selected, 3)
+        assert traj["@CA"].shape == (traj.size, traj.top("@CA").n_atoms, 3)
         print(traj[2:4]["@CA"])
-        assert traj[2:4]["@CA"].shape == (2, traj.top("@CA").n_selected, 3)
+        assert traj[2:4]["@CA"].shape == (2, traj.top("@CA").n_atoms, 3)
 
 if __name__ == "__main__":
     unittest.main()

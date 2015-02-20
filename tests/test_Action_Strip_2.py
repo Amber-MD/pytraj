@@ -48,5 +48,6 @@ class Test(unittest.TestCase):
 
         for frame in farray:
             assert frame.n_atoms == 20
+
 if __name__ == "__main__":
     unittest.main()

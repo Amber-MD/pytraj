@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
 
         _farray = FrameArray()
         _farray.top = traj.top.modify_state_by_mask(traj.top(mask))
-        print (top('@CA').n_selected)
+        print (top('@CA').n_atoms)
         for i, frame in enumerate(traj):
             print (frame[top('@CA')])
             _frame = frame.get_subframe(mask, traj.top)
@@ -53,7 +53,7 @@ class Test(unittest.TestCase):
 
         _farray = FrameArray()
         _farray.top = traj.top.modify_state_by_mask(traj.top(mask))
-        print (top('@CA').n_selected)
+        print (top('@CA').n_atoms)
         for i, frame in enumerate(traj):
             print (frame[top('@CA')])
             _frame = frame.get_subframe(mask, traj.top)

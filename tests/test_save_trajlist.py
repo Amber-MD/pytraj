@@ -19,10 +19,12 @@ class Test(unittest.TestCase):
 
         # test loading
         traj2 = mdio.load("./output/test_savedtrajlist.x", traj.top)
+        print (traj2.size)
         Nsize = int(traj2.size/4)
         traj0_new = traj2[:Nsize]
 
         for frame0, frame0_new in zip(traj0, traj0_new):
+            print (frame0.rmsd(frame0_new))
             assert (frame0.rmsd(frame0_new) < 1E-3)
 
 if __name__ == "__main__":

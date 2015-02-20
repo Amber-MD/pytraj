@@ -30,7 +30,6 @@ cdef extern from "ParameterTypes.h":
         inline int A3() const 
         inline int Idx() const 
 
-
     cdef cppclass _NonbondParmType "NonbondParmType":
         _NonbondParmType() 
         _NonbondParmType(int n, const vector[int]& nbi, const NonbondArray& nba, const HB_ParmArray& hba)

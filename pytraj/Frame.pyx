@@ -188,7 +188,7 @@ cdef class Frame (object):
                 raise NotImplementedError("supported if having numpy installed")
             arr0 = np.asarray(self.buffer3d[:])
             if isinstance(idx, AtomMask):
-                if idx.n_selected == 0:
+                if idx.n_atoms == 0:
                     raise ValueError("emtpy mask")
                 return arr0[np.array(idx.selected_indices())]
             else:

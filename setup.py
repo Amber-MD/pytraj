@@ -175,6 +175,8 @@ for ext_name in pyxfiles:
     extmod.cython_directives = {
             'embedsignature':True,
             'boundscheck': False,
+            'profile': True,
+            #'linetrace' : True
             }
     ext_modules.append(extmod)
 
@@ -196,6 +198,7 @@ setup_args = {}
 packages = [
         'pytraj',
         'pytraj.utils',
+        'pytraj.html',
         'pytraj.actions',
         'pytraj.analyses',
         'pytraj.datasets',
@@ -213,14 +216,16 @@ print (pylen)
 # remove `pytraj` name 
 #datalist = [[p[pylen:] for p in pxd_include_patterns]]
 datalist = [p for p in pxd_include_patterns]
+print (datalist)
 sample_data = ["data_sample/Ala3/Ala3.*",]
-datalist.extend(sample_data)
+html_data = ["html/static/*"] 
+datalist = datalist +  sample_data + html_data
 print (datalist)
 
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.0.0",
+        version="0.1.0.1beta",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",

@@ -47,3 +47,16 @@ def not_yet_supported(func):
     def inner(*args, **kwd):
         print ("%s not_yet_supported" % func.__name__)
     return inner
+
+def deprecated(func):
+    # from: https://wiki.python.org/moin/PythonDecoratorLibrary
+    '''This is a decorator which can be used to mark functions
+    as deprecated. It will result in a warning being emitted
+    when the function is used.'''
+    def new_func(*args, **kwargs):
+        warnings.warn("Call to deprecated function {}.".format(func.__name__),
+                      category=DeprecationWarning)
+        return func(*args, **kwargs)
+    new_func.__name__ = func.__name__
+    new_func.__doc__ = func.__doc__
+    return new_func

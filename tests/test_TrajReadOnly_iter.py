@@ -15,8 +15,11 @@ class TestTrajingIter(unittest.TestCase):
             for frame in traj.frame_iter(start=0, stride=1):
                 assert frame.n_atoms == traj.top.n_atoms
 
+        from time import time
+        t0 = time()
         for frame in traj.frame_iter():
             print (frame)
+        print (time() - t0)
             
 if __name__ == '__main__':
     unittest.main()
