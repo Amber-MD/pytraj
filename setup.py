@@ -175,6 +175,8 @@ for ext_name in pyxfiles:
     extmod.cython_directives = {
             'embedsignature':True,
             'boundscheck': False,
+            'profile': True,
+            #'linetrace' : True
             }
     ext_modules.append(extmod)
 
@@ -214,6 +216,7 @@ print (pylen)
 # remove `pytraj` name 
 #datalist = [[p[pylen:] for p in pxd_include_patterns]]
 datalist = [p for p in pxd_include_patterns]
+print (datalist)
 sample_data = ["data_sample/Ala3/Ala3.*",]
 html_data = ["html/static/*"] 
 datalist = datalist +  sample_data + html_data
