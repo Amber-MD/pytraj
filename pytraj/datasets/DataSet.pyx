@@ -67,7 +67,9 @@ cdef class DataSet:
     
     @property
     def name(self):
-        return self.baseptr0.Name()
+        cdef string t
+        t = self.baseptr0.Name()
+        return t.decode()
 
     @property
     def idx(self):
