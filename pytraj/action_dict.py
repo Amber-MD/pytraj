@@ -11,8 +11,9 @@ for key in allactions.__dict__.keys():
         ADICT[act.lower()] = allactions.__dict__[key]
 
 # add some commond words to ADICT
-ADICT['surf_LCPO'] = adict['surf']
-ADICT['surf_lcpo'] = adict['surf']
+ADICT['surf_LCPO'] = allactions.__dict__['Action_Surf']
+ADICT['surf_lcpo'] = allactions.__dict__['Action_Surf']
+ADICT['secstruct'] = allactions.__dict__['Action_DSSP']
 
 # make another dict to convert something like 'MolSurf' to 'molsurf'
 
