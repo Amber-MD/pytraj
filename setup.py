@@ -186,7 +186,7 @@ pxd_include_dirs = [
         or '__init__.py' in files
         ]
 
-print (pxd_include_dirs)
+#print (pxd_include_dirs)
 
 pxd_include_patterns = [
         p+'/*.pxd' for p in pxd_include_dirs ] + [
@@ -212,20 +212,20 @@ packages = [
         ]
 
 pylen = len('pytraj') + 1
-print (pylen)
+#print (pylen)
 # remove `pytraj` name 
 #datalist = [[p[pylen:] for p in pxd_include_patterns]]
 datalist = [p for p in pxd_include_patterns]
-print (datalist)
+#print (datalist)
 sample_data = ["data_sample/Ala3/Ala3.*",]
 html_data = ["html/static/*"] 
 datalist = datalist +  sample_data + html_data
-print (datalist)
+#print (datalist)
 
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.0.1beta",
+        version="0.1.0.1pre",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",

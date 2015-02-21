@@ -590,7 +590,7 @@ cdef class Frame (object):
     def neg_translate(self, Vec3 vec):
         self.thisptr.NegTranslate(vec.thisptr[0])
 
-    def rotate(self, Matrix_3x3 m3, *args):
+    def rotate(self, int x=0, int y=0, int z=0, atommask=None):
         """rotate(Matrix_3x3 m3, *args)
         Paramters:
         m3 : Matrix_3x3
@@ -599,19 +599,19 @@ cdef class Frame (object):
          or (mask (str), Topology instance)
 
         """
+        cdef Matrix_3x3 m3 = Matrix_3x3()
         cdef AtomMask atmask
         cdef string mask
         cdef Topology top
 
-        if not args:
+        m3.thisptr.CalcRotationMatrix(math.radians(x), 
+                                      math.radians(y), 
+                                      math.radians(z))
+
+        if atommask is None:
             self.thisptr.Rotate(m3.thisptr[0])
-        elif len(args) == 1:
-            atmask = args[0]
-            self.thisptr.Rotate(m3.thisptr[0], atmask.thisptr[0])
-        elif len(args) == 2:
-            mask, top = args
-            atmask = AtomMask(mask)
-            top.set_integer_mask(atmask)
+        else:
+            atmask = <AtomMask> atommask
             self.thisptr.Rotate(m3.thisptr[0], atmask.thisptr[0])
 
     def trans_rot_trans(self, Vec3 vec3, Matrix_3x3 m3, Vec3 vec3_2):
