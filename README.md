@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/hainm/pytraj.svg?branch=master)](https://travis-ci.org/hainm/pytraj)
 Welcome to pytraj!
 -------------------
+[wiki](http://www.github.com/pytraj/pytraj/wiki)
 
 - pytraj is a Python package wrapping cpptraj program (a data analysis for biomolecular simulation)
 - Why using pytraj:
