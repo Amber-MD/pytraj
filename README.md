@@ -27,6 +27,10 @@ Install
 - require:
     - netcdf library
     - cpptraj
+- Easiest:
+    * git clone https://github.com/pytraj/pytraj
+    * cd pytraj
+    * python ./setup.py install
 - wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
 - install libcpptraj: 
     ./installs/libcpptraj.txt (works well with development version of cpptraj)
