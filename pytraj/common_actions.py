@@ -11,17 +11,24 @@ from pytraj.misc import calculate, calc_dssp
 from pytraj.DistRoutines import distance 
 from pytraj.gdt.calc_score import calc_score
 
+list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
+           'calc_molsurf', 'calc_distrmsd', 'calc_protein_score', 'calc_watershell']
+
+list_of_do = ['do_translation', 'do_fitting', 'do_rotation']
+
+__all__ = list_of_do + list_of_cal
+
 calc_distance = partial(calculate, 'distance')
 calc_dih = partial(calculate, 'dihedral')
 calc_dihedral = calc_dih
 calc_radgyr = partial(calculate, 'radgyr')
 calc_angle = partial(calculate, 'angle')
 calc_molsurf = partial(calculate, 'molsurf')
-calc_molsurf = partial(calculate, 'molsurf')
 calc_distrmsd = partial(calculate, 'distrmsd')
 calc_protein_score = calc_score
 
 do_translation = partial(calculate, 'translate')
+do_rotation = partial(calculate, 'rotate')
 
 def calc_watershell(command, traj, top=Topology()):
     """return a DataSetList object having the number of water 
@@ -41,3 +48,9 @@ def calc_watershell(command, traj, top=Topology()):
     dslist = DataSetList()
     adict['watershell'](command, traj, top, dslist=dslist)
     return dslist
+
+def do_translation(command="", traj=None, top=Topology()):
+    adict['translate'](command, traj, top)
+
+def do_rotation(command="", traj=None, top=Topology()):
+    adict['rotate'](command, traj, top)
