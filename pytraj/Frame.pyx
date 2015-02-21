@@ -681,6 +681,8 @@ cdef class Frame (object):
             return self.thisptr.RMSD_CenteredRef(ref.thisptr[0], use_mass)
         else:
             mat, v = args
+            assert isinstance(mat, Matrix_3x3) == True
+            assert isinstance(v, Vec3) == True
             return self.thisptr.RMSD_CenteredRef(ref.thisptr[0], mat.thisptr[0], v.thisptr[0], use_mass)
 
     def rmsd_nofit(self, Frame frame, bint use_mass=False):
@@ -692,23 +694,31 @@ cdef class Frame (object):
         """
         return self.thisptr.RMSD_NoFit(frame.thisptr[0], use_mass)
 
-    def dist_rmsd(self, Frame frame):
+    def dist_rmsd(self, Frame frame, atommask=None):
         """Calculate dist_rmsd betwen two frames
         Parameters:
         ----------
         frame : Frame instance
         """
-        return self.thisptr.DISTRMSD(frame.thisptr[0])
+        cdef Frame f1, f2
+
+        if atommask is None:
+            return self.thisptr.DISTRMSD(frame.thisptr[0])
+        else:
+            f1 = Frame(self, <AtomMask>atommask)
+            f2 = Frame(frame, <AtomMask>atommask)
+            return f1.thisptr.DISTRMSD(f2.thisptr[0])
 
     def fit_to(self, ref=None, AtomMask atm=None):
-        """do the fitting to reference Frame by rotation and translation"""
-
+        """do the fitting to reference Frame by rotation and translation
+        TODO : add assert test
+        """
         # not yet dealed with `mass` and box
         cdef Matrix_3x3 mat
         cdef Vec3 v1
 
         _, mat, v1, _ = self.rmsd(ref, atm, get_mvv=True)
-        self.rotate(mat)
+        self.thisptr.Rotate(mat.thisptr[0])
         self.translate(v1)
 
     def set_axis_of_rotation(self, int atom1, int atom2):
@@ -790,10 +800,24 @@ cdef class Frame (object):
             frame._strip_atoms(top, mask, update_top, has_box)
             return frame
 
-    def __getbuffer__(self, Py_buffer* viewout, int flags):
-        # NotImplementedYet
-        # idea: use np.asarray(frame) rather using np.asarray(frame.buffer)
+    def __getbuffer__(self, Py_buffer* buffer, int flags):
+        """not validated yet. don't use"""
         pass
+  
+        #cdef Py_ssize_t itemsize = sizeof(double)
+        #cdef double* ptr = self.thisptr.xAddress()
+
+        #buffer.buf = <char *>(self.thisptr.xAddress())
+        #buffer.format = 'd'                     # double
+        #buffer.internal = NULL                  # see References
+        #buffer.itemsize = itemsize
+        #buffer.len = self.size * itemsize   # product(shape) * itemsize
+        #buffer.ndim = 1
+        #buffer.obj = self
+        #buffer.readonly = 0
+        #buffer.shape = (self.size, )
+        #buffer.strides = 1
+        #buffer.suboffsets = NULL                # for pointer arrays only
 
     def get_subframe(self, mask=None, top=None):
         cdef AtomMask atm
@@ -804,6 +828,7 @@ cdef class Frame (object):
             top.set_integer_mask(atm)
         elif isinstance(mask, AtomMask):
             atm = <AtomMask> mask
+            assert top is None
         else:
             raise NotImplementedError('mask mut string  or AtomMask object')
         return Frame(self, atm)
@@ -820,11 +845,13 @@ cdef class Frame (object):
             trajout.writeframe(0, self, top)
 
     def calc_dihedral(self, int idx1, int idx2, int idx3, int idx4):
+        # TODO: array?
         """return torsion angle for four atoms with indices idx1-4"""
         return math.degrees(cpptorsion(self.thisptr.XYZ(idx1), self.thisptr.XYZ(idx2),
                           self.thisptr.XYZ(idx3), self.thisptr.XYZ(idx4)))
 
     def calc_angle(self, int idx1, int idx2, int idx3):
+        # TODO: array?
         """return angle for three atoms with indices idx1-3"""
         return math.degrees(cppangle(self.thisptr.XYZ(idx1), self.thisptr.XYZ(idx2),
                         self.thisptr.XYZ(idx3)))
