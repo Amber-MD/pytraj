@@ -25,13 +25,13 @@ Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095
 Install
 -------
 - require:
-    - netcdf library
     - cpptraj
-- Easiest:
+    - netcdf library (optional but highly recommended)
+- easiest:
     * git clone https://github.com/pytraj/pytraj
     * cd pytraj
     * python ./setup.py install
-- wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
+- further: check wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
 - install libcpptraj: 
     ./installs/libcpptraj.txt (works well with development version of cpptraj)
 - installs pytraj: [wiki](http://www.github.com/pytraj/pytraj/wiki)
@@ -39,14 +39,17 @@ Install
 
 Usage: 
 -----
-- easiest: dist = `calculate('distance', ':2@CA :10@CA', (traj, traj))`
--                 `calculate('matrix', '@CA', frame, top)`
-- Check ./examples folder
-- Check pytraj-notebooks: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/Frame_class.ipynb)
+- example: 
+    * `dist = calculate('distance', ':2@CA :10@CA', (traj, traj))`
+    * `mat = calculate('matrix', '@CA', frame, top)`
+- many more:
+    * check ./examples folder
+    * check pytraj-notebooks: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/Frame_class.ipynb)
+    * ...
 
 Question?
 --------
-* ask [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)
+* send email to [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)
 
 Support
 ====================
