@@ -56,6 +56,9 @@ cdef class DataSet_integer (DataSet_1D):
     def add_element(self, int d):
         self.thisptr.AddElement(d)
 
+    def add(self, int idx, int value):
+        self.thisptr.Add(idx, &value)
+
     @property
     def size(self):
         return self.thisptr.Size()

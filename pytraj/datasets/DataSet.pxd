@@ -44,6 +44,8 @@ cdef extern from "DataSet.h":
         scalarType TypeFromKeyword(const string&, scalarMode&)
         scalarType TypeFromKeyword(const string&, const scalarMode&)
 
+        # virtual
+        #void Add( size_t, const void*  )
 
 cdef class DataSet:
     cdef _DataSet* baseptr0

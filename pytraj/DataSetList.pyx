@@ -155,6 +155,23 @@ cdef class DataSetList:
     def add_copy_of_set(self, DataSet dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
 
+    def add_set_aspect(self, dtype, name=None, aspect=None):
+        """add new dataset
+        Paramters
+        --------
+        dtype : str
+            DataType
+
+        name_1 : str
+
+        name_2 : str
+        """
+        cdef DataSet ds = DataSet()
+        if aspect is None:
+            aspect = name
+        ds.baseptr0 = self.thisptr.AddSetAspect(DataTypeDict[dtype], name.encode(), aspect.encode())
+        return ds
+
     def printlist(self):
         self.thisptr.List()
 
