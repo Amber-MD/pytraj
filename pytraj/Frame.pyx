@@ -124,8 +124,7 @@ cdef class Frame (object):
 
     def copy(self):
         """return a copy"""
-        cdef Frame frame = Frame()
-        frame.thisptr[0] = self.thisptr[0]
+        cdef Frame frame = Frame(self)
         return frame
 
     def is_empty(self):

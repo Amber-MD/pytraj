@@ -32,5 +32,26 @@ class Test(unittest.TestCase):
         assert rmsd_1 - farray[1].rmsd_nofit(f0) < 1E-3
         print (farray.fit_to)
 
+    def test_1(self):
+        # FIXME: wrong result. check `fit_to` method
+        print ("compare to cpptraj")
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        trajsaved = mdio.load("./data/fit_to_1stframe.Tc5b.x", "./data/Tc5b.top")
+        f0saved = traj[0].copy()
+        first = traj[0].copy()
+        farray = traj[:]
+
+        # fit to first using @CA
+        print ("before fitting")
+        for f0 in farray:
+            print (f0.rmsd_nofit(f0saved), f0.rmsd(f0saved))
+
+        farray.fit_to(first, "*")
+        # make sure to reproduce cpptraj output
+        print( "testing rmsd" )
+        print ("after fitting")
+        for f0 in farray:
+            print (f0.rmsd_nofit(first), f0.rmsd(first))
+
 if __name__ == "__main__":
     unittest.main()

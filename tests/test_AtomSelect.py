@@ -50,9 +50,6 @@ class Test(unittest.TestCase):
         print(mat, v1, v2)
         print(traj[0, 0])
         farray = traj[:]
-        farray[0].rotate(mat)
-        farray[0].translate(v1)
-        print(farray[0, 0])
 
 if __name__ == "__main__":
     unittest.main()

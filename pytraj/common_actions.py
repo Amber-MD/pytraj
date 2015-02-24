@@ -1,5 +1,5 @@
 """having common actions such as rmsd, fitting, ...
->>> from pytraj.common_actions import calc_rmsd, do_fitting
+>>> from pytraj.common_actions import calc_rmsd
 >>> from pytraj.common_actions import translate
 # TODO : use __all__
 """
@@ -18,7 +18,7 @@ from pytraj.gdt.calc_score import calc_score
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
            'calc_molsurf', 'calc_distrmsd', 'calc_protein_score', 'calc_watershell']
 
-list_of_do = ['do_translation', 'do_fitting', 'do_rotation']
+list_of_do = ['do_translation', 'do_rotation']
 
 __all__ = list_of_do + list_of_cal
 
