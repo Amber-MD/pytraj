@@ -225,7 +225,7 @@ datalist = datalist +  sample_data + html_data
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.0.1pre",
+        version="0.1.0.1",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",

@@ -11,7 +11,7 @@ class TestAtomMask(unittest.TestCase):
         top.set_integer_mask(atm)
         print(atm.n_atoms)
         atm.brief_mask_info()
-        print(atm.mask_string())
+        print(atm.mask_string)
 
     def test_1(self):
         print("test_1")

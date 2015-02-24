@@ -24,7 +24,7 @@ script:
     - cd ./tests
     - python -c 'import pytraj'
     - python ./API_test.py
-    - python RunAllAndFindFailure.py
+    - python ./run_all_and_find_fails.py
     - sh ./TestListTravis.sh
     - cd ../examples
     - sh ./TestList.sh
