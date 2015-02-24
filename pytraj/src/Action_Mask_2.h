@@ -2,6 +2,7 @@
 #define INC_ACTION_MASK_H
 #include "Action.h"
 #include "TrajectoryFile.h"
+#include "DataSet.h"
 // Class: Action_Mask_2
 /// Print out all atoms selected by a mask for each frame.
 /** This allows use of distance-dependent masks. This does NOT modify the
@@ -25,5 +26,8 @@ class Action_Mask_2: public Action {
     int debug_;
     TrajectoryFile::TrajFormatType trajFmt_; ///< Output trajectory format
     const char* trajOpt_;    ///< Output trajectory options
+
+    DataSet* atomDs_;        /// holding atom index for pytraj
+    DataSet* frameIndexDs_;  /// holding frame index for pytraj
 };
 #endif  

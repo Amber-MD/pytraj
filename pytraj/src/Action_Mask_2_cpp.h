@@ -12,6 +12,8 @@ Action_Mask_2::Action_Mask_2() :
 { } 
 
 void Action_Mask_2::Help() {
+  // TODO: turn me off
+  mprintf(" this is the message from pytraj in cpptraj: Helloworld\n");
   mprintf("\t<mask1> [maskout <filename>] [maskpdb <filename> | maskmol2 <filename>]\n"
           "  Print atoms selected by <mask1> to file specified by 'maskout' and/or\n"
           "  the PDB or Mol2 file specified by 'maskpdb' or 'maskmol2'. Good for\n"
@@ -58,7 +60,9 @@ Action::RetType Action_Mask_2::Init(ArgList& actionArgs, TopologyList* PFL, Data
       // Header
     outfile_.Printf("%-8s %8s %4s %8s %4s %8s\n","#Frame","AtomNum","Atom",
                     "ResNum","Res", "MolNum");
-  }
+  };
+  frameIndexDs_ = DSL->AddSetAspect(DataSet::INTEGER, "frame_index", "frame_index");
+  atomDs_ = DSL->AddSetAspect(DataSet::INTEGER, "atom_index", "atom_index");
 
   return Action::OK;
 }
@@ -89,6 +93,10 @@ Action::RetType Action_Mask_2::DoAction(int frameNum, Frame* currentFrame, Frame
       mprintf(" Charge=%lf",CurrentParm_->charge[atom]);
       mprintf(" Mass=%lf",CurrentParm_->mass[atom]);
       outfile.Printf("\n");*/
+
+      /* for pytraj */
+      frameIndexDs_->Add(frameNum, &frameNum);
+      atomDs_->Add(frameNum, &atom);
     }
   }
 
