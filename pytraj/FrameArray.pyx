@@ -632,3 +632,25 @@ cdef class FrameArray (object):
 
     def write(self, *args, **kwd):
         self.save(*args, **kwd)
+
+    def fit_to(self, Frame ref=None, mask="*"):
+        """do the fitting to reference Frame by rotation and translation
+        Parameters
+        ----------
+        ref : Frame object, default=None 
+            Reference
+        mask : str or AtomMask object, default='*' (fit all atoms)
+        """
+        # not yet dealed with `mass` and box
+        cdef Frame frame
+        cdef AtomMask atm
+
+        if isinstance(mask, string_types):
+            atm = self.top(mask)
+        elif isinstance(mask, AtomMask):
+            atm = <AtomMask> mask
+        else:
+            raise ValueError("mask must be string or AtomMask object")
+
+        for frame in self:
+            frame.fit_to(ref, atm)

@@ -5,6 +5,10 @@
 """
 from functools import partial
 from pytraj import adict
+from pytraj.externals.six import string_types
+from pytraj.Frame import Frame
+from pytraj.FrameArray import FrameArray
+from pytraj.AtomMask import AtomMask
 from pytraj.Topology import Topology
 from pytraj.DataSetList import DataSetList
 from pytraj.misc import calculate, calc_dssp
