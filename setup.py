@@ -166,8 +166,12 @@ for ext_name in pyxfiles:
     if "/" in ext_name:
         ext_name = ext_name.replace("/", ".")
 
+    sources = [pyxfile]
+    #if "Action_Mask_2" in ext_name:
+    #    sources.append("./pytraj/src/Action_Mask_2.cpp")
+
     extmod = Extension("pytraj." + ext_name,
-                    sources=[pyxfile],
+                    sources=sources,
                     libraries=['cpptraj'],
                     language='c++',
                     library_dirs=[libdir,],
@@ -225,7 +229,7 @@ datalist = datalist +  sample_data + html_data
 if __name__ == "__main__":
     setup(
         name="pytraj",
-        version="0.1.0.1",
+        version="0.1.0.2pre",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",

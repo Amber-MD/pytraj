@@ -95,23 +95,15 @@ def randomize_ions(frame=Frame(), top=Topology(), command=""):
 
 def action_help(action=None):
     # where should we put this method? putting here seems not really reasonable
-    from pytraj import allactions
-
-    actlist = []
-
-    for key in allactions.__dict__.keys():
-        if "Action_" in key:
-            act = key.split("Action_")[1]
-            actlist.append(act)
+    from pytraj import adict
 
     if action is None:
         print ("give the name of Action to get help")
-        print ("action_help('RadGyr')")
-        print (actlist)
+        print ("Example: action_help(): all action keywords")
+        print ("Example: action_help('rmsd'): help for Action_Rmsd")
+        print (adict.keys())
     else:
-        actname = "Action_" + action
-        act = allactions.__dict__[actname]()
-        act.help()
+        adict[action].help()
 
 def get_action_dict():
     actdict = {}
