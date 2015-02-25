@@ -130,7 +130,7 @@ cdef class Box:
         vec.thisptr[0] = self.thisptr.Lengths()
         return vec
 
-    def to_list(self):
+    def tolist(self):
         cdef int i
         cdef vector[double] v
         cdef double* ptr = self.thisptr.boxPtr()
