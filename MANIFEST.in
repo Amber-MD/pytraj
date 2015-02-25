@@ -15,6 +15,6 @@ include examples/test_API/*py
 include pytraj/data_sample/*.py
 include pytraj/data_sample/Ala3*
 include installs/ins*
+include pytraj/src/*
 recursive-include pytraj *.pyx *.pxd
-recursive-include pytraj/src/ *.h *.cpp *.c
 recursive-include scripts *.sh *.py
