@@ -15,6 +15,7 @@ class TestBox(unittest.TestCase):
         print(frame0.get_box().btype)
         frame0.set_nobox()
         print(frame0.get_box())
+        #print (frame0.get_box().to_recip())
 
     def test_help(self):
         Box.help()

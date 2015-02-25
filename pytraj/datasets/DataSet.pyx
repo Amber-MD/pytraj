@@ -86,7 +86,7 @@ cdef class DataSet:
     @property
     def dtype(self):
         """Using `dtype` keyword since this is commond term"""
-        return get_key(self.baseptr0.Type(), DataTypeDict)
+        return get_key(self.baseptr0.Type(), DataTypeDict).lower()
 
     @property
     def scalar_mode(self):
