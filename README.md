@@ -45,7 +45,8 @@ Usage:
 - many more:
     * check ./examples folder
     * check pytraj-notebooks: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/Frame_class.ipynb)
-    * ...
+    * pytraj's document is still poorly written, so you can also check ./tests folder for more (:D)
+    * more will come 
 
 Question?
 --------
