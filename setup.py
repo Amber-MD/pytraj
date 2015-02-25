@@ -179,7 +179,7 @@ for ext_name in pyxfiles:
     extmod.cython_directives = {
             'embedsignature':True,
             'boundscheck': False,
-            'profile': True,
+            #'profile': True,
             #'linetrace' : True
             }
     ext_modules.append(extmod)
