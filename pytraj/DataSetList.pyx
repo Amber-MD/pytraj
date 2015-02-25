@@ -79,7 +79,7 @@ cdef class DataSetList:
         Should we use a copy instead?
         """
         cdef DataSet dset = DataSet()
-        if idx >= len(self):
+        if idx >= len(self) or idx < 0:
             raise ValueError("index is out of range")
         # get memoryview
         dset.baseptr0 = self.thisptr.index_opr(idx)
