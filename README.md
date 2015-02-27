@@ -31,6 +31,7 @@ Install
     * git clone https://github.com/pytraj/pytraj
     * cd pytraj
     * python ./setup.py install
+    * (It's really slow to install? Try `CFLAGS="-O0 -ggdb" python ./setup.py install`)
 - further: check wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
 - install libcpptraj: 
     ./installs/libcpptraj.txt (works well with development version of cpptraj)
