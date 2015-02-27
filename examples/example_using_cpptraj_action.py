@@ -20,7 +20,7 @@ act.process(farray.top)
 
 # do calculation for each frame. rad of gyr is appended to dslist
 for i, frame in enumerate(farray):
-    act.do_action(i, frame)
+    act.do_action(frame)
 
 # get dataset.
 d1 = cast_dataset(dslist[0], dtype="general")

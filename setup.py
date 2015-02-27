@@ -175,7 +175,10 @@ for ext_name in pyxfiles:
                     libraries=['cpptraj'],
                     language='c++',
                     library_dirs=[libdir,],
-                    include_dirs=[cpptraj_include, pytraj_home])
+                    include_dirs=[cpptraj_include, pytraj_home],
+                    extra_compile_args=['-O0', '-ggdb'],
+                    extra_link_args=['-O0', '-ggdb'])
+
     extmod.cython_directives = {
             'embedsignature':True,
             'boundscheck': False,
