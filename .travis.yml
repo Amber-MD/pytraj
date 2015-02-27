@@ -27,7 +27,7 @@ script:
     - python ./run_all_and_find_fails.py
     - sh ./TestListTravis.sh
     - cd ../examples
-    - sh ./TestList.sh
+    - python ./run_all_and_find_fails.py
     - echo "Kool"
 
 notifications:
