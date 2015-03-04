@@ -81,16 +81,9 @@ if PY3:
 try:
     import Cython.Distutils.build_ext
     from Cython.Build import cythonize
+    has_cython = True
 except:
-    print ("There is no Cython")
-    print ("try: pip install --upgrade git+git://github.com/cython/cython@master")
-    try_cython = raw_input("install Cython? y/n ")
-
-    if try_cython.upper() in ['Y', 'YES']:
-        os.system("pip install --upgrade git+git://github.com/cython/cython@master")
-        os.system("python setup.py install")
-    else:
-        sys.exit("I can't install pytraj without cython")
+    has_cython = False
 
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
@@ -160,7 +153,10 @@ shuffle(pyxfiles)
 ext = ".pyx"
 ext_modules = []
 for ext_name in pyxfiles:
-    pyxfile = pytraj_home + ext_name + ext
+    if has_cython:
+        pyxfile = pytraj_home + ext_name + ext
+    else:
+        pyxfile = pytraj_home + ext_name + ".cpp"
 
     # replace "/" by "." get module
     if "/" in ext_name:
