@@ -18,8 +18,10 @@ try:
     import Cython.Distutils.build_ext
     from Cython.Build import cythonize
     has_cython = True
+    cmdclass = {'build_ext': Cython.Distutils.build_ext},
 except ImportError:
     has_cython = False
+    cmdclass = {}
     #sys.stderr.write('You must have Cython installed to install pytraj\n')
     #sys.exit(0)
 
@@ -129,6 +131,6 @@ if __name__ == "__main__":
                     'Programming Language :: C++',
                     'Topic :: Scientific/Engineering'],
         ext_modules = ext_modules,
-        cmdclass = {'build_ext': Cython.Distutils.build_ext},
+        cmdclass = cmdclass,
         package_data = {'pytraj' : datalist},
     )
