@@ -1,0 +1,146 @@
+import sys
+if sys.version_info < (2, 7):
+    sys.stderr.write('You must have at least Python 2.7 for pytraj\n')
+    sys.exit(0)
+
+import os
+from distutils.core import setup
+from distutils import ccompiler
+from distutils.extension import Extension
+from random import shuffle
+import time
+
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+# check/install Cython
+try:
+    import Cython.Distutils.build_ext
+    from Cython.Build import cythonize
+except:
+    print ("There is no Cython")
+    print ("Try building Cython")
+    os.system("tar zxf cython-0.22.tar.gz")
+    os.chdir("Cython-0.22")
+    # adapted below code from `mmpbsa_py` package in Amber
+    try:
+        print('Building cython... This may take a few minutes.')
+        ret = os.system('%s setup.py build > ../../cython_install.log 2>&1'
+                        % sys.executable)
+        if ret != 0:
+            sys.exit(' Error in cython install. Check cython_install.log')
+        ret = os.system('%s setup.py install --prefix=%s' % (sys.executable,
+                        os.getenv('AMBERHOME')))
+        if ret != 0:
+            sys.exit(' Error in cython install. Check cython_install.log')
+    finally:
+        os.chdir('..')
+    import Cython.Distutils.build_ext
+    from Cython.Build import cythonize
+
+rootname = os.getcwd()
+pytraj_home = rootname + "/pytraj/"
+amber_home = os.environ['AMBERHOME']
+
+cpptraj_dir = amber_home + "/AmberTools/src/cpptraj/"
+cpptraj_include = cpptraj_dir + "/src/"
+libdir = amber_home + "/lib/"
+
+# find and give warning if not having libcpptraj?
+
+# get *.pyx files
+pyxfiles = []
+f = open('pyxlist.txt', 'r')
+try:
+    for line in f.readlines():
+        if "#" not in line:
+            pyxfiles.append(line.split("\n")[0])
+finally:
+    f.close()
+
+ext = ".pyx"
+ext_modules = []
+for ext_name in pyxfiles:
+    pyxfile = pytraj_home + ext_name + ext
+
+    # replace "/" by "." get module
+    if "/" in ext_name:
+        ext_name = ext_name.replace("/", ".")
+
+    sources = [pyxfile]
+
+    extmod = Extension("pytraj." + ext_name,
+                    sources=sources,
+                    libraries=['cpptraj'],
+                    language='c++',
+                    library_dirs=[libdir,],
+                    include_dirs=[cpptraj_include, pytraj_home],
+                    extra_compile_args=['-O0', '-ggdb'],
+                    extra_link_args=['-O0', '-ggdb'])
+
+    extmod.cython_directives = {
+            'embedsignature':True,
+            'boundscheck': False,
+            }
+    ext_modules.append(extmod)
+
+pxd_include_dirs = [
+        directory for directory, dirs, files in os.walk('pytraj')
+        if '__init__.pyx' in files or '__init__.pxd' in files
+        or '__init__.py' in files
+        ]
+
+pxd_include_patterns = [
+        p+'/*.pxd' for p in pxd_include_dirs ] + [
+        p+'/*.pyx' for p in pxd_include_dirs ]
+         
+
+setup_args = {}
+packages = [
+        'pytraj',
+        'pytraj.utils',
+        'pytraj.html',
+        'pytraj.actions',
+        'pytraj.analyses',
+        'pytraj.datasets',
+        'pytraj.externals',
+        'pytraj.parms',
+        'pytraj.clusters',
+        'pytraj.trajs',
+        'pytraj.gdt',
+        'pytraj.data_sample',
+        'pytraj.data_sample.Ala3',
+        ]
+
+pylen = len('pytraj') + 1
+datalist = [p for p in pxd_include_patterns]
+sample_data = ["data_sample/Ala3/Ala3.*",]
+html_data = ["html/static/*"] 
+datalist = datalist +  sample_data + html_data
+
+if __name__ == "__main__":
+    setup(
+        name="pytraj",
+        version="0.1.0.2pre",
+        author="Hai Nguyen",
+        author_email="hainm.comp@gmail.com",
+        url="https://github.com/pytraj/pytraj",
+        packages=packages,
+        description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
+        long_description=read("../README.rst"),
+        license = "BSD License",
+        classifiers=[
+                    'Development Status :: 5 - Production/Stable',
+                    'Operating System :: Unix',
+                    'Intended Audience :: Science/Research',
+                    'License :: OSI Approved :: BSD License',
+                    'Programming Language :: Python :: 2',
+                    'Programming Language :: Python :: 3',
+                    'Programming Language :: Cython',
+                    'Programming Language :: C',
+                    'Programming Language :: C++',
+                    'Topic :: Scientific/Engineering'],
+        ext_modules = ext_modules,
+        cmdclass = {'build_ext': Cython.Distutils.build_ext},
+        package_data = {'pytraj' : datalist},
+    )
