@@ -46,13 +46,14 @@ def get_frames_same_T():
 
    # make sure we reproduce cpptraj output
    cpptraj = mdio.load("../tests/data/Test_RemdTraj/temp0.crd.492.20", topfile)
+   print(f4922[5].coords[:10])
+   print(cpptraj[5].coords[:10])
    for idx, framepy in enumerate(f4922):
        assert_almost_equal(framepy.coords, cpptraj[idx].coords)
        print("rmsd between pytraj Frame and cpptraj Frame = %s " % framepy.rmsd(cpptraj[idx]))
 
-   print(f4922[5].coords[:10])
-   print(cpptraj[5].coords[:10])
-
+   # FIXME: `rmsd` do the fitting in the fly 
+   # coords of frame would be changed
    print("YES, we can reproduce cpptraj output")
 
 if __name__ == "__main__":
