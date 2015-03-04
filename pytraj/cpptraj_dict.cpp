@@ -658,11 +658,9 @@ static char __pyx_k_IRED[] = "IRED";
 static char __pyx_k_IRON[] = "IRON";
 static char __pyx_k_LEAD[] = "LEAD";
 static char __pyx_k_NEON[] = "NEON";
-static char __pyx_k_NMAT[] = "NMAT";
 static char __pyx_k_NONE[] = "NONE";
 static char __pyx_k_PCHI[] = "PCHI";
 static char __pyx_k_READ[] = "READ";
-static char __pyx_k_TEMP[] = "TEMP";
 static char __pyx_k_TRAJ[] = "TRAJ";
 static char __pyx_k_ZETA[] = "ZETA";
 static char __pyx_k_ZINC[] = "ZINC";
@@ -683,7 +681,6 @@ static char __pyx_k_MODES[] = "MODES";
 static char __pyx_k_MULTI[] = "MULTI";
 static char __pyx_k_M_RMS[] = "M_RMS";
 static char __pyx_k_NOBOX[] = "NOBOX";
-static char __pyx_k_NO_OP[] = "NO_OP";
 static char __pyx_k_OMEGA[] = "OMEGA";
 static char __pyx_k_OP_OR[] = "OP_OR";
 static char __pyx_k_ORTHO[] = "ORTHO";
@@ -703,7 +700,6 @@ static char __pyx_k_COBALT[] = "COBALT";
 static char __pyx_k_COORDS[] = "COORDS";
 static char __pyx_k_COPPER[] = "COPPER";
 static char __pyx_k_CORREL[] = "CORREL";
-static char __pyx_k_CRDIDX[] = "CRDIDX";
 static char __pyx_k_CRYST1[] = "CRYST1";
 static char __pyx_k_DOUBLE[] = "DOUBLE";
 static char __pyx_k_GMXTOP[] = "GMXTOP";
@@ -746,7 +742,6 @@ static char __pyx_k_EXTRAPT[] = "EXTRAPT";
 static char __pyx_k_GALLIUM[] = "GALLIUM";
 static char __pyx_k_GNUPLOT[] = "GNUPLOT";
 static char __pyx_k_HAFNIUM[] = "HAFNIUM";
-static char __pyx_k_INDICES[] = "INDICES";
 static char __pyx_k_INTEGER[] = "INTEGER";
 static char __pyx_k_IRIDIUM[] = "IRIDIUM";
 static char __pyx_k_KRYPTON[] = "KRYPTON";
@@ -838,7 +833,6 @@ static char __pyx_k_PHOSPHORUS[] = "PHOSPHORUS";
 static char __pyx_k_RemDimDict[] = "RemDimDict";
 static char __pyx_k_SINGLELINK[] = "SINGLELINK";
 static char __pyx_k_TECHNETIUM[] = "TECHNETIUM";
-static char __pyx_k_TargetDict[] = "TargetDict";
 static char __pyx_k_USE_FRAMES[] = "USE_FRAMES";
 static char __pyx_k_scalarDict[] = "scalarDict";
 static char __pyx_k_AMBERNETCDF[] = "AMBERNETCDF";
@@ -882,7 +876,7 @@ static char __pyx_k_AtomicElementDict[] = "AtomicElementDict";
 static char __pyx_k_MOL2WRITEMODEDict[] = "MOL2WRITEMODEDict";
 static char __pyx_k_SUPPRESSCOORDOUTPUT[] = "SUPPRESSCOORDOUTPUT";
 static char __pyx_k_pytraj_cpptraj_dict[] = "pytraj.cpptraj_dict";
-static char __pyx_k_mnt_raidc2_haichit_Study_Cython[] = "/mnt/raidc2/haichit/Study/Cython/pytraj_git_fork/pytraj/pytraj/cpptraj_dict.pyx";
+static char __pyx_k_mnt_raidc2_haichit_Amber_git_am[] = "/mnt/raidc2/haichit/Amber_git/amber/AmberTools/src/pytraj/pytraj/cpptraj_dict.pyx";
 static PyObject *__pyx_n_s_ALPHA;
 static PyObject *__pyx_n_s_ALUMINUM;
 static PyObject *__pyx_n_s_AMBERNETCDF;
@@ -935,7 +929,6 @@ static PyObject *__pyx_n_s_COORDS;
 static PyObject *__pyx_n_s_COPPER;
 static PyObject *__pyx_n_s_CORREL;
 static PyObject *__pyx_n_s_COVAR;
-static PyObject *__pyx_n_s_CRDIDX;
 static PyObject *__pyx_n_s_CRYST1;
 static PyObject *__pyx_n_s_CompressDict;
 static PyObject *__pyx_n_s_DATA;
@@ -982,7 +975,6 @@ static PyObject *__pyx_n_s_HELIUM;
 static PyObject *__pyx_n_s_HETATM;
 static PyObject *__pyx_n_s_HYDROGEN;
 static PyObject *__pyx_n_s_IDEA;
-static PyObject *__pyx_n_s_INDICES;
 static PyObject *__pyx_n_s_INDIUM;
 static PyObject *__pyx_n_s_INTEGER;
 static PyObject *__pyx_n_s_IODINE;
@@ -1023,14 +1015,12 @@ static PyObject *__pyx_n_s_NEON;
 static PyObject *__pyx_n_s_NICKEL;
 static PyObject *__pyx_n_s_NIOBIUM;
 static PyObject *__pyx_n_s_NITROGEN;
-static PyObject *__pyx_n_s_NMAT;
 static PyObject *__pyx_n_s_NOBOX;
 static PyObject *__pyx_n_s_NOE;
 static PyObject *__pyx_n_s_NONE;
 static PyObject *__pyx_n_s_NONORTHO;
 static PyObject *__pyx_n_s_NORMAL;
 static PyObject *__pyx_n_s_NO_COMPRESSION;
-static PyObject *__pyx_n_s_NO_OP;
 static PyObject *__pyx_n_s_OK;
 static PyObject *__pyx_n_s_OMEGA;
 static PyObject *__pyx_n_s_OPENDX;
@@ -1094,7 +1084,6 @@ static PyObject *__pyx_n_s_SelectAll;
 static PyObject *__pyx_n_s_TANTALUM;
 static PyObject *__pyx_n_s_TECHNETIUM;
 static PyObject *__pyx_n_s_TELLURIUM;
-static PyObject *__pyx_n_s_TEMP;
 static PyObject *__pyx_n_s_TEMPERATURE;
 static PyObject *__pyx_n_s_TER;
 static PyObject *__pyx_n_s_THALLIUM;
@@ -1106,7 +1095,6 @@ static PyObject *__pyx_n_s_TRI;
 static PyObject *__pyx_n_s_TRIPOSTAGDict;
 static PyObject *__pyx_n_s_TRUNCOCT;
 static PyObject *__pyx_n_s_TUNGSTEN;
-static PyObject *__pyx_n_s_TargetDict;
 static PyObject *__pyx_n_s_TrajFormatDict;
 static PyObject *__pyx_n_s_TrajModeDict;
 static PyObject *__pyx_n_s_UNDEFINED;
@@ -1139,7 +1127,7 @@ static PyObject *__pyx_n_s_get_key;
 static PyObject *__pyx_n_s_iteritems;
 static PyObject *__pyx_n_s_key;
 static PyObject *__pyx_n_s_main;
-static PyObject *__pyx_kp_s_mnt_raidc2_haichit_Study_Cython;
+static PyObject *__pyx_kp_s_mnt_raidc2_haichit_Amber_git_am;
 static PyObject *__pyx_n_s_pytraj_cpptraj_dict;
 static PyObject *__pyx_n_s_scalarDict;
 static PyObject *__pyx_n_s_scalarModeDict;
@@ -1399,7 +1387,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_COPPER, __pyx_k_COPPER, sizeof(__pyx_k_COPPER), 0, 0, 1, 1},
   {&__pyx_n_s_CORREL, __pyx_k_CORREL, sizeof(__pyx_k_CORREL), 0, 0, 1, 1},
   {&__pyx_n_s_COVAR, __pyx_k_COVAR, sizeof(__pyx_k_COVAR), 0, 0, 1, 1},
-  {&__pyx_n_s_CRDIDX, __pyx_k_CRDIDX, sizeof(__pyx_k_CRDIDX), 0, 0, 1, 1},
   {&__pyx_n_s_CRYST1, __pyx_k_CRYST1, sizeof(__pyx_k_CRYST1), 0, 0, 1, 1},
   {&__pyx_n_s_CompressDict, __pyx_k_CompressDict, sizeof(__pyx_k_CompressDict), 0, 0, 1, 1},
   {&__pyx_n_s_DATA, __pyx_k_DATA, sizeof(__pyx_k_DATA), 0, 0, 1, 1},
@@ -1446,7 +1433,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_HETATM, __pyx_k_HETATM, sizeof(__pyx_k_HETATM), 0, 0, 1, 1},
   {&__pyx_n_s_HYDROGEN, __pyx_k_HYDROGEN, sizeof(__pyx_k_HYDROGEN), 0, 0, 1, 1},
   {&__pyx_n_s_IDEA, __pyx_k_IDEA, sizeof(__pyx_k_IDEA), 0, 0, 1, 1},
-  {&__pyx_n_s_INDICES, __pyx_k_INDICES, sizeof(__pyx_k_INDICES), 0, 0, 1, 1},
   {&__pyx_n_s_INDIUM, __pyx_k_INDIUM, sizeof(__pyx_k_INDIUM), 0, 0, 1, 1},
   {&__pyx_n_s_INTEGER, __pyx_k_INTEGER, sizeof(__pyx_k_INTEGER), 0, 0, 1, 1},
   {&__pyx_n_s_IODINE, __pyx_k_IODINE, sizeof(__pyx_k_IODINE), 0, 0, 1, 1},
@@ -1487,14 +1473,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_NICKEL, __pyx_k_NICKEL, sizeof(__pyx_k_NICKEL), 0, 0, 1, 1},
   {&__pyx_n_s_NIOBIUM, __pyx_k_NIOBIUM, sizeof(__pyx_k_NIOBIUM), 0, 0, 1, 1},
   {&__pyx_n_s_NITROGEN, __pyx_k_NITROGEN, sizeof(__pyx_k_NITROGEN), 0, 0, 1, 1},
-  {&__pyx_n_s_NMAT, __pyx_k_NMAT, sizeof(__pyx_k_NMAT), 0, 0, 1, 1},
   {&__pyx_n_s_NOBOX, __pyx_k_NOBOX, sizeof(__pyx_k_NOBOX), 0, 0, 1, 1},
   {&__pyx_n_s_NOE, __pyx_k_NOE, sizeof(__pyx_k_NOE), 0, 0, 1, 1},
   {&__pyx_n_s_NONE, __pyx_k_NONE, sizeof(__pyx_k_NONE), 0, 0, 1, 1},
   {&__pyx_n_s_NONORTHO, __pyx_k_NONORTHO, sizeof(__pyx_k_NONORTHO), 0, 0, 1, 1},
   {&__pyx_n_s_NORMAL, __pyx_k_NORMAL, sizeof(__pyx_k_NORMAL), 0, 0, 1, 1},
   {&__pyx_n_s_NO_COMPRESSION, __pyx_k_NO_COMPRESSION, sizeof(__pyx_k_NO_COMPRESSION), 0, 0, 1, 1},
-  {&__pyx_n_s_NO_OP, __pyx_k_NO_OP, sizeof(__pyx_k_NO_OP), 0, 0, 1, 1},
   {&__pyx_n_s_OK, __pyx_k_OK, sizeof(__pyx_k_OK), 0, 0, 1, 1},
   {&__pyx_n_s_OMEGA, __pyx_k_OMEGA, sizeof(__pyx_k_OMEGA), 0, 0, 1, 1},
   {&__pyx_n_s_OPENDX, __pyx_k_OPENDX, sizeof(__pyx_k_OPENDX), 0, 0, 1, 1},
@@ -1558,7 +1542,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_TANTALUM, __pyx_k_TANTALUM, sizeof(__pyx_k_TANTALUM), 0, 0, 1, 1},
   {&__pyx_n_s_TECHNETIUM, __pyx_k_TECHNETIUM, sizeof(__pyx_k_TECHNETIUM), 0, 0, 1, 1},
   {&__pyx_n_s_TELLURIUM, __pyx_k_TELLURIUM, sizeof(__pyx_k_TELLURIUM), 0, 0, 1, 1},
-  {&__pyx_n_s_TEMP, __pyx_k_TEMP, sizeof(__pyx_k_TEMP), 0, 0, 1, 1},
   {&__pyx_n_s_TEMPERATURE, __pyx_k_TEMPERATURE, sizeof(__pyx_k_TEMPERATURE), 0, 0, 1, 1},
   {&__pyx_n_s_TER, __pyx_k_TER, sizeof(__pyx_k_TER), 0, 0, 1, 1},
   {&__pyx_n_s_THALLIUM, __pyx_k_THALLIUM, sizeof(__pyx_k_THALLIUM), 0, 0, 1, 1},
@@ -1570,7 +1553,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_TRIPOSTAGDict, __pyx_k_TRIPOSTAGDict, sizeof(__pyx_k_TRIPOSTAGDict), 0, 0, 1, 1},
   {&__pyx_n_s_TRUNCOCT, __pyx_k_TRUNCOCT, sizeof(__pyx_k_TRUNCOCT), 0, 0, 1, 1},
   {&__pyx_n_s_TUNGSTEN, __pyx_k_TUNGSTEN, sizeof(__pyx_k_TUNGSTEN), 0, 0, 1, 1},
-  {&__pyx_n_s_TargetDict, __pyx_k_TargetDict, sizeof(__pyx_k_TargetDict), 0, 0, 1, 1},
   {&__pyx_n_s_TrajFormatDict, __pyx_k_TrajFormatDict, sizeof(__pyx_k_TrajFormatDict), 0, 0, 1, 1},
   {&__pyx_n_s_TrajModeDict, __pyx_k_TrajModeDict, sizeof(__pyx_k_TrajModeDict), 0, 0, 1, 1},
   {&__pyx_n_s_UNDEFINED, __pyx_k_UNDEFINED, sizeof(__pyx_k_UNDEFINED), 0, 0, 1, 1},
@@ -1603,7 +1585,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_iteritems, __pyx_k_iteritems, sizeof(__pyx_k_iteritems), 0, 0, 1, 1},
   {&__pyx_n_s_key, __pyx_k_key, sizeof(__pyx_k_key), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
-  {&__pyx_kp_s_mnt_raidc2_haichit_Study_Cython, __pyx_k_mnt_raidc2_haichit_Study_Cython, sizeof(__pyx_k_mnt_raidc2_haichit_Study_Cython), 0, 0, 1, 0},
+  {&__pyx_kp_s_mnt_raidc2_haichit_Amber_git_am, __pyx_k_mnt_raidc2_haichit_Amber_git_am, sizeof(__pyx_k_mnt_raidc2_haichit_Amber_git_am), 0, 0, 1, 0},
   {&__pyx_n_s_pytraj_cpptraj_dict, __pyx_k_pytraj_cpptraj_dict, sizeof(__pyx_k_pytraj_cpptraj_dict), 0, 0, 1, 1},
   {&__pyx_n_s_scalarDict, __pyx_k_scalarDict, sizeof(__pyx_k_scalarDict), 0, 0, 1, 1},
   {&__pyx_n_s_scalarModeDict, __pyx_k_scalarModeDict, sizeof(__pyx_k_scalarModeDict), 0, 0, 1, 1},
@@ -1630,7 +1612,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple_ = PyTuple_Pack(4, __pyx_n_s_value, __pyx_n_s_Dict, __pyx_n_s_key, __pyx_n_s_v); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_Study_Cython, __pyx_n_s_get_key, 5, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_Amber_git_am, __pyx_n_s_get_key, 5, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -4171,27 +4153,15 @@ PyMODINIT_FUNC PyInit_cpptraj_dict(void)
  * # DataSet_2D
  * #from DataSet_2D cimport *
  * MatrixDict = {             # <<<<<<<<<<<<<<
- *     "NO_OP" : NO_OP,
+ *     #"NO_OP" : NO_OP,
  *     "DIST" : DIST,
  */
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/cpptraj_dict.pyx":298
- * #from DataSet_2D cimport *
- * MatrixDict = {
- *     "NO_OP" : NO_OP,             # <<<<<<<<<<<<<<
- *     "DIST" : DIST,
- *     "COVAR" : COVAR,
- */
-  __pyx_t_2 = PyInt_FromLong(DataSet_2D::NO_OP); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_NO_OP, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
   /* "pytraj/cpptraj_dict.pyx":299
  * MatrixDict = {
- *     "NO_OP" : NO_OP,
+ *     #"NO_OP" : NO_OP,
  *     "DIST" : DIST,             # <<<<<<<<<<<<<<
  *     "COVAR" : COVAR,
  *     "MWCOVAR" : MWCOVAR,
@@ -4202,7 +4172,7 @@ PyMODINIT_FUNC PyInit_cpptraj_dict(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pytraj/cpptraj_dict.pyx":300
- *     "NO_OP" : NO_OP,
+ *     #"NO_OP" : NO_OP,
  *     "DIST" : DIST,
  *     "COVAR" : COVAR,             # <<<<<<<<<<<<<<
  *     "MWCOVAR" : MWCOVAR,
@@ -4266,7 +4236,7 @@ PyMODINIT_FUNC PyInit_cpptraj_dict(void)
  *     "IDEA" : IDEA,
  *     "IRED" : IRED,             # <<<<<<<<<<<<<<
  *     "DIHCOVAR" : DIHCOVAR,
- *     "NMAT" : NMAT,
+ *     #"NMAT" : NMAT,
  */
   __pyx_t_2 = PyInt_FromLong(DataSet_2D::IRED); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -4277,24 +4247,12 @@ PyMODINIT_FUNC PyInit_cpptraj_dict(void)
  *     "IDEA" : IDEA,
  *     "IRED" : IRED,
  *     "DIHCOVAR" : DIHCOVAR,             # <<<<<<<<<<<<<<
- *     "NMAT" : NMAT,
+ *     #"NMAT" : NMAT,
  *     }
  */
   __pyx_t_2 = PyInt_FromLong(DataSet_2D::DIHCOVAR); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_DIHCOVAR, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "pytraj/cpptraj_dict.pyx":307
- *     "IRED" : IRED,
- *     "DIHCOVAR" : DIHCOVAR,
- *     "NMAT" : NMAT,             # <<<<<<<<<<<<<<
- *     }
- * 
- */
-  __pyx_t_2 = PyInt_FromLong(DataSet_2D::NMAT); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_NMAT, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_MatrixDict, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -4789,66 +4747,6 @@ PyMODINIT_FUNC PyInit_cpptraj_dict(void)
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_SPECIFIEDCENTER, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 390; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_GridModeDict, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 390; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "pytraj/cpptraj_dict.pyx":399
- * # Trajin_Multi
- * #from Trajin_Multi cimport *
- * TargetDict = {             # <<<<<<<<<<<<<<
- *     "NONE" : NONETARGETTYPE,
- *     "TEMP" : TEMP,
- */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 399; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-
-  /* "pytraj/cpptraj_dict.pyx":400
- * #from Trajin_Multi cimport *
- * TargetDict = {
- *     "NONE" : NONETARGETTYPE,             # <<<<<<<<<<<<<<
- *     "TEMP" : TEMP,
- *     "INDICES" : INDICES,
- */
-  __pyx_t_2 = PyInt_FromLong(Trajin_Multi::NONE); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 400; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_NONE, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 399; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "pytraj/cpptraj_dict.pyx":401
- * TargetDict = {
- *     "NONE" : NONETARGETTYPE,
- *     "TEMP" : TEMP,             # <<<<<<<<<<<<<<
- *     "INDICES" : INDICES,
- *     "CRDIDX" : CRDIDX,
- */
-  __pyx_t_2 = PyInt_FromLong(Trajin_Multi::TEMP); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 401; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_TEMP, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 399; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "pytraj/cpptraj_dict.pyx":402
- *     "NONE" : NONETARGETTYPE,
- *     "TEMP" : TEMP,
- *     "INDICES" : INDICES,             # <<<<<<<<<<<<<<
- *     "CRDIDX" : CRDIDX,
- *     }
- */
-  __pyx_t_2 = PyInt_FromLong(Trajin_Multi::INDICES); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 402; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_INDICES, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 399; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "pytraj/cpptraj_dict.pyx":403
- *     "TEMP" : TEMP,
- *     "INDICES" : INDICES,
- *     "CRDIDX" : CRDIDX,             # <<<<<<<<<<<<<<
- *     }
- * 
- */
-  __pyx_t_2 = PyInt_FromLong(Trajin_Multi::CRDIDX); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 403; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_CRDIDX, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 399; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_TargetDict, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 399; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pytraj/cpptraj_dict.pyx":408

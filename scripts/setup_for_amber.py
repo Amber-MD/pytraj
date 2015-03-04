@@ -17,9 +17,11 @@ def read(fname):
 try:
     import Cython.Distutils.build_ext
     from Cython.Build import cythonize
+    has_cython = True
 except ImportError:
-    sys.stderr.write('You must have Cython installed to install pytraj\n')
-    sys.exit(0)
+    has_cython = False
+    #sys.stderr.write('You must have Cython installed to install pytraj\n')
+    #sys.exit(0)
 
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
@@ -41,9 +43,12 @@ try:
 finally:
     f.close()
 
-ext = ".pyx"
 ext_modules = []
 for ext_name in pyxfiles:
+    if has_cython:
+        ext = ".pyx"
+    else:
+        ext = ".cpp"
     pyxfile = pytraj_home + ext_name + ext
 
     # replace "/" by "." get module
