@@ -18,7 +18,7 @@ cdef extern from "DataSet_MatrixDbl.h":
         int Allocate2D(size_t x, size_t y)
         int AllocateHalf(size_t x)
         int AllocateTriangle(size_t x)
-        void Write2D(_CpptrajFile&, int, int) const 
+        #void Write2D(_CpptrajFile&, int, int) const 
         double GetElement(size_t x, size_t y) const 
         size_t Nrows() const 
         size_t Ncols() const 

@@ -4,7 +4,7 @@ from libcpp.string cimport string
 from pytraj.Frame cimport _Frame, Frame
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj.Topology cimport _Topology, Topology
-from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
+#from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
 from pytraj.AtomMask cimport _AtomMask, AtomMask
 from pytraj.datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
 from pytraj.trajs.Trajin cimport _Trajin, Trajin
@@ -27,7 +27,7 @@ cdef extern from "DataSet_Coords_TRJ.h":
         void Add(size_t, const void *)
         double Dval(size_t) const 
         double Xcrd(size_t idx) const 
-        void WriteBuffer(_CpptrajFile&, size_t) const 
+        #void WriteBuffer(_CpptrajFile&, size_t) const 
         void _AddFrame "AddFrame"(const _Frame& fIn)
         void SetCRD(int idx, const _Frame& fIn)
         void _GetFrame "GetFrame"(int idx, _Frame& fIn)

@@ -34,8 +34,8 @@ cdef class DataSet:
     def set_precision(self, int widthIn , int precisionIno):
         self.baseptr0.SetPrecision(widthIn, precisionIno)
 
-    def setup_set(self, string nameIn, int idxIn, string aspectIn):
-        return self.baseptr0.SetupSet(nameIn, idxIn, aspectIn)
+    #def setup_set(self, string nameIn, int idxIn, string aspectIn):
+    #    return self.baseptr0.SetupSet(nameIn, idxIn, aspectIn)
 
     def set_legend(self, string lIn):
         self.baseptr0.SetLegend(lIn)
@@ -51,9 +51,6 @@ cdef class DataSet:
 
     def set_data_set_format(self, bint leftAlignIn):
         return self.baseptr0.SetDataSetFormat(leftAlignIn)
-
-    def matches(self, string dsname, int idxnum, string aspectIn):
-        return self.baseptr0.Matches(dsname, idxnum, aspectIn)
 
     def scalar_descr(self):
         self.baseptr0.ScalarDescription()

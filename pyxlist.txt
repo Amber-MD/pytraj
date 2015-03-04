@@ -33,7 +33,7 @@ Topology
 TopologyList
 TrajinList
 Trajin_Single
-trajs/Trajin_Multi
+#trajs/Trajin_Multi
 Vec3
 FileName
 FileTypes
@@ -126,7 +126,7 @@ actions/Action_LESsplit
 actions/Action_LIE
 actions/Action_MakeStructure
 actions/Action_Mask
-actions/Action_Mask_2
+#actions/Action_Mask_2
 actions/Action_Matrix
 actions/Action_Molsurf
 #actions/Action_MRT #can not compile

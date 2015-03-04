@@ -39,11 +39,6 @@ cdef class Trajout:
         print "TrajFormat"
         print TrajFormatDict.keys()
 
-    #@property
-    #def formats(self):
-    #    """return a list of possible format to be used with self.open"""
-    #    return TrajFormatDict.keys()
-        
     def open(self, filename='', top=Topology(), fmt='UNKNOWN_TRAJ', 
              more_args=None, overwrite=False):
         cdef ArgList arglist
@@ -73,7 +68,6 @@ cdef class Trajout:
             # 'PDBFILE' 'MOL2FILE'
             fmt += 'FILE'
 
-        #filename = filename.encode("UTF-8")
         if more_args:
             if isinstance(more_args, string_types):
                 inputstring = more_args
@@ -82,10 +76,9 @@ cdef class Trajout:
                 arglist = <ArgList> more_args
             else:
                 raise ValueError()
-            #self.thisptr.InitTrajWrite(filename.encode("UTF-8"), arglist.thisptr[0], top_.thisptr, local_dict[fmt])
             self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr, local_dict[fmt])
         else:
-            self.thisptr.InitTrajWrite(filename, top_.thisptr, local_dict[fmt])
+            self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr, local_dict[fmt])
 
     def close(self):
         self.thisptr.EndTraj()
@@ -111,13 +104,5 @@ cdef class Trajout:
             # we use `len` here since we don't know if this is string or 
             # Topology object
             raise ValueError("require non-empty topology")
-        self.thisptr.WriteFrame(idx, top_.thisptr, frame.thisptr[0])
-
-    def print_info(self, int idx):
-        self.thisptr.PrintInfo(idx)
-
-    def is_open(self):
-        return self.thisptr.TrajIsOpen()
-
-    def nframes_processed(self):
-        return self.thisptr.NumFramesProcessed()
+        #self.thisptr.WriteFrame(idx, top_.thisptr, frame.thisptr[0])
+        self.thisptr.WriteFrame(idx, frame.thisptr[0])
