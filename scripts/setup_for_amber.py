@@ -17,26 +17,9 @@ def read(fname):
 try:
     import Cython.Distutils.build_ext
     from Cython.Build import cythonize
-except:
-    print ("There is no Cython")
-    print ("Try building Cython")
-    os.system("tar zxf cython-0.22.tar.gz")
-    os.chdir("Cython-0.22")
-    # adapted below code from `mmpbsa_py` package in Amber
-    try:
-        print('Building cython... This may take a few minutes.')
-        ret = os.system('%s setup.py build > ../../cython_install.log 2>&1'
-                        % sys.executable)
-        if ret != 0:
-            sys.exit(' Error in cython install. Check cython_install.log')
-        ret = os.system('%s setup.py install --prefix=%s' % (sys.executable,
-                        os.getenv('AMBERHOME')))
-        if ret != 0:
-            sys.exit(' Error in cython install. Check cython_install.log')
-    finally:
-        os.chdir('..')
-    import Cython.Distutils.build_ext
-    from Cython.Build import cythonize
+except ImportError:
+    sys.stderr.write('You must have Cython installed to install pytraj\n')
+    sys.exit(0)
 
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
