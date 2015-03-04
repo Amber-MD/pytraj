@@ -1,0 +1,4 @@
+1. How to include in AmberTools setup?
+
+2. should we inlcude cythonized *.cpp files (don't need Cython)
+if YES, need to update setup_for_amber.py
