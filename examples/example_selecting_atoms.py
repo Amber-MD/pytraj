@@ -29,9 +29,14 @@ def main():
     # TODO : not reproduce cpptraj output
     from time import time
     t0 = time()
-    ref = mdio.load("../tests/data/Tc5b.crd", "../tests/data/Tc5b.top")[0].get_subframe(":2-12@CA :12-16@H", top=traj.top)
+    ref0 = mdio.load("../tests/data/Tc5b.crd", "../tests/data/Tc5b.top")[0]
+
+    # get new frame object with stripped atoms
+    ref = ref0.get_subframe(":2-12@CA :12-16@H", top=traj.top)
     arrrmsd = np.empty(traj.size)
     for idx, frame in enumerate(traj):
+
+        # get coordinates (numpy 2D-array)
         arr0 = frame[top(":2-12@CA :12-16@H")]
         framenew = Frame(arr0.shape[0])
         framenew.set_from_crd(arr0.flatten())

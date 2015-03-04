@@ -11,3 +11,11 @@ print(traj[:, :, :].shape)
 # get new array with shape (n_atoms, 3) for 0-th frame
 print(traj[0, :, :].shape)
 
+# get new Trajectory object with strip atoms
+# keeping only CA atoms
+print (traj['@CA :frame'])
+
+# get coordinate of all CA atoms for all frames?
+# don't use `:frame`
+print (traj['@CA'].shape)
+# result: (10, 20, 3)
