@@ -297,30 +297,10 @@ cdef class Trajin (TrajectoryFile):
         _Trajin.CheckFrameArgs(argIn.thisptr[0], maxFrames, startArg, stopArg, offsetArg)
         return startArg, stopArg, offsetArg
 
-    def check_finished(self):
-        self.check_allocated()
-        return self.baseptr_1.CheckFinished()
-
-    def update_counters(self):
-        self.check_allocated()
-        self.baseptr_1.UpdateCounters()
-
     def get_next_frame(self, Frame frame):
         #cdef Frame frame = Frame()
         self.baseptr_1.GetNextFrame(frame.thisptr[0])
         #return frame
-
-    def setup_trajio(self, string s, TrajectoryIO trajio, ArgList arglist):
-        self.check_allocated()
-        return self.baseptr_1.SetupTrajIO(s, trajio.baseptr_1[0], arglist.thisptr[0])
-
-    def setup_frame_info(self):
-        self.check_allocated()
-        return self.baseptr_1.setupFrameInfo()
-
-    def prepare_for_read(self,bint b):
-        self.check_allocated()
-        self.baseptr_1.PrepareForRead(b)
 
     property max_frames:
         def __get__(self):
@@ -336,30 +316,6 @@ cdef class Trajin (TrajectoryFile):
     def size(self):
         # alias of max_frames
         return self.max_frames
-
-    @property
-    def total_read_frames(self):
-        self.check_allocated()
-        return self.baseptr_1.TotalReadFrames()
-
-    @property
-    def current_frame(self):
-        self.check_allocated()
-        return self.baseptr_1.CurrentFrame()
-
-    def start(self):
-        self.check_allocated()
-        return self.baseptr_1.Start()
-
-    @property
-    def offset(self):
-        self.check_allocated()
-        return self.baseptr_1.Offset()
-
-    @property
-    def num_frames_processed(self):
-        self.check_allocated()
-        return self.baseptr_1.NumFramesProcessed()
 
     def is_ensemble(self):
         self.check_allocated()
