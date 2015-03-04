@@ -11,20 +11,6 @@ cdef class DataSet_2D (DataSet):
 
     def __dealloc__(self):
         pass
-        # don't __dealloc__ here since this is abstract class
-        #del self.baseptr_1
-
-    #def DataSet_2D(self,DataSet:
-
-    #def virtual int Allocate2D(self,size_t, size_t)= 0 :
-
-    #def virtual int AllocateHalf(self,size_t)= 0 :
-
-    #def virtual int AllocateTriangle(self,size_t)= 0 :
-
-    #def virtual void Write2D(self,CpptrajFile, int, int) = 0 :
-
-    #def virtual double GetElement(self,size_t, size_t) = 0 :
 
     @property
     def n_rows(self):
@@ -34,7 +20,6 @@ cdef class DataSet_2D (DataSet):
     def n_cols(self):
         return self.baseptr_1.Ncols()
 
-    #def virtual double * MatrixArray(self):
     @property
     def data(self):
         cdef int i
@@ -48,16 +33,5 @@ cdef class DataSet_2D (DataSet):
             raise ValueError("Can not get MatrixArray")
 
     @property
-    def kind(self):
-        return get_key(self.baseptr_1.Kind(), MatrixKindDict)
-
-
-    @property
     def type(self):
         return get_key(self.baseptr_1.m2dType(), MatrixDict)
-
-    #def void Add(self,size_t, void *):
-
-    #def char * MatrixTypeString(self,MatrixType m):
-
-    #def char * MatrixOutputString(self,MatrixType m):

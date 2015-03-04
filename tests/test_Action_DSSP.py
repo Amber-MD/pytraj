@@ -34,8 +34,8 @@ class TestRadgyr(unittest.TestCase):
         arr0 = dslist.get_dataset(dtype='integer')
         print (arr0.shape)
 
-        print (arr0[0].__len__())
-        print (arr0[0])
+        #print (arr0[0].__len__())
+        #print (arr0[0])
 
     def test_1(self):
         dslist = DataSetList()

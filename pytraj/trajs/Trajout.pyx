@@ -80,6 +80,9 @@ cdef class Trajout:
         else:
             self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr, local_dict[fmt])
 
+        # real open
+        self.thisptr.SetupTrajWrite(top_.thisptr)
+
     def close(self):
         self.thisptr.EndTraj()
 
