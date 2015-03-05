@@ -1,3 +1,5 @@
 Lead developer: Hai Nguyen (hainm.comp at gmail.com, http://www.hainguyencomp.info/)
 
 Contributors: (add yours contributions here)
+
+Acknowledgement: Hai Nguyen thanks Jason Swails for his help (suggestion for building API, git stuff, porting code to Amber, ...)
