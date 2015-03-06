@@ -1,5 +1,5 @@
 from __future__ import absolute_import 
-from pytraj import AtomSelect
+from pytraj.AtomSelect import AtomSelect
 import numpy as np
 from .gdt import gdt
 
