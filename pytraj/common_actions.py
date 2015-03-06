@@ -16,9 +16,9 @@ from pytraj.DistRoutines import distance
 from pytraj.gdt.calc_score import calc_score
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
-           'calc_molsurf', 'calc_distrmsd', 'calc_protein_score', 'calc_watershell']
+               'calc_molsurf', 'calc_distrmsd', 'calc_protein_score', 'calc_watershell']
 
-list_of_do = ['do_translation', 'do_rotation']
+list_of_do = ['do_translation', 'do_rotation', 'do_autoimage']
 
 __all__ = list_of_do + list_of_cal
 
@@ -58,3 +58,6 @@ def do_translation(command="", traj=None, top=Topology()):
 
 def do_rotation(command="", traj=None, top=Topology()):
     adict['rotate'](command, traj, top)
+
+def do_autoimage(command="", traj=None, top=Topology()):
+    adict['autoimage'](command, traj, top)
