@@ -134,9 +134,3 @@ cdef class CpptrajFile:
 
     def file_size(self):
         return self.thisptr.FileSize()
-
-    def is_compressed(self):
-        return self.thisptr.IsCompressed()
-
-    def uncompressed_size(self):
-        return self.thisptr.UncompressedSize()

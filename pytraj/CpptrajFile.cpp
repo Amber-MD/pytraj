@@ -741,8 +741,6 @@ static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_34compression(stru
 static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_36is_open(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_38filename(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_40file_size(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_42is_compressed(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_44uncompressed_size(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile *__pyx_v_self); /* proto */
 static PyObject *__pyx_tp_new_6pytraj_11CpptrajFile_CpptrajFile(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static char __pyx_k_[] = "";
 static char __pyx_k_a[] = "a";
@@ -3102,7 +3100,6 @@ static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_38filename(struct 
  * 
  *     def file_size(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.FileSize()
- * 
  */
 
 /* Python wrapper */
@@ -3132,8 +3129,6 @@ static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_40file_size(struct
  * 
  *     def file_size(self):
  *         return self.thisptr.FileSize()             # <<<<<<<<<<<<<<
- * 
- *     def is_compressed(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_From_off_t(__pyx_v_self->thisptr->FileSize()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3147,137 +3142,12 @@ static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_40file_size(struct
  * 
  *     def file_size(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.FileSize()
- * 
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("pytraj.CpptrajFile.CpptrajFile.file_size", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/CpptrajFile.pyx":138
- *         return self.thisptr.FileSize()
- * 
- *     def is_compressed(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.IsCompressed()
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_11CpptrajFile_11CpptrajFile_43is_compressed(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_11CpptrajFile_11CpptrajFile_42is_compressed[] = "CpptrajFile.is_compressed(self)";
-static PyObject *__pyx_pw_6pytraj_11CpptrajFile_11CpptrajFile_43is_compressed(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("is_compressed (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_42is_compressed(((struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_42is_compressed(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("is_compressed", 0);
-
-  /* "pytraj/CpptrajFile.pyx":139
- * 
- *     def is_compressed(self):
- *         return self.thisptr.IsCompressed()             # <<<<<<<<<<<<<<
- * 
- *     def uncompressed_size(self):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->thisptr->IsCompressed()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pytraj/CpptrajFile.pyx":138
- *         return self.thisptr.FileSize()
- * 
- *     def is_compressed(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.IsCompressed()
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.CpptrajFile.CpptrajFile.is_compressed", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/CpptrajFile.pyx":141
- *         return self.thisptr.IsCompressed()
- * 
- *     def uncompressed_size(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.UncompressedSize()
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_11CpptrajFile_11CpptrajFile_45uncompressed_size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_11CpptrajFile_11CpptrajFile_44uncompressed_size[] = "CpptrajFile.uncompressed_size(self)";
-static PyObject *__pyx_pw_6pytraj_11CpptrajFile_11CpptrajFile_45uncompressed_size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("uncompressed_size (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_44uncompressed_size(((struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_11CpptrajFile_11CpptrajFile_44uncompressed_size(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("uncompressed_size", 0);
-
-  /* "pytraj/CpptrajFile.pyx":142
- * 
- *     def uncompressed_size(self):
- *         return self.thisptr.UncompressedSize()             # <<<<<<<<<<<<<<
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_off_t(__pyx_v_self->thisptr->UncompressedSize()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pytraj/CpptrajFile.pyx":141
- *         return self.thisptr.IsCompressed()
- * 
- *     def uncompressed_size(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.UncompressedSize()
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.CpptrajFile.CpptrajFile.uncompressed_size", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3640,8 +3510,6 @@ static PyMethodDef __pyx_methods_6pytraj_11CpptrajFile_CpptrajFile[] = {
   {"is_open", (PyCFunction)__pyx_pw_6pytraj_11CpptrajFile_11CpptrajFile_37is_open, METH_NOARGS, __pyx_doc_6pytraj_11CpptrajFile_11CpptrajFile_36is_open},
   {"filename", (PyCFunction)__pyx_pw_6pytraj_11CpptrajFile_11CpptrajFile_39filename, METH_NOARGS, __pyx_doc_6pytraj_11CpptrajFile_11CpptrajFile_38filename},
   {"file_size", (PyCFunction)__pyx_pw_6pytraj_11CpptrajFile_11CpptrajFile_41file_size, METH_NOARGS, __pyx_doc_6pytraj_11CpptrajFile_11CpptrajFile_40file_size},
-  {"is_compressed", (PyCFunction)__pyx_pw_6pytraj_11CpptrajFile_11CpptrajFile_43is_compressed, METH_NOARGS, __pyx_doc_6pytraj_11CpptrajFile_11CpptrajFile_42is_compressed},
-  {"uncompressed_size", (PyCFunction)__pyx_pw_6pytraj_11CpptrajFile_11CpptrajFile_45uncompressed_size, METH_NOARGS, __pyx_doc_6pytraj_11CpptrajFile_11CpptrajFile_44uncompressed_size},
   {0, 0, 0, 0}
 };
 
