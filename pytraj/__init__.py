@@ -15,7 +15,7 @@ adict = ActionDict()
 analdict = AnalysisDict()
 
 from pytraj.run_tests import run_tests
-from pytraj.AtomSelect import AtomSelect
+#from pytraj.AtomSelect import AtomSelect
 from pytraj.Frame import Frame
 from pytraj.FrameArray import FrameArray
 from pytraj.Topology import Topology
