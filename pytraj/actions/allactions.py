@@ -58,8 +58,6 @@ from pytraj.actions.Action_FilterByData import Action_FilterByData
 from pytraj.actions.Action_AtomicCorr import Action_AtomicCorr
 from pytraj.actions.Action_Mask import Action_Mask
 from pytraj.actions.Action_Box import Action_Box
-from pytraj.actions.Action_Rotdif import Action_Rotdif
-#from pytraj.actions.Action_MRT import Action_MRT # can not compile
 from pytraj.actions.Action_PairDist import Action_PairDist
 from pytraj.actions.Action_NativeContacts import Action_NativeContacts
 from pytraj.actions.Action_FixAtomOrder import Action_FixAtomOrder
