@@ -4,7 +4,7 @@ if sys.version_info < (2, 7):
     sys.exit(0)
 
 import os
-from distutils.core import setup
+from distutils.core import setup, Command
 from distutils import ccompiler
 from distutils.extension import Extension
 from random import shuffle
@@ -14,14 +14,16 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 # check/install Cython
+cmdclass = {}
 try:
-    import Cython.Distutils.build_ext
+    from Cython.Distutils import build_ext
     from Cython.Build import cythonize
     has_cython = True
-    cmdclass = {'build_ext': Cython.Distutils.build_ext},
+    cmdclass['build_ext'] = build_ext
 except ImportError:
     has_cython = False
-    cmdclass = {}
+    import distutils.command.build_ext
+    cmdclass['build_ext'] = distutils.command.build_ext
     #sys.stderr.write('You must have Cython installed to install pytraj\n')
     #sys.exit(0)
 
@@ -104,13 +106,13 @@ packages = [
 
 pylen = len('pytraj') + 1
 datalist = [p for p in pxd_include_patterns]
+print (datalist)
 sample_data = ["data_sample/Ala3/Ala3.*",]
 html_data = ["html/static/*"] 
 datalist = datalist +  sample_data + html_data
 
 if __name__ == "__main__":
-    setup(
-        name="pytraj",
+    kwd = dict(name="pytraj",
         version="0.1.0.2pre",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
@@ -131,6 +133,7 @@ if __name__ == "__main__":
                     'Programming Language :: C++',
                     'Topic :: Scientific/Engineering'],
         ext_modules = ext_modules,
-        cmdclass = cmdclass,
         package_data = {'pytraj' : datalist},
+        cmdclass = cmdclass
     )
+    setup(**kwd)
