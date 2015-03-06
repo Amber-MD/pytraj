@@ -22,8 +22,8 @@ try:
     cmdclass['build_ext'] = build_ext
 except ImportError:
     has_cython = False
-    import distutils.command.build_ext
-    cmdclass['build_ext'] = distutils.command.build_ext
+    from distutils.command.build_ext import build_ext 
+    cmdclass['build_ext'] = build_ext
     #sys.stderr.write('You must have Cython installed to install pytraj\n')
     #sys.exit(0)
 
@@ -112,7 +112,7 @@ html_data = ["html/static/*"]
 datalist = datalist +  sample_data + html_data
 
 if __name__ == "__main__":
-    kwd = dict(name="pytraj",
+    setup(name="pytraj",
         version="0.1.0.2pre",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
@@ -134,6 +134,5 @@ if __name__ == "__main__":
                     'Topic :: Scientific/Engineering'],
         ext_modules = ext_modules,
         package_data = {'pytraj' : datalist},
-        cmdclass = cmdclass
+        cmdclass = cmdclass,
     )
-    setup(**kwd)
