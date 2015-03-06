@@ -90,7 +90,7 @@ cdef extern from "Topology.h":
         string AtomMaskName(int atom) const 
         string TruncResNameNum(int) const 
         int FindAtomInResidue(int, const _NameType&) const 
-        int FindResidueMaxNatom() const 
+        #int FindResidueMaxNatom() const 
         int SoluteAtoms() const 
         int SetSolvent(const string&)
         void Summary() const 

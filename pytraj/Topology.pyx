@@ -223,8 +223,9 @@ cdef class Topology:
             _atomnametype = <NameType> atname 
         return self.thisptr.FindAtomInResidue(res, _atomnametype.thisptr[0])
     
-    def find_residue_max_natom(self):
-        return self.thisptr.FindResidueMaxNatom()
+    # cpptraj does not have this anymore.
+    #def find_residue_max_natom(self):
+    #    return self.thisptr.FindResidueMaxNatom()
     
     #def SoluteAtoms(self):
     #    return self.thisptr.SoluteAtoms()
