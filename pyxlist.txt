@@ -146,7 +146,7 @@ actions/Action_Radial
 actions/Action_RandomizeIons
 actions/Action_Rmsd
 actions/Action_Rotate
-actions/Action_Rotdif 
+#actions/Action_Rotdif 
 actions/Action_RunningAvg
 actions/Action_Scale
 actions/Action_SetVelocity
