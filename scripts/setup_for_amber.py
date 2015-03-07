@@ -1,6 +1,6 @@
 import sys
-if sys.version_info < (2, 7):
-    sys.stderr.write('You must have at least Python 2.7 for pytraj\n')
+if sys.version_info < (2, 6):
+    sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
 
 import os
