@@ -7,7 +7,8 @@ Lastest change
 
 Features added (from March 2015 - )
 ----------------------------------
-* 
+* support Python 2.6
+* ported to Ambertools 15
 
 Features added (from Jan 2015 - Feb 2015)
 ----------------------------------------
