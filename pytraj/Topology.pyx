@@ -492,3 +492,14 @@ cdef class Topology:
             raise ValueError("support only Topology object or top filename")
 
         self.thisptr.AppendTop(_top.thisptr[0])
+
+    @property
+    def masses(self):
+        # TODO : use Cython memoryview if needed
+        """return python array of atom masses"""
+        cdef pyarray marray = pyarray('d', [])
+        cdef Atom atom
+
+        for atom in self.atom_iter():
+            marray.append(atom.mass)
+        return marray
