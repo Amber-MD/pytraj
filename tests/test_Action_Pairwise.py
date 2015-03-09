@@ -16,7 +16,10 @@ class Test(unittest.TestCase):
         for ds in dslist:
             print (ds)
 
-        print (dslist[3].data)
+        #d3 = dslist[3]
+        #$for i in range(d3.size):
+        #$    print (d3[i])
+        #$#print (dslist[3].data)
 
 if __name__ == "__main__":
     unittest.main()
