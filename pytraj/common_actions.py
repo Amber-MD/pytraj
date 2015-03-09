@@ -13,10 +13,11 @@ from pytraj.Topology import Topology
 from pytraj.DataSetList import DataSetList
 from pytraj.misc import calculate, calc_dssp
 from pytraj.DistRoutines import distance 
-from pytraj.gdt.calc_score import calc_score
+#from pytraj.gdt.calc_score import calc_score
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
-               'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
+               #'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
+               'calc_molsurf', 'calc_distrmsd', 'calc_volume', 
                'calc_watershell']
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage']
@@ -31,7 +32,7 @@ calc_angle = partial(calculate, 'angle')
 calc_molsurf = partial(calculate, 'molsurf')
 calc_distrmsd = partial(calculate, 'distrmsd')
 calc_volume = partial(calculate, 'volume')
-calc_protein_score = calc_score
+#calc_protein_score = calc_score
 
 do_translation = partial(calculate, 'translate')
 do_rotation = partial(calculate, 'rotate')

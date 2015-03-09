@@ -1,5 +1,4 @@
-import unittest
-import numpy as np
+#import unittest
 from array import array
 from pytraj.base import *
 from pytraj import io as mdio
