@@ -121,7 +121,7 @@ except:
         print ("choose Quit (1) or Stay (2)? \n")
         
         answer = raw_input("\n")
-        if answer.lower() in ['q', 'quite', '1']:
+        if answer.lower() in ['q', 'quit', '1']:
             print ("Bye bye ^_^")
             print ("Quit ....")
             from scripts.acsii_art import batman
