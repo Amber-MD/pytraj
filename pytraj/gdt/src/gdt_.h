@@ -95,7 +95,10 @@ void rotate(float *atoms1, float *atoms2, bool *indexes, int protlen) {
 		    double magnitude = sqrt(-aDiv3);
 		    double angle = atan2(sqrt(-1*q),mbDiv2)*inv3;
 		    double sn,cs;//=sin(angle); double cs=cos(angle);
-		    __sincos(angle,&sn,&cs);
+		    //__sincos(angle,&sn,&cs);
+            // turn off __sincos: got undefined symbol: __sincos in my Linux machine
+		    sn = sin(angle);
+		    cs = cos(angle);
 		    double magnitudecs = magnitude*cs;
 		    double magnituderoot = magnitude*root3*sn;
 

@@ -75,3 +75,4 @@ from pytraj.actions.Action_Channel import Action_Channel
 from pytraj.actions.Action_ReplicateCell import Action_ReplicateCell
 from pytraj.actions.Action_MultiVector import Action_MultiVector
 from pytraj.actions.Action_MinImage import Action_MinImage
+from pytraj.actions.Action_Volume import Action_Volume

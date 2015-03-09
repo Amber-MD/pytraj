@@ -168,6 +168,7 @@ actions/Action_AreaPerMol
 actions/Action_ReplicateCell
 actions/Action_MultiVector
 actions/Action_MinImage
+actions/Action_Volume
 DataFile
 analyses/Analysis_Matrix
 analyses/Analysis_Rms2d
