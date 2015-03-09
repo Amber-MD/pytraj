@@ -1,11 +1,8 @@
 from __future__ import absolute_import 
-from pytraj.AtomSelect import AtomSelect
-import numpy as np
 from .gdt import gdt
 
 def calc_score(frame0=None, frame1=None, mask="*", 
                top=None, score="gdtscore", *args, **kwd):
-    #print "API will be changed"
     if score == 'gdtscore':
         _score = 1
     elif score == 'tmscore':
@@ -13,10 +10,8 @@ def calc_score(frame0=None, frame1=None, mask="*",
     elif score == 'maxsub':
         _score = 3
 
-    ats = AtomSelect(top=top)
-    ats.selected_frame = frame0
-    arr0 = np.asarray(ats.select(mask).flatten(), dtype=np.float32)
+    atm = top(mask)
+    arr0 = frame0.get_subframe(atm).coords
 
-    ats.selected_frame = frame1
-    arr1 = np.asarray(ats.select(mask).flatten(), dtype=np.float32)
+    arr1 = frame1.get_subframe(atm).coords
     return gdt(arr0, arr1, 1, len(arr0)/3, _score)[0]

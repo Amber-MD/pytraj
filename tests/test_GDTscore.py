@@ -1,4 +1,4 @@
-#import unittest
+import unittest
 from array import array
 from pytraj.base import *
 from pytraj import io as mdio
@@ -18,6 +18,7 @@ class Test(unittest.TestCase):
 
         # do our calculation
         # score = 'gdtscore', 'tmscore' or 'maxsub'
+        # need to add assert
         score = 'tmscore'
         print('%s = %s ' % (score, calc_score(traj[IDX0], traj[IDX1], "@CA", traj.top, score=score)/1000.))
         print(calc_score(traj[IDX1], traj[IDX0], "@CA", traj.top, score=score)/1000.)
