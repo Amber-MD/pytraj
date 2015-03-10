@@ -21,8 +21,6 @@ cdef extern from "DataSet_Coords_TRJ.h":
         int AddSingleTrajin(const string&, _ArgList&, _Topology *)
         int AddInputTraj(_Trajin *)
         size_t Size() const 
-        int Sync() 
-        void Info() const 
         int Allocate1D(size_t)
         void Add(size_t, const void *)
         double Dval(size_t) const 
@@ -32,6 +30,7 @@ cdef extern from "DataSet_Coords_TRJ.h":
         void SetCRD(int idx, const _Frame& fIn)
         void _GetFrame "GetFrame"(int idx, _Frame& fIn)
         void _GetFrame "GetFrame"(int idx, _Frame& fIn, const _AtomMask& mIn)
+        int UpdateTrjFrames(int max_frames)
 
 
 cdef class DataSet_Coords_TRJ(DataSet_Coords):

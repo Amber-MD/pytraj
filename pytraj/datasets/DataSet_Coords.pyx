@@ -100,7 +100,7 @@ cdef class DataSet_Coords(DataSet_1D):
     def append(self, frame):
         """alis of addframe"""
         #self.baseptr_2.AddFrame(frame.thisptr[0])
-        self.addframe(frame)
+        self.add_frame(frame)
 
     def getframe(self, int idx, Frame frameout):
         self.baseptr_2.GetFrame(idx, frameout.thisptr[0])
