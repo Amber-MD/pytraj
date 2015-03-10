@@ -75,7 +75,6 @@ cdef class DataSet_Coords(DataSet_1D):
                 raise ValueError("index is out of range")
         self.baseptr_2.SetCRD(idx, other.thisptr[0])
 
-        
     def allocate_frame(self):
         cdef Frame frame = Frame()
         frame.thisptr[0] = self.baseptr_2.AllocateFrame()
@@ -94,7 +93,7 @@ cdef class DataSet_Coords(DataSet_1D):
             self.baseptr_2.SetTopology(other.thisptr[0])
     # TODO: add more virtual methods?
 
-    def addframe(self, Frame frame):
+    def add_frame(self, Frame frame):
         # TODO : add indices and FrameArray, Trajin_Single ...
         self.baseptr_2.AddFrame(frame.thisptr[0])
 
