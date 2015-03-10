@@ -174,5 +174,6 @@ analyses/Analysis_Matrix
 analyses/Analysis_Rms2d
 analyses/Analysis_Lifetime
 gdt/gdt
+gdt/calc_score
 _save_traj
 CoordinateInfo

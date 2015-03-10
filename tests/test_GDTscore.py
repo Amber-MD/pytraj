@@ -1,4 +1,4 @@
-#import unittest
+import unittest
 from array import array
 from pytraj.base import *
 from pytraj import io as mdio
@@ -20,8 +20,9 @@ class Test(unittest.TestCase):
         # score = 'gdtscore', 'tmscore' or 'maxsub'
         # need to add assert
         score = 'tmscore'
-        print('%s = %s ' % (score, calc_score(traj[IDX0], traj[IDX1], "@CA", traj.top, score=score)/1000.))
-        print(calc_score(traj[IDX1], traj[IDX0], "@CA", traj.top, score=score)/1000.)
+        print('%s = %s ' % (score, calc_score(traj[IDX0], traj[IDX1], "@CA", traj.top, score=score)))
+        tmscore = calc_score(traj[IDX1], traj[IDX0], "@CA", traj.top, score=score)
+        assert_almost_equal([tmscore,], [0.38941,], decimals=2) # 0.38941: from TMalign
 
         # calculate RMSD
         print("rmsd = ", traj[IDX0].rmsd(traj[IDX1]))
