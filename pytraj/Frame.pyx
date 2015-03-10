@@ -183,28 +183,30 @@ cdef class Frame (object):
             # return a sub-array copy with indices got from 
             # idx.selected_indices()
             # TODO : add doc
+            if idx.n_atoms == 0:
+                raise ValueError("emtpy mask")
             if not has_numpy:
-                raise NotImplementedError("supported if having numpy installed")
-            arr0 = np.asarray(self.buffer3d[:])
-            if isinstance(idx, AtomMask):
-                if idx.n_atoms == 0:
-                    raise ValueError("emtpy mask")
-                return arr0[np.array(idx.selected_indices())]
+                # return 2D list
+                tmp_arr0 = []
+                for _index in idx.selected_indices():
+                    tmp_arr0.append(list(self.buffer3d[_index]))
+                return tmp_arr0
+                #raise NotImplementedError("supported if having numpy installed")
             else:
-                # TODO : double-check if we can use np.ndarray or pyarray here?
-                # isinstance(idx, pyarray)
-                return arr0[idx]
+                arr0 = np.asarray(self.buffer3d[:])
+                return arr0[np.array(idx.selected_indices())]
         elif isinstance(idx, dict):
             # Example: frame[dict(top=top, mask='@CA')]
             # return a sub-array copy with indices got from 
             # idx as a `dict` instance
             # TODO : add doc
-            if not has_numpy:
-                raise NotImplementedError("supported if having numpy installed")
             atm = AtomMask(idx['mask'])
             idx['top'].set_integer_mask(atm)
-            arr0 = np.asarray(self.buffer3d[:])
-            return arr0[np.array(atm.selected_indices())]
+            if has_numpy:
+                arr0 = np.asarray(self.buffer3d[:])
+                return arr0[np.array(atm.selected_indices())]
+            else:
+                return self[atm]
         elif isinstance(idx, string_types):
             # Example: frame['@CA']
             if self.top is not None and not self.top.is_empty():
