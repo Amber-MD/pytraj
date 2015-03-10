@@ -455,14 +455,12 @@ cdef class Topology:
             # list
             return atm.selected_indices()
 
-    @name_will_be_changed("")
     def get_unique_resname(self):
         s = set()
         for res in self.residue_iter():
             s.add(res.name)
         return s
 
-    @name_will_be_changed("")
     def get_unique_atomname(self):
         s = set()
         for atom in self.atom_iter():
