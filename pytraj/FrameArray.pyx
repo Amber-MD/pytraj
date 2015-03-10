@@ -179,16 +179,18 @@ cdef class FrameArray (object):
                     if ':frame' not in mask:
                         # return numpy array
                         has_numpy, np = _import_numpy()
-                        if not has_numpy:
-                            print ('must have numpy to get coords directly')
-                            print ("add :frame to mask to get sub-FrameArray")
-                            print ("example: traj['@CA :frame']")
-                            raise NotImplementedError("")
                         N = self.top(mask).n_atoms
-                        arr0 = np.empty(N*self.size*3).reshape(self.size, N, 3)
-                        for i, frame in enumerate(self):
-                            arr0[i] = frame[self.top(mask)]
-                        return arr0
+                        if has_numpy:
+                            arr0 = np.empty(N*self.size*3).reshape(self.size, N, 3)
+                            for i, frame in enumerate(self):
+                                arr0[i] = frame[self.top(mask)]
+                            return arr0
+                        else:
+                            # create 3D list with shape of (n_frames, n_atoms, 3)
+                            _coord_list = []
+                            for frame in self:
+                                _coord_list.append(frame[self.top(mask)])
+                            return _coord_list
                     else:
                         _farray = FrameArray()
                         _farray.top = self.top.modify_state_by_mask(self.top(mask))
