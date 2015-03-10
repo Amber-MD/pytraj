@@ -56,6 +56,21 @@ def calc_watershell(command, traj, top=Topology()):
     adict['watershell'](command, traj, top, dslist=dslist)
     return dslist
 
+def calc_radial(command, traj, top=Topology()):
+    '''Action_Radial require calling Print() to get output. We make change here'''
+    act = adict['radial']
+    # add `radial` keyword to command (need to check `why`?)
+    command = 'radial ' + command
+    dslist = DataSetList()
+    if not top.is_empty():
+        act(command, traj, top, dslist=dslist)
+    else:
+        act(command, traj, dslist=dslist)
+
+    # dump data to dslist.
+    act.print_output()
+    return dslist
+
 def do_translation(command="", traj=None, top=Topology()):
     adict['translate'](command, traj, top)
 
