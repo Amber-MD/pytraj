@@ -1432,7 +1432,7 @@ struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr {
 };
 
 
-/* "pytraj/analyses/Analysis.pxd":25
+/* "pytraj/analyses/Analysis.pxd":23
  * 
  * 
  * cdef class Analysis:             # <<<<<<<<<<<<<<

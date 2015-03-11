@@ -181,3 +181,13 @@ cdef class DataSetList:
         if not dset.baseptr0:
             raise MemoryError("Can not initialize pointer")
         return dset
+
+    def find_set_of_type(self, filename, dtype):
+        cdef DataSet dset = DataSet()
+
+        dtype = dtype.upper()
+        dset.baseptr0 = self.thisptr.FindSetOfType(filename.encode(), DataTypeDict[dtype])
+
+        if not dset.baseptr0:
+            raise MemoryError("Can not initialize pointer")
+        return dset

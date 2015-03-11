@@ -14,21 +14,12 @@ cdef class DataSet_Coords_TRJ(DataSet_Coords):
         self.baseptr_2 = <_DataSet_Coords*> self.baseptr0
         self.thisptr = <_DataSet_Coords_TRJ*> self.baseptr0
 
+        self.py_free_mem = True
+
     def __dealloc__(self):
-        del self.thisptr
+        if self.py_free_mem:
+            del self.thisptr
     
-    def __iter__(self):
-        """iterately getting Frame instance
-        TODO : get memoryview or copy?
-        """
-        cdef int i 
-        cdef Frame frame
-        frame = self.allocate_frame()
-
-        for i in range(self.size):
-            self.thisptr._GetFrame(i, frame.thisptr[0])
-            yield frame
-
     def _recast(self):
         self.baseptr0 = <_DataSet*> self.thisptr
         self.baseptr_1 = <_DataSet_1D*> self.thisptr
@@ -68,26 +59,6 @@ cdef class DataSet_Coords_TRJ(DataSet_Coords):
         """add memoryview for input trajin"""
         self.thisptr.AddInputTraj(trajin.baseptr_1)
 
-    def __getitem__(self, int idx):
-        cdef Frame frame
-        frame = self.allocate_frame()
-        self.get_frame(idx, frame)
-        return frame
-
-    def get_frame(self, int idx, Frame frame_in, *args):
-        cdef AtomMask atm_in
-        if self.top.n_atoms != frame_in.n_atoms:
-            raise ValueError("n_atoms should be matched between Frame and Topology")
-        if not args:
-            self.thisptr._GetFrame(idx, frame_in.thisptr[0])
-        else:
-            atm_in = args[0]
-            self.thisptr._GetFrame(idx, frame_in.thisptr[0], atm_in.thisptr[0])
-
     @property
     def size(self):
         return self.thisptr.Size()
-
-    @property
-    def n_frames(self):
-        return self.size

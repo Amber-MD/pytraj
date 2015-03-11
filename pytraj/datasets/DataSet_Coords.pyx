@@ -16,11 +16,28 @@ cdef class DataSet_Coords(DataSet_1D):
         # abstract class
         pass
 
+    @property
+    def n_frames(self):
+        return self.size
+
+    def __iter__(self):
+        """iterately getting Frame instance
+        TODO : get memoryview or copy?
+        """
+        cdef int i 
+        cdef Frame frame
+        frame = self.allocate_frame()
+
+        for i in range(self.size):
+            self.baseptr_2.GetFrame(i, frame.thisptr[0])
+            yield frame
+
     def __getitem__(self, idxs):
         # TODO : same as Trajin class
         # should combine or inherit or ?
         # return either a Frame instance or FrameArray instance
-        
+        # use self.tmpfarray to hold Frame or FrameArray object
+
         cdef Frame frame
         cdef FrameArray farray
         cdef int start, stop, step
@@ -42,7 +59,7 @@ cdef class DataSet_Coords(DataSet_1D):
                 if idxs != -1:
                     raise ValueError("index is out of range")
             self.baseptr_2.GetFrame(idx_1, frame.thisptr[0])
-            return frame
+            self.tmpfarray = frame
         else:
             # creat a subset array of `FrameArray`
             farray = FrameArray()
@@ -62,8 +79,9 @@ cdef class DataSet_Coords(DataSet_1D):
 
             for i in range(start, stop, step):
                 # turn `copy` to `False` to have memoryview
-                farray.append(self[i], copy=True)
-            return farray
+                farray.append(self[i], copy=False)
+            self.tmpfarray = farray
+        return self.tmpfarray
 
     def __setitem__(self, int idx, Frame other):
         idx_1 = get_positive_idx(idx, self.size)
@@ -80,10 +98,6 @@ cdef class DataSet_Coords(DataSet_1D):
         frame.thisptr[0] = self.baseptr_2.AllocateFrame()
         return frame
 
-    # do we need this method?
-    def _set_topology(self, Topology top):
-        self.baseptr_2.SetTopology(top.thisptr[0])
-
     property top:
         def __get__(self):
             self._top.thisptr[0] = self.baseptr_2.Top()
@@ -91,16 +105,13 @@ cdef class DataSet_Coords(DataSet_1D):
 
         def __set__(self, Topology other):
             self.baseptr_2.SetTopology(other.thisptr[0])
-    # TODO: add more virtual methods?
 
     def add_frame(self, Frame frame):
-        # TODO : add indices and FrameArray, Trajin_Single ...
         self.baseptr_2.AddFrame(frame.thisptr[0])
 
     def append(self, frame):
         """alis of addframe"""
-        #self.baseptr_2.AddFrame(frame.thisptr[0])
         self.add_frame(frame)
 
-    def getframe(self, int idx, Frame frameout):
+    def get_frame(self, int idx, Frame frameout):
         self.baseptr_2.GetFrame(idx, frameout.thisptr[0])
