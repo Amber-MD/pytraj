@@ -2,6 +2,21 @@ def file_exist(filename):
     import os
     return os.path.isfile(filename)
 
+def get_amber_saved_test_dir(suffix):
+    """return full dir of amber test file or None
+    Used for assert in testing
+
+    Parameter
+    --------
+    suffix : str
+    """
+    import os
+    try:
+        amberhome = os.environ['AMBERHOME']
+        return amberhome + "/AmberTools/test/cpptraj/" + suffix
+    except:
+        return None
+
 def is_generator(iter_obj):
     # use this method instead of `inspect` in python since this does not work with Cython
     # Reason: unknow
