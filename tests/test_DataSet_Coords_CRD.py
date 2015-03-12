@@ -79,9 +79,7 @@ class Test(unittest.TestCase):
         print (casted_traj)
         assert isinstance(casted_traj, DataSet_Coords_CRD) == True
 
-        # make sure we get frames correctly after casting
-        # FAIL
-        # FIXME please
+        # FIXME: make sure we get frames correctly after casting
         print ("test more")
         print (casted_traj.size) # = 0, wrong
         print (dir(casted_traj))
