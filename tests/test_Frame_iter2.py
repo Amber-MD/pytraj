@@ -43,7 +43,6 @@ class Test(unittest.TestCase):
         print (dslist.size)
         print (dslist[0][:])
 
-        # TODO : assert fail
         dslist = DataSetList()
         act2 = adict['distance']
         act2.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
