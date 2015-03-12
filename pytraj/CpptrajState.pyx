@@ -19,7 +19,8 @@ cdef class CpptrajState:
         self.datasetlist = DataSetList(py_free_mem=False)
 
         # cpptraj will take care of memory deallocating from self.thisptr.PFL(FL, DSL, DFL)
-        # We don't free memory again (example: self.toplist.thisptr and self.thisptr.PFL() point to the same address)
+        # We don't free memory again 
+        # (example: self.toplist.thisptr and self.thisptr.PFL() point to the same address)
         # create memory view
         self.toplist.thisptr = self.thisptr.PFL()
         self.datasetlist.thisptr = self.thisptr.DSL()
@@ -74,6 +75,12 @@ cdef class CpptrajState:
             raise MemoryError("")
 
     def add_trajout(self, arg):
+        """add trajout file
+        
+        Parameters
+        ---------
+        arg : str or ArgList object
+        """
         cdef string filename
         cdef ArgList arglist
 
@@ -87,6 +94,12 @@ cdef class CpptrajState:
             raise NotImplementedError()
 
     def add_reference(self, *args):
+        """
+        Parameters
+        ---------
+        filename : str
+        arg : ArgList object, optional
+        """
         cdef string name
         cdef ArgList arglist
 
@@ -106,30 +119,62 @@ cdef class CpptrajState:
         else:
             raise NotImplementedError()
 
-    def add_action(self, obj, ArgList arglist):
+    def add_action(self, actobj, arglist):
+        """
+        Parameters
+        ---------
+        actobj : Action object or str
+        arglist : ArgList object or str
+        """
         # need to explicit casting to FunctPtr because self.thisptr.AddAction need to know type 
         # of variables
-        cdef FunctPtr alloc_funct = <FunctPtr> obj.alloc()
-        return self.thisptr.AddAction(alloc_funct.ptr, arglist.thisptr[0])
+        cdef FunctPtr alloc_funct
+        cdef ArgList _arglist 
+
+        if isinstance(actobj, string_types):
+            # if actobj is string, make Action object
+            # then cast to FunctPtr
+            from pytraj.action_dict import ADICT
+            alloc_funct = ADICT[actobj]().alloc()
+        else:
+            alloc_funct = <FunctPtr> actobj.alloc()
+
+        if isinstance(arglist, string_types):
+            _arglist = ArgList(arglist)
+        elif isinstance(arglist, ArgList):
+            _arglist = arglist
+        else:
+            raise ValueError("must be string or ArgList object")
+
+        return self.thisptr.AddAction(alloc_funct.ptr, _arglist.thisptr[0])
 
     def add_analysis(self, obj, ArgList arglist):
         """temp doc: add_analysis(self, obj, ArgList arglist)
         obj :: Action or Analysis instance
         """
+        cdef ArgList _arglist 
         cdef FunctPtr alloc_funct = <FunctPtr> obj.alloc()
-        return self.thisptr.AddAnalysis(alloc_funct.ptr, arglist.thisptr[0])
+
+        if isinstance(arglist, string_types):
+            _arglist = ArgList(arglist)
+        elif isinstance(arglist, ArgList):
+            _arglist = arglist
+        else:
+            raise ValueError("must be string or ArgList object")
+
+        return self.thisptr.AddAnalysis(alloc_funct.ptr, _arglist.thisptr[0])
 
     def list_all(self, ArgList arglist):
         return self.thisptr.ListAll(arglist.thisptr[0])
 
-    def clear_list(self, ArgList arglist):
-        return self.thisptr.ClearList(arglist.thisptr[0])
+    def clear_list(self, arglist='all'):
+        return self.thisptr.ClearList(ArgList(arglist).thisptr[0])
 
-    def remove_data_set(self, ArgList alist):
+    def remove_dataset(self, ArgList alist):
         return self.thisptr.RemoveDataSet(alist.thisptr[0])
 
     def run(self):
         return self.thisptr.Run()
 
-    def master_data_file_write(self):
+    def write_all_datafiles(self):
         self.thisptr.MasterDataFileWrite()
