@@ -14,7 +14,8 @@ class TestRadgyr(unittest.TestCase):
         dslist = DataSetList()
         act = adict['dssp']
         dflist = DataFileList()
-        act.read_input(":10-22 out ./output/_test_dssp_DPDP.dat", farray.top, dslist=dslist, dflist=dflist)
+        act.read_input(":10-22 out ./output/_test_dssp_DPDP.dat", 
+                      farray.top, dslist=dslist, dflist=dflist)
         act.process(farray.top)
        
         for i, frame in enumerate(farray):
@@ -29,10 +30,8 @@ class TestRadgyr(unittest.TestCase):
 
         # TODO : intepret the output (not understand what they mean)
         arr1 = dslist.get_dataset(dtype='float')
-        print (arr1.shape)
 
         arr0 = dslist.get_dataset(dtype='integer')
-        print (arr0.shape)
 
         #print (arr0[0].__len__())
         #print (arr0[0])
@@ -47,9 +46,7 @@ class TestRadgyr(unittest.TestCase):
         arr0 = dslist.get_dataset(dtype="integer")
 
         # Secondary structure for each residue in mask for 100 frames
-        print (arr0.shape)
 
-    # got error: undefined symbol: _ZN5Frame11SetupFrameVERKSt
     def test_2(self):
         def calc_dssp(command="", traj=None):
             dslist = DataSetList()
@@ -58,7 +55,6 @@ class TestRadgyr(unittest.TestCase):
                           dslist=dslist)
             return dslist.get_dataset(dtype="integer")
         arr0 = calc_dssp(":10-22", farray[:2])
-        print (arr0.shape)
 
     def test_3(self):
         from pytraj.common_actions import calc_dssp

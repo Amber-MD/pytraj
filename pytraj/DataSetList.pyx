@@ -6,6 +6,7 @@ from cython.operator cimport preincrement as incr
 from pytraj.cast_dataset import cast_dataset
 from pytraj.utils.check_and_assert import _import
 from collections import defaultdict
+from pytraj._utils cimport get_positive_idx
 
 # can not import cpptraj_dict here
 # if doing this, we introduce circle-import since cpptraj_dict already imported
@@ -79,10 +80,12 @@ cdef class DataSetList:
         Should we use a copy instead?
         """
         cdef DataSet dset = DataSet()
-        if idx >= len(self) or idx < 0:
-            raise ValueError("index is out of range")
+        cdef int _idx
+
+        _idx = get_positive_idx(idx, self.size)
+
         # get memoryview
-        dset.baseptr0 = self.thisptr.index_opr(idx)
+        dset.baseptr0 = self.thisptr.index_opr(_idx)
         return cast_dataset(dset, dtype=dset.dtype)
 
     def set_ensemble_num(self,int i):
@@ -124,14 +127,10 @@ cdef class DataSetList:
                 dtype = dtype.upper()
                 dlist = []
                 for d0 in self:
-                    if d0.dtype == dtype:
+                    if d0.dtype.upper() == dtype:
                         dlist.append(d0[:])
                 # return a list of arrays
-                has_numpy, np = _import('numpy')
-                if has_numpy:
-                    return np.array(dlist)
-                else:
-                    return dlist
+                return dlist
 
     def get_multiple_sets(self, string s):
         """TODO: double-check cpptraj"""

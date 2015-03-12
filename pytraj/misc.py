@@ -185,7 +185,6 @@ def calc_dssp(command="", traj=None, dtype='int'):
     if dtype in ['INT', 'INTERGER']:
         return arr0
     elif dtype in ['STRING', 'STR']:
-        shape = arr0.shape
         tmplist = [[x for x in to_string_ss(arr)] for arr in arr0]
         return tmplist
     else:

@@ -15,13 +15,19 @@ class Test(unittest.TestCase):
         act(":1-13 solventacceptor :WAT@O solventdonor :WAT", 
             traj, dslist=dslist)
         print ('dslist size = ', dslist.size)
+
         for d0 in dslist:
             if d0.dtype == 'integer':
                 print (d0[:])
             print (d0.name, d0)
+
         for i in range(d0.size):
             print (i)
         act.help()
+
+        d3 = dslist[3]
+        print (d3)
+        print ([d3[i] for i in range(d3.size)])
 
 if __name__ == "__main__":
     unittest.main()
