@@ -1,4 +1,5 @@
 import unittest
+from itertools import izip
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -51,7 +52,7 @@ class Test(unittest.TestCase):
                                "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
 
         # make sure that we DO get 300K traj
-        for f0, f1 in zip(traj0, saved_traj):
+        for f0, f1 in izip(traj0, saved_traj):
             print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
 

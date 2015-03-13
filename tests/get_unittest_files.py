@@ -2,7 +2,7 @@ from glob import glob
 
 
 lines = []
-testlist = glob("test_*.py") + ['API_test.py', 'API_test_3.py',]
+testlist = glob("test_*.py")
 for pyfile in testlist:
     with open(pyfile, 'r') as fh:
         txt = fh.read()

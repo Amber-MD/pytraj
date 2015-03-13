@@ -16,7 +16,8 @@ class Test(unittest.TestCase):
         for ds in dslist:
             print (ds)
 
-        #d3 = dslist[3]
+        d3 = dslist[3]
+        print (d3.dtype)
         #$for i in range(d3.size):
         #$    print (d3[i])
         #$#print (dslist[3].data)

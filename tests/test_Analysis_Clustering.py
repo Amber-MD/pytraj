@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         # TODO: Got error Error: cluster data set _DEFAULTCRD_ does not contain data.
         # FIXME: I know I did not read cpptraj code carefully :D
-        top = mdio.load("./data/Tc5b.top")
+        top = mdio.load("./data/tz2.parm7")
         arg = """
         parm ./data/tz2.parm7
         trajin ./data/tz2.nc 

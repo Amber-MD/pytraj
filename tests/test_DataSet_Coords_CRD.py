@@ -1,4 +1,5 @@
 import unittest
+from itertools import izip
 from pytraj.base import *
 from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD as DataSet_Coords_CRD
 from pytraj.utils.check_and_assert import assert_almost_equal
@@ -23,17 +24,20 @@ class Test(unittest.TestCase):
         assert_almost_equal(traj[-1].coords, traj[Nframe-1].coords)
         assert_almost_equal(traj[-2].coords, traj[Nframe-2].coords)
 
-        # test set Frame
-        traj[0] = traj[9]
-        assert_almost_equal(traj[0].coords, traj[9].coords)
-
         # make sure to add correct frames from TRAJ0
-        for f0, f1 in zip(TRAJ0, traj):
+        for f0, f1 in izip(TRAJ0, traj):
+            print ("coords f0 f1")
+            print (f0[0], f1[0])
             assert_almost_equal(f0.coords, f1.coords)
 
         # test iteration
         for f1 in traj:
             print (f1)
+
+        # test set Frame
+        traj[0] = traj[9]
+        assert_almost_equal(traj[0].coords, traj[9].coords)
+        print (traj[0])
         
     def test_1(self):
         "test Action"
@@ -85,7 +89,7 @@ class Test(unittest.TestCase):
         print (dir(casted_traj))
         #assert casted_traj.size == TRAJ0.size
 
-        #for f0, f1 in zip(TRAJ0, casted_traj):
+        #for f0, f1 in izip(TRAJ0, casted_traj):
         #    print (f0, f1)
         #    assert_almost_equal(f0.coords, f1.coords)
         
