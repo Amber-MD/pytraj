@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 from pytraj import io as mdio
 

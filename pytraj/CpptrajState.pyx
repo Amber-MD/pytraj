@@ -33,16 +33,23 @@ cdef class CpptrajState:
     def is_empty(self):
         return self.thisptr.EmptyState()
 
-    def add_trajin(self, arg, is_ensemble=False):
+    def add_trajin(self, arg_or_filename, is_ensemble=None):
         # TODO: add trajector instance?
         cdef string filename
         cdef ArgList argIn
         
-        if isinstance(arg, ArgList):
-            argIn = arg
+        if is_ensemble is not None:
+            # reading ensemble
+            if isinstance(arg_or_filename, ArgList):
+                argIn = arg_or_filename
+            elif isinstance(arg_or_filename, string_types):
+                argIn = ArgList(arg_or_filename)
+            else:
+                raise ValueError("")
             self.thisptr.AddTrajin(argIn.thisptr[0], is_ensemble)
-        elif isinstance(arg, string_types):
-            filename = arg.encode()
+        elif isinstance(arg_or_filename, string_types):
+            # reading single file
+            filename = arg_or_filename.encode()
             self.thisptr.AddTrajin(filename)
         else:
             raise NotImplementedError()

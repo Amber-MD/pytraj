@@ -5,8 +5,11 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
+    # TODO : need to change `is_ensemble` to something else
+    # what does it mean with "remdtraj" and "is_ensemble = False" together
     def test_0(self):
         # is_ensemble = False
+        print ("read esemble for single temperature")
         state = CpptrajState()
         state.toplist.add_parm("./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
         state.add_trajin("./data/Test_RemdTraj/rem.nc.000 remdtraj remdtrajtemp 300.0",
@@ -17,6 +20,7 @@ class Test(unittest.TestCase):
         # if is_ensemble == True: save traj for all T
         # else: save traj for only targeted T
         trajlist = state.get_trajinlist()
+        print (trajlist.size)
 
         # we need to update topology for traj too
         for traj in trajlist:
@@ -27,6 +31,7 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         # is_ensemble = True
+        print ("read esemble for all temperatures")
         state = CpptrajState()
         state.toplist.add_parm("./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
         state.add_trajin("./data/Test_RemdTraj/rem.nc.000 remdtraj remdtrajtemp 300.0", 
@@ -37,6 +42,18 @@ class Test(unittest.TestCase):
         # if is_ensemble == True: save traj for all T
         # else: save traj for only targeted T
         trajlist = state.get_trajinlist()
+        print (trajlist.size)
+
+        traj0 = trajlist[0]
+        traj0.top = state.toplist[0]
+
+        saved_traj = mdio.load("data/Test_RemdTraj/temp0.crd.300.00", 
+                               "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
+
+        # make sure that we DO get 300K traj
+        for f0, f1 in zip(traj0, saved_traj):
+            print (f0, f1)
+            assert_almost_equal(f0.coords, f1.coords)
 
         # we need to update topology for traj too
         for traj in trajlist:
@@ -58,6 +75,7 @@ class Test(unittest.TestCase):
         # if is_ensemble == True: save traj for all T
         # else: save traj for only targeted T
         trajlist = state.get_trajinlist()
+        print (trajlist.size)
 
         # we need to update topology for traj too
         for traj in trajlist:
