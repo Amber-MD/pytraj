@@ -655,4 +655,5 @@ cdef class FrameArray (object):
             raise ValueError("mask must be string or AtomMask object")
 
         for frame in self:
-            frame.fit_to(ref, atm)
+            _, mat, v1, v2 = frame.rmsd(ref, atm, get_mvv=True)
+            frame.trans_rot_trans(v1, mat, v2)

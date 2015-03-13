@@ -1,6 +1,6 @@
 import unittest
 from pytraj.base import *
-from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD as Trajectory
+from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD as DataSet_Coords_CRD
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj import adict
 import numpy as np
@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         TRAJ0 = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         print(TRAJ0.size)
-        traj = Trajectory()
+        traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
 
         # adding frames to DataSet_Coords_CRD
@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         "test Action"
         TRAJ0 = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
-        traj = Trajectory()
+        traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
 
         Nframe = 10
@@ -64,7 +64,7 @@ class Test(unittest.TestCase):
         from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD
         "test cast_dataset"
         TRAJ0 = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
-        traj = Trajectory()
+        traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
 
         Nframe = 10
@@ -75,7 +75,7 @@ class Test(unittest.TestCase):
         assert isinstance(dataset, DataSet) == True
 
         # cast back
-        casted_traj = cast_dataset(dataset, 'coords_crd')
+        casted_traj = cast_dataset(dataset, 'coords')
         print (casted_traj)
         assert isinstance(casted_traj, DataSet_Coords_CRD) == True
 
@@ -93,7 +93,7 @@ class Test(unittest.TestCase):
         # test commond DataSet methods
         TRAJ0 = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         print(TRAJ0.size)
-        traj = Trajectory()
+        traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
 
         # adding frames to DataSet_Coords_CRD
@@ -118,6 +118,8 @@ class Test(unittest.TestCase):
         print (traj[-1][0])
         print (traj[0][0])
         assert_almost_equal (traj[-1].coords, traj[0].coords)
+
+        assert traj.dtype == 'coords'
 
 if __name__ == "__main__":
     unittest.main()

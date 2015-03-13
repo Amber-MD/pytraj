@@ -5,6 +5,19 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
+    def test_frame_fit(self):
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        f0 = traj[0]
+        f1 = traj[1]
+
+        print (f0[0], f1[0])
+        f0.rmsd(f1)
+        print (f0[0], f1[0])
+
+        print ("test_frame_fit: after fit_to")
+        f1.fit_to(f0)
+        print (f0[0], f1[0])
+
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
@@ -35,23 +48,38 @@ class Test(unittest.TestCase):
     def test_1(self):
         # FIXME: wrong result. check `fit_to` method
         print ("compare to cpptraj")
+
+        # load frames to immutable traj
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        print (traj[0, 0])
         trajsaved = mdio.load("./data/fit_to_1stframe.Tc5b.x", "./data/Tc5b.top")
+
+        print ("test trajsaved coords")
+        for _f1 in trajsaved:
+            print (_f1[0])
+        print ("END test trajsaved coords")
+
         f0saved = traj[0].copy()
         first = traj[0].copy()
+
+        # make mutable traj
         farray = traj[:]
 
-        # fit to first using @CA
+        assert_almost_equal(farray[0].coords, first.coords)
+        print (farray)
         print ("before fitting")
-        for f0 in farray:
-            print (f0.rmsd_nofit(f0saved), f0.rmsd(f0saved))
-
+        print (farray[0, 0])
         farray.fit_to(first, "*")
-        # make sure to reproduce cpptraj output
-        print( "testing rmsd" )
         print ("after fitting")
-        for f0 in farray:
-            print (f0.rmsd_nofit(first), f0.rmsd(first))
+        print (farray[0, 0])
+
+        print ("make sure to reproduce cpptraj output")
+        #for _f0, _f1 in zip(farray, trajsaved): #TODO :zip gave wrong results. why?
+        for i, _f0 in enumerate(farray):
+            _f1 = trajsaved[i]
+            print (_f0[0], _f1[0])
+            assert_almost_equal(_f0.coords, _f1.coords)
+        print("END")
 
 if __name__ == "__main__":
     unittest.main()

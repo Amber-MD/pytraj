@@ -11,7 +11,7 @@ from pytraj.datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
 from pytraj.datasets.DataSet_Coords_CRD cimport _DataSet_Coords_CRD, DataSet_Coords_CRD
 from pytraj.datasets.DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
 
-def cast_dataset(dsetin, dtype='general'):
+def cast_dataset(dsetin=None, dtype='general'):
     """create memoryview for DataSet instance. 
     DataSet instace is taken from DatatSetList
     Parameters
@@ -106,7 +106,7 @@ def cast_dataset(dsetin, dtype='general'):
         newset_matrixdbl.thisptr = <_DataSet_MatrixDbl*> dset.baseptr0
         return newset_matrixdbl
 
-    elif dtype in ['COORDS_CRD']:
+    elif dtype in ['COORDS_CRD', 'COORDS']:
         # FIXME: not correctly casting
         # get '0' size when casting back from DataSet
         newset_coords_crd = DataSet_Coords_CRD()

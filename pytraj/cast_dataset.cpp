@@ -2257,6 +2257,7 @@ static char __pyx_k_range[] = "range";
 static char __pyx_k_shape[] = "shape";
 static char __pyx_k_start[] = "start";
 static char __pyx_k_upper[] = "upper";
+static char __pyx_k_COORDS[] = "COORDS";
 static char __pyx_k_DOUBLE[] = "DOUBLE";
 static char __pyx_k_MATRIX[] = "MATRIX";
 static char __pyx_k_STRING[] = "STRING";
@@ -2332,6 +2333,7 @@ static char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate sha
 static PyObject *__pyx_kp_s_1D;
 static PyObject *__pyx_kp_s_2D;
 static PyObject *__pyx_kp_s_Buffer_view_does_not_expose_stri;
+static PyObject *__pyx_n_s_COORDS;
 static PyObject *__pyx_n_s_COORDS_CRD;
 static PyObject *__pyx_n_s_COORDS_TRJ;
 static PyObject *__pyx_kp_s_Can_only_create_a_buffer_that_is;
@@ -2455,14 +2457,14 @@ static PyObject *__pyx_codeobj__19;
 /* "pytraj/cast_dataset.pyx":14
  * from pytraj.datasets.DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
  * 
- * def cast_dataset(dsetin, dtype='general'):             # <<<<<<<<<<<<<<
+ * def cast_dataset(dsetin=None, dtype='general'):             # <<<<<<<<<<<<<<
  *     """create memoryview for DataSet instance.
  *     DataSet instace is taken from DatatSetList
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_12cast_dataset_1cast_dataset(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_12cast_dataset_cast_dataset[] = "cast_dataset(dsetin, dtype='general')\ncreate memoryview for DataSet instance. \n    DataSet instace is taken from DatatSetList\n    Parameters\n    ---------\n    dset : DataSet instance\n    dtype : str (default dtype=None)\n        {'general', 'matrix', '1D', '2D', 'double', 'matrix_dbl',\n         'integer',\n         'coords_crd',\n         'coords_trj'}\n    ";
+static char __pyx_doc_6pytraj_12cast_dataset_cast_dataset[] = "cast_dataset(dsetin=None, dtype='general')\ncreate memoryview for DataSet instance. \n    DataSet instace is taken from DatatSetList\n    Parameters\n    ---------\n    dset : DataSet instance\n    dtype : str (default dtype=None)\n        {'general', 'matrix', '1D', '2D', 'double', 'matrix_dbl',\n         'integer',\n         'coords_crd',\n         'coords_trj'}\n    ";
 static PyMethodDef __pyx_mdef_6pytraj_12cast_dataset_1cast_dataset = {"cast_dataset", (PyCFunction)__pyx_pw_6pytraj_12cast_dataset_1cast_dataset, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_12cast_dataset_cast_dataset};
 static PyObject *__pyx_pw_6pytraj_12cast_dataset_1cast_dataset(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_dsetin = 0;
@@ -2476,6 +2478,7 @@ static PyObject *__pyx_pw_6pytraj_12cast_dataset_1cast_dataset(PyObject *__pyx_s
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_dsetin,&__pyx_n_s_dtype,0};
     PyObject* values[2] = {0,0};
+    values[0] = ((PyObject *)Py_None);
     values[1] = ((PyObject *)__pyx_n_s_general);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -2489,8 +2492,10 @@ static PyObject *__pyx_pw_6pytraj_12cast_dataset_1cast_dataset(PyObject *__pyx_s
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_dsetin)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_dsetin);
+          if (value) { values[0] = value; kw_args--; }
+        }
         case  1:
         if (kw_args > 0) {
           PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_dtype);
@@ -2504,7 +2509,7 @@ static PyObject *__pyx_pw_6pytraj_12cast_dataset_1cast_dataset(PyObject *__pyx_s
       switch (PyTuple_GET_SIZE(__pyx_args)) {
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        break;
+        case  0: break;
         default: goto __pyx_L5_argtuple_error;
       }
     }
@@ -2513,7 +2518,7 @@ static PyObject *__pyx_pw_6pytraj_12cast_dataset_1cast_dataset(PyObject *__pyx_s
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("cast_dataset", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("cast_dataset", 0, 0, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.cast_dataset.cast_dataset", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3142,7 +3147,7 @@ static PyObject *__pyx_pf_6pytraj_12cast_dataset_cast_dataset(CYTHON_UNUSED PyOb
  *         newset_matrixdbl.thisptr = <_DataSet_MatrixDbl*> dset.baseptr0
  *         return newset_matrixdbl             # <<<<<<<<<<<<<<
  * 
- *     elif dtype in ['COORDS_CRD']:
+ *     elif dtype in ['COORDS_CRD', 'COORDS']:
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(((PyObject *)__pyx_v_newset_matrixdbl));
@@ -3153,13 +3158,21 @@ static PyObject *__pyx_pf_6pytraj_12cast_dataset_cast_dataset(CYTHON_UNUSED PyOb
   /* "pytraj/cast_dataset.pyx":109
  *         return newset_matrixdbl
  * 
- *     elif dtype in ['COORDS_CRD']:             # <<<<<<<<<<<<<<
+ *     elif dtype in ['COORDS_CRD', 'COORDS']:             # <<<<<<<<<<<<<<
  *         # FIXME: not correctly casting
  *         # get '0' size when casting back from DataSet
  */
   __Pyx_INCREF(__pyx_v_dtype);
   __pyx_t_3 = __pyx_v_dtype;
-  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_COORDS_CRD, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_COORDS_CRD, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L9_bool_binop_done;
+  }
+  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_COORDS, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_t_2;
+  __pyx_L9_bool_binop_done:;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
@@ -3336,7 +3349,7 @@ static PyObject *__pyx_pf_6pytraj_12cast_dataset_cast_dataset(CYTHON_UNUSED PyOb
   /* "pytraj/cast_dataset.pyx":14
  * from pytraj.datasets.DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
  * 
- * def cast_dataset(dsetin, dtype='general'):             # <<<<<<<<<<<<<<
+ * def cast_dataset(dsetin=None, dtype='general'):             # <<<<<<<<<<<<<<
  *     """create memoryview for DataSet instance.
  *     DataSet instace is taken from DatatSetList
  */
@@ -14803,6 +14816,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_1D, __pyx_k_1D, sizeof(__pyx_k_1D), 0, 0, 1, 0},
   {&__pyx_kp_s_2D, __pyx_k_2D, sizeof(__pyx_k_2D), 0, 0, 1, 0},
   {&__pyx_kp_s_Buffer_view_does_not_expose_stri, __pyx_k_Buffer_view_does_not_expose_stri, sizeof(__pyx_k_Buffer_view_does_not_expose_stri), 0, 0, 1, 0},
+  {&__pyx_n_s_COORDS, __pyx_k_COORDS, sizeof(__pyx_k_COORDS), 0, 0, 1, 1},
   {&__pyx_n_s_COORDS_CRD, __pyx_k_COORDS_CRD, sizeof(__pyx_k_COORDS_CRD), 0, 0, 1, 1},
   {&__pyx_n_s_COORDS_TRJ, __pyx_k_COORDS_TRJ, sizeof(__pyx_k_COORDS_TRJ), 0, 0, 1, 1},
   {&__pyx_kp_s_Can_only_create_a_buffer_that_is, __pyx_k_Can_only_create_a_buffer_that_is, sizeof(__pyx_k_Can_only_create_a_buffer_that_is), 0, 0, 1, 0},
@@ -15096,7 +15110,7 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pytraj/cast_dataset.pyx":14
  * from pytraj.datasets.DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
  * 
- * def cast_dataset(dsetin, dtype='general'):             # <<<<<<<<<<<<<<
+ * def cast_dataset(dsetin=None, dtype='general'):             # <<<<<<<<<<<<<<
  *     """create memoryview for DataSet instance.
  *     DataSet instace is taken from DatatSetList
  */
@@ -15346,7 +15360,7 @@ PyMODINIT_FUNC PyInit_cast_dataset(void)
   /* "pytraj/cast_dataset.pyx":14
  * from pytraj.datasets.DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
  * 
- * def cast_dataset(dsetin, dtype='general'):             # <<<<<<<<<<<<<<
+ * def cast_dataset(dsetin=None, dtype='general'):             # <<<<<<<<<<<<<<
  *     """create memoryview for DataSet instance.
  *     DataSet instace is taken from DatatSetList
  */

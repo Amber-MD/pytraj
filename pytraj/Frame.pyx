@@ -655,9 +655,10 @@ cdef class Frame (object):
             new_self = Frame(self, atommask)
             new_ref = Frame(frame, atommask)
         if top is None and mask is None and atommask is None:
+            # we need to make a copy since cpptraj update coords of frame after rmsd calc
             # all atoms
-            new_self = self
-            new_ref = frame
+            new_self = Frame(self)
+            new_ref = Frame(frame)
 
         if not get_mvv:
             return new_self.thisptr.RMSD(new_ref.thisptr[0], use_mass)
@@ -718,9 +719,8 @@ cdef class Frame (object):
         cdef Matrix_3x3 mat
         cdef Vec3 v1
 
-        _, mat, v1, _ = self.rmsd(ref, atm, get_mvv=True)
-        self.thisptr.Rotate(mat.thisptr[0])
-        self.translate(v1)
+        _, mat, v1, v2 = self.rmsd(ref, atm, get_mvv=True)
+        self.trans_rot_trans(v1, mat, v2)
 
     def set_axis_of_rotation(self, int atom1, int atom2):
         cdef Vec3 vec = Vec3()

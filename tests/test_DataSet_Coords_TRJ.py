@@ -69,6 +69,8 @@ class Test(unittest.TestCase):
         # make sure we load correct frames
         assert_almost_equal(traj[0].coords, traj[10].coords)
         assert d0[0] == d0[10]
+
+        print (traj.dtype)
         
 if __name__ == "__main__":
     unittest.main()
