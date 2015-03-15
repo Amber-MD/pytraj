@@ -1,6 +1,7 @@
 TODO
 ----
 
+* FIXME: `rmsd` method in Frame class will update frame object coordinate (I do not want this)
 * rewrite cpptraj classes for pytraj (more flexibility): ActionList, CpptrajState, TrajinList, AnalysisList
 * `frame_iter` is very slow, enhance this : DONE
 * organize codes to subfolder 
