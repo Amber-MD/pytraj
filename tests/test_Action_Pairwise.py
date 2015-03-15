@@ -14,13 +14,14 @@ class Test(unittest.TestCase):
         print (dslist.size)
 
         for ds in dslist:
-            print (ds)
+            if hasattr(ds, 'mkind'):
+                print (ds.name, ds.dtype, ds.mkind)
+            else:
+                print (ds.name, ds.dtype)
 
         d3 = dslist[3]
-        print (d3.dtype)
-        #$for i in range(d3.size):
-        #$    print (d3[i])
-        #$#print (dslist[3].data)
+        print (d3.size)
+        #print (dslist[3].data)
 
 if __name__ == "__main__":
     unittest.main()

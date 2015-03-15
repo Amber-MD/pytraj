@@ -21,17 +21,5 @@ cdef class DataSet_2D (DataSet):
         return self.baseptr_1.Ncols()
 
     @property
-    def data(self):
-        cdef int i
-        cdef pyarray arr = pyarray('d', [])
-
-        if self.baseptr_1.MatrixArray():
-            for i in range(self.n_cols * self.n_rows):
-                arr.append(self.baseptr_1.MatrixArray()[i])
-            return arr
-        else:
-            raise ValueError("Can not get MatrixArray")
-
-    @property
-    def type(self):
-        return get_key(self.baseptr_1.m2dType(), MatrixDict)
+    def mkind(self):
+        return get_key(self.baseptr_1.Kind(), MatrixKindDict)

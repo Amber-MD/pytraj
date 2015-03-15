@@ -43,6 +43,7 @@ cdef extern from "DataSet.h":
         scalarMode ModeFromKeyword(const string&)
         scalarType TypeFromKeyword(const string&, scalarMode&)
         scalarType TypeFromKeyword(const string&, const scalarMode&)
+        size_t Size()
 
         # virtual
         #void Add( size_t, const void*  )

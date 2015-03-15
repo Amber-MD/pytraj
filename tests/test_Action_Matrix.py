@@ -11,7 +11,7 @@ farray = TrajReadOnly(top=Topology("./data/Tc5b.top"),
                     filename='data/md1_prod.Tc5b.x', 
                     )
 class TestRadgyr(unittest.TestCase):
-    @no_test
+    #@no_test
     def test_0(self):
         dslist = DataSetList()
         act = adict['matrix']
@@ -24,7 +24,8 @@ class TestRadgyr(unittest.TestCase):
         print (d1.n_cols, d1.n_rows)
         print (d1.dtype)
         print (d1.ndim)
-        print (d1.kind)
+        print (d1.mkind)
+        print (d1.mtype)
         print (d1.data_format)
         # TODO : add assert to make sure reproducing cpptraj output
 
@@ -38,7 +39,7 @@ class TestRadgyr(unittest.TestCase):
         print (d0.n_cols, d0.n_rows)
         print (d0.dtype)
         print (d0.ndim)
-        print (d0.kind)
+        print (d0.mkind)
         print (d0.data_format)
 
         assert_almost_equal(d0, d1)
@@ -52,10 +53,15 @@ class TestRadgyr(unittest.TestCase):
         act.run(command="byres @CA", current_frame=farray, 
                 current_top=farray.top, dslist=dslist)
         d0 = dslist[0]
-        print (d0.alloc())
         print (d0.dtype)
         print (cast_dataset(d0, dtype=d0.dtype))
         print (dslist.get_dataset(0))
+
+        for i in range(d0.size):
+            print (d0[i])
+
+        # turn off. not yet supported
+        #print (d0[:])
 
 if __name__ == "__main__":
     unittest.main()

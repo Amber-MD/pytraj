@@ -1,4 +1,5 @@
 # distutils: language = c++
+from cpython.array cimport array as pyarray
 from pytraj.cpptraj_dict import DataTypeDict, get_key
 
 cdef class DataSet:
@@ -112,3 +113,13 @@ cdef class DataSet:
     @property
     def data_format(self):
         return self.baseptr0.DataFormat()
+
+    @property
+    def data(self):
+        """return 1D python array of `self`"""
+        cdef pyarray arr = pyarray('d', [])
+        cdef int i
+
+        for i in range(self.baseptr0.Size()):
+            arr.append(self[i])
+        return arr

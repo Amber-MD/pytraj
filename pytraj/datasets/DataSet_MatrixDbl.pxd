@@ -24,7 +24,9 @@ cdef extern from "DataSet_MatrixDbl.h":
         size_t Ncols() const 
         double * MatrixArray() const 
         MatrixKind Kind() const 
-        MatrixType Type() const 
+
+        # make alias to avoid naming conflict with DataSet (DataType)
+        MatrixType matType "Type"() const 
 
         double& Element(size_t x, size_t y)
         int AddElement(double d)

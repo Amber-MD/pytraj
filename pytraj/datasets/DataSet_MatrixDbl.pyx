@@ -1,5 +1,6 @@
 # distutils: language = c++
-
+from cpython.array cimport array as pyarray
+from pytraj.cpptraj_dict import MatrixDict, MatrixKindDict, get_key
 
 cdef class DataSet_MatrixDbl (DataSet_2D):
     def __cinit__(self):
@@ -23,31 +24,14 @@ cdef class DataSet_MatrixDbl (DataSet_2D):
         dset.baseptr0 = _DataSet_MatrixDbl.Alloc()
         return dset
 
+
     @property
     def size(self):
         return self.thisptr.Size()
 
-    def info(self):
-        self.thisptr.Info()
-
-    #def allocate2D(self,size_t x, size_t y):
-    #    return self.thisptr.Allocate2D(x, y)
-
-    #def allocate_half(self,size_t x):
-    #    return self.thisptr.AllocateHalf(x)
-
-    #def allocate_triangle(self, size_t x):
-    #    return self.thisptr.AllocateTriangle(x)
-
-    #def write2D(self, CpptrajFile cppfile, int dix, int idy):
-    #    self.thisptr.Write2D(cppfile, idx, idy)
-
-    #def get_element(self,size_t x, size_t y):
-    #    return self.thisptr.GetElement(x, y)
-
-    #def double * MatrixArray(self):
-    #def MatrixKind Kind(self):
-    #def MatrixType Type(self):
+    @property
+    def mtype(self):
+        return get_key(self.thisptr.matType(), MatrixDict)
 
     def element(self, size_t x, size_t y):
         return self.thisptr.Element(x, y)
