@@ -674,7 +674,8 @@ cdef class Frame (object):
         else:
             m3 = Matrix_3x3()
             v1, v2 = Vec3(), Vec3()
-            rmsd_ = new_self.thisptr.RMSD(new_ref.thisptr[0], m3.thisptr[0], v1.thisptr[0], v2.thisptr[0], use_mass)
+            rmsd_ = new_self.thisptr.RMSD(new_ref.thisptr[0], m3.thisptr[0], 
+                                          v1.thisptr[0], v2.thisptr[0], use_mass)
             return rmsd_, m3, v1, v2
 
     def rmsd_centered_ref(self, Frame ref, bint use_mass=False, *args):
