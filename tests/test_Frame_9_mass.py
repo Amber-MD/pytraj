@@ -22,6 +22,7 @@ class Test(unittest.TestCase):
         print (frame[0])
         for f0 in traj:
             print (f0[0])
+            f0.set_frame_m(traj.top)
             arr0.append(frame.rmsd(f0, use_mass=True))
 
         # load cpptraj output
@@ -31,6 +32,14 @@ class Test(unittest.TestCase):
         print (arr0)
 
         assert_almost_equal(arr0, rmsd_save[1])
+
+    def test_0(self):
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        frame = traj[0].copy()
+        print (frame.mass)
+        frame.set_frame_m(traj.top)
+        frame2 = Frame(frame, traj.top("@CA"))
+        print (frame2.mass)
 
 if __name__ == "__main__":
     unittest.main()
