@@ -391,9 +391,15 @@ cdef class Frame (object):
         arr.append(self.thisptr.VXYZ(atnum)[2])
         return arr
 
-    def mass(self,int atnum):
-        """return `mass` of atnum-th atom"""
-        return self.thisptr.Mass(atnum)
+    @property
+    def mass(self):
+        """return mass array"""
+        cdef pyarray arr = pyarray('d', [])
+        cdef int i
+
+        for i in range(self.thisptr.Natom()):
+            arr.append(self.thisptr.Mass(i))
+        return arr
 
     def set_nobox(self):
         self.boxview[:] = pyarray('d', [0. for _ in range(6)])
@@ -447,6 +453,9 @@ cdef class Frame (object):
         elif isinstance(args, (int, long)):
             atomnum = <int> args[0]
             self.thisptr.SetupFrame(atomnum)
+
+    def set_frame_m(self, Topology top):
+        return self.thisptr.SetupFrameM(top.thisptr.Atoms())
 
     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
         return self.thisptr.SetupFrameXM(Xin, massIn)
