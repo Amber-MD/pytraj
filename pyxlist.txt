@@ -12,6 +12,7 @@ DispatchObject
 _FunctPtr
 cast_dataset
 _utils
+_shared_methods
 iterload
 Atom
 AtomMask

@@ -9,11 +9,8 @@ from cpython.array cimport array as pyarray
 from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
 from pytraj.parms._ParmFile import TMPParmFile
-try:
-    set
-except NameError:
-    from sets import Set as set
 from pytraj.externals.six import PY3, PY2, string_types, binary_type
+from pytraj.six_2 import set
 
 cdef class Topology:
     def __cinit__(self, *args):

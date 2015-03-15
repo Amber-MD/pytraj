@@ -13,7 +13,7 @@ from pytraj.TrajReadOnly import TrajReadOnly
 from pytraj.utils.check_and_assert import _import_numpy
 from pytraj.utils.check_and_assert import file_exist
 from pytraj.trajs.Trajout import Trajout
-from pytraj._save_traj import _save
+from pytraj._shared_methods import _savetraj, _get_temperature_set
 
 # we don't allow sub-class in Python level since we will mess up with memory
 @cython.final
@@ -515,6 +515,10 @@ cdef class FrameArray (object):
             tarr.append(frame.temperature)
         return tarr
 
+    @property
+    def T_set(self):
+        return _get_temperature_set(self)
+
     def get_frames(self, from_traj=None, indices=None, update_top=False, copy=True):
         # TODO : fater loading?
         """get frames from Trajin instance
@@ -630,7 +634,7 @@ cdef class FrameArray (object):
         TrajReadOnly.read_options()
 
     def save(self, filename="", fmt='unknown', overwrite=False):
-        _save(self, filename, fmt, overwrite)
+        _savetraj(self, filename, fmt, overwrite)
 
     def write(self, *args, **kwd):
         self.save(*args, **kwd)

@@ -9,7 +9,7 @@ from pytraj.AtomMask cimport AtomMask
 
 from pytraj.utils.check_and_assert import _import_numpy
 from .Trajout import Trajout
-from pytraj._save_traj import _save
+from pytraj._shared_methods import _savetraj, _get_temperature_set
 from pytraj.externals.six import string_types
 
 
@@ -354,7 +354,7 @@ cdef class Trajin (TrajectoryFile):
         return self.baseptr_1.ReadTrajFrame(currentFrame, frameIn.thisptr[0])
 
     def save(self, filename="", fmt='unknown', overwrite=False):
-        _save(self, filename, fmt, overwrite)
+        _savetraj(self, filename, fmt, overwrite)
 
     def write(self, *args, **kwd):
         self.save(*args, **kwd)
@@ -371,6 +371,10 @@ cdef class Trajin (TrajectoryFile):
         for frame in self:
             tarr.append(frame.temperature)
         return tarr
+
+    @property
+    def T_set(self):
+        return _get_temperature_set(self)
 
     def fit_to(self, ref=None):
         txt = """
