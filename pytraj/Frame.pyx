@@ -847,6 +847,9 @@ cdef class Frame (object):
     def set_top(self, value):
         self.top = value
 
+    def get_top(self):
+        return self.top
+
     def save(self, filename="", top=None, fmt='unknown', overwrite=False):
         if fmt == 'unknown':
             # convert to "UNKNOWN_TRAJ"
