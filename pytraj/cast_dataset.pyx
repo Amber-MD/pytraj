@@ -8,6 +8,7 @@ from pytraj.datasets.DataSet_string cimport DataSet_string, _DataSet_string
 from pytraj.datasets.DataSet_MatrixDbl cimport DataSet_MatrixDbl, _DataSet_MatrixDbl
 from pytraj.datasets.DataSet cimport DataSet, _DataSet
 from pytraj.datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
+from pytraj.datasets.DataSet_Coords_REF cimport _DataSet_Coords_REF, DataSet_Coords_REF
 from pytraj.datasets.DataSet_Coords_CRD cimport _DataSet_Coords_CRD, DataSet_Coords_CRD
 from pytraj.datasets.DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
 
@@ -32,8 +33,9 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DataSet_integer newset_integer
     cdef DataSet_MatrixDbl newset_MatrixDbl
     cdef DataSet_string newset_string
-    cdef DataSet_Coords_CRD newset_crd
-    cdef DataSet_Coords_TRJ newset_trj
+    cdef DataSet_Coords_REF newset_coords_ref
+    cdef DataSet_Coords_CRD newset_coords_crd
+    cdef DataSet_Coords_TRJ newset_coords_trj
 
     if not isinstance(dsetin, DataSet):
         dset = <DataSet> dsetin.alloc()
@@ -130,5 +132,15 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_coords_trj.thisptr = <_DataSet_Coords_TRJ*> dset.baseptr0
         return newset_coords_trj
 
+    elif dtype in ['COORDS_REF_FRAME', 'REF_FRAME', 'REFFRAME', 'REF', 'REFERENCE']:
+        newset_coords_ref = DataSet_Coords_REF()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_coords_ref.py_free_mem = False
+        newset_coords_ref.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_coords_ref.baseptr_1 = <_DataSet_1D*> dset.baseptr0
+        newset_coords_ref.baseptr_2 = <_DataSet_Coords*> dset.baseptr0
+        newset_coords_ref.thisptr = <_DataSet_Coords_REF*> dset.baseptr0
+        return newset_coords_ref
     else:
         raise NotImplementedError("")

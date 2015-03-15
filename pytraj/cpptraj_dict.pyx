@@ -254,6 +254,7 @@ DataTypeDict = {
         "MATRIX_DBL" : MATRIX_DBL, 
         "MATRIX_FLT" : MATRIX_FLT,
         "COORDS" : COORDS, 
+        "REF_FRAME" : REF_FRAME, 
         "VECTOR" : VECTOR,
         "MODES" : MODES,
         "GRID_FLT" : GRID_FLT,
