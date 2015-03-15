@@ -22,6 +22,8 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage']
 
+list_of_get = ['get_average_frame']
+
 __all__ = list_of_do + list_of_cal
 
 calc_distance = partial(calculate, 'distance')
@@ -120,3 +122,16 @@ def do_rotation(command="", traj=None, top=Topology()):
 def do_autoimage(command="", traj=None, top=Topology()):
     adict['autoimage'](command, traj, top)
 
+def get_average_frame(command="", traj=None, top=Topology()):
+    dslist = DataSetList()
+
+    # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
+    command += "crdset s1"
+
+    act = adict['average']
+    act(command, traj, top, dslist=dslist)
+
+    # need to call this method so cpptraj will write
+    act.print_output()
+    
+    return dslist[0].get_frame()

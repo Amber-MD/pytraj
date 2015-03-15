@@ -2,6 +2,7 @@ import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
+from pytraj.common_actions import *
 from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
@@ -22,7 +23,32 @@ class Test(unittest.TestCase):
         # make sure we DO reproducing cpptraj output
         f_saved = mdio.load("./data/avg.Tc5b.pdb", traj.top)[0]
         assert_almost_equal(frame.coords, f_saved.coords)
+
+        # shorter
+        from pytraj.common_actions import get_average_frame
+        #frame2 = get_average_frame("", traj, traj.top)
+        frame2 = get_average_frame("", traj)
+        assert_almost_equal(frame2.coords, f_saved.coords)
+        print (frame2[:2])
+        print (f_saved[:2])
+        print (traj[0, :2])
+        print (frame2)
         print ("OK")
+
+        frame3 = get_average_frame(traj=traj)
+        assert_almost_equal(frame3.coords, f_saved.coords)
+
+        # test list
+        frame4 = get_average_frame(traj=[traj, traj[:3]], top=traj.top)
+        print (frame4[:2])
+        print (f_saved[:2])
+
+        # test iter
+        frame5 = get_average_frame(traj=traj(1, 7, 2), top=traj.top)
+        f5_saved = mdio.load("./data/avg.Tc5b.frame_2_to_8_skip_2.pdb", traj.top)[0]
+        assert_almost_equal(frame5.coords, f5_saved.coords)
+        print (frame5[:2])
+        print (f5_saved[:2])
 
 if __name__ == "__main__":
     unittest.main()
