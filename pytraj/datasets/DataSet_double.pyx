@@ -50,7 +50,7 @@ cdef class DataSet_double (DataSet_1D):
         
     def __iter__(self):
         cdef int i
-        for i in range(self.thisptr.Size()):
+        for i in range(self.size):
             yield self.thisptr.index_opr(i)
 
     property data:
@@ -76,9 +76,10 @@ cdef class DataSet_double (DataSet_1D):
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
 
-    @property
-    def size(self):
-        return self.thisptr.Size()
+    # turn of this property to use base class' method
+    #@property
+    #def size(self):
+    #    return self.thisptr._Size()
 
     def info(self):
         self.thisptr.Info()

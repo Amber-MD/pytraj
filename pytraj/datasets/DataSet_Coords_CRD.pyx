@@ -23,6 +23,6 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
         dset.baseptr0 = _DataSet_Coords_CRD.Alloc()
         return dset
 
-    @property
-    def size(self):
-        return self.thisptr.Size()
+    #@property
+    #def size(self):
+    #    return self.thisptr.Size()

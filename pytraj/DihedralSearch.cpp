@@ -1142,7 +1142,7 @@ struct __pyx_obj_6pytraj_9Dimension_Dimension {
 };
 
 
-/* "pytraj/datasets/DataSet.pxd":50
+/* "pytraj/datasets/DataSet.pxd":51
  *         #void Add( size_t, const void*  )
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
@@ -15386,7 +15386,7 @@ PyMODINIT_FUNC PyInit_DihedralSearch(void)
   __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[14]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8Topology_Topology = __Pyx_ImportType("pytraj.Topology", "Topology", sizeof(struct __pyx_obj_6pytraj_8Topology_Topology), 1); if (unlikely(!__pyx_ptype_6pytraj_8Topology_Topology)) {__pyx_filename = __pyx_f[15]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_9Dimension_Dimension = __Pyx_ImportType("pytraj.Dimension", "Dimension", sizeof(struct __pyx_obj_6pytraj_9Dimension_Dimension), 1); if (unlikely(!__pyx_ptype_6pytraj_9Dimension_Dimension)) {__pyx_filename = __pyx_f[16]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[17]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[17]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_7ArgList_ArgList = __Pyx_ImportType("pytraj.ArgList", "ArgList", sizeof(struct __pyx_obj_6pytraj_7ArgList_ArgList), 1); if (unlikely(!__pyx_ptype_6pytraj_7ArgList_ArgList)) {__pyx_filename = __pyx_f[18]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/

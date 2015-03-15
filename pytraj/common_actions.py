@@ -126,7 +126,7 @@ def get_average_frame(command="", traj=None, top=Topology()):
     dslist = DataSetList()
 
     # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
-    command += "crdset s1"
+    command += " crdset s1"
 
     act = adict['average']
     act(command, traj, top, dslist=dslist)
@@ -135,3 +135,17 @@ def get_average_frame(command="", traj=None, top=Topology()):
     act.print_output()
     
     return dslist[0].get_frame()
+
+def randomize_ions(command="", traj=Frame(), top=Topology()):
+    """randomize_ions for given Frame with Topology
+    Return : None
+    Parameters
+    ---------
+    traj : Frame instance, default=Frame()
+        frame coords will be modified
+
+    top : Topology instance, default=Topology()
+
+    """
+    act = adict['randomizeions']
+    act.master(command, traj, top)

@@ -29,6 +29,10 @@ cdef class DataSet:
         #if self.baseptr0 != NULL:
         #    del self.baseptr0
 
+    @property
+    def size(self):
+        return self.baseptr0.Size()
+
     def set_width(self,int widthIn):
         self.baseptr0.SetWidth(widthIn)
 

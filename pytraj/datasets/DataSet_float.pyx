@@ -53,7 +53,7 @@ cdef class DataSet_float (DataSet_1D):
         for i in range(self.size):
             yield self.thisptr.index_opr(i)
 
-    @property
-    def size(self):
-        return self.thisptr.Size()
+    #@property
+    #def size(self):
+    #    return self.thisptr.Size()
 

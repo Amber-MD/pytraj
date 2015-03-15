@@ -52,3 +52,5 @@ cdef class Trajin (TrajectoryFile):
     cdef object tmpfarray
     cdef _Trajin* baseptr_1
     cdef public bint debug
+    # make _tmpobj to hold some data to avoid memory free error
+    cdef public object _tmpobj

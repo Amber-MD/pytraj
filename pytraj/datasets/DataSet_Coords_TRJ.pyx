@@ -59,6 +59,6 @@ cdef class DataSet_Coords_TRJ(DataSet_Coords):
         """add memoryview for input trajin"""
         self.thisptr.AddInputTraj(trajin.baseptr_1)
 
-    @property
-    def size(self):
-        return self.thisptr.Size()
+    #@property
+    #def size(self):
+    #    return self.thisptr.Size()

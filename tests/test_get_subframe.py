@@ -1,7 +1,6 @@
 import unittest
 from array import array
 from pytraj.base import *
-from pytraj.misc import get_subframe
 from pytraj import io as mdio
 
 class TestSubFrame(unittest.TestCase):

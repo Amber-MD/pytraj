@@ -476,7 +476,7 @@ struct __pyx_obj_6pytraj_9Dimension_Dimension {
 };
 
 
-/* "pytraj/datasets/DataSet.pxd":50
+/* "pytraj/datasets/DataSet.pxd":51
  *         #void Add( size_t, const void*  )
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
@@ -681,10 +681,6 @@ static void __Pyx_call_next_tp_dealloc(PyObject* obj, destructor current_tp_deal
 
 #include <string.h>
 
-static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
-
-static PyObject *__Pyx_GetNameInClass(PyObject *nmspace, PyObject *name);
-
 typedef struct {
     int code_line;
     PyCodeObject* code_object;
@@ -816,8 +812,6 @@ static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *);
 
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
-
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
@@ -922,7 +916,6 @@ static PyTypeObject *__pyx_ptype_6pytraj_8datasets_13DataSet_float___pyx_scope_s
 int __pyx_module_is_main_pytraj__datasets__DataSet_float = 0;
 
 /* Implementation of 'pytraj.datasets.DataSet_float' */
-static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_NotImplementedError;
 static PyObject *__pyx_builtin_MemoryError;
@@ -932,7 +925,6 @@ static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4all
 static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_6__getitem__(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self, PyObject *__pyx_v_idx); /* proto */
 static int __pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_8__setitem__(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self, int __pyx_v_idx, float __pyx_v_value); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_10__iter__(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_13size(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
 static void __pyx_pf_7cpython_5array_5array_2__releasebuffer__(CYTHON_UNUSED arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tp_new_6pytraj_8datasets_13DataSet_float_DataSet_float(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -948,7 +940,6 @@ static char __pyx_k_close[] = "close";
 static char __pyx_k_range[] = "range";
 static char __pyx_k_throw[] = "throw";
 static char __pyx_k_append[] = "append";
-static char __pyx_k_property[] = "property";
 static char __pyx_k_MemoryError[] = "MemoryError";
 static char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static char __pyx_k_DataSet_float___iter[] = "DataSet_float.__iter__";
@@ -965,7 +956,6 @@ static PyObject *__pyx_n_s_iter;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_kp_s_only_support_single_indexing_or;
 static PyObject *__pyx_kp_s_only_support_slice_None;
-static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_send;
 static PyObject *__pyx_n_s_size;
@@ -1585,7 +1575,7 @@ static PyObject *__pyx_gb_6pytraj_8datasets_13DataSet_float_13DataSet_float_12ge
  *         for i in range(self.size):
  *             yield self.thisptr.index_opr(i)             # <<<<<<<<<<<<<<
  * 
- *     @property
+ *     #@property
  */
     __pyx_t_1 = PyFloat_FromDouble(__pyx_cur_scope->__pyx_v_self->thisptr->operator[](__pyx_cur_scope->__pyx_v_i)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -1624,69 +1614,6 @@ static PyObject *__pyx_gb_6pytraj_8datasets_13DataSet_float_13DataSet_float_12ge
   __Pyx_Generator_clear((PyObject*)__pyx_generator);
   __Pyx_RefNannyFinishContext();
   return NULL;
-}
-
-/* "pytraj/datasets/DataSet_float.pyx":57
- * 
- *     @property
- *     def size(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Size()
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_13DataSet_float_13DataSet_float_14size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_13DataSet_float_13DataSet_float_13size[] = "DataSet_float.size(self)";
-static PyObject *__pyx_pw_6pytraj_8datasets_13DataSet_float_13DataSet_float_14size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("size (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_13size(((struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_13size(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("size", 0);
-
-  /* "pytraj/datasets/DataSet_float.pyx":58
- *     @property
- *     def size(self):
- *         return self.thisptr.Size()             # <<<<<<<<<<<<<<
- * 
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->thisptr->Size()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pytraj/datasets/DataSet_float.pyx":57
- * 
- *     @property
- *     def size(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Size()
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_float.DataSet_float.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
 }
 
 /* "cpython/array.pxd":91
@@ -2366,7 +2293,6 @@ static int __pyx_mp_ass_subscript_6pytraj_8datasets_13DataSet_float_DataSet_floa
 
 static PyMethodDef __pyx_methods_6pytraj_8datasets_13DataSet_float_DataSet_float[] = {
   {"alloc", (PyCFunction)__pyx_pw_6pytraj_8datasets_13DataSet_float_13DataSet_float_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8datasets_13DataSet_float_13DataSet_float_4alloc},
-  {"size", (PyCFunction)__pyx_pw_6pytraj_8datasets_13DataSet_float_13DataSet_float_14size, METH_NOARGS, __pyx_doc_6pytraj_8datasets_13DataSet_float_13DataSet_float_13size},
   {0, 0, 0, 0}
 };
 
@@ -2583,7 +2509,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_kp_s_only_support_single_indexing_or, __pyx_k_only_support_single_indexing_or, sizeof(__pyx_k_only_support_single_indexing_or), 0, 0, 1, 0},
   {&__pyx_kp_s_only_support_slice_None, __pyx_k_only_support_slice_None, sizeof(__pyx_k_only_support_slice_None), 0, 0, 1, 0},
-  {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_send, __pyx_k_send, sizeof(__pyx_k_send), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
@@ -2592,7 +2517,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2660,7 +2584,6 @@ PyMODINIT_FUNC PyInit_DataSet_float(void)
 #endif
 {
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2743,42 +2666,13 @@ PyMODINIT_FUNC PyInit_DataSet_float(void)
   __pyx_ptype_6pytraj_8datasets_13DataSet_float___pyx_scope_struct____iter__ = &__pyx_type_6pytraj_8datasets_13DataSet_float___pyx_scope_struct____iter__;
   /*--- Type import code ---*/
   __pyx_ptype_6pytraj_9Dimension_Dimension = __Pyx_ImportType("pytraj.Dimension", "Dimension", sizeof(struct __pyx_obj_6pytraj_9Dimension_Dimension), 1); if (unlikely(!__pyx_ptype_6pytraj_9Dimension_Dimension)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
-
-  /* "pytraj/datasets/DataSet_float.pyx":57
- * 
- *     @property
- *     def size(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Size()
- * 
- */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8datasets_13DataSet_float_DataSet_float, __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-
-  /* "pytraj/datasets/DataSet_float.pyx":56
- *             yield self.thisptr.index_opr(i)
- * 
- *     @property             # <<<<<<<<<<<<<<
- *     def size(self):
- *         return self.thisptr.Size()
- */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_1);
-  __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8datasets_13DataSet_float_DataSet_float->tp_dict, __pyx_n_s_size, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_8datasets_13DataSet_float_DataSet_float);
 
   /* "pytraj/datasets/DataSet_float.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
@@ -2803,7 +2697,6 @@ PyMODINIT_FUNC PyInit_DataSet_float(void)
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init pytraj.datasets.DataSet_float", __pyx_clineno, __pyx_lineno, __pyx_filename);
@@ -3224,31 +3117,6 @@ static void __Pyx_call_next_tp_dealloc(PyObject* obj, destructor current_tp_deal
         type->tp_dealloc(obj);
 }
 
-static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
-    PyObject *result;
-#if CYTHON_COMPILING_IN_CPYTHON
-    result = PyDict_GetItem(__pyx_d, name);
-    if (likely(result)) {
-        Py_INCREF(result);
-    } else {
-#else
-    result = PyObject_GetItem(__pyx_d, name);
-    if (!result) {
-        PyErr_Clear();
-#endif
-        result = __Pyx_GetBuiltinName(name);
-    }
-    return result;
-}
-
-static PyObject *__Pyx_GetNameInClass(PyObject *nmspace, PyObject *name) {
-    PyObject *result;
-    result = __Pyx_PyObject_GetAttrStr(nmspace, name);
-    if (!result)
-        result = __Pyx_GetModuleGlobalName(name);
-    return result;
-}
-
 static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
     int start = 0, mid = 0, end = count - 1;
     if (end >= 0 && code_line > entries[end].code_line) {
@@ -3617,32 +3485,6 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to size_t");
     return (size_t) -1;
-}
-
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
-    const int neg_one = (int) -1, const_zero = 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(int) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(int) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-        } else if (sizeof(int) <= sizeof(unsigned long long)) {
-            return PyLong_FromUnsignedLongLong((unsigned long long) value);
-        }
-    } else {
-        if (sizeof(int) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(int) <= sizeof(long long)) {
-            return PyLong_FromLongLong((long long) value);
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(int),
-                                     little, !is_unsigned);
-    }
 }
 
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {

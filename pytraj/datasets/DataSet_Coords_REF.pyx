@@ -21,9 +21,9 @@ cdef class DataSet_Coords_REF (DataSet_Coords):
         dset.baseptr0 = _DataSet_Coords_REF.Alloc()
         return dset
 
-    @property
-    def size(self):
-        return self.thisptr.Size()
+    #@property
+    #def size(self):
+    #    return self.thisptr.Size()
 
     def get_frame(self):
         cdef Frame frame = Frame()

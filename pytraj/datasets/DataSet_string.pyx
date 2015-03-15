@@ -54,7 +54,7 @@ cdef class DataSet_string (DataSet_1D):
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
 
-    @property
-    def size(self):
-        return self.thisptr.Size()
+    #@property
+    #def size(self):
+    #    return self.thisptr.Size()
 

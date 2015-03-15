@@ -18,7 +18,7 @@ cdef extern from "DataSet_double.h":
         void assign_opr "operator =" (const vector[double]& rhs)
         void AddElement(double d)
         void Resize(size_t sizeIn)
-        size_t Size() const 
+        size_t Size()
         int Sync() 
         void Info() const 
         int Allocate1D(size_t)

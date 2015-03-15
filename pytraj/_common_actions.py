@@ -1,3 +1,5 @@
+from pytraj.externals.six import string_types
+
 def calculate(action=None, command=None, traj=None, top=None, **kwd): 
     # TODO : should write universal help's method 
     """ 

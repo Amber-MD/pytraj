@@ -50,5 +50,18 @@ class Test(unittest.TestCase):
         print (frame5[:2])
         print (f5_saved[:2])
 
+        # test iter CA
+        frame5 = get_average_frame("@CA", traj=traj(1, 7, 2), top=traj.top)
+        print (frame5[:2])
+
+        print ("frame5.n_atoms: for CA")
+        print (frame5.n_atoms)
+
+        # TODO: add cpptraj output here. For some reasons, I can not use 'average' with 
+        # @CA mask in cpptraj. 
+        #f5_saved = mdio.load("./data/avg.Tc5b.frame_2_to_8_skip_2.CA.pdb", traj.top)[0]
+        #print (f5_saved[:2])
+        #assert_almost_equal(frame5.coords, f5_saved.coords)
+
 if __name__ == "__main__":
     unittest.main()

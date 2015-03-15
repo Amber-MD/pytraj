@@ -45,6 +45,38 @@ def loadtraj(filename=None, top=Topology(), readonly=True, indices=None):
     ts.load(filename, top)
     return ts
 
+def load_remd(filename, top=Topology(), T="300.0"):
+    """Load remd trajectory for single temperature.
+    Example: Suppose you have replica trajectoris remd.x.00{1-4}. 
+    You want to load and extract only frames at 300 K, use this "load_remd" method
+
+    Parameters
+    ----------
+    filename : str
+    top : {str, Topology objecd}
+    T : {int, float, str}, defaul="300.0"
+
+    Returns
+    ------
+    TrajReadOnly object
+    """
+    from pytraj import CpptrajState
+
+    state = CpptrajState()
+    # add keyword 'remdtraj' to trick cpptraj
+    trajin = filename + ' remdtraj remdtrajtemp ' + str(T)
+    state.toplist.add_parm(top)
+
+    # load trajin, add "is_ensemble = False" to trick cpptraj
+    # is_ensemble has 3 values: None, False and True
+    state.add_trajin(trajin, is_ensemble=False)
+    traj = state.get_trajinlist()[0]
+    traj.top = state.toplist[0].copy()
+
+    # use _tmpobj to hold CpptrajState(). If not, cpptraj will free memory
+    traj._tmpobj = state
+    return traj
+
 def writetraj(filename="", traj=None, top=None, 
               fmt='UNKNOWN_TRAJ', indices=None,
               overwrite=False):
@@ -131,5 +163,6 @@ def load_single_frame(frame=None, top=None):
 
 # creat alias
 write_traj = writetraj
-write_parm = writeparm
 load_traj = loadtraj
+read_parm = readparm
+write_parm = writeparm

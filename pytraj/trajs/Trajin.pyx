@@ -385,3 +385,7 @@ cdef class Trajin (TrajectoryFile):
         """
         __doc__ = txt
         raise NotImplementedError(txt)
+
+    @property
+    def shape(self):
+        return (self.n_frames, self[0].n_atoms, 3)

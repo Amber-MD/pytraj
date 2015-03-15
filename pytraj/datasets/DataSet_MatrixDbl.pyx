@@ -24,10 +24,9 @@ cdef class DataSet_MatrixDbl (DataSet_2D):
         dset.baseptr0 = _DataSet_MatrixDbl.Alloc()
         return dset
 
-
-    @property
-    def size(self):
-        return self.thisptr.Size()
+    #@property
+    #def size(self):
+    #    return self.thisptr.Size()
 
     @property
     def mtype(self):
