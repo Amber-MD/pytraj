@@ -2049,7 +2049,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_101get_unique_resname(stru
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_103get_unique_atomname(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_105get_atomname_set(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_107get_resname_set(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_109parm_coordinnfo(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_109get_parm_coord_info(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_111join(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, PyObject *__pyx_v_top); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_113masses(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_11py_free_mem___get__(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
@@ -10306,7 +10306,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_107get_resname_set(struct 
  *     def get_resname_set(self):
  *         return self.get_unique_resname()             # <<<<<<<<<<<<<<
  * 
- *     def parm_coordinnfo(self):
+ *     def get_parm_coord_info(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_unique_resname); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 471; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -10357,26 +10357,26 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_107get_resname_set(struct 
 /* "pytraj/Topology.pyx":473
  *         return self.get_unique_resname()
  * 
- *     def parm_coordinnfo(self):             # <<<<<<<<<<<<<<
+ *     def get_parm_coord_info(self):             # <<<<<<<<<<<<<<
  *         cdef CoordinateInfo coordinfo = CoordinateInfo()
  *         coordinfo.thisptr[0] = self.thisptr.ParmCoordInfo()
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_110parm_coordinnfo(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Topology_8Topology_109parm_coordinnfo[] = "Topology.parm_coordinnfo(self)";
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_110parm_coordinnfo(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_110get_parm_coord_info(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8Topology_8Topology_109get_parm_coord_info[] = "Topology.get_parm_coord_info(self)";
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_110get_parm_coord_info(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("parm_coordinnfo (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_109parm_coordinnfo(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("get_parm_coord_info (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_109get_parm_coord_info(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_109parm_coordinnfo(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_109get_parm_coord_info(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
   struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_coordinfo = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -10384,11 +10384,11 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_109parm_coordinnfo(struct 
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("parm_coordinnfo", 0);
+  __Pyx_RefNannySetupContext("get_parm_coord_info", 0);
 
   /* "pytraj/Topology.pyx":474
  * 
- *     def parm_coordinnfo(self):
+ *     def get_parm_coord_info(self):
  *         cdef CoordinateInfo coordinfo = CoordinateInfo()             # <<<<<<<<<<<<<<
  *         coordinfo.thisptr[0] = self.thisptr.ParmCoordInfo()
  *         return coordinfo
@@ -10399,7 +10399,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_109parm_coordinnfo(struct 
   __pyx_t_1 = 0;
 
   /* "pytraj/Topology.pyx":475
- *     def parm_coordinnfo(self):
+ *     def get_parm_coord_info(self):
  *         cdef CoordinateInfo coordinfo = CoordinateInfo()
  *         coordinfo.thisptr[0] = self.thisptr.ParmCoordInfo()             # <<<<<<<<<<<<<<
  *         return coordinfo
@@ -10422,7 +10422,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_109parm_coordinnfo(struct 
   /* "pytraj/Topology.pyx":473
  *         return self.get_unique_resname()
  * 
- *     def parm_coordinnfo(self):             # <<<<<<<<<<<<<<
+ *     def get_parm_coord_info(self):             # <<<<<<<<<<<<<<
  *         cdef CoordinateInfo coordinfo = CoordinateInfo()
  *         coordinfo.thisptr[0] = self.thisptr.ParmCoordInfo()
  */
@@ -10430,7 +10430,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_109parm_coordinnfo(struct 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Topology.Topology.parm_coordinnfo", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.Topology.Topology.get_parm_coord_info", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_coordinfo);
@@ -22829,7 +22829,7 @@ static PyMethodDef __pyx_methods_6pytraj_8Topology_Topology[] = {
   {"get_unique_atomname", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_104get_unique_atomname, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_103get_unique_atomname},
   {"get_atomname_set", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_106get_atomname_set, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_105get_atomname_set},
   {"get_resname_set", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_108get_resname_set, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_107get_resname_set},
-  {"parm_coordinnfo", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_110parm_coordinnfo, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_109parm_coordinnfo},
+  {"get_parm_coord_info", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_110get_parm_coord_info, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_109get_parm_coord_info},
   {"join", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_112join, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_111join},
   {"masses", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_114masses, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_113masses},
   {0, 0, 0, 0}

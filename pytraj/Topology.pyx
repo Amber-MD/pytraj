@@ -470,7 +470,7 @@ cdef class Topology:
     def get_resname_set(self):
         return self.get_unique_resname()
 
-    def parm_coordinnfo(self):
+    def get_parm_coord_info(self):
         cdef CoordinateInfo coordinfo = CoordinateInfo()
         coordinfo.thisptr[0] = self.thisptr.ParmCoordInfo()
         return coordinfo
