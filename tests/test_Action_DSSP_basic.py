@@ -3,7 +3,7 @@ from pytraj.base import *
 from pytraj import allactions
 from pytraj.cast_dataset import cast_dataset
 from pytraj import adict 
-from pytraj import commmon_actions import to_string_ss
+from pytraj.common_actions import to_string_ss
 from pytraj.DataFileList import DataFileList
 
 traj = TrajReadOnly(top=Topology("./data/DPDP.parm7"), 
@@ -25,9 +25,13 @@ class TestRadgyr(unittest.TestCase):
 
         from pytraj.utils import _import
         has_np, np = _import('numpy')
+
         if has_np:
             arr0_np = np.asarray(arr0)
             print (arr0_np)
+
+        for d0 in dslist:
+            print (d0.name)
 
 if __name__ == "__main__":
     unittest.main()

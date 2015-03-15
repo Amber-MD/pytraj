@@ -40,7 +40,6 @@ FileTypes
 Frame
 #Array1D
 FrameArray
-FrameArray2
 BaseIOtype
 trajs/TrajectoryIO
 #FrameList
@@ -54,6 +53,7 @@ datasets/DataSet_float
 datasets/DataSet_integer
 datasets/DataSet_string
 datasets/DataSet_Coords
+datasets/DataSet_Coords_REF
 datasets/DataSet_Coords_CRD
 datasets/DataSet_Coords_TRJ
 DataFileList
