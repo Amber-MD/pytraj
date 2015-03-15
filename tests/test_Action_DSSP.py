@@ -1,9 +1,13 @@
 import unittest
+import numpy as np
+from numpy.testing import assert_allclose
+from pytraj import io as mdio
 from pytraj.base import *
 from pytraj import allactions
 from pytraj.cast_dataset import cast_dataset
 from pytraj import adict 
 from pytraj.DataFileList import DataFileList
+from pytraj.common_actions import calc_dssp
 
 farray = TrajReadOnly(top=Topology("./data/DPDP.parm7"), 
                     filename='./data/DPDP.nc', 
@@ -57,11 +61,26 @@ class TestRadgyr(unittest.TestCase):
         arr0 = calc_dssp(":10-22", farray[:2])
 
     def test_3(self):
-        from pytraj.common_actions import calc_dssp
         arr0 = calc_dssp(":10-22", farray[:3], dtype='int')
         arr1 = calc_dssp(":10-22", farray[:3], dtype='str')
         print (arr0)
         print (arr1)
+
+    def test_4(self):
+        # add assert 
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        arr1 = calc_dssp("*", traj, dtype='int')
+        print ("DSSP from pytraj")
+        print (np.array(arr1).shape)
+        print (dir(calc_dssp))
+
+        # load cpptraj output
+        dssp_saved = np.loadtxt("./data/dssp.Tc5b.dat", skiprows=1)
+        print ("DSSP from cpptraj")
+        print (dssp_saved)
+        print (dssp_saved.shape)
+
+        assert_allclose(arr1, dssp_saved.transpose()[1:].transpose())
 
 if __name__ == "__main__":
     unittest.main()

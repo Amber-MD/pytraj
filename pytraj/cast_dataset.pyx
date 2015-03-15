@@ -20,8 +20,8 @@ def cast_dataset(dsetin=None, dtype='general'):
     dtype : str (default dtype=None)
         {'general', 'matrix', '1D', '2D', 'double', 'matrix_dbl',
          'integer',
-         'coords_crd',
-         'coords_trj'}
+         'coords_crd', 'coords'
+         'coords_trj', 'trj'}
     """
     # TODO:
     cdef DataSet dset
@@ -119,7 +119,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_coords_crd.thisptr = <_DataSet_Coords_CRD*> dset.baseptr0
         return newset_coords_crd
 
-    elif dtype in ['COORDS_TRJ']:
+    elif dtype in ['COORDS_TRJ', 'TRJ']:
         newset_coords_trj = DataSet_Coords_TRJ()
         # since we introduce memory view, we let cpptraj free memory
         newset_coords_trj.py_free_mem = False

@@ -3,6 +3,7 @@ from pytraj.base import *
 from pytraj import allactions
 from pytraj.cast_dataset import cast_dataset
 from pytraj import adict 
+from pytraj import commmon_actions import to_string_ss
 from pytraj.DataFileList import DataFileList
 
 traj = TrajReadOnly(top=Topology("./data/DPDP.parm7"), 

@@ -35,7 +35,7 @@ from pytraj.DataFileList import DataFileList
 # actions
 from pytraj.actions import allactions
 from pytraj.analyses import allanalyses
-from pytraj.misc import calculate
+from pytraj._common_actions import calculate
 
 #try:
 #    amber_home = os.environ['AMBERHOME']
