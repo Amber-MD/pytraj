@@ -102,6 +102,7 @@ packages = [
         'pytraj.gdt',
         'pytraj.data_sample',
         'pytraj.data_sample.Ala3',
+        #'pytraj.tests',
         ]
 
 pylen = len('pytraj') + 1
