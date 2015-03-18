@@ -1,5 +1,5 @@
 import unittest
-from itertools import izip
+from pytraj.six_2 import izip
 import os
 from pytraj.base import *
 from pytraj import adict

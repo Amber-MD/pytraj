@@ -1,5 +1,5 @@
 import unittest
-from itertools import izip
+from pytraj.six_2 import izip
 from pytraj.base import *
 from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD as DataSet_Coords_CRD
 from pytraj.utils.check_and_assert import assert_almost_equal
