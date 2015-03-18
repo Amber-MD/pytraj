@@ -2,6 +2,7 @@
 from cython.operator cimport dereference as deref
 
 from pytraj.externals.six import PY2, PY3, string_types
+from pytraj.utils.check_and_assert import is_int
 
 cdef class TopologyList:
     def __cinit__(self, py_free_mem=True):
@@ -69,7 +70,7 @@ cdef class TopologyList:
         # freeing memory
         top.py_free_mem = False
 
-        if isinstance(arg, (int, long)):
+        if is_int(arg):
             num = arg
             #top.thisptr[0] = deref(self.thisptr.GetParm(num))
             # use memoryview instead making a copy

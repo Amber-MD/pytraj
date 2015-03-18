@@ -8,6 +8,7 @@ from cpython.array cimport array as pyarray
 
 from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
+from pytraj.utils.check_and_assert import is_int
 from pytraj.parms._ParmFile import TMPParmFile
 from pytraj.externals.six import PY3, PY2, string_types, binary_type
 from pytraj.six_2 import set
@@ -114,7 +115,7 @@ cdef class Topology:
         cdef Atom atom 
         cdef int i
 
-        if isinstance(idx, (int, long)):
+        if is_int(idx):
             # need to explicitly cast to int
             i = <int> idx
             atom = Atom()
@@ -197,7 +198,7 @@ cdef class Topology:
         cdef AtomMask atm
         cdef list namelist = []
 
-        if isinstance(id_or_mask, (int, long)):
+        if is_int(id_or_mask):
             index = <int> id_or_mask
             return self.thisptr.TruncResAtomName(index)
         elif isinstance(id_or_mask, string_types):

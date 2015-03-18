@@ -10,7 +10,7 @@ from pytraj._utils cimport get_positive_idx
 # python level
 from pytraj.externals.six import string_types
 from pytraj.TrajReadOnly import TrajReadOnly
-from pytraj.utils.check_and_assert import _import_numpy
+from pytraj.utils.check_and_assert import _import_numpy, is_int
 from pytraj.utils.check_and_assert import file_exist
 from pytraj.trajs.Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
@@ -385,7 +385,7 @@ cdef class FrameArray (object):
     def erase(self, idxs):
         cdef int idx
         # dealloc frame pointer too?
-        if isinstance(idxs, (int, long)):
+        if is_int(idxs):
             idx = idxs
             self.frame_v.erase(self.frame_v.begin() + idx)
         else:

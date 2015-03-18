@@ -1388,6 +1388,8 @@ static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject 
 static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
     const char *name, int exact);
 
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
+
 static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
 static CYTHON_INLINE int __Pyx_CheckKeywordStrings(PyObject *kwdict, const char* function_name, int kw_allowed);
@@ -1885,6 +1887,7 @@ static char __pyx_k_start[] = "start";
 static char __pyx_k_encode[] = "encode";
 static char __pyx_k_format[] = "format";
 static char __pyx_k_import[] = "__import__";
+static char __pyx_k_is_int[] = "is_int";
 static char __pyx_k_name_2[] = "__name__";
 static char __pyx_k_struct[] = "struct";
 static char __pyx_k_unpack[] = "unpack";
@@ -1920,6 +1923,7 @@ static char __pyx_k_Invalid_shape_in_axis_d_d[] = "Invalid shape in axis %d: %d.
 static char __pyx_k_Index_out_of_bounds_axis_d[] = "Index out of bounds (axis %d)";
 static char __pyx_k_Step_may_not_be_zero_axis_d[] = "Step may not be zero (axis %d)";
 static char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cython.array";
+static char __pyx_k_pytraj_utils_check_and_assert[] = "pytraj.utils.check_and_assert";
 static char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
 static char __pyx_k_All_dimensions_preceding_dimensi[] = "All dimensions preceding dimension %d must be indexed and not sliced";
@@ -1978,6 +1982,7 @@ static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_kp_s_index_is_out_of_range;
 static PyObject *__pyx_kp_s_index_is_out_of_range_do_you_hav;
+static PyObject *__pyx_n_s_is_int;
 static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_main;
@@ -1990,6 +1995,7 @@ static PyObject *__pyx_n_s_obj;
 static PyObject *__pyx_n_s_pack;
 static PyObject *__pyx_n_s_py_free_mem;
 static PyObject *__pyx_n_s_pytraj_externals_six;
+static PyObject *__pyx_n_s_pytraj_utils_check_and_assert;
 static PyObject *__pyx_n_s_pyx_getbuffer;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
@@ -2032,7 +2038,7 @@ static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_tuple__20;
 static PyObject *__pyx_tuple__21;
 
-/* "pytraj/TopologyList.pyx":7
+/* "pytraj/TopologyList.pyx":8
  * 
  * cdef class TopologyList:
  *     def __cinit__(self, py_free_mem=True):             # <<<<<<<<<<<<<<
@@ -2071,7 +2077,7 @@ static int __pyx_pw_6pytraj_12TopologyList_12TopologyList_1__cinit__(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2084,7 +2090,7 @@ static int __pyx_pw_6pytraj_12TopologyList_12TopologyList_1__cinit__(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.TopologyList.TopologyList.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2107,7 +2113,7 @@ static int __pyx_pf_6pytraj_12TopologyList_12TopologyList___cinit__(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pytraj/TopologyList.pyx":13
+  /* "pytraj/TopologyList.pyx":14
  * 
  *         cdef string filename
  *         self.thisptr = new _TopologyList()             # <<<<<<<<<<<<<<
@@ -2118,21 +2124,21 @@ static int __pyx_pf_6pytraj_12TopologyList_12TopologyList___cinit__(struct __pyx
     __pyx_t_1 = new TopologyList();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_v_self->thisptr = __pyx_t_1;
 
-  /* "pytraj/TopologyList.pyx":14
+  /* "pytraj/TopologyList.pyx":15
  *         cdef string filename
  *         self.thisptr = new _TopologyList()
  *         self.py_free_mem = py_free_mem             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_py_free_mem); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_py_free_mem); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_self->py_free_mem = __pyx_t_2;
 
-  /* "pytraj/TopologyList.pyx":7
+  /* "pytraj/TopologyList.pyx":8
  * 
  * cdef class TopologyList:
  *     def __cinit__(self, py_free_mem=True):             # <<<<<<<<<<<<<<
@@ -2151,7 +2157,7 @@ static int __pyx_pf_6pytraj_12TopologyList_12TopologyList___cinit__(struct __pyx
   return __pyx_r;
 }
 
-/* "pytraj/TopologyList.pyx":16
+/* "pytraj/TopologyList.pyx":17
  *         self.py_free_mem = py_free_mem
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2175,7 +2181,7 @@ static void __pyx_pf_6pytraj_12TopologyList_12TopologyList_2__dealloc__(struct _
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pytraj/TopologyList.pyx":17
+  /* "pytraj/TopologyList.pyx":18
  * 
  *     def __dealloc__(self):
  *         if self.py_free_mem:             # <<<<<<<<<<<<<<
@@ -2185,7 +2191,7 @@ static void __pyx_pf_6pytraj_12TopologyList_12TopologyList_2__dealloc__(struct _
   __pyx_t_1 = (__pyx_v_self->py_free_mem != 0);
   if (__pyx_t_1) {
 
-    /* "pytraj/TopologyList.pyx":18
+    /* "pytraj/TopologyList.pyx":19
  *     def __dealloc__(self):
  *         if self.py_free_mem:
  *             del self.thisptr             # <<<<<<<<<<<<<<
@@ -2197,7 +2203,7 @@ static void __pyx_pf_6pytraj_12TopologyList_12TopologyList_2__dealloc__(struct _
   }
   __pyx_L3:;
 
-  /* "pytraj/TopologyList.pyx":16
+  /* "pytraj/TopologyList.pyx":17
  *         self.py_free_mem = py_free_mem
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2209,7 +2215,7 @@ static void __pyx_pf_6pytraj_12TopologyList_12TopologyList_2__dealloc__(struct _
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/TopologyList.pyx":20
+/* "pytraj/TopologyList.pyx":21
  *             del self.thisptr
  * 
  *     def clear(self):             # <<<<<<<<<<<<<<
@@ -2236,7 +2242,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_4clear(struct __
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("clear", 0);
 
-  /* "pytraj/TopologyList.pyx":21
+  /* "pytraj/TopologyList.pyx":22
  * 
  *     def clear(self):
  *         self.thisptr.Clear()             # <<<<<<<<<<<<<<
@@ -2245,7 +2251,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_4clear(struct __
  */
   __pyx_v_self->thisptr->Clear();
 
-  /* "pytraj/TopologyList.pyx":20
+  /* "pytraj/TopologyList.pyx":21
  *             del self.thisptr
  * 
  *     def clear(self):             # <<<<<<<<<<<<<<
@@ -2260,7 +2266,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_4clear(struct __
   return __pyx_r;
 }
 
-/* "pytraj/TopologyList.pyx":23
+/* "pytraj/TopologyList.pyx":24
  *         self.thisptr.Clear()
  * 
  *     def set_debug(self, int id):             # <<<<<<<<<<<<<<
@@ -2280,7 +2286,7 @@ static PyObject *__pyx_pw_6pytraj_12TopologyList_12TopologyList_7set_debug(PyObj
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_debug (wrapper)", 0);
   assert(__pyx_arg_id); {
-    __pyx_v_id = __Pyx_PyInt_As_int(__pyx_arg_id); if (unlikely((__pyx_v_id == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_id = __Pyx_PyInt_As_int(__pyx_arg_id); if (unlikely((__pyx_v_id == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2300,7 +2306,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_6set_debug(struc
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_debug", 0);
 
-  /* "pytraj/TopologyList.pyx":24
+  /* "pytraj/TopologyList.pyx":25
  * 
  *     def set_debug(self, int id):
  *         self.thisptr.SetDebug(id)             # <<<<<<<<<<<<<<
@@ -2309,7 +2315,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_6set_debug(struc
  */
   __pyx_v_self->thisptr->SetDebug(__pyx_v_id);
 
-  /* "pytraj/TopologyList.pyx":23
+  /* "pytraj/TopologyList.pyx":24
  *         self.thisptr.Clear()
  * 
  *     def set_debug(self, int id):             # <<<<<<<<<<<<<<
@@ -2324,7 +2330,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_6set_debug(struc
   return __pyx_r;
 }
 
-/* "pytraj/TopologyList.pyx":26
+/* "pytraj/TopologyList.pyx":27
  *         self.thisptr.SetDebug(id)
  * 
  *     def __getitem__(self, int idx):             # <<<<<<<<<<<<<<
@@ -2347,7 +2353,7 @@ static PyObject *__pyx_pw_6pytraj_12TopologyList_12TopologyList_9__getitem__(PyO
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
   assert(__pyx_arg_idx); {
-    __pyx_v_idx = __Pyx_PyInt_As_int(__pyx_arg_idx); if (unlikely((__pyx_v_idx == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_idx = __Pyx_PyInt_As_int(__pyx_arg_idx); if (unlikely((__pyx_v_idx == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2378,7 +2384,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_8__getitem__(str
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
 
-  /* "pytraj/TopologyList.pyx":33
+  /* "pytraj/TopologyList.pyx":34
  *         """
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -2392,7 +2398,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_8__getitem__(str
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "pytraj/TopologyList.pyx":34
+      /* "pytraj/TopologyList.pyx":35
  * 
  *         try:
  *            return self.get_parm(idx)             # <<<<<<<<<<<<<<
@@ -2400,9 +2406,9 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_8__getitem__(str
  *             raise ValueError("index is out of range? do you have empty list?")
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_parm); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_parm); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_idx); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_idx); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       __Pyx_GOTREF(__pyx_t_6);
       __pyx_t_7 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
@@ -2415,17 +2421,17 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_8__getitem__(str
         }
       }
       if (!__pyx_t_7) {
-        __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_4);
       } else {
-        __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         __Pyx_GOTREF(__pyx_t_8);
         PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
         PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_6);
         __Pyx_GIVEREF(__pyx_t_6);
         __pyx_t_6 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
@@ -2441,7 +2447,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_8__getitem__(str
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pytraj/TopologyList.pyx":35
+    /* "pytraj/TopologyList.pyx":36
  *         try:
  *            return self.get_parm(idx)
  *         except:             # <<<<<<<<<<<<<<
@@ -2450,23 +2456,23 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_8__getitem__(str
  */
     /*except:*/ {
       __Pyx_AddTraceback("pytraj.TopologyList.TopologyList.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_8) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
+      if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_8) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GOTREF(__pyx_t_8);
 
-      /* "pytraj/TopologyList.pyx":36
+      /* "pytraj/TopologyList.pyx":37
  *            return self.get_parm(idx)
  *         except:
  *             raise ValueError("index is out of range? do you have empty list?")             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(self, int idx, Topology other):
  */
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_Raise(__pyx_t_6, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
     }
     __pyx_L5_except_error:;
     __Pyx_XGIVEREF(__pyx_t_1);
@@ -2482,7 +2488,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_8__getitem__(str
     goto __pyx_L0;
   }
 
-  /* "pytraj/TopologyList.pyx":26
+  /* "pytraj/TopologyList.pyx":27
  *         self.thisptr.SetDebug(id)
  * 
  *     def __getitem__(self, int idx):             # <<<<<<<<<<<<<<
@@ -2505,7 +2511,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_8__getitem__(str
   return __pyx_r;
 }
 
-/* "pytraj/TopologyList.pyx":38
+/* "pytraj/TopologyList.pyx":39
  *             raise ValueError("index is out of range? do you have empty list?")
  * 
  *     def __setitem__(self, int idx, Topology other):             # <<<<<<<<<<<<<<
@@ -2524,7 +2530,7 @@ static int __pyx_pw_6pytraj_12TopologyList_12TopologyList_11__setitem__(PyObject
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__ (wrapper)", 0);
   assert(__pyx_arg_idx); {
-    __pyx_v_idx = __Pyx_PyInt_As_int(__pyx_arg_idx); if (unlikely((__pyx_v_idx == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_idx = __Pyx_PyInt_As_int(__pyx_arg_idx); if (unlikely((__pyx_v_idx == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2532,7 +2538,7 @@ static int __pyx_pw_6pytraj_12TopologyList_12TopologyList_11__setitem__(PyObject
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_8Topology_Topology, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_8Topology_Topology, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_6pytraj_12TopologyList_12TopologyList_10__setitem__(((struct __pyx_obj_6pytraj_12TopologyList_TopologyList *)__pyx_v_self), ((int)__pyx_v_idx), ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_other));
 
   /* function exit code */
@@ -2550,7 +2556,7 @@ static int __pyx_pf_6pytraj_12TopologyList_12TopologyList_10__setitem__(struct _
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__", 0);
 
-  /* "pytraj/TopologyList.pyx":40
+  /* "pytraj/TopologyList.pyx":41
  *     def __setitem__(self, int idx, Topology other):
  *         cdef _Topology* topptr
  *         topptr = self.thisptr.GetParm(idx)             # <<<<<<<<<<<<<<
@@ -2559,7 +2565,7 @@ static int __pyx_pf_6pytraj_12TopologyList_12TopologyList_10__setitem__(struct _
  */
   __pyx_v_topptr = __pyx_v_self->thisptr->GetParm(__pyx_v_idx);
 
-  /* "pytraj/TopologyList.pyx":41
+  /* "pytraj/TopologyList.pyx":42
  *         cdef _Topology* topptr
  *         topptr = self.thisptr.GetParm(idx)
  *         topptr[0] = other.thisptr[0]             # <<<<<<<<<<<<<<
@@ -2568,7 +2574,7 @@ static int __pyx_pf_6pytraj_12TopologyList_12TopologyList_10__setitem__(struct _
  */
   (__pyx_v_topptr[0]) = (__pyx_v_other->thisptr[0]);
 
-  /* "pytraj/TopologyList.pyx":38
+  /* "pytraj/TopologyList.pyx":39
  *             raise ValueError("index is out of range? do you have empty list?")
  * 
  *     def __setitem__(self, int idx, Topology other):             # <<<<<<<<<<<<<<
@@ -2582,7 +2588,7 @@ static int __pyx_pf_6pytraj_12TopologyList_12TopologyList_10__setitem__(struct _
   return __pyx_r;
 }
 
-/* "pytraj/TopologyList.pyx":55
+/* "pytraj/TopologyList.pyx":56
  *     #    return self.thisptr.Size()
  * 
  *     def get_parm(self, arg):             # <<<<<<<<<<<<<<
@@ -2611,28 +2617,30 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_12get_parm(struc
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  int __pyx_t_2;
-  int __pyx_t_3;
-  int __pyx_t_4;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
   int __pyx_t_5;
+  int __pyx_t_6;
+  int __pyx_t_7;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_parm", 0);
 
-  /* "pytraj/TopologyList.pyx":61
+  /* "pytraj/TopologyList.pyx":62
  *         """
  * 
  *         cdef Topology top = Topology()             # <<<<<<<<<<<<<<
  *         cdef int num
  *         cdef ArgList argIn
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/TopologyList.pyx":66
+  /* "pytraj/TopologyList.pyx":67
  *         # Explicitly del this pointer since we later let cpptraj frees memory
  *         # (we are use memoryview, not gettting a copy)
  *         del top.thisptr             # <<<<<<<<<<<<<<
@@ -2641,47 +2649,64 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_12get_parm(struc
  */
   delete __pyx_v_top->thisptr;
 
-  /* "pytraj/TopologyList.pyx":70
+  /* "pytraj/TopologyList.pyx":71
  *         # since we pass C++ pointer to top.thisptr, we let cpptraj take care of
  *         # freeing memory
  *         top.py_free_mem = False             # <<<<<<<<<<<<<<
  * 
- *         if isinstance(arg, (int, long)):
+ *         if is_int(arg):
  */
   __pyx_v_top->py_free_mem = 0;
 
-  /* "pytraj/TopologyList.pyx":72
+  /* "pytraj/TopologyList.pyx":73
  *         top.py_free_mem = False
  * 
- *         if isinstance(arg, (int, long)):             # <<<<<<<<<<<<<<
+ *         if is_int(arg):             # <<<<<<<<<<<<<<
  *             num = arg
  *             #top.thisptr[0] = deref(self.thisptr.GetParm(num))
  */
-  __pyx_t_3 = PyInt_Check(__pyx_v_arg); 
-  __pyx_t_4 = (__pyx_t_3 != 0);
-  if (!__pyx_t_4) {
-  } else {
-    __pyx_t_2 = __pyx_t_4;
-    goto __pyx_L4_bool_binop_done;
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_is_int); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
   }
-  __pyx_t_4 = PyLong_Check(__pyx_v_arg); 
-  __pyx_t_3 = (__pyx_t_4 != 0);
-  __pyx_t_2 = __pyx_t_3;
-  __pyx_L4_bool_binop_done:;
-  __pyx_t_3 = (__pyx_t_2 != 0);
-  if (__pyx_t_3) {
+  if (!__pyx_t_3) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_arg); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __Pyx_GIVEREF(__pyx_t_3); __pyx_t_3 = NULL;
+    __Pyx_INCREF(__pyx_v_arg);
+    PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_arg);
+    __Pyx_GIVEREF(__pyx_v_arg);
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_5) {
 
-    /* "pytraj/TopologyList.pyx":73
+    /* "pytraj/TopologyList.pyx":74
  * 
- *         if isinstance(arg, (int, long)):
+ *         if is_int(arg):
  *             num = arg             # <<<<<<<<<<<<<<
  *             #top.thisptr[0] = deref(self.thisptr.GetParm(num))
  *             # use memoryview instead making a copy
  */
-    __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_v_arg); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_v_num = __pyx_t_5;
+    __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_arg); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_v_num = __pyx_t_6;
 
-    /* "pytraj/TopologyList.pyx":76
+    /* "pytraj/TopologyList.pyx":77
  *             #top.thisptr[0] = deref(self.thisptr.GetParm(num))
  *             # use memoryview instead making a copy
  *             top.thisptr = self.thisptr.GetParm(num)             # <<<<<<<<<<<<<<
@@ -2690,58 +2715,58 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_12get_parm(struc
  */
     __pyx_v_top->thisptr = __pyx_v_self->thisptr->GetParm(__pyx_v_num);
 
-    /* "pytraj/TopologyList.pyx":77
+    /* "pytraj/TopologyList.pyx":78
  *             # use memoryview instead making a copy
  *             top.thisptr = self.thisptr.GetParm(num)
  *             if not top.thisptr:             # <<<<<<<<<<<<<<
  *                 raise IndexError("Out of bound indexing or empty list")
  *         if isinstance(arg, ArgList):
  */
-    __pyx_t_3 = ((!(__pyx_v_top->thisptr != 0)) != 0);
-    if (__pyx_t_3) {
+    __pyx_t_5 = ((!(__pyx_v_top->thisptr != 0)) != 0);
+    if (__pyx_t_5) {
 
-      /* "pytraj/TopologyList.pyx":78
+      /* "pytraj/TopologyList.pyx":79
  *             top.thisptr = self.thisptr.GetParm(num)
  *             if not top.thisptr:
  *                 raise IndexError("Out of bound indexing or empty list")             # <<<<<<<<<<<<<<
  *         if isinstance(arg, ArgList):
  *             argIn = arg
  */
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_IndexError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_IndexError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     goto __pyx_L3;
   }
   __pyx_L3:;
 
-  /* "pytraj/TopologyList.pyx":79
+  /* "pytraj/TopologyList.pyx":80
  *             if not top.thisptr:
  *                 raise IndexError("Out of bound indexing or empty list")
  *         if isinstance(arg, ArgList):             # <<<<<<<<<<<<<<
  *             argIn = arg
  *             # use memoryview instead making a copy
  */
-  __pyx_t_3 = __Pyx_TypeCheck(__pyx_v_arg, ((PyObject*)__pyx_ptype_6pytraj_7ArgList_ArgList)); 
-  __pyx_t_2 = (__pyx_t_3 != 0);
-  if (__pyx_t_2) {
+  __pyx_t_5 = __Pyx_TypeCheck(__pyx_v_arg, ((PyObject*)__pyx_ptype_6pytraj_7ArgList_ArgList)); 
+  __pyx_t_7 = (__pyx_t_5 != 0);
+  if (__pyx_t_7) {
 
-    /* "pytraj/TopologyList.pyx":80
+    /* "pytraj/TopologyList.pyx":81
  *                 raise IndexError("Out of bound indexing or empty list")
  *         if isinstance(arg, ArgList):
  *             argIn = arg             # <<<<<<<<<<<<<<
  *             # use memoryview instead making a copy
  *             top.thisptr = self.thisptr.GetParm(argIn.thisptr[0])
  */
-    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_7ArgList_ArgList))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_7ArgList_ArgList))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_1 = __pyx_v_arg;
     __Pyx_INCREF(__pyx_t_1);
     __pyx_v_argIn = ((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pytraj/TopologyList.pyx":82
+    /* "pytraj/TopologyList.pyx":83
  *             argIn = arg
  *             # use memoryview instead making a copy
  *             top.thisptr = self.thisptr.GetParm(argIn.thisptr[0])             # <<<<<<<<<<<<<<
@@ -2749,11 +2774,11 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_12get_parm(struc
  *         return top
  */
     __pyx_v_top->thisptr = __pyx_v_self->thisptr->GetParm((__pyx_v_argIn->thisptr[0]));
-    goto __pyx_L7;
+    goto __pyx_L5;
   }
-  __pyx_L7:;
+  __pyx_L5:;
 
-  /* "pytraj/TopologyList.pyx":84
+  /* "pytraj/TopologyList.pyx":85
  *             top.thisptr = self.thisptr.GetParm(argIn.thisptr[0])
  *             #top.thisptr[0] = deref(self.thisptr.GetParm(argIn.thisptr[0]))
  *         return top             # <<<<<<<<<<<<<<
@@ -2765,7 +2790,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_12get_parm(struc
   __pyx_r = ((PyObject *)__pyx_v_top);
   goto __pyx_L0;
 
-  /* "pytraj/TopologyList.pyx":55
+  /* "pytraj/TopologyList.pyx":56
  *     #    return self.thisptr.Size()
  * 
  *     def get_parm(self, arg):             # <<<<<<<<<<<<<<
@@ -2776,6 +2801,9 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_12get_parm(struc
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_AddTraceback("pytraj.TopologyList.TopologyList.get_parm", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2786,7 +2814,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_12get_parm(struc
   return __pyx_r;
 }
 
-/* "pytraj/TopologyList.pyx":86
+/* "pytraj/TopologyList.pyx":87
  *         return top
  * 
  *     def add_parm_from_pylist(self, list listin):             # <<<<<<<<<<<<<<
@@ -2804,7 +2832,7 @@ static PyObject *__pyx_pw_6pytraj_12TopologyList_12TopologyList_15add_parm_from_
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("add_parm_from_pylist (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_listin), (&PyList_Type), 1, "listin", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_listin), (&PyList_Type), 1, "listin", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_6pytraj_12TopologyList_12TopologyList_14add_parm_from_pylist(((struct __pyx_obj_6pytraj_12TopologyList_TopologyList *)__pyx_v_self), ((PyObject*)__pyx_v_listin));
 
   /* function exit code */
@@ -2831,7 +2859,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_14add_parm_from_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("add_parm_from_pylist", 0);
 
-  /* "pytraj/TopologyList.pyx":88
+  /* "pytraj/TopologyList.pyx":89
  *     def add_parm_from_pylist(self, list listin):
  *         cdef Topology top
  *         for top in listin:             # <<<<<<<<<<<<<<
@@ -2840,28 +2868,28 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_14add_parm_from_
  */
   if (unlikely(__pyx_v_listin == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_t_1 = __pyx_v_listin; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
   for (;;) {
     if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
     #if CYTHON_COMPILING_IN_CPYTHON
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     #else
-    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     #endif
-    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_XDECREF_SET(__pyx_v_top, ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "pytraj/TopologyList.pyx":89
+    /* "pytraj/TopologyList.pyx":90
  *         cdef Topology top
  *         for top in listin:
  *             self.add_parm(top)             # <<<<<<<<<<<<<<
  * 
  *     def get_parm_by_index(self, ArgList argIn):
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_parm); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_parm); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -2874,23 +2902,23 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_14add_parm_from_
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_top)); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_top)); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
     } else {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_top));
       PyTuple_SET_ITEM(__pyx_t_6, 0+1, ((PyObject *)__pyx_v_top));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_top));
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pytraj/TopologyList.pyx":88
+    /* "pytraj/TopologyList.pyx":89
  *     def add_parm_from_pylist(self, list listin):
  *         cdef Topology top
  *         for top in listin:             # <<<<<<<<<<<<<<
@@ -2900,7 +2928,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_14add_parm_from_
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/TopologyList.pyx":86
+  /* "pytraj/TopologyList.pyx":87
  *         return top
  * 
  *     def add_parm_from_pylist(self, list listin):             # <<<<<<<<<<<<<<
@@ -2926,7 +2954,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_14add_parm_from_
   return __pyx_r;
 }
 
-/* "pytraj/TopologyList.pyx":91
+/* "pytraj/TopologyList.pyx":92
  *             self.add_parm(top)
  * 
  *     def get_parm_by_index(self, ArgList argIn):             # <<<<<<<<<<<<<<
@@ -2944,7 +2972,7 @@ static PyObject *__pyx_pw_6pytraj_12TopologyList_12TopologyList_17get_parm_by_in
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_parm_by_index (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_argIn), __pyx_ptype_6pytraj_7ArgList_ArgList, 1, "argIn", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_argIn), __pyx_ptype_6pytraj_7ArgList_ArgList, 1, "argIn", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 92; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_6pytraj_12TopologyList_12TopologyList_16get_parm_by_index(((struct __pyx_obj_6pytraj_12TopologyList_TopologyList *)__pyx_v_self), ((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_v_argIn));
 
   /* function exit code */
@@ -2966,19 +2994,19 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_16get_parm_by_in
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_parm_by_index", 0);
 
-  /* "pytraj/TopologyList.pyx":93
+  /* "pytraj/TopologyList.pyx":94
  *     def get_parm_by_index(self, ArgList argIn):
  *         """TODO: what is the difference between get_parm_by_index and  get_parm?"""
  *         cdef Topology top = Topology()             # <<<<<<<<<<<<<<
  *         top.py_free_mem = False
  *         top.thisptr = self.thisptr.GetParmByIndex(argIn.thisptr[0])
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/TopologyList.pyx":94
+  /* "pytraj/TopologyList.pyx":95
  *         """TODO: what is the difference between get_parm_by_index and  get_parm?"""
  *         cdef Topology top = Topology()
  *         top.py_free_mem = False             # <<<<<<<<<<<<<<
@@ -2987,7 +3015,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_16get_parm_by_in
  */
   __pyx_v_top->py_free_mem = 0;
 
-  /* "pytraj/TopologyList.pyx":95
+  /* "pytraj/TopologyList.pyx":96
  *         cdef Topology top = Topology()
  *         top.py_free_mem = False
  *         top.thisptr = self.thisptr.GetParmByIndex(argIn.thisptr[0])             # <<<<<<<<<<<<<<
@@ -2996,7 +3024,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_16get_parm_by_in
  */
   __pyx_v_top->thisptr = __pyx_v_self->thisptr->GetParmByIndex((__pyx_v_argIn->thisptr[0]));
 
-  /* "pytraj/TopologyList.pyx":96
+  /* "pytraj/TopologyList.pyx":97
  *         top.py_free_mem = False
  *         top.thisptr = self.thisptr.GetParmByIndex(argIn.thisptr[0])
  *         return top             # <<<<<<<<<<<<<<
@@ -3008,7 +3036,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_16get_parm_by_in
   __pyx_r = ((PyObject *)__pyx_v_top);
   goto __pyx_L0;
 
-  /* "pytraj/TopologyList.pyx":91
+  /* "pytraj/TopologyList.pyx":92
  *             self.add_parm(top)
  * 
  *     def get_parm_by_index(self, ArgList argIn):             # <<<<<<<<<<<<<<
@@ -3028,7 +3056,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_16get_parm_by_in
   return __pyx_r;
 }
 
-/* "pytraj/TopologyList.pyx":98
+/* "pytraj/TopologyList.pyx":99
  *         return top
  * 
  *     def add_parm(self, *args):             # <<<<<<<<<<<<<<
@@ -3074,18 +3102,18 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("add_parm", 0);
 
-  /* "pytraj/TopologyList.pyx":112
+  /* "pytraj/TopologyList.pyx":113
  *         cdef Topology newtop
  * 
  *         if len(args) == 1:             # <<<<<<<<<<<<<<
  *             if isinstance(args[0], Topology):
  *                 top = args[0]
  */
-  __pyx_t_1 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_2 = ((__pyx_t_1 == 1) != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/TopologyList.pyx":113
+    /* "pytraj/TopologyList.pyx":114
  * 
  *         if len(args) == 1:
  *             if isinstance(args[0], Topology):             # <<<<<<<<<<<<<<
@@ -3099,27 +3127,27 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
     __pyx_t_4 = (__pyx_t_2 != 0);
     if (__pyx_t_4) {
 
-      /* "pytraj/TopologyList.pyx":114
+      /* "pytraj/TopologyList.pyx":115
  *         if len(args) == 1:
  *             if isinstance(args[0], Topology):
  *                 top = args[0]             # <<<<<<<<<<<<<<
  *                 # let cpptraj frees memory since we pass a pointer
  *                 newtop = top.copy()
  */
-      if (!(likely(((PyTuple_GET_ITEM(__pyx_v_args, 0)) == Py_None) || likely(__Pyx_TypeTest(PyTuple_GET_ITEM(__pyx_v_args, 0), __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (!(likely(((PyTuple_GET_ITEM(__pyx_v_args, 0)) == Py_None) || likely(__Pyx_TypeTest(PyTuple_GET_ITEM(__pyx_v_args, 0), __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __pyx_t_3 = PyTuple_GET_ITEM(__pyx_v_args, 0);
       __Pyx_INCREF(__pyx_t_3);
       __pyx_v_top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "pytraj/TopologyList.pyx":116
+      /* "pytraj/TopologyList.pyx":117
  *                 top = args[0]
  *                 # let cpptraj frees memory since we pass a pointer
  *                 newtop = top.copy()             # <<<<<<<<<<<<<<
  *                 newtop.py_free_mem = False
  *                 self.thisptr.AddParm(newtop.thisptr)
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_top), __pyx_n_s_copy); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_top), __pyx_n_s_copy); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
       __pyx_t_6 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
@@ -3132,18 +3160,18 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
         }
       }
       if (__pyx_t_6) {
-        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else {
-        __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __pyx_v_newtop = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "pytraj/TopologyList.pyx":117
+      /* "pytraj/TopologyList.pyx":118
  *                 # let cpptraj frees memory since we pass a pointer
  *                 newtop = top.copy()
  *                 newtop.py_free_mem = False             # <<<<<<<<<<<<<<
@@ -3152,7 +3180,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
  */
       __pyx_v_newtop->py_free_mem = 0;
 
-      /* "pytraj/TopologyList.pyx":118
+      /* "pytraj/TopologyList.pyx":119
  *                 newtop = top.copy()
  *                 newtop.py_free_mem = False
  *                 self.thisptr.AddParm(newtop.thisptr)             # <<<<<<<<<<<<<<
@@ -3164,14 +3192,14 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
     }
     /*else*/ {
 
-      /* "pytraj/TopologyList.pyx":120
+      /* "pytraj/TopologyList.pyx":121
  *                 self.thisptr.AddParm(newtop.thisptr)
  *             else:
  *                 filename = args[0].encode()             # <<<<<<<<<<<<<<
  *                 self.thisptr.AddParmFile(filename)
  *         elif len(args) == 2:
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(PyTuple_GET_ITEM(__pyx_v_args, 0), __pyx_n_s_encode); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(PyTuple_GET_ITEM(__pyx_v_args, 0), __pyx_n_s_encode); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
       __pyx_t_6 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
@@ -3184,18 +3212,18 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
         }
       }
       if (__pyx_t_6) {
-        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       } else {
-        __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_7 = __pyx_convert_string_from_py_std__in_string(__pyx_t_3); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = __pyx_convert_string_from_py_std__in_string(__pyx_t_3); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_v_filename = __pyx_t_7;
 
-      /* "pytraj/TopologyList.pyx":121
+      /* "pytraj/TopologyList.pyx":122
  *             else:
  *                 filename = args[0].encode()
  *                 self.thisptr.AddParmFile(filename)             # <<<<<<<<<<<<<<
@@ -3208,18 +3236,18 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
     goto __pyx_L3;
   }
 
-  /* "pytraj/TopologyList.pyx":122
+  /* "pytraj/TopologyList.pyx":123
  *                 filename = args[0].encode()
  *                 self.thisptr.AddParmFile(filename)
  *         elif len(args) == 2:             # <<<<<<<<<<<<<<
  *             filename, arglist = args
  *             self.thisptr.AddParmFile(filename, arglist.thisptr[0])
  */
-  __pyx_t_1 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_4 = ((__pyx_t_1 == 2) != 0);
   if (__pyx_t_4) {
 
-    /* "pytraj/TopologyList.pyx":123
+    /* "pytraj/TopologyList.pyx":124
  *                 self.thisptr.AddParmFile(filename)
  *         elif len(args) == 2:
  *             filename, arglist = args             # <<<<<<<<<<<<<<
@@ -3236,7 +3264,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0); 
@@ -3244,20 +3272,20 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_5);
       #else
-      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
       #endif
     }
-    __pyx_t_7 = __pyx_convert_string_from_py_std__in_string(__pyx_t_3); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_7 = __pyx_convert_string_from_py_std__in_string(__pyx_t_3); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_6pytraj_7ArgList_ArgList))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_6pytraj_7ArgList_ArgList))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_filename = __pyx_t_7;
     __pyx_v_arglist = ((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "pytraj/TopologyList.pyx":124
+    /* "pytraj/TopologyList.pyx":125
  *         elif len(args) == 2:
  *             filename, arglist = args
  *             self.thisptr.AddParmFile(filename, arglist.thisptr[0])             # <<<<<<<<<<<<<<
@@ -3269,7 +3297,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
   }
   __pyx_L3:;
 
-  /* "pytraj/TopologyList.pyx":98
+  /* "pytraj/TopologyList.pyx":99
  *         return top
  * 
  *     def add_parm(self, *args):             # <<<<<<<<<<<<<<
@@ -3295,7 +3323,7 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_18add_parm(struc
   return __pyx_r;
 }
 
-/* "pytraj/TopologyList.pyx":126
+/* "pytraj/TopologyList.pyx":127
  *             self.thisptr.AddParmFile(filename, arglist.thisptr[0])
  * 
  *     def info(self):             # <<<<<<<<<<<<<<
@@ -3321,14 +3349,14 @@ static PyObject *__pyx_pf_6pytraj_12TopologyList_12TopologyList_20info(struct __
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("info", 0);
 
-  /* "pytraj/TopologyList.pyx":127
+  /* "pytraj/TopologyList.pyx":128
  * 
  *     def info(self):
  *         self.thisptr.List()             # <<<<<<<<<<<<<<
  */
   __pyx_v_self->thisptr->List();
 
-  /* "pytraj/TopologyList.pyx":126
+  /* "pytraj/TopologyList.pyx":127
  *             self.thisptr.AddParmFile(filename, arglist.thisptr[0])
  * 
  *     def info(self):             # <<<<<<<<<<<<<<
@@ -15011,6 +15039,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_kp_s_index_is_out_of_range, __pyx_k_index_is_out_of_range, sizeof(__pyx_k_index_is_out_of_range), 0, 0, 1, 0},
   {&__pyx_kp_s_index_is_out_of_range_do_you_hav, __pyx_k_index_is_out_of_range_do_you_hav, sizeof(__pyx_k_index_is_out_of_range_do_you_hav), 0, 0, 1, 0},
+  {&__pyx_n_s_is_int, __pyx_k_is_int, sizeof(__pyx_k_is_int), 0, 0, 1, 1},
   {&__pyx_n_s_itemsize, __pyx_k_itemsize, sizeof(__pyx_k_itemsize), 0, 0, 1, 1},
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -15023,6 +15052,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pack, __pyx_k_pack, sizeof(__pyx_k_pack), 0, 0, 1, 1},
   {&__pyx_n_s_py_free_mem, __pyx_k_py_free_mem, sizeof(__pyx_k_py_free_mem), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_externals_six, __pyx_k_pytraj_externals_six, sizeof(__pyx_k_pytraj_externals_six), 0, 0, 1, 1},
+  {&__pyx_n_s_pytraj_utils_check_and_assert, __pyx_k_pytraj_utils_check_and_assert, sizeof(__pyx_k_pytraj_utils_check_and_assert), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
@@ -15043,8 +15073,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_IndexError = __Pyx_GetBuiltinName(__pyx_n_s_IndexError); if (!__pyx_builtin_IndexError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_IndexError = __Pyx_GetBuiltinName(__pyx_n_s_IndexError); if (!__pyx_builtin_IndexError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 145; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -15060,25 +15090,25 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pytraj/TopologyList.pyx":36
+  /* "pytraj/TopologyList.pyx":37
  *            return self.get_parm(idx)
  *         except:
  *             raise ValueError("index is out of range? do you have empty list?")             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(self, int idx, Topology other):
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range_do_you_hav); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range_do_you_hav); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "pytraj/TopologyList.pyx":78
+  /* "pytraj/TopologyList.pyx":79
  *             top.thisptr = self.thisptr.GetParm(num)
  *             if not top.thisptr:
  *                 raise IndexError("Out of bound indexing or empty list")             # <<<<<<<<<<<<<<
  *         if isinstance(arg, ArgList):
  *             argIn = arg
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_Out_of_bound_indexing_or_empty_l); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_Out_of_bound_indexing_or_empty_l); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
@@ -15395,11 +15425,11 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_6pytraj_12TopologyList_TopologyList) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_6pytraj_12TopologyList_TopologyList) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_6pytraj_12TopologyList_TopologyList.tp_print = 0;
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_6pytraj_12TopologyList_TopologyList, "__getitem__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_6pytraj_12TopologyList_TopologyList, "__getitem__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
       __pyx_wrapperbase_6pytraj_12TopologyList_12TopologyList_8__getitem__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_6pytraj_12TopologyList_12TopologyList_8__getitem__.doc = __pyx_doc_6pytraj_12TopologyList_12TopologyList_8__getitem__;
@@ -15407,7 +15437,7 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
     }
   }
   #endif
-  if (PyObject_SetAttrString(__pyx_m, "TopologyList", (PyObject *)&__pyx_type_6pytraj_12TopologyList_TopologyList) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "TopologyList", (PyObject *)&__pyx_type_6pytraj_12TopologyList_TopologyList) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_12TopologyList_TopologyList = &__pyx_type_6pytraj_12TopologyList_TopologyList;
   if (PyType_Ready(&__pyx_type___pyx_array) < 0) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type___pyx_array.tp_print = 0;
@@ -15475,8 +15505,8 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
  * from cython.operator cimport dereference as deref
  * 
  * from pytraj.externals.six import PY2, PY3, string_types             # <<<<<<<<<<<<<<
+ * from pytraj.utils.check_and_assert import is_int
  * 
- * cdef class TopologyList:
  */
   __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -15506,15 +15536,36 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
+  /* "pytraj/TopologyList.pyx":5
+ * 
+ * from pytraj.externals.six import PY2, PY3, string_types
+ * from pytraj.utils.check_and_assert import is_int             # <<<<<<<<<<<<<<
+ * 
+ * cdef class TopologyList:
+ */
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_INCREF(__pyx_n_s_is_int);
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_is_int);
+  __Pyx_GIVEREF(__pyx_n_s_is_int);
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pytraj_utils_check_and_assert, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_is_int); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_is_int, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
   /* "pytraj/TopologyList.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * from cython.operator cimport dereference as deref
  * 
  */
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "View.MemoryView":203
  *         info.obj = self
@@ -15523,10 +15574,10 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
  * 
  *     def __dealloc__(array self):
  */
-  __pyx_t_2 = __pyx_capsule_create(((void *)(&__pyx_array_getbuffer)), __pyx_k_getbuffer_obj_view_flags); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_array_type->tp_dict, __pyx_n_s_pyx_getbuffer, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __pyx_capsule_create(((void *)(&__pyx_array_getbuffer)), __pyx_k_getbuffer_obj_view_flags); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_array_type->tp_dict, __pyx_n_s_pyx_getbuffer, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_array_type);
 
   /* "View.MemoryView":276
@@ -15536,12 +15587,12 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
  * cdef strided = Enum("<strided and direct>") # default
  * cdef indirect = Enum("<strided and indirect>")
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(generic);
-  __Pyx_DECREF_SET(generic, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
-  __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(generic, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
 
   /* "View.MemoryView":277
  * 
@@ -15550,12 +15601,12 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
  * cdef indirect = Enum("<strided and indirect>")
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(strided);
-  __Pyx_DECREF_SET(strided, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
-  __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(strided, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
 
   /* "View.MemoryView":278
  * cdef generic = Enum("<strided and direct or indirect>")
@@ -15564,12 +15615,12 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
  * 
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(indirect);
-  __Pyx_DECREF_SET(indirect, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
-  __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(indirect, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
 
   /* "View.MemoryView":281
  * 
@@ -15578,12 +15629,12 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
  * cdef indirect_contiguous = Enum("<contiguous and indirect>")
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(contiguous);
-  __Pyx_DECREF_SET(contiguous, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
-  __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(contiguous, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
 
   /* "View.MemoryView":282
  * 
@@ -15592,12 +15643,12 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
  * 
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 282; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 282; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(indirect_contiguous);
-  __Pyx_DECREF_SET(indirect_contiguous, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
-  __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(indirect_contiguous, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
 
   /* "View.MemoryView":496
  *         info.obj = self
@@ -15606,10 +15657,10 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
  * 
  * 
  */
-  __pyx_t_2 = __pyx_capsule_create(((void *)(&__pyx_memoryview_getbuffer)), __pyx_k_getbuffer_obj_view_flags); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 496; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_memoryview_type->tp_dict, __pyx_n_s_pyx_getbuffer, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 496; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __pyx_capsule_create(((void *)(&__pyx_memoryview_getbuffer)), __pyx_k_getbuffer_obj_view_flags); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 496; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_memoryview_type->tp_dict, __pyx_n_s_pyx_getbuffer, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 496; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_memoryview_type);
 
   /* "View.MemoryView":952
@@ -15619,10 +15670,10 @@ PyMODINIT_FUNC PyInit_TopologyList(void)
  * 
  * 
  */
-  __pyx_t_2 = __pyx_capsule_create(((void *)(&__pyx_memoryview_getbuffer)), __pyx_k_getbuffer_obj_view_flags); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 952; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_memoryviewslice_type->tp_dict, __pyx_n_s_pyx_getbuffer, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 952; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __pyx_capsule_create(((void *)(&__pyx_memoryview_getbuffer)), __pyx_k_getbuffer_obj_view_flags); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 952; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_memoryviewslice_type->tp_dict, __pyx_n_s_pyx_getbuffer, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 952; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_memoryviewslice_type);
 
   /* "View.MemoryView":1362
@@ -16193,6 +16244,23 @@ static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, in
     }
     __Pyx_RaiseArgumentTypeInvalid(name, obj, type);
     return 0;
+}
+
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
+    PyObject *result;
+#if CYTHON_COMPILING_IN_CPYTHON
+    result = PyDict_GetItem(__pyx_d, name);
+    if (likely(result)) {
+        Py_INCREF(result);
+    } else {
+#else
+    result = PyObject_GetItem(__pyx_d, name);
+    if (!result) {
+        PyErr_Clear();
+#endif
+        result = __Pyx_GetBuiltinName(name);
+    }
+    return result;
 }
 
 static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
@@ -17046,7 +17114,7 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
 #endif
 
 
-      static CYTHON_INLINE int __Pyx_IsLittleEndian(void) {
+        static CYTHON_INLINE int __Pyx_IsLittleEndian(void) {
   unsigned int n = 1;
   return *(unsigned char*)(&n) != 0;
 }

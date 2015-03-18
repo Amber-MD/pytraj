@@ -1,3 +1,5 @@
+import numbers
+
 def file_exist(filename):
     import os
     return os.path.isfile(filename)
@@ -24,6 +26,12 @@ def is_generator(iter_obj):
         return True
     else:
         return False
+
+def is_int(num):
+    """wrapper class to check if `num` is int
+    isinstance(nu, (int, long)) does not work with numpy.int64, so we use numbers.Integral
+    """
+    return isinstance(num, numbers.Integral)
 
 def make_sure_exist(filename):
     if not file_exist(filename):

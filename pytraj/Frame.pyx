@@ -13,6 +13,7 @@ import math
 from pytraj.decorators import for_testing, iter_warning
 from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
+from pytraj.utils.check_and_assert import is_int
 from pytraj.ArgList import ArgList
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
@@ -450,7 +451,7 @@ cdef class Frame (object):
             frame = args[0]
             atm = args[1]
             self.thisptr.SetFrame(frame.thisptr[0], atm.thisptr[0])
-        elif isinstance(args, (int, long)):
+        elif is_int(args):
             atomnum = <int> args[0]
             self.thisptr.SetupFrame(atomnum)
 
