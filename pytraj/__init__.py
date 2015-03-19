@@ -5,7 +5,6 @@ import os
 #from pytraj import base
 from pytraj.utils.check_and_assert import _import
 
-# TODO : should we load those module here or use .base?
 from pytraj import io
 
 from pytraj.action_dict import ActionDict
@@ -37,9 +36,7 @@ from pytraj.actions import allactions
 from pytraj.analyses import allanalyses
 from pytraj._common_actions import calculate
 
-#try:
-#    amber_home = os.environ['AMBERHOME']
-#except:
-#    raise EnvironmentError("must set AMBERHOME")
+# turn off verbose in cpptraj
+from pytraj._utils import set_world_silent
 
-# make adict instance of ActionDict
+set_world_silent(True)
