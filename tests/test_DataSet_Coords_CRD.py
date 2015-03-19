@@ -117,7 +117,7 @@ class Test(unittest.TestCase):
 
         traj.append(fcp)
         assert traj.n_frames == TRAJ0.n_frames + 1
-        print traj[-1].coords[:10]
+        print (traj[-1].coords[:10])
         print traj[0].coords[:10]
         print (traj[-1][0])
         print (traj[0][0])
