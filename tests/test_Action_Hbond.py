@@ -14,6 +14,7 @@ class Test(unittest.TestCase):
         dslist = DataSetList()
         act(":1-13 solventacceptor :WAT@O solventdonor :WAT", 
             traj, dslist=dslist)
+        act.print_output()
         print ('dslist size = ', dslist.size)
 
         for d0 in dslist:
