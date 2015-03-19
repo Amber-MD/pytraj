@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
         traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         act = adict['hbond']
         dslist = DataSetList()
-        act(":1-13 solventacceptor :WAT@O solventdonor :WAT", 
+        act(":1-13 solventacceptor :WAT@O solventdonor :WAT series", 
             traj, dslist=dslist)
         act.print_output()
         print ('dslist size = ', dslist.size)
