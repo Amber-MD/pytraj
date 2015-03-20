@@ -304,10 +304,6 @@ cdef class Trajin (TrajectoryFile):
         self.baseptr_1.GetNextFrame(frame.thisptr[0])
         #return frame
 
-    def prepare_for_read(self,bint b):
-        self.check_allocated()
-        self.baseptr_1.PrepareForRead(b)
-
     property max_frames:
         def __get__(self):
             if self.baseptr_1:
@@ -322,11 +318,6 @@ cdef class Trajin (TrajectoryFile):
     def size(self):
         # alias of max_frames
         return self.max_frames
-
-    @property
-    def total_read_frames(self):
-        self.check_allocated()
-        return self.baseptr_1.TotalReadFrames()
 
     def load(self, tnameIn, Topology tparmIn, ArgList argIn):
         """
