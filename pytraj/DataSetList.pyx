@@ -7,6 +7,8 @@ from pytraj.cast_dataset import cast_dataset
 from pytraj.utils.check_and_assert import _import
 from collections import defaultdict
 from pytraj._utils cimport get_positive_idx
+from pytraj.externals.six import string_types
+from pytraj.utils import is_int
 
 # can not import cpptraj_dict here
 # if doing this, we introduce circle-import since cpptraj_dict already imported
@@ -74,7 +76,7 @@ cdef class DataSetList:
     def remove_set(self, DataSet dset):
         self.thisptr.RemoveSet(dset.baseptr0)
 
-    def __getitem__(self, int idx):
+    def __getitem__(self, idx):
         """return a DataSet instance
         Memory view is applied (which mean this new insance is just alias of self[idx])
         Should we use a copy instead?
@@ -82,11 +84,18 @@ cdef class DataSetList:
         cdef DataSet dset = DataSet()
         cdef int _idx
 
-        _idx = get_positive_idx(idx, self.size)
-
-        # get memoryview
-        dset.baseptr0 = self.thisptr.index_opr(_idx)
-        return cast_dataset(dset, dtype=dset.dtype)
+        if is_int(idx):
+            _idx = get_positive_idx(idx, self.size)
+            # get memoryview
+            dset.baseptr0 = self.thisptr.index_opr(_idx)
+            return cast_dataset(dset, dtype=dset.dtype)
+        elif isinstance(idx, string_types):
+             # return a list of datasets having idx as legend
+             sublist = []
+             for d0 in self:
+                 if d0.legend.upper() == idx.upper():
+                     sublist.append(d0)
+             return sublist
 
     def set_ensemble_num(self,int i):
         self.thisptr.SetEnsembleNum(i)
