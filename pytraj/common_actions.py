@@ -106,7 +106,7 @@ def calc_dssp(command="", traj=None, dtype='int'):
 
     # cpptraj store data for each residue for each frame (n_residues, n_frames)
     # we need to transpose data
-    arr0 = zip(*arr0)
+    arr0 = list(zip(*arr0))
     if dtype in ['INT', 'INTERGER']:
         return arr0
     elif dtype in ['STRING', 'STR']:

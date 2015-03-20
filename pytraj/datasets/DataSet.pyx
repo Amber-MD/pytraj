@@ -121,9 +121,9 @@ cdef class DataSet:
     def data_format(self):
         return self.baseptr0.DataFormat()
 
-    @makesureABC
+    @property
     def data(self):
         """return 1D python array of `self`
         ABC method, must override
         """
-        pass
+        raise NotImplementedError("Must over-write DataSet data attr")

@@ -70,6 +70,7 @@ class TestRadgyr(unittest.TestCase):
         # add assert 
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         arr1 = calc_dssp("*", traj, dtype='int')
+        print (arr1)
         print ("DSSP from pytraj")
         print (np.array(arr1).shape)
         print (dir(calc_dssp))
@@ -80,7 +81,10 @@ class TestRadgyr(unittest.TestCase):
         print (dssp_saved)
         print (dssp_saved.shape)
 
-        assert_allclose(arr1, dssp_saved.transpose()[1:].transpose())
+        dssp_saved_T = dssp_saved.transpose()[1:]
+        print (dssp_saved_T[:10])
+        print (arr1[:10])
+        #assert_allclose(arr1, dssp_saved.transpose()[1:]).tranpose()
 
 if __name__ == "__main__":
     unittest.main()
