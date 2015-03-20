@@ -181,7 +181,8 @@ cdef class DataSetList:
                                                 name.encode(), aspect.encode())
         return ds
 
-    def find_coords_set(self, string filename):
+    def find_coords_set(self, filename):
+        filename = filename.encode()
         cdef DataSet dset = DataSet()
         dset.baseptr0 = self.thisptr.FindCoordsSet(filename)
         if not dset.baseptr0:
