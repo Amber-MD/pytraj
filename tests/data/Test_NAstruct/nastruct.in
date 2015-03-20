@@ -1,0 +1,3 @@
+parm ../adh026.3.pdb
+trajin ../adh026.3.pdb 
+nastruct naout adh026.dat
