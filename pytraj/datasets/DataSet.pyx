@@ -1,6 +1,6 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
-from pytraj.cpptraj_dict import DataTypeDict, get_key
+from pytraj.cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
 
 cdef class DataSet:
     """
@@ -42,8 +42,8 @@ cdef class DataSet:
     #def setup_set(self, string nameIn, int idxIn, string aspectIn):
     #    return self.baseptr0.SetupSet(nameIn, idxIn, aspectIn)
 
-    def set_legend(self, string lIn):
-        self.baseptr0.SetLegend(lIn)
+    def set_legend(self, lIn):
+        self.baseptr0.SetLegend(lIn.encode())
 
     def set_scalar(self, scalarMode mIn):
         self.baseptr0.SetScalar(mIn)
@@ -54,7 +54,7 @@ cdef class DataSet:
     def set_scalar(self,scalarMode mIn, scalarType mT):
         self.baseptr0.SetScalar(mIn, mT)
 
-    def set_data_set_format(self, bint leftAlignIn):
+    def set_format(self, bint leftAlignIn):
         return self.baseptr0.SetDataSetFormat(leftAlignIn)
 
     def scalar_descr(self):
@@ -65,7 +65,8 @@ cdef class DataSet:
 
     @property
     def legend(self):
-        return self.baseptr0.Legend()
+        legend = self.baseptr0.Legend()
+        return legend.decode()
     
     @property
     def name(self):
@@ -79,7 +80,8 @@ cdef class DataSet:
     
     @property
     def aspect(self):
-        return self.baseptr0.Aspect()
+        aspect = self.baseptr0.Aspect()
+        return aspect.decode()
 
     @property
     def column_width(self):
@@ -92,11 +94,11 @@ cdef class DataSet:
 
     @property
     def scalar_mode(self):
-        return self.baseptr0.ScalarMode()
+        return get_key(self.baseptr0.ScalarMode(), scalarModeDict).lower()
 
     @property
     def scalar_type(self):
-        return self.baseptr0.ScalarType()
+        return get_key(self.baseptr0.ScalarType(), scalarDict).lower()
 
     @property 
     def ndim(self):
