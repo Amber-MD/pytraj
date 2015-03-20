@@ -47,7 +47,7 @@ class TestTrajectory(unittest.TestCase):
         #fsub = farray[:200]
         #print fsub[0].n_atoms
 
-        print TRAJ2[::][0].n_atoms
+        print (TRAJ2[::][0].n_atoms)
 
     #@no_test
     def test_slice(self):
