@@ -949,7 +949,7 @@ static void __pyx_pf_6pytraj_7Residue_7Residue_2__dealloc__(struct __pyx_obj_6py
  *         del self.thisptr
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
- *         txt = "%s-%s" % (self.thisptr.c_str().decode(), self.original_resnum-1)
+ *         txt = "%s-%s" % (self.thisptr.c_str().decode('UTF-8'), self.original_resnum-1)
  *         return txt
  */
 
@@ -982,12 +982,12 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6p
   /* "pytraj/Residue.pyx":27
  * 
  *     def __str__(self):
- *         txt = "%s-%s" % (self.thisptr.c_str().decode(), self.original_resnum-1)             # <<<<<<<<<<<<<<
+ *         txt = "%s-%s" % (self.thisptr.c_str().decode('UTF-8'), self.original_resnum-1)             # <<<<<<<<<<<<<<
  *         return txt
  * 
  */
   __pyx_t_1 = __pyx_v_self->thisptr->c_str();
-  __pyx_t_2 = __Pyx_decode_c_string(__pyx_t_1, 0, strlen(__pyx_t_1), NULL, NULL, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_decode_c_string(__pyx_t_1, 0, strlen(__pyx_t_1), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_original_resnum); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
@@ -1011,7 +1011,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6p
 
   /* "pytraj/Residue.pyx":28
  *     def __str__(self):
- *         txt = "%s-%s" % (self.thisptr.c_str().decode(), self.original_resnum-1)
+ *         txt = "%s-%s" % (self.thisptr.c_str().decode('UTF-8'), self.original_resnum-1)
  *         return txt             # <<<<<<<<<<<<<<
  * 
  *     def __repr__(self):
@@ -1025,7 +1025,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6p
  *         del self.thisptr
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
- *         txt = "%s-%s" % (self.thisptr.c_str().decode(), self.original_resnum-1)
+ *         txt = "%s-%s" % (self.thisptr.c_str().decode('UTF-8'), self.original_resnum-1)
  *         return txt
  */
 
@@ -1751,7 +1751,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_24is_solvent(struct __pyx_ob
  * 
  *     @property
  *     def name(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.c_str().decode()
+ *         return self.thisptr.c_str().decode('UTF-8')
  */
 
 /* Python wrapper */
@@ -1781,11 +1781,11 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_26name(struct __pyx_obj_6pyt
   /* "pytraj/Residue.pyx":70
  *     @property
  *     def name(self):
- *         return self.thisptr.c_str().decode()             # <<<<<<<<<<<<<<
+ *         return self.thisptr.c_str().decode('UTF-8')             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __pyx_v_self->thisptr->c_str();
-  __pyx_t_2 = __Pyx_decode_c_string(__pyx_t_1, 0, strlen(__pyx_t_1), NULL, NULL, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_decode_c_string(__pyx_t_1, 0, strlen(__pyx_t_1), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
@@ -1796,7 +1796,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_26name(struct __pyx_obj_6pyt
  * 
  *     @property
  *     def name(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.c_str().decode()
+ *         return self.thisptr.c_str().decode('UTF-8')
  */
 
   /* function exit code */
@@ -2233,7 +2233,7 @@ PyMODINIT_FUNC PyInit_Residue(void)
  * 
  *     @property
  *     def name(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.c_str().decode()
+ *         return self.thisptr.c_str().decode('UTF-8')
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue, __pyx_n_s_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -2243,7 +2243,7 @@ PyMODINIT_FUNC PyInit_Residue(void)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def name(self):
- *         return self.thisptr.c_str().decode()
+ *         return self.thisptr.c_str().decode('UTF-8')
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
