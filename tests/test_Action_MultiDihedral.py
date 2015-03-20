@@ -26,8 +26,11 @@ class Test(unittest.TestCase):
         print (dir(d0))
         print (d0.is_torsion_array())
 
-        dflist.write_all_datafiles()
-
+        print (dslist.get_dtypes())
+        print (dslist.get_aspects())
+        print (dslist.get_scalar_modes())
+        print (dslist.get_scalar_types())
+        print (dslist.get_legends())
 
 if __name__ == "__main__":
     unittest.main()
