@@ -25,7 +25,7 @@ cdef class DataSetList:
         if self.py_free_mem:
             del self.thisptr
 
-    def __cal__(self, *args, **kwd):
+    def __call__(self, *args, **kwd):
         return self.get_dataset(*args, **kwd)
 
     def clear(self):
@@ -64,9 +64,9 @@ cdef class DataSetList:
     def is_empty(self):
         return self.thisptr.empty()
 
-    property size:
-        def __get__(self):
-            return self.thisptr.size()
+    @property
+    def size(self):
+        return self.thisptr.size()
 
     def ensemble_num(self):
         return self.thisptr.EnsembleNum()
@@ -168,11 +168,9 @@ cdef class DataSetList:
         cdef DataSet ds = DataSet()
         if aspect is None:
             aspect = name
-        ds.baseptr0 = self.thisptr.AddSetAspect(DataTypeDict[dtype], name.encode(), aspect.encode())
+        ds.baseptr0 = self.thisptr.AddSetAspect(DataTypeDict[dtype], 
+                                                name.encode(), aspect.encode())
         return ds
-
-    def printlist(self):
-        self.thisptr.List()
 
     def find_coords_set(self, string filename):
         cdef DataSet dset = DataSet()
@@ -190,3 +188,39 @@ cdef class DataSetList:
         if not dset.baseptr0:
             raise MemoryError("Can not initialize pointer")
         return dset
+
+    # TODO: combine those methods into one
+    def get_legends(self):
+        """return a list"""
+        tmp_list = []
+        for d0 in self:
+            tmp_list.append(d0.legend)
+        return tmp_list
+
+    def get_aspects(self):
+        """return a list"""
+        tmp_list = []
+        for d0 in self:
+            tmp_list.append(d0.aspect)
+        return tmp_list
+
+    def get_scalar_types(self):
+        """return a list"""
+        tmp_list = []
+        for d0 in self:
+            tmp_list.append(d0.scalar_type)
+        return tmp_list
+
+    def get_scalar_modes(self):
+        """return a list"""
+        tmp_list = []
+        for d0 in self:
+            tmp_list.append(d0.scalar_mode)
+        return tmp_list
+
+    def get_dtypes(self):
+        """return a list"""
+        tmp_list = []
+        for d0 in self:
+            tmp_list.append(d0.dtype)
+        return tmp_list
