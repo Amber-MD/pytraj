@@ -25,7 +25,6 @@ class TestRandomizeIons(unittest.TestCase):
         # another way
         adict['randomizeions']("@Na+ around :1-16 by 5.0 overlap 3.0", frame0_1, traj.top)
         print (frame0.rmsd(savedframe))
-        # TODO: wrong result for frame0_1 (supposed rmsd < 1E-3)
         print (frame0_1.rmsd(savedframe) < 1E-3)
         assert frame0.rmsd(savedframe) < 1E-3
 

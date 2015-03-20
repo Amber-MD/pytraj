@@ -46,7 +46,6 @@ class Test(unittest.TestCase):
         print (farray.fit_to)
 
     def test_1(self):
-        # FIXME: wrong result. check `fit_to` method
         print ("compare to cpptraj")
 
         # load frames to immutable traj
@@ -74,7 +73,6 @@ class Test(unittest.TestCase):
         print (farray[0, 0])
 
         print ("make sure to reproduce cpptraj output")
-        #for _f0, _f1 in zip(farray, trajsaved): #TODO :zip gave wrong results. why?
         for i, _f0 in enumerate(farray):
             _f1 = trajsaved[i]
             print (_f0[0], _f1[0])
