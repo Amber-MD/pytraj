@@ -54,7 +54,12 @@ cdef class DataSet_string (DataSet_1D):
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
 
-    #@property
-    #def size(self):
-    #    return self.thisptr.Size()
+    @property
+    def data(self):
+        """return 1D python array of `self`"""
+        cdef pyarray arr = pyarray('i', [])
+        cdef int i
 
+        for i in range(self.baseptr0.Size()):
+            arr.append(self[i])
+        return arr

@@ -2,7 +2,7 @@
 from cpython.array cimport array as pyarray
 
 # python level
-#from pytraj.optional_libs import HAS_NUMPY, ndarray
+from pytraj.utils import is_int
 
 cdef class DataSet_integer (DataSet_1D):
     def __cinit__(self):
@@ -42,7 +42,6 @@ cdef class DataSet_integer (DataSet_1D):
         else:
             raise NotImplementedError("only support single indexing or slice(None)")
 
-
     def __setitem__(self, int idx, int value):
         cdef int * ptr
         ptr = &(self.thisptr.index_opr(idx))
@@ -59,7 +58,12 @@ cdef class DataSet_integer (DataSet_1D):
     def add(self, int idx, int value):
         self.thisptr.Add(idx, &value)
 
-    #@property
-    #def size(self):
-    #    return self.thisptr.Size()
+    # move back to DataSet baseclass?
+    @property
+    def data(self):
+        cdef pyarray arr0 = pyarray('i', [])
+        cdef int i
 
+        for i in range(self.size):
+            arr0.append(self[i])
+        return arr0

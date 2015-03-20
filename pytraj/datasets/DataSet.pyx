@@ -1,6 +1,7 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
 from pytraj.cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
+from pytraj.decorators import makesureABC
 
 cdef class DataSet:
     """
@@ -120,12 +121,9 @@ cdef class DataSet:
     def data_format(self):
         return self.baseptr0.DataFormat()
 
-    @property
+    @makesureABC
     def data(self):
-        """return 1D python array of `self`"""
-        cdef pyarray arr = pyarray('d', [])
-        cdef int i
-
-        for i in range(self.baseptr0.Size()):
-            arr.append(self[i])
-        return arr
+        """return 1D python array of `self`
+        ABC method, must override
+        """
+        pass
