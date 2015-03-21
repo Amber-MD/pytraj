@@ -84,7 +84,13 @@ class TestRadgyr(unittest.TestCase):
         dssp_saved_T = dssp_saved.transpose()[1:]
         print (dssp_saved_T[:10])
         print (arr1[:10])
-        #assert_allclose(arr1, dssp_saved.transpose()[1:]).tranpose()
+        #assert_allclose(arr1, dssp_saved[1:])
+
+    def test_5(self):
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        dslist = calc_dssp("*", traj, dtype='dataset')
+        print (dslist)
+        print (dslist.get_legends())
 
 if __name__ == "__main__":
     unittest.main()

@@ -81,7 +81,7 @@ def to_string_ss(arr0):
     ss = ["0", "b", "B", "G", "H", "I", "T", "S"]
     len_ss = len(ss)
     ssdict = dict(zip(range(len_ss), ss))
-    return map(lambda idx: ssdict[idx], arr0)
+    return list(map(lambda idx: ssdict[idx], arr0))
 
 def calc_dssp(command="", traj=None, dtype='int'):
     """return dssp profile for frame/traj
@@ -90,10 +90,13 @@ def calc_dssp(command="", traj=None, dtype='int'):
     ---------
     command : str
     traj : {Trajectory, Frame, mix of them}
-    dtype : str {'int', 'integer', 'str', 'string'}
+    dtype : str {'int', 'integer', 'str', 'string', 'dataset'}
 
     Returns:
-    List of tuples with shape (n_frames, n_residues)
+    if dtype in ['int', 'integer', 'str', 'string']
+        List of tuples with shape (n_frames, n_residues)
+    if dtype in ['dataset',]
+        DataSetList object
     """
     dslist = DataSetList()
     adict['dssp'](command,
@@ -112,6 +115,10 @@ def calc_dssp(command="", traj=None, dtype='int'):
     elif dtype in ['STRING', 'STR']:
         tmplist = [to_string_ss(arr) for arr in arr0]
         return tmplist
+    elif dtype in ['DATASET',]:
+        return dslist
+    else:
+        raise ValueError("")
 
 def do_translation(command="", traj=None, top=Topology()):
     adict['translate'](command, traj, top)
