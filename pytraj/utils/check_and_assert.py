@@ -80,6 +80,12 @@ def _import(modname):
         has_module = False
         return (has_module, None)
 
+def require(libname):
+    has_lib, lib = _import(libname)
+    if not has_lib:
+        txt = "require %s lib" % libname
+        raise ImportError(txt)
+
 if __name__ == "__main__":
     import numpy as np
     assert_almost_equal([1., 2., 3.], [1., 2., 3.], decimals=3)

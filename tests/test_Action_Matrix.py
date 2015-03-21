@@ -52,6 +52,7 @@ class TestRadgyr(unittest.TestCase):
         act = adict['matrix']
         act.run(command="byres @CA", current_frame=farray, 
                 current_top=farray.top, dslist=dslist)
+        act.print_output()
         d0 = dslist[0]
         print (d0.dtype)
         print (cast_dataset(d0, dtype=d0.dtype))
@@ -60,8 +61,36 @@ class TestRadgyr(unittest.TestCase):
         for i in range(d0.size):
             print (d0[i])
 
-        # turn off. not yet supported
-        #print (d0[:])
+        #print (d0.scalar_type)
+        #print (d0)
+        arr0 = []
+        for _d in d0:
+            arr0.append(_d)
+
+        arr1 = []
+        for i in range(d0.size):
+            arr1.append(d0[i])
+
+        print (arr0[:10])
+        print (arr1[:10])
+        print (len(arr0))
+        assert_almost_equal(arr0, arr1)
+
+        print (d0.get_element(10, 10))
+        for i in range(d0.n_rows):
+            for j in range(d0.n_cols):
+                d0.get_element(i, j)
+        
+        fullmat = d0.get_full_matrix()
+        print (type(fullmat))
+        print (len(fullmat))
+
+        assert_almost_equal(arr1[:20], fullmat[:20])
+        from pytraj.plot.plot_matrix import plot_matrix
+        from pytraj.plot.base import plt
+        ax0 = plot_matrix(d0)
+        print (ax0)
+        #plt.show()
 
 if __name__ == "__main__":
     unittest.main()

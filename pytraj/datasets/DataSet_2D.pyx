@@ -20,6 +20,21 @@ cdef class DataSet_2D (DataSet):
     def n_cols(self):
         return self.baseptr_1.Ncols()
 
+    def get_element(self, int x, int y):
+        return self.baseptr_1.GetElement(x, y)
+
     @property
     def mkind(self):
         return get_key(self.baseptr_1.Kind(), MatrixKindDict)
+
+    def allocate_2D(self, size_t x, size_t y):
+        self.baseptr_1.Allocate2D(x, y)
+
+    def allocate_half(self, size_t x):
+        self.baseptr_1.AllocateHalf(x)
+
+    def allocate_triangle(self, size_t x):
+        self.baseptr_1.AllocateTriangle(x)
+
+    def get_full_matrix(self):
+        raise NotImplementedError("must over-write in subclass")
