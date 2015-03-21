@@ -86,11 +86,14 @@ class TestRadgyr(unittest.TestCase):
         print (len(fullmat))
 
         assert_almost_equal(arr1[:20], fullmat[:20])
-        from pytraj.plot.plot_matrix import plot_matrix
-        from pytraj.plot.base import plt
-        ax0 = plot_matrix(d0)
-        print (ax0)
-        #plt.show()
+        try:
+            from pytraj.plot.plot_matrix import plot_matrix
+            from pytraj.plot.base import plt
+            ax0 = plot_matrix(d0)
+            print (ax0)
+            plt.show()
+        except:
+            print ("don't have numpy, matplotlib. Ignore")
 
 if __name__ == "__main__":
     unittest.main()
