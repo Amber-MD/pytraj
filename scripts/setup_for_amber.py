@@ -102,7 +102,7 @@ packages = [
         'pytraj.gdt',
         'pytraj.data_sample',
         'pytraj.data_sample.Ala3',
-        'pytraj.plot',
+        'pytraj.plots',
         ]
 
 pylen = len('pytraj') + 1
