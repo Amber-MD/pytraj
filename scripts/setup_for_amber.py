@@ -1,4 +1,6 @@
 import sys
+from glob import glob
+
 if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
@@ -83,9 +85,7 @@ pxd_include_dirs = [
         ]
 
 pxd_include_patterns = [
-        p+'/*.pxd' for p in pxd_include_dirs ] + [
-        p+'/*.pyx' for p in pxd_include_dirs ]
-         
+        p+'/*.pxd' for p in pxd_include_dirs ]
 
 setup_args = {}
 packages = [
@@ -106,11 +106,10 @@ packages = [
         ]
 
 pylen = len('pytraj') + 1
-datalist = [p for p in pxd_include_patterns]
-print (datalist)
+pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
 sample_data = ["data_sample/Ala3/Ala3.*",]
 html_data = ["html/static/*"] 
-datalist = datalist +  sample_data + html_data
+datalist = pxdlist +  sample_data + html_data
 
 if __name__ == "__main__":
     setup(name="pytraj",
