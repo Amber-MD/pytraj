@@ -12,19 +12,13 @@ cdef class DataSet_MatrixDbl (DataSet_2D):
         if self.py_free_mem:
             del self.thisptr
 
-    def __getitem__(self, int idx):
-        if idx >= self.size:
-            raise IndexError("out of index")
-        return self.thisptr.index_opr(idx)
+    def __getitem__(self, idx):
+        return self.data[idx]
 
     def alloc(self):
         cdef DataSet dset = DataSet()
         dset.baseptr0 = _DataSet_MatrixDbl.Alloc()
         return dset
-
-    @property
-    def mtype(self):
-        return get_key(self.thisptr.matType(), MatrixDict)
 
     @property
     def n_snapshots(self):
@@ -63,3 +57,8 @@ cdef class DataSet_MatrixDbl (DataSet_2D):
             for j in range(nc):
                 arr0.append(self.baseptr_1.GetElement(i, j))
         return arr0
+
+    @property
+    def data(self):
+        """return 1D pyton array of matrix' data"""
+        return self.get_full_matrix()

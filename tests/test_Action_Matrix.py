@@ -25,7 +25,6 @@ class TestRadgyr(unittest.TestCase):
         print (d1.dtype)
         print (d1.ndim)
         print (d1.mkind)
-        print (d1.mtype)
         print (d1.data_format)
         # TODO : add assert to make sure reproducing cpptraj output
 
