@@ -1,6 +1,9 @@
 import os
 import pytraj
 from importlib import import_module
+from pytraj import set_world_silent 
+
+set_world_silent(False)
 
 # get action list
 pylist = "../pyxlist.txt"
