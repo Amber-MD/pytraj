@@ -35,6 +35,7 @@ from pytraj.DataFileList import DataFileList
 from pytraj.actions import allactions
 from pytraj.analyses import allanalyses
 from pytraj._common_actions import calculate
+from pytraj import common_actions
 
 # turn off verbose in cpptraj
 from pytraj._utils import set_world_silent

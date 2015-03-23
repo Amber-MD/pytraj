@@ -15,4 +15,5 @@ def plot_matrix(dset):
         mat = np.asarray(dset.get_full_matrix()).reshape(dset.n_rows, dset.n_cols)
         fig = plt.figure()
         ax = fig.add_subplot(111)
-        return ax.imshow(mat)
+        ax.matshow(mat)
+        return ax
