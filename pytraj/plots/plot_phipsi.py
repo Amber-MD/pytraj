@@ -9,4 +9,4 @@ def plot_phipsi(phi, psi, ptype='pmf'):
     ptype : str, default='pmf' (2D free energy)
         plot type ('pmf', ...)
     """
-    pass
+    raise NotImplementedError("not yet")

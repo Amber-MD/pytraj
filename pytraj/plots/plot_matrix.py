@@ -13,4 +13,6 @@ def plot_matrix(dset):
         # get matrix data
         # need to reshape since dset stores data in 1D
         mat = np.asarray(dset.get_full_matrix()).reshape(dset.n_rows, dset.n_cols)
-        return plt.matshow(mat)
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        return ax.imshow(mat)
