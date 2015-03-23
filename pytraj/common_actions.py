@@ -17,7 +17,7 @@ from pytraj.gdt.calc_score import calc_score
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
-               'calc_dssp', 'calc_dssp',
+               'calc_dssp', 'calc_matrix',
                'calc_watershell']
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage']
@@ -34,6 +34,7 @@ calc_angle = partial(calculate, 'angle')
 calc_molsurf = partial(calculate, 'molsurf')
 calc_distrmsd = partial(calculate, 'distrmsd')
 calc_volume = partial(calculate, 'volume')
+calc_matrix = partial(calculate, 'matrix')
 calc_protein_score = calc_score
 
 do_translation = partial(calculate, 'translate')
