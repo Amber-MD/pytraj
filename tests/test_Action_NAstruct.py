@@ -24,10 +24,19 @@ class Test(unittest.TestCase):
             print (d0)
 
         dsmall = dslist.get_dataset(dtype='float')
+        ds_int = dslist.get_dataset(dtype='integer')
 
         import numpy as np
         dsmall = np.asarray(dsmall)
         print (dsmall.shape)
+
+        print (dslist.get_legends())
+        print (dslist['2G15C-3G14C'][0][:])
+        print (dslist['1G16C'])
+        print (dslist['1G16C'].__len__())
+        print ('traj.n_frames = %s' % traj.n_frames)
+
+        print (ds_int)
 
 if __name__ == "__main__":
     unittest.main()
