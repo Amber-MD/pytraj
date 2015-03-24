@@ -8,8 +8,12 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
         self.baseptr_2 = <_DataSet_Coords*> self.thisptr
         self.baseptr_1 = <_DataSet_1D*> self.thisptr
 
+        # let python frees memory
+        self.py_free_mem = True
+
     def __dealloc__(self):
-        del self.thisptr
+        if self.py_free_mem:
+            del self.thisptr
 
     #def DataSet_Coords_CRD(self):
 
@@ -19,6 +23,6 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
         dset.baseptr0 = _DataSet_Coords_CRD.Alloc()
         return dset
 
-    @property
-    def size(self):
-        return self.thisptr.Size()
+    #@property
+    #def size(self):
+    #    return self.thisptr.Size()

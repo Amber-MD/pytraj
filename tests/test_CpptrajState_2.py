@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
         print (cppstate.toplist[0])
         #cppstate.add_trajin(ArgList("./data/Test_RemdTraj/rem.nc.000"), 
         #                    is_ensemble=True)
-        cppstate.add_trajin(ArgList("./data/Test_RemdTraj/rem.nc.000"))
+        cppstate.add_trajin("./data/Test_RemdTraj/rem.nc.000")
         print (dir(cppstate))
 
     def test_1(self):

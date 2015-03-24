@@ -14,7 +14,6 @@ cdef extern from "DataSet_float.h":
         float& index_opr "operator[]"(size_t idx)
         int Size()
 
-
 cdef class DataSet_float (DataSet_1D):
     cdef _DataSet_float* thisptr
     cdef bint py_free_mem 

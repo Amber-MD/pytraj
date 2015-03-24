@@ -11,7 +11,7 @@ from pytraj.FrameArray cimport FrameArray
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj._FunctPtr cimport FunctPtr
 from pytraj.AtomMask cimport _AtomMask, AtomMask
-from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
+#from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
 
 cdef extern from "ActionList.h":
     cdef cppclass _ActionList "ActionList":

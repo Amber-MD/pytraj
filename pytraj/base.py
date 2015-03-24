@@ -5,7 +5,6 @@ import baseclasses for pytraj
 from pytraj.Atom import Atom
 from pytraj.Frame import Frame
 from pytraj.FrameArray import FrameArray
-from pytraj.FrameArray2 import FrameArray2 
 from pytraj.Topology import Topology
 from pytraj.ArgList import ArgList
 from pytraj.AtomMask import AtomMask
@@ -32,6 +31,5 @@ __all__ = ['Atom',
            'DataSetList', 'DataFileList', 
            'ActionList',
            'Trajout', 'TrajinList',
-           'FrameArray2',
            'cast_dataset',
            'cpptraj_dict']

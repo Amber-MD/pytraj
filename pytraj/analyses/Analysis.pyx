@@ -2,6 +2,7 @@
 from pytraj.externals.six import PY3
 from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
+from pytraj.exceptions import *
 
 cdef class Analysis:
     """
@@ -39,13 +40,12 @@ cdef class Analysis:
     def read_input(self, command='', 
                    top=TopologyList(),
                    DataSetList dslist=DataSetList(), 
-                   DataFileList dflist=DataFileList(), 
-                   int debug=0):
+                   DataFileList dflist=DataFileList()):
         """
         Parameters
         ----------
         command : str
-            Type of actions, mask, ... (Get help: Analysis_Box().help())
+            Type of actions, mask, ... (Get help: Analysis_Clustering().help())
         top : Topology or TopologyList instance, default=TopologyList()
         dslist : DataSetList instance, default=DataSetList()
         dflist : DataFileList instance, default=DataFileList()
@@ -54,17 +54,22 @@ cdef class Analysis:
         """
         cdef ArgList arglist
         cdef TopologyList toplist
+        cdef debug = 0
 
-        if isinstance(top, Topology):
+        if isinstance(top, Topology) or isinstance(top, string_types):
             toplist = TopologyList()
             toplist.add_parm(top)
         elif isinstance(top, TopologyList):
             toplist = <TopologyList> top
+        else:
+            raise EmptyTopologyError("")
 
         if isinstance(command, string_types):
             arglist = ArgList(command)
         elif isinstance(command, ArgList):
             arglist = <ArgList> command
+        else:
+            raise ValueError()
 
         return self.baseptr.Setup(arglist.thisptr[0], 
                        dslist.thisptr, 

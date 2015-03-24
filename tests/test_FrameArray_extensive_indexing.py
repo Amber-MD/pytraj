@@ -20,7 +20,6 @@ trajin = """
 """
 
 ts.load(mdx, top)
-ts.prepare_for_read(True)
 frame = Frame()
 frame.set_frame_v(top)
 frame2 = Frame(frame)

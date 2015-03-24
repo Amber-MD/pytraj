@@ -74,7 +74,6 @@ class TestTrajinSingle(unittest.TestCase):
             print(x)
         for x in traj[0][0, :]:
             print(x)
-        print("TODO : wrong result")
 
         assert_almost_equal (arr0, arr1)
         # create FrameArray instance

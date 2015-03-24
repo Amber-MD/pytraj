@@ -1,4 +1,5 @@
 import os
+import unittest
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj import adict
@@ -21,9 +22,11 @@ class Test(unittest.TestCase):
             d0 = adict['jcoupling']("out ./output/test_jcoupling.out",
                                    frame, traj.top, 
                                    dslist=dslist, dflist=dflist)
-            print (dslist[0])
+            print (dslist.size)
+            print (dslist[0].data)
             print (dslist[80])
-            dflist.write_all_datafiles()
+            print (dslist.get_legends())
+            print (dslist['LYS:8_C-CA-CB-HB2'][0][:])
 
 if __name__ == "__main__":
     unittest.main()

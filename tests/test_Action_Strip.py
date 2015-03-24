@@ -3,7 +3,6 @@ from pytraj.base import *
 from pytraj.actions.Action_Strip import Action_Strip
 from pytraj import allactions
 from pytraj.actions import Action
-from pytraj.misc import strip
 from pytraj.TrajReadOnly import TrajReadOnly
 from pytraj.decorators import no_test
 

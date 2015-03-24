@@ -29,7 +29,6 @@ class TestPyCpptrajIO(unittest.TestCase):
         traj = mdio.load(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         print(traj)
 
-        # TODO : add more classes here
         is_traj = (isinstance(traj, TrajReadOnly) or isinstance(traj, FrameArray))
         assert is_traj == True
 
@@ -63,7 +62,6 @@ class TestPyCpptrajIO(unittest.TestCase):
         print(len(indices))
 
         # about 50% failures
-        # TODO : why?
         assert traj2.size == len(indices) 
 
     def test_load_and_save_1(self):

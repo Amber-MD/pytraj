@@ -53,7 +53,16 @@ cdef class DataSet_float (DataSet_1D):
         for i in range(self.size):
             yield self.thisptr.index_opr(i)
 
-    @property
-    def size(self):
-        return self.thisptr.Size()
+    #@property
+    #def size(self):
+    #    return self.thisptr.Size()
 
+    # move back to DataSet baseclass?
+    @property
+    def data(self):
+        cdef pyarray arr0 = pyarray('f', [])
+        cdef int i
+
+        for i in range(self.size):
+            arr0.append(self[i])
+        return arr0

@@ -7,23 +7,19 @@ before_install:
     - sudo apt-get install libnetcdf-dev
     - sudo apt-get install gfortran
     - sudo apt-get install -qq libz-dev libbz2-dev
-    - sh ./development/for_travis/install_cpptraj.sh
+    - sh ./devtools/for_travis/install_cpptraj.sh
 install:
     - pip install --upgrade pip
     - pip install numpy
     - pip install cython
-    - export AMBERHOME=`pwd`"/cpptraj/"
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - python ./setup.py install
 script:
-    - export AMBERHOME=`pwd`"/cpptraj/"
-    - export PYCPPTRAJ_HOME=`pwd`
-    - export LD_LIBRARY_PATH=$AMBERHOME/lib:$LD_LIBRARY_PATH
-    - python ./development/for_travis/fake_test.py
-    - python ./tests/test_import_class.py
+    - export CPPTRAJHOME=`pwd`"/cpptraj/"
+    - export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:$LD_LIBRARY_PATH
     - cd ./tests
     - python -c 'import pytraj'
-    - python ./API_test.py
+    - python ./run_simple_test.py
     - python ./run_all_and_find_fails.py
     - sh ./TestListTravis.sh
     - cd ../examples

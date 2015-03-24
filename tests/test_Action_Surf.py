@@ -3,7 +3,6 @@ from pytraj.common_actions import calc_molsurf
 from pytraj.base import *
 from pytraj.actions.Action_Surf import Action_Surf
 from pytraj.actions import Action
-from pytraj.misc import strip
 from pytraj.TrajReadOnly import TrajReadOnly
 from pytraj import cast_dataset
 from pytraj import adict

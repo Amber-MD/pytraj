@@ -8,12 +8,10 @@ from cpython.array cimport array as pyarray
 
 from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
+from pytraj.utils.check_and_assert import is_int
 from pytraj.parms._ParmFile import TMPParmFile
-try:
-    set
-except NameError:
-    from sets import Set as set
 from pytraj.externals.six import PY3, PY2, string_types, binary_type
+from pytraj.six_2 import set
 
 cdef class Topology:
     def __cinit__(self, *args):
@@ -117,7 +115,7 @@ cdef class Topology:
         cdef Atom atom 
         cdef int i
 
-        if isinstance(idx, (int, long)):
+        if is_int(idx):
             # need to explicitly cast to int
             i = <int> idx
             atom = Atom()
@@ -200,7 +198,7 @@ cdef class Topology:
         cdef AtomMask atm
         cdef list namelist = []
 
-        if isinstance(id_or_mask, (int, long)):
+        if is_int(id_or_mask):
             index = <int> id_or_mask
             return self.thisptr.TruncResAtomName(index)
         elif isinstance(id_or_mask, string_types):
@@ -223,8 +221,9 @@ cdef class Topology:
             _atomnametype = <NameType> atname 
         return self.thisptr.FindAtomInResidue(res, _atomnametype.thisptr[0])
     
-    def find_residue_max_natom(self):
-        return self.thisptr.FindResidueMaxNatom()
+    # cpptraj does not have this anymore.
+    #def find_residue_max_natom(self):
+    #    return self.thisptr.FindResidueMaxNatom()
     
     #def SoluteAtoms(self):
     #    return self.thisptr.SoluteAtoms()
@@ -454,14 +453,12 @@ cdef class Topology:
             # list
             return atm.selected_indices()
 
-    @name_will_be_changed("")
     def get_unique_resname(self):
         s = set()
         for res in self.residue_iter():
             s.add(res.name)
         return s
 
-    @name_will_be_changed("")
     def get_unique_atomname(self):
         s = set()
         for atom in self.atom_iter():
@@ -474,7 +471,7 @@ cdef class Topology:
     def get_resname_set(self):
         return self.get_unique_resname()
 
-    def parm_coordinnfo(self):
+    def get_parm_coord_info(self):
         cdef CoordinateInfo coordinfo = CoordinateInfo()
         coordinfo.thisptr[0] = self.thisptr.ParmCoordInfo()
         return coordinfo
@@ -491,3 +488,14 @@ cdef class Topology:
             raise ValueError("support only Topology object or top filename")
 
         self.thisptr.AppendTop(_top.thisptr[0])
+
+    @property
+    def masses(self):
+        # TODO : use Cython memoryview if needed
+        """return python array of atom masses"""
+        cdef pyarray marray = pyarray('d', [])
+        cdef Atom atom
+
+        for atom in self.atom_iter():
+            marray.append(atom.mass)
+        return marray

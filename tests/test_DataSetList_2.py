@@ -24,5 +24,19 @@ class Test(unittest.TestCase):
         act(":2@CA :10@CA", traj, dslist=dslist2)
         print (dslist2[0].aspect)
 
+        print ("get_xyz methods")
+        print (dslist2.get_legends())
+        print (dslist2.get_aspects())
+        print (dslist2.get_scalar_modes())
+        print (dslist2.get_scalar_types())
+        print (dslist2.get_dtypes())
+
+        for d0 in dslist2:
+            print (d0.legend)
+            print (d0.aspect)
+            print (d0.scalar_mode)
+            print (d0.scalar_type)
+
+
 if __name__ == "__main__":
     unittest.main()

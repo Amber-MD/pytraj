@@ -1,4 +1,4 @@
-import unittest
+#import unittest
 from pytraj.base import *
 from pytraj.CpptrajFile import CpptrajFile
 

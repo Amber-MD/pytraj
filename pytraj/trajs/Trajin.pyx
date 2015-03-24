@@ -9,7 +9,7 @@ from pytraj.AtomMask cimport AtomMask
 
 from pytraj.utils.check_and_assert import _import_numpy
 from .Trajout import Trajout
-from pytraj._save_traj import _save
+from pytraj._shared_methods import _savetraj, _get_temperature_set
 from pytraj.externals.six import string_types
 
 
@@ -177,16 +177,18 @@ cdef class Trajin (TrajectoryFile):
                     if ':frame' not in mask:
                         # return numpy array
                         has_numpy, np = _import_numpy()
-                        if not has_numpy:
-                            print ('must have numpy to get coords directly')
-                            print ("add :frame to mask to get sub-FrameArray")
-                            print ("example: traj['@CA :frame']")
-                            raise NotImplementedError("")
                         N = self.top(mask).n_atoms
-                        arr0 = np.empty(N*self.size*3).reshape(self.size, N, 3)
-                        for i, frame in enumerate(self):
-                            arr0[i] = frame[self.top(mask)]
-                        return arr0
+                        if has_numpy:
+                            arr0 = np.empty(N*self.size*3).reshape(self.size, N, 3)
+                            for i, frame in enumerate(self):
+                                arr0[i] = frame[self.top(mask)]
+                            return arr0
+                        else:
+                            # create 3D list with shape of (n_frames, n_atoms, 3)
+                            _coord_list = []
+                            for frame in self:
+                                _coord_list.append(frame[self.top(mask)])
+                            return _coord_list
                     else:
                         _farray = FrameArray()
                         _farray.top = self.top.modify_state_by_mask(self.top(mask))
@@ -297,30 +299,10 @@ cdef class Trajin (TrajectoryFile):
         _Trajin.CheckFrameArgs(argIn.thisptr[0], maxFrames, startArg, stopArg, offsetArg)
         return startArg, stopArg, offsetArg
 
-    def check_finished(self):
-        self.check_allocated()
-        return self.baseptr_1.CheckFinished()
-
-    def update_counters(self):
-        self.check_allocated()
-        self.baseptr_1.UpdateCounters()
-
     def get_next_frame(self, Frame frame):
         #cdef Frame frame = Frame()
         self.baseptr_1.GetNextFrame(frame.thisptr[0])
         #return frame
-
-    def setup_trajio(self, string s, TrajectoryIO trajio, ArgList arglist):
-        self.check_allocated()
-        return self.baseptr_1.SetupTrajIO(s, trajio.baseptr_1[0], arglist.thisptr[0])
-
-    def setup_frame_info(self):
-        self.check_allocated()
-        return self.baseptr_1.setupFrameInfo()
-
-    def prepare_for_read(self,bint b):
-        self.check_allocated()
-        self.baseptr_1.PrepareForRead(b)
 
     property max_frames:
         def __get__(self):
@@ -336,38 +318,6 @@ cdef class Trajin (TrajectoryFile):
     def size(self):
         # alias of max_frames
         return self.max_frames
-
-    @property
-    def total_read_frames(self):
-        self.check_allocated()
-        return self.baseptr_1.TotalReadFrames()
-
-    @property
-    def current_frame(self):
-        self.check_allocated()
-        return self.baseptr_1.CurrentFrame()
-
-    def start(self):
-        self.check_allocated()
-        return self.baseptr_1.Start()
-
-    @property
-    def offset(self):
-        self.check_allocated()
-        return self.baseptr_1.Offset()
-
-    @property
-    def num_frames_processed(self):
-        self.check_allocated()
-        return self.baseptr_1.NumFramesProcessed()
-
-    def is_ensemble(self):
-        self.check_allocated()
-        return self.baseptr_1.IsEnsemble()
-
-    def set_ensemble(self,bint b):
-        self.check_allocated()
-        self.baseptr_1.SetEnsemble(b)
 
     def load(self, tnameIn, Topology tparmIn, ArgList argIn):
         """
@@ -395,7 +345,7 @@ cdef class Trajin (TrajectoryFile):
         return self.baseptr_1.ReadTrajFrame(currentFrame, frameIn.thisptr[0])
 
     def save(self, filename="", fmt='unknown', overwrite=False):
-        _save(self, filename, fmt, overwrite)
+        _savetraj(self, filename, fmt, overwrite)
 
     def write(self, *args, **kwd):
         self.save(*args, **kwd)
@@ -413,6 +363,10 @@ cdef class Trajin (TrajectoryFile):
             tarr.append(frame.temperature)
         return tarr
 
+    @property
+    def T_set(self):
+        return _get_temperature_set(self)
+
     def fit_to(self, ref=None):
         txt = """
         This is immutatble class. You can not use with fit_to
@@ -426,3 +380,7 @@ cdef class Trajin (TrajectoryFile):
         """
         __doc__ = txt
         raise NotImplementedError(txt)
+
+    @property
+    def shape(self):
+        return (self.n_frames, self[0].n_atoms, 3)

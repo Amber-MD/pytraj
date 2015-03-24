@@ -10,10 +10,10 @@ from pytraj._utils cimport get_positive_idx
 # python level
 from pytraj.externals.six import string_types
 from pytraj.TrajReadOnly import TrajReadOnly
-from pytraj.utils.check_and_assert import _import_numpy
+from pytraj.utils.check_and_assert import _import_numpy, is_int
 from pytraj.utils.check_and_assert import file_exist
 from pytraj.trajs.Trajout import Trajout
-from pytraj._save_traj import _save
+from pytraj._shared_methods import _savetraj, _get_temperature_set
 
 # we don't allow sub-class in Python level since we will mess up with memory
 @cython.final
@@ -179,16 +179,18 @@ cdef class FrameArray (object):
                     if ':frame' not in mask:
                         # return numpy array
                         has_numpy, np = _import_numpy()
-                        if not has_numpy:
-                            print ('must have numpy to get coords directly')
-                            print ("add :frame to mask to get sub-FrameArray")
-                            print ("example: traj['@CA :frame']")
-                            raise NotImplementedError("")
                         N = self.top(mask).n_atoms
-                        arr0 = np.empty(N*self.size*3).reshape(self.size, N, 3)
-                        for i, frame in enumerate(self):
-                            arr0[i] = frame[self.top(mask)]
-                        return arr0
+                        if has_numpy:
+                            arr0 = np.empty(N*self.size*3).reshape(self.size, N, 3)
+                            for i, frame in enumerate(self):
+                                arr0[i] = frame[self.top(mask)]
+                            return arr0
+                        else:
+                            # create 3D list with shape of (n_frames, n_atoms, 3)
+                            _coord_list = []
+                            for frame in self:
+                                _coord_list.append(frame[self.top(mask)])
+                            return _coord_list
                     else:
                         _farray = FrameArray()
                         _farray.top = self.top.modify_state_by_mask(self.top(mask))
@@ -383,7 +385,7 @@ cdef class FrameArray (object):
     def erase(self, idxs):
         cdef int idx
         # dealloc frame pointer too?
-        if isinstance(idxs, (int, long)):
+        if is_int(idxs):
             idx = idxs
             self.frame_v.erase(self.frame_v.begin() + idx)
         else:
@@ -513,6 +515,10 @@ cdef class FrameArray (object):
             tarr.append(frame.temperature)
         return tarr
 
+    @property
+    def T_set(self):
+        return _get_temperature_set(self)
+
     def get_frames(self, from_traj=None, indices=None, update_top=False, copy=True):
         # TODO : fater loading?
         """get frames from Trajin instance
@@ -628,22 +634,38 @@ cdef class FrameArray (object):
         TrajReadOnly.read_options()
 
     def save(self, filename="", fmt='unknown', overwrite=False):
-        _save(self, filename, fmt, overwrite)
+        _savetraj(self, filename, fmt, overwrite)
 
     def write(self, *args, **kwd):
         self.save(*args, **kwd)
 
-    def fit_to(self, Frame ref=None, mask="*"):
+    def fit_to(self, ref=None, mask="*"):
         """do the fitting to reference Frame by rotation and translation
         Parameters
         ----------
-        ref : Frame object, default=None 
+        ref : {Frame object, int, str}, default=None 
             Reference
         mask : str or AtomMask object, default='*' (fit all atoms)
         """
         # not yet dealed with `mass` and box
         cdef Frame frame
         cdef AtomMask atm
+        cdef Frame ref_frame
+        cdef int i
+
+        if isinstance(ref, Frame):
+            ref_frame = <Frame> ref
+        elif isinstance(ref, (long, int)):
+            i = <int> ref
+            ref_frame = self[i]
+        elif isinstance(ref, string_types):
+            if ref.lower() == 'first':
+                i = 0
+            if ref.lower() == 'last':
+                i = -1
+            ref_frame = self[i]
+        else:
+            raise ValueError("ref must be string, Frame object or integer")
 
         if isinstance(mask, string_types):
             atm = self.top(mask)
@@ -653,4 +675,5 @@ cdef class FrameArray (object):
             raise ValueError("mask must be string or AtomMask object")
 
         for frame in self:
-            frame.fit_to(ref, atm)
+            _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
+            frame.trans_rot_trans(v1, mat, v2)

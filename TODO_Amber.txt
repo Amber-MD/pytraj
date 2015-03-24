@@ -1,0 +1,4 @@
+* Modify cpptraj code to accept adding new frame object rather filename
+* How to include in AmberTools setup? DONE (included)
+* Should we inlcude cythonized *.cpp files (don't need Cython): DONE (yes)
+if YES, need to update setup_for_amber.py: DONE (made it)

@@ -2,10 +2,9 @@
 pytraj
 """
 import os
-from pytraj import base
+#from pytraj import base
 from pytraj.utils.check_and_assert import _import
 
-# TODO : should we load those module here or use .base?
 from pytraj import io
 
 from pytraj.action_dict import ActionDict
@@ -15,7 +14,7 @@ adict = ActionDict()
 analdict = AnalysisDict()
 
 from pytraj.run_tests import run_tests
-from pytraj.AtomSelect import AtomSelect
+#from pytraj.AtomSelect import AtomSelect
 from pytraj.Frame import Frame
 from pytraj.FrameArray import FrameArray
 from pytraj.Topology import Topology
@@ -35,11 +34,10 @@ from pytraj.DataFileList import DataFileList
 # actions
 from pytraj.actions import allactions
 from pytraj.analyses import allanalyses
-from pytraj.misc import calculate
+from pytraj._common_actions import calculate
+from pytraj import common_actions
 
-#try:
-#    amber_home = os.environ['AMBERHOME']
-#except:
-#    raise EnvironmentError("must set AMBERHOME")
+# turn off verbose in cpptraj
+from pytraj._utils import set_world_silent
 
-# make adict instance of ActionDict
+set_world_silent(True)

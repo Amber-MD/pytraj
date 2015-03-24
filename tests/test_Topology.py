@@ -9,6 +9,7 @@ from pytraj.decorators import no_test
 from pytraj.NameType import NameType
 
 class TestTopology(unittest.TestCase):
+    #@no_test
     def test_empty_top(self):
         top = Topology()
         print(top.file_path())
@@ -52,6 +53,7 @@ class TestTopology(unittest.TestCase):
         for mol in top.mol_iter():
             pass
 
+    #@no_test
     def test_2(self):
         from pytraj import load_sample_data
         # load Ala3
@@ -66,33 +68,35 @@ class TestTopology(unittest.TestCase):
         print(dir(top))
         print(top.n_atoms) 
         atom = Atom("CA", "CA")
-        restype = NameType("ALA")
+        restype = NameType("TEST")
         xyz = np.arange(3, dtype=np.float64)
         top.add_atom(atom, 4, restype, xyz)
         assert top.n_atoms == 35
-        top.add_atom(Atom("CB", "CB"), 4, restype)
+        top.add_atom(Atom("CBX", "CBX"), 4, restype)
         assert top.n_atoms == 36
-        #assert ("TEST" in top.trunc_res_atom_name(34))
+        assert ("TEST" in top.trunc_res_atom_name(34))
         print(top.trunc_res_atom_name(34))
 
-        # TODO: cpptraj does not recognize new atom names
         print(top[33])
         print(top[34])
-        print(top.n_atoms)
         print(top[35])
+        print(top.n_atoms)
 
+    #@no_test
     def test_select_mask(self):
         top = Topology("./data/Tc5b.top")
         arr0 = top.get_atom_indices("@CA")
         print(arr0) 
         print(type(arr0))
 
+    #@no_test
     def test_call(self):
         traj = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        top = traj.top
-        frame = traj[0]
-        print(frame[top(":2-18@CA")])
+        #top = traj.top
+        #frame = traj[0]
+        #print(frame[top(":2-18@CA")])
 
+    #@no_test
     def test_get_unique(self):
         traj = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
@@ -101,6 +105,7 @@ class TestTopology(unittest.TestCase):
         print(top.get_atomname_set())
         print(top.get_resname_set())
 
+    #@no_test
     def test_len(self):
         traj = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top

@@ -213,6 +213,7 @@ cdef extern from "DataSet.h":
         MATRIX_DBL "DataSet::MATRIX_DBL"
         MATRIX_FLT "DataSet::MATRIX_FLT"
         COORDS "DataSet::COORDS"
+        REF_FRAME "DataSet::REF_FRAME"
         VECTOR "DataSet::VECTOR"
         MODES "DataSet::MODES"
         GRID_FLT "DataSet::GRID_FLT"

@@ -24,10 +24,22 @@ cdef class DataSet_string (DataSet_1D):
         dset.baseptr0 = self.thisptr.Alloc()
         return dset
 
-    def __getitem__(self, int idx):
-        #return self.thisptr.index_opr(idx)
-        # use self.data so we can use fancy indexing
-        return self.data[idx].decode()
+    def __getitem__(self, idx):
+        # this dataset does not have `data` attribute
+        cdef int _idx
+        cdef list slist = []
+
+        if isinstance(idx, slice):
+            if (idx.start, idx.stop, idx.step) is (None, None, None):
+                for _idx in self.size:
+                    slist.append(self[_idx])
+                return slist 
+            else:
+                raise IndexError("only support `:` for slice")
+        elif isinstance(idx, (long, int)):
+            return self.thisptr.index_opr(idx)
+        else:
+            raise IndexError("index must be integer or `:` ")
 
     def __setitem__(self, int idx, value):
         cdef string* ptr
@@ -43,6 +55,11 @@ cdef class DataSet_string (DataSet_1D):
         self.thisptr.Resize(sizeIn)
 
     @property
-    def size(self):
-        return self.thisptr.Size()
+    def data(self):
+        """return 1D python array of `self`"""
+        cdef pyarray arr = pyarray('i', [])
+        cdef int i
 
+        for i in range(self.baseptr0.Size()):
+            arr.append(self[i])
+        return arr

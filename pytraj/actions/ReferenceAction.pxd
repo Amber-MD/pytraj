@@ -1,18 +1,27 @@
 # distutils: language = c++
+from __future__ import absolute_import
 from libcpp.string cimport string
-from pytraj.Trajin_Single cimport *
-#from pytraj.ReferenceFrame cimport *
+from pytraj.trajs.Trajin_Single cimport *
+from pytraj.Frame cimport _Frame, Frame
+from pytraj.Vec3 cimport _Vec3, Vec3
+from pytraj.Topology cimport _Topology, Topology
+from ..ReferenceFrame cimport *
 
 
 cdef extern from "ReferenceAction.h": 
     cdef cppclass _ReferenceAction "ReferenceAction":
         _Reference_Action() 
-        inline void SetRefStructure(const _Frame&, bint, bint)
-        #int InitRef(bint, bint, bint, bint, const string&, _ReferenceFrame&, _Topology *, const string&, _ArgList&, const char *)
+        void SetRefStructure(const _Frame&, bint, bint)
+        int InitRef(bint, bint, bint, bint, const string&, const _Reference_Frame&,
+                    _Topology *, const string&, _ArgList&, const char *)
         int SetupRef(const _Topology&, int, const char *)
-        inline void _ActionRef(const _Frame&, bint, bint)
-        bint Previous() const 
-        const char * RefModeString() const 
-        const _Frame& RefFrame() const 
-        const _Frame& SelectedRef() const 
-        const _Vec3& RefTrans() const 
+        void _ActionRef(const _Frame&, bint, bint)
+        bint Previous()
+        const char * RefModeString()
+        const _Frame& Ref_Frame()
+        const _Frame& SelectedRef()
+        const _Vec3& RefTrans()
+
+
+cdef class ReferenceAction:
+    cdef _ReferenceAction* thisptr

@@ -9,22 +9,15 @@ cdef class DataSet_Modes (DataSet):
     def __dealloc__(self):
         del self.thisptr
 
-    #def DataSet_Modes(self):
-
-    #def DataSet * Alloc(self):
-
-    #def size_t Size(self):
-
-    #def int Sync(self):
-
-    #def void Info(self):
+    def alloc(self):
+        '''return a memoryview as DataSet instane'''
+        cdef DataSet dset = DataSet()
+        dset.baseptr0 = self.thisptr.Alloc()
+        return dset
 
     #def void Add(self,size_t, void *):
-
     #def AvgIt AvgBegin(self):
-
     #def  Darray AvgCrd(self):
-
     #def  Darray Mass(self):
 
     #def int NavgCrd(self):
@@ -59,11 +52,12 @@ cdef class DataSet_Modes (DataSet):
 
     #def  double * Eigenvector(self,int i):
 
-    #def int Nmodes(self):
+    def nmodes(self):
+        return self.thisptr.Nmodes()
 
-    #def int VectorSize(self):
+    def vector_size(self):
+        return self.thisptr.VectorSize()
 
-    #def DataSet_2D::MatrixType Type(self):
-
-    #def bint IsReduced(self):
+    def is_reduced(self):
+        return self.thisptr.IsReduced()
 
