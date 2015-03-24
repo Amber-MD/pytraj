@@ -1,12 +1,13 @@
 import unittest
 from pytraj.base import *
 from pytraj.decorators import no_test
+from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ
 
 class Test(unittest.TestCase):
     #@no_test
     def test_0(self):
         # DataSet_Coords_TRJ class
-        traj = FrameArray2()
+        traj = DataSet_Coords_TRJ()
         traj.top = Topology("data/Tc5b.top")
         traj.load("data/md1_prod.Tc5b.x")
         print(dir(traj))
@@ -24,7 +25,7 @@ class Test(unittest.TestCase):
 
     #@no_test
     def test_add_trajin(self):
-        traj = FrameArray2()
+        traj = DataSet_Coords_TRJ()
         traj.top = Topology("data/Tc5b.top")
         traj.load("data/md1_prod.Tc5b.x")
 
@@ -33,25 +34,6 @@ class Test(unittest.TestCase):
         dset = traj.alloc()
         db = cast_dataset(dset, dtype="general")
         print(db)
-
-    #@no_test
-    def test_add_trajin_from_emptyTRJ(self):
-        traj = FrameArray2()
-        traj.top = Topology("data/Tc5b.top")
-        traj.top.summary()
-        trajin = TrajReadOnly(filename="data/md1_prod.Tc5b.x", top=traj.top)
-        traj.add_traj(trajin)
-        traj.add_traj(trajin)
-        traj.add_traj(trajin)
-        traj.add_traj(trajin)
-        traj.add_traj(trajin)
-        traj.add_traj(trajin)
-        traj.add_traj(trajin)
-        traj.add_traj(trajin)
-        traj.add_traj(trajin)
-        print(traj[5])
-        print(traj[9])
-        print(traj.size)
 
 if __name__ == "__main__":
     unittest.main()

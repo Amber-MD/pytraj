@@ -7,8 +7,12 @@ from pytraj.datasets.DataSet_integer cimport DataSet_integer, _DataSet_integer
 from pytraj.datasets.DataSet_string cimport DataSet_string, _DataSet_string
 from pytraj.datasets.DataSet_MatrixDbl cimport DataSet_MatrixDbl, _DataSet_MatrixDbl
 from pytraj.datasets.DataSet cimport DataSet, _DataSet
+from pytraj.datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
+from pytraj.datasets.DataSet_Coords_REF cimport _DataSet_Coords_REF, DataSet_Coords_REF
+from pytraj.datasets.DataSet_Coords_CRD cimport _DataSet_Coords_CRD, DataSet_Coords_CRD
+from pytraj.datasets.DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
 
-def cast_dataset(dsetin, dtype='general'):
+def cast_dataset(dsetin=None, dtype='general'):
     """create memoryview for DataSet instance. 
     DataSet instace is taken from DatatSetList
     Parameters
@@ -16,9 +20,11 @@ def cast_dataset(dsetin, dtype='general'):
     dset : DataSet instance
     dtype : str (default dtype=None)
         {'general', 'matrix', '1D', '2D', 'double', 'matrix_dbl',
-         'integer'}
+         'integer',
+         'coords_crd', 'coords'
+         'coords_trj', 'trj'}
     """
-    # TODO : rename data set
+    # TODO:
     cdef DataSet dset
     cdef DataSet_1D newset1D
     cdef DataSet_2D newset2D
@@ -27,6 +33,9 @@ def cast_dataset(dsetin, dtype='general'):
     cdef DataSet_integer newset_integer
     cdef DataSet_MatrixDbl newset_MatrixDbl
     cdef DataSet_string newset_string
+    cdef DataSet_Coords_REF newset_coords_ref
+    cdef DataSet_Coords_CRD newset_coords_crd
+    cdef DataSet_Coords_TRJ newset_coords_trj
 
     if not isinstance(dsetin, DataSet):
         dset = <DataSet> dsetin.alloc()
@@ -99,5 +108,39 @@ def cast_dataset(dsetin, dtype='general'):
         newset_matrixdbl.thisptr = <_DataSet_MatrixDbl*> dset.baseptr0
         return newset_matrixdbl
 
+    elif dtype in ['COORDS_CRD', 'COORDS']:
+        # FIXME: not correctly casting
+        # get '0' size when casting back from DataSet
+        newset_coords_crd = DataSet_Coords_CRD()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_coords_crd.py_free_mem = False
+        newset_coords_crd.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_coords_crd.baseptr_1 = <_DataSet_1D*> dset.baseptr0
+        newset_coords_crd.baseptr_2 = <_DataSet_Coords*> dset.baseptr0
+        newset_coords_crd.thisptr = <_DataSet_Coords_CRD*> dset.baseptr0
+        return newset_coords_crd
+
+    elif dtype in ['COORDS_TRJ', 'TRJ']:
+        newset_coords_trj = DataSet_Coords_TRJ()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_coords_trj.py_free_mem = False
+        newset_coords_trj.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_coords_trj.baseptr_1 = <_DataSet_1D*> dset.baseptr0
+        newset_coords_trj.baseptr_2 = <_DataSet_Coords*> dset.baseptr0
+        newset_coords_trj.thisptr = <_DataSet_Coords_TRJ*> dset.baseptr0
+        return newset_coords_trj
+
+    elif dtype in ['COORDS_REF_FRAME', 'REF_FRAME', 'REFFRAME', 'REF', 'REFERENCE']:
+        newset_coords_ref = DataSet_Coords_REF()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_coords_ref.py_free_mem = False
+        newset_coords_ref.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_coords_ref.baseptr_1 = <_DataSet_1D*> dset.baseptr0
+        newset_coords_ref.baseptr_2 = <_DataSet_Coords*> dset.baseptr0
+        newset_coords_ref.thisptr = <_DataSet_Coords_REF*> dset.baseptr0
+        return newset_coords_ref
     else:
         raise NotImplementedError("")

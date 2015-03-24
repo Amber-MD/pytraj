@@ -7,22 +7,11 @@ from pytraj.FileIO  cimport *
 
 cdef extern from "CpptrajFile.h":
     ctypedef enum AccessType "CpptrajFile::AccessType":
-        READ "CpptrajFile::READ"
-        WRITE "CpptrajFile::WRITE"
-        APPEND "CpptrajFile::APPEND"
-        UPDATE "CpptrajFile::UPDATE"
+        pass
     ctypedef enum CompressType "CpptrajFile::CompressType":
-        NO_COMPRESSION "CpptrajFile::NO_COMPRESSION"
-        GZIP "CpptrajFile::GZIP"
-        BZIP2 "CpptrajFile::BZIP2"
-        ZIP "CpptrajFile::ZIP"
+        pass
     ctypedef enum FileType "CpptrajFile::FileType":
-        UNKNOWN_TYPE "CpptrajFile::UNKNOWN_TYPE"
-        STANDARD "CpptrajFile::STANDARD"
-        GZIPFILE "CpptrajFile::GZIPFILE"
-        BZIP2FILE "CpptrajFile::BZIP2FILE"
-        ZIPFILE "CpptrajFile::ZIPFILE"
-        MPIFILE "CpptrajFile::MPIFILE"
+        pass
     cdef cppclass _CpptrajFile "CpptrajFile":
         _CpptrajFile()
         _CpptrajFile(const _CpptrajFile&)
@@ -30,11 +19,11 @@ cdef extern from "CpptrajFile.h":
         int SetupRead(const string&, int)
         int OpenWriteNumbered(int)
         int OpenWrite(const string&)
-        int OpenEnsembleWrite(const string&, int)
+        #int OpenEnsembleWrite(const string&, int)
         int SetupWrite(const string&, int)
         int SetupWrite(const string&, FileType, int)
         int OpenAppend(const string&)
-        int OpenEnsembleAppend(const string&, int)
+        #int OpenEnsembleAppend(const string&, int)
         int SetupAppend(const string&, int)
         int OpenFile()
         int OpenFile(AccessType)

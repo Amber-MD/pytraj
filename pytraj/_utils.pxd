@@ -1,7 +1,13 @@
 # distutils: language = c++
 from libc.stdlib cimport malloc 
 from libcpp.vector cimport vector
+from libcpp.string cimport string
 from cython cimport view
+cimport cython
+from cython.view cimport array as cyarray
+from cpython.array import array as pyarray
+
+num_fused_type = cython.fused_type(int, float, double)
 
 cdef inline int get_positive_idx(idx, size):
     # TODO : do we need this method?
@@ -45,3 +51,40 @@ cdef inline unicode _ustring(s):
         return unicode(s)
     else:
         raise TypeError("")
+
+# should use fused_type: TODO: how?
+# STATUS: not worked yet. 
+# wrong memory (got all 0.0 )
+#cdef inline num_fused_type[:] vec_to_memview(vec_to_memview[num_fused_type] varray, string dtype=?):
+#    cdef int idx = varray.size()
+#    cdef int* int_ptr
+#    cdef double* d_ptr
+#
+#    if dtype == 'int':
+#        int_ptr = &varray[0]
+#        return <int[:varray.size()]> int_ptr
+#    elif dtype == 'double':
+#        d_ptr = &varray[0]
+#        return <double[:varray.size()]> d_ptr
+#    else:
+#        raise ValueError("only support casting for int or double")
+
+# wrong memory (got all 0.0 )
+cdef inline double[:] vec_to_memview_double(vector[double] varray)
+    #cdef int idx = varray.size()
+    #cdef double* double_ptr
+    #cdef cyarray arr0
+
+    #double_ptr = &varray[0]
+    #arr0 = <double[:idx]> double_ptr
+    #return arr0
+
+# wrong memory (got all 0.0 )
+cdef inline int[:] vec_to_memview_int(vector[int] varray)
+    #cdef int idx = varray.size()
+    #cdef int* int_ptr
+    #cdef cyarray arr0
+
+    #int_ptr = &varray[0]
+    #arr0 = <int[:idx]> int_ptr
+    #return arr0

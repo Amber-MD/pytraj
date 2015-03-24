@@ -2,7 +2,7 @@
 from libcpp.string cimport string
 from pytraj.Topology cimport _Topology, Topology
 from pytraj.ReplicaDimArray cimport * 
-from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
+#from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj.BaseIOtype cimport _BaseIOtype, BaseIOtype
 from pytraj.Box cimport _Box, Box
@@ -15,7 +15,7 @@ cdef extern from "TrajectoryIO.h":
         #virtual ~_TrajectoryIO() 
 
         # virtual methods
-        bint ID_TrajFormat(_CpptrajFile&) 
+        #bint ID_TrajFormat(_CpptrajFile&) 
         int setupTrajin(const string&, _Topology *) 
         int setupTrajout(const string&, _Topology *, int, bint) 
         int openTrajin()  

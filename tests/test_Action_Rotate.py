@@ -1,4 +1,5 @@
 import unittest
+from pytraj.six_2 import izip
 import os
 from pytraj.base import *
 from pytraj import adict
@@ -33,7 +34,7 @@ class Test(unittest.TestCase):
         # perform action on farray
         act.do_action(farray)
 
-        for f1, f2 in zip(farray, traj):
+        for f1, f2 in izip(farray, traj):
             print (f1.rmsd(f2))
 
     def test_1(self):
@@ -71,7 +72,7 @@ class Test(unittest.TestCase):
                 frame.rotate(60, 120, 50, traj.top('@CA'))
 
         # make sure get the same result
-        for f1, f2 in zip(farray_cp1, farray_cp2):
+        for f1, f2 in izip(farray_cp1, farray_cp2):
             assert f1.rmsd(f2) < 1E-3
 
         print ("time t1 = %s (s), t2 = %s (s) " %(t1.time_gap, t2.time_gap))
@@ -96,7 +97,7 @@ class Test(unittest.TestCase):
                     frame.rotate(60, 120, 50, traj.top('@CA'))
 
             # make sure get the same result
-            for f1, f2 in zip(farray_cp1, farray_cp2):
+            for f1, f2 in izip(farray_cp1, farray_cp2):
                 assert f1.rmsd(f2) < 1E-3
 
             tgap1 = t1.time_gap

@@ -6,6 +6,9 @@ from cython.operator cimport preincrement as incr
 from pytraj.cast_dataset import cast_dataset
 from pytraj.utils.check_and_assert import _import
 from collections import defaultdict
+from pytraj._utils cimport get_positive_idx
+from pytraj.externals.six import string_types
+from pytraj.utils import is_int
 
 # can not import cpptraj_dict here
 # if doing this, we introduce circle-import since cpptraj_dict already imported
@@ -24,7 +27,7 @@ cdef class DataSetList:
         if self.py_free_mem:
             del self.thisptr
 
-    def __cal__(self, *args, **kwd):
+    def __call__(self, *args, **kwd):
         return self.get_dataset(*args, **kwd)
 
     def clear(self):
@@ -63,9 +66,9 @@ cdef class DataSetList:
     def is_empty(self):
         return self.thisptr.empty()
 
-    property size:
-        def __get__(self):
-            return self.thisptr.size()
+    @property
+    def size(self):
+        return self.thisptr.size()
 
     def ensemble_num(self):
         return self.thisptr.EnsembleNum()
@@ -73,17 +76,26 @@ cdef class DataSetList:
     def remove_set(self, DataSet dset):
         self.thisptr.RemoveSet(dset.baseptr0)
 
-    def __getitem__(self, int idx):
+    def __getitem__(self, idx):
         """return a DataSet instance
         Memory view is applied (which mean this new insance is just alias of self[idx])
         Should we use a copy instead?
         """
         cdef DataSet dset = DataSet()
-        if idx >= len(self) or idx < 0:
-            raise ValueError("index is out of range")
-        # get memoryview
-        dset.baseptr0 = self.thisptr.index_opr(idx)
-        return cast_dataset(dset, dtype=dset.dtype)
+        cdef int _idx
+
+        if is_int(idx):
+            _idx = get_positive_idx(idx, self.size)
+            # get memoryview
+            dset.baseptr0 = self.thisptr.index_opr(_idx)
+            return cast_dataset(dset, dtype=dset.dtype)
+        elif isinstance(idx, string_types):
+             # return a list of datasets having idx as legend
+             sublist = []
+             for d0 in self:
+                 if d0.legend.upper() == idx.upper():
+                     sublist.append(d0)
+             return sublist
 
     def set_ensemble_num(self,int i):
         self.thisptr.SetEnsembleNum(i)
@@ -124,14 +136,10 @@ cdef class DataSetList:
                 dtype = dtype.upper()
                 dlist = []
                 for d0 in self:
-                    if d0.dtype == dtype:
+                    if d0.dtype.upper() == dtype:
                         dlist.append(d0[:])
                 # return a list of arrays
-                has_numpy, np = _import('numpy')
-                if has_numpy:
-                    return np.array(dlist)
-                else:
-                    return dlist
+                return dlist
 
     def get_multiple_sets(self, string s):
         """TODO: double-check cpptraj"""
@@ -169,15 +177,60 @@ cdef class DataSetList:
         cdef DataSet ds = DataSet()
         if aspect is None:
             aspect = name
-        ds.baseptr0 = self.thisptr.AddSetAspect(DataTypeDict[dtype], name.encode(), aspect.encode())
+        ds.baseptr0 = self.thisptr.AddSetAspect(DataTypeDict[dtype], 
+                                                name.encode(), aspect.encode())
         return ds
 
-    def printlist(self):
-        self.thisptr.List()
-
-    def find_coords_set(self, string filename):
+    def find_coords_set(self, filename):
+        filename = filename.encode()
         cdef DataSet dset = DataSet()
         dset.baseptr0 = self.thisptr.FindCoordsSet(filename)
         if not dset.baseptr0:
             raise MemoryError("Can not initialize pointer")
         return dset
+
+    def find_set_of_type(self, filename, dtype):
+        cdef DataSet dset = DataSet()
+
+        dtype = dtype.upper()
+        dset.baseptr0 = self.thisptr.FindSetOfType(filename.encode(), DataTypeDict[dtype])
+
+        if not dset.baseptr0:
+            raise MemoryError("Can not initialize pointer")
+        return dset
+
+    # TODO: combine those methods into one
+    def get_legends(self):
+        """return a list"""
+        tmp_list = []
+        for d0 in self:
+            tmp_list.append(d0.legend)
+        return tmp_list
+
+    def get_aspects(self):
+        """return a list"""
+        tmp_list = []
+        for d0 in self:
+            tmp_list.append(d0.aspect)
+        return tmp_list
+
+    def get_scalar_types(self):
+        """return a list"""
+        tmp_list = []
+        for d0 in self:
+            tmp_list.append(d0.scalar_type)
+        return tmp_list
+
+    def get_scalar_modes(self):
+        """return a list"""
+        tmp_list = []
+        for d0 in self:
+            tmp_list.append(d0.scalar_mode)
+        return tmp_list
+
+    def get_dtypes(self):
+        """return a list"""
+        tmp_list = []
+        for d0 in self:
+            tmp_list.append(d0.dtype)
+        return tmp_list

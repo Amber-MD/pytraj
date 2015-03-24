@@ -1,6 +1,23 @@
+import numbers
+
 def file_exist(filename):
     import os
     return os.path.isfile(filename)
+
+def get_amber_saved_test_dir(suffix):
+    """return full dir of amber test file or None
+    Used for assert in testing
+
+    Parameter
+    --------
+    suffix : str
+    """
+    import os
+    try:
+        amberhome = os.environ['AMBERHOME']
+        return amberhome + "/AmberTools/test/cpptraj/" + suffix
+    except:
+        return None
 
 def is_generator(iter_obj):
     # use this method instead of `inspect` in python since this does not work with Cython
@@ -9,6 +26,12 @@ def is_generator(iter_obj):
         return True
     else:
         return False
+
+def is_int(num):
+    """wrapper class to check if `num` is int
+    isinstance(nu, (int, long)) does not work with numpy.int64, so we use numbers.Integral
+    """
+    return isinstance(num, numbers.Integral)
 
 def make_sure_exist(filename):
     if not file_exist(filename):
@@ -56,6 +79,12 @@ def _import(modname):
     except ImportError:
         has_module = False
         return (has_module, None)
+
+def require(libname):
+    has_lib, lib = _import(libname)
+    if not has_lib:
+        txt = "require %s lib" % libname
+        raise ImportError(txt)
 
 if __name__ == "__main__":
     import numpy as np

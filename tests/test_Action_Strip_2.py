@@ -28,7 +28,8 @@ class Test(unittest.TestCase):
         newf = Frame()
         act2 = adict['strip']
         act2("!@CA", f0cp, traj.top, new_frame=newf)
-        # FIXME : newf must has 20 atoms, but it has 284 atoms
+        assert newf.size == 60
+        print (newf.size)
         print (newf)
         print (newf[1])
 

@@ -1,0 +1,238 @@
+
+CPPTRAJ: Trajectory Analysis. V15.25b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 03/03/15  14:13:18
+| Available memory: 425.91 MB
+
+INPUT: Reading Input from file nastruct.in
+  [parm ../adh026.3.pdb]
+	Reading '../adh026.3.pdb' as PDB File
+	adh026.3.pdb: determining bond info from distances.
+Warning: adh026.3.pdb: Determining default bond distances from element types.
+  [trajin ../adh026.3.pdb ]
+	Reading '../adh026.3.pdb' as PDB
+  [nastruct naout adh026.dat]
+    NAstruct: Scanning all NA residues
+	Base pair parameters written to BP.adh026.dat
+	Base pair step parameters written to BPstep.adh026.dat
+	Helical parameters written to Helix.adh026.dat
+	Hydrogen bond cutoff for determining base pairs is 3.50 Angstroms.
+	Base reference axes origin cutoff for determining base pairs is 2.50 Angstroms.
+	Using first frame to determine base pairing.
+	Calculating sugar pucker using Altona & Sundaralingam method.
+---------- RUN BEGIN -------------------------------------------------
+
+PARAMETER FILES:
+ 0: 'adh026.3.pdb', 518 atoms, 16 res, box: None, 2 mol, 3 frames
+
+INPUT TRAJECTORIES:
+ 0: 'adh026.3.pdb' is a PDB file, Parm adh026.3.pdb (reading 3 of 3)
+  Coordinate processing will occur on 3 frames.
+TIME: Run Initialization took 0.0000 seconds.
+
+BEGIN TRAJECTORY PROCESSING:
+.....................................................
+ACTION SETUP FOR PARM 'adh026.3.pdb' (1 actions):
+  0: [nastruct naout adh026.dat]
+	Set up 16 bases.
+----- adh026.3.pdb (1-3, 1) -----
+ 0% 50% 100% Complete.
+
+Read 3 frames and processed 3 frames.
+TIME: Trajectory processing: 0.0030 s
+TIME: Avg. throughput= 985.2217 frames / second.
+
+ACTION OUTPUT:
+	Base pair output file BP.adh026.dat; 3 frames, 8 base pairs.
+	Base pair step output file BPstep.adh026.dat, Helix output file Helix.adh026.dat; 3 frames, 7 base pair steps.
+
+DATASETS:
+  172 data sets:
+	NA_00000[pucker]:1 "1G" (float, pucker(pucker)), size is 3
+	NA_00000[pucker]:16 "16C" (float, pucker(pucker)), size is 3
+	NA_00000[shear]:1 "1G16C" (float), size is 3
+	NA_00000[stretch]:1 "1G16C" (float), size is 3
+	NA_00000[stagger]:1 "1G16C" (float), size is 3
+	NA_00000[buckle]:1 "1G16C" (float), size is 3
+	NA_00000[prop]:1 "1G16C" (float), size is 3
+	NA_00000[open]:1 "1G16C" (float), size is 3
+	NA_00000[hb]:1 "1G16C" (integer), size is 3
+	NA_00000[major]:1 "1G16C" (float), size is 3
+	NA_00000[minor]:1 "1G16C" (float), size is 3
+	NA_00000[pucker]:2 "2G" (float, pucker(pucker)), size is 3
+	NA_00000[pucker]:15 "15C" (float, pucker(pucker)), size is 3
+	NA_00000[shear]:2 "2G15C" (float), size is 3
+	NA_00000[stretch]:2 "2G15C" (float), size is 3
+	NA_00000[stagger]:2 "2G15C" (float), size is 3
+	NA_00000[buckle]:2 "2G15C" (float), size is 3
+	NA_00000[prop]:2 "2G15C" (float), size is 3
+	NA_00000[open]:2 "2G15C" (float), size is 3
+	NA_00000[hb]:2 "2G15C" (integer), size is 3
+	NA_00000[major]:2 "2G15C" (float), size is 3
+	NA_00000[minor]:2 "2G15C" (float), size is 3
+	NA_00000[pucker]:3 "3G" (float, pucker(pucker)), size is 3
+	NA_00000[pucker]:14 "14C" (float, pucker(pucker)), size is 3
+	NA_00000[shear]:3 "3G14C" (float), size is 3
+	NA_00000[stretch]:3 "3G14C" (float), size is 3
+	NA_00000[stagger]:3 "3G14C" (float), size is 3
+	NA_00000[buckle]:3 "3G14C" (float), size is 3
+	NA_00000[prop]:3 "3G14C" (float), size is 3
+	NA_00000[open]:3 "3G14C" (float), size is 3
+	NA_00000[hb]:3 "3G14C" (integer), size is 3
+	NA_00000[major]:3 "3G14C" (float), size is 3
+	NA_00000[minor]:3 "3G14C" (float), size is 3
+	NA_00000[pucker]:4 "4C" (float, pucker(pucker)), size is 3
+	NA_00000[pucker]:13 "13G" (float, pucker(pucker)), size is 3
+	NA_00000[shear]:4 "4C13G" (float), size is 3
+	NA_00000[stretch]:4 "4C13G" (float), size is 3
+	NA_00000[stagger]:4 "4C13G" (float), size is 3
+	NA_00000[buckle]:4 "4C13G" (float), size is 3
+	NA_00000[prop]:4 "4C13G" (float), size is 3
+	NA_00000[open]:4 "4C13G" (float), size is 3
+	NA_00000[hb]:4 "4C13G" (integer), size is 3
+	NA_00000[major]:4 "4C13G" (float), size is 3
+	NA_00000[minor]:4 "4C13G" (float), size is 3
+	NA_00000[pucker]:5 "5G" (float, pucker(pucker)), size is 3
+	NA_00000[pucker]:12 "12C" (float, pucker(pucker)), size is 3
+	NA_00000[shear]:5 "5G12C" (float), size is 3
+	NA_00000[stretch]:5 "5G12C" (float), size is 3
+	NA_00000[stagger]:5 "5G12C" (float), size is 3
+	NA_00000[buckle]:5 "5G12C" (float), size is 3
+	NA_00000[prop]:5 "5G12C" (float), size is 3
+	NA_00000[open]:5 "5G12C" (float), size is 3
+	NA_00000[hb]:5 "5G12C" (integer), size is 3
+	NA_00000[major]:5 "5G12C" (float), size is 3
+	NA_00000[minor]:5 "5G12C" (float), size is 3
+	NA_00000[pucker]:6 "6C" (float, pucker(pucker)), size is 3
+	NA_00000[pucker]:11 "11G" (float, pucker(pucker)), size is 3
+	NA_00000[shear]:6 "6C11G" (float), size is 3
+	NA_00000[stretch]:6 "6C11G" (float), size is 3
+	NA_00000[stagger]:6 "6C11G" (float), size is 3
+	NA_00000[buckle]:6 "6C11G" (float), size is 3
+	NA_00000[prop]:6 "6C11G" (float), size is 3
+	NA_00000[open]:6 "6C11G" (float), size is 3
+	NA_00000[hb]:6 "6C11G" (integer), size is 3
+	NA_00000[major]:6 "6C11G" (float), size is 3
+	NA_00000[minor]:6 "6C11G" (float), size is 3
+	NA_00000[pucker]:7 "7C" (float, pucker(pucker)), size is 3
+	NA_00000[pucker]:10 "10G" (float, pucker(pucker)), size is 3
+	NA_00000[shear]:7 "7C10G" (float), size is 3
+	NA_00000[stretch]:7 "7C10G" (float), size is 3
+	NA_00000[stagger]:7 "7C10G" (float), size is 3
+	NA_00000[buckle]:7 "7C10G" (float), size is 3
+	NA_00000[prop]:7 "7C10G" (float), size is 3
+	NA_00000[open]:7 "7C10G" (float), size is 3
+	NA_00000[hb]:7 "7C10G" (integer), size is 3
+	NA_00000[major]:7 "7C10G" (float), size is 3
+	NA_00000[minor]:7 "7C10G" (float), size is 3
+	NA_00000[pucker]:8 "8C" (float, pucker(pucker)), size is 3
+	NA_00000[pucker]:9 "9G" (float, pucker(pucker)), size is 3
+	NA_00000[shear]:8 "8C9G" (float), size is 3
+	NA_00000[stretch]:8 "8C9G" (float), size is 3
+	NA_00000[stagger]:8 "8C9G" (float), size is 3
+	NA_00000[buckle]:8 "8C9G" (float), size is 3
+	NA_00000[prop]:8 "8C9G" (float), size is 3
+	NA_00000[open]:8 "8C9G" (float), size is 3
+	NA_00000[hb]:8 "8C9G" (integer), size is 3
+	NA_00000[major]:8 "8C9G" (float), size is 3
+	NA_00000[minor]:8 "8C9G" (float), size is 3
+	NA_00000[shift]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[slide]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[rise]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[tilt]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[roll]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[twist]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[xdisp]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[ydisp]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[hrise]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[incl]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[tip]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[htwist]:1 "1G16C-2G15C" (float), size is 3
+	NA_00000[shift]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[slide]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[rise]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[tilt]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[roll]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[twist]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[xdisp]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[ydisp]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[hrise]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[incl]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[tip]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[htwist]:2 "2G15C-3G14C" (float), size is 3
+	NA_00000[shift]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[slide]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[rise]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[tilt]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[roll]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[twist]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[xdisp]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[ydisp]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[hrise]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[incl]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[tip]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[htwist]:3 "3G14C-4C13G" (float), size is 3
+	NA_00000[shift]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[slide]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[rise]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[tilt]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[roll]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[twist]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[xdisp]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[ydisp]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[hrise]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[incl]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[tip]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[htwist]:4 "4C13G-5G12C" (float), size is 3
+	NA_00000[shift]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[slide]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[rise]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[tilt]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[roll]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[twist]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[xdisp]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[ydisp]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[hrise]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[incl]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[tip]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[htwist]:5 "5G12C-6C11G" (float), size is 3
+	NA_00000[shift]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[slide]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[rise]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[tilt]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[roll]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[twist]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[xdisp]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[ydisp]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[hrise]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[incl]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[tip]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[htwist]:6 "6C11G-7C10G" (float), size is 3
+	NA_00000[shift]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[slide]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[rise]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[tilt]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[roll]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[twist]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[xdisp]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[ydisp]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[hrise]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[incl]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[tip]:7 "7C10G-8C9G" (float), size is 3
+	NA_00000[htwist]:7 "7C10G-8C9G" (float), size is 3
+
+DATAFILES:
+  BP.adh026.dat (Base Pair)
+  BPstep.adh026.dat (Base Pair Step)
+  Helix.adh026.dat (Helix)
+---------- RUN END ---------------------------------------------------
+TIME: Total execution time: 0.0140 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+

@@ -56,10 +56,6 @@ cdef class CpptrajFile:
         filename = filename.encode()
         return self.thisptr.OpenWrite(filename)
 
-    def open_ensemble_write(self, filename, int debug):
-        filename = filename.encode()
-        return self.thisptr.OpenEnsembleWrite(filename, debug)
-
     def _setup_write(self, *args):
         cdef filename
         cdef FileType ftype
@@ -96,10 +92,6 @@ cdef class CpptrajFile:
     def open_append(self, filename):
         filename = filename.encode()
         return self.thisptr.OpenAppend(filename)
-
-    def open_ensemble_append(self, filename, int debug):
-        filename = filename.encode()
-        return self.thisptr.OpenEnsembleAppend(filename, debug)
 
     def _setup_append(self, filename, int debug):
         filename = filename.encode()
@@ -142,9 +134,3 @@ cdef class CpptrajFile:
 
     def file_size(self):
         return self.thisptr.FileSize()
-
-    def is_compressed(self):
-        return self.thisptr.IsCompressed()
-
-    def uncompressed_size(self):
-        return self.thisptr.UncompressedSize()

@@ -8,9 +8,11 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 class Test(unittest.TestCase):
     def test_action(self):
         action_help()
-        action_help("PairDist")
+        #action_help("PairDist")
+        action_help("pairdist")
         print() 
-        action_help("Dihedral")
+        #action_help("Dihedral")
+        action_help("dihedral")
 
         dslist = DataSetList()
 

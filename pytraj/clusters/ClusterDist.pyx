@@ -39,7 +39,7 @@ cdef class ClusterDist_Euclid:
 
     #def void PairwiseDist(self,ClusterMatrix, ClusterSieve:: SievedFrames):
 
-    def FrameDist(self,int idx, int idy):
+    def FrameDist(self, int idx, int idy):
         return self.thisptr.FrameDist(idx, idy)
 
     #def double CentroidDist(self,Centroid *, Centroid *):
@@ -50,7 +50,7 @@ cdef class ClusterDist_Euclid:
 
     #def Centroid * NewCentroid(self, Cframes):
 
-    def Copy(self):
+    def copy(self):
         # create a pointer to ClusterDist but don't create instance (abstract class)
         cdef ClusterDist cc  = ClusterDist()
         cc.thisptr = self.thisptr.Copy()

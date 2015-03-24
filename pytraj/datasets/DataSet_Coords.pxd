@@ -30,3 +30,8 @@ cdef class DataSet_Coords (DataSet_1D):
     # DataSet_1D has baseptr_1
     cdef _DataSet_Coords* baseptr_2
     cdef Topology _top
+    cdef bint py_free_mem
+
+    # use tmpfarray object to hold Frame or FrameArray 
+    # (if we want to use dset[0][0] correctly)
+    cdef object tmpfarray

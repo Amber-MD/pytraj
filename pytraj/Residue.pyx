@@ -24,7 +24,7 @@ cdef class Residue:
         del self.thisptr
 
     def __str__(self):
-        txt = "%s-%s" % (self.thisptr.c_str().decode(), self.original_resnum-1)
+        txt = "%s-%s" % (self.thisptr.c_str().decode('UTF-8'), self.original_resnum-1)
         return txt
 
     def __repr__(self):
@@ -67,4 +67,4 @@ cdef class Residue:
 
     @property
     def name(self):
-        return self.thisptr.c_str().decode()
+        return self.thisptr.c_str().decode('UTF-8')

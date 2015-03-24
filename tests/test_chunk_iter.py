@@ -28,9 +28,6 @@ class Test(unittest.TestCase):
         print (act.n_frames)
         print (dslist[0].size)
 
-        # TODO : fail
-        #assert dslist[0].size == traj.n_frames + 8
-
     def test_1(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         i = 0

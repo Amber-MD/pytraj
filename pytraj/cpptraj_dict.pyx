@@ -254,6 +254,7 @@ DataTypeDict = {
         "MATRIX_DBL" : MATRIX_DBL, 
         "MATRIX_FLT" : MATRIX_FLT,
         "COORDS" : COORDS, 
+        "REF_FRAME" : REF_FRAME, 
         "VECTOR" : VECTOR,
         "MODES" : MODES,
         "GRID_FLT" : GRID_FLT,
@@ -295,7 +296,7 @@ scalarDict = {
 # DataSet_2D
 #from DataSet_2D cimport *
 MatrixDict = {
-    "NO_OP" : NO_OP, 
+    #"NO_OP" : NO_OP, 
     "DIST" : DIST, 
     "COVAR" : COVAR, 
     "MWCOVAR" : MWCOVAR, 
@@ -304,7 +305,7 @@ MatrixDict = {
     "IDEA" : IDEA, 
     "IRED" : IRED, 
     "DIHCOVAR" : DIHCOVAR, 
-    "NMAT" : NMAT, 
+    #"NMAT" : NMAT, 
     }
 
 MatrixKindDict = {
@@ -396,12 +397,12 @@ GridModeDict = {
 
 # Trajin_Multi
 #from Trajin_Multi cimport *
-TargetDict = {
-    "NONE" : NONETARGETTYPE, 
-    "TEMP" : TEMP, 
-    "INDICES" : INDICES, 
-    "CRDIDX" : CRDIDX, 
-    }
+#TargetDict = {
+#    "NONE" : NONETARGETTYPE, 
+#    "TEMP" : TEMP, 
+#    "INDICES" : INDICES, 
+#    "CRDIDX" : CRDIDX, 
+#    }
 
 # TrajinList
 #from TrajinList cimport *

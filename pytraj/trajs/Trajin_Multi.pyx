@@ -12,36 +12,36 @@ cdef class Trajin_Multi (Trajin):
     def __dealloc__(self):
         del self.thisptr
 
-    def ensemble_info(self):
-        self.thisptr.EnsembleInfo()
+    #def ensemble_info(self):
+    #    self.thisptr.EnsembleInfo()
 
-    def ensemble_setup(self):
-        self.thisptr.EnsembleSetup(self._farray)
+    #def ensemble_setup(self):
+    #    self.thisptr.EnsembleSetup(self._farray)
 
-    def get_next_ensemble(self, FrameArray farray):
-        cdef _FArray_iter it 
-        cdef Frame frame = Frame()
+    #def get_next_ensemble(self, FrameArray farray):
+    #    cdef _FArray_iter it 
+    #    cdef Frame frame = Frame()
 
-        self.thisptr.GetNextEnsemble(self._farray)
-        it = self._farray.begin()
-        while it != self._farray.end():
-            frame.thisptr = &(deref(it))
-            farray.append(frame, copy=False)
-            incr(it)
+    #    self.thisptr.GetNextEnsemble(self._farray)
+    #    it = self._farray.begin()
+    #    while it != self._farray.end():
+    #        frame.thisptr = &(deref(it))
+    #        farray.append(frame, copy=False)
+    #        incr(it)
 
-    @property
-    def n_ensembles(self):
-        return self.thisptr.EnsembleSize()
+    #@property
+    #def n_ensembles(self):
+    #    return self.thisptr.EnsembleSize()
 
-    def ensemble_position(self, int memberidx):
-        return self.thisptr.EnsemblePosition(memberidx)
+    #def ensemble_position(self, int memberidx):
+    #    return self.thisptr.EnsemblePosition(memberidx)
 
-    def bad_ensemble(self):
-        return self.thisptr.BadEnsemble()
+    #def bad_ensemble(self):
+    #    return self.thisptr.BadEnsemble()
 
-    @property
-    def target_mode(self):
-        return get_key(self.thisptr.TargetMode(), TargetDict)
+    #@property
+    #def target_mode(self):
+    #    return get_key(self.thisptr.TargetMode(), TargetDict)
 
-    def final_crd_indices(self):
-        return self.thisptr.FinalCrdIndices().decode()
+    #def final_crd_indices(self):
+    #    return self.thisptr.FinalCrdIndices().decode()

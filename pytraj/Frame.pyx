@@ -13,6 +13,7 @@ import math
 from pytraj.decorators import for_testing, iter_warning
 from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
+from pytraj.utils.check_and_assert import is_int
 from pytraj.ArgList import ArgList
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
@@ -183,28 +184,30 @@ cdef class Frame (object):
             # return a sub-array copy with indices got from 
             # idx.selected_indices()
             # TODO : add doc
+            if idx.n_atoms == 0:
+                raise ValueError("emtpy mask")
             if not has_numpy:
-                raise NotImplementedError("supported if having numpy installed")
-            arr0 = np.asarray(self.buffer3d[:])
-            if isinstance(idx, AtomMask):
-                if idx.n_atoms == 0:
-                    raise ValueError("emtpy mask")
-                return arr0[np.array(idx.selected_indices())]
+                # return 2D list
+                tmp_arr0 = []
+                for _index in idx.selected_indices():
+                    tmp_arr0.append(list(self.buffer3d[_index]))
+                return tmp_arr0
+                #raise NotImplementedError("supported if having numpy installed")
             else:
-                # TODO : double-check if we can use np.ndarray or pyarray here?
-                # isinstance(idx, pyarray)
-                return arr0[idx]
+                arr0 = np.asarray(self.buffer3d[:])
+                return arr0[np.array(idx.selected_indices())]
         elif isinstance(idx, dict):
             # Example: frame[dict(top=top, mask='@CA')]
             # return a sub-array copy with indices got from 
             # idx as a `dict` instance
             # TODO : add doc
-            if not has_numpy:
-                raise NotImplementedError("supported if having numpy installed")
             atm = AtomMask(idx['mask'])
             idx['top'].set_integer_mask(atm)
-            arr0 = np.asarray(self.buffer3d[:])
-            return arr0[np.array(atm.selected_indices())]
+            if has_numpy:
+                arr0 = np.asarray(self.buffer3d[:])
+                return arr0[np.array(atm.selected_indices())]
+            else:
+                return self[atm]
         elif isinstance(idx, string_types):
             # Example: frame['@CA']
             if self.top is not None and not self.top.is_empty():
@@ -389,9 +392,15 @@ cdef class Frame (object):
         arr.append(self.thisptr.VXYZ(atnum)[2])
         return arr
 
-    def mass(self,int atnum):
-        """return `mass` of atnum-th atom"""
-        return self.thisptr.Mass(atnum)
+    @property
+    def mass(self):
+        """return mass array"""
+        cdef pyarray arr = pyarray('d', [])
+        cdef int i
+
+        for i in range(self.thisptr.Natom()):
+            arr.append(self.thisptr.Mass(i))
+        return arr
 
     def set_nobox(self):
         self.boxview[:] = pyarray('d', [0. for _ in range(6)])
@@ -442,9 +451,12 @@ cdef class Frame (object):
             frame = args[0]
             atm = args[1]
             self.thisptr.SetFrame(frame.thisptr[0], atm.thisptr[0])
-        elif isinstance(args, (int, long)):
+        elif is_int(args):
             atomnum = <int> args[0]
             self.thisptr.SetupFrame(atomnum)
+
+    def set_frame_m(self, Topology top):
+        return self.thisptr.SetupFrameM(top.thisptr.Atoms())
 
     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
         return self.thisptr.SetupFrameXM(Xin, massIn)
@@ -653,16 +665,18 @@ cdef class Frame (object):
             new_self = Frame(self, atommask)
             new_ref = Frame(frame, atommask)
         if top is None and mask is None and atommask is None:
+            # we need to make a copy since cpptraj update coords of frame after rmsd calc
             # all atoms
-            new_self = self
-            new_ref = frame
+            new_self = Frame(self)
+            new_ref = Frame(frame)
 
         if not get_mvv:
             return new_self.thisptr.RMSD(new_ref.thisptr[0], use_mass)
         else:
             m3 = Matrix_3x3()
             v1, v2 = Vec3(), Vec3()
-            rmsd_ = new_self.thisptr.RMSD(new_ref.thisptr[0], m3.thisptr[0], v1.thisptr[0], v2.thisptr[0], use_mass)
+            rmsd_ = new_self.thisptr.RMSD(new_ref.thisptr[0], m3.thisptr[0], 
+                                          v1.thisptr[0], v2.thisptr[0], use_mass)
             return rmsd_, m3, v1, v2
 
     def rmsd_centered_ref(self, Frame ref, bint use_mass=False, *args):
@@ -716,9 +730,8 @@ cdef class Frame (object):
         cdef Matrix_3x3 mat
         cdef Vec3 v1
 
-        _, mat, v1, _ = self.rmsd(ref, atm, get_mvv=True)
-        self.thisptr.Rotate(mat.thisptr[0])
-        self.translate(v1)
+        _, mat, v1, v2 = self.rmsd(ref, atm, get_mvv=True)
+        self.trans_rot_trans(v1, mat, v2)
 
     def set_axis_of_rotation(self, int atom1, int atom2):
         cdef Vec3 vec = Vec3()
@@ -834,6 +847,9 @@ cdef class Frame (object):
 
     def set_top(self, value):
         self.top = value
+
+    def get_top(self):
+        return self.top
 
     def save(self, filename="", top=None, fmt='unknown', overwrite=False):
         if fmt == 'unknown':

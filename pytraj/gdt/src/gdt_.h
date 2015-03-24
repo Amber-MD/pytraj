@@ -4,12 +4,11 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
-#include <float.h>
 using namespace std;
 const double inv3 = (unsigned int)1/3.0;//0.3333333333333333333333333333333333333333333333;
 const double root3 = 1.732050807568877193176604123436845839023590087890625;//1.732050807568877294;
 
-inline double dist(float *atoms1, float *atoms2, int i) {
+inline double dist(double *atoms1, double *atoms2, int i) {
   double xs = atoms2[3*i]-atoms1[3*i];
   double ys = atoms2[3*i+1]-atoms1[3*i+1];
   double zs = atoms2[3*i+2]-atoms1[3*i+2];
@@ -19,11 +18,11 @@ inline double dist(float *atoms1, float *atoms2, int i) {
 }
 
 
-void rotate(float *atoms1, float *atoms2, bool *indexes, int protlen) {
+void rotate(double *atoms1, double *atoms2, bool *indexes, int protlen) {
   	 // calculate rotation matrix:
 	// 1) covariance matrix
 	unsigned int fraglen = 0;
-		float covmat0,covmat1,covmat2,covmat3,covmat4,covmat5,covmat6,covmat7,covmat8; 
+		double covmat0,covmat1,covmat2,covmat3,covmat4,covmat5,covmat6,covmat7,covmat8; 
                 covmat0=covmat1=covmat2=covmat3=covmat4=covmat5=covmat6=covmat7=covmat8=0;
                          
 				 fraglen=0;
@@ -32,12 +31,12 @@ void rotate(float *atoms1, float *atoms2, bool *indexes, int protlen) {
 		     if(indexes[a]==true) {
 		      fraglen++;
 		      
-		      float a1x = atoms1[3*a];
-		      float a1y = atoms1[3*a+1];
-		      float a1z = atoms1[3*a+2];
-		      float a2x = atoms2[3*a];
-		      float a2y = atoms2[3*a+1];
-		      float a2z = atoms2[3*a+2];
+		      double a1x = atoms1[3*a];
+		      double a1y = atoms1[3*a+1];
+		      double a1z = atoms1[3*a+2];
+		      double a2x = atoms2[3*a];
+		      double a2y = atoms2[3*a+1];
+		      double a2z = atoms2[3*a+2];
 		      
 		      covmat0 += (a2x)* (a1x);
 		      covmat1 += (a2y)* (a1x);
@@ -95,7 +94,10 @@ void rotate(float *atoms1, float *atoms2, bool *indexes, int protlen) {
 		    double magnitude = sqrt(-aDiv3);
 		    double angle = atan2(sqrt(-1*q),mbDiv2)*inv3;
 		    double sn,cs;//=sin(angle); double cs=cos(angle);
-		    sincos(angle,&sn,&cs);
+		    //__sincos(angle,&sn,&cs);
+            // turn off __sincos: got undefined symbol: __sincos in my Linux machine
+		    sn = sin(angle);
+		    cs = cos(angle);
 		    double magnitudecs = magnitude*cs;
 		    double magnituderoot = magnitude*root3*sn;
 
@@ -167,7 +169,7 @@ void rotate(float *atoms1, float *atoms2, bool *indexes, int protlen) {
 		
 			// 5) rotation matrix
 		// B = cov_matrix * eigenvectors
-   		float B0,B1,B2,B3,B4,B5,B6,B7,B8;
+   		double B0,B1,B2,B3,B4,B5,B6,B7,B8;
 
 		B0 =  covmat0*ev0 + covmat1*ev1 + covmat2*ev2;
 		B1 =  covmat3*ev0 + covmat4*ev1 + covmat5*ev2;
@@ -215,7 +217,7 @@ len = 1.0/sqrt(U6*U6 + U7*U7 + U8*U8);
 		U6*=len;U7*=len;U8*=len;
 
 	// 6) apply rotation
-		float xx,xy,xz;
+		double xx,xy,xz;
 
 //printf("%8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f %8.3f \n",U0, U1, U2, U3, U4, U5, U6, U7, U8);
 
@@ -229,7 +231,7 @@ len = 1.0/sqrt(U6*U6 + U7*U7 + U8*U8);
 		}
 }
 
-unsigned short * gdtCPUOneReference(float *reference, float *arr,  int conformers,int protlen,int score) {
+unsigned short * gdtCPUOneReference(double *reference, double *arr,  int conformers,int protlen,int score) {
     /*
      *  score:
      * 1 = GDT
@@ -250,8 +252,8 @@ const        int e[] ={protlen,(int)(protlen/4),(int)(protlen/2),4};
 //#pragma omp parallel for schedule(dynamic)
    for (int idx=0;idx<conformers;idx++) {
 
-    float* atoms1 = new float[protlen*3]; 
-	float* atoms2 = new float[protlen*3];
+    double* atoms1 = new double[protlen*3]; 
+	double* atoms2 = new double[protlen*3];
 	
     int s_i = idx*protlen*3; 
 //	int s_j =  3*protlen*j;
@@ -318,7 +320,7 @@ const        int e[] ={protlen,(int)(protlen/4),(int)(protlen/2),4};
 		 if(fragmentlen<3) // tego chyba nie 
 		   break;
 		 
-		 float div = 1/(double)fragmentlen;
+		 double div = 1/(double)fragmentlen;
 		 for(int cmi2=0;cmi2<3;cmi2++ ) { 
 		 a1_cm[cmi2] *=div;
 		 a2_cm[cmi2] *=div;
@@ -405,7 +407,7 @@ break;
 	  }
 	  
 	if(score==1) {
-        float gdt = (float)(GDT1+GDT2+GDT4+GDT8)/(4.0*protlen);
+        double gdt = (double)(GDT1+GDT2+GDT4+GDT8)/(4.0*protlen);
         result[idx] = (unsigned short)(gdt*1000);
     }
     else if (score==2) {
@@ -424,7 +426,7 @@ break;
 return result;	
 	}
 
-unsigned short * gdtCPU(float *arr, int conformers,int protlen,int score) {
+unsigned short * gdtCPU(double *arr, int conformers,int protlen,int score) {
 
 double d0;
 if(score==2){
@@ -442,8 +444,8 @@ result = new unsigned short[triangleLen];
    for (int idx=0;idx<conformers-1;idx++) {
       int iter000=0;
       
-        float* atoms1 = new float[protlen*3]; 
-        float* atoms2 = new float[protlen*3];
+        double* atoms1 = new double[protlen*3]; 
+        double* atoms2 = new double[protlen*3];
         bool* indexes = new bool[protlen];
         double* a1_cm = new double[3];
         double* a2_cm = new double[3];
@@ -599,7 +601,7 @@ break;
 
     int index1d = (int)(iter000+ idx*(conformers-1) - idx*(idx-1)/2);
     if(score==1) {
-        float gdt = (float)(GDT1+GDT2+GDT4+GDT8)/(4.0*protlen);
+        double gdt = (double)(GDT1+GDT2+GDT4+GDT8)/(4.0*protlen);
         result[index1d] = (unsigned short)(gdt*1000);
     }
     else if (score==2) {
@@ -618,7 +620,7 @@ break;
   return result;
 }
 
-unsigned short * gdtCPUOneReferenceExt(float *reference, float *arr,  int conformers,int protlen,int score) {
+unsigned short * gdtCPUOneReferenceExt(double *reference, double *arr,  int conformers,int protlen,int score) {
     /*
      *  score:
      * 1 = GDT
@@ -640,8 +642,8 @@ const        int e[] ={4,(int)(protlen/4),(int)(protlen/2),protlen};
    for (int idx=0;idx<conformers;idx++) {
 
 
-    float* atoms1 = new float[protlen*3]; 
-	float* atoms2 = new float[protlen*3];
+    double* atoms1 = new double[protlen*3]; 
+	double* atoms2 = new double[protlen*3];
 	
     int s_i = idx*protlen*3; 
 //	int s_j =  3*protlen*j;
@@ -793,7 +795,7 @@ break;
 	  
   } //end cti
 	if(score==1) {
-        float gdt = (float)(GDT1+GDT2+GDT4+GDT8)/(4.0*protlen);
+        double gdt = (double)(GDT1+GDT2+GDT4+GDT8)/(4.0*protlen);
         result[idx] = (unsigned short)(gdt*1000);
     }
     else if (score==2) {

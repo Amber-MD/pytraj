@@ -1,9 +1,13 @@
 import unittest
+import numpy as np
+from numpy.testing import assert_allclose
+from pytraj import io as mdio
 from pytraj.base import *
 from pytraj import allactions
 from pytraj.cast_dataset import cast_dataset
 from pytraj import adict 
 from pytraj.DataFileList import DataFileList
+from pytraj.common_actions import calc_dssp
 
 farray = TrajReadOnly(top=Topology("./data/DPDP.parm7"), 
                     filename='./data/DPDP.nc', 
@@ -14,7 +18,8 @@ class TestRadgyr(unittest.TestCase):
         dslist = DataSetList()
         act = adict['dssp']
         dflist = DataFileList()
-        act.read_input(":10-22 out ./output/_test_dssp_DPDP.dat", farray.top, dslist=dslist, dflist=dflist)
+        act.read_input(":10-22 out ./output/_test_dssp_DPDP.dat", 
+                      farray.top, dslist=dslist, dflist=dflist)
         act.process(farray.top)
        
         for i, frame in enumerate(farray):
@@ -32,8 +37,8 @@ class TestRadgyr(unittest.TestCase):
 
         arr0 = dslist.get_dataset(dtype='integer')
 
-        print (arr0[0].__len__())
-        print (arr0[0])
+        #print (arr0[0].__len__())
+        #print (arr0[0])
 
     def test_1(self):
         dslist = DataSetList()
@@ -46,7 +51,6 @@ class TestRadgyr(unittest.TestCase):
 
         # Secondary structure for each residue in mask for 100 frames
 
-    # got error: undefined symbol: _ZN5Frame11SetupFrameVERKSt
     def test_2(self):
         def calc_dssp(command="", traj=None):
             dslist = DataSetList()
@@ -57,11 +61,36 @@ class TestRadgyr(unittest.TestCase):
         arr0 = calc_dssp(":10-22", farray[:2])
 
     def test_3(self):
-        from pytraj.common_actions import calc_dssp
         arr0 = calc_dssp(":10-22", farray[:3], dtype='int')
         arr1 = calc_dssp(":10-22", farray[:3], dtype='str')
         print (arr0)
         print (arr1)
+
+    def test_4(self):
+        # add assert 
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        arr1 = calc_dssp("*", traj, dtype='int')
+        print (arr1)
+        print ("DSSP from pytraj")
+        print (np.array(arr1).shape)
+        print (dir(calc_dssp))
+
+        # load cpptraj output
+        dssp_saved = np.loadtxt("./data/dssp.Tc5b.dat", skiprows=1)
+        print ("DSSP from cpptraj")
+        print (dssp_saved)
+        print (dssp_saved.shape)
+
+        dssp_saved_T = dssp_saved.transpose()[1:]
+        print (dssp_saved_T[:10])
+        print (arr1[:10])
+        #assert_allclose(arr1, dssp_saved[1:])
+
+    def test_5(self):
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        dslist = calc_dssp("*", traj, dtype='dataset')
+        print (dslist)
+        print (dslist.get_legends())
 
 if __name__ == "__main__":
     unittest.main()

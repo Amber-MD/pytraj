@@ -14,9 +14,23 @@ class Test(unittest.TestCase):
         print (dslist.size)
 
         for ds in dslist:
-            print (ds)
+            if hasattr(ds, 'mkind'):
+                print (ds.name, ds.dtype, ds.mkind)
+            else:
+                print (ds.name, ds.dtype)
 
-        print (dslist[3].data)
+        print (dslist.get_legends())
+        d0 = dslist['PW_00000[EMAP]'][0]
+        print (d0)
+        print (d0.size)
+
+        try:
+            from pytraj.plots import plot_matrix
+            ax0 = plot_matrix(d0)
+            from matplotlib import pyplot
+            pyplot.show()
+        except:
+            raise ImportError("need matplotlib")
 
 if __name__ == "__main__":
     unittest.main()

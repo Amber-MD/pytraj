@@ -1,5 +1,7 @@
 # distutils: language = c++
-from pytraj.cpptraj_dict import DataTypeDict, get_key
+from cpython.array cimport array as pyarray
+from pytraj.cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
+from pytraj.decorators import makesureABC
 
 cdef class DataSet:
     """
@@ -28,17 +30,21 @@ cdef class DataSet:
         #if self.baseptr0 != NULL:
         #    del self.baseptr0
 
+    @property
+    def size(self):
+        return self.baseptr0.Size()
+
     def set_width(self,int widthIn):
         self.baseptr0.SetWidth(widthIn)
 
     def set_precision(self, int widthIn , int precisionIno):
         self.baseptr0.SetPrecision(widthIn, precisionIno)
 
-    def setup_set(self, string nameIn, int idxIn, string aspectIn):
-        return self.baseptr0.SetupSet(nameIn, idxIn, aspectIn)
+    #def setup_set(self, string nameIn, int idxIn, string aspectIn):
+    #    return self.baseptr0.SetupSet(nameIn, idxIn, aspectIn)
 
-    def set_legend(self, string lIn):
-        self.baseptr0.SetLegend(lIn)
+    def set_legend(self, lIn):
+        self.baseptr0.SetLegend(lIn.encode())
 
     def set_scalar(self, scalarMode mIn):
         self.baseptr0.SetScalar(mIn)
@@ -49,11 +55,8 @@ cdef class DataSet:
     def set_scalar(self,scalarMode mIn, scalarType mT):
         self.baseptr0.SetScalar(mIn, mT)
 
-    def set_data_set_format(self, bint leftAlignIn):
+    def set_format(self, bint leftAlignIn):
         return self.baseptr0.SetDataSetFormat(leftAlignIn)
-
-    def matches(self, string dsname, int idxnum, string aspectIn):
-        return self.baseptr0.Matches(dsname, idxnum, aspectIn)
 
     def scalar_descr(self):
         self.baseptr0.ScalarDescription()
@@ -63,7 +66,8 @@ cdef class DataSet:
 
     @property
     def legend(self):
-        return self.baseptr0.Legend()
+        legend = self.baseptr0.Legend()
+        return legend.decode()
     
     @property
     def name(self):
@@ -77,7 +81,8 @@ cdef class DataSet:
     
     @property
     def aspect(self):
-        return self.baseptr0.Aspect()
+        aspect = self.baseptr0.Aspect()
+        return aspect.decode()
 
     @property
     def column_width(self):
@@ -90,11 +95,11 @@ cdef class DataSet:
 
     @property
     def scalar_mode(self):
-        return self.baseptr0.ScalarMode()
+        return get_key(self.baseptr0.ScalarMode(), scalarModeDict).lower()
 
     @property
     def scalar_type(self):
-        return self.baseptr0.ScalarType()
+        return get_key(self.baseptr0.ScalarType(), scalarDict).lower()
 
     @property 
     def ndim(self):
@@ -115,3 +120,10 @@ cdef class DataSet:
     @property
     def data_format(self):
         return self.baseptr0.DataFormat()
+
+    @property
+    def data(self):
+        """return 1D python array of `self`
+        ABC method, must override
+        """
+        raise NotImplementedError("Must over-write DataSet data attr")

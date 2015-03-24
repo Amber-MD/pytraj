@@ -1,5 +1,4 @@
 import unittest
-from pytraj.misc import randomize_ions
 from pytraj.io import load
 from pytraj import adict
 
