@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
 
         dslist = DataSetList()
         for f0 in farray3:
-            print (f0)
+            assert f0.n_atoms == farray3.top.n_atoms
         print (farray3.top)
         #adict['distance'](":2@CA :10@CA", farray3,
         #                  farray3.top, dslist=dslist)
