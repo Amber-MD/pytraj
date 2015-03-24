@@ -34,7 +34,7 @@ Not yet
 
 if you install via github, you will get full test runs
 * `cd tests`
-* `python ./RunAllAndFindFailure.py`
+* `python ./run_all_and_find_fails.py
 
 Possible errors:
 > 1. "ImportError: libcpptraj.so: cannot open shared object file: No such file or directory"
