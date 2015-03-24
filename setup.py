@@ -55,7 +55,8 @@ elif has_cpptrajhome:
 else:
     cpptraj_dir, cpptraj_include, libdir = None, None, None
     nice_message = """
-    Must set AMBERHOME or CPPTRAJHOME. 
+    Must set AMBERHOME or CPPTRAJHOME. If both AMBERHOME and CPPTRAJHOME are set,
+    pytraj will give priority to AMBERHOME.
 
     If you don't have AmberTools or cpptraj, you can install pytraj by
     one of two ways here:
