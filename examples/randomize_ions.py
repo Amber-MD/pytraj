@@ -1,5 +1,5 @@
 import unittest
-from pytraj.misc import randomize_ions
+from pytraj.common_actions import randomize_ions
 from pytraj.io import load
 
 def randions():
@@ -10,8 +10,8 @@ def randions():
     frame0 = traj[0]
     
     # randomize ions for frame0
-    randomize_ions(frame0,
-                   traj.top,
+    randomize_ions(traj=frame0,
+                   top=traj.top,
                    command="randomizeions @Na+ around :1-16 by 5.0 overlap 3.0",)
     
     # make sure to reproduce cpptraj output
