@@ -36,3 +36,13 @@ and uploaded to binstar)
 4. How to remove package in binstar
 `binstar remove pytraj/pytraj` 
 (where first `pytraj` word is my channel's name, second `pytraj` word is the package's name)
+
+
+5. Example for building/uploading/installing pytraj. Supposed you are in this current folder with README file
++ `conda build ./libcpptraj`
++ (at the end, conda suggested to upload, just copy and paste the link to terminal and hit Enter)
++ `conda build ./pytraj`
++ (at the end, conda suggested to upload, just copy and paste the link to terminal and hit Enter)
++ testing installing
+    + `conda install -c pytraj libcpptraj`
+    + `conda install -c pytraj pytraj`
