@@ -25,7 +25,7 @@ script:
     - cd ../examples
     - python ./run_all_and_find_fails.py
     - cd ../tests
-    - grep File log
+    - grep File log | grep test
     - echo "Kool"
 
 notifications:
