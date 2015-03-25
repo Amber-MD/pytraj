@@ -25,12 +25,15 @@ class Test(unittest.TestCase):
         arr0[19] = [200, 300, 400.]
         assert frame0.buffer3d[19, 0] == frame0[19, 0] == arr0[19, 0]
 
-        # try to strip atoms
+        print ("try to strip atoms")
         frame1 = frame0.copy()
         frame1.strip_atoms("!@CA", traj.top)
         print(frame1.buffer3d.shape)
 
-        CA_2 = frame0.get_subframe("@CA", traj.top)[2, :]
+        _f = frame0.get_subframe("@CA", traj.top)
+        CA_2 = _f[2, :]
+        print (CA_2)
+        print (frame1[2, :])
         assert_almost_equal(CA_2, frame1[2, :]) 
         assert_almost_equal(frame1.coords[6:9], frame1[2, :])
         #frame0[:] == frame0.coords
