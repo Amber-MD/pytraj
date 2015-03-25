@@ -37,6 +37,7 @@ Install
     ./installs/libcpptraj.txt (works well with development version of cpptraj)
 - installs pytraj: [wiki](http://www.github.com/pytraj/pytraj/wiki)
     (further instruction ./installs/pytraj.txt)
+- if you are using `conda`, you can just `conda install -c pytraj pytraj` for Linux system
 
 Usage: 
 -----
