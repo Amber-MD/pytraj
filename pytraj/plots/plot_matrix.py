@@ -3,11 +3,13 @@ from pytraj.datasets.DataSet_MatrixDbl import DataSet_MatrixDbl
 from .base import plt
 import numpy as np
 
-def plot_matrix(dset, interpolation='nearest'):
+def plot_matrix(dset, *args, **kwd):
     """plot matrix and return pyplot object
     Parameters
     ---------
     dset: {DataSet_MatrixDbl, ...}
+
+    Return: a tuple of (Figure object, AxesSubplot object, AxesImage object)
     """
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -18,5 +20,5 @@ def plot_matrix(dset, interpolation='nearest'):
         mat = np.asarray(dset.get_full_matrix()).reshape(dset.n_rows, dset.n_cols)
     if isinstance(dset, np.ndarray) and len(dset.shape) == 2:
         mat = dset
-    ax.matshow(mat, interpolation=interpolation)
-    return ax
+    cax = ax.matshow(mat, *args, **kwd)
+    return (fig, ax, cax)

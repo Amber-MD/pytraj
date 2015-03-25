@@ -24,6 +24,8 @@ script:
     - sh ./TestListTravis.sh
     - cd ../examples
     - python ./run_all_and_find_fails.py
+    - cd ../tests
+    - grep File log
     - echo "Kool"
 
 notifications:
