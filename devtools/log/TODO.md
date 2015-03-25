@@ -1,8 +1,9 @@
 TODO
 ----
 
-* FIXME: `rmsd` method in Frame class will update frame object coordinate (I do not want this)
-* rewrite cpptraj classes for pytraj (more flexibility): ActionList, CpptrajState, TrajinList, AnalysisList
+* build conda `libcpptraj` with netcdf
+* FIXME: `rmsd` method in Frame class will update frame object coordinate (I do not want this): DONE
+* rewrite cpptraj classes for pytraj (more flexibility): ActionList, CpptrajState, TrajinList, AnalysisList: LOW
 * `frame_iter` is very slow, enhance this : DONE
 * organize codes to subfolder 
 * compat with official cpptraj in Ambertools14: DONE
