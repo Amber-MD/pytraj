@@ -1,5 +1,6 @@
 package:
   name: pytraj
+  version: 0.1.1
 
 source:
   git_tag: master
@@ -9,9 +10,12 @@ requirements:
   build:
     - python
     - cython
+    - libcpptraj
+    - libnetcdf-dev
   run:
     - python
 
 about:
   home: http://github.com/pytraj/pytraj
   license: BSD
+  summary: Python wrapper for cpptraj - a package for data analysis of MD simulations
