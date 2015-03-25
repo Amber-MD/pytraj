@@ -1,8 +1,10 @@
 import unittest
+import sys
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.utils import _import
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -24,13 +26,14 @@ class Test(unittest.TestCase):
         print (d0)
         print (d0.size)
 
-        try:
+        has_pylab, _ = _import("matplotlib")
+        if has_pylab:
             from pytraj.plots import plot_matrix
             ax0 = plot_matrix(d0)
             from matplotlib import pyplot
             pyplot.show()
-        except:
-            raise ImportError("need matplotlib")
+        else:
+            print("need matplotlib. Skip this test")
 
 if __name__ == "__main__":
     unittest.main()

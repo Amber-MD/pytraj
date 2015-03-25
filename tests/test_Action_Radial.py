@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
             data = np.loadtxt(saved_data_dir, skiprows=8).transpose()[1]
             print (data)
             assert_almost_equal(d0[0][:], data)
-        except EnvironmentError:
+        except (EnvironmentError, KeyError):
             print ("can not find cpptraj test. Skip")
 
 if __name__ == "__main__":
