@@ -11,8 +11,11 @@ requirements:
     - python
     - cython
     - libcpptraj
+    - libnetcdf
   run:
     - python
+    - libcpptraj
+    - libnetcdf
 
 about:
   home: http://github.com/pytraj/pytraj
