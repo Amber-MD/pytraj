@@ -6,10 +6,6 @@ source:
   git_tag: master
   git_url: http://github.com/mojyt/cpptraj/
 
-requirements:
-  build:
-    - libnetcdf
-
 about:
     home: http://ambermd.org/
     license: GNU
