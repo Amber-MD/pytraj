@@ -9,6 +9,13 @@ Features added (from March 2015 - )
 ----------------------------------
 * support Python 2.6
 * ported to Ambertools 15
+* support simple plots (plot_matrix, ...)
+* add get_* methods for DataSetList (dslist.get_legends())
+* update more pytraj notebooks
+* fix DataSet_MatrixDbl segmentation fault, now we can get full matrix (get_full_matrix)
+* add traj iter with mask (traj(0, 10, 2, '@CA')
+* add method 'fit_to' for traj to get alignment
+* clean up, don't keep methods pytraj does not need  (from cpptraj)
 
 Features added (from Jan 2015 - Feb 2015)
 ----------------------------------------

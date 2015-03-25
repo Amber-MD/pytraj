@@ -86,5 +86,5 @@ def frame_iter(self, start=0, stop=-1, stride=1):
 
 def get_atts(obj):
     """get methods and atts from obj but excluding special methods __"""
-    atts_dict = obj.__dir__()
+    atts_dict = dir(obj)
     return [a for a in atts_dict if not a.startswith("__")]

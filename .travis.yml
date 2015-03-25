@@ -1,5 +1,6 @@
 language: python
 python:
+    - "2.6"
     - "2.7"
     - "3.3"
     - "3.4"
@@ -24,6 +25,8 @@ script:
     - sh ./TestListTravis.sh
     - cd ../examples
     - python ./run_all_and_find_fails.py
+    - cd ../tests
+    - grep File log | grep test
     - echo "Kool"
 
 notifications:

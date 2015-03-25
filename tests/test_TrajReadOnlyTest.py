@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         #print (traj.n_frames)
         #print (traj.n_frames)
         for frame in traj:
-            print (frame)
+            assert frame.n_atoms == traj.top.n_atoms
 
         print (traj.n_frames)
         trajcp = traj.copy()
