@@ -23,5 +23,23 @@ class Test(unittest.TestCase):
             print (ene.gb)
             sander.cleanup()
 
+    def test_1(self):
+        print ("memoryview")
+        traj_fn = "./data/md1_prod.Tc5b.x"
+        top_fn = "./data/Tc5b.top"
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        parm = AmberParm(top_fn)
+        inp = sander.gas_input(8)
+
+        import numpy as np
+
+        for frame in traj:
+            arr0 = np.asarray(frame.buffer1d)
+            parm.load_coordinates(arr0)
+            sander.setup(parm, parm.coords, None, inp)
+            ene, frc = sander.energy_forces()
+            print (ene.gb)
+            sander.cleanup()
+
 if __name__ == "__main__":
     unittest.main()
