@@ -158,7 +158,7 @@ datalist = pxdlist +  sample_data + html_data
 
 if __name__ == "__main__":
     setup(name="pytraj",
-        version="0.1.1",
+        version="0.1.2.dev0",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
@@ -167,12 +167,15 @@ if __name__ == "__main__":
         long_description=read("README.rst"),
         license = "BSD License",
         classifiers=[
-                    'Development Status :: 5 - Production/Stable',
+                    'Development Status :: 4 - Beta',
                     'Operating System :: Unix',
+                    'Operating System :: MacOS',
                     'Intended Audience :: Science/Research',
                     'License :: OSI Approved :: BSD License',
-                    'Programming Language :: Python :: 2',
-                    'Programming Language :: Python :: 3',
+                    'Programming Language :: Python :: 2.6'
+                    'Programming Language :: Python :: 2.7',
+                    'Programming Language :: Python :: 3.3',
+                    'Programming Language :: Python :: 3.4',
                     'Programming Language :: Cython',
                     'Programming Language :: C',
                     'Programming Language :: C++',
