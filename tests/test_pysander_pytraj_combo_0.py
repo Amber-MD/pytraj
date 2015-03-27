@@ -5,41 +5,51 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 
-import sander
-from chemistry.amber.readparm import AmberParm
+try:
+    import sander
+    from chemistry.amber.readparm import AmberParm
+    has_sander_and_parmed = True
+except:
+    has_sander_and_parmed = False
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj_fn = "./data/md1_prod.Tc5b.x"
-        top_fn = "./data/Tc5b.top"
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        parm = AmberParm(top_fn)
-        inp = sander.gas_input(8)
+        if has_sander_and_parmed:
+            traj_fn = "./data/md1_prod.Tc5b.x"
+            top_fn = "./data/Tc5b.top"
+            traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            parm = AmberParm(top_fn)
+            inp = sander.gas_input(8)
 
-        for frame in traj:
-            parm.load_coordinates(frame.coords)
-            sander.setup(parm, parm.coords, None, inp)
-            ene, frc = sander.energy_forces()
-            print (ene.gb)
-            sander.cleanup()
+            for frame in traj:
+                parm.load_coordinates(frame.coords)
+                sander.setup(parm, parm.coords, None, inp)
+                ene, frc = sander.energy_forces()
+                print (ene.gb)
+                sander.cleanup()
+        else:
+            print ("require both sander and parmed. Skip test")
 
     def test_1(self):
-        print ("memoryview")
-        traj_fn = "./data/md1_prod.Tc5b.x"
-        top_fn = "./data/Tc5b.top"
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        parm = AmberParm(top_fn)
-        inp = sander.gas_input(8)
+        if has_sander_and_parmed:
+            print ("memoryview")
+            traj_fn = "./data/md1_prod.Tc5b.x"
+            top_fn = "./data/Tc5b.top"
+            traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            parm = AmberParm(top_fn)
+            inp = sander.gas_input(8)
 
-        import numpy as np
+            import numpy as np
 
-        for frame in traj:
-            arr0 = np.asarray(frame.buffer1d)
-            parm.load_coordinates(arr0)
-            sander.setup(parm, parm.coords, None, inp)
-            ene, frc = sander.energy_forces()
-            print (ene.gb)
-            sander.cleanup()
+            for frame in traj:
+                arr0 = np.asarray(frame.buffer1d)
+                parm.load_coordinates(arr0)
+                sander.setup(parm, parm.coords, None, inp)
+                ene, frc = sander.energy_forces()
+                print (ene.gb)
+                sander.cleanup()
+        else:
+            print ("require both sander and parmed. Skip test")
 
 if __name__ == "__main__":
     unittest.main()
