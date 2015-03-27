@@ -19,12 +19,6 @@ examples/data/cpptraj.log
 pytraj/*html
 pytraj/*tmp
 pytraj/*bk
-pytraj/actions/*.cpp
-pytraj/datasets/*.cpp
-pytraj/trajs/*.cpp
-pytraj/parms/*.cpp
-pytraj/analyses/*.cpp
-pytraj/*.cpp
 tests/TestListTravis.sh
 Ambertools/v14/cpptraj/config.h
 Ambertools/V15.22b/cpptraj/src/*.o

@@ -10,9 +10,9 @@ def run_tests():
     traj = load_sample_data()
 
     # test Topology
-    print (traj.top)
+    #print (traj.top)
     # test FrameArray
-    print (traj)
+    #print (traj)
     # test import action
     action_help()
     print ("all cpptraj actions")

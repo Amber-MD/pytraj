@@ -1,3 +1,7 @@
+* Need to discuss about standard names for python's packge developers in Amber
+   + for example: ParmEd and pytraj should have the same name "coords" for
+attribute (they do) and so on.
+   + need to follow python PEP too.
 * Modify cpptraj code to accept adding new frame object rather filename
 * How to include in AmberTools setup? DONE (included)
 * Should we inlcude cythonized *.cpp files (don't need Cython): DONE (yes)
