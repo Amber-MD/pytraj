@@ -6,12 +6,14 @@
 from pytraj._common_actions import calculate
 from functools import partial
 from pytraj import adict
+from pytraj import analdict
 from pytraj.externals.six import string_types
 from pytraj.Frame import Frame
 from pytraj.FrameArray import FrameArray
 from pytraj.AtomMask import AtomMask
 from pytraj.Topology import Topology
 from pytraj.DataSetList import DataSetList
+from pytraj.DataFileList import DataFileList
 from pytraj.DistRoutines import distance 
 from pytraj.gdt.calc_score import calc_score
 
@@ -20,7 +22,8 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_dssp', 'calc_matrix',
                'calc_watershell']
 
-list_of_do = ['do_translation', 'do_rotation', 'do_autoimage']
+list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
+              'do_clustering',]
 
 list_of_get = ['get_average_frame']
 
@@ -157,3 +160,19 @@ def randomize_ions(command="", traj=Frame(), top=Topology()):
     """
     act = adict['randomizeions']
     act.master(command, traj, top)
+
+def do_clustering(command="", traj=None, top=Topology(), 
+        dslist=DataSetList(), dflist=DataFileList()):
+    # TODO: still very naive
+    ana = analdict['clustering']
+    if traj is not None:
+        dslist.add_set("coords", "__pytraj_cluster", "")
+        dslist[-1].top = top if top is not top.is_empty() else traj.top
+        for frame in traj:
+            dslist[-1].add_frame(frame)
+        command += " crdset __pytraj_cluster"
+    if not top.is_empty():
+        _top = top
+    else:
+        _top = traj.top
+    ana(command, _top, dslist, dflist) 
