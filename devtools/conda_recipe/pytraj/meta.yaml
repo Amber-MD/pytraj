@@ -1,21 +1,21 @@
 package:
-  name: pytraj
-  version: 0.1.1
+  name: pytraj-dev
+  version: !!str 0.1.2.dev0
 
 source:
-  git_tag: master
-  git_url: http://github.com/pytraj/pytraj
+  fn: master.zip
+  url: https://github.com/pytraj/pytraj/archive/master.zip
 
 requirements:
   build:
     - python
     - cython
     - libcpptraj
-    - libnetcdf
   run:
     - python
     - libcpptraj
-    - libnetcdf
+    - matplotlib
+    - numpy
 
 about:
   home: http://github.com/pytraj/pytraj
