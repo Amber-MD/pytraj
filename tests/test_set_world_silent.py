@@ -17,5 +17,8 @@ class Test(unittest.TestCase):
         set_world_silent(False)
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
+        # 
+        traj.top.bond_info()
+
 if __name__ == "__main__":
     unittest.main()
