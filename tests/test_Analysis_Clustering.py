@@ -1,4 +1,5 @@
 import unittest
+from pytraj.decorators import no_test
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -20,6 +21,16 @@ class Test(unittest.TestCase):
         act = Analysis_Clustering()
         act(command, traj.top, dslist=dslist, dflist=dflist)
         dflist.write_all_datafiles()
+
+    def test_1(self):
+        print ("use common_actions")
+        from pytraj.common_actions import do_clustering
+
+        traj = mdio.load("./data/tz2.nc", "./data/tz2.parm7")
+        command = """
+        :2-10 clusters 3 epsilon 4.0 summary ./output/avg.summary.do_clustering.dat nofit
+        """
+        do_clustering(command, traj, traj.top)
 
 if __name__ == "__main__":
     unittest.main()

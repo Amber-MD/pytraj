@@ -4,6 +4,7 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from libcpp.string cimport string
 from cpython.array cimport array as pyarray
+from pytraj._utils import set_world_silent # turn on and off cpptraj's stdout
 #from pytraj.TopologyList cimport TopologyList
 
 from pytraj.decorators import name_will_be_changed
@@ -267,32 +268,46 @@ cdef class Topology:
         self.thisptr.Brief(heading)
 
     def atom_info(self, maskString="*"):
+        set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintAtomInfo(maskString)
+        set_world_silent(True)
 
     def bond_info(self, maskString="*"):
+        set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintBondInfo(maskString)
+        set_world_silent(True)
     
     def angle_info(self, maskString="*"):
+        set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintAngleInfo(maskString)
+        set_world_silent(True)
 
     def dihedral_info(self, maskString="*"):
+        set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintDihedralInfo(maskString)
+        set_world_silent(True)
 
     def molecule_info(self, maskString="*"):
+        set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintMoleculeInfo(maskString)
+        set_world_silent(True)
 
     def residue_info(self, maskString="*"):
+        set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintResidueInfo(maskString)
+        set_world_silent(True)
 
     def charge_mass_info(self, maskString, int idtype):
+        set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintChargeMassInfo(maskString, idtype)
+        set_world_silent(True)
 
     # BROKEN
     #def has_vel(self):
