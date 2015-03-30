@@ -9,23 +9,40 @@ from pytraj.Frame import Frame
 #from pytraj.Trajin_Single import Trajin_Single
 from pytraj.FrameArray import FrameArray
 from pytraj.actions import allactions
-from pytraj import adict
+from pytraj import adict, analdict
 from pytraj.DataSetList import DataSetList
+
+from pytraj._utils import set_world_silent
 
 # external
 from pytraj.externals.six import string_types
 
-def action_help(action=None):
-    # where should we put this method? putting here seems not really reasonable
-    from pytraj import adict
-
-    if action is None:
-        print ("give the name of Action to get help")
-        print ("Example: action_help(): all action keywords")
-        print ("Example: action_help('rmsd'): help for Action_Rmsd")
-        print (adict.keys())
+def info(obj):
+    """get `help` for obj
+    Useful for Actions and Analyses
+    
+    Since we use `set_worl_silent` to turn-off cpptraj' stdout, we need 
+    to turn on to use cpptraj's help methods
+    """
+    if isinstance(obj, string_types):
+        if obj in adict.keys():
+            # make Action object
+            _obj = adict[obj]
+        elif obj in analdict.keys():
+            # make Analysis object
+            _obj = analdict[obj]
+        else:
+            raise ValueError("keyword must be an Action or Analysis")
     else:
-        adict[action].help()
+        # assume `obj` hasattr `help`
+        _obj = obj
+
+    if hasattr(_obj, 'help'):
+        set_world_silent(False)
+        _obj.help()
+        set_world_silent(True)
+    else:
+        raise ValueError("object does not have `help` method")
 
 def get_action_dict():
     actdict = {}

@@ -9,7 +9,8 @@ from pytraj import io
 
 from pytraj.action_dict import ActionDict
 from pytraj.analysis_dict import AnalysisDict
-# make adict instance here so run_tests can use it.
+# create adict and analdict objects here to we can use below in some modules
+# >>> from pytraj import adict, analdict 
 adict = ActionDict()
 analdict = AnalysisDict()
 
@@ -26,7 +27,7 @@ from pytraj.TrajReadOnly import TrajReadOnly
 from pytraj.trajs.Trajout import Trajout
 from pytraj.cast_dataset import cast_dataset
 from pytraj.parms.ParmFile import ParmFile
-from pytraj.misc import action_help
+from pytraj.misc import info
 from pytraj.data_sample.load_sample_data import load_sample_data
 from pytraj.DataSetList import DataSetList
 from pytraj.DataFileList import DataFileList

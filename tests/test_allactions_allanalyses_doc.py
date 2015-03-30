@@ -1,18 +1,15 @@
 import unittest
 from pytraj.base import *
 from pytraj import io as mdio
-from pytraj import action_help
+from pytraj import info, adict
 from pytraj import allactions
 from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_action(self):
-        action_help()
-        #action_help("PairDist")
-        action_help("pairdist")
-        print() 
-        #action_help("Dihedral")
-        action_help("dihedral")
+        info(adict["pairdist"])
+        print ()
+        info(adict["dihedral"])
 
         dslist = DataSetList()
 
