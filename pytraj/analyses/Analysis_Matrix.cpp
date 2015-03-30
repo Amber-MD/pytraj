@@ -1499,7 +1499,7 @@ struct __pyx_obj_6pytraj_10FrameArray_FrameArray {
 };
 
 
-/* "pytraj/analyses/Analysis_Matrix.pxd":27
+/* "pytraj/analyses/Analysis_Matrix.pxd":26
  * 
  * 
  * cdef class Analysis_Matrix (Analysis):             # <<<<<<<<<<<<<<
@@ -1899,9 +1899,9 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
-static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
-
 #include <new>
+
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 #if PY_MAJOR_VERSION < 3
     static int __Pyx_GetBuffer(PyObject *obj, Py_buffer *view, int flags);
