@@ -1,6 +1,7 @@
 # distutils: language = c++
 
 from pytraj._utils cimport get_positive_idx
+from pytraj._shared_methods import _frame_iter
 
 cdef class DataSet_Coords(DataSet):
     def __cinit__(self):
@@ -18,6 +19,14 @@ cdef class DataSet_Coords(DataSet):
     @property
     def n_frames(self):
         return self.size
+
+    @property
+    def n_atoms(self):
+        """used for frame_iter"""
+        return self.top.n_atoms
+
+    def __call__(self, *args, **kwd):
+        return self.frame_iter(*args, **kwd)
 
     def __iter__(self):
         """iterately getting Frame instance
@@ -91,6 +100,9 @@ cdef class DataSet_Coords(DataSet):
             if idx != -1:
                 raise ValueError("index is out of range")
         self.baseptr_1.SetCRD(idx, other.thisptr[0])
+
+    def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
+        return _frame_iter(self, start, stop, stride, mask)
 
     def allocate_frame(self):
         cdef Frame frame = Frame()
