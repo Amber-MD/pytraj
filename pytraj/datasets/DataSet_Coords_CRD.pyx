@@ -30,7 +30,7 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
         cdef Frame frame
 
         if isinstance(top, string_types):
-            top = Topology(top)
+            self.top = top = Topology(top)
 
         if top.is_empty():
             if not self.top.is_empty():

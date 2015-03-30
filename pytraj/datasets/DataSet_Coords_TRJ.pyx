@@ -19,10 +19,6 @@ cdef class DataSet_Coords_TRJ(DataSet_Coords):
         if self.py_free_mem:
             del self.thisptr
     
-    def _recast(self):
-        self.baseptr0 = <_DataSet*> self.thisptr
-        self.baseptr_1 = <_DataSet_Coords*> self.thisptr
-
     @classmethod
     def alloc(cls):
         """return base class: DataSet"""
@@ -30,17 +26,20 @@ cdef class DataSet_Coords_TRJ(DataSet_Coords):
         dset.baseptr0 = _DataSet_Coords_TRJ.Alloc()
         return dset
 
-    def load(self, filename, Topology top=Topology(), arg=None):
+    def load(self, filename, top=None, arg=None):
         cdef Topology tmp_top
         cdef ArgList _arglist
 
-        if top.is_empty():
-            if not self.top.is_empty():
-                tmp_top = self.top
-            else:
-                raise ValueError("need to have non-empty topology file")
-        else:
-            tmp_top = top
+        if isinstance(top, string_types):
+            self.top = Topology(top)
+        elif isinstance(top, Topology):
+            self.top = top.copy()
+
+        if self.top.is_empty():
+            raise ValueError("need to have non-empty topology file")
+
+        # cast to Topology type so we can use cpptraj method
+        tmp_top = <Topology> self.top
 
         filename = filename.encode()
         if arg is None:
@@ -56,7 +55,3 @@ cdef class DataSet_Coords_TRJ(DataSet_Coords):
     def add_trajin(self, Trajin trajin):
         """add memoryview for input trajin"""
         self.thisptr.AddInputTraj(trajin.baseptr_1)
-
-    #@property
-    #def size(self):
-    #    return self.thisptr.Size()
