@@ -26,7 +26,6 @@ class TestRandomizeIons(unittest.TestCase):
         # try randomizeions for frame1
         # FIXME : can not continuously use more than 1 action
         from pytraj import allactions
-        from pytraj import action_help
         act2 = allactions.Action_RandomizeIons()
         print (hex(id(act1)))
         print (hex(id(act2)))

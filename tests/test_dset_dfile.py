@@ -11,9 +11,9 @@ class Test(unittest.TestCase):
     def test_0(self):
         dslist = DataSetList()
         dflist = DataFileList()
-        dist = dslist.add_set(ddict['DOUBLE'], b"", b"dis_")
+        dist = dslist.add_set('double', "myname", "dis_")
         print (scalarModeDict.keys())
-        dist.set_scalar(scalarModeDict['M_DISTANCE'])
+        dist.set_scalar('m_distance')
         d1d = cast_dataset(dist, 'double')
         for i in range(100):
             d1d.append(i, i)
