@@ -1,7 +1,8 @@
 TODO
 ----
 
-* build conda `libcpptraj` with netcdf
+* add method to check class hiercharchy (in case Dan updates his codes)
+* build conda `libcpptraj` with netcdf: DONE
 * FIXME: `rmsd` method in Frame class will update frame object coordinate (I do not want this): DONE
 * rewrite cpptraj classes for pytraj (more flexibility): ActionList, CpptrajState, TrajinList, AnalysisList: LOW
 * `frame_iter` is very slow, enhance this : DONE

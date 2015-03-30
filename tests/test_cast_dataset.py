@@ -25,15 +25,22 @@ class Test(unittest.TestCase):
 
     #@no_test
     def test_add_trajin(self):
-        traj = DataSet_Coords_TRJ()
-        traj.top = Topology("data/Tc5b.top")
-        traj.load("data/md1_prod.Tc5b.x")
+        dset_traj = DataSet_Coords_TRJ()
+        dset_traj.top = Topology("data/Tc5b.top")
+        dset_traj.load("data/md1_prod.Tc5b.x")
 
-        trajin = TrajReadOnly(filename="data/md1_prod.Tc5b.x", top=traj.top)
-        print(dir(trajin))
-        dset = traj.alloc()
-        db = cast_dataset(dset, dtype="general")
+        # dummy casting, just want to make sure we get what we want
+        db = cast_dataset(dset_traj, dtype="traj")
+        db.top = dset_traj.top
         print(db)
+        assert db.size == dset_traj.size
+        print (db[0])
+
+        # try to add to DataSetList
+        dslist = DataSetList()
+        dslist.add_copy_of_set(db)
+        print (dslist[0])
+        assert isinstance(dslist[0], DataSet_Coords_TRJ)
 
 if __name__ == "__main__":
     unittest.main()

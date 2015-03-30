@@ -10,8 +10,7 @@ cdef class DataSet_Coords_TRJ(DataSet_Coords):
         # use pointer casting instead? (look ugly?)
         self.baseptr0 = <_DataSet*> new _DataSet_Coords_TRJ()
         # recast
-        self.baseptr_1 = <_DataSet_1D*> self.baseptr0
-        self.baseptr_2 = <_DataSet_Coords*> self.baseptr0
+        self.baseptr_1 = <_DataSet_Coords*> self.baseptr0
         self.thisptr = <_DataSet_Coords_TRJ*> self.baseptr0
 
         self.py_free_mem = True
@@ -22,8 +21,7 @@ cdef class DataSet_Coords_TRJ(DataSet_Coords):
     
     def _recast(self):
         self.baseptr0 = <_DataSet*> self.thisptr
-        self.baseptr_1 = <_DataSet_1D*> self.thisptr
-        self.baseptr_2 = <_DataSet_Coords*> self.thisptr
+        self.baseptr_1 = <_DataSet_Coords*> self.thisptr
 
     @classmethod
     def alloc(cls):

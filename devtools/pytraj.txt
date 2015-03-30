@@ -17,6 +17,17 @@ In *.pyx files, original cpptraj class' name should be Python class' name
   + Subclass: use "thisptr" name
   + If class does not inherit from others: use "thisptr"
 
+4. pytraj comes with *.pxd files (just like header file in C++).
+We can directly use cpptraj object without Python overheading by using
+'cimport'
+
+Example:
+
+from pytraj.Topology cimport _Topology # _Topology is in pytraj.Topology.pxd
+file
+cdef _Topology top = new _Topology()
+del top
+
 See also
 --------
 * TODO : add comment 
