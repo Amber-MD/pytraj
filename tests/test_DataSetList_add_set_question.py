@@ -8,6 +8,7 @@ from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ
 from pytraj.datasets.DataSet_MatrixDbl import DataSet_MatrixDbl
 
 class Test(unittest.TestCase):
+    # FIXME: need to add dataset's name to add to DSL
     def test_0(self):
         dset_traj = DataSet_Coords_TRJ()
         dslist = DataSetList()
