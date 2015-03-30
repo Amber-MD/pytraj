@@ -34,32 +34,34 @@ cdef class DataSet:
     def size(self):
         return self.baseptr0.Size()
 
-    def set_width(self,int widthIn):
-        self.baseptr0.SetWidth(widthIn)
+    def set_width(self, int width):
+        self.baseptr0.SetWidth(width)
 
-    def set_precision(self, int widthIn , int precisionIno):
-        self.baseptr0.SetPrecision(widthIn, precisionIno)
+    def set_precision(self, int width , int precision):
+        self.baseptr0.SetPrecision(width, precision)
 
-    #def setup_set(self, string nameIn, int idxIn, string aspectIn):
-    #    return self.baseptr0.SetupSet(nameIn, idxIn, aspectIn)
+    def set_legend(self, lengend):
+        self.baseptr0.SetLegend(lengend.encode())
 
-    def set_legend(self, lIn):
-        self.baseptr0.SetLegend(lIn.encode())
-
-    def set_scalar(self, scalarMode mIn):
-        self.baseptr0.SetScalar(mIn)
-
-    def set_dim(self,DimIdxType i, Dimension d):
+    def set_dim(self, DimIdxType i, Dimension d):
         self.baseptr0.SetDim(i, d.thisptr[0])
 
-    def set_scalar(self,scalarMode mIn, scalarType mT):
-        self.baseptr0.SetScalar(mIn, mT)
+    def set_scalar(self,scalar_mode, scalar_type=None):
+        scalar_mode = scalar_mode.upper()
+        if scalar_type is None:
+            self.baseptr0.SetScalar(scalarModeDict[scalar_mode])
+        else:
+            scalar_type = scalar_type.upper()
+            self.baseptr0.SetScalar(scalarModeDict[scalar_mode], scalarDict[scalar_type])
 
     def set_format(self, bint leftAlignIn):
         return self.baseptr0.SetDataSetFormat(leftAlignIn)
 
     def scalar_descr(self):
+        from pytraj._utils import set_worl_silent
+        set_worl_silent(False)
         self.baseptr0.ScalarDescription()
+        set_worl_silent(True)
 
     def is_empty(self):
         return self.baseptr0.Empty()
