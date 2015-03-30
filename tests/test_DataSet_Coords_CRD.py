@@ -111,7 +111,6 @@ class Test(unittest.TestCase):
 
         dset = traj
         print (dset.is_empty())
-        print (dset.is_torsion_array())
         fcp = traj[0].copy()
         assert f0.n_atoms == TRAJ0[0].n_atoms
 

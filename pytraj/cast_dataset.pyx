@@ -108,7 +108,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_matrixdbl.thisptr = <_DataSet_MatrixDbl*> dset.baseptr0
         return newset_matrixdbl
 
-    elif dtype in ['COORDS_CRD', 'COORDS']:
+    elif dtype in ['COORDS_CRD', 'COORDS', 'CRD']:
         # FIXME: not correctly casting
         # get '0' size when casting back from DataSet
         newset_coords_crd = DataSet_Coords_CRD()
@@ -116,19 +116,17 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_coords_crd.py_free_mem = False
         newset_coords_crd.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
-        newset_coords_crd.baseptr_1 = <_DataSet_1D*> dset.baseptr0
-        newset_coords_crd.baseptr_2 = <_DataSet_Coords*> dset.baseptr0
+        newset_coords_crd.baseptr_1 = <_DataSet_Coords*> dset.baseptr0
         newset_coords_crd.thisptr = <_DataSet_Coords_CRD*> dset.baseptr0
         return newset_coords_crd
 
-    elif dtype in ['COORDS_TRJ', 'TRJ']:
+    elif dtype in ['COORDS_TRJ', 'TRJ', 'TRAJ', 'COORDS_TRAJ']:
         newset_coords_trj = DataSet_Coords_TRJ()
         # since we introduce memory view, we let cpptraj free memory
         newset_coords_trj.py_free_mem = False
         newset_coords_trj.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
-        newset_coords_trj.baseptr_1 = <_DataSet_1D*> dset.baseptr0
-        newset_coords_trj.baseptr_2 = <_DataSet_Coords*> dset.baseptr0
+        newset_coords_trj.baseptr_1 = <_DataSet_Coords*> dset.baseptr0
         newset_coords_trj.thisptr = <_DataSet_Coords_TRJ*> dset.baseptr0
         return newset_coords_trj
 
@@ -138,8 +136,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_coords_ref.py_free_mem = False
         newset_coords_ref.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
-        newset_coords_ref.baseptr_1 = <_DataSet_1D*> dset.baseptr0
-        newset_coords_ref.baseptr_2 = <_DataSet_Coords*> dset.baseptr0
+        newset_coords_ref.baseptr_1 = <_DataSet_Coords*> dset.baseptr0
         newset_coords_ref.thisptr = <_DataSet_Coords_REF*> dset.baseptr0
         return newset_coords_ref
     else:

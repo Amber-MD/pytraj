@@ -1341,13 +1341,13 @@ struct __pyx_obj_6pytraj_10FrameArray_FrameArray {
 /* "pytraj/datasets/DataSet_Coords.pxd":28
  * 
  * 
- * cdef class DataSet_Coords (DataSet_1D):             # <<<<<<<<<<<<<<
+ * cdef class DataSet_Coords (DataSet):             # <<<<<<<<<<<<<<
  *     # DataSet has baseptr0
- *     # DataSet_1D has baseptr_1
+ *     cdef _DataSet_Coords* baseptr_1
  */
 struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords {
-  struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D __pyx_base;
-  DataSet_Coords *baseptr_2;
+  struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet __pyx_base;
+  DataSet_Coords *baseptr_1;
   struct __pyx_obj_6pytraj_8Topology_Topology *_top;
   int py_free_mem;
   PyObject *tmpfarray;
@@ -2264,7 +2264,7 @@ static int __pyx_pf_6pytraj_8datasets_18DataSet_Coords_CRD_18DataSet_Coords_CRD_
  *     def __cinit__(self):
  *         self.thisptr = new _DataSet_Coords_CRD()             # <<<<<<<<<<<<<<
  *         self.baseptr0 = <_DataSet*> self.thisptr
- *         self.baseptr_2 = <_DataSet_Coords*> self.thisptr
+ *         self.baseptr_1 = <_DataSet_Coords*> self.thisptr
  */
   __pyx_v_self->thisptr = new DataSet_Coords_CRD();
 
@@ -2272,30 +2272,21 @@ static int __pyx_pf_6pytraj_8datasets_18DataSet_Coords_CRD_18DataSet_Coords_CRD_
  *     def __cinit__(self):
  *         self.thisptr = new _DataSet_Coords_CRD()
  *         self.baseptr0 = <_DataSet*> self.thisptr             # <<<<<<<<<<<<<<
- *         self.baseptr_2 = <_DataSet_Coords*> self.thisptr
- *         self.baseptr_1 = <_DataSet_1D*> self.thisptr
+ *         self.baseptr_1 = <_DataSet_Coords*> self.thisptr
+ * 
  */
-  __pyx_v_self->__pyx_base.__pyx_base.__pyx_base.baseptr0 = ((DataSet *)__pyx_v_self->thisptr);
+  __pyx_v_self->__pyx_base.__pyx_base.baseptr0 = ((DataSet *)__pyx_v_self->thisptr);
 
   /* "pytraj/datasets/DataSet_Coords_CRD.pyx":8
  *         self.thisptr = new _DataSet_Coords_CRD()
  *         self.baseptr0 = <_DataSet*> self.thisptr
- *         self.baseptr_2 = <_DataSet_Coords*> self.thisptr             # <<<<<<<<<<<<<<
- *         self.baseptr_1 = <_DataSet_1D*> self.thisptr
- * 
- */
-  __pyx_v_self->__pyx_base.baseptr_2 = ((DataSet_Coords *)__pyx_v_self->thisptr);
-
-  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":9
- *         self.baseptr0 = <_DataSet*> self.thisptr
- *         self.baseptr_2 = <_DataSet_Coords*> self.thisptr
- *         self.baseptr_1 = <_DataSet_1D*> self.thisptr             # <<<<<<<<<<<<<<
+ *         self.baseptr_1 = <_DataSet_Coords*> self.thisptr             # <<<<<<<<<<<<<<
  * 
  *         # let python frees memory
  */
-  __pyx_v_self->__pyx_base.__pyx_base.baseptr_1 = ((DataSet_1D *)__pyx_v_self->thisptr);
+  __pyx_v_self->__pyx_base.baseptr_1 = ((DataSet_Coords *)__pyx_v_self->thisptr);
 
-  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":12
+  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":11
  * 
  *         # let python frees memory
  *         self.py_free_mem = True             # <<<<<<<<<<<<<<
@@ -2318,7 +2309,7 @@ static int __pyx_pf_6pytraj_8datasets_18DataSet_Coords_CRD_18DataSet_Coords_CRD_
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_Coords_CRD.pyx":14
+/* "pytraj/datasets/DataSet_Coords_CRD.pyx":13
  *         self.py_free_mem = True
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2342,7 +2333,7 @@ static void __pyx_pf_6pytraj_8datasets_18DataSet_Coords_CRD_18DataSet_Coords_CRD
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":15
+  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":14
  * 
  *     def __dealloc__(self):
  *         if self.py_free_mem:             # <<<<<<<<<<<<<<
@@ -2352,7 +2343,7 @@ static void __pyx_pf_6pytraj_8datasets_18DataSet_Coords_CRD_18DataSet_Coords_CRD
   __pyx_t_1 = (__pyx_v_self->__pyx_base.py_free_mem != 0);
   if (__pyx_t_1) {
 
-    /* "pytraj/datasets/DataSet_Coords_CRD.pyx":16
+    /* "pytraj/datasets/DataSet_Coords_CRD.pyx":15
  *     def __dealloc__(self):
  *         if self.py_free_mem:
  *             del self.thisptr             # <<<<<<<<<<<<<<
@@ -2364,7 +2355,7 @@ static void __pyx_pf_6pytraj_8datasets_18DataSet_Coords_CRD_18DataSet_Coords_CRD
   }
   __pyx_L3:;
 
-  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":14
+  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":13
  *         self.py_free_mem = True
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2376,7 +2367,7 @@ static void __pyx_pf_6pytraj_8datasets_18DataSet_Coords_CRD_18DataSet_Coords_CRD
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/datasets/DataSet_Coords_CRD.pyx":21
+/* "pytraj/datasets/DataSet_Coords_CRD.pyx":20
  * 
  *     @classmethod
  *     def alloc(self):             # <<<<<<<<<<<<<<
@@ -2408,19 +2399,19 @@ static PyObject *__pyx_pf_6pytraj_8datasets_18DataSet_Coords_CRD_18DataSet_Coord
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("alloc", 0);
 
-  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":22
+  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":21
  *     @classmethod
  *     def alloc(self):
  *         cdef DataSet dset = DataSet()             # <<<<<<<<<<<<<<
  *         dset.baseptr0 = _DataSet_Coords_CRD.Alloc()
  *         return dset
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_dset = ((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":23
+  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":22
  *     def alloc(self):
  *         cdef DataSet dset = DataSet()
  *         dset.baseptr0 = _DataSet_Coords_CRD.Alloc()             # <<<<<<<<<<<<<<
@@ -2429,7 +2420,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_18DataSet_Coords_CRD_18DataSet_Coord
  */
   __pyx_v_dset->baseptr0 = DataSet_Coords_CRD::Alloc();
 
-  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":24
+  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":23
  *         cdef DataSet dset = DataSet()
  *         dset.baseptr0 = _DataSet_Coords_CRD.Alloc()
  *         return dset             # <<<<<<<<<<<<<<
@@ -2441,7 +2432,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_18DataSet_Coords_CRD_18DataSet_Coord
   __pyx_r = ((PyObject *)__pyx_v_dset);
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":21
+  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":20
  * 
  *     @classmethod
  *     def alloc(self):             # <<<<<<<<<<<<<<
@@ -14471,27 +14462,27 @@ PyMODINIT_FUNC PyInit_DataSet_Coords_CRD(void)
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":21
+  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":20
  * 
  *     @classmethod
  *     def alloc(self):             # <<<<<<<<<<<<<<
  *         cdef DataSet dset = DataSet()
  *         dset.baseptr0 = _DataSet_Coords_CRD.Alloc()
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD, __pyx_n_s_alloc); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD, __pyx_n_s_alloc); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":20
+  /* "pytraj/datasets/DataSet_Coords_CRD.pyx":19
  *     #def DataSet_Coords_CRD(self):
  * 
  *     @classmethod             # <<<<<<<<<<<<<<
  *     def alloc(self):
  *         cdef DataSet dset = DataSet()
  */
-  __pyx_t_2 = __Pyx_Method_ClassMethod(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Method_ClassMethod(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD->tp_dict, __pyx_n_s_alloc, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD->tp_dict, __pyx_n_s_alloc, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD);
 

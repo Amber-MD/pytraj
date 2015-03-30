@@ -1457,7 +1457,7 @@ struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D {
 };
 
 
-/* "pytraj/datasets/DataSet_Modes.pxd":42
+/* "pytraj/datasets/DataSet_Modes.pxd":43
  *         bint IsReduced() const
  * 
  * cdef class DataSet_Modes (DataSet):             # <<<<<<<<<<<<<<
@@ -14634,7 +14634,7 @@ PyMODINIT_FUNC PyInit_Analysis_Rms2d(void)
   __pyx_ptype_6pytraj_5trajs_6Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_6Trajin_Trajin)) {__pyx_filename = __pyx_f[29]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_9_FunctPtr_FunctPtr = __Pyx_ImportType("pytraj._FunctPtr", "FunctPtr", sizeof(struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr), 1); if (unlikely(!__pyx_ptype_6pytraj_9_FunctPtr_FunctPtr)) {__pyx_filename = __pyx_f[30]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D = __Pyx_ImportType("pytraj.datasets.DataSet_2D", "DataSet_2D", sizeof(struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D)) {__pyx_filename = __pyx_f[31]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes = __Pyx_ImportType("pytraj.datasets.DataSet_Modes", "DataSet_Modes", sizeof(struct __pyx_obj_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes)) {__pyx_filename = __pyx_f[32]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes = __Pyx_ImportType("pytraj.datasets.DataSet_Modes", "DataSet_Modes", sizeof(struct __pyx_obj_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes)) {__pyx_filename = __pyx_f[32]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_13Trajin_Single_Trajin_Single = __Pyx_ImportType("pytraj.Trajin_Single", "Trajin_Single", sizeof(struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single), 1); if (unlikely(!__pyx_ptype_6pytraj_13Trajin_Single_Trajin_Single)) {__pyx_filename = __pyx_f[33]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_10FrameArray_FrameArray = __Pyx_ImportType("pytraj.FrameArray", "FrameArray", sizeof(struct __pyx_obj_6pytraj_10FrameArray_FrameArray), 1); if (unlikely(!__pyx_ptype_6pytraj_10FrameArray_FrameArray)) {__pyx_filename = __pyx_f[34]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/

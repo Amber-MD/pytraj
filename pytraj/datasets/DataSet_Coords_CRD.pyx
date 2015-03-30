@@ -5,8 +5,7 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
     def __cinit__(self):
         self.thisptr = new _DataSet_Coords_CRD()
         self.baseptr0 = <_DataSet*> self.thisptr
-        self.baseptr_2 = <_DataSet_Coords*> self.thisptr
-        self.baseptr_1 = <_DataSet_1D*> self.thisptr
+        self.baseptr_1 = <_DataSet_Coords*> self.thisptr
 
         # let python frees memory
         self.py_free_mem = True
