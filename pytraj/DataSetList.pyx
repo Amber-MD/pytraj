@@ -147,11 +147,17 @@ cdef class DataSetList:
         dlist.thisptr[0] = self.thisptr.GetMultipleSets(s)
         return dlist
 
-    def add_set(self, DataType dtype, string s, char * c):
+    def add_set(self, dtype, name, default_name):
         # TODO: check cpptraj for this method
         cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.AddSet(dtype, s, c)
+        dtype = dtype.upper()
+        name = name.encode()
+        default_name = default_name.encode()
+        dset.baseptr0 = self.thisptr.AddSet(DataTypeDict[dtype], name, default_name)
         return dset
+
+    def add_existing_set(self, DataSet ds):
+        self.thisptr.AddSet(ds.baseptr0)
         
     def add_setidx(self, DataType inType, string nameIn, int idx):
         cdef DataSet dset = DataSet()
@@ -181,12 +187,10 @@ cdef class DataSetList:
                                                 name.encode(), aspect.encode())
         return ds
 
-    def find_coords_set(self, filename):
-        filename = filename.encode()
+    def find_coords_set(self, name):
+        name = name.encode()
         cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.FindCoordsSet(filename)
-        if not dset.baseptr0:
-            raise MemoryError("Can not initialize pointer")
+        dset.baseptr0 = self.thisptr.FindCoordsSet(name)
         return dset
 
     def find_set_of_type(self, filename, dtype):

@@ -35,6 +35,7 @@ cdef extern from "DataSetList.h":
         _DataSet * AddSetIdxAspect(DataType, const string&, int, const string&)
         _DataSet * AddSetIdxAspect(DataType, const string&, int, const string&, const string&)
         void AddCopyOfSet(_DataSet *)
+        void AddSet(_DataSet *)
         void List() const 
         void SynchronizeData() 
         _DataSet * FindSetOfType(const string&, DataType) const 
