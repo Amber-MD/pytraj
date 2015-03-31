@@ -80,6 +80,13 @@ def _import(modname):
         has_module = False
         return (has_module, None)
 
+def has_(lib):
+    """check if having `lib` library
+    Example:
+    >>> has_("numpy")
+    """
+    return _import(lib)[0]
+
 def require(libname):
     has_lib, lib = _import(libname)
     if not has_lib:
