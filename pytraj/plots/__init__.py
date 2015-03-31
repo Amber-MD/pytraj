@@ -5,3 +5,13 @@ from .plot_matrix import plot_matrix
 
 require("matplotlib")
 require("numpy")
+
+def show_config():
+    """show good ipython config"""
+    txt = """
+    %matplotlib inline # inline for matplotlibe
+    %config InlineBackend.figure_format = 'retina'  # high resolution
+    import matplotlib
+    matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image
+    """
+    print (txt)
