@@ -14,6 +14,7 @@ from pytraj.utils.check_and_assert import _import_numpy, is_int
 from pytraj.utils.check_and_assert import file_exist
 from pytraj.trajs.Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
+from pytraj._shared_methods import my_str_method
 
 # we don't allow sub-class in Python level since we will mess up with memory
 @cython.final
@@ -324,14 +325,8 @@ cdef class FrameArray (object):
     def __delitem__(FrameArray self, int idx):
         self.erase(idx)
 
-    def __str__(FrameArray self):
-        name = self.__class__.__name__
-        n_atoms = 0 if self.top.is_empty() else self.top.n_atoms
-        tmps = """%s instance with %s frames, %s atoms/frame
-               """ % (
-                name, self.size, n_atoms,
-                )
-        return tmps
+    def __str__(self):
+        return my_str_method(self)
 
     def __repr__(self):
         return self.__str__()

@@ -10,6 +10,7 @@ from pytraj.AtomMask cimport AtomMask
 from pytraj.utils.check_and_assert import _import_numpy
 from .Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
+from pytraj._shared_methods import my_str_method
 from pytraj.externals.six import string_types
 
 
@@ -122,15 +123,7 @@ cdef class Trajin (TrajectoryFile):
                 yield self[start + chunk*i : stop+1]
 
     def __str__(self):
-        name = self.__class__.__name__
-        n_atoms = 0 if self.top.is_empty() else self.top.n_atoms
-        tmps = """%s instance with %s frames, %s atoms/frame
-                  ID = %s
-               """ % (
-                name, self.size, n_atoms,
-                hex(id(self))
-                )
-        return tmps
+        return my_str_method(self)
 
     def __repr__(self):
         return self.__str__()

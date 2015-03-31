@@ -21,6 +21,15 @@ def _savetraj(self, filename="", fmt='unknown', overwrite=False):
 def _get_temperature_set(self):
     return set(self.temperatures) 
 
+def my_str_method(self):
+    name = self.__class__.__name__
+    n_atoms = 0 if self.top.is_empty() else self.top.n_atoms
+    tmps = """%s instance with %s frames, %s atoms/frame
+           """ % (
+            name, self.size, n_atoms,
+            )
+    return tmps
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.infer_types(True)
@@ -52,4 +61,5 @@ def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
             yield frame2
         else:
             yield frame
-            i += stride
+
+        i += stride
