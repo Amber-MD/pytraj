@@ -6,6 +6,7 @@ from .DataSet_float import DataSet_float
 from .DataSet_integer import DataSet_integer
 from .DataSet_string import DataSet_string
 from .DataSet_MatrixDbl import DataSet_MatrixDbl
+from .DataSet_MatrixFlt import DataSet_MatrixFlt
 from .DataSet import DataSet
 from .DataSet_Coords import DataSet_Coords
 from .DataSet_Coords_REF import DataSet_Coords_REF
