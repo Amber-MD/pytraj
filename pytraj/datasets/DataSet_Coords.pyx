@@ -2,6 +2,7 @@
 
 from pytraj._utils cimport get_positive_idx
 from pytraj._shared_methods import _frame_iter
+from pytraj._shared_methods import my_str_method
 
 cdef class DataSet_Coords(DataSet):
     def __cinit__(self):
@@ -24,6 +25,12 @@ cdef class DataSet_Coords(DataSet):
     def n_atoms(self):
         """used for frame_iter"""
         return self.top.n_atoms
+
+    def __str__(self):
+        return my_str_method(self)
+
+    def __repr__(self):
+        return self.__str__()
 
     def __call__(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
