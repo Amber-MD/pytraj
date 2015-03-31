@@ -1,16 +1,28 @@
 from pytraj.externals.six import string_types
+from pytraj._utils import set_world_silent
 
 def calculate(action=None, command=None, traj=None, top=None, **kwd): 
-    # TODO : should write universal help's method 
-    """ 
-    quick way to get data 
-    Parameters: 
-    action : Action object or str, default=None 
+    """ quick way to get data 
+    Parameters
+    ----------
+    action : Action object or str, optional
     command : str, default=None 
+        command for specific action. For example, if action=`rmsd`, command might be `@CA`
     traj : Trajectory object (FrameArray, TrajReadOnly, ...) or list, tuple of traj object 
     top : topology 
+    **kwd : additional arguments
  
     Use `calculate(ahelp=True)` or `calculate(ahelp='action name')` for help 
+
+    Returns
+    -------
+    DatSet object
+
+    >>> from pytraj import calculate
+    >>> from pytraj import DataSetList 
+    >>> dslist = DataSetList()
+    >>> d0 = calculate('distance', ":2@CA :4@CA", traj, dslist=dslist)
+    >>> # d0 == dslist[-1]
  
     """ 
     from pytraj import adict 
@@ -23,7 +35,9 @@ def calculate(action=None, command=None, traj=None, top=None, **kwd):
             print () 
             print ("use calculate(key=action_name) for help") 
         else: 
+            set_world_silent(False)
             adict[kwd['key'].lower()].help() 
+            set_world_silent(True)
     else: 
         if top is None: 
             try: 
@@ -38,4 +52,4 @@ def calculate(action=None, command=None, traj=None, top=None, **kwd):
             act = adict[action] 
         else: 
             act = action 
-        return act(command, traj, top, quick_get=True)
+        return act(command, traj, top, quick_get=True, **kwd)
