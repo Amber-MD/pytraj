@@ -51,13 +51,13 @@ class Test(unittest.TestCase):
 
         # FIXME: frame_iter for TRJ and CRD results infinite loop
         # ack
-        #for f0, f1 in izip(coords.frame_iter(2, 8, 1, "!@CA'), traj(2, 8, 1, '!@CA')):
-        #    print (f0[0, :], f1[0, :])
-        #    assert_almost_equal(f0.coords, f1.coords)
+        for f0, f1 in izip(coords.frame_iter(2, 8, 1, "!@CA"), traj(2, 8, 1, '!@CA')):
+            print (f0[0, :], f1[0, :])
+            assert_almost_equal(f0.coords, f1.coords)
 
-        #for f0, f1 in izip(coords(mask='!@CA'), traj(mask='!@CA')):
-        #    print (f0[0, :], f1[0, :])
-        #    assert_almost_equal(f0.coords, f1.coords)
+        for f0, f1 in izip(coords(mask='!@CA'), traj(mask='!@CA')):
+            print (f0[0, :], f1[0, :])
+            assert_almost_equal(f0.coords, f1.coords)
 
 if __name__ == "__main__":
     unittest.main()
