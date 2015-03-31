@@ -17,6 +17,13 @@ from pytraj._utils import set_world_silent
 # external
 from pytraj.externals.six import string_types
 
+def to_amber_mask(txt):
+    import re
+    """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'"""
+
+    txt = txt.replace("_", ":")
+    return " ".join(re.findall(r"(:\d+@\w+)", txt))
+
 def info(obj):
     """get `help` for obj
     Useful for Actions and Analyses
