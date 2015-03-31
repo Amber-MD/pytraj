@@ -242,8 +242,8 @@ class __Pyx_FakeReference {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__pytraj__datasets__DataSet_MatrixDbl
-#define __PYX_HAVE_API__pytraj__datasets__DataSet_MatrixDbl
+#define __PYX_HAVE__pytraj__datasets__DataSet_MatrixFlt
+#define __PYX_HAVE_API__pytraj__datasets__DataSet_MatrixFlt
 #include <vector>
 #include "ios"
 #include "new"
@@ -261,7 +261,7 @@ class __Pyx_FakeReference {
 #include "DataSet_2D.h"
 #include "ArrayIterator.h"
 #include "Matrix.h"
-#include "DataSet_MatrixDbl.h"
+#include "DataSet_MatrixFlt.h"
 #include "stdio.h"
 #ifdef _OPENMP
 #include <omp.h>
@@ -445,9 +445,8 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pytraj/datasets/DataSet_MatrixDbl.pyx",
+  "pytraj/datasets/DataSet_MatrixFlt.pyx",
   "array.pxd",
-  "stringsource",
   "pytraj/Dimension.pxd",
   "pytraj/datasets/DataSet.pxd",
   "pytraj/FileName.pxd",
@@ -464,16 +463,16 @@ struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet;
 struct __pyx_obj_6pytraj_8FileName_FileName;
 struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile;
 struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D;
-struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl;
+struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt;
 
-/* "pytraj/datasets/DataSet_MatrixDbl.pxd":7
+/* "pytraj/datasets/DataSet_MatrixFlt.pxd":7
  * 
  * #ctypedef Matrix[double].iterator iterator
  * ctypedef vector[double] Darray             # <<<<<<<<<<<<<<
  * 
- * cdef extern from "DataSet_MatrixDbl.h":
+ * cdef extern from "DataSet_MatrixFlt.h":
  */
-typedef std::vector<double>  __pyx_t_6pytraj_8datasets_17DataSet_MatrixDbl_Darray;
+typedef std::vector<double>  __pyx_t_6pytraj_8datasets_17DataSet_MatrixFlt_Darray;
 
 /* "pytraj/Dimension.pxd":32
  *         void PrintDim()
@@ -535,16 +534,16 @@ struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D {
 };
 
 
-/* "pytraj/datasets/DataSet_MatrixDbl.pxd":46
+/* "pytraj/datasets/DataSet_MatrixFlt.pxd":16
  * 
  * 
- * cdef class DataSet_MatrixDbl (DataSet_2D):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_MatrixDbl* thisptr
+ * cdef class DataSet_MatrixFlt (DataSet_2D):             # <<<<<<<<<<<<<<
+ *     cdef _DataSet_MatrixFlt* thisptr
  *     cdef bint py_free_mem
  */
-struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl {
+struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt {
   struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D __pyx_base;
-  DataSet_MatrixDbl *thisptr;
+  DataSet_MatrixFlt *thisptr;
   int py_free_mem;
 };
 
@@ -640,12 +639,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 #define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
-static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
-
-static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[], \
-    PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args, \
-    const char* function_name);
-
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
     PyListObject* L = (PyListObject*) list;
@@ -676,22 +669,6 @@ static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
 #else
 #define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
-#endif
-
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
-    PyListObject* L = (PyListObject*) list;
-    Py_ssize_t len = Py_SIZE(list);
-    if (likely(L->allocated > len)) {
-        Py_INCREF(x);
-        PyList_SET_ITEM(list, len, x);
-        Py_SIZE(list) = len+1;
-        return 0;
-    }
-    return PyList_Append(list, x);
-}
-#else
-#define __Pyx_ListComp_Append(L,x) PyList_Append(L,x)
 #endif
 
 static void __Pyx_call_next_tp_dealloc(PyObject* obj, destructor current_tp_dealloc);
@@ -831,13 +808,9 @@ static CYTHON_INLINE int resize_smart(arrayobject *self, Py_ssize_t n) {
 
 static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
-static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *);
-
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value);
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
-
-static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
@@ -907,40 +880,27 @@ static PyTypeObject *__pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D = 0;
 static PyTypeObject *__pyx_ptype_7cpython_5array_array = 0;
 static CYTHON_INLINE int __pyx_f_7cpython_5array_extend_buffer(arrayobject *, char *, Py_ssize_t); /*proto*/
 
-/* Module declarations from 'pytraj.datasets.DataSet_MatrixDbl' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl = 0;
-static std::vector<double>  __pyx_convert_vector_from_py_double(PyObject *); /*proto*/
-static PyObject *__pyx_convert_vector_to_py_double(const std::vector<double>  &); /*proto*/
-#define __Pyx_MODULE_NAME "pytraj.datasets.DataSet_MatrixDbl"
-int __pyx_module_is_main_pytraj__datasets__DataSet_MatrixDbl = 0;
+/* Module declarations from 'pytraj.datasets.DataSet_MatrixFlt' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt = 0;
+#define __Pyx_MODULE_NAME "pytraj.datasets.DataSet_MatrixFlt"
+int __pyx_module_is_main_pytraj__datasets__DataSet_MatrixFlt = 0;
 
-/* Implementation of 'pytraj.datasets.DataSet_MatrixDbl' */
+/* Implementation of 'pytraj.datasets.DataSet_MatrixFlt' */
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_MemoryError;
-static int __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl___cinit__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
-static void __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_2__dealloc__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_4__getitem__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, PyObject *__pyx_v_idx); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_6alloc(CYTHON_UNUSED struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_8n_snapshots(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_10element(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, size_t __pyx_v_x, size_t __pyx_v_y); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_12add_element(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, double __pyx_v_d); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_14set_element(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, size_t __pyx_v_x, size_t __pyx_v_y, double __pyx_v_d); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_16vect(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_18allocate_vector(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, size_t __pyx_v_vsize); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_20store_mass(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, __pyx_t_6pytraj_8datasets_17DataSet_MatrixDbl_Darray __pyx_v_mIn); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_22mass(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_24get_full_matrix(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_26data(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
+static int __pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt___cinit__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self); /* proto */
+static void __pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_2__dealloc__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_4__getitem__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self, PyObject *__pyx_v_idx); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_6alloc(CYTHON_UNUSED struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_8get_full_matrix(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_10data(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
 static void __pyx_pf_7cpython_5array_5array_2__releasebuffer__(CYTHON_UNUSED arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
-static PyObject *__pyx_tp_new_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static char __pyx_k_d[] = "d";
-static char __pyx_k_x[] = "x";
-static char __pyx_k_y[] = "y";
+static PyObject *__pyx_tp_new_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static char __pyx_k_f[] = "f";
 static char __pyx_k_data[] = "data";
 static char __pyx_k_main[] = "__main__";
-static char __pyx_k_mass[] = "mass";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_range[] = "range";
 static char __pyx_k_append[] = "append";
@@ -951,7 +911,6 @@ static char __pyx_k_get_key[] = "get_key";
 static char __pyx_k_property[] = "property";
 static char __pyx_k_MatrixDict[] = "MatrixDict";
 static char __pyx_k_MemoryError[] = "MemoryError";
-static char __pyx_k_n_snapshots[] = "n_snapshots";
 static char __pyx_k_MatrixKindDict[] = "MatrixKindDict";
 static char __pyx_k_get_full_matrix[] = "get_full_matrix";
 static char __pyx_k_pytraj_cpptraj_dict[] = "pytraj.cpptraj_dict";
@@ -959,72 +918,68 @@ static PyObject *__pyx_n_s_MatrixDict;
 static PyObject *__pyx_n_s_MatrixKindDict;
 static PyObject *__pyx_n_s_MemoryError;
 static PyObject *__pyx_n_s_append;
-static PyObject *__pyx_n_s_d;
 static PyObject *__pyx_n_s_data;
+static PyObject *__pyx_n_s_f;
 static PyObject *__pyx_n_s_get_full_matrix;
 static PyObject *__pyx_n_s_get_key;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_main;
-static PyObject *__pyx_n_s_mass;
 static PyObject *__pyx_n_s_n_cols;
 static PyObject *__pyx_n_s_n_rows;
-static PyObject *__pyx_n_s_n_snapshots;
 static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pytraj_cpptraj_dict;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_n_s_x;
-static PyObject *__pyx_n_s_y;
 
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":6
+/* "pytraj/datasets/DataSet_MatrixFlt.pyx":6
  * 
- * cdef class DataSet_MatrixDbl (DataSet_2D):
+ * cdef class DataSet_MatrixFlt (DataSet_2D):
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
- *         self.thisptr = new _DataSet_MatrixDbl()
+ *         self.thisptr = new _DataSet_MatrixFlt()
  *         self.baseptr_1 = <_DataSet_2D*> self.thisptr
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl___cinit__(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt___cinit__(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl___cinit__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self) {
+static int __pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt___cinit__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":7
- * cdef class DataSet_MatrixDbl (DataSet_2D):
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":7
+ * cdef class DataSet_MatrixFlt (DataSet_2D):
  *     def __cinit__(self):
- *         self.thisptr = new _DataSet_MatrixDbl()             # <<<<<<<<<<<<<<
+ *         self.thisptr = new _DataSet_MatrixFlt()             # <<<<<<<<<<<<<<
  *         self.baseptr_1 = <_DataSet_2D*> self.thisptr
  *         self.baseptr0 = <_DataSet*> self.thisptr
  */
-  __pyx_v_self->thisptr = new DataSet_MatrixDbl();
+  __pyx_v_self->thisptr = new DataSet_MatrixFlt();
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":8
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":8
  *     def __cinit__(self):
- *         self.thisptr = new _DataSet_MatrixDbl()
+ *         self.thisptr = new _DataSet_MatrixFlt()
  *         self.baseptr_1 = <_DataSet_2D*> self.thisptr             # <<<<<<<<<<<<<<
  *         self.baseptr0 = <_DataSet*> self.thisptr
  * 
  */
   __pyx_v_self->__pyx_base.baseptr_1 = ((DataSet_2D *)__pyx_v_self->thisptr);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":9
- *         self.thisptr = new _DataSet_MatrixDbl()
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":9
+ *         self.thisptr = new _DataSet_MatrixFlt()
  *         self.baseptr_1 = <_DataSet_2D*> self.thisptr
  *         self.baseptr0 = <_DataSet*> self.thisptr             # <<<<<<<<<<<<<<
  * 
@@ -1032,11 +987,11 @@ static int __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl___
  */
   __pyx_v_self->__pyx_base.__pyx_base.baseptr0 = ((DataSet *)__pyx_v_self->thisptr);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":6
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":6
  * 
- * cdef class DataSet_MatrixDbl (DataSet_2D):
+ * cdef class DataSet_MatrixFlt (DataSet_2D):
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
- *         self.thisptr = new _DataSet_MatrixDbl()
+ *         self.thisptr = new _DataSet_MatrixFlt()
  *         self.baseptr_1 = <_DataSet_2D*> self.thisptr
  */
 
@@ -1046,7 +1001,7 @@ static int __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl___
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":11
+/* "pytraj/datasets/DataSet_MatrixFlt.pyx":11
  *         self.baseptr0 = <_DataSet*> self.thisptr
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1055,22 +1010,22 @@ static int __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl___
  */
 
 /* Python wrapper */
-static void __pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_2__dealloc__(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self));
+  __pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_2__dealloc__(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_2__dealloc__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self) {
+static void __pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_2__dealloc__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":12
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":12
  * 
  *     def __dealloc__(self):
  *         if self.py_free_mem:             # <<<<<<<<<<<<<<
@@ -1080,7 +1035,7 @@ static void __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_2
   __pyx_t_1 = (__pyx_v_self->py_free_mem != 0);
   if (__pyx_t_1) {
 
-    /* "pytraj/datasets/DataSet_MatrixDbl.pyx":13
+    /* "pytraj/datasets/DataSet_MatrixFlt.pyx":13
  *     def __dealloc__(self):
  *         if self.py_free_mem:
  *             del self.thisptr             # <<<<<<<<<<<<<<
@@ -1092,7 +1047,7 @@ static void __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_2
   }
   __pyx_L3:;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":11
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":11
  *         self.baseptr0 = <_DataSet*> self.thisptr
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1104,7 +1059,7 @@ static void __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_2
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":15
+/* "pytraj/datasets/DataSet_MatrixFlt.pyx":15
  *             del self.thisptr
  * 
  *     def __getitem__(self, idx):             # <<<<<<<<<<<<<<
@@ -1113,19 +1068,19 @@ static void __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_2
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx); /*proto*/
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx) {
+static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx); /*proto*/
+static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_4__getitem__(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self), ((PyObject *)__pyx_v_idx));
+  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_4__getitem__(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *)__pyx_v_self), ((PyObject *)__pyx_v_idx));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_4__getitem__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, PyObject *__pyx_v_idx) {
+static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_4__getitem__(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self, PyObject *__pyx_v_idx) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1135,7 +1090,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":16
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":16
  * 
  *     def __getitem__(self, idx):
  *         return self.data[idx]             # <<<<<<<<<<<<<<
@@ -1152,7 +1107,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":15
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":15
  *             del self.thisptr
  * 
  *     def __getitem__(self, idx):             # <<<<<<<<<<<<<<
@@ -1164,7 +1119,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixFlt.DataSet_MatrixFlt.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1172,29 +1127,29 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":18
+/* "pytraj/datasets/DataSet_MatrixFlt.pyx":18
  *         return self.data[idx]
  * 
  *     def alloc(self):             # <<<<<<<<<<<<<<
  *         cdef DataSet dset = DataSet()
- *         dset.baseptr0 = _DataSet_MatrixDbl.Alloc()
+ *         dset.baseptr0 = _DataSet_MatrixFlt.Alloc()
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_7alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_6alloc[] = "DataSet_MatrixDbl.alloc(self)";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_7alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_7alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_6alloc[] = "DataSet_MatrixFlt.alloc(self)";
+static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_7alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_6alloc(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_6alloc(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_6alloc(CYTHON_UNUSED struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_6alloc(CYTHON_UNUSED struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self) {
   struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_dset = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -1204,11 +1159,11 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("alloc", 0);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":19
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":19
  * 
  *     def alloc(self):
  *         cdef DataSet dset = DataSet()             # <<<<<<<<<<<<<<
- *         dset.baseptr0 = _DataSet_MatrixDbl.Alloc()
+ *         dset.baseptr0 = _DataSet_MatrixFlt.Alloc()
  *         return dset
  */
   __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1216,39 +1171,39 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   __pyx_v_dset = ((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":20
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":20
  *     def alloc(self):
  *         cdef DataSet dset = DataSet()
- *         dset.baseptr0 = _DataSet_MatrixDbl.Alloc()             # <<<<<<<<<<<<<<
+ *         dset.baseptr0 = _DataSet_MatrixFlt.Alloc()             # <<<<<<<<<<<<<<
  *         return dset
  * 
  */
-  __pyx_v_dset->baseptr0 = DataSet_MatrixDbl::Alloc();
+  __pyx_v_dset->baseptr0 = DataSet_MatrixFlt::Alloc();
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":21
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":21
  *         cdef DataSet dset = DataSet()
- *         dset.baseptr0 = _DataSet_MatrixDbl.Alloc()
+ *         dset.baseptr0 = _DataSet_MatrixFlt.Alloc()
  *         return dset             # <<<<<<<<<<<<<<
  * 
- *     @property
+ *     #@property
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_dset));
   __pyx_r = ((PyObject *)__pyx_v_dset);
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":18
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":18
  *         return self.data[idx]
  * 
  *     def alloc(self):             # <<<<<<<<<<<<<<
  *         cdef DataSet dset = DataSet()
- *         dset.baseptr0 = _DataSet_MatrixDbl.Alloc()
+ *         dset.baseptr0 = _DataSet_MatrixFlt.Alloc()
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixFlt.DataSet_MatrixFlt.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_dset);
@@ -1257,625 +1212,8 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":24
- * 
- *     @property
- *     def n_snapshots(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Nsnapshots()
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_9n_snapshots(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_8n_snapshots[] = "DataSet_MatrixDbl.n_snapshots(self)";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_9n_snapshots(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("n_snapshots (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_8n_snapshots(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_8n_snapshots(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("n_snapshots", 0);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":25
- *     @property
- *     def n_snapshots(self):
- *         return self.thisptr.Nsnapshots()             # <<<<<<<<<<<<<<
- * 
- *     def element(self, size_t x, size_t y):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->thisptr->Nsnapshots()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":24
- * 
- *     @property
- *     def n_snapshots(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Nsnapshots()
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.n_snapshots", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":27
- *         return self.thisptr.Nsnapshots()
- * 
- *     def element(self, size_t x, size_t y):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Element(x, y)
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_11element(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_10element[] = "DataSet_MatrixDbl.element(self, size_t x, size_t y)";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_11element(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  size_t __pyx_v_x;
-  size_t __pyx_v_y;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("element (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_x,&__pyx_n_s_y,0};
-    PyObject* values[2] = {0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_x)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("element", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "element") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-    }
-    __pyx_v_x = __Pyx_PyInt_As_size_t(values[0]); if (unlikely((__pyx_v_x == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_y = __Pyx_PyInt_As_size_t(values[1]); if (unlikely((__pyx_v_y == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("element", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.element", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_10element(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self), __pyx_v_x, __pyx_v_y);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_10element(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, size_t __pyx_v_x, size_t __pyx_v_y) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("element", 0);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":28
- * 
- *     def element(self, size_t x, size_t y):
- *         return self.thisptr.Element(x, y)             # <<<<<<<<<<<<<<
- * 
- *     def add_element(self, double d):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->Element(__pyx_v_x, __pyx_v_y)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":27
- *         return self.thisptr.Nsnapshots()
- * 
- *     def element(self, size_t x, size_t y):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Element(x, y)
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.element", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":30
- *         return self.thisptr.Element(x, y)
- * 
- *     def add_element(self, double d):             # <<<<<<<<<<<<<<
- *         return self.thisptr.AddElement(d)
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_13add_element(PyObject *__pyx_v_self, PyObject *__pyx_arg_d); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_12add_element[] = "DataSet_MatrixDbl.add_element(self, double d)";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_13add_element(PyObject *__pyx_v_self, PyObject *__pyx_arg_d) {
-  double __pyx_v_d;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("add_element (wrapper)", 0);
-  assert(__pyx_arg_d); {
-    __pyx_v_d = __pyx_PyFloat_AsDouble(__pyx_arg_d); if (unlikely((__pyx_v_d == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.add_element", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_12add_element(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self), ((double)__pyx_v_d));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_12add_element(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, double __pyx_v_d) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("add_element", 0);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":31
- * 
- *     def add_element(self, double d):
- *         return self.thisptr.AddElement(d)             # <<<<<<<<<<<<<<
- * 
- *     def set_element(self,size_t x, size_t y, double d):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->thisptr->AddElement(__pyx_v_d)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":30
- *         return self.thisptr.Element(x, y)
- * 
- *     def add_element(self, double d):             # <<<<<<<<<<<<<<
- *         return self.thisptr.AddElement(d)
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.add_element", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":33
- *         return self.thisptr.AddElement(d)
- * 
- *     def set_element(self,size_t x, size_t y, double d):             # <<<<<<<<<<<<<<
- *         self.thisptr.SetElement(x, y, d)
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_15set_element(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_14set_element[] = "DataSet_MatrixDbl.set_element(self, size_t x, size_t y, double d)";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_15set_element(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  size_t __pyx_v_x;
-  size_t __pyx_v_y;
-  double __pyx_v_d;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("set_element (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_x,&__pyx_n_s_y,&__pyx_n_s_d,0};
-    PyObject* values[3] = {0,0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_x)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("set_element", 1, 3, 3, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-        }
-        case  2:
-        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_d)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("set_element", 1, 3, 3, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_element") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-    }
-    __pyx_v_x = __Pyx_PyInt_As_size_t(values[0]); if (unlikely((__pyx_v_x == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_y = __Pyx_PyInt_As_size_t(values[1]); if (unlikely((__pyx_v_y == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_d = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_d == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_element", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.set_element", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_14set_element(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self), __pyx_v_x, __pyx_v_y, __pyx_v_d);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_14set_element(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, size_t __pyx_v_x, size_t __pyx_v_y, double __pyx_v_d) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("set_element", 0);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":34
- * 
- *     def set_element(self,size_t x, size_t y, double d):
- *         self.thisptr.SetElement(x, y, d)             # <<<<<<<<<<<<<<
- * 
- *     def vect(self):
- */
-  __pyx_v_self->thisptr->SetElement(__pyx_v_x, __pyx_v_y, __pyx_v_d);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":33
- *         return self.thisptr.AddElement(d)
- * 
- *     def set_element(self,size_t x, size_t y, double d):             # <<<<<<<<<<<<<<
- *         self.thisptr.SetElement(x, y, d)
- * 
- */
-
-  /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":36
- *         self.thisptr.SetElement(x, y, d)
- * 
- *     def vect(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Vect()
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_17vect(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_16vect[] = "DataSet_MatrixDbl.vect(self)";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_17vect(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("vect (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_16vect(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_16vect(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("vect", 0);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":37
- * 
- *     def vect(self):
- *         return self.thisptr.Vect()             # <<<<<<<<<<<<<<
- * 
- *     def allocate_vector(self,size_t vsize):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->thisptr->Vect()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":36
- *         self.thisptr.SetElement(x, y, d)
- * 
- *     def vect(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Vect()
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.vect", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":39
- *         return self.thisptr.Vect()
- * 
- *     def allocate_vector(self,size_t vsize):             # <<<<<<<<<<<<<<
- *         self.thisptr.AllocateVector(vsize)
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_19allocate_vector(PyObject *__pyx_v_self, PyObject *__pyx_arg_vsize); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_18allocate_vector[] = "DataSet_MatrixDbl.allocate_vector(self, size_t vsize)";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_19allocate_vector(PyObject *__pyx_v_self, PyObject *__pyx_arg_vsize) {
-  size_t __pyx_v_vsize;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("allocate_vector (wrapper)", 0);
-  assert(__pyx_arg_vsize); {
-    __pyx_v_vsize = __Pyx_PyInt_As_size_t(__pyx_arg_vsize); if (unlikely((__pyx_v_vsize == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.allocate_vector", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_18allocate_vector(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self), ((size_t)__pyx_v_vsize));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_18allocate_vector(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, size_t __pyx_v_vsize) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("allocate_vector", 0);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":40
- * 
- *     def allocate_vector(self,size_t vsize):
- *         self.thisptr.AllocateVector(vsize)             # <<<<<<<<<<<<<<
- * 
- *     def store_mass(self, Darray mIn):
- */
-  __pyx_v_self->thisptr->AllocateVector(__pyx_v_vsize);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":39
- *         return self.thisptr.Vect()
- * 
- *     def allocate_vector(self,size_t vsize):             # <<<<<<<<<<<<<<
- *         self.thisptr.AllocateVector(vsize)
- * 
- */
-
-  /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":42
- *         self.thisptr.AllocateVector(vsize)
- * 
- *     def store_mass(self, Darray mIn):             # <<<<<<<<<<<<<<
- *         self.thisptr.StoreMass(mIn)
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_21store_mass(PyObject *__pyx_v_self, PyObject *__pyx_arg_mIn); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_20store_mass[] = "DataSet_MatrixDbl.store_mass(self, Darray mIn)";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_21store_mass(PyObject *__pyx_v_self, PyObject *__pyx_arg_mIn) {
-  __pyx_t_6pytraj_8datasets_17DataSet_MatrixDbl_Darray __pyx_v_mIn;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("store_mass (wrapper)", 0);
-  assert(__pyx_arg_mIn); {
-    __pyx_v_mIn = __pyx_convert_vector_from_py_double(__pyx_arg_mIn); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.store_mass", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_20store_mass(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self), ((__pyx_t_6pytraj_8datasets_17DataSet_MatrixDbl_Darray)__pyx_v_mIn));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_20store_mass(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, __pyx_t_6pytraj_8datasets_17DataSet_MatrixDbl_Darray __pyx_v_mIn) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("store_mass", 0);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":43
- * 
- *     def store_mass(self, Darray mIn):
- *         self.thisptr.StoreMass(mIn)             # <<<<<<<<<<<<<<
- * 
- *     @property
- */
-  __pyx_v_self->thisptr->StoreMass(__pyx_v_mIn);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":42
- *         self.thisptr.AllocateVector(vsize)
- * 
- *     def store_mass(self, Darray mIn):             # <<<<<<<<<<<<<<
- *         self.thisptr.StoreMass(mIn)
- * 
- */
-
-  /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":46
- * 
- *     @property
- *     def mass(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Mass()
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_23mass(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_22mass[] = "DataSet_MatrixDbl.mass(self)";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_23mass(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("mass (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_22mass(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_22mass(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("mass", 0);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":47
- *     @property
- *     def mass(self):
- *         return self.thisptr.Mass()             # <<<<<<<<<<<<<<
- * 
- *     def get_full_matrix(self):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_self->thisptr->Mass()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":46
- * 
- *     @property
- *     def mass(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Mass()
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.mass", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":49
- *         return self.thisptr.Mass()
+/* "pytraj/datasets/DataSet_MatrixFlt.pyx":27
+ *     #    return self.thisptr.Mass()
  * 
  *     def get_full_matrix(self):             # <<<<<<<<<<<<<<
  *         """return python array with length = n_rows*n_cols"""
@@ -1883,20 +1221,20 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_25get_full_matrix(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_24get_full_matrix[] = "DataSet_MatrixDbl.get_full_matrix(self)\nreturn python array with length = n_rows*n_cols";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_25get_full_matrix(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_9get_full_matrix(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_8get_full_matrix[] = "DataSet_MatrixFlt.get_full_matrix(self)\nreturn python array with length = n_rows*n_cols";
+static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_9get_full_matrix(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_full_matrix (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_24get_full_matrix(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_8get_full_matrix(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_24get_full_matrix(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_8get_full_matrix(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self) {
   int __pyx_v_nr;
   int __pyx_v_nc;
   int __pyx_v_i;
@@ -1916,57 +1254,57 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_full_matrix", 0);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":51
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":29
  *     def get_full_matrix(self):
  *         """return python array with length = n_rows*n_cols"""
  *         cdef int nr = self.n_rows             # <<<<<<<<<<<<<<
  *         cdef int nc = self.n_cols
  *         cdef int i, j
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_n_rows); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_n_rows); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_nr = __pyx_t_2;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":52
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":30
  *         """return python array with length = n_rows*n_cols"""
  *         cdef int nr = self.n_rows
  *         cdef int nc = self.n_cols             # <<<<<<<<<<<<<<
  *         cdef int i, j
- *         cdef pyarray arr0 = pyarray('d', [])
+ *         cdef pyarray arr0 = pyarray('f', [])
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_n_cols); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_n_cols); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_nc = __pyx_t_2;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":54
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":32
  *         cdef int nc = self.n_cols
  *         cdef int i, j
- *         cdef pyarray arr0 = pyarray('d', [])             # <<<<<<<<<<<<<<
+ *         cdef pyarray arr0 = pyarray('f', [])             # <<<<<<<<<<<<<<
  * 
  *         for i in range(nr):
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_INCREF(__pyx_n_s_d);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_d);
-  __Pyx_GIVEREF(__pyx_n_s_d);
+  __Pyx_INCREF(__pyx_n_s_f);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_f);
+  __Pyx_GIVEREF(__pyx_n_s_f);
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7cpython_5array_array)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7cpython_5array_array)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_arr0 = ((arrayobject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":56
- *         cdef pyarray arr0 = pyarray('d', [])
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":34
+ *         cdef pyarray arr0 = pyarray('f', [])
  * 
  *         for i in range(nr):             # <<<<<<<<<<<<<<
  *             for j in range(nc):
@@ -1976,7 +1314,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_2; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
 
-    /* "pytraj/datasets/DataSet_MatrixDbl.pyx":57
+    /* "pytraj/datasets/DataSet_MatrixFlt.pyx":35
  * 
  *         for i in range(nr):
  *             for j in range(nc):             # <<<<<<<<<<<<<<
@@ -1987,21 +1325,21 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
     for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
       __pyx_v_j = __pyx_t_6;
 
-      /* "pytraj/datasets/DataSet_MatrixDbl.pyx":58
+      /* "pytraj/datasets/DataSet_MatrixFlt.pyx":36
  *         for i in range(nr):
  *             for j in range(nc):
  *                 arr0.append(self.baseptr_1.GetElement(i, j))             # <<<<<<<<<<<<<<
  *         return arr0
  * 
  */
-      __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->__pyx_base.baseptr_1->GetElement(__pyx_v_i, __pyx_v_j)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->__pyx_base.baseptr_1->GetElement(__pyx_v_i, __pyx_v_j)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_7 = __Pyx_PyObject_Append(((PyObject *)__pyx_v_arr0), __pyx_t_1); if (unlikely(__pyx_t_7 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = __Pyx_PyObject_Append(((PyObject *)__pyx_v_arr0), __pyx_t_1); if (unlikely(__pyx_t_7 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
   }
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":59
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":37
  *             for j in range(nc):
  *                 arr0.append(self.baseptr_1.GetElement(i, j))
  *         return arr0             # <<<<<<<<<<<<<<
@@ -2013,8 +1351,8 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   __pyx_r = ((PyObject *)__pyx_v_arr0);
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":49
- *         return self.thisptr.Mass()
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":27
+ *     #    return self.thisptr.Mass()
  * 
  *     def get_full_matrix(self):             # <<<<<<<<<<<<<<
  *         """return python array with length = n_rows*n_cols"""
@@ -2025,7 +1363,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.get_full_matrix", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixFlt.DataSet_MatrixFlt.get_full_matrix", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_arr0);
@@ -2034,7 +1372,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_MatrixDbl.pyx":62
+/* "pytraj/datasets/DataSet_MatrixFlt.pyx":40
  * 
  *     @property
  *     def data(self):             # <<<<<<<<<<<<<<
@@ -2043,20 +1381,20 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_27data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_26data[] = "DataSet_MatrixDbl.data(self)\nreturn 1D python array of matrix' data";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_27data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_11data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_10data[] = "DataSet_MatrixFlt.data(self)\nreturn 1D python array of matrix' data";
+static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_11data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("data (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_26data(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_10data(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_26data(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_10data(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2067,13 +1405,13 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("data", 0);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":64
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":42
  *     def data(self):
  *         """return 1D python array of matrix' data"""
  *         return self.get_full_matrix()             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_full_matrix); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_full_matrix); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2086,10 +1424,10 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -2097,7 +1435,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":62
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":40
  * 
  *     @property
  *     def data(self):             # <<<<<<<<<<<<<<
@@ -2110,7 +1448,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.data", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixFlt.DataSet_MatrixFlt.data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2747,198 +2085,16 @@ static CYTHON_INLINE void __pyx_f_7cpython_5array_zero(arrayobject *__pyx_v_self
   __Pyx_RefNannyFinishContext();
 }
 
-/* "vector.from_py":49
- * 
- * @cname("__pyx_convert_vector_from_py_double")
- * cdef vector[X] __pyx_convert_vector_from_py_double(object o) except *:             # <<<<<<<<<<<<<<
- *     cdef vector[X] v
- *     for item in o:
- */
-
-static std::vector<double>  __pyx_convert_vector_from_py_double(PyObject *__pyx_v_o) {
-  std::vector<double>  __pyx_v_v;
-  PyObject *__pyx_v_item = NULL;
-  std::vector<double>  __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  Py_ssize_t __pyx_t_2;
-  PyObject *(*__pyx_t_3)(PyObject *);
-  PyObject *__pyx_t_4 = NULL;
-  double __pyx_t_5;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__pyx_convert_vector_from_py_double", 0);
-
-  /* "vector.from_py":51
- * cdef vector[X] __pyx_convert_vector_from_py_double(object o) except *:
- *     cdef vector[X] v
- *     for item in o:             # <<<<<<<<<<<<<<
- *         v.push_back(X_from_py(item))
- *     return v
- */
-  if (likely(PyList_CheckExact(__pyx_v_o)) || PyTuple_CheckExact(__pyx_v_o)) {
-    __pyx_t_1 = __pyx_v_o; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
-    __pyx_t_3 = NULL;
-  } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_o); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-  for (;;) {
-    if (likely(!__pyx_t_3)) {
-      if (likely(PyList_CheckExact(__pyx_t_1))) {
-        if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        #endif
-      } else {
-        if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        #endif
-      }
-    } else {
-      __pyx_t_4 = __pyx_t_3(__pyx_t_1);
-      if (unlikely(!__pyx_t_4)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else {__pyx_filename = __pyx_f[2]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        }
-        break;
-      }
-      __Pyx_GOTREF(__pyx_t_4);
-    }
-    __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_4);
-    __pyx_t_4 = 0;
-
-    /* "vector.from_py":52
- *     cdef vector[X] v
- *     for item in o:
- *         v.push_back(X_from_py(item))             # <<<<<<<<<<<<<<
- *     return v
- * 
- */
-    __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_item); if (unlikely(__pyx_t_5 == -1.0 && PyErr_Occurred())) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_v_v.push_back(__pyx_t_5);
-
-    /* "vector.from_py":51
- * cdef vector[X] __pyx_convert_vector_from_py_double(object o) except *:
- *     cdef vector[X] v
- *     for item in o:             # <<<<<<<<<<<<<<
- *         v.push_back(X_from_py(item))
- *     return v
- */
-  }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "vector.from_py":53
- *     for item in o:
- *         v.push_back(X_from_py(item))
- *     return v             # <<<<<<<<<<<<<<
- * 
- * 
- */
-  __pyx_r = __pyx_v_v;
-  goto __pyx_L0;
-
-  /* "vector.from_py":49
- * 
- * @cname("__pyx_convert_vector_from_py_double")
- * cdef vector[X] __pyx_convert_vector_from_py_double(object o) except *:             # <<<<<<<<<<<<<<
- *     cdef vector[X] v
- *     for item in o:
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("vector.from_py.__pyx_convert_vector_from_py_double", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_item);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "vector.to_py":67
- * 
- * @cname("__pyx_convert_vector_to_py_double")
- * cdef object __pyx_convert_vector_to_py_double(vector[X]& v):             # <<<<<<<<<<<<<<
- *     return [X_to_py(v[i]) for i in range(v.size())]
- * 
- */
-
-static PyObject *__pyx_convert_vector_to_py_double(const std::vector<double>  &__pyx_v_v) {
-  size_t __pyx_v_i;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  size_t __pyx_t_2;
-  size_t __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__pyx_convert_vector_to_py_double", 0);
-
-  /* "vector.to_py":68
- * @cname("__pyx_convert_vector_to_py_double")
- * cdef object __pyx_convert_vector_to_py_double(vector[X]& v):
- *     return [X_to_py(v[i]) for i in range(v.size())]             # <<<<<<<<<<<<<<
- * 
- * 
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __pyx_v_v.size();
-  for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
-    __pyx_v_i = __pyx_t_3;
-    __pyx_t_4 = PyFloat_FromDouble((__pyx_v_v[__pyx_v_i])); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  }
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "vector.to_py":67
- * 
- * @cname("__pyx_convert_vector_to_py_double")
- * cdef object __pyx_convert_vector_to_py_double(vector[X]& v):             # <<<<<<<<<<<<<<
- *     return [X_to_py(v[i]) for i in range(v.size())]
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("vector.to_py.__pyx_convert_vector_to_py_double", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_tp_new_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl(PyTypeObject *t, PyObject *a, PyObject *k) {
+static PyObject *__pyx_tp_new_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt(PyTypeObject *t, PyObject *a, PyObject *k) {
   PyObject *o = __pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D->tp_new(t, a, k);
   if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
+  if (unlikely(__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
     Py_DECREF(o); o = 0;
   }
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl(PyObject *o) {
+static void __pyx_tp_dealloc_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -2948,13 +2104,13 @@ static void __pyx_tp_dealloc_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_Matri
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_3__dealloc__(o);
+    __pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
-  if (likely(__pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D)) __pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D->tp_dealloc(o); else __Pyx_call_next_tp_dealloc(o, __pyx_tp_dealloc_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl);
+  if (likely(__pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D)) __pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D->tp_dealloc(o); else __Pyx_call_next_tp_dealloc(o, __pyx_tp_dealloc_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt);
 }
-static PyObject *__pyx_sq_item_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl(PyObject *o, Py_ssize_t i) {
+static PyObject *__pyx_sq_item_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt(PyObject *o, Py_ssize_t i) {
   PyObject *r;
   PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;
   r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);
@@ -2962,26 +2118,18 @@ static PyObject *__pyx_sq_item_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_Mat
   return r;
 }
 
-static PyMethodDef __pyx_methods_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_7alloc, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_6alloc},
-  {"n_snapshots", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_9n_snapshots, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_8n_snapshots},
-  {"element", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_11element, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_10element},
-  {"add_element", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_13add_element, METH_O, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_12add_element},
-  {"set_element", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_15set_element, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_14set_element},
-  {"vect", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_17vect, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_16vect},
-  {"allocate_vector", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_19allocate_vector, METH_O, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_18allocate_vector},
-  {"store_mass", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_21store_mass, METH_O, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_20store_mass},
-  {"mass", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_23mass, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_22mass},
-  {"get_full_matrix", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_25get_full_matrix, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_24get_full_matrix},
-  {"data", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_27data, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_26data},
+static PyMethodDef __pyx_methods_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt[] = {
+  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_7alloc, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_6alloc},
+  {"get_full_matrix", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_9get_full_matrix, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_8get_full_matrix},
+  {"data", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_11data, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_10data},
   {0, 0, 0, 0}
 };
 
-static PySequenceMethods __pyx_tp_as_sequence_DataSet_MatrixDbl = {
+static PySequenceMethods __pyx_tp_as_sequence_DataSet_MatrixFlt = {
   0, /*sq_length*/
   0, /*sq_concat*/
   0, /*sq_repeat*/
-  __pyx_sq_item_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl, /*sq_item*/
+  __pyx_sq_item_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt, /*sq_item*/
   0, /*sq_slice*/
   0, /*sq_ass_item*/
   0, /*sq_ass_slice*/
@@ -2990,18 +2138,18 @@ static PySequenceMethods __pyx_tp_as_sequence_DataSet_MatrixDbl = {
   0, /*sq_inplace_repeat*/
 };
 
-static PyMappingMethods __pyx_tp_as_mapping_DataSet_MatrixDbl = {
+static PyMappingMethods __pyx_tp_as_mapping_DataSet_MatrixFlt = {
   0, /*mp_length*/
-  __pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_5__getitem__, /*mp_subscript*/
+  __pyx_pw_6pytraj_8datasets_17DataSet_MatrixFlt_17DataSet_MatrixFlt_5__getitem__, /*mp_subscript*/
   0, /*mp_ass_subscript*/
 };
 
-static PyTypeObject __pyx_type_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl = {
+static PyTypeObject __pyx_type_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl), /*tp_basicsize*/
+  "pytraj.datasets.DataSet_MatrixFlt.DataSet_MatrixFlt", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -3012,8 +2160,8 @@ static PyTypeObject __pyx_type_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_Mat
   #endif
   0, /*tp_repr*/
   0, /*tp_as_number*/
-  &__pyx_tp_as_sequence_DataSet_MatrixDbl, /*tp_as_sequence*/
-  &__pyx_tp_as_mapping_DataSet_MatrixDbl, /*tp_as_mapping*/
+  &__pyx_tp_as_sequence_DataSet_MatrixFlt, /*tp_as_sequence*/
+  &__pyx_tp_as_mapping_DataSet_MatrixFlt, /*tp_as_mapping*/
   0, /*tp_hash*/
   0, /*tp_call*/
   0, /*tp_str*/
@@ -3028,7 +2176,7 @@ static PyTypeObject __pyx_type_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_Mat
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl, /*tp_methods*/
+  __pyx_methods_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -3038,7 +2186,7 @@ static PyTypeObject __pyx_type_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_Mat
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl, /*tp_new*/
+  __pyx_tp_new_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -3064,7 +2212,7 @@ static struct PyModuleDef __pyx_moduledef = {
   #else
     PyModuleDef_HEAD_INIT,
   #endif
-    "DataSet_MatrixDbl",
+    "DataSet_MatrixFlt",
     0, /* m_doc */
     -1, /* m_size */
     __pyx_methods /* m_methods */,
@@ -3080,27 +2228,23 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_MatrixKindDict, __pyx_k_MatrixKindDict, sizeof(__pyx_k_MatrixKindDict), 0, 0, 1, 1},
   {&__pyx_n_s_MemoryError, __pyx_k_MemoryError, sizeof(__pyx_k_MemoryError), 0, 0, 1, 1},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
-  {&__pyx_n_s_d, __pyx_k_d, sizeof(__pyx_k_d), 0, 0, 1, 1},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
+  {&__pyx_n_s_f, __pyx_k_f, sizeof(__pyx_k_f), 0, 0, 1, 1},
   {&__pyx_n_s_get_full_matrix, __pyx_k_get_full_matrix, sizeof(__pyx_k_get_full_matrix), 0, 0, 1, 1},
   {&__pyx_n_s_get_key, __pyx_k_get_key, sizeof(__pyx_k_get_key), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
-  {&__pyx_n_s_mass, __pyx_k_mass, sizeof(__pyx_k_mass), 0, 0, 1, 1},
   {&__pyx_n_s_n_cols, __pyx_k_n_cols, sizeof(__pyx_k_n_cols), 0, 0, 1, 1},
   {&__pyx_n_s_n_rows, __pyx_k_n_rows, sizeof(__pyx_k_n_rows), 0, 0, 1, 1},
-  {&__pyx_n_s_n_snapshots, __pyx_k_n_snapshots, sizeof(__pyx_k_n_snapshots), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_cpptraj_dict, __pyx_k_pytraj_cpptraj_dict, sizeof(__pyx_k_pytraj_cpptraj_dict), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
-  {&__pyx_n_s_x, __pyx_k_x, sizeof(__pyx_k_x), 0, 0, 1, 1},
-  {&__pyx_n_s_y, __pyx_k_y, sizeof(__pyx_k_y), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
   __pyx_L1_error:;
@@ -3122,11 +2266,11 @@ static int __Pyx_InitGlobals(void) {
 }
 
 #if PY_MAJOR_VERSION < 3
-PyMODINIT_FUNC initDataSet_MatrixDbl(void); /*proto*/
-PyMODINIT_FUNC initDataSet_MatrixDbl(void)
+PyMODINIT_FUNC initDataSet_MatrixFlt(void); /*proto*/
+PyMODINIT_FUNC initDataSet_MatrixFlt(void)
 #else
-PyMODINIT_FUNC PyInit_DataSet_MatrixDbl(void); /*proto*/
-PyMODINIT_FUNC PyInit_DataSet_MatrixDbl(void)
+PyMODINIT_FUNC PyInit_DataSet_MatrixFlt(void); /*proto*/
+PyMODINIT_FUNC PyInit_DataSet_MatrixFlt(void)
 #endif
 {
   PyObject *__pyx_t_1 = NULL;
@@ -3144,7 +2288,7 @@ PyMODINIT_FUNC PyInit_DataSet_MatrixDbl(void)
           Py_FatalError("failed to import 'refnanny' module");
   }
   #endif
-  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit_DataSet_MatrixDbl(void)", 0);
+  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit_DataSet_MatrixFlt(void)", 0);
   if ( __Pyx_check_binary_version() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3166,7 +2310,7 @@ PyMODINIT_FUNC PyInit_DataSet_MatrixDbl(void)
   #endif
   /*--- Module creation code ---*/
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("DataSet_MatrixDbl", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("DataSet_MatrixFlt", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -3183,14 +2327,14 @@ PyMODINIT_FUNC PyInit_DataSet_MatrixDbl(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_pytraj__datasets__DataSet_MatrixDbl) {
+  if (__pyx_module_is_main_pytraj__datasets__DataSet_MatrixFlt) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "pytraj.datasets.DataSet_MatrixDbl")) {
-      if (unlikely(PyDict_SetItemString(modules, "pytraj.datasets.DataSet_MatrixDbl", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "pytraj.datasets.DataSet_MatrixFlt")) {
+      if (unlikely(PyDict_SetItemString(modules, "pytraj.datasets.DataSet_MatrixFlt", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -3203,27 +2347,27 @@ PyMODINIT_FUNC PyInit_DataSet_MatrixDbl(void)
   /*--- Function export code ---*/
   /*--- Type init code ---*/
   __pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D = __Pyx_ImportType("pytraj.datasets.DataSet_2D", "DataSet_2D", sizeof(struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl.tp_base = __pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D;
-  if (PyType_Ready(&__pyx_type_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "DataSet_MatrixDbl", (PyObject *)&__pyx_type_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl = &__pyx_type_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl;
+  __pyx_type_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt.tp_base = __pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D;
+  if (PyType_Ready(&__pyx_type_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "DataSet_MatrixFlt", (PyObject *)&__pyx_type_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt = &__pyx_type_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt;
   /*--- Type import code ---*/
-  __pyx_ptype_6pytraj_9Dimension_Dimension = __Pyx_ImportType("pytraj.Dimension", "Dimension", sizeof(struct __pyx_obj_6pytraj_9Dimension_Dimension), 1); if (unlikely(!__pyx_ptype_6pytraj_9Dimension_Dimension)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_9Dimension_Dimension = __Pyx_ImportType("pytraj.Dimension", "Dimension", sizeof(struct __pyx_obj_6pytraj_9Dimension_Dimension), 1); if (unlikely(!__pyx_ptype_6pytraj_9Dimension_Dimension)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":3
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":3
  * # distutils: language = c++
  * from cpython.array cimport array as pyarray
  * from pytraj.cpptraj_dict import MatrixDict, MatrixKindDict, get_key             # <<<<<<<<<<<<<<
  * 
- * cdef class DataSet_MatrixDbl (DataSet_2D):
+ * cdef class DataSet_MatrixFlt (DataSet_2D):
  */
   __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -3253,94 +2397,36 @@ PyMODINIT_FUNC PyInit_DataSet_MatrixDbl(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":24
- * 
- *     @property
- *     def n_snapshots(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Nsnapshots()
- * 
- */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl, __pyx_n_s_n_snapshots); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":23
- *         return dset
- * 
- *     @property             # <<<<<<<<<<<<<<
- *     def n_snapshots(self):
- *         return self.thisptr.Nsnapshots()
- */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
-  __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl->tp_dict, __pyx_n_s_n_snapshots, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":46
- * 
- *     @property
- *     def mass(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Mass()
- * 
- */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl, __pyx_n_s_mass); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":45
- *         self.thisptr.StoreMass(mIn)
- * 
- *     @property             # <<<<<<<<<<<<<<
- *     def mass(self):
- *         return self.thisptr.Mass()
- */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
-  __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl->tp_dict, __pyx_n_s_mass, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl);
-
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":62
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":40
  * 
  *     @property
  *     def data(self):             # <<<<<<<<<<<<<<
  *         """return 1D python array of matrix' data"""
  *         return self.get_full_matrix()
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl, __pyx_n_s_data); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt, __pyx_n_s_data); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":61
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":39
  *         return arr0
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def data(self):
  *         """return 1D python array of matrix' data"""
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl->tp_dict, __pyx_n_s_data, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt->tp_dict, __pyx_n_s_data, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl);
+  PyType_Modified(__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":1
+  /* "pytraj/datasets/DataSet_MatrixFlt.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * from cpython.array cimport array as pyarray
  * from pytraj.cpptraj_dict import MatrixDict, MatrixKindDict, get_key
@@ -3350,12 +2436,12 @@ PyMODINIT_FUNC PyInit_DataSet_MatrixDbl(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "vector.to_py":67
+  /* "cpython/array.pxd":159
+ *     return extend_buffer(self, other.data.as_chars, Py_SIZE(other))
  * 
- * @cname("__pyx_convert_vector_to_py_double")
- * cdef object __pyx_convert_vector_to_py_double(vector[X]& v):             # <<<<<<<<<<<<<<
- *     return [X_to_py(v[i]) for i in range(v.size())]
- * 
+ * cdef inline void zero(array self):             # <<<<<<<<<<<<<<
+ *     """ set all elements of array to zero. """
+ *     memset(self.data.as_chars, 0, Py_SIZE(self) * self.ob_descr.itemsize)
  */
 
   /*--- Wrapped vars code ---*/
@@ -3366,11 +2452,11 @@ PyMODINIT_FUNC PyInit_DataSet_MatrixDbl(void)
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pytraj.datasets.DataSet_MatrixDbl", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pytraj.datasets.DataSet_MatrixFlt", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pytraj.datasets.DataSet_MatrixDbl");
+    PyErr_SetString(PyExc_ImportError, "init pytraj.datasets.DataSet_MatrixFlt");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -3493,120 +2579,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
     return result;
 }
 #endif
-
-static void __Pyx_RaiseDoubleKeywordsError(
-    const char* func_name,
-    PyObject* kw_name)
-{
-    PyErr_Format(PyExc_TypeError,
-        #if PY_MAJOR_VERSION >= 3
-        "%s() got multiple values for keyword argument '%U'", func_name, kw_name);
-        #else
-        "%s() got multiple values for keyword argument '%s'", func_name,
-        PyString_AsString(kw_name));
-        #endif
-}
-
-static int __Pyx_ParseOptionalKeywords(
-    PyObject *kwds,
-    PyObject **argnames[],
-    PyObject *kwds2,
-    PyObject *values[],
-    Py_ssize_t num_pos_args,
-    const char* function_name)
-{
-    PyObject *key = 0, *value = 0;
-    Py_ssize_t pos = 0;
-    PyObject*** name;
-    PyObject*** first_kw_arg = argnames + num_pos_args;
-    while (PyDict_Next(kwds, &pos, &key, &value)) {
-        name = first_kw_arg;
-        while (*name && (**name != key)) name++;
-        if (*name) {
-            values[name-argnames] = value;
-            continue;
-        }
-        name = first_kw_arg;
-        #if PY_MAJOR_VERSION < 3
-        if (likely(PyString_CheckExact(key)) || likely(PyString_Check(key))) {
-            while (*name) {
-                if ((CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**name) == PyString_GET_SIZE(key))
-                        && _PyString_Eq(**name, key)) {
-                    values[name-argnames] = value;
-                    break;
-                }
-                name++;
-            }
-            if (*name) continue;
-            else {
-                PyObject*** argname = argnames;
-                while (argname != first_kw_arg) {
-                    if ((**argname == key) || (
-                            (CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**argname) == PyString_GET_SIZE(key))
-                             && _PyString_Eq(**argname, key))) {
-                        goto arg_passed_twice;
-                    }
-                    argname++;
-                }
-            }
-        } else
-        #endif
-        if (likely(PyUnicode_Check(key))) {
-            while (*name) {
-                int cmp = (**name == key) ? 0 :
-                #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION >= 3
-                    (PyUnicode_GET_SIZE(**name) != PyUnicode_GET_SIZE(key)) ? 1 :
-                #endif
-                    PyUnicode_Compare(**name, key);
-                if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
-                if (cmp == 0) {
-                    values[name-argnames] = value;
-                    break;
-                }
-                name++;
-            }
-            if (*name) continue;
-            else {
-                PyObject*** argname = argnames;
-                while (argname != first_kw_arg) {
-                    int cmp = (**argname == key) ? 0 :
-                    #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION >= 3
-                        (PyUnicode_GET_SIZE(**argname) != PyUnicode_GET_SIZE(key)) ? 1 :
-                    #endif
-                        PyUnicode_Compare(**argname, key);
-                    if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
-                    if (cmp == 0) goto arg_passed_twice;
-                    argname++;
-                }
-            }
-        } else
-            goto invalid_keyword_type;
-        if (kwds2) {
-            if (unlikely(PyDict_SetItem(kwds2, key, value))) goto bad;
-        } else {
-            goto invalid_keyword;
-        }
-    }
-    return 0;
-arg_passed_twice:
-    __Pyx_RaiseDoubleKeywordsError(function_name, key);
-    goto bad;
-invalid_keyword_type:
-    PyErr_Format(PyExc_TypeError,
-        "%.200s() keywords must be strings", function_name);
-    goto bad;
-invalid_keyword:
-    PyErr_Format(PyExc_TypeError,
-    #if PY_MAJOR_VERSION < 3
-        "%.200s() got an unexpected keyword argument '%.200s'",
-        function_name, PyString_AsString(key));
-    #else
-        "%s() got an unexpected keyword argument '%U'",
-        function_name, key);
-    #endif
-bad:
-    return -1;
-}
 
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
@@ -4016,153 +2988,6 @@ bad:
  #endif
 #endif
 
-static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *x) {
-    const size_t neg_one = (size_t) -1, const_zero = 0;
-    const int is_unsigned = neg_one > const_zero;
-#if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_Check(x))) {
-        if (sizeof(size_t) < sizeof(long)) {
-            __PYX_VERIFY_RETURN_INT(size_t, long, PyInt_AS_LONG(x))
-        } else {
-            long val = PyInt_AS_LONG(x);
-            if (is_unsigned && unlikely(val < 0)) {
-                goto raise_neg_overflow;
-            }
-            return (size_t) val;
-        }
-    } else
-#endif
-    if (likely(PyLong_Check(x))) {
-        if (is_unsigned) {
-#if CYTHON_COMPILING_IN_CPYTHON && PY_MAJOR_VERSION >= 3
- #if CYTHON_USE_PYLONG_INTERNALS
-            switch (Py_SIZE(x)) {
-                case  0: return 0;
-                case  1: __PYX_VERIFY_RETURN_INT(size_t, digit, ((PyLongObject*)x)->ob_digit[0]);
-            }
- #endif
-#endif
-            if (unlikely(Py_SIZE(x) < 0)) {
-                goto raise_neg_overflow;
-            }
-            if (sizeof(size_t) <= sizeof(unsigned long)) {
-                __PYX_VERIFY_RETURN_INT(size_t, unsigned long, PyLong_AsUnsignedLong(x))
-            } else if (sizeof(size_t) <= sizeof(unsigned long long)) {
-                __PYX_VERIFY_RETURN_INT(size_t, unsigned long long, PyLong_AsUnsignedLongLong(x))
-            }
-        } else {
-#if CYTHON_COMPILING_IN_CPYTHON && PY_MAJOR_VERSION >= 3
- #if CYTHON_USE_PYLONG_INTERNALS
-            switch (Py_SIZE(x)) {
-                case  0: return 0;
-                case  1: __PYX_VERIFY_RETURN_INT(size_t,  digit, +(((PyLongObject*)x)->ob_digit[0]));
-                case -1: __PYX_VERIFY_RETURN_INT(size_t, sdigit, -(sdigit) ((PyLongObject*)x)->ob_digit[0]);
-            }
- #endif
-#endif
-            if (sizeof(size_t) <= sizeof(long)) {
-                __PYX_VERIFY_RETURN_INT(size_t, long, PyLong_AsLong(x))
-            } else if (sizeof(size_t) <= sizeof(long long)) {
-                __PYX_VERIFY_RETURN_INT(size_t, long long, PyLong_AsLongLong(x))
-            }
-        }
-        {
-#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
-            PyErr_SetString(PyExc_RuntimeError,
-                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
-#else
-            size_t val;
-            PyObject *v = __Pyx_PyNumber_Int(x);
- #if PY_MAJOR_VERSION < 3
-            if (likely(v) && !PyLong_Check(v)) {
-                PyObject *tmp = v;
-                v = PyNumber_Long(tmp);
-                Py_DECREF(tmp);
-            }
- #endif
-            if (likely(v)) {
-                int one = 1; int is_little = (int)*(unsigned char *)&one;
-                unsigned char *bytes = (unsigned char *)&val;
-                int ret = _PyLong_AsByteArray((PyLongObject *)v,
-                                              bytes, sizeof(val),
-                                              is_little, !is_unsigned);
-                Py_DECREF(v);
-                if (likely(!ret))
-                    return val;
-            }
-#endif
-            return (size_t) -1;
-        }
-    } else {
-        size_t val;
-        PyObject *tmp = __Pyx_PyNumber_Int(x);
-        if (!tmp) return (size_t) -1;
-        val = __Pyx_PyInt_As_size_t(tmp);
-        Py_DECREF(tmp);
-        return val;
-    }
-raise_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "value too large to convert to size_t");
-    return (size_t) -1;
-raise_neg_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "can't convert negative value to size_t");
-    return (size_t) -1;
-}
-
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value) {
-    const unsigned int neg_one = (unsigned int) -1, const_zero = 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(unsigned int) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(unsigned int) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-        } else if (sizeof(unsigned int) <= sizeof(unsigned long long)) {
-            return PyLong_FromUnsignedLongLong((unsigned long long) value);
-        }
-    } else {
-        if (sizeof(unsigned int) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(unsigned int) <= sizeof(long long)) {
-            return PyLong_FromLongLong((long long) value);
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(unsigned int),
-                                     little, !is_unsigned);
-    }
-}
-
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
-    const int neg_one = (int) -1, const_zero = 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(int) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(int) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-        } else if (sizeof(int) <= sizeof(unsigned long long)) {
-            return PyLong_FromUnsignedLongLong((unsigned long long) value);
-        }
-    } else {
-        if (sizeof(int) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(int) <= sizeof(long long)) {
-            return PyLong_FromLongLong((long long) value);
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(int),
-                                     little, !is_unsigned);
-    }
-}
-
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
     const int neg_one = (int) -1, const_zero = 0;
     const int is_unsigned = neg_one > const_zero;
@@ -4256,6 +3081,32 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to int");
     return (int) -1;
+}
+
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
+    const int neg_one = (int) -1, const_zero = 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(int) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(int) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+        } else if (sizeof(int) <= sizeof(unsigned long long)) {
+            return PyLong_FromUnsignedLongLong((unsigned long long) value);
+        }
+    } else {
+        if (sizeof(int) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(int) <= sizeof(long long)) {
+            return PyLong_FromLongLong((long long) value);
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(int),
+                                     little, !is_unsigned);
+    }
 }
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {

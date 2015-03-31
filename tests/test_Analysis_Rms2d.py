@@ -54,7 +54,13 @@ class Test(unittest.TestCase):
             dflist=dflist)
         print (act)
         print (dslist.size)
-        dflist.write_all_datafiles()
+        print (dslist[1].size)
+        print (dslist[1].mkind)
+        print (dslist[1].name)
+        print (dslist[1].dtype)
+        assert (dslist[1].dtype == 'matrix_flt')
+        print (len(dslist[1][:]))
+        #dflist.write_all_datafiles()
 
 if __name__ == "__main__":
     unittest.main()
