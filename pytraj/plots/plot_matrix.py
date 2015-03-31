@@ -14,7 +14,9 @@ def plot_matrix(dset, *args, **kwd):
     fig = plt.figure()
     ax = fig.add_subplot(111)
 
-    if isinstance(dset, DataSet_MatrixDbl):
+    #if isinstance(dset, DataSet_MatrixDbl):
+    # use below for all kind of matrix datatypes
+    if 'matrix' in dset.dtype.lower(): 
         # get matrix data
         # need to reshape since dset stores data in 1D
         mat = np.asarray(dset.get_full_matrix()).reshape(dset.n_rows, dset.n_cols)
