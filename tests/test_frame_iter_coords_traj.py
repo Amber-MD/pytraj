@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+from pytraj.decorators import no_test
 from pytraj.base import *
 from pytraj import adict, cast_dataset
 from pytraj import io as mdio
@@ -7,6 +8,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.six_2 import izip
 
 class Test(unittest.TestCase):
+    @no_test
     def test_0(self):
         print ("coords")
         dslist = DataSetList()
@@ -46,6 +48,16 @@ class Test(unittest.TestCase):
         for f0, f1 in izip(coords(), traj()):
             print (f0[0, :], f1[0, :])
             assert_almost_equal(f0.coords, f1.coords)
+
+        # FIXME: frame_iter for TRJ and CRD results infinite loop
+        # ack
+        #for f0, f1 in izip(coords.frame_iter(2, 8, 1, "!@CA'), traj(2, 8, 1, '!@CA')):
+        #    print (f0[0, :], f1[0, :])
+        #    assert_almost_equal(f0.coords, f1.coords)
+
+        #for f0, f1 in izip(coords(mask='!@CA'), traj(mask='!@CA')):
+        #    print (f0[0, :], f1[0, :])
+        #    assert_almost_equal(f0.coords, f1.coords)
 
 if __name__ == "__main__":
     unittest.main()
