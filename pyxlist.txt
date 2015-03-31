@@ -80,6 +80,7 @@ PDBfile
 #datasets/DataSet_Vector
 datasets/DataSet_GridFlt
 datasets/DataSet_MatrixDbl
+datasets/DataSet_MatrixFlt
 datasets/DataSet_RemLog
 #clusters/Cluster_DBSCAN
 actions/GridAction

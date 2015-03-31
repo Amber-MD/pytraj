@@ -6,6 +6,7 @@ from pytraj.datasets.DataSet_float cimport DataSet_float, _DataSet_float
 from pytraj.datasets.DataSet_integer cimport DataSet_integer, _DataSet_integer
 from pytraj.datasets.DataSet_string cimport DataSet_string, _DataSet_string
 from pytraj.datasets.DataSet_MatrixDbl cimport DataSet_MatrixDbl, _DataSet_MatrixDbl
+from pytraj.datasets.DataSet_MatrixFlt cimport DataSet_MatrixFlt, _DataSet_MatrixFlt
 from pytraj.datasets.DataSet cimport DataSet, _DataSet
 from pytraj.datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
 from pytraj.datasets.DataSet_Coords_REF cimport _DataSet_Coords_REF, DataSet_Coords_REF
@@ -19,7 +20,8 @@ def cast_dataset(dsetin=None, dtype='general'):
     ---------
     dset : DataSet instance
     dtype : str (default dtype=None)
-        {'general', 'matrix', '1D', '2D', 'double', 'matrix_dbl',
+        {'general', 'matrix', '1D', '2D', 'double', 
+         'matrix_dbl', 'matrix_flt',
          'integer',
          'coords_crd', 'coords'
          'coords_trj', 'trj'}
@@ -32,6 +34,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DataSet_float newset_float
     cdef DataSet_integer newset_integer
     cdef DataSet_MatrixDbl newset_MatrixDbl
+    cdef DataSet_MatrixFlt newset_MatrixFlt
     cdef DataSet_string newset_string
     cdef DataSet_Coords_REF newset_coords_ref
     cdef DataSet_Coords_CRD newset_coords_crd
@@ -98,7 +101,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_string.thisptr = <_DataSet_string*> dset.baseptr0
         return newset_string
 
-    elif dtype in ['MATRIX', 'MATRIX_DBL']:
+    elif dtype in ['MATRIX_DBL', 'MATRIX_DOUBLE', 'MATRIX DOUBLE']:
         newset_matrixdbl = DataSet_MatrixDbl()
         # since we introduce memory view, we let cpptraj free memory
         newset_matrixdbl.py_free_mem = False
@@ -107,6 +110,16 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_matrixdbl.baseptr_1 = <_DataSet_2D*> dset.baseptr0
         newset_matrixdbl.thisptr = <_DataSet_MatrixDbl*> dset.baseptr0
         return newset_matrixdbl
+
+    elif dtype in ['MATRIX_FLT', 'MATRIX_FLOAT', 'MATRIX FLOAT']:
+        newset_matrixflt = DataSet_MatrixFlt()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_matrixflt.py_free_mem = False
+        newset_matrixflt.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_matrixflt.baseptr_1 = <_DataSet_2D*> dset.baseptr0
+        newset_matrixflt.thisptr = <_DataSet_MatrixFlt*> dset.baseptr0
+        return newset_matrixflt
 
     elif dtype in ['COORDS_CRD', 'COORDS', 'CRD']:
         # FIXME: not correctly casting
