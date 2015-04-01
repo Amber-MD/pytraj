@@ -4,9 +4,8 @@ from cython.operator cimport dereference as deref
 
 cdef class Analysis_Rms2d (Analysis):
     def __cinit__(self):
-        with nogil:
-            self.baseptr = <_Analysis*> new _Analysis_Rms2d()
-            self.thisptr = <_Analysis_Rms2d*> self.baseptr
+        self.baseptr = <_Analysis*> new _Analysis_Rms2d()
+        self.thisptr = <_Analysis_Rms2d*> self.baseptr
 
     def __dealloc__(self):
         if self.baseptr is not NULL:
