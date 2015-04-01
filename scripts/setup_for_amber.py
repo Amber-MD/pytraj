@@ -56,7 +56,7 @@ if "-openmp" in sys.argv:
     with_openmp = True
     sys.argv.remove("-openmp")
 else:
-    is_testing_openmp = False 
+    with_openmp = False 
 
 if with_openmp:
     extra_compile_args.append("-fopenmp")
