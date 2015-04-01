@@ -1899,9 +1899,9 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
-#include <new>
-
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
+
+#include <new>
 
 #if PY_MAJOR_VERSION < 3
     static int __Pyx_GetBuffer(PyObject *obj, Py_buffer *view, int flags);
@@ -2542,8 +2542,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_14Analysis_Rms2d_14Analysis_Rms2d_4a
  *         """return a function-pointer object to be used with AnalysisList class
  *         """
  *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
+ *         with nogil:
+ *             func.ptr = &(self.thisptr.Alloc)
  */
   __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_9_FunctPtr_FunctPtr)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -2553,15 +2553,48 @@ static PyObject *__pyx_pf_6pytraj_8analyses_14Analysis_Rms2d_14Analysis_Rms2d_4a
   /* "pytraj/analyses/Analysis_Rms2d.pyx":18
  *         """
  *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
+ *         with nogil:             # <<<<<<<<<<<<<<
+ *             func.ptr = &(self.thisptr.Alloc)
+ *         return func
+ */
+  {
+      #ifdef WITH_THREAD
+      PyThreadState *_save;
+      Py_UNBLOCK_THREADS
+      #endif
+      /*try:*/ {
+
+        /* "pytraj/analyses/Analysis_Rms2d.pyx":19
+ *         cdef FunctPtr func = FunctPtr()
+ *         with nogil:
+ *             func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
  *         return func
  * 
  */
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
+        __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
+      }
 
-  /* "pytraj/analyses/Analysis_Rms2d.pyx":19
+      /* "pytraj/analyses/Analysis_Rms2d.pyx":18
+ *         """
  *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
+ *         with nogil:             # <<<<<<<<<<<<<<
+ *             func.ptr = &(self.thisptr.Alloc)
+ *         return func
+ */
+      /*finally:*/ {
+        /*normal exit:*/{
+          #ifdef WITH_THREAD
+          Py_BLOCK_THREADS
+          #endif
+          goto __pyx_L5;
+        }
+        __pyx_L5:;
+      }
+  }
+
+  /* "pytraj/analyses/Analysis_Rms2d.pyx":20
+ *         with nogil:
+ *             func.ptr = &(self.thisptr.Alloc)
  *         return func             # <<<<<<<<<<<<<<
  * 
  *     def help(self):
@@ -2591,7 +2624,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_14Analysis_Rms2d_14Analysis_Rms2d_4a
   return __pyx_r;
 }
 
-/* "pytraj/analyses/Analysis_Rms2d.pyx":21
+/* "pytraj/analyses/Analysis_Rms2d.pyx":22
  *         return func
  * 
  *     def help(self):             # <<<<<<<<<<<<<<
@@ -2617,14 +2650,14 @@ static PyObject *__pyx_pf_6pytraj_8analyses_14Analysis_Rms2d_14Analysis_Rms2d_6h
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help", 0);
 
-  /* "pytraj/analyses/Analysis_Rms2d.pyx":22
+  /* "pytraj/analyses/Analysis_Rms2d.pyx":23
  * 
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  */
   __pyx_v_self->thisptr->Help();
 
-  /* "pytraj/analyses/Analysis_Rms2d.pyx":21
+  /* "pytraj/analyses/Analysis_Rms2d.pyx":22
  *         return func
  * 
  *     def help(self):             # <<<<<<<<<<<<<<
