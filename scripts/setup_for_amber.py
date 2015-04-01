@@ -49,6 +49,10 @@ try:
 finally:
     f.close()
 
+# make random list so we can run many `python setup.py` at the same times
+# TODO: need to compile parallely.
+shuffle(pyxfiles)
+
 extra_compile_args=['-O0', '-ggdb']
 extra_link_args=['-O0', '-ggdb']
 
