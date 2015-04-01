@@ -15,7 +15,8 @@ cdef class Analysis_Rms2d (Analysis):
         """return a function-pointer object to be used with AnalysisList class
         """
         cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
+        with nogil:
+            func.ptr = &(self.thisptr.Alloc)
         return func
         
     def help(self):

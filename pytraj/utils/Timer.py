@@ -12,5 +12,12 @@ class Timer:
     def __exit__(self, *args):
         self._time_gap = time() - self.start
 
+    def __call__(self, func):
+        def inner(*args, **kwd):
+            with self:
+                func(*args, **kwd)
+            print (self.time_gap())
+        return inner
+
     def time_gap(self):
         return self._time_gap

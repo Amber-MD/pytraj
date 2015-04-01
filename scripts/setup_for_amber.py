@@ -49,6 +49,23 @@ try:
 finally:
     f.close()
 
+# make random list so we can run many `python setup.py` at the same times
+# TODO: need to compile parallely.
+shuffle(pyxfiles)
+
+extra_compile_args=['-O0', '-ggdb']
+extra_link_args=['-O0', '-ggdb']
+
+if "-openmp" in sys.argv:
+    with_openmp = True
+    sys.argv.remove("-openmp")
+else:
+    with_openmp = False 
+
+if with_openmp:
+    extra_compile_args.append("-fopenmp")
+    extra_link_args.append("-fopenmp")
+
 ext_modules = []
 for ext_name in pyxfiles:
     if has_cython:
@@ -69,8 +86,8 @@ for ext_name in pyxfiles:
                     language='c++',
                     library_dirs=[libdir,],
                     include_dirs=[cpptraj_include, pytraj_home],
-                    extra_compile_args=['-O0', '-ggdb'],
-                    extra_link_args=['-O0', '-ggdb'])
+                    extra_compile_args=extra_compile_args,
+                    extra_link_args=extra_link_args)
 
     extmod.cython_directives = {
             'embedsignature':True,
@@ -113,7 +130,7 @@ datalist = pxdlist +  sample_data + html_data
 
 if __name__ == "__main__":
     setup(name="pytraj",
-        version="0.1.1",
+        version="0.1.2.dev0",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
