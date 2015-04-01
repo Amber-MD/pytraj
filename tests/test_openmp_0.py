@@ -13,6 +13,12 @@ class Test(unittest.TestCase):
     def test_1(self):
         # just need to install libcpptraj with openmp
         # that's it
+        
+        # export OMP_NUM_THREADS=1
+        # python ./test_openmp_0.py
+        # export OMP_NUM_THREADS=8
+        # python ./test_openmp_0.py
+
         dslist = DataSetList()
         dflist = DataFileList()
 
