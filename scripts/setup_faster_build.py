@@ -189,9 +189,8 @@ def test_func(my_ext):
     print (len(my_ext))
 
 if __name__ == "__main__":
-    from multiprocessing import Pool, cpu_count
+    from multiprocessing import cpu_count
     n_cpus = cpu_count()
-    pool = Pool(n_cpus - 1)
     num_each = int(len(ext_modules)/n_cpus)
     
     sub_ext_modules_list = []
@@ -201,5 +200,6 @@ if __name__ == "__main__":
         else:
             sub_ext_modules_list.append(ext_modules[num_each*i:])
 
+    from multiprocessing import Pool
+    pool = Pool(n_cpus)
     pool.map(build_func, sub_ext_modules_list)
-    #pool.map(test_func, sub_ext_modules_list)
