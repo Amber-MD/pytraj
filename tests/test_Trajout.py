@@ -27,7 +27,7 @@ class TestTrajout(unittest.TestCase):
         trajout.close()
 
     #@no_test
-    def test_with_statement(self):
+    def test_1_with_statement(self):
         frame0 = farray[0]
         with Trajout(filename="./output/test_trajout_withstatement.x", top=farray.top, overwrite=True) as trajout:
             trajout.writeframe(0, frame0, farray.top)
@@ -43,7 +43,7 @@ class TestTrajout(unittest.TestCase):
         print(Trajout().formats)
         
     #@no_test
-    def test_1(self):
+    def test_2(self):
         """test open file writen from test_0"""
         farray = FrameArray()
         farray.top = Topology('./data/Tc5b.top')
@@ -52,19 +52,15 @@ class TestTrajout(unittest.TestCase):
        
 
     #@no_test
-    def test_write_PDBFILE(self):
+    def test_3_write_PDBFILE(self):
         frame0 = farray[0]
         with Trajout(filename="./output/test_0.pdb", top=farray.top, fmt="PDBFILE", overwrite=True) as trajout:
         #with Trajout(filename="test_0.pdb", top=farray.top, fmt="PDBFILE") as trajout:
             trajout.writeframe(0, frame0, farray.top)
 
-    #@no_test
-    def test_load(self):
-        farray = FrameArray("./output/test_0.pdb", "./data/Tc5b.top")[0]
-        print(farray.n_atoms)
 
     #@no_test
-    def test_2(self):
+    def test_4(self):
         """test write FrameArray"""
         farray = FrameArray("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
         writetraj("./output/test_write_output.x", farray, farray.top, overwrite=True)
@@ -80,7 +76,10 @@ class TestTrajout(unittest.TestCase):
         from numpy.testing import assert_almost_equal as assert_ae
         assert_ae(f0[:, :, :], f1[:, :, :])
 
+    #@no_test
+    def test_5(self):
+        farray = FrameArray("./output/test_0.pdb", "./data/Tc5b.top")[0]
+        print(farray.n_atoms)
 
 if __name__ == "__main__":
     unittest.main()
-
