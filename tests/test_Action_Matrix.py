@@ -18,7 +18,7 @@ class TestRadgyr(unittest.TestCase):
         act.run(command="byres @CA", current_frame=farray, 
                 current_top=farray.top, dslist=dslist)
 
-        d1 = cast_dataset(dslist[0], dtype="matrix")
+        d1 = cast_dataset(dslist[0], dtype="matrix double")
         print (d1.size)
         print (dir(d1))
         print (d1.n_cols, d1.n_rows)
