@@ -164,7 +164,7 @@ def build_func(my_ext):
         url="https://github.com/pytraj/pytraj",
         packages=packages,
         description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
-        long_description=read("README.rst"),
+        long_description=read("../README.rst"),
         license = "BSD License",
         classifiers=[
                     'Development Status :: 4 - Beta',
@@ -191,8 +191,7 @@ def test_func(my_ext):
 if __name__ == "__main__":
     from multiprocessing import Pool, cpu_count
     n_cpus = cpu_count()
-    #n_cpus = 8
-    pool = Pool(n_cpus)
+    pool = Pool(n_cpus - 1)
     num_each = int(len(ext_modules)/n_cpus)
     
     sub_ext_modules_list = []
