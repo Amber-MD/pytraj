@@ -23,10 +23,9 @@ def _get_temperature_set(self):
 
 def my_str_method(self):
     name = self.__class__.__name__
-    n_atoms = 0 if self.top.is_empty() else self.top.n_atoms
     tmps = """%s instance with %s frames, %s atoms/frame
            """ % (
-            name, self.size, n_atoms,
+            name, self.size, self.top.n_atoms,
             )
     return tmps
 
