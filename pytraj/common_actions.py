@@ -20,7 +20,7 @@ from pytraj.gdt.calc_score import calc_score
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
                'calc_dssp', 'calc_matrix', 'calc_jcoupling',
-               'calc_watershell']
+               'calc_radial', 'calc_watershell']
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
               'do_clustering',]
