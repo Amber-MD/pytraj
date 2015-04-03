@@ -28,5 +28,13 @@ class Test(unittest.TestCase):
             print (dslist.get_legends())
             print (dslist['LYS:8_C-CA-CB-HB2'][0][:])
 
+            # another way
+            dslist = DataSetList()
+            from pytraj.common_actions import calc_jcoupling
+            d0 = calc_jcoupling("out ./output/test_jcoupling_1.out", traj, dslist=dslist)
+            print (d0.legend)
+            print (dslist.size)
+
+
 if __name__ == "__main__":
     unittest.main()
