@@ -1,24 +1,17 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
 from pytraj.datasets.DataSet cimport _DataSet, DataSet
-from pytraj.datasets.DataSet_3D cimport _DataSet_3D, DataSet_3D
+from pytraj.datasets.DataSet_1D cimport _DataSet_1D, DataSet_1D
 from pytraj.Grid cimport _Grid
 from pytraj.Vec3 cimport _Vec3, Vec3
 from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
-from pytraj.ComplexArray cimport _ComplexArray, ComplexArray
+#from pytraj.ComplexArray cimport _ComplexArray, ComplexArray
 
 
 cdef extern from "DataSet_Vector.h": 
-    cdef cppclass _DataSet_Vector "DataSet_Vector":
+    cdef cppclass _DataSet_Vector "DataSet_Vector" (_DataSet_1D):
         _DataSet_Vector() 
         _DataSet * Alloc() 
-        size_t Size() const 
-        int Sync() 
-        void Info() const 
-        int Allocate1D(size_t)
-        inline void Add(size_t, const void *)
-        double Dval(size_t) const 
-        double Xcrd(size_t idx) const 
         void WriteBuffer(_CpptrajFile&, size_t) const 
         void SetIred() 
         bint IsIred() const 
@@ -26,8 +19,8 @@ cdef extern from "DataSet_Vector.h":
         void Resize(size_t s)
         void Resize(size_t s, const _Vec3& v)
         bint Empty() const 
-        const _Vec3& operator[](int i) const 
-        _Vec3& operator[](int i)
+        #const _Vec3& operator[](int i) const 
+        _Vec3& index_opr "operator[]" (int i)
         const _Vec3& OXYZ(int i) const 
         void ReserveVecs(size_t n)
         void AddVxyz(const _Vec3& v)
@@ -36,10 +29,11 @@ cdef extern from "DataSet_Vector.h":
         #const_iterator end() const 
         const _Vec3& Back() const 
         int CalcSphericalHarmonics(int)
-        const _ComplexArray& SphericalHarmonics(int) const 
+        #const _ComplexArray& SphericalHarmonics(int) const 
         double SphericalHarmonicsNorm(int)
 
 
-cdef class DataSet_Vector:
+cdef class DataSet_Vector (DataSet_1D):
     cdef _DataSet_Vector* thisptr
+    cdef bint py_free_mem
 
