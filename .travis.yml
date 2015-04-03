@@ -14,7 +14,8 @@ install:
     - pip install numpy
     - pip install cython
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
-    - python ./setup.py install
+    #- python ./setup.py install
+    - python ./scripts/setup_faster_build.py install
 script:
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:$LD_LIBRARY_PATH
