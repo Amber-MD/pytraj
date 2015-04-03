@@ -1973,9 +1973,9 @@ static void __Pyx_CppExn2PyErr() {
 #include "descrobject.h"
 static PyObject* __Pyx_Method_ClassMethod(PyObject *method);
 
-static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
-
 #include <new>
+
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 #if PY_MAJOR_VERSION < 3
     static int __Pyx_GetBuffer(PyObject *obj, Py_buffer *view, int flags);

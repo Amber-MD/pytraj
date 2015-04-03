@@ -77,7 +77,7 @@ Energy
 PDBfile
 #ClusterList
 #clusters/ClusterDist
-#datasets/DataSet_Vector
+datasets/DataSet_Vector
 datasets/DataSet_GridFlt
 datasets/DataSet_MatrixDbl
 datasets/DataSet_MatrixFlt

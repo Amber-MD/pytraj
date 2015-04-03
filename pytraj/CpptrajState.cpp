@@ -1923,9 +1923,9 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
-static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
-
 #include <new>
+
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 #if PY_MAJOR_VERSION < 3
     static int __Pyx_GetBuffer(PyObject *obj, Py_buffer *view, int flags);

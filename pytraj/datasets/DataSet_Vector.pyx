@@ -1,68 +1,38 @@
 # distutils: language = c++
 
 
-cdef class DataSet_Vector:
+cdef class DataSet_Vector (DataSet_1D):
     def __cinit__(self):
+        self.py_free_mem = True
         self.thisptr = new _DataSet_Vector()
+        self.baseptr0 = <_DataSet*> self.thisptr
+        self.baseptr_1= <_DataSet_1D*> self.thisptr
 
     def __dealloc__(self):
-        del self.thisptr
+        if self.py_free_mem:
+            del self.thisptr
 
-    #cdef DataSet * Alloc(self):
+    def alloc(self):
+        cdef DataSet d0 = DataSet()
+        d0.baseptr0 = self.thisptr.Alloc()
+        return d0
+
+    def __getitem__(self, idx):
+        return self.data[idx]
+
+    def __iter__(self):
+        for i in range (self.size):
+            yield self[i]
 
     @property
-    def Size(self):
-        return self.thisptr.Size()
+    def data(self):
+        """return a list of Vec3"""
+        cdef Vec3 vec
+        cdef list vlist = []
+        cdef int idx
 
-    def Sync(self):
-        return self.thisptr.Sync()
-
-    def Info(self):
-        self.thisptr.Info()
-
-    #def int Allocate1D(self,size_t):
-
-    #def  void Add(self,size_t, void *):
-
-    #def double Dval(self,size_t):
-
-    #def double Xcrd(self,size_t idx):
-
-    #def void WriteBuffer(self,CpptrajFile, size_t):
-
-    #def void SetIred(self):
-
-    #def bint IsIred(self):
-
-    #def void reset(self):
-
-    #def void Resize(self,size_t s):
-
-    #def void Resize(self,size_t s, Vec3 v):
-
-    #def bint Empty(self):
-
-    #def  Vec3 operator[](self,int i):
-
-    #def Vec3 operator[](self,int i):
-
-    #def  Vec3 OXYZ(self,int i):
-
-    #def void ReserveVecs(self,size_t n):
-
-    #def void AddVxyz(self, Vec3 v):
-
-    #def void AddVxyz(self, Vec3 v, Vec3 c):
-
-    ##def const_iterator begin(self):
-
-    ##def const_iterator end(self):
-
-    #def Vec3 Back(self):
-
-    #def int CalcSphericalHarmonics(self,int):
-
-    #def ComplexArray SphericalHarmonics(self,int):
-
-    #def double SphericalHarmonicsNorm(self,int):
-
+        for idx in range(self.size):
+            vec = Vec3()
+            vec.thisptr[0] = self.thisptr.index_opr(idx)
+            vlist.append(vec)
+        return vlist
