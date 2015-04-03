@@ -56,13 +56,15 @@ class Test(unittest.TestCase):
 
     def test_3(self):
         from pytraj.common_actions import calc_dihedral, calc_angle
+        from pytraj.common_actions import calc_distance
         print ("test calc torsion, angle")
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
 
         Nsize = 1000000
-        indices = np.random.randint(300, size=Nsize*3).reshape(Nsize, 3)
-        indices_dih = np.random.randint(300, size=Nsize*4).reshape(Nsize, 4)
+        indices = np.random.randint(0, 300, size=Nsize*3).reshape(Nsize, 3)
+        indices_dih = np.random.randint(0, 300, size=Nsize*4).reshape(Nsize, 4)
+        indices_dist = np.random.randint(0, 300, size=Nsize*2).reshape(Nsize, 2)
         print (indices.shape)
 
         with Timer() as t:
@@ -73,17 +75,33 @@ class Test(unittest.TestCase):
             dih_0 = frame0.calc_dihedral(indices_dih)
         print ("dih: time to calculate %s data points = %s (s)" % (Nsize, t.time_gap()))
 
-        id0, id1, id2 = indices[0] + 1
-        angle_command = "@%s @%s @%s" % (id0, id1, id2)
+        with Timer() as t:
+            dist_0 = frame0.calc_distance(indices_dist)
+        print ("dist: time to calculate %s data points = %s (s)" % (Nsize, t.time_gap()))
 
-        id0, id1, id2, id3 = indices_dih[0] + 1
-        dih_command = "@%s @%s @%s @%s" % (id0, id1, id2, id3)
+        # randomly take 100 data points to assert
+        for _ in range(10):
+            idx = np.random.randint(0, Nsize-1)
+            print (idx)
+            id0, id1 = indices_dist[idx] + 1
+            dist_command = "@%s @%s" % (id0, id1)
 
-        d0 = calc_dihedral(dih_command, frame0, traj.top)
-        d1 = calc_angle(angle_command, frame0, traj.top)
+            id0, id1, id2 = indices[idx] + 1
+            angle_command = "@%s @%s @%s" % (id0, id1, id2)
 
-        assert dih_0[0] == d0[0]
-        assert ang_0[0] == d1[0]
+            id0, id1, id2, id3 = indices_dih[idx] + 1
+            dih_command = "@%s @%s @%s @%s" % (id0, id1, id2, id3)
+
+            d0 = calc_dihedral(dih_command, frame0, traj.top)
+            d1 = calc_angle(angle_command, frame0, traj.top)
+            d3 = calc_distance(dist_command, frame0, traj.top)
+            print (dist_0[idx], d3[:])
+            print (ang_0[idx], d1[:])
+            print (dih_0[idx], d0[:])
+
+            assert_almost_equal([dih_0[idx]], d0[:])
+            assert_almost_equal([ang_0[idx]], d1[:])
+            assert_almost_equal([dist_0[idx]], d3[:])
 
 if __name__ == "__main__":
     unittest.main()

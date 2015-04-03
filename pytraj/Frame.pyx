@@ -1,6 +1,7 @@
 # distutils: language = c++
 
 cimport cython
+from libc.math cimport sqrt
 from cython cimport view
 from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
@@ -8,6 +9,7 @@ from libcpp.vector cimport vector
 from cpython.buffer cimport Py_buffer
 from pytraj._utils cimport _get_buffer1D
 from pytraj.TorsionRoutines cimport Torsion as cpptorsion, CalcAngle as cppangle
+from pytraj.DistRoutines cimport DIST2_NoImage
 
 import math
 from pytraj.decorators import for_testing, iter_warning
@@ -904,4 +906,25 @@ cdef class Frame (object):
             idx2 = int_arr[i, 2]
             arr0.append(math.degrees(cppangle(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
                         self.thisptr.XYZ(idx2))))
+        return arr0
+
+    def calc_distance(self, long int[:, :] int_arr):
+        """return python array of distance for two atoms with indices idx0, idx1
+        Parameters
+        ----------
+        int_arr : 2D array of int with shape=(n_groups, 2)
+
+        Returns
+        -------
+        1D python array
+        """
+        cdef int idx0, idx1
+        cdef int n_arr = int_arr.shape[0]
+        cdef int i
+        cdef pyarray arr0 = pyarray('d', [])
+
+        for i in range(n_arr):
+            idx0 = int_arr[i, 0]
+            idx1 = int_arr[i, 1]
+            arr0.append(sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1))))
         return arr0
