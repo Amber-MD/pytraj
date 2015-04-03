@@ -1,4 +1,5 @@
 from pytraj.utils import _import
+from pytraj import DataSetList
 
 has_pandas, pd = _import("pandas")
 
@@ -11,11 +12,7 @@ def to_dataframe(dslist):
     ----------
     dslist : DataSetList object
     """
-
-    my_dict = {}
-
-    for legend in dslist.get_legends():
-        my_dict[legend] = dslist[legend][0][:]
+    my_dict = dict((d0.legend, d0[:]) for d0 in dslist)
 
     # what else I can do here?
     if has_pandas:

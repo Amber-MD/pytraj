@@ -41,10 +41,12 @@ def calculate(action=None, command=None, traj=None, top=None, **kwd):
     else: 
         if top is None: 
             try: 
-               top = traj.top 
+               _top = traj.top 
             except: 
                 # list, tuple of traj objects 
-                top = traj[0].top 
+                _top = traj[0].top 
+        else:
+            _top = top
         if traj is None: 
             raise ValueError("must have trajectory object") 
         if isinstance(action, string_types): 
@@ -52,4 +54,4 @@ def calculate(action=None, command=None, traj=None, top=None, **kwd):
             act = adict[action] 
         else: 
             act = action 
-        return act(command, traj, top, quick_get=True, **kwd)
+        return act(command, traj, _top, quick_get=True, **kwd)
