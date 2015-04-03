@@ -1,5 +1,8 @@
 import numbers
 
+def eq(arr0, arr1):
+    assert arr0 == arr1
+
 def file_exist(filename):
     import os
     return os.path.isfile(filename)
