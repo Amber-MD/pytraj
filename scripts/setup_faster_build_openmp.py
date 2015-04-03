@@ -114,8 +114,8 @@ for ext_name in pyxfiles:
                     language='c++',
                     library_dirs=[libdir,],
                     include_dirs=[cpptraj_include, pytraj_home],
-                    extra_compile_args=['-O0', '-ggdb',],
-                    extra_link_args=['-O0', '-ggdb',],
+                    extra_compile_args=['-O0', '-ggdb', '-fopenmp'],
+                    extra_link_args=['-O0', '-ggdb', '-fopenmp'])
 
     extmod.cython_directives = {
             'embedsignature':True,

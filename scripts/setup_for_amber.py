@@ -56,11 +56,22 @@ shuffle(pyxfiles)
 extra_compile_args=['-O0', '-ggdb']
 extra_link_args=['-O0', '-ggdb']
 
-if "-openmp" in sys.argv:
+if "openmp" in sys.argv:
+    # python ./setup.py build openmp
+    # make sure to update Makefile in $AMBERHOME/AmberTools/src
+    # if changing 'openmp' to something else
     with_openmp = True
-    sys.argv.remove("-openmp")
+    sys.argv.remove("openmp")
 else:
     with_openmp = False 
+
+# since we added "INSTALLTYPE" after setup.py file, we need
+# to remove it if having one
+installtype = os.environ.get("INSTALLTYPE", "")
+try:
+    sys.argv.remove(installtype)
+except:
+    pass
 
 if with_openmp:
     extra_compile_args.append("-fopenmp")
