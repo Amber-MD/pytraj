@@ -859,14 +859,49 @@ cdef class Frame (object):
                      overwrite=overwrite, more_args=None) as trajout:
             trajout.writeframe(0, self, top)
 
-    def calc_dihedral(self, int idx1, int idx2, int idx3, int idx4):
-        # TODO: array?
-        """return torsion angle for four atoms with indices idx1-4"""
-        return math.degrees(cpptorsion(self.thisptr.XYZ(idx1), self.thisptr.XYZ(idx2),
-                          self.thisptr.XYZ(idx3), self.thisptr.XYZ(idx4)))
+    def calc_dihedral(self, long int[:, :] int_arr):
+        """return python array of dih angle for four atoms with indices idx1-4
+        Parameters
+        ----------
+        int_arr : 2D array of int with shape=(n_groups, 4)
 
-    def calc_angle(self, int idx1, int idx2, int idx3):
-        # TODO: array?
-        """return angle for three atoms with indices idx1-3"""
-        return math.degrees(cppangle(self.thisptr.XYZ(idx1), self.thisptr.XYZ(idx2),
-                        self.thisptr.XYZ(idx3)))
+        Returns
+        -------
+        1D python array
+        """
+        cdef int id0, idx1, idx2, idx3
+        cdef int n_arr = int_arr.shape[0]
+        cdef int i
+        cdef pyarray arr0 = pyarray('d', [])
+
+        for i in range(n_arr):
+            idx0 = int_arr[i, 0]
+            idx1 = int_arr[i, 1]
+            idx2 = int_arr[i, 2]
+            idx3 = int_arr[i, 3]
+            arr0.append(math.degrees(cpptorsion(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
+                          self.thisptr.XYZ(idx2), self.thisptr.XYZ(idx3))))
+        return arr0
+
+    def calc_angle(self, long int[:, :] int_arr):
+        """return python array of angles for three atoms with indices idx1-3
+        Parameters
+        ----------
+        int_arr : 2D array of int with shape=(n_groups, 3)
+
+        Returns
+        -------
+        1D python array
+        """
+        cdef int idx0, idx1, idx2
+        cdef int n_arr = int_arr.shape[0]
+        cdef int i
+        cdef pyarray arr0 = pyarray('d', [])
+
+        for i in range(n_arr):
+            idx0 = int_arr[i, 0]
+            idx1 = int_arr[i, 1]
+            idx2 = int_arr[i, 2]
+            arr0.append(math.degrees(cppangle(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
+                        self.thisptr.XYZ(idx2))))
+        return arr0

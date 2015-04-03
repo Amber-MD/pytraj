@@ -2,6 +2,8 @@ import unittest
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+import numpy as np
+from pytraj.utils import Timer
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -57,13 +59,31 @@ class Test(unittest.TestCase):
         print ("test calc torsion, angle")
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
-        dih_0 = frame0.calc_dihedral(1, 2, 3, 4)
-        ang_0 = frame0.calc_angle(1, 2, 3)
-        d0 = calc_dihedral("@2 @3 @4 @5", frame0, traj.top)
-        d1 = calc_angle("@2 @3 @4 @5", frame0, traj.top)
-        assert dih_0 == d0[0]
-        assert ang_0 == d1[0]
-        d3 = calc_angle("@2 @3 @4 @8", (traj, traj(2, 8, 2), traj[:5]), traj.top)
+
+        Nsize = 1000000
+        indices = np.random.randint(300, size=Nsize*3).reshape(Nsize, 3)
+        indices_dih = np.random.randint(300, size=Nsize*4).reshape(Nsize, 4)
+        print (indices.shape)
+
+        with Timer() as t:
+            ang_0 = frame0.calc_angle(indices)
+        print ("angle: time to calculate %s data points = %s (s)" % (Nsize, t.time_gap()))
+
+        with Timer() as t:
+            dih_0 = frame0.calc_dihedral(indices_dih)
+        print ("dih: time to calculate %s data points = %s (s)" % (Nsize, t.time_gap()))
+
+        id0, id1, id2 = indices[0] + 1
+        angle_command = "@%s @%s @%s" % (id0, id1, id2)
+
+        id0, id1, id2, id3 = indices_dih[0] + 1
+        dih_command = "@%s @%s @%s @%s" % (id0, id1, id2, id3)
+
+        d0 = calc_dihedral(dih_command, frame0, traj.top)
+        d1 = calc_angle(angle_command, frame0, traj.top)
+
+        assert dih_0[0] == d0[0]
+        assert ang_0[0] == d1[0]
 
 if __name__ == "__main__":
     unittest.main()
