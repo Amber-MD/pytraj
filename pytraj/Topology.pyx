@@ -514,3 +514,24 @@ cdef class Topology:
         for atom in self.atom_iter():
             marray.append(atom.mass)
         return marray
+
+    def indices_n_bonded_to(self, atom_name):
+        """return indices of the number of atoms that each atom bonds to
+        Parameters
+        ----------
+        atom_name : name of the atom
+        """
+        cdef pyarray arr0 = pyarray('i', [])
+        cdef int i, count=0
+
+        # convert to lower case
+        atom_name = atom_name.upper()
+
+        for atom in self:
+            bond_indices = atom.bonded_indices()
+            count = 0
+            for i in bond_indices:
+                if self[i].name.startswith(atom_name):
+                    count += 1
+            arr0.append(count)
+        return arr0

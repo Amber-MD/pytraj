@@ -1,7 +1,9 @@
 # distutils: language = c++
+from cython.operator cimport dereference as deref
+from cython.operator cimport preincrement as incr
+from cpython.array cimport array as pyarray
 from pytraj.cpptraj_dict import get_key, AtomicElementDict
 from pytraj.externals.six import string_types
-#from pytraj._utils cimport _ustring
 
 cdef class Atom:
 #    def __cinit__(self, aname="", atype=None, index=0, 
@@ -47,10 +49,17 @@ cdef class Atom:
     def swap(self, Atom at1, Atom at2):
         self.thisptr.swap(at1.thisptr[0], at2.thisptr[0])
 
-    #def  bond_iterator bondbegin(self):
-    #def  bond_iterator bondend(self):
-    def bond_iter(self):
-        pass
+    def bonded_indices(self):
+        """get bond indices that `self` bonds to
+        """
+        cdef pyarray arr0 = pyarray('i', [])
+        cdef bond_iterator it
+
+        it = self.thisptr.bondbegin()
+        while it != self.thisptr.bondend():
+            arr0.append(deref(it))
+            incr(it)
+        return arr0
 
     #def  excluded_iterator excludedbegin(self):
     #def  excluded_iterator excludedend(self):
@@ -121,7 +130,7 @@ cdef class Atom:
         #return _ustring(self.thisptr.c_str())
 
     @property
-    def atype(self):
+    def type(self):
         cdef NameType nt = NameType()
         nt.thisptr[0] = self.thisptr.Type()
         return nt
