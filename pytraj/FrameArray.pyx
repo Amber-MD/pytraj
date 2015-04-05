@@ -14,6 +14,7 @@ from pytraj.utils.check_and_assert import _import_numpy, is_int
 from pytraj.utils.check_and_assert import file_exist
 from pytraj.trajs.Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
+from pytraj._shared_methods import _xyz
 from pytraj._shared_methods import my_str_method
 
 # we don't allow sub-class in Python level since we will mess up with memory
@@ -42,13 +43,17 @@ cdef class FrameArray (object):
         # this variable is intended to let FrameArray control 
         # freeing memory for Frame instance but it's too complicated
         #self.is_mem_parent = True
-        if filename != "" and flag != 'hd5f':
-            # TODO : check if file exist
-            if not file_exist(filename):
-                raise ValueError("There is not file having this name")
-            if self.top.is_empty():
-                raise ValueError("Need to have non-empty Topology")
-            self.load(filename=filename, indices=indices)
+        if isinstance(filename, string_types):
+            if filename != "" and flag != 'hd5f':
+                # TODO : check if file exist
+                if not file_exist(filename):
+                    raise ValueError("There is not file having this name")
+                if self.top.is_empty():
+                    raise ValueError("Need to have non-empty Topology")
+                self.load(filename=filename, indices=indices)
+        elif isinstance(filename, (TrajReadOnly, Trajin_Single)):
+                traj = filename
+                self = traj[:]
 
     def copy(self):
         "Return a copy of FrameArray"
@@ -130,9 +135,40 @@ cdef class FrameArray (object):
         else:
             raise ValueError("can not load file/files")
 
+    def load_xyz(self, xyz_in):
+        cdef Frame frame
+        cdef int n_atoms = self.top.n_atoms
+        """Try loading numpy xyz data with 
+        shape=(n_frames, n_atoms, 3) or (n_frames, n_atoms*3) or 1D array
+        """
+
+        has_np, np = _import_numpy()
+        if has_np:
+            xyz = np.asarray(xyz_in)
+            if len(xyz.shape) == 1:
+                natom3 = n_atoms * 3
+                n_frames = int(xyz.shape[0]/natom3)
+                _xyz = xyz.reshape(n_frames, natom3) 
+            elif len(xyz.shape) in [2, 3]:
+                _xyz = xyz
+            for arr0 in _xyz:
+                frame = Frame(n_atoms)
+                # flatten either 1D or 2D array
+                frame.set_from_crd(arr0.flatten())
+                self.append(frame)
+        else:
+            raise NotImplementedError("must have numpy")
+
     @property
     def shape(self):
         return (self.n_frames, self[0].n_atoms, 3)
+
+    @property
+    def xyz(self):
+        """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
+        We can not return a memoryview since FrameArray is a C++ vector of Frame object
+        """
+        return _xyz(self)
 
     @cython.boundscheck(False)
     @cython.wraparound(False)
