@@ -564,6 +564,13 @@ static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject 
 static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
     const char *name, int exact);
 
+#include <string.h>
+
+static CYTHON_INLINE PyObject* __Pyx_decode_c_string(
+         const char* cstring, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors));
+
 static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name);
 
 typedef struct {
@@ -622,7 +629,7 @@ static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_6to_buffer(struct __pyx_ob
 static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_8match(struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_self, struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_nt); /* proto */
 static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_10__richcmp__(struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_self, PyObject *__pyx_v_arg, int __pyx_v_opt); /* proto */
 static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_12__getitem__(struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_self, int __pyx_v_idx); /* proto */
-static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_14truncated(struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_14truncated_name(struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_16replace_asterisk(struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_18__str__(struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_self); /* proto */
 static PyObject *__pyx_tp_new_6pytraj_8NameType_NameType(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -1467,7 +1474,7 @@ static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_12__getitem__(struct __pyx
  *     def __getitem__(self, int idx):
  *         return self.thisptr.opr_idx(idx)             # <<<<<<<<<<<<<<
  * 
- *     def truncated(self):
+ *     def truncated_name(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_self->thisptr->operator[](__pyx_v_idx)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1498,36 +1505,36 @@ static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_12__getitem__(struct __pyx
 /* "pytraj/NameType.pyx":70
  *         return self.thisptr.opr_idx(idx)
  * 
- *     def truncated(self):             # <<<<<<<<<<<<<<
+ *     def truncated_name(self):             # <<<<<<<<<<<<<<
  *         """return string"""
  *         return self.thisptr.Truncated()
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8NameType_8NameType_15truncated(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8NameType_8NameType_14truncated[] = "NameType.truncated(self)\nreturn string";
-static PyObject *__pyx_pw_6pytraj_8NameType_8NameType_15truncated(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8NameType_8NameType_15truncated_name(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8NameType_8NameType_14truncated_name[] = "NameType.truncated_name(self)\nreturn string";
+static PyObject *__pyx_pw_6pytraj_8NameType_8NameType_15truncated_name(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("truncated (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8NameType_8NameType_14truncated(((struct __pyx_obj_6pytraj_8NameType_NameType *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("truncated_name (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8NameType_8NameType_14truncated_name(((struct __pyx_obj_6pytraj_8NameType_NameType *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_14truncated(struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_14truncated_name(struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("truncated", 0);
+  __Pyx_RefNannySetupContext("truncated_name", 0);
 
   /* "pytraj/NameType.pyx":72
- *     def truncated(self):
+ *     def truncated_name(self):
  *         """return string"""
  *         return self.thisptr.Truncated()             # <<<<<<<<<<<<<<
  * 
@@ -1543,7 +1550,7 @@ static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_14truncated(struct __pyx_o
   /* "pytraj/NameType.pyx":70
  *         return self.thisptr.opr_idx(idx)
  * 
- *     def truncated(self):             # <<<<<<<<<<<<<<
+ *     def truncated_name(self):             # <<<<<<<<<<<<<<
  *         """return string"""
  *         return self.thisptr.Truncated()
  */
@@ -1551,7 +1558,7 @@ static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_14truncated(struct __pyx_o
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.NameType.NameType.truncated", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.NameType.NameType.truncated_name", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1614,7 +1621,7 @@ static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_16replace_asterisk(struct 
  *         self.thisptr.ReplaceAsterisk()
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
- *         return str(self.thisptr.opr_star())
+ *         return (self.thisptr.opr_star()).decode()
  */
 
 /* Python wrapper */
@@ -1633,7 +1640,7 @@ static PyObject *__pyx_pw_6pytraj_8NameType_8NameType_19__str__(PyObject *__pyx_
 static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_18__str__(struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
+  char const *__pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -1643,33 +1650,26 @@ static PyObject *__pyx_pf_6pytraj_8NameType_8NameType_18__str__(struct __pyx_obj
   /* "pytraj/NameType.pyx":78
  * 
  *     def __str__(self):
- *         return str(self.thisptr.opr_star())             # <<<<<<<<<<<<<<
+ *         return (self.thisptr.opr_star()).decode()             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBytes_FromString(__pyx_v_self->thisptr->operator*()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_v_self->thisptr->operator*();
+  __pyx_t_2 = __Pyx_decode_c_string(__pyx_t_1, 0, strlen(__pyx_t_1), NULL, NULL, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_1);
-  __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)(&PyString_Type))), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_t_2);
+  __pyx_r = __pyx_t_2;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
   goto __pyx_L0;
 
   /* "pytraj/NameType.pyx":77
  *         self.thisptr.ReplaceAsterisk()
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
- *         return str(self.thisptr.opr_star())
+ *         return (self.thisptr.opr_star()).decode()
  */
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_AddTraceback("pytraj.NameType.NameType.__str__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
@@ -2025,7 +2025,7 @@ static PyMethodDef __pyx_methods_6pytraj_8NameType_NameType[] = {
   {"copy", (PyCFunction)__pyx_pw_6pytraj_8NameType_8NameType_3copy, METH_NOARGS, __pyx_doc_6pytraj_8NameType_8NameType_2copy},
   {"to_buffer", (PyCFunction)__pyx_pw_6pytraj_8NameType_8NameType_7to_buffer, METH_O, __pyx_doc_6pytraj_8NameType_8NameType_6to_buffer},
   {"match", (PyCFunction)__pyx_pw_6pytraj_8NameType_8NameType_9match, METH_O, __pyx_doc_6pytraj_8NameType_8NameType_8match},
-  {"truncated", (PyCFunction)__pyx_pw_6pytraj_8NameType_8NameType_15truncated, METH_NOARGS, __pyx_doc_6pytraj_8NameType_8NameType_14truncated},
+  {"truncated_name", (PyCFunction)__pyx_pw_6pytraj_8NameType_8NameType_15truncated_name, METH_NOARGS, __pyx_doc_6pytraj_8NameType_8NameType_14truncated_name},
   {"replace_asterisk", (PyCFunction)__pyx_pw_6pytraj_8NameType_8NameType_17replace_asterisk, METH_NOARGS, __pyx_doc_6pytraj_8NameType_8NameType_16replace_asterisk},
   {0, 0, 0, 0}
 };
@@ -2703,6 +2703,32 @@ static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, in
     }
     __Pyx_RaiseArgumentTypeInvalid(name, obj, type);
     return 0;
+}
+
+static CYTHON_INLINE PyObject* __Pyx_decode_c_string(
+         const char* cstring, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
+    Py_ssize_t length;
+    if (unlikely((start < 0) | (stop < 0))) {
+        length = strlen(cstring);
+        if (start < 0) {
+            start += length;
+            if (start < 0)
+                start = 0;
+        }
+        if (stop < 0)
+            stop += length;
+    }
+    length = stop - start;
+    if (unlikely(length <= 0))
+        return PyUnicode_FromUnicode(NULL, 0);
+    cstring += start;
+    if (decode_func) {
+        return decode_func(cstring, length, errors);
+    } else {
+        return PyUnicode_Decode(cstring, length, encoding, errors);
+    }
 }
 
 static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
