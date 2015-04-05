@@ -11,6 +11,7 @@ from pytraj.utils.check_and_assert import _import_numpy
 from .Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
 from pytraj._shared_methods import my_str_method
+from pytraj._shared_methods import _xyz
 from pytraj.externals.six import string_types
 
 
@@ -377,3 +378,10 @@ cdef class Trajin (TrajectoryFile):
     @property
     def shape(self):
         return (self.n_frames, self[0].n_atoms, 3)
+
+    @property
+    def xyz(self):
+        """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
+        We can not return a memoryview since FrameArray is a C++ vector of Frame object
+        """
+        return _xyz(self)

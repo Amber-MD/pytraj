@@ -5,6 +5,7 @@ from pytraj.Frame cimport _Frame, Frame
 from pytraj.AtomMask cimport AtomMask
 from pytraj.trajs.Trajout import Trajout
 from pytraj.six_2 import set
+from pytraj.utils import _import_numpy
 
 def _savetraj(self, filename="", fmt='unknown', overwrite=False):
     if fmt == 'unknown':
@@ -20,6 +21,13 @@ def _savetraj(self, filename="", fmt='unknown', overwrite=False):
 
 def _get_temperature_set(self):
     return set(self.temperatures) 
+
+def _xyz(self):
+    has_np, np = _import_numpy()
+    if has_np:
+        return self[:, :, :]
+    else:
+        raise NotImplementedError("require numpy. Use self[:, :, :]")
 
 def my_str_method(self):
     name = self.__class__.__name__
