@@ -280,13 +280,13 @@ cdef class Trajin (TrajectoryFile):
     def is_empty(self):
         return self.max_frames == 0
 
-    def check_allocated(self):
+    def _check_allocated(self):
         # decorator?
         if self.is_empty():
             raise MemoryError("not allocate pointer yet or have empty traj")
 
     @classmethod
-    def check_frame_args(cls, ArgList argIn, int maxFrames):
+    def _check_frame_args(cls, ArgList argIn, int maxFrames):
         cdef int startArg, stopArg, offsetArg 
         startArg = stopArg = offsetArg = 0
         _Trajin.CheckFrameArgs(argIn.thisptr[0], maxFrames, startArg, stopArg, offsetArg)
@@ -357,7 +357,7 @@ cdef class Trajin (TrajectoryFile):
         return tarr
 
     @property
-    def T_set(self):
+    def temperature_set(self):
         return _get_temperature_set(self)
 
     def fit_to(self, ref=None):

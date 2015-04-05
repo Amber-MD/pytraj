@@ -38,14 +38,6 @@ cdef class Trajin_Single(Trajin):
         # don't let trajin.top do this
         return trajin
 
-    def gettrajinview(self):
-        # make alias name of self.alloc for easy understanding
-        """return Trajin instance as a view of this class
-        >>> trajin = Trajin_Single_Instance.getview_trajin()
-        >>> DataSet_Coords_TRJ_Instance.addtraj(trajin)
-        """
-        return self.alloc()
-
     # Let base-class Trajin take care those methods?
     def load(Trajin_Single self, filename='', Topology top=Topology(), 
              ArgList arglist=ArgList(), bint check_box=True,

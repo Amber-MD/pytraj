@@ -1898,8 +1898,7 @@ static PyObject *__pyx_builtin_IndexError;
 static int __pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single___cinit__(struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_top, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static void __pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_2__dealloc__(struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_4alloc(struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_6gettrajinview(struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_8load(struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *__pyx_v_self, PyObject *__pyx_v_filename, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_arglist, int __pyx_v_check_box); /* proto */
+static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_6load(struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *__pyx_v_self, PyObject *__pyx_v_filename, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_arglist, int __pyx_v_check_box); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -1959,7 +1958,6 @@ static char __pyx_k_step[] = "step";
 static char __pyx_k_stop[] = "stop";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_UTF_8[] = "UTF-8";
-static char __pyx_k_alloc[] = "alloc";
 static char __pyx_k_class[] = "__class__";
 static char __pyx_k_error[] = "error";
 static char __pyx_k_flags[] = "flags";
@@ -2015,10 +2013,8 @@ static char __pyx_k_Indirect_dimensions_not_supporte[] = "Indirect dimensions no
 static char __pyx_k_Invalid_mode_expected_c_or_fortr[] = "Invalid mode, expected 'c' or 'fortran', got %s";
 static char __pyx_k_Out_of_bounds_on_buffer_access_a[] = "Out of bounds on buffer access (axis %d)";
 static char __pyx_k_Repalce_self_top_with_new_provid[] = "Repalce self.top with new provided top";
-static char __pyx_k_Trajin_Single_gettrajinview_line[] = "Trajin_Single.gettrajinview (line 41)";
 static char __pyx_k_Unable_to_convert_item_to_object[] = "Unable to convert item to object";
 static char __pyx_k_got_differing_extents_in_dimensi[] = "got differing extents in dimension %d (got %d and %d)";
-static char __pyx_k_return_Trajin_instance_as_a_view[] = "return Trajin instance as a view of this class\n        >>> trajin = Trajin_Single_Instance.getview_trajin()\n        >>> DataSet_Coords_TRJ_Instance.addtraj(trajin)\n        ";
 static char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate shape and strides.";
 static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_kp_s_Buffer_view_does_not_expose_stri;
@@ -2036,12 +2032,10 @@ static PyObject *__pyx_kp_s_MemoryView_of_r_object;
 static PyObject *__pyx_n_b_O;
 static PyObject *__pyx_kp_s_Out_of_bounds_on_buffer_access_a;
 static PyObject *__pyx_kp_s_Repalce_self_top_with_new_provid;
-static PyObject *__pyx_kp_u_Trajin_Single_gettrajinview_line;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_kp_s_UTF_8;
 static PyObject *__pyx_kp_s_Unable_to_convert_item_to_object;
 static PyObject *__pyx_n_s_ValueError;
-static PyObject *__pyx_n_s_alloc;
 static PyObject *__pyx_n_s_allocate_buffer;
 static PyObject *__pyx_n_s_arglist;
 static PyObject *__pyx_n_s_base;
@@ -2084,7 +2078,6 @@ static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_pyx_getbuffer;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
-static PyObject *__pyx_kp_u_return_Trajin_instance_as_a_view;
 static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_start;
@@ -2617,7 +2610,7 @@ static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_4alloc(struct 
  *         # don't let trajin.top do this
  *         return trajin             # <<<<<<<<<<<<<<
  * 
- *     def gettrajinview(self):
+ *     # Let base-class Trajin take care those methods?
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_trajin));
@@ -2644,93 +2637,7 @@ static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_4alloc(struct 
   return __pyx_r;
 }
 
-/* "pytraj/Trajin_Single.pyx":41
- *         return trajin
- * 
- *     def gettrajinview(self):             # <<<<<<<<<<<<<<
- *         # make alias name of self.alloc for easy understanding
- *         """return Trajin instance as a view of this class
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_7gettrajinview(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_13Trajin_Single_13Trajin_Single_6gettrajinview[] = "Trajin_Single.gettrajinview(self)\nreturn Trajin instance as a view of this class\n        >>> trajin = Trajin_Single_Instance.getview_trajin()\n        >>> DataSet_Coords_TRJ_Instance.addtraj(trajin)\n        ";
-static PyObject *__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_7gettrajinview(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("gettrajinview (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_6gettrajinview(((struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_6gettrajinview(struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("gettrajinview", 0);
-
-  /* "pytraj/Trajin_Single.pyx":47
- *         >>> DataSet_Coords_TRJ_Instance.addtraj(trajin)
- *         """
- *         return self.alloc()             # <<<<<<<<<<<<<<
- * 
- *     # Let base-class Trajin take care those methods?
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_alloc); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-    }
-  }
-  if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pytraj/Trajin_Single.pyx":41
- *         return trajin
- * 
- *     def gettrajinview(self):             # <<<<<<<<<<<<<<
- *         # make alias name of self.alloc for easy understanding
- *         """return Trajin instance as a view of this class
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pytraj.Trajin_Single.Trajin_Single.gettrajinview", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/Trajin_Single.pyx":50
+/* "pytraj/Trajin_Single.pyx":42
  * 
  *     # Let base-class Trajin take care those methods?
  *     def load(Trajin_Single self, filename='', Topology top=Topology(),             # <<<<<<<<<<<<<<
@@ -2739,9 +2646,9 @@ static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_6gettrajinview
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_9load(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_13Trajin_Single_13Trajin_Single_8load[] = "Trajin_Single.load(self, filename='', Topology top=<\077\077?>, ArgList arglist=<\077\077?>, bool check_box=True)\n\n        Load trajectory from file.\n\n        Parameters:\n        filename :: string (trajectory file's name)\n        ArgList instance\n        Topology instance\n        chexbox :: (default = True)\n        ";
-static PyObject *__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_9load(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_7load(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_13Trajin_Single_13Trajin_Single_6load[] = "Trajin_Single.load(self, filename='', Topology top=<\077\077?>, ArgList arglist=<\077\077?>, bool check_box=True)\n\n        Load trajectory from file.\n\n        Parameters:\n        filename :: string (trajectory file's name)\n        ArgList instance\n        Topology instance\n        chexbox :: (default = True)\n        ";
+static PyObject *__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_7load(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_filename = 0;
   struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top = 0;
   struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_arglist = 0;
@@ -2793,7 +2700,7 @@ static PyObject *__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_9load(PyObject
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "load") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "load") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2809,10 +2716,10 @@ static PyObject *__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_9load(PyObject
     __pyx_v_top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)values[1]);
     __pyx_v_arglist = ((struct __pyx_obj_6pytraj_7ArgList_ArgList *)values[2]);
     if (values[3]) {
-      __pyx_v_check_box = __Pyx_PyObject_IsTrue(values[3]); if (unlikely((__pyx_v_check_box == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_check_box = __Pyx_PyObject_IsTrue(values[3]); if (unlikely((__pyx_v_check_box == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
 
-      /* "pytraj/Trajin_Single.pyx":51
+      /* "pytraj/Trajin_Single.pyx":43
  *     # Let base-class Trajin take care those methods?
  *     def load(Trajin_Single self, filename='', Topology top=Topology(),
  *              ArgList arglist=ArgList(), bint check_box=True,             # <<<<<<<<<<<<<<
@@ -2824,17 +2731,17 @@ static PyObject *__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_9load(PyObject
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("load", 0, 0, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("load", 0, 0, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajin_Single.Trajin_Single.load", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_top), __pyx_ptype_6pytraj_8Topology_Topology, 1, "top", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_arglist), __pyx_ptype_6pytraj_7ArgList_ArgList, 1, "arglist", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_8load(((struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *)__pyx_v_self), __pyx_v_filename, __pyx_v_top, __pyx_v_arglist, __pyx_v_check_box);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_top), __pyx_ptype_6pytraj_8Topology_Topology, 1, "top", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_arglist), __pyx_ptype_6pytraj_7ArgList_ArgList, 1, "arglist", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_6load(((struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *)__pyx_v_self), __pyx_v_filename, __pyx_v_top, __pyx_v_arglist, __pyx_v_check_box);
 
-  /* "pytraj/Trajin_Single.pyx":50
+  /* "pytraj/Trajin_Single.pyx":42
  * 
  *     # Let base-class Trajin take care those methods?
  *     def load(Trajin_Single self, filename='', Topology top=Topology(),             # <<<<<<<<<<<<<<
@@ -2851,7 +2758,7 @@ static PyObject *__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_9load(PyObject
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_8load(struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *__pyx_v_self, PyObject *__pyx_v_filename, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_arglist, int __pyx_v_check_box) {
+static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_6load(struct __pyx_obj_6pytraj_13Trajin_Single_Trajin_Single *__pyx_v_self, PyObject *__pyx_v_filename, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_arglist, int __pyx_v_check_box) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2867,29 +2774,29 @@ static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_8load(struct _
   __Pyx_RefNannySetupContext("load", 0);
   __Pyx_INCREF(__pyx_v_filename);
 
-  /* "pytraj/Trajin_Single.pyx":64
+  /* "pytraj/Trajin_Single.pyx":56
  *         # Currently we can not assigne self.top to top.copy() since Cython does not know self.top type
  *         # need to use self._top since we declare it in TrajectoryFile.pxd
  *         filename = filename.encode("UTF-8")             # <<<<<<<<<<<<<<
  *         if not top.is_empty():
  *             #print "update Topology for %s instance" % (self.__class__.__name__)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_filename, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_filename, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF_SET(__pyx_v_filename, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pytraj/Trajin_Single.pyx":65
+  /* "pytraj/Trajin_Single.pyx":57
  *         # need to use self._top since we declare it in TrajectoryFile.pxd
  *         filename = filename.encode("UTF-8")
  *         if not top.is_empty():             # <<<<<<<<<<<<<<
  *             #print "update Topology for %s instance" % (self.__class__.__name__)
  *             self._top = top.copy()
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_top), __pyx_n_s_is_empty); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 65; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_top), __pyx_n_s_is_empty); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -2902,25 +2809,25 @@ static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_8load(struct _
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 65; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 65; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 65; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_5 = ((!__pyx_t_4) != 0);
   if (__pyx_t_5) {
 
-    /* "pytraj/Trajin_Single.pyx":67
+    /* "pytraj/Trajin_Single.pyx":59
  *         if not top.is_empty():
  *             #print "update Topology for %s instance" % (self.__class__.__name__)
  *             self._top = top.copy()             # <<<<<<<<<<<<<<
  *         return self.thisptr.SetupTrajRead(filename, arglist.thisptr[0], self._top.thisptr, check_box)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_top), __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 67; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_top), __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -2933,14 +2840,14 @@ static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_8load(struct _
       }
     }
     if (__pyx_t_3) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 67; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 67; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 67; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GIVEREF(__pyx_t_2);
     __Pyx_GOTREF(__pyx_v_self->__pyx_base.__pyx_base._top);
     __Pyx_DECREF(((PyObject *)__pyx_v_self->__pyx_base.__pyx_base._top));
@@ -2950,21 +2857,21 @@ static PyObject *__pyx_pf_6pytraj_13Trajin_Single_13Trajin_Single_8load(struct _
   }
   __pyx_L3:;
 
-  /* "pytraj/Trajin_Single.pyx":68
+  /* "pytraj/Trajin_Single.pyx":60
  *             #print "update Topology for %s instance" % (self.__class__.__name__)
  *             self._top = top.copy()
  *         return self.thisptr.SetupTrajRead(filename, arglist.thisptr[0], self._top.thisptr, check_box)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = __pyx_convert_string_from_py_std__in_string(__pyx_v_filename); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_7 = __pyx_v_self->thisptr->SetupTrajRead(__pyx_t_6, (__pyx_v_arglist->thisptr[0]), __pyx_v_self->__pyx_base.__pyx_base._top->thisptr, __pyx_v_check_box); if (unlikely(__pyx_t_7 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_t_7); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = __pyx_convert_string_from_py_std__in_string(__pyx_v_filename); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_7 = __pyx_v_self->thisptr->SetupTrajRead(__pyx_t_6, (__pyx_v_arglist->thisptr[0]), __pyx_v_self->__pyx_base.__pyx_base._top->thisptr, __pyx_v_check_box); if (unlikely(__pyx_t_7 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_t_7); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajin_Single.pyx":50
+  /* "pytraj/Trajin_Single.pyx":42
  * 
  *     # Let base-class Trajin take care those methods?
  *     def load(Trajin_Single self, filename='', Topology top=Topology(),             # <<<<<<<<<<<<<<
@@ -13839,8 +13746,7 @@ static int __pyx_tp_clear_6pytraj_13Trajin_Single_Trajin_Single(PyObject *o) {
 
 static PyMethodDef __pyx_methods_6pytraj_13Trajin_Single_Trajin_Single[] = {
   {"alloc", (PyCFunction)__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_5alloc, METH_NOARGS, __pyx_doc_6pytraj_13Trajin_Single_13Trajin_Single_4alloc},
-  {"gettrajinview", (PyCFunction)__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_7gettrajinview, METH_NOARGS, __pyx_doc_6pytraj_13Trajin_Single_13Trajin_Single_6gettrajinview},
-  {"load", (PyCFunction)__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_9load, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_13Trajin_Single_13Trajin_Single_8load},
+  {"load", (PyCFunction)__pyx_pw_6pytraj_13Trajin_Single_13Trajin_Single_7load, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_13Trajin_Single_13Trajin_Single_6load},
   {0, 0, 0, 0}
 };
 
@@ -14595,12 +14501,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_b_O, __pyx_k_O, sizeof(__pyx_k_O), 0, 0, 0, 1},
   {&__pyx_kp_s_Out_of_bounds_on_buffer_access_a, __pyx_k_Out_of_bounds_on_buffer_access_a, sizeof(__pyx_k_Out_of_bounds_on_buffer_access_a), 0, 0, 1, 0},
   {&__pyx_kp_s_Repalce_self_top_with_new_provid, __pyx_k_Repalce_self_top_with_new_provid, sizeof(__pyx_k_Repalce_self_top_with_new_provid), 0, 0, 1, 0},
-  {&__pyx_kp_u_Trajin_Single_gettrajinview_line, __pyx_k_Trajin_Single_gettrajinview_line, sizeof(__pyx_k_Trajin_Single_gettrajinview_line), 0, 1, 0, 0},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_kp_s_UTF_8, __pyx_k_UTF_8, sizeof(__pyx_k_UTF_8), 0, 0, 1, 0},
   {&__pyx_kp_s_Unable_to_convert_item_to_object, __pyx_k_Unable_to_convert_item_to_object, sizeof(__pyx_k_Unable_to_convert_item_to_object), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
-  {&__pyx_n_s_alloc, __pyx_k_alloc, sizeof(__pyx_k_alloc), 0, 0, 1, 1},
   {&__pyx_n_s_allocate_buffer, __pyx_k_allocate_buffer, sizeof(__pyx_k_allocate_buffer), 0, 0, 1, 1},
   {&__pyx_n_s_arglist, __pyx_k_arglist, sizeof(__pyx_k_arglist), 0, 0, 1, 1},
   {&__pyx_n_s_base, __pyx_k_base, sizeof(__pyx_k_base), 0, 0, 1, 1},
@@ -14643,7 +14547,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
-  {&__pyx_kp_u_return_Trajin_instance_as_a_view, __pyx_k_return_Trajin_instance_as_a_view, sizeof(__pyx_k_return_Trajin_instance_as_a_view), 0, 1, 0, 0},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_start, __pyx_k_start, sizeof(__pyx_k_start), 0, 0, 1, 1},
@@ -14678,14 +14581,14 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pytraj/Trajin_Single.pyx":64
+  /* "pytraj/Trajin_Single.pyx":56
  *         # Currently we can not assigne self.top to top.copy() since Cython does not know self.top type
  *         # need to use self._top since we declare it in TrajectoryFile.pxd
  *         filename = filename.encode("UTF-8")             # <<<<<<<<<<<<<<
  *         if not top.is_empty():
  *             #print "update Topology for %s instance" % (self.__class__.__name__)
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_UTF_8); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_UTF_8); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
@@ -15084,27 +14987,27 @@ PyMODINIT_FUNC PyInit_Trajin_Single(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 2; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajin_Single.pyx":50
+  /* "pytraj/Trajin_Single.pyx":42
  * 
  *     # Let base-class Trajin take care those methods?
  *     def load(Trajin_Single self, filename='', Topology top=Topology(),             # <<<<<<<<<<<<<<
  *              ArgList arglist=ArgList(), bint check_box=True,
  *              ):
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_k__2 = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Trajin_Single.pyx":51
+  /* "pytraj/Trajin_Single.pyx":43
  *     # Let base-class Trajin take care those methods?
  *     def load(Trajin_Single self, filename='', Topology top=Topology(),
  *              ArgList arglist=ArgList(), bint check_box=True,             # <<<<<<<<<<<<<<
  *              ):
  *         """
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_7ArgList_ArgList)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_7ArgList_ArgList)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_k__3 = ((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -15117,7 +15020,6 @@ PyMODINIT_FUNC PyInit_Trajin_Single(void)
  */
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_Trajin_Single_gettrajinview_line, __pyx_kp_u_return_Trajin_instance_as_a_view) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 

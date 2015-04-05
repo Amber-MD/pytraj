@@ -177,10 +177,10 @@ cdef class Topology:
             yield mol
             incr(it)
 
-    def set_parm_name(self, string title, FileName filename):
+    def _set_parm_name(self, string title, FileName filename):
         self.thisptr.SetParmName(title, filename.thisptr[0])
 
-    def set_reference_coord(self, Frame frameIn):
+    def _set_reference_coord(self, Frame frameIn):
         self.thisptr.SetReferenceCoords(frameIn.thisptr[0])
 
     def file_path(self):
@@ -222,13 +222,6 @@ cdef class Topology:
             _atomnametype = <NameType> atname 
         return self.thisptr.FindAtomInResidue(res, _atomnametype.thisptr[0])
     
-    # cpptraj does not have this anymore.
-    #def find_residue_max_natom(self):
-    #    return self.thisptr.FindResidueMaxNatom()
-    
-    #def SoluteAtoms(self):
-    #    return self.thisptr.SoluteAtoms()
-
     @property
     def atomlist(self):
         """return list of atoms
@@ -262,10 +255,9 @@ cdef class Topology:
         return mlist
 
     def summary(self):
+        set_world_silent(False)
         self.thisptr.Summary()
-
-    def brief(self, char* heading="*"):
-        self.thisptr.Brief(heading)
+        set_world_silent(True)
 
     def atom_info(self, maskString="*"):
         set_world_silent(False)
@@ -309,10 +301,6 @@ cdef class Topology:
         self.thisptr.PrintChargeMassInfo(maskString, idtype)
         set_world_silent(True)
 
-    # BROKEN
-    #def has_vel(self):
-    #    return self.thisptr.HasVelInfo()
-    
     def add_atom(self, Atom atom=Atom(), 
                  int resid=0, 
                  resname="", xyz=None):
@@ -329,9 +317,6 @@ cdef class Topology:
 
     def start_new_mol(self):
         self.thisptr.StartNewMol()
-
-    def common_setup(self, bint bondsearch):
-        return self.thisptr.CommonSetup(bondsearch)
 
     def set_offset(self, double x):
         self.thisptr.SetOffset(x)
@@ -378,11 +363,6 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Nframes()
 
-    # BROKEN
-    #property n_repdims:
-    #    def __get__(self):
-    #        return self.thisptr.NrepDims()
-
     property parm_name:
         def __get__(self):
             return self.thisptr.ParmName()
@@ -393,8 +373,6 @@ cdef class Topology:
     property GB_radiiset:
         def __get__(self):
             return self.thisptr.GBradiiSet()
-
-    #def int SetAmberExtra(self, vector[double], vector[NameType], vector[int], vector[int]):
 
     def set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
         if frame.is_empty():
@@ -445,10 +423,6 @@ cdef class Topology:
         else:
             self.thisptr[0] = tmptop.thisptr[0]
 
-    def tag(self):
-        # what does this do?
-        return self.thisptr.Tag()
-
     def is_empty(self):
         s = self.file_path()
         return s == ""
@@ -457,16 +431,20 @@ cdef class Topology:
         """return atom indices with given mask
         To be the same as cpptraj/Ambertools: we mask indexing starts from 1
         but the return list/array use 0
+
+        Parameters
+        ---------
+        mask : str
+            Atom mask
+
+        Returns
+        ------
+        indices : Python array
         """
         cdef AtomMask atm = AtomMask(mask)
         self.set_integer_mask(atm)
         has_numpy, np = _import_numpy()
-        if has_numpy:
-            # ndarray
-            return np.asarray(atm.selected_indices())
-        else:
-            # list
-            return atm.selected_indices()
+        return atm.selected_indices()
 
     def get_unique_resname(self):
         s = set()
@@ -506,7 +484,6 @@ cdef class Topology:
 
     @property
     def masses(self):
-        # TODO : use Cython memoryview if needed
         """return python array of atom masses"""
         cdef pyarray marray = pyarray('d', [])
         cdef Atom atom
