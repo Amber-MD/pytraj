@@ -156,10 +156,10 @@ cdef class Frame (object):
     def clear_atoms(self):
         self.thisptr.ClearAtoms()
 
-    def add_xyz(self, double[:] xyz):
+    def append_xyz(self, double[:] xyz):
         self.thisptr.AddXYZ(&xyz[0])
 
-    def add_vec3(self, Vec3 vec):
+    def append_vec3(self, Vec3 vec):
         self.thisptr.AddVec3(vec.thisptr[0])
 
     def swap_atoms(self, int atom1, int atom2):
@@ -294,6 +294,15 @@ cdef class Frame (object):
             my_arr = <double[:N, :3]> ptr
             return my_arr
         return _buffer(self.n_atoms)
+
+    @property
+    def xyz(self):
+        """return numpy array as a view of Frame xyz coords"""
+        has_np, np = _import_numpy()
+        if has_np:
+            return np.asarray(self.buffer3d)
+        else:
+            raise NotImplementedError("need numpy. Use `buffer3d` instead")
         
     def is_empty(self):
         return self.thisptr.empty()
