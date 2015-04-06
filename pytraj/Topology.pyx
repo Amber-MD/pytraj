@@ -324,7 +324,7 @@ cdef class Topology:
     def set_ipol(self, int id):
         self.thisptr.SetIpol(id)
 
-    def orig_filename(self):
+    def _orig_filename(self):
         cdef FileName filename = FileName()
         filename.thisptr[0] = self.thisptr.OriginalFilename()
         return filename
@@ -333,7 +333,7 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Pindex()
 
-    property p_index:
+    property _p_index:
         # shortcut of parm_index
         def __get__(self):
             return self.thisptr.Pindex()
@@ -363,14 +363,14 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Nframes()
 
-    property parm_name:
+    property _parm_name:
         def __get__(self):
             return self.thisptr.ParmName()
         def __set__(self, name):
             # TODO : check
             self.thisptr.SetParmName(name, FileName().thisptr[0])
 
-    property GB_radiiset:
+    property gb_radii:
         def __get__(self):
             return self.thisptr.GBradiiSet()
 
@@ -380,29 +380,29 @@ cdef class Topology:
         else:
             return self.thisptr.SetupIntegerMask(atm.thisptr[0], frame.thisptr[0])
 
-    def set_char_mask(self, AtomMask atm, Frame frame=Frame()):
+    def _set_char_mask(self, AtomMask atm, Frame frame=Frame()):
         if frame.is_empty():
             return self.thisptr.SetupCharMask(atm.thisptr[0])
         else:
             return self.thisptr.SetupCharMask(atm.thisptr[0], frame.thisptr[0])
 
-    def scale_dihedral_k(self, double value):
+    def _scale_dihedral_k(self, double value):
         self.thisptr.ScaleDihedralK(value)
 
     def set_box(self, Box boxin):
         self.thisptr.SetParmBox(boxin.thisptr[0])
 
-    def partial_modify_state_by_mask(self, AtomMask m):
+    def _partial_modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
         top.thisptr[0] = deref(self.thisptr.partialModifyStateByMask(m.thisptr[0]))
         return top
 
-    def modify_state_by_mask(self, AtomMask m):
+    def _modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
         top.thisptr[0] = deref(self.thisptr.modifyStateByMask(m.thisptr[0]))
         return top
 
-    def modify_by_map(self, vector[int] m):
+    def _modify_by_map(self, vector[int] m):
         cdef Topology top = Topology()
         top.thisptr[0] = deref(self.thisptr.ModifyByMap(m))
         return top
@@ -427,7 +427,7 @@ cdef class Topology:
         s = self.file_path()
         return s == ""
 
-    def get_atom_indices(self, mask, *args, **kwd):
+    def atom_indices(self, mask, *args, **kwd):
         """return atom indices with given mask
         To be the same as cpptraj/Ambertools: we mask indexing starts from 1
         but the return list/array use 0
@@ -492,7 +492,7 @@ cdef class Topology:
             marray.append(atom.mass)
         return marray
 
-    def indices_n_bonded_to(self, atom_name):
+    def indices_bonded_to(self, atom_name):
         """return indices of the number of atoms that each atom bonds to
         Parameters
         ----------
