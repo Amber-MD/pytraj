@@ -31,11 +31,7 @@ def load_mdtraj(m_traj):
         atom = Atom(m_atom.name, m_atom.name)
         m_res = m_atom.residue
         pseudotop.add_atom(atom=atom, resid=m_res.index, resname=m_res.name)
-    farray.top = pseudotop
 
     # load coords
-    for m_frame in m_traj:
-        frame = Frame(m_traj.n_atoms)
-        frame.set_from_crd(m_frame.xyz.flatten())
-        farray.append(frame)
+    farray = FrameArray(m_traj.xyz, pseudotop)
     return farray
