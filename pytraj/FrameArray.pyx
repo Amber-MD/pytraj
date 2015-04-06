@@ -1,6 +1,6 @@
 #print print  distutils: language = c++
-from cpython.array cimport array as pyarray
 cimport cython
+from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from pytraj.Topology cimport Topology
@@ -14,7 +14,7 @@ from pytraj.utils.check_and_assert import _import_numpy, is_int
 from pytraj.utils.check_and_assert import file_exist
 from pytraj.trajs.Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
-from pytraj._shared_methods import _xyz
+from pytraj._shared_methods import _xyz, _tolist
 from pytraj._shared_methods import my_str_method
 
 # we don't allow sub-class in Python level since we will mess up with memory
@@ -51,9 +51,18 @@ cdef class FrameArray (object):
                 if self.top.is_empty():
                     raise ValueError("Need to have non-empty Topology")
                 self.load(filename=filename, indices=indices)
-        elif isinstance(filename, (TrajReadOnly, Trajin_Single)):
-                traj = filename
-                self = traj[:]
+        elif hasattr(filename, 'n_frames'):
+            # assume Traj-like object
+            # make temp traj to remmind about traj-like
+            traj = filename
+            for frame in traj:
+                self.append(frame)
+        else:
+            try:
+                _xyz = filename
+                self.load_xyz(filename)
+            except:
+                raise ValueError("filename must be str, traj-like or numpy array")
 
     def copy(self):
         "Return a copy of FrameArray"
@@ -135,9 +144,12 @@ cdef class FrameArray (object):
         else:
             raise ValueError("can not load file/files")
 
+    @cython.infer_types(True)
+    @cython.cdivision(True)
     def load_xyz(self, xyz_in):
-        cdef Frame frame
         cdef int n_atoms = self.top.n_atoms
+        cdef int natom3 = n_atoms * 3
+        cdef int n_frames, i 
         """Try loading numpy xyz data with 
         shape=(n_frames, n_atoms, 3) or (n_frames, n_atoms*3) or 1D array
         """
@@ -146,7 +158,6 @@ cdef class FrameArray (object):
         if has_np:
             xyz = np.asarray(xyz_in)
             if len(xyz.shape) == 1:
-                natom3 = n_atoms * 3
                 n_frames = int(xyz.shape[0]/natom3)
                 _xyz = xyz.reshape(n_frames, natom3) 
             elif len(xyz.shape) in [2, 3]:
@@ -157,7 +168,17 @@ cdef class FrameArray (object):
                 frame.set_from_crd(arr0.flatten())
                 self.append(frame)
         else:
-            raise NotImplementedError("must have numpy")
+            if isinstance(xyz_in, (list, tuple)):
+                xyz_len = len(xyz_in)
+                if xyz_len % (natom3) != 0:
+                    raise ValueError("Len of list must be n_frames*n_atoms*3")
+                else:
+                    n_frames = int(xyz_len / natom3)
+                    for i in range(n_frames):
+                        frame = Frame(n_atoms)
+                        frame.set_from_crd(xyz_in[natom3 * i : natom3 * (i + 1)])
+            else:
+                raise NotImplementedError("must have numpy or list/tuple must be 1D")
 
     @property
     def shape(self):
@@ -169,6 +190,9 @@ cdef class FrameArray (object):
         We can not return a memoryview since FrameArray is a C++ vector of Frame object
         """
         return _xyz(self)
+
+    def tolist(self):
+        return _tolist(self)
 
     @cython.boundscheck(False)
     @cython.wraparound(False)
