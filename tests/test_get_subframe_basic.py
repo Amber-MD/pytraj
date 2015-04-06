@@ -11,19 +11,19 @@ class Test(unittest.TestCase):
         frame0 = traj[0]
         #arr0 = np.asarray(frame0)
         print(frame0[0, :])
-        assert frame0.buffer3d[0, 0] == frame0[0, 0]
-        assert frame0.buffer3d[0, 1] == frame0[0, 1]
-        assert frame0.buffer3d[0, 2] == frame0[0, 2]
-        assert frame0.buffer3d[1, 0] == frame0[1, 0]
-        assert frame0.buffer3d[19, 0] == frame0[19, 0]
-        frame0.buffer3d[19, 0] = 1000.
+        assert frame0.buffer2d[0, 0] == frame0[0, 0]
+        assert frame0.buffer2d[0, 1] == frame0[0, 1]
+        assert frame0.buffer2d[0, 2] == frame0[0, 2]
+        assert frame0.buffer2d[1, 0] == frame0[1, 0]
+        assert frame0.buffer2d[19, 0] == frame0[19, 0]
+        frame0.buffer2d[19, 0] = 1000.
 
-        # make sure changing buffer3d will update frame0.coords too
-        assert frame0.buffer3d[19, 0] == frame0[19, 0]
-        arr0 = np.asarray(frame0.buffer3d)
+        # make sure changing buffer2d will update frame0.coords too
+        assert frame0.buffer2d[19, 0] == frame0[19, 0]
+        arr0 = np.asarray(frame0.buffer2d)
         print(arr0.shape)
         arr0[19] = [200, 300, 400.]
-        assert frame0.buffer3d[19, 0] == frame0[19, 0] == arr0[19, 0]
+        assert frame0.buffer2d[19, 0] == frame0[19, 0] == arr0[19, 0]
 
         print ("try to strip atoms")
         frame1 = frame0.copy()

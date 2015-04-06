@@ -47,11 +47,11 @@ class Test(unittest.TestCase):
         print (traj[0][0])
         assert_almost_equal(traj[:, 0, 0], np.asarray(traj[0][0]))
 
-        for i in range(traj[0].buffer3d.shape[0]):
+        for i in range(traj[0].buffer2d.shape[0]):
             print ("coords for atom %s" % i)
             print (traj[:, :, 0][i])
-            print (traj[0].buffer3d[i])
-            assert_almost_equal(traj[:, :, 0][i], traj[0].buffer3d[i])
+            print (traj[0].buffer2d[i])
+            assert_almost_equal(traj[:, :, 0][i], traj[0].buffer2d[i])
 
 if __name__ == "__main__":
     unittest.main()

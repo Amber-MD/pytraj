@@ -3,7 +3,7 @@ import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
+from numpy.testing import assert_almost_equal
 from pytraj.utils import has_
 from pytraj.decorators import test_if_having
 from pytraj.utils import Timer
@@ -19,24 +19,44 @@ if has_("mdtraj"):
     m_top = md.load_prmtop("./data/Tc5b.top") 
     m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
 
-def Run(func, msg, n_times=50):
+def Run(func, msg, n_times=50, test_load=False):
     print (msg)
     my_ratio = 0
     for _ in range(n_times):
-        with Timer() as t0:
-            func(traj)
+        if not test_load:
+            with Timer() as t0:
+                func(traj)
 
-        time_0 = t0.time_gap()
+            time_0 = t0.time_gap()
 
-        with Timer() as t1:
-            func(m_traj)
-        time_1 = t1.time_gap()
-        my_ratio += time_1 / time_0
+            with Timer() as t1:
+                func(m_traj)
+            time_1 = t1.time_gap()
+            my_ratio += time_1 / time_0
+        else:
+            txt = "./data/md1_prod.fit_to_first.Tc5b.x"
+            fa = FrameArray()
+            fa.top = traj.top
+            with Timer() as t0:
+                fa.load(txt)
+            time_0 = t0.time_gap()
+
+            with Timer() as t1:
+                f_mdtraj = md.load_mdcrd(txt)
+            time_1 = t1.time_gap()
+            assert_almost_equal(fa.xyz, f_mdtraj.xyz)
+            my_ratio += time_1 / time_0
     print ("pytraj (speed up) vs mdtraj = %s" % (my_ratio/n_times))
     print ("mdtraj (speed up) vs pytraj = %s" % (1./(my_ratio/n_times)))
     print ()
 
 class Test(unittest.TestCase):
+    @test_if_having("mdtraj")
+    def test_load(self):
+        def load(test_load=True):
+            pass
+        Run(load, "test_load_traj: text file")
+
     @test_if_having("mdtraj")
     def test_0(self):
         def iter_traj(traj):
@@ -115,6 +135,7 @@ class Test(unittest.TestCase):
             ratio = t0.time_gap() / t1.time_gap()
             my_ratio += ratio
         print ("pytraj (speed up) vs mdtraj = %s" % (my_ratio/n_times))
+        print ("mdtraj (speed up) vs pytraj = %s" % (1./(my_ratio/n_times)))
 
 
 if __name__ == "__main__":

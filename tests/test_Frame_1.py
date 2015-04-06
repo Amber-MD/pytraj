@@ -87,7 +87,7 @@ class TestFrame(unittest.TestCase):
         arr0 = np.arange(300, 0, -1).reshape(100, 3)
         frame[0, :] = array('d', arr0[0, :])
         assert arr0.shape == (100, 3)
-        assert frame.buffer3d.shape == (100, 3)
+        assert frame.buffer2d.shape == (100, 3)
         assert frame[0, 1] == arr0[0, 1]
         ##frame[:], np.arange(300, 0, -1).reshape(100, 3))
         #assert frame.coords == array('d', range(300, 0, -1))
