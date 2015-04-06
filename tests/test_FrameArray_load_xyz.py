@@ -5,8 +5,10 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.six_2 import izip
+from pytraj.decorators import test_if_having
 
 class Test(unittest.TestCase):
+    @test_if_having("numpy")
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print ("creat FrameArray from 3D array")
@@ -16,7 +18,7 @@ class Test(unittest.TestCase):
         print (arr0.shape)
         farray.load_xyz(arr0)
         for f0, f1 in izip(farray, traj):
-            print (f0, f1)
+            #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
 
         print ("creat FrameArray from 1D array")
@@ -27,7 +29,7 @@ class Test(unittest.TestCase):
         farray2.load_xyz(arr0)
 
         for f0, f1 in izip(farray2, traj):
-            print (f0, f1)
+            #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
 
         print ("creat FrameArray from 2D array")
@@ -38,7 +40,7 @@ class Test(unittest.TestCase):
         farray3.load_xyz(arr0)
 
         for f0, f1 in izip(farray3, traj):
-            print (f0, f1)
+            #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
 
 if __name__ == "__main__":
