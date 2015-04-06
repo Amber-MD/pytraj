@@ -147,9 +147,11 @@ cdef class DataSetList:
         dlist.thisptr[0] = self.thisptr.GetMultipleSets(s)
         return dlist
 
-    def add_set(self, dtype, name, default_name):
+    def add_set(self, dtype=None, name="", default_name=""):
         # TODO: check cpptraj for this method
         cdef DataSet dset = DataSet()
+        if dtype is None:
+            raise ValueError("dtype must not be None")
         dtype = dtype.upper()
         name = name.encode()
         default_name = default_name.encode()
@@ -166,7 +168,7 @@ cdef class DataSetList:
             raise MemoryError("Can not initialize pointer")
         return dset
 
-    def add_copy_of_set(self, DataSet dset):
+    def _add_copy_of_set(self, DataSet dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
 
     def add_set_aspect(self, dtype, name=None, aspect=None):
@@ -238,3 +240,7 @@ cdef class DataSetList:
         for d0 in self:
             tmp_list.append(d0.dtype)
         return tmp_list
+
+    def tolist(self):
+        """return a list of list/array"""
+        return [d0[:] for d0 in self]
