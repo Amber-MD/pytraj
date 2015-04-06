@@ -1935,6 +1935,7 @@ static char __pyx_k_pytraj_utils[] = "pytraj.utils";
 static char __pyx_k_temperatures[] = "temperatures";
 static char __pyx_k_my_str_method[] = "my_str_method";
 static char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
+static char __pyx_k_require_numpy[] = "require numpy";
 static char __pyx_k_allocate_buffer[] = "allocate_buffer";
 static char __pyx_k_dtype_is_object[] = "dtype_is_object";
 static char __pyx_k_strided_and_direct[] = "<strided and direct>";
@@ -1946,7 +1947,6 @@ static char __pyx_k_contiguous_and_direct[] = "<contiguous and direct>";
 static char __pyx_k_index_is_out_of_range[] = "index is out of range";
 static char __pyx_k_MemoryView_of_r_object[] = "<MemoryView of %r object>";
 static char __pyx_k_pytraj__shared_methods[] = "pytraj._shared_methods";
-static char __pyx_k_require_numpy_Use_self[] = "require numpy. Use self[:, :, :]";
 static char __pyx_k_MemoryView_of_r_at_0x_x[] = "<MemoryView of %r at 0x%x>";
 static char __pyx_k_contiguous_and_indirect[] = "<contiguous and indirect>";
 static char __pyx_k_Cannot_index_with_type_s[] = "Cannot index with type '%s'";
@@ -2053,7 +2053,7 @@ static PyObject *__pyx_n_s_pytraj_utils;
 static PyObject *__pyx_n_s_pyx_getbuffer;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
-static PyObject *__pyx_kp_s_require_numpy_Use_self;
+static PyObject *__pyx_kp_s_require_numpy;
 static PyObject *__pyx_kp_s_s_instance_with_s_frames_s_atom;
 static PyObject *__pyx_n_s_savetraj;
 static PyObject *__pyx_n_s_self;
@@ -2863,7 +2863,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_4_xyz(CYTHON_UNUSED PyObject
  *     if has_np:
  *         return self[:, :, :]             # <<<<<<<<<<<<<<
  *     else:
- *         raise NotImplementedError("require numpy. Use self[:, :, :]")
+ *         raise NotImplementedError("require numpy")
  */
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_1 = PyObject_GetItem(__pyx_v_self, __pyx_tuple__6); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
@@ -2877,7 +2877,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_4_xyz(CYTHON_UNUSED PyObject
     /* "pytraj/_shared_methods.pyx":30
  *         return self[:, :, :]
  *     else:
- *         raise NotImplementedError("require numpy. Use self[:, :, :]")             # <<<<<<<<<<<<<<
+ *         raise NotImplementedError("require numpy")             # <<<<<<<<<<<<<<
  * 
  * def _tolist(self):
  */
@@ -2913,7 +2913,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_4_xyz(CYTHON_UNUSED PyObject
 }
 
 /* "pytraj/_shared_methods.pyx":32
- *         raise NotImplementedError("require numpy. Use self[:, :, :]")
+ *         raise NotImplementedError("require numpy")
  * 
  * def _tolist(self):             # <<<<<<<<<<<<<<
  *     """return flatten list for traj-like object"""
@@ -3041,7 +3041,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_6_tolist(CYTHON_UNUSED PyObj
   goto __pyx_L0;
 
   /* "pytraj/_shared_methods.pyx":32
- *         raise NotImplementedError("require numpy. Use self[:, :, :]")
+ *         raise NotImplementedError("require numpy")
  * 
  * def _tolist(self):             # <<<<<<<<<<<<<<
  *     """return flatten list for traj-like object"""
@@ -15264,7 +15264,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
-  {&__pyx_kp_s_require_numpy_Use_self, __pyx_k_require_numpy_Use_self, sizeof(__pyx_k_require_numpy_Use_self), 0, 0, 1, 0},
+  {&__pyx_kp_s_require_numpy, __pyx_k_require_numpy, sizeof(__pyx_k_require_numpy), 0, 0, 1, 0},
   {&__pyx_kp_s_s_instance_with_s_frames_s_atom, __pyx_k_s_instance_with_s_frames_s_atom, sizeof(__pyx_k_s_instance_with_s_frames_s_atom), 0, 0, 1, 0},
   {&__pyx_n_s_savetraj, __pyx_k_savetraj, sizeof(__pyx_k_savetraj), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
@@ -15332,7 +15332,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     if has_np:
  *         return self[:, :, :]             # <<<<<<<<<<<<<<
  *     else:
- *         raise NotImplementedError("require numpy. Use self[:, :, :]")
+ *         raise NotImplementedError("require numpy")
  */
   __pyx_slice__3 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_slice__3);
@@ -15350,11 +15350,11 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pytraj/_shared_methods.pyx":30
  *         return self[:, :, :]
  *     else:
- *         raise NotImplementedError("require numpy. Use self[:, :, :]")             # <<<<<<<<<<<<<<
+ *         raise NotImplementedError("require numpy")             # <<<<<<<<<<<<<<
  * 
  * def _tolist(self):
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_require_numpy_Use_self); if (unlikely(!__pyx_tuple__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_require_numpy); if (unlikely(!__pyx_tuple__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
@@ -15551,7 +15551,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_u1_haichit_amber_git_amber_Ambe, __pyx_n_s_xyz, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "pytraj/_shared_methods.pyx":32
- *         raise NotImplementedError("require numpy. Use self[:, :, :]")
+ *         raise NotImplementedError("require numpy")
  * 
  * def _tolist(self):             # <<<<<<<<<<<<<<
  *     """return flatten list for traj-like object"""
@@ -15907,7 +15907,7 @@ PyMODINIT_FUNC PyInit__shared_methods(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pytraj/_shared_methods.pyx":32
- *         raise NotImplementedError("require numpy. Use self[:, :, :]")
+ *         raise NotImplementedError("require numpy")
  * 
  * def _tolist(self):             # <<<<<<<<<<<<<<
  *     """return flatten list for traj-like object"""

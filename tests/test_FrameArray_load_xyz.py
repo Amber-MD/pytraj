@@ -43,5 +43,18 @@ class Test(unittest.TestCase):
             #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
 
+        print ("creat FrameArray from 2D array of memview")
+        farray4 = FrameArray()
+        farray4.top = farray.top.copy()
+
+        for frame in traj:
+            f0 = Frame()
+            f0.append_xyz(frame.buffer3d)
+            farray4.append(f0)
+
+        for f0, f1 in izip(farray4, traj):
+            #print (f0, f1)
+            assert_almost_equal(f0.coords, f1.coords)
+
 if __name__ == "__main__":
     unittest.main()

@@ -156,8 +156,12 @@ cdef class Frame (object):
     def clear_atoms(self):
         self.thisptr.ClearAtoms()
 
-    def append_xyz(self, double[:] xyz):
-        self.thisptr.AddXYZ(&xyz[0])
+    def append_xyz(self, double[:, :] xyz):
+        cdef int i
+        cdef int N = xyz.shape[0]
+
+        for i in range(N):
+            self.thisptr.AddXYZ(&xyz[i, 0])
 
     def append_vec3(self, Vec3 vec):
         self.thisptr.AddVec3(vec.thisptr[0])
