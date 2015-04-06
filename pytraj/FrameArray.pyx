@@ -254,7 +254,7 @@ cdef class FrameArray (object):
                             return _coord_list
                     else:
                         _farray = FrameArray()
-                        _farray.top = self.top.modify_state_by_mask(self.top(mask))
+                        _farray.top = self.top._modify_state_by_mask(self.top(mask))
                         for i, frame in enumerate(self):
                             _frame = frame.get_subframe(mask, self.top)
                             _farray.append(_frame)
@@ -571,7 +571,7 @@ cdef class FrameArray (object):
         return tarr
 
     @property
-    def T_set(self):
+    def temperature_set(self):
         return _get_temperature_set(self)
 
     def get_frames(self, from_traj=None, indices=None, update_top=False, copy=True):
@@ -623,11 +623,11 @@ cdef class FrameArray (object):
                     frame = Frame()
                     #frame.set_frame_v(ts.top, ts.has_vel(), ts.n_repdims)
                     frame.set_frame_v(ts.top)
-                    ts.begin_traj()
+                    ts._begin_traj()
                     for i in range(ts.max_frames):
-                        ts.get_next_frame(frame)
+                        ts._get_next_frame(frame)
                         self.append(frame, copy=copy)
-                    ts.end_traj()
+                    ts._end_traj()
 
             #elif isinstance(ts, FrameArray2) or isinstance(ts, FrameArray):
             elif isinstance(ts, FrameArray):
@@ -679,19 +679,11 @@ cdef class FrameArray (object):
         if update_top:
             self.top = tmptop.copy()
 
-    # taking from Trajin_Single
-    @classmethod
-    def write_options(cls):
-        TrajReadOnly.write_options()
-
-    @classmethod
-    def read_options(cls):
-        TrajReadOnly.read_options()
-
     def save(self, filename="", fmt='unknown', overwrite=False):
         _savetraj(self, filename, fmt, overwrite)
 
     def write(self, *args, **kwd):
+        """same as `save` method"""
         self.save(*args, **kwd)
 
     def fit_to(self, ref=None, mask="*"):

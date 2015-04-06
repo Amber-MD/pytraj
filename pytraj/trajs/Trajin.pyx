@@ -185,7 +185,7 @@ cdef class Trajin (TrajectoryFile):
                             return _coord_list
                     else:
                         _farray = FrameArray()
-                        _farray.top = self.top.modify_state_by_mask(self.top(mask))
+                        _farray.top = self.top._modify_state_by_mask(self.top(mask))
                         for i, frame in enumerate(self):
                             _frame = frame.get_subframe(mask, self.top)
                             _farray.append(_frame)
