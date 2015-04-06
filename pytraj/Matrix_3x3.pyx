@@ -225,7 +225,7 @@ cdef class Matrix_3x3:
             raise ImportError("Must have numpy installed")
 
     @property
-    def buffer3d(self):
+    def buffer2d(self):
         cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()
         return arr0
 
@@ -237,9 +237,9 @@ cdef class Matrix_3x3:
     def __getitem__(self, idx):
         has_numpy, _np = _import_numpy()
         if has_numpy:
-            return _np.asarray(self.buffer3d[idx])
+            return _np.asarray(self.buffer2d[idx])
         else:
-            return self.buffer3d[idx]
+            return self.buffer2d[idx]
 
     def __setitem__(self, idx, value):
-        self.buffer3d[idx] = value
+        self.buffer2d[idx] = value

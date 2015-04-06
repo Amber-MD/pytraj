@@ -191,11 +191,24 @@ cdef class FrameArray (object):
         return (self.n_frames, self[0].n_atoms, 3)
 
     @property
-    def xyz(self):
+    def xyz(FrameArray self):
         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since FrameArray is a C++ vector of Frame object
         """
-        return _xyz(self)
+        cdef bint has_numpy
+        has_numpy, np = _import_numpy()
+        cdef int i
+        cdef int n_frames = self.n_frames
+        cdef int n_atoms = self.n_atoms
+        cdef Frame frame
+        myview = np.empty((n_frames, n_atoms, 3))
+
+        if has_numpy:
+            for i, frame in enumerate(self):
+                myview[i] = np.asarray(frame.buffer2d[:])
+            return np.asarray(myview)
+        else:
+            raise NotImplementedError("must have numpy")
 
     def tolist(self):
         return _tolist(self)

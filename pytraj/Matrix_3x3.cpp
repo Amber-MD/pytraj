@@ -1367,7 +1367,7 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_44axis_of_rotation(s
 static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_46transpose_mult(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_self, struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_other); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_48tolist(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_50to_numpy_mat(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer3d(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer2d(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_54buffer1d(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_56__getitem__(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_self, PyObject *__pyx_v_idx); /* proto */
 static int __pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_58__setitem__(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value); /* proto */
@@ -1462,7 +1462,7 @@ static char __pyx_k_reshape[] = "reshape";
 static char __pyx_k_to_list[] = "to_list";
 static char __pyx_k_Ellipsis[] = "Ellipsis";
 static char __pyx_k_buffer1d[] = "buffer1d";
-static char __pyx_k_buffer3d[] = "buffer3d";
+static char __pyx_k_buffer2d[] = "buffer2d";
 static char __pyx_k_itemsize[] = "itemsize";
 static char __pyx_k_property[] = "property";
 static char __pyx_k_TypeError[] = "TypeError";
@@ -1542,7 +1542,7 @@ static PyObject *__pyx_n_s_allocate_buffer;
 static PyObject *__pyx_n_s_asarray;
 static PyObject *__pyx_n_s_base;
 static PyObject *__pyx_n_s_buffer1d;
-static PyObject *__pyx_n_s_buffer3d;
+static PyObject *__pyx_n_s_buffer2d;
 static PyObject *__pyx_n_s_c;
 static PyObject *__pyx_n_u_c;
 static PyObject *__pyx_n_s_class;
@@ -4533,26 +4533,26 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_50to_numpy_mat(struc
 /* "pytraj/Matrix_3x3.pyx":228
  * 
  *     @property
- *     def buffer3d(self):             # <<<<<<<<<<<<<<
+ *     def buffer2d(self):             # <<<<<<<<<<<<<<
  *         cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()
  *         return arr0
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Matrix_3x3_10Matrix_3x3_53buffer3d(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer3d[] = "Matrix_3x3.buffer3d(self)";
-static PyObject *__pyx_pw_6pytraj_10Matrix_3x3_10Matrix_3x3_53buffer3d(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Matrix_3x3_10Matrix_3x3_53buffer2d(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer2d[] = "Matrix_3x3.buffer2d(self)";
+static PyObject *__pyx_pw_6pytraj_10Matrix_3x3_10Matrix_3x3_53buffer2d(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("buffer3d (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer3d(((struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("buffer2d (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer2d(((struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer3d(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer2d(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 *__pyx_v_self) {
   __Pyx_memviewslice __pyx_v_arr0 = { 0, 0, { 0 }, { 0 }, { 0 } };
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -4564,11 +4564,11 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer3d(struct __
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("buffer3d", 0);
+  __Pyx_RefNannySetupContext("buffer2d", 0);
 
   /* "pytraj/Matrix_3x3.pyx":229
  *     @property
- *     def buffer3d(self):
+ *     def buffer2d(self):
  *         cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()             # <<<<<<<<<<<<<<
  *         return arr0
  * 
@@ -4596,7 +4596,7 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer3d(struct __
   __pyx_t_5.data = NULL;
 
   /* "pytraj/Matrix_3x3.pyx":230
- *     def buffer3d(self):
+ *     def buffer2d(self):
  *         cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()
  *         return arr0             # <<<<<<<<<<<<<<
  * 
@@ -4612,7 +4612,7 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer3d(struct __
   /* "pytraj/Matrix_3x3.pyx":228
  * 
  *     @property
- *     def buffer3d(self):             # <<<<<<<<<<<<<<
+ *     def buffer2d(self):             # <<<<<<<<<<<<<<
  *         cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()
  *         return arr0
  */
@@ -4623,7 +4623,7 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer3d(struct __
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
-  __Pyx_AddTraceback("pytraj.Matrix_3x3.Matrix_3x3.buffer3d", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.Matrix_3x3.Matrix_3x3.buffer2d", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_arr0, 1);
@@ -4777,7 +4777,7 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_56__getitem__(struct
  *     def __getitem__(self, idx):
  *         has_numpy, _np = _import_numpy()             # <<<<<<<<<<<<<<
  *         if has_numpy:
- *             return _np.asarray(self.buffer3d[idx])
+ *             return _np.asarray(self.buffer2d[idx])
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_import_numpy); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 238; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -4858,7 +4858,7 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_56__getitem__(struct
  *     def __getitem__(self, idx):
  *         has_numpy, _np = _import_numpy()
  *         if has_numpy:             # <<<<<<<<<<<<<<
- *             return _np.asarray(self.buffer3d[idx])
+ *             return _np.asarray(self.buffer2d[idx])
  *         else:
  */
   __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_has_numpy); if (unlikely(__pyx_t_6 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 239; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4867,14 +4867,14 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_56__getitem__(struct
     /* "pytraj/Matrix_3x3.pyx":240
  *         has_numpy, _np = _import_numpy()
  *         if has_numpy:
- *             return _np.asarray(self.buffer3d[idx])             # <<<<<<<<<<<<<<
+ *             return _np.asarray(self.buffer2d[idx])             # <<<<<<<<<<<<<<
  *         else:
- *             return self.buffer3d[idx]
+ *             return self.buffer2d[idx]
  */
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v__np, __pyx_n_s_asarray); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer3d); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer2d); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_4 = PyObject_GetItem(__pyx_t_2, __pyx_v_idx); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_4);
@@ -4912,14 +4912,14 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_56__getitem__(struct
   /*else*/ {
 
     /* "pytraj/Matrix_3x3.pyx":242
- *             return _np.asarray(self.buffer3d[idx])
+ *             return _np.asarray(self.buffer2d[idx])
  *         else:
- *             return self.buffer3d[idx]             # <<<<<<<<<<<<<<
+ *             return self.buffer2d[idx]             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(self, idx, value):
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer3d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer2d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = PyObject_GetItem(__pyx_t_1, __pyx_v_idx); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -4955,10 +4955,10 @@ static PyObject *__pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_56__getitem__(struct
 }
 
 /* "pytraj/Matrix_3x3.pyx":244
- *             return self.buffer3d[idx]
+ *             return self.buffer2d[idx]
  * 
  *     def __setitem__(self, idx, value):             # <<<<<<<<<<<<<<
- *         self.buffer3d[idx] = value
+ *         self.buffer2d[idx] = value
  */
 
 /* Python wrapper */
@@ -4986,18 +4986,18 @@ static int __pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3_58__setitem__(struct __pyx
   /* "pytraj/Matrix_3x3.pyx":245
  * 
  *     def __setitem__(self, idx, value):
- *         self.buffer3d[idx] = value             # <<<<<<<<<<<<<<
+ *         self.buffer2d[idx] = value             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer3d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer2d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_v_idx, __pyx_v_value) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pytraj/Matrix_3x3.pyx":244
- *             return self.buffer3d[idx]
+ *             return self.buffer2d[idx]
  * 
  *     def __setitem__(self, idx, value):             # <<<<<<<<<<<<<<
- *         self.buffer3d[idx] = value
+ *         self.buffer2d[idx] = value
  */
 
   /* function exit code */
@@ -16735,7 +16735,7 @@ static PyMethodDef __pyx_methods_6pytraj_10Matrix_3x3_Matrix_3x3[] = {
   {"transpose_mult", (PyCFunction)__pyx_pw_6pytraj_10Matrix_3x3_10Matrix_3x3_47transpose_mult, METH_O, __pyx_doc_6pytraj_10Matrix_3x3_10Matrix_3x3_46transpose_mult},
   {"tolist", (PyCFunction)__pyx_pw_6pytraj_10Matrix_3x3_10Matrix_3x3_49tolist, METH_NOARGS, __pyx_doc_6pytraj_10Matrix_3x3_10Matrix_3x3_48tolist},
   {"to_numpy_mat", (PyCFunction)__pyx_pw_6pytraj_10Matrix_3x3_10Matrix_3x3_51to_numpy_mat, METH_NOARGS, __pyx_doc_6pytraj_10Matrix_3x3_10Matrix_3x3_50to_numpy_mat},
-  {"buffer3d", (PyCFunction)__pyx_pw_6pytraj_10Matrix_3x3_10Matrix_3x3_53buffer3d, METH_NOARGS, __pyx_doc_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer3d},
+  {"buffer2d", (PyCFunction)__pyx_pw_6pytraj_10Matrix_3x3_10Matrix_3x3_53buffer2d, METH_NOARGS, __pyx_doc_6pytraj_10Matrix_3x3_10Matrix_3x3_52buffer2d},
   {"buffer1d", (PyCFunction)__pyx_pw_6pytraj_10Matrix_3x3_10Matrix_3x3_55buffer1d, METH_NOARGS, __pyx_doc_6pytraj_10Matrix_3x3_10Matrix_3x3_54buffer1d},
   {0, 0, 0, 0}
 };
@@ -17590,7 +17590,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_asarray, __pyx_k_asarray, sizeof(__pyx_k_asarray), 0, 0, 1, 1},
   {&__pyx_n_s_base, __pyx_k_base, sizeof(__pyx_k_base), 0, 0, 1, 1},
   {&__pyx_n_s_buffer1d, __pyx_k_buffer1d, sizeof(__pyx_k_buffer1d), 0, 0, 1, 1},
-  {&__pyx_n_s_buffer3d, __pyx_k_buffer3d, sizeof(__pyx_k_buffer3d), 0, 0, 1, 1},
+  {&__pyx_n_s_buffer2d, __pyx_k_buffer2d, sizeof(__pyx_k_buffer2d), 0, 0, 1, 1},
   {&__pyx_n_s_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 0, 1, 1},
   {&__pyx_n_u_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 1, 0, 1},
   {&__pyx_n_s_class, __pyx_k_class, sizeof(__pyx_k_class), 0, 0, 1, 1},
@@ -18130,18 +18130,18 @@ PyMODINIT_FUNC PyInit_Matrix_3x3(void)
   /* "pytraj/Matrix_3x3.pyx":228
  * 
  *     @property
- *     def buffer3d(self):             # <<<<<<<<<<<<<<
+ *     def buffer2d(self):             # <<<<<<<<<<<<<<
  *         cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()
  *         return arr0
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3, __pyx_n_s_buffer3d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3, __pyx_n_s_buffer2d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
   /* "pytraj/Matrix_3x3.pyx":227
  *             raise ImportError("Must have numpy installed")
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def buffer3d(self):
+ *     def buffer2d(self):
  *         cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()
  */
   __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 227; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18152,7 +18152,7 @@ PyMODINIT_FUNC PyInit_Matrix_3x3(void)
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 227; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3->tp_dict, __pyx_n_s_buffer3d, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3->tp_dict, __pyx_n_s_buffer2d, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3);
 

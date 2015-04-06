@@ -181,7 +181,7 @@ cdef class Frame (object):
 
     @property
     def shape(self):
-        return self.buffer3d[:].shape
+        return self.buffer2d[:].shape
 
     def __getitem__(self, idx):
         # always return memoryview 
@@ -196,11 +196,11 @@ cdef class Frame (object):
                 # return 2D list
                 tmp_arr0 = []
                 for _index in idx.selected_indices():
-                    tmp_arr0.append(list(self.buffer3d[_index]))
+                    tmp_arr0.append(list(self.buffer2d[_index]))
                 return tmp_arr0
                 #raise NotImplementedError("supported if having numpy installed")
             else:
-                arr0 = np.asarray(self.buffer3d[:])
+                arr0 = np.asarray(self.buffer2d[:])
                 return arr0[np.array(idx.selected_indices())]
         elif isinstance(idx, dict):
             # Example: frame[dict(top=top, mask='@CA')]
@@ -210,7 +210,7 @@ cdef class Frame (object):
             atm = AtomMask(idx['mask'])
             idx['top'].set_integer_mask(atm)
             if has_numpy:
-                arr0 = np.asarray(self.buffer3d[:])
+                arr0 = np.asarray(self.buffer2d[:])
                 return arr0[np.array(atm.selected_indices())]
             else:
                 return self[atm]
@@ -222,9 +222,9 @@ cdef class Frame (object):
                 raise ValueError("must have non-empty topology")
         else:
             if has_numpy:
-                return np.asarray(self.buffer3d[idx])
+                return np.asarray(self.buffer2d[idx])
             else:
-                return self.buffer3d[idx]
+                return self.buffer2d[idx]
 
     def __setitem__(self, idx, value):
         # TODO : should we use buffer. Kind of dangerous
@@ -234,10 +234,10 @@ cdef class Frame (object):
         #else:
         #    if isinstance(value, (list, tuple)):
         #        value = pyarray('d', value)
-        #    self.buffer3d[idx] = value
+        #    self.buffer2d[idx] = value
         if isinstance(value, (tuple, list)):
             value = pyarray('d', value)
-            self.buffer3d[idx] = value
+            self.buffer2d[idx] = value
         if isinstance(idx, AtomMask):
             self.update_atoms(idx.selected_indices(), value.flatten())
         elif isinstance(value, string_types):
@@ -247,7 +247,7 @@ cdef class Frame (object):
             else:
                 self[self.top(idx)] = value
         else:
-            self.buffer3d[idx] = value
+            self.buffer2d[idx] = value
 
     def __iter__(self):
         cdef int i
@@ -255,9 +255,9 @@ cdef class Frame (object):
         has_numpy, np = _import_numpy()
         for i in range(self.n_atoms):
             if has_numpy:
-                yield np.asarray(self.buffer3d[i])
+                yield np.asarray(self.buffer2d[i])
             else:
-                yield self.buffer3d[i]
+                yield self.buffer2d[i]
 
     def frame_iter(self):
         """
@@ -284,7 +284,7 @@ cdef class Frame (object):
         return _buffer(self.size)
 
     @property
-    def buffer3d(self):
+    def buffer2d(self):
         """return memory view for Frame coordinates but reshape
         (just like self._buffer3 = self.buffer.reshape())
         TODO : rename?
@@ -304,9 +304,9 @@ cdef class Frame (object):
         """return numpy array as a view of Frame xyz coords"""
         has_np, np = _import_numpy()
         if has_np:
-            return np.asarray(self.buffer3d)
+            return np.asarray(self.buffer2d)
         else:
-            raise NotImplementedError("need numpy. Use `buffer3d` instead")
+            raise NotImplementedError("need numpy. Use `buffer2d` instead")
         
     def is_empty(self):
         return self.thisptr.empty()
