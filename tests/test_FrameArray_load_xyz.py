@@ -49,7 +49,7 @@ class Test(unittest.TestCase):
 
         for frame in traj:
             f0 = Frame()
-            f0.append_xyz(frame.buffer3d)
+            f0.append_xyz(frame.buffer2d)
             farray4.append(f0)
 
         for f0, f1 in izip(farray4, traj):
