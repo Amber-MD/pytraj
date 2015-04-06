@@ -98,6 +98,7 @@ class Test(unittest.TestCase):
         print (xyz_list.__len__())
         assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
         farray_0 = FrameArray(xyz_list, traj.top)
+        assert farray_0.size == traj.size
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
@@ -117,6 +118,32 @@ class Test(unittest.TestCase):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         _farray = traj[:]
         xyz_list = _farray.tolist()
+        assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
+        farray_0 = FrameArray(xyz_list, traj.top)
+        assert farray_0.size == traj.size
+        for f0, f1 in izip(farray_0, traj):
+            assert_almost_equal(f0.coords, f1.coords)
+
+    @Timer()
+    def test_9(self):
+        print ("from list 3: Coord dataset")
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        dslist = DataSetList()
+        dslist.add_set("coords", "", "")
+        dslist.add_set("traj", "", "")
+        dslist[0].top = traj.top
+        dslist[0].load(traj)
+
+        dslist[1].top = traj.top.copy()
+        dslist[1].load("./data/md1_prod.Tc5b.x")
+
+        xyz_list = dslist[0].tolist()
+        assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
+        farray_0 = FrameArray(xyz_list, traj.top)
+        for f0, f1 in izip(farray_0, traj):
+            assert_almost_equal(f0.coords, f1.coords)
+
+        xyz_list = dslist[1].tolist()
         assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
         farray_0 = FrameArray(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):

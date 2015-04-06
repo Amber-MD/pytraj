@@ -2053,10 +2053,10 @@ static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
 #include "descrobject.h"
 static PyObject* __Pyx_Method_ClassMethod(PyObject *method);
 
+#include <new>
+
 static PyObject *__pyx_memview_get_double(const char *itemp);
 static int __pyx_memview_set_double(const char *itemp, PyObject *obj);
-
-#include <new>
 
 #if PY_MAJOR_VERSION < 3
     static int __Pyx_GetBuffer(PyObject *obj, Py_buffer *view, int flags);
@@ -9196,7 +9196,7 @@ static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_61fit_to(CYTHON_UNUSED 
  * 
  *     @property
  *     def shape(self):             # <<<<<<<<<<<<<<
- *         return (self.n_frames, self[0].n_atoms, 3)
+ *         return (self.size, self[0].n_atoms, 3)
  * 
  */
 
@@ -9228,12 +9228,12 @@ static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_63shape(struct __pyx_ob
   /* "pytraj/trajs/Trajin.pyx":380
  *     @property
  *     def shape(self):
- *         return (self.n_frames, self[0].n_atoms, 3)             # <<<<<<<<<<<<<<
+ *         return (self.size, self[0].n_atoms, 3)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_n_frames); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 380; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 380; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 380; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_2);
@@ -9259,7 +9259,7 @@ static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_63shape(struct __pyx_ob
  * 
  *     @property
  *     def shape(self):             # <<<<<<<<<<<<<<
- *         return (self.n_frames, self[0].n_atoms, 3)
+ *         return (self.size, self[0].n_atoms, 3)
  * 
  */
 
@@ -24419,7 +24419,7 @@ PyMODINIT_FUNC PyInit_Trajin(void)
  * 
  *     @property
  *     def shape(self):             # <<<<<<<<<<<<<<
- *         return (self.n_frames, self[0].n_atoms, 3)
+ *         return (self.size, self[0].n_atoms, 3)
  * 
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_5trajs_6Trajin_Trajin, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 379; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -24430,7 +24430,7 @@ PyMODINIT_FUNC PyInit_Trajin(void)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def shape(self):
- *         return (self.n_frames, self[0].n_atoms, 3)
+ *         return (self.size, self[0].n_atoms, 3)
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 378; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -24455,7 +24455,7 @@ PyMODINIT_FUNC PyInit_Trajin(void)
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "pytraj/trajs/Trajin.pyx":382
- *         return (self.n_frames, self[0].n_atoms, 3)
+ *         return (self.size, self[0].n_atoms, 3)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def xyz(self):

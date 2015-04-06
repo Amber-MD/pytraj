@@ -377,7 +377,7 @@ cdef class Trajin (TrajectoryFile):
 
     @property
     def shape(self):
-        return (self.n_frames, self[0].n_atoms, 3)
+        return (self.size, self[0].n_atoms, 3)
 
     @property
     def xyz(self):

@@ -177,6 +177,12 @@ cdef class FrameArray (object):
                     for i in range(n_frames):
                         frame = Frame(n_atoms)
                         frame.set_from_crd(xyz_in[natom3 * i : natom3 * (i + 1)])
+                        self.append(frame)
+            elif hasattr(xyz_in, 'memview'):
+                    frame = Frame(n_atoms)
+                    for i in range(xyz_in.shape[0]):
+                        frame.append_xyz(xyz_in[i]) 
+                        self.append(frame)
             else:
                 raise NotImplementedError("must have numpy or list/tuple must be 1D")
 
@@ -679,7 +685,7 @@ cdef class FrameArray (object):
         if update_top:
             self.top = tmptop.copy()
 
-    def save(self, filename="", fmt='unknown', overwrite=False):
+    def save(self, filename="", fmt='unknown', overwrite=True):
         _savetraj(self, filename, fmt, overwrite)
 
     def write(self, *args, **kwd):
