@@ -29,15 +29,15 @@ cdef class TrajectoryFile:
         pass
 
     @classmethod
-    def read_options(cls):
+    def _read_options(cls):
         _TrajectoryFile.ReadOptions()
 
     @classmethod
-    def write_options(cls):
+    def _write_options(cls):
         _TrajectoryFile.WriteOptions()
 
     @classmethod
-    def get_format(cls, arg):
+    def _get_format(cls, arg):
         """
         Return format
         Parameters
@@ -54,7 +54,7 @@ cdef class TrajectoryFile:
             return _TrajectoryFile.GetFormatFromString(s)
 
     @classmethod
-    def get_ext_for_type(cls, key):
+    def _get_ext_for_type(cls, key):
         """
         Parameters
         ----------
@@ -63,7 +63,7 @@ cdef class TrajectoryFile:
         return _TrajectoryFile.GetExtensionForType(TrajFormatDict[key]).decode()
 
     @classmethod
-    def get_type_from_ext(cls, e):
+    def _get_type_from_ext(cls, e):
         """
         Parameters
         ----------
@@ -74,24 +74,12 @@ cdef class TrajectoryFile:
         return get_key(ttype, TrajFormatDict)
 
     @classmethod
-    def format_string(cls, key):
+    def _format_string(cls, key):
         return _TrajectoryFile.FormatString(TrajFormatDict[key]).decode()
 
-    def set_trajfilename(self, filename, bint is_read=True):
+    def _set_trajfilename(self, filename, bint is_read=True):
         filename = filename.encode()
         self.baseptr0.SetTrajFileName(filename, is_read)
-
-    # this decorator does not work
-    # Python complains that 'property' is not callable
-    # check the below solution
-    #@property
-    #def top(self):
-    #    self._top.thisptr = self.baseptr0.TrajParm()
-    #    return self._top
-
-    #@top.setter
-    #def top(self, Topology other):
-    #    self.baseptr0.SetTrajParm(other.thisptr)
 
     property top:
         def __get__(self):
@@ -108,10 +96,3 @@ cdef class TrajectoryFile:
 
             self.baseptr0.SetTrajParm(newtop.thisptr)
             self._top.thisptr = self.baseptr0.TrajParm()
-
-    def trajfilename(self):
-        cdef FileName filename = FileName()
-        if not filename.thisptr:
-            raise MemoryError("Can not get Filename instance")
-        filename.thisptr[0] = self.baseptr0.TrajFilename()
-        return filename
