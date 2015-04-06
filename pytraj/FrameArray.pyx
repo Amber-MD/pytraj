@@ -1,6 +1,6 @@
 #print print  distutils: language = c++
-from cpython.array cimport array as pyarray
 cimport cython
+from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from pytraj.Topology cimport Topology
@@ -14,6 +14,7 @@ from pytraj.utils.check_and_assert import _import_numpy, is_int
 from pytraj.utils.check_and_assert import file_exist
 from pytraj.trajs.Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
+from pytraj._shared_methods import _xyz, _tolist
 from pytraj._shared_methods import my_str_method
 
 # we don't allow sub-class in Python level since we will mess up with memory
@@ -42,13 +43,26 @@ cdef class FrameArray (object):
         # this variable is intended to let FrameArray control 
         # freeing memory for Frame instance but it's too complicated
         #self.is_mem_parent = True
-        if filename != "" and flag != 'hd5f':
-            # TODO : check if file exist
-            if not file_exist(filename):
-                raise ValueError("There is not file having this name")
-            if self.top.is_empty():
-                raise ValueError("Need to have non-empty Topology")
-            self.load(filename=filename, indices=indices)
+        if isinstance(filename, string_types):
+            if filename != "" and flag != 'hd5f':
+                # TODO : check if file exist
+                if not file_exist(filename):
+                    raise ValueError("There is not file having this name")
+                if self.top.is_empty():
+                    raise ValueError("Need to have non-empty Topology")
+                self.load(filename=filename, indices=indices)
+        elif hasattr(filename, 'n_frames'):
+            # assume Traj-like object
+            # make temp traj to remmind about traj-like
+            traj = filename
+            for frame in traj:
+                self.append(frame)
+        else:
+            try:
+                _xyz = filename
+                self.load_xyz(filename)
+            except:
+                raise ValueError("filename must be str, traj-like or numpy array")
 
     def copy(self):
         "Return a copy of FrameArray"
@@ -130,9 +144,55 @@ cdef class FrameArray (object):
         else:
             raise ValueError("can not load file/files")
 
+    @cython.infer_types(True)
+    @cython.cdivision(True)
+    def load_xyz(self, xyz_in):
+        cdef int n_atoms = self.top.n_atoms
+        cdef int natom3 = n_atoms * 3
+        cdef int n_frames, i 
+        """Try loading numpy xyz data with 
+        shape=(n_frames, n_atoms, 3) or (n_frames, n_atoms*3) or 1D array
+        """
+
+        has_np, np = _import_numpy()
+        if has_np:
+            xyz = np.asarray(xyz_in)
+            if len(xyz.shape) == 1:
+                n_frames = int(xyz.shape[0]/natom3)
+                _xyz = xyz.reshape(n_frames, natom3) 
+            elif len(xyz.shape) in [2, 3]:
+                _xyz = xyz
+            for arr0 in _xyz:
+                frame = Frame(n_atoms)
+                # flatten either 1D or 2D array
+                frame.set_from_crd(arr0.flatten())
+                self.append(frame)
+        else:
+            if isinstance(xyz_in, (list, tuple)):
+                xyz_len = len(xyz_in)
+                if xyz_len % (natom3) != 0:
+                    raise ValueError("Len of list must be n_frames*n_atoms*3")
+                else:
+                    n_frames = int(xyz_len / natom3)
+                    for i in range(n_frames):
+                        frame = Frame(n_atoms)
+                        frame.set_from_crd(xyz_in[natom3 * i : natom3 * (i + 1)])
+            else:
+                raise NotImplementedError("must have numpy or list/tuple must be 1D")
+
     @property
     def shape(self):
         return (self.n_frames, self[0].n_atoms, 3)
+
+    @property
+    def xyz(self):
+        """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
+        We can not return a memoryview since FrameArray is a C++ vector of Frame object
+        """
+        return _xyz(self)
+
+    def tolist(self):
+        return _tolist(self)
 
     @cython.boundscheck(False)
     @cython.wraparound(False)
@@ -194,7 +254,7 @@ cdef class FrameArray (object):
                             return _coord_list
                     else:
                         _farray = FrameArray()
-                        _farray.top = self.top.modify_state_by_mask(self.top(mask))
+                        _farray.top = self.top._modify_state_by_mask(self.top(mask))
                         for i, frame in enumerate(self):
                             _frame = frame.get_subframe(mask, self.top)
                             _farray.append(_frame)
@@ -511,7 +571,7 @@ cdef class FrameArray (object):
         return tarr
 
     @property
-    def T_set(self):
+    def temperature_set(self):
         return _get_temperature_set(self)
 
     def get_frames(self, from_traj=None, indices=None, update_top=False, copy=True):
@@ -563,11 +623,11 @@ cdef class FrameArray (object):
                     frame = Frame()
                     #frame.set_frame_v(ts.top, ts.has_vel(), ts.n_repdims)
                     frame.set_frame_v(ts.top)
-                    ts.begin_traj()
+                    ts._begin_traj()
                     for i in range(ts.max_frames):
-                        ts.get_next_frame(frame)
+                        ts._get_next_frame(frame)
                         self.append(frame, copy=copy)
-                    ts.end_traj()
+                    ts._end_traj()
 
             #elif isinstance(ts, FrameArray2) or isinstance(ts, FrameArray):
             elif isinstance(ts, FrameArray):
@@ -619,19 +679,11 @@ cdef class FrameArray (object):
         if update_top:
             self.top = tmptop.copy()
 
-    # taking from Trajin_Single
-    @classmethod
-    def write_options(cls):
-        TrajReadOnly.write_options()
-
-    @classmethod
-    def read_options(cls):
-        TrajReadOnly.read_options()
-
     def save(self, filename="", fmt='unknown', overwrite=False):
         _savetraj(self, filename, fmt, overwrite)
 
     def write(self, *args, **kwd):
+        """same as `save` method"""
         self.save(*args, **kwd)
 
     def fit_to(self, ref=None, mask="*"):

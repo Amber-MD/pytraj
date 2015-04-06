@@ -1,4 +1,23 @@
-from __future__ import print_function
+from __future__ import print_function, absolute_import
+
+# we duplicate code from .utils.check_and_assert here to avoid circular import
+def _import(modname):
+    """has_numpy, np = _import('numpy')"""
+    has_module = False
+    try:
+        imported_mod = __import__(modname)
+        has_module = True
+        return (has_module, imported_mod)
+    except ImportError:
+        has_module = False
+        return (has_module, None)
+
+def has_(lib):
+    """check if having `lib` library
+    Example:
+    >>> has_("numpy")
+    """
+    return _import(lib)[0]
 
 def for_testing(func):
     def inner(*args, **kwd):
@@ -42,6 +61,18 @@ def no_test(func):
     def _no_test(*args, **kwd):
         pass
     return _no_test
+
+def test_if_having(lib):
+    def inner(func):
+        def _no_test(*args, **kwd):
+            if has_(lib):
+                return func(*args, **kwd)
+            else:
+                txt = "Does not have %s. Skip test" % lib
+                print(txt)
+                return None
+        return _no_test
+    return inner
 
 def not_yet_supported(func):
     def inner(*args, **kwd):

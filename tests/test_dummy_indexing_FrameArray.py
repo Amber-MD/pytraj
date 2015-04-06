@@ -11,7 +11,6 @@ topname = datadir + "Tc5b.top"
 refilename = "./data/Tc5b.nat.crd"
 mdx = "./data/md1_prod.Tc5b.x"
 ts = TrajReadOnly()
-print(ts.top.tag)
 
 top = Topology(topname)
 trajin = """

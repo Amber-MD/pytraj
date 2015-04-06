@@ -177,10 +177,10 @@ cdef class Topology:
             yield mol
             incr(it)
 
-    def set_parm_name(self, string title, FileName filename):
+    def _set_parm_name(self, string title, FileName filename):
         self.thisptr.SetParmName(title, filename.thisptr[0])
 
-    def set_reference_coord(self, Frame frameIn):
+    def _set_reference_coord(self, Frame frameIn):
         self.thisptr.SetReferenceCoords(frameIn.thisptr[0])
 
     def file_path(self):
@@ -222,13 +222,6 @@ cdef class Topology:
             _atomnametype = <NameType> atname 
         return self.thisptr.FindAtomInResidue(res, _atomnametype.thisptr[0])
     
-    # cpptraj does not have this anymore.
-    #def find_residue_max_natom(self):
-    #    return self.thisptr.FindResidueMaxNatom()
-    
-    #def SoluteAtoms(self):
-    #    return self.thisptr.SoluteAtoms()
-
     @property
     def atomlist(self):
         """return list of atoms
@@ -262,10 +255,9 @@ cdef class Topology:
         return mlist
 
     def summary(self):
+        set_world_silent(False)
         self.thisptr.Summary()
-
-    def brief(self, char* heading="*"):
-        self.thisptr.Brief(heading)
+        set_world_silent(True)
 
     def atom_info(self, maskString="*"):
         set_world_silent(False)
@@ -309,10 +301,6 @@ cdef class Topology:
         self.thisptr.PrintChargeMassInfo(maskString, idtype)
         set_world_silent(True)
 
-    # BROKEN
-    #def has_vel(self):
-    #    return self.thisptr.HasVelInfo()
-    
     def add_atom(self, Atom atom=Atom(), 
                  int resid=0, 
                  resname="", xyz=None):
@@ -330,16 +318,13 @@ cdef class Topology:
     def start_new_mol(self):
         self.thisptr.StartNewMol()
 
-    def common_setup(self, bint bondsearch):
-        return self.thisptr.CommonSetup(bondsearch)
-
     def set_offset(self, double x):
         self.thisptr.SetOffset(x)
 
     def set_ipol(self, int id):
         self.thisptr.SetIpol(id)
 
-    def orig_filename(self):
+    def _orig_filename(self):
         cdef FileName filename = FileName()
         filename.thisptr[0] = self.thisptr.OriginalFilename()
         return filename
@@ -348,7 +333,7 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Pindex()
 
-    property p_index:
+    property _p_index:
         # shortcut of parm_index
         def __get__(self):
             return self.thisptr.Pindex()
@@ -378,23 +363,16 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Nframes()
 
-    # BROKEN
-    #property n_repdims:
-    #    def __get__(self):
-    #        return self.thisptr.NrepDims()
-
-    property parm_name:
+    property _parm_name:
         def __get__(self):
             return self.thisptr.ParmName()
         def __set__(self, name):
             # TODO : check
             self.thisptr.SetParmName(name, FileName().thisptr[0])
 
-    property GB_radiiset:
+    property gb_radii:
         def __get__(self):
             return self.thisptr.GBradiiSet()
-
-    #def int SetAmberExtra(self, vector[double], vector[NameType], vector[int], vector[int]):
 
     def set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
         if frame.is_empty():
@@ -402,29 +380,29 @@ cdef class Topology:
         else:
             return self.thisptr.SetupIntegerMask(atm.thisptr[0], frame.thisptr[0])
 
-    def set_char_mask(self, AtomMask atm, Frame frame=Frame()):
+    def _set_char_mask(self, AtomMask atm, Frame frame=Frame()):
         if frame.is_empty():
             return self.thisptr.SetupCharMask(atm.thisptr[0])
         else:
             return self.thisptr.SetupCharMask(atm.thisptr[0], frame.thisptr[0])
 
-    def scale_dihedral_k(self, double value):
+    def _scale_dihedral_k(self, double value):
         self.thisptr.ScaleDihedralK(value)
 
     def set_box(self, Box boxin):
         self.thisptr.SetParmBox(boxin.thisptr[0])
 
-    def partial_modify_state_by_mask(self, AtomMask m):
+    def _partial_modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
         top.thisptr[0] = deref(self.thisptr.partialModifyStateByMask(m.thisptr[0]))
         return top
 
-    def modify_state_by_mask(self, AtomMask m):
+    def _modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
         top.thisptr[0] = deref(self.thisptr.modifyStateByMask(m.thisptr[0]))
         return top
 
-    def modify_by_map(self, vector[int] m):
+    def _modify_by_map(self, vector[int] m):
         cdef Topology top = Topology()
         top.thisptr[0] = deref(self.thisptr.ModifyByMap(m))
         return top
@@ -445,28 +423,28 @@ cdef class Topology:
         else:
             self.thisptr[0] = tmptop.thisptr[0]
 
-    def tag(self):
-        # what does this do?
-        return self.thisptr.Tag()
-
     def is_empty(self):
         s = self.file_path()
         return s == ""
 
-    def get_atom_indices(self, mask, *args, **kwd):
+    def atom_indices(self, mask, *args, **kwd):
         """return atom indices with given mask
         To be the same as cpptraj/Ambertools: we mask indexing starts from 1
         but the return list/array use 0
+
+        Parameters
+        ---------
+        mask : str
+            Atom mask
+
+        Returns
+        ------
+        indices : Python array
         """
         cdef AtomMask atm = AtomMask(mask)
         self.set_integer_mask(atm)
         has_numpy, np = _import_numpy()
-        if has_numpy:
-            # ndarray
-            return np.asarray(atm.selected_indices())
-        else:
-            # list
-            return atm.selected_indices()
+        return atm.selected_indices()
 
     def get_unique_resname(self):
         s = set()
@@ -506,7 +484,6 @@ cdef class Topology:
 
     @property
     def masses(self):
-        # TODO : use Cython memoryview if needed
         """return python array of atom masses"""
         cdef pyarray marray = pyarray('d', [])
         cdef Atom atom
@@ -514,3 +491,24 @@ cdef class Topology:
         for atom in self.atom_iter():
             marray.append(atom.mass)
         return marray
+
+    def indices_bonded_to(self, atom_name):
+        """return indices of the number of atoms that each atom bonds to
+        Parameters
+        ----------
+        atom_name : name of the atom
+        """
+        cdef pyarray arr0 = pyarray('i', [])
+        cdef int i, count=0
+
+        # convert to lower case
+        atom_name = atom_name.upper()
+
+        for atom in self:
+            bond_indices = atom.bonded_indices()
+            count = 0
+            for i in bond_indices:
+                if self[i].name.startswith(atom_name):
+                    count += 1
+            arr0.append(count)
+        return arr0

@@ -2,6 +2,7 @@
 
 from pytraj._utils cimport get_positive_idx
 from pytraj._shared_methods import _frame_iter
+from pytraj._shared_methods import _xyz, _tolist
 from pytraj._shared_methods import my_str_method
 
 cdef class DataSet_Coords(DataSet):
@@ -133,3 +134,13 @@ cdef class DataSet_Coords(DataSet):
 
     def get_frame(self, int idx, Frame frameout):
         self.baseptr_1.GetFrame(idx, frameout.thisptr[0])
+
+    @property
+    def xyz(self):
+        """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
+        We can not return a memoryview since FrameArray is a C++ vector of Frame object
+        """
+        return _xyz(self)
+
+    def tolist(self):
+        return _tolist(self)

@@ -9,8 +9,8 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
-        for atom in top.atomlist:
-            print (atom.type)
+
+        print (top.indices_bonded_to("H"))
 
 if __name__ == "__main__":
     unittest.main()

@@ -67,7 +67,7 @@ cdef class NameType:
     def __getitem__(self, int idx):
         return self.thisptr.opr_idx(idx)
 
-    def truncated(self):
+    def truncated_name(self):
         """return string"""
         return self.thisptr.Truncated()
 
@@ -75,4 +75,4 @@ cdef class NameType:
         self.thisptr.ReplaceAsterisk()
 
     def __str__(self):
-        return str(self.thisptr.opr_star())
+        return (self.thisptr.opr_star()).decode()

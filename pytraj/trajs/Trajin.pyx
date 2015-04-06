@@ -11,6 +11,7 @@ from pytraj.utils.check_and_assert import _import_numpy
 from .Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
 from pytraj._shared_methods import my_str_method
+from pytraj._shared_methods import _xyz, _tolist
 from pytraj.externals.six import string_types
 
 
@@ -25,11 +26,11 @@ cdef class Trajin (TrajectoryFile):
         pass
 
     def __enter__(self):
-        self.begin_traj()
+        self._begin_traj()
         return self
 
     def __exit__(self, arg1, arg2, arg3):
-        self.end_traj()
+        self._end_traj()
 
     def __iter__(self):
         """call `with Trajin_instace` before using this iteration"""
@@ -39,7 +40,7 @@ cdef class Trajin (TrajectoryFile):
         with self:
            for i in range(self.baseptr_1.TotalFrames()):
                # don't use Python method to avoid overhead
-               #self.get_next_frame(frame)
+               #self._get_next_frame(frame)
                self.baseptr_1.GetNextFrame(frame.thisptr[0])
                yield frame
 
@@ -184,7 +185,7 @@ cdef class Trajin (TrajectoryFile):
                             return _coord_list
                     else:
                         _farray = FrameArray()
-                        _farray.top = self.top.modify_state_by_mask(self.top(mask))
+                        _farray.top = self.top._modify_state_by_mask(self.top(mask))
                         for i, frame in enumerate(self):
                             _frame = frame.get_subframe(mask, self.top)
                             _farray.append(_frame)
@@ -235,7 +236,7 @@ cdef class Trajin (TrajectoryFile):
                     raise ValueError("index is out of range")
 
                 with self:
-                    self.read_traj_frame(idx_1, frame)
+                    self._read_traj_frame(idx_1, frame)
                 self.tmpfarray = frame
                 return self.tmpfarray
         else:
@@ -261,7 +262,7 @@ cdef class Trajin (TrajectoryFile):
                     is_reversed = False
 
                 for i in range(start, stop, step):
-                    self.read_traj_frame(i, frame)
+                    self._read_traj_frame(i, frame)
                     farray.append(frame)
 
                 if is_reversed:
@@ -280,19 +281,19 @@ cdef class Trajin (TrajectoryFile):
     def is_empty(self):
         return self.max_frames == 0
 
-    def check_allocated(self):
+    def _check_allocated(self):
         # decorator?
         if self.is_empty():
             raise MemoryError("not allocate pointer yet or have empty traj")
 
     @classmethod
-    def check_frame_args(cls, ArgList argIn, int maxFrames):
+    def _check_frame_args(cls, ArgList argIn, int maxFrames):
         cdef int startArg, stopArg, offsetArg 
         startArg = stopArg = offsetArg = 0
         _Trajin.CheckFrameArgs(argIn.thisptr[0], maxFrames, startArg, stopArg, offsetArg)
         return startArg, stopArg, offsetArg
 
-    def get_next_frame(self, Frame frame):
+    def _get_next_frame(self, Frame frame):
         #cdef Frame frame = Frame()
         self.baseptr_1.GetNextFrame(frame.thisptr[0])
         #return frame
@@ -327,13 +328,13 @@ cdef class Trajin (TrajectoryFile):
         else:
             raise ValueError("File does not exist")
 
-    def begin_traj(self, bint showProgress=False):
+    def _begin_traj(self, bint showProgress=False):
         return self.baseptr_1.BeginTraj(showProgress)
 
-    def end_traj(self):
+    def _end_traj(self):
         self.baseptr_1.EndTraj()
 
-    def read_traj_frame(self, int currentFrame, Frame frameIn):
+    def _read_traj_frame(self, int currentFrame, Frame frameIn):
         # TODO : add checking frame.n_atoms == self.top.n_atoms?
         return self.baseptr_1.ReadTrajFrame(currentFrame, frameIn.thisptr[0])
 
@@ -357,7 +358,7 @@ cdef class Trajin (TrajectoryFile):
         return tarr
 
     @property
-    def T_set(self):
+    def temperature_set(self):
         return _get_temperature_set(self)
 
     def fit_to(self, ref=None):
@@ -377,3 +378,12 @@ cdef class Trajin (TrajectoryFile):
     @property
     def shape(self):
         return (self.n_frames, self[0].n_atoms, 3)
+
+    @property
+    def xyz(self):
+        """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
+        We can not return a memoryview since FrameArray is a C++ vector of Frame object
+        """
+        return _xyz(self)
+    def tolist(self):
+        return _tolist(self)

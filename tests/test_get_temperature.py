@@ -8,10 +8,10 @@ class Test(unittest.TestCase):
     def test_0(self):
         top = Topology("./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
         traj = mdio.load("./data/Test_RemdTraj/rem.nc.000", top)
-        print (traj.T_set)
+        print (traj.temperature_set)
 
         farray = traj[:]
-        print (farray.T_set)
+        print (farray.temperature_set)
 
 if __name__ == "__main__":
     unittest.main()

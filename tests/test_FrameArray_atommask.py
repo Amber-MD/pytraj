@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(farray0[0].coords, frame0.coords)
 
         _farray = FrameArray()
-        _farray.top = traj.top.modify_state_by_mask(traj.top(mask))
+        _farray.top = traj.top._modify_state_by_mask(traj.top(mask))
         print (top('@CA').n_atoms)
         for i, frame in enumerate(traj):
             print (frame[top('@CA')])
@@ -52,7 +52,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(farray0[0].coords, frame0.coords)
 
         _farray = FrameArray()
-        _farray.top = traj.top.modify_state_by_mask(traj.top(mask))
+        _farray.top = traj.top._modify_state_by_mask(traj.top(mask))
         print (top('@CA').n_atoms)
         for i, frame in enumerate(traj):
             print (frame[top('@CA')])

@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         top.add_atom(atom=atom, resid=0, resname="H3D")
         top.add_atom(atom=atom, resid=0, resname="H3D")
         top.summary()
-        print(top.get_atom_indices("@H="))
+        print(top.atom_indices("@H="))
 
 if __name__ == "__main__":
     unittest.main()
