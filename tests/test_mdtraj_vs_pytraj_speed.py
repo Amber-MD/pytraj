@@ -13,21 +13,28 @@ print ("pytraj version = 0.1.2.dev0")
 if has_("mdtraj"):
     import mdtraj as md
     print ("mtrajd version = %s" % md.version.full_version)
+    # use FrameArray (in memory for comparison)
     traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+    #traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
     m_top = md.load_prmtop("./data/Tc5b.top") 
     m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
 
-def Run(func, msg):
+def Run(func, msg, n_times=50):
     print (msg)
-    with Timer() as t0:
-        func(traj)
+    my_ratio = 0
+    for _ in range(n_times):
+        with Timer() as t0:
+            func(traj)
 
-    time_0 = t0.time_gap()
+        time_0 = t0.time_gap()
 
-    with Timer() as t1:
-        func(m_traj)
-    time_1 = t1.time_gap()
-    print ("pytraj (speed up) vs mdtraj = %s" % (float(time_1)/time_0))
+        with Timer() as t1:
+            func(m_traj)
+        time_1 = t1.time_gap()
+        my_ratio += time_1 / time_0
+    print ("pytraj (speed up) vs mdtraj = %s" % (my_ratio/n_times))
+    print ("mdtraj (speed up) vs pytraj = %s" % (1./(my_ratio/n_times)))
+    print ()
 
 class Test(unittest.TestCase):
     @test_if_having("mdtraj")
@@ -76,6 +83,39 @@ class Test(unittest.TestCase):
         def n_frames(traj):
             traj.n_frames
         Run(n_frames, 'n_frames')
+
+    @test_if_having("mdtraj")
+    def test_5(self):
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        m_top = md.load_prmtop("./data/Tc5b.top") 
+        m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
+
+        print ("get xyz for each frame")
+        m_f = m_traj[0]
+        p_f = traj[0]
+
+        my_ratio = 0
+        n_times = 10
+
+        for _idx in range(n_times):
+            with Timer() as t0:
+                #a_p = p_f.xyz
+                a_p = p_f[:]
+
+            with Timer() as t0:
+                a_p = p_f.xyz
+
+            with Timer() as t1:
+                # mdtraj * 10
+                a_m = m_f.xyz * 10
+
+            from numpy.testing import assert_almost_equal
+            assert_almost_equal(a_p, a_m[0], decimal=4)
+
+            ratio = t0.time_gap() / t1.time_gap()
+            my_ratio += ratio
+        print ("pytraj (speed up) vs mdtraj = %s" % (my_ratio/n_times))
+
 
 if __name__ == "__main__":
     unittest.main()
