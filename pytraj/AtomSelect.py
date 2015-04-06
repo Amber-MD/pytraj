@@ -57,7 +57,7 @@ class AtomSelect(object):
         """return 2D numpy array"""
         if frameidx is not None:
             self.frameidx = frameidx
-        arr0 = np.asarray(self._selected_frame.buffer3d)
+        arr0 = np.asarray(self._selected_frame.buffer2d)
 
         if isinstance(mask, AtomMask):
             return arr0[mask.selected_indices()]
