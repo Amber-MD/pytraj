@@ -23,7 +23,7 @@ script:
     - python -c 'import pytraj'
     - python ./run_simple_test.py
     - python ./run_all_and_find_fails.py
-    - sh ./TestListTravis.sh
+    #- sh ./TestListTravis.sh
     - cd ../examples
     - python ./run_all_and_find_fails.py
     - cd ../tests
