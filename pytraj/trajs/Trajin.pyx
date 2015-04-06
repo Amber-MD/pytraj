@@ -26,11 +26,11 @@ cdef class Trajin (TrajectoryFile):
         pass
 
     def __enter__(self):
-        self.begin_traj()
+        self._begin_traj()
         return self
 
     def __exit__(self, arg1, arg2, arg3):
-        self.end_traj()
+        self._end_traj()
 
     def __iter__(self):
         """call `with Trajin_instace` before using this iteration"""
@@ -40,7 +40,7 @@ cdef class Trajin (TrajectoryFile):
         with self:
            for i in range(self.baseptr_1.TotalFrames()):
                # don't use Python method to avoid overhead
-               #self.get_next_frame(frame)
+               #self._get_next_frame(frame)
                self.baseptr_1.GetNextFrame(frame.thisptr[0])
                yield frame
 
@@ -236,7 +236,7 @@ cdef class Trajin (TrajectoryFile):
                     raise ValueError("index is out of range")
 
                 with self:
-                    self.read_traj_frame(idx_1, frame)
+                    self._read_traj_frame(idx_1, frame)
                 self.tmpfarray = frame
                 return self.tmpfarray
         else:
@@ -262,7 +262,7 @@ cdef class Trajin (TrajectoryFile):
                     is_reversed = False
 
                 for i in range(start, stop, step):
-                    self.read_traj_frame(i, frame)
+                    self._read_traj_frame(i, frame)
                     farray.append(frame)
 
                 if is_reversed:
@@ -293,7 +293,7 @@ cdef class Trajin (TrajectoryFile):
         _Trajin.CheckFrameArgs(argIn.thisptr[0], maxFrames, startArg, stopArg, offsetArg)
         return startArg, stopArg, offsetArg
 
-    def get_next_frame(self, Frame frame):
+    def _get_next_frame(self, Frame frame):
         #cdef Frame frame = Frame()
         self.baseptr_1.GetNextFrame(frame.thisptr[0])
         #return frame
@@ -328,13 +328,13 @@ cdef class Trajin (TrajectoryFile):
         else:
             raise ValueError("File does not exist")
 
-    def begin_traj(self, bint showProgress=False):
+    def _begin_traj(self, bint showProgress=False):
         return self.baseptr_1.BeginTraj(showProgress)
 
-    def end_traj(self):
+    def _end_traj(self):
         self.baseptr_1.EndTraj()
 
-    def read_traj_frame(self, int currentFrame, Frame frameIn):
+    def _read_traj_frame(self, int currentFrame, Frame frameIn):
         # TODO : add checking frame.n_atoms == self.top.n_atoms?
         return self.baseptr_1.ReadTrajFrame(currentFrame, frameIn.thisptr[0])
 
