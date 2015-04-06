@@ -937,3 +937,7 @@ cdef class Frame (object):
             idx1 = int_arr[i, 1]
             arr0.append(sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1))))
         return arr0
+
+    def tolist(self):
+        """return a list of coords"""
+        return list(self.coords)

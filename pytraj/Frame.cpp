@@ -2269,6 +2269,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_162save(struct __pyx_obj_6pytraj
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_164calc_dihedral(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, __Pyx_memviewslice __pyx_v_int_arr); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_166calc_angle(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, __Pyx_memviewslice __pyx_v_int_arr); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_168calc_distance(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, __Pyx_memviewslice __pyx_v_int_arr); /* proto */
+static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_170tolist(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_11py_free_mem___get__(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_5Frame_5Frame_11py_free_mem_2__set__(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
@@ -15975,6 +15976,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_168calc_distance(struct __pyx_ob
  *             idx1 = int_arr[i, 1]
  *             arr0.append(sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1))))             # <<<<<<<<<<<<<<
  *         return arr0
+ * 
  */
     __pyx_t_1 = PyFloat_FromDouble(sqrt(DIST2_NoImage(__pyx_v_self->thisptr->XYZ(__pyx_v_idx0), __pyx_v_self->thisptr->XYZ(__pyx_v_idx1)))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 938; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -15986,6 +15988,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_168calc_distance(struct __pyx_ob
  *             idx1 = int_arr[i, 1]
  *             arr0.append(sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1))))
  *         return arr0             # <<<<<<<<<<<<<<
+ * 
+ *     def tolist(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_arr0));
@@ -16009,6 +16013,73 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_168calc_distance(struct __pyx_ob
   __pyx_L0:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_int_arr, 1);
   __Pyx_XDECREF((PyObject *)__pyx_v_arr0);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pytraj/Frame.pyx":941
+ *         return arr0
+ * 
+ *     def tolist(self):             # <<<<<<<<<<<<<<
+ *         """return a list of coords"""
+ *         return list(self.coords)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_171tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_5Frame_5Frame_170tolist[] = "Frame.tolist(self)\nreturn a list of coords";
+static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_171tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("tolist (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_5Frame_5Frame_170tolist(((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_170tolist(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("tolist", 0);
+
+  /* "pytraj/Frame.pyx":943
+ *     def tolist(self):
+ *         """return a list of coords"""
+ *         return list(self.coords)             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_coords); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 943; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PySequence_List(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 943; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "pytraj/Frame.pyx":941
+ *         return arr0
+ * 
+ *     def tolist(self):             # <<<<<<<<<<<<<<
+ *         """return a list of coords"""
+ *         return list(self.coords)
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pytraj.Frame.Frame.tolist", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -29002,6 +29073,7 @@ static PyMethodDef __pyx_methods_6pytraj_5Frame_Frame[] = {
   {"calc_dihedral", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_165calc_dihedral, METH_O, __pyx_doc_6pytraj_5Frame_5Frame_164calc_dihedral},
   {"calc_angle", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_167calc_angle, METH_O, __pyx_doc_6pytraj_5Frame_5Frame_166calc_angle},
   {"calc_distance", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_169calc_distance, METH_O, __pyx_doc_6pytraj_5Frame_5Frame_168calc_distance},
+  {"tolist", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_171tolist, METH_NOARGS, __pyx_doc_6pytraj_5Frame_5Frame_170tolist},
   {0, 0, 0, 0}
 };
 

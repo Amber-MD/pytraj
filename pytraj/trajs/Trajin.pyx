@@ -11,7 +11,7 @@ from pytraj.utils.check_and_assert import _import_numpy
 from .Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
 from pytraj._shared_methods import my_str_method
-from pytraj._shared_methods import _xyz
+from pytraj._shared_methods import _xyz, _tolist
 from pytraj.externals.six import string_types
 
 
@@ -385,3 +385,5 @@ cdef class Trajin (TrajectoryFile):
         We can not return a memoryview since FrameArray is a C++ vector of Frame object
         """
         return _xyz(self)
+    def tolist(self):
+        return _tolist(self)
