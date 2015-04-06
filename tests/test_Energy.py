@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ene = Energy_Amber()
         atm = AtomMask("@CA")
-        traj.top.set_char_mask(atm)
+        traj.top._set_char_mask(atm)
         print (atm.n_atoms)
         print (atm.selected_indices())
         print (ene.E_bond(traj[0], traj.top, atm))

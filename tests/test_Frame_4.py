@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
         print(dir(frame))
         frame.zero_coords()
         print(frame[0])
-        frame.add_xyz(array('d', [100, 200, 300]))
+        frame.append_xyz(array('d', [100, 200, 300]))
         print(frame[-1])
         #print frame.t_address()
 

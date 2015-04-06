@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
 
         # try to add to DataSetList
         dslist = DataSetList()
-        dslist.add_copy_of_set(db)
+        dslist._add_copy_of_set(db)
         print (dslist[0])
         assert isinstance(dslist[0], DataSet_Coords_TRJ)
 

@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         act("", traj, dslist=dslist)
 
         for ds in dslist:
-            dslist0.add_copy_of_set(ds)
+            dslist0._add_copy_of_set(ds)
 
         assert dslist0.size == dslist.size
 
@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         assert dtraj.size == traj.size
 
         # add dtraj to dslist0
-        dslist0.add_copy_of_set(dtraj)
+        dslist0._add_copy_of_set(dtraj)
         assert dslist0.size == 2
 
         # can we take the dtraj back?

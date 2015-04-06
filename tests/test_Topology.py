@@ -85,7 +85,7 @@ class TestTopology(unittest.TestCase):
     #@no_test
     def test_select_mask(self):
         top = Topology("./data/Tc5b.top")
-        arr0 = top.get_atom_indices("@CA")
+        arr0 = top.atom_indices("@CA")
         print(arr0) 
         print(type(arr0))
 

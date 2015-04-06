@@ -35,7 +35,7 @@ class TestTrajinSingle(unittest.TestCase):
         frame = Frame(ts.top.n_atoms)
         #ts.begin_traj()
         with ts:
-            ts.read_traj_frame(100, frame)
+            ts._read_traj_frame(100, frame)
             print(frame)
         
         # bug: results are not the same between
