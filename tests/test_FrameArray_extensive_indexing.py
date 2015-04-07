@@ -3,7 +3,6 @@ from time import time
 import unittest
 import numpy as np
 from pytraj.base import *
-from pytraj.Timer import Timer
 from load_traj import load
 from pytraj.decorators import no_test
 
