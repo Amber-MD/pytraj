@@ -150,8 +150,11 @@ cdef class FrameArray (object):
         cdef int n_atoms = self.top.n_atoms
         cdef int natom3 = n_atoms * 3
         cdef int n_frames, i 
-        """Try loading numpy xyz data with 
+        """Try loading xyz data with 
         shape=(n_frames, n_atoms, 3) or (n_frames, n_atoms*3) or 1D array
+
+        If using numpy array with shape (n_frames, n_atoms, 3),
+        try "load_ndarray" method
         """
 
         has_np, np = _import_numpy()
@@ -185,6 +188,21 @@ cdef class FrameArray (object):
                         self.append(frame)
             else:
                 raise NotImplementedError("must have numpy or list/tuple must be 1D")
+
+    def load_ndarray(self, xyz, int n_frames):
+        """load ndarray with shape=(n_frames, n_atoms, 3)"""
+        cdef Frame frame
+        cdef int i
+        cdef double[:, :] myview
+        cdef int oldsize = self.frame_v.size()
+        cdef int newsize = oldsize + n_frames
+
+        self.frame_v.resize(newsize)
+
+        for i in range(n_frames):
+            myview = xyz[i]
+            frame = self[i + oldsize]
+            frame._append_xyz_2d(myview)
 
     @property
     def shape(self):
