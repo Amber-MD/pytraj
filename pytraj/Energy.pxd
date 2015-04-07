@@ -2,7 +2,6 @@
 
 from libcpp.vector cimport vector
 from pytraj.Topology cimport *
-from pytraj.Timer cimport *
 from pytraj.Frame cimport Frame, _Frame
 
 
