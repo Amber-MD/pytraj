@@ -157,8 +157,10 @@ html_data = ["html/static/*"]
 datalist = pxdlist +  sample_data + html_data
 
 if __name__ == "__main__":
+    # try fast-build
+    os.system("python ./scripts/setup_faster_build.py build")
     setup(name="pytraj",
-        version="0.1.2.dev0",
+        version="0.1.2.dev1",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
