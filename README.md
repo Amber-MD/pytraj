@@ -37,13 +37,17 @@ Install
     ./installs/libcpptraj.txt (works well with development version of cpptraj)
 - installs pytraj: [wiki](http://www.github.com/pytraj/pytraj/wiki)
     (further instruction ./installs/pytraj.txt)
-- if you are using `conda`, you can just `conda install -c pytraj pytraj` for Linux system
+- if you are using `conda`, you can just `conda install -c pytraj pytraj-dev` for Linux system
 
 Usage: 
 -----
 - example: 
     * `dist = calculate('distance', ':2@CA :10@CA', (traj, traj))`
     * `mat = calculate('matrix', '@CA', frame, top)`
+    * get 2D array (xyz coords)for a given mask: `traj['@CA']`
+    * expose to numpy: `arr0 = np.asarray(frame[:])` 
+    * load from other package: `traj = FrameArray(mdtraj_traj.xyz, top)`
+    * expose to Cython (will be translated to C++ code): `from pytraj.Frame cimport _Frame`
 - many more:
     * check ./examples folder
     * check pytraj-notebook: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/pytraj_overview.ipynb)
