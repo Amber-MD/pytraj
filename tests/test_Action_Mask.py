@@ -6,7 +6,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.parm7")
+        traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         act = adict['mask']
         dslist = DataSetList()
         dflist = DataFileList()
