@@ -158,7 +158,7 @@ datalist = pxdlist +  sample_data + html_data
 
 def build_func(my_ext):
     setup(name="pytraj",
-        version="0.1.2.dev0",
+        version="0.1.2.dev1",
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
