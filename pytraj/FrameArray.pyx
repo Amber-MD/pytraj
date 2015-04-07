@@ -6,12 +6,15 @@ from cython.operator cimport preincrement as incr
 from pytraj.Topology cimport Topology
 from pytraj.AtomMask cimport AtomMask
 from pytraj._utils cimport get_positive_idx
+from pytraj.TrajinList cimport TrajinList
+from pytraj.Frame cimport Frame
+from pytraj.trajs.Trajin cimport Trajin
 
 # python level
 from pytraj.externals.six import string_types
 from pytraj.TrajReadOnly import TrajReadOnly
-from pytraj.utils.check_and_assert import _import_numpy, is_int
-from pytraj.utils.check_and_assert import file_exist
+from pytraj.utils.check_and_assert import _import_numpy, is_int, is_frame_iter
+from pytraj.utils.check_and_assert import file_exist, is_mdtraj
 from pytraj.trajs.Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
 from pytraj._shared_methods import _xyz, _tolist
@@ -22,6 +25,9 @@ from pytraj._shared_methods import my_str_method
 cdef class FrameArray (object):
     def __cinit__(self, filename='', top=None, indices=None, 
                   bint warning=False, n_frames=None, flag=None):
+        
+        cdef Frame frame
+
         if isinstance(top, string_types):
             self.top = Topology(top)
         elif isinstance(top, Topology):
@@ -35,7 +41,6 @@ cdef class FrameArray (object):
             self.resize(n_frames)
 
         self.oldtop = None
-
         self.warning = warning
 
         # since we are using memoryview for slicing this class istance, we just need to 
@@ -43,26 +48,8 @@ cdef class FrameArray (object):
         # this variable is intended to let FrameArray control 
         # freeing memory for Frame instance but it's too complicated
         #self.is_mem_parent = True
-        if isinstance(filename, string_types):
-            if filename != "" and flag != 'hd5f':
-                # TODO : check if file exist
-                if not file_exist(filename):
-                    raise ValueError("There is not file having this name")
-                if self.top.is_empty():
-                    raise ValueError("Need to have non-empty Topology")
-                self.load(filename=filename, indices=indices)
-        elif hasattr(filename, 'n_frames'):
-            # assume Traj-like object
-            # make temp traj to remmind about traj-like
-            traj = filename
-            for frame in traj:
-                self.append(frame)
-        else:
-            try:
-                _xyz = filename
-                self.load_xyz(filename)
-            except:
-                raise ValueError("filename must be str, traj-like or numpy array")
+        if filename != "":
+            self.load(filename, self.top, indices)
 
     def copy(self):
         "Return a copy of FrameArray"
@@ -105,8 +92,12 @@ cdef class FrameArray (object):
         # should we add hdf5 format here?
         cdef Trajin_Single ts
         cdef int idx
+        cdef TrajinList tlist
+        cdef Frame frame
+        cdef Trajin trajin
 
         if isinstance(filename, string_types):
+            # load from single filename
             # we don't use UTF-8 here since ts.load(filename) does this job
             #filename = filename.encode("UTF-8")
             ts = Trajin_Single()
@@ -114,7 +105,7 @@ cdef class FrameArray (object):
                 ts.top = top.copy()
                 ts.load(filename)
                 # update top for self too
-                if not self.top.is_empty():
+                if not self.top.is_empty() and self.top is not top:
                     print "updating FrameArray topology"
                 self.top = top.copy()
             else:
@@ -122,7 +113,6 @@ cdef class FrameArray (object):
                 ts.top = self.top.copy()
                 # this does not load whole traj into disk, just "prepare" to load
                 ts.load(filename)
-
             if indices is None:
                 # load all frames
                 self.join(ts[:])
@@ -135,14 +125,64 @@ cdef class FrameArray (object):
                 # increase size of vector
                 for idx in indices:
                     self.append(ts[idx])
-
         elif isinstance(filename, (list, tuple)):
-            # list of files
-            for fh in filename:
-                # recursive
-                self.load(fh, top, indices)
+            # load from a list/tuple of filenames
+            # or a list/tuple of numbers
+            _f0 = filename[0]
+            if isinstance(_f0, string_types) or hasattr(_f0, 'n_frames'):
+                # need to check `string_types` since we need to load list of numbers too.
+                # list of filenames
+                for fh in filename:
+                    if self.warning:
+                        print ("Loading from list/tuple. Ignore `indices`")
+                    # recursive
+                    self.load(fh, top, indices)
+            else:
+                # load xyz
+                try:
+                    self.load_xyz(filename)
+                except:
+                    raise ValueError("must be a list/tuple of either filenames/Traj/numbers")
+        elif isinstance(filename, TrajinList):
+            # load from TrajinList
+            if indices is not None:
+                if self.warning:
+                    print ("Loading from TrajinList. Ignore `indices`")
+            tlist = <TrajinList> filename
+            if self.top.is_empty():
+                self.top = tlist.top.copy()
+            for trajin in tlist:
+                trajin.top = tlist.top
+                for frame in trajin:
+                    self.append(frame)
+        elif hasattr(filename, 'n_frames') and not is_mdtraj(filename):
+            # load from Traj-like object
+            # make temp traj to remind about traj-like
+            traj = filename
+            if indices is None:
+                for frame in traj:
+                    self.append(frame)
+            else:
+                for idx, frame in enumerate(traj):
+                    # slow method.
+                    if idx in indices:
+                        self.append(frame)
+        elif is_frame_iter(filename):
+            # load from frame_iter
+            _frame_iter = filename
+            for frame in _frame_iter:
+                self.append(frame)
+        elif is_mdtraj(filename):
+            _traj = filename
+            # add "10 *" since mdtraj use 'nm' while pytraj use 'Angstrom'
+            self.load_ndarray(10 * _traj.xyz)
         else:
-            raise ValueError("can not load file/files")
+            try:
+                # load from array
+                _xyz = filename
+                self.load_xyz(_xyz)
+            except:
+                raise ValueError("filename must be str, traj-like or numpy array")
 
     @cython.infer_types(True)
     @cython.cdivision(True)
@@ -189,18 +229,22 @@ cdef class FrameArray (object):
             else:
                 raise NotImplementedError("must have numpy or list/tuple must be 1D")
 
-    def load_ndarray(self, xyz, int n_frames):
+    def load_ndarray(self, xyz):
         """load ndarray with shape=(n_frames, n_atoms, 3)"""
         cdef Frame frame
         cdef int i
         cdef double[:, :] myview
+        cdef int n_frames = xyz.shape[0]
         cdef int oldsize = self.frame_v.size()
         cdef int newsize = oldsize + n_frames
+        import numpy as np
 
+        # need to use double precision
+        _xyz = xyz.astype(np.float64)
         self.frame_v.resize(newsize)
 
         for i in range(n_frames):
-            myview = xyz[i]
+            myview = _xyz[i]
             frame = self[i + oldsize]
             frame._append_xyz_2d(myview)
 
