@@ -15,6 +15,7 @@ from pytraj.externals.six import string_types
 from pytraj.TrajReadOnly import TrajReadOnly
 from pytraj.utils.check_and_assert import _import_numpy, is_int, is_frame_iter
 from pytraj.utils.check_and_assert import file_exist, is_mdtraj
+from pytraj.utils.check_and_assert import is_word_in_class_name
 from pytraj.trajs.Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
 from pytraj._shared_methods import _xyz, _tolist
@@ -176,6 +177,16 @@ cdef class FrameArray (object):
             _traj = filename
             # add "10 *" since mdtraj use 'nm' while pytraj use 'Angstrom'
             self.load_ndarray(10 * _traj.xyz)
+        elif is_word_in_class_name(filename, 'DataSetList'):
+            # load DataSetList
+            # iterate all datasets and get anything having frame_iter
+            dslist = filename
+            for _d0 in dslist:
+                if hasattr(_d0, 'frame_iter'):
+                    _d0.top = self.top.copy()
+                    # don't let _d0 free memory since we use Topology 'view'
+                    for frame in _d0.frame_iter():
+                        self.append(frame)
         else:
             try:
                 # load from array
@@ -205,6 +216,8 @@ cdef class FrameArray (object):
                 _xyz = xyz.reshape(n_frames, natom3) 
             elif len(xyz.shape) in [2, 3]:
                 _xyz = xyz
+            else:
+                raise NotImplementedError("only support array/list/tuples with ndim=1,2,3")
             for arr0 in _xyz:
                 frame = Frame(n_atoms)
                 # flatten either 1D or 2D array
