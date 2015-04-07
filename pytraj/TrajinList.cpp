@@ -1527,23 +1527,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
 
 static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname);
 
-#if CYTHON_COMPILING_IN_CPYTHON
-#define __Pyx_PyObject_DelAttrStr(o,n) __Pyx_PyObject_SetAttrStr(o,n,NULL)
-static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value) {
-    PyTypeObject* tp = Py_TYPE(obj);
-    if (likely(tp->tp_setattro))
-        return tp->tp_setattro(obj, attr_name, value);
-#if PY_MAJOR_VERSION < 3
-    if (likely(tp->tp_setattr))
-        return tp->tp_setattr(obj, PyString_AS_STRING(attr_name), value);
-#endif
-    return PyObject_SetAttr(obj, attr_name, value);
-}
-#else
-#define __Pyx_PyObject_DelAttrStr(o,n)   PyObject_DelAttr(o,n)
-#define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
-#endif
-
 static CYTHON_INLINE void __Pyx_ErrRestore(PyObject *type, PyObject *value, PyObject *tb);
 static CYTHON_INLINE void __Pyx_ErrFetch(PyObject **type, PyObject **value, PyObject **tb);
 
@@ -2162,7 +2145,6 @@ static char __pyx_k_max_frames[] = "max_frames";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static char __pyx_k_top_object[] = "top: object";
 static char __pyx_k_MemoryError[] = "MemoryError";
-static char __pyx_k_py_free_mem[] = "py_free_mem";
 static char __pyx_k_TrajModeDict[] = "TrajModeDict";
 static char __pyx_k_string_types[] = "string_types";
 static char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
@@ -2271,7 +2253,6 @@ static PyObject *__pyx_kp_s_not_yet;
 static PyObject *__pyx_n_s_obj;
 static PyObject *__pyx_n_s_pack;
 static PyObject *__pyx_n_s_property;
-static PyObject *__pyx_n_s_py_free_mem;
 static PyObject *__pyx_n_s_pytraj_cpptraj_dict;
 static PyObject *__pyx_n_s_pytraj_externals_six;
 static PyObject *__pyx_n_s_pyx_getbuffer;
@@ -3340,32 +3321,8 @@ static PyObject *__pyx_gb_6pytraj_10TrajinList_10TrajinList_12generator(__pyx_Ge
     __Pyx_GIVEREF(__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pytraj/TrajinList.pyx":74
- *             # is this because we're using pointer?
- *             # we need to sub-class at Python level (not Cython level)
- *             trajin.top = self.top             # <<<<<<<<<<<<<<
- *             trajin.top.py_free_mem = False
- *             # use memoryview rather making instance copy
- */
-    __pyx_t_2 = __pyx_cur_scope->__pyx_v_self->top;
-    __Pyx_INCREF(__pyx_t_2);
-    if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_trajin), __pyx_n_s_top, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-    /* "pytraj/TrajinList.pyx":75
- *             # we need to sub-class at Python level (not Cython level)
- *             trajin.top = self.top
- *             trajin.top.py_free_mem = False             # <<<<<<<<<<<<<<
- *             # use memoryview rather making instance copy
- *             trajin.baseptr_1 = deref(it)
- */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_trajin), __pyx_n_s_top); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_2);
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_py_free_mem, Py_False) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
     /* "pytraj/TrajinList.pyx":77
- *             trajin.top.py_free_mem = False
+ *             #trajin.top.py_free_mem = False
  *             # use memoryview rather making instance copy
  *             trajin.baseptr_1 = deref(it)             # <<<<<<<<<<<<<<
  *             # recast trajin.baseptr0 too
@@ -17647,7 +17604,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_obj, __pyx_k_obj, sizeof(__pyx_k_obj), 0, 0, 1, 1},
   {&__pyx_n_s_pack, __pyx_k_pack, sizeof(__pyx_k_pack), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
-  {&__pyx_n_s_py_free_mem, __pyx_k_py_free_mem, sizeof(__pyx_k_py_free_mem), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_cpptraj_dict, __pyx_k_pytraj_cpptraj_dict, sizeof(__pyx_k_pytraj_cpptraj_dict), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_externals_six, __pyx_k_pytraj_externals_six, sizeof(__pyx_k_pytraj_externals_six), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
