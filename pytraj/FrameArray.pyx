@@ -24,7 +24,7 @@ from pytraj._shared_methods import my_str_method
 # we don't allow sub-class in Python level since we will mess up with memory
 @cython.final
 cdef class FrameArray (object):
-    def __cinit__(self, filename='', top=None, indices=None, 
+    def __cinit__(self, filename=None, top=None, indices=None, 
                   bint warning=False, n_frames=None, flag=None):
         
         cdef Frame frame
@@ -49,7 +49,7 @@ cdef class FrameArray (object):
         # this variable is intended to let FrameArray control 
         # freeing memory for Frame instance but it's too complicated
         #self.is_mem_parent = True
-        if filename != "":
+        if filename is not None:
             self.load(filename, self.top, indices)
 
     def copy(self):
@@ -97,23 +97,32 @@ cdef class FrameArray (object):
         cdef Frame frame
         cdef Trajin trajin
 
+        if top is not None:
+            if self.top.is_empty():
+                self.top = top.copy()
+            else:
+                pass
+            # don't update top if not self.top.is_empty()
+        else:
+            if self.top.is_empty():
+                # if both top and self.top are empty, need to raise ValueError
+                try:
+                    tmpobj = filename
+                    if hasattr(tmpobj, 'top'):
+                        self.top = tmpobj.top.copy()
+                    elif hasattr(tmpobj[0], 'top'):
+                        self.top = tmpobj[0].top.copy()
+                except:
+                    raise ValueError("need to have non-empty Topology")
+
+        # always use self.top
         if isinstance(filename, string_types):
             # load from single filename
             # we don't use UTF-8 here since ts.load(filename) does this job
             #filename = filename.encode("UTF-8")
             ts = Trajin_Single()
-            if top is not None:
-                ts.top = top.copy()
-                ts.load(filename)
-                # update top for self too
-                if not self.top.is_empty() and self.top is not top:
-                    print "updating FrameArray topology"
-                self.top = top.copy()
-            else:
-                # use self.top
-                ts.top = self.top.copy()
-                # this does not load whole traj into disk, just "prepare" to load
-                ts.load(filename)
+            ts.top = self.top.copy()
+            ts.load(filename)
             if indices is None:
                 # load all frames
                 self.join(ts[:])
@@ -133,15 +142,17 @@ cdef class FrameArray (object):
             if isinstance(_f0, string_types) or hasattr(_f0, 'n_frames'):
                 # need to check `string_types` since we need to load list of numbers too.
                 # list of filenames
-                for fh in filename:
+                list_of_files_or_trajs = filename
+                for fh in list_of_files_or_trajs:
                     if self.warning:
                         print ("Loading from list/tuple. Ignore `indices`")
                     # recursive
-                    self.load(fh, top, indices)
+                    self.load(fh, self.top, indices)
             else:
                 # load xyz
                 try:
-                    self.load_xyz(filename)
+                    _xyz = filename
+                    self.load_xyz(_xyz)
                 except:
                     raise ValueError("must be a list/tuple of either filenames/Traj/numbers")
         elif isinstance(filename, TrajinList):
@@ -150,8 +161,6 @@ cdef class FrameArray (object):
                 if self.warning:
                     print ("Loading from TrajinList. Ignore `indices`")
             tlist = <TrajinList> filename
-            if self.top.is_empty():
-                self.top = tlist.top.copy()
             for trajin in tlist:
                 trajin.top = tlist.top
                 for frame in trajin:

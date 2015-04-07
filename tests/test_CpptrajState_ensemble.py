@@ -18,13 +18,16 @@ class Test(unittest.TestCase):
         #state.add_trajin("./data/Test_RemdTraj/rem.nc.000")
 
         state.add_trajout(ArgList("./output/0_test_remd_cpptrajstate.x netcdf"))
+        print (state.toplist[0])
         # if is_ensemble == True: save traj for all T
         # else: save traj for only targeted T
         trajlist = state.get_trajinlist()
+        print (trajlist)
         print (trajlist.size)
 
         # we need to update topology for traj too
         for traj in trajlist:
+            print ("XYZYYYY", traj)
             traj.top = state.toplist[0]
             print (traj.top)
             print (traj.temperatures)
