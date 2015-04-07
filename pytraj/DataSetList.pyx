@@ -84,6 +84,9 @@ cdef class DataSetList:
         cdef DataSet dset = DataSet()
         cdef int _idx
 
+        if self.size == 0:
+            raise ValueError("size = 0: can not index")
+
         if is_int(idx):
             _idx = get_positive_idx(idx, self.size)
             # get memoryview

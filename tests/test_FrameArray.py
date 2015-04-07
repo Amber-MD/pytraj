@@ -3,7 +3,7 @@ from time import time
 import unittest
 import numpy as np
 from pytraj.base import *
-from pytraj.Timer import Timer
+from pytraj.utils import Timer
 from load_traj import load
 from pytraj.decorators import no_test
 
@@ -321,10 +321,9 @@ class TestFrameArray(unittest.TestCase):
         print("test strip atoms")
         #t0 = time()
         t = Timer()
-        t.start()
-        farray_cp.strip_atoms("!@CA")
-        t.stop()
-        print("time for stripping atoms of %s frames is %s" % (N, t.total()))
+        with t:
+            farray_cp.strip_atoms("!@CA")
+        print("time for stripping atoms of %s frames is %s" % (N, t.time_gap()))
         print(farray_cp.top.n_atoms)
         print(farray_cp[0].coords)
 

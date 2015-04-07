@@ -22,6 +22,11 @@ def get_amber_saved_test_dir(suffix):
     except:
         return None
 
+def is_word_in_class_name(obj, word):
+    """check if a `word` is in obj.__class__.__name__
+    """
+    return word in obj.__class__.__name__
+
 def is_generator(iter_obj):
     # use this method instead of `inspect` in python since this does not work with Cython
     # Reason: (I don't know)

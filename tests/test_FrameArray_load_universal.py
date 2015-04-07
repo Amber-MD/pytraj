@@ -4,6 +4,7 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.utils.check_and_assert import is_word_in_class_name
 from pytraj.decorators import no_test, test_if_having
 from pytraj.six_2 import izip
 from pytraj.utils import Timer
@@ -31,7 +32,7 @@ def test_load(my_traj, ref_traj=None, n_frames=None):
         ref_traj = traj
 
     if n_frames is None:
-        n_frames = traj.n_frames
+        n_frames = ref_traj.n_frames
 
     fa = FrameArray()
     fa.top = traj.top.copy()
@@ -62,12 +63,16 @@ class Test(unittest.TestCase):
         test_load(traj)
         print (" load from DataSet Coords")
         test_load(dslist[0])
-        print (" load from DataSet Traj, sometimes got segmentation fault")
-        print ("test_load(dslist[1])")
+        #print (" load from DataSet Traj, sometimes got segmentation fault")
+        #test_load(dslist[1])
         print (" load from ndarray")
         test_load(traj.xyz)
         print (" load from ndarray, flatten")
         test_load(traj.xyz.flatten())
+        print (" load from ndarray, flatten")
+        test_load(traj.xyz.flatten().tolist())
+        print (" load from ndarray, flatten")
+        test_load(traj.xyz.tolist())
 
     @test_if_having("mdtraj")
     def test_1(self):
@@ -99,6 +104,19 @@ class Test(unittest.TestCase):
             assert_almost_equal(_arr0, _arr1)
             # we don't use assert_almost_equal since mdtraj just
             # changes the original coords
+
+    @no_test
+    def test_2(self):
+        # turn off this test since getting 2/3 chances of segmentation fault
+        # Don't know why
+        print ("test loading DataSetList")
+        _dslist = dslist
+        print (dslist)
+        ref_traj = FrameArray()
+        ref_traj.top = traj.top.copy()
+        ref_traj.load(traj)
+        ref_traj.load(traj)
+        test_load(_dslist, ref_traj=ref_traj)
 
 if __name__ == "__main__":
     unittest.main()
