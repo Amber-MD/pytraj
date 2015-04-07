@@ -3,23 +3,26 @@ import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
-from pytraj.utils import has_
-from pytraj.utils.check_and_assert import assert_almost_equal, eq
+from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.decorators import no_test, test_if_having
 
 class Test(unittest.TestCase):
+    @test_if_having("numpy")
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        if has_("numpy"):
-            import numpy as np
-            f0 = traj[0]
-            arr0 = f0.xyz
-            print (f0[0])
-            arr0[0] = np.array([1, 2, 3])
-            print (f0[0])
-            print (arr0[0])
-            assert_almost_equal(f0[0], arr0[0])
-        else:
-            print ("need numpy. skip test")
+        farray = traj[:]
+        xyz_save = farray[0].xyz.copy()
+
+        farray[9].xyz[:] = farray[0].xyz
+        assert_almost_equal(farray[9].coords, farray[0].coords)
+        assert_almost_equal(farray[9].coords, xyz_save.flatten())
+
+        f0 = Frame(traj.n_atoms)
+        f0.xyz[:] = farray[0].xyz
+
+        f1 = Frame()
+        f1.append_xyz(farray[0].xyz)
+        assert_almost_equal(f1.coords, farray[0].coords)
 
 if __name__ == "__main__":
     unittest.main()

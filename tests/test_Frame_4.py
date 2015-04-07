@@ -3,7 +3,7 @@ from array import array
 from pytraj.AtomSelect import AtomSelect
 from pytraj.base import *
 from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
+from numpy.testing import assert_almost_equal
 import numpy as np
 
 class Test(unittest.TestCase):
@@ -21,9 +21,10 @@ class Test(unittest.TestCase):
         print(dir(frame))
         frame.zero_coords()
         print(frame[0])
-        frame.append_xyz(np.asarray([[100, 200, 300]], dtype=np.float64))
+        arr0 = np.asarray([[100, 200, 3],], dtype=np.float64)
+        frame.append_xyz(arr0)
         print ("frame from test_0")
-        print(frame[-1])
+        assert_almost_equal(frame[-1], arr0[0], decimal=4)
         #print frame.t_address()
 
     def test_indexing_AtomMask(self):

@@ -163,6 +163,24 @@ cdef class Frame (object):
         for i in range(N):
             self.thisptr.AddXYZ(&xyz[i, 0])
 
+    cdef void _append_xyz_2d(self, double[:, :] xyz):
+        # for internal use
+        # TODO: add assert
+        cdef int i
+        cdef int N = xyz.shape[0]
+
+        for i in range(N):
+            self.thisptr.AddXYZ(&xyz[i, 0])
+
+    cdef void _append_xyz_1d(self, double[:] xyz):
+        # TODO: add assert
+        # for internal use
+        cdef int i
+        cdef int N = <int> xyz.shape[0] / 3
+
+        for i in range(N):
+            self.thisptr.AddXYZ(&xyz[i*3])
+
     def append_vec3(self, Vec3 vec):
         self.thisptr.AddVec3(vec.thisptr[0])
 
@@ -327,9 +345,17 @@ cdef class Frame (object):
     def n_repdims(self):
         return self.thisptr.NrepDims()
 
-    @property 
-    def temperature(self):
-        return self.thisptr.Temperature()
+    property temperature:
+        def __get__(self):
+            return self.thisptr.Temperature()
+        def __set__(self, double tin):
+            self.thisptr.SetTemperature(tin)
+
+    property time:
+        def __get__(self):
+            return self.thisptr.Time()
+        def __set__(self, double timein):
+            self.thisptr.SetTime(timein)
 
     def update_atom(self, int idx, double[:] xyz):
         cdef double* ptr = self.thisptr.xAddress() + 3 * idx
