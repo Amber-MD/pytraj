@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
 
         @Timer()
         def _f_ndarray(farray, xyz):
-            farray.load_ndarray(xyz, xyz.shape[0])
+            farray.load_ndarray(xyz)
 
         @Timer()
         def _f_dontknow(farray, xyz):

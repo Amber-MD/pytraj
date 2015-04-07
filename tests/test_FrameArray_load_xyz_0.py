@@ -61,7 +61,7 @@ class Test(unittest.TestCase):
         farray5 = FrameArray()
         farray5.top = farray.top.copy()
 
-        farray5.load_ndarray(traj.xyz.astype(np.float64), traj.xyz.shape[0])
+        farray5.load_ndarray(traj.xyz)
         print (farray5.size, traj.xyz.shape)
 
         i = 0 

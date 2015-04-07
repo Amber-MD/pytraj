@@ -35,7 +35,7 @@ class TestTrajinList(unittest.TestCase):
                           "*")
         print (trajlist2.max_frames)
 
-    def test_0(self):
+    def test_1(self):
         topname = "./data/Tc5b.top"
         top = Topology(topname)
 
