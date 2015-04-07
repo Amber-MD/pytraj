@@ -5,7 +5,6 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj import load_sample_data
-from pytraj.plots import plot_matrix
 from pytraj.utils import has_
 
 class Test(unittest.TestCase):
@@ -17,6 +16,7 @@ class Test(unittest.TestCase):
         # all atom distance matrix
         act("", traj, dslist=dslist) 
         if has_("matplotlib"):
+            from pytraj.plots import plot_matrix
             outfit = plot_matrix(dslist[0]) 
             print (outfit)
             assert isinstance(outfit, tuple)

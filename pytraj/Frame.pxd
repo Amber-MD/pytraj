@@ -43,6 +43,7 @@ cdef extern from "Frame.h":
         int size() const 
         int NrepDims() const 
         double Temperature() const 
+        double Time()
         const double * XYZ(int atnum) const 
         const double * CRD(int idx) const 
         const double * VXYZ(int atnum) const 
@@ -59,6 +60,11 @@ cdef extern from "Frame.h":
         #inline const double * tAddress() const 
         inline const int * iAddress() const 
         inline void SetBoxAngles(const double *)
+        # Set box alpha, beta, and gamma
+        # Set temperature
+        void SetTemperature(double tIn)
+        # Set time
+        void SetTime(double tIn)
         int SetupFrame(int)
         int SetupFrameM(const vector[_Atom]&)
         int SetupFrameXM(const vector[double]&, const vector[double]&)
@@ -118,6 +124,8 @@ cdef class Frame:
     cdef _update_atoms(self, int[:], double[:], int)
     # create and object as alias to Topology instance
     cdef object top
+    cdef void _append_xyz_1d(self, double[:] xyz)
+    cdef void _append_xyz_2d(self, double[:, :] xyz)
 
 cdef inline int get_positive_idx(idx, size):
     # TODO : do we need this method?

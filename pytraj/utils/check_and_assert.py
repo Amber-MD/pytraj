@@ -24,8 +24,25 @@ def get_amber_saved_test_dir(suffix):
 
 def is_generator(iter_obj):
     # use this method instead of `inspect` in python since this does not work with Cython
-    # Reason: unknow
+    # Reason: (I don't know)
     if iter_obj.__class__.__name__ == 'generator':
+        return True
+    else:
+        return False
+
+def is_mdtraj(traj):
+    """check if traj is mdtraj object"""
+    return True if 'mdtraj.Trajectory' in traj.__str__() else False
+
+def is_frame_iter(iter_obj):
+    """check if is frame_iter
+
+    See Also
+    --------
+    FrameArray.frame_iter
+    Trajin.frame_iter
+    """
+    if iter_obj.__class__.__name__ == 'generator' and iter_obj.__name__ == 'frame_iter':
         return True
     else:
         return False
@@ -41,11 +58,11 @@ def make_sure_exist(filename):
         txt = "can not find %s" % filename
         raise RuntimeError(txt)
 
-def assert_almost_equal(arr0, arr1, decimals=3):
+def assert_almost_equal(arr0, arr1, decimal=3):
     '''numpy-like assert'''
 
     almost_equal = True
-    SMALL = 10**(-decimals)
+    SMALL = 10**(-decimal)
 
     for x, y in zip(arr0, arr1):
         if abs(x - y) > SMALL:

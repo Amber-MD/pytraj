@@ -24,8 +24,8 @@ class Test(unittest.TestCase):
 
             with sander.setup(parm, parm.coords, None, inp):
                 for frame in traj:
-                    #sander.set_positions(frame.coords)
-                    sander.set_positions(frame.buffer1d)
+                    sander.set_positions(frame.coords)
+                    #sander.set_positions(frame.buffer1d)
                     ene, frc = sander.energy_forces()
                     print (ene.gb)
             assert sander.is_setup() == False

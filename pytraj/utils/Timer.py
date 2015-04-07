@@ -21,3 +21,6 @@ class Timer:
 
     def time_gap(self):
         return self._time_gap
+
+    def __str__(self):
+        return str(self._time_gap)

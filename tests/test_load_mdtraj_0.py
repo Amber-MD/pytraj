@@ -51,12 +51,17 @@ class Test(unittest.TestCase):
             with Timer() as t:
                 dist_m = md.compute_distances(m_traj, indices, periodic=False)
             print ("time for mdtraj = %s" % t.time_gap())
+            print (dist_m)
             assert_almost_equal(d0[:], dist_m[:][0])
 
             with Timer() as t:
                 d0_2 = np.asarray([f.calc_distance(indices) for f in farray]).flatten()
             print ("time for pytraj_2 = %s" % t.time_gap())
-            assert_almost_equal(d0[:], d0_2)
+            N = 20
+            x = d0_2[:N]
+            y = d0[:N]
+            print (x, y)
+            assert_almost_equal(x, y)
 
         else:
             print ("does not have mdtraj and/or pytables")

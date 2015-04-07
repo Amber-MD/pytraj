@@ -72,7 +72,6 @@ actions/Action
 cpptraj_dict
 _utils
 #ParameterTypeVec
-Timer
 Energy
 PDBfile
 #ClusterList

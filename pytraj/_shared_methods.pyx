@@ -27,7 +27,7 @@ def _xyz(self):
     if has_np:
         return self[:, :, :]
     else:
-        raise NotImplementedError("require numpy. Use self[:, :, :]")
+        raise NotImplementedError("require numpy")
 
 def _tolist(self):
     """return flatten list for traj-like object"""

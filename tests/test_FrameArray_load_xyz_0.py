@@ -10,6 +10,7 @@ from pytraj.decorators import test_if_having
 class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
+        import numpy as np
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print ("creat FrameArray from 3D array")
         farray = FrameArray()
@@ -42,6 +43,33 @@ class Test(unittest.TestCase):
         for f0, f1 in izip(farray3, traj):
             #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
+
+        print ("creat FrameArray from 2D array of memview")
+        farray4 = FrameArray()
+        farray4.top = farray.top.copy()
+
+        for frame in traj:
+            f0 = Frame()
+            f0.append_xyz(frame.buffer2d)
+            farray4.append(f0)
+
+        for f0, f1 in izip(farray4, traj):
+            #print (f0, f1)
+            assert_almost_equal(f0.coords, f1.coords)
+
+        print ("creat FrameArray from 2D array of ndarray")
+        farray5 = FrameArray()
+        farray5.top = farray.top.copy()
+
+        farray5.load_ndarray(traj.xyz)
+        print (farray5.size, traj.xyz.shape)
+
+        i = 0 
+        for f0, f1 in izip(farray5, traj):
+            #print (f0, f1)
+            i += 1
+            assert_almost_equal(f0.coords, f1.coords)
+        assert i == traj.size
 
 if __name__ == "__main__":
     unittest.main()

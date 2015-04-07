@@ -1207,7 +1207,7 @@ struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo {
 };
 
 
-/* "pytraj/Frame.pxd":114
+/* "pytraj/Frame.pxd":120
  * 
  * 
  * cdef class Frame:             # <<<<<<<<<<<<<<
@@ -1450,7 +1450,7 @@ struct __pyx_memoryviewslice_obj {
 
 
 
-/* "pytraj/Frame.pxd":114
+/* "pytraj/Frame.pxd":120
  * 
  * 
  * cdef class Frame:             # <<<<<<<<<<<<<<
@@ -1461,6 +1461,8 @@ struct __pyx_memoryviewslice_obj {
 struct __pyx_vtabstruct_6pytraj_5Frame_Frame {
   void (*_strip_atoms)(struct __pyx_obj_6pytraj_5Frame_Frame *, struct __pyx_obj_6pytraj_8Topology_Topology *, std::string, int, int);
   PyObject *(*_update_atoms)(struct __pyx_obj_6pytraj_5Frame_Frame *, __Pyx_memviewslice, __Pyx_memviewslice, int);
+  void (*_append_xyz_1d)(struct __pyx_obj_6pytraj_5Frame_Frame *, __Pyx_memviewslice);
+  void (*_append_xyz_2d)(struct __pyx_obj_6pytraj_5Frame_Frame *, __Pyx_memviewslice);
 };
 static struct __pyx_vtabstruct_6pytraj_5Frame_Frame *__pyx_vtabptr_6pytraj_5Frame_Frame;
 
@@ -1798,9 +1800,9 @@ static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 #include "descrobject.h"
 static PyObject* __Pyx_Method_ClassMethod(PyObject *method);
 
-static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
-
 #include <new>
+
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 #if PY_MAJOR_VERSION < 3
     static int __Pyx_GetBuffer(PyObject *obj, Py_buffer *view, int flags);
@@ -2980,8 +2982,8 @@ static PyObject *__pyx_pf_6pytraj_8datasets_18DataSet_Coords_TRJ_18DataSet_Coord
   return __pyx_r;
 }
 
-/* "pytraj/Frame.pxd":122
- *     cdef object top
+/* "pytraj/Frame.pxd":130
+ *     cdef void _append_xyz_2d(self, double[:, :] xyz)
  * 
  * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
  *     # TODO : do we need this method?
@@ -3000,95 +3002,95 @@ static CYTHON_INLINE int __pyx_f_6pytraj_5Frame_get_positive_idx(PyObject *__pyx
   __Pyx_RefNannySetupContext("get_positive_idx", 0);
   __Pyx_INCREF(__pyx_v_idx);
 
-  /* "pytraj/Frame.pxd":126
+  /* "pytraj/Frame.pxd":134
  *     # we can we memoryview to get slicing too
  *     """Used for negative indexing"""
  *     if idx < 0:             # <<<<<<<<<<<<<<
  *         idx = size + idx
  *         if idx < 0:
  */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "pytraj/Frame.pxd":127
+    /* "pytraj/Frame.pxd":135
  *     """Used for negative indexing"""
  *     if idx < 0:
  *         idx = size + idx             # <<<<<<<<<<<<<<
  *         if idx < 0:
  *             raise ValueError("index is out of range")
  */
-    __pyx_t_1 = PyNumber_Add(__pyx_v_size, __pyx_v_idx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PyNumber_Add(__pyx_v_size, __pyx_v_idx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_idx, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pytraj/Frame.pxd":128
+    /* "pytraj/Frame.pxd":136
  *     if idx < 0:
  *         idx = size + idx
  *         if idx < 0:             # <<<<<<<<<<<<<<
  *             raise ValueError("index is out of range")
  *     if idx >= size:
  */
-    __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_2) {
 
-      /* "pytraj/Frame.pxd":129
+      /* "pytraj/Frame.pxd":137
  *         idx = size + idx
  *         if idx < 0:
  *             raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
  *     if idx >= size:
  *         raise ValueError("index is out of range")
  */
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      {__pyx_filename = __pyx_f[1]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[1]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     goto __pyx_L3;
   }
   __pyx_L3:;
 
-  /* "pytraj/Frame.pxd":130
+  /* "pytraj/Frame.pxd":138
  *         if idx < 0:
  *             raise ValueError("index is out of range")
  *     if idx >= size:             # <<<<<<<<<<<<<<
  *         raise ValueError("index is out of range")
  *     return idx
  */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_v_size, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_v_size, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "pytraj/Frame.pxd":131
+    /* "pytraj/Frame.pxd":139
  *             raise ValueError("index is out of range")
  *     if idx >= size:
  *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
  *     return idx
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    {__pyx_filename = __pyx_f[1]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[1]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "pytraj/Frame.pxd":132
+  /* "pytraj/Frame.pxd":140
  *     if idx >= size:
  *         raise ValueError("index is out of range")
  *     return idx             # <<<<<<<<<<<<<<
  */
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_idx); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_idx); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_t_3;
   goto __pyx_L0;
 
-  /* "pytraj/Frame.pxd":122
- *     cdef object top
+  /* "pytraj/Frame.pxd":130
+ *     cdef void _append_xyz_2d(self, double[:, :] xyz)
  * 
  * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
  *     # TODO : do we need this method?
@@ -14689,24 +14691,24 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "pytraj/Frame.pxd":129
+  /* "pytraj/Frame.pxd":137
  *         idx = size + idx
  *         if idx < 0:
  *             raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
  *     if idx >= size:
  *         raise ValueError("index is out of range")
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "pytraj/Frame.pxd":131
+  /* "pytraj/Frame.pxd":139
  *             raise ValueError("index is out of range")
  *     if idx >= size:
  *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
  *     return idx
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
@@ -15066,8 +15068,8 @@ PyMODINIT_FUNC PyInit_DataSet_Coords_TRJ(void)
   __pyx_ptype_6pytraj_3Box_Box = __Pyx_ImportType("pytraj.Box", "Box", sizeof(struct __pyx_obj_6pytraj_3Box_Box), 1); if (unlikely(!__pyx_ptype_6pytraj_3Box_Box)) {__pyx_filename = __pyx_f[16]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_15ReplicaDimArray_ReplicaDimArray = __Pyx_ImportType("pytraj.ReplicaDimArray", "ReplicaDimArray", sizeof(struct __pyx_obj_6pytraj_15ReplicaDimArray_ReplicaDimArray), 1); if (unlikely(!__pyx_ptype_6pytraj_15ReplicaDimArray_ReplicaDimArray)) {__pyx_filename = __pyx_f[17]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_14CoordinateInfo_CoordinateInfo = __Pyx_ImportType("pytraj.CoordinateInfo", "CoordinateInfo", sizeof(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo), 1); if (unlikely(!__pyx_ptype_6pytraj_14CoordinateInfo_CoordinateInfo)) {__pyx_filename = __pyx_f[18]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_5Frame_Frame = __Pyx_ImportType("pytraj.Frame", "Frame", sizeof(struct __pyx_obj_6pytraj_5Frame_Frame), 1); if (unlikely(!__pyx_ptype_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_6pytraj_5Frame_Frame = (struct __pyx_vtabstruct_6pytraj_5Frame_Frame*)__Pyx_GetVtable(__pyx_ptype_6pytraj_5Frame_Frame->tp_dict); if (unlikely(!__pyx_vtabptr_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_5Frame_Frame = __Pyx_ImportType("pytraj.Frame", "Frame", sizeof(struct __pyx_obj_6pytraj_5Frame_Frame), 1); if (unlikely(!__pyx_ptype_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_6pytraj_5Frame_Frame = (struct __pyx_vtabstruct_6pytraj_5Frame_Frame*)__Pyx_GetVtable(__pyx_ptype_6pytraj_5Frame_Frame->tp_dict); if (unlikely(!__pyx_vtabptr_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8Topology_Topology = __Pyx_ImportType("pytraj.Topology", "Topology", sizeof(struct __pyx_obj_6pytraj_8Topology_Topology), 1); if (unlikely(!__pyx_ptype_6pytraj_8Topology_Topology)) {__pyx_filename = __pyx_f[19]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_7ArgList_ArgList = __Pyx_ImportType("pytraj.ArgList", "ArgList", sizeof(struct __pyx_obj_6pytraj_7ArgList_ArgList), 1); if (unlikely(!__pyx_ptype_6pytraj_7ArgList_ArgList)) {__pyx_filename = __pyx_f[20]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = __Pyx_ImportType("pytraj.BaseIOtype", "BaseIOtype", sizeof(struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype), 1); if (unlikely(!__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype)) {__pyx_filename = __pyx_f[21]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

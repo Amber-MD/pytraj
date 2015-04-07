@@ -71,7 +71,8 @@ cdef class TrajinList:
             # FIXME: got segmentation fault if we set topology here
             # is this because we're using pointer?
             # we need to sub-class at Python level (not Cython level)
-            #trajin.top = self.top.copy()
+            trajin.top = self.top
+            trajin.top.py_free_mem = False
             # use memoryview rather making instance copy
             trajin.baseptr_1 = deref(it)
             # recast trajin.baseptr0 too
