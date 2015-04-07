@@ -317,14 +317,16 @@ cdef class Frame (object):
             return my_arr
         return _buffer(self.n_atoms)
 
-    @property
-    def xyz(self):
-        """return numpy array as a view of Frame xyz coords"""
-        has_np, np = _import_numpy()
-        if has_np:
-            return np.asarray(self.buffer2d)
-        else:
-            raise NotImplementedError("need numpy. Use `buffer2d` instead")
+    property xyz:
+        def __get__(self):
+            """return numpy array as a view of Frame xyz coords"""
+            has_np, np = _import_numpy()
+            if has_np:
+                return np.asarray(self.buffer2d)
+            else:
+                raise NotImplementedError("need numpy. Use `buffer2d` instead")
+        def __set__(self, value):
+            raise NotImplementedError("use self.xyz[:] = your_array")
         
     def is_empty(self):
         return self.thisptr.empty()
