@@ -1,7 +1,7 @@
 from pytraj.externals.six import string_types
 from pytraj._utils import set_world_silent
 
-def calculate(action=None, command=None, traj=None, top=None, **kwd): 
+def calculate(action=None, command=None, traj=None, top=None, quick_get=False, **kwd): 
     """ quick way to get data 
     Parameters
     ----------
@@ -54,4 +54,4 @@ def calculate(action=None, command=None, traj=None, top=None, **kwd):
             act = adict[action] 
         else: 
             act = action 
-        return act(command, traj, _top, quick_get=True, **kwd)
+        return act(command, traj, _top, quick_get=quick_get, **kwd)

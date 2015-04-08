@@ -29,16 +29,16 @@ list_of_get = ['get_average_frame']
 
 __all__ = list_of_do + list_of_cal
 
-calc_distance = partial(calculate, 'distance')
-calc_dih = partial(calculate, 'dihedral')
+calc_distance = partial(calculate, 'distance', quick_get=True)
+calc_dih = partial(calculate, 'dihedral', quick_get=True)
 calc_dihedral = calc_dih
-calc_radgyr = partial(calculate, 'radgyr')
-calc_angle = partial(calculate, 'angle')
-calc_molsurf = partial(calculate, 'molsurf')
-calc_distrmsd = partial(calculate, 'distrmsd')
-calc_volume = partial(calculate, 'volume')
+calc_radgyr = partial(calculate, 'radgyr', quick_get=True)
+calc_angle = partial(calculate, 'angle', quick_get=True)
+calc_molsurf = partial(calculate, 'molsurf', quick_get=True)
+calc_distrmsd = partial(calculate, 'distrmsd', quick_get=True)
+calc_volume = partial(calculate, 'volume', quick_get=True)
 calc_matrix = partial(calculate, 'matrix')
-calc_jcoupling = partial(calculate, 'jcoupling')
+calc_jcoupling = partial(calculate, 'jcoupling', quick_get=True)
 calc_protein_score = calc_score
 
 do_translation = partial(calculate, 'translate')

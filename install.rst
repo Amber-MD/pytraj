@@ -1,20 +1,29 @@
 # Install
-## 1. github version (pytraj will take care of installing `libcpptraj`)
+## Using AmberTools 15 (available after April 2015): [AmberTools 15] (http://ambermd.org/#AmberTools)
+    * if you are familiar with AMBER and AmberTools, you can install `pytraj` from:
+          * cd $AMBERHOME
+          * ./configure gnu
+          * cd $AMBERHOME/AmberTools/src/
+          * make pytraj
+          * (for further info, check `Installation` section in Amber manual
+          * Question? Send email to [AMBER mailing-list]  (http://ambermd.org/#reflector)
+
+## Using[conda] (http://conda.pydata.org/docs/examples/install.html)
+    * conda install -c pytraj pytraj-dev --force
+
+## Using github version
 * if using the most updated pytraj version (recommended)
     * `git clone https://github.com/pytraj/pytraj`
     * `cd pytraj`
     * `python ./setup.py install`
 * if using specific verion (go to [releases](https://github.com/pytraj/pytraj/releases/) to check the most updated and stable version)
-    * `wget https://github.com/pytraj/pytraj/archive/0.1.beta.8.tar.gz`
-    * `tar -xf 0.1.beta.8.tar.gz`
-    * `cd pytraj-0.1.beta.8`
+    * `wget https://github.com/pytraj/pytraj/archive/v0.1.2.dev0.1.tar.gz`
+    * `tar -xf v0.1.2.dev0.1.tar.gz`
+    * `cd pytraj*`
     * `python setup.py install`
-* Done
-* Simple test: python -c 'import pytraj as pt; pt.run_tests()'
 
-> Note: Possible failure: can not find netcdf.h file. Make sure to install netcdeflib or specify its include path
-
-## 2. Using pip
+## Using pip
+* Note: There is no development version on pypi.
 * install libcpptraj
     * `git clone https://github.com/mojyt/cpptraj`
     * `cd cpptraj`
@@ -26,10 +35,7 @@
     * (make sure to `export CPPTRAJHOME=your_cpptraj_dir` because `pytraj` will find header files in `$CPPTRAJHOME/src` and libcpptraj in `$CPPTRAJHOME/lib`
     * `pip install pytraj`
 
-## 3. Using conda
-Not yet
-
-## 4. run small test after installing
+# Ruu small test after installing
 `python -c 'import pytraj as pt; pt.run_tests()'`
 
 if you install via github, you will get full test runs
