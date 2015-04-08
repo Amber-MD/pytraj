@@ -71,5 +71,14 @@ class Test(unittest.TestCase):
             assert_almost_equal(f0.coords, f1.coords)
         assert i == traj.size
 
+        print ("creat FrameArray from frame_iter with mask")
+        strip_top = farray5.top.strip_atoms("!@CA", copy=True)
+        farray6 = FrameArray(traj(mask='@CA'), strip_top)
+        farray5.strip_atoms('!@CA')
+        print (farray5)
+
+        for f0, f1 in izip(farray6, farray5):
+            assert_almost_equal(f0.coords, f1.coords)
+
 if __name__ == "__main__":
     unittest.main()
