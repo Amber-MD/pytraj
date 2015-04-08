@@ -11,22 +11,24 @@ import numpy as np
 class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        d0 = calculate(adict['distance'], ':2@CA :10@CA', traj)
-        print (d0.size)
+        d0 = calculate(adict['distance'], ':2@CA :10@CA', traj)[0]
+        print (type(d0))
+        print ((d0.size))
+        print (np.asarray(d0[:]))
 
         cppout = np.loadtxt("./data/CAres2_CAres10.Tc5b.dat", skiprows=1).transpose()[1]
         print(cppout[:10])
-        np.testing.assert_almost_equal(d0[:], cppout[:d0.size], decimal=3)
+        assert_almost_equal(d0[:], cppout[:d0.size], decimal=3)
 
-        d1 = calculate('distance', ':2@CA :10@CA', traj)
-        np.testing.assert_almost_equal(d1[:], cppout[:d1.size], decimal=3)
+        d1 = calculate('distance', ':2@CA :10@CA', traj)[0]
+        assert_almost_equal(d1[:], cppout[:d1.size], decimal=3)
 
         with Timer() as t:
             trajlist = [traj,]
         print ("time to add traj to list = ", t.time_gap)
 
         with Timer() as t:
-            d2 = calculate('distance', ':2@CA :10@CA', trajlist)
+            d2 = calculate('distance', ':2@CA :10@CA', trajlist)[0]
         print ("time to do actions = ", t.time_gap)
 
         with Timer() as t:
