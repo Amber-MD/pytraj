@@ -222,7 +222,8 @@ cdef class Action:
             idx = dslist.size - 1
             if hasattr(dslist[idx], 'dtype'):
                 dtype = dslist[idx].dtype.upper()
-                if dtype in ['DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER']:
+                if dtype in ['DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER',
+                             'MATRIX_FLT', 'VECTOR']:
                     d0 = cast_dataset(dslist[idx], dtype=dtype)
                     return d0
                 else:
@@ -230,6 +231,8 @@ cdef class Action:
                     return None
             else:
                 raise RuntimeError("don't know how to cast dataset")
+        else:
+            return dslist
 
     def reset_counter(self):
         self.n_frames = 0
