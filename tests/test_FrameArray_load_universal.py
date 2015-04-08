@@ -118,5 +118,11 @@ class Test(unittest.TestCase):
         ref_traj.load(traj)
         test_load(_dslist, ref_traj=ref_traj)
 
+    def test_3(self):
+        print ("test loading frame")
+        fa = FrameArray(traj[0], traj.top)
+        assert fa.size == 1
+        assert_almost_equal(fa[0].coords, traj[0].coords)
+
 if __name__ == "__main__":
     unittest.main()

@@ -3,14 +3,20 @@ package:
   version: 4.2.0
 
 source:
+  #fn: master.zip
+  #url: https://github.com/mojyt/cpptraj/archive/master.zip
+  git_url: https://github.com/mojyt/cpptraj/
   git_tag: master
-  git_url: http://github.com/mojyt/cpptraj/
 
 requirements:
   build:
     - libnetcdf
+    - zlib
+    - bzip2
   run:
     - libnetcdf
+    - zlib
+    - bzip2
 
 about:
     home: http://ambermd.org/

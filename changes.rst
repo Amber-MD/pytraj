@@ -5,8 +5,20 @@ pytraj change log
 Lastest change
 =============
 
-Features added (from March 2015 - )
+Features added (from April 2015 - )
+
+Features added (from March 2015 - April 2015)
 ----------------------------------
+* can combine with `pysander` to get energy
+* update DataSet class inheritance (following `cpptraj` changes)
+* support Analysis classes in cpptraj (including **clustering**)
+* introduce `dataframe` to interact with `pandas` (`to_dataframe`)
+* support OPENMP
+* have option to make faster building (less than 2 minutes) by using multiprocess
+* `load` method of FrameArray is much more robust (it can load raw numpy, list, tuple of numbers, any iterable objects that resulting Frame ... and much more)
+* support loading `mdtraj` objects (Trajectory and Topology). Support loading array with ndim=1, 2, 3
+* support more than 100 kinds of calculations and analyses in `cpptraj`
+* many bugfixs to avoid segmentation fault 
 * support Python 2.6
 * ported to Ambertools 15
 * support simple plots (plot_matrix, ...)

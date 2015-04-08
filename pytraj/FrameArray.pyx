@@ -135,6 +135,8 @@ cdef class FrameArray (object):
                 # increase size of vector
                 for idx in indices:
                     self.append(ts[idx])
+        elif isinstance(filename, Frame):
+            self.append(filename)
         elif isinstance(filename, (list, tuple)):
             # load from a list/tuple of filenames
             # or a list/tuple of numbers

@@ -27,6 +27,12 @@ def is_word_in_class_name(obj, word):
     """
     return word in obj.__class__.__name__
 
+def are_instance(obj_list, cls):
+    """check if all elements have the same class `cls`"""
+    for element in obj_list:
+        if not isinstance(element, cls): return False
+    return True
+
 def is_generator(iter_obj):
     # use this method instead of `inspect` in python since this does not work with Cython
     # Reason: (I don't know)
