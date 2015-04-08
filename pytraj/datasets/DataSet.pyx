@@ -129,3 +129,15 @@ cdef class DataSet:
         ABC method, must override
         """
         raise NotImplementedError("Must over-write DataSet data attr")
+
+    def tolist(self):
+        return list(self.data)
+
+    def to_ndarray(self):
+        """return ndarray view of self.data"""
+        from pytraj.utils import _import_numpy
+        has_np, np = _import_numpy()
+        if has_np:
+            return np.asarray(self.data)
+        else:
+            raise ImportError("require numpy")
