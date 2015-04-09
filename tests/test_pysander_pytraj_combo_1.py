@@ -15,6 +15,10 @@ except:
 class Test(unittest.TestCase):
     def test_0(self):
         if has_sander_and_parmed:
+            from pytraj.misc import get_atts
+            from collections import defaultdict
+            ddict = defaultdict(list, [])
+
             traj_fn = "./data/md1_prod.Tc5b.x"
             top_fn = "./data/Tc5b.top"
             traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -27,8 +31,25 @@ class Test(unittest.TestCase):
                     sander.set_positions(frame.coords)
                     #sander.set_positions(frame.buffer1d)
                     ene, frc = sander.energy_forces()
-                    print (ene.gb)
+                    ene_atts = get_atts(ene)
+                    for att in ene_atts:
+                        ddict[att].append(getattr(ene, att))
             assert sander.is_setup() == False
+
+            # cpptraj
+            from pytraj import DataSetList
+            dslist = DataSetList()
+            act = adict['energy']
+            act("", traj, dslist=dslist)
+            print (dslist['ENE_00000[bond]'][0][:])
+
+            # to DataFrame
+            import pandas as pd
+            from pytraj.dataframe import to_dataframe
+            dframe = to_dataframe(dslist)
+            print (dframe)
+            print (pd.DataFrame(ddict))
+
         else:
             print ("require both sander and parmed. Skip test")
 
