@@ -37,14 +37,14 @@ def calculate(action=None, command=None, traj=None, top=None,
 
     #if not dslist.is_empty():
     #    raise ValueError("do not support non-empty DataSetList")
-    if top is None: 
+    if isinstance(top, string_types):
+        _top = Topology(top)
+    elif top is None: 
         try: 
            _top = traj.top 
         except: 
             # list, tuple of traj objects 
             _top = traj[0].top 
-    elif isinstance(top, string_types):
-        _top = Topology(top)
     else:
         _top = top
     if traj is None: 
