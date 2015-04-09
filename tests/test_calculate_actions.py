@@ -2,6 +2,7 @@ import unittest
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.utils.check_and_assert import is_word_in_class_name
 from pytraj import calculate, adict
 from pytraj.utils.Timer import Timer
 from pytraj.misc import simple_plot
@@ -60,11 +61,28 @@ class Test(unittest.TestCase):
         calculate(key='RmSd')
         calculate(key='RandomizeIonS')
 
-    def test_1(self):
+    def test_2(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj.common_actions import calc_distance
         d0 = calc_distance(":2@CA :10@CA", traj)
         print (d0[:])
+
+    def test_3(self):
+        # load and calc_distance at the same time
+        traj = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        from pytraj.common_actions import calc_distance
+        d0 = calc_distance(":2@CA :10@CA", *traj)
+        assert is_word_in_class_name(d0, 'DataSet')
+        assert hasattr(d0.data, 'memview')
+
+    def test_4(self):
+        # load and calculate at the same time
+        traj = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        from pytraj import calculate
+        d0 = calculate("distance", ":2@CA :10@CA", *traj)
+        assert is_word_in_class_name(d0, 'DataSet')
+        assert hasattr(d0[0].data, 'memview')
+        print (d0[0])
 
 if __name__ == "__main__":
     unittest.main()
