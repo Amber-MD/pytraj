@@ -1,5 +1,6 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
+from cython.view cimport array as cyarray
 
 # python level
 #from pytraj.optional_libs import HAS_NUMPY, ndarray
@@ -27,42 +28,29 @@ cdef class DataSet_float (DataSet_1D):
 
     def __getitem__(self, idx):
         #return self.thisptr.index_opr(idx)
-        cdef pyarray arr0 = pyarray('f', [])
-        cdef int i
+        return self.data[idx]
 
-        if isinstance(idx, (long, int)):
-            return self.thisptr.index_opr(idx)
-        elif isinstance(idx, slice):
-            if idx == slice(None):
-                for i in range(self.size):
-                    arr0.append(self.thisptr.index_opr(i))
-                return arr0
-            else:
-                raise NotImplementedError("only support slice(None)")
-        else:
-            raise NotImplementedError("only support single indexing or slice(None)")
-
-
-    def __setitem__(self, int idx, float value):
-        cdef float* ptr
-        ptr = &(self.thisptr.index_opr(idx))
-        ptr[0] = value
+    def __setitem__(self, idx, value):
+        self.data[idx] = value
         
     def __iter__(self):
         cdef int i
         for i in range(self.size):
             yield self.thisptr.index_opr(i)
 
-    #@property
-    #def size(self):
-    #    return self.thisptr.Size()
+    property data:
+        def __get__(self):
+            """return memoryview of data array
+            """
+            cdef cyarray myview
+            cdef int size = self.size
+            cdef float* ptr
 
-    # move back to DataSet baseclass?
-    @property
-    def data(self):
-        cdef pyarray arr0 = pyarray('f', [])
-        cdef int i
+            if size == 0:
+                return None
+            ptr = &self.thisptr.index_opr(0)
+            myview = <float[:size]> ptr
+            return myview
 
-        for i in range(self.size):
-            arr0.append(self[i])
-        return arr0
+        def __set__(self, data):
+            raise NotImplementedError()

@@ -47,5 +47,15 @@ class TestDataSetDB(unittest.TestCase):
                 dset0.write_buffer(cppfile, i)
         #dset0.write_buffer(cppfile, 100)
 
+        # update elements
+        dset0.data[:10] = np.empty(10, dtype=np.float64)
+        print (np.asarray(dset0.data[:10]))
+        dset0.data[0] = 1000.
+        assert np.asarray(dset0.data[:10])[0] == 1000.
+        arr0 = np.asarray(dset0.data)
+        arr0[0] = 100
+        assert np.asarray(dset0.data[:10])[0] == 100.
+        assert dset0.data[0] == 100.
+
 if __name__ == "__main__":
     unittest.main()

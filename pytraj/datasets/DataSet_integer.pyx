@@ -1,5 +1,6 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
+from cython.view cimport array as cyarray
 
 # python level
 from pytraj.utils import is_int
@@ -58,12 +59,24 @@ cdef class DataSet_integer (DataSet_1D):
     def add(self, int idx, int value):
         self.thisptr.Add(idx, &value)
 
-    # move back to DataSet baseclass?
-    @property
-    def data(self):
-        cdef pyarray arr0 = pyarray('i', [])
-        cdef int i
+    property data:
+        def __get__(self):
+            """return memoryview of data array
+            """
+            cdef cyarray myview
+            cdef int size = self.size
+            cdef int* ptr
 
-        for i in range(self.size):
-            arr0.append(self[i])
-        return arr0
+            if size == 0:
+                return None
+            ptr = &self.thisptr.index_opr(0)
+            myview = <int[:size]> ptr
+            return myview
+
+        def __set__(self, data):
+            cdef vector[int] v
+            cdef int x
+            cdef size_t size = len(data)
+
+            self.baseptr_1.Allocate1D(size)
+            self.data[:] = data

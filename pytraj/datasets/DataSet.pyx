@@ -30,6 +30,15 @@ cdef class DataSet:
         #if self.baseptr0 != NULL:
         #    del self.baseptr0
 
+    def __iter__(self):
+        raise NotImplementedError("Must over-write DataSet data attr")
+
+    def __getitem__(self, idx):
+        raise NotImplementedError("Must over-write DataSet data attr")
+
+    def __setitem__(self, idx, value):
+        raise NotImplementedError("Must over-write DataSet data attr")
+
     @property
     def size(self):
         return self.baseptr0.Size()
@@ -107,11 +116,6 @@ cdef class DataSet:
     def ndim(self):
         return self.baseptr0.Ndim()
 
-    def dim(self,int i):
-        # TODO: what does this do?
-        cdef Dimension dim = Dimension()
-        dim.thisptr[0] = self.baseptr0.Dim(i)
-
     def __richcmp__(DataSet self, DataSet other, opt):
         if opt == 0:
             # operator "<"
@@ -129,3 +133,15 @@ cdef class DataSet:
         ABC method, must override
         """
         raise NotImplementedError("Must over-write DataSet data attr")
+
+    def tolist(self):
+        return list(self.data)
+
+    def to_ndarray(self):
+        """return ndarray view of self.data"""
+        from pytraj.utils import _import_numpy
+        has_np, np = _import_numpy()
+        if has_np:
+            return np.asarray(self.data)
+        else:
+            raise ImportError("require numpy")
