@@ -20,9 +20,12 @@ class Test(unittest.TestCase):
             print ("has_pandas")
             dframe = to_dataframe(dslist)
             print (dframe)
+            # try dummy test
+            to_dataframe(dict())
         else:
             print ("does not have pandas installed")
             print ("skip")
+
 
 if __name__ == "__main__":
     unittest.main()
