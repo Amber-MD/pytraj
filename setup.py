@@ -93,10 +93,17 @@ pxd_include_dirs = [
         if '__init__.pyx' in files or '__init__.pxd' in files
         or '__init__.py' in files
         ]
+<<<<<<< HEAD
 
 pxd_include_patterns = [ 
         p + '/*.pxd' for p in pxd_include_dirs ]
 
+=======
+
+pxd_include_patterns = [ 
+        p + '/*.pxd' for p in pxd_include_dirs ]
+
+>>>>>>> 8ce8c54f16df54c21a098cf62101e96bab55b75e
 pyxfiles = []
 for p in pxd_include_dirs:
     pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx') if '.pyx' in ext])
@@ -233,7 +240,6 @@ if __name__ == "__main__":
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
         num_each = int(len(ext_modules)/n_cpus)
-
         sub_ext_modules_list = []
         # there is idiom to do this but I am too lazy to think
         for i in range(n_cpus):
@@ -241,6 +247,7 @@ if __name__ == "__main__":
                 sub_ext_modules_list.append(ext_modules[i*num_each:num_each*(i+1)])
             else:
                 sub_ext_modules_list.append(ext_modules[num_each*i:])
+        sub_ext_modules_list = [ext_modules[k::num_each] for k in range(n_cpus)]
 
         from multiprocessing import Pool
         pool = Pool(n_cpus)
