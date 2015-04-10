@@ -9,6 +9,8 @@ cdef class Command:
         del self.thisptr
 
     @classmethod
-    def process_input(cls, CpptrajState cppstate, fnameIn):
-        fnameIn = fnameIn.encode()
-        _Command.ProcessInput(cppstate.thisptr[0], fnameIn)
+    def get_state(cls, trajin_text):
+        cdef CpptrajState cppstate = CpptrajState()
+        trajin_text = trajin_text.encode()
+        _Command.ProcessInput(cppstate.thisptr[0], trajin_text)
+        return cppstate
