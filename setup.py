@@ -233,7 +233,14 @@ if __name__ == "__main__":
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
         num_each = int(len(ext_modules)/n_cpus)
-        sub_ext_modules_list = [ext_modules[k::num_each] for k in range(n_cpus)]
+
+        sub_ext_modules_list = []
+        # there is idiom to do this but I am too lazy to think
+        for i in range(n_cpus):
+            if i != n_cpus-1:
+                sub_ext_modules_list.append(ext_modules[i*num_each:num_each*(i+1)])
+            else:
+                sub_ext_modules_list.append(ext_modules[num_each*i:])
 
         from multiprocessing import Pool
         pool = Pool(n_cpus)
