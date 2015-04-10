@@ -2,6 +2,7 @@ import unittest
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.utils.check_and_assert import is_word_in_class_name
 from pytraj import calculate, adict
 from pytraj.utils.Timer import Timer
 from pytraj.misc import simple_plot
@@ -11,22 +12,24 @@ import numpy as np
 class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        d0 = calculate(adict['distance'], ':2@CA :10@CA', traj)
-        print (d0.size)
+        d0 = calculate(adict['distance'], ':2@CA :10@CA', traj)[0]
+        print (type(d0))
+        print ((d0.size))
+        print (np.asarray(d0[:]))
 
         cppout = np.loadtxt("./data/CAres2_CAres10.Tc5b.dat", skiprows=1).transpose()[1]
         print(cppout[:10])
-        np.testing.assert_almost_equal(d0[:], cppout[:d0.size], decimal=3)
+        assert_almost_equal(d0[:], cppout[:d0.size], decimal=3)
 
-        d1 = calculate('distance', ':2@CA :10@CA', traj)
-        np.testing.assert_almost_equal(d1[:], cppout[:d1.size], decimal=3)
+        d1 = calculate('distance', ':2@CA :10@CA', traj)[0]
+        assert_almost_equal(d1[:], cppout[:d1.size], decimal=3)
 
         with Timer() as t:
             trajlist = [traj,]
         print ("time to add traj to list = ", t.time_gap)
 
         with Timer() as t:
-            d2 = calculate('distance', ':2@CA :10@CA', trajlist)
+            d2 = calculate('distance', ':2@CA :10@CA', trajlist)[0]
         print ("time to do actions = ", t.time_gap)
 
         with Timer() as t:
@@ -50,19 +53,37 @@ class Test(unittest.TestCase):
     def test_1(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        # print help
-        calculate()
-        # print help for `strip`
-        calculate(key='strip')
-        # try mix cases
-        calculate(key='RmSd')
-        calculate(key='RandomizeIonS')
+        # no longer support this.
+        ## print help
+        #calculate()
+        ## print help for `strip`
+        #calculate(key='strip')
+        ## try mix cases
+        #calculate(key='RmSd')
+        #calculate(key='RandomizeIonS')
 
-    def test_1(self):
+    def test_2(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj.common_actions import calc_distance
         d0 = calc_distance(":2@CA :10@CA", traj)
         print (d0[:])
+
+    def test_3(self):
+        # load and calc_distance at the same time
+        traj = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        from pytraj.common_actions import calc_distance
+        d0 = calc_distance(":2@CA :10@CA", *traj)
+        assert is_word_in_class_name(d0, 'DataSet')
+        assert hasattr(d0.data, 'memview')
+
+    def test_4(self):
+        # load and calculate at the same time
+        traj = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        from pytraj import calculate
+        d0 = calculate("distance", ":2@CA :10@CA", *traj)
+        assert is_word_in_class_name(d0, 'DataSet')
+        assert hasattr(d0[0].data, 'memview')
+        print (d0[0])
 
 if __name__ == "__main__":
     unittest.main()

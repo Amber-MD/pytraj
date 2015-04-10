@@ -1406,7 +1406,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_string_14DataSet_string_6_
  *                 return slist
  *             else:
  */
-        __pyx_t_6 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v__idx, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(__pyx_t_6 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+        __pyx_t_6 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v__idx, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_6 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
         __Pyx_GOTREF(__pyx_t_6);
         __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_slist, __pyx_t_6); if (unlikely(__pyx_t_10 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -1910,7 +1910,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_string_14DataSet_string_15
  *             arr.append(self[i])             # <<<<<<<<<<<<<<
  *         return arr
  */
-    __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_1 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_5 = __Pyx_PyObject_Append(((PyObject *)__pyx_v_arr), __pyx_t_1); if (unlikely(__pyx_t_5 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;

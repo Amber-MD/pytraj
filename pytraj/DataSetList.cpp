@@ -1326,6 +1326,7 @@ static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_57get_scalar_types
 static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_59get_scalar_modes(struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_61get_dtypes(struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_63tolist(struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_65set_py_free_mem(struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self, int __pyx_v_value); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -3865,7 +3866,7 @@ static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_35get_dataset(stru
  *                 # return a list of arrays
  *                 return dlist
  */
-          __pyx_t_11 = __Pyx_PyObject_GetSlice(__pyx_v_d0, 0, 0, NULL, NULL, &__pyx_slice__3, 0, 0, 1); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 143; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_11 = __Pyx_PyObject_GetSlice(__pyx_v_d0, 0, 0, NULL, NULL, &__pyx_slice__3, 0, 0, 0); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 143; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_11);
           __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_dlist, __pyx_t_11); if (unlikely(__pyx_t_12 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 143; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -6027,6 +6028,8 @@ static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_63tolist(struct __
  *     def tolist(self):
  *         """return a list of list/array"""
  *         return [d0[:] for d0 in self]             # <<<<<<<<<<<<<<
+ * 
+ *     def set_py_free_mem(self, bint value):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -6070,7 +6073,7 @@ static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_63tolist(struct __
     }
     __Pyx_XDECREF_SET(__pyx_v_d0, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetSlice(__pyx_v_d0, 0, 0, NULL, NULL, &__pyx_slice__8, 0, 0, 1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = __Pyx_PyObject_GetSlice(__pyx_v_d0, 0, 0, NULL, NULL, &__pyx_slice__8, 0, 0, 0); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
     if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -6097,6 +6100,68 @@ static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_63tolist(struct __
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_d0);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pytraj/DataSetList.pyx":251
+ *         return [d0[:] for d0 in self]
+ * 
+ *     def set_py_free_mem(self, bint value):             # <<<<<<<<<<<<<<
+ *         # we only expose py_free_mem in cython (not pure python)
+ *         # we don't want to change *.pxd signature files since this
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pytraj_11DataSetList_11DataSetList_66set_py_free_mem(PyObject *__pyx_v_self, PyObject *__pyx_arg_value); /*proto*/
+static char __pyx_doc_6pytraj_11DataSetList_11DataSetList_65set_py_free_mem[] = "DataSetList.set_py_free_mem(self, bool value)";
+static PyObject *__pyx_pw_6pytraj_11DataSetList_11DataSetList_66set_py_free_mem(PyObject *__pyx_v_self, PyObject *__pyx_arg_value) {
+  int __pyx_v_value;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_py_free_mem (wrapper)", 0);
+  assert(__pyx_arg_value); {
+    __pyx_v_value = __Pyx_PyObject_IsTrue(__pyx_arg_value); if (unlikely((__pyx_v_value == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pytraj.DataSetList.DataSetList.set_py_free_mem", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_6pytraj_11DataSetList_11DataSetList_65set_py_free_mem(((struct __pyx_obj_6pytraj_11DataSetList_DataSetList *)__pyx_v_self), ((int)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_65set_py_free_mem(struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self, int __pyx_v_value) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("set_py_free_mem", 0);
+
+  /* "pytraj/DataSetList.pyx":255
+ *         # we don't want to change *.pxd signature files since this
+ *         # requires recompiling *pyx codes
+ *         self.py_free_mem = value             # <<<<<<<<<<<<<<
+ */
+  __pyx_v_self->py_free_mem = __pyx_v_value;
+
+  /* "pytraj/DataSetList.pyx":251
+ *         return [d0[:] for d0 in self]
+ * 
+ *     def set_py_free_mem(self, bint value):             # <<<<<<<<<<<<<<
+ *         # we only expose py_free_mem in cython (not pure python)
+ *         # we don't want to change *.pxd signature files since this
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -18731,6 +18796,7 @@ static PyMethodDef __pyx_methods_6pytraj_11DataSetList_DataSetList[] = {
   {"get_scalar_modes", (PyCFunction)__pyx_pw_6pytraj_11DataSetList_11DataSetList_60get_scalar_modes, METH_NOARGS, __pyx_doc_6pytraj_11DataSetList_11DataSetList_59get_scalar_modes},
   {"get_dtypes", (PyCFunction)__pyx_pw_6pytraj_11DataSetList_11DataSetList_62get_dtypes, METH_NOARGS, __pyx_doc_6pytraj_11DataSetList_11DataSetList_61get_dtypes},
   {"tolist", (PyCFunction)__pyx_pw_6pytraj_11DataSetList_11DataSetList_64tolist, METH_NOARGS, __pyx_doc_6pytraj_11DataSetList_11DataSetList_63tolist},
+  {"set_py_free_mem", (PyCFunction)__pyx_pw_6pytraj_11DataSetList_11DataSetList_66set_py_free_mem, METH_O, __pyx_doc_6pytraj_11DataSetList_11DataSetList_65set_py_free_mem},
   {0, 0, 0, 0}
 };
 
@@ -19867,6 +19933,8 @@ static int __Pyx_InitCachedConstants(void) {
  *     def tolist(self):
  *         """return a list of list/array"""
  *         return [d0[:] for d0 in self]             # <<<<<<<<<<<<<<
+ * 
+ *     def set_py_free_mem(self, bint value):
  */
   __pyx_slice__8 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_slice__8);

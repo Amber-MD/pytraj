@@ -1683,7 +1683,6 @@ static int __pyx_pf_6pytraj_3Box_3Box___cinit__(struct __pyx_obj_6pytraj_3Box_Bo
  *             raise ValueError("")
  */
       __pyx_t_3 = 0;
-      if (__pyx_t_3 < 0) __pyx_t_3 += __pyx_v_boxIn.shape[0];
       __pyx_v_self->thisptr = new Box((&(*((double *) ( /* dim=0 */ (__pyx_v_boxIn.data + __pyx_t_3 * __pyx_v_boxIn.strides[0]) )))));
     }
     __pyx_L4:;
@@ -2271,7 +2270,7 @@ static PyObject *__pyx_gb_6pytraj_3Box_3Box_12generator(__pyx_GeneratorObject *_
  * 
  *     @classmethod
  */
-    __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_cur_scope->__pyx_v_i, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_2 = __Pyx_GetItemInt(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_cur_scope->__pyx_v_i, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
@@ -2790,7 +2789,6 @@ static PyObject *__pyx_pf_6pytraj_3Box_3Box_21set_box(struct __pyx_obj_6pytraj_3
  *     def set_trunc_oct(self):
  */
   __pyx_t_1 = 0;
-  if (__pyx_t_1 < 0) __pyx_t_1 += __pyx_v_boxIn.shape[0];
   __pyx_v_self->thisptr->SetBox((&(*((double *) ( /* dim=0 */ (__pyx_v_boxIn.data + __pyx_t_1 * __pyx_v_boxIn.strides[0]) )))));
 
   /* "pytraj/Box.pyx":63

@@ -247,3 +247,9 @@ cdef class DataSetList:
     def tolist(self):
         """return a list of list/array"""
         return [d0[:] for d0 in self]
+
+    def set_py_free_mem(self, bint value):
+        # we only expose py_free_mem in cython (not pure python)
+        # we don't want to change *.pxd signature files since this 
+        # requires recompiling *pyx codes
+        self.py_free_mem = value

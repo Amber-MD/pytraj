@@ -12,7 +12,9 @@ class Test(unittest.TestCase):
         act = adict['multidihedral']
         dslist = DataSetList()
         act("phi", traj, dslist=dslist)
-        #print (dslist)
+        print (dslist)
+        print (dslist.get_legends())
+        print (dslist['phi:5'][0][:].shape)
         
         if has_pandas:
             print ("has_pandas")
