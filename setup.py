@@ -93,17 +93,13 @@ pxd_include_dirs = [
         if '__init__.pyx' in files or '__init__.pxd' in files
         or '__init__.py' in files
         ]
-<<<<<<< HEAD
 
 pxd_include_patterns = [ 
         p + '/*.pxd' for p in pxd_include_dirs ]
 
-=======
-
 pxd_include_patterns = [ 
         p + '/*.pxd' for p in pxd_include_dirs ]
 
->>>>>>> 8ce8c54f16df54c21a098cf62101e96bab55b75e
 pyxfiles = []
 for p in pxd_include_dirs:
     pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx') if '.pyx' in ext])
