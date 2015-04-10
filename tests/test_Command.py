@@ -9,19 +9,11 @@ from pytraj.CpptrajState import CpptrajState
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajin = """
-        trajin ./data/md1_prod.Tc5b.x
-        parm ./data/Tc5b.top
-        reference ./data/Tc5b.crd
-        trajout ./output/test_command.nc
-        rms reference @CA out ./output/test_rmsd_command.dat
-        """
-        state = CpptrajState()
-        print (dir(Command))
-        Command.process_input(state, trajin)
+        fname = "./tc5b.rotate.in"
+        state = Command.get_state(fname)
+        print (state)
         print (dir(state))
-        print (state.is_empty())
+        print (state.toplist[0])
 
 if __name__ == "__main__":
     unittest.main()
