@@ -5,8 +5,6 @@ from . import io
 from .Topology import Topology
 from .DataSetList import DataSetList
 
-_COUNTER = 0
-
 def calculate(action=None, command=None, traj=None, top=None, 
               dslist=DataSetList(), quick_get=False, **kwd): 
     """ quick way to get data 
@@ -35,8 +33,13 @@ def calculate(action=None, command=None, traj=None, top=None,
     from pytraj import ActionDict
     adict = ActionDict()
 
-    #if not dslist.is_empty():
-    #    raise ValueError("do not support non-empty DataSetList")
+    if dslist is None:
+        dslist = DataSetList()
+    elif not isinstance(dslist, DataSetList):
+        raise NotImplementedError("must have None or DataSetList object")
+
+    old_size = dslist.size
+
     if isinstance(top, string_types):
         _top = Topology(top)
     elif top is None: 
@@ -59,4 +62,17 @@ def calculate(action=None, command=None, traj=None, top=None,
         act = adict[action] 
     else: 
         act = action 
-    return act(command, traj, _top, dslist=dslist, quick_get=quick_get, **kwd)
+    act(command, traj, _top, dslist=dslist, quick_get=quick_get, **kwd)
+
+    # make new view for DataSetList
+    # for some reasons, if I kept calling `calculate` several times,
+    # data will be added to the same dslist
+    _dslist = DataSetList()
+    _dslist.set_py_free_mem(False)
+    for idx, ds in enumerate(dslist):
+        if idx >= old_size:
+            _dslist.add_existing_set(ds)
+    if quick_get:
+        return _dslist[-1]
+    else:
+        return _dslist
