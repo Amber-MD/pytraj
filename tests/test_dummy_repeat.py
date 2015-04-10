@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
         print (d0.size)
         d1 = calculate("distance", ":3@CA :10@CB", traj)
         print (d1.size)
-        #assert d0.size == d1.size == traj.n_frames
+        assert d0[0].size == d1[0].size == traj.n_frames
 
     #@no_test
     def test_1(self):
@@ -30,7 +30,9 @@ class Test(unittest.TestCase):
         from pytraj.common_actions import calc_distance
 
         d0 = calc_distance(":2@CA :10@CA", traj)
+        print (d0.size, d0)
         d1 = calc_distance(":3@CA :10@CB", traj)
+        print (d1.size)
         d2 = calc_distance(":3@CA :10@CB", traj)
         d3 = calc_distance(":3@CA :10@CB", traj)
         d4 = calc_distance(":3@CA :10@CB", *str_traj_top)
