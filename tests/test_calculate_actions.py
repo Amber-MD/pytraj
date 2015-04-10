@@ -53,13 +53,14 @@ class Test(unittest.TestCase):
     def test_1(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        # print help
-        calculate()
-        # print help for `strip`
-        calculate(key='strip')
-        # try mix cases
-        calculate(key='RmSd')
-        calculate(key='RandomizeIonS')
+        # no longer support this.
+        ## print help
+        #calculate()
+        ## print help for `strip`
+        #calculate(key='strip')
+        ## try mix cases
+        #calculate(key='RmSd')
+        #calculate(key='RandomizeIonS')
 
     def test_2(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
