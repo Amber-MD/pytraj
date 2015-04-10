@@ -199,4 +199,4 @@ def calc_multidihedral(command="", *args, **kwd):
     from array import array
     act = adict['multidihedral']
     dslist = act(command, *args, **kwd)
-    return dict((d0.legendm, array('d', d0.data)) for d0 in dslist)
+    return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
