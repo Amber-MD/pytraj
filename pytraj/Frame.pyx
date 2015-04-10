@@ -19,6 +19,7 @@ from pytraj.utils.check_and_assert import is_int
 from pytraj.ArgList import ArgList
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
+from pytraj.exceptions import *
 
 # TODO : reogarnize memory view, there are too many ways to assess
 # need to finalize
@@ -973,3 +974,11 @@ cdef class Frame (object):
     def tolist(self):
         """return a list of coords"""
         return list(self.coords)
+
+    def to_ndarray(self):
+        """return a ndarray as a view of self.buffer2d"""
+        has_np, np = _import_numpy()
+        if has_np:
+            return np.asarray(self.buffer2d)
+        else:
+            raise PytrajNumpyError()

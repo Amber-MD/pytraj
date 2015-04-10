@@ -177,3 +177,26 @@ def do_clustering(command="", traj=None, top=Topology(),
     else:
         _top = traj.top
     ana(command, _top, dslist, dflist) 
+
+def calc_multidihedral(command="", *args, **kwd): 
+    """perform dihedral search
+    Parameters
+    ----------
+    command : str, cpptraj command 
+    traj : Trajectory-like object
+    *arg and **kwd: additional arguments
+
+    Returns
+    -------
+    Dictionary of array
+    >>> from pytraj.common_actions import calc_multidihedral
+    >>> d = calc_multidihedral("resrange 6-9 phi psi chi", traj)
+    >>> assert isinstance(d, dict) == True
+    >>> from pytraj.dataframe import to_dataframe
+    >>> print (to_dataframe(d))
+    """
+    from pytraj.six_2 import izip as zip
+    from array import array
+    act = adict['multidihedral']
+    dslist = act(command, *args, **kwd)
+    return {d0.legend : array('d', d0.data) for d0 in dslist}

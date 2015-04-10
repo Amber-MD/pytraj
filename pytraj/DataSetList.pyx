@@ -9,6 +9,7 @@ from collections import defaultdict
 from pytraj._utils cimport get_positive_idx
 from pytraj.externals.six import string_types
 from pytraj.utils import is_int
+from pytraj.exceptions import *
 
 # can not import cpptraj_dict here
 # if doing this, we introduce circle-import since cpptraj_dict already imported
@@ -246,7 +247,20 @@ cdef class DataSetList:
 
     def tolist(self):
         """return a list of list/array"""
-        return [d0[:] for d0 in self]
+        try:
+            return [d0[:] for d0 in self]
+        except:
+            raise PytrajConvertError("dont know how to convert to list")
+
+    def to_ndarray(self):
+        has_np, np = _import("numpy")
+        if has_np:
+            try:
+                return np.asarray([d0.data for d0 in self])
+            except:
+                raise PytrajConvertError("don't know how to convert to ndarray")
+        else:
+            raise PytrajConvertError("don't have numpy")
 
     def set_py_free_mem(self, bint value):
         # we only expose py_free_mem in cython (not pure python)

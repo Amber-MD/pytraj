@@ -22,9 +22,9 @@ cdef class Vec3:
                 self.thisptr = new _Vec3()
                 if isinstance(args[0], (list, tuple)):
                     x, y, z = args[0]
-                    self.SetVec(x, y, z)
+                    self.set_vec(x, y, z)
                 else:
-                    self.SetVec(*args)
+                    self.set_vec(*args)
 
     def __dealloc__(self):
         if self.thisptr is not NULL:
@@ -37,10 +37,10 @@ cdef class Vec3:
     def Magnitude2(self):
         return self.thisptr.Magnitude2()
 
-    def Zero(self):
+    def zeros(self):
         self.thisptr.Zero()
 
-    def SetVec(self, *args):
+    def set_vec(self, *args):
         """args = either array of 3 elements or x, y, z"""
         cdef double x, y, z
         cdef double[:] X
@@ -62,16 +62,13 @@ cdef class Vec3:
         else:
             raise ValueError("must a an array or x, y, z format")
 
-    def Normalize(self):
+    def normalize(self):
         return self.thisptr.Normalize()
 
-    def Print(self, mystring):
-        self.thisptr.Print(mystring)
-
-    def Angle(self, Vec3 othervec):
+    def angle(self, Vec3 othervec):
         return self.thisptr.Angle(othervec.thisptr[0])
 
-    def Assign(self, double[:] XYZ):
+    def assign(self, double[:] XYZ):
         self.thisptr.Assign(&XYZ[0])
 
     #def void operator /=(self,double xIn):
@@ -157,25 +154,21 @@ cdef class Vec3:
             self.thisptr.addequal(xIn)
         return self
 
-    def Cross(self, Vec3 rhs):
+    def cross(self, Vec3 rhs):
         cdef Vec3 vec = Vec3()
         vec.thisptr[0] = self.thisptr.Cross(rhs.thisptr[0])
         return vec
 
     def __getitem__(self, idx):
         # either return ndarray or memovryview
-        has_numpy, _np = _import_numpy()
-        if has_numpy:
-            return _np.asarray(self.buffer1d[idx])
-        else:
-            return self.buffer1d[idx]
+        return self.buffer1d[idx]
 
     def __setitem__(self, idx, value):
         if isinstance(value, (list, tuple)):
             value = pyarray('d', value)
         self.buffer1d[idx] = value
 
-    def IsZero(self):
+    def is_zeros(self):
         return self.thisptr.IsZero()
 
     def neg(self):
@@ -185,8 +178,13 @@ cdef class Vec3:
         return self.thisptr.SignedAngle(v1.thisptr[0], v2.thisptr[0])
  
     def tolist(self):
-        vlist = [x for x in pyarray('d', self.buffer1d[:])]
-        return vlist
+        return list(self.buffer1d[:])
+
+    def to_ndarray(self):
+        """return a ndarray view of Vec3"""
+        has_np, np = _import_numpy()
+        if has_np:
+            np.asarray(self.buffer1d[:])
 
     @property
     def buffer1d(self):
