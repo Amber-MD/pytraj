@@ -10,9 +10,13 @@ def to_dataframe(dslist):
     """return panda's DataFrame object
     Parameters
     ----------
-    dslist : DataSetList object
+    dslist : DataSetList object or list/tuple of DataSet
+        or any object DataFrame can read
     """
-    my_dict = dict((d0.legend, list(d0.to_ndarray())) for d0 in dslist)
+    if isinstance(dslist, (list, tuple, DataSetList)):
+        my_dict = dict((d0.legend, list(d0.to_ndarray())) for d0 in dslist)
+    else:
+        my_dict = dslist
 
     # what else I can do here?
     if has_pandas:

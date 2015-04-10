@@ -10,3 +10,9 @@ class PathError(PytrajError):
 
 class EmptyTopologyError(PytrajError):
     pass
+
+class PytrajConvertError(PytrajError):
+    pass
+
+class PytrajNumpyError(PytrajError):
+    pass

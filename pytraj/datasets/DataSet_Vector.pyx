@@ -1,5 +1,7 @@
 # distutils: language = c++
 
+from cython.view cimport array as cyarray
+
 
 cdef class DataSet_Vector (DataSet_1D):
     def __cinit__(self):
@@ -28,11 +30,11 @@ cdef class DataSet_Vector (DataSet_1D):
     def data(self):
         """return a list of Vec3"""
         cdef Vec3 vec
-        cdef list vlist = []
+        cdef cyarray cya = cyarray(shape=(self.size, 3), itemsize=sizeof(double), format="d")
         cdef int idx
 
         for idx in range(self.size):
             vec = Vec3()
             vec.thisptr[0] = self.thisptr.index_opr(idx)
-            vlist.append(vec)
-        return vlist
+            cya[idx, :] = vec.buffer1d[:]
+        return cya
