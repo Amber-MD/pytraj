@@ -12,7 +12,7 @@ def to_dataframe(dslist):
     ----------
     dslist : DataSetList object
     """
-    my_dict = dict((d0.legend, d0[:]) for d0 in dslist)
+    my_dict = dict((d0.legend, list(d0.to_ndarray())) for d0 in dslist)
 
     # what else I can do here?
     if has_pandas:

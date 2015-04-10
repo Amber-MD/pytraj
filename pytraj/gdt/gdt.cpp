@@ -1504,9 +1504,7 @@ static __Pyx_memviewslice __pyx_f_6pytraj_3gdt_3gdt_gdt(__Pyx_memviewslice __pyx
  *     return arr0
  */
   __pyx_t_1 = 0;
-  if (__pyx_t_1 < 0) __pyx_t_1 += __pyx_v_reference.shape[0];
   __pyx_t_2 = 0;
-  if (__pyx_t_2 < 0) __pyx_t_2 += __pyx_v_arr.shape[0];
   __pyx_v_ptr = ((__pyx_t_6pytraj_3gdt_3gdt_sshort *)gdtCPUOneReference((&(*((double *) ( /* dim=0 */ (__pyx_v_reference.data + __pyx_t_1 * __pyx_v_reference.strides[0]) )))), (&(*((double *) ( /* dim=0 */ (__pyx_v_arr.data + __pyx_t_2 * __pyx_v_arr.strides[0]) )))), __pyx_v_conformers, __pyx_v_protlen, __pyx_v_score));
 
   /* "pytraj/gdt/gdt.pyx":9

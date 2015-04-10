@@ -1,5 +1,6 @@
 import sys
 from glob import glob
+from itertools import chain
 
 if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
@@ -15,6 +16,11 @@ import time
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+pytraj_version = read("pytraj/__version__.py").split("=")[-1]
+pytraj_version = pytraj_version.replace('"', '', 10)
+rootname = os.getcwd()
+pytraj_home = rootname + "/pytraj/"
+
 # check/install Cython
 cmdclass = {}
 try:
@@ -29,15 +35,14 @@ except ImportError:
     #sys.stderr.write('You must have Cython installed to install pytraj\n')
     #sys.exit(0)
 
-rootname = os.getcwd()
-pytraj_home = rootname + "/pytraj/"
-
+# check AMBERHOME
 try:
     amberhome = os.environ['AMBERHOME']
     has_amberhome = True
 except:
     has_amberhome = False
 
+# check CPPTRAJHOME
 try:
     cpptrajhome = os.environ['CPPTRAJHOME']
     has_cpptrajhome = True
@@ -82,17 +87,62 @@ else:
     sys.stderr.write(nice_message)
     sys.exit(0)
 
-# find and give warning if not having libcpptraj?
-
 # get *.pyx files
+pxd_include_dirs = [
+        directory for directory, dirs, files in os.walk('pytraj')
+        if '__init__.pyx' in files or '__init__.pxd' in files
+        or '__init__.py' in files
+        ]
+
+pxd_include_patterns = [ 
+        p + '/*.pxd' for p in pxd_include_dirs ]
+
 pyxfiles = []
-f = open('pyxlist.txt', 'r')
+for p in pxd_include_dirs:
+    pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx') if '.pyx' in ext])
+
+# check command line
+extra_compile_args=['-O0', '-ggdb']
+extra_link_args=['-O0', '-ggdb']
+
+openmp_str = "-openmp"
+if openmp_str in sys.argv:
+    # python ./setup.py build openmp
+    # make sure to update Makefile in $AMBERHOME/AmberTools/src
+    # if changing '-openmp' to something else
+    with_openmp = True
+    sys.argv.remove(openmp_str)
+else:
+    with_openmp = False 
+
+if with_openmp:
+    extra_compile_args.append("-fopenmp")
+    extra_link_args.append("-fopenmp")
+
+KeyErrorTXT = """
+Can not use -faster_build with `install`,
+try  "python ./setup.py build -faster_build
+then "python ./setup.py install" 
+"""
+
+faster_build_str = "-faster_build"
+if faster_build_str in sys.argv:
+    # try using multiple cores
+    faster_build = True
+    sys.argv.remove(faster_build_str)
+    if "install" in sys.argv:
+        sys.stderr.write(KeyErrorTXT)
+        sys.exit(0)
+else:
+    faster_build = False
+
+# since we added "INSTALLTYPE" after setup.py file, we need
+# to remove it if having one
+installtype = os.environ.get("INSTALLTYPE", "")
 try:
-    for line in f.readlines():
-        if "#" not in line:
-            pyxfiles.append(line.split("\n")[0])
-finally:
-    f.close()
+    sys.argv.remove(installtype)
+except:
+    pass
 
 ext_modules = []
 for ext_name in pyxfiles:
@@ -100,37 +150,28 @@ for ext_name in pyxfiles:
         ext = ".pyx"
     else:
         ext = ".cpp"
-    pyxfile = pytraj_home + ext_name + ext
+    pyxfile = ext_name + ext
 
     # replace "/" by "." get module
     if "/" in ext_name:
         ext_name = ext_name.replace("/", ".")
 
     sources = [pyxfile]
-
-    extmod = Extension("pytraj." + ext_name,
+    extmod = Extension(ext_name,
                     sources=sources,
                     libraries=['cpptraj'],
                     language='c++',
                     library_dirs=[libdir,],
                     include_dirs=[cpptraj_include, pytraj_home],
-                    extra_compile_args=['-O0', '-ggdb'],
-                    extra_link_args=['-O0', '-ggdb'])
+                    extra_compile_args=extra_compile_args,
+                    extra_link_args=extra_link_args)
 
     extmod.cython_directives = {
             'embedsignature':True,
             'boundscheck': False,
+            'wraparound':False,
             }
     ext_modules.append(extmod)
-
-pxd_include_dirs = [
-        directory for directory, dirs, files in os.walk('pytraj')
-        if '__init__.pyx' in files or '__init__.pxd' in files
-        or '__init__.py' in files
-        ]
-
-pxd_include_patterns = [
-        p+'/*.pxd' for p in pxd_include_dirs ]
 
 setup_args = {}
 packages = [
@@ -156,11 +197,9 @@ sample_data = ["data_sample/Ala3/Ala3.*",]
 html_data = ["html/static/*"] 
 datalist = pxdlist +  sample_data + html_data
 
-if __name__ == "__main__":
-    # try fast-build
-    #os.system("python ./scripts/setup_faster_build.py build")
+def build_func(my_ext):
     setup(name="pytraj",
-        version="0.1.2.dev1",
+        version=pytraj_version,
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/pytraj/pytraj",
@@ -182,7 +221,20 @@ if __name__ == "__main__":
                     'Programming Language :: C',
                     'Programming Language :: C++',
                     'Topic :: Scientific/Engineering'],
-        ext_modules = ext_modules,
+        ext_modules = my_ext,
         package_data = {'pytraj' : datalist},
         cmdclass = cmdclass,
-    )
+        )
+
+if __name__ == "__main__":
+    if not faster_build:
+        build_func(ext_modules)
+    else:
+        from multiprocessing import cpu_count
+        n_cpus = cpu_count()
+        num_each = int(len(ext_modules)/n_cpus)
+        sub_ext_modules_list = [ext_modules[k::num_each] for k in range(n_cpus)]
+
+        from multiprocessing import Pool
+        pool = Pool(n_cpus)
+        pool.map(build_func, sub_ext_modules_list)

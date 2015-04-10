@@ -1852,7 +1852,6 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_t_7, 1);
   __pyx_t_8 = 0;
-  if (__pyx_t_8 < 0) __pyx_t_8 += __pyx_t_9.shape[0];
   __pyx_t_2 = PyFloat_FromDouble(((*((__pyx_t_6pytraj_3gdt_3gdt_sshort *) ( /* dim=0 */ (__pyx_t_9.data + __pyx_t_8 * __pyx_t_9.strides[0]) ))) / 1000.)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);

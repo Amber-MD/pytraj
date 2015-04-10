@@ -15,6 +15,10 @@ cdef class DataSet_MatrixDbl (DataSet_2D):
     def __getitem__(self, idx):
         return self.data[idx]
 
+    def __iter__(self):
+        for value in self.data:
+            yield value
+
     def alloc(self):
         cdef DataSet dset = DataSet()
         dset.baseptr0 = _DataSet_MatrixDbl.Alloc()

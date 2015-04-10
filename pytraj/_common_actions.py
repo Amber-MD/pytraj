@@ -1,7 +1,12 @@
-from pytraj.externals.six import string_types
-from pytraj._utils import set_world_silent
+from __future__ import absolute_import
+from .externals.six import string_types
+from ._utils import set_world_silent
+from . import io
+from .Topology import Topology
+from .DataSetList import DataSetList
 
-def calculate(action=None, command=None, traj=None, top=None, quick_get=False, **kwd): 
+def calculate(action=None, command=None, traj=None, top=None, 
+              dslist=DataSetList(), quick_get=False, **kwd): 
     """ quick way to get data 
     Parameters
     ----------
@@ -25,33 +30,49 @@ def calculate(action=None, command=None, traj=None, top=None, quick_get=False, *
     >>> # d0 == dslist[-1]
  
     """ 
-    from pytraj import adict 
-    if action is None and command is None and traj is None and top is None: 
-        if not kwd: 
-            # 
-            #print (calculate.__doc__) 
-            print () 
-            print (adict.keys()) 
-            print () 
-            print ("use calculate(key=action_name) for help") 
-        else: 
-            set_world_silent(False)
-            adict[kwd['key'].lower()].help() 
-            set_world_silent(True)
+    from pytraj import ActionDict
+    adict = ActionDict()
+
+    if dslist is None:
+        dslist = DataSetList()
+    elif not isinstance(dslist, DataSetList):
+        raise NotImplementedError("must have None or DataSetList object")
+
+    old_size = dslist.size
+
+    if isinstance(top, string_types):
+        _top = Topology(top)
+    elif top is None: 
+        try: 
+           _top = traj.top 
+        except: 
+            # list, tuple of traj objects 
+            _top = traj[0].top 
+    else:
+        _top = top
+    if traj is None: 
+        raise ValueError("must have trajectory object") 
+    elif isinstance(traj, string_types):
+        try:
+            traj = io.load(traj, _top)
+        except:
+            raise ValueError("can not load %s" % traj)
+    if isinstance(action, string_types): 
+        # convert to action 
+        act = adict[action] 
     else: 
-        if top is None: 
-            try: 
-               _top = traj.top 
-            except: 
-                # list, tuple of traj objects 
-                _top = traj[0].top 
-        else:
-            _top = top
-        if traj is None: 
-            raise ValueError("must have trajectory object") 
-        if isinstance(action, string_types): 
-            # convert to action 
-            act = adict[action] 
-        else: 
-            act = action 
-        return act(command, traj, _top, quick_get=quick_get, **kwd)
+        act = action 
+    act(command, traj, _top, dslist=dslist, quick_get=quick_get, **kwd)
+
+    # make new view for DataSetList
+    # for some reasons, if I kept calling `calculate` several times,
+    # data will be added to the same dslist
+    _dslist = DataSetList()
+    _dslist.set_py_free_mem(False)
+    for idx, ds in enumerate(dslist):
+        if idx >= old_size:
+            _dslist.add_existing_set(ds)
+    if quick_get:
+        return _dslist[-1]
+    else:
+        return _dslist

@@ -3107,7 +3107,6 @@ static __Pyx_memviewslice __pyx_f_6pytraj_12DistRoutines__distance_frames(Frame 
  *         raise NotImplementedError("not yet supported for image")
  */
       __pyx_t_7 = __pyx_v_i;
-      if (__pyx_t_7 < 0) __pyx_t_7 += __pyx_v_arr0.shape[0];
       *((double *) ( /* dim=0 */ (__pyx_v_arr0.data + __pyx_t_7 * __pyx_v_arr0.strides[0]) )) = sqrt(DIST2_NoImage(__pyx_v_f1.XYZ(__pyx_v_i), __pyx_v_f2.XYZ(__pyx_v_i)));
     }
 

@@ -1885,7 +1885,6 @@ static int __pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3___cinit__(struct __pyx_obj
  *                 #Set all elements to the same number
  */
       __pyx_t_4 = 0;
-      if (__pyx_t_4 < 0) __pyx_t_4 += __pyx_v_X.shape[0];
       __pyx_v_self->thisptr = new Matrix_3x3((&(*((double *) ( /* dim=0 */ (__pyx_v_X.data + __pyx_t_4 * __pyx_v_X.strides[0]) )))));
 
       /* "pytraj/Matrix_3x3.pyx":54
@@ -1916,7 +1915,6 @@ static int __pyx_pf_6pytraj_10Matrix_3x3_10Matrix_3x3___cinit__(struct __pyx_obj
  *                 #Set Set diagonal
  */
       __pyx_t_8 = 0;
-      if (__pyx_t_8 < 0) __pyx_t_8 += __pyx_v_X.shape[0];
       __pyx_v_self->thisptr = new Matrix_3x3((*((double *) ( /* dim=0 */ (__pyx_v_X.data + __pyx_t_8 * __pyx_v_X.strides[0]) ))));
 
       /* "pytraj/Matrix_3x3.pyx":57
