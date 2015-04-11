@@ -34,5 +34,19 @@ class Test(unittest.TestCase):
         set_world_silent(False)
         state.run()
 
+    def test_1(self):
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        fname = "./tc5b.rotate.in"
+        with open(fname, 'w') as f:
+            f.write(text)
+        state = mdio.load_cpptraj_file(fname)
+        assert (state.is_empty() == False)
+        print (state)
+        print (dir(state))
+        assert (state.toplist[0].n_atoms == traj.top.n_atoms)
+        _ctraj = state.get_trajinlist()[0]
+        _ctraj.top = traj.top.copy()
+        assert _ctraj.n_frames == traj.n_frames
+
 if __name__ == "__main__":
     unittest.main()

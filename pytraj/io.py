@@ -5,6 +5,7 @@ from pytraj.FrameArray import FrameArray
 from pytraj.Topology import Topology
 from pytraj.utils.check_and_assert import make_sure_exist
 from pytraj.load_HD5F import load_hd5f
+from pytraj.load_cpptraj_file import load_cpptraj_file
 
 try:
     from urllib.request import urlopen
