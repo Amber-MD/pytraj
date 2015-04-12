@@ -4,6 +4,7 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarrary
 from pytraj.decorators import deprecated
+from pytraj._utils import set_world_silent
 
 # FIXME : property does not work properly
 
@@ -100,10 +101,19 @@ cdef class AtomMask(object):
     def num_atoms_in_common(self, AtomMask other_mask):
         return self.thisptr.NumAtomsInCommon(other_mask.thisptr[0])
 
-    def add_selected_atom(self,int i):
-        self.thisptr.AddSelectedAtom(i)
+    def add_selected_indices(self, int[:] int_view):
+        """add atom index without sorting
+
+        See Also
+        --------
+        add_atom
+        """
+        cdef int i
+        for i in range(int_view.shape[0]):
+            self.thisptr.AddSelectedAtom(int_view[i])
 
     def add_atom(self,int atom_num):
+        """add atom index and sort"""
         self.thisptr.AddAtom(atom_num)
 
     def add_atoms(self, vector[int] v):
@@ -116,8 +126,10 @@ cdef class AtomMask(object):
         self.thisptr.AddMaskAtPosition(atm.thisptr[0], pos)
 
     def print_mask_atoms(self, mask):
+        set_world_silent(False)
         mask = mask.encode()
         self.thisptr.PrintMaskAtoms(mask)
+        set_world_silent(True)
 
     def setup_int_mask(self, char *charmask, int natom, int debug=0):
         self.thisptr.SetupIntMask(charmask, natom, debug)
@@ -141,12 +153,11 @@ cdef class AtomMask(object):
         return self.thisptr.ConvertToIntMask()
 
     def mask_info(self):
+        set_world_silent(False)
         self.thisptr.MaskInfo()
+        set_world_silent(True)
 
     def brief_mask_info(self):
+        set_world_silent(False)
         self.thisptr.BriefMaskInfo()
-
-    # Not yet support
-    #def  token_iterator begintoken(self):
-    #def  token_iterator endtoken(self):
-
+        set_world_silent(True)

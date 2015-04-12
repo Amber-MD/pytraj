@@ -315,6 +315,8 @@ cdef class FrameArray (object):
         cdef int start, stop, step
         cdef int i
         cdef int idx_1, idx_2
+        cdef int[:] int_view
+        cdef AtomMask atom_mask_obj
         #cdef list tmplist
 
         # test memoryview for traj[:, :, :]
@@ -329,6 +331,17 @@ cdef class FrameArray (object):
         if len(self) == 0:
             raise ValueError("Your FrameArray is empty, how can I index it?")
 
+        if isinstance(idxs, AtomMask):
+            atom_mask_obj = <AtomMask> idxs
+            _farray = FrameArray()
+            _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
+            for i, frame in enumerate(self):
+                _frame = Frame(frame, atom_mask_obj)
+                _farray.append(_frame)
+            self.tmpfarray = _farray
+            # hold _farray in self.tmpfarray to avoid memory lost
+            return self.tmpfarray
+
         if isinstance(idxs, string_types):
             # mimic API of MDtraj
             if idxs == 'coordinates':
@@ -339,9 +352,9 @@ cdef class FrameArray (object):
                 # return array with given mask
                 # traj[':@CA']
                 # traj[':@CA :frame']
+                # use `mask` to avoid confusion
+                mask = idxs
                 try:
-                    # use `mask` to avoid confusion
-                    mask = idxs
                     if ':frame' not in mask:
                         # return numpy array
                         has_numpy, np = _import_numpy()
@@ -358,17 +371,17 @@ cdef class FrameArray (object):
                                 _coord_list.append(frame[self.top(mask)])
                             return _coord_list
                     else:
-                        _farray = FrameArray()
-                        _farray.top = self.top._modify_state_by_mask(self.top(mask))
-                        for i, frame in enumerate(self):
-                            _frame = frame.get_subframe(mask, self.top)
-                            _farray.append(_frame)
-                        self.tmpfarray = _farray
-                        # hold _farray in self.tmpfarray to avoid memory lost
-                        return self.tmpfarray
+                        atom_mask_obj = self.top(mask)
+                        return self[atom_mask_obj]
                 except:
                     txt = "not supported keyword `%s` or there's proble with your topology" % idxs
                     raise NotImplementedError(txt)
+
+        elif is_word_in_class_name(idxs, 'array') and hasattr(idxs, 'tolist'):
+            int_view = idxs
+            atom_mask_obj = AtomMask()
+            atom_mask_obj.add_selected_indices(int_view)
+            return self[atom_mask_obj]
 
         if not isinstance(idxs, slice):
             if isinstance(idxs, tuple):

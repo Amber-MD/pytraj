@@ -1,5 +1,6 @@
 import unittest
 from pytraj.base import *
+from pytraj.utils import assert_almost_equal
 
 class TestAtomMask(unittest.TestCase):
     def test_0(self):
@@ -35,6 +36,15 @@ class TestAtomMask(unittest.TestCase):
             print(i)
 
         print(dir(atm))
+
+    def test_3(self):
+        from array import array
+        print ("add array")
+        atm = AtomMask()
+        indices = array('i', range(100))
+        atm.add_selected_indices(indices)
+        assert_almost_equal(indices, atm.selected_indices())
+        
 
 if __name__ == "__main__":
     unittest.main()
