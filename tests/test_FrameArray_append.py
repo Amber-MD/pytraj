@@ -1,5 +1,4 @@
 import unittest
-from pytraj._utils import _tease_FrameArray
 from time import time
 from pytraj.base import *
 from pytraj import io as mdio
@@ -14,7 +13,7 @@ class Test(unittest.TestCase):
         farray = FrameArray()
 
         t0 =  time()
-        for i in range(1000):
+        for i in range(10):
             for frame in traj:
                 farray.append(frame, copy=False)
 
@@ -26,15 +25,15 @@ class Test(unittest.TestCase):
     #@no_test
     def test_1(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        farray = FrameArray()
-        farray.top = traj.top.copy()
+        farray = FrameArray(traj, traj.top)
+        print (farray.top)
         t0 = time()
-        _tease_FrameArray(farray, traj[:], 10000)
         print (time()-t0)
         print (farray)
 
         farray2 = FrameArray()
         farray2.top = traj.top.copy()
+
         t0 = time()
         for frame in farray:
             farray2.append(frame, copy=False)
@@ -46,8 +45,10 @@ class Test(unittest.TestCase):
         print (time()-t0)
         print (farray2)
 
-        ## try doing action
+        print ("try doing action")
+        print (farray2)
         farray3 = farray2[:1000]
+        print ("XYZ")
         farray3.join((farray3[:], farray3[:], farray3[:]))
         print (farray3)
         t0 = time()
