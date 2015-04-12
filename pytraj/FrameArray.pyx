@@ -96,6 +96,7 @@ cdef class FrameArray (object):
         cdef TrajinList tlist
         cdef Frame frame
         cdef Trajin trajin
+<<<<<<< HEAD
 
         if top is not None:
             if self.top.is_empty():
@@ -115,6 +116,27 @@ cdef class FrameArray (object):
                 except:
                     raise ValueError("need to have non-empty Topology")
 
+=======
+
+        if top is not None:
+            if self.top.is_empty():
+                self.top = top.copy()
+            else:
+                pass
+            # don't update top if not self.top.is_empty()
+        else:
+            if self.top.is_empty():
+                # if both top and self.top are empty, need to raise ValueError
+                try:
+                    tmpobj = filename
+                    if hasattr(tmpobj, 'top'):
+                        self.top = tmpobj.top.copy()
+                    elif hasattr(tmpobj[0], 'top'):
+                        self.top = tmpobj[0].top.copy()
+                except:
+                    raise ValueError("need to have non-empty Topology")
+
+>>>>>>> 018cb5b7e1cdde3dc545528846f0593eaf55bc58
         # always use self.top
         if isinstance(filename, string_types):
             # load from single filename
@@ -198,6 +220,51 @@ cdef class FrameArray (object):
                     # don't let _d0 free memory since we use Topology 'view'
                     for frame in _d0.frame_iter():
                         self.append(frame)
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 018cb5b7e1cdde3dc545528846f0593eaf55bc58
+        else:
+            try:
+                # load from array
+                _xyz = filename
+                self.load_xyz(_xyz)
+            except:
+                raise ValueError("filename must be str, traj-like or numpy array")
+
+    @cython.infer_types(True)
+    @cython.cdivision(True)
+    def load_xyz(self, xyz_in):
+        cdef int n_atoms = self.top.n_atoms
+        cdef int natom3 = n_atoms * 3
+        cdef int n_frames, i 
+        """Try loading xyz data with 
+        shape=(n_frames, n_atoms, 3) or (n_frames, n_atoms*3) or 1D array
+
+        If using numpy array with shape (n_frames, n_atoms, 3),
+        try "load_ndarray" method
+        """
+
+        has_np, np = _import_numpy()
+        if has_np:
+            xyz = np.asarray(xyz_in)
+            if len(xyz.shape) == 1:
+                n_frames = int(xyz.shape[0]/natom3)
+                _xyz = xyz.reshape(n_frames, natom3) 
+            elif len(xyz.shape) in [2, 3]:
+                _xyz = xyz
+            else:
+                raise NotImplementedError("only support array/list/tuples with ndim=1,2,3")
+            for arr0 in _xyz:
+                frame = Frame(n_atoms)
+                # flatten either 1D or 2D array
+                frame.set_from_crd(arr0.flatten())
+                self.append(frame)
+<<<<<<< HEAD
+        else:
+=======
+        else:
+=======
         else:
             try:
                 # load from array
@@ -235,6 +302,8 @@ cdef class FrameArray (object):
                 frame.set_from_crd(arr0.flatten())
                 self.append(frame)
         else:
+>>>>>>> 8b9d9505207310d0d41a9e610eb79beb1ecde154
+>>>>>>> 018cb5b7e1cdde3dc545528846f0593eaf55bc58
             if isinstance(xyz_in, (list, tuple)):
                 xyz_len = len(xyz_in)
                 if xyz_len % (natom3) != 0:
@@ -315,6 +384,8 @@ cdef class FrameArray (object):
         cdef int start, stop, step
         cdef int i
         cdef int idx_1, idx_2
+        cdef int[:] int_view
+        cdef AtomMask atom_mask_obj
         #cdef list tmplist
 
         # test memoryview for traj[:, :, :]
@@ -329,6 +400,17 @@ cdef class FrameArray (object):
         if len(self) == 0:
             raise ValueError("Your FrameArray is empty, how can I index it?")
 
+        if isinstance(idxs, AtomMask):
+            atom_mask_obj = <AtomMask> idxs
+            _farray = FrameArray()
+            _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
+            for i, frame in enumerate(self):
+                _frame = Frame(frame, atom_mask_obj)
+                _farray.append(_frame)
+            self.tmpfarray = _farray
+            # hold _farray in self.tmpfarray to avoid memory lost
+            return self.tmpfarray
+
         if isinstance(idxs, string_types):
             # mimic API of MDtraj
             if idxs == 'coordinates':
@@ -339,9 +421,9 @@ cdef class FrameArray (object):
                 # return array with given mask
                 # traj[':@CA']
                 # traj[':@CA :frame']
+                # use `mask` to avoid confusion
+                mask = idxs
                 try:
-                    # use `mask` to avoid confusion
-                    mask = idxs
                     if ':frame' not in mask:
                         # return numpy array
                         has_numpy, np = _import_numpy()
@@ -358,6 +440,10 @@ cdef class FrameArray (object):
                                 _coord_list.append(frame[self.top(mask)])
                             return _coord_list
                     else:
+<<<<<<< HEAD
+                        atom_mask_obj = self.top(mask)
+                        return self[atom_mask_obj]
+=======
                         _farray = FrameArray()
                         _farray.top = self.top._modify_state_by_mask(self.top(mask))
                         for i, frame in enumerate(self):
@@ -366,9 +452,16 @@ cdef class FrameArray (object):
                         self.tmpfarray = _farray
                         # hold _farray in self.tmpfarray to avoid memory lost
                         return self.tmpfarray
+>>>>>>> 8b9d9505207310d0d41a9e610eb79beb1ecde154
                 except:
                     txt = "not supported keyword `%s` or there's proble with your topology" % idxs
                     raise NotImplementedError(txt)
+
+        elif is_word_in_class_name(idxs, 'array') and hasattr(idxs, 'tolist'):
+            int_view = idxs
+            atom_mask_obj = AtomMask()
+            atom_mask_obj.add_selected_indices(int_view)
+            return self[atom_mask_obj]
 
         if not isinstance(idxs, slice):
             if isinstance(idxs, tuple):

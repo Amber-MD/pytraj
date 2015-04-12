@@ -13,6 +13,7 @@ from pytraj._shared_methods import _savetraj, _get_temperature_set
 from pytraj._shared_methods import my_str_method
 from pytraj._shared_methods import _xyz, _tolist
 from pytraj.externals.six import string_types
+from pytraj.utils.check_and_assert import is_word_in_class_name
 
 
 cdef class Trajin (TrajectoryFile):
@@ -153,9 +154,21 @@ cdef class Trajin (TrajectoryFile):
         cdef int start, stop, step
         cdef int i
         cdef int idx_1, idx_2
+        cdef int[:] int_view
         cdef list tmplist
-
-        if isinstance(idxs, string_types):
+        cdef AtomMask atom_mask_obj
+    
+        if isinstance(idxs, AtomMask):
+            atom_mask_obj = <AtomMask> idxs
+            _farray = FrameArray()
+            _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
+            for i, frame in enumerate(self):
+                _frame = Frame(frame, atom_mask_obj)
+                _farray.append(_frame)
+            self.tmpfarray = _farray
+            # hold _farray in self.tmpfarray to avoid memory lost
+            return self.tmpfarray
+        elif isinstance(idxs, string_types):
             # mimic API of MDtraj
             if idxs == 'coordinates':
                 return self[:, :, :]
@@ -165,9 +178,9 @@ cdef class Trajin (TrajectoryFile):
                 # return array with given mask
                 # traj[':@CA']
                 # traj[':@CA :frame']
+                # use `mask` to avoid confusion
+                mask = idxs
                 try:
-                    # use `mask` to avoid confusion
-                    mask = idxs
                     if ':frame' not in mask:
                         # return numpy array
                         has_numpy, np = _import_numpy()
@@ -184,26 +197,25 @@ cdef class Trajin (TrajectoryFile):
                                 _coord_list.append(frame[self.top(mask)])
                             return _coord_list
                     else:
-                        _farray = FrameArray()
-                        _farray.top = self.top._modify_state_by_mask(self.top(mask))
-                        for i, frame in enumerate(self):
-                            _frame = frame.get_subframe(mask, self.top)
-                            _farray.append(_frame)
-                        self.tmpfarray = _farray
-                        # hold _farray in self.tmpfarray to avoid memory lost
-                        return self.tmpfarray
+                        return self[self.top(mask)]
                 except:
                     txt = "not supported keyword `%s`" % idxs
                     raise NotImplementedError(txt)
-
-        if not isinstance(idxs, slice):
+    
+        elif is_word_in_class_name(idxs, 'array') and hasattr(idxs, 'tolist'):
+            int_view = idxs
+            atom_mask_obj = AtomMask()
+            atom_mask_obj.add_selected_indices(int_view)
+            return self[atom_mask_obj]
+    
+        elif not isinstance(idxs, slice):
             if isinstance(idxs, tuple):
                 idx_0 = idxs[0]
-
+    
                 all_are_slice_instances = True
                 for tmp in idxs:
                     if not isinstance(tmp, slice): all_are_slice_instances = False
-
+    
                 has_numpy, _np = _import_numpy()
                 # got Segmentation fault if using "is_instance3 and not has_numpy"
                 # TODO : Why?
@@ -219,7 +231,7 @@ cdef class Trajin (TrajectoryFile):
                     else:
                         return tmplist
                     #raise NotImplementedError("not yet supported if all indcies are slices")
-
+    
                 if isinstance(self[idx_0], Frame):
                     frame = self[idx_0]
                     self.tmpfarray = frame
@@ -230,7 +242,7 @@ cdef class Trajin (TrajectoryFile):
                     return self.tmpfarray[idxs[1:]]
             else:
                 # assuming that `idxs` is integer
-                idx_1 = get_positive_idx(idxs, self.size)
+                idx_1 = <int> get_positive_idx(idxs, self.size)
                 # raise index out of range
                 if idxs != 0 and idx_1 == 0:
                     raise ValueError("index is out of range")
@@ -240,17 +252,18 @@ cdef class Trajin (TrajectoryFile):
                 self.tmpfarray = frame
                 return self.tmpfarray
         else:
+            # idxs is slice
             if self.debug:
                 print idxs
             farray = FrameArray()
             # should we copy self.top or use memview?
             farray.top = self.top.copy()
-
+    
             # check comment in FrameArray class with __getitem__ method
             start, stop, step = idxs.indices(self.size)
             if self.debug:
                 print (start, stop, step)
-
+    
             with self:
                 if start > stop and (step < 0):
                     # traj[:-1:-3]
@@ -260,16 +273,18 @@ cdef class Trajin (TrajectoryFile):
                     step *= -1
                 else:
                     is_reversed = False
-
-                for i in range(start, stop, step):
-                    self._read_traj_frame(i, frame)
+    
+                for frame in self.frame_iter(start, stop-1, step):
+                    # add '-1' to stop 
+                    # in `frame_iter`, we include `stop`
+                    # but for slicing, python does not include stop
                     farray.append(frame)
-
+    
                 if is_reversed:
                     # reverse vector if using negative index slice
                     # traj[:-1:-3]
                     farray.reverse()
-
+    
             # use tmpfarray to hold farray for nested indexing
             # if not, Python will free memory for sub-FrameArray 
             self.tmpfarray = farray
