@@ -9,6 +9,16 @@ from pytraj.load_cpptraj_file import load_cpptraj_file
 from pytraj._shared_methods import _frame_iter_master
 
 try:
+    from pytraj._load_ParmEd import load_ParmEd
+except:
+    load_ParmEd = None
+
+try:
+    from pytraj._load_pseudo_parm import load_pseudo_parm
+except:
+    load_pseudo_parm = None
+
+try:
     from urllib.request import urlopen
 except ImportError:
     from urllib import urlopen
