@@ -7,7 +7,8 @@ from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
 from pytraj.six_2 import set
 from pytraj.utils import _import_numpy
-from pytraj.exceptions import PytrajMemviewError
+from pytraj.exceptions import PytrajMemviewError, PytrajConvertError
+from pytraj.utils.check_and_assert import is_frame_iter
 
 def _savetraj(self, filename="", fmt='unknown', overwrite=False):
     if fmt == 'unknown':
@@ -88,3 +89,26 @@ def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         else:
             yield frame
         i += stride
+
+def _frame_iter_master(obj):
+    """try to return frame iterator object
+
+    obj : could be FrameArray, TrajReadOnly, TrajinList, frame_iter object
+          could be a list of trajs, ...
+    """
+    cdef Frame frame
+    cdef object traj_obj
+
+    is_frame_iter_but_not_master = (is_frame_iter(obj) and not obj.__name__ is '_frame_iter_master')
+    if hasattr(obj, 'n_frames') or is_frame_iter_but_not_master:
+        # traj-like or frame_iter or _frame_iter
+        for frame in obj:
+            yield frame
+    else:
+        try:
+            for traj_obj in obj:
+                for frame in traj_obj:
+                    yield frame
+        except:
+            raise PytrajConvertError("can not convert to Frame")
+
