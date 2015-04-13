@@ -33,7 +33,7 @@ Install
     * cd pytraj
     * python ./setup.py install
     * if it's really slow to install? Try building in parallel:
-        * python ./setup.py build -faser_build
+        * python ./setup.py build -faster_build
         * python ./setup.py install
 - further: check wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
 - install libcpptraj: 
