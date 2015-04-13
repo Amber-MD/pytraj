@@ -6,13 +6,14 @@ from pytraj.Topology import Topology
 from pytraj.utils.check_and_assert import make_sure_exist
 from pytraj.load_HD5F import load_hd5f
 from pytraj.load_cpptraj_file import load_cpptraj_file
+from pytraj._shared_methods import _frame_iter_master
 
 try:
     from urllib.request import urlopen
 except ImportError:
     from urllib import urlopen
 
-__all__ = ['load', 'load_hd5f', 'writetraj', 'readparm', 'writeparm']
+__all__ = ['load', 'load_hd5f', 'write_traj', 'read_parm', 'write_parm', 'save']
 
 def load(*args, **kwd):
     """try loading and returning appropriate values"""
@@ -164,6 +165,8 @@ def load_single_frame(frame=None, top=None):
 
 # creat alias
 write_traj = writetraj
+save = writetraj
+save_traj = writetraj
 load_traj = loadtraj
 read_parm = readparm
 write_parm = writeparm
