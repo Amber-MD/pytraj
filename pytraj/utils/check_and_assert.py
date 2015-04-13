@@ -41,9 +41,9 @@ def is_generator(iter_obj):
     else:
         return False
 
-def is_mdtraj(traj):
+def is_mdtraj(obj):
     """check if traj is mdtraj object"""
-    return True if 'mdtraj.Trajectory' in traj.__str__() else False
+    return True if 'mdtraj' in obj.__str__() else False
 
 def is_frame_iter(iter_obj):
     """check if is frame_iter
