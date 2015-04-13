@@ -16,3 +16,6 @@ class PytrajConvertError(PytrajError):
 
 class PytrajNumpyError(PytrajError):
     pass
+
+class PytrajMemviewError(PytrajError):
+    pass
