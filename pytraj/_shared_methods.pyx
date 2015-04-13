@@ -4,8 +4,10 @@ cimport cython
 from pytraj.Frame cimport _Frame, Frame
 from pytraj.AtomMask cimport AtomMask
 from pytraj.trajs.Trajout import Trajout
+from pytraj.externals.six import string_types
 from pytraj.six_2 import set
 from pytraj.utils import _import_numpy
+from pytraj.exceptions import PytrajMemviewError
 
 def _savetraj(self, filename="", fmt='unknown', overwrite=False):
     if fmt == 'unknown':
@@ -51,12 +53,15 @@ def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
     ---------
     start : int (default = 0)
     stop : int (default = max_frames - 1)
+    stride : int
+    mask : str or array of interger
     """
     cdef int i
     cdef Frame frame = Frame(self.n_atoms)
     cdef Frame frame2
     cdef AtomMask atm
     cdef int _end
+    cdef int[:] int_view
 
     if stop == -1:
         _end = <int> self.n_frames
@@ -67,11 +72,19 @@ def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
     while i < _end:
         frame = self[i]
         if mask is not None:
-            atm = self.top(mask)
+            if isinstance(mask, string_types):
+                atm = self.top(mask)
+            else:
+                try:
+                # try to cast to memview
+                    int_view = mask
+                    atm = AtomMask()
+                    atm.add_selected_indices(int_view)
+                except:
+                    raise PytrajMemviewError()
             frame2 = Frame(atm.n_atoms)
             frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])
             yield frame2
         else:
             yield frame
-
         i += stride
