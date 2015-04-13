@@ -19,12 +19,29 @@ class Test(unittest.TestCase):
             assert_almost_equal(f0.coords, f1.coords)
             print (f0.rmsd(f1))
 
+        # test TrajReadOnly with indices as mask
+        indices = traj.top("@CA").selected_indices()
+        for idx, f0 in enumerate(traj(mask=indices)):
+            f1 = traj0_CA[idx]
+            print (idx, f0, f1)
+            assert_almost_equal(f0.coords, f1.coords)
+            print (f0.rmsd(f1))
+
         # test FrameArray
         for idx, f0 in enumerate(farray(mask='@CA')):
             f1 = traj0_CA[idx]
             print (idx, f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
             print (f0.rmsd(f1))
+
+        # test FrameArray with indices
+        for idx, f0 in enumerate(farray(mask=indices)):
+            f1 = traj0_CA[idx]
+            print (idx, f0, f1)
+            assert_almost_equal(f0.coords, f1.coords)
+            print (f0.rmsd(f1))
+
+        assert idx  +  1 == traj0_CA.n_frames
 
 if __name__ == "__main__":
     unittest.main()
