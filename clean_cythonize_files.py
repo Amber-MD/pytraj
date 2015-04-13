@@ -1,19 +1,22 @@
 import os
+from glob import glob
+
 # get *.pyx files
 pyxfiles = []
-f = open('pyxlist.txt', 'r')
-try:
-    for line in f.readlines():
-        if "#" not in line:
-            pyxfiles.append(line.split("\n")[0])
-finally:
-    f.close()
+pxd_include_dirs = [
+        directory for directory, dirs, files in os.walk('pytraj')
+        if '__init__.pyx' in files or '__init__.pxd' in files
+        or '__init__.py' in files
+        ]
 
-rootname = os.getcwd()
-pytraj_home = rootname + "/pytraj/"
+pxd_include_patterns = [ 
+        p + '/*.pxd' for p in pxd_include_dirs ]
 
+for p in pxd_include_dirs:
+    pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx') if '.pyx' in ext])
+
+print ("move old cythonized files to ./trash folder")
 for ext_name in pyxfiles:
-    pyxfile = pytraj_home + ext_name + ".cpp"
-    #print (pyxfile)
+    pyxfile = ext_name + ".cpp"
     do_this = "mv %s trash" % pyxfile
     os.system(do_this)
