@@ -12,6 +12,7 @@ from .Trajout import Trajout
 from pytraj._shared_methods import _savetraj, _get_temperature_set
 from pytraj._shared_methods import my_str_method
 from pytraj._shared_methods import _xyz, _tolist
+from pytraj._shared_methods import _frame_iter
 from pytraj.externals.six import string_types
 from pytraj.utils.check_and_assert import is_word_in_class_name
 
@@ -53,39 +54,7 @@ cdef class Trajin (TrajectoryFile):
     @cython.profile(True)
     @cython.infer_types(True)
     def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
-    #def frame_iter(self, int start=0, int stop=-1, int stride=1):
-        """iterately get Frames with start, stop, stride 
-        Parameters
-        ---------
-        start : int (default = 0)
-        chunk : int (default = 1)
-        stop : int (default = max_frames - 1)
-        mask : str (default=None)
-            take coords with given mask
-        """
-        cdef int i
-        cdef Frame frame = Frame(self.n_atoms)
-        cdef Frame frame2
-        cdef AtomMask atm
-        cdef int _end
-
-        if stop == -1:
-            _end = <int> self.n_frames 
-        else:
-            _end = stop + 1
-
-        i = start
-        with self:
-            while i < _end:
-                self.baseptr_1.ReadTrajFrame(i, frame.thisptr[0])
-                if mask is not None:
-                    atm = self.top(mask)
-                    frame2 = Frame(atm.n_atoms)
-                    frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])
-                    yield frame2
-                else:
-                    yield frame
-                i += stride
+        return _frame_iter(self, start, stop, stride, mask)
 
     def chunk_iter(self, int chunk=2, int start=0, int stop=-1):
         """iterately get Frames with start, chunk
