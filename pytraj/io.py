@@ -9,6 +9,16 @@ from pytraj.load_cpptraj_file import load_cpptraj_file
 from pytraj._shared_methods import _frame_iter_master
 
 try:
+    from pytraj._load_ParmEd import load_ParmEd
+except:
+    load_ParmEd = None
+
+try:
+    from pytraj._load_pseudo_parm import load_pseudo_parm
+except:
+    load_pseudo_parm = None
+
+try:
     from urllib.request import urlopen
 except ImportError:
     from urllib import urlopen
@@ -162,6 +172,22 @@ def loadpdb_rcsb(pdbid):
 def load_single_frame(frame=None, top=None):
     """load single Frame"""
     return load(frame, top)[0]
+
+def load_full_ParmEd(parmed_obj):
+    """save and reload ParmEd object to pytraj object"""
+    import os
+    import tempfile
+
+    name = "mytmptop"
+    cwd = os.getcwd()
+    directory_name = tempfile.mkdtemp()
+    os.chdir(directory_name)
+    parmed_obj.write_parm(name)
+    top = load(name)
+    os.remove(name)
+    os.removedirs(directory_name)
+    os.chdir(cwd)
+    return top
 
 # creat alias
 write_traj = writetraj
