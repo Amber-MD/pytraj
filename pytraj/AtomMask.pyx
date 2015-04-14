@@ -43,6 +43,10 @@ cdef class AtomMask(object):
     def selected_indices(self):
         return pyarrary('i', self.thisptr.Selected())
 
+    @property
+    def indices(self):
+        return pyarrary('i', self.thisptr.Selected())
+
     def __iter__(self):
         cdef cppvector[int].const_iterator it
         it = self.thisptr.begin()
