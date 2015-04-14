@@ -1,3 +1,4 @@
+* Make tutorial to use ipython-notebook, pytraj, numpy, pandas
 * Need to discuss about standard names for python's packge developers in Amber
    + for example: ParmEd and pytraj should have the same name "coords" for
 attribute (they do) and so on.
