@@ -8,6 +8,8 @@ Welcome to pytraj!
 - Why using pytraj:
     * It's fast
         * its core (cpptraj) was written in C++
+        * cpptraj can read all popular data format without knowing about file extension
+          (example: you can read my_file.crazy_ext if your file is netcdf file)
         * it has interface with numpy. Data calculation are performed without copying to numpy array
         * (but it actually does not need `numpy` at all, just optional)
     * It has clean Python/Cython syntax
