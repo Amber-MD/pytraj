@@ -5,7 +5,19 @@ pytraj change log
 Lastest change
 =============
 
-Features added (from April 2015 - )
+Features and bugfixs added (from April 2015 - )
+-----------------------------------
+* add method `load_pseudo_parm` to load ParmEd and mdtraj Topology objects
+* fully compat with cpptraj, user can get CpptrajState from trajin.in file
+  (`pytraj.io.load_cpptraj_file`)
+* add `to_ndarray` for DataSet, Frame, Vec3,... objects
+* introduce memoryview for DataSet
+* fix memory for `calculate` method
+* add simple wrapper to pysander to be used with pandas' DataFrame
+* add calc_multidihedral for quickly scanning dihedral
+* improve code for AtomMask: `add_selected_indices` could accept memview
+* add `_frame_iter_master` to iterate anything that results Frame objects
+* add frame_iter with atom indices (before: only support atom mask): traj(mask=index_array)
 
 Features added (from March 2015 - April 2015)
 ----------------------------------
