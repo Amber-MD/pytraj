@@ -80,8 +80,8 @@ class TestCpptrajState(unittest.TestCase):
         mdio.writetraj(filename="./output/test.r", traj=frame0, 
                        top=farray.top, fmt='AMBERRESTART',
                        overwrite=True)
-        from pytraj import version
-        print (version.cppversion)
+        from pytraj.__cpptraj_version__ import __cpptraj_version__
+        print (__cpptraj_version__)
 
 if __name__ == "__main__":
     unittest.main()
