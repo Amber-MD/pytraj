@@ -19,3 +19,6 @@ class PytrajNumpyError(PytrajError):
 
 class PytrajMemviewError(PytrajError):
     pass
+
+class PytrajRequireObject(PytrajError):
+    pass

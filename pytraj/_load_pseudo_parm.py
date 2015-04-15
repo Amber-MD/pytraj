@@ -7,18 +7,19 @@ from .FrameArray import FrameArray
 from .Topology import Topology
 from .Atom import Atom
 from .Frame import Frame
-from pytraj.utils.check_and_assert import is_mdtraj
+from pytraj.utils.check_and_assert import is_mdtraj, is_word_in_class_name
 
 # not sure if we need this `load_mdtraj` since cpptraj can do anything :D
 # might need to move to Cython level for faster loading
 
 def load_pseudo_parm(parm):
     # TODO: fill me
-    """load_external's parm objects (from parmed, mdtraj, ...)
+    """load_external's parm objects
 
     Parameters
     ---------
-    parm : external Topology object
+    parm : external Topology/Parm objects (mdtraj, chemistry) 
+        or Universe object (MDAnalysis)t
     """
     farray = FrameArray()
 
@@ -37,6 +38,10 @@ def load_pseudo_parm(parm):
         if is_mdtraj(parm):
             atype = atom.name # mdtraj
             resid = res.index
+        elif is_word_in_class_name(parm, 'Universe'):
+            # in MDAnalysis, atom.type is `int`
+            atype = str(atom.type) 
+            resid = atom.resid
         else:
             atype = atom.type # parmed
             resid = res.idx
