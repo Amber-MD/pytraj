@@ -44,4 +44,6 @@ from pytraj._utils import set_world_silent
 from pytraj._set_silent import set_error_silent
 
 set_world_silent(True)
-set_error_silent(True)
+
+# we still need cpptraj notify error
+#set_error_silent(True)
