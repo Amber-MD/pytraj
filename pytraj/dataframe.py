@@ -1,5 +1,6 @@
-from pytraj.utils import _import, require
-from pytraj import DataSetList
+from __future__ import absolute_import
+from .utils import _import, require
+from .DataSetList import DataSetList
 
 
 def to_dataframe(dslist):
