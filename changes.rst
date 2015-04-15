@@ -7,6 +7,7 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* add `set_error_silent` to  turn-off (and on) cpptraj' warning
 * add attribute `indices` for AtomMask object (shorter than `selected_indices` method's name
 * support loading `MDAnalysis` objects (Universe)
 * add method `load_pseudo_parm` to load ParmEd and mdtraj Topology objects
