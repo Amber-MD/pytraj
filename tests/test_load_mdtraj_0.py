@@ -11,7 +11,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal, eq
 from pytraj.six_2 import izip
 
 import numpy as np
-from pytraj.load_mdtraj import load_mdtraj
+from pytraj.io import load_mdtraj
 
 class Test(unittest.TestCase):
     def test_0(self):
