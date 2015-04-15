@@ -3,6 +3,7 @@ from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.Box import Box
 from array import array as pyarray
+from pytraj.decorators import test_if_having
 
 class TestBox(unittest.TestCase):
     def test_0(self):
@@ -12,22 +13,38 @@ class TestBox(unittest.TestCase):
         print(frame0.get_box())
         frame0.boxview[:] = pyarray('d', [0.0, 1.0, 2.0, 3.0, 4.0, 6.])
         print(frame0.get_box())
-        print(frame0.get_box().btype)
+        print(frame0.get_box().type)
         frame0.set_nobox()
         print(frame0.get_box())
         #print (frame0.get_box().to_recip())
 
     def test_help(self):
-        Box.help()
+        print (Box.all_box_types())
 
     def test_1(self):
         box = Box()
         box.set_trunc_oct()
         print(box)
-        print(box.btype)
+        print(box.type)
         box.set_nobox()
         print(box)
-        print(box.btype)
+        print(box.type)
+
+        dummy = 100.
+        box.data[0] = dummy
+        assert box.data[0] == dummy
+        assert box.tolist()[0] == dummy
+
+    @test_if_having("numpy")
+    def test_1(self):
+        import numpy as np
+        box = Box()
+        arr0 = np.arange(6).astype(np.float64)
+        box.data[:] = arr0
+        print (box.tolist())
+
+        for idx, x in enumerate(arr0):
+            assert box.data[idx] == x
 
 if __name__ == "__main__":
     unittest.main()

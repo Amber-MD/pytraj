@@ -1,13 +1,18 @@
 # distutils: language = c++
+from __future__ import absolute_import
+from cython cimport view
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
-from pytraj.cpptraj_dict import BoxTypeDict, get_key
+from cpython.array cimport array as pyarray
+from .cpptraj_dict import BoxTypeDict, get_key
+from .utils import _import_numpy
 
 
 cdef class Box:
     def __cinit__(self, *args):
         cdef double[:] boxIn 
         cdef Box rhs
+
         if not args:
             self.thisptr = new _Box()
         elif len(args) == 1:
@@ -30,38 +35,33 @@ cdef class Box:
 
     def __getitem__(self, idx):
         """add fancy indexing?"""
-        #return self.thisptr.index_opr(idx)
-        return self.tolist()[idx]
+        return self.data[idx]
 
-    def __setitem__(self, idx, double value):
-        cdef double* ptr
-        if not isinstance(idx, (long, int)):
-            raise NotImplementedError("support only integer indexing, not slice")
-        ptr = &(self.thisptr.index_opr(idx))
-        ptr[0] = value
+    def __setitem__(self, idx, value):
+        self.data[idx] = value
 
     def __iter__(self):
-        for i in range(6):
-            yield self[i]
+        for x in self.data:
+            yield x
 
     @classmethod
-    def get_all_boxtypes(cls):
+    def all_box_types(cls):
         return [x.lower() for x in BoxTypeDict.keys()]
 
-    @classmethod
-    def help(cls):
-        print cls.get_all_boxtypes()
-
-
     @property
-    def bname(self):
+    def name(self):
         return self.thisptr.TypeName().decode()
     
     def set_beta_lengths(self, double beta, double xin, double yin, double zin):
         self.thisptr.SetBetaLengths(beta, xin, yin, zin)
 
-    def set_box(self, double[:] boxIn):
-        self.thisptr.SetBox(&boxIn[0])
+    def set_box_from_array(self, boxIn):
+        # try to cast array-like to python array
+        # list, tuple are ok too
+        cdef pyarray arr0 = pyarray('d', boxIn)
+        cdef double[:] myview = arr0
+        
+        self.thisptr.SetBox(&myview[0])
 
     def set_trunc_oct(self):
         self.thisptr.SetTruncOct()
@@ -76,7 +76,7 @@ cdef class Box:
         return self.thisptr.ToRecip(ucell.thisptr[0], recip.thisptr[0])
 
     @property
-    def btype(self):
+    def type(self):
         return get_key(self.thisptr.Type(), BoxTypeDict).lower()
 
     property x:
@@ -130,11 +130,19 @@ cdef class Box:
         vec.thisptr[0] = self.thisptr.Lengths()
         return vec
 
-    def tolist(self):
-        cdef int i
-        cdef vector[double] v
-        cdef double* ptr = self.thisptr.boxPtr()
+    @property
+    def data(self):
+        """memoryview for box array"""
+        cdef double[:] arr0
+        arr0 = <double[:6]> self.thisptr.boxPtr()
+        return arr0
 
-        for i in range(6):
-            v.push_back(deref(ptr+i))
-        return v
+    def tolist(self):
+        return list(self.data[:])
+
+    def to_ndarray(self):
+        has_np, np = _import_numpy()
+        if not has_np:
+            raise ImportError("need numpy")
+        else:
+            return np.asarray(self.data[:])
