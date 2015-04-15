@@ -7,6 +7,8 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* add attribute `indices` for AtomMask object (shorter than `selected_indices` method's name
+* support loading `MDAnalysis` objects (Universe)
 * add method `load_pseudo_parm` to load ParmEd and mdtraj Topology objects
 * fully compat with cpptraj, user can get CpptrajState from trajin.in file
   (`pytraj.io.load_cpptraj_file`)

@@ -39,6 +39,9 @@ from pytraj._common_actions import calculate
 from pytraj import common_actions
 
 # turn off verbose in cpptraj
+# TODO: need to move set_world_silent and set_error_silent to the same file
 from pytraj._utils import set_world_silent
+from pytraj._set_silent import set_error_silent
 
 set_world_silent(True)
+set_error_silent(True)
