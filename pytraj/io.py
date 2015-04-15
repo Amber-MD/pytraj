@@ -1,12 +1,13 @@
-from pytraj.externals.six import string_types, PY3
-from pytraj.base import *
-from pytraj.TrajReadOnly import TrajReadOnly
-from pytraj.FrameArray import FrameArray
-from pytraj.Topology import Topology
-from pytraj.utils.check_and_assert import make_sure_exist
-from pytraj.load_HD5F import load_hd5f
-from pytraj.load_cpptraj_file import load_cpptraj_file
-from pytraj._shared_methods import _frame_iter_master
+from __future__ import absolute_import
+from .externals.six import string_types, PY3
+from .base import *
+from .TrajReadOnly import TrajReadOnly
+from .FrameArray import FrameArray
+from .Topology import Topology
+from .utils.check_and_assert import make_sure_exist
+from .load_HD5F import load_hd5f
+from .load_cpptraj_file import load_cpptraj_file
+from ._shared_methods import _frame_iter_master
 
 try:
     from pytraj._load_ParmEd import load_ParmEd
@@ -17,6 +18,10 @@ try:
     from pytraj._load_pseudo_parm import load_pseudo_parm
 except:
     load_pseudo_parm = None
+
+# load mdtraj and MDAnalysis
+from ._load_mdtraj import load_mdtraj 
+from ._load_MDAnalysis import load_MDAnalysis
 
 try:
     from urllib.request import urlopen
