@@ -3,6 +3,7 @@ from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarrary
+from cpython cimport array
 from pytraj.decorators import deprecated
 from pytraj._utils import set_world_silent
 
@@ -46,6 +47,20 @@ cdef class AtomMask(object):
     @property
     def indices(self):
         return pyarrary('i', self.thisptr.Selected())
+
+    @property
+    def _indices_view(self):
+        cdef vector[int] v = self.thisptr.Selected()
+        cdef pyarrary a_empty = pyarrary('i', [])
+        cdef int size = v.size()
+        cdef pyarrary arr0 = array.clone(a_empty, size, zero=True) 
+        cdef int[:] myview = arr0
+        cdef int i 
+
+        for i in range(size):
+            myview[i] = v[i]
+
+        return myview
 
     def __iter__(self):
         cdef cppvector[int].const_iterator it

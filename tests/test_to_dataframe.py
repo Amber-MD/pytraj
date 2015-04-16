@@ -4,10 +4,13 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.utils import has_
+from pytraj.testing import test_if_having
 
 class Test(unittest.TestCase):
+    @test_if_having("pandas")
     def test_0(self):
-        from pytraj.dataframe import to_dataframe, has_pandas
+        from pytraj import to_dataframe
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['multidihedral']
         dslist = DataSetList()
@@ -16,16 +19,11 @@ class Test(unittest.TestCase):
         print (dslist.get_legends())
         print (dslist['phi:5'][0][:].shape)
         
-        if has_pandas:
-            print ("has_pandas")
-            dframe = to_dataframe(dslist)
-            print (dframe)
-            # try dummy test
-            to_dataframe(dict())
-        else:
-            print ("does not have pandas installed")
-            print ("skip")
-
+        print ("has_pandas")
+        dframe = to_dataframe(dslist)
+        print (dframe)
+        # try dummy test
+        print (to_dataframe(dict()))
 
 if __name__ == "__main__":
     unittest.main()

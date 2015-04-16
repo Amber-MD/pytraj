@@ -8,6 +8,8 @@ from .utils.check_and_assert import make_sure_exist
 from .load_HD5F import load_hd5f
 from .load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import _frame_iter_master
+from .dataframe import to_dataframe
+from ._set_silent import set_error_silent
 
 try:
     from pytraj._load_ParmEd import load_ParmEd
@@ -153,7 +155,10 @@ def writeparm(filename=None, top=None, fmt='AMBERPARM'):
 def readparm(filename):
     """return topology instance from reading filename"""
     #filename = filename.encode("UTF-8")
-    return Topology(filename)
+    set_error_silent(True)
+    top = Topology(filename)
+    set_error_silent(False)
+    return top
 
 def loadpdb_rcsb(pdbid):
     # TODO : use tempfile

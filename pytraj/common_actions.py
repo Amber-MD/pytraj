@@ -3,31 +3,33 @@
 >>> from pytraj.common_actions import translate
 # TODO : use __all__
 """
-from pytraj._common_actions import calculate
+from __future__ import absolute_import
 from functools import partial
 from pytraj import adict
 from pytraj import analdict
-from pytraj.externals.six import string_types
-from pytraj.Frame import Frame
-from pytraj.FrameArray import FrameArray
-from pytraj.AtomMask import AtomMask
-from pytraj.Topology import Topology
-from pytraj.DataSetList import DataSetList
-from pytraj.DataFileList import DataFileList
-from pytraj.DistRoutines import distance 
-from pytraj.gdt.calc_score import calc_score
+from ._common_actions import calculate
+from .externals.six import string_types
+from .Frame import Frame
+from .FrameArray import FrameArray
+from .AtomMask import AtomMask
+from .Topology import Topology
+from .DataSetList import DataSetList
+from .DataFileList import DataFileList
+from .DistRoutines import distance 
+from .gdt.calc_score import calc_score
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
                'calc_dssp', 'calc_matrix', 'calc_jcoupling',
-               'calc_radial', 'calc_watershell']
+               'calc_radial', 'calc_watershell',
+               'calc_vector',]
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
               'do_clustering',]
 
 list_of_get = ['get_average_frame']
 
-__all__ = list_of_do + list_of_cal
+__all__ = list_of_do + list_of_cal + list_of_get
 
 calc_distance = partial(calculate, 'distance', quick_get=True)
 calc_dih = partial(calculate, 'dihedral', quick_get=True)
@@ -200,3 +202,27 @@ def calc_multidihedral(command="", *args, **kwd):
     act = adict['multidihedral']
     dslist = act(command, *args, **kwd)
     return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
+
+def calc_vector(command="", *args, **kwd): 
+    """perform dihedral search
+    Parameters
+    ----------
+    command : str, cpptraj command 
+    traj : Trajectory-like object
+    *arg and **kwd: additional arguments
+
+    Returns
+    -------
+    DataSet_Vector object
+
+    Example
+    ------
+    >>> from pytraj.common_actions import calc_vector
+    >>> d0 = calc_vector("@CA @CB", traj)
+    >>> print (d0.to_ndarray())
+    """
+    if 'name' not in command:
+        # for some reasons, I got segmentation fault without 'name' keyword
+        # need to check cpptraj code
+        command = "name myvector " + command
+    return calculate("vector", command, *args, **kwd)[-1]
