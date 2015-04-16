@@ -41,7 +41,6 @@ calc_distrmsd = partial(calculate, 'distrmsd', quick_get=True)
 calc_volume = partial(calculate, 'volume', quick_get=True)
 calc_matrix = partial(calculate, 'matrix')
 calc_jcoupling = partial(calculate, 'jcoupling', quick_get=True)
-calc_vector = partial(calculate, 'vector', quick_get=True)
 calc_protein_score = calc_score
 
 do_translation = partial(calculate, 'translate')
@@ -203,3 +202,27 @@ def calc_multidihedral(command="", *args, **kwd):
     act = adict['multidihedral']
     dslist = act(command, *args, **kwd)
     return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
+
+def calc_vector(command="", *args, **kwd): 
+    """perform dihedral search
+    Parameters
+    ----------
+    command : str, cpptraj command 
+    traj : Trajectory-like object
+    *arg and **kwd: additional arguments
+
+    Returns
+    -------
+    DataSet_Vector object
+
+    Example
+    ------
+    >>> from pytraj.common_actions import calc_vector
+    >>> d0 = calc_vector("@CA @CB", traj)
+    >>> print (d0.to_ndarray())
+    """
+    if 'name' not in command:
+        # for some reasons, I got segmentation fault without 'name' keyword
+        # need to check cpptraj code
+        command = "name myvector " + command
+    return calculate("vector", command, *args, **kwd)[-1]

@@ -15,15 +15,15 @@ class Test(unittest.TestCase):
         print ('dslist.size = ', dslist.size)
         print (dslist.get_dtypes())
         for d0 in dslist:
+            print (d0)
             print (d0.to_ndarray().shape)
 
     @test_if_having("numpy")
     def test_1(self):
         from pytraj.common_actions import calc_vector
         traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
-        dslist = DataSetList()
-        calc_vector("@CA * mass", traj, dslist=dslist)
-        print (dslist[0].to_ndarray())
+        d0 = calc_vector("@CA @CB mass", traj)
+        print (d0.to_ndarray())
 
 if __name__ == "__main__":
     unittest.main()
