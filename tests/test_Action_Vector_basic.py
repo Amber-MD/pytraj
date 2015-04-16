@@ -1,5 +1,5 @@
 from __future__ import print_function
-#import unittest
+import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -21,7 +21,8 @@ class Test(unittest.TestCase):
     def test_1(self):
         from pytraj.common_actions import calc_vector
         traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
-        dslist = calc_vector("@CA @CB mass", traj)
+        dslist = DataSetList()
+        calc_vector("@CA * mass", traj, dslist=dslist)
         print (dslist[0].to_ndarray())
 
 if __name__ == "__main__":
