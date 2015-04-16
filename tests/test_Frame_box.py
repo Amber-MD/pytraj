@@ -12,16 +12,15 @@ class Test(unittest.TestCase):
         assert frame0.has_box() == False
         box = frame0.get_box()
         print(box)
-        assert frame0.get_box().btype == 'nobox'
-        print(box.bname)
+        assert frame0.get_box().type == 'nobox'
+        print(box.name)
 
         bview = frame0.boxview
         bview[3:] = np.asarray([109.471220634, 109.471220634, 109.471220634])
         print(frame0.has_box())
-        print(frame0.get_box().btype)
-        assert frame0.get_box().btype == 'truncoct'
-        assert frame0.get_box().bname == 'Trunc. Oct.'
-        print(frame0.get_box().help())
+        print(frame0.get_box().type)
+        assert frame0.get_box().type == 'truncoct'
+        assert frame0.get_box().name == 'Trunc. Oct.'
 
 if __name__ == "__main__":
     unittest.main()
