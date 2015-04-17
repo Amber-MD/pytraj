@@ -22,7 +22,8 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
                'calc_dssp', 'calc_matrix', 'calc_jcoupling',
                'calc_radial', 'calc_watershell',
-               'calc_vector',]
+               'calc_vector',
+               'calc_volmap']
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
               'do_clustering',]
@@ -41,6 +42,7 @@ calc_distrmsd = partial(calculate, 'distrmsd', quick_get=True)
 calc_volume = partial(calculate, 'volume', quick_get=True)
 calc_matrix = partial(calculate, 'matrix')
 calc_jcoupling = partial(calculate, 'jcoupling', quick_get=True)
+calc_volmap = partial(calculate, 'volmap', quick_get=True)
 calc_protein_score = calc_score
 
 do_translation = partial(calculate, 'translate')
