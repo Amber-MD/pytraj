@@ -12,7 +12,7 @@ from pytraj.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 ctypedef vector[float] CRDtype
 ctypedef vector[double] Darray
 
-cdef extern from "Frame.h": 
+cdef extern from "Frame.h" nogil: 
     # Frame.h
     ctypedef enum CenterMode "Frame::CenterMode":
         ORIGIN "Frame::ORIGIN"
