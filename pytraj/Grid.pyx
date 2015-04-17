@@ -18,20 +18,6 @@ cdef class Grid:
     def __dealloc__(self):
         del self.thisptr
 
-    # TODO: memview in this case does not work. Can not assign new value
-    #@property
-    #def _view_1d(self):
-    #    cdef float[:] myview = <float[:self.thisptr.size()]> &(self.thisptr[0])[0]
-    #    return myview
-
-    #@property
-    #def _view_3d(self):
-    #    cdef size_t nx = self.thisptr.NX()
-    #    cdef size_t ny = self.thisptr.NY()
-    #    cdef size_t nz = self.thisptr.NZ()
-    #    cdef float[:, :, :] myview = <float[:nx, :ny, :nz]> &(self.thisptr[0])[0]
-    #    return myview
-
     def __getitem__(self, idx):
         cdef size_t x, y, z
         x, y, z = idx
