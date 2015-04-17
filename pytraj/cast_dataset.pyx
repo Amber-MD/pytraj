@@ -1,6 +1,7 @@
 # distutils: language = c++
 from pytraj.datasets.DataSet_1D cimport DataSet_1D, _DataSet_1D
 from pytraj.datasets.DataSet_2D cimport DataSet_2D, _DataSet_2D
+from pytraj.datasets.DataSet_3D cimport DataSet_3D, _DataSet_3D
 from pytraj.datasets.DataSet_double cimport DataSet_double, _DataSet_double
 from pytraj.datasets.DataSet_float cimport DataSet_float, _DataSet_float
 from pytraj.datasets.DataSet_integer cimport DataSet_integer, _DataSet_integer
@@ -8,6 +9,7 @@ from pytraj.datasets.DataSet_string cimport DataSet_string, _DataSet_string
 from pytraj.datasets.DataSet_Vector cimport _DataSet_Vector, DataSet_Vector
 from pytraj.datasets.DataSet_MatrixDbl cimport DataSet_MatrixDbl, _DataSet_MatrixDbl
 from pytraj.datasets.DataSet_MatrixFlt cimport DataSet_MatrixFlt, _DataSet_MatrixFlt
+from pytraj.datasets.DataSet_GridFlt cimport DataSet_GridFlt, _DataSet_GridFlt
 from pytraj.datasets.DataSet cimport DataSet, _DataSet
 from pytraj.datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
 from pytraj.datasets.DataSet_Coords_REF cimport _DataSet_Coords_REF, DataSet_Coords_REF
@@ -36,8 +38,9 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DataSet_integer newset_integer
     cdef DataSet_string newset_string
     cdef DataSet_Vector newset_vector
-    cdef DataSet_MatrixDbl newset_MatrixDbl
-    cdef DataSet_MatrixFlt newset_MatrixFlt
+    cdef DataSet_MatrixDbl newset_matrixdbl
+    cdef DataSet_MatrixFlt newset_matrixflt
+    cdef DataSet_GridFlt newset_gridflt
     cdef DataSet_Coords_REF newset_coords_ref
     cdef DataSet_Coords_CRD newset_coords_crd
     cdef DataSet_Coords_TRJ newset_coords_trj
@@ -132,6 +135,16 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_matrixflt.baseptr_1 = <_DataSet_2D*> dset.baseptr0
         newset_matrixflt.thisptr = <_DataSet_MatrixFlt*> dset.baseptr0
         return newset_matrixflt
+
+    elif dtype in ['GRID_FLT', 'GRID_FLOAT', 'GRID FLOAT']:
+        newset_gridflt = DataSet_GridFlt()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_gridflt.py_free_mem = False
+        newset_gridflt.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_gridflt.baseptr_1 = <_DataSet_3D*> dset.baseptr0
+        newset_gridflt.thisptr = <_DataSet_GridFlt*> dset.baseptr0
+        return newset_gridflt
 
     elif dtype in ['COORDS_CRD', 'COORDS', 'CRD']:
         # FIXME: not correctly casting

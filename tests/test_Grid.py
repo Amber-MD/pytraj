@@ -7,6 +7,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         from numpy.testing import assert_almost_equal as a_equal
         from pytraj.Grid import Grid
+        import numpy as np
         nx = ny = nz = 3
         g = Grid(nx, ny, nz)
         assert g.size == nx**3
@@ -22,6 +23,7 @@ class Test(unittest.TestCase):
         np_arr = g.to_ndarray()
         a_list = g.tolist()
         a_equal(np_arr, a_list)
+        print (np.asarray(g.data))
 
 if __name__ == "__main__":
     unittest.main()

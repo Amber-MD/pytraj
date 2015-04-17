@@ -71,7 +71,7 @@ cdef class Grid:
         if not has_np:
             raise PytrajError("need numpy")
         else:
-            return np.asarray(self.data)
+            return np.asarray(self.data[:], dtype=np.float32)
 
     def tolist(self):
         return [[list(x) for x in y] for y in self.data]
