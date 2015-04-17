@@ -267,3 +267,16 @@ cdef class DataSetList:
         # we don't want to change *.pxd signature files since this 
         # requires recompiling *pyx codes
         self.py_free_mem = value
+
+    def _base_dataset_iter(self):
+        """return a list of baseclass DataSet"""
+        cdef const_iterator it
+        cdef DataSet dset
+        it = self.thisptr.begin()
+
+
+        while it != self.thisptr.end():
+            dset = DataSet()
+            dset.baseptr0 = deref(it)
+            yield dset
+            incr(it)

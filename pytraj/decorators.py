@@ -1,4 +1,5 @@
 from __future__ import print_function, absolute_import
+import os
 
 # we duplicate code from .utils.check_and_assert here to avoid circular import
 def _import(modname):
@@ -69,6 +70,20 @@ def test_if_having(lib):
                 return func(*args, **kwd)
             else:
                 txt = "Does not have %s. Skip test" % lib
+                print(txt)
+                return None
+        return _no_test
+    return inner
+
+def test_if_path_exists(mydir):
+    def inner(func):
+        def _no_test(*args, **kwd):
+            print ('hello')
+            if os.path.exists(mydir):
+                print (mydir)
+                return func(*args, **kwd)
+            else:
+                txt = "%s does not exist. Skip test" % mydir
                 print(txt)
                 return None
         return _no_test

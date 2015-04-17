@@ -21,5 +21,15 @@ class Test(unittest.TestCase):
         print (top.find_atom_in_residue(3, name))
         print (top[58].name == name)
 
+    def test_2(self):
+        print ("test top[indices]")
+        indices = top("@CA").indices
+        atom_list = top[indices]
+
+        assert len(atom_list) == len(indices)
+
+        for atom in atom_list:
+            assert atom.name == 'CA  '
+
 if __name__ == "__main__":
     unittest.main()

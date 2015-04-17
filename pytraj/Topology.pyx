@@ -123,14 +123,14 @@ cdef class Topology:
             atom.thisptr[0] = self.thisptr.index_opr(i)
             return atom
         elif isinstance(idx, string_types):
-            alist = []
             # return atom object iterator with given mask
             # self(idx) return AtomMask object
-            for i in self(idx).selected_indices():
-                alist.append(self[i])
-            return alist
+            return [self[i] for i in self(idx)._indices_view]
         else:
-            raise ValueError("must be integer or string")
+            try:
+                return [self[i] for i in idx]
+            except:
+                raise ValueError("must be integer or string")
 
     def __call__(self, mask, *args, **kwd):
         """intended to use with Frame indexing
@@ -483,7 +483,7 @@ cdef class Topology:
         self.thisptr.AppendTop(_top.thisptr[0])
 
     @property
-    def masses(self):
+    def mass(self):
         """return python array of atom masses"""
         cdef pyarray marray = pyarray('d', [])
         cdef Atom atom

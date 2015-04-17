@@ -1,7 +1,6 @@
 pytraj.txt: pytraj license (BSD)
-cpptraj.txt: cpptraj license (GLP)
+cpptraj.txt: cpptraj license (GPL)
 
 externals: licenses for external libs we used
-    + ClusCo.txt: gdt score c++ lib (GLP)
-    + six.txt: six.py  
-    + netcdf.txt and scipy.txt: netcdf.py in scipy package
+    + ClusCo.txt: gdt score c++ lib (GPL)
+    + six.txt: six.py (BSD)

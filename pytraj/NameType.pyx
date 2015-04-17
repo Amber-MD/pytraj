@@ -30,6 +30,13 @@ cdef class NameType:
     def __dealloc__(self):
         del self.thisptr
 
+    def __str__(self):
+        return self.truncated_name
+
+    def __repr__(self):
+        txt = " <atom type: %s>" % self
+        return txt 
+
     def to_buffer(self, char* c):
         # TODO : what does this method do?
         self.thisptr.ToBuffer(c)
@@ -62,14 +69,13 @@ cdef class NameType:
                 # == operator
                 return self.thisptr[0] == rhs.thisptr[0]
 
-    #def  char * operator *(self):
-
     def __getitem__(self, int idx):
         return self.thisptr.opr_idx(idx)
 
+    @property
     def truncated_name(self):
         """return string"""
-        return self.thisptr.Truncated()
+        return self.thisptr.Truncated().decode()
 
     def replace_asterisk(self):
         self.thisptr.ReplaceAsterisk()
