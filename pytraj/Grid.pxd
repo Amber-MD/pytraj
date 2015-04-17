@@ -11,7 +11,8 @@ cdef extern from "Grid.h":
         #not supported yet>
         #Grid & operator =(const Grid &)
         #T & operator [](size_t idx)
-        const T& index_opr "operator[]"(size_t idx)const 
+        T& index_opr "operator[]"(size_t idx)
+        T& operator[](size_t idx)
         size_t size() const 
         int resize(size_t, size_t, size_t)
         size_t NX() const 
