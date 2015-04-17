@@ -483,7 +483,7 @@ cdef class Topology:
         self.thisptr.AppendTop(_top.thisptr[0])
 
     @property
-    def masses(self):
+    def mass(self):
         """return python array of atom masses"""
         cdef pyarray marray = pyarray('d', [])
         cdef Atom atom
