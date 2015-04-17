@@ -47,22 +47,33 @@ def load(*args, **kwd):
         # load traj
         return loadtraj(*args, **kwd)
 
-def loadtraj(filename=None, top=Topology(), readonly=True, indices=None):
-    """load(filename=None, top=Topology(), readonly=True)"""
-    #filename = filename.encode("UTF-8")
+def loadtraj(filename=None, top=Topology(), indices=None):
+    """load trajectory from filename
+    Parameters
+    ----------
+    filename : str
+    top : {str, Topology}
+    indices : {None, list, array ...}
+
+    Returns
+    -------
+    TrajReadOnly : if indices is None
+    or 
+    FrameArray : if there is indices
+    """
     if not isinstance(top, Topology):
-        # string
-        #top = top.encode("UTF-8")
         top = Topology(top)
-    if readonly:
-        ts = TrajReadOnly()
-    else:
-        ts = FrameArray()
-    # TODO : use indices
-    if indices is not None:
-        raise RuntimeError("not yet supported")
+    ts = TrajReadOnly()
     ts.load(filename, top)
-    return ts
+
+    if indices is not None:
+        farray = FrameArray()
+        farray.top = top.copy()
+        for i in indices:
+            farray.append(ts[i])
+        return farray
+    else:
+        return ts
 
 def load_remd(filename, top=Topology(), T="300.0"):
     """Load remd trajectory for single temperature.

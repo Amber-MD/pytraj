@@ -104,6 +104,17 @@ class TestIndices(unittest.TestCase):
         traj0 += traj0[:]
         print(traj0)
 
+    def test_load_indices_from_io(self):
+        from pytraj import io as mdio
+        traj0 = mdio.load(filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top", indices=(1, 3, 7))
+        trajreadonly = mdio.load(filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+
+        assert isinstance(traj0, FrameArray)
+        assert_almost_equal(traj0[0].coords, trajreadonly[1].coords)
+        assert_almost_equal(traj0[1].coords, trajreadonly[3].coords)
+        assert_almost_equal(traj0[2].coords, trajreadonly[7].coords)
+        print (traj0)
+
 if __name__ == "__main__":
     unittest.main()
 
