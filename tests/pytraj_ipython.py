@@ -18,7 +18,7 @@ coords_traj.add_trajin(traj2)
 
 import mdtraj as md
 import mdtraj.testing
-from pytraj.load_mdtraj import load_mdtraj
+from pytraj._load_mdtraj import load_mdtraj
 traj_filename = mdtraj.testing.get_fn('frame0.h5')
 m_traj = md.load(traj_filename)
 

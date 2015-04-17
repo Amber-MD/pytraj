@@ -16,8 +16,8 @@ class Test(unittest.TestCase):
             mlist.append(atom.mass)
         mlist = array('d', mlist)
 
-        print (top.masses)
-        assert_almost_equal(top.masses, mlist)
+        print (top.mass)
+        assert_almost_equal(top.mass, mlist)
 
 if __name__ == "__main__":
     unittest.main()
