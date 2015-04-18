@@ -6,17 +6,21 @@ def get_pysander_energies(parm, traj, igb=8):
     """"
     Parameters
     ---------
-    parm : Topology object from ParmEd
+    parm : {str, Topology object from ParmEd}
     traj : Traj-like object from pytraj
     igb : GB model, default=8 (GB-Neck2)
 
     Returns:
     Dict of energies (to be used with DataFrame)
     """
-    import sander
     from pytraj.misc import get_atts
     from collections import defaultdict
-    from chemistry.amber.readparm import AmberParm
+    try:
+        import sander
+        from chemistry.amber.readparm import AmberParm
+    except ImportError:
+        raise ImportError("need both `pysander` and `chemistry` installed. Check Ambertools15")
+
     ddict = defaultdict(list, [])
 
     inp = sander.gas_input(igb)
