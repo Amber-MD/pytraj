@@ -43,7 +43,7 @@ class Test(unittest.TestCase):
             dslist = DataSetList()
             act = adict['energy']
             act("", traj, dslist=dslist)
-            print (dslist['ENE_00000[bond]'][0][:])
+            print (dslist['ENE_00000[bond]'][:])
 
             # to DataFrame
             import pandas as pd

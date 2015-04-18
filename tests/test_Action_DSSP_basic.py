@@ -34,10 +34,10 @@ class TestRadgyr(unittest.TestCase):
             print (d0.name)
 
         print (dslist.get_legends())
-        print (dslist['LYS:17'][0])
-        print (dslist['LYS:17'][0][:])
-        print (dslist['DSSP_00000[Anti]'][0])
-        print (dslist['DSSP_00000[Anti]'][0][:])
+        print (dslist['LYS:17'])
+        print (dslist['LYS:17'][:])
+        print (dslist['DSSP_00000[Anti]'])
+        print (dslist['DSSP_00000[Anti]'][:])
 
 if __name__ == "__main__":
     unittest.main()

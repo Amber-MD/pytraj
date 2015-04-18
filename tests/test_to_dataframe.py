@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         act("phi", traj, dslist=dslist)
         print (dslist)
         print (dslist.get_legends())
-        print (dslist['phi:5'][0][:].shape)
+        print (dslist['phi:5'][:].shape)
         
         print ("has_pandas")
         dframe = to_dataframe(dslist)

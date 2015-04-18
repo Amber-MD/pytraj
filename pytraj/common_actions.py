@@ -19,6 +19,7 @@ from .DistRoutines import distance
 from .gdt.calc_score import calc_score
 from .hbonds import search_hbonds
 from ._shared_methods import _frame_iter_master
+from .get_pysander_energies import get_pysander_energies
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
@@ -51,6 +52,7 @@ calc_matrix = partial(calculate, 'matrix')
 calc_jcoupling = partial(calculate, 'jcoupling', quick_get=True)
 calc_volmap = partial(calculate, 'volmap', quick_get=True)
 calc_protein_score = calc_score
+calc_energies = get_pysander_energies
 
 do_translation = partial(calculate, 'translate')
 do_rotation = partial(calculate, 'rotate')

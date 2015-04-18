@@ -7,7 +7,9 @@ for compatibility with cpptraj
 >>> # state object hold all information like TopologyList, DataSetList,
 TrajinList, ...
 """
-from pytraj.Command import Command
+from __future__ import absolute_import
+from .Command import Command
+from .utils import file_exist as file_exists
 
 def load_cpptraj_file(fname):
     """
@@ -16,4 +18,6 @@ def load_cpptraj_file(fname):
     fname : str, name of cpptraj input file
         ("cpptraj -i input.txt" --> fname = "input.txt")
     """
+    if not file_exists(fname):
+        raise ValueError("can not locate this file")
     return Command.get_state(fname)
