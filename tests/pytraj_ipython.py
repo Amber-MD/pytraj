@@ -19,8 +19,7 @@ coords_traj.add_trajin(traj2)
 import mdtraj as md
 import mdtraj.testing
 from pytraj._load_mdtraj import load_mdtraj
-traj_filename = mdtraj.testing.get_fn('frame0.h5')
-m_traj = md.load(traj_filename)
+m_traj = md.load("./data/DPDP.nc", top="./data/DPDP.parm7")
 
 trajlist = TrajinList()
 trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "1 3")
