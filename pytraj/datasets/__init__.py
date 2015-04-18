@@ -8,6 +8,7 @@ from .DataSet_integer import DataSet_integer
 from .DataSet_string import DataSet_string
 from .DataSet_MatrixDbl import DataSet_MatrixDbl
 from .DataSet_MatrixFlt import DataSet_MatrixFlt
+from .DataSet_GridFlt import DataSet_GridFlt
 from .DataSet_Vector import DataSet_Vector
 from .DataSet_Coords import DataSet_Coords
 from .DataSet_Coords_REF import DataSet_Coords_REF
