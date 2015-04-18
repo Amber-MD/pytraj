@@ -9,11 +9,15 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 
 class Test(unittest.TestCase):
+    @test_if_having("sander")
+    @test_if_having("chemistry")
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         edict = pyca.calc_energies("./data/Tc5b.top", traj)
         print (edict)
 
+    @test_if_having("sander")
+    @test_if_having("chemistry")
     @test_if_having("pandas")
     def test_1(self):
         from pytraj import to_dataframe
