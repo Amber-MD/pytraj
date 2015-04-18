@@ -42,7 +42,7 @@ class Test(unittest.TestCase):
         import numpy as np
         print ("test dataset int")
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        d0 = calculate("dssp", ":2-4", traj)['TYR:3'][0]
+        d0 = calculate("dssp", ":2-4", traj)['TYR:3']
         assert isinstance(d0.to_ndarray(), np.ndarray)
         assert_almost_equal(d0.data, d0.to_ndarray())
 
