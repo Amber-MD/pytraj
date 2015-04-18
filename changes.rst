@@ -7,6 +7,9 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* add "keys()" to DataSetList class. Now we can use this as a list and a dict
+* support Grid calculation (calc_volmap, ...)
+* enhance speed of AtomMask selection (about 5 times faster)
 * add `set_error_silent` to  turn-off (and on) cpptraj' warning
 * add attribute `indices` for AtomMask object (shorter than `selected_indices` method's name
 * support loading `MDAnalysis` objects (Universe)
@@ -35,7 +38,6 @@ Features added (from March 2015 - April 2015)
 * support more than 100 kinds of calculations and analyses in `cpptraj`
 * many bugfixs to avoid segmentation fault 
 * support Python 2.6
-* ported to Ambertools 15
 * support simple plots (plot_matrix, ...)
 * add get_* methods for DataSetList (dslist.get_legends())
 * update more pytraj notebooks

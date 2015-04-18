@@ -1,7 +1,10 @@
 # distutils: language = c++
+from __future__ import absolute_import
+from cython.view cimport array as cyarray
+from ..utils import _import_numpy 
+from ..exceptions import PytrajError
 
-
-cdef class DataSet_GridFlt:
+cdef class DataSet_GridFlt(DataSet_3D):
     def __cinit__(self):
         self.baseptr0 = <_DataSet*> new _DataSet_GridFlt()
         self.baseptr_1 = <_DataSet_3D*> self.baseptr0
@@ -12,58 +15,57 @@ cdef class DataSet_GridFlt:
         if self.py_free_mem:
             del self.thisptr
 
-    #def float operator[](self,size_t idx):
-    def __getitem__(self, size_t idx):
-        return self.thisptr.index_opr(idx)
-
-    def Alloc(self):
-        # cpptraj: return DataSet*
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.Alloc()
-        return dset
-
-    #def Grid[float] InternalGrid(self):
-
-    @property
-    def size(self):
-        return self.thisptr.Size()
-
-    ##def int Sync(self):
-
-    def Info(self):
-        self.thisptr.Info()
-
-    def Allocate3D(self,size_t x, size_t y, size_t z):
-        return self.thisptr.Allocate3D(x, y, z)
-
-    #def void Write3D(self,CpptrajFile, int, int, int):
-
-    def GetElement(self,int x, int y, int z):
+    def __getitem__(self, idx):
+        cdef size_t x, y, z
+        x, y, z = idx
         return self.thisptr.GetElement(x, y, z)
 
-    def SetElement(self,int x, int y, int z, float v):
-        self.thisptr.SetElement(x, y, z, v)
+    def __setitem__(self, idx, value):
+        cdef size_t x, y, z
+        x, y, z = idx
+        self.thisptr.SetElement(x, y, z, <float> value)
 
-    def NX(self):
+    def resize(self, size_t x, size_t y, size_t z):
+        self.thisptr.Allocate3D(x, y, z)
+
+    @property
+    def nx(self):
         return self.thisptr.NX()
 
-    def NY(self):
+    @property
+    def ny(self):
         return self.thisptr.NY()
 
-    def NZ(self):
+    @property
+    def nz(self):
         return self.thisptr.NZ()
 
-    #def iterator begin(self):
+    @property
+    def shape(self):
+        return (self.nx, self.ny, self.nz)
 
-    #def iterator end(self):
+    @property
+    def data(self):
+        """return a copy of 3D array of Grid"""
+        cdef size_t nx, ny, nz
+        nx, ny, nz = self.nx, self.ny, self.nz
+        cdef int i, j, k
+        cdef cyarray carr = cyarray(shape=(nx, ny, nz),
+                                   itemsize=sizeof(float), format="f")
+        cdef float[:, :, :] myview = carr
 
-    #def  long int Increment(self, Vec3, float):
+        for i in range(nx):
+            for j in range(ny):
+                for k in range(nz):
+                    myview[i, j, k] = self.thisptr.GetElement(i, j, k)
+        return myview
 
-    #def  long int Increment(self, double *, float):
+    def to_ndarray(self):
+        has_np, np = _import_numpy()
+        if not has_np:
+            raise PytrajError("need numpy")
+        else:
+            return np.array(self.data[:])
 
-    #def  long int Increment(self,int, int, int, float):
-
-    #def float GridVal(self,int x, int y, int z):
-
-    #def long int CalcIndex(self,int i, int j, int k):
-
+    def tolist(self):
+        return [[list(x) for x in y] for y in self.data]

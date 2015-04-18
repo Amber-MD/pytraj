@@ -1,40 +1,77 @@
 # distutils: language = c++
+from __future__ import absolute_import
+from cython.view cimport array as cyarray
+from .utils import _import_numpy 
+from .exceptions import PytrajError
 
 
 cdef class Grid:
-    def __cinit__(self):
+    def __cinit__(self, *args):
+        cdef size_t x, y, z
+
         self.thisptr = new _Grid[float]()
+
+        if len(args) == 3:
+            x, y, z = args
+            self.resize(x, y, z)
 
     def __dealloc__(self):
         del self.thisptr
 
-    #def Grid(self):
+    def __getitem__(self, idx):
+        cdef size_t x, y, z
+        x, y, z = idx
+        return self.thisptr.element(x, y, z)
 
-    #def Grid(self, Grid):
+    def __setitem__(self, idx, value):
+        cdef size_t x, y, z
+        x, y, z = idx
+        self.thisptr.setGrid(x, y, z, <float> value)
 
-    #def T operator[](self,size_t idx):
+    @property
+    def size(self):
+        return self.thisptr.size()
 
-    #def  T operator[](self,size_t idx):
+    def resize(self, size_t x, size_t y, size_t z):
+        self.thisptr.resize(x, y, z)
 
-    #def size_t size(self):
+    @property
+    def nx(self):
+        return self.thisptr.NX()
 
-    #def int resize(self,size_t, size_t, size_t):
+    @property
+    def ny(self):
+        return self.thisptr.NY()
 
-    #def size_t NX(self):
+    @property
+    def nz(self):
+        return self.thisptr.NZ()
 
-    #def size_t NY(self):
+    def _element(self, int x, int y, int z):
+        return self.thisptr.element(x, y, z)
 
-    #def size_t NZ(self):
+    @property
+    def data(self):
+        """return a copy of 3D array of Grid"""
+        cdef size_t nx, ny, nz
+        nx, ny, nz = self.nx, self.ny, self.nz
+        cdef int i, j, k
+        cdef cyarray carr = cyarray(shape=(nx, ny, nz),
+                                   itemsize=sizeof(float), format="f")
+        cdef float[:, :, :] myview = carr
 
-    #def long int incrementBy(self,int, int, int, T):
+        for i in range(nx):
+            for j in range(ny):
+                for k in range(nz):
+                    myview[i, j, k] = self.thisptr.element(i, j, k)
+        return myview
 
-    #def void setGrid(self,int, int, int, T):
+    def to_ndarray(self):
+        has_np, np = _import_numpy()
+        if not has_np:
+            raise PytrajError("need numpy")
+        else:
+            return np.asarray(self.data[:], dtype=np.float32)
 
-    #def  T element(self,int, int, int):
-
-    #def long int CalcIndex(self,int x, int y, int z):
-
-    #def iterator begin(self):
-
-    #def iterator end(self):
-
+    def tolist(self):
+        return [[list(x) for x in y] for y in self.data]
