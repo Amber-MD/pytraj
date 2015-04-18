@@ -95,11 +95,9 @@ cdef class DataSetList:
             return cast_dataset(dset, dtype=dset.dtype)
         elif isinstance(idx, string_types):
              # return a list of datasets having idx as legend
-             sublist = []
              for d0 in self:
                  if d0.legend.upper() == idx.upper():
-                     sublist.append(d0)
-             return sublist
+                     return d0
 
     def set_ensemble_num(self,int i):
         self.thisptr.SetEnsembleNum(i)
@@ -245,12 +243,22 @@ cdef class DataSetList:
             tmp_list.append(d0.dtype)
         return tmp_list
 
+    def keys(self):
+        return self.get_legends()
+
     def tolist(self):
         """return a list of list/array"""
         try:
             return [d0[:] for d0 in self]
         except:
             raise PytrajConvertError("dont know how to convert to list")
+
+    def to_dict(self):
+        """return a dict object with key=legend, value=list"""
+        try:
+            return dict((d0.legend, d0.tolist()) for d0 in self)
+        except:
+            raise PytrajConvertError("don't know tho to convert to dict")
 
     def to_ndarray(self):
         has_np, np = _import("numpy")
