@@ -7,6 +7,7 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* add "keys()" to DataSetList class. Now we can use this as a list and a dict
 * support Grid calculation (calc_volmap, ...)
 * enhance speed of AtomMask selection (about 5 times faster)
 * add `set_error_silent` to  turn-off (and on) cpptraj' warning

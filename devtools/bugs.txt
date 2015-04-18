@@ -1,3 +1,7 @@
+* calling the same Action twice will get segmentation fault
+    act = adict['hbond']
+    act("", traj)
+    act("series", traj)
 * traj += traj
     * solution: traj += traj[:]
 * act.do_action(traj.chunk_iter()) does not properly work (no frame action is perfomed)
