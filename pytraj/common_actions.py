@@ -28,7 +28,7 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_volmap',
                'calc_COM',
                'calc_center_of_mass',
-               'cacl_geometric_center']
+               'calc_center_of_geometry']
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
               'do_clustering',]
