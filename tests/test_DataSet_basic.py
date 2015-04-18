@@ -12,13 +12,15 @@ class Test(unittest.TestCase):
         print (keys)
 
         # remove base classes
-        useless_keys = ['DataSet', 'DataSet_1D', 'DataSet_2D', 'DataSet_Coords', 'DataSet_Modes']
+        useless_keys = ['DataSet', 'DataSet_1D', 'DataSet_2D', 'DataSet_3D', 
+                        'DataSet_Coords', 'DataSet_Modes']
         for _key in useless_keys:
             keys.remove(_key)
 
         print (keys)
 
         for key in keys:
+            print (key)
             d0 = ddict[key]()
             print (d0.name, d0.dtype)
 

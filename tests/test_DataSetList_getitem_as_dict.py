@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         act = adict['distance']
         act(":2@CA :10@CA", traj, dslist=dslist2)
         print (dslist2.get_legends())
-        assert (dslist2['Dis_00000'][0].size == 10)
+        assert (dslist2['Dis_00000'].size == 10)
 
 if __name__ == "__main__":
     unittest.main()

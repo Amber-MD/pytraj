@@ -31,9 +31,8 @@ class Test(unittest.TestCase):
         print (dsmall.shape)
 
         print (dslist.get_legends())
-        print (dslist['2G15C-3G14C'][0][:])
+        print (dslist['2G15C-3G14C'][:])
         print (dslist['1G16C'])
-        print (dslist['1G16C'].__len__())
         print ('traj.n_frames = %s' % traj.n_frames)
 
         print (ds_int)

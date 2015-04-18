@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
                 print (ds.name, ds.dtype)
 
         print (dslist.get_legends())
-        d0 = dslist['PW_00000[EMAP]'][0]
+        d0 = dslist['PW_00000[EMAP]']
         print (d0)
         print (d0.size)
 
