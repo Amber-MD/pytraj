@@ -17,6 +17,7 @@ from .DataSetList import DataSetList
 from .DataFileList import DataFileList
 from .DistRoutines import distance 
 from .gdt.calc_score import calc_score
+from .hbonds import search_hbonds
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
@@ -30,7 +31,9 @@ list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
 
 list_of_get = ['get_average_frame']
 
-__all__ = list_of_do + list_of_cal + list_of_get
+list_of_the_rest = ['search_hbonds',]
+
+__all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
 calc_distance = partial(calculate, 'distance', quick_get=True)
 calc_dih = partial(calculate, 'dihedral', quick_get=True)
