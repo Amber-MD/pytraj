@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
             print (dslist[0].data)
             print (dslist[80])
             print (dslist.get_legends())
-            print (dslist['LYS:8_C-CA-CB-HB2'][0][:])
+            print (dslist['LYS:8_C-CA-CB-HB2'][:])
 
             # another way
             dslist = DataSetList()
