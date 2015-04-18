@@ -8,7 +8,10 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 
-test_density_dir = os.path.join(cpptraj_test_dir, 'Test_Density')
+try:
+    test_density_dir = os.path.join(cpptraj_test_dir, 'Test_Density')
+except:
+    test_density_dir = None
 
 delta='delta 0.25'
 masks='":PC@P31" ":PC@N31" ":PC@C2" ":PC | :OL | :OL2"'

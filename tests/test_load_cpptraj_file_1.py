@@ -7,7 +7,10 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 
-test_dir = cpptraj_test_dir + "/Test_Comprehensive"
+try:
+    test_dir = cpptraj_test_dir + "/Test_Comprehensive"
+except:
+    test_dir = None
 
 class Test(unittest.TestCase):
     @test_if_path_exists(cpptraj_test_dir)
