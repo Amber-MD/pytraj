@@ -2,6 +2,8 @@
     act = adict['hbond']
     act("", traj)
     act("series", traj)
+* if we keep calling the same method, such as "calc_radgyr" many times, the
+ timing is slower (might be memory problem)
 * traj += traj
     * solution: traj += traj[:]
 * act.do_action(traj.chunk_iter()) does not properly work (no frame action is perfomed)

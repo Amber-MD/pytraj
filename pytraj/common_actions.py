@@ -18,13 +18,17 @@ from .DataFileList import DataFileList
 from .DistRoutines import distance 
 from .gdt.calc_score import calc_score
 from .hbonds import search_hbonds
+from ._shared_methods import _frame_iter_master
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
                'calc_dssp', 'calc_matrix', 'calc_jcoupling',
                'calc_radial', 'calc_watershell',
                'calc_vector',
-               'calc_volmap']
+               'calc_volmap',
+               'calc_COM',
+               'calc_center_of_mass',
+               'calc_center_of_geometry']
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
               'do_clustering',]
@@ -231,3 +235,31 @@ def calc_vector(command="", *args, **kwd):
         # need to check cpptraj code
         command = "name myvector " + command
     return calculate("vector", command, *args, **kwd)[-1]
+
+def _calc_vector_center(command="", traj=None, top=None, use_mass=False):
+    if isinstance(top, string_types):
+        _top = Topology(top)
+    elif top is None: 
+        try: 
+           _top = traj.top 
+        except: 
+            # list, tuple of traj objects 
+            _top = traj[0].top 
+    else:
+        _top = top
+
+    dslist = DataSetList()
+    dslist.set_py_free_mem(False) # need this to avoid segmentation fault
+    act = adict['vector']
+    command = "center " + command
+    act.read_input(command=command, current_top=_top, dslist=dslist)
+    act.process(_top)
+    for frame in _frame_iter_master(traj):
+        # set Frame masses
+        if use_mass:
+            frame.set_frame_m(_top)
+        act.do_action(frame)
+    return dslist[0]
+
+calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
+calc_COG = calc_center_of_geometry = partial(_calc_vector_center, use_mass=False)
