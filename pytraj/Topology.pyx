@@ -144,6 +144,10 @@ cdef class Topology:
     def __iter__(self):
         return self.atom_iter()
 
+    def select(self, mask):
+        """return array of indices of selected atoms with `mask`"""
+        return self(mask).indices
+
     def atom_iter(self):
         cdef Atom atom
         cdef atom_iterator it
