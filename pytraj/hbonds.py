@@ -1,7 +1,9 @@
 from __future__ import absolute_import, print_function
 
-from . import adict
+from pytraj.action_dict import ActionDict
 from .externals.six import string_types
+
+adict = ActionDict()
 
 def search_hbonds(traj, mask="", *args, **kwd):
     """return a DataSetList object storing all pair of h-bond
