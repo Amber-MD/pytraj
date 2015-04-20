@@ -35,7 +35,7 @@ def _xyz(self):
 def _tolist(self):
     """return flatten list for traj-like object"""
     from itertools import chain
-    return list(chain(*[frame.coords for frame in self]))
+    return [frame.tolist() for frame in self]
 
 def my_str_method(self):
     name = self.__class__.__name__
