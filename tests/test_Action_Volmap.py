@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
         ds = calc_volmap("0.5 0.5 0.5 :WAT@O buffer 2.0 centermask !:1-13 radscale 1.36 peakcut 0.10 peakfile peaks.xyz", traj)
         print (ds)
         print (ds.to_ndarray())
-        print (ds.tolist())
+        #print (ds.tolist())
 
 if __name__ == "__main__":
     unittest.main()
