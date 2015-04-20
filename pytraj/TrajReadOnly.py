@@ -4,9 +4,9 @@ We need to sub-class Trajin_Single to use FrameArray
 Trajin_Single)
 """
 from pytraj.Trajin_Single import Trajin_Single
-#from pytraj.FrameArray import FrameArray
+from pytraj._action_in_traj import ActionInTraj
 
-class TrajReadOnly(Trajin_Single):
+class TrajReadOnly(Trajin_Single, ActionInTraj):
     def __init__(self, *args, **kwd):
         pass
 
