@@ -8,6 +8,7 @@ from pytraj.utils.check_and_assert import _import
 from collections import defaultdict
 from pytraj._utils cimport get_positive_idx
 from pytraj.externals.six import string_types
+from pytraj.six_2 import set
 from pytraj.utils import is_int
 from pytraj.exceptions import *
 
@@ -215,12 +216,18 @@ cdef class DataSetList:
             tmp_list.append(d0.legend)
         return tmp_list
 
-    def get_aspects(self):
-        """return a list"""
+    def get_aspects(self, is_set=True):
+        """return a set of uniqure aspects if "is_set" = True
+        else: return a full list
+        """
+
         tmp_list = []
         for d0 in self:
             tmp_list.append(d0.aspect)
-        return tmp_list
+        if is_set:
+            return set(tmp_list)
+        else:
+            return tmp_list
 
     def get_scalar_types(self):
         """return a list"""
