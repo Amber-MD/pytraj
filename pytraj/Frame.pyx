@@ -972,8 +972,8 @@ cdef class Frame (object):
         return arr0
 
     def tolist(self):
-        """return a list of coords"""
-        return list(self.coords)
+        """return a list of 2D coords"""
+        return [list(x) for x in self]
 
     def to_ndarray(self):
         """return a ndarray as a view of self.buffer2d"""
