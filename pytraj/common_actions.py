@@ -5,8 +5,13 @@
 """
 from __future__ import absolute_import
 from functools import partial
-from pytraj import adict
-from pytraj import analdict
+
+from pytraj.action_dict import ActionDict
+adict = ActionDict()
+
+from pytraj.analysis_dict import AnalysisDict
+analdict = AnalysisDict()
+
 from ._common_actions import calculate
 from .externals.six import string_types
 from .Frame import Frame
