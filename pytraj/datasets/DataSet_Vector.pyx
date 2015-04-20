@@ -31,6 +31,12 @@ cdef class DataSet_Vector (DataSet_1D):
         # x is memview array
         return [list(x) for x in self]
 
+    def to_ndarray(self):
+        import numpy as np
+        # overwrite
+        # x is memview array
+        return np.asarray([np.asarray(x) for x in self])
+
     @property
     def data(self):
         """return a list of Vec3"""

@@ -9,11 +9,12 @@ from pytraj.testing import cpptraj_test_dir
 
 class Test(unittest.TestCase):
     def test_0(self):
-        import pytraj.common_actions as ca
+        import pytraj.common_actions as pyca
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        v0 = ca.calc_vector("@CA @N,C,O mass", traj)
-        print (v0.tolist())
-        v1 = traj.calc_vector("@CA @N,C,O mass")
+        v0 = pyca.calc_vector("@CA @N,C,O", traj)
+        print (v0.to_ndarray())
+        v1 = traj.calc_vector("@CA @N,C,O")
+        print (v1.to_ndarray().shape)
 
 if __name__ == "__main__":
     unittest.main()
