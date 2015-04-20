@@ -5,16 +5,16 @@ import pytraj.common_actions as pyca
 
 class ActionInTraj(object):
     def calc_distance(self, mask=""):
-        return pyca.calc_distance(mask, self).tolist()
+        return pyca.calc_distance(mask, self)
 
     def calc_distrmsd(self, mask=""):
-        return pyca.calc_distrmsd(mask, self).tolist()
+        return pyca.calc_distrmsd(mask, self)
 
     def calc_radgyr(self, mask=""):
-        return pyca.calc_radgyr(mask, self).tolist()
+        return pyca.calc_radgyr(mask, self)
 
     def calc_angle(self, mask=""):
-        return pyca.calc_angle(mask, self).tolist()
+        return pyca.calc_angle(mask, self)
 
     def calc_matrix(self, mask=""):
         return pyca.calc_matrix(mask, self)
@@ -23,25 +23,25 @@ class ActionInTraj(object):
         return pyca.calc_dssp(mask, self, *args, **kwd)
 
     def calc_dihedral(self, mask=""):
-        return pyca.calc_dihedral(mask, self).tolist()
+        return pyca.calc_dihedral(mask, self)
     
     def calc_multidihedral(self, mask=""):
         return pyca.calc_multidihedral(mask, self)
 
     def calc_molsurf(self, mask=""):
-        return pyca.calc_molsurf(mask, self).tolist()
+        return pyca.calc_molsurf(mask, self)
 
     def calc_center_of_mass(self, mask=""):
-        return pyca.calc_center_of_mass(mask, self).tolist()
+        return pyca.calc_center_of_mass(mask, self)
 
     def calc_COM(self, mask=""):
-        return pyca.calc_center_of_mass(mask, self).tolist()
+        return pyca.calc_center_of_mass(mask, self)
 
     def calc_center_of_geometry(self, mask=""):
-        return pyca.calc_center_of_geometry(mask, self).tolist()
+        return pyca.calc_center_of_geometry(mask, self)
 
     def calc_COG(self, mask=""):
-        return pyca.calc_center_of_geometry(mask, self).tolist()
+        return pyca.calc_center_of_geometry(mask, self)
 
     def calc_vector(self, mask=""):
         from pytraj.actions.Action_Vector import Action_Vector
@@ -54,7 +54,7 @@ class ActionInTraj(object):
             # need to check cpptraj code
             mask = "name myvector " + mask
         act(mask, self, dslist=dslist)
-        return [d0.tolist() for d0 in dslist]
+        return dslist
 
     def search_hbonds(self, mask="*"):
         return pyca.search_hbonds(self, mask)
@@ -63,4 +63,4 @@ class ActionInTraj(object):
         return pyca.get_average_frame(mask, self)
 
     def calc_watershell(self, mask=""):
-        return pyca.calc_watershell(mask, self).tolist()
+        return pyca.calc_watershell(mask, self)
