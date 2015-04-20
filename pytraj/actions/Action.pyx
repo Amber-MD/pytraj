@@ -6,7 +6,6 @@ from pytraj.utils import is_generator
 
 from pytraj.cast_dataset import cast_dataset
 from pytraj import TrajinList
-from pytraj.TrajReadOnly import TrajReadOnly
 
 
 cdef class Action:
