@@ -28,9 +28,8 @@ class Test(unittest.TestCase):
     def test_1(self):
         from pytraj.common_actions import calc_multidihedral
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = DataSetList()
-        d0 = calc_multidihedral("", traj, dslist=dslist)
-        print (dslist.get_legends())
+        d0 = calc_multidihedral("psi", traj)
+        print (d0)
         if not has_np:
             self.assertRaises(PytrajConvertError, lambda: dslist.to_ndarray())
 
