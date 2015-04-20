@@ -220,7 +220,7 @@ def calc_multidihedral(command="", *args, **kwd):
     act(command, dslist=dslist, *args, **kwd)
     return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
 
-def calc_vector(command="", *args, **kwd): 
+def calc_vector(mask="", traj=None, *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -238,13 +238,18 @@ def calc_vector(command="", *args, **kwd):
     >>> d0 = calc_vector("@CA @CB", traj)
     >>> print (d0.to_ndarray())
     """
+    from pytraj.actions.Action_Vector import Action_Vector
+    from pytraj.DataSetList import DataSetList
+    act = Action_Vector()
     dslist = DataSetList()
-    if 'name' not in command:
+
+    if 'name' not in mask:
         # for some reasons, I got segmentation fault without 'name' keyword
         # need to check cpptraj code
-        command = "name myvector " + command
-    calculate("vector", command, dslist=dslist, *args, **kwd)
-    return dslist[-1]
+        mask = "name myvector " + mask
+    act(command=mask, current_frame=traj, dslist=dslist, *args, **kwd)
+    dslist.set_py_free_mem(False)
+    return dslist[0]
 
 def _calc_vector_center(command="", traj=None, top=None, use_mass=False):
     if isinstance(top, string_types):

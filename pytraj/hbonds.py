@@ -2,6 +2,7 @@ from __future__ import absolute_import, print_function
 
 from pytraj.action_dict import ActionDict
 from .externals.six import string_types
+from pytraj.DataSetList import DataSetList
 
 adict = ActionDict()
 
@@ -19,6 +20,17 @@ def search_hbonds(traj, mask="", *args, **kwd):
     ------
     DataSetList object
     """
+    dslist = DataSetList()
     act = adict['hbond']
     command = "series " + mask
-    return act(command, traj, *args, **kwd)
+    act(command, traj, dslist=dslist, *args, **kwd)
+    act.print_output()
+    return dslist
+
+def search_nointramol_hbonds(traj, mask="", *args, **kwd):
+    dslist = DataSetList()
+    act = adict['hbond']
+    command = "series nointramol" + mask
+    act(command, traj, dslist=dslist, *args, **kwd)
+    act.print_output()
+    return dslist

@@ -8,6 +8,7 @@ from pytraj.utils.check_and_assert import _import
 from collections import defaultdict
 from pytraj._utils cimport get_positive_idx
 from pytraj.externals.six import string_types
+from pytraj.six_2 import set
 from pytraj.utils import is_int
 from pytraj.exceptions import *
 
@@ -215,12 +216,18 @@ cdef class DataSetList:
             tmp_list.append(d0.legend)
         return tmp_list
 
-    def get_aspects(self):
-        """return a list"""
+    def get_aspects(self, is_set=True):
+        """return a set of uniqure aspects if "is_set" = True
+        else: return a full list
+        """
+
         tmp_list = []
         for d0 in self:
             tmp_list.append(d0.aspect)
-        return tmp_list
+        if is_set:
+            return set(tmp_list)
+        else:
+            return tmp_list
 
     def get_scalar_types(self):
         """return a list"""
@@ -246,6 +253,17 @@ cdef class DataSetList:
     def keys(self):
         return self.get_legends()
 
+    def groupby(self, key):
+        """"return a new DataSetList object as a view of `self`"""
+        dtmp = DataSetList()
+
+        # dont free mem here
+        dtmp.py_free_mem = False
+        for d0 in self:
+            if key in d0.legend:
+                dtmp.add_existing_set(d0)
+        return dtmp
+
     def tolist(self):
         """return a list of list/array"""
         try:
@@ -264,7 +282,11 @@ cdef class DataSetList:
         has_np, np = _import("numpy")
         if has_np:
             try:
-                return np.asarray([d0.data for d0 in self])
+                if self.size == 1:
+                    return self[0].to_ndarray()
+                else:
+                    # more than one set
+                    return np.asarray([d0.to_ndarray() for d0 in self])
             except:
                 raise PytrajConvertError("don't know how to convert to ndarray")
         else:

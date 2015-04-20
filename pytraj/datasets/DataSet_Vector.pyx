@@ -29,7 +29,13 @@ cdef class DataSet_Vector (DataSet_1D):
     def tolist(self):
         # overwrite
         # x is memview array
-        return [list(x) for x in self]
+        return [list(x) for x in self.data]
+
+    def to_ndarray(self):
+        import numpy as np
+        # overwrite
+        # x is memview array
+        return np.asarray([np.asarray(x) for x in self.data])
 
     @property
     def data(self):

@@ -9,19 +9,22 @@ from pytraj.testing import cpptraj_test_dir
 from pytraj.externals.six import iteritems as items
 
 class Test(unittest.TestCase):
-    @no_test
+    #@no_test
     def test_0(self):
         # TODO : need to check with DRR about the result
-        from pytraj.hbonds import search_hbonds
+        from pytraj.hbonds import search_hbonds, search_nointramol_hbonds
         traj = mdio.load("./data/DPDP.nc", "./data/DPDP.parm7")
         print ('n_frames = %s' % traj.n_frames)
         dslist = search_hbonds(traj)
         print (dslist.keys())
         for key in dslist.keys():
             if 'UU' not in key:
-                print (key, dslist[key].tolist())
+                assert dslist[key].tolist().__len__() == traj.n_frames
         mydict = dslist.to_dict()
         assert len(mydict.keys()) == dslist.size
+
+        dslist_b = search_nointramol_hbonds(traj)
+        print (dslist_b.size, dslist_b.keys())
 
     def test_1(self):
         # TODO : need to check with DRR about the result
