@@ -120,16 +120,25 @@ cdef class AtomMask(object):
     def num_atoms_in_common(self, AtomMask other_mask):
         return self.thisptr.NumAtomsInCommon(other_mask.thisptr[0])
 
-    def add_selected_indices(self, int[:] int_view):
+    def add_selected_indices(self, arr0):
         """add atom index without sorting
 
         See Also
         --------
         add_atom
         """
+        cdef int[:] int_view
         cdef int i
-        for i in range(int_view.shape[0]):
-            self.thisptr.AddSelectedAtom(int_view[i])
+
+        try:
+            # try casting to memview
+            int_view = arr0
+            for i in range(int_view.shape[0]):
+                self.thisptr.AddSelectedAtom(int_view[i])
+        except TypeError:
+            # slower way if array does not have buffer interface
+            for i in arr0:
+                self.thisptr.AddSelectedAtom(i)
 
     def add_atom(self,int atom_num):
         """add atom index and sort"""
