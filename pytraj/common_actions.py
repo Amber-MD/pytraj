@@ -248,7 +248,8 @@ def calc_vector(mask="", traj=None, *args, **kwd):
         # need to check cpptraj code
         mask = "name myvector " + mask
     act(command=mask, current_frame=traj, dslist=dslist, *args, **kwd)
-    return dslist
+    dslist.set_py_free_mem(False)
+    return dslist[0]
 
 def _calc_vector_center(command="", traj=None, top=None, use_mass=False):
     if isinstance(top, string_types):
