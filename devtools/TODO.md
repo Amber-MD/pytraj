@@ -1,6 +1,8 @@
 TODO
 ----
 
+* fix segmentation fault when sub-classing FrameArray. 
+    * this is big deal since we can let FrameArray and Trajin_Single sharing commmon methods
 * better way to manage memory for DataSetList
     * calling traj.search_hbonds().to_dict() a thousand times,  the results are appended to 
       single DataSetList object
