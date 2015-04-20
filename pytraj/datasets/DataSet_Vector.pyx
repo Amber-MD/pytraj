@@ -35,7 +35,7 @@ cdef class DataSet_Vector (DataSet_1D):
         import numpy as np
         # overwrite
         # x is memview array
-        return np.asarray([np.asarray(x) for x in self])
+        return np.asarray([np.asarray(x) for x in self.data])
 
     @property
     def data(self):

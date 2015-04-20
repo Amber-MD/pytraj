@@ -52,7 +52,7 @@ class ActionInTraj(object):
         if 'name' not in mask:
             # for some reasons, I got segmentation fault without 'name' keyword
             # need to check cpptraj code
-            mask = "name myvector " + mask
+            mask = "myvector " + mask
         act(mask, self, dslist=dslist)
         return dslist
 
