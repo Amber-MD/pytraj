@@ -7,6 +7,10 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* directly access "calc_..." methods from FrameArray and TrajReadOnly (traj.calc_COM, ...)
+* "tolist" in Traj should return 3D list (n_frame, n_atoms, 3)
+* "tolist" of Frame should return 2D list (n_atoms, 3)
+* add "tolist" for DataSet_Vector
 * add "keys()" to DataSetList class. Now we can use this as a list and a dict
 * support Grid calculation (calc_volmap, ...)
 * enhance speed of AtomMask selection (about 5 times faster)
