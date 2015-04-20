@@ -54,7 +54,8 @@ class ActionInTraj(object):
             # need to check cpptraj code
             mask = "myvector " + mask
         act(mask, self, dslist=dslist)
-        return dslist
+        dslist.set_py_free_mem(False)
+        return dslist[0]
 
     def search_hbonds(self, mask="*"):
         return pyca.search_hbonds(self, mask)

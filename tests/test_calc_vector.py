@@ -15,6 +15,7 @@ class Test(unittest.TestCase):
         print (v0.to_ndarray())
         v1 = traj.calc_vector("@CA @N,C,O")
         print (v1.to_ndarray().shape)
+        print (v1.tolist())
 
 if __name__ == "__main__":
     unittest.main()
