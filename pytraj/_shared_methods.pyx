@@ -35,7 +35,7 @@ def _xyz(self):
 def _tolist(self):
     """return flatten list for traj-like object"""
     from itertools import chain
-    return list(chain(*[frame.coords for frame in self]))
+    return [frame.tolist() for frame in self]
 
 def my_str_method(self):
     name = self.__class__.__name__
@@ -77,11 +77,9 @@ def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
                 atm = self.top(mask)
             else:
                 try:
-                # try to cast to memview
-                    int_view = mask
                     atm = AtomMask()
-                    atm.add_selected_indices(int_view)
-                except:
+                    atm.add_selected_indices(mask)
+                except TypeError:
                     raise PytrajMemviewError()
             frame2 = Frame(atm.n_atoms)
             frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])

@@ -249,7 +249,7 @@ cdef class DataSetList:
     def tolist(self):
         """return a list of list/array"""
         try:
-            return [d0[:] for d0 in self]
+            return [d0.tolist() for d0 in self]
         except:
             raise PytrajConvertError("dont know how to convert to list")
 

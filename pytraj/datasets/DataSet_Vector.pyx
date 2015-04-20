@@ -26,6 +26,11 @@ cdef class DataSet_Vector (DataSet_1D):
         for i in range (self.size):
             yield self[i]
 
+    def tolist(self):
+        # overwrite
+        # x is memview array
+        return [list(x) for x in self]
+
     @property
     def data(self):
         """return a list of Vec3"""

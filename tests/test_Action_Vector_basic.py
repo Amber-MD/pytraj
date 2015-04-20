@@ -24,6 +24,7 @@ class Test(unittest.TestCase):
         traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         d0 = calc_vector("@CA @CB mass", traj)
         print (d0.to_ndarray())
+        print (d0.tolist())
 
 if __name__ == "__main__":
     unittest.main()

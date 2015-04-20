@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 from .externals.six import string_types
 from ._utils import set_world_silent
-from . import io
 from .Topology import Topology
 from .DataSetList import DataSetList
 
@@ -54,7 +53,8 @@ def calculate(action=None, command=None, traj=None, top=None,
         raise ValueError("must have trajectory object") 
     elif isinstance(traj, string_types):
         try:
-            traj = io.load(traj, _top)
+            from pytraj.Trajin_Single import Trajin_Single
+            traj = Trajin_Single(traj, _top)
         except:
             raise ValueError("can not load %s" % traj)
     if isinstance(action, string_types): 

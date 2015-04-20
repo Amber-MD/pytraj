@@ -1,4 +1,3 @@
-print ("method's name migh be changed")
 from pytraj.utils import has_
 from pytraj.externals.six import string_types
 

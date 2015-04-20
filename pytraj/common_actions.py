@@ -5,8 +5,13 @@
 """
 from __future__ import absolute_import
 from functools import partial
-from pytraj import adict
-from pytraj import analdict
+
+from pytraj.action_dict import ActionDict
+adict = ActionDict()
+
+from pytraj.analysis_dict import AnalysisDict
+analdict = AnalysisDict()
+
 from ._common_actions import calculate
 from .externals.six import string_types
 from .Frame import Frame
@@ -208,10 +213,11 @@ def calc_multidihedral(command="", *args, **kwd):
     >>> from pytraj.dataframe import to_dataframe
     >>> print (to_dataframe(d))
     """
+    dslist = DataSetList()
     from pytraj.six_2 import izip as zip
     from array import array
     act = adict['multidihedral']
-    dslist = act(command, *args, **kwd)
+    act(command, dslist=dslist, *args, **kwd)
     return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
 
 def calc_vector(command="", *args, **kwd): 
@@ -232,11 +238,13 @@ def calc_vector(command="", *args, **kwd):
     >>> d0 = calc_vector("@CA @CB", traj)
     >>> print (d0.to_ndarray())
     """
+    dslist = DataSetList()
     if 'name' not in command:
         # for some reasons, I got segmentation fault without 'name' keyword
         # need to check cpptraj code
         command = "name myvector " + command
-    return calculate("vector", command, *args, **kwd)[-1]
+    calculate("vector", command, dslist=dslist, *args, **kwd)
+    return dslist[-1]
 
 def _calc_vector_center(command="", traj=None, top=None, use_mass=False):
     if isinstance(top, string_types):

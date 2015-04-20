@@ -3,17 +3,18 @@ import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
-from pytraj.testing import test_if_having
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.decorators import no_test, test_if_having, test_if_path_exists
+from pytraj.testing import cpptraj_test_dir
+import pytraj.common_actions as pyca
 
 class Test(unittest.TestCase):
-    @test_if_having("numpy")
     def test_0(self):
-        import numpy as np
+        from pytraj.misc import get_atts
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        frame = traj[0]
-        assert_almost_equal(frame.coords, np.array(frame.tolist()).flatten())
-        assert len(frame.tolist()) == frame.n_atoms
+        print (traj)
+        print (get_atts(traj))
+        print (traj.search_hbonds().to_dict())
 
 if __name__ == "__main__":
     unittest.main()

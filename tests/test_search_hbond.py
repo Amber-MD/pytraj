@@ -9,6 +9,7 @@ from pytraj.testing import cpptraj_test_dir
 from pytraj.externals.six import iteritems as items
 
 class Test(unittest.TestCase):
+    @no_test
     def test_0(self):
         # TODO : need to check with DRR about the result
         from pytraj.hbonds import search_hbonds
@@ -21,6 +22,15 @@ class Test(unittest.TestCase):
                 print (key, dslist[key].tolist())
         mydict = dslist.to_dict()
         assert len(mydict.keys()) == dslist.size
+
+    def test_1(self):
+        # TODO : need to check with DRR about the result
+        from pytraj.hbonds import search_hbonds
+        traj = mdio.load("./data/Tc5b.crd", "./data/Tc5b.top")[:1]
+        import pytraj.common_actions as pyca
+        ds = pyca.search_hbonds(traj)
+        print (ds.size)
+        print (ds.to_dict())
 
 if __name__ == "__main__":
     unittest.main()
