@@ -253,6 +253,17 @@ cdef class DataSetList:
     def keys(self):
         return self.get_legends()
 
+    def groupby(self, key):
+        """"return a new DataSetList object as a view of `self`"""
+        dtmp = DataSetList()
+
+        # dont free mem here
+        dtmp.py_free_mem = False
+        for d0 in self:
+            if key in d0.legend:
+                dtmp.add_existing_set(d0)
+        return dtmp
+
     def tolist(self):
         """return a list of list/array"""
         try:
