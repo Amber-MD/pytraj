@@ -94,9 +94,9 @@ class Test(unittest.TestCase):
         print ("from list 0")
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         # unpack 3D list
-        xyz_list = list(chain(*[frame.tolist() for frame in traj]))
+        xyz_list = traj.tolist()
         print (xyz_list.__len__())
-        assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
+        assert len(xyz_list) == traj.n_frames
         farray_0 = FrameArray(xyz_list, traj.top)
         assert farray_0.size == traj.size
         for f0, f1 in izip(farray_0, traj):
@@ -107,7 +107,7 @@ class Test(unittest.TestCase):
         print ("from list 1: TrajReadOnly")
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         xyz_list = traj.tolist()
-        assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
+        assert len(xyz_list) == traj.n_frames
         farray_0 = FrameArray(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
@@ -118,7 +118,7 @@ class Test(unittest.TestCase):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         _farray = traj[:]
         xyz_list = _farray.tolist()
-        assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
+        assert len(xyz_list) == traj.n_frames
         farray_0 = FrameArray(xyz_list, traj.top)
         assert farray_0.size == traj.size
         for f0, f1 in izip(farray_0, traj):
@@ -138,13 +138,13 @@ class Test(unittest.TestCase):
         dslist[1].load("./data/md1_prod.Tc5b.x")
 
         xyz_list = dslist[0].tolist()
-        assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
+        assert len(xyz_list) == traj.n_frames
         farray_0 = FrameArray(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
         xyz_list = dslist[1].tolist()
-        assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
+        assert len(xyz_list) == traj.n_frames
         farray_0 = FrameArray(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
@@ -163,13 +163,13 @@ class Test(unittest.TestCase):
         dslist[1].load("./data/md1_prod.Tc5b.x")
 
         xyz_list = dslist[0].tolist()
-        assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
+        assert len(xyz_list) == traj.n_frames
         farray_0 = FrameArray(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
         xyz_list = dslist[1].tolist()
-        assert len(xyz_list) == traj.n_frames * traj.n_atoms * 3
+        assert len(xyz_list) == traj.n_frames
         farray_0 = FrameArray(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
