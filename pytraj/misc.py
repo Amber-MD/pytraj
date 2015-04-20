@@ -21,8 +21,15 @@ def to_amber_mask(txt):
     import re
     """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'"""
 
-    txt = txt.replace("_", ":")
-    return " ".join(re.findall(r"(:\d+@\w+)", txt))
+    if isinstance(txt, string_types):
+        txt = txt.replace("_", ":")
+        return " ".join(re.findall(r"(:\d+@\w+)", txt))
+    elif isinstance(txt, (list, tuple)):
+        for i, _txt in enumerate(txt):
+            txt[i] = to_amber_mask(_txt)
+        return txt
+    else:
+        raise NotImplementedError()
 
 def info(obj):
     """get `help` for obj
