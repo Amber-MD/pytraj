@@ -264,7 +264,11 @@ cdef class DataSetList:
         has_np, np = _import("numpy")
         if has_np:
             try:
-                return np.asarray([d0.data for d0 in self])
+                if self.size == 1:
+                    return self[0].to_ndarray()
+                else:
+                    # more than one set
+                    return np.asarray([d0.to_ndarray() for d0 in self])
             except:
                 raise PytrajConvertError("don't know how to convert to ndarray")
         else:
