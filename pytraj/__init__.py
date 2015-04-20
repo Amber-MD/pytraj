@@ -6,7 +6,7 @@ import os
 #from pytraj import base
 from .utils.check_and_assert import _import
 
-from .import io
+from pytraj import io
 
 from .action_dict import ActionDict
 from .analysis_dict import AnalysisDict
