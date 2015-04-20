@@ -22,6 +22,9 @@ from pytraj._shared_methods import _xyz, _tolist
 from pytraj._shared_methods import my_str_method
 from pytraj._shared_methods import _frame_iter
 
+import pytraj.common_actions as pyca
+from pytraj.hbonds import search_hbonds
+
 # we don't allow sub-class in Python level since we will mess up with memory
 @cython.final
 cdef class FrameArray (object):
@@ -792,3 +795,52 @@ cdef class FrameArray (object):
         for frame in self:
             _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
             frame.trans_rot_trans(v1, mat, v2)
+
+    # start copy and paste from "__action_in_traj.py"
+    def calc_distance(self, mask=""):
+        return pyca.calc_distance(mask, self).tolist()
+
+    def calc_distrmsd(self, mask=""):
+        return pyca.calc_distrmsd(mask, self).tolist()
+
+    def calc_radgyr(self, mask=""):
+        return pyca.calc_radgyr(mask, self).tolist()
+
+    def calc_angle(self, mask=""):
+        return pyca.calc_angle(mask, self).tolist()
+
+    def calc_matrix(self, mask=""):
+        return pyca.calc_matrix(mask, self)
+
+    def calc_dssp(self, mask="", *args, **kwd):
+        return pyca.calc_dssp(mask, self, *args, **kwd)
+
+    def calc_dihedral(self, mask=""):
+        return pyca.calc_dihedral(mask, self).tolist()
+
+    def calc_molsurf(self, mask=""):
+        return pyca.calc_molsurf(mask, self).tolist()
+
+    def calc_center_of_mass(self, mask=""):
+        return pyca.calc_center_of_mass(mask, self).tolist()
+
+    def calc_COM(self, mask=""):
+        return pyca.calc_center_of_mass(mask, self).tolist()
+
+    def calc_center_of_geometry(self, mask=""):
+        return pyca.calc_center_of_geometry(mask, self).tolist()
+
+    def calc_COG(self, mask=""):
+        return pyca.calc_center_of_geometry(mask, self).tolist()
+
+    def calc_vector(self, mask=""):
+        return pyca.calc_vector(mask, self)
+
+    def search_hbonds(self, mask="*"):
+        return pyca.search_hbonds(self, mask)
+
+    def get_average_frame(self, mask=""):
+        return pyca.get_average_frame(mask, self)
+
+    def calc_watershell(self, mask=""):
+        return pyca.calc_watershell(mask, self).tolist()

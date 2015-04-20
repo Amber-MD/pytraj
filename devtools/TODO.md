@@ -1,6 +1,9 @@
 TODO
 ----
 
+* better way to manage memory for DataSetList
+    * calling traj.search_hbonds().to_dict() a thousand times,  the results are appended to 
+      single DataSetList object
 * add method to check class hiercharchy (in case Dan updates his codes)
 * build conda `libcpptraj` with netcdf: DONE
 * FIXME: `rmsd` method in Frame class will update frame object coordinate (I do not want this): DONE
