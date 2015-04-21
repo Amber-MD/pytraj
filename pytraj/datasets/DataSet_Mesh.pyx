@@ -1,6 +1,7 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
 from cython.view cimport array as cyarray
+from pytraj.utils import _import_numpy
 
 cdef class DataSet_Mesh (DataSet_1D):
     def __cinit__(self):
@@ -21,3 +22,14 @@ cdef class DataSet_Mesh (DataSet_1D):
         cdef DataSet dset = DataSet()
         dset.baseptr0 = self.thisptr.Alloc()
         return dset
+
+    def tolist(self):
+        """return 2D list with format [index, value]
+        """
+        # xcrd is for cpptraj's output which use index starting of 1
+        # we need to subtract "1"
+        return [[int(self.xcrd(i)-1), self.d_val(i)] for i in range(self.size)]
+
+    def to_ndarray(self):
+        _, np = _import_numpy()
+        return np.asarray(self.tolist())
