@@ -7,6 +7,7 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* add "groupby" method for DataSetList
 * directly access "calc_..." methods from FrameArray and TrajReadOnly (traj.calc_COM, ...)
 * "tolist" in Traj should return 3D list (n_frame, n_atoms, 3)
 * "tolist" of Frame should return 2D list (n_atoms, 3)
