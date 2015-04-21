@@ -2,13 +2,14 @@
 
 # PYTRAJHOME is the root folder of `pytraj`
 export PYTRAJHOME=`pwd`
-git clone http://github.com/mojyt/cpptraj
+git clone https://github.com/mojyt/cpptraj
 cd cpptraj/
 export CPPTRAJHOME=`pwd`
 cd $CPPTRAJHOME
 mkdir lib
-bash ./configure -nomathlib -shared gnu
-make libcpptraj
+bash ./configure -shared gnu || bash ./configure -nomathlib -shared gnu \
+|| bash ./configure -nomathlib -shared -nonetcdf gnu
+make libcpptraj -j4
 cd $PYTRAJHOME
 
 echo
