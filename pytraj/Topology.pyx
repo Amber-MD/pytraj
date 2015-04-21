@@ -145,7 +145,12 @@ cdef class Topology:
         return self.atom_iter()
 
     def select(self, mask):
-        """return array of indices of selected atoms with `mask`"""
+        """return array of indices of selected atoms with `mask`
+
+        Notes
+        -----
+            support openmp for distance-based atommask selction
+        """
         return self(mask).indices
 
     def atom_iter(self):
@@ -184,8 +189,14 @@ cdef class Topology:
     def _set_parm_name(self, string title, FileName filename):
         self.thisptr.SetParmName(title, filename.thisptr[0])
 
-    def _set_reference_coord(self, Frame frameIn):
-        self.thisptr.SetReferenceCoords(frameIn.thisptr[0])
+    def set_reference_frame(self, Frame frame):
+        """set reference frame for distance-based atommask selection
+
+        Examples
+            top.set_reference_frame(frame)
+            top.select(":3 < :5.0") # select all atoms within 5.0 A to residue 3
+        """
+        self.thisptr.SetReferenceCoords(frame.thisptr[0])
 
     def file_path(self):
         return self.thisptr.c_str()
