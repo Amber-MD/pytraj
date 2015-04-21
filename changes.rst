@@ -7,7 +7,8 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
-* add "groupby" method for DataSetList
+* support distance-based mask selection (start v0.1.2.dev3 version)
+* add "groupby" method for DataSetList (end v0.1.2.dev2 version)
 * directly access "calc_..." methods from FrameArray and TrajReadOnly (traj.calc_COM, ...)
 * "tolist" in Traj should return 3D list (n_frame, n_atoms, 3)
 * "tolist" of Frame should return 2D list (n_atoms, 3)
