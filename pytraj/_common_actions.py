@@ -4,6 +4,25 @@ from ._utils import set_world_silent
 from .Topology import Topology
 from .DataSetList import DataSetList
 
+def _get_top(traj, top):
+    if isinstance(top, string_types):
+        _top = Topology(top)
+    elif top is None: 
+        if hasattr(traj, 'top'):
+           _top = traj.top 
+        else:
+            # list, tuple of traj objects 
+            try:
+                for tmp in traj:
+                    if hasattr(tmp, 'top'):
+                        _top = tmp.top 
+                        break
+            except:
+                raise ValueError("don't know how to get Topology")
+    else:
+        _top = top
+    return _top
+
 def calculate(action=None, command=None, traj=None, top=None, 
               dslist=DataSetList(), quick_get=False, **kwd): 
     """ quick way to get data 
@@ -39,16 +58,8 @@ def calculate(action=None, command=None, traj=None, top=None,
 
     old_size = dslist.size
 
-    if isinstance(top, string_types):
-        _top = Topology(top)
-    elif top is None: 
-        try: 
-           _top = traj.top 
-        except: 
-            # list, tuple of traj objects 
-            _top = traj[0].top 
-    else:
-        _top = top
+    _top = _get_top(traj, top)
+
     if traj is None: 
         raise ValueError("must have trajectory object") 
     elif isinstance(traj, string_types):

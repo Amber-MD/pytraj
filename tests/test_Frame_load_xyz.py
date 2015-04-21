@@ -25,7 +25,6 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     @test_if_having("mdtraj")
     def test_1(self):
-        from pytraj.load_mdtraj import load_mdtraj
         from mdtraj.formats import psf
         import mdtraj as md
         from mdtraj.testing import get_fn
@@ -36,7 +35,7 @@ class Test(unittest.TestCase):
         f0 = Frame()
         f1 = f0.copy()
         f0.append_xyz(m_traj.xyz[0].astype(np.float64))
-        farray = load_mdtraj(m_traj)
+        farray = mdio.load_mdtraj(m_traj)
         f1 = farray[0]
 
         assert_almost_equal(f0.coords, f1.coords)

@@ -12,7 +12,7 @@ adict = ActionDict()
 from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
-from ._common_actions import calculate
+from ._common_actions import calculate, _get_top
 from .externals.six import string_types
 from .Frame import Frame
 from .FrameArray import FrameArray
@@ -242,11 +242,16 @@ def calc_vector(mask="", traj=None, *args, **kwd):
     -------
     DataSet_Vector object
 
-    Example
+    Examples
     ------
-    >>> from pytraj.common_actions import calc_vector
-    >>> d0 = calc_vector("@CA @CB", traj)
-    >>> print (d0.to_ndarray())
+    >>> import pytraj.common_actions as pyca
+    >>> pyca.calc_vector("@CA @CB", traj).tolist()
+    >>> pyca.calc_vector("", traj).tolist()
+    >>> pyca.calc_vector("principal z", traj).to_ndarray()
+    >>> pyca.calc_vector("principal x", traj).to_ndarray()
+    >>> pyca.calc_vector("ucellx", traj).tolist()
+    >>> pyca.calc_vector("boxcenter", traj).tolist()
+    >>> pyca.calc_vector("box", traj).tolist()
     """
     from pytraj.actions.Action_Vector import Action_Vector
     from pytraj.DataSetList import DataSetList
@@ -262,16 +267,7 @@ def calc_vector(mask="", traj=None, *args, **kwd):
     return dslist[0]
 
 def _calc_vector_center(command="", traj=None, top=None, use_mass=False):
-    if isinstance(top, string_types):
-        _top = Topology(top)
-    elif top is None: 
-        try: 
-           _top = traj.top 
-        except: 
-            # list, tuple of traj objects 
-            _top = traj[0].top 
-    else:
-        _top = top
+    _top = _get_top(traj, top)
 
     dslist = DataSetList()
     dslist.set_py_free_mem(False) # need this to avoid segmentation fault
