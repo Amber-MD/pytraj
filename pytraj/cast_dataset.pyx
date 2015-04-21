@@ -6,6 +6,7 @@ from pytraj.datasets.DataSet_double cimport DataSet_double, _DataSet_double
 from pytraj.datasets.DataSet_float cimport DataSet_float, _DataSet_float
 from pytraj.datasets.DataSet_integer cimport DataSet_integer, _DataSet_integer
 from pytraj.datasets.DataSet_string cimport DataSet_string, _DataSet_string
+from pytraj.datasets.DataSet_Mesh cimport DataSet_Mesh, _DataSet_Mesh
 from pytraj.datasets.DataSet_Vector cimport _DataSet_Vector, DataSet_Vector
 from pytraj.datasets.DataSet_MatrixDbl cimport DataSet_MatrixDbl, _DataSet_MatrixDbl
 from pytraj.datasets.DataSet_MatrixFlt cimport DataSet_MatrixFlt, _DataSet_MatrixFlt
@@ -24,6 +25,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     dset : DataSet instance
     dtype : str (default dtype=None)
         {'general', 'matrix', '1D', '2D', 'double', 
+         'mesh',
          'matrix_dbl', 'matrix_flt',
          'integer',
          'coords_crd', 'coords'
@@ -37,6 +39,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DataSet_float newset_float
     cdef DataSet_integer newset_integer
     cdef DataSet_string newset_string
+    cdef DataSet_Mesh newset_mesh
     cdef DataSet_Vector newset_vector
     cdef DataSet_MatrixDbl newset_matrixdbl
     cdef DataSet_MatrixFlt newset_matrixflt
@@ -105,6 +108,16 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_string.baseptr_1 = <_DataSet_1D*> dset.baseptr0
         newset_string.thisptr = <_DataSet_string*> dset.baseptr0
         return newset_string
+
+    elif dtype in ['XYMESH']: 
+        newset_mesh = DataSet_Mesh()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_mesh.py_free_mem = False
+        newset_mesh.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_mesh.baseptr_1 = <_DataSet_1D*> dset.baseptr0
+        newset_mesh.thisptr = <_DataSet_Mesh*> dset.baseptr0
+        return newset_mesh
 
     elif dtype in ['VECTOR']: 
         newset_vector = DataSet_Vector()
