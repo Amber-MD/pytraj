@@ -242,11 +242,16 @@ def calc_vector(mask="", traj=None, *args, **kwd):
     -------
     DataSet_Vector object
 
-    Example
+    Examples
     ------
-    >>> from pytraj.common_actions import calc_vector
-    >>> d0 = calc_vector("@CA @CB", traj)
-    >>> print (d0.to_ndarray())
+    >>> import pytraj.common_actions as pyca
+    >>> pyca.calc_vector("@CA @CB", traj).tolist()
+    >>> pyca.calc_vector("", traj).tolist()
+    >>> pyca.calc_vector("principal z", traj).to_ndarray()
+    >>> pyca.calc_vector("principal x", traj).to_ndarray()
+    >>> pyca.calc_vector("ucellx", traj).tolist()
+    >>> pyca.calc_vector("boxcenter", traj).tolist()
+    >>> pyca.calc_vector("box", traj).tolist()
     """
     from pytraj.actions.Action_Vector import Action_Vector
     from pytraj.DataSetList import DataSetList
