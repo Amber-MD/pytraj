@@ -8,11 +8,17 @@ def _get_top(traj, top):
     if isinstance(top, string_types):
         _top = Topology(top)
     elif top is None: 
-        try: 
+        if hasattr(traj, 'top'):
            _top = traj.top 
-        except: 
+        else:
             # list, tuple of traj objects 
-            _top = traj[0].top 
+            try:
+                for tmp in traj:
+                    if hasattr(tmp, 'top'):
+                        _top = tmp.top 
+                        break
+            except:
+                raise ValueError("don't know how to get Topology")
     else:
         _top = top
     return _top
