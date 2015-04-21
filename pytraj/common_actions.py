@@ -32,6 +32,7 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_radial', 'calc_watershell',
                'calc_vector',
                'calc_volmap',
+               'calc_atomicfluct',
                'calc_COM',
                'calc_center_of_mass',
                'calc_center_of_geometry']
@@ -219,6 +220,15 @@ def calc_multidihedral(command="", *args, **kwd):
     act = adict['multidihedral']
     act(command, dslist=dslist, *args, **kwd)
     return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
+
+def calc_atomicfluct(command="", *args, **kwd):
+    dslist = DataSetList()
+    dslist.set_py_free_mem(False)
+    act = adict['atomicfluct']
+    act(command, dslist=dslist, *args, **kwd)
+    # tag: print_output()
+    act.print_output() # need to have this. check cpptraj's code
+    return dslist[-1]
 
 def calc_vector(mask="", traj=None, *args, **kwd): 
     """perform dihedral search

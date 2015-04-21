@@ -1,10 +1,13 @@
 # distutils: language = c++
-from DataSet_1D cimport *
+from libcpp.vector cimport vector
+from pytraj.datasets.DataSet_1D cimport _DataSet_1D, DataSet_1D
+from pytraj.datasets.DataSet cimport _DataSet, DataSet
+from pytraj.CpptrajFile cimport _CpptrajFile
 
 
 cdef extern from "DataSet_Mesh.h": 
-    cdef cppclass _DataSet_Mesh "DataSet_Mesh":
-        _DataSet_Mesh() : _DataSet_1D(XYMESH, 12, 4)
+    cdef cppclass _DataSet_Mesh "DataSet_Mesh" (_DataSet_1D):
+        _DataSet_Mesh()
         _DataSet_Mesh(int, double, double)
         _DataSet * Alloc() 
         size_t Size() const 
@@ -25,3 +28,7 @@ cdef extern from "DataSet_Mesh.h":
         int SetSplinedMeshY(const vector[double]&, const vector[double]&)
         int SetSplinedMesh(const _DataSet_1D&)
         int LinearRegression(double&, double&, double&, bint) const 
+
+cdef class DataSet_Mesh(DataSet_1D):
+    cdef _DataSet_Mesh* thisptr
+    cdef public bint py_free_mem
