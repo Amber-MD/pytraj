@@ -35,7 +35,8 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_atomicfluct',
                'calc_COM',
                'calc_center_of_mass',
-               'calc_center_of_geometry']
+               'calc_center_of_geometry',
+               'calc_pairwise_rmsd']
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
               'do_clustering',]
@@ -284,3 +285,31 @@ def _calc_vector_center(command="", traj=None, top=None, use_mass=False):
 
 calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
 calc_COG = calc_center_of_geometry = partial(_calc_vector_center, use_mass=False)
+
+def calc_pairwise_rmsd(command="", traj=None, top=None, *args, **kwd):
+    """return  DataSetList object
+
+    Examples:
+        dslist = calc_pairwise_rmsd("@CA", traj)
+        dslist.to_ndarray()
+        dslist.tolist()
+    """
+    from pytraj.analyses import Analysis_Rms2d
+    act = Analysis_Rms2d()
+
+    dslist = DataSetList()
+    dslist.add_set("coords", "mylovelypairwisermsd")
+    _top = _get_top(traj, top)
+    dslist[0].top = _top
+    # need to set "rmsout" to trick cpptraj not giving error
+    # need " " (space) before crdset too
+    command = command + " crdset mylovelypairwisermsd rmsout mycrazyoutput"
+
+    # upload Frame to crdset
+    for frame in _frame_iter_master(traj):
+        dslist[0].append(frame)
+
+    act(command, _top, dslist=dslist, *args, **kwd)
+    # remove dataset coords to free memory
+    dslist.remove_set(dslist[0])
+    return dslist
