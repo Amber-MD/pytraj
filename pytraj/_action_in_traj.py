@@ -57,6 +57,9 @@ class ActionInTraj(object):
         dslist.set_py_free_mem(False)
         return dslist[0]
 
+    def calc_pairwise_rmsd(self, mask=""):
+        return pyca.calc_pairwise_rmsd(mask, self)
+
     def search_hbonds(self, mask="*"):
         return pyca.search_hbonds(self, mask)
 
