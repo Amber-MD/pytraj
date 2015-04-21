@@ -12,6 +12,7 @@ from distutils import ccompiler
 from distutils.extension import Extension
 from random import shuffle
 import time
+from time import sleep
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -63,14 +64,14 @@ else:
     Must set AMBERHOME or CPPTRAJHOME. If both AMBERHOME and CPPTRAJHOME are set,
     pytraj will give priority to AMBERHOME.
 
-    If you don't have AmberTools or cpptraj, you can install pytraj by
+    If you don't have AmberTools or cpptraj, you can install cpptraj by
     one of two ways here:
 
     1. Download AmberTools15 (or later version)
     First, get a free version from: http://ambermd.org/#AmberTools
     then:
-        cd $AMBERHOME/AmberTools/src/
-        make pytraj
+        cd $AMBERHOME/AmberTools/src/cpptraj/
+        bash ./configure -amberlib -shared gnu
 
     2. if you just want a standalone cpptraj version, you can download 
     development version from here: https://github.com/mojyt/cpptraj
@@ -83,8 +84,13 @@ else:
 
     and then go back to pytraj folder:
     python ./setup.py install
+
+    ...
+    but we're trying dowload/building libcpptraj for you. (5-10 minutes)
     """
-    sys.stderr.write(nice_message)
+    print (nice_message)
+    sleep(3)
+    os.system("sh ./installs/install_cpptraj_git.sh")
     sys.exit(0)
 
 # get *.pyx files
