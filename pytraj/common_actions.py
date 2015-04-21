@@ -12,7 +12,7 @@ adict = ActionDict()
 from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
-from ._common_actions import calculate
+from ._common_actions import calculate, _get_top
 from .externals.six import string_types
 from .Frame import Frame
 from .FrameArray import FrameArray
@@ -267,16 +267,7 @@ def calc_vector(mask="", traj=None, *args, **kwd):
     return dslist[0]
 
 def _calc_vector_center(command="", traj=None, top=None, use_mass=False):
-    if isinstance(top, string_types):
-        _top = Topology(top)
-    elif top is None: 
-        try: 
-           _top = traj.top 
-        except: 
-            # list, tuple of traj objects 
-            _top = traj[0].top 
-    else:
-        _top = top
+    _top = _get_top(traj, top)
 
     dslist = DataSetList()
     dslist.set_py_free_mem(False) # need this to avoid segmentation fault
