@@ -11,10 +11,10 @@ before_install:
     - sudo apt-get install gfortran
     - sudo apt-get install -qq libz-dev libbz2-dev
     - pip install git+git://github.com/swails/ParmEd
-    - sh ./devtools/for_travis/install_cpptraj.sh
+    #- sh ./devtools/for_travis/install_cpptraj.sh
 
 install:
-    - export CPPTRAJHOME=`pwd`"/cpptraj/"
+    #- export CPPTRAJHOME=`pwd`"/cpptraj/"
     - source devtools/for_travis/setup_env.sh 
     - python ./setup.py install
 
