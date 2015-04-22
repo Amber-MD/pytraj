@@ -59,7 +59,6 @@ elif has_cpptrajhome:
     cpptraj_include = cpptraj_dir + "/src/"
     libdir = cpptrajhome + "/lib/"
 else:
-    cpptraj_dir, cpptraj_include, libdir = None, None, None
     nice_message = """
     Must set AMBERHOME or CPPTRAJHOME. If both AMBERHOME and CPPTRAJHOME are set,
     pytraj will give priority to AMBERHOME.
@@ -91,7 +90,10 @@ else:
     print (nice_message)
     sleep(3)
     os.system("sh ./installs/install_cpptraj_git.sh")
-    sys.exit(0)
+    cpptraj_dir = os.path.join(rootname, "cpptraj")
+    cpptraj_include = os.path.join(cpptraj_dir, 'src')
+    libdir =  os.path.join(cpptraj_dir, 'lib')
+    #sys.exit(0)
 
 # get *.pyx files
 pxd_include_dirs = [
@@ -204,37 +206,52 @@ html_data = ["html/static/*"]
 datalist = pxdlist +  sample_data + html_data
 
 def build_func(my_ext):
-    setup(name="pytraj",
-        version=pytraj_version,
-        author="Hai Nguyen",
-        author_email="hainm.comp@gmail.com",
-        url="https://github.com/pytraj/pytraj",
-        packages=packages,
-        description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
-        long_description=read("README.rst"),
-        license = "BSD License",
-        classifiers=[
-                    'Development Status :: 4 - Beta',
-                    'Operating System :: Unix',
-                    'Operating System :: MacOS',
-                    'Intended Audience :: Science/Research',
-                    'License :: OSI Approved :: BSD License',
-                    'Programming Language :: Python :: 2.6'
-                    'Programming Language :: Python :: 2.7',
-                    'Programming Language :: Python :: 3.3',
-                    'Programming Language :: Python :: 3.4',
-                    'Programming Language :: Cython',
-                    'Programming Language :: C',
-                    'Programming Language :: C++',
-                    'Topic :: Scientific/Engineering'],
-        ext_modules = my_ext,
-        package_data = {'pytraj' : datalist},
-        cmdclass = cmdclass,
-        )
+    try:
+        setup(name="pytraj",
+            version=pytraj_version,
+            author="Hai Nguyen",
+            author_email="hainm.comp@gmail.com",
+            url="https://github.com/pytraj/pytraj",
+            packages=packages,
+            description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
+            long_description=read("README.rst"),
+            license = "BSD License",
+            classifiers=[
+                        'Development Status :: 4 - Beta',
+                        'Operating System :: Unix',
+                        'Operating System :: MacOS',
+                        'Intended Audience :: Science/Research',
+                        'License :: OSI Approved :: BSD License',
+                        'Programming Language :: Python :: 2.6'
+                        'Programming Language :: Python :: 2.7',
+                        'Programming Language :: Python :: 3.3',
+                        'Programming Language :: Python :: 3.4',
+                        'Programming Language :: Cython',
+                        'Programming Language :: C',
+                        'Programming Language :: C++',
+                        'Topic :: Scientific/Engineering'],
+            ext_modules = my_ext,
+            package_data = {'pytraj' : datalist},
+            cmdclass = cmdclass,
+            )
+        return True
+    except:
+        return False
+
+def remind_ld_lib_path(build_tag):
+    if build_tag:
+        print ("")
+        print ("")
+        print ("")
+        print ("successfully install pytraj")
+        print ("make sure to add %s to your LD_LIBRARY_PATH" % libdir)
+    else:
+        print ("not able to install pytraj")
 
 if __name__ == "__main__":
     if not faster_build:
-        build_func(ext_modules)
+        build_tag = build_func(ext_modules)
+        remind_ld_lib_path(build_tag)
     else:
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
