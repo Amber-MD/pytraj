@@ -66,8 +66,12 @@ class ActionInTraj(object):
     def get_average_frame(self, mask=""):
         return pyca.get_average_frame(mask, self)
 
-    def get_temperatures(self):
-        return pyca.get_temperatures(self)
+    def calc_temperatures(self, mask=""):
+        return pyca.calc_temperatures(mask, self)
 
     def calc_watershell(self, mask=""):
         return pyca.calc_watershell(mask, self)
+
+    @property
+    def temperatures(self):
+        return pyca.calc_temperatures(self, "frame")
