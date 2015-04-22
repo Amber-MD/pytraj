@@ -359,24 +359,8 @@ cdef class FrameArray (object):
                 # use `mask` to avoid confusion
                 mask = idxs
                 try:
-                    if ':frame' not in mask:
-                        # return numpy array
-                        has_numpy, np = _import_numpy()
-                        N = self.top(mask).n_atoms
-                        if has_numpy:
-                            arr0 = np.empty(N*self.size*3).reshape(self.size, N, 3)
-                            for i, frame in enumerate(self):
-                                arr0[i] = frame[self.top(mask)]
-                            return arr0
-                        else:
-                            # create 3D list with shape of (n_frames, n_atoms, 3)
-                            _coord_list = []
-                            for frame in self:
-                                _coord_list.append(frame[self.top(mask)])
-                            return _coord_list
-                    else:
-                        atom_mask_obj = self.top(mask)
-                        return self[atom_mask_obj]
+                    atom_mask_obj = self.top(mask)
+                    return self[atom_mask_obj]
                 except:
                     txt = "not supported keyword `%s` or there's proble with your topology" % idxs
                     raise NotImplementedError(txt)

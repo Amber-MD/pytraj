@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         frame0 = traj[0]
         print (hasattr(frame0, 'shape'))
         assert_almost_equal(frame0[traj.top("@CA")].flatten(), 
-                            traj['@CA'][0].flatten())
+                            traj['@CA'].xyz.flatten())
 
 if __name__ == "__main__":
     unittest.main()
