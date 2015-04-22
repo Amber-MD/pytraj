@@ -9,7 +9,7 @@ cd $CPPTRAJHOME
 mkdir lib
 bash ./configure -shared gnu || bash ./configure -nomathlib -shared gnu \
 || bash ./configure -nomathlib -shared -nonetcdf gnu
-make libcpptraj -j4
+make libcpptraj -j8
 cd $PYTRAJHOME
 
 echo
