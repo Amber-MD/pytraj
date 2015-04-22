@@ -51,14 +51,20 @@ except:
     has_cpptrajhome = False
 
 if has_amberhome:
+    # use libcpptraj and header files in AMBERHOME
     cpptraj_dir = amberhome + "/AmberTools/src/cpptraj/"
     cpptraj_include = cpptraj_dir + "/src/"
     libdir = amberhome + "/lib/"
 elif has_cpptrajhome:
+    # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
     cpptraj_dir = cpptrajhome
     cpptraj_include = cpptraj_dir + "/src/"
     libdir = cpptrajhome + "/lib/"
 else:
+    # use libcpptraj and header files in PYTRAJHOME
+    # ./cpptraj/src
+    # ./cpptraj/lib
+
     nice_message = """
     Must set AMBERHOME or CPPTRAJHOME. If both AMBERHOME and CPPTRAJHOME are set,
     pytraj will give priority to AMBERHOME.
@@ -85,7 +91,8 @@ else:
     python ./setup.py install
 
     ...
-    but we're trying dowload/building libcpptraj for you. (5-10 minutes)
+    but we're trying to dowload and build libcpptraj for you. (5-10 minutes)
+    (check ./cpptraj/ folder after installation)
     """
     print (nice_message)
     sleep(3)
