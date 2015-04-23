@@ -43,7 +43,7 @@ list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds',]
+list_of_the_rest = ['search_hbonds', 'calc_temperatures']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -313,3 +313,14 @@ def calc_pairwise_rmsd(command="", traj=None, top=None, *args, **kwd):
     # remove dataset coords to free memory
     dslist.remove_set(dslist[0])
     return dslist
+
+def calc_temperatures(command="", traj=None, top=None):
+    """return 1D python array of temperatures (from velocity) in traj
+    if `frame` keyword is specified cpptraj/pytraj will take existing T
+
+    Default = array of 0.0
+    """
+    from array import array as pyarray
+    _top = _get_top(traj, top)
+    dslist = calculate('temperature', command, traj, _top)
+    return pyarray('d', dslist[0].tolist())
