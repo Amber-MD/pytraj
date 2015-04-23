@@ -43,7 +43,7 @@ list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'get_temperatures']
+list_of_the_rest = ['search_hbonds', 'calc_temperatures']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
