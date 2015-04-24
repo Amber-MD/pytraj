@@ -13,6 +13,7 @@ from pytraj.Topology import Topology
 from .ArgList import ArgList
 #from .NameType import NameType
 from .AtomMask import AtomMask
+from .math import Vec3
 from .CpptrajState import CpptrajState
 from .Frame import Frame
 from .FrameArray import FrameArray
