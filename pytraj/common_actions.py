@@ -25,6 +25,7 @@ from .gdt.calc_score import calc_score
 from .hbonds import search_hbonds
 from ._shared_methods import _frame_iter_master
 from .get_pysander_energies import get_pysander_energies
+from .utils import _import_numpy
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
@@ -115,7 +116,7 @@ def calc_dssp(command="", traj=None, dtype='int'):
     ---------
     command : str
     traj : {Trajectory, Frame, mix of them}
-    dtype : str {'int', 'integer', 'str', 'string', 'dataset'}
+    dtype : str {'int', 'integer', 'str', 'string', 'dataset', 'ndarray'}
 
     Returns:
     if dtype in ['int', 'integer', 'str', 'string']
@@ -142,6 +143,10 @@ def calc_dssp(command="", traj=None, dtype='int'):
         return tmplist
     elif dtype in ['DATASET',]:
         return dslist
+    if dtype in ['NDARRAY',]:
+        # return a numpy array of strings
+        _, np = _import_numpy()
+        return np.array([to_string_ss(arr) for arr in arr0])
     else:
         raise ValueError("")
 
