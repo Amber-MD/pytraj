@@ -6,12 +6,12 @@ from .core.Atom cimport _Atom, Atom
 from .core.Residue cimport _Residue, Residue
 from .core.Molecule cimport _Molecule, Molecule
 from .core.ParameterTypes cimport *
+from .core.Box cimport _Box, Box, BoxType
+from .core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 from .AtomMask cimport _AtomMask, AtomMask
 from .Frame cimport _Frame, Frame
 from .FileName cimport _FileName, FileName
 from .NameType cimport _NameType, NameType
-from .Box cimport _Box, Box, BoxType
-from .CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator
