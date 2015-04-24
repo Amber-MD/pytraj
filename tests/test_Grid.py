@@ -6,7 +6,7 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
         from numpy.testing import assert_almost_equal as a_equal
-        from pytraj.Grid import Grid
+        from pytraj.math import Grid
         import numpy as np
         nx = ny = nz = 3
         g = Grid(nx, ny, nz)

@@ -11,6 +11,7 @@ from pytraj.FrameArray import FrameArray
 from pytraj.actions import allactions
 from pytraj import adict, analdict
 from pytraj.DataSetList import DataSetList
+from pytraj._shared_methods import _frame_iter as frame_iter
 
 from pytraj._set_silent import set_world_silent
 

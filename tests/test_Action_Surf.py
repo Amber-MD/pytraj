@@ -4,7 +4,7 @@ from pytraj.base import *
 from pytraj.actions.Action_Surf import Action_Surf
 from pytraj.actions import Action
 from pytraj.TrajReadOnly import TrajReadOnly
-from pytraj import cast_dataset
+from pytraj.datasets import cast_dataset
 from pytraj import adict
 
 print(dir(Action_Surf()))

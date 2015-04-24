@@ -4,7 +4,7 @@ from numpy.testing import assert_allclose
 from pytraj import io as mdio
 from pytraj.base import *
 from pytraj import allactions
-from pytraj.cast_dataset import cast_dataset
+from pytraj.datasets import cast_dataset
 from pytraj import adict 
 from pytraj.DataFileList import DataFileList
 from pytraj.common_actions import calc_dssp

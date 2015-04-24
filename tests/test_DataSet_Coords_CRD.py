@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(dslist[0][:], d1)
 
     def test_2(self):
-        from pytraj import cast_dataset
+        from pytraj.datasets import cast_dataset
         from pytraj.datasets.DataSet import DataSet
         from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD
         "test cast_dataset"

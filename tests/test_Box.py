@@ -1,7 +1,7 @@
 import unittest
 from pytraj.base import *
 from pytraj import io as mdio
-from pytraj.Box import Box
+from pytraj.core import Box
 from array import array as pyarray
 from pytraj.decorators import test_if_having
 

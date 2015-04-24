@@ -2,7 +2,7 @@ from __future__ import print_function
 import unittest
 from pytraj.base import *
 from pytraj import allactions
-from pytraj.cast_dataset import cast_dataset
+from pytraj.datasets import cast_dataset
 from pytraj import adict
 from pytraj.common_actions import distance
 import numpy as np

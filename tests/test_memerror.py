@@ -3,7 +3,7 @@ import unittest
 from pytraj.decorators import no_test
 from pytraj.base import *
 from pytraj import allactions
-from pytraj.cast_dataset import cast_dataset
+from pytraj.datasets import cast_dataset
 from pytraj import adict, analdict
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test

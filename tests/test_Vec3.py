@@ -1,4 +1,4 @@
-from pytraj.Vec3 import Vec3
+from pytraj import Vec3
 #from pytraj import DistRoutines as dist
 import numpy as np
 import unittest
@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         print(np.asarray(v1[:]))
         print(v1)
 
-        from pytraj.simple_math import Matrix_3x3
+        from pytraj.math import Matrix_3x3
         mat = Matrix_3x3(list(range(9)))
         print(mat*v1)
 

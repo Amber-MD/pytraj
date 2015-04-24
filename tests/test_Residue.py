@@ -2,7 +2,7 @@ import os
 import unittest
 import pytraj
 from pytraj.base import *
-from pytraj.Residue import Residue
+from pytraj.core import Residue
 
 class TestResidue(unittest.TestCase):
     def test_0(self):
