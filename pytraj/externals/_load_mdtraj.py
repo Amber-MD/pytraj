@@ -1,8 +1,8 @@
 """Load mdtraj traj object
 """
 from __future__ import absolute_import
-from .utils import has_, require
-from .FrameArray import FrameArray
+from pytraj.utils import has_, require
+from pytraj.FrameArray import FrameArray
 from ._load_pseudo_parm import load_pseudo_parm
 
 def load_mdtraj(m_traj):

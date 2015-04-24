@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 from .externals.six import string_types
-from ._utils import set_world_silent
+from ._set_silent import set_world_silent
 from .Topology import Topology
 from .DataSetList import DataSetList
 

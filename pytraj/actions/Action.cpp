@@ -2390,7 +2390,6 @@ static char __pyx_k_allocate_buffer[] = "allocate_buffer";
 static char __pyx_k_dtype_is_object[] = "dtype_is_object";
 static char __pyx_k_pytraj_decorators[] = "pytraj.decorators";
 static char __pyx_k_strided_and_direct[] = "<strided and direct>";
-static char __pyx_k_pytraj_cast_dataset[] = "pytraj.cast_dataset";
 static char __pyx_k_pytraj_externals_six[] = "pytraj.externals.six";
 static char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
 static char __pyx_k_Action_pyx_list_tuple[] = "Action.pyx: list, tuple";
@@ -2409,6 +2408,7 @@ static char __pyx_k_Index_out_of_bounds_axis_d[] = "Index out of bounds (axis %d
 static char __pyx_k_Step_may_not_be_zero_axis_d[] = "Step may not be zero (axis %d)";
 static char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cython.array";
 static char __pyx_k_must_be_Frame_or_FrameArray[] = "must be Frame or FrameArray";
+static char __pyx_k_pytraj_datasets_cast_dataset[] = "pytraj.datasets.cast_dataset";
 static char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static char __pyx_k_don_t_know_how_to_cast_dataset[] = "don't know how to cast dataset";
 static char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
@@ -2508,7 +2508,7 @@ static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_print_output;
 static PyObject *__pyx_n_s_process;
 static PyObject *__pyx_n_s_pytraj;
-static PyObject *__pyx_n_s_pytraj_cast_dataset;
+static PyObject *__pyx_n_s_pytraj_datasets_cast_dataset;
 static PyObject *__pyx_n_s_pytraj_decorators;
 static PyObject *__pyx_n_s_pytraj_externals_six;
 static PyObject *__pyx_n_s_pytraj_utils;
@@ -17952,7 +17952,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_print_output, __pyx_k_print_output, sizeof(__pyx_k_print_output), 0, 0, 1, 1},
   {&__pyx_n_s_process, __pyx_k_process, sizeof(__pyx_k_process), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj, __pyx_k_pytraj, sizeof(__pyx_k_pytraj), 0, 0, 1, 1},
-  {&__pyx_n_s_pytraj_cast_dataset, __pyx_k_pytraj_cast_dataset, sizeof(__pyx_k_pytraj_cast_dataset), 0, 0, 1, 1},
+  {&__pyx_n_s_pytraj_datasets_cast_dataset, __pyx_k_pytraj_datasets_cast_dataset, sizeof(__pyx_k_pytraj_datasets_cast_dataset), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_decorators, __pyx_k_pytraj_decorators, sizeof(__pyx_k_pytraj_decorators), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_externals_six, __pyx_k_pytraj_externals_six, sizeof(__pyx_k_pytraj_externals_six), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_utils, __pyx_k_pytraj_utils, sizeof(__pyx_k_pytraj_utils), 0, 0, 1, 1},
@@ -18549,7 +18549,7 @@ PyMODINIT_FUNC PyInit_Action(void)
  * from pytraj.externals.six import string_types
  * from pytraj.utils import is_generator             # <<<<<<<<<<<<<<
  * 
- * from pytraj.cast_dataset import cast_dataset
+ * from pytraj.datasets.cast_dataset import cast_dataset
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -18568,7 +18568,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   /* "pytraj/actions/Action.pyx":7
  * from pytraj.utils import is_generator
  * 
- * from pytraj.cast_dataset import cast_dataset             # <<<<<<<<<<<<<<
+ * from pytraj.datasets.cast_dataset import cast_dataset             # <<<<<<<<<<<<<<
  * from pytraj import TrajinList
  * 
  */
@@ -18577,7 +18577,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   __Pyx_INCREF(__pyx_n_s_cast_dataset);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_cast_dataset);
   __Pyx_GIVEREF(__pyx_n_s_cast_dataset);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pytraj_cast_dataset, __pyx_t_2, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pytraj_datasets_cast_dataset, __pyx_t_2, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_cast_dataset); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18588,7 +18588,7 @@ PyMODINIT_FUNC PyInit_Action(void)
 
   /* "pytraj/actions/Action.pyx":8
  * 
- * from pytraj.cast_dataset import cast_dataset
+ * from pytraj.datasets.cast_dataset import cast_dataset
  * from pytraj import TrajinList             # <<<<<<<<<<<<<<
  * 
  * 

@@ -1,5 +1,5 @@
 import unittest
-#from pytraj import *
+from pytraj import *
 from pytraj.parms import *
 from pytraj.trajs import *
 from pytraj.datasets import *
@@ -47,8 +47,8 @@ class Test(unittest.TestCase):
     def test_4(self):
         print ("try to make structure-related objects")
         Topology()
-        Molecule.Molecule()
-        Residue.Residue()
+        Molecule()
+        Residue()
         Atom()
         Frame()
         FrameArray()

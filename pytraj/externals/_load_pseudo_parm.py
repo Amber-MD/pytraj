@@ -2,11 +2,11 @@
 
 """
 from __future__ import absolute_import
-from .utils import has_
-from .FrameArray import FrameArray
-from .Topology import Topology
-from .Atom import Atom
-from .Frame import Frame
+from pytraj.utils import has_
+from pytraj.FrameArray import FrameArray
+from pytraj.Topology import Topology
+from pytraj.core.Atom import Atom
+from pytraj.Frame import Frame
 from pytraj.utils.check_and_assert import is_mdtraj, is_word_in_class_name
 
 # not sure if we need this `load_mdtraj` since cpptraj can do anything :D

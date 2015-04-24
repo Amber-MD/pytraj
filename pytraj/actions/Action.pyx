@@ -4,7 +4,7 @@ from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
 from pytraj.utils import is_generator
 
-from pytraj.cast_dataset import cast_dataset
+from pytraj.datasets.cast_dataset import cast_dataset
 from pytraj import TrajinList
 
 

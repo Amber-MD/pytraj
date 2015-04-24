@@ -3,7 +3,7 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 
 # python level
-from pytraj.cast_dataset import cast_dataset
+from pytraj.datasets.cast_dataset import cast_dataset
 from pytraj.utils.check_and_assert import _import
 from collections import defaultdict
 from pytraj._utils cimport get_positive_idx

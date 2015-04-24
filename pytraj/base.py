@@ -5,7 +5,7 @@ from __future__ import absolute_import
 # TODO : make this file shorter
 from .Frame import Frame
 from .core.Atom import Atom
-from .core.AtomMask import AtomMask
+from .AtomMask import AtomMask
 from .FrameArray import FrameArray
 from .Topology import Topology
 from .ArgList import ArgList
@@ -17,7 +17,7 @@ from .TopologyList import TopologyList
 from .DataFileList import DataFileList
 from .DataSetList import DataSetList
 from .ActionList import ActionList
-from .cast_dataset import cast_dataset
+from .datasets.cast_dataset import cast_dataset
 from . import cpptraj_dict
 
 

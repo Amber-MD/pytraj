@@ -12,7 +12,7 @@ from pytraj.actions import allactions
 from pytraj import adict, analdict
 from pytraj.DataSetList import DataSetList
 
-from pytraj._utils import set_world_silent
+from pytraj._set_silent import set_world_silent
 
 # external
 from pytraj.externals.six import string_types
