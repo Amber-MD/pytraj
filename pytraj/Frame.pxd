@@ -1,13 +1,14 @@
 # distutils: language = c++
+from __future__ import absolute_import
 from libcpp.vector cimport vector
 from libcpp.string cimport string
-from pytraj.Atom cimport _Atom, Atom
-from pytraj.AtomMask cimport _AtomMask, AtomMask
-from pytraj.Box cimport _Box, Box, BoxType
-from pytraj.Topology cimport _Topology, Topology
-from pytraj.Vec3 cimport _Vec3, Vec3
-from pytraj.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
-from pytraj.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
+from .core.Atom cimport _Atom, Atom
+from .core.Box cimport _Box, Box, BoxType
+from .core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
+from .math.Vec3 cimport _Vec3, Vec3
+from .math.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
+from .Topology cimport _Topology, Topology
+from .AtomMask cimport _AtomMask, AtomMask
 
 ctypedef vector[float] CRDtype
 ctypedef vector[double] Darray
