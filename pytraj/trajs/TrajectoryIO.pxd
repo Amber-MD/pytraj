@@ -1,8 +1,6 @@
 # distutils: language = c++
 from libcpp.string cimport string
 from pytraj.Topology cimport _Topology, Topology
-from pytraj.ReplicaDimArray cimport * 
-#from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj.BaseIOtype cimport _BaseIOtype, BaseIOtype
 from pytraj.Box cimport _Box, Box
@@ -33,13 +31,11 @@ cdef extern from "TrajectoryIO.h":
         bint HasV() const 
         bint HasT() const 
         const string& Title() const 
-        const _ReplicaDimArray& ReplicaDimensions() const 
         void SetDebug(int dIn)
         void SetBox(const _Box& bIn)
         void SetVelocity(bint vIn)
         void SetTemperature(bint tIn)
         void SetTitle(const string& tIn)
-        void SetReplicaDims(const _ReplicaDimArray& rIn)
 
 
 cdef class TrajectoryIO (BaseIOtype):
