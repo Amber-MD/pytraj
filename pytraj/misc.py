@@ -11,8 +11,9 @@ from pytraj.FrameArray import FrameArray
 from pytraj.actions import allactions
 from pytraj import adict, analdict
 from pytraj.DataSetList import DataSetList
+from pytraj._shared_methods import _frame_iter as frame_iter
 
-from pytraj._utils import set_world_silent
+from pytraj._set_silent import set_world_silent
 
 # external
 from pytraj.externals.six import string_types
@@ -78,42 +79,6 @@ def show_code(func, get_txt=False):
         print (txt)
     else:
         return txt
-
-def simple_plot(d0, *args, **kwd):
-    # TODO : return object so we can update axis, label, ..
-    from pytraj import _import
-
-    has_plot, plt = _import('matplotlib.pyplot')
-    if not has_plot:
-        raise RuntimeError("require matplotlib installed")
-    fig = plt.pyplot.plot(range(d0.size), d0[:], *args, **kwd)
-    plt.pyplot.show()
-
-
-def frame_iter(self, start=0, stop=-1, stride=1):
-    """iterately get Frames with start, stop, stride 
-    Parameters
-    ---------
-    start : int (default = 0)
-    chunk : int (default = 1)
-    stop : int (default = max_frames - 1)
-    """
-    frame = Frame(self.top.n_atoms)
-    if stop == -1 or stop >= self.n_frames:
-        stop = self.n_frames - 1
-
-    i = start
-    # use `with self` in case needed to open/close file
-    with self:
-        while i <= stop:
-            if hasattr(self, 'read_traj_frame'):
-                # cpptraj Traj-like object
-                self.read_traj_frame(i, frame)
-            else:
-                # FrameArray object
-                frame = self[i]
-            yield frame
-            i += stride
 
 def get_atts(obj):
     """get methods and atts from obj but excluding special methods __"""

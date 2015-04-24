@@ -4,7 +4,7 @@ import numpy as np
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.Frame import Frame
 from pytraj.base import *
-from pytraj.Vec3 import Vec3
+from pytraj import Vec3
 from pytraj import io as mdio
 from pytraj.decorators import no_test
 from rmsd import rmsd as arr_rmsd

@@ -1,7 +1,21 @@
 # distutils: language = c++
+from __future__ import absolute_import
+from .CpptrajState cimport *
+from .ArgList cimport *
+from .DispatchObject cimport *
+from ._FunctPtr cimport FunctPtr
 
+
+cdef extern from "Command.h": 
+    ctypedef enum RetType "Command::RetType":
+        pass
+    cdef cppclass _Command "Command":
+        @staticmethod
+        RetType ProcessInput(_CpptrajState&, const string&)
 
 cdef class Command:
+    cdef _Command* thisptr
+
     def __cinit__(self):
         self.thisptr = new _Command()
 

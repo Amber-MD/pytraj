@@ -1,7 +1,6 @@
 # distutils: language = c++
 from libcpp.string cimport string
 from pytraj.trajs.TrajectoryFile cimport *
-from pytraj.Range cimport *
 from pytraj.Frame cimport _Frame, Frame
 
 

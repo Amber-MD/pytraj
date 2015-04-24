@@ -2,3 +2,6 @@ This file includes tips for whatever
 
 1. Check if libcpptraj having openmp
 nm libcpptraj.so | grep omp_
+
+2. Don't try to use absolute_import for all files. Would get import error
+(hell knows why)

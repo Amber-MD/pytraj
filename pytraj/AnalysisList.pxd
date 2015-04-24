@@ -1,10 +1,10 @@
 # distutils: language = c++
-from pytraj.DispatchObject  cimport DispatchAllocatorType
-from pytraj.analyses.Analysis cimport _Analysis, Analysis
-from pytraj.ArgList cimport _ArgList 
-from pytraj.TopologyList cimport _TopologyList
-from pytraj.DataSetList cimport _DataSetList
-from pytraj.DataFileList cimport _DataFileList
+from .DispatchObject  cimport DispatchAllocatorType
+from .analyses.Analysis cimport _Analysis, Analysis
+from .ArgList cimport _ArgList 
+from .TopologyList cimport _TopologyList
+from .DataSetList cimport _DataSetList
+from .DataFileList cimport _DataFileList
 
 
 cdef extern from "AnalysisList.h": 

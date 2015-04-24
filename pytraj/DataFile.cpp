@@ -247,17 +247,14 @@ class __Pyx_FakeReference {
 #include "typeinfo"
 #include <vector>
 #include "ArgList.h"
-#include "Dimension.h"
 #include "DataSet.h"
 #include "DataSetList.h"
 #include "sys/types.h"
 #include "unistd.h"
 #include "FileName.h"
-#include "FileIO.h"
 #include "CpptrajFile.h"
 #include "BaseIOtype.h"
 #include "DataIO.h"
-#include "FileTypes.h"
 #include "DataFile.h"
 #ifdef _OPENMP
 #include <omp.h>
@@ -457,27 +454,23 @@ static const char *__pyx_f[] = {
   "pytraj/DataFile.pyx",
   "stringsource",
   "pytraj/ArgList.pxd",
-  "pytraj/Dimension.pxd",
   "pytraj/datasets/DataSet.pxd",
   "pytraj/DataSetList.pxd",
   "pytraj/FileName.pxd",
   "pytraj/CpptrajFile.pxd",
   "pytraj/BaseIOtype.pxd",
-  "pytraj/FileTypes.pxd",
 };
 
 /*--- Type declarations ---*/
 struct __pyx_obj_6pytraj_7ArgList_ArgList;
-struct __pyx_obj_6pytraj_9Dimension_Dimension;
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet;
 struct __pyx_obj_6pytraj_11DataSetList_DataSetList;
 struct __pyx_obj_6pytraj_8FileName_FileName;
 struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile;
 struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype;
-struct __pyx_obj_6pytraj_9FileTypes_FileTypes;
 struct __pyx_obj_6pytraj_8DataFile_DataFile;
 
-/* "pytraj/DataSetList.pxd":6
+/* "DataSetList.pxd":6
  * from pytraj.cpp_vector cimport vector as cppvector
  * 
  * ctypedef cppvector[_DataSet*] DataListType             # <<<<<<<<<<<<<<
@@ -486,7 +479,7 @@ struct __pyx_obj_6pytraj_8DataFile_DataFile;
  */
 typedef std::vector<DataSet *>  __pyx_t_6pytraj_11DataSetList_DataListType;
 
-/* "pytraj/DataSetList.pxd":7
+/* "DataSetList.pxd":7
  * 
  * ctypedef cppvector[_DataSet*] DataListType
  * ctypedef cppvector[_DataSet*].const_iterator const_iterator             # <<<<<<<<<<<<<<
@@ -495,7 +488,7 @@ typedef std::vector<DataSet *>  __pyx_t_6pytraj_11DataSetList_DataListType;
  */
 typedef std::vector<DataSet *> ::const_iterator __pyx_t_6pytraj_11DataSetList_const_iterator;
 
-/* "pytraj/BaseIOtype.pxd":3
+/* "BaseIOtype.pxd":3
  * # distutil: language = c++
  * 
  * ctypedef _BaseIOtype* (*AllocatorType)()             # <<<<<<<<<<<<<<
@@ -504,7 +497,7 @@ typedef std::vector<DataSet *> ::const_iterator __pyx_t_6pytraj_11DataSetList_co
  */
 typedef BaseIOtype *(*__pyx_t_6pytraj_10BaseIOtype_AllocatorType)(void);
 
-/* "pytraj/BaseIOtype.pxd":4
+/* "BaseIOtype.pxd":4
  * 
  * ctypedef _BaseIOtype* (*AllocatorType)()
  * ctypedef void (*HelpType)()             # <<<<<<<<<<<<<<
@@ -513,7 +506,7 @@ typedef BaseIOtype *(*__pyx_t_6pytraj_10BaseIOtype_AllocatorType)(void);
  */
 typedef void (*__pyx_t_6pytraj_10BaseIOtype_HelpType)(void);
 
-/* "pytraj/ArgList.pxd":46
+/* "ArgList.pxd":46
  *         bint Contains(const char *) const
  * 
  * cdef class ArgList:             # <<<<<<<<<<<<<<
@@ -525,19 +518,7 @@ struct __pyx_obj_6pytraj_7ArgList_ArgList {
 };
 
 
-/* "pytraj/Dimension.pxd":32
- *         void PrintDim()
- * 
- * cdef class Dimension:             # <<<<<<<<<<<<<<
- *     cdef _Dimension* thisptr
- */
-struct __pyx_obj_6pytraj_9Dimension_Dimension {
-  PyObject_HEAD
-  Dimension *thisptr;
-};
-
-
-/* "pytraj/datasets/DataSet.pxd":51
+/* "DataSet.pxd":46
  *         #void Add( size_t, const void*  )
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
@@ -549,7 +530,7 @@ struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
 };
 
 
-/* "pytraj/DataSetList.pxd":45
+/* "DataSetList.pxd":45
  * 
  * 
  * cdef class DataSetList:             # <<<<<<<<<<<<<<
@@ -563,7 +544,7 @@ struct __pyx_obj_6pytraj_11DataSetList_DataSetList {
 };
 
 
-/* "pytraj/FileName.pxd":23
+/* "FileName.pxd":23
  *         bint empty()
  * 
  * cdef class FileName:             # <<<<<<<<<<<<<<
@@ -575,7 +556,7 @@ struct __pyx_obj_6pytraj_8FileName_FileName {
 };
 
 
-/* "pytraj/CpptrajFile.pxd":51
+/* "CpptrajFile.pxd":51
  *         #off_t Tell()
  * 
  * cdef class CpptrajFile:             # <<<<<<<<<<<<<<
@@ -587,7 +568,7 @@ struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile {
 };
 
 
-/* "pytraj/BaseIOtype.pxd":12
+/* "BaseIOtype.pxd":12
  *         pass
  * 
  * cdef class BaseIOtype:             # <<<<<<<<<<<<<<
@@ -599,19 +580,7 @@ struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype {
 };
 
 
-/* "pytraj/FileTypes.pxd":31
- *         void WriteOptions(KeyPtr, AllocPtr, FileFormatType)
- * 
- * cdef class FileTypes:             # <<<<<<<<<<<<<<
- *     cdef _FileTypes* thisptr
- */
-struct __pyx_obj_6pytraj_9FileTypes_FileTypes {
-  PyObject_HEAD
-  FileTypes *thisptr;
-};
-
-
-/* "pytraj/DataFile.pxd":46
+/* "pytraj/DataFile.pxd":45
  * 
  * 
  * cdef class DataFile:             # <<<<<<<<<<<<<<
@@ -823,9 +792,6 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 /* Module declarations from 'pytraj.ArgList' */
 static PyTypeObject *__pyx_ptype_6pytraj_7ArgList_ArgList = 0;
 
-/* Module declarations from 'pytraj.Dimension' */
-static PyTypeObject *__pyx_ptype_6pytraj_9Dimension_Dimension = 0;
-
 /* Module declarations from 'pytraj.datasets.DataSet' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = 0;
 
@@ -839,8 +805,6 @@ static PyTypeObject *__pyx_ptype_6pytraj_11DataSetList_DataSetList = 0;
 /* Module declarations from 'pytraj.FileName' */
 static PyTypeObject *__pyx_ptype_6pytraj_8FileName_FileName = 0;
 
-/* Module declarations from 'pytraj.FileIO' */
-
 /* Module declarations from 'pytraj.CpptrajFile' */
 static PyTypeObject *__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = 0;
 
@@ -848,9 +812,6 @@ static PyTypeObject *__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = 0;
 static PyTypeObject *__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = 0;
 
 /* Module declarations from 'pytraj.datasets.DataIO' */
-
-/* Module declarations from 'pytraj.FileTypes' */
-static PyTypeObject *__pyx_ptype_6pytraj_9FileTypes_FileTypes = 0;
 
 /* Module declarations from 'pytraj.DataFile' */
 static PyTypeObject *__pyx_ptype_6pytraj_8DataFile_DataFile = 0;
@@ -3011,13 +2972,11 @@ PyMODINIT_FUNC PyInit_DataFile(void)
   __pyx_ptype_6pytraj_8DataFile_DataFile = &__pyx_type_6pytraj_8DataFile_DataFile;
   /*--- Type import code ---*/
   __pyx_ptype_6pytraj_7ArgList_ArgList = __Pyx_ImportType("pytraj.ArgList", "ArgList", sizeof(struct __pyx_obj_6pytraj_7ArgList_ArgList), 1); if (unlikely(!__pyx_ptype_6pytraj_7ArgList_ArgList)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_9Dimension_Dimension = __Pyx_ImportType("pytraj.Dimension", "Dimension", sizeof(struct __pyx_obj_6pytraj_9Dimension_Dimension), 1); if (unlikely(!__pyx_ptype_6pytraj_9Dimension_Dimension)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_11DataSetList_DataSetList = __Pyx_ImportType("pytraj.DataSetList", "DataSetList", sizeof(struct __pyx_obj_6pytraj_11DataSetList_DataSetList), 1); if (unlikely(!__pyx_ptype_6pytraj_11DataSetList_DataSetList)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[7]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = __Pyx_ImportType("pytraj.BaseIOtype", "BaseIOtype", sizeof(struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype), 1); if (unlikely(!__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype)) {__pyx_filename = __pyx_f[8]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_9FileTypes_FileTypes = __Pyx_ImportType("pytraj.FileTypes", "FileTypes", sizeof(struct __pyx_obj_6pytraj_9FileTypes_FileTypes), 1); if (unlikely(!__pyx_ptype_6pytraj_9FileTypes_FileTypes)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_11DataSetList_DataSetList = __Pyx_ImportType("pytraj.DataSetList", "DataSetList", sizeof(struct __pyx_obj_6pytraj_11DataSetList_DataSetList), 1); if (unlikely(!__pyx_ptype_6pytraj_11DataSetList_DataSetList)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = __Pyx_ImportType("pytraj.BaseIOtype", "BaseIOtype", sizeof(struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype), 1); if (unlikely(!__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype)) {__pyx_filename = __pyx_f[7]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/

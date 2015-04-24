@@ -115,6 +115,7 @@ pxd_include_patterns = [
 pyxfiles = []
 for p in pxd_include_dirs:
     pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx') if '.pyx' in ext])
+print (pyxfiles)
 
 # check command line
 extra_compile_args=['-O0', '-ggdb']
@@ -192,25 +193,25 @@ setup_args = {}
 packages = [
         'pytraj',
         'pytraj.utils',
-        'pytraj.html',
         'pytraj.actions',
         'pytraj.analyses',
         'pytraj.datasets',
         'pytraj.externals',
+        'pytraj.externals.gdt',
         'pytraj.parms',
-        'pytraj.clusters',
         'pytraj.trajs',
-        'pytraj.gdt',
         'pytraj.data_sample',
         'pytraj.data_sample.Ala3',
         'pytraj.plots',
+        'pytraj.math',
+        'pytraj.core',
+        #'pytraj.clusters',
         ]
 
 pylen = len('pytraj') + 1
 pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
 sample_data = ["data_sample/Ala3/Ala3.*",]
-html_data = ["html/static/*"] 
-datalist = pxdlist +  sample_data + html_data
+datalist = pxdlist +  sample_data
 
 def build_func(my_ext):
     try:

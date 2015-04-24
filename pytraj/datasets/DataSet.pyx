@@ -1,7 +1,7 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
-from pytraj.cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
-from pytraj.decorators import makesureABC
+from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
+from ..decorators import makesureABC
 
 cdef class DataSet:
     """
@@ -51,9 +51,6 @@ cdef class DataSet:
 
     def set_legend(self, lengend):
         self.baseptr0.SetLegend(lengend.encode())
-
-    def set_dim(self, DimIdxType i, Dimension d):
-        self.baseptr0.SetDim(i, d.thisptr[0])
 
     def set_scalar(self,scalar_mode, scalar_type=None):
         scalar_mode = scalar_mode.upper()

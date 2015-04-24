@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from pytraj.datasets.DataSet cimport _DataSet, DataSet
-from pytraj.datasets.DataSet_1D cimport _DataSet_1D, DataSet_1D
+from .DataSet cimport _DataSet, DataSet
+from .DataSet_1D cimport _DataSet_1D, DataSet_1D
 
 
 cdef extern from "DataSet_string.h": 

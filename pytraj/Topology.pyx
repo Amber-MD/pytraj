@@ -4,7 +4,7 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from libcpp.string cimport string
 from cpython.array cimport array as pyarray
-from pytraj._utils import set_world_silent # turn on and off cpptraj's stdout
+from pytraj._set_silent import set_world_silent # turn on and off cpptraj's stdout
 #from pytraj.TopologyList cimport TopologyList
 
 from pytraj.decorators import name_will_be_changed

@@ -3,7 +3,7 @@ from cpython.array cimport array as pyarray
 from cython.view cimport array as cyarray
 
 # python level
-from pytraj.utils import is_int
+from ..utils import is_int
 
 cdef class DataSet_integer (DataSet_1D):
     def __cinit__(self):

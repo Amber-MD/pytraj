@@ -1,7 +1,7 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
 from cython.view cimport array as cyarray
-from pytraj.utils import _import_numpy
+from ..utils import _import_numpy
 
 cdef class DataSet_Mesh (DataSet_1D):
     def __cinit__(self):

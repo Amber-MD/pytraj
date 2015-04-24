@@ -1,23 +1,24 @@
 """
 import baseclasses for pytraj
 """
+from __future__ import absolute_import
 # TODO : make this file shorter
-from pytraj.Atom import Atom
-from pytraj.Frame import Frame
-from pytraj.FrameArray import FrameArray
-from pytraj.Topology import Topology
-from pytraj.ArgList import ArgList
-from pytraj.AtomMask import AtomMask
-from pytraj.CpptrajState import CpptrajState
-from pytraj.TrajReadOnly import TrajReadOnly
-from pytraj.trajs.Trajout import Trajout
-from pytraj.TrajinList import TrajinList
-from pytraj.TopologyList import TopologyList
-from pytraj.DataFileList import DataFileList
-from pytraj.DataSetList import DataSetList
-from pytraj.ActionList import ActionList
-from pytraj.cast_dataset import cast_dataset
-from pytraj import cpptraj_dict
+from .Frame import Frame
+from .core.Atom import Atom
+from .AtomMask import AtomMask
+from .FrameArray import FrameArray
+from .Topology import Topology
+from .ArgList import ArgList
+from .CpptrajState import CpptrajState
+from .TrajReadOnly import TrajReadOnly
+from .trajs.Trajout import Trajout
+from .TrajinList import TrajinList
+from .TopologyList import TopologyList
+from .DataFileList import DataFileList
+from .DataSetList import DataSetList
+from .ActionList import ActionList
+from .datasets.cast_dataset import cast_dataset
+from . import cpptraj_dict
 
 
 

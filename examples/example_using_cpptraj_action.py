@@ -2,7 +2,7 @@ import unittest
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj import allactions
-from pytraj.cast_dataset import cast_dataset
+from pytraj.datasets import cast_dataset
 
 # load traj
 farray = mdio.load(top=Topology("../tests/data/Tc5b.top"), 

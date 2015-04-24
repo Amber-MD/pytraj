@@ -3,7 +3,7 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 
 # python level
-from pytraj.cast_dataset import cast_dataset
+from pytraj.datasets.cast_dataset import cast_dataset
 from pytraj.utils.check_and_assert import _import
 from collections import defaultdict
 from pytraj._utils cimport get_positive_idx
@@ -253,14 +253,22 @@ cdef class DataSetList:
     def keys(self):
         return self.get_legends()
 
-    def groupby(self, key):
-        """"return a new DataSetList object as a view of `self`"""
+    def groupby(self, key, mode='legend'):
+        """"return a new DataSetList object as a view of `self`
+
+        Parameters
+        ----------
+        key : str
+            keyword for searching
+        mode: str, default='legend'
+            mode = 'legend' | 'name' | 'dtype' | 'aspect'
+        """
         dtmp = DataSetList()
 
         # dont free mem here
         dtmp.py_free_mem = False
         for d0 in self:
-            if key in d0.legend:
+            if key in getattr(d0, mode):
                 dtmp.add_existing_set(d0)
         return dtmp
 

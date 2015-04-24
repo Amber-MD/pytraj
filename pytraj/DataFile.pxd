@@ -2,7 +2,6 @@
 from libcpp.string cimport string
 from pytraj.datasets.DataIO cimport *
 from pytraj.datasets.DataSet cimport _DataSet, DataSet
-from pytraj.FileTypes cimport _FileTypes, FileTypes
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj.DataSetList cimport _DataSetList, DataSetList
 from pytraj.FileName cimport _FileName, FileName

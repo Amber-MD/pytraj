@@ -1,7 +1,7 @@
 import unittest
 from pytraj.base import *
 from pytraj import allactions
-from pytraj.cast_dataset import cast_dataset
+from pytraj.datasets import cast_dataset
 
 farray = TrajReadOnly(top=Topology("./data/Tc5b.top"), 
                     filename='data/md1_prod.Tc5b.x', 

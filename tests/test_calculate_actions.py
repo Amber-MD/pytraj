@@ -5,7 +5,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.utils.check_and_assert import is_word_in_class_name
 from pytraj import calculate, adict
 from pytraj.utils.Timer import Timer
-from pytraj.misc import simple_plot
+from pytraj.plots import simple_plot
 from pytraj import _import
 import numpy as np
 

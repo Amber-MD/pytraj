@@ -1,15 +1,15 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
 from libcpp.string cimport string
-from pytraj.datasets.DataSet cimport _DataSet, DataSet
-from pytraj.datasets.DataSet_1D cimport _DataSet_1D, DataSet_1D
-from pytraj.datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
-from pytraj.trajs.Trajin cimport _Trajin, Trajin
-from pytraj.Frame cimport _Frame, Frame
-from pytraj.Topology cimport _Topology, Topology
-from pytraj.ArgList cimport _ArgList, ArgList
-from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
-from pytraj.AtomMask cimport _AtomMask, AtomMask
+from .DataSet cimport _DataSet, DataSet
+from .DataSet_1D cimport _DataSet_1D, DataSet_1D
+from .DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
+from ..trajs.Trajin cimport _Trajin, Trajin
+from ..Frame cimport _Frame, Frame
+from ..Topology cimport _Topology, Topology
+from ..ArgList cimport _ArgList, ArgList
+from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
+from ..AtomMask cimport _AtomMask, AtomMask
 
 
 cdef extern from "DataSet_Coords_TRJ.h": 

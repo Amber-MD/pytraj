@@ -1,6 +1,7 @@
 # distutils: language = c++
-from pytraj.datasets.DataSet cimport _DataSet, DataSet, DataType
-from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
+from __future__ import absolute_import
+from .DataSet cimport _DataSet, DataSet, DataType
+from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
 
 
 cdef extern from "DataSet_2D.h": 

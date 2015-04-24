@@ -1,8 +1,8 @@
 import math
 import unittest
 from pytraj.base import *
-from pytraj.Vec3 import Vec3
-from pytraj.DistRoutines import distance, distance_frames
+from pytraj import Vec3
+from pytraj.math.DistRoutines import distance, distance_frames
 from pytraj.decorators import no_test
 from pytraj import allactions
 

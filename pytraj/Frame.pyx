@@ -1,5 +1,6 @@
 # distutils: language = c++
 
+from __future__ import absolute_import
 cimport cython
 from libc.math cimport sqrt
 from cython cimport view
@@ -7,9 +8,8 @@ from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
 from cpython.buffer cimport Py_buffer
-from pytraj._utils cimport _get_buffer1D
-from pytraj.TorsionRoutines cimport Torsion as cpptorsion, CalcAngle as cppangle
-from pytraj.DistRoutines cimport DIST2_NoImage
+from pytraj.math.TorsionRoutines cimport Torsion as cpptorsion, CalcAngle as cppangle
+from pytraj.math.DistRoutines cimport DIST2_NoImage
 
 import math
 from pytraj.decorators import for_testing, iter_warning
@@ -814,8 +814,8 @@ cdef class Frame (object):
         atm.thisptr.InvertMask()
         top.thisptr.SetupIntegerMask(atm.thisptr[0])
         newtop.thisptr = top.thisptr.modifyStateByMask(atm.thisptr[0])
-        if not has_box:
-            newtop.thisptr.SetParmBox(_Box())
+        #if not has_box:
+        #    newtop.thisptr.SetParmBox(_Box())
         tmpframe.thisptr.SetupFrameV(newtop.thisptr.Atoms(), newtop.thisptr.ParmCoordInfo())
         tmpframe.thisptr.SetFrame(self.thisptr[0], atm.thisptr[0])
         self.thisptr[0] = tmpframe.thisptr[0]

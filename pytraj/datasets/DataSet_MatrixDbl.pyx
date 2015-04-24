@@ -1,6 +1,6 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
-from pytraj.cpptraj_dict import MatrixDict, MatrixKindDict, get_key
+from ..cpptraj_dict import MatrixDict, MatrixKindDict, get_key
 
 cdef class DataSet_MatrixDbl (DataSet_2D):
     def __cinit__(self):

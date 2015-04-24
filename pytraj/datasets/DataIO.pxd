@@ -1,9 +1,9 @@
 # distutils: language = c++
-from pytraj.ArgList cimport _ArgList, ArgList
-from pytraj.datasets.DataSet cimport _DataSet, DataSet
-from pytraj.DataSetList cimport _DataSetList, DataSetList
-from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
-from pytraj.BaseIOtype cimport _BaseIOtype, BaseIOtype
+from ..ArgList cimport _ArgList, ArgList
+from .DataSet cimport _DataSet, DataSet
+from ..DataSetList cimport _DataSetList, DataSetList
+from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
+from ..BaseIOtype cimport _BaseIOtype, BaseIOtype
 
 
 cdef extern from "DataIO.h": 

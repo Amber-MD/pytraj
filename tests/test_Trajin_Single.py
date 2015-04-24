@@ -5,13 +5,12 @@ import numpy as np
 from pytraj.Frame import Frame
 from pytraj.FrameArray import FrameArray
 from pytraj.actions.Action_Rmsd import Action_Rmsd
-from pytraj.Trajin_Single import Trajin_Single
+from pytraj.trajs.Trajin_Single import Trajin_Single
 from pytraj.trajs.Trajin import Trajin
 from pytraj.ArgList import ArgList
 from pytraj.Topology import Topology
 from pytraj.TopologyList import TopologyList
 #from pytraj.ReferenceFrame import ReferenceFrame
-from pytraj.Energy import Energy_Amber
 from pytraj.AtomMask import AtomMask
 
 from pytraj.utils.check_and_assert import assert_almost_equal

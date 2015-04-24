@@ -2,7 +2,7 @@ import os
 from time import time
 from array import array
 from pytraj import ArgList
-from pytraj.cast_dataset import cast_dataset
+from pytraj.datasets import cast_dataset
 from pytraj.actions.Action_Radgyr import Action_Radgyr
 from pytraj.actions.Action_Molsurf import Action_Molsurf
 from pytraj.actions.Action_Matrix import Action_Matrix
