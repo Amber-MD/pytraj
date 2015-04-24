@@ -1,7 +1,7 @@
 # distutil: language = c++
 from libcpp.string cimport string
 from cpython.array cimport array
-from pytraj.Frame cimport Frame, _Frame
+from ..Frame cimport Frame, _Frame
 
 #from pytraj.Vec3 cimport _Vec3, Vec3
 

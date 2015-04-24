@@ -6,7 +6,7 @@ from .DispatchObject cimport *
 from ._FunctPtr cimport FunctPtr
 
 
-cdef extern from "src/Command.h": 
+cdef extern from "Command.h": 
     ctypedef enum RetType "Command::RetType":
         pass
     cdef cppclass _Command "Command":
@@ -16,7 +16,6 @@ cdef extern from "src/Command.h":
 cdef class Command:
     cdef _Command* thisptr
 
-cdef class Command:
     def __cinit__(self):
         self.thisptr = new _Command()
 

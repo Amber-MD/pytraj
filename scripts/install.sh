@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cython -a --cplus $1
+cython --cplus $1

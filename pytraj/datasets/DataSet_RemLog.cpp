@@ -248,7 +248,6 @@ class __Pyx_FakeReference {
 #include <map>
 #include "string.h"
 #include <string>
-#include "Dimension.h"
 #include "DataSet.h"
 #include "DataSet_RemLog.h"
 #ifdef _OPENMP
@@ -447,18 +446,16 @@ static const char *__pyx_filename;
 
 static const char *__pyx_f[] = {
   "pytraj/datasets/DataSet_RemLog.pyx",
-  "pytraj/Dimension.pxd",
   "pytraj/datasets/DataSet.pxd",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_6pytraj_9Dimension_Dimension;
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet;
 struct __pyx_obj_6pytraj_8datasets_14DataSet_RemLog_DataSet_RemLog;
 struct __pyx_obj_6pytraj_8datasets_14DataSet_RemLog_ReplicaFrame;
 
 /* "pytraj/datasets/DataSet_RemLog.pxd":6
- * from pytraj.datasets.DataSet cimport *
+ * from .DataSet cimport *
  * 
  * ctypedef map[double, int] TmapType             # <<<<<<<<<<<<<<
  * cdef extern from "DataSet_RemLog.h":
@@ -466,19 +463,7 @@ struct __pyx_obj_6pytraj_8datasets_14DataSet_RemLog_ReplicaFrame;
  */
 typedef std::map<double,int>  __pyx_t_6pytraj_8datasets_14DataSet_RemLog_TmapType;
 
-/* "pytraj/Dimension.pxd":32
- *         void PrintDim()
- * 
- * cdef class Dimension:             # <<<<<<<<<<<<<<
- *     cdef _Dimension* thisptr
- */
-struct __pyx_obj_6pytraj_9Dimension_Dimension {
-  PyObject_HEAD
-  Dimension *thisptr;
-};
-
-
-/* "pytraj/datasets/DataSet.pxd":51
+/* "DataSet.pxd":46
  *         #void Add( size_t, const void*  )
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
@@ -672,9 +657,6 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 /* Module declarations from 'libc.string' */
 
 /* Module declarations from 'libcpp.string' */
-
-/* Module declarations from 'pytraj.Dimension' */
-static PyTypeObject *__pyx_ptype_6pytraj_9Dimension_Dimension = 0;
 
 /* Module declarations from 'pytraj.datasets.DataSet' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = 0;
@@ -1222,8 +1204,7 @@ PyMODINIT_FUNC PyInit_DataSet_RemLog(void)
   if (PyObject_SetAttrString(__pyx_m, "ReplicaFrame", (PyObject *)&__pyx_type_6pytraj_8datasets_14DataSet_RemLog_ReplicaFrame) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8datasets_14DataSet_RemLog_ReplicaFrame = &__pyx_type_6pytraj_8datasets_14DataSet_RemLog_ReplicaFrame;
   /*--- Type import code ---*/
-  __pyx_ptype_6pytraj_9Dimension_Dimension = __Pyx_ImportType("pytraj.Dimension", "Dimension", sizeof(struct __pyx_obj_6pytraj_9Dimension_Dimension), 1); if (unlikely(!__pyx_ptype_6pytraj_9Dimension_Dimension)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/

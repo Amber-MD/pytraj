@@ -1,21 +1,23 @@
 # distutils: language = c++
-from pytraj.datasets.DataSet_1D cimport DataSet_1D, _DataSet_1D
-from pytraj.datasets.DataSet_2D cimport DataSet_2D, _DataSet_2D
-from pytraj.datasets.DataSet_3D cimport DataSet_3D, _DataSet_3D
-from pytraj.datasets.DataSet_double cimport DataSet_double, _DataSet_double
-from pytraj.datasets.DataSet_float cimport DataSet_float, _DataSet_float
-from pytraj.datasets.DataSet_integer cimport DataSet_integer, _DataSet_integer
-from pytraj.datasets.DataSet_string cimport DataSet_string, _DataSet_string
-from pytraj.datasets.DataSet_Mesh cimport DataSet_Mesh, _DataSet_Mesh
-from pytraj.datasets.DataSet_Vector cimport _DataSet_Vector, DataSet_Vector
-from pytraj.datasets.DataSet_MatrixDbl cimport DataSet_MatrixDbl, _DataSet_MatrixDbl
-from pytraj.datasets.DataSet_MatrixFlt cimport DataSet_MatrixFlt, _DataSet_MatrixFlt
-from pytraj.datasets.DataSet_GridFlt cimport DataSet_GridFlt, _DataSet_GridFlt
-from pytraj.datasets.DataSet cimport DataSet, _DataSet
-from pytraj.datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
-from pytraj.datasets.DataSet_Coords_REF cimport _DataSet_Coords_REF, DataSet_Coords_REF
-from pytraj.datasets.DataSet_Coords_CRD cimport _DataSet_Coords_CRD, DataSet_Coords_CRD
-from pytraj.datasets.DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
+from __future__ import absolute_import
+
+from .DataSet_1D cimport DataSet_1D, _DataSet_1D
+from .DataSet_2D cimport DataSet_2D, _DataSet_2D
+from .DataSet_3D cimport DataSet_3D, _DataSet_3D
+from .DataSet_double cimport DataSet_double, _DataSet_double
+from .DataSet_float cimport DataSet_float, _DataSet_float
+from .DataSet_integer cimport DataSet_integer, _DataSet_integer
+from .DataSet_string cimport DataSet_string, _DataSet_string
+from .DataSet_Mesh cimport DataSet_Mesh, _DataSet_Mesh
+from .DataSet_Vector cimport _DataSet_Vector, DataSet_Vector
+from .DataSet_MatrixDbl cimport DataSet_MatrixDbl, _DataSet_MatrixDbl
+from .DataSet_MatrixFlt cimport DataSet_MatrixFlt, _DataSet_MatrixFlt
+from .DataSet_GridFlt cimport DataSet_GridFlt, _DataSet_GridFlt
+from .DataSet cimport DataSet, _DataSet
+from .DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
+from .DataSet_Coords_REF cimport _DataSet_Coords_REF, DataSet_Coords_REF
+from .DataSet_Coords_CRD cimport _DataSet_Coords_CRD, DataSet_Coords_CRD
+from .DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
 
 def cast_dataset(dsetin=None, dtype='general'):
     """create memoryview for DataSet instance. 

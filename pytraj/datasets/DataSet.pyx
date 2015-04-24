@@ -1,7 +1,7 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
-from pytraj.cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
-from pytraj.decorators import makesureABC
+from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
+from ..decorators import makesureABC
 
 cdef class DataSet:
     """

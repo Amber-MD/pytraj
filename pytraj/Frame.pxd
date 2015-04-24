@@ -1,13 +1,13 @@
 # distutils: language = c++
-from __future__ import absolute_import
+#from __future__ import absolute_import
 from libcpp.vector cimport vector
 from libcpp.string cimport string
-from .core.Atom cimport _Atom, Atom
-from .core.Box cimport _Box, Box, BoxType
-from .core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 from .math.Vec3 cimport _Vec3, Vec3
 from .math.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
+from .core.Atom cimport _Atom, Atom
+from .core.Box cimport _Box, Box, BoxType
 from .Topology cimport _Topology, Topology
+from .core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 from .AtomMask cimport _AtomMask, AtomMask
 
 ctypedef vector[float] CRDtype
@@ -49,7 +49,8 @@ cdef extern from "Frame.h" nogil:
         const double * CRD(int idx) const 
         const double * VXYZ(int atnum) const 
         double Mass(int atnum) const 
-        const _Box& BoxCrd() const 
+        #const _Box& BoxCrd() const 
+        _Box& BoxCrd() const 
         inline double * xAddress() 
         inline double * vAddress() 
         inline double * bAddress() 
@@ -69,7 +70,7 @@ cdef extern from "Frame.h" nogil:
         int SetupFrame(int)
         int SetupFrameM(const vector[_Atom]&)
         int SetupFrameXM(const vector[double]&, const vector[double]&)
-        int SetupFrameV(const vector[_Atom]&, const _CoordinateInfo&)
+        int SetupFrameV(const vector[_Atom]&, _CoordinateInfo&)
         int SetupFrameFromMask(const _AtomMask&, const vector[_Atom]&)
         void SetCoordinates(const _Frame&, const _AtomMask&)
         void SetCoordinates(const _Frame&)

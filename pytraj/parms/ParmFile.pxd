@@ -1,7 +1,6 @@
 # distutils: language = c++
 from libcpp.string cimport string
 from pytraj.parms.ParmIO cimport _ParmIO, ParmIO
-from pytraj.FileTypes cimport _FileTypes, FileTypes
 from pytraj.FileName cimport _FileName, FileName
 from pytraj.Topology cimport _Topology, Topology
 from pytraj.ArgList cimport _ArgList, ArgList

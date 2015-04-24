@@ -1,6 +1,6 @@
 # distutils: language = c++
-from pytraj.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
-from pytraj.Vec3 cimport _Vec3, Vec3
+from pytraj.math.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
+from pytraj.math.Vec3 cimport _Vec3, Vec3
 from pytraj.cpp_vector cimport vector
 
 

@@ -1,26 +1,27 @@
 #print print  distutils: language = c++
+from __future__ import absolute_import
 cimport cython
 from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
-from pytraj.Topology cimport Topology
-from pytraj.AtomMask cimport AtomMask
-from pytraj._utils cimport get_positive_idx
-from pytraj.TrajinList cimport TrajinList
-from pytraj.Frame cimport Frame
-from pytraj.trajs.Trajin cimport Trajin
+from .Topology cimport Topology
+from .AtomMask cimport AtomMask
+from ._utils cimport get_positive_idx
+from .TrajinList cimport TrajinList
+from .Frame cimport Frame
+from .trajs.Trajin cimport Trajin
 
 # python level
-from pytraj.externals.six import string_types
-from pytraj.TrajReadOnly import TrajReadOnly
-from pytraj.utils.check_and_assert import _import_numpy, is_int, is_frame_iter
-from pytraj.utils.check_and_assert import file_exist, is_mdtraj
-from pytraj.utils.check_and_assert import is_word_in_class_name
-from pytraj.trajs.Trajout import Trajout
-from pytraj._shared_methods import _savetraj, _get_temperature_set
-from pytraj._shared_methods import _xyz, _tolist
-from pytraj._shared_methods import my_str_method
-from pytraj._shared_methods import _frame_iter
+from .externals.six import string_types
+from .TrajReadOnly import TrajReadOnly
+from .utils.check_and_assert import _import_numpy, is_int, is_frame_iter
+from .utils.check_and_assert import file_exist, is_mdtraj
+from .utils.check_and_assert import is_word_in_class_name
+from .trajs.Trajout import Trajout
+from ._shared_methods import _savetraj, _get_temperature_set
+from ._shared_methods import _xyz, _tolist
+from ._shared_methods import my_str_method
+from ._shared_methods import _frame_iter
 
 import pytraj.common_actions as pyca
 from pytraj.hbonds import search_hbonds

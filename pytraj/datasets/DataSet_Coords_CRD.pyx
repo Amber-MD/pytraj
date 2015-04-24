@@ -1,8 +1,8 @@
 # distutils: language = c++
 
-from pytraj.Trajin_Single cimport Trajin_Single
-from pytraj.Topology cimport Topology
-from pytraj.externals.six import string_types
+from ..trajs.Trajin_Single cimport Trajin_Single
+from ..Topology cimport Topology
+from ..externals.six import string_types
 
 
 cdef class DataSet_Coords_CRD (DataSet_Coords):

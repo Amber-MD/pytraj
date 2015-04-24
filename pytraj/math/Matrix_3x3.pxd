@@ -1,5 +1,6 @@
 # distutils: language = c++
-from pytraj.Vec3 cimport *
+# don't know why getting import error if not include "pytraj.math"
+from pytraj.math.Vec3 cimport _Vec3, Vec3
 
 
 cdef extern from "Matrix_3x3.h": 

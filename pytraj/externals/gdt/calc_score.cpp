@@ -237,8 +237,8 @@ class __Pyx_FakeReference {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__pytraj__gdt__calc_score
-#define __PYX_HAVE_API__pytraj__gdt__calc_score
+#define __PYX_HAVE__pytraj__externals__gdt__calc_score
+#define __PYX_HAVE_API__pytraj__externals__gdt__calc_score
 #include "string.h"
 #include "stdio.h"
 #include "./src/gdt_.h"
@@ -440,7 +440,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pytraj/gdt/calc_score.pyx",
+  "pytraj/externals/gdt/calc_score.pyx",
   "array.pxd",
   "stringsource",
   "type.pxd",
@@ -544,7 +544,7 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
  * cdef extern from "./src/gdt_.h":
  *     sshort * _gdt "gdtCPUOneReference"(double *reference, double *arr,  int conformers, int protlen,int score)
  */
-typedef signed short __pyx_t_6pytraj_3gdt_3gdt_sshort;
+typedef signed short __pyx_t_6pytraj_9externals_3gdt_3gdt_sshort;
 
 /*--- Type declarations ---*/
 #ifndef _ARRAYARRAY_H
@@ -1188,10 +1188,10 @@ static PyTypeObject *__pyx_ptype_7cpython_4type_type = 0;
 static PyTypeObject *__pyx_ptype_7cpython_5array_array = 0;
 static CYTHON_INLINE int __pyx_f_7cpython_5array_extend_buffer(arrayobject *, char *, Py_ssize_t); /*proto*/
 
-/* Module declarations from 'pytraj.gdt.gdt' */
-static __Pyx_memviewslice (*__pyx_f_6pytraj_3gdt_3gdt_gdt)(__Pyx_memviewslice, __Pyx_memviewslice, int, int, int); /*proto*/
+/* Module declarations from 'pytraj.externals.gdt.gdt' */
+static __Pyx_memviewslice (*__pyx_f_6pytraj_9externals_3gdt_3gdt_gdt)(__Pyx_memviewslice, __Pyx_memviewslice, int, int, int); /*proto*/
 
-/* Module declarations from 'pytraj.gdt.calc_score' */
+/* Module declarations from 'pytraj.externals.gdt.calc_score' */
 static PyTypeObject *__pyx_array_type = 0;
 static PyTypeObject *__pyx_MemviewEnum_type = 0;
 static PyTypeObject *__pyx_memoryview_type = 0;
@@ -1234,10 +1234,10 @@ static void __pyx_memoryview_refcount_objects_in_slice(char *, Py_ssize_t *, Py_
 static void __pyx_memoryview_slice_assign_scalar(__Pyx_memviewslice *, int, size_t, void *, int); /*proto*/
 static void __pyx_memoryview__slice_assign_scalar(char *, Py_ssize_t *, Py_ssize_t *, int, size_t, void *); /*proto*/
 static __Pyx_TypeInfo __Pyx_TypeInfo_double = { "double", NULL, sizeof(double), { 0 }, 0, 'R', 0, 0 };
-#define __Pyx_MODULE_NAME "pytraj.gdt.calc_score"
-int __pyx_module_is_main_pytraj__gdt__calc_score = 0;
+#define __Pyx_MODULE_NAME "pytraj.externals.gdt.calc_score"
+int __pyx_module_is_main_pytraj__externals__gdt__calc_score = 0;
 
-/* Implementation of 'pytraj.gdt.calc_score' */
+/* Implementation of 'pytraj.externals.gdt.calc_score' */
 static PyObject *__pyx_builtin_MemoryError;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_enumerate;
@@ -1246,7 +1246,7 @@ static PyObject *__pyx_builtin_Ellipsis;
 static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_id;
 static PyObject *__pyx_builtin_IndexError;
-static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_frame0, PyObject *__pyx_v_frame1, PyObject *__pyx_v_mask, PyObject *__pyx_v_top, PyObject *__pyx_v_score, CYTHON_UNUSED PyObject *__pyx_v_args, CYTHON_UNUSED PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_9externals_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_frame0, PyObject *__pyx_v_frame1, PyObject *__pyx_v_mask, PyObject *__pyx_v_top, PyObject *__pyx_v_score, CYTHON_UNUSED PyObject *__pyx_v_args, CYTHON_UNUSED PyObject *__pyx_v_kwd); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
 static void __pyx_pf_7cpython_5array_5array_2__releasebuffer__(CYTHON_UNUSED arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
@@ -1344,7 +1344,6 @@ static char __pyx_k_dtype_is_object[] = "dtype_is_object";
 static char __pyx_k_strided_and_direct[] = "<strided and direct>";
 static char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
 static char __pyx_k_contiguous_and_direct[] = "<contiguous and direct>";
-static char __pyx_k_pytraj_gdt_calc_score[] = "pytraj.gdt.calc_score";
 static char __pyx_k_MemoryView_of_r_object[] = "<MemoryView of %r object>";
 static char __pyx_k_MemoryView_of_r_at_0x_x[] = "<MemoryView of %r at 0x%x>";
 static char __pyx_k_contiguous_and_indirect[] = "<contiguous and indirect>";
@@ -1357,7 +1356,8 @@ static char __pyx_k_Step_may_not_be_zero_axis_d[] = "Step may not be zero (axis 
 static char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cython.array";
 static char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
-static char __pyx_k_u1_haichit_amber_git_amber_Ambe[] = "/u1/haichit/amber_git/amber/AmberTools/src/pytraj/pytraj/gdt/calc_score.pyx";
+static char __pyx_k_pytraj_externals_gdt_calc_score[] = "pytraj.externals.gdt.calc_score";
+static char __pyx_k_u1_haichit_amber_git_amber_Ambe[] = "/u1/haichit/amber_git/amber/AmberTools/src/pytraj/pytraj/externals/gdt/calc_score.pyx";
 static char __pyx_k_All_dimensions_preceding_dimensi[] = "All dimensions preceding dimension %d must be indexed and not sliced";
 static char __pyx_k_Buffer_view_does_not_expose_stri[] = "Buffer view does not expose strides";
 static char __pyx_k_Can_only_create_a_buffer_that_is[] = "Can only create a buffer that is contiguous in memory.";
@@ -1427,7 +1427,7 @@ static PyObject *__pyx_n_s_name_2;
 static PyObject *__pyx_n_s_ndim;
 static PyObject *__pyx_n_s_obj;
 static PyObject *__pyx_n_s_pack;
-static PyObject *__pyx_n_s_pytraj_gdt_calc_score;
+static PyObject *__pyx_n_s_pytraj_externals_gdt_calc_score;
 static PyObject *__pyx_n_s_pyx_getbuffer;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
@@ -1472,7 +1472,7 @@ static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_tuple__20;
 static PyObject *__pyx_codeobj__15;
 
-/* "pytraj/gdt/calc_score.pyx":4
+/* "pytraj/externals/gdt/calc_score.pyx":4
  * from .gdt cimport gdt
  * 
  * def calc_score(frame0=None, frame1=None, mask="*",             # <<<<<<<<<<<<<<
@@ -1481,10 +1481,10 @@ static PyObject *__pyx_codeobj__15;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_3gdt_10calc_score_1calc_score(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_3gdt_10calc_score_calc_score[] = "calc_score(frame0=None, frame1=None, mask='*', top=None, score='gdtscore', *args, **kwd)\nreturn `gdtscore` or `tmscore` or `maxsub`\n\n    Parameters\n    ---------\n    frame0 : Frame object\n    farme1 : Frame object\n    mask : str, atom mask\n    top : Topology object\n    score : str\n        `gdtscore` or `tmscore` or `maxsub`\n    ";
-static PyMethodDef __pyx_mdef_6pytraj_3gdt_10calc_score_1calc_score = {"calc_score", (PyCFunction)__pyx_pw_6pytraj_3gdt_10calc_score_1calc_score, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_3gdt_10calc_score_calc_score};
-static PyObject *__pyx_pw_6pytraj_3gdt_10calc_score_1calc_score(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_9externals_3gdt_10calc_score_1calc_score(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_9externals_3gdt_10calc_score_calc_score[] = "calc_score(frame0=None, frame1=None, mask='*', top=None, score='gdtscore', *args, **kwd)\nreturn `gdtscore` or `tmscore` or `maxsub`\n\n    Parameters\n    ---------\n    frame0 : Frame object\n    farme1 : Frame object\n    mask : str, atom mask\n    top : Topology object\n    score : str\n        `gdtscore` or `tmscore` or `maxsub`\n    ";
+static PyMethodDef __pyx_mdef_6pytraj_9externals_3gdt_10calc_score_1calc_score = {"calc_score", (PyCFunction)__pyx_pw_6pytraj_9externals_3gdt_10calc_score_1calc_score, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_9externals_3gdt_10calc_score_calc_score};
+static PyObject *__pyx_pw_6pytraj_9externals_3gdt_10calc_score_1calc_score(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_frame0 = 0;
   PyObject *__pyx_v_frame1 = 0;
   PyObject *__pyx_v_mask = 0;
@@ -1518,7 +1518,7 @@ static PyObject *__pyx_pw_6pytraj_3gdt_10calc_score_1calc_score(PyObject *__pyx_
     values[1] = ((PyObject *)Py_None);
     values[2] = ((PyObject *)__pyx_kp_s_);
 
-    /* "pytraj/gdt/calc_score.pyx":5
+    /* "pytraj/externals/gdt/calc_score.pyx":5
  * 
  * def calc_score(frame0=None, frame1=None, mask="*",
  *                top=None, score="gdtscore", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -1592,13 +1592,13 @@ static PyObject *__pyx_pw_6pytraj_3gdt_10calc_score_1calc_score(PyObject *__pyx_
   __pyx_L3_error:;
   __Pyx_DECREF(__pyx_v_args); __pyx_v_args = 0;
   __Pyx_DECREF(__pyx_v_kwd); __pyx_v_kwd = 0;
-  __Pyx_AddTraceback("pytraj.gdt.calc_score.calc_score", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.externals.gdt.calc_score.calc_score", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_3gdt_10calc_score_calc_score(__pyx_self, __pyx_v_frame0, __pyx_v_frame1, __pyx_v_mask, __pyx_v_top, __pyx_v_score, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_9externals_3gdt_10calc_score_calc_score(__pyx_self, __pyx_v_frame0, __pyx_v_frame1, __pyx_v_mask, __pyx_v_top, __pyx_v_score, __pyx_v_args, __pyx_v_kwd);
 
-  /* "pytraj/gdt/calc_score.pyx":4
+  /* "pytraj/externals/gdt/calc_score.pyx":4
  * from .gdt cimport gdt
  * 
  * def calc_score(frame0=None, frame1=None, mask="*",             # <<<<<<<<<<<<<<
@@ -1613,7 +1613,7 @@ static PyObject *__pyx_pw_6pytraj_3gdt_10calc_score_1calc_score(PyObject *__pyx_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_frame0, PyObject *__pyx_v_frame1, PyObject *__pyx_v_mask, PyObject *__pyx_v_top, PyObject *__pyx_v_score, CYTHON_UNUSED PyObject *__pyx_v_args, CYTHON_UNUSED PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_9externals_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_frame0, PyObject *__pyx_v_frame1, PyObject *__pyx_v_mask, PyObject *__pyx_v_top, PyObject *__pyx_v_score, CYTHON_UNUSED PyObject *__pyx_v_args, CYTHON_UNUSED PyObject *__pyx_v_kwd) {
   long __pyx_v__score;
   PyObject *__pyx_v_atm = NULL;
   PyObject *__pyx_v_arr0 = NULL;
@@ -1634,7 +1634,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_score", 0);
 
-  /* "pytraj/gdt/calc_score.pyx":17
+  /* "pytraj/externals/gdt/calc_score.pyx":17
  *         `gdtscore` or `tmscore` or `maxsub`
  *     """
  *     if score == 'gdtscore':             # <<<<<<<<<<<<<<
@@ -1644,7 +1644,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_score, __pyx_n_s_gdtscore, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
-    /* "pytraj/gdt/calc_score.pyx":18
+    /* "pytraj/externals/gdt/calc_score.pyx":18
  *     """
  *     if score == 'gdtscore':
  *         _score = 1             # <<<<<<<<<<<<<<
@@ -1653,7 +1653,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
  */
     __pyx_v__score = 1;
 
-    /* "pytraj/gdt/calc_score.pyx":17
+    /* "pytraj/externals/gdt/calc_score.pyx":17
  *         `gdtscore` or `tmscore` or `maxsub`
  *     """
  *     if score == 'gdtscore':             # <<<<<<<<<<<<<<
@@ -1663,7 +1663,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
     goto __pyx_L3;
   }
 
-  /* "pytraj/gdt/calc_score.pyx":19
+  /* "pytraj/externals/gdt/calc_score.pyx":19
  *     if score == 'gdtscore':
  *         _score = 1
  *     elif score == 'tmscore':             # <<<<<<<<<<<<<<
@@ -1673,7 +1673,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_score, __pyx_n_s_tmscore, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
-    /* "pytraj/gdt/calc_score.pyx":20
+    /* "pytraj/externals/gdt/calc_score.pyx":20
  *         _score = 1
  *     elif score == 'tmscore':
  *         _score = 2             # <<<<<<<<<<<<<<
@@ -1682,7 +1682,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
  */
     __pyx_v__score = 2;
 
-    /* "pytraj/gdt/calc_score.pyx":19
+    /* "pytraj/externals/gdt/calc_score.pyx":19
  *     if score == 'gdtscore':
  *         _score = 1
  *     elif score == 'tmscore':             # <<<<<<<<<<<<<<
@@ -1692,7 +1692,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
     goto __pyx_L3;
   }
 
-  /* "pytraj/gdt/calc_score.pyx":21
+  /* "pytraj/externals/gdt/calc_score.pyx":21
  *     elif score == 'tmscore':
  *         _score = 2
  *     elif score == 'maxsub':             # <<<<<<<<<<<<<<
@@ -1702,7 +1702,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_score, __pyx_n_s_maxsub, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
-    /* "pytraj/gdt/calc_score.pyx":22
+    /* "pytraj/externals/gdt/calc_score.pyx":22
  *         _score = 2
  *     elif score == 'maxsub':
  *         _score = 3             # <<<<<<<<<<<<<<
@@ -1711,7 +1711,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
  */
     __pyx_v__score = 3;
 
-    /* "pytraj/gdt/calc_score.pyx":21
+    /* "pytraj/externals/gdt/calc_score.pyx":21
  *     elif score == 'tmscore':
  *         _score = 2
  *     elif score == 'maxsub':             # <<<<<<<<<<<<<<
@@ -1721,7 +1721,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   }
   __pyx_L3:;
 
-  /* "pytraj/gdt/calc_score.pyx":24
+  /* "pytraj/externals/gdt/calc_score.pyx":24
  *         _score = 3
  * 
  *     atm = top(mask)             # <<<<<<<<<<<<<<
@@ -1757,7 +1757,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   __pyx_v_atm = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pytraj/gdt/calc_score.pyx":25
+  /* "pytraj/externals/gdt/calc_score.pyx":25
  * 
  *     atm = top(mask)
  *     arr0 = frame0.get_subframe(atm).coords             # <<<<<<<<<<<<<<
@@ -1797,7 +1797,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   __pyx_v_arr0 = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pytraj/gdt/calc_score.pyx":26
+  /* "pytraj/externals/gdt/calc_score.pyx":26
  *     atm = top(mask)
  *     arr0 = frame0.get_subframe(atm).coords
  *     arr1 = frame1.get_subframe(atm).coords             # <<<<<<<<<<<<<<
@@ -1837,7 +1837,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   __pyx_v_arr1 = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pytraj/gdt/calc_score.pyx":28
+  /* "pytraj/externals/gdt/calc_score.pyx":28
  *     arr1 = frame1.get_subframe(atm).coords
  * 
  *     return gdt(arr0, arr1, 1, len(arr0)/3, _score)[0]/1000.             # <<<<<<<<<<<<<<
@@ -1848,18 +1848,18 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_arr1);
   if (unlikely(!__pyx_t_7.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_8 = PyObject_Length(__pyx_v_arr0); if (unlikely(__pyx_t_8 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_9 = __pyx_f_6pytraj_3gdt_3gdt_gdt(__pyx_t_6, __pyx_t_7, 1, __Pyx_div_Py_ssize_t(__pyx_t_8, 3), __pyx_v__score); if (unlikely(!__pyx_t_9.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_9 = __pyx_f_6pytraj_9externals_3gdt_3gdt_gdt(__pyx_t_6, __pyx_t_7, 1, __Pyx_div_Py_ssize_t(__pyx_t_8, 3), __pyx_v__score); if (unlikely(!__pyx_t_9.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_t_7, 1);
   __pyx_t_8 = 0;
-  __pyx_t_2 = PyFloat_FromDouble(((*((__pyx_t_6pytraj_3gdt_3gdt_sshort *) ( /* dim=0 */ (__pyx_t_9.data + __pyx_t_8 * __pyx_t_9.strides[0]) ))) / 1000.)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyFloat_FromDouble(((*((__pyx_t_6pytraj_9externals_3gdt_3gdt_sshort *) ( /* dim=0 */ (__pyx_t_9.data + __pyx_t_8 * __pyx_t_9.strides[0]) ))) / 1000.)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/gdt/calc_score.pyx":4
+  /* "pytraj/externals/gdt/calc_score.pyx":4
  * from .gdt cimport gdt
  * 
  * def calc_score(frame0=None, frame1=None, mask="*",             # <<<<<<<<<<<<<<
@@ -1876,7 +1876,7 @@ static PyObject *__pyx_pf_6pytraj_3gdt_10calc_score_calc_score(CYTHON_UNUSED PyO
   __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_t_7, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
-  __Pyx_AddTraceback("pytraj.gdt.calc_score.calc_score", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.externals.gdt.calc_score.calc_score", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_atm);
@@ -14192,7 +14192,7 @@ static PyBufferProcs __pyx_tp_as_buffer_array = {
 
 static PyTypeObject __pyx_type___pyx_array = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.gdt.calc_score.array", /*tp_name*/
+  "pytraj.externals.gdt.calc_score.array", /*tp_name*/
   sizeof(struct __pyx_array_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_array, /*tp_dealloc*/
@@ -14297,7 +14297,7 @@ static PyMethodDef __pyx_methods_Enum[] = {
 
 static PyTypeObject __pyx_type___pyx_MemviewEnum = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.gdt.calc_score.Enum", /*tp_name*/
+  "pytraj.externals.gdt.calc_score.Enum", /*tp_name*/
   sizeof(struct __pyx_MemviewEnum_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_Enum, /*tp_dealloc*/
@@ -14543,7 +14543,7 @@ static PyBufferProcs __pyx_tp_as_buffer_memoryview = {
 
 static PyTypeObject __pyx_type___pyx_memoryview = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.gdt.calc_score.memoryview", /*tp_name*/
+  "pytraj.externals.gdt.calc_score.memoryview", /*tp_name*/
   sizeof(struct __pyx_memoryview_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_memoryview, /*tp_dealloc*/
@@ -14667,7 +14667,7 @@ static struct PyGetSetDef __pyx_getsets__memoryviewslice[] = {
 
 static PyTypeObject __pyx_type___pyx_memoryviewslice = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.gdt.calc_score._memoryviewslice", /*tp_name*/
+  "pytraj.externals.gdt.calc_score._memoryviewslice", /*tp_name*/
   sizeof(struct __pyx_memoryviewslice_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc__memoryviewslice, /*tp_dealloc*/
@@ -14811,7 +14811,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ndim, __pyx_k_ndim, sizeof(__pyx_k_ndim), 0, 0, 1, 1},
   {&__pyx_n_s_obj, __pyx_k_obj, sizeof(__pyx_k_obj), 0, 0, 1, 1},
   {&__pyx_n_s_pack, __pyx_k_pack, sizeof(__pyx_k_pack), 0, 0, 1, 1},
-  {&__pyx_n_s_pytraj_gdt_calc_score, __pyx_k_pytraj_gdt_calc_score, sizeof(__pyx_k_pytraj_gdt_calc_score), 0, 0, 1, 1},
+  {&__pyx_n_s_pytraj_externals_gdt_calc_score, __pyx_k_pytraj_externals_gdt_calc_score, sizeof(__pyx_k_pytraj_externals_gdt_calc_score), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
@@ -14988,7 +14988,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
 
-  /* "pytraj/gdt/calc_score.pyx":4
+  /* "pytraj/externals/gdt/calc_score.pyx":4
  * from .gdt cimport gdt
  * 
  * def calc_score(frame0=None, frame1=None, mask="*",             # <<<<<<<<<<<<<<
@@ -15133,14 +15133,14 @@ PyMODINIT_FUNC PyInit_calc_score(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_pytraj__gdt__calc_score) {
+  if (__pyx_module_is_main_pytraj__externals__gdt__calc_score) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "pytraj.gdt.calc_score")) {
-      if (unlikely(PyDict_SetItemString(modules, "pytraj.gdt.calc_score", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "pytraj.externals.gdt.calc_score")) {
+      if (unlikely(PyDict_SetItemString(modules, "pytraj.externals.gdt.calc_score", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -15195,24 +15195,24 @@ PyMODINIT_FUNC PyInit_calc_score(void)
   __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
-  __pyx_t_1 = __Pyx_ImportModule("pytraj.gdt.gdt"); if (!__pyx_t_1) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (__Pyx_ImportFunction(__pyx_t_1, "gdt", (void (**)(void))&__pyx_f_6pytraj_3gdt_3gdt_gdt, "__Pyx_memviewslice (__Pyx_memviewslice, __Pyx_memviewslice, int, int, int)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_ImportModule("pytraj.externals.gdt.gdt"); if (!__pyx_t_1) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_ImportFunction(__pyx_t_1, "gdt", (void (**)(void))&__pyx_f_6pytraj_9externals_3gdt_3gdt_gdt, "__Pyx_memviewslice (__Pyx_memviewslice, __Pyx_memviewslice, int, int, int)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   /*--- Execution code ---*/
 
-  /* "pytraj/gdt/calc_score.pyx":4
+  /* "pytraj/externals/gdt/calc_score.pyx":4
  * from .gdt cimport gdt
  * 
  * def calc_score(frame0=None, frame1=None, mask="*",             # <<<<<<<<<<<<<<
  *                top=None, score="gdtscore", *args, **kwd):
  *     """return `gdtscore` or `tmscore` or `maxsub`
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pytraj_3gdt_10calc_score_1calc_score, NULL, __pyx_n_s_pytraj_gdt_calc_score); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pytraj_9externals_3gdt_10calc_score_1calc_score, NULL, __pyx_n_s_pytraj_externals_gdt_calc_score); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_calc_score, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pytraj/gdt/calc_score.pyx":1
+  /* "pytraj/externals/gdt/calc_score.pyx":1
  * from __future__ import absolute_import             # <<<<<<<<<<<<<<
  * from .gdt cimport gdt
  * 
@@ -15347,11 +15347,11 @@ PyMODINIT_FUNC PyInit_calc_score(void)
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pytraj.gdt.calc_score", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pytraj.externals.gdt.calc_score", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pytraj.gdt.calc_score");
+    PyErr_SetString(PyExc_ImportError, "init pytraj.externals.gdt.calc_score");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

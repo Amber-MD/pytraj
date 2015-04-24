@@ -3,7 +3,8 @@ We need to sub-class Trajin_Single to use FrameArray
 (we called Trajin_Single from FrameArray, so we can not call FrameArray back from 
 Trajin_Single)
 """
-from pytraj.Trajin_Single import Trajin_Single
+from __future__ import absolute_import
+from pytraj.trajs.Trajin_Single import Trajin_Single
 from pytraj._action_in_traj import ActionInTraj
 
 class TrajReadOnly(Trajin_Single, ActionInTraj):

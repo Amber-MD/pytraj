@@ -5,7 +5,7 @@ from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarrary
 from cpython cimport array
 from pytraj.decorators import deprecated
-from pytraj._utils import set_world_silent
+from pytraj._set_silent import set_world_silent
 
 # FIXME : property does not work properly
 

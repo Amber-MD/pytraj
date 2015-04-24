@@ -245,12 +245,10 @@ class __Pyx_FakeReference {
 #include "new"
 #include "stdexcept"
 #include "typeinfo"
-#include "Dimension.h"
 #include "DataSet.h"
 #include "sys/types.h"
 #include "unistd.h"
 #include "FileName.h"
-#include "FileIO.h"
 #include "CpptrajFile.h"
 #include "DataSet_2D.h"
 #include "stdio.h"
@@ -451,7 +449,6 @@ static const char *__pyx_filename;
 static const char *__pyx_f[] = {
   "pytraj/datasets/DataSet_2D.pyx",
   "array.pxd",
-  "pytraj/Dimension.pxd",
   "pytraj/FileName.pxd",
   "pytraj/CpptrajFile.pxd",
   "type.pxd",
@@ -462,25 +459,12 @@ static const char *__pyx_f[] = {
 struct arrayobject;
 typedef struct arrayobject arrayobject;
 #endif
-struct __pyx_obj_6pytraj_9Dimension_Dimension;
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet;
 struct __pyx_obj_6pytraj_8FileName_FileName;
 struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile;
 struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D;
 
-/* "pytraj/Dimension.pxd":32
- *         void PrintDim()
- * 
- * cdef class Dimension:             # <<<<<<<<<<<<<<
- *     cdef _Dimension* thisptr
- */
-struct __pyx_obj_6pytraj_9Dimension_Dimension {
-  PyObject_HEAD
-  Dimension *thisptr;
-};
-
-
-/* "pytraj/datasets/DataSet.pxd":51
+/* "DataSet.pxd":46
  *         #void Add( size_t, const void*  )
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
@@ -492,7 +476,7 @@ struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
 };
 
 
-/* "pytraj/FileName.pxd":23
+/* "FileName.pxd":23
  *         bint empty()
  * 
  * cdef class FileName:             # <<<<<<<<<<<<<<
@@ -504,7 +488,7 @@ struct __pyx_obj_6pytraj_8FileName_FileName {
 };
 
 
-/* "pytraj/CpptrajFile.pxd":51
+/* "CpptrajFile.pxd":51
  *         #off_t Tell()
  * 
  * cdef class CpptrajFile:             # <<<<<<<<<<<<<<
@@ -516,7 +500,7 @@ struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile {
 };
 
 
-/* "pytraj/datasets/DataSet_2D.pxd":31
+/* "pytraj/datasets/DataSet_2D.pxd":32
  *         const char * MatrixOutputString(MatrixType m)
  * 
  * cdef class DataSet_2D (DataSet):             # <<<<<<<<<<<<<<
@@ -796,9 +780,6 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libcpp.string' */
 
-/* Module declarations from 'pytraj.Dimension' */
-static PyTypeObject *__pyx_ptype_6pytraj_9Dimension_Dimension = 0;
-
 /* Module declarations from 'pytraj.datasets.DataSet' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = 0;
 
@@ -808,8 +789,6 @@ static PyTypeObject *__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = 0;
 
 /* Module declarations from 'pytraj.FileName' */
 static PyTypeObject *__pyx_ptype_6pytraj_8FileName_FileName = 0;
-
-/* Module declarations from 'pytraj.FileIO' */
 
 /* Module declarations from 'pytraj.CpptrajFile' */
 static PyTypeObject *__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = 0;
@@ -871,14 +850,15 @@ static char __pyx_k_get_key[] = "get_key";
 static char __pyx_k_property[] = "property";
 static char __pyx_k_MatrixDict[] = "MatrixDict";
 static char __pyx_k_MemoryError[] = "MemoryError";
+static char __pyx_k_cpptraj_dict[] = "cpptraj_dict";
 static char __pyx_k_MatrixKindDict[] = "MatrixKindDict";
 static char __pyx_k_NotImplementedError[] = "NotImplementedError";
-static char __pyx_k_pytraj_cpptraj_dict[] = "pytraj.cpptraj_dict";
 static char __pyx_k_must_over_write_in_subclass[] = "must over-write in subclass";
 static PyObject *__pyx_n_s_MatrixDict;
 static PyObject *__pyx_n_s_MatrixKindDict;
 static PyObject *__pyx_n_s_MemoryError;
 static PyObject *__pyx_n_s_NotImplementedError;
+static PyObject *__pyx_n_s_cpptraj_dict;
 static PyObject *__pyx_n_s_get_key;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_main;
@@ -887,7 +867,6 @@ static PyObject *__pyx_kp_s_must_over_write_in_subclass;
 static PyObject *__pyx_n_s_n_cols;
 static PyObject *__pyx_n_s_n_rows;
 static PyObject *__pyx_n_s_property;
-static PyObject *__pyx_n_s_pytraj_cpptraj_dict;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_x;
 static PyObject *__pyx_n_s_y;
@@ -2374,6 +2353,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_MatrixKindDict, __pyx_k_MatrixKindDict, sizeof(__pyx_k_MatrixKindDict), 0, 0, 1, 1},
   {&__pyx_n_s_MemoryError, __pyx_k_MemoryError, sizeof(__pyx_k_MemoryError), 0, 0, 1, 1},
   {&__pyx_n_s_NotImplementedError, __pyx_k_NotImplementedError, sizeof(__pyx_k_NotImplementedError), 0, 0, 1, 1},
+  {&__pyx_n_s_cpptraj_dict, __pyx_k_cpptraj_dict, sizeof(__pyx_k_cpptraj_dict), 0, 0, 1, 1},
   {&__pyx_n_s_get_key, __pyx_k_get_key, sizeof(__pyx_k_get_key), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -2382,7 +2362,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_n_cols, __pyx_k_n_cols, sizeof(__pyx_k_n_cols), 0, 0, 1, 1},
   {&__pyx_n_s_n_rows, __pyx_k_n_rows, sizeof(__pyx_k_n_rows), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
-  {&__pyx_n_s_pytraj_cpptraj_dict, __pyx_k_pytraj_cpptraj_dict, sizeof(__pyx_k_pytraj_cpptraj_dict), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_x, __pyx_k_x, sizeof(__pyx_k_x), 0, 0, 1, 1},
   {&__pyx_n_s_y, __pyx_k_y, sizeof(__pyx_k_y), 0, 0, 1, 1},
@@ -2511,16 +2490,15 @@ PyMODINIT_FUNC PyInit_DataSet_2D(void)
   if (PyObject_SetAttrString(__pyx_m, "DataSet_2D", (PyObject *)&__pyx_type_6pytraj_8datasets_10DataSet_2D_DataSet_2D) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D = &__pyx_type_6pytraj_8datasets_10DataSet_2D_DataSet_2D;
   /*--- Type import code ---*/
-  __pyx_ptype_6pytraj_9Dimension_Dimension = __Pyx_ImportType("pytraj.Dimension", "Dimension", sizeof(struct __pyx_obj_6pytraj_9Dimension_Dimension), 1); if (unlikely(!__pyx_ptype_6pytraj_9Dimension_Dimension)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 
   #if CYTHON_COMPILING_IN_PYPY
   sizeof(PyTypeObject),
   #else
   sizeof(PyHeapTypeObject),
   #endif
-  0); if (unlikely(!__pyx_ptype_7cpython_4type_type)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  0); if (unlikely(!__pyx_ptype_7cpython_4type_type)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
@@ -2529,7 +2507,7 @@ PyMODINIT_FUNC PyInit_DataSet_2D(void)
   /* "pytraj/datasets/DataSet_2D.pyx":3
  * # distutils: language = c++
  * from cpython.array cimport array as pyarray
- * from pytraj.cpptraj_dict import MatrixDict, MatrixKindDict, get_key             # <<<<<<<<<<<<<<
+ * from ..cpptraj_dict import MatrixDict, MatrixKindDict, get_key             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -2544,7 +2522,7 @@ PyMODINIT_FUNC PyInit_DataSet_2D(void)
   __Pyx_INCREF(__pyx_n_s_get_key);
   PyList_SET_ITEM(__pyx_t_1, 2, __pyx_n_s_get_key);
   __Pyx_GIVEREF(__pyx_n_s_get_key);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj_cpptraj_dict, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_cpptraj_dict, __pyx_t_1, 2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_MatrixDict); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2651,7 +2629,7 @@ PyMODINIT_FUNC PyInit_DataSet_2D(void)
   /* "pytraj/datasets/DataSet_2D.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * from cpython.array cimport array as pyarray
- * from pytraj.cpptraj_dict import MatrixDict, MatrixKindDict, get_key
+ * from ..cpptraj_dict import MatrixDict, MatrixKindDict, get_key
  */
   __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);

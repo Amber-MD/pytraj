@@ -3,18 +3,18 @@ from __future__ import absolute_import
 import os
 cimport cython
 from cpython.array cimport array as pyarray
-from pytraj._utils cimport get_positive_idx
-from pytraj.FrameArray cimport FrameArray
-from pytraj.AtomMask cimport AtomMask
+from .._utils cimport get_positive_idx
+from ..FrameArray cimport FrameArray
+from ..AtomMask cimport AtomMask
 
-from pytraj.utils.check_and_assert import _import_numpy
+from ..utils.check_and_assert import _import_numpy
 from .Trajout import Trajout
-from pytraj._shared_methods import _savetraj, _get_temperature_set
-from pytraj._shared_methods import my_str_method
-from pytraj._shared_methods import _xyz, _tolist
-from pytraj._shared_methods import _frame_iter
-from pytraj.externals.six import string_types
-from pytraj.utils.check_and_assert import is_word_in_class_name
+from .._shared_methods import _savetraj, _get_temperature_set
+from .._shared_methods import my_str_method
+from .._shared_methods import _xyz, _tolist
+from .._shared_methods import _frame_iter
+from ..externals.six import string_types
+from ..utils.check_and_assert import is_word_in_class_name
 
 
 cdef class Trajin (TrajectoryFile):

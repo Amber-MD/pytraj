@@ -1,8 +1,8 @@
 # distutils: language = c++
 from __future__ import absolute_import
 from cython.view cimport array as cyarray
-from .utils import _import_numpy 
-from .exceptions import PytrajError
+from ..utils import _import_numpy 
+from ..exceptions import PytrajError
 
 
 cdef class Grid:

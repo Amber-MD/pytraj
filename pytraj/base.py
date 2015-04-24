@@ -3,12 +3,12 @@ import baseclasses for pytraj
 """
 from __future__ import absolute_import
 # TODO : make this file shorter
-from .core.Atom import Atom
 from .Frame import Frame
+from .core.Atom import Atom
+from .core.AtomMask import AtomMask
 from .FrameArray import FrameArray
 from .Topology import Topology
 from .ArgList import ArgList
-from .core.AtomMask import AtomMask
 from .CpptrajState import CpptrajState
 from .TrajReadOnly import TrajReadOnly
 from .trajs.Trajout import Trajout

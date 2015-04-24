@@ -65,7 +65,7 @@ def calculate(action=None, command=None, traj=None, top=None,
         raise ValueError("must have trajectory object") 
     elif isinstance(traj, string_types):
         try:
-            from pytraj.Trajin_Single import Trajin_Single
+            from pytraj.trajs.Trajin_Single import Trajin_Single
             traj = Trajin_Single(traj, _top)
         except:
             raise ValueError("can not load %s" % traj)

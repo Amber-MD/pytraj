@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
 from libcpp.map cimport map
-from pytraj.datasets.DataSet cimport *
+from .DataSet cimport *
 
 ctypedef map[double, int] TmapType
 cdef extern from "DataSet_RemLog.h": 

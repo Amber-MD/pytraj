@@ -4,7 +4,7 @@ from .Frame import Frame
 from .Topology import Topology
 from ._action_in_traj import ActionInTraj
 from ._shared_methods import _frame_iter, _frame_iter_master
-from .Trajin_Single import Trajin_Single
+from .trajs.Trajin_Single import Trajin_Single
 from  .utils.check_and_assert import is_int, is_frame_iter
 from .externals.six import string_types
 from .AtomMask import AtomMask

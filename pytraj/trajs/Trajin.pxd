@@ -1,13 +1,13 @@
 # distutils: language = c++
 #from pytraj.trajs.TrajectoryFile cimport *
+# don't use aboluste_import here. (would get import error if doing so)
 from libcpp.string cimport string
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj.Frame cimport _Frame, Frame
-from pytraj.Box cimport _Box, Box
+from pytraj.Topology cimport _Topology, Topology
+from pytraj.core.Box cimport _Box, Box
 from pytraj.trajs.TrajectoryIO cimport _TrajectoryIO, TrajectoryIO
 from pytraj.trajs.TrajectoryFile cimport _TrajectoryFile, TrajectoryFile
-from pytraj.Topology cimport _Topology, Topology
-
 
 cdef extern from "Trajin.h": 
     cdef cppclass _Trajin "Trajin" (_TrajectoryFile):

@@ -1,5 +1,5 @@
 # distutil: language = c++
-from pytraj.ArrayIterator cimport *
+#from pytraj.ArrayIterator cimport *
 
 cdef extern from "Matrix.h":
     cdef cppclass _Matrix "Matrix" [T]:

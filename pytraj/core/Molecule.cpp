@@ -237,8 +237,8 @@ class __Pyx_FakeReference {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__pytraj__Molecule
-#define __PYX_HAVE_API__pytraj__Molecule
+#define __PYX_HAVE__pytraj__core__Molecule
+#define __PYX_HAVE_API__pytraj__core__Molecule
 #include "Molecule.h"
 #ifdef _OPENMP
 #include <omp.h>
@@ -435,20 +435,20 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pytraj/Molecule.pyx",
+  "pytraj/core/Molecule.pyx",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_6pytraj_8Molecule_Molecule;
+struct __pyx_obj_6pytraj_4core_8Molecule_Molecule;
 
-/* "pytraj/Molecule.pxd":17
+/* "pytraj/core/Molecule.pxd":17
  *         inline int NumAtoms() const
  * 
  * cdef class Molecule:             # <<<<<<<<<<<<<<
  *     cdef _Molecule* thisptr
  * 
  */
-struct __pyx_obj_6pytraj_8Molecule_Molecule {
+struct __pyx_obj_6pytraj_4core_8Molecule_Molecule {
   PyObject_HEAD
   Molecule *thisptr;
 };
@@ -585,25 +585,25 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'pytraj.Molecule' */
-static PyTypeObject *__pyx_ptype_6pytraj_8Molecule_Molecule = 0;
-#define __Pyx_MODULE_NAME "pytraj.Molecule"
-int __pyx_module_is_main_pytraj__Molecule = 0;
+/* Module declarations from 'pytraj.core.Molecule' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_8Molecule_Molecule = 0;
+#define __Pyx_MODULE_NAME "pytraj.core.Molecule"
+int __pyx_module_is_main_pytraj__core__Molecule = 0;
 
-/* Implementation of 'pytraj.Molecule' */
+/* Implementation of 'pytraj.core.Molecule' */
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_ValueError;
-static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
-static void __pyx_pf_6pytraj_8Molecule_8Molecule_2__dealloc__(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_4set_first(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self, int __pyx_v_begin); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_6set_last(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self, int __pyx_v_last); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_8set_solvent(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_10set_no_solvent(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_12begin_atom(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_14end_atom(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_16is_solvent(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_18n_atoms(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self); /* proto */
-static PyObject *__pyx_tp_new_6pytraj_8Molecule_Molecule(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_6pytraj_4core_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
+static void __pyx_pf_6pytraj_4core_8Molecule_8Molecule_2__dealloc__(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_4set_first(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self, int __pyx_v_begin); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_6set_last(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self, int __pyx_v_last); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_8set_solvent(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_10set_no_solvent(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_12begin_atom(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_14end_atom(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_16is_solvent(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_18n_atoms(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self); /* proto */
+static PyObject *__pyx_tp_new_6pytraj_4core_8Molecule_Molecule(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_n_atoms[] = "n_atoms";
@@ -622,7 +622,7 @@ static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_tuple_;
 
-/* "pytraj/Molecule.pyx":4
+/* "pytraj/core/Molecule.pyx":4
  * 
  * cdef class Molecule:
  *     def __cinit__(self, *args):             # <<<<<<<<<<<<<<
@@ -631,8 +631,8 @@ static PyObject *__pyx_tuple_;
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_8Molecule_8Molecule_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_6pytraj_8Molecule_8Molecule_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6pytraj_4core_8Molecule_8Molecule_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_6pytraj_4core_8Molecule_8Molecule_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_args = 0;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -640,7 +640,7 @@ static int __pyx_pw_6pytraj_8Molecule_8Molecule_1__cinit__(PyObject *__pyx_v_sel
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(((struct __pyx_obj_6pytraj_8Molecule_Molecule *)__pyx_v_self), __pyx_v_args);
+  __pyx_r = __pyx_pf_6pytraj_4core_8Molecule_8Molecule___cinit__(((struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *)__pyx_v_self), __pyx_v_args);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -648,7 +648,7 @@ static int __pyx_pw_6pytraj_8Molecule_8Molecule_1__cinit__(PyObject *__pyx_v_sel
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self, PyObject *__pyx_v_args) {
+static int __pyx_pf_6pytraj_4core_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self, PyObject *__pyx_v_args) {
   int __pyx_v_beginidx;
   int __pyx_v_endidx;
   int __pyx_r;
@@ -665,7 +665,7 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pytraj/Molecule.pyx":6
+  /* "pytraj/core/Molecule.pyx":6
  *     def __cinit__(self, *args):
  *         cdef int beginidx, endidx
  *         if not args:             # <<<<<<<<<<<<<<
@@ -676,7 +676,7 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/Molecule.pyx":7
+    /* "pytraj/core/Molecule.pyx":7
  *         cdef int beginidx, endidx
  *         if not args:
  *             self.thisptr = new _Molecule()             # <<<<<<<<<<<<<<
@@ -685,7 +685,7 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
  */
     __pyx_v_self->thisptr = new Molecule();
 
-    /* "pytraj/Molecule.pyx":6
+    /* "pytraj/core/Molecule.pyx":6
  *     def __cinit__(self, *args):
  *         cdef int beginidx, endidx
  *         if not args:             # <<<<<<<<<<<<<<
@@ -695,7 +695,7 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
     goto __pyx_L3;
   }
 
-  /* "pytraj/Molecule.pyx":8
+  /* "pytraj/core/Molecule.pyx":8
  *         if not args:
  *             self.thisptr = new _Molecule()
  *         elif len(args) == 2:             # <<<<<<<<<<<<<<
@@ -706,7 +706,7 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
   __pyx_t_2 = ((__pyx_t_3 == 2) != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/Molecule.pyx":9
+    /* "pytraj/core/Molecule.pyx":9
  *             self.thisptr = new _Molecule()
  *         elif len(args) == 2:
  *             beginidx, endidx = args             # <<<<<<<<<<<<<<
@@ -744,7 +744,7 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
     __pyx_v_beginidx = __pyx_t_6;
     __pyx_v_endidx = __pyx_t_7;
 
-    /* "pytraj/Molecule.pyx":10
+    /* "pytraj/core/Molecule.pyx":10
  *         elif len(args) == 2:
  *             beginidx, endidx = args
  *             self.thisptr = new _Molecule(beginidx, endidx)             # <<<<<<<<<<<<<<
@@ -753,7 +753,7 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
  */
     __pyx_v_self->thisptr = new Molecule(__pyx_v_beginidx, __pyx_v_endidx);
 
-    /* "pytraj/Molecule.pyx":8
+    /* "pytraj/core/Molecule.pyx":8
  *         if not args:
  *             self.thisptr = new _Molecule()
  *         elif len(args) == 2:             # <<<<<<<<<<<<<<
@@ -763,7 +763,7 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
     goto __pyx_L3;
   }
 
-  /* "pytraj/Molecule.pyx":12
+  /* "pytraj/core/Molecule.pyx":12
  *             self.thisptr = new _Molecule(beginidx, endidx)
  *         else:
  *             raise ValueError("Must have None or 2 integers")             # <<<<<<<<<<<<<<
@@ -779,7 +779,7 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
   }
   __pyx_L3:;
 
-  /* "pytraj/Molecule.pyx":4
+  /* "pytraj/core/Molecule.pyx":4
  * 
  * cdef class Molecule:
  *     def __cinit__(self, *args):             # <<<<<<<<<<<<<<
@@ -793,14 +793,14 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pytraj.Molecule.Molecule.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Molecule.Molecule.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "pytraj/Molecule.pyx":14
+/* "pytraj/core/Molecule.pyx":14
  *             raise ValueError("Must have None or 2 integers")
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -809,21 +809,21 @@ static int __pyx_pf_6pytraj_8Molecule_8Molecule___cinit__(struct __pyx_obj_6pytr
  */
 
 /* Python wrapper */
-static void __pyx_pw_6pytraj_8Molecule_8Molecule_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6pytraj_8Molecule_8Molecule_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_6pytraj_4core_8Molecule_8Molecule_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_6pytraj_4core_8Molecule_8Molecule_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6pytraj_8Molecule_8Molecule_2__dealloc__(((struct __pyx_obj_6pytraj_8Molecule_Molecule *)__pyx_v_self));
+  __pyx_pf_6pytraj_4core_8Molecule_8Molecule_2__dealloc__(((struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_6pytraj_8Molecule_8Molecule_2__dealloc__(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self) {
+static void __pyx_pf_6pytraj_4core_8Molecule_8Molecule_2__dealloc__(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pytraj/Molecule.pyx":15
+  /* "pytraj/core/Molecule.pyx":15
  * 
  *     def __dealloc__(self):
  *         del self.thisptr             # <<<<<<<<<<<<<<
@@ -832,7 +832,7 @@ static void __pyx_pf_6pytraj_8Molecule_8Molecule_2__dealloc__(struct __pyx_obj_6
  */
   delete __pyx_v_self->thisptr;
 
-  /* "pytraj/Molecule.pyx":14
+  /* "pytraj/core/Molecule.pyx":14
  *             raise ValueError("Must have None or 2 integers")
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -844,7 +844,7 @@ static void __pyx_pf_6pytraj_8Molecule_8Molecule_2__dealloc__(struct __pyx_obj_6
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/Molecule.pyx":17
+/* "pytraj/core/Molecule.pyx":17
  *         del self.thisptr
  * 
  *     def set_first(self,int begin):             # <<<<<<<<<<<<<<
@@ -853,9 +853,9 @@ static void __pyx_pf_6pytraj_8Molecule_8Molecule_2__dealloc__(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_5set_first(PyObject *__pyx_v_self, PyObject *__pyx_arg_begin); /*proto*/
-static char __pyx_doc_6pytraj_8Molecule_8Molecule_4set_first[] = "Molecule.set_first(self, int begin)";
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_5set_first(PyObject *__pyx_v_self, PyObject *__pyx_arg_begin) {
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_5set_first(PyObject *__pyx_v_self, PyObject *__pyx_arg_begin); /*proto*/
+static char __pyx_doc_6pytraj_4core_8Molecule_8Molecule_4set_first[] = "Molecule.set_first(self, int begin)";
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_5set_first(PyObject *__pyx_v_self, PyObject *__pyx_arg_begin) {
   int __pyx_v_begin;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -868,23 +868,23 @@ static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_5set_first(PyObject *__pyx
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.Molecule.Molecule.set_first", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Molecule.Molecule.set_first", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Molecule_8Molecule_4set_first(((struct __pyx_obj_6pytraj_8Molecule_Molecule *)__pyx_v_self), ((int)__pyx_v_begin));
+  __pyx_r = __pyx_pf_6pytraj_4core_8Molecule_8Molecule_4set_first(((struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *)__pyx_v_self), ((int)__pyx_v_begin));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_4set_first(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self, int __pyx_v_begin) {
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_4set_first(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self, int __pyx_v_begin) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_first", 0);
 
-  /* "pytraj/Molecule.pyx":18
+  /* "pytraj/core/Molecule.pyx":18
  * 
  *     def set_first(self,int begin):
  *         self.thisptr.SetFirst(begin)             # <<<<<<<<<<<<<<
@@ -893,7 +893,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_4set_first(struct __pyx_ob
  */
   __pyx_v_self->thisptr->SetFirst(__pyx_v_begin);
 
-  /* "pytraj/Molecule.pyx":17
+  /* "pytraj/core/Molecule.pyx":17
  *         del self.thisptr
  * 
  *     def set_first(self,int begin):             # <<<<<<<<<<<<<<
@@ -908,7 +908,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_4set_first(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "pytraj/Molecule.pyx":20
+/* "pytraj/core/Molecule.pyx":20
  *         self.thisptr.SetFirst(begin)
  * 
  *     def set_last(self,int last):             # <<<<<<<<<<<<<<
@@ -917,9 +917,9 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_4set_first(struct __pyx_ob
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_7set_last(PyObject *__pyx_v_self, PyObject *__pyx_arg_last); /*proto*/
-static char __pyx_doc_6pytraj_8Molecule_8Molecule_6set_last[] = "Molecule.set_last(self, int last)";
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_7set_last(PyObject *__pyx_v_self, PyObject *__pyx_arg_last) {
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_7set_last(PyObject *__pyx_v_self, PyObject *__pyx_arg_last); /*proto*/
+static char __pyx_doc_6pytraj_4core_8Molecule_8Molecule_6set_last[] = "Molecule.set_last(self, int last)";
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_7set_last(PyObject *__pyx_v_self, PyObject *__pyx_arg_last) {
   int __pyx_v_last;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -932,23 +932,23 @@ static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_7set_last(PyObject *__pyx_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.Molecule.Molecule.set_last", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Molecule.Molecule.set_last", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Molecule_8Molecule_6set_last(((struct __pyx_obj_6pytraj_8Molecule_Molecule *)__pyx_v_self), ((int)__pyx_v_last));
+  __pyx_r = __pyx_pf_6pytraj_4core_8Molecule_8Molecule_6set_last(((struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *)__pyx_v_self), ((int)__pyx_v_last));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_6set_last(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self, int __pyx_v_last) {
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_6set_last(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self, int __pyx_v_last) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_last", 0);
 
-  /* "pytraj/Molecule.pyx":21
+  /* "pytraj/core/Molecule.pyx":21
  * 
  *     def set_last(self,int last):
  *         self.thisptr.SetLast(last)             # <<<<<<<<<<<<<<
@@ -957,7 +957,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_6set_last(struct __pyx_obj
  */
   __pyx_v_self->thisptr->SetLast(__pyx_v_last);
 
-  /* "pytraj/Molecule.pyx":20
+  /* "pytraj/core/Molecule.pyx":20
  *         self.thisptr.SetFirst(begin)
  * 
  *     def set_last(self,int last):             # <<<<<<<<<<<<<<
@@ -972,7 +972,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_6set_last(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "pytraj/Molecule.pyx":23
+/* "pytraj/core/Molecule.pyx":23
  *         self.thisptr.SetLast(last)
  * 
  *     def set_solvent(self):             # <<<<<<<<<<<<<<
@@ -981,25 +981,25 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_6set_last(struct __pyx_obj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_9set_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Molecule_8Molecule_8set_solvent[] = "Molecule.set_solvent(self)";
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_9set_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_9set_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_8Molecule_8Molecule_8set_solvent[] = "Molecule.set_solvent(self)";
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_9set_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_solvent (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Molecule_8Molecule_8set_solvent(((struct __pyx_obj_6pytraj_8Molecule_Molecule *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_8Molecule_8Molecule_8set_solvent(((struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_8set_solvent(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_8set_solvent(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_solvent", 0);
 
-  /* "pytraj/Molecule.pyx":24
+  /* "pytraj/core/Molecule.pyx":24
  * 
  *     def set_solvent(self):
  *         self.thisptr.SetSolvent()             # <<<<<<<<<<<<<<
@@ -1008,7 +1008,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_8set_solvent(struct __pyx_
  */
   __pyx_v_self->thisptr->SetSolvent();
 
-  /* "pytraj/Molecule.pyx":23
+  /* "pytraj/core/Molecule.pyx":23
  *         self.thisptr.SetLast(last)
  * 
  *     def set_solvent(self):             # <<<<<<<<<<<<<<
@@ -1023,7 +1023,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_8set_solvent(struct __pyx_
   return __pyx_r;
 }
 
-/* "pytraj/Molecule.pyx":26
+/* "pytraj/core/Molecule.pyx":26
  *         self.thisptr.SetSolvent()
  * 
  *     def set_no_solvent(self):             # <<<<<<<<<<<<<<
@@ -1032,25 +1032,25 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_8set_solvent(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_11set_no_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Molecule_8Molecule_10set_no_solvent[] = "Molecule.set_no_solvent(self)";
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_11set_no_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_11set_no_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_8Molecule_8Molecule_10set_no_solvent[] = "Molecule.set_no_solvent(self)";
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_11set_no_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_no_solvent (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Molecule_8Molecule_10set_no_solvent(((struct __pyx_obj_6pytraj_8Molecule_Molecule *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_8Molecule_8Molecule_10set_no_solvent(((struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_10set_no_solvent(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_10set_no_solvent(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_no_solvent", 0);
 
-  /* "pytraj/Molecule.pyx":27
+  /* "pytraj/core/Molecule.pyx":27
  * 
  *     def set_no_solvent(self):
  *         self.thisptr.SetNoSolvent()             # <<<<<<<<<<<<<<
@@ -1059,7 +1059,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_10set_no_solvent(struct __
  */
   __pyx_v_self->thisptr->SetNoSolvent();
 
-  /* "pytraj/Molecule.pyx":26
+  /* "pytraj/core/Molecule.pyx":26
  *         self.thisptr.SetSolvent()
  * 
  *     def set_no_solvent(self):             # <<<<<<<<<<<<<<
@@ -1074,7 +1074,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_10set_no_solvent(struct __
   return __pyx_r;
 }
 
-/* "pytraj/Molecule.pyx":30
+/* "pytraj/core/Molecule.pyx":30
  * 
  *     @property
  *     def begin_atom(self):             # <<<<<<<<<<<<<<
@@ -1083,20 +1083,20 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_10set_no_solvent(struct __
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_13begin_atom(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Molecule_8Molecule_12begin_atom[] = "Molecule.begin_atom(self)";
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_13begin_atom(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_13begin_atom(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_8Molecule_8Molecule_12begin_atom[] = "Molecule.begin_atom(self)";
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_13begin_atom(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("begin_atom (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Molecule_8Molecule_12begin_atom(((struct __pyx_obj_6pytraj_8Molecule_Molecule *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_8Molecule_8Molecule_12begin_atom(((struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_12begin_atom(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_12begin_atom(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1105,7 +1105,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_12begin_atom(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("begin_atom", 0);
 
-  /* "pytraj/Molecule.pyx":31
+  /* "pytraj/core/Molecule.pyx":31
  *     @property
  *     def begin_atom(self):
  *         return self.thisptr.BeginAtom()             # <<<<<<<<<<<<<<
@@ -1119,7 +1119,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_12begin_atom(struct __pyx_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Molecule.pyx":30
+  /* "pytraj/core/Molecule.pyx":30
  * 
  *     @property
  *     def begin_atom(self):             # <<<<<<<<<<<<<<
@@ -1130,7 +1130,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_12begin_atom(struct __pyx_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Molecule.Molecule.begin_atom", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Molecule.Molecule.begin_atom", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1138,7 +1138,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_12begin_atom(struct __pyx_
   return __pyx_r;
 }
 
-/* "pytraj/Molecule.pyx":34
+/* "pytraj/core/Molecule.pyx":34
  * 
  *     @property
  *     def end_atom(self):             # <<<<<<<<<<<<<<
@@ -1147,20 +1147,20 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_12begin_atom(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_15end_atom(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Molecule_8Molecule_14end_atom[] = "Molecule.end_atom(self)";
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_15end_atom(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_15end_atom(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_8Molecule_8Molecule_14end_atom[] = "Molecule.end_atom(self)";
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_15end_atom(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("end_atom (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Molecule_8Molecule_14end_atom(((struct __pyx_obj_6pytraj_8Molecule_Molecule *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_8Molecule_8Molecule_14end_atom(((struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_14end_atom(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_14end_atom(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1169,7 +1169,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_14end_atom(struct __pyx_ob
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("end_atom", 0);
 
-  /* "pytraj/Molecule.pyx":35
+  /* "pytraj/core/Molecule.pyx":35
  *     @property
  *     def end_atom(self):
  *         return self.thisptr.EndAtom()             # <<<<<<<<<<<<<<
@@ -1183,7 +1183,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_14end_atom(struct __pyx_ob
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Molecule.pyx":34
+  /* "pytraj/core/Molecule.pyx":34
  * 
  *     @property
  *     def end_atom(self):             # <<<<<<<<<<<<<<
@@ -1194,7 +1194,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_14end_atom(struct __pyx_ob
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Molecule.Molecule.end_atom", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Molecule.Molecule.end_atom", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1202,7 +1202,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_14end_atom(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "pytraj/Molecule.pyx":37
+/* "pytraj/core/Molecule.pyx":37
  *         return self.thisptr.EndAtom()
  * 
  *     def is_solvent(self):             # <<<<<<<<<<<<<<
@@ -1211,20 +1211,20 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_14end_atom(struct __pyx_ob
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_17is_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Molecule_8Molecule_16is_solvent[] = "Molecule.is_solvent(self)";
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_17is_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_17is_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_8Molecule_8Molecule_16is_solvent[] = "Molecule.is_solvent(self)";
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_17is_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("is_solvent (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Molecule_8Molecule_16is_solvent(((struct __pyx_obj_6pytraj_8Molecule_Molecule *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_8Molecule_8Molecule_16is_solvent(((struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_16is_solvent(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_16is_solvent(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1233,7 +1233,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_16is_solvent(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("is_solvent", 0);
 
-  /* "pytraj/Molecule.pyx":38
+  /* "pytraj/core/Molecule.pyx":38
  * 
  *     def is_solvent(self):
  *         return self.thisptr.IsSolvent()             # <<<<<<<<<<<<<<
@@ -1247,7 +1247,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_16is_solvent(struct __pyx_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Molecule.pyx":37
+  /* "pytraj/core/Molecule.pyx":37
  *         return self.thisptr.EndAtom()
  * 
  *     def is_solvent(self):             # <<<<<<<<<<<<<<
@@ -1258,7 +1258,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_16is_solvent(struct __pyx_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Molecule.Molecule.is_solvent", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Molecule.Molecule.is_solvent", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1266,7 +1266,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_16is_solvent(struct __pyx_
   return __pyx_r;
 }
 
-/* "pytraj/Molecule.pyx":41
+/* "pytraj/core/Molecule.pyx":41
  * 
  *     @property
  *     def n_atoms(self):             # <<<<<<<<<<<<<<
@@ -1275,20 +1275,20 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_16is_solvent(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_19n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Molecule_8Molecule_18n_atoms[] = "Molecule.n_atoms(self)";
-static PyObject *__pyx_pw_6pytraj_8Molecule_8Molecule_19n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_19n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_8Molecule_8Molecule_18n_atoms[] = "Molecule.n_atoms(self)";
+static PyObject *__pyx_pw_6pytraj_4core_8Molecule_8Molecule_19n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("n_atoms (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Molecule_8Molecule_18n_atoms(((struct __pyx_obj_6pytraj_8Molecule_Molecule *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_8Molecule_8Molecule_18n_atoms(((struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_18n_atoms(struct __pyx_obj_6pytraj_8Molecule_Molecule *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_8Molecule_8Molecule_18n_atoms(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1297,7 +1297,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_18n_atoms(struct __pyx_obj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("n_atoms", 0);
 
-  /* "pytraj/Molecule.pyx":42
+  /* "pytraj/core/Molecule.pyx":42
  *     @property
  *     def n_atoms(self):
  *         return self.thisptr.NumAtoms()             # <<<<<<<<<<<<<<
@@ -1310,7 +1310,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_18n_atoms(struct __pyx_obj
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Molecule.pyx":41
+  /* "pytraj/core/Molecule.pyx":41
  * 
  *     @property
  *     def n_atoms(self):             # <<<<<<<<<<<<<<
@@ -1321,7 +1321,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_18n_atoms(struct __pyx_obj
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Molecule.Molecule.n_atoms", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Molecule.Molecule.n_atoms", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1329,7 +1329,7 @@ static PyObject *__pyx_pf_6pytraj_8Molecule_8Molecule_18n_atoms(struct __pyx_obj
   return __pyx_r;
 }
 
-static PyObject *__pyx_tp_new_6pytraj_8Molecule_Molecule(PyTypeObject *t, PyObject *a, PyObject *k) {
+static PyObject *__pyx_tp_new_6pytraj_4core_8Molecule_Molecule(PyTypeObject *t, PyObject *a, PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -1337,13 +1337,13 @@ static PyObject *__pyx_tp_new_6pytraj_8Molecule_Molecule(PyTypeObject *t, PyObje
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_6pytraj_8Molecule_8Molecule_1__cinit__(o, a, k) < 0)) {
+  if (unlikely(__pyx_pw_6pytraj_4core_8Molecule_8Molecule_1__cinit__(o, a, k) < 0)) {
     Py_DECREF(o); o = 0;
   }
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_8Molecule_Molecule(PyObject *o) {
+static void __pyx_tp_dealloc_6pytraj_4core_8Molecule_Molecule(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -1353,31 +1353,31 @@ static void __pyx_tp_dealloc_6pytraj_8Molecule_Molecule(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_6pytraj_8Molecule_8Molecule_3__dealloc__(o);
+    __pyx_pw_6pytraj_4core_8Molecule_8Molecule_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_6pytraj_8Molecule_Molecule[] = {
-  {"set_first", (PyCFunction)__pyx_pw_6pytraj_8Molecule_8Molecule_5set_first, METH_O, __pyx_doc_6pytraj_8Molecule_8Molecule_4set_first},
-  {"set_last", (PyCFunction)__pyx_pw_6pytraj_8Molecule_8Molecule_7set_last, METH_O, __pyx_doc_6pytraj_8Molecule_8Molecule_6set_last},
-  {"set_solvent", (PyCFunction)__pyx_pw_6pytraj_8Molecule_8Molecule_9set_solvent, METH_NOARGS, __pyx_doc_6pytraj_8Molecule_8Molecule_8set_solvent},
-  {"set_no_solvent", (PyCFunction)__pyx_pw_6pytraj_8Molecule_8Molecule_11set_no_solvent, METH_NOARGS, __pyx_doc_6pytraj_8Molecule_8Molecule_10set_no_solvent},
-  {"begin_atom", (PyCFunction)__pyx_pw_6pytraj_8Molecule_8Molecule_13begin_atom, METH_NOARGS, __pyx_doc_6pytraj_8Molecule_8Molecule_12begin_atom},
-  {"end_atom", (PyCFunction)__pyx_pw_6pytraj_8Molecule_8Molecule_15end_atom, METH_NOARGS, __pyx_doc_6pytraj_8Molecule_8Molecule_14end_atom},
-  {"is_solvent", (PyCFunction)__pyx_pw_6pytraj_8Molecule_8Molecule_17is_solvent, METH_NOARGS, __pyx_doc_6pytraj_8Molecule_8Molecule_16is_solvent},
-  {"n_atoms", (PyCFunction)__pyx_pw_6pytraj_8Molecule_8Molecule_19n_atoms, METH_NOARGS, __pyx_doc_6pytraj_8Molecule_8Molecule_18n_atoms},
+static PyMethodDef __pyx_methods_6pytraj_4core_8Molecule_Molecule[] = {
+  {"set_first", (PyCFunction)__pyx_pw_6pytraj_4core_8Molecule_8Molecule_5set_first, METH_O, __pyx_doc_6pytraj_4core_8Molecule_8Molecule_4set_first},
+  {"set_last", (PyCFunction)__pyx_pw_6pytraj_4core_8Molecule_8Molecule_7set_last, METH_O, __pyx_doc_6pytraj_4core_8Molecule_8Molecule_6set_last},
+  {"set_solvent", (PyCFunction)__pyx_pw_6pytraj_4core_8Molecule_8Molecule_9set_solvent, METH_NOARGS, __pyx_doc_6pytraj_4core_8Molecule_8Molecule_8set_solvent},
+  {"set_no_solvent", (PyCFunction)__pyx_pw_6pytraj_4core_8Molecule_8Molecule_11set_no_solvent, METH_NOARGS, __pyx_doc_6pytraj_4core_8Molecule_8Molecule_10set_no_solvent},
+  {"begin_atom", (PyCFunction)__pyx_pw_6pytraj_4core_8Molecule_8Molecule_13begin_atom, METH_NOARGS, __pyx_doc_6pytraj_4core_8Molecule_8Molecule_12begin_atom},
+  {"end_atom", (PyCFunction)__pyx_pw_6pytraj_4core_8Molecule_8Molecule_15end_atom, METH_NOARGS, __pyx_doc_6pytraj_4core_8Molecule_8Molecule_14end_atom},
+  {"is_solvent", (PyCFunction)__pyx_pw_6pytraj_4core_8Molecule_8Molecule_17is_solvent, METH_NOARGS, __pyx_doc_6pytraj_4core_8Molecule_8Molecule_16is_solvent},
+  {"n_atoms", (PyCFunction)__pyx_pw_6pytraj_4core_8Molecule_8Molecule_19n_atoms, METH_NOARGS, __pyx_doc_6pytraj_4core_8Molecule_8Molecule_18n_atoms},
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_6pytraj_8Molecule_Molecule = {
+static PyTypeObject __pyx_type_6pytraj_4core_8Molecule_Molecule = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.Molecule.Molecule", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_8Molecule_Molecule), /*tp_basicsize*/
+  "pytraj.core.Molecule.Molecule", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_8Molecule_Molecule, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_4core_8Molecule_Molecule, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -1404,7 +1404,7 @@ static PyTypeObject __pyx_type_6pytraj_8Molecule_Molecule = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6pytraj_8Molecule_Molecule, /*tp_methods*/
+  __pyx_methods_6pytraj_4core_8Molecule_Molecule, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -1414,7 +1414,7 @@ static PyTypeObject __pyx_type_6pytraj_8Molecule_Molecule = {
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_8Molecule_Molecule, /*tp_new*/
+  __pyx_tp_new_6pytraj_4core_8Molecule_Molecule, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -1474,7 +1474,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pytraj/Molecule.pyx":12
+  /* "pytraj/core/Molecule.pyx":12
  *             self.thisptr = new _Molecule(beginidx, endidx)
  *         else:
  *             raise ValueError("Must have None or 2 integers")             # <<<<<<<<<<<<<<
@@ -1560,14 +1560,14 @@ PyMODINIT_FUNC PyInit_Molecule(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_pytraj__Molecule) {
+  if (__pyx_module_is_main_pytraj__core__Molecule) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "pytraj.Molecule")) {
-      if (unlikely(PyDict_SetItemString(modules, "pytraj.Molecule", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "pytraj.core.Molecule")) {
+      if (unlikely(PyDict_SetItemString(modules, "pytraj.core.Molecule", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -1579,26 +1579,26 @@ PyMODINIT_FUNC PyInit_Molecule(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_6pytraj_8Molecule_Molecule) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_8Molecule_Molecule.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "Molecule", (PyObject *)&__pyx_type_6pytraj_8Molecule_Molecule) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8Molecule_Molecule = &__pyx_type_6pytraj_8Molecule_Molecule;
+  if (PyType_Ready(&__pyx_type_6pytraj_4core_8Molecule_Molecule) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_4core_8Molecule_Molecule.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "Molecule", (PyObject *)&__pyx_type_6pytraj_4core_8Molecule_Molecule) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_8Molecule_Molecule = &__pyx_type_6pytraj_4core_8Molecule_Molecule;
   /*--- Type import code ---*/
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/Molecule.pyx":30
+  /* "pytraj/core/Molecule.pyx":30
  * 
  *     @property
  *     def begin_atom(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.BeginAtom()
  * 
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8Molecule_Molecule, __pyx_n_s_begin_atom); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4core_8Molecule_Molecule, __pyx_n_s_begin_atom); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Molecule.pyx":29
+  /* "pytraj/core/Molecule.pyx":29
  *         self.thisptr.SetNoSolvent()
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -1613,21 +1613,21 @@ PyMODINIT_FUNC PyInit_Molecule(void)
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Molecule_Molecule->tp_dict, __pyx_n_s_begin_atom, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4core_8Molecule_Molecule->tp_dict, __pyx_n_s_begin_atom, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_8Molecule_Molecule);
+  PyType_Modified(__pyx_ptype_6pytraj_4core_8Molecule_Molecule);
 
-  /* "pytraj/Molecule.pyx":34
+  /* "pytraj/core/Molecule.pyx":34
  * 
  *     @property
  *     def end_atom(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.EndAtom()
  * 
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8Molecule_Molecule, __pyx_n_s_end_atom); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4core_8Molecule_Molecule, __pyx_n_s_end_atom); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Molecule.pyx":33
+  /* "pytraj/core/Molecule.pyx":33
  *         return self.thisptr.BeginAtom()
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -1642,21 +1642,21 @@ PyMODINIT_FUNC PyInit_Molecule(void)
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Molecule_Molecule->tp_dict, __pyx_n_s_end_atom, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4core_8Molecule_Molecule->tp_dict, __pyx_n_s_end_atom, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_8Molecule_Molecule);
+  PyType_Modified(__pyx_ptype_6pytraj_4core_8Molecule_Molecule);
 
-  /* "pytraj/Molecule.pyx":41
+  /* "pytraj/core/Molecule.pyx":41
  * 
  *     @property
  *     def n_atoms(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.NumAtoms()
  * 
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8Molecule_Molecule, __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4core_8Molecule_Molecule, __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Molecule.pyx":40
+  /* "pytraj/core/Molecule.pyx":40
  *         return self.thisptr.IsSolvent()
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -1671,11 +1671,11 @@ PyMODINIT_FUNC PyInit_Molecule(void)
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Molecule_Molecule->tp_dict, __pyx_n_s_n_atoms, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4core_8Molecule_Molecule->tp_dict, __pyx_n_s_n_atoms, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_8Molecule_Molecule);
+  PyType_Modified(__pyx_ptype_6pytraj_4core_8Molecule_Molecule);
 
-  /* "pytraj/Molecule.pyx":1
+  /* "pytraj/core/Molecule.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * 
  * cdef class Molecule:
@@ -1693,11 +1693,11 @@ PyMODINIT_FUNC PyInit_Molecule(void)
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pytraj.Molecule", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pytraj.core.Molecule", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pytraj.Molecule");
+    PyErr_SetString(PyExc_ImportError, "init pytraj.core.Molecule");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

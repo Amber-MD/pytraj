@@ -1,10 +1,10 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
-from pytraj.datasets.DataSet cimport DataSet, _DataSet
-from pytraj.datasets.DataSet_2D cimport _DataSet_2D, DataSet_2D
-from pytraj.Frame cimport *
-from pytraj.analyses.Analysis cimport *
-from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
+from .DataSet cimport DataSet, _DataSet
+from .DataSet_2D cimport _DataSet_2D, DataSet_2D
+from ..Frame cimport *
+from ..analyses.Analysis cimport *
+from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
 
 
 cdef extern from "DataSet_Modes.h": 

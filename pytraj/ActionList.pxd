@@ -1,17 +1,16 @@
 # distutil: language = c++
 
 from libcpp.string cimport string
-from pytraj.DispatchObject cimport _DispatchObject, DispatchObject, DispatchAllocatorType
-from pytraj.Topology cimport _Topology, Topology
-from pytraj.TopologyList cimport _TopologyList, TopologyList
-from pytraj.Frame cimport _Frame, Frame
-from pytraj.DataSetList cimport _DataSetList, DataSetList
-from pytraj.DataFileList cimport _DataFileList, DataFileList
-from pytraj.FrameArray cimport FrameArray
-from pytraj.ArgList cimport _ArgList, ArgList
-from pytraj._FunctPtr cimport FunctPtr
-from pytraj.AtomMask cimport _AtomMask, AtomMask
-#from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
+from .DispatchObject cimport _DispatchObject, DispatchObject, DispatchAllocatorType
+from .Topology cimport _Topology, Topology
+from .TopologyList cimport _TopologyList, TopologyList
+from .Frame cimport _Frame, Frame
+from .DataSetList cimport _DataSetList, DataSetList
+from .DataFileList cimport _DataFileList, DataFileList
+from .FrameArray cimport FrameArray
+from .ArgList cimport _ArgList, ArgList
+from ._FunctPtr cimport FunctPtr
+from .AtomMask cimport _AtomMask, AtomMask
 
 cdef extern from "ActionList.h":
     cdef cppclass _ActionList "ActionList":

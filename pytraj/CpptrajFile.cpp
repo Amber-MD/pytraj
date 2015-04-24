@@ -248,7 +248,6 @@ class __Pyx_FakeReference {
 #include "stdexcept"
 #include "typeinfo"
 #include "FileName.h"
-#include "FileIO.h"
 #include "CpptrajFile.h"
 #ifdef _OPENMP
 #include <omp.h>
@@ -454,7 +453,7 @@ static const char *__pyx_f[] = {
 struct __pyx_obj_6pytraj_8FileName_FileName;
 struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile;
 
-/* "pytraj/FileName.pxd":23
+/* "FileName.pxd":23
  *         bint empty()
  * 
  * cdef class FileName:             # <<<<<<<<<<<<<<
@@ -711,8 +710,6 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'pytraj.FileName' */
 static PyTypeObject *__pyx_ptype_6pytraj_8FileName_FileName = 0;
-
-/* Module declarations from 'pytraj.FileIO' */
 
 /* Module declarations from 'pytraj.CpptrajFile' */
 static PyTypeObject *__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = 0;

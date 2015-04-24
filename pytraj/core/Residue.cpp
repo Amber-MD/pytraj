@@ -237,8 +237,8 @@ class __Pyx_FakeReference {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__pytraj__Residue
-#define __PYX_HAVE_API__pytraj__Residue
+#define __PYX_HAVE__pytraj__core__Residue
+#define __PYX_HAVE_API__pytraj__core__Residue
 #include "string.h"
 #include <string>
 #include "ios"
@@ -442,13 +442,13 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pytraj/Residue.pyx",
+  "pytraj/core/Residue.pyx",
   "pytraj/NameType.pxd",
 };
 
 /*--- Type declarations ---*/
 struct __pyx_obj_6pytraj_8NameType_NameType;
-struct __pyx_obj_6pytraj_7Residue_Residue;
+struct __pyx_obj_6pytraj_4core_7Residue_Residue;
 
 /* "pytraj/NameType.pxd":25
  * 
@@ -462,14 +462,14 @@ struct __pyx_obj_6pytraj_8NameType_NameType {
 };
 
 
-/* "pytraj/Residue.pxd":19
+/* "pytraj/core/Residue.pxd":18
  *         inline bint NameIsSolvent() const
  * 
  * cdef class Residue:             # <<<<<<<<<<<<<<
  *     cdef _Residue* thisptr
  * 
  */
-struct __pyx_obj_6pytraj_7Residue_Residue {
+struct __pyx_obj_6pytraj_4core_7Residue_Residue {
   PyObject_HEAD
   Residue *thisptr;
 };
@@ -652,28 +652,28 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 /* Module declarations from 'pytraj.NameType' */
 static PyTypeObject *__pyx_ptype_6pytraj_8NameType_NameType = 0;
 
-/* Module declarations from 'pytraj.Residue' */
-static PyTypeObject *__pyx_ptype_6pytraj_7Residue_Residue = 0;
-#define __Pyx_MODULE_NAME "pytraj.Residue"
-int __pyx_module_is_main_pytraj__Residue = 0;
+/* Module declarations from 'pytraj.core.Residue' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_7Residue_Residue = 0;
+#define __Pyx_MODULE_NAME "pytraj.core.Residue"
+int __pyx_module_is_main_pytraj__core__Residue = 0;
 
-/* Implementation of 'pytraj.Residue' */
+/* Implementation of 'pytraj.core.Residue' */
 static PyObject *__pyx_builtin_property;
-static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
-static void __pyx_pf_6pytraj_7Residue_7Residue_2__dealloc__(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_6__repr__(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_8set_last_atom(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self, int __pyx_v_i); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_10set_original_num(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self, int __pyx_v_i); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_12first_atom_idx(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_14last_atom_idx(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_16original_resnum(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_18index(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_20ntype(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_22n_atoms(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_24is_solvent(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_26name(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self); /* proto */
-static PyObject *__pyx_tp_new_6pytraj_7Residue_Residue(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_6pytraj_4core_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
+static void __pyx_pf_6pytraj_4core_7Residue_7Residue_2__dealloc__(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_4__str__(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_6__repr__(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_8set_last_atom(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self, int __pyx_v_i); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_10set_original_num(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self, int __pyx_v_i); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_12first_atom_idx(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_14last_atom_idx(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_16original_resnum(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_18index(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_20ntype(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_22n_atoms(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_24is_solvent(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_26name(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self); /* proto */
+static PyObject *__pyx_tp_new_6pytraj_4core_7Residue_Residue(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static char __pyx_k_s_s[] = "%s-%s";
 static char __pyx_k_str[] = "__str__";
 static char __pyx_k_main[] = "__main__";
@@ -704,7 +704,7 @@ static PyObject *__pyx_n_s_string_types;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_int_1;
 
-/* "pytraj/Residue.pyx":6
+/* "pytraj/core/Residue.pyx":6
  * 
  * cdef class Residue:
  *     def __cinit__(self, *args):             # <<<<<<<<<<<<<<
@@ -713,8 +713,8 @@ static PyObject *__pyx_int_1;
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_7Residue_7Residue_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_6pytraj_7Residue_7Residue_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6pytraj_4core_7Residue_7Residue_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_6pytraj_4core_7Residue_7Residue_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_args = 0;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -722,7 +722,7 @@ static int __pyx_pw_6pytraj_7Residue_7Residue_1__cinit__(PyObject *__pyx_v_self,
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue___cinit__(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self), __pyx_v_args);
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue___cinit__(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self), __pyx_v_args);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -730,7 +730,7 @@ static int __pyx_pw_6pytraj_7Residue_7Residue_1__cinit__(PyObject *__pyx_v_self,
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self, PyObject *__pyx_v_args) {
+static int __pyx_pf_6pytraj_4core_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self, PyObject *__pyx_v_args) {
   int __pyx_v_orig_num;
   struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_nametype = 0;
   int __pyx_v_firstAtomIn;
@@ -750,7 +750,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pytraj/Residue.pyx":11
+  /* "pytraj/core/Residue.pyx":11
  *         cdef int firstAtomIn
  * 
  *         if not args:             # <<<<<<<<<<<<<<
@@ -761,7 +761,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/Residue.pyx":12
+    /* "pytraj/core/Residue.pyx":12
  * 
  *         if not args:
  *             self.thisptr = new _Residue()             # <<<<<<<<<<<<<<
@@ -770,7 +770,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
  */
     __pyx_v_self->thisptr = new Residue();
 
-    /* "pytraj/Residue.pyx":11
+    /* "pytraj/core/Residue.pyx":11
  *         cdef int firstAtomIn
  * 
  *         if not args:             # <<<<<<<<<<<<<<
@@ -780,7 +780,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
     goto __pyx_L3;
   }
 
-  /* "pytraj/Residue.pyx":14
+  /* "pytraj/core/Residue.pyx":14
  *             self.thisptr = new _Residue()
  *         else:
  *             if len(args) == 3:             # <<<<<<<<<<<<<<
@@ -792,7 +792,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
     __pyx_t_2 = ((__pyx_t_3 == 3) != 0);
     if (__pyx_t_2) {
 
-      /* "pytraj/Residue.pyx":15
+      /* "pytraj/core/Residue.pyx":15
  *         else:
  *             if len(args) == 3:
  *                 orig_num, _resname, firstAtomIn = args             # <<<<<<<<<<<<<<
@@ -836,7 +836,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
       __pyx_t_5 = 0;
       __pyx_v_firstAtomIn = __pyx_t_8;
 
-      /* "pytraj/Residue.pyx":16
+      /* "pytraj/core/Residue.pyx":16
  *             if len(args) == 3:
  *                 orig_num, _resname, firstAtomIn = args
  *                 if isinstance(_resname, string_types):             # <<<<<<<<<<<<<<
@@ -850,7 +850,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
       __pyx_t_1 = (__pyx_t_2 != 0);
       if (__pyx_t_1) {
 
-        /* "pytraj/Residue.pyx":18
+        /* "pytraj/core/Residue.pyx":18
  *                 if isinstance(_resname, string_types):
  *                     #  try to cast to NameType
  *                     nametype = NameType(_resname)             # <<<<<<<<<<<<<<
@@ -868,7 +868,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
         __pyx_v_nametype = ((struct __pyx_obj_6pytraj_8NameType_NameType *)__pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "pytraj/Residue.pyx":16
+        /* "pytraj/core/Residue.pyx":16
  *             if len(args) == 3:
  *                 orig_num, _resname, firstAtomIn = args
  *                 if isinstance(_resname, string_types):             # <<<<<<<<<<<<<<
@@ -878,7 +878,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
         goto __pyx_L5;
       }
 
-      /* "pytraj/Residue.pyx":20
+      /* "pytraj/core/Residue.pyx":20
  *                     nametype = NameType(_resname)
  *                 else:
  *                     nametype = _resname             # <<<<<<<<<<<<<<
@@ -894,7 +894,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
       }
       __pyx_L5:;
 
-      /* "pytraj/Residue.pyx":21
+      /* "pytraj/core/Residue.pyx":21
  *                 else:
  *                     nametype = _resname
  *                 self.thisptr = new _Residue(orig_num, nametype.thisptr[0], firstAtomIn)             # <<<<<<<<<<<<<<
@@ -903,7 +903,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
  */
       __pyx_v_self->thisptr = new Residue(__pyx_v_orig_num, (__pyx_v_nametype->thisptr[0]), __pyx_v_firstAtomIn);
 
-      /* "pytraj/Residue.pyx":14
+      /* "pytraj/core/Residue.pyx":14
  *             self.thisptr = new _Residue()
  *         else:
  *             if len(args) == 3:             # <<<<<<<<<<<<<<
@@ -914,7 +914,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
   }
   __pyx_L3:;
 
-  /* "pytraj/Residue.pyx":6
+  /* "pytraj/core/Residue.pyx":6
  * 
  * cdef class Residue:
  *     def __cinit__(self, *args):             # <<<<<<<<<<<<<<
@@ -929,7 +929,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_nametype);
@@ -938,7 +938,7 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":23
+/* "pytraj/core/Residue.pyx":23
  *                 self.thisptr = new _Residue(orig_num, nametype.thisptr[0], firstAtomIn)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -947,21 +947,21 @@ static int __pyx_pf_6pytraj_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj
  */
 
 /* Python wrapper */
-static void __pyx_pw_6pytraj_7Residue_7Residue_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6pytraj_7Residue_7Residue_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_6pytraj_4core_7Residue_7Residue_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_6pytraj_4core_7Residue_7Residue_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6pytraj_7Residue_7Residue_2__dealloc__(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_pf_6pytraj_4core_7Residue_7Residue_2__dealloc__(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_6pytraj_7Residue_7Residue_2__dealloc__(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static void __pyx_pf_6pytraj_4core_7Residue_7Residue_2__dealloc__(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pytraj/Residue.pyx":24
+  /* "pytraj/core/Residue.pyx":24
  * 
  *     def __dealloc__(self):
  *         del self.thisptr             # <<<<<<<<<<<<<<
@@ -970,7 +970,7 @@ static void __pyx_pf_6pytraj_7Residue_7Residue_2__dealloc__(struct __pyx_obj_6py
  */
   delete __pyx_v_self->thisptr;
 
-  /* "pytraj/Residue.pyx":23
+  /* "pytraj/core/Residue.pyx":23
  *                 self.thisptr = new _Residue(orig_num, nametype.thisptr[0], firstAtomIn)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -982,7 +982,7 @@ static void __pyx_pf_6pytraj_7Residue_7Residue_2__dealloc__(struct __pyx_obj_6py
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/Residue.pyx":26
+/* "pytraj/core/Residue.pyx":26
  *         del self.thisptr
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -991,19 +991,19 @@ static void __pyx_pf_6pytraj_7Residue_7Residue_2__dealloc__(struct __pyx_obj_6py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_5__str__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_5__str__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_5__str__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_5__str__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__str__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_4__str__(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_4__str__(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_4__str__(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   PyObject *__pyx_v_txt = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -1016,7 +1016,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__str__", 0);
 
-  /* "pytraj/Residue.pyx":27
+  /* "pytraj/core/Residue.pyx":27
  * 
  *     def __str__(self):
  *         txt = "%s-%s" % (self.thisptr.c_str().decode('UTF-8'), self.original_resnum-1)             # <<<<<<<<<<<<<<
@@ -1046,7 +1046,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6p
   __pyx_v_txt = ((PyObject*)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "pytraj/Residue.pyx":28
+  /* "pytraj/core/Residue.pyx":28
  *     def __str__(self):
  *         txt = "%s-%s" % (self.thisptr.c_str().decode('UTF-8'), self.original_resnum-1)
  *         return txt             # <<<<<<<<<<<<<<
@@ -1058,7 +1058,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6p
   __pyx_r = __pyx_v_txt;
   goto __pyx_L0;
 
-  /* "pytraj/Residue.pyx":26
+  /* "pytraj/core/Residue.pyx":26
  *         del self.thisptr
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -1071,7 +1071,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6p
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.__str__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.__str__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_txt);
@@ -1080,7 +1080,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6p
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":30
+/* "pytraj/core/Residue.pyx":30
  *         return txt
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -1089,19 +1089,19 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_4__str__(struct __pyx_obj_6p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_7__repr__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_7__repr__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_7__repr__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_7__repr__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_6__repr__(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_6__repr__(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_6__repr__(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_6__repr__(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1112,7 +1112,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_6__repr__(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "pytraj/Residue.pyx":31
+  /* "pytraj/core/Residue.pyx":31
  * 
  *     def __repr__(self):
  *         return self.__str__()             # <<<<<<<<<<<<<<
@@ -1144,7 +1144,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_6__repr__(struct __pyx_obj_6
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Residue.pyx":30
+  /* "pytraj/core/Residue.pyx":30
  *         return txt
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -1157,7 +1157,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_6__repr__(struct __pyx_obj_6
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1165,7 +1165,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_6__repr__(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":33
+/* "pytraj/core/Residue.pyx":33
  *         return self.__str__()
  * 
  *     def set_last_atom(self,int i):             # <<<<<<<<<<<<<<
@@ -1174,9 +1174,9 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_6__repr__(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_9set_last_atom(PyObject *__pyx_v_self, PyObject *__pyx_arg_i); /*proto*/
-static char __pyx_doc_6pytraj_7Residue_7Residue_8set_last_atom[] = "Residue.set_last_atom(self, int i)";
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_9set_last_atom(PyObject *__pyx_v_self, PyObject *__pyx_arg_i) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_9set_last_atom(PyObject *__pyx_v_self, PyObject *__pyx_arg_i); /*proto*/
+static char __pyx_doc_6pytraj_4core_7Residue_7Residue_8set_last_atom[] = "Residue.set_last_atom(self, int i)";
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_9set_last_atom(PyObject *__pyx_v_self, PyObject *__pyx_arg_i) {
   int __pyx_v_i;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -1189,23 +1189,23 @@ static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_9set_last_atom(PyObject *__p
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.Residue.Residue.set_last_atom", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.set_last_atom", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_8set_last_atom(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self), ((int)__pyx_v_i));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_8set_last_atom(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self), ((int)__pyx_v_i));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_8set_last_atom(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self, int __pyx_v_i) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_8set_last_atom(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self, int __pyx_v_i) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_last_atom", 0);
 
-  /* "pytraj/Residue.pyx":34
+  /* "pytraj/core/Residue.pyx":34
  * 
  *     def set_last_atom(self,int i):
  *         self.thisptr.SetLastAtom(i)             # <<<<<<<<<<<<<<
@@ -1214,7 +1214,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_8set_last_atom(struct __pyx_
  */
   __pyx_v_self->thisptr->SetLastAtom(__pyx_v_i);
 
-  /* "pytraj/Residue.pyx":33
+  /* "pytraj/core/Residue.pyx":33
  *         return self.__str__()
  * 
  *     def set_last_atom(self,int i):             # <<<<<<<<<<<<<<
@@ -1229,7 +1229,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_8set_last_atom(struct __pyx_
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":36
+/* "pytraj/core/Residue.pyx":36
  *         self.thisptr.SetLastAtom(i)
  * 
  *     def set_original_num(self, int i):             # <<<<<<<<<<<<<<
@@ -1238,9 +1238,9 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_8set_last_atom(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_11set_original_num(PyObject *__pyx_v_self, PyObject *__pyx_arg_i); /*proto*/
-static char __pyx_doc_6pytraj_7Residue_7Residue_10set_original_num[] = "Residue.set_original_num(self, int i)";
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_11set_original_num(PyObject *__pyx_v_self, PyObject *__pyx_arg_i) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_11set_original_num(PyObject *__pyx_v_self, PyObject *__pyx_arg_i); /*proto*/
+static char __pyx_doc_6pytraj_4core_7Residue_7Residue_10set_original_num[] = "Residue.set_original_num(self, int i)";
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_11set_original_num(PyObject *__pyx_v_self, PyObject *__pyx_arg_i) {
   int __pyx_v_i;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -1253,23 +1253,23 @@ static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_11set_original_num(PyObject 
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.Residue.Residue.set_original_num", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.set_original_num", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_10set_original_num(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self), ((int)__pyx_v_i));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_10set_original_num(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self), ((int)__pyx_v_i));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_10set_original_num(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self, int __pyx_v_i) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_10set_original_num(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self, int __pyx_v_i) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_original_num", 0);
 
-  /* "pytraj/Residue.pyx":37
+  /* "pytraj/core/Residue.pyx":37
  * 
  *     def set_original_num(self, int i):
  *         self.thisptr.SetOriginalNum(i)             # <<<<<<<<<<<<<<
@@ -1278,7 +1278,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_10set_original_num(struct __
  */
   __pyx_v_self->thisptr->SetOriginalNum(__pyx_v_i);
 
-  /* "pytraj/Residue.pyx":36
+  /* "pytraj/core/Residue.pyx":36
  *         self.thisptr.SetLastAtom(i)
  * 
  *     def set_original_num(self, int i):             # <<<<<<<<<<<<<<
@@ -1293,7 +1293,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_10set_original_num(struct __
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":40
+/* "pytraj/core/Residue.pyx":40
  * 
  *     @property
  *     def first_atom_idx(self):             # <<<<<<<<<<<<<<
@@ -1302,20 +1302,20 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_10set_original_num(struct __
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_13first_atom_idx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_7Residue_7Residue_12first_atom_idx[] = "Residue.first_atom_idx(self)";
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_13first_atom_idx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_13first_atom_idx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_7Residue_7Residue_12first_atom_idx[] = "Residue.first_atom_idx(self)";
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_13first_atom_idx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("first_atom_idx (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_12first_atom_idx(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_12first_atom_idx(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_12first_atom_idx(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_12first_atom_idx(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1324,7 +1324,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_12first_atom_idx(struct __py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("first_atom_idx", 0);
 
-  /* "pytraj/Residue.pyx":41
+  /* "pytraj/core/Residue.pyx":41
  *     @property
  *     def first_atom_idx(self):
  *         return self.thisptr.FirstAtom()             # <<<<<<<<<<<<<<
@@ -1338,7 +1338,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_12first_atom_idx(struct __py
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Residue.pyx":40
+  /* "pytraj/core/Residue.pyx":40
  * 
  *     @property
  *     def first_atom_idx(self):             # <<<<<<<<<<<<<<
@@ -1349,7 +1349,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_12first_atom_idx(struct __py
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.first_atom_idx", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.first_atom_idx", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1357,7 +1357,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_12first_atom_idx(struct __py
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":44
+/* "pytraj/core/Residue.pyx":44
  * 
  *     @property
  *     def last_atom_idx(self):             # <<<<<<<<<<<<<<
@@ -1366,20 +1366,20 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_12first_atom_idx(struct __py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_15last_atom_idx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_7Residue_7Residue_14last_atom_idx[] = "Residue.last_atom_idx(self)";
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_15last_atom_idx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_15last_atom_idx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_7Residue_7Residue_14last_atom_idx[] = "Residue.last_atom_idx(self)";
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_15last_atom_idx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("last_atom_idx (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_14last_atom_idx(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_14last_atom_idx(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_14last_atom_idx(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_14last_atom_idx(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1388,7 +1388,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_14last_atom_idx(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("last_atom_idx", 0);
 
-  /* "pytraj/Residue.pyx":45
+  /* "pytraj/core/Residue.pyx":45
  *     @property
  *     def last_atom_idx(self):
  *         return self.thisptr.LastAtom()             # <<<<<<<<<<<<<<
@@ -1402,7 +1402,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_14last_atom_idx(struct __pyx
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Residue.pyx":44
+  /* "pytraj/core/Residue.pyx":44
  * 
  *     @property
  *     def last_atom_idx(self):             # <<<<<<<<<<<<<<
@@ -1413,7 +1413,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_14last_atom_idx(struct __pyx
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.last_atom_idx", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.last_atom_idx", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1421,7 +1421,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_14last_atom_idx(struct __pyx
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":48
+/* "pytraj/core/Residue.pyx":48
  * 
  *     @property
  *     def original_resnum(self):             # <<<<<<<<<<<<<<
@@ -1430,20 +1430,20 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_14last_atom_idx(struct __pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_17original_resnum(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_7Residue_7Residue_16original_resnum[] = "Residue.original_resnum(self)";
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_17original_resnum(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_17original_resnum(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_7Residue_7Residue_16original_resnum[] = "Residue.original_resnum(self)";
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_17original_resnum(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("original_resnum (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_16original_resnum(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_16original_resnum(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_16original_resnum(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_16original_resnum(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1452,7 +1452,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_16original_resnum(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("original_resnum", 0);
 
-  /* "pytraj/Residue.pyx":49
+  /* "pytraj/core/Residue.pyx":49
  *     @property
  *     def original_resnum(self):
  *         return self.thisptr.OriginalResNum()             # <<<<<<<<<<<<<<
@@ -1466,7 +1466,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_16original_resnum(struct __p
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Residue.pyx":48
+  /* "pytraj/core/Residue.pyx":48
  * 
  *     @property
  *     def original_resnum(self):             # <<<<<<<<<<<<<<
@@ -1477,7 +1477,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_16original_resnum(struct __p
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.original_resnum", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.original_resnum", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1485,7 +1485,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_16original_resnum(struct __p
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":52
+/* "pytraj/core/Residue.pyx":52
  * 
  *     @property
  *     def index(self):             # <<<<<<<<<<<<<<
@@ -1494,20 +1494,20 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_16original_resnum(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_19index(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_7Residue_7Residue_18index[] = "Residue.index(self)\nshortcut of original_resnum";
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_19index(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_19index(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_7Residue_7Residue_18index[] = "Residue.index(self)\nshortcut of original_resnum";
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_19index(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("index (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_18index(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_18index(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_18index(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_18index(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1518,7 +1518,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_18index(struct __pyx_obj_6py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("index", 0);
 
-  /* "pytraj/Residue.pyx":54
+  /* "pytraj/core/Residue.pyx":54
  *     def index(self):
  *         """shortcut of original_resnum"""
  *         return self.original_resnum()             # <<<<<<<<<<<<<<
@@ -1550,7 +1550,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_18index(struct __pyx_obj_6py
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Residue.pyx":52
+  /* "pytraj/core/Residue.pyx":52
  * 
  *     @property
  *     def index(self):             # <<<<<<<<<<<<<<
@@ -1563,7 +1563,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_18index(struct __pyx_obj_6py
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.index", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.index", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1571,7 +1571,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_18index(struct __pyx_obj_6py
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":56
+/* "pytraj/core/Residue.pyx":56
  *         return self.original_resnum()
  * 
  *     def ntype(self):             # <<<<<<<<<<<<<<
@@ -1580,20 +1580,20 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_18index(struct __pyx_obj_6py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_21ntype(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_7Residue_7Residue_20ntype[] = "Residue.ntype(self)";
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_21ntype(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_21ntype(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_7Residue_7Residue_20ntype[] = "Residue.ntype(self)";
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_21ntype(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("ntype (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_20ntype(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_20ntype(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_20ntype(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_20ntype(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_nt = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -1603,7 +1603,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_20ntype(struct __pyx_obj_6py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("ntype", 0);
 
-  /* "pytraj/Residue.pyx":57
+  /* "pytraj/core/Residue.pyx":57
  * 
  *     def ntype(self):
  *         cdef NameType nt = NameType()             # <<<<<<<<<<<<<<
@@ -1615,7 +1615,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_20ntype(struct __pyx_obj_6py
   __pyx_v_nt = ((struct __pyx_obj_6pytraj_8NameType_NameType *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Residue.pyx":58
+  /* "pytraj/core/Residue.pyx":58
  *     def ntype(self):
  *         cdef NameType nt = NameType()
  *         nt.thisptr[0] = self.thisptr.Name()             # <<<<<<<<<<<<<<
@@ -1624,7 +1624,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_20ntype(struct __pyx_obj_6py
  */
   (__pyx_v_nt->thisptr[0]) = __pyx_v_self->thisptr->Name();
 
-  /* "pytraj/Residue.pyx":59
+  /* "pytraj/core/Residue.pyx":59
  *         cdef NameType nt = NameType()
  *         nt.thisptr[0] = self.thisptr.Name()
  *         return nt             # <<<<<<<<<<<<<<
@@ -1636,7 +1636,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_20ntype(struct __pyx_obj_6py
   __pyx_r = ((PyObject *)__pyx_v_nt);
   goto __pyx_L0;
 
-  /* "pytraj/Residue.pyx":56
+  /* "pytraj/core/Residue.pyx":56
  *         return self.original_resnum()
  * 
  *     def ntype(self):             # <<<<<<<<<<<<<<
@@ -1647,7 +1647,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_20ntype(struct __pyx_obj_6py
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.ntype", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.ntype", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_nt);
@@ -1656,7 +1656,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_20ntype(struct __pyx_obj_6py
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":62
+/* "pytraj/core/Residue.pyx":62
  * 
  *     @property
  *     def n_atoms(self):             # <<<<<<<<<<<<<<
@@ -1665,20 +1665,20 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_20ntype(struct __pyx_obj_6py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_23n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_7Residue_7Residue_22n_atoms[] = "Residue.n_atoms(self)";
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_23n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_23n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_7Residue_7Residue_22n_atoms[] = "Residue.n_atoms(self)";
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_23n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("n_atoms (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_22n_atoms(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_22n_atoms(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_22n_atoms(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_22n_atoms(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1687,7 +1687,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_22n_atoms(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("n_atoms", 0);
 
-  /* "pytraj/Residue.pyx":63
+  /* "pytraj/core/Residue.pyx":63
  *     @property
  *     def n_atoms(self):
  *         return self.thisptr.NumAtoms()             # <<<<<<<<<<<<<<
@@ -1701,7 +1701,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_22n_atoms(struct __pyx_obj_6
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Residue.pyx":62
+  /* "pytraj/core/Residue.pyx":62
  * 
  *     @property
  *     def n_atoms(self):             # <<<<<<<<<<<<<<
@@ -1712,7 +1712,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_22n_atoms(struct __pyx_obj_6
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.n_atoms", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.n_atoms", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1720,7 +1720,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_22n_atoms(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":65
+/* "pytraj/core/Residue.pyx":65
  *         return self.thisptr.NumAtoms()
  * 
  *     def is_solvent(self):             # <<<<<<<<<<<<<<
@@ -1729,20 +1729,20 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_22n_atoms(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_25is_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_7Residue_7Residue_24is_solvent[] = "Residue.is_solvent(self)";
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_25is_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_25is_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_7Residue_7Residue_24is_solvent[] = "Residue.is_solvent(self)";
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_25is_solvent(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("is_solvent (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_24is_solvent(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_24is_solvent(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_24is_solvent(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_24is_solvent(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1751,7 +1751,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_24is_solvent(struct __pyx_ob
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("is_solvent", 0);
 
-  /* "pytraj/Residue.pyx":66
+  /* "pytraj/core/Residue.pyx":66
  * 
  *     def is_solvent(self):
  *         return self.thisptr.NameIsSolvent()             # <<<<<<<<<<<<<<
@@ -1765,7 +1765,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_24is_solvent(struct __pyx_ob
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Residue.pyx":65
+  /* "pytraj/core/Residue.pyx":65
  *         return self.thisptr.NumAtoms()
  * 
  *     def is_solvent(self):             # <<<<<<<<<<<<<<
@@ -1776,7 +1776,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_24is_solvent(struct __pyx_ob
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.is_solvent", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.is_solvent", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1784,7 +1784,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_24is_solvent(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "pytraj/Residue.pyx":69
+/* "pytraj/core/Residue.pyx":69
  * 
  *     @property
  *     def name(self):             # <<<<<<<<<<<<<<
@@ -1792,20 +1792,20 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_24is_solvent(struct __pyx_ob
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_27name(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_7Residue_7Residue_26name[] = "Residue.name(self)";
-static PyObject *__pyx_pw_6pytraj_7Residue_7Residue_27name(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_27name(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_7Residue_7Residue_26name[] = "Residue.name(self)";
+static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_27name(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("name (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_7Residue_7Residue_26name(((struct __pyx_obj_6pytraj_7Residue_Residue *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_7Residue_7Residue_26name(((struct __pyx_obj_6pytraj_4core_7Residue_Residue *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_26name(struct __pyx_obj_6pytraj_7Residue_Residue *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_26name(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   char const *__pyx_t_1;
@@ -1815,7 +1815,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_26name(struct __pyx_obj_6pyt
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("name", 0);
 
-  /* "pytraj/Residue.pyx":70
+  /* "pytraj/core/Residue.pyx":70
  *     @property
  *     def name(self):
  *         return self.thisptr.c_str().decode('UTF-8')             # <<<<<<<<<<<<<<
@@ -1829,7 +1829,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_26name(struct __pyx_obj_6pyt
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Residue.pyx":69
+  /* "pytraj/core/Residue.pyx":69
  * 
  *     @property
  *     def name(self):             # <<<<<<<<<<<<<<
@@ -1839,7 +1839,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_26name(struct __pyx_obj_6pyt
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pytraj.Residue.Residue.name", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.Residue.Residue.name", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1847,7 +1847,7 @@ static PyObject *__pyx_pf_6pytraj_7Residue_7Residue_26name(struct __pyx_obj_6pyt
   return __pyx_r;
 }
 
-static PyObject *__pyx_tp_new_6pytraj_7Residue_Residue(PyTypeObject *t, PyObject *a, PyObject *k) {
+static PyObject *__pyx_tp_new_6pytraj_4core_7Residue_Residue(PyTypeObject *t, PyObject *a, PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -1855,13 +1855,13 @@ static PyObject *__pyx_tp_new_6pytraj_7Residue_Residue(PyTypeObject *t, PyObject
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_6pytraj_7Residue_7Residue_1__cinit__(o, a, k) < 0)) {
+  if (unlikely(__pyx_pw_6pytraj_4core_7Residue_7Residue_1__cinit__(o, a, k) < 0)) {
     Py_DECREF(o); o = 0;
   }
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_7Residue_Residue(PyObject *o) {
+static void __pyx_tp_dealloc_6pytraj_4core_7Residue_Residue(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -1871,33 +1871,33 @@ static void __pyx_tp_dealloc_6pytraj_7Residue_Residue(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_6pytraj_7Residue_7Residue_3__dealloc__(o);
+    __pyx_pw_6pytraj_4core_7Residue_7Residue_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_6pytraj_7Residue_Residue[] = {
-  {"set_last_atom", (PyCFunction)__pyx_pw_6pytraj_7Residue_7Residue_9set_last_atom, METH_O, __pyx_doc_6pytraj_7Residue_7Residue_8set_last_atom},
-  {"set_original_num", (PyCFunction)__pyx_pw_6pytraj_7Residue_7Residue_11set_original_num, METH_O, __pyx_doc_6pytraj_7Residue_7Residue_10set_original_num},
-  {"first_atom_idx", (PyCFunction)__pyx_pw_6pytraj_7Residue_7Residue_13first_atom_idx, METH_NOARGS, __pyx_doc_6pytraj_7Residue_7Residue_12first_atom_idx},
-  {"last_atom_idx", (PyCFunction)__pyx_pw_6pytraj_7Residue_7Residue_15last_atom_idx, METH_NOARGS, __pyx_doc_6pytraj_7Residue_7Residue_14last_atom_idx},
-  {"original_resnum", (PyCFunction)__pyx_pw_6pytraj_7Residue_7Residue_17original_resnum, METH_NOARGS, __pyx_doc_6pytraj_7Residue_7Residue_16original_resnum},
-  {"index", (PyCFunction)__pyx_pw_6pytraj_7Residue_7Residue_19index, METH_NOARGS, __pyx_doc_6pytraj_7Residue_7Residue_18index},
-  {"ntype", (PyCFunction)__pyx_pw_6pytraj_7Residue_7Residue_21ntype, METH_NOARGS, __pyx_doc_6pytraj_7Residue_7Residue_20ntype},
-  {"n_atoms", (PyCFunction)__pyx_pw_6pytraj_7Residue_7Residue_23n_atoms, METH_NOARGS, __pyx_doc_6pytraj_7Residue_7Residue_22n_atoms},
-  {"is_solvent", (PyCFunction)__pyx_pw_6pytraj_7Residue_7Residue_25is_solvent, METH_NOARGS, __pyx_doc_6pytraj_7Residue_7Residue_24is_solvent},
-  {"name", (PyCFunction)__pyx_pw_6pytraj_7Residue_7Residue_27name, METH_NOARGS, __pyx_doc_6pytraj_7Residue_7Residue_26name},
+static PyMethodDef __pyx_methods_6pytraj_4core_7Residue_Residue[] = {
+  {"set_last_atom", (PyCFunction)__pyx_pw_6pytraj_4core_7Residue_7Residue_9set_last_atom, METH_O, __pyx_doc_6pytraj_4core_7Residue_7Residue_8set_last_atom},
+  {"set_original_num", (PyCFunction)__pyx_pw_6pytraj_4core_7Residue_7Residue_11set_original_num, METH_O, __pyx_doc_6pytraj_4core_7Residue_7Residue_10set_original_num},
+  {"first_atom_idx", (PyCFunction)__pyx_pw_6pytraj_4core_7Residue_7Residue_13first_atom_idx, METH_NOARGS, __pyx_doc_6pytraj_4core_7Residue_7Residue_12first_atom_idx},
+  {"last_atom_idx", (PyCFunction)__pyx_pw_6pytraj_4core_7Residue_7Residue_15last_atom_idx, METH_NOARGS, __pyx_doc_6pytraj_4core_7Residue_7Residue_14last_atom_idx},
+  {"original_resnum", (PyCFunction)__pyx_pw_6pytraj_4core_7Residue_7Residue_17original_resnum, METH_NOARGS, __pyx_doc_6pytraj_4core_7Residue_7Residue_16original_resnum},
+  {"index", (PyCFunction)__pyx_pw_6pytraj_4core_7Residue_7Residue_19index, METH_NOARGS, __pyx_doc_6pytraj_4core_7Residue_7Residue_18index},
+  {"ntype", (PyCFunction)__pyx_pw_6pytraj_4core_7Residue_7Residue_21ntype, METH_NOARGS, __pyx_doc_6pytraj_4core_7Residue_7Residue_20ntype},
+  {"n_atoms", (PyCFunction)__pyx_pw_6pytraj_4core_7Residue_7Residue_23n_atoms, METH_NOARGS, __pyx_doc_6pytraj_4core_7Residue_7Residue_22n_atoms},
+  {"is_solvent", (PyCFunction)__pyx_pw_6pytraj_4core_7Residue_7Residue_25is_solvent, METH_NOARGS, __pyx_doc_6pytraj_4core_7Residue_7Residue_24is_solvent},
+  {"name", (PyCFunction)__pyx_pw_6pytraj_4core_7Residue_7Residue_27name, METH_NOARGS, __pyx_doc_6pytraj_4core_7Residue_7Residue_26name},
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_6pytraj_7Residue_Residue = {
+static PyTypeObject __pyx_type_6pytraj_4core_7Residue_Residue = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.Residue.Residue", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_7Residue_Residue), /*tp_basicsize*/
+  "pytraj.core.Residue.Residue", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_4core_7Residue_Residue), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_7Residue_Residue, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_4core_7Residue_Residue, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -1906,13 +1906,13 @@ static PyTypeObject __pyx_type_6pytraj_7Residue_Residue = {
   #else
   0, /*reserved*/
   #endif
-  __pyx_pw_6pytraj_7Residue_7Residue_7__repr__, /*tp_repr*/
+  __pyx_pw_6pytraj_4core_7Residue_7Residue_7__repr__, /*tp_repr*/
   0, /*tp_as_number*/
   0, /*tp_as_sequence*/
   0, /*tp_as_mapping*/
   0, /*tp_hash*/
   0, /*tp_call*/
-  __pyx_pw_6pytraj_7Residue_7Residue_5__str__, /*tp_str*/
+  __pyx_pw_6pytraj_4core_7Residue_7Residue_5__str__, /*tp_str*/
   0, /*tp_getattro*/
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
@@ -1924,7 +1924,7 @@ static PyTypeObject __pyx_type_6pytraj_7Residue_Residue = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6pytraj_7Residue_Residue, /*tp_methods*/
+  __pyx_methods_6pytraj_4core_7Residue_Residue, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -1934,7 +1934,7 @@ static PyTypeObject __pyx_type_6pytraj_7Residue_Residue = {
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_7Residue_Residue, /*tp_new*/
+  __pyx_tp_new_6pytraj_4core_7Residue_Residue, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -2072,14 +2072,14 @@ PyMODINIT_FUNC PyInit_Residue(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_pytraj__Residue) {
+  if (__pyx_module_is_main_pytraj__core__Residue) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "pytraj.Residue")) {
-      if (unlikely(PyDict_SetItemString(modules, "pytraj.Residue", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "pytraj.core.Residue")) {
+      if (unlikely(PyDict_SetItemString(modules, "pytraj.core.Residue", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -2091,17 +2091,17 @@ PyMODINIT_FUNC PyInit_Residue(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_6pytraj_7Residue_Residue) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_7Residue_Residue.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "Residue", (PyObject *)&__pyx_type_6pytraj_7Residue_Residue) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_7Residue_Residue = &__pyx_type_6pytraj_7Residue_Residue;
+  if (PyType_Ready(&__pyx_type_6pytraj_4core_7Residue_Residue) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_4core_7Residue_Residue.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "Residue", (PyObject *)&__pyx_type_6pytraj_4core_7Residue_Residue) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_7Residue_Residue = &__pyx_type_6pytraj_4core_7Residue_Residue;
   /*--- Type import code ---*/
   __pyx_ptype_6pytraj_8NameType_NameType = __Pyx_ImportType("pytraj.NameType", "NameType", sizeof(struct __pyx_obj_6pytraj_8NameType_NameType), 1); if (unlikely(!__pyx_ptype_6pytraj_8NameType_NameType)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/Residue.pyx":2
+  /* "pytraj/core/Residue.pyx":2
  * # distutils: language = c++
  * from pytraj.externals.six import string_types             # <<<<<<<<<<<<<<
  * 
@@ -2121,17 +2121,17 @@ PyMODINIT_FUNC PyInit_Residue(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pytraj/Residue.pyx":40
+  /* "pytraj/core/Residue.pyx":40
  * 
  *     @property
  *     def first_atom_idx(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.FirstAtom()
  * 
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue, __pyx_n_s_first_atom_idx); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue, __pyx_n_s_first_atom_idx); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pytraj/Residue.pyx":39
+  /* "pytraj/core/Residue.pyx":39
  *         self.thisptr.SetOriginalNum(i)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -2146,21 +2146,21 @@ PyMODINIT_FUNC PyInit_Residue(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue->tp_dict, __pyx_n_s_first_atom_idx, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue->tp_dict, __pyx_n_s_first_atom_idx, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_7Residue_Residue);
+  PyType_Modified(__pyx_ptype_6pytraj_4core_7Residue_Residue);
 
-  /* "pytraj/Residue.pyx":44
+  /* "pytraj/core/Residue.pyx":44
  * 
  *     @property
  *     def last_atom_idx(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.LastAtom()
  * 
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue, __pyx_n_s_last_atom_idx); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue, __pyx_n_s_last_atom_idx); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pytraj/Residue.pyx":43
+  /* "pytraj/core/Residue.pyx":43
  *         return self.thisptr.FirstAtom()
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -2175,21 +2175,21 @@ PyMODINIT_FUNC PyInit_Residue(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue->tp_dict, __pyx_n_s_last_atom_idx, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue->tp_dict, __pyx_n_s_last_atom_idx, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_7Residue_Residue);
+  PyType_Modified(__pyx_ptype_6pytraj_4core_7Residue_Residue);
 
-  /* "pytraj/Residue.pyx":48
+  /* "pytraj/core/Residue.pyx":48
  * 
  *     @property
  *     def original_resnum(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.OriginalResNum()
  * 
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue, __pyx_n_s_original_resnum); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue, __pyx_n_s_original_resnum); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pytraj/Residue.pyx":47
+  /* "pytraj/core/Residue.pyx":47
  *         return self.thisptr.LastAtom()
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -2204,21 +2204,21 @@ PyMODINIT_FUNC PyInit_Residue(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue->tp_dict, __pyx_n_s_original_resnum, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue->tp_dict, __pyx_n_s_original_resnum, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_7Residue_Residue);
+  PyType_Modified(__pyx_ptype_6pytraj_4core_7Residue_Residue);
 
-  /* "pytraj/Residue.pyx":52
+  /* "pytraj/core/Residue.pyx":52
  * 
  *     @property
  *     def index(self):             # <<<<<<<<<<<<<<
  *         """shortcut of original_resnum"""
  *         return self.original_resnum()
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue, __pyx_n_s_index); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue, __pyx_n_s_index); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pytraj/Residue.pyx":51
+  /* "pytraj/core/Residue.pyx":51
  *         return self.thisptr.OriginalResNum()
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -2233,21 +2233,21 @@ PyMODINIT_FUNC PyInit_Residue(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue->tp_dict, __pyx_n_s_index, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue->tp_dict, __pyx_n_s_index, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_7Residue_Residue);
+  PyType_Modified(__pyx_ptype_6pytraj_4core_7Residue_Residue);
 
-  /* "pytraj/Residue.pyx":62
+  /* "pytraj/core/Residue.pyx":62
  * 
  *     @property
  *     def n_atoms(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.NumAtoms()
  * 
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue, __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue, __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pytraj/Residue.pyx":61
+  /* "pytraj/core/Residue.pyx":61
  *         return nt
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -2262,20 +2262,20 @@ PyMODINIT_FUNC PyInit_Residue(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue->tp_dict, __pyx_n_s_n_atoms, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue->tp_dict, __pyx_n_s_n_atoms, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_7Residue_Residue);
+  PyType_Modified(__pyx_ptype_6pytraj_4core_7Residue_Residue);
 
-  /* "pytraj/Residue.pyx":69
+  /* "pytraj/core/Residue.pyx":69
  * 
  *     @property
  *     def name(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.c_str().decode('UTF-8')
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue, __pyx_n_s_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue, __pyx_n_s_name); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pytraj/Residue.pyx":68
+  /* "pytraj/core/Residue.pyx":68
  *         return self.thisptr.NameIsSolvent()
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -2290,11 +2290,11 @@ PyMODINIT_FUNC PyInit_Residue(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_7Residue_Residue->tp_dict, __pyx_n_s_name, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4core_7Residue_Residue->tp_dict, __pyx_n_s_name, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_7Residue_Residue);
+  PyType_Modified(__pyx_ptype_6pytraj_4core_7Residue_Residue);
 
-  /* "pytraj/Residue.pyx":1
+  /* "pytraj/core/Residue.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * from pytraj.externals.six import string_types
  * 
@@ -2312,11 +2312,11 @@ PyMODINIT_FUNC PyInit_Residue(void)
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pytraj.Residue", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pytraj.core.Residue", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pytraj.Residue");
+    PyErr_SetString(PyExc_ImportError, "init pytraj.core.Residue");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

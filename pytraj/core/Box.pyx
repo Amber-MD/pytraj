@@ -4,8 +4,8 @@ from cython cimport view
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarray
-from .cpptraj_dict import BoxTypeDict, get_key
-from .utils import _import_numpy
+from pytraj.cpptraj_dict import BoxTypeDict, get_key
+from pytraj.utils import _import_numpy
 
 
 cdef class Box:

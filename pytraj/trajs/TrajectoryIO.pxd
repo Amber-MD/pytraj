@@ -1,10 +1,10 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from pytraj.Topology cimport _Topology, Topology
-from pytraj.ArgList cimport _ArgList, ArgList
-from pytraj.BaseIOtype cimport _BaseIOtype, BaseIOtype
-from pytraj.Box cimport _Box, Box
-from pytraj.Frame cimport _Frame, Frame
+from ..Topology cimport _Topology, Topology
+from ..ArgList cimport _ArgList, ArgList
+from ..BaseIOtype cimport _BaseIOtype, BaseIOtype
+from ..core.Box cimport _Box, Box
+from ..Frame cimport _Frame, Frame
 
 
 cdef extern from "TrajectoryIO.h": 

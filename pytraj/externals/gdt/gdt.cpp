@@ -237,8 +237,8 @@ class __Pyx_FakeReference {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__pytraj__gdt__gdt
-#define __PYX_HAVE_API__pytraj__gdt__gdt
+#define __PYX_HAVE__pytraj__externals__gdt__gdt
+#define __PYX_HAVE_API__pytraj__externals__gdt__gdt
 #include "string.h"
 #include "stdio.h"
 #include "./src/gdt_.h"
@@ -445,7 +445,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pytraj/gdt/gdt.pyx",
+  "pytraj/externals/gdt/gdt.pyx",
   "array.pxd",
   "stringsource",
   "type.pxd",
@@ -542,14 +542,14 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
 #endif
 
 
-/* "pytraj/gdt/gdt.pxd":3
+/* "pytraj/externals/gdt/gdt.pxd":3
  * from cpython.array cimport array as pyarray
  * 
  * ctypedef signed short sshort             # <<<<<<<<<<<<<<
  * cdef extern from "./src/gdt_.h":
  *     sshort * _gdt "gdtCPUOneReference"(double *reference, double *arr,  int conformers, int protlen,int score)
  */
-typedef signed short __pyx_t_6pytraj_3gdt_3gdt_sshort;
+typedef signed short __pyx_t_6pytraj_9externals_3gdt_3gdt_sshort;
 
 /*--- Type declarations ---*/
 #ifndef _ARRAYARRAY_H
@@ -1160,7 +1160,7 @@ static int __Pyx_ValidateAndInit_memviewslice(
                 __Pyx_memviewslice *memviewslice,
                 PyObject *original_obj);
 
-static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_6pytraj_3gdt_3gdt_sshort(PyObject *);
+static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_6pytraj_9externals_3gdt_3gdt_sshort(PyObject *);
 
 static int __Pyx_check_binary_version(void);
 
@@ -1217,7 +1217,7 @@ static CYTHON_INLINE int __pyx_f_7cpython_5array_extend_buffer(arrayobject *, ch
 
 /* Module declarations from 'libcpp.vector' */
 
-/* Module declarations from 'pytraj.gdt.gdt' */
+/* Module declarations from 'pytraj.externals.gdt.gdt' */
 static PyTypeObject *__pyx_array_type = 0;
 static PyTypeObject *__pyx_MemviewEnum_type = 0;
 static PyTypeObject *__pyx_memoryview_type = 0;
@@ -1260,11 +1260,11 @@ static void __pyx_memoryview_refcount_objects_in_slice(char *, Py_ssize_t *, Py_
 static void __pyx_memoryview_slice_assign_scalar(__Pyx_memviewslice *, int, size_t, void *, int); /*proto*/
 static void __pyx_memoryview__slice_assign_scalar(char *, Py_ssize_t *, Py_ssize_t *, int, size_t, void *); /*proto*/
 static PyObject *__pyx_format_from_typeinfo(__Pyx_TypeInfo *); /*proto*/
-static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_6pytraj_3gdt_3gdt_sshort = { "sshort", NULL, sizeof(__pyx_t_6pytraj_3gdt_3gdt_sshort), { 0 }, 0, IS_UNSIGNED(__pyx_t_6pytraj_3gdt_3gdt_sshort) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_6pytraj_3gdt_3gdt_sshort), 0 };
-#define __Pyx_MODULE_NAME "pytraj.gdt.gdt"
-int __pyx_module_is_main_pytraj__gdt__gdt = 0;
+static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_6pytraj_9externals_3gdt_3gdt_sshort = { "sshort", NULL, sizeof(__pyx_t_6pytraj_9externals_3gdt_3gdt_sshort), { 0 }, 0, IS_UNSIGNED(__pyx_t_6pytraj_9externals_3gdt_3gdt_sshort) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_6pytraj_9externals_3gdt_3gdt_sshort), 0 };
+#define __Pyx_MODULE_NAME "pytraj.externals.gdt.gdt"
+int __pyx_module_is_main_pytraj__externals__gdt__gdt = 0;
 
-/* Implementation of 'pytraj.gdt.gdt' */
+/* Implementation of 'pytraj.externals.gdt.gdt' */
 static PyObject *__pyx_builtin_MemoryError;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_enumerate;
@@ -1472,7 +1472,7 @@ static PyObject *__pyx_tuple__20;
 static PyObject *__pyx_tuple__21;
 static PyObject *__pyx_tuple__22;
 
-/* "pytraj/gdt/gdt.pyx":3
+/* "pytraj/externals/gdt/gdt.pyx":3
  * from libcpp.vector cimport vector
  * 
  * cdef sshort[:] gdt(double[:] reference, double[:] arr, int conformers, int protlen, int score):             # <<<<<<<<<<<<<<
@@ -1480,9 +1480,9 @@ static PyObject *__pyx_tuple__22;
  *     cdef sshort[:] arr0
  */
 
-static __Pyx_memviewslice __pyx_f_6pytraj_3gdt_3gdt_gdt(__Pyx_memviewslice __pyx_v_reference, __Pyx_memviewslice __pyx_v_arr, int __pyx_v_conformers, int __pyx_v_protlen, int __pyx_v_score) {
+static __Pyx_memviewslice __pyx_f_6pytraj_9externals_3gdt_3gdt_gdt(__Pyx_memviewslice __pyx_v_reference, __Pyx_memviewslice __pyx_v_arr, int __pyx_v_conformers, int __pyx_v_protlen, int __pyx_v_score) {
   __Pyx_memviewslice __pyx_v_arr0 = { 0, 0, { 0 }, { 0 }, { 0 } };
-  __pyx_t_6pytraj_3gdt_3gdt_sshort *__pyx_v_ptr;
+  __pyx_t_6pytraj_9externals_3gdt_3gdt_sshort *__pyx_v_ptr;
   __Pyx_memviewslice __pyx_r = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannyDeclarations
   Py_ssize_t __pyx_t_1;
@@ -1496,7 +1496,7 @@ static __Pyx_memviewslice __pyx_f_6pytraj_3gdt_3gdt_gdt(__Pyx_memviewslice __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("gdt", 0);
 
-  /* "pytraj/gdt/gdt.pyx":8
+  /* "pytraj/externals/gdt/gdt.pyx":8
  *     cdef sshort* ptr
  * 
  *     ptr = <sshort*> _gdt(&reference[0], &arr[0], conformers, protlen, score)             # <<<<<<<<<<<<<<
@@ -1505,9 +1505,9 @@ static __Pyx_memviewslice __pyx_f_6pytraj_3gdt_3gdt_gdt(__Pyx_memviewslice __pyx
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
-  __pyx_v_ptr = ((__pyx_t_6pytraj_3gdt_3gdt_sshort *)gdtCPUOneReference((&(*((double *) ( /* dim=0 */ (__pyx_v_reference.data + __pyx_t_1 * __pyx_v_reference.strides[0]) )))), (&(*((double *) ( /* dim=0 */ (__pyx_v_arr.data + __pyx_t_2 * __pyx_v_arr.strides[0]) )))), __pyx_v_conformers, __pyx_v_protlen, __pyx_v_score));
+  __pyx_v_ptr = ((__pyx_t_6pytraj_9externals_3gdt_3gdt_sshort *)gdtCPUOneReference((&(*((double *) ( /* dim=0 */ (__pyx_v_reference.data + __pyx_t_1 * __pyx_v_reference.strides[0]) )))), (&(*((double *) ( /* dim=0 */ (__pyx_v_arr.data + __pyx_t_2 * __pyx_v_arr.strides[0]) )))), __pyx_v_conformers, __pyx_v_protlen, __pyx_v_score));
 
-  /* "pytraj/gdt/gdt.pyx":9
+  /* "pytraj/externals/gdt/gdt.pyx":9
  * 
  *     ptr = <sshort*> _gdt(&reference[0], &arr[0], conformers, protlen, score)
  *     arr0 = <sshort[:conformers]> ptr             # <<<<<<<<<<<<<<
@@ -1517,24 +1517,24 @@ static __Pyx_memviewslice __pyx_f_6pytraj_3gdt_3gdt_gdt(__Pyx_memviewslice __pyx
     PyErr_SetString(PyExc_ValueError,"Cannot create cython.array from NULL pointer");
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_5 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_nn___pyx_t_6pytraj_3gdt_3gdt_sshort);
+  __pyx_t_5 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_nn___pyx_t_6pytraj_9externals_3gdt_3gdt_sshort);
   __pyx_t_4 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)__pyx_v_conformers));
   if (unlikely(!__pyx_t_5 || !__pyx_t_4 || !PyBytes_AsString(__pyx_t_5))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __pyx_array_new(__pyx_t_4, sizeof(__pyx_t_6pytraj_3gdt_3gdt_sshort), PyBytes_AS_STRING(__pyx_t_5), (char *) "c", (char *) __pyx_v_ptr);
+  __pyx_t_3 = __pyx_array_new(__pyx_t_4, sizeof(__pyx_t_6pytraj_9externals_3gdt_3gdt_sshort), PyBytes_AS_STRING(__pyx_t_5), (char *) "c", (char *) __pyx_v_ptr);
   if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_6pytraj_3gdt_3gdt_sshort(((PyObject *)__pyx_t_3));
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_6pytraj_9externals_3gdt_3gdt_sshort(((PyObject *)__pyx_t_3));
   if (unlikely(!__pyx_t_6.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(((PyObject *)__pyx_t_3)); __pyx_t_3 = 0;
   __pyx_v_arr0 = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "pytraj/gdt/gdt.pyx":10
+  /* "pytraj/externals/gdt/gdt.pyx":10
  *     ptr = <sshort*> _gdt(&reference[0], &arr[0], conformers, protlen, score)
  *     arr0 = <sshort[:conformers]> ptr
  *     return arr0             # <<<<<<<<<<<<<<
@@ -1543,7 +1543,7 @@ static __Pyx_memviewslice __pyx_f_6pytraj_3gdt_3gdt_gdt(__Pyx_memviewslice __pyx
   __pyx_r = __pyx_v_arr0;
   goto __pyx_L0;
 
-  /* "pytraj/gdt/gdt.pyx":3
+  /* "pytraj/externals/gdt/gdt.pyx":3
  * from libcpp.vector cimport vector
  * 
  * cdef sshort[:] gdt(double[:] reference, double[:] arr, int conformers, int protlen, int score):             # <<<<<<<<<<<<<<
@@ -1559,7 +1559,7 @@ static __Pyx_memviewslice __pyx_f_6pytraj_3gdt_3gdt_gdt(__Pyx_memviewslice __pyx
   __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __pyx_r.data = NULL;
   __pyx_r.memview = NULL;
-  __Pyx_AddTraceback("pytraj.gdt.gdt.gdt", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.externals.gdt.gdt.gdt", __pyx_clineno, __pyx_lineno, __pyx_filename);
 
   goto __pyx_L2;
   __pyx_L0:;
@@ -14229,7 +14229,7 @@ static PyBufferProcs __pyx_tp_as_buffer_array = {
 
 static PyTypeObject __pyx_type___pyx_array = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.gdt.gdt.array", /*tp_name*/
+  "pytraj.externals.gdt.gdt.array", /*tp_name*/
   sizeof(struct __pyx_array_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_array, /*tp_dealloc*/
@@ -14334,7 +14334,7 @@ static PyMethodDef __pyx_methods_Enum[] = {
 
 static PyTypeObject __pyx_type___pyx_MemviewEnum = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.gdt.gdt.Enum", /*tp_name*/
+  "pytraj.externals.gdt.gdt.Enum", /*tp_name*/
   sizeof(struct __pyx_MemviewEnum_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_Enum, /*tp_dealloc*/
@@ -14580,7 +14580,7 @@ static PyBufferProcs __pyx_tp_as_buffer_memoryview = {
 
 static PyTypeObject __pyx_type___pyx_memoryview = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.gdt.gdt.memoryview", /*tp_name*/
+  "pytraj.externals.gdt.gdt.memoryview", /*tp_name*/
   sizeof(struct __pyx_memoryview_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_memoryview, /*tp_dealloc*/
@@ -14704,7 +14704,7 @@ static struct PyGetSetDef __pyx_getsets__memoryviewslice[] = {
 
 static PyTypeObject __pyx_type___pyx_memoryviewslice = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.gdt.gdt._memoryviewslice", /*tp_name*/
+  "pytraj.externals.gdt.gdt._memoryviewslice", /*tp_name*/
   sizeof(struct __pyx_memoryviewslice_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc__memoryviewslice, /*tp_dealloc*/
@@ -15145,14 +15145,14 @@ PyMODINIT_FUNC PyInit_gdt(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_pytraj__gdt__gdt) {
+  if (__pyx_module_is_main_pytraj__externals__gdt__gdt) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "pytraj.gdt.gdt")) {
-      if (unlikely(PyDict_SetItemString(modules, "pytraj.gdt.gdt", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "pytraj.externals.gdt.gdt")) {
+      if (unlikely(PyDict_SetItemString(modules, "pytraj.externals.gdt.gdt", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -15168,7 +15168,7 @@ PyMODINIT_FUNC PyInit_gdt(void)
   indirect_contiguous = Py_None; Py_INCREF(Py_None);
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
-  if (__Pyx_ExportFunction("gdt", (void (*)(void))__pyx_f_6pytraj_3gdt_3gdt_gdt, "__Pyx_memviewslice (__Pyx_memviewslice, __Pyx_memviewslice, int, int, int)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_ExportFunction("gdt", (void (*)(void))__pyx_f_6pytraj_9externals_3gdt_3gdt_gdt, "__Pyx_memviewslice (__Pyx_memviewslice, __Pyx_memviewslice, int, int, int)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Type init code ---*/
   if (PyType_Ready(&__pyx_type___pyx_array) < 0) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type___pyx_array.tp_print = 0;
@@ -15210,7 +15210,7 @@ PyMODINIT_FUNC PyInit_gdt(void)
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/gdt/gdt.pyx":1
+  /* "pytraj/externals/gdt/gdt.pyx":1
  * from libcpp.vector cimport vector             # <<<<<<<<<<<<<<
  * 
  * cdef sshort[:] gdt(double[:] reference, double[:] arr, int conformers, int protlen, int score):
@@ -15344,11 +15344,11 @@ PyMODINIT_FUNC PyInit_gdt(void)
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pytraj.gdt.gdt", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pytraj.externals.gdt.gdt", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pytraj.gdt.gdt");
+    PyErr_SetString(PyExc_ImportError, "init pytraj.externals.gdt.gdt");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -18321,7 +18321,7 @@ no_fail:
     return retval;
 }
 
-static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_6pytraj_3gdt_3gdt_sshort(PyObject *obj) {
+static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_6pytraj_9externals_3gdt_3gdt_sshort(PyObject *obj) {
     __Pyx_memviewslice result = { 0, 0, { 0 }, { 0 }, { 0 } };
     __Pyx_BufFmt_StackElem stack[1];
     int axes_specs[] = { (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED) };
@@ -18332,7 +18332,7 @@ static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_nn_
     }
     retcode = __Pyx_ValidateAndInit_memviewslice(axes_specs, 0,
                                                  PyBUF_RECORDS, 1,
-                                                 &__Pyx_TypeInfo_nn___pyx_t_6pytraj_3gdt_3gdt_sshort, stack,
+                                                 &__Pyx_TypeInfo_nn___pyx_t_6pytraj_9externals_3gdt_3gdt_sshort, stack,
                                                  &result, obj);
     if (unlikely(retcode == -1))
         goto __pyx_fail;

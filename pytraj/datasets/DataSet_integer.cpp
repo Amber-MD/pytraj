@@ -246,12 +246,10 @@ class __Pyx_FakeReference {
 #include "typeinfo"
 #include "string.h"
 #include <string>
-#include "Dimension.h"
 #include "DataSet.h"
 #include "sys/types.h"
 #include "unistd.h"
 #include "FileName.h"
-#include "FileIO.h"
 #include "CpptrajFile.h"
 #include "DataSet_1D.h"
 #include "DataSet_integer.h"
@@ -457,7 +455,6 @@ static const char *__pyx_f[] = {
   "pytraj/datasets/DataSet_integer.pyx",
   "array.pxd",
   "stringsource",
-  "pytraj/Dimension.pxd",
   "pytraj/datasets/DataSet.pxd",
   "pytraj/FileName.pxd",
   "pytraj/CpptrajFile.pxd",
@@ -560,7 +557,6 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
 struct arrayobject;
 typedef struct arrayobject arrayobject;
 #endif
-struct __pyx_obj_6pytraj_9Dimension_Dimension;
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet;
 struct __pyx_obj_6pytraj_8FileName_FileName;
 struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile;
@@ -572,19 +568,7 @@ struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 
-/* "pytraj/Dimension.pxd":32
- *         void PrintDim()
- * 
- * cdef class Dimension:             # <<<<<<<<<<<<<<
- *     cdef _Dimension* thisptr
- */
-struct __pyx_obj_6pytraj_9Dimension_Dimension {
-  PyObject_HEAD
-  Dimension *thisptr;
-};
-
-
-/* "pytraj/datasets/DataSet.pxd":51
+/* "DataSet.pxd":46
  *         #void Add( size_t, const void*  )
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
@@ -596,7 +580,7 @@ struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
 };
 
 
-/* "pytraj/FileName.pxd":23
+/* "FileName.pxd":23
  *         bint empty()
  * 
  * cdef class FileName:             # <<<<<<<<<<<<<<
@@ -608,7 +592,7 @@ struct __pyx_obj_6pytraj_8FileName_FileName {
 };
 
 
-/* "pytraj/CpptrajFile.pxd":51
+/* "CpptrajFile.pxd":51
  *         #off_t Tell()
  * 
  * cdef class CpptrajFile:             # <<<<<<<<<<<<<<
@@ -620,7 +604,7 @@ struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile {
 };
 
 
-/* "pytraj/datasets/DataSet_1D.pxd":26
+/* "DataSet_1D.pxd":26
  * 
  * 
  * cdef class DataSet_1D (DataSet):             # <<<<<<<<<<<<<<
@@ -1335,9 +1319,6 @@ static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memo
 
 /* Module declarations from 'libcpp.string' */
 
-/* Module declarations from 'pytraj.Dimension' */
-static PyTypeObject *__pyx_ptype_6pytraj_9Dimension_Dimension = 0;
-
 /* Module declarations from 'pytraj.datasets.DataSet' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = 0;
 
@@ -1347,8 +1328,6 @@ static PyTypeObject *__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = 0;
 
 /* Module declarations from 'pytraj.FileName' */
 static PyTypeObject *__pyx_ptype_6pytraj_8FileName_FileName = 0;
-
-/* Module declarations from 'pytraj.FileIO' */
 
 /* Module declarations from 'pytraj.CpptrajFile' */
 static PyTypeObject *__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = 0;
@@ -1527,6 +1506,7 @@ static char __pyx_k_range[] = "range";
 static char __pyx_k_shape[] = "shape";
 static char __pyx_k_start[] = "start";
 static char __pyx_k_throw[] = "throw";
+static char __pyx_k_utils[] = "utils";
 static char __pyx_k_value[] = "value";
 static char __pyx_k_append[] = "append";
 static char __pyx_k_format[] = "format";
@@ -1545,7 +1525,6 @@ static char __pyx_k_IndexError[] = "IndexError";
 static char __pyx_k_ValueError[] = "ValueError";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static char __pyx_k_MemoryError[] = "MemoryError";
-static char __pyx_k_pytraj_utils[] = "pytraj.utils";
 static char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
 static char __pyx_k_allocate_buffer[] = "allocate_buffer";
 static char __pyx_k_dtype_is_object[] = "dtype_is_object";
@@ -1642,7 +1621,6 @@ static PyObject *__pyx_n_s_obj;
 static PyObject *__pyx_kp_s_only_support_single_indexing_or;
 static PyObject *__pyx_kp_s_only_support_slice_None;
 static PyObject *__pyx_n_s_pack;
-static PyObject *__pyx_n_s_pytraj_utils;
 static PyObject *__pyx_n_s_pyx_getbuffer;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
@@ -1662,6 +1640,7 @@ static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_kp_s_unable_to_allocate_array_data;
 static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
 static PyObject *__pyx_n_s_unpack;
+static PyObject *__pyx_n_s_utils;
 static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
@@ -16292,7 +16271,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_only_support_single_indexing_or, __pyx_k_only_support_single_indexing_or, sizeof(__pyx_k_only_support_single_indexing_or), 0, 0, 1, 0},
   {&__pyx_kp_s_only_support_slice_None, __pyx_k_only_support_slice_None, sizeof(__pyx_k_only_support_slice_None), 0, 0, 1, 0},
   {&__pyx_n_s_pack, __pyx_k_pack, sizeof(__pyx_k_pack), 0, 0, 1, 1},
-  {&__pyx_n_s_pytraj_utils, __pyx_k_pytraj_utils, sizeof(__pyx_k_pytraj_utils), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
@@ -16312,6 +16290,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_unable_to_allocate_array_data, __pyx_k_unable_to_allocate_array_data, sizeof(__pyx_k_unable_to_allocate_array_data), 0, 0, 1, 0},
   {&__pyx_kp_s_unable_to_allocate_shape_and_str, __pyx_k_unable_to_allocate_shape_and_str, sizeof(__pyx_k_unable_to_allocate_shape_and_str), 0, 0, 1, 0},
   {&__pyx_n_s_unpack, __pyx_k_unpack, sizeof(__pyx_k_unpack), 0, 0, 1, 1},
+  {&__pyx_n_s_utils, __pyx_k_utils, sizeof(__pyx_k_utils), 0, 0, 1, 1},
   {&__pyx_n_s_value, __pyx_k_value, sizeof(__pyx_k_value), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
@@ -16705,17 +16684,16 @@ PyMODINIT_FUNC PyInit_DataSet_integer(void)
   if (__Pyx_SetVtable(__pyx_type___pyx_memoryviewslice.tp_dict, __pyx_vtabptr__memoryviewslice) < 0) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 921; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_memoryviewslice_type = &__pyx_type___pyx_memoryviewslice;
   /*--- Type import code ---*/
-  __pyx_ptype_6pytraj_9Dimension_Dimension = __Pyx_ImportType("pytraj.Dimension", "Dimension", sizeof(struct __pyx_obj_6pytraj_9Dimension_Dimension), 1); if (unlikely(!__pyx_ptype_6pytraj_9Dimension_Dimension)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 
   #if CYTHON_COMPILING_IN_PYPY
   sizeof(PyTypeObject),
   #else
   sizeof(PyHeapTypeObject),
   #endif
-  0); if (unlikely(!__pyx_ptype_7cpython_4type_type)) {__pyx_filename = __pyx_f[7]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  0); if (unlikely(!__pyx_ptype_7cpython_4type_type)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
@@ -16724,7 +16702,7 @@ PyMODINIT_FUNC PyInit_DataSet_integer(void)
   /* "pytraj/datasets/DataSet_integer.pyx":6
  * 
  * # python level
- * from pytraj.utils import is_int             # <<<<<<<<<<<<<<
+ * from ..utils import is_int             # <<<<<<<<<<<<<<
  * 
  * cdef class DataSet_integer (DataSet_1D):
  */
@@ -16733,7 +16711,7 @@ PyMODINIT_FUNC PyInit_DataSet_integer(void)
   __Pyx_INCREF(__pyx_n_s_is_int);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_is_int);
   __Pyx_GIVEREF(__pyx_n_s_is_int);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj_utils, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_utils, __pyx_t_1, 2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_is_int); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

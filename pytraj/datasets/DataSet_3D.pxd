@@ -1,7 +1,7 @@
 # distutils: language = c++
-from pytraj.datasets.DataSet cimport _DataSet, DataSet, DataType
-from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
-from pytraj.Vec3 cimport _Vec3, Vec3
+from .DataSet cimport _DataSet, DataSet, DataType
+from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
+from ..math.Vec3 cimport _Vec3, Vec3
 
 
 cdef extern from "DataSet_3D.h": 

@@ -1,12 +1,12 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
-from pytraj.Topology cimport _Topology, Topology
-from pytraj.Hungarian cimport *
-from pytraj.AtomMap cimport _AtomMap, AtomMap
-from pytraj.AtomMask cimport _AtomMask, AtomMask
-from pytraj.Frame cimport _Frame, Frame
-from pytraj.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
-from pytraj.Vec3 cimport _Vec3, Vec3
+from ..Topology cimport _Topology, Topology
+#from .Hungarian cimport *
+from ..AtomMap cimport _AtomMap, AtomMap
+from ..AtomMask cimport _AtomMask, AtomMask
+from ..Frame cimport _Frame, Frame
+from .Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
+from .Vec3 cimport _Vec3, Vec3
 
 
 cdef extern from "SymmetricRmsdCalc.h": 

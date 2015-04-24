@@ -4,7 +4,7 @@ from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 
-from pytraj.utils.check_and_assert import _import_numpy
+from ..utils.check_and_assert import _import_numpy
 
 # should we use numpy rather reinvent the wheel?
 cdef class Vec3:

@@ -1,7 +1,7 @@
 # distutils: language=c++
 from libcpp.string cimport string
-from pytraj.Topology cimport Topology
-from pytraj.Trajin_Single cimport Trajin_Single
+from .Topology cimport Topology
+from .trajs.Trajin_Single cimport Trajin_Single
 
 def _iterload(Topology top, traj, int start=0, chunk=None):
     """Iterately loading trajectory from file with provided topology file

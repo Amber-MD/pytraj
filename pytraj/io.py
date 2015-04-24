@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 from .externals.six import string_types, PY3
-from .base import *
-from .TrajReadOnly import TrajReadOnly
-from .FrameArray import FrameArray
+#from .base import *
 from .Topology import Topology
+from pytraj.TrajReadOnly import TrajReadOnly
+from .FrameArray import FrameArray
 from .utils.check_and_assert import make_sure_exist
 from .load_HD5F import load_hd5f
 from .load_cpptraj_file import load_cpptraj_file

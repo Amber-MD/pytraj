@@ -1,10 +1,10 @@
 # distutils: language = c++
 from __future__ import absolute_import
-from .datasets.DataSet cimport _DataSet, DataSet
-from .datasets.DataSet_3D cimport _DataSet_3D, DataSet_3D
-from .math.Grid cimport _Grid
-from .math.Vec3 cimport _Vec3, Vec3
-from .CpptrajFile cimport _CpptrajFile, CpptrajFile
+from .DataSet cimport _DataSet, DataSet
+from .DataSet_3D cimport _DataSet_3D, DataSet_3D
+from ..math.Grid cimport _Grid
+from ..math.Vec3 cimport _Vec3, Vec3
+from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
 
 
 cdef extern from "DataSet_GridFlt.h": 

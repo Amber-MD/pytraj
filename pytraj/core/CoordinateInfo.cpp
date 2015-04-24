@@ -237,14 +237,13 @@ class __Pyx_FakeReference {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__pytraj__CoordinateInfo
-#define __PYX_HAVE_API__pytraj__CoordinateInfo
+#define __PYX_HAVE__pytraj__core__CoordinateInfo
+#define __PYX_HAVE_API__pytraj__core__CoordinateInfo
 #include <vector>
 #include "ios"
 #include "new"
 #include "stdexcept"
 #include "typeinfo"
-#include "ReplicaDimArray.h"
 #include "Vec3.h"
 #include "Matrix_3x3.h"
 #include "Box.h"
@@ -444,78 +443,63 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pytraj/CoordinateInfo.pyx",
-  "pytraj/ReplicaDimArray.pxd",
-  "pytraj/Vec3.pxd",
-  "pytraj/Matrix_3x3.pxd",
-  "pytraj/Box.pxd",
+  "pytraj/core/CoordinateInfo.pyx",
+  "pytraj/math/Vec3.pxd",
+  "pytraj/math/Matrix_3x3.pxd",
+  "pytraj/core/Box.pxd",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_6pytraj_15ReplicaDimArray_ReplicaDimArray;
-struct __pyx_obj_6pytraj_4Vec3_Vec3;
-struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3;
-struct __pyx_obj_6pytraj_3Box_Box;
-struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo;
+struct __pyx_obj_6pytraj_4math_4Vec3_Vec3;
+struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3;
+struct __pyx_obj_6pytraj_4core_3Box_Box;
+struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo;
 
-/* "pytraj/ReplicaDimArray.pxd":23
- * 
- * 
- * cdef class ReplicaDimArray:             # <<<<<<<<<<<<<<
- *     cdef _ReplicaDimArray* thisptr
- * 
- */
-struct __pyx_obj_6pytraj_15ReplicaDimArray_ReplicaDimArray {
-  PyObject_HEAD
-  ReplicaDimArray *thisptr;
-};
-
-
-/* "pytraj/Vec3.pxd":44
+/* "pytraj/math/Vec3.pxd":44
  * 
  * 
  * cdef class Vec3:             # <<<<<<<<<<<<<<
  *     cdef _Vec3* thisptr
  * 
  */
-struct __pyx_obj_6pytraj_4Vec3_Vec3 {
+struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 {
   PyObject_HEAD
   Vec3 *thisptr;
 };
 
 
-/* "pytraj/Matrix_3x3.pxd":41
+/* "pytraj/math/Matrix_3x3.pxd":42
  *         double * Dptr()
  * 
  * cdef class Matrix_3x3:             # <<<<<<<<<<<<<<
  *     cdef _Matrix_3x3* thisptr
  */
-struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 {
+struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3 {
   PyObject_HEAD
   Matrix_3x3 *thisptr;
 };
 
 
-/* "pytraj/Box.pxd":47
+/* "pytraj/core/Box.pxd":47
  *         double& index_opr "operator[]"(int idx)
  * 
  * cdef class Box:             # <<<<<<<<<<<<<<
  *     cdef _Box* thisptr
  */
-struct __pyx_obj_6pytraj_3Box_Box {
+struct __pyx_obj_6pytraj_4core_3Box_Box {
   PyObject_HEAD
   Box *thisptr;
 };
 
 
-/* "pytraj/CoordinateInfo.pxd":24
+/* "pytraj/core/CoordinateInfo.pxd":20
  *         void SetBox(const _Box& b)
  * 
  * cdef class CoordinateInfo:             # <<<<<<<<<<<<<<
  *     cdef _CoordinateInfo* thisptr
  * 
  */
-struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo {
+struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo {
   PyObject_HEAD
   CoordinateInfo *thisptr;
 };
@@ -637,42 +621,39 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libcpp.vector' */
 
-/* Module declarations from 'pytraj.ReplicaDimArray' */
-static PyTypeObject *__pyx_ptype_6pytraj_15ReplicaDimArray_ReplicaDimArray = 0;
+/* Module declarations from 'pytraj.math.Vec3' */
+static PyTypeObject *__pyx_ptype_6pytraj_4math_4Vec3_Vec3 = 0;
 
-/* Module declarations from 'pytraj.Vec3' */
-static PyTypeObject *__pyx_ptype_6pytraj_4Vec3_Vec3 = 0;
-
-/* Module declarations from 'pytraj.Matrix_3x3' */
-static PyTypeObject *__pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3 = 0;
+/* Module declarations from 'pytraj.math.Matrix_3x3' */
+static PyTypeObject *__pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3 = 0;
 
 /* Module declarations from 'pytraj.cpp_vector' */
 
-/* Module declarations from 'pytraj.Box' */
-static PyTypeObject *__pyx_ptype_6pytraj_3Box_Box = 0;
+/* Module declarations from 'pytraj.core.Box' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_3Box_Box = 0;
 
-/* Module declarations from 'pytraj.CoordinateInfo' */
-static PyTypeObject *__pyx_ptype_6pytraj_14CoordinateInfo_CoordinateInfo = 0;
-#define __Pyx_MODULE_NAME "pytraj.CoordinateInfo"
-int __pyx_module_is_main_pytraj__CoordinateInfo = 0;
+/* Module declarations from 'pytraj.core.CoordinateInfo' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_14CoordinateInfo_CoordinateInfo = 0;
+#define __Pyx_MODULE_NAME "pytraj.core.CoordinateInfo"
+int __pyx_module_is_main_pytraj__core__CoordinateInfo = 0;
 
-/* Implementation of 'pytraj.CoordinateInfo' */
-static int __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo___cinit__(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
-static void __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_2__dealloc__(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_4has_box(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_8has_vel(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_10has_temp(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_12has_time(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_14has_force(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_16has_replica_dims(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
-static PyObject *__pyx_tp_new_6pytraj_14CoordinateInfo_CoordinateInfo(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+/* Implementation of 'pytraj.core.CoordinateInfo' */
+static int __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo___cinit__(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
+static void __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_2__dealloc__(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_4has_box(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_6traj_box(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_8has_vel(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_10has_temp(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_12has_time(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_14has_force(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_16has_replica_dims(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self); /* proto */
+static PyObject *__pyx_tp_new_6pytraj_4core_14CoordinateInfo_CoordinateInfo(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_test[] = "__test__";
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_test;
 
-/* "pytraj/CoordinateInfo.pyx":5
+/* "pytraj/core/CoordinateInfo.pyx":5
  * 
  * cdef class CoordinateInfo:
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -681,27 +662,27 @@ static PyObject *__pyx_n_s_test;
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
-  __pyx_r = __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo___cinit__(((struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo___cinit__(((struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo___cinit__(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
+static int __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo___cinit__(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pytraj/CoordinateInfo.pyx":6
+  /* "pytraj/core/CoordinateInfo.pyx":6
  * cdef class CoordinateInfo:
  *     def __cinit__(self):
  *         self.thisptr = new _CoordinateInfo()             # <<<<<<<<<<<<<<
@@ -710,7 +691,7 @@ static int __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo___cinit__(struct _
  */
   __pyx_v_self->thisptr = new CoordinateInfo();
 
-  /* "pytraj/CoordinateInfo.pyx":5
+  /* "pytraj/core/CoordinateInfo.pyx":5
  * 
  * cdef class CoordinateInfo:
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -724,7 +705,7 @@ static int __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo___cinit__(struct _
   return __pyx_r;
 }
 
-/* "pytraj/CoordinateInfo.pyx":8
+/* "pytraj/core/CoordinateInfo.pyx":8
  *         self.thisptr = new _CoordinateInfo()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -733,21 +714,21 @@ static int __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo___cinit__(struct _
  */
 
 /* Python wrapper */
-static void __pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_2__dealloc__(((struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
+  __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_2__dealloc__(((struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_2__dealloc__(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
+static void __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_2__dealloc__(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pytraj/CoordinateInfo.pyx":9
+  /* "pytraj/core/CoordinateInfo.pyx":9
  * 
  *     def __dealloc__(self):
  *         del self.thisptr             # <<<<<<<<<<<<<<
@@ -756,7 +737,7 @@ static void __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_2__dealloc__(stru
  */
   delete __pyx_v_self->thisptr;
 
-  /* "pytraj/CoordinateInfo.pyx":8
+  /* "pytraj/core/CoordinateInfo.pyx":8
  *         self.thisptr = new _CoordinateInfo()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -768,7 +749,7 @@ static void __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_2__dealloc__(stru
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/CoordinateInfo.pyx":14
+/* "pytraj/core/CoordinateInfo.pyx":14
  *     #def CoordinateInfo(self, ReplicaDimArray r, Box b, bint v, bint t, bint m, bint f):
  * 
  *     def has_box(self):             # <<<<<<<<<<<<<<
@@ -777,20 +758,20 @@ static void __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_2__dealloc__(stru
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_5has_box(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_4has_box[] = "CoordinateInfo.has_box(self)";
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_5has_box(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_5has_box(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_4has_box[] = "CoordinateInfo.has_box(self)";
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_5has_box(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("has_box (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_4has_box(((struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_4has_box(((struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_4has_box(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_4has_box(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -799,7 +780,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_4has_box(str
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("has_box", 0);
 
-  /* "pytraj/CoordinateInfo.pyx":15
+  /* "pytraj/core/CoordinateInfo.pyx":15
  * 
  *     def has_box(self):
  *         return self.thisptr.HasBox()             # <<<<<<<<<<<<<<
@@ -813,7 +794,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_4has_box(str
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/CoordinateInfo.pyx":14
+  /* "pytraj/core/CoordinateInfo.pyx":14
  *     #def CoordinateInfo(self, ReplicaDimArray r, Box b, bint v, bint t, bint m, bint f):
  * 
  *     def has_box(self):             # <<<<<<<<<<<<<<
@@ -824,7 +805,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_4has_box(str
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.CoordinateInfo.CoordinateInfo.has_box", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.CoordinateInfo.CoordinateInfo.has_box", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -832,7 +813,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_4has_box(str
   return __pyx_r;
 }
 
-/* "pytraj/CoordinateInfo.pyx":17
+/* "pytraj/core/CoordinateInfo.pyx":17
  *         return self.thisptr.HasBox()
  * 
  *     def traj_box(self):             # <<<<<<<<<<<<<<
@@ -841,21 +822,21 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_4has_box(str
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_7traj_box(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box[] = "CoordinateInfo.traj_box(self)";
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_7traj_box(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_7traj_box(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_6traj_box[] = "CoordinateInfo.traj_box(self)";
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_7traj_box(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("traj_box (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box(((struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_6traj_box(((struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_3Box_Box *__pyx_v_box = 0;
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_6traj_box(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
+  struct __pyx_obj_6pytraj_4core_3Box_Box *__pyx_v_box = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -864,19 +845,19 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box(st
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("traj_box", 0);
 
-  /* "pytraj/CoordinateInfo.pyx":18
+  /* "pytraj/core/CoordinateInfo.pyx":18
  * 
  *     def traj_box(self):
  *         cdef Box box = Box()             # <<<<<<<<<<<<<<
  *         box.thisptr[0] = self.thisptr.TrajBox()
  *         return box
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_3Box_Box)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4core_3Box_Box)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_box = ((struct __pyx_obj_6pytraj_3Box_Box *)__pyx_t_1);
+  __pyx_v_box = ((struct __pyx_obj_6pytraj_4core_3Box_Box *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/CoordinateInfo.pyx":19
+  /* "pytraj/core/CoordinateInfo.pyx":19
  *     def traj_box(self):
  *         cdef Box box = Box()
  *         box.thisptr[0] = self.thisptr.TrajBox()             # <<<<<<<<<<<<<<
@@ -885,7 +866,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box(st
  */
   (__pyx_v_box->thisptr[0]) = __pyx_v_self->thisptr->TrajBox();
 
-  /* "pytraj/CoordinateInfo.pyx":20
+  /* "pytraj/core/CoordinateInfo.pyx":20
  *         cdef Box box = Box()
  *         box.thisptr[0] = self.thisptr.TrajBox()
  *         return box             # <<<<<<<<<<<<<<
@@ -897,7 +878,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box(st
   __pyx_r = ((PyObject *)__pyx_v_box);
   goto __pyx_L0;
 
-  /* "pytraj/CoordinateInfo.pyx":17
+  /* "pytraj/core/CoordinateInfo.pyx":17
  *         return self.thisptr.HasBox()
  * 
  *     def traj_box(self):             # <<<<<<<<<<<<<<
@@ -908,7 +889,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box(st
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.CoordinateInfo.CoordinateInfo.traj_box", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.CoordinateInfo.CoordinateInfo.traj_box", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_box);
@@ -917,7 +898,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box(st
   return __pyx_r;
 }
 
-/* "pytraj/CoordinateInfo.pyx":22
+/* "pytraj/core/CoordinateInfo.pyx":22
  *         return box
  * 
  *     def has_vel(self):             # <<<<<<<<<<<<<<
@@ -926,20 +907,20 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box(st
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_9has_vel(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_8has_vel[] = "CoordinateInfo.has_vel(self)";
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_9has_vel(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_9has_vel(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_8has_vel[] = "CoordinateInfo.has_vel(self)";
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_9has_vel(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("has_vel (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_8has_vel(((struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_8has_vel(((struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_8has_vel(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_8has_vel(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -948,7 +929,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_8has_vel(str
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("has_vel", 0);
 
-  /* "pytraj/CoordinateInfo.pyx":23
+  /* "pytraj/core/CoordinateInfo.pyx":23
  * 
  *     def has_vel(self):
  *         return self.thisptr.HasVel()             # <<<<<<<<<<<<<<
@@ -962,7 +943,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_8has_vel(str
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/CoordinateInfo.pyx":22
+  /* "pytraj/core/CoordinateInfo.pyx":22
  *         return box
  * 
  *     def has_vel(self):             # <<<<<<<<<<<<<<
@@ -973,7 +954,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_8has_vel(str
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.CoordinateInfo.CoordinateInfo.has_vel", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.CoordinateInfo.CoordinateInfo.has_vel", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -981,7 +962,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_8has_vel(str
   return __pyx_r;
 }
 
-/* "pytraj/CoordinateInfo.pyx":25
+/* "pytraj/core/CoordinateInfo.pyx":25
  *         return self.thisptr.HasVel()
  * 
  *     def has_temp(self):             # <<<<<<<<<<<<<<
@@ -990,20 +971,20 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_8has_vel(str
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_11has_temp(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_10has_temp[] = "CoordinateInfo.has_temp(self)";
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_11has_temp(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_11has_temp(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_10has_temp[] = "CoordinateInfo.has_temp(self)";
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_11has_temp(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("has_temp (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_10has_temp(((struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_10has_temp(((struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_10has_temp(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_10has_temp(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1012,7 +993,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_10has_temp(s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("has_temp", 0);
 
-  /* "pytraj/CoordinateInfo.pyx":26
+  /* "pytraj/core/CoordinateInfo.pyx":26
  * 
  *     def has_temp(self):
  *         return self.thisptr.HasTemp()             # <<<<<<<<<<<<<<
@@ -1026,7 +1007,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_10has_temp(s
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/CoordinateInfo.pyx":25
+  /* "pytraj/core/CoordinateInfo.pyx":25
  *         return self.thisptr.HasVel()
  * 
  *     def has_temp(self):             # <<<<<<<<<<<<<<
@@ -1037,7 +1018,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_10has_temp(s
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.CoordinateInfo.CoordinateInfo.has_temp", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.CoordinateInfo.CoordinateInfo.has_temp", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1045,7 +1026,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_10has_temp(s
   return __pyx_r;
 }
 
-/* "pytraj/CoordinateInfo.pyx":28
+/* "pytraj/core/CoordinateInfo.pyx":28
  *         return self.thisptr.HasTemp()
  * 
  *     def has_time(self):             # <<<<<<<<<<<<<<
@@ -1054,20 +1035,20 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_10has_temp(s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_13has_time(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_12has_time[] = "CoordinateInfo.has_time(self)";
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_13has_time(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_13has_time(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_12has_time[] = "CoordinateInfo.has_time(self)";
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_13has_time(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("has_time (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_12has_time(((struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_12has_time(((struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_12has_time(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_12has_time(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1076,7 +1057,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_12has_time(s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("has_time", 0);
 
-  /* "pytraj/CoordinateInfo.pyx":29
+  /* "pytraj/core/CoordinateInfo.pyx":29
  * 
  *     def has_time(self):
  *         return self.thisptr.HasTime()             # <<<<<<<<<<<<<<
@@ -1090,7 +1071,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_12has_time(s
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/CoordinateInfo.pyx":28
+  /* "pytraj/core/CoordinateInfo.pyx":28
  *         return self.thisptr.HasTemp()
  * 
  *     def has_time(self):             # <<<<<<<<<<<<<<
@@ -1101,7 +1082,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_12has_time(s
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.CoordinateInfo.CoordinateInfo.has_time", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.CoordinateInfo.CoordinateInfo.has_time", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1109,7 +1090,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_12has_time(s
   return __pyx_r;
 }
 
-/* "pytraj/CoordinateInfo.pyx":31
+/* "pytraj/core/CoordinateInfo.pyx":31
  *         return self.thisptr.HasTime()
  * 
  *     def has_force(self):             # <<<<<<<<<<<<<<
@@ -1118,20 +1099,20 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_12has_time(s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_15has_force(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_14has_force[] = "CoordinateInfo.has_force(self)";
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_15has_force(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_15has_force(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_14has_force[] = "CoordinateInfo.has_force(self)";
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_15has_force(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("has_force (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_14has_force(((struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_14has_force(((struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_14has_force(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_14has_force(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1140,7 +1121,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_14has_force(
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("has_force", 0);
 
-  /* "pytraj/CoordinateInfo.pyx":32
+  /* "pytraj/core/CoordinateInfo.pyx":32
  * 
  *     def has_force(self):
  *         return self.thisptr.HasForce()             # <<<<<<<<<<<<<<
@@ -1154,7 +1135,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_14has_force(
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/CoordinateInfo.pyx":31
+  /* "pytraj/core/CoordinateInfo.pyx":31
  *         return self.thisptr.HasTime()
  * 
  *     def has_force(self):             # <<<<<<<<<<<<<<
@@ -1165,7 +1146,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_14has_force(
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.CoordinateInfo.CoordinateInfo.has_force", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.CoordinateInfo.CoordinateInfo.has_force", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1173,7 +1154,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_14has_force(
   return __pyx_r;
 }
 
-/* "pytraj/CoordinateInfo.pyx":34
+/* "pytraj/core/CoordinateInfo.pyx":34
  *         return self.thisptr.HasForce()
  * 
  *     def has_replica_dims(self):             # <<<<<<<<<<<<<<
@@ -1182,20 +1163,20 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_14has_force(
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_17has_replica_dims(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_16has_replica_dims[] = "CoordinateInfo.has_replica_dims(self)";
-static PyObject *__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_17has_replica_dims(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_17has_replica_dims(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_16has_replica_dims[] = "CoordinateInfo.has_replica_dims(self)";
+static PyObject *__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_17has_replica_dims(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("has_replica_dims (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_16has_replica_dims(((struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_16has_replica_dims(((struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_16has_replica_dims(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_16has_replica_dims(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1204,7 +1185,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_16has_replic
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("has_replica_dims", 0);
 
-  /* "pytraj/CoordinateInfo.pyx":35
+  /* "pytraj/core/CoordinateInfo.pyx":35
  * 
  *     def has_replica_dims(self):
  *         return self.thisptr.HasReplicaDims()             # <<<<<<<<<<<<<<
@@ -1218,7 +1199,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_16has_replic
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/CoordinateInfo.pyx":34
+  /* "pytraj/core/CoordinateInfo.pyx":34
  *         return self.thisptr.HasForce()
  * 
  *     def has_replica_dims(self):             # <<<<<<<<<<<<<<
@@ -1229,7 +1210,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_16has_replic
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.CoordinateInfo.CoordinateInfo.has_replica_dims", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.CoordinateInfo.CoordinateInfo.has_replica_dims", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1237,7 +1218,7 @@ static PyObject *__pyx_pf_6pytraj_14CoordinateInfo_14CoordinateInfo_16has_replic
   return __pyx_r;
 }
 
-static PyObject *__pyx_tp_new_6pytraj_14CoordinateInfo_CoordinateInfo(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_6pytraj_4core_14CoordinateInfo_CoordinateInfo(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -1245,13 +1226,13 @@ static PyObject *__pyx_tp_new_6pytraj_14CoordinateInfo_CoordinateInfo(PyTypeObje
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
+  if (unlikely(__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
     Py_DECREF(o); o = 0;
   }
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_14CoordinateInfo_CoordinateInfo(PyObject *o) {
+static void __pyx_tp_dealloc_6pytraj_4core_14CoordinateInfo_CoordinateInfo(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -1261,30 +1242,30 @@ static void __pyx_tp_dealloc_6pytraj_14CoordinateInfo_CoordinateInfo(PyObject *o
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_3__dealloc__(o);
+    __pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_6pytraj_14CoordinateInfo_CoordinateInfo[] = {
-  {"has_box", (PyCFunction)__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_5has_box, METH_NOARGS, __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_4has_box},
-  {"traj_box", (PyCFunction)__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_7traj_box, METH_NOARGS, __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_6traj_box},
-  {"has_vel", (PyCFunction)__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_9has_vel, METH_NOARGS, __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_8has_vel},
-  {"has_temp", (PyCFunction)__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_11has_temp, METH_NOARGS, __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_10has_temp},
-  {"has_time", (PyCFunction)__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_13has_time, METH_NOARGS, __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_12has_time},
-  {"has_force", (PyCFunction)__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_15has_force, METH_NOARGS, __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_14has_force},
-  {"has_replica_dims", (PyCFunction)__pyx_pw_6pytraj_14CoordinateInfo_14CoordinateInfo_17has_replica_dims, METH_NOARGS, __pyx_doc_6pytraj_14CoordinateInfo_14CoordinateInfo_16has_replica_dims},
+static PyMethodDef __pyx_methods_6pytraj_4core_14CoordinateInfo_CoordinateInfo[] = {
+  {"has_box", (PyCFunction)__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_5has_box, METH_NOARGS, __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_4has_box},
+  {"traj_box", (PyCFunction)__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_7traj_box, METH_NOARGS, __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_6traj_box},
+  {"has_vel", (PyCFunction)__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_9has_vel, METH_NOARGS, __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_8has_vel},
+  {"has_temp", (PyCFunction)__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_11has_temp, METH_NOARGS, __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_10has_temp},
+  {"has_time", (PyCFunction)__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_13has_time, METH_NOARGS, __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_12has_time},
+  {"has_force", (PyCFunction)__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_15has_force, METH_NOARGS, __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_14has_force},
+  {"has_replica_dims", (PyCFunction)__pyx_pw_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_17has_replica_dims, METH_NOARGS, __pyx_doc_6pytraj_4core_14CoordinateInfo_14CoordinateInfo_16has_replica_dims},
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_6pytraj_14CoordinateInfo_CoordinateInfo = {
+static PyTypeObject __pyx_type_6pytraj_4core_14CoordinateInfo_CoordinateInfo = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.CoordinateInfo.CoordinateInfo", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_14CoordinateInfo_CoordinateInfo), /*tp_basicsize*/
+  "pytraj.core.CoordinateInfo.CoordinateInfo", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_14CoordinateInfo_CoordinateInfo, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_4core_14CoordinateInfo_CoordinateInfo, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -1311,7 +1292,7 @@ static PyTypeObject __pyx_type_6pytraj_14CoordinateInfo_CoordinateInfo = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6pytraj_14CoordinateInfo_CoordinateInfo, /*tp_methods*/
+  __pyx_methods_6pytraj_4core_14CoordinateInfo_CoordinateInfo, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -1321,7 +1302,7 @@ static PyTypeObject __pyx_type_6pytraj_14CoordinateInfo_CoordinateInfo = {
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_14CoordinateInfo_CoordinateInfo, /*tp_new*/
+  __pyx_tp_new_6pytraj_4core_14CoordinateInfo_CoordinateInfo, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -1442,14 +1423,14 @@ PyMODINIT_FUNC PyInit_CoordinateInfo(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_pytraj__CoordinateInfo) {
+  if (__pyx_module_is_main_pytraj__core__CoordinateInfo) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "pytraj.CoordinateInfo")) {
-      if (unlikely(PyDict_SetItemString(modules, "pytraj.CoordinateInfo", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "pytraj.core.CoordinateInfo")) {
+      if (unlikely(PyDict_SetItemString(modules, "pytraj.core.CoordinateInfo", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -1461,20 +1442,19 @@ PyMODINIT_FUNC PyInit_CoordinateInfo(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_6pytraj_14CoordinateInfo_CoordinateInfo) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_14CoordinateInfo_CoordinateInfo.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "CoordinateInfo", (PyObject *)&__pyx_type_6pytraj_14CoordinateInfo_CoordinateInfo) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_14CoordinateInfo_CoordinateInfo = &__pyx_type_6pytraj_14CoordinateInfo_CoordinateInfo;
+  if (PyType_Ready(&__pyx_type_6pytraj_4core_14CoordinateInfo_CoordinateInfo) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_4core_14CoordinateInfo_CoordinateInfo.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "CoordinateInfo", (PyObject *)&__pyx_type_6pytraj_4core_14CoordinateInfo_CoordinateInfo) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14CoordinateInfo_CoordinateInfo = &__pyx_type_6pytraj_4core_14CoordinateInfo_CoordinateInfo;
   /*--- Type import code ---*/
-  __pyx_ptype_6pytraj_15ReplicaDimArray_ReplicaDimArray = __Pyx_ImportType("pytraj.ReplicaDimArray", "ReplicaDimArray", sizeof(struct __pyx_obj_6pytraj_15ReplicaDimArray_ReplicaDimArray), 1); if (unlikely(!__pyx_ptype_6pytraj_15ReplicaDimArray_ReplicaDimArray)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4Vec3_Vec3 = __Pyx_ImportType("pytraj.Vec3", "Vec3", sizeof(struct __pyx_obj_6pytraj_4Vec3_Vec3), 1); if (unlikely(!__pyx_ptype_6pytraj_4Vec3_Vec3)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3 = __Pyx_ImportType("pytraj.Matrix_3x3", "Matrix_3x3", sizeof(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3), 1); if (unlikely(!__pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_3Box_Box = __Pyx_ImportType("pytraj.Box", "Box", sizeof(struct __pyx_obj_6pytraj_3Box_Box), 1); if (unlikely(!__pyx_ptype_6pytraj_3Box_Box)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4math_4Vec3_Vec3 = __Pyx_ImportType("pytraj.math.Vec3", "Vec3", sizeof(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Vec3_Vec3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3 = __Pyx_ImportType("pytraj.math.Matrix_3x3", "Matrix_3x3", sizeof(struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_3Box_Box = __Pyx_ImportType("pytraj.core.Box", "Box", sizeof(struct __pyx_obj_6pytraj_4core_3Box_Box), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_3Box_Box)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/CoordinateInfo.pyx":1
+  /* "pytraj/core/CoordinateInfo.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * 
  * 
@@ -1491,11 +1471,11 @@ PyMODINIT_FUNC PyInit_CoordinateInfo(void)
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pytraj.CoordinateInfo", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pytraj.core.CoordinateInfo", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pytraj.CoordinateInfo");
+    PyErr_SetString(PyExc_ImportError, "init pytraj.core.CoordinateInfo");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

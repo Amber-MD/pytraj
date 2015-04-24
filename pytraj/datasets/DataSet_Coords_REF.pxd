@@ -1,13 +1,13 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from pytraj.Topology cimport _Topology, Topology
-from pytraj.datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
-from pytraj.datasets.DataSet cimport _DataSet, DataSet
-from pytraj.datasets.DataSet_1D cimport _DataSet_1D, DataSet_1D
-from pytraj.ArgList cimport _ArgList, ArgList
-from pytraj.Frame cimport _Frame, Frame
-from pytraj.AtomMask cimport _AtomMask, AtomMask
-from pytraj.FileName cimport _FileName, FileName
+from ..Topology cimport _Topology, Topology
+from ..ArgList cimport _ArgList, ArgList
+from ..Frame cimport _Frame, Frame
+from ..AtomMask cimport _AtomMask, AtomMask
+from ..FileName cimport _FileName, FileName
+from .DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
+from .DataSet cimport _DataSet, DataSet
+from .DataSet_1D cimport _DataSet_1D, DataSet_1D
 
 
 cdef extern from "DataSet_Coords_REF.h": 

@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
-from pytraj.datasets.DataSet_2D cimport *
-from pytraj.Matrix cimport *
+from .DataSet_2D cimport *
+from ..math.Matrix cimport *
 
 #ctypedef Matrix[double].iterator iterator
 ctypedef vector[double] Darray

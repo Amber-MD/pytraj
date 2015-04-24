@@ -8,4 +8,4 @@ def set_error_silent(turnoff=True):
     SupressErrorMsg(turnoff)
 
 def set_world_silent(turnoff=True):
-    cpptraj_SetWorldSilent(turnoff
+    SetWorldSilent(turnoff)

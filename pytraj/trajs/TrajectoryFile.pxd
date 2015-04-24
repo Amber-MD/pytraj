@@ -1,12 +1,10 @@
 # distutils: language = c++
 from __future__ import absolute_import
 from libcpp.string cimport string
-from pytraj.trajs.TrajectoryIO cimport _TrajectoryIO, TrajectoryIO
-from pytraj.FileTypes cimport _FileTypes, FileTypes
-from pytraj.FileName cimport *
-from pytraj.FileTypes cimport AllocToken, KeyToken
-from pytraj.ArgList cimport _ArgList, ArgList
-from pytraj.Topology cimport _Topology, Topology
+from .TrajectoryIO cimport _TrajectoryIO, TrajectoryIO
+from ..FileName cimport *
+from ..ArgList cimport _ArgList, ArgList
+from ..Topology cimport _Topology, Topology
 
 
 cdef extern from "TrajectoryFile.h": 
@@ -28,10 +26,6 @@ cdef extern from "TrajectoryFile.h":
         #UNKNOWN_TRAJ "TrajectoryFile::UNKNOWN_TRAJ"
 
     cdef cppclass _TrajectoryFile "TrajectoryFile":
-        @staticmethod
-        AllocToken TF_AllocArray[] 
-        @staticmethod
-        KeyToken TF_KeyArray[]
         _TrajectoryFile ()
         @staticmethod
         void ReadOptions ()

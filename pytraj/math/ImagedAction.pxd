@@ -1,6 +1,6 @@
 # distutil: language = c++
 
-from pytraj.Box cimport _Box, Box, BoxType
+from ..core.Box cimport _Box, Box, BoxType
 
 cdef extern from "ImagedAction.h":
     cdef cppclass _ImagedAction "ImagedAction":

@@ -237,8 +237,8 @@ class __Pyx_FakeReference {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__pytraj__actions__ImagedAction
-#define __PYX_HAVE_API__pytraj__actions__ImagedAction
+#define __PYX_HAVE__pytraj__math__ImagedAction
+#define __PYX_HAVE_API__pytraj__math__ImagedAction
 #include <vector>
 #include "ios"
 #include "new"
@@ -443,62 +443,62 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pytraj/actions/ImagedAction.pyx",
-  "pytraj/Vec3.pxd",
-  "pytraj/Matrix_3x3.pxd",
-  "pytraj/Box.pxd",
+  "pytraj/math/ImagedAction.pyx",
+  "pytraj/math/Vec3.pxd",
+  "pytraj/math/Matrix_3x3.pxd",
+  "pytraj/core/Box.pxd",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_6pytraj_4Vec3_Vec3;
-struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3;
-struct __pyx_obj_6pytraj_3Box_Box;
-struct __pyx_obj_6pytraj_7actions_12ImagedAction_ImagedAction;
+struct __pyx_obj_6pytraj_4math_4Vec3_Vec3;
+struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3;
+struct __pyx_obj_6pytraj_8core_dot_Box_Box;
+struct __pyx_obj_6pytraj_4math_12ImagedAction_ImagedAction;
 
-/* "pytraj/Vec3.pxd":44
+/* "pytraj/math/Vec3.pxd":44
  * 
  * 
  * cdef class Vec3:             # <<<<<<<<<<<<<<
  *     cdef _Vec3* thisptr
  * 
  */
-struct __pyx_obj_6pytraj_4Vec3_Vec3 {
+struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 {
   PyObject_HEAD
   Vec3 *thisptr;
 };
 
 
-/* "pytraj/Matrix_3x3.pxd":41
+/* "pytraj/math/Matrix_3x3.pxd":42
  *         double * Dptr()
  * 
  * cdef class Matrix_3x3:             # <<<<<<<<<<<<<<
  *     cdef _Matrix_3x3* thisptr
  */
-struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3 {
+struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3 {
   PyObject_HEAD
   Matrix_3x3 *thisptr;
 };
 
 
-/* "pytraj/Box.pxd":47
+/* "core/Box.pxd":47
  *         double& index_opr "operator[]"(int idx)
  * 
  * cdef class Box:             # <<<<<<<<<<<<<<
  *     cdef _Box* thisptr
  */
-struct __pyx_obj_6pytraj_3Box_Box {
+struct __pyx_obj_6pytraj_8core_dot_Box_Box {
   PyObject_HEAD
   Box *thisptr;
 };
 
 
-/* "pytraj/actions/ImagedAction.pxd":14
+/* "pytraj/math/ImagedAction.pxd":14
  *         ImageType()
  * 
  * cdef class ImagedAction:             # <<<<<<<<<<<<<<
  *     cdef _ImagedAction* thisptr
  */
-struct __pyx_obj_6pytraj_7actions_12ImagedAction_ImagedAction {
+struct __pyx_obj_6pytraj_4math_12ImagedAction_ImagedAction {
   PyObject_HEAD
   ImagedAction *thisptr;
 };
@@ -614,32 +614,32 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libcpp.vector' */
 
-/* Module declarations from 'pytraj.Vec3' */
-static PyTypeObject *__pyx_ptype_6pytraj_4Vec3_Vec3 = 0;
+/* Module declarations from 'pytraj.math.Vec3' */
+static PyTypeObject *__pyx_ptype_6pytraj_4math_4Vec3_Vec3 = 0;
 
-/* Module declarations from 'pytraj.Matrix_3x3' */
-static PyTypeObject *__pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3 = 0;
+/* Module declarations from 'pytraj.math.Matrix_3x3' */
+static PyTypeObject *__pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3 = 0;
 
 /* Module declarations from 'pytraj.cpp_vector' */
 
-/* Module declarations from 'pytraj.Box' */
-static PyTypeObject *__pyx_ptype_6pytraj_3Box_Box = 0;
+/* Module declarations from 'pytraj.core.Box' */
+static PyTypeObject *__pyx_ptype_6pytraj_8core_dot_Box_Box = 0;
 
-/* Module declarations from 'pytraj.actions.ImagedAction' */
-static PyTypeObject *__pyx_ptype_6pytraj_7actions_12ImagedAction_ImagedAction = 0;
-#define __Pyx_MODULE_NAME "pytraj.actions.ImagedAction"
-int __pyx_module_is_main_pytraj__actions__ImagedAction = 0;
+/* Module declarations from 'pytraj.math.ImagedAction' */
+static PyTypeObject *__pyx_ptype_6pytraj_4math_12ImagedAction_ImagedAction = 0;
+#define __Pyx_MODULE_NAME "pytraj.math.ImagedAction"
+int __pyx_module_is_main_pytraj__math__ImagedAction = 0;
 
-/* Implementation of 'pytraj.actions.ImagedAction' */
-static int __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction___cinit__(struct __pyx_obj_6pytraj_7actions_12ImagedAction_ImagedAction *__pyx_v_self); /* proto */
-static void __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction_2__dealloc__(struct __pyx_obj_6pytraj_7actions_12ImagedAction_ImagedAction *__pyx_v_self); /* proto */
-static PyObject *__pyx_tp_new_6pytraj_7actions_12ImagedAction_ImagedAction(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+/* Implementation of 'pytraj.math.ImagedAction' */
+static int __pyx_pf_6pytraj_4math_12ImagedAction_12ImagedAction___cinit__(struct __pyx_obj_6pytraj_4math_12ImagedAction_ImagedAction *__pyx_v_self); /* proto */
+static void __pyx_pf_6pytraj_4math_12ImagedAction_12ImagedAction_2__dealloc__(struct __pyx_obj_6pytraj_4math_12ImagedAction_ImagedAction *__pyx_v_self); /* proto */
+static PyObject *__pyx_tp_new_6pytraj_4math_12ImagedAction_ImagedAction(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_test[] = "__test__";
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_test;
 
-/* "pytraj/actions/ImagedAction.pyx":5
+/* "pytraj/math/ImagedAction.pyx":5
  * 
  * cdef class ImagedAction:
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -648,27 +648,27 @@ static PyObject *__pyx_n_s_test;
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_7actions_12ImagedAction_12ImagedAction_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_6pytraj_7actions_12ImagedAction_12ImagedAction_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6pytraj_4math_12ImagedAction_12ImagedAction_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_6pytraj_4math_12ImagedAction_12ImagedAction_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
-  __pyx_r = __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction___cinit__(((struct __pyx_obj_6pytraj_7actions_12ImagedAction_ImagedAction *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_12ImagedAction_12ImagedAction___cinit__(((struct __pyx_obj_6pytraj_4math_12ImagedAction_ImagedAction *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction___cinit__(struct __pyx_obj_6pytraj_7actions_12ImagedAction_ImagedAction *__pyx_v_self) {
+static int __pyx_pf_6pytraj_4math_12ImagedAction_12ImagedAction___cinit__(struct __pyx_obj_6pytraj_4math_12ImagedAction_ImagedAction *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pytraj/actions/ImagedAction.pyx":6
+  /* "pytraj/math/ImagedAction.pyx":6
  * cdef class ImagedAction:
  *     def __cinit__(self):
  *         self.thisptr = new _ImagedAction()             # <<<<<<<<<<<<<<
@@ -677,7 +677,7 @@ static int __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction___cinit__(str
  */
   __pyx_v_self->thisptr = new ImagedAction();
 
-  /* "pytraj/actions/ImagedAction.pyx":5
+  /* "pytraj/math/ImagedAction.pyx":5
  * 
  * cdef class ImagedAction:
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -691,7 +691,7 @@ static int __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction___cinit__(str
   return __pyx_r;
 }
 
-/* "pytraj/actions/ImagedAction.pyx":8
+/* "pytraj/math/ImagedAction.pyx":8
  *         self.thisptr = new _ImagedAction()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -700,21 +700,21 @@ static int __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction___cinit__(str
  */
 
 /* Python wrapper */
-static void __pyx_pw_6pytraj_7actions_12ImagedAction_12ImagedAction_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6pytraj_7actions_12ImagedAction_12ImagedAction_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_6pytraj_4math_12ImagedAction_12ImagedAction_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_6pytraj_4math_12ImagedAction_12ImagedAction_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction_2__dealloc__(((struct __pyx_obj_6pytraj_7actions_12ImagedAction_ImagedAction *)__pyx_v_self));
+  __pyx_pf_6pytraj_4math_12ImagedAction_12ImagedAction_2__dealloc__(((struct __pyx_obj_6pytraj_4math_12ImagedAction_ImagedAction *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction_2__dealloc__(struct __pyx_obj_6pytraj_7actions_12ImagedAction_ImagedAction *__pyx_v_self) {
+static void __pyx_pf_6pytraj_4math_12ImagedAction_12ImagedAction_2__dealloc__(struct __pyx_obj_6pytraj_4math_12ImagedAction_ImagedAction *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pytraj/actions/ImagedAction.pyx":9
+  /* "pytraj/math/ImagedAction.pyx":9
  * 
  *     def __dealloc__(self):
  *         del self.thisptr             # <<<<<<<<<<<<<<
@@ -723,7 +723,7 @@ static void __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction_2__dealloc__
  */
   delete __pyx_v_self->thisptr;
 
-  /* "pytraj/actions/ImagedAction.pyx":8
+  /* "pytraj/math/ImagedAction.pyx":8
  *         self.thisptr = new _ImagedAction()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -735,7 +735,7 @@ static void __pyx_pf_6pytraj_7actions_12ImagedAction_12ImagedAction_2__dealloc__
   __Pyx_RefNannyFinishContext();
 }
 
-static PyObject *__pyx_tp_new_6pytraj_7actions_12ImagedAction_ImagedAction(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_6pytraj_4math_12ImagedAction_ImagedAction(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -743,13 +743,13 @@ static PyObject *__pyx_tp_new_6pytraj_7actions_12ImagedAction_ImagedAction(PyTyp
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_6pytraj_7actions_12ImagedAction_12ImagedAction_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
+  if (unlikely(__pyx_pw_6pytraj_4math_12ImagedAction_12ImagedAction_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
     Py_DECREF(o); o = 0;
   }
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_7actions_12ImagedAction_ImagedAction(PyObject *o) {
+static void __pyx_tp_dealloc_6pytraj_4math_12ImagedAction_ImagedAction(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -759,23 +759,23 @@ static void __pyx_tp_dealloc_6pytraj_7actions_12ImagedAction_ImagedAction(PyObje
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_6pytraj_7actions_12ImagedAction_12ImagedAction_3__dealloc__(o);
+    __pyx_pw_6pytraj_4math_12ImagedAction_12ImagedAction_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_6pytraj_7actions_12ImagedAction_ImagedAction[] = {
+static PyMethodDef __pyx_methods_6pytraj_4math_12ImagedAction_ImagedAction[] = {
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_6pytraj_7actions_12ImagedAction_ImagedAction = {
+static PyTypeObject __pyx_type_6pytraj_4math_12ImagedAction_ImagedAction = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.actions.ImagedAction.ImagedAction", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_7actions_12ImagedAction_ImagedAction), /*tp_basicsize*/
+  "pytraj.math.ImagedAction.ImagedAction", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_4math_12ImagedAction_ImagedAction), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_7actions_12ImagedAction_ImagedAction, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_4math_12ImagedAction_ImagedAction, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -802,7 +802,7 @@ static PyTypeObject __pyx_type_6pytraj_7actions_12ImagedAction_ImagedAction = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6pytraj_7actions_12ImagedAction_ImagedAction, /*tp_methods*/
+  __pyx_methods_6pytraj_4math_12ImagedAction_ImagedAction, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -812,7 +812,7 @@ static PyTypeObject __pyx_type_6pytraj_7actions_12ImagedAction_ImagedAction = {
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_7actions_12ImagedAction_ImagedAction, /*tp_new*/
+  __pyx_tp_new_6pytraj_4math_12ImagedAction_ImagedAction, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -933,14 +933,14 @@ PyMODINIT_FUNC PyInit_ImagedAction(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_pytraj__actions__ImagedAction) {
+  if (__pyx_module_is_main_pytraj__math__ImagedAction) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "pytraj.actions.ImagedAction")) {
-      if (unlikely(PyDict_SetItemString(modules, "pytraj.actions.ImagedAction", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "pytraj.math.ImagedAction")) {
+      if (unlikely(PyDict_SetItemString(modules, "pytraj.math.ImagedAction", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -952,19 +952,19 @@ PyMODINIT_FUNC PyInit_ImagedAction(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_6pytraj_7actions_12ImagedAction_ImagedAction) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_7actions_12ImagedAction_ImagedAction.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "ImagedAction", (PyObject *)&__pyx_type_6pytraj_7actions_12ImagedAction_ImagedAction) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_7actions_12ImagedAction_ImagedAction = &__pyx_type_6pytraj_7actions_12ImagedAction_ImagedAction;
+  if (PyType_Ready(&__pyx_type_6pytraj_4math_12ImagedAction_ImagedAction) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_4math_12ImagedAction_ImagedAction.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "ImagedAction", (PyObject *)&__pyx_type_6pytraj_4math_12ImagedAction_ImagedAction) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4math_12ImagedAction_ImagedAction = &__pyx_type_6pytraj_4math_12ImagedAction_ImagedAction;
   /*--- Type import code ---*/
-  __pyx_ptype_6pytraj_4Vec3_Vec3 = __Pyx_ImportType("pytraj.Vec3", "Vec3", sizeof(struct __pyx_obj_6pytraj_4Vec3_Vec3), 1); if (unlikely(!__pyx_ptype_6pytraj_4Vec3_Vec3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3 = __Pyx_ImportType("pytraj.Matrix_3x3", "Matrix_3x3", sizeof(struct __pyx_obj_6pytraj_10Matrix_3x3_Matrix_3x3), 1); if (unlikely(!__pyx_ptype_6pytraj_10Matrix_3x3_Matrix_3x3)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_3Box_Box = __Pyx_ImportType("pytraj.Box", "Box", sizeof(struct __pyx_obj_6pytraj_3Box_Box), 1); if (unlikely(!__pyx_ptype_6pytraj_3Box_Box)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4math_4Vec3_Vec3 = __Pyx_ImportType("pytraj.math.Vec3", "Vec3", sizeof(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Vec3_Vec3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3 = __Pyx_ImportType("pytraj.math.Matrix_3x3", "Matrix_3x3", sizeof(struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8core_dot_Box_Box = __Pyx_ImportType("pytraj.core.Box", "Box", sizeof(struct __pyx_obj_6pytraj_8core_dot_Box_Box), 1); if (unlikely(!__pyx_ptype_6pytraj_8core_dot_Box_Box)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/actions/ImagedAction.pyx":1
+  /* "pytraj/math/ImagedAction.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * 
  * 
@@ -981,11 +981,11 @@ PyMODINIT_FUNC PyInit_ImagedAction(void)
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pytraj.actions.ImagedAction", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pytraj.math.ImagedAction", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pytraj.actions.ImagedAction");
+    PyErr_SetString(PyExc_ImportError, "init pytraj.math.ImagedAction");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

@@ -1,17 +1,17 @@
 # distutils: language = c++
 # TODO : add more methods
 from __future__ import absolute_import
-from .cpp_vector cimport vector as cppvector
-from .core.Atom cimport _Atom, Atom
-from .core.Residue cimport _Residue, Residue
-from .core.Molecule cimport _Molecule, Molecule
-from .core.ParameterTypes cimport *
-from .core.Box cimport _Box, Box, BoxType
-from .core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
-from .AtomMask cimport _AtomMask, AtomMask
-from .Frame cimport _Frame, Frame
-from .FileName cimport _FileName, FileName
-from .NameType cimport _NameType, NameType
+from pytraj.cpp_vector cimport vector as cppvector
+from pytraj.core.Atom cimport _Atom, Atom
+from pytraj.core.Residue cimport _Residue, Residue
+from pytraj.core.Molecule cimport _Molecule, Molecule
+from pytraj.core.ParameterTypes cimport *
+from pytraj.core.Box cimport _Box, Box, BoxType
+from pytraj.core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
+from pytraj.AtomMask cimport _AtomMask, AtomMask
+from pytraj.Frame cimport _Frame, Frame
+from pytraj.FileName cimport _FileName, FileName
+from pytraj.NameType cimport _NameType, NameType
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator
@@ -108,7 +108,8 @@ cdef extern from "Topology.h":
         void PrintDihedrals(const DihedralArray&, const _AtomMask&, int&) const
         inline const _Box& Parm_Box() const 
         inline BoxType _BoxType() const 
-        void SetParmBox(const _Box& bIn)
+        #void SetParmBox(const _Box& bIn)
+        void SetParmBox(_Box& bIn)
         int AddTopAtom(const _Atom&, int, const _NameType&, const double *)
         void StartNewMol() 
         int CommonSetup(bint)

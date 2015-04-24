@@ -237,9 +237,8 @@ class __Pyx_FakeReference {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__pytraj__Grid
-#define __PYX_HAVE_API__pytraj__Grid
-#include "ArrayIterator.h"
+#define __PYX_HAVE__pytraj__math__Grid
+#define __PYX_HAVE_API__pytraj__math__Grid
 #include "Grid.h"
 #include "pythread.h"
 #include "string.h"
@@ -441,7 +440,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pytraj/Grid.pyx",
+  "pytraj/math/Grid.pyx",
   "stringsource",
 };
 struct __pyx_memoryview_obj;
@@ -537,20 +536,20 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
 
 
 /*--- Type declarations ---*/
-struct __pyx_obj_6pytraj_4Grid_Grid;
+struct __pyx_obj_6pytraj_4math_4Grid_Grid;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 
-/* "pytraj/Grid.pxd":28
+/* "pytraj/math/Grid.pxd":28
  *         #iterator end()
  * 
  * cdef class Grid:             # <<<<<<<<<<<<<<
  *     pass
  *     cdef _Grid[float]* thisptr
  */
-struct __pyx_obj_6pytraj_4Grid_Grid {
+struct __pyx_obj_6pytraj_4math_4Grid_Grid {
   PyObject_HEAD
   Grid<float>  *thisptr;
 };
@@ -1067,12 +1066,10 @@ static PyObject *__pyx_memoryview_assign_item_from_object(struct __pyx_memoryvie
 static PyObject *__pyx_memoryviewslice_convert_item_to_object(struct __pyx_memoryviewslice_obj *__pyx_v_self, char *__pyx_v_itemp); /* proto*/
 static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memoryviewslice_obj *__pyx_v_self, char *__pyx_v_itemp, PyObject *__pyx_v_value); /* proto*/
 
-/* Module declarations from 'pytraj.ArrayIterator' */
-
 /* Module declarations from 'cython.view' */
 
-/* Module declarations from 'pytraj.Grid' */
-static PyTypeObject *__pyx_ptype_6pytraj_4Grid_Grid = 0;
+/* Module declarations from 'pytraj.math.Grid' */
+static PyTypeObject *__pyx_ptype_6pytraj_4math_4Grid_Grid = 0;
 static PyTypeObject *__pyx_array_type = 0;
 static PyTypeObject *__pyx_MemviewEnum_type = 0;
 static PyTypeObject *__pyx_memoryview_type = 0;
@@ -1115,10 +1112,10 @@ static void __pyx_memoryview_refcount_objects_in_slice(char *, Py_ssize_t *, Py_
 static void __pyx_memoryview_slice_assign_scalar(__Pyx_memviewslice *, int, size_t, void *, int); /*proto*/
 static void __pyx_memoryview__slice_assign_scalar(char *, Py_ssize_t *, Py_ssize_t *, int, size_t, void *); /*proto*/
 static __Pyx_TypeInfo __Pyx_TypeInfo_float = { "float", NULL, sizeof(float), { 0 }, 0, 'R', 0, 0 };
-#define __Pyx_MODULE_NAME "pytraj.Grid"
-int __pyx_module_is_main_pytraj__Grid = 0;
+#define __Pyx_MODULE_NAME "pytraj.math.Grid"
+int __pyx_module_is_main_pytraj__math__Grid = 0;
 
-/* Implementation of 'pytraj.Grid' */
+/* Implementation of 'pytraj.math.Grid' */
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_ValueError;
@@ -1128,19 +1125,19 @@ static PyObject *__pyx_builtin_Ellipsis;
 static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_id;
 static PyObject *__pyx_builtin_IndexError;
-static int __pyx_pf_6pytraj_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
-static void __pyx_pf_6pytraj_4Grid_4Grid_2__dealloc__(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_4__getitem__(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_idx); /* proto */
-static int __pyx_pf_6pytraj_4Grid_4Grid_6__setitem__(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_8size(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_10resize(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self, size_t __pyx_v_x, size_t __pyx_v_y, size_t __pyx_v_z); /* proto */
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_12nx(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_14ny(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_16nz(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_18_element(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z); /* proto */
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_24tolist(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self); /* proto */
+static int __pyx_pf_6pytraj_4math_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
+static void __pyx_pf_6pytraj_4math_4Grid_4Grid_2__dealloc__(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_4__getitem__(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_idx); /* proto */
+static int __pyx_pf_6pytraj_4math_4Grid_4Grid_6__setitem__(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_8size(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_10resize(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self, size_t __pyx_v_x, size_t __pyx_v_y, size_t __pyx_v_z); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_12nx(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_14ny(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_16nz(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_18_element(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_24tolist(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -1173,7 +1170,7 @@ static PyObject *__pyx_memoryview___pyx_pf_15View_dot_MemoryView_10memoryview_20
 static PyObject *__pyx_memoryview___pyx_pf_15View_dot_MemoryView_10memoryview_22copy_fortran(struct __pyx_memoryview_obj *__pyx_v_self); /* proto */
 static void __pyx_memoryviewslice___pyx_pf_15View_dot_MemoryView_16_memoryviewslice___dealloc__(struct __pyx_memoryviewslice_obj *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_15View_dot_MemoryView_16_memoryviewslice_4base___get__(struct __pyx_memoryviewslice_obj *__pyx_v_self); /* proto */
-static PyObject *__pyx_tp_new_6pytraj_4Grid_Grid(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_6pytraj_4math_4Grid_Grid(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_array(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_Enum(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_memoryview(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -1361,7 +1358,7 @@ static PyObject *__pyx_tuple__17;
 static PyObject *__pyx_tuple__18;
 static PyObject *__pyx_tuple__19;
 
-/* "pytraj/Grid.pyx":9
+/* "pytraj/math/Grid.pyx":9
  * 
  * cdef class Grid:
  *     def __cinit__(self, *args):             # <<<<<<<<<<<<<<
@@ -1370,8 +1367,8 @@ static PyObject *__pyx_tuple__19;
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_4Grid_4Grid_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_6pytraj_4Grid_4Grid_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6pytraj_4math_4Grid_4Grid_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_6pytraj_4math_4Grid_4Grid_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_args = 0;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -1379,7 +1376,7 @@ static int __pyx_pw_6pytraj_4Grid_4Grid_1__cinit__(PyObject *__pyx_v_self, PyObj
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid___cinit__(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self), __pyx_v_args);
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid___cinit__(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self), __pyx_v_args);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -1387,7 +1384,7 @@ static int __pyx_pw_6pytraj_4Grid_4Grid_1__cinit__(PyObject *__pyx_v_self, PyObj
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_args) {
+static int __pyx_pf_6pytraj_4math_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_args) {
   size_t __pyx_v_x;
   size_t __pyx_v_y;
   size_t __pyx_v_z;
@@ -1410,7 +1407,7 @@ static int __pyx_pf_6pytraj_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4Grid
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pytraj/Grid.pyx":12
+  /* "pytraj/math/Grid.pyx":12
  *         cdef size_t x, y, z
  * 
  *         self.thisptr = new _Grid[float]()             # <<<<<<<<<<<<<<
@@ -1419,7 +1416,7 @@ static int __pyx_pf_6pytraj_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4Grid
  */
   __pyx_v_self->thisptr = new Grid<float> ();
 
-  /* "pytraj/Grid.pyx":14
+  /* "pytraj/math/Grid.pyx":14
  *         self.thisptr = new _Grid[float]()
  * 
  *         if len(args) == 3:             # <<<<<<<<<<<<<<
@@ -1430,7 +1427,7 @@ static int __pyx_pf_6pytraj_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4Grid
   __pyx_t_2 = ((__pyx_t_1 == 3) != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/Grid.pyx":15
+    /* "pytraj/math/Grid.pyx":15
  * 
  *         if len(args) == 3:
  *             x, y, z = args             # <<<<<<<<<<<<<<
@@ -1475,7 +1472,7 @@ static int __pyx_pf_6pytraj_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4Grid
     __pyx_v_y = __pyx_t_7;
     __pyx_v_z = __pyx_t_8;
 
-    /* "pytraj/Grid.pyx":16
+    /* "pytraj/math/Grid.pyx":16
  *         if len(args) == 3:
  *             x, y, z = args
  *             self.resize(x, y, z)             # <<<<<<<<<<<<<<
@@ -1522,7 +1519,7 @@ static int __pyx_pf_6pytraj_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4Grid
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "pytraj/Grid.pyx":14
+    /* "pytraj/math/Grid.pyx":14
  *         self.thisptr = new _Grid[float]()
  * 
  *         if len(args) == 3:             # <<<<<<<<<<<<<<
@@ -1531,7 +1528,7 @@ static int __pyx_pf_6pytraj_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4Grid
  */
   }
 
-  /* "pytraj/Grid.pyx":9
+  /* "pytraj/math/Grid.pyx":9
  * 
  * cdef class Grid:
  *     def __cinit__(self, *args):             # <<<<<<<<<<<<<<
@@ -1550,14 +1547,14 @@ static int __pyx_pf_6pytraj_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4Grid
   __Pyx_XDECREF(__pyx_t_10);
   __Pyx_XDECREF(__pyx_t_11);
   __Pyx_XDECREF(__pyx_t_12);
-  __Pyx_AddTraceback("pytraj.Grid.Grid.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":18
+/* "pytraj/math/Grid.pyx":18
  *             self.resize(x, y, z)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1566,21 +1563,21 @@ static int __pyx_pf_6pytraj_4Grid_4Grid___cinit__(struct __pyx_obj_6pytraj_4Grid
  */
 
 /* Python wrapper */
-static void __pyx_pw_6pytraj_4Grid_4Grid_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6pytraj_4Grid_4Grid_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_6pytraj_4math_4Grid_4Grid_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_6pytraj_4math_4Grid_4Grid_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6pytraj_4Grid_4Grid_2__dealloc__(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self));
+  __pyx_pf_6pytraj_4math_4Grid_4Grid_2__dealloc__(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_6pytraj_4Grid_4Grid_2__dealloc__(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self) {
+static void __pyx_pf_6pytraj_4math_4Grid_4Grid_2__dealloc__(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pytraj/Grid.pyx":19
+  /* "pytraj/math/Grid.pyx":19
  * 
  *     def __dealloc__(self):
  *         del self.thisptr             # <<<<<<<<<<<<<<
@@ -1589,7 +1586,7 @@ static void __pyx_pf_6pytraj_4Grid_4Grid_2__dealloc__(struct __pyx_obj_6pytraj_4
  */
   delete __pyx_v_self->thisptr;
 
-  /* "pytraj/Grid.pyx":18
+  /* "pytraj/math/Grid.pyx":18
  *             self.resize(x, y, z)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1601,7 +1598,7 @@ static void __pyx_pf_6pytraj_4Grid_4Grid_2__dealloc__(struct __pyx_obj_6pytraj_4
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/Grid.pyx":21
+/* "pytraj/math/Grid.pyx":21
  *         del self.thisptr
  * 
  *     def __getitem__(self, idx):             # <<<<<<<<<<<<<<
@@ -1610,19 +1607,19 @@ static void __pyx_pf_6pytraj_4Grid_4Grid_2__dealloc__(struct __pyx_obj_6pytraj_4
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx); /*proto*/
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx) {
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_4__getitem__(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self), ((PyObject *)__pyx_v_idx));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_4__getitem__(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self), ((PyObject *)__pyx_v_idx));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_4__getitem__(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_idx) {
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_4__getitem__(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_idx) {
   size_t __pyx_v_x;
   size_t __pyx_v_y;
   size_t __pyx_v_z;
@@ -1641,7 +1638,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_4__getitem__(struct __pyx_obj_6pyt
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
 
-  /* "pytraj/Grid.pyx":23
+  /* "pytraj/math/Grid.pyx":23
  *     def __getitem__(self, idx):
  *         cdef size_t x, y, z
  *         x, y, z = idx             # <<<<<<<<<<<<<<
@@ -1713,7 +1710,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_4__getitem__(struct __pyx_obj_6pyt
   __pyx_v_y = __pyx_t_7;
   __pyx_v_z = __pyx_t_8;
 
-  /* "pytraj/Grid.pyx":24
+  /* "pytraj/math/Grid.pyx":24
  *         cdef size_t x, y, z
  *         x, y, z = idx
  *         return self.thisptr.element(x, y, z)             # <<<<<<<<<<<<<<
@@ -1727,7 +1724,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_4__getitem__(struct __pyx_obj_6pyt
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Grid.pyx":21
+  /* "pytraj/math/Grid.pyx":21
  *         del self.thisptr
  * 
  *     def __getitem__(self, idx):             # <<<<<<<<<<<<<<
@@ -1741,7 +1738,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_4__getitem__(struct __pyx_obj_6pyt
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pytraj.Grid.Grid.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1749,7 +1746,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_4__getitem__(struct __pyx_obj_6pyt
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":26
+/* "pytraj/math/Grid.pyx":26
  *         return self.thisptr.element(x, y, z)
  * 
  *     def __setitem__(self, idx, value):             # <<<<<<<<<<<<<<
@@ -1758,19 +1755,19 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_4__getitem__(struct __pyx_obj_6pyt
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_4Grid_4Grid_7__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_6pytraj_4Grid_4Grid_7__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value) {
+static int __pyx_pw_6pytraj_4math_4Grid_4Grid_7__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_6pytraj_4math_4Grid_4Grid_7__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_6__setitem__(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self), ((PyObject *)__pyx_v_idx), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_6__setitem__(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self), ((PyObject *)__pyx_v_idx), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_4Grid_4Grid_6__setitem__(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value) {
+static int __pyx_pf_6pytraj_4math_4Grid_4Grid_6__setitem__(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value) {
   size_t __pyx_v_x;
   size_t __pyx_v_y;
   size_t __pyx_v_z;
@@ -1790,7 +1787,7 @@ static int __pyx_pf_6pytraj_4Grid_4Grid_6__setitem__(struct __pyx_obj_6pytraj_4G
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__setitem__", 0);
 
-  /* "pytraj/Grid.pyx":28
+  /* "pytraj/math/Grid.pyx":28
  *     def __setitem__(self, idx, value):
  *         cdef size_t x, y, z
  *         x, y, z = idx             # <<<<<<<<<<<<<<
@@ -1862,7 +1859,7 @@ static int __pyx_pf_6pytraj_4Grid_4Grid_6__setitem__(struct __pyx_obj_6pytraj_4G
   __pyx_v_y = __pyx_t_7;
   __pyx_v_z = __pyx_t_8;
 
-  /* "pytraj/Grid.pyx":29
+  /* "pytraj/math/Grid.pyx":29
  *         cdef size_t x, y, z
  *         x, y, z = idx
  *         self.thisptr.setGrid(x, y, z, <float> value)             # <<<<<<<<<<<<<<
@@ -1872,7 +1869,7 @@ static int __pyx_pf_6pytraj_4Grid_4Grid_6__setitem__(struct __pyx_obj_6pytraj_4G
   __pyx_t_9 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_9 == (float)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_self->thisptr->setGrid(__pyx_v_x, __pyx_v_y, __pyx_v_z, ((float)__pyx_t_9));
 
-  /* "pytraj/Grid.pyx":26
+  /* "pytraj/math/Grid.pyx":26
  *         return self.thisptr.element(x, y, z)
  * 
  *     def __setitem__(self, idx, value):             # <<<<<<<<<<<<<<
@@ -1888,14 +1885,14 @@ static int __pyx_pf_6pytraj_4Grid_4Grid_6__setitem__(struct __pyx_obj_6pytraj_4G
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pytraj.Grid.Grid.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":32
+/* "pytraj/math/Grid.pyx":32
  * 
  *     @property
  *     def size(self):             # <<<<<<<<<<<<<<
@@ -1904,20 +1901,20 @@ static int __pyx_pf_6pytraj_4Grid_4Grid_6__setitem__(struct __pyx_obj_6pytraj_4G
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_9size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4Grid_4Grid_8size[] = "Grid.size(self)";
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_9size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_9size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Grid_4Grid_8size[] = "Grid.size(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_9size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("size (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_8size(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_8size(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_8size(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_8size(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1926,7 +1923,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_8size(struct __pyx_obj_6pytraj_4Gr
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("size", 0);
 
-  /* "pytraj/Grid.pyx":33
+  /* "pytraj/math/Grid.pyx":33
  *     @property
  *     def size(self):
  *         return self.thisptr.size()             # <<<<<<<<<<<<<<
@@ -1940,7 +1937,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_8size(struct __pyx_obj_6pytraj_4Gr
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Grid.pyx":32
+  /* "pytraj/math/Grid.pyx":32
  * 
  *     @property
  *     def size(self):             # <<<<<<<<<<<<<<
@@ -1951,7 +1948,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_8size(struct __pyx_obj_6pytraj_4Gr
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Grid.Grid.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -1959,7 +1956,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_8size(struct __pyx_obj_6pytraj_4Gr
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":35
+/* "pytraj/math/Grid.pyx":35
  *         return self.thisptr.size()
  * 
  *     def resize(self, size_t x, size_t y, size_t z):             # <<<<<<<<<<<<<<
@@ -1968,9 +1965,9 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_8size(struct __pyx_obj_6pytraj_4Gr
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_11resize(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_4Grid_4Grid_10resize[] = "Grid.resize(self, size_t x, size_t y, size_t z)";
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_11resize(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_11resize(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Grid_4Grid_10resize[] = "Grid.resize(self, size_t x, size_t y, size_t z)";
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_11resize(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   size_t __pyx_v_x;
   size_t __pyx_v_y;
   size_t __pyx_v_z;
@@ -2027,23 +2024,23 @@ static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_11resize(PyObject *__pyx_v_self, P
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("resize", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.Grid.Grid.resize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.resize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_10resize(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self), __pyx_v_x, __pyx_v_y, __pyx_v_z);
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_10resize(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self), __pyx_v_x, __pyx_v_y, __pyx_v_z);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_10resize(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self, size_t __pyx_v_x, size_t __pyx_v_y, size_t __pyx_v_z) {
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_10resize(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self, size_t __pyx_v_x, size_t __pyx_v_y, size_t __pyx_v_z) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("resize", 0);
 
-  /* "pytraj/Grid.pyx":36
+  /* "pytraj/math/Grid.pyx":36
  * 
  *     def resize(self, size_t x, size_t y, size_t z):
  *         self.thisptr.resize(x, y, z)             # <<<<<<<<<<<<<<
@@ -2052,7 +2049,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_10resize(struct __pyx_obj_6pytraj_
  */
   __pyx_v_self->thisptr->resize(__pyx_v_x, __pyx_v_y, __pyx_v_z);
 
-  /* "pytraj/Grid.pyx":35
+  /* "pytraj/math/Grid.pyx":35
  *         return self.thisptr.size()
  * 
  *     def resize(self, size_t x, size_t y, size_t z):             # <<<<<<<<<<<<<<
@@ -2067,7 +2064,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_10resize(struct __pyx_obj_6pytraj_
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":39
+/* "pytraj/math/Grid.pyx":39
  * 
  *     @property
  *     def nx(self):             # <<<<<<<<<<<<<<
@@ -2076,20 +2073,20 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_10resize(struct __pyx_obj_6pytraj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_13nx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4Grid_4Grid_12nx[] = "Grid.nx(self)";
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_13nx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_13nx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Grid_4Grid_12nx[] = "Grid.nx(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_13nx(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("nx (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_12nx(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_12nx(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_12nx(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_12nx(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2098,7 +2095,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_12nx(struct __pyx_obj_6pytraj_4Gri
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("nx", 0);
 
-  /* "pytraj/Grid.pyx":40
+  /* "pytraj/math/Grid.pyx":40
  *     @property
  *     def nx(self):
  *         return self.thisptr.NX()             # <<<<<<<<<<<<<<
@@ -2112,7 +2109,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_12nx(struct __pyx_obj_6pytraj_4Gri
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Grid.pyx":39
+  /* "pytraj/math/Grid.pyx":39
  * 
  *     @property
  *     def nx(self):             # <<<<<<<<<<<<<<
@@ -2123,7 +2120,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_12nx(struct __pyx_obj_6pytraj_4Gri
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Grid.Grid.nx", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.nx", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2131,7 +2128,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_12nx(struct __pyx_obj_6pytraj_4Gri
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":43
+/* "pytraj/math/Grid.pyx":43
  * 
  *     @property
  *     def ny(self):             # <<<<<<<<<<<<<<
@@ -2140,20 +2137,20 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_12nx(struct __pyx_obj_6pytraj_4Gri
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_15ny(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4Grid_4Grid_14ny[] = "Grid.ny(self)";
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_15ny(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_15ny(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Grid_4Grid_14ny[] = "Grid.ny(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_15ny(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("ny (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_14ny(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_14ny(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_14ny(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_14ny(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2162,7 +2159,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_14ny(struct __pyx_obj_6pytraj_4Gri
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("ny", 0);
 
-  /* "pytraj/Grid.pyx":44
+  /* "pytraj/math/Grid.pyx":44
  *     @property
  *     def ny(self):
  *         return self.thisptr.NY()             # <<<<<<<<<<<<<<
@@ -2176,7 +2173,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_14ny(struct __pyx_obj_6pytraj_4Gri
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Grid.pyx":43
+  /* "pytraj/math/Grid.pyx":43
  * 
  *     @property
  *     def ny(self):             # <<<<<<<<<<<<<<
@@ -2187,7 +2184,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_14ny(struct __pyx_obj_6pytraj_4Gri
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Grid.Grid.ny", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.ny", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2195,7 +2192,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_14ny(struct __pyx_obj_6pytraj_4Gri
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":47
+/* "pytraj/math/Grid.pyx":47
  * 
  *     @property
  *     def nz(self):             # <<<<<<<<<<<<<<
@@ -2204,20 +2201,20 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_14ny(struct __pyx_obj_6pytraj_4Gri
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_17nz(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4Grid_4Grid_16nz[] = "Grid.nz(self)";
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_17nz(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_17nz(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Grid_4Grid_16nz[] = "Grid.nz(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_17nz(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("nz (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_16nz(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_16nz(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_16nz(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_16nz(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2226,7 +2223,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_16nz(struct __pyx_obj_6pytraj_4Gri
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("nz", 0);
 
-  /* "pytraj/Grid.pyx":48
+  /* "pytraj/math/Grid.pyx":48
  *     @property
  *     def nz(self):
  *         return self.thisptr.NZ()             # <<<<<<<<<<<<<<
@@ -2240,7 +2237,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_16nz(struct __pyx_obj_6pytraj_4Gri
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Grid.pyx":47
+  /* "pytraj/math/Grid.pyx":47
  * 
  *     @property
  *     def nz(self):             # <<<<<<<<<<<<<<
@@ -2251,7 +2248,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_16nz(struct __pyx_obj_6pytraj_4Gri
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Grid.Grid.nz", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.nz", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2259,7 +2256,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_16nz(struct __pyx_obj_6pytraj_4Gri
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":50
+/* "pytraj/math/Grid.pyx":50
  *         return self.thisptr.NZ()
  * 
  *     def _element(self, int x, int y, int z):             # <<<<<<<<<<<<<<
@@ -2268,9 +2265,9 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_16nz(struct __pyx_obj_6pytraj_4Gri
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_19_element(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_4Grid_4Grid_18_element[] = "Grid._element(self, int x, int y, int z)";
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_19_element(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_19_element(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Grid_4Grid_18_element[] = "Grid._element(self, int x, int y, int z)";
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_19_element(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_x;
   int __pyx_v_y;
   int __pyx_v_z;
@@ -2327,18 +2324,18 @@ static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_19_element(PyObject *__pyx_v_self,
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("_element", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.Grid.Grid._element", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid._element", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_18_element(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self), __pyx_v_x, __pyx_v_y, __pyx_v_z);
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_18_element(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self), __pyx_v_x, __pyx_v_y, __pyx_v_z);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_18_element(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z) {
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_18_element(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2347,7 +2344,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_18_element(struct __pyx_obj_6pytra
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_element", 0);
 
-  /* "pytraj/Grid.pyx":51
+  /* "pytraj/math/Grid.pyx":51
  * 
  *     def _element(self, int x, int y, int z):
  *         return self.thisptr.element(x, y, z)             # <<<<<<<<<<<<<<
@@ -2361,7 +2358,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_18_element(struct __pyx_obj_6pytra
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Grid.pyx":50
+  /* "pytraj/math/Grid.pyx":50
  *         return self.thisptr.NZ()
  * 
  *     def _element(self, int x, int y, int z):             # <<<<<<<<<<<<<<
@@ -2372,7 +2369,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_18_element(struct __pyx_obj_6pytra
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Grid.Grid._element", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid._element", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2380,7 +2377,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_18_element(struct __pyx_obj_6pytra
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":54
+/* "pytraj/math/Grid.pyx":54
  * 
  *     @property
  *     def data(self):             # <<<<<<<<<<<<<<
@@ -2389,20 +2386,20 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_18_element(struct __pyx_obj_6pytra
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_21data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4Grid_4Grid_20data[] = "Grid.data(self)\nreturn a copy of 3D array of Grid";
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_21data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_21data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Grid_4Grid_20data[] = "Grid.data(self)\nreturn a copy of 3D array of Grid";
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_21data(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("data (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_20data(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_20data(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self) {
   size_t __pyx_v_nx;
   size_t __pyx_v_ny;
   size_t __pyx_v_nz;
@@ -2433,7 +2430,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("data", 0);
 
-  /* "pytraj/Grid.pyx":57
+  /* "pytraj/math/Grid.pyx":57
  *         """return a copy of 3D array of Grid"""
  *         cdef size_t nx, ny, nz
  *         nx, ny, nz = self.nx, self.ny, self.nz             # <<<<<<<<<<<<<<
@@ -2456,7 +2453,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
   __pyx_v_ny = __pyx_t_3;
   __pyx_v_nz = __pyx_t_4;
 
-  /* "pytraj/Grid.pyx":59
+  /* "pytraj/math/Grid.pyx":59
  *         nx, ny, nz = self.nx, self.ny, self.nz
  *         cdef int i, j, k
  *         cdef cyarray carr = cyarray(shape=(nx, ny, nz),             # <<<<<<<<<<<<<<
@@ -2485,7 +2482,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_8) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "pytraj/Grid.pyx":60
+  /* "pytraj/math/Grid.pyx":60
  *         cdef int i, j, k
  *         cdef cyarray carr = cyarray(shape=(nx, ny, nz),
  *                                    itemsize=sizeof(float), format="f")             # <<<<<<<<<<<<<<
@@ -2498,7 +2495,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_format, __pyx_n_s_f) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "pytraj/Grid.pyx":59
+  /* "pytraj/math/Grid.pyx":59
  *         nx, ny, nz = self.nx, self.ny, self.nz
  *         cdef int i, j, k
  *         cdef cyarray carr = cyarray(shape=(nx, ny, nz),             # <<<<<<<<<<<<<<
@@ -2511,7 +2508,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
   __pyx_v_carr = ((struct __pyx_array_obj *)__pyx_t_8);
   __pyx_t_8 = 0;
 
-  /* "pytraj/Grid.pyx":61
+  /* "pytraj/math/Grid.pyx":61
  *         cdef cyarray carr = cyarray(shape=(nx, ny, nz),
  *                                    itemsize=sizeof(float), format="f")
  *         cdef float[:, :, :] myview = carr             # <<<<<<<<<<<<<<
@@ -2524,7 +2521,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
   __pyx_t_9.memview = NULL;
   __pyx_t_9.data = NULL;
 
-  /* "pytraj/Grid.pyx":63
+  /* "pytraj/math/Grid.pyx":63
  *         cdef float[:, :, :] myview = carr
  * 
  *         for i in range(nx):             # <<<<<<<<<<<<<<
@@ -2535,7 +2532,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
   for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_4; __pyx_t_10+=1) {
     __pyx_v_i = __pyx_t_10;
 
-    /* "pytraj/Grid.pyx":64
+    /* "pytraj/math/Grid.pyx":64
  * 
  *         for i in range(nx):
  *             for j in range(ny):             # <<<<<<<<<<<<<<
@@ -2546,7 +2543,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
     for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_3; __pyx_t_11+=1) {
       __pyx_v_j = __pyx_t_11;
 
-      /* "pytraj/Grid.pyx":65
+      /* "pytraj/math/Grid.pyx":65
  *         for i in range(nx):
  *             for j in range(ny):
  *                 for k in range(nz):             # <<<<<<<<<<<<<<
@@ -2557,7 +2554,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
       for (__pyx_t_12 = 0; __pyx_t_12 < __pyx_t_2; __pyx_t_12+=1) {
         __pyx_v_k = __pyx_t_12;
 
-        /* "pytraj/Grid.pyx":66
+        /* "pytraj/math/Grid.pyx":66
  *             for j in range(ny):
  *                 for k in range(nz):
  *                     myview[i, j, k] = self.thisptr.element(i, j, k)             # <<<<<<<<<<<<<<
@@ -2572,7 +2569,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
     }
   }
 
-  /* "pytraj/Grid.pyx":67
+  /* "pytraj/math/Grid.pyx":67
  *                 for k in range(nz):
  *                     myview[i, j, k] = self.thisptr.element(i, j, k)
  *         return myview             # <<<<<<<<<<<<<<
@@ -2586,7 +2583,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
   __pyx_t_8 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Grid.pyx":54
+  /* "pytraj/math/Grid.pyx":54
  * 
  *     @property
  *     def data(self):             # <<<<<<<<<<<<<<
@@ -2602,7 +2599,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
-  __Pyx_AddTraceback("pytraj.Grid.Grid.data", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_carr);
@@ -2612,7 +2609,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":69
+/* "pytraj/math/Grid.pyx":69
  *         return myview
  * 
  *     def to_ndarray(self):             # <<<<<<<<<<<<<<
@@ -2621,20 +2618,20 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_20data(struct __pyx_obj_6pytraj_4G
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_23to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4Grid_4Grid_22to_ndarray[] = "Grid.to_ndarray(self)";
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_23to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_23to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Grid_4Grid_22to_ndarray[] = "Grid.to_ndarray(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_23to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("to_ndarray (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_22to_ndarray(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self) {
   PyObject *__pyx_v_has_np = NULL;
   PyObject *__pyx_v_np = NULL;
   PyObject *__pyx_r = NULL;
@@ -2651,7 +2648,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pyt
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("to_ndarray", 0);
 
-  /* "pytraj/Grid.pyx":70
+  /* "pytraj/math/Grid.pyx":70
  * 
  *     def to_ndarray(self):
  *         has_np, np = _import_numpy()             # <<<<<<<<<<<<<<
@@ -2733,7 +2730,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pyt
   __pyx_v_np = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pytraj/Grid.pyx":71
+  /* "pytraj/math/Grid.pyx":71
  *     def to_ndarray(self):
  *         has_np, np = _import_numpy()
  *         if not has_np:             # <<<<<<<<<<<<<<
@@ -2744,7 +2741,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pyt
   __pyx_t_7 = ((!__pyx_t_6) != 0);
   if (__pyx_t_7) {
 
-    /* "pytraj/Grid.pyx":72
+    /* "pytraj/math/Grid.pyx":72
  *         has_np, np = _import_numpy()
  *         if not has_np:
  *             raise PytrajError("need numpy")             # <<<<<<<<<<<<<<
@@ -2760,7 +2757,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pyt
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Grid.pyx":71
+    /* "pytraj/math/Grid.pyx":71
  *     def to_ndarray(self):
  *         has_np, np = _import_numpy()
  *         if not has_np:             # <<<<<<<<<<<<<<
@@ -2769,7 +2766,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pyt
  */
   }
 
-  /* "pytraj/Grid.pyx":74
+  /* "pytraj/math/Grid.pyx":74
  *             raise PytrajError("need numpy")
  *         else:
  *             return np.asarray(self.data[:], dtype=np.float32)             # <<<<<<<<<<<<<<
@@ -2806,7 +2803,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pyt
     goto __pyx_L0;
   }
 
-  /* "pytraj/Grid.pyx":69
+  /* "pytraj/math/Grid.pyx":69
  *         return myview
  * 
  *     def to_ndarray(self):             # <<<<<<<<<<<<<<
@@ -2820,7 +2817,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pyt
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("pytraj.Grid.Grid.to_ndarray", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.to_ndarray", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_has_np);
@@ -2830,7 +2827,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pyt
   return __pyx_r;
 }
 
-/* "pytraj/Grid.pyx":76
+/* "pytraj/math/Grid.pyx":76
  *             return np.asarray(self.data[:], dtype=np.float32)
  * 
  *     def tolist(self):             # <<<<<<<<<<<<<<
@@ -2838,20 +2835,20 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_22to_ndarray(struct __pyx_obj_6pyt
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_25tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4Grid_4Grid_24tolist[] = "Grid.tolist(self)";
-static PyObject *__pyx_pw_6pytraj_4Grid_4Grid_25tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_25tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Grid_4Grid_24tolist[] = "Grid.tolist(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Grid_4Grid_25tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("tolist (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4Grid_4Grid_24tolist(((struct __pyx_obj_6pytraj_4Grid_Grid *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Grid_4Grid_24tolist(((struct __pyx_obj_6pytraj_4math_4Grid_Grid *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_24tolist(struct __pyx_obj_6pytraj_4Grid_Grid *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Grid_4Grid_24tolist(struct __pyx_obj_6pytraj_4math_4Grid_Grid *__pyx_v_self) {
   PyObject *__pyx_v_y = NULL;
   PyObject *__pyx_v_x = NULL;
   PyObject *__pyx_r = NULL;
@@ -2870,7 +2867,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_24tolist(struct __pyx_obj_6pytraj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("tolist", 0);
 
-  /* "pytraj/Grid.pyx":77
+  /* "pytraj/math/Grid.pyx":77
  * 
  *     def tolist(self):
  *         return [[list(x) for x in y] for y in self.data]             # <<<<<<<<<<<<<<
@@ -2975,7 +2972,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_24tolist(struct __pyx_obj_6pytraj_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Grid.pyx":76
+  /* "pytraj/math/Grid.pyx":76
  *             return np.asarray(self.data[:], dtype=np.float32)
  * 
  *     def tolist(self):             # <<<<<<<<<<<<<<
@@ -2989,7 +2986,7 @@ static PyObject *__pyx_pf_6pytraj_4Grid_4Grid_24tolist(struct __pyx_obj_6pytraj_
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("pytraj.Grid.Grid.tolist", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Grid.Grid.tolist", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_y);
@@ -14538,7 +14535,7 @@ static void __pyx_memoryview__slice_assign_scalar(char *__pyx_v_data, Py_ssize_t
   /* function exit code */
 }
 
-static PyObject *__pyx_tp_new_6pytraj_4Grid_Grid(PyTypeObject *t, PyObject *a, PyObject *k) {
+static PyObject *__pyx_tp_new_6pytraj_4math_4Grid_Grid(PyTypeObject *t, PyObject *a, PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -14546,13 +14543,13 @@ static PyObject *__pyx_tp_new_6pytraj_4Grid_Grid(PyTypeObject *t, PyObject *a, P
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_6pytraj_4Grid_4Grid_1__cinit__(o, a, k) < 0)) {
+  if (unlikely(__pyx_pw_6pytraj_4math_4Grid_4Grid_1__cinit__(o, a, k) < 0)) {
     Py_DECREF(o); o = 0;
   }
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_4Grid_Grid(PyObject *o) {
+static void __pyx_tp_dealloc_6pytraj_4math_4Grid_Grid(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -14562,13 +14559,13 @@ static void __pyx_tp_dealloc_6pytraj_4Grid_Grid(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_6pytraj_4Grid_4Grid_3__dealloc__(o);
+    __pyx_pw_6pytraj_4math_4Grid_4Grid_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
-static PyObject *__pyx_sq_item_6pytraj_4Grid_Grid(PyObject *o, Py_ssize_t i) {
+static PyObject *__pyx_sq_item_6pytraj_4math_4Grid_Grid(PyObject *o, Py_ssize_t i) {
   PyObject *r;
   PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;
   r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);
@@ -14576,9 +14573,9 @@ static PyObject *__pyx_sq_item_6pytraj_4Grid_Grid(PyObject *o, Py_ssize_t i) {
   return r;
 }
 
-static int __pyx_mp_ass_subscript_6pytraj_4Grid_Grid(PyObject *o, PyObject *i, PyObject *v) {
+static int __pyx_mp_ass_subscript_6pytraj_4math_4Grid_Grid(PyObject *o, PyObject *i, PyObject *v) {
   if (v) {
-    return __pyx_pw_6pytraj_4Grid_4Grid_7__setitem__(o, i, v);
+    return __pyx_pw_6pytraj_4math_4Grid_4Grid_7__setitem__(o, i, v);
   }
   else {
     PyErr_Format(PyExc_NotImplementedError,
@@ -14587,16 +14584,16 @@ static int __pyx_mp_ass_subscript_6pytraj_4Grid_Grid(PyObject *o, PyObject *i, P
   }
 }
 
-static PyMethodDef __pyx_methods_6pytraj_4Grid_Grid[] = {
-  {"size", (PyCFunction)__pyx_pw_6pytraj_4Grid_4Grid_9size, METH_NOARGS, __pyx_doc_6pytraj_4Grid_4Grid_8size},
-  {"resize", (PyCFunction)__pyx_pw_6pytraj_4Grid_4Grid_11resize, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_4Grid_4Grid_10resize},
-  {"nx", (PyCFunction)__pyx_pw_6pytraj_4Grid_4Grid_13nx, METH_NOARGS, __pyx_doc_6pytraj_4Grid_4Grid_12nx},
-  {"ny", (PyCFunction)__pyx_pw_6pytraj_4Grid_4Grid_15ny, METH_NOARGS, __pyx_doc_6pytraj_4Grid_4Grid_14ny},
-  {"nz", (PyCFunction)__pyx_pw_6pytraj_4Grid_4Grid_17nz, METH_NOARGS, __pyx_doc_6pytraj_4Grid_4Grid_16nz},
-  {"_element", (PyCFunction)__pyx_pw_6pytraj_4Grid_4Grid_19_element, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_4Grid_4Grid_18_element},
-  {"data", (PyCFunction)__pyx_pw_6pytraj_4Grid_4Grid_21data, METH_NOARGS, __pyx_doc_6pytraj_4Grid_4Grid_20data},
-  {"to_ndarray", (PyCFunction)__pyx_pw_6pytraj_4Grid_4Grid_23to_ndarray, METH_NOARGS, __pyx_doc_6pytraj_4Grid_4Grid_22to_ndarray},
-  {"tolist", (PyCFunction)__pyx_pw_6pytraj_4Grid_4Grid_25tolist, METH_NOARGS, __pyx_doc_6pytraj_4Grid_4Grid_24tolist},
+static PyMethodDef __pyx_methods_6pytraj_4math_4Grid_Grid[] = {
+  {"size", (PyCFunction)__pyx_pw_6pytraj_4math_4Grid_4Grid_9size, METH_NOARGS, __pyx_doc_6pytraj_4math_4Grid_4Grid_8size},
+  {"resize", (PyCFunction)__pyx_pw_6pytraj_4math_4Grid_4Grid_11resize, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_4math_4Grid_4Grid_10resize},
+  {"nx", (PyCFunction)__pyx_pw_6pytraj_4math_4Grid_4Grid_13nx, METH_NOARGS, __pyx_doc_6pytraj_4math_4Grid_4Grid_12nx},
+  {"ny", (PyCFunction)__pyx_pw_6pytraj_4math_4Grid_4Grid_15ny, METH_NOARGS, __pyx_doc_6pytraj_4math_4Grid_4Grid_14ny},
+  {"nz", (PyCFunction)__pyx_pw_6pytraj_4math_4Grid_4Grid_17nz, METH_NOARGS, __pyx_doc_6pytraj_4math_4Grid_4Grid_16nz},
+  {"_element", (PyCFunction)__pyx_pw_6pytraj_4math_4Grid_4Grid_19_element, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_4math_4Grid_4Grid_18_element},
+  {"data", (PyCFunction)__pyx_pw_6pytraj_4math_4Grid_4Grid_21data, METH_NOARGS, __pyx_doc_6pytraj_4math_4Grid_4Grid_20data},
+  {"to_ndarray", (PyCFunction)__pyx_pw_6pytraj_4math_4Grid_4Grid_23to_ndarray, METH_NOARGS, __pyx_doc_6pytraj_4math_4Grid_4Grid_22to_ndarray},
+  {"tolist", (PyCFunction)__pyx_pw_6pytraj_4math_4Grid_4Grid_25tolist, METH_NOARGS, __pyx_doc_6pytraj_4math_4Grid_4Grid_24tolist},
   {0, 0, 0, 0}
 };
 
@@ -14604,7 +14601,7 @@ static PySequenceMethods __pyx_tp_as_sequence_Grid = {
   0, /*sq_length*/
   0, /*sq_concat*/
   0, /*sq_repeat*/
-  __pyx_sq_item_6pytraj_4Grid_Grid, /*sq_item*/
+  __pyx_sq_item_6pytraj_4math_4Grid_Grid, /*sq_item*/
   0, /*sq_slice*/
   0, /*sq_ass_item*/
   0, /*sq_ass_slice*/
@@ -14615,16 +14612,16 @@ static PySequenceMethods __pyx_tp_as_sequence_Grid = {
 
 static PyMappingMethods __pyx_tp_as_mapping_Grid = {
   0, /*mp_length*/
-  __pyx_pw_6pytraj_4Grid_4Grid_5__getitem__, /*mp_subscript*/
-  __pyx_mp_ass_subscript_6pytraj_4Grid_Grid, /*mp_ass_subscript*/
+  __pyx_pw_6pytraj_4math_4Grid_4Grid_5__getitem__, /*mp_subscript*/
+  __pyx_mp_ass_subscript_6pytraj_4math_4Grid_Grid, /*mp_ass_subscript*/
 };
 
-static PyTypeObject __pyx_type_6pytraj_4Grid_Grid = {
+static PyTypeObject __pyx_type_6pytraj_4math_4Grid_Grid = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.Grid.Grid", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_4Grid_Grid), /*tp_basicsize*/
+  "pytraj.math.Grid.Grid", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_4math_4Grid_Grid), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_4Grid_Grid, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_4math_4Grid_Grid, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -14651,7 +14648,7 @@ static PyTypeObject __pyx_type_6pytraj_4Grid_Grid = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6pytraj_4Grid_Grid, /*tp_methods*/
+  __pyx_methods_6pytraj_4math_4Grid_Grid, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -14661,7 +14658,7 @@ static PyTypeObject __pyx_type_6pytraj_4Grid_Grid = {
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_4Grid_Grid, /*tp_new*/
+  __pyx_tp_new_6pytraj_4math_4Grid_Grid, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -14793,7 +14790,7 @@ static PyBufferProcs __pyx_tp_as_buffer_array = {
 
 static PyTypeObject __pyx_type___pyx_array = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.Grid.array", /*tp_name*/
+  "pytraj.math.Grid.array", /*tp_name*/
   sizeof(struct __pyx_array_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_array, /*tp_dealloc*/
@@ -14898,7 +14895,7 @@ static PyMethodDef __pyx_methods_Enum[] = {
 
 static PyTypeObject __pyx_type___pyx_MemviewEnum = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.Grid.Enum", /*tp_name*/
+  "pytraj.math.Grid.Enum", /*tp_name*/
   sizeof(struct __pyx_MemviewEnum_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_Enum, /*tp_dealloc*/
@@ -15144,7 +15141,7 @@ static PyBufferProcs __pyx_tp_as_buffer_memoryview = {
 
 static PyTypeObject __pyx_type___pyx_memoryview = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.Grid.memoryview", /*tp_name*/
+  "pytraj.math.Grid.memoryview", /*tp_name*/
   sizeof(struct __pyx_memoryview_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_memoryview, /*tp_dealloc*/
@@ -15268,7 +15265,7 @@ static struct PyGetSetDef __pyx_getsets__memoryviewslice[] = {
 
 static PyTypeObject __pyx_type___pyx_memoryviewslice = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.Grid._memoryviewslice", /*tp_name*/
+  "pytraj.math.Grid._memoryviewslice", /*tp_name*/
   sizeof(struct __pyx_memoryviewslice_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc__memoryviewslice, /*tp_dealloc*/
@@ -15453,7 +15450,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pytraj/Grid.pyx":72
+  /* "pytraj/math/Grid.pyx":72
  *         has_np, np = _import_numpy()
  *         if not has_np:
  *             raise PytrajError("need numpy")             # <<<<<<<<<<<<<<
@@ -15464,7 +15461,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "pytraj/Grid.pyx":74
+  /* "pytraj/math/Grid.pyx":74
  *             raise PytrajError("need numpy")
  *         else:
  *             return np.asarray(self.data[:], dtype=np.float32)             # <<<<<<<<<<<<<<
@@ -15743,14 +15740,14 @@ PyMODINIT_FUNC PyInit_Grid(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_pytraj__Grid) {
+  if (__pyx_module_is_main_pytraj__math__Grid) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "pytraj.Grid")) {
-      if (unlikely(PyDict_SetItemString(modules, "pytraj.Grid", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "pytraj.math.Grid")) {
+      if (unlikely(PyDict_SetItemString(modules, "pytraj.math.Grid", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -15767,10 +15764,10 @@ PyMODINIT_FUNC PyInit_Grid(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_6pytraj_4Grid_Grid) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_4Grid_Grid.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "Grid", (PyObject *)&__pyx_type_6pytraj_4Grid_Grid) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4Grid_Grid = &__pyx_type_6pytraj_4Grid_Grid;
+  if (PyType_Ready(&__pyx_type_6pytraj_4math_4Grid_Grid) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_4math_4Grid_Grid.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "Grid", (PyObject *)&__pyx_type_6pytraj_4math_4Grid_Grid) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4math_4Grid_Grid = &__pyx_type_6pytraj_4math_4Grid_Grid;
   if (PyType_Ready(&__pyx_type___pyx_array) < 0) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type___pyx_array.tp_print = 0;
   __pyx_array_type = &__pyx_type___pyx_array;
@@ -15803,11 +15800,11 @@ PyMODINIT_FUNC PyInit_Grid(void)
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/Grid.pyx":4
+  /* "pytraj/math/Grid.pyx":4
  * from __future__ import absolute_import
  * from cython.view cimport array as cyarray
- * from .utils import _import_numpy             # <<<<<<<<<<<<<<
- * from .exceptions import PytrajError
+ * from ..utils import _import_numpy             # <<<<<<<<<<<<<<
+ * from ..exceptions import PytrajError
  * 
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -15815,7 +15812,7 @@ PyMODINIT_FUNC PyInit_Grid(void)
   __Pyx_INCREF(__pyx_n_s_import_numpy);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_import_numpy);
   __Pyx_GIVEREF(__pyx_n_s_import_numpy);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_utils, __pyx_t_1, 1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_utils, __pyx_t_1, 2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_import_numpy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -15824,10 +15821,10 @@ PyMODINIT_FUNC PyInit_Grid(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pytraj/Grid.pyx":5
+  /* "pytraj/math/Grid.pyx":5
  * from cython.view cimport array as cyarray
- * from .utils import _import_numpy
- * from .exceptions import PytrajError             # <<<<<<<<<<<<<<
+ * from ..utils import _import_numpy
+ * from ..exceptions import PytrajError             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -15836,7 +15833,7 @@ PyMODINIT_FUNC PyInit_Grid(void)
   __Pyx_INCREF(__pyx_n_s_PytrajError);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_PytrajError);
   __Pyx_GIVEREF(__pyx_n_s_PytrajError);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_exceptions, __pyx_t_2, 1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_exceptions, __pyx_t_2, 2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_PytrajError); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -15845,17 +15842,17 @@ PyMODINIT_FUNC PyInit_Grid(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Grid.pyx":32
+  /* "pytraj/math/Grid.pyx":32
  * 
  *     @property
  *     def size(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.size()
  * 
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4Grid_Grid, __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4math_4Grid_Grid, __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Grid.pyx":31
+  /* "pytraj/math/Grid.pyx":31
  *         self.thisptr.setGrid(x, y, z, <float> value)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -15870,21 +15867,21 @@ PyMODINIT_FUNC PyInit_Grid(void)
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4Grid_Grid->tp_dict, __pyx_n_s_size, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4math_4Grid_Grid->tp_dict, __pyx_n_s_size, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_4Grid_Grid);
+  PyType_Modified(__pyx_ptype_6pytraj_4math_4Grid_Grid);
 
-  /* "pytraj/Grid.pyx":39
+  /* "pytraj/math/Grid.pyx":39
  * 
  *     @property
  *     def nx(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.NX()
  * 
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4Grid_Grid, __pyx_n_s_nx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4math_4Grid_Grid, __pyx_n_s_nx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Grid.pyx":38
+  /* "pytraj/math/Grid.pyx":38
  *         self.thisptr.resize(x, y, z)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -15899,21 +15896,21 @@ PyMODINIT_FUNC PyInit_Grid(void)
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4Grid_Grid->tp_dict, __pyx_n_s_nx, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4math_4Grid_Grid->tp_dict, __pyx_n_s_nx, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_4Grid_Grid);
+  PyType_Modified(__pyx_ptype_6pytraj_4math_4Grid_Grid);
 
-  /* "pytraj/Grid.pyx":43
+  /* "pytraj/math/Grid.pyx":43
  * 
  *     @property
  *     def ny(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.NY()
  * 
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4Grid_Grid, __pyx_n_s_ny); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4math_4Grid_Grid, __pyx_n_s_ny); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Grid.pyx":42
+  /* "pytraj/math/Grid.pyx":42
  *         return self.thisptr.NX()
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -15928,21 +15925,21 @@ PyMODINIT_FUNC PyInit_Grid(void)
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4Grid_Grid->tp_dict, __pyx_n_s_ny, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4math_4Grid_Grid->tp_dict, __pyx_n_s_ny, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_4Grid_Grid);
+  PyType_Modified(__pyx_ptype_6pytraj_4math_4Grid_Grid);
 
-  /* "pytraj/Grid.pyx":47
+  /* "pytraj/math/Grid.pyx":47
  * 
  *     @property
  *     def nz(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.NZ()
  * 
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4Grid_Grid, __pyx_n_s_nz); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4math_4Grid_Grid, __pyx_n_s_nz); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Grid.pyx":46
+  /* "pytraj/math/Grid.pyx":46
  *         return self.thisptr.NY()
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -15957,21 +15954,21 @@ PyMODINIT_FUNC PyInit_Grid(void)
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4Grid_Grid->tp_dict, __pyx_n_s_nz, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4math_4Grid_Grid->tp_dict, __pyx_n_s_nz, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_4Grid_Grid);
+  PyType_Modified(__pyx_ptype_6pytraj_4math_4Grid_Grid);
 
-  /* "pytraj/Grid.pyx":54
+  /* "pytraj/math/Grid.pyx":54
  * 
  *     @property
  *     def data(self):             # <<<<<<<<<<<<<<
  *         """return a copy of 3D array of Grid"""
  *         cdef size_t nx, ny, nz
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4Grid_Grid, __pyx_n_s_data); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4math_4Grid_Grid, __pyx_n_s_data); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Grid.pyx":53
+  /* "pytraj/math/Grid.pyx":53
  *         return self.thisptr.element(x, y, z)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -15986,11 +15983,11 @@ PyMODINIT_FUNC PyInit_Grid(void)
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4Grid_Grid->tp_dict, __pyx_n_s_data, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4math_4Grid_Grid->tp_dict, __pyx_n_s_data, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  PyType_Modified(__pyx_ptype_6pytraj_4Grid_Grid);
+  PyType_Modified(__pyx_ptype_6pytraj_4math_4Grid_Grid);
 
-  /* "pytraj/Grid.pyx":1
+  /* "pytraj/math/Grid.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * from __future__ import absolute_import
  * from cython.view cimport array as cyarray
@@ -16125,11 +16122,11 @@ PyMODINIT_FUNC PyInit_Grid(void)
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pytraj.Grid", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pytraj.math.Grid", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pytraj.Grid");
+    PyErr_SetString(PyExc_ImportError, "init pytraj.math.Grid");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

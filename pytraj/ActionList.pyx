@@ -1,10 +1,9 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
 
-# TODO : double-check C++ code
-from pytraj import TrajinList
-from pytraj.externals.six import string_types
-from pytraj.action_dict import ActionDict
+from . import TrajinList
+from .externals.six import string_types
+from .action_dict import ActionDict
 
 cdef class ActionList:
     def __cinit__(self):

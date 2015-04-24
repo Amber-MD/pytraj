@@ -1,6 +1,6 @@
 # distutils: language = c++
-from pytraj.decorators import for_testing
-from pytraj.externals.six import string_types
+from ..decorators import for_testing
+from ..externals.six import string_types
 
 
 cdef class DataSet_Coords_TRJ(DataSet_Coords):
