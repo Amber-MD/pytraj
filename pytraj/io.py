@@ -12,18 +12,18 @@ from .dataframe import to_dataframe
 from ._set_silent import set_error_silent
 
 try:
-    from pytraj._load_ParmEd import load_ParmEd
+    from .externals._load_ParmEd import load_ParmEd
 except:
     load_ParmEd = None
 
 try:
-    from pytraj._load_pseudo_parm import load_pseudo_parm
+    from pytraj.externals._load_pseudo_parm import load_pseudo_parm
 except:
     load_pseudo_parm = None
 
 # load mdtraj and MDAnalysis
-from ._load_mdtraj import load_mdtraj 
-from ._load_MDAnalysis import load_MDAnalysis
+from .externals._load_mdtraj import load_mdtraj 
+from .externals._load_MDAnalysis import load_MDAnalysis
 
 try:
     from urllib.request import urlopen
