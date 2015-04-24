@@ -21,7 +21,7 @@ from .Topology import Topology
 from .DataSetList import DataSetList
 from .DataFileList import DataFileList
 from .DistRoutines import distance 
-from .gdt.calc_score import calc_score
+from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds
 from ._shared_methods import _frame_iter_master
 from .get_pysander_energies import get_pysander_energies
