@@ -24,7 +24,7 @@ from .DistRoutines import distance
 from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds
 from ._shared_methods import _frame_iter_master
-from .get_pysander_energies import get_pysander_energies
+from .externals.get_pysander_energies import get_pysander_energies
 from .utils import _import_numpy
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
