@@ -20,7 +20,7 @@ from .AtomMask import AtomMask
 from .Topology import Topology
 from .DataSetList import DataSetList
 from .DataFileList import DataFileList
-from .DistRoutines import distance 
+from .math.DistRoutines import distance 
 from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds
 from ._shared_methods import _frame_iter_master
