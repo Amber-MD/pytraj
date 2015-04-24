@@ -5,8 +5,8 @@ from .cpp_vector cimport vector as cppvector
 from .core.Atom cimport _Atom, Atom
 from .core.Residue cimport _Residue, Residue
 from .core.Molecule cimport _Molecule, Molecule
-from .ParameterTypes cimport *
-from .core.AtomMask cimport _AtomMask, AtomMask
+from .core.ParameterTypes cimport *
+from .AtomMask cimport _AtomMask, AtomMask
 from .Frame cimport _Frame, Frame
 from .FileName cimport _FileName, FileName
 from .NameType cimport _NameType, NameType
