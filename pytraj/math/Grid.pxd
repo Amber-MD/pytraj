@@ -1,6 +1,6 @@
 # distutil: language = c++
 
-from pytraj.ArrayIterator cimport *
+#from pytraj.ArrayIterator cimport *
 
 cdef extern from "Grid.h":
     #ctypedef GridIterator "Grid::ArrayIterator[T]" iterator
