@@ -18,7 +18,8 @@ def _get_top(traj, top):
                         _top = tmp.top 
                         break
             except:
-                raise ValueError("don't know how to get Topology")
+                print("Topology is None")
+                _top = None
     else:
         _top = top
     return _top
