@@ -52,9 +52,6 @@ cdef class DataSet:
     def set_legend(self, lengend):
         self.baseptr0.SetLegend(lengend.encode())
 
-    def set_dim(self, DimIdxType i, Dimension d):
-        self.baseptr0.SetDim(i, d.thisptr[0])
-
     def set_scalar(self,scalar_mode, scalar_type=None):
         scalar_mode = scalar_mode.upper()
         if scalar_type is None:
