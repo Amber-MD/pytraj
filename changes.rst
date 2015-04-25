@@ -7,6 +7,22 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* reorganize folders (04-25-2015)
+    * moved Atom, Molecule, Residue, Box to `pytraj.core`
+    * moved Trajin_Single to `pytraj.trajs`
+    * moved Matrix_3x3, Vec3, Grid ... to `pytraj.math` 
+    * moved all unused files away from main folder
+    * dont support Energy routine in cpptraj, use pysander instead
+    * more all optional package importing to pytraj.externals. 
+    * enhance `groupby` method: dslist.groupby("omega", mode='aspect')
+    * added pytraj.api.Trajectory as a new Trajectory object with `xyz` is a numpy array
+* add universal _get_top method
+    _get_top(traj, top)
+* add DataSet_Mesh
+* better setup.py: automatically install `libcpptraj`
+* change API of FrameArray and TrajReadOnly
+   traj['CA'] return a stripped-atoms traj (not a xyz coords)
+* add calc_temperature
 * support distance-based mask selection (start v0.1.2.dev3 version)
 * add "groupby" method for DataSetList (end v0.1.2.dev2 version)
 * directly access "calc_..." methods from FrameArray and TrajReadOnly (traj.calc_COM, ...)
