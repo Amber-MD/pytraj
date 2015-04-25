@@ -52,10 +52,10 @@ cdef class Topology:
             del self.thisptr
 
     def __str__(self):
-        tmp = "%s instance with %s atoms. ID = %s" % (
+        tmp = "%s instance with %s residues %s atoms" % (
                 self.__class__.__name__,
+                self.n_residues,
                 self.n_atoms,
-                hex(id(self))
                 )
         return tmp
 

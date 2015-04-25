@@ -115,7 +115,6 @@ pxd_include_patterns = [
 pyxfiles = []
 for p in pxd_include_dirs:
     pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx') if '.pyx' in ext])
-print (pyxfiles)
 
 # check command line
 extra_compile_args=['-O0', '-ggdb']
