@@ -18,7 +18,6 @@ coords_traj.add_trajin(traj2)
 
 import mdtraj as md
 import mdtraj.testing
-from pytraj._load_mdtraj import load_mdtraj
 m_traj = md.load("./data/DPDP.nc", top="./data/DPDP.parm7")
 
 trajlist = TrajinList()
