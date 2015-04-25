@@ -144,6 +144,13 @@ cdef class Topology:
     def __iter__(self):
         return self.atom_iter()
 
+    @property
+    def atoms(self):
+        """atoms iterator, meant to be kept the same as
+        other packages (ParmEd, mdtraj, ...)
+        """
+        return self.atom_iter()
+
     def select(self, mask):
         """return array of indices of selected atoms with `mask`
 
