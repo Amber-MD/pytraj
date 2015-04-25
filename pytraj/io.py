@@ -49,6 +49,11 @@ def load(*args, **kwd):
         # load traj
         return loadtraj(*args, **kwd)
 
+def iterload(filename, parm, start=0, stop=-1, stride=1, mask=""):
+    """explicit name for traj(start, stop, stride, mask)
+    """
+    return load(filename, parm)(start, stop, stride, mask)
+
 def loadtraj(filename=None, top=Topology(), indices=None):
     """load trajectory from filename
     Parameters
