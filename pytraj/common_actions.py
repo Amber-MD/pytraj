@@ -203,7 +203,7 @@ def do_clustering(command="", traj=None, top=Topology(),
         _top = traj.top
     ana(command, _top, dslist, dflist) 
 
-def calc_multidihedral(command="", *args, **kwd): 
+def calc_multidihedral(command="", dtype='dict', *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -225,7 +225,11 @@ def calc_multidihedral(command="", *args, **kwd):
     from array import array
     act = adict['multidihedral']
     act(command, dslist=dslist, *args, **kwd)
-    return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
+    if dtype == 'dict':
+        return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
+    else:
+        # return dslist
+        return dslist
 
 def calc_atomicfluct(command="", *args, **kwd):
     dslist = DataSetList()
