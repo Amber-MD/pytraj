@@ -53,6 +53,10 @@ class TestTopology(unittest.TestCase):
         for mol in top.mol_iter():
             pass
 
+        for idx, atom in enumerate(top.atoms):
+            print (atom)
+        assert idx + 1 == top.n_atoms
+
     #@no_test
     def test_2(self):
         from pytraj import load_sample_data
