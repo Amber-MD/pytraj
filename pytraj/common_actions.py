@@ -355,7 +355,8 @@ def calc_rmsd(command="", traj=None, top=None, ref=None, mass=False, fit=True):
 
     Examples
     --------
-    calc_rmsd(":3-18@CA", traj, ref=traj[0], mass=True, fit=True)
+        calc_rmsd(":3-18@CA", traj, ref=traj[0], mass=True, fit=True)
+        calc_rmsd(":3-18@CA", traj, 0) # ref=traj[0]
 
     """
     _top = _get_top(traj, top)
