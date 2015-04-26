@@ -35,10 +35,8 @@ cdef class FrameArray (object):
         
         cdef Frame frame
 
-        try:
-            self.top = _get_top(filename, top)
-        except:
-            # create empty topology
+        self.top = _get_top(filename, top)
+        if self.top is None:
             self.top = Topology()
 
         if n_frames is not None:
