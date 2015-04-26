@@ -365,7 +365,7 @@ cdef class Topology:
             return self.thisptr.Natom()
 
     property n_res:
-        # shortcur 
+        # shortcut
         def __get__(self):
             return self.n_residues
 
@@ -411,8 +411,13 @@ cdef class Topology:
     def _scale_dihedral_k(self, double value):
         self.thisptr.ScaleDihedralK(value)
 
-    def set_box(self, Box boxin):
-        self.thisptr.SetParmBox(boxin.thisptr[0])
+    property box:
+        def __get__(self):
+            cdef Box box = Box()
+            box.thisptr[0] = self.thisptr.ParmBox()
+            return box
+        def __set__(self, Box boxin):
+            self.thisptr.SetParmBox(boxin.thisptr[0])
 
     def _partial_modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()

@@ -106,7 +106,7 @@ cdef extern from "Topology.h":
         void PrintBonds(const BondArray&, _AtomMask&, int&) const
         void PrintAngles(const AngleArray&, const _AtomMask&, int&) const
         void PrintDihedrals(const DihedralArray&, const _AtomMask&, int&) const
-        inline const _Box& Parm_Box() const 
+        inline const _Box& ParmBox() const 
         inline BoxType _BoxType() const 
         #void SetParmBox(const _Box& bIn)
         void SetParmBox(_Box& bIn)
