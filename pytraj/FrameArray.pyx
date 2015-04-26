@@ -842,11 +842,11 @@ cdef class FrameArray (object):
     def calc_watershell(self, mask=""):
         return pyca.calc_watershell(mask, self)
 
-    def do_autoimage(self, mask=""):
+    def autoimage(self, mask=""):
         pyca.do_autoimage(mask, self)
 
-    def do_rotation(self, mask=""):
+    def rotate(self, mask=""):
         pyca.do_rotation(mask, self)
 
-    def do_translation(self, mask=""):
+    def translate(self, mask=""):
         pyca.do_translation(mask, self)
