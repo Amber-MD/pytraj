@@ -7,6 +7,10 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* add `calc_rmds` 
+* rename "do_rotation" to "rotate", "do_translation" to "translate"
+  "do_autoimage" to "autoimage"
+* add "box" to Topology
 * reorganize folders (04-25-2015)
     * moved Atom, Molecule, Residue, Box to `pytraj.core`
     * moved Trajin_Single to `pytraj.trajs`
