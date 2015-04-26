@@ -8,7 +8,7 @@ from .trajs.Trajin_Single import Trajin_Single
 from  .utils.check_and_assert import is_int, is_frame_iter
 from .externals.six import string_types
 from .AtomMask import AtomMask
-from ._common_actions import _get_top # need to move this method to more correct module
+from ._get_top import _get_top # need to move this method to more correct module
 
 # TODO : more checking.
 class Trajectory(ActionInTraj):
