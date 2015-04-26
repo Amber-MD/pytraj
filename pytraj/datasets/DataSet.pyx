@@ -1,12 +1,12 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
-from ..decorators import makesureABC
+from ..decorators import makesureABC, require_having
 
 cdef class DataSet:
     """
-    Original doc from cpptraj:
-    =========================
+    Original doc from cpptraj
+    -------------------------
     Class: DataSet
         Base class that all DataSet types will inherit.
         DataSets are given certain attributes to make DataSet selection easier; 
@@ -17,6 +17,11 @@ cdef class DataSet:
         number. Aspect is used to further subdivide output data type; e.g. with 
         nucleic acid analysis each base pair (divided by index) has shear,
         stagger etc calculated.
+
+    pytraj doc
+    ----------
+        Add some other methods: `tolist`, `to_ndarray`, `plot` and attribute `data`
+
     """
 
     def __cinit__(self):
@@ -142,3 +147,8 @@ cdef class DataSet:
             return np.asarray(self.data)
         else:
             raise ImportError("require numpy")
+
+    @require_having("matplotlib")
+    def plot(self):
+        """return matplotlib object"""
+        raise NotImplementedError()

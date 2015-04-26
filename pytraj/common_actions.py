@@ -4,6 +4,7 @@
 # TODO : use __all__
 """
 from __future__ import absolute_import
+from array import array
 from functools import partial
 
 from pytraj.action_dict import ActionDict
@@ -12,7 +13,8 @@ adict = ActionDict()
 from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
-from ._common_actions import calculate, _get_top
+from ._get_top import _get_top
+from ._common_actions import calculate
 from .externals.six import string_types
 from .Frame import Frame
 from .FrameArray import FrameArray
@@ -203,7 +205,7 @@ def do_clustering(command="", traj=None, top=Topology(),
         _top = traj.top
     ana(command, _top, dslist, dflist) 
 
-def calc_multidihedral(command="", dtype='dict', *args, **kwd): 
+def calc_multidihedral(command="", traj=None, top=None, dtype='dict', *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -220,11 +222,12 @@ def calc_multidihedral(command="", dtype='dict', *args, **kwd):
     >>> from pytraj.dataframe import to_dataframe
     >>> print (to_dataframe(d))
     """
+    _top = _get_top(traj, top)
     dslist = DataSetList()
     from pytraj.six_2 import izip as zip
     from array import array
     act = adict['multidihedral']
-    act(command, dslist=dslist, *args, **kwd)
+    act(command, traj, _top, dslist=dslist, *args, **kwd)
     if dtype == 'dict':
         return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
     else:
@@ -333,3 +336,47 @@ def calc_temperatures(command="", traj=None, top=None):
     _top = _get_top(traj, top)
     dslist = calculate('temperature', command, traj, _top)
     return pyarray('d', dslist[0].tolist())
+
+def calc_rmsd(command="", traj=None, top=None, ref=None, mass=False, fit=True):
+    """calculate rmsd
+
+    Parameters
+    ---------
+    command : str
+        Atom mask
+    traj : Trajectory | List of trajectories | Trajectory or frame_iter
+    top : Topology | str
+        (optional) Topology
+    ref : Frame | str
+    mass : bool, default=True
+        use mass or not
+    fit : bool, default=True
+        fit or no fit
+
+    Examples
+    --------
+    calc_rmsd(":3-18@CA", traj, ref=traj[0], mass=True, fit=True)
+
+    """
+    _top = _get_top(traj, top)
+    if isinstance(ref, string_types):
+        from .trajs.Trajin_Single import Trajin_Single
+        ref = Trajin_Single(ref, _top)[0]
+    arr = array('d')
+
+    # creat AtomMask object
+    atm = _top(command) 
+    if mass:
+        ref.set_frame_m(_top)
+    _ref = Frame(ref, atm)
+    for frame in traj:
+        if mass:
+            # TODO : just need to set mass once
+            frame.set_frame_m(_top)
+        if fit:
+            _rmsd = frame.rmsd(ref, atommask=atm, use_mass=mass)
+        else:
+            _frame = Frame(frame, atm)
+            _rmsd = _frame.rmsd_nofit(ref, use_mass=mass)
+        arr.append(_rmsd)
+    return arr

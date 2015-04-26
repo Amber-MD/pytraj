@@ -3,26 +3,7 @@ from .externals.six import string_types
 from ._set_silent import set_world_silent
 from .Topology import Topology
 from .DataSetList import DataSetList
-
-def _get_top(traj, top):
-    if isinstance(top, string_types):
-        _top = Topology(top)
-    elif top is None: 
-        if hasattr(traj, 'top'):
-           _top = traj.top 
-        else:
-            # list, tuple of traj objects 
-            try:
-                for tmp in traj:
-                    if hasattr(tmp, 'top'):
-                        _top = tmp.top 
-                        break
-            except:
-                print("Topology is None")
-                _top = None
-    else:
-        _top = top
-    return _top
+from ._get_top import _get_top
 
 def calculate(action=None, command=None, traj=None, top=None, 
               dslist=DataSetList(), quick_get=False, **kwd): 

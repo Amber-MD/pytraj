@@ -1,4 +1,5 @@
 from __future__ import print_function, absolute_import
+from .utils import _import
 import os
 
 # we duplicate code from .utils.check_and_assert here to avoid circular import
@@ -75,16 +76,28 @@ def test_if_having(lib):
         return _no_test
     return inner
 
-def test_if_path_exists(mydir):
+def test_if_having(lib):
     def inner(func):
         def _no_test(*args, **kwd):
-            if os.path.exists(mydir):
+            if has_(lib):
                 return func(*args, **kwd)
             else:
-                txt = "%s does not exist. Skip test" % mydir
+                txt = "Does not have %s. Skip test" % lib
                 print(txt)
                 return None
         return _no_test
+    return inner
+
+def require_having(mylib):
+    def inner(func):
+        def more_inner(*args, **kwd):
+            has_lib, lib = _import(mylib)
+            if not has_lib:
+                msg = "need %s" % mylib
+                raise ImportError(msg)
+            else:
+                return func(*args, **kwd)
+        return more_inner
     return inner
 
 def not_yet_supported(func):

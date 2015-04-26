@@ -1,0 +1,23 @@
+from __future__ import absolute_import
+from .externals.six import string_types
+from .Topology import Topology
+
+def _get_top(traj, top):
+    if isinstance(top, string_types):
+        _top = Topology(top)
+    elif top is None: 
+        if hasattr(traj, 'top'):
+           _top = traj.top 
+        else:
+            # list, tuple of traj objects 
+            try:
+                for tmp in traj:
+                    if hasattr(tmp, 'top'):
+                        _top = tmp.top 
+                        break
+            except:
+                #print("Topology is None")
+                _top = None
+    else:
+        _top = top
+    return _top

@@ -2,6 +2,7 @@
 
 from pytraj._common_actions import calculate
 import pytraj.common_actions as pyca
+from pytraj.utils import is_int
 
 class ActionInTraj(object):
     def calc_distance(self, mask=""):
@@ -59,6 +60,14 @@ class ActionInTraj(object):
 
     def calc_pairwise_rmsd(self, mask=""):
         return pyca.calc_pairwise_rmsd(mask, self)
+
+    def calc_rmsd(self, mask="", ref=None, mass=False, fit=True):
+        """"""
+        assert ref is not None
+        if is_int(ref):
+            # index
+            ref = self[ref]
+        return pyca.calc_rmsd(mask, traj=self, ref=ref, mass=mass, fit=fit)
 
     def search_hbonds(self, mask="*"):
         return pyca.search_hbonds(self, mask)

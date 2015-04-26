@@ -27,7 +27,7 @@ cdef class Box:
 
     def __str__(self):
         boxlisttxt = ", ".join([str(tmp) for tmp in self.tolist()])
-        txt = "<Box instance with x, y, z, alpha, beta, gamma = %s>" % boxlisttxt
+        txt = "<Box with x, y, z, alpha, beta, gamma = %s>" % boxlisttxt
         return txt
 
     def __dealloc__(self):
