@@ -347,7 +347,7 @@ def calc_rmsd(command="", traj=None, top=None, ref=None, mass=False, fit=True):
     traj : Trajectory | List of trajectories | Trajectory or frame_iter
     top : Topology | str
         (optional) Topology
-    ref : Frame | str
+    ref : Frame | str, default=None (ust 1st frame)
     mass : bool, default=True
         use mass or not
     fit : bool, default=True
@@ -360,9 +360,16 @@ def calc_rmsd(command="", traj=None, top=None, ref=None, mass=False, fit=True):
 
     """
     _top = _get_top(traj, top)
-    if isinstance(ref, string_types):
+    if ref is None or ref == 'first':
+        # set ref to 1st frame
+        ref = traj[0]
+    elif ref == 'last':
+        ref = traj[-1]
+    elif isinstance(ref, string_types):
+        # need to check this in the end to avoid using 'last' keyword
         from .trajs.Trajin_Single import Trajin_Single
         ref = Trajin_Single(ref, _top)[0]
+
     arr = array('d')
 
     # creat AtomMask object
