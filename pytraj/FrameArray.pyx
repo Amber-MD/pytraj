@@ -18,6 +18,7 @@ from .utils.check_and_assert import _import_numpy, is_int, is_frame_iter
 from .utils.check_and_assert import file_exist, is_mdtraj
 from .utils.check_and_assert import is_word_in_class_name
 from .trajs.Trajout import Trajout
+from ._get_top import _get_top
 from ._shared_methods import _savetraj, _get_temperature_set
 from ._shared_methods import _xyz, _tolist
 from ._shared_methods import my_str_method
@@ -34,11 +35,9 @@ cdef class FrameArray (object):
         
         cdef Frame frame
 
-        if isinstance(top, string_types):
-            self.top = Topology(top)
-        elif isinstance(top, Topology):
-            self.top = top.copy()
-        else:
+        try:
+            self.top = _get_top(filename, top)
+        except:
             # create empty topology
             self.top = Topology()
 
