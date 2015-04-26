@@ -4,6 +4,7 @@
 # TODO : use __all__
 """
 from __future__ import absolute_import
+from array import array
 from functools import partial
 
 from pytraj.action_dict import ActionDict
@@ -333,3 +334,47 @@ def calc_temperatures(command="", traj=None, top=None):
     _top = _get_top(traj, top)
     dslist = calculate('temperature', command, traj, _top)
     return pyarray('d', dslist[0].tolist())
+
+def calc_rmsd(command="", traj=None, top=None, ref=None, mass=False, fit=True):
+    """calculate rmsd
+
+    Parameters
+    ---------
+    command : str
+        Atom mask
+    traj : Trajectory | List of trajectories | Trajectory or frame_iter
+    top : Topology | str
+        (optional) Topology
+    ref : Frame | str
+    mass : bool, default=True
+        use mass or not
+    fit : bool, default=True
+        fit or no fit
+
+    Examples
+    --------
+    calc_rmsd(":3-18@CA", traj, ref=traj[0], mass=True, fit=True)
+
+    """
+    _top = _get_top(traj, top)
+    if isinstance(ref, string_types):
+        from .trajs.Trajin_Single import Trajin_Single
+        ref = Trajin_Single(ref, _top)[0]
+    arr = array('d')
+
+    # creat AtomMask object
+    atm = _top(command) 
+    if mass:
+        ref.set_frame_m(_top)
+    _ref = Frame(ref, atm)
+    for frame in traj:
+        if mass:
+            # TODO : just need to set mass once
+            frame.set_frame_m(_top)
+        if fit:
+            _rmsd = frame.rmsd(ref, atommask=atm, use_mass=mass)
+        else:
+            _frame = Frame(frame, atm)
+            _rmsd = _frame.rmsd_nofit(ref, use_mass=mass)
+        arr.append(_rmsd)
+    return arr

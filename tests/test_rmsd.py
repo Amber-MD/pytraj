@@ -40,16 +40,22 @@ class Test(unittest.TestCase):
         f0 = TRAJ[0]
         arr0 = np.zeros(TRAJ.size)
         arr1 = np.zeros(TRAJ.size)
-        atm = AtomMask("@CA")
+        mask = "@CA"
+        atm = AtomMask(mask)
         TRAJ.top.set_integer_mask(atm)
 
         for i, frame in enumerate(TRAJ):
-            arr0[i] = frame.rmsd(f0, mask="@CA", top=TRAJ.top)
+            arr0[i] = frame.rmsd(f0, mask=mask, top=TRAJ.top)
             arr1[i] = frame.rmsd(f0, atommask=atm)
         print(arr0[:10])
         print(arr1[:10])
+
+        arr2 = TRAJ.calc_rmsd(mask, f0) 
+        arr3 = TRAJ.calc_rmsd(mask, 0) 
         np.testing.assert_almost_equal(arr0, cpptraj_rmsd, decimal=3)
         np.testing.assert_almost_equal(arr1, cpptraj_rmsd, decimal=3)
+        np.testing.assert_almost_equal(arr2, cpptraj_rmsd, decimal=3)
+        np.testing.assert_almost_equal(arr3, cpptraj_rmsd, decimal=3)
 
     def test_action_rmsd(self):
         # TODO : fill me
