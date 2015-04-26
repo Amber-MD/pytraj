@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from .externals.six import string_types
 from .Topology import Topology
 
 def _get_top(traj, top):

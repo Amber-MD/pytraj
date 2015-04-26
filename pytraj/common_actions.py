@@ -13,7 +13,8 @@ adict = ActionDict()
 from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
-from ._get_top import calculate, _get_top
+from ._get_top import _get_top
+from ._common_actions import calculate
 from .externals.six import string_types
 from .Frame import Frame
 from .FrameArray import FrameArray
@@ -204,7 +205,7 @@ def do_clustering(command="", traj=None, top=Topology(),
         _top = traj.top
     ana(command, _top, dslist, dflist) 
 
-def calc_multidihedral(command="", dtype='dict', *args, **kwd): 
+def calc_multidihedral(command="", traj=None, top=None, dtype='dict', *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -221,11 +222,12 @@ def calc_multidihedral(command="", dtype='dict', *args, **kwd):
     >>> from pytraj.dataframe import to_dataframe
     >>> print (to_dataframe(d))
     """
+    _top = _get_top(traj, top)
     dslist = DataSetList()
     from pytraj.six_2 import izip as zip
     from array import array
     act = adict['multidihedral']
-    act(command, dslist=dslist, *args, **kwd)
+    act(command, traj, _top, dslist=dslist, *args, **kwd)
     if dtype == 'dict':
         return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
     else:
