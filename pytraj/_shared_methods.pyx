@@ -39,7 +39,7 @@ def _tolist(self):
 
 def my_str_method(self):
     name = self.__class__.__name__
-    tmps = """%s instance with %s frames, %s atoms/frame
+    tmps = """%s with %s frames, %s atoms/frame
            """ % (
             name, self.size, self.top.n_atoms,
             )
