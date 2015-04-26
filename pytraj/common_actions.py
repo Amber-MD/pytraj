@@ -27,7 +27,7 @@ from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
-from .utils import _import_numpy
+from .utils import _import_numpy, is_array
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
@@ -376,7 +376,16 @@ def calc_rmsd(command="", traj=None, top=None, ref=None, mass=False, fit=True):
     arr = array('d')
 
     # creat AtomMask object
-    atm = _top(command) 
+    if isinstance(command, string_types):
+        atm = _top(command) 
+    elif isinstance(command, AtomMask):
+        atm = command
+    elif is_array(command) or isinstance(command, (list, tuple)):
+        atm = AtomMask()
+        atm.add_selected_indices(command)
+    else:
+        atm = AtomMask()
+
     if mass:
         ref.set_frame_m(_top)
     _ref = Frame(ref, atm)

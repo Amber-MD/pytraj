@@ -27,6 +27,14 @@ def is_word_in_class_name(obj, word):
     """
     return word in obj.__class__.__name__
 
+def is_array(obj):
+    """check if a `word` is in obj.__class__.__name__
+    """
+    if is_word_in_class_name(obj, 'array'):
+        return True
+    else:
+        return False
+
 def are_instance(obj_list, cls):
     """check if all elements have the same class `cls`"""
     for element in obj_list:
