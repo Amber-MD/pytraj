@@ -63,7 +63,6 @@ class ActionInTraj(object):
 
     def calc_rmsd(self, mask="", ref=None, mass=False, fit=True):
         """"""
-        assert ref is not None
         if is_int(ref):
             # index
             ref = self[ref]
