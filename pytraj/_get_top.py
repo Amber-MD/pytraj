@@ -16,7 +16,7 @@ def _get_top(traj, top):
                         _top = tmp.top 
                         break
             except:
-                print("Topology is None")
+                #print("Topology is None")
                 _top = None
     else:
         _top = top
