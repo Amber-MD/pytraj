@@ -2,6 +2,8 @@ import unittest
 from pytraj.base import *
 from pytraj import io as mdio
 import numpy as np
+from pytraj.testing import test_if_having
+from pytraj.utils import assert_almost_equal
 
 TRAJ = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
 cpptraj_rmsd = np.loadtxt("./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1]
@@ -57,15 +59,44 @@ class Test(unittest.TestCase):
         np.testing.assert_almost_equal(arr2, cpptraj_rmsd, decimal=3)
         np.testing.assert_almost_equal(arr3, cpptraj_rmsd, decimal=3)
 
+    @test_if_having("mdtraj")
     def test_action_rmsd(self):
-        # TODO : fill me
-        from pytraj import adict
-        TRAJ = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
-        #print (TRAJ.top)
-        #act = adict['rmsd']
-        #d0 = act('reference ./data/Tc5b.crd rms reference @CA out ./output/_rmsd.dat', 
-        #         TRAJ, quick_get=True)
-        #print (d0)
+        # use `mdtraj` for rerefence values
+        import mdtraj as md
+        traj = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        import pytraj.common_actions as pyca
+        m_top = md.load_prmtop("./data/Tc5b.top")
+        m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
+        m_traj.xyz = m_traj.xyz * 10 # convert `nm` to `Angstrom` unit
+
+        # rmsd to first, all atoms
+        arr0 = traj.calc_rmsd("", 0)
+        arr1 = traj.calc_rmsd("", 'first')
+        arr2 = traj.calc_rmsd()
+        a_md0 = md.rmsd(m_traj, m_traj, 0)
+        assert_almost_equal(arr0, arr1)
+        assert_almost_equal(arr0, arr2)
+        assert_almost_equal(arr0, a_md0)
+
+        # rmsd to last frame, all atoms
+        arr0 = traj.calc_rmsd(ref='last')
+        arr1 = traj.calc_rmsd(ref=-1)
+        a_md = md.rmsd(m_traj, m_traj, -1)
+        assert_almost_equal(arr0, arr1)
+        assert_almost_equal(arr0, a_md)
+
+        # rmsd with mask and indices
+        mask = ":3-18@CA, C"
+        atm = traj.top(mask)
+        arr0 = traj.calc_rmsd(mask, ref='last')
+        arr1 = traj.calc_rmsd(atm.indices, ref='last')
+        arr2 = traj.calc_rmsd(list(atm.indices), ref='last')
+        arr3 = traj.calc_rmsd(tuple(atm.indices), ref='last')
+        a_md = md.rmsd(m_traj, m_traj, -1, atm.indices)
+        assert_almost_equal(arr0, a_md)
+        assert_almost_equal(arr1, a_md)
+        assert_almost_equal(arr2, a_md)
+        assert_almost_equal(arr3, a_md)
 
 if __name__ == "__main__":
     unittest.main()
