@@ -1,7 +1,8 @@
 from __future__ import absolute_import
 from pytraj.datasets.DataSet_MatrixDbl import DataSet_MatrixDbl
+from ..utils import _import_numpy
 from .base import plt
-import numpy as np
+np = _import_numpy() 
 
 def plot_matrix(dset, *args, **kwd):
     """plot matrix and return pyplot object
