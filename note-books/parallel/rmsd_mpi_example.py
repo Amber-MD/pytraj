@@ -39,6 +39,8 @@ if rank != 0:
     ref = Frame()
     ref.append_xyz(ref_xyz)
 
+# got segmentation fault if not making a copy of ref
+# TODO : check MPI stuff
 _ref = ref.copy()
 
 def rmsd_mpi(traj, _ref):
