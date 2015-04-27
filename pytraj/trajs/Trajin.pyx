@@ -353,5 +353,12 @@ cdef class Trajin (TrajectoryFile):
         We can not return a memoryview since FrameArray is a C++ vector of Frame object
         """
         return _xyz(self)
+
     def tolist(self):
         return _tolist(self)
+
+    @property
+    def coordinfo(self):
+        cdef CoordinateInfo cinfo = CoordinateInfo()
+        cinfo.thisptr[0] = self.baseptr_1.TrajCoordInfo()
+        return cinfo

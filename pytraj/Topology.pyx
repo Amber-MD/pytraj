@@ -539,3 +539,33 @@ cdef class Topology:
                     count += 1
             arr0.append(count)
         return arr0
+
+    @property
+    def bonds_noh(self):
+        """return bond iterator"""
+        cdef BondArray bondarray # c++
+        cdef BondType btype = BondType()
+        bondarray = self.thisptr.Bonds()
+
+        for btype.thisptr[0] in bondarray:
+            yield btype
+
+    @property
+    def angles_noh(self):
+        """return bond iterator"""
+        cdef AngleArray anglearray # c++
+        cdef AngleType atype = AngleType()
+        anglearray = self.thisptr.Angles()
+
+        for atype.thisptr[0] in anglearray:
+            yield atype
+
+    @property
+    def dihedrals_noh(self):
+        """return dihedral iterator"""
+        cdef DihedralArray dharr # c++ 
+        cdef DihedralType dhtype = DihedralType()
+        dharr = self.thisptr.Dihedrals()
+
+        for dhtype.thisptr[0] in dharr:
+            yield dhtype
