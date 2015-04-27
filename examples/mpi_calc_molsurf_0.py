@@ -17,9 +17,6 @@ parm_name = root_dir + "myparm.top"
 
 # load to TrajReadOnly
 traj = io.load(traj_name, parm_name)
-# we create FrameArray to store traj in memory.
-# will get segmentation fault if using TrajReadOnly object
-fa = traj
 
 # mapping different chunk of `fa` in N cores
 # need to provide `comm`
