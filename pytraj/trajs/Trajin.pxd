@@ -8,6 +8,7 @@ from pytraj.Topology cimport _Topology, Topology
 from pytraj.core.Box cimport _Box, Box
 from pytraj.trajs.TrajectoryIO cimport _TrajectoryIO, TrajectoryIO
 from pytraj.trajs.TrajectoryFile cimport _TrajectoryFile, TrajectoryFile
+from pytraj.core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 
 cdef extern from "Trajin.h": 
     cdef cppclass _Trajin "Trajin" (_TrajectoryFile):
@@ -44,6 +45,7 @@ cdef extern from "Trajin.h":
         int NumFramesProcessed() const 
         bint IsEnsemble() const 
         void SetEnsemble(bint b)
+        _CoordinateInfo TrajCoordInfo()
 
 cdef class Trajin (TrajectoryFile):
     #( baseptr0 is from TrajectoryFile
