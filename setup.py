@@ -204,6 +204,7 @@ packages = [
         'pytraj.plots',
         'pytraj.math',
         'pytraj.core',
+        'pytraj.parallel',
         #'pytraj.clusters',
         ]
 
