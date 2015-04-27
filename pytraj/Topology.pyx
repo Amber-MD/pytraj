@@ -541,31 +541,41 @@ cdef class Topology:
         return arr0
 
     @property
-    def bonds_noh(self):
+    def bonds(self):
         """return bond iterator"""
-        cdef BondArray bondarray # c++
+        # both noh and with-h bonds
+        cdef BondArray bondarray, bondarray_h
         cdef BondType btype = BondType()
+
         bondarray = self.thisptr.Bonds()
+        bondarray_h = self.thisptr.BondsH()
+        bondarray.insert(bondarray.end(), bondarray_h.begin(), bondarray_h.end())
 
         for btype.thisptr[0] in bondarray:
             yield btype
 
     @property
-    def angles_noh(self):
+    def angles(self):
         """return bond iterator"""
-        cdef AngleArray anglearray # c++
+        cdef AngleArray anglearray, anglearray_h
         cdef AngleType atype = AngleType()
+
         anglearray = self.thisptr.Angles()
+        anglearray_h = self.thisptr.AnglesH()
+        anglearray.insert(anglearray.end(), anglearray_h.begin(), anglearray_h.end())
 
         for atype.thisptr[0] in anglearray:
             yield atype
 
     @property
-    def dihedrals_noh(self):
+    def dihedrals(self):
         """return dihedral iterator"""
-        cdef DihedralArray dharr # c++ 
+        cdef DihedralArray dharr, dharr_h
         cdef DihedralType dhtype = DihedralType()
+
         dharr = self.thisptr.Dihedrals()
+        dharr_h = self.thisptr.DihedralsH()
+        dharr.insert(dharr.end(), dharr_h.begin(), dharr_h.end())
 
         for dhtype.thisptr[0] in dharr:
             yield dhtype

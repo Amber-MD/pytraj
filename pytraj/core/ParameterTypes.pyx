@@ -24,7 +24,9 @@ cdef class AngleType:
     @property
     def indices(self):
         """return atom indices as a python array"""
-        cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
+        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
+        #                                 self.thisptr.A2(), self.thisptr.A3()])
+        cdef pyarray arr = pyarray('i', [self.thisptr.A1(),
                                          self.thisptr.A2(), self.thisptr.A3()])
         return arr
 
@@ -145,7 +147,10 @@ cdef class CmapType:
     @property
     def indices(self):
         """return atom indices as a python array"""
-        cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
+        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
+        #                                 self.thisptr.A2(), self.thisptr.A3(),
+        #                                 self.thisptr.A4(), self.thisptr.A5()])
+        cdef pyarray arr = pyarray('i', [self.thisptr.A1(),
                                          self.thisptr.A2(), self.thisptr.A3(),
                                          self.thisptr.A4(), self.thisptr.A5()])
         return arr
@@ -337,7 +342,9 @@ cdef class DihedralType:
     @property
     def indices(self):
         """return atom indices as a python array"""
-        cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(), self.thisptr.A2(),
+        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(), self.thisptr.A2(),
+        #                                 self.thisptr.A3(), self.thisptr.A4()])
+        cdef pyarray arr = pyarray('i', [self.thisptr.A1(), self.thisptr.A2(),
                                          self.thisptr.A3(), self.thisptr.A4()])
         return arr
 
@@ -366,7 +373,8 @@ cdef class BondType:
     @property
     def indices(self):
         """return atom indices as a python array"""
-        cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(), self.thisptr.A2()])
+        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(), self.thisptr.A2()])
+        cdef pyarray arr = pyarray('i', [self.thisptr.A1(), self.thisptr.A2()])
         return arr
 
 

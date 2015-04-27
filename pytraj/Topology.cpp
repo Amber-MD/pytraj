@@ -594,9 +594,9 @@ struct __pyx_obj_6pytraj_8Topology_Topology;
 struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct__atom_iter;
 struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_1_residue_iter;
 struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_2_mol_iter;
-struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh;
-struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh;
-struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh;
+struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds;
+struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles;
+struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
@@ -814,7 +814,7 @@ struct __pyx_obj_6pytraj_4core_8Molecule_Molecule {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":186
+/* "pytraj/core/ParameterTypes.pxd":187
  * 
  * 
  * cdef class AngleType:             # <<<<<<<<<<<<<<
@@ -827,7 +827,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_AngleType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":189
+/* "pytraj/core/ParameterTypes.pxd":190
  *     cdef _AngleType* thisptr
  * 
  * cdef class NonbondParmType:             # <<<<<<<<<<<<<<
@@ -840,7 +840,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_NonbondParmType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":192
+/* "pytraj/core/ParameterTypes.pxd":193
  *     cdef _NonbondParmType* thisptr
  * 
  * cdef class LES_AtomType:             # <<<<<<<<<<<<<<
@@ -853,7 +853,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_LES_AtomType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":195
+/* "pytraj/core/ParameterTypes.pxd":196
  *     cdef _LES_AtomType* thisptr
  * 
  * cdef class AngleParmType:             # <<<<<<<<<<<<<<
@@ -866,7 +866,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_AngleParmType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":198
+/* "pytraj/core/ParameterTypes.pxd":199
  *     cdef _AngleParmType* thisptr
  * 
  * cdef class CmapType:             # <<<<<<<<<<<<<<
@@ -879,7 +879,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_CmapType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":201
+/* "pytraj/core/ParameterTypes.pxd":202
  *     cdef _CmapType* thisptr
  * 
  * cdef class LES_ParmType:             # <<<<<<<<<<<<<<
@@ -892,7 +892,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_LES_ParmType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":204
+/* "pytraj/core/ParameterTypes.pxd":205
  *     cdef _LES_ParmType* thisptr
  * 
  * cdef class HB_ParmType:             # <<<<<<<<<<<<<<
@@ -905,7 +905,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_HB_ParmType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":207
+/* "pytraj/core/ParameterTypes.pxd":208
  *     cdef _HB_ParmType* thisptr
  * 
  * cdef class NonbondType:             # <<<<<<<<<<<<<<
@@ -918,7 +918,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_NonbondType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":210
+/* "pytraj/core/ParameterTypes.pxd":211
  *     cdef _NonbondType* thisptr
  * 
  * cdef class ChamberParmType:             # <<<<<<<<<<<<<<
@@ -931,7 +931,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_ChamberParmType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":213
+/* "pytraj/core/ParameterTypes.pxd":214
  *     cdef _ChamberParmType* thisptr
  * 
  * cdef class BondParmType:             # <<<<<<<<<<<<<<
@@ -944,7 +944,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_BondParmType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":216
+/* "pytraj/core/ParameterTypes.pxd":217
  *     cdef _BondParmType* thisptr
  * 
  * cdef class CmapGridType:             # <<<<<<<<<<<<<<
@@ -957,7 +957,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_CmapGridType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":219
+/* "pytraj/core/ParameterTypes.pxd":220
  *     cdef _CmapGridType* thisptr
  * 
  * cdef class DihedralType:             # <<<<<<<<<<<<<<
@@ -970,7 +970,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_DihedralType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":222
+/* "pytraj/core/ParameterTypes.pxd":223
  *     cdef _DihedralType* thisptr
  * 
  * cdef class BondType:             # <<<<<<<<<<<<<<
@@ -983,7 +983,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_BondType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":225
+/* "pytraj/core/ParameterTypes.pxd":226
  *     cdef _BondType* thisptr
  * 
  * cdef class CapParmType:             # <<<<<<<<<<<<<<
@@ -996,7 +996,7 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_CapParmType {
 };
 
 
-/* "pytraj/core/ParameterTypes.pxd":228
+/* "pytraj/core/ParameterTypes.pxd":229
  *     cdef _CapParmType* thisptr
  * 
  * cdef class DihedralParmType:             # <<<<<<<<<<<<<<
@@ -1161,45 +1161,48 @@ struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_2_mol_iter {
 /* "pytraj/Topology.pyx":544
  * 
  *     @property
- *     def bonds_noh(self):             # <<<<<<<<<<<<<<
+ *     def bonds(self):             # <<<<<<<<<<<<<<
  *         """return bond iterator"""
- *         cdef BondArray bondarray # c++
+ *         # both noh and with-h bonds
  */
-struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh {
+struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds {
   PyObject_HEAD
   __pyx_t_6pytraj_4core_14ParameterTypes_BondArray __pyx_v_bondarray;
+  __pyx_t_6pytraj_4core_14ParameterTypes_BondArray __pyx_v_bondarray_h;
   struct __pyx_obj_6pytraj_4core_14ParameterTypes_BondType *__pyx_v_btype;
   struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self;
   std::vector<BondType> ::iterator __pyx_t_0;
 };
 
 
-/* "pytraj/Topology.pyx":554
+/* "pytraj/Topology.pyx":558
  * 
  *     @property
- *     def angles_noh(self):             # <<<<<<<<<<<<<<
+ *     def angles(self):             # <<<<<<<<<<<<<<
  *         """return bond iterator"""
- *         cdef AngleArray anglearray # c++
+ *         cdef AngleArray anglearray, anglearray_h
  */
-struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh {
+struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles {
   PyObject_HEAD
   __pyx_t_6pytraj_4core_14ParameterTypes_AngleArray __pyx_v_anglearray;
+  __pyx_t_6pytraj_4core_14ParameterTypes_AngleArray __pyx_v_anglearray_h;
   struct __pyx_obj_6pytraj_4core_14ParameterTypes_AngleType *__pyx_v_atype;
   struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self;
   std::vector<AngleType> ::iterator __pyx_t_0;
 };
 
 
-/* "pytraj/Topology.pyx":564
+/* "pytraj/Topology.pyx":571
  * 
  *     @property
- *     def dihedrals_noh(self):             # <<<<<<<<<<<<<<
+ *     def dihedrals(self):             # <<<<<<<<<<<<<<
  *         """return dihedral iterator"""
- *         cdef DihedralArray dharr # c++
+ *         cdef DihedralArray dharr, dharr_h
  */
-struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh {
+struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals {
   PyObject_HEAD
   __pyx_t_6pytraj_4core_14ParameterTypes_DihedralArray __pyx_v_dharr;
+  __pyx_t_6pytraj_4core_14ParameterTypes_DihedralArray __pyx_v_dharr_h;
   struct __pyx_obj_6pytraj_4core_14ParameterTypes_DihedralType *__pyx_v_dhtype;
   struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self;
   std::vector<DihedralType> ::iterator __pyx_t_0;
@@ -1785,6 +1788,45 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
+#ifndef __Pyx_CppExn2PyErr
+#include <new>
+#include <typeinfo>
+#include <stdexcept>
+#include <ios>
+static void __Pyx_CppExn2PyErr() {
+  try {
+    if (PyErr_Occurred())
+      ; // let the latest Python exn pass through and ignore the current one
+    else
+      throw;
+  } catch (const std::bad_alloc& exn) {
+    PyErr_SetString(PyExc_MemoryError, exn.what());
+  } catch (const std::bad_cast& exn) {
+    PyErr_SetString(PyExc_TypeError, exn.what());
+  } catch (const std::domain_error& exn) {
+    PyErr_SetString(PyExc_ValueError, exn.what());
+  } catch (const std::invalid_argument& exn) {
+    PyErr_SetString(PyExc_ValueError, exn.what());
+  } catch (const std::ios_base::failure& exn) {
+    PyErr_SetString(PyExc_IOError, exn.what());
+  } catch (const std::out_of_range& exn) {
+    PyErr_SetString(PyExc_IndexError, exn.what());
+  } catch (const std::overflow_error& exn) {
+    PyErr_SetString(PyExc_OverflowError, exn.what());
+  } catch (const std::range_error& exn) {
+    PyErr_SetString(PyExc_ArithmeticError, exn.what());
+  } catch (const std::underflow_error& exn) {
+    PyErr_SetString(PyExc_ArithmeticError, exn.what());
+  } catch (const std::exception& exn) {
+    PyErr_SetString(PyExc_RuntimeError, exn.what());
+  }
+  catch (...)
+  {
+    PyErr_SetString(PyExc_RuntimeError, "Unknown exception");
+  }
+}
+#endif
+
 #include <new>
 
 static int __pyx_memviewslice_is_contig(const __Pyx_memviewslice *mvs,
@@ -1956,9 +1998,9 @@ static PyTypeObject *__pyx_ptype_6pytraj_8Topology_Topology = 0;
 static PyTypeObject *__pyx_ptype_6pytraj_8Topology___pyx_scope_struct__atom_iter = 0;
 static PyTypeObject *__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_1_residue_iter = 0;
 static PyTypeObject *__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_2_mol_iter = 0;
-static PyTypeObject *__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh = 0;
-static PyTypeObject *__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_4_angles_noh = 0;
-static PyTypeObject *__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh = 0;
+static PyTypeObject *__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_3_bonds = 0;
+static PyTypeObject *__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_4_angles = 0;
+static PyTypeObject *__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_5_dihedrals = 0;
 static PyTypeObject *__pyx_array_type = 0;
 static PyTypeObject *__pyx_MemviewEnum_type = 0;
 static PyTypeObject *__pyx_memoryview_type = 0;
@@ -2089,9 +2131,9 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_105get_parm_coord_info(str
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_107join(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, PyObject *__pyx_v_top); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_109mass(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_111indices_bonded_to(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, PyObject *__pyx_v_atom_name); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_113bonds_noh(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_116angles_noh(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_119dihedrals_noh(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_113bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_116angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_119dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_11py_free_mem___get__(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8Topology_8Topology_11py_free_mem_2__set__(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
@@ -2132,9 +2174,9 @@ static PyObject *__pyx_tp_new_6pytraj_8Topology_Topology(PyTypeObject *t, PyObje
 static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct__atom_iter(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_1_residue_iter(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_2_mol_iter(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_4_angles_noh(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_3_bonds(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_4_angles(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_5_dihedrals(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_array(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_Enum(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_memoryview(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -2172,6 +2214,7 @@ static char __pyx_k_step[] = "step";
 static char __pyx_k_stop[] = "stop";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_atoms[] = "atoms";
+static char __pyx_k_bonds[] = "bonds";
 static char __pyx_k_class[] = "__class__";
 static char __pyx_k_close[] = "close";
 static char __pyx_k_error[] = "error";
@@ -2184,6 +2227,7 @@ static char __pyx_k_start[] = "start";
 static char __pyx_k_throw[] = "throw";
 static char __pyx_k_title[] = "title";
 static char __pyx_k_upper[] = "upper";
+static char __pyx_k_angles[] = "angles";
 static char __pyx_k_append[] = "append";
 static char __pyx_k_atname[] = "atname";
 static char __pyx_k_encode[] = "encode";
@@ -2210,12 +2254,11 @@ static char __pyx_k_property[] = "property";
 static char __pyx_k_readparm[] = "readparm";
 static char __pyx_k_TypeError[] = "TypeError";
 static char __pyx_k_atom_iter[] = "atom_iter";
-static char __pyx_k_bonds_noh[] = "bonds_noh";
+static char __pyx_k_dihedrals[] = "dihedrals";
 static char __pyx_k_enumerate[] = "enumerate";
 static char __pyx_k_file_path[] = "file_path";
 static char __pyx_k_IndexError[] = "IndexError";
 static char __pyx_k_ValueError[] = "ValueError";
-static char __pyx_k_angles_noh[] = "angles_noh";
 static char __pyx_k_maskString[] = "maskString";
 static char __pyx_k_n_residues[] = "n_residues";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
@@ -2230,9 +2273,10 @@ static char __pyx_k_moleculelist[] = "moleculelist";
 static char __pyx_k_pytraj_six_2[] = "pytraj.six_2";
 static char __pyx_k_residue_iter[] = "residue_iter";
 static char __pyx_k_string_types[] = "string_types";
-static char __pyx_k_dihedrals_noh[] = "dihedrals_noh";
 static char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
+static char __pyx_k_Topology_bonds[] = "Topology.bonds";
 static char __pyx_k_bonded_indices[] = "bonded_indices";
+static char __pyx_k_Topology_angles[] = "Topology.angles";
 static char __pyx_k_allocate_buffer[] = "allocate_buffer";
 static char __pyx_k_dtype_is_object[] = "dtype_is_object";
 static char __pyx_k_py_free_mem_bool[] = "py_free_mem: 'bool'";
@@ -2242,11 +2286,10 @@ static char __pyx_k_set_world_silent[] = "set_world_silent";
 static char __pyx_k_Topology_mol_iter[] = "Topology.mol_iter";
 static char __pyx_k_pytraj_decorators[] = "pytraj.decorators";
 static char __pyx_k_Topology_atom_iter[] = "Topology.atom_iter";
-static char __pyx_k_Topology_bonds_noh[] = "Topology.bonds_noh";
+static char __pyx_k_Topology_dihedrals[] = "Topology.dihedrals";
 static char __pyx_k_get_unique_resname[] = "get_unique_resname";
 static char __pyx_k_pytraj__set_silent[] = "pytraj._set_silent";
 static char __pyx_k_strided_and_direct[] = "<strided and direct>";
-static char __pyx_k_Topology_angles_noh[] = "Topology.angles_noh";
 static char __pyx_k_get_unique_atomname[] = "get_unique_atomname";
 static char __pyx_k_trunc_res_atom_name[] = "trunc_res_atom_name";
 static char __pyx_k_name_will_be_changed[] = "name_will_be_changed";
@@ -2257,7 +2300,6 @@ static char __pyx_k_Topology_residue_iter[] = "Topology.residue_iter";
 static char __pyx_k_contiguous_and_direct[] = "<contiguous and direct>";
 static char __pyx_k_index_is_out_of_range[] = "index is out of range";
 static char __pyx_k_MemoryView_of_r_object[] = "<MemoryView of %r object>";
-static char __pyx_k_Topology_dihedrals_noh[] = "Topology.dihedrals_noh";
 static char __pyx_k_pytraj_parms__ParmFile[] = "pytraj.parms._ParmFile";
 static char __pyx_k_MemoryView_of_r_at_0x_x[] = "<MemoryView of %r at 0x%x>";
 static char __pyx_k_contiguous_and_indirect[] = "<contiguous and indirect>";
@@ -2307,10 +2349,10 @@ static PyObject *__pyx_n_s_PY2;
 static PyObject *__pyx_n_s_PY3;
 static PyObject *__pyx_n_s_TMPParmFile;
 static PyObject *__pyx_kp_u_Topology___call___line_135;
-static PyObject *__pyx_n_s_Topology_angles_noh;
+static PyObject *__pyx_n_s_Topology_angles;
 static PyObject *__pyx_n_s_Topology_atom_iter;
-static PyObject *__pyx_n_s_Topology_bonds_noh;
-static PyObject *__pyx_n_s_Topology_dihedrals_noh;
+static PyObject *__pyx_n_s_Topology_bonds;
+static PyObject *__pyx_n_s_Topology_dihedrals;
 static PyObject *__pyx_kp_u_Topology_load_line_68;
 static PyObject *__pyx_n_s_Topology_mol_iter;
 static PyObject *__pyx_n_s_Topology_residue_iter;
@@ -2321,7 +2363,7 @@ static PyObject *__pyx_kp_s__20;
 static PyObject *__pyx_kp_s__4;
 static PyObject *__pyx_n_s_add;
 static PyObject *__pyx_n_s_allocate_buffer;
-static PyObject *__pyx_n_s_angles_noh;
+static PyObject *__pyx_n_s_angles;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_atm;
@@ -2333,7 +2375,7 @@ static PyObject *__pyx_n_s_atoms;
 static PyObject *__pyx_n_s_base;
 static PyObject *__pyx_n_s_binary_type;
 static PyObject *__pyx_n_s_bonded_indices;
-static PyObject *__pyx_n_s_bonds_noh;
+static PyObject *__pyx_n_s_bonds;
 static PyObject *__pyx_n_s_c;
 static PyObject *__pyx_n_u_c;
 static PyObject *__pyx_kp_s_can_not_join_yourself_use_copy_m;
@@ -2343,7 +2385,7 @@ static PyObject *__pyx_kp_s_contiguous_and_direct;
 static PyObject *__pyx_kp_s_contiguous_and_indirect;
 static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_d;
-static PyObject *__pyx_n_s_dihedrals_noh;
+static PyObject *__pyx_n_s_dihedrals;
 static PyObject *__pyx_n_s_dtype_is_object;
 static PyObject *__pyx_n_s_encode;
 static PyObject *__pyx_n_s_enumerate;
@@ -11515,34 +11557,34 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_115generator3(__pyx_Genera
 /* "pytraj/Topology.pyx":544
  * 
  *     @property
- *     def bonds_noh(self):             # <<<<<<<<<<<<<<
+ *     def bonds(self):             # <<<<<<<<<<<<<<
  *         """return bond iterator"""
- *         cdef BondArray bondarray # c++
+ *         # both noh and with-h bonds
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_114bonds_noh(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Topology_8Topology_113bonds_noh[] = "Topology.bonds_noh(self)\nreturn bond iterator";
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_114bonds_noh(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_114bonds(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8Topology_8Topology_113bonds[] = "Topology.bonds(self)\nreturn bond iterator";
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_114bonds(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("bonds_noh (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_113bonds_noh(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("bonds (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_113bonds(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_113bonds_noh(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *__pyx_cur_scope;
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_113bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("bonds_noh", 0);
-  __pyx_cur_scope = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *)__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh(__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh, __pyx_empty_tuple, NULL);
+  __Pyx_RefNannySetupContext("bonds", 0);
+  __pyx_cur_scope = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *)__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_3_bonds(__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_3_bonds, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
     __Pyx_RefNannyFinishContext();
     return NULL;
@@ -11552,7 +11594,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_113bonds_noh(struct __pyx_
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_6pytraj_8Topology_8Topology_115generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_bonds_noh, __pyx_n_s_Topology_bonds_noh); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 544; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_6pytraj_8Topology_8Topology_115generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_bonds, __pyx_n_s_Topology_bonds); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 544; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -11560,7 +11602,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_113bonds_noh(struct __pyx_
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pytraj.Topology.Topology.bonds_noh", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.Topology.Topology.bonds", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
@@ -11570,7 +11612,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_113bonds_noh(struct __pyx_
 
 static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_115generator3(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *__pyx_cur_scope = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *)__pyx_generator->closure);
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *__pyx_cur_scope = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
   PyObject *__pyx_t_1 = NULL;
   std::vector<BondType> ::iterator __pyx_t_2;
@@ -11590,30 +11632,53 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_115generator3(__pyx_Genera
   __pyx_L3_first_run:;
   if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 544; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "pytraj/Topology.pyx":547
- *         """return bond iterator"""
- *         cdef BondArray bondarray # c++
+  /* "pytraj/Topology.pyx":548
+ *         # both noh and with-h bonds
+ *         cdef BondArray bondarray, bondarray_h
  *         cdef BondType btype = BondType()             # <<<<<<<<<<<<<<
- *         bondarray = self.thisptr.Bonds()
  * 
+ *         bondarray = self.thisptr.Bonds()
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4core_14ParameterTypes_BondType)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 547; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4core_14ParameterTypes_BondType)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 548; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_cur_scope->__pyx_v_btype = ((struct __pyx_obj_6pytraj_4core_14ParameterTypes_BondType *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Topology.pyx":548
- *         cdef BondArray bondarray # c++
+  /* "pytraj/Topology.pyx":550
  *         cdef BondType btype = BondType()
- *         bondarray = self.thisptr.Bonds()             # <<<<<<<<<<<<<<
  * 
- *         for btype.thisptr[0] in bondarray:
+ *         bondarray = self.thisptr.Bonds()             # <<<<<<<<<<<<<<
+ *         bondarray_h = self.thisptr.BondsH()
+ *         bondarray.insert(bondarray.end(), bondarray_h.begin(), bondarray_h.end())
  */
   __pyx_cur_scope->__pyx_v_bondarray = __pyx_cur_scope->__pyx_v_self->thisptr->Bonds();
 
-  /* "pytraj/Topology.pyx":550
+  /* "pytraj/Topology.pyx":551
+ * 
  *         bondarray = self.thisptr.Bonds()
+ *         bondarray_h = self.thisptr.BondsH()             # <<<<<<<<<<<<<<
+ *         bondarray.insert(bondarray.end(), bondarray_h.begin(), bondarray_h.end())
+ * 
+ */
+  __pyx_cur_scope->__pyx_v_bondarray_h = __pyx_cur_scope->__pyx_v_self->thisptr->BondsH();
+
+  /* "pytraj/Topology.pyx":552
+ *         bondarray = self.thisptr.Bonds()
+ *         bondarray_h = self.thisptr.BondsH()
+ *         bondarray.insert(bondarray.end(), bondarray_h.begin(), bondarray_h.end())             # <<<<<<<<<<<<<<
+ * 
+ *         for btype.thisptr[0] in bondarray:
+ */
+  try {
+    __pyx_cur_scope->__pyx_v_bondarray.insert(__pyx_cur_scope->__pyx_v_bondarray.end(), __pyx_cur_scope->__pyx_v_bondarray_h.begin(), __pyx_cur_scope->__pyx_v_bondarray_h.end());
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 552; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+
+  /* "pytraj/Topology.pyx":554
+ *         bondarray.insert(bondarray.end(), bondarray_h.begin(), bondarray_h.end())
  * 
  *         for btype.thisptr[0] in bondarray:             # <<<<<<<<<<<<<<
  *             yield btype
@@ -11626,7 +11691,7 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_115generator3(__pyx_Genera
     ++__pyx_t_2;
     (__pyx_cur_scope->__pyx_v_btype->thisptr[0]) = __pyx_t_3;
 
-    /* "pytraj/Topology.pyx":551
+    /* "pytraj/Topology.pyx":555
  * 
  *         for btype.thisptr[0] in bondarray:
  *             yield btype             # <<<<<<<<<<<<<<
@@ -11643,10 +11708,10 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_115generator3(__pyx_Genera
     return __pyx_r;
     __pyx_L6_resume_from_yield:;
     __pyx_t_2 = __pyx_cur_scope->__pyx_t_0;
-    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 551; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 555; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Topology.pyx":550
- *         bondarray = self.thisptr.Bonds()
+    /* "pytraj/Topology.pyx":554
+ *         bondarray.insert(bondarray.end(), bondarray_h.begin(), bondarray_h.end())
  * 
  *         for btype.thisptr[0] in bondarray:             # <<<<<<<<<<<<<<
  *             yield btype
@@ -11657,9 +11722,9 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_115generator3(__pyx_Genera
   /* "pytraj/Topology.pyx":544
  * 
  *     @property
- *     def bonds_noh(self):             # <<<<<<<<<<<<<<
+ *     def bonds(self):             # <<<<<<<<<<<<<<
  *         """return bond iterator"""
- *         cdef BondArray bondarray # c++
+ *         # both noh and with-h bonds
  */
 
   /* function exit code */
@@ -11667,7 +11732,7 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_115generator3(__pyx_Genera
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("bonds_noh", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bonds", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_r);
   __pyx_generator->resume_label = -1;
@@ -11677,37 +11742,37 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_115generator3(__pyx_Genera
 }
 static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_118generator4(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "pytraj/Topology.pyx":554
+/* "pytraj/Topology.pyx":558
  * 
  *     @property
- *     def angles_noh(self):             # <<<<<<<<<<<<<<
+ *     def angles(self):             # <<<<<<<<<<<<<<
  *         """return bond iterator"""
- *         cdef AngleArray anglearray # c++
+ *         cdef AngleArray anglearray, anglearray_h
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_117angles_noh(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Topology_8Topology_116angles_noh[] = "Topology.angles_noh(self)\nreturn bond iterator";
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_117angles_noh(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_117angles(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8Topology_8Topology_116angles[] = "Topology.angles(self)\nreturn bond iterator";
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_117angles(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("angles_noh (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_116angles_noh(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("angles (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_116angles(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_116angles_noh(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *__pyx_cur_scope;
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_116angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("angles_noh", 0);
-  __pyx_cur_scope = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *)__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_4_angles_noh(__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_4_angles_noh, __pyx_empty_tuple, NULL);
+  __Pyx_RefNannySetupContext("angles", 0);
+  __pyx_cur_scope = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *)__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_4_angles(__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_4_angles, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
     __Pyx_RefNannyFinishContext();
     return NULL;
@@ -11717,7 +11782,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_116angles_noh(struct __pyx
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_6pytraj_8Topology_8Topology_118generator4, (PyObject *) __pyx_cur_scope, __pyx_n_s_angles_noh, __pyx_n_s_Topology_angles_noh); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 554; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_6pytraj_8Topology_8Topology_118generator4, (PyObject *) __pyx_cur_scope, __pyx_n_s_angles, __pyx_n_s_Topology_angles); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 558; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -11725,7 +11790,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_116angles_noh(struct __pyx
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pytraj.Topology.Topology.angles_noh", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.Topology.Topology.angles", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
@@ -11735,7 +11800,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_116angles_noh(struct __pyx
 
 static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_118generator4(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *__pyx_cur_scope = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *)__pyx_generator->closure);
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *__pyx_cur_scope = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
   PyObject *__pyx_t_1 = NULL;
   std::vector<AngleType> ::iterator __pyx_t_2;
@@ -11753,32 +11818,55 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_118generator4(__pyx_Genera
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 554; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 558; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "pytraj/Topology.pyx":557
+  /* "pytraj/Topology.pyx":561
  *         """return bond iterator"""
- *         cdef AngleArray anglearray # c++
+ *         cdef AngleArray anglearray, anglearray_h
  *         cdef AngleType atype = AngleType()             # <<<<<<<<<<<<<<
- *         anglearray = self.thisptr.Angles()
  * 
+ *         anglearray = self.thisptr.Angles()
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4core_14ParameterTypes_AngleType)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 557; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4core_14ParameterTypes_AngleType)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_cur_scope->__pyx_v_atype = ((struct __pyx_obj_6pytraj_4core_14ParameterTypes_AngleType *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Topology.pyx":558
- *         cdef AngleArray anglearray # c++
+  /* "pytraj/Topology.pyx":563
  *         cdef AngleType atype = AngleType()
- *         anglearray = self.thisptr.Angles()             # <<<<<<<<<<<<<<
  * 
- *         for atype.thisptr[0] in anglearray:
+ *         anglearray = self.thisptr.Angles()             # <<<<<<<<<<<<<<
+ *         anglearray_h = self.thisptr.AnglesH()
+ *         anglearray.insert(anglearray.end(), anglearray_h.begin(), anglearray_h.end())
  */
   __pyx_cur_scope->__pyx_v_anglearray = __pyx_cur_scope->__pyx_v_self->thisptr->Angles();
 
-  /* "pytraj/Topology.pyx":560
+  /* "pytraj/Topology.pyx":564
+ * 
  *         anglearray = self.thisptr.Angles()
+ *         anglearray_h = self.thisptr.AnglesH()             # <<<<<<<<<<<<<<
+ *         anglearray.insert(anglearray.end(), anglearray_h.begin(), anglearray_h.end())
+ * 
+ */
+  __pyx_cur_scope->__pyx_v_anglearray_h = __pyx_cur_scope->__pyx_v_self->thisptr->AnglesH();
+
+  /* "pytraj/Topology.pyx":565
+ *         anglearray = self.thisptr.Angles()
+ *         anglearray_h = self.thisptr.AnglesH()
+ *         anglearray.insert(anglearray.end(), anglearray_h.begin(), anglearray_h.end())             # <<<<<<<<<<<<<<
+ * 
+ *         for atype.thisptr[0] in anglearray:
+ */
+  try {
+    __pyx_cur_scope->__pyx_v_anglearray.insert(__pyx_cur_scope->__pyx_v_anglearray.end(), __pyx_cur_scope->__pyx_v_anglearray_h.begin(), __pyx_cur_scope->__pyx_v_anglearray_h.end());
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 565; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+
+  /* "pytraj/Topology.pyx":567
+ *         anglearray.insert(anglearray.end(), anglearray_h.begin(), anglearray_h.end())
  * 
  *         for atype.thisptr[0] in anglearray:             # <<<<<<<<<<<<<<
  *             yield atype
@@ -11791,7 +11879,7 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_118generator4(__pyx_Genera
     ++__pyx_t_2;
     (__pyx_cur_scope->__pyx_v_atype->thisptr[0]) = __pyx_t_3;
 
-    /* "pytraj/Topology.pyx":561
+    /* "pytraj/Topology.pyx":568
  * 
  *         for atype.thisptr[0] in anglearray:
  *             yield atype             # <<<<<<<<<<<<<<
@@ -11808,10 +11896,10 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_118generator4(__pyx_Genera
     return __pyx_r;
     __pyx_L6_resume_from_yield:;
     __pyx_t_2 = __pyx_cur_scope->__pyx_t_0;
-    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 568; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Topology.pyx":560
- *         anglearray = self.thisptr.Angles()
+    /* "pytraj/Topology.pyx":567
+ *         anglearray.insert(anglearray.end(), anglearray_h.begin(), anglearray_h.end())
  * 
  *         for atype.thisptr[0] in anglearray:             # <<<<<<<<<<<<<<
  *             yield atype
@@ -11819,12 +11907,12 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_118generator4(__pyx_Genera
  */
   }
 
-  /* "pytraj/Topology.pyx":554
+  /* "pytraj/Topology.pyx":558
  * 
  *     @property
- *     def angles_noh(self):             # <<<<<<<<<<<<<<
+ *     def angles(self):             # <<<<<<<<<<<<<<
  *         """return bond iterator"""
- *         cdef AngleArray anglearray # c++
+ *         cdef AngleArray anglearray, anglearray_h
  */
 
   /* function exit code */
@@ -11832,7 +11920,7 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_118generator4(__pyx_Genera
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("angles_noh", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("angles", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_r);
   __pyx_generator->resume_label = -1;
@@ -11842,37 +11930,37 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_118generator4(__pyx_Genera
 }
 static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_121generator5(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "pytraj/Topology.pyx":564
+/* "pytraj/Topology.pyx":571
  * 
  *     @property
- *     def dihedrals_noh(self):             # <<<<<<<<<<<<<<
+ *     def dihedrals(self):             # <<<<<<<<<<<<<<
  *         """return dihedral iterator"""
- *         cdef DihedralArray dharr # c++
+ *         cdef DihedralArray dharr, dharr_h
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_120dihedrals_noh(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Topology_8Topology_119dihedrals_noh[] = "Topology.dihedrals_noh(self)\nreturn dihedral iterator";
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_120dihedrals_noh(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_120dihedrals(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8Topology_8Topology_119dihedrals[] = "Topology.dihedrals(self)\nreturn dihedral iterator";
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_120dihedrals(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("dihedrals_noh (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_119dihedrals_noh(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("dihedrals (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_119dihedrals(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_119dihedrals_noh(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *__pyx_cur_scope;
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_119dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("dihedrals_noh", 0);
-  __pyx_cur_scope = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *)__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh(__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh, __pyx_empty_tuple, NULL);
+  __Pyx_RefNannySetupContext("dihedrals", 0);
+  __pyx_cur_scope = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *)__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_5_dihedrals(__pyx_ptype_6pytraj_8Topology___pyx_scope_struct_5_dihedrals, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
     __Pyx_RefNannyFinishContext();
     return NULL;
@@ -11882,7 +11970,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_119dihedrals_noh(struct __
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_6pytraj_8Topology_8Topology_121generator5, (PyObject *) __pyx_cur_scope, __pyx_n_s_dihedrals_noh, __pyx_n_s_Topology_dihedrals_noh); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 564; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_6pytraj_8Topology_8Topology_121generator5, (PyObject *) __pyx_cur_scope, __pyx_n_s_dihedrals, __pyx_n_s_Topology_dihedrals); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 571; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -11890,7 +11978,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_119dihedrals_noh(struct __
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pytraj.Topology.Topology.dihedrals_noh", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.Topology.Topology.dihedrals", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
@@ -11900,7 +11988,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_119dihedrals_noh(struct __
 
 static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_121generator5(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *__pyx_cur_scope = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *)__pyx_generator->closure);
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *__pyx_cur_scope = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
   PyObject *__pyx_t_1 = NULL;
   std::vector<DihedralType> ::iterator __pyx_t_2;
@@ -11918,32 +12006,55 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_121generator5(__pyx_Genera
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 564; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 571; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "pytraj/Topology.pyx":567
+  /* "pytraj/Topology.pyx":574
  *         """return dihedral iterator"""
- *         cdef DihedralArray dharr # c++
+ *         cdef DihedralArray dharr, dharr_h
  *         cdef DihedralType dhtype = DihedralType()             # <<<<<<<<<<<<<<
- *         dharr = self.thisptr.Dihedrals()
  * 
+ *         dharr = self.thisptr.Dihedrals()
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralType)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 567; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralType)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 574; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_cur_scope->__pyx_v_dhtype = ((struct __pyx_obj_6pytraj_4core_14ParameterTypes_DihedralType *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Topology.pyx":568
- *         cdef DihedralArray dharr # c++
+  /* "pytraj/Topology.pyx":576
  *         cdef DihedralType dhtype = DihedralType()
- *         dharr = self.thisptr.Dihedrals()             # <<<<<<<<<<<<<<
  * 
- *         for dhtype.thisptr[0] in dharr:
+ *         dharr = self.thisptr.Dihedrals()             # <<<<<<<<<<<<<<
+ *         dharr_h = self.thisptr.DihedralsH()
+ *         dharr.insert(dharr.end(), dharr_h.begin(), dharr_h.end())
  */
   __pyx_cur_scope->__pyx_v_dharr = __pyx_cur_scope->__pyx_v_self->thisptr->Dihedrals();
 
-  /* "pytraj/Topology.pyx":570
+  /* "pytraj/Topology.pyx":577
+ * 
  *         dharr = self.thisptr.Dihedrals()
+ *         dharr_h = self.thisptr.DihedralsH()             # <<<<<<<<<<<<<<
+ *         dharr.insert(dharr.end(), dharr_h.begin(), dharr_h.end())
+ * 
+ */
+  __pyx_cur_scope->__pyx_v_dharr_h = __pyx_cur_scope->__pyx_v_self->thisptr->DihedralsH();
+
+  /* "pytraj/Topology.pyx":578
+ *         dharr = self.thisptr.Dihedrals()
+ *         dharr_h = self.thisptr.DihedralsH()
+ *         dharr.insert(dharr.end(), dharr_h.begin(), dharr_h.end())             # <<<<<<<<<<<<<<
+ * 
+ *         for dhtype.thisptr[0] in dharr:
+ */
+  try {
+    __pyx_cur_scope->__pyx_v_dharr.insert(__pyx_cur_scope->__pyx_v_dharr.end(), __pyx_cur_scope->__pyx_v_dharr_h.begin(), __pyx_cur_scope->__pyx_v_dharr_h.end());
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+
+  /* "pytraj/Topology.pyx":580
+ *         dharr.insert(dharr.end(), dharr_h.begin(), dharr_h.end())
  * 
  *         for dhtype.thisptr[0] in dharr:             # <<<<<<<<<<<<<<
  *             yield dhtype
@@ -11955,7 +12066,7 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_121generator5(__pyx_Genera
     ++__pyx_t_2;
     (__pyx_cur_scope->__pyx_v_dhtype->thisptr[0]) = __pyx_t_3;
 
-    /* "pytraj/Topology.pyx":571
+    /* "pytraj/Topology.pyx":581
  * 
  *         for dhtype.thisptr[0] in dharr:
  *             yield dhtype             # <<<<<<<<<<<<<<
@@ -11970,22 +12081,22 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_121generator5(__pyx_Genera
     return __pyx_r;
     __pyx_L6_resume_from_yield:;
     __pyx_t_2 = __pyx_cur_scope->__pyx_t_0;
-    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 571; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 581; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Topology.pyx":570
- *         dharr = self.thisptr.Dihedrals()
+    /* "pytraj/Topology.pyx":580
+ *         dharr.insert(dharr.end(), dharr_h.begin(), dharr_h.end())
  * 
  *         for dhtype.thisptr[0] in dharr:             # <<<<<<<<<<<<<<
  *             yield dhtype
  */
   }
 
-  /* "pytraj/Topology.pyx":564
+  /* "pytraj/Topology.pyx":571
  * 
  *     @property
- *     def dihedrals_noh(self):             # <<<<<<<<<<<<<<
+ *     def dihedrals(self):             # <<<<<<<<<<<<<<
  *         """return dihedral iterator"""
- *         cdef DihedralArray dharr # c++
+ *         cdef DihedralArray dharr, dharr_h
  */
 
   /* function exit code */
@@ -11993,7 +12104,7 @@ static PyObject *__pyx_gb_6pytraj_8Topology_8Topology_121generator5(__pyx_Genera
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("dihedrals_noh", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("dihedrals", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_r);
   __pyx_generator->resume_label = -1;
@@ -24055,9 +24166,9 @@ static PyMethodDef __pyx_methods_6pytraj_8Topology_Topology[] = {
   {"join", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_108join, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_107join},
   {"mass", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_110mass, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_109mass},
   {"indices_bonded_to", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_112indices_bonded_to, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_111indices_bonded_to},
-  {"bonds_noh", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_114bonds_noh, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_113bonds_noh},
-  {"angles_noh", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_117angles_noh, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_116angles_noh},
-  {"dihedrals_noh", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_120dihedrals_noh, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_119dihedrals_noh},
+  {"bonds", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_114bonds, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_113bonds},
+  {"angles", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_117angles, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_116angles},
+  {"dihedrals", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_120dihedrals, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_119dihedrals},
   {0, 0, 0, 0}
 };
 
@@ -24495,44 +24606,46 @@ static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_2_mol_iter =
   #endif
 };
 
-static struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh[8];
-static int __pyx_freecount_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh = 0;
+static struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_3_bonds[8];
+static int __pyx_freecount_6pytraj_8Topology___pyx_scope_struct_3_bonds = 0;
 
-static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *p;
+static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_3_bonds(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *p;
   PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh)))) {
-    o = (PyObject*)__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh[--__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh];
-    memset(o, 0, sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh));
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_3_bonds > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds)))) {
+    o = (PyObject*)__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_3_bonds[--__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_3_bonds];
+    memset(o, 0, sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else {
     o = (*t->tp_alloc)(t, 0);
     if (unlikely(!o)) return 0;
   }
-  p = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *)o);
+  p = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *)o);
   new((void*)&(p->__pyx_v_bondarray)) __pyx_t_6pytraj_4core_14ParameterTypes_BondArray();
+  new((void*)&(p->__pyx_v_bondarray_h)) __pyx_t_6pytraj_4core_14ParameterTypes_BondArray();
   new((void*)&(p->__pyx_t_0)) std::vector<BondType> ::iterator();
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh(PyObject *o) {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *)o;
+static void __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_3_bonds(PyObject *o) {
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *)o;
   PyObject_GC_UnTrack(o);
   __Pyx_call_destructor(&p->__pyx_v_bondarray);
+  __Pyx_call_destructor(&p->__pyx_v_bondarray_h);
   __Pyx_call_destructor(&p->__pyx_t_0);
   Py_CLEAR(p->__pyx_v_btype);
   Py_CLEAR(p->__pyx_v_self);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh)))) {
-    __pyx_freelist_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh[__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh++] = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *)o);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_3_bonds < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds)))) {
+    __pyx_freelist_6pytraj_8Topology___pyx_scope_struct_3_bonds[__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_3_bonds++] = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *)o);
   } else {
     (*Py_TYPE(o)->tp_free)(o);
   }
 }
 
-static int __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_3_bonds(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *)o;
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *)o;
   if (p->__pyx_v_btype) {
     e = (*v)(((PyObject*)p->__pyx_v_btype), a); if (e) return e;
   }
@@ -24542,9 +24655,9 @@ static int __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh(Py
   return 0;
 }
 
-static int __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh(PyObject *o) {
+static int __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_3_bonds(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh *)o;
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds *)o;
   tmp = ((PyObject*)p->__pyx_v_btype);
   p->__pyx_v_btype = ((struct __pyx_obj_6pytraj_4core_14ParameterTypes_BondType *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
@@ -24554,12 +24667,12 @@ static int __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh(PyObj
   return 0;
 }
 
-static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh = {
+static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.Topology.__pyx_scope_struct_3_bonds_noh", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh), /*tp_basicsize*/
+  "pytraj.Topology.__pyx_scope_struct_3_bonds", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_3_bonds), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_3_bonds, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -24580,8 +24693,8 @@ static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh 
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh, /*tp_traverse*/
-  __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh, /*tp_clear*/
+  __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_3_bonds, /*tp_traverse*/
+  __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_3_bonds, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -24596,7 +24709,7 @@ static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh 
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh, /*tp_new*/
+  __pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_3_bonds, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -24611,44 +24724,46 @@ static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh 
   #endif
 };
 
-static struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_4_angles_noh[8];
-static int __pyx_freecount_6pytraj_8Topology___pyx_scope_struct_4_angles_noh = 0;
+static struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_4_angles[8];
+static int __pyx_freecount_6pytraj_8Topology___pyx_scope_struct_4_angles = 0;
 
-static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_4_angles_noh(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *p;
+static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_4_angles(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *p;
   PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_4_angles_noh > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh)))) {
-    o = (PyObject*)__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_4_angles_noh[--__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_4_angles_noh];
-    memset(o, 0, sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh));
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_4_angles > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles)))) {
+    o = (PyObject*)__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_4_angles[--__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_4_angles];
+    memset(o, 0, sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else {
     o = (*t->tp_alloc)(t, 0);
     if (unlikely(!o)) return 0;
   }
-  p = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *)o);
+  p = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *)o);
   new((void*)&(p->__pyx_v_anglearray)) __pyx_t_6pytraj_4core_14ParameterTypes_AngleArray();
+  new((void*)&(p->__pyx_v_anglearray_h)) __pyx_t_6pytraj_4core_14ParameterTypes_AngleArray();
   new((void*)&(p->__pyx_t_0)) std::vector<AngleType> ::iterator();
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_4_angles_noh(PyObject *o) {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *)o;
+static void __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_4_angles(PyObject *o) {
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *)o;
   PyObject_GC_UnTrack(o);
   __Pyx_call_destructor(&p->__pyx_v_anglearray);
+  __Pyx_call_destructor(&p->__pyx_v_anglearray_h);
   __Pyx_call_destructor(&p->__pyx_t_0);
   Py_CLEAR(p->__pyx_v_atype);
   Py_CLEAR(p->__pyx_v_self);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_4_angles_noh < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh)))) {
-    __pyx_freelist_6pytraj_8Topology___pyx_scope_struct_4_angles_noh[__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_4_angles_noh++] = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *)o);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_4_angles < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles)))) {
+    __pyx_freelist_6pytraj_8Topology___pyx_scope_struct_4_angles[__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_4_angles++] = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *)o);
   } else {
     (*Py_TYPE(o)->tp_free)(o);
   }
 }
 
-static int __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_4_angles_noh(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_4_angles(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *)o;
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *)o;
   if (p->__pyx_v_atype) {
     e = (*v)(((PyObject*)p->__pyx_v_atype), a); if (e) return e;
   }
@@ -24658,9 +24773,9 @@ static int __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_4_angles_noh(P
   return 0;
 }
 
-static int __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_4_angles_noh(PyObject *o) {
+static int __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_4_angles(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh *)o;
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles *)o;
   tmp = ((PyObject*)p->__pyx_v_atype);
   p->__pyx_v_atype = ((struct __pyx_obj_6pytraj_4core_14ParameterTypes_AngleType *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
@@ -24670,12 +24785,12 @@ static int __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_4_angles_noh(PyOb
   return 0;
 }
 
-static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles_noh = {
+static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.Topology.__pyx_scope_struct_4_angles_noh", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles_noh), /*tp_basicsize*/
+  "pytraj.Topology.__pyx_scope_struct_4_angles", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_4_angles), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_4_angles_noh, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_4_angles, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -24696,8 +24811,8 @@ static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles_noh
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_4_angles_noh, /*tp_traverse*/
-  __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_4_angles_noh, /*tp_clear*/
+  __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_4_angles, /*tp_traverse*/
+  __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_4_angles, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -24712,7 +24827,7 @@ static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles_noh
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_4_angles_noh, /*tp_new*/
+  __pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_4_angles, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -24727,44 +24842,46 @@ static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles_noh
   #endif
 };
 
-static struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh[8];
-static int __pyx_freecount_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh = 0;
+static struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_5_dihedrals[8];
+static int __pyx_freecount_6pytraj_8Topology___pyx_scope_struct_5_dihedrals = 0;
 
-static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *p;
+static PyObject *__pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_5_dihedrals(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *p;
   PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh)))) {
-    o = (PyObject*)__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh[--__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh];
-    memset(o, 0, sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh));
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_5_dihedrals > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals)))) {
+    o = (PyObject*)__pyx_freelist_6pytraj_8Topology___pyx_scope_struct_5_dihedrals[--__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_5_dihedrals];
+    memset(o, 0, sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else {
     o = (*t->tp_alloc)(t, 0);
     if (unlikely(!o)) return 0;
   }
-  p = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *)o);
+  p = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *)o);
   new((void*)&(p->__pyx_v_dharr)) __pyx_t_6pytraj_4core_14ParameterTypes_DihedralArray();
+  new((void*)&(p->__pyx_v_dharr_h)) __pyx_t_6pytraj_4core_14ParameterTypes_DihedralArray();
   new((void*)&(p->__pyx_t_0)) std::vector<DihedralType> ::iterator();
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh(PyObject *o) {
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *)o;
+static void __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_5_dihedrals(PyObject *o) {
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *)o;
   PyObject_GC_UnTrack(o);
   __Pyx_call_destructor(&p->__pyx_v_dharr);
+  __Pyx_call_destructor(&p->__pyx_v_dharr_h);
   __Pyx_call_destructor(&p->__pyx_t_0);
   Py_CLEAR(p->__pyx_v_dhtype);
   Py_CLEAR(p->__pyx_v_self);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh)))) {
-    __pyx_freelist_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh[__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh++] = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *)o);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_5_dihedrals < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals)))) {
+    __pyx_freelist_6pytraj_8Topology___pyx_scope_struct_5_dihedrals[__pyx_freecount_6pytraj_8Topology___pyx_scope_struct_5_dihedrals++] = ((struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *)o);
   } else {
     (*Py_TYPE(o)->tp_free)(o);
   }
 }
 
-static int __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_5_dihedrals(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *)o;
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *)o;
   if (p->__pyx_v_dhtype) {
     e = (*v)(((PyObject*)p->__pyx_v_dhtype), a); if (e) return e;
   }
@@ -24774,9 +24891,9 @@ static int __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_no
   return 0;
 }
 
-static int __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh(PyObject *o) {
+static int __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_5_dihedrals(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh *)o;
+  struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *p = (struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals *)o;
   tmp = ((PyObject*)p->__pyx_v_dhtype);
   p->__pyx_v_dhtype = ((struct __pyx_obj_6pytraj_4core_14ParameterTypes_DihedralType *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
@@ -24786,12 +24903,12 @@ static int __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh(P
   return 0;
 }
 
-static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh = {
+static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_5_dihedrals = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.Topology.__pyx_scope_struct_5_dihedrals_noh", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh), /*tp_basicsize*/
+  "pytraj.Topology.__pyx_scope_struct_5_dihedrals", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_8Topology___pyx_scope_struct_5_dihedrals), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_8Topology___pyx_scope_struct_5_dihedrals, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -24812,8 +24929,8 @@ static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh, /*tp_traverse*/
-  __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh, /*tp_clear*/
+  __pyx_tp_traverse_6pytraj_8Topology___pyx_scope_struct_5_dihedrals, /*tp_traverse*/
+  __pyx_tp_clear_6pytraj_8Topology___pyx_scope_struct_5_dihedrals, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -24828,7 +24945,7 @@ static PyTypeObject __pyx_type_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh, /*tp_new*/
+  __pyx_tp_new_6pytraj_8Topology___pyx_scope_struct_5_dihedrals, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -25539,10 +25656,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_PY3, __pyx_k_PY3, sizeof(__pyx_k_PY3), 0, 0, 1, 1},
   {&__pyx_n_s_TMPParmFile, __pyx_k_TMPParmFile, sizeof(__pyx_k_TMPParmFile), 0, 0, 1, 1},
   {&__pyx_kp_u_Topology___call___line_135, __pyx_k_Topology___call___line_135, sizeof(__pyx_k_Topology___call___line_135), 0, 1, 0, 0},
-  {&__pyx_n_s_Topology_angles_noh, __pyx_k_Topology_angles_noh, sizeof(__pyx_k_Topology_angles_noh), 0, 0, 1, 1},
+  {&__pyx_n_s_Topology_angles, __pyx_k_Topology_angles, sizeof(__pyx_k_Topology_angles), 0, 0, 1, 1},
   {&__pyx_n_s_Topology_atom_iter, __pyx_k_Topology_atom_iter, sizeof(__pyx_k_Topology_atom_iter), 0, 0, 1, 1},
-  {&__pyx_n_s_Topology_bonds_noh, __pyx_k_Topology_bonds_noh, sizeof(__pyx_k_Topology_bonds_noh), 0, 0, 1, 1},
-  {&__pyx_n_s_Topology_dihedrals_noh, __pyx_k_Topology_dihedrals_noh, sizeof(__pyx_k_Topology_dihedrals_noh), 0, 0, 1, 1},
+  {&__pyx_n_s_Topology_bonds, __pyx_k_Topology_bonds, sizeof(__pyx_k_Topology_bonds), 0, 0, 1, 1},
+  {&__pyx_n_s_Topology_dihedrals, __pyx_k_Topology_dihedrals, sizeof(__pyx_k_Topology_dihedrals), 0, 0, 1, 1},
   {&__pyx_kp_u_Topology_load_line_68, __pyx_k_Topology_load_line_68, sizeof(__pyx_k_Topology_load_line_68), 0, 1, 0, 0},
   {&__pyx_n_s_Topology_mol_iter, __pyx_k_Topology_mol_iter, sizeof(__pyx_k_Topology_mol_iter), 0, 0, 1, 1},
   {&__pyx_n_s_Topology_residue_iter, __pyx_k_Topology_residue_iter, sizeof(__pyx_k_Topology_residue_iter), 0, 0, 1, 1},
@@ -25553,7 +25670,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s__4, __pyx_k__4, sizeof(__pyx_k__4), 0, 0, 1, 0},
   {&__pyx_n_s_add, __pyx_k_add, sizeof(__pyx_k_add), 0, 0, 1, 1},
   {&__pyx_n_s_allocate_buffer, __pyx_k_allocate_buffer, sizeof(__pyx_k_allocate_buffer), 0, 0, 1, 1},
-  {&__pyx_n_s_angles_noh, __pyx_k_angles_noh, sizeof(__pyx_k_angles_noh), 0, 0, 1, 1},
+  {&__pyx_n_s_angles, __pyx_k_angles, sizeof(__pyx_k_angles), 0, 0, 1, 1},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_atm, __pyx_k_atm, sizeof(__pyx_k_atm), 0, 0, 1, 1},
@@ -25565,7 +25682,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_base, __pyx_k_base, sizeof(__pyx_k_base), 0, 0, 1, 1},
   {&__pyx_n_s_binary_type, __pyx_k_binary_type, sizeof(__pyx_k_binary_type), 0, 0, 1, 1},
   {&__pyx_n_s_bonded_indices, __pyx_k_bonded_indices, sizeof(__pyx_k_bonded_indices), 0, 0, 1, 1},
-  {&__pyx_n_s_bonds_noh, __pyx_k_bonds_noh, sizeof(__pyx_k_bonds_noh), 0, 0, 1, 1},
+  {&__pyx_n_s_bonds, __pyx_k_bonds, sizeof(__pyx_k_bonds), 0, 0, 1, 1},
   {&__pyx_n_s_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 0, 1, 1},
   {&__pyx_n_u_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 1, 0, 1},
   {&__pyx_kp_s_can_not_join_yourself_use_copy_m, __pyx_k_can_not_join_yourself_use_copy_m, sizeof(__pyx_k_can_not_join_yourself_use_copy_m), 0, 0, 1, 0},
@@ -25575,7 +25692,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_contiguous_and_indirect, __pyx_k_contiguous_and_indirect, sizeof(__pyx_k_contiguous_and_indirect), 0, 0, 1, 0},
   {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_d, __pyx_k_d, sizeof(__pyx_k_d), 0, 0, 1, 1},
-  {&__pyx_n_s_dihedrals_noh, __pyx_k_dihedrals_noh, sizeof(__pyx_k_dihedrals_noh), 0, 0, 1, 1},
+  {&__pyx_n_s_dihedrals, __pyx_k_dihedrals, sizeof(__pyx_k_dihedrals), 0, 0, 1, 1},
   {&__pyx_n_s_dtype_is_object, __pyx_k_dtype_is_object, sizeof(__pyx_k_dtype_is_object), 0, 0, 1, 1},
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
   {&__pyx_n_s_enumerate, __pyx_k_enumerate, sizeof(__pyx_k_enumerate), 0, 0, 1, 1},
@@ -26243,15 +26360,15 @@ PyMODINIT_FUNC PyInit_Topology(void)
   if (PyType_Ready(&__pyx_type_6pytraj_8Topology___pyx_scope_struct_2_mol_iter) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_6pytraj_8Topology___pyx_scope_struct_2_mol_iter.tp_print = 0;
   __pyx_ptype_6pytraj_8Topology___pyx_scope_struct_2_mol_iter = &__pyx_type_6pytraj_8Topology___pyx_scope_struct_2_mol_iter;
-  if (PyType_Ready(&__pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 544; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh.tp_print = 0;
-  __pyx_ptype_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh = &__pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds_noh;
-  if (PyType_Ready(&__pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles_noh) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 554; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles_noh.tp_print = 0;
-  __pyx_ptype_6pytraj_8Topology___pyx_scope_struct_4_angles_noh = &__pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles_noh;
-  if (PyType_Ready(&__pyx_type_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 564; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh.tp_print = 0;
-  __pyx_ptype_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh = &__pyx_type_6pytraj_8Topology___pyx_scope_struct_5_dihedrals_noh;
+  if (PyType_Ready(&__pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 544; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds.tp_print = 0;
+  __pyx_ptype_6pytraj_8Topology___pyx_scope_struct_3_bonds = &__pyx_type_6pytraj_8Topology___pyx_scope_struct_3_bonds;
+  if (PyType_Ready(&__pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 558; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles.tp_print = 0;
+  __pyx_ptype_6pytraj_8Topology___pyx_scope_struct_4_angles = &__pyx_type_6pytraj_8Topology___pyx_scope_struct_4_angles;
+  if (PyType_Ready(&__pyx_type_6pytraj_8Topology___pyx_scope_struct_5_dihedrals) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 571; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_8Topology___pyx_scope_struct_5_dihedrals.tp_print = 0;
+  __pyx_ptype_6pytraj_8Topology___pyx_scope_struct_5_dihedrals = &__pyx_type_6pytraj_8Topology___pyx_scope_struct_5_dihedrals;
   if (PyType_Ready(&__pyx_type___pyx_array) < 0) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type___pyx_array.tp_print = 0;
   __pyx_array_type = &__pyx_type___pyx_array;
@@ -26284,21 +26401,21 @@ PyMODINIT_FUNC PyInit_Topology(void)
   __pyx_ptype_6pytraj_4core_4Atom_Atom = __Pyx_ImportType("pytraj.core.Atom", "Atom", sizeof(struct __pyx_obj_6pytraj_4core_4Atom_Atom), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_4Atom_Atom)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_7Residue_Residue = __Pyx_ImportType("pytraj.core.Residue", "Residue", sizeof(struct __pyx_obj_6pytraj_4core_7Residue_Residue), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_7Residue_Residue)) {__pyx_filename = __pyx_f[7]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_8Molecule_Molecule = __Pyx_ImportType("pytraj.core.Molecule", "Molecule", sizeof(struct __pyx_obj_6pytraj_4core_8Molecule_Molecule), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_8Molecule_Molecule)) {__pyx_filename = __pyx_f[8]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_AngleType = __Pyx_ImportType("pytraj.core.ParameterTypes", "AngleType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_AngleType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_AngleType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_NonbondParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "NonbondParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_NonbondParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_NonbondParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_LES_AtomType = __Pyx_ImportType("pytraj.core.ParameterTypes", "LES_AtomType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_LES_AtomType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_LES_AtomType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_AngleParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "AngleParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_AngleParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_AngleParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_CmapType = __Pyx_ImportType("pytraj.core.ParameterTypes", "CmapType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_CmapType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_CmapType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_LES_ParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "LES_ParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_LES_ParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_LES_ParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 201; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_HB_ParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "HB_ParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_HB_ParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_HB_ParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_NonbondType = __Pyx_ImportType("pytraj.core.ParameterTypes", "NonbondType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_NonbondType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_NonbondType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_ChamberParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "ChamberParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_ChamberParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_ChamberParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 210; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_BondParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "BondParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_BondParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_BondParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 213; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_CmapGridType = __Pyx_ImportType("pytraj.core.ParameterTypes", "CmapGridType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_CmapGridType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_CmapGridType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralType = __Pyx_ImportType("pytraj.core.ParameterTypes", "DihedralType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_DihedralType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_BondType = __Pyx_ImportType("pytraj.core.ParameterTypes", "BondType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_BondType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_BondType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_CapParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "CapParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_CapParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_CapParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "DihedralParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_DihedralParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_AngleType = __Pyx_ImportType("pytraj.core.ParameterTypes", "AngleType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_AngleType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_AngleType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_NonbondParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "NonbondParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_NonbondParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_NonbondParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_LES_AtomType = __Pyx_ImportType("pytraj.core.ParameterTypes", "LES_AtomType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_LES_AtomType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_LES_AtomType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 193; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_AngleParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "AngleParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_AngleParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_AngleParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_CmapType = __Pyx_ImportType("pytraj.core.ParameterTypes", "CmapType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_CmapType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_CmapType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 199; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_LES_ParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "LES_ParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_LES_ParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_LES_ParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_HB_ParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "HB_ParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_HB_ParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_HB_ParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 205; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_NonbondType = __Pyx_ImportType("pytraj.core.ParameterTypes", "NonbondType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_NonbondType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_NonbondType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_ChamberParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "ChamberParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_ChamberParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_ChamberParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_BondParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "BondParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_BondParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_BondParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 214; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_CmapGridType = __Pyx_ImportType("pytraj.core.ParameterTypes", "CmapGridType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_CmapGridType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_CmapGridType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 217; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralType = __Pyx_ImportType("pytraj.core.ParameterTypes", "DihedralType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_DihedralType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 220; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_BondType = __Pyx_ImportType("pytraj.core.ParameterTypes", "BondType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_BondType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_BondType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 223; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_CapParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "CapParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_CapParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_CapParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "DihedralParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_DihedralParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralParmType)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 229; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4math_4Vec3_Vec3 = __Pyx_ImportType("pytraj.math.Vec3", "Vec3", sizeof(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Vec3_Vec3)) {__pyx_filename = __pyx_f[10]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3 = __Pyx_ImportType("pytraj.math.Matrix_3x3", "Matrix_3x3", sizeof(struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3)) {__pyx_filename = __pyx_f[11]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_3Box_Box = __Pyx_ImportType("pytraj.core.Box", "Box", sizeof(struct __pyx_obj_6pytraj_4core_3Box_Box), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_3Box_Box)) {__pyx_filename = __pyx_f[12]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -26667,18 +26784,18 @@ PyMODINIT_FUNC PyInit_Topology(void)
   /* "pytraj/Topology.pyx":544
  * 
  *     @property
- *     def bonds_noh(self):             # <<<<<<<<<<<<<<
+ *     def bonds(self):             # <<<<<<<<<<<<<<
  *         """return bond iterator"""
- *         cdef BondArray bondarray # c++
+ *         # both noh and with-h bonds
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology, __pyx_n_s_bonds_noh); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 544; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology, __pyx_n_s_bonds); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 544; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "pytraj/Topology.pyx":543
  *         return arr0
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def bonds_noh(self):
+ *     def bonds(self):
  *         """return bond iterator"""
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 543; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -26689,65 +26806,65 @@ PyMODINIT_FUNC PyInit_Topology(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 543; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology->tp_dict, __pyx_n_s_bonds_noh, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 544; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology->tp_dict, __pyx_n_s_bonds, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 544; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_8Topology_Topology);
 
-  /* "pytraj/Topology.pyx":554
+  /* "pytraj/Topology.pyx":558
  * 
  *     @property
- *     def angles_noh(self):             # <<<<<<<<<<<<<<
+ *     def angles(self):             # <<<<<<<<<<<<<<
  *         """return bond iterator"""
- *         cdef AngleArray anglearray # c++
+ *         cdef AngleArray anglearray, anglearray_h
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology, __pyx_n_s_angles_noh); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 554; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology, __pyx_n_s_angles); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 558; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pytraj/Topology.pyx":553
+  /* "pytraj/Topology.pyx":557
  *             yield btype
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def angles_noh(self):
+ *     def angles(self):
  *         """return bond iterator"""
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 553; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 557; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 553; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 557; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology->tp_dict, __pyx_n_s_angles_noh, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 554; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology->tp_dict, __pyx_n_s_angles, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 558; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_8Topology_Topology);
 
-  /* "pytraj/Topology.pyx":564
+  /* "pytraj/Topology.pyx":571
  * 
  *     @property
- *     def dihedrals_noh(self):             # <<<<<<<<<<<<<<
+ *     def dihedrals(self):             # <<<<<<<<<<<<<<
  *         """return dihedral iterator"""
- *         cdef DihedralArray dharr # c++
+ *         cdef DihedralArray dharr, dharr_h
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology, __pyx_n_s_dihedrals_noh); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 564; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology, __pyx_n_s_dihedrals); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 571; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pytraj/Topology.pyx":563
+  /* "pytraj/Topology.pyx":570
  *             yield atype
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def dihedrals_noh(self):
+ *     def dihedrals(self):
  *         """return dihedral iterator"""
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 570; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 570; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology->tp_dict, __pyx_n_s_dihedrals_noh, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 564; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology->tp_dict, __pyx_n_s_dihedrals, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 571; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_8Topology_Topology);
 
