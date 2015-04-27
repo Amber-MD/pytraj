@@ -64,8 +64,13 @@ calc_volmap = partial(calculate, 'volmap', quick_get=True)
 calc_protein_score = calc_score
 calc_energies = get_pysander_energies
 
-do_translation = partial(calculate, 'translate')
-do_rotation = partial(calculate, 'rotate')
+action_type = calculate
+do_translation = partial(action_type, 'translate')
+translate = do_translation
+do_rotation = partial(action_type, 'rotate')
+rotate = do_rotation
+do_scaling = partial(action_type, 'scale')
+scale = do_scaling
 
 def calc_watershell(command, traj, top=Topology()):
     """return a DataSetList object having the number of water 
