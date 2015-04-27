@@ -137,16 +137,17 @@ cdef extern from "ParameterTypes.h":
         IMPROPER "DihedralType::IMPROPER"
         END "DihedralType::END"
         BOTH "DihedralType::BOTH"
+
     cdef cppclass _DihedralType "DihedralType":
         _DihedralType() 
         _DihedralType(int a1, int a2, int a3, int a4, int idx)
         _DihedralType(int a1, int a2, int a3, int a4, Dtype t, int i)
-        inline int A1() const 
-        inline int A2() const 
-        inline int A3() const 
-        inline int A4() const 
-        inline Dtype Type() const 
-        inline int Idx() const 
+        int A1()
+        int A2()
+        int A3()
+        int A4()
+        Dtype Type()
+        int Idx()
 
 
     cdef cppclass _BondType "BondType":
