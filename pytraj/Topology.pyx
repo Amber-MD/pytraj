@@ -1,5 +1,6 @@
 # cython: c_string_type=unicode, c_string_encoding=utf8
 from __future__ import print_function
+cimport cython
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from libcpp.string cimport string
@@ -540,6 +541,51 @@ cdef class Topology:
             arr0.append(count)
         return arr0
 
+    def add_bonds(self, cython.integral [:, ::1] indices):
+        """add bond for pairs of atoms. 
+
+        Parameters
+        ---------
+        bond_indices : 2D array_like (must have buffer interface)
+            shape=(n_atoms, 2)
+        """
+        cdef int i
+        cdef int j, k
+
+        for i in range(indices.shape[0]):
+            j, k = indices[i, :]
+            self.thisptr.AddBond(j, k)
+
+    def add_angles(self, cython.integral [:, ::1] indices):
+        """add angle for a group of 3 atoms. 
+
+        Parameters
+        ---------
+        indices : 2D array_like (must have buffer interface),
+            shape=(n_atoms, 3)
+        """
+        cdef int i
+        cdef int j, k, n
+
+        for i in range(indices.shape[0]):
+            j, k, n = indices[i, :]
+            self.thisptr.AddAngle(j, k, n)
+
+    def add_dihedrals(self, cython.integral [:, ::1] indices):
+        """add dihedral for a group of 4 atoms. 
+
+        Parameters
+        ---------
+        indices : 2D array_like (must have buffer interface),
+            shape=(n_atoms, 3)
+        """
+        cdef int i
+        cdef int j, k, n, m
+
+        for i in range(indices.shape[0]):
+            j, k, n, m = indices[i, :]
+            self.thisptr.AddDihedral(j, k, n, m)
+
     @property
     def bonds(self):
         """return bond iterator"""
@@ -579,3 +625,36 @@ cdef class Topology:
 
         for dhtype.thisptr[0] in dharr:
             yield dhtype
+
+    @property
+    def bond_indices(self):
+        """return an iterator of bond indices"""
+        for b in self.bonds:
+            yield b.indices
+
+    @property
+    def angle_indices(self):
+        """return an iterator of bond indices"""
+        for b in self.angles:
+            yield b.indices
+
+    @property
+    def dihedral_indices(self):
+        """return an iterator of bond indices"""
+        for b in self.dihedrals:
+            yield b.indices
+
+    @property
+    def _bonds_ndarray(self):
+        _, np = _import_numpy()
+        return np.asarray([b for b in self.bond_indices], dtype=np.int64)
+
+    @property
+    def _angles_ndarray(self):
+        _, np = _import_numpy()
+        return np.asarray([b for b in self.angle_indices], dtype=np.int64)
+
+    @property
+    def _dihedrals_ndarray(self):
+        _, np = _import_numpy()
+        return np.asarray([b for b in self.dihedral_indices], dtype=np.int64)
