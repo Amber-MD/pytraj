@@ -7,6 +7,7 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* support MPI (with mpi4py)
 * add `calc_rmds` 
 * rename "do_rotation" to "rotate", "do_translation" to "translate"
   "do_autoimage" to "autoimage"
