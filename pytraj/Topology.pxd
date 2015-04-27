@@ -111,6 +111,8 @@ cdef extern from "Topology.h":
         #void SetParmBox(const _Box& bIn)
         void SetParmBox(_Box& bIn)
         int AddTopAtom(const _Atom&, int, const _NameType&, const double *)
+        void AddAngle(int, int, int)
+        void AddDihedral(int, int, int, int)
         void StartNewMol() 
         int CommonSetup(bint)
         int SetAmberExtra(const vector[double]&, const vector[_NameType]&, const vector[int]&, const vector[int]&)
