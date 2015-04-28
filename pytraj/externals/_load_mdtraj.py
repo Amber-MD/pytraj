@@ -25,6 +25,7 @@ def load_mdtraj(m_traj):
             pseudotop = load_pseudo_parm(m_traj.top)
             # convert "nm" to "Angstrom"
             fa = FrameArray(10*m_traj.xyz, pseudotop)
-            arr = 10 *np.append(m_traj.unitcell_lengths, m_traj.unitcell_angles)
-            fa.top.box = Box(arr.astype(np.float64))
+            if not m_traj.unitcell_lengths is None:
+                arr = np.append(10*m_traj.unitcell_lengths, m_traj.unitcell_angles)
+                fa.top.box = Box(arr.astype(np.float64))
             return fa

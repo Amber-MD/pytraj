@@ -62,7 +62,7 @@ def load_pseudo_parm(parm):
         pseudotop.add_angles(np.asarray(parm.angles.to_indices()))
         pseudotop.add_dihedrals(np.asarray(parm.torsions.to_indices()))
         pseudotop.box = Box(parm.dimensions.astype(np.float64))
-    elif is_mdtraj():
+    elif is_mdtraj(parm):
         # not sure how to get angles, dihedrals quickly
         pseudotop.add_bonds(np.array([(a.index, b.index) for (a, b) in parm.bonds]))
         # load Box in _load_mdtraj since Box is stored in traj
