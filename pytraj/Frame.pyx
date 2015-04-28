@@ -189,7 +189,7 @@ cdef class Frame (object):
         self.thisptr.SwapAtoms(atom1, atom2)
 
     def __str__(self):
-        tmp = "%s instance with %s atoms" % (
+        tmp = "<%s with %s atoms>" % (
                 self.__class__.__name__,
                 self.n_atoms,
                 )
