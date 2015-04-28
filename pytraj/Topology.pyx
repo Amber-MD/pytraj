@@ -130,6 +130,7 @@ cdef class Topology:
             i = <int> idx
             atom = Atom()
             atom.thisptr[0] = self.thisptr.index_opr(i)
+            atom._top = self
             return atom
         elif isinstance(idx, string_types):
             # return atom object iterator with given mask
@@ -160,6 +161,14 @@ cdef class Topology:
         """
         return self.atom_iter()
 
+    @property
+    def residues(self):
+        return self.residue_iter()
+
+    @property
+    def mols(self):
+        return self.mol_iter()
+
     def select(self, mask):
         """return array of indices of selected atoms with `mask`
 
@@ -177,6 +186,7 @@ cdef class Topology:
         while it != self.thisptr.end():
             atom = Atom()
             atom.thisptr[0] = deref(it)
+            atom._top = self
             yield atom
             incr(it)
 

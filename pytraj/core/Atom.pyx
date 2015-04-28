@@ -34,18 +34,6 @@ cdef class Atom:
         atom.thisptr = new _Atom(self.thisptr[0])
         return atom
 
-    #def Atom(self):
-
-    #def Atom(self, NameType, char, char *):
-
-    #def Atom(self, NameType, NameType, double):
-
-    #def Atom(self, NameType, double, double, NameType):
-
-    #def Atom(self, NameType, double, double, int, double, int, NameType, double, double):
-
-    # def Atom(self, Atom):
-
     def swap(self, Atom at1, Atom at2):
         self.thisptr.swap(at1.thisptr[0], at2.thisptr[0])
 
@@ -94,15 +82,12 @@ cdef class Atom:
 
     def __str__(self):
         name = self.thisptr.c_str()
-        name = name.decode()
-        txt = "%s - resnum %s" % (name, self.resnum)
+        name = name.decode().split()[0]
+        txt = "<%s-atom, resnum=%s, n_bonds=%s>" % (name, self.resnum, self.n_bonds)
         return txt
 
     def __repr__(self):
-        name = self.thisptr.c_str()
-        name = name.decode()
-        txt = "<%s - resnum %s>" % (name, self.resnum)
-        return txt
+        return self.__str__()
 
     @property
     def element(self):
@@ -179,10 +164,6 @@ cdef class Atom:
     def is_bonded_to(self, int idx):
         # TODO : add doc
         return self.thisptr.IsBondedTo(idx)
-
-    #def add_exclusion_list(self, list[int] intset):
-    #    cdef set[int] tmp = intset
-    #    self.thisptr.AddExclusionList(intset)
 
     @classmethod
     def get_bond_length(cls, id1, id2):
