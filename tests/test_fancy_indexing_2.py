@@ -15,9 +15,11 @@ class Test(unittest.TestCase):
               traj['@CA'].xyz.flatten())
 
         # slicing with list or array
-        indices = [1, 2]
+        indices = [1, 2, 3]
         fa = traj[indices]
         fa2 = FA[indices]
+        fa3 = traj[range(1, 4)]
+        fa4 = FA[range(1, 4)]
         self.assertIsInstance(fa, FrameArray)
         # from TrajReadOnly
         aa_eq(fa[0].coords, traj[1].coords)
@@ -25,6 +27,12 @@ class Test(unittest.TestCase):
         # from FrameArray
         aa_eq(fa2[1].coords, traj[2].coords)
         aa_eq(fa2[0].coords, traj[1].coords)
+
+        # from "range"
+        aa_eq(fa3[1].coords, traj[2].coords)
+        aa_eq(fa3[0].coords, traj[1].coords)
+        aa_eq(fa4[1].coords, traj[2].coords)
+        aa_eq(fa4[0].coords, traj[1].coords)
 
 if __name__ == "__main__":
     unittest.main()

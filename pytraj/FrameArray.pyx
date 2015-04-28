@@ -17,7 +17,7 @@ from .TrajReadOnly import TrajReadOnly
 from .utils.check_and_assert import _import_numpy, is_int, is_frame_iter
 from .utils.check_and_assert import file_exist, is_mdtraj
 from .utils.check_and_assert import is_word_in_class_name
-from .utils.check_and_assert import is_array
+from .utils.check_and_assert import is_array, is_range
 from .trajs.Trajout import Trajout
 from ._get_top import _get_top
 from ._shared_methods import _savetraj, _get_temperature_set
@@ -405,7 +405,7 @@ cdef class FrameArray (object):
                     farray = self[idx_0]
                     return farray[idxs[1:]]
                 #return frame[idxs[1:]]
-            elif is_array(idxs) or isinstance(idxs, list):
+            elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
                 return self.get_frames(indices=idxs, update_top=True)
             else:
                 idx_1 = get_positive_idx(idxs, self.size)

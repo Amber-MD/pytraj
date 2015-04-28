@@ -14,7 +14,8 @@ from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _frame_iter
 from ..externals.six import string_types
-from ..utils.check_and_assert import is_word_in_class_name, is_array
+from ..utils.check_and_assert import is_word_in_class_name
+from ..utils.check_and_assert import is_array, is_range
 
 
 cdef class Trajin (TrajectoryFile):
@@ -186,7 +187,7 @@ cdef class Trajin (TrajectoryFile):
                     farray = self[idx_0]
                     self.tmpfarray = farray
                     return self.tmpfarray[idxs[1:]]
-            elif is_array(idxs) or isinstance(idxs, list):
+            elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
                 farray = FrameArray()
                 # for unknown reason, this does not work, it returns a Frame (?)
                 farray.get_frames(from_traj=self, indices=idxs, update_top=True)
