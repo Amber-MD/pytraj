@@ -130,7 +130,6 @@ cdef class Topology:
             i = <int> idx
             atom = Atom()
             atom.thisptr[0] = self.thisptr.index_opr(i)
-            atom._top = self
             return atom
         elif isinstance(idx, string_types):
             # return atom object iterator with given mask
@@ -186,7 +185,6 @@ cdef class Topology:
         while it != self.thisptr.end():
             atom = Atom()
             atom.thisptr[0] = deref(it)
-            atom._top = self
             yield atom
             incr(it)
 
