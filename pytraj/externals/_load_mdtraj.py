@@ -12,6 +12,7 @@ def load_mdtraj(m_traj):
     ---------
     m_traj : Trajectory object from mdtraj 
     """
+    from pytraj.core import Box
     if not has_("mdtraj"):
         # we dont need checking `numpy` since mdtraj needs numpy 
         require("mdtraj")
@@ -21,4 +22,7 @@ def load_mdtraj(m_traj):
             raise PyTrajRequireObject("Trajectory")
         else:
             pseudotop = load_pseudo_parm(m_traj.top)
-            return FrameArray(m_traj.xyz, pseudotop)
+            fa = FrameArray(m_traj.xyz, pseudotop)
+            arr = np.append(m_traj.unitcell_lengths, m_traj.unitcell_angles)
+            fa.top.box = Box(arr)
+            return fa

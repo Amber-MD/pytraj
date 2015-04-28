@@ -1,5 +1,4 @@
 """Load external parm object
-
 """
 from __future__ import absolute_import
 from pytraj.utils import has_, _import_numpy
@@ -8,14 +7,11 @@ from pytraj.Topology import Topology
 from pytraj.core.Atom import Atom
 from pytraj.Frame import Frame
 from pytraj.utils.check_and_assert import is_mdtraj, is_mdanalysis
-
-# not sure if we need this `load_mdtraj` since cpptraj can do anything :D
-# might need to move to Cython level for faster loading
-
 _, np = _import_numpy()
 
+__all__ = ['load_pseudo_parm']
+
 def load_pseudo_parm(parm):
-    # TODO: fill me
     """load_external's parm objects
 
     Parameters
@@ -46,6 +42,7 @@ def load_pseudo_parm(parm):
             res = atom.residue
             aname = atom.name
             resname = res.name
+
             if is_mdtraj(parm):
                 atype = atom.name # mdtraj
                 resid = res.index
@@ -57,6 +54,7 @@ def load_pseudo_parm(parm):
                 atype = atom.type # parmed
                 resid = res.idx
             atom = Atom(aname, atype)
+            # TODO : add mass too
             pseudotop.add_atom(atom=atom, resid=resid, resname=resname)
 
     if is_mdanalysis(parm):
@@ -65,8 +63,9 @@ def load_pseudo_parm(parm):
         pseudotop.add_dihedrals(np.asarray(parm.torsions.to_indices()))
         pseudotop.box = Box(parm.dimensions.astype(np.float64))
     elif is_mdtraj():
-        # not sure how to get bonds, angles, dihedrals quickly
-        pass
+        # not sure how to get angles, dihedrals quickly
+        pseudotop.add_bonds(np.array([(a.index, b.index) for (a, b) in parm.bonds]))
+        # load Box in _load_mdtraj since Box is stored in traj
     else:
         # parmed
         pseudotop.box = Box(np.array(parm.box))
