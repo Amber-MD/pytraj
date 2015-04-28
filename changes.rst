@@ -95,3 +95,26 @@ Bugs fixed
 Other stuff
 ----------
 * removing unnecessary cpptraj methods
+
+Log from very first days of pytraj (from earliest to newest)
+----------------------------------
+* Oct - Nov 2014: Start writting pycpptraj (then was renamed to `pytraj` following Jason's suggestion)
+* Nov-11-2014: Start writing gencode.py to automatically convert cpptraj header file to python 
+ (\*.pxd and \*.pyx) files
+* Nov-14-2014: Finish importing all (most?) cpptraj functions (most header files) to Cython. 
+  Passed 229 tests (./src/tests/test_*.pyx)
+* Dec-04-2014: Write setup.py and test installing
+* Dec-11-2014: Know how to create wrapper for abstract and sub-class
+* Jan-24-2015: Taking 3D numpy array just by traj[:, :, :] or traj[0:20, :, :] (read only)
+* Jan-29-2015: working on pip: python setup.py sdist
+    * good tutorial: http://peterdowns.com/posts/first-time-with-pypi.html
+    * to test:
+        * python setup.py register -r pypitest
+        * python setup.py sdist upload -r pypitest
+    * to upload:
+        * register: python setup.py register
+        * upload: python setup.py sdist upload -r pypi
+* Jan-31-2015: working on porting code to Python3. Stuck
+    * Error: "TypeError: expected bytes, str found". tried but don't know how yet.
+        Try: filename = filename.encode("UTF-8") (work well for the communication between C++ string and Python3 string)
+    * us 2to3 to make compat: 2to3 --output-dir=python3-version/mycode -W -n python2-version/mycode
