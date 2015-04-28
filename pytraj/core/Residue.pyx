@@ -24,7 +24,10 @@ cdef class Residue:
         del self.thisptr
 
     def __str__(self):
-        txt = "%s-%s" % (self.thisptr.c_str().decode('UTF-8'), self.original_resnum-1)
+        name = self.name.split()[0]
+        txt = "<%s%s, %s atoms>" % (name,
+                                   self.original_resnum-1,
+                                   self.n_atoms)
         return txt
 
     def __repr__(self):

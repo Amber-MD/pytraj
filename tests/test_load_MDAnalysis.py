@@ -9,7 +9,6 @@ from pytraj.decorators import no_test, test_if_having
 class Test(unittest.TestCase):
     @test_if_having("MDAnalysis")
     def test_0(self):
-        from pytraj._load_MDAnalysis import load_MDAnalysis
         from MDAnalysis import Universe
 
         parm_name = "./data/ala3.psf"
@@ -23,7 +22,7 @@ class Test(unittest.TestCase):
         u = Universe(parm_name, mdx_name)
 
         # try converting MDAnalysis object to pytraj object
-        md_traj = load_MDAnalysis(u)
+        md_traj = mdio.load_MDAnalysis(u)
         print (md_traj)
 
         # assert
@@ -35,6 +34,31 @@ class Test(unittest.TestCase):
         m_indices = md_traj.top("@CA").indices 
 
         eq(p_indices, m_indices)
+
+    @test_if_having("MDAnalysis")
+    @test_if_having("numpy")
+    def test_1(self):
+        # Aim: not getting segmentation fault
+        from pytraj import io
+        from MDAnalysis import Universe
+        from MDAnalysisTests.datafiles import PSF, DCD
+        u = Universe(PSF, DCD)
+        ftraj = io.load_MDAnalysis(u)
+        top = ftraj.top
+        print (top.box, top.box.type)
+        print (top._bonds_ndarray.shape)
+        print (top.get_unique_resname())
+        print (top.get_unique_atomname())
+        print ('n_mols = %s' % top.n_mols)
+        print (top._bonds_ndarray.shape)
+        print (top._angles_ndarray.shape)
+        print (top._dihedrals_ndarray.shape)
+
+        # just want to make sure not getting segmentation fault
+        ftraj.calc_COG().tolist()[:10]
+
+        # FIXME : segmentation fault, need to check cpptraj code
+        #ftraj.calc_multidihedral('phi').tolist()[:10]
 
 if __name__ == "__main__":
     unittest.main()

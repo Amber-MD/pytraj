@@ -1,10 +1,6 @@
 # distutils: language = c++
 
-# TODO: 
-#     + make convert_objlist_to_vector works right
-#        from cy_utils cimport convert_objlist_to_vector
-#     + uncomment some methods
-# 
+from cpython.array cimport array as pyarray
 
 cdef class AngleType:
     def __cinit__(self, arg=None):
@@ -22,20 +18,17 @@ cdef class AngleType:
         del self.thisptr
 
     @property
-    def A1(self):
-        return self.thisptr.A1()
-
-    @property
-    def A2(self):
-        return self.thisptr.A2()
-
-    @property
-    def A3(self):
-        return self.thisptr.A3()
-
-    @property
-    def Idx(self):
+    def idx(self):
         return self.thisptr.Idx()
+
+    @property
+    def indices(self):
+        """return atom indices as a python array"""
+        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
+        #                                 self.thisptr.A2(), self.thisptr.A3()])
+        cdef pyarray arr = pyarray('i', [self.thisptr.A1(),
+                                         self.thisptr.A2(), self.thisptr.A3()])
+        return arr
 
 cdef class NonbondParmType:
 
@@ -59,11 +52,11 @@ cdef class NonbondParmType:
     def __dealloc__(self):
         del self.thisptr
 
-    def HasNonbond(self):
+    def has_nonbond(self):
         return self.thisptr.HasNonbond()
 
     @property
-    def Ntypes(self):
+    def n_types(self):
         return self.thisptr.Ntypes()
 
     @property 
@@ -103,10 +96,10 @@ cdef class LES_AtomType:
     #def LES_AtomType(self,int t, int c, int i):
 
     @property
-    def Type(self):
+    def type(self):
         return self.thisptr.Type()
 
-    def Copy(self):
+    def copy(self):
         return self.thisptr.Copy()
     
     @property
@@ -148,54 +141,20 @@ cdef class CmapType:
         del self.thisptr
 
     @property
-    def A1(self):
-        return self.thisptr.A1()
-
-    @property
-    def A2(self):
-        return self.thisptr.A2()
-
-    @property
-    def A3(self):
-        return self.thisptr.A3()
-
-    @property
-    def A4(self):
-        return self.thisptr.A4()
-
-    @property
-    def A5(self):
-        return self.thisptr.A5()
-
-    @property
-    def Idx(self):
+    def idx(self):
         return self.thisptr.Idx()
 
-# not need LES_ParmType now
-#cdef class LES_ParmType:
-#    def __cinit__(self):
-#        self.thisptr = new _LES_ParmType()
-#
-#    def __dealloc__(self):
-#        del self.thisptr
-#
-#    def LES_ParmType(self):
-#
-#    def LES_ParmType(self,int na, int nt, vector[double] fac):
-#
-#    def  bint HasLES(self):
-#
-#    def  int Ntypes(self):
-#
-#    def  int Ncopies(self):
-#
-#    def  vector[double] FAC(self):
-#
-#    def  LES_Array Array(self):
-#
-#    def void SetTypes(self,int n, vector[double] f):
-#
-#    def void AddLES_Atom(self, LES_AtomType lat):
+    @property
+    def indices(self):
+        """return atom indices as a python array"""
+        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
+        #                                 self.thisptr.A2(), self.thisptr.A3(),
+        #                                 self.thisptr.A4(), self.thisptr.A5()])
+        cdef pyarray arr = pyarray('i', [self.thisptr.A1(),
+                                         self.thisptr.A2(), self.thisptr.A3(),
+                                         self.thisptr.A4(), self.thisptr.A5()])
+        return arr
+
 
 cdef class HB_ParmType:
     def __cinit__(self, arg=None):
@@ -217,6 +176,7 @@ cdef class HB_ParmType:
     @property
     def Bsol(self):
         return self.thisptr.Bsol()
+
     @property
     def HBcut(self):
         return self.thisptr.HBcut()
@@ -253,15 +213,15 @@ cdef class ChamberParmType:
     def HasChamber(self):
         return self.thisptr.HasChamber()
 
-    def HasCmap(self):
+    def has_cmap(self):
         return self.thisptr.HasCmap()
 
     @property
-    def FF_Version(self):
+    def FF_version(self):
         return self.thisptr.FF_Version()
 
     @property
-    def FF_Type(self):
+    def FF_type(self):
         return self.thisptr.FF_Type()
 
     #def  BondArray UB(self):
@@ -353,38 +313,23 @@ cdef class CmapGridType:
 
 cdef class DihedralType:
     def __cinit__(self, arg=None):
-        cdef int a1, a2, a3, a4, idx, i
-        cdef Dtype t
+        cdef int a1, a2, a3, a4, idx
+        cdef Dtype dhtype
         if not arg:
             self.thisptr = new _DihedralType()
         else:
-            if len(arg) == 5:
-                a1, a2, a3, a4, idx = arg
-                self.thisptr = new _DihedralType(a1, a2, a3, a4, idx)
-            elif len(arg) == 6:
-                a1, a2, a3, a4, t, i = arg
-                self.thisptr = new _DihedralType(a1, a2, a3, a4, t, i)
-            else:
-                raise ValueError()
+            #if len(arg) == 5:
+            #    a1, a2, a3, a4, idx = arg
+            #    self.thisptr = new _DihedralType(a1, a2, a3, a4, idx)
+            #elif len(arg) == 6:
+            #    a1, a2, a3, a4, idx, dhtype = arg
+            #    self.thisptr = new _DihedralType(a1, a2, a3, a4, dhtype, idx)
+            #else:
+            #    raise ValueError()
+            raise ValueError()
 
     def __dealloc__(self):
         del self.thisptr
-
-    @property
-    def A1(self):
-        return self.thisptr.A1()
-
-    @property
-    def A2(self):
-        return self.thisptr.A2()
-
-    @property
-    def A3(self):
-        return self.thisptr.A3()
-
-    @property
-    def A4(self):
-        return self.thisptr.A4()
 
     @property
     def type(self):
@@ -393,6 +338,15 @@ cdef class DihedralType:
     @property
     def idx(self):
         return self.thisptr.Idx()
+
+    @property
+    def indices(self):
+        """return atom indices as a python array"""
+        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(), self.thisptr.A2(),
+        #                                 self.thisptr.A3(), self.thisptr.A4()])
+        cdef pyarray arr = pyarray('i', [self.thisptr.A1(), self.thisptr.A2(),
+                                         self.thisptr.A3(), self.thisptr.A4()])
+        return arr
 
 cdef class BondType:
     def __cinit__(self, arg=None):
@@ -409,21 +363,19 @@ cdef class BondType:
     def __dealloc__(self):
         del self.thisptr
 
-    @property
-    def A1(self):
-        return self.thisptr.A1()
+    property idx:
+        def __get__(self):
+            return self.thisptr.Idx()
+
+        def __set__(self,int i):
+            self.thisptr.SetIdx(i)
 
     @property
-    def A2(self):
-        return self.thisptr.A2()
-
-    @property
-    def Idx(self):
-        return self.thisptr.Idx()
-
-    @Idx.setter
-    def Idx(self,int i):
-        self.thisptr.SetIdx(i)
+    def indices(self):
+        """return atom indices as a python array"""
+        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(), self.thisptr.A2()])
+        cdef pyarray arr = pyarray('i', [self.thisptr.A1(), self.thisptr.A2()])
+        return arr
 
 
 cdef class CapParmType:
@@ -450,19 +402,19 @@ cdef class CapParmType:
         return self.thisptr.NatCap()
 
     @property
-    def CutCap(self):
+    def cutcap(self):
         return self.thisptr.CutCap()
 
     @property
-    def xCap(self):
+    def x_cap(self):
         return self.thisptr.xCap()
 
     @property
-    def yCap(self):
+    def y_cap(self):
         return self.thisptr.yCap()
 
     @property
-    def zCap(self):
+    def z_cap(self):
         return self.thisptr.zCap()
 
 cdef class DihedralParmType:
@@ -492,21 +444,18 @@ cdef class DihedralParmType:
         return self.thisptr.Pn()
 
     @property
-    def Phase(self):
+    def phase(self):
         return self.thisptr.Phase()
 
-    @property
-    def SCEE(self):
-        return self.thisptr.SCEE()
+    property SCEE:
+        def __get__(self):
+            return self.thisptr.SCEE()
+        def __set__(self, double s):
+            self.thisptr.SetSCEE(s)
 
-    @SCEE.setter
-    def SCEE(self,double s):
-        self.thisptr.SetSCEE(s)
+    property SCNB:
+        def __get__(self):
+            return self.thisptr.SCNB()
 
-    @property
-    def SCNB(self):
-        return self.thisptr.SCNB()
-
-    @SCNB.setter
-    def SCNB(self,double s):
-        self.thisptr.SetSCNB(s)
+        def __set__(self, double s):
+            self.thisptr.SetSCNB(s)

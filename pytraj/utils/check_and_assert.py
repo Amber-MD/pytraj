@@ -53,6 +53,9 @@ def is_mdtraj(obj):
     """check if traj is mdtraj object"""
     return True if 'mdtraj' in obj.__str__() else False
 
+def is_mdanalysis(obj):
+    return is_word_in_class_name(obj, 'Universe')
+
 def is_frame_iter(iter_obj):
     """check if is frame_iter
 
