@@ -25,7 +25,7 @@ cdef class Residue:
 
     def __str__(self):
         name = self.name.split()[0]
-        txt = "<%s%s, % atoms>" % (name,
+        txt = "<%s%s, %s atoms>" % (name,
                                    self.original_resnum-1,
                                    self.n_atoms)
         return txt
