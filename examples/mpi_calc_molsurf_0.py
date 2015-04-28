@@ -18,7 +18,7 @@ parm_name = root_dir + "myparm.top"
 # load to TrajReadOnly
 traj = io.load(traj_name, parm_name)
 
-# mapping different chunk of `fa` in N cores
+# mapping different chunk of `traj` in N cores
 # need to provide `comm`
-arr = pymap(comm, fa, pyca.calc_molsurf, "@CA")
-print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
+arr = pymap(comm, traj, pyca.calc_molsurf, "@CA")
+#print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
