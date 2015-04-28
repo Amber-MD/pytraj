@@ -10,7 +10,7 @@ from pytraj._set_silent import set_world_silent # turn on and off cpptraj's stdo
 
 from pytraj.decorators import name_will_be_changed
 from pytraj.utils.check_and_assert import _import_numpy
-from pytraj.utils.check_and_assert import is_int
+from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.parms._ParmFile import TMPParmFile
 from pytraj.externals.six import PY3, PY2, string_types, binary_type
 from pytraj.six_2 import set
@@ -123,7 +123,9 @@ cdef class Topology:
         """
 
         cdef Atom atom 
+        cdef AtomMask atm
         cdef int i
+        cdef list alist = []
 
         if is_int(idx):
             # need to explicitly cast to int
@@ -134,12 +136,22 @@ cdef class Topology:
         elif isinstance(idx, string_types):
             # return atom object iterator with given mask
             # self(idx) return AtomMask object
-            return [self[i] for i in self(idx)._indices_view]
+            alist = [self[i] for i in self(idx)._indices_view]
+        elif isinstance(idx, AtomMask):
+            atm = <AtomMask> idx
+            # return atom object iterator with given mask
+            # self(idx) return AtomMask object
+            alist = [self[i] for i in atm._indices_view]
+        elif isinstance(idx, (list, tuple)) or is_array(idx):
+            alist = [self[i] for i in idx]
+        elif isinstance(idx, slice):
+            # does not have memory efficiency with large Topology
+            # (since we convert to atom list first)
+            alist = self.atomlist[idx]
+        if len(alist) == 1:
+            return alist[0]
         else:
-            try:
-                return [self[i] for i in idx]
-            except:
-                raise ValueError("must be integer or string")
+            return alist
 
     def __call__(self, mask, *args, **kwd):
         """intended to use with Frame indexing
