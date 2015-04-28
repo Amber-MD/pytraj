@@ -18,12 +18,7 @@ def load_MDAnalysis(its_obj):
 
         # creat pseudotop
         pseudotop = load_pseudo_parm(its_obj)
-
-        # move to load_pseudo_parm?
-        # create bonds
-        pseudotop.add_bonds(np.asarray(its_obj.bonds.to_indices()))
-        pseudotop.add_angles(np.asarray(its_obj.angles.to_indices()))
-        pseudotop.add_dihedrals(np.asarray(its_obj.torsions.to_indices()))
+        pseudotop.box = Box(its_obj.dimensions.astype(np.float64))
 
         # creat atom group
         ag = its_obj.atoms
