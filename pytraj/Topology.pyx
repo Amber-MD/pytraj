@@ -53,11 +53,19 @@ cdef class Topology:
             del self.thisptr
 
     def __str__(self):
-        tmp = "%s instance with %s residues %s atoms" % (
+        box = self.box
+        if box.has_box():
+            box_txt = "PBC with box type = %s" % box.type
+        else:
+            box_txt = "non-PBC"
+         
+        tmp = "<%s with %s mols, %s residues, %s atoms, %s bonds, %s>" % (
                 self.__class__.__name__,
+                self.n_mols,
                 self.n_residues,
                 self.n_atoms,
-                )
+                list(self.bonds).__len__(),
+                box_txt)
         return tmp
 
     def __repr__(self):
@@ -122,6 +130,7 @@ cdef class Topology:
             i = <int> idx
             atom = Atom()
             atom.thisptr[0] = self.thisptr.index_opr(i)
+            atom._top = self
             return atom
         elif isinstance(idx, string_types):
             # return atom object iterator with given mask
@@ -152,6 +161,14 @@ cdef class Topology:
         """
         return self.atom_iter()
 
+    @property
+    def residues(self):
+        return self.residue_iter()
+
+    @property
+    def mols(self):
+        return self.mol_iter()
+
     def select(self, mask):
         """return array of indices of selected atoms with `mask`
 
@@ -169,6 +186,7 @@ cdef class Topology:
         while it != self.thisptr.end():
             atom = Atom()
             atom.thisptr[0] = deref(it)
+            atom._top = self
             yield atom
             incr(it)
 
