@@ -18,7 +18,6 @@ def load_MDAnalysis(its_obj):
 
         # creat pseudotop
         pseudotop = load_pseudo_parm(its_obj)
-        pseudotop.box = Box(its_obj.dimensions.astype(np.float64))
 
         # creat atom group
         ag = its_obj.atoms
