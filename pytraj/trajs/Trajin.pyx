@@ -14,7 +14,7 @@ from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _frame_iter
 from ..externals.six import string_types
-from ..utils.check_and_assert import is_word_in_class_name
+from ..utils.check_and_assert import is_word_in_class_name, is_array
 
 
 cdef class Trajin (TrajectoryFile):
@@ -137,6 +137,7 @@ cdef class Trajin (TrajectoryFile):
             self.tmpfarray = _farray
             # hold _farray in self.tmpfarray to avoid memory lost
             return self.tmpfarray
+
         elif isinstance(idxs, string_types):
             # mimic API of MDtraj
             if idxs == 'coordinates':
@@ -154,13 +155,6 @@ cdef class Trajin (TrajectoryFile):
                 except:
                     txt = "not supported keyword `%s`" % idxs
                     raise NotImplementedError(txt)
-    
-        elif is_word_in_class_name(idxs, 'array') and hasattr(idxs, 'tolist'):
-            int_view = idxs
-            atom_mask_obj = AtomMask()
-            atom_mask_obj.add_selected_indices(int_view)
-            return self[atom_mask_obj]
-    
         elif not isinstance(idxs, slice):
             if isinstance(idxs, tuple):
                 idx_0 = idxs[0]
@@ -184,7 +178,6 @@ cdef class Trajin (TrajectoryFile):
                     else:
                         return tmplist
                     #raise NotImplementedError("not yet supported if all indcies are slices")
-    
                 if isinstance(self[idx_0], Frame):
                     frame = self[idx_0]
                     self.tmpfarray = frame
@@ -193,6 +186,14 @@ cdef class Trajin (TrajectoryFile):
                     farray = self[idx_0]
                     self.tmpfarray = farray
                     return self.tmpfarray[idxs[1:]]
+            elif is_array(idxs) or isinstance(idxs, list):
+                farray = FrameArray()
+                # for unknown reason, this does not work, it returns a Frame (?)
+                farray.get_frames(from_traj=self, indices=idxs, update_top=True)
+                # need to use `farray` so Cython knows its type
+                self.tmpfarray = farray
+                return self.tmpfarray
+
             else:
                 # assuming that `idxs` is integer
                 idx_1 = <int> get_positive_idx(idxs, self.size)
