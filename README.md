@@ -5,17 +5,21 @@ Welcome to pytraj!
 [wiki](http://www.github.com/pytraj/pytraj/wiki)
 
 - pytraj is a Python package wrapping cpptraj program (a data analysis for biomolecular simulation)
-- Why using pytraj:
+- Why using pytraj?
     * It's fast
         * its core (cpptraj) was written in C++
-        * cpptraj can read all popular data format without knowing about file extension
-          (example: you can read my_file.crazy_ext if your file is netcdf file)
+        * it supports parallel computing (openmp from cpptraj or mpi from mpi4py or parallel in ipython) 
         * it has interface with numpy. Data calculation are performed without copying to numpy array
         * (but it actually does not need `numpy` at all, just optional)
+    * It supports more than 100 types of actions/analysises in cpptraj 
     * It has clean Python/Cython syntax
-    * It has been extensively tested 
+    * It has been extensively tested (>10K lines of testing code)
     * It's flexible: 
         * you can write extension modules in either high (Python) or low (C/C++ or Cython) level
+        * you can easily load objects from other packages (ParmEd, MDAnalysis, mdtraj...)
+    * It's portable: you only need to install "libcpptraj"
+        * (but you can use extract help from other popular packages such as numpy, matplotlib)
+- Note: `pytraj` is still in its infancy and its API might be rapidly changed. But it's not hurt to try :).
 
 Citation:
 -----------------
@@ -29,14 +33,18 @@ Install
 -------
 - require:
     - cpptraj
-    - netcdf library (optional but highly recommended)
-- easiest:
+- (optional):
+    - libnetcdf (highly recommended)
+    - numpy (just for interfacing with other packages since they use numpy)
+    - pandas (if you want to use DataFrame) 
+    - matplotlib (if you want to plot)
+- easiest and less headache:
     * git clone https://github.com/pytraj/pytraj
     * cd pytraj
     * python ./setup.py install
-    * if it's really slow to install? Try building in parallel
+    (* if it's really slow to install? Try building in parallel
         * python ./setup.py build -faster_build
-        * python ./setup.py install
+        * python ./setup.py install)
 - further: check wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
 - install libcpptraj: 
     ./installs/libcpptraj.txt (works well with development version of cpptraj)
@@ -47,17 +55,17 @@ Install
 Usage: 
 -----
 - example: 
-    * `dist = calculate('distance', ':2@CA :10@CA', (traj, traj))`
-    * `mat = calculate('matrix', '@CA', frame, top)`
-    * get 2D array (xyz coords)for a given mask: `traj['@CA']`
+    * `dist = calc_distance(':2@CA :10@CA', (traj, traj))`
+    * `mat = calc_matrix('@CA', frame, top)`
+    * get new Trajectory with a given mask: `traj['@CA']`
     * expose to numpy: `arr0 = np.asarray(frame[:])` 
-    * load from other package: `traj = FrameArray(mdtraj_traj.xyz, top)`
+    * load from other package: `traj = io.load_mdtraj(mdtraj_traj.xyz, top)`
     * expose to Cython (will be translated to C++ code): `from pytraj.Frame cimport _Frame`
 - many more:
     * check ./examples folder
     * check pytraj-notebook: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/pytraj_overview.ipynb)
     * [more will come] (http://nbviewer.ipython.org/github/pytraj/pytraj/tree/master/note-books/)
-    * pytraj's document is still poorly written, so you can also check ./tests folder for more 
+    * pytraj's tutorials and documents are growing, stay tuned.
 
 Question?
 --------
