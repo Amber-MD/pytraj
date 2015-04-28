@@ -17,6 +17,7 @@ from .TrajReadOnly import TrajReadOnly
 from .utils.check_and_assert import _import_numpy, is_int, is_frame_iter
 from .utils.check_and_assert import file_exist, is_mdtraj
 from .utils.check_and_assert import is_word_in_class_name
+from .utils.check_and_assert import is_array
 from .trajs.Trajout import Trajout
 from ._get_top import _get_top
 from ._shared_methods import _savetraj, _get_temperature_set
@@ -319,6 +320,7 @@ cdef class FrameArray (object):
         cdef int idx_1, idx_2
         cdef int[:] int_view
         cdef AtomMask atom_mask_obj
+        cdef pyarray list_arr
         #cdef list tmplist
 
         # test memoryview for traj[:, :, :]
@@ -333,7 +335,7 @@ cdef class FrameArray (object):
         if len(self) == 0:
             raise ValueError("Your FrameArray is empty, how can I index it?")
 
-        if isinstance(idxs, AtomMask):
+        elif isinstance(idxs, AtomMask):
             atom_mask_obj = <AtomMask> idxs
             _farray = FrameArray()
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
@@ -344,7 +346,7 @@ cdef class FrameArray (object):
             # hold _farray in self.tmpfarray to avoid memory lost
             return self.tmpfarray
 
-        if isinstance(idxs, string_types):
+        elif isinstance(idxs, string_types):
             # mimic API of MDtraj
             if idxs == 'coordinates':
                 return self[:, :, :]
@@ -363,13 +365,7 @@ cdef class FrameArray (object):
                     txt = "not supported keyword `%s` or there's proble with your topology" % idxs
                     raise NotImplementedError(txt)
 
-        elif is_word_in_class_name(idxs, 'array') and hasattr(idxs, 'tolist'):
-            int_view = idxs
-            atom_mask_obj = AtomMask()
-            atom_mask_obj.add_selected_indices(int_view)
-            return self[atom_mask_obj]
-
-        if not isinstance(idxs, slice):
+        elif not isinstance(idxs, slice):
             if isinstance(idxs, tuple):
                 idx_0 = idxs[0]
 
@@ -409,6 +405,8 @@ cdef class FrameArray (object):
                     farray = self[idx_0]
                     return farray[idxs[1:]]
                 #return frame[idxs[1:]]
+            elif is_array(idxs) or isinstance(idxs, list):
+                return self.get_frames(indices=idxs, update_top=True)
             else:
                 idx_1 = get_positive_idx(idxs, self.size)
                 # raise index out of range
@@ -421,6 +419,7 @@ cdef class FrameArray (object):
                 frame.thisptr = &(self.frame_v[idx_1])
                 return frame
         else:
+            # is slice
             if self.warning:
                 print "FrameArray slice"
             # creat a subset array of `FrameArray`
@@ -628,7 +627,6 @@ cdef class FrameArray (object):
         return _get_temperature_set(self)
 
     def get_frames(self, from_traj=None, indices=None, update_top=False, copy=True):
-        # TODO : fater loading?
         """get frames from Trajin instance
         def get_frames(from_traj=None, indices=None, update_top=False, copy=True)
         Parameters:
@@ -669,7 +667,7 @@ cdef class FrameArray (object):
                     else:
                         # regular list, tuple, array,...
                         for i in indices:
-                            print "debug FrameArray.get_frames"
+                            #print "debug FrameArray.get_frames"
                             self.append(ts[i], copy=copy)
                 else:    
                     # get whole traj
