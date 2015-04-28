@@ -7,6 +7,9 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* add support loading more infor (bonds, box, angles, dihedrals) from MDAnalysis 
+  and mdtraj
+* add `bonds`, `angles` and `dihedrals` iterators for Topology
 * support MPI (with mpi4py)
 * add `calc_rmds` 
 * rename "do_rotation" to "rotate", "do_translation" to "translate"
