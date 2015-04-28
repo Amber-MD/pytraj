@@ -50,9 +50,9 @@ def load_pseudo_parm(parm):
         atom = Atom(aname, atype)
         pseudotop.add_atom(atom=atom, resid=resid, resname=resname)
     if is_word_in_class_name(parm, 'Universe'):
-        pseudotop.add_bonds(np.asarray(its_obj.bonds.to_indices()))
-        pseudotop.add_angles(np.asarray(its_obj.angles.to_indices()))
-        pseudotop.add_dihedrals(np.asarray(its_obj.torsions.to_indices()))
+        pseudotop.add_bonds(np.asarray(parm.bonds.to_indices()))
+        pseudotop.add_angles(np.asarray(parm.angles.to_indices()))
+        pseudotop.add_dihedrals(np.asarray(parm.torsions.to_indices()))
     elif is_mdtraj():
         # not sure how to get bonds, angles, dihedrals quickly
         pass

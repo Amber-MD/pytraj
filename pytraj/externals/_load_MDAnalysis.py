@@ -1,8 +1,11 @@
 from __future__ import absolute_import
-from pytraj.utils import has_, require
+from pytraj.utils import has_, require, _import_numpy
 from pytraj.FrameArray import FrameArray
 from pytraj.exceptions import PytrajRequireObject
 from ._load_pseudo_parm import load_pseudo_parm
+
+# MDAnalysis needs numpy. So we always have numpy when using this
+_, np = _import_numpy()
 
 def load_MDAnalysis(its_obj):
     """load MDAnalysis' Universe object to pytra's traj object"""
@@ -15,6 +18,12 @@ def load_MDAnalysis(its_obj):
 
         # creat pseudotop
         pseudotop = load_pseudo_parm(its_obj)
+
+        # move to load_pseudo_parm?
+        # create bonds
+        pseudotop.add_bonds(np.asarray(its_obj.bonds.to_indices()))
+        pseudotop.add_angles(np.asarray(its_obj.angles.to_indices()))
+        pseudotop.add_dihedrals(np.asarray(its_obj.torsions.to_indices()))
 
         # creat atom group
         ag = its_obj.atoms
