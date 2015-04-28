@@ -7,18 +7,18 @@ Welcome to pytraj!
 - pytraj is a Python package wrapping cpptraj program (a data analysis for biomolecular simulation)
 - Why using pytraj?
     * It's fast
-        * its core (cpptraj) was written in C++
+        * its core (cpptraj) was written in C++ with more than 80K lines of code (big thanks to cpptraj developers)
         * it supports parallel computing (openmp from cpptraj or mpi from mpi4py or parallel in ipython) 
         * it has interface with numpy. Data calculation are performed without copying to numpy array
-        * (but it actually does not need `numpy` at all, just optional)
-    * It supports more than 100 types of actions/analysises in cpptraj 
+        * (but it actually does not need `numpy`)
+    * It supports more than 100 kinds of actions/analyses in cpptraj 
     * It has clean Python/Cython syntax
     * It has been extensively tested (>10K lines of testing code)
     * It's flexible: 
         * you can write extension modules in either high (Python) or low (C/C++ or Cython) level
         * you can easily load objects from other packages (ParmEd, MDAnalysis, mdtraj...)
     * It's portable: you only need to install "libcpptraj"
-        * (but you can use extract help from other popular packages such as numpy, matplotlib)
+        * (but you can use extra help from other popular packages such as numpy, matplotlib)
 - Note: `pytraj` is still in its infancy and its API might be rapidly changed. But it's not hurt to try :).
 
 Citation:
@@ -42,14 +42,10 @@ Install
     * git clone https://github.com/pytraj/pytraj
     * cd pytraj
     * python ./setup.py install
-    (* if it's really slow to install? Try building in parallel
-        * python ./setup.py build -faster_build
-        * python ./setup.py install)
-- further: check wiki page : [wiki](http://www.github.com/pytraj/pytraj/wiki)
-- install libcpptraj: 
-    ./installs/libcpptraj.txt (works well with development version of cpptraj)
-- installs pytraj: [wiki](http://www.github.com/pytraj/pytraj/wiki)
-    (further instruction ./installs/pytraj.txt)
+        * if it's really slow to install? Try building in parallel
+            * python ./setup.py build -faster_build
+            * python ./setup.py install)
+- further: check wiki page [wiki](http://www.github.com/pytraj/pytraj/wiki)
 - if you are using `conda`, you can just `conda install -c pytraj pytraj-dev` for Linux system
 
 Usage: 
