@@ -51,7 +51,6 @@ cdef class Trajin_Single(Trajin):
         Topology instance
         chexbox :: (default = True)
         """
-        # Currently we can not assigne self.top to top.copy() since Cython does not know self.top type
         # need to use self._top since we declare it in TrajectoryFile.pxd
         filename = filename.encode("UTF-8")
         if not top.is_empty():

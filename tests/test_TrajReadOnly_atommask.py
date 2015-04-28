@@ -16,11 +16,9 @@ class Test(unittest.TestCase):
         n_selected_atoms = atm.n_atoms
         newtraj = traj[atm]
         newtraj2 = traj[mask + ' :frame']
-        newtraj3 = traj[atm.selected_indices()]
         print (newtraj.xyz.shape)
         assert_almost_equal(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
         assert_almost_equal(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
-        assert_almost_equal(newtraj3.xyz.flatten(), newtraj.xyz.flatten())
         assert (newtraj.xyz.shape == (traj.n_frames, n_selected_atoms, 3))
 
         # check if there is segmentation fault
@@ -46,10 +44,8 @@ class Test(unittest.TestCase):
         atm = traj.top(mask)
         newtraj = traj[atm]
         newtraj2 = traj[mask + ' :frame']
-        newtraj3 = traj[atm.selected_indices()]
         assert_almost_equal(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
         assert_almost_equal(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
-        assert_almost_equal(newtraj3.xyz.flatten(), newtraj.xyz.flatten())
 
         # check if there is segmentation fault
         print (traj[0])

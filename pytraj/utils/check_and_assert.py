@@ -27,6 +27,9 @@ def is_word_in_class_name(obj, word):
     """
     return word in obj.__class__.__name__
 
+def is_range(obj):
+    return is_word_in_class_name(obj, 'range')
+
 def is_array(obj):
     """check if a `word` is in obj.__class__.__name__
     """
