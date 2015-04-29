@@ -6,14 +6,20 @@ from pytraj.FrameArray import FrameArray
 from ._load_pseudo_parm import load_pseudo_parm
 _, np = _import_numpy()
 
-def load_mdtraj(m_traj):
+def load_mdtraj(m_traj, autoconvert=True):
     """load_mdtraj traj object
 
     Parameters
     ---------
     m_traj : Trajectory object from mdtraj 
+    autoconvert : bool, default=True
+        convert from "nm" (mdtraj )to "Angstrom" (pytraj)
     """
     from pytraj.core import Box
+    if autoconvert:
+        unit = 10.
+    else:
+        unit = 1.
     if not has_("mdtraj"):
         # we dont need checking `numpy` since mdtraj needs numpy 
         require("mdtraj")
@@ -24,8 +30,8 @@ def load_mdtraj(m_traj):
         else:
             pseudotop = load_pseudo_parm(m_traj.top)
             # convert "nm" to "Angstrom"
-            fa = FrameArray(10*m_traj.xyz, pseudotop)
+            fa = FrameArray(unit*m_traj.xyz, pseudotop)
             if not m_traj.unitcell_lengths is None:
-                arr = np.append(10*m_traj.unitcell_lengths, m_traj.unitcell_angles)
+                arr = np.append(unit*m_traj.unitcell_lengths, m_traj.unitcell_angles)
                 fa.top.box = Box(arr.astype(np.float64))
             return fa
