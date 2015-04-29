@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         from pytraj import calculate
         traj = mdio.load(trajin, parm)
         print (traj)
-        dslist = calculate("gist", gist_command, traj[0], top=traj.top)
+        dslist = calculate("gist", traj[0], gist_command, top=traj.top)
         print (dslist.get_legends())
 
 if __name__ == "__main__":

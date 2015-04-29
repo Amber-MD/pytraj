@@ -30,7 +30,7 @@ class Test(unittest.TestCase):
         command = """
         :2-10 clusters 3 epsilon 4.0 summary ./output/avg.summary.do_clustering.dat nofit
         """
-        do_clustering(command, traj, traj.top)
+        do_clustering(traj, command, traj.top)
 
 if __name__ == "__main__":
     unittest.main()

@@ -7,6 +7,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal, eq
 from pytraj.decorators import no_test, test_if_having
 
 class Test(unittest.TestCase):
+    @no_test
     @test_if_having("MDAnalysis")
     def test_0(self):
         from MDAnalysis import Universe
@@ -35,6 +36,7 @@ class Test(unittest.TestCase):
 
         eq(p_indices, m_indices)
 
+    @no_test
     @test_if_having("MDAnalysis")
     @test_if_having("numpy")
     def test_1(self):

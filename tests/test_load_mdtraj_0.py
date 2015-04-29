@@ -16,6 +16,7 @@ import numpy as np
 from pytraj.io import load_mdtraj
 
 class Test(unittest.TestCase):
+    @test_if_having("mdtraj")
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
@@ -39,7 +40,7 @@ class Test(unittest.TestCase):
             eq(farray.size, m_traj.n_frames)
 
             for f_m, f_p in izip(m_traj, farray):
-                assert_almost_equal(10*f_m.xyz.flatten(), f_p.coords)
+                aa_eq(10*f_m.xyz.flatten(), f_p.coords)
 
             with Timer() as t:
                 d0 = common_actions.calc_distance(farray, "@1 @21")
@@ -56,7 +57,7 @@ class Test(unittest.TestCase):
                 dist_m = md.compute_distances(m_traj, indices, periodic=False)
             print ("time for mdtraj = %s" % t.time_gap())
             # convert from "nm" to "angstrom"
-            assert_almost_equal(d0[:], 10*dist_m[:][0])
+            aa_eq(d0[:], 10*dist_m[:][0])
 
             with Timer() as t:
                 d0_2 = np.asarray([f.calc_distance(indices) for f in farray]).flatten()
@@ -65,7 +66,7 @@ class Test(unittest.TestCase):
             x = d0_2[:N]
             y = d0[:N]
             #print (x, y)
-            assert_almost_equal(x, y)
+            aa_eq(x, y)
 
         else:
             print ("does not have mdtraj and/or pytables")
@@ -80,11 +81,13 @@ class Test(unittest.TestCase):
         traj = mdio.load_mdtraj(m_traj)
         print (traj.top.box)
         print (true_traj.top.box)
-        print (traj.n_atoms)
+        assert traj.n_atoms == m_traj.n_atoms == true_traj.n_atoms
 
         traj2 = mdio.load_mdtraj(m_traj, False)
-        aa_eq(traj2.xyz.ravel, m_traj.xyz)
-        aa_eq(10*traj.xyz.ravel, m_traj.xyz)
+        print (traj[0, 0], true_traj[0, 0], traj2[0, 0])
+        print (m_traj.xyz[0, 0])
+        aa_eq(traj2.xyz.flatten(), m_traj.xyz.flatten(), decimal=3)
+        aa_eq(traj.xyz.ravel(), 10*m_traj.xyz.ravel(), decimal=3)
 
 if __name__ == "__main__":
     unittest.main()

@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import pytraj.common_actions as pyca
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = pyca.calculate("multidihedral", "", traj) 
+        dslist = pyca.calculate("multidihedral", traj)
 
         # groupby legend
         dlg = dslist.groupby("phi", mode='legend')

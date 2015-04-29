@@ -58,14 +58,14 @@ class Test(unittest.TestCase):
         farray_cp1 = farray.copy()
         farray_cp2 = farray.copy()
         # perform rotation
-        do_rotation("@CA x 60 y 120 z 50", farray)
+        do_rotation(farray, "@CA x 60 y 120 z 50")
         # assert
         assert farray[0].rmsd(fsaved) < 1E-3
 
         # test timing
         from pytraj.utils.Timer import Timer
         with Timer() as t1:
-            do_rotation("@CA x 60 y 120 z 50", farray_cp1)
+            do_rotation(farray_cp1, "@CA x 60 y 120 z 50")
 
         with Timer() as t2:
             for frame in farray_cp2:

@@ -15,11 +15,7 @@ class Test(unittest.TestCase):
             mtop = md.load_prmtop("./data/Tc5b.top")
             print(mtop)
 
-            pseudotop = Topology()
-            for mdatom in mtop.atoms:
-                atom = Atom(mdatom.name, mdatom.name)
-                mdres = mdatom.residue
-                pseudotop.add_atom(atom=atom, resid=mdres.index, resname=mdres.name)
+            pseudotop = mdio.load_pseudo_parm(mtop)
 
             print(pseudotop)
             pseudotop.summary()
