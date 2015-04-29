@@ -57,15 +57,16 @@ def load_pseudo_parm(parm):
             # TODO : add mass too
             pseudotop.add_atom(atom=atom, resid=resid, resname=resname)
 
-    if is_mdanalysis(parm):
-        pseudotop.add_bonds(np.asarray(parm.bonds.to_indices()))
-        pseudotop.add_angles(np.asarray(parm.angles.to_indices()))
-        pseudotop.add_dihedrals(np.asarray(parm.torsions.to_indices()))
-        pseudotop.box = Box(parm.dimensions.astype(np.float64))
-    elif is_mdtraj(parm):
+    if is_mdtraj(parm):
         # not sure how to get angles, dihedrals quickly
         pseudotop.add_bonds(np.array([(a.index, b.index) for (a, b) in parm.bonds]))
         # load Box in _load_mdtraj since Box is stored in traj
+    #elif is_mdanalysis(parm):
+         # turn-off. need to check MDAnalysis
+    #    pseudotop.add_bonds(np.asarray(parm.bonds.to_indices()))
+    #    pseudotop.add_angles(np.asarray(parm.angles.to_indices()))
+    #    pseudotop.add_dihedrals(np.asarray(parm.torsions.to_indices()))
+    #    pseudotop.box = Box(parm.dimensions.astype(np.float64))
     else:
         # parmed
         pseudotop.box = Box(np.array(parm.box))
