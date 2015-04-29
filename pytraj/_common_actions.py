@@ -5,7 +5,7 @@ from .Topology import Topology
 from .DataSetList import DataSetList
 from ._get_top import _get_top
 
-def calculate(action=None, command=None, traj=None, top=None, 
+def calculate(action=None, traj=None, command="", top=None, 
               dslist=DataSetList(), quick_get=False, **kwd): 
     """ quick way to get data 
     Parameters

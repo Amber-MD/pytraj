@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
 
         # calucate volume for 0-th to 8-th frame, skiip every 2 frames)
-        d0 = calc_volume("", traj(0, 8, 2),  traj.top)
+        d0 = calc_volume(traj(0, 8, 2), top=traj.top)
         print (d0)
 
 if __name__ == "__main__":

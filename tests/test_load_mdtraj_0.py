@@ -41,7 +41,7 @@ class Test(unittest.TestCase):
                 assert_almost_equal(10*f_m.xyz.flatten(), f_p.coords)
 
             with Timer() as t:
-                d0 = common_actions.calc_distance("@1 @21", farray)
+                d0 = common_actions.calc_distance(farray, "@1 @21")
             print ("time for pytraj_0 = %s" % t.time_gap())
 
             act = adict['distance']

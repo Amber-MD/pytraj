@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         m_top = md.load_prmtop("./data/Tc5b.top")
         print (m_top)
-        top = load_pseudo_parm(m_top) 
+        top = mdio.load_pseudo_parm(m_top) 
         print (top)
 
     @test_if_having('chemistry')
@@ -34,10 +34,10 @@ class Test(unittest.TestCase):
         fa.top = top.copy()
 
         # usingn cpptraj Topology
-        d0 = calc_distance(":2@CA :10@CA", traj)
+        d0 = calc_distance(traj, ":2@CA :10@CA")
 
         # using pseudo_top
-        d1 = calc_distance(":2@CA :10@CA", fa)
+        d1 = calc_distance(fa, ":2@CA :10@CA")
 
         assert_almost_equal(d0[:], d1[:])
 

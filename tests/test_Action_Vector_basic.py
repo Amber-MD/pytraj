@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         from pytraj import calculate
         traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
-        dslist = calculate("vector", "@CA @CB mass", traj)
+        dslist = calculate("vector", traj, "@CA @CB mass")
         print ('dslist.size = ', dslist.size)
         print (dslist.get_dtypes())
         for d0 in dslist:
@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         from pytraj.common_actions import calc_vector
         traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
-        d0 = calc_vector("@CA @CB mass", traj)
+        d0 = calc_vector(traj, "@CA @CB mass")
         print (d0.to_ndarray())
         print (d0.tolist())
 

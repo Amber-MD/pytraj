@@ -72,7 +72,7 @@ rotate = do_rotation
 do_scaling = partial(action_type, 'scale')
 scale = do_scaling
 
-def calc_watershell(command, traj, top=Topology()):
+def calc_watershell(traj=None, command="", top=Topology()):
     """return a DataSetList object having the number of water 
     in 1st and 2nd water shell for each frame
     >>> d0 = calc_watershell(":WAT", traj)
@@ -83,15 +83,16 @@ def calc_watershell(command, traj, top=Topology()):
     >>> d0_1 = d0[1]
     >>> print (d0_1[:])
     """
-    if 'out' not in command:
+    _top = _get_top(traj, top)
+    if not 'out' in command:
         # current Watershell action require specifying output
         # 
         command += ' out .tmp'
     dslist = DataSetList()
-    adict['watershell'](command, traj, top, dslist=dslist)
+    adict['watershell'](command, traj, _top, dslist=dslist)
     return dslist
 
-def calc_radial(command, traj, top=Topology()):
+def calc_radial(traj=None, command="", top=Topology()):
     '''Action_Radial require calling Print() to get output. We make change here'''
     act = adict['radial']
     # add `radial` keyword to command (need to check `why`?)
@@ -116,7 +117,7 @@ def to_string_ss(arr0):
     ssdict = dict(zip(range(len_ss), ss))
     return list(map(lambda idx: ssdict[idx], arr0))
 
-def calc_dssp(command="", traj=None, dtype='int'):
+def calc_dssp(traj=None, command="", top=None, dtype='int'):
     """return dssp profile for frame/traj
 
     Parameters
@@ -131,9 +132,10 @@ def calc_dssp(command="", traj=None, dtype='int'):
     if dtype in ['dataset',]
         DataSetList object
     """
+    _top = _get_top(traj, top)
     dslist = DataSetList()
     adict['dssp'](command,
-                  current_frame=traj, current_top=traj.top,
+                  current_frame=traj, current_top=_top,
                   dslist=dslist)
     dtype = dtype.upper()
 
@@ -157,16 +159,16 @@ def calc_dssp(command="", traj=None, dtype='int'):
     else:
         raise ValueError("")
 
-def do_translation(command="", traj=None, top=Topology()):
+def do_translation(traj=None, command="", top=Topology()):
     adict['translate'](command, traj, top)
 
-def do_rotation(command="", traj=None, top=Topology()):
+def do_rotation(traj=None, command="",  top=Topology()):
     adict['rotate'](command, traj, top)
 
-def do_autoimage(command="", traj=None, top=Topology()):
+def do_autoimage(traj=None, command="", top=Topology()):
     adict['autoimage'](command, traj, top)
 
-def get_average_frame(command="", traj=None, top=Topology()):
+def get_average_frame(traj=None, command="", top=Topology()):
     dslist = DataSetList()
 
     # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
@@ -180,7 +182,7 @@ def get_average_frame(command="", traj=None, top=Topology()):
     
     return dslist[0].get_frame()
 
-def randomize_ions(command="", traj=Frame(), top=Topology()):
+def randomize_ions(traj=Frame(), command="", top=Topology()):
     """randomize_ions for given Frame with Topology
     Return : None
     Parameters
@@ -194,7 +196,7 @@ def randomize_ions(command="", traj=Frame(), top=Topology()):
     act = adict['randomizeions']
     act.master(command, traj, top)
 
-def do_clustering(command="", traj=None, top=Topology(), 
+def do_clustering(traj=None, command="", top=Topology(), 
         dslist=DataSetList(), dflist=DataFileList()):
     # TODO: still very naive
     ana = analdict['clustering']
@@ -210,7 +212,7 @@ def do_clustering(command="", traj=None, top=Topology(),
         _top = traj.top
     ana(command, _top, dslist, dflist) 
 
-def calc_multidihedral(command="", traj=None, top=None, dtype='dict', *args, **kwd): 
+def calc_multidihedral(traj=None, command="", top=None, dtype='dict', *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -239,16 +241,16 @@ def calc_multidihedral(command="", traj=None, top=None, dtype='dict', *args, **k
         # return dslist
         return dslist
 
-def calc_atomicfluct(command="", *args, **kwd):
+def calc_atomicfluct(traj=None, command="", *args, **kwd):
     dslist = DataSetList()
     dslist.set_py_free_mem(False)
     act = adict['atomicfluct']
-    act(command, dslist=dslist, *args, **kwd)
+    act(command, traj, dslist=dslist, *args, **kwd)
     # tag: print_output()
     act.print_output() # need to have this. check cpptraj's code
     return dslist[-1]
 
-def calc_vector(mask="", traj=None, *args, **kwd): 
+def calc_vector(traj=None, mask="", *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -284,7 +286,7 @@ def calc_vector(mask="", traj=None, *args, **kwd):
     dslist.set_py_free_mem(False)
     return dslist[0]
 
-def _calc_vector_center(command="", traj=None, top=None, use_mass=False):
+def _calc_vector_center(traj=None, command="", top=None, use_mass=False):
     _top = _get_top(traj, top)
 
     dslist = DataSetList()
@@ -303,7 +305,7 @@ def _calc_vector_center(command="", traj=None, top=None, use_mass=False):
 calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
 calc_COG = calc_center_of_geometry = partial(_calc_vector_center, use_mass=False)
 
-def calc_pairwise_rmsd(command="", traj=None, top=None, *args, **kwd):
+def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
     """return  DataSetList object
 
     Examples:
@@ -331,7 +333,7 @@ def calc_pairwise_rmsd(command="", traj=None, top=None, *args, **kwd):
     dslist.remove_set(dslist[0])
     return dslist
 
-def calc_temperatures(command="", traj=None, top=None):
+def calc_temperatures(traj=None, command="", top=None):
     """return 1D python array of temperatures (from velocity) in traj
     if `frame` keyword is specified cpptraj/pytraj will take existing T
 
@@ -339,10 +341,10 @@ def calc_temperatures(command="", traj=None, top=None):
     """
     from array import array as pyarray
     _top = _get_top(traj, top)
-    dslist = calculate('temperature', command, traj, _top)
+    dslist = calculate('temperature', traj, command, _top)
     return pyarray('d', dslist[0].tolist())
 
-def calc_rmsd(command="", traj=None, top=None, ref=None, mass=False, fit=True):
+def calc_rmsd(traj=None, command="", top=None, ref=None, mass=False, fit=True):
     """calculate rmsd
 
     Parameters

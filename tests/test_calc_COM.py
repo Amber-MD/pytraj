@@ -14,8 +14,8 @@ class Test(unittest.TestCase):
         import numpy as np
 
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        d0 = pyca.calc_COM("", traj)
-        d1 = pyca.calc_center_of_mass("", traj)
+        d0 = pyca.calc_COM(traj)
+        d1 = pyca.calc_center_of_mass(traj)
         print (d0)
         arr = d0.to_ndarray()
         print (arr)

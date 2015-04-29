@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         from pytraj.common_actions import calc_radial
         traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
-        d0 = calc_radial("0.5 10.0 :5@CD :WAT@O", traj(0, 9), traj.top)
+        d0 = calc_radial(traj(0, 9), "0.5 10.0 :5@CD :WAT@O", top=traj.top)
         print (d0)
         print (d0.size)
         print (d0[0][:])

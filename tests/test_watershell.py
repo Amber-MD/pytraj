@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
                          ".//data/tz2.truncoct.parm7")
         dslist = DataSetList()
         dflist = DataFileList()
-        adict['watershell']("!:WAT out ./output/_ws.agr", traj, 
+        adict['watershell'](current_frame=traj, command="!:WAT out ./output/_ws.agr",
                             dslist=dslist, dflist=dflist)
         print (dslist[0][:])
         print (dslist[1][:])
@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
                          ".//data/tz2.truncoct.parm7")
         from pytraj.common_actions import calc_watershell
 
-        d0 = calc_watershell('!:WAT', traj)
+        d0 = calc_watershell(traj, '!:WAT')
         print (d0[0][:])
         print (d0[1][:])
 

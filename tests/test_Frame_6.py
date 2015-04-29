@@ -92,9 +92,9 @@ class Test(unittest.TestCase):
             id0, id1, id2, id3 = indices_dih[idx] + 1
             dih_command = "@%s @%s @%s @%s" % (id0, id1, id2, id3)
 
-            d0 = calc_dihedral(dih_command, frame0, traj.top)
-            d1 = calc_angle(angle_command, frame0, traj.top)
-            d3 = calc_distance(dist_command, frame0, traj.top)
+            d0 = calc_dihedral(frame0, dih_command, traj.top)
+            d1 = calc_angle(frame0, angle_command, traj.top)
+            d3 = calc_distance(frame0, dist_command, traj.top)
             print (dist_0[idx], d3[:])
             print (ang_0[idx], d1[:])
             print (dih_0[idx], d0[:])
