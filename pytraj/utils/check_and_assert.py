@@ -27,6 +27,7 @@ def is_word_in_class_name(obj, word):
     """
     return word in obj.__class__.__name__
 
+
 def is_range(obj):
     return is_word_in_class_name(obj, 'range')
 
@@ -51,6 +52,9 @@ def is_generator(iter_obj):
         return True
     else:
         return False
+
+def is_mdanalysis(obj):
+    return is_word_in_class_name(obj, 'Universe')
 
 def is_mdtraj(obj):
     """check if traj is mdtraj object"""
