@@ -3,7 +3,7 @@ from .externals.six import string_types
 from ._set_silent import set_world_silent
 from .Topology import Topology
 from .DataSetList import DataSetList
-from ._get_top import _get_top
+from ._get_common_objects import _get_top
 
 def calculate(action=None, traj=None, command="", top=None, 
               dslist=DataSetList(), quick_get=False, **kwd): 
