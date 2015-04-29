@@ -778,43 +778,43 @@ cdef class FrameArray (object):
 
     # start copy and paste from "__action_in_traj.py"
     def calc_distance(self, mask=""):
-        return pyca.calc_distance(mask, self)
+        return pyca.calc_distance(self, mask)
 
     def calc_distrmsd(self, mask=""):
-        return pyca.calc_distrmsd(mask, self)
+        return pyca.calc_distrmsd(self, mask)
 
     def calc_radgyr(self, mask=""):
-        return pyca.calc_radgyr(mask, self)
+        return pyca.calc_radgyr(self, mask)
 
     def calc_angle(self, mask=""):
-        return pyca.calc_angle(mask, self)
+        return pyca.calc_angle(self, mask)
 
     def calc_matrix(self, mask=""):
-        return pyca.calc_matrix(mask, self)
+        return pyca.calc_matrix(self, mask)
 
     def calc_dssp(self, mask="", *args, **kwd):
         return pyca.calc_dssp(mask, self, *args, **kwd)
 
     def calc_dihedral(self, mask=""):
-        return pyca.calc_dihedral(mask, self)
+        return pyca.calc_dihedral(self, mask)
 
     def calc_multidihedral(self, mask=""):
-        return pyca.calc_multidihedral(mask, self)
+        return pyca.calc_multidihedral(self, mask)
 
     def calc_molsurf(self, mask=""):
-        return pyca.calc_molsurf(mask, self)
+        return pyca.calc_molsurf(self, mask)
 
     def calc_center_of_mass(self, mask=""):
-        return pyca.calc_center_of_mass(mask, self)
+        return pyca.calc_center_of_mass(self, mask)
 
     def calc_COM(self, mask=""):
-        return pyca.calc_center_of_mass(mask, self)
+        return pyca.calc_center_of_mass(self, mask)
 
     def calc_center_of_geometry(self, mask=""):
-        return pyca.calc_center_of_geometry(mask, self)
+        return pyca.calc_center_of_geometry(self, mask)
 
     def calc_COG(self, mask=""):
-        return pyca.calc_center_of_geometry(mask, self)
+        return pyca.calc_center_of_geometry(self, mask)
 
     def calc_vector(self, mask=""):
         from pytraj.actions.Action_Vector import Action_Vector
@@ -833,16 +833,16 @@ cdef class FrameArray (object):
         return pyca.search_hbonds(self, mask)
 
     def get_average_frame(self, mask=""):
-        return pyca.get_average_frame(mask, self)
+        return pyca.get_average_frame(self, mask)
 
     def calc_watershell(self, mask=""):
-        return pyca.calc_watershell(mask, self)
+        return pyca.calc_watershell(self, mask)
 
     def autoimage(self, mask=""):
-        pyca.do_autoimage(mask, self)
+        pyca.do_autoimage(self, mask)
 
     def rotate(self, mask=""):
-        pyca.do_rotation(mask, self)
+        pyca.do_rotation(self, mask)
 
     def translate(self, mask=""):
-        pyca.do_translation(mask, self)
+        pyca.do_translation(self, mask)

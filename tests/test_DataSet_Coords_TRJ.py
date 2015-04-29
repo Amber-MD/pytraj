@@ -45,7 +45,7 @@ class Test(unittest.TestCase):
 
         # try perform action
         from pytraj.common_actions import calc_distance
-        d0 = calc_distance(":2@CA :10@CA", coords_traj)
+        d0 = calc_distance(coords_traj, ":2@CA :10@CA")
         print (d0.size)
         print (d0[:])
 

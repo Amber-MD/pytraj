@@ -61,15 +61,15 @@ class TestRadgyr(unittest.TestCase):
         arr0 = calc_dssp(":10-22", farray[:2])
 
     def test_3(self):
-        arr0 = calc_dssp(":10-22", farray[:3], dtype='int')
-        arr1 = calc_dssp(":10-22", farray[:3], dtype='str')
+        arr0 = calc_dssp(farray[:3], ":10-22", dtype='int')
+        arr1 = calc_dssp(farray[:3], ":10-22", dtype='str')
         print (arr0)
         print (arr1)
 
     def test_4(self):
         # add assert 
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        arr1 = calc_dssp("*", traj, dtype='int')
+        arr1 = calc_dssp(traj, "*", dtype='int')
         print (arr1)
         print ("DSSP from pytraj")
         print (np.array(arr1).shape)
@@ -88,7 +88,7 @@ class TestRadgyr(unittest.TestCase):
 
     def test_5(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = calc_dssp("*", traj, dtype='dataset')
+        dslist = calc_dssp(traj, "*", dtype='dataset')
         print (dslist)
         print (dslist.get_legends())
 

@@ -19,7 +19,7 @@ class TestSurf(unittest.TestCase):
         newtop = farray0.top.copy()
         oldtop = farray0.top
 
-        d0 = calc_molsurf("@CA", farray[0], farray.top)
+        d0 = calc_molsurf(farray[0], "@CA", farray.top)
         print (d0[:])
         adict['molsurf'].help()
         

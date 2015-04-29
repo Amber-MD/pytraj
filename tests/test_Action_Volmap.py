@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         from pytraj.common_actions import calc_volmap
         traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        ds = calc_volmap("0.5 0.5 0.5 :WAT@O buffer 2.0 centermask !:1-13 radscale 1.36 peakcut 0.10 peakfile peaks.xyz", traj)
+        ds = calc_volmap(traj, "0.5 0.5 0.5 :WAT@O buffer 2.0 centermask !:1-13 radscale 1.36 peakcut 0.10 peakfile peaks.xyz")
         print (ds)
         print (ds.to_ndarray())
         #print (ds.tolist())

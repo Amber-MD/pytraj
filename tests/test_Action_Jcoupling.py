@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
             # another way
             dslist = DataSetList()
             from pytraj.common_actions import calc_jcoupling
-            d0 = calc_jcoupling("out ./output/test_jcoupling_1.out", traj, dslist=dslist)
+            d0 = calc_jcoupling(traj, "out ./output/test_jcoupling_1.out", dslist=dslist)
             print (d0.legend)
             print (dslist.size)
 

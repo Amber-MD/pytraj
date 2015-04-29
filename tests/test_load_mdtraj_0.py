@@ -7,7 +7,8 @@ from pytraj import common_actions
 from pytraj import io as mdio
 from pytraj.utils import has_
 from pytraj.misc import get_atts
-from pytraj.utils.check_and_assert import assert_almost_equal, eq
+from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
+from pytraj.utils.check_and_assert import eq
 from pytraj.six_2 import izip
 from pytraj.testing import test_if_having
 
@@ -41,7 +42,7 @@ class Test(unittest.TestCase):
                 assert_almost_equal(10*f_m.xyz.flatten(), f_p.coords)
 
             with Timer() as t:
-                d0 = common_actions.calc_distance("@1 @21", farray)
+                d0 = common_actions.calc_distance(farray, "@1 @21")
             print ("time for pytraj_0 = %s" % t.time_gap())
 
             act = adict['distance']
@@ -80,6 +81,10 @@ class Test(unittest.TestCase):
         print (traj.top.box)
         print (true_traj.top.box)
         print (traj.n_atoms)
+
+        traj2 = mdio.load_mdtraj(m_traj, False)
+        aa_eq(traj2.xyz.ravel, m_traj.xyz)
+        aa_eq(10*traj.xyz.ravel, m_traj.xyz)
 
 if __name__ == "__main__":
     unittest.main()

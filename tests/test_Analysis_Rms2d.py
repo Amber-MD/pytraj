@@ -70,7 +70,7 @@ class Test(unittest.TestCase):
         print ("test calc_pairwise_rmsd")
         trajin = "./data/md1_prod.Tc5b.x"
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = pyca.calc_pairwise_rmsd("@CA", traj)
+        dslist = pyca.calc_pairwise_rmsd(traj, "@CA")
         print (dslist.size)
         print (dslist[0].size)
         print (dslist[0].name)
