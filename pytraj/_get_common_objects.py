@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from .externals.six import string_types
 from .Topology import Topology
+from .ArgList import ArgList
 
 def _get_top(traj, top):
     if isinstance(top, string_types):
@@ -21,3 +22,9 @@ def _get_top(traj, top):
     else:
         _top = top
     return _top
+
+def _get_arglist(arg):
+    if isinstance(arg, ArgList):
+        return arg
+    else:
+        return ArgList(arg)

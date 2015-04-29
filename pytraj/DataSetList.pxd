@@ -40,6 +40,9 @@ cdef extern from "DataSetList.h":
         void SynchronizeData() 
         _DataSet * FindSetOfType(const string&, DataType) const 
         _DataSet * FindCoordsSet(const string&)
+        _DataSet* GetReferenceFrame(string name_tag)
+        #ReferenceFrame GetReferenceFrame(ArgList&) const;
+        #void ListReferenceFrames() const;
 
 
 cdef class DataSetList:

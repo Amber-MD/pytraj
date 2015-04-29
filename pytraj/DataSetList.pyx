@@ -109,6 +109,12 @@ cdef class DataSetList:
     def set_precision_of_data_sets(self, string nameIn, int widthIn, int precisionIn):
         self.thisptr.SetPrecisionOfDataSets(nameIn, widthIn, precisionIn)
 
+    def get_reference_frame(self, name):
+        cdef DataSet dset = DataSet()
+        # return a view of dataset
+        dset.baseptr0 = self.thisptr.GetReferenceFrame(name.encode())
+        return dset
+
     def get_set(self, string dsname, int idx, string attr_arg):
         cdef DataSet dset = DataSet()
         dset.baseptr0 = self.thisptr.GetSet(dsname, idx, attr_arg)
