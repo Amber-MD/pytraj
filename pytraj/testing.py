@@ -3,6 +3,7 @@ import os
 
 from .decorators import test_if_having, no_test
 from .data_sample.load_sample_data import load_sample_data
+from .utils import eq, aa_eq
 
 try:
     amberhome = os.environ['AMBERHOME']
