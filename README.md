@@ -51,11 +51,11 @@ Install
 Usage: 
 -----
 - example: 
-    * `dist = calc_distance(':2@CA :10@CA', (traj, traj))`
-    * `mat = calc_matrix('@CA', frame, top)`
+    * `dist = calc_distance(traj, ':2@CA :10@CA')`
+    * `mat = calc_matrix(frame, '@CA', top)`
     * get new Trajectory with a given mask: `traj['@CA']`
     * expose to numpy: `arr0 = np.asarray(frame[:])` 
-    * load from other package: `traj = io.load_mdtraj(mdtraj_traj.xyz, top)`
+    * load from other package: `traj = io.load_mdtraj(mdtraj_traj)`, `parm = io.load_ParmEd(its_obj)`
     * expose to Cython (will be translated to C++ code): `from pytraj.Frame cimport _Frame`
 - many more:
     * check ./examples folder
