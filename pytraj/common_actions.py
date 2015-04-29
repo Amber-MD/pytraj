@@ -168,6 +168,8 @@ def do_rotation(traj=None, command="",  top=Topology()):
 def do_autoimage(traj=None, command="", top=Topology()):
     adict['autoimage'](command, traj, top)
 
+autoimage = do_autoimage
+
 def get_average_frame(traj=None, command="", top=Topology()):
     dslist = DataSetList()
 
