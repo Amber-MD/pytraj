@@ -502,23 +502,31 @@ cdef class Topology:
         has_numpy, np = _import_numpy()
         return atm.selected_indices()
 
-    def get_unique_resname(self):
+    @property
+    def atom_names(self):
+        """return unique atom name in Topology
+
+        Notes
+        -----
+        same as `get_unique_atomname`. I need to choose one of them for better name
+        """
         s = set()
         for res in self.residue_iter():
             s.add(res.name)
         return s
 
-    def get_unique_atomname(self):
+    @property
+    def residue_names(self):
+        """return unique residue names in Topology
+
+        Notes
+        -----
+        same as `get_unique_resname`. I need to choose one of them for better name
+        """
         s = set()
-        for atom in self.atom_iter():
-            s.add(atom.name)
+        for residue in self.residue_iter():
+            s.add(residue.name)
         return s
-
-    def get_atomname_set(self):
-        return self.get_unique_atomname()
-
-    def get_resname_set(self):
-        return self.get_unique_resname()
 
     def get_parm_coord_info(self):
         cdef CoordinateInfo coordinfo = CoordinateInfo()

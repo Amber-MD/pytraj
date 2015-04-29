@@ -104,10 +104,8 @@ class TestTopology(unittest.TestCase):
     def test_get_unique(self):
         traj = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
-        print(top.get_unique_atomname())
-        print(top.get_unique_resname())
-        print(top.get_atomname_set())
-        print(top.get_resname_set())
+        print(top.atom_names)
+        print(top.residue_names)
 
     #@no_test
     def test_len(self):
