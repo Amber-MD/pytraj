@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         # shorter
         from pytraj.common_actions import get_average_frame
         #frame2 = get_average_frame("", traj, traj.top)
-        frame2 = get_average_frame("", traj)
+        frame2 = get_average_frame(traj)
         assert_almost_equal(frame2.coords, f_saved.coords)
         print (frame2[:2])
         print (f_saved[:2])
@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
         print (f5_saved[:2])
 
         # test iter CA
-        frame5 = get_average_frame("@CA", traj=traj(1, 7, 2), top=traj.top)
+        frame5 = get_average_frame(traj(1, 7, 2), '@CA', top=traj.top)
         print (frame5[:2])
 
         print ("frame5.n_atoms: for CA")
