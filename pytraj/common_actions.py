@@ -13,7 +13,7 @@ adict = ActionDict()
 from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
-from ._get_common_object import _get_top
+from ._get_common_objects import _get_top
 from ._common_actions import calculate
 from .externals.six import string_types
 from .Frame import Frame
