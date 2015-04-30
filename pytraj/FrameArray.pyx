@@ -846,3 +846,9 @@ cdef class FrameArray (object):
 
     def translate(self, mask=""):
         pyca.do_translation(self, mask)
+
+    def set_nobox(self):
+        cdef Frame frame
+
+        for frame in self:
+            frame.set_nobox()
