@@ -54,8 +54,8 @@ class Test(unittest.TestCase):
         print (top.box, top.box.type)
         aa_eq(sorted(top._bonds_ndarray.flatten()), 
               sorted(np.array(u.universe.bonds.to_indices()).flatten()))
-        print (top.get_unique_resname())
-        print (top.get_unique_atomname())
+        print (top.residue_names)
+        print (top.atom_names)
         print ('n_mols = %s' % top.n_mols)
         aa_eq(sorted(top._angles_ndarray.flatten()),
               sorted(np.array(u.universe.angles.to_indices()).flatten()))
