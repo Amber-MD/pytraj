@@ -139,6 +139,18 @@ cdef class DataSet:
     def tolist(self):
         return list(self.data)
 
+    def to_pyarray(self):
+        type_dict = {'float' : 'f',
+                     'double' : 'd',
+                     'integer' : 'i',
+                     'string' : 's',
+                    }
+        try:
+            return pyarray(type_dict[self.dtype], self.data)
+        except:
+            msg = "not implemented for %s" % self.__class__.__name__
+            raise NotImplementedError(msg)
+
     def to_ndarray(self):
         """return ndarray view of self.data"""
         from pytraj.utils import _import_numpy

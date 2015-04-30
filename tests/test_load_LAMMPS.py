@@ -19,8 +19,8 @@ class Test(unittest.TestCase):
         print (traj)
         print (traj.top)
         print (traj.xyz.shape)
-        print (traj.top.get_unique_atomname())
-        print (traj.top.get_unique_resname())
+        print (traj.top.atom_names)
+        print (traj.top.residue_names)
 
 if __name__ == "__main__":
     unittest.main()
