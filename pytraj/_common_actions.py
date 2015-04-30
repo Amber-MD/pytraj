@@ -6,7 +6,7 @@ from .DataSetList import DataSetList
 from ._get_common_objects import _get_top
 
 def calculate(action=None, traj=None, command="", top=None, 
-              dslist=DataSetList(), quick_get=False, **kwd): 
+              dslist=DataSetList(), dtype='dataset', quick_get=False, **kwd): 
     """ quick way to get data 
     Parameters
     ----------
@@ -15,6 +15,9 @@ def calculate(action=None, traj=None, command="", top=None,
         command for specific action. For example, if action=`rmsd`, command might be `@CA`
     traj : Trajectory object (FrameArray, TrajReadOnly, ...) or list, tuple of traj object 
     top : topology 
+    dslist : DataSetList
+        Hold output
+    dtype : str {'pyarray', 'list', 'ndarray', 'dataset'}
     **kwd : additional arguments
  
     Use `calculate(ahelp=True)` or `calculate(ahelp='action name')` for help 
@@ -66,6 +69,16 @@ def calculate(action=None, traj=None, command="", top=None,
         if idx >= old_size:
             _dslist.add_existing_set(ds)
     if quick_get:
-        return _dslist[-1]
+        _d = dslist[-1]
+        if dtype == 'pyarray':
+            return _d.to_pyarray()
+        elif dtype == 'list':
+            return _d.tolist()
+        elif dtype == 'ndarray':
+            return _d.to_ndarray()
+        elif dtype == 'dataset':
+            return _d
+        else:
+            raise NotImplementedError(dtype)
     else:
         return _dslist
