@@ -30,7 +30,7 @@ cdef class Atom:
 
     def copy(self):
         cdef Atom atom = Atom()
-        del atom.thisptr
+        #del atom.thisptr
         atom.thisptr = new _Atom(self.thisptr[0])
         return atom
 

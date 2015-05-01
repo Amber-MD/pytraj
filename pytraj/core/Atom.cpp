@@ -1277,7 +1277,7 @@ static void __pyx_pf_6pytraj_4core_4Atom_4Atom_2__dealloc__(struct __pyx_obj_6py
  * 
  *     def copy(self):             # <<<<<<<<<<<<<<
  *         cdef Atom atom = Atom()
- *         del atom.thisptr
+ *         #del atom.thisptr
  */
 
 /* Python wrapper */
@@ -1308,7 +1308,7 @@ static PyObject *__pyx_pf_6pytraj_4core_4Atom_4Atom_4copy(struct __pyx_obj_6pytr
  * 
  *     def copy(self):
  *         cdef Atom atom = Atom()             # <<<<<<<<<<<<<<
- *         del atom.thisptr
+ *         #del atom.thisptr
  *         atom.thisptr = new _Atom(self.thisptr[0])
  */
   __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4core_4Atom_Atom)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1316,18 +1316,9 @@ static PyObject *__pyx_pf_6pytraj_4core_4Atom_4Atom_4copy(struct __pyx_obj_6pytr
   __pyx_v_atom = ((struct __pyx_obj_6pytraj_4core_4Atom_Atom *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/core/Atom.pyx":33
- *     def copy(self):
- *         cdef Atom atom = Atom()
- *         del atom.thisptr             # <<<<<<<<<<<<<<
- *         atom.thisptr = new _Atom(self.thisptr[0])
- *         return atom
- */
-  delete __pyx_v_atom->thisptr;
-
   /* "pytraj/core/Atom.pyx":34
  *         cdef Atom atom = Atom()
- *         del atom.thisptr
+ *         #del atom.thisptr
  *         atom.thisptr = new _Atom(self.thisptr[0])             # <<<<<<<<<<<<<<
  *         return atom
  * 
@@ -1335,7 +1326,7 @@ static PyObject *__pyx_pf_6pytraj_4core_4Atom_4Atom_4copy(struct __pyx_obj_6pytr
   __pyx_v_atom->thisptr = new Atom((__pyx_v_self->thisptr[0]));
 
   /* "pytraj/core/Atom.pyx":35
- *         del atom.thisptr
+ *         #del atom.thisptr
  *         atom.thisptr = new _Atom(self.thisptr[0])
  *         return atom             # <<<<<<<<<<<<<<
  * 
@@ -1351,7 +1342,7 @@ static PyObject *__pyx_pf_6pytraj_4core_4Atom_4Atom_4copy(struct __pyx_obj_6pytr
  * 
  *     def copy(self):             # <<<<<<<<<<<<<<
  *         cdef Atom atom = Atom()
- *         del atom.thisptr
+ *         #del atom.thisptr
  */
 
   /* function exit code */
