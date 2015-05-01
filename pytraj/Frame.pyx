@@ -629,6 +629,15 @@ cdef class Frame (object):
         cdef firstAtom, lastAtom, atom
         cdef Vec3 vec3
 
+        if not args:
+            raise ValueError()
+
+        if isinstance(args[0], Vec3):
+            vec3 = args[0]
+        else:
+            # try to convert to Vec3. no warranty :D
+            vec3 = Vec3(args[0])
+
         if len(args) == 3:
             vec3, firstAtom, lastAtom = args
             self.thisptr.Translate(vec3.thisptr[0], firstAtom, lastAtom)
@@ -637,7 +646,6 @@ cdef class Frame (object):
             check_instance(vec3, Vec3)
             self.thisptr.Translate(vec3.thisptr[0], atom)
         elif len(args) == 1:
-            vec3 = args[0]
             self.thisptr.Translate(vec3.thisptr[0])
         else:
             raise ValueError()

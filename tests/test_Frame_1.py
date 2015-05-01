@@ -288,5 +288,22 @@ class TestFrame(unittest.TestCase):
         print(alist)
         print("====================end test_iter")
 
+    def test_tranlate(self):
+        farray = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0,1))
+        f0 = farray[0]
+        f1 = f0.copy()
+        f2 = f0.copy()
+
+        mylist = [1., 2., 3.]
+        vec3 = Vec3(mylist)
+        assert isinstance(vec3, Vec3) == True
+        assert vec3.tolist() == mylist
+        f0.translate(vec3)
+        f1.translate(mylist)
+        print ("to_ndarray", vec3.to_ndarray())
+        f2.translate(vec3.to_ndarray())
+        assert_almost_equal(f0.coords, f1.coords)
+        assert_almost_equal(f0.coords, f2.coords)
+
 if __name__ == "__main__":
     unittest.main()
