@@ -73,17 +73,18 @@ class Trajectory(ActionInTraj):
 
     def __iter__(self):
         """return a copy of Frame object"""
+
         for i in range(self.xyz.shape[0]):
-            frame = Frame()
-            frame.append_xyz(self.xyz[i])
+            frame = Frame(self.n_atoms)
+            frame[:] = self.xyz[i]
             yield frame
 
     def __getitem__(self, idx):
         """return a copy of Frame object"""
         if is_int(idx):
             arr0 = self.xyz[idx]
-            frame = Frame()
-            frame.append_xyz(arr0)
+            frame = Frame(self.n_atoms)
+            frame[:] = arr0
             return frame
         else:
             traj = self.__class__()
