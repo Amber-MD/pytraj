@@ -7,6 +7,10 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* add option to load coords from ParmEd object
+* add `align_principal_axis`
+* fix iteration in api.Trajectory: 2 orders of magniture faster
+* add "as_ndmatrix" for Matrix_3x3
 * start working on pytraj-dev 0.1.2.dev4
 
 Features and bugfixs added (from April 2015 - )
