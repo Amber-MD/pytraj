@@ -32,7 +32,10 @@ cdef class Vec3:
 
     def __str__(self):
         x, y, z = self.tolist()
-        return "Vec3 instance: %s %s %s" %(x, y, z)
+        return "<Vec3: %s %s %s>" %(x, y, z)
+
+    def __repr__(self):
+        return self.__str__()
 
     def Magnitude2(self):
         return self.thisptr.Magnitude2()
