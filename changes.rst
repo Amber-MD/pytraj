@@ -5,8 +5,13 @@ pytraj change log
 Lastest change
 =============
 
+Features and bugfixs added (from May 2015 - )
+-----------------------------------
+* start working on pytraj-dev 0.1.2.dev4
+
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* release pytraj-dev 0.1.2.dev3 (May 1st, 2015) (binstar, github)
 * add set_nobox for FrameArray
 * add `dtype` in `calculate` method to return `list`, `pyarray`, `dataset` or `ndarray`
 * support ParmEd with bonds, dih, angles loading
