@@ -9,16 +9,24 @@ import pytraj.common_actions as pyca
 
 class Test(unittest.TestCase):
     @test_if_having("numpy")
+    @test_if_having("chemistry")
     def test_0(self):
         import numpy as np
+        import chemistry as chem
         parm_name = "./data/Tc5b.top"
+        traj = mdio.load("./data/md1_prod.Tc5b.x",  parm_name)
         true_top = mdio.load(parm_name)
 
         # load ParmEd
-        parm = mdio.load_ParmEd(parm_name) 
+        parm = mdio.load_to_ParmEd_object(parm_name) 
+        assert isinstance(parm, chem.Structure)
+        parm.load_coordinates(traj[0].coords)
 
         # load pseudo_parm
         ptop = mdio.load_pseudo_parm(parm)
+        fake_fa = mdio.load_ParmEd(parm, restype='traj')
+        assert isinstance(fake_fa, FrameArray)
+        aa_eq(fake_fa[0].coords, traj[0].coords)
         print (ptop)
 
         # assert

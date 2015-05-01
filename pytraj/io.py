@@ -14,7 +14,7 @@ from .dataframe import to_dataframe
 from ._set_silent import set_error_silent
 
 try:
-    from .externals._load_ParmEd import load_ParmEd
+    from .externals._load_ParmEd import load_ParmEd, load_to_ParmEd_object
 except:
     load_ParmEd = None
 
