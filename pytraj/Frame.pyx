@@ -645,6 +645,14 @@ cdef class Frame (object):
     def neg_translate(self, Vec3 vec):
         self.thisptr.NegTranslate(vec.thisptr[0])
 
+    def rotate_with_matrix(self, Matrix_3x3 mat, *args):
+        cdef AtomMask atm
+        if args:
+            atm = <AtomMask> args[0]
+            self.thisptr.Rotate(mat.thisptr[0], atm.thisptr[0])
+        else:
+            self.thisptr.Rotate(mat.thisptr[0])
+
     def rotate(self, int x=0, int y=0, int z=0, atommask=None):
         """rotate(Matrix_3x3 m3, *args)
         Paramters:
