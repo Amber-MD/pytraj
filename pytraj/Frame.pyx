@@ -645,13 +645,29 @@ cdef class Frame (object):
     def neg_translate(self, Vec3 vec):
         self.thisptr.NegTranslate(vec.thisptr[0])
 
-    def rotate_with_matrix(self, Matrix_3x3 mat, *args):
+    def rotate_with_matrix(self, mat, *args):
+        """
+        Parameters
+        ----------
+        mat : Matrix-like, shape=(3,3)
+            3x3 matrix (pytraj or numpy)
+        """
         cdef AtomMask atm
+        cdef Matrix_3x3 _mat
+
+        has_numpy, np = _import_numpy()
+        if not has_numpy:
+            assert isinstance(mat, Matrix_3x3)
+        if isinstance(mat, np.matrix):
+            _mat = Matrix_3x3(mat)
+        else:
+            # assume Matrix_3x3
+            _mat = mat
         if args:
             atm = <AtomMask> args[0]
-            self.thisptr.Rotate(mat.thisptr[0], atm.thisptr[0])
+            self.thisptr.Rotate(_mat.thisptr[0], atm.thisptr[0])
         else:
-            self.thisptr.Rotate(mat.thisptr[0])
+            self.thisptr.Rotate(_mat.thisptr[0])
 
     def rotate(self, int x=0, int y=0, int z=0, atommask=None):
         """rotate(Matrix_3x3 m3, *args)

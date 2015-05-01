@@ -98,7 +98,9 @@ def _frame_iter_master(obj):
     cdef object traj_obj
 
     is_frame_iter_but_not_master = (is_frame_iter(obj) and not obj.__name__ is '_frame_iter_master')
-    if hasattr(obj, 'n_frames') or is_frame_iter_but_not_master:
+    if isinstance(obj, Frame):
+        yield obj
+    elif hasattr(obj, 'n_frames') or is_frame_iter_but_not_master:
         # traj-like or frame_iter or _frame_iter
         for frame in obj:
             yield frame
@@ -109,4 +111,3 @@ def _frame_iter_master(obj):
                     yield frame
         except:
             raise PytrajConvertError("can not convert to Frame")
-

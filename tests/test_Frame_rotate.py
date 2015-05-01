@@ -18,7 +18,11 @@ class Test(unittest.TestCase):
         frame = traj[0]
         mat = Matrix_3x3(range(9))
         npmat = mat.to_ndmatrix()
+
+        # use both pytraj and numpy matrix
         frame.rotate_with_matrix(mat)
+        f0.rotate_with_matrix(mat.as_ndmatrix())
+        eq(f0.coords, frame.coords)
 
 if __name__ == "__main__":
     unittest.main()

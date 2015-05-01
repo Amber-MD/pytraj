@@ -69,6 +69,10 @@ class Test(unittest.TestCase):
         iter_me((traj, fa), 2 * traj.n_frames)
         iter_me((traj, (fa[0],)), traj.n_frames + 1)
 
+        print ("iter frame")
+        for frame in _frame_iter_master(traj[0]):
+            assert frame.n_atoms == traj.top.n_atoms
+
     def test_assert(self):
         from pytraj._shared_methods import _frame_iter_master as _it_f
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

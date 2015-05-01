@@ -222,6 +222,9 @@ cdef class Matrix_3x3:
     def tolist(self):
         return [list(x) for x in self.buffer2d[:]]
 
+    def as_ndmatrix(self):
+        return self.to_ndmatrix()
+
     def to_ndmatrix(self):
         """convert to numpy matrix as a memory view. No data copy is made"""
         try:

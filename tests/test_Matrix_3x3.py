@@ -77,6 +77,13 @@ class TestMatrix_3x3(unittest.TestCase):
         v1 = mat.row1
         assert v1.tolist() == list(mat[0])
         assert np.any(npmat == mat.to_ndmatrix()) == True
+        
+        mat_as_ndmatrix = mat.as_ndmatrix()
+        mat_as_ndmatrix[0] = 10000.
+        print ("test as_ndmatrix")
+        print (npmat, mat, mat_as_ndmatrix)
+        assert np.any(npmat == mat.to_ndmatrix()) == True
+        assert np.any(npmat == mat_as_ndmatrix) == True
 
         v1np = np.asarray(v1[:]).reshape(3, 1)
         print(v1np)
