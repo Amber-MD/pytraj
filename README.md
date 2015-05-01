@@ -15,6 +15,8 @@ Welcome to pytraj!
     * It has clean Python/Cython syntax
     * It has been extensively tested (>10K lines of testing code)
     * It's flexible: 
+        * user does not need to care about file ext, `cpptraj` (and then `pytraj`) automatically detects it, as long as the file is supported
+            (io.load("myparm.crazy_ext"))
         * you can write extension modules in either high (Python) or low (C/C++ or Cython) level
         * you can easily load objects from other packages (ParmEd, MDAnalysis, mdtraj...)
     * It's portable: you only need to install "libcpptraj"
