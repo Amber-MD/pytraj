@@ -7,6 +7,9 @@ Lastest change
 
 Features and bugfixs added (from April 2015 - )
 -----------------------------------
+* add set_nobox for FrameArray
+* add `dtype` in `calculate` method to return `list`, `pyarray`, `dataset` or `ndarray`
+* support ParmEd with bonds, dih, angles loading
 * add support loading more infor (bonds, box, angles, dihedrals) from MDAnalysis 
   and mdtraj
 * add `bonds`, `angles` and `dihedrals` iterators for Topology
