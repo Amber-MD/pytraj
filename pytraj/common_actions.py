@@ -39,14 +39,15 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_COM',
                'calc_center_of_mass',
                'calc_center_of_geometry',
-               'calc_pairwise_rmsd']
+               'calc_pairwise_rmsd',
+               'calc_temperatures']
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
               'do_clustering',]
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'calc_temperatures']
+list_of_the_rest = ['search_hbonds', 'align_principal_axis']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -409,3 +410,15 @@ def calc_rmsd(traj=None, command="", top=None, ref=None, mass=False, fit=True):
             _rmsd = _frame.rmsd_nofit(ref, use_mass=mass)
         arr.append(_rmsd)
     return arr
+
+def align_principal_axis(traj=None, command="*", top=None):
+    # TODO : does not match with cpptraj output
+    # rmsd_nofit ~ 0.5 for md1_prod.Tc5b.x, 1st frame
+    """
+    Notes
+    -----
+    apply for mutatble traj (FrameArray, Frame)
+    """
+    act = adict['principal']
+    command += " dorotation"
+    act(command, traj, top)

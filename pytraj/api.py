@@ -7,6 +7,7 @@ from ._shared_methods import _frame_iter, _frame_iter_master
 from .trajs.Trajin_Single import Trajin_Single
 from  .utils.check_and_assert import is_int, is_frame_iter
 from .externals.six import string_types
+from .externals.six.moves import range
 from .AtomMask import AtomMask
 from ._get_common_objects  import _get_top # need to move this method to more correct module
 
