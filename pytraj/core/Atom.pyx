@@ -14,10 +14,14 @@ cdef class Atom:
     def __cinit__(self, *args, **kwd):
         # TODO : add more constructors
         cdef NameType aname, atype
+        cdef Atom other
         if not args and not kwd:
             self.thisptr = new _Atom()
         else:
-            if len(args) == 2:
+            if len(args) == 1 and isinstance(args[0], Atom):
+                other = <Atom>  args[0]
+                self.thisptr = new _Atom(other.thisptr[0])
+            elif len(args) == 2:
                 if isinstance(args[0], string_types) and isinstance(args[1], string_types):
                     aname = NameType(args[0])
                     atype = NameType (args[1])
@@ -30,7 +34,7 @@ cdef class Atom:
 
     def copy(self):
         cdef Atom atom = Atom()
-        del atom.thisptr
+        #del atom.thisptr
         atom.thisptr = new _Atom(self.thisptr[0])
         return atom
 

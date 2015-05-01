@@ -187,7 +187,9 @@ cdef class Vec3:
         """return a ndarray view of Vec3"""
         has_np, np = _import_numpy()
         if has_np:
-            np.asarray(self.buffer1d[:])
+            return np.asarray(self.buffer1d[:])
+        else:
+            raise ImportError("need numpy")
 
     @property
     def buffer1d(self):

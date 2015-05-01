@@ -25,6 +25,10 @@ class Test(unittest.TestCase):
         print(dir(atom))
         assert isinstance(atom, Atom) == True
 
+        print ("test copy")
+        a = Atom(atom)
+        print (a)
+
     def test_bonds(self):
         top = mdio.load("./data/Tc5b.top")
         atom = top[20]
