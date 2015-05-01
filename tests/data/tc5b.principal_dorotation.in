@@ -1,0 +1,4 @@
+parm Tc5b.top
+trajin md1_prod.Tc5b.x 1 1
+principal @CA dorotation
+trajout Tc5b.principal_dorotation.rst7
