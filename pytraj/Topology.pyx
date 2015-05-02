@@ -505,23 +505,15 @@ cdef class Topology:
     @property
     def atom_names(self):
         """return unique atom name in Topology
-
-        Notes
-        -----
-        same as `get_unique_atomname`. I need to choose one of them for better name
         """
         s = set()
-        for res in self.residue_iter():
-            s.add(res.name)
+        for atom in self.atom_iter():
+            s.add(atom.name)
         return s
 
     @property
     def residue_names(self):
         """return unique residue names in Topology
-
-        Notes
-        -----
-        same as `get_unique_resname`. I need to choose one of them for better name
         """
         s = set()
         for residue in self.residue_iter():
