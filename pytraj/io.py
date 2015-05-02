@@ -7,6 +7,7 @@ from .FrameArray import FrameArray
 from .trajs.Trajin_Single import Trajin_Single
 from .trajs.Trajout import Trajout
 from .utils.check_and_assert import make_sure_exist
+from .utils import goto_temp_folder
 from .load_HD5F import load_hd5f
 from .load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import _frame_iter_master
@@ -186,16 +187,15 @@ def loadpdb_rcsb(pdbid):
 
     url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid
     txt = urlopen(url).read()
-    print ("test saving pdb")
-    print (type(txt))
-    with open("/tmp/._tmp", 'w') as fh:
-        if PY3:
-            fh.write(txt.decode())
-        else:
-            fh.write(txt)
-    top = readparm("/tmp/._tmp")
-    frames = load("/tmp/._tmp", top)
-    return frames
+    with goto_temp_folder():
+        with open("tmp", 'w') as fh:
+            if PY3:
+                fh.write(txt.decode())
+            else:
+                fh.write(txt)
+        top = readparm("tmp")
+        frames = load("tmp", top)
+        return frames
 
 def load_single_frame(frame=None, top=None):
     """load single Frame"""
