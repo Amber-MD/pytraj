@@ -22,5 +22,5 @@ for i in range(size):
     straj = io.load(fname, root_dir + "/myparm.parm7")
     if i == 0:
         REF = straj[0]
-    sarr[i] = straj.calc_rmsd("@CA", REF)
+    sarr[i] = straj.calc_rmsd(REF, "@CA")
 np.savetxt("./serial_rmsd.txt", sarr.flatten())

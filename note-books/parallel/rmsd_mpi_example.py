@@ -44,7 +44,7 @@ if rank != 0:
 _ref = ref.copy()
 
 def rmsd_mpi(traj, _ref):
-    arr0 = pyca.calc_rmsd("@CA", traj, traj.top, _ref)
+    arr0 = pyca.calc_rmsd(traj, "@CA", top=traj.top, ref= _ref)
     return arr0
 
 arr0 = rmsd_mpi(traj, _ref)

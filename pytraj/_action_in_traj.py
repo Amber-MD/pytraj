@@ -21,7 +21,7 @@ class ActionInTraj(object):
         return pyca.calc_matrix(self, mask)
 
     def calc_dssp(self, mask="", *args, **kwd):
-        return pyca.calc_dssp(mask, self, *args, **kwd)
+        return pyca.calc_dssp(self, mask, *args, **kwd)
 
     def calc_dihedral(self, mask=""):
         return pyca.calc_dihedral(self, mask)
