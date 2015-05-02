@@ -62,7 +62,7 @@ Usage:
 - many more:
     * check ./examples folder
     * check pytraj-notebook: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/pytraj_overview.ipynb)
-    * [more will come] (http://nbviewer.ipython.org/github/pytraj/pytraj/tree/master/note-books/)
+    * [more will come] (http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/index.ipynb)
     * pytraj's tutorials and documents are growing, stay tuned.
 
 Question?
