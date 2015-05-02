@@ -180,7 +180,8 @@ def readparm(filename):
     return top
 
 def loadpdb_rcsb(pdbid):
-    # TODO : use tempfile
+    # FIXME: wrong coords
+    # example: 2KOC, got 0.0 for all coords
     """load pdb file from rcsb website
     Return : Topology and FrameArray instance
     """
