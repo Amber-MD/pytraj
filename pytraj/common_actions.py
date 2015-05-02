@@ -73,6 +73,19 @@ rotate = do_rotation
 do_scaling = partial(action_type, 'scale')
 scale = do_scaling
 
+def _get_data_from_dtype(d0, dtype='dataset'):
+   dtype = dtype.lower()
+   if dtype == 'dataset':
+       return d0
+   elif dtype == 'list':
+       return d0.tolist()
+   elif dtype == 'ndarray':
+       return d0.to_ndarray()
+   elif dtype == 'pyarray':
+       return d0.to_pyarray()
+   else:
+       raise NotImplenmentedError()
+
 def calc_watershell(traj=None, command="", top=Topology()):
     """return a DataSetList object having the number of water 
     in 1st and 2nd water shell for each frame
@@ -289,7 +302,7 @@ def calc_vector(traj=None, mask="", *args, **kwd):
     dslist.set_py_free_mem(False)
     return dslist[0]
 
-def _calc_vector_center(traj=None, command="", top=None, use_mass=False):
+def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='dataset'):
     _top = _get_top(traj, top)
 
     dslist = DataSetList()
@@ -303,7 +316,7 @@ def _calc_vector_center(traj=None, command="", top=None, use_mass=False):
         if use_mass:
             frame.set_frame_m(_top)
         act.do_action(frame)
-    return dslist[0]
+    return _get_data_from_dtype(dslist[0], dtype=dtype)
 
 calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
 calc_COG = calc_center_of_geometry = partial(_calc_vector_center, use_mass=False)
