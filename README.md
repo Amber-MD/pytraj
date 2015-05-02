@@ -7,7 +7,7 @@ Welcome to pytraj!
 - pytraj is a Python package wrapping cpptraj program (a data analysis for biomolecular simulation)
 - Why using pytraj?
     * It's fast
-        * its core (cpptraj) was written in C++ with more than 80K lines of code (big thanks to cpptraj developers)
+        * its core (cpptraj) was written in C++ with more than 80K lines of code (big thanks to [cpptraj developers] (https://github.com/mojyt/cpptraj))
         * it supports parallel computing (openmp from cpptraj or mpi from mpi4py or parallel in ipython)
         * it has interface with numpy. Data calculation are performed without copying to numpy array
         * (but it actually does not need `numpy`)
