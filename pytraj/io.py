@@ -7,6 +7,7 @@ from .FrameArray import FrameArray
 from .trajs.Trajin_Single import Trajin_Single
 from .trajs.Trajout import Trajout
 from .utils.check_and_assert import make_sure_exist
+from .utils import goto_temp_folder
 from .load_HD5F import load_hd5f
 from .load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import _frame_iter_master
@@ -179,23 +180,26 @@ def readparm(filename):
     return top
 
 def loadpdb_rcsb(pdbid):
-    # TODO : use tempfile
     """load pdb file from rcsb website
-    Return : Topology and FrameArray instance
+
+    Parameters
+    ----------
+    pdbid : str
+
+    Examples
+    --------
+        io.loadpdb_rcsb("2KOC") # popular RNA hairpin
     """
 
     url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid
     txt = urlopen(url).read()
-    print ("test saving pdb")
-    print (type(txt))
-    with open("/tmp/._tmp", 'w') as fh:
+    fname = "/tmp/tmppdb.pdb"
+    with open(fname, 'w') as fh:
         if PY3:
-            fh.write(txt.decode())
-        else:
-            fh.write(txt)
-    top = readparm("/tmp/._tmp")
-    frames = load("/tmp/._tmp", top)
-    return frames
+            txt = txt.decode()
+        fh.write(txt)
+    traj = load(fname, fname)
+    return traj
 
 def load_single_frame(frame=None, top=None):
     """load single Frame"""
