@@ -558,11 +558,12 @@ struct __pyx_memoryviewslice_obj;
  * 
  * cdef class Vec3:             # <<<<<<<<<<<<<<
  *     cdef _Vec3* thisptr
- * 
+ *     cdef bint py_free_mem
  */
 struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 {
   PyObject_HEAD
   Vec3 *thisptr;
+  int py_free_mem;
 };
 
 
@@ -1309,33 +1310,34 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
 static void __pyx_pf_6pytraj_4math_4Vec3_4Vec3_2__dealloc__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_6__repr__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_8Magnitude2(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_10zeros(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_14normalize(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_16angle(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_othervec); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_18assign(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, __Pyx_memviewslice __pyx_v_XYZ); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_8copy(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_10magnitude2(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12zeros(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_14set_vec(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_16normalize(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_18angle(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_othervec); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_20assign(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, __Pyx_memviewslice __pyx_v_XYZ); /* proto */
 #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_20__idiv__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__idiv__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn); /* proto */
 #endif
 #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__div__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_24__div__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn); /* proto */
 #endif
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_24__imul__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_36cross(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_rhs); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_38__getitem__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_idx); /* proto */
-static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__setitem__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_42is_zeros(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_44neg(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_46signed_angle(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_v1, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_v2); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_48tolist(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_52buffer1d(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__imul__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__mul__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__add__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__iadd__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__sub__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_36__isub__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_38cross(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_rhs); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__getitem__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_idx); /* proto */
+static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3_42__setitem__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_44is_zeros(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_46neg(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_48signed_angle(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_v1, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_v2); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50tolist(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_52to_ndarray(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_54buffer1d(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
 static void __pyx_pf_7cpython_5array_5array_2__releasebuffer__(CYTHON_UNUSED arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
@@ -1629,6 +1631,15 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
   /* "pytraj/math/Vec3.pyx":15
  *         cdef double x, y, z
  * 
+ *         self.py_free_mem = True             # <<<<<<<<<<<<<<
+ *         if not args:
+ *             self.thisptr = new _Vec3()
+ */
+  __pyx_v_self->py_free_mem = 1;
+
+  /* "pytraj/math/Vec3.pyx":16
+ * 
+ *         self.py_free_mem = True
  *         if not args:             # <<<<<<<<<<<<<<
  *             self.thisptr = new _Vec3()
  *         else:
@@ -1637,8 +1648,8 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/math/Vec3.pyx":16
- * 
+    /* "pytraj/math/Vec3.pyx":17
+ *         self.py_free_mem = True
  *         if not args:
  *             self.thisptr = new _Vec3()             # <<<<<<<<<<<<<<
  *         else:
@@ -1646,9 +1657,9 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
  */
     __pyx_v_self->thisptr = new Vec3();
 
-    /* "pytraj/math/Vec3.pyx":15
- *         cdef double x, y, z
+    /* "pytraj/math/Vec3.pyx":16
  * 
+ *         self.py_free_mem = True
  *         if not args:             # <<<<<<<<<<<<<<
  *             self.thisptr = new _Vec3()
  *         else:
@@ -1656,7 +1667,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
     goto __pyx_L3;
   }
 
-  /* "pytraj/math/Vec3.pyx":18
+  /* "pytraj/math/Vec3.pyx":19
  *             self.thisptr = new _Vec3()
  *         else:
  *             if len(args) == 1 and isinstance(args[0], Vec3):             # <<<<<<<<<<<<<<
@@ -1664,7 +1675,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
  *                 self.thisptr = new _Vec3(vec.thisptr[0])
  */
   /*else*/ {
-    __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_1 = ((__pyx_t_3 == 1) != 0);
     if (__pyx_t_1) {
     } else {
@@ -1680,20 +1691,20 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
     __pyx_L5_bool_binop_done:;
     if (__pyx_t_2) {
 
-      /* "pytraj/math/Vec3.pyx":19
+      /* "pytraj/math/Vec3.pyx":20
  *         else:
  *             if len(args) == 1 and isinstance(args[0], Vec3):
  *                 vec = args[0]             # <<<<<<<<<<<<<<
  *                 self.thisptr = new _Vec3(vec.thisptr[0])
  *             else:
  */
-      if (!(likely(((PyTuple_GET_ITEM(__pyx_v_args, 0)) == Py_None) || likely(__Pyx_TypeTest(PyTuple_GET_ITEM(__pyx_v_args, 0), __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (!(likely(((PyTuple_GET_ITEM(__pyx_v_args, 0)) == Py_None) || likely(__Pyx_TypeTest(PyTuple_GET_ITEM(__pyx_v_args, 0), __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __pyx_t_4 = PyTuple_GET_ITEM(__pyx_v_args, 0);
       __Pyx_INCREF(__pyx_t_4);
       __pyx_v_vec = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "pytraj/math/Vec3.pyx":20
+      /* "pytraj/math/Vec3.pyx":21
  *             if len(args) == 1 and isinstance(args[0], Vec3):
  *                 vec = args[0]
  *                 self.thisptr = new _Vec3(vec.thisptr[0])             # <<<<<<<<<<<<<<
@@ -1702,7 +1713,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
  */
       __pyx_v_self->thisptr = new Vec3((__pyx_v_vec->thisptr[0]));
 
-      /* "pytraj/math/Vec3.pyx":18
+      /* "pytraj/math/Vec3.pyx":19
  *             self.thisptr = new _Vec3()
  *         else:
  *             if len(args) == 1 and isinstance(args[0], Vec3):             # <<<<<<<<<<<<<<
@@ -1712,7 +1723,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
       goto __pyx_L4;
     }
 
-    /* "pytraj/math/Vec3.pyx":22
+    /* "pytraj/math/Vec3.pyx":23
  *                 self.thisptr = new _Vec3(vec.thisptr[0])
  *             else:
  *                 self.thisptr = new _Vec3()             # <<<<<<<<<<<<<<
@@ -1722,7 +1733,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
     /*else*/ {
       __pyx_v_self->thisptr = new Vec3();
 
-      /* "pytraj/math/Vec3.pyx":23
+      /* "pytraj/math/Vec3.pyx":24
  *             else:
  *                 self.thisptr = new _Vec3()
  *                 if isinstance(args[0], (list, tuple)):             # <<<<<<<<<<<<<<
@@ -1749,7 +1760,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
       __pyx_t_5 = (__pyx_t_2 != 0);
       if (__pyx_t_5) {
 
-        /* "pytraj/math/Vec3.pyx":24
+        /* "pytraj/math/Vec3.pyx":25
  *                 self.thisptr = new _Vec3()
  *                 if isinstance(args[0], (list, tuple)):
  *                     x, y, z = args[0]             # <<<<<<<<<<<<<<
@@ -1768,7 +1779,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
           if (unlikely(size != 3)) {
             if (size > 3) __Pyx_RaiseTooManyValuesError(3);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           #if CYTHON_COMPILING_IN_CPYTHON
           if (likely(PyTuple_CheckExact(sequence))) {
@@ -1784,17 +1795,17 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
           __Pyx_INCREF(__pyx_t_7);
           __Pyx_INCREF(__pyx_t_8);
           #else
-          __pyx_t_6 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_6 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_8 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_8 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_8);
           #endif
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_9 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_9 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __pyx_t_10 = Py_TYPE(__pyx_t_9)->tp_iternext;
@@ -1804,7 +1815,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
           __Pyx_GOTREF(__pyx_t_7);
           index = 2; __pyx_t_8 = __pyx_t_10(__pyx_t_9); if (unlikely(!__pyx_t_8)) goto __pyx_L10_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_8);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_10(__pyx_t_9), 3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_10(__pyx_t_9), 3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __pyx_t_10 = NULL;
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           goto __pyx_L11_unpacking_done;
@@ -1812,33 +1823,33 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           __pyx_t_10 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __pyx_L11_unpacking_done:;
         }
-        __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_6); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_6); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_13 = __pyx_PyFloat_AsDouble(__pyx_t_8); if (unlikely((__pyx_t_13 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_13 = __pyx_PyFloat_AsDouble(__pyx_t_8); if (unlikely((__pyx_t_13 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __pyx_v_x = __pyx_t_11;
         __pyx_v_y = __pyx_t_12;
         __pyx_v_z = __pyx_t_13;
 
-        /* "pytraj/math/Vec3.pyx":25
+        /* "pytraj/math/Vec3.pyx":26
  *                 if isinstance(args[0], (list, tuple)):
  *                     x, y, z = args[0]
  *                     self.set_vec(x, y, z)             # <<<<<<<<<<<<<<
  *                 else:
  *                     self.set_vec(*args)
  */
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_vec); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_vec); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_7 = PyFloat_FromDouble(__pyx_v_x); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_7 = PyFloat_FromDouble(__pyx_v_x); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_6 = PyFloat_FromDouble(__pyx_v_y); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_6 = PyFloat_FromDouble(__pyx_v_y); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_9 = PyFloat_FromDouble(__pyx_v_z); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_9 = PyFloat_FromDouble(__pyx_v_z); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_9);
         __pyx_t_14 = NULL;
         __pyx_t_3 = 0;
@@ -1852,7 +1863,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
             __pyx_t_3 = 1;
           }
         }
-        __pyx_t_15 = PyTuple_New(3+__pyx_t_3); if (unlikely(!__pyx_t_15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_15 = PyTuple_New(3+__pyx_t_3); if (unlikely(!__pyx_t_15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_15);
         if (__pyx_t_14) {
           PyTuple_SET_ITEM(__pyx_t_15, 0, __pyx_t_14); __Pyx_GIVEREF(__pyx_t_14); __pyx_t_14 = NULL;
@@ -1866,13 +1877,13 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
         __pyx_t_7 = 0;
         __pyx_t_6 = 0;
         __pyx_t_9 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_15, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_15, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "pytraj/math/Vec3.pyx":23
+        /* "pytraj/math/Vec3.pyx":24
  *             else:
  *                 self.thisptr = new _Vec3()
  *                 if isinstance(args[0], (list, tuple)):             # <<<<<<<<<<<<<<
@@ -1882,7 +1893,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
         goto __pyx_L7;
       }
 
-      /* "pytraj/math/Vec3.pyx":27
+      /* "pytraj/math/Vec3.pyx":28
  *                     self.set_vec(x, y, z)
  *                 else:
  *                     self.set_vec(*args)             # <<<<<<<<<<<<<<
@@ -1890,11 +1901,11 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
  *     def __dealloc__(self):
  */
       /*else*/ {
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_vec); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_vec); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_8 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_8 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, NULL); if (unlikely(!__pyx_t_15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, NULL); if (unlikely(!__pyx_t_15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_15);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -1933,11 +1944,11 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3___cinit__(struct __pyx_obj_6pytraj
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":29
+/* "pytraj/math/Vec3.pyx":30
  *                     self.set_vec(*args)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         if self.thisptr is not NULL:
+ *         if self.thisptr is not NULL and self.py_free_mem:
  *             del self.thisptr
  */
 
@@ -1955,41 +1966,50 @@ static void __pyx_pw_6pytraj_4math_4Vec3_4Vec3_3__dealloc__(PyObject *__pyx_v_se
 static void __pyx_pf_6pytraj_4math_4Vec3_4Vec3_2__dealloc__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
+  int __pyx_t_2;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pytraj/math/Vec3.pyx":30
+  /* "pytraj/math/Vec3.pyx":31
  * 
  *     def __dealloc__(self):
- *         if self.thisptr is not NULL:             # <<<<<<<<<<<<<<
+ *         if self.thisptr is not NULL and self.py_free_mem:             # <<<<<<<<<<<<<<
  *             del self.thisptr
  * 
  */
-  __pyx_t_1 = ((__pyx_v_self->thisptr != NULL) != 0);
+  __pyx_t_2 = ((__pyx_v_self->thisptr != NULL) != 0);
+  if (__pyx_t_2) {
+  } else {
+    __pyx_t_1 = __pyx_t_2;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_2 = (__pyx_v_self->py_free_mem != 0);
+  __pyx_t_1 = __pyx_t_2;
+  __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "pytraj/math/Vec3.pyx":31
+    /* "pytraj/math/Vec3.pyx":32
  *     def __dealloc__(self):
- *         if self.thisptr is not NULL:
+ *         if self.thisptr is not NULL and self.py_free_mem:
  *             del self.thisptr             # <<<<<<<<<<<<<<
  * 
  *     def __str__(self):
  */
     delete __pyx_v_self->thisptr;
 
-    /* "pytraj/math/Vec3.pyx":30
+    /* "pytraj/math/Vec3.pyx":31
  * 
  *     def __dealloc__(self):
- *         if self.thisptr is not NULL:             # <<<<<<<<<<<<<<
+ *         if self.thisptr is not NULL and self.py_free_mem:             # <<<<<<<<<<<<<<
  *             del self.thisptr
  * 
  */
   }
 
-  /* "pytraj/math/Vec3.pyx":29
+  /* "pytraj/math/Vec3.pyx":30
  *                     self.set_vec(*args)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         if self.thisptr is not NULL:
+ *         if self.thisptr is not NULL and self.py_free_mem:
  *             del self.thisptr
  */
 
@@ -1997,7 +2017,7 @@ static void __pyx_pf_6pytraj_4math_4Vec3_4Vec3_2__dealloc__(struct __pyx_obj_6py
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/math/Vec3.pyx":33
+/* "pytraj/math/Vec3.pyx":34
  *             del self.thisptr
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -2035,14 +2055,14 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__str__", 0);
 
-  /* "pytraj/math/Vec3.pyx":34
+  /* "pytraj/math/Vec3.pyx":35
  * 
  *     def __str__(self):
  *         x, y, z = self.tolist()             # <<<<<<<<<<<<<<
  *         return "<Vec3: %s %s %s>" %(x, y, z)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_tolist); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_tolist); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2055,10 +2075,10 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6p
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -2072,7 +2092,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6p
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -2088,17 +2108,17 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6p
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_t_4);
     #else
-    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -2108,7 +2128,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6p
     __Pyx_GOTREF(__pyx_t_3);
     index = 2; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_6 = NULL;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L4_unpacking_done;
@@ -2116,7 +2136,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6p
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_x = __pyx_t_2;
@@ -2126,7 +2146,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6p
   __pyx_v_z = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "pytraj/math/Vec3.pyx":35
+  /* "pytraj/math/Vec3.pyx":36
  *     def __str__(self):
  *         x, y, z = self.tolist()
  *         return "<Vec3: %s %s %s>" %(x, y, z)             # <<<<<<<<<<<<<<
@@ -2134,7 +2154,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6p
  *     def __repr__(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_x);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_x);
@@ -2145,14 +2165,14 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6p
   __Pyx_INCREF(__pyx_v_z);
   PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_v_z);
   __Pyx_GIVEREF(__pyx_v_z);
-  __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Vec3_s_s_s, __pyx_t_1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Vec3_s_s_s, __pyx_t_1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":33
+  /* "pytraj/math/Vec3.pyx":34
  *             del self.thisptr
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -2178,7 +2198,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_4__str__(struct __pyx_obj_6p
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":37
+/* "pytraj/math/Vec3.pyx":38
  *         return "<Vec3: %s %s %s>" %(x, y, z)
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -2210,15 +2230,15 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_6__repr__(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "pytraj/math/Vec3.pyx":38
+  /* "pytraj/math/Vec3.pyx":39
  * 
  *     def __repr__(self):
  *         return self.__str__()             # <<<<<<<<<<<<<<
  * 
- *     def Magnitude2(self):
+ *     def copy(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_str); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_str); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2231,10 +2251,10 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_6__repr__(struct __pyx_obj_6
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -2242,7 +2262,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_6__repr__(struct __pyx_obj_6
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":37
+  /* "pytraj/math/Vec3.pyx":38
  *         return "<Vec3: %s %s %s>" %(x, y, z)
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -2263,55 +2283,140 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_6__repr__(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":40
+/* "pytraj/math/Vec3.pyx":41
  *         return self.__str__()
  * 
- *     def Magnitude2(self):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Magnitude2()
- * 
+ *     def copy(self):             # <<<<<<<<<<<<<<
+ *         cdef Vec3 vec = Vec3()
+ *         vec.thisptr = new _Vec3(self.thisptr[0])
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_9Magnitude2(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_8Magnitude2[] = "Vec3.Magnitude2(self)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_9Magnitude2(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_9copy(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_8copy[] = "Vec3.copy(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_9copy(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("Magnitude2 (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_8Magnitude2(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("copy (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_8copy(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_8Magnitude2(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_8copy(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
+  struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_vec = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("Magnitude2", 0);
+  __Pyx_RefNannySetupContext("copy", 0);
+
+  /* "pytraj/math/Vec3.pyx":42
+ * 
+ *     def copy(self):
+ *         cdef Vec3 vec = Vec3()             # <<<<<<<<<<<<<<
+ *         vec.thisptr = new _Vec3(self.thisptr[0])
+ *         return vec
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_vec = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pytraj/math/Vec3.pyx":43
+ *     def copy(self):
+ *         cdef Vec3 vec = Vec3()
+ *         vec.thisptr = new _Vec3(self.thisptr[0])             # <<<<<<<<<<<<<<
+ *         return vec
+ * 
+ */
+  __pyx_v_vec->thisptr = new Vec3((__pyx_v_self->thisptr[0]));
+
+  /* "pytraj/math/Vec3.pyx":44
+ *         cdef Vec3 vec = Vec3()
+ *         vec.thisptr = new _Vec3(self.thisptr[0])
+ *         return vec             # <<<<<<<<<<<<<<
+ * 
+ *     def magnitude2(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(((PyObject *)__pyx_v_vec));
+  __pyx_r = ((PyObject *)__pyx_v_vec);
+  goto __pyx_L0;
 
   /* "pytraj/math/Vec3.pyx":41
+ *         return self.__str__()
  * 
- *     def Magnitude2(self):
+ *     def copy(self):             # <<<<<<<<<<<<<<
+ *         cdef Vec3 vec = Vec3()
+ *         vec.thisptr = new _Vec3(self.thisptr[0])
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pytraj.math.Vec3.Vec3.copy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_vec);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pytraj/math/Vec3.pyx":46
+ *         return vec
+ * 
+ *     def magnitude2(self):             # <<<<<<<<<<<<<<
+ *         return self.thisptr.Magnitude2()
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_11magnitude2(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_10magnitude2[] = "Vec3.magnitude2(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_11magnitude2(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("magnitude2 (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_10magnitude2(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_10magnitude2(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("magnitude2", 0);
+
+  /* "pytraj/math/Vec3.pyx":47
+ * 
+ *     def magnitude2(self):
  *         return self.thisptr.Magnitude2()             # <<<<<<<<<<<<<<
  * 
  *     def zeros(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->Magnitude2()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->Magnitude2()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":40
- *         return self.__str__()
+  /* "pytraj/math/Vec3.pyx":46
+ *         return vec
  * 
- *     def Magnitude2(self):             # <<<<<<<<<<<<<<
+ *     def magnitude2(self):             # <<<<<<<<<<<<<<
  *         return self.thisptr.Magnitude2()
  * 
  */
@@ -2319,7 +2424,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_8Magnitude2(struct __pyx_obj
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.math.Vec3.Vec3.Magnitude2", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.math.Vec3.Vec3.magnitude2", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2327,7 +2432,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_8Magnitude2(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":43
+/* "pytraj/math/Vec3.pyx":49
  *         return self.thisptr.Magnitude2()
  * 
  *     def zeros(self):             # <<<<<<<<<<<<<<
@@ -2336,25 +2441,25 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_8Magnitude2(struct __pyx_obj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_11zeros(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_10zeros[] = "Vec3.zeros(self)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_11zeros(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_13zeros(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_12zeros[] = "Vec3.zeros(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_13zeros(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("zeros (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_10zeros(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_12zeros(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_10zeros(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12zeros(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("zeros", 0);
 
-  /* "pytraj/math/Vec3.pyx":44
+  /* "pytraj/math/Vec3.pyx":50
  * 
  *     def zeros(self):
  *         self.thisptr.Zero()             # <<<<<<<<<<<<<<
@@ -2363,7 +2468,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_10zeros(struct __pyx_obj_6py
  */
   __pyx_v_self->thisptr->Zero();
 
-  /* "pytraj/math/Vec3.pyx":43
+  /* "pytraj/math/Vec3.pyx":49
  *         return self.thisptr.Magnitude2()
  * 
  *     def zeros(self):             # <<<<<<<<<<<<<<
@@ -2378,7 +2483,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_10zeros(struct __pyx_obj_6py
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":46
+/* "pytraj/math/Vec3.pyx":52
  *         self.thisptr.Zero()
  * 
  *     def set_vec(self, *args):             # <<<<<<<<<<<<<<
@@ -2387,9 +2492,9 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_10zeros(struct __pyx_obj_6py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_13set_vec(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_12set_vec[] = "Vec3.set_vec(self, *args)\nargs = either array of 3 elements or x, y, z";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_13set_vec(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_15set_vec(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_14set_vec[] = "Vec3.set_vec(self, *args)\nargs = either array of 3 elements or x, y, z";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_15set_vec(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -2397,7 +2502,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_13set_vec(PyObject *__pyx_v_
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "set_vec", 0))) return NULL;
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), __pyx_v_args);
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_14set_vec(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), __pyx_v_args);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -2405,7 +2510,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_13set_vec(PyObject *__pyx_v_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_args) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_14set_vec(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_args) {
   double __pyx_v_x;
   double __pyx_v_y;
   double __pyx_v_z;
@@ -2429,18 +2534,18 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("set_vec", 0);
 
-  /* "pytraj/math/Vec3.pyx":51
+  /* "pytraj/math/Vec3.pyx":57
  *         cdef double[:] X
  * 
  *         if len(args) == 1:             # <<<<<<<<<<<<<<
  *             # array
  *             X = args[0]
  */
-  __pyx_t_1 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_2 = ((__pyx_t_1 == 1) != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/math/Vec3.pyx":53
+    /* "pytraj/math/Vec3.pyx":59
  *         if len(args) == 1:
  *             # array
  *             X = args[0]             # <<<<<<<<<<<<<<
@@ -2448,39 +2553,39 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
  *                 raise ValueError("must a an array of 3 elements")
  */
     __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(PyTuple_GET_ITEM(__pyx_v_args, 0));
-    if (unlikely(!__pyx_t_3.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(!__pyx_t_3.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_X = __pyx_t_3;
     __pyx_t_3.memview = NULL;
     __pyx_t_3.data = NULL;
 
-    /* "pytraj/math/Vec3.pyx":54
+    /* "pytraj/math/Vec3.pyx":60
  *             # array
  *             X = args[0]
  *             if len(X) != 3:             # <<<<<<<<<<<<<<
  *                 raise ValueError("must a an array of 3 elements")
  *             else:
  */
-    __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_X, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_X, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_2 = ((__pyx_t_1 != 3) != 0);
     if (__pyx_t_2) {
 
-      /* "pytraj/math/Vec3.pyx":55
+      /* "pytraj/math/Vec3.pyx":61
  *             X = args[0]
  *             if len(X) != 3:
  *                 raise ValueError("must a an array of 3 elements")             # <<<<<<<<<<<<<<
  *             else:
  *                 x = X[0]
  */
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_Raise(__pyx_t_4, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-      /* "pytraj/math/Vec3.pyx":54
+      /* "pytraj/math/Vec3.pyx":60
  *             # array
  *             X = args[0]
  *             if len(X) != 3:             # <<<<<<<<<<<<<<
@@ -2489,7 +2594,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
  */
     }
 
-    /* "pytraj/math/Vec3.pyx":57
+    /* "pytraj/math/Vec3.pyx":63
  *                 raise ValueError("must a an array of 3 elements")
  *             else:
  *                 x = X[0]             # <<<<<<<<<<<<<<
@@ -2500,7 +2605,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
       __pyx_t_1 = 0;
       __pyx_v_x = (*((double *) ( /* dim=0 */ (__pyx_v_X.data + __pyx_t_1 * __pyx_v_X.strides[0]) )));
 
-      /* "pytraj/math/Vec3.pyx":58
+      /* "pytraj/math/Vec3.pyx":64
  *             else:
  *                 x = X[0]
  *                 y = X[1]             # <<<<<<<<<<<<<<
@@ -2510,7 +2615,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
       __pyx_t_5 = 1;
       __pyx_v_y = (*((double *) ( /* dim=0 */ (__pyx_v_X.data + __pyx_t_5 * __pyx_v_X.strides[0]) )));
 
-      /* "pytraj/math/Vec3.pyx":59
+      /* "pytraj/math/Vec3.pyx":65
  *                 x = X[0]
  *                 y = X[1]
  *                 z = X[2]             # <<<<<<<<<<<<<<
@@ -2520,7 +2625,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
       __pyx_t_6 = 2;
       __pyx_v_z = (*((double *) ( /* dim=0 */ (__pyx_v_X.data + __pyx_t_6 * __pyx_v_X.strides[0]) )));
 
-      /* "pytraj/math/Vec3.pyx":60
+      /* "pytraj/math/Vec3.pyx":66
  *                 y = X[1]
  *                 z = X[2]
  *                 self.thisptr.SetVec(x, y, z)             # <<<<<<<<<<<<<<
@@ -2530,7 +2635,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
       __pyx_v_self->thisptr->SetVec(__pyx_v_x, __pyx_v_y, __pyx_v_z);
     }
 
-    /* "pytraj/math/Vec3.pyx":51
+    /* "pytraj/math/Vec3.pyx":57
  *         cdef double[:] X
  * 
  *         if len(args) == 1:             # <<<<<<<<<<<<<<
@@ -2540,18 +2645,18 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
     goto __pyx_L3;
   }
 
-  /* "pytraj/math/Vec3.pyx":61
+  /* "pytraj/math/Vec3.pyx":67
  *                 z = X[2]
  *                 self.thisptr.SetVec(x, y, z)
  *         elif len(args) == 3:             # <<<<<<<<<<<<<<
  *             # x, y, z
  *             x, y, z = args
  */
-  __pyx_t_7 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_7 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_7 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_7 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 67; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_2 = ((__pyx_t_7 == 3) != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/math/Vec3.pyx":63
+    /* "pytraj/math/Vec3.pyx":69
  *         elif len(args) == 3:
  *             # x, y, z
  *             x, y, z = args             # <<<<<<<<<<<<<<
@@ -2568,7 +2673,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
       if (unlikely(size != 3)) {
         if (size > 3) __Pyx_RaiseTooManyValuesError(3);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       __pyx_t_4 = PyTuple_GET_ITEM(sequence, 0); 
@@ -2578,25 +2683,25 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
       __Pyx_INCREF(__pyx_t_8);
       __Pyx_INCREF(__pyx_t_9);
       #else
-      __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_8 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_8 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_9 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_9 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_9);
       #endif
     }
-    __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_8); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_8); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_9); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_9); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __pyx_v_x = __pyx_t_10;
     __pyx_v_y = __pyx_t_11;
     __pyx_v_z = __pyx_t_12;
 
-    /* "pytraj/math/Vec3.pyx":64
+    /* "pytraj/math/Vec3.pyx":70
  *             # x, y, z
  *             x, y, z = args
  *             self.thisptr.SetVec(x, y, z)             # <<<<<<<<<<<<<<
@@ -2605,7 +2710,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
  */
     __pyx_v_self->thisptr->SetVec(__pyx_v_x, __pyx_v_y, __pyx_v_z);
 
-    /* "pytraj/math/Vec3.pyx":61
+    /* "pytraj/math/Vec3.pyx":67
  *                 z = X[2]
  *                 self.thisptr.SetVec(x, y, z)
  *         elif len(args) == 3:             # <<<<<<<<<<<<<<
@@ -2615,7 +2720,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
     goto __pyx_L3;
   }
 
-  /* "pytraj/math/Vec3.pyx":66
+  /* "pytraj/math/Vec3.pyx":72
  *             self.thisptr.SetVec(x, y, z)
  *         else:
  *             raise ValueError("must a an array or x, y, z format")             # <<<<<<<<<<<<<<
@@ -2623,15 +2728,15 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
  *     def normalize(self):
  */
   /*else*/ {
-    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_Raise(__pyx_t_9, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_L3:;
 
-  /* "pytraj/math/Vec3.pyx":46
+  /* "pytraj/math/Vec3.pyx":52
  *         self.thisptr.Zero()
  * 
  *     def set_vec(self, *args):             # <<<<<<<<<<<<<<
@@ -2656,7 +2761,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":68
+/* "pytraj/math/Vec3.pyx":74
  *             raise ValueError("must a an array or x, y, z format")
  * 
  *     def normalize(self):             # <<<<<<<<<<<<<<
@@ -2665,20 +2770,20 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_12set_vec(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_15normalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_14normalize[] = "Vec3.normalize(self)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_15normalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_17normalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_16normalize[] = "Vec3.normalize(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_17normalize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("normalize (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_14normalize(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_16normalize(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_14normalize(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_16normalize(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2687,7 +2792,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_14normalize(struct __pyx_obj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("normalize", 0);
 
-  /* "pytraj/math/Vec3.pyx":69
+  /* "pytraj/math/Vec3.pyx":75
  * 
  *     def normalize(self):
  *         return self.thisptr.Normalize()             # <<<<<<<<<<<<<<
@@ -2695,13 +2800,13 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_14normalize(struct __pyx_obj
  *     def angle(self, Vec3 othervec):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->Normalize()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->Normalize()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":68
+  /* "pytraj/math/Vec3.pyx":74
  *             raise ValueError("must a an array or x, y, z format")
  * 
  *     def normalize(self):             # <<<<<<<<<<<<<<
@@ -2720,7 +2825,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_14normalize(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":71
+/* "pytraj/math/Vec3.pyx":77
  *         return self.thisptr.Normalize()
  * 
  *     def angle(self, Vec3 othervec):             # <<<<<<<<<<<<<<
@@ -2729,17 +2834,17 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_14normalize(struct __pyx_obj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_17angle(PyObject *__pyx_v_self, PyObject *__pyx_v_othervec); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_16angle[] = "Vec3.angle(self, Vec3 othervec)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_17angle(PyObject *__pyx_v_self, PyObject *__pyx_v_othervec) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_19angle(PyObject *__pyx_v_self, PyObject *__pyx_v_othervec); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_18angle[] = "Vec3.angle(self, Vec3 othervec)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_19angle(PyObject *__pyx_v_self, PyObject *__pyx_v_othervec) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("angle (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_othervec), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "othervec", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_16angle(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_othervec));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_othervec), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "othervec", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_18angle(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_othervec));
 
   /* function exit code */
   goto __pyx_L0;
@@ -2750,7 +2855,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_17angle(PyObject *__pyx_v_se
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_16angle(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_othervec) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_18angle(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_othervec) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2759,7 +2864,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_16angle(struct __pyx_obj_6py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("angle", 0);
 
-  /* "pytraj/math/Vec3.pyx":72
+  /* "pytraj/math/Vec3.pyx":78
  * 
  *     def angle(self, Vec3 othervec):
  *         return self.thisptr.Angle(othervec.thisptr[0])             # <<<<<<<<<<<<<<
@@ -2767,13 +2872,13 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_16angle(struct __pyx_obj_6py
  *     def assign(self, double[:] XYZ):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->Angle((__pyx_v_othervec->thisptr[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->Angle((__pyx_v_othervec->thisptr[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":71
+  /* "pytraj/math/Vec3.pyx":77
  *         return self.thisptr.Normalize()
  * 
  *     def angle(self, Vec3 othervec):             # <<<<<<<<<<<<<<
@@ -2792,7 +2897,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_16angle(struct __pyx_obj_6py
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":74
+/* "pytraj/math/Vec3.pyx":80
  *         return self.thisptr.Angle(othervec.thisptr[0])
  * 
  *     def assign(self, double[:] XYZ):             # <<<<<<<<<<<<<<
@@ -2801,9 +2906,9 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_16angle(struct __pyx_obj_6py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_19assign(PyObject *__pyx_v_self, PyObject *__pyx_arg_XYZ); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_18assign[] = "Vec3.assign(self, __Pyx_memviewslice XYZ)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_19assign(PyObject *__pyx_v_self, PyObject *__pyx_arg_XYZ) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_21assign(PyObject *__pyx_v_self, PyObject *__pyx_arg_XYZ); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_20assign[] = "Vec3.assign(self, __Pyx_memviewslice XYZ)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_21assign(PyObject *__pyx_v_self, PyObject *__pyx_arg_XYZ) {
   __Pyx_memviewslice __pyx_v_XYZ = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2812,7 +2917,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_19assign(PyObject *__pyx_v_s
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("assign (wrapper)", 0);
   assert(__pyx_arg_XYZ); {
-    __pyx_v_XYZ = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_arg_XYZ); if (unlikely(!__pyx_v_XYZ.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_XYZ = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_arg_XYZ); if (unlikely(!__pyx_v_XYZ.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2820,20 +2925,20 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_19assign(PyObject *__pyx_v_s
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_18assign(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), __pyx_v_XYZ);
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_20assign(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), __pyx_v_XYZ);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_18assign(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, __Pyx_memviewslice __pyx_v_XYZ) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_20assign(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, __Pyx_memviewslice __pyx_v_XYZ) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   Py_ssize_t __pyx_t_1;
   __Pyx_RefNannySetupContext("assign", 0);
 
-  /* "pytraj/math/Vec3.pyx":75
+  /* "pytraj/math/Vec3.pyx":81
  * 
  *     def assign(self, double[:] XYZ):
  *         self.thisptr.Assign(&XYZ[0])             # <<<<<<<<<<<<<<
@@ -2843,7 +2948,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_18assign(struct __pyx_obj_6p
   __pyx_t_1 = 0;
   __pyx_v_self->thisptr->Assign((&(*((double *) ( /* dim=0 */ (__pyx_v_XYZ.data + __pyx_t_1 * __pyx_v_XYZ.strides[0]) )))));
 
-  /* "pytraj/math/Vec3.pyx":74
+  /* "pytraj/math/Vec3.pyx":80
  *         return self.thisptr.Angle(othervec.thisptr[0])
  * 
  *     def assign(self, double[:] XYZ):             # <<<<<<<<<<<<<<
@@ -2859,7 +2964,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_18assign(struct __pyx_obj_6p
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":78
+/* "pytraj/math/Vec3.pyx":84
  * 
  *     #def void operator /=(self,double xIn):
  *     def __idiv__(Vec3 self, double xIn):             # <<<<<<<<<<<<<<
@@ -2869,8 +2974,8 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_18assign(struct __pyx_obj_6p
 
 /* Python wrapper */
 #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_21__idiv__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn); /*proto*/
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_21__idiv__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_23__idiv__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_23__idiv__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn) {
   double __pyx_v_xIn;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2879,7 +2984,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_21__idiv__(PyObject *__pyx_v
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__idiv__ (wrapper)", 0);
   assert(__pyx_arg_xIn); {
-    __pyx_v_xIn = __pyx_PyFloat_AsDouble(__pyx_arg_xIn); if (unlikely((__pyx_v_xIn == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_xIn = __pyx_PyFloat_AsDouble(__pyx_arg_xIn); if (unlikely((__pyx_v_xIn == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2887,7 +2992,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_21__idiv__(PyObject *__pyx_v
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_20__idiv__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((double)__pyx_v_xIn));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__idiv__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((double)__pyx_v_xIn));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
@@ -2896,12 +3001,12 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_21__idiv__(PyObject *__pyx_v
 #endif /*!(#if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY)*/
 
 #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_20__idiv__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__idiv__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__idiv__", 0);
 
-  /* "pytraj/math/Vec3.pyx":79
+  /* "pytraj/math/Vec3.pyx":85
  *     #def void operator /=(self,double xIn):
  *     def __idiv__(Vec3 self, double xIn):
  *         self.thisptr.divequal(xIn)             # <<<<<<<<<<<<<<
@@ -2910,7 +3015,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_20__idiv__(struct __pyx_obj_
  */
   __pyx_v_self->thisptr->operator /=(__pyx_v_xIn);
 
-  /* "pytraj/math/Vec3.pyx":80
+  /* "pytraj/math/Vec3.pyx":86
  *     def __idiv__(Vec3 self, double xIn):
  *         self.thisptr.divequal(xIn)
  *         return self             # <<<<<<<<<<<<<<
@@ -2922,7 +3027,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_20__idiv__(struct __pyx_obj_
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":78
+  /* "pytraj/math/Vec3.pyx":84
  * 
  *     #def void operator /=(self,double xIn):
  *     def __idiv__(Vec3 self, double xIn):             # <<<<<<<<<<<<<<
@@ -2938,7 +3043,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_20__idiv__(struct __pyx_obj_
 }
 #endif /*!(#if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY)*/
 
-/* "pytraj/math/Vec3.pyx":83
+/* "pytraj/math/Vec3.pyx":89
  * 
  *     #def Vec3 operator /(self,double xIn):
  *     def __div__(Vec3 self, double xIn):             # <<<<<<<<<<<<<<
@@ -2948,8 +3053,8 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_20__idiv__(struct __pyx_obj_
 
 /* Python wrapper */
 #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_23__div__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn); /*proto*/
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_23__div__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_25__div__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_25__div__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn) {
   double __pyx_v_xIn;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2958,7 +3063,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_23__div__(PyObject *__pyx_v_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__div__ (wrapper)", 0);
   assert(__pyx_arg_xIn); {
-    __pyx_v_xIn = __pyx_PyFloat_AsDouble(__pyx_arg_xIn); if (unlikely((__pyx_v_xIn == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 83; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_xIn = __pyx_PyFloat_AsDouble(__pyx_arg_xIn); if (unlikely((__pyx_v_xIn == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2966,8 +3071,8 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_23__div__(PyObject *__pyx_v_
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "self", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 83; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__div__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((double)__pyx_v_xIn));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "self", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_24__div__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((double)__pyx_v_xIn));
 
   /* function exit code */
   goto __pyx_L0;
@@ -2980,7 +3085,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_23__div__(PyObject *__pyx_v_
 #endif /*!(#if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY)*/
 
 #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__div__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_24__div__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn) {
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_vec = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -2990,19 +3095,19 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__div__(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__div__", 0);
 
-  /* "pytraj/math/Vec3.pyx":84
+  /* "pytraj/math/Vec3.pyx":90
  *     #def Vec3 operator /(self,double xIn):
  *     def __div__(Vec3 self, double xIn):
  *         cdef Vec3 vec = Vec3()             # <<<<<<<<<<<<<<
  *         vec.thisptr[0] = self.thisptr[0]/xIn
  *         return vec
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_vec = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/math/Vec3.pyx":85
+  /* "pytraj/math/Vec3.pyx":91
  *     def __div__(Vec3 self, double xIn):
  *         cdef Vec3 vec = Vec3()
  *         vec.thisptr[0] = self.thisptr[0]/xIn             # <<<<<<<<<<<<<<
@@ -3011,7 +3116,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__div__(struct __pyx_obj_6
  */
   (__pyx_v_vec->thisptr[0]) = ((__pyx_v_self->thisptr[0]) / __pyx_v_xIn);
 
-  /* "pytraj/math/Vec3.pyx":86
+  /* "pytraj/math/Vec3.pyx":92
  *         cdef Vec3 vec = Vec3()
  *         vec.thisptr[0] = self.thisptr[0]/xIn
  *         return vec             # <<<<<<<<<<<<<<
@@ -3023,7 +3128,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__div__(struct __pyx_obj_6
   __pyx_r = ((PyObject *)__pyx_v_vec);
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":83
+  /* "pytraj/math/Vec3.pyx":89
  * 
  *     #def Vec3 operator /(self,double xIn):
  *     def __div__(Vec3 self, double xIn):             # <<<<<<<<<<<<<<
@@ -3044,7 +3149,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__div__(struct __pyx_obj_6
 }
 #endif /*!(#if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY)*/
 
-/* "pytraj/math/Vec3.pyx":91
+/* "pytraj/math/Vec3.pyx":97
  *     # return "void": really?
  *     # Got: Segmentation fault (core dumped)
  *     def __imul__(Vec3 self, double xIn):             # <<<<<<<<<<<<<<
@@ -3053,8 +3158,8 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_22__div__(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_25__imul__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn); /*proto*/
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_25__imul__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_27__imul__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_27__imul__(PyObject *__pyx_v_self, PyObject *__pyx_arg_xIn) {
   double __pyx_v_xIn;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -3063,7 +3168,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_25__imul__(PyObject *__pyx_v
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__imul__ (wrapper)", 0);
   assert(__pyx_arg_xIn); {
-    __pyx_v_xIn = __pyx_PyFloat_AsDouble(__pyx_arg_xIn); if (unlikely((__pyx_v_xIn == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_xIn = __pyx_PyFloat_AsDouble(__pyx_arg_xIn); if (unlikely((__pyx_v_xIn == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -3071,19 +3176,19 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_25__imul__(PyObject *__pyx_v
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_24__imul__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((double)__pyx_v_xIn));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__imul__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((double)__pyx_v_xIn));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_24__imul__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__imul__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, double __pyx_v_xIn) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__imul__", 0);
 
-  /* "pytraj/math/Vec3.pyx":92
+  /* "pytraj/math/Vec3.pyx":98
  *     # Got: Segmentation fault (core dumped)
  *     def __imul__(Vec3 self, double xIn):
  *         self.thisptr.mulequal(xIn)             # <<<<<<<<<<<<<<
@@ -3092,7 +3197,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_24__imul__(struct __pyx_obj_
  */
   __pyx_v_self->thisptr->operator *=(__pyx_v_xIn);
 
-  /* "pytraj/math/Vec3.pyx":93
+  /* "pytraj/math/Vec3.pyx":99
  *     def __imul__(Vec3 self, double xIn):
  *         self.thisptr.mulequal(xIn)
  *         return self             # <<<<<<<<<<<<<<
@@ -3104,7 +3209,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_24__imul__(struct __pyx_obj_
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":91
+  /* "pytraj/math/Vec3.pyx":97
  *     # return "void": really?
  *     # Got: Segmentation fault (core dumped)
  *     def __imul__(Vec3 self, double xIn):             # <<<<<<<<<<<<<<
@@ -3119,7 +3224,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_24__imul__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":95
+/* "pytraj/math/Vec3.pyx":101
  *         return self
  * 
  *     def __mul__(Vec3 self, arg):             # <<<<<<<<<<<<<<
@@ -3128,16 +3233,16 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_24__imul__(struct __pyx_obj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_27__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg); /*proto*/
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_27__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_29__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_29__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__mul__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "self", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_arg));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "self", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__mul__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_arg));
 
   /* function exit code */
   goto __pyx_L0;
@@ -3148,7 +3253,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_27__mul__(PyObject *__pyx_v_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__mul__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg) {
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_rhs = 0;
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_vec = 0;
   double __pyx_v_xIn;
@@ -3163,7 +3268,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__mul__", 0);
 
-  /* "pytraj/math/Vec3.pyx":98
+  /* "pytraj/math/Vec3.pyx":104
  *         cdef Vec3 rhs, vec
  *         cdef double xIn
  *         if isinstance(arg, Vec3):             # <<<<<<<<<<<<<<
@@ -3174,20 +3279,20 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/math/Vec3.pyx":99
+    /* "pytraj/math/Vec3.pyx":105
  *         cdef double xIn
  *         if isinstance(arg, Vec3):
  *             rhs = arg             # <<<<<<<<<<<<<<
  *             # return "double"
  *             return self.thisptr[0] * rhs.thisptr[0]
  */
-    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_3 = __pyx_v_arg;
     __Pyx_INCREF(__pyx_t_3);
     __pyx_v_rhs = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pytraj/math/Vec3.pyx":101
+    /* "pytraj/math/Vec3.pyx":107
  *             rhs = arg
  *             # return "double"
  *             return self.thisptr[0] * rhs.thisptr[0]             # <<<<<<<<<<<<<<
@@ -3195,13 +3300,13 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6
  *             # assuming "arg" is either double or int
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_3 = PyFloat_FromDouble(((__pyx_v_self->thisptr[0]) * (__pyx_v_rhs->thisptr[0]))); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyFloat_FromDouble(((__pyx_v_self->thisptr[0]) * (__pyx_v_rhs->thisptr[0]))); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_r = __pyx_t_3;
     __pyx_t_3 = 0;
     goto __pyx_L0;
 
-    /* "pytraj/math/Vec3.pyx":98
+    /* "pytraj/math/Vec3.pyx":104
  *         cdef Vec3 rhs, vec
  *         cdef double xIn
  *         if isinstance(arg, Vec3):             # <<<<<<<<<<<<<<
@@ -3210,7 +3315,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6
  */
   }
 
-  /* "pytraj/math/Vec3.pyx":104
+  /* "pytraj/math/Vec3.pyx":110
  *         else:
  *             # assuming "arg" is either double or int
  *             xIn = <double> arg             # <<<<<<<<<<<<<<
@@ -3218,22 +3323,22 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6
  *             vec.thisptr[0] = self.thisptr[0] * xIn
  */
   /*else*/ {
-    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_arg); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_arg); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_xIn = ((double)__pyx_t_4);
 
-    /* "pytraj/math/Vec3.pyx":105
+    /* "pytraj/math/Vec3.pyx":111
  *             # assuming "arg" is either double or int
  *             xIn = <double> arg
  *             vec = Vec3()             # <<<<<<<<<<<<<<
  *             vec.thisptr[0] = self.thisptr[0] * xIn
  *             return vec
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_vec = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pytraj/math/Vec3.pyx":106
+    /* "pytraj/math/Vec3.pyx":112
  *             xIn = <double> arg
  *             vec = Vec3()
  *             vec.thisptr[0] = self.thisptr[0] * xIn             # <<<<<<<<<<<<<<
@@ -3242,7 +3347,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6
  */
     (__pyx_v_vec->thisptr[0]) = ((__pyx_v_self->thisptr[0]) * __pyx_v_xIn);
 
-    /* "pytraj/math/Vec3.pyx":107
+    /* "pytraj/math/Vec3.pyx":113
  *             vec = Vec3()
  *             vec.thisptr[0] = self.thisptr[0] * xIn
  *             return vec             # <<<<<<<<<<<<<<
@@ -3255,7 +3360,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6
     goto __pyx_L0;
   }
 
-  /* "pytraj/math/Vec3.pyx":95
+  /* "pytraj/math/Vec3.pyx":101
  *         return self
  * 
  *     def __mul__(Vec3 self, arg):             # <<<<<<<<<<<<<<
@@ -3276,7 +3381,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":109
+/* "pytraj/math/Vec3.pyx":115
  *             return vec
  * 
  *     def __add__(Vec3 self, arg):             # <<<<<<<<<<<<<<
@@ -3285,16 +3390,16 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_26__mul__(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_29__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg); /*proto*/
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_29__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_31__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_31__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__add__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "self", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_arg));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "self", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__add__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_arg));
 
   /* function exit code */
   goto __pyx_L0;
@@ -3305,7 +3410,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_29__add__(PyObject *__pyx_v_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__add__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg) {
   double __pyx_v_xIn;
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_rhs = 0;
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_vec = 0;
@@ -3320,19 +3425,19 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__add__", 0);
 
-  /* "pytraj/math/Vec3.pyx":112
+  /* "pytraj/math/Vec3.pyx":118
  *         cdef double xIn
  *         cdef Vec3 rhs, vec
  *         vec = Vec3()             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(arg, Vec3):
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_vec = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/math/Vec3.pyx":114
+  /* "pytraj/math/Vec3.pyx":120
  *         vec = Vec3()
  * 
  *         if isinstance(arg, Vec3):             # <<<<<<<<<<<<<<
@@ -3343,20 +3448,20 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "pytraj/math/Vec3.pyx":115
+    /* "pytraj/math/Vec3.pyx":121
  * 
  *         if isinstance(arg, Vec3):
  *             rhs = arg             # <<<<<<<<<<<<<<
  *             vec.thisptr[0]= self.thisptr[0] + rhs.thisptr[0]
  *             return vec
  */
-    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_1 = __pyx_v_arg;
     __Pyx_INCREF(__pyx_t_1);
     __pyx_v_rhs = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pytraj/math/Vec3.pyx":116
+    /* "pytraj/math/Vec3.pyx":122
  *         if isinstance(arg, Vec3):
  *             rhs = arg
  *             vec.thisptr[0]= self.thisptr[0] + rhs.thisptr[0]             # <<<<<<<<<<<<<<
@@ -3365,7 +3470,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6
  */
     (__pyx_v_vec->thisptr[0]) = ((__pyx_v_self->thisptr[0]) + (__pyx_v_rhs->thisptr[0]));
 
-    /* "pytraj/math/Vec3.pyx":117
+    /* "pytraj/math/Vec3.pyx":123
  *             rhs = arg
  *             vec.thisptr[0]= self.thisptr[0] + rhs.thisptr[0]
  *             return vec             # <<<<<<<<<<<<<<
@@ -3377,7 +3482,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6
     __pyx_r = ((PyObject *)__pyx_v_vec);
     goto __pyx_L0;
 
-    /* "pytraj/math/Vec3.pyx":114
+    /* "pytraj/math/Vec3.pyx":120
  *         vec = Vec3()
  * 
  *         if isinstance(arg, Vec3):             # <<<<<<<<<<<<<<
@@ -3386,7 +3491,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6
  */
   }
 
-  /* "pytraj/math/Vec3.pyx":119
+  /* "pytraj/math/Vec3.pyx":125
  *             return vec
  *         else:
  *             xIn = arg             # <<<<<<<<<<<<<<
@@ -3394,10 +3499,10 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6
  *         return vec
  */
   /*else*/ {
-    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_arg); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_arg); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_xIn = __pyx_t_4;
 
-    /* "pytraj/math/Vec3.pyx":120
+    /* "pytraj/math/Vec3.pyx":126
  *         else:
  *             xIn = arg
  *             vec.thisptr[0] = self.thisptr[0] + xIn             # <<<<<<<<<<<<<<
@@ -3407,7 +3512,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6
     (__pyx_v_vec->thisptr[0]) = ((__pyx_v_self->thisptr[0]) + __pyx_v_xIn);
   }
 
-  /* "pytraj/math/Vec3.pyx":121
+  /* "pytraj/math/Vec3.pyx":127
  *             xIn = arg
  *             vec.thisptr[0] = self.thisptr[0] + xIn
  *         return vec             # <<<<<<<<<<<<<<
@@ -3419,7 +3524,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6
   __pyx_r = ((PyObject *)__pyx_v_vec);
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":109
+  /* "pytraj/math/Vec3.pyx":115
  *             return vec
  * 
  *     def __add__(Vec3 self, arg):             # <<<<<<<<<<<<<<
@@ -3440,7 +3545,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":123
+/* "pytraj/math/Vec3.pyx":129
  *         return vec
  * 
  *     def __iadd__(Vec3 self, arg):             # <<<<<<<<<<<<<<
@@ -3449,19 +3554,19 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_28__add__(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_31__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg); /*proto*/
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_31__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_33__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_33__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iadd__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_arg));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__iadd__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_arg));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__iadd__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg) {
   double __pyx_v_xIn;
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_rhs = 0;
   PyObject *__pyx_r = NULL;
@@ -3475,7 +3580,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__iadd__", 0);
 
-  /* "pytraj/math/Vec3.pyx":126
+  /* "pytraj/math/Vec3.pyx":132
  *         cdef double xIn
  *         cdef Vec3 rhs
  *         if isinstance(arg, Vec3):             # <<<<<<<<<<<<<<
@@ -3486,20 +3591,20 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/math/Vec3.pyx":127
+    /* "pytraj/math/Vec3.pyx":133
  *         cdef Vec3 rhs
  *         if isinstance(arg, Vec3):
  *             rhs = arg             # <<<<<<<<<<<<<<
  *             self.thisptr.addequal(rhs.thisptr[0])
  *         else:
  */
-    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 133; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_3 = __pyx_v_arg;
     __Pyx_INCREF(__pyx_t_3);
     __pyx_v_rhs = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pytraj/math/Vec3.pyx":128
+    /* "pytraj/math/Vec3.pyx":134
  *         if isinstance(arg, Vec3):
  *             rhs = arg
  *             self.thisptr.addequal(rhs.thisptr[0])             # <<<<<<<<<<<<<<
@@ -3508,7 +3613,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_
  */
     __pyx_v_self->thisptr->operator +=((__pyx_v_rhs->thisptr[0]));
 
-    /* "pytraj/math/Vec3.pyx":126
+    /* "pytraj/math/Vec3.pyx":132
  *         cdef double xIn
  *         cdef Vec3 rhs
  *         if isinstance(arg, Vec3):             # <<<<<<<<<<<<<<
@@ -3518,7 +3623,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_
     goto __pyx_L3;
   }
 
-  /* "pytraj/math/Vec3.pyx":130
+  /* "pytraj/math/Vec3.pyx":136
  *             self.thisptr.addequal(rhs.thisptr[0])
  *         else:
  *             xIn = arg             # <<<<<<<<<<<<<<
@@ -3526,10 +3631,10 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_
  *         return self
  */
   /*else*/ {
-    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_arg); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_arg); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_xIn = __pyx_t_4;
 
-    /* "pytraj/math/Vec3.pyx":131
+    /* "pytraj/math/Vec3.pyx":137
  *         else:
  *             xIn = arg
  *             self.thisptr.addequal(xIn)             # <<<<<<<<<<<<<<
@@ -3540,7 +3645,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_
   }
   __pyx_L3:;
 
-  /* "pytraj/math/Vec3.pyx":132
+  /* "pytraj/math/Vec3.pyx":138
  *             xIn = arg
  *             self.thisptr.addequal(xIn)
  *         return self             # <<<<<<<<<<<<<<
@@ -3552,7 +3657,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":123
+  /* "pytraj/math/Vec3.pyx":129
  *         return vec
  * 
  *     def __iadd__(Vec3 self, arg):             # <<<<<<<<<<<<<<
@@ -3572,7 +3677,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":134
+/* "pytraj/math/Vec3.pyx":140
  *         return self
  * 
  *     def __sub__(Vec3 self, arg):             # <<<<<<<<<<<<<<
@@ -3581,16 +3686,16 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_30__iadd__(struct __pyx_obj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_33__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg); /*proto*/
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_33__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_35__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_35__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__sub__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "self", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_arg));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "self", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__sub__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_arg));
 
   /* function exit code */
   goto __pyx_L0;
@@ -3601,7 +3706,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_33__sub__(PyObject *__pyx_v_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__sub__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg) {
   double __pyx_v_xIn;
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_rhs = 0;
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_vec = 0;
@@ -3617,19 +3722,19 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__sub__", 0);
 
-  /* "pytraj/math/Vec3.pyx":137
+  /* "pytraj/math/Vec3.pyx":143
  *         cdef double xIn
  *         cdef Vec3 rhs, vec
  *         vec = Vec3()             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(arg, Vec3):
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 143; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_vec = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/math/Vec3.pyx":139
+  /* "pytraj/math/Vec3.pyx":145
  *         vec = Vec3()
  * 
  *         if isinstance(arg, Vec3):             # <<<<<<<<<<<<<<
@@ -3640,20 +3745,20 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "pytraj/math/Vec3.pyx":140
+    /* "pytraj/math/Vec3.pyx":146
  * 
  *         if isinstance(arg, Vec3):
  *             rhs = arg             # <<<<<<<<<<<<<<
  *             vec.thisptr[0]= self.thisptr[0] - rhs.thisptr[0]
  *             return vec
  */
-    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 146; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_1 = __pyx_v_arg;
     __Pyx_INCREF(__pyx_t_1);
     __pyx_v_rhs = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pytraj/math/Vec3.pyx":141
+    /* "pytraj/math/Vec3.pyx":147
  *         if isinstance(arg, Vec3):
  *             rhs = arg
  *             vec.thisptr[0]= self.thisptr[0] - rhs.thisptr[0]             # <<<<<<<<<<<<<<
@@ -3662,7 +3767,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6
  */
     (__pyx_v_vec->thisptr[0]) = ((__pyx_v_self->thisptr[0]) - (__pyx_v_rhs->thisptr[0]));
 
-    /* "pytraj/math/Vec3.pyx":142
+    /* "pytraj/math/Vec3.pyx":148
  *             rhs = arg
  *             vec.thisptr[0]= self.thisptr[0] - rhs.thisptr[0]
  *             return vec             # <<<<<<<<<<<<<<
@@ -3674,7 +3779,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6
     __pyx_r = ((PyObject *)__pyx_v_vec);
     goto __pyx_L0;
 
-    /* "pytraj/math/Vec3.pyx":139
+    /* "pytraj/math/Vec3.pyx":145
  *         vec = Vec3()
  * 
  *         if isinstance(arg, Vec3):             # <<<<<<<<<<<<<<
@@ -3683,7 +3788,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6
  */
   }
 
-  /* "pytraj/math/Vec3.pyx":144
+  /* "pytraj/math/Vec3.pyx":150
  *             return vec
  *         else:
  *             xIn = arg             # <<<<<<<<<<<<<<
@@ -3691,27 +3796,27 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6
  *         return vec
  */
   /*else*/ {
-    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_arg); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 144; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_arg); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_xIn = __pyx_t_4;
 
-    /* "pytraj/math/Vec3.pyx":145
+    /* "pytraj/math/Vec3.pyx":151
  *         else:
  *             xIn = arg
  *             vec = self + (-xIn)             # <<<<<<<<<<<<<<
  *         return vec
  * 
  */
-    __pyx_t_1 = PyFloat_FromDouble((-__pyx_v_xIn)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 145; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PyFloat_FromDouble((-__pyx_v_xIn)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = PyNumber_Add(((PyObject *)__pyx_v_self), __pyx_t_1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 145; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = PyNumber_Add(((PyObject *)__pyx_v_self), __pyx_t_1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 145; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF_SET(__pyx_v_vec, ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_5));
     __pyx_t_5 = 0;
   }
 
-  /* "pytraj/math/Vec3.pyx":146
+  /* "pytraj/math/Vec3.pyx":152
  *             xIn = arg
  *             vec = self + (-xIn)
  *         return vec             # <<<<<<<<<<<<<<
@@ -3723,7 +3828,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6
   __pyx_r = ((PyObject *)__pyx_v_vec);
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":134
+  /* "pytraj/math/Vec3.pyx":140
  *         return self
  * 
  *     def __sub__(Vec3 self, arg):             # <<<<<<<<<<<<<<
@@ -3745,7 +3850,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":148
+/* "pytraj/math/Vec3.pyx":154
  *         return vec
  * 
  *     def __isub__(Vec3 self, arg):             # <<<<<<<<<<<<<<
@@ -3754,19 +3859,19 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_32__sub__(struct __pyx_obj_6
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_35__isub__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg); /*proto*/
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_35__isub__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_37__isub__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_37__isub__(PyObject *__pyx_v_self, PyObject *__pyx_v_arg) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__isub__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_arg));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_36__isub__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_arg));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_36__isub__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_arg) {
   double __pyx_v_xIn;
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_rhs = 0;
   PyObject *__pyx_r = NULL;
@@ -3780,7 +3885,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__isub__", 0);
 
-  /* "pytraj/math/Vec3.pyx":152
+  /* "pytraj/math/Vec3.pyx":158
  *         cdef Vec3 rhs
  * 
  *         if isinstance(arg, Vec3):             # <<<<<<<<<<<<<<
@@ -3791,20 +3896,20 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/math/Vec3.pyx":153
+    /* "pytraj/math/Vec3.pyx":159
  * 
  *         if isinstance(arg, Vec3):
  *             rhs = arg             # <<<<<<<<<<<<<<
  *             self.thisptr.subequal(rhs.thisptr[0])
  *         else:
  */
-    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_v_arg) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_arg, __pyx_ptype_6pytraj_4math_4Vec3_Vec3))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_3 = __pyx_v_arg;
     __Pyx_INCREF(__pyx_t_3);
     __pyx_v_rhs = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pytraj/math/Vec3.pyx":154
+    /* "pytraj/math/Vec3.pyx":160
  *         if isinstance(arg, Vec3):
  *             rhs = arg
  *             self.thisptr.subequal(rhs.thisptr[0])             # <<<<<<<<<<<<<<
@@ -3813,7 +3918,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_
  */
     __pyx_v_self->thisptr->operator -=((__pyx_v_rhs->thisptr[0]));
 
-    /* "pytraj/math/Vec3.pyx":152
+    /* "pytraj/math/Vec3.pyx":158
  *         cdef Vec3 rhs
  * 
  *         if isinstance(arg, Vec3):             # <<<<<<<<<<<<<<
@@ -3823,7 +3928,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_
     goto __pyx_L3;
   }
 
-  /* "pytraj/math/Vec3.pyx":156
+  /* "pytraj/math/Vec3.pyx":162
  *             self.thisptr.subequal(rhs.thisptr[0])
  *         else:
  *             xIn = arg             # <<<<<<<<<<<<<<
@@ -3831,10 +3936,10 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_
  *         return self
  */
   /*else*/ {
-    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_arg); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_arg); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_xIn = __pyx_t_4;
 
-    /* "pytraj/math/Vec3.pyx":157
+    /* "pytraj/math/Vec3.pyx":163
  *         else:
  *             xIn = arg
  *             self.thisptr.addequal(xIn)             # <<<<<<<<<<<<<<
@@ -3845,7 +3950,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_
   }
   __pyx_L3:;
 
-  /* "pytraj/math/Vec3.pyx":158
+  /* "pytraj/math/Vec3.pyx":164
  *             xIn = arg
  *             self.thisptr.addequal(xIn)
  *         return self             # <<<<<<<<<<<<<<
@@ -3857,7 +3962,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":148
+  /* "pytraj/math/Vec3.pyx":154
  *         return vec
  * 
  *     def __isub__(Vec3 self, arg):             # <<<<<<<<<<<<<<
@@ -3877,7 +3982,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":160
+/* "pytraj/math/Vec3.pyx":166
  *         return self
  * 
  *     def cross(self, Vec3 rhs):             # <<<<<<<<<<<<<<
@@ -3886,17 +3991,17 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_34__isub__(struct __pyx_obj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_37cross(PyObject *__pyx_v_self, PyObject *__pyx_v_rhs); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_36cross[] = "Vec3.cross(self, Vec3 rhs)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_37cross(PyObject *__pyx_v_self, PyObject *__pyx_v_rhs) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_39cross(PyObject *__pyx_v_self, PyObject *__pyx_v_rhs); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_38cross[] = "Vec3.cross(self, Vec3 rhs)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_39cross(PyObject *__pyx_v_self, PyObject *__pyx_v_rhs) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("cross (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rhs), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "rhs", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 160; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_36cross(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_rhs));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_rhs), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "rhs", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_38cross(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_rhs));
 
   /* function exit code */
   goto __pyx_L0;
@@ -3907,7 +4012,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_37cross(PyObject *__pyx_v_se
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_36cross(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_rhs) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_38cross(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_rhs) {
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_vec = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3917,19 +4022,19 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_36cross(struct __pyx_obj_6py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cross", 0);
 
-  /* "pytraj/math/Vec3.pyx":161
+  /* "pytraj/math/Vec3.pyx":167
  * 
  *     def cross(self, Vec3 rhs):
  *         cdef Vec3 vec = Vec3()             # <<<<<<<<<<<<<<
  *         vec.thisptr[0] = self.thisptr.Cross(rhs.thisptr[0])
  *         return vec
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4math_4Vec3_Vec3)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_vec = ((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/math/Vec3.pyx":162
+  /* "pytraj/math/Vec3.pyx":168
  *     def cross(self, Vec3 rhs):
  *         cdef Vec3 vec = Vec3()
  *         vec.thisptr[0] = self.thisptr.Cross(rhs.thisptr[0])             # <<<<<<<<<<<<<<
@@ -3938,7 +4043,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_36cross(struct __pyx_obj_6py
  */
   (__pyx_v_vec->thisptr[0]) = __pyx_v_self->thisptr->Cross((__pyx_v_rhs->thisptr[0]));
 
-  /* "pytraj/math/Vec3.pyx":163
+  /* "pytraj/math/Vec3.pyx":169
  *         cdef Vec3 vec = Vec3()
  *         vec.thisptr[0] = self.thisptr.Cross(rhs.thisptr[0])
  *         return vec             # <<<<<<<<<<<<<<
@@ -3950,7 +4055,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_36cross(struct __pyx_obj_6py
   __pyx_r = ((PyObject *)__pyx_v_vec);
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":160
+  /* "pytraj/math/Vec3.pyx":166
  *         return self
  * 
  *     def cross(self, Vec3 rhs):             # <<<<<<<<<<<<<<
@@ -3970,7 +4075,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_36cross(struct __pyx_obj_6py
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":165
+/* "pytraj/math/Vec3.pyx":171
  *         return vec
  * 
  *     def __getitem__(self, idx):             # <<<<<<<<<<<<<<
@@ -3979,19 +4084,19 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_36cross(struct __pyx_obj_6py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_39__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx); /*proto*/
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_39__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_41__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx); /*proto*/
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_41__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_38__getitem__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_idx));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__getitem__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_idx));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_38__getitem__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_idx) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__getitem__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_idx) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4001,7 +4106,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_38__getitem__(struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
 
-  /* "pytraj/math/Vec3.pyx":167
+  /* "pytraj/math/Vec3.pyx":173
  *     def __getitem__(self, idx):
  *         # either return ndarray or memovryview
  *         return self.buffer1d[idx]             # <<<<<<<<<<<<<<
@@ -4009,16 +4114,16 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_38__getitem__(struct __pyx_o
  *     def __setitem__(self, idx, value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer1d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer1d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_GetItem(__pyx_t_1, __pyx_v_idx); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_2 = PyObject_GetItem(__pyx_t_1, __pyx_v_idx); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":165
+  /* "pytraj/math/Vec3.pyx":171
  *         return vec
  * 
  *     def __getitem__(self, idx):             # <<<<<<<<<<<<<<
@@ -4038,7 +4143,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_38__getitem__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":169
+/* "pytraj/math/Vec3.pyx":175
  *         return self.buffer1d[idx]
  * 
  *     def __setitem__(self, idx, value):             # <<<<<<<<<<<<<<
@@ -4047,19 +4152,19 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_38__getitem__(struct __pyx_o
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_4math_4Vec3_4Vec3_41__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_6pytraj_4math_4Vec3_4Vec3_41__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value) {
+static int __pyx_pw_6pytraj_4math_4Vec3_4Vec3_43__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_6pytraj_4math_4Vec3_4Vec3_43__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__setitem__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_idx), ((PyObject *)__pyx_v_value));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_42__setitem__(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), ((PyObject *)__pyx_v_idx), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__setitem__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value) {
+static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3_42__setitem__(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -4073,7 +4178,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__setitem__(struct __pyx_obj_6py
   __Pyx_RefNannySetupContext("__setitem__", 0);
   __Pyx_INCREF(__pyx_v_value);
 
-  /* "pytraj/math/Vec3.pyx":170
+  /* "pytraj/math/Vec3.pyx":176
  * 
  *     def __setitem__(self, idx, value):
  *         if isinstance(value, (list, tuple)):             # <<<<<<<<<<<<<<
@@ -4094,14 +4199,14 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__setitem__(struct __pyx_obj_6py
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/math/Vec3.pyx":171
+    /* "pytraj/math/Vec3.pyx":177
  *     def __setitem__(self, idx, value):
  *         if isinstance(value, (list, tuple)):
  *             value = pyarray('d', value)             # <<<<<<<<<<<<<<
  *         self.buffer1d[idx] = value
  * 
  */
-    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 171; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_n_s_d);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_n_s_d);
@@ -4109,13 +4214,13 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__setitem__(struct __pyx_obj_6py
     __Pyx_INCREF(__pyx_v_value);
     PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_value);
     __Pyx_GIVEREF(__pyx_v_value);
-    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7cpython_5array_array)), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 171; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7cpython_5array_array)), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "pytraj/math/Vec3.pyx":170
+    /* "pytraj/math/Vec3.pyx":176
  * 
  *     def __setitem__(self, idx, value):
  *         if isinstance(value, (list, tuple)):             # <<<<<<<<<<<<<<
@@ -4124,19 +4229,19 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__setitem__(struct __pyx_obj_6py
  */
   }
 
-  /* "pytraj/math/Vec3.pyx":172
+  /* "pytraj/math/Vec3.pyx":178
  *         if isinstance(value, (list, tuple)):
  *             value = pyarray('d', value)
  *         self.buffer1d[idx] = value             # <<<<<<<<<<<<<<
  * 
  *     def is_zeros(self):
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer1d); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer1d); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
-  if (unlikely(PyObject_SetItem(__pyx_t_5, __pyx_v_idx, __pyx_v_value) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(PyObject_SetItem(__pyx_t_5, __pyx_v_idx, __pyx_v_value) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pytraj/math/Vec3.pyx":169
+  /* "pytraj/math/Vec3.pyx":175
  *         return self.buffer1d[idx]
  * 
  *     def __setitem__(self, idx, value):             # <<<<<<<<<<<<<<
@@ -4158,7 +4263,7 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__setitem__(struct __pyx_obj_6py
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":174
+/* "pytraj/math/Vec3.pyx":180
  *         self.buffer1d[idx] = value
  * 
  *     def is_zeros(self):             # <<<<<<<<<<<<<<
@@ -4167,20 +4272,20 @@ static int __pyx_pf_6pytraj_4math_4Vec3_4Vec3_40__setitem__(struct __pyx_obj_6py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_43is_zeros(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_42is_zeros[] = "Vec3.is_zeros(self)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_43is_zeros(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_45is_zeros(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_44is_zeros[] = "Vec3.is_zeros(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_45is_zeros(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("is_zeros (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_42is_zeros(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_44is_zeros(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_42is_zeros(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_44is_zeros(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4189,7 +4294,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_42is_zeros(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("is_zeros", 0);
 
-  /* "pytraj/math/Vec3.pyx":175
+  /* "pytraj/math/Vec3.pyx":181
  * 
  *     def is_zeros(self):
  *         return self.thisptr.IsZero()             # <<<<<<<<<<<<<<
@@ -4197,13 +4302,13 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_42is_zeros(struct __pyx_obj_
  *     def neg(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->thisptr->IsZero()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->thisptr->IsZero()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":174
+  /* "pytraj/math/Vec3.pyx":180
  *         self.buffer1d[idx] = value
  * 
  *     def is_zeros(self):             # <<<<<<<<<<<<<<
@@ -4222,7 +4327,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_42is_zeros(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":177
+/* "pytraj/math/Vec3.pyx":183
  *         return self.thisptr.IsZero()
  * 
  *     def neg(self):             # <<<<<<<<<<<<<<
@@ -4231,25 +4336,25 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_42is_zeros(struct __pyx_obj_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_45neg(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_44neg[] = "Vec3.neg(self)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_45neg(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_47neg(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_46neg[] = "Vec3.neg(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_47neg(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("neg (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_44neg(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_46neg(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_44neg(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_46neg(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("neg", 0);
 
-  /* "pytraj/math/Vec3.pyx":178
+  /* "pytraj/math/Vec3.pyx":184
  * 
  *     def neg(self):
  *         self.thisptr.Neg()             # <<<<<<<<<<<<<<
@@ -4258,7 +4363,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_44neg(struct __pyx_obj_6pytr
  */
   __pyx_v_self->thisptr->Neg();
 
-  /* "pytraj/math/Vec3.pyx":177
+  /* "pytraj/math/Vec3.pyx":183
  *         return self.thisptr.IsZero()
  * 
  *     def neg(self):             # <<<<<<<<<<<<<<
@@ -4273,7 +4378,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_44neg(struct __pyx_obj_6pytr
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":180
+/* "pytraj/math/Vec3.pyx":186
  *         self.thisptr.Neg()
  * 
  *     def signed_angle(self, Vec3 v1, Vec3 v2):             # <<<<<<<<<<<<<<
@@ -4282,9 +4387,9 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_44neg(struct __pyx_obj_6pytr
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_47signed_angle(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_46signed_angle[] = "Vec3.signed_angle(self, Vec3 v1, Vec3 v2)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_47signed_angle(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_49signed_angle(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_48signed_angle[] = "Vec3.signed_angle(self, Vec3 v1, Vec3 v2)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_49signed_angle(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_v1 = 0;
   struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_v2 = 0;
   int __pyx_lineno = 0;
@@ -4313,11 +4418,11 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_47signed_angle(PyObject *__p
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_v2)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("signed_angle", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("signed_angle", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "signed_angle") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "signed_angle") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -4330,15 +4435,15 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_47signed_angle(PyObject *__p
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("signed_angle", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("signed_angle", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.math.Vec3.Vec3.signed_angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_v1), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "v1", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_v2), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "v2", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_46signed_angle(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), __pyx_v_v1, __pyx_v_v2);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_v1), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "v1", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_v2), __pyx_ptype_6pytraj_4math_4Vec3_Vec3, 1, "v2", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_48signed_angle(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self), __pyx_v_v1, __pyx_v_v2);
 
   /* function exit code */
   goto __pyx_L0;
@@ -4349,7 +4454,7 @@ static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_47signed_angle(PyObject *__p
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_46signed_angle(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_v1, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_v2) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_48signed_angle(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_v1, struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_v2) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4358,7 +4463,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_46signed_angle(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("signed_angle", 0);
 
-  /* "pytraj/math/Vec3.pyx":181
+  /* "pytraj/math/Vec3.pyx":187
  * 
  *     def signed_angle(self, Vec3 v1, Vec3 v2):
  *         return self.thisptr.SignedAngle(v1.thisptr[0], v2.thisptr[0])             # <<<<<<<<<<<<<<
@@ -4366,13 +4471,13 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_46signed_angle(struct __pyx_
  *     def tolist(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->SignedAngle((__pyx_v_v1->thisptr[0]), (__pyx_v_v2->thisptr[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->SignedAngle((__pyx_v_v1->thisptr[0]), (__pyx_v_v2->thisptr[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":180
+  /* "pytraj/math/Vec3.pyx":186
  *         self.thisptr.Neg()
  * 
  *     def signed_angle(self, Vec3 v1, Vec3 v2):             # <<<<<<<<<<<<<<
@@ -4391,7 +4496,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_46signed_angle(struct __pyx_
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":183
+/* "pytraj/math/Vec3.pyx":189
  *         return self.thisptr.SignedAngle(v1.thisptr[0], v2.thisptr[0])
  * 
  *     def tolist(self):             # <<<<<<<<<<<<<<
@@ -4400,20 +4505,20 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_46signed_angle(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_49tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_48tolist[] = "Vec3.tolist(self)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_49tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_51tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_50tolist[] = "Vec3.tolist(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_51tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("tolist (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_48tolist(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_50tolist(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_48tolist(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50tolist(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4423,7 +4528,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_48tolist(struct __pyx_obj_6p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("tolist", 0);
 
-  /* "pytraj/math/Vec3.pyx":184
+  /* "pytraj/math/Vec3.pyx":190
  * 
  *     def tolist(self):
  *         return list(self.buffer1d[:])             # <<<<<<<<<<<<<<
@@ -4431,19 +4536,19 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_48tolist(struct __pyx_obj_6p
  *     def to_ndarray(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer1d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer1d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_1, 0, 0, NULL, NULL, &__pyx_slice__3, 0, 0, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_1, 0, 0, NULL, NULL, &__pyx_slice__3, 0, 0, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":183
+  /* "pytraj/math/Vec3.pyx":189
  *         return self.thisptr.SignedAngle(v1.thisptr[0], v2.thisptr[0])
  * 
  *     def tolist(self):             # <<<<<<<<<<<<<<
@@ -4463,7 +4568,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_48tolist(struct __pyx_obj_6p
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":186
+/* "pytraj/math/Vec3.pyx":192
  *         return list(self.buffer1d[:])
  * 
  *     def to_ndarray(self):             # <<<<<<<<<<<<<<
@@ -4472,20 +4577,20 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_48tolist(struct __pyx_obj_6p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_51to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_50to_ndarray[] = "Vec3.to_ndarray(self)\nreturn a ndarray view of Vec3";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_51to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_53to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_52to_ndarray[] = "Vec3.to_ndarray(self)\nreturn a ndarray view of Vec3";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_53to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("to_ndarray (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_52to_ndarray(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_52to_ndarray(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
   PyObject *__pyx_v_has_np = NULL;
   PyObject *__pyx_v_np = NULL;
   PyObject *__pyx_r = NULL;
@@ -4502,14 +4607,14 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("to_ndarray", 0);
 
-  /* "pytraj/math/Vec3.pyx":188
+  /* "pytraj/math/Vec3.pyx":194
  *     def to_ndarray(self):
  *         """return a ndarray view of Vec3"""
  *         has_np, np = _import_numpy()             # <<<<<<<<<<<<<<
  *         if has_np:
  *             return np.asarray(self.buffer1d[:])
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_import_numpy); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_import_numpy); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -4522,10 +4627,10 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -4539,7 +4644,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -4552,15 +4657,15 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
     __Pyx_INCREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_t_3);
     #else
-    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_5 = Py_TYPE(__pyx_t_4)->tp_iternext;
@@ -4568,7 +4673,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
     __Pyx_GOTREF(__pyx_t_2);
     index = 1; __pyx_t_3 = __pyx_t_5(__pyx_t_4); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_3);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_4), 2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_4), 2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_5 = NULL;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     goto __pyx_L4_unpacking_done;
@@ -4576,7 +4681,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_has_np = __pyx_t_2;
@@ -4584,17 +4689,17 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
   __pyx_v_np = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pytraj/math/Vec3.pyx":189
+  /* "pytraj/math/Vec3.pyx":195
  *         """return a ndarray view of Vec3"""
  *         has_np, np = _import_numpy()
  *         if has_np:             # <<<<<<<<<<<<<<
  *             return np.asarray(self.buffer1d[:])
  *         else:
  */
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_has_np); if (unlikely(__pyx_t_6 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_has_np); if (unlikely(__pyx_t_6 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_6) {
 
-    /* "pytraj/math/Vec3.pyx":190
+    /* "pytraj/math/Vec3.pyx":196
  *         has_np, np = _import_numpy()
  *         if has_np:
  *             return np.asarray(self.buffer1d[:])             # <<<<<<<<<<<<<<
@@ -4602,11 +4707,11 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
  *             raise ImportError("need numpy")
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_np, __pyx_n_s_asarray); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_np, __pyx_n_s_asarray); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer1d); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_buffer1d); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_t_2, 0, 0, NULL, NULL, &__pyx_slice__4, 0, 0, 0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_t_2, 0, 0, NULL, NULL, &__pyx_slice__4, 0, 0, 0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -4620,17 +4725,17 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
       }
     }
     if (!__pyx_t_2) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_7);
       PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_2); __Pyx_GIVEREF(__pyx_t_2); __pyx_t_2 = NULL;
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
@@ -4639,7 +4744,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "pytraj/math/Vec3.pyx":189
+    /* "pytraj/math/Vec3.pyx":195
  *         """return a ndarray view of Vec3"""
  *         has_np, np = _import_numpy()
  *         if has_np:             # <<<<<<<<<<<<<<
@@ -4648,7 +4753,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
  */
   }
 
-  /* "pytraj/math/Vec3.pyx":192
+  /* "pytraj/math/Vec3.pyx":198
  *             return np.asarray(self.buffer1d[:])
  *         else:
  *             raise ImportError("need numpy")             # <<<<<<<<<<<<<<
@@ -4656,14 +4761,14 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
  *     @property
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "pytraj/math/Vec3.pyx":186
+  /* "pytraj/math/Vec3.pyx":192
  *         return list(self.buffer1d[:])
  * 
  *     def to_ndarray(self):             # <<<<<<<<<<<<<<
@@ -4688,7 +4793,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "pytraj/math/Vec3.pyx":195
+/* "pytraj/math/Vec3.pyx":201
  * 
  *     @property
  *     def buffer1d(self):             # <<<<<<<<<<<<<<
@@ -4697,20 +4802,20 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_50to_ndarray(struct __pyx_ob
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_53buffer1d(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_52buffer1d[] = "Vec3.buffer1d(self)";
-static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_53buffer1d(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_55buffer1d(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_4math_4Vec3_4Vec3_54buffer1d[] = "Vec3.buffer1d(self)";
+static PyObject *__pyx_pw_6pytraj_4math_4Vec3_4Vec3_55buffer1d(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("buffer1d (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_52buffer1d(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4math_4Vec3_4Vec3_54buffer1d(((struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_52buffer1d(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_54buffer1d(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 *__pyx_v_self) {
   __Pyx_memviewslice __pyx_v_arr = { 0, 0, { 0 }, { 0 }, { 0 } };
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -4724,7 +4829,7 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_52buffer1d(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("buffer1d", 0);
 
-  /* "pytraj/math/Vec3.pyx":196
+  /* "pytraj/math/Vec3.pyx":202
  *     @property
  *     def buffer1d(self):
  *         cdef double[:] arr = <double[:3]> self.thisptr.Dptr()             # <<<<<<<<<<<<<<
@@ -4733,38 +4838,38 @@ static PyObject *__pyx_pf_6pytraj_4math_4Vec3_4Vec3_52buffer1d(struct __pyx_obj_
   __pyx_t_1 = __pyx_v_self->thisptr->Dptr();
   if (!__pyx_t_1) {
     PyErr_SetString(PyExc_ValueError,"Cannot create cython.array from NULL pointer");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_t_4 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_double);
   __pyx_t_3 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)3));
-  if (unlikely(!__pyx_t_4 || !__pyx_t_3 || !PyBytes_AsString(__pyx_t_4))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_4 || !__pyx_t_3 || !PyBytes_AsString(__pyx_t_4))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __pyx_array_new(__pyx_t_3, sizeof(double), PyBytes_AS_STRING(__pyx_t_4), (char *) "c", (char *) __pyx_t_1);
-  if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(((PyObject *)__pyx_t_2));
-  if (unlikely(!__pyx_t_5.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_5.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(((PyObject *)__pyx_t_2)); __pyx_t_2 = 0;
   __pyx_v_arr = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "pytraj/math/Vec3.pyx":197
+  /* "pytraj/math/Vec3.pyx":203
  *     def buffer1d(self):
  *         cdef double[:] arr = <double[:3]> self.thisptr.Dptr()
  *         return  arr             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_arr, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_arr, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/math/Vec3.pyx":195
+  /* "pytraj/math/Vec3.pyx":201
  * 
  *     @property
  *     def buffer1d(self):             # <<<<<<<<<<<<<<
@@ -17367,7 +17472,7 @@ static PyObject *__pyx_sq_item_6pytraj_4math_4Vec3_Vec3(PyObject *o, Py_ssize_t 
 
 static int __pyx_mp_ass_subscript_6pytraj_4math_4Vec3_Vec3(PyObject *o, PyObject *i, PyObject *v) {
   if (v) {
-    return __pyx_pw_6pytraj_4math_4Vec3_4Vec3_41__setitem__(o, i, v);
+    return __pyx_pw_6pytraj_4math_4Vec3_4Vec3_43__setitem__(o, i, v);
   }
   else {
     PyErr_Format(PyExc_NotImplementedError,
@@ -17377,28 +17482,29 @@ static int __pyx_mp_ass_subscript_6pytraj_4math_4Vec3_Vec3(PyObject *o, PyObject
 }
 
 static PyMethodDef __pyx_methods_6pytraj_4math_4Vec3_Vec3[] = {
-  {"Magnitude2", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_9Magnitude2, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_8Magnitude2},
-  {"zeros", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_11zeros, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_10zeros},
-  {"set_vec", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_13set_vec, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_12set_vec},
-  {"normalize", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_15normalize, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_14normalize},
-  {"angle", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_17angle, METH_O, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_16angle},
-  {"assign", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_19assign, METH_O, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_18assign},
-  {"cross", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_37cross, METH_O, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_36cross},
-  {"is_zeros", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_43is_zeros, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_42is_zeros},
-  {"neg", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_45neg, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_44neg},
-  {"signed_angle", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_47signed_angle, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_46signed_angle},
-  {"tolist", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_49tolist, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_48tolist},
-  {"to_ndarray", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_51to_ndarray, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_50to_ndarray},
-  {"buffer1d", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_53buffer1d, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_52buffer1d},
+  {"copy", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_9copy, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_8copy},
+  {"magnitude2", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_11magnitude2, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_10magnitude2},
+  {"zeros", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_13zeros, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_12zeros},
+  {"set_vec", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_15set_vec, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_14set_vec},
+  {"normalize", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_17normalize, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_16normalize},
+  {"angle", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_19angle, METH_O, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_18angle},
+  {"assign", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_21assign, METH_O, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_20assign},
+  {"cross", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_39cross, METH_O, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_38cross},
+  {"is_zeros", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_45is_zeros, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_44is_zeros},
+  {"neg", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_47neg, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_46neg},
+  {"signed_angle", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_49signed_angle, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_48signed_angle},
+  {"tolist", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_51tolist, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_50tolist},
+  {"to_ndarray", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_53to_ndarray, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_52to_ndarray},
+  {"buffer1d", (PyCFunction)__pyx_pw_6pytraj_4math_4Vec3_4Vec3_55buffer1d, METH_NOARGS, __pyx_doc_6pytraj_4math_4Vec3_4Vec3_54buffer1d},
   {0, 0, 0, 0}
 };
 
 static PyNumberMethods __pyx_tp_as_number_Vec3 = {
-  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_29__add__, /*nb_add*/
-  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_33__sub__, /*nb_subtract*/
-  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_27__mul__, /*nb_multiply*/
+  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_31__add__, /*nb_add*/
+  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_35__sub__, /*nb_subtract*/
+  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_29__mul__, /*nb_multiply*/
   #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
-  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_23__div__, /*nb_divide*/
+  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_25__div__, /*nb_divide*/
   #endif
   0, /*nb_remainder*/
   0, /*nb_divmod*/
@@ -17429,11 +17535,11 @@ static PyNumberMethods __pyx_tp_as_number_Vec3 = {
   #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
   0, /*nb_hex*/
   #endif
-  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_31__iadd__, /*nb_inplace_add*/
-  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_35__isub__, /*nb_inplace_subtract*/
-  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_25__imul__, /*nb_inplace_multiply*/
+  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_33__iadd__, /*nb_inplace_add*/
+  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_37__isub__, /*nb_inplace_subtract*/
+  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_27__imul__, /*nb_inplace_multiply*/
   #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
-  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_21__idiv__, /*nb_inplace_divide*/
+  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_23__idiv__, /*nb_inplace_divide*/
   #endif
   0, /*nb_inplace_remainder*/
   0, /*nb_inplace_power*/
@@ -17470,7 +17576,7 @@ static PySequenceMethods __pyx_tp_as_sequence_Vec3 = {
 
 static PyMappingMethods __pyx_tp_as_mapping_Vec3 = {
   0, /*mp_length*/
-  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_39__getitem__, /*mp_subscript*/
+  __pyx_pw_6pytraj_4math_4Vec3_4Vec3_41__getitem__, /*mp_subscript*/
   __pyx_mp_ass_subscript_6pytraj_4math_4Vec3_Vec3, /*mp_ass_subscript*/
 };
 
@@ -18296,9 +18402,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 200; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 145; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18315,58 +18421,58 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pytraj/math/Vec3.pyx":55
+  /* "pytraj/math/Vec3.pyx":61
  *             X = args[0]
  *             if len(X) != 3:
  *                 raise ValueError("must a an array of 3 elements")             # <<<<<<<<<<<<<<
  *             else:
  *                 x = X[0]
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_must_a_an_array_of_3_elements); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_must_a_an_array_of_3_elements); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "pytraj/math/Vec3.pyx":66
+  /* "pytraj/math/Vec3.pyx":72
  *             self.thisptr.SetVec(x, y, z)
  *         else:
  *             raise ValueError("must a an array or x, y, z format")             # <<<<<<<<<<<<<<
  * 
  *     def normalize(self):
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_must_a_an_array_or_x_y_z_format); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_must_a_an_array_or_x_y_z_format); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "pytraj/math/Vec3.pyx":184
+  /* "pytraj/math/Vec3.pyx":190
  * 
  *     def tolist(self):
  *         return list(self.buffer1d[:])             # <<<<<<<<<<<<<<
  * 
  *     def to_ndarray(self):
  */
-  __pyx_slice__3 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_slice__3 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_slice__3);
   __Pyx_GIVEREF(__pyx_slice__3);
 
-  /* "pytraj/math/Vec3.pyx":190
+  /* "pytraj/math/Vec3.pyx":196
  *         has_np, np = _import_numpy()
  *         if has_np:
  *             return np.asarray(self.buffer1d[:])             # <<<<<<<<<<<<<<
  *         else:
  *             raise ImportError("need numpy")
  */
-  __pyx_slice__4 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_slice__4 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_slice__4);
   __Pyx_GIVEREF(__pyx_slice__4);
 
-  /* "pytraj/math/Vec3.pyx":192
+  /* "pytraj/math/Vec3.pyx":198
  *             return np.asarray(self.buffer1d[:])
  *         else:
  *             raise ImportError("need numpy")             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_need_numpy); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_need_numpy); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
@@ -18727,32 +18833,32 @@ PyMODINIT_FUNC PyInit_Vec3(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pytraj/math/Vec3.pyx":195
+  /* "pytraj/math/Vec3.pyx":201
  * 
  *     @property
  *     def buffer1d(self):             # <<<<<<<<<<<<<<
  *         cdef double[:] arr = <double[:3]> self.thisptr.Dptr()
  *         return  arr
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4math_4Vec3_Vec3, __pyx_n_s_buffer1d); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_4math_4Vec3_Vec3, __pyx_n_s_buffer1d); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 201; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "pytraj/math/Vec3.pyx":194
+  /* "pytraj/math/Vec3.pyx":200
  *             raise ImportError("need numpy")
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def buffer1d(self):
  *         cdef double[:] arr = <double[:3]> self.thisptr.Dptr()
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 200; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 200; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4math_4Vec3_Vec3->tp_dict, __pyx_n_s_buffer1d, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_4math_4Vec3_Vec3->tp_dict, __pyx_n_s_buffer1d, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 201; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_4math_4Vec3_Vec3);
 

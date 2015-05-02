@@ -43,4 +43,4 @@ cdef extern from "Vec3.h":
 
 cdef class Vec3:
     cdef _Vec3* thisptr
-
+    cdef bint py_free_mem
