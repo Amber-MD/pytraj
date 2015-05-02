@@ -835,16 +835,18 @@ struct __pyx_obj_6pytraj_7ArgList_ArgList {
  * 
  * cdef class Vec3:             # <<<<<<<<<<<<<<
  *     cdef _Vec3* thisptr
- * 
+ *     cdef bint py_free_mem
  */
 struct __pyx_obj_6pytraj_9math_dot_Vec3_Vec3 {
   PyObject_HEAD
   Vec3 *thisptr;
+  int py_free_mem;
 };
 
 struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 {
   PyObject_HEAD
   Vec3 *thisptr;
+  int py_free_mem;
 };
 
 

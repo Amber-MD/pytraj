@@ -20,32 +20,42 @@ cdef class DataSet_Vector (DataSet_1D):
         return d0
 
     def __getitem__(self, idx):
-        return self.data[idx]
+        """return memoryview for Vec3. No data is copied.
+        """
+        cdef Vec3 vec = Vec3()
+        if idx == -1:
+            idx = self.size - 1
+        vec.py_free_mem = False
+        vec.thisptr = &(self.thisptr.index_opr(idx))
+        return vec
 
     def __iter__(self):
         for i in range (self.size):
             yield self[i]
 
+    def append(self, Vec3 vec):
+        self.thisptr.AddVxyz(vec.thisptr[0])
+
     def tolist(self):
         # overwrite
         # x is memview array
-        return [list(x) for x in self.data]
+        return [x.tolist() for x in self.data]
 
     def to_ndarray(self):
         import numpy as np
         # overwrite
         # x is memview array
-        return np.asarray([np.asarray(x) for x in self.data])
+        return np.asarray([np.asarray(x[:]) for x in self.data])
 
     @property
     def data(self):
-        """return a list of Vec3"""
-        cdef Vec3 vec
-        cdef cyarray cya = cyarray(shape=(self.size, 3), itemsize=sizeof(double), format="d")
-        cdef int idx
+        """return self.__iter__
+        Not sure what else we should return
+        """
+        return self.__iter__()
 
-        for idx in range(self.size):
-            vec = Vec3()
-            vec.thisptr[0] = self.thisptr.index_opr(idx)
-            cya[idx, :] = vec.buffer1d[:]
-        return cya
+    def is_ired(self):
+        return self.thisptr.IsIred()
+
+    def set_ired(self):
+        self.thisptr.SetIred()

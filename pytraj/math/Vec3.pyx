@@ -12,6 +12,7 @@ cdef class Vec3:
         cdef Vec3 vec
         cdef double x, y, z
         
+        self.py_free_mem = True
         if not args:
             self.thisptr = new _Vec3()
         else:
@@ -27,7 +28,7 @@ cdef class Vec3:
                     self.set_vec(*args)
 
     def __dealloc__(self):
-        if self.thisptr is not NULL:
+        if self.thisptr is not NULL and self.py_free_mem:
             del self.thisptr
 
     def __str__(self):
@@ -37,7 +38,12 @@ cdef class Vec3:
     def __repr__(self):
         return self.__str__()
 
-    def Magnitude2(self):
+    def copy(self):
+        cdef Vec3 vec = Vec3()
+        vec.thisptr = new _Vec3(self.thisptr[0])
+        return vec
+
+    def magnitude2(self):
         return self.thisptr.Magnitude2()
 
     def zeros(self):

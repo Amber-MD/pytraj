@@ -791,16 +791,18 @@ typedef std::vector<double>  __pyx_t_6pytraj_5Frame_Darray;
  * 
  * cdef class Vec3:             # <<<<<<<<<<<<<<
  *     cdef _Vec3* thisptr
- * 
+ *     cdef bint py_free_mem
  */
 struct __pyx_obj_6pytraj_9math_dot_Vec3_Vec3 {
   PyObject_HEAD
   Vec3 *thisptr;
+  int py_free_mem;
 };
 
 struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 {
   PyObject_HEAD
   Vec3 *thisptr;
+  int py_free_mem;
 };
 
 

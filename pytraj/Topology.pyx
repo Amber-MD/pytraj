@@ -275,35 +275,15 @@ cdef class Topology:
     
     @property
     def atomlist(self):
-        """return list of atoms
-        """
-        cdef Atom atom 
-        cdef vector[_Atom].iterator it 
-        cdef vector[_Atom] v
-        cdef list atlist = []
-
-        v = self.thisptr.Atoms()
-        it = v.begin()
-        while it != v.end():
-            atom = Atom()
-            atom.thisptr[0] = deref(it)
-            atlist.append(atom)
-            incr(it)
-        return atlist
+        return list(self.atoms)
 
     @property
     def residuelist(self):
-        reslist = []
-        for res in self.residue_iter():
-            reslist.append(res)
-        return reslist
+        return list(self.residues)
 
     @property
     def moleculelist(self):
-        mlist = []
-        for mol in self.moliter:
-            mlist.append(mol)
-        return mlist
+        return list(self.mols)
 
     def summary(self):
         set_world_silent(False)
