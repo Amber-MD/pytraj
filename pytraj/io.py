@@ -180,23 +180,26 @@ def readparm(filename):
     return top
 
 def loadpdb_rcsb(pdbid):
-    # FIXME: wrong coords
-    # example: 2KOC, got 0.0 for all coords
     """load pdb file from rcsb website
-    Return : Topology and FrameArray instance
+
+    Parameters
+    ----------
+    pdbid : str
+
+    Examples
+    --------
+        io.loadpdb_rcsb("2KOC") # popular RNA hairpin
     """
 
     url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid
     txt = urlopen(url).read()
-    with goto_temp_folder():
-        with open("tmp", 'w') as fh:
-            if PY3:
-                fh.write(txt.decode())
-            else:
-                fh.write(txt)
-        top = readparm("tmp")
-        frames = load("tmp", top)
-        return frames
+    fname = "/tmp/tmppdb.pdb"
+    with open(fname, 'w') as fh:
+        if PY3:
+            txt = txt.decode()
+        fh.write(txt)
+    traj = load(fname, fname)
+    return traj
 
 def load_single_frame(frame=None, top=None):
     """load single Frame"""
