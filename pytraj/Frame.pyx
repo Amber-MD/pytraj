@@ -888,25 +888,6 @@ cdef class Frame (object):
             frame._strip_atoms(top, mask, update_top, has_box)
             return frame
 
-    def __getbuffer__(self, Py_buffer* buffer, int flags):
-        """not validated yet. don't use"""
-        pass
-  
-        #cdef Py_ssize_t itemsize = sizeof(double)
-        #cdef double* ptr = self.thisptr.xAddress()
-
-        #buffer.buf = <char *>(self.thisptr.xAddress())
-        #buffer.format = 'd'                     # double
-        #buffer.internal = NULL                  # see References
-        #buffer.itemsize = itemsize
-        #buffer.len = self.size * itemsize   # product(shape) * itemsize
-        #buffer.ndim = 1
-        #buffer.obj = self
-        #buffer.readonly = 0
-        #buffer.shape = (self.size, )
-        #buffer.strides = 1
-        #buffer.suboffsets = NULL                # for pointer arrays only
-
     def get_subframe(self, mask=None, top=None):
         cdef AtomMask atm
 
@@ -935,7 +916,7 @@ cdef class Frame (object):
                      overwrite=overwrite, more_args=None) as trajout:
             trajout.writeframe(0, self, top)
 
-    def calc_dihedral(self, long int[:, :] int_arr):
+    def calc_dihedral(self, cython.integral[:, :] int_arr):
         """return python array of dih angle for four atoms with indices idx1-4
         Parameters
         ----------
@@ -959,7 +940,7 @@ cdef class Frame (object):
                           self.thisptr.XYZ(idx2), self.thisptr.XYZ(idx3))))
         return arr0
 
-    def calc_angle(self, long int[:, :] int_arr):
+    def calc_angle(self, cython.integral[:, :] int_arr):
         """return python array of angles for three atoms with indices idx1-3
         Parameters
         ----------
@@ -982,7 +963,7 @@ cdef class Frame (object):
                         self.thisptr.XYZ(idx2))))
         return arr0
 
-    def calc_distance(self, long int[:, :] int_arr):
+    def calc_distance(self, cython.integral [:, :] int_arr):
         """return python array of distance for two atoms with indices idx0, idx1
         Parameters
         ----------
