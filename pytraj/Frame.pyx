@@ -24,6 +24,8 @@ from pytraj.exceptions import *
 # TODO : reogarnize memory view, there are too many ways to assess
 # need to finalize
 
+__all__ = ['Frame']
+
 def check_instance(inst, clsname):
     if not isinstance(inst, clsname):
         raise ValueError("Must be instance of %s") % clsname.__name__
