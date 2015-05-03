@@ -142,8 +142,7 @@ cdef class Action:
             for frame in traj:
                 self.do_action(current_frame=frame, new_frame=new_frame)
         elif isinstance(current_frame, (list, tuple)):
-            print ("Action.pyx: list, tuple")
-            # creat alias to avoid con
+            # creat alias to avoid confusing
             trajlist = current_frame
             # FIXME: correct `idx`
             # FIXME: ugly
