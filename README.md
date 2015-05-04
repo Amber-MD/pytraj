@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/hainm/pytraj.svg?branch=master)](https://travis-ci.org/hainm/pytraj)
+[![Build Status](https://travis-ci.org/pytraj/pytraj.svg?branch=master)](https://travis-ci.org/pytraj/pytraj)
 [![Binstar Badge](https://binstar.org/pytraj/pytraj-dev/badges/version.svg)](https://binstar.org/pytraj/pytraj-dev/)
 Welcome to pytraj!
 -------------------
