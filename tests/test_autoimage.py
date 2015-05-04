@@ -7,15 +7,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import test_if_having
 
 class Test(unittest.TestCase):
-    def test_0(self):
-        traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
-        f0 = traj[0]
-        act = adict['autoimage']
-        f0cp = f0.copy()
-        assert f0.same_coords_as(f0cp) == True
-        act("", f0, traj.top)
-        assert f0.same_coords_as(f0cp) == False
-
     def test_1(self):
         traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         f0 = traj[0]
@@ -61,7 +52,7 @@ class Test(unittest.TestCase):
 
         # try loading from `mdtraj` object
         fake_fa = io.load_mdtraj(m_traj)
-        # try doting autoiamge
+        # try autoiamging
         fake_fa.autoimage()
         assert_almost_equal(fa.xyz.flatten(), fake_fa.xyz.flatten(), decimal=3)
 
