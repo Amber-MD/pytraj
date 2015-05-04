@@ -25,10 +25,18 @@ cdef class Box:
         else: 
             raise ValueError("")
 
+    def copy(self):
+        cdef Box other = Box()
+        other.thisptr = new _Box(self.thisptr[0])
+        return other
+
     def __str__(self):
         boxlisttxt = ", ".join([str(tmp) for tmp in self.tolist()])
         txt = "<Box with x, y, z, alpha, beta, gamma = %s>" % boxlisttxt
         return txt
+
+    def __repr__(self):
+        return self.__str__()
 
     def __dealloc__(self):
         del self.thisptr
