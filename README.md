@@ -55,7 +55,7 @@ Usage:
 - example: 
     * `dist = calc_distance(traj, ':2@CA :10@CA')`
     * `mat = calc_matrix(frame, '@CA', top)`
-    * `calc_dssp([[frame,], traj1, traj2(3, 9, 2), traj3.chunk_iter(chunk=5)], ':2-10', dtype='ndarray')`
+    * `calc_dssp([[frame,], traj1, traj2(3, 9, 2), traj3.chunk_iter(chunk=5)], ':2-10', dtype='ndarray', top=traj.top)`
     * get new Trajectory with a given mask: `traj['@CA']`
     * expose to numpy: `arr0 = np.asarray(frame[:])` 
     * load from other package: `traj = io.load_mdtraj(mdtraj_traj)`, `parm = io.load_ParmEd(its_obj)`
