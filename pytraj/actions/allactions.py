@@ -64,7 +64,7 @@ from pytraj.actions.Action_FixAtomOrder import Action_FixAtomOrder
 from pytraj.actions.Action_STFC_Diffusion import Action_STFC_Diffusion
 from pytraj.actions.Action_Jcoupling import Action_Jcoupling
 from pytraj.actions.Action_Radial import Action_Radial
-from pytraj.actions.Action_CreateReservoir import Action_CreateReservoir
+#from pytraj.actions.Action_CreateReservoir import Action_CreateReservoir
 from pytraj.actions.Action_Strip import Action_Strip
 from pytraj.actions.Action_Grid import Action_Grid
 from pytraj.actions.Action_Center import Action_Center
