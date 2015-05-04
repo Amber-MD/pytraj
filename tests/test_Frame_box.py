@@ -10,17 +10,16 @@ class Test(unittest.TestCase):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         assert frame0.has_box() == False
-        box = frame0.get_box()
+        box = frame0.box
         print(box)
-        assert frame0.get_box().type == 'nobox'
+        assert frame0.box.type == 'nobox'
         print(box.name)
 
         bview = frame0.boxview
         bview[3:] = np.asarray([109.471220634, 109.471220634, 109.471220634])
         print(frame0.has_box())
-        print(frame0.get_box().type)
-        assert frame0.get_box().type == 'truncoct'
-        assert frame0.get_box().name == 'Trunc. Oct.'
+        assert frame0.box.type == 'truncoct'
+        assert frame0.box.name == 'Trunc. Oct.'
 
 if __name__ == "__main__":
     unittest.main()

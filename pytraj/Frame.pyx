@@ -473,8 +473,7 @@ cdef class Frame (object):
             self.boxview[:] = _box[:]
 
     def has_box(self):
-        box = self.get_box()
-        return box.has_box()
+        return self.box.has_box()
 
     @property
     def boxview(self):
