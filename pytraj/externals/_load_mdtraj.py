@@ -4,6 +4,8 @@ from __future__ import absolute_import
 from pytraj.utils import has_, require, _import_numpy
 from pytraj.FrameArray import FrameArray
 from ._load_pseudo_parm import load_pseudo_parm
+from ..Frame import Frame
+
 _, np = _import_numpy()
 
 def load_mdtraj(m_traj, autoconvert=True):
@@ -29,9 +31,18 @@ def load_mdtraj(m_traj, autoconvert=True):
             raise PyTrajRequireObject("Trajectory")
         else:
             pseudotop = load_pseudo_parm(m_traj.top)
-            # convert "nm" to "Angstrom"
-            fa = FrameArray(unit*m_traj.xyz, pseudotop)
             if not m_traj.unitcell_lengths is None:
+                # convert "nm" to "Angstrom"
                 arr = np.append(unit*m_traj.unitcell_lengths, m_traj.unitcell_angles)
-                fa.top.box = Box(arr.astype(np.float64))
+                pseudotop.box = Box(arr.astype(np.float64))
+
+            fa = FrameArray()
+            fa.top = pseudotop
+            for arr0 in m_traj.xyz:
+                frame = Frame(m_traj.n_atoms)
+                # convert "nm" to "Angstrom"
+                # update xyz for frame
+                frame[:] =  unit * arr0
+                # set box for each Frame
+                frame.boxview[:] = fa.top.box[:]
             return fa
