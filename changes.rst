@@ -7,6 +7,10 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* add "legend" as property of DataSet
+* remove "get_box" from Frame. use "box"
+* support `autoimage` when loading mdtraj object
+* bugifx for `io.loadpdb_rcsb`
 * add 'calc_rdf'
 * trick to add reference to Action
   * Example: calc_abcxyz([[ref,], traj], command), where `ref` is a Frame object, `abcxyz` is a specific action.
@@ -26,7 +30,7 @@ Features and bugfixs added (from April 2015 - )
   and mdtraj
 * add `bonds`, `angles` and `dihedrals` iterators for Topology
 * support MPI (with mpi4py)
-* add `calc_rmds` 
+* add `calc_rmsd` 
 * rename "do_rotation" to "rotate", "do_translation" to "translate"
   "do_autoimage" to "autoimage"
 * add "box" to Topology
@@ -36,7 +40,7 @@ Features and bugfixs added (from April 2015 - )
     * moved Matrix_3x3, Vec3, Grid ... to `pytraj.math` 
     * moved all unused files away from main folder
     * dont support Energy routine in cpptraj, use pysander instead
-    * more all optional package importing to pytraj.externals. 
+    * move all optional package importing to pytraj.externals. 
     * enhance `groupby` method: dslist.groupby("omega", mode='aspect')
     * added pytraj.api.Trajectory as a new Trajectory object with `xyz` is a numpy array
 * add universal _get_top method
