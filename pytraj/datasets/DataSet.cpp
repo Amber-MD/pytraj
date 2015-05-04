@@ -856,8 +856,8 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_18set_scalar(struc
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_20set_format(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, int __pyx_v_leftAlignIn); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_22scalar_descr(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_24is_empty(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend___get__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
-static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend_2__set__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_legend); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_6legend___get__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
+static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_6legend_2__set__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_legend); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_26name(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_28idx(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_30aspect(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
@@ -2009,7 +2009,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_24is_empty(struct 
  *     def is_empty(self):
  *         return self.baseptr0.Empty()             # <<<<<<<<<<<<<<
  * 
- *     property lengend:
+ *     property legend:
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->baseptr0->Empty()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2039,26 +2039,26 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_24is_empty(struct 
 
 /* "pytraj/datasets/DataSet.pyx":81
  * 
- *     property lengend:
+ *     property legend:
  *         def __get__(self):             # <<<<<<<<<<<<<<
  *             legend = self.baseptr0.Legend()
  *             return legend.decode()
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_7lengend_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_7lengend_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_6legend_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_6legend_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend___get__(((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_6legend___get__(((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend___get__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_6legend___get__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self) {
   std::string __pyx_v_legend;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -2069,7 +2069,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend___get__(s
   __Pyx_RefNannySetupContext("__get__", 0);
 
   /* "pytraj/datasets/DataSet.pyx":82
- *     property lengend:
+ *     property legend:
  *         def __get__(self):
  *             legend = self.baseptr0.Legend()             # <<<<<<<<<<<<<<
  *             return legend.decode()
@@ -2093,7 +2093,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend___get__(s
 
   /* "pytraj/datasets/DataSet.pyx":81
  * 
- *     property lengend:
+ *     property legend:
  *         def __get__(self):             # <<<<<<<<<<<<<<
  *             legend = self.baseptr0.Legend()
  *             return legend.decode()
@@ -2102,7 +2102,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend___get__(s
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet.DataSet.lengend.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.datasets.DataSet.DataSet.legend.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2119,19 +2119,19 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend___get__(s
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_7lengend_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_legend); /*proto*/
-static int __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_7lengend_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_legend) {
+static int __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_6legend_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_legend); /*proto*/
+static int __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_6legend_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_legend) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend_2__set__(((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_v_self), ((PyObject *)__pyx_v_legend));
+  __pyx_r = __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_6legend_2__set__(((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_v_self), ((PyObject *)__pyx_v_legend));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend_2__set__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_legend) {
+static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_6legend_2__set__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_legend) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2189,7 +2189,7 @@ static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_7lengend_2__set__(struct
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pytraj.datasets.DataSet.DataSet.lengend.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.datasets.DataSet.DataSet.legend.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4756,13 +4756,13 @@ static int __pyx_mp_ass_subscript_6pytraj_8datasets_7DataSet_DataSet(PyObject *o
   }
 }
 
-static PyObject *__pyx_getprop_6pytraj_8datasets_7DataSet_7DataSet_lengend(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_7lengend_1__get__(o);
+static PyObject *__pyx_getprop_6pytraj_8datasets_7DataSet_7DataSet_legend(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_6legend_1__get__(o);
 }
 
-static int __pyx_setprop_6pytraj_8datasets_7DataSet_7DataSet_lengend(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_6pytraj_8datasets_7DataSet_7DataSet_legend(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_7lengend_3__set__(o, v);
+    return __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_6legend_3__set__(o, v);
   }
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
@@ -4797,7 +4797,7 @@ static PyMethodDef __pyx_methods_6pytraj_8datasets_7DataSet_DataSet[] = {
 };
 
 static struct PyGetSetDef __pyx_getsets_6pytraj_8datasets_7DataSet_DataSet[] = {
-  {(char *)"lengend", __pyx_getprop_6pytraj_8datasets_7DataSet_7DataSet_lengend, __pyx_setprop_6pytraj_8datasets_7DataSet_7DataSet_lengend, 0, 0},
+  {(char *)"legend", __pyx_getprop_6pytraj_8datasets_7DataSet_7DataSet_legend, __pyx_setprop_6pytraj_8datasets_7DataSet_7DataSet_legend, 0, 0},
   {0, 0, 0, 0, 0}
 };
 

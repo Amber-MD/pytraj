@@ -77,7 +77,7 @@ cdef class DataSet:
     def is_empty(self):
         return self.baseptr0.Empty()
 
-    property lengend:
+    property legend:
         def __get__(self):
             legend = self.baseptr0.Legend()
             return legend.decode()
