@@ -7,6 +7,10 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* add "legend" as property of DataSet
+* remove "get_box" from Frame. use "box"
+* support `autoimage` when loading mdtraj object
+* bugifx for `io.loadpdb_rcsb`
 * add 'calc_rdf'
 * trick to add reference to Action
   * Example: calc_abcxyz([[ref,], traj], command), where `ref` is a Frame object, `abcxyz` is a specific action.
