@@ -11,7 +11,6 @@ from pytraj.externals.six import iteritems as items
 class Test(unittest.TestCase):
     #@no_test
     def test_0(self):
-        # TODO : need to check with DRR about the result
         from pytraj.hbonds import search_hbonds, search_nointramol_hbonds
         traj = mdio.load("./data/DPDP.nc", "./data/DPDP.parm7")
         print ('n_frames = %s' % traj.n_frames)
@@ -27,7 +26,6 @@ class Test(unittest.TestCase):
         print (dslist_b.size, dslist_b.keys())
 
     def test_1(self):
-        # TODO : need to check with DRR about the result
         from pytraj.hbonds import search_hbonds
         traj = mdio.load("./data/Tc5b.crd", "./data/Tc5b.top")[:1]
         import pytraj.common_actions as pyca

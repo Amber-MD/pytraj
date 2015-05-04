@@ -32,13 +32,10 @@ class TestRadgyr(unittest.TestCase):
         for dset in dslist:
             print (dset.dtype)
 
-        # TODO : intepret the output (not understand what they mean)
         arr1 = dslist.get_dataset(dtype='float')
-
         arr0 = dslist.get_dataset(dtype='integer')
-
-        #print (arr0[0].__len__())
-        #print (arr0[0])
+        print (arr0[0].__len__())
+        print (arr0[0])
 
     def test_1(self):
         dslist = DataSetList()
