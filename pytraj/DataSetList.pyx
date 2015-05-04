@@ -306,6 +306,18 @@ cdef class DataSetList:
         else:
             raise PytrajConvertError("don't have numpy")
 
+    def to_dataframe(self):
+        """return pandas' DataFrame
+
+        Requires
+        --------
+        pandas
+        """
+        _, pandas = _import("pandas")
+        my_dict = dict((d0.legend, d0.tolist()) for d0 in self)
+        return pandas.DataFrame(my_dict)
+
+
     def set_py_free_mem(self, bint value):
         # we only expose py_free_mem in cython (not pure python)
         # we don't want to change *.pxd signature files since this 

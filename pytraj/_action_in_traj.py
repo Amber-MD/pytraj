@@ -2,7 +2,7 @@
 
 from pytraj._common_actions import calculate
 import pytraj.common_actions as pyca
-from pytraj.common_actions import _get_data_from_dtype
+from pytraj._get_common_objects import _get_data_from_dtype
 from pytraj.utils import is_int
 
 class ActionInTraj(object):
