@@ -26,7 +26,7 @@ Features and bugfixs added (from April 2015 - )
   and mdtraj
 * add `bonds`, `angles` and `dihedrals` iterators for Topology
 * support MPI (with mpi4py)
-* add `calc_rmds` 
+* add `calc_rmsd` 
 * rename "do_rotation" to "rotate", "do_translation" to "translate"
   "do_autoimage" to "autoimage"
 * add "box" to Topology
