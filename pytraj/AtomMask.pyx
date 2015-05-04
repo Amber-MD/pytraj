@@ -140,7 +140,8 @@ cdef class AtomMask(object):
             int_view = arr0
             for i in range(int_view.shape[0]):
                 self.thisptr.AddSelectedAtom(int_view[i])
-        except TypeError:
+        except (TypeError, ValueError): 
+            # catch type mis-match too (long, int)
             # slower way if array does not have buffer interface
             for i in arr0:
                 self.thisptr.AddSelectedAtom(i)
