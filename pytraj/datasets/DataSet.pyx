@@ -54,8 +54,8 @@ cdef class DataSet:
     def set_precision(self, int width , int precision):
         self.baseptr0.SetPrecision(width, precision)
 
-    def set_legend(self, lengend):
-        self.baseptr0.SetLegend(lengend.encode())
+    def set_legend(self, legend):
+        self.baseptr0.SetLegend(legend.encode())
 
     def set_scalar(self,scalar_mode, scalar_type=None):
         scalar_mode = scalar_mode.upper()
@@ -77,10 +77,12 @@ cdef class DataSet:
     def is_empty(self):
         return self.baseptr0.Empty()
 
-    @property
-    def legend(self):
-        legend = self.baseptr0.Legend()
-        return legend.decode()
+    property lengend:
+        def __get__(self):
+            legend = self.baseptr0.Legend()
+            return legend.decode()
+        def __set__(self, legend):
+            self.baseptr0.SetLegend(legend.encode())
     
     @property
     def name(self):
