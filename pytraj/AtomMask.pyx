@@ -6,7 +6,8 @@ from cpython.array cimport array as pyarrary
 from cpython cimport array
 from pytraj.decorators import deprecated
 from pytraj._set_silent import set_world_silent
-
+from pytraj.externals.six import string_types
+from pytraj.utils import is_array
 # FIXME : property does not work properly
 
 
@@ -16,8 +17,12 @@ cdef class AtomMask(object):
         cdef int begin_atom, end_atom, atom_num
         cdef string maskstring
         cdef AtomMask rhs_atm
+
         if not args:
             self.thisptr = new _AtomMask()
+        elif is_array(args[0]) or isinstance(args[0], list):
+            self.thisptr = new _AtomMask()
+            self.add_selected_indices(args[0])
         else:
             if len(args) == 1:
                 if isinstance(args[0], int):
@@ -26,7 +31,7 @@ cdef class AtomMask(object):
                 elif isinstance(args[0], AtomMask):
                     rhs_atm = args[0]
                     self.thisptr = new _AtomMask(rhs_atm.thisptr[0])
-                else:
+                elif isinstance(args[0], string_types):
                     # string_types
                     maskstring = args[0].encode("UTF-8")
                     self.thisptr = new _AtomMask(maskstring)

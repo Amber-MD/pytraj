@@ -66,6 +66,19 @@ class TestAtomMask(unittest.TestCase):
                 count += 1
                 print (i, j)
         assert count == 0
+
+    def test_6_speed(self):
+        import numpy as np
+        from pytraj import AtomMask
+        # test constructor from list/array/python array
+        top = Topology("./data/DOPC.parm7")
+        indices = top.select(":WAT")
+
+        atm1 = AtomMask(indices)
+        atm2 = AtomMask(list(indices))
+        atm3 = AtomMask(np.asarray(indices))
+
+        assert atm1.indices == atm2.indices == atm3.indices
         
 if __name__ == "__main__":
     unittest.main()
