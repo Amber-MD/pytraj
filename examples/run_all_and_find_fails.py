@@ -31,3 +31,6 @@ with open("log", 'r') as log_file:
 print ("%s FAILs" % i_fails)
 print ("fail files: \n")
 os.system("grep File log")
+
+if i_fails  >= 1:
+    sys.exit(1)
