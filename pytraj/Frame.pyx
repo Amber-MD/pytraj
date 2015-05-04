@@ -465,8 +465,12 @@ cdef class Frame (object):
             cdef Box box = Box()
             box.thisptr.SetBox(self.thisptr.bAddress())
             return box
-        def __set__(self, otherbox):
-            self.boxview[:] = otherbox[:]
+        def __set__(self, other):
+            """
+            other : {Box, array-like}
+            """
+            _box = Box(other)
+            self.boxview[:] = _box[:]
 
     def has_box(self):
         box = self.get_box()
