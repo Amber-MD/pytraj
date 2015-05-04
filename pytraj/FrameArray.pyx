@@ -26,6 +26,7 @@ from ._shared_methods import my_str_method
 from ._shared_methods import _frame_iter
 
 import pytraj.common_actions as pyca
+from pytraj.common_actions import _get_data_from_dtype
 from pytraj.hbonds import search_hbonds
 
 # we don't allow sub-class in Python level since we will mess up with memory
@@ -777,46 +778,46 @@ cdef class FrameArray (object):
             frame.trans_rot_trans(v1, mat, v2)
 
     # start copy and paste from "__action_in_traj.py"
-    def calc_distance(self, mask=""):
-        return pyca.calc_distance(self, mask)
+    def calc_distance(self, mask="", *args, **kwd):
+        return pyca.calc_distance(self, mask, *args, **kwd)
 
-    def calc_distrmsd(self, mask=""):
-        return pyca.calc_distrmsd(self, mask)
+    def calc_distrmsd(self, mask="", *args, **kwd):
+        return pyca.calc_distrmsd(self, mask, *args, **kwd)
 
-    def calc_radgyr(self, mask=""):
-        return pyca.calc_radgyr(self, mask)
+    def calc_radgyr(self, mask="", *args, **kwd):
+        return pyca.calc_radgyr(self, mask, *args, **kwd)
 
-    def calc_angle(self, mask=""):
-        return pyca.calc_angle(self, mask)
+    def calc_angle(self, mask="", *args, **kwd):
+        return pyca.calc_angle(self, mask, *args, **kwd)
 
     def calc_matrix(self, mask=""):
         return pyca.calc_matrix(self, mask)
 
     def calc_dssp(self, mask="", *args, **kwd):
-        return pyca.calc_dssp(mask, self, *args, **kwd)
+        return pyca.calc_dssp(self, mask, *args, **kwd)
 
-    def calc_dihedral(self, mask=""):
-        return pyca.calc_dihedral(self, mask)
+    def calc_dihedral(self, mask="", *args, **kwd):
+        return pyca.calc_dihedral(self, mask, *args, **kwd)
 
-    def calc_multidihedral(self, mask=""):
-        return pyca.calc_multidihedral(self, mask)
+    def calc_multidihedral(self, mask="", *args, **kwd):
+        return pyca.calc_multidihedral(self, mask, *args, **kwd)
 
-    def calc_molsurf(self, mask=""):
-        return pyca.calc_molsurf(self, mask)
+    def calc_molsurf(self, mask="", *args, **kwd):
+        return pyca.calc_molsurf(self, mask, *args, **kwd)
 
-    def calc_center_of_mass(self, mask=""):
-        return pyca.calc_center_of_mass(self, mask)
+    def calc_center_of_mass(self, mask="", *args, **kwd):
+        return pyca.calc_center_of_mass(self, mask, *args, **kwd)
 
-    def calc_COM(self, mask=""):
-        return pyca.calc_center_of_mass(self, mask)
+    def calc_COM(self, mask="", *args, **kwd):
+        return pyca.calc_center_of_mass(self, mask, *args, **kwd)
 
-    def calc_center_of_geometry(self, mask=""):
-        return pyca.calc_center_of_geometry(self, mask)
+    def calc_center_of_geometry(self, mask="", *args, **kwd):
+        return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
 
-    def calc_COG(self, mask=""):
-        return pyca.calc_center_of_geometry(self, mask)
+    def calc_COG(self, mask="", *args, **kwd):
+        return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
 
-    def calc_vector(self, mask=""):
+    def calc_vector(self, mask="", dtype='dataset', *args, **kwd):
         from pytraj.actions.Action_Vector import Action_Vector
         from pytraj.DataSetList import DataSetList
         act = Action_Vector()
@@ -827,16 +828,16 @@ cdef class FrameArray (object):
             # need to check cpptraj code
             mask = "name myvector " + mask
         act(mask, self, dslist=dslist)
-        return dslist
+        return _get_data_from_dtype(dslist, dtype)
 
-    def search_hbonds(self, mask="*"):
-        return pyca.search_hbonds(self, mask)
+    def search_hbonds(self, mask="*", *args, **kwd):
+        return pyca.search_hbonds(self, mask, *args, **kwd)
 
-    def get_average_frame(self, mask=""):
-        return pyca.get_average_frame(self, mask)
+    def get_average_frame(self, mask="", *args, **kwd):
+        return pyca.get_average_frame(self, mask, *args, **kwd)
 
-    def calc_watershell(self, mask=""):
-        return pyca.calc_watershell(self, mask)
+    def calc_watershell(self, mask="", *args, **kwd):
+        return pyca.calc_watershell(self, mask, *args, **kwd)
 
     def autoimage(self, mask=""):
         pyca.do_autoimage(self, mask)

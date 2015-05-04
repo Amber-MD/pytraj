@@ -35,6 +35,7 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_radial', 'calc_watershell',
                'calc_vector',
                'calc_volmap',
+               'calc_rdf',
                'calc_atomicfluct',
                'calc_COM',
                'calc_center_of_mass',
@@ -62,6 +63,7 @@ calc_volume = partial(calculate, 'volume', quick_get=True)
 calc_matrix = partial(calculate, 'matrix')
 calc_jcoupling = partial(calculate, 'jcoupling', quick_get=True)
 calc_volmap = partial(calculate, 'volmap', quick_get=True)
+calc_rdf = partial(calculate, 'radial', print_output=True)
 calc_protein_score = calc_score
 calc_energies = get_pysander_energies
 

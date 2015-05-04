@@ -36,6 +36,15 @@ def calculate(action=None, traj=None, command="", top=None,
     from pytraj import ActionDict
     adict = ActionDict()
 
+    if kwd:
+        if 'print_output' in kwd.keys() and kwd['print_output'] == True:
+            need_print_output = True
+            # need to remove "print_output" since Action does not have this keyword
+        else:
+            need_print_output = False
+        if 'print_output' in kwd.keys():
+            kwd.pop('print_output', None)
+
     if dslist is None:
         dslist = DataSetList()
     elif not isinstance(dslist, DataSetList):
@@ -59,6 +68,8 @@ def calculate(action=None, traj=None, command="", top=None,
     else: 
         act = action 
     act(command, traj, _top, dslist=dslist, quick_get=quick_get, **kwd)
+    if need_print_output:
+        act.print_output()
 
     # make new view for DataSetList
     # for some reasons, if I kept calling `calculate` several times,
