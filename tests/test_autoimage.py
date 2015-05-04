@@ -1,10 +1,10 @@
-#import unittest
+import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 import pytraj.io as io
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.decorators import test_if_having
+from pytraj.decorators import test_if_having, no_test
 from pytraj.six_2 import izip as zip
 
 class Test(unittest.TestCase):
@@ -38,6 +38,7 @@ class Test(unittest.TestCase):
                            "./data/tz2.truncoct.parm7")[0]
         assert_almost_equal(fsaved.coords, f0.coords)
 
+    @no_test
     @test_if_having("mdtraj")
     def test_3(self):
         import mdtraj as md
