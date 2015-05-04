@@ -823,10 +823,6 @@ cdef class FrameArray (object):
         act = Action_Vector()
         dslist = DataSetList()
 
-        if 'name' not in mask:
-            # for some reasons, I got segmentation fault without 'name' keyword
-            # need to check cpptraj code
-            mask = "name myvector " + mask
         act(mask, self, dslist=dslist)
         return _get_data_from_dtype(dslist, dtype)
 

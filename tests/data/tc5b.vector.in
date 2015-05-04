@@ -1,0 +1,4 @@
+parm ./Tc5b.top
+trajin ./md1_prod.Tc5b.x
+vector myvec @18,@19,@20 corrplane
+timecorr vec1 myvec tstep 1.0 tcorr 100.0 out tc5b.myvec.out order 2

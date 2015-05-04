@@ -34,6 +34,7 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_dssp', 'calc_matrix', 'calc_jcoupling',
                'calc_radial', 'calc_watershell',
                'calc_vector',
+               'calc_multivector',
                'calc_volmap',
                'calc_rdf',
                'calc_atomicfluct',
@@ -62,6 +63,7 @@ calc_distrmsd = partial(calculate, 'distrmsd', quick_get=True)
 calc_volume = partial(calculate, 'volume', quick_get=True)
 calc_matrix = partial(calculate, 'matrix')
 calc_jcoupling = partial(calculate, 'jcoupling', quick_get=True)
+calc_multivector = partial(calculate, 'multivector')
 calc_volmap = partial(calculate, 'volmap', quick_get=True)
 calc_rdf = partial(calculate, 'radial', print_output=True)
 calc_protein_score = calc_score
@@ -268,7 +270,7 @@ def calc_atomicfluct(traj=None, command="", *args, **kwd):
     act.print_output() # need to have this. check cpptraj's code
     return dslist[-1]
 
-def calc_vector(traj=None, mask="", *args, **kwd): 
+def calc_vector(traj=None, mask="", dtype='vector', *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -283,26 +285,25 @@ def calc_vector(traj=None, mask="", *args, **kwd):
     Examples
     ------
     >>> import pytraj.common_actions as pyca
-    >>> pyca.calc_vector("@CA @CB", traj).tolist()
-    >>> pyca.calc_vector("", traj).tolist()
-    >>> pyca.calc_vector("principal z", traj).to_ndarray()
-    >>> pyca.calc_vector("principal x", traj).to_ndarray()
-    >>> pyca.calc_vector("ucellx", traj).tolist()
-    >>> pyca.calc_vector("boxcenter", traj).tolist()
-    >>> pyca.calc_vector("box", traj).tolist()
+    >>> pyca.calc_vector(traj, "@CA @CB").tolist()
+    >>> pyca.calc_vector(traj, "", traj).tolist()
+    >>> pyca.calc_vector(traj, "principal z").to_ndarray()
+    >>> pyca.calc_vector(traj, "principal x").to_ndarray()
+    >>> pyca.calc_vector(traj, "ucellx").tolist()
+    >>> pyca.calc_vector(traj, "boxcenter").tolist()
+    >>> pyca.calc_vector(traj, "box").tolist()
     """
     from pytraj.actions.Action_Vector import Action_Vector
     from pytraj.DataSetList import DataSetList
     act = Action_Vector()
     dslist = DataSetList()
 
-    if 'name' not in mask:
-        # for some reasons, I got segmentation fault without 'name' keyword
-        # need to check cpptraj code
-        mask = "name myvector " + mask
     act(command=mask, current_frame=traj, dslist=dslist, *args, **kwd)
     dslist.set_py_free_mem(False)
-    return dslist[0]
+    if dtype == 'vector':
+        return dslist[-1]
+    else:
+        return _get_data_from_dtype(dslist, dtype=dtype)
 
 def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='dataset'):
     _top = _get_top(traj, top)
