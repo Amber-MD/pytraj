@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-import numpy as np
+from .utils import _import_numpy
 from .Frame import Frame
 from .Topology import Topology
 from ._action_in_traj import ActionInTraj
@@ -11,6 +11,8 @@ from .externals.six.moves import range
 from .AtomMask import AtomMask
 from ._get_common_objects  import _get_top # need to move this method to more correct module
 
+_, np = _import_numpy()
+
 # TODO : more checking.
 class Trajectory(ActionInTraj):
     def __init__(self, filename_or_traj=None, top=None):
@@ -20,7 +22,8 @@ class Trajectory(ActionInTraj):
         if filename_or_traj is None or filename_or_traj == "":
             self.xyz = None
         elif hasattr(filename_or_traj, 'xyz'):
-            self.xyz = filename_or_traj.xyz
+            # make sure to use `float64`
+            self.xyz = filename_or_traj.xyz.astype(np.float64)
         elif isinstance(filename_or_traj, string_types):
             self.load(filename_or_traj)
         else:
