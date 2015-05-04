@@ -1,7 +1,7 @@
 TODO
 ----
 
-* Box: check to make sure input array has dtype of float64 (got 0.0 if otherwise)
+* Box: check to make sure input array has dtype of float64 (got 0.0 if otherwise): DONE
 * fix segmentation fault when sub-classing FrameArray. 
     * this is big deal since we can let FrameArray and Trajin_Single sharing commmon methods
 * better way to manage memory for DataSetList
