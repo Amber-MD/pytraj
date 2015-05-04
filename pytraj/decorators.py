@@ -79,12 +79,12 @@ def test_if_having(lib):
 def test_if_path_exists(mydir):
     def inner(func):
         def _no_test(*args, **kwd):
-            if os.path.exists(mydir):
-                return func(*args, **kwd)
-            else:
-                txt = "%s does not exist. Skip test" % mydir
+            if mydir is None or not os.path.exists(mydir):
+                txt = "%s dir does not exist. Skip test" % mydir
                 print(txt)
                 return None
+            else:
+                return func(*args, **kwd)
         return _no_test
     return inner
 
