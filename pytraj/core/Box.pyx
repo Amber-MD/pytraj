@@ -32,7 +32,8 @@ cdef class Box:
 
     def __str__(self):
         boxlisttxt = ", ".join([str(tmp) for tmp in self.tolist()])
-        txt = "<Box with x, y, z, alpha, beta, gamma = %s>" % boxlisttxt
+        boxlisttxt = "(" + boxlisttxt + ")"
+        txt = "<Box: %s, (x, y, z, alpha, beta, gamma) = %s>" % (self.type, boxlisttxt)
         return txt
 
     def __repr__(self):
