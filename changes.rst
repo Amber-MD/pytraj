@@ -7,6 +7,9 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* add 'calc_rdf'
+* trick to add reference to Action
+  * Example: calc_abcxyz([[ref,], traj], command), where `ref` is a Frame object, `abcxyz` is a specific action.
 * add option to load coords from ParmEd object
 * add `align_principal_axis`
 * fix iteration in api.Trajectory: 2 orders of magniture faster
