@@ -428,6 +428,9 @@ cdef class Topology:
         def __set__(self, Box boxin):
             self.thisptr.SetParmBox(boxin.thisptr[0])
 
+    def has_box(self):
+        return self.box.has_box()
+
     def _partial_modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
         top.thisptr[0] = deref(self.thisptr.partialModifyStateByMask(m.thisptr[0]))
