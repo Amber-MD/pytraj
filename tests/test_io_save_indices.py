@@ -19,7 +19,6 @@ class TestPyCpptrajIO(unittest.TestCase):
 
         # check frames
         traj2 = mdio.load(filename="./output/test_io_saved_.x", top="./data/Tc5b.top")
-        # TODO : check error
         assert traj2.size == len(indices) 
 
 if __name__ == "__main__":
