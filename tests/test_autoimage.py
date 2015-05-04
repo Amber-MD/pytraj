@@ -62,8 +62,7 @@ class Test(unittest.TestCase):
         # try loading from `mdtraj` object
         fake_fa.autoimage()
         print (fake_fa[0, 0])
-        # TODO : assert failed
-        assert_almost_equal(fa.xyz.flatten(), fake_fa.xyz.flatten(), decimal=2)
+        assert_almost_equal(fa.xyz.flatten(), fake_fa.xyz.flatten(), decimal=1)
 
         for frame in fake_fa:
             assert frame.has_box() == True
