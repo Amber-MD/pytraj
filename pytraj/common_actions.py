@@ -285,23 +285,19 @@ def calc_vector(traj=None, mask="", *args, **kwd):
     Examples
     ------
     >>> import pytraj.common_actions as pyca
-    >>> pyca.calc_vector("@CA @CB", traj).tolist()
-    >>> pyca.calc_vector("", traj).tolist()
-    >>> pyca.calc_vector("principal z", traj).to_ndarray()
-    >>> pyca.calc_vector("principal x", traj).to_ndarray()
-    >>> pyca.calc_vector("ucellx", traj).tolist()
-    >>> pyca.calc_vector("boxcenter", traj).tolist()
-    >>> pyca.calc_vector("box", traj).tolist()
+    >>> pyca.calc_vector(traj, "@CA @CB").tolist()
+    >>> pyca.calc_vector(traj, "", traj).tolist()
+    >>> pyca.calc_vector(traj, "principal z").to_ndarray()
+    >>> pyca.calc_vector(traj, "principal x").to_ndarray()
+    >>> pyca.calc_vector(traj, "ucellx").tolist()
+    >>> pyca.calc_vector(traj, "boxcenter").tolist()
+    >>> pyca.calc_vector(traj, "box").tolist()
     """
     from pytraj.actions.Action_Vector import Action_Vector
     from pytraj.DataSetList import DataSetList
     act = Action_Vector()
     dslist = DataSetList()
 
-    if 'name' not in mask:
-        # for some reasons, I got segmentation fault without 'name' keyword
-        # need to check cpptraj code
-        mask = "name myvector " + mask
     act(command=mask, current_frame=traj, dslist=dslist, *args, **kwd)
     dslist.set_py_free_mem(False)
     return dslist[0]
