@@ -57,12 +57,9 @@ class TestBox(unittest.TestCase):
 
     def test_real_box(self):
         traj = mdio.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
-        boxstr = '<Box: ortho, (x, y, z, alpha, beta, gamma) = (35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0)>'
-        assert traj.top.box.__str__() == boxstr
-        print (traj.top.box)
+        aa_eq(traj.top.box.tolist(), [35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
         for frame in traj:
             assert frame.box.type == 'ortho'
-            #print (frame.box.tolist())
             aa_eq(frame.box.tolist(), [35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
 
 if __name__ == "__main__":

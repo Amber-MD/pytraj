@@ -33,3 +33,6 @@ os.system("sh log2.sh")
 print ("%s FAILs" % i_fails)
 print ("fail files: \n")
 os.system("cat log2.sh")
+
+if i_fails  >= 1:
+    sys.exit(1)
