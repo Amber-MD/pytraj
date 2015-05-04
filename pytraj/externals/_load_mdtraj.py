@@ -33,16 +33,20 @@ def load_mdtraj(m_traj, autoconvert=True):
             pseudotop = load_pseudo_parm(m_traj.top)
             if not m_traj.unitcell_lengths is None:
                 # convert "nm" to "Angstrom"
-                arr = np.append(unit*m_traj.unitcell_lengths, m_traj.unitcell_angles)
+                # only check box in 1st frame
+                arr = np.append(unit*m_traj.unitcell_lengths[0], m_traj.unitcell_angles[0])
                 pseudotop.box = Box(arr.astype(np.float64))
 
-            fa = FrameArray()
-            fa.top = pseudotop
+            farray = FrameArray()
+            farray.top = pseudotop
             for arr0 in m_traj.xyz:
                 frame = Frame(m_traj.n_atoms)
                 # convert "nm" to "Angstrom"
                 # update xyz for frame
-                frame[:] =  unit * arr0
+                # make sure to use `float64`
+                # TODO: more type-checking
+                frame[:] = unit * arr0.astype(np.float64)
                 # set box for each Frame
-                frame.boxview[:] = fa.top.box[:]
-            return fa
+                frame.box = farray.top.box.copy()
+                farray.append(frame, copy=True)
+            return farray

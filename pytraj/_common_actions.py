@@ -36,6 +36,7 @@ def calculate(action=None, traj=None, command="", top=None,
     from pytraj import ActionDict
     adict = ActionDict()
 
+    need_print_output = False
     if kwd:
         if 'print_output' in kwd.keys() and kwd['print_output'] == True:
             need_print_output = True

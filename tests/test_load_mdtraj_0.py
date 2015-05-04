@@ -10,6 +10,7 @@ from pytraj.misc import get_atts
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 from pytraj.utils.check_and_assert import eq
 from pytraj.six_2 import izip
+from pytraj.six_2 import izip as zip
 from pytraj.testing import test_if_having
 
 import numpy as np
@@ -83,11 +84,18 @@ class Test(unittest.TestCase):
         print (true_traj.top.box)
         assert traj.n_atoms == m_traj.n_atoms == true_traj.n_atoms
 
+        count = 0
+        for f0, f1 in izip(traj, true_traj):
+            count +=1
+            aa_eq(f0.coords, f1.coords)
+            assert f0.box.type == f1.box.type == 'ortho'
+        assert count == traj.n_frames == true_traj.n_frames
+
         traj2 = mdio.load_mdtraj(m_traj, False)
         print (traj[0, 0], true_traj[0, 0], traj2[0, 0])
         print (m_traj.xyz[0, 0])
-        aa_eq(traj2.xyz.flatten(), m_traj.xyz.flatten(), decimal=3)
-        aa_eq(traj.xyz.ravel(), 10*m_traj.xyz.ravel(), decimal=3)
+        aa_eq(traj2.xyz, m_traj.xyz, decimal=3)
+        aa_eq(traj.xyz, 10*m_traj.xyz, decimal=3)
 
 if __name__ == "__main__":
     unittest.main()

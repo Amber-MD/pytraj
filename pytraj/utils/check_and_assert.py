@@ -1,5 +1,11 @@
 import numbers
 
+# don't `import pytraj.externals.six` here: got import error
+try:
+    zip = izip
+except:
+    pass
+
 def eq(arr0, arr1):
     assert arr0 == arr1
 
@@ -96,7 +102,13 @@ def assert_almost_equal(arr0, arr1, decimal=3):
     almost_equal = True
     SMALL = 10**(-decimal)
 
-    for x, y in zip(arr0, arr1):
+    if hasattr(arr0, 'flatten') and hasattr(arr1, 'flatten'):
+        _arr0 = arr0.flatten()
+        _arr1 = arr1.flatten()
+    else:
+        _arr0 = arr0
+        _arr1 = arr1
+    for x, y in zip(_arr0, _arr1):
         if abs(x - y) > SMALL:
             almost_equal = False
     assert almost_equal == True

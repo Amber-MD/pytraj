@@ -11,6 +11,7 @@ before_install:
     - sudo apt-get install gfortran
     - sudo apt-get install -qq libz-dev libbz2-dev
     - pip install git+git://github.com/swails/ParmEd
+    - pip install git+git://github.com/mdtraj/mdtraj
     #- sh ./devtools/for_travis/install_cpptraj.sh
 
 install:

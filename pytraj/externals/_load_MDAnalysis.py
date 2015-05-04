@@ -3,6 +3,7 @@ from pytraj.utils import has_, require, _import_numpy
 from pytraj.FrameArray import FrameArray
 from pytraj.exceptions import PytrajRequireObject
 from ._load_pseudo_parm import load_pseudo_parm
+from ..Frame import Frame
 
 # MDAnalysis needs numpy. So we always have numpy when using this
 _, np = _import_numpy()
@@ -22,10 +23,13 @@ def load_MDAnalysis(its_obj):
         # creat atom group
         ag = its_obj.atoms
 
-        # load xyz coords
         farray = FrameArray()
         farray.top = pseudotop
-
         for _ in its_obj.trajectory:
-            farray.load_xyz(ag.positions.flatten())
+            frame = Frame(farray.top.n_atoms)
+            # set box for each Frame
+            frame.boxview[:] = farray.top.box[:]
+            # load xyz coords
+            frame.buffer2d[:] = ag.positions
+            farray.append(frame)
         return farray

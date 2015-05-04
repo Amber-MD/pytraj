@@ -21,13 +21,15 @@ with open("log", 'w') as log_file:
         else:
             call(['sh','.//TestListTravis.sh'], stdout = file_out, stderr = log_file)
 
-with open("log", 'r') as log_file:
+with open("log", 'r') as log_file, open("log2.sh", 'w') as log2:
     i_fails = 0
     for line in log_file.readlines():
-        if "File" in line:
+        if 'File "./test_' in line:
+            test = line.split()[1].replace(",", " ") # "test_"
+            log2.write("python " + test + "\n")
             i_fails += 1
-            print (line)
 
+os.system("sh log2.sh")
 print ("%s FAILs" % i_fails)
 print ("fail files: \n")
-os.system("grep File log")
+os.system("cat log2.sh")

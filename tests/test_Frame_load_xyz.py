@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
         f0 = Frame()
         f1 = f0.copy()
         f0.append_xyz(m_traj.xyz[0].astype(np.float64))
-        farray = mdio.load_mdtraj(m_traj)
+        farray = mdio.load_mdtraj(m_traj, autoconvert=False)
         f1 = farray[0]
 
         assert_almost_equal(f0.coords, f1.coords)
