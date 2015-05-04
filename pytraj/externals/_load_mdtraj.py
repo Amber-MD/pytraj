@@ -35,9 +35,7 @@ def load_mdtraj(m_traj, autoconvert=True):
                 # convert "nm" to "Angstrom"
                 # only check box in 1st frame
                 arr = np.append(unit*m_traj.unitcell_lengths[0], m_traj.unitcell_angles[0])
-                print (arr)
                 pseudotop.box = Box(arr.astype(np.float64))
-                print ("pseudotop.box", pseudotop.box.tolist())
 
             farray = FrameArray()
             farray.top = pseudotop

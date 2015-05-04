@@ -362,7 +362,7 @@ def calc_temperatures(traj=None, command="", top=None):
     dslist = calculate('temperature', traj, command, _top)
     return pyarray('d', dslist[0].tolist())
 
-def calc_rmsd(traj=None, command="", top=None, ref=None, mass=False, fit=True):
+def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
     """calculate rmsd
 
     Parameters
@@ -380,11 +380,11 @@ def calc_rmsd(traj=None, command="", top=None, ref=None, mass=False, fit=True):
 
     Examples
     --------
-        calc_rmsd(":3-18@CA", traj, ref=traj[0], mass=True, fit=True)
-        calc_rmsd(":3-18@CA", traj, 0) # ref=traj[0]
-        calc_rmsd(":3-18@CA", traj, 'last') # ref=traj[-1]
-        calc_rmsd(":3-18@CA", traj, 'first') # ref=traj[0]
-        calc_rmsd(":3-18@CA", traj, 'Tc5b.nat.crd') # ref: from file
+        calc_rmsd(traj, ":3-18@CA", ref=traj[0], mass=True, fit=True)
+        calc_rmsd(traj, ":3-18@CA", 0) # ref=traj[0]
+        calc_rmsd(traj, ":3-18@CA", 'last') # ref=traj[-1]
+        calc_rmsd(traj, ":3-18@CA", 'first') # ref=traj[0]
+        calc_rmsd(traj, ":3-18@CA", 'Tc5b.nat.crd') # ref: from file
 
     """
     _top = _get_top(traj, top)
