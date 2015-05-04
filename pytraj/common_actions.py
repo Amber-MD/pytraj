@@ -270,7 +270,7 @@ def calc_atomicfluct(traj=None, command="", *args, **kwd):
     act.print_output() # need to have this. check cpptraj's code
     return dslist[-1]
 
-def calc_vector(traj=None, mask="", *args, **kwd): 
+def calc_vector(traj=None, mask="", dtype='vector', *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -300,7 +300,10 @@ def calc_vector(traj=None, mask="", *args, **kwd):
 
     act(command=mask, current_frame=traj, dslist=dslist, *args, **kwd)
     dslist.set_py_free_mem(False)
-    return dslist[0]
+    if dtype == 'vector':
+        return dslist[-1]
+    else:
+        return _get_data_from_dtype(dslist, dtype=dtype)
 
 def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='dataset'):
     _top = _get_top(traj, top)

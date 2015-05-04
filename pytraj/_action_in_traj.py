@@ -45,7 +45,7 @@ class ActionInTraj(object):
     def calc_COG(self, mask="", *args, **kwd):
         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
 
-    def calc_vector(self, mask="", dtype='dataset'):
+    def calc_vector(self, mask="", dtype='dataset', *args, **kwd):
         """
         dtype = {'dataset', 'list', 'ndarray'}
         """
@@ -54,15 +54,9 @@ class ActionInTraj(object):
         act = Action_Vector()
         dslist = DataSetList()
 
-        if 'name' not in mask:
-            # for some reasons, I got segmentation fault without 'name' keyword
-            # need to check cpptraj code
-            mask = "myvector " + mask
-        act(mask, self, dslist=dslist)
-        dslist.set_py_free_mem(False)
-        d0 = dslist[0]
+        act(mask, self, dslist=dslist, *args, **kwd)
         dtype = dtype.lower()
-        return _get_data_from_dtype(d0, dtype)
+        return _get_data_from_dtype(dslist, dtype)
 
     def calc_pairwise_rmsd(self, mask="", *args, **kwd):
         return pyca.calc_pairwise_rmsd(self, mask, *args, **kwd)
