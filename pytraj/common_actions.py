@@ -13,7 +13,7 @@ adict = ActionDict()
 from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
-from ._get_common_objects import _get_top
+from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._common_actions import calculate
 from .externals.six import string_types
 from .Frame import Frame
@@ -77,18 +77,6 @@ rotate = do_rotation
 do_scaling = partial(action_type, 'scale')
 scale = do_scaling
 
-def _get_data_from_dtype(d0, dtype='dataset'):
-   dtype = dtype.lower()
-   if dtype == 'dataset':
-       return d0
-   elif dtype == 'list':
-       return d0.tolist()
-   elif dtype == 'ndarray':
-       return d0.to_ndarray()
-   elif dtype == 'pyarray':
-       return d0.to_pyarray()
-   else:
-       raise NotImplenmentedError()
 
 def calc_watershell(traj=None, command="", top=Topology()):
     """return a DataSetList object having the number of water 

@@ -19,14 +19,13 @@ from .utils.check_and_assert import file_exist, is_mdtraj
 from .utils.check_and_assert import is_word_in_class_name
 from .utils.check_and_assert import is_array, is_range
 from .trajs.Trajout import Trajout
-from ._get_common_objects import _get_top
+from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._shared_methods import _savetraj, _get_temperature_set
 from ._shared_methods import _xyz, _tolist
 from ._shared_methods import my_str_method
 from ._shared_methods import _frame_iter
 
 import pytraj.common_actions as pyca
-from pytraj.common_actions import _get_data_from_dtype
 from pytraj.hbonds import search_hbonds
 
 # we don't allow sub-class in Python level since we will mess up with memory
