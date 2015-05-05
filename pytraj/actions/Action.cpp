@@ -2264,10 +2264,9 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct _
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_14process(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_current_top, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_new_top); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_current_frame, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_new_frame); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_18print_output(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20get_action_from_functptr(CYTHON_UNUSED PyObject *__pyx_v_cls, struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr *__pyx_v_funct); /* proto */
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22run(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_current_frame, PyObject *__pyx_v_current_top, PyObject *__pyx_v_dslist, PyObject *__pyx_v_dflist, PyObject *__pyx_v_new_top, PyObject *__pyx_v_new_frame, int __pyx_v_debug, CYTHON_UNUSED PyObject *__pyx_v_update_frame, PyObject *__pyx_v_quick_get); /* proto */
+static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20_get_action_from_functptr(CYTHON_UNUSED PyObject *__pyx_v_cls, struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr *__pyx_v_funct); /* proto */
+static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_current_frame, PyObject *__pyx_v_current_top, PyObject *__pyx_v_dslist, PyObject *__pyx_v_dflist, PyObject *__pyx_v_new_top, PyObject *__pyx_v_new_frame, int __pyx_v_debug, CYTHON_UNUSED PyObject *__pyx_v_update_frame, PyObject *__pyx_v_quick_get); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_24reset_counter(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_26master(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_8n_frames___get__(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_7actions_6Action_6Action_8n_frames_2__set__(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
@@ -2312,7 +2311,6 @@ static char __pyx_k_O[] = "O";
 static char __pyx_k_c[] = "c";
 static char __pyx_k_id[] = "id";
 static char __pyx_k_obj[] = "obj";
-static char __pyx_k_run[] = "run";
 static char __pyx_k_str[] = "__str__";
 static char __pyx_k_top[] = "top";
 static char __pyx_k_base[] = "base";
@@ -2344,6 +2342,7 @@ static char __pyx_k_dflist[] = "dflist";
 static char __pyx_k_dslist[] = "dslist";
 static char __pyx_k_format[] = "format";
 static char __pyx_k_import[] = "__import__";
+static char __pyx_k_master[] = "_master";
 static char __pyx_k_name_2[] = "name";
 static char __pyx_k_pytraj[] = "pytraj";
 static char __pyx_k_struct[] = "struct";
@@ -2399,7 +2398,7 @@ static char __pyx_k_Action___call___line_50[] = "Action.__call__ (line 50)";
 static char __pyx_k_MemoryView_of_r_at_0x_x[] = "<MemoryView of %r at 0x%x>";
 static char __pyx_k_contiguous_and_indirect[] = "<contiguous and indirect>";
 static char __pyx_k_Cannot_index_with_type_s[] = "Cannot index with type '%s'";
-static char __pyx_k_get_action_from_functptr[] = "get_action_from_functptr";
+static char __pyx_k_get_action_from_functptr[] = "_get_action_from_functptr";
 static char __pyx_k_getbuffer_obj_view_flags[] = "getbuffer(obj, view, flags)";
 static char __pyx_k_Dimension_d_is_not_direct[] = "Dimension %d is not direct";
 static char __pyx_k_Invalid_shape_in_axis_d_d[] = "Invalid shape in axis %d: %d.";
@@ -2491,6 +2490,7 @@ static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_makesureABC;
+static PyObject *__pyx_n_s_master;
 static PyObject *__pyx_n_s_memview;
 static PyObject *__pyx_n_s_mode;
 static PyObject *__pyx_kp_s_must_be_Frame_or_FrameArray;
@@ -2514,7 +2514,6 @@ static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_quick_get;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_read_input;
-static PyObject *__pyx_n_s_run;
 static PyObject *__pyx_kp_s_s_object;
 static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_size;
@@ -2926,12 +2925,12 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_10__call__(struct __p
   /* "pytraj/actions/Action.pyx":57
  *         >>> adict['jcoupling']("outfile Jcoupling.dat kfile Karplus.txt", traj[0], traj.top, dslist=dslist)
  *         """
- *         return self.run(*args, **kwd)             # <<<<<<<<<<<<<<
+ *         return self._master(*args, **kwd)             # <<<<<<<<<<<<<<
  * 
  *     @makesureABC("Action")
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_run); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_master); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -4385,23 +4384,23 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_18print_output(struct
 /* "pytraj/actions/Action.pyx":180
  *     # Do we really need this method?
  *     @classmethod
- *     def get_action_from_functptr(cls, FunctPtr funct):             # <<<<<<<<<<<<<<
+ *     def _get_action_from_functptr(cls, FunctPtr funct):             # <<<<<<<<<<<<<<
  *         cdef Action act = Action()
  *         if funct.ptr() == NULL:
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_21get_action_from_functptr(PyObject *__pyx_v_cls, PyObject *__pyx_v_funct); /*proto*/
-static char __pyx_doc_6pytraj_7actions_6Action_6Action_20get_action_from_functptr[] = "Action.get_action_from_functptr(type cls, FunctPtr funct)";
-static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_21get_action_from_functptr(PyObject *__pyx_v_cls, PyObject *__pyx_v_funct) {
+static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_21_get_action_from_functptr(PyObject *__pyx_v_cls, PyObject *__pyx_v_funct); /*proto*/
+static char __pyx_doc_6pytraj_7actions_6Action_6Action_20_get_action_from_functptr[] = "Action._get_action_from_functptr(type cls, FunctPtr funct)";
+static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_21_get_action_from_functptr(PyObject *__pyx_v_cls, PyObject *__pyx_v_funct) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("get_action_from_functptr (wrapper)", 0);
+  __Pyx_RefNannySetupContext("_get_action_from_functptr (wrapper)", 0);
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_funct), __pyx_ptype_6pytraj_9_FunctPtr_FunctPtr, 1, "funct", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_20get_action_from_functptr(((PyObject*)__pyx_v_cls), ((struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr *)__pyx_v_funct));
+  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_20_get_action_from_functptr(((PyObject*)__pyx_v_cls), ((struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr *)__pyx_v_funct));
 
   /* function exit code */
   goto __pyx_L0;
@@ -4412,7 +4411,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_21get_action_from_fun
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20get_action_from_functptr(CYTHON_UNUSED PyObject *__pyx_v_cls, struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr *__pyx_v_funct) {
+static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20_get_action_from_functptr(CYTHON_UNUSED PyObject *__pyx_v_cls, struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr *__pyx_v_funct) {
   struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_act = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -4421,11 +4420,11 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20get_action_from_fun
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("get_action_from_functptr", 0);
+  __Pyx_RefNannySetupContext("_get_action_from_functptr", 0);
 
   /* "pytraj/actions/Action.pyx":181
  *     @classmethod
- *     def get_action_from_functptr(cls, FunctPtr funct):
+ *     def _get_action_from_functptr(cls, FunctPtr funct):
  *         cdef Action act = Action()             # <<<<<<<<<<<<<<
  *         if funct.ptr() == NULL:
  *             raise ValueError("NULL pointer")
@@ -4436,7 +4435,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20get_action_from_fun
   __pyx_t_1 = 0;
 
   /* "pytraj/actions/Action.pyx":182
- *     def get_action_from_functptr(cls, FunctPtr funct):
+ *     def _get_action_from_functptr(cls, FunctPtr funct):
  *         cdef Action act = Action()
  *         if funct.ptr() == NULL:             # <<<<<<<<<<<<<<
  *             raise ValueError("NULL pointer")
@@ -4459,7 +4458,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20get_action_from_fun
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
     /* "pytraj/actions/Action.pyx":182
- *     def get_action_from_functptr(cls, FunctPtr funct):
+ *     def _get_action_from_functptr(cls, FunctPtr funct):
  *         cdef Action act = Action()
  *         if funct.ptr() == NULL:             # <<<<<<<<<<<<<<
  *             raise ValueError("NULL pointer")
@@ -4481,7 +4480,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20get_action_from_fun
  *         act.baseptr = <_Action*> funct.ptr()
  *         return act             # <<<<<<<<<<<<<<
  * 
- *     def run(self, command='',
+ *     def _master(self, command='',
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_act));
@@ -4491,7 +4490,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20get_action_from_fun
   /* "pytraj/actions/Action.pyx":180
  *     # Do we really need this method?
  *     @classmethod
- *     def get_action_from_functptr(cls, FunctPtr funct):             # <<<<<<<<<<<<<<
+ *     def _get_action_from_functptr(cls, FunctPtr funct):             # <<<<<<<<<<<<<<
  *         cdef Action act = Action()
  *         if funct.ptr() == NULL:
  */
@@ -4499,7 +4498,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20get_action_from_fun
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.actions.Action.Action.get_action_from_functptr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.actions.Action.Action._get_action_from_functptr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_act);
@@ -4511,15 +4510,15 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20get_action_from_fun
 /* "pytraj/actions/Action.pyx":187
  *         return act
  * 
- *     def run(self, command='',             # <<<<<<<<<<<<<<
+ *     def _master(self, command='',             # <<<<<<<<<<<<<<
  *                   current_frame=Frame(),
  *                   current_top=Topology(),
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23run(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_7actions_6Action_6Action_22run[] = "Action.run(self, command='', current_frame=<\077\077?>, current_top=<\077\077?>, dslist=<\077\077?>, dflist=<\077\077?>, new_top=<\077\077?>, new_frame=<\077\077?>, int debug=0, update_frame=False, quick_get=False)\n\n        TODO : (do we need this method?)\n            + add doc\n            + don't work with `chunk_iter`\n\n        ";
-static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23run(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23_master(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_7actions_6Action_6Action_22_master[] = "Action._master(self, command='', current_frame=<\077\077?>, current_top=<\077\077?>, dslist=<\077\077?>, dflist=<\077\077?>, new_top=<\077\077?>, new_frame=<\077\077?>, int debug=0, update_frame=False, quick_get=False)\n\n        TODO : (do we need this method?)\n            + add doc\n            + don't work with `chunk_iter`\n\n        ";
+static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23_master(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_command = 0;
   PyObject *__pyx_v_current_frame = 0;
   PyObject *__pyx_v_current_top = 0;
@@ -4535,7 +4534,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23run(PyObject *__pyx
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("run (wrapper)", 0);
+  __Pyx_RefNannySetupContext("_master (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_command,&__pyx_n_s_current_frame,&__pyx_n_s_current_top,&__pyx_n_s_dslist,&__pyx_n_s_dflist,&__pyx_n_s_new_top,&__pyx_n_s_new_frame,&__pyx_n_s_debug,&__pyx_n_s_update_frame,&__pyx_n_s_quick_get,0};
     PyObject* values[10] = {0,0,0,0,0,0,0,0,0,0};
@@ -4635,7 +4634,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23run(PyObject *__pyx
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "run") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_master") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -4670,18 +4669,18 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23run(PyObject *__pyx
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("run", 0, 0, 10, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("_master", 0, 0, 10, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.actions.Action.Action.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.actions.Action.Action._master", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_22run(((struct __pyx_obj_6pytraj_7actions_6Action_Action *)__pyx_v_self), __pyx_v_command, __pyx_v_current_frame, __pyx_v_current_top, __pyx_v_dslist, __pyx_v_dflist, __pyx_v_new_top, __pyx_v_new_frame, __pyx_v_debug, __pyx_v_update_frame, __pyx_v_quick_get);
+  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_22_master(((struct __pyx_obj_6pytraj_7actions_6Action_Action *)__pyx_v_self), __pyx_v_command, __pyx_v_current_frame, __pyx_v_current_top, __pyx_v_dslist, __pyx_v_dflist, __pyx_v_new_top, __pyx_v_new_frame, __pyx_v_debug, __pyx_v_update_frame, __pyx_v_quick_get);
 
   /* "pytraj/actions/Action.pyx":187
  *         return act
  * 
- *     def run(self, command='',             # <<<<<<<<<<<<<<
+ *     def _master(self, command='',             # <<<<<<<<<<<<<<
  *                   current_frame=Frame(),
  *                   current_top=Topology(),
  */
@@ -4691,7 +4690,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23run(PyObject *__pyx
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22run(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_current_frame, PyObject *__pyx_v_current_top, PyObject *__pyx_v_dslist, PyObject *__pyx_v_dflist, PyObject *__pyx_v_new_top, PyObject *__pyx_v_new_frame, int __pyx_v_debug, CYTHON_UNUSED PyObject *__pyx_v_update_frame, PyObject *__pyx_v_quick_get) {
+static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_current_frame, PyObject *__pyx_v_current_top, PyObject *__pyx_v_dslist, PyObject *__pyx_v_dflist, PyObject *__pyx_v_new_top, PyObject *__pyx_v_new_frame, int __pyx_v_debug, CYTHON_UNUSED PyObject *__pyx_v_update_frame, PyObject *__pyx_v_quick_get) {
   PyObject *__pyx_v__top = NULL;
   PyObject *__pyx_v_idx = NULL;
   PyObject *__pyx_v_dtype = NULL;
@@ -4708,7 +4707,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22run(struct __pyx_ob
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("run", 0);
+  __Pyx_RefNannySetupContext("_master", 0);
 
   /* "pytraj/actions/Action.pyx":203
  * 
@@ -5129,7 +5128,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22run(struct __pyx_ob
   /* "pytraj/actions/Action.pyx":187
  *         return act
  * 
- *     def run(self, command='',             # <<<<<<<<<<<<<<
+ *     def _master(self, command='',             # <<<<<<<<<<<<<<
  *                   current_frame=Frame(),
  *                   current_top=Topology(),
  */
@@ -5140,7 +5139,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22run(struct __pyx_ob
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("pytraj.actions.Action.Action.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.actions.Action.Action._master", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v__top);
@@ -5157,7 +5156,6 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22run(struct __pyx_ob
  * 
  *     def reset_counter(self):             # <<<<<<<<<<<<<<
  *         self.n_frames = 0
- * 
  */
 
 /* Python wrapper */
@@ -5183,8 +5181,6 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_24reset_counter(struc
  * 
  *     def reset_counter(self):
  *         self.n_frames = 0             # <<<<<<<<<<<<<<
- * 
- *     def master(self, *args, **kwd):
  */
   __pyx_v_self->n_frames = 0;
 
@@ -5193,96 +5189,10 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_24reset_counter(struc
  * 
  *     def reset_counter(self):             # <<<<<<<<<<<<<<
  *         self.n_frames = 0
- * 
  */
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/actions/Action.pyx":238
- *         self.n_frames = 0
- * 
- *     def master(self, *args, **kwd):             # <<<<<<<<<<<<<<
- *         """keep this method since some of examples uses them"""
- *         return self.run(*args, **kwd)
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_27master(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_7actions_6Action_6Action_26master[] = "Action.master(self, *args, **kwd)\nkeep this method since some of examples uses them";
-static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_27master(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_args = 0;
-  PyObject *__pyx_v_kwd = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("master (wrapper)", 0);
-  if (unlikely(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "master", 1))) return NULL;
-  if (unlikely(__pyx_kwds)) {
-    __pyx_v_kwd = PyDict_Copy(__pyx_kwds); if (unlikely(!__pyx_v_kwd)) return NULL;
-    __Pyx_GOTREF(__pyx_v_kwd);
-  } else {
-    __pyx_v_kwd = NULL;
-  }
-  __Pyx_INCREF(__pyx_args);
-  __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_26master(((struct __pyx_obj_6pytraj_7actions_6Action_Action *)__pyx_v_self), __pyx_v_args, __pyx_v_kwd);
-
-  /* function exit code */
-  __Pyx_XDECREF(__pyx_v_args);
-  __Pyx_XDECREF(__pyx_v_kwd);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_26master(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("master", 0);
-
-  /* "pytraj/actions/Action.pyx":240
- *     def master(self, *args, **kwd):
- *         """keep this method since some of examples uses them"""
- *         return self.run(*args, **kwd)             # <<<<<<<<<<<<<<
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_run); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_3;
-  __pyx_t_3 = 0;
-  goto __pyx_L0;
-
-  /* "pytraj/actions/Action.pyx":238
- *         self.n_frames = 0
- * 
- *     def master(self, *args, **kwd):             # <<<<<<<<<<<<<<
- *         """keep this method since some of examples uses them"""
- *         return self.run(*args, **kwd)
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pytraj.actions.Action.Action.master", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -17106,10 +17016,9 @@ static PyMethodDef __pyx_methods_6pytraj_7actions_6Action_Action[] = {
   {"process", (PyCFunction)__pyx_pw_6pytraj_7actions_6Action_6Action_15process, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_7actions_6Action_6Action_14process},
   {"do_action", (PyCFunction)__pyx_pw_6pytraj_7actions_6Action_6Action_17do_action, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_7actions_6Action_6Action_16do_action},
   {"print_output", (PyCFunction)__pyx_pw_6pytraj_7actions_6Action_6Action_19print_output, METH_NOARGS, __pyx_doc_6pytraj_7actions_6Action_6Action_18print_output},
-  {"get_action_from_functptr", (PyCFunction)__pyx_pw_6pytraj_7actions_6Action_6Action_21get_action_from_functptr, METH_O, __pyx_doc_6pytraj_7actions_6Action_6Action_20get_action_from_functptr},
-  {"run", (PyCFunction)__pyx_pw_6pytraj_7actions_6Action_6Action_23run, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_7actions_6Action_6Action_22run},
+  {"_get_action_from_functptr", (PyCFunction)__pyx_pw_6pytraj_7actions_6Action_6Action_21_get_action_from_functptr, METH_O, __pyx_doc_6pytraj_7actions_6Action_6Action_20_get_action_from_functptr},
+  {"_master", (PyCFunction)__pyx_pw_6pytraj_7actions_6Action_6Action_23_master, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_7actions_6Action_6Action_22_master},
   {"reset_counter", (PyCFunction)__pyx_pw_6pytraj_7actions_6Action_6Action_25reset_counter, METH_NOARGS, __pyx_doc_6pytraj_7actions_6Action_6Action_24reset_counter},
-  {"master", (PyCFunction)__pyx_pw_6pytraj_7actions_6Action_6Action_27master, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_7actions_6Action_6Action_26master},
   {0, 0, 0, 0}
 };
 
@@ -17921,6 +17830,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_makesureABC, __pyx_k_makesureABC, sizeof(__pyx_k_makesureABC), 0, 0, 1, 1},
+  {&__pyx_n_s_master, __pyx_k_master, sizeof(__pyx_k_master), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
   {&__pyx_kp_s_must_be_Frame_or_FrameArray, __pyx_k_must_be_Frame_or_FrameArray, sizeof(__pyx_k_must_be_Frame_or_FrameArray), 0, 0, 1, 0},
@@ -17944,7 +17854,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_quick_get, __pyx_k_quick_get, sizeof(__pyx_k_quick_get), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_read_input, __pyx_k_read_input, sizeof(__pyx_k_read_input), 0, 0, 1, 1},
-  {&__pyx_n_s_run, __pyx_k_run, sizeof(__pyx_k_run), 0, 0, 1, 1},
   {&__pyx_kp_s_s_object, __pyx_k_s_object, sizeof(__pyx_k_s_object), 0, 0, 1, 0},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
@@ -18175,7 +18084,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__30);
 
   /* "pytraj/actions/Action.pyx":59
- *         return self.run(*args, **kwd)
+ *         return self._master(*args, **kwd)
  * 
  *     @makesureABC("Action")             # <<<<<<<<<<<<<<
  *     def read_input(self, command='',
@@ -18618,7 +18527,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   __pyx_t_2 = 0;
 
   /* "pytraj/actions/Action.pyx":59
- *         return self.run(*args, **kwd)
+ *         return self._master(*args, **kwd)
  * 
  *     @makesureABC("Action")             # <<<<<<<<<<<<<<
  *     def read_input(self, command='',
@@ -18859,7 +18768,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   /* "pytraj/actions/Action.pyx":180
  *     # Do we really need this method?
  *     @classmethod
- *     def get_action_from_functptr(cls, FunctPtr funct):             # <<<<<<<<<<<<<<
+ *     def _get_action_from_functptr(cls, FunctPtr funct):             # <<<<<<<<<<<<<<
  *         cdef Action act = Action()
  *         if funct.ptr() == NULL:
  */
@@ -18870,7 +18779,7 @@ PyMODINIT_FUNC PyInit_Action(void)
  * 
  *     # Do we really need this method?
  *     @classmethod             # <<<<<<<<<<<<<<
- *     def get_action_from_functptr(cls, FunctPtr funct):
+ *     def _get_action_from_functptr(cls, FunctPtr funct):
  *         cdef Action act = Action()
  */
   __pyx_t_1 = __Pyx_Method_ClassMethod(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18882,7 +18791,7 @@ PyMODINIT_FUNC PyInit_Action(void)
 
   /* "pytraj/actions/Action.pyx":188
  * 
- *     def run(self, command='',
+ *     def _master(self, command='',
  *                   current_frame=Frame(),             # <<<<<<<<<<<<<<
  *                   current_top=Topology(),
  *                   dslist=DataSetList(),
@@ -18894,7 +18803,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   __pyx_t_1 = 0;
 
   /* "pytraj/actions/Action.pyx":189
- *     def run(self, command='',
+ *     def _master(self, command='',
  *                   current_frame=Frame(),
  *                   current_top=Topology(),             # <<<<<<<<<<<<<<
  *                   dslist=DataSetList(),
