@@ -34,7 +34,7 @@ cdef class Analysis:
         pass
 
     def __call__(self, *args, **kwd):
-        return self.run(*args, **kwd)
+        return self._master(*args, **kwd)
 
     @makesureABC("Analysis")
     def read_input(self, command='', 
@@ -84,6 +84,6 @@ cdef class Analysis:
         """
         self.baseptr.Analyze()
 
-    def run(self, *args, **kwd):
+    def _master(self, *args, **kwd):
         self.read_input(*args, **kwd)
         return self.do_analysis()

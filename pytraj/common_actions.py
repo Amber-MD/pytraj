@@ -49,7 +49,7 @@ list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'align_principal_axis']
+list_of_the_rest = ['search_hbonds', 'align_principal_axis', 'closest']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -202,7 +202,7 @@ def randomize_ions(traj=Frame(), command="", top=Topology()):
 
     """
     act = adict['randomizeions']
-    act.master(command, traj, top)
+    act(command, traj, top)
 
 def do_clustering(traj=None, command="", top=Topology(), 
         dslist=DataSetList(), dflist=DataFileList()):
@@ -426,3 +426,22 @@ def align_principal_axis(traj=None, command="*", top=None):
     act = adict['principal']
     command += " dorotation"
     act(command, traj, top)
+
+def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
+    from .actions.Action_Closest import Action_Closest
+    act = Action_Closest()
+    fa = FrameArray()
+
+    _top = _get_top(traj, top)
+    new_top = Topology()
+    new_top.py_free_mem = False # cpptraj will do
+    act.read_input(command, _top)
+    act.process(_top, new_top)
+
+    fa.top = new_top.copy()
+    for frame in _frame_iter_master(traj):
+        new_frame = Frame()
+        new_frame.py_free_mem = False # cpptraj will do
+        act.do_action(frame, new_frame)
+        fa.append(new_frame, copy=True)
+    return fa

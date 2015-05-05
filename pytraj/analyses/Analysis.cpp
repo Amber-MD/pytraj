@@ -2167,7 +2167,7 @@ static void __pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_2__dealloc__(CYTHON_U
 static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_4__call__(struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_6read_input(struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_top, struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_dslist, struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_dflist); /* proto */
 static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_8do_analysis(struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_10run(struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_10_master(struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -2212,7 +2212,6 @@ static char __pyx_k_id[] = "id";
 static char __pyx_k_PY3[] = "PY3";
 static char __pyx_k__20[] = "*";
 static char __pyx_k_obj[] = "obj";
-static char __pyx_k_run[] = "run";
 static char __pyx_k_top[] = "top";
 static char __pyx_k_base[] = "base";
 static char __pyx_k_main[] = "__main__";
@@ -2234,6 +2233,7 @@ static char __pyx_k_dflist[] = "dflist";
 static char __pyx_k_dslist[] = "dslist";
 static char __pyx_k_format[] = "format";
 static char __pyx_k_import[] = "__import__";
+static char __pyx_k_master[] = "_master";
 static char __pyx_k_name_2[] = "__name__";
 static char __pyx_k_struct[] = "struct";
 static char __pyx_k_unpack[] = "unpack";
@@ -2337,6 +2337,7 @@ static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_makesureABC;
+static PyObject *__pyx_n_s_master;
 static PyObject *__pyx_n_s_memview;
 static PyObject *__pyx_n_s_mode;
 static PyObject *__pyx_n_s_name;
@@ -2351,7 +2352,6 @@ static PyObject *__pyx_n_s_pyx_getbuffer;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_read_input;
-static PyObject *__pyx_n_s_run;
 static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_start;
@@ -2462,7 +2462,7 @@ static void __pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_2__dealloc__(CYTHON_U
  *         pass
  * 
  *     def __call__(self, *args, **kwd):             # <<<<<<<<<<<<<<
- *         return self.run(*args, **kwd)
+ *         return self._master(*args, **kwd)
  * 
  */
 
@@ -2506,12 +2506,12 @@ static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_4__call__(struct
   /* "pytraj/analyses/Analysis.pyx":37
  * 
  *     def __call__(self, *args, **kwd):
- *         return self.run(*args, **kwd)             # <<<<<<<<<<<<<<
+ *         return self._master(*args, **kwd)             # <<<<<<<<<<<<<<
  * 
  *     @makesureABC("Analysis")
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_run); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_master); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -2527,7 +2527,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_4__call__(struct
  *         pass
  * 
  *     def __call__(self, *args, **kwd):             # <<<<<<<<<<<<<<
- *         return self.run(*args, **kwd)
+ *         return self._master(*args, **kwd)
  * 
  */
 
@@ -2987,7 +2987,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_8do_analysis(str
  *         """
  *         self.baseptr.Analyze()             # <<<<<<<<<<<<<<
  * 
- *     def run(self, *args, **kwd):
+ *     def _master(self, *args, **kwd):
  */
   __pyx_v_self->baseptr->Analyze();
 
@@ -3009,21 +3009,21 @@ static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_8do_analysis(str
 /* "pytraj/analyses/Analysis.pyx":87
  *         self.baseptr.Analyze()
  * 
- *     def run(self, *args, **kwd):             # <<<<<<<<<<<<<<
+ *     def _master(self, *args, **kwd):             # <<<<<<<<<<<<<<
  *         self.read_input(*args, **kwd)
  *         return self.do_analysis()
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_8Analysis_8Analysis_11run(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_8Analysis_8Analysis_10run[] = "Analysis.run(self, *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_8analyses_8Analysis_8Analysis_11run(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_8analyses_8Analysis_8Analysis_11_master(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_8Analysis_8Analysis_10_master[] = "Analysis._master(self, *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_8analyses_8Analysis_8Analysis_11_master(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("run (wrapper)", 0);
-  if (unlikely(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "run", 1))) return NULL;
+  __Pyx_RefNannySetupContext("_master (wrapper)", 0);
+  if (unlikely(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "_master", 1))) return NULL;
   if (unlikely(__pyx_kwds)) {
     __pyx_v_kwd = PyDict_Copy(__pyx_kwds); if (unlikely(!__pyx_v_kwd)) return NULL;
     __Pyx_GOTREF(__pyx_v_kwd);
@@ -3032,7 +3032,7 @@ static PyObject *__pyx_pw_6pytraj_8analyses_8Analysis_8Analysis_11run(PyObject *
   }
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_10run(((struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis *)__pyx_v_self), __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_10_master(((struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis *)__pyx_v_self), __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -3041,7 +3041,7 @@ static PyObject *__pyx_pw_6pytraj_8analyses_8Analysis_8Analysis_11run(PyObject *
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_10run(struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_10_master(struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3050,11 +3050,11 @@ static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_10run(struct __p
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("run", 0);
+  __Pyx_RefNannySetupContext("_master", 0);
 
   /* "pytraj/analyses/Analysis.pyx":88
  * 
- *     def run(self, *args, **kwd):
+ *     def _master(self, *args, **kwd):
  *         self.read_input(*args, **kwd)             # <<<<<<<<<<<<<<
  *         return self.do_analysis()
  */
@@ -3069,7 +3069,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_10run(struct __p
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "pytraj/analyses/Analysis.pyx":89
- *     def run(self, *args, **kwd):
+ *     def _master(self, *args, **kwd):
  *         self.read_input(*args, **kwd)
  *         return self.do_analysis()             # <<<<<<<<<<<<<<
  */
@@ -3101,7 +3101,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_10run(struct __p
   /* "pytraj/analyses/Analysis.pyx":87
  *         self.baseptr.Analyze()
  * 
- *     def run(self, *args, **kwd):             # <<<<<<<<<<<<<<
+ *     def _master(self, *args, **kwd):             # <<<<<<<<<<<<<<
  *         self.read_input(*args, **kwd)
  *         return self.do_analysis()
  */
@@ -3111,7 +3111,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_8Analysis_8Analysis_10run(struct __p
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pytraj.analyses.Analysis.Analysis.run", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.analyses.Analysis.Analysis._master", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -14840,7 +14840,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_8Analysis_Analysis(PyObject *o) {
 static PyMethodDef __pyx_methods_6pytraj_8analyses_8Analysis_Analysis[] = {
   {"read_input", (PyCFunction)__pyx_pw_6pytraj_8analyses_8Analysis_8Analysis_7read_input, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8analyses_8Analysis_8Analysis_6read_input},
   {"do_analysis", (PyCFunction)__pyx_pw_6pytraj_8analyses_8Analysis_8Analysis_9do_analysis, METH_NOARGS, __pyx_doc_6pytraj_8analyses_8Analysis_8Analysis_8do_analysis},
-  {"run", (PyCFunction)__pyx_pw_6pytraj_8analyses_8Analysis_8Analysis_11run, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8analyses_8Analysis_8Analysis_10run},
+  {"_master", (PyCFunction)__pyx_pw_6pytraj_8analyses_8Analysis_8Analysis_11_master, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8analyses_8Analysis_8Analysis_10_master},
   {0, 0, 0, 0}
 };
 
@@ -15619,10 +15619,10 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     type_name++;
   }
   if (0);
-  else if (__Pyx_StrEq(name, "generic")) {
+  else if (__Pyx_StrEq(name, "contiguous")) {
     Py_INCREF(o);
-    Py_DECREF(generic);
-    generic = o;
+    Py_DECREF(contiguous);
+    contiguous = o;
   }
   else if (__Pyx_StrEq(name, "indirect")) {
     Py_INCREF(o);
@@ -15634,19 +15634,19 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     Py_DECREF(strided);
     strided = o;
   }
-  else if (__Pyx_StrEq(name, "contiguous")) {
+  else if (__Pyx_StrEq(name, "Py_None")) {
+    PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
+    {__pyx_filename = __pyx_f[2]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L2_error;}
+  }
+  else if (__Pyx_StrEq(name, "generic")) {
     Py_INCREF(o);
-    Py_DECREF(contiguous);
-    contiguous = o;
+    Py_DECREF(generic);
+    generic = o;
   }
   else if (__Pyx_StrEq(name, "indirect_contiguous")) {
     Py_INCREF(o);
     Py_DECREF(indirect_contiguous);
     indirect_contiguous = o;
-  }
-  else if (__Pyx_StrEq(name, "Py_None")) {
-    PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
-    {__pyx_filename = __pyx_f[2]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L2_error;}
   }
   else {
     if (PyObject_SetAttr(__pyx_m, py_name, o) < 0) goto bad;
@@ -15960,6 +15960,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_makesureABC, __pyx_k_makesureABC, sizeof(__pyx_k_makesureABC), 0, 0, 1, 1},
+  {&__pyx_n_s_master, __pyx_k_master, sizeof(__pyx_k_master), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
@@ -15974,7 +15975,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_read_input, __pyx_k_read_input, sizeof(__pyx_k_read_input), 0, 0, 1, 1},
-  {&__pyx_n_s_run, __pyx_k_run, sizeof(__pyx_k_run), 0, 0, 1, 1},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_start, __pyx_k_start, sizeof(__pyx_k_start), 0, 0, 1, 1},
@@ -16178,7 +16178,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__19);
 
   /* "pytraj/analyses/Analysis.pyx":39
- *         return self.run(*args, **kwd)
+ *         return self._master(*args, **kwd)
  * 
  *     @makesureABC("Analysis")             # <<<<<<<<<<<<<<
  *     def read_input(self, command='',
@@ -16561,7 +16561,7 @@ PyMODINIT_FUNC PyInit_Analysis(void)
   __pyx_t_1 = 0;
 
   /* "pytraj/analyses/Analysis.pyx":39
- *         return self.run(*args, **kwd)
+ *         return self._master(*args, **kwd)
  * 
  *     @makesureABC("Analysis")             # <<<<<<<<<<<<<<
  *     def read_input(self, command='',

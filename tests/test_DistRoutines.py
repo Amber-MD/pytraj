@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
                            top="./data/Tc5b.top")
         dslist = DataSetList()
         act = allactions.Action_Distance()
-        act.master(command="distance :1@CA :2@CA",
+        act(command="distance :1@CA :2@CA",
                    current_frame=traj,
                    current_top=traj.top, dslist=dslist)
         d1 = cast_dataset(dslist[0], dtype="general")

@@ -54,7 +54,7 @@ cdef class Action:
         >>> dslist = DataSetList.DataSetList()
         >>> adict['jcoupling']("outfile Jcoupling.dat kfile Karplus.txt", traj[0], traj.top, dslist=dslist)
         """
-        return self.run(*args, **kwd)
+        return self._master(*args, **kwd)
 
     @makesureABC("Action")
     def read_input(self, command='', 
@@ -177,14 +177,14 @@ cdef class Action:
 
     # Do we really need this method?
     @classmethod
-    def get_action_from_functptr(cls, FunctPtr funct):
+    def _get_action_from_functptr(cls, FunctPtr funct):
         cdef Action act = Action()
         if funct.ptr() == NULL:
             raise ValueError("NULL pointer")
         act.baseptr = <_Action*> funct.ptr()
         return act
 
-    def run(self, command='',
+    def _master(self, command='',
                   current_frame=Frame(),
                   current_top=Topology(),
                   dslist=DataSetList(), 
@@ -234,7 +234,3 @@ cdef class Action:
 
     def reset_counter(self):
         self.n_frames = 0
-
-    def master(self, *args, **kwd):
-        """keep this method since some of examples uses them"""
-        return self.run(*args, **kwd)

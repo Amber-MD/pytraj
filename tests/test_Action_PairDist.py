@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         #print (d0)
         act = adict['pairdist']
         dslist = DataSetList()
-        act.run('mask "*" mask2 "*" delta 0.1 out ./output/pairdist.dat', traj, dslist=dslist)
+        act('mask "*" mask2 "*" delta 0.1 out ./output/pairdist.dat', traj, dslist=dslist)
         #act.print_output()
         print (dslist.size)
         #print (dslist[0])
