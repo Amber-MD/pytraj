@@ -355,10 +355,11 @@ cdef class Topology:
     def set_ipol(self, int id):
         self.thisptr.SetIpol(id)
 
-    def _orig_filename(self):
+    @property
+    def _original_filename(self):
         cdef FileName filename = FileName()
         filename.thisptr[0] = self.thisptr.OriginalFilename()
-        return filename
+        return filename.__str__()
 
     property parm_index:
         def __get__(self):

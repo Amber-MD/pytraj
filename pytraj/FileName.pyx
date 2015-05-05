@@ -11,10 +11,12 @@ cdef class FileName:
         del self.thisptr
 
     def __str__(self):
-        filename = self.thisptr.Full()
+        filename = self.fullname
         filename = filename.decode()
-        filename = filename.split("/")[-1]
         return filename
+
+    def __repr__(self):
+        return self.__str__()
 
     def set_filename(self, mystring, ext=False):
         mystring = mystring.encode()

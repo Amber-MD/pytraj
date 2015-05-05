@@ -66,9 +66,10 @@ Usage:
     * [more will come] (http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/index.ipynb)
     * pytraj's tutorials and documents are growing, stay tuned.
 
-Question?
+Question/Suggestion?
 --------
-* send email to [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)
+* code issue and stuff relating directly to `pytraj`, create [Issue](https://github.com/pytraj/pytraj/issues)
+* ask question about data analysis in general, send email to [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)
 
 Support
 ====================
