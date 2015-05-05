@@ -30,7 +30,7 @@ cdef class DataSetList:
             del self.thisptr
 
     def __call__(self, *args, **kwd):
-        return self.get_dataset(*args, **kwd)
+        return self.groupby(*args, **kwd)
 
     def clear(self):
         self.thisptr.Clear()
@@ -316,7 +316,6 @@ cdef class DataSetList:
         _, pandas = _import("pandas")
         my_dict = dict((d0.legend, d0.to_ndarray()) for d0 in self)
         return pandas.DataFrame(my_dict)
-
 
     def set_py_free_mem(self, bint value):
         # we only expose py_free_mem in cython (not pure python)

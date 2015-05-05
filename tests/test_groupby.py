@@ -15,6 +15,8 @@ class Test(unittest.TestCase):
 
         # groupby legend
         dlg = dslist.groupby("phi", mode='legend')
+        dlg2 = dslist("phi", mode='legend')
+        assert sorted(dlg.keys()) == sorted(dlg2.keys())
         for d0 in dlg:
             assert ('phi' in d0.legend) == True
 
