@@ -2,6 +2,7 @@
 # mpirun -n 4 python mpi_cal_molsurf_0.py
 
 # always add those lines to your code
+import numpy as np
 from mpi4py import MPI
 from pytraj.parallel import map as pymap
 from pytraj import io
@@ -20,5 +21,23 @@ traj = io.load(traj_name, parm_name)
 
 # mapping different chunk of `traj` in N cores
 # need to provide `comm`
-arr = pymap(comm, traj, pyca.calc_molsurf, "@CA")
+arr = pymap(comm, traj, pyca.calc_molsurf, "@CA", top=traj.top)
 #print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
+
+# gathering the data to root=0
+if comm.rank == 0:
+    total_arr =  np.empty(comm.size)
+else:
+    total_arr = None
+total_arr = comm.gather(arr, root=0)
+
+if comm.rank == 0:
+    # skip final array since its shape might be different from the rest
+    t0 = np.asarray(total_arr[:-1]).flatten()
+    t1 = np.asarray(total_arr[-1]).flatten()
+    t = np.append(t0, t1)
+
+    # assert to serial values
+    t2 = pyca.calc_molsurf(traj, "@CA", dtype='ndarray')
+    assert t.shape == t2.shape
+    assert np.any(t == t2) == True
