@@ -4,6 +4,7 @@ from cython.operator cimport dereference as deref
 from . import TrajinList
 from .externals.six import string_types
 from .action_dict import ActionDict
+from ._get_common_objects import _get_arglist
 
 cdef class ActionList:
     def __cinit__(self):
@@ -20,20 +21,24 @@ cdef class ActionList:
     def add_action(self, action="", 
                          command="", 
                          top=None, 
-                         DataSetList dlist=DataSetList(), 
-                         DataFileList dflist=DataFileList()):
+                         DataSetList dslist=DataSetList(), 
+                         DataFileList dflist=DataFileList(),
+                         check_status=False):
         """
         Add action to ActionList
 
         Parameters:
         ==========
-        actionobj :: Action object
-        arglist :: ArgList instance
-        toplist :: TopologyList instance
-        dlist :: DataSetList 
-        dflist :: DataFileList
+        action : str or Action object
+        command : str or ArgList object
+        top : str | Topology | TopologyList
+        dslist : DataSetList 
+        dflist : DataFileList
+        check_status : bool, default=False
+            return status of Action (0 or 1) if "True"
         """
         cdef object _action
+        cdef int status
 
         if isinstance(action, string_types):
             # create action object from string
@@ -53,15 +58,16 @@ cdef class ActionList:
         self.toplist = toplist
         # add function pointer: How?
 
-        if isinstance(command, ArgList):
-            _arglist = command
-        else:
-            # try creating arglist
-            _arglist = ArgList(command)
+        _arglist = _get_arglist(command)
+        status = self.thisptr.AddAction(func.ptr, _arglist.thisptr[0], 
+                                        toplist.thisptr,
+                                        dslist.thisptr, dflist.thisptr)
 
-        return self.thisptr.AddAction(func.ptr, _arglist.thisptr[0], 
-                                      toplist.thisptr,
-                                      dlist.thisptr, dflist.thisptr)
+        if check_status:
+            # return "0" if sucess "1" if failed
+            return status
+        else:
+            return None
 
     def process(self, Topology top):
         # let cpptraj free mem
@@ -70,15 +76,9 @@ cdef class ActionList:
         self.top_is_processed = True
 
     def do_actions(self, traj=Frame(), int idx=0):
-        # TODO : read cpptraj code to check memory stuff
-        # set py_free_mem = False to let cpptraj does its job
-
         cdef Frame frame
         cdef int i
 
-        # turn off to use with frame_iter
-        #if len(traj) == 0:
-        #    raise ValueError("empty Frame/Traj/List, what can I do with this?")
         if not self.top_is_processed:
             self.process(self.toplist[0])
 
@@ -101,9 +101,6 @@ cdef class ActionList:
             for i, frame in enumerate(traj):
                 self.do_actions(frame, i)
 
-    def listinfo(self):
-        self.thisptr.List()
-
     def is_empty(self):
         return self.thisptr.Empty()
 
@@ -111,12 +108,7 @@ cdef class ActionList:
     def n_actions(self):
         return self.thisptr.Naction()
 
-    def cmd_string(self, int i):
-        return self.thisptr.CmdString(i)
-
-    def action_alloc(self, int i):
-        # TODO : do we need to expose this method here?
-        # return func_ptr
+    def _action_alloc(self, int i):
         cdef FunctPtr func = FunctPtr()
         if i >= self.n_actions:
             raise IndexError("index must be < " + str(self.n_actions)) 
