@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from .externals.six import string_types, PY3
 from .Topology import Topology
 from .TrajReadOnly import TrajReadOnly
+from .data_sample.load_sample_data import load_sample_data
 from .Frame import Frame
 from .FrameArray import FrameArray
 from .trajs.Trajin_Single import Trajin_Single

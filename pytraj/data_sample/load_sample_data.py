@@ -1,11 +1,12 @@
 from __future__ import absolute_import
 import os
-from .. import io as mdio
+from .. TrajReadOnly import TrajReadOnly
 
 def load_sample_data():
     """
-    Return FrameArray instance for Ala3 data
+    Return TrajReadOnly instance for Ala3 data
     """
     mydir = os.path.dirname(os.path.abspath(__file__))
-    # FIXME: update this if want to support Window
-    return mdio.load(mydir+"/Ala3/Ala3.crd", mydir+"/Ala3/Ala3.top")
+    crd = os.path.join(mydir, "Ala3", "Ala3.crd")
+    top = os.path.join(mydir, "Ala3", "Ala3.top")
+    return TrajReadOnly(crd, top)
