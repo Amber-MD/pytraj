@@ -33,5 +33,11 @@ class Test(unittest.TestCase):
         for atom in atom_list:
             assert atom.name == 'CA  '
 
+    def test_2(self):
+        print ("test _original_filename")
+        fname = top._original_filename
+        parm = mdio._load_chem(fname)
+        assert parm.__str__() == fname
+
 if __name__ == "__main__":
     unittest.main()
