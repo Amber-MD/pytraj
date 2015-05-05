@@ -4,6 +4,7 @@ from __future__ import absolute_import
 cimport cython
 from libc.math cimport sqrt
 from cython cimport view
+from cpython cimport array as cparray # for extend python array
 from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
@@ -937,15 +938,16 @@ cdef class Frame (object):
         cdef int id0, idx1, idx2, idx3
         cdef int n_arr = int_arr.shape[0]
         cdef int i
-        cdef pyarray arr0 = pyarray('d', [])
+        cdef pyarray arr0 = cparray.clone(pyarray('d', []), n_arr, zero=False)
+        cdef double[:] arr0_view = arr0
 
         for i in range(n_arr):
             idx0 = int_arr[i, 0]
             idx1 = int_arr[i, 1]
             idx2 = int_arr[i, 2]
             idx3 = int_arr[i, 3]
-            arr0.append(math.degrees(cpptorsion(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
-                          self.thisptr.XYZ(idx2), self.thisptr.XYZ(idx3))))
+            arr0_view[i] = math.degrees(cpptorsion(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
+                          self.thisptr.XYZ(idx2), self.thisptr.XYZ(idx3)))
         return arr0
 
     def calc_angle(self, cython.integral[:, :] int_arr):
@@ -961,13 +963,14 @@ cdef class Frame (object):
         cdef int idx0, idx1, idx2
         cdef int n_arr = int_arr.shape[0]
         cdef int i
-        cdef pyarray arr0 = pyarray('d', [])
+        cdef pyarray arr0 = cparray.clone(pyarray('d', []), n_arr, zero=False)
+        cdef double[:] arr0_view = arr0
 
         for i in range(n_arr):
             idx0 = int_arr[i, 0]
             idx1 = int_arr[i, 1]
             idx2 = int_arr[i, 2]
-            arr0.append(math.degrees(cppangle(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
+            arr0_view[i] = (math.degrees(cppangle(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
                         self.thisptr.XYZ(idx2))))
         return arr0
 
@@ -984,12 +987,13 @@ cdef class Frame (object):
         cdef int idx0, idx1
         cdef int n_arr = int_arr.shape[0]
         cdef int i
-        cdef pyarray arr0 = pyarray('d', [])
+        cdef pyarray arr0 = cparray.clone(pyarray('d', []), n_arr, zero=False)
+        cdef double[:] arr0_view = arr0
 
         for i in range(n_arr):
             idx0 = int_arr[i, 0]
             idx1 = int_arr[i, 1]
-            arr0.append(sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1))))
+            arr0_view[i] = sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1)))
         return arr0
 
     def tolist(self):
