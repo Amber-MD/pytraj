@@ -11,7 +11,7 @@ import pytraj.common_actions as pyca
 comm = MPI.COMM_WORLD
 # end. you are free to update anything below here
 
-# split remd.x.000 to N cores and do calc_surf in parallel
+# split remd.x.000 to N cores and do calc_molsurf in parallel
 root_dir = "../../tests/data/nogit/remd/"
 parm_name = root_dir + "myparm.top"
 top = io.load(parm_name)
@@ -25,7 +25,7 @@ for i in range(comm.size):
 
 # mapping different traj to N cores
 # need to provide `comm`
-arr = pymap(comm, trajlist, pyca.calc_molsurf, "@CA", top=top)
+arr = pymap(comm, pyca.calc_molsurf, trajlist, "@CA", top=top)
 print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
 
 # gathering the data to root=0
