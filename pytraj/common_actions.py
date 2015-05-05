@@ -220,7 +220,7 @@ def do_clustering(traj=None, command="", top=Topology(),
         _top = traj.top
     ana(command, _top, dslist, dflist) 
 
-def calc_multidihedral(traj=None, command="", top=None, dtype='dict', *args, **kwd): 
+def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -230,12 +230,29 @@ def calc_multidihedral(traj=None, command="", top=None, dtype='dict', *args, **k
 
     Returns
     -------
-    Dictionary of array
-    >>> from pytraj.common_actions import calc_multidihedral
-    >>> d = calc_multidihedral("resrange 6-9 phi psi chi", traj)
-    >>> assert isinstance(d, dict) == True
-    >>> from pytraj.dataframe import to_dataframe
-    >>> print (to_dataframe(d))
+    Dictionary of array or dataset or ndarray or list or pyarray (based on `dtype`)
+
+    Examples
+    --------
+        from pytraj.common_actions import calc_multidihedral
+        # calculate all phi/psi dihedrals for residues 6 to 9 (for Amber string mask, index starts from 1)
+        d = calc_multidihedral(traj, "resrange 6-9 phi psi chi")
+        assert isinstance(d, dict) == True
+        from pytraj.dataframe import to_dataframe
+        print (to_dataframe(d))
+
+        # calculate dihedrals for N:CA:CB:CG for all residues, return 'DataSetList' object 
+        d = calc_multidihedral(traj, "dihtype chi1:N:CA:CB:CG", dtype='dataset'))
+
+        # calculate all dihedrals, save output to DataSetList and write output to disk too 
+        from pytraj import DataFileList
+        dflist = DataFileList()
+        d = pdb.calc_multidihedral("out ./output/test_multdih.dat", dtype='dataset', dflist=dflist)
+        dflist.write_all_datafiles()
+
+    See Also
+    -------
+        Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 579)
     """
     _top = _get_top(traj, top)
     dslist = DataSetList()

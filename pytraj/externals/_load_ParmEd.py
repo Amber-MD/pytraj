@@ -29,7 +29,7 @@ def load_ParmEd(parmed_obj, restype="top"):
     else:
         raise ValueError("only support `top` or `traj` keyword")
 
-def load_to_ParmEd_object(parm_name):
+def _load_chem(parm_name):
     has_parmed = has_("chemistry")
     if has_parmed:
         from chemistry import load_file

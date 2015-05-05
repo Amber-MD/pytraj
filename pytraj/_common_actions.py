@@ -36,6 +36,8 @@ def calculate(action=None, traj=None, command="", top=None,
     from pytraj import ActionDict
     adict = ActionDict()
 
+    not_return_list = ['action_autoimage', 'action_translate', 'action_rotate', 'action_scale', 'action_strip']
+
     need_print_output = False
     if kwd:
         if 'print_output' in kwd.keys() and kwd['print_output'] == True:
@@ -68,6 +70,9 @@ def calculate(action=None, traj=None, command="", top=None,
         act = adict[action] 
     else: 
         act = action 
+
+    act_name = act.__class__.__name__.lower()
+
     act(command, traj, _top, dslist=dslist, quick_get=quick_get, **kwd)
     if need_print_output:
         act.print_output()
@@ -93,4 +98,7 @@ def calculate(action=None, traj=None, command="", top=None,
         else:
             raise NotImplementedError(dtype)
     else:
-        return _dslist
+        if act_name not in not_return_list:
+            return _dslist
+        else:
+            return None

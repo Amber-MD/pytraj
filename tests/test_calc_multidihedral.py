@@ -13,14 +13,14 @@ class Test(unittest.TestCase):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj.common_actions import calc_multidihedral
         command =  "resrange 2-19 phi psi"
-        d0 = calc_multidihedral(command, traj)
-        d1 = calc_multidihedral(command, traj)
+        d0 = calc_multidihedral(traj, command)
+        d1 = calc_multidihedral(traj, command)
         assert isinstance(d0, dict) == True
         assert (len(d0.keys()) == len(d1.keys()))
         print (to_dataframe(d1))
         print (to_dataframe(d0))
 
-        d3 = calc_multidihedral("", traj)
+        d3 = calc_multidihedral(traj)
         print (to_dataframe(d3))
 
 if __name__ == "__main__":
