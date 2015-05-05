@@ -428,10 +428,6 @@ cdef class Frame (object):
             arr.append(deref(self.thisptr.CRD(i)))
         return arr
 
-    @property
-    def xyz(self):
-        return self.buffer2d[:]
-
     def v_xyz(self, int atnum):
         """return a copy of velocity"""
         cdef int i
