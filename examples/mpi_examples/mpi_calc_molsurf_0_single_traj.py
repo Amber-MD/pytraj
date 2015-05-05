@@ -21,7 +21,7 @@ traj = io.load(traj_name, parm_name)
 
 # mapping different chunk of `traj` in N cores
 # need to provide `comm`
-arr = pymap(comm, traj, pyca.calc_molsurf, "@CA", top=traj.top)
+arr = pymap(comm, pyca.calc_molsurf, traj, "@CA", top=traj.top)
 print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
 
 if comm.rank == 0:

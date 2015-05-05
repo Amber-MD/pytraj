@@ -2,7 +2,7 @@ from pytraj.utils import _import_numpy
 
 has_np, np = _import_numpy()
 
-def map(comm, traj_or_list, calc_method, command, *args, **kwd):
+def map(comm, calc_method, traj_or_list, command, *args, **kwd):
     """
 
     # creat file
