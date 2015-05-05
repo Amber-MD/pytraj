@@ -2,6 +2,7 @@ import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
+from pytraj.decorators import test_if_having
 from pytraj.utils.check_and_assert import assert_almost_equal
 
 traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -33,6 +34,7 @@ class Test(unittest.TestCase):
         for atom in atom_list:
             assert atom.name == 'CA  '
 
+    @test_if_having("chemistry")
     def test_2(self):
         print ("test _original_filename")
         fname = top._original_filename
