@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         true_top = mdio.load(parm_name)
 
         # load ParmEd
-        parm = mdio.load_to_ParmEd_object(parm_name) 
+        parm = mdio._load_chem(parm_name) 
         assert isinstance(parm, chem.Structure)
         parm.load_coordinates(traj[0].coords)
 

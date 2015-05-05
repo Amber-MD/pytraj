@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
     @test_if_having('chemistry')
     def test_1(self):
         print ("load ParmEd")
-        p_top = mdio.load_to_ParmEd_object("./data/Tc5b.top")
+        p_top = mdio._load_chem("./data/Tc5b.top")
         top = mdio.load_pseudo_parm(p_top)
         print (top)
         top.summary()
