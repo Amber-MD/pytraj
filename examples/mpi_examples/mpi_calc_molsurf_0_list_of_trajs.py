@@ -12,7 +12,7 @@ comm = MPI.COMM_WORLD
 # end. you are free to update anything below here
 
 # split remd.x.000 to N cores and do calc_surf in parallel
-root_dir = "../tests/data/nogit/remd/"
+root_dir = "../../tests/data/nogit/remd/"
 parm_name = root_dir + "myparm.top"
 top = io.load(parm_name)
 
@@ -25,7 +25,6 @@ for i in range(comm.size):
 
 # mapping different traj to N cores
 # need to provide `comm`
-print (len(trajlist))
 arr = pymap(comm, trajlist, pyca.calc_molsurf, "@CA", top=top)
 print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
 

@@ -12,7 +12,7 @@ comm = MPI.COMM_WORLD
 # end. you are free to update anything below here
 
 # split remd.x.000 to N cores and do calc_surf in parallel
-root_dir = "../tests/data/nogit/remd/"
+root_dir = "../../tests/data/nogit/remd/"
 traj_name = root_dir + "/remd.x.000"
 parm_name = root_dir + "myparm.top"
 
@@ -22,9 +22,8 @@ traj = io.load(traj_name, parm_name)
 # mapping different chunk of `traj` in N cores
 # need to provide `comm`
 arr = pymap(comm, traj, pyca.calc_molsurf, "@CA", top=traj.top)
-#print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
+print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
 
-# gathering the data to root=0
 if comm.rank == 0:
     total_arr =  np.empty(comm.size)
 else:
@@ -36,6 +35,7 @@ if comm.rank == 0:
     t0 = np.asarray(total_arr[:-1]).flatten()
     t1 = np.asarray(total_arr[-1]).flatten()
     t = np.append(t0, t1)
+    print ('total array len: ', t.shape[0])
 
     # assert to serial values
     t2 = pyca.calc_molsurf(traj, "@CA", dtype='ndarray')
