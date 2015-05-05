@@ -202,7 +202,7 @@ def randomize_ions(traj=Frame(), command="", top=Topology()):
 
     """
     act = adict['randomizeions']
-    act.master(command, traj, top)
+    act(command, traj, top)
 
 def do_clustering(traj=None, command="", top=Topology(), 
         dslist=DataSetList(), dflist=DataFileList()):
