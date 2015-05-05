@@ -314,7 +314,7 @@ cdef class DataSetList:
         pandas
         """
         _, pandas = _import("pandas")
-        my_dict = dict((d0.legend, d0.tolist()) for d0 in self)
+        my_dict = dict((d0.legend, d0.to_ndarray()) for d0 in self)
         return pandas.DataFrame(my_dict)
 
 
