@@ -86,7 +86,6 @@ def calc_distance(traj=None, command=None, top=None, *args, **kwd):
     _, np = _import_numpy()
     _top = _get_top(traj, top)
     if isinstance(command, string_types):
-        print ("start calc_distance")
         # cpptraj mask for action
         return calculate("distance", traj, command, top=_top, quick_get=True, *args, **kwd)
     elif isinstance(command, np.ndarray):
