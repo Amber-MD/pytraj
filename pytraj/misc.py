@@ -32,32 +32,39 @@ def to_amber_mask(txt):
     else:
         raise NotImplementedError()
 
-def info(obj):
+def info(obj=None):
     """get `help` for obj
     Useful for Actions and Analyses
     
     Since we use `set_worl_silent` to turn-off cpptraj' stdout, we need 
     to turn on to use cpptraj's help methods
     """
-    if isinstance(obj, string_types):
-        if obj in adict.keys():
-            # make Action object
-            _obj = adict[obj]
-        elif obj in analdict.keys():
-            # make Analysis object
-            _obj = analdict[obj]
-        else:
-            raise ValueError("keyword must be an Action or Analysis")
-    else:
-        # assume `obj` hasattr `help`
-        _obj = obj
+    adict_keys = adict.keys()
+    anal_keys = analdict.keys()
 
-    if hasattr(_obj, 'help'):
-        set_world_silent(False)
-        _obj.help()
-        set_world_silent(True)
+    if obj is None:
+        print ("action's keys", adict_keys)
+        print ("analysis' keys", anal_keys)
     else:
-        raise ValueError("object does not have `help` method")
+        if isinstance(obj, string_types):
+            if obj in adict.keys():
+                # make Action object
+                _obj = adict[obj]
+            elif obj in analdict.keys():
+                # make Analysis object
+                _obj = analdict[obj]
+            else:
+                raise ValueError("keyword must be an Action or Analysis")
+        else:
+            # assume `obj` hasattr `help`
+            _obj = obj
+
+        if hasattr(_obj, 'help'):
+            set_world_silent(False)
+            _obj.help()
+            set_world_silent(True)
+        else:
+            raise ValueError("object does not have `help` method")
 
 def get_action_dict():
     actdict = {}
