@@ -26,11 +26,27 @@ def to_amber_mask(txt):
         txt = txt.replace("_", ":")
         return " ".join(re.findall(r"(:\d+@\w+)", txt))
     elif isinstance(txt, (list, tuple)):
+        # list is mutable
+        txt_copied = txt.copy()
         for i, _txt in enumerate(txt):
-            txt[i] = to_amber_mask(_txt)
-        return txt
+            txt_copied[i] = to_amber_mask(_txt)
+        return txt_copied
     else:
         raise NotImplementedError()
+
+def from_legends_to_indices(legends, top):
+    """return somethine like "ASP_16@OD1-ARG_18@N-H" to list of indices
+
+    Parameters
+    ----------
+    legends : str
+    top : Topology
+    """
+    mask_list = to_amber_mask(legends)
+    index_list = []
+    for m in mask_list:
+        index_list.append(top(m).indices)
+    return index_list
 
 def info(obj=None):
     """get `help` for obj

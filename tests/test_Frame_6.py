@@ -78,6 +78,13 @@ class Test(unittest.TestCase):
         with Timer() as t:
             dist_0 = frame0.calc_distance(indices_dist)
         print ("dist: time to calculate %s data points = %s (s)" % (Nsize, t.time_gap()))
+        d0_saved = dist_0
+
+        indices_dist_list = indices_dist.tolist()
+        with Timer() as t:
+            dist_0 = frame0._distance_from_indices(indices_dist_list)
+        print ("dist: time to calculate %s data points from list = %s (s)" % (Nsize, t.time_gap()))
+        assert_almost_equal(d0_saved, dist_0)
 
         # randomly take 100 data points to assert
         for _ in range(10):
