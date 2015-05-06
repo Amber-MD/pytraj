@@ -53,7 +53,7 @@ list_of_the_rest = ['search_hbonds', 'align_principal_axis', 'closest']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
-calc_distance = partial(calculate, 'distance', quick_get=True)
+#calc_distance = partial(calculate, 'distance', quick_get=True)
 calc_dih = partial(calculate, 'dihedral', quick_get=True)
 calc_dihedral = calc_dih
 calc_radgyr = partial(calculate, 'radgyr', quick_get=True)
@@ -77,6 +77,27 @@ rotate = do_rotation
 do_scaling = partial(action_type, 'scale')
 scale = do_scaling
 
+def calc_distance(traj=None, command=None, top=None, *args, **kwd):
+    """calculate distance
+
+    Notes:
+    command : str | int_2d numpy array
+    """
+    _, np = _import_numpy()
+    _top = _get_top(traj, top)
+    if isinstance(command, string_types):
+        # cpptraj mask for action
+        return calculate("distance", traj, command, top=_top, quick_get=True, *args, **kwd)
+    elif isinstance(command, np.ndarray):
+        int_2darr = command
+        if 'n_frames' not in kwd.keys():
+            raise ValueError("require specifying n_frames")
+        arr = np.empty([kwd['n_frames'], len(int_2darr)])
+        for idx, frame in enumerate(_frame_iter_master(traj)):
+            arr[idx] = frame.calc_distance(int_2darr)
+        return arr
+    else:
+        raise ValueError("")
 
 def calc_watershell(traj=None, command="", top=Topology()):
     """return a DataSetList object having the number of water 

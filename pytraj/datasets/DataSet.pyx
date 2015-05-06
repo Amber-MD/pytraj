@@ -166,3 +166,11 @@ cdef class DataSet:
     def plot(self):
         """return matplotlib object"""
         raise NotImplementedError()
+
+    def hist(self, bins=100, normed=True, range=None):
+        from pytraj.utils import _import_numpy
+
+        _, np = _import_numpy()
+        hist, bedge  = np.histogram(self.to_ndarray(), bins=bins, normed=normed,range=range)
+        bedge = bedge[:-1]
+        return np.array([bedge, hist])

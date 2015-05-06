@@ -26,38 +26,61 @@ def to_amber_mask(txt):
         txt = txt.replace("_", ":")
         return " ".join(re.findall(r"(:\d+@\w+)", txt))
     elif isinstance(txt, (list, tuple)):
+        # list is mutable
+        txt_copied = txt.copy()
         for i, _txt in enumerate(txt):
-            txt[i] = to_amber_mask(_txt)
-        return txt
+            txt_copied[i] = to_amber_mask(_txt)
+        return txt_copied
     else:
         raise NotImplementedError()
 
-def info(obj):
+def from_legends_to_indices(legends, top):
+    """return somethine like "ASP_16@OD1-ARG_18@N-H" to list of indices
+
+    Parameters
+    ----------
+    legends : str
+    top : Topology
+    """
+    mask_list = to_amber_mask(legends)
+    index_list = []
+    for m in mask_list:
+        index_list.append(top(m).indices)
+    return index_list
+
+def info(obj=None):
     """get `help` for obj
     Useful for Actions and Analyses
     
     Since we use `set_worl_silent` to turn-off cpptraj' stdout, we need 
     to turn on to use cpptraj's help methods
     """
-    if isinstance(obj, string_types):
-        if obj in adict.keys():
-            # make Action object
-            _obj = adict[obj]
-        elif obj in analdict.keys():
-            # make Analysis object
-            _obj = analdict[obj]
-        else:
-            raise ValueError("keyword must be an Action or Analysis")
-    else:
-        # assume `obj` hasattr `help`
-        _obj = obj
+    adict_keys = adict.keys()
+    anal_keys = analdict.keys()
 
-    if hasattr(_obj, 'help'):
-        set_world_silent(False)
-        _obj.help()
-        set_world_silent(True)
+    if obj is None:
+        print ("action's keys", adict_keys)
+        print ("analysis' keys", anal_keys)
     else:
-        raise ValueError("object does not have `help` method")
+        if isinstance(obj, string_types):
+            if obj in adict.keys():
+                # make Action object
+                _obj = adict[obj]
+            elif obj in analdict.keys():
+                # make Analysis object
+                _obj = analdict[obj]
+            else:
+                raise ValueError("keyword must be an Action or Analysis")
+        else:
+            # assume `obj` hasattr `help`
+            _obj = obj
+
+        if hasattr(_obj, 'help'):
+            set_world_silent(False)
+            _obj.help()
+            set_world_silent(True)
+        else:
+            raise ValueError("object does not have `help` method")
 
 def get_action_dict():
     actdict = {}
