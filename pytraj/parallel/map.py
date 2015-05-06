@@ -2,7 +2,7 @@ from pytraj.utils import _import_numpy
 
 has_np, np = _import_numpy()
 
-def map(comm, calc_method, traj_or_list, command, *args, **kwd):
+def map(comm, calc_method, traj_or_list, command, root=0, *args, **kwd):
     """
 
     # creat file
@@ -40,4 +40,6 @@ def map(comm, calc_method, traj_or_list, command, *args, **kwd):
 
     dslist = calc_method(fa_chunk, command, *args, **kwd)
     arr0 = dslist.to_ndarray()
-    return arr0
+    total = comm.gather(arr0, root=root)
+    return total
+    #return arr0

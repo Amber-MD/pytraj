@@ -21,14 +21,12 @@ traj = io.load(traj_name, parm_name)
 
 # mapping different chunk of `traj` in N cores
 # need to provide `comm`
-arr = pymap(comm, pyca.calc_molsurf, traj, "@CA", top=traj.top)
-print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
+# save `total_arr` to rank=0
+# others: total_arr = None
+total_arr = pymap(comm, pyca.calc_molsurf, traj, "@CA", top=traj.top, root=0)
 
-if comm.rank == 0:
-    total_arr =  np.empty(comm.size)
-else:
-    total_arr = None
-total_arr = comm.gather(arr, root=0)
+if comm.rank != 0:
+    assert total_arr is None
 
 if comm.rank == 0:
     # skip final array since its shape might be different from the rest
@@ -38,6 +36,6 @@ if comm.rank == 0:
     print ('total array len: ', t.shape[0])
 
     # assert to serial values
-    t2 = pyca.calc_molsurf(traj, "@CA", dtype='ndarray')
-    assert t.shape == t2.shape
-    assert np.any(t == t2) == True
+    #t2 = pyca.calc_molsurf(traj, "@CA", dtype='ndarray')
+    #assert t.shape == t2.shape
+    #assert np.any(t == t2) == True
