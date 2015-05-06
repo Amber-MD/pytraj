@@ -77,7 +77,7 @@ rotate = do_rotation
 do_scaling = partial(action_type, 'scale')
 scale = do_scaling
 
-def calc_distance(traj=None, command=None, top=None, *args, **kwd):
+def calc_distance(traj=None, command="", top=None, *args, **kwd):
     """calculate distance
 
     Notes:
@@ -86,6 +86,11 @@ def calc_distance(traj=None, command=None, top=None, *args, **kwd):
     _, np = _import_numpy()
     _top = _get_top(traj, top)
     if isinstance(command, string_types):
+        # need to remove 'n_frames' keyword since Action._master does not use it
+        try:
+            del kwd['n_frames']
+        except:
+            pass
         # cpptraj mask for action
         return calculate("distance", traj, command, top=_top, quick_get=True, *args, **kwd)
     elif isinstance(command, np.ndarray):
@@ -98,6 +103,11 @@ def calc_distance(traj=None, command=None, top=None, *args, **kwd):
         return arr
     else:
         raise ValueError("")
+
+def calc_mindist(traj=None, command="", top=None, *args, **kwd):
+    _command = "mindist " + command 
+    _top = _get_top(traj, top)
+    return calculate("nativecontacts", traj, _command, top=_top, quick_get=True, *args, **kwd)
 
 def calc_watershell(traj=None, command="", top=Topology()):
     """return a DataSetList object having the number of water 

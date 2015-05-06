@@ -27,7 +27,7 @@ def to_amber_mask(txt):
         return " ".join(re.findall(r"(:\d+@\w+)", txt))
     elif isinstance(txt, (list, tuple)):
         # list is mutable
-        txt_copied = txt.copy()
+        txt_copied = txt[:]
         for i, _txt in enumerate(txt):
             txt_copied[i] = to_amber_mask(_txt)
         return txt_copied
