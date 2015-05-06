@@ -86,6 +86,11 @@ def calc_distance(traj=None, command="", top=None, *args, **kwd):
     _, np = _import_numpy()
     _top = _get_top(traj, top)
     if isinstance(command, string_types):
+        # need to remove 'n_frames' keyword since Action._master does not use it
+        try:
+            del kwd['n_frames']
+        except:
+            pass
         # cpptraj mask for action
         return calculate("distance", traj, command, top=_top, quick_get=True, *args, **kwd)
     elif isinstance(command, np.ndarray):
