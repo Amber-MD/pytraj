@@ -54,8 +54,8 @@ list_of_the_rest = ['search_hbonds', 'align_principal_axis', 'closest']
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
 #calc_distance = partial(calculate, 'distance', quick_get=True)
-calc_dih = partial(calculate, 'dihedral', quick_get=True)
-calc_dihedral = calc_dih
+#calc_dih = partial(calculate, 'dihedral', quick_get=True)
+#calc_dihedral = calc_dih
 calc_radgyr = partial(calculate, 'radgyr', quick_get=True)
 calc_angle = partial(calculate, 'angle', quick_get=True)
 calc_molsurf = partial(calculate, 'molsurf', quick_get=True)
@@ -96,10 +96,79 @@ def calc_distance(traj=None, command="", top=None, *args, **kwd):
     elif isinstance(command, np.ndarray):
         int_2darr = command
         if 'n_frames' not in kwd.keys():
-            raise ValueError("require specifying n_frames")
-        arr = np.empty([kwd['n_frames'], len(int_2darr)])
+            try:
+                n_frames = traj.n_frames
+            except:
+                raise ValueError("require specifying n_frames")
+        else:
+            n_frames = kwd['n_frames']
+        arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(_frame_iter_master(traj)):
             arr[idx] = frame.calc_distance(int_2darr)
+        return arr
+    else:
+        raise ValueError("")
+
+def calc_angle(traj=None, command="", top=None, *args, **kwd):
+    """calculate dihedral
+
+    Notes:
+    command : str | int_2d numpy array
+    """
+    _, np = _import_numpy()
+    _top = _get_top(traj, top)
+    if isinstance(command, string_types):
+        # need to remove 'n_frames' keyword since Action._master does not use it
+        try:
+            del kwd['n_frames']
+        except:
+            pass
+        # cpptraj mask for action
+        return calculate("angle", traj, command, top=_top, quick_get=True, *args, **kwd)
+    elif isinstance(command, np.ndarray):
+        int_2darr = command
+        if 'n_frames' not in kwd.keys():
+            try:
+                n_frames = traj.n_frames
+            except:
+                raise ValueError("require specifying n_frames")
+        else:
+            n_frames = kwd['n_frames']
+        arr = np.empty([n_frames, len(int_2darr)])
+        for idx, frame in enumerate(_frame_iter_master(traj)):
+            arr[idx] = frame.calc_angle(int_2darr)
+        return arr
+    else:
+        raise ValueError("")
+
+def calc_dihedral(traj=None, command="", top=None, *args, **kwd):
+    """calculate dihedral
+
+    Notes:
+    command : str | int_2d numpy array
+    """
+    _, np = _import_numpy()
+    _top = _get_top(traj, top)
+    if isinstance(command, string_types):
+        # need to remove 'n_frames' keyword since Action._master does not use it
+        try:
+            del kwd['n_frames']
+        except:
+            pass
+        # cpptraj mask for action
+        return calculate("dihedral", traj, command, top=_top, quick_get=True, *args, **kwd)
+    elif isinstance(command, np.ndarray):
+        int_2darr = command
+        if 'n_frames' not in kwd.keys():
+            try:
+                n_frames = traj.n_frames
+            except:
+                raise ValueError("require specifying n_frames")
+        else:
+            n_frames = kwd['n_frames']
+        arr = np.empty([n_frames, len(int_2darr)])
+        for idx, frame in enumerate(_frame_iter_master(traj)):
+            arr[idx] = frame.calc_dihedral(int_2darr)
         return arr
     else:
         raise ValueError("")
