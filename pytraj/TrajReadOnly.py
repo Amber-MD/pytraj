@@ -10,6 +10,7 @@ from pytraj.action_dict import ActionDict
 from pytraj.Frame import Frame
 from pytraj.AtomMask import AtomMask
 from pytraj.externals.six import string_types
+from pytraj.exceptions import PytrajMemviewError
 
 
 class TrajReadOnly(Trajin_Single, ActionInTraj):
