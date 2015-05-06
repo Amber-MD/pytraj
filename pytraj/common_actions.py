@@ -96,8 +96,13 @@ def calc_distance(traj=None, command="", top=None, *args, **kwd):
     elif isinstance(command, np.ndarray):
         int_2darr = command
         if 'n_frames' not in kwd.keys():
-            raise ValueError("require specifying n_frames")
-        arr = np.empty([kwd['n_frames'], len(int_2darr)])
+            try:
+                n_frames = traj.n_frames
+            except:
+                raise ValueError("require specifying n_frames")
+        else:
+            n_frames = kwd['n_frames']
+        arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(_frame_iter_master(traj)):
             arr[idx] = frame.calc_distance(int_2darr)
         return arr
