@@ -25,15 +25,14 @@ for i in range(comm.size):
 
 # mapping different traj to N cores
 # need to provide `comm`
-arr = pymap(comm, pyca.calc_molsurf, trajlist, "@CA", top=top)
-print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
+total_arr = pymap(comm, pyca.calc_molsurf, trajlist, "@CA", top=top)
 
 # gathering the data to root=0
 #if comm.rank == 0:
 #    total_arr =  np.empty(comm.size)
 #else:
 #    total_arr = None
-total_arr = comm.gather(arr, root=0)
+#total_arr = comm.gather(arr, root=0)
 
 if comm.rank == 0:
     # skip final array since its shape might be different from the rest
