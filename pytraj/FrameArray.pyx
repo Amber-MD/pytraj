@@ -299,6 +299,15 @@ cdef class FrameArray (object):
         else:
             raise NotImplementedError("must have numpy")
 
+    def update_xyz(self, xyz):
+        # make sure to use double precision for xyz
+        if xyz.shape != self.shape:
+            raise ValueError("shape mismatch")
+        _, np = _import_numpy()
+        _xyz = xyz.astype(np.float64) 
+        for idx, arr0 in enumerate(xyz):
+            self[idx].xyz[:] = arr0
+
     def tolist(self):
         return _tolist(self)
 
