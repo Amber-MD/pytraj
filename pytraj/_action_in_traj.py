@@ -7,7 +7,8 @@ from pytraj.utils import is_int
 
 class ActionInTraj(object):
     def calc_distance(self, mask="", *args, **kwd):
-        return pyca.calc_distance(self, mask, *args, **kwd)
+        n_frames = self.n_frames
+        return pyca.calc_distance(self, mask, n_frames=n_frames, *args, **kwd)
 
     def calc_distrmsd(self, mask="", *args, **kwd):
         return pyca.calc_distrmsd(self, mask, *args, **kwd)
