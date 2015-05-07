@@ -31,7 +31,7 @@ cdef class DataSet_integer (DataSet_1D):
         cdef pyarray arr0 = pyarray('i', [])
         cdef int i
 
-        if isinstance(idx, (long, int)):
+        if is_int(idx):
             return self.thisptr.index_opr(idx)
         elif isinstance(idx, slice):
             if idx == slice(None):
@@ -50,13 +50,22 @@ cdef class DataSet_integer (DataSet_1D):
         
     def __iter__(self):
         cdef int i
-        for i in range(self.size):
+        cdef int size = self.size
+        for i in range(size):
             yield self.thisptr.index_opr(i)
 
-    def add_element(self, int d):
+    def count(self, value):
+        cdef int i
+        count = 0
+        for i in self:
+            if value == i:
+                count += 1
+        return count
+
+    def append(self, int d):
         self.thisptr.AddElement(d)
 
-    def add(self, int idx, int value):
+    def _add(self, int idx, int value):
         self.thisptr.Add(idx, &value)
 
     property data:
