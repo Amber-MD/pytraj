@@ -7,14 +7,18 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* add `io._iterload_from_filelist` and `io._load_from_filelist`
+* add `count` for DataSet_integer
 * API CHANGE (05-06-2015): 
   * change `FrameArray` to `Trajectory`
   * change `TrajReadOnly` to `TrajectoryIterator` (issue #262)
     (https://github.com/pytraj/pytraj/issues/262)
+  * `io.load` will return `Trajectory` instead of `TrajectoryIterator`
+  * `io.iterload` will return `TrajectoryIterator`
 * add "legend" as property of DataSet
 * remove "get_box" from Frame. use "box"
 * support `autoimage` when loading mdtraj object
-* bugifx for `io.loadpdb_rcsb`
+* bugfix for `io.loadpdb_rcsb`
 * add 'calc_rdf'
 * trick to add reference to Action
   * Example: calc_abcxyz([[ref,], traj], command), where `ref` is a Frame object, `abcxyz` is a specific action.
