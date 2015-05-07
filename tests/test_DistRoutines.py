@@ -41,7 +41,7 @@ class Test(unittest.TestCase):
         act = allactions.Action_Distance()
         act(command="distance :1@CA :2@CA",
                    current_frame=traj,
-                   current_top=traj.top, dslist=dslist)
+                   top=traj.top, dslist=dslist)
         d1 = cast_dataset(dslist[0], dtype="general")
         print(d1.data[:10])
 

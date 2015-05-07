@@ -51,12 +51,26 @@ def load(*args, **kwd):
         # load to Trajectory object
         return loadtraj(*args, **kwd)[:]
 
+def _load_from_filelist(*args, **kwd):
+    """return a list of Trajectory"""
+    args_less = args[1:]
+    return [loadtraj(filename, *args_less, **kwd)[:] for filename in args[0]]
+
 def iterload(*args, **kwd):
     """return TrajectoryIterator object
     """
     if kwd and 'indices' in kwd.keys():
         raise ValueError("do not support indices for TrajectoryIterator loading")
     return loadtraj(*args, **kwd)
+
+def _iterload_from_filelist(*args, **kwd):
+    """return a list of TrajectoryIterator"""
+    """return TrajectoryIterator object
+    """
+    args_less = args[1:]
+    if kwd and 'indices' in kwd.keys():
+        raise ValueError("do not support indices for TrajectoryIterator loading")
+    return [loadtraj(filename, *args_less, **kwd) for filename in args[0]]
 
 def loadtraj(filename=None, top=Topology(), indices=None):
     """load trajectory from filename

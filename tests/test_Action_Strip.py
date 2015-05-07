@@ -25,19 +25,19 @@ class TestStrip(unittest.TestCase):
             newframe = Frame()
             dslist = DataSetList()
             act(command="strip !@CA", 
-                       current_top=top, 
+                       top=top, 
                        dslist=dslist,
                        current_frame=frame0, 
                        new_frame=newframe, 
                        new_top=newtop)
 
             act_surf(command="@CA", 
-                       current_top=top, 
+                       top=top, 
                        dslist=dslist,
                        current_frame=farray)
 
             act_surf(command="@H=", 
-                       current_top=top, 
+                       top=top, 
                        dslist=dslist,
                        current_frame=farray)
 
