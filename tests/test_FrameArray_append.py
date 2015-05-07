@@ -15,11 +15,11 @@ class Test(unittest.TestCase):
         t0 =  time()
         for i in range(10):
             for frame in traj:
-                farray.append(frame, copy=False)
+                farray.append(frame)
 
         print (time() - t0)
         print (farray)
-        farray.join(farray)
+        farray.join(farray.copy())
         print (farray)
 
     #@no_test
@@ -36,12 +36,12 @@ class Test(unittest.TestCase):
 
         t0 = time()
         for frame in farray:
-            farray2.append(frame, copy=False)
+            farray2.append(frame)
         print (time()-t0)
 
         t0 = time()
         for frame in farray:
-            farray2.append(frame, copy=True)
+            farray2.append(frame)
         print (time()-t0)
         print (farray2)
 

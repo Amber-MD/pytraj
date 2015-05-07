@@ -8,3 +8,5 @@ try:
     from itertools import izip 
 except ImportError:
     izip = zip
+
+zip = izip

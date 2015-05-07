@@ -6,6 +6,7 @@ from pytraj.base import *
 from pytraj.utils import Timer
 from load_traj import load
 from pytraj.decorators import no_test
+from pytraj.utils import aa_eq
 
 ts = TrajectoryIterator()
 datadir = "./data/"
@@ -221,10 +222,11 @@ class TestTrajectory(unittest.TestCase):
     def test_joining(self):
         farray0 = Trajectory()
         farray1 = Trajectory()
-        farray0.get_frames(FARRAY, (0, 2, 4, 6), update_top=True)
-        farray1.get_frames(FARRAY, (1, 3, 5, 7), update_top=True)
+        farray0.get_frames(FARRAY, (0, 2, 4, 6), update_top=True, copy=True)
+        farray1.get_frames(FARRAY, (1, 3, 5, 7), update_top=True, copy=True)
         farray0cp = farray0.copy()
         assert farray0cp.size == farray0.size
+        aa_eq(farray0cp.xyz, farray0.xyz)
         print("farray0cp.size", farray0cp.size)
 
         old_size0 = farray0.size
@@ -236,7 +238,7 @@ class TestTrajectory(unittest.TestCase):
 
         print("farray1.size", farray1.size)
         print("farray0cp.size", farray0cp.size)
-        farray0cp += farray1
+        farray0cp += farray1.copy()
         print(farray0cp)
 
         assert farray0cp.size == farray0.size

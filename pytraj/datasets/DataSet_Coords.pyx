@@ -4,7 +4,7 @@ from .._utils cimport get_positive_idx
 from .._shared_methods import _frame_iter
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import my_str_method
-from .._CTrajectory cimport _CTrajectory
+from ..Trajectory cimport Trajectory
 
 cdef class DataSet_Coords(DataSet):
     def __cinit__(self):
@@ -56,7 +56,7 @@ cdef class DataSet_Coords(DataSet):
         # use self.tmpfarray to hold Frame or Trajectory object
 
         cdef Frame frame
-        cdef _CTrajectory farray
+        cdef Trajectory farray
         cdef int start, stop, step
         cdef int i
         cdef int idx_1
@@ -79,7 +79,7 @@ cdef class DataSet_Coords(DataSet):
             self.tmpfarray = frame
         else:
             # creat a subset array of `Trajectory`
-            farray = _CTrajectory()
+            farray = Trajectory()
             farray.top = self.top
             if idxs.step == None:
                 step = 1

@@ -10,7 +10,7 @@ from .cpp_algorithm cimport reverse as cpp_reverse
 ctypedef vector[_Frame*].iterator iterator
 
 
-cdef class _CTrajectory:
+cdef class Trajectory:
     cdef vector[_Frame*] frame_v
     cdef public Topology top
     cdef public Topology oldtop 

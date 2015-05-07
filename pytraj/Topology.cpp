@@ -12468,8 +12468,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_115add_bonds(struct __pyx_
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
   int __pyx_v_int_is_signed;
-  int __pyx_v_short_is_signed;
   int __pyx_v_long_is_signed;
+  int __pyx_v_short_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -12572,8 +12572,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_115add_bonds(struct __pyx_
   }
   __pyx_v_itemsize = -1;
   __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_short_is_signed = (((short)-1) < 0);
   __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_short_is_signed = (((short)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 556; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -13698,8 +13698,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_117add_angles(struct __pyx
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
   int __pyx_v_int_is_signed;
-  int __pyx_v_short_is_signed;
   int __pyx_v_long_is_signed;
+  int __pyx_v_short_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -13802,8 +13802,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_117add_angles(struct __pyx
   }
   __pyx_v_itemsize = -1;
   __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_short_is_signed = (((short)-1) < 0);
   __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_short_is_signed = (((short)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 571; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -14970,8 +14970,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_119add_dihedrals(struct __
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
   int __pyx_v_int_is_signed;
-  int __pyx_v_short_is_signed;
   int __pyx_v_long_is_signed;
+  int __pyx_v_short_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -15074,8 +15074,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_119add_dihedrals(struct __
   }
   __pyx_v_itemsize = -1;
   __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_short_is_signed = (((short)-1) < 0);
   __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_short_is_signed = (((short)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 586; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

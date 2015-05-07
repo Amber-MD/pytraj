@@ -493,7 +493,7 @@ static const char *__pyx_f[] = {
   "pytraj/trajs/TrajectoryIO.pxd",
   "pytraj/trajs/TrajectoryFile.pxd",
   "pytraj/trajs/Trajin.pxd",
-  "pytraj/_CTrajectory.pxd",
+  "pytraj/Trajectory.pxd",
 };
 struct __pyx_memoryview_obj;
 typedef struct {
@@ -628,7 +628,7 @@ struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype;
 struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO;
 struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile;
 struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin;
-struct __pyx_obj_6pytraj_12_CTrajectory__CTrajectory;
+struct __pyx_obj_6pytraj_10Trajectory_Trajectory;
 struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords;
 struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords___pyx_scope_struct____iter__;
 struct __pyx_array_obj;
@@ -834,14 +834,14 @@ typedef BaseIOtype *(*__pyx_t_6pytraj_10BaseIOtype_AllocatorType)(void);
  */
 typedef void (*__pyx_t_6pytraj_10BaseIOtype_HelpType)(void);
 
-/* "_CTrajectory.pxd":10
+/* "Trajectory.pxd":10
  * from .cpp_algorithm cimport reverse as cpp_reverse
  * 
- * ctypedef vector[_Frame].iterator iterator             # <<<<<<<<<<<<<<
+ * ctypedef vector[_Frame*].iterator iterator             # <<<<<<<<<<<<<<
  * 
  * 
  */
-typedef std::vector<Frame> ::iterator __pyx_t_6pytraj_12_CTrajectory_iterator;
+typedef std::vector<Frame *> ::iterator __pyx_t_6pytraj_10Trajectory_iterator;
 
 /* "pytraj/NameType.pxd":25
  * 
@@ -1359,14 +1359,14 @@ struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin {
 };
 
 
-/* "_CTrajectory.pxd":13
+/* "Trajectory.pxd":13
  * 
  * 
- * cdef class _CTrajectory:             # <<<<<<<<<<<<<<
+ * cdef class Trajectory:             # <<<<<<<<<<<<<<
  *     cdef vector[_Frame*] frame_v
  *     cdef public Topology top
  */
-struct __pyx_obj_6pytraj_12_CTrajectory__CTrajectory {
+struct __pyx_obj_6pytraj_10Trajectory_Trajectory {
   PyObject_HEAD
   std::vector<Frame *>  frame_v;
   struct __pyx_obj_6pytraj_8Topology_Topology *top;
@@ -2086,8 +2086,8 @@ static PyTypeObject *__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = 0;
 
 /* Module declarations from 'pytraj.cpp_algorithm' */
 
-/* Module declarations from 'pytraj._CTrajectory' */
-static PyTypeObject *__pyx_ptype_6pytraj_12_CTrajectory__CTrajectory = 0;
+/* Module declarations from 'pytraj.Trajectory' */
+static PyTypeObject *__pyx_ptype_6pytraj_10Trajectory_Trajectory = 0;
 
 /* Module declarations from 'pytraj.datasets.DataSet_Coords' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords = 0;
@@ -3121,7 +3121,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_18
 
 static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17__getitem__(struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords *__pyx_v_self, PyObject *__pyx_v_idxs) {
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame = 0;
-  struct __pyx_obj_6pytraj_12_CTrajectory__CTrajectory *__pyx_v_farray = 0;
+  struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_farray = 0;
   int __pyx_v_start;
   int __pyx_v_stop;
   int __pyx_v_step;
@@ -3343,19 +3343,19 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
   /* "pytraj/datasets/DataSet_Coords.pyx":82
  *         else:
  *             # creat a subset array of `Trajectory`
- *             farray = _CTrajectory()             # <<<<<<<<<<<<<<
+ *             farray = Trajectory()             # <<<<<<<<<<<<<<
  *             farray.top = self.top
  *             if idxs.step == None:
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_12_CTrajectory__CTrajectory)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_10Trajectory_Trajectory)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_v_farray = ((struct __pyx_obj_6pytraj_12_CTrajectory__CTrajectory *)__pyx_t_2);
+    __pyx_v_farray = ((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_t_2);
     __pyx_t_2 = 0;
 
     /* "pytraj/datasets/DataSet_Coords.pyx":83
  *             # creat a subset array of `Trajectory`
- *             farray = _CTrajectory()
+ *             farray = Trajectory()
  *             farray.top = self.top             # <<<<<<<<<<<<<<
  *             if idxs.step == None:
  *                 step = 1
@@ -3370,7 +3370,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
     __pyx_t_2 = 0;
 
     /* "pytraj/datasets/DataSet_Coords.pyx":84
- *             farray = _CTrajectory()
+ *             farray = Trajectory()
  *             farray.top = self.top
  *             if idxs.step == None:             # <<<<<<<<<<<<<<
  *                 step = 1
@@ -3394,7 +3394,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
       __pyx_v_step = 1;
 
       /* "pytraj/datasets/DataSet_Coords.pyx":84
- *             farray = _CTrajectory()
+ *             farray = Trajectory()
  *             farray.top = self.top
  *             if idxs.step == None:             # <<<<<<<<<<<<<<
  *                 step = 1
@@ -18063,7 +18063,7 @@ PyMODINIT_FUNC PyInit_DataSet_Coords(void)
   __pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO = __Pyx_ImportType("pytraj.trajs.TrajectoryIO", "TrajectoryIO", sizeof(struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO)) {__pyx_filename = __pyx_f[20]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile = __Pyx_ImportType("pytraj.trajs.TrajectoryFile", "TrajectoryFile", sizeof(struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile)) {__pyx_filename = __pyx_f[21]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin)) {__pyx_filename = __pyx_f[22]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_12_CTrajectory__CTrajectory = __Pyx_ImportType("pytraj._CTrajectory", "_CTrajectory", sizeof(struct __pyx_obj_6pytraj_12_CTrajectory__CTrajectory), 1); if (unlikely(!__pyx_ptype_6pytraj_12_CTrajectory__CTrajectory)) {__pyx_filename = __pyx_f[23]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_10Trajectory_Trajectory = __Pyx_ImportType("pytraj.Trajectory", "Trajectory", sizeof(struct __pyx_obj_6pytraj_10Trajectory_Trajectory), 1); if (unlikely(!__pyx_ptype_6pytraj_10Trajectory_Trajectory)) {__pyx_filename = __pyx_f[23]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
@@ -18094,7 +18094,7 @@ PyMODINIT_FUNC PyInit_DataSet_Coords(void)
  * from .._shared_methods import _frame_iter
  * from .._shared_methods import _xyz, _tolist             # <<<<<<<<<<<<<<
  * from .._shared_methods import my_str_method
- * from .._CTrajectory cimport _CTrajectory
+ * from ..Trajectory cimport Trajectory
  */
   __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18121,7 +18121,7 @@ PyMODINIT_FUNC PyInit_DataSet_Coords(void)
  * from .._shared_methods import _frame_iter
  * from .._shared_methods import _xyz, _tolist
  * from .._shared_methods import my_str_method             # <<<<<<<<<<<<<<
- * from .._CTrajectory cimport _CTrajectory
+ * from ..Trajectory cimport Trajectory
  * 
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

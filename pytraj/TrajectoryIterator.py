@@ -4,6 +4,7 @@ We need to sub-class Trajin_Single to use Trajectory
 Trajin_Single)
 """
 from __future__ import absolute_import
+from pytraj.utils.check_and_assert import is_pytraj_trajectory
 from pytraj.trajs.Trajin_Single import Trajin_Single
 from pytraj._action_in_traj import ActionInTraj
 from pytraj.action_dict import ActionDict
@@ -11,7 +12,6 @@ from pytraj.Frame import Frame
 from pytraj.AtomMask import AtomMask
 from pytraj.externals.six import string_types
 from pytraj.exceptions import PytrajMemviewError
-from pytraj._CTrajectory import _CTrajectory
 
 
 class TrajectoryIterator(Trajin_Single, ActionInTraj):
@@ -26,13 +26,6 @@ class TrajectoryIterator(Trajin_Single, ActionInTraj):
     @topology.setter
     def topology(self, newtop):
         self.top = newtop
-
-    def __getitem__(self, idx):
-        value = self[idx]
-        if isinstance(value, _CTrajectory):
-            return Trajectory(value)
-        else:
-            return value
 
     def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False):
         if autoimage:

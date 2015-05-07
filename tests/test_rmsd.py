@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         for frame in TRAJ:
             i +=1
             frame.strip_atoms(mask="!@CA", top=TRAJ.top.copy())
-            farray.append(frame)
+            farray.append(frame.copy())
         assert i == TRAJ.size == TRAJ.max_frames
         assert frame.size == TRAJ.top.n_res * 3
         farray.top.strip_atoms("!@CA")

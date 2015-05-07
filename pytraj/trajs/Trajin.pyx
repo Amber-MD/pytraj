@@ -4,7 +4,7 @@ import os
 cimport cython
 from cpython.array cimport array as pyarray
 from .._utils cimport get_positive_idx
-from .._CTrajectory cimport _CTrajectory
+from ..Trajectory cimport Trajectory
 from ..AtomMask cimport AtomMask
 
 from ..utils.check_and_assert import _import_numpy
@@ -59,12 +59,12 @@ cdef class Trajin (TrajectoryFile):
 
     def chunk_iter(self, int chunk=2, int start=0, int stop=-1):
         """iterately get Frames with start, chunk
-        returning _CTrajectory or Frame instance depend on `chunk` value
+        returning Trajectory or Frame instance depend on `chunk` value
         Parameters
         ---------
         start : int (default = 0)
         chunk : int (default = 1, return Frame instance). 
-                if `chunk` > 1 : return _CTrajectory instance
+                if `chunk` > 1 : return Trajectory instance
         """
         cdef int newstart
         cdef int n_chunk, i 
@@ -120,7 +120,7 @@ cdef class Trajin (TrajectoryFile):
         # allocate frame for storing data
         cdef Frame frame0
         cdef Frame frame = Frame(self.top.n_atoms)
-        cdef _CTrajectory farray
+        cdef Trajectory farray
         cdef int start, stop, step
         cdef int i
         cdef int idx_1, idx_2
@@ -130,7 +130,7 @@ cdef class Trajin (TrajectoryFile):
     
         if isinstance(idxs, AtomMask):
             atom_mask_obj = <AtomMask> idxs
-            _farray = _CTrajectory()
+            _farray = Trajectory()
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
             for i, frame in enumerate(self):
                 _frame = Frame(frame, atom_mask_obj)
@@ -183,12 +183,12 @@ cdef class Trajin (TrajectoryFile):
                     frame = self[idx_0]
                     self.tmpfarray = frame
                     return self.tmpfarray[idxs[1:]]
-                elif isinstance(self[idx_0], _CTrajectory):
+                elif isinstance(self[idx_0], Trajectory):
                     farray = self[idx_0]
                     self.tmpfarray = farray
                     return self.tmpfarray[idxs[1:]]
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                farray = _CTrajectory()
+                farray = Trajectory()
                 # for unknown reason, this does not work, it returns a Frame (?)
                 farray.get_frames(from_traj=self, indices=idxs, update_top=True)
                 # need to use `farray` so Cython knows its type
@@ -210,11 +210,11 @@ cdef class Trajin (TrajectoryFile):
             # idxs is slice
             if self.debug:
                 print idxs
-            farray = _CTrajectory()
+            farray = Trajectory()
             # should we copy self.top or use memview?
             farray.top = self.top.copy()
     
-            # check comment in _CTrajectory class with __getitem__ method
+            # check comment in Trajectory class with __getitem__ method
             start, stop, step = idxs.indices(self.size)
             if self.debug:
                 print (start, stop, step)
@@ -223,7 +223,7 @@ cdef class Trajin (TrajectoryFile):
                 if start > stop and (step < 0):
                     # traj[:-1:-3]
                     is_reversed = True
-                    # see comment in _CTrajectory (__getitem__)
+                    # see comment in Trajectory (__getitem__)
                     start, stop = stop + 1, start + 1
                     step *= -1
                 else:
@@ -241,7 +241,7 @@ cdef class Trajin (TrajectoryFile):
                     farray.reverse()
     
             # use tmpfarray to hold farray for nested indexing
-            # if not, Python will free memory for sub-_CTrajectory 
+            # if not, Python will free memory for sub-Trajectory 
             self.tmpfarray = farray
             return self.tmpfarray
 
@@ -315,7 +315,7 @@ cdef class Trajin (TrajectoryFile):
         self.save(*args, **kwd)
 
     def get_subframes(self, mask, indices=None):
-        cdef _CTrajectory farray = _CTrajectory()
+        cdef Trajectory farray = Trajectory()
         raise NotImplementedError("not yet")
 
     @property
@@ -334,9 +334,9 @@ cdef class Trajin (TrajectoryFile):
     def fit_to(self, ref=None):
         txt = """
         This is immutatble class. You can not use with fit_to
-        You _CTrajectory class or you can iterate to get Frame (mutable)
+        You Trajectory class or you can iterate to get Frame (mutable)
 
-        >>> farray = _CTrajectory()
+        >>> farray = Trajectory()
         >>> for frame in traj:
         >>>     frame.fit_to(ref)
         >>>     farray.append(frame)
@@ -352,7 +352,7 @@ cdef class Trajin (TrajectoryFile):
     @property
     def xyz(self):
         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
-        We can not return a memoryview since _CTrajectory is a C++ vector of Frame object
+        We can not return a memoryview since Trajectory is a C++ vector of Frame object
         """
         return _xyz(self)
 
