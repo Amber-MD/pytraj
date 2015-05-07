@@ -17,7 +17,7 @@ from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._common_actions import calculate
 from .externals.six import string_types
 from .Frame import Frame
-from .Trajectory import Trajectory
+#from .Trajectory import Trajectory
 from .AtomMask import AtomMask
 from .Topology import Topology
 from .DataSetList import DataSetList
@@ -552,6 +552,7 @@ def align_principal_axis(traj=None, command="*", top=None):
 
 def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
     from .actions.Action_Closest import Action_Closest
+    from pytraj.Trajectory import Trajectory
     act = Action_Closest()
     fa = Trajectory()
 
@@ -566,5 +567,5 @@ def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
         new_frame = Frame()
         new_frame.py_free_mem = False # cpptraj will do
         act.do_action(frame, new_frame)
-        fa.append(new_frame, copy=True)
+        fa.append(new_frame.copy())
     return fa

@@ -64,6 +64,7 @@ cdef extern from "<vector>" namespace "std" nogil:
         size_t max_size()
         void pop_back()
         void push_back(T&)
+        void push_back_by_reference "push_back" (T&)
         reverse_iterator rbegin()
         #const_reverse_iterator rbegin()
         reverse_iterator rend()

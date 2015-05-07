@@ -36,6 +36,8 @@ def is_word_in_class_name(obj, word):
     """
     return word in obj.__class__.__name__
 
+def is_pytraj_trajectory(obj):
+    return is_word_in_class_name(obj, 'Trajectory')
 
 def is_range(obj):
     return is_word_in_class_name(obj, 'range')

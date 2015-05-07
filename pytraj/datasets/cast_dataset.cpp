@@ -277,16 +277,14 @@ class __Pyx_FakeReference {
 #include "AtomMask.h"
 #include "Frame.h"
 #include "Topology.h"
+#include "DataSet_Coords.h"
 #include "ArgList.h"
+#include "DataSet_Coords_REF.h"
+#include "DataSet_Coords_CRD.h"
 #include "BaseIOtype.h"
 #include "TrajectoryIO.h"
 #include "TrajectoryFile.h"
 #include "Trajin.h"
-#include "Trajin_Single.h"
-#include <algorithm>
-#include "DataSet_Coords.h"
-#include "DataSet_Coords_REF.h"
-#include "DataSet_Coords_CRD.h"
 #include "DataSet_Coords_TRJ.h"
 #include "pythread.h"
 #include "stdlib.h"
@@ -517,16 +515,14 @@ static const char *__pyx_f[] = {
   "pytraj/core/CoordinateInfo.pxd",
   "pytraj/AtomMask.pxd",
   "pytraj/Topology.pxd",
+  "pytraj/datasets/DataSet_Coords.pxd",
   "pytraj/ArgList.pxd",
+  "pytraj/datasets/DataSet_Coords_REF.pxd",
+  "pytraj/datasets/DataSet_Coords_CRD.pxd",
   "pytraj/BaseIOtype.pxd",
   "pytraj/trajs/TrajectoryIO.pxd",
   "pytraj/trajs/TrajectoryFile.pxd",
   "pytraj/trajs/Trajin.pxd",
-  "pytraj/trajs/Trajin_Single.pxd",
-  "pytraj/Trajectory.pxd",
-  "pytraj/datasets/DataSet_Coords.pxd",
-  "pytraj/datasets/DataSet_Coords_REF.pxd",
-  "pytraj/datasets/DataSet_Coords_CRD.pxd",
   "pytraj/datasets/DataSet_Coords_TRJ.pxd",
 };
 struct __pyx_memoryview_obj;
@@ -669,17 +665,14 @@ struct __pyx_obj_6pytraj_8core_dot_Box_Box;
 struct __pyx_obj_6pytraj_19core_dot_CoordinateInfo_CoordinateInfo;
 struct __pyx_obj_6pytraj_5Frame_Frame;
 struct __pyx_obj_6pytraj_8Topology_Topology;
+struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords;
 struct __pyx_obj_6pytraj_7ArgList_ArgList;
+struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF;
+struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD;
 struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype;
 struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO;
 struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile;
-struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin;
-struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single;
 struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin;
-struct __pyx_obj_6pytraj_10Trajectory_Trajectory;
-struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords;
-struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF;
-struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD;
 struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_TRJ_DataSet_Coords_TRJ;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
@@ -901,15 +894,6 @@ typedef BaseIOtype *(*__pyx_t_6pytraj_10BaseIOtype_AllocatorType)(void);
  * cdef extern from "BaseIOtype.h":
  */
 typedef void (*__pyx_t_6pytraj_10BaseIOtype_HelpType)(void);
-
-/* "pytraj/Trajectory.pxd":10
- * from .cpp_algorithm cimport reverse as cpp_reverse
- * 
- * ctypedef vector[_Frame].iterator iterator             # <<<<<<<<<<<<<<
- * 
- * 
- */
-typedef std::vector<Frame> ::iterator __pyx_t_6pytraj_10Trajectory_iterator;
 
 /* "DataSet.pxd":46
  *         #void Add( size_t, const void*  )
@@ -1524,7 +1508,23 @@ struct __pyx_obj_6pytraj_8Topology_Topology {
 };
 
 
-/* "pytraj/ArgList.pxd":46
+/* "DataSet_Coords.pxd":27
+ * 
+ * 
+ * cdef class DataSet_Coords (DataSet):             # <<<<<<<<<<<<<<
+ *     # DataSet has baseptr0
+ *     cdef _DataSet_Coords* baseptr_1
+ */
+struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords {
+  struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet __pyx_base;
+  DataSet_Coords *baseptr_1;
+  struct __pyx_obj_6pytraj_8Topology_Topology *_top;
+  int py_free_mem;
+  PyObject *tmpfarray;
+};
+
+
+/* "ArgList.pxd":46
  *         bint Contains(const char *) const
  * 
  * cdef class ArgList:             # <<<<<<<<<<<<<<
@@ -1533,6 +1533,30 @@ struct __pyx_obj_6pytraj_8Topology_Topology {
 struct __pyx_obj_6pytraj_7ArgList_ArgList {
   PyObject_HEAD
   ArgList *thisptr;
+};
+
+
+/* "DataSet_Coords_REF.pxd":39
+ *         int RefIndex() const
+ * 
+ * cdef class DataSet_Coords_REF (DataSet_Coords):             # <<<<<<<<<<<<<<
+ *     cdef _DataSet_Coords_REF* thisptr
+ */
+struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF {
+  struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords __pyx_base;
+  DataSet_Coords_REF *thisptr;
+};
+
+
+/* "DataSet_Coords_CRD.pxd":30
+ * 
+ * 
+ * cdef class DataSet_Coords_CRD (DataSet_Coords):             # <<<<<<<<<<<<<<
+ *     cdef _DataSet_Coords_CRD* thisptr
+ */
+struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD {
+  struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords __pyx_base;
+  DataSet_Coords_CRD *thisptr;
 };
 
 
@@ -1574,35 +1598,6 @@ struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile {
 };
 
 
-/* "pytraj/trajs/Trajin.pxd":50
- *         _CoordinateInfo TrajCoordInfo()
- * 
- * cdef class Trajin (TrajectoryFile):             # <<<<<<<<<<<<<<
- *     #( baseptr0 is from TrajectoryFile
- *     # create tmpfarray to hold sub Trajectory
- */
-struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin {
-  struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile __pyx_base;
-  PyObject *tmpfarray;
-  Trajin *baseptr_1;
-  int debug;
-  PyObject *_tmpobj;
-};
-
-
-/* "trajs/Trajin_Single.pxd":25
- *         int NreplicaDimension() const
- * 
- * cdef class Trajin_Single(Trajin):             # <<<<<<<<<<<<<<
- *     # Inheritance
- *     # TrajectoryFile --> Trajin --> Trajin_Single
- */
-struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single {
-  struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin __pyx_base;
-  Trajin_Single *thisptr;
-};
-
-
 /* "trajs/Trajin.pxd":50
  *         _CoordinateInfo TrajCoordInfo()
  * 
@@ -1616,63 +1611,6 @@ struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin {
   Trajin *baseptr_1;
   int debug;
   PyObject *_tmpobj;
-};
-
-
-/* "pytraj/Trajectory.pxd":13
- * 
- * 
- * cdef class Trajectory:             # <<<<<<<<<<<<<<
- *     cdef vector[_Frame] frame_v
- *     cdef public Topology top
- */
-struct __pyx_obj_6pytraj_10Trajectory_Trajectory {
-  PyObject_HEAD
-  std::vector<Frame>  frame_v;
-  struct __pyx_obj_6pytraj_8Topology_Topology *top;
-  struct __pyx_obj_6pytraj_8Topology_Topology *oldtop;
-  int warning;
-  PyObject *tmpfarray;
-};
-
-
-/* "DataSet_Coords.pxd":28
- * 
- * 
- * cdef class DataSet_Coords (DataSet):             # <<<<<<<<<<<<<<
- *     # DataSet has baseptr0
- *     cdef _DataSet_Coords* baseptr_1
- */
-struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords {
-  struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet __pyx_base;
-  DataSet_Coords *baseptr_1;
-  struct __pyx_obj_6pytraj_8Topology_Topology *_top;
-  int py_free_mem;
-  PyObject *tmpfarray;
-};
-
-
-/* "DataSet_Coords_REF.pxd":39
- *         int RefIndex() const
- * 
- * cdef class DataSet_Coords_REF (DataSet_Coords):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_Coords_REF* thisptr
- */
-struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF {
-  struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords __pyx_base;
-  DataSet_Coords_REF *thisptr;
-};
-
-
-/* "DataSet_Coords_CRD.pxd":30
- * 
- * 
- * cdef class DataSet_Coords_CRD (DataSet_Coords):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_Coords_CRD* thisptr
- */
-struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD {
-  struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords __pyx_base;
-  DataSet_Coords_CRD *thisptr;
 };
 
 
@@ -2087,8 +2025,6 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
-#include <new>
-
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 #if PY_MAJOR_VERSION < 3
@@ -2323,8 +2259,17 @@ static PyTypeObject *__pyx_ptype_6pytraj_5Frame_Frame = 0;
 /* Module declarations from 'pytraj.Topology' */
 static PyTypeObject *__pyx_ptype_6pytraj_8Topology_Topology = 0;
 
+/* Module declarations from 'pytraj.datasets.DataSet_Coords' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords = 0;
+
 /* Module declarations from 'pytraj.ArgList' */
 static PyTypeObject *__pyx_ptype_6pytraj_7ArgList_ArgList = 0;
+
+/* Module declarations from 'pytraj.datasets.DataSet_Coords_REF' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF = 0;
+
+/* Module declarations from 'pytraj.datasets.DataSet_Coords_CRD' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD = 0;
 
 /* Module declarations from 'pytraj.BaseIOtype' */
 static PyTypeObject *__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = 0;
@@ -2336,27 +2281,7 @@ static PyTypeObject *__pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO = 0;
 static PyTypeObject *__pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile = 0;
 
 /* Module declarations from 'pytraj.trajs.Trajin' */
-static PyTypeObject *__pyx_ptype_6pytraj_5trajs_6Trajin_Trajin = 0;
-
-/* Module declarations from 'pytraj.trajs.Trajin_Single' */
-static PyTypeObject *__pyx_ptype_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single = 0;
-
-/* Module declarations from 'pytraj.trajs.Trajin' */
 static PyTypeObject *__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = 0;
-
-/* Module declarations from 'pytraj.cpp_algorithm' */
-
-/* Module declarations from 'pytraj.Trajectory' */
-static PyTypeObject *__pyx_ptype_6pytraj_10Trajectory_Trajectory = 0;
-
-/* Module declarations from 'pytraj.datasets.DataSet_Coords' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords = 0;
-
-/* Module declarations from 'pytraj.datasets.DataSet_Coords_REF' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF = 0;
-
-/* Module declarations from 'pytraj.datasets.DataSet_Coords_CRD' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD = 0;
 
 /* Module declarations from 'pytraj.datasets.DataSet_Coords_TRJ' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_TRJ_DataSet_Coords_TRJ = 0;
@@ -17143,18 +17068,15 @@ PyMODINIT_FUNC PyInit_cast_dataset(void)
   __pyx_ptype_6pytraj_5Frame_Frame = __Pyx_ImportType("pytraj.Frame", "Frame", sizeof(struct __pyx_obj_6pytraj_5Frame_Frame), 1); if (unlikely(!__pyx_ptype_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_vtabptr_6pytraj_5Frame_Frame = (struct __pyx_vtabstruct_6pytraj_5Frame_Frame*)__Pyx_GetVtable(__pyx_ptype_6pytraj_5Frame_Frame->tp_dict); if (unlikely(!__pyx_vtabptr_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8Topology_Topology = __Pyx_ImportType("pytraj.Topology", "Topology", sizeof(struct __pyx_obj_6pytraj_8Topology_Topology), 1); if (unlikely(!__pyx_ptype_6pytraj_8Topology_Topology)) {__pyx_filename = __pyx_f[29]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_7ArgList_ArgList = __Pyx_ImportType("pytraj.ArgList", "ArgList", sizeof(struct __pyx_obj_6pytraj_7ArgList_ArgList), 1); if (unlikely(!__pyx_ptype_6pytraj_7ArgList_ArgList)) {__pyx_filename = __pyx_f[30]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = __Pyx_ImportType("pytraj.BaseIOtype", "BaseIOtype", sizeof(struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype), 1); if (unlikely(!__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype)) {__pyx_filename = __pyx_f[31]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO = __Pyx_ImportType("pytraj.trajs.TrajectoryIO", "TrajectoryIO", sizeof(struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO)) {__pyx_filename = __pyx_f[32]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile = __Pyx_ImportType("pytraj.trajs.TrajectoryFile", "TrajectoryFile", sizeof(struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile)) {__pyx_filename = __pyx_f[33]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_5trajs_6Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_6Trajin_Trajin)) {__pyx_filename = __pyx_f[34]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single = __Pyx_ImportType("pytraj.trajs.Trajin_Single", "Trajin_Single", sizeof(struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single), 1); if (unlikely(!__pyx_ptype_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single)) {__pyx_filename = __pyx_f[35]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin)) {__pyx_filename = __pyx_f[34]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10Trajectory_Trajectory = __Pyx_ImportType("pytraj.Trajectory", "Trajectory", sizeof(struct __pyx_obj_6pytraj_10Trajectory_Trajectory), 1); if (unlikely(!__pyx_ptype_6pytraj_10Trajectory_Trajectory)) {__pyx_filename = __pyx_f[36]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords = __Pyx_ImportType("pytraj.datasets.DataSet_Coords", "DataSet_Coords", sizeof(struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords)) {__pyx_filename = __pyx_f[37]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF = __Pyx_ImportType("pytraj.datasets.DataSet_Coords_REF", "DataSet_Coords_REF", sizeof(struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF)) {__pyx_filename = __pyx_f[38]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD = __Pyx_ImportType("pytraj.datasets.DataSet_Coords_CRD", "DataSet_Coords_CRD", sizeof(struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD)) {__pyx_filename = __pyx_f[39]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_18DataSet_Coords_TRJ_DataSet_Coords_TRJ = __Pyx_ImportType("pytraj.datasets.DataSet_Coords_TRJ", "DataSet_Coords_TRJ", sizeof(struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_TRJ_DataSet_Coords_TRJ), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_TRJ_DataSet_Coords_TRJ)) {__pyx_filename = __pyx_f[40]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords = __Pyx_ImportType("pytraj.datasets.DataSet_Coords", "DataSet_Coords", sizeof(struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords)) {__pyx_filename = __pyx_f[30]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_7ArgList_ArgList = __Pyx_ImportType("pytraj.ArgList", "ArgList", sizeof(struct __pyx_obj_6pytraj_7ArgList_ArgList), 1); if (unlikely(!__pyx_ptype_6pytraj_7ArgList_ArgList)) {__pyx_filename = __pyx_f[31]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF = __Pyx_ImportType("pytraj.datasets.DataSet_Coords_REF", "DataSet_Coords_REF", sizeof(struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF)) {__pyx_filename = __pyx_f[32]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD = __Pyx_ImportType("pytraj.datasets.DataSet_Coords_CRD", "DataSet_Coords_CRD", sizeof(struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD)) {__pyx_filename = __pyx_f[33]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = __Pyx_ImportType("pytraj.BaseIOtype", "BaseIOtype", sizeof(struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype), 1); if (unlikely(!__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype)) {__pyx_filename = __pyx_f[34]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO = __Pyx_ImportType("pytraj.trajs.TrajectoryIO", "TrajectoryIO", sizeof(struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO)) {__pyx_filename = __pyx_f[35]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile = __Pyx_ImportType("pytraj.trajs.TrajectoryFile", "TrajectoryFile", sizeof(struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile)) {__pyx_filename = __pyx_f[36]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin)) {__pyx_filename = __pyx_f[37]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_18DataSet_Coords_TRJ_DataSet_Coords_TRJ = __Pyx_ImportType("pytraj.datasets.DataSet_Coords_TRJ", "DataSet_Coords_TRJ", sizeof(struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_TRJ_DataSet_Coords_TRJ), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_18DataSet_Coords_TRJ_DataSet_Coords_TRJ)) {__pyx_filename = __pyx_f[38]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/

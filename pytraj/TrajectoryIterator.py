@@ -4,6 +4,7 @@ We need to sub-class Trajin_Single to use Trajectory
 Trajin_Single)
 """
 from __future__ import absolute_import
+from pytraj.utils.check_and_assert import is_pytraj_trajectory
 from pytraj.trajs.Trajin_Single import Trajin_Single
 from pytraj._action_in_traj import ActionInTraj
 from pytraj.action_dict import ActionDict

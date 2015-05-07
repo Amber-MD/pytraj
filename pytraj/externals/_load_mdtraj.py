@@ -48,5 +48,5 @@ def load_mdtraj(m_traj, autoconvert=True):
                 frame[:] = unit * arr0.astype(np.float64)
                 # set box for each Frame
                 frame.box = farray.top.box.copy()
-                farray.append(frame, copy=True)
+                farray.append(frame)
             return farray

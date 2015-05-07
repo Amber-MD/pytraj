@@ -3,15 +3,15 @@ from libcpp.string cimport string
 from libcpp.vector cimport vector
 from .Frame cimport _Frame, Frame
 from .Topology cimport _Topology, Topology
-from .trajs.Trajin_Single cimport _Trajin_Single, Trajin_Single
+#from .trajs.Trajin_Single cimport _Trajin_Single, Trajin_Single
 from .trajs.Trajin cimport _Trajin, Trajin
 from .cpp_algorithm cimport reverse as cpp_reverse
 
-ctypedef vector[_Frame].iterator iterator
+ctypedef vector[_Frame*].iterator iterator
 
 
 cdef class Trajectory:
-    cdef vector[_Frame] frame_v
+    cdef vector[_Frame*] frame_v
     cdef public Topology top
     cdef public Topology oldtop 
 
