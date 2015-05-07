@@ -24,7 +24,7 @@ from .DataSetList import DataSetList
 from .DataFileList import DataFileList
 from .math.DistRoutines import distance 
 from .externals.gdt.calc_score import calc_score
-from .hbonds import search_hbonds
+from .hbonds import search_hbonds, search_nointramol_hbonds
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
 from .utils import _import_numpy, is_array
@@ -49,7 +49,7 @@ list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'align_principal_axis', 'closest']
+list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds', 'align_principal_axis', 'closest']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
