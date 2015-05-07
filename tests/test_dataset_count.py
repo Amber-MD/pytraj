@@ -18,5 +18,9 @@ class Test(unittest.TestCase):
         d1 = ds[1]
         assert d1.count(1) == 7
 
+        arr0 = d0.data
+        from collections import Counter
+        assert Counter(arr0) == d0.count()
+
 if __name__ == "__main__":
     unittest.main()

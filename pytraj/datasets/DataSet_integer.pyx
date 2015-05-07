@@ -54,13 +54,27 @@ cdef class DataSet_integer (DataSet_1D):
         for i in range(size):
             yield self.thisptr.index_opr(i)
 
-    def count(self, value):
-        cdef int i
-        count = 0
-        for i in self:
-            if value == i:
-                count += 1
-        return count
+    def count(self, value=None):
+        """
+        Parameters
+        value : int, optional
+
+        Examples
+        --------
+        ds.count()
+        ds.count(1)
+        """
+        cdef int i, count
+
+        if value is None:
+            from collections import Counter
+            return Counter(self.data)
+        else:
+            count = 0
+            for i in self:
+                if value == i:
+                    count += 1
+            return count
 
     def append(self, int d):
         self.thisptr.AddElement(d)
