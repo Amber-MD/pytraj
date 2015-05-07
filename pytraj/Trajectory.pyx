@@ -311,18 +311,6 @@ cdef class Trajectory (object):
     def tolist(self):
         return _tolist(self)
 
-    def _get_item(self, int idx):
-        cdef Frame frame = Frame(self.n_atoms)
-        cdef _Frame _frame
-        print ('frame.n_atoms', frame.n_atoms)
-
-        frame.py_free_mem = False
-        _frame = deref(self.frame_v[idx])
-        print ('_frame.n_atoms', _frame.Natom())
-        frame.thisptr = self.frame_v[idx]
-        print ('frame.n_atoms', frame.n_atoms)
-        return frame
-
     @cython.boundscheck(False)
     @cython.wraparound(False)
     def __getitem__(self, idxs):
@@ -428,7 +416,11 @@ cdef class Trajectory (object):
                     return farray[idxs[1:]]
                 #return frame[idxs[1:]]
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                return self.get_frames(indices=idxs, update_top=True)
+                _farray = self.__class__()
+                _farray.top = self.top
+                for i in idxs:
+                    _farray.append(self[i], copy=False)
+                return _farray
             else:
                 idx_1 = get_positive_idx(idxs, self.size)
                 # raise index out of range
@@ -695,6 +687,7 @@ cdef class Trajectory (object):
                     raise ValueError("Trajectory.top.n_atoms should be equal to Trajin_Single.top.n_atoms or set update_top=True")
 
             if isinstance(ts, Trajin_Single) or isinstance(ts, TrajectoryIterator):
+                # alway make a copy
                 if indices is not None:
                     # slow method
                     # TODO : use `for idx in leng(indices)`?
@@ -702,12 +695,12 @@ cdef class Trajectory (object):
                         # use slice for saving memory
                         start, stop, step = indices.start, indices.stop, indices.step
                         for i in range(start, stop, step):
-                            self.append(ts[i])
+                            self.append(ts[i], copy=True)
                     else:
                         # regular list, tuple, array,...
                         for i in indices:
                             #print "debug Trajectory.get_frames"
-                            self.append(ts[i])
+                            self.append(ts[i], copy=True)
                 else:    
                     # get whole traj
                     frame = Frame()
@@ -720,16 +713,17 @@ cdef class Trajectory (object):
                     ts._end_traj()
 
             elif isinstance(ts, Trajectory):
+                # can return a copy or no-copy based on `copy` value
                 # use try and except?
                 if indices is None:
                     for i in range(ts.size):
                         # TODO : make indices as an array?
                         # create `view`
-                        self.append(ts[i], copy=False)
+                        self.append(ts[i], copy=copy)
                 else:
                     for i in indices:
                         # TODO : make indices as an array?
-                        self.append(ts[i], copy=False)
+                        self.append(ts[i], copy=copy)
 
         else:
             # if from_traj is None, return new Trajectory
@@ -737,7 +731,7 @@ cdef class Trajectory (object):
             if update_top:
                 newfarray.top = self.top.copy()
             for i in indices:
-                newfarray.append(self[i])
+                newfarray.append(self[i], copy=copy)
             return newfarray
 
     def strip_atoms(self, mask=None, update_top=True, bint has_box=False):
