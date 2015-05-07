@@ -535,6 +535,9 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
         arr.append(_rmsd)
     return arr
 
+# alias for `calc_rmsd`
+rmsd = calc_rmsd
+
 def align_principal_axis(traj=None, command="*", top=None):
     # TODO : does not match with cpptraj output
     # rmsd_nofit ~ 0.5 for md1_prod.Tc5b.x, 1st frame
