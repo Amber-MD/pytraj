@@ -8,7 +8,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal, eq
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         if has_("numpy"):
             import numpy as np
             from numpy.testing import assert_almost_equal
@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
             print (arr0.shape)
             assert_almost_equal(arr0, traj[:, :, :])
 
-            # create FrameArray
+            # create Trajectory
             farray = traj[:]
             assert_almost_equal(arr0, farray[:, :, :])
         else:

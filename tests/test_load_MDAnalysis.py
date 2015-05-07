@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         mdx_name = "./data/ala3.dcd"
 
         # load pytraj object
-        traj = mdio.load(mdx_name, parm_name)
+        traj = mdio.iterload(mdx_name, parm_name)
         print (traj)
 
         # load MDAnalysis object

@@ -16,7 +16,7 @@ trajout rotated_frame0.x60y120z50.Tc5b.r
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fname = "./tc5b.rotate.in"
         with open(fname, 'w') as f:
             f.write(text)
@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
         state.run()
 
     def test_1(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fname = "./tc5b.rotate.in"
         with open(fname, 'w') as f:
             f.write(text)

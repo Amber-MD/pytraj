@@ -13,9 +13,9 @@ print ("pytraj version = 0.1.2.dev0")
 if has_("mdtraj"):
     import mdtraj as md
     print ("mtrajd version = %s" % md.version.full_version)
-    # use FrameArray (in memory for comparison)
-    traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
-    #traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+    # use Trajectory (in memory for comparison)
+    traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+    #traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
     m_top = md.load_prmtop("./data/Tc5b.top") 
     m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
 
@@ -35,7 +35,7 @@ def Run(func, msg, n_times=50, test_load=False):
             my_ratio += time_1 / time_0
         else:
             txt = "./data/md1_prod.fit_to_first.Tc5b.x"
-            fa = FrameArray()
+            fa = Trajectory()
             fa.top = traj.top
             with Timer() as t0:
                 fa.load(txt)
@@ -106,7 +106,7 @@ class Test(unittest.TestCase):
 
     @test_if_having("mdtraj")
     def test_5(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         m_top = md.load_prmtop("./data/Tc5b.top") 
         m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
 

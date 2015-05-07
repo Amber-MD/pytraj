@@ -12,7 +12,7 @@ from pytraj.misc import from_legends_to_indices
 class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
         mask = ':1@CA :14@CB :15CA'
         d0 = pyca.calc_angle(traj, mask).to_ndarray()

@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     @test_if_having("pandas")
     def test_0(self):
         from pytraj.dataframe import to_dataframe
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj.common_actions import calc_multidihedral
         command =  "resrange 2-19 phi psi"
         d0 = calc_multidihedral(traj, command)

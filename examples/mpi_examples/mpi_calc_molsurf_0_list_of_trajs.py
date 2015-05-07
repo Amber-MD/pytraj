@@ -14,14 +14,14 @@ comm = MPI.COMM_WORLD
 # split remd.x.000 to N cores and do calc_molsurf in parallel
 root_dir = "../../tests/data/nogit/remd/"
 parm_name = root_dir + "myparm.top"
-top = io.load(parm_name)
+top = io.iterload(parm_name)
 
-# load to TrajReadOnly
+# load to TrajectoryIterator
 trajlist = []
 for i in range(comm.size):
     ext = "00" + str(i)
     traj_name = root_dir + "/remd.x." + ext # 000, 001, 002
-    trajlist.append(io.load(traj_name, top))
+    trajlist.append(io.iterload(traj_name, top))
 
 # mapping different traj to N cores
 # need to provide `comm`

@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         # frame
         frame0 = traj[0]
         arr0 = frame0.to_ndarray()
@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         from pytraj.common_actions import calc_multidihedral
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         d0 = calc_multidihedral(traj, "psi")
         print (d0)
         if not has_np:

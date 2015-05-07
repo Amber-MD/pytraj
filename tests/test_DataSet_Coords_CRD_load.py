@@ -8,17 +8,17 @@ from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD
 
 class Test(unittest.TestCase):
     def test_0(self):
-        print ("load TrajReadOnly")
+        print ("load TrajectoryIterator")
         coords = DataSet_Coords_CRD()
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         coords.top = traj.top
         coords.load(traj)
         assert coords.size == traj.size
 
     def test_1(self):
-        print ("load FrameArray")
+        print ("load Trajectory")
         coords = DataSet_Coords_CRD()
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         coords.top = traj.top
         coords.load(farray)
@@ -28,13 +28,13 @@ class Test(unittest.TestCase):
         print ("load string (filenames)")
         coords = DataSet_Coords_CRD()
         coords.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         assert coords.size == traj.size
 
     def test_3(self):
         print ("load frame_iter")
         coords = DataSet_Coords_CRD()
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         coords.load(traj(2, 8, 2), traj.top)
         assert coords.size == 4
 

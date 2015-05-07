@@ -8,7 +8,7 @@ import numpy as np
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[9]
         frame = Frame()
         frame.set_frame_from_mask("@CA", traj.top)
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
 
     def test_indexing_AtomMask(self):
         print("test_indexing_AtomMask")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         atm = AtomMask("@CA")
         traj.top.set_integer_mask(atm)
         frame0 = traj[9]

@@ -20,8 +20,8 @@ FRAME_orig = FRAME.copy()
 class TestFrame(unittest.TestCase):
     #@no_test
     def test_fit(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajnew = mdio.load("./data/md1_prod.fit_to_first.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        trajnew = mdio.iterload("./data/md1_prod.fit_to_first.Tc5b.x", "./data/Tc5b.top")
 
         # make sure 0-th frame does not change
         frame0 = traj[0]
@@ -51,7 +51,7 @@ class TestFrame(unittest.TestCase):
 
     #@no_test
     def test_strip_atoms(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame1 = traj[1]
         frame2 = traj[2]
@@ -171,7 +171,7 @@ class TestFrame(unittest.TestCase):
         print("print FRAME")
         print(FRAME)
 
-        farray = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(1,))
+        farray = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(1,))
         frame0 = farray[0]
         print(frame0)
         atm = AtomMask("@CA")
@@ -188,7 +188,7 @@ class TestFrame(unittest.TestCase):
     def test_rmsd_return_mat_vec_vec(self):
         # TODO : add assert
         print("test_rmsd_return_mat_vec_vec")
-        farray = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0,1))
+        farray = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0,1))
         frame0 = farray[0]
         rmsd, mat, v1, v2 = frame0.rmsd(farray[1], get_mvv=True)
         print(rmsd,  mat, v1, v2)
@@ -289,7 +289,7 @@ class TestFrame(unittest.TestCase):
         print("====================end test_iter")
 
     def test_tranlate(self):
-        farray = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0,1))
+        farray = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0,1))
         f0 = farray[0]
         f1 = f0.copy()
         f2 = f0.copy()

@@ -49,7 +49,7 @@ cdef extern from "Trajin.h":
 
 cdef class Trajin (TrajectoryFile):
     #( baseptr0 is from TrajectoryFile
-    # create tmpfarray to hold sub FrameArray
+    # create tmpfarray to hold sub Trajectory
     # traj[0:10][0] will give wrong answer
     cdef object tmpfarray
     cdef _Trajin* baseptr_1

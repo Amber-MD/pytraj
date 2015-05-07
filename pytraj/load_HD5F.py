@@ -1,10 +1,10 @@
 from __future__ import absolute_import
 from .Topology import Topology
-from .FrameArray import FrameArray
+from .Trajectory import Trajectory
 from .Frame import Frame
 
 def load_hd5f(filename):
-    farray = FrameArray()
+    farray = Trajectory()
     try:
         import h5py
         import numpy as np

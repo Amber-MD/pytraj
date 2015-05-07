@@ -36,12 +36,12 @@ class TestCHARMM(unittest.TestCase):
         print(atm.is_char_mask())
 
     def test_1(self):
-        traj = mdio.load("./data/ala3.dcd", "./data/ala3.psf")
+        traj = mdio.iterload("./data/ala3.dcd", "./data/ala3.psf")
         print (traj)
         print("save to AMBER")
         traj.save("./output/_save_charmm_to_amber.x", overwrite=True)
         # test loading
-        trajamber = mdio.load("./output/_save_charmm_to_amber.x", 
+        trajamber = mdio.iterload("./output/_save_charmm_to_amber.x", 
                               "./data/ala3.psf")
         print (trajamber)
         for i in range(traj.size):

@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
     @test_if_having("sander")
     @test_if_having("chemistry")
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         edict = pyca.calc_energies("./data/Tc5b.top", traj)
         print (edict)
 
@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
     @test_if_having("pandas")
     def test_1(self):
         from pytraj import to_dataframe
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         edict = pyca.calc_energies("./data/Tc5b.top", traj)
         print (to_dataframe(edict))
 

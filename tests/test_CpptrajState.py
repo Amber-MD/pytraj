@@ -66,7 +66,7 @@ class TestCpptrajState(unittest.TestCase):
         distaction.process(toplist[0])
 
         idx = 0
-        farray = FrameArray("./data/Tc5b.nat.crd", "./data/Tc5b.top")
+        farray = Trajectory("./data/Tc5b.nat.crd", "./data/Tc5b.top")
         distaction.do_action(farray[idx])
         frame0 = farray[idx]
         # update Frame instance with new Box info

@@ -7,7 +7,7 @@ from pytraj.utils import eq
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
 
         # numbers wer taken from top.summary() (C++ stdout)
@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
     @test_if_having("chemistry")
     def test_1(self):
         # try to rebuild pseudoparm
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
 
         # load ParmEd object

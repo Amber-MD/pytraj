@@ -5,12 +5,12 @@ import numpy as np
 from pytraj.testing import test_if_having, no_test
 from pytraj.utils import assert_almost_equal
 
-TRAJ = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+TRAJ = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
 cpptraj_rmsd = np.loadtxt("./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1]
 
 class Test(unittest.TestCase):
     def test_0(self):
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = TRAJ.top
         print("test_info")
         i = 0
@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
         print("Kool, reproduce cpptraj output")
 
     def test_rmsd_with_mask(self):
-        TRAJ = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        TRAJ = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         cpptraj_rmsd = np.loadtxt("./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1]
         f0 = TRAJ[0]
         arr0 = np.zeros(TRAJ.size)
@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
     def test_action_rmsd(self):
         # use `mdtraj` for rerefence values
         import mdtraj as md
-        traj = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        traj = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         import pytraj.common_actions as pyca
         m_top = md.load_prmtop("./data/Tc5b.top")
         m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)

@@ -9,7 +9,7 @@ from pytraj.decorators import no_test, test_if_having
 class Test(unittest.TestCase):
     def test_0(self):
         from pytraj._shared_methods import _frame_iter_master
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         it = _frame_iter_master(traj)
 
         for idx, frame in enumerate(it):

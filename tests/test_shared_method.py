@@ -8,14 +8,14 @@ from pytraj._shared_methods import _frame_iter
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         
-        print ("TrajReadOnly")
+        print ("TrajectoryIterator")
         print (traj)
         for frame in _frame_iter(traj, 1, 8, 2, '@CA'):
             print (frame)
 
-        print ("FrameArray")
+        print ("Trajectory")
         farray = traj[:]
         print (farray)
         for frame in _frame_iter(farray, 1, 8, 2, '@CA'):

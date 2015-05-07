@@ -115,11 +115,11 @@ class Trajectory(ActionInTraj):
             raise NotImplementedError("idx must be an integer")
 
     def append(self, other):
-        """other: xyz, Frame, FrameArray, ...
+        """other: xyz, Frame, Trajectory, ...
 
         Notes
         ----
-        Can not append TrajReadOnly object since we use Trajectory in TrajReadOnly class
+        Can not append TrajectoryIterator object since we use Trajectory in TrajectoryIterator class
         """
         if isinstance(other, Frame):
             arr0 = other.xyz.reshape((1, other.n_atoms, 3))

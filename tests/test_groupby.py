@@ -4,13 +4,13 @@ from pytraj import io as mdio
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = traj.search_hbonds()
         print (dslist.groupby("SER").to_dict())
 
     def test_0(self):
         import pytraj.common_actions as pyca
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = pyca.calculate("multidihedral", traj)
 
         # groupby legend

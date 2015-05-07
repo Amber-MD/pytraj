@@ -17,7 +17,7 @@ from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._common_actions import calculate
 from .externals.six import string_types
 from .Frame import Frame
-from .FrameArray import FrameArray
+from .Trajectory import Trajectory
 from .AtomMask import AtomMask
 from .Topology import Topology
 from .DataSetList import DataSetList
@@ -172,6 +172,9 @@ def calc_dihedral(traj=None, command="", top=None, *args, **kwd):
         return arr
     else:
         raise ValueError("")
+
+# creat alias
+calc_dih = calc_dihedral 
 
 def calc_mindist(traj=None, command="", top=None, *args, **kwd):
     _command = "mindist " + command 
@@ -538,7 +541,7 @@ def align_principal_axis(traj=None, command="*", top=None):
     """
     Notes
     -----
-    apply for mutatble traj (FrameArray, Frame)
+    apply for mutatble traj (Trajectory, Frame)
     """
     act = adict['principal']
     command += " dorotation"
@@ -547,7 +550,7 @@ def align_principal_axis(traj=None, command="*", top=None):
 def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
     from .actions.Action_Closest import Action_Closest
     act = Action_Closest()
-    fa = FrameArray()
+    fa = Trajectory()
 
     _top = _get_top(traj, top)
     new_top = Topology()

@@ -40,7 +40,7 @@ def run_0():
     # do checking
     alist.process(toplist[0])
 
-    farray2 = FrameArray()
+    farray2 = Trajectory()
 
     # creat frame0 as data holder to avoid free memory twices
     # TODO : fix this

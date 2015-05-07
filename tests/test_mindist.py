@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         from itertools import product
         import numpy as np
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
         d0 = pyca.calc_mindist(traj, "@CA @CB")
         i0 = top("@CA").indices

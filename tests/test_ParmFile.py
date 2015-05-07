@@ -32,7 +32,7 @@ parm.help()
 class TestParmFile(unittest.TestCase):
     def test_readpdb(self):
         print("test_readpdb +++++++++++++++++++++++++++++++")
-        traj0 = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj0 = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         mdio.writetraj(filename="./output/test_0_after.pdb", traj=traj0[0], top=traj0.top, overwrite=True)
         pdbtop = mdio.readparm("./output/test_0_after.pdb")
         assert pdbtop.n_atoms == 304
@@ -43,8 +43,8 @@ class TestParmFile(unittest.TestCase):
         assert top2.n_atoms == 20
 
         # make sure that making Topology instance from pdb file is FINE
-        traj0 = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        traj1 = mdio.load("./data/md1_prod.Tc5b.x", "./output/test_0_after.pdb")
+        traj0 = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj1 = mdio.iterload("./data/md1_prod.Tc5b.x", "./output/test_0_after.pdb")
         assert traj0[0].coords == traj1[0].coords
         assert traj0[0].coords == traj1[0].coords
 

@@ -10,7 +10,6 @@ cdef class CpptrajState:
     + DataSetList (having output data)
     + DataFileList
 
-    TODO : add_trajin from Trajin or FrameArray instance too
     """
     def __cinit__(self):
         self.thisptr = new _CpptrajState()

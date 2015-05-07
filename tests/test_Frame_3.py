@@ -7,7 +7,7 @@ from array import array
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         #arr0 = np.asarray(frame0)
         print(frame0[0, :])
@@ -53,7 +53,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(frame0.buffer2d[1:3, 0], array('d', frame0.buffer2d[1:3, 0]))
 
     def test_1(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         print(frame0[1:5, 2])
         print(np.asarray(frame0.buffer2d[1:5, :]))
@@ -64,7 +64,7 @@ class Test(unittest.TestCase):
         print(list(frame0[1:5, :]))
 
     def test_magic_methods(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame1 = frame0.copy()
         frame1 += frame1

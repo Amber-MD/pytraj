@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
         from numpy.testing import assert_almost_equal
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         @Timer()
         def _f_ndarray(farray, xyz):
@@ -25,14 +25,14 @@ class Test(unittest.TestCase):
 
         xyz = traj.xyz
 
-        f0 = FrameArray()
+        f0 = Trajectory()
         f0.top = traj.top.copy()
 
         print ("_f_ndarray")
         _f_ndarray(f0, xyz)
 
         print ("_f_dontknow")
-        f1 = FrameArray()
+        f1 = Trajectory()
         f1.top = traj.top.copy()
         _f_dontknow(f1, xyz)
         assert_almost_equal(f0.tolist(), f1.tolist(), decimal=3)

@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         IDX0 = 9 
         IDX1 = 8
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         # write pdb files for TMalign program so we can compare our result to TMalign
         # ./TMalign -A test_gdt_0.pdb -B test_gdt_1.pdb
         mdio.writetraj(filename="./output/test_gdt_0.pdb", traj=traj[IDX0], top=traj.top, overwrite=True)

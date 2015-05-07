@@ -3,7 +3,7 @@ from pytraj.base import *
 from pytraj import allactions
 from pytraj.datasets import cast_dataset
 
-farray = TrajReadOnly(top=Topology("./data/Tc5b.top"), 
+farray = TrajectoryIterator(top=Topology("./data/Tc5b.top"), 
                     filename='data/md1_prod.Tc5b.x', 
                     )
 

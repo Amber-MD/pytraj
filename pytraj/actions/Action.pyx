@@ -161,14 +161,14 @@ cdef class Action:
             # assuming frame_iter or chunk_iter
             # "recursively do_action" does not work here. Why?
             for frame in current_frame:
-                if isinstance(frame, FrameArray):
-                    farray = <FrameArray> frame
+                if isinstance(frame, Trajectory):
+                    farray = <Trajectory> frame
                     for f0 in farray:
                         self.do_action(f0, new_frame)
                 elif isinstance(frame, Frame):
                     self.do_action(frame, new_frame)
                 else:
-                    raise ValueError("must be Frame or FrameArray")
+                    raise ValueError("must be Frame or Trajectory")
 
     @makesureABC("Action")
     def print_output(self):

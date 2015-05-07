@@ -12,10 +12,10 @@ from itertools import chain
 class Test(unittest.TestCase):
     @Timer()
     def test_0(self):
-        print ("from TrajReadOnly")
+        print ("from TrajectoryIterator")
 
         with Timer() as t:
-            traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print (t.time_gap())
 
         with Timer() as t:
@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
         print (t.time_gap())
 
         with Timer() as t:
-            farray = FrameArray(traj, traj.top)
+            farray = Trajectory(traj, traj.top)
         print (t.time_gap())
 
         for f0, f1 in izip(farray, traj):
@@ -32,10 +32,10 @@ class Test(unittest.TestCase):
 
     @Timer()
     def test_1(self):
-        print ("from FrameArray")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        print ("from Trajectory")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         _farray = traj[:]
-        farray = FrameArray(_farray, traj.top)
+        farray = Trajectory(_farray, traj.top)
 
         for f0, f1 in izip(farray, _farray):
             assert_almost_equal(f0.coords, f1.coords)
@@ -44,39 +44,39 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_2(self):
         print ("from xyz array")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        farray_0 = FrameArray(traj.xyz, traj.top)
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        farray_0 = Trajectory(traj.xyz, traj.top)
 
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
-        farray_1 = FrameArray(traj.xyz.flatten(), traj.top)
+        farray_1 = Trajectory(traj.xyz.flatten(), traj.top)
         for f0, f1 in izip(farray_1, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
     @Timer()
     def test_3(self):
         print ("from dataset Coords")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = DataSetList()
         dslist.add_set("coords", "", "")
         dslist[0].top = traj.top.copy()
         dslist[0].load(traj)
 
-        farray_0 = FrameArray(dslist[0], traj.top)
+        farray_0 = Trajectory(dslist[0], traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
     @Timer()
     def test_4(self):
         print ("from dataset Traj")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = DataSetList()
         dslist.add_set("traj", "", "")
         dslist[0].top = traj.top.copy()
         dslist[0].load("./data/md1_prod.Tc5b.x")
 
-        farray_0 = FrameArray(dslist[0], traj.top)
+        farray_0 = Trajectory(dslist[0], traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
@@ -84,42 +84,42 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_5(self):
         print ("from list")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        farray_0 = FrameArray(traj[:, :, :], traj.top)
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        farray_0 = Trajectory(traj[:, :, :], traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
     @Timer()
     def test_6(self):
         print ("from list 0")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         # unpack 3D list
         xyz_list = traj.tolist()
         print (xyz_list.__len__())
         assert len(xyz_list) == traj.n_frames
-        farray_0 = FrameArray(xyz_list, traj.top)
+        farray_0 = Trajectory(xyz_list, traj.top)
         assert farray_0.size == traj.size
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
     @Timer()
     def test_7(self):
-        print ("from list 1: TrajReadOnly")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        print ("from list 1: TrajectoryIterator")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         xyz_list = traj.tolist()
         assert len(xyz_list) == traj.n_frames
-        farray_0 = FrameArray(xyz_list, traj.top)
+        farray_0 = Trajectory(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
     @Timer()
     def test_8(self):
-        print ("from list 2: FrameArray")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        print ("from list 2: Trajectory")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         _farray = traj[:]
         xyz_list = _farray.tolist()
         assert len(xyz_list) == traj.n_frames
-        farray_0 = FrameArray(xyz_list, traj.top)
+        farray_0 = Trajectory(xyz_list, traj.top)
         assert farray_0.size == traj.size
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
@@ -127,7 +127,7 @@ class Test(unittest.TestCase):
     @Timer()
     def test_9(self):
         print ("from list 3: Coord dataset")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = DataSetList()
         dslist.add_set("coords", "", "")
         dslist.add_set("traj", "", "")
@@ -139,20 +139,20 @@ class Test(unittest.TestCase):
 
         xyz_list = dslist[0].tolist()
         assert len(xyz_list) == traj.n_frames
-        farray_0 = FrameArray(xyz_list, traj.top)
+        farray_0 = Trajectory(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
         xyz_list = dslist[1].tolist()
         assert len(xyz_list) == traj.n_frames
-        farray_0 = FrameArray(xyz_list, traj.top)
+        farray_0 = Trajectory(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
     @Timer()
     def test_9(self):
         print ("from list 3: Coord dataset")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = DataSetList()
         dslist.add_set("coords", "", "")
         dslist.add_set("traj", "", "")
@@ -164,13 +164,13 @@ class Test(unittest.TestCase):
 
         xyz_list = dslist[0].tolist()
         assert len(xyz_list) == traj.n_frames
-        farray_0 = FrameArray(xyz_list, traj.top)
+        farray_0 = Trajectory(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
         xyz_list = dslist[1].tolist()
         assert len(xyz_list) == traj.n_frames
-        farray_0 = FrameArray(xyz_list, traj.top)
+        farray_0 = Trajectory(xyz_list, traj.top)
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 

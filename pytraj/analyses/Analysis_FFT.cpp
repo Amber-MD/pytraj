@@ -275,10 +275,6 @@ class __Pyx_FakeReference {
 #include "TrajectoryFile.h"
 #include "Trajin.h"
 #include "Analysis.h"
-#include "DataSet_2D.h"
-#include "DataSet_Modes.h"
-#include "Trajin_Single.h"
-#include <algorithm>
 #include "Analysis_FFT.h"
 #include "pythread.h"
 #include "stdlib.h"
@@ -507,11 +503,6 @@ static const char *__pyx_f[] = {
   "pytraj/trajs/TrajectoryFile.pxd",
   "pytraj/trajs/Trajin.pxd",
   "pytraj/_FunctPtr.pxd",
-  "pytraj/analyses/Analysis.pxd",
-  "pytraj/datasets/DataSet_2D.pxd",
-  "pytraj/datasets/DataSet_Modes.pxd",
-  "pytraj/trajs/Trajin_Single.pxd",
-  "pytraj/FrameArray.pxd",
 };
 struct __pyx_memoryview_obj;
 typedef struct {
@@ -652,12 +643,6 @@ struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile;
 struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin;
 struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr;
 struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis;
-struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D;
-struct __pyx_obj_6pytraj_17analyses_dot_Analysis_Analysis;
-struct __pyx_obj_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes;
-struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single;
-struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin;
-struct __pyx_obj_6pytraj_10FrameArray_FrameArray;
 struct __pyx_obj_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
@@ -888,15 +873,6 @@ typedef std::vector<Residue> ::const_iterator __pyx_t_6pytraj_8Topology_res_iter
  * 
  */
 typedef std::vector<Molecule> ::const_iterator __pyx_t_6pytraj_8Topology_mol_iterator;
-
-/* "pytraj/FrameArray.pxd":11
- * #from pytraj.FrameArray2 cimport FrameArray2
- * 
- * ctypedef vector[_Frame].iterator iterator             # <<<<<<<<<<<<<<
- * 
- * 
- */
-typedef std::vector<Frame> ::iterator __pyx_t_6pytraj_10FrameArray_iterator;
 
 /* "pytraj/DispatchObject.pxd":8
  *         pass
@@ -1458,7 +1434,7 @@ struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile {
  * 
  * cdef class Trajin (TrajectoryFile):             # <<<<<<<<<<<<<<
  *     #( baseptr0 is from TrajectoryFile
- *     # create tmpfarray to hold sub FrameArray
+ *     # create tmpfarray to hold sub Trajectory
  */
 struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin {
   struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile __pyx_base;
@@ -1496,89 +1472,7 @@ struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis {
 };
 
 
-/* "pytraj/datasets/DataSet_2D.pxd":32
- *         const char * MatrixOutputString(MatrixType m)
- * 
- * cdef class DataSet_2D (DataSet):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_2D* baseptr_1
- */
-struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D {
-  struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet __pyx_base;
-  DataSet_2D *baseptr_1;
-};
-
-
-/* "analyses/Analysis.pxd":23
- * 
- * 
- * cdef class Analysis:             # <<<<<<<<<<<<<<
- *     cdef _Analysis* baseptr
- */
-struct __pyx_obj_6pytraj_17analyses_dot_Analysis_Analysis {
-  PyObject_HEAD
-  Analysis *baseptr;
-};
-
-
-/* "pytraj/datasets/DataSet_Modes.pxd":43
- *         bint IsReduced() const
- * 
- * cdef class DataSet_Modes (DataSet):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_Modes* thisptr
- */
-struct __pyx_obj_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes {
-  struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet __pyx_base;
-  DataSet_Modes *thisptr;
-};
-
-
-/* "trajs/Trajin_Single.pxd":25
- *         int NreplicaDimension() const
- * 
- * cdef class Trajin_Single(Trajin):             # <<<<<<<<<<<<<<
- *     # Inheritance
- *     # TrajectoryFile --> Trajin --> Trajin_Single
- */
-struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single {
-  struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin __pyx_base;
-  Trajin_Single *thisptr;
-};
-
-
-/* "trajs/Trajin.pxd":50
- *         _CoordinateInfo TrajCoordInfo()
- * 
- * cdef class Trajin (TrajectoryFile):             # <<<<<<<<<<<<<<
- *     #( baseptr0 is from TrajectoryFile
- *     # create tmpfarray to hold sub FrameArray
- */
-struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin {
-  struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile __pyx_base;
-  PyObject *tmpfarray;
-  Trajin *baseptr_1;
-  int debug;
-  PyObject *_tmpobj;
-};
-
-
-/* "pytraj/FrameArray.pxd":14
- * 
- * 
- * cdef class FrameArray:             # <<<<<<<<<<<<<<
- *     cdef vector[_Frame] frame_v
- *     cdef public Topology top
- */
-struct __pyx_obj_6pytraj_10FrameArray_FrameArray {
-  PyObject_HEAD
-  std::vector<Frame>  frame_v;
-  struct __pyx_obj_6pytraj_8Topology_Topology *top;
-  struct __pyx_obj_6pytraj_8Topology_Topology *oldtop;
-  int warning;
-  PyObject *tmpfarray;
-};
-
-
-/* "pytraj/analyses/Analysis_FFT.pxd":26
+/* "pytraj/analyses/Analysis_FFT.pxd":20
  * 
  * 
  * cdef class Analysis_FFT (Analysis):             # <<<<<<<<<<<<<<
@@ -1586,7 +1480,7 @@ struct __pyx_obj_6pytraj_10FrameArray_FrameArray {
  * 
  */
 struct __pyx_obj_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT {
-  struct __pyx_obj_6pytraj_17analyses_dot_Analysis_Analysis __pyx_base;
+  struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis __pyx_base;
   Analysis_FFT *thisptr;
 };
 
@@ -1988,8 +1882,6 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
-#include <new>
-
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 #if PY_MAJOR_VERSION < 3
@@ -2220,26 +2112,6 @@ static PyTypeObject *__pyx_ptype_6pytraj_9_FunctPtr_FunctPtr = 0;
 
 /* Module declarations from 'pytraj.analyses.Analysis' */
 static PyTypeObject *__pyx_ptype_6pytraj_8analyses_8Analysis_Analysis = 0;
-
-/* Module declarations from 'pytraj.datasets.DataSet_2D' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D = 0;
-
-/* Module declarations from 'pytraj.analyses.Analysis' */
-static PyTypeObject *__pyx_ptype_6pytraj_17analyses_dot_Analysis_Analysis = 0;
-
-/* Module declarations from 'pytraj.datasets.DataSet_Modes' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes = 0;
-
-/* Module declarations from 'pytraj.trajs.Trajin_Single' */
-static PyTypeObject *__pyx_ptype_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single = 0;
-
-/* Module declarations from 'pytraj.trajs.Trajin' */
-static PyTypeObject *__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = 0;
-
-/* Module declarations from 'pytraj.cpp_algorithm' */
-
-/* Module declarations from 'pytraj.FrameArray' */
-static PyTypeObject *__pyx_ptype_6pytraj_10FrameArray_FrameArray = 0;
 
 /* Module declarations from 'pytraj.analyses.Analysis_FFT' */
 static PyTypeObject *__pyx_ptype_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT = 0;
@@ -14431,7 +14303,7 @@ static void __pyx_memoryview__slice_assign_scalar(char *__pyx_v_data, Py_ssize_t
 }
 
 static PyObject *__pyx_tp_new_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT(PyTypeObject *t, PyObject *a, PyObject *k) {
-  PyObject *o = __pyx_ptype_6pytraj_17analyses_dot_Analysis_Analysis->tp_new(t, a, k);
+  PyObject *o = __pyx_ptype_6pytraj_8analyses_8Analysis_Analysis->tp_new(t, a, k);
   if (unlikely(!o)) return 0;
   if (unlikely(__pyx_pw_6pytraj_8analyses_12Analysis_FFT_12Analysis_FFT_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
     Py_DECREF(o); o = 0;
@@ -14453,7 +14325,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT(PyObj
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
-  if (likely(__pyx_ptype_6pytraj_17analyses_dot_Analysis_Analysis)) __pyx_ptype_6pytraj_17analyses_dot_Analysis_Analysis->tp_dealloc(o); else __Pyx_call_next_tp_dealloc(o, __pyx_tp_dealloc_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT);
+  if (likely(__pyx_ptype_6pytraj_8analyses_8Analysis_Analysis)) __pyx_ptype_6pytraj_8analyses_8Analysis_Analysis->tp_dealloc(o); else __Pyx_call_next_tp_dealloc(o, __pyx_tp_dealloc_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT);
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT[] = {
@@ -15590,8 +15462,8 @@ PyMODINIT_FUNC PyInit_Analysis_FFT(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  __pyx_ptype_6pytraj_17analyses_dot_Analysis_Analysis = __Pyx_ImportType("pytraj.analyses.Analysis", "Analysis", sizeof(struct __pyx_obj_6pytraj_17analyses_dot_Analysis_Analysis), 1); if (unlikely(!__pyx_ptype_6pytraj_17analyses_dot_Analysis_Analysis)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT.tp_base = __pyx_ptype_6pytraj_17analyses_dot_Analysis_Analysis;
+  __pyx_ptype_6pytraj_8analyses_8Analysis_Analysis = __Pyx_ImportType("pytraj.analyses.Analysis", "Analysis", sizeof(struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis), 1); if (unlikely(!__pyx_ptype_6pytraj_8analyses_8Analysis_Analysis)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT.tp_base = __pyx_ptype_6pytraj_8analyses_8Analysis_Analysis;
   if (PyType_Ready(&__pyx_type_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT.tp_print = 0;
   if (PyObject_SetAttrString(__pyx_m, "Analysis_FFT", (PyObject *)&__pyx_type_6pytraj_8analyses_12Analysis_FFT_Analysis_FFT) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -15670,12 +15542,6 @@ PyMODINIT_FUNC PyInit_Analysis_FFT(void)
   __pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile = __Pyx_ImportType("pytraj.trajs.TrajectoryFile", "TrajectoryFile", sizeof(struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile)) {__pyx_filename = __pyx_f[25]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_5trajs_6Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_6Trajin_Trajin)) {__pyx_filename = __pyx_f[26]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_9_FunctPtr_FunctPtr = __Pyx_ImportType("pytraj._FunctPtr", "FunctPtr", sizeof(struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr), 1); if (unlikely(!__pyx_ptype_6pytraj_9_FunctPtr_FunctPtr)) {__pyx_filename = __pyx_f[27]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8analyses_8Analysis_Analysis = __Pyx_ImportType("pytraj.analyses.Analysis", "Analysis", sizeof(struct __pyx_obj_6pytraj_8analyses_8Analysis_Analysis), 1); if (unlikely(!__pyx_ptype_6pytraj_8analyses_8Analysis_Analysis)) {__pyx_filename = __pyx_f[28]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D = __Pyx_ImportType("pytraj.datasets.DataSet_2D", "DataSet_2D", sizeof(struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D)) {__pyx_filename = __pyx_f[29]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes = __Pyx_ImportType("pytraj.datasets.DataSet_Modes", "DataSet_Modes", sizeof(struct __pyx_obj_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_13DataSet_Modes_DataSet_Modes)) {__pyx_filename = __pyx_f[30]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single = __Pyx_ImportType("pytraj.trajs.Trajin_Single", "Trajin_Single", sizeof(struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single), 1); if (unlikely(!__pyx_ptype_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single)) {__pyx_filename = __pyx_f[31]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin)) {__pyx_filename = __pyx_f[26]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10FrameArray_FrameArray = __Pyx_ImportType("pytraj.FrameArray", "FrameArray", sizeof(struct __pyx_obj_6pytraj_10FrameArray_FrameArray), 1); if (unlikely(!__pyx_ptype_6pytraj_10FrameArray_FrameArray)) {__pyx_filename = __pyx_f[32]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/

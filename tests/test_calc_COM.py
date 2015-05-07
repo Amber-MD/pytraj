@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
 
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         d0 = pyca.calc_COM(traj)
         d1 = pyca.calc_center_of_mass(traj)
         print (d0)

@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         print ("load mdtraj parm")
         import mdtraj as md
         from pytraj.externals import _load_pseudo_parm
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         m_top = md.load_prmtop("./data/Tc5b.top")
         print (m_top)
         top = mdio.load_pseudo_parm(m_top) 
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
 
         # make sure pseudo_top is usable
         from pytraj.common_actions import calc_distance
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
         fa.top = top.copy()
 

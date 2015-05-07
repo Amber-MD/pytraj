@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         dslist = DataSetList()
         coords = cast_dataset(dslist.add_set("coords", "my_coords", ""), dtype='coords')
         trajin_and_top = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        traj = mdio.load(*trajin_and_top)
+        traj = mdio.iterload(*trajin_and_top)
         coords.load(*trajin_and_top)
         assert coords.size == traj.size
 
@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         dslist = DataSetList()
         dslist.add_set("traj", "my_coords", "")
         trajin_and_top = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        traj = mdio.load(*trajin_and_top)
+        traj = mdio.iterload(*trajin_and_top)
         coords = dslist[0]
         coords.load(*trajin_and_top)
         print (coords.top)

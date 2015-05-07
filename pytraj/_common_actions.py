@@ -13,7 +13,7 @@ def calculate(action=None, traj=None, command="", top=None,
     action : Action object or str, optional
     command : str, default=None 
         command for specific action. For example, if action=`rmsd`, command might be `@CA`
-    traj : Trajectory object (FrameArray, TrajReadOnly, ...) or list, tuple of traj object 
+    traj : Trajectory object (Trajectory, TrajectoryIterator, ...) or list, tuple of traj object 
     top : topology 
     dslist : DataSetList
         Hold output

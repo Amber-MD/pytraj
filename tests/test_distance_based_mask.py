@@ -8,7 +8,7 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
-        traj = mdio.load("./data/tz2.nc", "./data/tz2.parm7")
+        traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
         top = traj.top
 
         # test for last frame

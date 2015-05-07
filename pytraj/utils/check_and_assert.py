@@ -77,7 +77,7 @@ def is_frame_iter(iter_obj):
 
     See Also
     --------
-    FrameArray.frame_iter
+    Trajectory.frame_iter
     Trajin.frame_iter
     """
     if iter_obj.__class__.__name__ == 'generator' and 'frame_iter' in iter_obj.__name__:

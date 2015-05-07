@@ -10,14 +10,14 @@ import pytraj.common_actions as pyca
 from pytraj.api import Trajectory
 from pytraj.six_2 import izip
 
-fa = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
-traj = Trajectory(mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
+fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+traj = Trajectory(mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
 
 class Test(unittest.TestCase):
     def test_0(self):
         # test append
         traj = Trajectory()
-        t = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        t = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         traj.top = t.top
 
         # append single Frame
@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
         traj.append(t.xyz)
         assert traj.n_frames == t.n_frames + 1
         
-        # append TrajReadOnly
+        # append TrajectoryIterator
         traj.append(t)
         assert traj.n_frames == t.n_frames * 2 + 1
 

@@ -6,7 +6,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_frame_fit(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
         f1 = traj[1]
 
@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
         print (f0[0], f1[0])
 
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         f0 = traj[0]
         f0saved = f0.copy()
@@ -49,9 +49,9 @@ class Test(unittest.TestCase):
         print ("compare to cpptraj")
 
         # load frames to immutable traj
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print (traj[0, 0])
-        trajsaved = mdio.load("./data/fit_to_1stframe.Tc5b.x", "./data/Tc5b.top")
+        trajsaved = mdio.iterload("./data/fit_to_1stframe.Tc5b.x", "./data/Tc5b.top")
 
         print ("test trajsaved coords")
         for _f1 in trajsaved:

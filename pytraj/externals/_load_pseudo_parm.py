@@ -2,7 +2,7 @@
 """
 from __future__ import absolute_import
 from pytraj.utils import has_, _import_numpy
-from pytraj.FrameArray import FrameArray
+from pytraj.Trajectory import Trajectory
 from pytraj.Topology import Topology
 from pytraj.core.Atom import Atom
 from pytraj.Frame import Frame
@@ -20,7 +20,7 @@ def load_pseudo_parm(parm):
         or Universe object (MDAnalysis)
     """
     from pytraj.core import Box
-    farray = FrameArray()
+    farray = Trajectory()
 
     # convert to pseudo-topology
     # to fully use Topology object in pytraj, we can do:

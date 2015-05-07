@@ -10,10 +10,10 @@ from pytraj import io as mdio
 from pytraj import calculate
 
 # smart loading
-# topology = mdio.load("./data/Tc5b.top")
+# topology = mdio.iterload("./data/Tc5b.top")
 # if traj file exists, load to traj with topology
 # can handle list of trajectory files too
-traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 # write to new format
 traj.write("./output/md_charmm.dcd", overwrite=True)

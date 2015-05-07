@@ -91,7 +91,7 @@ def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
 def _frame_iter_master(obj):
     """try to return frame iterator object
 
-    obj : could be FrameArray, TrajReadOnly, TrajinList, frame_iter object
+    obj : could be Trajectory, TrajectoryIterator, TrajinList, frame_iter object
           could be a list of trajs, ...
     """
     cdef Frame frame

@@ -11,10 +11,10 @@ class Test(unittest.TestCase):
        trajlist = []
        for fh in flist:
            topfile = "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7"
-           trajlist.append(mdio.load(fh, topfile))
+           trajlist.append(mdio.iterload(fh, topfile))
 
        Tset = set([])
-       f4922 = FrameArray()
+       f4922 = Trajectory()
        f4922.resize(trajlist[0].n_frames)
        print(f4922.n_frames)
        f4922.top = trajlist[0].top.copy()
@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
        print(f4922[0, 0, :])
 
        # make sure we reproduce cpptraj output
-       cpptraj = mdio.load("./data/Test_RemdTraj/temp0.crd.492.20", topfile)
+       cpptraj = mdio.iterload("./data/Test_RemdTraj/temp0.crd.492.20", topfile)
 
        for idx, framepy in enumerate(f4922):
            assert_almost_equal(framepy.coords, cpptraj[idx].coords)

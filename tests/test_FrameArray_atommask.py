@@ -5,9 +5,9 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_0(self):
-        print ("test FrameArray")
+        print ("test Trajectory")
         mask = "@CA"
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         top = traj.top
         frame0 = traj[0].copy()
         print ('mask @CA for frame')
@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
 
         assert_almost_equal(farray0[0].coords, frame0.coords)
 
-        _farray = FrameArray()
+        _farray = Trajectory()
         _farray.top = traj.top._modify_state_by_mask(traj.top(mask))
         print (top('@CA').n_atoms)
         for i, frame in enumerate(traj):
@@ -33,9 +33,9 @@ class Test(unittest.TestCase):
         print (_farray[0, :2])
 
     def test_1(self):
-        print ("test TrajReadOnly")
+        print ("test TrajectoryIterator")
         mask = "@CA"
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print (traj)
         top = traj.top
         frame0 = traj[0].copy()
@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
 
         assert_almost_equal(farray0[0].coords, frame0.coords)
 
-        _farray = FrameArray()
+        _farray = Trajectory()
         _farray.top = traj.top._modify_state_by_mask(traj.top(mask))
         print (top('@CA').n_atoms)
         for i, frame in enumerate(traj):
@@ -62,12 +62,12 @@ class Test(unittest.TestCase):
         print (_farray[0, :2])
 
     def test_2(self):
-        print ("test TrajReadOnly")
+        print ("test TrajectoryIterator")
         mask = "@CA"
-        # TrajReadOnly
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        # TrajectoryIterator
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        # FrameArray
+        # Trajectory
         farray = traj[:]
 
         frame0 = traj[0].copy()

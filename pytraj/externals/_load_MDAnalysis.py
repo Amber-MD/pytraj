@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 from pytraj.utils import has_, require, _import_numpy
-from pytraj.FrameArray import FrameArray
+from pytraj.Trajectory import Trajectory
 from pytraj.exceptions import PytrajRequireObject
 from ._load_pseudo_parm import load_pseudo_parm
 from ..Frame import Frame
@@ -23,7 +23,7 @@ def load_MDAnalysis(its_obj):
         # creat atom group
         ag = its_obj.atoms
 
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = pseudotop
         for _ in its_obj.trajectory:
             frame = Frame(farray.top.n_atoms)

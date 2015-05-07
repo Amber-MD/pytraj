@@ -7,12 +7,12 @@ from pytraj.utils import Timer
 from load_traj import load
 from pytraj.decorators import no_test
 
-ts = TrajReadOnly()
+ts = TrajectoryIterator()
 datadir = "./data/"
 topname = datadir + "Tc5b.top"
 refilename = "./data/Tc5b.nat.crd"
 mdx = "./data/md1_prod.Tc5b.x"
-ts = TrajReadOnly()
+ts = TrajectoryIterator()
 
 top = Topology(topname)
 trajin = """
@@ -23,16 +23,16 @@ frame = Frame()
 frame.set_frame_v(top)
 frame2 = Frame(frame)
 
-# create FrameArray to store Frame
-FARRAY = FrameArray()
+# create Trajectory to store Frame
+FARRAY = Trajectory()
 #FARRAY.get_frames(ts, update_top=True)
 FRAMENUM=10
 FARRAY = ts[:FRAMENUM]
 
-class TestFrameArray(unittest.TestCase):
+class TestTrajectory(unittest.TestCase):
     #@no_test
     def test_silly_index(self):
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = Topology(datadir + "Tc5b.top")
         farray.load("./data/md1_prod.Tc5b.x", indices=list(range(8)))
         # got segmentation fault
@@ -49,7 +49,7 @@ class TestFrameArray(unittest.TestCase):
     #@no_test
     def test_load_multiple_files(self):
         print("test_load_multiple_files")
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = Topology(datadir + "Tc5b.top")
         farray.load("./data/md1_prod.Tc5b.x", indices=list(range(10)))
         farray.load("./data/md1_prod.Tc5b.x", indices=list(range(5, 6)))
@@ -67,7 +67,7 @@ class TestFrameArray(unittest.TestCase):
     def test_load_CHARMM(sefl):
         datadir = "./data/"
         print("test_load_CHARMM")
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = Topology(datadir + "ala3.psf")
 
         # got Segmentation fault for this
@@ -75,7 +75,7 @@ class TestFrameArray(unittest.TestCase):
         #farray.load("ala3.dcd")
 
         #print farray.top
-        ts = TrajReadOnly()
+        ts = TrajectoryIterator()
         ts.top = farray.top.copy()
         ts.load("./data/ala3.dcd")
         print(ts.size)
@@ -83,17 +83,17 @@ class TestFrameArray(unittest.TestCase):
 
     #@no_test
     def test_default_load(self):
-        farray0 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=slice(0, 9, 2))
+        farray0 = Trajectory(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=slice(0, 9, 2))
         print(farray0)
-        farray1 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
-        farray2 = FrameArray(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
+        farray1 = Trajectory(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
+        farray2 = Trajectory(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
         farray0.join((farray1, farray2))
         print(farray0)
 
     #@no_test
     def test_load_crd(self):
         print("test_load_crd")
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = Topology(datadir + "Tc5b.top")
         farray.load("./data/Tc5b.nat.crd")
         print(farray.size)
@@ -103,7 +103,7 @@ class TestFrameArray(unittest.TestCase):
 
     #@no_test
     def test_load(self):
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = Topology(datadir + "Tc5b.top")
         farray.load(filename="./data/md1_prod.Tc5b.x")
         # add more frame
@@ -115,7 +115,7 @@ class TestFrameArray(unittest.TestCase):
 
         # load list of files
         flist = ["./data/md1_prod.Tc5b.x", "./data/md1_prod.Tc5b.x"]
-        farray2 = FrameArray()
+        farray2 = Trajectory()
         farray2.top = ts.top
         farray2.load(flist, indices=(1, 3, 9, 5))
         print(farray2)
@@ -219,8 +219,8 @@ class TestFrameArray(unittest.TestCase):
 
     #@no_test
     def test_joining(self):
-        farray0 = FrameArray()
-        farray1 = FrameArray()
+        farray0 = Trajectory()
+        farray1 = Trajectory()
         farray0.get_frames(FARRAY, (0, 2, 4, 6), update_top=True)
         farray1.get_frames(FARRAY, (1, 3, 5, 7), update_top=True)
         farray0cp = farray0.copy()
@@ -276,7 +276,7 @@ class TestFrameArray(unittest.TestCase):
         # make getting results after printing 3 times
         ## framearray size = 10
         print()
-        print("test FrameArray size")
+        print("test Trajectory size")
         assert farray.size == N
         assert len(farray) == farray.size
         assert farray.__len__() == farray.size
@@ -306,7 +306,7 @@ class TestFrameArray(unittest.TestCase):
         assert farray.size == N - 1
 
 
-        print("test FrameArray copy")
+        print("test Trajectory copy")
         farray_cp = farray.copy()
         del farray_cp[5]
         print(farray_cp.size)

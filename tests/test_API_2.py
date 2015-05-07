@@ -11,7 +11,7 @@ from pytraj.actions.Action_Matrix import Action_Matrix
 from pytraj.actions.Action_ClusterDihedral import Action_ClusterDihedral
 from pytraj.CpptrajState import CpptrajState
 from test_API.TestAPI import create_state, do_calculation
-from pytraj.FrameArray import FrameArray
+from pytraj.Trajectory import Trajectory
 
 #testdir = os.environ['PYCPPTRAJ_HOME'] + "/tests/Cpptraj_test/"
 #topfile = testdir + "Test_Matrix/1rrb_vac.prmtop"

@@ -8,7 +8,7 @@ from pytraj.testing import eq, aa_eq
 
 class TestBox(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame0.box_crd()
         print(frame0.box)
@@ -56,7 +56,7 @@ class TestBox(unittest.TestCase):
         eq(f2.box.tolist(), box.tolist())
 
     def test_real_box(self):
-        traj = mdio.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = mdio.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         aa_eq(traj.top.box.tolist(), [35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
         for frame in traj:
             assert frame.box.type == 'ortho'

@@ -6,11 +6,11 @@ from __future__ import absolute_import
 from .Frame import Frame
 from .core.Atom import Atom
 from .AtomMask import AtomMask
-from .FrameArray import FrameArray
+from .Trajectory import Trajectory
 from .Topology import Topology
 from .ArgList import ArgList
 from .CpptrajState import CpptrajState
-from .TrajReadOnly import TrajReadOnly
+from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .TrajinList import TrajinList
 from .TopologyList import TopologyList
@@ -22,13 +22,13 @@ from . import cpptraj_dict
 
 
 
-# `Trajectory` is alias of `FrameArray`
+# `Trajectory` is alias of `Trajectory`
 __all__ = ['Atom',
            'Topology', 'TopologyList', 
-           'Frame', 'FrameArray', 
+           'Frame', 'Trajectory', 
            'AtomMask', 
            'ArgList', 'CpptrajState', 
-           'TrajReadOnly', 
+           'TrajectoryIterator', 
            'DataSetList', 'DataFileList', 
            'ActionList',
            'Trajout', 'TrajinList',

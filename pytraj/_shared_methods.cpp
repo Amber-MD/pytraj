@@ -4022,7 +4022,7 @@ static PyObject *__pyx_gb_6pytraj_15_shared_methods_15generator1(__pyx_Generator
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_15_shared_methods_14_frame_iter_master(PyObject *__pyx_self, PyObject *__pyx_v_obj); /*proto*/
-static char __pyx_doc_6pytraj_15_shared_methods_13_frame_iter_master[] = "_frame_iter_master(obj)\ntry to return frame iterator object\n\n    obj : could be FrameArray, TrajReadOnly, TrajinList, frame_iter object\n          could be a list of trajs, ...\n    ";
+static char __pyx_doc_6pytraj_15_shared_methods_13_frame_iter_master[] = "_frame_iter_master(obj)\ntry to return frame iterator object\n\n    obj : could be Trajectory, TrajectoryIterator, TrajinList, frame_iter object\n          could be a list of trajs, ...\n    ";
 static PyMethodDef __pyx_mdef_6pytraj_15_shared_methods_14_frame_iter_master = {"_frame_iter_master", (PyCFunction)__pyx_pw_6pytraj_15_shared_methods_14_frame_iter_master, METH_O, __pyx_doc_6pytraj_15_shared_methods_13_frame_iter_master};
 static PyObject *__pyx_pw_6pytraj_15_shared_methods_14_frame_iter_master(PyObject *__pyx_self, PyObject *__pyx_v_obj) {
   PyObject *__pyx_r = 0;

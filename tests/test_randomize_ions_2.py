@@ -4,7 +4,7 @@ from pytraj import adict
 
 class TestRandomizeIons(unittest.TestCase):
     def test_0(self):
-        # get `traj` instance (FrameArray)
+        # get `traj` instance (Trajectory)
         traj = load(filename="./Test_RandomizeIons/adh206.tip3p.rst7.gz", 
                     top="./Test_RandomizeIons/adh206.ff10.tip3p.parm7.gz")
         top = traj.top.copy()

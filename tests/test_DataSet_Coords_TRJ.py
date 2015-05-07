@@ -7,12 +7,12 @@ from pytraj.utils import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_0(self):
-        TRAJ = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        TRAJ = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         print(TRAJ.size)
         Nframe = TRAJ.size
 
         # creat DataSet_Coords_TRJ object
-        # man, should we use FrameArray?
+        # man, should we use Trajectory?
         # might not be a big matter since adding frames are not that expensive vs clustering
         coords_traj = DataSet_Coords_TRJ()
         coords_traj.top = TRAJ.top.copy()

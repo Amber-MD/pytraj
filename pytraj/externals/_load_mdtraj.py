@@ -2,7 +2,7 @@
 """
 from __future__ import absolute_import
 from pytraj.utils import has_, require, _import_numpy
-from pytraj.FrameArray import FrameArray
+from pytraj.Trajectory import Trajectory
 from ._load_pseudo_parm import load_pseudo_parm
 from ..Frame import Frame
 
@@ -26,8 +26,8 @@ def load_mdtraj(m_traj, autoconvert=True):
         # we dont need checking `numpy` since mdtraj needs numpy 
         require("mdtraj")
     else:
-        from mdtraj import Trajectory
-        if not isinstance(m_traj, Trajectory):
+        from mdtraj import Trajectory as MDTrajectory
+        if not isinstance(m_traj, MDTrajectory):
             raise PyTrajRequireObject("Trajectory")
         else:
             pseudotop = load_pseudo_parm(m_traj.top)
@@ -37,7 +37,7 @@ def load_mdtraj(m_traj, autoconvert=True):
                 arr = np.append(unit*m_traj.unitcell_lengths[0], m_traj.unitcell_angles[0])
                 pseudotop.box = Box(arr.astype(np.float64))
 
-            farray = FrameArray()
+            farray = Trajectory()
             farray.top = pseudotop
             for arr0 in m_traj.xyz:
                 frame = Frame(m_traj.n_atoms)

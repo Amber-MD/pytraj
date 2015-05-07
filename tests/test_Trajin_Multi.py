@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         print (traj.final_crd_indices())
         print (traj.final_crd_indices())
         print (traj.target_mode)
-        farray = FrameArray()
+        farray = Trajectory()
         # FIXME: pytraj has wrong implementation. Check cpptraj code
         traj.get_next_ensemble(farray)
         print (farray)

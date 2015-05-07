@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     # what cpptraj dump in dslist?
     def test_0(self):
         fn = "./data/Test_NAstruct/adh026.3.pdb"
-        traj = mdio.load(fn, fn)
+        traj = mdio.iterload(fn, fn)
         print (traj)
 
         dslist = DataSetList()

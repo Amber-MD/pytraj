@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         # histogram
         # TODO : assert
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = DataSetList()
         calculate("distance", traj, "@CA @CB mylovelyname", dslist=dslist)
         d0 = dslist[0]
@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         # Corr
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = calculate("distance", traj, "@CA @CB mylovelyname")
         act = analdict['corr']
         command = "mylovelyname out mydummyoutput.txt"

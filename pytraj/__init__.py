@@ -16,8 +16,8 @@ from .AtomMask import AtomMask
 from .math import Vec3
 from .CpptrajState import CpptrajState
 from .Frame import Frame
-from .FrameArray import FrameArray
-from .TrajReadOnly import TrajReadOnly
+from .Trajectory import Trajectory
+from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .parms.ParmFile import ParmFile

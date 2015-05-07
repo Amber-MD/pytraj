@@ -9,7 +9,7 @@ from pytraj.decorators import test_if_having
 class Test(unittest.TestCase):
     def test_0(self):
         print ("test_0")
-        traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         print (traj.size)
         do_action = adict['vector']
         dslist = DataSetList()
@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_1(self):
         print ("test_1")
-        traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         print (traj.size)
         do_action = adict['vector']
         dslist = DataSetList()

@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         from pytraj import set_world_silent
         set_world_silent(False)
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
         act = adict['makestructure']
         act("alpha:2-19", f0, traj.top)
