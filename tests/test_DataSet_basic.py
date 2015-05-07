@@ -15,7 +15,8 @@ class Test(unittest.TestCase):
         useless_keys = ['DataSet', 'DataSet_1D', 'DataSet_2D', 'DataSet_3D', 
                         'DataSet_Coords', 'DataSet_Modes']
         for _key in useless_keys:
-            keys.remove(_key)
+            if _key in keys:
+                keys.remove(_key)
 
         print (keys)
 

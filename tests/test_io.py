@@ -23,7 +23,7 @@ class TestPyCpptrajIO(unittest.TestCase):
 
     def test_blindload(self):
         print("test_blindload")
-        top = mdio.iterload("./data/Tc5b.top")
+        top = mdio.load("./data/Tc5b.top")
         assert isinstance(top, Topology) == True
 
         traj = mdio.iterload(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")

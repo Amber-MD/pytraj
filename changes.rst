@@ -7,6 +7,10 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* API CHANGE (05-06-2015): 
+  * change `FrameArray` to `Trajectory`
+  * change `TrajReadOnly` to `TrajectoryIterator` (issue #262)
+    (https://github.com/pytraj/pytraj/issues/262)
 * add "legend" as property of DataSet
 * remove "get_box" from Frame. use "box"
 * support `autoimage` when loading mdtraj object
