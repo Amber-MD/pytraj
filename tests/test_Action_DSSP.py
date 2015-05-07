@@ -41,7 +41,7 @@ class TestRadgyr(unittest.TestCase):
         dslist = DataSetList()
         dflist = DataFileList()
         adict['dssp'](":10-22 out ./output/_test_dssp_DPDP.dat", 
-            current_frame=farray, current_top=farray.top, 
+            current_frame=farray, top=farray.top, 
             dslist=dslist, dflist=dflist)
         print (dslist.size)
         arr0 = dslist.get_dataset(dtype="integer")
@@ -52,7 +52,7 @@ class TestRadgyr(unittest.TestCase):
         def calc_dssp(command="", traj=None):
             dslist = DataSetList()
             adict['dssp'](command, 
-                          current_frame=traj, current_top=traj.top, 
+                          current_frame=traj, top=traj.top, 
                           dslist=dslist)
             return dslist.get_dataset(dtype="integer")
         arr0 = calc_dssp(":10-22", farray[:2])

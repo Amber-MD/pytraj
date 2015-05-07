@@ -58,7 +58,7 @@ cdef class Action:
 
     @makesureABC("Action")
     def read_input(self, command='', 
-                   current_top=TopologyList(),
+                   top=TopologyList(),
                    DataSetList dslist=DataSetList(), 
                    DataFileList dflist=DataFileList(), 
                    int debug=0):
@@ -67,7 +67,7 @@ cdef class Action:
         ----------
         command : str
             Type of actions, mask, ... (Get help: Action_Box().help())
-        current_top : Topology or TopologyList instance, default=TopologyList()
+        top : Topology or TopologyList instance, default=TopologyList()
         #flist : FrameList instance, default=FrameList()
         dslist : DataSetList instance, default=DataSetList()
         dflist : DataFileList instance, default=DataFileList()
@@ -77,11 +77,11 @@ cdef class Action:
         cdef ArgList arglist
         cdef TopologyList toplist
 
-        if isinstance(current_top, Topology):
+        if isinstance(top, Topology):
             toplist = TopologyList()
-            toplist.add_parm(current_top)
-        elif isinstance(current_top, TopologyList):
-            toplist = <TopologyList> current_top
+            toplist.add_parm(top)
+        elif isinstance(top, TopologyList):
+            toplist = <TopologyList> top
 
         if isinstance(command, string_types):
             #command = command.encode("UTF-8")
@@ -95,23 +95,23 @@ cdef class Action:
                        debug)
 
     @makesureABC("Action")
-    def process(self, Topology current_top=Topology(), Topology new_top=Topology()): 
+    def process(self, Topology top=Topology(), Topology new_top=Topology()): 
         """
         Process input and do initial setup
         (TODO : add more doc)
 
         Parameters:
         ----------
-        current_top : Topology instance, default (no default)
+        top : Topology instance, default (no default)
         new_top : new Topology instance, default=Topology()
             Need to provide this instance if you want to change topology
         """
         if "Strip" in self.__class__.__name__:
-            # since `Action_Strip` will copy a modified version of `current_top` and 
+            # since `Action_Strip` will copy a modified version of `top` and 
             # store in new_top, then __dealloc__ (from cpptraj)
             # we need to see py_free_mem to False
             new_top.py_free_mem = False
-        return self.baseptr.Setup(current_top.thisptr, &(new_top.thisptr))
+        return self.baseptr.Setup(top.thisptr, &(new_top.thisptr))
 
     @makesureABC("Action")
     def do_action(self, current_frame=None, Frame new_frame=Frame()):
@@ -186,7 +186,7 @@ cdef class Action:
 
     def _master(self, command='',
                   current_frame=Frame(),
-                  current_top=Topology(),
+                  top=Topology(),
                   dslist=DataSetList(), 
                   dflist=DataFileList(), 
                   new_top=Topology(),
@@ -200,16 +200,16 @@ cdef class Action:
             + don't work with `chunk_iter`
 
         """
-        if current_top.is_empty():
+        if top.is_empty():
             _top = current_frame.top
         else:
-            _top = current_top
+            _top = top
         self.read_input(command=command, 
-                        current_top=_top, 
+                        top=_top, 
                         dslist=dslist,
                         dflist=dflist, debug=debug)
 
-        self.process(current_top=_top, new_top=new_top)
+        self.process(top=_top, new_top=new_top)
         self.do_action(current_frame, new_frame)
 
         # currently support only dtype = 'DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER'

@@ -244,7 +244,7 @@ def calc_dssp(traj=None, command="", top=None, dtype='int'):
     _top = _get_top(traj, top)
     dslist = DataSetList()
     adict['dssp'](command,
-                  current_frame=traj, current_top=_top,
+                  current_frame=traj, top=_top,
                   dslist=dslist)
     dtype = dtype.upper()
 
@@ -420,7 +420,7 @@ def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='
     dslist.set_py_free_mem(False) # need this to avoid segmentation fault
     act = adict['vector']
     command = "center " + command
-    act.read_input(command=command, current_top=_top, dslist=dslist)
+    act.read_input(command=command, top=_top, dslist=dslist)
     act.process(_top)
     for frame in _frame_iter_master(traj):
         # set Frame masses
@@ -534,6 +534,9 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
             _rmsd = _frame.rmsd_nofit(ref, use_mass=mass)
         arr.append(_rmsd)
     return arr
+
+# alias for `calc_rmsd`
+rmsd = calc_rmsd
 
 def align_principal_axis(traj=None, command="*", top=None):
     # TODO : does not match with cpptraj output

@@ -16,7 +16,7 @@ class TestRadgyr(unittest.TestCase):
         dslist = DataSetList()
         act = adict['matrix']
         act(command="byres @CA", current_frame=farray, 
-                current_top=farray.top, dslist=dslist)
+                top=farray.top, dslist=dslist)
 
         d1 = cast_dataset(dslist[0], dtype="matrix double")
         print (d1.size)
@@ -50,7 +50,7 @@ class TestRadgyr(unittest.TestCase):
         dslist = DataSetList()
         act = adict['matrix']
         act(command="byres @CA", current_frame=farray, 
-                current_top=farray.top, dslist=dslist)
+                top=farray.top, dslist=dslist)
         act.print_output()
         d0 = dslist[0]
         print (d0.dtype)

@@ -2260,12 +2260,12 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_4__del__(struct __pyx
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_6__str__(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_8__repr__(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_10__call__(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_current_top, struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_dslist, struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_dflist, int __pyx_v_debug); /* proto */
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_14process(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_current_top, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_new_top); /* proto */
+static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_top, struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_dslist, struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_dflist, int __pyx_v_debug); /* proto */
+static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_14process(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_new_top); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_current_frame, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_new_frame); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_18print_output(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20_get_action_from_functptr(CYTHON_UNUSED PyObject *__pyx_v_cls, struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr *__pyx_v_funct); /* proto */
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_current_frame, PyObject *__pyx_v_current_top, PyObject *__pyx_v_dslist, PyObject *__pyx_v_dflist, PyObject *__pyx_v_new_top, PyObject *__pyx_v_new_frame, int __pyx_v_debug, CYTHON_UNUSED PyObject *__pyx_v_update_frame, PyObject *__pyx_v_quick_get); /* proto */
+static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_current_frame, PyObject *__pyx_v_top, PyObject *__pyx_v_dslist, PyObject *__pyx_v_dflist, PyObject *__pyx_v_new_top, PyObject *__pyx_v_new_frame, int __pyx_v_debug, CYTHON_UNUSED PyObject *__pyx_v_update_frame, PyObject *__pyx_v_quick_get); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_24reset_counter(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_8n_frames___get__(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_7actions_6Action_6Action_8n_frames_2__set__(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
@@ -2372,7 +2372,6 @@ static char __pyx_k_ValueError[] = "ValueError";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static char __pyx_k_read_input[] = "read_input";
 static char __pyx_k_MemoryError[] = "MemoryError";
-static char __pyx_k_current_top[] = "current_top";
 static char __pyx_k_makesureABC[] = "makesureABC";
 static char __pyx_k_NULL_pointer[] = "NULL pointer";
 static char __pyx_k_RuntimeError[] = "RuntimeError";
@@ -2464,7 +2463,6 @@ static PyObject *__pyx_n_s_command;
 static PyObject *__pyx_kp_s_contiguous_and_direct;
 static PyObject *__pyx_kp_s_contiguous_and_indirect;
 static PyObject *__pyx_n_s_current_frame;
-static PyObject *__pyx_n_s_current_top;
 static PyObject *__pyx_n_s_debug;
 static PyObject *__pyx_n_s_dflist;
 static PyObject *__pyx_n_s_do_action;
@@ -2967,16 +2965,16 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_10__call__(struct __p
  * 
  *     @makesureABC("Action")
  *     def read_input(self, command='',             # <<<<<<<<<<<<<<
- *                    current_top=TopologyList(),
+ *                    top=TopologyList(),
  *                    DataSetList dslist=DataSetList(),
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_13read_input(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_7actions_6Action_6Action_12read_input[] = "Action.read_input(self, command='', current_top=<\077\077?>, DataSetList dslist=<\077\077?>, DataFileList dflist=<\077\077?>, int debug=0)\n\n        Parameters\n        ----------\n        command : str\n            Type of actions, mask, ... (Get help: Action_Box().help())\n        current_top : Topology or TopologyList instance, default=TopologyList()\n        #flist : FrameList instance, default=FrameList()\n        dslist : DataSetList instance, default=DataSetList()\n        dflist : DataFileList instance, default=DataFileList()\n        debug : int, default=0\n            debug option from cpptraj. (Do we need this?)\n        ";
+static char __pyx_doc_6pytraj_7actions_6Action_6Action_12read_input[] = "Action.read_input(self, command='', top=<\077\077?>, DataSetList dslist=<\077\077?>, DataFileList dflist=<\077\077?>, int debug=0)\n\n        Parameters\n        ----------\n        command : str\n            Type of actions, mask, ... (Get help: Action_Box().help())\n        top : Topology or TopologyList instance, default=TopologyList()\n        #flist : FrameList instance, default=FrameList()\n        dslist : DataSetList instance, default=DataSetList()\n        dflist : DataFileList instance, default=DataFileList()\n        debug : int, default=0\n            debug option from cpptraj. (Do we need this?)\n        ";
 static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_13read_input(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_command = 0;
-  PyObject *__pyx_v_current_top = 0;
+  PyObject *__pyx_v_top = 0;
   struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_dslist = 0;
   struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_dflist = 0;
   int __pyx_v_debug;
@@ -2987,7 +2985,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_13read_input(PyObject
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("read_input (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_command,&__pyx_n_s_current_top,&__pyx_n_s_dslist,&__pyx_n_s_dflist,&__pyx_n_s_debug,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_command,&__pyx_n_s_top,&__pyx_n_s_dslist,&__pyx_n_s_dflist,&__pyx_n_s_debug,0};
     PyObject* values[5] = {0,0,0,0,0};
     values[0] = ((PyObject *)__pyx_kp_s_);
     values[1] = __pyx_k__2;
@@ -3014,7 +3012,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_13read_input(PyObject
         }
         case  1:
         if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_current_top);
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_top);
           if (value) { values[1] = value; kw_args--; }
         }
         case  2:
@@ -3048,7 +3046,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_13read_input(PyObject
       }
     }
     __pyx_v_command = values[0];
-    __pyx_v_current_top = values[1];
+    __pyx_v_top = values[1];
     __pyx_v_dslist = ((struct __pyx_obj_6pytraj_11DataSetList_DataSetList *)values[2]);
     __pyx_v_dflist = ((struct __pyx_obj_6pytraj_12DataFileList_DataFileList *)values[3]);
     if (values[4]) {
@@ -3067,7 +3065,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_13read_input(PyObject
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dslist), __pyx_ptype_6pytraj_11DataSetList_DataSetList, 1, "dslist", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dflist), __pyx_ptype_6pytraj_12DataFileList_DataFileList, 1, "dflist", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(((struct __pyx_obj_6pytraj_7actions_6Action_Action *)__pyx_v_self), __pyx_v_command, __pyx_v_current_top, __pyx_v_dslist, __pyx_v_dflist, __pyx_v_debug);
+  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(((struct __pyx_obj_6pytraj_7actions_6Action_Action *)__pyx_v_self), __pyx_v_command, __pyx_v_top, __pyx_v_dslist, __pyx_v_dflist, __pyx_v_debug);
 
   /* function exit code */
   goto __pyx_L0;
@@ -3078,7 +3076,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_13read_input(PyObject
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_current_top, struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_dslist, struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_dflist, int __pyx_v_debug) {
+static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_top, struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_dslist, struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_dflist, int __pyx_v_debug) {
   struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_arglist = 0;
   struct __pyx_obj_6pytraj_12TopologyList_TopologyList *__pyx_v_toplist = 0;
   PyObject *__pyx_r = NULL;
@@ -3097,20 +3095,20 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct _
   /* "pytraj/actions/Action.pyx":80
  *         cdef TopologyList toplist
  * 
- *         if isinstance(current_top, Topology):             # <<<<<<<<<<<<<<
+ *         if isinstance(top, Topology):             # <<<<<<<<<<<<<<
  *             toplist = TopologyList()
- *             toplist.add_parm(current_top)
+ *             toplist.add_parm(top)
  */
-  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_current_top, ((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)); 
+  __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_top, ((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)); 
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
     /* "pytraj/actions/Action.pyx":81
  * 
- *         if isinstance(current_top, Topology):
+ *         if isinstance(top, Topology):
  *             toplist = TopologyList()             # <<<<<<<<<<<<<<
- *             toplist.add_parm(current_top)
- *         elif isinstance(current_top, TopologyList):
+ *             toplist.add_parm(top)
+ *         elif isinstance(top, TopologyList):
  */
     __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_12TopologyList_TopologyList)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
@@ -3118,11 +3116,11 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct _
     __pyx_t_3 = 0;
 
     /* "pytraj/actions/Action.pyx":82
- *         if isinstance(current_top, Topology):
+ *         if isinstance(top, Topology):
  *             toplist = TopologyList()
- *             toplist.add_parm(current_top)             # <<<<<<<<<<<<<<
- *         elif isinstance(current_top, TopologyList):
- *             toplist = <TopologyList> current_top
+ *             toplist.add_parm(top)             # <<<<<<<<<<<<<<
+ *         elif isinstance(top, TopologyList):
+ *             toplist = <TopologyList> top
  */
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_toplist), __pyx_n_s_add_parm); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
@@ -3137,15 +3135,15 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct _
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_current_top); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_top); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
     } else {
       __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
-      __Pyx_INCREF(__pyx_v_current_top);
-      PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_current_top);
-      __Pyx_GIVEREF(__pyx_v_current_top);
+      __Pyx_INCREF(__pyx_v_top);
+      PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_top);
+      __Pyx_GIVEREF(__pyx_v_top);
       __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -3156,48 +3154,48 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct _
     /* "pytraj/actions/Action.pyx":80
  *         cdef TopologyList toplist
  * 
- *         if isinstance(current_top, Topology):             # <<<<<<<<<<<<<<
+ *         if isinstance(top, Topology):             # <<<<<<<<<<<<<<
  *             toplist = TopologyList()
- *             toplist.add_parm(current_top)
+ *             toplist.add_parm(top)
  */
     goto __pyx_L3;
   }
 
   /* "pytraj/actions/Action.pyx":83
  *             toplist = TopologyList()
- *             toplist.add_parm(current_top)
- *         elif isinstance(current_top, TopologyList):             # <<<<<<<<<<<<<<
- *             toplist = <TopologyList> current_top
+ *             toplist.add_parm(top)
+ *         elif isinstance(top, TopologyList):             # <<<<<<<<<<<<<<
+ *             toplist = <TopologyList> top
  * 
  */
-  __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_current_top, ((PyObject*)__pyx_ptype_6pytraj_12TopologyList_TopologyList)); 
+  __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_top, ((PyObject*)__pyx_ptype_6pytraj_12TopologyList_TopologyList)); 
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
     /* "pytraj/actions/Action.pyx":84
- *             toplist.add_parm(current_top)
- *         elif isinstance(current_top, TopologyList):
- *             toplist = <TopologyList> current_top             # <<<<<<<<<<<<<<
+ *             toplist.add_parm(top)
+ *         elif isinstance(top, TopologyList):
+ *             toplist = <TopologyList> top             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(command, string_types):
  */
-    __pyx_t_3 = __pyx_v_current_top;
+    __pyx_t_3 = __pyx_v_top;
     __Pyx_INCREF(__pyx_t_3);
     __pyx_v_toplist = ((struct __pyx_obj_6pytraj_12TopologyList_TopologyList *)__pyx_t_3);
     __pyx_t_3 = 0;
 
     /* "pytraj/actions/Action.pyx":83
  *             toplist = TopologyList()
- *             toplist.add_parm(current_top)
- *         elif isinstance(current_top, TopologyList):             # <<<<<<<<<<<<<<
- *             toplist = <TopologyList> current_top
+ *             toplist.add_parm(top)
+ *         elif isinstance(top, TopologyList):             # <<<<<<<<<<<<<<
+ *             toplist = <TopologyList> top
  * 
  */
   }
   __pyx_L3:;
 
   /* "pytraj/actions/Action.pyx":86
- *             toplist = <TopologyList> current_top
+ *             toplist = <TopologyList> top
  * 
  *         if isinstance(command, string_types):             # <<<<<<<<<<<<<<
  *             #command = command.encode("UTF-8")
@@ -3229,7 +3227,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct _
     __pyx_t_4 = 0;
 
     /* "pytraj/actions/Action.pyx":86
- *             toplist = <TopologyList> current_top
+ *             toplist = <TopologyList> top
  * 
  *         if isinstance(command, string_types):             # <<<<<<<<<<<<<<
  *             #command = command.encode("UTF-8")
@@ -3299,7 +3297,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct _
  * 
  *     @makesureABC("Action")
  *     def read_input(self, command='',             # <<<<<<<<<<<<<<
- *                    current_top=TopologyList(),
+ *                    top=TopologyList(),
  *                    DataSetList dslist=DataSetList(),
  */
 
@@ -3322,16 +3320,16 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_12read_input(struct _
 /* "pytraj/actions/Action.pyx":98
  * 
  *     @makesureABC("Action")
- *     def process(self, Topology current_top=Topology(), Topology new_top=Topology()):             # <<<<<<<<<<<<<<
+ *     def process(self, Topology top=Topology(), Topology new_top=Topology()):             # <<<<<<<<<<<<<<
  *         """
  *         Process input and do initial setup
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_15process(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_7actions_6Action_6Action_14process[] = "Action.process(self, Topology current_top=<\077\077?>, Topology new_top=<\077\077?>)\n\n        Process input and do initial setup\n        (TODO : add more doc)\n\n        Parameters:\n        ----------\n        current_top : Topology instance, default (no default)\n        new_top : new Topology instance, default=Topology()\n            Need to provide this instance if you want to change topology\n        ";
+static char __pyx_doc_6pytraj_7actions_6Action_6Action_14process[] = "Action.process(self, Topology top=<\077\077?>, Topology new_top=<\077\077?>)\n\n        Process input and do initial setup\n        (TODO : add more doc)\n\n        Parameters:\n        ----------\n        top : Topology instance, default (no default)\n        new_top : new Topology instance, default=Topology()\n            Need to provide this instance if you want to change topology\n        ";
 static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_15process(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_current_top = 0;
+  struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top = 0;
   struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_new_top = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -3340,7 +3338,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_15process(PyObject *_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("process (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_current_top,&__pyx_n_s_new_top,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_top,&__pyx_n_s_new_top,0};
     PyObject* values[2] = {0,0};
     values[0] = (PyObject *)__pyx_k__5;
     values[1] = (PyObject *)__pyx_k__6;
@@ -3357,7 +3355,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_15process(PyObject *_
       switch (pos_args) {
         case  0:
         if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_current_top);
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_top);
           if (value) { values[0] = value; kw_args--; }
         }
         case  1:
@@ -3377,7 +3375,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_15process(PyObject *_
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_current_top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)values[0]);
+    __pyx_v_top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)values[0]);
     __pyx_v_new_top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)values[1]);
   }
   goto __pyx_L4_argument_unpacking_done;
@@ -3388,9 +3386,9 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_15process(PyObject *_
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_current_top), __pyx_ptype_6pytraj_8Topology_Topology, 1, "current_top", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_top), __pyx_ptype_6pytraj_8Topology_Topology, 1, "top", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_new_top), __pyx_ptype_6pytraj_8Topology_Topology, 1, "new_top", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_14process(((struct __pyx_obj_6pytraj_7actions_6Action_Action *)__pyx_v_self), __pyx_v_current_top, __pyx_v_new_top);
+  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_14process(((struct __pyx_obj_6pytraj_7actions_6Action_Action *)__pyx_v_self), __pyx_v_top, __pyx_v_new_top);
 
   /* function exit code */
   goto __pyx_L0;
@@ -3401,7 +3399,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_15process(PyObject *_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_14process(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_current_top, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_new_top) {
+static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_14process(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_new_top) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3417,7 +3415,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_14process(struct __py
  *             Need to provide this instance if you want to change topology
  *         """
  *         if "Strip" in self.__class__.__name__:             # <<<<<<<<<<<<<<
- *             # since `Action_Strip` will copy a modified version of `current_top` and
+ *             # since `Action_Strip` will copy a modified version of `top` and
  *             # store in new_top, then __dealloc__ (from cpptraj)
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_class); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3434,7 +3432,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_14process(struct __py
  *             # store in new_top, then __dealloc__ (from cpptraj)
  *             # we need to see py_free_mem to False
  *             new_top.py_free_mem = False             # <<<<<<<<<<<<<<
- *         return self.baseptr.Setup(current_top.thisptr, &(new_top.thisptr))
+ *         return self.baseptr.Setup(top.thisptr, &(new_top.thisptr))
  * 
  */
     __pyx_v_new_top->py_free_mem = 0;
@@ -3443,7 +3441,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_14process(struct __py
  *             Need to provide this instance if you want to change topology
  *         """
  *         if "Strip" in self.__class__.__name__:             # <<<<<<<<<<<<<<
- *             # since `Action_Strip` will copy a modified version of `current_top` and
+ *             # since `Action_Strip` will copy a modified version of `top` and
  *             # store in new_top, then __dealloc__ (from cpptraj)
  */
   }
@@ -3451,12 +3449,12 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_14process(struct __py
   /* "pytraj/actions/Action.pyx":114
  *             # we need to see py_free_mem to False
  *             new_top.py_free_mem = False
- *         return self.baseptr.Setup(current_top.thisptr, &(new_top.thisptr))             # <<<<<<<<<<<<<<
+ *         return self.baseptr.Setup(top.thisptr, &(new_top.thisptr))             # <<<<<<<<<<<<<<
  * 
  *     @makesureABC("Action")
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyInt_FromLong(__pyx_v_self->baseptr->Setup(__pyx_v_current_top->thisptr, (&__pyx_v_new_top->thisptr))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyInt_FromLong(__pyx_v_self->baseptr->Setup(__pyx_v_top->thisptr, (&__pyx_v_new_top->thisptr))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -3465,7 +3463,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_14process(struct __py
   /* "pytraj/actions/Action.pyx":98
  * 
  *     @makesureABC("Action")
- *     def process(self, Topology current_top=Topology(), Topology new_top=Topology()):             # <<<<<<<<<<<<<<
+ *     def process(self, Topology top=Topology(), Topology new_top=Topology()):             # <<<<<<<<<<<<<<
  *         """
  *         Process input and do initial setup
  */
@@ -4512,16 +4510,16 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_20_get_action_from_fu
  * 
  *     def _master(self, command='',             # <<<<<<<<<<<<<<
  *                   current_frame=Frame(),
- *                   current_top=Topology(),
+ *                   top=Topology(),
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23_master(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_7actions_6Action_6Action_22_master[] = "Action._master(self, command='', current_frame=<\077\077?>, current_top=<\077\077?>, dslist=<\077\077?>, dflist=<\077\077?>, new_top=<\077\077?>, new_frame=<\077\077?>, int debug=0, update_frame=False, quick_get=False)\n\n        TODO : (do we need this method?)\n            + add doc\n            + don't work with `chunk_iter`\n\n        ";
+static char __pyx_doc_6pytraj_7actions_6Action_6Action_22_master[] = "Action._master(self, command='', current_frame=<\077\077?>, top=<\077\077?>, dslist=<\077\077?>, dflist=<\077\077?>, new_top=<\077\077?>, new_frame=<\077\077?>, int debug=0, update_frame=False, quick_get=False)\n\n        TODO : (do we need this method?)\n            + add doc\n            + don't work with `chunk_iter`\n\n        ";
 static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23_master(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_command = 0;
   PyObject *__pyx_v_current_frame = 0;
-  PyObject *__pyx_v_current_top = 0;
+  PyObject *__pyx_v_top = 0;
   PyObject *__pyx_v_dslist = 0;
   PyObject *__pyx_v_dflist = 0;
   PyObject *__pyx_v_new_top = 0;
@@ -4536,7 +4534,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23_master(PyObject *_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_master (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_command,&__pyx_n_s_current_frame,&__pyx_n_s_current_top,&__pyx_n_s_dslist,&__pyx_n_s_dflist,&__pyx_n_s_new_top,&__pyx_n_s_new_frame,&__pyx_n_s_debug,&__pyx_n_s_update_frame,&__pyx_n_s_quick_get,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_command,&__pyx_n_s_current_frame,&__pyx_n_s_top,&__pyx_n_s_dslist,&__pyx_n_s_dflist,&__pyx_n_s_new_top,&__pyx_n_s_new_frame,&__pyx_n_s_debug,&__pyx_n_s_update_frame,&__pyx_n_s_quick_get,0};
     PyObject* values[10] = {0,0,0,0,0,0,0,0,0,0};
     values[0] = ((PyObject *)__pyx_kp_s_);
     values[1] = __pyx_k__10;
@@ -4594,7 +4592,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23_master(PyObject *_
         }
         case  2:
         if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_current_top);
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_top);
           if (value) { values[2] = value; kw_args--; }
         }
         case  3:
@@ -4654,7 +4652,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23_master(PyObject *_
     }
     __pyx_v_command = values[0];
     __pyx_v_current_frame = values[1];
-    __pyx_v_current_top = values[2];
+    __pyx_v_top = values[2];
     __pyx_v_dslist = values[3];
     __pyx_v_dflist = values[4];
     __pyx_v_new_top = values[5];
@@ -4675,14 +4673,14 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23_master(PyObject *_
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_22_master(((struct __pyx_obj_6pytraj_7actions_6Action_Action *)__pyx_v_self), __pyx_v_command, __pyx_v_current_frame, __pyx_v_current_top, __pyx_v_dslist, __pyx_v_dflist, __pyx_v_new_top, __pyx_v_new_frame, __pyx_v_debug, __pyx_v_update_frame, __pyx_v_quick_get);
+  __pyx_r = __pyx_pf_6pytraj_7actions_6Action_6Action_22_master(((struct __pyx_obj_6pytraj_7actions_6Action_Action *)__pyx_v_self), __pyx_v_command, __pyx_v_current_frame, __pyx_v_top, __pyx_v_dslist, __pyx_v_dflist, __pyx_v_new_top, __pyx_v_new_frame, __pyx_v_debug, __pyx_v_update_frame, __pyx_v_quick_get);
 
   /* "pytraj/actions/Action.pyx":187
  *         return act
  * 
  *     def _master(self, command='',             # <<<<<<<<<<<<<<
  *                   current_frame=Frame(),
- *                   current_top=Topology(),
+ *                   top=Topology(),
  */
 
   /* function exit code */
@@ -4690,7 +4688,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_6Action_6Action_23_master(PyObject *_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_current_frame, PyObject *__pyx_v_current_top, PyObject *__pyx_v_dslist, PyObject *__pyx_v_dflist, PyObject *__pyx_v_new_top, PyObject *__pyx_v_new_frame, int __pyx_v_debug, CYTHON_UNUSED PyObject *__pyx_v_update_frame, PyObject *__pyx_v_quick_get) {
+static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __pyx_obj_6pytraj_7actions_6Action_Action *__pyx_v_self, PyObject *__pyx_v_command, PyObject *__pyx_v_current_frame, PyObject *__pyx_v_top, PyObject *__pyx_v_dslist, PyObject *__pyx_v_dflist, PyObject *__pyx_v_new_top, PyObject *__pyx_v_new_frame, int __pyx_v_debug, CYTHON_UNUSED PyObject *__pyx_v_update_frame, PyObject *__pyx_v_quick_get) {
   PyObject *__pyx_v__top = NULL;
   PyObject *__pyx_v_idx = NULL;
   PyObject *__pyx_v_dtype = NULL;
@@ -4712,11 +4710,11 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
   /* "pytraj/actions/Action.pyx":203
  * 
  *         """
- *         if current_top.is_empty():             # <<<<<<<<<<<<<<
+ *         if top.is_empty():             # <<<<<<<<<<<<<<
  *             _top = current_frame.top
  *         else:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_current_top, __pyx_n_s_is_empty); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_top, __pyx_n_s_is_empty); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4742,10 +4740,10 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
 
     /* "pytraj/actions/Action.pyx":204
  *         """
- *         if current_top.is_empty():
+ *         if top.is_empty():
  *             _top = current_frame.top             # <<<<<<<<<<<<<<
  *         else:
- *             _top = current_top
+ *             _top = top
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_current_frame, __pyx_n_s_top); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -4755,7 +4753,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
     /* "pytraj/actions/Action.pyx":203
  * 
  *         """
- *         if current_top.is_empty():             # <<<<<<<<<<<<<<
+ *         if top.is_empty():             # <<<<<<<<<<<<<<
  *             _top = current_frame.top
  *         else:
  */
@@ -4765,21 +4763,21 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
   /* "pytraj/actions/Action.pyx":206
  *             _top = current_frame.top
  *         else:
- *             _top = current_top             # <<<<<<<<<<<<<<
+ *             _top = top             # <<<<<<<<<<<<<<
  *         self.read_input(command=command,
- *                         current_top=_top,
+ *                         top=_top,
  */
   /*else*/ {
-    __Pyx_INCREF(__pyx_v_current_top);
-    __pyx_v__top = __pyx_v_current_top;
+    __Pyx_INCREF(__pyx_v_top);
+    __pyx_v__top = __pyx_v_top;
   }
   __pyx_L3:;
 
   /* "pytraj/actions/Action.pyx":207
  *         else:
- *             _top = current_top
+ *             _top = top
  *         self.read_input(command=command,             # <<<<<<<<<<<<<<
- *                         current_top=_top,
+ *                         top=_top,
  *                         dslist=dslist,
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_read_input); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4789,17 +4787,17 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_command, __pyx_v_command) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "pytraj/actions/Action.pyx":208
- *             _top = current_top
+ *             _top = top
  *         self.read_input(command=command,
- *                         current_top=_top,             # <<<<<<<<<<<<<<
+ *                         top=_top,             # <<<<<<<<<<<<<<
  *                         dslist=dslist,
  *                         dflist=dflist, debug=debug)
  */
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_current_top, __pyx_v__top) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_top, __pyx_v__top) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "pytraj/actions/Action.pyx":209
  *         self.read_input(command=command,
- *                         current_top=_top,
+ *                         top=_top,
  *                         dslist=dslist,             # <<<<<<<<<<<<<<
  *                         dflist=dflist, debug=debug)
  * 
@@ -4807,11 +4805,11 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dslist, __pyx_v_dslist) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "pytraj/actions/Action.pyx":210
- *                         current_top=_top,
+ *                         top=_top,
  *                         dslist=dslist,
  *                         dflist=dflist, debug=debug)             # <<<<<<<<<<<<<<
  * 
- *         self.process(current_top=_top, new_top=new_top)
+ *         self.process(top=_top, new_top=new_top)
  */
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dflist, __pyx_v_dflist) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_debug); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 210; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4821,9 +4819,9 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
 
   /* "pytraj/actions/Action.pyx":207
  *         else:
- *             _top = current_top
+ *             _top = top
  *         self.read_input(command=command,             # <<<<<<<<<<<<<<
- *                         current_top=_top,
+ *                         top=_top,
  *                         dslist=dslist,
  */
   __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4835,7 +4833,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
   /* "pytraj/actions/Action.pyx":212
  *                         dflist=dflist, debug=debug)
  * 
- *         self.process(current_top=_top, new_top=new_top)             # <<<<<<<<<<<<<<
+ *         self.process(top=_top, new_top=new_top)             # <<<<<<<<<<<<<<
  *         self.do_action(current_frame, new_frame)
  * 
  */
@@ -4843,7 +4841,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 212; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_current_top, __pyx_v__top) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 212; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_top, __pyx_v__top) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 212; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_new_top, __pyx_v_new_top) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 212; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 212; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -4853,7 +4851,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
 
   /* "pytraj/actions/Action.pyx":213
  * 
- *         self.process(current_top=_top, new_top=new_top)
+ *         self.process(top=_top, new_top=new_top)
  *         self.do_action(current_frame, new_frame)             # <<<<<<<<<<<<<<
  * 
  *         # currently support only dtype = 'DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER'
@@ -5130,7 +5128,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_22_master(struct __py
  * 
  *     def _master(self, command='',             # <<<<<<<<<<<<<<
  *                   current_frame=Frame(),
- *                   current_top=Topology(),
+ *                   top=Topology(),
  */
 
   /* function exit code */
@@ -17804,7 +17802,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_contiguous_and_direct, __pyx_k_contiguous_and_direct, sizeof(__pyx_k_contiguous_and_direct), 0, 0, 1, 0},
   {&__pyx_kp_s_contiguous_and_indirect, __pyx_k_contiguous_and_indirect, sizeof(__pyx_k_contiguous_and_indirect), 0, 0, 1, 0},
   {&__pyx_n_s_current_frame, __pyx_k_current_frame, sizeof(__pyx_k_current_frame), 0, 0, 1, 1},
-  {&__pyx_n_s_current_top, __pyx_k_current_top, sizeof(__pyx_k_current_top), 0, 0, 1, 1},
   {&__pyx_n_s_debug, __pyx_k_debug, sizeof(__pyx_k_debug), 0, 0, 1, 1},
   {&__pyx_n_s_dflist, __pyx_k_dflist, sizeof(__pyx_k_dflist), 0, 0, 1, 1},
   {&__pyx_n_s_do_action, __pyx_k_do_action, sizeof(__pyx_k_do_action), 0, 0, 1, 1},
@@ -18088,7 +18085,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     @makesureABC("Action")             # <<<<<<<<<<<<<<
  *     def read_input(self, command='',
- *                    current_top=TopologyList(),
+ *                    top=TopologyList(),
  */
   __pyx_tuple__31 = PyTuple_Pack(1, __pyx_n_s_Action); if (unlikely(!__pyx_tuple__31)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__31);
@@ -18098,7 +18095,7 @@ static int __Pyx_InitCachedConstants(void) {
  *                        debug)
  * 
  *     @makesureABC("Action")             # <<<<<<<<<<<<<<
- *     def process(self, Topology current_top=Topology(), Topology new_top=Topology()):
+ *     def process(self, Topology top=Topology(), Topology new_top=Topology()):
  *         """
  */
   __pyx_tuple__32 = PyTuple_Pack(1, __pyx_n_s_Action); if (unlikely(!__pyx_tuple__32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18106,7 +18103,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__32);
 
   /* "pytraj/actions/Action.pyx":116
- *         return self.baseptr.Setup(current_top.thisptr, &(new_top.thisptr))
+ *         return self.baseptr.Setup(top.thisptr, &(new_top.thisptr))
  * 
  *     @makesureABC("Action")             # <<<<<<<<<<<<<<
  *     def do_action(self, current_frame=None, Frame new_frame=Frame()):
@@ -18490,7 +18487,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   /* "pytraj/actions/Action.pyx":61
  *     @makesureABC("Action")
  *     def read_input(self, command='',
- *                    current_top=TopologyList(),             # <<<<<<<<<<<<<<
+ *                    top=TopologyList(),             # <<<<<<<<<<<<<<
  *                    DataSetList dslist=DataSetList(),
  *                    DataFileList dflist=DataFileList(),
  */
@@ -18502,7 +18499,7 @@ PyMODINIT_FUNC PyInit_Action(void)
 
   /* "pytraj/actions/Action.pyx":62
  *     def read_input(self, command='',
- *                    current_top=TopologyList(),
+ *                    top=TopologyList(),
  *                    DataSetList dslist=DataSetList(),             # <<<<<<<<<<<<<<
  *                    DataFileList dflist=DataFileList(),
  *                    int debug=0):
@@ -18514,7 +18511,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   __pyx_t_2 = 0;
 
   /* "pytraj/actions/Action.pyx":63
- *                    current_top=TopologyList(),
+ *                    top=TopologyList(),
  *                    DataSetList dslist=DataSetList(),
  *                    DataFileList dflist=DataFileList(),             # <<<<<<<<<<<<<<
  *                    int debug=0):
@@ -18531,7 +18528,7 @@ PyMODINIT_FUNC PyInit_Action(void)
  * 
  *     @makesureABC("Action")             # <<<<<<<<<<<<<<
  *     def read_input(self, command='',
- *                    current_top=TopologyList(),
+ *                    top=TopologyList(),
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_makesureABC); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -18543,7 +18540,7 @@ PyMODINIT_FUNC PyInit_Action(void)
  * 
  *     @makesureABC("Action")
  *     def read_input(self, command='',             # <<<<<<<<<<<<<<
- *                    current_top=TopologyList(),
+ *                    top=TopologyList(),
  *                    DataSetList dslist=DataSetList(),
  */
   __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_7actions_6Action_Action, __pyx_n_s_read_input); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18581,7 +18578,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   /* "pytraj/actions/Action.pyx":98
  * 
  *     @makesureABC("Action")
- *     def process(self, Topology current_top=Topology(), Topology new_top=Topology()):             # <<<<<<<<<<<<<<
+ *     def process(self, Topology top=Topology(), Topology new_top=Topology()):             # <<<<<<<<<<<<<<
  *         """
  *         Process input and do initial setup
  */
@@ -18600,7 +18597,7 @@ PyMODINIT_FUNC PyInit_Action(void)
  *                        debug)
  * 
  *     @makesureABC("Action")             # <<<<<<<<<<<<<<
- *     def process(self, Topology current_top=Topology(), Topology new_top=Topology()):
+ *     def process(self, Topology top=Topology(), Topology new_top=Topology()):
  *         """
  */
   __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_makesureABC); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18612,7 +18609,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   /* "pytraj/actions/Action.pyx":98
  * 
  *     @makesureABC("Action")
- *     def process(self, Topology current_top=Topology(), Topology new_top=Topology()):             # <<<<<<<<<<<<<<
+ *     def process(self, Topology top=Topology(), Topology new_top=Topology()):             # <<<<<<<<<<<<<<
  *         """
  *         Process input and do initial setup
  */
@@ -18662,7 +18659,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   __pyx_t_2 = 0;
 
   /* "pytraj/actions/Action.pyx":116
- *         return self.baseptr.Setup(current_top.thisptr, &(new_top.thisptr))
+ *         return self.baseptr.Setup(top.thisptr, &(new_top.thisptr))
  * 
  *     @makesureABC("Action")             # <<<<<<<<<<<<<<
  *     def do_action(self, current_frame=None, Frame new_frame=Frame()):
@@ -18793,7 +18790,7 @@ PyMODINIT_FUNC PyInit_Action(void)
  * 
  *     def _master(self, command='',
  *                   current_frame=Frame(),             # <<<<<<<<<<<<<<
- *                   current_top=Topology(),
+ *                   top=Topology(),
  *                   dslist=DataSetList(),
  */
   __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18805,7 +18802,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   /* "pytraj/actions/Action.pyx":189
  *     def _master(self, command='',
  *                   current_frame=Frame(),
- *                   current_top=Topology(),             # <<<<<<<<<<<<<<
+ *                   top=Topology(),             # <<<<<<<<<<<<<<
  *                   dslist=DataSetList(),
  *                   dflist=DataFileList(),
  */
@@ -18817,7 +18814,7 @@ PyMODINIT_FUNC PyInit_Action(void)
 
   /* "pytraj/actions/Action.pyx":190
  *                   current_frame=Frame(),
- *                   current_top=Topology(),
+ *                   top=Topology(),
  *                   dslist=DataSetList(),             # <<<<<<<<<<<<<<
  *                   dflist=DataFileList(),
  *                   new_top=Topology(),
@@ -18829,7 +18826,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   __pyx_t_1 = 0;
 
   /* "pytraj/actions/Action.pyx":191
- *                   current_top=Topology(),
+ *                   top=Topology(),
  *                   dslist=DataSetList(),
  *                   dflist=DataFileList(),             # <<<<<<<<<<<<<<
  *                   new_top=Topology(),

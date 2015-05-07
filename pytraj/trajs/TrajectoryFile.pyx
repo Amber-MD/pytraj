@@ -81,6 +81,12 @@ cdef class TrajectoryFile:
         filename = filename.encode()
         self.baseptr0.SetTrajFileName(filename, is_read)
 
+    @property
+    def filename(self):
+        cdef FileName fname = FileName()
+        fname.thisptr[0] = self.baseptr0.TrajFilename()
+        return fname.__str__()
+
     property top:
         def __get__(self):
             if not self._top.is_empty():

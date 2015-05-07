@@ -12,6 +12,10 @@ except:
     amberhome = None
     cpptraj_test_dir = None
 
+possible_path = "../cpptraj/test/"
+if os.path.exists(possible_path):
+    cpptraj_test_dir = possible_path
+
 if __name__ == "__main__":
     print (amberhome)
     print (cpptraj_test_dir)

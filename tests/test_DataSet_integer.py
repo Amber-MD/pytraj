@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         print (ds.dtype)
 
         for i in range(100):
-            ds.add_element(i)
+            ds.append(i)
 
         assert ds.size == 100
         print (ds[:])

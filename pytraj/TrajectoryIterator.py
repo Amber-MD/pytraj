@@ -31,7 +31,7 @@ class TrajectoryIterator(Trajin_Single, ActionInTraj):
             act = ActionDict()['autoimage']
         for frame in super(TrajectoryIterator, self).frame_iter(start, stop, stride):
             if autoimage:
-                act(current_frame=frame, current_top=self.top)
+                act(current_frame=frame, top=self.top)
             if mask is not None:
                 if isinstance(mask, string_types):
                     atm = self.top(mask)
