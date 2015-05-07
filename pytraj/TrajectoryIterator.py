@@ -11,6 +11,7 @@ from pytraj.Frame import Frame
 from pytraj.AtomMask import AtomMask
 from pytraj.externals.six import string_types
 from pytraj.exceptions import PytrajMemviewError
+from pytraj._CTrajectory import _CTrajectory
 
 
 class TrajectoryIterator(Trajin_Single, ActionInTraj):
@@ -25,6 +26,13 @@ class TrajectoryIterator(Trajin_Single, ActionInTraj):
     @topology.setter
     def topology(self, newtop):
         self.top = newtop
+
+    def __getitem__(self, idx):
+        value = self[idx]
+        if isinstance(value, _CTrajectory):
+            return Trajectory(value)
+        else:
+            return value
 
     def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False):
         if autoimage:

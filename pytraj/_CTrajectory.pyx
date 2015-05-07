@@ -12,6 +12,7 @@ from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
 
 # python level
+from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types
 from .TrajectoryIterator import TrajectoryIterator
 from .utils.check_and_assert import _import_numpy, is_int, is_frame_iter
@@ -28,7 +29,7 @@ from ._shared_methods import _frame_iter
 import pytraj.common_actions as pyca
 from pytraj.hbonds import search_hbonds
 
-cdef class Trajectory (object):
+cdef class _CTrajectory (object):
     def __cinit__(self, filename=None, top=None, indices=None, 
                   bint warning=False, n_frames=None, flag=None):
         
@@ -47,15 +48,15 @@ cdef class Trajectory (object):
 
         # since we are using memoryview for slicing this class istance, we just need to 
         # let `parent` free memory
-        # this variable is intended to let Trajectory control 
+        # this variable is intended to let _CTrajectory control 
         # freeing memory for Frame instance but it's too complicated
         #self.is_mem_parent = True
         if filename is not None:
             self.load(filename, self.top, indices)
 
     def copy(self):
-        "Return a copy of Trajectory"
-        cdef Trajectory other = Trajectory()
+        "Return a copy of _CTrajectory"
+        cdef _CTrajectory other = _CTrajectory()
         cdef _Frame* _frame
         for _frame in self.frame_v:
             other.frame_v.push_back(_frame)
@@ -63,11 +64,11 @@ cdef class Trajectory (object):
         other.top = self.top.copy()
         return other
 
-    def __dealloc__(Trajectory self):
+    def __dealloc__(self):
         """should we free memory for Frame instances here?
         (we set frame.py_free_mem = False in __getitem__)
         """
-        #print "Test Trajectory exiting"
+        #print "Test _CTrajectory exiting"
         pass
         #cdef Frame frame
         #if self.is_mem_parent:
@@ -92,7 +93,7 @@ cdef class Trajectory (object):
     def load(self, filename='', Topology top=None, indices=None):
         # TODO : add more test cases
         # should we add hdf5 format here?
-        cdef Trajin_Single ts
+        #cdef Trajin_Single ts
         cdef int idx
         cdef TrajinList tlist
         cdef Frame frame
@@ -278,9 +279,9 @@ cdef class Trajectory (object):
         return (self.n_frames, self[0].n_atoms, 3)
 
     @property
-    def xyz(Trajectory self):
+    def xyz(self):
         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
-        We can not return a memoryview since Trajectory is a C++ vector of Frame object
+        We can not return a memoryview since _CTrajectory is a C++ vector of Frame object
         """
         cdef bint has_numpy
         has_numpy, np = _import_numpy()
@@ -326,14 +327,14 @@ cdef class Trajectory (object):
     def __getitem__(self, idxs):
         # TODO : same as Trajin class
         # should combine or inherit or ?
-        #"""Return a reference of Trajectory[idx]
+        #"""Return a reference of _CTrajectory[idx]
         #To get a copy
         #>>>frame = Trajectory_instance[10].copy()
 
         # TODO : why not using existing slice of list?
 
         cdef Frame frame = Frame(self.top.n_atoms)
-        cdef Trajectory farray
+        cdef _CTrajectory farray
         cdef int start, stop, step
         cdef int i
         cdef int idx_1, idx_2
@@ -348,15 +349,15 @@ cdef class Trajectory (object):
         frame.py_free_mem = False
 
         if self.warning:
-            print "return a Frame or sub-Trajectory view of this instance"
+            print "return a Frame or sub-_CTrajectory view of this instance"
             print "Use with care. For safetype, use `copy` method"
 
         if len(self) == 0:
-            raise ValueError("Your Trajectory is empty, how can I index it?")
+            raise ValueError("Your _CTrajectory is empty, how can I index it?")
 
         elif isinstance(idxs, AtomMask):
             atom_mask_obj = <AtomMask> idxs
-            _farray = Trajectory()
+            _farray = _CTrajectory()
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
             for i, frame in enumerate(self):
                 _frame = Frame(frame, atom_mask_obj)
@@ -421,7 +422,7 @@ cdef class Trajectory (object):
                     frame = self[idx_0]
                     frame.py_free_mem = False
                     return frame[idxs[1:]]
-                elif isinstance(self[idx_0], Trajectory):
+                elif isinstance(self[idx_0], _CTrajectory):
                     farray = self[idx_0]
                     return farray[idxs[1:]]
                 #return frame[idxs[1:]]
@@ -443,9 +444,9 @@ cdef class Trajectory (object):
         else:
             # is slice
             if self.warning:
-                print "Trajectory slice"
+                print "_CTrajectory slice"
             # creat a subset array of `Trajectory`
-            farray = Trajectory()
+            farray = _CTrajectory()
             # farray.is_mem_parent = False
 
             # should we make a copy of self.top or get memview?
@@ -458,7 +459,7 @@ cdef class Trajectory (object):
             #print "before updating (start, stop, step) = (%s, %s, %s)" % (start, stop, step)
             if start > stop and (step < 0):
                 # since reading TRAJ is not random access for large file, we read from
-                # begining to the end and append Frame to Trajectory
+                # begining to the end and append Frame to _CTrajectory
                 # we will reverse later after getting all needed frames
                 # traj[:-1:-3]
                 is_reversed = True
@@ -495,7 +496,7 @@ cdef class Trajectory (object):
         # to make thing simple, we don't use fancy slicing here
         cdef Frame frame
         if len(self) == 0:
-            raise ValueError("Your Trajectory is empty, how can I index it?")
+            raise ValueError("Your _CTrajectory is empty, how can I index it?")
         if isinstance(idx, (long, int)) and isinstance(other, Frame):
             frame = <Frame> other.copy()
             frame.py_free_mem = False
@@ -508,7 +509,7 @@ cdef class Trajectory (object):
             #txt = "not yet implemented. Try using framearray[idx1][idx2, idx3] = value"
             #raise NotImplementedError(txt)
         
-    def __delitem__(Trajectory self, int idx):
+    def __delitem__(self, int idx):
         self.erase(idx)
 
     def __str__(self):
@@ -588,11 +589,11 @@ cdef class Trajectory (object):
             yield frame
             incr(it)
 
-    def __add__(self, Trajectory other):
+    def __add__(self, _CTrajectory other):
         self += other
         return self
 
-    def __iadd__(self, Trajectory other):
+    def __iadd__(self, _CTrajectory other):
         """
         append `other`'s frames to `self`
         frame0 += other
@@ -617,19 +618,19 @@ cdef class Trajectory (object):
         self.frame_v.push_back(framein.thisptr)
 
     def join(self, traj, mask=None):
-        cdef Trajectory other, farray
+        cdef _CTrajectory other, farray
         # TODO : do we need this method when we have `get_frames`
         if mask:
             raise NotImplementedError("not yet")
-        if isinstance(traj, Trajectory):
-            other = <Trajectory> traj
+        if isinstance(traj, _CTrajectory):
+            other = <_CTrajectory> traj
             if self.top.n_atoms != other.top.n_atoms:
                 raise ValueError("n_atoms of two arrays do not match")
             self.frame_v.reserve(self.frame_v.size() + other.frame_v.size())
             self.frame_v.insert(self.frame_v.end(), 
                                 other.frame_v.begin(), other.frame_v.end())
         elif isinstance(traj, (list, tuple)):
-            # assume a list or tuple of Trajectory
+            # assume a list or tuple of _CTrajectory
             for farray in traj:
                 self.join(farray)
 
@@ -654,7 +655,7 @@ cdef class Trajectory (object):
         def get_frames(from_traj=None, indices=None, update_top=False, copy=True)
         Parameters:
         ----------
-        from_traj : TrajectoryIterator or Trajectory, default=None
+        from_traj : _CTrajectoryIterator or _CTrajectory, default=None
         indices : default=None
         update_top : bool, default=False
         copy : bool, default=True
@@ -704,7 +705,7 @@ cdef class Trajectory (object):
                     ts._end_traj()
 
             #elif isinstance(ts, Trajectory2) or isinstance(ts, Trajectory):
-            elif isinstance(ts, Trajectory):
+            elif isinstance(ts, _CTrajectory):
                 # TODO : rename Trajectory2
                 # use try and except?
                 if indices is None:
@@ -718,7 +719,7 @@ cdef class Trajectory (object):
 
         else:
             # if from_traj is None, return new Trajectory
-            newfarray = Trajectory()
+            newfarray = _CTrajectory()
             if update_top:
                 newfarray.top = self.top.copy()
             for i in indices:

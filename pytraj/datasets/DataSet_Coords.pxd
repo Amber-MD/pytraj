@@ -3,7 +3,6 @@ from ..Topology cimport _Topology, Topology
 from .DataSet_1D cimport _DataSet_1D, DataSet_1D
 from .DataSet cimport _DataSet, DataSet, DataType
 from pytraj.Frame cimport _Frame, Frame
-from pytraj.Trajectory cimport Trajectory
 from pytraj.AtomMask cimport _AtomMask, AtomMask
 
 
