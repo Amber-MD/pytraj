@@ -11,7 +11,7 @@ ctypedef vector[_Frame].iterator iterator
 
 
 cdef class Trajectory:
-    cdef vector[_Frame] frame_v
+    cdef vector[_Frame*] frame_v
     cdef public Topology top
     cdef public Topology oldtop 
 

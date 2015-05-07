@@ -28,8 +28,6 @@ from ._shared_methods import _frame_iter
 import pytraj.common_actions as pyca
 from pytraj.hbonds import search_hbonds
 
-# we don't allow sub-class in Python level since we will mess up with memory
-@cython.final
 cdef class Trajectory (object):
     def __cinit__(self, filename=None, top=None, indices=None, 
                   bint warning=False, n_frames=None, flag=None):
@@ -58,7 +56,7 @@ cdef class Trajectory (object):
     def copy(self):
         "Return a copy of Trajectory"
         cdef Trajectory other = Trajectory()
-        cdef _Frame _frame
+        cdef _Frame* _frame
         for _frame in self.frame_v:
             other.frame_v.push_back(_frame)
         # copy self.top too
@@ -311,6 +309,18 @@ cdef class Trajectory (object):
     def tolist(self):
         return _tolist(self)
 
+    def _get_item(self, int idx):
+        cdef Frame frame = Frame(self.n_atoms)
+        cdef _Frame _frame
+        print ('frame.n_atoms', frame.n_atoms)
+
+        frame.py_free_mem = False
+        _frame = deref(self.frame_v[idx])
+        print ('_frame.n_atoms', _frame.Natom())
+        frame.thisptr = self.frame_v[idx]
+        print ('frame.n_atoms', frame.n_atoms)
+        return frame
+
     @cython.boundscheck(False)
     @cython.wraparound(False)
     def __getitem__(self, idxs):
@@ -409,6 +419,7 @@ cdef class Trajectory (object):
 
                 if isinstance(self[idx_0], Frame):
                     frame = self[idx_0]
+                    frame.py_free_mem = False
                     return frame[idxs[1:]]
                 elif isinstance(self[idx_0], Trajectory):
                     farray = self[idx_0]
@@ -424,8 +435,10 @@ cdef class Trajectory (object):
                     # arr[0] is  arr[-1]
                     if idxs != -1:
                         raise ValueError("index is out of range")
-                # get memoryview
-                frame.thisptr = &(self.frame_v[idx_1])
+                #print ("get memoryview")
+                #frame.thisptr = &(self.frame_v[idx_1])
+                frame.py_free_mem = False
+                frame.thisptr = self.frame_v[idx_1]
                 return frame
         else:
             # is slice
@@ -463,7 +476,7 @@ cdef class Trajectory (object):
             for i in range(start, stop, step):
                 # turn `copy` to `False` to have memoryview
                 # turn `copy` to `True` to make a copy
-                farray.append(self[i], copy=True)
+                farray.append(self[i], copy=False)
             if is_reversed:
                 # reverse vector if using negative index slice
                 # traj[:-1:-3]
@@ -484,8 +497,9 @@ cdef class Trajectory (object):
         if len(self) == 0:
             raise ValueError("Your Trajectory is empty, how can I index it?")
         if isinstance(idx, (long, int)) and isinstance(other, Frame):
-            frame = <Frame> other
-            self.frame_v[idx] = frame.thisptr[0]
+            frame = <Frame> other.copy()
+            frame.py_free_mem = False
+            self.frame_v[idx] = frame.thisptr
         # TODO : check this
         #self[idx].py_free_mem = False
         else:
@@ -562,14 +576,15 @@ cdef class Trajectory (object):
         >>>     pass
                 
         """
-        cdef vector[_Frame].iterator it  = self.frame_v.begin()
+        cdef vector[_Frame*].iterator it  = self.frame_v.begin()
         cdef Frame frame 
 
         while it != self.frame_v.end():
             frame = Frame()
             # use memoryview, don't let python free memory of this instance
             frame.py_free_mem = False
-            frame.thisptr = &(deref(it))
+            #frame.thisptr = &(deref(it))
+            frame.thisptr = deref(it)
             yield frame
             incr(it)
 
@@ -582,25 +597,24 @@ cdef class Trajectory (object):
         append `other`'s frames to `self`
         frame0 += other
         """
+        cdef _Frame* _frame_ptr
         cdef _Frame _frame
+
         if self.top.n_atoms != other.top.n_atoms:
             raise ValueError("n_atoms of two arrays do not match")
 
-        for _frame in other.frame_v:
+        for _frame_ptr in other.frame_v:
             # make a copy
-            self.frame_v.push_back(_Frame(_frame))
+            _frame = _Frame(deref(_frame_ptr))
+            self.frame_v.push_back(&_frame)
         return self
 
-    def append(self, Frame framein, copy=True):
-        cdef Frame frame = Frame() 
-        if copy:
-            frame = framein.copy()
-            self.frame_v.push_back(frame.thisptr[0])
-        else:
-            # create memory view
-            # need to set `py_free_mem` to False
-            framein.py_free_mem = False
-            self.frame_v.push_back(framein.thisptr[0])
+    def append(self, Frame framein):
+        """append Frame object
+        """
+        # need to set `py_free_mem = False`
+        framein.py_free_mem = False
+        self.frame_v.push_back(framein.thisptr)
 
     def join(self, traj, mask=None):
         cdef Trajectory other, farray
@@ -635,7 +649,7 @@ cdef class Trajectory (object):
     def temperature_set(self):
         return _get_temperature_set(self)
 
-    def get_frames(self, from_traj=None, indices=None, update_top=False, copy=True):
+    def get_frames(self, from_traj=None, indices=None, update_top=False, copy=False):
         """get frames from Trajin instance
         def get_frames(from_traj=None, indices=None, update_top=False, copy=True)
         Parameters:
@@ -672,12 +686,12 @@ cdef class Trajectory (object):
                         # use slice for saving memory
                         start, stop, step = indices.start, indices.stop, indices.step
                         for i in range(start, stop, step):
-                            self.append(ts[i], copy=copy)
+                            self.append(ts[i])
                     else:
                         # regular list, tuple, array,...
                         for i in indices:
                             #print "debug Trajectory.get_frames"
-                            self.append(ts[i], copy=copy)
+                            self.append(ts[i])
                 else:    
                     # get whole traj
                     frame = Frame()
@@ -686,7 +700,7 @@ cdef class Trajectory (object):
                     ts._begin_traj()
                     for i in range(ts.max_frames):
                         ts._get_next_frame(frame)
-                        self.append(frame, copy=copy)
+                        self.append(frame)
                     ts._end_traj()
 
             #elif isinstance(ts, Trajectory2) or isinstance(ts, Trajectory):
@@ -696,11 +710,11 @@ cdef class Trajectory (object):
                 if indices is None:
                     for i in range(ts.size):
                         # TODO : make indices as an array?
-                        self.append(ts[i], copy=copy)
+                        self.append(ts[i])
                 else:
                     for i in indices:
                         # TODO : make indices as an array?
-                        self.append(ts[i], copy=copy)
+                        self.append(ts[i])
 
         else:
             # if from_traj is None, return new Trajectory
@@ -708,7 +722,7 @@ cdef class Trajectory (object):
             if update_top:
                 newfarray.top = self.top.copy()
             for i in indices:
-                newfarray.append(self[i], copy=copy)
+                newfarray.append(self[i])
             return newfarray
 
     def strip_atoms(self, mask=None, update_top=True, bint has_box=False):
@@ -719,7 +733,7 @@ cdef class Trajectory (object):
         >>> arr0 = np.asarray(frame.buffer)
         """
 
-        cdef vector[_Frame].iterator it
+        cdef vector[_Frame*].iterator it
         cdef Frame frame = Frame()
         cdef Topology tmptop = Topology()
 
@@ -731,7 +745,7 @@ cdef class Trajectory (object):
         frame.py_free_mem = False
         it = self.frame_v.begin()
         while it != self.frame_v.end():
-            frame.thisptr = &(deref(it))
+            frame.thisptr = deref(it)
             # we need to update topology since _strip_atoms will modify it
             tmptop = self.top.copy()
             frame._strip_atoms(tmptop, mask, update_top, has_box)
