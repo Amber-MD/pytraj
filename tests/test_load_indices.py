@@ -106,7 +106,7 @@ class TestIndices(unittest.TestCase):
 
     def test_load_indices_from_io(self):
         from pytraj import io as mdio
-        traj0 = mdio.iterload(filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top", indices=(1, 3, 7))
+        traj0 = mdio.load(filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top", indices=(1, 3, 7))
         trajreadonly = mdio.iterload(filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
 
         assert isinstance(traj0, Trajectory)
