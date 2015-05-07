@@ -9,12 +9,13 @@ class Test(unittest.TestCase):
     def test_0(self):
         dslist = DataSetList()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        print (traj.top)
         ds = dslist.add_set_aspect('INTEGER', 'frame_idx', 'frame_idx')
         ds0 = cast_dataset(ds, 'INTEGER')
         print (dir(ds0))
 
         for i in range(100):
-            ds0.add(i, i)
+            ds0.append(i)
 
         print (dslist[0].size)
         print (dslist[0][:])
