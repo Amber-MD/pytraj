@@ -11,7 +11,7 @@ import numpy as np
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         d0 = calculate(adict['distance'], ':2@CA :10@CA', traj)[0]
         print (type(d0))
         print ((d0.size))
@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
             #plt.close()
 
     def test_1(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         # no longer support this.
         ## print help
@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
         #calculate(key='RandomizeIonS')
 
     def test_2(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj.common_actions import calc_distance
         d0 = calc_distance(":2@CA :10@CA", traj)
         print (d0[:])

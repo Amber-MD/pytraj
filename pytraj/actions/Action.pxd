@@ -8,7 +8,7 @@ from pytraj.TopologyList cimport _TopologyList, TopologyList
 from pytraj._FunctPtr cimport FunctPtr
 from pytraj.Topology cimport _Topology, Topology
 from pytraj.Frame cimport _Frame, Frame
-from pytraj.FrameArray cimport FrameArray
+from pytraj.Trajectory cimport Trajectory
 
 cdef extern from "Action.h": 
     # Action.h

@@ -7,7 +7,7 @@ from pytraj.AtomSelect import AtomSelect
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         s = AtomSelect(traj=traj, top=traj.top, frameidx=5)
 
         # make sure to use `property` properly
@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
             assert_almost_equal(s.selected_frame.coords, traj[i].coords)
 
     def test_1(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         s = AtomSelect(traj=traj, top=traj.top)
         print(s.get_indices("@CA"))
         s.frameidx = 9
@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
         print(dir(mdio))
         traj = mdio.loadpdb_rcsb("2kxc")
         top = traj.top
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = traj.top.copy()
         s = AtomSelect(traj=traj, top=top)
 

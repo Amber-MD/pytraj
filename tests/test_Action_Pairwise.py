@@ -9,7 +9,7 @@ from pytraj.utils import _import
 class Test(unittest.TestCase):
     def test_0(self):
         # TODO: add assert
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = DataSetList()
         act = adict['pairwise']
         act("@CA", traj, dslist=dslist)

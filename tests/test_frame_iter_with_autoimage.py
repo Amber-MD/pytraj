@@ -10,15 +10,15 @@ import pytraj.common_actions as pyca
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
 
         fa1 = traj[:]
 
-        # do inplace-autoimage for FrameArray
+        # do inplace-autoimage for Trajectory
         fa1.autoimage()
 
-        # fa2 will store frame when iterating `traj` (TrajReadOnly)
-        fa2 = FrameArray()
+        # fa2 will store frame when iterating `traj` (TrajectoryIterator)
+        fa2 = Trajectory()
         fa2.top = traj.top.copy()
 
         # frame_iter
@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         # fa3 is a copy of autoimaged fa2. then we strip all but CA atoms
         # just want to make sure we can use `mask`
         fa3.strip_atoms("!@CA")
-        fa4 = FrameArray()
+        fa4 = Trajectory()
         fa4.top = fa3.top.copy()
 
         for frame in traj(mask='@CA', autoimage=True):

@@ -12,7 +12,7 @@ from pytraj.TrajinList import TrajinList
 
 fname = "./data/md1_prod.Tc5b.x"
 topname = "./data/Tc5b.top"
-traj = mdio.load(fname, topname)
+traj = mdio.iterload(fname, topname)
 dslist = DataSetList()
 dslist.add_set("coords")
 dslist[0].top = traj.top.copy()
@@ -34,7 +34,7 @@ def test_load(my_traj, ref_traj=None, n_frames=None):
     if n_frames is None:
         n_frames = ref_traj.n_frames
 
-    fa = FrameArray()
+    fa = Trajectory()
     fa.top = traj.top.copy()
     fa.load(my_traj)
     
@@ -47,19 +47,19 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
-        print ("load from TrajReadOnly")
+        print ("load from TrajectoryIterator")
         test_load(traj)
-        print ("load from FrameArray")
+        print ("load from Trajectory")
         test_load(farray)
-        print (" load from frame_iter, TrajReadOnly")
+        print (" load from frame_iter, TrajectoryIterator")
         test_load(traj())
-        print (" load from frame_iter, FrameArray")
+        print (" load from frame_iter, Trajectory")
         test_load(farray())
         print (" load from file")
         test_load(fname)
         print (" load from a list of files")
         test_load([fname for _ in range(10)], n_frames=traj.n_frames*10)
-        print (" load from TrajReadOnly")
+        print (" load from TrajectoryIterator")
         test_load(traj)
         print (" load from DataSet Coords")
         test_load(dslist[0])
@@ -86,7 +86,7 @@ class Test(unittest.TestCase):
         indices[:, 0] = traj.top("@CA").selected_indices()[:20]
         indices[:, 1] = traj.top("@H*").selected_indices()[:20]
 
-        _fa = FrameArray()
+        _fa = Trajectory()
         _fa.top = traj.top.copy()
         _fa.load(m_traj)
 
@@ -112,7 +112,7 @@ class Test(unittest.TestCase):
         print ("test loading DataSetList")
         _dslist = dslist
         print (dslist)
-        ref_traj = FrameArray()
+        ref_traj = Trajectory()
         ref_traj.top = traj.top.copy()
         ref_traj.load(traj)
         ref_traj.load(traj)
@@ -120,7 +120,7 @@ class Test(unittest.TestCase):
 
     def test_3(self):
         print ("test loading frame")
-        fa = FrameArray(traj[0], traj.top)
+        fa = Trajectory(traj[0], traj.top)
         assert fa.size == 1
         assert_almost_equal(fa[0].coords, traj[0].coords)
 

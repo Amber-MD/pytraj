@@ -3,13 +3,13 @@ import numpy as np
 #from line_profiler import profile
 from pytraj.base import *
 
-TRAJ = TrajReadOnly()
+TRAJ = TrajectoryIterator()
 TRAJ.top = Topology("./data/Tc5b.top")
 TRAJ.load("./data/md1_prod.Tc5b.x")
 
 #@profile
 def calc_pairwise_rmsd():
-    farray = FrameArray()
+    farray = Trajectory()
     farray.top = TRAJ.top
     #
     for frame in TRAJ:

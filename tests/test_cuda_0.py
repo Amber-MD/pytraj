@@ -43,7 +43,7 @@ class TestGPUArray(unittest.TestCase):
 
     @mark_cuda_test
     def test_load_frame_coords_to_gpu(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         a = np.asarray(traj[0].coords).astype(np.float32)
 

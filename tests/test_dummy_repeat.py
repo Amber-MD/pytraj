@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     #@no_test
     def test_0(self):
         print ("repeat `calculate`")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj import calculate
 
         d0 = calculate("distance", traj, ":2@CA :10@CB")
@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         print ("repeat `calc_`")
         str_traj_top = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        traj = mdio.load(*str_traj_top)
+        traj = mdio.iterload(*str_traj_top)
         from pytraj.common_actions import calc_distance
 
         d0 = calc_distance(traj, ":2@CA :10@CA")

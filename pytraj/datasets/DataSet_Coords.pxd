@@ -3,7 +3,7 @@ from ..Topology cimport _Topology, Topology
 from .DataSet_1D cimport _DataSet_1D, DataSet_1D
 from .DataSet cimport _DataSet, DataSet, DataType
 from pytraj.Frame cimport _Frame, Frame
-from pytraj.FrameArray cimport FrameArray
+from pytraj.Trajectory cimport Trajectory
 from pytraj.AtomMask cimport _AtomMask, AtomMask
 
 
@@ -31,6 +31,6 @@ cdef class DataSet_Coords (DataSet):
     cdef Topology _top
     cdef bint py_free_mem
 
-    # use tmpfarray object to hold Frame or FrameArray 
+    # use tmpfarray object to hold Frame or Trajectory 
     # (if we want to use dset[0][0] correctly)
     cdef object tmpfarray

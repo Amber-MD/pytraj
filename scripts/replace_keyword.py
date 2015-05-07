@@ -6,6 +6,7 @@ oldword, newword, oldfile = sys.argv[1:]
 with open(oldfile, 'r') as fh:
     txt = fh.read()
 
+print (oldword)
 if oldword in txt:
     txt = txt.replace(oldword, newword)
     

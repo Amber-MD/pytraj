@@ -506,7 +506,7 @@ static const char *__pyx_f[] = {
   "pytraj/trajs/Trajin.pxd",
   "pytraj/_FunctPtr.pxd",
   "pytraj/trajs/Trajin_Single.pxd",
-  "pytraj/FrameArray.pxd",
+  "pytraj/Trajectory.pxd",
 };
 struct __pyx_memoryview_obj;
 typedef struct {
@@ -648,7 +648,7 @@ struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin;
 struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr;
 struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single;
 struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin;
-struct __pyx_obj_6pytraj_10FrameArray_FrameArray;
+struct __pyx_obj_6pytraj_10Trajectory_Trajectory;
 struct __pyx_obj_6pytraj_7actions_6Action_Action;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
@@ -880,14 +880,14 @@ typedef std::vector<Residue> ::const_iterator __pyx_t_6pytraj_8Topology_res_iter
  */
 typedef std::vector<Molecule> ::const_iterator __pyx_t_6pytraj_8Topology_mol_iterator;
 
-/* "pytraj/FrameArray.pxd":11
- * #from pytraj.FrameArray2 cimport FrameArray2
+/* "pytraj/Trajectory.pxd":10
+ * from .cpp_algorithm cimport reverse as cpp_reverse
  * 
  * ctypedef vector[_Frame].iterator iterator             # <<<<<<<<<<<<<<
  * 
  * 
  */
-typedef std::vector<Frame> ::iterator __pyx_t_6pytraj_10FrameArray_iterator;
+typedef std::vector<Frame> ::iterator __pyx_t_6pytraj_10Trajectory_iterator;
 
 /* "pytraj/DispatchObject.pxd":8
  *         pass
@@ -1449,7 +1449,7 @@ struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile {
  * 
  * cdef class Trajin (TrajectoryFile):             # <<<<<<<<<<<<<<
  *     #( baseptr0 is from TrajectoryFile
- *     # create tmpfarray to hold sub FrameArray
+ *     # create tmpfarray to hold sub Trajectory
  */
 struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin {
   struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile __pyx_base;
@@ -1493,7 +1493,7 @@ struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single {
  * 
  * cdef class Trajin (TrajectoryFile):             # <<<<<<<<<<<<<<
  *     #( baseptr0 is from TrajectoryFile
- *     # create tmpfarray to hold sub FrameArray
+ *     # create tmpfarray to hold sub Trajectory
  */
 struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin {
   struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile __pyx_base;
@@ -1504,14 +1504,14 @@ struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin {
 };
 
 
-/* "pytraj/FrameArray.pxd":14
+/* "pytraj/Trajectory.pxd":13
  * 
  * 
- * cdef class FrameArray:             # <<<<<<<<<<<<<<
+ * cdef class Trajectory:             # <<<<<<<<<<<<<<
  *     cdef vector[_Frame] frame_v
  *     cdef public Topology top
  */
-struct __pyx_obj_6pytraj_10FrameArray_FrameArray {
+struct __pyx_obj_6pytraj_10Trajectory_Trajectory {
   PyObject_HEAD
   std::vector<Frame>  frame_v;
   struct __pyx_obj_6pytraj_8Topology_Topology *top;
@@ -2195,8 +2195,8 @@ static PyTypeObject *__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = 0;
 
 /* Module declarations from 'pytraj.cpp_algorithm' */
 
-/* Module declarations from 'pytraj.FrameArray' */
-static PyTypeObject *__pyx_ptype_6pytraj_10FrameArray_FrameArray = 0;
+/* Module declarations from 'pytraj.Trajectory' */
+static PyTypeObject *__pyx_ptype_6pytraj_10Trajectory_Trajectory = 0;
 
 /* Module declarations from 'pytraj.actions.Action' */
 static PyTypeObject *__pyx_ptype_6pytraj_7actions_6Action_Action = 0;
@@ -2405,7 +2405,7 @@ static char __pyx_k_Invalid_shape_in_axis_d_d[] = "Invalid shape in axis %d: %d.
 static char __pyx_k_Index_out_of_bounds_axis_d[] = "Index out of bounds (axis %d)";
 static char __pyx_k_Step_may_not_be_zero_axis_d[] = "Step may not be zero (axis %d)";
 static char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cython.array";
-static char __pyx_k_must_be_Frame_or_FrameArray[] = "must be Frame or FrameArray";
+static char __pyx_k_must_be_Frame_or_Trajectory[] = "must be Frame or Trajectory";
 static char __pyx_k_pytraj_datasets_cast_dataset[] = "pytraj.datasets.cast_dataset";
 static char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static char __pyx_k_don_t_know_how_to_cast_dataset[] = "don't know how to cast dataset";
@@ -2493,7 +2493,7 @@ static PyObject *__pyx_n_s_makesureABC;
 static PyObject *__pyx_n_s_master;
 static PyObject *__pyx_n_s_memview;
 static PyObject *__pyx_n_s_mode;
-static PyObject *__pyx_kp_s_must_be_Frame_or_FrameArray;
+static PyObject *__pyx_kp_s_must_be_Frame_or_Trajectory;
 static PyObject *__pyx_n_s_n_frames;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_name_2;
@@ -4037,8 +4037,8 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __
  *             # assuming frame_iter or chunk_iter
  *             # "recursively do_action" does not work here. Why?
  *             for frame in current_frame:             # <<<<<<<<<<<<<<
- *                 if isinstance(frame, FrameArray):
- *                     farray = <FrameArray> frame
+ *                 if isinstance(frame, Trajectory):
+ *                     farray = <Trajectory> frame
  */
   /*else*/ {
     if (likely(PyList_CheckExact(__pyx_v_current_frame)) || PyTuple_CheckExact(__pyx_v_current_frame)) {
@@ -4085,18 +4085,18 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __
       /* "pytraj/actions/Action.pyx":164
  *             # "recursively do_action" does not work here. Why?
  *             for frame in current_frame:
- *                 if isinstance(frame, FrameArray):             # <<<<<<<<<<<<<<
- *                     farray = <FrameArray> frame
+ *                 if isinstance(frame, Trajectory):             # <<<<<<<<<<<<<<
+ *                     farray = <Trajectory> frame
  *                     for f0 in farray:
  */
-      __pyx_t_2 = __Pyx_TypeCheck(((PyObject *)__pyx_v_frame), ((PyObject*)__pyx_ptype_6pytraj_10FrameArray_FrameArray)); 
+      __pyx_t_2 = __Pyx_TypeCheck(((PyObject *)__pyx_v_frame), ((PyObject*)__pyx_ptype_6pytraj_10Trajectory_Trajectory)); 
       __pyx_t_1 = (__pyx_t_2 != 0);
       if (__pyx_t_1) {
 
         /* "pytraj/actions/Action.pyx":165
  *             for frame in current_frame:
- *                 if isinstance(frame, FrameArray):
- *                     farray = <FrameArray> frame             # <<<<<<<<<<<<<<
+ *                 if isinstance(frame, Trajectory):
+ *                     farray = <Trajectory> frame             # <<<<<<<<<<<<<<
  *                     for f0 in farray:
  *                         self.do_action(f0, new_frame)
  */
@@ -4106,8 +4106,8 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __
         __pyx_t_8 = 0;
 
         /* "pytraj/actions/Action.pyx":166
- *                 if isinstance(frame, FrameArray):
- *                     farray = <FrameArray> frame
+ *                 if isinstance(frame, Trajectory):
+ *                     farray = <Trajectory> frame
  *                     for f0 in farray:             # <<<<<<<<<<<<<<
  *                         self.do_action(f0, new_frame)
  *                 elif isinstance(frame, Frame):
@@ -4153,7 +4153,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __
           __pyx_t_7 = 0;
 
           /* "pytraj/actions/Action.pyx":167
- *                     farray = <FrameArray> frame
+ *                     farray = <Trajectory> frame
  *                     for f0 in farray:
  *                         self.do_action(f0, new_frame)             # <<<<<<<<<<<<<<
  *                 elif isinstance(frame, Frame):
@@ -4191,8 +4191,8 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
           /* "pytraj/actions/Action.pyx":166
- *                 if isinstance(frame, FrameArray):
- *                     farray = <FrameArray> frame
+ *                 if isinstance(frame, Trajectory):
+ *                     farray = <Trajectory> frame
  *                     for f0 in farray:             # <<<<<<<<<<<<<<
  *                         self.do_action(f0, new_frame)
  *                 elif isinstance(frame, Frame):
@@ -4203,8 +4203,8 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __
         /* "pytraj/actions/Action.pyx":164
  *             # "recursively do_action" does not work here. Why?
  *             for frame in current_frame:
- *                 if isinstance(frame, FrameArray):             # <<<<<<<<<<<<<<
- *                     farray = <FrameArray> frame
+ *                 if isinstance(frame, Trajectory):             # <<<<<<<<<<<<<<
+ *                     farray = <Trajectory> frame
  *                     for f0 in farray:
  */
         goto __pyx_L17;
@@ -4226,7 +4226,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __
  *                 elif isinstance(frame, Frame):
  *                     self.do_action(frame, new_frame)             # <<<<<<<<<<<<<<
  *                 else:
- *                     raise ValueError("must be Frame or FrameArray")
+ *                     raise ValueError("must be Frame or Trajectory")
  */
         __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_do_action); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_7);
@@ -4272,7 +4272,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __
       /* "pytraj/actions/Action.pyx":171
  *                     self.do_action(frame, new_frame)
  *                 else:
- *                     raise ValueError("must be Frame or FrameArray")             # <<<<<<<<<<<<<<
+ *                     raise ValueError("must be Frame or Trajectory")             # <<<<<<<<<<<<<<
  * 
  *     @makesureABC("Action")
  */
@@ -4289,8 +4289,8 @@ static PyObject *__pyx_pf_6pytraj_7actions_6Action_6Action_16do_action(struct __
  *             # assuming frame_iter or chunk_iter
  *             # "recursively do_action" does not work here. Why?
  *             for frame in current_frame:             # <<<<<<<<<<<<<<
- *                 if isinstance(frame, FrameArray):
- *                     farray = <FrameArray> frame
+ *                 if isinstance(frame, Trajectory):
+ *                     farray = <Trajectory> frame
  */
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -17833,7 +17833,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_master, __pyx_k_master, sizeof(__pyx_k_master), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
-  {&__pyx_kp_s_must_be_Frame_or_FrameArray, __pyx_k_must_be_Frame_or_FrameArray, sizeof(__pyx_k_must_be_Frame_or_FrameArray), 0, 0, 1, 0},
+  {&__pyx_kp_s_must_be_Frame_or_Trajectory, __pyx_k_must_be_Frame_or_Trajectory, sizeof(__pyx_k_must_be_Frame_or_Trajectory), 0, 0, 1, 0},
   {&__pyx_n_s_n_frames, __pyx_k_n_frames, sizeof(__pyx_k_n_frames), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_name_2, __pyx_k_name_2, sizeof(__pyx_k_name_2), 0, 0, 1, 1},
@@ -17897,11 +17897,11 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pytraj/actions/Action.pyx":171
  *                     self.do_action(frame, new_frame)
  *                 else:
- *                     raise ValueError("must be Frame or FrameArray")             # <<<<<<<<<<<<<<
+ *                     raise ValueError("must be Frame or Trajectory")             # <<<<<<<<<<<<<<
  * 
  *     @makesureABC("Action")
  */
-  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_must_be_Frame_or_FrameArray); if (unlikely(!__pyx_tuple__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 171; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_must_be_Frame_or_Trajectory); if (unlikely(!__pyx_tuple__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 171; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
@@ -18117,7 +18117,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__33);
 
   /* "pytraj/actions/Action.pyx":173
- *                     raise ValueError("must be Frame or FrameArray")
+ *                     raise ValueError("must be Frame or Trajectory")
  * 
  *     @makesureABC("Action")             # <<<<<<<<<<<<<<
  *     def print_output(self):
@@ -18377,7 +18377,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   __pyx_ptype_6pytraj_9_FunctPtr_FunctPtr = __Pyx_ImportType("pytraj._FunctPtr", "FunctPtr", sizeof(struct __pyx_obj_6pytraj_9_FunctPtr_FunctPtr), 1); if (unlikely(!__pyx_ptype_6pytraj_9_FunctPtr_FunctPtr)) {__pyx_filename = __pyx_f[28]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single = __Pyx_ImportType("pytraj.trajs.Trajin_Single", "Trajin_Single", sizeof(struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single), 1); if (unlikely(!__pyx_ptype_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single)) {__pyx_filename = __pyx_f[29]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin)) {__pyx_filename = __pyx_f[27]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10FrameArray_FrameArray = __Pyx_ImportType("pytraj.FrameArray", "FrameArray", sizeof(struct __pyx_obj_6pytraj_10FrameArray_FrameArray), 1); if (unlikely(!__pyx_ptype_6pytraj_10FrameArray_FrameArray)) {__pyx_filename = __pyx_f[30]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_10Trajectory_Trajectory = __Pyx_ImportType("pytraj.Trajectory", "Trajectory", sizeof(struct __pyx_obj_6pytraj_10Trajectory_Trajectory), 1); if (unlikely(!__pyx_ptype_6pytraj_10Trajectory_Trajectory)) {__pyx_filename = __pyx_f[30]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
@@ -18714,7 +18714,7 @@ PyMODINIT_FUNC PyInit_Action(void)
   PyType_Modified(__pyx_ptype_6pytraj_7actions_6Action_Action);
 
   /* "pytraj/actions/Action.pyx":173
- *                     raise ValueError("must be Frame or FrameArray")
+ *                     raise ValueError("must be Frame or Trajectory")
  * 
  *     @makesureABC("Action")             # <<<<<<<<<<<<<<
  *     def print_output(self):

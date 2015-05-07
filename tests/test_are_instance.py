@@ -9,9 +9,9 @@ from pytraj.externals.six import string_types
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        assert are_instance([traj, traj], TrajReadOnly) == True
-        assert are_instance([traj, ""], TrajReadOnly) == False
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        assert are_instance([traj, traj], TrajectoryIterator) == True
+        assert are_instance([traj, ""], TrajectoryIterator) == False
         assert are_instance(["my comment", ""], string_types) == True
 
 if __name__ == "__main__":

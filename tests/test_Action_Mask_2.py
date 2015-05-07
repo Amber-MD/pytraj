@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         # TODO : seem wrong for 2nd, 3rd action. Need to know how cpptraj works first
         from pytraj.actions.Action_Mask_2 import Action_Mask_2
-        traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         act = Action_Mask_2()
         dslist = DataSetList()
         dflist = DataFileList()

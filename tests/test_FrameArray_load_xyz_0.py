@@ -11,9 +11,9 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print ("creat FrameArray from 3D array")
-        farray = FrameArray()
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        print ("creat Trajectory from 3D array")
+        farray = Trajectory()
         farray.top = traj.top.copy()
         arr0 = traj.xyz
         print (arr0.shape)
@@ -22,8 +22,8 @@ class Test(unittest.TestCase):
             #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
 
-        print ("creat FrameArray from 1D array")
-        farray2 = FrameArray()
+        print ("creat Trajectory from 1D array")
+        farray2 = Trajectory()
         farray2.top = farray.top.copy()
         arr0 = traj.xyz.flatten()
         print (arr0.shape)
@@ -33,8 +33,8 @@ class Test(unittest.TestCase):
             #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
 
-        print ("creat FrameArray from 2D array")
-        farray3 = FrameArray()
+        print ("creat Trajectory from 2D array")
+        farray3 = Trajectory()
         farray3.top = farray.top.copy()
         arr0 = traj.xyz.reshape(traj.n_frames, traj.n_atoms*3)
         print (arr0.shape)
@@ -44,8 +44,8 @@ class Test(unittest.TestCase):
             #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
 
-        print ("creat FrameArray from 2D array of memview")
-        farray4 = FrameArray()
+        print ("creat Trajectory from 2D array of memview")
+        farray4 = Trajectory()
         farray4.top = farray.top.copy()
 
         for frame in traj:
@@ -57,8 +57,8 @@ class Test(unittest.TestCase):
             #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
 
-        print ("creat FrameArray from 2D array of ndarray")
-        farray5 = FrameArray()
+        print ("creat Trajectory from 2D array of ndarray")
+        farray5 = Trajectory()
         farray5.top = farray.top.copy()
 
         farray5.load_ndarray(traj.xyz)
@@ -71,9 +71,9 @@ class Test(unittest.TestCase):
             assert_almost_equal(f0.coords, f1.coords)
         assert i == traj.size
 
-        print ("creat FrameArray from frame_iter with mask")
+        print ("creat Trajectory from frame_iter with mask")
         strip_top = farray5.top.strip_atoms("!@CA", copy=True)
-        farray6 = FrameArray(traj(mask='@CA'), strip_top)
+        farray6 = Trajectory(traj(mask='@CA'), strip_top)
         farray5.strip_atoms('!@CA')
         print (farray5)
 

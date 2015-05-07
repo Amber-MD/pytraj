@@ -19,7 +19,7 @@ from pytraj.io import load_mdtraj
 class Test(unittest.TestCase):
     @test_if_having("mdtraj")
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         if has_("mdtraj") and has_("tables"):
             print ("Testing mdtraj and pytraj")
@@ -78,7 +78,7 @@ class Test(unittest.TestCase):
         # load water box
         import mdtraj as md
         m_traj =  md.load("./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
-        true_traj =  mdio.load("./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
+        true_traj =  mdio.iterload("./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
         traj = mdio.load_mdtraj(m_traj)
         print (traj.top.box)
         print (true_traj.top.box)

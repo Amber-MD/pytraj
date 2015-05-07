@@ -14,8 +14,8 @@ class Test(unittest.TestCase):
         import numpy as np
         import chemistry as chem
         parm_name = "./data/Tc5b.top"
-        traj = mdio.load("./data/md1_prod.Tc5b.x",  parm_name)
-        true_top = mdio.load(parm_name)
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x",  parm_name)
+        true_top = mdio.iterload(parm_name)
 
         # load ParmEd
         parm = mdio._load_chem(parm_name) 
@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         # load pseudo_parm
         ptop = mdio.load_pseudo_parm(parm)
         fake_fa = mdio.load_ParmEd(parm, restype='traj')
-        assert isinstance(fake_fa, FrameArray)
+        assert isinstance(fake_fa, Trajectory)
         aa_eq(fake_fa[0].coords, traj[0].coords)
         print (ptop)
 

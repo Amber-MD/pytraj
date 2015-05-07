@@ -9,7 +9,7 @@ from pytraj.common_actions import do_rotation
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['rotate']
         f0 = traj[0]
         f1 = traj[1]
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
         print ("f0cp2.rmsd(f0saved) = ", f0cp2.rmsd(f0saved))
 
         # do more
-        # create mutable FrameArray
+        # create mutable Trajectory
         farray = traj[:]
         # perform action on farray
         act.do_action(farray)
@@ -39,13 +39,13 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         print ("test 1: assert")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
         f0cp = f0.copy()
         act = adict['rotate']
         f0.rotate(60, 120, 50, traj.top('@CA'))
         act("@CA x 60 y 120 z 50", f0cp, traj.top)
-        fsaved = mdio.load("./data/rotated_frame0.x60y120z50.Tc5b.r", "./data/Tc5b.top")[0]
+        fsaved = mdio.iterload("./data/rotated_frame0.x60y120z50.Tc5b.r", "./data/Tc5b.top")[0]
         print (f0.rmsd(fsaved))
         print (f0cp.rmsd(fsaved))
         assert f0.rmsd(fsaved) < 1E-3
@@ -53,7 +53,7 @@ class Test(unittest.TestCase):
 
         # do_rotation
         from pytraj.common_actions import do_rotation
-        # make mutable FrameArray object from TrajReadOnly object
+        # make mutable Trajectory object from TrajectoryIterator object
         farray = traj[:]
         farray_cp1 = farray.copy()
         farray_cp2 = farray.copy()
@@ -84,7 +84,7 @@ class Test(unittest.TestCase):
             # test timing
             from pytraj.utils.Timer import Timer
 
-            traj = mdio.load("./data/NuG2/test.x.000", "./data/NuG2/NuG2.top")
+            traj = mdio.iterload("./data/NuG2/test.x.000", "./data/NuG2/NuG2.top")
             farray = traj[:]
             farray_cp1 = farray.copy()
             farray_cp2 = farray.copy()

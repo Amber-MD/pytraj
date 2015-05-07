@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = traj[0]
         assert_almost_equal(frame.coords, np.array(frame.tolist()).flatten())
         assert len(frame.tolist()) == frame.n_atoms

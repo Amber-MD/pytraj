@@ -7,7 +7,7 @@ from pytraj.utils.check_and_assert import get_amber_saved_test_dir
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         f0 = traj[0].copy()
         f0saved = traj[0].copy()
 
@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
         saved_test = get_amber_saved_test_dir("Test_Center/centered.crd.save")
         if saved_test:
             print ("has saved test")
-            saved_f = mdio.load(saved_test, "./data/tz2.truncoct.parm7")[0]
+            saved_f = mdio.iterload(saved_test, "./data/tz2.truncoct.parm7")[0]
             print (saved_f[:2])
 
             # make sure we did the right thing

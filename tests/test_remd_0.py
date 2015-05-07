@@ -12,9 +12,9 @@ class Test(unittest.TestCase):
         print (dfiles)
         top = Topology(datadir + "ala2.99sb.mbondi2.parm7")
 
-        trajlist = [mdio.load(traj, top) for traj in dfiles]
-        trajlist2 = [mdio.load(traj, top)(1, 8, 2) for traj in dfiles]
-        trajlist3 = [mdio.load(traj, top)(start=5) for traj in dfiles]
+        trajlist = [mdio.iterload(traj, top) for traj in dfiles]
+        trajlist2 = [mdio.iterload(traj, top)(1, 8, 2) for traj in dfiles]
+        trajlist3 = [mdio.iterload(traj, top)(start=5) for traj in dfiles]
 
         print (trajlist)
         print (trajlist[0])

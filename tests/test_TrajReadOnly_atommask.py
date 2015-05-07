@@ -7,9 +7,9 @@ from pytraj.decorators import test_if_having, no_test
 class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
-        print ("test TrajReadOnly")
+        print ("test TrajectoryIterator")
         mask = "@CA"
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print (traj)
         top = traj.top
         atm = traj.top(mask)
@@ -34,11 +34,11 @@ class Test(unittest.TestCase):
     #@no_test
     @test_if_having("numpy")
     def test_1(self):
-        # why FrameArray is here? because I am lazy to move
-        print ("test FrameArray")
+        # why Trajectory is here? because I am lazy to move
+        print ("test Trajectory")
         mask = "@CA"
-        # creat FrameArray ( [:] )
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        # creat Trajectory ( [:] )
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         print (traj)
         top = traj.top
         atm = traj.top(mask)

@@ -7,7 +7,7 @@ from .TopologyList import TopologyList
 from .ArgList import ArgList
 from pytraj.Frame import Frame
 #from pytraj.Trajin_Single import Trajin_Single
-from pytraj.FrameArray import FrameArray
+from pytraj.Trajectory import Trajectory
 from pytraj.actions import allactions
 from pytraj import adict, analdict
 from pytraj.DataSetList import DataSetList

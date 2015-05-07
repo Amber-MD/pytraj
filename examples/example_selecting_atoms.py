@@ -7,7 +7,7 @@ from pytraj.AtomSelect import AtomSelect
 from pytraj.decorators import no_test
 
 def main():
-    traj = FrameArray("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
+    traj = Trajectory("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
     top = traj.top
     frame = traj[0]
 

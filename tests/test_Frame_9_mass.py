@@ -7,7 +7,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = traj[0].copy()
         print (frame.mass)
 
@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(arr0, rmsd_save[1])
 
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = traj[0].copy()
         print (frame.mass)
         frame.set_frame_m(traj.top)

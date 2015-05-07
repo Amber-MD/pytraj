@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
         # reason: when iterating TrajinLis, no information about Topology in `traj`
         # --> can not read frame correctly
         from pytraj._shared_methods import _frame_iter_master
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fname = "./tc5b.rotate.in"
         with open(fname, 'w') as f:
             f.write(text)
@@ -49,7 +49,7 @@ class Test(unittest.TestCase):
 
     def test_0(self):
         from pytraj._shared_methods import _frame_iter_master
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
 
         print ("iter traj")
@@ -82,8 +82,8 @@ class Test(unittest.TestCase):
 
     def test_assert(self):
         from pytraj._shared_methods import _frame_iter_master as _it_f
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        fa = FrameArray()
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        fa = Trajectory()
         fa.top = traj.top.copy()
         fa.load(_it_f(traj))
 

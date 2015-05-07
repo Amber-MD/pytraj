@@ -21,8 +21,8 @@ class Test(unittest.TestCase):
     @test_if_path_exists(test_density_dir)
     def test_0(self):
         from pytraj.common_actions import calculate
-        # creat mutable FrameArray
-        traj = mdio.load("./data/DOPC.rst7", "./data/DOPC.parm7")
+        # creat mutable Trajectory
+        traj = mdio.iterload("./data/DOPC.rst7", "./data/DOPC.parm7")
         farray = traj[:]
         print (farray)
 

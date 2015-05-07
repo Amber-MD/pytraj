@@ -1,5 +1,5 @@
 # distutils: language = c++
-from pytraj.analyses.Analysis cimport _Analysis, Analysis
+from pytraj.analyses.Analysis cimport _Analysis, Analysis, RetType
 from pytraj.DispatchObject cimport _DispatchObject, DispatchObject
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj.DataFileList cimport _DataFileList, DataFileList

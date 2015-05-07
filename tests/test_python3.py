@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         top.summary()
 
     def test_1(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print (traj)
         print (traj.top)
         print (traj.n_frames)
@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
         traj[:4].save('./output/test_python3.x', overwrite=True)
 
     def test_2(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
         print (top("@CA"))
         print (top["@CA"][:2])

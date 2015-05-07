@@ -9,7 +9,7 @@ from pytraj import adict
 from pytraj.DataFileList import DataFileList
 from pytraj.common_actions import calc_dssp
 
-farray = TrajReadOnly(top=Topology("./data/DPDP.parm7"), 
+farray = TrajectoryIterator(top=Topology("./data/DPDP.parm7"), 
                     filename='./data/DPDP.nc', 
                     )
 
@@ -65,7 +65,7 @@ class TestRadgyr(unittest.TestCase):
 
     def test_4(self):
         # add assert 
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         arr1 = calc_dssp(traj, "*", dtype='int')
         print (arr1)
         print ("DSSP from pytraj")
@@ -84,7 +84,7 @@ class TestRadgyr(unittest.TestCase):
         #assert_allclose(arr1, dssp_saved[1:])
 
     def test_5(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = calc_dssp(traj, "*", dtype='dataset')
         print (dslist)
         print (dslist.get_legends())

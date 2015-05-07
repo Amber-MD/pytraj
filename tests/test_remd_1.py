@@ -11,13 +11,12 @@ class Test(unittest.TestCase):
         top = Topology("./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
 
         # load regular traj
-        straj = mdio.load("./data/Test_RemdTraj/rem.nc.000", top)
+        straj = mdio.iterload("./data/Test_RemdTraj/rem.nc.000", top)
 
         # load all traj and extract frames having 300.0 K
         traj = mdio.load_remd("./data/Test_RemdTraj/rem.nc.000", top, "300.0")
 
         print (traj)
-        assert isinstance(traj, Trajin) == True
         print (traj, traj.top, traj.n_frames)
 
         # make sure to get 300.0 K for all frames
@@ -25,7 +24,7 @@ class Test(unittest.TestCase):
             assert_almost_equal([T], [300.0,])
 
         # make sure to reproduce cpptraj output
-        saved_traj = mdio.load("data/Test_RemdTraj/temp0.crd.300.00", 
+        saved_traj = mdio.iterload("data/Test_RemdTraj/temp0.crd.300.00", 
                                "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
 
         print (traj.n_frames)

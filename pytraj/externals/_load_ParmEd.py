@@ -1,11 +1,11 @@
 from pytraj.utils import has_
 from pytraj.warnings import PytrajWarningMissing
 from ._load_pseudo_parm import load_pseudo_parm
-from ..FrameArray import FrameArray
+from ..Trajectory import Trajectory
 from ..Frame import Frame
 
 def load_ParmEd(parmed_obj, restype="top"):
-    """return pytraj's Topology or FrameArray objects
+    """return pytraj's Topology or Trajectory objects
 
     Parameters
     ---------
@@ -20,7 +20,7 @@ def load_ParmEd(parmed_obj, restype="top"):
         if parmed_obj.coords is None:
             raise ValueError("can not convert to Traj with None-coords")
         else:
-            fa = FrameArray()
+            fa = Trajectory()
             fa.top = ptop
             frame = Frame()
             frame.set_from_crd(parmed_obj.coords)

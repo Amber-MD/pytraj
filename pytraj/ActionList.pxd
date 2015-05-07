@@ -7,7 +7,7 @@ from .TopologyList cimport _TopologyList, TopologyList
 from .Frame cimport _Frame, Frame
 from .DataSetList cimport _DataSetList, DataSetList
 from .DataFileList cimport _DataFileList, DataFileList
-from .FrameArray cimport FrameArray
+from .Trajectory cimport Trajectory
 from .ArgList cimport _ArgList, ArgList
 from ._FunctPtr cimport FunctPtr
 from .AtomMask cimport _AtomMask, AtomMask

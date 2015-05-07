@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
         traj0 = trajlist[0]
         traj0.top = state.toplist[0]
 
-        saved_traj = mdio.load("data/Test_RemdTraj/temp0.crd.300.00", 
+        saved_traj = mdio.iterload("data/Test_RemdTraj/temp0.crd.300.00", 
                                "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
 
         # make sure that we DO get 300K traj

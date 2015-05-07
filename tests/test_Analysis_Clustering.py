@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
         dflist = DataFileList()
 
         dslist.add_set("traj", "my_clustering", "")
-        traj = mdio.load("./data/tz2.nc", "./data/tz2.parm7")
+        traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
         dslist[0].top = traj.top
         dslist[0].add_trajin(traj)
         command = """
@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
         print ("use common_actions")
         from pytraj.common_actions import do_clustering
 
-        traj = mdio.load("./data/tz2.nc", "./data/tz2.parm7")
+        traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
         command = """
         :2-10 clusters 3 epsilon 4.0 summary ./output/avg.summary.do_clustering.dat nofit
         """

@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
             has_amberhome = False
         if has_amberhome:
             print ("has_amberhome, doing calculation")
-            traj = mdio.load("./data/tz2.nc", "./data/tz2.parm7")
+            traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
             frame = traj[0]
             dslist = DataSetList()
             dflist = DataFileList()

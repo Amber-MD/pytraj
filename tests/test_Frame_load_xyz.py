@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     @Timer()
     @test_if_having("numpy")
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = Frame()
         frame.append_xyz(traj[0].xyz)
         print (frame.coords[:10])

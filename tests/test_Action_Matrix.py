@@ -7,7 +7,7 @@ from pytraj import adict
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test
 
-farray = TrajReadOnly(top=Topology("./data/Tc5b.top"), 
+farray = TrajectoryIterator(top=Topology("./data/Tc5b.top"), 
                     filename='data/md1_prod.Tc5b.x', 
                     )
 class TestRadgyr(unittest.TestCase):

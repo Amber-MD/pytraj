@@ -6,12 +6,12 @@ from pytraj.base import *
 from load_traj import load
 from pytraj.decorators import no_test
 
-ts = TrajReadOnly()
+ts = TrajectoryIterator()
 datadir = "./data/"
 topname = datadir + "Tc5b.top"
 refilename = "./data/Tc5b.nat.crd"
 mdx = "./data/md1_prod.Tc5b.x"
-ts = TrajReadOnly()
+ts = TrajectoryIterator()
 
 top = Topology(topname)
 trajin = """
@@ -22,13 +22,13 @@ frame = Frame()
 frame.set_frame_v(top)
 frame2 = Frame(frame)
 
-# create FrameArray to store Frame
-FARRAY = FrameArray()
+# create Trajectory to store Frame
+FARRAY = Trajectory()
 #FARRAY.get_frames(ts, update_top=True)
 FRAMENUM=999
 FARRAY = ts[:FRAMENUM]
 
-class TestFrameArray(unittest.TestCase):
+class TestTrajectory(unittest.TestCase):
     def test_len(self):
         N = 10
         farray = FARRAY[:N].copy()
@@ -63,8 +63,8 @@ class TestFrameArray(unittest.TestCase):
         #print farray[-3].coords[:10]
         #assert f_last.same_coords_as(farray[-2]) == True
 
-    def test_len_TrajReadOnly(self):
-        # create alias of `ts` (TrajReadOnly instance  created above)
+    def test_len_TrajectoryIterator(self):
+        # create alias of `ts` (TrajectoryIterator instance  created above)
         farray = ts
         N = ts.size
         assert farray.size == N
@@ -90,7 +90,7 @@ class TestFrameArray(unittest.TestCase):
         print(farray[5].coords[:10])
 
     def test_mask_indexing_0(self):
-        # FrameArray
+        # Trajectory
         traj = ts[:]
         print(type(traj["@CA"]))
         print(traj["@CA"].shape)

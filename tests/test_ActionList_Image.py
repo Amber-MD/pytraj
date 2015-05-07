@@ -8,7 +8,7 @@ from pytraj.utils.check_and_assert import file_exist
 class TestActionList(unittest.TestCase):
     def test_run_0(self):
         # load traj
-        farray = FrameArray(filename="./data/tz2.truncoct.nc", top="./data/tz2.truncoct.parm7")[:2]
+        farray = Trajectory(filename="./data/tz2.truncoct.nc", top="./data/tz2.truncoct.parm7")[:2]
         fold = farray.copy()                                              
         print("old file: ", fold[0, 0, :])
         
@@ -44,7 +44,7 @@ class TestActionList(unittest.TestCase):
         # do checking
         alist.process(toplist[0])
     
-        farray2 = FrameArray()
+        farray2 = Trajectory()
         frame0 = Frame()
         # testing how fast to do the actions
     
@@ -66,7 +66,7 @@ class TestActionList(unittest.TestCase):
         print(farray2.size)
         assert farray2.n_frames == farray.n_frames
 
-        fsaved = mdio.load("./CpptrajTest/Test_Image/image4.crd.save", 
+        fsaved = mdio.iterload("./CpptrajTest/Test_Image/image4.crd.save", 
                          "./data/tz2.truncoct.parm7")
         assert fsaved.size == 2
         # make sure that pytraj reproduce cpptraj outputo

@@ -5,12 +5,12 @@ from pytraj.base import *
 from load_traj import load
 from pytraj.decorators import no_test
 
-ts = TrajReadOnly()
+ts = TrajectoryIterator()
 datadir = "./data/"
 topname = datadir + "Tc5b.top"
 refilename = "./data/Tc5b.nat.crd"
 mdx = "./data/md1_prod.Tc5b.x"
-ts = TrajReadOnly()
+ts = TrajectoryIterator()
 
 top = Topology(topname)
 trajin = """
@@ -21,13 +21,13 @@ frame = Frame()
 frame.set_frame_v(top)
 frame2 = Frame(frame)
 
-# create FrameArray to store Frame
-FARRAY = FrameArray()
+# create Trajectory to store Frame
+FARRAY = Trajectory()
 #FARRAY.get_frames(ts, update_top=True)
 FRAMENUM=1000
 FARRAY = ts[:FRAMENUM]
 
-class TestFrameArray(unittest.TestCase):
+class TestTrajectory(unittest.TestCase):
     def test_dummy(self):
         farray = FARRAY.copy()
         print(farray[:])

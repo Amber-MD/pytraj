@@ -1,7 +1,7 @@
 # place holder to read/write hd5py file format
 from __future__ import print_function
 from pytraj.Frame import Frame
-from pytraj.FrameArray import FrameArray
+from pytraj.Trajectory import Trajectory
 from pytraj.utils.check_and_assert import _import_h5py, _import_numpy
 
 has_h5py, h5py = _import_h5py()
@@ -10,7 +10,7 @@ has_numpy, np = _import_numpy()
 #assert has_h5py == True
 #assert has_numpy == True
 
-# TODO : inherit from FrameArray?
+# TODO : inherit from Trajectory?
 # FIXME: *** Error in `python': double free or corruption (out)
 class HD5F():
     def __init__(self, filename=None, mode='r', flag='hd5f', *args, **kwd):
@@ -20,7 +20,7 @@ class HD5F():
         self.flag = flag # for what?
 
     def load_toframearray(self, filename, mode='r', top=None):
-        farray = FrameArray()
+        farray = Trajectory()
         h5fh = h5py.File(filename, mode)
         farray.resize(h5fh['coordinates'].shape[0])
 

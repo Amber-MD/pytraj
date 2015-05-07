@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     #@no_test
     def test_0(self):
         from pytraj.hbonds import search_hbonds, search_nointramol_hbonds
-        traj = mdio.load("./data/DPDP.nc", "./data/DPDP.parm7")
+        traj = mdio.iterload("./data/DPDP.nc", "./data/DPDP.parm7")
         print ('n_frames = %s' % traj.n_frames)
         dslist = search_hbonds(traj)
         print (dslist.keys())
@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
         import numpy as np
         from pytraj.hbonds import search_hbonds
         from pytraj.misc import from_legends_to_indices
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         import pytraj.common_actions as pyca
         ds = pyca.search_hbonds(traj, dtype='dataset')
         print (ds.size)

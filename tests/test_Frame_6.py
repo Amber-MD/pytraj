@@ -7,7 +7,7 @@ from pytraj.utils import Timer
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame0cp = frame0.copy()
         ref = traj[1]
@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         print ("test setitem for mask")
         import numpy as np
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         top = traj.top
         print (frame0[top('@CA')])
@@ -43,7 +43,7 @@ class Test(unittest.TestCase):
 
     def test_2(self):
         print ("test set Frame")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         newframe = Frame(20)
         newframe.set_frame(frame0, traj.top('@CA'))
@@ -58,7 +58,7 @@ class Test(unittest.TestCase):
         from pytraj.common_actions import calc_dihedral, calc_angle
         from pytraj.common_actions import calc_distance
         print ("test calc torsion, angle")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
 
         Nsize = 1000000

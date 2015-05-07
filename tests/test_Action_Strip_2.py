@@ -6,7 +6,7 @@ from pytraj import adict
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
         f0cp = f0.copy()
         act = adict['strip']
@@ -34,14 +34,14 @@ class Test(unittest.TestCase):
         print (newf[1])
 
     def test_1(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
         f0cp = f0.copy()
         act = adict['strip']
         act.read_input('!@CA', traj.top.copy())
         act.process(traj.top.copy())
 
-        farray = FrameArray()
+        farray = Trajectory()
         newf = Frame()
         for i, frame in enumerate(traj):
             act.do_action(frame, newf)

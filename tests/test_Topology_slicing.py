@@ -6,7 +6,7 @@ from pytraj.core import Atom
 
 class Test(unittest.TestCase):
     def test_0(self):
-        top = mdio.load("./data/Tc5b.top")
+        top = mdio.iterload("./data/Tc5b.top")
 
         # number
         assert isinstance(top[0], Atom)

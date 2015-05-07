@@ -9,7 +9,7 @@ from pytraj import adict
 class TestActionList(unittest.TestCase):
     def test_run_0(self):
         # load traj
-        farray = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        farray = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
     
         # create 'strip' action
         stripact = allactions.Action_Strip()
@@ -41,7 +41,7 @@ class TestActionList(unittest.TestCase):
         # do checking
         alist.process(toplist[0])
     
-        farray2 = FrameArray()
+        farray2 = Trajectory()
         frame0 = Frame()
         # testing how fast to do the actions
     

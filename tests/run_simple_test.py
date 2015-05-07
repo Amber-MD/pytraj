@@ -51,8 +51,8 @@ class Test(unittest.TestCase):
         Residue()
         Atom()
         Frame()
-        FrameArray()
-        TrajReadOnly()
+        Trajectory()
+        TrajectoryIterator()
         TrajinList.TrajinList()
 
     def test_5(self):

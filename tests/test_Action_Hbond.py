@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
         # TODO : add assert
         # TODO : correct casting data type
         # make dictionary? (sound good)
-        traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         act = adict['hbond']
         dslist = DataSetList()
         act(":1-13 solventacceptor :WAT@O solventdonor :WAT series", 

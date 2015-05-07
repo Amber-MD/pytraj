@@ -3,13 +3,13 @@ from pytraj.common_actions import calc_molsurf
 from pytraj.base import *
 from pytraj.actions.Action_Surf import Action_Surf
 from pytraj.actions import Action
-from pytraj.TrajReadOnly import TrajReadOnly
+from pytraj.TrajectoryIterator import TrajectoryIterator
 from pytraj.datasets import cast_dataset
 from pytraj import adict
 
 print(dir(Action_Surf()))
 
-farray = FrameArray(top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
+farray = Trajectory(top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
 
 class TestSurf(unittest.TestCase):
     def test_0(self):

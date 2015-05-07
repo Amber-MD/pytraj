@@ -5,7 +5,7 @@ from pytraj.base import *
 from pytraj.common_actions import distance
 
 def calc_pairwise_distance():
-    traj = TrajReadOnly(filename="../tests/data/md1_prod.Tc5b.x", top="../tests/data/Tc5b.top")
+    traj = TrajectoryIterator(filename="../tests/data/md1_prod.Tc5b.x", top="../tests/data/Tc5b.top")
 
     # extract 11th frame (index start from 0)
     frame0 = traj[9]

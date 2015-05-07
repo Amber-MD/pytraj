@@ -1,6 +1,6 @@
 """This is a thin wrapper of Trajin_Single
-We need to sub-class Trajin_Single to use FrameArray
-(we called Trajin_Single from FrameArray, so we can not call FrameArray back from 
+We need to sub-class Trajin_Single to use Trajectory
+(we called Trajin_Single from Trajectory, so we can not call Trajectory back from 
 Trajin_Single)
 """
 from __future__ import absolute_import
@@ -13,7 +13,7 @@ from pytraj.externals.six import string_types
 from pytraj.exceptions import PytrajMemviewError
 
 
-class TrajReadOnly(Trajin_Single, ActionInTraj):
+class TrajectoryIterator(Trajin_Single, ActionInTraj):
     def __init__(self, *args, **kwd):
         pass
 
@@ -29,7 +29,7 @@ class TrajReadOnly(Trajin_Single, ActionInTraj):
     def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False):
         if autoimage:
             act = ActionDict()['autoimage']
-        for frame in super(TrajReadOnly, self).frame_iter(start, stop, stride):
+        for frame in super(TrajectoryIterator, self).frame_iter(start, stop, stride):
             if autoimage:
                 act(current_frame=frame, current_top=self.top)
             if mask is not None:

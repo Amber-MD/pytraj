@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         # TODO: add assertion
         # FIXME: results seem wrong
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['dihedralscan']
         dslist = DataSetList()
         act(" out ./output/_test_Dihscan.dat", traj, dslist=dslist)

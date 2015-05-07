@@ -3,7 +3,7 @@ from copy import copy
 import unittest
 import numpy as np
 from pytraj.Frame import Frame
-from pytraj.FrameArray import FrameArray
+from pytraj.Trajectory import Trajectory
 from pytraj.actions.Action_Rmsd import Action_Rmsd
 from pytraj.trajs.Trajin_Single import Trajin_Single
 from pytraj.trajs.Trajin import Trajin
@@ -75,7 +75,7 @@ class TestTrajinSingle(unittest.TestCase):
             print(x)
 
         assert_almost_equal (arr0, arr1)
-        # create FrameArray instance
+        # create Trajectory instance
         traj2 = traj[:]
         assert_almost_equal (traj2[0][0, :], traj2[:][0, 0])
         assert_almost_equal (traj2[0][0, :], traj2[:][0, 0])

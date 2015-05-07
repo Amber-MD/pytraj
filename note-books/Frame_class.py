@@ -13,7 +13,7 @@ from pytraj import Frame
 
 # In[54]:
 
-# loading traj file to FrameArray object
+# loading traj file to Trajectory object
 traj = mdio.load("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
 
 

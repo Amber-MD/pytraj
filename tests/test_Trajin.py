@@ -3,7 +3,7 @@ from pytraj.base import *
 
 class TestTrajin(unittest.TestCase):
     def test_0(self):
-        TRAJ = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        TRAJ = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         trajin = TRAJ.alloc()
         print(trajin.top)
         #print trajin.size

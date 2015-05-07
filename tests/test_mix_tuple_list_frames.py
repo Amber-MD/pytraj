@@ -8,7 +8,7 @@ def count_frames(traj):
     global count
     if isinstance(traj, Frame):
         count += 1
-    elif isinstance(traj, FrameArray):
+    elif isinstance(traj, Trajectory):
         for i, frame in enumerate(traj):
             count_frames(frame)
     elif isinstance(traj, (list, tuple)):
@@ -28,7 +28,7 @@ def count_frames(traj):
 
 def main():
     global count
-    traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+    traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
     #boring_list = [traj[0], traj[1], traj, traj(1, 6, 2)]
     boring_list = [traj[0], traj[1], traj, traj(1, 6, 2),
                    traj.chunk_iter(chunk=4)]

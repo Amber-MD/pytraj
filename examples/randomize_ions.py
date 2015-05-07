@@ -3,7 +3,7 @@ from pytraj.common_actions import randomize_ions
 from pytraj.io import load
 
 def randions():
-    # get `traj` instance (FrameArray)
+    # get `traj` instance (Trajectory)
     traj = load(filename="../tests/Test_RandomizeIons/adh206.tip3p.rst7.gz", 
                 top="../tests/Test_RandomizeIons/adh206.ff10.tip3p.parm7.gz")
     # get 1st frame from `traj`

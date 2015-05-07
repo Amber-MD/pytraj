@@ -1,10 +1,10 @@
 from __future__ import absolute_import
 from .externals.six import string_types, PY3
 from .Topology import Topology
-from .TrajReadOnly import TrajReadOnly
+from .TrajectoryIterator import TrajectoryIterator
 from .data_sample.load_sample_data import load_sample_data
 from .Frame import Frame
-from .FrameArray import FrameArray
+from .Trajectory import Trajectory
 from .trajs.Trajin_Single import Trajin_Single
 from .trajs.Trajout import Trajout
 from .utils.check_and_assert import make_sure_exist
@@ -48,13 +48,15 @@ def load(*args, **kwd):
         # loading only Topology
         return readparm(*args, **kwd)
     else:
-        # load traj
-        return loadtraj(*args, **kwd)
+        # load to Trajectory object
+        return loadtraj(*args, **kwd)[:]
 
-def iterload(filename, parm, start=0, stop=-1, stride=1, mask=""):
-    """explicit name for traj(start, stop, stride, mask)
+def iterload(*args, **kwd):
+    """return TrajectoryIterator object
     """
-    return load(filename, parm)(start, stop, stride, mask)
+    if kwd and 'indices' in kwd.keys():
+        raise ValueError("do not support indices for TrajectoryIterator loading")
+    return loadtraj(*args, **kwd)
 
 def loadtraj(filename=None, top=Topology(), indices=None):
     """load trajectory from filename
@@ -66,17 +68,17 @@ def loadtraj(filename=None, top=Topology(), indices=None):
 
     Returns
     -------
-    TrajReadOnly : if indices is None
+    TrajectoryIterator : if indices is None
     or 
-    FrameArray : if there is indices
+    Trajectory : if there is indices
     """
     if not isinstance(top, Topology):
         top = Topology(top)
-    ts = TrajReadOnly()
+    ts = TrajectoryIterator()
     ts.load(filename, top)
 
     if indices is not None:
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = top.copy()
         for i in indices:
             farray.append(ts[i])
@@ -84,7 +86,7 @@ def loadtraj(filename=None, top=Topology(), indices=None):
     else:
         return ts
 
-def load_remd(filename, top=Topology(), T="300.0"):
+def load_remd_iterator(filename, top=Topology(), T="300.0"):
     """Load remd trajectory for single temperature.
     Example: Suppose you have replica trajectoris remd.x.00{1-4}. 
     You want to load and extract only frames at 300 K, use this "load_remd" method
@@ -97,7 +99,7 @@ def load_remd(filename, top=Topology(), T="300.0"):
 
     Returns
     ------
-    TrajReadOnly object
+    TrajectoryIterator object
     """
     from pytraj import CpptrajState
 
@@ -116,13 +118,16 @@ def load_remd(filename, top=Topology(), T="300.0"):
     traj._tmpobj = state
     return traj
 
+def load_remd(filename, top=Topology(), T="300.0"):
+    return load_remd_iterator(filename, top, T)[:]
+
 def writetraj(filename="", traj=None, top=None, 
               fmt='UNKNOWN_TRAJ', indices=None,
               overwrite=False):
     """writetraj(filename="", traj=None, top=None, 
               ftm='UNKNOWN_TRAJ', indices=None):
     """
-    # TODO : support list (tuple) of FrameArray, TrajReadOnly or 
+    # TODO : support list (tuple) of Trajectory, TrajectoryIterator or 
     # list of filenames
     #filename = filename.encode("UTF-8")
 
@@ -150,7 +155,7 @@ def writetraj(filename="", traj=None, top=None,
 
             if indices is None:
                 # write all traj
-                if isinstance(traj2, (FrameArray, TrajReadOnly)):
+                if isinstance(traj2, (Trajectory, TrajectoryIterator)):
                     for idx, frame in enumerate(traj2):
                         trajout.writeframe(idx, frame, top)
                 elif isinstance(traj2, (list, tuple)):
@@ -160,7 +165,7 @@ def writetraj(filename="", traj=None, top=None,
                             trajout.writeframe(idx, frame, top)
             else:
                 if isinstance(traj2, (list, tuple)):
-                    raise NotImplementedError("must be FrameArray or TrajReadOnly instance")
+                    raise NotImplementedError("must be Trajectory or TrajectoryIterator instance")
                 for idx in indices:
                     trajout.writeframe(idx, traj2[idx], top)
 

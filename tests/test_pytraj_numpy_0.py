@@ -10,13 +10,13 @@ import pytraj.common_actions as pyca
 from pytraj.api import Trajectory
 from pytraj.six_2 import izip
 
-fa = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
-traj = Trajectory(mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
+fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+traj = Trajectory(mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
 
 class Test(unittest.TestCase):
     def test_0(self):
         # test loading
-        traj = Trajectory(mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
+        traj = Trajectory(mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
         assert (traj.shape == traj.xyz.shape) 
         assert traj.ndim == traj.xyz.ndim
 
@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         # test append
-        fa = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         fa2 = fa.copy()
         fa2.join(fa)
 
@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
 
     def test_frame_iter(self):
         # frame_iter
-        traj = Trajectory(mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:])
+        traj = Trajectory(mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:])
         for frame in traj.frame_iter(mask='@CA'):
             assert frame.n_atoms == 20
 
@@ -70,7 +70,7 @@ class Test(unittest.TestCase):
         # test mdtraj
         # TrajNumpy
         import mdtraj as md
-        fa = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         traj = Trajectory(fa)
         arr0 = md.rmsd(traj, traj, 0)
         f0 = fa[0].copy()
@@ -83,7 +83,7 @@ class Test(unittest.TestCase):
         traj = Trajectory()
         traj2 = Trajectory()
         fnames = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajread= mdio.load(*fnames)
+        trajread= mdio.iterload(*fnames)
         traj.top = trajread.top.copy()
         traj.load(fnames[0])
         traj2.append(traj)
@@ -96,7 +96,7 @@ class Test(unittest.TestCase):
     def test_5(self):
         # test loading with filename + topology file
         traj = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajread = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        trajread = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         assert traj.n_frames == trajread.n_frames
 
         # test loading with filename + Topology object

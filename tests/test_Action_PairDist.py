@@ -7,7 +7,7 @@ from pytraj import *
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/tz2.crd", "./data/tz2.parm7")[:]
+        traj = mdio.iterload("./data/tz2.crd", "./data/tz2.parm7")[:]
         # NOT SURE CORRECTLY YET
         # FIXME: Segmentation fault (core dumped)
         #print (d0)

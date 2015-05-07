@@ -1,6 +1,6 @@
 import unittest
 from pytraj import adict
-from pytraj import allactions, FrameArray
+from pytraj import allactions, Trajectory
 from pytraj.datasets import cast_dataset
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
@@ -10,7 +10,7 @@ from pytraj.testing import aa_eq
 
 class TestRadgyr(unittest.TestCase):
     def test_0(self):
-        farray = FrameArray(filename="./data/tz2.truncoct.nc", top="./data/tz2.truncoct.parm7")[:2]
+        farray = Trajectory(filename="./data/tz2.truncoct.nc", top="./data/tz2.truncoct.parm7")[:2]
         f_old = farray.copy()
         print("old file: ", f_old[0, 0, :])
 
@@ -23,7 +23,7 @@ class TestRadgyr(unittest.TestCase):
         act.read_input(ptrajin, farray.top)
         act.process(farray.top)
        
-        f2 = FrameArray()
+        f2 = Trajectory()
         f2.top = farray.top.copy()
 
         act.do_action(farray)
@@ -32,7 +32,7 @@ class TestRadgyr(unittest.TestCase):
         print(f_old[0, 0, :])
 
         if file_exist("./CpptrajTest/Test_Image/image4.crd.save"):
-            fnew = mdio.load("./CpptrajTest/Test_Image/image4.crd.save", 
+            fnew = mdio.iterload("./CpptrajTest/Test_Image/image4.crd.save", 
                              "./data/tz2.truncoct.parm7")
             assert fnew.size == 2
             print(fnew[0].same_coords_as(farray[0]))
@@ -42,7 +42,7 @@ class TestRadgyr(unittest.TestCase):
 
     def test_1(self):
         from pytraj.ActionList import ActionList
-        farray = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")[:2]
+        farray = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")[:2]
         f_old = farray.copy()
         print("old file: ", f_old[0, 0, :])
         act = adict['image']
@@ -51,7 +51,7 @@ class TestRadgyr(unittest.TestCase):
 
         if file_exist("./CpptrajTest/Test_Image/image4.crd.save"):
             print ("having file ./CpptrajTest/Test_Image/image4.crd.save")
-            fsaved = mdio.load("./CpptrajTest/Test_Image/image4.crd.save", 
+            fsaved = mdio.iterload("./CpptrajTest/Test_Image/image4.crd.save", 
                              "./data/tz2.truncoct.parm7")
             print (f_old[0, 0], fsaved[0, 0])
             # TODO, FIXME: assert failed

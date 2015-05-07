@@ -9,7 +9,7 @@ from pytraj.decorators import no_test, test_if_having
 class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         xyz_save = farray[0].xyz.copy()
 

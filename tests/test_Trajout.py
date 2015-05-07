@@ -5,12 +5,12 @@ from pytraj.decorators import no_test
 from pytraj.io import writetraj
 from pytraj import io as mdio
 
-farray = FrameArray("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
+farray = Trajectory("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
 
 class TestTrajout(unittest.TestCase):
     #@no_test
     def test_0(self):
-        farray = FrameArray("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
+        farray = Trajectory("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
         frame0 = farray[0]
         trajout = Trajout()
         #trajout.open(filename="test.x", top=farray.top, fmt="AMBERTRAJ")
@@ -34,7 +34,7 @@ class TestTrajout(unittest.TestCase):
 
         # reload
         #assert trajout.is_open() == False
-        farray2 = FrameArray("./output/test_trajout_withstatement.x", "./data/Tc5b.top")
+        farray2 = Trajectory("./output/test_trajout_withstatement.x", "./data/Tc5b.top")
         frame0_new = farray2[0]
         print(frame0_new.coords[:10])
         print(frame0.coords[:10])
@@ -45,7 +45,7 @@ class TestTrajout(unittest.TestCase):
     #@no_test
     def test_2(self):
         """test open file writen from test_0"""
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = Topology('./data/Tc5b.top')
         farray.load("./output/test.x")
         print(farray.size)
@@ -61,8 +61,8 @@ class TestTrajout(unittest.TestCase):
 
     #@no_test
     def test_4(self):
-        """test write FrameArray"""
-        farray = FrameArray("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
+        """test write Trajectory"""
+        farray = Trajectory("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
         writetraj("./output/test_write_output.x", farray, farray.top, overwrite=True)
         writetraj("./output/test_pdb_1.dummyext", farray[0], farray.top, overwrite=True, fmt='pdb')
 
@@ -71,14 +71,14 @@ class TestTrajout(unittest.TestCase):
         farray.save("./output/test_write_output_save_method.x", overwrite=True)
 
         # reproduce result?
-        f0 = mdio.load("./output/test_write_output.x", "./data/Tc5b.top")
-        f1 = mdio.load("./output/test_write_output_save_method.x", "./data/Tc5b.top")
+        f0 = mdio.iterload("./output/test_write_output.x", "./data/Tc5b.top")
+        f1 = mdio.iterload("./output/test_write_output_save_method.x", "./data/Tc5b.top")
         from numpy.testing import assert_almost_equal as assert_ae
         assert_ae(f0[:, :, :], f1[:, :, :])
 
     #@no_test
     def test_5(self):
-        farray = FrameArray("./output/test_0.pdb", "./data/Tc5b.top")[0]
+        farray = Trajectory("./output/test_0.pdb", "./data/Tc5b.top")[0]
         print(farray.n_atoms)
 
 if __name__ == "__main__":

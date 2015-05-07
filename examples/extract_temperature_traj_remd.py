@@ -23,9 +23,9 @@ def get_frames_same_T():
        # load trajectory and append to trajlist
        trajlist.append(mdio.load(fh, topfile))
 
-   # make FrameArray instance that holds 492.2 T frames
+   # make Trajectory instance that holds 492.2 T frames
    # we need to reserve n_frames to hold the data
-   f4922 = FrameArray(n_frames=trajlist[0].n_frames)
+   f4922 = Trajectory(n_frames=trajlist[0].n_frames)
 
    assert f4922.n_frames == trajlist[0].n_frames
    f4922.top = trajlist[0].top.copy()

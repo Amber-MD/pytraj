@@ -495,7 +495,7 @@ static const char *__pyx_f[] = {
   "pytraj/trajs/TrajectoryFile.pxd",
   "pytraj/trajs/Trajin.pxd",
   "pytraj/trajs/Trajin_Single.pxd",
-  "pytraj/FrameArray.pxd",
+  "pytraj/Trajectory.pxd",
 };
 struct __pyx_memoryview_obj;
 typedef struct {
@@ -632,7 +632,7 @@ struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile;
 struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin;
 struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single;
 struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin;
-struct __pyx_obj_6pytraj_10FrameArray_FrameArray;
+struct __pyx_obj_6pytraj_10Trajectory_Trajectory;
 struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords;
 struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords___pyx_scope_struct____iter__;
 struct __pyx_array_obj;
@@ -838,14 +838,14 @@ typedef BaseIOtype *(*__pyx_t_6pytraj_10BaseIOtype_AllocatorType)(void);
  */
 typedef void (*__pyx_t_6pytraj_10BaseIOtype_HelpType)(void);
 
-/* "pytraj/FrameArray.pxd":11
- * #from pytraj.FrameArray2 cimport FrameArray2
+/* "pytraj/Trajectory.pxd":10
+ * from .cpp_algorithm cimport reverse as cpp_reverse
  * 
  * ctypedef vector[_Frame].iterator iterator             # <<<<<<<<<<<<<<
  * 
  * 
  */
-typedef std::vector<Frame> ::iterator __pyx_t_6pytraj_10FrameArray_iterator;
+typedef std::vector<Frame> ::iterator __pyx_t_6pytraj_10Trajectory_iterator;
 
 /* "pytraj/NameType.pxd":25
  * 
@@ -1352,7 +1352,7 @@ struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile {
  * 
  * cdef class Trajin (TrajectoryFile):             # <<<<<<<<<<<<<<
  *     #( baseptr0 is from TrajectoryFile
- *     # create tmpfarray to hold sub FrameArray
+ *     # create tmpfarray to hold sub Trajectory
  */
 struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin {
   struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile __pyx_base;
@@ -1381,7 +1381,7 @@ struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single {
  * 
  * cdef class Trajin (TrajectoryFile):             # <<<<<<<<<<<<<<
  *     #( baseptr0 is from TrajectoryFile
- *     # create tmpfarray to hold sub FrameArray
+ *     # create tmpfarray to hold sub Trajectory
  */
 struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin {
   struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile __pyx_base;
@@ -1392,14 +1392,14 @@ struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin {
 };
 
 
-/* "pytraj/FrameArray.pxd":14
+/* "pytraj/Trajectory.pxd":13
  * 
  * 
- * cdef class FrameArray:             # <<<<<<<<<<<<<<
+ * cdef class Trajectory:             # <<<<<<<<<<<<<<
  *     cdef vector[_Frame] frame_v
  *     cdef public Topology top
  */
-struct __pyx_obj_6pytraj_10FrameArray_FrameArray {
+struct __pyx_obj_6pytraj_10Trajectory_Trajectory {
   PyObject_HEAD
   std::vector<Frame>  frame_v;
   struct __pyx_obj_6pytraj_8Topology_Topology *top;
@@ -2116,8 +2116,8 @@ static PyTypeObject *__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = 0;
 
 /* Module declarations from 'pytraj.cpp_algorithm' */
 
-/* Module declarations from 'pytraj.FrameArray' */
-static PyTypeObject *__pyx_ptype_6pytraj_10FrameArray_FrameArray = 0;
+/* Module declarations from 'pytraj.Trajectory' */
+static PyTypeObject *__pyx_ptype_6pytraj_10Trajectory_Trajectory = 0;
 
 /* Module declarations from 'libc.stdlib' */
 
@@ -2331,7 +2331,7 @@ static char __pyx_k_Indirect_dimensions_not_supporte[] = "Indirect dimensions no
 static char __pyx_k_Invalid_mode_expected_c_or_fortr[] = "Invalid mode, expected 'c' or 'fortran', got %s";
 static char __pyx_k_Out_of_bounds_on_buffer_access_a[] = "Out of bounds on buffer access (axis %d)";
 static char __pyx_k_Unable_to_convert_item_to_object[] = "Unable to convert item to object";
-static char __pyx_k_Your_FrameArray_is_empty_how_can[] = "Your FrameArray is empty, how can I index it?";
+static char __pyx_k_Your_Trajectory_is_empty_how_can[] = "Your Trajectory is empty, how can I index it?";
 static char __pyx_k_got_differing_extents_in_dimensi[] = "got differing extents in dimension %d (got %d and %d)";
 static char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate shape and strides.";
 static PyObject *__pyx_kp_s_Buffer_view_does_not_expose_stri;
@@ -2352,7 +2352,7 @@ static PyObject *__pyx_kp_s_Out_of_bounds_on_buffer_access_a;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_kp_s_Unable_to_convert_item_to_object;
 static PyObject *__pyx_n_s_ValueError;
-static PyObject *__pyx_kp_s_Your_FrameArray_is_empty_how_can;
+static PyObject *__pyx_kp_s_Your_Trajectory_is_empty_how_can;
 static PyObject *__pyx_n_s_add_frame;
 static PyObject *__pyx_n_s_allocate_buffer;
 static PyObject *__pyx_n_s_allocate_frame;
@@ -2485,7 +2485,7 @@ static int __pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords___cinit_
 
   /* "pytraj/datasets/DataSet_Coords.pyx":14
  *         # make sure that two pointers pointing to the same address
- *         # behave like `FrameArray`
+ *         # behave like `Trajectory`
  *         self.baseptr0 = <_DataSet*> self.baseptr_1             # <<<<<<<<<<<<<<
  *         self._top = Topology()
  * 
@@ -2493,7 +2493,7 @@ static int __pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords___cinit_
   __pyx_v_self->__pyx_base.baseptr0 = ((DataSet *)__pyx_v_self->baseptr_1);
 
   /* "pytraj/datasets/DataSet_Coords.pyx":15
- *         # behave like `FrameArray`
+ *         # behave like `Trajectory`
  *         self.baseptr0 = <_DataSet*> self.baseptr_1
  *         self._top = Topology()             # <<<<<<<<<<<<<<
  * 
@@ -3160,7 +3160,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_18
 
 static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17__getitem__(struct __pyx_obj_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords *__pyx_v_self, PyObject *__pyx_v_idxs) {
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame = 0;
-  struct __pyx_obj_6pytraj_10FrameArray_FrameArray *__pyx_v_farray = 0;
+  struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_farray = 0;
   int __pyx_v_start;
   int __pyx_v_stop;
   int __pyx_v_step;
@@ -3227,7 +3227,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
  *         frame.py_free_mem = True
  * 
  *         if self.size == 0:             # <<<<<<<<<<<<<<
- *             raise ValueError("Your FrameArray is empty, how can I index it?")
+ *             raise ValueError("Your Trajectory is empty, how can I index it?")
  *         if not isinstance(idxs, slice):
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 67; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3242,7 +3242,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
     /* "pytraj/datasets/DataSet_Coords.pyx":68
  * 
  *         if self.size == 0:
- *             raise ValueError("Your FrameArray is empty, how can I index it?")             # <<<<<<<<<<<<<<
+ *             raise ValueError("Your Trajectory is empty, how can I index it?")             # <<<<<<<<<<<<<<
  *         if not isinstance(idxs, slice):
  *             idx_1 = get_positive_idx(idxs, self.size)
  */
@@ -3256,14 +3256,14 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
  *         frame.py_free_mem = True
  * 
  *         if self.size == 0:             # <<<<<<<<<<<<<<
- *             raise ValueError("Your FrameArray is empty, how can I index it?")
+ *             raise ValueError("Your Trajectory is empty, how can I index it?")
  *         if not isinstance(idxs, slice):
  */
   }
 
   /* "pytraj/datasets/DataSet_Coords.pyx":69
  *         if self.size == 0:
- *             raise ValueError("Your FrameArray is empty, how can I index it?")
+ *             raise ValueError("Your Trajectory is empty, how can I index it?")
  *         if not isinstance(idxs, slice):             # <<<<<<<<<<<<<<
  *             idx_1 = get_positive_idx(idxs, self.size)
  *             # raise index out of range
@@ -3273,7 +3273,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
   if (__pyx_t_5) {
 
     /* "pytraj/datasets/DataSet_Coords.pyx":70
- *             raise ValueError("Your FrameArray is empty, how can I index it?")
+ *             raise ValueError("Your Trajectory is empty, how can I index it?")
  *         if not isinstance(idxs, slice):
  *             idx_1 = get_positive_idx(idxs, self.size)             # <<<<<<<<<<<<<<
  *             # raise index out of range
@@ -3361,7 +3361,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
  *             self.baseptr_1.GetFrame(idx_1, frame.thisptr[0])
  *             self.tmpfarray = frame             # <<<<<<<<<<<<<<
  *         else:
- *             # creat a subset array of `FrameArray`
+ *             # creat a subset array of `Trajectory`
  */
     __Pyx_INCREF(((PyObject *)__pyx_v_frame));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_frame));
@@ -3371,7 +3371,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
 
     /* "pytraj/datasets/DataSet_Coords.pyx":69
  *         if self.size == 0:
- *             raise ValueError("Your FrameArray is empty, how can I index it?")
+ *             raise ValueError("Your Trajectory is empty, how can I index it?")
  *         if not isinstance(idxs, slice):             # <<<<<<<<<<<<<<
  *             idx_1 = get_positive_idx(idxs, self.size)
  *             # raise index out of range
@@ -3381,20 +3381,20 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
 
   /* "pytraj/datasets/DataSet_Coords.pyx":81
  *         else:
- *             # creat a subset array of `FrameArray`
- *             farray = FrameArray()             # <<<<<<<<<<<<<<
+ *             # creat a subset array of `Trajectory`
+ *             farray = Trajectory()             # <<<<<<<<<<<<<<
  *             farray.top = self.top
  *             if idxs.step == None:
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_10FrameArray_FrameArray)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_10Trajectory_Trajectory)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_v_farray = ((struct __pyx_obj_6pytraj_10FrameArray_FrameArray *)__pyx_t_2);
+    __pyx_v_farray = ((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_t_2);
     __pyx_t_2 = 0;
 
     /* "pytraj/datasets/DataSet_Coords.pyx":82
- *             # creat a subset array of `FrameArray`
- *             farray = FrameArray()
+ *             # creat a subset array of `Trajectory`
+ *             farray = Trajectory()
  *             farray.top = self.top             # <<<<<<<<<<<<<<
  *             if idxs.step == None:
  *                 step = 1
@@ -3409,7 +3409,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
     __pyx_t_2 = 0;
 
     /* "pytraj/datasets/DataSet_Coords.pyx":83
- *             farray = FrameArray()
+ *             farray = Trajectory()
  *             farray.top = self.top
  *             if idxs.step == None:             # <<<<<<<<<<<<<<
  *                 step = 1
@@ -3433,7 +3433,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_17
       __pyx_v_step = 1;
 
       /* "pytraj/datasets/DataSet_Coords.pyx":83
- *             farray = FrameArray()
+ *             farray = Trajectory()
  *             farray.top = self.top
  *             if idxs.step == None:             # <<<<<<<<<<<<<<
  *                 step = 1
@@ -4543,12 +4543,12 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_29
  *     @property
  *     def xyz(self):             # <<<<<<<<<<<<<<
  *         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
- *         We can not return a memoryview since FrameArray is a C++ vector of Frame object
+ *         We can not return a memoryview since Trajectory is a C++ vector of Frame object
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_32xyz(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_31xyz[] = "DataSet_Coords.xyz(self)\nreturn a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)\n        We can not return a memoryview since FrameArray is a C++ vector of Frame object\n        ";
+static char __pyx_doc_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_31xyz[] = "DataSet_Coords.xyz(self)\nreturn a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)\n        We can not return a memoryview since Trajectory is a C++ vector of Frame object\n        ";
 static PyObject *__pyx_pw_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_32xyz(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -4573,7 +4573,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_31
   __Pyx_RefNannySetupContext("xyz", 0);
 
   /* "pytraj/datasets/DataSet_Coords.pyx":143
- *         We can not return a memoryview since FrameArray is a C++ vector of Frame object
+ *         We can not return a memoryview since Trajectory is a C++ vector of Frame object
  *         """
  *         return _xyz(self)             # <<<<<<<<<<<<<<
  * 
@@ -4616,7 +4616,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_14DataSet_Coords_14DataSet_Coords_31
  *     @property
  *     def xyz(self):             # <<<<<<<<<<<<<<
  *         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
- *         We can not return a memoryview since FrameArray is a C++ vector of Frame object
+ *         We can not return a memoryview since Trajectory is a C++ vector of Frame object
  */
 
   /* function exit code */
@@ -17557,7 +17557,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_kp_s_Unable_to_convert_item_to_object, __pyx_k_Unable_to_convert_item_to_object, sizeof(__pyx_k_Unable_to_convert_item_to_object), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
-  {&__pyx_kp_s_Your_FrameArray_is_empty_how_can, __pyx_k_Your_FrameArray_is_empty_how_can, sizeof(__pyx_k_Your_FrameArray_is_empty_how_can), 0, 0, 1, 0},
+  {&__pyx_kp_s_Your_Trajectory_is_empty_how_can, __pyx_k_Your_Trajectory_is_empty_how_can, sizeof(__pyx_k_Your_Trajectory_is_empty_how_can), 0, 0, 1, 0},
   {&__pyx_n_s_add_frame, __pyx_k_add_frame, sizeof(__pyx_k_add_frame), 0, 0, 1, 1},
   {&__pyx_n_s_allocate_buffer, __pyx_k_allocate_buffer, sizeof(__pyx_k_allocate_buffer), 0, 0, 1, 1},
   {&__pyx_n_s_allocate_frame, __pyx_k_allocate_frame, sizeof(__pyx_k_allocate_frame), 0, 0, 1, 1},
@@ -17651,11 +17651,11 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pytraj/datasets/DataSet_Coords.pyx":68
  * 
  *         if self.size == 0:
- *             raise ValueError("Your FrameArray is empty, how can I index it?")             # <<<<<<<<<<<<<<
+ *             raise ValueError("Your Trajectory is empty, how can I index it?")             # <<<<<<<<<<<<<<
  *         if not isinstance(idxs, slice):
  *             idx_1 = get_positive_idx(idxs, self.size)
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_Your_FrameArray_is_empty_how_can); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_Your_Trajectory_is_empty_how_can); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
@@ -18104,7 +18104,7 @@ PyMODINIT_FUNC PyInit_DataSet_Coords(void)
   __pyx_ptype_6pytraj_5trajs_6Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_6Trajin_Trajin)) {__pyx_filename = __pyx_f[22]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single = __Pyx_ImportType("pytraj.trajs.Trajin_Single", "Trajin_Single", sizeof(struct __pyx_obj_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single), 1); if (unlikely(!__pyx_ptype_6pytraj_19trajs_dot_Trajin_Single_Trajin_Single)) {__pyx_filename = __pyx_f[23]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin)) {__pyx_filename = __pyx_f[22]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10FrameArray_FrameArray = __Pyx_ImportType("pytraj.FrameArray", "FrameArray", sizeof(struct __pyx_obj_6pytraj_10FrameArray_FrameArray), 1); if (unlikely(!__pyx_ptype_6pytraj_10FrameArray_FrameArray)) {__pyx_filename = __pyx_f[24]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_10Trajectory_Trajectory = __Pyx_ImportType("pytraj.Trajectory", "Trajectory", sizeof(struct __pyx_obj_6pytraj_10Trajectory_Trajectory), 1); if (unlikely(!__pyx_ptype_6pytraj_10Trajectory_Trajectory)) {__pyx_filename = __pyx_f[24]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
@@ -18242,7 +18242,7 @@ PyMODINIT_FUNC PyInit_DataSet_Coords(void)
  *     @property
  *     def xyz(self):             # <<<<<<<<<<<<<<
  *         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
- *         We can not return a memoryview since FrameArray is a C++ vector of Frame object
+ *         We can not return a memoryview since Trajectory is a C++ vector of Frame object
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8datasets_14DataSet_Coords_DataSet_Coords, __pyx_n_s_xyz_2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);

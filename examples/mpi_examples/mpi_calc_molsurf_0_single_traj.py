@@ -16,8 +16,8 @@ root_dir = "../../tests/data/nogit/remd/"
 traj_name = root_dir + "/remd.x.000"
 parm_name = root_dir + "myparm.top"
 
-# load to TrajReadOnly
-traj = io.load(traj_name, parm_name)
+# load to TrajectoryIterator
+traj = io.iterload(traj_name, parm_name)
 
 # mapping different chunk of `traj` in N cores
 # need to provide `comm`
