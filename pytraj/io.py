@@ -54,7 +54,15 @@ def load(*args, **kwd):
 def _load_from_filelist(*args, **kwd):
     """return a list of Trajectory"""
     args_less = args[1:]
-    return [loadtraj(filename, *args_less, **kwd)[:] for filename in args[0]]
+    if isinstance(args[0], (list, tuple)):
+        mylist = args[0]
+    elif isinstance(args[0], string_types):
+        # "remd.x.*"
+        from glob import glob
+        mylist = sorted(glob(args[0]))
+    else:
+        raise ValueError()
+    return [loadtraj(filename, *args_less, **kwd)[:] for filename in mylist]
 
 def iterload(*args, **kwd):
     """return TrajectoryIterator object
@@ -68,9 +76,19 @@ def _iterload_from_filelist(*args, **kwd):
     """return TrajectoryIterator object
     """
     args_less = args[1:]
+
     if kwd and 'indices' in kwd.keys():
         raise ValueError("do not support indices for TrajectoryIterator loading")
-    return [loadtraj(filename, *args_less, **kwd) for filename in args[0]]
+
+    if isinstance(args[0], (list, tuple)):
+        mylist = args[0]
+    elif isinstance(args[0], string_types):
+        # "remd.x.*"
+        from glob import glob
+        mylist = sorted(glob(args[0]))
+    else:
+        raise ValueError()
+    return [loadtraj(filename, *args_less, **kwd) for filename in mylist]
 
 def loadtraj(filename=None, top=Topology(), indices=None):
     """load trajectory from filename
