@@ -25,6 +25,7 @@ from ._shared_methods import _savetraj, _get_temperature_set
 from ._shared_methods import _xyz, _tolist
 from ._shared_methods import my_str_method
 from ._shared_methods import _frame_iter
+from ._shared_methods import _box_to_ndarray
 
 import pytraj.common_actions as pyca
 from pytraj.hbonds import search_hbonds
@@ -899,3 +900,6 @@ cdef class Trajectory (object):
         self.frame_v.resize(n_frames)
         for i in range(n_frames):
             self.frame_v[i] = new _Frame(n_atoms)
+
+    def box_to_ndarray(self):
+        return _box_to_ndarray(self)

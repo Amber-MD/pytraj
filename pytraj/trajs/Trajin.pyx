@@ -13,6 +13,7 @@ from .._shared_methods import _savetraj, _get_temperature_set
 from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _frame_iter
+from .._shared_methods import _box_to_ndarray
 from ..externals.six import string_types
 from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
@@ -364,3 +365,6 @@ cdef class Trajin (TrajectoryFile):
         cdef CoordinateInfo cinfo = CoordinateInfo()
         cinfo.thisptr[0] = self.baseptr_1.TrajCoordInfo()
         return cinfo
+
+    def box_to_ndarray(self):
+        return _box_to_ndarray(self)

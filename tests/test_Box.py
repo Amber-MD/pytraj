@@ -56,11 +56,20 @@ class TestBox(unittest.TestCase):
         eq(f2.box.tolist(), box.tolist())
 
     def test_real_box(self):
-        traj = mdio.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = mdio.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        trajiter = mdio.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         aa_eq(traj.top.box.tolist(), [35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
         for frame in traj:
             assert frame.box.type == 'ortho'
             aa_eq(frame.box.tolist(), [35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
+
+        # test box_to_ndarray
+        arr0 = traj.box_to_ndarray()
+        arr1 = trajiter.box_to_ndarray()
+
+        for b0, b1, frame in zip(arr0, arr1, trajiter):
+            aa_eq(b0,  b1)
+            aa_eq(b0,  frame.box.to_ndarray())
 
 if __name__ == "__main__":
     unittest.main()
