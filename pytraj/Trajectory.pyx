@@ -222,6 +222,9 @@ cdef class Trajectory (object):
         try "load_ndarray" method
         """
 
+        if n_atoms == 0:
+            raise ValueError("n_atoms = 0: need to set Topology or use `load_ndarray`'")
+
         has_np, np = _import_numpy()
         if has_np:
             xyz = np.asarray(xyz_in)
@@ -262,6 +265,7 @@ cdef class Trajectory (object):
         cdef int i
         cdef double[:, :] myview
         cdef int n_frames = xyz.shape[0]
+        cdef int n_atoms = xyz.shape[1]
         cdef int oldsize = self.frame_v.size()
         cdef int newsize = oldsize + n_frames
         import numpy as np
@@ -271,9 +275,13 @@ cdef class Trajectory (object):
         self.frame_v.resize(newsize)
 
         for i in range(n_frames):
+            # make memoryview for ndarray
             myview = _xyz[i]
+            # since we use `vector[Frame*]`, we need to allocate Frame's size
+            self[i + oldsize] = Frame(n_atoms)
             frame = self[i + oldsize]
-            frame._append_xyz_2d(myview)
+            # copy coords
+            frame[:] = myview[:]
 
     @property
     def shape(self):
@@ -292,6 +300,8 @@ cdef class Trajectory (object):
         cdef Frame frame
         myview = np.empty((n_frames, n_atoms, 3))
 
+        if self.n_atoms == 0:
+            raise NotImplementedError("need to have non-empty Topology")
         if has_numpy:
             for i, frame in enumerate(self):
                 myview[i] = np.asarray(frame.buffer2d[:])
@@ -880,3 +890,12 @@ cdef class Trajectory (object):
 
         for frame in self:
             frame.set_nobox()
+
+    def _allocate(self, int n_frames, int n_atoms):
+        """pre-allocate (n_atoms, n_atoms, 3)
+        """
+        cdef Frame frame
+
+        self.frame_v.resize(n_frames)
+        for i in range(n_frames):
+            self.frame_v[i] = new _Frame(n_atoms)
