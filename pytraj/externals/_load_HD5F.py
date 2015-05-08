@@ -4,7 +4,7 @@ from ..Trajectory import Trajectory
 from ..Frame import Frame
 from ..core import Atom, Box
 
-def load_hd5f(filename, autoconvert=True):
+def load_hd5f(filename, autoconvert=True, restype=None):
     """"load hd5f format from openmm (?)
 
     Parameters
@@ -36,16 +36,25 @@ def load_hd5f(filename, autoconvert=True):
         raise ImportError("require h5py, HD5F lib and numpy")
 
     fh = h5py.File(filename, 'r')
-    crd = fh['coordinates']
     try:
         cell_lengths = fh['cell_lengths'].value * UNIT
         box_arr = np.hstack((cell_lengths, fh['cell_angles'])).astype(np.float64)
         has_box = True
     except:
         has_box = False
-    shape = crd.shape
 
-    farray = Trajectory()
+    crd = fh['coordinates'].value.astype(np.float64)
+    n_frames, n_atoms, _ = crd.shape
+    if autoconvert:
+        crd = crd * UNIT
+
+    if restype is None:
+        farray = Trajectory()
+        farray._allocate(n_frames, n_atoms)
+    elif restype == 'api.Trajectory':
+        from pytraj import api
+        farray = api.Trajectory()
+
     # create Topology
     top_txt = fh['topology']
     h5_topology = json.loads(top_txt.value.tostring().decode())
@@ -69,13 +78,12 @@ def load_hd5f(filename, autoconvert=True):
     farray.top = top
 
     # update coords
-    farray.resize(shape[0])
-    for idx, arr in enumerate(crd):
-        # allocate memory for Frame
-        farray[idx] = Frame(shape[1])
-        # update coords by cython memoryview method (faster)
-        farray[idx, :] = arr.astype(np.float64) * UNIT
-        if has_box:
-            farray[idx].box = Box(box_arr[idx])
+    if restype is None:
+        farray.update_xyz(crd)
+        for idx, arr in enumerate(crd):
+            if has_box:
+                farray[idx].box = Box(box_arr[idx])
+    else:
+        farray.xyz = crd
 
     return farray

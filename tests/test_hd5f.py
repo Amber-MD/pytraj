@@ -43,6 +43,49 @@ class Test(unittest.TestCase):
             blist = frame.box.tolist()
             assert blist == save_list
 
+    @test_if_having("h5py")
+    @test_if_having("mdtraj")
+    def test_1(self):
+        import mdtraj as md
+        import numpy as np
+        from pytraj import Trajectory
+        from mdtraj.testing import get_fn
+        from timeit import timeit
+        fn = get_fn("frame0.h5")
+        m_traj = md.load(fn)
+
+        def mdtraj_load():
+            md.load(fn)
+
+        def pytraj_load():
+            io.load_hd5f(fn)
+
+        def pytraj_convert():
+            io.load_mdtraj(m_traj)
+
+        fa = Trajectory()
+        n_frames, n_atoms, _ = m_traj.xyz.shape
+        fa._allocate(n_frames, n_atoms)
+        crd = m_traj.xyz.astype(np.float64)
+
+        def _allocate():
+            fa.update_xyz(crd)
+
+        def assign_xyz():
+            _xyz = np.empty_like(m_traj.xyz)
+            _xyz[:] = crd
+
+        def use_api():
+            io.load_hd5f(fn, restype='api.Trajectory')
+
+        t_mdtraj = timeit(mdtraj_load, number=10)
+        t_pytraj = timeit(pytraj_load, number=10)
+        t_convert = timeit(pytraj_convert, number=10)
+        t_alloc = timeit(_allocate, number=10)
+        t_xyz = timeit(assign_xyz, number=10)
+        t_api = timeit(use_api, number=10)
+
+        print (t_mdtraj, t_pytraj, t_convert, t_alloc, t_xyz, t_api)
 
 if __name__ == "__main__":
     unittest.main()
