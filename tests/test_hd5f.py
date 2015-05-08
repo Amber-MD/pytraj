@@ -1,32 +1,48 @@
 import unittest
-from pytraj.base import *
-from pytraj import io as mdio
-from pytraj.trajs.Traj_HD5F import HD5F
-from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.decorators import no_test
-from pytraj.utils.check_and_assert import _import
 import numpy as np
+from pytraj.base import *
+from pytraj import io as io
+from pytraj.utils import aa_eq
+from pytraj.decorators import test_if_having
 
-has_h5py, _ = _import("h5py")
-if has_h5py:
-    from pytraj.load_HD5F import load_hd5f
-
-# note : API will be changed. 
 class Test(unittest.TestCase):
-    def test_0(self):
-        if has_h5py:
-            print ("has_h5py")
-            from pytraj.load_HD5F import load_hd5f
-            h5 = HD5F()
-            farray = h5.load_toframearray("./data/ala2.h5")
-            print (farray)
-            print (farray[0])
-            print (farray[0, 0])
-
+    @test_if_having("h5py")
     def test_1(self):
-        if has_h5py:
-            traj = load_hd5f("./data/ala2.h5")
-            print (traj)
+        traj = io.load_hd5f("./data/ala2.h5")
+        print (traj)
+        assert traj.top.has_box() == False
+
+    @test_if_having("h5py")
+    @test_if_having("mdtraj")
+    def test_1(self):
+        import mdtraj as md
+        from mdtraj.testing import get_fn
+        fn = get_fn("frame0.h5")
+        m_traj = md.load(fn)
+        print (m_traj)
+        traj = io.load_hd5f(fn)
+        traj2 = io.load_hd5f(fn, autoconvert=False)
+        print (traj)
+        assert traj.top.has_box() == True
+        assert traj2.top.has_box() == True
+
+        aa_eq(traj.xyz, m_traj.xyz * 10)
+        aa_eq(traj2.xyz, m_traj.xyz)
+        print (traj.top.box, traj2.top.box)
+        save_list10 = [10.0, 10.0, 10.0, 90.0, 90.0, 90.0]
+        save_list = [1.0, 1.0, 1.0, 90.0, 90.0, 90.0]
+        blist = traj.top.box.tolist()
+        assert blist == save_list10
+
+        for frame in traj:
+            blist = frame.box.tolist()
+            assert blist == save_list10
+
+        # no autoconvert
+        for frame in traj2:
+            blist = frame.box.tolist()
+            assert blist == save_list
+
 
 if __name__ == "__main__":
     unittest.main()

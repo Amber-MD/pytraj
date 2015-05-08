@@ -38,10 +38,11 @@ def _tolist(self):
     return [frame.tolist() for frame in self]
 
 def my_str_method(self):
-    name = self.__class__.__name__
-    tmps = """<%s with %s frames, %s atoms/frame>
+    name = "pytraj." + self.__class__.__name__
+    top_str = self.top.__str__()
+    tmps = """<%s with %s frames: %s>
            """ % (
-            name, self.size, self.top.n_atoms,
+            name, self.size, top_str,
             )
     return tmps
 

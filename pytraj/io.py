@@ -9,7 +9,7 @@ from .trajs.Trajin_Single import Trajin_Single
 from .trajs.Trajout import Trajout
 from .utils.check_and_assert import make_sure_exist
 from .utils import goto_temp_folder
-from .load_HD5F import load_hd5f
+from .externals._load_HD5F import load_hd5f
 from .load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import _frame_iter_master
 from .dataframe import to_dataframe
