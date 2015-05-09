@@ -2,6 +2,15 @@ from __future__ import print_function, absolute_import
 from .utils import _import
 import os
 
+def memoize(f):
+    # from: http://www.python-course.eu/python3_memoization.php
+    memo = {}
+    def helper(x):
+        if x not in memo:            
+            memo[x] = f(x)
+        return memo[x]
+    return helper
+
 # we duplicate code from .utils.check_and_assert here to avoid circular import
 def _import(modname):
     """has_numpy, np = _import('numpy')"""
