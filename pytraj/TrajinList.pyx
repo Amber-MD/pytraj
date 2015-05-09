@@ -86,6 +86,7 @@ cdef class TrajinList:
     def _getitem_remd(self, idx):
         """return TrajectoryREMDIterator object
         """
+        # Aim: to be used with `io.iterload_remd`
         cdef TrajectoryREMDIterator traj = TrajectoryREMDIterator()
         cdef Trajin_Single _traj
         cdef int s = 0
@@ -96,8 +97,12 @@ cdef class TrajinList:
                 traj.baseptr_1 = <_Trajin*> _traj.baseptr0
                 # need to cast other pointers too
                 traj.baseptr0 = <_TrajectoryFile*> traj.baseptr_1
-                traj.thisptr = <_Trajin_Single*> traj.baseptr_1
-                traj.py_free_mem = False
+                # dont' cast to _Trajin_Single* or will get segfault
+                # we don't actually use _Trajin_Single here
+                # ideally we can subclass `Trajin` but we can directly allocate class
+                # having virtual method
+                #traj.thisptr = <_Trajin_Single*> traj.baseptr_1
+                #traj.py_free_mem = False
                 traj.top = self.top.copy()
                 return traj
             s += 1

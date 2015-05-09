@@ -118,7 +118,7 @@ def loadtraj(filename=None, top=Topology(), indices=None):
     else:
         return ts
 
-def load_remd_iterator(filename, top=Topology(), T="300.0"):
+def iterload_remd(filename, top=Topology(), T="300.0"):
     """Load remd trajectory for single temperature.
     Example: Suppose you have replica trajectoris remd.x.00{1-4}. 
     You want to load and extract only frames at 300 K, use this "load_remd" method
@@ -143,7 +143,9 @@ def load_remd_iterator(filename, top=Topology(), T="300.0"):
     # load trajin, add "is_ensemble = False" to trick cpptraj
     # is_ensemble has 3 values: None, False and True
     state.add_trajin(trajin, is_ensemble=False)
-    traj = state.get_trajinlist()[0]
+    tlist = state.get_trajinlist()
+    # get TrajectoryREMDIterator
+    traj = tlist._getitem_remd(0)
     traj.top = state.toplist[0].copy()
 
     # use _tmpobj to hold CpptrajState(). If not, cpptraj will free memory
@@ -151,7 +153,7 @@ def load_remd_iterator(filename, top=Topology(), T="300.0"):
     return traj
 
 def load_remd(filename, top=Topology(), T="300.0"):
-    return load_remd_iterator(filename, top, T)[:]
+    return iterload_remd(filename, top, T)[:]
 
 def writetraj(filename="", traj=None, top=None, 
               fmt='UNKNOWN_TRAJ', indices=None,

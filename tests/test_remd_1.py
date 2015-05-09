@@ -5,9 +5,11 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.trajs.Trajin import Trajin
+from pytraj import Trajectory
 
 class Test(unittest.TestCase):
     def test_0(self):
+        from pytraj.TrajectoryREMDIterator import TrajectoryREMDIterator
         top = Topology("./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
 
         # load regular traj
@@ -15,8 +17,14 @@ class Test(unittest.TestCase):
 
         # load all traj and extract frames having 300.0 K
         traj = mdio.load_remd("./data/Test_RemdTraj/rem.nc.000", top, "300.0")
+        trajiter = mdio.iterload_remd("./data/Test_RemdTraj/rem.nc.000", top, "300.0")
+        assert isinstance(traj, Trajectory)
+        assert isinstance(trajiter, TrajectoryREMDIterator)
+        # test slicing
+        assert isinstance(trajiter[:], Trajectory)
 
         print (traj)
+        print (trajiter)
         print (traj, traj.top, traj.n_frames)
 
         # make sure to get 300.0 K for all frames
