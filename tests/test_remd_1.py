@@ -1,11 +1,13 @@
 import unittest
-from pytraj.six_2 import izip
+from pytraj.six_2 import zip
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.trajs.Trajin import Trajin
 from pytraj import Trajectory
+import pytraj.common_actions as pyca
+from pytraj.testing import aa_eq
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -36,8 +38,22 @@ class Test(unittest.TestCase):
                                "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
 
         print (traj.n_frames)
-        for f0, f1 in izip(traj, straj):
-            print (f0[0], f1[0])
+        count = 0
+        for f0, f1, f2 in zip(traj, trajiter, saved_traj):
+            aa_eq(f0.xyz, f1.xyz)
+            aa_eq(f0.xyz, f2.xyz)
+            count += 1
+
+        assert count == saved_traj.n_frames
+
+        # test methods
+        aa_eq(pyca.rmsd(trajiter), saved_traj.calc_rmsd())
+        aa_eq(pyca.calc_COM(trajiter).to_ndarray(), 
+              saved_traj.calc_COM().to_ndarray())
+        aa_eq(pyca.calc_COG(trajiter).to_ndarray(), 
+              saved_traj.calc_COG().to_ndarray())
+        aa_eq(pyca.calc_dssp(trajiter, dtype='int')[0],
+              saved_traj.calc_dssp(dtype='int')[0])
 
 if __name__ == "__main__":
     unittest.main()
