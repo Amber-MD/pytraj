@@ -63,5 +63,9 @@ class Test(unittest.TestCase):
         assert i == 2
         print ("n-chunk = ", i)
 
+        # action on chunk_iter
+        import pytraj.common_actions as pyca
+        pyca.calc_distance([traj.chunk_iter(), traj.chunk_iter(), traj[0]], '@CA @CB', top=traj.top)
+
 if __name__ == "__main__":
     unittest.main()

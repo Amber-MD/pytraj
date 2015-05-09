@@ -5,6 +5,7 @@ from pytraj.externals.six import string_types
 from pytraj.utils import is_generator
 from pytraj.utils.check_and_assert import is_pytraj_trajectory
 from pytraj.datasets.cast_dataset import cast_dataset
+from pytraj._shared_methods import _frame_iter_master
 
 
 cdef class Action:
@@ -135,39 +136,9 @@ cdef class Action:
             frame.py_free_mem = False
             self.baseptr.DoAction(self.n_frames, frame.thisptr, &(new_frame.thisptr))
             self.n_frames += 1
-        elif hasattr(current_frame, 'n_frames'):
-            # Trajectory-like object
-            traj = current_frame 
-            for frame in traj:
-                self.do_action(current_frame=frame, new_frame=new_frame)
-        elif isinstance(current_frame, (list, tuple)):
-            # creat alias to avoid confusing
-            trajlist = current_frame
-            # FIXME: correct `idx`
-            # FIXME: ugly
-            # make sure to check ActionList class to avoid duplication
-            for tmptraj in trajlist:
-                # recursive
-                # recursive
-                # why doesn't this work with chunk_iter?
-                if hasattr(tmptraj, 'n_frames') or isinstance(tmptraj, Frame):
-                    self.do_action(tmptraj, new_frame)
-                else:
-                    # chunk_iter
-                    for tmptraj2 in tmptraj:
-                        self.do_action(tmptraj2, new_frame)
         else:
-            # assuming frame_iter or chunk_iter
-            # "recursively do_action" does not work here. Why?
-            for frame in current_frame:
-                if is_pytraj_trajectory(frame):
-                    farray = frame
-                    for f0 in farray:
-                        self.do_action(f0, new_frame)
-                elif isinstance(frame, Frame):
-                    self.do_action(frame, new_frame)
-                else:
-                    raise ValueError("must be Frame or Trajectory")
+            for frame in _frame_iter_master(current_frame):
+                self.do_action(frame, new_frame)
 
     @makesureABC("Action")
     def print_output(self):

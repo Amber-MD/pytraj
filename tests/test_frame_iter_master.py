@@ -1,6 +1,7 @@
 import unittest
 import sys
 from pytraj.base import *
+from pytraj import Frame
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
@@ -79,6 +80,20 @@ class Test(unittest.TestCase):
             i += 1
             assert frame.n_atoms == traj.top.n_atoms
         assert i == traj.n_frames + 1
+
+        print ("iter chunk_iter")
+        i = 0
+        for frame in _frame_iter_master(traj.chunk_iter()):
+            i += 1
+            assert isinstance(frame, Frame)
+        assert i == traj.n_frames
+
+        print ("list of chunk_iter")
+        i = 0
+        for frame in _frame_iter_master([traj.chunk_iter(),]):
+            i += 1
+            assert isinstance(frame, Frame)
+        assert i == traj.n_frames
 
     def test_assert(self):
         from pytraj._shared_methods import _frame_iter_master as _it_f
