@@ -71,5 +71,11 @@ class TestBox(unittest.TestCase):
             aa_eq(b0,  b1)
             aa_eq(b0,  frame.box.to_ndarray())
 
+    def test_nobox(self):
+        from pytraj import Trajectory
+        traj = Trajectory()
+        traj._allocate(10, 10)
+        print (traj.box_to_ndarray())
+
 if __name__ == "__main__":
     unittest.main()

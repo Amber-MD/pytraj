@@ -8,7 +8,9 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 from pytraj.api import Trajectory
+import pytraj.api
 from pytraj.six_2 import izip
+import numpy as np
 
 fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
 traj = Trajectory(mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
@@ -25,15 +27,18 @@ class Test(unittest.TestCase):
         assert i + 1 == traj.n_frames
 
     def test_1(self):
+        import pytraj.api as api
         # test append
         fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        barr = fa.box_to_ndarray()
         fa2 = fa.copy()
         fa2.join(fa)
 
-        traj = Trajectory()
+        traj = api.Trajectory()
         traj.top = fa.top.copy()
         traj.append(fa)
         traj.append(fa)
+        traj.update_box(np.vstack((barr, barr)))
         print (traj)
         assert traj.n_frames == fa.n_frames * 2
         assert traj.n_atoms == fa.n_atoms
@@ -69,6 +74,7 @@ class Test(unittest.TestCase):
     def test_3(self):
         # test mdtraj
         # TrajNumpy
+        import pytraj.api
         import mdtraj as md
         fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         traj = Trajectory(fa)
@@ -79,14 +85,15 @@ class Test(unittest.TestCase):
         assert_almost_equal(arr1, arr0)
 
     def test_4(self):
-        # load
-        traj = Trajectory()
-        traj2 = Trajectory()
+        import pytraj.api as api
+        traj = api.Trajectory()
+        traj2 = api.Trajectory()
         fnames = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         trajread= mdio.iterload(*fnames)
         traj.top = trajread.top.copy()
         traj.load(fnames[0])
         traj2.append(traj)
+        traj2.update_box(traj.box_to_ndarray())
         assert traj.n_frames == trajread.n_frames == traj2.n_frames == 10
 
         for f0, f1, f2 in izip(traj, traj2, trajread):
