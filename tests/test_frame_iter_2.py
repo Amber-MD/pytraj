@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
         act2 = adict['distance']
         act2.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
         act2.process(traj.top)
-        act2.do_action([traj.chunk_iter()])
+        act2.do_action(traj.chunk_iter())
         assert act2.n_frames == 10
         print (dslist[0][:])
 

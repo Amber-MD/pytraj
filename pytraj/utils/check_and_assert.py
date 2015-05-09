@@ -87,6 +87,19 @@ def is_frame_iter(iter_obj):
     else:
         return False
 
+def is_chunk_iter(iter_obj):
+    """check if is frame_iter
+
+    See Also
+    --------
+    Trajectory.frame_iter
+    Trajin.frame_iter
+    """
+    if iter_obj.__class__.__name__ == 'generator' and 'chunk_iter' in iter_obj.__name__:
+        return True
+    else:
+        return False
+
 def is_int(num):
     """wrapper class to check if `num` is int
     isinstance(nu, (int, long)) does not work with numpy.int64, so we use numbers.Integral

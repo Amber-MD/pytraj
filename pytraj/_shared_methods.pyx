@@ -2,13 +2,14 @@
 #
 cimport cython
 from pytraj.Frame cimport _Frame, Frame
+from pytraj.Trajectory cimport Trajectory
 from pytraj.AtomMask cimport AtomMask
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
 from pytraj.six_2 import set
 from pytraj.utils import _import_numpy
 from pytraj.exceptions import PytrajMemviewError, PytrajConvertError
-from pytraj.utils.check_and_assert import is_frame_iter
+from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
 
 def _savetraj(self, filename="", fmt='unknown', overwrite=False):
     if fmt == 'unknown':
@@ -97,6 +98,7 @@ def _frame_iter_master(obj):
     """
     cdef Frame frame
     cdef object traj_obj
+    cdef Trajectory _traj
 
     is_frame_iter_but_not_master = (is_frame_iter(obj) and not obj.__name__ is '_frame_iter_master')
     if isinstance(obj, Frame):
@@ -107,9 +109,18 @@ def _frame_iter_master(obj):
             yield frame
     else:
         try:
+            # list, tuple, TrajinList, chunk_iter
             for traj_obj in obj:
-                for frame in traj_obj:
+                if isinstance(traj_obj, Frame):
+                    frame = <Frame> traj_obj
                     yield frame
+                elif is_chunk_iter(traj_obj):
+                    for _traj in traj_obj:
+                        for frame in _traj:
+                            yield frame
+                else:
+                    for frame in traj_obj:
+                        yield frame
         except:
             raise PytrajConvertError("can not convert to Frame")
 
