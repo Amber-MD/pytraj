@@ -2,7 +2,11 @@
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from pytraj._utils cimport get_positive_idx
+from pytraj.trajs.Trajin_Single cimport _Trajin_Single, Trajin_Single
+from pytraj.trajs.Trajin_Single cimport Trajin_Single as TrajectoryREMDIterator
+from pytraj.TrajectoryREMDIterator cimport TrajectoryREMDIterator
 
+from pytraj.TrajectoryIterator import TrajectoryIterator
 from pytraj.externals.six import string_types
 from pytraj.cpptraj_dict import TrajModeDict, get_key
 
@@ -62,23 +66,41 @@ cdef class TrajinList:
         self.thisptr.AddEnsemble(filename, _arglist.thisptr[0], tlist.thisptr[0])
 
     def __iter__(self):
-        cdef Trajin trajin
+        cdef Trajin_Single ts
         cdef cppvector[_Trajin*].const_iterator it
         it = self.thisptr.begin()
 
         while it != self.thisptr.end():
-            trajin = Trajin()
-            # FIXME: got segmentation fault if we set topology here
-            # is this because we're using pointer?
-            # we need to sub-class at Python level (not Cython level)
-            #trajin.top = self.top
-            #trajin.top.py_free_mem = False
-            # use memoryview rather making instance copy
-            trajin.baseptr_1 = deref(it)
-            # recast trajin.baseptr0 too
-            trajin.baseptr0 = <_TrajectoryFile*> trajin.baseptr_1
-            yield trajin
+            ts = Trajin_Single()
+            ts.baseptr_1 = deref(it) # baseptr_1 is from `Trajin`
+            # need to cast other pointers too
+            ts.baseptr0 = <_TrajectoryFile*> ts.baseptr_1
+            # don't cast to `thisptr`, will get segfault
+            # Why: because TrajinList might return Trajin_Multi (inherited from `Trajin`
+            # but not `Trajin_Single`
+            #ts.thisptr = <_Trajin_Single*> ts.baseptr_1
+            ts.top = self.top.copy()
+            yield ts
             incr(it)
+
+    def _getitem_remd(self, idx):
+        """return TrajectoryREMDIterator object
+        """
+        cdef TrajectoryREMDIterator traj = TrajectoryREMDIterator()
+        cdef Trajin_Single _traj
+        cdef int s = 0
+
+        for _traj in self:
+            if s == idx:
+                # casting
+                traj.baseptr_1 = <_Trajin*> _traj.baseptr0
+                # need to cast other pointers too
+                traj.baseptr0 = <_TrajectoryFile*> traj.baseptr_1
+                traj.thisptr = <_Trajin_Single*> traj.baseptr_1
+                traj.py_free_mem = False
+                traj.top = self.top.copy()
+                return traj
+            s += 1
 
     def frame_iter(self):
         if self.top == None:
