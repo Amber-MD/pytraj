@@ -7,16 +7,17 @@ from .._utils cimport get_positive_idx
 from ..Trajectory cimport Trajectory
 from ..AtomMask cimport AtomMask
 
-from ..utils.check_and_assert import _import_numpy
-from .Trajout import Trajout
-from .._shared_methods import _savetraj, _get_temperature_set
+from ..decorators import memoize # cache
+from ..externals.six import string_types
 from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _frame_iter
+from .._shared_methods import _savetraj, _get_temperature_set
 from .._shared_methods import _box_to_ndarray
-from ..externals.six import string_types
+from ..utils.check_and_assert import _import_numpy
 from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
+from .Trajout import Trajout
 
 
 cdef class Trajin (TrajectoryFile):
@@ -351,6 +352,7 @@ cdef class Trajin (TrajectoryFile):
         return (self.size, self[0].n_atoms, 3)
 
     @property
+    @memoize
     def xyz(self):
         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
