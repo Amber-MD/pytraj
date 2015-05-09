@@ -56,7 +56,7 @@ cdef class CpptrajState:
     def run_analyses(self):
         return self.thisptr.RunAnalyses()
 
-    def get_trajinlist(self):
+    def get_trajinlist(self, assign_top=True):
         """Return a copy of CpptrajState's TrajinList instance"""
         cdef TrajinList trajlist = TrajinList()
 
@@ -76,6 +76,8 @@ cdef class CpptrajState:
 
             # does not work when using address (const)
             #trajlist.thisptr = &(self.thisptr.InputTrajList())
+            if assign_top:
+                trajlist.top = self.toplist[0].copy()
             return trajlist
         else:
             raise MemoryError("")

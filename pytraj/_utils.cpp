@@ -1488,11 +1488,11 @@ static PyObject *__pyx_pf_6pytraj_6_utils__int_array2d_like_to_memview(CYTHON_UN
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     goto __pyx_L10_try_end;
     __pyx_L3_error:;
+    __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
 
     /* "pytraj/_utils.pyx":12
  *     try:
@@ -1794,10 +1794,10 @@ static PyObject *__pyx_pf_6pytraj_6_utils_2_int_array1d_like_to_memview(CYTHON_U
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     goto __pyx_L10_try_end;
     __pyx_L3_error:;
+    __PYX_XDEC_MEMVIEW(&__pyx_t_8, 1);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __PYX_XDEC_MEMVIEW(&__pyx_t_8, 1);
 
     /* "pytraj/_utils.pyx":31
  *         # if `mylist` has buffer

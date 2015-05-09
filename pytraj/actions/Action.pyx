@@ -5,7 +5,6 @@ from pytraj.externals.six import string_types
 from pytraj.utils import is_generator
 from pytraj.utils.check_and_assert import is_pytraj_trajectory
 from pytraj.datasets.cast_dataset import cast_dataset
-from pytraj import TrajinList
 
 
 cdef class Action:
