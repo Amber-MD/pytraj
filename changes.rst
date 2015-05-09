@@ -7,6 +7,8 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* add `TrajectoryREMDIterator` class to handal REMD
+* change `io.load_remd_iterator` to `io.iterload_remd`
 * add `io._iterload_from_filelist` and `io._load_from_filelist`
 * add `count` for DataSet_integer
 * API CHANGE (05-06-2015): 
