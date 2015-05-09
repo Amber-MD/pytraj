@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 from .utils import _import_numpy
+from .core import Box
 from .Frame import Frame
 from .Topology import Topology
 from ._action_in_traj import ActionInTraj
@@ -18,6 +19,7 @@ class Trajectory(ActionInTraj):
     def __init__(self, filename_or_traj=None, top=None):
         self.top = _get_top(filename_or_traj, top)
         self.xyz = None
+        self._boxes = None
 
         if filename_or_traj is None or filename_or_traj == "":
             self.xyz = None
@@ -28,6 +30,8 @@ class Trajectory(ActionInTraj):
             self.load(filename_or_traj)
         else:
             raise NotImplementedError("need to have filename or 3D array or Trajectory-like object")
+        if hasattr(filename_or_traj, 'box_to_ndarray'):
+            self._boxes = filename_or_traj.box_to_ndarray()
 
     def __str__(self):
         clsname = self.__class__.__name__
@@ -80,6 +84,7 @@ class Trajectory(ActionInTraj):
         for i in range(self.xyz.shape[0]):
             frame = Frame(self.n_atoms)
             frame[:] = self.xyz[i]
+            frame.box = Box(self._boxes[i])
             yield frame
 
     def __getitem__(self, idx):
@@ -88,6 +93,7 @@ class Trajectory(ActionInTraj):
             arr0 = self.xyz[idx]
             frame = Frame(self.n_atoms)
             frame[:] = arr0
+            frame.box = Box(self._boxes[i])
             return frame
         else:
             traj = self.__class__()
@@ -113,6 +119,13 @@ class Trajectory(ActionInTraj):
             self.xyz[idx] = other_frame.xyz
         else:
             raise NotImplementedError("idx must be an integer")
+
+    def __iadd__(self, other):
+        self.xyz = np.vstack((self.xyz, other.xyz))
+        return self
+
+    def __add__(self, other):
+        return self.__iadd__(other)
 
     def append(self, other):
         """other: xyz, Frame, Trajectory, ...
@@ -155,3 +168,22 @@ class Trajectory(ActionInTraj):
     def load(self, filename=''):
         ts = Trajin_Single(filename, self.top)
         self.append(ts.xyz)
+        self._boxes = ts.box_to_ndarray()
+
+    def has_box(self):
+        try:
+            return self.top.has_box()
+        except:
+            return False
+
+    def autoimage(self):
+        import pytraj.common_actions as pyca
+        if not self.has_box():
+            print ("there is no box, skip")
+        else:
+            for idx, frame in enumerate(self):
+                pyca.autoimage(frame, top=self.top)
+                self.xyz[idx] = frame.xyz[:]
+
+    def box_to_ndarray(self):
+        return self._boxes

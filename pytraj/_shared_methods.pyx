@@ -38,10 +38,11 @@ def _tolist(self):
     return [frame.tolist() for frame in self]
 
 def my_str_method(self):
-    name = self.__class__.__name__
-    tmps = """<%s with %s frames, %s atoms/frame>
+    name = "pytraj." + self.__class__.__name__
+    top_str = self.top.__str__()
+    tmps = """<%s with %s frames: %s>
            """ % (
-            name, self.size, self.top.n_atoms,
+            name, self.size, top_str,
             )
     return tmps
 
@@ -111,3 +112,18 @@ def _frame_iter_master(obj):
                     yield frame
         except:
             raise PytrajConvertError("can not convert to Frame")
+
+def _box_to_ndarray(self): 
+    cdef Frame frame
+    cdef int i
+
+    _, np = _import_numpy()
+    boxarr = np.empty(self.n_frames * 6, dtype=np.float64).reshape(self.n_frames, 6)
+
+    # Note: tried `enumerate` but got wrong result.
+    # --> use old fashion
+    i = 0
+    for frame in self:
+        boxarr[i] = frame.box.to_ndarray()
+        i += 1
+    return boxarr
