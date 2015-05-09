@@ -307,21 +307,24 @@ def randomize_ions(traj=Frame(), command="", top=Topology()):
     act = adict['randomizeions']
     act(command, traj, top)
 
-def do_clustering(traj=None, command="", top=Topology(), 
+def do_clustering(traj=None, command="", top=None,
         dslist=DataSetList(), dflist=DataFileList()):
-    # TODO: still very naive
+
+    _top = _get_top(traj, top)
     ana = analdict['clustering']
+
     if traj is not None:
-        dslist.add_set("coords", "__pytraj_cluster", "")
-        dslist[-1].top = top if top is not top.is_empty() else traj.top
+        dslist.add_set("coords", "__pytraj_cluster")
+        dslist[-1].top = _top
         for frame in traj:
             dslist[-1].add_frame(frame)
         command += " crdset __pytraj_cluster"
-    if not top.is_empty():
-        _top = top
     else:
-        _top = traj.top
+        pass
     ana(command, _top, dslist, dflist) 
+    # remove frames in dslist to save memory
+    dslist.remove_set(dslist['__pytraj_cluster'])
+    return dslist
 
 def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **kwd): 
     """perform dihedral search
