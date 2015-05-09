@@ -5,6 +5,7 @@ from pytraj.core import Box
 from array import array as pyarray
 from pytraj.decorators import test_if_having
 from pytraj.testing import eq, aa_eq
+from pytraj.six_2 import zip
 
 class TestBox(unittest.TestCase):
     def test_0(self):
@@ -68,8 +69,18 @@ class TestBox(unittest.TestCase):
         arr1 = trajiter.box_to_ndarray()
 
         for b0, b1, frame in zip(arr0, arr1, trajiter):
+            box = frame.box
+            # FIXME:
+            #b2 = frame.box.to_ndarray() # got wrong box in python2 (ok with python3)
+            b2 = box.to_ndarray()
             aa_eq(b0,  b1)
-            aa_eq(b0,  frame.box.to_ndarray())
+            aa_eq(b0,  b2)
+
+    def test_nobox(self):
+        from pytraj import Trajectory
+        traj = Trajectory()
+        traj._allocate(10, 10)
+        print (traj.box_to_ndarray())
 
 if __name__ == "__main__":
     unittest.main()

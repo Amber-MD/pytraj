@@ -93,7 +93,7 @@ class Trajectory(ActionInTraj):
             arr0 = self.xyz[idx]
             frame = Frame(self.n_atoms)
             frame[:] = arr0
-            frame.box = Box(self._boxes[i])
+            frame.box = Box(self._boxes[idx])
             return frame
         else:
             traj = self.__class__()
@@ -111,6 +111,7 @@ class Trajectory(ActionInTraj):
                 traj.top = self.top
                 arr0 = self.xyz[idx]
             traj.append(arr0)
+            traj.update_box(self._boxes[idx])
             return traj
 
     def __setitem__(self, idx, other_frame):
@@ -136,21 +137,30 @@ class Trajectory(ActionInTraj):
         """
         if isinstance(other, Frame):
             arr0 = other.xyz.reshape((1, other.n_atoms, 3))
+            barr = other.box.to_ndarray().reshape((1, 6))
             if self.xyz is None:
                 self.xyz = arr0.copy()
+                self._boxes = barr 
             else:
-                self.xyz = np.append(self.xyz, arr0, axis=0)
+                self.xyz = np.vstack((self.xyz, arr0))
+                self._boxes = np.vstack((self._boxes, barr))
         elif isinstance(other, np.ndarray) and other.ndim == 3:
             if self.xyz is None:
                 self.xyz = other
+                self._boxes = np.empty((other.shape[0], 6))
             else:
-                self.xyz = np.append(self.xyz, other, axis=0)
+                self.xyz = np.vstack((self.xyz, other))
+
+                fake_box_arr = np.empty((other.shape[0], 6))
+                self._boxes = np.vstack((self._boxes, fake_box_arr))
         elif hasattr(other, 'n_frames') and hasattr(other, 'xyz'):
             # assume Trajectory-like object
             if self.xyz is None:
                 self.xyz = other.xyz
+                self._boxes = other.box_to_ndarray()
             else:
-                self.xyz = np.append(self.xyz, other.xyz, axis=0)
+                self.xyz = np.vstack((self.xyz, other.xyz))
+                self._boxes = np.vstack((self._boxes, other.box_to_ndarray()))
         elif is_frame_iter(other):
             for frame in other:
                 self.append(frame)
@@ -187,3 +197,6 @@ class Trajectory(ActionInTraj):
 
     def box_to_ndarray(self):
         return self._boxes
+
+    def update_box(self, box_arr):
+        self._boxes = box_arr

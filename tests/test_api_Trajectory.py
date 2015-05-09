@@ -47,5 +47,9 @@ class Test(unittest.TestCase):
         # make sure to reproduce cpptraj's output too
         aa_eq(saved_traj.xyz, fa.xyz)
 
+        # test slicing to get correct Box
+        t_api2_sliced = t_api2[:10]
+        aa_eq(t_api2_sliced._boxes, t_api2._boxes[:10])
+
 if __name__ == "__main__":
     unittest.main()
