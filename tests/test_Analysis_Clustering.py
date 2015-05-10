@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
         crdset my_clustering :2-10 clusters 3 epsilon 4.0 summary ./output/avg.summary.dat nofit
         """
         act = Analysis_Clustering()
-        act(command, traj.top, dslist=dslist, dflist=dflist)
+        act(command=command, top=traj.top, dslist=dslist, dflist=dflist)
         dflist.write_all_datafiles()
 
     def test_1(self):
