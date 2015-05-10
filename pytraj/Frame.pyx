@@ -807,7 +807,7 @@ cdef class Frame (object):
             f2 = Frame(frame, <AtomMask>atommask)
             return f1.thisptr.DISTRMSD(f2.thisptr[0])
 
-    def fit_to(self, ref=None, AtomMask atm=None):
+    def rmsfit_to(self, ref=None, AtomMask atm=None):
         """do the fitting to reference Frame by rotation and translation
         TODO : add assert test
         """

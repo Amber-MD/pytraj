@@ -791,13 +791,18 @@ cdef class Trajectory (object):
         """same as `save` method"""
         self.save(*args, **kwd)
 
-    def fit_to(self, ref=None, mask="*"):
+    def rmsfit_to(self, ref=None, mask="*"):
         """do the fitting to reference Frame by rotation and translation
         Parameters
         ----------
         ref : {Frame object, int, str}, default=None 
             Reference
         mask : str or AtomMask object, default='*' (fit all atoms)
+
+        Examples
+        --------
+            traj.rmsfit_to(0) # fit to 1st frame
+            traj.rmsfit_to('last', '@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
         cdef Frame frame
@@ -807,7 +812,7 @@ cdef class Trajectory (object):
 
         if isinstance(ref, Frame):
             ref_frame = <Frame> ref
-        elif isinstance(ref, (long, int)):
+        elif is_int(ref):
             i = <int> ref
             ref_frame = self[i]
         elif isinstance(ref, string_types):
