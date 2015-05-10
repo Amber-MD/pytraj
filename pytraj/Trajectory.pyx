@@ -158,7 +158,7 @@ cdef class Trajectory (object):
                 # load xyz
                 try:
                     _xyz = filename
-                    self.load_xyz(_xyz)
+                    self.append_xyz(_xyz)
                 except:
                     raise ValueError("must be a list/tuple of either filenames/Traj/numbers")
         elif isinstance(filename, TrajinList):
@@ -191,7 +191,7 @@ cdef class Trajectory (object):
         elif is_mdtraj(filename):
             _traj = filename
             # add "10 *" since mdtraj use 'nm' while pytraj use 'Angstrom'
-            self.load_ndarray(10 * _traj.xyz)
+            self.append_ndarray(10 * _traj.xyz)
         elif is_word_in_class_name(filename, 'DataSetList'):
             # load DataSetList
             # iterate all datasets and get anything having frame_iter
@@ -206,13 +206,13 @@ cdef class Trajectory (object):
             try:
                 # load from array
                 _xyz = filename
-                self.load_xyz(_xyz)
+                self.append_xyz(_xyz)
             except:
                 raise ValueError("filename must be str, traj-like or numpy array")
 
     @cython.infer_types(True)
     @cython.cdivision(True)
-    def load_xyz(self, xyz_in):
+    def append_xyz(self, xyz_in):
         cdef int n_atoms = self.top.n_atoms
         cdef int natom3 = n_atoms * 3
         cdef int n_frames, i 
@@ -220,11 +220,11 @@ cdef class Trajectory (object):
         shape=(n_frames, n_atoms, 3) or (n_frames, n_atoms*3) or 1D array
 
         If using numpy array with shape (n_frames, n_atoms, 3),
-        try "load_ndarray" method
+        try "append_ndarray" method
         """
 
         if n_atoms == 0:
-            raise ValueError("n_atoms = 0: need to set Topology or use `load_ndarray`'")
+            raise ValueError("n_atoms = 0: need to set Topology or use `append_ndarray`'")
 
         has_np, np = _import_numpy()
         if has_np:
@@ -260,7 +260,7 @@ cdef class Trajectory (object):
             else:
                 raise NotImplementedError("must have numpy or list/tuple must be 1D")
 
-    def load_ndarray(self, xyz):
+    def append_ndarray(self, xyz):
         """load ndarray with shape=(n_frames, n_atoms, 3)"""
         cdef Frame frame
         cdef int i
@@ -312,12 +312,23 @@ cdef class Trajectory (object):
 
     def update_xyz(self, xyz):
         # make sure to use double precision for xyz
+        cdef int idx, n_frames
+        cdef double[:, :, :] xyz_view
+
         if xyz.shape != self.shape:
             raise ValueError("shape mismatch")
+
+        n_frames = <int> xyz.shape[0]
+
         _, np = _import_numpy()
-        _xyz = xyz.astype(np.float64) 
-        for idx, arr0 in enumerate(xyz):
-            self[idx].xyz[:] = arr0
+        if xyz.dtype != np.float64:
+            xyz_view = xyz.astype(np.float64) 
+        else:
+            xyz_view = xyz
+
+        for idx in range(n_frames):
+            # copy
+            self[idx, :] = xyz_view[idx, :]
 
     def tolist(self):
         return _tolist(self)
@@ -780,13 +791,18 @@ cdef class Trajectory (object):
         """same as `save` method"""
         self.save(*args, **kwd)
 
-    def fit_to(self, ref=None, mask="*"):
+    def rmsfit_to(self, ref=None, mask="*"):
         """do the fitting to reference Frame by rotation and translation
         Parameters
         ----------
         ref : {Frame object, int, str}, default=None 
             Reference
         mask : str or AtomMask object, default='*' (fit all atoms)
+
+        Examples
+        --------
+            traj.rmsfit_to(0) # fit to 1st frame
+            traj.rmsfit_to('last', '@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
         cdef Frame frame
@@ -796,7 +812,7 @@ cdef class Trajectory (object):
 
         if isinstance(ref, Frame):
             ref_frame = <Frame> ref
-        elif isinstance(ref, (long, int)):
+        elif is_int(ref):
             i = <int> ref
             ref_frame = self[i]
         elif isinstance(ref, string_types):

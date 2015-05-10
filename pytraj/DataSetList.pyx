@@ -285,10 +285,13 @@ cdef class DataSetList:
         except:
             raise PytrajConvertError("dont know how to convert to list")
 
-    def to_dict(self):
+    def to_dict(self, use_numpy=False):
         """return a dict object with key=legend, value=list"""
         try:
-            return dict((d0.legend, d0.tolist()) for d0 in self)
+            if use_numpy:
+                return dict((d0.legend, d0.to_ndarray()) for d0 in self)
+            else:
+                return dict((d0.legend, d0.tolist()) for d0 in self)
         except:
             raise PytrajConvertError("don't know tho to convert to dict")
 

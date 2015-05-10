@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         print (traj.top("@CA"))
         _rmsd_notfit = frame0.rmsd_nofit(ref, traj.top("@CA"))
         print ("_rmsd_notfit before fitting = ", _rmsd_notfit)
-        frame0.fit_to(ref, traj.top("@CA"))
+        frame0.rmsfit_to(ref, traj.top("@CA"))
         print (frame0.same_coords_as(frame0cp))
         print ('rmsd between frame0 and frame0cp after fit_to =', 
                frame0.rmsd(frame0cp))

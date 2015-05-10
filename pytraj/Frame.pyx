@@ -6,6 +6,7 @@ from libc.math cimport sqrt
 from cython cimport view
 from cpython cimport array as cparray # for extend python array
 from cpython.array cimport array as pyarray
+from cython.parallel import prange
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
 from cpython.buffer cimport Py_buffer
@@ -807,7 +808,7 @@ cdef class Frame (object):
             f2 = Frame(frame, <AtomMask>atommask)
             return f1.thisptr.DISTRMSD(f2.thisptr[0])
 
-    def fit_to(self, ref=None, AtomMask atm=None):
+    def rmsfit_to(self, ref=None, AtomMask atm=None):
         """do the fitting to reference Frame by rotation and translation
         TODO : add assert test
         """
@@ -974,7 +975,14 @@ cdef class Frame (object):
                         self.thisptr.XYZ(idx2))))
         return arr0
 
-    def calc_distance(self, cython.integral [:, :] int_arr):
+    def calc_distance(self, arr, parallel=False):
+        # TODO: use `cdef _calc_distance`
+        # need to make nested function to use default `parallel` value (=False)
+        # if not, will get error: Special method __defaults__ 
+        # has wrong number of arguments
+        return self._calc_distance(arr, parallel)
+
+    def _calc_distance(self, cython.integral [:, :] int_arr, bint parallel):
         """return python array of distance for two atoms with indices idx0, idx1
         Parameters
         ----------
@@ -990,10 +998,17 @@ cdef class Frame (object):
         cdef pyarray arr0 = cparray.clone(pyarray('d', []), n_arr, zero=False)
         cdef double[:] arr0_view = arr0
 
-        for i in range(n_arr):
-            idx0 = int_arr[i, 0]
-            idx1 = int_arr[i, 1]
-            arr0_view[i] = sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1)))
+        if parallel:
+            for i in prange(n_arr, nogil=True):
+                idx0 = int_arr[i, 0]
+                idx1 = int_arr[i, 1]
+                arr0_view[i] = sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1)))
+        else:
+            for i in range(n_arr):
+                # just duplicate code (ugly)
+                idx0 = int_arr[i, 0]
+                idx1 = int_arr[i, 1]
+                arr0_view[i] = sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1)))
         return arr0
 
     def tolist(self):

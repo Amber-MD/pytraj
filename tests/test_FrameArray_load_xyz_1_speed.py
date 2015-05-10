@@ -17,11 +17,11 @@ class Test(unittest.TestCase):
 
         @Timer()
         def _f_ndarray(farray, xyz):
-            farray.load_ndarray(xyz)
+            farray.append_ndarray(xyz)
 
         @Timer()
         def _f_dontknow(farray, xyz):
-            farray.load_xyz(xyz)
+            farray.append_xyz(xyz)
 
         xyz = traj.xyz
         print (xyz.shape)
