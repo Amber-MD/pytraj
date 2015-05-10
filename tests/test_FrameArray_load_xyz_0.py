@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         farray.top = traj.top.copy()
         arr0 = traj.xyz
         print (arr0.shape)
-        farray.load_xyz(arr0)
+        farray.append_xyz(arr0)
         for f0, f1 in izip(farray, traj):
             #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         farray2.top = farray.top.copy()
         arr0 = traj.xyz.flatten()
         print (arr0.shape)
-        farray2.load_xyz(arr0)
+        farray2.append_xyz(arr0)
 
         for f0, f1 in izip(farray2, traj):
             #print (f0, f1)
@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
         farray3.top = farray.top.copy()
         arr0 = traj.xyz.reshape(traj.n_frames, traj.n_atoms*3)
         print (arr0.shape)
-        farray3.load_xyz(arr0)
+        farray3.append_xyz(arr0)
 
         for f0, f1 in izip(farray3, traj):
             #print (f0, f1)
@@ -61,7 +61,7 @@ class Test(unittest.TestCase):
         farray5 = Trajectory()
         farray5.top = farray.top.copy()
 
-        farray5.load_ndarray(traj.xyz)
+        farray5.append_ndarray(traj.xyz)
         print (farray5.size, traj.xyz.shape)
 
         i = 0 
