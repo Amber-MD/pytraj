@@ -5,7 +5,7 @@ from pytraj.math.Vec3 cimport _Vec3, Vec3
 from pytraj.math.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
 from libc.math cimport sqrt
 
-cdef extern from "DistRoutines.h":
+cdef extern from "DistRoutines.h" nogil:
     ctypedef enum ImagingType:
         NOIMAGE=0 
         ORTHO

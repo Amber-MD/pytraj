@@ -85,6 +85,25 @@ def test_if_having(lib):
         return _no_test
     return inner
 
+def local_test(ext='edu'):
+    import platform
+    e =  platform.node().split(".")[-1] 
+    if e != ext:
+        do_test = False
+    else:
+        do_test = True
+    def inner(func):
+        def _no_test(*args, **kwd):
+            if do_test:
+                return func(*args, **kwd)
+            else:
+                txt = "skip. Only test on local"
+                print(txt)
+                return None
+        return _no_test
+    return inner
+
+
 def test_if_path_exists(mydir):
     def inner(func):
         def _no_test(*args, **kwd):
