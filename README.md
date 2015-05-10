@@ -11,7 +11,7 @@ Welcome to pytraj!
         * it supports parallel computing (openmp from cpptraj or mpi from mpi4py or parallel in ipython)
         * it has interface with numpy. Data calculation are performed without copying to numpy array
         * (but it actually does not need `numpy`)
-    * It supports more than 100 kinds of actions/analyses in [cpptraj] (http://ambermd.org/doc12/Amber14.pdf)
+    * It supports more than 100 kinds of actions/analyses in [cpptraj] (http://ambermd.org/doc12/Amber15.pdf)
     * It has clean Python/Cython syntax
     * It has been extensively tested (>10K lines of testing code)
     * It's flexible: 
