@@ -26,7 +26,6 @@ class Test(unittest.TestCase):
         saved_d0 = np.loadtxt("./data/vec.out", skiprows=1, usecols=(1, 2, 3))
         print (saved_d0)
 
-        # FIXME: assert failed, don't read mass right
         assert_almost_equal(arr.flatten(), saved_d0.flatten())
         assert_almost_equal(d1.to_ndarray().flatten(), saved_d0.flatten())
 
