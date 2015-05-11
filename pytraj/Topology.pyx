@@ -426,8 +426,14 @@ cdef class Topology:
             cdef Box box = Box()
             box.thisptr[0] = self.thisptr.ParmBox()
             return box
-        def __set__(self, Box boxin):
-            self.thisptr.SetParmBox(boxin.thisptr[0])
+        def __set__(self, box_or_array):
+            cdef Box _box
+            if  isinstance(box_or_array, Box):
+                _box = box_or_array
+            else:
+                # try to create box
+                _box = Box(box_or_array)
+            self.thisptr.SetParmBox(_box.thisptr[0])
 
     def has_box(self):
         return self.box.has_box()
