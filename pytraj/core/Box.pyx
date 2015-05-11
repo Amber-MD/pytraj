@@ -20,7 +20,12 @@ cdef class Box:
                 rhs = args[0]
                 self.thisptr = new _Box(rhs.thisptr[0])
             else:
-                boxIn = args[0]
+                try:
+                    # if args[0] has buffer interface
+                    boxIn = args[0]
+                except:
+                    # try to create pyarray
+                    boxIn = pyarray('d', [item for item in args[0]])
                 self.thisptr = new _Box(&boxIn[0])
         else: 
             raise ValueError("")
