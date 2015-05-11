@@ -8,7 +8,7 @@ class Test(unittest.TestCase):
         dslist = traj.search_hbonds()
         print (dslist.groupby("SER").to_dict())
 
-    def test_0(self):
+    def test_1(self):
         import pytraj.common_actions as pyca
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = pyca.calculate("multidihedral", traj)
@@ -39,6 +39,13 @@ class Test(unittest.TestCase):
         dnew = dslist.groupby(key, mode)
         for d0 in dnew:
             assert (key in d0.scalar_mode) == True
+
+    def test_2(self):
+        import pytraj.common_actions as pyca
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        d = traj.calc_multidihedral(dtype='dataset')
+        d2 = d.groupby("phi:2+")
+        assert sorted(d2.keys()) == sorted(['phi:2', 'phi:20'])
 
 if __name__ == "__main__":
     unittest.main()
