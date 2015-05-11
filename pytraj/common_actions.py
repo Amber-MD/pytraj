@@ -307,24 +307,50 @@ def randomize_ions(traj=Frame(), command="", top=Topology()):
     act = adict['randomizeions']
     act(command, traj, top)
 
-def do_clustering(traj=None, command="", top=None,
-        dslist=DataSetList(), dflist=DataFileList()):
+def do_clustering(traj=None, command="", top=None, dtype='dataset',
+                  dflist=DataFileList()):
+    """
+    Parameters
+    ---------
+    traj : Trajectory-like | list of Trajectory-like | frame or chunk iterator
+    command : cpptraj commmand
+    top : Topology, optional
+    dslist : DataSetList, optional
+    dflist : DataFileList, optional
+
+    Notes:
+    Supported algorithms: kmeans, hieragglo, and dbscan.
+
+    Examples
+    --------
+        do_clustering(traj, "kmeans clusters 50 @CA")
+
+    Returns
+    -------
+    DataSetList object
+ 
+    """
 
     _top = _get_top(traj, top)
     ana = analdict['clustering']
+    # need to creat `dslist` here so that every time `do_clustering` is called,
+    # we will get a fresh one (or will get segfault)
+    dslist = DataSetList()
 
     if traj is not None:
         dslist.add_set("coords", "__pytraj_cluster")
-        dslist[-1].top = _top
+        #dslist[-1].top = _top
+        dslist[0].top = _top
         for frame in traj:
-            dslist[-1].add_frame(frame)
+            #dslist[-1].add_frame(frame)
+            dslist[0].add_frame(frame)
         command += " crdset __pytraj_cluster"
     else:
         pass
     ana(command, _top, dslist, dflist) 
     # remove frames in dslist to save memory
     dslist.remove_set(dslist['__pytraj_cluster'])
-    return dslist
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **kwd): 
     """perform dihedral search
