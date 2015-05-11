@@ -4,6 +4,7 @@ import os
 from .decorators import test_if_having, no_test, local_test
 from .data_sample.load_sample_data import load_sample_data
 from .utils import eq, aa_eq
+from .utils.check_and_assert import is_linux
 
 try:
     amberhome = os.environ['AMBERHOME']

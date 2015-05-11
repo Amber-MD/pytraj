@@ -31,6 +31,10 @@ def get_amber_saved_test_dir(suffix):
     except:
         return None
 
+def is_linux():
+    import sys
+    return 'linux' in sys.platform
+
 def is_word_in_class_name(obj, word):
     """check if a `word` is in obj.__class__.__name__
     """
