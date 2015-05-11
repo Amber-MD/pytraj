@@ -8,7 +8,7 @@ from pytraj.decorators import test_if_having
 class Test(unittest.TestCase):
     @test_if_having("h5py")
     def test_1(self):
-        traj = io.load_hd5f("./data/ala2.h5")
+        traj = io.load_hdf5("./data/ala2.h5")
         print (traj)
         assert traj.top.has_box() == False
 
@@ -20,8 +20,8 @@ class Test(unittest.TestCase):
         fn = get_fn("frame0.h5")
         m_traj = md.load(fn)
         print (m_traj)
-        traj = io.load_hd5f(fn)
-        traj2 = io.load_hd5f(fn, autoconvert=False)
+        traj = io.load_hdf5(fn)
+        traj2 = io.load_hdf5(fn, autoconvert=False)
         print (traj)
         assert traj.top.has_box() == True
         assert traj2.top.has_box() == True
@@ -58,7 +58,7 @@ class Test(unittest.TestCase):
             md.load(fn)
 
         def pytraj_load():
-            io.load_hd5f(fn)
+            io.load_hdf5(fn)
 
         def pytraj_convert():
             io.load_mdtraj(m_traj)
@@ -76,7 +76,7 @@ class Test(unittest.TestCase):
             _xyz[:] = crd
 
         def use_api():
-            io.load_hd5f(fn, restype='api.Trajectory')
+            io.load_hdf5(fn, restype='api.Trajectory')
 
         t_mdtraj = timeit(mdtraj_load, number=10)
         t_pytraj = timeit(pytraj_load, number=10)

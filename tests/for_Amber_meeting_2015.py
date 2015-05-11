@@ -47,5 +47,5 @@ print (arr1)
 
 # support reading trajectory file that cpptraj not yet handled
 # hdf5
-traj = mdio.load_hd5f("./data/ala2.h5")
+traj = mdio.load_hdf5("./data/ala2.h5")
 # many more in github.com/pytraj/pytraj

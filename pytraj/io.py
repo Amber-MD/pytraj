@@ -9,11 +9,12 @@ from .trajs.Trajin_Single import Trajin_Single
 from .trajs.Trajout import Trajout
 from .utils.check_and_assert import make_sure_exist
 from .utils import goto_temp_folder
-from .externals._load_HD5F import load_hd5f
+from .externals._load_HDF5 import load_hdf5
 from .load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import _frame_iter_master
 from .dataframe import to_dataframe
 from ._set_silent import set_error_silent
+from ._guess_filetype import _guess_filetype
 
 try:
     from .externals._load_ParmEd import load_ParmEd, _load_chem
@@ -34,7 +35,9 @@ try:
 except ImportError:
     from urllib import urlopen
 
-__all__ = ['load', 'load_hd5f', 'write_traj', 'read_parm', 'write_parm', 'save']
+__all__ = ['load', 'load_hdf5', 'write_traj', 'read_parm', 'write_parm', 'save']
+
+EXTRA_LOAD_METHODS = {'HDF5' : load_hdf5, }
 
 def load(*args, **kwd):
     """try loading and returning appropriate values"""
@@ -45,8 +48,23 @@ def load(*args, **kwd):
         make_sure_exist(args[0])
 
     if len(args) + len(kwd) == 1:
-        # loading only Topology
-        return readparm(*args, **kwd)
+        if len(args) == 1:
+            filename = args[0]
+        else:
+            filename = kwd[kwd.keys()[0]]
+        # try to use cpptraj to load Topology
+        top = readparm(*args, **kwd)
+        if hasattr(top, 'is_empty') and top.is_empty():
+            # load file
+            # try loading
+            try:
+                filetype = _guess_filetype(filename) 
+                new_object = EXTRA_LOAD_METHODS[filetype](*args, **kwd)
+                return new_object
+            except:
+                raise ValueError("don't know how to load file/files")
+        else:
+            return top
     else:
         # load to Trajectory object
         return loadtraj(*args, **kwd)[:]
