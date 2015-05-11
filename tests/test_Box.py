@@ -59,6 +59,7 @@ class TestBox(unittest.TestCase):
     def test_real_box(self):
         traj = mdio.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         trajiter = mdio.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        saved_box = Box([35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0])
         aa_eq(traj.top.box.tolist(), [35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
         for frame in traj:
             assert frame.box.type == 'ortho'
@@ -75,6 +76,16 @@ class TestBox(unittest.TestCase):
             b2 = box.to_ndarray()
             aa_eq(b0,  b1)
             aa_eq(b0,  b2)
+
+        # test assign Box with list/tuple
+        b = Box(saved_box.tolist())
+        b2 = Box((t for t in saved_box.tolist()))
+        assert (b.tolist() == saved_box.tolist()) == True
+        assert (b2.tolist() == saved_box.tolist()) == True
+        # assign frame.box with list/tuple
+        frame.box = b.tolist()
+        b3 = frame.box
+        assert (b3.tolist() == saved_box.tolist()) == True
 
     def test_nobox(self):
         from pytraj import Trajectory
