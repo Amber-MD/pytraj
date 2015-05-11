@@ -7,7 +7,7 @@ from pytraj.decorators import test_if_having
 
 class Test(unittest.TestCase):
     @test_if_having("h5py")
-    def test_1(self):
+    def test_0(self):
         traj = io.load_hdf5("./data/ala2.h5")
         print (traj)
         assert traj.top.has_box() == False
@@ -86,6 +86,15 @@ class Test(unittest.TestCase):
         t_api = timeit(use_api, number=10)
 
         print (t_mdtraj, t_pytraj, t_convert, t_alloc, t_xyz, t_api)
+
+    @test_if_having("h5py")
+    def test_2(self):
+        # test read from buffer
+        import h5py
+        traj = io.load_hdf5("./data/ala2.h5")
+        with h5py.File("./data/ala2.h5") as fh:
+            traj2 = io.load_hdf5(fh)
+            aa_eq(traj2.xyz, traj.xyz)
 
 if __name__ == "__main__":
     unittest.main()
