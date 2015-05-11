@@ -12,12 +12,21 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         mydict = traj.search_hbonds(dtype='dict')
+
+        # pickle
         pk_fname = "./output/test_dict_pickle.pk"
         io.to_pickle(mydict, pk_fname)
 
         new_dict = io.read_pickle(pk_fname)
         for key in mydict.keys():
             aa_eq(mydict[key], new_dict[key])
+
+        # json
+        js_name = "./output/my_json.js"
+        io.to_json(mydict, js_name)
+        new_dict2 = io.read_json(js_name)
+        for key in mydict.keys():
+            aa_eq(mydict[key], new_dict2[key])
 
 if __name__ == "__main__":
     unittest.main()

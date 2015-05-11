@@ -5,6 +5,7 @@
 
 # Note: full license is in $PYTRAJHOME/license/externals/pandas.txt
 
+from __future__ import absolute_import
 from .six.moves import cPickle as pkl
 from .six import PY3
 

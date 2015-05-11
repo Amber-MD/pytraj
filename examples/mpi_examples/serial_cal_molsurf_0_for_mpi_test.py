@@ -4,7 +4,7 @@
 from pytraj import io
 import pytraj.common_actions as pyca
 
-root_dir = "../tests/data/nogit/remd/"
+root_dir = "../../tests/data/nogit/remd/"
 traj_name = root_dir + "/remd.x.000"
 parm_name = root_dir + "myparm.top"
 
