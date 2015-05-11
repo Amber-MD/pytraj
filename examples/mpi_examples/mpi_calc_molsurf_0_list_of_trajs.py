@@ -14,7 +14,7 @@ comm = MPI.COMM_WORLD
 # split remd.x.000 to N cores and do calc_molsurf in parallel
 root_dir = "../../tests/data/nogit/remd/"
 parm_name = root_dir + "myparm.top"
-top = io.iterload(parm_name)
+top = io.load(parm_name)
 
 # load to TrajectoryIterator
 trajlist = []
@@ -25,7 +25,7 @@ for i in range(comm.size):
 
 # mapping different traj to N cores
 # need to provide `comm`
-total_arr = pymap(comm, pyca.calc_molsurf, trajlist, "@CA", top=top)
+total_arr = pymap(comm, pyca.calc_molsurf, trajlist, "@CA", top=top, dtype='ndarray')
 
 # gathering the data to root=0
 #if comm.rank == 0:
