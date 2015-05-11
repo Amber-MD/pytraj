@@ -12,11 +12,15 @@ from pytraj.actions import allactions
 from pytraj import adict, analdict
 from pytraj.DataSetList import DataSetList
 from pytraj._shared_methods import _frame_iter as frame_iter
-
 from pytraj._set_silent import set_world_silent
 
 # external
 from pytraj.externals.six import string_types
+
+try:
+    from pytraj.externals.magic import from_file as file_type_info
+except ImportError:
+    file_type_info = None
 
 def to_amber_mask(txt):
     import re

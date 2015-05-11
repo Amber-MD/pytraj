@@ -1,3 +1,6 @@
+* get wrong result for `my_dict = pyca.search_hbonds(traj).to_dict()`
+    * Why? object lifetime is not handle correctly
+    * Fix: try using `my_dict = pyca.search_hbonds(traj, dtype='dict')
 * calling the same Action twice will get segmentation fault
     act = adict['hbond']
     act("", traj)

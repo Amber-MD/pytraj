@@ -115,10 +115,6 @@ cdef class DataSetList:
         dset.baseptr0 = self.thisptr.GetReferenceFrame(name.encode())
         return dset
 
-    def get_set(self, string dsname, int idx, string attr_arg):
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.GetSet(dsname, idx, attr_arg)
-
     def get_dataset(self, idx=None, name=None, dtype=None):
         """
         return DataSet instance
@@ -269,12 +265,15 @@ cdef class DataSetList:
         mode: str, default='legend'
             mode = 'legend' | 'name' | 'dtype' | 'aspect'
         """
+        import re
+
         dtmp = DataSetList()
 
         # dont free mem here
         dtmp.py_free_mem = False
         for d0 in self:
-            if key in getattr(d0, mode):
+            att = getattr(d0, mode)
+            if re.search(key, att):
                 dtmp.add_existing_set(d0)
         return dtmp
 

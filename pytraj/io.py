@@ -10,6 +10,8 @@ from .trajs.Trajout import Trajout
 from .utils.check_and_assert import make_sure_exist
 from .utils import goto_temp_folder
 from .externals._load_HDF5 import load_hdf5
+from .externals._pickle import to_pickle, read_pickle
+from .externals._json import to_json, read_json
 from .load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import _frame_iter_master
 from .dataframe import to_dataframe

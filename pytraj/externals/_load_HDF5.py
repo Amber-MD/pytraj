@@ -1,15 +1,16 @@
 from __future__ import absolute_import
+from .six import string_types
 from ..Topology import Topology
 from ..Trajectory import Trajectory
 from ..Frame import Frame
 from ..core import Atom, Box
 
-def load_hdf5(filename, autoconvert=True, restype=None):
+def load_hdf5(filename_or_buffer, autoconvert=True, restype=None):
     """"load hd5f format from openmm (?)
 
     Parameters
     ---------
-    filename : str 
+    filename_or_buffer : str or buffer
     autoconvert : bool
         if 'True' (default): convert from `nm` to `angstrom`
         if 'False': No convert
@@ -22,6 +23,26 @@ def load_hdf5(filename, autoconvert=True, restype=None):
         traj = io.load_hdf5(fname, autoconvert=False)
         print (traj)
     """
+    try:
+        import h5py
+    except ImportError:
+        raise ImportError("require h5py, HDF5 lib and numpy")
+
+    if isinstance(filename_or_buffer, string_types):
+        fh = h5py.File(filename_or_buffer, 'r')
+        should_be_closed = True
+    else:
+        fh = filename_or_buffer
+        should_be_closed = False
+
+    traj = _load_hdf5_from_buffer(fh, autoconvert=autoconvert, restype=restype)
+
+    if should_be_closed:
+        fh.close()
+
+    return traj
+
+def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None):
     import json
     # NOTE: always use `np.float64` in pytraj
     if autoconvert:
@@ -35,55 +56,54 @@ def load_hdf5(filename, autoconvert=True, restype=None):
     except ImportError:
         raise ImportError("require h5py, HDF5 lib and numpy")
 
-    with h5py.File(filename, 'r') as fh:
-        try:
-            cell_lengths = fh['cell_lengths'].value * UNIT
-            box_arr = np.hstack((cell_lengths, fh['cell_angles'])).astype(np.float64)
-            has_box = True
-        except:
-            has_box = False
+    try:
+        cell_lengths = fh['cell_lengths'].value * UNIT
+        box_arr = np.hstack((cell_lengths, fh['cell_angles'])).astype(np.float64)
+        has_box = True
+    except:
+        has_box = False
 
-        crd = fh['coordinates'].value.astype(np.float64)
-        n_frames, n_atoms, _ = crd.shape
-        if autoconvert:
-            crd = crd * UNIT
+    crd = fh['coordinates'].value.astype(np.float64)
+    n_frames, n_atoms, _ = crd.shape
+    if autoconvert:
+        crd = crd * UNIT
 
-        if restype is None:
-            farray = Trajectory()
-            farray._allocate(n_frames, n_atoms)
-        elif restype == 'api.Trajectory':
-            from pytraj import api
-            farray = api.Trajectory()
+    if restype is None:
+        farray = Trajectory()
+        farray._allocate(n_frames, n_atoms)
+    elif restype == 'api.Trajectory':
+        from pytraj import api
+        farray = api.Trajectory()
 
-        # create Topology
-        top_txt = fh['topology']
-        h5_topology = json.loads(top_txt.value.tostring().decode())
-        top = Topology()
-        for chain in h5_topology['chains']:
-            top.start_new_mol()
-            for residue in chain['residues']:
-                resname = residue['name']
-                resid = residue['index']
-                for atom in residue['atoms']:
-                    aname = atom['name']
-                    atype = aname # no infor about atom type in .h5 file from openmm (?)
-                    atom = Atom(aname, atype)
-                    top.add_atom(atom=atom, resid=resid, resname=resname)
-        # add bonds
-        # Note: no PBC info for top
-        top.add_bonds(np.asarray(h5_topology['bonds']))
-        # naively assigne box info from 1st frame
-        if has_box:
-            top.box = Box(box_arr[0])
-        farray.top = top
+    # create Topology
+    top_txt = fh['topology']
+    h5_topology = json.loads(top_txt.value.tostring().decode())
+    top = Topology()
+    for chain in h5_topology['chains']:
+        top.start_new_mol()
+        for residue in chain['residues']:
+            resname = residue['name']
+            resid = residue['index']
+            for atom in residue['atoms']:
+                aname = atom['name']
+                atype = aname # no infor about atom type in .h5 file from openmm (?)
+                atom = Atom(aname, atype)
+                top.add_atom(atom=atom, resid=resid, resname=resname)
+    # add bonds
+    # Note: no PBC info for top
+    top.add_bonds(np.asarray(h5_topology['bonds']))
+    # naively assigne box info from 1st frame
+    if has_box:
+        top.box = Box(box_arr[0])
+    farray.top = top
 
-        # update coords
-        if restype is None:
-            farray.update_xyz(crd)
-            for idx, arr in enumerate(crd):
-                if has_box:
-                    farray[idx].box = Box(box_arr[idx])
-        else:
-            farray.xyz = crd
+    # update coords
+    if restype is None:
+        farray.update_xyz(crd)
+        for idx, arr in enumerate(crd):
+            if has_box:
+                farray[idx].box = Box(box_arr[idx])
+    else:
+        farray.xyz = crd
 
     return farray
