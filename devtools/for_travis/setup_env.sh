@@ -13,9 +13,9 @@ conda install --yes conda-build jinja2 binstar pip
 
 if [ -z "$NO_CYTHON" ]; then
     conda create -y -n myenv python=$PYTHON_VERSION \
-        numpy cython
+        numpy cython h5py
 else
-    conda create -y -n myenv python=$PYTHON_VERSION numpy
+    conda create -y -n myenv python=$PYTHON_VERSION numpy h5py
 fi
 
 source activate myenv
