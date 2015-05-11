@@ -366,11 +366,7 @@ def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **k
     from array import array
     act = adict['multidihedral']
     act(command, traj, _top, dslist=dslist, *args, **kwd)
-    if dtype == 'dict':
-        return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
-    else:
-        # return dslist
-        return dslist
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_atomicfluct(traj=None, command="", *args, **kwd):
     dslist = DataSetList()
