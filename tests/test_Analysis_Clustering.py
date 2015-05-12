@@ -5,6 +5,7 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.analyses.Analysis_Clustering import Analysis_Clustering
+from pytraj import DataSetList
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -23,6 +24,7 @@ class Test(unittest.TestCase):
         dflist.write_all_datafiles()
 
     def test_1(self):
+        import numpy as np
         print ("use common_actions")
         from pytraj.common_actions import do_clustering
 
@@ -30,7 +32,12 @@ class Test(unittest.TestCase):
         command = """
         :2-10 clusters 3 epsilon 4.0 summary ./output/avg.summary.do_clustering.dat nofit
         """
-        do_clustering(traj, command, traj.top)
+        dslist = do_clustering(traj, command, traj.top)
+        self.assertIsInstance(dslist, DataSetList)
+        print (dslist.to_dict())
+
+        dslist = do_clustering(traj, command, traj.top, dtype='ndarray')
+        self.assertIsInstance(dslist, np.ndarray)
 
 if __name__ == "__main__":
     unittest.main()

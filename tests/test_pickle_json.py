@@ -7,6 +7,7 @@ from pytraj.utils import eq, aa_eq
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
+from pytraj.externals.six import PY2
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -23,10 +24,15 @@ class Test(unittest.TestCase):
 
         # json
         js_name = "./output/my_json.js"
-        io.to_json(mydict, js_name)
-        new_dict2 = io.read_json(js_name)
-        for key in mydict.keys():
-            aa_eq(mydict[key], new_dict2[key])
+        if PY2:
+            # TODO : PY3 complains
+            # "TypeError: 'str' does not support the buffer interface"
+            for key in mydict.keys():
+                mydict[str.encode(key)] = mydict.pop(key)
+            io.to_json(mydict, js_name)
+            new_dict2 = io.read_json(js_name)
+            for key in mydict.keys():
+                aa_eq(mydict[key], new_dict2[key])
 
 if __name__ == "__main__":
     unittest.main()

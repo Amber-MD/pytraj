@@ -32,12 +32,15 @@ from pytraj.hbonds import search_hbonds
 
 cdef class Trajectory (object):
     def __cinit__(self, filename=None, top=None, indices=None, 
-                  bint warning=False, n_frames=None, flag=None):
+                  bint warning=False, n_frames=None, flag=None, check_top=True):
         
         cdef Frame frame
 
-        self.top = _get_top(filename, top)
-        if self.top is None:
+        if check_top:
+            self.top = _get_top(filename, top)
+            if self.top is None:
+                self.top = Topology()
+        else:
             self.top = Topology()
 
         if n_frames is not None:
@@ -458,14 +461,13 @@ cdef class Trajectory (object):
                 return frame
         else:
             # is slice
-            if self.warning:
-                print "Trajectory slice"
             # creat a subset array of `Trajectory`
             farray = Trajectory()
             # farray.is_mem_parent = False
 
             # should we make a copy of self.top or get memview?
-            farray.top = self.top.copy()
+            farray.top = self.top
+            farray.top.py_free_mem = False # let `master` Trajectory do freeing mem
             # create positive indexing for start, stop if they are None
             start, stop, step  = idxs.indices(self.size)
             
@@ -504,6 +506,23 @@ cdef class Trajectory (object):
             #if self.tmpfarray.size == 1:
             #    return self.tmpfarray[0]
             return self.tmpfarray
+
+    def _fast_slice(self, slice my_slice):
+        cdef int start, stop, step
+        cdef int count
+        cdef Trajectory myview = Trajectory(check_top=False)
+        cdef _Frame* _frame_ptr
+
+        myview.top = self.top
+
+        start, stop, step  = my_slice.indices(self.size)
+        count = start
+        while count < stop:
+            _frame_ptr = self.frame_v[count]
+            myview.frame_v.push_back(_frame_ptr)
+            count += step
+
+        return myview
 
     def __setitem__(self, idx, other):
         # TODO : add slice
@@ -633,21 +652,29 @@ cdef class Trajectory (object):
         return self
 
     def append(self, Frame framein, copy=True):
-        """append Frame object
+        """append new Frame
+
+        Parameters
+        ---------
+        framein : Frame object
+        copy : bool, default=True
+            if 'True', make a copy of Frame. If 'False', create a view
         """
-        cdef Frame _frame
+        cdef Frame frame
         # Note: always use `copy=True`
         # use `copy = False` if you want to get memoryview for `self`
         # need to set `py_free_mem = False`
         if copy:
-            _frame = framein.copy()
-            _frame.py_free_mem = False
-            self.frame_v.push_back(_frame.thisptr)
+            frame = Frame(framein)
+            frame.py_free_mem = False
+            self.frame_v.push_back(frame.thisptr)
         else:
             framein.py_free_mem = False
             self.frame_v.push_back(framein.thisptr)
 
-    def join(self, traj):
+    def join(self, traj, copy=True):
+        """traj.join(traj2) with/without copy
+        """
         cdef Trajectory other, farray
         cdef Frame frame
         # TODO : do we need this method when we have `get_frames`
@@ -657,18 +684,19 @@ cdef class Trajectory (object):
             if self.top.n_atoms != traj.top.n_atoms:
                 raise ValueError("n_atoms of two arrays do not match")
             for frame in traj:
-                self.append(frame)
+                self.append(frame, copy=copy)
         elif isinstance(traj, (list, tuple)):
             # assume a list or tuple of Trajectory
             for farray in traj:
-                self.join(farray)
+                self.join(farray, copy=copy)
 
     def resize(self, int n_frames):
         self.frame_v.resize(n_frames)
 
     @property
     def temperatures(self):
-        """return a Python array of temperatures"""
+        """return a Python array of temperatures
+        """
         cdef pyarray tarr = pyarray('d', [])
 
         for frame in self:
@@ -685,6 +713,7 @@ cdef class Trajectory (object):
         Parameters:
         ----------
         from_traj : TrajectoryIterator or Trajectory, default=None
+            if `from_traj` is None, return a new Trajectory (view or copy)
         indices : default=None
         update_top : bool, default=False
         copy : bool, default=True
@@ -698,6 +727,9 @@ cdef class Trajectory (object):
         cdef int start, stop, step
         cdef Frame frame
 
+        msg = """Trajectory.top.n_atoms should be equal to Trajin_Single.top.n_atoms 
+               or set update_top=True"""
+
         if from_traj is not None:
             ts = from_traj
             # append new frames to `self`
@@ -706,7 +738,7 @@ cdef class Trajectory (object):
 
             if not update_top:
                 if self.top.n_atoms != ts.top.n_atoms:
-                    raise ValueError("Trajectory.top.n_atoms should be equal to Trajin_Single.top.n_atoms or set update_top=True")
+                    raise ValueError(msg)
 
             if isinstance(ts, Trajin_Single) or isinstance(ts, TrajectoryIterator):
                 # alway make a copy
