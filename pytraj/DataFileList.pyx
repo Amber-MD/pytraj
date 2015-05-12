@@ -52,7 +52,7 @@ cdef class DataFileList:
         dfile.thisptr[0] = deref(self.thisptr.AddSetToFile(datafilename, dsetIn.baseptr0))
         return dfile
 
-    def listinfo(self):
+    def info(self):
         self.thisptr.List()
 
     def write_all_datafiles(self):

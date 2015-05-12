@@ -226,26 +226,58 @@ def to_string_ss(arr0):
     ssdict = dict(zip(range(len_ss), ss))
     return list(map(lambda idx: ssdict[idx], arr0))
 
-def calc_dssp(traj=None, command="", top=None, dtype='int'):
+def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=DataFileList()):
     """return dssp profile for frame/traj
 
     Parameters
-    ---------
+    ----------
     command : str
     traj : {Trajectory, Frame, mix of them}
     dtype : str {'int', 'integer', 'str', 'string', 'dataset', 'ndarray'}
 
-    Returns:
+    Returns
+    -------
     if dtype in ['int', 'integer', 'str', 'string']
         List of tuples with shape (n_frames, n_residues)
     if dtype in ['dataset',]
         DataSetList object
+
+    Examples
+    --------
+        calc_dssp(traj, ":2-10")
+
+        calc_dssp(traj, ":2-10 out dssp.gnu", dflist=dflist)
+        dflist.write_all_datafiles()
+
+        calc_dssp(traj, ":2-10 sumout dssp.agr", dflist=dflist)
+        dflist.write_all_datafiles()
+        # from terminal: xmgrace dssp.agr
+
+    Notes
+    -----
+    Character Integer DSSP_Char SS_type
+    0         0       ' '       None
+    b         1       'E'       Parallel Beta-sheet
+    B         2       'B'       Anti-parallel Beta-sheet
+    G         3       'G'       3-10 helix
+    H         4       'H'       Alpha helix
+    I         5       'I'       Pi (3-14) helix
+    T         6       'T'       Turn
+    S         7       'S'       Bend
+
+    See Also
+    --------
+    Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 588)
     """
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    if dslist is None:
+        dslist = DataSetList()
     adict['dssp'](command,
-                  current_frame=traj, top=_top,
-                  dslist=dslist)
+                  current_frame=traj, 
+                  top=_top,
+                  dslist=dslist,
+                  dflist=dflist)
+
     dtype = dtype.upper()
 
     # get all dataset from DatSetList if dtype == integer

@@ -814,7 +814,7 @@ static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_10get_datafile(s
 static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_12add_datafile(struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_self, PyObject *__pyx_v_datafilename, PyObject *__pyx_v_args); /* proto */
 static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_14add_dataset(struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_self, PyObject *__pyx_v_datafilename, PyObject *__pyx_v_ds); /* proto */
 static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_16_add_dataset(struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_self, PyObject *__pyx_v_datafilename, struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_dsetIn); /* proto */
-static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_18listinfo(struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_18info(struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_20write_all_datafiles(struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_22reset_write_status(struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_24process_data_file_args(struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_self, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_argIn); /* proto */
@@ -1901,7 +1901,7 @@ static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_16_add_dataset(s
  *         dfile.thisptr[0] = deref(self.thisptr.AddSetToFile(datafilename, dsetIn.baseptr0))
  *         return dfile             # <<<<<<<<<<<<<<
  * 
- *     def listinfo(self):
+ *     def info(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_dfile));
@@ -1931,33 +1931,33 @@ static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_16_add_dataset(s
 /* "pytraj/DataFileList.pyx":55
  *         return dfile
  * 
- *     def listinfo(self):             # <<<<<<<<<<<<<<
+ *     def info(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.List()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_12DataFileList_12DataFileList_19listinfo(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_12DataFileList_12DataFileList_18listinfo[] = "DataFileList.listinfo(self)";
-static PyObject *__pyx_pw_6pytraj_12DataFileList_12DataFileList_19listinfo(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_12DataFileList_12DataFileList_19info(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_12DataFileList_12DataFileList_18info[] = "DataFileList.info(self)";
+static PyObject *__pyx_pw_6pytraj_12DataFileList_12DataFileList_19info(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("listinfo (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_12DataFileList_12DataFileList_18listinfo(((struct __pyx_obj_6pytraj_12DataFileList_DataFileList *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("info (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_12DataFileList_12DataFileList_18info(((struct __pyx_obj_6pytraj_12DataFileList_DataFileList *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_18listinfo(struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_18info(struct __pyx_obj_6pytraj_12DataFileList_DataFileList *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("listinfo", 0);
+  __Pyx_RefNannySetupContext("info", 0);
 
   /* "pytraj/DataFileList.pyx":56
  * 
- *     def listinfo(self):
+ *     def info(self):
  *         self.thisptr.List()             # <<<<<<<<<<<<<<
  * 
  *     def write_all_datafiles(self):
@@ -1967,7 +1967,7 @@ static PyObject *__pyx_pf_6pytraj_12DataFileList_12DataFileList_18listinfo(struc
   /* "pytraj/DataFileList.pyx":55
  *         return dfile
  * 
- *     def listinfo(self):             # <<<<<<<<<<<<<<
+ *     def info(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.List()
  * 
  */
@@ -2243,7 +2243,7 @@ static PyMethodDef __pyx_methods_6pytraj_12DataFileList_DataFileList[] = {
   {"add_datafile", (PyCFunction)__pyx_pw_6pytraj_12DataFileList_12DataFileList_13add_datafile, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_12DataFileList_12DataFileList_12add_datafile},
   {"add_dataset", (PyCFunction)__pyx_pw_6pytraj_12DataFileList_12DataFileList_15add_dataset, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_12DataFileList_12DataFileList_14add_dataset},
   {"_add_dataset", (PyCFunction)__pyx_pw_6pytraj_12DataFileList_12DataFileList_17_add_dataset, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_12DataFileList_12DataFileList_16_add_dataset},
-  {"listinfo", (PyCFunction)__pyx_pw_6pytraj_12DataFileList_12DataFileList_19listinfo, METH_NOARGS, __pyx_doc_6pytraj_12DataFileList_12DataFileList_18listinfo},
+  {"info", (PyCFunction)__pyx_pw_6pytraj_12DataFileList_12DataFileList_19info, METH_NOARGS, __pyx_doc_6pytraj_12DataFileList_12DataFileList_18info},
   {"write_all_datafiles", (PyCFunction)__pyx_pw_6pytraj_12DataFileList_12DataFileList_21write_all_datafiles, METH_NOARGS, __pyx_doc_6pytraj_12DataFileList_12DataFileList_20write_all_datafiles},
   {"reset_write_status", (PyCFunction)__pyx_pw_6pytraj_12DataFileList_12DataFileList_23reset_write_status, METH_NOARGS, __pyx_doc_6pytraj_12DataFileList_12DataFileList_22reset_write_status},
   {"process_data_file_args", (PyCFunction)__pyx_pw_6pytraj_12DataFileList_12DataFileList_25process_data_file_args, METH_O, __pyx_doc_6pytraj_12DataFileList_12DataFileList_24process_data_file_args},

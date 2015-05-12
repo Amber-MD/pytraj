@@ -376,11 +376,8 @@ cdef class DataSetList:
         """"""
         raise NotImplementedError("Not yet")
 
-    def avg(self):
-        arr = array('d', [])
-        for d in self:
-            arr.append(d.avg())
-        return avg
+    def mean(self, axis=1):
+        return self.to_ndarray().mean(axis=axis)
 
     def min(self):
         arr = array('d', [])
@@ -394,9 +391,9 @@ cdef class DataSetList:
             arr.append(d.max())
         return arr
 
-    def sum(self, legend=None):
+    def sum(self, legend=None, axis=1):
         _, np = _import_numpy()
         if not legend:
-            return np.sum(self.to_ndarray(), axis=0)
+            return np.sum(self.to_ndarray(), axis=1)
         else:
             return self.groupby(legend).sum()
