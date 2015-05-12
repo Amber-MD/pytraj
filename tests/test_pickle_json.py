@@ -24,11 +24,11 @@ class Test(unittest.TestCase):
 
         # json
         js_name = "./output/my_json.js"
+        # TODO : PY3 complains
+        # "TypeError: 'str' does not support the buffer interface"
         if PY2:
-            # TODO : PY3 complains
-            # "TypeError: 'str' does not support the buffer interface"
             for key in mydict.keys():
-                mydict[str.encode(key)] = mydict.pop(key)
+                    mydict[key] = mydict.pop(key)
             io.to_json(mydict, js_name)
             new_dict2 = io.read_json(js_name)
             for key in mydict.keys():
