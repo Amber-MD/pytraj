@@ -38,6 +38,9 @@ cdef class DataSet_float (DataSet_1D):
         for i in range(self.size):
             yield self.thisptr.index_opr(i)
 
+    def resize(self, size_t sizeIn):
+        self.thisptr.Resize(sizeIn)
+
     property data:
         def __get__(self):
             """return memoryview of data array

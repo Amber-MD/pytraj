@@ -13,6 +13,7 @@ cdef extern from "DataSet_float.h":
         float& operator[](size_t idx)
         float& index_opr "operator[]"(size_t idx)
         int Size()
+        void Resize(size_t)
 
 cdef class DataSet_float (DataSet_1D):
     cdef _DataSet_float* thisptr

@@ -33,6 +33,9 @@ cdef class DataSet_Vector (DataSet_1D):
         for i in range (self.size):
             yield self[i]
 
+    def resize(self, size_t sizeIn):
+        self.thisptr.Resize(sizeIn)
+
     def append(self, Vec3 vec):
         self.thisptr.AddVxyz(vec.thisptr[0])
 

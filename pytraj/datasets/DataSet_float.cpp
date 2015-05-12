@@ -617,8 +617,8 @@ struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D {
 };
 
 
-/* "pytraj/datasets/DataSet_float.pxd":17
- *         int Size()
+/* "pytraj/datasets/DataSet_float.pxd":18
+ *         void Resize(size_t)
  * 
  * cdef class DataSet_float (DataSet_1D):             # <<<<<<<<<<<<<<
  *     cdef _DataSet_float* thisptr
@@ -1158,6 +1158,8 @@ static CYTHON_INLINE int resize_smart(arrayobject *self, Py_ssize_t n) {
 }
 #endif
 
+static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *);
+
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 static PyObject *__pyx_memview_get_float(const char *itemp);
@@ -1419,6 +1421,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4all
 static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_6__getitem__(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self, PyObject *__pyx_v_idx); /* proto */
 static int __pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_8__setitem__(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_10__iter__(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_13resize(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self, size_t __pyx_v_sizeIn); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4data___get__(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4data_2__set__(CYTHON_UNUSED struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_data); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
@@ -2093,7 +2096,7 @@ static PyObject *__pyx_gb_6pytraj_8datasets_13DataSet_float_13DataSet_float_12ge
  *         for i in range(self.size):
  *             yield self.thisptr.index_opr(i)             # <<<<<<<<<<<<<<
  * 
- *     property data:
+ *     def resize(self, size_t sizeIn):
  */
     __pyx_t_1 = PyFloat_FromDouble(__pyx_cur_scope->__pyx_v_self->thisptr->operator[](__pyx_cur_scope->__pyx_v_i)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -2134,7 +2137,71 @@ static PyObject *__pyx_gb_6pytraj_8datasets_13DataSet_float_13DataSet_float_12ge
   return NULL;
 }
 
-/* "pytraj/datasets/DataSet_float.pyx":42
+/* "pytraj/datasets/DataSet_float.pyx":41
+ *             yield self.thisptr.index_opr(i)
+ * 
+ *     def resize(self, size_t sizeIn):             # <<<<<<<<<<<<<<
+ *         self.thisptr.Resize(sizeIn)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pytraj_8datasets_13DataSet_float_13DataSet_float_14resize(PyObject *__pyx_v_self, PyObject *__pyx_arg_sizeIn); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_13DataSet_float_13DataSet_float_13resize[] = "DataSet_float.resize(self, size_t sizeIn)";
+static PyObject *__pyx_pw_6pytraj_8datasets_13DataSet_float_13DataSet_float_14resize(PyObject *__pyx_v_self, PyObject *__pyx_arg_sizeIn) {
+  size_t __pyx_v_sizeIn;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("resize (wrapper)", 0);
+  assert(__pyx_arg_sizeIn); {
+    __pyx_v_sizeIn = __Pyx_PyInt_As_size_t(__pyx_arg_sizeIn); if (unlikely((__pyx_v_sizeIn == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pytraj.datasets.DataSet_float.DataSet_float.resize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_13resize(((struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *)__pyx_v_self), ((size_t)__pyx_v_sizeIn));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_13resize(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_self, size_t __pyx_v_sizeIn) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("resize", 0);
+
+  /* "pytraj/datasets/DataSet_float.pyx":42
+ * 
+ *     def resize(self, size_t sizeIn):
+ *         self.thisptr.Resize(sizeIn)             # <<<<<<<<<<<<<<
+ * 
+ *     property data:
+ */
+  __pyx_v_self->thisptr->Resize(__pyx_v_sizeIn);
+
+  /* "pytraj/datasets/DataSet_float.pyx":41
+ *             yield self.thisptr.index_opr(i)
+ * 
+ *     def resize(self, size_t sizeIn):             # <<<<<<<<<<<<<<
+ *         self.thisptr.Resize(sizeIn)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pytraj/datasets/DataSet_float.pyx":45
  * 
  *     property data:
  *         def __get__(self):             # <<<<<<<<<<<<<<
@@ -2171,20 +2238,20 @@ static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4dat
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "pytraj/datasets/DataSet_float.pyx":46
+  /* "pytraj/datasets/DataSet_float.pyx":49
  *             """
  *             cdef cyarray myview
  *             cdef int size = self.size             # <<<<<<<<<<<<<<
  *             cdef float* ptr
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 49; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 49; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_size = __pyx_t_2;
 
-  /* "pytraj/datasets/DataSet_float.pyx":49
+  /* "pytraj/datasets/DataSet_float.pyx":52
  *             cdef float* ptr
  * 
  *             if size == 0:             # <<<<<<<<<<<<<<
@@ -2194,7 +2261,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4dat
   __pyx_t_3 = ((__pyx_v_size == 0) != 0);
   if (__pyx_t_3) {
 
-    /* "pytraj/datasets/DataSet_float.pyx":50
+    /* "pytraj/datasets/DataSet_float.pyx":53
  * 
  *             if size == 0:
  *                 return None             # <<<<<<<<<<<<<<
@@ -2206,7 +2273,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4dat
     __pyx_r = Py_None;
     goto __pyx_L0;
 
-    /* "pytraj/datasets/DataSet_float.pyx":49
+    /* "pytraj/datasets/DataSet_float.pyx":52
  *             cdef float* ptr
  * 
  *             if size == 0:             # <<<<<<<<<<<<<<
@@ -2215,7 +2282,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4dat
  */
   }
 
-  /* "pytraj/datasets/DataSet_float.pyx":51
+  /* "pytraj/datasets/DataSet_float.pyx":54
  *             if size == 0:
  *                 return None
  *             ptr = &self.thisptr.index_opr(0)             # <<<<<<<<<<<<<<
@@ -2224,7 +2291,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4dat
  */
   __pyx_v_ptr = (&__pyx_v_self->thisptr->operator[](0));
 
-  /* "pytraj/datasets/DataSet_float.pyx":52
+  /* "pytraj/datasets/DataSet_float.pyx":55
  *                 return None
  *             ptr = &self.thisptr.index_opr(0)
  *             myview = <float[:size]> ptr             # <<<<<<<<<<<<<<
@@ -2233,22 +2300,22 @@ static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4dat
  */
   if (!__pyx_v_ptr) {
     PyErr_SetString(PyExc_ValueError,"Cannot create cython.array from NULL pointer");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_t_5 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_float);
   __pyx_t_1 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)__pyx_v_size));
-  if (unlikely(!__pyx_t_5 || !__pyx_t_1 || !PyBytes_AsString(__pyx_t_5))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_5 || !__pyx_t_1 || !PyBytes_AsString(__pyx_t_5))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = __pyx_array_new(__pyx_t_1, sizeof(float), PyBytes_AS_STRING(__pyx_t_5), (char *) "c", (char *) __pyx_v_ptr);
-  if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_myview = ((struct __pyx_array_obj *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "pytraj/datasets/DataSet_float.pyx":53
+  /* "pytraj/datasets/DataSet_float.pyx":56
  *             ptr = &self.thisptr.index_opr(0)
  *             myview = <float[:size]> ptr
  *             return myview             # <<<<<<<<<<<<<<
@@ -2260,7 +2327,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4dat
   __pyx_r = ((PyObject *)__pyx_v_myview);
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_float.pyx":42
+  /* "pytraj/datasets/DataSet_float.pyx":45
  * 
  *     property data:
  *         def __get__(self):             # <<<<<<<<<<<<<<
@@ -2282,7 +2349,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4dat
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_float.pyx":55
+/* "pytraj/datasets/DataSet_float.pyx":58
  *             return myview
  * 
  *         def __set__(self, data):             # <<<<<<<<<<<<<<
@@ -2311,18 +2378,18 @@ static int __pyx_pf_6pytraj_8datasets_13DataSet_float_13DataSet_float_4data_2__s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "pytraj/datasets/DataSet_float.pyx":56
+  /* "pytraj/datasets/DataSet_float.pyx":59
  * 
  *         def __set__(self, data):
  *             raise NotImplementedError()             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "pytraj/datasets/DataSet_float.pyx":55
+  /* "pytraj/datasets/DataSet_float.pyx":58
  *             return myview
  * 
  *         def __set__(self, data):             # <<<<<<<<<<<<<<
@@ -14940,6 +15007,7 @@ static int __pyx_setprop_6pytraj_8datasets_13DataSet_float_13DataSet_float_data(
 
 static PyMethodDef __pyx_methods_6pytraj_8datasets_13DataSet_float_DataSet_float[] = {
   {"alloc", (PyCFunction)__pyx_pw_6pytraj_8datasets_13DataSet_float_13DataSet_float_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8datasets_13DataSet_float_13DataSet_float_4alloc},
+  {"resize", (PyCFunction)__pyx_pw_6pytraj_8datasets_13DataSet_float_13DataSet_float_14resize, METH_O, __pyx_doc_6pytraj_8datasets_13DataSet_float_13DataSet_float_13resize},
   {0, 0, 0, 0}
 };
 
@@ -15885,7 +15953,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 145; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17636,6 +17704,190 @@ bad:
         }\
         return (target_type) value;\
     }
+
+static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *x) {
+    const size_t neg_one = (size_t) -1, const_zero = 0;
+    const int is_unsigned = neg_one > const_zero;
+#if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_Check(x))) {
+        if (sizeof(size_t) < sizeof(long)) {
+            __PYX_VERIFY_RETURN_INT(size_t, long, PyInt_AS_LONG(x))
+        } else {
+            long val = PyInt_AS_LONG(x);
+            if (is_unsigned && unlikely(val < 0)) {
+                goto raise_neg_overflow;
+            }
+            return (size_t) val;
+        }
+    } else
+#endif
+    if (likely(PyLong_Check(x))) {
+        if (is_unsigned) {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return 0;
+                case  1: __PYX_VERIFY_RETURN_INT(size_t, digit, digits[0])
+                case 2:
+                    if (8 * sizeof(size_t) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | digits[0])))
+                        } else if (8 * sizeof(size_t) >= 2 * PyLong_SHIFT) {
+                            return (((((size_t)digits[1]) << PyLong_SHIFT) | digits[0]));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(size_t) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0])))
+                        } else if (8 * sizeof(size_t) >= 3 * PyLong_SHIFT) {
+                            return (((((((size_t)digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0]));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(size_t) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0])))
+                        } else if (8 * sizeof(size_t) >= 4 * PyLong_SHIFT) {
+                            return (((((((((size_t)digits[3]) << PyLong_SHIFT) | digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0]));
+                        }
+                    }
+                    break;
+            }
+#endif
+#if CYTHON_COMPILING_IN_CPYTHON
+            if (unlikely(Py_SIZE(x) < 0)) {
+                goto raise_neg_overflow;
+            }
+#else
+            {
+                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
+                if (unlikely(result < 0))
+                    return (size_t) -1;
+                if (unlikely(result == 1))
+                    goto raise_neg_overflow;
+            }
+#endif
+            if (sizeof(size_t) <= sizeof(unsigned long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, unsigned long, PyLong_AsUnsignedLong(x))
+            } else if (sizeof(size_t) <= sizeof(unsigned PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+            }
+        } else {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return 0;
+                case -1: __PYX_VERIFY_RETURN_INT(size_t, sdigit, -(sdigit) digits[0])
+                case  1: __PYX_VERIFY_RETURN_INT(size_t,  digit, +digits[0])
+                case -2:
+                    if (8 * sizeof(size_t) - 1 > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                            return -(((((size_t)digits[1]) << PyLong_SHIFT) | digits[0]));
+                        }
+                    }
+                    break;
+                case 2:
+                    if (8 * sizeof(size_t) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                            return (((((size_t)digits[1]) << PyLong_SHIFT) | digits[0]));
+                        }
+                    }
+                    break;
+                case -3:
+                    if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                            return -(((((((size_t)digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0]));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(size_t) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                            return (((((((size_t)digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0]));
+                        }
+                    }
+                    break;
+                case -4:
+                    if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 4 * PyLong_SHIFT) {
+                            return -(((((((((size_t)digits[3]) << PyLong_SHIFT) | digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0]));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(size_t) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 4 * PyLong_SHIFT) {
+                            return (((((((((size_t)digits[3]) << PyLong_SHIFT) | digits[2]) << PyLong_SHIFT) | digits[1]) << PyLong_SHIFT) | digits[0]));
+                        }
+                    }
+                    break;
+            }
+#endif
+            if (sizeof(size_t) <= sizeof(long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, long, PyLong_AsLong(x))
+            } else if (sizeof(size_t) <= sizeof(PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, PY_LONG_LONG, PyLong_AsLongLong(x))
+            }
+        }
+        {
+#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
+            PyErr_SetString(PyExc_RuntimeError,
+                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
+#else
+            size_t val;
+            PyObject *v = __Pyx_PyNumber_Int(x);
+ #if PY_MAJOR_VERSION < 3
+            if (likely(v) && !PyLong_Check(v)) {
+                PyObject *tmp = v;
+                v = PyNumber_Long(tmp);
+                Py_DECREF(tmp);
+            }
+ #endif
+            if (likely(v)) {
+                int one = 1; int is_little = (int)*(unsigned char *)&one;
+                unsigned char *bytes = (unsigned char *)&val;
+                int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                                              bytes, sizeof(val),
+                                              is_little, !is_unsigned);
+                Py_DECREF(v);
+                if (likely(!ret))
+                    return val;
+            }
+#endif
+            return (size_t) -1;
+        }
+    } else {
+        size_t val;
+        PyObject *tmp = __Pyx_PyNumber_Int(x);
+        if (!tmp) return (size_t) -1;
+        val = __Pyx_PyInt_As_size_t(tmp);
+        Py_DECREF(tmp);
+        return val;
+    }
+raise_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "value too large to convert to size_t");
+    return (size_t) -1;
+raise_neg_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "can't convert negative value to size_t");
+    return (size_t) -1;
+}
 
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
     const int neg_one = (int) -1, const_zero = 0;
