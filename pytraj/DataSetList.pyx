@@ -84,6 +84,8 @@ cdef class DataSetList:
         Should we use a copy instead?
         """
         cdef DataSet dset = DataSet()
+        cdef DataSetList new_dslist
+        cdef int start, stop, step
         cdef int _idx
 
         if self.size == 0:
@@ -99,6 +101,16 @@ cdef class DataSetList:
              for d0 in self:
                  if d0.legend.upper() == idx.upper():
                      return d0
+        elif isinstance(idx, slice):
+            # return new view of `self`
+            start, stop, step = idx.indices(self.size)
+            new_dslist = DataSetList()
+            new_dslist.py_free_mem = False # view
+            for _idx in range(start, stop, step):
+                new_dslist.add_existing_set(self[_idx])
+            return new_dslist
+        else:
+            raise ValueError()
 
     def set_ensemble_num(self,int i):
         self.thisptr.SetEnsembleNum(i)
