@@ -230,16 +230,29 @@ def calc_dssp(traj=None, command="", top=None, dtype='int'):
     """return dssp profile for frame/traj
 
     Parameters
-    ---------
+    ----------
     command : str
     traj : {Trajectory, Frame, mix of them}
     dtype : str {'int', 'integer', 'str', 'string', 'dataset', 'ndarray'}
 
-    Returns:
+    Returns
+    -------
     if dtype in ['int', 'integer', 'str', 'string']
         List of tuples with shape (n_frames, n_residues)
     if dtype in ['dataset',]
         DataSetList object
+
+    Notes
+    -----
+    Character Integer DSSP_Char SS_type
+    0         0       ' '       None
+    b         1       'E'       Parallel Beta-sheet
+    B         2       'B'       Anti-parallel Beta-sheet
+    G         3       'G'       3-10 helix
+    H         4       'H'       Alpha helix
+    I         5       'I'       Pi (3-14) helix
+    T         6       'T'       Turn
+    S         7       'S'       Bend
     """
     _top = _get_top(traj, top)
     dslist = DataSetList()
