@@ -308,7 +308,7 @@ def randomize_ions(traj=Frame(), command="", top=Topology()):
     act(command, traj, top)
 
 def do_clustering(traj=None, command="", top=None, dtype='dataset',
-                  dflist=DataFileList()):
+        dslist=None, dflist=None):
     """
     Parameters
     ---------
@@ -335,7 +335,10 @@ def do_clustering(traj=None, command="", top=None, dtype='dataset',
     ana = analdict['clustering']
     # need to creat `dslist` here so that every time `do_clustering` is called,
     # we will get a fresh one (or will get segfault)
-    dslist = DataSetList()
+    if dslist is None:
+        dslist = DataSetList()
+    else:
+        dslist = dslist
 
     if traj is not None:
         dslist.add_set("coords", "__pytraj_cluster")
