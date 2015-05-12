@@ -17013,8 +17013,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_158calc_dihedral(struct __pyx_ob
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
   int __pyx_v_int_is_signed;
-  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
+  int __pyx_v_long_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -17117,8 +17117,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_158calc_dihedral(struct __pyx_ob
   }
   __pyx_v_itemsize = -1;
   __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[1]; __pyx_lineno = 929; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18507,8 +18507,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_160calc_angle(struct __pyx_obj_6
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
   int __pyx_v_int_is_signed;
-  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
+  int __pyx_v_long_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -18611,8 +18611,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_160calc_angle(struct __pyx_obj_6
   }
   __pyx_v_itemsize = -1;
   __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[1]; __pyx_lineno = 954; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -20093,8 +20093,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_164_calc_distance(struct __pyx_o
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
   int __pyx_v_int_is_signed;
-  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
+  int __pyx_v_long_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -20197,8 +20197,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_164_calc_distance(struct __pyx_o
   }
   __pyx_v_itemsize = -1;
   __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[1]; __pyx_lineno = 985; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -20864,18 +20864,18 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_186_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12)
+                  #pragma omp parallel private(__pyx_t_11, __pyx_t_8, __pyx_t_12, __pyx_t_9, __pyx_t_10)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1) lastprivate(__pyx_v_idx0)
+                      #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx0) lastprivate(__pyx_v_idx1)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
                               __pyx_v_i = 0 + 1 * __pyx_t_6;
                               /* Initialize private variables to invalid values */
-                              __pyx_v_idx1 = ((int)0xbad0bad0);
                               __pyx_v_idx0 = ((int)0xbad0bad0);
+                              __pyx_v_idx1 = ((int)0xbad0bad0);
 
                               /* "pytraj/Frame.pyx":1003
  *         if parallel:
@@ -21208,11 +21208,11 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_188_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12)
+                  #pragma omp parallel private(__pyx_t_11, __pyx_t_8, __pyx_t_12, __pyx_t_9, __pyx_t_10)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx0)
+                      #pragma omp for lastprivate(__pyx_v_idx1) lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
@@ -21552,11 +21552,11 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_190_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12)
+                  #pragma omp parallel private(__pyx_t_11, __pyx_t_8, __pyx_t_12, __pyx_t_9, __pyx_t_10)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1)
+                      #pragma omp for lastprivate(__pyx_v_idx0) lastprivate(__pyx_v_idx1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
@@ -22153,6 +22153,154 @@ static int __pyx_pf_6pytraj_5Frame_5Frame_11py_free_mem_2__set__(struct __pyx_ob
   __Pyx_AddTraceback("pytraj.Frame.Frame.py_free_mem.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pytraj/Frame.pxd":132
+ *     cdef void _append_xyz_2d(self, double[:, :] xyz)
+ * 
+ * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
+ *     # TODO : do we need this method?
+ *     # we can we memoryview to get slicing too
+ */
+
+static CYTHON_INLINE int __pyx_f_6pytraj_5Frame_get_positive_idx(PyObject *__pyx_v_idx, PyObject *__pyx_v_size) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("get_positive_idx", 0);
+  __Pyx_INCREF(__pyx_v_idx);
+
+  /* "pytraj/Frame.pxd":136
+ *     # we can we memoryview to get slicing too
+ *     """Used for negative indexing"""
+ *     if idx < 0:             # <<<<<<<<<<<<<<
+ *         idx = size + idx
+ *         if idx < 0:
+ */
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "pytraj/Frame.pxd":137
+ *     """Used for negative indexing"""
+ *     if idx < 0:
+ *         idx = size + idx             # <<<<<<<<<<<<<<
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")
+ */
+    __pyx_t_1 = PyNumber_Add(__pyx_v_size, __pyx_v_idx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF_SET(__pyx_v_idx, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "pytraj/Frame.pxd":138
+ *     if idx < 0:
+ *         idx = size + idx
+ *         if idx < 0:             # <<<<<<<<<<<<<<
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:
+ */
+    __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (__pyx_t_2) {
+
+      /* "pytraj/Frame.pxd":139
+ *         idx = size + idx
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")
+ */
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__42, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+      /* "pytraj/Frame.pxd":138
+ *     if idx < 0:
+ *         idx = size + idx
+ *         if idx < 0:             # <<<<<<<<<<<<<<
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:
+ */
+    }
+
+    /* "pytraj/Frame.pxd":136
+ *     # we can we memoryview to get slicing too
+ *     """Used for negative indexing"""
+ *     if idx < 0:             # <<<<<<<<<<<<<<
+ *         idx = size + idx
+ *         if idx < 0:
+ */
+  }
+
+  /* "pytraj/Frame.pxd":140
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:             # <<<<<<<<<<<<<<
+ *         raise ValueError("index is out of range")
+ *     return idx
+ */
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_v_size, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "pytraj/Frame.pxd":141
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
+ *     return idx
+ */
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__43, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+    /* "pytraj/Frame.pxd":140
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:             # <<<<<<<<<<<<<<
+ *         raise ValueError("index is out of range")
+ *     return idx
+ */
+  }
+
+  /* "pytraj/Frame.pxd":142
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")
+ *     return idx             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_idx); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_t_3;
+  goto __pyx_L0;
+
+  /* "pytraj/Frame.pxd":132
+ *     cdef void _append_xyz_2d(self, double[:, :] xyz)
+ * 
+ * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
+ *     # TODO : do we need this method?
+ *     # we can we memoryview to get slicing too
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_WriteUnraisable("pytraj.Frame.get_positive_idx", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_idx);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -22804,154 +22952,6 @@ static CYTHON_INLINE void __pyx_f_7cpython_5array_zero(arrayobject *__pyx_v_self
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
-}
-
-/* "pytraj/Frame.pxd":132
- *     cdef void _append_xyz_2d(self, double[:, :] xyz)
- * 
- * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
- *     # TODO : do we need this method?
- *     # we can we memoryview to get slicing too
- */
-
-static CYTHON_INLINE int __pyx_f_6pytraj_5Frame_get_positive_idx(PyObject *__pyx_v_idx, PyObject *__pyx_v_size) {
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_t_2;
-  int __pyx_t_3;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("get_positive_idx", 0);
-  __Pyx_INCREF(__pyx_v_idx);
-
-  /* "pytraj/Frame.pxd":136
- *     # we can we memoryview to get slicing too
- *     """Used for negative indexing"""
- *     if idx < 0:             # <<<<<<<<<<<<<<
- *         idx = size + idx
- *         if idx < 0:
- */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_2) {
-
-    /* "pytraj/Frame.pxd":137
- *     """Used for negative indexing"""
- *     if idx < 0:
- *         idx = size + idx             # <<<<<<<<<<<<<<
- *         if idx < 0:
- *             raise ValueError("index is out of range")
- */
-    __pyx_t_1 = PyNumber_Add(__pyx_v_size, __pyx_v_idx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF_SET(__pyx_v_idx, __pyx_t_1);
-    __pyx_t_1 = 0;
-
-    /* "pytraj/Frame.pxd":138
- *     if idx < 0:
- *         idx = size + idx
- *         if idx < 0:             # <<<<<<<<<<<<<<
- *             raise ValueError("index is out of range")
- *     if idx >= size:
- */
-    __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__pyx_t_2) {
-
-      /* "pytraj/Frame.pxd":139
- *         idx = size + idx
- *         if idx < 0:
- *             raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
- *     if idx >= size:
- *         raise ValueError("index is out of range")
- */
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__42, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_Raise(__pyx_t_1, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-
-      /* "pytraj/Frame.pxd":138
- *     if idx < 0:
- *         idx = size + idx
- *         if idx < 0:             # <<<<<<<<<<<<<<
- *             raise ValueError("index is out of range")
- *     if idx >= size:
- */
-    }
-
-    /* "pytraj/Frame.pxd":136
- *     # we can we memoryview to get slicing too
- *     """Used for negative indexing"""
- *     if idx < 0:             # <<<<<<<<<<<<<<
- *         idx = size + idx
- *         if idx < 0:
- */
-  }
-
-  /* "pytraj/Frame.pxd":140
- *         if idx < 0:
- *             raise ValueError("index is out of range")
- *     if idx >= size:             # <<<<<<<<<<<<<<
- *         raise ValueError("index is out of range")
- *     return idx
- */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_v_size, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_2) {
-
-    /* "pytraj/Frame.pxd":141
- *             raise ValueError("index is out of range")
- *     if idx >= size:
- *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
- *     return idx
- */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__43, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-
-    /* "pytraj/Frame.pxd":140
- *         if idx < 0:
- *             raise ValueError("index is out of range")
- *     if idx >= size:             # <<<<<<<<<<<<<<
- *         raise ValueError("index is out of range")
- *     return idx
- */
-  }
-
-  /* "pytraj/Frame.pxd":142
- *     if idx >= size:
- *         raise ValueError("index is out of range")
- *     return idx             # <<<<<<<<<<<<<<
- */
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_idx); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_t_3;
-  goto __pyx_L0;
-
-  /* "pytraj/Frame.pxd":132
- *     cdef void _append_xyz_2d(self, double[:, :] xyz)
- * 
- * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
- *     # TODO : do we need this method?
- *     # we can we memoryview to get slicing too
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_WriteUnraisable("pytraj.Frame.get_positive_idx", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_idx);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
 }
 
 /* "View.MemoryView":116
@@ -36842,16 +36842,6 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     type_name++;
   }
   if (0);
-  else if (__Pyx_StrEq(name, "strided")) {
-    Py_INCREF(o);
-    Py_DECREF(strided);
-    strided = o;
-  }
-  else if (__Pyx_StrEq(name, "indirect")) {
-    Py_INCREF(o);
-    Py_DECREF(indirect);
-    indirect = o;
-  }
   else if (__Pyx_StrEq(name, "generic")) {
     Py_INCREF(o);
     Py_DECREF(generic);
@@ -36870,6 +36860,16 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
   else if (__Pyx_StrEq(name, "Py_None")) {
     PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
     {__pyx_filename = __pyx_f[3]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L2_error;}
+  }
+  else if (__Pyx_StrEq(name, "indirect")) {
+    Py_INCREF(o);
+    Py_DECREF(indirect);
+    indirect = o;
+  }
+  else if (__Pyx_StrEq(name, "strided")) {
+    Py_INCREF(o);
+    Py_DECREF(strided);
+    strided = o;
   }
   else {
     if (PyObject_SetAttr(__pyx_m, py_name, o) < 0) goto bad;

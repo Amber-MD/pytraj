@@ -14,6 +14,8 @@ from ._get_common_objects  import _get_top # need to move this method to more co
 
 _, np = _import_numpy()
 
+__all__ = ['Trajectory']
+
 # TODO : more checking.
 class Trajectory(ActionInTraj):
     def __init__(self, filename_or_traj=None, top=None):

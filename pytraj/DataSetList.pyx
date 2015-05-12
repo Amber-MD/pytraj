@@ -1,10 +1,13 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
+from cpython.array cimport array
 
 # python level
 from pytraj.datasets.cast_dataset import cast_dataset
-from pytraj.utils.check_and_assert import _import
+from pytraj.utils.check_and_assert import _import, is_array
+from pytraj.utils.check_and_assert import _import_numpy
+from pytraj.utils.check_and_assert import is_word_in_class_name
 from collections import defaultdict
 from pytraj._utils cimport get_positive_idx
 from pytraj.externals.six import string_types
@@ -17,6 +20,7 @@ from pytraj.exceptions import *
 # DataSet
 from pytraj.cpptraj_dict import DataTypeDict
 
+
 cdef class DataSetList:
     def __cinit__(self, py_free_mem=True):
         # py_free_mem is a flag to tell pytraj should free memory or let 
@@ -28,6 +32,12 @@ cdef class DataSetList:
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
+
+    def copy(self):
+        cdef DataSetList dnew = DataSetList()
+        for d in self:
+            dnew._add_copy_of_set(d)
+        return dnew
 
     def __call__(self, *args, **kwd):
         return self.groupby(*args, **kwd)
@@ -107,6 +117,12 @@ cdef class DataSetList:
             new_dslist = DataSetList()
             new_dslist.py_free_mem = False # view
             for _idx in range(start, stop, step):
+                new_dslist.add_existing_set(self[_idx])
+            return new_dslist
+        elif is_array(idx) or isinstance(idx, list):
+            new_dslist = DataSetList()
+            new_dslist.py_free_mem = False # view
+            for _idx in idx: 
                 new_dslist.add_existing_set(self[_idx])
             return new_dslist
         else:
@@ -278,6 +294,7 @@ cdef class DataSetList:
             mode = 'legend' | 'name' | 'dtype' | 'aspect'
         """
         import re
+        cdef DataSetList dtmp
 
         dtmp = DataSetList()
 
@@ -349,3 +366,37 @@ cdef class DataSetList:
             dset.baseptr0 = deref(it)
             yield dset
             incr(it)
+
+    def apply(self, func):
+        for d in self:
+            arr = np.asarray(d.data)
+            arr[:] = func(arr)
+
+    def data(self):
+        """"""
+        raise NotImplementedError("Not yet")
+
+    def avg(self):
+        arr = array('d', [])
+        for d in self:
+            arr.append(d.avg())
+        return avg
+
+    def min(self):
+        arr = array('d', [])
+        for d in self:
+            arr.append(d.min())
+        return arr
+
+    def max(self):
+        arr = array('d', [])
+        for d in self:
+            arr.append(d.max())
+        return arr
+
+    def sum(self, legend=None):
+        _, np = _import_numpy()
+        if not legend:
+            return np.sum(self.to_ndarray(), axis=0)
+        else:
+            return self.groupby(legend).sum()
