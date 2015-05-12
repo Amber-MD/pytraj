@@ -83,6 +83,10 @@ def info(obj=None):
             set_world_silent(False)
             _obj.help()
             set_world_silent(True)
+        if hasattr(_obj, 'info'):
+            set_world_silent(False)
+            _obj.info()
+            set_world_silent(True)
         else:
             raise ValueError("object does not have `help` method")
 

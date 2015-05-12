@@ -226,7 +226,7 @@ def to_string_ss(arr0):
     ssdict = dict(zip(range(len_ss), ss))
     return list(map(lambda idx: ssdict[idx], arr0))
 
-def calc_dssp(traj=None, command="", top=None, dtype='int'):
+def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=DataFileList()):
     """return dssp profile for frame/traj
 
     Parameters
@@ -242,6 +242,17 @@ def calc_dssp(traj=None, command="", top=None, dtype='int'):
     if dtype in ['dataset',]
         DataSetList object
 
+    Examples
+    --------
+        calc_dssp(traj, ":2-10")
+
+        calc_dssp(traj, ":2-10 out dssp.gnu", dflist=dflist)
+        dflist.write_all_datafiles()
+
+        calc_dssp(traj, ":2-10 sumout dssp.agr", dflist=dflist)
+        dflist.write_all_datafiles()
+        # from terminal: xmgrace dssp.agr
+
     Notes
     -----
     Character Integer DSSP_Char SS_type
@@ -253,12 +264,20 @@ def calc_dssp(traj=None, command="", top=None, dtype='int'):
     I         5       'I'       Pi (3-14) helix
     T         6       'T'       Turn
     S         7       'S'       Bend
+
+    See Also
+    --------
+    Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 588)
     """
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    if dslist is None:
+        dslist = DataSetList()
     adict['dssp'](command,
-                  current_frame=traj, top=_top,
-                  dslist=dslist)
+                  current_frame=traj, 
+                  top=_top,
+                  dslist=dslist,
+                  dflist=dflist)
+
     dtype = dtype.upper()
 
     # get all dataset from DatSetList if dtype == integer
