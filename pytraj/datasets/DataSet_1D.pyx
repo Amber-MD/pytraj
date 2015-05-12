@@ -23,10 +23,6 @@ cdef class DataSet_1D (DataSet):
         else:
             raise ValueError("idx must be 0 or 1")
 
-    #def copy(self, DataSet dset):
-    #    # TODO : make `copy` method here? but need to recast all pointers
-    #    self.baseptr_1 = <_DataSet_1D*> dset.baseptr0
-        
     def allocate_1D(self, size_t sizet):
         return self.baseptr_1.Allocate1D(sizet)
 

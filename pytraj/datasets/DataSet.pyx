@@ -44,6 +44,28 @@ cdef class DataSet:
     def __setitem__(self, idx, value):
         raise NotImplementedError("Must over-write DataSet data attr")
 
+    def copy(self):
+        cdef int i
+        cdef int size = self.size
+
+        new_ds = self.__class__()
+        try:
+            try:
+                new_ds.resize(self.size)
+                new_ds.data[:] = self.data
+            except:
+                # try to make copy (Vector, ...)
+                # slower
+                for i in range(size):
+                    new_ds.append(self[i])
+            return new_ds
+        except:
+            raise TypeError("don't know how to copy %s" % self.class_name)
+
+    @property
+    def class_name(self):
+        return self.__class__.__name__()
+
     @property
     def size(self):
         return self.baseptr0.Size()

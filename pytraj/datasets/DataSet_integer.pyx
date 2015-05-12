@@ -54,6 +54,9 @@ cdef class DataSet_integer (DataSet_1D):
         for i in range(size):
             yield self.thisptr.index_opr(i)
 
+    def resize(self, size_t sizeIn):
+        self.thisptr.Resize(sizeIn)
+
     def count(self, value=None):
         """
         Parameters

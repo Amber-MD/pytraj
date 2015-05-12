@@ -3,6 +3,8 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.datasets import *
+from pytraj.testing import aa_eq
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -20,10 +22,45 @@ class Test(unittest.TestCase):
 
         print (keys)
 
+        # test create
         for key in keys:
             print (key)
             d0 = ddict[key]()
             print (d0.name, d0.dtype)
+
+        # test resize
+        d_double = DataSet_double()
+        d_float = DataSet_float()
+        d_int = DataSet_integer()
+        d_v = DataSet_Vector()
+        d_s = DataSet_string()
+        
+        N = 100
+        d_double.resize(N)
+        d_float.resize(N)
+        d_int.resize(N)
+        d_v.resize(N)
+        d_s.resize(N)
+
+        assert d_double.size == d_float.size == d_int.size == N
+        assert d_v.size == d_s.size == N
+
+        # test copy
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        d = traj.calc_dssp(dtype='dataset')
+        print (d.keys())
+        print (d.get_dtypes())
+
+        ds_new = d.groupby('integer', mode='dtype')
+        d_new_cp = ds_new[0].copy()
+        aa_eq(d_new_cp.data, ds_new[0].data)
+
+        ds_new = d.groupby('float', mode='dtype')
+        d_new_cp = ds_new[0].copy()
+        aa_eq(d_new_cp.data, ds_new[0].data)
+
+        ds_v = traj.calc_vector("@CA @CB")
+        dcp = ds_v[0].copy()
 
 if __name__ == "__main__":
     unittest.main()

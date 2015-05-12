@@ -20,6 +20,7 @@ from pytraj.exceptions import *
 # DataSet
 from pytraj.cpptraj_dict import DataTypeDict
 
+_, np = _import_numpy()
 
 cdef class DataSetList:
     def __cinit__(self, py_free_mem=True):
@@ -394,6 +395,12 @@ cdef class DataSetList:
     def sum(self, legend=None, axis=1):
         _, np = _import_numpy()
         if not legend:
-            return np.sum(self.to_ndarray(), axis=1)
+            return np.sum(self.to_ndarray(), axis=axis)
         else:
-            return self.groupby(legend).sum()
+            return self.groupby(legend).sum(axis=axis)
+
+    def cumsum(self, axis=1):
+        """Return the cumulative sum of the elements along a given axis.
+        (from numpy doc)
+        """
+        return np.cumsum(self.to_ndarray(), axis=axis)

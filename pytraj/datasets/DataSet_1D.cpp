@@ -956,7 +956,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_4_recast_p
  *         else:
  *             raise ValueError("idx must be 0 or 1")             # <<<<<<<<<<<<<<
  * 
- *     #def copy(self, DataSet dset):
+ *     def allocate_1D(self, size_t sizet):
  */
   /*else*/ {
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -988,8 +988,8 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_4_recast_p
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":30
- *     #    self.baseptr_1 = <_DataSet_1D*> dset.baseptr0
+/* "pytraj/datasets/DataSet_1D.pyx":26
+ *             raise ValueError("idx must be 0 or 1")
  * 
  *     def allocate_1D(self, size_t sizet):             # <<<<<<<<<<<<<<
  *         return self.baseptr_1.Allocate1D(sizet)
@@ -1008,7 +1008,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_7allocate_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("allocate_1D (wrapper)", 0);
   assert(__pyx_arg_sizet); {
-    __pyx_v_sizet = __Pyx_PyInt_As_size_t(__pyx_arg_sizet); if (unlikely((__pyx_v_sizet == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_sizet = __Pyx_PyInt_As_size_t(__pyx_arg_sizet); if (unlikely((__pyx_v_sizet == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1032,7 +1032,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_6allocate_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("allocate_1D", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":31
+  /* "pytraj/datasets/DataSet_1D.pyx":27
  * 
  *     def allocate_1D(self, size_t sizet):
  *         return self.baseptr_1.Allocate1D(sizet)             # <<<<<<<<<<<<<<
@@ -1040,14 +1040,14 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_6allocate_
  *     def write_buffer(self, CpptrajFile cppfile, size_t sizet):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->baseptr_1->Allocate1D(__pyx_v_sizet)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->baseptr_1->Allocate1D(__pyx_v_sizet)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":30
- *     #    self.baseptr_1 = <_DataSet_1D*> dset.baseptr0
+  /* "pytraj/datasets/DataSet_1D.pyx":26
+ *             raise ValueError("idx must be 0 or 1")
  * 
  *     def allocate_1D(self, size_t sizet):             # <<<<<<<<<<<<<<
  *         return self.baseptr_1.Allocate1D(sizet)
@@ -1065,7 +1065,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_6allocate_
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":33
+/* "pytraj/datasets/DataSet_1D.pyx":29
  *         return self.baseptr_1.Allocate1D(sizet)
  * 
  *     def write_buffer(self, CpptrajFile cppfile, size_t sizet):             # <<<<<<<<<<<<<<
@@ -1105,11 +1105,11 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_9write_buf
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sizet)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("write_buffer", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("write_buffer", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "write_buffer") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "write_buffer") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1118,17 +1118,17 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_9write_buf
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_cppfile = ((struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile *)values[0]);
-    __pyx_v_sizet = __Pyx_PyInt_As_size_t(values[1]); if (unlikely((__pyx_v_sizet == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_sizet = __Pyx_PyInt_As_size_t(values[1]); if (unlikely((__pyx_v_sizet == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("write_buffer", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("write_buffer", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.datasets.DataSet_1D.DataSet_1D.write_buffer", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cppfile), __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile, 1, "cppfile", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_cppfile), __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile, 1, "cppfile", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_8write_buffer(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self), __pyx_v_cppfile, __pyx_v_sizet);
 
   /* function exit code */
@@ -1145,7 +1145,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_8write_buf
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("write_buffer", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":34
+  /* "pytraj/datasets/DataSet_1D.pyx":30
  * 
  *     def write_buffer(self, CpptrajFile cppfile, size_t sizet):
  *         self.baseptr_1.WriteBuffer(cppfile.thisptr[0], sizet)             # <<<<<<<<<<<<<<
@@ -1154,7 +1154,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_8write_buf
  */
   __pyx_v_self->baseptr_1->WriteBuffer((__pyx_v_cppfile->thisptr[0]), __pyx_v_sizet);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":33
+  /* "pytraj/datasets/DataSet_1D.pyx":29
  *         return self.baseptr_1.Allocate1D(sizet)
  * 
  *     def write_buffer(self, CpptrajFile cppfile, size_t sizet):             # <<<<<<<<<<<<<<
@@ -1169,7 +1169,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_8write_buf
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":36
+/* "pytraj/datasets/DataSet_1D.pyx":32
  *         self.baseptr_1.WriteBuffer(cppfile.thisptr[0], sizet)
  * 
  *     def d_val(self, size_t sizet):             # <<<<<<<<<<<<<<
@@ -1189,7 +1189,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_11d_val(Py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("d_val (wrapper)", 0);
   assert(__pyx_arg_sizet); {
-    __pyx_v_sizet = __Pyx_PyInt_As_size_t(__pyx_arg_sizet); if (unlikely((__pyx_v_sizet == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_sizet = __Pyx_PyInt_As_size_t(__pyx_arg_sizet); if (unlikely((__pyx_v_sizet == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1213,7 +1213,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_10d_val(st
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("d_val", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":37
+  /* "pytraj/datasets/DataSet_1D.pyx":33
  * 
  *     def d_val(self, size_t sizet):
  *         return self.baseptr_1.Dval(sizet)             # <<<<<<<<<<<<<<
@@ -1221,13 +1221,13 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_10d_val(st
  *     def xcrd(self, size_t sizet):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Dval(__pyx_v_sizet)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Dval(__pyx_v_sizet)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":36
+  /* "pytraj/datasets/DataSet_1D.pyx":32
  *         self.baseptr_1.WriteBuffer(cppfile.thisptr[0], sizet)
  * 
  *     def d_val(self, size_t sizet):             # <<<<<<<<<<<<<<
@@ -1246,7 +1246,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_10d_val(st
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":39
+/* "pytraj/datasets/DataSet_1D.pyx":35
  *         return self.baseptr_1.Dval(sizet)
  * 
  *     def xcrd(self, size_t sizet):             # <<<<<<<<<<<<<<
@@ -1266,7 +1266,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_13xcrd(PyO
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("xcrd (wrapper)", 0);
   assert(__pyx_arg_sizet); {
-    __pyx_v_sizet = __Pyx_PyInt_As_size_t(__pyx_arg_sizet); if (unlikely((__pyx_v_sizet == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_sizet = __Pyx_PyInt_As_size_t(__pyx_arg_sizet); if (unlikely((__pyx_v_sizet == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1290,7 +1290,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_12xcrd(str
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("xcrd", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":40
+  /* "pytraj/datasets/DataSet_1D.pyx":36
  * 
  *     def xcrd(self, size_t sizet):
  *         return self.baseptr_1.Xcrd(sizet)             # <<<<<<<<<<<<<<
@@ -1298,13 +1298,13 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_12xcrd(str
  *     def is_torsion_array(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Xcrd(__pyx_v_sizet)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Xcrd(__pyx_v_sizet)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":39
+  /* "pytraj/datasets/DataSet_1D.pyx":35
  *         return self.baseptr_1.Dval(sizet)
  * 
  *     def xcrd(self, size_t sizet):             # <<<<<<<<<<<<<<
@@ -1323,7 +1323,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_12xcrd(str
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":42
+/* "pytraj/datasets/DataSet_1D.pyx":38
  *         return self.baseptr_1.Xcrd(sizet)
  * 
  *     def is_torsion_array(self):             # <<<<<<<<<<<<<<
@@ -1354,7 +1354,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_14is_torsi
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("is_torsion_array", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":43
+  /* "pytraj/datasets/DataSet_1D.pyx":39
  * 
  *     def is_torsion_array(self):
  *         return self.baseptr_1.IsTorsionArray()             # <<<<<<<<<<<<<<
@@ -1362,13 +1362,13 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_14is_torsi
  *     def avg(self, *args):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->baseptr_1->IsTorsionArray()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->baseptr_1->IsTorsionArray()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":42
+  /* "pytraj/datasets/DataSet_1D.pyx":38
  *         return self.baseptr_1.Xcrd(sizet)
  * 
  *     def is_torsion_array(self):             # <<<<<<<<<<<<<<
@@ -1387,7 +1387,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_14is_torsi
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":45
+/* "pytraj/datasets/DataSet_1D.pyx":41
  *         return self.baseptr_1.IsTorsionArray()
  * 
  *     def avg(self, *args):             # <<<<<<<<<<<<<<
@@ -1427,7 +1427,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_16avg(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("avg", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":46
+  /* "pytraj/datasets/DataSet_1D.pyx":42
  * 
  *     def avg(self, *args):
  *         if not args:             # <<<<<<<<<<<<<<
@@ -1438,7 +1438,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_16avg(stru
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/datasets/DataSet_1D.pyx":47
+    /* "pytraj/datasets/DataSet_1D.pyx":43
  *     def avg(self, *args):
  *         if not args:
  *             return self.baseptr_1.Avg()             # <<<<<<<<<<<<<<
@@ -1446,13 +1446,13 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_16avg(stru
  *             sd = args[0]
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Avg()); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Avg()); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_r = __pyx_t_3;
     __pyx_t_3 = 0;
     goto __pyx_L0;
 
-    /* "pytraj/datasets/DataSet_1D.pyx":46
+    /* "pytraj/datasets/DataSet_1D.pyx":42
  * 
  *     def avg(self, *args):
  *         if not args:             # <<<<<<<<<<<<<<
@@ -1461,7 +1461,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_16avg(stru
  */
   }
 
-  /* "pytraj/datasets/DataSet_1D.pyx":49
+  /* "pytraj/datasets/DataSet_1D.pyx":45
  *             return self.baseptr_1.Avg()
  *         else:
  *             sd = args[0]             # <<<<<<<<<<<<<<
@@ -1474,7 +1474,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_16avg(stru
     __pyx_v_sd = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "pytraj/datasets/DataSet_1D.pyx":50
+    /* "pytraj/datasets/DataSet_1D.pyx":46
  *         else:
  *             sd = args[0]
  *             return self.baseptr_1.Avg(sd)             # <<<<<<<<<<<<<<
@@ -1482,15 +1482,15 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_16avg(stru
  *     def min(self):
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_sd); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Avg(__pyx_t_4)); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_sd); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Avg(__pyx_t_4)); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_r = __pyx_t_3;
     __pyx_t_3 = 0;
     goto __pyx_L0;
   }
 
-  /* "pytraj/datasets/DataSet_1D.pyx":45
+  /* "pytraj/datasets/DataSet_1D.pyx":41
  *         return self.baseptr_1.IsTorsionArray()
  * 
  *     def avg(self, *args):             # <<<<<<<<<<<<<<
@@ -1510,7 +1510,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_16avg(stru
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":52
+/* "pytraj/datasets/DataSet_1D.pyx":48
  *             return self.baseptr_1.Avg(sd)
  * 
  *     def min(self):             # <<<<<<<<<<<<<<
@@ -1541,7 +1541,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_18min(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("min", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":53
+  /* "pytraj/datasets/DataSet_1D.pyx":49
  * 
  *     def min(self):
  *         return self.baseptr_1.Min()             # <<<<<<<<<<<<<<
@@ -1549,13 +1549,13 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_18min(stru
  *     def max(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Min()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Min()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 49; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":52
+  /* "pytraj/datasets/DataSet_1D.pyx":48
  *             return self.baseptr_1.Avg(sd)
  * 
  *     def min(self):             # <<<<<<<<<<<<<<
@@ -1574,7 +1574,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_18min(stru
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":55
+/* "pytraj/datasets/DataSet_1D.pyx":51
  *         return self.baseptr_1.Min()
  * 
  *     def max(self):             # <<<<<<<<<<<<<<
@@ -1605,7 +1605,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_20max(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("max", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":56
+  /* "pytraj/datasets/DataSet_1D.pyx":52
  * 
  *     def max(self):
  *         return self.baseptr_1.Max()             # <<<<<<<<<<<<<<
@@ -1613,13 +1613,13 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_20max(stru
  *     def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn, bint calccovar, bint usefft):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Max()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Max()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":55
+  /* "pytraj/datasets/DataSet_1D.pyx":51
  *         return self.baseptr_1.Min()
  * 
  *     def max(self):             # <<<<<<<<<<<<<<
@@ -1638,7 +1638,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_20max(stru
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":58
+/* "pytraj/datasets/DataSet_1D.pyx":54
  *         return self.baseptr_1.Max()
  * 
  *     def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn, bint calccovar, bint usefft):             # <<<<<<<<<<<<<<
@@ -1684,26 +1684,26 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_23cross_co
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_Ct)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lagmaxIn)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_calccovar)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_usefft)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "cross_corr") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "cross_corr") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -1716,20 +1716,20 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_23cross_co
     }
     __pyx_v_D2 = ((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)values[0]);
     __pyx_v_Ct = ((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)values[1]);
-    __pyx_v_lagmaxIn = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_lagmaxIn == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_calccovar = __Pyx_PyObject_IsTrue(values[3]); if (unlikely((__pyx_v_calccovar == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_usefft = __Pyx_PyObject_IsTrue(values[4]); if (unlikely((__pyx_v_usefft == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_lagmaxIn = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_lagmaxIn == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_calccovar = __Pyx_PyObject_IsTrue(values[3]); if (unlikely((__pyx_v_calccovar == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_usefft = __Pyx_PyObject_IsTrue(values[4]); if (unlikely((__pyx_v_usefft == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.datasets.DataSet_1D.DataSet_1D.cross_corr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_D2), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "D2", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_Ct), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "Ct", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_D2), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "D2", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_Ct), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "Ct", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_22cross_corr(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self), __pyx_v_D2, __pyx_v_Ct, __pyx_v_lagmaxIn, __pyx_v_calccovar, __pyx_v_usefft);
 
   /* function exit code */
@@ -1750,7 +1750,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_22cross_co
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cross_corr", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":59
+  /* "pytraj/datasets/DataSet_1D.pyx":55
  * 
  *     def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn, bint calccovar, bint usefft):
  *         return self.baseptr_1.CrossCorr(D2.baseptr_1[0], Ct.baseptr_1[0], lagmaxIn, calccovar, usefft)             # <<<<<<<<<<<<<<
@@ -1758,13 +1758,13 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_22cross_co
  *     def corr_coeff(self, DataSet_1D other):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->baseptr_1->CrossCorr((__pyx_v_D2->baseptr_1[0]), (__pyx_v_Ct->baseptr_1[0]), __pyx_v_lagmaxIn, __pyx_v_calccovar, __pyx_v_usefft)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->baseptr_1->CrossCorr((__pyx_v_D2->baseptr_1[0]), (__pyx_v_Ct->baseptr_1[0]), __pyx_v_lagmaxIn, __pyx_v_calccovar, __pyx_v_usefft)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":58
+  /* "pytraj/datasets/DataSet_1D.pyx":54
  *         return self.baseptr_1.Max()
  * 
  *     def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn, bint calccovar, bint usefft):             # <<<<<<<<<<<<<<
@@ -1783,7 +1783,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_22cross_co
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":61
+/* "pytraj/datasets/DataSet_1D.pyx":57
  *         return self.baseptr_1.CrossCorr(D2.baseptr_1[0], Ct.baseptr_1[0], lagmaxIn, calccovar, usefft)
  * 
  *     def corr_coeff(self, DataSet_1D other):             # <<<<<<<<<<<<<<
@@ -1801,7 +1801,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_25corr_coe
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("corr_coeff (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24corr_coeff(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self), ((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_other));
 
   /* function exit code */
@@ -1822,20 +1822,20 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24corr_coe
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("corr_coeff", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":62
+  /* "pytraj/datasets/DataSet_1D.pyx":58
  * 
  *     def corr_coeff(self, DataSet_1D other):
  *         return self.baseptr_1.CorrCoeff(other.baseptr_1[0])             # <<<<<<<<<<<<<<
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->CorrCoeff((__pyx_v_other->baseptr_1[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->CorrCoeff((__pyx_v_other->baseptr_1[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":61
+  /* "pytraj/datasets/DataSet_1D.pyx":57
  *         return self.baseptr_1.CrossCorr(D2.baseptr_1[0], Ct.baseptr_1[0], lagmaxIn, calccovar, usefft)
  * 
  *     def corr_coeff(self, DataSet_1D other):             # <<<<<<<<<<<<<<
@@ -2005,7 +2005,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         else:
  *             raise ValueError("idx must be 0 or 1")             # <<<<<<<<<<<<<<
  * 
- *     #def copy(self, DataSet dset):
+ *     def allocate_1D(self, size_t sizet):
  */
   __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_idx_must_be_0_or_1); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
