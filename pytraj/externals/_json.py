@@ -11,7 +11,6 @@ def to_json(obj, path):
     path : string
         File path
     """
-    print (json)
     with open(path, 'wb') as f:
         json.dump(obj, f)
 
