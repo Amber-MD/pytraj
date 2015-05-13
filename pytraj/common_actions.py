@@ -151,7 +151,7 @@ def calc_dihedral(traj=None, command="", top=None, *args, **kwd):
     Notes:
     command : str | int_2d numpy array
     """
-    ensure_not_not_or_string(traj)
+    ensure_not_none_or_string(traj)
 
     _, np = _import_numpy()
     _top = _get_top(traj, top)
