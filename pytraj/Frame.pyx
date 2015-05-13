@@ -9,6 +9,7 @@ from cpython.array cimport array as pyarray
 from cython.parallel import prange
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
+from libc.string cimport memcpy
 from cpython.buffer cimport Py_buffer
 from pytraj.math.TorsionRoutines cimport Torsion as cpptorsion, CalcAngle as cppangle
 from pytraj.math.DistRoutines cimport DIST2_NoImage
@@ -281,6 +282,28 @@ cdef class Frame (object):
                 yield np.asarray(self.buffer2d[i])
             else:
                 yield self.buffer2d[i]
+
+    def _fast_copy_from_frame(self, Frame other):
+        """only copy coords"""
+        # no boundchecking
+        cdef double *ptr_src, *ptr_dest
+        cdef int count
+
+        ptr_src = other.thisptr.xAddress()
+        ptr_dest = self.thisptr.xAddress()
+        count = self.thisptr.Natom() * 3 * sizeof(double)
+        memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
+    def _fast_copy_from_xyz(self, double[:, :] xyz):
+        """only copy coords"""
+        cdef double *ptr_src, *ptr_dest
+        cdef int count
+        # no boundchecking
+
+        ptr_src = &xyz[0, 0]
+        ptr_dest = self.thisptr.xAddress()
+        count = self.thisptr.Natom() * 3 * sizeof(double)
+        memcpy(<void*> ptr_dest, <void*> ptr_src, count)
 
     def frame_iter(self):
         """

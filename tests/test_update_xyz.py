@@ -11,6 +11,7 @@ from timeit import timeit
 
 class Test(unittest.TestCase):
     def test_0(self):
+        # Trajectory
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         for i in range(5):
             traj += traj.copy()
@@ -29,6 +30,16 @@ class Test(unittest.TestCase):
 
         aa_eq(traj.xyz, xyz)
         aa_eq(traj2.xyz, xyz)
+
+    def test_1(self):
+        # Frame
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        f0, f1 = traj[:2]
+        xyz = f0.xyz + 1.0
+        f0._fast_copy_from_xyz(xyz)
+        aa_eq(f0.xyz, xyz)
+        f1._fast_copy_from_frame(f0)
+        aa_eq(f0.xyz, f1.xyz)
 
 if __name__ == "__main__":
     unittest.main()
