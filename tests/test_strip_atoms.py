@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         fa0.strip_atoms('!@CA')
         assert fa0[0].n_atoms == NATOM
         fa1 = traj[:]
-        fa1._strip_atoms_openmp('!@CA')
+        fa1._strip_atoms_faster('!@CA')
         assert fa1[0].n_atoms == NATOM
 
         aa_eq(fa0.xyz, fa1.xyz)
@@ -43,7 +43,7 @@ class Test(unittest.TestCase):
 
         @Timer()
         def openmp_strip():
-            fa4._strip_atoms_openmp("!@H,C")
+            fa4._strip_atoms_faster("!@H,C")
 
         normal_strip()
         openmp_strip()
