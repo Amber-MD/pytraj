@@ -669,18 +669,26 @@ cdef class Trajectory (object):
 
         Notes
         -----
-        No copy is made
+        No copy is made (except traj += traj (itself))
         """
         cdef _Frame* _frame_ptr
         cdef _Frame _frame
+        cdef Frame frame
+        cdef int old_size = self.size
+        cdef int i
 
-        if other is self:
-            raise ValueError("why do you join your self?")
         if self.top.n_atoms != other.top.n_atoms:
             raise ValueError("n_atoms of two arrays do not match")
 
-        for _frame_ptr in other.frame_v:
-            self.frame_v.push_back(_frame_ptr)
+        if other is self:
+            # why doing this? save memory
+            # traj += traj.copy() is too expensive since we need to make a copy first 
+            print ("making copies of Frames and append")
+            for i in range(old_size):
+                self.append(self[i], copy=True)
+        else:
+            for _frame_ptr in other.frame_v:
+                self.frame_v.push_back(_frame_ptr)
         return self
 
     def append(self, Frame framein, copy=True):
