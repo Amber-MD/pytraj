@@ -2,7 +2,8 @@
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
 from ..decorators import makesureABC, require_having
-
+from ..DataFileList import DataFileList
+from ..DataFile import DataFile
 from pytraj.utils import _import_numpy
 
 cdef class DataSet:
@@ -216,3 +217,9 @@ cdef class DataSet:
         hist, bedge  = np.histogram(self.to_ndarray(), bins=bins, normed=normed,range=range)
         bedge = bedge[:-1]
         return np.array([bedge, hist])
+
+    def write_to_cpptraj_format(self, filename):
+        dflist = DataFileList()
+        d = dflist.add_datafile(filename)
+        d.add_dataset(self)
+        d.write_data()
