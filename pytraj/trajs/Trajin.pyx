@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 import os
 cimport cython
+from cython.parallel cimport prange
 from cpython.array cimport array as pyarray
 from .._utils cimport get_positive_idx
 from ..Trajectory cimport Trajectory
@@ -17,6 +18,7 @@ from .._shared_methods import _box_to_ndarray
 from ..utils.check_and_assert import _import_numpy
 from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
+from pytraj.externals.six.moves import range
 from .Trajout import Trajout
 
 
@@ -255,6 +257,35 @@ cdef class Trajin (TrajectoryFile):
                 self.baseptr_1.ReadTrajFrame(count, _frame_ptr[0])
                 farray.frame_v.push_back(_frame_ptr)
                 count += step
+        return farray
+
+    def _fast_slice_openmp(self, slice my_slice):
+        """
+        don't try to use this method. will get segfault
+        """
+        cdef int start, stop, step
+        cdef int count, i
+        cdef int n_atoms = self.n_atoms
+        cdef Trajectory farray = Trajectory(check_top=False)
+        cdef _Frame* _frame_ptr
+        cdef _Frame* _frame_ptr2
+        cdef int new_size
+
+        farray.top = self.top
+
+        start, stop, step  = my_slice.indices(self.size)
+        new_size = len(range(start, stop, step)) # better way?
+
+        farray.frame_v.reserve(new_size)
+
+        with self:
+            # segfault?
+            # YES: need to compile parallel version?
+            for i in prange(start, stop, step, nogil=True):
+                _frame_ptr = new _Frame(n_atoms)
+                self.baseptr_1.ReadTrajFrame(i, _frame_ptr[0])
+                _frame_ptr2 = farray.frame_v[i]
+                _frame_ptr2  = &_frame_ptr[0]
         return farray
 
 

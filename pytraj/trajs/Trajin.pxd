@@ -11,7 +11,7 @@ from pytraj.trajs.TrajectoryFile cimport _TrajectoryFile, TrajectoryFile
 from pytraj.core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 
 cdef extern from "Trajin.h": 
-    cdef cppclass _Trajin "Trajin" (_TrajectoryFile):
+    cdef cppclass _Trajin "Trajin" (_TrajectoryFile) nogil:
         _Trajin()        
 
         #virtual ~_Trajin() 
