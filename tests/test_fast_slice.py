@@ -12,7 +12,7 @@ from timeit import timeit
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.iterload("./data/nogit/remd/remd.x.000", "./data/nogit/remd/myparm.top")[:200]
+        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")[:]
 
         s = slice(3, 100, 4)
         t0 = traj[s]

@@ -208,8 +208,10 @@ cdef class Trajin (TrajectoryFile):
         else:
             # idxs is slice
             farray = Trajectory()
-            # should we copy self.top or use memview?
-            farray.top = self.top
+            # NOTE: MUST make a copy self.top
+            # if NOT: double-free memory when using `_fast_strip_atoms`
+            #farray.top = self.top
+            farray.top = self.top.copy()
     
             # check comment in Trajectory class with __getitem__ method
             start, stop, step = idxs.indices(self.size)
@@ -228,17 +230,19 @@ cdef class Trajin (TrajectoryFile):
                     # add '-1' to stop 
                     # in `frame_iter`, we include `stop`
                     # but for slicing, python does not include stop
-                    farray.append(frame)
+                    # always use `copy=True` since we are taking frames from 
+                    # read-only Trajectory, no memview
+                    farray.append(frame, copy=True)
     
                 if is_reversed:
                     # reverse vector if using negative index slice
                     # traj[:-1:-3]
                     farray.reverse()
-    
+            return farray
             # use tmpfarray to hold farray for nested indexing
             # if not, Python will free memory for sub-Trajectory 
-            self.tmpfarray = farray
-            return self.tmpfarray
+            #self.tmpfarray = farray
+            #return self.tmpfarray
 
     def _fast_slice(self, slice my_slice):
         cdef int start, stop, step
@@ -247,7 +251,10 @@ cdef class Trajin (TrajectoryFile):
         cdef Trajectory farray = Trajectory(check_top=False)
         cdef _Frame* _frame_ptr
 
-        farray.top = self.top
+        # NOTE: MUST make a copy self.top
+        # if NOT: double-free memory when using `_fast_strip_atoms`
+        #farray.top = self.top
+        farray.top = self.top.copy()
 
         start, stop, step  = my_slice.indices(self.size)
         count = start

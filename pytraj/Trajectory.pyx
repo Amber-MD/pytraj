@@ -852,8 +852,18 @@ cdef class Trajectory (object):
             self.top = tmptop.copy()
 
     #def _strip_atoms_openmp(self, mask=None, bint update_top=True, bint has_box=False):
-    def _strip_atoms_faster(self, mask=None, bint update_top=True, bint has_box=False):
-        """if you use memory for numpy, you need to update after resizing Frame
+    def _fast_strip_atoms(self, mask=None, bint update_top=True, bint has_box=False):
+        """
+        Paramters
+        ---------
+        mask : str
+        update_top : bool, default=True
+            'True' : automatically update Topology
+        has_box : bool, default=False (does not work with `True` yet)
+        Notes
+        -----
+        * Known bug: 
+        * if you use memory for numpy, you need to update after resizing Frame
         >>> arr0 = np.asarray(frame.buffer)
         >>> frame.strip_atoms(top,"!@CA")
         >>> # update view

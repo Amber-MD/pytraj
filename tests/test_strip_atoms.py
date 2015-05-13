@@ -25,32 +25,36 @@ class Test(unittest.TestCase):
         fa0.strip_atoms('!@CA')
         assert fa0[0].n_atoms == NATOM
         fa1 = traj[:]
-        fa1._strip_atoms_faster('!@CA')
+        fa1._fast_strip_atoms('!@CA')
         assert fa1[0].n_atoms == NATOM
 
         aa_eq(fa0.xyz, fa1.xyz)
 
-        fa3 = traj[:]
-        for i in range(300):
-            fa3 += traj[:]
+        #fa3 = traj[:]
+        fa3 = traj._fast_slice(slice(2, 100, 10))
+        print (traj)
+        #print (fa3)
+        #for i in range(20):
+        #    print (fa3)
+        #    fa3 += fa3.copy()
 
-        fa4 = fa3.copy()
-        print (fa3, fa4)
+        #fa4 = fa3.copy()
+        #print (fa3, fa4)
 
-        @Timer()
-        def normal_strip():
-            fa3.strip_atoms("!@H,C")
+        #@Timer()
+        #def normal_strip():
+        #    fa3.strip_atoms("!@H,C")
 
-        @Timer()
-        def openmp_strip():
-            fa4._strip_atoms_faster("!@H,C")
+        #@Timer()
+        #def openmp_strip():
+        #    fa4._fast_strip_atoms("!@H,C")
 
-        normal_strip()
-        openmp_strip()
-        aa_eq(fa3.xyz, fa4.xyz)
-        atm = traj.top("!@H,C")
-        atm.invert_mask()
-        assert fa3.n_atoms == atm.n_atoms == fa4.n_atoms
+        #normal_strip()
+        #openmp_strip()
+        #aa_eq(fa3.xyz, fa4.xyz)
+        #atm = traj.top("!@H,C")
+        #atm.invert_mask()
+        #assert fa3.n_atoms == atm.n_atoms == fa4.n_atoms
 
 if __name__ == "__main__":
     unittest.main()
