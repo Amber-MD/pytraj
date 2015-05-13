@@ -86,8 +86,11 @@ cdef class Box:
     def set_missing_info(self, Box boxinst):
         self.thisptr.SetMissingInfo(boxinst.thisptr[0])
 
-    def to_recip(self,Matrix_3x3 ucell, Matrix_3x3 recip):
-        return self.thisptr.ToRecip(ucell.thisptr[0], recip.thisptr[0])
+    def to_recip(self):
+        cdef Matrix_3x3 ucell = Matrix_3x3()
+        cdef Matrix_3x3 recip = Matrix_3x3()
+        self.thisptr.ToRecip(ucell.thisptr[0], recip.thisptr[0])
+        return ucell, recip
 
     @property
     def type(self):
