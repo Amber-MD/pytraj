@@ -26,5 +26,13 @@ class Test(unittest.TestCase):
         newarr = ds.to_ndarray()
         aa_eq(2*arr0, newarr)
 
+    def test_1(self):
+        print ("test __array__")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        ds = traj.search_hbonds()
+        ds0 = ds[0]
+        assert np.mean(ds0) == ds0.avg()
+        assert np.sum(ds0) == np.sum(ds0.data)
+
 if __name__ == "__main__":
     unittest.main()
