@@ -52,10 +52,6 @@ cdef class Trajin (TrajectoryFile):
     def __call__(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
 
-    @cython.boundscheck(False)
-    @cython.wraparound(False)
-    @cython.profile(True)
-    @cython.infer_types(True)
     def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         return _frame_iter(self, start, stop, stride, mask)
 
@@ -70,13 +66,14 @@ cdef class Trajin (TrajectoryFile):
         """
         cdef int newstart
         cdef int n_chunk, i 
+        cdef int n_frames = self.n_frames
 
         # check `start`
-        if start < 0 or start >= self.n_frames:
+        if start < 0 or start >= n_frames:
             start = 0
 
         # check `stop`
-        if stop <= 0 or stop >= self.n_frames:
+        if stop <= 0 or stop >= n_frames:
             stop = <int> self.size - 1
 
         if chunk <= 1:
@@ -116,8 +113,6 @@ cdef class Trajin (TrajectoryFile):
     def n_atoms(self):
         return self.top.n_atoms
 
-    @cython.boundscheck(False)
-    @cython.wraparound(False)
     def __getitem__(self, idxs):
         # allocate frame for storing data
         cdef Frame frame0
@@ -210,16 +205,12 @@ cdef class Trajin (TrajectoryFile):
                 return self.tmpfarray
         else:
             # idxs is slice
-            if self.debug:
-                print idxs
             farray = Trajectory()
             # should we copy self.top or use memview?
-            farray.top = self.top.copy()
+            farray.top = self.top
     
             # check comment in Trajectory class with __getitem__ method
             start, stop, step = idxs.indices(self.size)
-            if self.debug:
-                print (start, stop, step)
     
             with self:
                 if start > stop and (step < 0):
@@ -246,6 +237,26 @@ cdef class Trajin (TrajectoryFile):
             # if not, Python will free memory for sub-Trajectory 
             self.tmpfarray = farray
             return self.tmpfarray
+
+    def _fast_slice(self, slice my_slice):
+        cdef int start, stop, step
+        cdef int count
+        cdef int n_atoms = self.n_atoms
+        cdef Trajectory farray = Trajectory(check_top=False)
+        cdef _Frame* _frame_ptr
+
+        farray.top = self.top
+
+        start, stop, step  = my_slice.indices(self.size)
+        count = start
+        with self:
+            while count < stop:
+                _frame_ptr = new _Frame(n_atoms)
+                self.baseptr_1.ReadTrajFrame(count, _frame_ptr[0])
+                farray.frame_v.push_back(_frame_ptr)
+                count += step
+        return farray
+
 
     def __setitem__(self, idx, value):
         raise NotImplementedError("Read only Trajectory. Use Trajectory class for __setitem__")

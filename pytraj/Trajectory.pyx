@@ -593,8 +593,6 @@ cdef class Trajectory (object):
         # we don't do anythin here. Just create the same API for TrajectoryIterator
         pass
 
-    @cython.boundscheck(False)
-    @cython.wraparound(False)
     def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         """iterately get Frames with start, stop, stride 
         Parameters
