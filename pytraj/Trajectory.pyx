@@ -351,6 +351,22 @@ cdef class Trajectory (object):
             ptr_src = &(xyz[idx, 0, 0])
             memcpy(<void*> ptr_dest, <void*> ptr_src, count)
 
+    def _update_xyz_memcpy_openmp(self, double[:, :, :] xyz):
+        # make sure to use double precision for xyz
+        cdef int idx, n_frames
+        cdef double* ptr_src
+        cdef double* ptr_dest
+        cdef size_t count
+
+        n_frames = xyz.shape[0]
+        n_atoms = xyz.shape[1]
+        count = sizeof(double) * n_atoms * 3
+
+        for idx in prange(n_frames, nogil=True):
+            ptr_dest = self.frame_v[idx].xAddress()
+            ptr_src = &(xyz[idx, 0, 0])
+            memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
     def tolist(self):
         return _tolist(self)
 
