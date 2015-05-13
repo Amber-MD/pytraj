@@ -35,6 +35,7 @@ with open("log", 'r') as log_file, open("log2.sh", 'w') as log2:
 os.system("sh log2.sh")
 print ("%s FAILs (assert)" % i_fails)
 print ("no-passing-files: \n")
+print ("got %s segmentations faults" % i_seg)
 os.system("cat log2.sh")
 
 if i_fails  >= 1 or i_seg >= 1:
