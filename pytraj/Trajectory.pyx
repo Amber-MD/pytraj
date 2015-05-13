@@ -829,6 +829,9 @@ cdef class Trajectory (object):
         >>> # update view
         >>> arr0 = np.asarray(frame.buffer)
         """
+        cdef AtomMask atm = self.top(mask)
+        # read note about `_strip_atoms`
+        atm.invert_mask()
 
         cdef vector[_Frame*].iterator it
         cdef Frame frame = Frame()
@@ -845,10 +848,60 @@ cdef class Trajectory (object):
             frame.thisptr = deref(it)
             # we need to update topology since _strip_atoms will modify it
             tmptop = self.top.copy()
-            frame._strip_atoms(tmptop, mask, update_top, has_box)
+            frame._strip_atoms(tmptop, atm, update_top, has_box)
             incr(it)
         if update_top:
             self.top = tmptop.copy()
+
+    #def _strip_atoms_openmp(self, mask=None, bint update_top=True, bint has_box=False):
+    def _strip_atoms_openmp(self, mask=None, bint update_top=True, bint has_box=False):
+        """if you use memory for numpy, you need to update after resizing Frame
+        >>> arr0 = np.asarray(frame.buffer)
+        >>> frame.strip_atoms(top,"!@CA")
+        >>> # update view
+        >>> arr0 = np.asarray(frame.buffer)
+        """
+        # NOTE: tested openmp (prange) but don't see the different. Need to 
+        # doublecheck if we DID apply openmp correctly
+
+        cdef Frame frame = Frame()
+        cdef _Topology _tmptop
+        cdef _Topology* _newtop_ptr
+        cdef _Frame _tmpframe
+        cdef int i 
+        cdef int n_frames = self.frame_v.size()
+        cdef AtomMask atm = self.top(mask)
+
+        atm.invert_mask() # read note in `Frame._strip_atoms`
+
+        if mask == None: 
+            raise ValueError("Must provide mask to strip")
+        mask = mask.encode("UTF-8")
+
+        # do not dealloc since we use memoryview for _Frame
+        frame.py_free_mem = False
+
+        # TODO : make it even faster by openmp
+        # need to handal memory to avoid double-free
+        _newtop_ptr = self.top.thisptr.modifyStateByMask(atm.thisptr[0])
+        #for i in prange(n_frames, nogil=True):
+        for i in range(n_frames):
+            # point to i-th _Frame
+            frame.thisptr = new _Frame() # make private copy for each core
+            frame.thisptr = self.frame_v[i]
+            # make a copy and modify it. (Why?)
+            # why do we need this?
+            # update new _Topology
+            # need to copy all other informations
+            # allocate
+            _tmpframe.SetupFrameV(_newtop_ptr.Atoms(), _newtop_ptr.ParmCoordInfo())
+            _tmpframe.SetFrame(frame.thisptr[0], atm.thisptr[0])
+            # make a copy: coords, vel, mass...
+            # if only care about `coords`, use `_fast_copy_from_frame`
+            frame.thisptr[0] = _tmpframe
+        if update_top:
+            # C++ assignment
+            self.top.thisptr[0] = _newtop_ptr[0]
 
     def save(self, filename="", fmt='unknown', overwrite=True):
         _savetraj(self, filename, fmt, overwrite)

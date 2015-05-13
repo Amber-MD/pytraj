@@ -19,7 +19,7 @@ ctypedef cppvector[_Molecule].const_iterator mol_iterator
 #ctypedef cppvector[set[AtomicElementType]] BP_mapType
 
 cdef extern from "Topology.h": 
-    cdef cppclass _Topology "Topology":
+    cdef cppclass _Topology "Topology" nogil:
         _Topology() 
         void SetOffset(double oIn)
         void SetDebug(int dIn)
