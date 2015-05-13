@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
         aa_eq(traj3.xyz, xyz)
 
     def test_1(self):
-        # Frame
+        print ("Frame")
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0, f1 = traj[:2]
         xyz = f0.xyz + 1.0
@@ -46,6 +46,72 @@ class Test(unittest.TestCase):
         aa_eq(f0.xyz, xyz)
         f1._fast_copy_from_frame(f0)
         aa_eq(f0.xyz, f1.xyz)
+
+        frame = f0.copy()
+        xyz = frame.xyz.copy()
+        z = xyz.copy()
+        def normal():
+            frame.buffer2d[:] = xyz
+
+        frame = f0.copy()
+        xyz = frame.xyz.copy()
+        z = xyz.copy()
+        def use_memcpy():
+            frame._fast_copy_from_xyz(xyz)
+            
+        frame = f0.copy()
+        xyz = frame.xyz.copy()
+        z = xyz.copy()
+        def numpy_assigment():
+            z[:] = xyz
+
+        print ("normal method")
+        print (timeit(normal, number=1000))
+        print ("use_memcpy")
+        print (timeit(use_memcpy, number=1000))
+        print ("use_numpy")
+        print (timeit(numpy_assigment, number=1000))
+
+    @test_if_path_exists("./data/nogit/tip3p/")
+    def test_2(self):
+        print ("tip3p data")
+        print ("Frame")
+        mydir = "./data/nogit/tip3p/"
+        traj = mdio.iterload(mydir + "/md.trj", mydir + "/tc5bwat.top")
+        f0, f1 = traj[:2]
+        xyz = f0.xyz + 1.0
+        f0._fast_copy_from_xyz(xyz)
+        aa_eq(f0.xyz, xyz)
+        f1._fast_copy_from_frame(f0)
+        aa_eq(f0.xyz, f1.xyz)
+
+        frame = f0.copy()
+        xyz = frame.xyz.copy()
+        z = xyz.copy()
+        def normal():
+            frame.buffer2d[:] = xyz
+
+        frame = f0.copy()
+        xyz = frame.xyz.copy()
+        z = xyz.copy()
+        def use_memcpy():
+            frame._fast_copy_from_xyz(xyz)
+            
+        frame = f0.copy()
+        xyz = frame.xyz.copy()
+        z = xyz.copy()
+        def numpy_assigment():
+            z[:] = xyz
+
+        print ("normal method")
+        print (timeit(normal, number=1000))
+        print ("use_memcpy")
+        print (timeit(use_memcpy, number=1000))
+        print ("use_numpy")
+        print (timeit(numpy_assigment, number=1000))
+
+        # RESULT: similiar copying times for all 3 methods 
+        # --> IO is bottle neck for all?
 
 if __name__ == "__main__":
     unittest.main()
