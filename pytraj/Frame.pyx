@@ -283,6 +283,15 @@ cdef class Frame (object):
             else:
                 yield self.buffer2d[i]
 
+    def __array__(self):
+        """
+        arr0 = np.asarray(frame)
+
+        (== (arr0 = np.asarray(frame[:])))
+        """
+        _, np = _import_numpy()
+        return np.asarray(self.buffer2d)
+
     def _fast_copy_from_frame(self, Frame other):
         """only copy coords"""
         # no boundchecking
