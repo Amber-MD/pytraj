@@ -880,6 +880,8 @@ cdef class Frame (object):
         """
         # NOTE:`atm` here is the KEPT-atommaks (for performance)
         # we will do `atm.invert_mask` laster in `strip_atoms` method
+        # Important: don't try to use raw pointers. Make sure to create Python's objects
+        # (Frame, Topology) to control cpptraj' objects' lifetime.
 
         cdef Topology newtop = Topology()
         newtop.py_free_mem = False
