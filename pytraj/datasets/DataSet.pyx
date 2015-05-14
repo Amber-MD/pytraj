@@ -38,6 +38,23 @@ cdef class DataSet:
         #if self.baseptr0 != NULL:
         #    del self.baseptr0
 
+    def __str__(self):
+        cname = self.class_name
+        dname = self.name
+        dformat = self.data_format
+        size = self.size
+        legend = self.legend
+        aspect = self.aspect
+        dtype = self.dtype
+
+        msg0 = """<pytraj.datasets.{0}: size={1}, name={2}, """.format(cname, size, dname)
+        msg1 = """legend={0}, aspect={1}, dtype={2}, data_format={3}>""".format(legend, 
+            aspect, dtype, dformat)
+        return msg0 + "\n" + msg1 
+
+    def __repr__(self):
+        return self.__str__()
+
     def __iter__(self):
         raise NotImplementedError("Must over-write DataSet data attr")
 
@@ -85,7 +102,7 @@ cdef class DataSet:
 
     @property
     def class_name(self):
-        return self.__class__.__name__()
+        return self.__class__.__name__
 
     @property
     def size(self):

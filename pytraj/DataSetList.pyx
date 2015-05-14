@@ -34,6 +34,13 @@ cdef class DataSetList:
         if self.py_free_mem:
             del self.thisptr
 
+    def __str__(self):
+        msg = "<pytraj.DataSetList with %s datasets>" % self.size
+        return msg
+
+    def __repr__(self):
+        return self.__str__()
+
     def copy(self):
         cdef DataSetList dnew = DataSetList()
         for d in self:
