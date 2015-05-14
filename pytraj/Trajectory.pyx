@@ -551,6 +551,8 @@ cdef class Trajectory (object):
             return farray
 
     def _fast_slice(self, slice my_slice):
+        """only positive indexing
+        """
         cdef int start, stop, step
         cdef int count
         cdef Trajectory myview = Trajectory(check_top=False)
