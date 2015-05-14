@@ -381,9 +381,10 @@ cdef class Trajectory (object):
 
         # TODO : why not using existing slice of list?
 
-        cdef Frame frame = Frame(self.top.n_atoms)
+        cdef Frame frame = Frame(self.top.n_atoms) # need to allocate here?
+        cdef Frame _frame # used for AtomMask selection. will allocate mem later
         cdef Trajectory farray
-        cdef int start, stop, step
+        cdef int start, stop, step, count
         cdef int i
         cdef int idx_1, idx_2
         cdef int[:] int_view
@@ -405,14 +406,16 @@ cdef class Trajectory (object):
 
         elif isinstance(idxs, AtomMask):
             atom_mask_obj = <AtomMask> idxs
-            _farray = Trajectory()
+            _farray = Trajectory(check_top=False) # just create naked Trajectory
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
             for i, frame in enumerate(self):
-                _frame = Frame(frame, atom_mask_obj)
-                _farray.append(_frame)
-            self.tmpfarray = _farray
+                _frame = Frame(frame, atom_mask_obj) # 1st copy
+                _frame.py_free_mem = False #
+                _farray.append(_frame, copy=False) # 2nd copy if using `copy=True`
+            #self.tmpfarray = _farray # why need this?
             # hold _farray in self.tmpfarray to avoid memory lost
-            return self.tmpfarray
+            #return self.tmpfarray
+            return _farray
 
         elif isinstance(idxs, string_types):
             # mimic API of MDtraj
@@ -525,21 +528,24 @@ cdef class Trajectory (object):
             # debug
             #print "after updating (start, stop, step) = (%s, %s, %s)" % (start, stop, step)
       
-            for i in range(start, stop, step):
+            i = start
+            while i < stop:
                 # turn `copy` to `False` to have memoryview
                 # turn `copy` to `True` to make a copy
                 farray.append(self[i], copy=False)
+                i += step
             if is_reversed:
                 # reverse vector if using negative index slice
                 # traj[:-1:-3]
                 farray.reverse()
 
             # hold farray by self.tmpfarray object
-            # so self[:][0][0] is still legit
-            self.tmpfarray = farray
+            # so self[:][0][0] is still legit (but do we really need this with much extra memory?)
+            #self.tmpfarray = farray
             #if self.tmpfarray.size == 1:
             #    return self.tmpfarray[0]
-            return self.tmpfarray
+            #return self.tmpfarray
+            return farray
 
     def _fast_slice(self, slice my_slice):
         cdef int start, stop, step
