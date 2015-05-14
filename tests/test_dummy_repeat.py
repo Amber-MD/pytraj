@@ -35,11 +35,9 @@ class Test(unittest.TestCase):
         print (d1.size)
         d2 = calc_distance(traj, ":3@CA :10@CB")
         d3 = calc_distance(traj, ":3@CA :10@CB")
-        d4 = calc_distance(str_traj_top[0], ":3@CA :10@CB", str_traj_top[1])
 
         assert d0.size == d1.size == traj.n_frames 
         assert d0.size == d2.size == d3.size
-        assert d0.size == d4.size
 
 if __name__ == "__main__":
     unittest.main()
