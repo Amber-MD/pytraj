@@ -1,4 +1,7 @@
+from __future__ import absolute_import
 import numbers
+from ..externals.six import string_types
+from functools import wraps
 
 # don't `import pytraj.externals.six` here: got import error
 try:
@@ -114,6 +117,12 @@ def make_sure_exist(filename):
     if not file_exist(filename):
         txt = "can not find %s" % filename
         raise RuntimeError(txt)
+
+def ensure_not_none_or_string(obj):
+    name = obj.__str__()
+    msg = "<%s> is a wrong input. Can not use `None` or string type" % name
+    if obj is None or isinstance(obj, string_types):
+        raise ValueError(msg)
 
 def assert_almost_equal(arr0, arr1, decimal=3):
     '''numpy-like assert'''

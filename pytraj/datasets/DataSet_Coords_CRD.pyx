@@ -24,7 +24,7 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
         dset.baseptr0 = _DataSet_Coords_CRD.Alloc()
         return dset
 
-    def load(self, filename_or_traj, top=Topology(), copy_top=False):
+    def load(self, filename_or_traj, top=Topology(), copy_top=False, copy=True):
         cdef Topology tmp_top
         cdef Trajin_Single trajin_single
         cdef Frame frame
@@ -48,8 +48,11 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
         if isinstance(filename_or_traj, string_types):
             trajin_single = Trajin_Single(filename_or_traj, tmp_top)
             for frame in trajin_single:
-                self.append(frame)
+                self.append(frame.copy()) # always copy
         else:
             # assume that we can iterate over filename_or_traj to get Frame object
             for frame in filename_or_traj:
-                self.append(frame)
+                if copy:
+                    self.append(frame.copy())
+                else:
+                    self.append(frame)

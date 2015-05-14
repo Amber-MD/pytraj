@@ -5,7 +5,7 @@ from pytraj import adict
 from pytraj import io as mdio
 from numpy.testing import assert_almost_equal
 from pytraj.utils import has_
-from pytraj.decorators import test_if_having
+from pytraj.decorators import test_if_having, no_test
 from pytraj.utils import Timer
 
 print ("pytraj version = 0.1.2.dev0")
@@ -51,6 +51,7 @@ def Run(func, msg, n_times=50, test_load=False):
     print ()
 
 class Test(unittest.TestCase):
+    @no_test
     @test_if_having("mdtraj")
     def test_load(self):
         def load(test_load=True):
@@ -98,6 +99,7 @@ class Test(unittest.TestCase):
             traj.save("./output/x_speed.binpos")
         Run(save_binpos, "save .binpos")
 
+    #@no_test
     @test_if_having("mdtraj")
     def test_4(self):
         def n_frames(traj):

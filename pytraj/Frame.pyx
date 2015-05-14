@@ -9,6 +9,7 @@ from cpython.array cimport array as pyarray
 from cython.parallel import prange
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
+from libc.string cimport memcpy
 from cpython.buffer cimport Py_buffer
 from pytraj.math.TorsionRoutines cimport Torsion as cpptorsion, CalcAngle as cppangle
 from pytraj.math.DistRoutines cimport DIST2_NoImage
@@ -281,6 +282,43 @@ cdef class Frame (object):
                 yield np.asarray(self.buffer2d[i])
             else:
                 yield self.buffer2d[i]
+
+    def __array__(self):
+        """
+        arr0 = np.asarray(frame)
+
+        (== (arr0 = np.asarray(frame[:])))
+        """
+        _, np = _import_numpy()
+        return np.asarray(self.buffer2d)
+
+    def _fast_copy_from_frame(self, Frame other):
+        """only copy coords"""
+        # no boundchecking
+        cdef double *ptr_src
+        cdef double *ptr_dest
+        cdef int count
+
+        ptr_src = other.thisptr.xAddress()
+        ptr_dest = self.thisptr.xAddress()
+        count = self.thisptr.Natom() * 3 * sizeof(double)
+        memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
+    def _fast_copy_from_frame_2(self, Frame other):
+        """only copy coords"""
+        self.thisptr[0] = other.thisptr[0]
+
+    def _fast_copy_from_xyz(self, double[:, :] xyz):
+        """only copy coords"""
+        cdef double *ptr_src
+        cdef double *ptr_dest
+        cdef int count
+        # no boundchecking
+
+        ptr_src = &xyz[0, 0]
+        ptr_dest = self.thisptr.xAddress()
+        count = self.thisptr.Natom() * 3 * sizeof(double)
+        memcpy(<void*> ptr_dest, <void*> ptr_src, count)
 
     def frame_iter(self):
         """
@@ -832,9 +870,7 @@ cdef class Frame (object):
     def calc_temperature(self, AtomMask mask, int deg_of_freedom):
         return self.thisptr.CalcTemperature(mask.thisptr[0], deg_of_freedom)
 
-    # use Action_Strip here?
-    # TODO : BROKEN
-    cdef void _strip_atoms(Frame self, Topology top, string mask, bint update_top, bint has_box):
+    cdef void _strip_atoms(Frame self, Topology top, AtomMask atm, bint update_top, bint has_box):
         """this method is too slow vs cpptraj
         if you use memory for numpy, you need to update after resizing Frame
         >>> arr0 = np.asarray(frame.buffer)
@@ -842,24 +878,27 @@ cdef class Frame (object):
         >>> # update view
         >>> arr0 = np.asarray(frame.buffer)
         """
+        # NOTE:`atm` here is the KEPT-atommaks (for performance)
+        # we will do `atm.invert_mask` laster in `strip_atoms` method
+        # Important: don't try to use raw pointers. Make sure to create Python's objects
+        # (Frame, Topology) to control cpptraj' objects' lifetime.
 
         cdef Topology newtop = Topology()
         newtop.py_free_mem = False
-        cdef AtomMask atm = AtomMask()
         cdef Frame tmpframe = Frame() 
 
         del tmpframe.thisptr
 
         tmpframe.thisptr = new _Frame(self.thisptr[0])
         
-        atm.thisptr.SetMaskString(mask)
-        atm.thisptr.InvertMask()
-        top.thisptr.SetupIntegerMask(atm.thisptr[0])
         newtop.thisptr = top.thisptr.modifyStateByMask(atm.thisptr[0])
         #if not has_box:
         #    newtop.thisptr.SetParmBox(_Box())
         tmpframe.thisptr.SetupFrameV(newtop.thisptr.Atoms(), newtop.thisptr.ParmCoordInfo())
         tmpframe.thisptr.SetFrame(self.thisptr[0], atm.thisptr[0])
+
+        # make a copy: coords, vel, mass...
+        # if only care about `coords`, use `_fast_copy_from_frame`
         self.thisptr[0] = tmpframe.thisptr[0]
         if update_top:
             top.thisptr[0] = newtop.thisptr[0]
@@ -876,15 +915,14 @@ cdef class Frame (object):
         Parameters:
         ----------
         mask : str, mask, non-default
-
         top : Topology, default=Topology()
-
         update_top : bint, default=False
-
         has_box : bint, default=False
-
         copy : bint, default=False
         """
+        cdef AtomMask atm = top(mask)
+        atm.invert_mask()
+
         if mask is None or top.is_empty():
             raise ValueError("need non-empty mask and non-empty Topology")
         cdef Frame frame
@@ -892,10 +930,10 @@ cdef class Frame (object):
         mask = mask.encode("UTF-8")
 
         if not copy:
-            self._strip_atoms(top, mask, update_top, has_box)
+            self._strip_atoms(top, atm, update_top, has_box)
         else:
             frame = Frame(self)
-            frame._strip_atoms(top, mask, update_top, has_box)
+            frame._strip_atoms(top, atm, update_top, has_box)
             return frame
 
     def get_subframe(self, mask=None, top=None):
