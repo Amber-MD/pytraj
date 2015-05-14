@@ -30,6 +30,13 @@ cdef class DataFileList:
         return dfile
 
     def add_datafile(self, datafilename, *args):
+        """
+        Parameters
+        ----------
+        datafilename : str
+            output's name
+        args : ArgList object, optional
+        """
         datafilename = datafilename.encode()
         cdef DataFile dfile = DataFile()
         cdef ArgList argIn
@@ -39,21 +46,19 @@ cdef class DataFileList:
         else:
             argIn = args[0]
             dfile.thisptr[0] = deref(self.thisptr.AddDataFile(datafilename, argIn.thisptr[0]))
+        dfile.py_free_mem = False # let DataFileList free memory
         return dfile
 
-    def add_dataset(self, datafilename, ds):
-        datafilename = datafilename.encode()
-        """we need to use alloc method to cast to DataSet object"""
-        dfile = self._add_dataset(datafilename, ds.alloc())
-        return dfile
-
-    def _add_dataset(self, datafilename, DataSet dsetIn):
+    def add_dataset(self, datafilename, DataSet dsetIn):
         cdef DataFile dfile = DataFile()
         dfile.thisptr[0] = deref(self.thisptr.AddSetToFile(datafilename, dsetIn.baseptr0))
         return dfile
 
     def info(self):
+        from pytraj import set_world_silent
+        set_world_silent(False)
         self.thisptr.List()
+        set_world_silent(True)
 
     def write_all_datafiles(self):
         # perhaps pytraj only uses this method
