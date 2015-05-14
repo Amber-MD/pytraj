@@ -12,7 +12,6 @@ from ..decorators import memoize # cache
 from ..externals.six import string_types
 from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
-from .._shared_methods import _frame_iter
 from .._shared_methods import _savetraj, _get_temperature_set
 from .._shared_methods import _box_to_ndarray
 from ..utils.check_and_assert import _import_numpy
@@ -55,7 +54,51 @@ cdef class Trajin (TrajectoryFile):
         return self.frame_iter(*args, **kwd)
 
     def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
-        return _frame_iter(self, start, stop, stride, mask)
+        """iterately get Frames with start, stop, stride 
+        Parameters
+        ---------
+        start : int (default = 0)
+        stop : int (default = max_frames - 1)
+        stride : int
+        mask : str or array of interger
+        """
+        cdef int i
+        cdef int n_atoms = self.n_atoms
+        cdef Frame frame
+        cdef AtomMask atm
+        cdef int _end
+        cdef int[:] int_view
+
+        if stop == -1:
+            _end = <int> self.n_frames
+        else:
+            _end = stop + 1
+
+        if mask is not None:
+            frame2 = Frame() # just make a pointer
+            if isinstance(mask, string_types):
+                atm = self.top(mask)
+            else:
+                try:
+                    atm = AtomMask()
+                    atm.add_selected_indices(mask)
+                except TypeError:
+                    raise TypeError("dont know how to cast to memoryview")
+            frame2.thisptr = new _Frame(<int>atm.n_atoms)
+        else:
+            frame = Frame(n_atoms)
+
+        # only open/close file once
+        with self:
+            i = start
+            while i < _end:
+                self.baseptr_1.ReadTrajFrame(i, frame.thisptr[0])
+                if mask is not None:
+                    frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])
+                    yield frame2
+                else:
+                    yield frame
+                i += stride
 
     def chunk_iter(self, int chunk=2, int start=0, int stop=-1):
         """iterately get Frames with start, chunk
@@ -94,6 +137,61 @@ cdef class Trajin (TrajectoryFile):
             else:
                 # use `stop + 1` since Python ignore last index
                 yield self[start + chunk*i : stop+1]
+
+    def _fast_chunk_iter(self, int chunk=2, int start=0, int stop=-1, bint copy_top=True):
+        """iterately get Frames with start, chunk
+        returning Trajectory or Frame instance depend on `chunk` value
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1, return Frame instance). 
+                if `chunk` > 1 : return Trajectory instance
+        """
+        cdef int newstart
+        cdef int n_chunk, i, j
+        cdef int n_frames = self.n_frames
+        cdef Trajectory farray
+
+        # check `start`
+        if start < 0 or start >= n_frames:
+            start = 0
+
+        # check `stop`
+        if stop <= 0 or stop >= n_frames:
+            stop = <int> self.size - 1
+
+        if chunk <= 1:
+            raise ValueError("chunk must be >= 2")
+
+        if chunk + start > stop:
+            raise ValueError("start + chunk must be smaller than max frames")
+
+        n_chunk = int((stop- start)/chunk)
+        if ((stop - start) % chunk ) != 0:
+            n_chunk += 1
+
+        # only open and close file once
+        with self:
+            for i in range(n_chunk):
+                # always creat new Trajectory
+                farray = Trajectory(check_top=False)
+                if copy_top:
+                    farray.top = self.top.copy()
+                else:
+                    farray.top = self.top
+                    farray.top.py_free_mem = False # let `self` do it
+
+                if i != n_chunk - 1:
+                    for j in range(start + chunk*i,  start + chunk*(i+1)):
+                        farray.append(self[j], copy=False)
+                    yield farray
+                    #yield self[start + chunk*i : start + chunk*(i+1)]
+                else:
+                    for j in range(start + chunk*i,  stop+1):
+                        farray.append(self[j], copy=False)
+                    yield farray
+                    # use `stop + 1` since Python ignore last index
+                    #yield self[start + chunk*i : stop+1]
 
     def __str__(self):
         return my_str_method(self)
