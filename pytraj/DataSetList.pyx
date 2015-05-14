@@ -380,6 +380,12 @@ cdef class DataSetList:
     def mean(self, axis=1):
         return self.to_ndarray().mean(axis=axis)
 
+    def median(self, axis=1):
+        return np.median(self.to_ndarray(), axis=axis)
+
+    def std(self, axis=1):
+        return np.std(self.to_ndarray(), axis=axis)
+
     def min(self):
         arr = array('d', [])
         for d in self:

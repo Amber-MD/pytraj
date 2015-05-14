@@ -42,7 +42,7 @@ cdef class DataFile:
     def setup_datafile(self, string filenameIn, ArgList argIn, int debugIn):
         return self.thisptr.SetupDatafile(filenameIn, argIn.thisptr[0], debugIn)
 
-    def addset(self, DataSet dataIn):
+    def add_dataset(self, DataSet dataIn):
         return self.thisptr.AddSet(dataIn.baseptr0)
 
     def removeset(self, DataSet dataIn):
