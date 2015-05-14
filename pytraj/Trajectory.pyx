@@ -367,7 +367,6 @@ cdef class Trajectory (object):
             ptr_dest = self.frame_v[idx].xAddress()
             ptr_src = &(xyz[idx, 0, 0])
             memcpy(<void*> ptr_dest, <void*> ptr_src, count)
->>>>>>> 0d9d97c9f78948087c32e513299c088cb57a05bf
 
     def tolist(self):
         return _tolist(self)
