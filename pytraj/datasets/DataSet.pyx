@@ -223,3 +223,16 @@ cdef class DataSet:
         d = dflist.add_datafile(filename)
         d.add_dataset(self)
         d.write_data()
+
+    def plot(self, *args, **kwd):
+        """return matplotlib object
+        Notes
+        ----
+        Need to over-write this method for subclass if needed.
+        """
+        from pytraj.utils import _import
+        _, plt = _import("matplotlib.pyplot")
+        try:
+            return plt.pyplot.plot(self.data, *args, **kwd)
+        except:
+            raise NotImplementedError()
