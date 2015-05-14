@@ -208,6 +208,7 @@ cdef class Frame (object):
         return self.buffer2d[:].shape
 
     def __getitem__(self, idx):
+        cdef AtomMask atm
         # always return memoryview 
         has_numpy, np = _import_numpy()
         if isinstance(idx, AtomMask):
@@ -219,13 +220,15 @@ cdef class Frame (object):
             if not has_numpy:
                 # return 2D list
                 tmp_arr0 = []
-                for _index in idx.selected_indices():
+                for _index in idx.indices:
                     tmp_arr0.append(list(self.buffer2d[_index]))
                 return tmp_arr0
-                #raise NotImplementedError("supported if having numpy installed")
             else:
                 arr0 = np.asarray(self.buffer2d[:])
                 return arr0[np.array(idx.selected_indices())]
+        if isinstance(idx, pyarray):
+            atm = AtomMask(idx)
+            return self[atm]
         elif isinstance(idx, dict):
             # Example: frame[dict(top=top, mask='@CA')]
             # return a sub-array copy with indices got from 
@@ -251,19 +254,26 @@ cdef class Frame (object):
                 return self.buffer2d[idx]
 
     def __setitem__(self, idx, value):
-        # TODO : should we use buffer. Kind of dangerous
-        # TODO : add examples hereo
-        #if not isinstance(idx, (list, tuple)):
-        #    self.buffer[idx] = value
-        #else:
-        #    if isinstance(value, (list, tuple)):
-        #        value = pyarray('d', value)
-        #    self.buffer2d[idx] = value
+        has_np, np = _import_numpy()
+
         if isinstance(value, (tuple, list)):
-            value = pyarray('d', value)
-            self.buffer2d[idx] = value
-        if isinstance(idx, AtomMask):
-            self.update_atoms(idx.selected_indices(), value.flatten())
+            try:
+                value = pyarray('d', value)
+                self.buffer2d[idx] = value
+            except:
+                try:
+                    self[idx] = np.asarray(value)
+                except:
+                    raise ValueError("don't know how to setitem")
+        elif isinstance(idx, AtomMask):
+            try:
+                #  1D array
+                self.update_atoms(idx.selected_indices(), value)
+            except:
+                try:
+                    self.update_atoms(idx.indices, value.flatten())
+                except:
+                    raise ValueError("don't know how to setitem")
         elif isinstance(value, string_types):
             # assume this is atom mask
             if self.top is None:
@@ -271,7 +281,24 @@ cdef class Frame (object):
             else:
                 self[self.top(idx)] = value
         else:
-            self.buffer2d[idx] = value
+            if hasattr(value, 'itemsize') and value.itemsize == 8:
+                # don't need to use numpy in this case since we already have
+                # correct type
+                self.buffer2d[idx] = value
+            if hasattr(value, 'is_integer'):
+                # is a number.
+                self.buffer2d[idx] = value
+            else:
+                try:
+                    # use numpy for safe casting from numpy f4 to f8
+                    self.xyz[idx] = value
+                except:
+                    try:
+                        value = np.asarray(value)
+                        self.xyz[idx] = value
+                    except:
+                        raise ValueError("don't know how to setitem")
+
 
     def __iter__(self):
         cdef int i
