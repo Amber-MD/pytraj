@@ -19,9 +19,15 @@ class Test(unittest.TestCase):
 
         # FIXME: not work with combination of chunk_iter in the list or tuple (but still work with frame_iter)
         act("", current_frame=(traj, traj(1, 5, 1), traj.chunk_iter(chunk=2)), top=traj.top)
-        #act("@CA", (traj, traj(1, 5, 1), traj.frame_iter(stride=2)), traj.top)
         print (act.n_frames)
         assert act.n_frames == 25
+
+        act("@CA", (traj, traj(1, 5, 1), traj.frame_iter(stride=2)), traj.top)
+        print (act.n_frames)
+        assert act.n_frames == 45
+
+        act("@CA", traj.chunk_iter(), traj.top)
+        assert act.n_frames == 55
 
 if __name__ == "__main__":
     unittest.main()

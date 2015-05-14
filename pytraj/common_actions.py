@@ -15,6 +15,7 @@ analdict = AnalysisDict()
 
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._common_actions import calculate
+from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .externals.six import string_types
 from .Frame import Frame
 #from .Trajectory import Trajectory
@@ -27,7 +28,6 @@ from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
-from .utils import _import_numpy, is_array
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
@@ -83,6 +83,8 @@ def calc_distance(traj=None, command="", top=None, *args, **kwd):
     Notes:
     command : str | int_2d numpy array
     """
+    ensure_not_none_or_string(traj)
+
     _, np = _import_numpy()
     _top = _get_top(traj, top)
     if isinstance(command, string_types):
@@ -115,6 +117,8 @@ def calc_angle(traj=None, command="", top=None, *args, **kwd):
     Notes:
     command : str | int_2d numpy array
     """
+    ensure_not_none_or_string(traj)
+
     _, np = _import_numpy()
     _top = _get_top(traj, top)
     if isinstance(command, string_types):
@@ -147,6 +151,8 @@ def calc_dihedral(traj=None, command="", top=None, *args, **kwd):
     Notes:
     command : str | int_2d numpy array
     """
+    ensure_not_none_or_string(traj)
+
     _, np = _import_numpy()
     _top = _get_top(traj, top)
     if isinstance(command, string_types):
