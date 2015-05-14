@@ -655,6 +655,13 @@ static CYTHON_INLINE PyObject* __Pyx_decode_cpp_string(
 static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
     const char *name, int exact);
 
+#include <string.h>
+
+static CYTHON_INLINE PyObject* __Pyx_decode_c_string(
+         const char* cstring, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors));
+
 #if PY_MAJOR_VERSION >= 3
 static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
     PyObject *value;
@@ -4161,7 +4168,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_52__richcmp__(stru
  * 
  *     @property
  *     def data_format(self):             # <<<<<<<<<<<<<<
- *         return self.baseptr0.DataFormat()
+ *         return self.baseptr0.DataFormat().decode()
  * 
  */
 
@@ -4182,7 +4189,8 @@ static PyObject *__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_55data_format(PyOb
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_54data_format(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
+  char const *__pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4191,28 +4199,30 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_54data_format(stru
   /* "pytraj/datasets/DataSet.pyx":192
  *     @property
  *     def data_format(self):
- *         return self.baseptr0.DataFormat()             # <<<<<<<<<<<<<<
+ *         return self.baseptr0.DataFormat().decode()             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBytes_FromString(__pyx_v_self->baseptr0->DataFormat()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_t_1 = __pyx_v_self->baseptr0->DataFormat();
+  __pyx_t_2 = __Pyx_decode_c_string(__pyx_t_1, 0, strlen(__pyx_t_1), NULL, NULL, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_INCREF(__pyx_t_2);
+  __pyx_r = __pyx_t_2;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   goto __pyx_L0;
 
   /* "pytraj/datasets/DataSet.pyx":191
  * 
  *     @property
  *     def data_format(self):             # <<<<<<<<<<<<<<
- *         return self.baseptr0.DataFormat()
+ *         return self.baseptr0.DataFormat().decode()
  * 
  */
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
   __Pyx_AddTraceback("pytraj.datasets.DataSet.DataSet.data_format", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -7590,7 +7600,7 @@ PyMODINIT_FUNC PyInit_DataSet(void)
  * 
  *     @property
  *     def data_format(self):             # <<<<<<<<<<<<<<
- *         return self.baseptr0.DataFormat()
+ *         return self.baseptr0.DataFormat().decode()
  * 
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet, __pyx_n_s_data_format); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 191; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -7601,7 +7611,7 @@ PyMODINIT_FUNC PyInit_DataSet(void)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def data_format(self):
- *         return self.baseptr0.DataFormat()
+ *         return self.baseptr0.DataFormat().decode()
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -7626,7 +7636,7 @@ PyMODINIT_FUNC PyInit_DataSet(void)
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "pytraj/datasets/DataSet.pyx":194
- *         return self.baseptr0.DataFormat()
+ *         return self.baseptr0.DataFormat().decode()
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def data(self):
@@ -8662,6 +8672,32 @@ static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, in
     }
     __Pyx_RaiseArgumentTypeInvalid(name, obj, type);
     return 0;
+}
+
+static CYTHON_INLINE PyObject* __Pyx_decode_c_string(
+         const char* cstring, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
+    Py_ssize_t length;
+    if (unlikely((start < 0) | (stop < 0))) {
+        length = strlen(cstring);
+        if (start < 0) {
+            start += length;
+            if (start < 0)
+                start = 0;
+        }
+        if (stop < 0)
+            stop += length;
+    }
+    length = stop - start;
+    if (unlikely(length <= 0))
+        return PyUnicode_FromUnicode(NULL, 0);
+    cstring += start;
+    if (decode_func) {
+        return decode_func(cstring, length, errors);
+    } else {
+        return PyUnicode_Decode(cstring, length, encoding, errors);
+    }
 }
 
 static CYTHON_INLINE PyObject* __Pyx_PyObject_GetSlice(
