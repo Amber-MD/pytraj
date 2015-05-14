@@ -12,6 +12,7 @@ from ._utils cimport get_positive_idx
 from .TrajinList cimport TrajinList
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
+from .actions.Action_Rmsd cimport Action_Rmsd
 
 # python level
 from .trajs.Trajin_Single import Trajin_Single
@@ -936,13 +937,14 @@ cdef class Trajectory (object):
         """same as `save` method"""
         self.save(*args, **kwd)
 
-    def rmsfit_to(self, ref=None, mask="*"):
+    def rmsfit_to(self, ref=None, mask="*", mode='pytraj'):
         """do the fitting to reference Frame by rotation and translation
         Parameters
         ----------
         ref : {Frame object, int, str}, default=None 
             Reference
         mask : str or AtomMask object, default='*' (fit all atoms)
+        mode : 'cpptraj' (faster but can not use AtomMask)| 'pytraj'
 
         Examples
         --------
@@ -954,6 +956,7 @@ cdef class Trajectory (object):
         cdef AtomMask atm
         cdef Frame ref_frame
         cdef int i
+        cdef Action_Rmsd act
 
         if isinstance(ref, Frame):
             ref_frame = <Frame> ref
@@ -969,16 +972,24 @@ cdef class Trajectory (object):
         else:
             raise ValueError("ref must be string, Frame object or integer")
 
-        if isinstance(mask, string_types):
-            atm = self.top(mask)
-        elif isinstance(mask, AtomMask):
-            atm = <AtomMask> mask
-        else:
-            raise ValueError("mask must be string or AtomMask object")
+        if mode == 'pytraj':
+            if isinstance(mask, string_types):
+                atm = self.top(mask)
+            elif isinstance(mask, AtomMask):
+                atm = <AtomMask> mask
+            else:
+                raise ValueError("mask must be string or AtomMask object")
 
-        for frame in self:
-            _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
-            frame.trans_rot_trans(v1, mat, v2)
+            for frame in self:
+                _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
+                frame.trans_rot_trans(v1, mat, v2)
+        elif mode == 'cpptraj':
+            # switch to fast speed
+            # we still use mode 'pytraj' so we can use AtomMask (for what?)
+            act = Action_Rmsd()
+            act(mask, [ref_frame, self], top=self.top)
+        else:
+            raise ValueError("mode = pytraj | cpptraj")
 
     # start copy and paste from "__action_in_traj.py"
     def calc_distance(self, mask="", *args, **kwd):
