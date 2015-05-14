@@ -6,6 +6,8 @@ from ..DataFileList import DataFileList
 from ..DataFile import DataFile
 from pytraj.utils import _import_numpy
 
+_, np = _import_numpy()
+
 cdef class DataSet:
     """
     Original doc from cpptraj
@@ -234,6 +236,17 @@ cdef class DataSet:
         hist, bedge  = np.histogram(self.to_ndarray(), bins=bins, normed=normed,range=range)
         bedge = bedge[:-1]
         return np.array([bedge, hist])
+
+    def split(self, n_chunks_or_array):
+        """split `self.data` to n_chunks
+
+        Notes : require numpy (same as `array_split`)
+        """
+        return np.array_split(self.to_ndarray(), n_chunks_or_array)
+        #try:
+        #    return np.split(self, n_chunks_or_array)
+        #except:
+        #    raise NotImplementedError("try to split but failed for %s" % self.name)
 
     def write_to_cpptraj_format(self, filename):
         dflist = DataFileList()
