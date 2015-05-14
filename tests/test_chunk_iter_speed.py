@@ -51,11 +51,6 @@ def test_0():
                 break
             pass
 
-    @Timer()
-    def fa_chunk_iter(stop, chunk):
-        for frame in fa.chunk_iter(stop=stop, chunk=chunk):
-            pass
-
     def check_eq(stop, chunk):
         for c0, c1 in zip(traj.chunk_iter(stop=stop, chunk=chunk), traj2.chunk_iter(stop=stop, chunk=chunk)):
             aa_eq(c0.xyz, c1.xyz)
@@ -77,9 +72,6 @@ def test_0():
 
     print ("frame_iter fa")
     fa_frame_iter(stop)
-
-    print ("chunk_iter fa")
-    fa_chunk_iter(stop=stop, chunk=chunk)
 
     #check_eq(stop, chunk) # YES
 
