@@ -16921,9 +16921,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_166calc_dihedral(struct __pyx_ob
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
+  int __pyx_v_long_is_signed;
   int __pyx_v_int_is_signed;
   int __pyx_v_short_is_signed;
-  int __pyx_v_long_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -17027,9 +17027,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_166calc_dihedral(struct __pyx_ob
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
+  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_int_is_signed = (((int)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[1]; __pyx_lineno = 967; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18439,9 +18439,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_168calc_angle(struct __pyx_obj_6
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
+  int __pyx_v_long_is_signed;
   int __pyx_v_int_is_signed;
   int __pyx_v_short_is_signed;
-  int __pyx_v_long_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -18545,9 +18545,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_168calc_angle(struct __pyx_obj_6
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
+  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_int_is_signed = (((int)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[1]; __pyx_lineno = 992; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -20049,9 +20049,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_172_calc_distance(struct __pyx_o
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
+  int __pyx_v_long_is_signed;
   int __pyx_v_int_is_signed;
   int __pyx_v_short_is_signed;
-  int __pyx_v_long_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -20155,9 +20155,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_172_calc_distance(struct __pyx_o
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
+  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_int_is_signed = (((int)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[1]; __pyx_lineno = 1023; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -20845,11 +20845,11 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_194_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_10, __pyx_t_12, __pyx_t_11, __pyx_t_8, __pyx_t_9)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_8, __pyx_t_11, __pyx_t_12, __pyx_t_10)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx0) lastprivate(__pyx_v_idx1)
+                      #pragma omp for lastprivate(__pyx_v_idx0) lastprivate(__pyx_v_idx1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
@@ -21181,11 +21181,11 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_196_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_10, __pyx_t_12, __pyx_t_11, __pyx_t_8, __pyx_t_9)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_8, __pyx_t_11, __pyx_t_12, __pyx_t_10)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx0)
+                      #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1) lastprivate(__pyx_v_idx0)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
@@ -21517,7 +21517,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_198_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_10, __pyx_t_12, __pyx_t_11, __pyx_t_8, __pyx_t_9)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_8, __pyx_t_11, __pyx_t_12, __pyx_t_10)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
@@ -35766,21 +35766,6 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     type_name++;
   }
   if (0);
-  else if (__Pyx_StrEq(name, "indirect_contiguous")) {
-    Py_INCREF(o);
-    Py_DECREF(indirect_contiguous);
-    indirect_contiguous = o;
-  }
-  else if (__Pyx_StrEq(name, "indirect")) {
-    Py_INCREF(o);
-    Py_DECREF(indirect);
-    indirect = o;
-  }
-  else if (__Pyx_StrEq(name, "generic")) {
-    Py_INCREF(o);
-    Py_DECREF(generic);
-    generic = o;
-  }
   else if (__Pyx_StrEq(name, "contiguous")) {
     Py_INCREF(o);
     Py_DECREF(contiguous);
@@ -35794,6 +35779,21 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     Py_INCREF(o);
     Py_DECREF(strided);
     strided = o;
+  }
+  else if (__Pyx_StrEq(name, "indirect_contiguous")) {
+    Py_INCREF(o);
+    Py_DECREF(indirect_contiguous);
+    indirect_contiguous = o;
+  }
+  else if (__Pyx_StrEq(name, "generic")) {
+    Py_INCREF(o);
+    Py_DECREF(generic);
+    generic = o;
+  }
+  else if (__Pyx_StrEq(name, "indirect")) {
+    Py_INCREF(o);
+    Py_DECREF(indirect);
+    indirect = o;
   }
   else {
     if (PyObject_SetAttr(__pyx_m, py_name, o) < 0) goto bad;

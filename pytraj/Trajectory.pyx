@@ -983,6 +983,7 @@ cdef class Trajectory (object):
             for frame in self:
                 _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
                 frame.trans_rot_trans(v1, mat, v2)
+
         elif mode == 'cpptraj':
             # switch to fast speed
             # we still use mode 'pytraj' so we can use AtomMask (for what?)
