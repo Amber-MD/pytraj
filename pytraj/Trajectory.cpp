@@ -479,9 +479,9 @@ static const char *__pyx_filename;
 static const char *__pyx_f[] = {
   "pytraj/Trajectory.pyx",
   "pytraj/Trajectory.pxd",
-  "pytraj/Frame.pxd",
   "array.pxd",
   "pytraj/_utils.pxd",
+  "pytraj/Frame.pxd",
   "stringsource",
   "pytraj/math/Vec3.pxd",
   "pytraj/math/Matrix_3x3.pxd",
@@ -1545,7 +1545,7 @@ struct __pyx_obj_6pytraj_10Trajectory_Trajectory {
 };
 
 
-/* "pytraj/Trajectory.pyx":668
+/* "pytraj/Trajectory.pyx":649
  *         return self.size
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -2585,58 +2585,57 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_24_update_xyz_memcpy
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_26tolist(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_28__getitem__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_idxs); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_30_fast_slice(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_my_slice); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_32_fast_slice(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_my_slice); /* proto */
-static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_other); /* proto */
-static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_36__delitem__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_idx); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_38__str__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_40__repr__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_42__enter__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_44__exit__(CYTHON_UNUSED struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_args); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46frame_iter(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_start, int __pyx_v_stop, int __pyx_v_stride, PyObject *__pyx_v_mask); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_48reverse(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_idxs); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_52size(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_54is_empty(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_56n_frames(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_58n_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static Py_ssize_t __pyx_pf_6pytraj_10Trajectory_10Trajectory_60__len__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_62__iter__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_65__add__(PyObject *__pyx_v_self, struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_other); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_framein, PyObject *__pyx_v_copy); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_traj, PyObject *__pyx_v_copy); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_73resize(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_n_frames); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_77temperature_set(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_from_traj, PyObject *__pyx_v_indices, PyObject *__pyx_v_update_top, PyObject *__pyx_v_copy); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_update_top, int __pyx_v_has_box); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, int __pyx_v_update_top, CYTHON_UNUSED int __pyx_v_has_box); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_85save(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_fmt, PyObject *__pyx_v_overwrite); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_87write(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_ref, PyObject *__pyx_v_mask, PyObject *__pyx_v_mode); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distance(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_radgyr(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_angle(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_matrix(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dssp(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_dihedral(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_multidihedral(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_molsurf(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_center_of_mass(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_COM(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_center_of_geometry(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_COG(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_dtype, CYTHON_UNUSED PyObject *__pyx_v_args, CYTHON_UNUSED PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_119search_hbonds(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_121get_average_frame(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_123calc_watershell(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_125autoimage(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_127rotate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_129translate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131set_nobox(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_133_allocate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_n_frames, int __pyx_v_n_atoms); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_135box_to_ndarray(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_32__setitem__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_other); /* proto */
+static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__delitem__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_idx); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_36__str__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_38__repr__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_40__enter__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_42__exit__(CYTHON_UNUSED struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_args); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_44frame_iter(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_start, int __pyx_v_stop, int __pyx_v_stride, PyObject *__pyx_v_mask); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46reverse(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_48erase(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_idxs); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50size(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_52is_empty(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_54n_frames(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_56n_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static Py_ssize_t __pyx_pf_6pytraj_10Trajectory_10Trajectory_58__len__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_60__iter__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_63__add__(PyObject *__pyx_v_self, struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_65__iadd__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67append(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_framein, PyObject *__pyx_v_copy); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69join(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_traj, PyObject *__pyx_v_copy); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71resize(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_n_frames); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_73temperatures(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperature_set(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_77get_frames(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_from_traj, PyObject *__pyx_v_indices, PyObject *__pyx_v_update_top, PyObject *__pyx_v_copy); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79strip_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_update_top, int __pyx_v_has_box); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81_fast_strip_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, int __pyx_v_update_top, CYTHON_UNUSED int __pyx_v_has_box); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83save(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_fmt, PyObject *__pyx_v_overwrite); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_85write(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_87rmsfit_to(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_ref, PyObject *__pyx_v_mask, PyObject *__pyx_v_mode); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89calc_distance(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distrmsd(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_radgyr(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_angle(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_matrix(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_dssp(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dihedral(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_multidihedral(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_molsurf(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_center_of_mass(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_COM(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_center_of_geometry(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_COG(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_vector(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_dtype, CYTHON_UNUSED PyObject *__pyx_v_args, CYTHON_UNUSED PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117search_hbonds(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_119get_average_frame(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_121calc_watershell(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_123autoimage(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_125rotate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_127translate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_129set_nobox(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131_allocate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_n_frames, int __pyx_v_n_atoms); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_133box_to_ndarray(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_3top___get__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_3top_2__set__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_3top_4__del__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self); /* proto */
@@ -2876,13 +2875,13 @@ static char __pyx_k_Index_out_of_bounds_axis_d[] = "Index out of bounds (axis %d
 static char __pyx_k_Must_provide_mask_to_strip[] = "Must provide mask to strip";
 static char __pyx_k_Step_may_not_be_zero_axis_d[] = "Step may not be zero (axis %d)";
 static char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cython.array";
-static char __pyx_k_Trajectory___iter___line_668[] = "Trajectory.__iter__ (line 668)";
+static char __pyx_k_Trajectory___iter___line_649[] = "Trajectory.__iter__ (line 649)";
 static char __pyx_k_pytraj_actions_Action_Vector[] = "pytraj.actions.Action_Vector";
 static char __pyx_k_top_pytraj_Topology_Topology[] = "top: pytraj.Topology.Topology";
 static char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
 static char __pyx_k_Paramters_mask_str_update_top_b[] = "\n        Paramters\n        ---------\n        mask : str\n        update_top : bool, default=True\n            'True' : automatically update Topology\n        has_box : bool, default=False (does not work with `True` yet)\n        Notes\n        -----\n        * Known bug: \n        * if you use memory for numpy, you need to update after resizing Frame\n        >>> arr0 = np.asarray(frame.buffer)\n        >>> frame.strip_atoms(top,\"!@CA\")\n        >>> # update view\n        >>> arr0 = np.asarray(frame.buffer)\n        ";
-static char __pyx_k_Trajectory_strip_atoms_line_859[] = "Trajectory.strip_atoms (line 859)";
+static char __pyx_k_Trajectory_strip_atoms_line_840[] = "Trajectory.strip_atoms (line 840)";
 static char __pyx_k_if_you_use_memory_for_numpy_you[] = "if you use memory for numpy, you need to update after resizing Frame\n        >>> arr0 = np.asarray(frame.buffer)\n        >>> frame.strip_atoms(top,\"!@CA\")\n        >>> # update view\n        >>> arr0 = np.asarray(frame.buffer)\n        ";
 static char __pyx_k_mask_must_be_string_or_AtomMask[] = "mask must be string or AtomMask object";
 static char __pyx_k_need_to_have_non_empty_Topology[] = "need to have non-empty Topology";
@@ -2899,7 +2898,7 @@ static char __pyx_k_Len_of_list_must_be_n_frames_n_a[] = "Len of list must be n_
 static char __pyx_k_Loading_from_TrajinList_Ignore_i[] = "Loading from TrajinList. Ignore `indices`";
 static char __pyx_k_Loading_from_list_tuple_Ignore_i[] = "Loading from list/tuple. Ignore `indices`";
 static char __pyx_k_Out_of_bounds_on_buffer_access_a[] = "Out of bounds on buffer access (axis %d)";
-static char __pyx_k_Trajectory__fast_strip_atoms_lin[] = "Trajectory._fast_strip_atoms (line 891)";
+static char __pyx_k_Trajectory__fast_strip_atoms_lin[] = "Trajectory._fast_strip_atoms (line 872)";
 static char __pyx_k_Trajectory_top_n_atoms_should_be[] = "Trajectory.top.n_atoms should be equal to Trajin_Single.top.n_atoms \n               or set update_top=True";
 static char __pyx_k_Unable_to_convert_item_to_object[] = "Unable to convert item to object";
 static char __pyx_k_Use_with_care_For_safetype_use_c[] = "Use with care. For safetype, use `copy` method";
@@ -2941,9 +2940,9 @@ static PyObject *__pyx_kp_s_Out_of_bounds_on_buffer_access_a;
 static PyObject *__pyx_kp_u_Paramters_mask_str_update_top_b;
 static PyObject *__pyx_n_s_TrajectoryIterator;
 static PyObject *__pyx_n_s_Trajectory___iter;
-static PyObject *__pyx_kp_u_Trajectory___iter___line_668;
+static PyObject *__pyx_kp_u_Trajectory___iter___line_649;
 static PyObject *__pyx_kp_u_Trajectory__fast_strip_atoms_lin;
-static PyObject *__pyx_kp_u_Trajectory_strip_atoms_line_859;
+static PyObject *__pyx_kp_u_Trajectory_strip_atoms_line_840;
 static PyObject *__pyx_kp_s_Trajectory_top_n_atoms_should_be;
 static PyObject *__pyx_n_s_Trajin_Single;
 static PyObject *__pyx_n_s_Trajout;
@@ -8711,7 +8710,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_24_update_xyz_memcpy
             if (__pyx_t_6 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel private(__pyx_t_7, __pyx_t_9, __pyx_t_8)
+                #pragma omp parallel private(__pyx_t_7, __pyx_t_8, __pyx_t_9)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
@@ -10745,13 +10744,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_28__getitem__(struct
  *             return farray
  * 
  *     def _fast_slice(self, slice my_slice):             # <<<<<<<<<<<<<<
- *         """only positive indexing
- *         """
+ *         cdef int start, stop, step
+ *         cdef int count
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_31_fast_slice(PyObject *__pyx_v_self, PyObject *__pyx_v_my_slice); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_30_fast_slice[] = "Trajectory._fast_slice(self, slice my_slice)\nonly positive indexing\n        ";
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_30_fast_slice[] = "Trajectory._fast_slice(self, slice my_slice)";
 static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_31_fast_slice(PyObject *__pyx_v_self, PyObject *__pyx_v_my_slice) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
@@ -10795,151 +10794,151 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_30_fast_slice(struct
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_fast_slice", 0);
 
-  /* "pytraj/Trajectory.pyx":558
+  /* "pytraj/Trajectory.pyx":556
  *         cdef int start, stop, step
  *         cdef int count
  *         cdef Trajectory myview = Trajectory(check_top=False)             # <<<<<<<<<<<<<<
  *         cdef _Frame* _frame_ptr
  * 
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 558; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 556; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_check_top, Py_False) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 558; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_10Trajectory_Trajectory)), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 558; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_check_top, Py_False) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 556; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_10Trajectory_Trajectory)), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 556; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_myview = ((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_t_2);
+  __pyx_t_2 = 0;
+
+  /* "pytraj/Trajectory.pyx":559
+ *         cdef _Frame* _frame_ptr
+ * 
+ *         myview.top = self.top             # <<<<<<<<<<<<<<
+ * 
+ *         start, stop, step  = my_slice.indices(self.size)
+ */
+  __pyx_t_2 = ((PyObject *)__pyx_v_self->top);
+  __Pyx_INCREF(__pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_2);
+  __Pyx_GOTREF(__pyx_v_myview->top);
+  __Pyx_DECREF(((PyObject *)__pyx_v_myview->top));
+  __pyx_v_myview->top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_2);
   __pyx_t_2 = 0;
 
   /* "pytraj/Trajectory.pyx":561
- *         cdef _Frame* _frame_ptr
+ *         myview.top = self.top
  * 
- *         myview.top = self.top             # <<<<<<<<<<<<<<
+ *         start, stop, step  = my_slice.indices(self.size)             # <<<<<<<<<<<<<<
+ *         count = start
+ *         while count < stop:
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_my_slice, __pyx_n_s_indices); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  if (!__pyx_t_4) {
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
+  } else {
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __Pyx_GIVEREF(__pyx_t_4); __pyx_t_4 = NULL;
+    PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_3);
+    __pyx_t_3 = 0;
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
+    PyObject* sequence = __pyx_t_2;
+    #if CYTHON_COMPILING_IN_CPYTHON
+    Py_ssize_t size = Py_SIZE(sequence);
+    #else
+    Py_ssize_t size = PySequence_Size(sequence);
+    #endif
+    if (unlikely(size != 3)) {
+      if (size > 3) __Pyx_RaiseTooManyValuesError(3);
+      else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
+    #if CYTHON_COMPILING_IN_CPYTHON
+    if (likely(PyTuple_CheckExact(sequence))) {
+      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
+      __pyx_t_5 = PyTuple_GET_ITEM(sequence, 1); 
+      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 2); 
+    } else {
+      __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
+      __pyx_t_5 = PyList_GET_ITEM(sequence, 1); 
+      __pyx_t_3 = PyList_GET_ITEM(sequence, 2); 
+    }
+    __Pyx_INCREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_t_5);
+    __Pyx_INCREF(__pyx_t_3);
+    #else
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_3 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    #endif
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  } else {
+    Py_ssize_t index = -1;
+    __pyx_t_4 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_6 = Py_TYPE(__pyx_t_4)->tp_iternext;
+    index = 0; __pyx_t_1 = __pyx_t_6(__pyx_t_4); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_1);
+    index = 1; __pyx_t_5 = __pyx_t_6(__pyx_t_4); if (unlikely(!__pyx_t_5)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_5);
+    index = 2; __pyx_t_3 = __pyx_t_6(__pyx_t_4); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_3);
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_4), 3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = NULL;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    goto __pyx_L4_unpacking_done;
+    __pyx_L3_unpacking_failed:;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_6 = NULL;
+    if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_L4_unpacking_done:;
+  }
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 561; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_v_start = __pyx_t_7;
+  __pyx_v_stop = __pyx_t_8;
+  __pyx_v_step = __pyx_t_9;
+
+  /* "pytraj/Trajectory.pyx":562
  * 
  *         start, stop, step  = my_slice.indices(self.size)
+ *         count = start             # <<<<<<<<<<<<<<
+ *         while count < stop:
+ *             _frame_ptr = self.frame_v[count]
  */
-  __pyx_t_2 = ((PyObject *)__pyx_v_self->top);
-  __Pyx_INCREF(__pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
-  __Pyx_GOTREF(__pyx_v_myview->top);
-  __Pyx_DECREF(((PyObject *)__pyx_v_myview->top));
-  __pyx_v_myview->top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_2);
-  __pyx_t_2 = 0;
+  __pyx_v_count = __pyx_v_start;
 
   /* "pytraj/Trajectory.pyx":563
- *         myview.top = self.top
- * 
- *         start, stop, step  = my_slice.indices(self.size)             # <<<<<<<<<<<<<<
- *         count = start
- *         while count < stop:
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_my_slice, __pyx_n_s_indices); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_4)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_4);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
-    }
-  }
-  if (!__pyx_t_4) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GOTREF(__pyx_t_2);
-  } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_5);
-    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __Pyx_GIVEREF(__pyx_t_4); __pyx_t_4 = NULL;
-    PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_3);
-    __Pyx_GIVEREF(__pyx_t_3);
-    __pyx_t_3 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
-    PyObject* sequence = __pyx_t_2;
-    #if CYTHON_COMPILING_IN_CPYTHON
-    Py_ssize_t size = Py_SIZE(sequence);
-    #else
-    Py_ssize_t size = PySequence_Size(sequence);
-    #endif
-    if (unlikely(size != 3)) {
-      if (size > 3) __Pyx_RaiseTooManyValuesError(3);
-      else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    }
-    #if CYTHON_COMPILING_IN_CPYTHON
-    if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_5 = PyTuple_GET_ITEM(sequence, 1); 
-      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 2); 
-    } else {
-      __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_5 = PyList_GET_ITEM(sequence, 1); 
-      __pyx_t_3 = PyList_GET_ITEM(sequence, 2); 
-    }
-    __Pyx_INCREF(__pyx_t_1);
-    __Pyx_INCREF(__pyx_t_5);
-    __Pyx_INCREF(__pyx_t_3);
-    #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_3 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_3);
-    #endif
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  } else {
-    Py_ssize_t index = -1;
-    __pyx_t_4 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_6 = Py_TYPE(__pyx_t_4)->tp_iternext;
-    index = 0; __pyx_t_1 = __pyx_t_6(__pyx_t_4); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_1);
-    index = 1; __pyx_t_5 = __pyx_t_6(__pyx_t_4); if (unlikely(!__pyx_t_5)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_5);
-    index = 2; __pyx_t_3 = __pyx_t_6(__pyx_t_4); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_3);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_4), 3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_6 = NULL;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    goto __pyx_L4_unpacking_done;
-    __pyx_L3_unpacking_failed:;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_6 = NULL;
-    if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_L4_unpacking_done:;
-  }
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 563; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_v_start = __pyx_t_7;
-  __pyx_v_stop = __pyx_t_8;
-  __pyx_v_step = __pyx_t_9;
-
-  /* "pytraj/Trajectory.pyx":564
- * 
- *         start, stop, step  = my_slice.indices(self.size)
- *         count = start             # <<<<<<<<<<<<<<
- *         while count < stop:
- *             _frame_ptr = self.frame_v[count]
- */
-  __pyx_v_count = __pyx_v_start;
-
-  /* "pytraj/Trajectory.pyx":565
  *         start, stop, step  = my_slice.indices(self.size)
  *         count = start
  *         while count < stop:             # <<<<<<<<<<<<<<
@@ -10949,31 +10948,31 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_30_fast_slice(struct
   while (1) {
     __pyx_t_10 = ((__pyx_v_count < __pyx_v_stop) != 0);
     if (!__pyx_t_10) break;
+
+    /* "pytraj/Trajectory.pyx":564
+ *         count = start
+ *         while count < stop:
+ *             _frame_ptr = self.frame_v[count]             # <<<<<<<<<<<<<<
+ *             myview.frame_v.push_back(_frame_ptr)
+ *             count += step
+ */
+    __pyx_v__frame_ptr = (__pyx_v_self->frame_v[__pyx_v_count]);
+
+    /* "pytraj/Trajectory.pyx":565
+ *         while count < stop:
+ *             _frame_ptr = self.frame_v[count]
+ *             myview.frame_v.push_back(_frame_ptr)             # <<<<<<<<<<<<<<
+ *             count += step
+ * 
+ */
+    try {
+      __pyx_v_myview->frame_v.push_back(__pyx_v__frame_ptr);
+    } catch(...) {
+      __Pyx_CppExn2PyErr();
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 565; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
 
     /* "pytraj/Trajectory.pyx":566
- *         count = start
- *         while count < stop:
- *             _frame_ptr = self.frame_v[count]             # <<<<<<<<<<<<<<
- *             myview.frame_v.push_back(_frame_ptr)
- *             count += step
- */
-    __pyx_v__frame_ptr = (__pyx_v_self->frame_v[__pyx_v_count]);
-
-    /* "pytraj/Trajectory.pyx":567
- *         while count < stop:
- *             _frame_ptr = self.frame_v[count]
- *             myview.frame_v.push_back(_frame_ptr)             # <<<<<<<<<<<<<<
- *             count += step
- * 
- */
-    try {
-      __pyx_v_myview->frame_v.push_back(__pyx_v__frame_ptr);
-    } catch(...) {
-      __Pyx_CppExn2PyErr();
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 567; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    }
-
-    /* "pytraj/Trajectory.pyx":568
  *             _frame_ptr = self.frame_v[count]
  *             myview.frame_v.push_back(_frame_ptr)
  *             count += step             # <<<<<<<<<<<<<<
@@ -10983,285 +10982,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_30_fast_slice(struct
     __pyx_v_count = (__pyx_v_count + __pyx_v_step);
   }
 
-  /* "pytraj/Trajectory.pyx":570
- *             count += step
- * 
- *         return myview             # <<<<<<<<<<<<<<
- * 
- *     def _fast_slice(self, slice my_slice):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_myview));
-  __pyx_r = ((PyObject *)__pyx_v_myview);
-  goto __pyx_L0;
-
-  /* "pytraj/Trajectory.pyx":553
- *             return farray
- * 
- *     def _fast_slice(self, slice my_slice):             # <<<<<<<<<<<<<<
- *         """only positive indexing
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pytraj.Trajectory.Trajectory._fast_slice", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_myview);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pytraj/Trajectory.pyx":572
- *         return myview
- * 
- *     def _fast_slice(self, slice my_slice):             # <<<<<<<<<<<<<<
- *         cdef int start, stop, step
- *         cdef int count
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_33_fast_slice(PyObject *__pyx_v_self, PyObject *__pyx_v_my_slice); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_32_fast_slice[] = "Trajectory._fast_slice(self, slice my_slice)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_33_fast_slice(PyObject *__pyx_v_self, PyObject *__pyx_v_my_slice) {
-  CYTHON_UNUSED int __pyx_lineno = 0;
-  CYTHON_UNUSED const char *__pyx_filename = NULL;
-  CYTHON_UNUSED int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("_fast_slice (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_my_slice), (&PySlice_Type), 1, "my_slice", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 572; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_32_fast_slice(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((PyObject*)__pyx_v_my_slice));
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_32_fast_slice(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_my_slice) {
-  int __pyx_v_start;
-  int __pyx_v_stop;
-  int __pyx_v_step;
-  int __pyx_v_count;
-  struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_myview = 0;
-  Frame *__pyx_v__frame_ptr;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  PyObject *(*__pyx_t_6)(PyObject *);
-  int __pyx_t_7;
-  int __pyx_t_8;
-  int __pyx_t_9;
-  int __pyx_t_10;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("_fast_slice", 0);
-
-  /* "pytraj/Trajectory.pyx":575
- *         cdef int start, stop, step
- *         cdef int count
- *         cdef Trajectory myview = Trajectory(check_top=False)             # <<<<<<<<<<<<<<
- *         cdef _Frame* _frame_ptr
- * 
- */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 575; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_check_top, Py_False) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 575; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_10Trajectory_Trajectory)), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 575; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_myview = ((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_t_2);
-  __pyx_t_2 = 0;
-
-  /* "pytraj/Trajectory.pyx":578
- *         cdef _Frame* _frame_ptr
- * 
- *         myview.top = self.top             # <<<<<<<<<<<<<<
- * 
- *         start, stop, step  = my_slice.indices(self.size)
- */
-  __pyx_t_2 = ((PyObject *)__pyx_v_self->top);
-  __Pyx_INCREF(__pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
-  __Pyx_GOTREF(__pyx_v_myview->top);
-  __Pyx_DECREF(((PyObject *)__pyx_v_myview->top));
-  __pyx_v_myview->top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_2);
-  __pyx_t_2 = 0;
-
-  /* "pytraj/Trajectory.pyx":580
- *         myview.top = self.top
- * 
- *         start, stop, step  = my_slice.indices(self.size)             # <<<<<<<<<<<<<<
- *         count = start
- *         while count < stop:
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_my_slice, __pyx_n_s_indices); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_4)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_4);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
-    }
-  }
-  if (!__pyx_t_4) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GOTREF(__pyx_t_2);
-  } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_5);
-    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __Pyx_GIVEREF(__pyx_t_4); __pyx_t_4 = NULL;
-    PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_3);
-    __Pyx_GIVEREF(__pyx_t_3);
-    __pyx_t_3 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
-    PyObject* sequence = __pyx_t_2;
-    #if CYTHON_COMPILING_IN_CPYTHON
-    Py_ssize_t size = Py_SIZE(sequence);
-    #else
-    Py_ssize_t size = PySequence_Size(sequence);
-    #endif
-    if (unlikely(size != 3)) {
-      if (size > 3) __Pyx_RaiseTooManyValuesError(3);
-      else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    }
-    #if CYTHON_COMPILING_IN_CPYTHON
-    if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_5 = PyTuple_GET_ITEM(sequence, 1); 
-      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 2); 
-    } else {
-      __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_5 = PyList_GET_ITEM(sequence, 1); 
-      __pyx_t_3 = PyList_GET_ITEM(sequence, 2); 
-    }
-    __Pyx_INCREF(__pyx_t_1);
-    __Pyx_INCREF(__pyx_t_5);
-    __Pyx_INCREF(__pyx_t_3);
-    #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_3 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_3);
-    #endif
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  } else {
-    Py_ssize_t index = -1;
-    __pyx_t_4 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_6 = Py_TYPE(__pyx_t_4)->tp_iternext;
-    index = 0; __pyx_t_1 = __pyx_t_6(__pyx_t_4); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_1);
-    index = 1; __pyx_t_5 = __pyx_t_6(__pyx_t_4); if (unlikely(!__pyx_t_5)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_5);
-    index = 2; __pyx_t_3 = __pyx_t_6(__pyx_t_4); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_3);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_4), 3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_6 = NULL;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    goto __pyx_L4_unpacking_done;
-    __pyx_L3_unpacking_failed:;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_6 = NULL;
-    if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_L4_unpacking_done:;
-  }
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_v_start = __pyx_t_7;
-  __pyx_v_stop = __pyx_t_8;
-  __pyx_v_step = __pyx_t_9;
-
-  /* "pytraj/Trajectory.pyx":581
- * 
- *         start, stop, step  = my_slice.indices(self.size)
- *         count = start             # <<<<<<<<<<<<<<
- *         while count < stop:
- *             _frame_ptr = self.frame_v[count]
- */
-  __pyx_v_count = __pyx_v_start;
-
-  /* "pytraj/Trajectory.pyx":582
- *         start, stop, step  = my_slice.indices(self.size)
- *         count = start
- *         while count < stop:             # <<<<<<<<<<<<<<
- *             _frame_ptr = self.frame_v[count]
- *             myview.frame_v.push_back(_frame_ptr)
- */
-  while (1) {
-    __pyx_t_10 = ((__pyx_v_count < __pyx_v_stop) != 0);
-    if (!__pyx_t_10) break;
-
-    /* "pytraj/Trajectory.pyx":583
- *         count = start
- *         while count < stop:
- *             _frame_ptr = self.frame_v[count]             # <<<<<<<<<<<<<<
- *             myview.frame_v.push_back(_frame_ptr)
- *             count += step
- */
-    __pyx_v__frame_ptr = (__pyx_v_self->frame_v[__pyx_v_count]);
-
-    /* "pytraj/Trajectory.pyx":584
- *         while count < stop:
- *             _frame_ptr = self.frame_v[count]
- *             myview.frame_v.push_back(_frame_ptr)             # <<<<<<<<<<<<<<
- *             count += step
- * 
- */
-    try {
-      __pyx_v_myview->frame_v.push_back(__pyx_v__frame_ptr);
-    } catch(...) {
-      __Pyx_CppExn2PyErr();
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 584; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    }
-
-    /* "pytraj/Trajectory.pyx":585
- *             _frame_ptr = self.frame_v[count]
- *             myview.frame_v.push_back(_frame_ptr)
- *             count += step             # <<<<<<<<<<<<<<
- * 
- *         return myview
- */
-    __pyx_v_count = (__pyx_v_count + __pyx_v_step);
-  }
-
-  /* "pytraj/Trajectory.pyx":587
+  /* "pytraj/Trajectory.pyx":568
  *             count += step
  * 
  *         return myview             # <<<<<<<<<<<<<<
@@ -11273,8 +10994,8 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_32_fast_slice(struct
   __pyx_r = ((PyObject *)__pyx_v_myview);
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":572
- *         return myview
+  /* "pytraj/Trajectory.pyx":553
+ *             return farray
  * 
  *     def _fast_slice(self, slice my_slice):             # <<<<<<<<<<<<<<
  *         cdef int start, stop, step
@@ -11297,7 +11018,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_32_fast_slice(struct
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":589
+/* "pytraj/Trajectory.pyx":570
  *         return myview
  * 
  *     def __setitem__(self, idx, other):             # <<<<<<<<<<<<<<
@@ -11306,19 +11027,19 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_32_fast_slice(struct
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_10Trajectory_10Trajectory_35__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_other); /*proto*/
-static int __pyx_pw_6pytraj_10Trajectory_10Trajectory_35__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_other) {
+static int __pyx_pw_6pytraj_10Trajectory_10Trajectory_33__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_other); /*proto*/
+static int __pyx_pw_6pytraj_10Trajectory_10Trajectory_33__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_other) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((PyObject *)__pyx_v_idx), ((PyObject *)__pyx_v_other));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_32__setitem__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((PyObject *)__pyx_v_idx), ((PyObject *)__pyx_v_other));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_other) {
+static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_32__setitem__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_idx, PyObject *__pyx_v_other) {
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame = 0;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -11337,31 +11058,31 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__setitem__", 0);
 
-  /* "pytraj/Trajectory.pyx":594
+  /* "pytraj/Trajectory.pyx":575
  *         # to make thing simple, we don't use fancy slicing here
  *         cdef Frame frame
  *         if len(self) == 0:             # <<<<<<<<<<<<<<
  *             raise ValueError("Your Trajectory is empty, how can I index it?")
  *         if isinstance(idx, (long, int)) and isinstance(other, Frame):
  */
-  __pyx_t_1 = PyObject_Length(((PyObject *)__pyx_v_self)); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_Length(((PyObject *)__pyx_v_self)); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 575; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_2 = ((__pyx_t_1 == 0) != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/Trajectory.pyx":595
+    /* "pytraj/Trajectory.pyx":576
  *         cdef Frame frame
  *         if len(self) == 0:
  *             raise ValueError("Your Trajectory is empty, how can I index it?")             # <<<<<<<<<<<<<<
  *         if isinstance(idx, (long, int)) and isinstance(other, Frame):
  *             frame = <Frame> other.copy()
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 595; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 576; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 595; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 576; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Trajectory.pyx":594
+    /* "pytraj/Trajectory.pyx":575
  *         # to make thing simple, we don't use fancy slicing here
  *         cdef Frame frame
  *         if len(self) == 0:             # <<<<<<<<<<<<<<
@@ -11370,7 +11091,7 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
  */
   }
 
-  /* "pytraj/Trajectory.pyx":596
+  /* "pytraj/Trajectory.pyx":577
  *         if len(self) == 0:
  *             raise ValueError("Your Trajectory is empty, how can I index it?")
  *         if isinstance(idx, (long, int)) and isinstance(other, Frame):             # <<<<<<<<<<<<<<
@@ -11400,14 +11121,14 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
   __pyx_L5_bool_binop_done:;
   if (__pyx_t_2) {
 
-    /* "pytraj/Trajectory.pyx":597
+    /* "pytraj/Trajectory.pyx":578
  *             raise ValueError("Your Trajectory is empty, how can I index it?")
  *         if isinstance(idx, (long, int)) and isinstance(other, Frame):
  *             frame = <Frame> other.copy()             # <<<<<<<<<<<<<<
  *             frame.py_free_mem = False
  *             self.frame_v[idx] = frame.thisptr
  */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_copy); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 597; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_copy); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_8 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
@@ -11420,10 +11141,10 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
       }
     }
     if (__pyx_t_8) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 597; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 597; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -11433,7 +11154,7 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
     __pyx_v_frame = ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "pytraj/Trajectory.pyx":598
+    /* "pytraj/Trajectory.pyx":579
  *         if isinstance(idx, (long, int)) and isinstance(other, Frame):
  *             frame = <Frame> other.copy()
  *             frame.py_free_mem = False             # <<<<<<<<<<<<<<
@@ -11442,7 +11163,7 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
  */
     __pyx_v_frame->py_free_mem = 0;
 
-    /* "pytraj/Trajectory.pyx":599
+    /* "pytraj/Trajectory.pyx":580
  *             frame = <Frame> other.copy()
  *             frame.py_free_mem = False
  *             self.frame_v[idx] = frame.thisptr             # <<<<<<<<<<<<<<
@@ -11450,10 +11171,10 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
  *         #self[idx].py_free_mem = False
  */
     __pyx_t_9 = __pyx_v_frame->thisptr;
-    __pyx_t_10 = __Pyx_PyInt_As_size_t(__pyx_v_idx); if (unlikely((__pyx_t_10 == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 599; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_10 = __Pyx_PyInt_As_size_t(__pyx_v_idx); if (unlikely((__pyx_t_10 == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     (__pyx_v_self->frame_v[__pyx_t_10]) = __pyx_t_9;
 
-    /* "pytraj/Trajectory.pyx":596
+    /* "pytraj/Trajectory.pyx":577
  *         if len(self) == 0:
  *             raise ValueError("Your Trajectory is empty, how can I index it?")
  *         if isinstance(idx, (long, int)) and isinstance(other, Frame):             # <<<<<<<<<<<<<<
@@ -11463,7 +11184,7 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
     goto __pyx_L4;
   }
 
-  /* "pytraj/Trajectory.pyx":604
+  /* "pytraj/Trajectory.pyx":585
  *         else:
  *             # example: self[0, 0, 0] = 100.
  *             self[idx[0]][idx[1:]] = other             # <<<<<<<<<<<<<<
@@ -11471,20 +11192,20 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
  *             #raise NotImplementedError(txt)
  */
   /*else*/ {
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_idx, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(__pyx_t_7 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 604; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_idx, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(__pyx_t_7 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 585; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_3 = PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_7); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 604; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_3 = PyObject_GetItem(((PyObject *)__pyx_v_self), __pyx_t_7); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 585; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_v_idx, 1, 0, NULL, NULL, &__pyx_slice__26, 1, 0, 0); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 604; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_v_idx, 1, 0, NULL, NULL, &__pyx_slice__26, 1, 0, 0); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 585; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
-    if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_v_other) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 604; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_v_other) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 585; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __pyx_L4:;
 
-  /* "pytraj/Trajectory.pyx":589
+  /* "pytraj/Trajectory.pyx":570
  *         return myview
  * 
  *     def __setitem__(self, idx, other):             # <<<<<<<<<<<<<<
@@ -11507,7 +11228,7 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":608
+/* "pytraj/Trajectory.pyx":589
  *             #raise NotImplementedError(txt)
  * 
  *     def __delitem__(self, int idx):             # <<<<<<<<<<<<<<
@@ -11516,8 +11237,8 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__setitem__(struct __pyx
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_10Trajectory_10Trajectory_37__delitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_idx); /*proto*/
-static int __pyx_pw_6pytraj_10Trajectory_10Trajectory_37__delitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_idx) {
+static int __pyx_pw_6pytraj_10Trajectory_10Trajectory_35__delitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_idx); /*proto*/
+static int __pyx_pw_6pytraj_10Trajectory_10Trajectory_35__delitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_idx) {
   int __pyx_v_idx;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -11526,7 +11247,7 @@ static int __pyx_pw_6pytraj_10Trajectory_10Trajectory_37__delitem__(PyObject *__
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__delitem__ (wrapper)", 0);
   assert(__pyx_arg_idx); {
-    __pyx_v_idx = __Pyx_PyInt_As_int(__pyx_arg_idx); if (unlikely((__pyx_v_idx == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 608; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_idx = __Pyx_PyInt_As_int(__pyx_arg_idx); if (unlikely((__pyx_v_idx == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 589; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -11534,14 +11255,14 @@ static int __pyx_pw_6pytraj_10Trajectory_10Trajectory_37__delitem__(PyObject *__
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_36__delitem__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((int)__pyx_v_idx));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__delitem__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((int)__pyx_v_idx));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_36__delitem__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_idx) {
+static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_34__delitem__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_idx) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11554,16 +11275,16 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_36__delitem__(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__delitem__", 0);
 
-  /* "pytraj/Trajectory.pyx":609
+  /* "pytraj/Trajectory.pyx":590
  * 
  *     def __delitem__(self, int idx):
  *         self.erase(idx)             # <<<<<<<<<<<<<<
  * 
  *     def __str__(self):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_erase); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_erase); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 590; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_idx); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_idx); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 590; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -11576,24 +11297,24 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_36__delitem__(struct __pyx
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 590; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 590; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __Pyx_GIVEREF(__pyx_t_4); __pyx_t_4 = NULL;
     PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 590; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":608
+  /* "pytraj/Trajectory.pyx":589
  *             #raise NotImplementedError(txt)
  * 
  *     def __delitem__(self, int idx):             # <<<<<<<<<<<<<<
@@ -11617,7 +11338,7 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_36__delitem__(struct __pyx
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":611
+/* "pytraj/Trajectory.pyx":592
  *         self.erase(idx)
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -11626,19 +11347,19 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_36__delitem__(struct __pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_39__str__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_39__str__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_37__str__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_37__str__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__str__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_38__str__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_36__str__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_38__str__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_36__str__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11650,7 +11371,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_38__str__(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__str__", 0);
 
-  /* "pytraj/Trajectory.pyx":612
+  /* "pytraj/Trajectory.pyx":593
  * 
  *     def __str__(self):
  *         return my_str_method(self)             # <<<<<<<<<<<<<<
@@ -11658,7 +11379,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_38__str__(struct __p
  *     def __repr__(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_my_str_method); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 612; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_my_str_method); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 593; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -11671,16 +11392,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_38__str__(struct __p
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 612; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 593; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 612; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 593; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __Pyx_GIVEREF(__pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(((PyObject *)__pyx_v_self));
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_v_self));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_self));
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 612; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 593; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -11689,7 +11410,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_38__str__(struct __p
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":611
+  /* "pytraj/Trajectory.pyx":592
  *         self.erase(idx)
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -11711,7 +11432,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_38__str__(struct __p
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":614
+/* "pytraj/Trajectory.pyx":595
  *         return my_str_method(self)
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -11720,19 +11441,19 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_38__str__(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_41__repr__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_41__repr__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_39__repr__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_39__repr__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_40__repr__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_38__repr__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_40__repr__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_38__repr__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11743,7 +11464,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_40__repr__(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "pytraj/Trajectory.pyx":615
+  /* "pytraj/Trajectory.pyx":596
  * 
  *     def __repr__(self):
  *         return self.__str__()             # <<<<<<<<<<<<<<
@@ -11751,7 +11472,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_40__repr__(struct __
  *     def __enter__(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_str); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 615; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_str); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 596; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -11764,10 +11485,10 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_40__repr__(struct __
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 615; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 596; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 615; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 596; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -11775,7 +11496,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_40__repr__(struct __
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":614
+  /* "pytraj/Trajectory.pyx":595
  *         return my_str_method(self)
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -11796,7 +11517,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_40__repr__(struct __
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":617
+/* "pytraj/Trajectory.pyx":598
  *         return self.__str__()
  * 
  *     def __enter__(self):             # <<<<<<<<<<<<<<
@@ -11805,25 +11526,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_40__repr__(struct __
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_43__enter__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_42__enter__[] = "Trajectory.__enter__(self)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_43__enter__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_41__enter__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_40__enter__[] = "Trajectory.__enter__(self)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_41__enter__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__enter__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_42__enter__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_40__enter__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_42__enter__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_40__enter__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__enter__", 0);
 
-  /* "pytraj/Trajectory.pyx":618
+  /* "pytraj/Trajectory.pyx":599
  * 
  *     def __enter__(self):
  *         return self             # <<<<<<<<<<<<<<
@@ -11835,7 +11556,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_42__enter__(struct _
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":617
+  /* "pytraj/Trajectory.pyx":598
  *         return self.__str__()
  * 
  *     def __enter__(self):             # <<<<<<<<<<<<<<
@@ -11850,7 +11571,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_42__enter__(struct _
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":620
+/* "pytraj/Trajectory.pyx":601
  *         return self
  * 
  *     def __exit__(self, *args):             # <<<<<<<<<<<<<<
@@ -11859,9 +11580,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_42__enter__(struct _
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_45__exit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_44__exit__[] = "Trajectory.__exit__(self, *args)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_45__exit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_43__exit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_42__exit__[] = "Trajectory.__exit__(self, *args)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_43__exit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED PyObject *__pyx_v_args = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -11869,7 +11590,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_45__exit__(PyObject 
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__exit__", 0))) return NULL;
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_44__exit__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_args);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_42__exit__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_args);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -11877,7 +11598,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_45__exit__(PyObject 
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_44__exit__(CYTHON_UNUSED struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_args) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_42__exit__(CYTHON_UNUSED struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_args) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__exit__", 0);
@@ -11889,7 +11610,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_44__exit__(CYTHON_UN
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":624
+/* "pytraj/Trajectory.pyx":605
  *         pass
  * 
  *     def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):             # <<<<<<<<<<<<<<
@@ -11898,9 +11619,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_44__exit__(CYTHON_UN
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_47frame_iter(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_46frame_iter[] = "Trajectory.frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None)\niterately get Frames with start, stop, stride \n        Parameters\n        ---------\n        start : int (default = 0)\n        chunk : int (default = 1)\n        stop : int (default = max_frames - 1)\n        ";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_47frame_iter(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_45frame_iter(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_44frame_iter[] = "Trajectory.frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None)\niterately get Frames with start, stop, stride \n        Parameters\n        ---------\n        start : int (default = 0)\n        chunk : int (default = 1)\n        stop : int (default = max_frames - 1)\n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_45frame_iter(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_start;
   int __pyx_v_stop;
   int __pyx_v_stride;
@@ -11950,7 +11671,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_47frame_iter(PyObjec
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "frame_iter") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "frame_iter") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 605; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -11963,17 +11684,17 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_47frame_iter(PyObjec
       }
     }
     if (values[0]) {
-      __pyx_v_start = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_start == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_start = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_start == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 605; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_start = ((int)0);
     }
     if (values[1]) {
-      __pyx_v_stop = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_stop == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_stop = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_stop == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 605; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_stop = ((int)-1);
     }
     if (values[2]) {
-      __pyx_v_stride = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_stride == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_stride = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_stride == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 605; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_stride = ((int)1);
     }
@@ -11981,20 +11702,20 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_47frame_iter(PyObjec
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("frame_iter", 0, 0, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("frame_iter", 0, 0, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 605; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.frame_iter", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_46frame_iter(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_start, __pyx_v_stop, __pyx_v_stride, __pyx_v_mask);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_44frame_iter(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_start, __pyx_v_stop, __pyx_v_stride, __pyx_v_mask);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46frame_iter(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_start, int __pyx_v_stop, int __pyx_v_stride, PyObject *__pyx_v_mask) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_44frame_iter(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_start, int __pyx_v_stop, int __pyx_v_stride, PyObject *__pyx_v_mask) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12010,7 +11731,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46frame_iter(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("frame_iter", 0);
 
-  /* "pytraj/Trajectory.pyx":632
+  /* "pytraj/Trajectory.pyx":613
  *         stop : int (default = max_frames - 1)
  *         """
  *         return _frame_iter(self, start, stop, stride, mask)             # <<<<<<<<<<<<<<
@@ -12018,13 +11739,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46frame_iter(struct 
  *     def reverse(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_frame_iter_2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 632; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_frame_iter_2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 613; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_start); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 632; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_start); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 613; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_stop); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 632; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_stop); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 613; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_stride); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 632; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_stride); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 613; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   __pyx_t_7 = 0;
@@ -12038,7 +11759,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46frame_iter(struct 
       __pyx_t_7 = 1;
     }
   }
-  __pyx_t_8 = PyTuple_New(5+__pyx_t_7); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 632; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_8 = PyTuple_New(5+__pyx_t_7); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 613; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_8);
   if (__pyx_t_6) {
     PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __Pyx_GIVEREF(__pyx_t_6); __pyx_t_6 = NULL;
@@ -12058,7 +11779,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46frame_iter(struct 
   __pyx_t_3 = 0;
   __pyx_t_4 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 632; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 613; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -12066,7 +11787,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46frame_iter(struct 
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":624
+  /* "pytraj/Trajectory.pyx":605
  *         pass
  * 
  *     def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):             # <<<<<<<<<<<<<<
@@ -12091,7 +11812,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46frame_iter(struct 
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":634
+/* "pytraj/Trajectory.pyx":615
  *         return _frame_iter(self, start, stop, stride, mask)
  * 
  *     def reverse(self):             # <<<<<<<<<<<<<<
@@ -12100,25 +11821,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46frame_iter(struct 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_49reverse(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_48reverse[] = "Trajectory.reverse(self)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_49reverse(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_47reverse(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_46reverse[] = "Trajectory.reverse(self)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_47reverse(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("reverse (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_48reverse(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_46reverse(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_48reverse(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_46reverse(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("reverse", 0);
 
-  /* "pytraj/Trajectory.pyx":636
+  /* "pytraj/Trajectory.pyx":617
  *     def reverse(self):
  *         # should we just create a fake operator?
  *         cpp_reverse(self.frame_v.begin(), self.frame_v.end())             # <<<<<<<<<<<<<<
@@ -12127,7 +11848,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_48reverse(struct __p
  */
   std::reverse<std::vector<Frame *> ::iterator>(__pyx_v_self->frame_v.begin(), __pyx_v_self->frame_v.end());
 
-  /* "pytraj/Trajectory.pyx":634
+  /* "pytraj/Trajectory.pyx":615
  *         return _frame_iter(self, start, stop, stride, mask)
  * 
  *     def reverse(self):             # <<<<<<<<<<<<<<
@@ -12142,7 +11863,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_48reverse(struct __p
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":638
+/* "pytraj/Trajectory.pyx":619
  *         cpp_reverse(self.frame_v.begin(), self.frame_v.end())
  * 
  *     def erase(self, idxs):             # <<<<<<<<<<<<<<
@@ -12151,20 +11872,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_48reverse(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_51erase(PyObject *__pyx_v_self, PyObject *__pyx_v_idxs); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_50erase[] = "Trajectory.erase(self, idxs)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_51erase(PyObject *__pyx_v_self, PyObject *__pyx_v_idxs) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_49erase(PyObject *__pyx_v_self, PyObject *__pyx_v_idxs); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_48erase[] = "Trajectory.erase(self, idxs)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_49erase(PyObject *__pyx_v_self, PyObject *__pyx_v_idxs) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("erase (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((PyObject *)__pyx_v_idxs));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_48erase(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((PyObject *)__pyx_v_idxs));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_idxs) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_48erase(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_idxs) {
   int __pyx_v_idx;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -12183,14 +11904,14 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("erase", 0);
 
-  /* "pytraj/Trajectory.pyx":641
+  /* "pytraj/Trajectory.pyx":622
  *         cdef int idx
  *         # dealloc frame pointer too?
  *         if is_int(idxs):             # <<<<<<<<<<<<<<
  *             idx = idxs
  *             self.frame_v.erase(self.frame_v.begin() + idx)
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_is_int); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 641; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_is_int); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 622; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -12203,35 +11924,35 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_idxs); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 641; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_idxs); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 622; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 641; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 622; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __Pyx_GIVEREF(__pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(__pyx_v_idxs);
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_idxs);
     __Pyx_GIVEREF(__pyx_v_idxs);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 641; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 622; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 641; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 622; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_5) {
 
-    /* "pytraj/Trajectory.pyx":642
+    /* "pytraj/Trajectory.pyx":623
  *         # dealloc frame pointer too?
  *         if is_int(idxs):
  *             idx = idxs             # <<<<<<<<<<<<<<
  *             self.frame_v.erase(self.frame_v.begin() + idx)
  *         else:
  */
-    __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_idxs); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 642; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_idxs); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 623; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_idx = __pyx_t_6;
 
-    /* "pytraj/Trajectory.pyx":643
+    /* "pytraj/Trajectory.pyx":624
  *         if is_int(idxs):
  *             idx = idxs
  *             self.frame_v.erase(self.frame_v.begin() + idx)             # <<<<<<<<<<<<<<
@@ -12240,7 +11961,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx
  */
     __pyx_v_self->frame_v.erase((__pyx_v_self->frame_v.begin() + __pyx_v_idx));
 
-    /* "pytraj/Trajectory.pyx":641
+    /* "pytraj/Trajectory.pyx":622
  *         cdef int idx
  *         # dealloc frame pointer too?
  *         if is_int(idxs):             # <<<<<<<<<<<<<<
@@ -12250,7 +11971,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx
     goto __pyx_L3;
   }
 
-  /* "pytraj/Trajectory.pyx":646
+  /* "pytraj/Trajectory.pyx":627
  *         else:
  *             # assume : list, slice, iteratable object
  *             for idx in idxs:             # <<<<<<<<<<<<<<
@@ -12262,25 +11983,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx
       __pyx_t_1 = __pyx_v_idxs; __Pyx_INCREF(__pyx_t_1); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
     } else {
-      __pyx_t_7 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_idxs); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 646; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_idxs); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 627; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_8 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 646; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_8 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 627; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     for (;;) {
       if (likely(!__pyx_t_8)) {
         if (likely(PyList_CheckExact(__pyx_t_1))) {
           if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_1)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 646; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 627; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 646; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 627; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #endif
         } else {
           if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 646; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 627; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 646; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 627; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #endif
         }
       } else {
@@ -12289,26 +12010,26 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 646; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 627; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           break;
         }
         __Pyx_GOTREF(__pyx_t_2);
       }
-      __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 646; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 627; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_idx = __pyx_t_6;
 
-      /* "pytraj/Trajectory.pyx":647
+      /* "pytraj/Trajectory.pyx":628
  *             # assume : list, slice, iteratable object
  *             for idx in idxs:
  *                 self.erase(idx)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_erase); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 647; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_erase); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 628; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_idx); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 647; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_idx); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 628; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_9 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -12321,24 +12042,24 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx
         }
       }
       if (!__pyx_t_9) {
-        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 647; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 628; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_2);
       } else {
-        __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 647; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 628; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_10);
         PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_9); __Pyx_GIVEREF(__pyx_t_9); __pyx_t_9 = NULL;
         PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_3);
         __Pyx_GIVEREF(__pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 647; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 628; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       }
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "pytraj/Trajectory.pyx":646
+      /* "pytraj/Trajectory.pyx":627
  *         else:
  *             # assume : list, slice, iteratable object
  *             for idx in idxs:             # <<<<<<<<<<<<<<
@@ -12350,7 +12071,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx
   }
   __pyx_L3:;
 
-  /* "pytraj/Trajectory.pyx":638
+  /* "pytraj/Trajectory.pyx":619
  *         cpp_reverse(self.frame_v.begin(), self.frame_v.end())
  * 
  *     def erase(self, idxs):             # <<<<<<<<<<<<<<
@@ -12376,7 +12097,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":650
+/* "pytraj/Trajectory.pyx":631
  * 
  *     @property
  *     def size(self):             # <<<<<<<<<<<<<<
@@ -12385,20 +12106,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50erase(struct __pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_53size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_52size[] = "Trajectory.size(self)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_53size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_51size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_50size[] = "Trajectory.size(self)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_51size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("size (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_52size(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_50size(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_52size(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_50size(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12407,7 +12128,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_52size(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("size", 0);
 
-  /* "pytraj/Trajectory.pyx":651
+  /* "pytraj/Trajectory.pyx":632
  *     @property
  *     def size(self):
  *         return self.frame_v.size()             # <<<<<<<<<<<<<<
@@ -12415,13 +12136,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_52size(struct __pyx_
  *     def is_empty(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_FromSize_t(__pyx_v_self->frame_v.size()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 651; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_FromSize_t(__pyx_v_self->frame_v.size()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 632; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":650
+  /* "pytraj/Trajectory.pyx":631
  * 
  *     @property
  *     def size(self):             # <<<<<<<<<<<<<<
@@ -12440,7 +12161,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_52size(struct __pyx_
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":653
+/* "pytraj/Trajectory.pyx":634
  *         return self.frame_v.size()
  * 
  *     def is_empty(self):             # <<<<<<<<<<<<<<
@@ -12449,20 +12170,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_52size(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_55is_empty(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_54is_empty[] = "Trajectory.is_empty(self)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_55is_empty(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_53is_empty(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_52is_empty[] = "Trajectory.is_empty(self)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_53is_empty(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("is_empty (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_54is_empty(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_52is_empty(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_54is_empty(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_52is_empty(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12472,7 +12193,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_54is_empty(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("is_empty", 0);
 
-  /* "pytraj/Trajectory.pyx":654
+  /* "pytraj/Trajectory.pyx":635
  * 
  *     def is_empty(self):
  *         return self.size == 0             # <<<<<<<<<<<<<<
@@ -12480,16 +12201,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_54is_empty(struct __
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 654; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 635; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 654; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 635; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":653
+  /* "pytraj/Trajectory.pyx":634
  *         return self.frame_v.size()
  * 
  *     def is_empty(self):             # <<<<<<<<<<<<<<
@@ -12509,7 +12230,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_54is_empty(struct __
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":657
+/* "pytraj/Trajectory.pyx":638
  * 
  *     @property
  *     def n_frames(self):             # <<<<<<<<<<<<<<
@@ -12518,20 +12239,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_54is_empty(struct __
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_57n_frames(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_56n_frames[] = "Trajectory.n_frames(self)\nsame as self.size";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_57n_frames(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_55n_frames(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_54n_frames[] = "Trajectory.n_frames(self)\nsame as self.size";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_55n_frames(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("n_frames (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_56n_frames(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_54n_frames(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_56n_frames(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_54n_frames(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12540,7 +12261,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_56n_frames(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("n_frames", 0);
 
-  /* "pytraj/Trajectory.pyx":659
+  /* "pytraj/Trajectory.pyx":640
  *     def n_frames(self):
  *         """same as self.size"""
  *         return self.size             # <<<<<<<<<<<<<<
@@ -12548,13 +12269,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_56n_frames(struct __
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 659; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 640; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":657
+  /* "pytraj/Trajectory.pyx":638
  * 
  *     @property
  *     def n_frames(self):             # <<<<<<<<<<<<<<
@@ -12573,7 +12294,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_56n_frames(struct __
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":662
+/* "pytraj/Trajectory.pyx":643
  * 
  *     @property
  *     def n_atoms(self):             # <<<<<<<<<<<<<<
@@ -12582,20 +12303,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_56n_frames(struct __
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_59n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_58n_atoms[] = "Trajectory.n_atoms(self)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_59n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_57n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_56n_atoms[] = "Trajectory.n_atoms(self)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_57n_atoms(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("n_atoms (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_58n_atoms(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_56n_atoms(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_58n_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_56n_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12604,7 +12325,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_58n_atoms(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("n_atoms", 0);
 
-  /* "pytraj/Trajectory.pyx":663
+  /* "pytraj/Trajectory.pyx":644
  *     @property
  *     def n_atoms(self):
  *         return self.top.n_atoms             # <<<<<<<<<<<<<<
@@ -12612,13 +12333,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_58n_atoms(struct __p
  *     def __len__(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 663; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 644; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":662
+  /* "pytraj/Trajectory.pyx":643
  * 
  *     @property
  *     def n_atoms(self):             # <<<<<<<<<<<<<<
@@ -12637,7 +12358,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_58n_atoms(struct __p
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":665
+/* "pytraj/Trajectory.pyx":646
  *         return self.top.n_atoms
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
@@ -12646,19 +12367,19 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_58n_atoms(struct __p
  */
 
 /* Python wrapper */
-static Py_ssize_t __pyx_pw_6pytraj_10Trajectory_10Trajectory_61__len__(PyObject *__pyx_v_self); /*proto*/
-static Py_ssize_t __pyx_pw_6pytraj_10Trajectory_10Trajectory_61__len__(PyObject *__pyx_v_self) {
+static Py_ssize_t __pyx_pw_6pytraj_10Trajectory_10Trajectory_59__len__(PyObject *__pyx_v_self); /*proto*/
+static Py_ssize_t __pyx_pw_6pytraj_10Trajectory_10Trajectory_59__len__(PyObject *__pyx_v_self) {
   Py_ssize_t __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__len__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_60__len__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_58__len__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static Py_ssize_t __pyx_pf_6pytraj_10Trajectory_10Trajectory_60__len__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static Py_ssize_t __pyx_pf_6pytraj_10Trajectory_10Trajectory_58__len__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   Py_ssize_t __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12668,21 +12389,21 @@ static Py_ssize_t __pyx_pf_6pytraj_10Trajectory_10Trajectory_60__len__(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__len__", 0);
 
-  /* "pytraj/Trajectory.pyx":666
+  /* "pytraj/Trajectory.pyx":647
  * 
  *     def __len__(self):
  *         return self.size             # <<<<<<<<<<<<<<
  * 
  *     def __iter__(self):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 666; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 647; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyIndex_AsSsize_t(__pyx_t_1); if (unlikely((__pyx_t_2 == (Py_ssize_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 666; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyIndex_AsSsize_t(__pyx_t_1); if (unlikely((__pyx_t_2 == (Py_ssize_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 647; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":665
+  /* "pytraj/Trajectory.pyx":646
  *         return self.top.n_atoms
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
@@ -12699,9 +12420,9 @@ static Py_ssize_t __pyx_pf_6pytraj_10Trajectory_10Trajectory_60__len__(struct __
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_62generator(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "pytraj/Trajectory.pyx":668
+/* "pytraj/Trajectory.pyx":649
  *         return self.size
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -12710,23 +12431,23 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_Ge
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_63__iter__(PyObject *__pyx_v_self); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_62__iter__[] = "return a reference of Frame instance\n        >>> for frame in Trajectory_instance:\n        >>>     pass\n                \n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_61__iter__(PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_60__iter__[] = "return a reference of Frame instance\n        >>> for frame in Trajectory_instance:\n        >>>     pass\n                \n        ";
 #if CYTHON_COMPILING_IN_CPYTHON
-struct wrapperbase __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_62__iter__;
+struct wrapperbase __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_60__iter__;
 #endif
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_63__iter__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_61__iter__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iter__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_62__iter__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_60__iter__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_62__iter__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_60__iter__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   struct __pyx_obj_6pytraj_10Trajectory___pyx_scope_struct____iter__ *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -12744,7 +12465,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_62__iter__(struct __
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_Trajectory___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 668; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_6pytraj_10Trajectory_10Trajectory_62generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_Trajectory___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 649; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -12760,7 +12481,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_62__iter__(struct __
   return __pyx_r;
 }
 
-static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_62generator(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
   struct __pyx_obj_6pytraj_10Trajectory___pyx_scope_struct____iter__ *__pyx_cur_scope = ((struct __pyx_obj_6pytraj_10Trajectory___pyx_scope_struct____iter__ *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
@@ -12779,9 +12500,9 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_Ge
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 668; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 649; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "pytraj/Trajectory.pyx":674
+  /* "pytraj/Trajectory.pyx":655
  * 
  *         """
  *         cdef vector[_Frame*].iterator it  = self.frame_v.begin()             # <<<<<<<<<<<<<<
@@ -12790,7 +12511,7 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_Ge
  */
   __pyx_cur_scope->__pyx_v_it = __pyx_cur_scope->__pyx_v_self->frame_v.begin();
 
-  /* "pytraj/Trajectory.pyx":677
+  /* "pytraj/Trajectory.pyx":658
  *         cdef Frame frame
  * 
  *         while it != self.frame_v.end():             # <<<<<<<<<<<<<<
@@ -12801,21 +12522,21 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_Ge
     __pyx_t_1 = ((__pyx_cur_scope->__pyx_v_it != __pyx_cur_scope->__pyx_v_self->frame_v.end()) != 0);
     if (!__pyx_t_1) break;
 
-    /* "pytraj/Trajectory.pyx":678
+    /* "pytraj/Trajectory.pyx":659
  * 
  *         while it != self.frame_v.end():
  *             frame = Frame()             # <<<<<<<<<<<<<<
  *             # use memoryview, don't let python free memory of this instance
  *             frame.py_free_mem = False
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 678; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 659; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_XGOTREF(((PyObject *)__pyx_cur_scope->__pyx_v_frame));
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_frame, ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_2));
     __Pyx_GIVEREF(__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pytraj/Trajectory.pyx":680
+    /* "pytraj/Trajectory.pyx":661
  *             frame = Frame()
  *             # use memoryview, don't let python free memory of this instance
  *             frame.py_free_mem = False             # <<<<<<<<<<<<<<
@@ -12824,7 +12545,7 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_Ge
  */
     __pyx_cur_scope->__pyx_v_frame->py_free_mem = 0;
 
-    /* "pytraj/Trajectory.pyx":682
+    /* "pytraj/Trajectory.pyx":663
  *             frame.py_free_mem = False
  *             #frame.thisptr = &(deref(it))
  *             frame.thisptr = deref(it)             # <<<<<<<<<<<<<<
@@ -12833,7 +12554,7 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_Ge
  */
     __pyx_cur_scope->__pyx_v_frame->thisptr = (*__pyx_cur_scope->__pyx_v_it);
 
-    /* "pytraj/Trajectory.pyx":683
+    /* "pytraj/Trajectory.pyx":664
  *             #frame.thisptr = &(deref(it))
  *             frame.thisptr = deref(it)
  *             yield frame             # <<<<<<<<<<<<<<
@@ -12848,9 +12569,9 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_Ge
     __pyx_generator->resume_label = 1;
     return __pyx_r;
     __pyx_L6_resume_from_yield:;
-    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 683; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 664; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Trajectory.pyx":684
+    /* "pytraj/Trajectory.pyx":665
  *             frame.thisptr = deref(it)
  *             yield frame
  *             incr(it)             # <<<<<<<<<<<<<<
@@ -12860,7 +12581,7 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_Ge
     (++__pyx_cur_scope->__pyx_v_it);
   }
 
-  /* "pytraj/Trajectory.pyx":668
+  /* "pytraj/Trajectory.pyx":649
  *         return self.size
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -12882,7 +12603,7 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_Ge
   return NULL;
 }
 
-/* "pytraj/Trajectory.pyx":686
+/* "pytraj/Trajectory.pyx":667
  *             incr(it)
  * 
  *     def __add__(self, Trajectory other):             # <<<<<<<<<<<<<<
@@ -12891,16 +12612,16 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_64generator(__pyx_Ge
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_66__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_66__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_64__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_64__add__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__add__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_10Trajectory_Trajectory, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 686; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_65__add__(((PyObject *)__pyx_v_self), ((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_other));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_10Trajectory_Trajectory, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 667; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_63__add__(((PyObject *)__pyx_v_self), ((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_other));
 
   /* function exit code */
   goto __pyx_L0;
@@ -12911,7 +12632,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_66__add__(PyObject *
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_65__add__(PyObject *__pyx_v_self, struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_other) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_63__add__(PyObject *__pyx_v_self, struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -12921,19 +12642,19 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_65__add__(PyObject *
   __Pyx_RefNannySetupContext("__add__", 0);
   __Pyx_INCREF(__pyx_v_self);
 
-  /* "pytraj/Trajectory.pyx":687
+  /* "pytraj/Trajectory.pyx":668
  * 
  *     def __add__(self, Trajectory other):
  *         self += other             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_self, ((PyObject *)__pyx_v_other)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 687; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_self, ((PyObject *)__pyx_v_other)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 668; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF_SET(__pyx_v_self, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":688
+  /* "pytraj/Trajectory.pyx":669
  *     def __add__(self, Trajectory other):
  *         self += other
  *         return self             # <<<<<<<<<<<<<<
@@ -12945,7 +12666,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_65__add__(PyObject *
   __pyx_r = __pyx_v_self;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":686
+  /* "pytraj/Trajectory.pyx":667
  *             incr(it)
  * 
  *     def __add__(self, Trajectory other):             # <<<<<<<<<<<<<<
@@ -12965,7 +12686,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_65__add__(PyObject *
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":690
+/* "pytraj/Trajectory.pyx":671
  *         return self
  * 
  *     def __iadd__(self, Trajectory other):             # <<<<<<<<<<<<<<
@@ -12974,20 +12695,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_65__add__(PyObject *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_68__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_67__iadd__[] = "\n        append `other`'s frames to `self`\n\n        Examples\n        -------\n        farray += other_farray\n\n        Notes\n        -----\n        No copy is made (except traj += traj (itself))\n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_66__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_65__iadd__[] = "\n        append `other`'s frames to `self`\n\n        Examples\n        -------\n        farray += other_farray\n\n        Notes\n        -----\n        No copy is made (except traj += traj (itself))\n        ";
 #if CYTHON_COMPILING_IN_CPYTHON
-struct wrapperbase __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_67__iadd__;
+struct wrapperbase __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_65__iadd__;
 #endif
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_68__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_66__iadd__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iadd__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_10Trajectory_Trajectory, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 690; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_other));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_10Trajectory_Trajectory, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 671; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_65__iadd__(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_other));
 
   /* function exit code */
   goto __pyx_L0;
@@ -12998,7 +12719,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_68__iadd__(PyObject 
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_other) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_65__iadd__(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_other) {
   Frame *__pyx_v__frame_ptr;
   int __pyx_v_old_size;
   int __pyx_v_i;
@@ -13020,51 +12741,51 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__iadd__", 0);
 
-  /* "pytraj/Trajectory.pyx":705
+  /* "pytraj/Trajectory.pyx":686
  *         cdef _Frame _frame
  *         cdef Frame frame
  *         cdef int old_size = self.size             # <<<<<<<<<<<<<<
  *         cdef int i
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 705; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 686; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 705; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 686; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_old_size = __pyx_t_2;
 
-  /* "pytraj/Trajectory.pyx":708
+  /* "pytraj/Trajectory.pyx":689
  *         cdef int i
  * 
  *         if self.top.n_atoms != other.top.n_atoms:             # <<<<<<<<<<<<<<
  *             raise ValueError("n_atoms of two arrays do not match")
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 708; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 689; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_other->top), __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 708; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_other->top), __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 689; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 708; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 689; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 708; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 689; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_5) {
 
-    /* "pytraj/Trajectory.pyx":709
+    /* "pytraj/Trajectory.pyx":690
  * 
  *         if self.top.n_atoms != other.top.n_atoms:
  *             raise ValueError("n_atoms of two arrays do not match")             # <<<<<<<<<<<<<<
  * 
  *         if other is self:
  */
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__27, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 709; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__27, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 690; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 709; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 690; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Trajectory.pyx":708
+    /* "pytraj/Trajectory.pyx":689
  *         cdef int i
  * 
  *         if self.top.n_atoms != other.top.n_atoms:             # <<<<<<<<<<<<<<
@@ -13073,7 +12794,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
  */
   }
 
-  /* "pytraj/Trajectory.pyx":711
+  /* "pytraj/Trajectory.pyx":692
  *             raise ValueError("n_atoms of two arrays do not match")
  * 
  *         if other is self:             # <<<<<<<<<<<<<<
@@ -13084,16 +12805,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
   __pyx_t_6 = (__pyx_t_5 != 0);
   if (__pyx_t_6) {
 
-    /* "pytraj/Trajectory.pyx":714
+    /* "pytraj/Trajectory.pyx":695
  *             # why doing this? save memory
  *             # traj += traj.copy() is too expensive since we need to make a copy first
  *             print ("making copies of Frames and append")             # <<<<<<<<<<<<<<
  *             for i in range(old_size):
  *                 self.append(self[i], copy=True)
  */
-    if (__Pyx_PrintOne(0, __pyx_kp_s_making_copies_of_Frames_and_appe) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 714; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (__Pyx_PrintOne(0, __pyx_kp_s_making_copies_of_Frames_and_appe) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 695; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Trajectory.pyx":715
+    /* "pytraj/Trajectory.pyx":696
  *             # traj += traj.copy() is too expensive since we need to make a copy first
  *             print ("making copies of Frames and append")
  *             for i in range(old_size):             # <<<<<<<<<<<<<<
@@ -13104,26 +12825,26 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
     for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_2; __pyx_t_7+=1) {
       __pyx_v_i = __pyx_t_7;
 
-      /* "pytraj/Trajectory.pyx":716
+      /* "pytraj/Trajectory.pyx":697
  *             print ("making copies of Frames and append")
  *             for i in range(old_size):
  *                 self.append(self[i], copy=True)             # <<<<<<<<<<<<<<
  *         else:
  *             for _frame_ptr in other.frame_v:
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 716; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 697; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 716; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+      __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 697; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 716; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 697; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_3);
       __pyx_t_3 = 0;
-      __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 716; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 697; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
-      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_copy, Py_True) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 716; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 716; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_copy, Py_True) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 697; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 697; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -13131,7 +12852,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
 
-    /* "pytraj/Trajectory.pyx":711
+    /* "pytraj/Trajectory.pyx":692
  *             raise ValueError("n_atoms of two arrays do not match")
  * 
  *         if other is self:             # <<<<<<<<<<<<<<
@@ -13141,7 +12862,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
     goto __pyx_L4;
   }
 
-  /* "pytraj/Trajectory.pyx":718
+  /* "pytraj/Trajectory.pyx":699
  *                 self.append(self[i], copy=True)
  *         else:
  *             for _frame_ptr in other.frame_v:             # <<<<<<<<<<<<<<
@@ -13157,7 +12878,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
       ++__pyx_t_9;
       __pyx_v__frame_ptr = __pyx_t_11;
 
-      /* "pytraj/Trajectory.pyx":719
+      /* "pytraj/Trajectory.pyx":700
  *         else:
  *             for _frame_ptr in other.frame_v:
  *                 self.frame_v.push_back(_frame_ptr)             # <<<<<<<<<<<<<<
@@ -13168,10 +12889,10 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
         __pyx_v_self->frame_v.push_back(__pyx_v__frame_ptr);
       } catch(...) {
         __Pyx_CppExn2PyErr();
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 719; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 700; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
 
-      /* "pytraj/Trajectory.pyx":718
+      /* "pytraj/Trajectory.pyx":699
  *                 self.append(self[i], copy=True)
  *         else:
  *             for _frame_ptr in other.frame_v:             # <<<<<<<<<<<<<<
@@ -13182,7 +12903,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
   }
   __pyx_L4:;
 
-  /* "pytraj/Trajectory.pyx":720
+  /* "pytraj/Trajectory.pyx":701
  *             for _frame_ptr in other.frame_v:
  *                 self.frame_v.push_back(_frame_ptr)
  *         return self             # <<<<<<<<<<<<<<
@@ -13194,7 +12915,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
   __pyx_r = ((PyObject *)__pyx_v_self);
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":690
+  /* "pytraj/Trajectory.pyx":671
  *         return self
  * 
  *     def __iadd__(self, Trajectory other):             # <<<<<<<<<<<<<<
@@ -13216,7 +12937,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":722
+/* "pytraj/Trajectory.pyx":703
  *         return self
  * 
  *     def append(self, Frame framein, copy=True):             # <<<<<<<<<<<<<<
@@ -13225,9 +12946,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67__iadd__(struct __
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_70append(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_69append[] = "Trajectory.append(self, Frame framein, copy=True)\nappend new Frame\n\n        Parameters\n        ---------\n        framein : Frame object\n        copy : bool, default=True\n            if 'True', make a copy of Frame. If 'False', create a view\n        ";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_70append(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_68append(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_67append[] = "Trajectory.append(self, Frame framein, copy=True)\nappend new Frame\n\n        Parameters\n        ---------\n        framein : Frame object\n        copy : bool, default=True\n            if 'True', make a copy of Frame. If 'False', create a view\n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_68append(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_framein = 0;
   PyObject *__pyx_v_copy = 0;
   int __pyx_lineno = 0;
@@ -13261,7 +12982,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_70append(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "append") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 722; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "append") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 703; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -13276,14 +12997,14 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_70append(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("append", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 722; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("append", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 703; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.append", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_framein), __pyx_ptype_6pytraj_5Frame_Frame, 1, "framein", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 722; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_framein, __pyx_v_copy);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_framein), __pyx_ptype_6pytraj_5Frame_Frame, 1, "framein", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 703; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_67append(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_framein, __pyx_v_copy);
 
   /* function exit code */
   goto __pyx_L0;
@@ -13294,7 +13015,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_70append(PyObject *_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_framein, PyObject *__pyx_v_copy) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_67append(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_framein, PyObject *__pyx_v_copy) {
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -13306,35 +13027,35 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(struct __py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("append", 0);
 
-  /* "pytraj/Trajectory.pyx":735
+  /* "pytraj/Trajectory.pyx":716
  *         # use `copy = False` if you want to get memoryview for `self`
  *         # need to set `py_free_mem = False`
  *         if copy:             # <<<<<<<<<<<<<<
  *             frame = Frame(framein)
  *             frame.py_free_mem = False
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_copy); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 735; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_copy); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 716; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
-    /* "pytraj/Trajectory.pyx":736
+    /* "pytraj/Trajectory.pyx":717
  *         # need to set `py_free_mem = False`
  *         if copy:
  *             frame = Frame(framein)             # <<<<<<<<<<<<<<
  *             frame.py_free_mem = False
  *             self.frame_v.push_back(frame.thisptr)
  */
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 736; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 717; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(((PyObject *)__pyx_v_framein));
     PyTuple_SET_ITEM(__pyx_t_2, 0, ((PyObject *)__pyx_v_framein));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_framein));
-    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 736; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 717; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_frame = ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pytraj/Trajectory.pyx":737
+    /* "pytraj/Trajectory.pyx":718
  *         if copy:
  *             frame = Frame(framein)
  *             frame.py_free_mem = False             # <<<<<<<<<<<<<<
@@ -13343,7 +13064,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(struct __py
  */
     __pyx_v_frame->py_free_mem = 0;
 
-    /* "pytraj/Trajectory.pyx":738
+    /* "pytraj/Trajectory.pyx":719
  *             frame = Frame(framein)
  *             frame.py_free_mem = False
  *             self.frame_v.push_back(frame.thisptr)             # <<<<<<<<<<<<<<
@@ -13354,10 +13075,10 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(struct __py
       __pyx_v_self->frame_v.push_back(__pyx_v_frame->thisptr);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 738; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 719; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
 
-    /* "pytraj/Trajectory.pyx":735
+    /* "pytraj/Trajectory.pyx":716
  *         # use `copy = False` if you want to get memoryview for `self`
  *         # need to set `py_free_mem = False`
  *         if copy:             # <<<<<<<<<<<<<<
@@ -13367,7 +13088,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(struct __py
     goto __pyx_L3;
   }
 
-  /* "pytraj/Trajectory.pyx":740
+  /* "pytraj/Trajectory.pyx":721
  *             self.frame_v.push_back(frame.thisptr)
  *         else:
  *             framein.py_free_mem = False             # <<<<<<<<<<<<<<
@@ -13377,7 +13098,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(struct __py
   /*else*/ {
     __pyx_v_framein->py_free_mem = 0;
 
-    /* "pytraj/Trajectory.pyx":741
+    /* "pytraj/Trajectory.pyx":722
  *         else:
  *             framein.py_free_mem = False
  *             self.frame_v.push_back(framein.thisptr)             # <<<<<<<<<<<<<<
@@ -13388,12 +13109,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(struct __py
       __pyx_v_self->frame_v.push_back(__pyx_v_framein->thisptr);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 741; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 722; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   __pyx_L3:;
 
-  /* "pytraj/Trajectory.pyx":722
+  /* "pytraj/Trajectory.pyx":703
  *         return self
  * 
  *     def append(self, Frame framein, copy=True):             # <<<<<<<<<<<<<<
@@ -13416,7 +13137,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(struct __py
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":743
+/* "pytraj/Trajectory.pyx":724
  *             self.frame_v.push_back(framein.thisptr)
  * 
  *     def join(self, traj, copy=True):             # <<<<<<<<<<<<<<
@@ -13425,9 +13146,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69append(struct __py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_72join(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_71join[] = "Trajectory.join(self, traj, copy=True)\ntraj.join(traj2) with/without copy\n        ";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_72join(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_70join(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_69join[] = "Trajectory.join(self, traj, copy=True)\ntraj.join(traj2) with/without copy\n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_70join(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_traj = 0;
   PyObject *__pyx_v_copy = 0;
   int __pyx_lineno = 0;
@@ -13461,7 +13182,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_72join(PyObject *__p
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "join") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 743; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "join") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 724; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -13476,20 +13197,20 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_72join(PyObject *__p
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("join", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 743; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("join", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 724; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.join", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_traj, __pyx_v_copy);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_69join(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_traj, __pyx_v_copy);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_traj, PyObject *__pyx_v_copy) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_69join(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_traj, PyObject *__pyx_v_copy) {
   struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_farray = 0;
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame = 0;
   PyObject *__pyx_r = NULL;
@@ -13509,7 +13230,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("join", 0);
 
-  /* "pytraj/Trajectory.pyx":749
+  /* "pytraj/Trajectory.pyx":730
  *         cdef Frame frame
  *         # TODO : do we need this method when we have `get_frames`
  *         if traj is self:             # <<<<<<<<<<<<<<
@@ -13520,20 +13241,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/Trajectory.pyx":750
+    /* "pytraj/Trajectory.pyx":731
  *         # TODO : do we need this method when we have `get_frames`
  *         if traj is self:
  *             raise ValueError("why do you join your self?")             # <<<<<<<<<<<<<<
  *         if is_pytraj_trajectory(traj):
  *             if self.top.n_atoms != traj.top.n_atoms:
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__28, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 750; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__28, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 731; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 750; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 731; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Trajectory.pyx":749
+    /* "pytraj/Trajectory.pyx":730
  *         cdef Frame frame
  *         # TODO : do we need this method when we have `get_frames`
  *         if traj is self:             # <<<<<<<<<<<<<<
@@ -13542,14 +13263,14 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
  */
   }
 
-  /* "pytraj/Trajectory.pyx":751
+  /* "pytraj/Trajectory.pyx":732
  *         if traj is self:
  *             raise ValueError("why do you join your self?")
  *         if is_pytraj_trajectory(traj):             # <<<<<<<<<<<<<<
  *             if self.top.n_atoms != traj.top.n_atoms:
  *                 raise ValueError("n_atoms of two arrays do not match")
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_is_pytraj_trajectory); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_is_pytraj_trajectory); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 732; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -13562,59 +13283,59 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_traj); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_traj); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 732; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 732; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_INCREF(__pyx_v_traj);
     PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_traj);
     __Pyx_GIVEREF(__pyx_v_traj);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 732; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 732; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_2) {
 
-    /* "pytraj/Trajectory.pyx":752
+    /* "pytraj/Trajectory.pyx":733
  *             raise ValueError("why do you join your self?")
  *         if is_pytraj_trajectory(traj):
  *             if self.top.n_atoms != traj.top.n_atoms:             # <<<<<<<<<<<<<<
  *                 raise ValueError("n_atoms of two arrays do not match")
  *             for frame in traj:
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 752; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_traj, __pyx_n_s_top); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 752; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_traj, __pyx_n_s_top); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 752; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 752; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 752; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     if (__pyx_t_2) {
 
-      /* "pytraj/Trajectory.pyx":753
+      /* "pytraj/Trajectory.pyx":734
  *         if is_pytraj_trajectory(traj):
  *             if self.top.n_atoms != traj.top.n_atoms:
  *                 raise ValueError("n_atoms of two arrays do not match")             # <<<<<<<<<<<<<<
  *             for frame in traj:
  *                 self.append(frame, copy=copy)
  */
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__29, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 753; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__29, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 734; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_Raise(__pyx_t_4, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 753; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 734; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-      /* "pytraj/Trajectory.pyx":752
+      /* "pytraj/Trajectory.pyx":733
  *             raise ValueError("why do you join your self?")
  *         if is_pytraj_trajectory(traj):
  *             if self.top.n_atoms != traj.top.n_atoms:             # <<<<<<<<<<<<<<
@@ -13623,7 +13344,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
  */
     }
 
-    /* "pytraj/Trajectory.pyx":754
+    /* "pytraj/Trajectory.pyx":735
  *             if self.top.n_atoms != traj.top.n_atoms:
  *                 raise ValueError("n_atoms of two arrays do not match")
  *             for frame in traj:             # <<<<<<<<<<<<<<
@@ -13634,25 +13355,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
       __pyx_t_4 = __pyx_v_traj; __Pyx_INCREF(__pyx_t_4); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
     } else {
-      __pyx_t_7 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_v_traj); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 754; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_v_traj); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 735; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_8 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 754; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_8 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 735; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     for (;;) {
       if (likely(!__pyx_t_8)) {
         if (likely(PyList_CheckExact(__pyx_t_4))) {
           if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_6 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_7); __Pyx_INCREF(__pyx_t_6); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 754; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_6 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_7); __Pyx_INCREF(__pyx_t_6); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 735; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_6 = PySequence_ITEM(__pyx_t_4, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 754; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_6 = PySequence_ITEM(__pyx_t_4, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 735; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #endif
         } else {
           if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_7); __Pyx_INCREF(__pyx_t_6); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 754; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_7); __Pyx_INCREF(__pyx_t_6); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 735; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_6 = PySequence_ITEM(__pyx_t_4, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 754; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_6 = PySequence_ITEM(__pyx_t_4, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 735; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #endif
         }
       } else {
@@ -13661,41 +13382,41 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 754; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 735; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           break;
         }
         __Pyx_GOTREF(__pyx_t_6);
       }
-      if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_6pytraj_5Frame_Frame))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 754; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_6pytraj_5Frame_Frame))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 735; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_XDECREF_SET(__pyx_v_frame, ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_6));
       __pyx_t_6 = 0;
 
-      /* "pytraj/Trajectory.pyx":755
+      /* "pytraj/Trajectory.pyx":736
  *                 raise ValueError("n_atoms of two arrays do not match")
  *             for frame in traj:
  *                 self.append(frame, copy=copy)             # <<<<<<<<<<<<<<
  *         elif isinstance(traj, (list, tuple)):
  *             # assume a list or tuple of Trajectory
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 755; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 736; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 755; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 736; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(((PyObject *)__pyx_v_frame));
       PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_v_frame));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_frame));
-      __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 755; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 736; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
-      if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_copy, __pyx_v_copy) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 755; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 755; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_copy, __pyx_v_copy) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 736; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 736; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pytraj/Trajectory.pyx":754
+      /* "pytraj/Trajectory.pyx":735
  *             if self.top.n_atoms != traj.top.n_atoms:
  *                 raise ValueError("n_atoms of two arrays do not match")
  *             for frame in traj:             # <<<<<<<<<<<<<<
@@ -13705,7 +13426,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pytraj/Trajectory.pyx":751
+    /* "pytraj/Trajectory.pyx":732
  *         if traj is self:
  *             raise ValueError("why do you join your self?")
  *         if is_pytraj_trajectory(traj):             # <<<<<<<<<<<<<<
@@ -13715,7 +13436,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
     goto __pyx_L4;
   }
 
-  /* "pytraj/Trajectory.pyx":756
+  /* "pytraj/Trajectory.pyx":737
  *             for frame in traj:
  *                 self.append(frame, copy=copy)
  *         elif isinstance(traj, (list, tuple)):             # <<<<<<<<<<<<<<
@@ -13736,7 +13457,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "pytraj/Trajectory.pyx":758
+    /* "pytraj/Trajectory.pyx":739
  *         elif isinstance(traj, (list, tuple)):
  *             # assume a list or tuple of Trajectory
  *             for farray in traj:             # <<<<<<<<<<<<<<
@@ -13747,25 +13468,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
       __pyx_t_4 = __pyx_v_traj; __Pyx_INCREF(__pyx_t_4); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
     } else {
-      __pyx_t_7 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_v_traj); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_v_traj); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 739; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_8 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_8 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 739; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     for (;;) {
       if (likely(!__pyx_t_8)) {
         if (likely(PyList_CheckExact(__pyx_t_4))) {
           if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_9 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_7); __Pyx_INCREF(__pyx_t_9); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_9 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_7); __Pyx_INCREF(__pyx_t_9); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 739; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_9 = PySequence_ITEM(__pyx_t_4, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_9 = PySequence_ITEM(__pyx_t_4, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 739; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #endif
         } else {
           if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_9 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_7); __Pyx_INCREF(__pyx_t_9); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_9 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_7); __Pyx_INCREF(__pyx_t_9); __pyx_t_7++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 739; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_9 = PySequence_ITEM(__pyx_t_4, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_9 = PySequence_ITEM(__pyx_t_4, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 739; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #endif
         }
       } else {
@@ -13774,41 +13495,41 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 739; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           break;
         }
         __Pyx_GOTREF(__pyx_t_9);
       }
-      if (!(likely(((__pyx_t_9) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_9, __pyx_ptype_6pytraj_10Trajectory_Trajectory))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (!(likely(((__pyx_t_9) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_9, __pyx_ptype_6pytraj_10Trajectory_Trajectory))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 739; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_XDECREF_SET(__pyx_v_farray, ((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_t_9));
       __pyx_t_9 = 0;
 
-      /* "pytraj/Trajectory.pyx":759
+      /* "pytraj/Trajectory.pyx":740
  *             # assume a list or tuple of Trajectory
  *             for farray in traj:
  *                 self.join(farray, copy=copy)             # <<<<<<<<<<<<<<
  * 
  *     def resize(self, int n_frames):
  */
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_join); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 759; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_join); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 740; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 759; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 740; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_INCREF(((PyObject *)__pyx_v_farray));
       PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_farray));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_farray));
-      __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 759; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 740; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
-      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_copy, __pyx_v_copy) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 759; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 759; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_copy, __pyx_v_copy) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 740; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 740; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "pytraj/Trajectory.pyx":758
+      /* "pytraj/Trajectory.pyx":739
  *         elif isinstance(traj, (list, tuple)):
  *             # assume a list or tuple of Trajectory
  *             for farray in traj:             # <<<<<<<<<<<<<<
@@ -13818,7 +13539,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pytraj/Trajectory.pyx":756
+    /* "pytraj/Trajectory.pyx":737
  *             for frame in traj:
  *                 self.append(frame, copy=copy)
  *         elif isinstance(traj, (list, tuple)):             # <<<<<<<<<<<<<<
@@ -13828,7 +13549,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
   }
   __pyx_L4:;
 
-  /* "pytraj/Trajectory.pyx":743
+  /* "pytraj/Trajectory.pyx":724
  *             self.frame_v.push_back(framein.thisptr)
  * 
  *     def join(self, traj, copy=True):             # <<<<<<<<<<<<<<
@@ -13855,7 +13576,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":761
+/* "pytraj/Trajectory.pyx":742
  *                 self.join(farray, copy=copy)
  * 
  *     def resize(self, int n_frames):             # <<<<<<<<<<<<<<
@@ -13864,9 +13585,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71join(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_74resize(PyObject *__pyx_v_self, PyObject *__pyx_arg_n_frames); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_73resize[] = "Trajectory.resize(self, int n_frames)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_74resize(PyObject *__pyx_v_self, PyObject *__pyx_arg_n_frames) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_72resize(PyObject *__pyx_v_self, PyObject *__pyx_arg_n_frames); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_71resize[] = "Trajectory.resize(self, int n_frames)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_72resize(PyObject *__pyx_v_self, PyObject *__pyx_arg_n_frames) {
   int __pyx_v_n_frames;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -13875,7 +13596,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_74resize(PyObject *_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("resize (wrapper)", 0);
   assert(__pyx_arg_n_frames); {
-    __pyx_v_n_frames = __Pyx_PyInt_As_int(__pyx_arg_n_frames); if (unlikely((__pyx_v_n_frames == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 761; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_n_frames = __Pyx_PyInt_As_int(__pyx_arg_n_frames); if (unlikely((__pyx_v_n_frames == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 742; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -13883,14 +13604,14 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_74resize(PyObject *_
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_73resize(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((int)__pyx_v_n_frames));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_71resize(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), ((int)__pyx_v_n_frames));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_73resize(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_n_frames) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_71resize(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_n_frames) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_lineno = 0;
@@ -13898,7 +13619,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_73resize(struct __py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("resize", 0);
 
-  /* "pytraj/Trajectory.pyx":762
+  /* "pytraj/Trajectory.pyx":743
  * 
  *     def resize(self, int n_frames):
  *         self.frame_v.resize(n_frames)             # <<<<<<<<<<<<<<
@@ -13909,10 +13630,10 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_73resize(struct __py
     __pyx_v_self->frame_v.resize(__pyx_v_n_frames);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 762; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 743; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "pytraj/Trajectory.pyx":761
+  /* "pytraj/Trajectory.pyx":742
  *                 self.join(farray, copy=copy)
  * 
  *     def resize(self, int n_frames):             # <<<<<<<<<<<<<<
@@ -13932,7 +13653,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_73resize(struct __py
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":765
+/* "pytraj/Trajectory.pyx":746
  * 
  *     @property
  *     def temperatures(self):             # <<<<<<<<<<<<<<
@@ -13941,20 +13662,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_73resize(struct __py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_76temperatures(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_75temperatures[] = "Trajectory.temperatures(self)\nreturn a Python array of temperatures\n        ";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_76temperatures(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_74temperatures(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_73temperatures[] = "Trajectory.temperatures(self)\nreturn a Python array of temperatures\n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_74temperatures(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("temperatures (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_73temperatures(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_73temperatures(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   arrayobject *__pyx_v_tarr = 0;
   PyObject *__pyx_v_frame = NULL;
   PyObject *__pyx_r = NULL;
@@ -13969,16 +13690,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("temperatures", 0);
 
-  /* "pytraj/Trajectory.pyx":768
+  /* "pytraj/Trajectory.pyx":749
  *         """return a Python array of temperatures
  *         """
  *         cdef pyarray tarr = pyarray('d', [])             # <<<<<<<<<<<<<<
  * 
  *         for frame in self:
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 768; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 749; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 768; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 749; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_d);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_d);
@@ -13986,13 +13707,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struc
   PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7cpython_5array_array)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 768; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7cpython_5array_array)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 749; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_tarr = ((arrayobject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":770
+  /* "pytraj/Trajectory.pyx":751
  *         cdef pyarray tarr = pyarray('d', [])
  * 
  *         for frame in self:             # <<<<<<<<<<<<<<
@@ -14003,25 +13724,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struc
     __pyx_t_1 = ((PyObject *)__pyx_v_self); __Pyx_INCREF(__pyx_t_1); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_1 = PyObject_GetIter(((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 770; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = -1; __pyx_t_1 = PyObject_GetIter(((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 770; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   for (;;) {
     if (likely(!__pyx_t_4)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 770; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 770; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 770; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 770; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #endif
       }
     } else {
@@ -14030,7 +13751,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struc
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 770; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 751; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         break;
       }
@@ -14039,19 +13760,19 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struc
     __Pyx_XDECREF_SET(__pyx_v_frame, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pytraj/Trajectory.pyx":771
+    /* "pytraj/Trajectory.pyx":752
  * 
  *         for frame in self:
  *             tarr.append(frame.temperature)             # <<<<<<<<<<<<<<
  *         return tarr
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_frame, __pyx_n_s_temperature); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 771; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_frame, __pyx_n_s_temperature); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 752; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = __Pyx_PyObject_Append(((PyObject *)__pyx_v_tarr), __pyx_t_2); if (unlikely(__pyx_t_5 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 771; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = __Pyx_PyObject_Append(((PyObject *)__pyx_v_tarr), __pyx_t_2); if (unlikely(__pyx_t_5 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 752; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "pytraj/Trajectory.pyx":770
+    /* "pytraj/Trajectory.pyx":751
  *         cdef pyarray tarr = pyarray('d', [])
  * 
  *         for frame in self:             # <<<<<<<<<<<<<<
@@ -14061,7 +13782,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struc
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":772
+  /* "pytraj/Trajectory.pyx":753
  *         for frame in self:
  *             tarr.append(frame.temperature)
  *         return tarr             # <<<<<<<<<<<<<<
@@ -14073,7 +13794,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struc
   __pyx_r = ((PyObject *)__pyx_v_tarr);
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":765
+  /* "pytraj/Trajectory.pyx":746
  * 
  *     @property
  *     def temperatures(self):             # <<<<<<<<<<<<<<
@@ -14095,7 +13816,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struc
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":775
+/* "pytraj/Trajectory.pyx":756
  * 
  *     @property
  *     def temperature_set(self):             # <<<<<<<<<<<<<<
@@ -14104,20 +13825,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperatures(struc
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_78temperature_set(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_77temperature_set[] = "Trajectory.temperature_set(self)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_78temperature_set(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_76temperature_set(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_75temperature_set[] = "Trajectory.temperature_set(self)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_76temperature_set(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("temperature_set (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_77temperature_set(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperature_set(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_77temperature_set(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_75temperature_set(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -14129,7 +13850,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_77temperature_set(st
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("temperature_set", 0);
 
-  /* "pytraj/Trajectory.pyx":776
+  /* "pytraj/Trajectory.pyx":757
  *     @property
  *     def temperature_set(self):
  *         return _get_temperature_set(self)             # <<<<<<<<<<<<<<
@@ -14137,7 +13858,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_77temperature_set(st
  *     def get_frames(self, from_traj=None, indices=None, update_top=False, copy=False):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_temperature_set); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 776; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_temperature_set); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 757; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -14150,16 +13871,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_77temperature_set(st
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 776; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 757; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 776; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 757; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __Pyx_GIVEREF(__pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(((PyObject *)__pyx_v_self));
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_v_self));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_self));
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 776; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 757; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -14168,7 +13889,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_77temperature_set(st
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":775
+  /* "pytraj/Trajectory.pyx":756
  * 
  *     @property
  *     def temperature_set(self):             # <<<<<<<<<<<<<<
@@ -14190,7 +13911,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_77temperature_set(st
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":778
+/* "pytraj/Trajectory.pyx":759
  *         return _get_temperature_set(self)
  * 
  *     def get_frames(self, from_traj=None, indices=None, update_top=False, copy=False):             # <<<<<<<<<<<<<<
@@ -14199,9 +13920,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_77temperature_set(st
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_80get_frames(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_79get_frames[] = "Trajectory.get_frames(self, from_traj=None, indices=None, update_top=False, copy=False)\nget frames from Trajin instance\n        def get_frames(from_traj=None, indices=None, update_top=False, copy=True)\n        Parameters:\n        ----------\n        from_traj : TrajectoryIterator or Trajectory, default=None\n            if `from_traj` is None, return a new Trajectory (view or copy)\n        indices : default=None\n        update_top : bool, default=False\n        copy : bool, default=True\n\n        Note:\n        ----\n        Have not support indices yet. Get max_frames from trajetory\n        ";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_80get_frames(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_78get_frames(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_77get_frames[] = "Trajectory.get_frames(self, from_traj=None, indices=None, update_top=False, copy=False)\nget frames from Trajin instance\n        def get_frames(from_traj=None, indices=None, update_top=False, copy=True)\n        Parameters:\n        ----------\n        from_traj : TrajectoryIterator or Trajectory, default=None\n            if `from_traj` is None, return a new Trajectory (view or copy)\n        indices : default=None\n        update_top : bool, default=False\n        copy : bool, default=True\n\n        Note:\n        ----\n        Have not support indices yet. Get max_frames from trajetory\n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_78get_frames(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_from_traj = 0;
   PyObject *__pyx_v_indices = 0;
   PyObject *__pyx_v_update_top = 0;
@@ -14254,7 +13975,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_80get_frames(PyObjec
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_frames") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 778; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_frames") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 759; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -14273,20 +13994,20 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_80get_frames(PyObjec
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_frames", 0, 0, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 778; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("get_frames", 0, 0, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 759; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.get_frames", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_from_traj, __pyx_v_indices, __pyx_v_update_top, __pyx_v_copy);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_77get_frames(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_from_traj, __pyx_v_indices, __pyx_v_update_top, __pyx_v_copy);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_from_traj, PyObject *__pyx_v_indices, PyObject *__pyx_v_update_top, PyObject *__pyx_v_copy) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_77get_frames(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_from_traj, PyObject *__pyx_v_indices, PyObject *__pyx_v_update_top, PyObject *__pyx_v_copy) {
   int __pyx_v_i;
   int __pyx_v_start;
   int __pyx_v_stop;
@@ -14317,7 +14038,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_frames", 0);
 
-  /* "pytraj/Trajectory.pyx":798
+  /* "pytraj/Trajectory.pyx":779
  *         cdef Frame frame
  * 
  *         msg = """Trajectory.top.n_atoms should be equal to Trajin_Single.top.n_atoms             # <<<<<<<<<<<<<<
@@ -14327,7 +14048,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
   __Pyx_INCREF(__pyx_kp_s_Trajectory_top_n_atoms_should_be);
   __pyx_v_msg = __pyx_kp_s_Trajectory_top_n_atoms_should_be;
 
-  /* "pytraj/Trajectory.pyx":801
+  /* "pytraj/Trajectory.pyx":782
  *                or set update_top=True"""
  * 
  *         if from_traj is not None:             # <<<<<<<<<<<<<<
@@ -14338,7 +14059,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/Trajectory.pyx":802
+    /* "pytraj/Trajectory.pyx":783
  * 
  *         if from_traj is not None:
  *             ts = from_traj             # <<<<<<<<<<<<<<
@@ -14348,26 +14069,26 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
     __Pyx_INCREF(__pyx_v_from_traj);
     __pyx_v_ts = __pyx_v_from_traj;
 
-    /* "pytraj/Trajectory.pyx":804
+    /* "pytraj/Trajectory.pyx":785
  *             ts = from_traj
  *             # append new frames to `self`
  *             if update_top:             # <<<<<<<<<<<<<<
  *                 self.top = ts.top.copy()
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_update_top); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 804; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_update_top); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 785; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     if (__pyx_t_2) {
 
-      /* "pytraj/Trajectory.pyx":805
+      /* "pytraj/Trajectory.pyx":786
  *             # append new frames to `self`
  *             if update_top:
  *                 self.top = ts.top.copy()             # <<<<<<<<<<<<<<
  * 
  *             if not update_top:
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_top); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 805; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_top); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 786; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_copy); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 805; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_copy); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 786; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __pyx_t_4 = NULL;
@@ -14381,21 +14102,21 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
         }
       }
       if (__pyx_t_4) {
-        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 805; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 786; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else {
-        __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 805; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 786; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 805; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 786; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GIVEREF(__pyx_t_3);
       __Pyx_GOTREF(__pyx_v_self->top);
       __Pyx_DECREF(((PyObject *)__pyx_v_self->top));
       __pyx_v_self->top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "pytraj/Trajectory.pyx":804
+      /* "pytraj/Trajectory.pyx":785
  *             ts = from_traj
  *             # append new frames to `self`
  *             if update_top:             # <<<<<<<<<<<<<<
@@ -14404,58 +14125,58 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
  */
     }
 
-    /* "pytraj/Trajectory.pyx":807
+    /* "pytraj/Trajectory.pyx":788
  *                 self.top = ts.top.copy()
  * 
  *             if not update_top:             # <<<<<<<<<<<<<<
  *                 if self.top.n_atoms != ts.top.n_atoms:
  *                     raise ValueError(msg)
  */
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_update_top); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 807; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_update_top); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 788; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_1 = ((!__pyx_t_2) != 0);
     if (__pyx_t_1) {
 
-      /* "pytraj/Trajectory.pyx":808
+      /* "pytraj/Trajectory.pyx":789
  * 
  *             if not update_top:
  *                 if self.top.n_atoms != ts.top.n_atoms:             # <<<<<<<<<<<<<<
  *                     raise ValueError(msg)
  * 
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 808; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 789; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_top); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 808; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_top); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 789; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 808; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 789; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = PyObject_RichCompare(__pyx_t_3, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 808; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = PyObject_RichCompare(__pyx_t_3, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 789; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 808; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 789; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_1) {
 
-        /* "pytraj/Trajectory.pyx":809
+        /* "pytraj/Trajectory.pyx":790
  *             if not update_top:
  *                 if self.top.n_atoms != ts.top.n_atoms:
  *                     raise ValueError(msg)             # <<<<<<<<<<<<<<
  * 
  *             if isinstance(ts, Trajin_Single) or isinstance(ts, TrajectoryIterator):
  */
-        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 809; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 790; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_INCREF(__pyx_v_msg);
         PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_msg);
         __Pyx_GIVEREF(__pyx_v_msg);
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 809; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 790; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_Raise(__pyx_t_4, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 809; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 790; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-        /* "pytraj/Trajectory.pyx":808
+        /* "pytraj/Trajectory.pyx":789
  * 
  *             if not update_top:
  *                 if self.top.n_atoms != ts.top.n_atoms:             # <<<<<<<<<<<<<<
@@ -14464,7 +14185,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
  */
       }
 
-      /* "pytraj/Trajectory.pyx":807
+      /* "pytraj/Trajectory.pyx":788
  *                 self.top = ts.top.copy()
  * 
  *             if not update_top:             # <<<<<<<<<<<<<<
@@ -14473,16 +14194,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
  */
     }
 
-    /* "pytraj/Trajectory.pyx":811
+    /* "pytraj/Trajectory.pyx":792
  *                     raise ValueError(msg)
  * 
  *             if isinstance(ts, Trajin_Single) or isinstance(ts, TrajectoryIterator):             # <<<<<<<<<<<<<<
  *                 # alway make a copy
  *                 if indices is not None:
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_Trajin_Single); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 811; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_Trajin_Single); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 792; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = PyObject_IsInstance(__pyx_v_ts, __pyx_t_4); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 811; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PyObject_IsInstance(__pyx_v_ts, __pyx_t_4); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 792; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_6 = (__pyx_t_2 != 0);
     if (!__pyx_t_6) {
@@ -14490,16 +14211,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
       __pyx_t_1 = __pyx_t_6;
       goto __pyx_L8_bool_binop_done;
     }
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_TrajectoryIterator); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 811; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_TrajectoryIterator); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 792; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = PyObject_IsInstance(__pyx_v_ts, __pyx_t_4); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 811; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = PyObject_IsInstance(__pyx_v_ts, __pyx_t_4); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 792; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_2 = (__pyx_t_6 != 0);
     __pyx_t_1 = __pyx_t_2;
     __pyx_L8_bool_binop_done:;
     if (__pyx_t_1) {
 
-      /* "pytraj/Trajectory.pyx":813
+      /* "pytraj/Trajectory.pyx":794
  *             if isinstance(ts, Trajin_Single) or isinstance(ts, TrajectoryIterator):
  *                 # alway make a copy
  *                 if indices is not None:             # <<<<<<<<<<<<<<
@@ -14510,7 +14231,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
       __pyx_t_2 = (__pyx_t_1 != 0);
       if (__pyx_t_2) {
 
-        /* "pytraj/Trajectory.pyx":816
+        /* "pytraj/Trajectory.pyx":797
  *                     # slow method
  *                     # TODO : use `for idx in leng(indices)`?
  *                     if isinstance(indices, slice):             # <<<<<<<<<<<<<<
@@ -14521,43 +14242,43 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
         __pyx_t_1 = (__pyx_t_2 != 0);
         if (__pyx_t_1) {
 
-          /* "pytraj/Trajectory.pyx":818
+          /* "pytraj/Trajectory.pyx":799
  *                     if isinstance(indices, slice):
  *                         # use slice for saving memory
  *                         start, stop, step = indices.start, indices.stop, indices.step             # <<<<<<<<<<<<<<
  *                         for i in range(start, stop, step):
  *                             self.append(ts[i], copy=True)
  */
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_indices, __pyx_n_s_start); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 818; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_indices, __pyx_n_s_start); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 818; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_indices, __pyx_n_s_stop); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 818; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_indices, __pyx_n_s_stop); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 818; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_indices, __pyx_n_s_step); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 818; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_indices, __pyx_n_s_step); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 818; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __pyx_v_start = __pyx_t_7;
           __pyx_v_stop = __pyx_t_8;
           __pyx_v_step = __pyx_t_9;
 
-          /* "pytraj/Trajectory.pyx":819
+          /* "pytraj/Trajectory.pyx":800
  *                         # use slice for saving memory
  *                         start, stop, step = indices.start, indices.stop, indices.step
  *                         for i in range(start, stop, step):             # <<<<<<<<<<<<<<
  *                             self.append(ts[i], copy=True)
  *                     else:
  */
-          __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_start); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_start); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_stop); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_stop); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_step); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_step); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_10 = PyTuple_New(3); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_10 = PyTuple_New(3); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_10);
           PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_4);
           __Pyx_GIVEREF(__pyx_t_4);
@@ -14568,16 +14289,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
           __pyx_t_4 = 0;
           __pyx_t_5 = 0;
           __pyx_t_3 = 0;
-          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_10, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_10, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
           if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
             __pyx_t_10 = __pyx_t_3; __Pyx_INCREF(__pyx_t_10); __pyx_t_11 = 0;
             __pyx_t_12 = NULL;
           } else {
-            __pyx_t_11 = -1; __pyx_t_10 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_11 = -1; __pyx_t_10 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_10);
-            __pyx_t_12 = Py_TYPE(__pyx_t_10)->tp_iternext; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_12 = Py_TYPE(__pyx_t_10)->tp_iternext; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           for (;;) {
@@ -14585,16 +14306,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
               if (likely(PyList_CheckExact(__pyx_t_10))) {
                 if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_10)) break;
                 #if CYTHON_COMPILING_IN_CPYTHON
-                __pyx_t_3 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_3 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 #else
-                __pyx_t_3 = PySequence_ITEM(__pyx_t_10, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_3 = PySequence_ITEM(__pyx_t_10, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 #endif
               } else {
                 if (__pyx_t_11 >= PyTuple_GET_SIZE(__pyx_t_10)) break;
                 #if CYTHON_COMPILING_IN_CPYTHON
-                __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 #else
-                __pyx_t_3 = PySequence_ITEM(__pyx_t_10, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_3 = PySequence_ITEM(__pyx_t_10, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 #endif
               }
             } else {
@@ -14603,43 +14324,43 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
                 PyObject* exc_type = PyErr_Occurred();
                 if (exc_type) {
                   if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                  else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 break;
               }
               __Pyx_GOTREF(__pyx_t_3);
             }
-            __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 819; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 800; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __pyx_v_i = __pyx_t_9;
 
-            /* "pytraj/Trajectory.pyx":820
+            /* "pytraj/Trajectory.pyx":801
  *                         start, stop, step = indices.start, indices.stop, indices.step
  *                         for i in range(start, stop, step):
  *                             self.append(ts[i], copy=True)             # <<<<<<<<<<<<<<
  *                     else:
  *                         # regular list, tuple, array,...
  */
-            __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 820; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 801; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_3);
-            __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_ts, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 820; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+            __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_ts, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 801; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
             __Pyx_GOTREF(__pyx_t_5);
-            __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 820; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 801; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_4);
             PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5);
             __Pyx_GIVEREF(__pyx_t_5);
             __pyx_t_5 = 0;
-            __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 820; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 801; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_5);
-            if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_copy, Py_True) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 820; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-            __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 820; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_copy, Py_True) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 801; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 801; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_13);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-            /* "pytraj/Trajectory.pyx":819
+            /* "pytraj/Trajectory.pyx":800
  *                         # use slice for saving memory
  *                         start, stop, step = indices.start, indices.stop, indices.step
  *                         for i in range(start, stop, step):             # <<<<<<<<<<<<<<
@@ -14649,7 +14370,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
           }
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-          /* "pytraj/Trajectory.pyx":816
+          /* "pytraj/Trajectory.pyx":797
  *                     # slow method
  *                     # TODO : use `for idx in leng(indices)`?
  *                     if isinstance(indices, slice):             # <<<<<<<<<<<<<<
@@ -14659,7 +14380,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
           goto __pyx_L11;
         }
 
-        /* "pytraj/Trajectory.pyx":823
+        /* "pytraj/Trajectory.pyx":804
  *                     else:
  *                         # regular list, tuple, array,...
  *                         for i in indices:             # <<<<<<<<<<<<<<
@@ -14671,25 +14392,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
             __pyx_t_10 = __pyx_v_indices; __Pyx_INCREF(__pyx_t_10); __pyx_t_11 = 0;
             __pyx_t_12 = NULL;
           } else {
-            __pyx_t_11 = -1; __pyx_t_10 = PyObject_GetIter(__pyx_v_indices); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_11 = -1; __pyx_t_10 = PyObject_GetIter(__pyx_v_indices); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 804; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_10);
-            __pyx_t_12 = Py_TYPE(__pyx_t_10)->tp_iternext; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_12 = Py_TYPE(__pyx_t_10)->tp_iternext; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 804; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           for (;;) {
             if (likely(!__pyx_t_12)) {
               if (likely(PyList_CheckExact(__pyx_t_10))) {
                 if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_10)) break;
                 #if CYTHON_COMPILING_IN_CPYTHON
-                __pyx_t_13 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_11); __Pyx_INCREF(__pyx_t_13); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_13 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_11); __Pyx_INCREF(__pyx_t_13); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 804; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 #else
-                __pyx_t_13 = PySequence_ITEM(__pyx_t_10, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_13 = PySequence_ITEM(__pyx_t_10, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 804; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 #endif
               } else {
                 if (__pyx_t_11 >= PyTuple_GET_SIZE(__pyx_t_10)) break;
                 #if CYTHON_COMPILING_IN_CPYTHON
-                __pyx_t_13 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_11); __Pyx_INCREF(__pyx_t_13); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_13 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_11); __Pyx_INCREF(__pyx_t_13); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 804; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 #else
-                __pyx_t_13 = PySequence_ITEM(__pyx_t_10, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_13 = PySequence_ITEM(__pyx_t_10, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 804; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 #endif
               }
             } else {
@@ -14698,43 +14419,43 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
                 PyObject* exc_type = PyErr_Occurred();
                 if (exc_type) {
                   if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                  else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 804; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 break;
               }
               __Pyx_GOTREF(__pyx_t_13);
             }
-            __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_13); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 823; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_13); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 804; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
             __pyx_v_i = __pyx_t_9;
 
-            /* "pytraj/Trajectory.pyx":825
+            /* "pytraj/Trajectory.pyx":806
  *                         for i in indices:
  *                             #print "debug Trajectory.get_frames"
  *                             self.append(ts[i], copy=True)             # <<<<<<<<<<<<<<
  *                 else:
  *                     # get whole traj
  */
-            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_13 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 806; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_13);
-            __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_ts, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+            __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_ts, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 806; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
             __Pyx_GOTREF(__pyx_t_5);
-            __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 806; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_4);
             PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5);
             __Pyx_GIVEREF(__pyx_t_5);
             __pyx_t_5 = 0;
-            __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 806; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_5);
-            if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_copy, Py_True) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-            __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_copy, Py_True) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 806; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 806; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "pytraj/Trajectory.pyx":823
+            /* "pytraj/Trajectory.pyx":804
  *                     else:
  *                         # regular list, tuple, array,...
  *                         for i in indices:             # <<<<<<<<<<<<<<
@@ -14746,7 +14467,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
         }
         __pyx_L11:;
 
-        /* "pytraj/Trajectory.pyx":813
+        /* "pytraj/Trajectory.pyx":794
  *             if isinstance(ts, Trajin_Single) or isinstance(ts, TrajectoryIterator):
  *                 # alway make a copy
  *                 if indices is not None:             # <<<<<<<<<<<<<<
@@ -14756,7 +14477,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
         goto __pyx_L10;
       }
 
-      /* "pytraj/Trajectory.pyx":828
+      /* "pytraj/Trajectory.pyx":809
  *                 else:
  *                     # get whole traj
  *                     frame = Frame()             # <<<<<<<<<<<<<<
@@ -14764,21 +14485,21 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
  *                     frame.set_frame_v(ts.top)
  */
       /*else*/ {
-        __pyx_t_10 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 828; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_10 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 809; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_10);
         __pyx_v_frame = ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_10);
         __pyx_t_10 = 0;
 
-        /* "pytraj/Trajectory.pyx":830
+        /* "pytraj/Trajectory.pyx":811
  *                     frame = Frame()
  *                     #frame.set_frame_v(ts.top, ts.has_vel(), ts.n_repdims)
  *                     frame.set_frame_v(ts.top)             # <<<<<<<<<<<<<<
  *                     ts._begin_traj()
  *                     for i in range(ts.max_frames):
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_set_frame_v); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 830; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_set_frame_v); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 811; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_top); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 830; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_top); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 811; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_5);
         __pyx_t_4 = NULL;
         if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
@@ -14791,31 +14512,31 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
           }
         }
         if (!__pyx_t_4) {
-          __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 830; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 811; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_GOTREF(__pyx_t_10);
         } else {
-          __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 830; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 811; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_13);
           PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_4); __Pyx_GIVEREF(__pyx_t_4); __pyx_t_4 = NULL;
           PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_5);
           __Pyx_GIVEREF(__pyx_t_5);
           __pyx_t_5 = 0;
-          __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_13, NULL); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 830; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_13, NULL); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 811; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_10);
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         }
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-        /* "pytraj/Trajectory.pyx":831
+        /* "pytraj/Trajectory.pyx":812
  *                     #frame.set_frame_v(ts.top, ts.has_vel(), ts.n_repdims)
  *                     frame.set_frame_v(ts.top)
  *                     ts._begin_traj()             # <<<<<<<<<<<<<<
  *                     for i in range(ts.max_frames):
  *                         ts._get_next_frame(frame)
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_begin_traj); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 831; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_begin_traj); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 812; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_13 = NULL;
         if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
@@ -14828,37 +14549,37 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
           }
         }
         if (__pyx_t_13) {
-          __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_13); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 831; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_13); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 812; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         } else {
-          __pyx_t_10 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 831; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_10 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 812; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-        /* "pytraj/Trajectory.pyx":832
+        /* "pytraj/Trajectory.pyx":813
  *                     frame.set_frame_v(ts.top)
  *                     ts._begin_traj()
  *                     for i in range(ts.max_frames):             # <<<<<<<<<<<<<<
  *                         ts._get_next_frame(frame)
  *                         self.append(frame)
  */
-        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_max_frames); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 832; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_max_frames); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 813; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_14 = __Pyx_PyInt_As_long(__pyx_t_10); if (unlikely((__pyx_t_14 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 832; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_14 = __Pyx_PyInt_As_long(__pyx_t_10); if (unlikely((__pyx_t_14 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 813; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_14; __pyx_t_9+=1) {
           __pyx_v_i = __pyx_t_9;
 
-          /* "pytraj/Trajectory.pyx":833
+          /* "pytraj/Trajectory.pyx":814
  *                     ts._begin_traj()
  *                     for i in range(ts.max_frames):
  *                         ts._get_next_frame(frame)             # <<<<<<<<<<<<<<
  *                         self.append(frame)
  *                     ts._end_traj()
  */
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_next_frame); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 833; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_next_frame); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 814; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_3);
           __pyx_t_13 = NULL;
           if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
@@ -14871,40 +14592,40 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
             }
           }
           if (!__pyx_t_13) {
-            __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_frame)); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 833; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_frame)); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 814; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_10);
           } else {
-            __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 833; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 814; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_5);
             PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_13); __Pyx_GIVEREF(__pyx_t_13); __pyx_t_13 = NULL;
             __Pyx_INCREF(((PyObject *)__pyx_v_frame));
             PyTuple_SET_ITEM(__pyx_t_5, 0+1, ((PyObject *)__pyx_v_frame));
             __Pyx_GIVEREF(((PyObject *)__pyx_v_frame));
-            __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 833; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 814; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_10);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           }
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-          /* "pytraj/Trajectory.pyx":834
+          /* "pytraj/Trajectory.pyx":815
  *                     for i in range(ts.max_frames):
  *                         ts._get_next_frame(frame)
  *                         self.append(frame)             # <<<<<<<<<<<<<<
  *                     ts._end_traj()
  * 
  */
-          __pyx_t_15 = __Pyx_PyObject_Append(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_frame)); if (unlikely(__pyx_t_15 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 834; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_15 = __Pyx_PyObject_Append(((PyObject *)__pyx_v_self), ((PyObject *)__pyx_v_frame)); if (unlikely(__pyx_t_15 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 815; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
 
-        /* "pytraj/Trajectory.pyx":835
+        /* "pytraj/Trajectory.pyx":816
  *                         ts._get_next_frame(frame)
  *                         self.append(frame)
  *                     ts._end_traj()             # <<<<<<<<<<<<<<
  * 
  *             elif isinstance(ts, Trajectory):
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_end_traj); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 835; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_end_traj); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 816; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_5 = NULL;
         if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
@@ -14917,10 +14638,10 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
           }
         }
         if (__pyx_t_5) {
-          __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 835; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 816; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         } else {
-          __pyx_t_10 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 835; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_10 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 816; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -14928,7 +14649,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
       }
       __pyx_L10:;
 
-      /* "pytraj/Trajectory.pyx":811
+      /* "pytraj/Trajectory.pyx":792
  *                     raise ValueError(msg)
  * 
  *             if isinstance(ts, Trajin_Single) or isinstance(ts, TrajectoryIterator):             # <<<<<<<<<<<<<<
@@ -14938,7 +14659,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
       goto __pyx_L7;
     }
 
-    /* "pytraj/Trajectory.pyx":837
+    /* "pytraj/Trajectory.pyx":818
  *                     ts._end_traj()
  * 
  *             elif isinstance(ts, Trajectory):             # <<<<<<<<<<<<<<
@@ -14949,7 +14670,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
     __pyx_t_2 = (__pyx_t_1 != 0);
     if (__pyx_t_2) {
 
-      /* "pytraj/Trajectory.pyx":840
+      /* "pytraj/Trajectory.pyx":821
  *                 # can return a copy or no-copy based on `copy` value
  *                 # use try and except?
  *                 if indices is None:             # <<<<<<<<<<<<<<
@@ -14960,40 +14681,40 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
       __pyx_t_1 = (__pyx_t_2 != 0);
       if (__pyx_t_1) {
 
-        /* "pytraj/Trajectory.pyx":841
+        /* "pytraj/Trajectory.pyx":822
  *                 # use try and except?
  *                 if indices is None:
  *                     for i in range(ts.size):             # <<<<<<<<<<<<<<
  *                         # TODO : make indices as an array?
  *                         # create `view`
  */
-        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_size); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 841; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_size); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 822; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_14 = __Pyx_PyInt_As_long(__pyx_t_10); if (unlikely((__pyx_t_14 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 841; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_14 = __Pyx_PyInt_As_long(__pyx_t_10); if (unlikely((__pyx_t_14 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 822; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_14; __pyx_t_9+=1) {
           __pyx_v_i = __pyx_t_9;
 
-          /* "pytraj/Trajectory.pyx":844
+          /* "pytraj/Trajectory.pyx":825
  *                         # TODO : make indices as an array?
  *                         # create `view`
  *                         self.append(ts[i], copy=copy)             # <<<<<<<<<<<<<<
  *                 else:
  *                     for i in indices:
  */
-          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 844; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_10);
-          __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_ts, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 844; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+          __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_ts, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 844; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_5);
           PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
           __Pyx_GIVEREF(__pyx_t_3);
           __pyx_t_3 = 0;
-          __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 844; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_3);
-          if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_copy, __pyx_v_copy) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 844; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-          __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 844; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_copy, __pyx_v_copy) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 825; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_13);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -15001,7 +14722,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         }
 
-        /* "pytraj/Trajectory.pyx":840
+        /* "pytraj/Trajectory.pyx":821
  *                 # can return a copy or no-copy based on `copy` value
  *                 # use try and except?
  *                 if indices is None:             # <<<<<<<<<<<<<<
@@ -15011,7 +14732,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
         goto __pyx_L18;
       }
 
-      /* "pytraj/Trajectory.pyx":846
+      /* "pytraj/Trajectory.pyx":827
  *                         self.append(ts[i], copy=copy)
  *                 else:
  *                     for i in indices:             # <<<<<<<<<<<<<<
@@ -15023,25 +14744,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
           __pyx_t_13 = __pyx_v_indices; __Pyx_INCREF(__pyx_t_13); __pyx_t_11 = 0;
           __pyx_t_12 = NULL;
         } else {
-          __pyx_t_11 = -1; __pyx_t_13 = PyObject_GetIter(__pyx_v_indices); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 846; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_11 = -1; __pyx_t_13 = PyObject_GetIter(__pyx_v_indices); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 827; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = Py_TYPE(__pyx_t_13)->tp_iternext; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 846; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_12 = Py_TYPE(__pyx_t_13)->tp_iternext; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 827; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         for (;;) {
           if (likely(!__pyx_t_12)) {
             if (likely(PyList_CheckExact(__pyx_t_13))) {
               if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_13)) break;
               #if CYTHON_COMPILING_IN_CPYTHON
-              __pyx_t_3 = PyList_GET_ITEM(__pyx_t_13, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 846; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              __pyx_t_3 = PyList_GET_ITEM(__pyx_t_13, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 827; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
               #else
-              __pyx_t_3 = PySequence_ITEM(__pyx_t_13, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 846; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              __pyx_t_3 = PySequence_ITEM(__pyx_t_13, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 827; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
               #endif
             } else {
               if (__pyx_t_11 >= PyTuple_GET_SIZE(__pyx_t_13)) break;
               #if CYTHON_COMPILING_IN_CPYTHON
-              __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_13, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 846; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_13, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 827; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
               #else
-              __pyx_t_3 = PySequence_ITEM(__pyx_t_13, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 846; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              __pyx_t_3 = PySequence_ITEM(__pyx_t_13, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 827; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
               #endif
             }
           } else {
@@ -15050,43 +14771,43 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
               PyObject* exc_type = PyErr_Occurred();
               if (exc_type) {
                 if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 846; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 827; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
               }
               break;
             }
             __Pyx_GOTREF(__pyx_t_3);
           }
-          __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 846; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 827; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __pyx_v_i = __pyx_t_9;
 
-          /* "pytraj/Trajectory.pyx":848
+          /* "pytraj/Trajectory.pyx":829
  *                     for i in indices:
  *                         # TODO : make indices as an array?
  *                         self.append(ts[i], copy=copy)             # <<<<<<<<<<<<<<
  * 
  *         else:
  */
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 848; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_append); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 829; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_ts, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 848; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+          __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_ts, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 829; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 848; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 829; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_10);
           PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_5);
           __Pyx_GIVEREF(__pyx_t_5);
           __pyx_t_5 = 0;
-          __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 848; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 829; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_5);
-          if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_copy, __pyx_v_copy) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 848; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-          __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, __pyx_t_5); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 848; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_copy, __pyx_v_copy) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 829; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, __pyx_t_5); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 829; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "pytraj/Trajectory.pyx":846
+          /* "pytraj/Trajectory.pyx":827
  *                         self.append(ts[i], copy=copy)
  *                 else:
  *                     for i in indices:             # <<<<<<<<<<<<<<
@@ -15098,7 +14819,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
       }
       __pyx_L18:;
 
-      /* "pytraj/Trajectory.pyx":837
+      /* "pytraj/Trajectory.pyx":818
  *                     ts._end_traj()
  * 
  *             elif isinstance(ts, Trajectory):             # <<<<<<<<<<<<<<
@@ -15108,7 +14829,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
     }
     __pyx_L7:;
 
-    /* "pytraj/Trajectory.pyx":801
+    /* "pytraj/Trajectory.pyx":782
  *                or set update_top=True"""
  * 
  *         if from_traj is not None:             # <<<<<<<<<<<<<<
@@ -15118,7 +14839,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
     goto __pyx_L3;
   }
 
-  /* "pytraj/Trajectory.pyx":852
+  /* "pytraj/Trajectory.pyx":833
  *         else:
  *             # if from_traj is None, return new Trajectory
  *             newfarray = Trajectory()             # <<<<<<<<<<<<<<
@@ -15126,29 +14847,29 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
  *                 newfarray.top = self.top.copy()
  */
   /*else*/ {
-    __pyx_t_13 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_10Trajectory_Trajectory)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 852; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_13 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_10Trajectory_Trajectory)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 833; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_13);
     __pyx_v_newfarray = ((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_t_13);
     __pyx_t_13 = 0;
 
-    /* "pytraj/Trajectory.pyx":853
+    /* "pytraj/Trajectory.pyx":834
  *             # if from_traj is None, return new Trajectory
  *             newfarray = Trajectory()
  *             if update_top:             # <<<<<<<<<<<<<<
  *                 newfarray.top = self.top.copy()
  *             for i in indices:
  */
-    __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_update_top); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 853; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_update_top); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 834; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     if (__pyx_t_1) {
 
-      /* "pytraj/Trajectory.pyx":854
+      /* "pytraj/Trajectory.pyx":835
  *             newfarray = Trajectory()
  *             if update_top:
  *                 newfarray.top = self.top.copy()             # <<<<<<<<<<<<<<
  *             for i in indices:
  *                 newfarray.append(self[i], copy=copy)
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_copy); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 854; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_copy); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 835; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_5 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -15161,21 +14882,21 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
         }
       }
       if (__pyx_t_5) {
-        __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 854; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_13 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 835; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       } else {
-        __pyx_t_13 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 854; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_13 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 835; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (!(likely(((__pyx_t_13) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_13, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 854; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (!(likely(((__pyx_t_13) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_13, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 835; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GIVEREF(__pyx_t_13);
       __Pyx_GOTREF(__pyx_v_newfarray->top);
       __Pyx_DECREF(((PyObject *)__pyx_v_newfarray->top));
       __pyx_v_newfarray->top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_13);
       __pyx_t_13 = 0;
 
-      /* "pytraj/Trajectory.pyx":853
+      /* "pytraj/Trajectory.pyx":834
  *             # if from_traj is None, return new Trajectory
  *             newfarray = Trajectory()
  *             if update_top:             # <<<<<<<<<<<<<<
@@ -15184,7 +14905,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
  */
     }
 
-    /* "pytraj/Trajectory.pyx":855
+    /* "pytraj/Trajectory.pyx":836
  *             if update_top:
  *                 newfarray.top = self.top.copy()
  *             for i in indices:             # <<<<<<<<<<<<<<
@@ -15195,25 +14916,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
       __pyx_t_13 = __pyx_v_indices; __Pyx_INCREF(__pyx_t_13); __pyx_t_11 = 0;
       __pyx_t_12 = NULL;
     } else {
-      __pyx_t_11 = -1; __pyx_t_13 = PyObject_GetIter(__pyx_v_indices); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 855; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_11 = -1; __pyx_t_13 = PyObject_GetIter(__pyx_v_indices); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 836; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_12 = Py_TYPE(__pyx_t_13)->tp_iternext; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 855; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_12 = Py_TYPE(__pyx_t_13)->tp_iternext; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 836; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     for (;;) {
       if (likely(!__pyx_t_12)) {
         if (likely(PyList_CheckExact(__pyx_t_13))) {
           if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_13)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_13, __pyx_t_11); __Pyx_INCREF(__pyx_t_4); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 855; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_13, __pyx_t_11); __Pyx_INCREF(__pyx_t_4); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 836; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_13, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 855; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_13, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 836; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #endif
         } else {
           if (__pyx_t_11 >= PyTuple_GET_SIZE(__pyx_t_13)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_13, __pyx_t_11); __Pyx_INCREF(__pyx_t_4); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 855; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_13, __pyx_t_11); __Pyx_INCREF(__pyx_t_4); __pyx_t_11++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 836; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_13, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 855; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_13, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 836; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #endif
         }
       } else {
@@ -15222,43 +14943,43 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 855; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 836; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           break;
         }
         __Pyx_GOTREF(__pyx_t_4);
       }
-      __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 855; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 836; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __pyx_v_i = __pyx_t_9;
 
-      /* "pytraj/Trajectory.pyx":856
+      /* "pytraj/Trajectory.pyx":837
  *                 newfarray.top = self.top.copy()
  *             for i in indices:
  *                 newfarray.append(self[i], copy=copy)             # <<<<<<<<<<<<<<
  *             return newfarray
  * 
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_newfarray), __pyx_n_s_append); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 856; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_newfarray), __pyx_n_s_append); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 837; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 856; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+      __pyx_t_5 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 837; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 856; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 837; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_10);
       PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_5);
       __pyx_t_5 = 0;
-      __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 856; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 837; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
-      if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_copy, __pyx_v_copy) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 856; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, __pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 856; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_copy, __pyx_v_copy) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 837; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, __pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 837; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "pytraj/Trajectory.pyx":855
+      /* "pytraj/Trajectory.pyx":836
  *             if update_top:
  *                 newfarray.top = self.top.copy()
  *             for i in indices:             # <<<<<<<<<<<<<<
@@ -15268,7 +14989,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
     }
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-    /* "pytraj/Trajectory.pyx":857
+    /* "pytraj/Trajectory.pyx":838
  *             for i in indices:
  *                 newfarray.append(self[i], copy=copy)
  *             return newfarray             # <<<<<<<<<<<<<<
@@ -15282,7 +15003,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
   }
   __pyx_L3:;
 
-  /* "pytraj/Trajectory.pyx":778
+  /* "pytraj/Trajectory.pyx":759
  *         return _get_temperature_set(self)
  * 
  *     def get_frames(self, from_traj=None, indices=None, update_top=False, copy=False):             # <<<<<<<<<<<<<<
@@ -15311,7 +15032,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":859
+/* "pytraj/Trajectory.pyx":840
  *             return newfarray
  * 
  *     def strip_atoms(self, mask=None, update_top=True, bint has_box=False):             # <<<<<<<<<<<<<<
@@ -15320,9 +15041,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79get_frames(struct 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_82strip_atoms(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_81strip_atoms[] = "Trajectory.strip_atoms(self, mask=None, update_top=True, bool has_box=False)\nif you use memory for numpy, you need to update after resizing Frame\n        >>> arr0 = np.asarray(frame.buffer)\n        >>> frame.strip_atoms(top,\"!@CA\")\n        >>> # update view\n        >>> arr0 = np.asarray(frame.buffer)\n        ";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_82strip_atoms(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_80strip_atoms(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_79strip_atoms[] = "Trajectory.strip_atoms(self, mask=None, update_top=True, bool has_box=False)\nif you use memory for numpy, you need to update after resizing Frame\n        >>> arr0 = np.asarray(frame.buffer)\n        >>> frame.strip_atoms(top,\"!@CA\")\n        >>> # update view\n        >>> arr0 = np.asarray(frame.buffer)\n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_80strip_atoms(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_update_top = 0;
   int __pyx_v_has_box;
@@ -15366,7 +15087,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_82strip_atoms(PyObje
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "strip_atoms") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 859; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "strip_atoms") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 840; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -15380,27 +15101,27 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_82strip_atoms(PyObje
     __pyx_v_mask = values[0];
     __pyx_v_update_top = values[1];
     if (values[2]) {
-      __pyx_v_has_box = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_has_box == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 859; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_has_box = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_has_box == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 840; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_has_box = ((int)0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("strip_atoms", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 859; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("strip_atoms", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 840; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.strip_atoms", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_update_top, __pyx_v_has_box);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_79strip_atoms(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_update_top, __pyx_v_has_box);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_update_top, int __pyx_v_has_box) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_79strip_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_update_top, int __pyx_v_has_box) {
   struct __pyx_obj_6pytraj_8AtomMask_AtomMask *__pyx_v_atm = 0;
   std::vector<Frame *> ::iterator __pyx_v_it;
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame = 0;
@@ -15418,7 +15139,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
   __Pyx_RefNannySetupContext("strip_atoms", 0);
   __Pyx_INCREF(__pyx_v_mask);
 
-  /* "pytraj/Trajectory.pyx":866
+  /* "pytraj/Trajectory.pyx":847
  *         >>> arr0 = np.asarray(frame.buffer)
  *         """
  *         cdef AtomMask atm = self.top(mask)             # <<<<<<<<<<<<<<
@@ -15437,32 +15158,32 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_mask); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 866; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_mask); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 847; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 866; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 847; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __Pyx_GIVEREF(__pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(__pyx_v_mask);
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_mask);
     __Pyx_GIVEREF(__pyx_v_mask);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 866; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 847; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_6pytraj_8AtomMask_AtomMask))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 866; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_6pytraj_8AtomMask_AtomMask))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 847; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_atm = ((struct __pyx_obj_6pytraj_8AtomMask_AtomMask *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":868
+  /* "pytraj/Trajectory.pyx":849
  *         cdef AtomMask atm = self.top(mask)
  *         # read note about `_strip_atoms`
  *         atm.invert_mask()             # <<<<<<<<<<<<<<
  * 
  *         cdef vector[_Frame*].iterator it
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atm), __pyx_n_s_invert_mask); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 868; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atm), __pyx_n_s_invert_mask); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 849; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -15475,65 +15196,65 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
     }
   }
   if (__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 868; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 849; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 868; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 849; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":871
+  /* "pytraj/Trajectory.pyx":852
  * 
  *         cdef vector[_Frame*].iterator it
  *         cdef Frame frame = Frame()             # <<<<<<<<<<<<<<
  *         cdef Topology tmptop = Topology()
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 871; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 852; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_frame = ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":872
+  /* "pytraj/Trajectory.pyx":853
  *         cdef vector[_Frame*].iterator it
  *         cdef Frame frame = Frame()
  *         cdef Topology tmptop = Topology()             # <<<<<<<<<<<<<<
  * 
  *         if mask == None:
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 872; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 853; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_tmptop = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":874
+  /* "pytraj/Trajectory.pyx":855
  *         cdef Topology tmptop = Topology()
  * 
  *         if mask == None:             # <<<<<<<<<<<<<<
  *             raise ValueError("Must provide mask to strip")
  *         mask = mask.encode("UTF-8")
  */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_mask, Py_None, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 874; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 874; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_mask, Py_None, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 855; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 855; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_5) {
 
-    /* "pytraj/Trajectory.pyx":875
+    /* "pytraj/Trajectory.pyx":856
  * 
  *         if mask == None:
  *             raise ValueError("Must provide mask to strip")             # <<<<<<<<<<<<<<
  *         mask = mask.encode("UTF-8")
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__30, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 875; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__30, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 856; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 875; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 856; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Trajectory.pyx":874
+    /* "pytraj/Trajectory.pyx":855
  *         cdef Topology tmptop = Topology()
  * 
  *         if mask == None:             # <<<<<<<<<<<<<<
@@ -15542,22 +15263,22 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
  */
   }
 
-  /* "pytraj/Trajectory.pyx":876
+  /* "pytraj/Trajectory.pyx":857
  *         if mask == None:
  *             raise ValueError("Must provide mask to strip")
  *         mask = mask.encode("UTF-8")             # <<<<<<<<<<<<<<
  * 
  *         # do not dealloc since we use memoryview for _Frame
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mask, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 876; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mask, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 857; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__31, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 876; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__31, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 857; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF_SET(__pyx_v_mask, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pytraj/Trajectory.pyx":879
+  /* "pytraj/Trajectory.pyx":860
  * 
  *         # do not dealloc since we use memoryview for _Frame
  *         frame.py_free_mem = False             # <<<<<<<<<<<<<<
@@ -15566,7 +15287,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
  */
   __pyx_v_frame->py_free_mem = 0;
 
-  /* "pytraj/Trajectory.pyx":880
+  /* "pytraj/Trajectory.pyx":861
  *         # do not dealloc since we use memoryview for _Frame
  *         frame.py_free_mem = False
  *         it = self.frame_v.begin()             # <<<<<<<<<<<<<<
@@ -15575,7 +15296,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
  */
   __pyx_v_it = __pyx_v_self->frame_v.begin();
 
-  /* "pytraj/Trajectory.pyx":881
+  /* "pytraj/Trajectory.pyx":862
  *         frame.py_free_mem = False
  *         it = self.frame_v.begin()
  *         while it != self.frame_v.end():             # <<<<<<<<<<<<<<
@@ -15586,7 +15307,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
     __pyx_t_5 = ((__pyx_v_it != __pyx_v_self->frame_v.end()) != 0);
     if (!__pyx_t_5) break;
 
-    /* "pytraj/Trajectory.pyx":882
+    /* "pytraj/Trajectory.pyx":863
  *         it = self.frame_v.begin()
  *         while it != self.frame_v.end():
  *             frame.thisptr = deref(it)             # <<<<<<<<<<<<<<
@@ -15595,14 +15316,14 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
  */
     __pyx_v_frame->thisptr = (*__pyx_v_it);
 
-    /* "pytraj/Trajectory.pyx":884
+    /* "pytraj/Trajectory.pyx":865
  *             frame.thisptr = deref(it)
  *             # we need to update topology since _strip_atoms will modify it
  *             tmptop = self.top.copy()             # <<<<<<<<<<<<<<
  *             frame._strip_atoms(tmptop, atm, update_top, has_box)
  *             incr(it)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 884; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self->top), __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 865; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_4 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -15615,28 +15336,28 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
       }
     }
     if (__pyx_t_4) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 884; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 865; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 884; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 865; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 884; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 865; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF_SET(__pyx_v_tmptop, ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "pytraj/Trajectory.pyx":885
+    /* "pytraj/Trajectory.pyx":866
  *             # we need to update topology since _strip_atoms will modify it
  *             tmptop = self.top.copy()
  *             frame._strip_atoms(tmptop, atm, update_top, has_box)             # <<<<<<<<<<<<<<
  *             incr(it)
  *         if update_top:
  */
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_v_update_top); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 885; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_v_update_top); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 866; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     ((struct __pyx_vtabstruct_6pytraj_5Frame_Frame *)__pyx_v_frame->__pyx_vtab)->_strip_atoms(__pyx_v_frame, __pyx_v_tmptop, __pyx_v_atm, __pyx_t_5, __pyx_v_has_box);
 
-    /* "pytraj/Trajectory.pyx":886
+    /* "pytraj/Trajectory.pyx":867
  *             tmptop = self.top.copy()
  *             frame._strip_atoms(tmptop, atm, update_top, has_box)
  *             incr(it)             # <<<<<<<<<<<<<<
@@ -15646,24 +15367,24 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
     (++__pyx_v_it);
   }
 
-  /* "pytraj/Trajectory.pyx":887
+  /* "pytraj/Trajectory.pyx":868
  *             frame._strip_atoms(tmptop, atm, update_top, has_box)
  *             incr(it)
  *         if update_top:             # <<<<<<<<<<<<<<
  *             self.top = tmptop.copy()
  * 
  */
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_v_update_top); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 887; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_v_update_top); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 868; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_5) {
 
-    /* "pytraj/Trajectory.pyx":888
+    /* "pytraj/Trajectory.pyx":869
  *             incr(it)
  *         if update_top:
  *             self.top = tmptop.copy()             # <<<<<<<<<<<<<<
  * 
  *     #def _strip_atoms_openmp(self, mask=None, bint update_top=True, bint has_box=False):
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_tmptop), __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 888; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_tmptop), __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 869; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_4 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -15676,21 +15397,21 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
       }
     }
     if (__pyx_t_4) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 888; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 869; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 888; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 869; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 888; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_6pytraj_8Topology_Topology))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 869; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GIVEREF(__pyx_t_2);
     __Pyx_GOTREF(__pyx_v_self->top);
     __Pyx_DECREF(((PyObject *)__pyx_v_self->top));
     __pyx_v_self->top = ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pytraj/Trajectory.pyx":887
+    /* "pytraj/Trajectory.pyx":868
  *             frame._strip_atoms(tmptop, atm, update_top, has_box)
  *             incr(it)
  *         if update_top:             # <<<<<<<<<<<<<<
@@ -15699,7 +15420,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
  */
   }
 
-  /* "pytraj/Trajectory.pyx":859
+  /* "pytraj/Trajectory.pyx":840
  *             return newfarray
  * 
  *     def strip_atoms(self, mask=None, update_top=True, bint has_box=False):             # <<<<<<<<<<<<<<
@@ -15727,7 +15448,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":891
+/* "pytraj/Trajectory.pyx":872
  * 
  *     #def _strip_atoms_openmp(self, mask=None, bint update_top=True, bint has_box=False):
  *     def _fast_strip_atoms(self, mask=None, bint update_top=True, bint has_box=False):             # <<<<<<<<<<<<<<
@@ -15736,9 +15457,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81strip_atoms(struct
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_84_fast_strip_atoms(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms[] = "Trajectory._fast_strip_atoms(self, mask=None, bool update_top=True, bool has_box=False)\n\n        Paramters\n        ---------\n        mask : str\n        update_top : bool, default=True\n            'True' : automatically update Topology\n        has_box : bool, default=False (does not work with `True` yet)\n        Notes\n        -----\n        * Known bug: \n        * if you use memory for numpy, you need to update after resizing Frame\n        >>> arr0 = np.asarray(frame.buffer)\n        >>> frame.strip_atoms(top,\"!@CA\")\n        >>> # update view\n        >>> arr0 = np.asarray(frame.buffer)\n        ";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_84_fast_strip_atoms(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_82_fast_strip_atoms(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_81_fast_strip_atoms[] = "Trajectory._fast_strip_atoms(self, mask=None, bool update_top=True, bool has_box=False)\n\n        Paramters\n        ---------\n        mask : str\n        update_top : bool, default=True\n            'True' : automatically update Topology\n        has_box : bool, default=False (does not work with `True` yet)\n        Notes\n        -----\n        * Known bug: \n        * if you use memory for numpy, you need to update after resizing Frame\n        >>> arr0 = np.asarray(frame.buffer)\n        >>> frame.strip_atoms(top,\"!@CA\")\n        >>> # update view\n        >>> arr0 = np.asarray(frame.buffer)\n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_82_fast_strip_atoms(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   int __pyx_v_update_top;
   CYTHON_UNUSED int __pyx_v_has_box;
@@ -15781,7 +15502,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_84_fast_strip_atoms(
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_fast_strip_atoms") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 891; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_fast_strip_atoms") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 872; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -15794,32 +15515,32 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_84_fast_strip_atoms(
     }
     __pyx_v_mask = values[0];
     if (values[1]) {
-      __pyx_v_update_top = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_update_top == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 891; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_update_top = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_update_top == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 872; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_update_top = ((int)1);
     }
     if (values[2]) {
-      __pyx_v_has_box = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_has_box == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 891; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_has_box = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_has_box == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 872; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_has_box = ((int)0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_fast_strip_atoms", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 891; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("_fast_strip_atoms", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 872; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory._fast_strip_atoms", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_update_top, __pyx_v_has_box);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_81_fast_strip_atoms(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_update_top, __pyx_v_has_box);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, int __pyx_v_update_top, CYTHON_UNUSED int __pyx_v_has_box) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_81_fast_strip_atoms(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, int __pyx_v_update_top, CYTHON_UNUSED int __pyx_v_has_box) {
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame = 0;
   Topology *__pyx_v__newtop_ptr;
   Frame __pyx_v__tmpframe;
@@ -15841,19 +15562,19 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
   __Pyx_RefNannySetupContext("_fast_strip_atoms", 0);
   __Pyx_INCREF(__pyx_v_mask);
 
-  /* "pytraj/Trajectory.pyx":911
+  /* "pytraj/Trajectory.pyx":892
  *         # doublecheck if we DID apply openmp correctly
  * 
  *         cdef Frame frame = Frame()             # <<<<<<<<<<<<<<
  *         cdef _Topology _tmptop
  *         cdef _Topology* _newtop_ptr
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 911; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_5Frame_Frame)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 892; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_frame = ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":916
+  /* "pytraj/Trajectory.pyx":897
  *         cdef _Frame _tmpframe
  *         cdef int i
  *         cdef int n_frames = self.frame_v.size()             # <<<<<<<<<<<<<<
@@ -15862,7 +15583,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
   __pyx_v_n_frames = __pyx_v_self->frame_v.size();
 
-  /* "pytraj/Trajectory.pyx":917
+  /* "pytraj/Trajectory.pyx":898
  *         cdef int i
  *         cdef int n_frames = self.frame_v.size()
  *         cdef AtomMask atm = self.top(mask)             # <<<<<<<<<<<<<<
@@ -15881,32 +15602,32 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_mask); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 917; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_mask); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 898; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 917; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 898; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __Pyx_GIVEREF(__pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(__pyx_v_mask);
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_mask);
     __Pyx_GIVEREF(__pyx_v_mask);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 917; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 898; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_6pytraj_8AtomMask_AtomMask))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 917; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_6pytraj_8AtomMask_AtomMask))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 898; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_atm = ((struct __pyx_obj_6pytraj_8AtomMask_AtomMask *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":919
+  /* "pytraj/Trajectory.pyx":900
  *         cdef AtomMask atm = self.top(mask)
  * 
  *         atm.invert_mask() # read note in `Frame._strip_atoms`             # <<<<<<<<<<<<<<
  * 
  *         if mask == None:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atm), __pyx_n_s_invert_mask); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 919; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atm), __pyx_n_s_invert_mask); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 900; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -15919,41 +15640,41 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
     }
   }
   if (__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 919; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 900; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 919; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 900; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":921
+  /* "pytraj/Trajectory.pyx":902
  *         atm.invert_mask() # read note in `Frame._strip_atoms`
  * 
  *         if mask == None:             # <<<<<<<<<<<<<<
  *             raise ValueError("Must provide mask to strip")
  *         mask = mask.encode("UTF-8")
  */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_mask, Py_None, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 921; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 921; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_mask, Py_None, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 902; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 902; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_5) {
 
-    /* "pytraj/Trajectory.pyx":922
+    /* "pytraj/Trajectory.pyx":903
  * 
  *         if mask == None:
  *             raise ValueError("Must provide mask to strip")             # <<<<<<<<<<<<<<
  *         mask = mask.encode("UTF-8")
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__32, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 922; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__32, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 903; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 922; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 903; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pytraj/Trajectory.pyx":921
+    /* "pytraj/Trajectory.pyx":902
  *         atm.invert_mask() # read note in `Frame._strip_atoms`
  * 
  *         if mask == None:             # <<<<<<<<<<<<<<
@@ -15962,22 +15683,22 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
   }
 
-  /* "pytraj/Trajectory.pyx":923
+  /* "pytraj/Trajectory.pyx":904
  *         if mask == None:
  *             raise ValueError("Must provide mask to strip")
  *         mask = mask.encode("UTF-8")             # <<<<<<<<<<<<<<
  * 
  *         # do not dealloc since we use memoryview for _Frame
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mask, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 923; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mask, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 904; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__33, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 923; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__33, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 904; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF_SET(__pyx_v_mask, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pytraj/Trajectory.pyx":926
+  /* "pytraj/Trajectory.pyx":907
  * 
  *         # do not dealloc since we use memoryview for _Frame
  *         frame.py_free_mem = False             # <<<<<<<<<<<<<<
@@ -15986,7 +15707,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
   __pyx_v_frame->py_free_mem = 0;
 
-  /* "pytraj/Trajectory.pyx":930
+  /* "pytraj/Trajectory.pyx":911
  *         # TODO : make it even faster by openmp
  *         # need to handal memory to avoid double-free
  *         _newtop_ptr = self.top.thisptr.modifyStateByMask(atm.thisptr[0])             # <<<<<<<<<<<<<<
@@ -15995,7 +15716,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
   __pyx_v__newtop_ptr = __pyx_v_self->top->thisptr->modifyStateByMask((__pyx_v_atm->thisptr[0]));
 
-  /* "pytraj/Trajectory.pyx":932
+  /* "pytraj/Trajectory.pyx":913
  *         _newtop_ptr = self.top.thisptr.modifyStateByMask(atm.thisptr[0])
  *         #for i in prange(n_frames, nogil=True):
  *         for i in range(n_frames):             # <<<<<<<<<<<<<<
@@ -16006,7 +15727,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
-    /* "pytraj/Trajectory.pyx":934
+    /* "pytraj/Trajectory.pyx":915
  *         for i in range(n_frames):
  *             # point to i-th _Frame
  *             frame.thisptr = new _Frame() # make private copy for each core             # <<<<<<<<<<<<<<
@@ -16015,7 +15736,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
     __pyx_v_frame->thisptr = new Frame();
 
-    /* "pytraj/Trajectory.pyx":935
+    /* "pytraj/Trajectory.pyx":916
  *             # point to i-th _Frame
  *             frame.thisptr = new _Frame() # make private copy for each core
  *             frame.thisptr = self.frame_v[i]             # <<<<<<<<<<<<<<
@@ -16024,7 +15745,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
     __pyx_v_frame->thisptr = (__pyx_v_self->frame_v[__pyx_v_i]);
 
-    /* "pytraj/Trajectory.pyx":941
+    /* "pytraj/Trajectory.pyx":922
  *             # need to copy all other informations
  *             # allocate
  *             _tmpframe.SetupFrameV(_newtop_ptr.Atoms(), _newtop_ptr.ParmCoordInfo())             # <<<<<<<<<<<<<<
@@ -16033,7 +15754,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
     __pyx_v__tmpframe.SetupFrameV(((std::vector<Atom>  const &)__pyx_v__newtop_ptr->Atoms()), ((CoordinateInfo &)__pyx_v__newtop_ptr->ParmCoordInfo()));
 
-    /* "pytraj/Trajectory.pyx":942
+    /* "pytraj/Trajectory.pyx":923
  *             # allocate
  *             _tmpframe.SetupFrameV(_newtop_ptr.Atoms(), _newtop_ptr.ParmCoordInfo())
  *             _tmpframe.SetFrame(frame.thisptr[0], atm.thisptr[0])             # <<<<<<<<<<<<<<
@@ -16042,7 +15763,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
     __pyx_v__tmpframe.SetFrame((__pyx_v_frame->thisptr[0]), (__pyx_v_atm->thisptr[0]));
 
-    /* "pytraj/Trajectory.pyx":945
+    /* "pytraj/Trajectory.pyx":926
  *             # make a copy: coords, vel, mass...
  *             # if only care about `coords`, use `_fast_copy_from_frame`
  *             frame.thisptr[0] = _tmpframe             # <<<<<<<<<<<<<<
@@ -16052,7 +15773,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
     (__pyx_v_frame->thisptr[0]) = __pyx_v__tmpframe;
   }
 
-  /* "pytraj/Trajectory.pyx":946
+  /* "pytraj/Trajectory.pyx":927
  *             # if only care about `coords`, use `_fast_copy_from_frame`
  *             frame.thisptr[0] = _tmpframe
  *         if update_top:             # <<<<<<<<<<<<<<
@@ -16062,7 +15783,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
   __pyx_t_5 = (__pyx_v_update_top != 0);
   if (__pyx_t_5) {
 
-    /* "pytraj/Trajectory.pyx":948
+    /* "pytraj/Trajectory.pyx":929
  *         if update_top:
  *             # C++ assignment
  *             self.top.thisptr[0] = _newtop_ptr[0]             # <<<<<<<<<<<<<<
@@ -16071,7 +15792,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
     (__pyx_v_self->top->thisptr[0]) = (__pyx_v__newtop_ptr[0]);
 
-    /* "pytraj/Trajectory.pyx":946
+    /* "pytraj/Trajectory.pyx":927
  *             # if only care about `coords`, use `_fast_copy_from_frame`
  *             frame.thisptr[0] = _tmpframe
  *         if update_top:             # <<<<<<<<<<<<<<
@@ -16080,7 +15801,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
   }
 
-  /* "pytraj/Trajectory.pyx":891
+  /* "pytraj/Trajectory.pyx":872
  * 
  *     #def _strip_atoms_openmp(self, mask=None, bint update_top=True, bint has_box=False):
  *     def _fast_strip_atoms(self, mask=None, bint update_top=True, bint has_box=False):             # <<<<<<<<<<<<<<
@@ -16107,7 +15828,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":950
+/* "pytraj/Trajectory.pyx":931
  *             self.top.thisptr[0] = _newtop_ptr[0]
  * 
  *     def save(self, filename="", fmt='unknown', overwrite=True):             # <<<<<<<<<<<<<<
@@ -16116,9 +15837,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms(
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_86save(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_85save[] = "Trajectory.save(self, filename='', fmt='unknown', overwrite=True)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_86save(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_84save(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_83save[] = "Trajectory.save(self, filename='', fmt='unknown', overwrite=True)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_84save(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_filename = 0;
   PyObject *__pyx_v_fmt = 0;
   PyObject *__pyx_v_overwrite = 0;
@@ -16163,7 +15884,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_86save(PyObject *__p
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 950; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "save") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 931; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -16180,20 +15901,20 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_86save(PyObject *__p
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("save", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 950; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("save", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 931; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.save", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_85save(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_filename, __pyx_v_fmt, __pyx_v_overwrite);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_83save(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_filename, __pyx_v_fmt, __pyx_v_overwrite);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_85save(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_fmt, PyObject *__pyx_v_overwrite) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_83save(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_fmt, PyObject *__pyx_v_overwrite) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -16206,14 +15927,14 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_85save(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("save", 0);
 
-  /* "pytraj/Trajectory.pyx":951
+  /* "pytraj/Trajectory.pyx":932
  * 
  *     def save(self, filename="", fmt='unknown', overwrite=True):
  *         _savetraj(self, filename, fmt, overwrite)             # <<<<<<<<<<<<<<
  * 
  *     def write(self, *args, **kwd):
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_savetraj); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 951; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_savetraj); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 932; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -16227,7 +15948,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_85save(struct __pyx_
       __pyx_t_4 = 1;
     }
   }
-  __pyx_t_5 = PyTuple_New(4+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 951; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyTuple_New(4+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 932; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (__pyx_t_3) {
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3); __Pyx_GIVEREF(__pyx_t_3); __pyx_t_3 = NULL;
@@ -16244,13 +15965,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_85save(struct __pyx_
   __Pyx_INCREF(__pyx_v_overwrite);
   PyTuple_SET_ITEM(__pyx_t_5, 3+__pyx_t_4, __pyx_v_overwrite);
   __Pyx_GIVEREF(__pyx_v_overwrite);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 951; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 932; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":950
+  /* "pytraj/Trajectory.pyx":931
  *             self.top.thisptr[0] = _newtop_ptr[0]
  * 
  *     def save(self, filename="", fmt='unknown', overwrite=True):             # <<<<<<<<<<<<<<
@@ -16274,7 +15995,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_85save(struct __pyx_
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":953
+/* "pytraj/Trajectory.pyx":934
  *         _savetraj(self, filename, fmt, overwrite)
  * 
  *     def write(self, *args, **kwd):             # <<<<<<<<<<<<<<
@@ -16283,9 +16004,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_85save(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_88write(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_87write[] = "Trajectory.write(self, *args, **kwd)\nsame as `save` method";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_88write(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_86write(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_85write[] = "Trajectory.write(self, *args, **kwd)\nsame as `save` method";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_86write(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
   PyObject *__pyx_r = 0;
@@ -16300,7 +16021,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_88write(PyObject *__
   }
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_87write(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_85write(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -16309,7 +16030,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_88write(PyObject *__
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_87write(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_85write(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -16320,24 +16041,24 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_87write(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("write", 0);
 
-  /* "pytraj/Trajectory.pyx":955
+  /* "pytraj/Trajectory.pyx":936
  *     def write(self, *args, **kwd):
  *         """same as `save` method"""
  *         self.save(*args, **kwd)             # <<<<<<<<<<<<<<
  * 
  *     def rmsfit_to(self, ref=None, mask="*", mode='pytraj'):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_save); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 955; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_save); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 936; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 955; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 936; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 955; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 936; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pytraj/Trajectory.pyx":953
+  /* "pytraj/Trajectory.pyx":934
  *         _savetraj(self, filename, fmt, overwrite)
  * 
  *     def write(self, *args, **kwd):             # <<<<<<<<<<<<<<
@@ -16360,7 +16081,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_87write(struct __pyx
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":957
+/* "pytraj/Trajectory.pyx":938
  *         self.save(*args, **kwd)
  * 
  *     def rmsfit_to(self, ref=None, mask="*", mode='pytraj'):             # <<<<<<<<<<<<<<
@@ -16369,9 +16090,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_87write(struct __pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_90rmsfit_to(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_89rmsfit_to[] = "Trajectory.rmsfit_to(self, ref=None, mask='*', mode='pytraj')\ndo the fitting to reference Frame by rotation and translation\n        Parameters\n        ----------\n        ref : {Frame object, int, str}, default=None \n            Reference\n        mask : str or AtomMask object, default='*' (fit all atoms)\n        mode : 'cpptraj' (faster but can not use AtomMask)| 'pytraj'\n\n        Examples\n        --------\n            traj.rmsfit_to(0) # fit to 1st frame\n            traj.rmsfit_to('last', '@CA') # fit to last frame using @CA atoms\n        ";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_90rmsfit_to(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_88rmsfit_to(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_87rmsfit_to[] = "Trajectory.rmsfit_to(self, ref=None, mask='*', mode='pytraj')\ndo the fitting to reference Frame by rotation and translation\n        Parameters\n        ----------\n        ref : {Frame object, int, str}, default=None \n            Reference\n        mask : str or AtomMask object, default='*' (fit all atoms)\n        mode : 'cpptraj' (faster but can not use AtomMask)| 'pytraj'\n\n        Examples\n        --------\n            traj.rmsfit_to(0) # fit to 1st frame\n            traj.rmsfit_to('last', '@CA') # fit to last frame using @CA atoms\n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_88rmsfit_to(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_ref = 0;
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_mode = 0;
@@ -16416,7 +16137,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_90rmsfit_to(PyObject
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "rmsfit_to") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 957; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "rmsfit_to") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 938; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -16433,20 +16154,20 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_90rmsfit_to(PyObject
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("rmsfit_to", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 957; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("rmsfit_to", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 938; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.rmsfit_to", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_ref, __pyx_v_mask, __pyx_v_mode);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_87rmsfit_to(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_ref, __pyx_v_mask, __pyx_v_mode);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_ref, PyObject *__pyx_v_mask, PyObject *__pyx_v_mode) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_87rmsfit_to(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_ref, PyObject *__pyx_v_mask, PyObject *__pyx_v_mode) {
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame = 0;
   struct __pyx_obj_6pytraj_8AtomMask_AtomMask *__pyx_v_atm = 0;
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_ref_frame = 0;
@@ -16477,7 +16198,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("rmsfit_to", 0);
 
-  /* "pytraj/Trajectory.pyx":978
+  /* "pytraj/Trajectory.pyx":959
  *         cdef Action_Rmsd act
  * 
  *         if isinstance(ref, Frame):             # <<<<<<<<<<<<<<
@@ -16488,7 +16209,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pytraj/Trajectory.pyx":979
+    /* "pytraj/Trajectory.pyx":960
  * 
  *         if isinstance(ref, Frame):
  *             ref_frame = <Frame> ref             # <<<<<<<<<<<<<<
@@ -16500,7 +16221,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     __pyx_v_ref_frame = ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pytraj/Trajectory.pyx":978
+    /* "pytraj/Trajectory.pyx":959
  *         cdef Action_Rmsd act
  * 
  *         if isinstance(ref, Frame):             # <<<<<<<<<<<<<<
@@ -16510,14 +16231,14 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     goto __pyx_L3;
   }
 
-  /* "pytraj/Trajectory.pyx":980
+  /* "pytraj/Trajectory.pyx":961
  *         if isinstance(ref, Frame):
  *             ref_frame = <Frame> ref
  *         elif is_int(ref):             # <<<<<<<<<<<<<<
  *             i = <int> ref
  *             ref_frame = self[i]
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_is_int); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 980; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_is_int); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 961; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -16530,48 +16251,48 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_ref); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 980; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_ref); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 961; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 980; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 961; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_INCREF(__pyx_v_ref);
     PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_ref);
     __Pyx_GIVEREF(__pyx_v_ref);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 980; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 961; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 980; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 961; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_2) {
 
-    /* "pytraj/Trajectory.pyx":981
+    /* "pytraj/Trajectory.pyx":962
  *             ref_frame = <Frame> ref
  *         elif is_int(ref):
  *             i = <int> ref             # <<<<<<<<<<<<<<
  *             ref_frame = self[i]
  *         elif isinstance(ref, string_types):
  */
-    __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_ref); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 981; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_ref); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 962; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_i = ((int)__pyx_t_7);
 
-    /* "pytraj/Trajectory.pyx":982
+    /* "pytraj/Trajectory.pyx":963
  *         elif is_int(ref):
  *             i = <int> ref
  *             ref_frame = self[i]             # <<<<<<<<<<<<<<
  *         elif isinstance(ref, string_types):
  *             if ref.lower() == 'first':
  */
-    __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 963; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
-    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_5Frame_Frame))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_5Frame_Frame))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 963; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_ref_frame = ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pytraj/Trajectory.pyx":980
+    /* "pytraj/Trajectory.pyx":961
  *         if isinstance(ref, Frame):
  *             ref_frame = <Frame> ref
  *         elif is_int(ref):             # <<<<<<<<<<<<<<
@@ -16581,28 +16302,28 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     goto __pyx_L3;
   }
 
-  /* "pytraj/Trajectory.pyx":983
+  /* "pytraj/Trajectory.pyx":964
  *             i = <int> ref
  *             ref_frame = self[i]
  *         elif isinstance(ref, string_types):             # <<<<<<<<<<<<<<
  *             if ref.lower() == 'first':
  *                 i = 0
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_string_types); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 983; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_string_types); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 964; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyObject_IsInstance(__pyx_v_ref, __pyx_t_3); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 983; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyObject_IsInstance(__pyx_v_ref, __pyx_t_3); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 964; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "pytraj/Trajectory.pyx":984
+    /* "pytraj/Trajectory.pyx":965
  *             ref_frame = self[i]
  *         elif isinstance(ref, string_types):
  *             if ref.lower() == 'first':             # <<<<<<<<<<<<<<
  *                 i = 0
  *             if ref.lower() == 'last':
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_ref, __pyx_n_s_lower); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 984; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_ref, __pyx_n_s_lower); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 965; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_6 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -16615,18 +16336,18 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
       }
     }
     if (__pyx_t_6) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 984; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 965; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 984; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 965; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_first, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 984; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_first, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 965; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (__pyx_t_1) {
 
-      /* "pytraj/Trajectory.pyx":985
+      /* "pytraj/Trajectory.pyx":966
  *         elif isinstance(ref, string_types):
  *             if ref.lower() == 'first':
  *                 i = 0             # <<<<<<<<<<<<<<
@@ -16635,7 +16356,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
  */
       __pyx_v_i = 0;
 
-      /* "pytraj/Trajectory.pyx":984
+      /* "pytraj/Trajectory.pyx":965
  *             ref_frame = self[i]
  *         elif isinstance(ref, string_types):
  *             if ref.lower() == 'first':             # <<<<<<<<<<<<<<
@@ -16644,14 +16365,14 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
  */
     }
 
-    /* "pytraj/Trajectory.pyx":986
+    /* "pytraj/Trajectory.pyx":967
  *             if ref.lower() == 'first':
  *                 i = 0
  *             if ref.lower() == 'last':             # <<<<<<<<<<<<<<
  *                 i = -1
  *             ref_frame = self[i]
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_ref, __pyx_n_s_lower); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 986; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_ref, __pyx_n_s_lower); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 967; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_6 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -16664,18 +16385,18 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
       }
     }
     if (__pyx_t_6) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 986; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 967; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 986; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 967; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_last, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 986; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_last, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 967; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (__pyx_t_1) {
 
-      /* "pytraj/Trajectory.pyx":987
+      /* "pytraj/Trajectory.pyx":968
  *                 i = 0
  *             if ref.lower() == 'last':
  *                 i = -1             # <<<<<<<<<<<<<<
@@ -16684,7 +16405,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
  */
       __pyx_v_i = -1;
 
-      /* "pytraj/Trajectory.pyx":986
+      /* "pytraj/Trajectory.pyx":967
  *             if ref.lower() == 'first':
  *                 i = 0
  *             if ref.lower() == 'last':             # <<<<<<<<<<<<<<
@@ -16693,20 +16414,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
  */
     }
 
-    /* "pytraj/Trajectory.pyx":988
+    /* "pytraj/Trajectory.pyx":969
  *             if ref.lower() == 'last':
  *                 i = -1
  *             ref_frame = self[i]             # <<<<<<<<<<<<<<
  *         else:
  *             raise ValueError("ref must be string, Frame object or integer")
  */
-    __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 988; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_self), __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 969; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
-    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_5Frame_Frame))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 988; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_5Frame_Frame))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 969; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_ref_frame = ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pytraj/Trajectory.pyx":983
+    /* "pytraj/Trajectory.pyx":964
  *             i = <int> ref
  *             ref_frame = self[i]
  *         elif isinstance(ref, string_types):             # <<<<<<<<<<<<<<
@@ -16716,7 +16437,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     goto __pyx_L3;
   }
 
-  /* "pytraj/Trajectory.pyx":990
+  /* "pytraj/Trajectory.pyx":971
  *             ref_frame = self[i]
  *         else:
  *             raise ValueError("ref must be string, Frame object or integer")             # <<<<<<<<<<<<<<
@@ -16724,39 +16445,39 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
  *         if mode == 'pytraj':
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__35, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 990; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__35, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 971; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 990; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 971; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_L3:;
 
-  /* "pytraj/Trajectory.pyx":992
+  /* "pytraj/Trajectory.pyx":973
  *             raise ValueError("ref must be string, Frame object or integer")
  * 
  *         if mode == 'pytraj':             # <<<<<<<<<<<<<<
  *             if isinstance(mask, string_types):
  *                 atm = self.top(mask)
  */
-  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_mode, __pyx_n_s_pytraj, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 992; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_mode, __pyx_n_s_pytraj, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 973; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
-    /* "pytraj/Trajectory.pyx":993
+    /* "pytraj/Trajectory.pyx":974
  * 
  *         if mode == 'pytraj':
  *             if isinstance(mask, string_types):             # <<<<<<<<<<<<<<
  *                 atm = self.top(mask)
  *             elif isinstance(mask, AtomMask):
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_string_types); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 993; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_string_types); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 974; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = PyObject_IsInstance(__pyx_v_mask, __pyx_t_3); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 993; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PyObject_IsInstance(__pyx_v_mask, __pyx_t_3); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 974; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_2 = (__pyx_t_1 != 0);
     if (__pyx_t_2) {
 
-      /* "pytraj/Trajectory.pyx":994
+      /* "pytraj/Trajectory.pyx":975
  *         if mode == 'pytraj':
  *             if isinstance(mask, string_types):
  *                 atm = self.top(mask)             # <<<<<<<<<<<<<<
@@ -16775,25 +16496,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
         }
       }
       if (!__pyx_t_6) {
-        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_mask); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 994; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_mask); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 975; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_3);
       } else {
-        __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 994; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 975; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_5);
         PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6); __Pyx_GIVEREF(__pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_INCREF(__pyx_v_mask);
         PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_mask);
         __Pyx_GIVEREF(__pyx_v_mask);
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 994; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 975; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       }
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_8AtomMask_AtomMask))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 994; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_6pytraj_8AtomMask_AtomMask))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 975; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __pyx_v_atm = ((struct __pyx_obj_6pytraj_8AtomMask_AtomMask *)__pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "pytraj/Trajectory.pyx":993
+      /* "pytraj/Trajectory.pyx":974
  * 
  *         if mode == 'pytraj':
  *             if isinstance(mask, string_types):             # <<<<<<<<<<<<<<
@@ -16803,7 +16524,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
       goto __pyx_L7;
     }
 
-    /* "pytraj/Trajectory.pyx":995
+    /* "pytraj/Trajectory.pyx":976
  *             if isinstance(mask, string_types):
  *                 atm = self.top(mask)
  *             elif isinstance(mask, AtomMask):             # <<<<<<<<<<<<<<
@@ -16814,7 +16535,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     __pyx_t_1 = (__pyx_t_2 != 0);
     if (__pyx_t_1) {
 
-      /* "pytraj/Trajectory.pyx":996
+      /* "pytraj/Trajectory.pyx":977
  *                 atm = self.top(mask)
  *             elif isinstance(mask, AtomMask):
  *                 atm = <AtomMask> mask             # <<<<<<<<<<<<<<
@@ -16826,7 +16547,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
       __pyx_v_atm = ((struct __pyx_obj_6pytraj_8AtomMask_AtomMask *)__pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "pytraj/Trajectory.pyx":995
+      /* "pytraj/Trajectory.pyx":976
  *             if isinstance(mask, string_types):
  *                 atm = self.top(mask)
  *             elif isinstance(mask, AtomMask):             # <<<<<<<<<<<<<<
@@ -16836,7 +16557,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
       goto __pyx_L7;
     }
 
-    /* "pytraj/Trajectory.pyx":998
+    /* "pytraj/Trajectory.pyx":979
  *                 atm = <AtomMask> mask
  *             else:
  *                 raise ValueError("mask must be string or AtomMask object")             # <<<<<<<<<<<<<<
@@ -16844,15 +16565,15 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
  *             for frame in self:
  */
     /*else*/ {
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__36, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 998; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__36, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 979; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 998; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 979; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __pyx_L7:;
 
-    /* "pytraj/Trajectory.pyx":1000
+    /* "pytraj/Trajectory.pyx":981
  *                 raise ValueError("mask must be string or AtomMask object")
  * 
  *             for frame in self:             # <<<<<<<<<<<<<<
@@ -16863,25 +16584,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
       __pyx_t_3 = ((PyObject *)__pyx_v_self); __Pyx_INCREF(__pyx_t_3); __pyx_t_8 = 0;
       __pyx_t_9 = NULL;
     } else {
-      __pyx_t_8 = -1; __pyx_t_3 = PyObject_GetIter(((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1000; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_8 = -1; __pyx_t_3 = PyObject_GetIter(((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 981; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_9 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1000; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_9 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 981; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     for (;;) {
       if (likely(!__pyx_t_9)) {
         if (likely(PyList_CheckExact(__pyx_t_3))) {
           if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_8); __Pyx_INCREF(__pyx_t_4); __pyx_t_8++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1000; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_8); __Pyx_INCREF(__pyx_t_4); __pyx_t_8++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 981; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1000; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 981; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #endif
         } else {
           if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_8); __Pyx_INCREF(__pyx_t_4); __pyx_t_8++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1000; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_8); __Pyx_INCREF(__pyx_t_4); __pyx_t_8++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 981; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1000; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 981; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           #endif
         }
       } else {
@@ -16890,26 +16611,26 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1000; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 981; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           break;
         }
         __Pyx_GOTREF(__pyx_t_4);
       }
-      if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_6pytraj_5Frame_Frame))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1000; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_6pytraj_5Frame_Frame))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 981; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_XDECREF_SET(__pyx_v_frame, ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_4));
       __pyx_t_4 = 0;
 
-      /* "pytraj/Trajectory.pyx":1001
+      /* "pytraj/Trajectory.pyx":982
  * 
  *             for frame in self:
  *                 _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)             # <<<<<<<<<<<<<<
  *                 frame.trans_rot_trans(v1, mat, v2)
  * 
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_rmsd); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_rmsd); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_INCREF(((PyObject *)__pyx_v_ref_frame));
       PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)__pyx_v_ref_frame));
@@ -16917,10 +16638,10 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
       __Pyx_INCREF(((PyObject *)__pyx_v_atm));
       PyTuple_SET_ITEM(__pyx_t_5, 1, ((PyObject *)__pyx_v_atm));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_atm));
-      __pyx_t_6 = PyDict_New(); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = PyDict_New(); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_6);
-      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_get_mvv, Py_True) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_get_mvv, Py_True) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -16935,7 +16656,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
         if (unlikely(size != 4)) {
           if (size > 4) __Pyx_RaiseTooManyValuesError(4);
           else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         #if CYTHON_COMPILING_IN_CPYTHON
         if (likely(PyTuple_CheckExact(sequence))) {
@@ -16958,7 +16679,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
           Py_ssize_t i;
           PyObject** temps[4] = {&__pyx_t_6,&__pyx_t_5,&__pyx_t_4,&__pyx_t_11};
           for (i=0; i < 4; i++) {
-            PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(item);
             *(temps[i]) = item;
           }
@@ -16968,7 +16689,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
       } else {
         Py_ssize_t index = -1;
         PyObject** temps[4] = {&__pyx_t_6,&__pyx_t_5,&__pyx_t_4,&__pyx_t_11};
-        __pyx_t_12 = PyObject_GetIter(__pyx_t_10); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_12 = PyObject_GetIter(__pyx_t_10); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         __pyx_t_13 = Py_TYPE(__pyx_t_12)->tp_iternext;
@@ -16977,7 +16698,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
           __Pyx_GOTREF(item);
           *(temps[index]) = item;
         }
-        if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_12), 4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_12), 4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __pyx_t_13 = NULL;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         goto __pyx_L11_unpacking_done;
@@ -16985,7 +16706,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __pyx_t_13 = NULL;
         if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 982; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __pyx_L11_unpacking_done:;
       }
       __Pyx_XDECREF_SET(__pyx_v__, __pyx_t_6);
@@ -16997,14 +16718,14 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
       __Pyx_XDECREF_SET(__pyx_v_v2, __pyx_t_11);
       __pyx_t_11 = 0;
 
-      /* "pytraj/Trajectory.pyx":1002
+      /* "pytraj/Trajectory.pyx":983
  *             for frame in self:
  *                 _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
  *                 frame.trans_rot_trans(v1, mat, v2)             # <<<<<<<<<<<<<<
  * 
  *         elif mode == 'cpptraj':
  */
-      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_trans_rot_trans); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1002; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_trans_rot_trans); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 983; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_11);
       __pyx_t_4 = NULL;
       __pyx_t_14 = 0;
@@ -17018,7 +16739,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
           __pyx_t_14 = 1;
         }
       }
-      __pyx_t_5 = PyTuple_New(3+__pyx_t_14); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1002; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = PyTuple_New(3+__pyx_t_14); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 983; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_5);
       if (__pyx_t_4) {
         PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __Pyx_GIVEREF(__pyx_t_4); __pyx_t_4 = NULL;
@@ -17032,13 +16753,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
       __Pyx_INCREF(__pyx_v_v2);
       PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_14, __pyx_v_v2);
       __Pyx_GIVEREF(__pyx_v_v2);
-      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_5, NULL); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1002; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_5, NULL); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 983; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-      /* "pytraj/Trajectory.pyx":1000
+      /* "pytraj/Trajectory.pyx":981
  *                 raise ValueError("mask must be string or AtomMask object")
  * 
  *             for frame in self:             # <<<<<<<<<<<<<<
@@ -17048,7 +16769,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pytraj/Trajectory.pyx":992
+    /* "pytraj/Trajectory.pyx":973
  *             raise ValueError("ref must be string, Frame object or integer")
  * 
  *         if mode == 'pytraj':             # <<<<<<<<<<<<<<
@@ -17058,36 +16779,36 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     goto __pyx_L6;
   }
 
-  /* "pytraj/Trajectory.pyx":1004
+  /* "pytraj/Trajectory.pyx":985
  *                 frame.trans_rot_trans(v1, mat, v2)
  * 
  *         elif mode == 'cpptraj':             # <<<<<<<<<<<<<<
  *             # switch to fast speed
  *             # we still use mode 'pytraj' so we can use AtomMask (for what?)
  */
-  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_mode, __pyx_n_s_cpptraj, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1004; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_mode, __pyx_n_s_cpptraj, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 985; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
-    /* "pytraj/Trajectory.pyx":1007
+    /* "pytraj/Trajectory.pyx":988
  *             # switch to fast speed
  *             # we still use mode 'pytraj' so we can use AtomMask (for what?)
  *             act = Action_Rmsd()             # <<<<<<<<<<<<<<
  *             act(mask, [ref_frame, self], top=self.top)
  *         else:
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_19actions_dot_Action_Rmsd_Action_Rmsd)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1007; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_19actions_dot_Action_Rmsd_Action_Rmsd)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 988; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_act = ((struct __pyx_obj_6pytraj_19actions_dot_Action_Rmsd_Action_Rmsd *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pytraj/Trajectory.pyx":1008
+    /* "pytraj/Trajectory.pyx":989
  *             # we still use mode 'pytraj' so we can use AtomMask (for what?)
  *             act = Action_Rmsd()
  *             act(mask, [ref_frame, self], top=self.top)             # <<<<<<<<<<<<<<
  *         else:
  *             raise ValueError("mode = pytraj | cpptraj")
  */
-    __pyx_t_3 = PyList_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1008; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyList_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 989; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF(((PyObject *)__pyx_v_ref_frame));
     PyList_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_v_ref_frame));
@@ -17095,7 +16816,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     __Pyx_INCREF(((PyObject *)__pyx_v_self));
     PyList_SET_ITEM(__pyx_t_3, 1, ((PyObject *)__pyx_v_self));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_self));
-    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1008; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 989; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_INCREF(__pyx_v_mask);
     PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_v_mask);
@@ -17103,16 +16824,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1008; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 989; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_top, ((PyObject *)__pyx_v_self->top)) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1008; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_11 = __Pyx_PyObject_Call(((PyObject *)__pyx_v_act), __pyx_t_10, __pyx_t_3); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1008; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_top, ((PyObject *)__pyx_v_self->top)) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 989; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_11 = __Pyx_PyObject_Call(((PyObject *)__pyx_v_act), __pyx_t_10, __pyx_t_3); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 989; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-    /* "pytraj/Trajectory.pyx":1004
+    /* "pytraj/Trajectory.pyx":985
  *                 frame.trans_rot_trans(v1, mat, v2)
  * 
  *         elif mode == 'cpptraj':             # <<<<<<<<<<<<<<
@@ -17122,7 +16843,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
     goto __pyx_L6;
   }
 
-  /* "pytraj/Trajectory.pyx":1010
+  /* "pytraj/Trajectory.pyx":991
  *             act(mask, [ref_frame, self], top=self.top)
  *         else:
  *             raise ValueError("mode = pytraj | cpptraj")             # <<<<<<<<<<<<<<
@@ -17130,15 +16851,15 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
  *     # start copy and paste from "__action_in_traj.py"
  */
   /*else*/ {
-    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__37, NULL); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1010; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__37, NULL); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 991; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_Raise(__pyx_t_11, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1010; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 991; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_L6:;
 
-  /* "pytraj/Trajectory.pyx":957
+  /* "pytraj/Trajectory.pyx":938
  *         self.save(*args, **kwd)
  * 
  *     def rmsfit_to(self, ref=None, mask="*", mode='pytraj'):             # <<<<<<<<<<<<<<
@@ -17173,7 +16894,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1013
+/* "pytraj/Trajectory.pyx":994
  * 
  *     # start copy and paste from "__action_in_traj.py"
  *     def calc_distance(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -17182,9 +16903,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89rmsfit_to(struct _
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_92calc_distance(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_91calc_distance[] = "Trajectory.calc_distance(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_92calc_distance(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_90calc_distance(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_89calc_distance[] = "Trajectory.calc_distance(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_90calc_distance(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -17229,7 +16950,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_92calc_distance(PyOb
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_distance") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1013; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_distance") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 994; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -17248,7 +16969,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_92calc_distance(PyOb
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distance(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_89calc_distance(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -17257,7 +16978,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_92calc_distance(PyOb
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distance(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_89calc_distance(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -17269,7 +16990,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distance(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_distance", 0);
 
-  /* "pytraj/Trajectory.pyx":1014
+  /* "pytraj/Trajectory.pyx":995
  *     # start copy and paste from "__action_in_traj.py"
  *     def calc_distance(self, mask="", *args, **kwd):
  *         return pyca.calc_distance(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -17277,12 +16998,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distance(stru
  *     def calc_distrmsd(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1014; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 995; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_distance); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1014; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_distance); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 995; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1014; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 995; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -17290,13 +17011,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distance(stru
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1014; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 995; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1014; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 995; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1014; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 995; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -17304,7 +17025,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distance(stru
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1013
+  /* "pytraj/Trajectory.pyx":994
  * 
  *     # start copy and paste from "__action_in_traj.py"
  *     def calc_distance(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -17326,7 +17047,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distance(stru
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1016
+/* "pytraj/Trajectory.pyx":997
  *         return pyca.calc_distance(self, mask, *args, **kwd)
  * 
  *     def calc_distrmsd(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -17335,9 +17056,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distance(stru
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_94calc_distrmsd(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd[] = "Trajectory.calc_distrmsd(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_94calc_distrmsd(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_92calc_distrmsd(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_91calc_distrmsd[] = "Trajectory.calc_distrmsd(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_92calc_distrmsd(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -17382,7 +17103,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_94calc_distrmsd(PyOb
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_distrmsd") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1016; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_distrmsd") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 997; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -17401,7 +17122,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_94calc_distrmsd(PyOb
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distrmsd(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -17410,7 +17131,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_94calc_distrmsd(PyOb
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_91calc_distrmsd(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -17422,7 +17143,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_distrmsd", 0);
 
-  /* "pytraj/Trajectory.pyx":1017
+  /* "pytraj/Trajectory.pyx":998
  * 
  *     def calc_distrmsd(self, mask="", *args, **kwd):
  *         return pyca.calc_distrmsd(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -17430,12 +17151,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd(stru
  *     def calc_radgyr(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1017; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 998; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_distrmsd); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1017; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_distrmsd); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 998; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1017; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 998; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -17443,13 +17164,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd(stru
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1017; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 998; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1017; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 998; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1017; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 998; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -17457,7 +17178,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd(stru
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1016
+  /* "pytraj/Trajectory.pyx":997
  *         return pyca.calc_distance(self, mask, *args, **kwd)
  * 
  *     def calc_distrmsd(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -17479,7 +17200,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd(stru
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1019
+/* "pytraj/Trajectory.pyx":1000
  *         return pyca.calc_distrmsd(self, mask, *args, **kwd)
  * 
  *     def calc_radgyr(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -17488,9 +17209,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd(stru
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_96calc_radgyr(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_95calc_radgyr[] = "Trajectory.calc_radgyr(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_96calc_radgyr(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_94calc_radgyr(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_93calc_radgyr[] = "Trajectory.calc_radgyr(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_94calc_radgyr(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -17535,7 +17256,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_96calc_radgyr(PyObje
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_radgyr") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1019; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_radgyr") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1000; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -17554,7 +17275,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_96calc_radgyr(PyObje
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_radgyr(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_radgyr(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -17563,7 +17284,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_96calc_radgyr(PyObje
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_radgyr(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_93calc_radgyr(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -17575,7 +17296,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_radgyr(struct
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_radgyr", 0);
 
-  /* "pytraj/Trajectory.pyx":1020
+  /* "pytraj/Trajectory.pyx":1001
  * 
  *     def calc_radgyr(self, mask="", *args, **kwd):
  *         return pyca.calc_radgyr(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -17583,12 +17304,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_radgyr(struct
  *     def calc_angle(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1020; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_radgyr); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1020; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_radgyr); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1020; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -17596,13 +17317,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_radgyr(struct
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1020; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1020; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1020; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1001; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -17610,7 +17331,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_radgyr(struct
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1019
+  /* "pytraj/Trajectory.pyx":1000
  *         return pyca.calc_distrmsd(self, mask, *args, **kwd)
  * 
  *     def calc_radgyr(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -17632,7 +17353,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_radgyr(struct
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1022
+/* "pytraj/Trajectory.pyx":1003
  *         return pyca.calc_radgyr(self, mask, *args, **kwd)
  * 
  *     def calc_angle(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -17641,9 +17362,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_radgyr(struct
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_98calc_angle(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_97calc_angle[] = "Trajectory.calc_angle(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_98calc_angle(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_96calc_angle(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_95calc_angle[] = "Trajectory.calc_angle(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_96calc_angle(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -17688,7 +17409,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_98calc_angle(PyObjec
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_angle") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1022; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_angle") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1003; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -17707,7 +17428,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_98calc_angle(PyObjec
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_angle(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_angle(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -17716,7 +17437,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_98calc_angle(PyObjec
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_angle(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_95calc_angle(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -17728,7 +17449,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_angle(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_angle", 0);
 
-  /* "pytraj/Trajectory.pyx":1023
+  /* "pytraj/Trajectory.pyx":1004
  * 
  *     def calc_angle(self, mask="", *args, **kwd):
  *         return pyca.calc_angle(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -17736,12 +17457,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_angle(struct 
  *     def calc_matrix(self, mask=""):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1023; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1004; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_angle); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1023; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_angle); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1004; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1023; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1004; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -17749,13 +17470,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_angle(struct 
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1023; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1004; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1023; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1004; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1023; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1004; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -17763,7 +17484,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_angle(struct 
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1022
+  /* "pytraj/Trajectory.pyx":1003
  *         return pyca.calc_radgyr(self, mask, *args, **kwd)
  * 
  *     def calc_angle(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -17785,7 +17506,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_angle(struct 
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1025
+/* "pytraj/Trajectory.pyx":1006
  *         return pyca.calc_angle(self, mask, *args, **kwd)
  * 
  *     def calc_matrix(self, mask=""):             # <<<<<<<<<<<<<<
@@ -17794,9 +17515,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_angle(struct 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_100calc_matrix(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_99calc_matrix[] = "Trajectory.calc_matrix(self, mask='')";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_100calc_matrix(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_98calc_matrix(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_97calc_matrix[] = "Trajectory.calc_matrix(self, mask='')";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_98calc_matrix(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -17825,7 +17546,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_100calc_matrix(PyObj
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calc_matrix") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1025; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calc_matrix") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1006; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -17838,20 +17559,20 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_100calc_matrix(PyObj
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calc_matrix", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1025; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("calc_matrix", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1006; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.calc_matrix", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_matrix(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_matrix(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_matrix(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_97calc_matrix(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -17864,7 +17585,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_matrix(struct
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_matrix", 0);
 
-  /* "pytraj/Trajectory.pyx":1026
+  /* "pytraj/Trajectory.pyx":1007
  * 
  *     def calc_matrix(self, mask=""):
  *         return pyca.calc_matrix(self, mask)             # <<<<<<<<<<<<<<
@@ -17872,9 +17593,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_matrix(struct
  *     def calc_dssp(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1026; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1007; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_calc_matrix); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1026; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_calc_matrix); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1007; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -17889,7 +17610,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_matrix(struct
       __pyx_t_4 = 1;
     }
   }
-  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1026; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1007; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (__pyx_t_2) {
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __Pyx_GIVEREF(__pyx_t_2); __pyx_t_2 = NULL;
@@ -17900,7 +17621,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_matrix(struct
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1026; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1007; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -17908,7 +17629,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_matrix(struct
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1025
+  /* "pytraj/Trajectory.pyx":1006
  *         return pyca.calc_angle(self, mask, *args, **kwd)
  * 
  *     def calc_matrix(self, mask=""):             # <<<<<<<<<<<<<<
@@ -17930,7 +17651,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_matrix(struct
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1028
+/* "pytraj/Trajectory.pyx":1009
  *         return pyca.calc_matrix(self, mask)
  * 
  *     def calc_dssp(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -17939,9 +17660,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_matrix(struct
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_102calc_dssp(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_101calc_dssp[] = "Trajectory.calc_dssp(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_102calc_dssp(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_100calc_dssp(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_99calc_dssp[] = "Trajectory.calc_dssp(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_100calc_dssp(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -17986,7 +17707,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_102calc_dssp(PyObjec
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_dssp") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1028; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_dssp") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1009; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -18005,7 +17726,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_102calc_dssp(PyObjec
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dssp(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_dssp(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -18014,7 +17735,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_102calc_dssp(PyObjec
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dssp(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_99calc_dssp(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -18026,7 +17747,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dssp(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_dssp", 0);
 
-  /* "pytraj/Trajectory.pyx":1029
+  /* "pytraj/Trajectory.pyx":1010
  * 
  *     def calc_dssp(self, mask="", *args, **kwd):
  *         return pyca.calc_dssp(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -18034,12 +17755,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dssp(struct 
  *     def calc_dihedral(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1029; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1010; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_dssp); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1029; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_dssp); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1010; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1029; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1010; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -18047,13 +17768,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dssp(struct 
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1029; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1010; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1029; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1010; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1029; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1010; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -18061,7 +17782,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dssp(struct 
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1028
+  /* "pytraj/Trajectory.pyx":1009
  *         return pyca.calc_matrix(self, mask)
  * 
  *     def calc_dssp(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18083,7 +17804,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dssp(struct 
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1031
+/* "pytraj/Trajectory.pyx":1012
  *         return pyca.calc_dssp(self, mask, *args, **kwd)
  * 
  *     def calc_dihedral(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18092,9 +17813,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dssp(struct 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_104calc_dihedral(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_103calc_dihedral[] = "Trajectory.calc_dihedral(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_104calc_dihedral(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_102calc_dihedral(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_101calc_dihedral[] = "Trajectory.calc_dihedral(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_102calc_dihedral(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -18139,7 +17860,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_104calc_dihedral(PyO
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_dihedral") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1031; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_dihedral") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1012; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -18158,7 +17879,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_104calc_dihedral(PyO
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_dihedral(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dihedral(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -18167,7 +17888,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_104calc_dihedral(PyO
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_dihedral(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_101calc_dihedral(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -18179,7 +17900,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_dihedral(str
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_dihedral", 0);
 
-  /* "pytraj/Trajectory.pyx":1032
+  /* "pytraj/Trajectory.pyx":1013
  * 
  *     def calc_dihedral(self, mask="", *args, **kwd):
  *         return pyca.calc_dihedral(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -18187,12 +17908,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_dihedral(str
  *     def calc_multidihedral(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1032; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1013; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_dihedral); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1032; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_dihedral); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1013; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1032; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1013; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -18200,13 +17921,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_dihedral(str
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1032; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1013; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1032; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1013; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1032; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1013; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -18214,7 +17935,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_dihedral(str
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1031
+  /* "pytraj/Trajectory.pyx":1012
  *         return pyca.calc_dssp(self, mask, *args, **kwd)
  * 
  *     def calc_dihedral(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18236,7 +17957,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_dihedral(str
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1034
+/* "pytraj/Trajectory.pyx":1015
  *         return pyca.calc_dihedral(self, mask, *args, **kwd)
  * 
  *     def calc_multidihedral(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18245,9 +17966,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_dihedral(str
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_106calc_multidihedral(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_105calc_multidihedral[] = "Trajectory.calc_multidihedral(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_106calc_multidihedral(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_104calc_multidihedral(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_103calc_multidihedral[] = "Trajectory.calc_multidihedral(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_104calc_multidihedral(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -18292,7 +18013,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_106calc_multidihedra
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_multidihedral") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1034; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_multidihedral") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1015; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -18311,7 +18032,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_106calc_multidihedra
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_multidihedral(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_multidihedral(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -18320,7 +18041,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_106calc_multidihedra
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_multidihedral(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_103calc_multidihedral(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -18332,7 +18053,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_multidihedra
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_multidihedral", 0);
 
-  /* "pytraj/Trajectory.pyx":1035
+  /* "pytraj/Trajectory.pyx":1016
  * 
  *     def calc_multidihedral(self, mask="", *args, **kwd):
  *         return pyca.calc_multidihedral(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -18340,12 +18061,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_multidihedra
  *     def calc_molsurf(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1035; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1016; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_multidihedral); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1035; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_multidihedral); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1016; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1035; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1016; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -18353,13 +18074,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_multidihedra
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1035; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1016; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1035; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1016; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1035; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1016; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -18367,7 +18088,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_multidihedra
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1034
+  /* "pytraj/Trajectory.pyx":1015
  *         return pyca.calc_dihedral(self, mask, *args, **kwd)
  * 
  *     def calc_multidihedral(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18389,7 +18110,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_multidihedra
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1037
+/* "pytraj/Trajectory.pyx":1018
  *         return pyca.calc_multidihedral(self, mask, *args, **kwd)
  * 
  *     def calc_molsurf(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18398,9 +18119,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_multidihedra
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_108calc_molsurf(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_107calc_molsurf[] = "Trajectory.calc_molsurf(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_108calc_molsurf(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_106calc_molsurf(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_105calc_molsurf[] = "Trajectory.calc_molsurf(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_106calc_molsurf(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -18445,7 +18166,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_108calc_molsurf(PyOb
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_molsurf") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1037; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_molsurf") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1018; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -18464,7 +18185,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_108calc_molsurf(PyOb
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_molsurf(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_molsurf(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -18473,7 +18194,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_108calc_molsurf(PyOb
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_molsurf(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_105calc_molsurf(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -18485,7 +18206,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_molsurf(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_molsurf", 0);
 
-  /* "pytraj/Trajectory.pyx":1038
+  /* "pytraj/Trajectory.pyx":1019
  * 
  *     def calc_molsurf(self, mask="", *args, **kwd):
  *         return pyca.calc_molsurf(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -18493,12 +18214,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_molsurf(stru
  *     def calc_center_of_mass(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1038; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1019; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_molsurf); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1038; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_molsurf); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1019; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1038; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1019; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -18506,13 +18227,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_molsurf(stru
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1038; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1019; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1038; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1019; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1038; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1019; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -18520,7 +18241,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_molsurf(stru
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1037
+  /* "pytraj/Trajectory.pyx":1018
  *         return pyca.calc_multidihedral(self, mask, *args, **kwd)
  * 
  *     def calc_molsurf(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18542,7 +18263,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_molsurf(stru
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1040
+/* "pytraj/Trajectory.pyx":1021
  *         return pyca.calc_molsurf(self, mask, *args, **kwd)
  * 
  *     def calc_center_of_mass(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18551,9 +18272,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_molsurf(stru
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_110calc_center_of_mass(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_109calc_center_of_mass[] = "Trajectory.calc_center_of_mass(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_110calc_center_of_mass(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_108calc_center_of_mass(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_107calc_center_of_mass[] = "Trajectory.calc_center_of_mass(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_108calc_center_of_mass(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -18598,7 +18319,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_110calc_center_of_ma
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_center_of_mass") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1040; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_center_of_mass") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1021; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -18617,7 +18338,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_110calc_center_of_ma
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_center_of_mass(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_center_of_mass(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -18626,7 +18347,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_110calc_center_of_ma
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_center_of_mass(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_107calc_center_of_mass(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -18638,7 +18359,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_center_of_ma
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_center_of_mass", 0);
 
-  /* "pytraj/Trajectory.pyx":1041
+  /* "pytraj/Trajectory.pyx":1022
  * 
  *     def calc_center_of_mass(self, mask="", *args, **kwd):
  *         return pyca.calc_center_of_mass(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -18646,12 +18367,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_center_of_ma
  *     def calc_COM(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1041; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1022; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_center_of_mass); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1041; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_center_of_mass); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1022; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1041; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1022; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -18659,13 +18380,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_center_of_ma
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1041; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1022; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1041; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1022; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1041; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1022; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -18673,7 +18394,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_center_of_ma
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1040
+  /* "pytraj/Trajectory.pyx":1021
  *         return pyca.calc_molsurf(self, mask, *args, **kwd)
  * 
  *     def calc_center_of_mass(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18695,7 +18416,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_center_of_ma
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1043
+/* "pytraj/Trajectory.pyx":1024
  *         return pyca.calc_center_of_mass(self, mask, *args, **kwd)
  * 
  *     def calc_COM(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18704,9 +18425,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_center_of_ma
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_112calc_COM(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_111calc_COM[] = "Trajectory.calc_COM(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_112calc_COM(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_110calc_COM(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_109calc_COM[] = "Trajectory.calc_COM(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_110calc_COM(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -18751,7 +18472,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_112calc_COM(PyObject
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_COM") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1043; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_COM") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1024; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -18770,7 +18491,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_112calc_COM(PyObject
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_COM(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_COM(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -18779,7 +18500,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_112calc_COM(PyObject
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_COM(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_109calc_COM(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -18791,7 +18512,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_COM(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_COM", 0);
 
-  /* "pytraj/Trajectory.pyx":1044
+  /* "pytraj/Trajectory.pyx":1025
  * 
  *     def calc_COM(self, mask="", *args, **kwd):
  *         return pyca.calc_center_of_mass(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -18799,12 +18520,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_COM(struct _
  *     def calc_center_of_geometry(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1044; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1025; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_center_of_mass); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1044; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_center_of_mass); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1025; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1044; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1025; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -18812,13 +18533,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_COM(struct _
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1044; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1025; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1044; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1025; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1044; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1025; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -18826,7 +18547,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_COM(struct _
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1043
+  /* "pytraj/Trajectory.pyx":1024
  *         return pyca.calc_center_of_mass(self, mask, *args, **kwd)
  * 
  *     def calc_COM(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18848,7 +18569,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_COM(struct _
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1046
+/* "pytraj/Trajectory.pyx":1027
  *         return pyca.calc_center_of_mass(self, mask, *args, **kwd)
  * 
  *     def calc_center_of_geometry(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -18857,9 +18578,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_COM(struct _
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_114calc_center_of_geometry(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_113calc_center_of_geometry[] = "Trajectory.calc_center_of_geometry(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_114calc_center_of_geometry(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_112calc_center_of_geometry(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_111calc_center_of_geometry[] = "Trajectory.calc_center_of_geometry(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_112calc_center_of_geometry(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -18904,7 +18625,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_114calc_center_of_ge
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_center_of_geometry") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1046; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_center_of_geometry") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1027; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -18923,7 +18644,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_114calc_center_of_ge
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_center_of_geometry(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_center_of_geometry(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -18932,7 +18653,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_114calc_center_of_ge
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_center_of_geometry(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_111calc_center_of_geometry(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -18944,7 +18665,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_center_of_ge
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_center_of_geometry", 0);
 
-  /* "pytraj/Trajectory.pyx":1047
+  /* "pytraj/Trajectory.pyx":1028
  * 
  *     def calc_center_of_geometry(self, mask="", *args, **kwd):
  *         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -18952,12 +18673,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_center_of_ge
  *     def calc_COG(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1047; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1028; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_center_of_geometry); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1047; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_center_of_geometry); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1028; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1047; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1028; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -18965,13 +18686,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_center_of_ge
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1047; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1028; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1047; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1028; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1047; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1028; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -18979,7 +18700,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_center_of_ge
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1046
+  /* "pytraj/Trajectory.pyx":1027
  *         return pyca.calc_center_of_mass(self, mask, *args, **kwd)
  * 
  *     def calc_center_of_geometry(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19001,7 +18722,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_center_of_ge
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1049
+/* "pytraj/Trajectory.pyx":1030
  *         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
  * 
  *     def calc_COG(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19010,9 +18731,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_center_of_ge
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_116calc_COG(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_115calc_COG[] = "Trajectory.calc_COG(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_116calc_COG(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_114calc_COG(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_113calc_COG[] = "Trajectory.calc_COG(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_114calc_COG(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -19057,7 +18778,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_116calc_COG(PyObject
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_COG") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1049; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_COG") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1030; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -19076,7 +18797,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_116calc_COG(PyObject
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_COG(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_COG(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -19085,7 +18806,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_116calc_COG(PyObject
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_COG(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_113calc_COG(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -19097,7 +18818,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_COG(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_COG", 0);
 
-  /* "pytraj/Trajectory.pyx":1050
+  /* "pytraj/Trajectory.pyx":1031
  * 
  *     def calc_COG(self, mask="", *args, **kwd):
  *         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -19105,12 +18826,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_COG(struct _
  *     def calc_vector(self, mask="", dtype='dataset', *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1050; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1031; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_center_of_geometry); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1050; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_center_of_geometry); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1031; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1050; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1031; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -19118,13 +18839,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_COG(struct _
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1050; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1031; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1050; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1031; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1050; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1031; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -19132,7 +18853,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_COG(struct _
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1049
+  /* "pytraj/Trajectory.pyx":1030
  *         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
  * 
  *     def calc_COG(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19154,7 +18875,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_COG(struct _
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1052
+/* "pytraj/Trajectory.pyx":1033
  *         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
  * 
  *     def calc_vector(self, mask="", dtype='dataset', *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19163,9 +18884,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_COG(struct _
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_118calc_vector(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_117calc_vector[] = "Trajectory.calc_vector(self, mask='', dtype='dataset', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_118calc_vector(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_116calc_vector(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_115calc_vector[] = "Trajectory.calc_vector(self, mask='', dtype='dataset', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_116calc_vector(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_dtype = 0;
   CYTHON_UNUSED PyObject *__pyx_v_args = 0;
@@ -19218,7 +18939,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_118calc_vector(PyObj
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 2) ? pos_args : 2;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_vector") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1052; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_vector") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1033; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -19239,7 +18960,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_118calc_vector(PyObj
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_dtype, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_vector(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_dtype, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -19248,7 +18969,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_118calc_vector(PyObj
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_dtype, CYTHON_UNUSED PyObject *__pyx_v_args, CYTHON_UNUSED PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_115calc_vector(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_dtype, CYTHON_UNUSED PyObject *__pyx_v_args, CYTHON_UNUSED PyObject *__pyx_v_kwd) {
   PyObject *__pyx_v_Action_Vector = NULL;
   PyObject *__pyx_v_DataSetList = NULL;
   PyObject *__pyx_v_act = NULL;
@@ -19265,51 +18986,51 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_vector", 0);
 
-  /* "pytraj/Trajectory.pyx":1053
+  /* "pytraj/Trajectory.pyx":1034
  * 
  *     def calc_vector(self, mask="", dtype='dataset', *args, **kwd):
  *         from pytraj.actions.Action_Vector import Action_Vector             # <<<<<<<<<<<<<<
  *         from pytraj.DataSetList import DataSetList
  *         act = Action_Vector()
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1053; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1034; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_Action_Vector);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_Action_Vector);
   __Pyx_GIVEREF(__pyx_n_s_Action_Vector);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj_actions_Action_Vector, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1053; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj_actions_Action_Vector, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1034; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Action_Vector); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1053; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Action_Vector); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1034; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_t_1);
   __pyx_v_Action_Vector = __pyx_t_1;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pytraj/Trajectory.pyx":1054
+  /* "pytraj/Trajectory.pyx":1035
  *     def calc_vector(self, mask="", dtype='dataset', *args, **kwd):
  *         from pytraj.actions.Action_Vector import Action_Vector
  *         from pytraj.DataSetList import DataSetList             # <<<<<<<<<<<<<<
  *         act = Action_Vector()
  *         dslist = DataSetList()
  */
-  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1054; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1035; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_DataSetList);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_DataSetList);
   __Pyx_GIVEREF(__pyx_n_s_DataSetList);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pytraj_DataSetList, __pyx_t_2, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1054; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pytraj_DataSetList, __pyx_t_2, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1035; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_DataSetList); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1054; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_DataSetList); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1035; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_t_2);
   __pyx_v_DataSetList = __pyx_t_2;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":1055
+  /* "pytraj/Trajectory.pyx":1036
  *         from pytraj.actions.Action_Vector import Action_Vector
  *         from pytraj.DataSetList import DataSetList
  *         act = Action_Vector()             # <<<<<<<<<<<<<<
@@ -19328,17 +19049,17 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struc
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1055; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1036; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1055; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1036; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_act = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":1056
+  /* "pytraj/Trajectory.pyx":1037
  *         from pytraj.DataSetList import DataSetList
  *         act = Action_Vector()
  *         dslist = DataSetList()             # <<<<<<<<<<<<<<
@@ -19357,24 +19078,24 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struc
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1056; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1037; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1056; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1037; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_dslist = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":1058
+  /* "pytraj/Trajectory.pyx":1039
  *         dslist = DataSetList()
  * 
  *         act(mask, self, dslist=dslist)             # <<<<<<<<<<<<<<
  *         return _get_data_from_dtype(dslist, dtype)
  * 
  */
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1058; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1039; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_mask);
@@ -19382,16 +19103,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struc
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 1, ((PyObject *)__pyx_v_self));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_self));
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1058; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1039; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dslist, __pyx_v_dslist) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1058; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_v_act, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1058; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dslist, __pyx_v_dslist) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1039; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_v_act, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1039; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pytraj/Trajectory.pyx":1059
+  /* "pytraj/Trajectory.pyx":1040
  * 
  *         act(mask, self, dslist=dslist)
  *         return _get_data_from_dtype(dslist, dtype)             # <<<<<<<<<<<<<<
@@ -19399,7 +19120,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struc
  *     def search_hbonds(self, mask="*", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_data_from_dtype); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1059; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_data_from_dtype); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1040; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = NULL;
   __pyx_t_4 = 0;
@@ -19413,7 +19134,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struc
       __pyx_t_4 = 1;
     }
   }
-  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1059; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1040; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (__pyx_t_1) {
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1); __Pyx_GIVEREF(__pyx_t_1); __pyx_t_1 = NULL;
@@ -19424,7 +19145,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struc
   __Pyx_INCREF(__pyx_v_dtype);
   PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, __pyx_v_dtype);
   __Pyx_GIVEREF(__pyx_v_dtype);
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1059; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1040; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -19432,7 +19153,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struc
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1052
+  /* "pytraj/Trajectory.pyx":1033
  *         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
  * 
  *     def calc_vector(self, mask="", dtype='dataset', *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19458,7 +19179,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struc
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1061
+/* "pytraj/Trajectory.pyx":1042
  *         return _get_data_from_dtype(dslist, dtype)
  * 
  *     def search_hbonds(self, mask="*", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19467,9 +19188,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117calc_vector(struc
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_120search_hbonds(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_119search_hbonds[] = "Trajectory.search_hbonds(self, mask='*', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_120search_hbonds(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_118search_hbonds(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_117search_hbonds[] = "Trajectory.search_hbonds(self, mask='*', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_118search_hbonds(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -19514,7 +19235,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_120search_hbonds(PyO
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "search_hbonds") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1061; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "search_hbonds") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1042; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -19533,7 +19254,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_120search_hbonds(PyO
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_119search_hbonds(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_117search_hbonds(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -19542,7 +19263,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_120search_hbonds(PyO
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_119search_hbonds(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_117search_hbonds(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -19554,7 +19275,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_119search_hbonds(str
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("search_hbonds", 0);
 
-  /* "pytraj/Trajectory.pyx":1062
+  /* "pytraj/Trajectory.pyx":1043
  * 
  *     def search_hbonds(self, mask="*", *args, **kwd):
  *         return pyca.search_hbonds(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -19562,12 +19283,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_119search_hbonds(str
  *     def get_average_frame(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1062; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1043; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_search_hbonds); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1062; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_search_hbonds); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1043; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1062; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1043; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -19575,13 +19296,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_119search_hbonds(str
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1062; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1043; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1062; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1043; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1062; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1043; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -19589,7 +19310,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_119search_hbonds(str
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1061
+  /* "pytraj/Trajectory.pyx":1042
  *         return _get_data_from_dtype(dslist, dtype)
  * 
  *     def search_hbonds(self, mask="*", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19611,7 +19332,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_119search_hbonds(str
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1064
+/* "pytraj/Trajectory.pyx":1045
  *         return pyca.search_hbonds(self, mask, *args, **kwd)
  * 
  *     def get_average_frame(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19620,9 +19341,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_119search_hbonds(str
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_122get_average_frame(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_121get_average_frame[] = "Trajectory.get_average_frame(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_122get_average_frame(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_120get_average_frame(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_119get_average_frame[] = "Trajectory.get_average_frame(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_120get_average_frame(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -19667,7 +19388,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_122get_average_frame
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "get_average_frame") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1064; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "get_average_frame") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1045; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -19686,7 +19407,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_122get_average_frame
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_121get_average_frame(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_119get_average_frame(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -19695,7 +19416,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_122get_average_frame
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_121get_average_frame(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_119get_average_frame(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -19707,7 +19428,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_121get_average_frame
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_average_frame", 0);
 
-  /* "pytraj/Trajectory.pyx":1065
+  /* "pytraj/Trajectory.pyx":1046
  * 
  *     def get_average_frame(self, mask="", *args, **kwd):
  *         return pyca.get_average_frame(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -19715,12 +19436,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_121get_average_frame
  *     def calc_watershell(self, mask="", *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1046; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_get_average_frame); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_get_average_frame); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1046; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1046; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -19728,13 +19449,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_121get_average_frame
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1046; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1046; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1046; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -19742,7 +19463,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_121get_average_frame
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1064
+  /* "pytraj/Trajectory.pyx":1045
  *         return pyca.search_hbonds(self, mask, *args, **kwd)
  * 
  *     def get_average_frame(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19764,7 +19485,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_121get_average_frame
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1067
+/* "pytraj/Trajectory.pyx":1048
  *         return pyca.get_average_frame(self, mask, *args, **kwd)
  * 
  *     def calc_watershell(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19773,9 +19494,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_121get_average_frame
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_124calc_watershell(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_123calc_watershell[] = "Trajectory.calc_watershell(self, mask='', *args, **kwd)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_124calc_watershell(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_122calc_watershell(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_121calc_watershell[] = "Trajectory.calc_watershell(self, mask='', *args, **kwd)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_122calc_watershell(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -19820,7 +19541,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_124calc_watershell(P
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t used_pos_args = (pos_args < 1) ? pos_args : 1;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_watershell") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1067; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_kwd, values, used_pos_args, "calc_watershell") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1048; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -19839,7 +19560,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_124calc_watershell(P
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_123calc_watershell(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_121calc_watershell(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -19848,7 +19569,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_124calc_watershell(P
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_123calc_watershell(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_121calc_watershell(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -19860,7 +19581,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_123calc_watershell(s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("calc_watershell", 0);
 
-  /* "pytraj/Trajectory.pyx":1068
+  /* "pytraj/Trajectory.pyx":1049
  * 
  *     def calc_watershell(self, mask="", *args, **kwd):
  *         return pyca.calc_watershell(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
@@ -19868,12 +19589,12 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_123calc_watershell(s
  *     def autoimage(self, mask=""):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1049; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_watershell); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_calc_watershell); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1049; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1049; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_self));
@@ -19881,13 +19602,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_123calc_watershell(s
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1049; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1049; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_v_kwd); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1049; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -19895,7 +19616,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_123calc_watershell(s
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1067
+  /* "pytraj/Trajectory.pyx":1048
  *         return pyca.get_average_frame(self, mask, *args, **kwd)
  * 
  *     def calc_watershell(self, mask="", *args, **kwd):             # <<<<<<<<<<<<<<
@@ -19917,7 +19638,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_123calc_watershell(s
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1070
+/* "pytraj/Trajectory.pyx":1051
  *         return pyca.calc_watershell(self, mask, *args, **kwd)
  * 
  *     def autoimage(self, mask=""):             # <<<<<<<<<<<<<<
@@ -19926,9 +19647,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_123calc_watershell(s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_126autoimage(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_125autoimage[] = "Trajectory.autoimage(self, mask='')";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_126autoimage(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_124autoimage(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_123autoimage[] = "Trajectory.autoimage(self, mask='')";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_124autoimage(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -19957,7 +19678,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_126autoimage(PyObjec
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "autoimage") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1070; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "autoimage") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1051; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -19970,20 +19691,20 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_126autoimage(PyObjec
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("autoimage", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1070; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("autoimage", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1051; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.autoimage", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_125autoimage(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_123autoimage(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_125autoimage(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_123autoimage(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -19996,16 +19717,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_125autoimage(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("autoimage", 0);
 
-  /* "pytraj/Trajectory.pyx":1073
+  /* "pytraj/Trajectory.pyx":1054
  *         # NOTE: I tried to used cpptraj's Action_AutoImage directly but
  *         # there is no gain in speed. don't try.
  *         pyca.do_autoimage(self, mask)             # <<<<<<<<<<<<<<
  * 
  *     def rotate(self, mask=""):
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1054; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_do_autoimage); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_do_autoimage); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1054; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -20020,7 +19741,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_125autoimage(struct 
       __pyx_t_4 = 1;
     }
   }
-  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1054; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (__pyx_t_2) {
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __Pyx_GIVEREF(__pyx_t_2); __pyx_t_2 = NULL;
@@ -20031,13 +19752,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_125autoimage(struct 
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1054; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":1070
+  /* "pytraj/Trajectory.pyx":1051
  *         return pyca.calc_watershell(self, mask, *args, **kwd)
  * 
  *     def autoimage(self, mask=""):             # <<<<<<<<<<<<<<
@@ -20061,7 +19782,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_125autoimage(struct 
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1075
+/* "pytraj/Trajectory.pyx":1056
  *         pyca.do_autoimage(self, mask)
  * 
  *     def rotate(self, mask=""):             # <<<<<<<<<<<<<<
@@ -20070,9 +19791,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_125autoimage(struct 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_128rotate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_127rotate[] = "Trajectory.rotate(self, mask='')";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_128rotate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_126rotate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_125rotate[] = "Trajectory.rotate(self, mask='')";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_126rotate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -20101,7 +19822,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_128rotate(PyObject *
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "rotate") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1075; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "rotate") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1056; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -20114,20 +19835,20 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_128rotate(PyObject *
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("rotate", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1075; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("rotate", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1056; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.rotate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_127rotate(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_125rotate(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_127rotate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_125rotate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -20140,16 +19861,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_127rotate(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("rotate", 0);
 
-  /* "pytraj/Trajectory.pyx":1076
+  /* "pytraj/Trajectory.pyx":1057
  * 
  *     def rotate(self, mask=""):
  *         pyca.do_rotation(self, mask)             # <<<<<<<<<<<<<<
  * 
  *     def translate(self, mask=""):
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1076; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1057; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_do_rotation); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1076; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_do_rotation); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1057; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -20164,7 +19885,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_127rotate(struct __p
       __pyx_t_4 = 1;
     }
   }
-  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1076; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1057; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (__pyx_t_2) {
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __Pyx_GIVEREF(__pyx_t_2); __pyx_t_2 = NULL;
@@ -20175,13 +19896,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_127rotate(struct __p
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1076; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1057; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":1075
+  /* "pytraj/Trajectory.pyx":1056
  *         pyca.do_autoimage(self, mask)
  * 
  *     def rotate(self, mask=""):             # <<<<<<<<<<<<<<
@@ -20205,7 +19926,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_127rotate(struct __p
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1078
+/* "pytraj/Trajectory.pyx":1059
  *         pyca.do_rotation(self, mask)
  * 
  *     def translate(self, mask=""):             # <<<<<<<<<<<<<<
@@ -20214,9 +19935,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_127rotate(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_130translate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_129translate[] = "Trajectory.translate(self, mask='')";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_130translate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_128translate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_127translate[] = "Trajectory.translate(self, mask='')";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_128translate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_mask = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -20245,7 +19966,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_130translate(PyObjec
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "translate") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1078; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "translate") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1059; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -20258,20 +19979,20 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_130translate(PyObjec
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("translate", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1078; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("translate", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1059; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory.translate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_129translate(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_127translate(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_129translate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_127translate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -20284,16 +20005,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_129translate(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("translate", 0);
 
-  /* "pytraj/Trajectory.pyx":1079
+  /* "pytraj/Trajectory.pyx":1060
  * 
  *     def translate(self, mask=""):
  *         pyca.do_translation(self, mask)             # <<<<<<<<<<<<<<
  * 
  *     def set_nobox(self):
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1079; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1060; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_do_translation); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1079; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_do_translation); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1060; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -20308,7 +20029,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_129translate(struct 
       __pyx_t_4 = 1;
     }
   }
-  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1079; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1060; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   if (__pyx_t_2) {
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __Pyx_GIVEREF(__pyx_t_2); __pyx_t_2 = NULL;
@@ -20319,13 +20040,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_129translate(struct 
   __Pyx_INCREF(__pyx_v_mask);
   PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, __pyx_v_mask);
   __Pyx_GIVEREF(__pyx_v_mask);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1079; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1060; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":1078
+  /* "pytraj/Trajectory.pyx":1059
  *         pyca.do_rotation(self, mask)
  * 
  *     def translate(self, mask=""):             # <<<<<<<<<<<<<<
@@ -20349,7 +20070,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_129translate(struct 
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1081
+/* "pytraj/Trajectory.pyx":1062
  *         pyca.do_translation(self, mask)
  * 
  *     def set_nobox(self):             # <<<<<<<<<<<<<<
@@ -20358,20 +20079,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_129translate(struct 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_132set_nobox(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_131set_nobox[] = "Trajectory.set_nobox(self)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_132set_nobox(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_130set_nobox(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_129set_nobox[] = "Trajectory.set_nobox(self)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_130set_nobox(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_nobox (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_131set_nobox(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_129set_nobox(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131set_nobox(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_129set_nobox(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -20386,7 +20107,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131set_nobox(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("set_nobox", 0);
 
-  /* "pytraj/Trajectory.pyx":1084
+  /* "pytraj/Trajectory.pyx":1065
  *         cdef Frame frame
  * 
  *         for frame in self:             # <<<<<<<<<<<<<<
@@ -20397,25 +20118,25 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131set_nobox(struct 
     __pyx_t_1 = ((PyObject *)__pyx_v_self); __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #endif
       }
     } else {
@@ -20424,24 +20145,24 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131set_nobox(struct 
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_4);
     }
-    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_6pytraj_5Frame_Frame))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_6pytraj_5Frame_Frame))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1065; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_XDECREF_SET(__pyx_v_frame, ((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_t_4));
     __pyx_t_4 = 0;
 
-    /* "pytraj/Trajectory.pyx":1085
+    /* "pytraj/Trajectory.pyx":1066
  * 
  *         for frame in self:
  *             frame.set_nobox()             # <<<<<<<<<<<<<<
  * 
  *     def _allocate(self, int n_frames, int n_atoms):
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_set_nobox); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1085; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_set_nobox); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1066; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
@@ -20454,16 +20175,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131set_nobox(struct 
       }
     }
     if (__pyx_t_6) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1085; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1066; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else {
-      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1085; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1066; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pytraj/Trajectory.pyx":1084
+    /* "pytraj/Trajectory.pyx":1065
  *         cdef Frame frame
  * 
  *         for frame in self:             # <<<<<<<<<<<<<<
@@ -20473,7 +20194,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131set_nobox(struct 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pytraj/Trajectory.pyx":1081
+  /* "pytraj/Trajectory.pyx":1062
  *         pyca.do_translation(self, mask)
  * 
  *     def set_nobox(self):             # <<<<<<<<<<<<<<
@@ -20498,7 +20219,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131set_nobox(struct 
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1087
+/* "pytraj/Trajectory.pyx":1068
  *             frame.set_nobox()
  * 
  *     def _allocate(self, int n_frames, int n_atoms):             # <<<<<<<<<<<<<<
@@ -20507,9 +20228,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131set_nobox(struct 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_134_allocate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_133_allocate[] = "Trajectory._allocate(self, int n_frames, int n_atoms)\npre-allocate (n_atoms, n_atoms, 3)\n        ";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_134_allocate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_132_allocate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_131_allocate[] = "Trajectory._allocate(self, int n_frames, int n_atoms)\npre-allocate (n_atoms, n_atoms, 3)\n        ";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_132_allocate(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_n_frames;
   int __pyx_v_n_atoms;
   int __pyx_lineno = 0;
@@ -20538,11 +20259,11 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_134_allocate(PyObjec
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_n_atoms)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_allocate", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1087; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_allocate", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_allocate") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1087; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_allocate") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -20550,25 +20271,25 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_134_allocate(PyObjec
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_n_frames = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_n_frames == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1087; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_n_atoms = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_n_atoms == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1087; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_n_frames = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_n_frames == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_n_atoms = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_n_atoms == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_allocate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1087; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("_allocate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1068; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.Trajectory.Trajectory._allocate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_133_allocate(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_n_frames, __pyx_v_n_atoms);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_131_allocate(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_n_frames, __pyx_v_n_atoms);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_133_allocate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_n_frames, int __pyx_v_n_atoms) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_131_allocate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, int __pyx_v_n_frames, int __pyx_v_n_atoms) {
   int __pyx_v_i;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -20579,7 +20300,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_133_allocate(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_allocate", 0);
 
-  /* "pytraj/Trajectory.pyx":1092
+  /* "pytraj/Trajectory.pyx":1073
  *         cdef Frame frame
  * 
  *         self.frame_v.resize(n_frames)             # <<<<<<<<<<<<<<
@@ -20590,10 +20311,10 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_133_allocate(struct 
     __pyx_v_self->frame_v.resize(__pyx_v_n_frames);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1092; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1073; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "pytraj/Trajectory.pyx":1093
+  /* "pytraj/Trajectory.pyx":1074
  * 
  *         self.frame_v.resize(n_frames)
  *         for i in range(n_frames):             # <<<<<<<<<<<<<<
@@ -20604,7 +20325,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_133_allocate(struct 
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "pytraj/Trajectory.pyx":1094
+    /* "pytraj/Trajectory.pyx":1075
  *         self.frame_v.resize(n_frames)
  *         for i in range(n_frames):
  *             self.frame_v[i] = new _Frame(n_atoms)             # <<<<<<<<<<<<<<
@@ -20614,7 +20335,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_133_allocate(struct 
     (__pyx_v_self->frame_v[__pyx_v_i]) = new Frame(__pyx_v_n_atoms);
   }
 
-  /* "pytraj/Trajectory.pyx":1087
+  /* "pytraj/Trajectory.pyx":1068
  *             frame.set_nobox()
  * 
  *     def _allocate(self, int n_frames, int n_atoms):             # <<<<<<<<<<<<<<
@@ -20634,7 +20355,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_133_allocate(struct 
   return __pyx_r;
 }
 
-/* "pytraj/Trajectory.pyx":1096
+/* "pytraj/Trajectory.pyx":1077
  *             self.frame_v[i] = new _Frame(n_atoms)
  * 
  *     def box_to_ndarray(self):             # <<<<<<<<<<<<<<
@@ -20642,20 +20363,20 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_133_allocate(struct 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_136box_to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_135box_to_ndarray[] = "Trajectory.box_to_ndarray(self)";
-static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_136box_to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_134box_to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_133box_to_ndarray[] = "Trajectory.box_to_ndarray(self)";
+static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_134box_to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("box_to_ndarray (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_135box_to_ndarray(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_133box_to_ndarray(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_135box_to_ndarray(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_133box_to_ndarray(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -20667,13 +20388,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_135box_to_ndarray(st
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("box_to_ndarray", 0);
 
-  /* "pytraj/Trajectory.pyx":1097
+  /* "pytraj/Trajectory.pyx":1078
  * 
  *     def box_to_ndarray(self):
  *         return _box_to_ndarray(self)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_box_to_ndarray); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1097; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_box_to_ndarray); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1078; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -20686,16 +20407,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_135box_to_ndarray(st
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1097; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1078; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1097; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1078; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __Pyx_GIVEREF(__pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(((PyObject *)__pyx_v_self));
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_v_self));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_self));
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1097; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1078; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -20704,7 +20425,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_135box_to_ndarray(st
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/Trajectory.pyx":1096
+  /* "pytraj/Trajectory.pyx":1077
  *             self.frame_v[i] = new _Frame(n_atoms)
  * 
  *     def box_to_ndarray(self):             # <<<<<<<<<<<<<<
@@ -21023,154 +20744,6 @@ static int __pyx_pf_6pytraj_10Trajectory_10Trajectory_7warning_2__set__(struct _
   return __pyx_r;
 }
 
-/* "Frame.pxd":132
- *     cdef void _append_xyz_2d(self, double[:, :] xyz)
- * 
- * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
- *     # TODO : do we need this method?
- *     # we can we memoryview to get slicing too
- */
-
-static CYTHON_INLINE int __pyx_f_6pytraj_5Frame_get_positive_idx(PyObject *__pyx_v_idx, PyObject *__pyx_v_size) {
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_t_2;
-  int __pyx_t_3;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("get_positive_idx", 0);
-  __Pyx_INCREF(__pyx_v_idx);
-
-  /* "Frame.pxd":136
- *     # we can we memoryview to get slicing too
- *     """Used for negative indexing"""
- *     if idx < 0:             # <<<<<<<<<<<<<<
- *         idx = size + idx
- *         if idx < 0:
- */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_2) {
-
-    /* "Frame.pxd":137
- *     """Used for negative indexing"""
- *     if idx < 0:
- *         idx = size + idx             # <<<<<<<<<<<<<<
- *         if idx < 0:
- *             raise ValueError("index is out of range")
- */
-    __pyx_t_1 = PyNumber_Add(__pyx_v_size, __pyx_v_idx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF_SET(__pyx_v_idx, __pyx_t_1);
-    __pyx_t_1 = 0;
-
-    /* "Frame.pxd":138
- *     if idx < 0:
- *         idx = size + idx
- *         if idx < 0:             # <<<<<<<<<<<<<<
- *             raise ValueError("index is out of range")
- *     if idx >= size:
- */
-    __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__pyx_t_2) {
-
-      /* "Frame.pxd":139
- *         idx = size + idx
- *         if idx < 0:
- *             raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
- *     if idx >= size:
- *         raise ValueError("index is out of range")
- */
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__38, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_Raise(__pyx_t_1, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      {__pyx_filename = __pyx_f[2]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-
-      /* "Frame.pxd":138
- *     if idx < 0:
- *         idx = size + idx
- *         if idx < 0:             # <<<<<<<<<<<<<<
- *             raise ValueError("index is out of range")
- *     if idx >= size:
- */
-    }
-
-    /* "Frame.pxd":136
- *     # we can we memoryview to get slicing too
- *     """Used for negative indexing"""
- *     if idx < 0:             # <<<<<<<<<<<<<<
- *         idx = size + idx
- *         if idx < 0:
- */
-  }
-
-  /* "Frame.pxd":140
- *         if idx < 0:
- *             raise ValueError("index is out of range")
- *     if idx >= size:             # <<<<<<<<<<<<<<
- *         raise ValueError("index is out of range")
- *     return idx
- */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_v_size, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_2) {
-
-    /* "Frame.pxd":141
- *             raise ValueError("index is out of range")
- *     if idx >= size:
- *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
- *     return idx
- */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__39, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    {__pyx_filename = __pyx_f[2]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-
-    /* "Frame.pxd":140
- *         if idx < 0:
- *             raise ValueError("index is out of range")
- *     if idx >= size:             # <<<<<<<<<<<<<<
- *         raise ValueError("index is out of range")
- *     return idx
- */
-  }
-
-  /* "Frame.pxd":142
- *     if idx >= size:
- *         raise ValueError("index is out of range")
- *     return idx             # <<<<<<<<<<<<<<
- */
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_idx); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_t_3;
-  goto __pyx_L0;
-
-  /* "Frame.pxd":132
- *     cdef void _append_xyz_2d(self, double[:, :] xyz)
- * 
- * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
- *     # TODO : do we need this method?
- *     # we can we memoryview to get slicing too
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_WriteUnraisable("pytraj.Frame.get_positive_idx", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_idx);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "cpython/array.pxd":91
  *             __data_union data
  * 
@@ -21218,7 +20791,7 @@ static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_se
  * 
  *             info.suboffsets = NULL
  */
-  __pyx_t_1 = PyInt_FromSsize_t(Py_SIZE(((PyObject *)__pyx_v_self))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyInt_FromSsize_t(Py_SIZE(((PyObject *)__pyx_v_self))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_item_count = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -21277,12 +20850,12 @@ static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_se
  * 
  *             info.shape = <Py_ssize_t*> PyMem_Malloc(sizeof(Py_ssize_t) + 2)
  */
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_v_info->itemsize); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_v_info->itemsize); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_v_item_count); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_v_item_count); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_4); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_4); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_info->len = __pyx_t_5;
 
@@ -21312,7 +20885,7 @@ static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_se
  *             info.shape[0] = item_count      # constant regardless of resizing
  *             info.strides = &info.itemsize
  */
-    PyErr_NoMemory(); {__pyx_filename = __pyx_f[3]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    PyErr_NoMemory(); {__pyx_filename = __pyx_f[2]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
     /* "cpython/array.pxd":106
  * 
@@ -21330,7 +20903,7 @@ static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_se
  *             info.strides = &info.itemsize
  * 
  */
-  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_v_item_count); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_v_item_count); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   (__pyx_v_info->shape[0]) = __pyx_t_5;
 
   /* "cpython/array.pxd":109
@@ -21487,7 +21060,7 @@ static CYTHON_INLINE arrayobject *__pyx_f_7cpython_5array_clone(arrayobject *__p
  *     if zero and op is not None:
  *         memset(op.data.as_chars, 0, length * op.ob_descr.itemsize)
  */
-  __pyx_t_1 = ((PyObject *)newarrayobject(Py_TYPE(((PyObject *)__pyx_v_template)), __pyx_v_length, __pyx_v_template->ob_descr)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = ((PyObject *)newarrayobject(Py_TYPE(((PyObject *)__pyx_v_template)), __pyx_v_length, __pyx_v_template->ob_descr)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_op = ((arrayobject *)__pyx_t_1);
   __pyx_t_1 = 0;
@@ -21586,7 +21159,7 @@ static CYTHON_INLINE arrayobject *__pyx_f_7cpython_5array_copy(arrayobject *__py
  *     memcpy(op.data.as_chars, self.data.as_chars, Py_SIZE(op) * op.ob_descr.itemsize)
  *     return op
  */
-  __pyx_t_1 = ((PyObject *)newarrayobject(Py_TYPE(((PyObject *)__pyx_v_self)), Py_SIZE(((PyObject *)__pyx_v_self)), __pyx_v_self->ob_descr)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = ((PyObject *)newarrayobject(Py_TYPE(((PyObject *)__pyx_v_self)), Py_SIZE(((PyObject *)__pyx_v_self)), __pyx_v_self->ob_descr)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_op = ((arrayobject *)__pyx_t_1);
   __pyx_t_1 = 0;
@@ -21677,7 +21250,7 @@ static CYTHON_INLINE int __pyx_f_7cpython_5array_extend_buffer(arrayobject *__py
  *     memcpy(self.data.as_chars + origsize * itemsize, stuff, n * itemsize)
  *     return 0
  */
-  __pyx_t_1 = resize_smart(__pyx_v_self, (__pyx_v_origsize + __pyx_v_n)); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = resize_smart(__pyx_v_self, (__pyx_v_origsize + __pyx_v_n)); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "cpython/array.pxd":150
  *     cdef Py_ssize_t origsize = Py_SIZE(self)
@@ -21750,7 +21323,7 @@ static CYTHON_INLINE int __pyx_f_7cpython_5array_extend(arrayobject *__pyx_v_sel
  *     return extend_buffer(self, other.data.as_chars, Py_SIZE(other))
  * 
  */
-    __pyx_t_2 = PyErr_BadArgument(); if (unlikely(__pyx_t_2 == 0)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PyErr_BadArgument(); if (unlikely(__pyx_t_2 == 0)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
     /* "cpython/array.pxd":155
  * cdef inline int extend(array self, array other) except -1:
@@ -21768,7 +21341,7 @@ static CYTHON_INLINE int __pyx_f_7cpython_5array_extend(arrayobject *__pyx_v_sel
  * 
  * cdef inline void zero(array self):
  */
-  __pyx_t_2 = __pyx_f_7cpython_5array_extend_buffer(__pyx_v_self, __pyx_v_other->data.as_chars, Py_SIZE(((PyObject *)__pyx_v_other))); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_7cpython_5array_extend_buffer(__pyx_v_self, __pyx_v_other->data.as_chars, Py_SIZE(((PyObject *)__pyx_v_other))); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_t_2;
   goto __pyx_L0;
 
@@ -21847,8 +21420,8 @@ static CYTHON_INLINE int __pyx_f_6pytraj_6_utils_get_positive_idx(PyObject *__py
  *         idx = size + idx
  *         if idx < 0:
  */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
@@ -21859,7 +21432,7 @@ static CYTHON_INLINE int __pyx_f_6pytraj_6_utils_get_positive_idx(PyObject *__py
  *         if idx < 0:
  *             raise ValueError("index is out of range")
  */
-    __pyx_t_1 = PyNumber_Add(__pyx_v_size, __pyx_v_idx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PyNumber_Add(__pyx_v_size, __pyx_v_idx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_idx, __pyx_t_1);
     __pyx_t_1 = 0;
@@ -21871,8 +21444,8 @@ static CYTHON_INLINE int __pyx_f_6pytraj_6_utils_get_positive_idx(PyObject *__py
  *             raise ValueError("index is out of range")
  *     if idx >= size:
  */
-    __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_2) {
 
@@ -21883,11 +21456,11 @@ static CYTHON_INLINE int __pyx_f_6pytraj_6_utils_get_positive_idx(PyObject *__py
  *     if idx >= size:
  *         raise ValueError("index is out of range")
  */
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__40, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__38, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      {__pyx_filename = __pyx_f[4]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[3]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
       /* "_utils.pxd":18
  *     if idx < 0:
@@ -21914,8 +21487,8 @@ static CYTHON_INLINE int __pyx_f_6pytraj_6_utils_get_positive_idx(PyObject *__py
  *         raise ValueError("index is out of range")
  *     return idx
  */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_v_size, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_v_size, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
@@ -21925,11 +21498,11 @@ static CYTHON_INLINE int __pyx_f_6pytraj_6_utils_get_positive_idx(PyObject *__py
  *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
  *     return idx
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__41, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__39, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    {__pyx_filename = __pyx_f[4]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[3]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
     /* "_utils.pxd":20
  *         if idx < 0:
@@ -21945,7 +21518,7 @@ static CYTHON_INLINE int __pyx_f_6pytraj_6_utils_get_positive_idx(PyObject *__py
  *         raise ValueError("index is out of range")
  *     return idx             # <<<<<<<<<<<<<<
  */
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_idx); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_idx); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_t_3;
   goto __pyx_L0;
 
@@ -21961,6 +21534,154 @@ static CYTHON_INLINE int __pyx_f_6pytraj_6_utils_get_positive_idx(PyObject *__py
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_WriteUnraisable("pytraj._utils.get_positive_idx", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_idx);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "Frame.pxd":132
+ *     cdef void _append_xyz_2d(self, double[:, :] xyz)
+ * 
+ * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
+ *     # TODO : do we need this method?
+ *     # we can we memoryview to get slicing too
+ */
+
+static CYTHON_INLINE int __pyx_f_6pytraj_5Frame_get_positive_idx(PyObject *__pyx_v_idx, PyObject *__pyx_v_size) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("get_positive_idx", 0);
+  __Pyx_INCREF(__pyx_v_idx);
+
+  /* "Frame.pxd":136
+ *     # we can we memoryview to get slicing too
+ *     """Used for negative indexing"""
+ *     if idx < 0:             # <<<<<<<<<<<<<<
+ *         idx = size + idx
+ *         if idx < 0:
+ */
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "Frame.pxd":137
+ *     """Used for negative indexing"""
+ *     if idx < 0:
+ *         idx = size + idx             # <<<<<<<<<<<<<<
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")
+ */
+    __pyx_t_1 = PyNumber_Add(__pyx_v_size, __pyx_v_idx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF_SET(__pyx_v_idx, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "Frame.pxd":138
+ *     if idx < 0:
+ *         idx = size + idx
+ *         if idx < 0:             # <<<<<<<<<<<<<<
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:
+ */
+    __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (__pyx_t_2) {
+
+      /* "Frame.pxd":139
+ *         idx = size + idx
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")
+ */
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__40, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      {__pyx_filename = __pyx_f[4]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+      /* "Frame.pxd":138
+ *     if idx < 0:
+ *         idx = size + idx
+ *         if idx < 0:             # <<<<<<<<<<<<<<
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:
+ */
+    }
+
+    /* "Frame.pxd":136
+ *     # we can we memoryview to get slicing too
+ *     """Used for negative indexing"""
+ *     if idx < 0:             # <<<<<<<<<<<<<<
+ *         idx = size + idx
+ *         if idx < 0:
+ */
+  }
+
+  /* "Frame.pxd":140
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:             # <<<<<<<<<<<<<<
+ *         raise ValueError("index is out of range")
+ *     return idx
+ */
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_v_size, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "Frame.pxd":141
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
+ *     return idx
+ */
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__41, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    {__pyx_filename = __pyx_f[4]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+    /* "Frame.pxd":140
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:             # <<<<<<<<<<<<<<
+ *         raise ValueError("index is out of range")
+ *     return idx
+ */
+  }
+
+  /* "Frame.pxd":142
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")
+ *     return idx             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_idx); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_t_3;
+  goto __pyx_L0;
+
+  /* "Frame.pxd":132
+ *     cdef void _append_xyz_2d(self, double[:, :] xyz)
+ * 
+ * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
+ *     # TODO : do we need this method?
+ *     # we can we memoryview to get slicing too
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_WriteUnraisable("pytraj.Frame.get_positive_idx", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_idx);
@@ -33589,10 +33310,10 @@ static PyObject *__pyx_sq_item_6pytraj_10Trajectory_Trajectory(PyObject *o, Py_s
 
 static int __pyx_mp_ass_subscript_6pytraj_10Trajectory_Trajectory(PyObject *o, PyObject *i, PyObject *v) {
   if (v) {
-    return __pyx_pw_6pytraj_10Trajectory_10Trajectory_35__setitem__(o, i, v);
+    return __pyx_pw_6pytraj_10Trajectory_10Trajectory_33__setitem__(o, i, v);
   }
   else {
-    return __pyx_pw_6pytraj_10Trajectory_10Trajectory_37__delitem__(o, i);
+    return __pyx_pw_6pytraj_10Trajectory_10Trajectory_35__delitem__(o, i);
   }
 }
 
@@ -33649,50 +33370,49 @@ static PyMethodDef __pyx_methods_6pytraj_10Trajectory_Trajectory[] = {
   {"_update_xyz_memcpy_openmp", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_25_update_xyz_memcpy_openmp, METH_O, __pyx_doc_6pytraj_10Trajectory_10Trajectory_24_update_xyz_memcpy_openmp},
   {"tolist", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_27tolist, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_26tolist},
   {"_fast_slice", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_31_fast_slice, METH_O, __pyx_doc_6pytraj_10Trajectory_10Trajectory_30_fast_slice},
-  {"_fast_slice", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_33_fast_slice, METH_O, __pyx_doc_6pytraj_10Trajectory_10Trajectory_32_fast_slice},
-  {"__enter__", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_43__enter__, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_42__enter__},
-  {"__exit__", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_45__exit__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_44__exit__},
-  {"frame_iter", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_47frame_iter, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_46frame_iter},
-  {"reverse", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_49reverse, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_48reverse},
-  {"erase", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_51erase, METH_O, __pyx_doc_6pytraj_10Trajectory_10Trajectory_50erase},
-  {"size", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_53size, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_52size},
-  {"is_empty", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_55is_empty, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_54is_empty},
-  {"n_frames", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_57n_frames, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_56n_frames},
-  {"n_atoms", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_59n_atoms, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_58n_atoms},
-  {"append", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_70append, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_69append},
-  {"join", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_72join, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_71join},
-  {"resize", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_74resize, METH_O, __pyx_doc_6pytraj_10Trajectory_10Trajectory_73resize},
-  {"temperatures", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_76temperatures, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_75temperatures},
-  {"temperature_set", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_78temperature_set, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_77temperature_set},
-  {"get_frames", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_80get_frames, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_79get_frames},
-  {"strip_atoms", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_82strip_atoms, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_81strip_atoms},
-  {"_fast_strip_atoms", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_84_fast_strip_atoms, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_83_fast_strip_atoms},
-  {"save", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_86save, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_85save},
-  {"write", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_88write, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_87write},
-  {"rmsfit_to", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_90rmsfit_to, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_89rmsfit_to},
-  {"calc_distance", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_92calc_distance, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_91calc_distance},
-  {"calc_distrmsd", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_94calc_distrmsd, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_93calc_distrmsd},
-  {"calc_radgyr", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_96calc_radgyr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_95calc_radgyr},
-  {"calc_angle", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_98calc_angle, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_97calc_angle},
-  {"calc_matrix", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_100calc_matrix, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_99calc_matrix},
-  {"calc_dssp", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_102calc_dssp, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_101calc_dssp},
-  {"calc_dihedral", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_104calc_dihedral, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_103calc_dihedral},
-  {"calc_multidihedral", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_106calc_multidihedral, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_105calc_multidihedral},
-  {"calc_molsurf", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_108calc_molsurf, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_107calc_molsurf},
-  {"calc_center_of_mass", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_110calc_center_of_mass, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_109calc_center_of_mass},
-  {"calc_COM", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_112calc_COM, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_111calc_COM},
-  {"calc_center_of_geometry", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_114calc_center_of_geometry, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_113calc_center_of_geometry},
-  {"calc_COG", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_116calc_COG, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_115calc_COG},
-  {"calc_vector", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_118calc_vector, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_117calc_vector},
-  {"search_hbonds", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_120search_hbonds, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_119search_hbonds},
-  {"get_average_frame", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_122get_average_frame, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_121get_average_frame},
-  {"calc_watershell", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_124calc_watershell, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_123calc_watershell},
-  {"autoimage", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_126autoimage, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_125autoimage},
-  {"rotate", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_128rotate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_127rotate},
-  {"translate", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_130translate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_129translate},
-  {"set_nobox", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_132set_nobox, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_131set_nobox},
-  {"_allocate", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_134_allocate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_133_allocate},
-  {"box_to_ndarray", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_136box_to_ndarray, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_135box_to_ndarray},
+  {"__enter__", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_41__enter__, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_40__enter__},
+  {"__exit__", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_43__exit__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_42__exit__},
+  {"frame_iter", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_45frame_iter, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_44frame_iter},
+  {"reverse", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_47reverse, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_46reverse},
+  {"erase", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_49erase, METH_O, __pyx_doc_6pytraj_10Trajectory_10Trajectory_48erase},
+  {"size", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_51size, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_50size},
+  {"is_empty", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_53is_empty, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_52is_empty},
+  {"n_frames", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_55n_frames, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_54n_frames},
+  {"n_atoms", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_57n_atoms, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_56n_atoms},
+  {"append", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_68append, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_67append},
+  {"join", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_70join, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_69join},
+  {"resize", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_72resize, METH_O, __pyx_doc_6pytraj_10Trajectory_10Trajectory_71resize},
+  {"temperatures", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_74temperatures, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_73temperatures},
+  {"temperature_set", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_76temperature_set, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_75temperature_set},
+  {"get_frames", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_78get_frames, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_77get_frames},
+  {"strip_atoms", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_80strip_atoms, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_79strip_atoms},
+  {"_fast_strip_atoms", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_82_fast_strip_atoms, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_81_fast_strip_atoms},
+  {"save", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_84save, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_83save},
+  {"write", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_86write, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_85write},
+  {"rmsfit_to", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_88rmsfit_to, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_87rmsfit_to},
+  {"calc_distance", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_90calc_distance, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_89calc_distance},
+  {"calc_distrmsd", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_92calc_distrmsd, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_91calc_distrmsd},
+  {"calc_radgyr", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_94calc_radgyr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_93calc_radgyr},
+  {"calc_angle", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_96calc_angle, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_95calc_angle},
+  {"calc_matrix", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_98calc_matrix, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_97calc_matrix},
+  {"calc_dssp", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_100calc_dssp, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_99calc_dssp},
+  {"calc_dihedral", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_102calc_dihedral, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_101calc_dihedral},
+  {"calc_multidihedral", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_104calc_multidihedral, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_103calc_multidihedral},
+  {"calc_molsurf", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_106calc_molsurf, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_105calc_molsurf},
+  {"calc_center_of_mass", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_108calc_center_of_mass, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_107calc_center_of_mass},
+  {"calc_COM", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_110calc_COM, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_109calc_COM},
+  {"calc_center_of_geometry", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_112calc_center_of_geometry, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_111calc_center_of_geometry},
+  {"calc_COG", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_114calc_COG, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_113calc_COG},
+  {"calc_vector", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_116calc_vector, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_115calc_vector},
+  {"search_hbonds", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_118search_hbonds, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_117search_hbonds},
+  {"get_average_frame", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_120get_average_frame, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_119get_average_frame},
+  {"calc_watershell", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_122calc_watershell, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_121calc_watershell},
+  {"autoimage", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_124autoimage, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_123autoimage},
+  {"rotate", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_126rotate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_125rotate},
+  {"translate", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_128translate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_127translate},
+  {"set_nobox", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_130set_nobox, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_129set_nobox},
+  {"_allocate", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_132_allocate, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_131_allocate},
+  {"box_to_ndarray", (PyCFunction)__pyx_pw_6pytraj_10Trajectory_10Trajectory_134box_to_ndarray, METH_NOARGS, __pyx_doc_6pytraj_10Trajectory_10Trajectory_133box_to_ndarray},
   {0, 0, 0, 0}
 };
 
@@ -33704,7 +33424,7 @@ static struct PyGetSetDef __pyx_getsets_6pytraj_10Trajectory_Trajectory[] = {
 };
 
 static PyNumberMethods __pyx_tp_as_number_Trajectory = {
-  __pyx_pw_6pytraj_10Trajectory_10Trajectory_66__add__, /*nb_add*/
+  __pyx_pw_6pytraj_10Trajectory_10Trajectory_64__add__, /*nb_add*/
   0, /*nb_subtract*/
   0, /*nb_multiply*/
   #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
@@ -33739,7 +33459,7 @@ static PyNumberMethods __pyx_tp_as_number_Trajectory = {
   #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
   0, /*nb_hex*/
   #endif
-  __pyx_pw_6pytraj_10Trajectory_10Trajectory_68__iadd__, /*nb_inplace_add*/
+  __pyx_pw_6pytraj_10Trajectory_10Trajectory_66__iadd__, /*nb_inplace_add*/
   0, /*nb_inplace_subtract*/
   0, /*nb_inplace_multiply*/
   #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
@@ -33766,7 +33486,7 @@ static PyNumberMethods __pyx_tp_as_number_Trajectory = {
 };
 
 static PySequenceMethods __pyx_tp_as_sequence_Trajectory = {
-  __pyx_pw_6pytraj_10Trajectory_10Trajectory_61__len__, /*sq_length*/
+  __pyx_pw_6pytraj_10Trajectory_10Trajectory_59__len__, /*sq_length*/
   0, /*sq_concat*/
   0, /*sq_repeat*/
   __pyx_sq_item_6pytraj_10Trajectory_Trajectory, /*sq_item*/
@@ -33779,7 +33499,7 @@ static PySequenceMethods __pyx_tp_as_sequence_Trajectory = {
 };
 
 static PyMappingMethods __pyx_tp_as_mapping_Trajectory = {
-  __pyx_pw_6pytraj_10Trajectory_10Trajectory_61__len__, /*mp_length*/
+  __pyx_pw_6pytraj_10Trajectory_10Trajectory_59__len__, /*mp_length*/
   __pyx_pw_6pytraj_10Trajectory_10Trajectory_29__getitem__, /*mp_subscript*/
   __pyx_mp_ass_subscript_6pytraj_10Trajectory_Trajectory, /*mp_ass_subscript*/
 };
@@ -33798,13 +33518,13 @@ static PyTypeObject __pyx_type_6pytraj_10Trajectory_Trajectory = {
   #else
   0, /*reserved*/
   #endif
-  __pyx_pw_6pytraj_10Trajectory_10Trajectory_41__repr__, /*tp_repr*/
+  __pyx_pw_6pytraj_10Trajectory_10Trajectory_39__repr__, /*tp_repr*/
   &__pyx_tp_as_number_Trajectory, /*tp_as_number*/
   &__pyx_tp_as_sequence_Trajectory, /*tp_as_sequence*/
   &__pyx_tp_as_mapping_Trajectory, /*tp_as_mapping*/
   0, /*tp_hash*/
   __pyx_pw_6pytraj_10Trajectory_10Trajectory_9__call__, /*tp_call*/
-  __pyx_pw_6pytraj_10Trajectory_10Trajectory_39__str__, /*tp_str*/
+  __pyx_pw_6pytraj_10Trajectory_10Trajectory_37__str__, /*tp_str*/
   0, /*tp_getattro*/
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
@@ -33814,7 +33534,7 @@ static PyTypeObject __pyx_type_6pytraj_10Trajectory_Trajectory = {
   __pyx_tp_clear_6pytraj_10Trajectory_Trajectory, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
-  __pyx_pw_6pytraj_10Trajectory_10Trajectory_63__iter__, /*tp_iter*/
+  __pyx_pw_6pytraj_10Trajectory_10Trajectory_61__iter__, /*tp_iter*/
   0, /*tp_iternext*/
   __pyx_methods_6pytraj_10Trajectory_Trajectory, /*tp_methods*/
   0, /*tp_members*/
@@ -34658,9 +34378,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Paramters_mask_str_update_top_b, __pyx_k_Paramters_mask_str_update_top_b, sizeof(__pyx_k_Paramters_mask_str_update_top_b), 0, 1, 0, 0},
   {&__pyx_n_s_TrajectoryIterator, __pyx_k_TrajectoryIterator, sizeof(__pyx_k_TrajectoryIterator), 0, 0, 1, 1},
   {&__pyx_n_s_Trajectory___iter, __pyx_k_Trajectory___iter, sizeof(__pyx_k_Trajectory___iter), 0, 0, 1, 1},
-  {&__pyx_kp_u_Trajectory___iter___line_668, __pyx_k_Trajectory___iter___line_668, sizeof(__pyx_k_Trajectory___iter___line_668), 0, 1, 0, 0},
+  {&__pyx_kp_u_Trajectory___iter___line_649, __pyx_k_Trajectory___iter___line_649, sizeof(__pyx_k_Trajectory___iter___line_649), 0, 1, 0, 0},
   {&__pyx_kp_u_Trajectory__fast_strip_atoms_lin, __pyx_k_Trajectory__fast_strip_atoms_lin, sizeof(__pyx_k_Trajectory__fast_strip_atoms_lin), 0, 1, 0, 0},
-  {&__pyx_kp_u_Trajectory_strip_atoms_line_859, __pyx_k_Trajectory_strip_atoms_line_859, sizeof(__pyx_k_Trajectory_strip_atoms_line_859), 0, 1, 0, 0},
+  {&__pyx_kp_u_Trajectory_strip_atoms_line_840, __pyx_k_Trajectory_strip_atoms_line_840, sizeof(__pyx_k_Trajectory_strip_atoms_line_840), 0, 1, 0, 0},
   {&__pyx_kp_s_Trajectory_top_n_atoms_should_be, __pyx_k_Trajectory_top_n_atoms_should_be, sizeof(__pyx_k_Trajectory_top_n_atoms_should_be), 0, 0, 1, 0},
   {&__pyx_n_s_Trajin_Single, __pyx_k_Trajin_Single, sizeof(__pyx_k_Trajin_Single), 0, 0, 1, 1},
   {&__pyx_n_s_Trajout, __pyx_k_Trajout, sizeof(__pyx_k_Trajout), 0, 0, 1, 1},
@@ -34865,7 +34585,7 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 244; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_Ellipsis = __Pyx_GetBuiltinName(__pyx_n_s_Ellipsis); if (!__pyx_builtin_Ellipsis) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 357; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 386; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_id = __Pyx_GetBuiltinName(__pyx_n_s_id); if (!__pyx_builtin_id) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 569; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -35108,158 +34828,137 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
 
-  /* "pytraj/Trajectory.pyx":595
+  /* "pytraj/Trajectory.pyx":576
  *         cdef Frame frame
  *         if len(self) == 0:
  *             raise ValueError("Your Trajectory is empty, how can I index it?")             # <<<<<<<<<<<<<<
  *         if isinstance(idx, (long, int)) and isinstance(other, Frame):
  *             frame = <Frame> other.copy()
  */
-  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_kp_s_Your_Trajectory_is_empty_how_can); if (unlikely(!__pyx_tuple__25)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 595; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_kp_s_Your_Trajectory_is_empty_how_can); if (unlikely(!__pyx_tuple__25)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 576; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
 
-  /* "pytraj/Trajectory.pyx":604
+  /* "pytraj/Trajectory.pyx":585
  *         else:
  *             # example: self[0, 0, 0] = 100.
  *             self[idx[0]][idx[1:]] = other             # <<<<<<<<<<<<<<
  *             #txt = "not yet implemented. Try using framearray[idx1][idx2, idx3] = value"
  *             #raise NotImplementedError(txt)
  */
-  __pyx_slice__26 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 604; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_slice__26 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 585; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_slice__26);
   __Pyx_GIVEREF(__pyx_slice__26);
 
-  /* "pytraj/Trajectory.pyx":709
+  /* "pytraj/Trajectory.pyx":690
  * 
  *         if self.top.n_atoms != other.top.n_atoms:
  *             raise ValueError("n_atoms of two arrays do not match")             # <<<<<<<<<<<<<<
  * 
  *         if other is self:
  */
-  __pyx_tuple__27 = PyTuple_Pack(1, __pyx_kp_s_n_atoms_of_two_arrays_do_not_mat); if (unlikely(!__pyx_tuple__27)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 709; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__27 = PyTuple_Pack(1, __pyx_kp_s_n_atoms_of_two_arrays_do_not_mat); if (unlikely(!__pyx_tuple__27)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 690; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
 
-  /* "pytraj/Trajectory.pyx":750
+  /* "pytraj/Trajectory.pyx":731
  *         # TODO : do we need this method when we have `get_frames`
  *         if traj is self:
  *             raise ValueError("why do you join your self?")             # <<<<<<<<<<<<<<
  *         if is_pytraj_trajectory(traj):
  *             if self.top.n_atoms != traj.top.n_atoms:
  */
-  __pyx_tuple__28 = PyTuple_Pack(1, __pyx_kp_s_why_do_you_join_your_self); if (unlikely(!__pyx_tuple__28)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 750; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__28 = PyTuple_Pack(1, __pyx_kp_s_why_do_you_join_your_self); if (unlikely(!__pyx_tuple__28)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 731; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
 
-  /* "pytraj/Trajectory.pyx":753
+  /* "pytraj/Trajectory.pyx":734
  *         if is_pytraj_trajectory(traj):
  *             if self.top.n_atoms != traj.top.n_atoms:
  *                 raise ValueError("n_atoms of two arrays do not match")             # <<<<<<<<<<<<<<
  *             for frame in traj:
  *                 self.append(frame, copy=copy)
  */
-  __pyx_tuple__29 = PyTuple_Pack(1, __pyx_kp_s_n_atoms_of_two_arrays_do_not_mat); if (unlikely(!__pyx_tuple__29)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 753; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__29 = PyTuple_Pack(1, __pyx_kp_s_n_atoms_of_two_arrays_do_not_mat); if (unlikely(!__pyx_tuple__29)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 734; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
 
-  /* "pytraj/Trajectory.pyx":875
+  /* "pytraj/Trajectory.pyx":856
  * 
  *         if mask == None:
  *             raise ValueError("Must provide mask to strip")             # <<<<<<<<<<<<<<
  *         mask = mask.encode("UTF-8")
  * 
  */
-  __pyx_tuple__30 = PyTuple_Pack(1, __pyx_kp_s_Must_provide_mask_to_strip); if (unlikely(!__pyx_tuple__30)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 875; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__30 = PyTuple_Pack(1, __pyx_kp_s_Must_provide_mask_to_strip); if (unlikely(!__pyx_tuple__30)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 856; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
 
-  /* "pytraj/Trajectory.pyx":876
+  /* "pytraj/Trajectory.pyx":857
  *         if mask == None:
  *             raise ValueError("Must provide mask to strip")
  *         mask = mask.encode("UTF-8")             # <<<<<<<<<<<<<<
  * 
  *         # do not dealloc since we use memoryview for _Frame
  */
-  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_kp_s_UTF_8); if (unlikely(!__pyx_tuple__31)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 876; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_kp_s_UTF_8); if (unlikely(!__pyx_tuple__31)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 857; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
 
-  /* "pytraj/Trajectory.pyx":922
+  /* "pytraj/Trajectory.pyx":903
  * 
  *         if mask == None:
  *             raise ValueError("Must provide mask to strip")             # <<<<<<<<<<<<<<
  *         mask = mask.encode("UTF-8")
  * 
  */
-  __pyx_tuple__32 = PyTuple_Pack(1, __pyx_kp_s_Must_provide_mask_to_strip); if (unlikely(!__pyx_tuple__32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 922; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__32 = PyTuple_Pack(1, __pyx_kp_s_Must_provide_mask_to_strip); if (unlikely(!__pyx_tuple__32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 903; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__32);
   __Pyx_GIVEREF(__pyx_tuple__32);
 
-  /* "pytraj/Trajectory.pyx":923
+  /* "pytraj/Trajectory.pyx":904
  *         if mask == None:
  *             raise ValueError("Must provide mask to strip")
  *         mask = mask.encode("UTF-8")             # <<<<<<<<<<<<<<
  * 
  *         # do not dealloc since we use memoryview for _Frame
  */
-  __pyx_tuple__33 = PyTuple_Pack(1, __pyx_kp_s_UTF_8); if (unlikely(!__pyx_tuple__33)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 923; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__33 = PyTuple_Pack(1, __pyx_kp_s_UTF_8); if (unlikely(!__pyx_tuple__33)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 904; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
 
-  /* "pytraj/Trajectory.pyx":990
+  /* "pytraj/Trajectory.pyx":971
  *             ref_frame = self[i]
  *         else:
  *             raise ValueError("ref must be string, Frame object or integer")             # <<<<<<<<<<<<<<
  * 
  *         if mode == 'pytraj':
  */
-  __pyx_tuple__35 = PyTuple_Pack(1, __pyx_kp_s_ref_must_be_string_Frame_object); if (unlikely(!__pyx_tuple__35)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 990; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__35 = PyTuple_Pack(1, __pyx_kp_s_ref_must_be_string_Frame_object); if (unlikely(!__pyx_tuple__35)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 971; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__35);
   __Pyx_GIVEREF(__pyx_tuple__35);
 
-  /* "pytraj/Trajectory.pyx":998
+  /* "pytraj/Trajectory.pyx":979
  *                 atm = <AtomMask> mask
  *             else:
  *                 raise ValueError("mask must be string or AtomMask object")             # <<<<<<<<<<<<<<
  * 
  *             for frame in self:
  */
-  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_kp_s_mask_must_be_string_or_AtomMask); if (unlikely(!__pyx_tuple__36)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 998; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_kp_s_mask_must_be_string_or_AtomMask); if (unlikely(!__pyx_tuple__36)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 979; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__36);
   __Pyx_GIVEREF(__pyx_tuple__36);
 
-  /* "pytraj/Trajectory.pyx":1010
+  /* "pytraj/Trajectory.pyx":991
  *             act(mask, [ref_frame, self], top=self.top)
  *         else:
  *             raise ValueError("mode = pytraj | cpptraj")             # <<<<<<<<<<<<<<
  * 
  *     # start copy and paste from "__action_in_traj.py"
  */
-  __pyx_tuple__37 = PyTuple_Pack(1, __pyx_kp_s_mode_pytraj_cpptraj); if (unlikely(!__pyx_tuple__37)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1010; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__37 = PyTuple_Pack(1, __pyx_kp_s_mode_pytraj_cpptraj); if (unlikely(!__pyx_tuple__37)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 991; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
-
-  /* "Frame.pxd":139
- *         idx = size + idx
- *         if idx < 0:
- *             raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
- *     if idx >= size:
- *         raise ValueError("index is out of range")
- */
-  __pyx_tuple__38 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__38)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__38);
-  __Pyx_GIVEREF(__pyx_tuple__38);
-
-  /* "Frame.pxd":141
- *             raise ValueError("index is out of range")
- *     if idx >= size:
- *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
- *     return idx
- */
-  __pyx_tuple__39 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__39)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__39);
-  __Pyx_GIVEREF(__pyx_tuple__39);
 
   /* "_utils.pxd":19
  *         idx = size + idx
@@ -35268,9 +34967,9 @@ static int __Pyx_InitCachedConstants(void) {
  *     if idx >= size:
  *         raise ValueError("index is out of range")
  */
-  __pyx_tuple__40 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__40)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__40);
-  __Pyx_GIVEREF(__pyx_tuple__40);
+  __pyx_tuple__38 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__38)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__38);
+  __Pyx_GIVEREF(__pyx_tuple__38);
 
   /* "_utils.pxd":21
  *             raise ValueError("index is out of range")
@@ -35278,7 +34977,28 @@ static int __Pyx_InitCachedConstants(void) {
  *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
  *     return idx
  */
-  __pyx_tuple__41 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__41)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__39 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__39)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__39);
+  __Pyx_GIVEREF(__pyx_tuple__39);
+
+  /* "Frame.pxd":139
+ *         idx = size + idx
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")
+ */
+  __pyx_tuple__40 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__40)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__40);
+  __Pyx_GIVEREF(__pyx_tuple__40);
+
+  /* "Frame.pxd":141
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
+ *     return idx
+ */
+  __pyx_tuple__41 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__41)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__41);
   __Pyx_GIVEREF(__pyx_tuple__41);
 
@@ -35589,9 +35309,9 @@ PyMODINIT_FUNC PyInit_Trajectory(void)
   {
     PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_6pytraj_10Trajectory_Trajectory, "__iter__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
-      __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_62__iter__ = *((PyWrapperDescrObject *)wrapper)->d_base;
-      __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_62__iter__.doc = __pyx_doc_6pytraj_10Trajectory_10Trajectory_62__iter__;
-      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_62__iter__;
+      __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_60__iter__ = *((PyWrapperDescrObject *)wrapper)->d_base;
+      __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_60__iter__.doc = __pyx_doc_6pytraj_10Trajectory_10Trajectory_60__iter__;
+      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_60__iter__;
     }
   }
   #endif
@@ -35599,15 +35319,15 @@ PyMODINIT_FUNC PyInit_Trajectory(void)
   {
     PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_6pytraj_10Trajectory_Trajectory, "__iadd__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
-      __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_67__iadd__ = *((PyWrapperDescrObject *)wrapper)->d_base;
-      __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_67__iadd__.doc = __pyx_doc_6pytraj_10Trajectory_10Trajectory_67__iadd__;
-      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_67__iadd__;
+      __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_65__iadd__ = *((PyWrapperDescrObject *)wrapper)->d_base;
+      __pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_65__iadd__.doc = __pyx_doc_6pytraj_10Trajectory_10Trajectory_65__iadd__;
+      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_6pytraj_10Trajectory_10Trajectory_65__iadd__;
     }
   }
   #endif
   if (PyObject_SetAttrString(__pyx_m, "Trajectory", (PyObject *)&__pyx_type_6pytraj_10Trajectory_Trajectory) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_10Trajectory_Trajectory = &__pyx_type_6pytraj_10Trajectory_Trajectory;
-  if (PyType_Ready(&__pyx_type_6pytraj_10Trajectory___pyx_scope_struct____iter__) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 668; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_6pytraj_10Trajectory___pyx_scope_struct____iter__) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 649; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_6pytraj_10Trajectory___pyx_scope_struct____iter__.tp_print = 0;
   __pyx_ptype_6pytraj_10Trajectory___pyx_scope_struct____iter__ = &__pyx_type_6pytraj_10Trajectory___pyx_scope_struct____iter__;
   if (PyType_Ready(&__pyx_type___pyx_array) < 0) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -35669,8 +35389,8 @@ PyMODINIT_FUNC PyInit_Trajectory(void)
   __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[16]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8Topology_Topology = __Pyx_ImportType("pytraj.Topology", "Topology", sizeof(struct __pyx_obj_6pytraj_8Topology_Topology), 1); if (unlikely(!__pyx_ptype_6pytraj_8Topology_Topology)) {__pyx_filename = __pyx_f[17]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_19core_dot_CoordinateInfo_CoordinateInfo = __Pyx_ImportType("pytraj.core.CoordinateInfo", "CoordinateInfo", sizeof(struct __pyx_obj_6pytraj_19core_dot_CoordinateInfo_CoordinateInfo), 1); if (unlikely(!__pyx_ptype_6pytraj_19core_dot_CoordinateInfo_CoordinateInfo)) {__pyx_filename = __pyx_f[14]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_5Frame_Frame = __Pyx_ImportType("pytraj.Frame", "Frame", sizeof(struct __pyx_obj_6pytraj_5Frame_Frame), 1); if (unlikely(!__pyx_ptype_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_6pytraj_5Frame_Frame = (struct __pyx_vtabstruct_6pytraj_5Frame_Frame*)__Pyx_GetVtable(__pyx_ptype_6pytraj_5Frame_Frame->tp_dict); if (unlikely(!__pyx_vtabptr_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_5Frame_Frame = __Pyx_ImportType("pytraj.Frame", "Frame", sizeof(struct __pyx_obj_6pytraj_5Frame_Frame), 1); if (unlikely(!__pyx_ptype_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_6pytraj_5Frame_Frame = (struct __pyx_vtabstruct_6pytraj_5Frame_Frame*)__Pyx_GetVtable(__pyx_ptype_6pytraj_5Frame_Frame->tp_dict); if (unlikely(!__pyx_vtabptr_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_7ArgList_ArgList = __Pyx_ImportType("pytraj.ArgList", "ArgList", sizeof(struct __pyx_obj_6pytraj_7ArgList_ArgList), 1); if (unlikely(!__pyx_ptype_6pytraj_7ArgList_ArgList)) {__pyx_filename = __pyx_f[18]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = __Pyx_ImportType("pytraj.BaseIOtype", "BaseIOtype", sizeof(struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype), 1); if (unlikely(!__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype)) {__pyx_filename = __pyx_f[19]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO = __Pyx_ImportType("pytraj.trajs.TrajectoryIO", "TrajectoryIO", sizeof(struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO)) {__pyx_filename = __pyx_f[20]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -35683,7 +35403,7 @@ PyMODINIT_FUNC PyInit_Trajectory(void)
   sizeof(PyHeapTypeObject),
   #endif
   0); if (unlikely(!__pyx_ptype_7cpython_4type_type)) {__pyx_filename = __pyx_f[23]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_5trajs_6Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_6Trajin_Trajin)) {__pyx_filename = __pyx_f[22]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_12TopologyList_TopologyList = __Pyx_ImportType("pytraj.TopologyList", "TopologyList", sizeof(struct __pyx_obj_6pytraj_12TopologyList_TopologyList), 1); if (unlikely(!__pyx_ptype_6pytraj_12TopologyList_TopologyList)) {__pyx_filename = __pyx_f[24]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_10TrajinList_TrajinList = __Pyx_ImportType("pytraj.TrajinList", "TrajinList", sizeof(struct __pyx_obj_6pytraj_10TrajinList_TrajinList), 1); if (unlikely(!__pyx_ptype_6pytraj_10TrajinList_TrajinList)) {__pyx_filename = __pyx_f[25]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -36147,148 +35867,148 @@ PyMODINIT_FUNC PyInit_Trajectory(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_10Trajectory_Trajectory);
 
-  /* "pytraj/Trajectory.pyx":650
+  /* "pytraj/Trajectory.pyx":631
  * 
  *     @property
  *     def size(self):             # <<<<<<<<<<<<<<
  *         return self.frame_v.size()
  * 
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory, __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 650; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory, __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 631; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Trajectory.pyx":649
+  /* "pytraj/Trajectory.pyx":630
  *                 self.erase(idx)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def size(self):
  *         return self.frame_v.size()
  */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 649; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 630; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 649; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 630; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory->tp_dict, __pyx_n_s_size, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 650; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory->tp_dict, __pyx_n_s_size, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 631; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_10Trajectory_Trajectory);
 
-  /* "pytraj/Trajectory.pyx":657
+  /* "pytraj/Trajectory.pyx":638
  * 
  *     @property
  *     def n_frames(self):             # <<<<<<<<<<<<<<
  *         """same as self.size"""
  *         return self.size
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory, __pyx_n_s_n_frames); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 657; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory, __pyx_n_s_n_frames); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 638; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Trajectory.pyx":656
+  /* "pytraj/Trajectory.pyx":637
  *         return self.size == 0
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def n_frames(self):
  *         """same as self.size"""
  */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 656; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 637; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 656; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 637; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory->tp_dict, __pyx_n_s_n_frames, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 657; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory->tp_dict, __pyx_n_s_n_frames, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 638; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_10Trajectory_Trajectory);
 
-  /* "pytraj/Trajectory.pyx":662
+  /* "pytraj/Trajectory.pyx":643
  * 
  *     @property
  *     def n_atoms(self):             # <<<<<<<<<<<<<<
  *         return self.top.n_atoms
  * 
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory, __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 662; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory, __pyx_n_s_n_atoms); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 643; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Trajectory.pyx":661
+  /* "pytraj/Trajectory.pyx":642
  *         return self.size
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def n_atoms(self):
  *         return self.top.n_atoms
  */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 661; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 642; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 661; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 642; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory->tp_dict, __pyx_n_s_n_atoms, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 662; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory->tp_dict, __pyx_n_s_n_atoms, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 643; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_10Trajectory_Trajectory);
 
-  /* "pytraj/Trajectory.pyx":765
+  /* "pytraj/Trajectory.pyx":746
  * 
  *     @property
  *     def temperatures(self):             # <<<<<<<<<<<<<<
  *         """return a Python array of temperatures
  *         """
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory, __pyx_n_s_temperatures); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 765; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory, __pyx_n_s_temperatures); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 746; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Trajectory.pyx":764
+  /* "pytraj/Trajectory.pyx":745
  *         self.frame_v.resize(n_frames)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def temperatures(self):
  *         """return a Python array of temperatures
  */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 745; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 745; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory->tp_dict, __pyx_n_s_temperatures, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 765; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory->tp_dict, __pyx_n_s_temperatures, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 746; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_10Trajectory_Trajectory);
 
-  /* "pytraj/Trajectory.pyx":775
+  /* "pytraj/Trajectory.pyx":756
  * 
  *     @property
  *     def temperature_set(self):             # <<<<<<<<<<<<<<
  *         return _get_temperature_set(self)
  * 
  */
-  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory, __pyx_n_s_temperature_set); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 775; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory, __pyx_n_s_temperature_set); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 756; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pytraj/Trajectory.pyx":774
+  /* "pytraj/Trajectory.pyx":755
  *         return tarr
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def temperature_set(self):
  *         return _get_temperature_set(self)
  */
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 774; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 755; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 774; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 755; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory->tp_dict, __pyx_n_s_temperature_set, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 775; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_10Trajectory_Trajectory->tp_dict, __pyx_n_s_temperature_set, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 756; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_10Trajectory_Trajectory);
 
@@ -36299,8 +36019,8 @@ PyMODINIT_FUNC PyInit_Trajectory(void)
  */
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_Trajectory___iter___line_668, __pyx_kp_u_return_a_reference_of_Frame_inst) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_Trajectory_strip_atoms_line_859, __pyx_kp_u_if_you_use_memory_for_numpy_you) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_Trajectory___iter___line_649, __pyx_kp_u_return_a_reference_of_Frame_inst) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_Trajectory_strip_atoms_line_840, __pyx_kp_u_if_you_use_memory_for_numpy_you) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_Trajectory__fast_strip_atoms_lin, __pyx_kp_u_Paramters_mask_str_update_top_b) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
