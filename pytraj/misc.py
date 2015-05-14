@@ -22,19 +22,39 @@ try:
 except ImportError:
     file_type_info = None
 
-def to_amber_mask(txt):
+def to_amber_mask(txt, mode=None):
     import re
-    """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'"""
+    """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'
 
-    if isinstance(txt, string_types):
-        txt = txt.replace("_", ":")
-        return " ".join(re.findall(r"(:\d+@\w+)", txt))
-    elif isinstance(txt, (list, tuple)):
-        # list is mutable
-        txt_copied = txt[:]
-        for i, _txt in enumerate(txt):
-            txt_copied[i] = to_amber_mask(_txt)
-        return txt_copied
+    Parameters
+    ----------
+    txt : str | list/tuple of string | array-like of integer
+    mode : str, default=None
+        if mode='int_to_str': convert integer array to Amber mask
+            (good for converting indices to atom mask string to be used with cpptraj)
+
+    Examples
+    --------
+        to_amber_mask('ASP_16@OD1-ARG_18@N-H') # get ':16@OD1 :18@H'
+        to_amber_mask(range(0, 10, 3), mode='int_to_str') # return `@1,4,7`
+    """
+
+    if mode is None:
+        if isinstance(txt, string_types):
+            txt = txt.replace("_", ":")
+            return " ".join(re.findall(r"(:\d+@\w+)", txt))
+        elif isinstance(txt, (list, tuple)):
+            # list is mutable
+            txt_copied = txt[:]
+            for i, _txt in enumerate(txt):
+                txt_copied[i] = to_amber_mask(_txt)
+            return txt_copied
+        else:
+            raise NotImplementedError()
+    elif mode == 'int_to_str':
+        # need to add +1 since cpptraj's mask uses starting index of 1
+        my_long_str = ",".join(str(i+1) for i in txt)
+        return "@" + my_long_str
     else:
         raise NotImplementedError()
 
