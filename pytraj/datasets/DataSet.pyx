@@ -189,7 +189,7 @@ cdef class DataSet:
 
     @property
     def data_format(self):
-        return self.baseptr0.DataFormat()
+        return self.baseptr0.DataFormat().decode()
 
     @property
     def data(self):
