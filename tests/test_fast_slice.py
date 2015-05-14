@@ -12,11 +12,15 @@ from pytraj.externals.six.moves import range
 from timeit import timeit
 
 class Test(unittest.TestCase):
+    @test_if_path_exists("./data/nogit/tip3p/")
     def test_0(self):
-        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")[:]
+        tip3pdir = "./data/nogit/tip3p/"
+        traj = mdio.iterload(tip3pdir + "/md.trj", tip3pdir + "/tc5bwat.top")[:500]
+        start, stop, step = 0, 277, 3
         print (traj.n_frames)
 
-        s = slice(3, traj.n_frames, 4)
+        s = slice(start, stop, step)
+        print(s)
         t0 = traj[s]
         t1 = traj._fast_slice(s)
         print (traj[3, 0], t0[0, 0], t1[0, 0])
@@ -27,9 +31,23 @@ class Test(unittest.TestCase):
         def normal_slice():
             traj[s]
 
-        sr = range(3, traj.n_frames, 4)
+        sr = range(start, stop, step)
         def test_range():
             traj[sr]
+
+        import numpy as np
+        indices = np.random.randint(0, stop, len(sr))
+        from array import array
+        indices_p = array('i', indices)
+        print (indices_p)
+
+        def test_numpy_array_slicing():
+            traj[indices]
+
+        def test_pyarray_slicing():
+            traj[indices_p]
+
+        assert traj[indices].n_frames == traj[sr].n_frames
 
         def fast_slice():
             traj._fast_slice(s)
@@ -38,12 +56,17 @@ class Test(unittest.TestCase):
         print (timeit(normal_slice, number=100))
         print ("test_range")
         print (timeit(test_range, number=100))
+        print ("test_numpy_array_slicing")
+        print (timeit(test_numpy_array_slicing, number=100))
+        print ("test_pyarray_slicing")
+        print (timeit(test_pyarray_slicing, number=100))
         print ("fast_slice")
         print (timeit(fast_slice, number=100))
 
         #
         aa_eq(traj[sr].xyz, traj[s].xyz)
         aa_eq(traj._fast_slice(s).xyz, traj[s].xyz)
+        aa_eq(traj[indices].xyz, traj[indices_p].xyz)
 
 if __name__ == "__main__":
     unittest.main()

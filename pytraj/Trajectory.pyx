@@ -385,7 +385,7 @@ cdef class Trajectory (object):
         cdef Frame _frame # used for AtomMask selection. will allocate mem later
         cdef Trajectory farray
         cdef int start, stop, step, count
-        cdef int i
+        cdef int i, j
         cdef int idx_1, idx_2
         cdef int[:] int_view
         cdef AtomMask atom_mask_obj
@@ -478,10 +478,12 @@ cdef class Trajectory (object):
                     return farray[idxs[1:]]
                 #return frame[idxs[1:]]
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                _farray = self.__class__()
-                _farray.top = self.top
+                _farray = Trajectory(check_top=False)
+                _farray.top = self.top # just make a view, don't need to copy Topology
                 for i in idxs:
-                    _farray.append(self[i], copy=False)
+                    frame.thisptr = self.frame_v[i] # point to i-th item
+                    frame.py_free_mem = False # don't free mem
+                    _farray.frame_v.push_back(frame.thisptr) # just copy pointer
                 return _farray
             else:
                 idx_1 = get_positive_idx(idxs, self.size)
@@ -548,6 +550,8 @@ cdef class Trajectory (object):
             return farray
 
     def _fast_slice(self, slice my_slice):
+        """only positive indexing
+        """
         cdef int start, stop, step
         cdef int count
         cdef Trajectory myview = Trajectory(check_top=False)
