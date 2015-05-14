@@ -4,7 +4,7 @@ pytraj
 from __future__ import absolute_import
 import os
 #from pytraj import base
-from .utils.check_and_assert import _import
+#from .utils.check_and_assert import _import # turn off to avoid importing error
 # create adict and analdict objects here to we can use below in some modules
 # >>> from pytraj import adict, analdict 
 

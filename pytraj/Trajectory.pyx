@@ -4,12 +4,15 @@ cimport cython
 from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
+from cython.parallel cimport prange
+from libc.string cimport memcpy
 from .Topology cimport Topology
 from .AtomMask cimport AtomMask
 from ._utils cimport get_positive_idx
 from .TrajinList cimport TrajinList
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
+from .actions.Action_Rmsd cimport Action_Rmsd
 
 # python level
 from .trajs.Trajin_Single import Trajin_Single
@@ -333,6 +336,39 @@ cdef class Trajectory (object):
             # copy
             self[idx, :] = xyz_view[idx, :]
 
+    def _update_xyz_memcpy(self, double[:, :, :] xyz):
+        # make sure to use double precision for xyz
+        cdef int idx, n_frames
+        cdef double* ptr_src
+        cdef double* ptr_dest
+        cdef size_t count
+
+        n_frames = xyz.shape[0]
+        n_atoms = xyz.shape[1]
+        count = sizeof(double) * n_atoms * 3
+
+        for idx in range(n_frames):
+            ptr_dest = self.frame_v[idx].xAddress()
+            ptr_src = &(xyz[idx, 0, 0])
+            memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
+    def _update_xyz_memcpy_openmp(self, double[:, :, :] xyz):
+        # make sure to use double precision for xyz
+        cdef int idx, n_frames
+        cdef double* ptr_src
+        cdef double* ptr_dest
+        cdef size_t count
+
+        n_frames = xyz.shape[0]
+        n_atoms = xyz.shape[1]
+        count = sizeof(double) * n_atoms * 3
+
+        for idx in prange(n_frames, nogil=True):
+            ptr_dest = self.frame_v[idx].xAddress()
+            ptr_src = &(xyz[idx, 0, 0])
+            memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+>>>>>>> 0d9d97c9f78948087c32e513299c088cb57a05bf
+
     def tolist(self):
         return _tolist(self)
 
@@ -347,10 +383,11 @@ cdef class Trajectory (object):
 
         # TODO : why not using existing slice of list?
 
-        cdef Frame frame = Frame(self.top.n_atoms)
+        cdef Frame frame = Frame(self.top.n_atoms) # need to allocate here?
+        cdef Frame _frame # used for AtomMask selection. will allocate mem later
         cdef Trajectory farray
-        cdef int start, stop, step
-        cdef int i
+        cdef int start, stop, step, count
+        cdef int i, j
         cdef int idx_1, idx_2
         cdef int[:] int_view
         cdef AtomMask atom_mask_obj
@@ -371,14 +408,16 @@ cdef class Trajectory (object):
 
         elif isinstance(idxs, AtomMask):
             atom_mask_obj = <AtomMask> idxs
-            _farray = Trajectory()
+            _farray = Trajectory(check_top=False) # just create naked Trajectory
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
             for i, frame in enumerate(self):
-                _frame = Frame(frame, atom_mask_obj)
-                _farray.append(_frame)
-            self.tmpfarray = _farray
+                _frame = Frame(frame, atom_mask_obj) # 1st copy
+                _frame.py_free_mem = False #
+                _farray.append(_frame, copy=False) # 2nd copy if using `copy=True`
+            #self.tmpfarray = _farray # why need this?
             # hold _farray in self.tmpfarray to avoid memory lost
-            return self.tmpfarray
+            #return self.tmpfarray
+            return _farray
 
         elif isinstance(idxs, string_types):
             # mimic API of MDtraj
@@ -441,10 +480,12 @@ cdef class Trajectory (object):
                     return farray[idxs[1:]]
                 #return frame[idxs[1:]]
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                _farray = self.__class__()
-                _farray.top = self.top
+                _farray = Trajectory(check_top=False)
+                _farray.top = self.top # just make a view, don't need to copy Topology
                 for i in idxs:
-                    _farray.append(self[i], copy=False)
+                    frame.thisptr = self.frame_v[i] # point to i-th item
+                    frame.py_free_mem = False # don't free mem
+                    _farray.frame_v.push_back(frame.thisptr) # just copy pointer
                 return _farray
             else:
                 idx_1 = get_positive_idx(idxs, self.size)
@@ -491,21 +532,43 @@ cdef class Trajectory (object):
             # debug
             #print "after updating (start, stop, step) = (%s, %s, %s)" % (start, stop, step)
       
-            for i in range(start, stop, step):
+            i = start
+            while i < stop:
                 # turn `copy` to `False` to have memoryview
                 # turn `copy` to `True` to make a copy
                 farray.append(self[i], copy=False)
+                i += step
             if is_reversed:
                 # reverse vector if using negative index slice
                 # traj[:-1:-3]
                 farray.reverse()
 
             # hold farray by self.tmpfarray object
-            # so self[:][0][0] is still legit
-            self.tmpfarray = farray
+            # so self[:][0][0] is still legit (but do we really need this with much extra memory?)
+            #self.tmpfarray = farray
             #if self.tmpfarray.size == 1:
             #    return self.tmpfarray[0]
-            return self.tmpfarray
+            #return self.tmpfarray
+            return farray
+
+    def _fast_slice(self, slice my_slice):
+        """only positive indexing
+        """
+        cdef int start, stop, step
+        cdef int count
+        cdef Trajectory myview = Trajectory(check_top=False)
+        cdef _Frame* _frame_ptr
+
+        myview.top = self.top
+
+        start, stop, step  = my_slice.indices(self.size)
+        count = start
+        while count < stop:
+            _frame_ptr = self.frame_v[count]
+            myview.frame_v.push_back(_frame_ptr)
+            count += step
+
+        return myview
 
     def _fast_slice(self, slice my_slice):
         cdef int start, stop, step
@@ -559,8 +622,6 @@ cdef class Trajectory (object):
         # we don't do anythin here. Just create the same API for TrajectoryIterator
         pass
 
-    @cython.boundscheck(False)
-    @cython.wraparound(False)
     def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         """iterately get Frames with start, stop, stride 
         Parameters
@@ -637,18 +698,26 @@ cdef class Trajectory (object):
 
         Notes
         -----
-        No copy is made
+        No copy is made (except traj += traj (itself))
         """
         cdef _Frame* _frame_ptr
         cdef _Frame _frame
+        cdef Frame frame
+        cdef int old_size = self.size
+        cdef int i
 
-        if other is self:
-            raise ValueError("why do you join your self?")
         if self.top.n_atoms != other.top.n_atoms:
             raise ValueError("n_atoms of two arrays do not match")
 
-        for _frame_ptr in other.frame_v:
-            self.frame_v.push_back(_frame_ptr)
+        if other is self:
+            # why doing this? save memory
+            # traj += traj.copy() is too expensive since we need to make a copy first 
+            print ("making copies of Frames and append")
+            for i in range(old_size):
+                self.append(self[i], copy=True)
+        else:
+            for _frame_ptr in other.frame_v:
+                self.frame_v.push_back(_frame_ptr)
         return self
 
     def append(self, Frame framein, copy=True):
@@ -795,6 +864,9 @@ cdef class Trajectory (object):
         >>> # update view
         >>> arr0 = np.asarray(frame.buffer)
         """
+        cdef AtomMask atm = self.top(mask)
+        # read note about `_strip_atoms`
+        atm.invert_mask()
 
         cdef vector[_Frame*].iterator it
         cdef Frame frame = Frame()
@@ -811,10 +883,70 @@ cdef class Trajectory (object):
             frame.thisptr = deref(it)
             # we need to update topology since _strip_atoms will modify it
             tmptop = self.top.copy()
-            frame._strip_atoms(tmptop, mask, update_top, has_box)
+            frame._strip_atoms(tmptop, atm, update_top, has_box)
             incr(it)
         if update_top:
             self.top = tmptop.copy()
+
+    #def _strip_atoms_openmp(self, mask=None, bint update_top=True, bint has_box=False):
+    def _fast_strip_atoms(self, mask=None, bint update_top=True, bint has_box=False):
+        """
+        Paramters
+        ---------
+        mask : str
+        update_top : bool, default=True
+            'True' : automatically update Topology
+        has_box : bool, default=False (does not work with `True` yet)
+        Notes
+        -----
+        * Known bug: 
+        * if you use memory for numpy, you need to update after resizing Frame
+        >>> arr0 = np.asarray(frame.buffer)
+        >>> frame.strip_atoms(top,"!@CA")
+        >>> # update view
+        >>> arr0 = np.asarray(frame.buffer)
+        """
+        # NOTE: tested openmp (prange) but don't see the different. Need to 
+        # doublecheck if we DID apply openmp correctly
+
+        cdef Frame frame = Frame()
+        cdef _Topology _tmptop
+        cdef _Topology* _newtop_ptr
+        cdef _Frame _tmpframe
+        cdef int i 
+        cdef int n_frames = self.frame_v.size()
+        cdef AtomMask atm = self.top(mask)
+
+        atm.invert_mask() # read note in `Frame._strip_atoms`
+
+        if mask == None: 
+            raise ValueError("Must provide mask to strip")
+        mask = mask.encode("UTF-8")
+
+        # do not dealloc since we use memoryview for _Frame
+        frame.py_free_mem = False
+
+        # TODO : make it even faster by openmp
+        # need to handal memory to avoid double-free
+        _newtop_ptr = self.top.thisptr.modifyStateByMask(atm.thisptr[0])
+        #for i in prange(n_frames, nogil=True):
+        for i in range(n_frames):
+            # point to i-th _Frame
+            frame.thisptr = new _Frame() # make private copy for each core
+            frame.thisptr = self.frame_v[i]
+            # make a copy and modify it. (Why?)
+            # why do we need this?
+            # update new _Topology
+            # need to copy all other informations
+            # allocate
+            _tmpframe.SetupFrameV(_newtop_ptr.Atoms(), _newtop_ptr.ParmCoordInfo())
+            _tmpframe.SetFrame(frame.thisptr[0], atm.thisptr[0])
+            # make a copy: coords, vel, mass...
+            # if only care about `coords`, use `_fast_copy_from_frame`
+            frame.thisptr[0] = _tmpframe
+        if update_top:
+            # C++ assignment
+            self.top.thisptr[0] = _newtop_ptr[0]
 
     def save(self, filename="", fmt='unknown', overwrite=True):
         _savetraj(self, filename, fmt, overwrite)
@@ -823,13 +955,14 @@ cdef class Trajectory (object):
         """same as `save` method"""
         self.save(*args, **kwd)
 
-    def rmsfit_to(self, ref=None, mask="*"):
+    def rmsfit_to(self, ref=None, mask="*", mode='pytraj'):
         """do the fitting to reference Frame by rotation and translation
         Parameters
         ----------
         ref : {Frame object, int, str}, default=None 
             Reference
         mask : str or AtomMask object, default='*' (fit all atoms)
+        mode : 'cpptraj' (faster but can not use AtomMask)| 'pytraj'
 
         Examples
         --------
@@ -841,6 +974,7 @@ cdef class Trajectory (object):
         cdef AtomMask atm
         cdef Frame ref_frame
         cdef int i
+        cdef Action_Rmsd act
 
         if isinstance(ref, Frame):
             ref_frame = <Frame> ref
@@ -856,16 +990,25 @@ cdef class Trajectory (object):
         else:
             raise ValueError("ref must be string, Frame object or integer")
 
-        if isinstance(mask, string_types):
-            atm = self.top(mask)
-        elif isinstance(mask, AtomMask):
-            atm = <AtomMask> mask
-        else:
-            raise ValueError("mask must be string or AtomMask object")
+        if mode == 'pytraj':
+            if isinstance(mask, string_types):
+                atm = self.top(mask)
+            elif isinstance(mask, AtomMask):
+                atm = <AtomMask> mask
+            else:
+                raise ValueError("mask must be string or AtomMask object")
 
-        for frame in self:
-            _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
-            frame.trans_rot_trans(v1, mat, v2)
+            for frame in self:
+                _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
+                frame.trans_rot_trans(v1, mat, v2)
+
+        elif mode == 'cpptraj':
+            # switch to fast speed
+            # we still use mode 'pytraj' so we can use AtomMask (for what?)
+            act = Action_Rmsd()
+            act(mask, [ref_frame, self], top=self.top)
+        else:
+            raise ValueError("mode = pytraj | cpptraj")
 
     # start copy and paste from "__action_in_traj.py"
     def calc_distance(self, mask="", *args, **kwd):
@@ -926,6 +1069,8 @@ cdef class Trajectory (object):
         return pyca.calc_watershell(self, mask, *args, **kwd)
 
     def autoimage(self, mask=""):
+        # NOTE: I tried to used cpptraj's Action_AutoImage directly but
+        # there is no gain in speed. don't try.
         pyca.do_autoimage(self, mask)
 
     def rotate(self, mask=""):

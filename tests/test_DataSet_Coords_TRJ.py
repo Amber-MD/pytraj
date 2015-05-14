@@ -24,6 +24,8 @@ class Test(unittest.TestCase):
         for frame in coords_traj:
             print (frame)
 
+        print (coords_traj[0])
+
     def test_1(self):
         coords_traj = DataSet_Coords_TRJ()
         coords_traj.top = Topology("./data/Tc5b.top")

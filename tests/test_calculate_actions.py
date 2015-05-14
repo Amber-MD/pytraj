@@ -6,13 +6,13 @@ from pytraj.utils.check_and_assert import is_word_in_class_name
 from pytraj import calculate, adict
 from pytraj.utils.Timer import Timer
 from pytraj.plots import simple_plot
-from pytraj import _import
+from pytraj.utils import _import
 import numpy as np
 
 class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        d0 = calculate(adict['distance'], ':2@CA :10@CA', traj)[0]
+        d0 = calculate(adict['distance'], traj, ':2@CA :10@CA')[0]
         print (type(d0))
         print ((d0.size))
         print (np.asarray(d0[:]))
@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
         print(cppout[:10])
         assert_almost_equal(d0[:], cppout[:d0.size], decimal=3)
 
-        d1 = calculate('distance', ':2@CA :10@CA', traj)[0]
+        d1 = calculate('distance', traj, ':2@CA :10@CA')[0]
         assert_almost_equal(d1[:], cppout[:d1.size], decimal=3)
 
         with Timer() as t:
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
         print ("time to add traj to list = ", t.time_gap)
 
         with Timer() as t:
-            d2 = calculate('distance', ':2@CA :10@CA', trajlist)[0]
+            d2 = calculate('distance', trajlist, ':2@CA :10@CA')[0]
         print ("time to do actions = ", t.time_gap)
 
         with Timer() as t:
@@ -50,40 +50,19 @@ class Test(unittest.TestCase):
             #simple_plot(d2, 'ro')
             #plt.close()
 
-    def test_1(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-
-        # no longer support this.
-        ## print help
-        #calculate()
-        ## print help for `strip`
-        #calculate(key='strip')
-        ## try mix cases
-        #calculate(key='RmSd')
-        #calculate(key='RandomizeIonS')
-
     def test_2(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj.common_actions import calc_distance
-        d0 = calc_distance(":2@CA :10@CA", traj)
+        d0 = calc_distance(traj, ":2@CA :10@CA")
         print (d0[:])
 
     def test_3(self):
         # load and calc_distance at the same time
-        traj = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.load(*("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
         from pytraj.common_actions import calc_distance
-        d0 = calc_distance(":2@CA :10@CA", *traj)
+        d0 = calc_distance(traj, ":2@CA :10@CA")
         assert is_word_in_class_name(d0, 'DataSet')
         assert hasattr(d0.data, 'memview')
-
-    def test_4(self):
-        # load and calculate at the same time
-        traj = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        from pytraj import calculate
-        d0 = calculate("distance", ":2@CA :10@CA", *traj)
-        assert is_word_in_class_name(d0, 'DataSet')
-        assert hasattr(d0[0].data, 'memview')
-        print (d0[0])
 
 if __name__ == "__main__":
     unittest.main()

@@ -5,6 +5,7 @@ from .._shared_methods import _frame_iter
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import my_str_method
 from ..Trajectory cimport Trajectory
+from ..utils import _import_numpy
 
 cdef class DataSet_Coords(DataSet):
     def __cinit__(self):
@@ -141,7 +142,18 @@ cdef class DataSet_Coords(DataSet):
         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
         """
-        return _xyz(self)
+        cdef Frame frame
+        cdef int i
+        _, np = _import_numpy()
+        n_frames = self.n_frames 
+        n_atoms = self.top.n_atoms
+        arr = np.empty((n_frames, n_atoms, 3))
+
+        for i in range(n_frames):
+            arr[i] = self[i].xyz
+        return arr
 
     def tolist(self):
-        return _tolist(self)
+        """return flatten list for traj-like object"""
+        cdef Frame frame
+        return [frame.tolist() for frame in self]

@@ -47,9 +47,6 @@ def my_str_method(self):
             )
     return tmps
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.infer_types(True)
 def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
     """iterately get Frames with start, stop, stride 
     Parameters
