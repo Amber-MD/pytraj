@@ -27,7 +27,6 @@ from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._shared_methods import _savetraj, _get_temperature_set
 from ._shared_methods import _xyz, _tolist
 from ._shared_methods import my_str_method
-from ._shared_methods import _frame_iter
 from ._shared_methods import _box_to_ndarray
 
 import pytraj.common_actions as pyca
@@ -609,10 +608,48 @@ cdef class Trajectory (object):
         Parameters
         ---------
         start : int (default = 0)
-        chunk : int (default = 1)
         stop : int (default = max_frames - 1)
+        stride : int
+        mask : str or array of interger
         """
-        return _frame_iter(self, start, stop, stride, mask)
+        cdef int i
+        cdef int n_atoms = self.n_atoms
+        cdef Frame frame
+        cdef AtomMask atm
+        cdef int _end
+        cdef int[:] int_view
+
+        if stop == -1:
+            _end = <int> self.n_frames
+        else:
+            _end = stop + 1
+
+        if mask is not None:
+            frame2 = Frame() # just make a pointer
+            if isinstance(mask, string_types):
+                atm = self.top(mask)
+            else:
+                try:
+                    atm = AtomMask()
+                    atm.add_selected_indices(mask)
+                except TypeError:
+                    raise TypeError("dont know how to cast to memoryview")
+            frame2.thisptr = new _Frame(<int>atm.n_atoms)
+        else:
+            frame = Frame(n_atoms)
+
+        # use `with` to make this consistent with Trajin.pyx
+        # (not really need)
+        with self:
+            i = start
+            while i < _end:
+                frame = self[i]
+                if mask is not None:
+                    frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])
+                    yield frame2
+                else:
+                    yield frame
+                i += stride
 
     def reverse(self):
         # should we just create a fake operator?
