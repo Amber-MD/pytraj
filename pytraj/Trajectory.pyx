@@ -13,6 +13,7 @@ from .TrajinList cimport TrajinList
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
 from .actions.Action_Rmsd cimport Action_Rmsd
+from .cpp_algorithm cimport iter_swap
 
 # python level
 from ._set_silent import set_error_silent
@@ -27,6 +28,7 @@ from .trajs.Trajout import Trajout
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._shared_methods import _savetraj, _get_temperature_set
 from ._shared_methods import _xyz, _tolist
+from ._utils import _int_array1d_like_to_memview
 from ._shared_methods import my_str_method
 from ._shared_methods import _box_to_ndarray
 
@@ -684,6 +686,46 @@ cdef class Trajectory (object):
     def reverse(self):
         # should we just create a fake operator?
         cpp_reverse(self.frame_v.begin(), self.frame_v.end())
+
+    def swap(self, arr0, arr1):
+        """swap one or more pairs of frames"""
+        cdef int i, j
+        cdef int[:] i_view
+        cdef int[:] j_view
+        cdef int k
+
+        if is_int(arr0) and is_int(arr1):
+            i = <int> arr0
+            j = <int> arr1
+            iter_swap(self.frame_v.begin() + i, self.frame_v.begin() + j)
+        else:
+            if hasattr(arr0, 'itemsize') and arr0.itemsize != 4:
+                raise ValueError("must be int32")
+            elif hasattr(arr1, 'itemsize') and arr1.itemsize != 4:
+                raise ValueError("must be int32")
+            elif isinstance(arr0, (list, tuple)) and isinstance(arr1, (list, tuple)):
+                # convert to memview
+                i_view = _int_array1d_like_to_memview(arr0)
+                j_view = _int_array1d_like_to_memview(arr1)
+                self._swap_from_array(i_view, j_view)
+            else:
+                try:
+                    # use memview
+                    i_view = arr0
+                    j_view = arr1
+                    self._swap_from_array(i_view, j_view)
+                except:
+                    raise NotImplementedError()
+
+    def _swap_from_array(self, cython.integral[:] i_view, cython.integral[:] j_view):
+        cdef int i, j
+        cdef int k
+
+        assert i_view.shape[0] == j_view.shape[0]
+        for k in range(i_view.shape[0]):
+            i = i_view[k]
+            j = j_view[k]
+            iter_swap(self.frame_v.begin() + i, self.frame_v.begin() + j)
 
     def erase(self, idxs):
         cdef int idx
