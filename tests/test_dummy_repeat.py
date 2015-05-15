@@ -7,10 +7,10 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test, test_if_having
+import pytraj.common_actions as pyca
 
 class Test(unittest.TestCase):
 
-    #@no_test
     def test_0(self):
         print ("repeat `calculate`")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -22,7 +22,6 @@ class Test(unittest.TestCase):
         print (d1.size)
         assert d0[0].size == d1[0].size == traj.n_frames
 
-    #@no_test
     def test_1(self):
         print ("repeat `calc_`")
         str_traj_top = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -38,6 +37,19 @@ class Test(unittest.TestCase):
 
         assert d0.size == d1.size == traj.n_frames 
         assert d0.size == d2.size == d3.size
+
+    def test_2(self):
+        # calc_dssp
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
+        # repeat 20 times
+        for i in range(20):
+            d0 = pyca.calc_dssp(traj[:], dtype='dataset')
+            assert d0.size == 28
+            # WARNING: don't assign `d0 = d0.groupby("your_mask")`
+            d1 = d0.groupby("TRP:6")
+
+        print (d1.keys())
 
 if __name__ == "__main__":
     unittest.main()
