@@ -7,6 +7,29 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* add atom coords assignment traj['@CA'] = xyz
+* add `stack` for DataSetList to join 2 datasets
+* rename `set_frame_m` to `set_frame_mass`
+* update `to_amber_mask` to convert integer array-like to string mask
+* add autoimage and rmsfit_to for chunk_iter and frame_iter
+* tune speed for chunk_iter and frame_iter for TrajectoryIterator
+* add `plot` method for DataSet
+* add `write_to_cpptraj_format`
+* add __array__ for Frame 
+* introduce array interface to numpy for cpptraj's DataSet 
+* add median, std, ... for DataSetList
+* update run_all_and_find_fails.py for capturing segmetation fault
+* add Trajectory joining (traj += traj)
+* optimize slicing for `TrajectoryIterator` 
+* optimize strip_atoms (1000 times speed up)
+* add `copy` method for DataSet
+* add fancy indexing for `DataSetList`
+* add `_fast_slice` for Trajectory (1000 times faster)
+* add regular expression for `groupby`
+* add `to_pickle`, `to_json`, `read_pickle`, `read_json`
+* add `_guess_filetype`
+* change `fit_to` to `rmsfit_to`
+* enhance smart _frame_iter_master
 * create alias `rmsd` for `calc_rmsd` in `common_actions` module
 * update loading hd5f file without going through `mdtraj`
 * correctly handle `box` in `api.Trajectory`
