@@ -62,5 +62,15 @@ class Test(unittest.TestCase):
         ds_v = traj.calc_vector("@CA @CB")
         dcp = ds_v[0].copy()
 
+        # shape
+        d0 = d[0]
+        assert d0.shape == (d0.size,)
+        import numpy as np
+        assert np.abs((np.mean(d0) == d0.avg())) < 1E-4
+        print (np.mean(d0))
+        print (d0.avg())
+        print (np.sum(d0))
+        print (np.array_split(d0, 3))
+
 if __name__ == "__main__":
     unittest.main()
