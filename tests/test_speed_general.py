@@ -38,9 +38,12 @@ class Test(unittest.TestCase):
         aa_eq(fa['@CA'].xyz, X[:, indices])
 
         # assignment speed
-        # 327680 frames
-        for _ in range(5):
-            fa += fa + fa + fa
+        # 50K frames
+        FA = fa.copy()
+        for _ in range(4):
+            FA += FA + FA + FA
+        FA += FA[:10000].copy()
+        fa = FA[:50000]
         print (fa)
         xyz = fa['@CA'].xyz.copy() + 1.
         X = fa.xyz.copy()
@@ -56,6 +59,46 @@ class Test(unittest.TestCase):
         speed_test_pytraj() # similiar speed
         # make sure ther are equal
         aa_eq(fa['@CA'].xyz, X[:, indices])
+
+        # assignment speed
+        # 50K frames, different mask
+        mask = "@H=,CB"
+        indices = traj.top(mask).indices
+        del xyz
+        xyz = fa[mask].xyz.copy() + 1.
+        X = fa.xyz.copy()
+        @Timer()
+        def speed_test_np():
+            X[:, indices] = xyz
+
+        @Timer()
+        def speed_test_pytraj():
+            fa[mask] = xyz
+
+        speed_test_np() # 
+        speed_test_pytraj() # similiar speed
+        # make sure ther are equal
+        aa_eq(fa[mask].xyz, X[:, indices])
+
+        # assignment speed
+        # 50K frames, different mask
+        mask = "!@H=,CB"
+        indices = traj.top(mask).indices
+        del xyz
+        xyz = fa[mask].xyz.copy() + 1.
+        X = fa.xyz.copy()
+        @Timer()
+        def speed_test_np():
+            X[:, indices] = xyz
+
+        @Timer()
+        def speed_test_pytraj():
+            fa[mask] = xyz
+
+        speed_test_np() # 
+        speed_test_pytraj() # similiar speed
+        # make sure ther are equal
+        aa_eq(fa[mask].xyz, X[:, indices])
 
 
 if __name__ == "__main__":

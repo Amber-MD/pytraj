@@ -15,6 +15,7 @@ from .trajs.Trajin cimport Trajin
 from .actions.Action_Rmsd cimport Action_Rmsd
 
 # python level
+from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types
 from .TrajectoryIterator import TrajectoryIterator
@@ -401,7 +402,9 @@ cdef class Trajectory (object):
         elif isinstance(idxs, AtomMask):
             atom_mask_obj = <AtomMask> idxs
             _farray = Trajectory(check_top=False) # just create naked Trajectory
+            set_error_silent(True) # turn off cpptraj' verbose
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
+            set_error_silent(False)
             for i, frame in enumerate(self):
                 _frame = Frame(frame, atom_mask_obj) # 1st copy
                 _frame.py_free_mem = False #
