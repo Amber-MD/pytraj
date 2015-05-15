@@ -114,7 +114,8 @@ cdef class Action:
         return self.baseptr.Setup(top.thisptr, &(new_top.thisptr))
 
     @makesureABC("Action")
-    def do_action(self, current_frame=None, Frame new_frame=Frame()):
+    def do_action(self, current_frame=None, Frame new_frame=Frame(), 
+            update_mass=True, Topology top=Topology()):
         """
         Perform action on Frame. 
         Parameters:
@@ -133,6 +134,9 @@ cdef class Action:
 
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame
+            # make sure to update frame mass
+            if update_mass and not top.is_empty():
+                frame.set_frame_mass(top)
             frame.py_free_mem = False
             self.baseptr.DoAction(self.n_frames, frame.thisptr, &(new_frame.thisptr))
             self.n_frames += 1
@@ -161,6 +165,7 @@ cdef class Action:
                   dflist=DataFileList(), 
                   new_top=Topology(),
                   new_frame=Frame(),
+                  update_mass=True,
                   int debug=0,
                   update_frame=False,
                   quick_get=False):
@@ -180,7 +185,7 @@ cdef class Action:
                         dflist=dflist, debug=debug)
 
         self.process(top=_top, new_top=new_top)
-        self.do_action(current_frame, new_frame)
+        self.do_action(current_frame, new_frame, update_mass=update_mass, top=_top)
 
         # currently support only dtype = 'DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER'
         # we get the last dataset from dslist
