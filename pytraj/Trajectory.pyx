@@ -567,15 +567,42 @@ cdef class Trajectory (object):
         # TODO : add slice
         # make a copy
         # to make thing simple, we don't use fancy slicing here
-        cdef Frame frame
+        cdef Frame frame = Frame() # create _Frame pointer
+        cdef AtomMask atm
+        cdef double[:, :, :] view3d
+        cdef double* ptr
+        cdef int[:] int_view
+        cdef int i, j, k
+
         if len(self) == 0:
             raise ValueError("Your Trajectory is empty, how can I index it?")
         if isinstance(idx, (long, int)) and isinstance(other, Frame):
             frame = <Frame> other.copy()
             frame.py_free_mem = False
             self.frame_v[idx] = frame.thisptr
-        # TODO : check this
-        #self[idx].py_free_mem = False
+        elif isinstance(idx, AtomMask) or isinstance(idx, string_types):
+            if isinstance(idx, AtomMask):
+                atm = <AtomMask> idx
+            else:
+                atm = AtomMask(idx)
+            view3d = other
+            int_view = atm.indices
+            # loop all frames
+            for i in range(view3d.shape[0]):
+                # don't use pointer: frame.thisptr = self.frame_v[i]
+                # (got segfault)
+                frame = self[i]
+                # loop all selected atoms
+                for j in range(view3d.shape[1]):
+                    # take atom index
+                    k = int_view[j]
+                    # update coords for each atoms
+                    # take pointer position
+                    ptr = frame.thisptr.xAddress() + 3 * k
+                    # assignment
+                    ptr[0] = view3d[i, j, 0]
+                    ptr[1] = view3d[i, j, 1]
+                    ptr[2] = view3d[i, j, 2]
         else:
             # example: self[0, 0, 0] = 100.
             self[idx[0]][idx[1:]] = other
