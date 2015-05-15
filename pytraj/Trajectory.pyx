@@ -974,6 +974,12 @@ cdef class Trajectory (object):
         """same as `save` method"""
         self.save(*args, **kwd)
 
+    def set_frame_mass(self):
+        """update mass for each Frame from self.top"""
+        cdef Frame frame
+        for frame in self:
+            frame.set_frame_mass(self.top)
+
     def rmsfit_to(self, ref=None, mask="*", mode='pytraj'):
         """do the fitting to reference Frame by rotation and translation
         Parameters

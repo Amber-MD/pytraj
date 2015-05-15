@@ -2371,7 +2371,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_84t_address(CYTHON_UNUSED struct
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_86i_address(CYTHON_UNUSED struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_88set_box_angles(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, __Pyx_memviewslice __pyx_v_ain); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_90set_frame(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
-static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_92set_frame_m(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top); /* proto */
+static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_92set_frame_mass(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_94set_frame_x_m(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, std::vector<double>  __pyx_v_Xin, std::vector<double>  __pyx_v_massIn); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_96set_frame_v(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_98set_frame_from_mask(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_atomlist_or_top); /* proto */
@@ -11091,7 +11091,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_90set_frame(struct __pyx_obj_6py
  *             atomnum = <int> args[0]
  *             self.thisptr.SetupFrame(atomnum)             # <<<<<<<<<<<<<<
  * 
- *     def set_frame_m(self, Topology top):
+ *     def set_frame_mass(self, Topology top):
  */
     __pyx_v_self->thisptr->SetupFrame(__pyx_v_atomnum);
     goto __pyx_L3;
@@ -11127,23 +11127,23 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_90set_frame(struct __pyx_obj_6py
 /* "pytraj/Frame.pyx":577
  *             self.thisptr.SetupFrame(atomnum)
  * 
- *     def set_frame_m(self, Topology top):             # <<<<<<<<<<<<<<
+ *     def set_frame_mass(self, Topology top):             # <<<<<<<<<<<<<<
  *         return self.thisptr.SetupFrameM(top.thisptr.Atoms())
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_93set_frame_m(PyObject *__pyx_v_self, PyObject *__pyx_v_top); /*proto*/
-static char __pyx_doc_6pytraj_5Frame_5Frame_92set_frame_m[] = "Frame.set_frame_m(self, Topology top)";
-static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_93set_frame_m(PyObject *__pyx_v_self, PyObject *__pyx_v_top) {
+static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_93set_frame_mass(PyObject *__pyx_v_self, PyObject *__pyx_v_top); /*proto*/
+static char __pyx_doc_6pytraj_5Frame_5Frame_92set_frame_mass[] = "Frame.set_frame_mass(self, Topology top)";
+static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_93set_frame_mass(PyObject *__pyx_v_self, PyObject *__pyx_v_top) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("set_frame_m (wrapper)", 0);
+  __Pyx_RefNannySetupContext("set_frame_mass (wrapper)", 0);
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_top), __pyx_ptype_6pytraj_8Topology_Topology, 1, "top", 0))) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 577; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_5Frame_5Frame_92set_frame_m(((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_v_self), ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_top));
+  __pyx_r = __pyx_pf_6pytraj_5Frame_5Frame_92set_frame_mass(((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_v_self), ((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_top));
 
   /* function exit code */
   goto __pyx_L0;
@@ -11154,18 +11154,18 @@ static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_93set_frame_m(PyObject *__pyx_v_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_92set_frame_m(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top) {
+static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_92set_frame_mass(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("set_frame_m", 0);
+  __Pyx_RefNannySetupContext("set_frame_mass", 0);
 
   /* "pytraj/Frame.pyx":578
  * 
- *     def set_frame_m(self, Topology top):
+ *     def set_frame_mass(self, Topology top):
  *         return self.thisptr.SetupFrameM(top.thisptr.Atoms())             # <<<<<<<<<<<<<<
  * 
  *     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
@@ -11180,7 +11180,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_92set_frame_m(struct __pyx_obj_6
   /* "pytraj/Frame.pyx":577
  *             self.thisptr.SetupFrame(atomnum)
  * 
- *     def set_frame_m(self, Topology top):             # <<<<<<<<<<<<<<
+ *     def set_frame_mass(self, Topology top):             # <<<<<<<<<<<<<<
  *         return self.thisptr.SetupFrameM(top.thisptr.Atoms())
  * 
  */
@@ -11188,7 +11188,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_92set_frame_m(struct __pyx_obj_6
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Frame.Frame.set_frame_m", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.Frame.Frame.set_frame_mass", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -21530,7 +21530,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_194_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_9, __pyx_t_10, __pyx_t_8, __pyx_t_12, __pyx_t_11)
+                  #pragma omp parallel private(__pyx_t_12, __pyx_t_9, __pyx_t_10, __pyx_t_8, __pyx_t_11)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
@@ -21866,7 +21866,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_196_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_9, __pyx_t_10, __pyx_t_8, __pyx_t_12, __pyx_t_11)
+                  #pragma omp parallel private(__pyx_t_12, __pyx_t_9, __pyx_t_10, __pyx_t_8, __pyx_t_11)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
@@ -22202,18 +22202,18 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_198_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_9, __pyx_t_10, __pyx_t_8, __pyx_t_12, __pyx_t_11)
+                  #pragma omp parallel private(__pyx_t_12, __pyx_t_9, __pyx_t_10, __pyx_t_8, __pyx_t_11)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx1) lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
+                      #pragma omp for lastprivate(__pyx_v_idx0) lastprivate(__pyx_v_idx1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
                               __pyx_v_i = 0 + 1 * __pyx_t_6;
                               /* Initialize private variables to invalid values */
-                              __pyx_v_idx1 = ((int)0xbad0bad0);
                               __pyx_v_idx0 = ((int)0xbad0bad0);
+                              __pyx_v_idx1 = ((int)0xbad0bad0);
 
                               /* "pytraj/Frame.pyx":1068
  *         if parallel:
@@ -35092,7 +35092,7 @@ static PyMethodDef __pyx_methods_6pytraj_5Frame_Frame[] = {
   {"i_address", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_87i_address, METH_NOARGS, __pyx_doc_6pytraj_5Frame_5Frame_86i_address},
   {"set_box_angles", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_89set_box_angles, METH_O, __pyx_doc_6pytraj_5Frame_5Frame_88set_box_angles},
   {"set_frame", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_91set_frame, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_5Frame_5Frame_90set_frame},
-  {"set_frame_m", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_93set_frame_m, METH_O, __pyx_doc_6pytraj_5Frame_5Frame_92set_frame_m},
+  {"set_frame_mass", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_93set_frame_mass, METH_O, __pyx_doc_6pytraj_5Frame_5Frame_92set_frame_mass},
   {"set_frame_x_m", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_95set_frame_x_m, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_5Frame_5Frame_94set_frame_x_m},
   {"set_frame_v", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_97set_frame_v, METH_O, __pyx_doc_6pytraj_5Frame_5Frame_96set_frame_v},
   {"set_frame_from_mask", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_99set_frame_from_mask, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_5Frame_5Frame_98set_frame_from_mask},
