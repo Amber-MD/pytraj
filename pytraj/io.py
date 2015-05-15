@@ -126,6 +126,8 @@ def loadtraj(filename=None, top=Topology(), indices=None):
     """
     if not isinstance(top, Topology):
         top = Topology(top)
+    if top.is_empty():
+        raise ValueError("can not load file without Topology or empty Topology")
     ts = TrajectoryIterator()
     ts.load(filename, top)
 

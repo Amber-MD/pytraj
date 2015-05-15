@@ -34,7 +34,31 @@ from pytraj.hbonds import search_hbonds
 
 cdef class Trajectory (object):
     def __cinit__(self, filename=None, top=None, indices=None, 
-                  bint warning=False, n_frames=None, flag=None, check_top=True):
+            bint warning=False, n_frames=None, check_top=True):
+        """
+        Parameters
+        ----------
+        filename: str or Trajectory-like or array-like
+            str : filename
+            Trajectory-like: pytraj's Trajectory, TrajectoryIterator, mdtraj's Trajectory,
+                DataSet_Coords_CRD, DataSet_Coords_TRJ
+        top : str or Topology, default=None
+        indices : array-like, frames to take, default=None
+        warning : bool, default=False
+            for debuging
+        n_frames : int, default=None
+            preallocate n_frames
+        check_top : bool, default=True, don't check Topology
+
+        Examples
+        --------
+            traj = Trajectory()
+            traj = Trajectory("md.x", "prmtop")
+            traj = Trajectory("md.x", t2.top)
+            traj = Trajectory(xyz, t2.top) # create new Trajectory with given `xyz` array
+            traj = Trajectory(n_frames=100) # preallocate 100 frames
+            traj = Trajectory(check_top=False) # don't check any Topology to save time
+        """
         
         cdef Frame frame
 
@@ -63,7 +87,7 @@ cdef class Trajectory (object):
     def copy(self):
         "Return a copy of Trajectory"
         cdef Trajectory other = Trajectory()
-        cdef _Frame* _frame_ptr
+        cdef Frame frame
 
         other.top = self.top.copy()
 
@@ -90,11 +114,13 @@ cdef class Trajectory (object):
         #        del frame.thisptr
 
     def __del__(self):
+        """deallocate all frames"""
         cdef Frame frame
         for frame in self:
             del frame.thisptr
 
     def __call__(self, *args, **kwd):
+        """return frame_iter"""
         return self.frame_iter(*args, **kwd)
 
     def load(self, filename='', Topology top=None, indices=None):
@@ -225,7 +251,7 @@ cdef class Trajectory (object):
         shape=(n_frames, n_atoms, 3) or (n_frames, n_atoms*3) or 1D array
 
         If using numpy array with shape (n_frames, n_atoms, 3),
-        try "append_ndarray" method
+        try "append_ndarray" method (much faster)
         """
 
         if n_atoms == 0:
@@ -277,7 +303,10 @@ cdef class Trajectory (object):
         import numpy as np
 
         # need to use double precision
-        _xyz = xyz.astype(np.float64)
+        if xyz.dtype != np.float64:
+            _xyz = xyz.astype(np.float64)
+        else:
+            _xyz = xyz
         self.frame_v.resize(newsize)
 
         for i in range(n_frames):
@@ -287,7 +316,7 @@ cdef class Trajectory (object):
             self[i + oldsize] = Frame(n_atoms)
             frame = self[i + oldsize]
             # copy coords
-            frame[:] = myview[:]
+            frame._fast_copy_from_xyz(myview[:])
 
     @property
     def shape(self):
@@ -315,28 +344,9 @@ cdef class Trajectory (object):
         else:
             raise NotImplementedError("must have numpy")
 
-    def update_xyz(self, xyz):
-        # make sure to use double precision for xyz
-        cdef int idx, n_frames
-        cdef double[:, :, :] xyz_view
-
-        if xyz.shape != self.shape:
-            raise ValueError("shape mismatch")
-
-        n_frames = <int> xyz.shape[0]
-
-        _, np = _import_numpy()
-        if xyz.dtype != np.float64:
-            xyz_view = xyz.astype(np.float64) 
-        else:
-            xyz_view = xyz
-
-        for idx in range(n_frames):
-            # copy
-            self[idx, :] = xyz_view[idx, :]
-
-    def _update_xyz_memcpy(self, double[:, :, :] xyz):
-        # make sure to use double precision for xyz
+    def update_xyz(self, double[:, :, :] xyz):
+        '''update coords from 3D xyz array, dtype=f8'''
+        # NOTE: tried openmp for this but no speed gain (much)
         cdef int idx, n_frames
         cdef double* ptr_src
         cdef double* ptr_dest
@@ -347,22 +357,6 @@ cdef class Trajectory (object):
         count = sizeof(double) * n_atoms * 3
 
         for idx in range(n_frames):
-            ptr_dest = self.frame_v[idx].xAddress()
-            ptr_src = &(xyz[idx, 0, 0])
-            memcpy(<void*> ptr_dest, <void*> ptr_src, count)
-
-    def _update_xyz_memcpy_openmp(self, double[:, :, :] xyz):
-        # make sure to use double precision for xyz
-        cdef int idx, n_frames
-        cdef double* ptr_src
-        cdef double* ptr_dest
-        cdef size_t count
-
-        n_frames = xyz.shape[0]
-        n_atoms = xyz.shape[1]
-        count = sizeof(double) * n_atoms * 3
-
-        for idx in prange(n_frames, nogil=True):
             ptr_dest = self.frame_v[idx].xAddress()
             ptr_src = &(xyz[idx, 0, 0])
             memcpy(<void*> ptr_dest, <void*> ptr_src, count)
@@ -501,12 +495,12 @@ cdef class Trajectory (object):
         else:
             # is slice
             # creat a subset array of `Trajectory`
-            farray = Trajectory()
+            #farray = Trajectory()
             # farray.is_mem_parent = False
 
             # should we make a copy of self.top or get memview?
-            farray.top = self.top
-            farray.top.py_free_mem = False # let `master` Trajectory do freeing mem
+            #farray.top = self.top
+            #farray.top.py_free_mem = False # let `master` Trajectory do freeing mem
             # create positive indexing for start, stop if they are None
             start, stop, step  = idxs.indices(self.size)
             
@@ -530,12 +524,13 @@ cdef class Trajectory (object):
             # debug
             #print "after updating (start, stop, step) = (%s, %s, %s)" % (start, stop, step)
       
-            i = start
-            while i < stop:
-                # turn `copy` to `False` to have memoryview
-                # turn `copy` to `True` to make a copy
-                farray.append(self[i], copy=False)
-                i += step
+            farray = self._fast_slice(slice(start, stop, step))
+            #i = start
+            #while i < stop:
+            #    # turn `copy` to `False` to have memoryview
+            #    # turn `copy` to `True` to make a copy
+            #    farray.append(self[i], copy=False)
+            #    i += step
             if is_reversed:
                 # reverse vector if using negative index slice
                 # traj[:-1:-3]
@@ -731,7 +726,8 @@ cdef class Trajectory (object):
         if other is self:
             # why doing this? save memory
             # traj += traj.copy() is too expensive since we need to make a copy first 
-            print ("making copies of Frames and append")
+            if self.warning:
+                print ("making copies of Frames and append")
             for i in range(old_size):
                 self.append(self[i], copy=True)
         else:

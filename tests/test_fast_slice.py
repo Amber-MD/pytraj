@@ -12,11 +12,18 @@ from pytraj.externals.six.moves import range
 from timeit import timeit
 
 class Test(unittest.TestCase):
-    @test_if_path_exists("./data/nogit/tip3p/")
+    #@test_if_path_exists("./data/nogit/tip3p/")
     def test_0(self):
-        tip3pdir = "./data/nogit/tip3p/"
-        traj = mdio.iterload(tip3pdir + "/md.trj", tip3pdir + "/tc5bwat.top")[:500]
-        start, stop, step = 0, 277, 3
+        try:
+            tip3pdir = "./data/nogit/tip3p/"
+            traj = mdio.iterload(tip3pdir + "/md.trj", tip3pdir + "/tc5bwat.top")[:500]
+            start, stop, step = 0, 277, 3
+        except:
+            # load small file
+            traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+            for _ in range(5):
+                traj += traj + traj
+            start, stop, step = 0, 1000, 4
         print (traj.n_frames)
 
         s = slice(start, stop, step)

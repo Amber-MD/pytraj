@@ -12,7 +12,11 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
         fa = traj[:]
+        for i in range(3):
+            fa += fa + fa
+
         print (fa.xyz[0, :10])
         xyz = fa.xyz / 10.
         fa.update_xyz(xyz)
@@ -22,15 +26,19 @@ class Test(unittest.TestCase):
         # try to build Trajectory from scratch
         fa2 = Trajectory()
         fa2.top = fa.top
-        fa2._allocate(traj.n_frames, traj.n_atoms)
-        fa2.update_xyz (traj.xyz)
-        aa_eq(fa2.xyz, traj.xyz)
+        fa2._allocate(fa.n_frames, fa.n_atoms)
+        fa2.update_xyz (fa.xyz)
+        aa_eq(fa2.xyz, fa.xyz)
+
+        # try to build Trajectory from scratch
+        fa2 = Trajectory(fa.xyz, top=fa.top)
+        aa_eq(fa2.xyz, fa.xyz)
 
         # timing
-        xyz0 = np.empty((traj.n_frames, traj.n_atoms, 3))
+        xyz0 = np.empty((fa.n_frames, fa.n_atoms, 3))
         @Timer()
         def update_np():
-            xyz0[:] = xyz[:]
+            xyz0[:] = xyz
 
         @Timer()
         def update_pytraj():
@@ -40,6 +48,10 @@ class Test(unittest.TestCase):
         update_np()
         print ("pytraj")
         update_pytraj()
+
+        xyz0[:] = xyz
+        fa2.update_xyz(xyz)
+        aa_eq(fa2.xyz, xyz0)
 
 if __name__ == "__main__":
     unittest.main()
