@@ -29,5 +29,11 @@ class Test(unittest.TestCase):
         fa[atm] = xyz_sub
         aa_eq(fa[atm].xyz, xyz_sub)
 
+        indices = traj.top("@CA")
+        atm = AtomMask(indices)
+        xyz_sub = fa.xyz[:, list(indices)] + 1.
+        fa[atm] = xyz_sub
+        aa_eq(fa['@CA'].xyz, xyz_sub)
+
 if __name__ == "__main__":
     unittest.main()
