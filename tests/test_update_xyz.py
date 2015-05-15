@@ -23,19 +23,9 @@ class Test(unittest.TestCase):
         def normal():
             traj.update_xyz(xyz)
 
-        def use_memcpy():
-            traj2._update_xyz_memcpy(xyz)
-
-        def use_memcpy_openmp():
-            traj3._update_xyz_memcpy_openmp(xyz)
-        
         print (timeit(normal, number=1000))
-        print (timeit(use_memcpy, number=1000))
-        print (timeit(use_memcpy_openmp, number=1000))
 
         aa_eq(traj.xyz, xyz)
-        aa_eq(traj2.xyz, xyz)
-        aa_eq(traj3.xyz, xyz)
 
     def test_1(self):
         print ("Frame")
