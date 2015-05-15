@@ -43,7 +43,7 @@ def test_0():
     # assert to cpptraj: need to set mass
     fa1 = fa.copy()
     for frame in fa1:
-        frame.set_frame_m(fa1.top)
+        frame.set_frame_mass(fa1.top)
     fa1.autoimage()
     fa1.rmsfit_to(ref0, mask)
     print (traj_saved[-2:].xyz[0, 0], fa1[-2:].xyz[0 ,0])

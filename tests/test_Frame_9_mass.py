@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
 
         print (frame.rmsd(traj[1], use_mass=False))
 
-        frame.set_frame_m(traj.top)
+        frame.set_frame_mass(traj.top)
         print (frame.mass)
         print (frame.rmsd(traj[1], use_mass=True))
         print (frame.rmsd(frame, use_mass=True))
@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
         print (frame[0])
         for f0 in traj:
             print (f0[0])
-            f0.set_frame_m(traj.top)
+            f0.set_frame_mass(traj.top)
             arr0.append(frame.rmsd(f0, use_mass=True))
 
         # load cpptraj output
@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = traj[0].copy()
         print (frame.mass)
-        frame.set_frame_m(traj.top)
+        frame.set_frame_mass(traj.top)
         frame2 = Frame(frame, traj.top("@CA"))
         print (frame2.mass)
 

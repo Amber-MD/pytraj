@@ -491,7 +491,7 @@ def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='
     for frame in _frame_iter_master(traj):
         # set Frame masses
         if use_mass:
-            frame.set_frame_m(_top)
+            frame.set_frame_mass(_top)
         act.do_action(frame)
     return _get_data_from_dtype(dslist[0], dtype=dtype)
 
@@ -587,12 +587,12 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
         atm = AtomMask()
 
     if mass:
-        ref.set_frame_m(_top)
+        ref.set_frame_mass(_top)
     _ref = Frame(ref, atm)
     for frame in traj:
         if mass:
             # TODO : just need to set mass once
-            frame.set_frame_m(_top)
+            frame.set_frame_mass(_top)
         if fit:
             _rmsd = frame.rmsd(ref, atommask=atm, use_mass=mass)
         else:
