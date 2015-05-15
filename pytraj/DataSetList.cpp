@@ -551,6 +551,8 @@ struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_3_genexpr;
 struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_4_to_dataframe;
 struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_5_genexpr;
 struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_6__base_dataset_iter;
+struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count;
+struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
@@ -704,6 +706,34 @@ struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_6__base_dataset_iter {
   struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_dset;
   __pyx_t_6pytraj_11DataSetList_const_iterator __pyx_v_it;
   struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self;
+};
+
+
+/* "pytraj/DataSetList.pyx":421
+ *         return np.cumsum(self.to_ndarray(), axis=axis)
+ * 
+ *     def count(self, number=None):             # <<<<<<<<<<<<<<
+ *         return dict((d0.legend, d0.count(number)) for d0 in self)
+ */
+struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count {
+  PyObject_HEAD
+  PyObject *__pyx_v_number;
+  struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self;
+};
+
+
+/* "pytraj/DataSetList.pyx":422
+ * 
+ *     def count(self, number=None):
+ *         return dict((d0.legend, d0.count(number)) for d0 in self)             # <<<<<<<<<<<<<<
+ */
+struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr {
+  PyObject_HEAD
+  struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *__pyx_outer_scope;
+  PyObject *__pyx_v_d0;
+  PyObject *__pyx_t_0;
+  Py_ssize_t __pyx_t_1;
+  PyObject *(*__pyx_t_2)(PyObject *);
 };
 
 
@@ -1406,6 +1436,8 @@ static PyTypeObject *__pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_3_gene
 static PyTypeObject *__pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_4_to_dataframe = 0;
 static PyTypeObject *__pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_5_genexpr = 0;
 static PyTypeObject *__pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_6__base_dataset_iter = 0;
+static PyTypeObject *__pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_7_count = 0;
+static PyTypeObject *__pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr = 0;
 static PyTypeObject *__pyx_array_type = 0;
 static PyTypeObject *__pyx_MemviewEnum_type = 0;
 static PyTypeObject *__pyx_memoryview_type = 0;
@@ -1516,6 +1548,8 @@ static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_96min(struct __pyx
 static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_98max(struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_100sum(struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self, PyObject *__pyx_v_legend, PyObject *__pyx_v_axis); /* proto */
 static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_102cumsum(struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self, PyObject *__pyx_v_axis); /* proto */
+static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_5count_genexpr(PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_104count(struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self, PyObject *__pyx_v_number); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
 static void __pyx_pf_7cpython_5array_5array_2__releasebuffer__(CYTHON_UNUSED arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
@@ -1558,6 +1592,8 @@ static PyObject *__pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_3_genexpr
 static PyObject *__pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_4_to_dataframe(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_5_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_6__base_dataset_iter(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_7_count(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_array(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_Enum(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_memoryview(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -1599,6 +1635,7 @@ static char __pyx_k_stop[] = "stop";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_class[] = "__class__";
 static char __pyx_k_close[] = "close";
+static char __pyx_k_count[] = "count";
 static char __pyx_k_dtype[] = "dtype";
 static char __pyx_k_error[] = "error";
 static char __pyx_k_flags[] = "flags";
@@ -1621,6 +1658,7 @@ static char __pyx_k_legend[] = "legend";
 static char __pyx_k_median[] = "median";
 static char __pyx_k_nameIn[] = "nameIn";
 static char __pyx_k_name_2[] = "__name__";
+static char __pyx_k_number[] = "number";
 static char __pyx_k_pandas[] = "pandas";
 static char __pyx_k_search[] = "search";
 static char __pyx_k_struct[] = "struct";
@@ -1676,6 +1714,7 @@ static char __pyx_k_PytrajConvertError[] = "PytrajConvertError";
 static char __pyx_k_strided_and_direct[] = "<strided and direct>";
 static char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static char __pyx_k_pytraj_cpptraj_dict[] = "pytraj.cpptraj_dict";
+static char __pyx_k_count_locals_genexpr[] = "count.<locals>.genexpr";
 static char __pyx_k_pytraj_externals_six[] = "pytraj.externals.six";
 static char __pyx_k_size_0_can_not_index[] = "size = 0: can not index";
 static char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
@@ -1763,6 +1802,8 @@ static PyObject *__pyx_n_s_close;
 static PyObject *__pyx_n_s_collections;
 static PyObject *__pyx_kp_s_contiguous_and_direct;
 static PyObject *__pyx_kp_s_contiguous_and_indirect;
+static PyObject *__pyx_n_s_count;
+static PyObject *__pyx_n_s_count_locals_genexpr;
 static PyObject *__pyx_n_s_cumsum;
 static PyObject *__pyx_n_s_d;
 static PyObject *__pyx_n_s_data;
@@ -1818,6 +1859,7 @@ static PyObject *__pyx_n_s_name_2;
 static PyObject *__pyx_kp_s_name_and_idx_must_not_be_set_at;
 static PyObject *__pyx_n_s_ndim;
 static PyObject *__pyx_n_s_np;
+static PyObject *__pyx_n_s_number;
 static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_n_s_obj;
 static PyObject *__pyx_n_s_pack;
@@ -10740,6 +10782,8 @@ static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_102cumsum(struct _
  *         (from numpy doc)
  *         """
  *         return np.cumsum(self.to_ndarray(), axis=axis)             # <<<<<<<<<<<<<<
+ * 
+ *     def count(self, number=None):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 419; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -10801,6 +10845,328 @@ static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_102cumsum(struct _
   __Pyx_AddTraceback("pytraj.DataSetList.DataSetList.cumsum", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pytraj/DataSetList.pyx":421
+ *         return np.cumsum(self.to_ndarray(), axis=axis)
+ * 
+ *     def count(self, number=None):             # <<<<<<<<<<<<<<
+ *         return dict((d0.legend, d0.count(number)) for d0 in self)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pytraj_11DataSetList_11DataSetList_105count(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_11DataSetList_11DataSetList_104count[] = "DataSetList.count(self, number=None)";
+static PyObject *__pyx_pw_6pytraj_11DataSetList_11DataSetList_105count(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_number = 0;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("count (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_number,0};
+    PyObject* values[1] = {0};
+    values[0] = ((PyObject *)Py_None);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_number);
+          if (value) { values[0] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "count") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 421; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_number = values[0];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("count", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 421; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pytraj.DataSetList.DataSetList.count", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_6pytraj_11DataSetList_11DataSetList_104count(((struct __pyx_obj_6pytraj_11DataSetList_DataSetList *)__pyx_v_self), __pyx_v_number);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+static PyObject *__pyx_gb_6pytraj_11DataSetList_11DataSetList_5count_2generator5(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+
+/* "pytraj/DataSetList.pyx":422
+ * 
+ *     def count(self, number=None):
+ *         return dict((d0.legend, d0.count(number)) for d0 in self)             # <<<<<<<<<<<<<<
+ */
+
+static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_5count_genexpr(PyObject *__pyx_self) {
+  struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("genexpr", 0);
+  __pyx_cur_scope = (struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *)__pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr(__pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *) __pyx_self;
+  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
+  {
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_6pytraj_11DataSetList_11DataSetList_5count_2generator5, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_count_locals_genexpr); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_cur_scope);
+    __Pyx_RefNannyFinishContext();
+    return (PyObject *) gen;
+  }
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pytraj.DataSetList.DataSetList.count.genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_gb_6pytraj_11DataSetList_11DataSetList_5count_2generator5(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+{
+  struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *__pyx_cur_scope = ((struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *)__pyx_generator->closure);
+  PyObject *__pyx_r = NULL;
+  PyObject *__pyx_t_1 = NULL;
+  Py_ssize_t __pyx_t_2;
+  PyObject *(*__pyx_t_3)(PyObject *);
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("None", 0);
+  switch (__pyx_generator->resume_label) {
+    case 0: goto __pyx_L3_first_run;
+    case 1: goto __pyx_L6_resume_from_yield;
+    default: /* CPython raises the right error here */
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __pyx_L3_first_run:;
+  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  if (likely(PyList_CheckExact(((PyObject *)__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self))) || PyTuple_CheckExact(((PyObject *)__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self))) {
+    __pyx_t_1 = ((PyObject *)__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self); __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
+    __pyx_t_3 = NULL;
+  } else {
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(((PyObject *)__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  for (;;) {
+    if (likely(!__pyx_t_3)) {
+      if (likely(PyList_CheckExact(__pyx_t_1))) {
+        if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
+        #if CYTHON_COMPILING_IN_CPYTHON
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        #else
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        #endif
+      } else {
+        if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
+        #if CYTHON_COMPILING_IN_CPYTHON
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        #else
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        #endif
+      }
+    } else {
+      __pyx_t_4 = __pyx_t_3(__pyx_t_1);
+      if (unlikely(!__pyx_t_4)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_4);
+    }
+    __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_d0);
+    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_d0, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_4);
+    __pyx_t_4 = 0;
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_d0, __pyx_n_s_legend); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_d0, __pyx_n_s_count); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_6);
+    if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_number)) { __Pyx_RaiseClosureNameError("number"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+    __pyx_t_7 = NULL;
+    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_6))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_6, function);
+      }
+    }
+    if (!__pyx_t_7) {
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_number); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
+    } else {
+      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_8);
+      PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
+      __Pyx_INCREF(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_number);
+      PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_number);
+      __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_number);
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    }
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_6);
+    PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_5);
+    __pyx_t_4 = 0;
+    __pyx_t_5 = 0;
+    __pyx_r = __pyx_t_6;
+    __pyx_t_6 = 0;
+    __Pyx_XGIVEREF(__pyx_t_1);
+    __pyx_cur_scope->__pyx_t_0 = __pyx_t_1;
+    __pyx_cur_scope->__pyx_t_1 = __pyx_t_2;
+    __pyx_cur_scope->__pyx_t_2 = __pyx_t_3;
+    __Pyx_XGIVEREF(__pyx_r);
+    __Pyx_RefNannyFinishContext();
+    /* return from generator, yielding value */
+    __pyx_generator->resume_label = 1;
+    return __pyx_r;
+    __pyx_L6_resume_from_yield:;
+    __pyx_t_1 = __pyx_cur_scope->__pyx_t_0;
+    __pyx_cur_scope->__pyx_t_0 = 0;
+    __Pyx_XGOTREF(__pyx_t_1);
+    __pyx_t_2 = __pyx_cur_scope->__pyx_t_1;
+    __pyx_t_3 = __pyx_cur_scope->__pyx_t_2;
+    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* function exit code */
+  PyErr_SetNone(PyExc_StopIteration);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_AddTraceback("genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_generator->resume_label = -1;
+  __Pyx_Generator_clear((PyObject*)__pyx_generator);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+}
+
+/* "pytraj/DataSetList.pyx":421
+ *         return np.cumsum(self.to_ndarray(), axis=axis)
+ * 
+ *     def count(self, number=None):             # <<<<<<<<<<<<<<
+ *         return dict((d0.legend, d0.count(number)) for d0 in self)
+ */
+
+static PyObject *__pyx_pf_6pytraj_11DataSetList_11DataSetList_104count(struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_self, PyObject *__pyx_v_number) {
+  struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("count", 0);
+  __pyx_cur_scope = (struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *)__pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_7_count(__pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_7_count, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
+  __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __pyx_cur_scope->__pyx_v_number = __pyx_v_number;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_number);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_number);
+
+  /* "pytraj/DataSetList.pyx":422
+ * 
+ *     def count(self, number=None):
+ *         return dict((d0.legend, d0.count(number)) for d0 in self)             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_pf_6pytraj_11DataSetList_11DataSetList_5count_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)(&PyDict_Type))), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pytraj/DataSetList.pyx":421
+ *         return np.cumsum(self.to_ndarray(), axis=axis)
+ * 
+ *     def count(self, number=None):             # <<<<<<<<<<<<<<
+ *         return dict((d0.legend, d0.count(number)) for d0 in self)
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pytraj.DataSetList.DataSetList.count", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -22328,6 +22694,7 @@ static PyMethodDef __pyx_methods_6pytraj_11DataSetList_DataSetList[] = {
   {"max", (PyCFunction)__pyx_pw_6pytraj_11DataSetList_11DataSetList_99max, METH_NOARGS, __pyx_doc_6pytraj_11DataSetList_11DataSetList_98max},
   {"sum", (PyCFunction)__pyx_pw_6pytraj_11DataSetList_11DataSetList_101sum, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_11DataSetList_11DataSetList_100sum},
   {"cumsum", (PyCFunction)__pyx_pw_6pytraj_11DataSetList_11DataSetList_103cumsum, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_11DataSetList_11DataSetList_102cumsum},
+  {"count", (PyCFunction)__pyx_pw_6pytraj_11DataSetList_11DataSetList_105count, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_11DataSetList_11DataSetList_104count},
   {0, 0, 0, 0}
 };
 
@@ -23254,6 +23621,233 @@ static PyTypeObject __pyx_type_6pytraj_11DataSetList___pyx_scope_struct_6__base_
   #endif
 };
 
+static struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *__pyx_freelist_6pytraj_11DataSetList___pyx_scope_struct_7_count[8];
+static int __pyx_freecount_6pytraj_11DataSetList___pyx_scope_struct_7_count = 0;
+
+static PyObject *__pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_7_count(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_6pytraj_11DataSetList___pyx_scope_struct_7_count > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count)))) {
+    o = (PyObject*)__pyx_freelist_6pytraj_11DataSetList___pyx_scope_struct_7_count[--__pyx_freecount_6pytraj_11DataSetList___pyx_scope_struct_7_count];
+    memset(o, 0, sizeof(struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_6pytraj_11DataSetList___pyx_scope_struct_7_count(PyObject *o) {
+  struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *p = (struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_v_number);
+  Py_CLEAR(p->__pyx_v_self);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_6pytraj_11DataSetList___pyx_scope_struct_7_count < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count)))) {
+    __pyx_freelist_6pytraj_11DataSetList___pyx_scope_struct_7_count[__pyx_freecount_6pytraj_11DataSetList___pyx_scope_struct_7_count++] = ((struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_6pytraj_11DataSetList___pyx_scope_struct_7_count(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *p = (struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *)o;
+  if (p->__pyx_v_number) {
+    e = (*v)(p->__pyx_v_number, a); if (e) return e;
+  }
+  if (p->__pyx_v_self) {
+    e = (*v)(((PyObject*)p->__pyx_v_self), a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_6pytraj_11DataSetList___pyx_scope_struct_7_count(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *p = (struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *)o;
+  tmp = ((PyObject*)p->__pyx_v_number);
+  p->__pyx_v_number = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_self);
+  p->__pyx_v_self = ((struct __pyx_obj_6pytraj_11DataSetList_DataSetList *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_6pytraj_11DataSetList___pyx_scope_struct_7_count = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pytraj.DataSetList.__pyx_scope_struct_7_count", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_6pytraj_11DataSetList___pyx_scope_struct_7_count, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #else
+  0, /*reserved*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_6pytraj_11DataSetList___pyx_scope_struct_7_count, /*tp_traverse*/
+  __pyx_tp_clear_6pytraj_11DataSetList___pyx_scope_struct_7_count, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_7_count, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
+static struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *__pyx_freelist_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr[8];
+static int __pyx_freecount_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr = 0;
+
+static PyObject *__pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr)))) {
+    o = (PyObject*)__pyx_freelist_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr[--__pyx_freecount_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr];
+    memset(o, 0, sizeof(struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr(PyObject *o) {
+  struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *p = (struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_outer_scope);
+  Py_CLEAR(p->__pyx_v_d0);
+  Py_CLEAR(p->__pyx_t_0);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr)))) {
+    __pyx_freelist_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr[__pyx_freecount_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr++] = ((struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *p = (struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *)o;
+  if (p->__pyx_outer_scope) {
+    e = (*v)(((PyObject*)p->__pyx_outer_scope), a); if (e) return e;
+  }
+  if (p->__pyx_v_d0) {
+    e = (*v)(p->__pyx_v_d0, a); if (e) return e;
+  }
+  if (p->__pyx_t_0) {
+    e = (*v)(p->__pyx_t_0, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *p = (struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr *)o;
+  tmp = ((PyObject*)p->__pyx_outer_scope);
+  p->__pyx_outer_scope = ((struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_7_count *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_d0);
+  p->__pyx_v_d0 = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_t_0);
+  p->__pyx_t_0 = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pytraj.DataSetList.__pyx_scope_struct_8_genexpr", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #else
+  0, /*reserved*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr, /*tp_traverse*/
+  __pyx_tp_clear_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
 static PyObject *__pyx_tp_new_array(PyTypeObject *t, PyObject *a, PyObject *k) {
   struct __pyx_array_obj *p;
   PyObject *o;
@@ -23953,6 +24547,8 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     "__pyx_scope_struct_4_to_dataframe",
     "__pyx_scope_struct_5_genexpr",
     "__pyx_scope_struct_6__base_dataset_iter",
+    "__pyx_scope_struct_7_count",
+    "__pyx_scope_struct_8_genexpr",
     "__pyx_scope_struct____iter__",
     "_memoryviewslice",
     "array",
@@ -23971,20 +24567,15 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     type_name++;
   }
   if (0);
-  else if (__Pyx_StrEq(name, "contiguous")) {
+  else if (__Pyx_StrEq(name, "strided")) {
     Py_INCREF(o);
-    Py_DECREF(contiguous);
-    contiguous = o;
+    Py_DECREF(strided);
+    strided = o;
   }
   else if (__Pyx_StrEq(name, "indirect")) {
     Py_INCREF(o);
     Py_DECREF(indirect);
     indirect = o;
-  }
-  else if (__Pyx_StrEq(name, "strided")) {
-    Py_INCREF(o);
-    Py_DECREF(strided);
-    strided = o;
   }
   else if (__Pyx_StrEq(name, "Py_None")) {
     PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
@@ -23999,6 +24590,11 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     Py_INCREF(o);
     Py_DECREF(indirect_contiguous);
     indirect_contiguous = o;
+  }
+  else if (__Pyx_StrEq(name, "contiguous")) {
+    Py_INCREF(o);
+    Py_DECREF(contiguous);
+    contiguous = o;
   }
   else {
     if (PyObject_SetAttr(__pyx_m, py_name, o) < 0) goto bad;
@@ -24191,6 +24787,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_collections, __pyx_k_collections, sizeof(__pyx_k_collections), 0, 0, 1, 1},
   {&__pyx_kp_s_contiguous_and_direct, __pyx_k_contiguous_and_direct, sizeof(__pyx_k_contiguous_and_direct), 0, 0, 1, 0},
   {&__pyx_kp_s_contiguous_and_indirect, __pyx_k_contiguous_and_indirect, sizeof(__pyx_k_contiguous_and_indirect), 0, 0, 1, 0},
+  {&__pyx_n_s_count, __pyx_k_count, sizeof(__pyx_k_count), 0, 0, 1, 1},
+  {&__pyx_n_s_count_locals_genexpr, __pyx_k_count_locals_genexpr, sizeof(__pyx_k_count_locals_genexpr), 0, 0, 1, 1},
   {&__pyx_n_s_cumsum, __pyx_k_cumsum, sizeof(__pyx_k_cumsum), 0, 0, 1, 1},
   {&__pyx_n_s_d, __pyx_k_d, sizeof(__pyx_k_d), 0, 0, 1, 1},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
@@ -24246,6 +24844,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_name_and_idx_must_not_be_set_at, __pyx_k_name_and_idx_must_not_be_set_at, sizeof(__pyx_k_name_and_idx_must_not_be_set_at), 0, 0, 1, 0},
   {&__pyx_n_s_ndim, __pyx_k_ndim, sizeof(__pyx_k_ndim), 0, 0, 1, 1},
   {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
+  {&__pyx_n_s_number, __pyx_k_number, sizeof(__pyx_k_number), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
   {&__pyx_n_s_obj, __pyx_k_obj, sizeof(__pyx_k_obj), 0, 0, 1, 1},
   {&__pyx_n_s_pack, __pyx_k_pack, sizeof(__pyx_k_pack), 0, 0, 1, 1},
@@ -24823,6 +25422,12 @@ PyMODINIT_FUNC PyInit_DataSetList(void)
   if (PyType_Ready(&__pyx_type_6pytraj_11DataSetList___pyx_scope_struct_6__base_dataset_iter) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 365; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_6pytraj_11DataSetList___pyx_scope_struct_6__base_dataset_iter.tp_print = 0;
   __pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_6__base_dataset_iter = &__pyx_type_6pytraj_11DataSetList___pyx_scope_struct_6__base_dataset_iter;
+  if (PyType_Ready(&__pyx_type_6pytraj_11DataSetList___pyx_scope_struct_7_count) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 421; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_11DataSetList___pyx_scope_struct_7_count.tp_print = 0;
+  __pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_7_count = &__pyx_type_6pytraj_11DataSetList___pyx_scope_struct_7_count;
+  if (PyType_Ready(&__pyx_type_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 422; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr.tp_print = 0;
+  __pyx_ptype_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr = &__pyx_type_6pytraj_11DataSetList___pyx_scope_struct_8_genexpr;
   if (PyType_Ready(&__pyx_type___pyx_array) < 0) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type___pyx_array.tp_print = 0;
   __pyx_array_type = &__pyx_type___pyx_array;

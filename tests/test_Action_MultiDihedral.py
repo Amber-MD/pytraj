@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
             d0.info()
 
         print (dir(d0))
-        print (d0.is_torsion_array())
+        print (d0._is_torsion_array())
 
         print (dslist.get_dtypes())
         print (dslist.get_aspects())

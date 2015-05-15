@@ -417,3 +417,6 @@ cdef class DataSetList:
         (from numpy doc)
         """
         return np.cumsum(self.to_ndarray(), axis=axis)
+
+    def count(self, number=None):
+        return dict((d0.legend, d0.count(number)) for d0 in self)
