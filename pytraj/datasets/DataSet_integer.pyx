@@ -79,8 +79,27 @@ cdef class DataSet_integer (DataSet_1D):
                     count += 1
             return count
 
-    def append(self, int d):
-        self.thisptr.AddElement(d)
+    def append(self, values):
+        cdef int i, d
+        cdef int[:] int_view
+        cdef pyarray arr
+
+        if hasattr(values, 'real') and hasattr(values, 'imag'):
+            # a number
+            self.thisptr.AddElement(<int> values)
+        else:
+            try:
+                int_view = values
+            except:
+                if hasattr(values, 'data'):
+                    try:
+                        int_view = values.data
+                    except:
+                        arr = pyarray('i', values)
+                        int_view = arr
+
+            for i in range(int_view.shape[0]):
+                self.thisptr.AddElement(int_view[i])
 
     def _add(self, int idx, int value):
         self.thisptr.Add(idx, &value)

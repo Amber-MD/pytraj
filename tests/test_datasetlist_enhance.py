@@ -34,5 +34,9 @@ class Test(unittest.TestCase):
         assert np.mean(ds0) == ds0.avg()
         assert np.sum(ds0) == np.sum(ds0.data)
 
+        print ("test split")
+        print (ds0)
+        print (ds0.split(3))
+
 if __name__ == "__main__":
     unittest.main()
