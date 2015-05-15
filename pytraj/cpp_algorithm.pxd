@@ -11,3 +11,5 @@ cdef extern from "<algorithm>" namespace "std" nogil:
 
     void sort_heap[Iter](Iter first, Iter last)
     void sort_heap[Iter, Compare](Iter first, Iter last, Compare comp)
+
+    void iter_swap[Iter](Iter first, Iter second)
