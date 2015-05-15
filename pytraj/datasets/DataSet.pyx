@@ -254,6 +254,13 @@ cdef class DataSet:
         d.add_dataset(self)
         d.write_data()
 
+    def save(self, filename, format='cpptraj'):
+        '''TODO: pickle, json'''
+        if format == 'cpptraj':
+            self.write_to_cpptraj_format(filename)
+        else:
+            raise NotImplementedError("not yet, stay tuned")
+
     def plot(self, *args, **kwd):
         """return matplotlib object
         Notes
