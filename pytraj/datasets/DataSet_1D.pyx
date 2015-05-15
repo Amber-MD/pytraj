@@ -11,6 +11,10 @@ cdef class DataSet_1D (DataSet):
     def __dealloc__(self):
         pass
 
+    @property
+    def shape(self):
+        return (self.size,)
+
     def _recast_pointers(self, idx=0):
         """
         Since we use >=2 pointers pointing to the same address,
@@ -29,13 +33,13 @@ cdef class DataSet_1D (DataSet):
     def write_buffer(self, CpptrajFile cppfile, size_t sizet):
         self.baseptr_1.WriteBuffer(cppfile.thisptr[0], sizet)
 
-    def d_val(self, size_t sizet):
+    def _d_val(self, size_t sizet):
         return self.baseptr_1.Dval(sizet)
 
-    def xcrd(self, size_t sizet):
+    def _xcrd(self, size_t sizet):
         return self.baseptr_1.Xcrd(sizet)
 
-    def is_torsion_array(self):
+    def _is_torsion_array(self):
         return self.baseptr_1.IsTorsionArray()
 
     def avg(self, *args):
@@ -51,9 +55,10 @@ cdef class DataSet_1D (DataSet):
     def max(self):
         return self.baseptr_1.Max()
 
-    def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn, bint calccovar, bint usefft):
-        return self.baseptr_1.CrossCorr(D2.baseptr_1[0], Ct.baseptr_1[0], lagmaxIn, calccovar, usefft)
+    def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn, 
+                bint calccovar, bint usefft):
+        return self.baseptr_1.CrossCorr(D2.baseptr_1[0], Ct.baseptr_1[0], 
+                lagmaxIn, calccovar, usefft)
 
     def corr_coeff(self, DataSet_1D other):
         return self.baseptr_1.CorrCoeff(other.baseptr_1[0])
-
