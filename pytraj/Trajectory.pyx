@@ -563,11 +563,15 @@ cdef class Trajectory (object):
 
         return myview
 
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    @cython.initializedcheck(False)
     def __setitem__(self, idx, other):
         # TODO : add slice
         # make a copy
         # to make thing simple, we don't use fancy slicing here
         cdef Frame frame = Frame() # create _Frame pointer
+        frame.py_free_mem = False
         cdef AtomMask atm
         cdef double[:, :, :] view3d
         cdef double* ptr
@@ -584,14 +588,15 @@ cdef class Trajectory (object):
             if isinstance(idx, AtomMask):
                 atm = <AtomMask> idx
             else:
-                atm = AtomMask(idx)
+                atm = self.top(idx)
             view3d = other
             int_view = atm.indices
             # loop all frames
             for i in range(view3d.shape[0]):
                 # don't use pointer: frame.thisptr = self.frame_v[i]
                 # (got segfault)
-                frame = self[i]
+                #frame = self[i]
+                frame.thisptr = self.frame_v[i]
                 # loop all selected atoms
                 for j in range(view3d.shape[1]):
                     # take atom index
