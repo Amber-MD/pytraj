@@ -57,3 +57,13 @@ cdef class DataSet_float (DataSet_1D):
 
         def __set__(self, data):
             raise NotImplementedError()
+
+    def append(self, ds):
+        cdef int new_size = self.size + ds.size
+        cdef int j
+        self.resize(new_size)
+
+        j = 0
+        for i in range(self.size, new_size):
+            self[i] = ds[j]
+            j += 1
