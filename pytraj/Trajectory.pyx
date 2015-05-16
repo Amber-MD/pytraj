@@ -326,24 +326,25 @@ cdef class Trajectory (object):
         return (self.n_frames, self[0].n_atoms, 3)
 
     @property
-    def xyz(self):
+    def _xyz(self):
         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
         """
         cdef bint has_numpy
-        has_numpy, np = _import_numpy()
         cdef int i
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms
         cdef Frame frame
-        myview = np.empty((n_frames, n_atoms, 3))
+
+        has_numpy, np = _import_numpy()
+        myview = np.empty((n_frames, n_atoms, 3), dtype='f8')
 
         if self.n_atoms == 0:
             raise NotImplementedError("need to have non-empty Topology")
         if has_numpy:
             for i, frame in enumerate(self):
-                myview[i] = np.asarray(frame.buffer2d[:])
-            return np.asarray(myview)
+                myview[i] = frame.buffer2d
+            return myview
         else:
             raise NotImplementedError("must have numpy")
 

@@ -394,6 +394,7 @@ cdef class Trajin (TrajectoryFile):
             self.baseptr_1.SetTotalFrames(value)
 
     @property
+    @memoize
     def size(self):
         # alias of max_frames
         return self.max_frames
@@ -419,6 +420,9 @@ cdef class Trajin (TrajectoryFile):
     def _end_traj(self):
         self.baseptr_1.EndTraj()
 
+    def close(self):
+        self._end_traj()
+
     def _read_traj_frame(self, int currentFrame, Frame frameIn):
         # TODO : add checking frame.n_atoms == self.top.n_atoms?
         return self.baseptr_1.ReadTrajFrame(currentFrame, frameIn.thisptr[0])
@@ -429,9 +433,8 @@ cdef class Trajin (TrajectoryFile):
     def write(self, *args, **kwd):
         self.save(*args, **kwd)
 
-    def get_subframes(self, mask, indices=None):
-        cdef Trajectory farray = Trajectory()
-        raise NotImplementedError("not yet")
+    def get_subframes(self, mask=None, indices=None):
+        raise NotImplementedError()
 
     @property
     def temperatures(self):
@@ -461,6 +464,7 @@ cdef class Trajin (TrajectoryFile):
         raise NotImplementedError(txt)
 
     @property
+    @memoize
     def shape(self):
         return (self.size, self[0].n_atoms, 3)
 
@@ -472,14 +476,17 @@ cdef class Trajin (TrajectoryFile):
         """
         return _xyz(self)
 
+    @memoize
     def tolist(self):
         return _tolist(self)
 
     @property
+    @memoize
     def coordinfo(self):
         cdef CoordinateInfo cinfo = CoordinateInfo()
         cinfo.thisptr[0] = self.baseptr_1.TrajCoordInfo()
         return cinfo
 
+    @memoize
     def box_to_ndarray(self):
         return _box_to_ndarray(self)
