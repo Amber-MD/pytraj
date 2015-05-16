@@ -8,7 +8,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.Command import Command
 from pytraj.CpptrajState import CpptrajState
 from pytraj.decorators import no_test
-from pytraj.six_2 import izip as zip
+from pytraj.compat import izip as zip
 
 text="""
 parm ./data/Tc5b.top

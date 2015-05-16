@@ -5,7 +5,7 @@ from pytraj.core import Box
 from array import array as pyarray
 from pytraj.decorators import test_if_having
 from pytraj.testing import eq, aa_eq
-from pytraj.six_2 import zip
+from pytraj.compat import zip
 
 class TestBox(unittest.TestCase):
     def test_0(self):

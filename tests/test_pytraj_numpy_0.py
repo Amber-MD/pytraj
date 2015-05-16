@@ -9,7 +9,7 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 from pytraj.api import Trajectory
 import pytraj.api
-from pytraj.six_2 import izip
+from pytraj.compat import izip
 import numpy as np
 
 fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
