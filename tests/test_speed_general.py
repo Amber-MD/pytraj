@@ -5,7 +5,7 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq, eq_coords
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
-from pytraj.testing import cpptraj_test_dir
+from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 from pytraj.utils import Timer
 
@@ -52,11 +52,8 @@ class Test(unittest.TestCase):
         aa_eq(fa['@CA'].xyz, X[:, indices])
 
         # assignment speed
-        # 10240 frames
-        FA = fa.copy()
-        for _ in range(3):
-            FA += FA + FA + FA
-        FA += FA[:10000].copy()
+        # 10000 frames
+        FA = duplicate_traj(traj, 1000)
         fa = FA[:50000]
         print (fa)
         xyz = fa['@CA'].xyz.copy() + 1.
