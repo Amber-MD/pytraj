@@ -35,5 +35,15 @@ class Test(unittest.TestCase):
         fa[atm] = xyz_sub
         aa_eq(fa['@CA'].xyz, xyz_sub)
 
+        # all atoms
+        xyz = traj.xyz + 2.
+        fa["*"] = xyz
+        aa_eq(fa.xyz, xyz)
+
+        # all atoms for a set of frames
+        xyz = traj.xyz[:3] + 3.
+        fa[:3]["*"] = xyz
+        aa_eq(fa.xyz[:3], xyz)
+
 if __name__ == "__main__":
     unittest.main()
