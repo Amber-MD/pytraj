@@ -11,6 +11,7 @@ from pytraj.utils import Timer
 
 class Test(unittest.TestCase):
     @test_if_having("h5py")
+    @test_if_having("mdtraj")
     def test_0(self):
         from mdtraj.testing import get_fn
         import mdtraj
