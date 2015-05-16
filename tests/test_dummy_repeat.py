@@ -8,6 +8,7 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test, test_if_having
 import pytraj.common_actions as pyca
+from pytraj.compat import range
 
 class Test(unittest.TestCase):
 
@@ -50,6 +51,18 @@ class Test(unittest.TestCase):
             d1 = d0.groupby("TRP:6")
 
         print (d1.keys())
+
+    def test_3(self):
+        print ("repeat to_dict")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        d0 = traj.search_hbonds(dtype='dataset')
+        ddcit = d0.to_dict()
+
+        for i in range(100):
+            d = pyca.search_hbonds(traj, dtype='dataset').to_dict()
+            assert sorted(ddcit) == sorted(d)
+
+        assert (ddcit.keys().__len__() == 20)
 
 if __name__ == "__main__":
     unittest.main()
