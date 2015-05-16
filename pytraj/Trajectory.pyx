@@ -589,6 +589,9 @@ cdef class Trajectory (object):
             frame = <Frame> other.copy()
             frame.py_free_mem = False
             self.frame_v[idx] = frame.thisptr
+        elif idx == '*':
+            # update all atoms, use fast version
+            self.update_xyz(other) # xyz
         elif isinstance(idx, AtomMask) or isinstance(idx, string_types):
             if isinstance(idx, AtomMask):
                 atm = <AtomMask> idx
