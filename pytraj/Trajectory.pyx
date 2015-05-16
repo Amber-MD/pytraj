@@ -326,7 +326,7 @@ cdef class Trajectory (object):
         return (self.n_frames, self[0].n_atoms, 3)
 
     @property
-    def _xyz(self):
+    def xyz(self):
         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
         """
