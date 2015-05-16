@@ -331,19 +331,20 @@ cdef class Trajectory (object):
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
         """
         cdef bint has_numpy
-        has_numpy, np = _import_numpy()
         cdef int i
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms
         cdef Frame frame
-        myview = np.empty((n_frames, n_atoms, 3))
+
+        has_numpy, np = _import_numpy()
+        myview = np.empty((n_frames, n_atoms, 3), dtype='f8')
 
         if self.n_atoms == 0:
             raise NotImplementedError("need to have non-empty Topology")
         if has_numpy:
             for i, frame in enumerate(self):
-                myview[i] = np.asarray(frame.buffer2d[:])
-            return np.asarray(myview)
+                myview[i] = frame.buffer2d
+            return myview
         else:
             raise NotImplementedError("must have numpy")
 
@@ -585,10 +586,18 @@ cdef class Trajectory (object):
 
         if len(self) == 0:
             raise ValueError("Your Trajectory is empty, how can I index it?")
-        if isinstance(idx, (long, int)) and isinstance(other, Frame):
-            frame = <Frame> other.copy()
-            frame.py_free_mem = False
-            self.frame_v[idx] = frame.thisptr
+        if is_int(idx):
+            if isinstance(other, Frame):
+                frame = <Frame> other.copy()
+                frame.py_free_mem = False
+                self.frame_v[idx] = frame.thisptr
+            else:
+                # xyz
+                try:
+                    self[<int> idx]._fast_copy_from_xyz(other)
+                except:
+                    msg = "`other` must be a Frame or an array xzy with shape=(natoms, 3), dtype=float64"
+                    raise ValueError(msg)
         elif idx == '*':
             # update all atoms, use fast version
             self.update_xyz(other) # xyz
@@ -671,7 +680,9 @@ cdef class Trajectory (object):
                     raise TypeError("dont know how to cast to memoryview")
             frame2.thisptr = new _Frame(<int>atm.n_atoms)
         else:
-            frame = Frame(n_atoms)
+            #frame = Frame(n_atoms)
+            # don't need to allocate frame here
+            pass
 
         # use `with` to make this consistent with Trajin.pyx
         # (not really need)

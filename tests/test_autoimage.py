@@ -5,7 +5,7 @@ from pytraj import io as mdio
 import pytraj.io as io
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import test_if_having, no_test
-from pytraj.six_2 import izip as zip
+from pytraj.compat import izip as zip
 
 class Test(unittest.TestCase):
     def test_1(self):

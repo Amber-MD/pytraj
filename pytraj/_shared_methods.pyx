@@ -6,7 +6,7 @@ from pytraj.Trajectory cimport Trajectory
 from pytraj.AtomMask cimport AtomMask
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
-from pytraj.six_2 import set
+from pytraj.compat import set
 from pytraj.utils import _import_numpy
 from pytraj.exceptions import PytrajMemviewError, PytrajConvertError
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter

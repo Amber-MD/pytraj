@@ -4,7 +4,7 @@ from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 from pytraj.utils import Timer
 from pytraj._shared_methods import _frame_iter
-from pytraj.six_2 import zip
+from pytraj.compat import zip
 
 def test_0():
     from pytraj import set_world_silent

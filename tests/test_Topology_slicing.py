@@ -1,7 +1,7 @@
 from __future__ import print_function
 import unittest
 from pytraj import io as mdio
-from pytraj.six_2 import izip
+from pytraj.compat import izip
 from pytraj.core import Atom
 
 class Test(unittest.TestCase):

@@ -13,7 +13,7 @@ from pytraj.utils.check_and_assert import _import_numpy
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.parms._ParmFile import TMPParmFile
 from pytraj.externals.six import PY3, PY2, string_types, binary_type
-from pytraj.six_2 import set
+from pytraj.compat import set
 
 cdef class Topology:
     def __cinit__(self, *args):

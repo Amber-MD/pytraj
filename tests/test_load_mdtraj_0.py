@@ -9,8 +9,8 @@ from pytraj.utils import has_
 from pytraj.misc import get_atts
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 from pytraj.utils.check_and_assert import eq
-from pytraj.six_2 import izip
-from pytraj.six_2 import izip as zip
+from pytraj.compat import izip
+from pytraj.compat import izip as zip
 from pytraj.testing import test_if_having
 
 import numpy as np

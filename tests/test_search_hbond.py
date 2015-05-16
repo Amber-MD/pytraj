@@ -8,7 +8,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 from pytraj.externals.six import iteritems as items
-from pytraj.six_2 import izip as zip
+from pytraj.compat import izip as zip
 
 class Test(unittest.TestCase):
     #@no_test

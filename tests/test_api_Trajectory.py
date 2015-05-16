@@ -8,7 +8,7 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 from pytraj import api
-from pytraj.six_2 import zip
+from pytraj.compat import zip
 
 class Test(unittest.TestCase):
     def test_0(self):

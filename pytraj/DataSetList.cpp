@@ -1698,9 +1698,9 @@ static char __pyx_k_DataTypeDict[] = "DataTypeDict";
 static char __pyx_k_cast_dataset[] = "cast_dataset";
 static char __pyx_k_default_name[] = "default_name";
 static char __pyx_k_import_numpy[] = "_import_numpy";
-static char __pyx_k_pytraj_six_2[] = "pytraj.six_2";
 static char __pyx_k_pytraj_utils[] = "pytraj.utils";
 static char __pyx_k_string_types[] = "string_types";
+static char __pyx_k_pytraj_compat[] = "pytraj.compat";
 static char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
 static char __pyx_k_add_copy_of_set[] = "_add_copy_of_set";
 static char __pyx_k_allocate_buffer[] = "allocate_buffer";
@@ -1868,11 +1868,11 @@ static PyObject *__pyx_n_s_precisionIn;
 static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_py_free_mem;
 static PyObject *__pyx_kp_s_pytraj_DataSetList_with_s_datas;
+static PyObject *__pyx_n_s_pytraj_compat;
 static PyObject *__pyx_n_s_pytraj_cpptraj_dict;
 static PyObject *__pyx_n_s_pytraj_datasets_cast_dataset;
 static PyObject *__pyx_n_s_pytraj_exceptions;
 static PyObject *__pyx_n_s_pytraj_externals_six;
-static PyObject *__pyx_n_s_pytraj_six_2;
 static PyObject *__pyx_n_s_pytraj_utils;
 static PyObject *__pyx_n_s_pytraj_utils_check_and_assert;
 static PyObject *__pyx_n_s_pyx_getbuffer;
@@ -24567,16 +24567,6 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     type_name++;
   }
   if (0);
-  else if (__Pyx_StrEq(name, "strided")) {
-    Py_INCREF(o);
-    Py_DECREF(strided);
-    strided = o;
-  }
-  else if (__Pyx_StrEq(name, "indirect")) {
-    Py_INCREF(o);
-    Py_DECREF(indirect);
-    indirect = o;
-  }
   else if (__Pyx_StrEq(name, "Py_None")) {
     PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
     {__pyx_filename = __pyx_f[3]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L2_error;}
@@ -24595,6 +24585,16 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     Py_INCREF(o);
     Py_DECREF(contiguous);
     contiguous = o;
+  }
+  else if (__Pyx_StrEq(name, "indirect")) {
+    Py_INCREF(o);
+    Py_DECREF(indirect);
+    indirect = o;
+  }
+  else if (__Pyx_StrEq(name, "strided")) {
+    Py_INCREF(o);
+    Py_DECREF(strided);
+    strided = o;
   }
   else {
     if (PyObject_SetAttr(__pyx_m, py_name, o) < 0) goto bad;
@@ -24853,11 +24853,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_py_free_mem, __pyx_k_py_free_mem, sizeof(__pyx_k_py_free_mem), 0, 0, 1, 1},
   {&__pyx_kp_s_pytraj_DataSetList_with_s_datas, __pyx_k_pytraj_DataSetList_with_s_datas, sizeof(__pyx_k_pytraj_DataSetList_with_s_datas), 0, 0, 1, 0},
+  {&__pyx_n_s_pytraj_compat, __pyx_k_pytraj_compat, sizeof(__pyx_k_pytraj_compat), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_cpptraj_dict, __pyx_k_pytraj_cpptraj_dict, sizeof(__pyx_k_pytraj_cpptraj_dict), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_datasets_cast_dataset, __pyx_k_pytraj_datasets_cast_dataset, sizeof(__pyx_k_pytraj_datasets_cast_dataset), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_exceptions, __pyx_k_pytraj_exceptions, sizeof(__pyx_k_pytraj_exceptions), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_externals_six, __pyx_k_pytraj_externals_six, sizeof(__pyx_k_pytraj_externals_six), 0, 0, 1, 1},
-  {&__pyx_n_s_pytraj_six_2, __pyx_k_pytraj_six_2, sizeof(__pyx_k_pytraj_six_2), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_utils, __pyx_k_pytraj_utils, sizeof(__pyx_k_pytraj_utils), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj_utils_check_and_assert, __pyx_k_pytraj_utils_check_and_assert, sizeof(__pyx_k_pytraj_utils_check_and_assert), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
@@ -25578,7 +25578,7 @@ PyMODINIT_FUNC PyInit_DataSetList(void)
  * from collections import defaultdict
  * from pytraj._utils cimport get_positive_idx
  * from pytraj.externals.six import string_types             # <<<<<<<<<<<<<<
- * from pytraj.six_2 import set
+ * from pytraj.compat import set
  * from pytraj.utils import is_int
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -25598,7 +25598,7 @@ PyMODINIT_FUNC PyInit_DataSetList(void)
   /* "pytraj/DataSetList.pyx":14
  * from pytraj._utils cimport get_positive_idx
  * from pytraj.externals.six import string_types
- * from pytraj.six_2 import set             # <<<<<<<<<<<<<<
+ * from pytraj.compat import set             # <<<<<<<<<<<<<<
  * from pytraj.utils import is_int
  * from pytraj.exceptions import *
  */
@@ -25607,7 +25607,7 @@ PyMODINIT_FUNC PyInit_DataSetList(void)
   __Pyx_INCREF(__pyx_n_s_set);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_set);
   __Pyx_GIVEREF(__pyx_n_s_set);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj_six_2, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj_compat, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_set); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -25618,7 +25618,7 @@ PyMODINIT_FUNC PyInit_DataSetList(void)
 
   /* "pytraj/DataSetList.pyx":15
  * from pytraj.externals.six import string_types
- * from pytraj.six_2 import set
+ * from pytraj.compat import set
  * from pytraj.utils import is_int             # <<<<<<<<<<<<<<
  * from pytraj.exceptions import *
  * 
@@ -25638,7 +25638,7 @@ PyMODINIT_FUNC PyInit_DataSetList(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pytraj/DataSetList.pyx":16
- * from pytraj.six_2 import set
+ * from pytraj.compat import set
  * from pytraj.utils import is_int
  * from pytraj.exceptions import *             # <<<<<<<<<<<<<<
  * 
