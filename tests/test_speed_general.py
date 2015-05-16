@@ -127,6 +127,41 @@ class Test(unittest.TestCase):
         fancy_indexing_version()
         aa_eq(fa.xyz ,fa2.xyz) # ok
 
+        # asarray, xyz
+        f = fa[0]
+        import numpy as np
+        @Timer()
+        def call_asarray():
+            # to save time, just call
+            # f.xyz or f.__array__()
+            np.asarray(f)
+
+        @Timer()
+        def call__array__():
+            f.__array__()
+
+        @Timer()
+        def call_xyz():
+            f.xyz
+
+        @Timer()
+        def call_buffer2d():
+            f.buffer2d
+
+        @Timer()
+        def call_buffer2d_slice():
+            f.buffer2d[:]
+
+        print ("call_asarray")
+        call_asarray() # ~10 times slower
+        print ("call__array__")
+        call__array__()
+        print ("call_xyz")
+        call_xyz()
+        print ("call_buffer2d")
+        call_buffer2d() # 2-3 times faster
+        print ("call_buffer2d_slice")
+        call_buffer2d_slice() # 
 
 if __name__ == "__main__":
     unittest.main()

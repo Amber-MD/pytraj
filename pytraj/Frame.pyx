@@ -317,7 +317,8 @@ cdef class Frame (object):
         (== (arr0 = np.asarray(frame[:])))
         """
         _, np = _import_numpy()
-        return np.asarray(self.buffer2d)
+        cdef double* ptr = self.thisptr.xAddress()
+        return np.asarray(<double[:self.thisptr.Natom(), :3]> ptr, dtype='f8')
 
     def _fast_copy_from_frame(self, Frame other):
         """only copy coords"""

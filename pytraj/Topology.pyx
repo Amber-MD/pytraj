@@ -356,6 +356,12 @@ cdef class Topology:
         self.thisptr.SetIpol(id)
 
     @property
+    def filename(self):
+        # I want to keep _original_filename so don't need to
+        # change other codes
+        return self._original_filename
+
+    @property
     def _original_filename(self):
         cdef FileName filename = FileName()
         filename.thisptr[0] = self.thisptr.OriginalFilename()
