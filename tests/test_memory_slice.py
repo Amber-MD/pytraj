@@ -76,6 +76,14 @@ def main():
     for f in fa():
         f
 
+    # try to iterate Trajectory by frame_iter with mask
+    for f in fa(mask='!@H='):
+        f
+
+    # try to iterate Trajectory by frame_iter with mask
+    for f in fa(mask=':WAT'):
+        f
+
     # try to iterate whole TrajectoryIterator, stop at 1000 frames
     for f in traj(stop=1000):
         f

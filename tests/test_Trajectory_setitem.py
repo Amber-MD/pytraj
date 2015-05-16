@@ -45,5 +45,29 @@ class Test(unittest.TestCase):
         fa[:3]["*"] = xyz
         aa_eq(fa.xyz[:3], xyz)
 
+        # automatically cast
+        fa0 = fa.copy()
+        xyz = fa.xyz + 1.
+        fa0[0] = xyz[0] # fa[0] return a Frame
+        aa_eq(fa0[0].xyz, xyz[0])
+        # try to assign a Frame
+        print (fa0, fa)
+        fa0[0] = fa[0]
+        aa_eq(fa0[0].xyz, fa[0].xyz)
+
+        # try to raise ValueError if mistmach
+        def dtype_mismatch():
+            fa[0] = xyz[0].astype('f4')
+        self.assertRaises(ValueError, lambda: dtype_mismatch())
+
+        def shape_mismatch():
+            fa[0] = xyz
+        self.assertRaises(ValueError, lambda: shape_mismatch())
+
+        # TODO: more shape checking for Trajectory
+        #def shape_mismatch2():
+        #    fa[0] = Frame()
+        #self.assertRaises(ValueError, lambda: shape_mismatch2())
+
 if __name__ == "__main__":
     unittest.main()
