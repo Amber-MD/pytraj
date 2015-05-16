@@ -76,6 +76,7 @@ cdef class Action:
         """
         cdef ArgList arglist
         cdef TopologyList toplist
+        cdef RetType i_fail
 
         if isinstance(top, Topology):
             toplist = TopologyList()
@@ -89,10 +90,15 @@ cdef class Action:
         elif isinstance(command, ArgList):
             arglist = <ArgList> command
 
-        return self.baseptr.Init(arglist.thisptr[0], toplist.thisptr, 
-                       #flist.thisptr, dslist.thisptr, dflist.thisptr,
+        i_fail = self.baseptr.Init(arglist.thisptr[0], toplist.thisptr, 
                        dslist.thisptr, dflist.thisptr,
                        debug)
+
+        if i_fail != OK:
+            # check before do_action to avoid segfault
+            raise ValueError("")
+        else:
+            return i_fail
 
     @makesureABC("Action")
     def process(self, Topology top=Topology(), Topology new_top=Topology()): 
