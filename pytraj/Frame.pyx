@@ -13,7 +13,6 @@ from libc.string cimport memcpy
 from cpython.buffer cimport Py_buffer
 from pytraj.math.TorsionRoutines cimport Torsion as cpptorsion, CalcAngle as cppangle
 from pytraj.math.DistRoutines cimport DIST2_NoImage
-
 import math
 from pytraj.decorators import for_testing, iter_warning
 from pytraj.decorators import name_will_be_changed
@@ -23,6 +22,8 @@ from pytraj.ArgList import ArgList
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
 from pytraj.exceptions import *
+
+DEF RADDEG       =   57.29577951308232
 
 # TODO : reogarnize memory view, there are too many ways to assess
 # need to finalize
@@ -1057,8 +1058,8 @@ cdef class Frame (object):
             idx1 = int_arr[i, 1]
             idx2 = int_arr[i, 2]
             idx3 = int_arr[i, 3]
-            arr0_view[i] = math.degrees(cpptorsion(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
-                          self.thisptr.XYZ(idx2), self.thisptr.XYZ(idx3)))
+            arr0_view[i] = RADDEG * cpptorsion(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
+                          self.thisptr.XYZ(idx2), self.thisptr.XYZ(idx3))
         return arr0
 
     def calc_angle(self, cython.integral[:, :] int_arr):
@@ -1081,8 +1082,8 @@ cdef class Frame (object):
             idx0 = int_arr[i, 0]
             idx1 = int_arr[i, 1]
             idx2 = int_arr[i, 2]
-            arr0_view[i] = (math.degrees(cppangle(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
-                        self.thisptr.XYZ(idx2))))
+            arr0_view[i] = RADDEG * cppangle(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
+                        self.thisptr.XYZ(idx2))
         return arr0
 
     def calc_distance(self, arr, parallel=False):
