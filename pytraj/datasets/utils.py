@@ -3,7 +3,7 @@ Notes : might move to cython
 """
 from __future__ import absolute_import
 from ..DataSetList import DataSetList
-from ..six_2 import zip
+from ..compat import zip
 
 def stack(*args):
     """return a new DataSetList by joining (vstack)
