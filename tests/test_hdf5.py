@@ -100,5 +100,21 @@ class Test(unittest.TestCase):
         traj3 = io.load_hdf5("./data/ala2.h5", top=traj.top)
         aa_eq(traj3.xyz, traj.xyz)
 
+    @test_if_having("mdtraj")
+    def test_1(self):
+        import mdtraj as md
+        from mdtraj.testing import get_fn
+        fn = get_fn("frame0.h5")
+        m_traj = md.load(fn)
+        traj = io.load_hdf5(fn)
+        traj2 = io.load_mdtraj(m_traj, autoconvert=False)
+
+        m_mass = []
+        for atom in m_traj.top.atoms:
+            m_mass.append(atom.element.mass)
+
+        aa_eq(traj.top.mass, m_mass, 2)
+        aa_eq(traj2.top.mass, traj.top.mass, 2)
+
 if __name__ == "__main__":
     unittest.main()

@@ -4,6 +4,7 @@ from ..Topology import Topology
 from ..Trajectory import Trajectory
 from ..Frame import Frame
 from ..core import Atom, Box
+from ..core import mass_atomic_number_dict, mass_element_dict
 
 def load_hdf5(filename_or_buffer, autoconvert=True, restype=None, top=None):
     """"load hd5f format from openmm (?)
@@ -90,7 +91,21 @@ def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None, top=None):
                 for atom in residue['atoms']:
                     aname = atom['name']
                     atype = aname # no infor about atom type in .h5 file from openmm (?)
-                    atom = Atom(aname, atype)
+                    try:
+                        charge = atom['charge']
+                    except:
+                        charge = 0.0
+                    try:
+                        mass = atom['mass']
+                    except:
+                        try:
+                            mass = mass_element_dict[atom['element']]
+                        except:
+                            try:
+                                mass = mass_atomic_number_dict[atom['atomic_number']]
+                            except:
+                                mass = 1.0
+                    atom = Atom(aname, atype, charge, mass)
                     _top.add_atom(atom=atom, resid=resid, resname=resname)
         # add bonds
         # Note: no PBC info for top
