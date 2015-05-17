@@ -1,8 +1,14 @@
 # distutils: language = c++
+from pytraj.cpptraj_dict cimport RetTypeAna, OKANALYSIS, ERRANALYSIS
 from pytraj.externals.six import PY3
 from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
 from pytraj.exceptions import *
+
+cdef extern from "Analysis.h":
+    ctypedef enum RetType "Analysis::RetType":
+        OKANALYSIS "Analysis::OK"
+        ERRANALYSIS "Analysis::ERR"
 
 cdef class Analysis:
     """
@@ -55,6 +61,7 @@ cdef class Analysis:
         cdef ArgList arglist
         cdef TopologyList toplist
         cdef debug = 0
+        cdef RetType STATUS
 
         if isinstance(top, Topology) or isinstance(top, string_types):
             toplist = TopologyList()
@@ -71,11 +78,15 @@ cdef class Analysis:
         else:
             raise ValueError()
 
-        return self.baseptr.Setup(arglist.thisptr[0], 
+        STATUS = self.baseptr.Setup(arglist.thisptr[0], 
                        dslist.thisptr, 
                        toplist.thisptr,
                        dflist.thisptr,
                        debug)
+        if STATUS == ERRANALYSIS:
+            raise ValueError()
+        else:
+            return STATUS
 
     @makesureABC("Analysis")
     def do_analysis(self):
