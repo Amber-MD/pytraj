@@ -163,5 +163,46 @@ class Test(unittest.TestCase):
         print ("call_buffer2d_slice")
         call_buffer2d_slice() # 
 
+    def test_1(self):
+        from pytraj.testing import duplicate_traj
+        print ("test _fast_update_xyz")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        indices = traj.top("!@H=").indices
+        f = traj[0]
+        for i in range(4):
+            f.append_xyz(f.xyz)
+        xyz = f.xyz + 1.
+
+        @Timer()
+        def test_numpy_all_indices():
+            xyz[:] = xyz
+
+        @Timer()
+        def test_pytraj_all_indices():
+            f._fast_copy_from_xyz(xyz)
+
+        xyz[indices] += 1.
+        new_xyz = xyz[indices]
+        newer_xyz = xyz[indices] + 1.
+        @Timer()
+        def test_numpy_indices():
+            new_xyz[:] = newer_xyz
+
+        @Timer()
+        def test_pytraj_indices():
+            f._fast_copy_from_xyz(newer_xyz, indices)
+
+        print ("numpy: all xyz")
+        test_numpy_all_indices()
+        print ("pytraj: all xyz")
+        test_pytraj_all_indices() # similiar speed (need to run several times)
+        aa_eq(f.xyz, xyz)
+
+        print ('numpy with indices')
+        test_numpy_indices()
+        print ('pytraj with indices')
+        test_pytraj_indices() # similiar speed (need to run several times)
+        aa_eq(f[indices], new_xyz)
+
 if __name__ == "__main__":
     unittest.main()
