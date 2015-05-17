@@ -508,13 +508,52 @@ calc_COG = calc_center_of_geometry = partial(_calc_vector_center, use_mass=False
 
 def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
     """return  DataSetList object
+    Parameters
+    ----------
+    traj : Trajectory-like, iterable object
+    command : mask (default=all atom) + extra command
+        See `Notes` below for further info
+    top : Topology, optional, default=None
+    *args, **kwd: optional (dtype='dataset' | 'pyarray' | 'ndarray' | 'list')
 
     Examples:
-        dslist = calc_pairwise_rmsd("@CA", traj)
+        # calculate pairwise rmsd for all frames using CA atoms
+        dslist = calc_pairwise_rmsd(traj, "@CA")
         dslist.to_ndarray()
         dslist.tolist()
+
+        # calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)
+        # convert to numpy array
+        arr_np = calc_pairwise_rmsd(traj, "@CA dme", dtype='ndarray')
+
+        # calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD
+        # convert to numpy array
+        arr_np = calc_pairwise_rmsd(traj, "@CA nofit", dtype='ndarray')
+
+        # calculate pairwise rmsd for all frames using CA atoms
+        # use symmetry-corrected RMSD, convert to numpy array
+        arr_np = calc_pairwise_rmsd(traj, "@CA srmsd", dtype='ndarray')
+
+    Notes
+    -----
+    * Same as `Analysis_Rms2d` in cpptraj (Amber15 manual, page 613)
+    * Support `openmp`: require install `libcpptraj` with `openmp` flag
+    * Memory: this calculation will make a copy of `traj`, it's better to use
+        TrajectoryIterator
+    * Command from cpptraj
+        [<name>] [<mask>] [out <filename>]
+        [dme | nofit | srmsd] [mass]
+    * See full details
+        from pytraj import info
+        info("rms2d")
     """
     from pytraj.analyses import Analysis_Rms2d
+    if 'dtype' in kwd.keys():
+        dtype = kwd['dtype']
+        del kwd['dtype']
+    else:
+        dtype = None
+
     act = Analysis_Rms2d()
 
     dslist = DataSetList()
@@ -532,7 +571,8 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
     act(command, _top, dslist=dslist, *args, **kwd)
     # remove dataset coords to free memory
     dslist.remove_set(dslist[0])
-    return dslist
+
+    return _get_data_from_dtype(dslist, dtype)
 
 def calc_temperatures(traj=None, command="", top=None):
     """return 1D python array of temperatures (from velocity) in traj
