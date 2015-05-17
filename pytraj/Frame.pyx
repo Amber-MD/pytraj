@@ -209,47 +209,51 @@ cdef class Frame (object):
 
     def __getitem__(self, idx):
         cdef AtomMask atm
-        # always return memoryview 
+        cdef cython.view.array cy_arr
+        cdef int new_size
+        cdef int i, j
+        cdef int[:] int_view
+
         has_numpy, np = _import_numpy()
-        if isinstance(idx, AtomMask):
+        if isinstance(idx, pyarray):
+            if not has_numpy:
+                # create memoryview
+                int_view = idx
+                new_size = int_view.shape[0]
+                cy_arr = cython.view.array(shape=(new_size, 3), itemsize=sizeof(double), format='d')
+                for i in range(new_size):
+                    # get index for `self`
+                    j = int_view[i]
+                    cy_arr[i] = self[j]
+                return cy_arr
+            else:
+                return self.xyz[idx]
+        elif isinstance(idx, AtomMask):
             # return a sub-array copy with indices got from 
             # idx.selected_indices()
             # TODO : add doc
             if idx.n_atoms == 0:
                 raise ValueError("emtpy mask")
             if not has_numpy:
-                # return 2D list
-                tmp_arr0 = []
-                for _index in idx.indices:
-                    tmp_arr0.append(list(self.buffer2d[_index]))
-                return tmp_arr0
+                return self[idx.indices]
             else:
-                arr0 = np.asarray(self.buffer2d[:])
-                return arr0[np.array(idx.selected_indices())]
-        if isinstance(idx, pyarray):
-            atm = AtomMask(idx)
-            return self[atm]
+                return self.xyz[idx.indices]
         elif isinstance(idx, dict):
             # Example: frame[dict(top=top, mask='@CA')]
             # return a sub-array copy with indices got from 
             # idx as a `dict` instance
-            # TODO : add doc
             atm = AtomMask(idx['mask'])
             idx['top'].set_integer_mask(atm)
-            if has_numpy:
-                arr0 = np.asarray(self.buffer2d[:])
-                return arr0[np.array(atm.selected_indices())]
-            else:
-                return self[atm]
+            return self[atm.indices]
         elif isinstance(idx, string_types):
             # Example: frame['@CA']
             if self.top is not None and not self.top.is_empty():
-                return self[self.top(idx)]
+                return self[<AtomMask> self.top(idx)]
             else:
                 raise ValueError("must have non-empty topology")
         else:
             if has_numpy:
-                return np.asarray(self.buffer2d[idx])
+                return self.xyz[idx]
             else:
                 return self.buffer2d[idx]
 
@@ -257,6 +261,7 @@ cdef class Frame (object):
         has_np, np = _import_numpy()
 
         if isinstance(value, (tuple, list)):
+            # 1D
             try:
                 value = pyarray('d', value)
                 self.buffer2d[idx] = value

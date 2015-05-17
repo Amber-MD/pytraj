@@ -15,6 +15,8 @@ cdef class Atom:
         # TODO : add more constructors
         cdef NameType aname, atype
         cdef Atom other
+        cdef double charge, mass
+
         if not args and not kwd:
             self.thisptr = new _Atom()
         else:
@@ -26,6 +28,13 @@ cdef class Atom:
                     aname = NameType(args[0])
                     atype = NameType (args[1])
                     self.thisptr = new _Atom(aname.thisptr[0], atype.thisptr[0], 1.0) 
+            elif len(args) == 4:
+                # atom name, atom type, charge, mass
+                aname = NameType(args[0])
+                atype = NameType (args[1])
+                charge = args[2]
+                mass = args[3]
+                self.thisptr = new _Atom(aname.thisptr[0], charge, mass, atype.thisptr[0])
             else:
                 raise NotImplementedError("not yet supported")
 
