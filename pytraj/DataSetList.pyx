@@ -14,6 +14,8 @@ from pytraj.externals.six import string_types
 from pytraj.compat import set
 from pytraj.utils import is_int
 from pytraj.exceptions import *
+from pytraj.DataFile import DataFile
+from pytraj.ArgList import ArgList
 
 # can not import cpptraj_dict here
 # if doing this, we introduce circle-import since cpptraj_dict already imported
@@ -420,3 +422,7 @@ cdef class DataSetList:
 
     def count(self, number=None):
         return dict((d0.legend, d0.count(number)) for d0 in self)
+
+    def read_data(self, filename, arg=""):
+        df = DataFile()
+        df.read_data(filename, ArgList(arg), self)

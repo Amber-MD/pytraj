@@ -5,7 +5,7 @@ from ..Trajectory import Trajectory
 from ..Frame import Frame
 from ..core import Atom, Box
 
-def load_hdf5(filename_or_buffer, autoconvert=True, restype=None):
+def load_hdf5(filename_or_buffer, autoconvert=True, restype=None, top=None):
     """"load hd5f format from openmm (?)
 
     Parameters
@@ -35,14 +35,14 @@ def load_hdf5(filename_or_buffer, autoconvert=True, restype=None):
         fh = filename_or_buffer
         should_be_closed = False
 
-    traj = _load_hdf5_from_buffer(fh, autoconvert=autoconvert, restype=restype)
+    traj = _load_hdf5_from_buffer(fh, autoconvert=autoconvert, restype=restype, top=top)
 
     if should_be_closed:
         fh.close()
 
     return traj
 
-def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None):
+def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None, top=None):
     import json
     # NOTE: always use `np.float64` in pytraj
     if autoconvert:
@@ -76,33 +76,36 @@ def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None):
         farray = api.Trajectory()
 
     # create Topology
-    top_txt = fh['topology']
-    h5_topology = json.loads(top_txt.value.tostring().decode())
-    top = Topology()
-    for chain in h5_topology['chains']:
-        top.start_new_mol()
-        for residue in chain['residues']:
-            resname = residue['name']
-            resid = residue['index']
-            for atom in residue['atoms']:
-                aname = atom['name']
-                atype = aname # no infor about atom type in .h5 file from openmm (?)
-                atom = Atom(aname, atype)
-                top.add_atom(atom=atom, resid=resid, resname=resname)
-    # add bonds
-    # Note: no PBC info for top
-    top.add_bonds(np.asarray(h5_topology['bonds']))
-    # naively assigne box info from 1st frame
-    if has_box:
-        top.box = Box(box_arr[0])
-    farray.top = top
+    if top is not None:
+        _top = top
+    else:
+        top_txt = fh['topology']
+        h5_topology = json.loads(top_txt.value.tostring().decode())
+        _top = Topology()
+        for chain in h5_topology['chains']:
+            _top.start_new_mol()
+            for residue in chain['residues']:
+                resname = residue['name']
+                resid = residue['index']
+                for atom in residue['atoms']:
+                    aname = atom['name']
+                    atype = aname # no infor about atom type in .h5 file from openmm (?)
+                    atom = Atom(aname, atype)
+                    _top.add_atom(atom=atom, resid=resid, resname=resname)
+        # add bonds
+        # Note: no PBC info for top
+        _top.add_bonds(np.asarray(h5_topology['bonds']))
+        # naively assigne box info from 1st frame
+        if has_box:
+            _top.box = Box(box_arr[0])
+    farray.top = _top
 
     # update coords
     if restype is None:
         farray.update_xyz(crd)
-        for idx, arr in enumerate(crd):
-            if has_box:
-                farray[idx].box = Box(box_arr[idx])
+        if has_box:
+            for idx, arr in enumerate(crd):
+                farray[idx].box = box_arr[idx] # auto-cast
     else:
         farray.xyz = crd
 

@@ -96,5 +96,9 @@ class Test(unittest.TestCase):
             traj2 = io.load_hdf5(fh)
             aa_eq(traj2.xyz, traj.xyz)
 
+        # provide Topology
+        traj3 = io.load_hdf5("./data/ala2.h5", top=traj.top)
+        aa_eq(traj3.xyz, traj.xyz)
+
 if __name__ == "__main__":
     unittest.main()

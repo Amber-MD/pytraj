@@ -673,27 +673,6 @@ static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, in
 
 static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
 
-#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck) \
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ? \
-    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) : \
-    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) : \
-               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
-#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck) \
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ? \
-    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) : \
-    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck) \
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ? \
-    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) : \
-    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
-                                                     int is_list, int wraparound, int boundscheck);
-
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
 #else
@@ -703,6 +682,8 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
 #endif
+
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
@@ -740,12 +721,12 @@ static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
-
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
 #include "descrobject.h"
 static PyObject* __Pyx_Method_ClassMethod(PyObject *method);
+
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
@@ -819,7 +800,7 @@ static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_8write_options(CYTHON_UNUS
 static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_10get_format_from_arg(CYTHON_UNUSED PyObject *__pyx_v_cls, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_a); /* proto */
 static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_12format_string(struct __pyx_obj_6pytraj_8DataFile_DataFile *__pyx_v_self, std::string __pyx_v_t); /* proto */
 static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_14set_precision(struct __pyx_obj_6pytraj_8DataFile_DataFile *__pyx_v_self, int __pyx_v_widthIn, int __pyx_v_precisionIn); /* proto */
-static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_16read_data(struct __pyx_obj_6pytraj_8DataFile_DataFile *__pyx_v_self, std::string __pyx_v_filenameIn, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_argListIn, struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_datasetlist); /* proto */
+static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_16read_data(struct __pyx_obj_6pytraj_8DataFile_DataFile *__pyx_v_self, PyObject *__pyx_v_filenameIn, PyObject *__pyx_v_arglist, struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_datasetlist); /* proto */
 static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_18setup_datafile(struct __pyx_obj_6pytraj_8DataFile_DataFile *__pyx_v_self, std::string __pyx_v_filenameIn, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_argIn, int __pyx_v_debugIn); /* proto */
 static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_20add_dataset(struct __pyx_obj_6pytraj_8DataFile_DataFile *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_dataIn); /* proto */
 static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_22removeset(struct __pyx_obj_6pytraj_8DataFile_DataFile *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_dataIn); /* proto */
@@ -833,12 +814,12 @@ static PyObject *__pyx_tp_new_6pytraj_8DataFile_DataFile(PyTypeObject *t, PyObje
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_argIn[] = "argIn";
+static char __pyx_k_encode[] = "encode";
 static char __pyx_k_import[] = "__import__";
+static char __pyx_k_arglist[] = "arglist";
 static char __pyx_k_debugIn[] = "debugIn";
 static char __pyx_k_get_key[] = "get_key";
-static char __pyx_k_thisptr[] = "thisptr";
 static char __pyx_k_widthIn[] = "widthIn";
-static char __pyx_k_argListIn[] = "argListIn";
 static char __pyx_k_ValueError[] = "ValueError";
 static char __pyx_k_filenameIn[] = "filenameIn";
 static char __pyx_k_write_help[] = "write_help";
@@ -855,9 +836,10 @@ static char __pyx_k_pytraj_externals_six[] = "pytraj.externals.six";
 static PyObject *__pyx_n_s_DataFormatDict;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_argIn;
-static PyObject *__pyx_n_s_argListIn;
+static PyObject *__pyx_n_s_arglist;
 static PyObject *__pyx_n_s_datasetlist;
 static PyObject *__pyx_n_s_debugIn;
+static PyObject *__pyx_n_s_encode;
 static PyObject *__pyx_n_s_filenameIn;
 static PyObject *__pyx_n_s_get_format_from_arg;
 static PyObject *__pyx_n_s_get_key;
@@ -870,7 +852,6 @@ static PyObject *__pyx_n_s_pytraj_externals_six;
 static PyObject *__pyx_n_s_read_options;
 static PyObject *__pyx_n_s_string_types;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_n_s_thisptr;
 static PyObject *__pyx_n_s_widthIn;
 static PyObject *__pyx_n_s_write_help;
 static PyObject *__pyx_n_s_write_options;
@@ -1452,7 +1433,7 @@ static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_14set_precision(struct __p
  *     def set_precision(self, int widthIn, int precisionIn):
  *         self.thisptr.SetDataFilePrecision(widthIn, precisionIn)             # <<<<<<<<<<<<<<
  * 
- *     def read_data(self, string filenameIn, ArgList argListIn, DataSetList datasetlist):
+ *     def read_data(self, filenameIn, arglist, DataSetList datasetlist):
  */
   __pyx_v_self->thisptr->SetDataFilePrecision(__pyx_v_widthIn, __pyx_v_precisionIn);
 
@@ -1474,17 +1455,17 @@ static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_14set_precision(struct __p
 /* "pytraj/DataFile.pyx":39
  *         self.thisptr.SetDataFilePrecision(widthIn, precisionIn)
  * 
- *     def read_data(self, string filenameIn, ArgList argListIn, DataSetList datasetlist):             # <<<<<<<<<<<<<<
- *         return self.thisptr.ReadDataIn(filenameIn.thisptr[0], argListIn.thisptr[0], datasetlist.thisptr[0])
+ *     def read_data(self, filenameIn, arglist, DataSetList datasetlist):             # <<<<<<<<<<<<<<
+ *         return self.thisptr.ReadDataIn(filenameIn.encode(), ArgList(arglist).thisptr[0], datasetlist.thisptr[0])
  * 
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_8DataFile_8DataFile_17read_data(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_8DataFile_8DataFile_16read_data[] = "DataFile.read_data(self, string filenameIn, ArgList argListIn, DataSetList datasetlist)";
+static char __pyx_doc_6pytraj_8DataFile_8DataFile_16read_data[] = "DataFile.read_data(self, filenameIn, arglist, DataSetList datasetlist)";
 static PyObject *__pyx_pw_6pytraj_8DataFile_8DataFile_17read_data(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  std::string __pyx_v_filenameIn;
-  struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_argListIn = 0;
+  PyObject *__pyx_v_filenameIn = 0;
+  PyObject *__pyx_v_arglist = 0;
   struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_datasetlist = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -1493,7 +1474,7 @@ static PyObject *__pyx_pw_6pytraj_8DataFile_8DataFile_17read_data(PyObject *__py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("read_data (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_filenameIn,&__pyx_n_s_argListIn,&__pyx_n_s_datasetlist,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_filenameIn,&__pyx_n_s_arglist,&__pyx_n_s_datasetlist,0};
     PyObject* values[3] = {0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -1511,7 +1492,7 @@ static PyObject *__pyx_pw_6pytraj_8DataFile_8DataFile_17read_data(PyObject *__py
         if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_filenameIn)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
         case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_argListIn)) != 0)) kw_args--;
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_arglist)) != 0)) kw_args--;
         else {
           __Pyx_RaiseArgtupleInvalid("read_data", 1, 3, 3, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
@@ -1531,8 +1512,8 @@ static PyObject *__pyx_pw_6pytraj_8DataFile_8DataFile_17read_data(PyObject *__py
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_filenameIn = __pyx_convert_string_from_py_std__in_string(values[0]); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_argListIn = ((struct __pyx_obj_6pytraj_7ArgList_ArgList *)values[1]);
+    __pyx_v_filenameIn = values[0];
+    __pyx_v_arglist = values[1];
     __pyx_v_datasetlist = ((struct __pyx_obj_6pytraj_11DataSetList_DataSetList *)values[2]);
   }
   goto __pyx_L4_argument_unpacking_done;
@@ -1543,9 +1524,8 @@ static PyObject *__pyx_pw_6pytraj_8DataFile_8DataFile_17read_data(PyObject *__py
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_argListIn), __pyx_ptype_6pytraj_7ArgList_ArgList, 1, "argListIn", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_datasetlist), __pyx_ptype_6pytraj_11DataSetList_DataSetList, 1, "datasetlist", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_8DataFile_8DataFile_16read_data(((struct __pyx_obj_6pytraj_8DataFile_DataFile *)__pyx_v_self), __pyx_v_filenameIn, __pyx_v_argListIn, __pyx_v_datasetlist);
+  __pyx_r = __pyx_pf_6pytraj_8DataFile_8DataFile_16read_data(((struct __pyx_obj_6pytraj_8DataFile_DataFile *)__pyx_v_self), __pyx_v_filenameIn, __pyx_v_arglist, __pyx_v_datasetlist);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1556,12 +1536,13 @@ static PyObject *__pyx_pw_6pytraj_8DataFile_8DataFile_17read_data(PyObject *__py
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_16read_data(struct __pyx_obj_6pytraj_8DataFile_DataFile *__pyx_v_self, std::string __pyx_v_filenameIn, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_argListIn, struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_datasetlist) {
+static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_16read_data(struct __pyx_obj_6pytraj_8DataFile_DataFile *__pyx_v_self, PyObject *__pyx_v_filenameIn, PyObject *__pyx_v_arglist, struct __pyx_obj_6pytraj_11DataSetList_DataSetList *__pyx_v_datasetlist) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
-  std::string __pyx_t_3;
+  PyObject *__pyx_t_3 = NULL;
+  std::string __pyx_t_4;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -1569,24 +1550,45 @@ static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_16read_data(struct __pyx_o
 
   /* "pytraj/DataFile.pyx":40
  * 
- *     def read_data(self, string filenameIn, ArgList argListIn, DataSetList datasetlist):
- *         return self.thisptr.ReadDataIn(filenameIn.thisptr[0], argListIn.thisptr[0], datasetlist.thisptr[0])             # <<<<<<<<<<<<<<
+ *     def read_data(self, filenameIn, arglist, DataSetList datasetlist):
+ *         return self.thisptr.ReadDataIn(filenameIn.encode(), ArgList(arglist).thisptr[0], datasetlist.thisptr[0])             # <<<<<<<<<<<<<<
  * 
  *     def setup_datafile(self, string filenameIn, ArgList argIn, int debugIn):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_v_filenameIn); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_thisptr); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_filenameIn, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_3 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (__pyx_t_3) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else {
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_3 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->thisptr->ReadDataIn(__pyx_t_3, (__pyx_v_argListIn->thisptr[0]), (__pyx_v_datasetlist->thisptr[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_v_arglist);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_arglist);
+  __Pyx_GIVEREF(__pyx_v_arglist);
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_7ArgList_ArgList)), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->thisptr->ReadDataIn(__pyx_t_4, (((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_t_2)->thisptr[0]), (__pyx_v_datasetlist->thisptr[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
@@ -1594,8 +1596,8 @@ static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_16read_data(struct __pyx_o
   /* "pytraj/DataFile.pyx":39
  *         self.thisptr.SetDataFilePrecision(widthIn, precisionIn)
  * 
- *     def read_data(self, string filenameIn, ArgList argListIn, DataSetList datasetlist):             # <<<<<<<<<<<<<<
- *         return self.thisptr.ReadDataIn(filenameIn.thisptr[0], argListIn.thisptr[0], datasetlist.thisptr[0])
+ *     def read_data(self, filenameIn, arglist, DataSetList datasetlist):             # <<<<<<<<<<<<<<
+ *         return self.thisptr.ReadDataIn(filenameIn.encode(), ArgList(arglist).thisptr[0], datasetlist.thisptr[0])
  * 
  */
 
@@ -1603,6 +1605,7 @@ static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_16read_data(struct __pyx_o
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("pytraj.DataFile.DataFile.read_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -1612,7 +1615,7 @@ static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_16read_data(struct __pyx_o
 }
 
 /* "pytraj/DataFile.pyx":42
- *         return self.thisptr.ReadDataIn(filenameIn.thisptr[0], argListIn.thisptr[0], datasetlist.thisptr[0])
+ *         return self.thisptr.ReadDataIn(filenameIn.encode(), ArgList(arglist).thisptr[0], datasetlist.thisptr[0])
  * 
  *     def setup_datafile(self, string filenameIn, ArgList argIn, int debugIn):             # <<<<<<<<<<<<<<
  *         return self.thisptr.SetupDatafile(filenameIn, argIn.thisptr[0], debugIn)
@@ -1719,7 +1722,7 @@ static PyObject *__pyx_pf_6pytraj_8DataFile_8DataFile_18setup_datafile(struct __
   goto __pyx_L0;
 
   /* "pytraj/DataFile.pyx":42
- *         return self.thisptr.ReadDataIn(filenameIn.thisptr[0], argListIn.thisptr[0], datasetlist.thisptr[0])
+ *         return self.thisptr.ReadDataIn(filenameIn.encode(), ArgList(arglist).thisptr[0], datasetlist.thisptr[0])
  * 
  *     def setup_datafile(self, string filenameIn, ArgList argIn, int debugIn):             # <<<<<<<<<<<<<<
  *         return self.thisptr.SetupDatafile(filenameIn, argIn.thisptr[0], debugIn)
@@ -2806,9 +2809,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_DataFormatDict, __pyx_k_DataFormatDict, sizeof(__pyx_k_DataFormatDict), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_argIn, __pyx_k_argIn, sizeof(__pyx_k_argIn), 0, 0, 1, 1},
-  {&__pyx_n_s_argListIn, __pyx_k_argListIn, sizeof(__pyx_k_argListIn), 0, 0, 1, 1},
+  {&__pyx_n_s_arglist, __pyx_k_arglist, sizeof(__pyx_k_arglist), 0, 0, 1, 1},
   {&__pyx_n_s_datasetlist, __pyx_k_datasetlist, sizeof(__pyx_k_datasetlist), 0, 0, 1, 1},
   {&__pyx_n_s_debugIn, __pyx_k_debugIn, sizeof(__pyx_k_debugIn), 0, 0, 1, 1},
+  {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
   {&__pyx_n_s_filenameIn, __pyx_k_filenameIn, sizeof(__pyx_k_filenameIn), 0, 0, 1, 1},
   {&__pyx_n_s_get_format_from_arg, __pyx_k_get_format_from_arg, sizeof(__pyx_k_get_format_from_arg), 0, 0, 1, 1},
   {&__pyx_n_s_get_key, __pyx_k_get_key, sizeof(__pyx_k_get_key), 0, 0, 1, 1},
@@ -2821,7 +2825,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_read_options, __pyx_k_read_options, sizeof(__pyx_k_read_options), 0, 0, 1, 1},
   {&__pyx_n_s_string_types, __pyx_k_string_types, sizeof(__pyx_k_string_types), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
-  {&__pyx_n_s_thisptr, __pyx_k_thisptr, sizeof(__pyx_k_thisptr), 0, 0, 1, 1},
   {&__pyx_n_s_widthIn, __pyx_k_widthIn, sizeof(__pyx_k_widthIn), 0, 0, 1, 1},
   {&__pyx_n_s_write_help, __pyx_k_write_help, sizeof(__pyx_k_write_help), 0, 0, 1, 1},
   {&__pyx_n_s_write_options, __pyx_k_write_options, sizeof(__pyx_k_write_options), 0, 0, 1, 1},
@@ -3342,84 +3345,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
     return result;
 }
 
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
-    PyObject *r;
-    if (!j) return NULL;
-    r = PyObject_GetItem(o, j);
-    Py_DECREF(j);
-    return r;
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (wraparound & unlikely(i < 0)) i += PyList_GET_SIZE(o);
-    if ((!boundscheck) || likely((0 <= i) & (i < PyList_GET_SIZE(o)))) {
-        PyObject *r = PyList_GET_ITEM(o, i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (wraparound & unlikely(i < 0)) i += PyTuple_GET_SIZE(o);
-    if ((!boundscheck) || likely((0 <= i) & (i < PyTuple_GET_SIZE(o)))) {
-        PyObject *r = PyTuple_GET_ITEM(o, i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
-                                                     int is_list, int wraparound, int boundscheck) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (is_list || PyList_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
-        if ((!boundscheck) || (likely((n >= 0) & (n < PyList_GET_SIZE(o))))) {
-            PyObject *r = PyList_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    }
-    else if (PyTuple_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
-        if ((!boundscheck) || likely((n >= 0) & (n < PyTuple_GET_SIZE(o)))) {
-            PyObject *r = PyTuple_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    } else {
-        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
-        if (likely(m && m->sq_item)) {
-            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
-                Py_ssize_t l = m->sq_length(o);
-                if (likely(l >= 0)) {
-                    i += l;
-                } else {
-                    if (PyErr_ExceptionMatches(PyExc_OverflowError))
-                        PyErr_Clear();
-                    else
-                        return NULL;
-                }
-            }
-            return m->sq_item(o, i);
-        }
-    }
-#else
-    if (is_list || PySequence_Check(o)) {
-        return PySequence_GetItem(o, i);
-    }
-#endif
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-}
-
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
     PyObject *result;
@@ -3455,6 +3380,36 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
             "NULL result without error in PyObject_Call");
     }
     return result;
+}
+#endif
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_New(1);
+    if (unlikely(!args)) return NULL;
+    Py_INCREF(arg);
+    PyTuple_SET_ITEM(args, 0, arg);
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+#ifdef __Pyx_CyFunction_USED
+    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
+#else
+    if (likely(PyCFunction_Check(func))) {
+#endif
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
+            return __Pyx_PyObject_CallMethO(func, arg);
+        }
+    }
+    return __Pyx__PyObject_CallOneArg(func, arg);
+}
+#else
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject* args = PyTuple_Pack(1, arg);
+    return (likely(args)) ? __Pyx_PyObject_Call(func, args, NULL) : NULL;
 }
 #endif
 
@@ -4030,32 +3985,6 @@ raise_neg_overflow:
     return (int) -1;
 }
 
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
-    const long neg_one = (long) -1, const_zero = 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(long) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long long)) {
-            return PyLong_FromUnsignedLongLong((unsigned long long) value);
-        }
-    } else {
-        if (sizeof(long) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(long long)) {
-            return PyLong_FromLongLong((long long) value);
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(long),
-                                     little, !is_unsigned);
-    }
-}
-
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
     const int neg_one = (int) -1, const_zero = 0;
     const int is_unsigned = neg_one > const_zero;
@@ -4120,6 +4049,32 @@ static PyObject* __Pyx_Method_ClassMethod(PyObject *method) {
                    "Class-level classmethod() can only be called on "
                    "a method_descriptor or instance method.");
     return NULL;
+}
+
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+    const long neg_one = (long) -1, const_zero = 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(long) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long long)) {
+            return PyLong_FromUnsignedLongLong((unsigned long long) value);
+        }
+    } else {
+        if (sizeof(long) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(long long)) {
+            return PyLong_FromLongLong((long long) value);
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(long),
+                                     little, !is_unsigned);
+    }
 }
 
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
