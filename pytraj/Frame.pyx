@@ -191,7 +191,25 @@ cdef class Frame (object):
         self.thisptr.AddVec3(vec.thisptr[0])
 
     def swap_atoms(self, int atom1, int atom2):
+        """
+        Parameters
+        ----------
+        atom1 : int
+        atom2 : int
+
+        """
         self.thisptr.SwapAtoms(atom1, atom2)
+
+    def swap_atom_array(self, cython.integral[:, :] int_view):
+        """
+        Parameters
+        ----------
+        int_view: 2D-int array-like, shape=(2, n_atoms)
+        """
+        cdef int i
+
+        for i in range(int_view.shape[1]):
+            self.thisptr.SwapAtoms(int_view[0, i], int_view[1, i])
 
     def __str__(self):
         tmp = "<%s with %s atoms>" % (
