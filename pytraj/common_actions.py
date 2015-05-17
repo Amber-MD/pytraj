@@ -429,7 +429,7 @@ def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **k
     """
     _top = _get_top(traj, top)
     dslist = DataSetList()
-    from pytraj.six_2 import izip as zip
+    from pytraj.compat import izip as zip
     from array import array
     act = adict['multidihedral']
     act(command, traj, _top, dslist=dslist, *args, **kwd)
