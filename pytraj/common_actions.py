@@ -97,6 +97,8 @@ def calc_distance(traj=None, command="", top=None, *args, **kwd):
         return calculate("distance", traj, command, top=_top, quick_get=True, *args, **kwd)
     elif isinstance(command, np.ndarray):
         int_2darr = command
+        if int_2darr.shape[1]  != 2:
+            raise ValueError("require int-array with shape=(n_atoms, 2)")
         if 'n_frames' not in kwd.keys():
             try:
                 n_frames = traj.n_frames
@@ -131,6 +133,8 @@ def calc_angle(traj=None, command="", top=None, *args, **kwd):
         return calculate("angle", traj, command, top=_top, quick_get=True, *args, **kwd)
     elif isinstance(command, np.ndarray):
         int_2darr = command
+        if int_2darr.shape[1]  != 3:
+            raise ValueError("require int-array with shape=(n_atoms, 3)")
         if 'n_frames' not in kwd.keys():
             try:
                 n_frames = traj.n_frames
@@ -165,6 +169,8 @@ def calc_dihedral(traj=None, command="", top=None, *args, **kwd):
         return calculate("dihedral", traj, command, top=_top, quick_get=True, *args, **kwd)
     elif isinstance(command, np.ndarray):
         int_2darr = command
+        if int_2darr.shape[1]  != 4:
+            raise ValueError("require int-array with shape=(n_atoms, 4)")
         if 'n_frames' not in kwd.keys():
             try:
                 n_frames = traj.n_frames
