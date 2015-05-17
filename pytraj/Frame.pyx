@@ -328,6 +328,8 @@ cdef class Frame (object):
     def _fast_copy_from_frame(self, Frame other):
         """only copy coords"""
         # no boundchecking
+        # a bit faster than: self.thisptr[0] = other.thisptr[0]
+        # (since we copy only coords)
         cdef double *ptr_src
         cdef double *ptr_dest
         cdef int count
@@ -337,21 +339,40 @@ cdef class Frame (object):
         count = self.thisptr.Natom() * 3 * sizeof(double)
         memcpy(<void*> ptr_dest, <void*> ptr_src, count)
 
-    def _fast_copy_from_frame_2(self, Frame other):
-        """only copy coords"""
-        self.thisptr[0] = other.thisptr[0]
+    def _fast_copy_from_xyz(self, double[:, :] xyz, indices=None):
+        """only copy coords
 
-    def _fast_copy_from_xyz(self, double[:, :] xyz):
-        """only copy coords"""
+        Parameters
+        ----------
+        xyz : 2D array-like, dtype='double', must have buffer interface
+        indices : 1D array-like, dtype='i4', must have buffer interface
+            default=None
+        """
+
         cdef double *ptr_src
         cdef double *ptr_dest
         cdef int count
+        cdef int i, j
+        cdef int[:] int_view
         # no boundchecking
 
-        ptr_src = &xyz[0, 0]
-        ptr_dest = self.thisptr.xAddress()
-        count = self.thisptr.Natom() * 3 * sizeof(double)
-        memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+        if indices is None:
+            # copy all
+            ptr_src = &xyz[0, 0]
+            ptr_dest = self.thisptr.xAddress()
+            count = self.thisptr.Natom() * 3 * sizeof(double)
+            memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+        else:
+            count = 3 * sizeof(double)
+            int_view = indices # create `view`
+            # NOTE: try `prange` with different `schedule` but no gain
+            for i in range(int_view.shape[0]):
+                j = int_view[i]
+                ptr_dest = self.thisptr.xAddress() + j * 3
+                ptr_src = &xyz[i, 0]
+                # copy coords of each Atom
+                memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
 
     def frame_iter(self):
         """
