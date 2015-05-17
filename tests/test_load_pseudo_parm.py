@@ -5,7 +5,9 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.misc import get_atts
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 from pytraj.decorators import no_test, test_if_having
+from pytraj.compat import zip
 
 class Test(unittest.TestCase):
     @test_if_having('mdtraj')
@@ -13,11 +15,12 @@ class Test(unittest.TestCase):
         print ("load mdtraj parm")
         import mdtraj as md
         from pytraj.externals import _load_pseudo_parm
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        m_top = md.load_prmtop("./data/Tc5b.top")
+        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        m_top = md.load_prmtop("./data/tz2.ortho.parm7")
         print (m_top)
         top = mdio.load_pseudo_parm(m_top) 
         print (top)
+        aa_eq(top.mass, traj.top.mass, decimal=2)
 
     @test_if_having('chemistry')
     def test_1(self):
@@ -26,7 +29,6 @@ class Test(unittest.TestCase):
         top = mdio.load_pseudo_parm(p_top)
         print (top)
         top.summary()
-
         # make sure pseudo_top is usable
         from pytraj.common_actions import calc_distance
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -40,6 +42,11 @@ class Test(unittest.TestCase):
         d1 = calc_distance(fa, ":2@CA :10@CA")
 
         assert_almost_equal(d0[:], d1[:])
+        aa_eq(top.mass, traj.top.mass)
+        for a0, a1 in zip(top.atoms, traj.top.atoms):
+            assert a0.mass == a1.mass
+            assert abs(a0.charge - a1.charge) < 1E-3
+
 
 if __name__ == "__main__":
     unittest.main()

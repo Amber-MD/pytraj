@@ -46,15 +46,21 @@ def load_pseudo_parm(parm):
             if is_mdtraj(parm):
                 atype = atom.name # mdtraj
                 resid = res.index
+                mass = atom.element.mass
+                #charge = atom.element.charge
+                charge = 0.0
             elif is_mdanalysis(parm):
                 # in MDAnalysis, atom.type is `int`
                 atype = str(atom.type) 
                 resid = atom.resid
+                charge = atom.charge
+                mass = atom.mass
             else:
                 atype = atom.type # parmed
                 resid = res.idx
-            atom = Atom(aname, atype)
-            # TODO : add mass too
+                charge = atom.charge
+                mass = atom.mass
+            atom = Atom(aname, atype, charge, mass)
             pseudotop.add_atom(atom=atom, resid=resid, resname=resname)
 
     if is_mdtraj(parm):
