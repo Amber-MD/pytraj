@@ -30,16 +30,21 @@ def _get_arglist(arg):
         return ArgList(arg)
 
 def _get_data_from_dtype(d0, dtype='dataset'):
-   dtype = dtype.lower()
-   if dtype == 'dataset':
+   if dtype is None:
        return d0
-   elif dtype == 'list':
-       return d0.tolist()
-   elif dtype == 'ndarray':
-       return d0.to_ndarray()
-   elif dtype == 'pyarray':
-       return d0.to_pyarray()
-   elif dtype == 'dict':
-       return d0.to_dict()
+   elif not isinstance(dtype, string_types):
+       raise ValueError("dtype must a None or a string")
    else:
-       raise NotImplenmentedError()
+       dtype = dtype.lower()
+       if dtype == 'dataset':
+           return d0
+       elif dtype == 'list':
+           return d0.tolist()
+       elif dtype == 'ndarray':
+           return d0.to_ndarray()
+       elif dtype == 'pyarray':
+           return d0.to_pyarray()
+       elif dtype == 'dict':
+           return d0.to_dict()
+       else:
+           raise NotImplenmentedError()
