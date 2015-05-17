@@ -23,13 +23,6 @@ Welcome to pytraj!
         * (but you can use extra help from other popular packages such as numpy, matplotlib)
 - Note: `pytraj` is still in its infancy and its API might be rapidly changed. But it's not hurt to try :).
 
-Citation:
------------------
-- cpptraj : [PTRAJ and CPPTRAJ] (http://pubs.acs.org/doi/abs/10.1021/ct400341p): Software for Processing and Analysis of Molecular Dynamics Trajectory Data
-Daniel R. Roe and Thomas E. Cheatham, III
-Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095 
-
-- pytraj : Hai Nguyen et al. (2015) (in preperation)
 
 Install
 -------
@@ -57,6 +50,7 @@ Usage:
     * `mat = calc_matrix(frame, '@CA', top)`
     * `calc_dssp([[frame,], traj1, traj2(3, 9, 2), traj3.chunk_iter(chunk=5)], ':2-10', dtype='ndarray', top=traj.top)`
     * get new Trajectory with a given mask: `traj['@CA']`
+    * update coords for specific atoms in residues: `traj[':1-3'] = xyz_3d`
     * expose to numpy: `arr0 = np.asarray(frame[:])` 
     * load from other package: `traj = io.load_mdtraj(mdtraj_traj)`, `parm = io.load_ParmEd(its_obj)`
     * expose to Cython (will be translated to C++ code): `from pytraj.Frame cimport _Frame`
@@ -67,10 +61,21 @@ Usage:
     * pytraj's tutorials and documents are growing, stay tuned.
 
 Question/Suggestion?
---------
+--------------------
 * code issue and stuff relating directly to `pytraj`, create [Issue](https://github.com/pytraj/pytraj/issues)
 * ask question about data analysis in general, send email to [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)
 
 Support
-====================
+-------
 * Development version of [cpptraj] (https://github.com/mojyt/cpptraj)
+
+[Contributors and Acknowledgement] (./contributors/)
+----------------------------------------------------
+
+Citation
+--------
+- cpptraj : [PTRAJ and CPPTRAJ] (http://pubs.acs.org/doi/abs/10.1021/ct400341p): Software for Processing and Analysis of Molecular Dynamics Trajectory Data
+Daniel R. Roe and Thomas E. Cheatham, III
+Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095 
+
+- pytraj : Hai Nguyen et al. (2015) (in preperation)
