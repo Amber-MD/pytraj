@@ -97,5 +97,9 @@ class Test(unittest.TestCase):
         aa_eq(traj2.xyz, m_traj.xyz, decimal=3)
         aa_eq(traj.xyz, 10*m_traj.xyz, decimal=3)
 
+        # provide topology
+        traj3 = mdio.load_mdtraj(m_traj, False, traj2.top)
+        aa_eq(traj2.xyz, traj3.xyz)
+
 if __name__ == "__main__":
     unittest.main()
