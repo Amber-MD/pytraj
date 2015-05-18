@@ -6,6 +6,7 @@ from .data_sample.load_sample_data import load_sample_data
 from .Frame import Frame
 from .Trajectory import Trajectory
 from .trajs.Trajin_Single import Trajin_Single
+from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
 from .trajs.Trajout import Trajout
 from .utils.check_and_assert import make_sure_exist, is_frame_iter
 from .utils import goto_temp_folder
@@ -38,7 +39,9 @@ try:
 except ImportError:
     from urllib import urlopen
 
-__all__ = ['load', 'load_hdf5', 'write_traj', 'read_parm', 'write_parm', 'save']
+__all__ = ['load', 'load_hdf5', 'write_traj', 
+           'load_MDAnalysis', 'load_MDAnalysisIterator',
+           'read_parm', 'write_parm', 'save']
 
 EXTRA_LOAD_METHODS = {'HDF5' : load_hdf5, }
 
@@ -301,6 +304,9 @@ def load_full_ParmEd(parmed_obj):
     os.removedirs(directory_name)
     os.chdir(cwd)
     return top
+
+def load_MDAnalysisIterator(u):
+    return TrajectoryMDAnalysisIterator(u)
 
 # creat alias
 write_traj = writetraj

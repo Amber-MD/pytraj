@@ -96,3 +96,8 @@ class TrajectoryMDAnalysisIterator(object):
     @property
     def n_atoms(self):
         return self._traj_holder.numatoms
+
+    @property
+    def xyz(self):
+        from pytraj.io import load_MDAnalysis
+        return load_MDAnalysis(self._ext_holder, top=self.top).xyz
