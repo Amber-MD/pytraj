@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         assert traj.n_frames == 1
 
         # append xyz
-        traj.append(t.xyz)
+        traj.append(t.xyz[:])
         assert traj.n_frames == t.n_frames + 1
         
         # append TrajectoryIterator
