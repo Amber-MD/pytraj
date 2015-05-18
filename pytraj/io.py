@@ -44,8 +44,15 @@ EXTRA_LOAD_METHODS = {'HDF5' : load_hdf5, }
 def load(*args, **kwd):
     """try loading and returning appropriate values"""
 
-    if is_frame_iter(args[0]):
+    if args and is_frame_iter(args[0]):
         return _load_from_frame_iter(*args, **kwd)
+
+    if kwd:
+        try:
+            if is_frame_iter(kwd['filename']):
+                return _load_from_frame_iter(*args, **kwd)
+        except:
+            pass
 
     if 'filename' in kwd.keys():
         make_sure_exist(kwd['filename'])
