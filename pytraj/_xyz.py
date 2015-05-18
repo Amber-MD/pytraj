@@ -67,3 +67,11 @@ class XYZ(object):
 
     def __truediv__(self, value):
         return self._xyz.__floordiv__(value)
+
+    @property
+    def __array_interface__(self):
+        return self._xyz.__array_interface__
+
+    @property
+    def __array_struct__(self):
+        return self._xyz.__array_struct__
