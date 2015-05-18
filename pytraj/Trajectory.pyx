@@ -32,6 +32,7 @@ from ._shared_methods import _xyz, _tolist
 from ._utils import _int_array1d_like_to_memview
 from ._shared_methods import my_str_method
 from ._shared_methods import _box_to_ndarray
+from ._xyz import XYZ
 
 import pytraj.common_actions as pyca
 from pytraj.hbonds import search_hbonds
@@ -336,8 +337,12 @@ cdef class Trajectory (object):
 
     @property
     def xyz(self):
-        """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
+        """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
+
+        Notes
+        -----
+            read-only
         """
         cdef bint has_numpy
         cdef int i
@@ -353,7 +358,7 @@ cdef class Trajectory (object):
         if has_numpy:
             for i, frame in enumerate(self):
                 myview[i] = frame.buffer2d
-            return myview
+            return XYZ(myview)
         else:
             raise NotImplementedError("must have numpy")
 

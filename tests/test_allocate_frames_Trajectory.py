@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         assert (traj2.shape == traj.shape)
 
         traj2.top = traj.top.copy()
-        traj2.update_xyz(traj.xyz)
+        traj2.update_xyz(traj.xyz[:])
         aa_eq(traj2.xyz, traj.xyz)
 
 if __name__ == "__main__":
