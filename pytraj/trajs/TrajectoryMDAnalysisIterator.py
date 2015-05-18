@@ -102,3 +102,7 @@ class TrajectoryMDAnalysisIterator(ActionInTraj):
     def xyz(self):
         from pytraj.io import load_MDAnalysis
         return load_MDAnalysis(self._ext_holder, top=self.top).xyz
+
+    @property
+    def filename(self):
+        return self._ext_holder.filename
