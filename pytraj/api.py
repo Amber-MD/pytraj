@@ -158,7 +158,7 @@ class Trajectory(ActionInTraj):
         elif hasattr(other, 'n_frames') and hasattr(other, 'xyz'):
             # assume Trajectory-like object
             if self.xyz is None:
-                self.xyz = other.xyz
+                self.xyz = other.xyz[:]
                 self._boxes = other.box_to_ndarray()
             else:
                 self.xyz = np.vstack((self.xyz, other.xyz))
@@ -179,7 +179,7 @@ class Trajectory(ActionInTraj):
 
     def load(self, filename=''):
         ts = Trajin_Single(filename, self.top)
-        self.append(ts.xyz)
+        self.append(ts.xyz[:])
         self._boxes = ts.box_to_ndarray()
 
     def has_box(self):
