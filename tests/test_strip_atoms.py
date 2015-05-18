@@ -27,6 +27,8 @@ class Test(unittest.TestCase):
         fa1 = traj[:]
         fa1._fast_strip_atoms('!@CA')
         assert fa1[0].n_atoms == NATOM
+        # raise ValueError if maks is None
+        self.assertRaises(ValueError, lambda: fa1._fast_strip_atoms())
 
         aa_eq(fa0.xyz, fa1.xyz)
 

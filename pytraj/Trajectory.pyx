@@ -1030,13 +1030,14 @@ cdef class Trajectory (object):
         cdef _Frame _tmpframe
         cdef int i 
         cdef int n_frames = self.frame_v.size()
-        cdef AtomMask atm = self.top(mask)
+        cdef AtomMask atm
 
-        atm.invert_mask() # read note in `Frame._strip_atoms`
-
-        if mask == None: 
+        if mask is None: 
             raise ValueError("Must provide mask to strip")
+
         mask = mask.encode("UTF-8")
+        atm = self.top(mask)
+        atm.invert_mask() # read note in `Frame._strip_atoms`
 
         # do not dealloc since we use memoryview for _Frame
         frame.py_free_mem = False
