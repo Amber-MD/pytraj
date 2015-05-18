@@ -35,11 +35,19 @@ class Test(unittest.TestCase):
         # make sure we get correct frame with given index
         aa_eq(traj_converted[0].xyz, titer[0].xyz)
 
+        # test slicing
+        aa_eq(titer[0:10:2].xyz, traj[0:10:2].xyz)
+
         # make sure we can reprodue pytraj' xyz coords
         for f0, f1 in zip(titer, traj):
             #print (f0[0])
             assert isinstance(f0, Frame) == True
             aa_eq(f0.xyz, f1.xyz)
+
+        # let's do some analysis
+        d_mda = pyca.search_hbonds(titer, dtype='ndarray')
+        d_traj = pyca.search_hbonds(traj, dtype='ndarray')
+        aa_eq(d_mda, d_traj)
 
 if __name__ == "__main__":
     unittest.main()

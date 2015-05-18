@@ -34,5 +34,7 @@ def load_MDAnalysis(its_obj, top=None):
             frame.boxview[:] = farray.top.box[:]
             # load xyz coords, let numpy do automatically casting
             frame.xyz[:] = ag.positions
-            farray.append(frame)
+            # we don't need to make copy=True since we already created
+            # frame and `farray` can 'keep' it
+            farray.append(frame, copy=False)
         return farray
