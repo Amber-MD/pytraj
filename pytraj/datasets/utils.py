@@ -33,3 +33,9 @@ def stack(*args):
                 raise ValueError("Dont support stack different dtype together")
             d0.append(d)
     return dslist0
+
+def load_datafile(filename):
+    """load cpptraj's output"""
+    ds = DataSetList()
+    ds.read_data(filename)
+    return ds
