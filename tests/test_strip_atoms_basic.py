@@ -13,16 +13,16 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa1 = traj[:]
         fa1._fast_strip_atoms('@CA')
-        #fa2 = traj[0:10:2]
-        #fa2._fast_strip_atoms('@CA')
-        #fa3 = traj[:]
-        #fa3._fast_strip_atoms('@CA')
+        fa2 = traj[0:10:2]
+        fa2._fast_strip_atoms('@CA')
+        fa3 = traj[:]
+        fa3._fast_strip_atoms('@CA')
 
-        #fa3 = traj._fast_slice(slice(2, 10, 1))
-        #fa3._fast_strip_atoms('@CA')
+        fa3 = traj._fast_slice(slice(2, 10, 1))
+        fa3._fast_strip_atoms('@CA')
 
-        #fa3 = traj._fast_slice(slice(2, 10, 1))
-        #fa3._fast_strip_atoms('@CA')
+        fa3 = traj._fast_slice(slice(2, 10, 1))
+        fa3._fast_strip_atoms('@CA')
 
 if __name__ == "__main__":
     unittest.main()
