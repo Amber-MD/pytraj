@@ -69,10 +69,26 @@ def load_pseudo_parm(parm):
         # load Box in _load_mdtraj since Box is stored in traj
     elif is_mdanalysis(parm):
         # turn-off. need to check MDAnalysis
-        pseudotop.add_bonds(np.asarray(parm.universe.bonds.to_indices()))
-        pseudotop.add_angles(np.asarray(parm.universe.angles.to_indices()))
-        pseudotop.add_dihedrals(np.asarray(parm.universe.torsions.to_indices()))
-        pseudotop.box = Box(parm.dimensions.astype(np.float64))
+        # ack, lots of try and except
+        try:
+            pseudotop.add_bonds(np.asarray(parm.universe.bonds.to_indices()))
+        except:
+            pass
+
+        try:
+            pseudotop.add_angles(np.asarray(parm.universe.angles.to_indices()))
+        except:
+            pass
+
+        try:
+            pseudotop.add_dihedrals(np.asarray(parm.universe.torsions.to_indices()))
+        except:
+            pass
+
+        try:
+            pseudotop.box = Box(parm.dimensions.astype(np.float64))
+        except:
+            pass
     else:
         # TODO : add bonds, dihedrals, angles for ParmEd
         # parmed
