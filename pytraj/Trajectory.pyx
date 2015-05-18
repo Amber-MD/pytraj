@@ -19,6 +19,7 @@ from .cpp_algorithm cimport iter_swap
 from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types
+from .externals._load_pseudo_parm import load_pseudo_parm
 from .TrajectoryIterator import TrajectoryIterator
 from .utils.check_and_assert import _import_numpy, is_int, is_frame_iter
 from .utils.check_and_assert import file_exist, is_mdtraj, is_pytraj_trajectory
@@ -66,7 +67,13 @@ cdef class Trajectory (object):
         cdef Frame frame
 
         if check_top:
-            self.top = _get_top(filename, top)
+            try:
+                self.top = _get_top(filename, top)
+            except:
+                if is_mdtraj(filename):
+                    self.top = load_pseudo_parm(filename.top)
+                else:
+                    raise ValueError()
             if self.top is None:
                 self.top = Topology()
         else:
@@ -225,7 +232,9 @@ cdef class Trajectory (object):
         elif is_mdtraj(filename):
             _traj = filename
             # add "10 *" since mdtraj use 'nm' while pytraj use 'Angstrom'
-            self.append_ndarray(10 * _traj.xyz)
+            #self.append_ndarray(10 * _traj.xyz)
+            # keep original coorsd, don't cast
+            self.append_ndarray(_traj.xyz)
         elif is_word_in_class_name(filename, 'DataSetList'):
             # load DataSetList
             # iterate all datasets and get anything having frame_iter

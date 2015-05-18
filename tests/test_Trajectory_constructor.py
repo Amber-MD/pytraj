@@ -9,6 +9,7 @@ from pytraj.utils import Timer
 from pytraj.decorators import test_if_having, no_test
 from itertools import chain
 from pytraj import Trajectory
+from pytraj.testing import aa_eq
 
 class Test(unittest.TestCase):
     @Timer()
@@ -160,6 +161,16 @@ class Test(unittest.TestCase):
 
         #for f0, f1 in izip(farray_0, traj):
         #    assert_almost_equal(f0.coords, f1.coords)
+
+    @test_if_having("mdtraj")
+    def test_10(self):
+        # from mdtraj
+        import mdtraj as md
+        from pytraj import Trajectory
+        mtop = md.load_prmtop("./data/Tc5b.top")
+        m_traj  = md.load_mdcrd("./data/md1_prod.Tc5b.x", top=mtop)
+        fa = Trajectory(m_traj)
+        aa_eq(fa.xyz, m_traj.xyz)
 
 if __name__ == "__main__":
     unittest.main()

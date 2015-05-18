@@ -4,9 +4,10 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 from pytraj.utils.check_and_assert import is_word_in_class_name
 from pytraj.decorators import no_test, test_if_having
-from pytraj.compat import izip
+from pytraj.compat import zip
 from pytraj.utils import Timer
 from pytraj.TrajinList import TrajinList
 
@@ -40,7 +41,7 @@ def test_load(my_traj, ref_traj=None, n_frames=None):
     
     assert fa.size == n_frames
 
-    for f0, f1 in izip(fa, ref_traj):
+    for f0, f1 in zip(fa, ref_traj):
         assert_almost_equal(f0.coords, f1.coords)
 
 class Test(unittest.TestCase):
@@ -78,6 +79,9 @@ class Test(unittest.TestCase):
     def test_1(self):
         import mdtraj as md
         import numpy as np
+
+        traj = mdio.iterload(fname, topname)
+
         m_top = md.load_prmtop(topname)
         m_traj = md.load_mdcrd(fname, m_top)
         print (m_traj.xyz[0, 0, 0])
@@ -88,22 +92,16 @@ class Test(unittest.TestCase):
 
         _fa = Trajectory()
         _fa.top = traj.top.copy()
-        _fa.load(m_traj)
+        _fa.load(m_traj) # not auto-cast from `nm` to `angstrom`
+        aa_eq(_fa.xyz*10., traj.xyz)
 
-        for idx, (f0, f1, f2) in enumerate(izip(_fa, traj, m_traj)):
-            _arr0 = f0.calc_distance(indices)
-            _arr1 = f1.calc_distance(indices)
-
-            # make  traj use 'nm' unit while pytraj use 'Angstrom'
-            _arr2 = 10 * md.compute_distances(f2, indices)[0]
-            if idx == 0:
-                print (_arr0[:10])
-                print (_arr1[:10])
-                print (_arr2[:10])
-            assert_almost_equal(_arr0, _arr2)
-            assert_almost_equal(_arr0, _arr1)
-            # we don't use assert_almost_equal since mdtraj just
-            # changes the original coords
+        a_mdtraj = md.compute_distances(m_traj, indices)
+        a_fa_from_mdtraj = _fa.calc_distance(indices)
+        import pytraj.common_actions as pyca
+        a_traj = pyca.calc_distance(traj, indices)
+        aa_eq(a_mdtraj,  a_fa_from_mdtraj)
+        aa_eq(a_mdtraj * 10,  a_traj)
+        aa_eq(a_fa_from_mdtraj * 10,  a_traj)
 
     @no_test
     def test_2(self):
