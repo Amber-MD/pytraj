@@ -517,19 +517,39 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
     *args, **kwd: optional (dtype='dataset' | 'pyarray' | 'ndarray' | 'list')
 
     Examples:
+        1. 
+        # memory saving
+        # * Create TrajectoryIterator to load only one Frame at a time
+        traj = mdio.iterload("data/nogit/tip3p/md.trj", 
+                            "./data/nogit/tip3p/tc5bwat.top")
+        # we will load stripped-atom frames into memory only
+        new_top = traj.top.strip_atoms("!@CA", copy=True)
+
+        # passing `frame_iter` to `calc_pairwise_rmsd`
+        # traj(0, 1000, mask='@CA') is equal to
+        #     traj.frame_iter(start=0, stop=1000, mask='@CA')
+
+        import pytraj.common_actions as pyca
+        pyca.calc_pairwise_rmsd(traj(0, 1000, mask='@CA'), 
+                                       top=new_top, dtype='ndarray')
+
+        2. 
         # calculate pairwise rmsd for all frames using CA atoms
         dslist = calc_pairwise_rmsd(traj, "@CA")
         dslist.to_ndarray()
         dslist.tolist()
 
+        3.
         # calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)
         # convert to numpy array
         arr_np = calc_pairwise_rmsd(traj, "@CA dme", dtype='ndarray')
 
+        4.
         # calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD
         # convert to numpy array
         arr_np = calc_pairwise_rmsd(traj, "@CA nofit", dtype='ndarray')
 
+        5.
         # calculate pairwise rmsd for all frames using CA atoms
         # use symmetry-corrected RMSD, convert to numpy array
         arr_np = calc_pairwise_rmsd(traj, "@CA srmsd", dtype='ndarray')
