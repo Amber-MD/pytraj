@@ -10,6 +10,7 @@ import pytraj.common_actions as pyca
 from pytraj.compat import zip
 
 class Test(unittest.TestCase):
+    @test_if_having("MDAnalysis")
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from MDAnalysis import Universe
