@@ -103,6 +103,10 @@ class Test(unittest.TestCase):
         aa_eq(a_mdtraj * 10,  a_traj)
         aa_eq(a_fa_from_mdtraj * 10,  a_traj)
 
+        # load mdtraj with given Topology
+        fa2 = Trajectory(m_traj, top=_fa.top)
+        aa_eq(fa2.xyz, _fa.xyz)
+
     @no_test
     def test_2(self):
         # turn off this test since getting 2/3 chances of segmentation fault
