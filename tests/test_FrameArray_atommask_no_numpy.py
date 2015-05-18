@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
             assert isinstance(arr0, list) == True
         else:
             assert hasattr(np, 'ndarray')
-            assert isinstance(arr0, np.ndarray) == True
+            assert isinstance(arr0[:], np.ndarray) == True
 
         # make sure that we did the right thing
         topCA = traj.top.strip_atoms("!@CA", copy=True)

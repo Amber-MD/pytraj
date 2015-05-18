@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         fa2 = Trajectory()
         fa2.top = fa.top
         fa2._allocate(fa.n_frames, fa.n_atoms)
-        fa2.update_xyz (fa.xyz)
+        fa2.update_xyz (fa.xyz[:])
         aa_eq(fa2.xyz, fa.xyz)
 
         # try to build Trajectory from scratch

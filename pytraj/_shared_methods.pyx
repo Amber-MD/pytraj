@@ -10,6 +10,7 @@ from pytraj.compat import set
 from pytraj.utils import _import_numpy
 from pytraj.exceptions import PytrajMemviewError, PytrajConvertError
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
+from pytraj._xyz import XYZ
 
 def _savetraj(self, filename="", fmt='unknown', overwrite=False):
     if fmt == 'unknown':
@@ -27,11 +28,30 @@ def _get_temperature_set(self):
     return set(self.temperatures) 
 
 def _xyz(self):
-    has_np, np = _import_numpy()
-    if has_np:
-        return self[:, :, :]
+    """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
+    We can not return a memoryview since Trajectory is a C++ vector of Frame object
+
+    Notes
+    -----
+        read-only
+    """
+    cdef bint has_numpy
+    cdef int i
+    cdef int n_frames = self.n_frames
+    cdef int n_atoms = self.n_atoms
+    cdef Frame frame
+
+    has_numpy, np = _import_numpy()
+    myview = np.empty((n_frames, n_atoms, 3), dtype='f8')
+
+    if self.n_atoms == 0:
+        raise NotImplementedError("need to have non-empty Topology")
+    if has_numpy:
+        for i, frame in enumerate(self):
+            myview[i] = frame.buffer2d
+        return XYZ(myview)
     else:
-        raise NotImplementedError("require numpy")
+        raise NotImplementedError("must have numpy")
 
 def _tolist(self):
     """return flatten list for traj-like object"""

@@ -18,7 +18,7 @@ from .cpp_algorithm cimport iter_swap
 # python level
 from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
-from .externals.six import string_types
+from .externals.six import string_types, PY2
 from .externals._load_pseudo_parm import load_pseudo_parm
 from .TrajectoryIterator import TrajectoryIterator
 from .utils.check_and_assert import _import_numpy, is_int, is_frame_iter
@@ -32,6 +32,7 @@ from ._shared_methods import _xyz, _tolist
 from ._utils import _int_array1d_like_to_memview
 from ._shared_methods import my_str_method
 from ._shared_methods import _box_to_ndarray
+from ._xyz import XYZ
 
 import pytraj.common_actions as pyca
 from pytraj.hbonds import search_hbonds
@@ -336,8 +337,12 @@ cdef class Trajectory (object):
 
     @property
     def xyz(self):
-        """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
+        """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
+
+        Notes
+        -----
+            read-only
         """
         cdef bint has_numpy
         cdef int i
@@ -353,7 +358,7 @@ cdef class Trajectory (object):
         if has_numpy:
             for i, frame in enumerate(self):
                 myview[i] = frame.buffer2d
-            return myview
+            return XYZ(myview)
         else:
             raise NotImplementedError("must have numpy")
 
@@ -539,7 +544,7 @@ cdef class Trajectory (object):
             # debug
             #print "after updating (start, stop, step) = (%s, %s, %s)" % (start, stop, step)
       
-            farray = self._fast_slice(slice(start, stop, step))
+            farray = self._fast_slice((start, stop, step))
             #i = start
             #while i < stop:
             #    # turn `copy` to `False` to have memoryview
@@ -559,8 +564,14 @@ cdef class Trajectory (object):
             #return self.tmpfarray
             return farray
 
-    def _fast_slice(self, slice my_slice):
+    def _fast_slice(self, my_slice):
         """only positive indexing
+
+        Examples
+        --------
+            traj._fast_slice(slice(0, 8, 2))
+            traj._fast_slice((0, 8, 2))
+
         """
         cdef int start, stop, step
         cdef int count
@@ -569,7 +580,14 @@ cdef class Trajectory (object):
 
         myview.top = self.top
 
-        start, stop, step  = my_slice.indices(self.size)
+        if isinstance(my_slice, slice):
+            start, stop, step  = my_slice.indices(self.size)
+        else:
+            try:
+                start, stop, step  = my_slice
+            except:
+                raise ValueError("don't know how to unpack start, stop and step")
+
         count = start
         while count < stop:
             _frame_ptr = self.frame_v[count]
@@ -1003,7 +1021,6 @@ cdef class Trajectory (object):
         if update_top:
             self.top = tmptop.copy()
 
-    #def _strip_atoms_openmp(self, mask=None, bint update_top=True, bint has_box=False):
     def _fast_strip_atoms(self, mask=None, bint update_top=True, bint has_box=False):
         """
         Paramters
@@ -1021,12 +1038,9 @@ cdef class Trajectory (object):
         >>> # update view
         >>> arr0 = np.asarray(frame.buffer)
         """
-        # NOTE: tested openmp (prange) but don't see the different. Need to 
-        # doublecheck if we DID apply openmp correctly
 
         cdef Frame frame = Frame()
-        cdef _Topology _tmptop
-        cdef _Topology* _newtop_ptr
+        cdef Topology newtop = Topology() # make a pointer
         cdef _Frame _tmpframe
         cdef int i 
         cdef int n_frames = self.frame_v.size()
@@ -1035,34 +1049,33 @@ cdef class Trajectory (object):
         if mask is None: 
             raise ValueError("Must provide mask to strip")
 
-        mask = mask.encode("UTF-8")
         atm = self.top(mask)
+        # use `invert_mask` to construct new frames
         atm.invert_mask() # read note in `Frame._strip_atoms`
-
+        # don't try using bare pointer for newtop.thisptr
+        # kept getting segfault
+        newtop = self.top.copy()
+        newtop.strip_atoms(mask)
         # do not dealloc since we use memoryview for _Frame
         frame.py_free_mem = False
 
-        # TODO : make it even faster by openmp
-        # need to handal memory to avoid double-free
-        _newtop_ptr = self.top.thisptr.modifyStateByMask(atm.thisptr[0])
-        #for i in prange(n_frames, nogil=True):
         for i in range(n_frames):
+            #newtop.thisptr = self.top.thisptr.modifyStateByMask(atm.thisptr[0])
             # point to i-th _Frame
-            frame.thisptr = new _Frame() # make private copy for each core
             frame.thisptr = self.frame_v[i]
             # make a copy and modify it. (Why?)
             # why do we need this?
             # update new _Topology
             # need to copy all other informations
             # allocate
-            _tmpframe.SetupFrameV(_newtop_ptr.Atoms(), _newtop_ptr.ParmCoordInfo())
+            _tmpframe.SetupFrameV(newtop.thisptr.Atoms(), newtop.thisptr.ParmCoordInfo())
             _tmpframe.SetFrame(frame.thisptr[0], atm.thisptr[0])
             # make a copy: coords, vel, mass...
             # if only care about `coords`, use `_fast_copy_from_frame`
             frame.thisptr[0] = _tmpframe
         if update_top:
             # C++ assignment
-            self.top.thisptr[0] = _newtop_ptr[0]
+            self.top.thisptr[0] = newtop.thisptr[0]
 
     def save(self, filename="", fmt='unknown', overwrite=True):
         _savetraj(self, filename, fmt, overwrite)
