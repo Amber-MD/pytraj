@@ -32,18 +32,18 @@ class TrajectoryMDAnalysisIterator(ActionInTraj):
         return self.__str__()
 
     def __iter__(self):
-       # cdef int n_atoms = self.n_atoms
-        atom_groups = self._ext_holder.atoms
 
-        for _ in self._traj_holder:
-            frame = Frame(self.n_atoms)
-            frame.xyz[:] = atom_groups.positions.astype('f8')
-            yield frame
+        with self:
+            atom_groups = self._ext_holder.atoms
+            for _ in self._traj_holder:
+                frame = Frame(self.n_atoms)
+                frame.xyz[:] = atom_groups.positions.astype('f8')
+                yield frame
 
     def __getitem__(self, idx):
         atom_groups = self._ext_holder.atoms
-        with self:
-            if is_int(idx):
+        if is_int(idx):
+            with self:
                 if idx >= self.n_frames or idx < 0: 
                     raise ValueError("must have 0 <= idx < self.n_frames")
                 i = 0
@@ -56,28 +56,28 @@ class TrajectoryMDAnalysisIterator(ActionInTraj):
                         frame.xyz[:] = atom_groups.positions
                         return frame # break the loop
                     i += 1
-            elif isinstance(idx, slice):
-                fa = Trajectory()
-                fa.top = self.top
-                atom_groups = self._ext_holder.atoms
-                start, stop, stride = idx.indices(self.n_frames)
+        elif isinstance(idx, slice):
+            fa = Trajectory()
+            fa.top = self.top
+            atom_groups = self._ext_holder.atoms
+            start, stop, stride = idx.indices(self.n_frames)
 
-                try:
-                    # if MDAnalysis object support slicing
-                    for _ in self._traj_holder[idx]:
-                        frame = Frame(self.n_atoms)
-                        frame.xyz[:] = atom_groups.positions
-                        fa.append(frame, copy=False)
-                    return fa
-                except:
-                    # old fashion way
-                    count = start
-                    while count < stop:
-                        fa.append(self[count], copy=False)
-                        count += stride
-                    return fa
-            else:
-                raise NotImplementedError()
+            try:
+                # if MDAnalysis object support slicing
+                for _ in self._traj_holder[idx]:
+                    frame = Frame(self.n_atoms)
+                    frame.xyz[:] = atom_groups.positions
+                    fa.append(frame, copy=False)
+                return fa
+            except:
+                # old fashion way
+                count = start
+                while count < stop:
+                    fa.append(self[count], copy=False)
+                    count += stride
+                return fa
+        else:
+            raise NotImplementedError()
 
     def __enter__(self):
         self._traj_holder.rewind()
