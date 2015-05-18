@@ -32,5 +32,12 @@ class Test(unittest.TestCase):
         # try to do some basic math
         xyz/3.
 
+        def try_to_set_atts():
+            traj.xyz = traj.xyz + 1.
+
+        def try_to_setitem():
+            traj.xyz[0, 0, 0] = 1.
+        self.assertRaises(NotImplementedError, lambda: try_to_setitem())
+
 if __name__ == "__main__":
     unittest.main()
