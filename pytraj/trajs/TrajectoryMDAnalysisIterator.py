@@ -21,9 +21,9 @@ class TrajectoryMDAnalysisIterator(ActionInTraj):
         self._traj_holder = mdanalysis_object.trajectory
 
         if top is not None:
-            self.top = top
+            self.top = top.copy()
         else:
-            self.top = load_pseudo_parm(self._ext_holder)
+            self.top = load_pseudo_parm(self._ext_holder).copy()
 
     def __str__(self):
         return my_str_method(self)
@@ -101,4 +101,9 @@ class TrajectoryMDAnalysisIterator(ActionInTraj):
     @property
     def xyz(self):
         from pytraj.io import load_MDAnalysis
-        return load_MDAnalysis(self._ext_holder, top=self.top).xyz
+        with self:
+            return load_MDAnalysis(self._ext_holder, top=self.top).xyz
+
+    @property
+    def filename(self):
+        return self._ext_holder.filename
