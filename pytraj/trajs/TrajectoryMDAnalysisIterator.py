@@ -3,7 +3,7 @@ from __future__ import absolute_import
 #from .. Trajectory cimport Trajectory
 #from .. Frame cimport _Frame, Frame
 from .. Trajectory import Trajectory
-from .. Frame import _Frame, Frame
+from .. Frame import Frame
 from .. externals import load_pseudo_parm
 
 #cdef class TrajectoryMDAnalysisIterator(object):
@@ -24,7 +24,7 @@ class TrajectoryMDAnalysisIterator(object):
         atom_groups = self._traj_holder.atoms
 
         for _ in self._traj_holder.trajectory:
-            frame = Frame(n_atoms)
+            frame = Frame(self.n_atoms)
             frame.xyz[:] = atom_groups.positions.astype('f8')
             yield frame
 
