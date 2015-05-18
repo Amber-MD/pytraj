@@ -7,7 +7,7 @@ from .Frame import Frame
 from .Trajectory import Trajectory
 from .trajs.Trajin_Single import Trajin_Single
 from .trajs.Trajout import Trajout
-from .utils.check_and_assert import make_sure_exist
+from .utils.check_and_assert import make_sure_exist, is_frame_iter
 from .utils import goto_temp_folder
 from .externals._load_HDF5 import load_hdf5
 from .externals._pickle import to_pickle, read_pickle
@@ -43,6 +43,9 @@ EXTRA_LOAD_METHODS = {'HDF5' : load_hdf5, }
 
 def load(*args, **kwd):
     """try loading and returning appropriate values"""
+
+    if is_frame_iter(args[0]):
+        return _load_from_frame_iter(*args, **kwd)
 
     if 'filename' in kwd.keys():
         make_sure_exist(kwd['filename'])
@@ -137,8 +140,16 @@ def loadtraj(filename=None, top=Topology(), indices=None):
         for i in indices:
             farray.append(ts[i])
         return farray
+    elif is_frame_iter(filename):
+        return _load_from_frame_iter(filename, top)
     else:
         return ts
+
+def _load_from_frame_iter(traj_frame_iter, top=None):
+    if top is None or top.is_empty():
+        raise ValueError("must provide non-empty Topology")
+    fa = Trajectory(traj_frame_iter, top=top)
+    return fa
 
 def iterload_remd(filename, top=Topology(), T="300.0"):
     """Load remd trajectory for single temperature.
