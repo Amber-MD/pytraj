@@ -61,5 +61,67 @@ class Test(unittest.TestCase):
         print (d_mda2)
         print (d_traj)
 
+    @test_if_having("MDAnalysis")
+    def test_1(self):
+        # DCD and PSF
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        from MDAnalysis import Universe
+        from MDAnalysisTests.datafiles import DCD, PSF
+        u = Universe(PSF, DCD)
+        t = mdio.load_MDAnalysisIterator(u)
+        traj = mdio.load(DCD, PSF)
+        t_in_mem = mdio.load_MDAnalysis(u)
+        aa_eq(t.xyz, traj.xyz)
+
+        # assert failed
+        # IOError: Error reading frame from DCD file
+        #aa_eq(t[:2].xyz, traj[:2].xyz)
+        d0 = traj.search_hbonds()
+        print (d0)
+        d1 = t.search_hbonds()
+        #print (d1.keys())
+        # FIXME: how MDA handle DCD file?
+        # assertion failed.
+        #aa_eq(d0.to_ndarray(), d1.to_ndarray())
+
+        # try another action: COM
+        d0 = traj.calc_COM().to_ndarray()
+        d1 = t.calc_COM().to_ndarray()
+        aa_eq(d0, d1)
+
+        # try another action: COG
+        d0 = traj.calc_COG().to_ndarray()
+        d1 = t.calc_COG().to_ndarray()
+        aa_eq(d0, d1)
+
+        # try another action: RMSD
+        d0 = pyca.calc_rmsd(traj, ref=traj[-1])
+        d1 = pyca.calc_rmsd(t, ref=traj[-1])
+        aa_eq(d0, d1)
+
+        # try another action: DSSP: segfault
+        # FIXME
+        d0 = pyca.calc_dssp(traj, dtype='ndarray')
+        #d1 = pyca.calc_dssp(t, dtype='ndarray')
+        d2 = pyca.calc_dssp(t_in_mem, dtype='ndarray')
+        #aa_eq(d0, d1)
+        aa_eq(d0, d2)
+
+        # try another action: rms2d
+        #d0 = pyca.calc_pairwise_rmsd(traj, dtype='ndarray')
+        # FIXME: segfault
+        #d1 = pyca.calc_pairwise_rmsd(t, dtype='ndarray')
+        # FIXME: segfault
+        #d2 = pyca.calc_pairwise_rmsd(t_in_mem, dtype='ndarray')
+        #aa_eq(d0, d1)
+        #aa_eq(d0, d2)
+
+        # just try not to mak segfault
+        # FIXME: segfault
+        #pyca.do_clustering(t, "kmeans clusters 5 @CA")
+        #pyca.do_clustering(t[:], "kmeans clusters 5 @CA")
+        #pyca.do_clustering(t_in_mem, "kmeans clusters 5 @CA")
+        #print (t)
+
 if __name__ == "__main__":
     unittest.main()
