@@ -1200,6 +1200,28 @@ cdef class Trajectory (object):
     def translate(self, mask=""):
         pyca.do_translation(self, mask)
 
+    def center(self, mask=""):
+        """
+        Examples
+        --------
+            traj.center() # all atoms, center to box center (x/2, y/2, z/2)
+            traj.center('@CA origin') # center at origin, use @CA
+            traj.center('mass') # center to box center, use mass weighted.
+            traj.center(':1 mass') # residue 1, use mass weighted.
+
+        Notes
+        -----
+            if using 'mass', make sure to `set_frame_mass` before calling `center`
+
+        See Also
+        --------
+            Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 546)
+
+        """
+        from pytraj.actions.Action_Center import Action_Center
+        act = Action_Center()
+        act(mask, self)
+
     def set_nobox(self):
         cdef Frame frame
 

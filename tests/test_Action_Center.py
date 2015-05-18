@@ -1,34 +1,27 @@
+from __future__ import print_function
 import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.utils.check_and_assert import get_amber_saved_test_dir
+from pytraj.utils import eq, aa_eq
+from pytraj.decorators import no_test, test_if_having, test_if_path_exists
+from pytraj.testing import cpptraj_test_dir, duplicate_traj
+import pytraj.common_actions as pyca
+from pytraj.compat import zip
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
-        f0 = traj[0].copy()
-        f0saved = traj[0].copy()
+        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        fa = traj[:]
+        # load 2 frames
+        saved_traj = mdio.load("./data/tz2.center_mass.nc", traj.top)
+        fa.set_frame_mass()
+        fa.center(":1 mass")
 
-        print (f0[:2])
-        print (f0.has_box())
-        act = adict['center']
-        act(":1-13", f0, traj.top)
+        for f0, f1 in zip(fa[:2], saved_traj):
+            print (f0.rmsd_nofit(f1))
 
-        print (f0[:2])
-
-        saved_test = get_amber_saved_test_dir("Test_Center/centered.crd.save")
-        if saved_test:
-            print ("has saved test")
-            saved_f = mdio.iterload(saved_test, "./data/tz2.truncoct.parm7")[0]
-            print (saved_f[:2])
-
-            # make sure we did the right thing
-            assert_almost_equal(saved_f.coords, f0.coords)
-            print ("OK")
-        else:
-            print ("can not find saved test")
+        aa_eq(fa[:2].xyz, saved_traj.xyz, decimal=5)
 
 if __name__ == "__main__":
     unittest.main()
