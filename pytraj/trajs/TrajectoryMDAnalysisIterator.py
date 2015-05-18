@@ -7,10 +7,11 @@ from .. Trajectory import Trajectory
 from .. Frame import Frame
 from .. externals import load_pseudo_parm
 from .. _shared_methods import my_str_method
+from .. _action_in_traj import ActionInTraj
 
 # TODO: should have Base class for all external packages (mdtraj, MDAnalysis, ...)
 #cdef class TrajectoryMDAnalysisIterator(object):
-class TrajectoryMDAnalysisIterator(object):
+class TrajectoryMDAnalysisIterator(ActionInTraj):
     #cdef object _traj_holder
     #cdef public Topology top
 
