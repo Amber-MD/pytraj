@@ -33,7 +33,8 @@ class TestSpeed(unittest.TestCase):
         #f1 = traj2[998]
         #print f1
         
-        farray2 = traj[:-3:-1] + traj[:] + traj[::-1]
+        farray2 = Trajectory(top=traj2.top)
+        farray2.join([traj[:-3:-1], traj[:], traj[::-1]])
         #farray2 += farray2
         print(farray2)
 
