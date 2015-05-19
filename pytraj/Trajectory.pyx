@@ -1253,3 +1253,32 @@ cdef class Trajectory (object):
 
     def box_to_ndarray(self):
         return _box_to_ndarray(self)
+
+    # math
+    def __iadd__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__iadd__(value)
+        return self
+
+    def __isub__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__isub__(value)
+        return self
+
+    def __imul__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__imul__(value)
+        return self
+
+    def __idiv__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__idiv__(value)
+        return self
