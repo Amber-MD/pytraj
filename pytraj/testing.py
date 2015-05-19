@@ -18,6 +18,14 @@ possible_path = "../cpptraj/test/"
 if os.path.exists(possible_path):
     cpptraj_test_dir = possible_path
 
+def make_random_frame(n_atoms=10000):
+    import numpy as np
+    from pytraj import Frame
+
+    frame = Frame(n_atoms)
+    frame.xyz[:] = np.random.randn(n_atoms, 3)
+    return frame
+
 if __name__ == "__main__":
     print (amberhome)
     print (cpptraj_test_dir)
