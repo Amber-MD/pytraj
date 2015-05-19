@@ -238,7 +238,7 @@ class TestTrajectory(unittest.TestCase):
 
         print("farray1.size", farray1.size)
         print("farray0cp.size", farray0cp.size)
-        farray0cp += farray1.copy()
+        farray0cp.join(farray1.copy())
         print(farray0cp)
 
         assert farray0cp.size == farray0.size

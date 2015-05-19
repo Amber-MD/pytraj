@@ -8,13 +8,19 @@ from pytraj.utils import Timer
 class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
-        traj = mdio.load("./data/nogit/tip3p/md.trj", "./data/nogit/tip3p/tc5bwat.top")[:5]
+        #traj = mdio.load("./data/nogit/tip3p/md.trj", "./data/nogit/tip3p/tc5bwat.top")[:5]
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj.join([traj.copy() for _ in range(1000)], copy=False)
         print (traj)
         xyz = traj.xyz[:]
+        xyz0 = xyz[0].copy()
 
         # iadd
         traj += 1.0
         xyz += 1.0
+        aa_eq(traj.xyz, xyz)
+        traj += xyz0
+        xyz += xyz0
         aa_eq(traj.xyz, xyz)
 
         # isub

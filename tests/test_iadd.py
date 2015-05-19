@@ -15,18 +15,18 @@ class Test(unittest.TestCase):
         old_size = traj.n_frames
         print (traj)
 
-        traj += traj
+        traj.join(traj.copy(), copy=False)
         print (traj)
         assert  traj.n_frames == 2 * old_size
         aa_eq(traj[0].xyz, traj[old_size].xyz)
 
         @Timer()
         def normal(fa):
-            fa += fa
+            fa.join(fa.copy(), copy=False)
 
         @Timer()
         def make_copy(fa):
-            fa += fa.copy()
+            fa.join(fa.copy())
 
         fa = traj.copy()
         normal(fa)

@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
         print (traj)
         #print (fa3)
         for i in range(10):
-            fa3 += fa3.copy()
+            fa3.join(fa3.copy())
 
         saved_fa3 =  fa3.copy()
 

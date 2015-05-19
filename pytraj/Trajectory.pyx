@@ -816,43 +816,6 @@ cdef class Trajectory (object):
             yield frame
             incr(it)
 
-    def __add__(self, Trajectory other):
-        self += other
-        return self
-
-    def __iadd__(self, Trajectory other):
-        """
-        append `other`'s frames to `self`
-
-        Examples
-        -------
-        farray += other_farray
-
-        Notes
-        -----
-        No copy is made (except traj += traj (itself))
-        """
-        cdef _Frame* _frame_ptr
-        cdef _Frame _frame
-        cdef Frame frame
-        cdef int old_size = self.size
-        cdef int i
-
-        if self.top.n_atoms != other.top.n_atoms:
-            raise ValueError("n_atoms of two arrays do not match")
-
-        if other is self:
-            # why doing this? save memory
-            # traj += traj.copy() is too expensive since we need to make a copy first 
-            if self.warning:
-                print ("making copies of Frames and append")
-            for i in range(old_size):
-                self.append(self[i], copy=True)
-        else:
-            for _frame_ptr in other.frame_v:
-                self.frame_v.push_back(_frame_ptr)
-        return self
-
     def append(self, Frame framein, copy=True):
         """append new Frame
 
@@ -1255,6 +1218,13 @@ cdef class Trajectory (object):
         return _box_to_ndarray(self)
 
     # math
+    def __idiv__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__idiv__(value)
+        return self
+
     def __iadd__(self, value):
         cdef Frame frame
 
@@ -1274,11 +1244,4 @@ cdef class Trajectory (object):
 
         for frame in self:
             frame.xyz.__imul__(value)
-        return self
-
-    def __idiv__(self, value):
-        cdef Frame frame
-
-        for frame in self:
-            frame.xyz.__idiv__(value)
         return self

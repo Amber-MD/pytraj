@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
 
         fa = traj[:]
         for i in range(3):
-            fa += fa + fa
+            fa.join([fa.copy(), fa.copy()])
 
         print (fa.xyz[0, :10])
         xyz = fa.xyz / 10.

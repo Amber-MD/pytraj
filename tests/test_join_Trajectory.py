@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
 
         # += 
         SIZE = 10
-        fa0 += fa1
+        fa0.join(fa1, copy=False)
         assert fa0.size == traj.size * 2 == 20
         aa_eq(fa0[:SIZE].xyz, fa0[SIZE:].xyz)
         aa_eq(fa0[:SIZE].xyz, traj.xyz)

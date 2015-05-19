@@ -37,7 +37,7 @@ class TestLoadingTime(unittest.TestCase):
         print(traj[:1])
         print(traj[3:5:2])
         print(traj[6:])
-        print(traj[:1] + traj[3:5:2] + traj[6:])
+        #print(traj[:1], traj[3:5:2], traj[6:])
         
         traj2 = Trajectory()
         traj2.top = traj.top.copy()
