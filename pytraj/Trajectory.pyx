@@ -1,4 +1,4 @@
-#print print  distutils: language = c++
+# distutils: language = c++
 from __future__ import absolute_import
 cimport cython
 from cpython.array cimport array as pyarray
@@ -13,6 +13,7 @@ from .TrajinList cimport TrajinList
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
 from .actions.Action_Rmsd cimport Action_Rmsd
+from .math.Matrix_3x3 cimport Matrix_3x3
 from .cpp_algorithm cimport iter_swap
 
 # python level
@@ -1174,8 +1175,21 @@ cdef class Trajectory (object):
         # there is no gain in speed. don't try.
         pyca.do_autoimage(self, mask)
 
-    def rotate(self, mask=""):
-        pyca.do_rotation(self, mask)
+    def rotate(self, mask="", matrix=None):
+        cdef Frame frame
+        cdef Matrix_3x3 mat
+        cdef AtomMask atm
+
+        if matrix is None:
+            pyca.do_rotation(self, mask)
+        else:
+            try:
+                mat = Matrix_3x3(mask) # cheap to copy
+                atm = self.top(mask)
+                for frame in self:
+                    frame.rotate_with_matrix(mat, atm)
+            except:
+                raise ValueError("require string or Matrix-like object")
 
     def translate(self, mask=""):
         pyca.do_translation(self, mask)
