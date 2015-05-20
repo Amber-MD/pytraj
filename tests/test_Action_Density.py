@@ -41,5 +41,16 @@ class Test(unittest.TestCase):
         act.print_output()
         print (dslist.size)
 
+    @test_if_path_exists(test_density_dir)
+    def test_1(self):
+        import pytraj.common_actions as pyca
+        from pytraj.common_actions import calculate
+        traj = mdio.iterload("./data/DOPC.rst7", "./data/DOPC.parm7")
+        fa = traj[:]
+        fa.center('":PC | :OL | :OL2" origin')
+        command = 'mass delta 0.25 ":PC@P31" ":PC@N31" ":PC@C2" ":PC | :OL | :OL2"'
+        dslist = pyca.calc_density(traj, command)
+        print (dslist)
+
 if __name__ == "__main__":
     unittest.main()

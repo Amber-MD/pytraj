@@ -37,7 +37,8 @@ cdef class DataFile:
         self.thisptr.SetDataFilePrecision(widthIn, precisionIn)
 
     def read_data(self, filenameIn, arglist, DataSetList datasetlist):
-        return self.thisptr.ReadDataIn(filenameIn.encode(), ArgList(arglist).thisptr[0], datasetlist.thisptr[0])
+        return self.thisptr.ReadDataIn(filenameIn.encode(), 
+               ArgList(arglist).thisptr[0], datasetlist.thisptr[0])
 
     def setup_datafile(self, string filenameIn, ArgList argIn, int debugIn):
         return self.thisptr.SetupDatafile(filenameIn, argIn.thisptr[0], debugIn)
