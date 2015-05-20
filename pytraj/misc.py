@@ -138,7 +138,7 @@ def get_atts(obj):
     atts_dict = dir(obj)
     return [a for a in atts_dict if not a.startswith("__")]
 
-def merge_trajs(traj1, traj2):
+def merge_trajs(traj1, traj2, start_new_mol=True):
     """
     
     Examples
@@ -148,18 +148,26 @@ def merge_trajs(traj1, traj2):
        assert traj3.n_atoms == traj1.n_atoms + traj2.n_atoms
        import numpy as np
        assert np.any(traj3.xyz, np.vstack(tra1.xyz,  traj2.xyz)) == True
+
+    Notes
+    -----
+    Code might be changed
     """
     from pytraj.compat import zip
+    import numpy as np
+
     traj = Trajectory()
     traj._allocate(traj1.n_frames, traj1.n_atoms + traj2.n_atoms)
 
     # merge Topology
     top = traj1.top.copy()
+    if start_new_mol:
+        top.start_new_mol()
     top.join(traj2.top)
     traj.top = top
 
     # update coords
     for f1, f2, frame in zip(traj1, traj2, traj):
-        frame.xyz = np.vstack(f1.xyz, f2.xyz)
+        frame.xyz = np.vstack((f1.xyz, f2.xyz))
 
     return traj
