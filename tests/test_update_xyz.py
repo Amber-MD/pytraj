@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         # Trajectory
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         for i in range(5):
-            traj += traj.copy()
+            traj.join(traj.copy(), copy=False)
         traj2 = traj.copy()
         traj3 = traj.copy()
         print (traj, traj2)

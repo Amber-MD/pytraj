@@ -64,10 +64,14 @@ class Test(unittest.TestCase):
             fa[0] = xyz
         self.assertRaises(ValueError, lambda: shape_mismatch())
 
-        # TODO: more shape checking for Trajectory
-        #def shape_mismatch2():
-        #    fa[0] = Frame()
-        #self.assertRaises(ValueError, lambda: shape_mismatch2())
+        def shape_mismatch2():
+            fa[0] = Frame()
+        self.assertRaises(ValueError, lambda: shape_mismatch2())
+
+        # assign to None
+        def None_value():
+            fa[0] = None
+        self.assertRaises(ValueError, lambda: None_value())
 
 if __name__ == "__main__":
     unittest.main()

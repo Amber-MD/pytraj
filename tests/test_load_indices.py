@@ -77,8 +77,8 @@ class TestIndices(unittest.TestCase):
         traj2 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")[:][:10]
         assert traj2[0].coords == traj0[0].coords
 
-        traj.join(traj[:] + traj[0:100] + traj[9:3:-1])
-        traj += traj[:]
+        traj.join((traj[:], traj[0:100], traj[9:3:-1]))
+        traj.join(traj[:])
 
         assert traj[0].coords != array('d', [0 for _ in range(traj[0].size)])
         assert traj[-1].coords != array('d', [0 for _ in range(traj[0].size)])
@@ -101,7 +101,7 @@ class TestIndices(unittest.TestCase):
     def test_join_dummy(self):
         traj0 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")[:]
         #traj0 += traj0
-        traj0 += traj0[:]
+        traj0.join(traj0[:])
         print(traj0)
 
     def test_load_indices_from_io(self):

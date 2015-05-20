@@ -279,25 +279,8 @@ cdef class Frame (object):
     def __setitem__(self, idx, value):
         has_np, np = _import_numpy()
 
-        if isinstance(value, (tuple, list)):
-            # 1D
-            try:
-                value = pyarray('d', value)
-                self.buffer2d[idx] = value
-            except:
-                try:
-                    self[idx] = np.asarray(value)
-                except:
-                    raise ValueError("don't know how to setitem")
-        elif isinstance(idx, AtomMask):
-            try:
-                #  1D array
-                self.update_atoms(idx.selected_indices(), value)
-            except:
-                try:
-                    self.update_atoms(idx.indices, value.flatten())
-                except:
-                    raise ValueError("don't know how to setitem")
+        if isinstance(idx, AtomMask):
+            self.xyz[idx.indices] = value
         elif isinstance(value, string_types):
             # assume this is atom mask
             if self.top is None:
@@ -305,24 +288,7 @@ cdef class Frame (object):
             else:
                 self[self.top(idx)] = value
         else:
-            if hasattr(value, 'itemsize') and value.itemsize == 8:
-                # don't need to use numpy in this case since we already have
-                # correct type
-                self.buffer2d[idx] = value
-            if hasattr(value, 'is_integer'):
-                # is a number.
-                self.buffer2d[idx] = value
-            else:
-                try:
-                    # use numpy for safe casting from numpy f4 to f8
-                    self.xyz[idx] = value
-                except:
-                    try:
-                        value = np.asarray(value)
-                        self.xyz[idx] = value
-                    except:
-                        raise ValueError("don't know how to setitem")
-
+            self.xyz[idx] = value
 
     def __iter__(self):
         cdef int i
@@ -442,7 +408,7 @@ cdef class Frame (object):
             else:
                 raise NotImplementedError("need numpy. Use `buffer2d` instead")
         def __set__(self, value):
-            raise NotImplementedError("use self.xyz[:] = your_array")
+            self.xyz[:] = value
         
     def is_empty(self):
         return self.thisptr.empty()
@@ -679,35 +645,96 @@ cdef class Frame (object):
     def zero_coords(self):
         self.thisptr.ZeroCoords()
 
-    def __iadd__(Frame self, Frame other):
+    def __iadd__(Frame self, value):
+        cdef Frame other
         # += 
         # either of two methods are correct
         #self.thisptr[0] = self.thisptr[0].addequal(other.thisptr[0])
-        self.thisptr[0] += other.thisptr[0]
+        if isinstance(value, Frame):
+            other = <Frame> value
+            self.thisptr[0] += other.thisptr[0]
+        else:
+            self.xyz[:] += value
         return self
 
-    def __sub__(Frame self, Frame other):
-        cdef Frame frame = Frame()
-        frame.thisptr[0] = self.thisptr[0] - other.thisptr[0]
+    def __add__(self, value):
+        cdef Frame other
+        cdef Frame frame
+        
+        frame = Frame(self.n_atoms)
+        if isinstance(value, Frame):
+            other = value
+            frame.xyz = self.xyz + other.xyz
+        else:
+            frame.xyz = self.xyz + value
         return frame
 
-    def __isub__(Frame self, Frame other):
+    def __sub__(Frame self, value):
+        cdef Frame other
+        cdef Frame frame = Frame()
+
+        if isinstance(value, Frame):
+            other = <Frame> value
+            frame.thisptr[0] = self.thisptr[0] - other.thisptr[0]
+        else:
+            frame = Frame(self)
+            frame.xyz -= value
+        return frame
+
+    def __isub__(Frame self, value):
+        cdef Frame other
         # -= 
         # either of two methods are correct
         #self.thisptr[0] = self.thisptr[0].subequal(other.thisptr[0])
-        self.thisptr[0] -= other.thisptr[0]
+        if isinstance(value, Frame):
+            other = value
+            self.thisptr[0] -= other.thisptr[0]
+        else:
+            self.xyz[:] -= value
         return self
 
-    def __imul__(Frame self, Frame other):
+    def __imul__(Frame self, value):
+        cdef Frame other
         # *=
         # either of two methods are correct
         #self.thisptr[0] = self.thisptr[0].mulequal(other.thisptr[0])
-        self.thisptr[0] *= other.thisptr[0]
+        if isinstance(value, Frame):
+            other = value
+            self.thisptr[0] *= other.thisptr[0]
+        else:
+            self.xyz[:] *= value
         return self
 
-    def __mul__(Frame self, Frame other):
+    def __mul__(Frame self, value):
         cdef Frame frame = Frame()
-        frame.thisptr[0] = self.thisptr[0] * other.thisptr[0]
+        cdef Frame other
+
+        if isinstance(value, Frame):
+            other = value
+            frame.thisptr[0] = self.thisptr[0] * other.thisptr[0]
+        else:
+            frame = Frame(self)
+            frame.xyz[:] *= value
+        return frame
+
+    def __idiv__(self, value):
+        cdef Frame other
+        if isinstance(value, Frame):
+            other = value
+            self.thisptr.Divide(other.thisptr[0], 1.)
+        else:
+            self.xyz /= value
+        return self
+
+    def __div__(self, value):
+        cdef Frame other, frame
+
+        frame = Frame(self.n_atoms)
+        if isinstance(value, Frame):
+            other = value
+            frame.xyz = self.xyz / other.xyz
+        else:
+            frame.xyz = self.xyz / value
         return frame
 
     def divide(self, double divisor, *args):

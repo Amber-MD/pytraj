@@ -7,8 +7,9 @@ from numpy.testing import assert_almost_equal
 from pytraj.utils import has_
 from pytraj.decorators import test_if_having, no_test
 from pytraj.utils import Timer
+from pytraj.__version__ import __version__ as pytraj_version
 
-print ("pytraj version = 0.1.2.dev0")
+print (pytraj_version)
  
 if has_("mdtraj"):
     import mdtraj as md
@@ -99,12 +100,6 @@ class Test(unittest.TestCase):
             traj.save("./output/x_speed.binpos")
         Run(save_binpos, "save .binpos")
 
-    #@no_test
-    @test_if_having("mdtraj")
-    def test_4(self):
-        def n_frames(traj):
-            traj.n_frames
-        Run(n_frames, 'n_frames')
 
     @test_if_having("mdtraj")
     def test_5(self):

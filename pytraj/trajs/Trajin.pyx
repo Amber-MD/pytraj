@@ -469,11 +469,16 @@ cdef class Trajin (TrajectoryFile):
         return (self.size, self[0].n_atoms, 3)
 
     @property
-    @memoize
+    #@memoize
     def xyz(self):
         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
         """
+        # NOTE: turn off `memoize`
+        # xyz = traj.xyz[:]
+        # xyz += 1.
+        # print (xyz[0, 0])
+        # print (traj.xyz[0, 0])
         return _xyz(self)
 
     @memoize

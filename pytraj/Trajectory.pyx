@@ -1,4 +1,4 @@
-#print print  distutils: language = c++
+# distutils: language = c++
 from __future__ import absolute_import
 cimport cython
 from cpython.array cimport array as pyarray
@@ -13,6 +13,7 @@ from .TrajinList cimport TrajinList
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
 from .actions.Action_Rmsd cimport Action_Rmsd
+from .math.Matrix_3x3 cimport Matrix_3x3
 from .cpp_algorithm cimport iter_swap
 
 # python level
@@ -123,6 +124,9 @@ cdef class Trajectory (object):
         #        # remind not need to add in future.
         #        #frame.py_free_mem = True
         #        del frame.thisptr
+
+    def __array__(self):
+        raise NotImplementedError("pytraj.Trajectory does not have buffer interface")
 
     def __del__(self):
         """deallocate all frames"""
@@ -613,10 +617,15 @@ cdef class Trajectory (object):
 
         if len(self) == 0:
             raise ValueError("Your Trajectory is empty, how can I index it?")
+
+        if other is None:
+            raise ValueError("why bothering assign None?")
         if is_int(idx):
             if isinstance(other, Frame):
                 frame = <Frame> other.copy()
                 frame.py_free_mem = False
+                if frame.n_atoms != self.n_atoms:
+                    raise ValueError("don't have the same n_atoms")
                 self.frame_v[idx] = frame.thisptr
             else:
                 # xyz
@@ -815,43 +824,6 @@ cdef class Trajectory (object):
             frame.thisptr = deref(it)
             yield frame
             incr(it)
-
-    def __add__(self, Trajectory other):
-        self += other
-        return self
-
-    def __iadd__(self, Trajectory other):
-        """
-        append `other`'s frames to `self`
-
-        Examples
-        -------
-        farray += other_farray
-
-        Notes
-        -----
-        No copy is made (except traj += traj (itself))
-        """
-        cdef _Frame* _frame_ptr
-        cdef _Frame _frame
-        cdef Frame frame
-        cdef int old_size = self.size
-        cdef int i
-
-        if self.top.n_atoms != other.top.n_atoms:
-            raise ValueError("n_atoms of two arrays do not match")
-
-        if other is self:
-            # why doing this? save memory
-            # traj += traj.copy() is too expensive since we need to make a copy first 
-            if self.warning:
-                print ("making copies of Frames and append")
-            for i in range(old_size):
-                self.append(self[i], copy=True)
-        else:
-            for _frame_ptr in other.frame_v:
-                self.frame_v.push_back(_frame_ptr)
-        return self
 
     def append(self, Frame framein, copy=True):
         """append new Frame
@@ -1208,8 +1180,21 @@ cdef class Trajectory (object):
         # there is no gain in speed. don't try.
         pyca.do_autoimage(self, mask)
 
-    def rotate(self, mask=""):
-        pyca.do_rotation(self, mask)
+    def rotate(self, mask="", matrix=None):
+        cdef Frame frame
+        cdef Matrix_3x3 mat
+        cdef AtomMask atm
+
+        if matrix is None:
+            pyca.do_rotation(self, mask)
+        else:
+            try:
+                mat = Matrix_3x3(mask) # cheap to copy
+                atm = self.top(mask)
+                for frame in self:
+                    frame.rotate_with_matrix(mat, atm)
+            except:
+                raise ValueError("require string or Matrix-like object")
 
     def translate(self, mask=""):
         pyca.do_translation(self, mask)
@@ -1253,3 +1238,62 @@ cdef class Trajectory (object):
 
     def box_to_ndarray(self):
         return _box_to_ndarray(self)
+
+    # math
+    def __idiv__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__idiv__(value)
+        return self
+
+    def __itruediv__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__itruediv__(value)
+        return self
+
+    def __iadd__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__iadd__(value)
+        return self
+
+    def __isub__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__isub__(value)
+        return self
+
+    def __imul__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__imul__(value)
+        return self
+
+    def apply(self, func=None, args=None, indices_or_mask=None):
+        """apply `func` to traj's coords"""
+        cdef Frame frame
+
+        if isinstance(indices_or_mask, string_types):
+            indices = self.top(indices_or_mask).indices
+        else:
+            indices = indices_or_mask
+
+        # TODO: make this shorter
+        if args is None:
+            for frame in self:
+                if indices is not None:
+                    frame[indices] = func(frame.xyz[indices])
+                else:
+                    frame.xyz[:] = func(frame.xyz)
+        else:
+            for frame in self:
+                if indices is not None:
+                    frame[indices] = func(frame.xyz[indices], args)
+                else:
+                    frame.xyz[:] = func(frame.xyz, args)
