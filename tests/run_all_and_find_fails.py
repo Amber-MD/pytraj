@@ -1,12 +1,13 @@
+from __future__ import print_function
 from subprocess import call
 import sys
 import os
+from data.find_dupes import find_dupes
 
 PY3 = sys.version_info[0] == 3
-
-# find duplicate files for case-insensitivity
-os.system("python ./data/find_dupes.py")
-os.system("(cd ./data && python ./find_dupes.py)")
+# for testing
+i_duplicated = find_dupes(".") + find_dupes("./data")
+print ('number of duplicated filename (for mac) = ', i_duplicated)
 
 with open("log", 'w') as log_file:
     with open("output.txt", 'w') as file_out:
@@ -42,5 +43,5 @@ print ("no-passing-files: \n")
 print ("got %s segmentations faults" % i_seg)
 os.system("cat log2.sh")
 
-if i_fails  >= 1 or i_seg >= 1:
+if i_fails  >= 1 or i_seg >= 1 or i_duplicated >= 1:
     sys.exit(1)

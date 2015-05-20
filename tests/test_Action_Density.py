@@ -43,6 +43,8 @@ class Test(unittest.TestCase):
 
     @test_if_path_exists(test_density_dir)
     def test_1(self):
+        from pytraj import set_world_silent
+        set_world_silent(False)
         import pytraj.common_actions as pyca
         from pytraj.common_actions import calculate
         traj = mdio.iterload("./data/DOPC.rst7", "./data/DOPC.parm7")
