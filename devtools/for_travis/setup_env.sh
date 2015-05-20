@@ -23,3 +23,4 @@ source activate myenv
 # install other packages here
 pip install git+git://github.com/swails/ParmEd
 pip install memory_profiler
+pip install psutil
