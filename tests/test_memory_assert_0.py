@@ -54,6 +54,20 @@ def make_copy_2_frames():
 def perform_action_radgyr():
     pyca.calc_radgyr(traj)
 
+def perform_action_radgyr_dset_view():
+    ds = pyca.calc_radgyr(traj, dtype='dataset')
+    d = ds[:]
+
+def perform_action_radgyr_dset_copy():
+    ds = pyca.calc_radgyr(traj, dtype='dataset')
+    d = ds.copy()
+
+def inline_math_add(traj):
+    traj += 1.
+
+def apply_func(traj):
+    traj.apply(lambda x : x * 2)
+
 if __name__ == "__main__":
     import numpy as np
     from numpy import max
@@ -61,6 +75,13 @@ if __name__ == "__main__":
     m = np.max(memory_usage(single_traj))
     print ("single_traj", m)
     real_m_traj = m
+
+    m = max(memory_usage((inline_math_add, (traj,))))
+    print ('inline_math_add', m - real_m_traj)
+    assert (m - real_m_traj) < 2.
+
+    m = max(memory_usage((apply_func, (traj,))))
+    print ('apply_func', m - real_m_traj)
 
     m = memory_usage(single_frame)[-1]
     print ("single_frame", m - real_m_traj)
@@ -87,3 +108,11 @@ if __name__ == "__main__":
     m = max(memory_usage(perform_action_radgyr))
     print ('perform_action_radgyr', m - real_m_traj)
     assert (m - real_m_traj) < real_m_traj
+    m_radgyr = m - real_m_traj
+
+    m = max(memory_usage(perform_action_radgyr_dset_view))
+    print ('perform_action_radgyr', m - real_m_traj)
+
+    m = max(memory_usage(perform_action_radgyr_dset_copy))
+    print ('perform_action_radgyr', m - real_m_traj)
+
