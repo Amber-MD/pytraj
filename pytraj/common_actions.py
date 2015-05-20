@@ -4,6 +4,7 @@
 # TODO : use __all__
 """
 from __future__ import absolute_import
+import os
 from array import array
 from functools import partial
 
@@ -28,6 +29,7 @@ from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
+from .utils.context import goto_temp_folder
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
@@ -42,6 +44,7 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_center_of_mass',
                'calc_center_of_geometry',
                'calc_pairwise_rmsd',
+               'calc_density',
                'calc_temperatures']
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
@@ -592,6 +595,32 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
     # remove dataset coords to free memory
     dslist.remove_set(dslist[0])
 
+    return _get_data_from_dtype(dslist, dtype)
+
+def calc_density(traj=None, command="", top=None, *args, **kwd):
+    # TODO: update this method if cpptraj save data to DataSetList
+
+    from pytraj.actions.Action_Density import Action_Density
+    if 'dtype' in kwd.keys():
+        dtype = kwd['dtype']
+        del kwd['dtype']
+    else:
+        dtype = None
+
+    _top = _get_top(traj, top)
+    dflist = DataFileList()
+
+    tmp_filename = "tmp_pytraj_out.txt"
+    command = "out " + tmp_filename + " " + command
+    act = Action_Density()
+    #with goto_temp_folder():
+    act(command, traj, top=_top, dflist=dflist)
+    act.print_output()
+    dflist.write_all_datafiles()
+
+    dslist = DataSetList()
+    absolute_path = os.path.abspath(tmp_filename)
+    dslist.read_data(absolute_path)
     return _get_data_from_dtype(dslist, dtype)
 
 def calc_temperatures(traj=None, command="", top=None):
