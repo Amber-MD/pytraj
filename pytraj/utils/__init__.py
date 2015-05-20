@@ -23,5 +23,5 @@ def duplicate_traj(orig_traj, n_times):
 
     fa = traj.copy()
     for _ in range(n_times-1):
-        fa += traj.copy()
+        fa.join(traj.copy())
     return fa

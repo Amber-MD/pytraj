@@ -43,12 +43,16 @@ class TestTrajectory(unittest.TestCase):
         print(farray[-1:-10:2])
         print(farray[-1:-10:-2])
         print(farray[-1:-10:-2])
-        newfarray = farray[:5] + farray[10:20]
+        newfarray = Trajectory()
+        newfarray.top = farray.top.copy()
+        newfarray.join(farray[:5], farray[10:20])
         newfarray[0][0] = 100000.
         assert newfarray[0][0, 0] == 100000.
         print(farray[0][0])
         print("farray[::-1]", farray[::-1])
-        farray2 = farray[::-1] + farray[:]
+        farray2 = Trajectory()
+        farray2.top = newfarray.top.copy()
+        farray2.join(farray[::-1], farray[:])
         print(farray2)
         print(farray2[0].n_atoms)
 

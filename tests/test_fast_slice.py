@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
             # load small file
             traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
             for _ in range(5):
-                traj += traj + traj
+                traj.join((traj.copy(), traj.copy()))
             start, stop, step = 0, 1000, 4
         print (traj.n_frames)
 
@@ -59,6 +59,9 @@ class Test(unittest.TestCase):
         def fast_slice():
             traj._fast_slice(s)
 
+        def fast_slice2():
+            traj._fast_slice((start, stop, step))
+
         print ("normal_slice")
         print (timeit(normal_slice, number=100))
         print ("test_range")
@@ -69,10 +72,13 @@ class Test(unittest.TestCase):
         print (timeit(test_pyarray_slicing, number=100))
         print ("fast_slice")
         print (timeit(fast_slice, number=100))
+        print ("fast_slice2")
+        print (timeit(fast_slice2, number=100))
 
         #
         aa_eq(traj[sr].xyz, traj[s].xyz)
         aa_eq(traj._fast_slice(s).xyz, traj[s].xyz)
+        aa_eq(traj._fast_slice((start, stop, step)).xyz, traj[s].xyz)
         aa_eq(traj[indices].xyz, traj[indices_p].xyz)
 
 if __name__ == "__main__":
