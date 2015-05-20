@@ -4,6 +4,10 @@ import os
 
 PY3 = sys.version_info[0] == 3
 
+# find duplicate files for case-insensitivity
+os.system("python ./data/find_dupes.py")
+os.system("(cd ./data && python ./find_dupes.py)")
+
 with open("log", 'w') as log_file:
     with open("output.txt", 'w') as file_out:
         # get all the files starting with 'test_' and having "import unittest"
