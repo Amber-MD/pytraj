@@ -1242,6 +1242,13 @@ cdef class Trajectory (object):
             frame.xyz.__idiv__(value)
         return self
 
+    def __itruediv__(self, value):
+        cdef Frame frame
+
+        for frame in self:
+            frame.xyz.__itruediv__(value)
+        return self
+
     def __iadd__(self, value):
         cdef Frame frame
 
