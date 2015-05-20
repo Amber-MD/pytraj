@@ -279,25 +279,8 @@ cdef class Frame (object):
     def __setitem__(self, idx, value):
         has_np, np = _import_numpy()
 
-        if isinstance(value, (tuple, list)):
-            # 1D
-            try:
-                value = pyarray('d', value)
-                self.buffer2d[idx] = value
-            except:
-                try:
-                    self[idx] = np.asarray(value)
-                except:
-                    raise ValueError("don't know how to setitem")
-        elif isinstance(idx, AtomMask):
-            try:
-                #  1D array
-                self.update_atoms(idx.selected_indices(), value)
-            except:
-                try:
-                    self.update_atoms(idx.indices, value.flatten())
-                except:
-                    raise ValueError("don't know how to setitem")
+        if isinstance(idx, AtomMask):
+            self.xyz[idx.indices] = value
         elif isinstance(value, string_types):
             # assume this is atom mask
             if self.top is None:
@@ -305,24 +288,7 @@ cdef class Frame (object):
             else:
                 self[self.top(idx)] = value
         else:
-            if hasattr(value, 'itemsize') and value.itemsize == 8:
-                # don't need to use numpy in this case since we already have
-                # correct type
-                self.buffer2d[idx] = value
-            if hasattr(value, 'is_integer'):
-                # is a number.
-                self.buffer2d[idx] = value
-            else:
-                try:
-                    # use numpy for safe casting from numpy f4 to f8
-                    self.xyz[idx] = value
-                except:
-                    try:
-                        value = np.asarray(value)
-                        self.xyz[idx] = value
-                    except:
-                        raise ValueError("don't know how to setitem")
-
+            self.xyz[idx] = value
 
     def __iter__(self):
         cdef int i

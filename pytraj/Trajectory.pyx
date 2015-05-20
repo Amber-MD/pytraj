@@ -1245,3 +1245,26 @@ cdef class Trajectory (object):
         for frame in self:
             frame.xyz.__imul__(value)
         return self
+
+    def apply(self, func=None, args=None, indices_or_mask=None):
+        """apply `func` to traj's coords"""
+        cdef Frame frame
+
+        if isinstance(indices_or_mask, string_types):
+            indices = self.top(indices_or_mask).indices
+        else:
+            indices = indices_or_mask
+
+        # TODO: make this shorter
+        if args is None:
+            for frame in self:
+                if indices is not None:
+                    frame[indices] = func(frame.xyz[indices])
+                else:
+                    frame.xyz[:] = func(frame.xyz)
+        else:
+            for frame in self:
+                if indices is not None:
+                    frame[indices] = func(frame.xyz[indices], args)
+                else:
+                    frame.xyz[:] = func(frame.xyz, args)
