@@ -124,6 +124,9 @@ cdef class Trajectory (object):
         #        #frame.py_free_mem = True
         #        del frame.thisptr
 
+    def __array__(self):
+        raise NotImplementedError("pytraj.Trajectory does not have buffer interface")
+
     def __del__(self):
         """deallocate all frames"""
         cdef Frame frame
