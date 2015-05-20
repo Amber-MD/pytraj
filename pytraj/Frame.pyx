@@ -408,6 +408,8 @@ cdef class Frame (object):
             else:
                 raise NotImplementedError("need numpy. Use `buffer2d` instead")
         def __set__(self, value):
+            if not hasattr(value, 'shape') and value.shape != self.shape:
+                raise ValueError("shape mismatch")
             self.xyz[:] = value
         
     def is_empty(self):
