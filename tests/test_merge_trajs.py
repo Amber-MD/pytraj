@@ -16,8 +16,9 @@ class Test(unittest.TestCase):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        traj0 = make_fake_traj(100, 1000)
-        traj1 = make_fake_traj(100, 1000)
+        traj0 = traj[:5].copy()
+        traj1 = traj[5:].copy()
+        print (traj0, traj1)
         traj_merged  =  merge_trajs(traj0, traj1, start_new_mol=True)
         print (traj0, traj1)
         print (traj_merged)
@@ -31,10 +32,22 @@ class Test(unittest.TestCase):
             aa_eq(f1.xyz, frame.xyz[n_atoms0:])
 
         assert traj_merged.top.n_atoms == 2 * n_atoms0
-        assert traj_merged.top.n_mols == 2 # don't create new mol
+        #assert traj_merged.top.n_mols == 2 #
 
         traj_merged_2 = merge_trajs(traj0, traj1, start_new_mol=False)
         assert traj_merged_2.top.n_mols == 1
+
+        # merge from frame_iter
+        traj_merged = merge_trajs((traj(1, 5), traj.top),
+                                  (traj(1, 10, 2), traj.top),
+                                  n_frames = 5)
+        print (traj0.top, traj1.top)
+        saved_fiter_0 = mdio._load_from_frame_iter(traj(1, 5), top=traj.top)
+        saved_fiter_1 = mdio._load_from_frame_iter(traj(1, 10, 2), top=traj.top)
+
+        for f0, f1, frame in zip(saved_fiter_0, saved_fiter_1, traj_merged):
+            aa_eq(f0.xyz, frame.xyz[:n_atoms0])
+            aa_eq(f1.xyz, frame.xyz[n_atoms0:])
 
 
 if __name__ == "__main__":
