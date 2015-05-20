@@ -11,7 +11,7 @@ for pyfile in testlist:
         if "import unittest" in txt and not "#import unittest" in txt:
             if keyword in txt:
                 line0 = "echo ./%s \n" % pyfile
-                line = "python ./%s \n" % pyfile
+                line = "python ./%s || exit 1 \n" % pyfile
                 lines.append(line0)
                 lines.append(line)
 
