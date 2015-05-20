@@ -617,10 +617,15 @@ cdef class Trajectory (object):
 
         if len(self) == 0:
             raise ValueError("Your Trajectory is empty, how can I index it?")
+
+        if other is None:
+            raise ValueError("why bothering assign None?")
         if is_int(idx):
             if isinstance(other, Frame):
                 frame = <Frame> other.copy()
                 frame.py_free_mem = False
+                if frame.n_atoms != self.n_atoms:
+                    raise ValueError("don't have the same n_atoms")
                 self.frame_v[idx] = frame.thisptr
             else:
                 # xyz
