@@ -137,3 +137,66 @@ def get_atts(obj):
     """get methods and atts from obj but excluding special methods __"""
     atts_dict = dir(obj)
     return [a for a in atts_dict if not a.startswith("__")]
+
+def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
+    """
+    
+    Examples
+    --------
+       # from two Trajectory or TrajectoryIterator
+       traj3 = merge_trajs(traj1, traj2)
+       assert traj3.n_frames == traj1.n_frames == traj2.n_frames
+       assert traj3.n_atoms == traj1.n_atoms + traj2.n_atoms
+       import numpy as np
+       assert np.any(traj3.xyz, np.vstack(tra1.xyz,  traj2.xyz)) == True
+
+       # from frame_iter for saving memory
+       traj3 = merge_trajs((traj1(0, 10, 2), traj1.top), 
+                           (traj2(100, 110, 2), traj2.top), n_frames=6)
+
+    Notes
+    -----
+    Code might be changed
+    """
+    from pytraj.compat import zip
+    import numpy as np
+
+    if isinstance(traj1, (list, tuple)):
+        n_frames_1 = n_frames
+        top1 = traj1[1]
+        _traj1 = traj1[0]
+    else:
+        n_frames_1 = traj1.n_frames
+        top1 = traj1.top
+        _traj1 = traj1
+
+    if isinstance(traj2, (list, tuple)):
+        n_frames_2 = n_frames
+        top2 = traj2[1] # example: (traj(0, 5), traj.top)
+        _traj2 = traj2[0]
+    else:
+        n_frames_2 = traj2.n_frames
+        top2 = traj2.top
+        _traj2 = traj2
+
+    if n_frames_1 != n_frames_2:
+        raise ValueError("must have the same n_frames")
+
+    if top1.n_atoms != top2.n_atoms:
+        raise ValueError("must have the same n_atoms")
+
+    traj = Trajectory()
+    traj._allocate(n_frames_1, top1.n_atoms + top2.n_atoms)
+
+    # merge Topology
+    top = top1.copy()
+    if start_new_mol:
+        top.start_new_mol()
+    top.join(top2)
+    traj.top = top
+
+    # update coords
+    for f1, f2, frame in zip(_traj1, _traj2, traj):
+        frame.xyz = np.vstack((f1.xyz, f2.xyz))
+
+    return traj
