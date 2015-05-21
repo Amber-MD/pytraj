@@ -1,5 +1,5 @@
 # distutils: language = c++
-from __future__ import absolute_import
+from __future__ import absolute_import, division
 cimport cython
 from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
@@ -1242,37 +1242,87 @@ cdef class Trajectory (object):
     # math
     def __idiv__(self, value):
         cdef Frame frame
+        cdef Trajectory tmp_traj
+        cdef int i
+        cdef int size = self.size
 
-        for frame in self:
-            frame.xyz.__idiv__(value)
+        if not isinstance(value, Trajectory):
+            # numpy
+            for frame in self:
+                frame.xyz.__idiv__(value)
+        else:
+            tmp_traj = value
+            for i in range(size):
+                # frame /= other_frame
+                self[i] /= tmp_traj[i]
         return self
 
     def __itruediv__(self, value):
         cdef Frame frame
+        cdef Trajectory tmp_traj
+        cdef int i
+        cdef int size = self.size
 
-        for frame in self:
-            frame.xyz.__itruediv__(value)
+        if not isinstance(value, Trajectory):
+            # numpy
+            for frame in self:
+                frame.xyz.__itruediv__(value)
+        else:
+            tmp_traj = value
+            for i in range(size):
+                # frame /= other_frame
+                self[i] /= tmp_traj[i]
         return self
 
     def __iadd__(self, value):
         cdef Frame frame
+        cdef Trajectory tmp_traj
+        cdef int i
+        cdef int size = self.size
 
-        for frame in self:
-            frame.xyz.__iadd__(value)
+        if not isinstance(value, Trajectory):
+            # numpy
+            for frame in self:
+                frame.xyz.__iadd__(value)
+        else:
+            tmp_traj = value
+            for i in range(size):
+                # frame += other_frame
+                self.frame_v[i][0] += tmp_traj.frame_v[i][0]
         return self
 
     def __isub__(self, value):
         cdef Frame frame
+        cdef Trajectory tmp_traj
+        cdef int i
+        cdef int size = self.size
 
-        for frame in self:
-            frame.xyz.__isub__(value)
+        if not isinstance(value, Trajectory):
+            # numpy
+            for frame in self:
+                frame.xyz.__isub__(value)
+        else:
+            tmp_traj = value
+            for i in range(size):
+                # frame -= other_frame
+                self.frame_v[i][0] -= tmp_traj.frame_v[i][0]
         return self
 
     def __imul__(self, value):
         cdef Frame frame
+        cdef Trajectory tmp_traj
+        cdef int i
+        cdef int size = self.size
 
-        for frame in self:
-            frame.xyz.__imul__(value)
+        if not isinstance(value, Trajectory):
+            # numpy
+            for frame in self:
+                frame.xyz.__imul__(value)
+        else:
+            tmp_traj = value
+            for i in range(size):
+                # frame *= other_frame
+                self.frame_v[i][0] *= tmp_traj.frame_v[i][0]
         return self
 
     def apply(self, func=None, args=None, indices_or_mask=None):
@@ -1297,3 +1347,12 @@ cdef class Trajectory (object):
                     frame[indices] = func(frame.xyz[indices], args)
                 else:
                     frame.xyz[:] = func(frame.xyz, args)
+
+    def __contains__(self, Frame other):
+        """check if frame is in self"""
+        cdef Frame frame
+
+        for frame in self:
+            if other.is_(frame):
+                return True
+        return False

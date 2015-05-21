@@ -1,5 +1,7 @@
 # distutils: language = c++
 
+#from __future__ import absolute_import, division
+# turn off `division` for automatically casting
 from __future__ import absolute_import
 cimport cython
 from libc.math cimport sqrt
@@ -221,6 +223,9 @@ cdef class Frame (object):
 
     def __repr__(self):
         return self.__str__()
+
+    def is_(self, Frame other):
+        return self.thisptr == other.thisptr
 
     @property
     def shape(self):
@@ -728,7 +733,28 @@ cdef class Frame (object):
             self.xyz /= value
         return self
 
+    def __itruediv__(self, value):
+        # copied from __idiv__
+        cdef Frame other
+        if isinstance(value, Frame):
+            other = value
+            self.xyz /= value.xyz
+        else:
+            self.xyz /= value
+        return self
+
     def __div__(self, value):
+        cdef Frame other, frame
+
+        frame = Frame(self.n_atoms)
+        if isinstance(value, Frame):
+            other = value
+            frame.xyz = self.xyz / other.xyz
+        else:
+            frame.xyz = self.xyz / value
+        return frame
+
+    def __truediv__(self, value):
         cdef Frame other, frame
 
         frame = Frame(self.n_atoms)
