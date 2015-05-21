@@ -42,5 +42,27 @@ class Test(unittest.TestCase):
 
         assert (ptop.box.type == 'nobox')
 
+    @test_if_having("numpy")
+    @test_if_having("chemistry")
+    def test_0(self):
+        import numpy as np
+        import chemistry as chem
+        from pytraj.externals._load_ParmEd import to_ParmEd
+        parm_name = "./data/Tc5b.top"
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x",  parm_name)
+        parm = to_ParmEd(traj.top)
+        top2 = mdio.load_pseudo_parm(parm)
+
+        true_top = traj.top
+        ptop = top2
+        eq(sorted(ptop._bonds_ndarray.flatten()), 
+           sorted(true_top._bonds_ndarray.flatten()))
+
+        eq(sorted(ptop._angles_ndarray.flatten()), 
+           sorted(true_top._angles_ndarray.flatten()))
+
+        eq(sorted(ptop._dihedrals_ndarray.flatten()), 
+           sorted(true_top._dihedrals_ndarray.flatten()))
+
 if __name__ == "__main__":
     unittest.main()

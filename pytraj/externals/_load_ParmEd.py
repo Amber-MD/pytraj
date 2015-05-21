@@ -38,3 +38,17 @@ def _load_chem(parm_name):
         if not has_parmed:
             PytrajWarningMissing("`chemistry`")
         return None
+
+def to_ParmEd(pytraj_top):
+    # TODO: exten to gromacs, charmm too
+    # need to change extension
+    """convert to ParmEd object"""
+    from pytraj.utils.context import goto_temp_folder
+    from pytraj.parms.ParmFile import ParmFile
+    import chemistry as chem
+
+    # I am not a fan of saving/loading again but this might be best choice
+    with goto_temp_folder():
+        fname = "tmp_pytrajtop.prmtop"
+        ParmFile().writeparm(pytraj_top, fname, fmt="")
+        return chem.load_file(fname)
