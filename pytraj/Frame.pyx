@@ -736,7 +736,7 @@ cdef class Frame (object):
         cdef Frame other
         if isinstance(value, Frame):
             other = value
-            self.thisptr.Divide(other.thisptr[0], 1.)
+            self.xyz /= value.xyz
         else:
             self.xyz /= value
         return self
