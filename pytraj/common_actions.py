@@ -605,27 +605,28 @@ def calc_density(traj=None, command="", top=None, *args, **kwd):
     else:
         dtype = None
     
-    def _calc_density(traj, command, *args, **kwd):
-        # TODO: update this method if cpptraj save data to DataSetList
-        from pytraj.actions.Action_Density import Action_Density
-    
-        _top = _get_top(traj, top)
-        dflist = DataFileList()
-    
-        tmp_filename = "tmp_pytraj_out.txt"
-        command = "out " + tmp_filename + " " + command
-        act = Action_Density()
-        #with goto_temp_folder():
-        act(command, traj, top=_top, dflist=dflist)
-        act.print_output()
-        dflist.write_all_datafiles()
-        absolute_path_tmp = os.path.abspath(tmp_filename)
-        return absolute_path_tmp
+    with goto_temp_folder():
+        def _calc_density(traj, command, *args, **kwd):
+            # TODO: update this method if cpptraj save data to DataSetList
+            from pytraj.actions.Action_Density import Action_Density
+        
+            _top = _get_top(traj, top)
+            dflist = DataFileList()
+        
+            tmp_filename = "tmp_pytraj_out.txt"
+            command = "out " + tmp_filename + " " + command
+            act = Action_Density()
+            #with goto_temp_folder():
+            act(command, traj, top=_top, dflist=dflist)
+            act.print_output()
+            dflist.write_all_datafiles()
+            absolute_path_tmp = os.path.abspath(tmp_filename)
+            return absolute_path_tmp
 
-    dslist = DataSetList()
-    fname = _calc_density(traj, command, *args, **kwd)
-    dslist.read_data(fname)
-    return _get_data_from_dtype(dslist, dtype)
+        dslist = DataSetList()
+        fname = _calc_density(traj, command, *args, **kwd)
+        dslist.read_data(fname)
+        return _get_data_from_dtype(dslist, dtype)
 
 def calc_temperatures(traj=None, command="", top=None):
     """return 1D python array of temperatures (from velocity) in traj
