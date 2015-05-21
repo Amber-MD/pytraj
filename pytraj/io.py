@@ -71,14 +71,18 @@ def load(*args, **kwd):
         # try to use cpptraj to load Topology
         top = readparm(*args, **kwd)
         if hasattr(top, 'is_empty') and top.is_empty():
-            # load file
-            # try loading
             try:
-                filetype = _guess_filetype(filename) 
-                new_object = EXTRA_LOAD_METHODS[filetype](*args, **kwd)
-                return new_object
+                # use ParmEd to load if cpptraj fails
+                import chemistry
+                return load_pseudo_parm(chemistry.load_file(args[0]))
             except:
-                raise ValueError("don't know how to load file/files")
+                try:
+                    # try to predict filetype and use proper loading method
+                    filetype = _guess_filetype(filename) 
+                    new_object = EXTRA_LOAD_METHODS[filetype](*args, **kwd)
+                    return new_object
+                except:
+                    raise ValueError("don't know how to load file/files")
         else:
             return top
     else:
