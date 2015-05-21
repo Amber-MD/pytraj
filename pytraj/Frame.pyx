@@ -222,6 +222,9 @@ cdef class Frame (object):
     def __repr__(self):
         return self.__str__()
 
+    def is_(self, Frame other):
+        return self.thisptr == other.thisptr
+
     @property
     def shape(self):
         return self.buffer2d[:].shape
