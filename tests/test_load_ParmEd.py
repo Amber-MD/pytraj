@@ -44,7 +44,7 @@ class Test(unittest.TestCase):
 
     @test_if_having("numpy")
     @test_if_having("chemistry")
-    def test_0(self):
+    def test_1(self):
         import numpy as np
         import chemistry as chem
         from pytraj.externals._load_ParmEd import to_ParmEd
@@ -63,6 +63,28 @@ class Test(unittest.TestCase):
 
         eq(sorted(ptop._dihedrals_ndarray.flatten()), 
            sorted(true_top._dihedrals_ndarray.flatten()))
+
+    @no_test
+    @test_if_having("numpy")
+    @test_if_having("chemistry")
+    def test_2(self):
+        # turn off test to check loading code
+        import pytraj.io as io
+        # try loading PSF and doing analysis 
+        import numpy as np
+        import chemistry as chem
+        parm_name = "./data/ala3.psf"
+        traj = mdio.iterload("./data/ala3.dcd",  parm_name)
+        parm = chem.load_file(parm_name)
+        #p_top = io.load_pseudo_parm(parm)
+        p_top = io.load_full_ParmEd(parm)
+        print ('test2: parm', parm.__repr__())
+        print ('test2: p_top', p_top)
+        traj_new_ptop = mdio.iterload(traj.filename, top=p_top)
+        # use `search_hbonds` since I got segfault with MDAnalysis
+        ds = traj.search_hbonds(dtype='ndarray')
+        ds_newtop = traj_new_ptop.search_hbonds(dtype='ndarray')
+        aa_eq(ds, ds_newtop)
 
 if __name__ == "__main__":
     unittest.main()
