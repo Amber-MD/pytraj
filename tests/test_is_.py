@@ -13,11 +13,19 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
 
+        # test is_
         assert fa[0].is_(fa[0])
         assert not fa[0].is_(fa[1])
 
         fa_sliced = fa[3:7]
         assert fa_sliced[0].is_(fa[3])
+
+        # test __contains__
+        f0 = fa[0]
+        assert f0 in fa
+
+        f0_from_iter = traj[0]
+        assert not f0_from_iter in fa
 
 if __name__ == "__main__":
     unittest.main()

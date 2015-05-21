@@ -1297,3 +1297,12 @@ cdef class Trajectory (object):
                     frame[indices] = func(frame.xyz[indices], args)
                 else:
                     frame.xyz[:] = func(frame.xyz, args)
+
+    def __contains__(self, Frame other):
+        """check if frame is in self"""
+        cdef Frame frame
+
+        for frame in self:
+            if other.is_(frame):
+                return True
+        return False
