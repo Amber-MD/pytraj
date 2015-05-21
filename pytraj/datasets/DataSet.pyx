@@ -1,4 +1,5 @@
 # distutils: language = c++
+from __future__ import division
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
 from ..decorators import makesureABC, require_having
@@ -66,6 +67,7 @@ cdef class DataSet:
     def __setitem__(self, idx, value):
         raise NotImplementedError("Must over-write DataSet data attr")
 
+
     def __array__(self):
         """
         Aim: directly use numpy to perform analysis without casting to ndararay again
@@ -83,6 +85,54 @@ cdef class DataSet:
             return np.asarray(self.data)
         except:
             raise NotImplementedError("don't know how to cast to ndarray")
+
+    def __add__(self, value):
+        dnew = self.copy()
+        dnew.__iadd__(value)
+        return dnew
+
+    def __iadd__(self, value):
+        if hasattr(value, '_npdata'):
+            self._npdata += value._npdata
+        else:
+            self._npdata += value
+        return self
+
+    def __sub__(self, value):
+        dnew = self.copy()
+        dnew.__isub__(value)
+        return dnew
+
+    def __isub__(self, value):
+        if hasattr(value, '_npdata'):
+            self._npdata -= value._npdata
+        else:
+            self._npdata -= value
+        return self
+
+    def __mul__(self, value):
+        dnew = self.copy()
+        dnew.__imul__(value)
+        return dnew
+
+    def __imul__(self, value):
+        if hasattr(value, '_npdata'):
+            self._npdata *= value._npdata
+        else:
+            self._npdata *= value
+        return self
+
+    def __div__(self, value):
+        dnew = self.copy()
+        dnew.__imul__(value)
+        return dnew
+
+    def __idiv__(self, value):
+        if hasattr(value, '_npdata'):
+            self._npdata /= value._npdata
+        else:
+            self._npdata /= value
+        return self
 
     def copy(self):
         cdef int i
@@ -199,6 +249,18 @@ cdef class DataSet:
         ABC method, must override
         """
         raise NotImplementedError("Must over-write DataSet data attr")
+
+    property _npdata:
+        def __get__(self):
+            """return memoryview as numpy array for self.data"""
+            # NOTE: overwrite by using `raise NotImplementedError`
+            # for some DataSet subclasses not returning a `view`
+            _, np = _import_numpy()
+            return np.asarray(self.data)
+        def __set__(self, value):
+            _, np = _import_numpy()
+            arr = np.asarray(self.data)
+            arr[:] = value
 
     def tolist(self):
         return list(self.data)

@@ -138,6 +138,16 @@ cdef class DataSetList:
         else:
             raise ValueError()
 
+    def __setitem__(self, idx, value):
+        """data copy
+
+        dslist[0] += 1.
+        """
+        if hasattr(value, '_npdata'):
+            self[idx]._npdata[:] = value._npdata[:]
+        else:
+            self[idx]._npdata[:] = value
+
     def set_ensemble_num(self,int i):
         self.thisptr.SetEnsembleNum(i)
 
