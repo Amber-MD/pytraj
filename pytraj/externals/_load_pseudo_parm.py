@@ -39,12 +39,13 @@ def load_pseudo_parm(parm):
     for chain in chains:
         pseudotop.start_new_mol()
         for atom in chain.atoms:
+            # NOTE: need to convert to string for some Topology (PSF, ...)
             res = atom.residue
-            aname = atom.name
-            resname = res.name
+            aname = str(atom.name)
+            resname = str(res.name)
 
             if is_mdtraj(parm):
-                atype = atom.name # mdtraj
+                atype = str(atom.name) # mdtraj
                 resid = res.index
                 mass = atom.element.mass
                 #charge = atom.element.charge
@@ -56,7 +57,7 @@ def load_pseudo_parm(parm):
                 charge = atom.charge
                 mass = atom.mass
             else:
-                atype = atom.type # parmed
+                atype = str(atom.type) # parmed
                 resid = res.idx
                 charge = atom.charge
                 mass = atom.mass
