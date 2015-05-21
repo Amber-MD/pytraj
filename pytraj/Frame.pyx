@@ -1,5 +1,7 @@
 # distutils: language = c++
 
+#from __future__ import absolute_import, division
+# turn off `division` for automatically casting
 from __future__ import absolute_import
 cimport cython
 from libc.math cimport sqrt

@@ -1,5 +1,5 @@
 # distutils: language = c++
-from __future__ import absolute_import
+from __future__ import absolute_import, division
 cimport cython
 from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
