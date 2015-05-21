@@ -39,9 +39,19 @@ try:
 except ImportError:
     from urllib import urlopen
 
-__all__ = ['load', 'load_hdf5', 'write_traj', 
+__all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
+           '_load_from_filelist', '_iterload_from_filelist',
+           'loadpdb_rcsb',
+           'load_pseudo_parm', 'load_cpptraj_file',
+           'load_datafile', 'load_hdf5',
+           'load_sample_data',
+           'load_ParmEd', 'load_full_ParmEd',
+           'load_mdtraj',
            'load_MDAnalysis', 'load_MDAnalysisIterator',
-           'read_parm', 'write_parm', 'save']
+           'read_parm', 'write_parm', 'save', 'write_traj',
+           'read_pickle', 'read_json',
+           'to_dataframe', 'to_pickle', 'to_json',
+           ]
 
 EXTRA_LOAD_METHODS = {'HDF5' : load_hdf5, }
 

@@ -19,6 +19,11 @@ class Test(unittest.TestCase):
         io.to_pickle(mydict, pk_fname)
 
         new_dict = io.read_pickle(pk_fname)
+        print (new_dict, mydict)
+
+        # NOTE: test faild if changing DataSetList's method from
+        # 'to_dict(use_numpy=False)' to 'to_dict(use_numpy=True)'
+        # not sure why
         for key in mydict.keys():
             aa_eq(mydict[key], new_dict[key])
 
