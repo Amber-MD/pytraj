@@ -323,13 +323,12 @@ cdef class DataSetList:
         except:
             raise PytrajConvertError("dont know how to convert to list")
 
-    def to_dict(self, use_numpy=True):
+    def to_dict(self, use_numpy=False):
         """return a dict object with key=legend, value=list"""
         try:
             if use_numpy:
                 return dict((d0.legend, d0.to_ndarray()) for d0 in self)
             else:
-                print ("dont have numpy. Convert to list (slow)")
                 return dict((d0.legend, d0.tolist()) for d0 in self)
         except:
             raise PytrajConvertError("don't know tho to convert to dict")
