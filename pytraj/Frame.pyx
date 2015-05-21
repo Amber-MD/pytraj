@@ -728,7 +728,28 @@ cdef class Frame (object):
             self.xyz /= value
         return self
 
+    def __itruediv__(self, value):
+        # copied from __idiv__
+        cdef Frame other
+        if isinstance(value, Frame):
+            other = value
+            self.thisptr.Divide(other.thisptr[0], 1.)
+        else:
+            self.xyz /= value
+        return self
+
     def __div__(self, value):
+        cdef Frame other, frame
+
+        frame = Frame(self.n_atoms)
+        if isinstance(value, Frame):
+            other = value
+            frame.xyz = self.xyz / other.xyz
+        else:
+            frame.xyz = self.xyz / value
+        return frame
+
+    def __truediv__(self, value):
         cdef Frame other, frame
 
         frame = Frame(self.n_atoms)
