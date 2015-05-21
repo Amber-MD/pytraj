@@ -83,7 +83,7 @@ def load(*args, **kwd):
             return top
     else:
         # load to Trajectory object
-        return loadtraj(*args, **kwd)[:]
+        return load_traj(*args, **kwd)[:]
 
 def _load_from_filelist(*args, **kwd):
     """return a list of Trajectory"""
@@ -96,14 +96,14 @@ def _load_from_filelist(*args, **kwd):
         mylist = sorted(glob(args[0]))
     else:
         raise ValueError()
-    return [loadtraj(filename, *args_less, **kwd)[:] for filename in mylist]
+    return [load_traj(filename, *args_less, **kwd)[:] for filename in mylist]
 
 def iterload(*args, **kwd):
     """return TrajectoryIterator object
     """
     if kwd and 'indices' in kwd.keys():
         raise ValueError("do not support indices for TrajectoryIterator loading")
-    return loadtraj(*args, **kwd)
+    return load_traj(*args, **kwd)
 
 def _iterload_from_filelist(*args, **kwd):
     """return a list of TrajectoryIterator"""
@@ -122,9 +122,9 @@ def _iterload_from_filelist(*args, **kwd):
         mylist = sorted(glob(args[0]))
     else:
         raise ValueError()
-    return [loadtraj(filename, *args_less, **kwd) for filename in mylist]
+    return [load_traj(filename, *args_less, **kwd) for filename in mylist]
 
-def loadtraj(filename=None, top=Topology(), indices=None):
+def load_traj(filename=None, top=Topology(), indices=None):
     """load trajectory from filename
     Parameters
     ----------
@@ -312,6 +312,5 @@ def load_MDAnalysisIterator(u):
 write_traj = writetraj
 save = writetraj
 save_traj = writetraj
-load_traj = loadtraj
 read_parm = readparm
 write_parm = writeparm
