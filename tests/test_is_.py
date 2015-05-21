@@ -27,5 +27,19 @@ class Test(unittest.TestCase):
         f0_from_iter = traj[0]
         assert not f0_from_iter in fa
 
+        # make a new copy
+        f1 = f0.copy()
+        aa_eq(f1.xyz, f0.xyz)
+        assert not f1 in fa
+
+        # append
+        fa.append(f1, copy=False)
+        assert f1 in fa
+
+        # append
+        f2 = fa[5] + 1.
+        fa.append(f2, copy=True)
+        assert not f2 in fa
+
 if __name__ == "__main__":
     unittest.main()
