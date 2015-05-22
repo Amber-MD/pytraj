@@ -1378,3 +1378,29 @@ cdef class Trajectory (object):
             if other.is_(frame):
                 return True
         return False
+
+    def average(self, mask=None):
+        cdef AtomMask atm
+        cdef Frame frame
+        cdef _Frame* _frame
+        cdef _Frame* frame_ptr
+        cdef bint has_mask
+        cdef int n_atoms
+
+        if mask is not None or (isinstance(mask, string_types) and not mask.is_empty()):
+            atm = self.top(mask)
+            frame = Frame(atm.n_atoms)
+            has_mask = True
+        else:
+            frame = Frame(self.n_atoms)
+            has_mask = False
+        frame.zero_coords()
+
+        for frame_ptr in self.frame_v:
+            if has_mask: 
+                _frame = new _Frame(frame_ptr[0], atm.thisptr[0])
+            else:
+                _frame = new _Frame(frame_ptr[0])
+            frame.thisptr[0] += deref(_frame)
+        frame /= self.n_frames
+        return frame
