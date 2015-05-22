@@ -284,6 +284,10 @@ cdef class DataSet:
             msg = "not implemented for %s" % self.__class__.__name__
             raise NotImplementedError(msg)
 
+    @property
+    def values(self):
+        return self.to_ndarray()
+
     def to_ndarray(self):
         """return ndarray view of self.data"""
         from pytraj.utils import _import_numpy

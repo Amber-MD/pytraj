@@ -352,6 +352,16 @@ cdef class DataSetList:
         except:
             raise PytrajConvertError("don't know tho to convert to dict")
 
+    @property
+    def values(self):
+        """return read-only ndarray"""
+        from pytraj._xyz import XYZ
+        # read-only
+        try:
+            return XYZ(self.to_ndarray())
+        except:
+            raise ValueError("don't know how to cast to numpy array")
+
     def to_ndarray(self):
         has_np, np = _import("numpy")
         if has_np:

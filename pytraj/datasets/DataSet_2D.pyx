@@ -39,3 +39,6 @@ cdef class DataSet_2D (DataSet):
 
     def get_full_matrix(self):
         raise NotImplementedError("must over-write in subclass")
+
+    def to_dataframe(self):
+        raise NotImplementedError("must overwrite in subclass")
