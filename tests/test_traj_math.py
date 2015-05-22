@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         #traj = mdio.load("./data/nogit/tip3p/md.trj", "./data/nogit/tip3p/tc5bwat.top")[:5]
         trajiter = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         traj_saved = trajiter[:]
-        traj_saved.join([trajiter[:] for _ in range(20)], copy=False)
+        traj_saved.join([trajiter[:] for _ in range(2000)], copy=False)
 
         traj = traj_saved.copy()
         print (traj)
