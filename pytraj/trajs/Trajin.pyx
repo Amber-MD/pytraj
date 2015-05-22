@@ -138,24 +138,24 @@ cdef class Trajin (TrajectoryFile):
         # only open and close file once
         with self:
             for i in range(n_chunk):
-                    # always create new Trajectory
-                    farray = Trajectory(check_top=False)
-                    if copy_top:
-                        farray.top = self.top.copy()
-                    else:
-                        farray.top = self.top
-                        farray.top.py_free_mem = False # let `self` do it
+                # always create new Trajectory
+                farray = Trajectory(check_top=False)
+                if copy_top:
+                    farray.top = self.top.copy()
+                else:
+                    farray.top = self.top
+                    farray.top.py_free_mem = False # let `self` do it
 
-                    if i != n_chunk - 1:
-                        _stop = start + chunk*(i+1)
-                    else:
-                        _stop = stop + 1
+                if i != n_chunk - 1:
+                    _stop = start + chunk*(i+1)
+                else:
+                    _stop = stop + 1
 
-                    for j in range(start + chunk * i,  _stop):
-                        frame = Frame(n_atoms)
-                        self.baseptr_1.ReadTrajFrame(j, frame.thisptr[0])
-                        farray.append(frame, copy=False)
-                    yield farray
+                for j in range(start + chunk * i,  _stop):
+                    frame = Frame(n_atoms)
+                    self.baseptr_1.ReadTrajFrame(j, frame.thisptr[0])
+                    farray.append(frame, copy=False)
+                yield farray
 
     def __str__(self):
         return my_str_method(self)
