@@ -1188,3 +1188,13 @@ cdef class Frame (object):
             return np.asarray(self.buffer2d)
         else:
             raise PytrajNumpyError()
+
+    def to_dataframe(self):
+        from pytraj.utils import _import
+        _, pd = _import("pandas")
+        if pd:
+            _, np = _import_numpy()
+            arr = np.vstack((self.xyz.T, self.mass)).T
+            return pd.DataFrame(arr, columns=list('xyzm'))
+        else:
+            raise ValueError("must have pandas")

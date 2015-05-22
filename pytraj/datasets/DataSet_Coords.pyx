@@ -5,7 +5,9 @@ from .._shared_methods import _frame_iter
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import my_str_method
 from ..Trajectory cimport Trajectory
-from ..utils import _import_numpy
+from ..utils import _import_numpy, _import
+
+_, pd = _import("pandas")
 
 cdef class DataSet_Coords(DataSet):
     def __cinit__(self):
@@ -157,3 +159,6 @@ cdef class DataSet_Coords(DataSet):
         """return flatten list for traj-like object"""
         cdef Frame frame
         return [frame.tolist() for frame in self]
+
+    def to_dataframe(self):
+        raise NotImplementedError()

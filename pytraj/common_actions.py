@@ -56,18 +56,15 @@ list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds', 'align_principa
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
-#calc_distance = partial(calculate, 'distance', quick_get=True)
-#calc_dih = partial(calculate, 'dihedral', quick_get=True)
-#calc_dihedral = calc_dih
-calc_radgyr = partial(calculate, 'radgyr', quick_get=True)
-calc_angle = partial(calculate, 'angle', quick_get=True)
-calc_molsurf = partial(calculate, 'molsurf', quick_get=True)
-calc_distrmsd = partial(calculate, 'distrmsd', quick_get=True)
-calc_volume = partial(calculate, 'volume', quick_get=True)
+calc_radgyr = partial(calculate, 'radgyr')
+calc_angle = partial(calculate, 'angle')
+calc_molsurf = partial(calculate, 'molsurf')
+calc_distrmsd = partial(calculate, 'distrmsd')
+calc_volume = partial(calculate, 'volume')
 calc_matrix = partial(calculate, 'matrix')
 calc_jcoupling = partial(calculate, 'jcoupling', dtype='dataset')
 calc_multivector = partial(calculate, 'multivector')
-calc_volmap = partial(calculate, 'volmap', quick_get=True)
+calc_volmap = partial(calculate, 'volmap')
 calc_rdf = partial(calculate, 'radial', print_output=True)
 calc_protein_score = calc_score
 calc_energies = get_pysander_energies
@@ -97,7 +94,7 @@ def calc_distance(traj=None, command="", top=None, *args, **kwd):
         except:
             pass
         # cpptraj mask for action
-        return calculate("distance", traj, command, top=_top, quick_get=True, *args, **kwd)
+        return calculate("distance", traj, command, top=_top,  *args, **kwd)
     elif isinstance(command, np.ndarray):
         int_2darr = command
         if int_2darr.shape[1]  != 2:
@@ -133,7 +130,7 @@ def calc_angle(traj=None, command="", top=None, *args, **kwd):
         except:
             pass
         # cpptraj mask for action
-        return calculate("angle", traj, command, top=_top, quick_get=True, *args, **kwd)
+        return calculate("angle", traj, command, top=_top, *args, **kwd)
     elif isinstance(command, np.ndarray):
         int_2darr = command
         if int_2darr.shape[1]  != 3:
@@ -169,7 +166,7 @@ def calc_dihedral(traj=None, command="", top=None, *args, **kwd):
         except:
             pass
         # cpptraj mask for action
-        return calculate("dihedral", traj, command, top=_top, quick_get=True, *args, **kwd)
+        return calculate("dihedral", traj, command, top=_top, *args, **kwd)
     elif isinstance(command, np.ndarray):
         int_2darr = command
         if int_2darr.shape[1]  != 4:
@@ -194,7 +191,7 @@ calc_dih = calc_dihedral
 def calc_mindist(traj=None, command="", top=None, *args, **kwd):
     _command = "mindist " + command 
     _top = _get_top(traj, top)
-    return calculate("nativecontacts", traj, _command, top=_top, quick_get=True, *args, **kwd)
+    return calculate("nativecontacts", traj, _command, top=_top, *args, **kwd)
 
 def calc_watershell(traj=None, command="", top=Topology()):
     """return a DataSetList object having the number of water 
@@ -471,7 +468,7 @@ def calc_atomicfluct(traj=None, command="", *args, **kwd):
     act.print_output() # need to have this. check cpptraj's code
     return dslist[-1]
 
-def calc_vector(traj=None, mask="", dtype='vector', *args, **kwd): 
+def calc_vector(traj=None, mask="", dtype='dataset', *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -522,7 +519,7 @@ def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='
         if use_mass:
             frame.set_frame_mass(_top)
         act.do_action(frame)
-    return _get_data_from_dtype(dslist[0], dtype=dtype)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
 calc_COG = calc_center_of_geometry = partial(_calc_vector_center, use_mass=False)

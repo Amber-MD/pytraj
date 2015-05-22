@@ -1,6 +1,8 @@
 # distutils: language = c++
 
 from cython.view cimport array as cyarray
+from pytraj.utils import _import
+from pytraj._xyz import XYZ
 
 
 cdef class DataSet_Vector (DataSet_1D):
@@ -13,6 +15,14 @@ cdef class DataSet_Vector (DataSet_1D):
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
+
+    def __str__(self):
+        _, pd = _import("pandas")
+        if pd:
+            return self.to_dataframe().__str__()
+        else:
+            print ("don't have pandas: use simple __str__")
+            return super(DataSet_Vector, self).__str__()
 
     def alloc(self):
         cdef DataSet d0 = DataSet()
@@ -50,6 +60,12 @@ cdef class DataSet_Vector (DataSet_1D):
         # x is memview array
         return np.asarray([np.asarray(x[:]) for x in self.data])
 
+    def to_dataframe(self):
+        from pytraj.utils import _import
+        _, pd = _import("pandas")
+        if pd:
+            return pd.DataFrame(self.to_ndarray(), columns=list('xyz'))
+
     @property
     def data(self):
         """return self.__iter__
@@ -62,3 +78,7 @@ cdef class DataSet_Vector (DataSet_1D):
 
     def set_ired(self):
         self.thisptr.SetIred()
+
+    @property
+    def values(self):
+        return XYZ(self.to_ndarray())
