@@ -1404,3 +1404,53 @@ cdef class Trajectory (object):
             frame.thisptr[0] += deref(_frame)
         frame /= self.n_frames
         return frame
+
+    def chunk_iter(self, int chunk=2, int start=0, int stop=-1):
+        """iterately get Frames with start, chunk
+        returning Trajectory
+
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1, return Frame instance). 
+                if `chunk` > 1 : return Trajectory instance
+        copy_top : bool, default=False
+            if False: no Topology copy is done for new (chunk) Trajectory
+        """
+        cdef int n_chunk, i, _stop
+        cdef int n_frames = self.n_frames
+        cdef int n_atoms = self.n_atoms
+        cdef Trajectory farray
+        cdef int size = self.n_frames
+        cdef vector[_Frame*].iterator it = self.frame_v.begin()
+
+        # check `start`
+        if start < 0 or start >= n_frames:
+            start = 0
+
+        # check `stop`
+        if stop <= 0 or stop >= n_frames:
+            stop = size - 1
+
+        if chunk <= 1:
+            raise ValueError("chunk must be >= 2")
+
+        if chunk + start > stop:
+            raise ValueError("start + chunk must be smaller than max frames")
+
+        n_chunk = int((stop- start)/chunk)
+        if ((stop - start) % chunk ) != 0:
+            n_chunk += 1
+
+        for i in range(n_chunk):
+            # always create new Trajectory
+            farray = Trajectory(check_top=False)
+            farray.top = self.top
+
+            if i != n_chunk - 1:
+                _stop = start + chunk*(i+1)
+            else:
+                _stop = stop + 1
+            farray.frame_v.resize(_stop - i * chunk)
+            farray.frame_v.assign(it + i * chunk, it + _stop)
+            yield farray
