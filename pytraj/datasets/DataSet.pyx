@@ -134,6 +134,13 @@ cdef class DataSet:
             self._npdata /= value
         return self
 
+    def __itruediv__(self, value):
+        if hasattr(value, '_npdata'):
+            self._npdata /= value._npdata
+        else:
+            self._npdata /= value
+        return self
+
     def copy(self):
         cdef int i
         cdef int size = self.size

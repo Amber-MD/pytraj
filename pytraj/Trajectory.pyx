@@ -694,7 +694,8 @@ cdef class Trajectory (object):
         """
         cdef int i
         cdef int n_atoms = self.n_atoms
-        cdef Frame frame
+        cdef Frame frame = Frame()
+        frame.py_free_mem = False # dont let Python free mem
         cdef AtomMask atm
         cdef int _end
         cdef int[:] int_view
@@ -720,18 +721,15 @@ cdef class Trajectory (object):
             # don't need to allocate frame here
             pass
 
-        # use `with` to make this consistent with Trajin.pyx
-        # (not really need)
-        with self:
-            i = start
-            while i < _end:
-                frame = self[i]
-                if mask is not None:
-                    frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])
-                    yield frame2
-                else:
-                    yield frame
-                i += stride
+        i = start
+        while i < _end:
+            frame.thisptr = self.frame_v[i]
+            if mask is not None:
+                frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])
+                yield frame2
+            else:
+                yield frame
+            i += stride
 
     def reverse(self):
         # should we just create a fake operator?
@@ -816,11 +814,10 @@ cdef class Trajectory (object):
         cdef vector[_Frame*].iterator it  = self.frame_v.begin()
         cdef Frame frame 
 
+        frame = Frame()
+        # use memoryview, don't let python free memory of this instance
+        frame.py_free_mem = False
         while it != self.frame_v.end():
-            frame = Frame()
-            # use memoryview, don't let python free memory of this instance
-            frame.py_free_mem = False
-            #frame.thisptr = &(deref(it))
             frame.thisptr = deref(it)
             yield frame
             incr(it)
