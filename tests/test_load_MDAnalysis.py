@@ -67,7 +67,11 @@ class Test(unittest.TestCase):
         ftraj.calc_radgyr().tolist()[:10]
 
         # FIXME : segmentation fault, need to check cpptraj code
-        #ftraj.calc_multidihedral('phi').tolist()[:10]
+        d = ftraj.calc_dihedral(':2 :3 :7 :9')
+        print (d.to_ndarray())
+
+        # FIXME : segmentation fault, need to check cpptraj code
+        ftraj.search_hbonds()
 
 if __name__ == "__main__":
     unittest.main()

@@ -825,6 +825,31 @@ cdef class Trajectory (object):
             yield frame
             incr(it)
 
+    def insert(self, Frame frame, int idx, copy=True):
+        """insert a Frame at position idx with/without copying
+
+        Parameters
+        ----------
+        frame : Frame object
+        idx : int, position
+        copy : bool, default=True
+            make a copy of Frame or not
+
+        Examples
+        --------
+            traj.insert(frame, 3, copy=False)
+        """
+        cdef Frame tmp_frame
+        cdef vector[_Frame*].iterator it = self.frame_v.begin()
+
+        if copy:
+            tmp_frame = frame.copy()
+            tmp_frame.py_free_mem = False # keep lifetime longer
+        else:
+            tmp_frame = frame
+
+        self.frame_v.insert(it + idx, tmp_frame.thisptr)
+        
     def append(self, Frame framein, copy=True):
         """append new Frame
 
