@@ -1152,8 +1152,8 @@ cdef class Trajectory (object):
     def calc_angle(self, mask="", *args, **kwd):
         return pyca.calc_angle(self, mask, *args, **kwd)
 
-    def calc_matrix(self, mask=""):
-        return pyca.calc_matrix(self, mask)
+    def calc_matrix(self, mask="", *args, **kwd):
+        return pyca.calc_matrix(self, mask, *args, **kwd)
 
     def calc_dssp(self, mask="", *args, **kwd):
         return pyca.calc_dssp(self, mask, *args, **kwd)

@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from .externals.six import string_types
 from .Topology import Topology
 from .ArgList import ArgList
+from .utils import _import
 
 def _get_top(traj, top):
     if isinstance(top, string_types):
@@ -46,5 +47,7 @@ def _get_data_from_dtype(d0, dtype='dataset'):
            return d0.to_pyarray()
        elif dtype == 'dict':
            return d0.to_dict()
+       elif dtype == 'dataframe':
+           return d0.to_dataframe()
        else:
            raise NotImplenmentedError()

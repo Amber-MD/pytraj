@@ -313,7 +313,10 @@ def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=
         _, np = _import_numpy()
         return np.array([to_string_ss(arr) for arr in arr0])
     else:
-        raise ValueError("")
+        try:
+            return _get_data_from_dtype(dslist, dtype)
+        except:
+            raise ValueError("")
 
 def do_translation(traj=None, command="", top=Topology()):
     adict['translate'](command, traj, top)
