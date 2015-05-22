@@ -235,11 +235,25 @@ def to_string_ss(arr0):
     """
     arr0 : ndarray
     """
+    _, np = _import_numpy()
     #ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
     ss = ["0", "b", "B", "G", "H", "I", "T", "S"]
     len_ss = len(ss)
     ssdict = dict(zip(range(len_ss), ss))
-    return list(map(lambda idx: ssdict[idx], arr0))
+
+    if np:
+        def myfunc(key):
+            return ssdict[key]
+        if not isinstance(arr0, dict):
+            return np.vectorize(myfunc)(arr0)
+        else:
+            new_dict = {}
+            for key in arr0.keys():
+                new_dict[key] = to_string_ss(arr0[key])
+            return new_dict
+    else:
+        print ("doest not have numpy, return a list")
+        return list(map(lambda idx: ssdict[idx], arr0))
 
 def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=DataFileList()):
     """return dssp profile for frame/traj
