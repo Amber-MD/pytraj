@@ -327,13 +327,14 @@ def do_autoimage(traj=None, command="", top=Topology()):
 autoimage = do_autoimage
 
 def get_average_frame(traj=None, command="", top=Topology()):
+    _top = _get_top(traj, top)
     dslist = DataSetList()
 
     # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
     command += " crdset s1"
 
     act = adict['average']
-    act(command, traj, top, dslist=dslist)
+    act(command, traj, _top, dslist=dslist)
 
     # need to call this method so cpptraj will write
     act.print_output()
