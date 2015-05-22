@@ -37,7 +37,8 @@ class Test(unittest.TestCase):
 
         # /=
         arr0 = dslist[0].to_ndarray().copy()
-        dslist[0] /= 2.
+        #dslist[0] /= 2. # fail in PY3 because dslist[0] is DataSet_integer
+        dslist[0] /= 2
         print (dslist[0].tolist())
         print (arr0/2)
         print (arr0/2.)
