@@ -73,7 +73,7 @@ class ActionInTraj(object):
         """
         return pyca.search_hbonds(self, mask, *args, **kwd)
 
-    def get_average_frame(self, mask="", *args, **kwd):
+    def average(self, mask="", *args, **kwd):
         """return Frame
         """
         return pyca.get_average_frame(self, mask, *args, **kwd)

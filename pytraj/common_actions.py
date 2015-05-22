@@ -235,11 +235,25 @@ def to_string_ss(arr0):
     """
     arr0 : ndarray
     """
+    _, np = _import_numpy()
     #ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
     ss = ["0", "b", "B", "G", "H", "I", "T", "S"]
     len_ss = len(ss)
     ssdict = dict(zip(range(len_ss), ss))
-    return list(map(lambda idx: ssdict[idx], arr0))
+
+    if np:
+        def myfunc(key):
+            return ssdict[key]
+        if not isinstance(arr0, dict):
+            return np.vectorize(myfunc)(arr0)
+        else:
+            new_dict = {}
+            for key in arr0.keys():
+                new_dict[key] = to_string_ss(arr0[key])
+            return new_dict
+    else:
+        print ("doest not have numpy, return a list")
+        return list(map(lambda idx: ssdict[idx], arr0))
 
 def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=DataFileList()):
     """return dssp profile for frame/traj
@@ -313,7 +327,10 @@ def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=
         _, np = _import_numpy()
         return np.array([to_string_ss(arr) for arr in arr0])
     else:
-        raise ValueError("")
+        try:
+            return _get_data_from_dtype(dslist, dtype)
+        except:
+            raise ValueError("")
 
 def do_translation(traj=None, command="", top=Topology()):
     adict['translate'](command, traj, top)
@@ -327,13 +344,14 @@ def do_autoimage(traj=None, command="", top=Topology()):
 autoimage = do_autoimage
 
 def get_average_frame(traj=None, command="", top=Topology()):
+    _top = _get_top(traj, top)
     dslist = DataSetList()
 
     # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
     command += " crdset s1"
 
     act = adict['average']
-    act(command, traj, top, dslist=dslist)
+    act(command, traj, _top, dslist=dslist)
 
     # need to call this method so cpptraj will write
     act.print_output()

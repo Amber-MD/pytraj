@@ -4,6 +4,8 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.common_actions import *
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
+from pytraj.testing import make_fake_traj
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -63,5 +65,59 @@ class Test(unittest.TestCase):
         #print (f5_saved[:2])
         #assert_almost_equal(frame5.coords, f5_saved.coords)
 
+    def test_1(self):
+        from pytraj.utils import Timer
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        fa = traj[:]
+        from pytraj.common_actions import get_average_frame
+        f0 = get_average_frame(fa, "@CA")
+        f1 = fa.average("@CA")
+        print (f0.rmsd_nofit(f1))
+        aa_eq(f0.xyz, f1.xyz)
+
+        f0 = get_average_frame(fa, "!@H=")
+        f1 = fa.average("!@H=")
+        print (f0.rmsd_nofit(f1))
+        aa_eq(f0.xyz, f1.xyz)
+
+        f0 = get_average_frame(fa)
+        f1 = fa.average()
+        print (f0.rmsd_nofit(f1))
+        aa_eq(f0.xyz, f1.xyz)
+
+        @Timer()
+        def average_pytraj(fa):
+            fa.average()
+
+        @Timer()
+        def average_cpptraj(fa):
+            get_average_frame(fa)
+
+        print (fa)
+        print ("average_pytraj")
+        average_pytraj(fa)
+        print ("average_cpptraj")
+        average_cpptraj(fa)
+
+        from pytraj.testing import make_fake_traj
+        fa = make_fake_traj(10000, 10000)
+        print (fa)
+        print ("average_pytraj")
+        average_pytraj(fa)
+        print ("average_cpptraj")
+        average_cpptraj(fa)
+
+def average_cpptraj(fa):
+    get_average_frame(fa)
+
+def average_pytraj(fa):
+    fa.average()
+
 if __name__ == "__main__":
     unittest.main()
+    #from memory_profiler import memory_usage
+    #from numpy import max
+    #fa = make_fake_traj(10000, 10000)
+    #m_pytraj = max(memory_usage((average_pytraj, (fa,))))
+    #m_cpptraj = max(memory_usage((average_cpptraj, (fa,))))
+    #print (m_cpptraj, m_pytraj)

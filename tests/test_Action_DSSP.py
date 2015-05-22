@@ -8,6 +8,7 @@ from pytraj.datasets import cast_dataset
 from pytraj import adict 
 from pytraj.DataFileList import DataFileList
 from pytraj.common_actions import calc_dssp
+from pytraj.testing import aa_eq
 
 farray = TrajectoryIterator(top=Topology("./data/DPDP.parm7"), 
                     filename='./data/DPDP.nc', 
@@ -66,22 +67,11 @@ class TestRadgyr(unittest.TestCase):
     def test_4(self):
         # add assert 
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        arr1 = calc_dssp(traj, "*", dtype='int')
-        print (arr1)
-        print ("DSSP from pytraj")
-        print (np.array(arr1).shape)
-        print (dir(calc_dssp))
-
+        py_d = calc_dssp(traj, "*", dtype='dataset')
         # load cpptraj output
-        dssp_saved = np.loadtxt("./data/dssp.Tc5b.dat", skiprows=1)
-        print ("DSSP from cpptraj")
-        print (dssp_saved)
-        print (dssp_saved.shape)
-
-        dssp_saved_T = dssp_saved.transpose()[1:]
-        print (dssp_saved_T[:10])
-        print (arr1[:10])
-        #assert_allclose(arr1, dssp_saved[1:])
+        cpp_d = mdio.load_datafile("./data/dssp.Tc5b.dat")
+        for key in cpp_d.keys():
+            aa_eq(py_d[key].to_ndarray(), cpp_d[key].to_ndarray())
 
     def test_5(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

@@ -5,6 +5,7 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from libcpp.string cimport string
 from cpython.array cimport array as pyarray
+from cpython cimport array as pyarray_master
 from pytraj._set_silent import set_world_silent # turn on and off cpptraj's stdout
 #from pytraj.TopologyList cimport TopologyList
 
@@ -14,6 +15,7 @@ from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.parms._ParmFile import TMPParmFile
 from pytraj.externals.six import PY3, PY2, string_types, binary_type
 from pytraj.compat import set
+
 
 cdef class Topology:
     def __cinit__(self, *args):
@@ -682,3 +684,15 @@ cdef class Topology:
     def _dihedrals_ndarray(self):
         _, np = _import_numpy()
         return np.asarray([b for b in self.dihedral_indices], dtype=np.int64)
+
+    def vdw_radii(self):
+        cdef int n_atoms = self.n_atoms
+        cdef int i
+        cdef pyarray arr = pyarray_master.clone(pyarray('d', []), 
+                           n_atoms, zero=True)
+        cdef double[:] d_view = arr
+
+        for i in range(n_atoms):
+            d_view[i] = self.thisptr.GetVDWradius(i)
+        return arr
+
