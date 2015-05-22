@@ -106,7 +106,7 @@ cdef class DataSetList:
         cdef DataSet dset = DataSet()
         cdef DataSetList new_dslist
         cdef int start, stop, step
-        cdef int _idx
+        cdef object _idx # _idx can be 'int' or 'string'
 
         if self.size == 0:
             raise ValueError("size = 0: can not index")
