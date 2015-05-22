@@ -7,6 +7,16 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* add pretty print for DataSetList when having `pandas` 
+* enhance speed for frame_iter and chunk_iter
+* add 'merge_traj'
+* add `apply` method to change traj's internal data
+* add basic math for Trajectory 
+* add XYZ class as a simple wrapper for numpy ndarray
+  traj.xyz is no longer ndarray, just a read-only wrapper
+* add TrajectoryMDAnalysisIterator
+* add read_data for DataFile and DataSetList
+* add frame `swap` for Trajectory
 * add atom coords assignment traj['@CA'] = xyz
 * add `stack` for DataSetList to join 2 datasets
 * rename `set_frame_m` to `set_frame_mass`
