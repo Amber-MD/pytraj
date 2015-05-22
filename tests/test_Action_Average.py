@@ -92,6 +92,15 @@ class Test(unittest.TestCase):
         def average_cpptraj(fa):
             get_average_frame(fa)
 
+        print (fa)
+        print ("average_pytraj")
+        average_pytraj(fa)
+        print ("average_cpptraj")
+        average_cpptraj(fa)
+
+        from pytraj.testing import make_fake_traj
+        fa = make_fake_traj(10000, 10000)
+        print (fa)
         print ("average_pytraj")
         average_pytraj(fa)
         print ("average_cpptraj")
