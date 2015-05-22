@@ -19,5 +19,11 @@ class Test(unittest.TestCase):
         print (dslist2.get_legends())
         assert (dslist2['Dis_00000'].size == 10)
 
+        # getting a list of legends
+        dslist3 = traj.search_hbonds()
+
+        legends = [dslist3[5].legend, dslist3[4].legend]
+        print (dslist3[legends])
+
 if __name__ == "__main__":
     unittest.main()
