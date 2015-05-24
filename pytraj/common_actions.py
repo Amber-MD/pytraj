@@ -719,11 +719,14 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None, d
             _frame = Frame(frame, atm)
             _rmsd = _frame.rmsd_nofit(ref, use_mass=mass)
         arr.append(_rmsd)
-    dset = DataSet_double()
-    dset.resize(len(arr))
-    dset.values[:] = arr
-    dset.legend = 'rmsd'
-    return _get_data_from_dtype(dset, dtype=dtype)
+    if dtype == 'pyarray':
+        return arr
+    else:
+        dset = DataSet_double()
+        dset.resize(len(arr))
+        dset.values[:] = arr
+        dset.legend = 'rmsd'
+        return _get_data_from_dtype(dset, dtype=dtype)
 
 # alias for `calc_rmsd`
 rmsd = calc_rmsd

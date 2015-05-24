@@ -1162,6 +1162,19 @@ cdef class Trajectory (object):
     def calc_distrmsd(self, mask="", *args, **kwd):
         return pyca.calc_distrmsd(self, mask, *args, **kwd)
 
+    def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):
+        """"""
+        if is_int(ref):
+            # index
+            _ref = self[ref]
+        else:
+            _ref = ref
+        return pyca.calc_rmsd(command=mask, traj=self, ref=_ref,
+                              mass=mass, fit=fit, *args, **kwd)
+
+    def rmsd(self, *args, **kwd):
+            return self.calc_rmsd(*args, **kwd)
+
     def calc_radgyr(self, mask="", *args, **kwd):
         return pyca.calc_radgyr(self, mask, *args, **kwd)
 
