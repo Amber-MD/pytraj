@@ -1198,12 +1198,30 @@ cdef class Frame (object):
         else:
             raise PytrajNumpyError()
 
-    def to_dataframe(self):
-        from pytraj.utils import _import
-        _, pd = _import("pandas")
+    def to_dataframe(self, top=None):
+        from pytraj.utils import _import_pandas
+        _, pd = _import_pandas()
         if pd:
             _, np = _import_numpy()
-            arr = np.vstack((self.xyz.T, self.mass)).T
-            return pd.DataFrame(arr, columns=list('xyzm'))
+            if top is None:
+                labels = list('xyzm')
+                arr = np.vstack((self.xyz.T, self.mass)).T
+            else:
+                labels = ['resnum', 'resname', 'atomname', 'mass',
+                          'x', 'y', 'z']
+                mass_arr = np.array(self.mass, dtype='f4')
+                resnum_arr = np.empty(mass_arr.__len__(), dtype='i')
+                resname_arr = np.empty(mass_arr.__len__(), dtype='U4')
+                atomname_arr= np.empty(mass_arr.__len__(), 'U4')
+
+                for idx, atom in enumerate(top.atoms):
+                    # TODO: make faster?
+                    resnum_arr[idx] = atom.resnum
+                    resname_arr[idx] = top._get_residue(atom.resnum).name
+                    atomname_arr[idx] = atom.name
+
+                arr = np.vstack((resnum_arr, resname_arr, atomname_arr, 
+                                 mass_arr, self.xyz.T)).T
+            return pd.DataFrame(arr, columns=labels)
         else:
             raise ValueError("must have pandas")

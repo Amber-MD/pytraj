@@ -10,7 +10,7 @@ def to_dataframe(dslist):
     dslist : DataSetList object or list/tuple of DataSet
         or any object DataFrame can read
     """
-    has_pandas, pd = _import("pandas")
+    has_pandas, pd = _import_pandas()
     
     if not has_pandas:
         require("pandas")

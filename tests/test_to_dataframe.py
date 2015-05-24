@@ -25,5 +25,8 @@ class Test(unittest.TestCase):
         # try dummy test
         print (to_dataframe(dict()))
 
+        # frame.to_dataframe
+        print (traj[0].to_dataframe(traj.top))
+
 if __name__ == "__main__":
     unittest.main()
