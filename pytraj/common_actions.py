@@ -654,7 +654,9 @@ def calc_temperatures(traj=None, command="", top=None):
     dslist = calculate('temperature', traj, command, _top)
     return pyarray('d', dslist[0].tolist())
 
-def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None, dtype='pyarray'):
+def calc_rmsd(traj=None, command="", ref=None, mass=False, 
+              fit=True, top=None, dtype='pyarray',
+              mode='cpptraj'):
     """calculate rmsd
 
     Parameters
@@ -670,7 +672,11 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None, d
     fit : bool, default=True
         fit or no fit
     dtype : data type, default='pyarray'
-
+    mode : str {'pytraj', 'cpptraj'}
+        if 'pytraj' a bit slower but original coords are not updated
+            mask (command) can be string mask for atom index array
+        if 'cpptraj': faster and coords for frame/traj are updated (rmsfit)
+            only string mask for mask (command)
     Examples
     --------
         calc_rmsd(traj, ":3-18@CA", ref=traj[0], mass=True, fit=True)
@@ -680,6 +686,7 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None, d
         calc_rmsd(traj, ":3-18@CA", 'Tc5b.nat.crd') # ref: from file
 
     """
+    from array import array as pyarray
     from pytraj.datasets import DataSet_double
 
     _top = _get_top(traj, top)
@@ -693,37 +700,60 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None, d
         from .trajs.Trajin_Single import Trajin_Single
         ref = Trajin_Single(ref, _top)[0]
 
-    arr = array('d')
-
-    # creat AtomMask object
-    if isinstance(command, string_types):
-        atm = _top(command) 
-    elif isinstance(command, AtomMask):
-        atm = command
-    elif is_array(command) or isinstance(command, (list, tuple)):
-        atm = AtomMask()
-        atm.add_selected_indices(command)
-    else:
-        atm = AtomMask()
-
-    if mass:
-        ref.set_frame_mass(_top)
-    _ref = Frame(ref, atm)
-    for frame in traj:
-        if mass:
-            # TODO : just need to set mass once
-            frame.set_frame_mass(_top)
-        if fit:
-            _rmsd = frame.rmsd(ref, atommask=atm, use_mass=mass)
+    if mode == 'pytraj':
+        arr = array('d')
+        # creat AtomMask object
+        if isinstance(command, string_types):
+            atm = _top(command) 
+        elif isinstance(command, AtomMask):
+            atm = command
+        elif is_array(command) or isinstance(command, (list, tuple)):
+            atm = AtomMask()
+            atm.add_selected_indices(command)
         else:
-            _frame = Frame(frame, atm)
-            _rmsd = _frame.rmsd_nofit(ref, use_mass=mass)
-        arr.append(_rmsd)
-    dset = DataSet_double()
-    dset.resize(len(arr))
-    dset.values[:] = arr
-    dset.legend = 'rmsd'
-    return _get_data_from_dtype(dset, dtype=dtype)
+            atm = AtomMask()
+
+        if mass:
+            ref.set_frame_mass(_top)
+        _ref = Frame(ref, atm)
+        for frame in traj:
+            if mass:
+                # TODO : just need to set mass once
+                frame.set_frame_mass(_top)
+            if fit:
+                _rmsd = frame.rmsd(ref, atommask=atm, use_mass=mass)
+            else:
+                _frame = Frame(frame, atm)
+                _rmsd = _frame.rmsd_nofit(_ref, use_mass=mass)
+            arr.append(_rmsd)
+        if dtype == 'pyarray':
+            return arr
+        else:
+            dset = DataSet_double()
+            dset.resize(len(arr))
+            dset.values[:] = arr
+            dset.legend = 'rmsd'
+            return _get_data_from_dtype(dset, dtype=dtype)
+
+    elif mode == 'cpptraj':
+        if not isinstance(command, string_types):
+            raise ValueError("only support string mask/command in mode=cpptraj")
+        from pytraj.actions.Action_Rmsd import Action_Rmsd
+        act = Action_Rmsd()
+        dslist = DataSetList()
+        act(command, [ref, traj], top=_top, dslist=dslist)
+
+        if dtype == 'pyarray':
+            return pyarray('d', dslist[0].data)[1:]
+        else:
+            dset = DataSet_double()
+            dset.resize(dslist[0].size - 1)
+            dset.values[:] = pyarray('d', dslist[0].data[1:])
+            dset.legend = 'rmsd'
+            return _get_data_from_dtype(dset, dtype=dtype)
+    else:
+        raise ValueError("mode = `pytraj` or `cpptraj`")
+
 
 # alias for `calc_rmsd`
 rmsd = calc_rmsd
