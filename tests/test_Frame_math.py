@@ -25,11 +25,19 @@ class Test(unittest.TestCase):
         f0 *= 2.
         aa_eq(f0.xyz, xyz * 2)
 
-        # /=
+        # /= single value
         f0 = traj[0].copy()
         xyz = f0.xyz.copy()
         f0 /= 2.
         aa_eq(f0.xyz, xyz / 2)
+
+        # /= other Frame
+        f0 = traj[0].copy()
+        xyz = f0.xyz.copy()
+        f1 = traj[1].copy()
+        xyz1 = f1.xyz.copy()
+        f0 /= f1
+        aa_eq(f0.xyz, xyz / xyz1) 
 
         # +
         f0 = traj[0].copy()

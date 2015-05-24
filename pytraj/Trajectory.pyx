@@ -1270,7 +1270,7 @@ cdef class Trajectory (object):
         return _box_to_ndarray(self)
 
     # math
-    def __idiv__(self, value):
+    def __tmpidiv__(self, value):
         cdef Frame frame
         cdef Trajectory tmp_traj
         cdef int i
@@ -1279,29 +1279,22 @@ cdef class Trajectory (object):
         if not isinstance(value, Trajectory):
             # numpy
             for frame in self:
-                frame.xyz.__idiv__(value)
+                try:
+                    frame.xyz.__idiv__(value)
+                except:
+                    frame.xyz.__itruediv__(value)
         else:
             tmp_traj = value
             for i in range(size):
                 # frame /= other_frame
                 self[i] /= tmp_traj[i]
+
+    def __idiv__(self, value):
+        self.__tmpidiv__(value)
         return self
 
     def __itruediv__(self, value):
-        cdef Frame frame
-        cdef Trajectory tmp_traj
-        cdef int i
-        cdef int size = self.size
-
-        if not isinstance(value, Trajectory):
-            # numpy
-            for frame in self:
-                frame.xyz.__itruediv__(value)
-        else:
-            tmp_traj = value
-            for i in range(size):
-                # frame /= other_frame
-                self[i] /= tmp_traj[i]
+        self.__tmpidiv__(value)
         return self
 
     def __iadd__(self, value):
