@@ -900,36 +900,38 @@ cdef class Frame (object):
         v.thisptr[0] = self.thisptr.CenterOnOrigin(useMassIn)
         return v
 
-    def rmsd(self, Frame ref, AtomMask atm=None, 
-             bint use_mass=False, get_matrix_and_vectors=False,
-             update_coords=True):
+    def rmsd(self, Frame frame, AtomMask atommask=None, 
+             mask=None, top=None,
+             bint use_mass=False, get_mvv=False):
+        # TODO : use_mass does not work properly
         """Calculate rmsd betwen two frames
+        rmsd(Frame frame, bint use_mass=False, get_mvv=False):
         Parameters:
         ----------
         frame : Frame instance
-        atommask : AtomMask object
         use_mass : bool, default = False
-        get_matrix_and_vectors: bool
+        get_mvv : bool
             if True: return rmsd, Matrix_3x3, Vec3, Vec3
             if False: return rmsd
-        update_coords : bool, default=True
-            if update_coords=True: update coords while calculating rmsd
-            if update_coords=False: no update coords
         """
 
         cdef Matrix_3x3 m3
         cdef Vec3 v1, v2
-        cdef Frame new_self, new_ref
-        cdef double rmsd_
-
-        if not update_coords:
+        if top is not None and mask is not None and atommask is None:
+            atm = AtomMask(mask)
+            top.set_integer_mask(atm)
             new_self = Frame(self, atm)
-            new_ref = Frame(ref, atm)
-        else:
-            new_self = self
-            new_ref = ref
+            new_ref = Frame(frame, atm)
+        if top is None and mask is None and atommask is not None:
+            new_self = Frame(self, atommask)
+            new_ref = Frame(frame, atommask)
+        if top is None and mask is None and atommask is None:
+            # we need to make a copy since cpptraj update coords of frame after rmsd calc
+            # all atoms
+            new_self = Frame(self)
+            new_ref = Frame(frame)
 
-        if not get_matrix_and_vectors:
+        if not get_mvv:
             return new_self.thisptr.RMSD(new_ref.thisptr[0], use_mass)
         else:
             m3 = Matrix_3x3()

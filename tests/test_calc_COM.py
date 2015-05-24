@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
         print (arr)
 
         for frame in traj:
-            print (frame.VGeometricCenter(traj.top("*")).tolist())
+            print (frame.center_of_geometry(traj.top("*")).tolist())
 
         saved_d0 = np.loadtxt("./data/vec.out", skiprows=1, usecols=(1, 2, 3))
         print (saved_d0)
