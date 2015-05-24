@@ -1,4 +1,5 @@
 # distutils: language = c++
+from pytraj.utils import _import_numpy
 
 
 cdef class DataSet_1D (DataSet):
@@ -7,9 +8,23 @@ cdef class DataSet_1D (DataSet):
         # make sure two pointers pointing to the same address
         self.baseptr_1 = <_DataSet_1D*> self.baseptr0
 
-
     def __dealloc__(self):
         pass
+
+    def __str__(self):
+        _, np = _import_numpy()
+        basic_str = super(DataSet_1D, self).__str__() + "\n"
+        if np:
+            try:
+                my_str = basic_str + "values: " + self.values.__str__()
+            except:
+                my_str = basic_str
+        else:
+            my_str = basic_str
+        return my_str
+
+    def __repr__(self):
+        return self.__str__()
 
     @property
     def shape(self):

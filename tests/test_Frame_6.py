@@ -62,6 +62,7 @@ class Test(unittest.TestCase):
         frame0 = traj[0]
 
         Nsize = 1000000
+        np.random.seed(0)
         indices = np.random.randint(0, 300, size=Nsize*3).reshape(Nsize, 3)
         indices_dih = np.random.randint(0, 300, size=Nsize*4).reshape(Nsize, 4)
         indices_dist = np.random.randint(0, 300, size=Nsize*2).reshape(Nsize, 2)

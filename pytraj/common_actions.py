@@ -654,7 +654,7 @@ def calc_temperatures(traj=None, command="", top=None):
     dslist = calculate('temperature', traj, command, _top)
     return pyarray('d', dslist[0].tolist())
 
-def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
+def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None, dtype='pyarray'):
     """calculate rmsd
 
     Parameters
@@ -669,6 +669,7 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
         use mass or not
     fit : bool, default=True
         fit or no fit
+    dtype : data type, default='pyarray'
 
     Examples
     --------
@@ -679,6 +680,8 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
         calc_rmsd(traj, ":3-18@CA", 'Tc5b.nat.crd') # ref: from file
 
     """
+    from pytraj.datasets import DataSet_double
+
     _top = _get_top(traj, top)
     if ref is None or ref == 'first':
         # set ref to 1st frame
@@ -716,7 +719,11 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
             _frame = Frame(frame, atm)
             _rmsd = _frame.rmsd_nofit(ref, use_mass=mass)
         arr.append(_rmsd)
-    return arr
+    dset = DataSet_double()
+    dset.resize(len(arr))
+    dset.values[:] = arr
+    dset.legend = 'rmsd'
+    return _get_data_from_dtype(dset, dtype=dtype)
 
 # alias for `calc_rmsd`
 rmsd = calc_rmsd
