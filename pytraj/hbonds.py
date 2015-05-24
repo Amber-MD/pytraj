@@ -47,7 +47,11 @@ def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
     command = "series " + mask
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    if dtype == 'dataframe':
+        # return DataFrame.T to have better visual effect
+        return dslist.to_dataframe().T
+    else:
+        return _get_data_from_dtype(dslist, dtype=dtype)
 
 def search_nointramol_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
     """
