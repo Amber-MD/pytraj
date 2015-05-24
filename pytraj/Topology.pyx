@@ -224,6 +224,11 @@ cdef class Topology:
             yield mol
             incr(it)
 
+    def _get_residue(self, int idx):
+        cdef Residue res = Residue()
+        res.thisptr[0] = self.thisptr.Res(idx)
+        return res
+
     def _set_parm_name(self, string title, FileName filename):
         self.thisptr.SetParmName(title, filename.thisptr[0])
 

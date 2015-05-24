@@ -161,6 +161,18 @@ def _import_numpy():
         has_numpy = False
         return (has_numpy, None)
 
+def _import_pandas():
+    has_pd = False
+    try:
+        pd = __import__('pandas')
+        has_pd= True
+        # set print options
+        pd.options.display.max_rows = 20
+        return (has_pd, pd)
+    except ImportError:
+        has_pd= False
+        return (has_pd, None)
+
 def _import_h5py():
     has_h5py = False
     try:

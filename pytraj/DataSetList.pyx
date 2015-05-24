@@ -6,7 +6,7 @@ from cpython.array cimport array
 # python level
 from pytraj.datasets.cast_dataset import cast_dataset
 from pytraj.utils.check_and_assert import _import, is_array
-from pytraj.utils.check_and_assert import _import_numpy
+from pytraj.utils.check_and_assert import _import_numpy, _import_pandas
 from pytraj.utils.check_and_assert import is_word_in_class_name
 from collections import defaultdict
 from pytraj._utils cimport get_positive_idx
@@ -37,7 +37,7 @@ cdef class DataSetList:
             del self.thisptr
 
     def __str__(self):
-        has_pd, _ = _import("pandas")
+        has_pd, _ = _import_pandas()
         safe_msg = "<pytraj.DataSetList with %s datasets>" % self.size
         if not has_pd:
             msg = "<pytraj.DataSetList with %s datasets> (install pandas for pretty print)" % self.size
@@ -383,7 +383,7 @@ cdef class DataSetList:
         --------
         pandas
         """
-        _, pandas = _import("pandas")
+        _, pandas = _import_pandas()
         my_dict = dict((d0.legend, d0.to_ndarray()) for d0 in self)
         return pandas.DataFrame(my_dict)
 
