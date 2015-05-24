@@ -1316,7 +1316,7 @@ cdef class Trajectory (object):
                 frame.xyz.__iadd__(value)
         else:
             tmp_traj = value
-            for i in range(size):
+            for i in prange(size, nogil=True, schedule='static'):
                 # frame += other_frame
                 self.frame_v[i][0] += tmp_traj.frame_v[i][0]
         return self
@@ -1333,7 +1333,7 @@ cdef class Trajectory (object):
                 frame.xyz.__isub__(value)
         else:
             tmp_traj = value
-            for i in range(size):
+            for i in prange(size, nogil=True):
                 # frame -= other_frame
                 self.frame_v[i][0] -= tmp_traj.frame_v[i][0]
         return self
@@ -1350,7 +1350,7 @@ cdef class Trajectory (object):
                 frame.xyz.__imul__(value)
         else:
             tmp_traj = value
-            for i in range(size):
+            for i in prange(size, nogil=True):
                 # frame *= other_frame
                 self.frame_v[i][0] *= tmp_traj.frame_v[i][0]
         return self
