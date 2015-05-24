@@ -4,7 +4,7 @@ cimport cython
 from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
-from cython.parallel cimport prange
+from cython.parallel cimport prange, parallel
 from libc.string cimport memcpy
 from .Topology cimport Topology
 from .AtomMask cimport AtomMask
@@ -1270,7 +1270,7 @@ cdef class Trajectory (object):
         return _box_to_ndarray(self)
 
     # math
-    def __idiv__(self, value):
+    def __tmpidiv__(self, value):
         cdef Frame frame
         cdef Trajectory tmp_traj
         cdef int i
@@ -1279,29 +1279,22 @@ cdef class Trajectory (object):
         if not isinstance(value, Trajectory):
             # numpy
             for frame in self:
-                frame.xyz.__idiv__(value)
+                try:
+                    frame.xyz.__idiv__(value)
+                except:
+                    frame.xyz.__itruediv__(value)
         else:
             tmp_traj = value
             for i in range(size):
                 # frame /= other_frame
                 self[i] /= tmp_traj[i]
+
+    def __idiv__(self, value):
+        self.__tmpidiv__(value)
         return self
 
     def __itruediv__(self, value):
-        cdef Frame frame
-        cdef Trajectory tmp_traj
-        cdef int i
-        cdef int size = self.size
-
-        if not isinstance(value, Trajectory):
-            # numpy
-            for frame in self:
-                frame.xyz.__itruediv__(value)
-        else:
-            tmp_traj = value
-            for i in range(size):
-                # frame /= other_frame
-                self[i] /= tmp_traj[i]
+        self.__tmpidiv__(value)
         return self
 
     def __iadd__(self, value):
@@ -1309,6 +1302,7 @@ cdef class Trajectory (object):
         cdef Trajectory tmp_traj
         cdef int i
         cdef int size = self.size
+        cdef int n_atoms = self.n_atoms
 
         if not isinstance(value, Trajectory):
             # numpy
@@ -1316,7 +1310,8 @@ cdef class Trajectory (object):
                 frame.xyz.__iadd__(value)
         else:
             tmp_traj = value
-            for i in prange(size, nogil=True, schedule='static'):
+            # nogain with OPENMP
+            for i in range(size):
                 # frame += other_frame
                 self.frame_v[i][0] += tmp_traj.frame_v[i][0]
         return self
@@ -1333,7 +1328,8 @@ cdef class Trajectory (object):
                 frame.xyz.__isub__(value)
         else:
             tmp_traj = value
-            for i in prange(size, nogil=True):
+            # nogain with OPENMP
+            for i in range(size):
                 # frame -= other_frame
                 self.frame_v[i][0] -= tmp_traj.frame_v[i][0]
         return self
@@ -1350,7 +1346,8 @@ cdef class Trajectory (object):
                 frame.xyz.__imul__(value)
         else:
             tmp_traj = value
-            for i in prange(size, nogil=True):
+            # nogain with OPENMP
+            for i in range(size):
                 # frame *= other_frame
                 self.frame_v[i][0] *= tmp_traj.frame_v[i][0]
         return self
