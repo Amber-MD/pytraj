@@ -985,13 +985,18 @@ cdef class Trajectory (object):
             return newfarray
 
     def strip_atoms(self, mask=None, update_top=True, bint has_box=False):
-        """if you use memory for numpy, you need to update after resizing Frame
-        >>> arr0 = np.asarray(frame.buffer)
-        >>> frame.strip_atoms(top,"!@CA")
-        >>> # update view
-        >>> arr0 = np.asarray(frame.buffer)
+        """
+        Notes
+        -----
+        if you use memory for numpy, you need to update after resizing Frame
+            arr0 = np.asarray(frame.buffer)
+            frame.strip_atoms(top,"!@CA")
+            # update view
+            arr0 = np.asarray(frame.buffer)
         """
         cdef AtomMask atm = self.top(mask)
+        if atm.n_atoms == 0:
+            raise ValueError("number of stripped atoms must be > 1")
         # read note about `_strip_atoms`
         atm.invert_mask()
 
@@ -1001,7 +1006,7 @@ cdef class Trajectory (object):
 
         if mask == None: 
             raise ValueError("Must provide mask to strip")
-        mask = mask.encode("UTF-8")
+        #mask = mask.encode("UTF-8")
 
         # do not dealloc since we use memoryview for _Frame
         frame.py_free_mem = False
@@ -1044,6 +1049,8 @@ cdef class Trajectory (object):
             raise ValueError("Must provide mask to strip")
 
         atm = self.top(mask)
+        if atm.n_atoms == 0:
+            raise ValueError("number of stripped atoms must be > 1")
         # use `invert_mask` to construct new frames
         atm.invert_mask() # read note in `Frame._strip_atoms`
         # don't try using bare pointer for newtop.thisptr
@@ -1070,6 +1077,7 @@ cdef class Trajectory (object):
         if update_top:
             # C++ assignment
             self.top.thisptr[0] = newtop.thisptr[0]
+            print (self.top)
 
     def save(self, filename="", fmt='unknown', overwrite=True):
         _savetraj(self, filename, fmt, overwrite)
@@ -1308,7 +1316,7 @@ cdef class Trajectory (object):
                 frame.xyz.__iadd__(value)
         else:
             tmp_traj = value
-            for i in range(size):
+            for i in prange(size, nogil=True, schedule='static'):
                 # frame += other_frame
                 self.frame_v[i][0] += tmp_traj.frame_v[i][0]
         return self
@@ -1325,7 +1333,7 @@ cdef class Trajectory (object):
                 frame.xyz.__isub__(value)
         else:
             tmp_traj = value
-            for i in range(size):
+            for i in prange(size, nogil=True):
                 # frame -= other_frame
                 self.frame_v[i][0] -= tmp_traj.frame_v[i][0]
         return self
@@ -1342,7 +1350,7 @@ cdef class Trajectory (object):
                 frame.xyz.__imul__(value)
         else:
             tmp_traj = value
-            for i in range(size):
+            for i in prange(size, nogil=True):
                 # frame *= other_frame
                 self.frame_v[i][0] *= tmp_traj.frame_v[i][0]
         return self

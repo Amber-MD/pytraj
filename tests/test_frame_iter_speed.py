@@ -9,8 +9,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         from pytraj.testing import make_fake_traj
 
-        # make a fake Trajectory with 1000 frames, 100K atoms
-        traj = make_fake_traj(1000, 100000)
+        traj = make_fake_traj(1000, 10000)
         print (traj)
 
         @Timer()

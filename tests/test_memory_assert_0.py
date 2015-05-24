@@ -17,7 +17,7 @@ MINMEM = 1370
 MAX_FRAME_MEM = 15. # MB
 #XYZ_MEM = 
 n_frames = 800
-n_atoms = 50000
+n_atoms = 20000
 print ("MAXMEM=%s, MINMEM=%s, MAX_FRAME_MEM=%s" % (MAXMEM, MINMEM, MAX_FRAME_MEM))
 
 traj = make_fake_traj(n_frames, n_atoms)

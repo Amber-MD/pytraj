@@ -420,12 +420,6 @@ cdef class Topology:
         else:
             return self.thisptr.SetupIntegerMask(atm.thisptr[0], frame.thisptr[0])
 
-    def _set_char_mask(self, AtomMask atm, Frame frame=Frame()):
-        if frame.is_empty():
-            return self.thisptr.SetupCharMask(atm.thisptr[0])
-        else:
-            return self.thisptr.SetupCharMask(atm.thisptr[0], frame.thisptr[0])
-
     def _scale_dihedral_k(self, double value):
         self.thisptr.ScaleDihedralK(value)
 
@@ -462,20 +456,21 @@ cdef class Topology:
         return top
 
     def strip_atoms(Topology self, mask, copy=False):
-        # TODO : shorter way?
         """strip atoms with given mask"""
-        cdef AtomMask atm = AtomMask()
-        cdef Topology tmptop = Topology()
-        mask = mask.encode()
+        cdef AtomMask atm
+        cdef Topology new_top
 
-        atm.thisptr.SetMaskString(mask)
-        atm.thisptr.InvertMask()
-        self.thisptr.SetupIntegerMask(atm.thisptr[0])
-        tmptop.thisptr = self.thisptr.modifyStateByMask(atm.thisptr[0])
+        atm = AtomMask(mask)
+        self.set_integer_mask(atm)
+        if atm.n_atoms == 0:
+            raise ValueError("number of stripped atoms must be > 1")
+        atm.invert_mask()
+        new_top = self._modify_state_by_mask(atm)
+
         if copy:
-            return tmptop
+            return new_top
         else:
-            self.thisptr[0] = tmptop.thisptr[0]
+            self.thisptr[0] = new_top.thisptr[0]
 
     def is_empty(self):
         s = self.file_path()
@@ -497,8 +492,7 @@ cdef class Topology:
         """
         cdef AtomMask atm = AtomMask(mask)
         self.set_integer_mask(atm)
-        has_numpy, np = _import_numpy()
-        return atm.selected_indices()
+        return atm.indices
 
     @property
     def atom_names(self):
@@ -695,4 +689,3 @@ cdef class Topology:
         for i in range(n_atoms):
             d_view[i] = self.thisptr.GetVDWradius(i)
         return arr
-

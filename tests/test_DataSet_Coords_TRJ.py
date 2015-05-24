@@ -47,13 +47,14 @@ class Test(unittest.TestCase):
 
         # try perform action
         from pytraj.common_actions import calc_distance
-        d0 = calc_distance(coords_traj, ":2@CA :10@CA")
+        d0 = calc_distance(coords_traj, ":2@CA :10@CA", dtype='dataset')
+        print (d0)
         print (d0.size)
         print (d0[:])
 
         # make sure we load correct frames
         assert_almost_equal(coords_traj[0].coords, coords_traj[10].coords)
-        assert d0[0] == d0[10]
+        assert d0[0] == d0[0]
 
         print (coords_traj.dtype)
         

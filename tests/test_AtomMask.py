@@ -5,25 +5,23 @@ from pytraj.utils.check_and_assert import assert_almost_equal, eq
 class TestAtomMask(unittest.TestCase):
     def test_0(self):
         atm = AtomMask("@CA")
-        print(atm.n_atoms)
+        assert atm.n_atoms == 0
         top = Topology("./data/Tc5b.top")
-        print(dir(atm))
-        print(dir(top))
         top.set_integer_mask(atm)
-        print(atm.n_atoms)
-        atm.brief_mask_info()
-        print(atm.mask_string)
+        assert atm.n_atoms == 20
+        top2 = top._modify_state_by_mask(atm)
+        assert top2.n_atoms == 20
+        for atom in top2:
+            assert atom.name == 'CA  '
+
+        atm.invert_mask()
+        top3 = top._modify_state_by_mask(atm)
+        assert top3.n_atoms == top.n_atoms - 20
 
     def test_1(self):
         print("test_1")
         atm = AtomMask(10)
-        atm.brief_mask_info()
-        print("end test_1")
-
-    def test_2(self):
-        print("heavy")
-        print("Oxygen")
-        print("hydrogen")
+        assert atm.n_atoms == 1
 
     def test_3_indexing(self):
         print("test_indexing")
