@@ -19,10 +19,8 @@ class Test(unittest.TestCase):
     def test_1(self):
         print ("test mix traj/frame")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
-        d0 = calc_molsurf(command="@CA", traj=(traj, traj[:2], traj[:], traj.frame_iter(), traj[0]))
-        print (d0.size)
-        print (d0)
-        assert d0.size == 33
+        d0 = calc_molsurf(command="@CA", traj=(traj, traj[:2], traj[:], traj.frame_iter(), traj[0]), dtype='dataset')
+        assert d0[0].size == 33
 
 if __name__ == "__main__":
     unittest.main()

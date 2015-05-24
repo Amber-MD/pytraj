@@ -93,16 +93,16 @@ class Test(unittest.TestCase):
             id0, id1, id2, id3 = indices_dih[idx] + 1
             dih_command = "@%s @%s @%s @%s" % (id0, id1, id2, id3)
 
-            d0 = calc_dihedral(frame0, dih_command, traj.top)
-            d1 = calc_angle(frame0, angle_command, traj.top)
-            d3 = calc_distance(frame0, dist_command, traj.top)
+            d0 = calc_dihedral(frame0, dih_command, traj.top, dtype='ndarray')
+            d1 = calc_angle(frame0, angle_command, traj.top, dtype='ndarray')
+            d3 = calc_distance(frame0, dist_command, traj.top, dtype='ndarray')
             print (dist_0[idx], d3[:])
             print (ang_0[idx], d1[:])
             print (dih_0[idx], d0[:])
 
-            assert_almost_equal([dih_0[idx]], d0[:])
-            assert_almost_equal([ang_0[idx]], d1[:])
-            assert_almost_equal([dist_0[idx]], d3[:])
+            assert_almost_equal(dih_0[idx], d0)
+            assert_almost_equal(ang_0[idx], d1)
+            assert_almost_equal(dist_0[idx], d3)
 
 if __name__ == "__main__":
     unittest.main()

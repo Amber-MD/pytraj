@@ -15,15 +15,15 @@ class Test(unittest.TestCase):
         from pytraj import ArgList
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ds = pyca.calc_molsurf(traj)
-        print (ds.legend)
+        print (ds[0].legend)
 
         df = DataFileList()
         d0 = df.add_datafile("output/test_datafile.txt", ArgList())
-        d0.add_dataset(ds)
+        d0.add_dataset(ds[0])
         d0.write_data()
 
         # from DataSet
-        ds.write_to_cpptraj_format("./output/test_datafile_cpptraj.txt")
+        ds[0].write_to_cpptraj_format("./output/test_datafile_cpptraj.txt")
 
 if __name__ == "__main__":
     unittest.main()
