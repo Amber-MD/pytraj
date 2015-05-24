@@ -24,6 +24,10 @@ cdef class DataSet_Vector (DataSet_1D):
             print ("don't have pandas: use simple __str__")
             return super(DataSet_Vector, self).__str__()
 
+    @property
+    def shape(self):
+        return (self.size, 3)
+
     def alloc(self):
         cdef DataSet d0 = DataSet()
         d0.baseptr0 = self.thisptr.Alloc()
