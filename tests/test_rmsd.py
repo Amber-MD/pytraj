@@ -110,5 +110,18 @@ class Test(unittest.TestCase):
         assert_almost_equal(arr2, a_md)
         assert_almost_equal(arr3, a_md)
 
+        # mode = 'cpptraj'
+        from pytraj import Trajectory
+        fa = Trajectory(traj)
+        mask = "!@H="
+        atm = fa.top(mask)
+        arr0 = fa.calc_rmsd(ref=4, mask=mask, mode='cpptraj')
+        a_md = md.rmsd(m_traj, m_traj, 4, atm.indices)
+        print ('mode=cpptraj', arr0[1:])
+        print (a_md)
+
+        # exclude 0-th frame for ref
+        assert_almost_equal(arr0, a_md)
+
 if __name__ == "__main__":
     unittest.main()
