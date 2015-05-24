@@ -244,7 +244,8 @@ cdef class Frame (object):
                 # create memoryview
                 int_view = idx
                 new_size = int_view.shape[0]
-                cy_arr = cython.view.array(shape=(new_size, 3), itemsize=sizeof(double), format='d')
+                cy_arr = cython.view.array(shape=(new_size, 3), 
+                         itemsize=sizeof(double), format='d')
                 for i in range(new_size):
                     # get index for `self`
                     j = int_view[i]
@@ -652,6 +653,7 @@ cdef class Frame (object):
     def zero_coords(self):
         self.thisptr.ZeroCoords()
 
+    # NOTE: nogain with openmp for iadd, isub, ...
     def __iadd__(Frame self, value):
         cdef Frame other
         # += 
@@ -724,23 +726,28 @@ cdef class Frame (object):
             frame.xyz[:] *= value
         return frame
 
-    def __idiv__(self, value):
+    def __tmp_idiv__(self, value):
         cdef Frame other
+        cdef int i
+        cdef int natom3 = self.n_atoms * 3
+        cdef double* self_ptr
+        cdef double* other_ptr 
+
         if isinstance(value, Frame):
             other = value
-            self.thisptr.Divide(other.thisptr[0], 1.)
+            self_ptr = self.thisptr.xAddress()
+            other_ptr = other.thisptr.xAddress()
+            for i in range(natom3):
+                self_ptr[i] /= other_ptr[i]
         else:
             self.xyz /= value
+
+    def __idiv__(self, value):
+        self.__tmp_idiv__(value)
         return self
 
     def __itruediv__(self, value):
-        # copied from __idiv__
-        cdef Frame other
-        if isinstance(value, Frame):
-            other = value
-            self.xyz /= value.xyz
-        else:
-            self.xyz /= value
+        self.__tmp_idiv__(value)
         return self
 
     def __div__(self, value):
@@ -775,19 +782,21 @@ cdef class Frame (object):
             return self.thisptr.Divide(frame.thisptr[0], divisor)
 
     def add_by_mask(self, Frame frame, AtomMask atmask):
+        """Increment atoms in `self` by selected atoms from `frame`
+        """
         self.thisptr.AddByMask(frame.thisptr[0], atmask.thisptr[0])
 
     def check_coords_invalid(self):
         return self.thisptr.CheckCoordsInvalid()
 
-    def VCenterOfMass(self, AtomMask atmask):
-        # return Vec3 instance
+    def center_of_mass(self, AtomMask atmask):
+        """return Vec3"""
         cdef Vec3 v3 = Vec3()
         v3.thisptr[0] = self.thisptr.VCenterOfMass(atmask.thisptr[0])
         return v3
 
-    def VGeometricCenter(self, AtomMask atmask):
-        # return Vec3 instance
+    def center_of_geometry(self, AtomMask atmask):
+        """return Vec3"""
         cdef Vec3 v3 = Vec3()
         v3.thisptr[0] = self.thisptr.VGeometricCenter(atmask.thisptr[0])
         return v3
@@ -891,38 +900,36 @@ cdef class Frame (object):
         v.thisptr[0] = self.thisptr.CenterOnOrigin(useMassIn)
         return v
 
-    def rmsd(self, Frame frame, AtomMask atommask=None, 
-             mask=None, top=None,
-             bint use_mass=False, get_mvv=False):
-        # TODO : use_mass does not work properly
+    def rmsd(self, Frame ref, AtomMask atm=None, 
+             bint use_mass=False, get_matrix_and_vectors=False,
+             update_coords=True):
         """Calculate rmsd betwen two frames
-        rmsd(Frame frame, bint use_mass=False, get_mvv=False):
         Parameters:
         ----------
         frame : Frame instance
+        atommask : AtomMask object
         use_mass : bool, default = False
-        get_mvv : bool
+        get_matrix_and_vectors: bool
             if True: return rmsd, Matrix_3x3, Vec3, Vec3
             if False: return rmsd
+        update_coords : bool, default=True
+            if update_coords=True: update coords while calculating rmsd
+            if update_coords=False: no update coords
         """
 
         cdef Matrix_3x3 m3
         cdef Vec3 v1, v2
-        if top is not None and mask is not None and atommask is None:
-            atm = AtomMask(mask)
-            top.set_integer_mask(atm)
-            new_self = Frame(self, atm)
-            new_ref = Frame(frame, atm)
-        if top is None and mask is None and atommask is not None:
-            new_self = Frame(self, atommask)
-            new_ref = Frame(frame, atommask)
-        if top is None and mask is None and atommask is None:
-            # we need to make a copy since cpptraj update coords of frame after rmsd calc
-            # all atoms
-            new_self = Frame(self)
-            new_ref = Frame(frame)
+        cdef Frame new_self, new_ref
+        cdef double rmsd_
 
-        if not get_mvv:
+        if not update_coords:
+            new_self = Frame(self, atm)
+            new_ref = Frame(ref, atm)
+        else:
+            new_self = self
+            new_ref = ref
+
+        if not get_matrix_and_vectors:
             return new_self.thisptr.RMSD(new_ref.thisptr[0], use_mass)
         else:
             m3 = Matrix_3x3()
@@ -1020,14 +1027,14 @@ cdef class Frame (object):
         tmpframe.thisptr = new _Frame(self.thisptr[0])
         
         newtop.thisptr = top.thisptr.modifyStateByMask(atm.thisptr[0])
-        #if not has_box:
-        #    newtop.thisptr.SetParmBox(_Box())
         tmpframe.thisptr.SetupFrameV(newtop.thisptr.Atoms(), newtop.thisptr.ParmCoordInfo())
         tmpframe.thisptr.SetFrame(self.thisptr[0], atm.thisptr[0])
 
         # make a copy: coords, vel, mass...
         # if only care about `coords`, use `_fast_copy_from_frame`
         self.thisptr[0] = tmpframe.thisptr[0]
+        if not has_box:
+            self.set_nobox()
         if update_top:
             top.thisptr[0] = newtop.thisptr[0]
 
