@@ -4,7 +4,7 @@ cimport cython
 from cpython.array cimport array as pyarray
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
-from cython.parallel cimport prange
+from cython.parallel cimport prange, parallel
 from libc.string cimport memcpy
 from .Topology cimport Topology
 from .AtomMask cimport AtomMask
@@ -1309,6 +1309,7 @@ cdef class Trajectory (object):
         cdef Trajectory tmp_traj
         cdef int i
         cdef int size = self.size
+        cdef int n_atoms = self.n_atoms
 
         if not isinstance(value, Trajectory):
             # numpy
@@ -1316,7 +1317,8 @@ cdef class Trajectory (object):
                 frame.xyz.__iadd__(value)
         else:
             tmp_traj = value
-            for i in prange(size, nogil=True, schedule='static'):
+            # nogain with OPENMP
+            for i in range(size):
                 # frame += other_frame
                 self.frame_v[i][0] += tmp_traj.frame_v[i][0]
         return self
@@ -1333,7 +1335,8 @@ cdef class Trajectory (object):
                 frame.xyz.__isub__(value)
         else:
             tmp_traj = value
-            for i in prange(size, nogil=True):
+            # nogain with OPENMP
+            for i in range(size):
                 # frame -= other_frame
                 self.frame_v[i][0] -= tmp_traj.frame_v[i][0]
         return self
@@ -1350,7 +1353,8 @@ cdef class Trajectory (object):
                 frame.xyz.__imul__(value)
         else:
             tmp_traj = value
-            for i in prange(size, nogil=True):
+            # nogain with OPENMP
+            for i in range(size):
                 # frame *= other_frame
                 self.frame_v[i][0] *= tmp_traj.frame_v[i][0]
         return self

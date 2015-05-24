@@ -652,6 +652,7 @@ cdef class Frame (object):
     def zero_coords(self):
         self.thisptr.ZeroCoords()
 
+    # NOTE: nogain with openmp for iadd, isub, ...
     def __iadd__(Frame self, value):
         cdef Frame other
         # += 
