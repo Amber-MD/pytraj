@@ -137,7 +137,7 @@ class Test(unittest.TestCase):
 
         for frame in traj[:](mask='@CA'):
             pass
-        top2.strip_atoms("!@CA")
+
         f0 = traj[-1]
         f0.strip_atoms('!@CA', traj.top)
         assert_almost_equal(f0.coords, frame.coords)
