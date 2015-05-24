@@ -53,7 +53,7 @@ cdef class DataSet:
         msg0 = """<pytraj.datasets.{0}: size={1}, name={2}, """.format(cname, size, dname)
         msg1 = """legend={0}, aspect={1}, dtype={2}, data_format={3}>""".format(legend, 
             aspect, dtype, dformat)
-        return msg0 + "\n" + msg1 
+        return msg0 + msg1 
 
     def __repr__(self):
         return self.__str__()
