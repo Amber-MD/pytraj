@@ -614,6 +614,8 @@ cdef class Trajectory (object):
         cdef double* ptr
         cdef int[:] int_view
         cdef int i, j, k
+        cdef int n_frames = self.n_frames
+        cdef Trajectory other_traj
 
         if len(self) == 0:
             raise ValueError("Your Trajectory is empty, how can I index it?")
@@ -642,25 +644,31 @@ cdef class Trajectory (object):
                 atm = <AtomMask> idx
             else:
                 atm = self.top(idx)
-            view3d = other
-            int_view = atm.indices
-            # loop all frames
-            for i in range(view3d.shape[0]):
-                # don't use pointer: frame.thisptr = self.frame_v[i]
-                # (got segfault)
-                #frame = self[i]
-                frame.thisptr = self.frame_v[i]
-                # loop all selected atoms
-                for j in range(view3d.shape[1]):
-                    # take atom index
-                    k = int_view[j]
-                    # update coords for each atoms
-                    # take pointer position
-                    ptr = frame.thisptr.xAddress() + 3 * k
-                    # assignment
-                    ptr[0] = view3d[i, j, 0]
-                    ptr[1] = view3d[i, j, 1]
-                    ptr[2] = view3d[i, j, 2]
+            if isinstance(other, Trajectory):
+                # TODO: not use numpy?
+                other_traj = other
+                for i in range(n_frames):
+                    self[i][atm] = other_traj[i].xyz
+            else:
+                view3d = other
+                int_view = atm.indices
+                # loop all frames
+                for i in range(view3d.shape[0]):
+                    # don't use pointer: frame.thisptr = self.frame_v[i]
+                    # (got segfault)
+                    #frame = self[i]
+                    frame.thisptr = self.frame_v[i]
+                    # loop all selected atoms
+                    for j in range(view3d.shape[1]):
+                        # take atom index
+                        k = int_view[j]
+                        # update coords for each atoms
+                        # take pointer position
+                        ptr = frame.thisptr.xAddress() + 3 * k
+                        # assignment
+                        ptr[0] = view3d[i, j, 0]
+                        ptr[1] = view3d[i, j, 1]
+                        ptr[2] = view3d[i, j, 2]
         else:
             # example: self[0, 0, 0] = 100.
             self[idx[0]][idx[1:]] = other
