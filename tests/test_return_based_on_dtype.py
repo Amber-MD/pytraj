@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        d0 = traj.calc_COG() # default = 'dataset'
+        d0 = traj.calc_COG(dtype='dataset') # default = 'dataset'
         print (d0)
         assert is_in_class_name(d0, 'DataSet_Vector') == True
         mylist = traj.calc_COG(dtype='list') # default = 'dataset'

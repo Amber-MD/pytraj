@@ -62,7 +62,7 @@ class Test(unittest.TestCase):
         from pytraj.common_actions import calc_distance
         d0 = calc_distance(traj, ":2@CA :10@CA")
         assert is_word_in_class_name(d0, 'DataSet')
-        assert hasattr(d0[0].data, 'memview')
+        assert hasattr(d0.data, 'memview')
 
 if __name__ == "__main__":
     unittest.main()

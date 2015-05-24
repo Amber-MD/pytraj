@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
 
         # make sure we load correct frames
         assert_almost_equal(coords_traj[0].coords, coords_traj[10].coords)
-        assert d0[0][0] == d0[0][10]
+        assert d0[0] == d0[0]
 
         print (coords_traj.dtype)
         

@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         from pytraj.testing import make_fake_traj
         from pytraj.compat import zip
 
-        fa = make_fake_traj(10000, 10000)
+        fa = make_fake_traj(1000, 1000)
         fa2 = fa.__class__(top=fa.top)
 
         for chunk in fa.chunk_iter(chunk=100):

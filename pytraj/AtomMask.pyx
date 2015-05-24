@@ -75,9 +75,6 @@ cdef class AtomMask(object):
             yield deref(it)
             incr(it)
 
-    def back(self):
-        return self.thisptr.back()
-
     @property
     @deprecated
     def n_selected(self):
@@ -87,8 +84,6 @@ cdef class AtomMask(object):
         def __get__(self):
             """the number of selected atoms based on mask"""
             return self.thisptr.Nselected()
-        def __set__(self, int value):
-            self.thisptr.SetNatom(value)
 
     def __getitem__(self, int idx):
         return self.thisptr.index_opr(idx)
@@ -104,26 +99,11 @@ cdef class AtomMask(object):
         t = self.thisptr.MaskExpression()
         return t.decode()
 
-    def mask_string_was_set(self):
-        return self.thisptr.MaskStringSet()
-
     def is_empty(self):
         return self.thisptr.None()
 
-    def is_char_mask(self):
-        return self.thisptr.IsCharMask()
-
-    def reset_mask(self):
-        self.thisptr.ResetMask()
-
-    def clear_selected(self):
-        self.thisptr.ClearSelected()
-
     def invert_mask(self):
         self.thisptr.InvertMask()
-
-    def num_atoms_in_common(self, AtomMask other_mask):
-        return self.thisptr.NumAtomsInCommon(other_mask.thisptr[0])
 
     def add_selected_indices(self, arr0):
         """add atom index without sorting
@@ -158,40 +138,3 @@ cdef class AtomMask(object):
 
     def add_mask_at_position(self, AtomMask atm, int pos):
         self.thisptr.AddMaskAtPosition(atm.thisptr[0], pos)
-
-    def print_mask_atoms(self, mask):
-        set_world_silent(False)
-        mask = mask.encode()
-        self.thisptr.PrintMaskAtoms(mask)
-        set_world_silent(True)
-
-    def setup_int_mask(self, char *charmask, int natom, int debug=0):
-        self.thisptr.SetupIntMask(charmask, natom, debug)
-
-    def setup_char_mask(self, char* charmask, int natom, int debug=0):
-        self.thisptr.SetupCharMask(charmask, natom, debug)
-
-    def atoms_in_char_mask(self, *args):
-        cdef atomid, begin, end
-        if len(args) == 1:
-            atomid = args[0]
-            return self.thisptr.AtomInCharMask(atomid)
-        elif len(args) == 2:
-            begin, end = args
-            return self.thisptr.AtomsInCharMask(begin, end)
-
-    def convert_to_char_mask(self):
-        return self.thisptr.ConvertToCharMask()
-
-    def convert_to_int_mask(self):
-        return self.thisptr.ConvertToIntMask()
-
-    def mask_info(self):
-        set_world_silent(False)
-        self.thisptr.MaskInfo()
-        set_world_silent(True)
-
-    def brief_mask_info(self):
-        set_world_silent(False)
-        self.thisptr.BriefMaskInfo()
-        set_world_silent(True)

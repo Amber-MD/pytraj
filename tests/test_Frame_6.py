@@ -83,7 +83,6 @@ class Test(unittest.TestCase):
         # randomly take 100 data points to assert
         for _ in range(10):
             idx = np.random.randint(0, Nsize-1)
-            print (idx)
             id0, id1 = indices_dist[idx] + 1
             dist_command = "@%s @%s" % (id0, id1)
 
@@ -96,13 +95,17 @@ class Test(unittest.TestCase):
             d0 = calc_dihedral(frame0, dih_command, traj.top, dtype='ndarray')
             d1 = calc_angle(frame0, angle_command, traj.top, dtype='ndarray')
             d3 = calc_distance(frame0, dist_command, traj.top, dtype='ndarray')
-            print (dist_0[idx], d3[:])
-            print (ang_0[idx], d1[:])
-            print (dih_0[idx], d0[:])
+            print ('d0, d1, d3', d0, d1, d3)
+            print (dist_0[idx], d3)
+            print (ang_0[idx], d1)
+            print (dih_0[idx], d0)
 
-            assert_almost_equal(dih_0[idx], d0)
-            assert_almost_equal(ang_0[idx], d1)
-            assert_almost_equal(dist_0[idx], d3)
+
+            SMALL = 1E-7
+            from numpy import abs
+            assert abs(dih_0[idx] - d0) < SMALL
+            assert abs(ang_0[idx] - d1) < SMALL
+            assert abs(dist_0[idx] - d3) < SMALL
 
 if __name__ == "__main__":
     unittest.main()

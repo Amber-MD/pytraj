@@ -100,7 +100,7 @@ class Test(unittest.TestCase):
         average_cpptraj(fa)
 
         from pytraj.testing import make_fake_traj
-        fa = make_fake_traj(10000, 10000)
+        fa = make_fake_traj(100, 10000)
         print (fa)
         print ("average_pytraj")
         average_pytraj(fa)
