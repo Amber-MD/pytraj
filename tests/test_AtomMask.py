@@ -42,6 +42,10 @@ class TestAtomMask(unittest.TestCase):
         indices = array('i', range(100))
         atm.add_selected_indices(indices)
         assert_almost_equal(indices, atm.selected_indices())
+        assert_almost_equal(indices, atm.indices)
+        # test list
+        atm2 = AtomMask(list(indices))
+        assert_almost_equal(indices, atm2.indices)
 
     def test_5_speed(self):
         top = Topology("./data/DOPC.parm7")

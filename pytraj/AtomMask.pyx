@@ -8,6 +8,7 @@ from pytraj.decorators import deprecated
 from pytraj._set_silent import set_world_silent
 from pytraj.externals.six import string_types
 from pytraj.utils import is_array
+from pytraj._utils import _int_array1d_like_to_memview
 # FIXME : property does not work properly
 
 
@@ -115,16 +116,14 @@ cdef class AtomMask(object):
         cdef int[:] int_view
         cdef int i
 
-        try:
-            # try casting to memview
+        # try casting to memview
+        if isinstance(arr0, (list, tuple)):
+            int_view = _int_array1d_like_to_memview(arr0)
+        else:
             int_view = arr0
-            for i in range(int_view.shape[0]):
-                self.thisptr.AddSelectedAtom(int_view[i])
-        except (TypeError, ValueError): 
-            # catch type mis-match too (long, int)
-            # slower way if array does not have buffer interface
-            for i in arr0:
-                self.thisptr.AddSelectedAtom(i)
+
+        for i in range(int_view.shape[0]):
+            self.thisptr.AddSelectedAtom(int_view[i])
 
     def add_atom(self,int atom_num):
         """add atom index and sort"""
