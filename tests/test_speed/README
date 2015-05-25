@@ -1,0 +1,4 @@
+for testing speed. 
+use "from pytraj.testing import make_fake_traj"
+
+traj = make_fake_traj(n_frames, n_atoms)
