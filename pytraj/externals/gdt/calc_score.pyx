@@ -1,6 +1,6 @@
 from __future__ import absolute_import 
 from cpython.array cimport array as pyarray
-from .gdt cimport gdt
+from .gdt cimport _gdt, sshort
 from ... _get_common_objects import _get_top, _get_data_from_dtype
 from ... _shared_methods import _frame_iter_master
 from ... Frame cimport Frame
@@ -21,28 +21,36 @@ def calc_score(traj, top=None, ref=None, mask="*",
         `gdtscore` or `tmscore` or `maxsub`
     """
     cdef pyarray score_arr = pyarray('d', [])
+    cdef Frame _frame, _ref
+    cdef sshort result
+    cdef int int_score
+
 
     if score == 'gdtscore':
-        _score = 1
+        int_score = 1
     elif score == 'tmscore':
-        _score = 2
+        int_score = 2
     elif score == 'maxsub':
-        _score = 3
+        int_score = 3
 
     if ref is None:
         _ref = traj[0]
     else:
         _ref = ref
+
+    if traj.n_atoms != _ref.n_atoms: 
+        raise ValueError("traj and ref must have the same n_atoms")
     
     _top = _get_top(traj, top)
     atm = top(mask)
-    ref_coords_1d = Frame(ref, atm).coords
-    n_atoms_new = <int> len(ref_coords_1d) / 3 
+    _ref = Frame(ref, atm)
+    n_atoms_new = _ref.n_atoms
 
     for frame in _frame_iter_master(traj):
-        frame_coords_1d = Frame(frame, atm).coords
-        value = gdt(ref_coords_1d, frame_coords_1d, 1, n_atoms_new, _score)[0]/1000.
-        score_arr.append(value)
+        _frame = Frame(frame, atm)
+        result = _gdt(_ref.thisptr.xAddress(), _frame.thisptr.xAddress(), 
+                     1, n_atoms_new, int_score)[0]
+        score_arr.append(<double> result/1000.)
 
     if dtype == 'pyarray':
         return score_arr

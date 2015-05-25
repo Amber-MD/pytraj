@@ -538,7 +538,7 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
  * 
  * ctypedef signed short sshort             # <<<<<<<<<<<<<<
  * cdef extern from "./src/gdt_.h":
- *     sshort * _gdt "gdtCPUOneReference"(double *reference, double *arr,  int conformers, int protlen,int score)
+ *     sshort * _gdt "gdtCPUOneReference"(double *reference, double *arr,
  */
 typedef signed short __pyx_t_6pytraj_9externals_3gdt_3gdt_sshort;
 

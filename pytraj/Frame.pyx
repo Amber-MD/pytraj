@@ -506,13 +506,16 @@ cdef class Frame (object):
     @property
     def coords(self):
         """
-        return a copy of frame coords (python array)
+        return 1D-coords (copy) of Frame
         """
-        cdef pyarray arr = pyarray('d', [])
+        cdef pyarray arr = cparray.clone(pyarray('d', []), 
+                            self.n_atoms*3, zero=False)
         cdef int i
+        cdef double* ptr = self.thisptr.xAddress()
+        cdef int natom3 = 3 * self.thisptr.Natom()
 
-        for i in range(3 * self.thisptr.Natom()):
-            arr.append(deref(self.thisptr.CRD(i)))
+        for i in range(natom3):
+            arr[i] = ptr[i]
         return arr
 
     def v_xyz(self, int atnum):
