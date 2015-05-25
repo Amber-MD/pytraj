@@ -25,6 +25,15 @@ from pytraj.cpptraj_dict import DataTypeDict
 _, np = _import_numpy()
 
 cdef class DataSetList:
+    """
+    DataSetList holds data from cpptraj
+
+    Notes
+    -----
+    Methods require pandas:
+        * describe
+        * to_dataframe
+    """
     def __cinit__(self, py_free_mem=True):
         # py_free_mem is a flag to tell pytraj should free memory or let 
         # cpptraj does
@@ -312,6 +321,11 @@ cdef class DataSetList:
     def keys(self):
         return self.get_legends()
 
+    def iteritems(self):
+        from pytraj.compat import zip
+        for key in self.keys():
+            yield key, self[key]
+
     def groupby(self, key, mode='legend'):
         """"return a new DataSetList object as a view of `self`
 
@@ -455,3 +469,11 @@ cdef class DataSetList:
     def read_data(self, filename, arg=""):
         df = DataFile()
         df.read_data(filename, ArgList(arg), self)
+
+    # pandas related
+    def describe(self):
+        _, pd = _import_pandas()
+        if not pd:
+            raise ImportError("require pandas")
+        else:
+            return self.to_dataframe().describe()
