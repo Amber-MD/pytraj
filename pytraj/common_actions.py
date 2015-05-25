@@ -66,9 +66,9 @@ calc_matrix = partial(calculate, 'matrix')
 calc_jcoupling = partial(calculate, 'jcoupling', dtype='dataset')
 calc_multivector = partial(calculate, 'multivector')
 calc_volmap = partial(calculate, 'volmap')
-calc_ligand_interaction_energies = partial(calculate, 'lie')
+calc_linear_interaction_energy = partial(calculate, 'lie')
 # create alias
-calc_LIE = calc_ligand_interaction_energies
+calc_LIE = calc_linear_interaction_energy
 calc_rdf = partial(calculate, 'radial', print_output=True)
 calc_protein_score = calc_score
 calc_energies = get_pysander_energies
@@ -311,9 +311,9 @@ def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=
     # replace legend to something nicer
     for legend, dset in dslist.iteritems():
         if 'DSSP' in legend:
-            legend = legend.replace("DSSP0000[", "")
-            legend = legend.replace("]", "")
-            dset.legend = legend
+            legend = legend.replace("DSSP_00000[", "")
+            legend = legend.replace("]", "_avg")
+            dset.legend = legend.lower()
     dtype = dtype.upper()
 
     # get all dataset from DatSetList if dtype == integer
