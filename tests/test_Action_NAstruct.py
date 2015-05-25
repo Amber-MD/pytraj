@@ -37,5 +37,18 @@ class Test(unittest.TestCase):
 
         print (ds_int)
 
+    def test_1(self):
+        from pytraj.common_actions import nastruct
+        fn = "./data/Test_NAstruct/adh026.3.pdb"
+        traj = mdio.iterload(fn, fn)
+        dslist = nastruct(traj)
+        dsize = dslist.size
+
+        # dummy loops
+        for i in range(100):
+            dslist = nastruct(traj)
+            assert dslist.size == dsize
+        print (dslist.groupby("major", mode='aspect'))
+
 if __name__ == "__main__":
     unittest.main()

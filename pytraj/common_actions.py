@@ -53,7 +53,9 @@ list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds', 'align_principal_axis', 'closest']
+list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds', 
+                    'align_principal_axis', 'closest',
+                    'native_contacts']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -799,3 +801,35 @@ def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
         act.do_action(frame, new_frame)
         fa.append(new_frame.copy())
     return fa
+
+def native_contacts(traj=None, command="", top=None, dtype='dataset',
+                    *args, **kwd):
+    from .actions.Action_NativeContacts import Action_NativeContacts
+    act = Action_NativeContacts()
+    dslist = DataSetList()
+
+    _top = _get_top(traj, top)
+    act(command, traj, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+def nastruct(traj=None, command="", top=None, dtype='dataset',
+                    *args, **kwd):
+    """
+    Examples
+    --------
+        dslist = nastruct(traj)
+        dslist.groupby("major", mode='aspect') # information for major groove
+        print (dslist.get_aspect())
+
+    See Also
+    --------
+        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf page 580)
+    """
+    # TODO: doc, rename method, move to seperate module?
+    from .actions.Action_NAstruct import Action_NAstruct
+    act = Action_NAstruct()
+    dslist = DataSetList()
+
+    _top = _get_top(traj, top)
+    act(command, traj, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype=dtype)
