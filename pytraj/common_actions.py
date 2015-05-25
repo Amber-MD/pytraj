@@ -442,6 +442,10 @@ def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **k
     -------
     Dictionary of array or dataset or ndarray or list or pyarray (based on `dtype`)
 
+    Notes
+    -----
+        legends show residue number in 1-based index
+
     Examples
     --------
         from pytraj.common_actions import calc_multidihedral
