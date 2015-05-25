@@ -39,6 +39,7 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_multivector',
                'calc_volmap',
                'calc_rdf',
+               'calc_multidihedral',
                'calc_atomicfluct',
                'calc_COM',
                'calc_center_of_mass',
@@ -53,7 +54,9 @@ list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds', 'align_principal_axis', 'closest']
+list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds', 
+                    'align_principal_axis', 'closest',
+                    'native_contacts', 'nastruct']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -439,6 +442,10 @@ def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **k
     -------
     Dictionary of array or dataset or ndarray or list or pyarray (based on `dtype`)
 
+    Notes
+    -----
+        legends show residue number in 1-based index
+
     Examples
     --------
         from pytraj.common_actions import calc_multidihedral
@@ -799,3 +806,44 @@ def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
         act.do_action(frame, new_frame)
         fa.append(new_frame.copy())
     return fa
+
+def native_contacts(traj=None, command="", top=None, dtype='dataset',
+                    ref=None,
+                    *args, **kwd):
+    """
+    Notes
+    ----
+    if `ref` is not None: first number in result corresponds to reference
+    """
+    from .actions.Action_NativeContacts import Action_NativeContacts
+    act = Action_NativeContacts()
+    dslist = DataSetList()
+
+    _top = _get_top(traj, top)
+    if ref is not None:
+        act(command, [ref, traj], top=_top, dslist=dslist, *args, **kwd)
+    else:
+        act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+def nastruct(traj=None, command="", top=None, dtype='dataset',
+                    *args, **kwd):
+    """
+    Examples
+    --------
+        dslist = nastruct(traj)
+        dslist.groupby("major", mode='aspect') # information for major groove
+        print (dslist.get_aspect())
+
+    See Also
+    --------
+        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf page 580)
+    """
+    # TODO: doc, rename method, move to seperate module?
+    from .actions.Action_NAstruct import Action_NAstruct
+    act = Action_NAstruct()
+    dslist = DataSetList()
+
+    _top = _get_top(traj, top)
+    act(command, traj, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype=dtype)

@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         def test_speed_traj():
             print ("test_speed_traj")
             for n_atoms in (10000, 200000, 400000):
-                f00 = make_fake_traj(100, n_atoms)
+                f00 = make_fake_traj(10, n_atoms)
                 xyz = f00.xyz.copy()
                 f1 = f00.copy()
                 f1 -= 1.

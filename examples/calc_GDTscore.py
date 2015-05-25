@@ -21,8 +21,7 @@ def main():
     #     score = 'gdtscore', 'tmscore' or 'maxsub'
     #     "@CA" : follow AMBER mask, change it if needed
     score = 'tmscore'
-    print('%s = %s ' % (score, calc_score(traj[IDX0], traj[IDX1], "@CA", traj.top, score=score)/1000.))
-    print(calc_score(traj[IDX1], traj[IDX0], "@CA", traj.top, score=score)/1000.)
+    print(calc_score(traj[IDX1], ref=traj[IDX0], mask="@CA", top=traj.top, score=score))
 
 if __name__ == "__main__":
     main()
