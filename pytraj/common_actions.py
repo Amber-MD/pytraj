@@ -809,7 +809,7 @@ def native_contacts(traj=None, command="", top=None, dtype='dataset',
     dslist = DataSetList()
 
     _top = _get_top(traj, top)
-    act(command, traj, dslist=dslist, *args, **kwd)
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 def nastruct(traj=None, command="", top=None, dtype='dataset',
