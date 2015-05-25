@@ -119,7 +119,11 @@ cdef class AtomMask(object):
         if not is_array(arr0):
             int_view = _int_array1d_like_to_memview(arr0)
         else:
-            int_view = arr0
+            try:
+                int_view = arr0
+            except:
+                # numpy compat
+                int_view = arr0.astype('i4')
 
         for i in range(int_view.shape[0]):
             self.thisptr.AddSelectedAtom(int_view[i])
