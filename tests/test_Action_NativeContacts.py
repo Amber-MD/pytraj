@@ -16,5 +16,8 @@ class Test(unittest.TestCase):
         dslist = pyca.native_contacts(traj, top=traj.top, ref=ref)
         print (dslist)
 
+        dslist = pyca.native_contacts(traj, top=traj.top)
+        print (dslist)
+
 if __name__ == "__main__":
     unittest.main()

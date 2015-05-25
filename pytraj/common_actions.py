@@ -808,13 +808,22 @@ def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
     return fa
 
 def native_contacts(traj=None, command="", top=None, dtype='dataset',
+                    ref=None,
                     *args, **kwd):
+    """
+    Notes
+    ----
+    if `ref` is not None: first number in result corresponds to reference
+    """
     from .actions.Action_NativeContacts import Action_NativeContacts
     act = Action_NativeContacts()
     dslist = DataSetList()
 
     _top = _get_top(traj, top)
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    if ref is not None:
+        act(command, [ref, traj], top=_top, dslist=dslist, *args, **kwd)
+    else:
+        act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 def nastruct(traj=None, command="", top=None, dtype='dataset',
