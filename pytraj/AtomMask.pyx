@@ -9,11 +9,10 @@ from pytraj._set_silent import set_world_silent
 from pytraj.externals.six import string_types
 from pytraj.utils import is_array
 from pytraj._utils import _int_array1d_like_to_memview
-# FIXME : property does not work properly
+from pytraj.compat import range
 
 
 cdef class AtomMask(object):
-    # TODO : rename methods, add doc
     def __cinit__(self, *args):
         cdef int begin_atom, end_atom, atom_num
         cdef string maskstring
@@ -21,7 +20,7 @@ cdef class AtomMask(object):
 
         if not args:
             self.thisptr = new _AtomMask()
-        elif is_array(args[0]) or isinstance(args[0], list):
+        elif is_array(args[0]) or isinstance(args[0], (list, tuple, range)):
             self.thisptr = new _AtomMask()
             self.add_selected_indices(args[0])
         else:
@@ -117,7 +116,7 @@ cdef class AtomMask(object):
         cdef int i
 
         # try casting to memview
-        if isinstance(arr0, (list, tuple)):
+        if not is_array(arr0):
             int_view = _int_array1d_like_to_memview(arr0)
         else:
             int_view = arr0
