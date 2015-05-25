@@ -39,6 +39,7 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_multivector',
                'calc_volmap',
                'calc_rdf',
+               'calc_multidihedral',
                'calc_atomicfluct',
                'calc_COM',
                'calc_center_of_mass',
@@ -55,7 +56,7 @@ list_of_get = ['get_average_frame']
 
 list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds', 
                     'align_principal_axis', 'closest',
-                    'native_contacts']
+                    'native_contacts', 'nastruct']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
