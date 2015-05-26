@@ -1,0 +1,39 @@
+Developer guide for pytraj
+==========================
+(draft)
+
+Python style guide
+------------------
+Try to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`
+Try to read `numpy doc <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`
+
+Python 2 and 3 compat
+---------------------
+Use ``six.py`` to write your compat code. `six <http://pythonhosted.org/six/>`
+
+Test your code
+--------------
+New method, new change must have testing code.
+
+Currently, all testing codes are in ``pytraj/tests/`` folder. We can use ``cp template_unittest.py test_new_method_name_example.py``. To run all tests, ``python ./run_all_and_find_fails.py``. To run tests having specific keywords ``python ./run_tests_with_keyword.py your_key_word``. Outputs from test scripts are saved to ``output.txt`` and error status is saved to ``log`` file.
+
+External codes
+--------------
+Try to put all external codes (``six.py``, ...) in ``pytraj/externals/`` folder.
+
+Licence info
+------------
+``pytraj`` always welcomes code contribution. It's recommended to put your name in the code you write. However, for the sake of clearness, just put something very short, like ``Copyright (c) 2010-2013 your_first_and_last_name`` and give full details of your contribution, license in ``pytraj/licenses/`` folder.
+
+Use delay import
+----------------
+The overall aim of ``pytraj`` is to make it a stand-alone program, depending only ``libcpptraj``. So to avoid breaking the building/import stuff in ``pytraj``, please use ``pytraj.utils._import`` to import external packages, even with ``numpy`` (``has_np, np = _import("numpy"))``
+
+cython
+------
+It's recommended to use ``cython`` to write or wrap high performance code. Please don't use ``cimport numpy``, use memoryview instead.
+`memoryview <http://docs.cython.org/src/userguide/memoryviews.html>`.
+
+Read cpptraj developer guide
+----------------------------
+`cpptraj-dev guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.lyx>`
