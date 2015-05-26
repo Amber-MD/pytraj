@@ -1298,18 +1298,18 @@ cdef class Trajectory (object):
         cdef int i
         cdef int size = self.size
 
-        if not isinstance(value, Trajectory):
+        if isinstance(value, Trajectory):
+            tmp_traj = value
+            for i in range(size):
+                # frame /= other_frame
+                self[i] /= tmp_traj[i]
+        else:
             # numpy
             for frame in self:
                 try:
                     frame.xyz.__idiv__(value)
                 except:
                     frame.xyz.__itruediv__(value)
-        else:
-            tmp_traj = value
-            for i in range(size):
-                # frame /= other_frame
-                self[i] /= tmp_traj[i]
 
     def __idiv__(self, value):
         self.__tmpidiv__(value)
@@ -1327,21 +1327,21 @@ cdef class Trajectory (object):
         cdef int n_atoms = self.n_atoms
         cdef Frame other_frame
 
-        if not isinstance(value, Trajectory):
-            # numpy
-            for frame in self:
-                frame.xyz.__iadd__(value)
-        elif isinstance(value, Frame):
+        if isinstance(value, Frame):
             other_frame = value
             for i in range(size):
                 # frame += other_frame
                 self.frame_v[i][0] += other_frame.thisptr[0]
-        else:
+        elif isinstance(value, Trajectory):
             tmp_traj = value
             # nogain with OPENMP
             for i in range(size):
                 # frame += other_frame
                 self.frame_v[i][0] += tmp_traj.frame_v[i][0]
+        else:
+            # numpy
+            for frame in self:
+                frame.xyz.__iadd__(value)
         return self
 
     def __isub__(self, value):
@@ -1351,21 +1351,21 @@ cdef class Trajectory (object):
         cdef int size = self.size
         cdef Frame other_frame
 
-        if not isinstance(value, Trajectory):
-            # numpy
-            for frame in self:
-                frame.xyz.__isub__(value)
+        if isinstance(value, Trajectory):
+            tmp_traj = value
+            # nogain with OPENMP
+            for i in range(size):
+                # frame -= other_frame
+                self.frame_v[i][0] -= tmp_traj.frame_v[i][0]
         elif isinstance(value, Frame):
             other_frame = value
             for i in range(size):
                 # frame -= other_frame
                 self.frame_v[i][0] -= other_frame.thisptr[0]
         else:
-            tmp_traj = value
-            # nogain with OPENMP
-            for i in range(size):
-                # frame -= other_frame
-                self.frame_v[i][0] -= tmp_traj.frame_v[i][0]
+            # numpy
+            for frame in self:
+                frame.xyz.__isub__(value)
         return self
 
     def __imul__(self, value):
@@ -1375,21 +1375,21 @@ cdef class Trajectory (object):
         cdef int size = self.size
         cdef Frame other_frame
 
-        if not isinstance(value, Trajectory):
-            # numpy
-            for frame in self:
-                frame.xyz.__imul__(value)
-        elif isinstance(value, Frame):
+        if isinstance(value, Frame):
             other_frame = value
             for i in range(size):
                 # frame *= other_frame
                 self.frame_v[i][0] *= other_frame.thisptr[0]
-        else:
+        elif isinstance(value, Trajectory):
             tmp_traj = value
             # nogain with OPENMP
             for i in range(size):
                 # frame *= other_frame
                 self.frame_v[i][0] *= tmp_traj.frame_v[i][0]
+        else:
+            # numpy
+            for frame in self:
+                frame.xyz.__imul__(value)
         return self
 
     def apply(self, func=None, args=None, indices_or_mask=None):
