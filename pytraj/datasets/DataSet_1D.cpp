@@ -748,6 +748,7 @@ static char __pyx_k_ValueError[] = "ValueError";
 static char __pyx_k_import_numpy[] = "_import_numpy";
 static char __pyx_k_pytraj_utils[] = "pytraj.utils";
 static char __pyx_k_idx_must_be_0_or_1[] = "idx must be 0 or 1";
+static char __pyx_k_install_numpy_for_pretty_print[] = "(install numpy for pretty print)";
 static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_n_s_Ct;
 static PyObject *__pyx_n_s_D2;
@@ -758,6 +759,7 @@ static PyObject *__pyx_n_s_idx;
 static PyObject *__pyx_kp_s_idx_must_be_0_or_1;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_import_numpy;
+static PyObject *__pyx_kp_s_install_numpy_for_pretty_print;
 static PyObject *__pyx_n_s_lagmaxIn;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_property;
@@ -1117,7 +1119,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_4__str__(s
  *             except:
  *                 my_str = basic_str             # <<<<<<<<<<<<<<
  *         else:
- *             my_str = basic_str
+ *             my_str = basic_str + "(install numpy for pretty print)"
  */
         __Pyx_INCREF(__pyx_v_basic_str);
         __Pyx_XDECREF_SET(__pyx_v_my_str, __pyx_v_basic_str);
@@ -1146,18 +1148,20 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_4__str__(s
     /* "pytraj/datasets/DataSet_1D.pyx":23
  *                 my_str = basic_str
  *         else:
- *             my_str = basic_str             # <<<<<<<<<<<<<<
+ *             my_str = basic_str + "(install numpy for pretty print)"             # <<<<<<<<<<<<<<
  *         return my_str
  * 
  */
-    __Pyx_INCREF(__pyx_v_basic_str);
-    __pyx_v_my_str = __pyx_v_basic_str;
+    __pyx_t_3 = PyNumber_Add(__pyx_v_basic_str, __pyx_kp_s_install_numpy_for_pretty_print); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_v_my_str = __pyx_t_3;
+    __pyx_t_3 = 0;
   }
   __pyx_L5:;
 
   /* "pytraj/datasets/DataSet_1D.pyx":24
  *         else:
- *             my_str = basic_str
+ *             my_str = basic_str + "(install numpy for pretty print)"
  *         return my_str             # <<<<<<<<<<<<<<
  * 
  *     def __repr__(self):
@@ -2503,6 +2507,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_idx_must_be_0_or_1, __pyx_k_idx_must_be_0_or_1, sizeof(__pyx_k_idx_must_be_0_or_1), 0, 0, 1, 0},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_import_numpy, __pyx_k_import_numpy, sizeof(__pyx_k_import_numpy), 0, 0, 1, 1},
+  {&__pyx_kp_s_install_numpy_for_pretty_print, __pyx_k_install_numpy_for_pretty_print, sizeof(__pyx_k_install_numpy_for_pretty_print), 0, 0, 1, 0},
   {&__pyx_n_s_lagmaxIn, __pyx_k_lagmaxIn, sizeof(__pyx_k_lagmaxIn), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
