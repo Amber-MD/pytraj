@@ -4,7 +4,8 @@
 * loading file format that cpptraj has not yet supported (.h5, ...)
 """
 from __future__ import absolute_import
-from ._load_HDF5 import load_hdf5
+# don't import _load_HDF5 here to avoid circular importing
+#from ._load_HDF5 import load_hdf5
 from ._pickle import to_pickle, read_pickle
 from ._json import to_json, read_json
 
@@ -15,5 +16,5 @@ from ._load_pseudo_parm import load_pseudo_parm
 
 __all__ = ['read_pickle', 'read_json', 
            'to_pickle', 'to_json',
-           'load_MDAnalysis', 'load_mdtraj', 'load_hdf5'
+           'load_MDAnalysis', 'load_mdtraj',
            'load_ParmEd', 'load_pseudo_parm']
