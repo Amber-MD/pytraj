@@ -293,8 +293,9 @@ cdef class Topology:
         return list(self.mols)
 
     def summary(self):
-        head = "Topology %s contains % atoms \n" % (self.filename, self.n_atoms)
-
+        set_world_silent(False)
+        self.thisptr.Summary()
+        set_world_silent(True)
 
     def atom_info(self, maskString="*"):
         set_world_silent(False)
