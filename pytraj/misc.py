@@ -22,6 +22,9 @@ try:
 except ImportError:
     file_type_info = None
 
+__all__ = ['to_amber_mask', 'from_legends_to_indices', 'info',
+           'get_atts', 'merge_trajs']
+
 def to_amber_mask(txt, mode=None):
     import re
     """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'

@@ -11,6 +11,7 @@ from pytraj.utils import is_array
 from pytraj._utils import _int_array1d_like_to_memview
 from pytraj.compat import range
 
+__all__ = ['AtomMask']
 
 cdef class AtomMask(object):
     def __cinit__(self, *args):

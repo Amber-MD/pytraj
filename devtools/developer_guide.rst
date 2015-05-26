@@ -5,6 +5,7 @@ Developer guide for pytraj
 Python style guide
 ------------------
 Try to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`
+
 Try to read `numpy doc <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`
 
 Python 2 and 3 compat

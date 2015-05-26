@@ -12,6 +12,9 @@ from pytraj.exceptions import PytrajMemviewError, PytrajConvertError
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
 from pytraj._xyz import XYZ
 
+__all__ = ['_savetraj', '_frame_iter_master', '_xyz', 'my_str_method',
+           '_tolist', '_box_to_ndarray']
+
 def _savetraj(self, filename="", fmt='unknown', overwrite=False):
     if fmt == 'unknown':
         # convert to "UNKNOWN_TRAJ"
