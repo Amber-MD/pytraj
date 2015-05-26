@@ -1133,7 +1133,8 @@ cdef class Trajectory (object):
                 i = -1
             ref_frame = self[i]
         else:
-            raise ValueError("ref must be string, Frame object or integer")
+            # first
+            ref_frame = self[0]
 
         if mode == 'pytraj':
             if isinstance(mask, string_types):
