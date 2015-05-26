@@ -16,6 +16,7 @@ from pytraj.parms._ParmFile import TMPParmFile
 from pytraj.externals.six import PY3, PY2, string_types, binary_type
 from pytraj.compat import set
 
+__all__ = ['Topology']
 
 cdef class Topology:
     def __cinit__(self, *args):

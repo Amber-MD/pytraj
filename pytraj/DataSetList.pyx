@@ -22,6 +22,8 @@ from pytraj.ArgList import ArgList
 # DataSet
 from pytraj.cpptraj_dict import DataTypeDict
 
+__all__ = ['DataSetList']
+
 _, np = _import_numpy()
 
 cdef class DataSetList:
