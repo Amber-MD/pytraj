@@ -20,7 +20,7 @@ cdef class DataSet_1D (DataSet):
             except:
                 my_str = basic_str
         else:
-            my_str = basic_str
+            my_str = basic_str + "(install numpy for pretty print)"
         return my_str
 
     def __repr__(self):
