@@ -51,7 +51,7 @@ Usage:
     * `calc_dssp([[frame,], traj1, traj2(3, 9, 2), traj3.chunk_iter(chunk=5)], ':2-10', dtype='ndarray', top=traj.top)`
     * get new Trajectory with a given mask: `traj['@CA']`
     * update coords for specific atoms in residues: `traj[':1-3'] = xyz_3d`
-    * scale and translate coords for non-H atoms: `traj.apply(lambda x : x * 2 + 1.2, indices_or_mask='!@H=`)
+    * scale and translate coords for non-H atoms: `traj.apply(lambda x : x * 2 + 1.2, indices_or_mask='!@H='`)
     * expose to numpy: `arr0 = np.asarray(frame[:])` 
     * convert to pandas's DataFrame: `dframe = traj.search_hbonds(dtype='dataframe')`
     * load from other package: `traj = io.load_mdtraj(mdtraj_traj)`, `parm = io.load_ParmEd(its_obj)`
