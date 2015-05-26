@@ -60,6 +60,9 @@ class Test(unittest.TestCase):
 
         # imul
         traj = traj_saved.copy()
+        f0 = traj[0]
+        f0 += 1.
+        xyz0 = f0.xyz.copy()
         xyz = traj.xyz[:]
         traj *= 2.0
         xyz *= 2.0
@@ -70,18 +73,20 @@ class Test(unittest.TestCase):
         aa_eq(traj.xyz, fa.xyz[:]**2)
 
         @Timer()
-        def time_traj(traj):
+        def time_traj(traj, f0=f0):
             traj += 1.
             traj *= 1.
             traj /= 1.
             traj -= 1.
+            traj += f0
 
         @Timer()
-        def time_np(xyz):
+        def time_np(xyz, xyz0=xyz0):
             xyz += 1.
             xyz *= 1.
             xyz /= 1.
             xyz -= 1.
+            xyz += xyz0
 
         print ("time_traj")
         time_traj(traj)

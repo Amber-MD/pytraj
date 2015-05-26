@@ -44,5 +44,7 @@ class Test(unittest.TestCase):
         print (farray[1, 0]) 
         assert_almost_equal(farray[1].coords, f1saved.coords)
 
+        farray.rmsfit_to('first')
+
 if __name__ == "__main__":
     unittest.main()

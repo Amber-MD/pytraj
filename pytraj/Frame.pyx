@@ -657,6 +657,7 @@ cdef class Frame (object):
         self.thisptr.ZeroCoords()
 
     # NOTE: nogain with openmp for iadd, isub, ...
+    # (and not faster than numpy, even with 500K atoms) 
     def __iadd__(Frame self, value):
         cdef Frame other
         # += 
@@ -693,6 +694,8 @@ cdef class Frame (object):
             frame.xyz -= value
         return frame
 
+    # NOTE: nogain with openmp for iadd, isub, ...
+    # (and not faster than numpy, even with 500K atoms) 
     def __isub__(Frame self, value):
         cdef Frame other
         # -= 
@@ -705,6 +708,8 @@ cdef class Frame (object):
             self.xyz[:] -= value
         return self
 
+    # NOTE: nogain with openmp for iadd, isub, ...
+    # (and not faster than numpy, even with 500K atoms) 
     def __imul__(Frame self, value):
         cdef Frame other
         # *=
