@@ -7,6 +7,8 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* start working on pytraj-dev 0.1.2.dev5
+* release pytraj-dev 0.1.2.dev4 (May 26, 2015) (binstar, github)
 * add pretty print for DataSetList when having `pandas` 
 * enhance speed for frame_iter and chunk_iter
 * add 'merge_traj'
