@@ -1325,11 +1325,17 @@ cdef class Trajectory (object):
         cdef int i
         cdef int size = self.size
         cdef int n_atoms = self.n_atoms
+        cdef Frame other_frame
 
         if not isinstance(value, Trajectory):
             # numpy
             for frame in self:
                 frame.xyz.__iadd__(value)
+        elif isinstance(value, Frame):
+            other_frame = value
+            for i in range(size):
+                # frame += other_frame
+                self.frame_v[i][0] += other_frame.thisptr[0]
         else:
             tmp_traj = value
             # nogain with OPENMP
@@ -1343,11 +1349,17 @@ cdef class Trajectory (object):
         cdef Trajectory tmp_traj
         cdef int i
         cdef int size = self.size
+        cdef Frame other_frame
 
         if not isinstance(value, Trajectory):
             # numpy
             for frame in self:
                 frame.xyz.__isub__(value)
+        elif isinstance(value, Frame):
+            other_frame = value
+            for i in range(size):
+                # frame -= other_frame
+                self.frame_v[i][0] -= other_frame.thisptr[0]
         else:
             tmp_traj = value
             # nogain with OPENMP
@@ -1361,11 +1373,17 @@ cdef class Trajectory (object):
         cdef Trajectory tmp_traj
         cdef int i
         cdef int size = self.size
+        cdef Frame other_frame
 
         if not isinstance(value, Trajectory):
             # numpy
             for frame in self:
                 frame.xyz.__imul__(value)
+        elif isinstance(value, Frame):
+            other_frame = value
+            for i in range(size):
+                # frame *= other_frame
+                self.frame_v[i][0] *= other_frame.thisptr[0]
         else:
             tmp_traj = value
             # nogain with OPENMP
