@@ -293,9 +293,8 @@ cdef class Topology:
         return list(self.mols)
 
     def summary(self):
-        set_world_silent(False)
-        self.thisptr.Summary()
-        set_world_silent(True)
+        head = "Topology %s contains % atoms \n" % (self.filename, self.n_atoms)
+
 
     def atom_info(self, maskString="*"):
         set_world_silent(False)
@@ -694,3 +693,33 @@ cdef class Topology:
         for i in range(n_atoms):
             d_view[i] = self.thisptr.GetVDWradius(i)
         return arr
+
+    def to_dataframe(self):
+        cdef:
+            int n_atoms = self.n_atoms
+            int idx
+            Atom atom
+
+        from pytraj.utils import _import_pandas
+        _, pd = _import_pandas()
+        if pd:
+            _, np = _import_numpy()
+            labels = ['resnum', 'resname', 'atomname', 'atomic_number', 'mass']
+            mass_arr = np.array(self.mass)
+            resnum_arr = np.empty(n_atoms, dtype='i')
+            resname_arr = np.empty(n_atoms, dtype='U4')
+            atomname_arr= np.empty(n_atoms, 'U4')
+            atomicnumber_arr = np.empty(n_atoms, dtype='i4')
+
+            for idx, atom in enumerate(self.atoms):
+                # TODO: make faster?
+                resnum_arr[idx] = atom.resnum
+                resname_arr[idx] = self._get_residue(atom.resnum).name
+                atomname_arr[idx] = atom.name
+                atomicnumber_arr[idx] = atom.atomic_number
+
+            arr = np.vstack((resnum_arr, resname_arr, atomname_arr, 
+                             atomicnumber_arr, mass_arr)).T
+            return pd.DataFrame(arr, columns=labels)
+        else:
+            raise ValueError("must have pandas")
