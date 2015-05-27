@@ -29,8 +29,7 @@ def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
     * "search for all hydrogen bonds within residues 1-22"
         dslist = search_hbonds(traj, ":1-22")
         
-    * "search for all hydrogen bonds within residues 1-22, writing the number of 
-    hydrogen bonds per frame to “nhb.dat” and information on each hydrogen bond found to “avghb.dat”"
+    * "search for all hydrogen bonds within residues 1-22, specifying output files"
 
         dslist = search_hbonds(traj, ":1-22 out nhb.dat avgout avghb.dat", dflist=dflist)
         dflist.write_all_datafile()
@@ -48,7 +47,11 @@ def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
     command = "series " + mask
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    if dtype == 'dataframe':
+        # return DataFrame.T to have better visual effect
+        return dslist.to_dataframe().T
+    else:
+        return _get_data_from_dtype(dslist, dtype=dtype)
 
 def search_nointramol_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
     """

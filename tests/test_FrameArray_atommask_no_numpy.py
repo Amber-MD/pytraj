@@ -8,18 +8,18 @@ from pytraj.utils import _import, flatten_list
 class Test(unittest.TestCase):
     def test_0(self):
         has_np, np = _import('numpy')
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         arr0 = traj['@CA'].xyz
 
         if not has_np:
             assert isinstance(arr0, list) == True
         else:
             assert hasattr(np, 'ndarray')
-            assert isinstance(arr0, np.ndarray) == True
+            assert isinstance(arr0[:], np.ndarray) == True
 
         # make sure that we did the right thing
         topCA = traj.top.strip_atoms("!@CA", copy=True)
-        naked_traj = mdio.load(("./data/stripAllButCA.Tc5b.x"), topCA)
+        naked_traj = mdio.iterload(("./data/stripAllButCA.Tc5b.x"), topCA)
 
         for idx, frame in enumerate(naked_traj):
             assert_almost_equal(flatten_list(arr0[idx]), frame.coords)

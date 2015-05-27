@@ -8,7 +8,7 @@ from pytraj.common_actions import distance
 import numpy as np
 from rmsd import rmsd
 
-farray = TrajReadOnly(top=Topology("./data/Tc5b.top"), 
+farray = TrajectoryIterator(top=Topology("./data/Tc5b.top"), 
                     filename='data/md1_prod.Tc5b.x', 
                     )
 

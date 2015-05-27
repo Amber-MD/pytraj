@@ -6,7 +6,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj import adict
 
         print (adict.keys())
@@ -18,10 +18,16 @@ class Test(unittest.TestCase):
         print (act)
 
         # FIXME: not work with combination of chunk_iter in the list or tuple (but still work with frame_iter)
-        act("", current_frame=(traj, traj(1, 5, 1), traj.chunk_iter(chunk=2)), current_top=traj.top)
-        #act("@CA", (traj, traj(1, 5, 1), traj.frame_iter(stride=2)), traj.top)
+        act("", current_frame=(traj, traj(1, 5, 1), traj.chunk_iter(chunk=2)), top=traj.top)
         print (act.n_frames)
         assert act.n_frames == 25
+
+        act("@CA", (traj, traj(1, 5, 1), traj.frame_iter(stride=2)), traj.top)
+        print (act.n_frames)
+        assert act.n_frames == 45
+
+        act("@CA", traj.chunk_iter(), traj.top)
+        assert act.n_frames == 55
 
 if __name__ == "__main__":
     unittest.main()

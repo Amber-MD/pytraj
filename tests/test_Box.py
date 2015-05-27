@@ -5,10 +5,11 @@ from pytraj.core import Box
 from array import array as pyarray
 from pytraj.decorators import test_if_having
 from pytraj.testing import eq, aa_eq
+from pytraj.compat import zip
 
 class TestBox(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame0.box_crd()
         print(frame0.box)
@@ -57,10 +58,40 @@ class TestBox(unittest.TestCase):
 
     def test_real_box(self):
         traj = mdio.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        trajiter = mdio.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        saved_box = Box([35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0])
         aa_eq(traj.top.box.tolist(), [35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
         for frame in traj:
             assert frame.box.type == 'ortho'
             aa_eq(frame.box.tolist(), [35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
+
+        # test box_to_ndarray
+        arr0 = traj.box_to_ndarray()
+        arr1 = trajiter.box_to_ndarray()
+
+        for b0, b1, frame in zip(arr0, arr1, trajiter):
+            box = frame.box
+            # FIXME:
+            #b2 = frame.box.to_ndarray() # got wrong box in python2 (ok with python3)
+            b2 = box.to_ndarray()
+            aa_eq(b0,  b1)
+            aa_eq(b0,  b2)
+
+        # test assign Box with list/tuple
+        b = Box(saved_box.tolist())
+        b2 = Box((t for t in saved_box.tolist()))
+        assert (b.tolist() == saved_box.tolist()) == True
+        assert (b2.tolist() == saved_box.tolist()) == True
+        # assign frame.box with list/tuple
+        frame.box = b.tolist()
+        b3 = frame.box
+        assert (b3.tolist() == saved_box.tolist()) == True
+
+    def test_nobox(self):
+        from pytraj import Trajectory
+        traj = Trajectory()
+        traj._allocate(10, 10)
+        print (traj.box_to_ndarray())
 
 if __name__ == "__main__":
     unittest.main()

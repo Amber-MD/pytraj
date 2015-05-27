@@ -1,5 +1,5 @@
 import unittest
-from pytraj.six_2 import izip
+from pytraj.compat import izip
 from pytraj.base import *
 from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD as DataSet_Coords_CRD
 from pytraj.utils.check_and_assert import assert_almost_equal
@@ -8,7 +8,7 @@ import numpy as np
 
 class Test(unittest.TestCase):
     def test_0(self):
-        TRAJ0 = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        TRAJ0 = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         print(TRAJ0.size)
         traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
@@ -41,7 +41,7 @@ class Test(unittest.TestCase):
         
     def test_1(self):
         "test Action"
-        TRAJ0 = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        TRAJ0 = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
 
@@ -67,7 +67,7 @@ class Test(unittest.TestCase):
         from pytraj.datasets.DataSet import DataSet
         from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD
         "test cast_dataset"
-        TRAJ0 = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        TRAJ0 = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
 
@@ -95,7 +95,7 @@ class Test(unittest.TestCase):
         
     def test_3(self):
         # test commond DataSet methods
-        TRAJ0 = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        TRAJ0 = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         print(TRAJ0.size)
         traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()

@@ -10,13 +10,13 @@ import pytraj.common_actions as pyca
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = traj[0]
         f0 = traj[0].copy()
         pyca.align_principal_axis(frame, "@CA", top=traj.top)
 
         # assert
-        saved_frame = mdio.load("./data/Tc5b.principal_dorotation.rst7", traj.top)[0]
+        saved_frame = mdio.iterload("./data/Tc5b.principal_dorotation.rst7", traj.top)[0]
         print (saved_frame[0])
         print (frame[0])
         print (f0[0])

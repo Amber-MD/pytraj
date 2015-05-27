@@ -4,7 +4,7 @@ from pytraj.base import *
 max_frame = 999
 class TestTrajingIter(unittest.TestCase):
     def test_iter_0(self):
-        traj = TrajReadOnly()
+        traj = TrajectoryIterator()
         traj.load(filename="data/md1_prod.Tc5b.x", top=Topology("./data/Tc5b.top"))
 
         assert traj.size == traj.n_frames == len(traj)

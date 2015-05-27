@@ -11,11 +11,11 @@ class Test(unittest.TestCase):
 
         print ("no verbose")
         set_world_silent(True)
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         print ("too many words")
         set_world_silent(False)
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         # 
         traj.top.bond_info()

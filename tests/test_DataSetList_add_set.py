@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         dslist = DataSetList()
         dslist0 = DataSetList()
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['matrix']
         act("", traj, dslist=dslist)
 
@@ -45,7 +45,7 @@ class Test(unittest.TestCase):
         # I missed anything here?
         from pytraj import set_world_silent
         dslist = DataSetList()
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         coords_traj = DataSet_Coords_TRJ()
         coords_traj.top = traj.top
         coords_traj.add_trajin(traj)
@@ -57,7 +57,7 @@ class Test(unittest.TestCase):
         dslist.add_set("traj", "my_name", "__my_default_name__")
         print (dslist.size)
         print (dslist[0].size)
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist[0].top = traj.top
         dslist[0].add_trajin(traj)
         assert dslist[0].size == traj.n_frames

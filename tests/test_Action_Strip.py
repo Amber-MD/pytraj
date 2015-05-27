@@ -3,12 +3,12 @@ from pytraj.base import *
 from pytraj.actions.Action_Strip import Action_Strip
 from pytraj import allactions
 from pytraj.actions import Action
-from pytraj.TrajReadOnly import TrajReadOnly
+from pytraj.TrajectoryIterator import TrajectoryIterator
 from pytraj.decorators import no_test
 
 print(dir(Action_Strip()))
 
-farray = FrameArray(top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
+farray = Trajectory(top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
 
 class TestStrip(unittest.TestCase):
     #@no_test
@@ -25,19 +25,19 @@ class TestStrip(unittest.TestCase):
             newframe = Frame()
             dslist = DataSetList()
             act(command="strip !@CA", 
-                       current_top=top, 
+                       top=top, 
                        dslist=dslist,
                        current_frame=frame0, 
                        new_frame=newframe, 
                        new_top=newtop)
 
             act_surf(command="@CA", 
-                       current_top=top, 
+                       top=top, 
                        dslist=dslist,
                        current_frame=farray)
 
             act_surf(command="@H=", 
-                       current_top=top, 
+                       top=top, 
                        dslist=dslist,
                        current_frame=farray)
 
@@ -88,7 +88,7 @@ class TestStrip(unittest.TestCase):
         farray0 = farray.copy()
         act = adict['strip']
         tmpframe = Frame()
-        newf = FrameArray()
+        newf = Trajectory()
         newf.top = farray0.top.strip_atoms("!@CA", copy=True)
 
         act("!@CA", farray0, farray0.top.copy(), new_frame=tmpframe)

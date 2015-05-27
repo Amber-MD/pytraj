@@ -6,7 +6,7 @@ from pytraj import adict
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load(".//data/tz2.truncoct.nc", 
+        traj = mdio.iterload(".//data/tz2.truncoct.nc", 
                          ".//data/tz2.truncoct.parm7")
         dslist = DataSetList()
         dflist = DataFileList()
@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         print (dslist[1][:])
 
     def test_1(self):
-        traj = mdio.load(".//data/tz2.truncoct.nc", 
+        traj = mdio.iterload(".//data/tz2.truncoct.nc", 
                          ".//data/tz2.truncoct.parm7")
         from pytraj.common_actions import calc_watershell
 

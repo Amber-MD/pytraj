@@ -9,8 +9,8 @@ from pytraj.utils import has_
 from pytraj.misc import get_atts
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 from pytraj.utils.check_and_assert import eq
-from pytraj.six_2 import izip
-from pytraj.six_2 import izip as zip
+from pytraj.compat import izip
+from pytraj.compat import izip as zip
 from pytraj.testing import test_if_having
 
 import numpy as np
@@ -19,7 +19,7 @@ from pytraj.io import load_mdtraj
 class Test(unittest.TestCase):
     @test_if_having("mdtraj")
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         if has_("mdtraj") and has_("tables"):
             print ("Testing mdtraj and pytraj")
@@ -78,7 +78,7 @@ class Test(unittest.TestCase):
         # load water box
         import mdtraj as md
         m_traj =  md.load("./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
-        true_traj =  mdio.load("./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
+        true_traj =  mdio.iterload("./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
         traj = mdio.load_mdtraj(m_traj)
         print (traj.top.box)
         print (true_traj.top.box)
@@ -96,6 +96,10 @@ class Test(unittest.TestCase):
         print (m_traj.xyz[0, 0])
         aa_eq(traj2.xyz, m_traj.xyz, decimal=3)
         aa_eq(traj.xyz, 10*m_traj.xyz, decimal=3)
+
+        # provide topology
+        traj3 = mdio.load_mdtraj(m_traj, False, traj2.top)
+        aa_eq(traj2.xyz, traj3.xyz)
 
 if __name__ == "__main__":
     unittest.main()

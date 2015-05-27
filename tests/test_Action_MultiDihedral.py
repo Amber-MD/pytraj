@@ -7,7 +7,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['multidihedral']
         dslist = DataSetList()
         dflist = DataFileList()
@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
             d0.info()
 
         print (dir(d0))
-        print (d0.is_torsion_array())
+        print (d0._is_torsion_array())
 
         print (dslist.get_dtypes())
         print (dslist.get_aspects())

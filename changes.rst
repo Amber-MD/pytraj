@@ -7,10 +7,58 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* start working on pytraj-dev 0.1.2.dev5
+* release pytraj-dev 0.1.2.dev4 (May 26, 2015) (binstar, github)
+* add pretty print for DataSetList when having `pandas` 
+* enhance speed for frame_iter and chunk_iter
+* add 'merge_traj'
+* add `apply` method to change traj's internal data
+* add basic math for Trajectory 
+* add XYZ class as a simple wrapper for numpy ndarray
+  traj.xyz is no longer ndarray, just a read-only wrapper
+* add TrajectoryMDAnalysisIterator
+* add read_data for DataFile and DataSetList
+* add frame `swap` for Trajectory
+* add atom coords assignment traj['@CA'] = xyz
+* add `stack` for DataSetList to join 2 datasets
+* rename `set_frame_m` to `set_frame_mass`
+* update `to_amber_mask` to convert integer array-like to string mask
+* add autoimage and rmsfit_to for chunk_iter and frame_iter
+* tune speed for chunk_iter and frame_iter for TrajectoryIterator
+* add `plot` method for DataSet
+* add `write_to_cpptraj_format`
+* add __array__ for Frame 
+* introduce array interface to numpy for cpptraj's DataSet 
+* add median, std, ... for DataSetList
+* update run_all_and_find_fails.py for capturing segmetation fault
+* add Trajectory joining (traj += traj)
+* optimize slicing for `TrajectoryIterator` 
+* optimize strip_atoms (1000 times speed up)
+* add `copy` method for DataSet
+* add fancy indexing for `DataSetList`
+* add `_fast_slice` for Trajectory (1000 times faster)
+* add regular expression for `groupby`
+* add `to_pickle`, `to_json`, `read_pickle`, `read_json`
+* add `_guess_filetype`
+* change `fit_to` to `rmsfit_to`
+* enhance smart _frame_iter_master
+* create alias `rmsd` for `calc_rmsd` in `common_actions` module
+* update loading hd5f file without going through `mdtraj`
+* correctly handle `box` in `api.Trajectory`
+* add `TrajectoryREMDIterator` class to handal REMD
+* change `io.load_remd_iterator` to `io.iterload_remd`
+* add `io._iterload_from_filelist` and `io._load_from_filelist`
+* add `count` for DataSet_integer
+* API CHANGE (05-06-2015): 
+  * change `FrameArray` to `Trajectory`
+  * change `TrajReadOnly` to `TrajectoryIterator` (issue #262)
+    (https://github.com/pytraj/pytraj/issues/262)
+  * `io.load` will return `Trajectory` instead of `TrajectoryIterator`
+  * `io.iterload` will return `TrajectoryIterator`
 * add "legend" as property of DataSet
 * remove "get_box" from Frame. use "box"
 * support `autoimage` when loading mdtraj object
-* bugifx for `io.loadpdb_rcsb`
+* bugfix for `io.loadpdb_rcsb`
 * add 'calc_rdf'
 * trick to add reference to Action
   * Example: calc_abcxyz([[ref,], traj], command), where `ref` is a Frame object, `abcxyz` is a specific action.

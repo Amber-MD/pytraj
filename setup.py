@@ -43,42 +43,40 @@ try:
 except:
     has_amberhome = False
 
-# check CPPTRAJHOME
+# check CPPTRAJHOME or "./cpptraj" folder
 try:
     cpptrajhome = os.environ['CPPTRAJHOME']
     has_cpptrajhome = True
 except:
     has_cpptrajhome = False
 
-if has_amberhome:
-    # use libcpptraj and header files in AMBERHOME
-    cpptraj_dir = amberhome + "/AmberTools/src/cpptraj/"
-    cpptraj_include = cpptraj_dir + "/src/"
-    libdir = amberhome + "/lib/"
-elif has_cpptrajhome:
+has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
+
+if has_cpptrajhome:
     # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
     cpptraj_dir = cpptrajhome
     cpptraj_include = cpptraj_dir + "/src/"
     libdir = cpptrajhome + "/lib/"
+elif has_cpptraj_in_current_folder:
+    cpptraj_dir = os.path.abspath("./cpptraj/")
+    cpptraj_include = cpptraj_dir + "/src/"
+    libdir = cpptraj_dir + "/lib/"
+# turn off using AMBERHOME since pytraj uses cpptraj-dev
+#elif has_amberhome:
+#    # use libcpptraj and header files in AMBERHOME
+#    cpptraj_dir = amberhome + "/AmberTools/src/cpptraj/"
+#    cpptraj_include = cpptraj_dir + "/src/"
+#    libdir = amberhome + "/lib/"
 else:
     # use libcpptraj and header files in PYTRAJHOME
     # ./cpptraj/src
     # ./cpptraj/lib
 
     nice_message = """
-    Must set AMBERHOME or CPPTRAJHOME. If both AMBERHOME and CPPTRAJHOME are set,
-    pytraj will give priority to AMBERHOME.
+    pytraj require development version of cpptraj
+    Must set CPPTRAJHOME or installing ./cpptraj/ in current folder.
 
-    If you don't have AmberTools or cpptraj, you can install cpptraj by
-    one of two ways here:
-
-    1. Download AmberTools15 (or later version)
-    First, get a free version from: http://ambermd.org/#AmberTools
-    then:
-        cd $AMBERHOME/AmberTools/src/cpptraj/
-        bash ./configure -amberlib -shared gnu
-
-    2. if you just want a standalone cpptraj version, you can download 
+    If you want to manually install `libcpptraj`, you can download cpptraj
     development version from here: https://github.com/mojyt/cpptraj
 
     (    git clone https://github.com/mojyt/cpptraj
@@ -201,6 +199,7 @@ packages = [
         'pytraj.trajs',
         'pytraj.data_sample',
         'pytraj.data_sample.Ala3',
+        'pytraj.data_sample.tz2',
         'pytraj.plots',
         'pytraj.math',
         'pytraj.core',
@@ -210,7 +209,7 @@ packages = [
 
 pylen = len('pytraj') + 1
 pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
-sample_data = ["data_sample/Ala3/Ala3.*",]
+sample_data = ["data_sample/Ala3/Ala3.*", "data_sample/tz2/tz2.*"]
 datalist = pxdlist +  sample_data
 
 def build_func(my_ext):

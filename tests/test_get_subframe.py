@@ -5,7 +5,7 @@ from pytraj import io as mdio
 
 class TestSubFrame(unittest.TestCase):
     def test_0(self):
-        farray = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(9, 5))
+        farray = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(9, 5))
         print (farray)
         f0 = farray[0]
         print (f0)
@@ -21,8 +21,8 @@ class TestSubFrame(unittest.TestCase):
         assert f2sub.coords == f1sub.coords
 
     def test_1(self):
-        farray = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=slice(1, 5))
-        farray2 = FrameArray()
+        farray = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=slice(1, 5))
+        farray2 = Trajectory()
         for frame in farray:
             farray2.append(frame.get_subframe("@CA", farray.top))
 

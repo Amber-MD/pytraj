@@ -1,17 +1,20 @@
 # distutils: language = c++
 
+#from __future__ import absolute_import, division
+# turn off `division` for automatically casting
 from __future__ import absolute_import
 cimport cython
 from libc.math cimport sqrt
 from cython cimport view
 from cpython cimport array as cparray # for extend python array
 from cpython.array cimport array as pyarray
+from cython.parallel import prange
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
+from libc.string cimport memcpy
 from cpython.buffer cimport Py_buffer
 from pytraj.math.TorsionRoutines cimport Torsion as cpptorsion, CalcAngle as cppangle
 from pytraj.math.DistRoutines cimport DIST2_NoImage
-
 import math
 from pytraj.decorators import for_testing, iter_warning
 from pytraj.decorators import name_will_be_changed
@@ -21,6 +24,8 @@ from pytraj.ArgList import ArgList
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
 from pytraj.exceptions import *
+
+DEF RADDEG       =   57.29577951308232
 
 # TODO : reogarnize memory view, there are too many ways to assess
 # need to finalize
@@ -189,7 +194,25 @@ cdef class Frame (object):
         self.thisptr.AddVec3(vec.thisptr[0])
 
     def swap_atoms(self, int atom1, int atom2):
+        """
+        Parameters
+        ----------
+        atom1 : int
+        atom2 : int
+
+        """
         self.thisptr.SwapAtoms(atom1, atom2)
+
+    def swap_atom_array(self, cython.integral[:, :] int_view):
+        """
+        Parameters
+        ----------
+        int_view: 2D-int array-like, shape=(2, n_atoms)
+        """
+        cdef int i
+
+        for i in range(int_view.shape[1]):
+            self.thisptr.SwapAtoms(int_view[0, i], int_view[1, i])
 
     def __str__(self):
         tmp = "<%s with %s atoms>" % (
@@ -201,67 +224,69 @@ cdef class Frame (object):
     def __repr__(self):
         return self.__str__()
 
+    def is_(self, Frame other):
+        return self.thisptr == other.thisptr
+
     @property
     def shape(self):
         return self.buffer2d[:].shape
 
     def __getitem__(self, idx):
-        # always return memoryview 
+        cdef AtomMask atm
+        cdef cython.view.array cy_arr
+        cdef int new_size
+        cdef int i, j
+        cdef int[:] int_view
+
         has_numpy, np = _import_numpy()
-        if isinstance(idx, AtomMask):
+        if isinstance(idx, pyarray):
+            if not has_numpy:
+                # create memoryview
+                int_view = idx
+                new_size = int_view.shape[0]
+                cy_arr = cython.view.array(shape=(new_size, 3), 
+                         itemsize=sizeof(double), format='d')
+                for i in range(new_size):
+                    # get index for `self`
+                    j = int_view[i]
+                    cy_arr[i] = self[j]
+                return cy_arr
+            else:
+                return self.xyz[idx]
+        elif isinstance(idx, AtomMask):
             # return a sub-array copy with indices got from 
             # idx.selected_indices()
             # TODO : add doc
             if idx.n_atoms == 0:
                 raise ValueError("emtpy mask")
             if not has_numpy:
-                # return 2D list
-                tmp_arr0 = []
-                for _index in idx.selected_indices():
-                    tmp_arr0.append(list(self.buffer2d[_index]))
-                return tmp_arr0
-                #raise NotImplementedError("supported if having numpy installed")
+                return self[idx.indices]
             else:
-                arr0 = np.asarray(self.buffer2d[:])
-                return arr0[np.array(idx.selected_indices())]
+                return self.xyz[idx.indices]
         elif isinstance(idx, dict):
             # Example: frame[dict(top=top, mask='@CA')]
             # return a sub-array copy with indices got from 
             # idx as a `dict` instance
-            # TODO : add doc
             atm = AtomMask(idx['mask'])
             idx['top'].set_integer_mask(atm)
-            if has_numpy:
-                arr0 = np.asarray(self.buffer2d[:])
-                return arr0[np.array(atm.selected_indices())]
-            else:
-                return self[atm]
+            return self[atm.indices]
         elif isinstance(idx, string_types):
             # Example: frame['@CA']
             if self.top is not None and not self.top.is_empty():
-                return self[self.top(idx)]
+                return self[<AtomMask> self.top(idx)]
             else:
                 raise ValueError("must have non-empty topology")
         else:
             if has_numpy:
-                return np.asarray(self.buffer2d[idx])
+                return self.xyz[idx]
             else:
                 return self.buffer2d[idx]
 
     def __setitem__(self, idx, value):
-        # TODO : should we use buffer. Kind of dangerous
-        # TODO : add examples hereo
-        #if not isinstance(idx, (list, tuple)):
-        #    self.buffer[idx] = value
-        #else:
-        #    if isinstance(value, (list, tuple)):
-        #        value = pyarray('d', value)
-        #    self.buffer2d[idx] = value
-        if isinstance(value, (tuple, list)):
-            value = pyarray('d', value)
-            self.buffer2d[idx] = value
+        has_np, np = _import_numpy()
+
         if isinstance(idx, AtomMask):
-            self.update_atoms(idx.selected_indices(), value.flatten())
+            self.xyz[idx.indices] = value
         elif isinstance(value, string_types):
             # assume this is atom mask
             if self.top is None:
@@ -269,7 +294,7 @@ cdef class Frame (object):
             else:
                 self[self.top(idx)] = value
         else:
-            self.buffer2d[idx] = value
+            self.xyz[idx] = value
 
     def __iter__(self):
         cdef int i
@@ -280,6 +305,65 @@ cdef class Frame (object):
                 yield np.asarray(self.buffer2d[i])
             else:
                 yield self.buffer2d[i]
+
+    def __array__(self):
+        """
+        arr0 = np.asarray(frame)
+
+        (== (arr0 = np.asarray(frame[:])))
+        """
+        _, np = _import_numpy()
+        cdef double* ptr = self.thisptr.xAddress()
+        return np.asarray(<double[:self.thisptr.Natom(), :3]> ptr, dtype='f8')
+
+    def _fast_copy_from_frame(self, Frame other):
+        """only copy coords"""
+        # no boundchecking
+        # a bit faster than: self.thisptr[0] = other.thisptr[0]
+        # (since we copy only coords)
+        cdef double *ptr_src
+        cdef double *ptr_dest
+        cdef int count
+
+        ptr_src = other.thisptr.xAddress()
+        ptr_dest = self.thisptr.xAddress()
+        count = self.thisptr.Natom() * 3 * sizeof(double)
+        memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
+    def _fast_copy_from_xyz(self, double[:, :] xyz, indices=None):
+        """only copy coords
+
+        Parameters
+        ----------
+        xyz : 2D array-like, dtype='double', must have buffer interface
+        indices : 1D array-like, dtype='i4', must have buffer interface
+            default=None
+        """
+
+        cdef double *ptr_src
+        cdef double *ptr_dest
+        cdef int count
+        cdef int i, j
+        cdef int[:] int_view
+        # no boundchecking
+
+        if indices is None:
+            # copy all
+            ptr_src = &xyz[0, 0]
+            ptr_dest = self.thisptr.xAddress()
+            count = self.thisptr.Natom() * 3 * sizeof(double)
+            memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+        else:
+            count = 3 * sizeof(double)
+            int_view = indices # create `view`
+            # NOTE: try `prange` with different `schedule` but no gain
+            for i in range(int_view.shape[0]):
+                j = int_view[i]
+                ptr_dest = self.thisptr.xAddress() + j * 3
+                ptr_src = &xyz[i, 0]
+                # copy coords of each Atom
+                memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
 
     def frame_iter(self):
         """
@@ -330,7 +414,9 @@ cdef class Frame (object):
             else:
                 raise NotImplementedError("need numpy. Use `buffer2d` instead")
         def __set__(self, value):
-            raise NotImplementedError("use self.xyz[:] = your_array")
+            if not hasattr(value, 'shape') and value.shape != self.shape:
+                raise ValueError("shape mismatch")
+            self.xyz[:] = value
         
     def is_empty(self):
         return self.thisptr.empty()
@@ -420,13 +506,16 @@ cdef class Frame (object):
     @property
     def coords(self):
         """
-        return a copy of frame coords (python array)
+        return 1D-coords (copy) of Frame
         """
-        cdef pyarray arr = pyarray('d', [])
+        cdef pyarray arr = cparray.clone(pyarray('d', []), 
+                            self.n_atoms*3, zero=False)
         cdef int i
+        cdef double* ptr = self.thisptr.xAddress()
+        cdef int natom3 = 3 * self.thisptr.Natom()
 
-        for i in range(3 * self.thisptr.Natom()):
-            arr.append(deref(self.thisptr.CRD(i)))
+        for i in range(natom3):
+            arr[i] = ptr[i]
         return arr
 
     def v_xyz(self, int atnum):
@@ -508,7 +597,7 @@ cdef class Frame (object):
             atomnum = <int> args[0]
             self.thisptr.SetupFrame(atomnum)
 
-    def set_frame_m(self, Topology top):
+    def set_frame_mass(self, Topology top):
         return self.thisptr.SetupFrameM(top.thisptr.Atoms())
 
     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
@@ -567,35 +656,128 @@ cdef class Frame (object):
     def zero_coords(self):
         self.thisptr.ZeroCoords()
 
-    def __iadd__(Frame self, Frame other):
+    # NOTE: nogain with openmp for iadd, isub, ...
+    # (and not faster than numpy, even with 500K atoms) 
+    def __iadd__(Frame self, value):
+        cdef Frame other
         # += 
         # either of two methods are correct
         #self.thisptr[0] = self.thisptr[0].addequal(other.thisptr[0])
-        self.thisptr[0] += other.thisptr[0]
+        if isinstance(value, Frame):
+            other = <Frame> value
+            self.thisptr[0] += other.thisptr[0]
+        else:
+            self.xyz[:] += value
         return self
 
-    def __sub__(Frame self, Frame other):
-        cdef Frame frame = Frame()
-        frame.thisptr[0] = self.thisptr[0] - other.thisptr[0]
+    def __add__(self, value):
+        cdef Frame other
+        cdef Frame frame
+        
+        frame = Frame(self.n_atoms)
+        if isinstance(value, Frame):
+            other = value
+            frame.xyz = self.xyz + other.xyz
+        else:
+            frame.xyz = self.xyz + value
         return frame
 
-    def __isub__(Frame self, Frame other):
+    def __sub__(Frame self, value):
+        cdef Frame other
+        cdef Frame frame = Frame()
+
+        if isinstance(value, Frame):
+            other = <Frame> value
+            frame.thisptr[0] = self.thisptr[0] - other.thisptr[0]
+        else:
+            frame = Frame(self)
+            frame.xyz -= value
+        return frame
+
+    # NOTE: nogain with openmp for iadd, isub, ...
+    # (and not faster than numpy, even with 500K atoms) 
+    def __isub__(Frame self, value):
+        cdef Frame other
         # -= 
         # either of two methods are correct
         #self.thisptr[0] = self.thisptr[0].subequal(other.thisptr[0])
-        self.thisptr[0] -= other.thisptr[0]
+        if isinstance(value, Frame):
+            other = value
+            self.thisptr[0] -= other.thisptr[0]
+        else:
+            self.xyz[:] -= value
         return self
 
-    def __imul__(Frame self, Frame other):
+    # NOTE: nogain with openmp for iadd, isub, ...
+    # (and not faster than numpy, even with 500K atoms) 
+    def __imul__(Frame self, value):
+        cdef Frame other
         # *=
         # either of two methods are correct
         #self.thisptr[0] = self.thisptr[0].mulequal(other.thisptr[0])
-        self.thisptr[0] *= other.thisptr[0]
+        if isinstance(value, Frame):
+            other = value
+            self.thisptr[0] *= other.thisptr[0]
+        else:
+            self.xyz[:] *= value
         return self
 
-    def __mul__(Frame self, Frame other):
+    def __mul__(Frame self, value):
         cdef Frame frame = Frame()
-        frame.thisptr[0] = self.thisptr[0] * other.thisptr[0]
+        cdef Frame other
+
+        if isinstance(value, Frame):
+            other = value
+            frame.thisptr[0] = self.thisptr[0] * other.thisptr[0]
+        else:
+            frame = Frame(self)
+            frame.xyz[:] *= value
+        return frame
+
+    def __tmp_idiv__(self, value):
+        cdef Frame other
+        cdef int i
+        cdef int natom3 = self.n_atoms * 3
+        cdef double* self_ptr
+        cdef double* other_ptr 
+
+        if isinstance(value, Frame):
+            other = value
+            self_ptr = self.thisptr.xAddress()
+            other_ptr = other.thisptr.xAddress()
+            for i in range(natom3):
+                self_ptr[i] /= other_ptr[i]
+        else:
+            self.xyz /= value
+
+    def __idiv__(self, value):
+        self.__tmp_idiv__(value)
+        return self
+
+    def __itruediv__(self, value):
+        self.__tmp_idiv__(value)
+        return self
+
+    def __div__(self, value):
+        cdef Frame other, frame
+
+        frame = Frame(self.n_atoms)
+        if isinstance(value, Frame):
+            other = value
+            frame.xyz = self.xyz / other.xyz
+        else:
+            frame.xyz = self.xyz / value
+        return frame
+
+    def __truediv__(self, value):
+        cdef Frame other, frame
+
+        frame = Frame(self.n_atoms)
+        if isinstance(value, Frame):
+            other = value
+            frame.xyz = self.xyz / other.xyz
+        else:
+            frame.xyz = self.xyz / value
         return frame
 
     def divide(self, double divisor, *args):
@@ -608,19 +790,21 @@ cdef class Frame (object):
             return self.thisptr.Divide(frame.thisptr[0], divisor)
 
     def add_by_mask(self, Frame frame, AtomMask atmask):
+        """Increment atoms in `self` by selected atoms from `frame`
+        """
         self.thisptr.AddByMask(frame.thisptr[0], atmask.thisptr[0])
 
     def check_coords_invalid(self):
         return self.thisptr.CheckCoordsInvalid()
 
-    def VCenterOfMass(self, AtomMask atmask):
-        # return Vec3 instance
+    def center_of_mass(self, AtomMask atmask):
+        """return Vec3"""
         cdef Vec3 v3 = Vec3()
         v3.thisptr[0] = self.thisptr.VCenterOfMass(atmask.thisptr[0])
         return v3
 
-    def VGeometricCenter(self, AtomMask atmask):
-        # return Vec3 instance
+    def center_of_geometry(self, AtomMask atmask):
+        """return Vec3"""
         cdef Vec3 v3 = Vec3()
         v3.thisptr[0] = self.thisptr.VGeometricCenter(atmask.thisptr[0])
         return v3
@@ -807,7 +991,7 @@ cdef class Frame (object):
             f2 = Frame(frame, <AtomMask>atommask)
             return f1.thisptr.DISTRMSD(f2.thisptr[0])
 
-    def fit_to(self, ref=None, AtomMask atm=None):
+    def rmsfit_to(self, ref=None, AtomMask atm=None):
         """do the fitting to reference Frame by rotation and translation
         TODO : add assert test
         """
@@ -831,9 +1015,7 @@ cdef class Frame (object):
     def calc_temperature(self, AtomMask mask, int deg_of_freedom):
         return self.thisptr.CalcTemperature(mask.thisptr[0], deg_of_freedom)
 
-    # use Action_Strip here?
-    # TODO : BROKEN
-    cdef void _strip_atoms(Frame self, Topology top, string mask, bint update_top, bint has_box):
+    cdef void _strip_atoms(Frame self, Topology top, AtomMask atm, bint update_top, bint has_box):
         """this method is too slow vs cpptraj
         if you use memory for numpy, you need to update after resizing Frame
         >>> arr0 = np.asarray(frame.buffer)
@@ -841,25 +1023,28 @@ cdef class Frame (object):
         >>> # update view
         >>> arr0 = np.asarray(frame.buffer)
         """
+        # NOTE:`atm` here is the KEPT-atommaks (for performance)
+        # we will do `atm.invert_mask` laster in `strip_atoms` method
+        # Important: don't try to use raw pointers. Make sure to create Python's objects
+        # (Frame, Topology) to control cpptraj' objects' lifetime.
 
         cdef Topology newtop = Topology()
         newtop.py_free_mem = False
-        cdef AtomMask atm = AtomMask()
         cdef Frame tmpframe = Frame() 
 
         del tmpframe.thisptr
 
         tmpframe.thisptr = new _Frame(self.thisptr[0])
         
-        atm.thisptr.SetMaskString(mask)
-        atm.thisptr.InvertMask()
-        top.thisptr.SetupIntegerMask(atm.thisptr[0])
         newtop.thisptr = top.thisptr.modifyStateByMask(atm.thisptr[0])
-        #if not has_box:
-        #    newtop.thisptr.SetParmBox(_Box())
         tmpframe.thisptr.SetupFrameV(newtop.thisptr.Atoms(), newtop.thisptr.ParmCoordInfo())
         tmpframe.thisptr.SetFrame(self.thisptr[0], atm.thisptr[0])
+
+        # make a copy: coords, vel, mass...
+        # if only care about `coords`, use `_fast_copy_from_frame`
         self.thisptr[0] = tmpframe.thisptr[0]
+        if not has_box:
+            self.set_nobox()
         if update_top:
             top.thisptr[0] = newtop.thisptr[0]
 
@@ -875,15 +1060,14 @@ cdef class Frame (object):
         Parameters:
         ----------
         mask : str, mask, non-default
-
         top : Topology, default=Topology()
-
         update_top : bint, default=False
-
         has_box : bint, default=False
-
         copy : bint, default=False
         """
+        cdef AtomMask atm = top(mask)
+        atm.invert_mask()
+
         if mask is None or top.is_empty():
             raise ValueError("need non-empty mask and non-empty Topology")
         cdef Frame frame
@@ -891,10 +1075,10 @@ cdef class Frame (object):
         mask = mask.encode("UTF-8")
 
         if not copy:
-            self._strip_atoms(top, mask, update_top, has_box)
+            self._strip_atoms(top, atm, update_top, has_box)
         else:
             frame = Frame(self)
-            frame._strip_atoms(top, mask, update_top, has_box)
+            frame._strip_atoms(top, atm, update_top, has_box)
             return frame
 
     def get_subframe(self, mask=None, top=None):
@@ -946,8 +1130,8 @@ cdef class Frame (object):
             idx1 = int_arr[i, 1]
             idx2 = int_arr[i, 2]
             idx3 = int_arr[i, 3]
-            arr0_view[i] = math.degrees(cpptorsion(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
-                          self.thisptr.XYZ(idx2), self.thisptr.XYZ(idx3)))
+            arr0_view[i] = RADDEG * cpptorsion(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
+                          self.thisptr.XYZ(idx2), self.thisptr.XYZ(idx3))
         return arr0
 
     def calc_angle(self, cython.integral[:, :] int_arr):
@@ -970,11 +1154,18 @@ cdef class Frame (object):
             idx0 = int_arr[i, 0]
             idx1 = int_arr[i, 1]
             idx2 = int_arr[i, 2]
-            arr0_view[i] = (math.degrees(cppangle(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
-                        self.thisptr.XYZ(idx2))))
+            arr0_view[i] = RADDEG * cppangle(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1),
+                        self.thisptr.XYZ(idx2))
         return arr0
 
-    def calc_distance(self, cython.integral [:, :] int_arr):
+    def calc_distance(self, arr, parallel=False):
+        # TODO: use `cdef _calc_distance`
+        # need to make nested function to use default `parallel` value (=False)
+        # if not, will get error: Special method __defaults__ 
+        # has wrong number of arguments
+        return self._calc_distance(arr, parallel)
+
+    def _calc_distance(self, cython.integral [:, :] int_arr, bint parallel):
         """return python array of distance for two atoms with indices idx0, idx1
         Parameters
         ----------
@@ -990,10 +1181,17 @@ cdef class Frame (object):
         cdef pyarray arr0 = cparray.clone(pyarray('d', []), n_arr, zero=False)
         cdef double[:] arr0_view = arr0
 
-        for i in range(n_arr):
-            idx0 = int_arr[i, 0]
-            idx1 = int_arr[i, 1]
-            arr0_view[i] = sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1)))
+        if parallel:
+            for i in prange(n_arr, nogil=True):
+                idx0 = int_arr[i, 0]
+                idx1 = int_arr[i, 1]
+                arr0_view[i] = sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1)))
+        else:
+            for i in range(n_arr):
+                # just duplicate code (ugly)
+                idx0 = int_arr[i, 0]
+                idx1 = int_arr[i, 1]
+                arr0_view[i] = sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1)))
         return arr0
 
     def tolist(self):
@@ -1007,3 +1205,31 @@ cdef class Frame (object):
             return np.asarray(self.buffer2d)
         else:
             raise PytrajNumpyError()
+
+    def to_dataframe(self, top=None):
+        from pytraj.utils import _import_pandas
+        _, pd = _import_pandas()
+        if pd:
+            _, np = _import_numpy()
+            if top is None:
+                labels = list('xyzm')
+                arr = np.vstack((self.xyz.T, self.mass)).T
+            else:
+                labels = ['resnum', 'resname', 'atomname', 'mass',
+                          'x', 'y', 'z']
+                mass_arr = np.array(self.mass, dtype='f4')
+                resnum_arr = np.empty(mass_arr.__len__(), dtype='i')
+                resname_arr = np.empty(mass_arr.__len__(), dtype='U4')
+                atomname_arr= np.empty(mass_arr.__len__(), 'U4')
+
+                for idx, atom in enumerate(top.atoms):
+                    # TODO: make faster?
+                    resnum_arr[idx] = atom.resnum
+                    resname_arr[idx] = top._get_residue(atom.resnum).name
+                    atomname_arr[idx] = atom.name
+
+                arr = np.vstack((resnum_arr, resname_arr, atomname_arr, 
+                                 mass_arr, self.xyz.T)).T
+            return pd.DataFrame(arr, columns=labels)
+        else:
+            raise ValueError("must have pandas")

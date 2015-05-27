@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
 
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         d0 = pyca.calc_COM(traj)
         d1 = pyca.calc_center_of_mass(traj)
         print (d0)
@@ -21,12 +21,11 @@ class Test(unittest.TestCase):
         print (arr)
 
         for frame in traj:
-            print (frame.VGeometricCenter(traj.top("*")).tolist())
+            print (frame.center_of_geometry(traj.top("*")).tolist())
 
         saved_d0 = np.loadtxt("./data/vec.out", skiprows=1, usecols=(1, 2, 3))
         print (saved_d0)
 
-        # FIXME: assert failed, don't read mass right
         assert_almost_equal(arr.flatten(), saved_d0.flatten())
         assert_almost_equal(d1.to_ndarray().flatten(), saved_d0.flatten())
 

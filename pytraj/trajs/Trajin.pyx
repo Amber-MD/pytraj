@@ -2,20 +2,23 @@
 from __future__ import absolute_import
 import os
 cimport cython
+from cython.parallel cimport prange
 from cpython.array cimport array as pyarray
 from .._utils cimport get_positive_idx
-from ..FrameArray cimport FrameArray
+from ..Trajectory cimport Trajectory
 from ..AtomMask cimport AtomMask
 
-from ..utils.check_and_assert import _import_numpy
-from .Trajout import Trajout
-from .._shared_methods import _savetraj, _get_temperature_set
+from ..decorators import memoize # cache
+from ..externals.six import string_types
 from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
-from .._shared_methods import _frame_iter
-from ..externals.six import string_types
+from .._shared_methods import _savetraj, _get_temperature_set
+from .._shared_methods import _box_to_ndarray
+from ..utils.check_and_assert import _import_numpy
 from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
+from pytraj.externals.six.moves import range
+from .Trajout import Trajout
 
 
 cdef class Trajin (TrajectoryFile):
@@ -50,31 +53,76 @@ cdef class Trajin (TrajectoryFile):
     def __call__(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
 
-    @cython.boundscheck(False)
-    @cython.wraparound(False)
-    @cython.profile(True)
-    @cython.infer_types(True)
     def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
-        return _frame_iter(self, start, stop, stride, mask)
+        """iterately get Frames with start, stop, stride 
+        Parameters
+        ---------
+        start : int (default = 0)
+        stop : int (default = max_frames - 1)
+        stride : int
+        mask : str or array of interger
+        """
+        cdef int i
+        cdef int n_atoms = self.n_atoms
+        cdef Frame frame
+        cdef AtomMask atm
+        cdef int _end
+        cdef int[:] int_view
 
-    def chunk_iter(self, int chunk=2, int start=0, int stop=-1):
+        if stop == -1:
+            _end = <int> self.n_frames
+        else:
+            _end = stop + 1
+
+        if mask is not None:
+            frame2 = Frame() # just make a pointer
+            if isinstance(mask, string_types):
+                atm = self.top(mask)
+            else:
+                try:
+                    atm = AtomMask()
+                    atm.add_selected_indices(mask)
+                except TypeError:
+                    raise TypeError("dont know how to cast to memoryview")
+            frame2.thisptr = new _Frame(<int>atm.n_atoms)
+        else:
+            frame = Frame(n_atoms)
+
+        # only open/close file once
+        with self:
+            i = start
+            while i < _end:
+                self.baseptr_1.ReadTrajFrame(i, frame.thisptr[0])
+                if mask is not None:
+                    frame2.thisptr.SetCoordinates(frame.thisptr[0], atm.thisptr[0])
+                    yield frame2
+                else:
+                    yield frame
+                i += stride
+
+    def chunk_iter(self, int chunk=2, int start=0, int stop=-1, bint copy_top=False):
         """iterately get Frames with start, chunk
-        returning FrameArray or Frame instance depend on `chunk` value
+        returning Trajectory or Frame instance depend on `chunk` value
         Parameters
         ---------
         start : int (default = 0)
         chunk : int (default = 1, return Frame instance). 
-                if `chunk` > 1 : return FrameArray instance
+                if `chunk` > 1 : return Trajectory instance
+        copy_top : bool, default=False
+            if False: no Topology copy is done for new (chunk) Trajectory
         """
-        cdef int newstart
-        cdef int n_chunk, i 
+        cdef int n_chunk, i, j, _stop
+        cdef int n_frames = self.n_frames
+        cdef int n_atoms = self.n_atoms
+        cdef Trajectory farray
+        cdef Frame frame
 
         # check `start`
-        if start < 0 or start >= self.n_frames:
+        if start < 0 or start >= n_frames:
             start = 0
 
         # check `stop`
-        if stop <= 0 or stop >= self.n_frames:
+        if stop <= 0 or stop >= n_frames:
             stop = <int> self.size - 1
 
         if chunk <= 1:
@@ -87,12 +135,27 @@ cdef class Trajin (TrajectoryFile):
         if ((stop - start) % chunk ) != 0:
             n_chunk += 1
 
-        for i in range(n_chunk):
-            if i != n_chunk - 1:
-                yield self[start + chunk*i : start + chunk*(i+1)]
-            else:
-                # use `stop + 1` since Python ignore last index
-                yield self[start + chunk*i : stop+1]
+        # only open and close file once
+        with self:
+            for i in range(n_chunk):
+                # always create new Trajectory
+                farray = Trajectory(check_top=False)
+                if copy_top:
+                    farray.top = self.top.copy()
+                else:
+                    farray.top = self.top
+                    farray.top.py_free_mem = False # let `self` do it
+
+                if i != n_chunk - 1:
+                    _stop = start + chunk*(i+1)
+                else:
+                    _stop = stop + 1
+
+                for j in range(start + chunk * i,  _stop):
+                    frame = Frame(n_atoms)
+                    self.baseptr_1.ReadTrajFrame(j, frame.thisptr[0])
+                    farray.append(frame, copy=False)
+                yield farray
 
     def __str__(self):
         return my_str_method(self)
@@ -114,13 +177,11 @@ cdef class Trajin (TrajectoryFile):
     def n_atoms(self):
         return self.top.n_atoms
 
-    @cython.boundscheck(False)
-    @cython.wraparound(False)
     def __getitem__(self, idxs):
         # allocate frame for storing data
         cdef Frame frame0
         cdef Frame frame = Frame(self.top.n_atoms)
-        cdef FrameArray farray
+        cdef Trajectory farray
         cdef int start, stop, step
         cdef int i
         cdef int idx_1, idx_2
@@ -130,7 +191,7 @@ cdef class Trajin (TrajectoryFile):
     
         if isinstance(idxs, AtomMask):
             atom_mask_obj = <AtomMask> idxs
-            _farray = FrameArray()
+            _farray = Trajectory()
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
             for i, frame in enumerate(self):
                 _frame = Frame(frame, atom_mask_obj)
@@ -183,12 +244,12 @@ cdef class Trajin (TrajectoryFile):
                     frame = self[idx_0]
                     self.tmpfarray = frame
                     return self.tmpfarray[idxs[1:]]
-                elif isinstance(self[idx_0], FrameArray):
+                elif isinstance(self[idx_0], Trajectory):
                     farray = self[idx_0]
                     self.tmpfarray = farray
                     return self.tmpfarray[idxs[1:]]
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                farray = FrameArray()
+                farray = Trajectory()
                 # for unknown reason, this does not work, it returns a Frame (?)
                 farray.get_frames(from_traj=self, indices=idxs, update_top=True)
                 # need to use `farray` so Cython knows its type
@@ -208,22 +269,20 @@ cdef class Trajin (TrajectoryFile):
                 return self.tmpfarray
         else:
             # idxs is slice
-            if self.debug:
-                print idxs
-            farray = FrameArray()
-            # should we copy self.top or use memview?
+            farray = Trajectory()
+            # NOTE: MUST make a copy self.top
+            # if NOT: double-free memory when using `_fast_strip_atoms`
+            #farray.top = self.top
             farray.top = self.top.copy()
     
-            # check comment in FrameArray class with __getitem__ method
+            # check comment in Trajectory class with __getitem__ method
             start, stop, step = idxs.indices(self.size)
-            if self.debug:
-                print (start, stop, step)
     
             with self:
                 if start > stop and (step < 0):
                     # traj[:-1:-3]
                     is_reversed = True
-                    # see comment in FrameArray (__getitem__)
+                    # see comment in Trajectory (__getitem__)
                     start, stop = stop + 1, start + 1
                     step *= -1
                 else:
@@ -233,20 +292,76 @@ cdef class Trajin (TrajectoryFile):
                     # add '-1' to stop 
                     # in `frame_iter`, we include `stop`
                     # but for slicing, python does not include stop
-                    farray.append(frame)
+                    # always use `copy=True` since we are taking frames from 
+                    # read-only Trajectory, no memview
+                    farray.append(frame, copy=True)
     
                 if is_reversed:
                     # reverse vector if using negative index slice
                     # traj[:-1:-3]
                     farray.reverse()
-    
+            return farray
+            # I am not really sure about below comment (happend before but 
+            # not sure if this is the reason.)
             # use tmpfarray to hold farray for nested indexing
-            # if not, Python will free memory for sub-FrameArray 
-            self.tmpfarray = farray
-            return self.tmpfarray
+            # if not, Python will free memory for sub-Trajectory 
+            #self.tmpfarray = farray
+            #return self.tmpfarray
+
+    def _fast_slice(self, slice my_slice):
+        cdef int start, stop, step
+        cdef int count
+        cdef int n_atoms = self.n_atoms
+        cdef Trajectory farray = Trajectory(check_top=False)
+        cdef _Frame* _frame_ptr
+
+        # NOTE: MUST make a copy self.top
+        # if NOT: double-free memory when using `_fast_strip_atoms`
+        #farray.top = self.top
+        farray.top = self.top.copy()
+
+        start, stop, step  = my_slice.indices(self.size)
+        count = start
+        with self:
+            while count < stop:
+                _frame_ptr = new _Frame(n_atoms)
+                self.baseptr_1.ReadTrajFrame(count, _frame_ptr[0])
+                farray.frame_v.push_back(_frame_ptr)
+                count += step
+        return farray
+
+    def _fast_slice_openmp(self, slice my_slice):
+        """
+        don't try to use this method. will get segfault
+        """
+        cdef int start, stop, step
+        cdef int count, i
+        cdef int n_atoms = self.n_atoms
+        cdef Trajectory farray = Trajectory(check_top=False)
+        cdef _Frame* _frame_ptr
+        cdef _Frame* _frame_ptr2
+        cdef int new_size
+
+        farray.top = self.top
+
+        start, stop, step  = my_slice.indices(self.size)
+        new_size = len(range(start, stop, step)) # better way?
+
+        farray.frame_v.reserve(new_size)
+
+        with self:
+            # segfault?
+            # YES: need to compile parallel version?
+            for i in prange(start, stop, step, nogil=True):
+                _frame_ptr = new _Frame(n_atoms)
+                self.baseptr_1.ReadTrajFrame(i, _frame_ptr[0])
+                _frame_ptr2 = farray.frame_v[i]
+                _frame_ptr2  = &_frame_ptr[0]
+        return farray
+
 
     def __setitem__(self, idx, value):
-        raise NotImplementedError("Read only Trajectory. Use FrameArray class for __setitem__")
+        raise NotImplementedError("Read only Trajectory. Use Trajectory class for __setitem__")
 
     def is_empty(self):
         return self.max_frames == 0
@@ -279,6 +394,7 @@ cdef class Trajin (TrajectoryFile):
             self.baseptr_1.SetTotalFrames(value)
 
     @property
+    @memoize
     def size(self):
         # alias of max_frames
         return self.max_frames
@@ -304,6 +420,9 @@ cdef class Trajin (TrajectoryFile):
     def _end_traj(self):
         self.baseptr_1.EndTraj()
 
+    def close(self):
+        self._end_traj()
+
     def _read_traj_frame(self, int currentFrame, Frame frameIn):
         # TODO : add checking frame.n_atoms == self.top.n_atoms?
         return self.baseptr_1.ReadTrajFrame(currentFrame, frameIn.thisptr[0])
@@ -314,9 +433,8 @@ cdef class Trajin (TrajectoryFile):
     def write(self, *args, **kwd):
         self.save(*args, **kwd)
 
-    def get_subframes(self, mask, indices=None):
-        cdef FrameArray farray = FrameArray()
-        raise NotImplementedError("not yet")
+    def get_subframes(self, mask=None, indices=None):
+        raise NotImplementedError()
 
     @property
     def temperatures(self):
@@ -334,9 +452,9 @@ cdef class Trajin (TrajectoryFile):
     def fit_to(self, ref=None):
         txt = """
         This is immutatble class. You can not use with fit_to
-        You FrameArray class or you can iterate to get Frame (mutable)
+        You Trajectory class or you can iterate to get Frame (mutable)
 
-        >>> farray = FrameArray()
+        >>> farray = Trajectory()
         >>> for frame in traj:
         >>>     frame.fit_to(ref)
         >>>     farray.append(frame)
@@ -346,21 +464,34 @@ cdef class Trajin (TrajectoryFile):
         raise NotImplementedError(txt)
 
     @property
+    @memoize
     def shape(self):
         return (self.size, self[0].n_atoms, 3)
 
     @property
+    #@memoize
     def xyz(self):
         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
-        We can not return a memoryview since FrameArray is a C++ vector of Frame object
+        We can not return a memoryview since Trajectory is a C++ vector of Frame object
         """
+        # NOTE: turn off `memoize`
+        # xyz = traj.xyz[:]
+        # xyz += 1.
+        # print (xyz[0, 0])
+        # print (traj.xyz[0, 0])
         return _xyz(self)
 
+    @memoize
     def tolist(self):
         return _tolist(self)
 
     @property
+    @memoize
     def coordinfo(self):
         cdef CoordinateInfo cinfo = CoordinateInfo()
         cinfo.thisptr[0] = self.baseptr_1.TrajCoordInfo()
         return cinfo
+
+    @memoize
+    def box_to_ndarray(self):
+        return _box_to_ndarray(self)

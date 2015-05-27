@@ -4,7 +4,7 @@ pytraj
 from __future__ import absolute_import
 import os
 #from pytraj import base
-from .utils.check_and_assert import _import
+#from .utils.check_and_assert import _import # turn off to avoid importing error
 # create adict and analdict objects here to we can use below in some modules
 # >>> from pytraj import adict, analdict 
 
@@ -16,8 +16,8 @@ from .AtomMask import AtomMask
 from .math import Vec3
 from .CpptrajState import CpptrajState
 from .Frame import Frame
-from .FrameArray import FrameArray
-from .TrajReadOnly import TrajReadOnly
+from .Trajectory import Trajectory
+from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .parms.ParmFile import ParmFile

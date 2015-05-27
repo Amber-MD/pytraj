@@ -8,7 +8,7 @@ class Test(unittest.TestCase):
         trajlist = []
         N = 4
         for i in range(N):
-            traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
             trajlist.append(traj)
 
         traj0 = trajlist[0]
@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
                         overwrite=True)
 
         # test loading
-        traj2 = mdio.load("./output/test_savedtrajlist.x", traj.top)
+        traj2 = mdio.iterload("./output/test_savedtrajlist.x", traj.top)
         print (traj2.size)
         Nsize = int(traj2.size/4)
         traj0_new = traj2[:Nsize]

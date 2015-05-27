@@ -95,21 +95,21 @@ class TestTopology(unittest.TestCase):
 
     #@no_test
     def test_call(self):
-        traj = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         #top = traj.top
         #frame = traj[0]
         #print(frame[top(":2-18@CA")])
 
     #@no_test
     def test_get_unique(self):
-        traj = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
         print(top.atom_names)
         print(top.residue_names)
 
     #@no_test
     def test_len(self):
-        traj = FrameArray("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
         assert len(top) == top.n_atoms
 

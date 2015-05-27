@@ -5,3 +5,18 @@ nm libcpptraj.so | grep omp_
 
 2. Don't try to use absolute_import for all files. Would get import error
 (hell knows why)
+
+3. git merge conflict
+* currently we push cythonized files to git. However, I frequently get merged conflicts
+for those *.cpp files when pushing/pulling from different computers (due to different cython/python version)
+
+The solution (seems dummy):
+    + create seperate git folder just for pulling source (from pytraj/pytraj github)
+        * update change by "git pull" (don't make any change here, just for pulling update)
+    + `cd your_working_dir`
+        + manually copy cythonized files (*cpp) to your working dir, 'git add' and 'git commit' 
+        + then just 'git pull from_pytraj_pytraj_github_alias' 
+          (where `from_pytraj_pytraj_github_alias` is your desired name)
+
+4. if compiling cpptraj with openmp, need to do this with pytraj too.
+if not: will get some memory errors for some Actions.

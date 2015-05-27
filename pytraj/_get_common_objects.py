@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from .externals.six import string_types
 from .Topology import Topology
 from .ArgList import ArgList
+from .utils import _import
 
 def _get_top(traj, top):
     if isinstance(top, string_types):
@@ -30,16 +31,23 @@ def _get_arglist(arg):
         return ArgList(arg)
 
 def _get_data_from_dtype(d0, dtype='dataset'):
-   dtype = dtype.lower()
-   if dtype == 'dataset':
+   if dtype is None:
        return d0
-   elif dtype == 'list':
-       return d0.tolist()
-   elif dtype == 'ndarray':
-       return d0.to_ndarray()
-   elif dtype == 'pyarray':
-       return d0.to_pyarray()
-   elif dtype == 'dict':
-       return d0.to_dict()
+   elif not isinstance(dtype, string_types):
+       raise ValueError("dtype must a None or a string")
    else:
-       raise NotImplenmentedError()
+       dtype = dtype.lower()
+       if dtype == 'dataset':
+           return d0
+       elif dtype == 'list':
+           return d0.tolist()
+       elif dtype == 'ndarray':
+           return d0.to_ndarray()
+       elif dtype == 'pyarray':
+           return d0.to_pyarray()
+       elif dtype == 'dict':
+           return d0.to_dict()
+       elif dtype == 'dataframe':
+           return d0.to_dataframe()
+       else:
+           raise NotImplenmentedError()

@@ -2,13 +2,18 @@
 #
 cimport cython
 from pytraj.Frame cimport _Frame, Frame
+from pytraj.Trajectory cimport Trajectory
 from pytraj.AtomMask cimport AtomMask
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
-from pytraj.six_2 import set
+from pytraj.compat import set
 from pytraj.utils import _import_numpy
 from pytraj.exceptions import PytrajMemviewError, PytrajConvertError
-from pytraj.utils.check_and_assert import is_frame_iter
+from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
+from pytraj._xyz import XYZ
+
+__all__ = ['_savetraj', '_frame_iter_master', '_xyz', 'my_str_method',
+           '_tolist', '_box_to_ndarray']
 
 def _savetraj(self, filename="", fmt='unknown', overwrite=False):
     if fmt == 'unknown':
@@ -26,11 +31,30 @@ def _get_temperature_set(self):
     return set(self.temperatures) 
 
 def _xyz(self):
-    has_np, np = _import_numpy()
-    if has_np:
-        return self[:, :, :]
+    """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
+    We can not return a memoryview since Trajectory is a C++ vector of Frame object
+
+    Notes
+    -----
+        read-only
+    """
+    cdef bint has_numpy
+    cdef int i
+    cdef int n_frames = self.n_frames
+    cdef int n_atoms = self.n_atoms
+    cdef Frame frame
+
+    has_numpy, np = _import_numpy()
+    myview = np.empty((n_frames, n_atoms, 3), dtype='f8')
+
+    if self.n_atoms == 0:
+        raise NotImplementedError("need to have non-empty Topology")
+    if has_numpy:
+        for i, frame in enumerate(self):
+            myview[i] = frame.buffer2d
+        return XYZ(myview)
     else:
-        raise NotImplementedError("require numpy")
+        raise NotImplementedError("must have numpy")
 
 def _tolist(self):
     """return flatten list for traj-like object"""
@@ -38,16 +62,14 @@ def _tolist(self):
     return [frame.tolist() for frame in self]
 
 def my_str_method(self):
-    name = self.__class__.__name__
-    tmps = """<%s with %s frames, %s atoms/frame>
+    name = "pytraj." + self.__class__.__name__
+    top_str = self.top.__str__()
+    tmps = """<%s with %s frames: %s>
            """ % (
-            name, self.size, self.top.n_atoms,
+            name, self.size, top_str,
             )
     return tmps
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.infer_types(True)
 def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
     """iterately get Frames with start, stop, stride 
     Parameters
@@ -91,11 +113,12 @@ def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
 def _frame_iter_master(obj):
     """try to return frame iterator object
 
-    obj : could be FrameArray, TrajReadOnly, TrajinList, frame_iter object
+    obj : could be Trajectory, TrajectoryIterator, TrajinList, frame_iter object
           could be a list of trajs, ...
     """
     cdef Frame frame
     cdef object traj_obj
+    cdef Trajectory _traj
 
     is_frame_iter_but_not_master = (is_frame_iter(obj) and not obj.__name__ is '_frame_iter_master')
     if isinstance(obj, Frame):
@@ -106,8 +129,32 @@ def _frame_iter_master(obj):
             yield frame
     else:
         try:
+            # list, tuple, TrajinList, chunk_iter
             for traj_obj in obj:
-                for frame in traj_obj:
+                if isinstance(traj_obj, Frame):
+                    frame = <Frame> traj_obj
                     yield frame
+                elif is_chunk_iter(traj_obj):
+                    for _traj in traj_obj:
+                        for frame in _traj:
+                            yield frame
+                else:
+                    for frame in traj_obj:
+                        yield frame
         except:
             raise PytrajConvertError("can not convert to Frame")
+
+def _box_to_ndarray(self): 
+    cdef Frame frame
+    cdef int i
+
+    _, np = _import_numpy()
+    boxarr = np.empty(self.n_frames * 6, dtype=np.float64).reshape(self.n_frames, 6)
+
+    # Note: tried `enumerate` but got wrong result.
+    # --> use old fashion
+    i = 0
+    for frame in self:
+        boxarr[i] = frame.box.to_ndarray()
+        i += 1
+    return boxarr

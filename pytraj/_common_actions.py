@@ -13,7 +13,7 @@ def calculate(action=None, traj=None, command="", top=None,
     action : Action object or str, optional
     command : str, default=None 
         command for specific action. For example, if action=`rmsd`, command might be `@CA`
-    traj : Trajectory object (FrameArray, TrajReadOnly, ...) or list, tuple of traj object 
+    traj : Trajectory object (Trajectory, TrajectoryIterator, ...) or list, tuple of traj object 
     top : topology 
     dslist : DataSetList
         Hold output
@@ -55,16 +55,14 @@ def calculate(action=None, traj=None, command="", top=None,
 
     old_size = dslist.size
 
-    _top = _get_top(traj, top)
-
-    if traj is None: 
+    if traj is None or isinstance(traj, string_types): 
         raise ValueError("must have trajectory object") 
-    elif isinstance(traj, string_types):
-        try:
-            from pytraj.trajs.Trajin_Single import Trajin_Single
-            traj = Trajin_Single(traj, _top)
-        except:
-            raise ValueError("can not load %s" % traj)
+
+    try:
+        _top = _get_top(traj, top)
+    except:
+        raise ValueError("can not get Topology")
+
     if isinstance(action, string_types): 
         # convert to action 
         act = adict[action] 

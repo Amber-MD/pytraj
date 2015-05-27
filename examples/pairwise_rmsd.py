@@ -2,12 +2,12 @@ import numpy as np
 from pytraj.base import *
 from time import time
 
-TRAJ = TrajReadOnly()
+TRAJ = TrajectoryIterator()
 TRAJ.top = Topology("../tests/data/Tc5b.top")
 TRAJ.load("../tests/data/md1_prod.Tc5b.x")
 
 def calc_pairwise_rmsd():
-    farray = FrameArray()
+    farray = Trajectory()
     farray.top = TRAJ.top
     #
     for frame in TRAJ:

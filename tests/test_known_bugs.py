@@ -8,7 +8,7 @@ import numpy as np
 
 class TestBugs(unittest.TestCase):
     def test_0(self):
-        trajcpp = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        trajcpp = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = trajcpp[:]
         print(farray[0, 0, 0])
 

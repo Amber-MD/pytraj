@@ -5,19 +5,19 @@ import numpy as np
 from pytraj.testing import test_if_having, no_test
 from pytraj.utils import assert_almost_equal
 
-TRAJ = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+TRAJ = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
 cpptraj_rmsd = np.loadtxt("./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1]
 
 class Test(unittest.TestCase):
     def test_0(self):
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = TRAJ.top
         print("test_info")
         i = 0
         for frame in TRAJ:
             i +=1
             frame.strip_atoms(mask="!@CA", top=TRAJ.top.copy())
-            farray.append(frame)
+            farray.append(frame.copy())
         assert i == TRAJ.size == TRAJ.max_frames
         assert frame.size == TRAJ.top.n_res * 3
         farray.top.strip_atoms("!@CA")
@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
         print("Kool, reproduce cpptraj output")
 
     def test_rmsd_with_mask(self):
-        TRAJ = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        TRAJ = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         cpptraj_rmsd = np.loadtxt("./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1]
         f0 = TRAJ[0]
         arr0 = np.zeros(TRAJ.size)
@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
     def test_action_rmsd(self):
         # use `mdtraj` for rerefence values
         import mdtraj as md
-        traj = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        traj = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         import pytraj.common_actions as pyca
         m_top = md.load_prmtop("./data/Tc5b.top")
         m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
@@ -97,6 +97,31 @@ class Test(unittest.TestCase):
         assert_almost_equal(arr1, a_md)
         assert_almost_equal(arr2, a_md)
         assert_almost_equal(arr3, a_md)
+
+        from pytraj import Trajectory
+        fa = Trajectory(traj)
+        arr0 = fa.calc_rmsd(ref='last', mask=mask)
+        arr1 = fa.calc_rmsd(mask=atm.indices, ref='last')
+        arr2 = fa.calc_rmsd(mask=list(atm.indices), ref='last')
+        arr3 = fa.calc_rmsd(mask=tuple(atm.indices), ref='last')
+        a_md = md.rmsd(m_traj, m_traj, -1, atm.indices)
+        assert_almost_equal(arr0, a_md)
+        assert_almost_equal(arr1, a_md)
+        assert_almost_equal(arr2, a_md)
+        assert_almost_equal(arr3, a_md)
+
+        # mode = 'cpptraj'
+        from pytraj import Trajectory
+        fa = Trajectory(traj)
+        mask = "!@H="
+        atm = fa.top(mask)
+        arr0 = fa.calc_rmsd(ref=4, mask=mask, mode='cpptraj')
+        a_md = md.rmsd(m_traj, m_traj, 4, atm.indices)
+        print ('mode=cpptraj', arr0[1:])
+        print (a_md)
+
+        # exclude 0-th frame for ref
+        assert_almost_equal(arr0, a_md)
 
 if __name__ == "__main__":
     unittest.main()

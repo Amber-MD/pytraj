@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
         assert distance(arr0, arr4) == math.sqrt(1+ 1 + 1)
 
     def test_distance_from_frame(self):
-        traj = FrameArray(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        traj = Trajectory(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         frame0 = traj[9]
 
         #print distance(frame0.coords[0:3], frame0.coords[96:99])
@@ -35,13 +35,13 @@ class Test(unittest.TestCase):
                 distance(frame0.atoms(i), frame0.atoms(j))
 
     def test_distance_frames(self):
-        traj = FrameArray(filename="./data/md1_prod.Tc5b.x", 
+        traj = Trajectory(filename="./data/md1_prod.Tc5b.x", 
                            top="./data/Tc5b.top")
         dslist = DataSetList()
         act = allactions.Action_Distance()
         act(command="distance :1@CA :2@CA",
                    current_frame=traj,
-                   current_top=traj.top, dslist=dslist)
+                   top=traj.top, dslist=dslist)
         d1 = cast_dataset(dslist[0], dtype="general")
         print(d1.data[:10])
 

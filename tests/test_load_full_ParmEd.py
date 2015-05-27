@@ -10,7 +10,8 @@ class Test(unittest.TestCase):
     @test_if_having("chemistry")
     def test_0(self):
         top_fn = "./data/Tc5b.top"
-        p_top = mdio.load_ParmEd(top_fn)
+        p_top = mdio._load_chem(top_fn)
+        print (p_top)
         top = mdio.load_full_ParmEd(p_top)
         print (top)
 

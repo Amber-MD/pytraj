@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
         from pytraj import calculate
-        traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         dslist = calculate("vector", traj, "@CA @CB mass")
         print ('dslist.size = ', dslist.size)
         print (dslist.get_dtypes())
@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_1(self):
         from pytraj.common_actions import calc_vector
-        traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         d0 = calc_vector(traj, "@CA @CB mass")
         print (d0.to_ndarray())
         print (d0.tolist())

@@ -3,7 +3,7 @@ import numpy as np
 from pytraj.base import *
 from pytraj.decorators import no_test
 
-TRAJ = TrajReadOnly()
+TRAJ = TrajectoryIterator()
 TRAJ.top = Topology("./data/Tc5b.top")
 TRAJ.load("./data/md1_prod.Tc5b.x")
 print("TRAJ.size", TRAJ.size)
@@ -11,7 +11,7 @@ print("TRAJ.size", TRAJ.size)
 class TestTrajectory(unittest.TestCase):
     def test_slice_basic(self):
         print("test_slice_basic")
-        TRAJ2 = FrameArray()
+        TRAJ2 = Trajectory()
         print(TRAJ2)
         #TRAJ2.debug = True
         TRAJ2.top = Topology("./data/Tc5b.top")
@@ -52,7 +52,7 @@ class TestTrajectory(unittest.TestCase):
     #@no_test
     def test_slice(self):
         print("test_slice")
-        TRAJ2 = TrajReadOnly()
+        TRAJ2 = TrajectoryIterator()
         #TRAJ2.debug = True
         TRAJ2.top = Topology("./data/Tc5b.top")
         TRAJ2.load("./data/md1_prod.Tc5b.x")
@@ -83,19 +83,19 @@ class TestTrajectory(unittest.TestCase):
         print(TRAJ2[::1])
         print(TRAJ2[::])
 
-        farray2 = FrameArray()
+        farray2 = Trajectory()
         indices = list(range(TRAJ2.size))
         farray2.get_frames(TRAJ2, update_top=True)
-        farray3 = FrameArray()
+        farray3 = Trajectory()
         farray3.get_frames(farray2, update_top=True)
 
     #@no_test
     def test_indexing_0(self):
         print("test_indexing_0")
-        TRAJ2 = TrajReadOnly()
+        TRAJ2 = TrajectoryIterator()
         TRAJ2.top = Topology("./data/Tc5b.top")
         TRAJ2.load("./data/md1_prod.Tc5b.x")
-        farray = FrameArray()
+        farray = Trajectory()
         farray.get_frames(TRAJ2, indices=(0, 9, 1), update_top=True)
         print(farray.top)
         print(farray.size)
@@ -130,7 +130,7 @@ class TestTrajectory(unittest.TestCase):
     #@no_test
     def test_indexing_1(self):
         print("test_indexing_1")
-        TRAJ2 = TrajReadOnly()
+        TRAJ2 = TrajectoryIterator()
         TRAJ2.top = Topology("./data/Tc5b.top")
         #TRAJ2.top.strip_atoms("!@CA")
         TRAJ2.load("./data/md1_prod.Tc5b.x")
@@ -149,7 +149,7 @@ class TestTrajectory(unittest.TestCase):
 
     #@no_test
     def test_iter_basic(self):
-        TRAJ = TrajReadOnly()
+        TRAJ = TrajectoryIterator()
         TRAJ.top = Topology("./data/Tc5b.top")
         TRAJ.load("./data/md1_prod.Tc5b.x")
         print("test_iter_basic")
@@ -158,14 +158,14 @@ class TestTrajectory(unittest.TestCase):
 
     #@no_test
     def test_iter(self):
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = TRAJ.top
         print("test_info")
         i = 0
         for frame in TRAJ:
             i +=1
             frame.strip_atoms(top=TRAJ.top.copy(), mask="!@CA")
-            farray.append(frame)
+            farray.append(frame.copy())
         assert i == TRAJ.size == TRAJ.max_frames
         assert frame.size == TRAJ.top.n_res * 3
         farray.top.strip_atoms("!@CA")
@@ -187,7 +187,7 @@ class TestTrajectory(unittest.TestCase):
 
     #@no_test
     def test_trj_top(self):
-        traj = TrajReadOnly()
+        traj = TrajectoryIterator()
         print(traj.top.is_empty())
         assert traj.top.is_empty() == True
         traj.top = Topology("./data/Tc5b.top")
@@ -199,7 +199,7 @@ class TestTrajectory(unittest.TestCase):
 
     #@no_test
     def test_1(self):
-        traj = TrajReadOnly()
+        traj = TrajectoryIterator()
 
         traj.load("./data/md1_prod.Tc5b.x", Topology("./data/Tc5b.top"))
 

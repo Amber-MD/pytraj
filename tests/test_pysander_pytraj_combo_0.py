@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         if has_sander_and_parmed:
             traj_fn = "./data/md1_prod.Tc5b.x"
             top_fn = "./data/Tc5b.top"
-            traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
             parm = AmberParm(top_fn)
             inp = sander.gas_input(8)
 
@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
             print ("memoryview")
             traj_fn = "./data/md1_prod.Tc5b.x"
             top_fn = "./data/Tc5b.top"
-            traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
             parm = AmberParm(top_fn)
             inp = sander.gas_input(8)
 

@@ -10,7 +10,7 @@ class TestOrderParameter(unittest.TestCase):
         # TODO : add assert
         # results seem wrong
         print ("test")
-        traj = mdio.load('./data/DOPC.rst7', './data/DOPC.parm7')
+        traj = mdio.iterload('./data/DOPC.rst7', './data/DOPC.parm7')
 
         command='''lipiorder out ./output/sn2_dir.dat z scd
         :OL2@C12 :OL2@H2R :OL2@H2S :OL2@C13 :OL2@H3R :OL2@H3S \

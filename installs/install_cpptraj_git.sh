@@ -7,8 +7,14 @@ cd cpptraj/
 export CPPTRAJHOME=`pwd`
 cd $CPPTRAJHOME
 mkdir lib
-bash ./configure -shared gnu || bash ./configure -nomathlib -shared gnu \
-|| bash ./configure -nomathlib -shared -nonetcdf gnu
+# TODO: smarter picking flags
+#bash ./configure -shared -openmp gnu || bash ./configure -nomathlib -shared -openmp gnu \
+#|| bash ./configure -nomathlib -shared -nonetcdf -openmp gnu || bash ./configure -shared gnu \
+#|| bash ./configure -nomathlib -shared gnu || bash ./configure -nomathlib -shared -nonetcdf gnu
+
+# turn off openmp. need to install pytraj with opnmp too. Too complicated.
+bash ./configure -shared gnu \
+|| bash ./configure -nomathlib -shared gnu || bash ./configure -nomathlib -shared -nonetcdf gnu
 make libcpptraj -j8
 cd $PYTRAJHOME
 

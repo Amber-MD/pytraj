@@ -7,21 +7,22 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test, test_if_having
 
 class Test(unittest.TestCase):
-    @test_if_having("pandas")
     def test_0(self):
         from pytraj.dataframe import to_dataframe
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj.common_actions import calc_multidihedral
         command =  "resrange 2-19 phi psi"
         d0 = calc_multidihedral(traj, command)
         d1 = calc_multidihedral(traj, command)
         assert isinstance(d0, dict) == True
         assert (len(d0.keys()) == len(d1.keys()))
-        print (to_dataframe(d1))
-        print (to_dataframe(d0))
 
         d3 = calc_multidihedral(traj)
-        print (to_dataframe(d3))
+
+        import numpy as np
+        d0np = calc_multidihedral(traj, command, dtype='ndarray')
+        self.assertIsInstance(d0np, np.ndarray)
+        print (d0np)
 
 if __name__ == "__main__":
     unittest.main()

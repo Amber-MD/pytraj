@@ -3,7 +3,7 @@ from pytraj.base import *
 from pytraj import allactions
 from pytraj.datasets import cast_dataset
 
-farray = TrajReadOnly(top=Topology("./data/Tc5b.top"), 
+farray = TrajectoryIterator(top=Topology("./data/Tc5b.top"), 
                     filename='data/md1_prod.Tc5b.x', 
                     )
 
@@ -16,11 +16,11 @@ class TestDistance(unittest.TestCase):
 
         act(command="distance :1@CA :2@CA", 
                    current_frame=farray,
-                   current_top=farray.top, dslist=dslist)
+                   top=farray.top, dslist=dslist)
 
         act_radgyr(command="radgyr @CA",
                    current_frame=farray,
-                   current_top=farray.top, dslist=dslist2)
+                   top=farray.top, dslist=dslist2)
        
         d1 = cast_dataset(dslist[0], dtype="general")
         d2 = cast_dataset(dslist2[0], dtype="general")

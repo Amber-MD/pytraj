@@ -6,7 +6,7 @@ from pytraj import adict
 from pytraj.common_actions import to_string_ss
 from pytraj.DataFileList import DataFileList
 
-traj = TrajReadOnly(top=Topology("./data/DPDP.parm7"), 
+traj = TrajectoryIterator(top=Topology("./data/DPDP.parm7"), 
                     filename='./data/DPDP.nc', 
                     )
 

@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     # what cpptraj dump in dslist?
     def test_0(self):
         fn = "./data/Test_NAstruct/adh026.3.pdb"
-        traj = mdio.load(fn, fn)
+        traj = mdio.iterload(fn, fn)
         print (traj)
 
         dslist = DataSetList()
@@ -36,6 +36,19 @@ class Test(unittest.TestCase):
         print ('traj.n_frames = %s' % traj.n_frames)
 
         print (ds_int)
+
+    def test_1(self):
+        from pytraj.common_actions import nastruct
+        fn = "./data/Test_NAstruct/adh026.3.pdb"
+        traj = mdio.iterload(fn, fn)
+        dslist = nastruct(traj)
+        dsize = dslist.size
+
+        # dummy loops
+        for i in range(100):
+            dslist = nastruct(traj)
+            assert dslist.size == dsize
+        print (dslist.groupby("major", mode='aspect'))
 
 if __name__ == "__main__":
     unittest.main()

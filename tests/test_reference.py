@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         # Aim: `cpptraj` use `first` frame as default for some Actions (Action_Rmsd,
         # Action_NativeContacts, ...). We can specify reference by adding reference in
         # 1st frame
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ref = traj[5]
         act = adict['rmsd']
         mask = ":3-18@CA"

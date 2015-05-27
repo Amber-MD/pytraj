@@ -12,7 +12,7 @@ def run_tests():
 
     # test Topology
     #print (traj.top)
-    # test FrameArray
+    # test Trajectory
     #print (traj)
     # test import action
     print ("all cpptraj actions")

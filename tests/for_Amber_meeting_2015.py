@@ -13,7 +13,7 @@ from pytraj import calculate
 # topology = mdio.load("./data/Tc5b.top")
 # if traj file exists, load to traj with topology
 # can handle list of trajectory files too
-traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 # write to new format
 traj.write("./output/md_charmm.dcd", overwrite=True)
@@ -30,22 +30,22 @@ print (traj[2:5, :])
 import numpy as np
 frame0 = traj[0]
 # all calculation with arr0 will update frame0
-arr0 = np.asarray(frame0.buffer3d[:])
+arr0 = np.asarray(frame0.buffer2d[:])
 print (arr0.shape)
 
 # internally get the data from cpptraj
 # calculate radgyr for CA atoms using `traj`
-d0 = calculate('radgyr', "@CA", traj)
+d0 = calculate('radgyr', traj, "@CA")
 print (d0[:])
 
 # calculate DSSP for first 3 frames, return either 'int' or 'str' array
 from pytraj.common_actions import calc_dssp
-arr0 = calc_dssp("@CA", traj[:3], dtype='int')
-arr1 = calc_dssp("@CA", traj[:3], dtype='str')
+arr0 = calc_dssp(traj[:3], '@CA', dtype='int')
+arr1 = calc_dssp(traj[:3], '@CA', dtype='str')
 print (arr0)
 print (arr1)
 
 # support reading trajectory file that cpptraj not yet handled
 # hdf5
-traj = mdio.load_hd5f("./data/ala2.h5")
+traj = mdio.load_hdf5("./data/ala2.h5")
 # many more in github.com/pytraj/pytraj

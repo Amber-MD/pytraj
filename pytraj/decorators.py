@@ -2,6 +2,15 @@ from __future__ import print_function, absolute_import
 from .utils import _import
 import os
 
+def memoize(f):
+    # from: http://www.python-course.eu/python3_memoization.php
+    memo = {}
+    def helper(x):
+        if x not in memo:            
+            memo[x] = f(x)
+        return memo[x]
+    return helper
+
 # we duplicate code from .utils.check_and_assert here to avoid circular import
 def _import(modname):
     """has_numpy, np = _import('numpy')"""
@@ -75,6 +84,25 @@ def test_if_having(lib):
                 return None
         return _no_test
     return inner
+
+def local_test(ext='edu'):
+    import platform
+    e =  platform.node().split(".")[-1] 
+    if e != ext:
+        do_test = False
+    else:
+        do_test = True
+    def inner(func):
+        def _no_test(*args, **kwd):
+            if do_test:
+                return func(*args, **kwd)
+            else:
+                txt = "skip. Only test on local"
+                print(txt)
+                return None
+        return _no_test
+    return inner
+
 
 def test_if_path_exists(mydir):
     def inner(func):

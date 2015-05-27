@@ -1,19 +1,24 @@
 from __future__ import absolute_import
 from .externals.six import string_types, PY3
 from .Topology import Topology
-from .TrajReadOnly import TrajReadOnly
+from .TrajectoryIterator import TrajectoryIterator
 from .data_sample.load_sample_data import load_sample_data
 from .Frame import Frame
-from .FrameArray import FrameArray
+from .Trajectory import Trajectory
 from .trajs.Trajin_Single import Trajin_Single
+from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
 from .trajs.Trajout import Trajout
-from .utils.check_and_assert import make_sure_exist
+from .utils.check_and_assert import make_sure_exist, is_frame_iter
 from .utils import goto_temp_folder
-from .load_HD5F import load_hd5f
+from .externals._load_HDF5 import load_hdf5
+from .externals._pickle import to_pickle, read_pickle
+from .externals._json import to_json, read_json
+from .datasets.utils import load_datafile
 from .load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import _frame_iter_master
 from .dataframe import to_dataframe
 from ._set_silent import set_error_silent
+from ._guess_filetype import _guess_filetype
 
 try:
     from .externals._load_ParmEd import load_ParmEd, _load_chem
@@ -34,10 +39,34 @@ try:
 except ImportError:
     from urllib import urlopen
 
-__all__ = ['load', 'load_hd5f', 'write_traj', 'read_parm', 'write_parm', 'save']
+__all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
+           '_load_from_filelist', '_iterload_from_filelist',
+           'loadpdb_rcsb',
+           'load_pseudo_parm', 'load_cpptraj_file',
+           'load_datafile', 'load_hdf5',
+           'load_sample_data',
+           'load_ParmEd', 'load_full_ParmEd',
+           'load_mdtraj',
+           'load_MDAnalysis', 'load_MDAnalysisIterator',
+           'read_parm', 'write_parm', 'save', 'write_traj',
+           'read_pickle', 'read_json',
+           'to_dataframe', 'to_pickle', 'to_json',
+           ]
+
+EXTRA_LOAD_METHODS = {'HDF5' : load_hdf5, }
 
 def load(*args, **kwd):
     """try loading and returning appropriate values"""
+
+    if args and is_frame_iter(args[0]):
+        return _load_from_frame_iter(*args, **kwd)
+
+    if kwd:
+        try:
+            if is_frame_iter(kwd['filename']):
+                return _load_from_frame_iter(*args, **kwd)
+        except:
+            pass
 
     if 'filename' in kwd.keys():
         make_sure_exist(kwd['filename'])
@@ -45,18 +74,71 @@ def load(*args, **kwd):
         make_sure_exist(args[0])
 
     if len(args) + len(kwd) == 1:
-        # loading only Topology
-        return readparm(*args, **kwd)
+        if len(args) == 1:
+            filename = args[0]
+        else:
+            filename = kwd[kwd.keys()[0]]
+        # try to use cpptraj to load Topology
+        top = readparm(*args, **kwd)
+        if hasattr(top, 'is_empty') and top.is_empty():
+            try:
+                # use ParmEd to load if cpptraj fails
+                import chemistry
+                return load_pseudo_parm(chemistry.load_file(args[0]))
+            except:
+                try:
+                    # try to predict filetype and use proper loading method
+                    filetype = _guess_filetype(filename) 
+                    new_object = EXTRA_LOAD_METHODS[filetype](*args, **kwd)
+                    return new_object
+                except:
+                    raise ValueError("don't know how to load file/files")
+        else:
+            return top
     else:
-        # load traj
-        return loadtraj(*args, **kwd)
+        # load to Trajectory object
+        return load_traj(*args, **kwd)[:]
 
-def iterload(filename, parm, start=0, stop=-1, stride=1, mask=""):
-    """explicit name for traj(start, stop, stride, mask)
+def _load_from_filelist(*args, **kwd):
+    """return a list of Trajectory"""
+    args_less = args[1:]
+    if isinstance(args[0], (list, tuple)):
+        mylist = args[0]
+    elif isinstance(args[0], string_types):
+        # "remd.x.*"
+        from glob import glob
+        mylist = sorted(glob(args[0]))
+    else:
+        raise ValueError()
+    return [load_traj(filename, *args_less, **kwd)[:] for filename in mylist]
+
+def iterload(*args, **kwd):
+    """return TrajectoryIterator object
     """
-    return load(filename, parm)(start, stop, stride, mask)
+    if kwd and 'indices' in kwd.keys():
+        raise ValueError("do not support indices for TrajectoryIterator loading")
+    return load_traj(*args, **kwd)
 
-def loadtraj(filename=None, top=Topology(), indices=None):
+def _iterload_from_filelist(*args, **kwd):
+    """return a list of TrajectoryIterator"""
+    """return TrajectoryIterator object
+    """
+    args_less = args[1:]
+
+    if kwd and 'indices' in kwd.keys():
+        raise ValueError("do not support indices for TrajectoryIterator loading")
+
+    if isinstance(args[0], (list, tuple)):
+        mylist = args[0]
+    elif isinstance(args[0], string_types):
+        # "remd.x.*"
+        from glob import glob
+        mylist = sorted(glob(args[0]))
+    else:
+        raise ValueError()
+    return [load_traj(filename, *args_less, **kwd) for filename in mylist]
+
+def load_traj(filename=None, top=Topology(), indices=None):
     """load trajectory from filename
     Parameters
     ----------
@@ -66,25 +148,35 @@ def loadtraj(filename=None, top=Topology(), indices=None):
 
     Returns
     -------
-    TrajReadOnly : if indices is None
+    TrajectoryIterator : if indices is None
     or 
-    FrameArray : if there is indices
+    Trajectory : if there is indices
     """
     if not isinstance(top, Topology):
         top = Topology(top)
-    ts = TrajReadOnly()
+    if top.is_empty():
+        raise ValueError("can not load file without Topology or empty Topology")
+    ts = TrajectoryIterator()
     ts.load(filename, top)
 
     if indices is not None:
-        farray = FrameArray()
+        farray = Trajectory()
         farray.top = top.copy()
         for i in indices:
             farray.append(ts[i])
         return farray
+    elif is_frame_iter(filename):
+        return _load_from_frame_iter(filename, top)
     else:
         return ts
 
-def load_remd(filename, top=Topology(), T="300.0"):
+def _load_from_frame_iter(traj_frame_iter, top=None):
+    if top is None or top.is_empty():
+        raise ValueError("must provide non-empty Topology")
+    fa = Trajectory(traj_frame_iter, top=top)
+    return fa
+
+def iterload_remd(filename, top=Topology(), T="300.0"):
     """Load remd trajectory for single temperature.
     Example: Suppose you have replica trajectoris remd.x.00{1-4}. 
     You want to load and extract only frames at 300 K, use this "load_remd" method
@@ -97,7 +189,7 @@ def load_remd(filename, top=Topology(), T="300.0"):
 
     Returns
     ------
-    TrajReadOnly object
+    TrajectoryIterator object
     """
     from pytraj import CpptrajState
 
@@ -109,12 +201,17 @@ def load_remd(filename, top=Topology(), T="300.0"):
     # load trajin, add "is_ensemble = False" to trick cpptraj
     # is_ensemble has 3 values: None, False and True
     state.add_trajin(trajin, is_ensemble=False)
-    traj = state.get_trajinlist()[0]
+    tlist = state.get_trajinlist()
+    # get TrajectoryREMDIterator
+    traj = tlist._getitem_remd(0)
     traj.top = state.toplist[0].copy()
 
     # use _tmpobj to hold CpptrajState(). If not, cpptraj will free memory
     traj._tmpobj = state
     return traj
+
+def load_remd(filename, top=Topology(), T="300.0"):
+    return iterload_remd(filename, top, T)[:]
 
 def writetraj(filename="", traj=None, top=None, 
               fmt='UNKNOWN_TRAJ', indices=None,
@@ -122,7 +219,7 @@ def writetraj(filename="", traj=None, top=None,
     """writetraj(filename="", traj=None, top=None, 
               ftm='UNKNOWN_TRAJ', indices=None):
     """
-    # TODO : support list (tuple) of FrameArray, TrajReadOnly or 
+    # TODO : support list (tuple) of Trajectory, TrajectoryIterator or 
     # list of filenames
     #filename = filename.encode("UTF-8")
 
@@ -150,7 +247,7 @@ def writetraj(filename="", traj=None, top=None,
 
             if indices is None:
                 # write all traj
-                if isinstance(traj2, (FrameArray, TrajReadOnly)):
+                if isinstance(traj2, (Trajectory, TrajectoryIterator)):
                     for idx, frame in enumerate(traj2):
                         trajout.writeframe(idx, frame, top)
                 elif isinstance(traj2, (list, tuple)):
@@ -160,7 +257,7 @@ def writetraj(filename="", traj=None, top=None,
                             trajout.writeframe(idx, frame, top)
             else:
                 if isinstance(traj2, (list, tuple)):
-                    raise NotImplementedError("must be FrameArray or TrajReadOnly instance")
+                    raise NotImplementedError("must be Trajectory or TrajectoryIterator instance")
                 for idx in indices:
                     trajout.writeframe(idx, traj2[idx], top)
 
@@ -222,10 +319,12 @@ def load_full_ParmEd(parmed_obj):
     os.chdir(cwd)
     return top
 
+def load_MDAnalysisIterator(u):
+    return TrajectoryMDAnalysisIterator(u)
+
 # creat alias
 write_traj = writetraj
 save = writetraj
 save_traj = writetraj
-load_traj = loadtraj
 read_parm = readparm
 write_parm = writeparm

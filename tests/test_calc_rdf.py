@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
         import os
-        traj = mdio.load("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         # calc_rdf with  spacing=0.5, max=10.0, solute mask=":5@CD
         # solvent mask = ":WAT@O"
         dslist = pyca.calc_rdf(traj, "Radial.agr 0.5 10.0 :5@CD :WAT@O")

@@ -24,12 +24,12 @@ class Test(unittest.TestCase):
             print(pseudotop[4])
 
             # try loading traj with pseudotop 
-            traj = FrameArray()
+            traj = Trajectory()
             traj.top = pseudotop
             print('pseudotop: ', traj.top)
 
             traj.load("./data/md1_prod.Tc5b.x")
-            traj0 = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            traj0 = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
             for i in range(traj.size):
                 assert_almost_equal(traj[i].coords, traj[i].coords)
 

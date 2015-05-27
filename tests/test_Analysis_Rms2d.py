@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         dflist = DataFileList()
 
         trajin = "./data/md1_prod.Tc5b.x"
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist.add_set("traj", "test_traj", "my_default_name")
         dslist[0].top = traj.top
         dslist[0].add_trajin(traj)
@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
         dflist = DataFileList()
 
         trajin = "./data/md1_prod.Tc5b.x"
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         dslist.add_set("coords", "test_traj", "my_default_name")
         dslist[0].top = traj.top
@@ -69,7 +69,7 @@ class Test(unittest.TestCase):
         import pytraj.common_actions as pyca
         print ("test calc_pairwise_rmsd")
         trajin = "./data/md1_prod.Tc5b.x"
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = pyca.calc_pairwise_rmsd(traj, "@CA")
         print (dslist.size)
         print (dslist[0].size)

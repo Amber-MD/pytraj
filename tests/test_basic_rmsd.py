@@ -7,7 +7,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0_0, f0_1 = traj[0].copy(), traj[0].copy()
 
         f1_0 = traj[1].copy()
@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         print ("f0_0 and f0_1 have different coords. Am I missing anything here?")
 
     def test_1(self):
-        trajr = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        trajr = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = trajr[0]
         f1 = trajr[1]
 

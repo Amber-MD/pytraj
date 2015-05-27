@@ -1,16 +1,16 @@
 import unittest
 from time import time
 from pytraj.base import *
-from pytraj.TrajReadOnly import TrajReadOnly
+from pytraj.TrajectoryIterator import TrajectoryIterator
 
 def get_time(indices):
-    traj = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+    traj = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
     t0 = time()
     print(traj.size)
     traj[indices]
     return time()- t0
 
-traj = TrajReadOnly(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+traj = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
 N = traj.size
 #traj[slice(0, N-1, 3)]
 
@@ -27,13 +27,14 @@ class TestSpeed(unittest.TestCase):
         #f1 = traj[998]
         #print f1
         #
-        traj2 = FrameArray(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        traj2 = Trajectory(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         f0 = traj2[-3:-1][0]
         print(f0)
         #f1 = traj2[998]
         #print f1
         
-        farray2 = traj[:-3:-1] + traj[:] + traj[::-1]
+        farray2 = Trajectory(top=traj2.top)
+        farray2.join([traj[:-3:-1], traj[:], traj[::-1]])
         #farray2 += farray2
         print(farray2)
 

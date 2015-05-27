@@ -9,39 +9,39 @@ from pytraj import adict
 class Test(unittest.TestCase):
     #@no_test
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        farray = FrameArray()
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        farray = Trajectory()
 
         t0 =  time()
         for i in range(10):
             for frame in traj:
-                farray.append(frame, copy=False)
+                farray.append(frame)
 
         print (time() - t0)
         print (farray)
-        farray.join(farray)
+        farray.join(farray.copy())
         print (farray)
 
     #@no_test
     def test_1(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        farray = FrameArray(traj, traj.top)
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        farray = Trajectory(traj, traj.top)
         print (farray.top)
         t0 = time()
         print (time()-t0)
         print (farray)
 
-        farray2 = FrameArray()
+        farray2 = Trajectory()
         farray2.top = traj.top.copy()
 
         t0 = time()
         for frame in farray:
-            farray2.append(frame, copy=False)
+            farray2.append(frame)
         print (time()-t0)
 
         t0 = time()
         for frame in farray:
-            farray2.append(frame, copy=True)
+            farray2.append(frame)
         print (time()-t0)
         print (farray2)
 

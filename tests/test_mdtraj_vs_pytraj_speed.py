@@ -5,17 +5,18 @@ from pytraj import adict
 from pytraj import io as mdio
 from numpy.testing import assert_almost_equal
 from pytraj.utils import has_
-from pytraj.decorators import test_if_having
+from pytraj.decorators import test_if_having, no_test
 from pytraj.utils import Timer
+from pytraj.__version__ import __version__ as pytraj_version
 
-print ("pytraj version = 0.1.2.dev0")
+print (pytraj_version)
  
 if has_("mdtraj"):
     import mdtraj as md
     print ("mtrajd version = %s" % md.version.full_version)
-    # use FrameArray (in memory for comparison)
-    traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
-    #traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+    # use Trajectory (in memory for comparison)
+    traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+    #traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
     m_top = md.load_prmtop("./data/Tc5b.top") 
     m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
 
@@ -35,7 +36,7 @@ def Run(func, msg, n_times=50, test_load=False):
             my_ratio += time_1 / time_0
         else:
             txt = "./data/md1_prod.fit_to_first.Tc5b.x"
-            fa = FrameArray()
+            fa = Trajectory()
             fa.top = traj.top
             with Timer() as t0:
                 fa.load(txt)
@@ -51,6 +52,7 @@ def Run(func, msg, n_times=50, test_load=False):
     print ()
 
 class Test(unittest.TestCase):
+    @no_test
     @test_if_having("mdtraj")
     def test_load(self):
         def load(test_load=True):
@@ -98,15 +100,10 @@ class Test(unittest.TestCase):
             traj.save("./output/x_speed.binpos")
         Run(save_binpos, "save .binpos")
 
-    @test_if_having("mdtraj")
-    def test_4(self):
-        def n_frames(traj):
-            traj.n_frames
-        Run(n_frames, 'n_frames')
 
     @test_if_having("mdtraj")
     def test_5(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         m_top = md.load_prmtop("./data/Tc5b.top") 
         m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
 

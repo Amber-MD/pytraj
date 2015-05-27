@@ -16,7 +16,7 @@ class TrajinList:
     def __iter__(self):
 
 if __name__ == "__main__":
-    traj = io.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+    traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
     tlist = TrajinList2()
     tlist.append(traj)
     tlist.append(traj)

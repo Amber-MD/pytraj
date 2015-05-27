@@ -51,10 +51,7 @@ class TestTrajinList(unittest.TestCase):
         print (trajlist.top)
         for traj in trajlist:
             pass
-            #for frame in traj:
-            #    print (frame)
-        # FIXME: segmentation fault
-        #print (traj[0].size)
+        print (traj[0].size)
 
 if __name__ == "__main__":
     unittest.main()

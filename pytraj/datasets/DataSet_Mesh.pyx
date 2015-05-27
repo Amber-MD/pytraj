@@ -28,7 +28,7 @@ cdef class DataSet_Mesh (DataSet_1D):
         """
         # xcrd is for cpptraj's output which use index starting of 1
         # we need to subtract "1"
-        return [[int(self.xcrd(i)-1), self.d_val(i)] for i in range(self.size)]
+        return [[int(self._xcrd(i)-1), self._d_val(i)] for i in range(self.size)]
 
     def to_ndarray(self):
         _, np = _import_numpy()

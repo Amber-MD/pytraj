@@ -1,7 +1,13 @@
 # distutils: language = c++
+from __future__ import division
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
 from ..decorators import makesureABC, require_having
+from ..DataFileList import DataFileList
+from ..DataFile import DataFile
+from pytraj.utils import _import_numpy
+
+_, np = _import_numpy()
 
 cdef class DataSet:
     """
@@ -35,6 +41,23 @@ cdef class DataSet:
         #if self.baseptr0 != NULL:
         #    del self.baseptr0
 
+    def __str__(self):
+        cname = self.class_name
+        dname = self.name
+        dformat = self.data_format
+        size = self.size
+        legend = self.legend
+        aspect = self.aspect
+        dtype = self.dtype
+
+        msg0 = """<pytraj.datasets.{0}: size={1}, name={2}, """.format(cname, size, dname)
+        msg1 = """legend={0}, aspect={1}, dtype={2}, data_format={3}>""".format(legend, 
+            aspect, dtype, dformat)
+        return msg0 + msg1 
+
+    def __repr__(self):
+        return self.__str__()
+
     def __iter__(self):
         raise NotImplementedError("Must over-write DataSet data attr")
 
@@ -43,6 +66,102 @@ cdef class DataSet:
 
     def __setitem__(self, idx, value):
         raise NotImplementedError("Must over-write DataSet data attr")
+
+
+    def __array__(self):
+        """
+        Aim: directly use numpy to perform analysis without casting to ndararay again
+
+        Examples
+        -------
+            d = DataSet_integer()
+            d.resize(200)
+            d.data[:] = np.arange(200)
+            np.mean(d)
+        """
+        from pytraj.utils import _import_numpy
+        _, np = _import_numpy()
+        try:
+            return np.asarray(self.data)
+        except:
+            raise NotImplementedError("don't know how to cast to ndarray")
+
+    def __add__(self, value):
+        dnew = self.copy()
+        dnew.__iadd__(value)
+        return dnew
+
+    def __iadd__(self, value):
+        if hasattr(value, '_npdata'):
+            self._npdata += value._npdata
+        else:
+            self._npdata += value
+        return self
+
+    def __sub__(self, value):
+        dnew = self.copy()
+        dnew.__isub__(value)
+        return dnew
+
+    def __isub__(self, value):
+        if hasattr(value, '_npdata'):
+            self._npdata -= value._npdata
+        else:
+            self._npdata -= value
+        return self
+
+    def __mul__(self, value):
+        dnew = self.copy()
+        dnew.__imul__(value)
+        return dnew
+
+    def __imul__(self, value):
+        if hasattr(value, '_npdata'):
+            self._npdata *= value._npdata
+        else:
+            self._npdata *= value
+        return self
+
+    def __div__(self, value):
+        dnew = self.copy()
+        dnew.__imul__(value)
+        return dnew
+
+    def __idiv__(self, value):
+        if hasattr(value, '_npdata'):
+            self._npdata /= value._npdata
+        else:
+            self._npdata /= value
+        return self
+
+    def __itruediv__(self, value):
+        if hasattr(value, '_npdata'):
+            self._npdata /= value._npdata
+        else:
+            self._npdata /= value
+        return self
+
+    def copy(self):
+        cdef int i
+        cdef int size = self.size
+
+        new_ds = self.__class__()
+        try:
+            try:
+                new_ds.resize(self.size)
+                new_ds.data[:] = self.data
+            except:
+                # try to make copy (Vector, ...)
+                # slower
+                for i in range(size):
+                    new_ds.append(self[i])
+            return new_ds
+        except:
+            raise TypeError("don't know how to copy %s" % self.class_name)
+
+    @property
+    def class_name(self):
+        return self.__class__.__name__
 
     @property
     def size(self):
@@ -129,7 +248,7 @@ cdef class DataSet:
 
     @property
     def data_format(self):
-        return self.baseptr0.DataFormat()
+        return self.baseptr0.DataFormat().decode()
 
     @property
     def data(self):
@@ -137,6 +256,18 @@ cdef class DataSet:
         ABC method, must override
         """
         raise NotImplementedError("Must over-write DataSet data attr")
+
+    property _npdata:
+        def __get__(self):
+            """return memoryview as numpy array for self.data"""
+            # NOTE: overwrite by using `raise NotImplementedError`
+            # for some DataSet subclasses not returning a `view`
+            _, np = _import_numpy()
+            return np.asarray(self.data)
+        def __set__(self, value):
+            _, np = _import_numpy()
+            arr = np.asarray(self.data)
+            arr[:] = value
 
     def tolist(self):
         return list(self.data)
@@ -153,6 +284,10 @@ cdef class DataSet:
             msg = "not implemented for %s" % self.__class__.__name__
             raise NotImplementedError(msg)
 
+    @property
+    def values(self):
+        return self.to_ndarray()
+
     def to_ndarray(self):
         """return ndarray view of self.data"""
         from pytraj.utils import _import_numpy
@@ -166,3 +301,48 @@ cdef class DataSet:
     def plot(self):
         """return matplotlib object"""
         raise NotImplementedError()
+
+    def hist(self, bins=100, normed=True, range=None):
+        from pytraj.utils import _import_numpy
+
+        _, np = _import_numpy()
+        hist, bedge  = np.histogram(self.to_ndarray(), bins=bins, normed=normed,range=range)
+        bedge = bedge[:-1]
+        return np.array([bedge, hist])
+
+    def split(self, n_chunks_or_array):
+        """split `self.data` to n_chunks
+
+        Notes : require numpy (same as `array_split`)
+        """
+        return np.array_split(self.to_ndarray(), n_chunks_or_array)
+        #try:
+        #    return np.split(self, n_chunks_or_array)
+        #except:
+        #    raise NotImplementedError("try to split but failed for %s" % self.name)
+
+    def write_to_cpptraj_format(self, filename):
+        dflist = DataFileList()
+        d = dflist.add_datafile(filename)
+        d.add_dataset(self)
+        d.write_data()
+
+    def save(self, filename, format='cpptraj'):
+        '''TODO: pickle, json'''
+        if format == 'cpptraj':
+            self.write_to_cpptraj_format(filename)
+        else:
+            raise NotImplementedError("not yet, stay tuned")
+
+    def plot(self, *args, **kwd):
+        """return matplotlib object
+        Notes
+        ----
+        Need to over-write this method for subclass if needed.
+        """
+        from pytraj.utils import _import
+        _, plt = _import("matplotlib.pyplot")
+        try:
+            return plt.pyplot.plot(self.data, *args, **kwd)
+        except:
+            raise NotImplementedError()

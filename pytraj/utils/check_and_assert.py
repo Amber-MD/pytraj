@@ -1,4 +1,7 @@
+from __future__ import absolute_import
 import numbers
+from ..externals.six import string_types
+from functools import wraps
 
 # don't `import pytraj.externals.six` here: got import error
 try:
@@ -8,6 +11,16 @@ except:
 
 def eq(arr0, arr1):
     assert arr0 == arr1
+
+def eq_coords(fa0, fa1):
+    # use this method for very large trajs
+    # use `assert_almost_equal` for `xyz` is to slow since need to copy to xyz first
+    count = 0
+    import numpy as np
+    for f0, f1 in zip(fa0, fa1):
+        count += 1
+        assert np.any(f0.xyz == f1.xyz) == True
+    assert count == fa0.n_frames == fa1.n_frames
 
 def a_isinstance(obj, class_type):
     assert isinstance(obj, class_type) == True
@@ -31,11 +44,17 @@ def get_amber_saved_test_dir(suffix):
     except:
         return None
 
+def is_linux():
+    import sys
+    return 'linux' in sys.platform
+
 def is_word_in_class_name(obj, word):
     """check if a `word` is in obj.__class__.__name__
     """
     return word in obj.__class__.__name__
 
+def is_pytraj_trajectory(obj):
+    return is_word_in_class_name(obj, 'Trajectory')
 
 def is_range(obj):
     return is_word_in_class_name(obj, 'range')
@@ -77,10 +96,23 @@ def is_frame_iter(iter_obj):
 
     See Also
     --------
-    FrameArray.frame_iter
+    Trajectory.frame_iter
     Trajin.frame_iter
     """
     if iter_obj.__class__.__name__ == 'generator' and 'frame_iter' in iter_obj.__name__:
+        return True
+    else:
+        return False
+
+def is_chunk_iter(iter_obj):
+    """check if is frame_iter
+
+    See Also
+    --------
+    Trajectory.frame_iter
+    Trajin.frame_iter
+    """
+    if iter_obj.__class__.__name__ == 'generator' and 'chunk_iter' in iter_obj.__name__:
         return True
     else:
         return False
@@ -95,6 +127,12 @@ def make_sure_exist(filename):
     if not file_exist(filename):
         txt = "can not find %s" % filename
         raise RuntimeError(txt)
+
+def ensure_not_none_or_string(obj):
+    name = obj.__str__()
+    msg = "<%s> is a wrong input. Can not use `None` or string type" % name
+    if obj is None or isinstance(obj, string_types):
+        raise ValueError(msg)
 
 def assert_almost_equal(arr0, arr1, decimal=3):
     '''numpy-like assert'''
@@ -122,6 +160,18 @@ def _import_numpy():
     except ImportError:
         has_numpy = False
         return (has_numpy, None)
+
+def _import_pandas():
+    has_pd = False
+    try:
+        pd = __import__('pandas')
+        has_pd= True
+        # set print options
+        pd.options.display.max_rows = 20
+        return (has_pd, pd)
+    except ImportError:
+        has_pd= False
+        return (has_pd, None)
 
 def _import_h5py():
     has_h5py = False

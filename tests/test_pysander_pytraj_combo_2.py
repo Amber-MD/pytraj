@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
 
             traj_fn = "./data/md1_prod.Tc5b.x"
             top_fn = "./data/Tc5b.top"
-            traj = mdio.load(traj_fn, top_fn)
+            traj = mdio.iterload(traj_fn, top_fn)
 
             # parm could be string or AmberParm object
             parm = top_fn

@@ -6,8 +6,8 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        ref = mdio.load("./data/Tc5b.crd", "./data/Tc5b.top")[0]
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        ref = mdio.iterload("./data/Tc5b.crd", "./data/Tc5b.top")[0]
         traj.top.set_reference_coord(ref)
         act = adict['rmsd']
         dslist = DataSetList()

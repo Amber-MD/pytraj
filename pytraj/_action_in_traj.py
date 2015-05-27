@@ -61,19 +61,23 @@ class ActionInTraj(object):
     def calc_pairwise_rmsd(self, mask="", *args, **kwd):
         return pyca.calc_pairwise_rmsd(self, mask, *args, **kwd)
 
-    def calc_rmsd(self, ref=None, mask="", mass=False, fit=True):
+    def rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):
         """"""
         if is_int(ref):
             # index
             ref = self[ref]
-        return pyca.calc_rmsd(command=mask, traj=self, ref=ref, mass=mass, fit=fit)
+        return pyca.calc_rmsd(command=mask, traj=self, 
+                ref=ref, mass=mass, fit=fit, *args, **kwd)
+
+    def calc_rmsd(self, *args, **kwd):
+        return self.rmsd(*args, **kwd)
 
     def search_hbonds(self, mask="*", *args, **kwd):
         """return DataSetList
         """
         return pyca.search_hbonds(self, mask, *args, **kwd)
 
-    def get_average_frame(self, mask="", *args, **kwd):
+    def average(self, mask="", *args, **kwd):
         """return Frame
         """
         return pyca.get_average_frame(self, mask, *args, **kwd)

@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         dflist = DataFileList()
 
         trajin = "./data/md1_prod.Tc5b.x"
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         dslist.add_set("coords", "test_traj", "my_default_name")
         dslist[0].top = traj.top

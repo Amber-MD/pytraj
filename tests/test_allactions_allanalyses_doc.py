@@ -13,12 +13,12 @@ class Test(unittest.TestCase):
 
         dslist = DataSetList()
 
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = allactions.Action_Dihedral()
         act.read_input("dihedral :4@C :5@N :5@CA :5@C range360  mass ", 
-                       current_top=traj.top, dslist=dslist)
+                       top=traj.top, dslist=dslist)
         print(traj.top)
-        act.process(current_top=traj.top)
+        act.process(top=traj.top)
         print(act.process.__doc__)
 
         for i, frame in enumerate(traj):

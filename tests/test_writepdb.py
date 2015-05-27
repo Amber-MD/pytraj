@@ -7,7 +7,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         from pytraj import set_world_silent
         set_world_silent(False)
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         mdio.writetraj("test_1.pdb", traj[0], top=traj.top, fmt='CHARMMDCD', overwrite=True)
         mdio.writetraj("test_1.dcd", traj[0], top=traj.top, fmt='CHARMMDCD', overwrite=True)
 
@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
             trajout.writeframe(frame=traj[0], top=traj.top)
 
     def test_1(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         trajout = Trajout()
         print(trajout.formats)
          

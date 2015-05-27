@@ -8,8 +8,9 @@ from pytraj.datasets import cast_dataset
 from pytraj import adict 
 from pytraj.DataFileList import DataFileList
 from pytraj.common_actions import calc_dssp
+from pytraj.testing import aa_eq
 
-farray = TrajReadOnly(top=Topology("./data/DPDP.parm7"), 
+farray = TrajectoryIterator(top=Topology("./data/DPDP.parm7"), 
                     filename='./data/DPDP.nc', 
                     )
 
@@ -41,7 +42,7 @@ class TestRadgyr(unittest.TestCase):
         dslist = DataSetList()
         dflist = DataFileList()
         adict['dssp'](":10-22 out ./output/_test_dssp_DPDP.dat", 
-            current_frame=farray, current_top=farray.top, 
+            current_frame=farray, top=farray.top, 
             dslist=dslist, dflist=dflist)
         print (dslist.size)
         arr0 = dslist.get_dataset(dtype="integer")
@@ -52,7 +53,7 @@ class TestRadgyr(unittest.TestCase):
         def calc_dssp(command="", traj=None):
             dslist = DataSetList()
             adict['dssp'](command, 
-                          current_frame=traj, current_top=traj.top, 
+                          current_frame=traj, top=traj.top, 
                           dslist=dslist)
             return dslist.get_dataset(dtype="integer")
         arr0 = calc_dssp(":10-22", farray[:2])
@@ -65,26 +66,15 @@ class TestRadgyr(unittest.TestCase):
 
     def test_4(self):
         # add assert 
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        arr1 = calc_dssp(traj, "*", dtype='int')
-        print (arr1)
-        print ("DSSP from pytraj")
-        print (np.array(arr1).shape)
-        print (dir(calc_dssp))
-
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        py_d = calc_dssp(traj, "*", dtype='dataset')
         # load cpptraj output
-        dssp_saved = np.loadtxt("./data/dssp.Tc5b.dat", skiprows=1)
-        print ("DSSP from cpptraj")
-        print (dssp_saved)
-        print (dssp_saved.shape)
-
-        dssp_saved_T = dssp_saved.transpose()[1:]
-        print (dssp_saved_T[:10])
-        print (arr1[:10])
-        #assert_allclose(arr1, dssp_saved[1:])
+        cpp_d = mdio.load_datafile("./data/dssp.Tc5b.dat")
+        for key in cpp_d.keys():
+            aa_eq(py_d[key].to_ndarray(), cpp_d[key].to_ndarray())
 
     def test_5(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = calc_dssp(traj, "*", dtype='dataset')
         print (dslist)
         print (dslist.get_legends())

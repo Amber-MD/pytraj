@@ -14,7 +14,8 @@ class Test(unittest.TestCase):
         import numpy as np
         import chemistry as chem
         parm_name = "./data/Tc5b.top"
-        traj = mdio.load("./data/md1_prod.Tc5b.x",  parm_name)
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x",  parm_name)
+        print (traj[0].coords[:10])
         true_top = mdio.load(parm_name)
 
         # load ParmEd
@@ -25,7 +26,7 @@ class Test(unittest.TestCase):
         # load pseudo_parm
         ptop = mdio.load_pseudo_parm(parm)
         fake_fa = mdio.load_ParmEd(parm, restype='traj')
-        assert isinstance(fake_fa, FrameArray)
+        assert isinstance(fake_fa, Trajectory)
         aa_eq(fake_fa[0].coords, traj[0].coords)
         print (ptop)
 
@@ -40,6 +41,50 @@ class Test(unittest.TestCase):
            sorted(true_top._dihedrals_ndarray.flatten()))
 
         assert (ptop.box.type == 'nobox')
+
+    @test_if_having("numpy")
+    @test_if_having("chemistry")
+    def test_1(self):
+        import numpy as np
+        import chemistry as chem
+        from pytraj.externals._load_ParmEd import to_ParmEd
+        parm_name = "./data/Tc5b.top"
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x",  parm_name)
+        parm = to_ParmEd(traj.top)
+        top2 = mdio.load_pseudo_parm(parm)
+
+        true_top = traj.top
+        ptop = top2
+        eq(sorted(ptop._bonds_ndarray.flatten()), 
+           sorted(true_top._bonds_ndarray.flatten()))
+
+        eq(sorted(ptop._angles_ndarray.flatten()), 
+           sorted(true_top._angles_ndarray.flatten()))
+
+        eq(sorted(ptop._dihedrals_ndarray.flatten()), 
+           sorted(true_top._dihedrals_ndarray.flatten()))
+
+    @no_test
+    @test_if_having("numpy")
+    @test_if_having("chemistry")
+    def test_2(self):
+        # turn off test to check loading code
+        import pytraj.io as io
+        # try loading PSF and doing analysis 
+        import numpy as np
+        import chemistry as chem
+        parm_name = "./data/ala3.psf"
+        traj = mdio.iterload("./data/ala3.dcd",  parm_name)
+        parm = chem.load_file(parm_name)
+        #p_top = io.load_pseudo_parm(parm)
+        p_top = io.load_full_ParmEd(parm)
+        print ('test2: parm', parm.__repr__())
+        print ('test2: p_top', p_top)
+        traj_new_ptop = mdio.iterload(traj.filename, top=p_top)
+        # use `search_hbonds` since I got segfault with MDAnalysis
+        ds = traj.search_hbonds(dtype='ndarray')
+        ds_newtop = traj_new_ptop.search_hbonds(dtype='ndarray')
+        aa_eq(ds, ds_newtop)
 
 if __name__ == "__main__":
     unittest.main()

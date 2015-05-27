@@ -7,7 +7,7 @@ class TestPyCpptrajIO(unittest.TestCase):
     def test_save_traj_from_file(self):
         print("test_save_traj_from_file")
         Trajout().help()
-        traj = mdio.load("./data/md1_prod.Tc5b.x",
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x",
                         "./data/Tc5b.top")[:5]
         print(traj.size)
         mdio.writetraj(filename="./output/test_0.binpos", 
@@ -16,7 +16,7 @@ class TestPyCpptrajIO(unittest.TestCase):
                        fmt="BINPOS",
                        overwrite=True)
 
-        savedtraj = mdio.load("./output/test_0.binpos", traj.top)
+        savedtraj = mdio.iterload("./output/test_0.binpos", traj.top)
         print("test_0.binpos size = ", savedtraj.size)
         print(traj.size)
         assert savedtraj.size == traj.size
@@ -26,10 +26,10 @@ class TestPyCpptrajIO(unittest.TestCase):
         top = mdio.load("./data/Tc5b.top")
         assert isinstance(top, Topology) == True
 
-        traj = mdio.load(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        traj = mdio.iterload(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
         print(traj)
 
-        is_traj = (isinstance(traj, TrajReadOnly) or isinstance(traj, FrameArray))
+        is_traj = (isinstance(traj, TrajectoryIterator) or isinstance(traj, Trajectory))
         assert is_traj == True
 
     def test_ParmFile(self):
@@ -41,8 +41,8 @@ class TestPyCpptrajIO(unittest.TestCase):
 
     def test_load_and_save_0(self):
         print("test_load_and_save_0")
-        # need to load to FrameArray to save
-        traj = mdio.load(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")[:]
+        # need to load to Trajectory to save
+        traj = mdio.iterload(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")[:]
         print(traj.size)
 
         indices = list(range(2, 3, 5)) + [3, 7, 9, 8]
@@ -55,7 +55,7 @@ class TestPyCpptrajIO(unittest.TestCase):
                        overwrite=True)
 
         # check frames
-        traj2 = mdio.load(filename="./output/test_io_saved_.x", top="./data/Tc5b.top")
+        traj2 = mdio.iterload(filename="./output/test_io_saved_.x", top="./data/Tc5b.top")
         print("test_load_and_save_0")
         print(traj2.size)
         print(traj2.is_empty())
@@ -66,7 +66,7 @@ class TestPyCpptrajIO(unittest.TestCase):
 
     def test_load_and_save_1(self):
         print("test_load_and_save_1")
-        traj = mdio.load(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+        traj = mdio.iterload(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
 
         indices = list(range(2, 4)) + [3, 7, 9, 8]
         mdio.writetraj(filename="./output/test_io_saved.pdb", 
@@ -77,7 +77,7 @@ class TestPyCpptrajIO(unittest.TestCase):
                        overwrite=True)
 
         # check frames
-        traj = mdio.load(filename="./output/test_io_saved.pdb", top="./data/Tc5b.top")
+        traj = mdio.iterload(filename="./output/test_io_saved.pdb", top="./data/Tc5b.top")
         assert traj.size == len(indices) 
         assert traj.top.n_atoms == 304
 
@@ -93,7 +93,7 @@ class TestPyCpptrajIO(unittest.TestCase):
                        overwrite=True)
 
         # check frames
-        traj = mdio.load(filename="./output/test_io_saved_2.nc", top="./data/Tc5b.top")
+        traj = mdio.iterload(filename="./output/test_io_saved_2.nc", top="./data/Tc5b.top")
         assert traj.size == len(indices) 
         assert traj.top.n_atoms == 304
 

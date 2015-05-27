@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     @no_test
     def test_0(self):
         print (calculate)
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = calculate(traj, "distance", ":2@CA :10@CA")
         d0 = dslist[0]
         assert isinstance(d0.tolist(), list)
@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         print (calculate)
         import numpy as np
         print ("test dataset double")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = calculate("distance", traj, ":2@CA :10@CA")
         d0 = dslist[0]
         assert isinstance(d0.to_ndarray(), np.ndarray)
@@ -41,7 +41,7 @@ class Test(unittest.TestCase):
         print (calculate)
         import numpy as np
         print ("test dataset int")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         d0 = calculate("dssp", traj, ":2-4")['TYR:3']
         assert isinstance(d0.to_ndarray(), np.ndarray)
         assert_almost_equal(d0.data, d0.to_ndarray())

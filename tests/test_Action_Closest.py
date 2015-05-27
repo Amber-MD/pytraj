@@ -16,12 +16,12 @@ class Test(unittest.TestCase):
         # 2. https://github.com/mojyt/cpptraj/tree/master/test/Test_Closest
 
         import numpy as np
-        traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         print (traj.top)
         # use "info("closest") to see its doc (from pytraj import info; info("closest"))
         fa = pyca.closest(traj, "10 :2,4 center")
         pdb_file = cpptraj_test_dir + "/Test_Closest/center.closest.pdb.save"
-        saved_frame = mdio.load(pdb_file, pdb_file)[0]
+        saved_frame = mdio.iterload(pdb_file, pdb_file)[0]
 
         # cpptraj did test for 5-th frame (index starts from 1)
         print (fa[4].rmsd(saved_frame))

@@ -3,8 +3,8 @@ from pytraj.common_actions import *
 from pytraj.datasets import DataSet_Coords_TRJ
 from pytraj.TrajinList import TrajinList
 
-traj = FrameArray(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
-traj2 = io.load('./data/DPDP.nc', "./data/DPDP.parm7")
+traj = Trajectory(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+traj2 = io.iterload('./data/DPDP.nc', "./data/DPDP.parm7")
 top = traj.top
 frame0 = traj[0]
 

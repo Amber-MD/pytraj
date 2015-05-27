@@ -6,7 +6,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         for i, f0 in enumerate(traj):
             for j, x in enumerate(f0.coords):
@@ -123,7 +123,7 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         print ("test frame_iter with mask")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top2 = traj.top.copy()
 
         for frame in traj(mask='@CA'):
@@ -137,7 +137,7 @@ class Test(unittest.TestCase):
 
         for frame in traj[:](mask='@CA'):
             pass
-        top2.strip_atoms("!@CA")
+
         f0 = traj[-1]
         f0.strip_atoms('!@CA', traj.top)
         assert_almost_equal(f0.coords, frame.coords)
@@ -151,7 +151,7 @@ class Test(unittest.TestCase):
 
     def test_2(self):
         print ("test frame_iter with mask")
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         for frame in farray(mask='@CA'):
             pass

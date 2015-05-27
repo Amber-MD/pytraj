@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     @test_if_having("pandas")
     def test_0(self):
         from pytraj import to_dataframe
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['multidihedral']
         dslist = DataSetList()
         act("phi", traj, dslist=dslist)
@@ -24,6 +24,9 @@ class Test(unittest.TestCase):
         print (dframe)
         # try dummy test
         print (to_dataframe(dict()))
+
+        # frame.to_dataframe
+        print (traj[0].to_dataframe(traj.top))
 
 if __name__ == "__main__":
     unittest.main()

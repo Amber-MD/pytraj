@@ -16,24 +16,23 @@ root_dir = "../../tests/data/nogit/remd/"
 parm_name = root_dir + "myparm.top"
 top = io.load(parm_name)
 
-# load to TrajReadOnly
+# load to TrajectoryIterator
 trajlist = []
 for i in range(comm.size):
     ext = "00" + str(i)
     traj_name = root_dir + "/remd.x." + ext # 000, 001, 002
-    trajlist.append(io.load(traj_name, top))
+    trajlist.append(io.iterload(traj_name, top))
 
 # mapping different traj to N cores
 # need to provide `comm`
-arr = pymap(comm, pyca.calc_molsurf, trajlist, "@CA", top=top)
-print ("rank = %s, return arr with len=%s" % (comm.rank, len(arr)))
+total_arr = pymap(comm, pyca.calc_molsurf, trajlist, "@CA", top=top, dtype='ndarray')
 
 # gathering the data to root=0
 #if comm.rank == 0:
 #    total_arr =  np.empty(comm.size)
 #else:
 #    total_arr = None
-total_arr = comm.gather(arr, root=0)
+#total_arr = comm.gather(arr, root=0)
 
 if comm.rank == 0:
     # skip final array since its shape might be different from the rest

@@ -4,13 +4,17 @@ from .._utils cimport get_positive_idx
 from .._shared_methods import _frame_iter
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import my_str_method
+from ..Trajectory cimport Trajectory
+from ..utils import _import_numpy, _import
+
+_, pd = _import("pandas")
 
 cdef class DataSet_Coords(DataSet):
     def __cinit__(self):
         # abstract class, dont' create new object here
         #pass
         # make sure that two pointers pointing to the same address
-        # behave like `FrameArray`
+        # behave like `Trajectory`
         self.baseptr0 = <_DataSet*> self.baseptr_1
         self._top = Topology()
 
@@ -51,11 +55,11 @@ cdef class DataSet_Coords(DataSet):
     def __getitem__(self, idxs):
         # TODO : same as Trajin class
         # should combine or inherit or ?
-        # return either a Frame instance or FrameArray instance
-        # use self.tmpfarray to hold Frame or FrameArray object
+        # return either a Frame instance or Trajectory instance
+        # use self.tmpfarray to hold Frame or Trajectory object
 
         cdef Frame frame
-        cdef FrameArray farray
+        cdef Trajectory farray
         cdef int start, stop, step
         cdef int i
         cdef int idx_1
@@ -65,7 +69,7 @@ cdef class DataSet_Coords(DataSet):
         frame.py_free_mem = True
 
         if self.size == 0:
-            raise ValueError("Your FrameArray is empty, how can I index it?")
+            raise ValueError("Your Trajectory is empty, how can I index it?")
         if not isinstance(idxs, slice):
             idx_1 = get_positive_idx(idxs, self.size)
             # raise index out of range
@@ -77,8 +81,8 @@ cdef class DataSet_Coords(DataSet):
             self.baseptr_1.GetFrame(idx_1, frame.thisptr[0])
             self.tmpfarray = frame
         else:
-            # creat a subset array of `FrameArray`
-            farray = FrameArray()
+            # creat a subset array of `Trajectory`
+            farray = Trajectory()
             farray.top = self.top
             if idxs.step == None:
                 step = 1
@@ -138,9 +142,23 @@ cdef class DataSet_Coords(DataSet):
     @property
     def xyz(self):
         """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
-        We can not return a memoryview since FrameArray is a C++ vector of Frame object
+        We can not return a memoryview since Trajectory is a C++ vector of Frame object
         """
-        return _xyz(self)
+        cdef Frame frame
+        cdef int i
+        _, np = _import_numpy()
+        n_frames = self.n_frames 
+        n_atoms = self.top.n_atoms
+        arr = np.empty((n_frames, n_atoms, 3))
+
+        for i in range(n_frames):
+            arr[i] = self[i].xyz
+        return arr
 
     def tolist(self):
-        return _tolist(self)
+        """return flatten list for traj-like object"""
+        cdef Frame frame
+        return [frame.tolist() for frame in self]
+
+    def to_dataframe(self):
+        raise NotImplementedError()

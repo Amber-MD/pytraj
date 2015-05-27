@@ -11,7 +11,7 @@ from pytraj.trajs.TrajectoryFile cimport _TrajectoryFile, TrajectoryFile
 from pytraj.core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 
 cdef extern from "Trajin.h": 
-    cdef cppclass _Trajin "Trajin" (_TrajectoryFile):
+    cdef cppclass _Trajin "Trajin" (_TrajectoryFile) nogil:
         _Trajin()        
 
         #virtual ~_Trajin() 
@@ -49,7 +49,7 @@ cdef extern from "Trajin.h":
 
 cdef class Trajin (TrajectoryFile):
     #( baseptr0 is from TrajectoryFile
-    # create tmpfarray to hold sub FrameArray
+    # create tmpfarray to hold sub Trajectory
     # traj[0:10][0] will give wrong answer
     cdef object tmpfarray
     cdef _Trajin* baseptr_1

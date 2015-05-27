@@ -1,28 +1,62 @@
 from __future__ import absolute_import 
-from .gdt cimport gdt
+from cpython.array cimport array as pyarray
+from .gdt cimport _gdt, sshort
+from ... _get_common_objects import _get_top, _get_data_from_dtype
+from ... _shared_methods import _frame_iter_master
+from ... Frame cimport Frame
 
-def calc_score(frame0=None, frame1=None, mask="*", 
-               top=None, score="gdtscore", *args, **kwd):
+def calc_score(traj, top=None, ref=None, mask="*", 
+               dtype='pyarray',
+               score="gdtscore", *args, **kwd):
     """return `gdtscore` or `tmscore` or `maxsub`
 
     Parameters
     ---------
-    frame0 : Frame object
-    farme1 : Frame object
-    mask : str, atom mask
+    traj : Trajectory-like | list-like | Frame-like
+    ref : Frame, reference, default=None (use first frame)
+        ref must have the same atom number as traj.top (or top)
     top : Topology object
+    mask : str, atom mask
     score : str
         `gdtscore` or `tmscore` or `maxsub`
     """
+    cdef pyarray score_arr = pyarray('d', [])
+    cdef Frame _frame, _ref
+    cdef sshort result
+    cdef int int_score
+
+
     if score == 'gdtscore':
-        _score = 1
+        int_score = 1
     elif score == 'tmscore':
-        _score = 2
+        int_score = 2
     elif score == 'maxsub':
-        _score = 3
+        int_score = 3
 
+    if ref is None:
+        _ref = traj[0]
+    else:
+        _ref = ref
+
+    if traj.n_atoms != _ref.n_atoms: 
+        raise ValueError("traj and ref must have the same n_atoms")
+    
+    _top = _get_top(traj, top)
     atm = top(mask)
-    arr0 = frame0.get_subframe(atm).coords
-    arr1 = frame1.get_subframe(atm).coords
+    _ref = Frame(ref, atm)
+    n_atoms_new = _ref.n_atoms
 
-    return gdt(arr0, arr1, 1, len(arr0)/3, _score)[0]/1000.
+    for frame in _frame_iter_master(traj):
+        _frame = Frame(frame, atm)
+        result = _gdt(_ref.thisptr.xAddress(), _frame.thisptr.xAddress(), 
+                     1, n_atoms_new, int_score)[0]
+        score_arr.append(<double> result/1000.)
+
+    if dtype == 'pyarray':
+        return score_arr
+    else:
+        from pytraj.datasets import DataSet_double
+        dset = DataSet_double()
+        dset.resize(score_arr.__len__())
+        dset.values[:] = score_arr
+        return _get_data_from_dtype(dset, dtype)

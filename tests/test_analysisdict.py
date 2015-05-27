@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         pass
-        #traj = mdio.load("./data/tz2.nc",  "./data/tz2.parm7")
+        #traj = mdio.iterload("./data/tz2.nc",  "./data/tz2.parm7")
         #print (traj)
         #analdict['rms2d'](":2@CA :10@CA", traj, traj.top)
 

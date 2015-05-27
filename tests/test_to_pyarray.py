@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
         from array import array as pyarray
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         alist = traj.calc_molsurf().tolist()
         anp = traj.calc_molsurf().to_ndarray()
         a_pyarray = traj.calc_molsurf().to_pyarray()
@@ -26,6 +26,11 @@ class Test(unittest.TestCase):
 
         aa_eq(alist2, anp2)
         aa_eq(alist2, a_pyarray2)
+
+        # test hist
+        d0 = traj.calc_molsurf()
+        print (d0.hist(bins=3, range=[d0.min(), d0.max()]))
+        print (d0.to_ndarray())
 
 if __name__ == "__main__":
     unittest.main()

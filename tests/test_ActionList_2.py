@@ -9,7 +9,7 @@ from pytraj import adict
 class TestActionList(unittest.TestCase):
     def test_run_0(self):
         # load traj
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print (traj)
         dslist = DataSetList()
         dflist = DataFileList()
@@ -38,7 +38,7 @@ class TestActionList(unittest.TestCase):
         print (dslist[0][:])
         print (dslist[1][:])
         print (dslist.get_dataset(dtype='integer'))
-        traj2 = mdio.load("./output/test_trajout.nc", traj.top)
+        traj2 = mdio.iterload("./output/test_trajout.nc", traj.top)
         print (traj.n_frames)
         print ('test_trajout.nc has %s frames' % traj2.n_frames)
         print (traj2[0].n_atoms)
@@ -47,7 +47,7 @@ class TestActionList(unittest.TestCase):
 
     def test_run_1(self):
         # load traj
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print (traj)
         dslist = DataSetList()
         dflist = DataFileList()
@@ -62,7 +62,7 @@ class TestActionList(unittest.TestCase):
 
     def test_run_1(self):
         # load traj
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print (traj)
         dslist = DataSetList()
         dflist = DataFileList()

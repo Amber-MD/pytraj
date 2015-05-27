@@ -4,6 +4,7 @@
 # TODO : use __all__
 """
 from __future__ import absolute_import
+import os
 from array import array
 from functools import partial
 
@@ -15,19 +16,20 @@ analdict = AnalysisDict()
 
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._common_actions import calculate
+from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .externals.six import string_types
 from .Frame import Frame
-from .FrameArray import FrameArray
+#from .Trajectory import Trajectory
 from .AtomMask import AtomMask
 from .Topology import Topology
 from .DataSetList import DataSetList
 from .DataFileList import DataFileList
 from .math.DistRoutines import distance 
 from .externals.gdt.calc_score import calc_score
-from .hbonds import search_hbonds
+from .hbonds import search_hbonds, search_nointramol_hbonds
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
-from .utils import _import_numpy, is_array
+from .utils.context import goto_temp_folder
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
@@ -37,34 +39,39 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_multivector',
                'calc_volmap',
                'calc_rdf',
+               'calc_multidihedral',
                'calc_atomicfluct',
                'calc_COM',
                'calc_center_of_mass',
                'calc_center_of_geometry',
                'calc_pairwise_rmsd',
-               'calc_temperatures']
+               'calc_density',
+               'calc_temperatures',
+               'calc_linear_interaction_energy',]
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
               'do_clustering',]
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'align_principal_axis', 'closest']
+list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds', 
+                    'align_principal_axis', 'closest',
+                    'native_contacts', 'nastruct']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
-calc_distance = partial(calculate, 'distance', quick_get=True)
-calc_dih = partial(calculate, 'dihedral', quick_get=True)
-calc_dihedral = calc_dih
 calc_radgyr = partial(calculate, 'radgyr', quick_get=True)
 calc_angle = partial(calculate, 'angle', quick_get=True)
 calc_molsurf = partial(calculate, 'molsurf', quick_get=True)
 calc_distrmsd = partial(calculate, 'distrmsd', quick_get=True)
 calc_volume = partial(calculate, 'volume', quick_get=True)
 calc_matrix = partial(calculate, 'matrix')
-calc_jcoupling = partial(calculate, 'jcoupling', quick_get=True)
+calc_jcoupling = partial(calculate, 'jcoupling', dtype='dataset')
 calc_multivector = partial(calculate, 'multivector')
-calc_volmap = partial(calculate, 'volmap', quick_get=True)
+calc_volmap = partial(calculate, 'volmap')
+calc_linear_interaction_energy = partial(calculate, 'lie')
+# create alias
+calc_LIE = calc_linear_interaction_energy
 calc_rdf = partial(calculate, 'radial', print_output=True)
 calc_protein_score = calc_score
 calc_energies = get_pysander_energies
@@ -77,6 +84,121 @@ rotate = do_rotation
 do_scaling = partial(action_type, 'scale')
 scale = do_scaling
 
+def calc_distance(traj=None, command="", top=None, *args, **kwd):
+    """calculate distance
+
+    Notes:
+    command : str | int_2d numpy array
+    """
+    ensure_not_none_or_string(traj)
+
+    _, np = _import_numpy()
+    _top = _get_top(traj, top)
+    if isinstance(command, string_types):
+        # need to remove 'n_frames' keyword since Action._master does not use it
+        try:
+            del kwd['n_frames']
+        except:
+            pass
+        # cpptraj mask for action
+        return calculate("distance", traj, command, top=_top,  quick_get=True, *args, **kwd)
+    elif isinstance(command, np.ndarray):
+        int_2darr = command
+        if int_2darr.shape[1]  != 2:
+            raise ValueError("require int-array with shape=(n_atoms, 2)")
+        if 'n_frames' not in kwd.keys():
+            try:
+                n_frames = traj.n_frames
+            except:
+                raise ValueError("require specifying n_frames")
+        else:
+            n_frames = kwd['n_frames']
+        arr = np.empty([n_frames, len(int_2darr)])
+        for idx, frame in enumerate(_frame_iter_master(traj)):
+            arr[idx] = frame.calc_distance(int_2darr)
+        return arr
+    else:
+        raise ValueError("")
+
+def calc_angle(traj=None, command="", top=None, *args, **kwd):
+    """calculate dihedral
+
+    Notes:
+    command : str | int_2d numpy array
+    """
+    ensure_not_none_or_string(traj)
+
+    _, np = _import_numpy()
+    _top = _get_top(traj, top)
+    if isinstance(command, string_types):
+        # need to remove 'n_frames' keyword since Action._master does not use it
+        try:
+            del kwd['n_frames']
+        except:
+            pass
+        # cpptraj mask for action
+        return calculate("angle", traj, command, top=_top, quick_get=True, *args, **kwd)
+    elif isinstance(command, np.ndarray):
+        int_2darr = command
+        if int_2darr.shape[1]  != 3:
+            raise ValueError("require int-array with shape=(n_atoms, 3)")
+        if 'n_frames' not in kwd.keys():
+            try:
+                n_frames = traj.n_frames
+            except:
+                raise ValueError("require specifying n_frames")
+        else:
+            n_frames = kwd['n_frames']
+        arr = np.empty([n_frames, len(int_2darr)])
+        for idx, frame in enumerate(_frame_iter_master(traj)):
+            arr[idx] = frame.calc_angle(int_2darr)
+        return arr
+    else:
+        raise ValueError("")
+
+def calc_dihedral(traj=None, command="", top=None, *args, **kwd):
+    """calculate dihedral
+
+    Notes:
+    command : str | int_2d numpy array
+    """
+    ensure_not_none_or_string(traj)
+
+    _, np = _import_numpy()
+    _top = _get_top(traj, top)
+    if isinstance(command, string_types):
+        # need to remove 'n_frames' keyword since Action._master does not use it
+        try:
+            del kwd['n_frames']
+        except:
+            pass
+        # cpptraj mask for action
+        return calculate("dihedral", traj, command, top=_top, quick_get=True, *args, **kwd)
+    elif isinstance(command, np.ndarray):
+        int_2darr = command
+        if int_2darr.shape[1]  != 4:
+            raise ValueError("require int-array with shape=(n_atoms, 4)")
+        if 'n_frames' not in kwd.keys():
+            try:
+                n_frames = traj.n_frames
+            except:
+                raise ValueError("require specifying n_frames")
+        else:
+            n_frames = kwd['n_frames']
+        arr = np.empty([n_frames, len(int_2darr)])
+        for idx, frame in enumerate(_frame_iter_master(traj)):
+            arr[idx] = frame.calc_dihedral(int_2darr)
+        return arr
+    else:
+        raise ValueError("")
+
+# creat alias
+calc_dih = calc_dihedral 
+
+def calc_mindist(traj=None, command="", top=None, *args, **kwd):
+    _command = "mindist " + command 
+    _top = _get_top(traj, top)
+    return calculate("nativecontacts", traj, _command, top=_top, quick_get=True, *args, **kwd)
 
 def calc_watershell(traj=None, command="", top=Topology()):
     """return a DataSetList object having the number of water 
@@ -117,32 +239,84 @@ def to_string_ss(arr0):
     """
     arr0 : ndarray
     """
+    _, np = _import_numpy()
     #ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
     ss = ["0", "b", "B", "G", "H", "I", "T", "S"]
     len_ss = len(ss)
     ssdict = dict(zip(range(len_ss), ss))
-    return list(map(lambda idx: ssdict[idx], arr0))
 
-def calc_dssp(traj=None, command="", top=None, dtype='int'):
+    if np:
+        def myfunc(key):
+            return ssdict[key]
+        if not isinstance(arr0, dict):
+            return np.vectorize(myfunc)(arr0)
+        else:
+            new_dict = {}
+            for key in arr0.keys():
+                new_dict[key] = to_string_ss(arr0[key])
+            return new_dict
+    else:
+        print ("doest not have numpy, return a list")
+        return list(map(lambda idx: ssdict[idx], arr0))
+
+def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=DataFileList()):
     """return dssp profile for frame/traj
 
     Parameters
-    ---------
+    ----------
     command : str
     traj : {Trajectory, Frame, mix of them}
     dtype : str {'int', 'integer', 'str', 'string', 'dataset', 'ndarray'}
 
-    Returns:
+    Returns
+    -------
     if dtype in ['int', 'integer', 'str', 'string']
         List of tuples with shape (n_frames, n_residues)
     if dtype in ['dataset',]
         DataSetList object
+
+    Examples
+    --------
+        calc_dssp(traj, ":2-10")
+
+        calc_dssp(traj, ":2-10 out dssp.gnu", dflist=dflist)
+        dflist.write_all_datafiles()
+
+        calc_dssp(traj, ":2-10 sumout dssp.agr", dflist=dflist)
+        dflist.write_all_datafiles()
+        # from terminal: xmgrace dssp.agr
+
+    Notes
+    -----
+    Character Integer DSSP_Char SS_type
+    0         0       ' '       None
+    b         1       'E'       Parallel Beta-sheet
+    B         2       'B'       Anti-parallel Beta-sheet
+    G         3       'G'       3-10 helix
+    H         4       'H'       Alpha helix
+    I         5       'I'       Pi (3-14) helix
+    T         6       'T'       Turn
+    S         7       'S'       Bend
+
+    See Also
+    --------
+    Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 588)
     """
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    if dslist is None:
+        dslist = DataSetList()
     adict['dssp'](command,
-                  current_frame=traj, current_top=_top,
-                  dslist=dslist)
+                  current_frame=traj, 
+                  top=_top,
+                  dslist=dslist,
+                  dflist=dflist)
+
+    # replace legend to something nicer
+    for legend, dset in dslist.iteritems():
+        if 'DSSP' in legend:
+            legend = legend.replace("DSSP_00000[", "")
+            legend = legend.replace("]", "_avg")
+            dset.legend = legend.lower()
     dtype = dtype.upper()
 
     # get all dataset from DatSetList if dtype == integer
@@ -163,7 +337,10 @@ def calc_dssp(traj=None, command="", top=None, dtype='int'):
         _, np = _import_numpy()
         return np.array([to_string_ss(arr) for arr in arr0])
     else:
-        raise ValueError("")
+        try:
+            return _get_data_from_dtype(dslist, dtype)
+        except:
+            raise ValueError("")
 
 def do_translation(traj=None, command="", top=Topology()):
     adict['translate'](command, traj, top)
@@ -177,13 +354,14 @@ def do_autoimage(traj=None, command="", top=Topology()):
 autoimage = do_autoimage
 
 def get_average_frame(traj=None, command="", top=Topology()):
+    _top = _get_top(traj, top)
     dslist = DataSetList()
 
     # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
     command += " crdset s1"
 
     act = adict['average']
-    act(command, traj, top, dslist=dslist)
+    act(command, traj, _top, dslist=dslist)
 
     # need to call this method so cpptraj will write
     act.print_output()
@@ -204,21 +382,53 @@ def randomize_ions(traj=Frame(), command="", top=Topology()):
     act = adict['randomizeions']
     act(command, traj, top)
 
-def do_clustering(traj=None, command="", top=Topology(), 
-        dslist=DataSetList(), dflist=DataFileList()):
-    # TODO: still very naive
+def do_clustering(traj=None, command="", top=None, dtype='dataset',
+        dslist=None, dflist=None):
+    """
+    Parameters
+    ---------
+    traj : Trajectory-like | list of Trajectory-like | frame or chunk iterator
+    command : cpptraj commmand
+    top : Topology, optional
+    dslist : DataSetList, optional
+    dflist : DataFileList, optional
+
+    Notes:
+    Supported algorithms: kmeans, hieragglo, and dbscan.
+
+    Examples
+    --------
+        do_clustering(traj, "kmeans clusters 50 @CA")
+
+    Returns
+    -------
+    DataSetList object
+ 
+    """
+
+    _top = _get_top(traj, top)
     ana = analdict['clustering']
-    if traj is not None:
-        dslist.add_set("coords", "__pytraj_cluster", "")
-        dslist[-1].top = top if top is not top.is_empty() else traj.top
-        for frame in traj:
-            dslist[-1].add_frame(frame)
-        command += " crdset __pytraj_cluster"
-    if not top.is_empty():
-        _top = top
+    # need to creat `dslist` here so that every time `do_clustering` is called,
+    # we will get a fresh one (or will get segfault)
+    if dslist is None:
+        dslist = DataSetList()
     else:
-        _top = traj.top
+        dslist = dslist
+
+    if traj is not None:
+        dslist.add_set("coords", "__pytraj_cluster")
+        #dslist[-1].top = _top
+        dslist[0].top = _top
+        for frame in traj:
+            #dslist[-1].add_frame(frame)
+            dslist[0].add_frame(frame)
+        command += " crdset __pytraj_cluster"
+    else:
+        pass
     ana(command, _top, dslist, dflist) 
+    # remove frames in dslist to save memory
+    dslist.remove_set(dslist['__pytraj_cluster'])
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **kwd): 
     """perform dihedral search
@@ -231,6 +441,10 @@ def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **k
     Returns
     -------
     Dictionary of array or dataset or ndarray or list or pyarray (based on `dtype`)
+
+    Notes
+    -----
+        legends show residue number in 1-based index
 
     Examples
     --------
@@ -256,15 +470,11 @@ def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **k
     """
     _top = _get_top(traj, top)
     dslist = DataSetList()
-    from pytraj.six_2 import izip as zip
+    from pytraj.compat import izip as zip
     from array import array
     act = adict['multidihedral']
     act(command, traj, _top, dslist=dslist, *args, **kwd)
-    if dtype == 'dict':
-        return dict((d0.legend, array('d', d0.data)) for d0 in dslist)
-    else:
-        # return dslist
-        return dslist
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_atomicfluct(traj=None, command="", *args, **kwd):
     dslist = DataSetList()
@@ -275,7 +485,7 @@ def calc_atomicfluct(traj=None, command="", *args, **kwd):
     act.print_output() # need to have this. check cpptraj's code
     return dslist[-1]
 
-def calc_vector(traj=None, mask="", dtype='vector', *args, **kwd): 
+def calc_vector(traj=None, mask="", dtype='dataset', *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -317,12 +527,14 @@ def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='
     dslist.set_py_free_mem(False) # need this to avoid segmentation fault
     act = adict['vector']
     command = "center " + command
-    act.read_input(command=command, current_top=_top, dslist=dslist)
+
+    act.read_input(command=command, top=_top, dslist=dslist)
     act.process(_top)
+
     for frame in _frame_iter_master(traj):
         # set Frame masses
         if use_mass:
-            frame.set_frame_m(_top)
+            frame.set_frame_mass(_top)
         act.do_action(frame)
     return _get_data_from_dtype(dslist[0], dtype=dtype)
 
@@ -331,13 +543,72 @@ calc_COG = calc_center_of_geometry = partial(_calc_vector_center, use_mass=False
 
 def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
     """return  DataSetList object
+    Parameters
+    ----------
+    traj : Trajectory-like, iterable object
+    command : mask (default=all atom) + extra command
+        See `Notes` below for further info
+    top : Topology, optional, default=None
+    *args, **kwd: optional (dtype='dataset' | 'pyarray' | 'ndarray' | 'list')
 
     Examples:
-        dslist = calc_pairwise_rmsd("@CA", traj)
+        1. 
+        # memory saving
+        # * Create TrajectoryIterator to load only one Frame at a time
+        traj = mdio.iterload("data/nogit/tip3p/md.trj", 
+                            "./data/nogit/tip3p/tc5bwat.top")
+        # we will load stripped-atom frames into memory only
+        new_top = traj.top.strip_atoms("!@CA", copy=True)
+
+        # passing `frame_iter` to `calc_pairwise_rmsd`
+        # traj(0, 1000, mask='@CA') is equal to
+        #     traj.frame_iter(start=0, stop=1000, mask='@CA')
+
+        import pytraj.common_actions as pyca
+        pyca.calc_pairwise_rmsd(traj(0, 1000, mask='@CA'), 
+                                       top=new_top, dtype='ndarray')
+
+        2. 
+        # calculate pairwise rmsd for all frames using CA atoms
+        dslist = calc_pairwise_rmsd(traj, "@CA")
         dslist.to_ndarray()
         dslist.tolist()
+
+        3.
+        # calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)
+        # convert to numpy array
+        arr_np = calc_pairwise_rmsd(traj, "@CA dme", dtype='ndarray')
+
+        4.
+        # calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD
+        # convert to numpy array
+        arr_np = calc_pairwise_rmsd(traj, "@CA nofit", dtype='ndarray')
+
+        5.
+        # calculate pairwise rmsd for all frames using CA atoms
+        # use symmetry-corrected RMSD, convert to numpy array
+        arr_np = calc_pairwise_rmsd(traj, "@CA srmsd", dtype='ndarray')
+
+    Notes
+    -----
+    * Same as `Analysis_Rms2d` in cpptraj (Amber15 manual, page 613)
+    * Support `openmp`: require install `libcpptraj` with `openmp` flag
+    * Memory: this calculation will make a copy of `traj`, it's better to use
+        TrajectoryIterator
+    * Command from cpptraj
+        [<name>] [<mask>] [out <filename>]
+        [dme | nofit | srmsd] [mass]
+    * See full details
+        from pytraj import info
+        info("rms2d")
     """
     from pytraj.analyses import Analysis_Rms2d
+    if 'dtype' in kwd.keys():
+        dtype = kwd['dtype']
+        del kwd['dtype']
+    else:
+        dtype = None
+
     act = Analysis_Rms2d()
 
     dslist = DataSetList()
@@ -355,7 +626,39 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
     act(command, _top, dslist=dslist, *args, **kwd)
     # remove dataset coords to free memory
     dslist.remove_set(dslist[0])
-    return dslist
+
+    return _get_data_from_dtype(dslist, dtype)
+
+def calc_density(traj=None, command="", top=None, *args, **kwd):
+    # NOTE: trick cpptraj to write to file first and the reload
+    if 'dtype' in kwd.keys():
+        dtype = kwd['dtype']
+        del kwd['dtype']
+    else:
+        dtype = None
+    
+    with goto_temp_folder():
+        def _calc_density(traj, command, *args, **kwd):
+            # TODO: update this method if cpptraj save data to DataSetList
+            from pytraj.actions.Action_Density import Action_Density
+        
+            _top = _get_top(traj, top)
+            dflist = DataFileList()
+        
+            tmp_filename = "tmp_pytraj_out.txt"
+            command = "out " + tmp_filename + " " + command
+            act = Action_Density()
+            #with goto_temp_folder():
+            act(command, traj, top=_top, dflist=dflist)
+            act.print_output()
+            dflist.write_all_datafiles()
+            absolute_path_tmp = os.path.abspath(tmp_filename)
+            return absolute_path_tmp
+
+        dslist = DataSetList()
+        fname = _calc_density(traj, command, *args, **kwd)
+        dslist.read_data(fname)
+        return _get_data_from_dtype(dslist, dtype)
 
 def calc_temperatures(traj=None, command="", top=None):
     """return 1D python array of temperatures (from velocity) in traj
@@ -368,7 +671,9 @@ def calc_temperatures(traj=None, command="", top=None):
     dslist = calculate('temperature', traj, command, _top)
     return pyarray('d', dslist[0].tolist())
 
-def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
+def calc_rmsd(traj=None, command="", ref=None, mass=False, 
+              fit=True, top=None, dtype='pyarray',
+              mode='cpptraj'):
     """calculate rmsd
 
     Parameters
@@ -383,7 +688,12 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
         use mass or not
     fit : bool, default=True
         fit or no fit
-
+    dtype : data type, default='pyarray'
+    mode : str {'pytraj', 'cpptraj'}
+        if 'pytraj' a bit slower but original coords are not updated
+            mask (command) can be string mask for atom index array
+        if 'cpptraj': faster and coords for frame/traj are updated (rmsfit)
+            only string mask for mask (command)
     Examples
     --------
         calc_rmsd(traj, ":3-18@CA", ref=traj[0], mass=True, fit=True)
@@ -393,6 +703,9 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
         calc_rmsd(traj, ":3-18@CA", 'Tc5b.nat.crd') # ref: from file
 
     """
+    from array import array as pyarray
+    from pytraj.datasets import DataSet_double
+
     _top = _get_top(traj, top)
     if ref is None or ref == 'first':
         # set ref to 1st frame
@@ -404,33 +717,63 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False, fit=True, top=None):
         from .trajs.Trajin_Single import Trajin_Single
         ref = Trajin_Single(ref, _top)[0]
 
-    arr = array('d')
-
-    # creat AtomMask object
-    if isinstance(command, string_types):
-        atm = _top(command) 
-    elif isinstance(command, AtomMask):
-        atm = command
-    elif is_array(command) or isinstance(command, (list, tuple)):
-        atm = AtomMask()
-        atm.add_selected_indices(command)
-    else:
-        atm = AtomMask()
-
-    if mass:
-        ref.set_frame_m(_top)
-    _ref = Frame(ref, atm)
-    for frame in traj:
-        if mass:
-            # TODO : just need to set mass once
-            frame.set_frame_m(_top)
-        if fit:
-            _rmsd = frame.rmsd(ref, atommask=atm, use_mass=mass)
+    if mode == 'pytraj':
+        arr = array('d')
+        # creat AtomMask object
+        if isinstance(command, string_types):
+            atm = _top(command) 
+        elif isinstance(command, AtomMask):
+            atm = command
+        elif is_array(command) or isinstance(command, (list, tuple)):
+            atm = AtomMask()
+            atm.add_selected_indices(command)
         else:
-            _frame = Frame(frame, atm)
-            _rmsd = _frame.rmsd_nofit(ref, use_mass=mass)
-        arr.append(_rmsd)
-    return arr
+            atm = AtomMask()
+
+        if mass:
+            ref.set_frame_mass(_top)
+        _ref = Frame(ref, atm)
+        for frame in traj:
+            if mass:
+                # TODO : just need to set mass once
+                frame.set_frame_mass(_top)
+            if fit:
+                _rmsd = frame.rmsd(ref, atommask=atm, use_mass=mass)
+            else:
+                _frame = Frame(frame, atm)
+                _rmsd = _frame.rmsd_nofit(_ref, use_mass=mass)
+            arr.append(_rmsd)
+        if dtype == 'pyarray':
+            return arr
+        else:
+            dset = DataSet_double()
+            dset.resize(len(arr))
+            dset.values[:] = arr
+            dset.legend = 'rmsd'
+            return _get_data_from_dtype(dset, dtype=dtype)
+
+    elif mode == 'cpptraj':
+        if not isinstance(command, string_types):
+            raise ValueError("only support string mask/command in mode=cpptraj")
+        from pytraj.actions.Action_Rmsd import Action_Rmsd
+        act = Action_Rmsd()
+        dslist = DataSetList()
+        act(command, [ref, traj], top=_top, dslist=dslist)
+
+        if dtype == 'pyarray':
+            return pyarray('d', dslist[0].data)[1:]
+        else:
+            dset = DataSet_double()
+            dset.resize(dslist[0].size - 1)
+            dset.values[:] = pyarray('d', dslist[0].data[1:])
+            dset.legend = 'rmsd'
+            return _get_data_from_dtype(dset, dtype=dtype)
+    else:
+        raise ValueError("mode = `pytraj` or `cpptraj`")
+
+
+# alias for `calc_rmsd`
+rmsd = calc_rmsd
 
 def align_principal_axis(traj=None, command="*", top=None):
     # TODO : does not match with cpptraj output
@@ -438,7 +781,7 @@ def align_principal_axis(traj=None, command="*", top=None):
     """
     Notes
     -----
-    apply for mutatble traj (FrameArray, Frame)
+    apply for mutatble traj (Trajectory, Frame)
     """
     act = adict['principal']
     command += " dorotation"
@@ -446,8 +789,9 @@ def align_principal_axis(traj=None, command="*", top=None):
 
 def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
     from .actions.Action_Closest import Action_Closest
+    from pytraj.Trajectory import Trajectory
     act = Action_Closest()
-    fa = FrameArray()
+    fa = Trajectory()
 
     _top = _get_top(traj, top)
     new_top = Topology()
@@ -460,5 +804,46 @@ def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
         new_frame = Frame()
         new_frame.py_free_mem = False # cpptraj will do
         act.do_action(frame, new_frame)
-        fa.append(new_frame, copy=True)
+        fa.append(new_frame.copy())
     return fa
+
+def native_contacts(traj=None, command="", top=None, dtype='dataset',
+                    ref=None,
+                    *args, **kwd):
+    """
+    Notes
+    ----
+    if `ref` is not None: first number in result corresponds to reference
+    """
+    from .actions.Action_NativeContacts import Action_NativeContacts
+    act = Action_NativeContacts()
+    dslist = DataSetList()
+
+    _top = _get_top(traj, top)
+    if ref is not None:
+        act(command, [ref, traj], top=_top, dslist=dslist, *args, **kwd)
+    else:
+        act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+def nastruct(traj=None, command="", top=None, dtype='dataset',
+                    *args, **kwd):
+    """
+    Examples
+    --------
+        dslist = nastruct(traj)
+        dslist.groupby("major", mode='aspect') # information for major groove
+        print (dslist.get_aspect())
+
+    See Also
+    --------
+        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf page 580)
+    """
+    # TODO: doc, rename method, move to seperate module?
+    from .actions.Action_NAstruct import Action_NAstruct
+    act = Action_NAstruct()
+    dslist = DataSetList()
+
+    _top = _get_top(traj, top)
+    act(command, traj, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype=dtype)

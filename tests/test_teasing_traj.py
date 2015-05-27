@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 from pytraj.base import *
 
-ts = TrajReadOnly()
+ts = TrajectoryIterator()
 ts.top = Topology("./data/Tc5b.top")
 mdx = "./data/md1_prod.Tc5b.x"
 ts.load(mdx)

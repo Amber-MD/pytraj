@@ -1,23 +1,41 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
+from cpython.array cimport array
 
 # python level
 from pytraj.datasets.cast_dataset import cast_dataset
-from pytraj.utils.check_and_assert import _import
+from pytraj.utils.check_and_assert import _import, is_array
+from pytraj.utils.check_and_assert import _import_numpy, _import_pandas
+from pytraj.utils.check_and_assert import is_word_in_class_name
 from collections import defaultdict
 from pytraj._utils cimport get_positive_idx
 from pytraj.externals.six import string_types
-from pytraj.six_2 import set
+from pytraj.compat import set
 from pytraj.utils import is_int
 from pytraj.exceptions import *
+from pytraj.DataFile import DataFile
+from pytraj.ArgList import ArgList
 
 # can not import cpptraj_dict here
 # if doing this, we introduce circle-import since cpptraj_dict already imported
 # DataSet
 from pytraj.cpptraj_dict import DataTypeDict
 
+__all__ = ['DataSetList']
+
+_, np = _import_numpy()
+
 cdef class DataSetList:
+    """
+    DataSetList holds data from cpptraj
+
+    Notes
+    -----
+    Methods require pandas:
+        * describe
+        * to_dataframe
+    """
     def __cinit__(self, py_free_mem=True):
         # py_free_mem is a flag to tell pytraj should free memory or let 
         # cpptraj does
@@ -28,6 +46,28 @@ cdef class DataSetList:
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
+
+    def __str__(self):
+        has_pd, _ = _import_pandas()
+        safe_msg = "<pytraj.DataSetList with %s datasets>" % self.size
+        if not has_pd:
+            msg = "<pytraj.DataSetList with %s datasets> (install pandas for pretty print)" % self.size
+            return msg
+        else:
+            try:
+                df = self.to_dataframe()
+                return df.__str__()
+            except:
+                return safe_msg
+
+    def __repr__(self):
+        return self.__str__()
+
+    def copy(self):
+        cdef DataSetList dnew = DataSetList()
+        for d in self:
+            dnew._add_copy_of_set(d)
+        return dnew
 
     def __call__(self, *args, **kwd):
         return self.groupby(*args, **kwd)
@@ -84,7 +124,9 @@ cdef class DataSetList:
         Should we use a copy instead?
         """
         cdef DataSet dset = DataSet()
-        cdef int _idx
+        cdef DataSetList new_dslist
+        cdef int start, stop, step
+        cdef object _idx # _idx can be 'int' or 'string'
 
         if self.size == 0:
             raise ValueError("size = 0: can not index")
@@ -99,6 +141,32 @@ cdef class DataSetList:
              for d0 in self:
                  if d0.legend.upper() == idx.upper():
                      return d0
+        elif isinstance(idx, slice):
+            # return new view of `self`
+            start, stop, step = idx.indices(self.size)
+            new_dslist = DataSetList()
+            new_dslist.py_free_mem = False # view
+            for _idx in range(start, stop, step):
+                new_dslist.add_existing_set(self[_idx])
+            return new_dslist
+        elif is_array(idx) or isinstance(idx, list):
+            new_dslist = DataSetList()
+            new_dslist.py_free_mem = False # view
+            for _idx in idx: 
+                new_dslist.add_existing_set(self[_idx])
+            return new_dslist
+        else:
+            raise ValueError()
+
+    def __setitem__(self, idx, value):
+        """data copy
+
+        dslist[0] += 1.
+        """
+        if hasattr(value, '_npdata'):
+            self[idx]._npdata[:] = value._npdata[:]
+        else:
+            self[idx]._npdata[:] = value
 
     def set_ensemble_num(self,int i):
         self.thisptr.SetEnsembleNum(i)
@@ -114,10 +182,6 @@ cdef class DataSetList:
         # return a view of dataset
         dset.baseptr0 = self.thisptr.GetReferenceFrame(name.encode())
         return dset
-
-    def get_set(self, string dsname, int idx, string attr_arg):
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.GetSet(dsname, idx, attr_arg)
 
     def get_dataset(self, idx=None, name=None, dtype=None):
         """
@@ -259,6 +323,11 @@ cdef class DataSetList:
     def keys(self):
         return self.get_legends()
 
+    def iteritems(self):
+        from pytraj.compat import zip
+        for key in self.keys():
+            yield key, self[key]
+
     def groupby(self, key, mode='legend'):
         """"return a new DataSetList object as a view of `self`
 
@@ -269,12 +338,16 @@ cdef class DataSetList:
         mode: str, default='legend'
             mode = 'legend' | 'name' | 'dtype' | 'aspect'
         """
+        import re
+        cdef DataSetList dtmp
+
         dtmp = DataSetList()
 
         # dont free mem here
         dtmp.py_free_mem = False
         for d0 in self:
-            if key in getattr(d0, mode):
+            att = getattr(d0, mode)
+            if re.search(key, att):
                 dtmp.add_existing_set(d0)
         return dtmp
 
@@ -285,12 +358,25 @@ cdef class DataSetList:
         except:
             raise PytrajConvertError("dont know how to convert to list")
 
-    def to_dict(self):
+    def to_dict(self, use_numpy=False):
         """return a dict object with key=legend, value=list"""
         try:
-            return dict((d0.legend, d0.tolist()) for d0 in self)
+            if use_numpy:
+                return dict((d0.legend, d0.to_ndarray()) for d0 in self)
+            else:
+                return dict((d0.legend, d0.tolist()) for d0 in self)
         except:
             raise PytrajConvertError("don't know tho to convert to dict")
+
+    @property
+    def values(self):
+        """return read-only ndarray"""
+        from pytraj._xyz import XYZ
+        # read-only
+        try:
+            return XYZ(self.to_ndarray())
+        except:
+            raise ValueError("don't know how to cast to numpy array")
 
     def to_ndarray(self):
         has_np, np = _import("numpy")
@@ -313,7 +399,7 @@ cdef class DataSetList:
         --------
         pandas
         """
-        _, pandas = _import("pandas")
+        _, pandas = _import_pandas()
         my_dict = dict((d0.legend, d0.to_ndarray()) for d0 in self)
         return pandas.DataFrame(my_dict)
 
@@ -335,3 +421,61 @@ cdef class DataSetList:
             dset.baseptr0 = deref(it)
             yield dset
             incr(it)
+
+    def apply(self, func):
+        for d in self:
+            arr = np.asarray(d.data)
+            arr[:] = func(arr)
+
+    def data(self):
+        """"""
+        raise NotImplementedError("Not yet")
+
+    def mean(self, axis=1):
+        return self.to_ndarray().mean(axis=axis)
+
+    def median(self, axis=1):
+        return np.median(self.to_ndarray(), axis=axis)
+
+    def std(self, axis=1):
+        return np.std(self.to_ndarray(), axis=axis)
+
+    def min(self):
+        arr = array('d', [])
+        for d in self:
+            arr.append(d.min())
+        return arr
+
+    def max(self):
+        arr = array('d', [])
+        for d in self:
+            arr.append(d.max())
+        return arr
+
+    def sum(self, legend=None, axis=1):
+        _, np = _import_numpy()
+        if not legend:
+            return np.sum(self.to_ndarray(), axis=axis)
+        else:
+            return self.groupby(legend).sum(axis=axis)
+
+    def cumsum(self, axis=1):
+        """Return the cumulative sum of the elements along a given axis.
+        (from numpy doc)
+        """
+        return np.cumsum(self.to_ndarray(), axis=axis)
+
+    def count(self, number=None):
+        return dict((d0.legend, d0.count(number)) for d0 in self)
+
+    def read_data(self, filename, arg=""):
+        df = DataFile()
+        df.read_data(filename, ArgList(arg), self)
+
+    # pandas related
+    def describe(self):
+        _, pd = _import_pandas()
+        if not pd:
+            raise ImportError("require pandas")
+        else:
+            return self.to_dataframe().describe()

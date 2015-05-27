@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     #@no_test
     def test_0(self):
         dslist = DataSetList()
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         calc_distance = adict['distance']
 
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
         print (dslist[0].size)
 
     def test_1(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         i = 0
         for farray in traj.chunk_iter(chunk=4, stop=8):
             print (farray)
@@ -62,6 +62,10 @@ class Test(unittest.TestCase):
             print (i)
         assert i == 2
         print ("n-chunk = ", i)
+
+        # action on chunk_iter
+        import pytraj.common_actions as pyca
+        pyca.calc_distance([traj.chunk_iter(), traj.chunk_iter(), traj[0]], '@CA @CB', top=traj.top)
 
 if __name__ == "__main__":
     unittest.main()

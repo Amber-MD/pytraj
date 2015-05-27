@@ -20,7 +20,12 @@ cdef class Box:
                 rhs = args[0]
                 self.thisptr = new _Box(rhs.thisptr[0])
             else:
-                boxIn = args[0]
+                try:
+                    # if args[0] has buffer interface
+                    boxIn = args[0]
+                except:
+                    # try to create pyarray
+                    boxIn = pyarray('d', [item for item in args[0]])
                 self.thisptr = new _Box(&boxIn[0])
         else: 
             raise ValueError("")
@@ -81,8 +86,11 @@ cdef class Box:
     def set_missing_info(self, Box boxinst):
         self.thisptr.SetMissingInfo(boxinst.thisptr[0])
 
-    def to_recip(self,Matrix_3x3 ucell, Matrix_3x3 recip):
-        return self.thisptr.ToRecip(ucell.thisptr[0], recip.thisptr[0])
+    def to_recip(self):
+        cdef Matrix_3x3 ucell = Matrix_3x3()
+        cdef Matrix_3x3 recip = Matrix_3x3()
+        self.thisptr.ToRecip(ucell.thisptr[0], recip.thisptr[0])
+        return ucell, recip
 
     @property
     def type(self):

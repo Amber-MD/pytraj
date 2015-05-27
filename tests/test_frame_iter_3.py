@@ -6,7 +6,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         for i, frame in enumerate(traj.frame_iter(1, 5, 2)):
             pass
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
         assert i == 1
 
     def test_1(self):
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['distance']
         dslist = DataSetList()
         #d0 = act(":2@CA :10@CA", (traj.frame_iter(stop=5),), traj.top, quick_get=True)

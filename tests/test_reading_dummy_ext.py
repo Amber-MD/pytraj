@@ -8,9 +8,9 @@ from pytraj.decorators import no_test, test_if_having
 
 class Test(unittest.TestCase):
     def test_0(self):
-        from pytraj.six_2 import izip as zip
-        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        traj2 = mdio.load("./data/md.crazy_ext", "./data/Tc5b.top")
+        from pytraj.compat import izip as zip
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj2 = mdio.iterload("./data/md.crazy_ext", "./data/Tc5b.top")
 
 
         for idx, (f0, f1)  in enumerate(zip(traj, traj2)):

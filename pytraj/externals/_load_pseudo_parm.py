@@ -2,7 +2,7 @@
 """
 from __future__ import absolute_import
 from pytraj.utils import has_, _import_numpy
-from pytraj.FrameArray import FrameArray
+from pytraj.Trajectory import Trajectory
 from pytraj.Topology import Topology
 from pytraj.core.Atom import Atom
 from pytraj.Frame import Frame
@@ -20,7 +20,7 @@ def load_pseudo_parm(parm):
         or Universe object (MDAnalysis)
     """
     from pytraj.core import Box
-    farray = FrameArray()
+    farray = Trajectory()
 
     # convert to pseudo-topology
     # to fully use Topology object in pytraj, we can do:
@@ -39,22 +39,29 @@ def load_pseudo_parm(parm):
     for chain in chains:
         pseudotop.start_new_mol()
         for atom in chain.atoms:
+            # NOTE: need to convert to string for some Topology (PSF, ...)
             res = atom.residue
-            aname = atom.name
-            resname = res.name
+            aname = str(atom.name)
+            resname = str(res.name)
 
             if is_mdtraj(parm):
-                atype = atom.name # mdtraj
+                atype = str(atom.name) # mdtraj
                 resid = res.index
+                mass = atom.element.mass
+                #charge = atom.element.charge
+                charge = 0.0
             elif is_mdanalysis(parm):
                 # in MDAnalysis, atom.type is `int`
                 atype = str(atom.type) 
                 resid = atom.resid
+                charge = atom.charge
+                mass = atom.mass
             else:
-                atype = atom.type # parmed
+                atype = str(atom.type) # parmed
                 resid = res.idx
-            atom = Atom(aname, atype)
-            # TODO : add mass too
+                charge = atom.charge
+                mass = atom.mass
+            atom = Atom(aname, atype, charge, mass)
             pseudotop.add_atom(atom=atom, resid=resid, resname=resname)
 
     if is_mdtraj(parm):
@@ -63,10 +70,26 @@ def load_pseudo_parm(parm):
         # load Box in _load_mdtraj since Box is stored in traj
     elif is_mdanalysis(parm):
         # turn-off. need to check MDAnalysis
-        pseudotop.add_bonds(np.asarray(parm.universe.bonds.to_indices()))
-        pseudotop.add_angles(np.asarray(parm.universe.angles.to_indices()))
-        pseudotop.add_dihedrals(np.asarray(parm.universe.torsions.to_indices()))
-        pseudotop.box = Box(parm.dimensions.astype(np.float64))
+        # ack, lots of try and except
+        try:
+            pseudotop.add_bonds(np.asarray(parm.universe.bonds.to_indices()))
+        except:
+            pass
+
+        try:
+            pseudotop.add_angles(np.asarray(parm.universe.angles.to_indices()))
+        except:
+            pass
+
+        try:
+            pseudotop.add_dihedrals(np.asarray(parm.universe.torsions.to_indices()))
+        except:
+            pass
+
+        try:
+            pseudotop.box = Box(parm.dimensions.astype(np.float64))
+        except:
+            pass
     else:
         # TODO : add bonds, dihedrals, angles for ParmEd
         # parmed

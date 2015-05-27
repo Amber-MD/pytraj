@@ -5,6 +5,7 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from libcpp.string cimport string
 from cpython.array cimport array as pyarray
+from cpython cimport array as pyarray_master
 from pytraj._set_silent import set_world_silent # turn on and off cpptraj's stdout
 #from pytraj.TopologyList cimport TopologyList
 
@@ -13,7 +14,9 @@ from pytraj.utils.check_and_assert import _import_numpy
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.parms._ParmFile import TMPParmFile
 from pytraj.externals.six import PY3, PY2, string_types, binary_type
-from pytraj.six_2 import set
+from pytraj.compat import set
+
+__all__ = ['Topology']
 
 cdef class Topology:
     def __cinit__(self, *args):
@@ -222,6 +225,11 @@ cdef class Topology:
             yield mol
             incr(it)
 
+    def _get_residue(self, int idx):
+        cdef Residue res = Residue()
+        res.thisptr[0] = self.thisptr.Res(idx)
+        return res
+
     def _set_parm_name(self, string title, FileName filename):
         self.thisptr.SetParmName(title, filename.thisptr[0])
 
@@ -356,6 +364,12 @@ cdef class Topology:
         self.thisptr.SetIpol(id)
 
     @property
+    def filename(self):
+        # I want to keep _original_filename so don't need to
+        # change other codes
+        return self._original_filename
+
+    @property
     def _original_filename(self):
         cdef FileName filename = FileName()
         filename.thisptr[0] = self.thisptr.OriginalFilename()
@@ -412,12 +426,6 @@ cdef class Topology:
         else:
             return self.thisptr.SetupIntegerMask(atm.thisptr[0], frame.thisptr[0])
 
-    def _set_char_mask(self, AtomMask atm, Frame frame=Frame()):
-        if frame.is_empty():
-            return self.thisptr.SetupCharMask(atm.thisptr[0])
-        else:
-            return self.thisptr.SetupCharMask(atm.thisptr[0], frame.thisptr[0])
-
     def _scale_dihedral_k(self, double value):
         self.thisptr.ScaleDihedralK(value)
 
@@ -426,8 +434,14 @@ cdef class Topology:
             cdef Box box = Box()
             box.thisptr[0] = self.thisptr.ParmBox()
             return box
-        def __set__(self, Box boxin):
-            self.thisptr.SetParmBox(boxin.thisptr[0])
+        def __set__(self, box_or_array):
+            cdef Box _box
+            if  isinstance(box_or_array, Box):
+                _box = box_or_array
+            else:
+                # try to create box
+                _box = Box(box_or_array)
+            self.thisptr.SetParmBox(_box.thisptr[0])
 
     def has_box(self):
         return self.box.has_box()
@@ -448,20 +462,21 @@ cdef class Topology:
         return top
 
     def strip_atoms(Topology self, mask, copy=False):
-        # TODO : shorter way?
         """strip atoms with given mask"""
-        cdef AtomMask atm = AtomMask()
-        cdef Topology tmptop = Topology()
-        mask = mask.encode()
+        cdef AtomMask atm
+        cdef Topology new_top
 
-        atm.thisptr.SetMaskString(mask)
-        atm.thisptr.InvertMask()
-        self.thisptr.SetupIntegerMask(atm.thisptr[0])
-        tmptop.thisptr = self.thisptr.modifyStateByMask(atm.thisptr[0])
+        atm = AtomMask(mask)
+        self.set_integer_mask(atm)
+        if atm.n_atoms == 0:
+            raise ValueError("number of stripped atoms must be > 1")
+        atm.invert_mask()
+        new_top = self._modify_state_by_mask(atm)
+
         if copy:
-            return tmptop
+            return new_top
         else:
-            self.thisptr[0] = tmptop.thisptr[0]
+            self.thisptr[0] = new_top.thisptr[0]
 
     def is_empty(self):
         s = self.file_path()
@@ -483,8 +498,7 @@ cdef class Topology:
         """
         cdef AtomMask atm = AtomMask(mask)
         self.set_integer_mask(atm)
-        has_numpy, np = _import_numpy()
-        return atm.selected_indices()
+        return atm.indices
 
     @property
     def atom_names(self):
@@ -670,3 +684,44 @@ cdef class Topology:
     def _dihedrals_ndarray(self):
         _, np = _import_numpy()
         return np.asarray([b for b in self.dihedral_indices], dtype=np.int64)
+
+    def vdw_radii(self):
+        cdef int n_atoms = self.n_atoms
+        cdef int i
+        cdef pyarray arr = pyarray_master.clone(pyarray('d', []), 
+                           n_atoms, zero=True)
+        cdef double[:] d_view = arr
+
+        for i in range(n_atoms):
+            d_view[i] = self.thisptr.GetVDWradius(i)
+        return arr
+
+    def to_dataframe(self):
+        cdef:
+            int n_atoms = self.n_atoms
+            int idx
+            Atom atom
+
+        from pytraj.utils import _import_pandas
+        _, pd = _import_pandas()
+        if pd:
+            _, np = _import_numpy()
+            labels = ['resnum', 'resname', 'atomname', 'atomic_number', 'mass']
+            mass_arr = np.array(self.mass)
+            resnum_arr = np.empty(n_atoms, dtype='i')
+            resname_arr = np.empty(n_atoms, dtype='U4')
+            atomname_arr= np.empty(n_atoms, 'U4')
+            atomicnumber_arr = np.empty(n_atoms, dtype='i4')
+
+            for idx, atom in enumerate(self.atoms):
+                # TODO: make faster?
+                resnum_arr[idx] = atom.resnum
+                resname_arr[idx] = self._get_residue(atom.resnum).name
+                atomname_arr[idx] = atom.name
+                atomicnumber_arr[idx] = atom.atomic_number
+
+            arr = np.vstack((resnum_arr, resname_arr, atomname_arr, 
+                             atomicnumber_arr, mass_arr)).T
+            return pd.DataFrame(arr, columns=labels)
+        else:
+            raise ValueError("must have pandas")
