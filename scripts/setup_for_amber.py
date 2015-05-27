@@ -17,10 +17,10 @@ from time import sleep
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-pytraj_version = read("pytraj/__version__.py").split("=")[-1]
-pytraj_version = pytraj_version.replace('"', '', 10)
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
+pytraj_version = read(os.path.join(pytraj_home, "__version__.py")).split("=")[-1]
+pytraj_version = pytraj_version.replace('"', '', 10)
 
 # check/install Cython
 cmdclass = {}
