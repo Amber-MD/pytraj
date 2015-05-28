@@ -30,6 +30,7 @@ from .hbonds import search_hbonds, search_nointramol_hbonds
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
 from .utils.context import goto_temp_folder
+from . import _long_manual
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
@@ -46,6 +47,7 @@ list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'cal
                'calc_center_of_geometry',
                'calc_pairwise_rmsd',
                'calc_density',
+               'calc_grid',
                'calc_temperatures',
                'calc_linear_interaction_energy',]
 
@@ -848,3 +850,26 @@ def nastruct(traj=None, command="", top=None, dtype='dataset',
     _top = _get_top(traj, top)
     act(command, traj, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
+
+def calc_grid(traj=None, command="", top=None, dtype='dataset',
+                    *args, **kwd):
+    """
+    Examples
+    --------
+        dslist = calc_grid(traj)
+    See Also
+    --------
+        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf)
+    """
+    # TODO: doc, rename method, move to seperate module?
+    from .actions.Action_Grid import Action_Grid
+    act = Action_Grid()
+    dslist = DataSetList()
+
+    # cpptraj require output
+    command = "tmp_pytraj_grid_output.txt " + command
+    _top = _get_top(traj, top)
+    act(command, traj, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+calc_grid.__doc__ = _long_manual.__grid__
