@@ -246,10 +246,10 @@ def build_func(my_ext):
 
 def remind_ld_lib_path(build_tag):
     if build_tag:
-        from scripts.acsii_art import batman
+        #from scripts.acsii_art import batman
         print ("")
         print ("")
-        print (batman)
+        #print (batman)
         print ("make sure to add %s to your LD_LIBRARY_PATH" % libdir)
         print ("")
     else:
