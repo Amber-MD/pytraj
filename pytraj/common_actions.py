@@ -75,6 +75,7 @@ calc_LIE = calc_linear_interaction_energy
 calc_rdf = partial(calculate, 'radial', print_output=True)
 calc_protein_score = calc_score
 calc_energies = get_pysander_energies
+energy_decomposition = get_pysander_energies
 
 action_type = calculate
 do_translation = partial(action_type, 'translate')
