@@ -1,21 +1,14 @@
 from __future__ import absolute_import
 
-#from .. Trajectory cimport Trajectory
-#from .. Frame cimport _Frame, Frame
 from .. utils.check_and_assert import is_int
 from .. Trajectory import Trajectory
 from .. Frame import Frame
 from .. externals import load_pseudo_parm
 from .. _shared_methods import my_str_method
 from .. _action_in_traj import ActionInTraj
+from . TrajectoryBaseIterator import TrajectoryBaseIterator
 
-# TODO: should have Base class for all external packages (mdtraj, MDAnalysis, ...)
-#cdef class TrajectoryMDAnalysisIterator(object):
-class TrajectoryMDAnalysisIterator(ActionInTraj):
-    #cdef object _traj_holder
-    #cdef public Topology top
-
-    #def __cinit__(self, mdanalysis_object, top=None):
+class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionInTraj):
     def __init__(self, mdanalysis_object, top=None):
         self._ext_holder = mdanalysis_object
         self._traj_holder = mdanalysis_object.trajectory
