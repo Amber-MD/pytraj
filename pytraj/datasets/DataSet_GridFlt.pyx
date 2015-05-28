@@ -15,6 +15,18 @@ cdef class DataSet_GridFlt(DataSet_3D):
         if self.py_free_mem:
             del self.thisptr
 
+    def __str__(self):
+        _, np = _import_numpy()
+        basic_str = super(DataSet_3D, self).__str__() + "\n"
+        if np:
+            try:
+                my_str = basic_str + "values: " + self.values.__str__()
+            except:
+                my_str = basic_str
+        else:
+            my_str = basic_str + "(install numpy for pretty print)"
+        return my_str
+
     def __getitem__(self, idx):
         cdef size_t x, y, z
         x, y, z = idx
