@@ -297,11 +297,6 @@ cdef class DataSet:
         else:
             raise ImportError("require numpy")
 
-    @require_having("matplotlib")
-    def plot(self):
-        """return matplotlib object"""
-        raise NotImplementedError()
-
     def hist(self, bins=100, normed=True, range=None):
         from pytraj.utils import _import_numpy
 
