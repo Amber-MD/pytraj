@@ -3,7 +3,6 @@ import numpy as np
 import unittest
 from pytraj.base import *
 from pytraj import io as mdio
-from pytraj.AtomSelect import AtomSelect
 from pytraj.decorators import no_test
 
 def main():
@@ -18,12 +17,6 @@ def main():
     atm = AtomMask("@CA")
     top.set_integer_mask(atm)
     print(frame[atm])
-
-    # using AtomSelect
-    asl = AtomSelect()
-    asl.top = traj.top
-    asl.selected_frame = frame
-    print(asl.select("@CA"))
 
     # timing
     # TODO : not reproduce cpptraj output

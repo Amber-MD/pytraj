@@ -1,6 +1,5 @@
 import unittest
 from array import array
-from pytraj.AtomSelect import AtomSelect
 from pytraj.base import *
 from pytraj import io as mdio
 from numpy.testing import assert_almost_equal
