@@ -19,7 +19,7 @@ cdef class DataFileList:
         dfile.thisptr[0] = deref(self.thisptr.RemoveDataFile(dfIn.thisptr))
         return dfile
 
-    def remove_data_set(self,DataSet dsIn):
+    def remove_dataset(self,DataSet dsIn):
         self.thisptr.RemoveDataSet(dsIn.baseptr0)
         
     def get_datafile(self, datafilename):
@@ -51,7 +51,9 @@ cdef class DataFileList:
 
     def add_dataset(self, datafilename, DataSet dsetIn):
         cdef DataFile dfile = DataFile()
-        dfile.thisptr[0] = deref(self.thisptr.AddSetToFile(datafilename, dsetIn.baseptr0))
+        datafilename = datafilename.encode()
+        dfile.thisptr = self.thisptr.AddSetToFile(datafilename, dsetIn.baseptr0)
+        dfile.py_free_mem = False
         return dfile
 
     def info(self):
