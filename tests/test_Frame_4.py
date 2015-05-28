@@ -36,12 +36,13 @@ class Test(unittest.TestCase):
         arr0_0 = frame0[atm]
 
         # test AtomSelect
-        asl = AtomSelect(top=traj.top)
-        asl.selected_frame = traj[9]
-        arr0_1 = asl.select("@CA")
+        # turn off since we don't use this class anymore
+        #asl = AtomSelect(top=traj.top)
+        #asl.selected_frame = traj[9]
+        #arr0_1 = asl.select("@CA")
 
         npassert = np.testing.assert_almost_equal
-        npassert(arr0_0, arr0_1, decimal=5)
+        #npassert(arr0_0, arr0_1, decimal=5)
 
         # test dict
         arr0_2 = frame0[dict(top=traj.top, mask='@CA')]

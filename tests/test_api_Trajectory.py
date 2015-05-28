@@ -18,6 +18,8 @@ class Test(unittest.TestCase):
         # test xyz
         aa_eq(api_traj.xyz, traj.xyz)
 
+        # test object lifetime
+        aa_eq(api_traj[0].xyz, api_traj.xyz[0])
 
         # test Box
         assert (api_traj.has_box() == True)

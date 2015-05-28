@@ -6,15 +6,6 @@ from pytraj.compat import range
 
 __all__ = ['get_pysander_energies']
 
-# a copy from `pytraj.testing`
-def make_random_frame(n_atoms=10000):
-    import numpy as np
-    from pytraj import Frame
-
-    frame = Frame(n_atoms)
-    frame.xyz[:] = np.random.randn(n_atoms, 3)
-    return frame
-
 def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_options=None, 
                           mode=None, top=None, dtype='dict'):
     # TODO: change method's name?
