@@ -77,6 +77,15 @@ cdef class Topology:
     def __len__(self):
         return self.n_atoms
 
+    def __add__(self, Topology other):
+        new_top = self.copy()
+        new_top.join(other)
+        return new_top
+
+    def __iadd__(self, Topology other):
+        self.join(other)
+        return self
+
     def load(self, string filename):
         """loading Topology from filename
 
@@ -127,6 +136,7 @@ cdef class Topology:
 
         cdef Atom atom 
         cdef AtomMask atm
+        cdef Residue res
         cdef int i
         cdef list alist = []
 
@@ -151,6 +161,11 @@ cdef class Topology:
             # does not have memory efficiency with large Topology
             # (since we convert to atom list first)
             alist = self.atomlist[idx]
+        elif isinstance(idx, Residue):
+            res = idx
+            return self[res.first_atom_idx : res.last_atom_idx]
+        else:
+            raise NotImplementedError("")
         if len(alist) == 1:
             return alist[0]
         else:

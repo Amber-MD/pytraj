@@ -15,6 +15,7 @@ class Test(unittest.TestCase):
         traj.rmsfit_to(mask=':1-13')
         d = pyca.calc_grid(traj, " 20 0.5 20 0.5 20 0.5 :WAT@O")
         d[0].save("./output/test_grid.dx")
+        print (d[0])
 
 if __name__ == "__main__":
     unittest.main()
