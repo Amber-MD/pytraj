@@ -17,6 +17,7 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
         self._filename = filename
         self._fh = None
         self._box_arr = None
+        self._has_box = False
 
         if self._filename is not None:
             self.load(filename, top)
@@ -93,7 +94,12 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
         except:
             has_box = False
 
-        crd = fh['coordinates'].value.astype('f8')
+        if 'xyz' in fh:
+            crd_key = 'xyz'
+        elif 'coordinates' in fh:
+            crd_key = 'coordinates'
+
+        crd = fh[crd_key].value.astype('f8')
         n_frames, n_atoms, _ = crd.shape
         self._n_frames = n_frames
         self._n_atoms = n_atoms
@@ -103,7 +109,7 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
         # create Topology
         if top is not None:
             _top = top
-        else:
+        elif 'topology' in fh:
             top_txt = fh['topology']
             h5_topology = json.loads(top_txt.value.tostring().decode())
             _top = Topology()
@@ -140,5 +146,7 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
                 self._has_box = True
             else:
                 self._has_box= False
+        else:
+            _top = None
 
         self.top = _top

@@ -19,5 +19,18 @@ class Test(unittest.TestCase):
         for frame in t:
             print (frame)
 
+    @test_if_having("h5py")
+    @test_if_having("mdtraj")
+    def test_0(self):
+        from pytraj.trajs.TrajectoryHDF5Iterator import TrajectoryHDF5Iterator
+        from mdtraj.testing import get_fn
+        namelist = "frame0.h5  frame0.xtc.h5 traj.h5 frame0.dcd.h5 frame0.xtc.h5"
+        for x in namelist.split():
+            print (x)
+            fn = get_fn(x)
+            t = TrajectoryHDF5Iterator(fn)
+            for frame in t:
+                print (frame)
+
 if __name__ == "__main__":
     unittest.main()
