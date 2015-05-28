@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from abc import ABCMeta, abstractmethod
 from pytraj.externals.six import add_metaclass
 
+from .. _xyz import XYZ
 from .. utils.check_and_assert import is_int
 from .. Trajectory import Trajectory
 from .. Frame import Frame
@@ -11,8 +12,9 @@ from .. _shared_methods import my_str_method
 @add_metaclass(ABCMeta)
 class TrajectoryBaseIterator(object):
     @abstractmethod
-    def __init__(self, filename, top=None):
-        pass
+    def __init__(self, filename=None, top=None):
+        self._filename = filename
+        self._xyz = None
 
     def __str__(self):
         return my_str_method(self)
@@ -51,9 +53,8 @@ class TrajectoryBaseIterator(object):
         pass
 
     @property
-    @abstractmethod
     def xyz(self):
-        pass
+        XYZ(self._xyz)
 
     @property
     @abstractmethod

@@ -138,7 +138,7 @@ def _iterload_from_filelist(*args, **kwd):
         raise ValueError()
     return [load_traj(filename, *args_less, **kwd) for filename in mylist]
 
-def load_traj(filename=None, top=Topology(), indices=None):
+def load_traj(filename=None, top=Topology(), indices=None, *args, **kwd):
     """load trajectory from filename
     Parameters
     ----------
