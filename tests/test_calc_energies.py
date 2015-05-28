@@ -39,9 +39,13 @@ class Test(unittest.TestCase):
             edict3 = pyca.energy_decomposition(traj=traj(), input_options=options, parm=topfile, top=traj.top)
             edict4 = pyca.energy_decomposition(traj=[traj[:5], traj[5:]], input_options=options, parm=topfile, top=traj.top)
             edict5 = pyca.energy_decomposition(traj=[traj[:5], traj(start=5)], input_options=options, parm=topfile, top=traj.top)
+            # test dtype
+            dslist = pyca.energy_decomposition(traj=[traj,], input_options=options, 
+                    parm=topfile, top=traj.top, dtype='dataset')
             assert edict == edict2
             assert edict == edict3
             assert edict == edict4
+            assert sorted(dslist.to_dict()) == sorted(edict)
         else:
             print ("has not set AMBERHOME or can not find test folder. skip")
         

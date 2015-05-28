@@ -1,7 +1,7 @@
 from pytraj.utils import has_
 from pytraj.externals.six import string_types
 from pytraj._shared_methods import _frame_iter_master
-from pytraj._get_common_objects import _get_top
+from pytraj._get_common_objects import _get_top, _get_data_from_dtype
 from pytraj.compat import range
 
 __all__ = ['get_pysander_energies']
@@ -15,7 +15,8 @@ def make_random_frame(n_atoms=10000):
     frame.xyz[:] = np.random.randn(n_atoms, 3)
     return frame
 
-def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_options=None, mode=None, top=None):
+def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_options=None, 
+                          mode=None, top=None, dtype='dict'):
     # TODO: change method's name?
     """"
     Parameters
@@ -32,7 +33,7 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
     mode : str, default=None, optional
         if mode='minimal', get only 'bond', 'angle', 'dihedral' and 'total' energies
     top : {Topology, str}, default=None, optional
-        
+    dtype : str, {'dict', 'dataset', 'ndarray', 'dataframe'}, default='dict'
 
     Returns:
     Dict of energies (to be used with DataFrame)
@@ -56,16 +57,16 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         parm = chem.load_file("myfile.prmtop")
         energy_decomposition(traj, parm=parm, igb=5)
     """
-
-    from pytraj.misc import get_atts
+    from array import array as pyarray
     from collections import defaultdict
+    from pytraj.misc import get_atts
     try:
         import sander
         from chemistry.amber.readparm import AmberParm
     except ImportError:
         raise ImportError("need both `pysander` and `chemistry` installed. Check Ambertools15")
 
-    ddict = defaultdict(list, [])
+    ddict = defaultdict(lambda : pyarray('d', []))
     _top = _get_top(traj, top)
 
     if input_options is None:
@@ -109,10 +110,24 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
             for att in ene_atts:
                 ddict[att].append(getattr(ene, att))
 
+    new_dict = None
     if mode == 'minimal':
         new_dict = {}
         for key in ['bond', 'angle', 'dihedral', 'tot']:
             new_dict[key] = ddict[key]
+    else:
+        new_dict = ddict
+
+    if dtype == 'dict':
         return new_dict
     else:
-        return ddict
+        from pytraj import DataSetList
+
+        dslist = DataSetList()
+        size = new_dict['tot'].__len__()
+        for key in new_dict.keys():
+            dslist.add_set('double')
+            dslist[-1].legend = key
+            dslist[-1].resize(size)
+            dslist[-1].data[:] = new_dict[key]
+        return _get_data_from_dtype(dslist, dtype)
