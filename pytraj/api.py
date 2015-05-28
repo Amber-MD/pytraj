@@ -22,6 +22,7 @@ class Trajectory(ActionInTraj):
         self.top = _get_top(filename_or_traj, top)
         self.xyz = None
         self._boxes = None
+        self._life_holder = None
 
         if filename_or_traj is None or filename_or_traj == "":
             self.xyz = None
@@ -87,7 +88,8 @@ class Trajectory(ActionInTraj):
             frame = Frame(self.n_atoms)
             frame[:] = self.xyz[i]
             frame.box = Box(self._boxes[i])
-            yield frame
+            self._life_holder = frame
+            yield self._life_holder
 
     def __getitem__(self, idx):
         """return a copy of Frame object"""
@@ -96,7 +98,7 @@ class Trajectory(ActionInTraj):
             frame = Frame(self.n_atoms)
             frame[:] = arr0
             frame.box = Box(self._boxes[idx])
-            return frame
+            self._life_holder = frame
         else:
             traj = self.__class__()
             atm = None
@@ -114,7 +116,8 @@ class Trajectory(ActionInTraj):
                 arr0 = self.xyz[idx]
             traj.append(arr0)
             traj.update_box(self._boxes[idx])
-            return traj
+            self._life_holder = traj
+        return self._life_holder
 
     def __setitem__(self, idx, other_frame):
         """set Frame"""
