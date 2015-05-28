@@ -77,6 +77,15 @@ cdef class Topology:
     def __len__(self):
         return self.n_atoms
 
+    def __add__(self, Topology other):
+        new_top = self.copy()
+        new_top.join(other)
+        return new_top
+
+    def __iadd__(self, Topology other):
+        self.join(other)
+        return self
+
     def load(self, string filename):
         """loading Topology from filename
 
