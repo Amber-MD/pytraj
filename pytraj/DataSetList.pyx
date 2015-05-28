@@ -479,3 +479,17 @@ cdef class DataSetList:
             raise ImportError("require pandas")
         else:
             return self.to_dataframe().describe()
+
+    def write_all_datafiles(self, filenames=None):
+        from pytraj import DataFileList
+        df = DataFileList()
+
+        for idx, d in enumerate(self):
+            if filenames is None:
+                # make default name
+                d.legend = d.legend.replace(":", "_")
+                fname = "pytraj_datafile_" + d.legend + ".txt"
+            else:
+                fname = filenames[i]
+            df.add_dataset(fname, d)
+        df.write_all_datafiles()
