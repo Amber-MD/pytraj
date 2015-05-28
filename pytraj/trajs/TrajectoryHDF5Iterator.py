@@ -18,6 +18,7 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
         self._fh = None
         self._box_arr = None
         self._has_box = False
+        self._open = False
 
         if self._filename is not None:
             self.load(filename, top)
@@ -37,13 +38,24 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
             yield frame
 
     def __getitem__(self, idx):
-        pass
+        if is_int(idx):
+            frame = Frame(self.n_atoms)
+            frame._fast_copy_from_xyz(self._crd[idx])
+            return frame
+        else:
+            fa = Trajectory(top=self.top)
+            xyz = self._crd[idx]
+            fa._allocate(xyz.shape[0], self.n_atoms)
+            fa.update_xyz(xyz)
+            return fa
 
     def __enter__(self):
         return self
 
     def __exit__(self, *args):
-        self._fh.close()
+        if self._open:
+            self._fh.close()
+        self._open = False
 
     @property
     def n_frames(self):
@@ -85,6 +97,7 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
             raise ImportError("requilre h5py to read HDF5 file")
         fh = h5py.File(filename, mode)
         self._fh = fh
+        self._open = True
 
         try:
             cell_lengths = fh['cell_lengths'].value
@@ -143,10 +156,8 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
             # naively assigne box info from 1st frame
             if has_box:
                 _top.box = Box(box_arr[0])
-                self._has_box = True
-            else:
-                self._has_box= False
         else:
             _top = None
 
+        self._has_box = has_box
         self.top = _top
