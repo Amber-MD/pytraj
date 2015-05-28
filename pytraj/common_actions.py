@@ -30,6 +30,7 @@ from .hbonds import search_hbonds, search_nointramol_hbonds
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
 from .utils.context import goto_temp_folder
+from . import _long_manual
 
 list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
@@ -870,3 +871,5 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset',
     _top = _get_top(traj, top)
     act(command, traj, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
+
+calc_grid.__doc__ = _long_manual.__grid__
