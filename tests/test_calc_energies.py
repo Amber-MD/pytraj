@@ -32,6 +32,15 @@ class Test(unittest.TestCase):
                 assert_close(edict['angle'][0], 898.2543, tol=3E-4)
                 assert_close(edict['surf'][0], 33.8338, tol=3E-4)
                 assert_close(edict['gb'][0], -1943.0838, tol=3E-4)
+
+                # dummy test to make sure `energy_decomposition` can work with list
+                edict2 = pyca.energy_decomposition(traj=[traj,], input_options=options, parm=topfile, top=traj.top)
+                edict3 = pyca.energy_decomposition(traj=traj(), input_options=options, parm=topfile, top=traj.top)
+                edict4 = pyca.energy_decomposition(traj=[traj[:5], traj[5:]], input_options=options, parm=topfile, top=traj.top)
+                edict5 = pyca.energy_decomposition(traj=[traj[:5], traj(start=5)], input_options=options, parm=topfile, top=traj.top)
+                assert edict == edict2
+                assert edict == edict3
+                assert edict == edict4
             else:
                 print ("has not set AMBERHOME or can not find test folder. skip")
             
@@ -44,7 +53,7 @@ class Test(unittest.TestCase):
             if amberhome:
                 topfile = os.path.join(amberhome, "test/4096wat/prmtop")
                 rstfile = os.path.join(amberhome, "test/4096wat/eq1.x")
-                traj = mdio.load(rstfile, topfile)
+                traj = mdio.iterload(rstfile, topfile)
                 options = sander.pme_input()
                 options.cut = 8.0
                 edict = pyca.energy_decomposition(traj=traj, input_options=options)
