@@ -1294,15 +1294,13 @@ cdef class Trajectory (object):
     # math
     def __tmpidiv__(self, value):
         cdef Frame frame
-        cdef Trajectory tmp_traj
         cdef int i
         cdef int size = self.size
 
-        if isinstance(value, Trajectory):
-            tmp_traj = value
-            for i in range(size):
+        if isinstance(value, Trajectory) or is_frame_iter(value):
+            for i, frame in enumerate(value):
                 # frame /= other_frame
-                self[i] /= tmp_traj[i]
+                self[i] /= frame
         else:
             # numpy
             for frame in self:
@@ -1332,12 +1330,11 @@ cdef class Trajectory (object):
             for i in range(size):
                 # frame += other_frame
                 self.frame_v[i][0] += other_frame.thisptr[0]
-        elif isinstance(value, Trajectory):
-            tmp_traj = value
+        elif is_pytraj_trajectory(value) or is_frame_iter(value):
             # nogain with OPENMP
-            for i in range(size):
+            for i,frame in enumerate(value):
                 # frame += other_frame
-                self.frame_v[i][0] += tmp_traj.frame_v[i][0]
+                self.frame_v[i][0] += frame.thisptr[0]
         else:
             # numpy
             for frame in self:
@@ -1351,12 +1348,11 @@ cdef class Trajectory (object):
         cdef int size = self.size
         cdef Frame other_frame
 
-        if isinstance(value, Trajectory):
-            tmp_traj = value
+        if is_pytraj_trajectory(value) or is_frame_iter(value):
             # nogain with OPENMP
-            for i in range(size):
+            for i, frame in enumerate(value):
                 # frame -= other_frame
-                self.frame_v[i][0] -= tmp_traj.frame_v[i][0]
+                self.frame_v[i][0] -= frame.thisptr[0]
         elif isinstance(value, Frame):
             other_frame = value
             for i in range(size):
@@ -1380,12 +1376,11 @@ cdef class Trajectory (object):
             for i in range(size):
                 # frame *= other_frame
                 self.frame_v[i][0] *= other_frame.thisptr[0]
-        elif isinstance(value, Trajectory):
-            tmp_traj = value
+        elif is_pytraj_trajectory(value) or is_frame_iter(value):
             # nogain with OPENMP
-            for i in range(size):
+            for i, frame in enumerate(value):
                 # frame *= other_frame
-                self.frame_v[i][0] *= tmp_traj.frame_v[i][0]
+                self.frame_v[i][0] *= frame.thisptr[0]
         else:
             # numpy
             for frame in self:
