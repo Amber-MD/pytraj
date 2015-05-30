@@ -33,6 +33,12 @@ class Test(unittest.TestCase):
         # don't need to specify `closestout`
         fa3, dslist3 = pyca.closest(traj, "10 :2,4 center", dtype='dataset')
         aa_eq(dslist2.to_ndarray(), dslist3.to_ndarray())
+        aa_eq(fa2.xyz, fa3.xyz)
+
+        # dtype = 'ndarray'
+        fa4, dslist4 = pyca.closest(traj, "10 :2,4 center", dtype='ndarray')
+        aa_eq(dslist2.to_ndarray(), dslist4)
+        aa_eq(fa2.xyz, fa4.xyz)
 
 if __name__ == "__main__":
     unittest.main()
