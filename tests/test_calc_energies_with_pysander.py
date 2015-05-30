@@ -139,5 +139,25 @@ class Test(unittest.TestCase):
         else:
             print ("has not set AMBERHOME or can not find test folder. skip")
 
+    @test_if_having("sander")
+    @test_if_having("chemistry")
+    def test_6(self):
+        # compare to saved test: GBneck2nu
+        import os
+        from pytraj.testing import amberhome
+        import sander
+
+        if amberhome:
+            topfile = os.path.join(amberhome, "test/gbneck2nu_test/prmtop")
+            rstfile = os.path.join(amberhome, "test/gbneck2nu_test/min.r")
+            traj = mdio.load(rstfile, topfile)
+            options = sander.gas_input(8)
+            options.cut = 9999.0
+            edict = pyca.energy_decomposition(traj=traj, input_options=options, parm=topfile)
+            assert_close(edict['gb'][0], -2287.6880, tol=3E-4)
+            assert_close(edict['gb'][0], -2287.6880, tol=3E-4)
+            assert_close(edict['elec'][0], -1659.5740, tol=3E-4)
+            assert_close(edict['vdw'][0], 384.2512, tol=3E-4)
+
 if __name__ == "__main__":
     unittest.main()
