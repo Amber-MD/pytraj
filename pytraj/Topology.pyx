@@ -494,8 +494,7 @@ cdef class Topology:
             self.thisptr[0] = new_top.thisptr[0]
 
     def is_empty(self):
-        s = self.file_path()
-        return s == ""
+        return self.n_atoms == 0
 
     def atom_indices(self, mask, *args, **kwd):
         """return atom indices with given mask
