@@ -7,6 +7,22 @@ from pytraj.utils import Timer
 
 class Test(unittest.TestCase):
     def test_0(self):
+        # math with frame_iter
+        trajiter = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        saved_xyz = traj.xyz[:].copy()
+
+        traj_view = traj[0:3]
+        traj_view += trajiter(stop=2)
+        aa_eq(saved_xyz[0:3] * 2, traj[0:3].xyz)
+
+        # reload
+        traj = trajiter[:]
+        saved_xyz = trajiter.xyz[:].copy()
+        traj *= trajiter
+        aa_eq(saved_xyz**2, traj.xyz)
+
+    def test_1(self):
         import numpy as np
         #traj = mdio.load("./data/nogit/tip3p/md.trj", "./data/nogit/tip3p/tc5bwat.top")[:5]
         trajiter = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -93,7 +109,7 @@ class Test(unittest.TestCase):
         print ("time_np")
         time_np(xyz)
 
-    def test_1(self):
+    def test_2(self):
         import numpy as np
         from pytraj.testing import duplicate_traj
         trajiter = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

@@ -61,16 +61,8 @@ cdef class DataSet_GridFlt(DataSet_3D):
         """return a copy of 3D array of Grid"""
         cdef size_t nx, ny, nz
         nx, ny, nz = self.nx, self.ny, self.nz
-        cdef int i, j, k
-        cdef cyarray carr = cyarray(shape=(nx, ny, nz),
-                                   itemsize=sizeof(float), format="f")
-        cdef float[:, :, :] myview = carr
-
-        for i in range(nx):
-            for j in range(ny):
-                for k in range(nz):
-                    myview[i, j, k] = self.thisptr.GetElement(i, j, k)
-        return myview
+        cdef float* ptr = &self.thisptr.index_opr(0)
+        return <float[:nx, :ny, :nz]> ptr
 
     def to_ndarray(self):
         has_np, np = _import_numpy()
