@@ -6,12 +6,14 @@ from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarray
 from pytraj.cpptraj_dict import BoxTypeDict, get_key
 from pytraj.utils import _import_numpy
+from pytraj.math.Matrix_3x3 cimport Matrix_3x3
 
 
 cdef class Box:
     def __cinit__(self, *args):
         cdef double[:] boxIn 
         cdef Box rhs
+        cdef Matrix_3x3 mat
 
         if not args:
             self.thisptr = new _Box()
@@ -19,6 +21,9 @@ cdef class Box:
             if isinstance(args[0], Box):
                 rhs = args[0]
                 self.thisptr = new _Box(rhs.thisptr[0])
+            elif isinstance(args[0], Matrix_3x3):
+                mat = args[0]
+                self.thisptr = new _Box(mat.thisptr[0])
             else:
                 try:
                     # if args[0] has buffer interface
@@ -62,6 +67,21 @@ cdef class Box:
     def all_box_types(cls):
         return [x.lower() for x in BoxTypeDict.keys()]
 
+    def update_box_type(self):
+        """trick to let cpptraj correctly set boxtype
+        Example
+        -------
+        >>> from pytraj.core import Box
+        >>> box = Box()
+        >>> box.alpha, box.beta, box.gamma = 90., 90., 90.
+        >>> print (box.type)
+        nobox
+        >>> box.update_box_type()
+        >>> print (box.type)
+        ortho
+        """
+        self.set_box_from_array(self.data)
+
     @property
     def name(self):
         return self.thisptr.TypeName().decode()
@@ -84,6 +104,7 @@ cdef class Box:
         self.thisptr.SetNoBox()
 
     def set_missing_info(self, Box boxinst):
+        """(from cpptraj doc) set this box info from rhs if <= 0."""
         self.thisptr.SetMissingInfo(boxinst.thisptr[0])
 
     def to_recip(self):
@@ -92,9 +113,31 @@ cdef class Box:
         self.thisptr.ToRecip(ucell.thisptr[0], recip.thisptr[0])
         return ucell, recip
 
-    @property
-    def type(self):
-        return get_key(self.thisptr.Type(), BoxTypeDict).lower()
+    property type:
+        def __get__(self):
+            return get_key(self.thisptr.Type(), BoxTypeDict).lower()
+        def __set__(self, value):
+            all_box_types = self.all_box_types()
+            value = value.lower()
+            if value == 'ortho':
+                self.alpha, self.beta, self.gamma = 90., 90., 90.
+            elif value == 'truncoct':
+                # use cpptraj' method
+                self.set_trunc_oct()
+            elif value == 'rhombic':
+                # check cpptraj' code to know why
+                self.alpha, self.beta, self.gamma = 0., 60., 0.
+            elif value == 'nobox':
+                self.set_nobox()
+            else:
+                msg = "supported boxtype is ortho | truncoct | rhombic | nobox\n"
+                msg2 = """use box.alpha, box.beta, box.gamma to explicitly assign values
+                          and use `update_box_type() method`"""
+                raise ValueError(msg + msg2)
+            # need to update all info so cpptraj will `SetBoxType` (private method)
+            # sounds dummy to set your box to yourself to do this trick :D
+            # should update cpptraj code
+            self.set_box_from_array(self.data)
 
     property x:
         def __get__(self):
@@ -156,6 +199,11 @@ cdef class Box:
 
     def tolist(self):
         return list(self.data[:])
+
+    @property
+    def values(self):
+        """return a view as a numpy array"""
+        return self.to_ndarray()
 
     def to_ndarray(self):
         has_np, np = _import_numpy()

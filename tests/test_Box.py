@@ -37,7 +37,7 @@ class TestBox(unittest.TestCase):
         assert box.tolist()[0] == dummy
 
     @test_if_having("numpy")
-    def test_1(self):
+    def test_2(self):
         import numpy as np
         box = Box()
         arr0 = np.arange(6).astype(np.float64)
@@ -92,6 +92,38 @@ class TestBox(unittest.TestCase):
         traj = Trajectory()
         traj._allocate(10, 10)
         print (traj.box_to_ndarray())
+
+    def test_assign_box_type(self):
+        print ("test_assign_box_type")
+        box = Box()
+        assert box.type == 'nobox'
+        box.type = 'ortho'
+        assert box.type == 'ortho'
+        assert box.alpha> 0.
+        box.type = 'truncoct'
+        assert box.type == 'truncoct'
+
+        box.type = 'rhombic'
+        assert box.type == 'rhombic'
+        print ("rhombic box?")
+        print (box)
+
+        # assert raise if not correctly set type
+        def wrong_word(box=box):
+            box.type = 'test'
+        self.assertRaises(ValueError, lambda : wrong_word())
+
+        # test update boxtype
+        box = Box()
+        box.values[3:] = [90., 90., 90.]
+        assert box.type == 'nobox'
+        box.update_box_type()
+        assert box.type == 'ortho'
+
+    def test_from_matrix_3x3(self):
+        from pytraj.math import Matrix_3x3
+        mat = Matrix_3x3()
+        box = Box(mat)
 
 if __name__ == "__main__":
     unittest.main()

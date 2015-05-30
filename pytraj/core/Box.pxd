@@ -15,6 +15,7 @@ cdef extern from "Box.h":
         _Box() 
         _Box(const double *)
         _Box(const _Box &)
+        _Box(_Matrix_3x3 const)
         #_Box & operator =(const _Box &)
         const char * TypeName() const 
         void SetBetaLengths(double, double, double, double)
