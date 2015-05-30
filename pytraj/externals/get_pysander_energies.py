@@ -53,6 +53,7 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
     from pytraj.misc import get_atts
     try:
         import sander
+        # support AmberParm only?
         from chemistry.amber.readparm import AmberParm
     except ImportError:
         raise ImportError("need both `pysander` and `chemistry` installed. Check Ambertools15")
@@ -66,21 +67,23 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         print ("inp is not None, ignore provided `igb` and use `inp`")
         inp = input_options
 
-    if isinstance(parm, string_types):
-        parm = AmberParm(parm)
-
-    if not isinstance(parm, AmberParm):
+    if not isinstance(parm, AmberParm) or not isinstance(parm, string_types):
         try:
-            parm = AmberParm(_top.filename)
+            # try to load from file by taking _top.filename
+            parm = _top.filename
         except:
             raise ValueError("parm must be AmberParm object in ParmEd")
 
-    if parm.coords is None:
+    if not hasattr(parm, 'coords') or parm.coords is None:
         try:
-            parm.load_coordinates(traj[0].coords)
+            # if `traj` is Trajectory-like (not frame_iter), try to take 1st coords
+            coords = traj[0].coords
         except:
-            # make fake coords to trick parm
-            parm.load_coordinates([0. for _ in range(_top.n_atoms * 3)])
+            # create fake list
+            coords = [0. for _ in range(_top.n_atoms * 3)]
+    else:
+        # use default coords in `AmberParm`
+        coords = parm.coords
 
     if _top.has_box():
         box = _top.box.tolist()
@@ -89,7 +92,7 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         box = None
         has_box = False
 
-    with sander.setup(parm, parm.coords, box, inp, qmmm_options):
+    with sander.setup(parm, coords, box, inp, qmmm_options):
         for frame in _frame_iter_master(traj):
             if has_box:
                 sander.set_box(*frame.box.tolist())
