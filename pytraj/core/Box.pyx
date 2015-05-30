@@ -115,7 +115,13 @@ cdef class Box:
 
     property type:
         def __get__(self):
-            return get_key(self.thisptr.Type(), BoxTypeDict).lower()
+            if self.tolist()[3:] == [60., 90., 60]:
+                # cpptraj does not handle this correctly
+                # so we introduce our own version
+                return 'rhombic'
+            else:
+                return get_key(self.thisptr.Type(), BoxTypeDict).lower()
+
         def __set__(self, value):
             all_box_types = self.all_box_types()
             value = value.lower()

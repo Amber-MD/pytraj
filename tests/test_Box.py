@@ -125,5 +125,13 @@ class TestBox(unittest.TestCase):
         mat = Matrix_3x3()
         box = Box(mat)
 
+    def test_set_box_from_array(self):
+        box = Box()
+        box.set_box_from_array([30., 30., 30., 90., 90., 90.])
+        assert box.type == 'ortho'
+
+        box.set_box_from_array([30., 30., 30., 60., 90., 60.])
+        assert box.type == 'rhombic'
+
 if __name__ == "__main__":
     unittest.main()
