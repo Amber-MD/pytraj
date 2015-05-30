@@ -676,7 +676,7 @@ def calc_temperatures(traj=None, command="", top=None):
 
 def calc_rmsd(traj=None, command="", ref=None, mass=False, 
               fit=True, top=None, dtype='pyarray',
-              mode='cpptraj'):
+              mode='pytraj'):
     """calculate rmsd
 
     Parameters
