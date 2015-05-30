@@ -844,6 +844,7 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
     >>> # get new traj and get new DataSetList object to store more information
     >>> # (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
     >>> new_traj, dslist = pyca.closest (traj, "100 :1-13 first closestout test.out", dtype='dataset')
+    >>> new_traj, dslist = pyca.closest (traj, "100 :1-13 first closestout test.out", dtype='dataframe')
     """
 
     from .actions.Action_Closest import Action_Closest
@@ -852,10 +853,9 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
     dslist = DataSetList()
 
     if 'dtype' in kwd.keys():
-        if kwd['dtype'] == 'dataset':
-            will_return_dslist = True
+        dtype = kwd['dtype']
     else:
-        will_return_dslist = False
+        dtype = None
 
     act = Action_Closest()
     fa = Trajectory()
@@ -863,7 +863,7 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
     _top = _get_top(traj, top)
     new_top = Topology()
     new_top.py_free_mem = False # cpptraj will do
-    if will_return_dslist and 'closestout' not in command:
+    if dtype and 'closestout' not in command:
         # trick cpptraj to dump data to DataSetList too
         command = command + " closestout tmp_pytraj_closestout.out"
     act.read_input(command, _top, dslist=dslist)
@@ -876,8 +876,9 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
         act.do_action(frame, new_frame)
         fa.append(new_frame.copy())
 
-    if will_return_dslist:
-        return (fa, dslist)
+    if dtype:
+        new_dslist = _get_data_from_dtype(dslist, dtype=dtype)
+        return (fa, new_dslist)
     else:
         return fa
 
