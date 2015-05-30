@@ -27,5 +27,12 @@ class Test(unittest.TestCase):
         print (fa[4].rmsd(saved_frame))
         aa_eq(fa[4].coords, saved_frame.coords, decimal=1)
 
+        fa2, dslist2 = pyca.closest(traj, 
+                "10 :2,4 center closestout output/test_closest.out", dtype='dataset')
+
+        # don't need to specify `closestout`
+        fa3, dslist3 = pyca.closest(traj, "10 :2,4 center", dtype='dataset')
+        aa_eq(dslist2.to_ndarray(), dslist3.to_ndarray())
+
 if __name__ == "__main__":
     unittest.main()

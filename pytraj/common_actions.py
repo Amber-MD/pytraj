@@ -391,7 +391,7 @@ def do_clustering(traj=None, command="", top=None, dtype='dataset',
     Parameters
     ---------
     traj : Trajectory-like | list of Trajectory-like | frame or chunk iterator
-    command : cpptraj commmand
+    command : cpptraj command
     top : Topology, optional
     dslist : DataSetList, optional
     dflist : DataFileList, optional
@@ -790,8 +790,19 @@ def align_principal_axis(traj=None, command="*", top=None):
     command += " dorotation"
     act(command, traj, top)
 
-def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
+def closest(traj=None, command=None, top=None, *args, **kwd):
     """
+    Parameters
+    ----------
+    traj : Trajectory-like | list of Trajectory-like/frames | frame_iter | chunk_iter
+        traj could be anything as long as _frame_iter_master(traj) returns Frame
+    command : str
+        cpptraj command (below)
+    top : Topology-like object, default=None, optional
+    *args, **kwd: more arguments
+        if dtype == 'dataset': return a tuple (new_traj, datasetlist)
+            cpptraj only save data to DataSetList if `closestout` is specified (check example)
+        if dtype != 'dataset': return only new_traj
 
     cpptraj command
     ---------------
@@ -830,17 +841,32 @@ def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
     >>> # obtain new traj, keeping only closest 100 waters 
     >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
     >>> t = pyca.closest (traj, "100 :1-13 first")
+    >>> # get new traj and get new DataSetList object to store more information
+    >>> # (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
+    >>> new_traj, dslist = pyca.closest (traj, "100 :1-13 first closestout test.out", dtype='dataset')
     """
 
     from .actions.Action_Closest import Action_Closest
     from pytraj.Trajectory import Trajectory
+    from pytraj import DataSetList
+    dslist = DataSetList()
+
+    if 'dtype' in kwd.keys():
+        if kwd['dtype'] == 'dataset':
+            will_return_dslist = True
+    else:
+        will_return_dslist = False
+
     act = Action_Closest()
     fa = Trajectory()
 
     _top = _get_top(traj, top)
     new_top = Topology()
     new_top.py_free_mem = False # cpptraj will do
-    act.read_input(command, _top)
+    if will_return_dslist and 'closestout' not in command:
+        # trick cpptraj to dump data to DataSetList too
+        command = command + " closestout tmp_pytraj_closestout.out"
+    act.read_input(command, _top, dslist=dslist)
     act.process(_top, new_top)
 
     fa.top = new_top.copy()
@@ -849,7 +875,11 @@ def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
         new_frame.py_free_mem = False # cpptraj will do
         act.do_action(frame, new_frame)
         fa.append(new_frame.copy())
-    return fa
+
+    if will_return_dslist:
+        return (fa, dslist)
+    else:
+        return fa
 
 def native_contacts(traj=None, command="", top=None, dtype='dataset',
                     ref=None,
