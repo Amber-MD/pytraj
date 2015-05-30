@@ -1,6 +1,6 @@
 from pytraj import io as mdio
 
-top = mdio.readparm("../tests/data/Tc5b.top")
+top = mdio.read_parm("../tests/data/Tc5b.top")
 
 # strip all atoms but CA
 top.strip_atoms("!@CA")
