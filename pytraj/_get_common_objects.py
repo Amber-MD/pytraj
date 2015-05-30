@@ -3,14 +3,17 @@ from .externals.six import string_types
 from .Topology import Topology
 from .ArgList import ArgList
 from .utils import _import
+from .utils.check_and_assert import is_frame_iter, is_chunk_iter
 
 def _get_top(traj, top):
     if isinstance(top, string_types):
         _top = Topology(top)
     elif top is None: 
-        if hasattr(traj, 'top'):
+       if hasattr(traj, 'top'):
            _top = traj.top 
-        else:
+       elif is_frame_iter(traj) or is_chunk_iter(traj):
+           _top = None
+       else:
             # list, tuple of traj objects 
             try:
                 for tmp in traj:

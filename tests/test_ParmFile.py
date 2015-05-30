@@ -33,8 +33,8 @@ class TestParmFile(unittest.TestCase):
     def test_readpdb(self):
         print("test_readpdb +++++++++++++++++++++++++++++++")
         traj0 = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        mdio.writetraj(filename="./output/test_0_after.pdb", traj=traj0[0], top=traj0.top, overwrite=True)
-        pdbtop = mdio.readparm("./output/test_0_after.pdb")
+        mdio.write_traj(filename="./output/test_0_after.pdb", traj=traj0[0], top=traj0.top, overwrite=True)
+        pdbtop = mdio.read_parm("./output/test_0_after.pdb")
         assert pdbtop.n_atoms == 304
         print(pdbtop.n_atoms)
         top2 = pdbtop.copy()

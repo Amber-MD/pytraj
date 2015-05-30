@@ -6,7 +6,7 @@ traj = mdio.load("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
 
 # etract first 10 frames and write to CHARMM format
 subtraj = traj[:10]
-mdio.writetraj(filename="./output/subtraj_0_CHARMM.dcd", traj=subtraj, 
+mdio.write_traj(filename="./output/subtraj_0_CHARMM.dcd", traj=subtraj, 
                top=traj.top,
                fmt="CHARMMDCD",
                overwrite=True)

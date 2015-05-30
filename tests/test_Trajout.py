@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 from pytraj.base import *
 from pytraj.decorators import no_test
-from pytraj.io import writetraj
+from pytraj.io import write_traj
 from pytraj import io as mdio
 
 farray = Trajectory("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
@@ -63,8 +63,8 @@ class TestTrajout(unittest.TestCase):
     def test_4(self):
         """test write Trajectory"""
         farray = Trajectory("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
-        writetraj("./output/test_write_output.x", farray, farray.top, overwrite=True)
-        writetraj("./output/test_pdb_1.dummyext", farray[0], farray.top, overwrite=True, fmt='pdb')
+        write_traj("./output/test_write_output.x", farray, farray.top, overwrite=True)
+        write_traj("./output/test_pdb_1.dummyext", farray[0], farray.top, overwrite=True, fmt='pdb')
 
         # test 'save'
         print(farray)

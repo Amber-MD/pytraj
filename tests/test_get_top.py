@@ -29,5 +29,13 @@ class Test(unittest.TestCase):
         _top = _get_top([1, traj, 0], None)
         assert _top.n_atoms == saved_top.n_atoms
 
+        # get top from frame_iter
+        _top = _get_top(traj(), None)
+        assert _top is None
+
+        # get top from chunk_iter
+        _top = _get_top(traj.chunk_iter(), None)
+        assert _top is None
+
 if __name__ == "__main__":
     unittest.main()

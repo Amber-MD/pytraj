@@ -11,7 +11,7 @@ class TestPyCpptrajIO(unittest.TestCase):
         #for i in indices:
         #    print traj[i]
 
-        mdio.writetraj(filename="./output/test_io_saved_.x", 
+        mdio.write_traj(filename="./output/test_io_saved_.x", 
                        traj=traj, 
                        top="./data/Tc5b.top",
                        indices=indices,

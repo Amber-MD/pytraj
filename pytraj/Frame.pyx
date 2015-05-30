@@ -1101,12 +1101,13 @@ cdef class Frame (object):
     def get_top(self):
         return self.top
 
-    def save(self, filename="", top=None, fmt='unknown', overwrite=False):
+    def save(self, filename="", top=None, fmt='unknown', 
+             overwrite=False, *args, **kwd):
         if fmt == 'unknown':
             # convert to "UNKNOWN_TRAJ"
             fmt = fmt.upper() + "_TRAJ"
         with Trajout(filename=filename, top=top, fmt=fmt, 
-                     overwrite=overwrite, more_args=None) as trajout:
+                     overwrite=overwrite, *args, **kwd) as trajout:
             trajout.writeframe(0, self, top)
 
     def calc_dihedral(self, cython.integral[:, :] int_arr):

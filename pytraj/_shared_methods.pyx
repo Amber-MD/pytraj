@@ -15,7 +15,7 @@ from pytraj._xyz import XYZ
 __all__ = ['_savetraj', '_frame_iter_master', '_xyz', 'my_str_method',
            '_tolist', '_box_to_ndarray']
 
-def _savetraj(self, filename="", fmt='unknown', overwrite=False):
+def _savetraj(self, filename="", fmt='unknown', overwrite=False, *args, **kwd):
     if fmt == 'unknown':
         # convert to "UNKNOWN_TRAJ"
         fmt = fmt.upper() + "_TRAJ"
@@ -23,7 +23,7 @@ def _savetraj(self, filename="", fmt='unknown', overwrite=False):
         fmt = fmt.upper()
 
     with Trajout(filename=filename, top=self.top, fmt=fmt, 
-                 overwrite=overwrite, more_args=None) as trajout:
+                 overwrite=overwrite, *args, **kwd) as trajout:
         for idx, frame in enumerate(self):
             trajout.writeframe(idx, frame, self.top)
 
