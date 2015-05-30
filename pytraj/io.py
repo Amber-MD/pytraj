@@ -219,9 +219,12 @@ def write_traj(filename="", traj=None, top=None,
               overwrite=False, more_args="", 
               *args, **kwd):
     """write Trajectory-like, list of trajs, frames, ... to file/files
-    Note 1
-    -----
-    Suppot file extensions:
+
+    Suppot file extensions
+    ----------------------
+    .crd, .nc, .rst7, .ncrst, .dcd, .pdb, .mol2, .binpos, .trr, .sqm
+    if extension or fmt is not specify correctly, 
+    cpptraj will use Amber Trajectory format (.crd)
 
     Examples
     --------
@@ -241,7 +244,7 @@ def write_traj(filename="", traj=None, top=None,
     --------
     Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 542)
 
-    Except from this manual
+    Excerpt from this manual
     -----------------------
     Options for pdb format:
     [model | multi] [dumpq | parse | vdw] [chainid <ID>]
