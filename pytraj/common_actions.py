@@ -854,6 +854,8 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
     if 'dtype' in kwd.keys():
         if kwd['dtype'] == 'dataset':
             will_return_dslist = True
+        else:
+            raise ValueError("only support dtype=None or 'dataset'")
     else:
         will_return_dslist = False
 
