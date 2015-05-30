@@ -1087,8 +1087,8 @@ cdef class Trajectory (object):
             self.top.thisptr[0] = newtop.thisptr[0]
             print (self.top)
 
-    def save(self, filename="", fmt='unknown', overwrite=True):
-        _savetraj(self, filename, fmt, overwrite)
+    def save(self, filename="", fmt='unknown', overwrite=True, *args, **kwd):
+        _savetraj(self, filename, fmt, overwrite, *args, **kwd)
 
     def write(self, *args, **kwd):
         """same as `save` method"""

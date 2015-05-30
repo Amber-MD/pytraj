@@ -69,10 +69,10 @@ class TestFrame(unittest.TestCase):
         _, mat, v1, v2 = frame2.rmsd(frame3, get_mvv=True)
         print(mat, v1, v2)
         print(frame2[:10])
-        print(mdio.writetraj("./output/test_0_before.pdb", traj=frame2, top=traj.top, overwrite=True))
+        print(mdio.write_traj("./output/test_0_before.pdb", traj=frame2, top=traj.top, overwrite=True))
         frame2.trans_rot_trans(v1, mat, v2)
         print(frame2[:10])
-        print(mdio.writetraj("./output/test_0_afeter.pdb", traj=frame2, top=traj.top, overwrite=True))
+        print(mdio.write_traj("./output/test_0_afeter.pdb", traj=frame2, top=traj.top, overwrite=True))
         print(Trajout().help())
 
     #@no_test

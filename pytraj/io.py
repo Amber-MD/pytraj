@@ -19,6 +19,7 @@ from ._shared_methods import _frame_iter_master
 from .dataframe import to_dataframe
 from ._set_silent import set_error_silent
 from ._guess_filetype import _guess_filetype
+from ._get_common_objects import _get_top
 
 try:
     from .externals._load_ParmEd import load_ParmEd, _load_chem
@@ -79,7 +80,7 @@ def load(*args, **kwd):
         else:
             filename = kwd[kwd.keys()[0]]
         # try to use cpptraj to load Topology
-        top = readparm(*args, **kwd)
+        top = read_parm(*args, **kwd)
         if hasattr(top, 'is_empty') and top.is_empty():
             try:
                 # use ParmEd to load if cpptraj fails
@@ -213,63 +214,93 @@ def iterload_remd(filename, top=Topology(), T="300.0"):
 def load_remd(filename, top=Topology(), T="300.0"):
     return iterload_remd(filename, top, T)[:]
 
-def writetraj(filename="", traj=None, top=None, 
+def write_traj(filename="", traj=None, top=None, 
               fmt='UNKNOWN_TRAJ', indices=None,
-              overwrite=False):
-    """writetraj(filename="", traj=None, top=None, 
-              ftm='UNKNOWN_TRAJ', indices=None):
-    """
-    # TODO : support list (tuple) of Trajectory, TrajectoryIterator or 
-    # list of filenames
-    #filename = filename.encode("UTF-8")
+              overwrite=False, more_args="", 
+              *args, **kwd):
+    """write Trajectory-like, list of trajs, frames, ... to file/files
 
-    if fmt == 'unknown':
+    Suppot file extensions
+    ----------------------
+    .crd, .nc, .rst7, .ncrst, .dcd, .pdb, .mol2, .binpos, .trr, .sqm
+    if extension or fmt is not specify correctly, 
+    cpptraj will use Amber Trajectory format (.crd)
+
+    Examples
+    --------
+    >>> from pytraj import io
+    >>> traj = io.load_sample_data()
+    >>> io.write_traj("t.nc", traj) # write to amber netcdf file
+    >>> # write to multi pdb files (t.pdb.1, t.pdb.2, ...)
+    >>> io.write_traj("t.pdb", traj, overwrite=True, more_args='multi')
+    >>> # write all frames to single pdb file and each frame is seperated by "MODEL" word
+    >>> io.write_traj("t.pdb", traj, overwrite=True, more_args='model')
+    >>> # write to DCD file
+    >>> io.write_traj("test.dcd", traj)
+    >>> # set nobox for trajout
+    >>> io.write_traj("test.nc", traj, more_args='nobox')
+
+    See Also
+    --------
+    Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 542)
+
+    Excerpt from this manual
+    -----------------------
+    Options for pdb format:
+    [model | multi] [dumpq | parse | vdw] [chainid <ID>]
+    [pdbres] [pdbatom] [pdbv3] [teradvance]
+
+    Options for mol2 format:
+    [single | multi]
+
+    Options for SQM input format:
+    [charge <c>]
+    """
+
+    if fmt.upper() == 'UNKNOWN':
         fmt = fmt.upper() + "_TRAJ"
     else:
         fmt = fmt.upper()
 
-    if isinstance(top, string_types):
-        top = Topology(top)
+    _top = _get_top(traj, top)
+    if _top is None:
+        raise ValueError("must provide Topology")
 
-    if traj is None or top is None:
+    if traj is None or _top is None:
         raise ValueError("Need non-empty traj and top files")
 
-    with Trajout(filename=filename, top=top, fmt=fmt, overwrite=overwrite) as trajout:
+    with Trajout(filename=filename, top=_top, fmt=fmt, 
+                 overwrite=overwrite, more_args=more_args,
+                 *args, **kwd) as trajout:
         if isinstance(traj, Frame):
             if indices is not None:
                 raise ValueError("indices does not work with single Frame")
-            trajout.writeframe(0, traj, top)
+            trajout.writeframe(0, traj, _top)
         else:
             if isinstance(traj, string_types):
-                traj2 = load(traj, top)
+                traj2 = load(traj, _top)
             else:
                 traj2 = traj
 
-            if indices is None:
-                # write all traj
-                if isinstance(traj2, (Trajectory, TrajectoryIterator)):
-                    for idx, frame in enumerate(traj2):
-                        trajout.writeframe(idx, frame, top)
-                elif isinstance(traj2, (list, tuple)):
-                    # list, tuple
-                    for traj3 in traj2:
-                        for idx, frame in enumerate(traj3):
-                            trajout.writeframe(idx, frame, top)
-            else:
+            if indices is not None:
                 if isinstance(traj2, (list, tuple)):
                     raise NotImplementedError("must be Trajectory or TrajectoryIterator instance")
                 for idx in indices:
-                    trajout.writeframe(idx, traj2[idx], top)
+                    trajout.writeframe(idx, traj2[idx], _top)
+
+            else:
+                for idx, frame in enumerate(_frame_iter_master(traj2)):
+                    trajout.writeframe(idx, frame, _top)
 
 
-def writeparm(filename=None, top=None, fmt='AMBERPARM'):
+def write_parm(filename=None, top=None, fmt='AMBERPARM'):
     # TODO : add *args
     from pytraj.parms.ParmFile import ParmFile
     #filename = filename.encode("UTF-8")
     parm = ParmFile()
     parm.writeparm(filename=filename, top=top, fmt=fmt)
 
-def readparm(filename):
+def read_parm(filename):
     """return topology instance from reading filename"""
     #filename = filename.encode("UTF-8")
     set_error_silent(True)
@@ -323,8 +354,5 @@ def load_MDAnalysisIterator(u):
     return TrajectoryMDAnalysisIterator(u)
 
 # creat alias
-write_traj = writetraj
-save = writetraj
-save_traj = writetraj
-read_parm = readparm
-write_parm = writeparm
+save = write_traj
+save_traj = write_traj

@@ -10,7 +10,7 @@ class TestPyCpptrajIO(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x",
                         "./data/Tc5b.top")[:5]
         print(traj.size)
-        mdio.writetraj(filename="./output/test_0.binpos", 
+        mdio.write_traj(filename="./output/test_0.binpos", 
                        traj=traj, 
                        top="./data/Tc5b.top",
                        fmt="BINPOS",
@@ -34,9 +34,9 @@ class TestPyCpptrajIO(unittest.TestCase):
 
     def test_ParmFile(self):
         print("test_ParmFile")
-        top = mdio.readparm("./data/Tc5b.top")
-        mdio.writeparm("./output/test_io.top", top)
-        newtop = mdio.readparm("./output/test_io.top")
+        top = mdio.read_parm("./data/Tc5b.top")
+        mdio.write_parm("./output/test_io.top", top)
+        newtop = mdio.read_parm("./output/test_io.top")
         assert top.n_atoms == newtop.n_atoms
 
     def test_load_and_save_0(self):
@@ -48,7 +48,7 @@ class TestPyCpptrajIO(unittest.TestCase):
         indices = list(range(2, 3, 5)) + [3, 7, 9, 8]
         print(type(indices))
         print(indices)
-        mdio.writetraj(filename="./output/test_io_saved_.x", 
+        mdio.write_traj(filename="./output/test_io_saved_.x", 
                        traj=traj[:], 
                        top="./data/Tc5b.top",
                        indices=indices,
@@ -69,7 +69,7 @@ class TestPyCpptrajIO(unittest.TestCase):
         traj = mdio.iterload(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
 
         indices = list(range(2, 4)) + [3, 7, 9, 8]
-        mdio.writetraj(filename="./output/test_io_saved.pdb", 
+        mdio.write_traj(filename="./output/test_io_saved.pdb", 
                        traj=traj, 
                        top="./data/Tc5b.top",
                        fmt='pdbfile', 
@@ -86,7 +86,7 @@ class TestPyCpptrajIO(unittest.TestCase):
         trajname = "./data/md1_prod.Tc5b.x"
 
         indices = list(range(2, 4)) + [3, 7, 9, 8]
-        mdio.writetraj(filename="./output/test_io_saved_2.nc", 
+        mdio.write_traj(filename="./output/test_io_saved_2.nc", 
                        traj=trajname, 
                        top="./data/Tc5b.top",
                        indices=indices,

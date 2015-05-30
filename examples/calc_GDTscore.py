@@ -13,8 +13,8 @@ def main():
     # write pdb files for TMalign program so we can compare our results to TMalign
     # ./TMalign -A test_gdt_0.pdb -B test_gdt_1.pdb
     # turn off those if you don't like
-    mdio.writetraj(filename="./output/test_gdt_0.pdb", traj=traj[IDX0], top=traj.top, overwrite=True)
-    mdio.writetraj(filename="./output/test_gdt_1.pdb", traj=traj[IDX1], top=traj.top, overwrite=True)
+    mdio.write_traj(filename="./output/test_gdt_0.pdb", traj=traj[IDX0], top=traj.top, overwrite=True)
+    mdio.write_traj(filename="./output/test_gdt_1.pdb", traj=traj[IDX1], top=traj.top, overwrite=True)
 
     # do our calculation
     # option:
