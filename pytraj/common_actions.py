@@ -791,6 +791,47 @@ def align_principal_axis(traj=None, command="*", top=None):
     act(command, traj, top)
 
 def closest(traj=None, command=None, dslist=None, top=None, *args, **kwd):
+    """
+
+    cpptraj command
+    ---------------
+    (from Amber15 manual, page 547: http://ambermd.org/doc12/Amber15.pdf)
+    <# to keep> <mask> [noimage] [first | oxygen] [center]
+    [closestout <filename>] [name <setname>] [outprefix <parmprefix>]
+    
+    where:
+        <mask> Mask of atoms to search for closest waters around.
+        [noimage] Do not perform imaging; only recommended if trajectory has previously
+        been imaged.
+        [first | oxygen] Calculate distances between all atoms in <mask> and the first atom
+        of solvent only (recommended for standard water models as it will increase
+        speed of calculation).
+        [center] Search for waters closest to center of <mask> instead of each atom in
+        <mask>.
+        [closestout <filename>] Write information on the closest solvent molecules to
+        <filename>.
+        [outprefix <prefix>] Write corresponding topology to file with name prefix
+        <prefix>.
+        DataSet Aspects:
+        [Frame] Frame number.
+        [Mol] Original solvent molecule number.
+        [Dist] Solvent molecule distance in Angstrom.
+        [FirstAtm] First atom number of original solvent molecule.
+
+    Similar to the strip command, but modify coordinate frame and topology by keeping only the specified number of
+    closest solvent molecules to the region specified by the given mask. Solvent molecules can be determined
+    automatically by cpptraj (by default residues named WAT, HOH, or TIP3).
+
+    Examples
+    --------
+    >>> from pytraj import io
+    >>> traj = io.load_sample_data ('tz2')
+    >>> import pytraj.common_actions as pyca
+    >>> # obtain new traj, keeping only closest 100 waters 
+    >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
+    >>> t = pyca.closest (traj, "100 :1-13 first")
+    """
+
     from .actions.Action_Closest import Action_Closest
     from pytraj.Trajectory import Trajectory
     act = Action_Closest()
