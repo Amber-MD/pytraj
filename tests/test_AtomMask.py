@@ -87,9 +87,17 @@ class TestAtomMask(unittest.TestCase):
         atm1 = AtomMask(indices)
         atm2 = AtomMask(list(indices))
         atm3 = AtomMask(np.asarray(indices))
+        # use max_atoms
+        atm4 = AtomMask(np.asarray(indices), 1000)
 
-        assert atm1.indices == atm2.indices == atm3.indices
-        
+        assert atm1.indices == atm2.indices == atm3.indices == atm4.indices
+        # FIXME: can not catch RuntimeError here
+        # since we don't set atm3 max_atoms, we expect to get RuntimeError
+        # if using invert_mask
+        #self.assertRaises(RuntimeError, atm3.invert_mask())
+        # TODO: assert fails
+        #atm4.invert_mask() # it's ok since we did set max_atoms (1000)
+
 if __name__ == "__main__":
     unittest.main()
 
