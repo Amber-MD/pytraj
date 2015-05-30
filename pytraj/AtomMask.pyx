@@ -7,7 +7,7 @@ from cpython cimport array
 from pytraj.decorators import deprecated
 from pytraj._set_silent import set_world_silent
 from pytraj.externals.six import string_types
-from pytraj.utils import is_array
+from pytraj.utils import is_array, is_int
 from pytraj._utils import _int_array1d_like_to_memview
 from pytraj.compat import range
 
@@ -18,6 +18,8 @@ cdef class AtomMask(object):
         cdef int begin_atom, end_atom, atom_num
         cdef string maskstring
         cdef AtomMask rhs_atm
+        cdef vector[int] v_int
+        cdef int i, max_atoms
 
         if not args:
             self.thisptr = new _AtomMask()
@@ -37,8 +39,15 @@ cdef class AtomMask(object):
                     maskstring = args[0].encode("UTF-8")
                     self.thisptr = new _AtomMask(maskstring)
             elif len(args) == 2:
-                begin_atom, end_atom = args
-                self.thisptr = new _AtomMask(begin_atom, end_atom)
+                if is_int(args[0]) and is_int(args[1]):
+                    begin_atom, end_atom = args
+                    self.thisptr = new _AtomMask(begin_atom, end_atom)
+                else:
+                    # array-like with max_atoms
+                    for i in args[0]:
+                        v_int.push_back(i)
+                    max_atoms = args[1]
+                    self.thisptr = new _AtomMask(v_int, max_atoms)
             else:
                 # TODO: better Error
                 raise NotImplementedError()
