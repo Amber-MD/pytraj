@@ -11,7 +11,8 @@ from .Topology import Topology
 __all__ = ['test_if_having', 'no_test', 'local_test',
            'load_sample_data', 'eq', 'aa_eq', 'is_linux',
            'make_random_frame', 'duplicate_traj', 'make_fake_traj', 
-           'Timer', 'amberhome', 'cpptraj_test_dir',]
+           'Timer', 'amberhome', 'cpptraj_test_dir',
+           'run_docstring']
 
 try:
     amberhome = os.environ['AMBERHOME']
@@ -50,6 +51,14 @@ def make_fake_traj(n_frames=100, n_atoms=10000):
     traj._allocate(n_frames, n_atoms)
     traj.update_xyz(np.random.rand(n_frames, n_atoms, 3))
     return traj
+
+def run_docstring(func):
+    _doc = [x.lstrip() for x in func.__doc__.split("\n")]
+    _doc = filter(lambda x : '>>>' in x, _doc)
+    _doc = [x.replace(">>> ", "") for x in _doc]
+    doc = "\n".join(x for x in _doc)
+    print (doc)
+    exec(doc)
 
 if __name__ == "__main__":
     print (amberhome)
