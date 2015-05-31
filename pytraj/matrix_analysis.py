@@ -35,7 +35,9 @@ def %s (traj=None, command="", top=None, *args, **kwd):
 
     act = Action_Matrix()
     act(template_command, traj, top=_top, dslist=dslist, *args, **kwd)
-
+    # need to call `print_output` so cpptraj can normalize some data
+    # check cpptraj's code
+    act.print_output()
     return _get_data_from_dtype(dslist, dtype=dtype)
 """
 
