@@ -273,6 +273,7 @@ scalarModeDict = {
         "M_RMS" : M_RMS,
         "UNKNOWN_MODE" : UNKNOWN_MODE,
 }
+
     # DataSet.h
 scalarDict = {
         "ALPHA" : ALPHA,
@@ -290,6 +291,14 @@ scalarDict = {
         "PCHI" : PCHI,
         "OMEGA" : OMEGA,
         "NOE" : NOE,
+        "DIST" : DIST,
+        "COVAR" : COVAR,
+        "MWCOVAR" : MWCOVAR,
+        "CORREL" : CORREL,
+        "DISTCOVAR" : DISTCOVAR,
+        "IDEA" : IDEA,
+        "IRED" : IRED,
+        "DIHCOVAR" : DIHCOVAR,
         "UNDEFINED" : UNDEFINEDSCALARTYPE,
 }
 

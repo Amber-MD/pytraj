@@ -117,13 +117,16 @@ cdef class ArgList:
         return self.thisptr.CommandIs(cm)
     
     def get_string_next(self):
-        return self.thisptr.GetStringNext()
+        key = self.thisptr.GetStringNext()
+        return key.decode()
 
     def get_string_key(self, char* c):
-        return self.thisptr.GetStringKey(c)
+        key = self.thisptr.GetStringKey(c)
+        return key.decode()
 
     def get_mask_next(self):
-        return self.thisptr.GetMaskNext()
+        mask = self.thisptr.GetMaskNext()
+        return mask.decode()
 
     def get_next_tag(self):
         return self.thisptr.getNextTag()

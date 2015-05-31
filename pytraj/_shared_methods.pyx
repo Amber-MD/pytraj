@@ -115,6 +115,18 @@ def _frame_iter_master(obj):
 
     obj : could be Trajectory, TrajectoryIterator, TrajinList, frame_iter object
           could be a list of trajs, ...
+
+    Examples
+    --------
+    >>> from pytraj import io
+    >>> from pytraj import Frame
+    >>> traj = io.load_sample_data('tz2')
+    >>> from pytraj._shared_methods import _frame_iter_master
+    >>> for frame in _frame_iter_master(traj): assert isinstance(frame, Frame) == True
+    >>> for frame in _frame_iter_master([traj,]): assert isinstance(frame, Frame) == True
+    >>> for frame in _frame_iter_master([traj, traj[0]]): assert isinstance(frame, Frame) == True
+    >>> for frame in _frame_iter_master([traj.frame_iter(), traj.chunk_iter()]): 
+    >>>     assert isinstance(frame, Frame) == True
     """
     cdef Frame frame
     cdef object traj_obj
@@ -158,3 +170,7 @@ def _box_to_ndarray(self):
         boxarr[i] = frame.box.to_ndarray()
         i += 1
     return boxarr
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

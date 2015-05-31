@@ -2,7 +2,7 @@
 import os
 import sys
 import CppHeaderParser
-from .util import find_class
+from util import find_class
 
 CPPTRAJSRC = os.environ['CPPTRAJHOME'] + "/src/"
 def create_enum_of_dict(fname, mode='', cpptrajsrc=CPPTRAJSRC):
