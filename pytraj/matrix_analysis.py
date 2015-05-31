@@ -19,8 +19,38 @@ default_key_dict = {'distance_matrix' : 'dist',
         'distcovar_matrix' : 'distcovar',
         'idea_matrix' : 'idea'}
 
-template = """
-def %s (traj=None, command="", top=None, *args, **kwd):
+template = '''
+def %s(traj=None, command="", top=None, *args, **kwd):
+    """
+    Parameters
+    ----------
+    traj : Trajectory-like or anything that makes _frame_iter_master(traj) return Frame
+    command : cpptraj command
+    top : {str, Topology}, optional, default None
+    *args, **kwd: more arguments
+
+    Examples
+    --------
+    >>> from pytraj import matrix_analysis as ma
+    >>> from pytraj import io
+    >>> traj = io.load_sample_data()
+    >>> ma.distcovar_matrix(traj, '@CA')
+    >>> ma.mw_covariance_matrix(traj, '@CA @N')
+
+    See Also
+    --------
+    default_key_dict
+    _shared_methods._frame_iter_master
+
+    cpptraj compat mode
+    -------------------
+    {'distance_matrix' : 'dist',
+    'correlation_matrix' : 'correl',
+    'coord_covariance_matrix' : 'covar',
+    'mw_covariance_matrix' : 'mwcovar',
+    'distcovar_matrix' : 'distcovar',
+    'idea_matrix' : 'idea'}
+    """
 
     if 'dtype' in kwd.keys():
         dtype = kwd['dtype']
@@ -39,7 +69,7 @@ def %s (traj=None, command="", top=None, *args, **kwd):
     # check cpptraj's code
     act.print_output()
     return _get_data_from_dtype(dslist, dtype=dtype)
-"""
+'''
 
 for k, v in iteritems(default_key_dict):
     my_func_str = template % (k, v)
