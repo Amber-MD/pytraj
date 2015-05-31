@@ -4,3 +4,5 @@ cpptraj.txt: cpptraj license (GPL)
 externals: licenses for external libs we used
     + ClusCo.txt: gdt score c++ lib (GPL)
     + six.txt: six.py (BSD)
+    + magic.txt: magic package (MIT)
+    + pandas.txt: pandas package ("new" BSD)
