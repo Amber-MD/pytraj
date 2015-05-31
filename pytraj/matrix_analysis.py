@@ -17,6 +17,26 @@ default_key_dict = {'distance_matrix' : 'dist',
         'distcovar_matrix' : 'distcovar',
         'idea_matrix' : 'idea'}
 
+__cpptrajdoc__ = """
+    cpptraj manual
+    --------------
+          [out <filename>] [start <start>] [stop <stop>] [offset <offset>]
+          [name <name>] [ byatom | byres [mass] | bymask [mass] ]
+          [ ired [order <#>] ]
+          [ {distcovar | idea} <mask1> ]
+          [ {dist | correl | covar | mwcovar} <mask1> [<mask2>] ]
+          [ dihcovar dihedrals <dataset arg> ]
+    Calculate a matrix of the specified type from input coordinates.
+      dist: Distance matrix (default).
+      correl: Correlation matrix (aka dynamic cross correlation).
+      covar: Coordinate covariance matrix.
+      mwcovar: Mass-weighted coordinate covariance matrix.
+      distcovar: Distance covariance matrix.
+      idea: Isotropically Distributed Ensemble Analysis matrix.
+      ired: Isotropic Reorientational Eigenmode Dynamics matrix.
+      dihcovar: Dihedral covariance matrix.
+"""
+
 template = '''
 def %s(traj=None, command="", top=None, *args, **kwd):
     """
@@ -72,6 +92,8 @@ def %s(traj=None, command="", top=None, *args, **kwd):
 
 for k, v in iteritems(default_key_dict):
     my_func_str = template % (k, v)
+    g_dict = globals()
     exec(my_func_str)
+    g_dict[k].__doc__ += __cpptrajdoc__
 
 del k, v
