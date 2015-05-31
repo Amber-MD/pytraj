@@ -8,6 +8,11 @@ from .utils.check_and_assert import is_linux
 from .utils import duplicate_traj, Timer
 from .Topology import Topology
 
+__all__ = ['test_if_having', 'no_test', 'local_test',
+           'load_sample_data', 'eq', 'aa_eq', 'is_linux',
+           'make_random_frame', 'duplicate_traj', 'make_fake_traj', 
+           'Timer', 'amberhome', 'cpptraj_test_dir',]
+
 try:
     amberhome = os.environ['AMBERHOME']
     cpptraj_test_dir = os.path.join(amberhome, 'AmberTools', 'test', 'cpptraj')
