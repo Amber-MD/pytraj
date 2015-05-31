@@ -52,11 +52,19 @@ def make_fake_traj(n_frames=100, n_atoms=10000):
     traj.update_xyz(np.random.rand(n_frames, n_atoms, 3))
     return traj
 
+header_doc = '''
+from pytraj import io
+import pytraj.common_actions as pyca
+traj = io.load_sample_data("tz2")
+'''
 def run_docstring(func):
+    func_doct = func.__doc__
     _doc = [x.lstrip() for x in func.__doc__.split("\n")]
     _doc = filter(lambda x : '>>>' in x, _doc)
     _doc = [x.replace(">>> ", "") for x in _doc]
     doc = "\n".join(x for x in _doc)
+    if "from pytraj import io" not in func_doct:
+        doc = "\n".join((header_doc, doc))
     exec(doc)
 
 if __name__ == "__main__":
