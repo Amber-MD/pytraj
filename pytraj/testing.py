@@ -57,7 +57,6 @@ def run_docstring(func):
     _doc = filter(lambda x : '>>>' in x, _doc)
     _doc = [x.replace(">>> ", "") for x in _doc]
     doc = "\n".join(x for x in _doc)
-    print (doc)
     exec(doc)
 
 if __name__ == "__main__":

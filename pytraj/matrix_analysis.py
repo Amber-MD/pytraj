@@ -1,12 +1,10 @@
 from __future__ import print_function, absolute_import
 
-from functools import partial
 from .actions.Action_Matrix import Action_Matrix
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from .externals.six import iteritems
 from .DataSetList import DataSetList
 
-# TODO: some assertions failed. FIXME
 
 __all__ = ['distance_matrix', 'correlation_matrix', 'coord_covariance_matrix',
            'mw_covariance_matrix', 'distcovar_matrix', 'idea_matrix',
@@ -36,7 +34,7 @@ def %s(traj=None, command="", top=None, *args, **kwd):
     >>> traj = io.load_sample_data('tz2')
     >>> ma.distcovar_matrix(traj, '@CA')
     >>> dslist = ma.mw_covariance_matrix(traj, '@CA')
-    >>> print (dslist) 
+    >>> #print (dslist) 
 
     See Also
     --------

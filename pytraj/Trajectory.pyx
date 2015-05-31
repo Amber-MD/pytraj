@@ -1164,7 +1164,17 @@ cdef class Trajectory (object):
         return pyca.calc_distrmsd(self, mask, *args, **kwd)
 
     def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):
-        """"""
+        """
+        Examples
+        --------
+        >>> from pytraj import io
+        >>> traj = io.load_sample_data('tz2')[:]
+        >>> traj.calc_rmsd() 
+        >>> traj.calc_rmsd(0)
+        >>> traj.calc_rmsd(-1)
+        >>> traj.calc_rmsd(-1, '@CA', True, True, dtype='dataset')
+        >>> traj.calc_rmsd(-1, '@CA', True, True, dtype='pyarray')
+        """
         if is_int(ref):
             # index
             _ref = self[ref]
