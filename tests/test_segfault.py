@@ -5,6 +5,7 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test, test_if_having
+import pytraj.common_actions as pyca
 
 """
 try not to get segmentation fault error (due to whatever freaking reason)
@@ -32,6 +33,17 @@ class Test(unittest.TestCase):
         pyca.search_hbonds(traj)
         pyca.search_hbonds(traj, 'series')
         pyca.search_hbonds(traj, 'series, nointramol')
+
+    def test_2(self):
+        print ("DataSetList lifetime")
+        #d = pyca.search_hbonds(traj)
+        # FIXME: segmentation fault
+        #d = pyca.search_hbonds(traj).groupby("SER").to_ndarray()
+        #d = pyca.search_hbonds(traj).groupby("SER")
+        d = pyca.search_hbonds(traj)
+        print (d.keys())
+        print (d)
+        #arr = d.to_ndarray()
 
 if __name__ == "__main__":
     unittest.main()
