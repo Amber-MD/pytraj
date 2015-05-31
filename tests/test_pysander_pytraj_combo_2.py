@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
             from pytraj.misc import get_atts
             import pandas as pd
             from pytraj.dataframe import to_dataframe
-            from pytraj.get_pysander_energies import get_pysander_energies
+            from pytraj.externals.get_pysander_energies import get_pysander_energies
 
             traj_fn = "./data/md1_prod.Tc5b.x"
             top_fn = "./data/Tc5b.top"
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
             # parm could be string or AmberParm object
             parm = top_fn
 
-            e_dict = get_pysander_energies(parm, traj, igb=8)
+            e_dict = get_pysander_energies(parm=parm, traj=traj, igb=8)
             print (pd.DataFrame(e_dict))
         else:
             print ("require both sander and parmed. Skip test")
