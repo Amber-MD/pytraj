@@ -33,9 +33,10 @@ def %s(traj=None, command="", top=None, *args, **kwd):
     --------
     >>> from pytraj import matrix_analysis as ma
     >>> from pytraj import io
-    >>> traj = io.load_sample_data()
+    >>> traj = io.load_sample_data('tz2')
     >>> ma.distcovar_matrix(traj, '@CA')
-    >>> ma.mw_covariance_matrix(traj, '@CA @N')
+    >>> dslist = ma.mw_covariance_matrix(traj, '@CA')
+    >>> print (dslist) 
 
     See Also
     --------
