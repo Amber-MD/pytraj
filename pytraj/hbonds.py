@@ -2,7 +2,7 @@ from __future__ import absolute_import, print_function
 
 from pytraj.action_dict import ActionDict
 from .externals.six import string_types
-from pytraj.DataSetList import DataSetList
+from pytraj.dataset_master import DataSetList
 from pytraj._get_common_objects import _get_data_from_dtype
 
 adict = ActionDict()
@@ -53,8 +53,24 @@ def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
-def search_nointramol_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
+def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WAT", 
+                             dtype='dataset', *args, **kwd):
     """
+    Search hbonds between solute and solvent, ignoring intra-hbond
+
+    Parameters
+    ----------
+    traj : Trajectory-like or any iterable object that _frame_iter_mater return a Frame
+    mask : str, default "solventacceptor :WAT@O solventdonor :WAT"
+        cpptraj command
+    dtype : str, default 'dataset'
+    *args, **kwd: optional
+
+    Examples
+    --------
+    >>> pyca.search_nointramol_hbonds(traj)
+    >>> pyca.search_nointramol_hbonds([traj, traj2], top=traj.top)
+
     See Also
     --------
        search_hbonds
