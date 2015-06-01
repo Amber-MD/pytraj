@@ -245,6 +245,14 @@ cdef extern from "DataSet.h":
         PCHI "DataSet::PCHI"
         OMEGA "DataSet::OMEGA"
         NOE "DataSet::NOE"
+        DIST "DataSet::DIST"
+        COVAR "DataSet::COVAR"
+        MWCOVAR "DataSet::MWCOVAR"
+        CORREL "DataSet::CORREL"
+        DISTCOVAR "DataSet::DISTCOVAR"
+        IDEA "DataSet::IDEA"
+        IRED "DataSet::IRED"
+        DIHCOVAR "DataSet::DIHCOVAR"
         UNDEFINEDSCALARTYPE "DataSet::UNDEFINED"
     # DataSet_2D.h
 cdef extern from "DataSet_2D.h":

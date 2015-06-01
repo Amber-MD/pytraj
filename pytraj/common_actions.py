@@ -67,7 +67,7 @@ calc_angle = partial(calculate, 'angle', quick_get=True)
 calc_molsurf = partial(calculate, 'molsurf', quick_get=True)
 calc_distrmsd = partial(calculate, 'distrmsd', quick_get=True)
 calc_volume = partial(calculate, 'volume', quick_get=True)
-calc_matrix = partial(calculate, 'matrix')
+calc_matrix = partial(calculate, 'matrix', print_output=True)
 calc_jcoupling = partial(calculate, 'jcoupling', dtype='dataset')
 calc_multivector = partial(calculate, 'multivector')
 calc_volmap = partial(calculate, 'volmap')
@@ -699,11 +699,13 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
             only string mask for mask (command)
     Examples
     --------
-        calc_rmsd(traj, ":3-18@CA", ref=traj[0], mass=True, fit=True)
-        calc_rmsd(traj, ":3-18@CA", 0) # ref=traj[0]
-        calc_rmsd(traj, ":3-18@CA", 'last') # ref=traj[-1]
-        calc_rmsd(traj, ":3-18@CA", 'first') # ref=traj[0]
-        calc_rmsd(traj, ":3-18@CA", 'Tc5b.nat.crd') # ref: from file
+    >>> from pytraj import io
+    >>> from pytraj.common_actions import calc_rmsd
+    >>> traj = io.load_sample_data("tz2")
+    >>> calc_rmsd(traj, ":3-13@CA", ref=traj[0], mass=True, fit=True)
+    >>> calc_rmsd(traj, ":3-13@CA", ref=traj[0], mass=True, fit=False)
+    >>> calc_rmsd(traj, ":3-13@CA", ref=traj[0], mass=True, fit=False, mode='cpptraj')
+    >>> calc_rmsd([traj, traj[-1]], ":3-13@CA", ref=traj[0], top=traj.top, mass=True, fit=False)
 
     """
     from array import array as pyarray
@@ -736,7 +738,7 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
         if mass:
             ref.set_frame_mass(_top)
         _ref = Frame(ref, atm)
-        for frame in traj:
+        for frame in _frame_iter_master(traj):
             if mass:
                 # TODO : just need to set mass once
                 frame.set_frame_mass(_top)

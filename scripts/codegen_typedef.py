@@ -1,8 +1,9 @@
 import os
-from .util import Line_codegen
+from util import Line_codegen
 import sys
 
-cpp_src = os.environ['AMBERHOME'] + "AmberTools/src/cpptraj/src/"
+#cpp_src = os.environ['AMBERHOME'] + "AmberTools/src/cpptraj/src/"
+cpp_src = "../cpptraj/src/"
 fname = cpp_src + sys.argv[1]
 
 with open(fname, 'r') as fh:

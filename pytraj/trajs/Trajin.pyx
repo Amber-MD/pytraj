@@ -188,6 +188,7 @@ cdef class Trajin (TrajectoryFile):
         cdef int[:] int_view
         cdef list tmplist
         cdef AtomMask atom_mask_obj
+        cdef idxs_size
     
         if isinstance(idxs, AtomMask):
             atom_mask_obj = <AtomMask> idxs
@@ -218,8 +219,13 @@ cdef class Trajin (TrajectoryFile):
                     txt = "not supported keyword `%s`" % idxs
                     raise NotImplementedError(txt)
         elif not isinstance(idxs, slice):
-            if isinstance(idxs, tuple):
-                idx_0 = idxs[0]
+            if idxs == ():
+                return self
+            elif isinstance(idxs, tuple):
+                idxs_size = len(idxs)
+                if idxs_size >= 4:
+                    raise NotImplementedError("number of elements must me smaller than 4")
+                idx0 = idxs[0]
     
                 all_are_slice_instances = True
                 for tmp in idxs:
@@ -240,14 +246,27 @@ cdef class Trajin (TrajectoryFile):
                     else:
                         return tmplist
                     #raise NotImplementedError("not yet supported if all indcies are slices")
-                if isinstance(self[idx_0], Frame):
-                    frame = self[idx_0]
+                idx1 = idxs[1]
+                if isinstance(self[idx0], Frame):
+                    frame = self[idx0]
                     self.tmpfarray = frame
+                    if isinstance(idx1, string_types):
+                        # traj[0, '@CA']
+                        frame.set_top(self.top)
                     return self.tmpfarray[idxs[1:]]
-                elif isinstance(self[idx_0], Trajectory):
-                    farray = self[idx_0]
+                elif isinstance(self[idx0], Trajectory):
+                    farray = self[idx0]
                     self.tmpfarray = farray
-                    return self.tmpfarray[idxs[1:]]
+                    if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
+                        if idxs_size == 2:
+                            return self.tmpfarray[idxs[1]]
+                        else:
+                            return self.tmpfarray[idxs[1]][idxs[2]]
+                    else:
+                        try:
+                            return self.tmpfarray[idxs[1]]
+                        except:
+                            raise NotImplementedError()
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
                 farray = Trajectory()
                 # for unknown reason, this does not work, it returns a Frame (?)
@@ -495,3 +514,7 @@ cdef class Trajin (TrajectoryFile):
     @memoize
     def box_to_ndarray(self):
         return _box_to_ndarray(self)
+
+    def to_mutable_traj(self):
+        """same as self[:] but more explicit"""
+        return self[:]
