@@ -232,6 +232,21 @@ cdef class Frame (object):
         return self.buffer2d[:].shape
 
     def __getitem__(self, idx):
+        """
+        Examples
+        --------
+        >>> from pytraj import io
+        >>> traj = io.load_sample_data('tz2')
+        >>> f0 = traj[0]
+        >>> f0[0]
+        >>> f0[0, 0]
+        >>> f0[:,  0]
+        >>> f0.set_top(traj.top)
+        >>> f0['@CA']
+        >>> atm = traj.top.select("@CB")
+        >>> f0[atm]
+        >>> f0[atm, 0]
+        """
         cdef AtomMask atm
         cdef cython.view.array cy_arr
         cdef int new_size
@@ -270,7 +285,7 @@ cdef class Frame (object):
             elif len(idx) == 2:
                 return self[idx[0]][idx[1]]
             elif len(idx) == 3:
-                return self[idx[0]][idx[1]][idx[2]]
+                return self[idx[0]][(idx[1], idx[2])]
             else:
                 raise NotImplementedError()
         elif isinstance(idx, dict):
@@ -285,7 +300,9 @@ cdef class Frame (object):
             if self.top is not None and not self.top.is_empty():
                 return self[<AtomMask> self.top(idx)]
             else:
-                raise ValueError("must have non-empty topology")
+                raise ValueError('must have non-empty topology. Use self.set_top'
+                      ' or use self[AtomMask]')
+
         elif isinstance(idx, tuple) and isinstance(idx[0], string_types):
             # (AtomMask, )
             if len(idx) == 1:
@@ -293,7 +310,7 @@ cdef class Frame (object):
             elif len(idx) == 2:
                 return self[idx[0]][idx[1]]
             elif len(idx) == 3:
-                return self[idx[0]][idx[1]][idx[2]]
+                return self[idx[0]][(idx[1], idx[2])]
             else:
                 raise NotImplementedError()
         else:
