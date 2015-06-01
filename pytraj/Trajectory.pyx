@@ -406,6 +406,7 @@ cdef class Trajectory (object):
         cdef int[:] int_view
         cdef AtomMask atom_mask_obj
         cdef pyarray list_arr
+        cdef int idxs_size
         #cdef list tmplist
 
         # test memoryview for traj[:, :, :]
@@ -432,6 +433,7 @@ cdef class Trajectory (object):
                 _farray.append(_frame, copy=False) # 2nd copy if using `copy=True`
             #self.tmpfarray = _farray # why need this?
             # hold _farray in self.tmpfarray to avoid memory lost
+            # traj[AtomMask, :, 0]
             #return self.tmpfarray
             return _farray
 
@@ -459,7 +461,11 @@ cdef class Trajectory (object):
                 # empty tuple
                 return self
             if isinstance(idxs, tuple):
-                idx_0 = idxs[0]
+                idxs_size = len(idxs)
+                idx1 = idxs[1]
+                if idxs_size > 3:
+                    raise NotImplementedError("support indexing up to 3 elements")
+                idx0 = idxs[0]
 
                 all_are_slice_instances = True
                 for tmp in idxs:
@@ -490,23 +496,37 @@ cdef class Trajectory (object):
                     else:
                         return tmplist
 
-                if isinstance(self[idx_0], Frame):
-                    frame = self[idx_0]
+                elif isinstance(self[idx0], Frame):
+                    frame = self[idx0]
                     frame.py_free_mem = False
+                    if isinstance(idx1, string_types):
+                        # traj[0, '@CA']
+                        frame.set_top(self.top)
                     # TODO: need to check memory
-                    return frame[idxs[1:]]
-                elif isinstance(self[idx_0], Trajectory):
-                    farray = self[idx_0]
+                    if idxs_size == 2:
+                        return frame[idxs[1]]
+                    else:
+                        return frame[idxs[1]][idxs[2:]]
+                elif isinstance(self[idx0], Trajectory):
+                    farray = self[idx0]
                     # place holder to avoid memory free
                     # atm = traj.top("@CA")
                     # traj[0, atm]
-                    if isinstance(idxs[1], AtomMask) or isinstance(idxs[1], string_types):
+                    #if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
+                    #    if idxs_size == 2:
+                    #        return farray[idxs[1]]
+                    #    else:
+                    #        return farray[idxs[1]][idxs[2]]
+                    #else:
+                    #    try:
+                    #        return farray[idxs[1:]]
+                    #    except:
+                    #        raise NotImplementedError("")
+                    if idxs_size == 2:
                         return farray[idxs[1]]
                     else:
-                        try:
-                            return farray[idxs[1:]]
-                        except:
-                            raise NotImplementedError()
+                        return farray[idxs[1]][idxs[2]]
+
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
                 _farray = Trajectory(check_top=False)
                 _farray.top = self.top # just make a view, don't need to copy Topology

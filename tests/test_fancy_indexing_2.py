@@ -39,8 +39,14 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj.to_mutable_traj()
         xyz = traj.xyz[:]
-        atm = traj.top.select("@CA").indices
+        atm = traj.top.select("@CA")
+        indices = atm.indices
+
         aa_eq(fa[0, atm], fa[0][atm])
+        aa_eq(traj[0, atm], fa[0][atm])
+        aa_eq(traj[0, atm, 0], fa[0][atm, 0])
+        aa_eq(traj[0, atm, 0], xyz[0][indices][0])
+        aa_eq(traj[0, '@CA', 0], xyz[0][indices][0])
 
 if __name__ == "__main__":
     unittest.main()
