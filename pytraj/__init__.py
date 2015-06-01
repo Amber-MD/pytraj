@@ -3,15 +3,10 @@ pytraj
 """
 from __future__ import absolute_import
 import os
-#from pytraj import base
-#from .utils.check_and_assert import _import # turn off to avoid importing error
-# create adict and analdict objects here to we can use below in some modules
-# >>> from pytraj import adict, analdict 
 
 from .core import Atom, Residue, Molecule
 from pytraj.Topology import Topology
 from .ArgList import ArgList
-#from .NameType import NameType
 from .AtomMask import AtomMask
 from .math import Vec3
 from .CpptrajState import CpptrajState
@@ -40,6 +35,8 @@ adict = ActionDict()
 analdict = AnalysisDict()
 from .misc import info
 from .run_tests import run_tests
+
+from ._shared_methods import _frame_iter_master as frame_iter_master
 
 # turn off verbose in cpptraj
 # TODO: need to move set_world_silent and set_error_silent to the same file
