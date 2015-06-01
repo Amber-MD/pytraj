@@ -500,7 +500,7 @@ cdef class Trajectory (object):
                     # place holder to avoid memory free
                     # atm = traj.top("@CA")
                     # traj[0, atm]
-                    if isinstance(idxs[1], AtomMask):
+                    if isinstance(idxs[1], AtomMask) or isinstance(idxs[1], string_types):
                         return farray[idxs[1]]
                     else:
                         try:

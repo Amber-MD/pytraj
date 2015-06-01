@@ -249,7 +249,7 @@ cdef class Trajin (TrajectoryFile):
                 elif isinstance(self[idx_0], Trajectory):
                     farray = self[idx_0]
                     self.tmpfarray = farray
-                    if isinstance(idxs[1], AtomMask):
+                    if isinstance(idxs[1], AtomMask) or isinstance(idxs[1], string_types):
                         return self.tmpfarray[idxs[1]]
                     else:
                         try:
@@ -503,3 +503,7 @@ cdef class Trajin (TrajectoryFile):
     @memoize
     def box_to_ndarray(self):
         return _box_to_ndarray(self)
+
+    def to_mutable_traj(self):
+        """same as self[:] but more explicit"""
+        return self[:]
