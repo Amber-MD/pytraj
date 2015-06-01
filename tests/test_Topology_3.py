@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
     def test_2(self):
         print ("test top[indices]")
         indices = top("@CA").indices
-        indices_s = top.select("@CA")
+        indices_s = top.select("@CA").indices
         assert indices_s == indices
         atom_list = top[indices]
 

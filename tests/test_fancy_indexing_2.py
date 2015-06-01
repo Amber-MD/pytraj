@@ -34,5 +34,13 @@ class Test(unittest.TestCase):
         aa_eq(fa4[1].coords, traj[2].coords)
         aa_eq(fa4[0].coords, traj[1].coords)
 
+    def test_1(self):
+        # AtomMask
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        fa = traj.to_mutable_traj()
+        xyz = traj.xyz[:]
+        atm = traj.top.select("@CA").indices
+        aa_eq(fa[0, atm], fa[0][atm])
+
 if __name__ == "__main__":
     unittest.main()
