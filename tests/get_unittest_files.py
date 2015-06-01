@@ -13,7 +13,6 @@ for pyfile in testlist:
         # or one with "import unittest # pragma no_test"
         if base_line in txt:
             if not base_line + " # pragma no_test" in txt and not "#" + base_line in txt:
-                print (pyfile)
                 line0 = "echo ./%s \n" % pyfile
                 line = "python ./%s \n" % pyfile
                 lines.append(line0)
