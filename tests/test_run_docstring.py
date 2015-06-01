@@ -36,5 +36,9 @@ class Test(unittest.TestCase):
         print ("Topology.select")
         run_docstring(Topology.select)
 
+        print ("frame __getitem__")
+        from pytraj import Frame
+        run_docstring(Frame.__getitem__)
+
 if __name__ == "__main__":
     unittest.main()
