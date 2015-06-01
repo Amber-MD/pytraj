@@ -66,3 +66,14 @@ cdef class DataSet_MatrixDbl (DataSet_2D):
     def data(self):
         """return 1D python array of matrix' data"""
         return self.get_full_matrix()
+
+    def to_ndarray(self):
+        from pytraj.utils import _import_numpy
+        _, np = _import_numpy()
+        if np:
+            arr = np.asarray(self.get_full_matrix()).reshape(
+                             self.n_rows, self.n_cols)
+            return arr
+        else:
+            raise ImportError("require numpy")
+        

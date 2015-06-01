@@ -65,8 +65,6 @@ class Test(unittest.TestCase):
             if 'byres' in command:
                 # TODO: simplify
                 mat_out = mat_out[0]
-            size = int(np.sqrt(mat_out.shape[0]))
-            mat_out = mat_out.reshape(size, size)
 
             if 'bymask' in command:
                 aa_eq(np.mean(mat_out.flatten()), saved_mat, decimal=2)
