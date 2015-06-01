@@ -2,7 +2,7 @@ from __future__ import absolute_import, print_function
 
 from pytraj.action_dict import ActionDict
 from .externals.six import string_types
-from pytraj.dataset_master import DataSetList
+from pytraj.DataSetList import DataSetList
 from pytraj._get_common_objects import _get_data_from_dtype
 
 adict = ActionDict()
