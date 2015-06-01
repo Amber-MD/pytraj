@@ -2,6 +2,7 @@ from __future__ import print_function
 import unittest
 from pytraj.testing import run_docstring
 import pytraj.common_actions as pyca
+from pytraj.base import *
 
 def silly_doc_func():
     """
@@ -31,6 +32,9 @@ class Test(unittest.TestCase):
         print ("Trajectory.calc_rmsd")
         from pytraj import Trajectory
         run_docstring(Trajectory.calc_rmsd)
+
+        print ("Topology.select")
+        run_docstring(Topology.select)
 
 if __name__ == "__main__":
     unittest.main()

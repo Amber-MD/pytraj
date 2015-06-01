@@ -263,6 +263,16 @@ cdef class Frame (object):
                 return self[idx.indices]
             else:
                 return self.xyz[idx.indices]
+        elif isinstance(idx, tuple) and isinstance(idx[0], AtomMask):
+            # (AtomMask, )
+            if len(idx) == 1:
+                return self[idx[0]]
+            elif len(idx) == 2:
+                return self[idx[0]][idx[1]]
+            elif len(idx) == 3:
+                return self[idx[0]][idx[1]][idx[2]]
+            else:
+                raise NotImplementedError()
         elif isinstance(idx, dict):
             # Example: frame[dict(top=top, mask='@CA')]
             # return a sub-array copy with indices got from 
@@ -276,6 +286,16 @@ cdef class Frame (object):
                 return self[<AtomMask> self.top(idx)]
             else:
                 raise ValueError("must have non-empty topology")
+        elif isinstance(idx, tuple) and isinstance(idx[0], string_types):
+            # (AtomMask, )
+            if len(idx) == 1:
+                return self[idx[0]]
+            elif len(idx) == 2:
+                return self[idx[0]][idx[1]]
+            elif len(idx) == 3:
+                return self[idx[0]][idx[1]][idx[2]]
+            else:
+                raise NotImplementedError()
         else:
             if has_numpy:
                 return self.xyz[idx]

@@ -52,5 +52,10 @@ class Test(unittest.TestCase):
             #print (traj[0].buffer2d[i])
             assert_almost_equal(traj[:, :, 0][i], traj[0].buffer2d[i])
 
+        # slicing with mask
+        atm = traj.top("@CA")
+        traj[atm]
+        traj[:, atm]
+
 if __name__ == "__main__":
     unittest.main()

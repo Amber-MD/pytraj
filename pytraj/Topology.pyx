@@ -199,13 +199,19 @@ cdef class Topology:
         return self.mol_iter()
 
     def select(self, mask):
-        """return array of indices of selected atoms with `mask`
+        """return AtomMask object
+
+        Examples
+        --------
+        >>> atm = traj.top.select("@CA")
+        >>> # get new Trajectory with new mask
+        >>> print (traj[atm])
 
         Notes
         -----
             support openmp for distance-based atommask selction
         """
-        return self(mask).indices
+        return self(mask)
 
     def atom_iter(self):
         cdef Atom atom
