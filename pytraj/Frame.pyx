@@ -263,6 +263,9 @@ cdef class Frame (object):
                 return self[idx.indices]
             else:
                 return self.xyz[idx.indices]
+        elif isinstance(idx, tuple) and isinstance(idx[0], AtomMask):
+            # (AtomMask, )
+            return self[idx[0]]
         elif isinstance(idx, dict):
             # Example: frame[dict(top=top, mask='@CA')]
             # return a sub-array copy with indices got from 

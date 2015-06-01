@@ -218,7 +218,9 @@ cdef class Trajin (TrajectoryFile):
                     txt = "not supported keyword `%s`" % idxs
                     raise NotImplementedError(txt)
         elif not isinstance(idxs, slice):
-            if isinstance(idxs, tuple):
+            if idxs == ():
+                return self
+            elif isinstance(idxs, tuple):
                 idx_0 = idxs[0]
     
                 all_are_slice_instances = True
@@ -247,7 +249,13 @@ cdef class Trajin (TrajectoryFile):
                 elif isinstance(self[idx_0], Trajectory):
                     farray = self[idx_0]
                     self.tmpfarray = farray
-                    return self.tmpfarray[idxs[1:]]
+                    if isinstance(idxs[1], AtomMask):
+                        return self.tmpfarray[idxs[1]]
+                    else:
+                        try:
+                            return self.tmpfarray[idxs[1]]
+                        except:
+                            raise NotImplementedError()
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
                 farray = Trajectory()
                 # for unknown reason, this does not work, it returns a Frame (?)

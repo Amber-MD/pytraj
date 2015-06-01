@@ -455,6 +455,9 @@ cdef class Trajectory (object):
                     raise NotImplementedError(txt)
 
         elif not isinstance(idxs, slice):
+            if idxs == ():
+                # empty tuple
+                return self
             if isinstance(idxs, tuple):
                 idx_0 = idxs[0]
 
@@ -490,11 +493,20 @@ cdef class Trajectory (object):
                 if isinstance(self[idx_0], Frame):
                     frame = self[idx_0]
                     frame.py_free_mem = False
+                    # TODO: need to check memory
                     return frame[idxs[1:]]
                 elif isinstance(self[idx_0], Trajectory):
                     farray = self[idx_0]
-                    return farray[idxs[1:]]
-                #return frame[idxs[1:]]
+                    # place holder to avoid memory free
+                    # atm = traj.top("@CA")
+                    # traj[0, atm]
+                    if isinstance(idxs[1], AtomMask):
+                        return farray[idxs[1]]
+                    else:
+                        try:
+                            return farray[idxs[1:]]
+                        except:
+                            raise NotImplementedError()
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
                 _farray = Trajectory(check_top=False)
                 _farray.top = self.top # just make a view, don't need to copy Topology
