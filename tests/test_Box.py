@@ -133,5 +133,11 @@ class TestBox(unittest.TestCase):
         box.set_box_from_array([30., 30., 30., 60., 90., 60.])
         assert box.type == 'rhombic'
 
+    def test_box_constructor_with_type(self):
+        box = Box('rhombic')
+        assert box.type == 'rhombic'
+        box = Box('ortho')
+        assert box.type == 'ortho'
+
 if __name__ == "__main__":
     unittest.main()

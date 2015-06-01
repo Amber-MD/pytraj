@@ -7,6 +7,7 @@ from cpython.array cimport array as pyarray
 from pytraj.cpptraj_dict import BoxTypeDict, get_key
 from pytraj.utils import _import_numpy
 from pytraj.math.Matrix_3x3 cimport Matrix_3x3
+from pytraj.externals.six import string_types
 
 
 cdef class Box:
@@ -24,6 +25,10 @@ cdef class Box:
             elif isinstance(args[0], Matrix_3x3):
                 mat = args[0]
                 self.thisptr = new _Box(mat.thisptr[0])
+            elif isinstance(args[0], string_types):
+                # set box based on type
+                self.thisptr = new _Box()
+                self.type = args[0]
             else:
                 try:
                     # if args[0] has buffer interface
