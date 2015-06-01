@@ -584,8 +584,7 @@ cdef class Frame (object):
         return box.tolist()
 
     def v_address(self):
-        # cpptraj: return double*
-        raise NotImplementedError()
+        return <double[:self.thisptr.Natom(), :3]> self.thisptr.vAddress()
 
     property box:
         def __get__(self):
@@ -610,11 +609,11 @@ cdef class Frame (object):
         my_arr = <double[:6]> ptr
         return my_arr
 
-    def t_address(self):
+    def _t_address(self):
         # cpptraj: return double*
         raise NotImplementedError()
 
-    def i_address(self):
+    def _i_address(self):
         # cpptraj: return int*
         raise NotImplementedError()
 
