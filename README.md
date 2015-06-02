@@ -1,8 +1,7 @@
 [![Build Status](https://travis-ci.org/pytraj/pytraj.svg?branch=master)](https://travis-ci.org/pytraj/pytraj)
 [![Binstar Badge](https://binstar.org/pytraj/pytraj-dev/badges/version.svg)](https://binstar.org/pytraj/pytraj-dev/)
-Welcome to pytraj!
--------------------
-[wiki](http://www.github.com/pytraj/pytraj/wiki)
+pytraj
+------
 
 - pytraj is a Python package wrapping cpptraj program (a data analysis for biomolecular simulation)
 - Why using pytraj?
