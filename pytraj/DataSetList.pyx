@@ -340,6 +340,10 @@ cdef class DataSetList:
             mode = 'legend' | 'name' | 'dtype' | 'aspect'
         """
         import re
+        # avoid segmentation fault for
+        # traj.search_hbonds().groupby("SER")
+        Py_INCREF(self)
+
         cdef DataSetList dtmp
 
         dtmp = DataSetList()
@@ -350,10 +354,11 @@ cdef class DataSetList:
             att = getattr(d0, mode)
             if re.search(key, att):
                 dtmp.add_existing_set(d0)
-        # avoid segmentation fault for
-        # traj.search_hbonds().groupby("SER")
-        Py_INCREF(self)
 
+        # Decrement the refcount again...
+        # TODO figure out why this refcount gymnastics was necessary and fix
+        # that instead
+        Py_DECREF(self)
         return dtmp
 
     def tolist(self):
