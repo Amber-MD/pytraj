@@ -529,6 +529,7 @@ struct __pyx_obj_6pytraj_11DataSetList_DataSetList {
   PyObject_HEAD
   DataSetList *thisptr;
   int py_free_mem;
+  PyObject *_parent_lists;
 };
 
 
