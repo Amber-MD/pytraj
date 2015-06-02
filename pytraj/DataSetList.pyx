@@ -43,6 +43,10 @@ cdef class DataSetList:
         # check ./CpptrajState.pyx
         self.thisptr = new _DataSetList()
         self.py_free_mem = py_free_mem
+        # Not all DataSetLists own their own data (if it's a MemoryView) for
+        # instance, so this allows us to keep references to parent objects to
+        # prevent them from getting GCed while their memory is still being used.
+        self._parent_lists = []
 
     def __dealloc__(self):
         if self.py_free_mem:
@@ -340,9 +344,6 @@ cdef class DataSetList:
             mode = 'legend' | 'name' | 'dtype' | 'aspect'
         """
         import re
-        # avoid segmentation fault for
-        # traj.search_hbonds().groupby("SER")
-        Py_INCREF(self)
 
         cdef DataSetList dtmp
 
@@ -355,10 +356,9 @@ cdef class DataSetList:
             if re.search(key, att):
                 dtmp.add_existing_set(d0)
 
-        # Decrement the refcount again...
-        # TODO figure out why this refcount gymnastics was necessary and fix
-        # that instead
-        Py_DECREF(self)
+        # dtmp is just a view, so keep track of parent to avoid GC
+        dtmp._parent_lists.append(self)
+
         return dtmp
 
     def tolist(self):
