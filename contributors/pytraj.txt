@@ -1,17 +1,16 @@
-Lead developer: Hai Nguyen (hainm.comp at gmail.com, http://www.hainguyencomp.info/)
+Lead developer
+==============
+    Hai Nguyen (hainm.comp at gmail.com, http://www.hainguyencomp.info/)
 
 Contributors 
-------------
-* (add yours contributions here)
+==============
+* (your name: your contributions)
 
 Acknowledgement: 
-----------------
-Hai Nguyen thanks :
-    Jason Swails (creator of ParmEd) for his help (suggestion for designing API, git experience, porting code to Amber, ...) and his encouragement
-        [ParmEd] (https://github.com/ParmEd/ParmEd)
-(http://jswails.wikidot.com/)
-    Daniel R. Roe (creator of cpptraj) for helping technical detail about C++,
-compiling and designing cpptraj interface
-        [cpptraj] (https://github.com/mojyt/cpptraj)
-    James Maier (1st author of AMBER ff14SB force field) for his suggestion to
-write pytraj (rather than rewrite a new Python package to replace cpptraj) and his stimulating discussion about programming. (http://jmaier.info/)
+================
+**Hai Nguyen** thanks
+    * **Jason Swails** (creator of `ParmEd <https://github.com/ParmEd/ParmEd>`_) for his help (suggestion for designing API, git experience, porting code and his encouragement). http://jswails.wikidot.com/
+    
+    * **Daniel R. Roe** (creator of `cpptraj <https://github.com/mojyt/cpptraj>`_) for helping technical detail about C++, compiling and designing cpptraj interface.
+
+    * **James Maier** (1st author of AMBER ff14SB force field) for his suggestion to write pytraj (rather than rewrite a new Python package to replace cpptraj) and his stimulating discussion about programming. http://jmaier.info
