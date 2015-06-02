@@ -5003,9 +5003,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_22swap_atom_array(struct __pyx_o
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
-  int __pyx_v_int_is_signed;
-  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
+  int __pyx_v_long_is_signed;
+  int __pyx_v_int_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -5109,9 +5109,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_22swap_atom_array(struct __pyx_o
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
-  __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_int_is_signed = (((int)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[1]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -19610,9 +19610,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_180calc_dihedral(struct __pyx_ob
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
-  int __pyx_v_int_is_signed;
-  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
+  int __pyx_v_long_is_signed;
+  int __pyx_v_int_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -19716,9 +19716,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_180calc_dihedral(struct __pyx_ob
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
-  __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_int_is_signed = (((int)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[1]; __pyx_lineno = 1149; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -20981,9 +20981,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_182calc_angle(struct __pyx_obj_6
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
-  int __pyx_v_int_is_signed;
-  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
+  int __pyx_v_long_is_signed;
+  int __pyx_v_int_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -21087,9 +21087,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_182calc_angle(struct __pyx_obj_6
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
-  __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_int_is_signed = (((int)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[1]; __pyx_lineno = 1174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22417,9 +22417,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_186_calc_distance(struct __pyx_o
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
-  int __pyx_v_int_is_signed;
-  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
+  int __pyx_v_long_is_signed;
+  int __pyx_v_int_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -22523,9 +22523,9 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_186_calc_distance(struct __pyx_o
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
-  __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_int_is_signed = (((int)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[1]; __pyx_lineno = 1205; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -23213,18 +23213,18 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_218_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_8, __pyx_t_12, __pyx_t_11, __pyx_t_9, __pyx_t_10)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_8, __pyx_t_11, __pyx_t_12, __pyx_t_10)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx1) lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
+                      #pragma omp for lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
                               __pyx_v_i = 0 + 1 * __pyx_t_6;
                               /* Initialize private variables to invalid values */
-                              __pyx_v_idx1 = ((int)0xbad0bad0);
                               __pyx_v_idx0 = ((int)0xbad0bad0);
+                              __pyx_v_idx1 = ((int)0xbad0bad0);
 
                               /* "pytraj/Frame.pyx":1223
  *         if parallel:
@@ -23549,18 +23549,18 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_220_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_8, __pyx_t_12, __pyx_t_11, __pyx_t_9, __pyx_t_10)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_8, __pyx_t_11, __pyx_t_12, __pyx_t_10)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx0) lastprivate(__pyx_v_idx1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
+                      #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1) lastprivate(__pyx_v_idx0)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
                               __pyx_v_i = 0 + 1 * __pyx_t_6;
                               /* Initialize private variables to invalid values */
-                              __pyx_v_idx0 = ((int)0xbad0bad0);
                               __pyx_v_idx1 = ((int)0xbad0bad0);
+                              __pyx_v_idx0 = ((int)0xbad0bad0);
 
                               /* "pytraj/Frame.pyx":1223
  *         if parallel:
@@ -23885,11 +23885,11 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_222_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_8, __pyx_t_12, __pyx_t_11, __pyx_t_9, __pyx_t_10)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_8, __pyx_t_11, __pyx_t_12, __pyx_t_10)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx0)
+                      #pragma omp for lastprivate(__pyx_v_idx1) lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
@@ -39029,6 +39029,16 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     type_name++;
   }
   if (0);
+  else if (__Pyx_StrEq(name, "indirect")) {
+    Py_INCREF(o);
+    Py_DECREF(indirect);
+    indirect = o;
+  }
+  else if (__Pyx_StrEq(name, "indirect_contiguous")) {
+    Py_INCREF(o);
+    Py_DECREF(indirect_contiguous);
+    indirect_contiguous = o;
+  }
   else if (__Pyx_StrEq(name, "Py_None")) {
     PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
     {__pyx_filename = __pyx_f[3]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L2_error;}
@@ -39038,25 +39048,15 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     Py_DECREF(contiguous);
     contiguous = o;
   }
-  else if (__Pyx_StrEq(name, "indirect")) {
-    Py_INCREF(o);
-    Py_DECREF(indirect);
-    indirect = o;
-  }
-  else if (__Pyx_StrEq(name, "strided")) {
-    Py_INCREF(o);
-    Py_DECREF(strided);
-    strided = o;
-  }
   else if (__Pyx_StrEq(name, "generic")) {
     Py_INCREF(o);
     Py_DECREF(generic);
     generic = o;
   }
-  else if (__Pyx_StrEq(name, "indirect_contiguous")) {
+  else if (__Pyx_StrEq(name, "strided")) {
     Py_INCREF(o);
-    Py_DECREF(indirect_contiguous);
-    indirect_contiguous = o;
+    Py_DECREF(strided);
+    strided = o;
   }
   else {
     if (PyObject_SetAttr(__pyx_m, py_name, o) < 0) goto bad;
