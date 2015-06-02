@@ -38,12 +38,12 @@ class Test(unittest.TestCase):
         print ("DataSetList lifetime")
         #d = pyca.search_hbonds(traj)
         # FIXME: segmentation fault
-        #d = pyca.search_hbonds(traj).groupby("SER").to_ndarray()
-        #d = pyca.search_hbonds(traj).groupby("SER")
-        d = pyca.search_hbonds(traj)
+        d = pyca.search_hbonds(traj).groupby("SER")
+        d2 = pyca.search_hbonds(traj).groupby("SER").to_ndarray()
+        print (d.size)
         print (d.keys())
         print (d)
-        #arr = d.to_ndarray()
+        print (d2)
 
 if __name__ == "__main__":
     unittest.main()

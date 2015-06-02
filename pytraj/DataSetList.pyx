@@ -1,4 +1,5 @@
 # distutils: language = c++
+from python_ref cimport Py_INCREF, Py_DECREF
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array
@@ -349,6 +350,10 @@ cdef class DataSetList:
             att = getattr(d0, mode)
             if re.search(key, att):
                 dtmp.add_existing_set(d0)
+        # avoid segmentation fault for
+        # traj.search_hbonds().groupby("SER")
+        Py_INCREF(self)
+
         return dtmp
 
     def tolist(self):
