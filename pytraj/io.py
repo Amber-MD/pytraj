@@ -42,7 +42,7 @@ except ImportError:
 
 __all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
            '_load_from_filelist', '_iterload_from_filelist',
-           'loadpdb_rcsb',
+           'load_pdb_rcsb', 'load_pdb',
            'load_pseudo_parm', 'load_cpptraj_file',
            'load_datafile', 'load_hdf5',
            'load_sample_data',
@@ -330,9 +330,16 @@ def loadpdb_rcsb(pdbid):
     traj = load(fname, fname)
     return traj
 
-def load_single_frame(frame=None, top=None):
+# create alias
+load_pdb_rcsb = loadpdb_rcsb
+
+def load_pdb(pdb_file):
+    """return a Trajectory object"""
+    return load_traj(pdb_file, pdb_file)
+
+def load_single_frame(frame=None, top=None, index=0):
     """load single Frame"""
-    return load(frame, top)[0]
+    return load(frame, top)[index]
 
 def load_full_ParmEd(parmed_obj):
     """save and reload ParmEd object to pytraj object"""
