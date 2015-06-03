@@ -127,7 +127,7 @@ cdef extern from "Topology.h":
         int AppendTop(const _Topology &)
         # add more
         _CoordinateInfo& ParmCoordInfo() const
-        double GetVDWradius(int)
+        double GetVDWradius(int) except +
 
 cdef class Topology:
     cdef _Topology* thisptr

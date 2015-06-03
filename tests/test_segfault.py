@@ -45,5 +45,10 @@ class Test(unittest.TestCase):
         print (d)
         print (d2)
 
+    def test_3_vdw_radii_topology(self):
+        top = mdio.load_pdb("./data/tz2.pdb").top
+        # should raise ValueError since pdb does not have vdw info
+        self.assertRaises(ValueError, lambda: top.vdw_radii())
+
 if __name__ == "__main__":
     unittest.main()
