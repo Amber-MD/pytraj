@@ -23,6 +23,19 @@ def calc_%s(traj=None, command="", top=None, *args, **kwd):
 
     Examples
     --------
+    >>> import pytraj.dihedral_analysis as da
+    >>> da.calc_phi(traj)
+    >>> da.calc_psi(traj, "resrange 3-10")
+    >>> da.calc_chip(traj, "resrange 3-10")
+    >>> da.calc_chip(traj, "resrange 3-10", dtype='dict')
+    >>> # assert
+    >>> from pytraj import common_actions as pyca
+    >>> phi0 = pyca.calc_multidihedral(traj, "phi", dtype='dataset')
+    >>> phi1 = da.calc_phi(traj, dtype='dataset')
+    >>> from pytraj.testing import aa_eq
+    >>> for key in phi0.keys():
+    >>>     aa_eq(phi0[key], phi1[key])
+    >>> print ("OK")
 
     See Also
     --------
