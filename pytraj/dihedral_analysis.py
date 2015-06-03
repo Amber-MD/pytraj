@@ -9,7 +9,7 @@ from .DataSetList import DataSetList
 __all__ = []
 
 supported_dihedral_types = [x for x in 
-'phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
+'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
 
 template = '''
 def calc_%s(traj=None, command="", top=None, *args, **kwd):
@@ -28,6 +28,7 @@ def calc_%s(traj=None, command="", top=None, *args, **kwd):
     >>> da.calc_psi(traj, "resrange 3-10")
     >>> da.calc_chip(traj, "resrange 3-10")
     >>> da.calc_chip(traj, "resrange 3-10", dtype='dict')
+    >>> da.calc_multidihedral(traj, "resrange 3-10")
     >>> # assert
     >>> from pytraj import common_actions as pyca
     >>> phi0 = pyca.calc_multidihedral(traj, "phi", dtype='dataset')
@@ -61,7 +62,10 @@ def calc_%s(traj=None, command="", top=None, *args, **kwd):
 '''
 
 for key in supported_dihedral_types:
-    my_func_str = template % (key, key)
+    if key != 'multidihedral':
+        my_func_str = template % (key, key)
+    else:
+        my_func_str = template % (key, " ")
     g_dict = globals()
     exec(my_func_str)
 
