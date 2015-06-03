@@ -711,6 +711,10 @@ cdef class Topology:
         cdef pyarray arr = pyarray_master.clone(pyarray('d', []), 
                            n_atoms, zero=True)
         cdef double[:] d_view = arr
+        nb = self.NonbondParmType()
+
+        if nb.n_types < 1:
+            raise ValueError("don't have LJ parameters")
 
         for i in range(n_atoms):
             d_view[i] = self.thisptr.GetVDWradius(i)
@@ -745,3 +749,8 @@ cdef class Topology:
             return pd.DataFrame(arr, columns=labels)
         else:
             raise ValueError("must have pandas")
+
+    def NonbondParmType(self):
+        cdef NonbondParmType nb = NonbondParmType()
+        nb.thisptr[0] = self.thisptr.Nonbond()
+        return nb
