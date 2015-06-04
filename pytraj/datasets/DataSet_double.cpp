@@ -564,10 +564,12 @@ struct __pyx_memoryviewslice_obj;
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
  *     cdef _DataSet* baseptr0
+ *     cdef public object _base
  */
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
   PyObject_HEAD
   DataSet *baseptr0;
+  PyObject *_base;
 };
 
 
@@ -1028,6 +1030,10 @@ static void __Pyx_WriteUnraisable(const char *name, int clineno,
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
 static void __Pyx_call_next_tp_dealloc(PyObject* obj, destructor current_tp_dealloc);
+
+static int __Pyx_call_next_tp_traverse(PyObject* obj, visitproc v, void *a, traverseproc current_tp_traverse);
+
+static void __Pyx_call_next_tp_clear(PyObject* obj, inquiry current_tp_dealloc);
 
 static int __Pyx_SetVtable(PyObject *dict, void *vtable);
 
@@ -14575,10 +14581,11 @@ static PyObject *__pyx_tp_new_6pytraj_8datasets_14DataSet_double_DataSet_double(
 
 static void __pyx_tp_dealloc_6pytraj_8datasets_14DataSet_double_DataSet_double(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
-  if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
+  if (unlikely(Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
   }
   #endif
+  PyObject_GC_UnTrack(o);
   {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
@@ -14587,7 +14594,19 @@ static void __pyx_tp_dealloc_6pytraj_8datasets_14DataSet_double_DataSet_double(P
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
+  PyObject_GC_Track(o);
   if (likely(__pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D)) __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D->tp_dealloc(o); else __Pyx_call_next_tp_dealloc(o, __pyx_tp_dealloc_6pytraj_8datasets_14DataSet_double_DataSet_double);
+}
+
+static int __pyx_tp_traverse_6pytraj_8datasets_14DataSet_double_DataSet_double(PyObject *o, visitproc v, void *a) {
+  int e;
+  e = ((likely(__pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D)) ? ((__pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D->tp_traverse) ? __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D->tp_traverse(o, v, a) : 0) : __Pyx_call_next_tp_traverse(o, v, a, __pyx_tp_traverse_6pytraj_8datasets_14DataSet_double_DataSet_double)); if (e) return e;
+  return 0;
+}
+
+static int __pyx_tp_clear_6pytraj_8datasets_14DataSet_double_DataSet_double(PyObject *o) {
+  if (likely(__pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D)) { if (__pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D->tp_clear) __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D->tp_clear(o); } else __Pyx_call_next_tp_clear(o, __pyx_tp_clear_6pytraj_8datasets_14DataSet_double_DataSet_double);
+  return 0;
 }
 static PyObject *__pyx_sq_item_6pytraj_8datasets_14DataSet_double_DataSet_double(PyObject *o, Py_ssize_t i) {
   PyObject *r;
@@ -14682,10 +14701,10 @@ static PyTypeObject __pyx_type_6pytraj_8datasets_14DataSet_double_DataSet_double
   0, /*tp_getattro*/
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   0, /*tp_doc*/
-  0, /*tp_traverse*/
-  0, /*tp_clear*/
+  __pyx_tp_traverse_6pytraj_8datasets_14DataSet_double_DataSet_double, /*tp_traverse*/
+  __pyx_tp_clear_6pytraj_8datasets_14DataSet_double_DataSet_double, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   __pyx_pw_6pytraj_8datasets_14DataSet_double_14DataSet_double_11__iter__, /*tp_iter*/
@@ -17026,6 +17045,27 @@ static void __Pyx_call_next_tp_dealloc(PyObject* obj, destructor current_tp_deal
         type = type->tp_base;
     if (type)
         type->tp_dealloc(obj);
+}
+
+static int __Pyx_call_next_tp_traverse(PyObject* obj, visitproc v, void *a, traverseproc current_tp_traverse) {
+    PyTypeObject* type = Py_TYPE(obj);
+    while (type && type->tp_traverse != current_tp_traverse)
+        type = type->tp_base;
+    while (type && type->tp_traverse == current_tp_traverse)
+        type = type->tp_base;
+    if (type && type->tp_traverse)
+        return type->tp_traverse(obj, v, a);
+    return 0;
+}
+
+static void __Pyx_call_next_tp_clear(PyObject* obj, inquiry current_tp_clear) {
+    PyTypeObject* type = Py_TYPE(obj);
+    while (type && type->tp_clear != current_tp_clear)
+        type = type->tp_base;
+    while (type && type->tp_clear == current_tp_clear)
+        type = type->tp_base;
+    if (type && type->tp_clear)
+        type->tp_clear(obj);
 }
 
 static int __Pyx_SetVtable(PyObject *dict, void *vtable) {

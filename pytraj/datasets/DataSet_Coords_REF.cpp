@@ -1108,7 +1108,7 @@ struct __pyx_obj_6pytraj_8FileName_FileName {
 
 
 /* "pytraj/Topology.pxd":132
- *         double GetVDWradius(int)
+ *         double GetVDWradius(int) except +
  * 
  * cdef class Topology:             # <<<<<<<<<<<<<<
  *     cdef _Topology* thisptr
@@ -1135,6 +1135,7 @@ struct __pyx_obj_6pytraj_7ArgList_ArgList {
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
   PyObject_HEAD
   DataSet *baseptr0;
+  PyObject *_base;
 };
 
 

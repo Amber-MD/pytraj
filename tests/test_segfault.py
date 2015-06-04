@@ -3,7 +3,7 @@ import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 from pytraj.decorators import no_test, test_if_having
 import pytraj.common_actions as pyca
 
@@ -66,6 +66,14 @@ class Test(unittest.TestCase):
         # segmentation fault
         #print (da.calc_phi(traj)[0])
         print (search_hbonds(traj)[0])
+        # new DSL
+        print (search_hbonds(traj)[:][:][:][:][0])
+        print (search_hbonds(traj)[:3][2][:][:][0])
+        d0_dummy = search_hbonds(traj)[:][:][:][:][0]
+        d0 = search_hbonds(traj)[0]
+        aa_eq(d0_dummy.to_ndarray(), d0.to_ndarray())
+        # groupby
+        print (search_hbonds(traj)[0:4].groupby("").groupby(""))
 
         dslist = da.calc_phi(traj)
         x = dslist[0]

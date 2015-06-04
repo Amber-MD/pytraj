@@ -451,10 +451,12 @@ struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet;
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
  *     cdef _DataSet* baseptr0
+ *     cdef public object _base
  */
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
   PyObject_HEAD
   DataSet *baseptr0;
+  PyObject *_base;
 };
 
 
@@ -964,6 +966,9 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_86split(struct __p
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_88write_to_cpptraj_format(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_filename); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_90save(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_format); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_92plot(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base___get__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
+static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base_2__set__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base_4__del__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
 static void __pyx_pf_7cpython_5array_5array_2__releasebuffer__(CYTHON_UNUSED arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tp_new_6pytraj_8datasets_7DataSet_DataSet(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -1029,6 +1034,7 @@ static char __pyx_k_ImportError[] = "ImportError";
 static char __pyx_k_MemoryError[] = "MemoryError";
 static char __pyx_k_add_dataset[] = "add_dataset";
 static char __pyx_k_array_split[] = "array_split";
+static char __pyx_k_base_object[] = "_base: object";
 static char __pyx_k_data_format[] = "data_format";
 static char __pyx_k_makesureABC[] = "makesureABC";
 static char __pyx_k_scalar_mode[] = "scalar_mode";
@@ -7597,6 +7603,99 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_92plot(struct __py
   return __pyx_r;
 }
 
+/* "pytraj/datasets/DataSet.pxd":48
+ * cdef class DataSet:
+ *     cdef _DataSet* baseptr0
+ *     cdef public object _base             # <<<<<<<<<<<<<<
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_5_base_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_5_base_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base___get__(((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base___get__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->_base);
+  __pyx_r = __pyx_v_self->_base;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_5_base_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_5_base_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base_2__set__(((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base_2__set__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__", 0);
+  __Pyx_INCREF(__pyx_v_value);
+  __Pyx_GIVEREF(__pyx_v_value);
+  __Pyx_GOTREF(__pyx_v_self->_base);
+  __Pyx_DECREF(__pyx_v_self->_base);
+  __pyx_v_self->_base = __pyx_v_value;
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_5_base_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_5_base_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base_4__del__(((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base_4__del__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->_base);
+  __Pyx_DECREF(__pyx_v_self->_base);
+  __pyx_v_self->_base = Py_None;
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
 /* "cpython/array.pxd":91
  *             __data_union data
  * 
@@ -8531,6 +8630,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_st
 }
 
 static PyObject *__pyx_tp_new_6pytraj_8datasets_7DataSet_DataSet(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -8538,6 +8638,8 @@ static PyObject *__pyx_tp_new_6pytraj_8datasets_7DataSet_DataSet(PyTypeObject *t
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)o);
+  p->_base = Py_None; Py_INCREF(Py_None);
   if (unlikely(__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
     Py_DECREF(o); o = 0;
   }
@@ -8545,11 +8647,13 @@ static PyObject *__pyx_tp_new_6pytraj_8datasets_7DataSet_DataSet(PyTypeObject *t
 }
 
 static void __pyx_tp_dealloc_6pytraj_8datasets_7DataSet_DataSet(PyObject *o) {
+  struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *p = (struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)o;
   #if PY_VERSION_HEX >= 0x030400a1
-  if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
+  if (unlikely(Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
   }
   #endif
+  PyObject_GC_UnTrack(o);
   {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
@@ -8558,7 +8662,26 @@ static void __pyx_tp_dealloc_6pytraj_8datasets_7DataSet_DataSet(PyObject *o) {
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
+  Py_CLEAR(p->_base);
   (*Py_TYPE(o)->tp_free)(o);
+}
+
+static int __pyx_tp_traverse_6pytraj_8datasets_7DataSet_DataSet(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *p = (struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)o;
+  if (p->_base) {
+    e = (*v)(p->_base, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_6pytraj_8datasets_7DataSet_DataSet(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *p = (struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)o;
+  tmp = ((PyObject*)p->_base);
+  p->_base = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
 }
 static PyObject *__pyx_sq_item_6pytraj_8datasets_7DataSet_DataSet(PyObject *o, Py_ssize_t i) {
   PyObject *r;
@@ -8607,6 +8730,19 @@ static int __pyx_setprop_6pytraj_8datasets_7DataSet_7DataSet__npdata(PyObject *o
   }
 }
 
+static PyObject *__pyx_getprop_6pytraj_8datasets_7DataSet_7DataSet__base(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_5_base_1__get__(o);
+}
+
+static int __pyx_setprop_6pytraj_8datasets_7DataSet_7DataSet__base(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_5_base_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_5_base_5__del__(o);
+  }
+}
+
 static PyMethodDef __pyx_methods_6pytraj_8datasets_7DataSet_DataSet[] = {
   {"__array__", (PyCFunction)__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_15__array__, METH_NOARGS, __pyx_doc_6pytraj_8datasets_7DataSet_7DataSet_14__array__},
   {"copy", (PyCFunction)__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_35copy, METH_NOARGS, __pyx_doc_6pytraj_8datasets_7DataSet_7DataSet_34copy},
@@ -8644,6 +8780,7 @@ static PyMethodDef __pyx_methods_6pytraj_8datasets_7DataSet_DataSet[] = {
 static struct PyGetSetDef __pyx_getsets_6pytraj_8datasets_7DataSet_DataSet[] = {
   {(char *)"legend", __pyx_getprop_6pytraj_8datasets_7DataSet_7DataSet_legend, __pyx_setprop_6pytraj_8datasets_7DataSet_7DataSet_legend, 0, 0},
   {(char *)"_npdata", __pyx_getprop_6pytraj_8datasets_7DataSet_7DataSet__npdata, __pyx_setprop_6pytraj_8datasets_7DataSet_7DataSet__npdata, 0, 0},
+  {(char *)"_base", __pyx_getprop_6pytraj_8datasets_7DataSet_7DataSet__base, __pyx_setprop_6pytraj_8datasets_7DataSet_7DataSet__base, __pyx_k_base_object, 0},
   {0, 0, 0, 0, 0}
 };
 
@@ -8752,10 +8889,10 @@ static PyTypeObject __pyx_type_6pytraj_8datasets_7DataSet_DataSet = {
   0, /*tp_getattro*/
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   "\n    Original doc from cpptraj\n    -------------------------\n    Class: DataSet\n        Base class that all DataSet types will inherit.\n        DataSets are given certain attributes to make DataSet selection easier; \n        these are name, index, and aspect. Name is typically associated with the\n        action that creates the DataSet, e.g. RMSD or distance. Index is used\n        when and action outputs subsets of data, e.g. with RMSD it is possible to \n        output per-residue RMSD, where the DataSet index corresponds to the residue\n        number. Aspect is used to further subdivide output data type; e.g. with \n        nucleic acid analysis each base pair (divided by index) has shear,\n        stagger etc calculated.\n\n    pytraj doc\n    ----------\n        Add some other methods: `tolist`, `to_ndarray`, `plot` and attribute `data`\n\n    ", /*tp_doc*/
-  0, /*tp_traverse*/
-  0, /*tp_clear*/
+  __pyx_tp_traverse_6pytraj_8datasets_7DataSet_DataSet, /*tp_traverse*/
+  __pyx_tp_clear_6pytraj_8datasets_7DataSet_DataSet, /*tp_clear*/
   __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_71__richcmp__, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   __pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_9__iter__, /*tp_iter*/

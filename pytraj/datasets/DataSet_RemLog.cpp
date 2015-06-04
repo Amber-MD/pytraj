@@ -460,10 +460,12 @@ typedef std::map<double,int>  __pyx_t_6pytraj_8datasets_14DataSet_RemLog_TmapTyp
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
  *     cdef _DataSet* baseptr0
+ *     cdef public object _base
  */
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
   PyObject_HEAD
   DataSet *baseptr0;
+  PyObject *_base;
 };
 
 
