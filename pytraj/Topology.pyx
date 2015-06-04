@@ -141,7 +141,6 @@ cdef class Topology:
         cdef list alist = []
 
         if is_int(idx):
-            print ("yes, int")
             # need to explicitly cast to int
             i = <int> idx
             atom = Atom()
