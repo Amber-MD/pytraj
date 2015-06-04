@@ -80,3 +80,7 @@ Daniel R. Roe and Thomas E. Cheatham, III
 Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095 
 
 - pytraj : Hai Nguyen et al. (2015) (in preperation)
+
+License
+-------
+BSD 2-Clause
