@@ -22,6 +22,7 @@ def calc_%s(traj=None, command="", top=None, *args, **kwd):
 
     _top = _get_top(traj, top)
     dslist = DataSetList()
+    template_command = " "
     template_command += command 
 
     act = adict[%s]
