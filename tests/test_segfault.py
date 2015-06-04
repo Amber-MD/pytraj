@@ -59,5 +59,19 @@ class Test(unittest.TestCase):
         print (idx)
         #assert idx == traj.n_frames
 
+    def test_indexing_nonrefernce_DSL(self):
+        from pytraj import dihedral_analysis as da
+        from pytraj.hbonds import search_hbonds
+
+        # segmentation fault
+        #print (da.calc_phi(traj)[0])
+        print (search_hbonds(traj)[0])
+
+        dslist = da.calc_phi(traj)
+        x = dslist[0]
+        print (x)
+        print (da.calc_phi(traj, dtype='dict'))
+
+
 if __name__ == "__main__":
     unittest.main()
