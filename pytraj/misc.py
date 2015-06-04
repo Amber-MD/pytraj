@@ -110,7 +110,12 @@ def info(obj=None):
             set_world_silent(False)
             _obj.info()
             set_world_silent(True)
-        elif hasattr(_obj, '__doc_'):
+        elif 'calc_' in _obj.__name__:
+            key = _obj.__name__.split("_")[-1]
+            set_world_silent(False)
+            adict[key].help()
+            set_world_silent(True)
+        elif hasattr(_obj, '__doc__'):
             print (_obj.__doc_)
         else:
             raise ValueError("object does not have `help` method")
