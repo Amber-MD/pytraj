@@ -1115,7 +1115,7 @@ struct __pyx_obj_6pytraj_8FileName_FileName {
 
 
 /* "pytraj/Topology.pxd":132
- *         double GetVDWradius(int)
+ *         double GetVDWradius(int) except +
  * 
  * cdef class Topology:             # <<<<<<<<<<<<<<
  *     cdef _Topology* thisptr

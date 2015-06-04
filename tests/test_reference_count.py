@@ -42,6 +42,8 @@ class TestReferentCounting(unittest.TestCase):
         
         assert sys.getrefcount(d) == 2
         sys.getrefcount(d)
+        junk = d[:3].groupby('SER'); del junk
+        assert sys.getrefcount(d) == 2
         
         traj.search_hbonds().groupby('SER')
         traj.search_hbonds().groupby('SER').groupby("SER")

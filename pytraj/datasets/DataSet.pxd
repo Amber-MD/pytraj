@@ -45,3 +45,4 @@ cdef extern from "DataSet.h":
 
 cdef class DataSet:
     cdef _DataSet* baseptr0
+    cdef public object _base

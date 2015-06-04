@@ -140,11 +140,14 @@ cdef class DataSetList:
             _idx = get_positive_idx(idx, self.size)
             # get memoryview
             dset.baseptr0 = self.thisptr.index_opr(_idx)
-            return cast_dataset(dset, dtype=dset.dtype)
+            dtmp = cast_dataset(dset, dtype=dset.dtype)
+            dtmp._base = self
+            return dtmp
         elif isinstance(idx, string_types):
              # return a list of datasets having idx as legend
              for d0 in self:
                  if d0.legend.upper() == idx.upper():
+                     d0._base = self
                      return d0
         elif isinstance(idx, slice):
             # return new view of `self`
@@ -153,12 +156,14 @@ cdef class DataSetList:
             new_dslist.py_free_mem = False # view
             for _idx in range(start, stop, step):
                 new_dslist.add_existing_set(self[_idx])
+            new_dslist._parent_lists.append(self)
             return new_dslist
         elif is_array(idx) or isinstance(idx, list):
             new_dslist = DataSetList()
             new_dslist.py_free_mem = False # view
             for _idx in idx: 
                 new_dslist.add_existing_set(self[_idx])
+            new_dslist._parent_lists.append(self)
             return new_dslist
         else:
             raise ValueError()
