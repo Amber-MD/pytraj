@@ -2,7 +2,7 @@ from __future__ import print_function
 import unittest
 from pytraj.base import *
 from pytraj import adict
-from pytraj import io as mdio
+from pytraj import io
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test, test_if_having
 import pytraj.common_actions as pyca
@@ -10,7 +10,7 @@ import pytraj.common_actions as pyca
 """
 try not to get segmentation fault error (due to whatever freaking reason)
 """
-traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -46,9 +46,18 @@ class Test(unittest.TestCase):
         print (d2)
 
     def test_3_vdw_radii_topology(self):
-        top = mdio.load_pdb("./data/tz2.pdb").top
+        top = io.load_pdb("./data/tz2.pdb").top
         # should raise ValueError since pdb does not have vdw info
         self.assertRaises(ValueError, lambda: top.vdw_radii())
+
+    def test_4_trajiter(self):
+        traj = io.load_sample_data("tz2")
+        from pytraj.compat import zip
+
+        for idx, (f0, f1) in enumerate(zip(traj, traj)):
+            f0.rmsd(f1)
+        print (idx)
+        #assert idx == traj.n_frames
 
 if __name__ == "__main__":
     unittest.main()
