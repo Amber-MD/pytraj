@@ -26,6 +26,12 @@ class Test(unittest.TestCase):
         for key in func_names:
             run_docstring(ma.__dict__[key])
 
+        print ("dihedral_analysis")
+        from pytraj import dihedral_analysis as da
+        func_names = da.supported_dihedral_types
+        for key in func_names:
+            run_docstring(da.__dict__['calc_' + key])
+
         print ("pyca.calc_rmsd")
         run_docstring(pyca.calc_rmsd)
 
