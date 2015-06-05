@@ -2,6 +2,8 @@
 randomizeions, strip atoms, ..."""
 
 from __future__ import print_function, absolute_import
+import os
+from glob import glob
 from pytraj.Topology import Topology
 from .TopologyList import TopologyList
 from .ArgList import ArgList
@@ -208,3 +210,21 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
         frame.xyz = np.vstack((f1.xyz, f2.xyz))
 
     return traj
+
+def find_libcpptraj():
+    """return a list of all libcpptraj files"""
+    paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
+    libcpptraj_path_list = []
+
+    for path in paths:
+        path = path.strip()
+        fnamelist = glob(os.path.join(path, "libcpptraj*"))
+        for fname in fnamelist: 
+            if os.path.isfile(fname):
+                libcpptraj_path_list.append(fname)
+
+    if not libcpptraj_path_list:
+        raise ImportError('can not find libcpptraj. '
+                          'make sure to update your LD_LIBRARY_PATH')
+    else:
+        return libcpptraj_path_list
