@@ -76,6 +76,10 @@ class Test(unittest.TestCase):
         coords_traj.load(flist)
         print (coords_traj)
 
+        # load all frames into memory
+        from pytraj import Trajectory
+        print (Trajectory(coords_traj))
+
         
 if __name__ == "__main__":
     unittest.main()
