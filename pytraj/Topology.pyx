@@ -144,7 +144,11 @@ cdef class Topology:
             # need to explicitly cast to int
             i = <int> idx
             atom = Atom()
-            atom.thisptr[0] = self.thisptr.index_opr(i)
+            if i  >= 0:
+                atom.thisptr[0] = self.thisptr.index_opr(i)
+            else:
+                # negative indexing
+                atom.thisptr[0] = self.thisptr.index_opr(self.n_atoms + i)
             return atom
         elif isinstance(idx, string_types):
             # return atom object iterator with given mask
