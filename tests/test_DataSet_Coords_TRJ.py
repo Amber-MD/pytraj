@@ -4,6 +4,7 @@ from pytraj.decorators import no_test
 from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ
 from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ
 from pytraj.utils import assert_almost_equal
+from pytraj import io
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -57,6 +58,24 @@ class Test(unittest.TestCase):
         assert d0[0] == d0[0]
 
         print (coords_traj.dtype)
+
+    def test_constructor(self):
+        from glob import glob
+        remd_top = "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7"
+        flist = glob("./data/Test_RemdTraj/rem.nc.*") 
+        coords_traj = DataSet_Coords_TRJ(flist, remd_top)
+        assert coords_traj.n_frames == 40
+
+    def test_load_filename_list(self):
+        from glob import glob
+        remd_top = "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7"
+        flist = glob("./data/Test_RemdTraj/rem.nc.*") 
+
+        coords_traj = DataSet_Coords_TRJ()
+        coords_traj.top = io.load(remd_top)
+        coords_traj.load(flist)
+        print (coords_traj)
+
         
 if __name__ == "__main__":
     unittest.main()
