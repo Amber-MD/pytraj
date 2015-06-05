@@ -14,7 +14,7 @@ from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _savetraj, _get_temperature_set
 from .._shared_methods import _box_to_ndarray
-from ..utils.check_and_assert import _import_numpy
+from ..utils.check_and_assert import _import_numpy, is_int
 from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
 from pytraj.externals.six.moves import range
@@ -189,8 +189,20 @@ cdef class Trajin (TrajectoryFile):
         cdef list tmplist
         cdef AtomMask atom_mask_obj
         cdef idxs_size
+
+        if is_int(idxs):
+            # assuming that `idxs` is integer
+            idx_1 = <int> get_positive_idx(idxs, self.size)
+            # raise index out of range
+            if idxs != 0 and idx_1 == 0:
+                raise ValueError("index is out of range")
+
+            with self:
+                self._read_traj_frame(idx_1, frame)
+            self.tmpfarray = frame
+            return self.tmpfarray
     
-        if isinstance(idxs, AtomMask):
+        elif isinstance(idxs, AtomMask):
             atom_mask_obj = <AtomMask> idxs
             _farray = Trajectory()
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
@@ -274,18 +286,9 @@ cdef class Trajin (TrajectoryFile):
                 # need to use `farray` so Cython knows its type
                 self.tmpfarray = farray
                 return self.tmpfarray
-
             else:
-                # assuming that `idxs` is integer
-                idx_1 = <int> get_positive_idx(idxs, self.size)
-                # raise index out of range
-                if idxs != 0 and idx_1 == 0:
-                    raise ValueError("index is out of range")
+                raise NotImplementedError()
 
-                with self:
-                    self._read_traj_frame(idx_1, frame)
-                self.tmpfarray = frame
-                return self.tmpfarray
         else:
             # idxs is slice
             farray = Trajectory()
