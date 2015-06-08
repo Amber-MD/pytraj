@@ -530,6 +530,8 @@ def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='
     dslist.set_py_free_mem(False) # need this to avoid segmentation fault
     act = adict['vector']
     command = "center " + command
+    if use_mass:
+        command += " mass"
 
     act.read_input(command=command, top=_top, dslist=dslist)
     act.process(_top)
@@ -542,7 +544,18 @@ def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='
     return _get_data_from_dtype(dslist[0], dtype=dtype)
 
 calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
-calc_COG = calc_center_of_geometry = partial(_calc_vector_center, use_mass=False)
+
+def calc_center_of_geometry(traj=None, command="", top=None, dtype='dataset'):
+    _top = _get_top(traj, top)
+    atom_mask_obj = _top(command)
+    dslist = DataSetList()
+    dslist.add_set("vector")
+    #dslist.set_py_free_mem(False) # need this to avoid segmentation fault
+    for frame in _frame_iter_master(traj):
+        dslist[0].append(frame.center_of_geometry(atom_mask_obj))
+    return _get_data_from_dtype(dslist[0], dtype=dtype)
+
+calc_COG = calc_center_of_geometry
 
 def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
     """return  DataSetList object
