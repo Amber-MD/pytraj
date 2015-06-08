@@ -943,7 +943,7 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset',
     # cpptraj require output
     command = "tmp_pytraj_grid_output.txt " + command
     _top = _get_top(traj, top)
-    act(command, traj, dslist=dslist, *args, **kwd)
+    act(command, traj, dslist=dslist, top=_top, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 calc_grid.__doc__ = _long_manual.__grid__

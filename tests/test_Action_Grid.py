@@ -17,5 +17,10 @@ class Test(unittest.TestCase):
         d[0].save("./output/test_grid.dx")
         print (d[0])
 
+        # iterator
+        d = pyca.calc_grid(traj(), " 20 0.5 20 0.5 20 0.5 :WAT@O", top=traj.top)
+        d[0].save("./output/test_grid2.dx")
+        print (d[0])
+
 if __name__ == "__main__":
     unittest.main()
