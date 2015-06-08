@@ -7,6 +7,7 @@ from pytraj.analysis_dict import AnalysisDict
 from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ
 from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD
 from pytraj.testing import test_if_having
+from pytraj.trajs.Trajin_Single import Trajin_Single
 
 anadict = AnalysisDict()
 
@@ -18,7 +19,7 @@ class Test(unittest.TestCase):
         dflist = DataFileList()
 
         trajin = "./data/md1_prod.Tc5b.x"
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = Trajin_Single("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist.add_set("traj", "test_traj", "my_default_name")
         dslist[0].top = traj.top
         dslist[0].add_trajin(traj)
