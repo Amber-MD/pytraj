@@ -229,8 +229,7 @@ def find_library(libname, unique=False):
                 lib_path_list.append(fname)
 
     if not lib_path_list:
-        raise ImportError('can not find libcpptraj. '
-                          'make sure to update your LD_LIBRARY_PATH')
+        return None
     else:
         if unique:
             return set(lib_path_list)

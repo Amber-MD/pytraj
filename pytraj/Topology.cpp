@@ -452,8 +452,8 @@ static const char *__pyx_filename;
 static const char *__pyx_f[] = {
   "pytraj/Topology.pyx",
   "pytraj/Topology.pxd",
-  "pytraj/Frame.pxd",
   "array.pxd",
+  "pytraj/Frame.pxd",
   "stringsource",
   "pytraj/NameType.pxd",
   "pytraj/core/Atom.pxd",
@@ -2347,6 +2347,7 @@ static PyObject *__pyx_builtin_ord;
 static PyObject *__pyx_builtin_zip;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_enumerate;
+static PyObject *__pyx_builtin_sum;
 static PyObject *__pyx_builtin_MemoryError;
 static PyObject *__pyx_builtin_Ellipsis;
 static PyObject *__pyx_builtin_id;
@@ -2424,17 +2425,17 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_115join(struct __pyx_obj_6
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_117mass(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_119indices_bonded_to(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, PyObject *__pyx_v_atom_name); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_121add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_signatures, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs, CYTHON_UNUSED PyObject *__pyx_v_defaults); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_157add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_159add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_161add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_163add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_123add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_signatures, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs, CYTHON_UNUSED PyObject *__pyx_v_defaults); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_165add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_167add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_169add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_171add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_125add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_signatures, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs, CYTHON_UNUSED PyObject *__pyx_v_defaults); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_173add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_175add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_177add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_179add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_127bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_130angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_133dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
@@ -2447,6 +2448,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_149_dihedrals_ndarray(stru
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_151vdw_radii(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_153to_dataframe(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_155NonbondParmType(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_157total_charge(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_11py_free_mem___get__(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8Topology_8Topology_11py_free_mem_2__set__(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
@@ -2526,6 +2528,7 @@ static char __pyx_k_ord[] = "ord";
 static char __pyx_k_res[] = "res";
 static char __pyx_k_set[] = "set";
 static char __pyx_k_str[] = "__str__";
+static char __pyx_k_sum[] = "sum";
 static char __pyx_k_xyz[] = "xyz";
 static char __pyx_k_zip[] = "zip";
 static char __pyx_k_args[] = "args";
@@ -2575,6 +2578,7 @@ static char __pyx_k_upper[] = "upper";
 static char __pyx_k_angles[] = "angles";
 static char __pyx_k_append[] = "append";
 static char __pyx_k_atname[] = "atname";
+static char __pyx_k_charge[] = "charge";
 static char __pyx_k_encode[] = "encode";
 static char __pyx_k_format[] = "format";
 static char __pyx_k_idtype[] = "idtype";
@@ -2639,6 +2643,7 @@ static char __pyx_k_moleculelist[] = "moleculelist";
 static char __pyx_k_pytraj_utils[] = "pytraj.utils";
 static char __pyx_k_residue_iter[] = "residue_iter";
 static char __pyx_k_string_types[] = "string_types";
+static char __pyx_k_total_charge[] = "total_charge";
 static char __pyx_k_add_dihedrals[] = "add_dihedrals";
 static char __pyx_k_angle_indices[] = "angle_indices";
 static char __pyx_k_atomic_number[] = "atomic_number";
@@ -2811,6 +2816,7 @@ static PyObject *__pyx_n_s_box;
 static PyObject *__pyx_n_s_c;
 static PyObject *__pyx_n_u_c;
 static PyObject *__pyx_kp_s_can_not_join_yourself_use_copy_m;
+static PyObject *__pyx_n_s_charge;
 static PyObject *__pyx_n_s_class;
 static PyObject *__pyx_n_s_close;
 static PyObject *__pyx_n_s_columns;
@@ -2941,10 +2947,12 @@ static PyObject *__pyx_kp_s_strided_and_indirect;
 static PyObject *__pyx_n_s_string_types;
 static PyObject *__pyx_n_s_strip;
 static PyObject *__pyx_n_s_struct;
+static PyObject *__pyx_n_s_sum;
 static PyObject *__pyx_kp_s_support_only_Topology_object_or;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_n_s_title;
+static PyObject *__pyx_n_s_total_charge;
 static PyObject *__pyx_n_s_trunc_res_atom_name;
 static PyObject *__pyx_n_s_type;
 static PyObject *__pyx_kp_s_unable_to_allocate_array_data;
@@ -13223,9 +13231,9 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_121add_bonds(struct __pyx_
 }
 
 /* Python wrapper */
-static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_158add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
-static PyMethodDef __pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_158add_bonds = {"__pyx_fuse_0add_bonds", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_158add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds};
-static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_158add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
+static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_160add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
+static PyMethodDef __pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_160add_bonds = {"__pyx_fuse_0add_bonds", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_160add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds};
+static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_160add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
   __Pyx_memviewslice __pyx_v_indices = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -13242,14 +13250,14 @@ static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_158add_bonds(P
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_157add_bonds(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_159add_bonds(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_157add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_159add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
   int __pyx_v_i;
   int __pyx_v_j;
   int __pyx_v_k;
@@ -13405,9 +13413,9 @@ __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_3, 1, (PyObject *(*)(char *)) __p
 }
 
 /* Python wrapper */
-static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_160add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
-static PyMethodDef __pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_160add_bonds = {"__pyx_fuse_1add_bonds", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_160add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds};
-static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_160add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
+static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_162add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
+static PyMethodDef __pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_162add_bonds = {"__pyx_fuse_1add_bonds", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_162add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds};
+static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_162add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
   __Pyx_memviewslice __pyx_v_indices = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -13424,14 +13432,14 @@ static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_160add_bonds(P
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_159add_bonds(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_161add_bonds(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_159add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_161add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
   int __pyx_v_i;
   int __pyx_v_j;
   int __pyx_v_k;
@@ -13587,9 +13595,9 @@ __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_3, 1, (PyObject *(*)(char *)) __p
 }
 
 /* Python wrapper */
-static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_162add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
-static PyMethodDef __pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_162add_bonds = {"__pyx_fuse_2add_bonds", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_162add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds};
-static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_162add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
+static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_164add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
+static PyMethodDef __pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_164add_bonds = {"__pyx_fuse_2add_bonds", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_164add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds};
+static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_164add_bonds(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
   __Pyx_memviewslice __pyx_v_indices = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -13606,14 +13614,14 @@ static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_162add_bonds(P
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_161add_bonds(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_163add_bonds(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_161add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_163add_bonds(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
   int __pyx_v_i;
   int __pyx_v_j;
   int __pyx_v_k;
@@ -14477,9 +14485,9 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_123add_angles(struct __pyx
 }
 
 /* Python wrapper */
-static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_166add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
-static PyMethodDef __pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_166add_angles = {"__pyx_fuse_0add_angles", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_166add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles};
-static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_166add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
+static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_168add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
+static PyMethodDef __pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_168add_angles = {"__pyx_fuse_0add_angles", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_168add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles};
+static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_168add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
   __Pyx_memviewslice __pyx_v_indices = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -14496,14 +14504,14 @@ static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_166add_angles(
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_165add_angles(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_167add_angles(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_165add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_167add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
   int __pyx_v_i;
   int __pyx_v_j;
   int __pyx_v_k;
@@ -14673,9 +14681,9 @@ __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_3, 1, (PyObject *(*)(char *)) __p
 }
 
 /* Python wrapper */
-static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_168add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
-static PyMethodDef __pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_168add_angles = {"__pyx_fuse_1add_angles", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_168add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles};
-static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_168add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
+static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_170add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
+static PyMethodDef __pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_170add_angles = {"__pyx_fuse_1add_angles", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_170add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles};
+static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_170add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
   __Pyx_memviewslice __pyx_v_indices = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -14692,14 +14700,14 @@ static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_168add_angles(
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_167add_angles(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_169add_angles(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_167add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_169add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
   int __pyx_v_i;
   int __pyx_v_j;
   int __pyx_v_k;
@@ -14869,9 +14877,9 @@ __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_3, 1, (PyObject *(*)(char *)) __p
 }
 
 /* Python wrapper */
-static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_170add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
-static PyMethodDef __pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_170add_angles = {"__pyx_fuse_2add_angles", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_170add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles};
-static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_170add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
+static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_172add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
+static PyMethodDef __pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_172add_angles = {"__pyx_fuse_2add_angles", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_172add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles};
+static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_172add_angles(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
   __Pyx_memviewslice __pyx_v_indices = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -14888,14 +14896,14 @@ static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_170add_angles(
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_169add_angles(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_171add_angles(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_169add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_171add_angles(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
   int __pyx_v_i;
   int __pyx_v_j;
   int __pyx_v_k;
@@ -15773,9 +15781,9 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_125add_dihedrals(struct __
 }
 
 /* Python wrapper */
-static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_174add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
-static PyMethodDef __pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_174add_dihedrals = {"__pyx_fuse_0add_dihedrals", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_174add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals};
-static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_174add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
+static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_176add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
+static PyMethodDef __pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_176add_dihedrals = {"__pyx_fuse_0add_dihedrals", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_176add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals};
+static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_176add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
   __Pyx_memviewslice __pyx_v_indices = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -15792,14 +15800,14 @@ static PyObject *__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_174add_dihedra
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_173add_dihedrals(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_175add_dihedrals(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_173add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_175add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
   int __pyx_v_i;
   int __pyx_v_j;
   int __pyx_v_k;
@@ -15982,9 +15990,9 @@ __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_3, 1, (PyObject *(*)(char *)) __p
 }
 
 /* Python wrapper */
-static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_176add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
-static PyMethodDef __pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_176add_dihedrals = {"__pyx_fuse_1add_dihedrals", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_176add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals};
-static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_176add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
+static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_178add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
+static PyMethodDef __pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_178add_dihedrals = {"__pyx_fuse_1add_dihedrals", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_178add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals};
+static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_178add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
   __Pyx_memviewslice __pyx_v_indices = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -16001,14 +16009,14 @@ static PyObject *__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_176add_dihedra
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_175add_dihedrals(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_177add_dihedrals(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_175add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_177add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
   int __pyx_v_i;
   int __pyx_v_j;
   int __pyx_v_k;
@@ -16191,9 +16199,9 @@ __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_t_3, 1, (PyObject *(*)(char *)) __p
 }
 
 /* Python wrapper */
-static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_178add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
-static PyMethodDef __pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_178add_dihedrals = {"__pyx_fuse_2add_dihedrals", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_178add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals};
-static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_178add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
+static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_180add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices); /*proto*/
+static PyMethodDef __pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_180add_dihedrals = {"__pyx_fuse_2add_dihedrals", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_180add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals};
+static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_180add_dihedrals(PyObject *__pyx_v_self, PyObject *__pyx_arg_indices) {
   __Pyx_memviewslice __pyx_v_indices = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -16210,14 +16218,14 @@ static PyObject *__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_178add_dihedra
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_177add_dihedrals(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_179add_dihedrals(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self), __pyx_v_indices);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_177add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_179add_dihedrals(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, __Pyx_memviewslice __pyx_v_indices) {
   int __pyx_v_i;
   int __pyx_v_j;
   int __pyx_v_k;
@@ -19231,6 +19239,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_155NonbondParmType(struct 
  *         cdef NonbondParmType nb = NonbondParmType()
  *         nb.thisptr[0] = self.thisptr.Nonbond()             # <<<<<<<<<<<<<<
  *         return nb
+ * 
  */
   (__pyx_v_nb->thisptr[0]) = __pyx_v_self->thisptr->Nonbond();
 
@@ -19238,6 +19247,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_155NonbondParmType(struct 
  *         cdef NonbondParmType nb = NonbondParmType()
  *         nb.thisptr[0] = self.thisptr.Nonbond()
  *         return nb             # <<<<<<<<<<<<<<
+ * 
+ *     @property
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_nb));
@@ -19259,6 +19270,130 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_155NonbondParmType(struct 
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_nb);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pytraj/Topology.pyx":763
+ * 
+ *     @property
+ *     def total_charge(self):             # <<<<<<<<<<<<<<
+ *         return sum([atom.charge for atom in self.atoms])
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_158total_charge(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8Topology_8Topology_157total_charge[] = "Topology.total_charge(self)";
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_158total_charge(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("total_charge (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_157total_charge(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_157total_charge(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
+  PyObject *__pyx_v_atom = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  Py_ssize_t __pyx_t_4;
+  PyObject *(*__pyx_t_5)(PyObject *);
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("total_charge", 0);
+
+  /* "pytraj/Topology.pyx":764
+ *     @property
+ *     def total_charge(self):
+ *         return sum([atom.charge for atom in self.atoms])             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_atoms); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
+    __pyx_t_3 = __pyx_t_2; __Pyx_INCREF(__pyx_t_3); __pyx_t_4 = 0;
+    __pyx_t_5 = NULL;
+  } else {
+    __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_5 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  for (;;) {
+    if (likely(!__pyx_t_5)) {
+      if (likely(PyList_CheckExact(__pyx_t_3))) {
+        if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_3)) break;
+        #if CYTHON_COMPILING_IN_CPYTHON
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_2); __pyx_t_4++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        #else
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        #endif
+      } else {
+        if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
+        #if CYTHON_COMPILING_IN_CPYTHON
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_2); __pyx_t_4++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        #else
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        #endif
+      }
+    } else {
+      __pyx_t_2 = __pyx_t_5(__pyx_t_3);
+      if (unlikely(!__pyx_t_2)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_2);
+    }
+    __Pyx_XDECREF_SET(__pyx_v_atom, __pyx_t_2);
+    __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_atom, __pyx_n_s_charge); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_2))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_sum, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pytraj/Topology.pyx":763
+ * 
+ *     @property
+ *     def total_charge(self):             # <<<<<<<<<<<<<<
+ *         return sum([atom.charge for atom in self.atoms])
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("pytraj.Topology.Topology.total_charge", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_atom);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -19344,132 +19479,6 @@ static int __pyx_pf_6pytraj_8Topology_8Topology_11py_free_mem_2__set__(struct __
   return __pyx_r;
 }
 
-/* "pytraj/Frame.pxd":132
- *     cdef void _append_xyz_2d(self, double[:, :] xyz)
- * 
- * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
- *     # TODO : do we need this method?
- *     # we can we memoryview to get slicing too
- */
-
-static CYTHON_INLINE int __pyx_f_6pytraj_5Frame_get_positive_idx(PyObject *__pyx_v_idx, PyObject *__pyx_v_size) {
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_t_2;
-  int __pyx_t_3;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("get_positive_idx", 0);
-  __Pyx_INCREF(__pyx_v_idx);
-
-  /* "pytraj/Frame.pxd":136
- *     # we can we memoryview to get slicing too
- *     """Used for negative indexing"""
- *     if idx < 0:             # <<<<<<<<<<<<<<
- *         idx = size + idx
- *         if idx < 0:
- */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_2) {
-
-    /* "pytraj/Frame.pxd":137
- *     """Used for negative indexing"""
- *     if idx < 0:
- *         idx = size + idx             # <<<<<<<<<<<<<<
- *         if idx < 0:
- *             raise ValueError("index is out of range")
- */
-    __pyx_t_1 = PyNumber_Add(__pyx_v_size, __pyx_v_idx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF_SET(__pyx_v_idx, __pyx_t_1);
-    __pyx_t_1 = 0;
-
-    /* "pytraj/Frame.pxd":138
- *     if idx < 0:
- *         idx = size + idx
- *         if idx < 0:             # <<<<<<<<<<<<<<
- *             raise ValueError("index is out of range")
- *     if idx >= size:
- */
-    __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__pyx_t_2) {
-
-      /* "pytraj/Frame.pxd":139
- *         idx = size + idx
- *         if idx < 0:
- *             raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
- *     if idx >= size:
- *         raise ValueError("index is out of range")
- */
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__41, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_Raise(__pyx_t_1, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      {__pyx_filename = __pyx_f[2]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    }
-    goto __pyx_L3;
-  }
-  __pyx_L3:;
-
-  /* "pytraj/Frame.pxd":140
- *         if idx < 0:
- *             raise ValueError("index is out of range")
- *     if idx >= size:             # <<<<<<<<<<<<<<
- *         raise ValueError("index is out of range")
- *     return idx
- */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_v_size, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_2) {
-
-    /* "pytraj/Frame.pxd":141
- *             raise ValueError("index is out of range")
- *     if idx >= size:
- *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
- *     return idx
- */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__42, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    {__pyx_filename = __pyx_f[2]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-
-  /* "pytraj/Frame.pxd":142
- *     if idx >= size:
- *         raise ValueError("index is out of range")
- *     return idx             # <<<<<<<<<<<<<<
- */
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_idx); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_t_3;
-  goto __pyx_L0;
-
-  /* "pytraj/Frame.pxd":132
- *     cdef void _append_xyz_2d(self, double[:, :] xyz)
- * 
- * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
- *     # TODO : do we need this method?
- *     # we can we memoryview to get slicing too
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_WriteUnraisable("pytraj.Frame.get_positive_idx", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_idx);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "cpython/array.pxd":91
  *             __data_union data
  * 
@@ -19517,7 +19526,7 @@ static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_se
  * 
  *             info.suboffsets = NULL
  */
-  __pyx_t_1 = PyInt_FromSsize_t(Py_SIZE(((PyObject *)__pyx_v_self))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyInt_FromSsize_t(Py_SIZE(((PyObject *)__pyx_v_self))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_item_count = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -19576,12 +19585,12 @@ static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_se
  * 
  *             info.shape = <Py_ssize_t*> PyMem_Malloc(sizeof(Py_ssize_t) + 2)
  */
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_v_info->itemsize); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_v_info->itemsize); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_v_item_count); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_v_item_count); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_4); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_4); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_info->len = __pyx_t_5;
 
@@ -19611,7 +19620,7 @@ static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_se
  *             info.shape[0] = item_count      # constant regardless of resizing
  *             info.strides = &info.itemsize
  */
-    PyErr_NoMemory(); {__pyx_filename = __pyx_f[3]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    PyErr_NoMemory(); {__pyx_filename = __pyx_f[2]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
   /* "cpython/array.pxd":108
@@ -19621,7 +19630,7 @@ static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_se
  *             info.strides = &info.itemsize
  * 
  */
-  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_v_item_count); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_v_item_count); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   (__pyx_v_info->shape[0]) = __pyx_t_5;
 
   /* "cpython/array.pxd":109
@@ -19778,7 +19787,7 @@ static CYTHON_INLINE arrayobject *__pyx_f_7cpython_5array_clone(arrayobject *__p
  *     if zero and op is not None:
  *         memset(op.data.as_chars, 0, length * op.ob_descr.itemsize)
  */
-  __pyx_t_1 = ((PyObject *)newarrayobject(Py_TYPE(((PyObject *)__pyx_v_template)), __pyx_v_length, __pyx_v_template->ob_descr)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = ((PyObject *)newarrayobject(Py_TYPE(((PyObject *)__pyx_v_template)), __pyx_v_length, __pyx_v_template->ob_descr)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_op = ((arrayobject *)__pyx_t_1);
   __pyx_t_1 = 0;
@@ -19871,7 +19880,7 @@ static CYTHON_INLINE arrayobject *__pyx_f_7cpython_5array_copy(arrayobject *__py
  *     memcpy(op.data.as_chars, self.data.as_chars, Py_SIZE(op) * op.ob_descr.itemsize)
  *     return op
  */
-  __pyx_t_1 = ((PyObject *)newarrayobject(Py_TYPE(((PyObject *)__pyx_v_self)), Py_SIZE(((PyObject *)__pyx_v_self)), __pyx_v_self->ob_descr)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = ((PyObject *)newarrayobject(Py_TYPE(((PyObject *)__pyx_v_self)), Py_SIZE(((PyObject *)__pyx_v_self)), __pyx_v_self->ob_descr)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_op = ((arrayobject *)__pyx_t_1);
   __pyx_t_1 = 0;
@@ -19962,7 +19971,7 @@ static CYTHON_INLINE int __pyx_f_7cpython_5array_extend_buffer(arrayobject *__py
  *     memcpy(self.data.as_chars + origsize * itemsize, stuff, n * itemsize)
  *     return 0
  */
-  __pyx_t_1 = resize_smart(__pyx_v_self, (__pyx_v_origsize + __pyx_v_n)); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = resize_smart(__pyx_v_self, (__pyx_v_origsize + __pyx_v_n)); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "cpython/array.pxd":150
  *     cdef Py_ssize_t origsize = Py_SIZE(self)
@@ -20035,7 +20044,7 @@ static CYTHON_INLINE int __pyx_f_7cpython_5array_extend(arrayobject *__pyx_v_sel
  *     return extend_buffer(self, other.data.as_chars, Py_SIZE(other))
  * 
  */
-    __pyx_t_2 = PyErr_BadArgument(); if (unlikely(__pyx_t_2 == 0)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PyErr_BadArgument(); if (unlikely(__pyx_t_2 == 0)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     goto __pyx_L3;
   }
   __pyx_L3:;
@@ -20047,7 +20056,7 @@ static CYTHON_INLINE int __pyx_f_7cpython_5array_extend(arrayobject *__pyx_v_sel
  * 
  * cdef inline void zero(array self):
  */
-  __pyx_t_2 = __pyx_f_7cpython_5array_extend_buffer(__pyx_v_self, __pyx_v_other->data.as_chars, Py_SIZE(((PyObject *)__pyx_v_other))); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_7cpython_5array_extend_buffer(__pyx_v_self, __pyx_v_other->data.as_chars, Py_SIZE(((PyObject *)__pyx_v_other))); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_t_2;
   goto __pyx_L0;
 
@@ -20097,6 +20106,132 @@ static CYTHON_INLINE void __pyx_f_7cpython_5array_zero(arrayobject *__pyx_v_self
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
+}
+
+/* "pytraj/Frame.pxd":132
+ *     cdef void _append_xyz_2d(self, double[:, :] xyz)
+ * 
+ * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
+ *     # TODO : do we need this method?
+ *     # we can we memoryview to get slicing too
+ */
+
+static CYTHON_INLINE int __pyx_f_6pytraj_5Frame_get_positive_idx(PyObject *__pyx_v_idx, PyObject *__pyx_v_size) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("get_positive_idx", 0);
+  __Pyx_INCREF(__pyx_v_idx);
+
+  /* "pytraj/Frame.pxd":136
+ *     # we can we memoryview to get slicing too
+ *     """Used for negative indexing"""
+ *     if idx < 0:             # <<<<<<<<<<<<<<
+ *         idx = size + idx
+ *         if idx < 0:
+ */
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "pytraj/Frame.pxd":137
+ *     """Used for negative indexing"""
+ *     if idx < 0:
+ *         idx = size + idx             # <<<<<<<<<<<<<<
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")
+ */
+    __pyx_t_1 = PyNumber_Add(__pyx_v_size, __pyx_v_idx); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF_SET(__pyx_v_idx, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "pytraj/Frame.pxd":138
+ *     if idx < 0:
+ *         idx = size + idx
+ *         if idx < 0:             # <<<<<<<<<<<<<<
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:
+ */
+    __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_int_0, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (__pyx_t_2) {
+
+      /* "pytraj/Frame.pxd":139
+ *         idx = size + idx
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")
+ */
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__41, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      {__pyx_filename = __pyx_f[3]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
+    goto __pyx_L3;
+  }
+  __pyx_L3:;
+
+  /* "pytraj/Frame.pxd":140
+ *         if idx < 0:
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:             # <<<<<<<<<<<<<<
+ *         raise ValueError("index is out of range")
+ *     return idx
+ */
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_idx, __pyx_v_size, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 140; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "pytraj/Frame.pxd":141
+ *             raise ValueError("index is out of range")
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
+ *     return idx
+ */
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__42, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    {__pyx_filename = __pyx_f[3]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+
+  /* "pytraj/Frame.pxd":142
+ *     if idx >= size:
+ *         raise ValueError("index is out of range")
+ *     return idx             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_idx); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_t_3;
+  goto __pyx_L0;
+
+  /* "pytraj/Frame.pxd":132
+ *     cdef void _append_xyz_2d(self, double[:, :] xyz)
+ * 
+ * cdef inline int get_positive_idx(idx, size):             # <<<<<<<<<<<<<<
+ *     # TODO : do we need this method?
+ *     # we can we memoryview to get slicing too
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_WriteUnraisable("pytraj.Frame.get_positive_idx", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_idx);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
 }
 
 /* "View.MemoryView":116
@@ -31331,15 +31466,16 @@ static PyMethodDef __pyx_methods_6pytraj_8Topology_Topology[] = {
   {"vdw_radii", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_152vdw_radii, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_151vdw_radii},
   {"to_dataframe", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_154to_dataframe, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_153to_dataframe},
   {"NonbondParmType", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_156NonbondParmType, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_155NonbondParmType},
-  {"__pyx_fuse_0add_bonds", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_158add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds},
-  {"__pyx_fuse_1add_bonds", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_160add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds},
-  {"__pyx_fuse_2add_bonds", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_162add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds},
-  {"__pyx_fuse_0add_angles", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_166add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles},
-  {"__pyx_fuse_1add_angles", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_168add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles},
-  {"__pyx_fuse_2add_angles", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_170add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles},
-  {"__pyx_fuse_0add_dihedrals", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_174add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals},
-  {"__pyx_fuse_1add_dihedrals", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_176add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals},
-  {"__pyx_fuse_2add_dihedrals", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_178add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals},
+  {"total_charge", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_158total_charge, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_157total_charge},
+  {"__pyx_fuse_0add_bonds", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_160add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds},
+  {"__pyx_fuse_1add_bonds", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_162add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds},
+  {"__pyx_fuse_2add_bonds", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_164add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds},
+  {"__pyx_fuse_0add_angles", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_168add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles},
+  {"__pyx_fuse_1add_angles", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_170add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles},
+  {"__pyx_fuse_2add_angles", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_172add_angles, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_123add_angles},
+  {"__pyx_fuse_0add_dihedrals", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_176add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals},
+  {"__pyx_fuse_1add_dihedrals", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_178add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals},
+  {"__pyx_fuse_2add_dihedrals", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_180add_dihedrals, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_125add_dihedrals},
   {0, 0, 0, 0}
 };
 
@@ -33305,6 +33441,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 0, 1, 1},
   {&__pyx_n_u_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 1, 0, 1},
   {&__pyx_kp_s_can_not_join_yourself_use_copy_m, __pyx_k_can_not_join_yourself_use_copy_m, sizeof(__pyx_k_can_not_join_yourself_use_copy_m), 0, 0, 1, 0},
+  {&__pyx_n_s_charge, __pyx_k_charge, sizeof(__pyx_k_charge), 0, 0, 1, 1},
   {&__pyx_n_s_class, __pyx_k_class, sizeof(__pyx_k_class), 0, 0, 1, 1},
   {&__pyx_n_s_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 0, 1, 1},
   {&__pyx_n_s_columns, __pyx_k_columns, sizeof(__pyx_k_columns), 0, 0, 1, 1},
@@ -33435,10 +33572,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_string_types, __pyx_k_string_types, sizeof(__pyx_k_string_types), 0, 0, 1, 1},
   {&__pyx_n_s_strip, __pyx_k_strip, sizeof(__pyx_k_strip), 0, 0, 1, 1},
   {&__pyx_n_s_struct, __pyx_k_struct, sizeof(__pyx_k_struct), 0, 0, 1, 1},
+  {&__pyx_n_s_sum, __pyx_k_sum, sizeof(__pyx_k_sum), 0, 0, 1, 1},
   {&__pyx_kp_s_support_only_Topology_object_or, __pyx_k_support_only_Topology_object_or, sizeof(__pyx_k_support_only_Topology_object_or), 0, 0, 1, 0},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_throw, __pyx_k_throw, sizeof(__pyx_k_throw), 0, 0, 1, 1},
   {&__pyx_n_s_title, __pyx_k_title, sizeof(__pyx_k_title), 0, 0, 1, 1},
+  {&__pyx_n_s_total_charge, __pyx_k_total_charge, sizeof(__pyx_k_total_charge), 0, 0, 1, 1},
   {&__pyx_n_s_trunc_res_atom_name, __pyx_k_trunc_res_atom_name, sizeof(__pyx_k_trunc_res_atom_name), 0, 0, 1, 1},
   {&__pyx_n_s_type, __pyx_k_type, sizeof(__pyx_k_type), 0, 0, 1, 1},
   {&__pyx_kp_s_unable_to_allocate_array_data, __pyx_k_unable_to_allocate_array_data, sizeof(__pyx_k_unable_to_allocate_array_data), 0, 0, 1, 0},
@@ -33461,7 +33600,8 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 605; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 744; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_sum = __Pyx_GetBuiltinName(__pyx_n_s_sum); if (!__pyx_builtin_sum) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_Ellipsis = __Pyx_GetBuiltinName(__pyx_n_s_Ellipsis); if (!__pyx_builtin_Ellipsis) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 357; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_id = __Pyx_GetBuiltinName(__pyx_n_s_id); if (!__pyx_builtin_id) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 569; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_IndexError = __Pyx_GetBuiltinName(__pyx_n_s_IndexError); if (!__pyx_builtin_IndexError) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 788; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -33783,7 +33923,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     if idx >= size:
  *         raise ValueError("index is out of range")
  */
-  __pyx_tuple__41 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__41)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__41 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__41)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__41);
   __Pyx_GIVEREF(__pyx_tuple__41);
 
@@ -33793,7 +33933,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         raise ValueError("index is out of range")             # <<<<<<<<<<<<<<
  *     return idx
  */
-  __pyx_tuple__42 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__42)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__42 = PyTuple_Pack(1, __pyx_kp_s_index_is_out_of_range); if (unlikely(!__pyx_tuple__42)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__42);
   __Pyx_GIVEREF(__pyx_tuple__42);
 
@@ -34235,10 +34375,10 @@ PyMODINIT_FUNC PyInit_Topology(void)
   __pyx_ptype_6pytraj_4core_3Box_Box = __Pyx_ImportType("pytraj.core.Box", "Box", sizeof(struct __pyx_obj_6pytraj_4core_3Box_Box), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_3Box_Box)) {__pyx_filename = __pyx_f[12]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_14CoordinateInfo_CoordinateInfo = __Pyx_ImportType("pytraj.core.CoordinateInfo", "CoordinateInfo", sizeof(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14CoordinateInfo_CoordinateInfo)) {__pyx_filename = __pyx_f[13]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8AtomMask_AtomMask = __Pyx_ImportType("pytraj.AtomMask", "AtomMask", sizeof(struct __pyx_obj_6pytraj_8AtomMask_AtomMask), 1); if (unlikely(!__pyx_ptype_6pytraj_8AtomMask_AtomMask)) {__pyx_filename = __pyx_f[14]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_5Frame_Frame = __Pyx_ImportType("pytraj.Frame", "Frame", sizeof(struct __pyx_obj_6pytraj_5Frame_Frame), 1); if (unlikely(!__pyx_ptype_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_6pytraj_5Frame_Frame = (struct __pyx_vtabstruct_6pytraj_5Frame_Frame*)__Pyx_GetVtable(__pyx_ptype_6pytraj_5Frame_Frame->tp_dict); if (unlikely(!__pyx_vtabptr_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_5Frame_Frame = __Pyx_ImportType("pytraj.Frame", "Frame", sizeof(struct __pyx_obj_6pytraj_5Frame_Frame), 1); if (unlikely(!__pyx_ptype_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_6pytraj_5Frame_Frame = (struct __pyx_vtabstruct_6pytraj_5Frame_Frame*)__Pyx_GetVtable(__pyx_ptype_6pytraj_5Frame_Frame->tp_dict); if (unlikely(!__pyx_vtabptr_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[15]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 
   #if CYTHON_COMPILING_IN_PYPY
   sizeof(PyTypeObject),
@@ -34796,17 +34936,17 @@ PyMODINIT_FUNC PyInit_Topology(void)
  */
   __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __pyx_FusedFunction_NewEx(&__pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_158add_bonds, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_bonds, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_FusedFunction_NewEx(&__pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_160add_bonds, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_bonds, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_empty_tuple);
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_short, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __pyx_FusedFunction_NewEx(&__pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_160add_bonds, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_bonds, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_FusedFunction_NewEx(&__pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_162add_bonds, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_bonds, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_empty_tuple);
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_int, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __pyx_FusedFunction_NewEx(&__pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_162add_bonds, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_bonds, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_FusedFunction_NewEx(&__pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_164add_bonds, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_bonds, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_empty_tuple);
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_long, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -34829,17 +34969,17 @@ PyMODINIT_FUNC PyInit_Topology(void)
  */
   __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __pyx_FusedFunction_NewEx(&__pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_166add_angles, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_angles, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__58)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __pyx_FusedFunction_NewEx(&__pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_168add_angles, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_angles, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__58)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_empty_tuple);
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_short, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __pyx_FusedFunction_NewEx(&__pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_168add_angles, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_angles, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__58)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __pyx_FusedFunction_NewEx(&__pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_170add_angles, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_angles, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__58)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_empty_tuple);
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_int, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __pyx_FusedFunction_NewEx(&__pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_170add_angles, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_angles, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__58)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __pyx_FusedFunction_NewEx(&__pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_172add_angles, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_angles, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__58)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_empty_tuple);
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_long, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 609; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -34862,17 +35002,17 @@ PyMODINIT_FUNC PyInit_Topology(void)
  */
   __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __pyx_FusedFunction_NewEx(&__pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_174add_dihedrals, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_dihedrals, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__60)); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = __pyx_FusedFunction_NewEx(&__pyx_fuse_0__pyx_mdef_6pytraj_8Topology_8Topology_176add_dihedrals, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_dihedrals, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__60)); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_empty_tuple);
   if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_short, __pyx_t_6) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __pyx_FusedFunction_NewEx(&__pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_176add_dihedrals, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_dihedrals, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__60)); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = __pyx_FusedFunction_NewEx(&__pyx_fuse_1__pyx_mdef_6pytraj_8Topology_8Topology_178add_dihedrals, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_dihedrals, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__60)); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_empty_tuple);
   if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_int, __pyx_t_6) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __pyx_FusedFunction_NewEx(&__pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_178add_dihedrals, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_dihedrals, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__60)); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = __pyx_FusedFunction_NewEx(&__pyx_fuse_2__pyx_mdef_6pytraj_8Topology_8Topology_180add_dihedrals, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Topology_add_dihedrals, NULL, __pyx_n_s_pytraj_Topology, __pyx_d, ((PyObject *)__pyx_codeobj__60)); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_6, __pyx_empty_tuple);
   if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_long, __pyx_t_6) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 624; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -35144,6 +35284,34 @@ PyMODINIT_FUNC PyInit_Topology(void)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology->tp_dict, __pyx_n_s_dihedrals_ndarray, __pyx_t_7) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 708; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  PyType_Modified(__pyx_ptype_6pytraj_8Topology_Topology);
+
+  /* "pytraj/Topology.pyx":763
+ * 
+ *     @property
+ *     def total_charge(self):             # <<<<<<<<<<<<<<
+ *         return sum([atom.charge for atom in self.atoms])
+ */
+  __pyx_t_7 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology, __pyx_n_s_total_charge); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 763; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_7);
+
+  /* "pytraj/Topology.pyx":762
+ *         return nb
+ * 
+ *     @property             # <<<<<<<<<<<<<<
+ *     def total_charge(self):
+ *         return sum([atom.charge for atom in self.atoms])
+ */
+  __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 762; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_8);
+  PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7);
+  __Pyx_GIVEREF(__pyx_t_7);
+  __pyx_t_7 = 0;
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_8, NULL); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 762; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_8Topology_Topology->tp_dict, __pyx_n_s_total_charge, __pyx_t_7) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 763; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_8Topology_Topology);
 
