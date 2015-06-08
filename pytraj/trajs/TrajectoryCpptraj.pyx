@@ -33,48 +33,52 @@ cdef class TrajectoryCpptraj:
         # cpptraj will take care of close/open file
         pass
 
-    def load(self, filename=None, top=None, arg=None):
-        """
+    def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
+        '''
         filename : a single filename or a list of filenames
         top : Topology-like object
-        arg : more argument
-
-        Examples
-        --------
-        >>> load('my_traj.nc', arg='1 last 2') # start from 1 to last frame, stride=2
-        """
+        take_slice : add slice
+        '''
         cdef Topology tmp_top
         cdef ArgList _arglist
 
-        if top is not None:
+        # convert pytraj frame_slice to cpptraj's understandable format (str)
+        # need to increase start, stop by +1 since cpptraj use +1 for cpptraj.in
+        if len(frame_slice) == 2:
+            # no stride info
+            start, stop = frame_slice
+            stride = 1
+        elif len(frame_slice) == 3:
+            start, stop, stride = frame_slice
+        else:
+            raise ValueError()
+
+        start += 1
+        # don't increase stop by +1
+        # slice(0, 10, None) --> python does not take last `10`
+        arg = " ".join((str(start), str(stop), str(stride)))
+
+        if top is not None and self.top.is_empty():
             self.top = _get_top(None, top)
 
-        if filename is None and arg is None:
+        if filename is None:
             pass
             # used for empty constructor in __init__
         else:
-            if isinstance(top, string_types):
-                self.top = Topology(top)
-            elif isinstance(top, Topology):
-                self.top = top.copy()
-
             if self.top.is_empty():
-                raise ValueError("need to have non-empty topology file")
+                if isinstance(top, string_types):
+                    self.top = Topology(top)
+                elif isinstance(top, Topology):
+                    self.top = top.copy()
+                else:
+                    raise ValueError("need to have non-empty topology file")
 
             # cast to Topology type so we can use cpptraj method
             tmp_top = <Topology> self.top
 
             if isinstance(filename, string_types):
-                filename = filename.encode()
-                if arg is None:
-                    _arglist = ArgList()
-                elif isinstance(arg, string_types):
-                    _arglist = ArgList(arg)
-                elif isinstance(arg, ArgList):
-                    _arglist = arg
-                else:
-                    raise ValueError("arg must be None, string type or ArgList object")
-                self.thisptr.AddSingleTrajin(filename, _arglist.thisptr[0], tmp_top.thisptr)
+                _arglist = ArgList(arg)
+                self.thisptr.AddSingleTrajin(filename.encode(), _arglist.thisptr[0], tmp_top.thisptr)
             elif isinstance(filename, (list, tuple)):
                 # rename to avoid confusion
                 filename_list = filename
@@ -83,9 +87,9 @@ cdef class TrajectoryCpptraj:
                     self.load(fn, top, arg)
 
     def load_new(self, *args, **kwd):
-        """
+        '''
         remove all trajectory data and load new ones
-        """
+        '''
         saved_top = self.top
         del self.thisptr
         self.thisptr = new _TrajectoryCpptraj()
@@ -93,7 +97,7 @@ cdef class TrajectoryCpptraj:
         self.load(*args, **kwd)
 
     def _add_trajin(self, Trajin trajin):
-        """add memoryview for input trajin"""
+        '''add memoryview for input trajin'''
         self.thisptr.AddInputTraj(trajin.baseptr_1)
 
     def __len__(self):
@@ -109,7 +113,7 @@ cdef class TrajectoryCpptraj:
 
     @property
     def n_atoms(self):
-        """used for frame_iter"""
+        '''used for frame_iter'''
         return self.top.n_atoms
 
     def __str__(self):
@@ -122,8 +126,8 @@ cdef class TrajectoryCpptraj:
         return self.frame_iter(*args, **kwd)
 
     def __iter__(self):
-        """iterately getting Frame instance
-        """
+        '''iterately getting Frame instance
+        '''
         cdef int i
         cdef int n_atoms = self.n_atoms
         cdef n_frames = self.n_frames
@@ -142,14 +146,14 @@ cdef class TrajectoryCpptraj:
             self.thisptr.SetTopology(other.thisptr[0])
 
     def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
-        """iterately get Frames with start, stop, stride 
+        '''iterately get Frames with start, stop, stride 
         Parameters
         ---------
         start : int (default = 0)
         stop : int (default = max_frames)
         stride : int
         mask : str or array of interger
-        """
+        '''
         cdef int i
         cdef int n_atoms = self.n_atoms
         cdef Frame frame = Frame()
@@ -187,7 +191,7 @@ cdef class TrajectoryCpptraj:
                 i += stride
 
     def chunk_iter(self, int chunk=2, int start=0, int stop=-1, bint copy_top=False):
-        """iterately get Frames with start, chunk
+        '''iterately get Frames with start, chunk
         returning Trajectory or Frame instance depend on `chunk` value
         Parameters
         ---------
@@ -196,7 +200,7 @@ cdef class TrajectoryCpptraj:
                 if `chunk` > 1 : return Trajectory instance
         copy_top : bool, default=False
             if False: no Topology copy is done for new (chunk) Trajectory
-        """
+        '''
         cdef int n_chunk, i, j, _stop
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms
@@ -429,15 +433,15 @@ cdef class TrajectoryCpptraj:
         return _box_to_ndarray(self)
 
     def to_mutable_traj(self):
-        """same as self[:] but more explicit"""
+        '''same as self[:] but more explicit'''
         return self[:]
 
     @property
     #@memoize
     def xyz(self):
-        """return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
+        '''return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
-        """
+        '''
         # NOTE: turn off `memoize`
         # xyz = traj.xyz[:]
         # xyz += 1.

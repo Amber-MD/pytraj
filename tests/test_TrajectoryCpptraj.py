@@ -57,6 +57,14 @@ class Test(unittest.TestCase):
         assert tc.n_frames == 2 * traj.n_frames
         aa_eq(tc[:traj.n_frames].xyz, tc[traj.n_frames:].xyz)
 
+        # load with frame_slice
+        # take additional frame: 0, 2, 4 (skip 6 to follow python's convention)
+        tc.load("./data/md1_prod.Tc5b.x", frame_slice=(0, 6, 2))
+        assert tc.n_frames == 2 * traj.n_frames + 3
+        aa_eq(tc[20].xyz, traj[0].xyz)
+        aa_eq(tc[21].xyz, traj[2].xyz)
+        aa_eq(tc[22].xyz, traj[4].xyz)
+
 
 if __name__ == "__main__":
     unittest.main()
