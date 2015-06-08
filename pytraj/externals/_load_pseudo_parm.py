@@ -66,7 +66,10 @@ def load_pseudo_parm(parm):
 
     if is_mdtraj(parm):
         # not sure how to get angles, dihedrals quickly
-        pseudotop.add_bonds(np.array([(a.index, b.index) for (a, b) in parm.bonds]))
+        try:
+            pseudotop.add_bonds(np.array([(a.index, b.index) for (a, b) in parm.bonds]))
+        except:
+            pass
         # load Box in _load_mdtraj since Box is stored in traj
     elif is_mdanalysis(parm):
         # turn-off. need to check MDAnalysis
@@ -94,15 +97,19 @@ def load_pseudo_parm(parm):
         # TODO : add bonds, dihedrals, angles for ParmEd
         # parmed
         # add dihedrals
-        bond_list = [(x.atom1.idx, x.atom2.idx)
-                    for x in parm.bonds]
-        angle_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx)
-                    for x in parm.angles]
-        dihedral_list= [(x.atom1.idx, x.atom2.idx, x.atom3.idx, x.atom4.idx)
-                  for x in parm.dihedrals]
-        pseudotop.add_bonds(np.asarray(bond_list))
-        pseudotop.add_angles(np.asarray(angle_list))
-        pseudotop.add_dihedrals(np.asarray(dihedral_list))
+        try:
+            bond_list = [(x.atom1.idx, x.atom2.idx)
+                        for x in parm.bonds]
+            angle_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx)
+                        for x in parm.angles]
+            dihedral_list= [(x.atom1.idx, x.atom2.idx, x.atom3.idx, x.atom4.idx)
+                      for x in parm.dihedrals]
+            pseudotop.add_bonds(np.asarray(bond_list))
+            pseudotop.add_angles(np.asarray(angle_list))
+            pseudotop.add_dihedrals(np.asarray(dihedral_list))
+        except:
+            pass
+
         try:
             pseudotop.box = Box(np.array(parm.box))
         except:

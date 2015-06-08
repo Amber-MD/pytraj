@@ -14,8 +14,10 @@ class Test(unittest.TestCase):
         import numpy as np
 
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj2 = traj.to_mutable_traj()
         d0 = pyca.calc_COM(traj)
         d1 = pyca.calc_center_of_mass(traj)
+        d2 = pyca.calc_center_of_mass(traj2)
         print (d0)
         arr = d0.to_ndarray()
         print (arr)
@@ -28,6 +30,9 @@ class Test(unittest.TestCase):
 
         assert_almost_equal(arr.flatten(), saved_d0.flatten())
         assert_almost_equal(d1.to_ndarray().flatten(), saved_d0.flatten())
+        assert_almost_equal(d2.to_ndarray().flatten(), saved_d0.flatten())
+
+        assert_almost_equal(traj.calc_COG(dtype='ndarray'), traj2.calc_COG(dtype='ndarray'))
 
 if __name__ == "__main__":
     unittest.main()
