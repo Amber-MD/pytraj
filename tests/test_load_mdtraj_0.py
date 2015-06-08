@@ -4,7 +4,7 @@ from pytraj.base import *
 from pytraj.utils import Timer
 from pytraj import adict
 from pytraj import common_actions
-from pytraj import io as mdio
+from pytraj import io
 from pytraj.utils import has_
 from pytraj.misc import get_atts
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
@@ -19,7 +19,7 @@ from pytraj.io import load_mdtraj
 class Test(unittest.TestCase):
     @test_if_having("mdtraj")
     def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         if has_("mdtraj") and has_("tables"):
             print ("Testing mdtraj and pytraj")
@@ -77,9 +77,10 @@ class Test(unittest.TestCase):
     def test_1(self):
         # load water box
         import mdtraj as md
+        from mdtraj.testing import get_fn
         m_traj =  md.load("./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
-        true_traj =  mdio.iterload("./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
-        traj = mdio.load_mdtraj(m_traj)
+        true_traj =  io.iterload("./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
+        traj = io.load_mdtraj(m_traj)
         print (traj.top.box)
         print (true_traj.top.box)
         assert traj.n_atoms == m_traj.n_atoms == true_traj.n_atoms
@@ -91,15 +92,20 @@ class Test(unittest.TestCase):
             assert f0.box.type == f1.box.type == 'ortho'
         assert count == traj.n_frames == true_traj.n_frames
 
-        traj2 = mdio.load_mdtraj(m_traj, False)
+        traj2 = io.load_mdtraj(m_traj, False)
         print (traj[0, 0], true_traj[0, 0], traj2[0, 0])
         print (m_traj.xyz[0, 0])
         aa_eq(traj2.xyz, m_traj.xyz, decimal=3)
         aa_eq(traj.xyz, 10*m_traj.xyz, decimal=3)
 
         # provide topology
-        traj3 = mdio.load_mdtraj(m_traj, False, traj2.top)
+        traj3 = io.load_mdtraj(m_traj, False, traj2.top)
         aa_eq(traj2.xyz, traj3.xyz)
+
+        # load gro file
+        t_gro = md.load(get_fn("frame0.gro"))
+        traj = io.load_mdtraj(t_gro, autoconvert=False)
+        aa_eq(traj.xyz, t_gro.xyz)
 
 if __name__ == "__main__":
     unittest.main()
