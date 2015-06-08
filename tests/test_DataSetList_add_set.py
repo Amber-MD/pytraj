@@ -5,12 +5,13 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ 
+from pytraj.trajs.Trajin_Single import Trajin_Single
 
 class Test(unittest.TestCase):
     def test_0(self):
         dslist = DataSetList()
         dslist0 = DataSetList()
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = Trajin_Single("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['matrix']
         act("", traj, dslist=dslist)
 
@@ -45,7 +46,7 @@ class Test(unittest.TestCase):
         # I missed anything here?
         from pytraj import set_world_silent
         dslist = DataSetList()
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = Trajin_Single("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         coords_traj = DataSet_Coords_TRJ()
         coords_traj.top = traj.top
         coords_traj.add_trajin(traj)
@@ -57,7 +58,7 @@ class Test(unittest.TestCase):
         dslist.add_set("traj", "my_name", "__my_default_name__")
         print (dslist.size)
         print (dslist[0].size)
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = Trajin_Single("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist[0].top = traj.top
         dslist[0].add_trajin(traj)
         assert dslist[0].size == traj.n_frames

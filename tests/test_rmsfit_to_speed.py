@@ -21,12 +21,12 @@ class Test(unittest.TestCase):
         _f00 = f00.copy() # make copy for reference
         @Timer()
         def mode_pytraj_rms():
-            fa0.rmsfit_to(_f00, "@CA,C,N,O", mode='pytraj')
+            fa0.rmsfit(_f00, "@CA,C,N,O", mode='pytraj')
 
         _f00 = f00.copy()
         @Timer()
         def mode_cpptraj_rms():
-            fa2.rmsfit_to(_f00, "@CA,C,N,O", mode='cpptraj')
+            fa2.rmsfit(_f00, "@CA,C,N,O", mode='cpptraj')
 
         act = adict['rmsd']
 

@@ -45,20 +45,20 @@ class Test(unittest.TestCase):
         print (fa3.shape, fa4.shape)
         aa_eq(fa3.xyz, fa4.xyz)
 
-        # frame_iter with mask and autoimage, and rmsfit_to
+        # frame_iter with mask and autoimage, and rmsfit
         fa3 = fa2.copy()
         # fa3 is a copy of autoimaged fa2. then we strip all but CA atoms
         # just want to make sure we can use `mask`
         ref0 = traj[5].copy()
         ref1 = traj[5].copy()
 
-        fa3.rmsfit_to(ref0, '@CB')
+        fa3.rmsfit(ref0, '@CB')
         fa3.strip_atoms("!@CA")
 
         fa4 = Trajectory()
         fa4.top = fa3.top.copy()
 
-        for frame in traj(mask='@CA', autoimage=True, rmsfit_to=(ref1, '@CB')):
+        for frame in traj(mask='@CA', autoimage=True, rmsfit=(ref1, '@CB')):
             fa4.append(frame, copy=True)
 
         print (fa3, fa4)

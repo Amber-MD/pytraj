@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         print (f0[0], f1[0])
 
         print ("test_frame_fit: after fit_to")
-        f1.rmsfit_to(f0)
+        f1.rmsfit(f0)
         print (f0[0], f1[0])
 
     def test_0(self):
@@ -30,7 +30,7 @@ class Test(unittest.TestCase):
         assert rmsd_0 != rmsd_0_nofit
 
         # do fitting
-        f1.rmsfit_to(f0)
+        f1.rmsfit(f0)
         rmsd_1 = f1.rmsd(f0)
         rmsd_1_nofit = f1.rmsd_nofit(f0)
 
@@ -39,11 +39,11 @@ class Test(unittest.TestCase):
         assert rmsd_1 - rmsd_1_nofit < 1E-3
 
         print ("test farray.fit_to")
-        farray.rmsfit_to(f0)
+        farray.rmsfit(f0)
         print (farray[1].rmsd_nofit(f0))
         print (farray[1].rmsd(f0))
         assert rmsd_1 - farray[1].rmsd_nofit(f0) < 1E-3
-        print (farray.rmsfit_to)
+        print (farray.rmsfit)
 
     def test_1(self):
         print ("compare to cpptraj")
@@ -68,7 +68,7 @@ class Test(unittest.TestCase):
         print (farray)
         print ("before fitting")
         print (farray[0, 0])
-        farray.rmsfit_to(first, "*")
+        farray.rmsfit(first, "*")
         print ("after fitting")
         print (farray[0, 0])
 

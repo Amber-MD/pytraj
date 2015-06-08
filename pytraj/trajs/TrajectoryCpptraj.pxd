@@ -1,7 +1,6 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
 from libcpp.string cimport string
-from ..datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
 from .Trajin cimport _Trajin, Trajin
 from ..Frame cimport _Frame, Frame
 from ..Topology cimport _Topology, Topology

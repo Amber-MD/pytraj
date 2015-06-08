@@ -431,7 +431,6 @@ cdef class TrajectoryCpptraj:
     def write(self, *args, **kwd):
         self.save(*args, **kwd)
 
-    @memoize
     def box_to_ndarray(self):
         return _box_to_ndarray(self)
 
@@ -440,12 +439,10 @@ cdef class TrajectoryCpptraj:
         return self[:]
 
     @property
-    #@memoize
     def xyz(self):
         '''return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
         '''
-        # NOTE: turn off `memoize`
         # xyz = traj.xyz[:]
         # xyz += 1.
         # print (xyz[0, 0])

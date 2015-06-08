@@ -996,11 +996,9 @@ cdef class Trajectory (object):
                     frame = Frame()
                     #frame.set_frame_v(ts.top, ts.has_vel(), ts.n_repdims)
                     frame.set_frame_v(ts.top)
-                    ts._begin_traj()
-                    for i in range(ts.max_frames):
-                        ts._get_next_frame(frame)
-                        self.append(frame)
-                    ts._end_traj()
+                    with ts:
+                        for i in range(ts.n_frames):
+                            self.append(ts[i])
 
             elif isinstance(ts, Trajectory):
                 # can return a copy or no-copy based on `copy` value
@@ -1132,7 +1130,7 @@ cdef class Trajectory (object):
         for frame in self:
             frame.set_frame_mass(self.top)
 
-    def rmsfit_to(self, ref=None, mask="*", mode='pytraj'):
+    def rmsfit(self, ref=None, mask="*", mode='pytraj'):
         """do the fitting to reference Frame by rotation and translation
         Parameters
         ----------
@@ -1143,8 +1141,8 @@ cdef class Trajectory (object):
 
         Examples
         --------
-            traj.rmsfit_to(0) # fit to 1st frame
-            traj.rmsfit_to('last', '@CA') # fit to last frame using @CA atoms
+            traj.rmsfit(0) # fit to 1st frame
+            traj.rmsfit('last', '@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
         cdef Frame frame

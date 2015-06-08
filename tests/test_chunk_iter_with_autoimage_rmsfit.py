@@ -23,20 +23,20 @@ def test_0():
     fa0.autoimage()
     aa_eq(chunk.xyz, fa0[-2:].xyz)
 
-    # test rmsfit_to
-    for chunk in traj.chunk_iter(chunk=2, rmsfit_to=(ref0, mask)):
+    # test rmsfit
+    for chunk in traj.chunk_iter(chunk=2, rmsfit=(ref0, mask)):
         pass
     fa0 = fa.copy()
-    fa0.rmsfit_to(ref0, mask)
+    fa0.rmsfit(ref0, mask)
     aa_eq(chunk.xyz, fa0[-2:].xyz)
 
-    # test rmsfit_to and autoimage
-    for chunk in traj.chunk_iter(chunk=2, rmsfit_to=(ref0, mask), autoimage=True):
+    # test rmsfit and autoimage
+    for chunk in traj.chunk_iter(chunk=2, rmsfit=(ref0, mask), autoimage=True):
         pass
 
     fa0 = fa.copy()
     fa0.autoimage()
-    fa0.rmsfit_to(ref0, mask)
+    fa0.rmsfit(ref0, mask)
     aa_eq(chunk.xyz, fa0[-2:].xyz)
     print (traj[-2:].xyz[0, 0], chunk.xyz[0, 0], fa0[-2:].xyz[0 ,0])
 
@@ -45,7 +45,7 @@ def test_0():
     for frame in fa1:
         frame.set_frame_mass(fa1.top)
     fa1.autoimage()
-    fa1.rmsfit_to(ref0, mask)
+    fa1.rmsfit(ref0, mask)
     print (traj_saved[-2:].xyz[0, 0], fa1[-2:].xyz[0 ,0])
     # FIXME: assert failed
     #aa_eq(fa1.xyz, traj_saved[-2:].xyz)
