@@ -20,6 +20,7 @@ cdef class TrajectoryCpptraj:
     def __cinit__(self, *args, **kwd):
         self.thisptr = new _TrajectoryCpptraj()
         self._top = Topology()
+        self._filelist = []
         self.load(*args, **kwd)
 
     def __dealloc__(self):
@@ -79,6 +80,7 @@ cdef class TrajectoryCpptraj:
             if isinstance(filename, string_types):
                 _arglist = ArgList(arg)
                 self.thisptr.AddSingleTrajin(filename.encode(), _arglist.thisptr[0], tmp_top.thisptr)
+                self._filelist.append(filename)
             elif isinstance(filename, (list, tuple)):
                 # rename to avoid confusion
                 filename_list = filename
@@ -92,6 +94,7 @@ cdef class TrajectoryCpptraj:
         '''
         saved_top = self.top
         del self.thisptr
+        self._filelist = []
         self.thisptr = new _TrajectoryCpptraj()
         self.top = saved_top
         self.load(*args, **kwd)
@@ -448,3 +451,7 @@ cdef class TrajectoryCpptraj:
         # print (xyz[0, 0])
         # print (traj.xyz[0, 0])
         return _xyz(self)
+
+    @property
+    def filelist(self):
+        return self._filelist

@@ -27,3 +27,4 @@ cdef class TrajectoryCpptraj:
     cdef Topology _top
     cdef _TrajectoryCpptraj* thisptr
     cdef object tmpfarray
+    cdef list _filelist
