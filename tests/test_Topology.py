@@ -8,8 +8,9 @@ from pytraj.base import *
 from pytraj.decorators import no_test
 from pytraj.NameType import NameType
 
+TRAJ = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
 class TestTopology(unittest.TestCase):
-    #@no_test
     def test_empty_top(self):
         top = Topology()
         print(top.file_path())
@@ -19,7 +20,6 @@ class TestTopology(unittest.TestCase):
         print(top.file_path())
         assert top.is_empty() == False
 
-    #@no_test
     def test_1(self):
         datadir = "./data/" 
         filename = "./data/Tc5b.top"
@@ -57,7 +57,6 @@ class TestTopology(unittest.TestCase):
             print (atom)
         assert idx + 1 == top.n_atoms
 
-    #@no_test
     def test_2(self):
         from pytraj import load_sample_data
         # load Ala3
@@ -86,32 +85,31 @@ class TestTopology(unittest.TestCase):
         print(top[35])
         print(top.n_atoms)
 
-    #@no_test
     def test_select_mask(self):
         top = Topology("./data/Tc5b.top")
         arr0 = top.atom_indices("@CA")
         print(arr0) 
         print(type(arr0))
 
-    #@no_test
     def test_call(self):
         traj = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         #top = traj.top
         #frame = traj[0]
         #print(frame[top(":2-18@CA")])
 
-    #@no_test
     def test_get_unique(self):
         traj = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
         print(top.atom_names)
         print(top.residue_names)
 
-    #@no_test
     def test_len(self):
         traj = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
         assert len(top) == top.n_atoms
+
+    def test_charge(self):
+        print (TRAJ.top.total_charge)
 
 if __name__ == "__main__":
     unittest.main()

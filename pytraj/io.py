@@ -49,7 +49,8 @@ __all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
            'load_ParmEd', 'load_full_ParmEd',
            'load_mdtraj',
            'load_MDAnalysis', 'load_MDAnalysisIterator',
-           'read_parm', 'write_parm', 'save', 'write_traj',
+           'load_topology', 'read_parm', 'write_parm', 
+           'save', 'write_traj',
            'read_pickle', 'read_json',
            'to_dataframe', 'to_pickle', 'to_json',
            ]
@@ -307,6 +308,9 @@ def read_parm(filename):
     top = Topology(filename)
     set_error_silent(False)
     return top
+
+# creat alias
+load_topology = read_parm
 
 def loadpdb_rcsb(pdbid):
     """load pdb file from rcsb website

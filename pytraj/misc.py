@@ -15,6 +15,7 @@ from pytraj import adict, analdict
 from pytraj.DataSetList import DataSetList
 from pytraj._shared_methods import _frame_iter as frame_iter
 from pytraj._set_silent import set_world_silent
+from pytraj.compat import set
 
 # external
 from pytraj.externals.six import string_types
@@ -211,20 +212,26 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     return traj
 
-def find_libcpptraj():
-    """return a list of all libcpptraj files"""
+def find_libcpptraj(**kwd):
+    return find_library('cpptraj', **kwd)
+
+def find_library(libname, unique=False):
+    """return a list of all library files"""
     paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
-    libcpptraj_path_list = []
+    lib_path_list = []
+    key = "lib" + libname + "*"
 
     for path in paths:
         path = path.strip()
-        fnamelist = glob(os.path.join(path, "libcpptraj*"))
+        fnamelist = glob(os.path.join(path, key))
         for fname in fnamelist: 
             if os.path.isfile(fname):
-                libcpptraj_path_list.append(fname)
+                lib_path_list.append(fname)
 
-    if not libcpptraj_path_list:
-        raise ImportError('can not find libcpptraj. '
-                          'make sure to update your LD_LIBRARY_PATH')
+    if not lib_path_list:
+        return None
     else:
-        return libcpptraj_path_list
+        if unique:
+            return set(lib_path_list)
+        else:
+            return lib_path_list
