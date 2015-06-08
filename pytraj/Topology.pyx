@@ -758,3 +758,7 @@ cdef class Topology:
         cdef NonbondParmType nb = NonbondParmType()
         nb.thisptr[0] = self.thisptr.Nonbond()
         return nb
+
+    @property
+    def total_charge(self):
+        return sum([atom.charge for atom in self.atoms])
