@@ -983,7 +983,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
 static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_25mass(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_27get_full_matrix(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_29data(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_31to_ndarray(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_31to_ndarray(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_copy); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
 static void __pyx_pf_7cpython_5array_5array_2__releasebuffer__(CYTHON_UNUSED arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tp_new_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -992,12 +992,14 @@ static char __pyx_k_d[] = "d";
 static char __pyx_k_x[] = "x";
 static char __pyx_k_y[] = "y";
 static char __pyx_k_args[] = "args";
+static char __pyx_k_copy[] = "copy";
 static char __pyx_k_data[] = "data";
 static char __pyx_k_iter[] = "__iter__";
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_mass[] = "mass";
 static char __pyx_k_send[] = "send";
 static char __pyx_k_test[] = "__test__";
+static char __pyx_k_array[] = "array";
 static char __pyx_k_close[] = "close";
 static char __pyx_k_range[] = "range";
 static char __pyx_k_throw[] = "throw";
@@ -1005,7 +1007,6 @@ static char __pyx_k_append[] = "append";
 static char __pyx_k_import[] = "__import__";
 static char __pyx_k_n_cols[] = "n_cols";
 static char __pyx_k_n_rows[] = "n_rows";
-static char __pyx_k_asarray[] = "asarray";
 static char __pyx_k_get_key[] = "get_key";
 static char __pyx_k_reshape[] = "reshape";
 static char __pyx_k_property[] = "property";
@@ -1027,8 +1028,9 @@ static PyObject *__pyx_n_s_MatrixKindDict;
 static PyObject *__pyx_n_s_MemoryError;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_args;
-static PyObject *__pyx_n_s_asarray;
+static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_close;
+static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_cpptraj_dict;
 static PyObject *__pyx_n_s_d;
 static PyObject *__pyx_n_s_data;
@@ -2340,7 +2342,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
  *         """return 1D python array of matrix' data"""
  *         return self.get_full_matrix()             # <<<<<<<<<<<<<<
  * 
- *     def to_ndarray(self):
+ *     def to_ndarray(self, copy=True):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_full_matrix); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2391,26 +2393,70 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
 /* "pytraj/datasets/DataSet_MatrixDbl.pyx":70
  *         return self.get_full_matrix()
  * 
- *     def to_ndarray(self):             # <<<<<<<<<<<<<<
+ *     def to_ndarray(self, copy=True):             # <<<<<<<<<<<<<<
+ *         # use copy=True to be consistent with DataSet_1D
  *         from pytraj.utils import _import_numpy
- *         _, np = _import_numpy()
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_32to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_31to_ndarray[] = "DataSet_MatrixDbl.to_ndarray(self)";
-static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_32to_ndarray(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_32to_ndarray(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_31to_ndarray[] = "DataSet_MatrixDbl.to_ndarray(self, copy=True)";
+static PyObject *__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_32to_ndarray(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  CYTHON_UNUSED PyObject *__pyx_v_copy = 0;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("to_ndarray (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_31to_ndarray(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self));
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_copy,0};
+    PyObject* values[1] = {0};
+    values[0] = ((PyObject *)Py_True);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_copy);
+          if (value) { values[0] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "to_ndarray") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_copy = values[0];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("to_ndarray", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pytraj.datasets.DataSet_MatrixDbl.DataSet_MatrixDbl.to_ndarray", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_31to_ndarray(((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_v_self), __pyx_v_copy);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_31to_ndarray(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_31to_ndarray(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_copy) {
   PyObject *__pyx_v__import_numpy = NULL;
   CYTHON_UNUSED PyObject *__pyx_v__ = NULL;
   PyObject *__pyx_v_np = NULL;
@@ -2431,34 +2477,34 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("to_ndarray", 0);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":71
- * 
- *     def to_ndarray(self):
+  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":72
+ *     def to_ndarray(self, copy=True):
+ *         # use copy=True to be consistent with DataSet_1D
  *         from pytraj.utils import _import_numpy             # <<<<<<<<<<<<<<
  *         _, np = _import_numpy()
  *         if np:
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_import_numpy);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_import_numpy);
   __Pyx_GIVEREF(__pyx_n_s_import_numpy);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj_utils, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj_utils, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_import_numpy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_import_numpy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_t_1);
   __pyx_v__import_numpy = __pyx_t_1;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":72
- *     def to_ndarray(self):
+  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":73
+ *         # use copy=True to be consistent with DataSet_1D
  *         from pytraj.utils import _import_numpy
  *         _, np = _import_numpy()             # <<<<<<<<<<<<<<
  *         if np:
- *             arr = np.asarray(self.get_full_matrix()).reshape(
+ *             arr = np.array(self.get_full_matrix()).reshape(
  */
   __Pyx_INCREF(__pyx_v__import_numpy);
   __pyx_t_1 = __pyx_v__import_numpy; __pyx_t_3 = NULL;
@@ -2472,10 +2518,10 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -2489,7 +2535,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -2502,15 +2548,15 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
     __Pyx_INCREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_t_3);
     #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_4 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_5 = Py_TYPE(__pyx_t_4)->tp_iternext;
@@ -2518,7 +2564,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
     __Pyx_GOTREF(__pyx_t_1);
     index = 1; __pyx_t_3 = __pyx_t_5(__pyx_t_4); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_3);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_4), 2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_4), 2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_5 = NULL;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     goto __pyx_L4_unpacking_done;
@@ -2526,7 +2572,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_L4_unpacking_done:;
   }
   __pyx_v__ = __pyx_t_1;
@@ -2534,26 +2580,26 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   __pyx_v_np = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":73
+  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":74
  *         from pytraj.utils import _import_numpy
  *         _, np = _import_numpy()
  *         if np:             # <<<<<<<<<<<<<<
- *             arr = np.asarray(self.get_full_matrix()).reshape(
+ *             arr = np.array(self.get_full_matrix()).reshape(
  *                              self.n_rows, self.n_cols)
  */
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_np); if (unlikely(__pyx_t_6 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_np); if (unlikely(__pyx_t_6 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_6) {
 
-    /* "pytraj/datasets/DataSet_MatrixDbl.pyx":74
+    /* "pytraj/datasets/DataSet_MatrixDbl.pyx":75
  *         _, np = _import_numpy()
  *         if np:
- *             arr = np.asarray(self.get_full_matrix()).reshape(             # <<<<<<<<<<<<<<
+ *             arr = np.array(self.get_full_matrix()).reshape(             # <<<<<<<<<<<<<<
  *                              self.n_rows, self.n_cols)
  *             return arr
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_np, __pyx_n_s_asarray); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_np, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_full_matrix); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_full_matrix); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_8 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
@@ -2566,10 +2612,10 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
       }
     }
     if (__pyx_t_8) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     } else {
-      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -2584,35 +2630,35 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
       }
     }
     if (!__pyx_t_7) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else {
-      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __Pyx_GIVEREF(__pyx_t_7); __pyx_t_7 = NULL;
       PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_reshape); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_reshape); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pytraj/datasets/DataSet_MatrixDbl.pyx":75
+    /* "pytraj/datasets/DataSet_MatrixDbl.pyx":76
  *         if np:
- *             arr = np.asarray(self.get_full_matrix()).reshape(
+ *             arr = np.array(self.get_full_matrix()).reshape(
  *                              self.n_rows, self.n_cols)             # <<<<<<<<<<<<<<
  *             return arr
  *         else:
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_n_rows); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_n_rows); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_n_cols); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_n_cols); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_4 = NULL;
     __pyx_t_9 = 0;
@@ -2626,7 +2672,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
         __pyx_t_9 = 1;
       }
     }
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_4) {
       PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __Pyx_GIVEREF(__pyx_t_4); __pyx_t_4 = NULL;
@@ -2637,15 +2683,15 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
     __Pyx_GIVEREF(__pyx_t_8);
     __pyx_t_3 = 0;
     __pyx_t_8 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_arr = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "pytraj/datasets/DataSet_MatrixDbl.pyx":76
- *             arr = np.asarray(self.get_full_matrix()).reshape(
+    /* "pytraj/datasets/DataSet_MatrixDbl.pyx":77
+ *             arr = np.array(self.get_full_matrix()).reshape(
  *                              self.n_rows, self.n_cols)
  *             return arr             # <<<<<<<<<<<<<<
  *         else:
@@ -2658,25 +2704,24 @@ static PyObject *__pyx_pf_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_Matrix
   }
   /*else*/ {
 
-    /* "pytraj/datasets/DataSet_MatrixDbl.pyx":78
+    /* "pytraj/datasets/DataSet_MatrixDbl.pyx":79
  *             return arr
  *         else:
  *             raise ImportError("require numpy")             # <<<<<<<<<<<<<<
- * 
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
   /* "pytraj/datasets/DataSet_MatrixDbl.pyx":70
  *         return self.get_full_matrix()
  * 
- *     def to_ndarray(self):             # <<<<<<<<<<<<<<
+ *     def to_ndarray(self, copy=True):             # <<<<<<<<<<<<<<
+ *         # use copy=True to be consistent with DataSet_1D
  *         from pytraj.utils import _import_numpy
- *         _, np = _import_numpy()
  */
 
   /* function exit code */
@@ -3568,7 +3613,7 @@ static PyMethodDef __pyx_methods_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_M
   {"mass", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_26mass, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_25mass},
   {"get_full_matrix", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_28get_full_matrix, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_27get_full_matrix},
   {"data", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_30data, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_29data},
-  {"to_ndarray", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_32to_ndarray, METH_NOARGS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_31to_ndarray},
+  {"to_ndarray", (PyCFunction)__pyx_pw_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_32to_ndarray, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8datasets_17DataSet_MatrixDbl_17DataSet_MatrixDbl_31to_ndarray},
   {0, 0, 0, 0}
 };
 
@@ -3795,8 +3840,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_MemoryError, __pyx_k_MemoryError, sizeof(__pyx_k_MemoryError), 0, 0, 1, 1},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
-  {&__pyx_n_s_asarray, __pyx_k_asarray, sizeof(__pyx_k_asarray), 0, 0, 1, 1},
+  {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 0, 1, 1},
+  {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_cpptraj_dict, __pyx_k_cpptraj_dict, sizeof(__pyx_k_cpptraj_dict), 0, 0, 1, 1},
   {&__pyx_n_s_d, __pyx_k_d, sizeof(__pyx_k_d), 0, 0, 1, 1},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
@@ -3825,7 +3871,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
   __pyx_L1_error:;
@@ -3836,13 +3882,12 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":78
+  /* "pytraj/datasets/DataSet_MatrixDbl.pyx":79
  *             return arr
  *         else:
  *             raise ImportError("require numpy")             # <<<<<<<<<<<<<<
- * 
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_require_numpy); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_require_numpy); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
   __Pyx_RefNannyFinishContext();

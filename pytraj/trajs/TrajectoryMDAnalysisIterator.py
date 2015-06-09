@@ -50,25 +50,26 @@ class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionInTraj):
                         return frame # break the loop
                     i += 1
         elif isinstance(idx, slice):
-            fa = Trajectory()
-            fa.top = self.top
-            atom_groups = self._ext_holder.atoms
-            start, stop, stride = idx.indices(self.n_frames)
+            with self:
+                fa = Trajectory()
+                fa.top = self.top
+                atom_groups = self._ext_holder.atoms
+                start, stop, stride = idx.indices(self.n_frames)
 
-            try:
-                # if MDAnalysis object support slicing
-                for _ in self._traj_holder[idx]:
-                    frame = Frame(self.n_atoms)
-                    frame.xyz[:] = atom_groups.positions
-                    fa.append(frame, copy=False)
-                return fa
-            except:
-                # old fashion way
-                count = start
-                while count < stop:
-                    fa.append(self[count], copy=False)
-                    count += stride
-                return fa
+                try:
+                    # if MDAnalysis object support slicing
+                    for _ in self._traj_holder[idx]:
+                        frame = Frame(self.n_atoms)
+                        frame.xyz[:] = atom_groups.positions
+                        fa.append(frame, copy=False)
+                    return fa
+                except:
+                    # old fashion way
+                    count = start
+                    while count < stop:
+                        fa.append(self[count], copy=False)
+                        count += stride
+                    return fa
         else:
             raise NotImplementedError()
 
@@ -100,3 +101,6 @@ class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionInTraj):
     @property
     def filename(self):
         return self._ext_holder.filename
+
+    def to_mutable_trajectory(self):
+        return self[:]

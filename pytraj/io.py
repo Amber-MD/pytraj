@@ -21,6 +21,8 @@ from ._set_silent import set_error_silent
 from ._guess_filetype import _guess_filetype
 from ._get_common_objects import _get_top
 
+load_cpptraj_datafile = load_datafile
+
 try:
     from .externals._load_ParmEd import load_ParmEd, _load_chem
 except:

@@ -11,7 +11,7 @@ import pytraj.common_actions as pyca
 '''Aim: check segmentation fault for Topology that does not have bond info'''
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = io.load_sample_data('tz2').to_mutable_traj()
+        traj = io.load_sample_data('tz2').to_mutable_trajectory()
         tbad = traj.copy()
 
         # make atom 0 and 1 very close

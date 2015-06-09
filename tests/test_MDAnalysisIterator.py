@@ -61,7 +61,7 @@ class Test(unittest.TestCase):
         print (d_mda2)
         print (d_traj)
 
-    @no_test # FIXME:
+    @no_test # FIXME: weird DCD file
     @test_if_having("MDAnalysis")
     def test_1(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -109,20 +109,20 @@ class Test(unittest.TestCase):
         aa_eq(d0, d2)
 
         # try another action: rms2d
-        #d0 = pyca.calc_pairwise_rmsd(traj, dtype='ndarray')
+        d0 = pyca.calc_pairwise_rmsd(traj, dtype='ndarray')
         # FIXME: segfault
-        #d1 = pyca.calc_pairwise_rmsd(t, dtype='ndarray')
+        d1 = pyca.calc_pairwise_rmsd(t, dtype='ndarray')
         # FIXME: segfault
-        #d2 = pyca.calc_pairwise_rmsd(t_in_mem, dtype='ndarray')
-        #aa_eq(d0, d1)
-        #aa_eq(d0, d2)
+        d2 = pyca.calc_pairwise_rmsd(t_in_mem, dtype='ndarray')
+        aa_eq(d0, d1)
+        aa_eq(d0, d2)
 
         # just try not to mak segfault
         # FIXME: segfault
-        #pyca.do_clustering(t, "kmeans clusters 5 @CA")
-        #pyca.do_clustering(t[:], "kmeans clusters 5 @CA")
-        #pyca.do_clustering(t_in_mem, "kmeans clusters 5 @CA")
-        #print (t)
+        pyca.do_clustering(t, "kmeans clusters 5 @CA")
+        pyca.do_clustering(t[:], "kmeans clusters 5 @CA")
+        pyca.do_clustering(t_in_mem, "kmeans clusters 5 @CA")
+        print (t)
 
     @test_if_having("MDAnalysis")
     def test_2(self):
@@ -168,7 +168,7 @@ class Test(unittest.TestCase):
         aa_eq(t.xyz, traj.xyz)
         fa0 = t[:]
         fa1 = traj[:]
-        #aa_eq(fa0['@CA'].xyz, fa1['@CA'].xyz)
+        aa_eq(fa0['@CA'].xyz, fa1['@CA'].xyz)
 
         # check if segfault
         t[:2]
@@ -176,8 +176,7 @@ class Test(unittest.TestCase):
         t[:2]
         t[:2]
         aa_eq(t[:2].xyz, traj[:2].xyz)
-        # FIXME: segmentation fault for calc_dssp
-        #pyca.calc_dssp(t[0], ":1-10", top=traj.top)
+        pyca.calc_dssp(t[0], ":1-10", top=traj.top)
         pyca.calc_rmsd(t[:2], ref=traj[0])
 
 
