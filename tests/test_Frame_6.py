@@ -12,7 +12,6 @@ class Test(unittest.TestCase):
         frame0cp = frame0.copy()
         ref = traj[1]
 
-        # FIXME: the results are not matched yet. Need to check
         print (traj.top("@CA"))
         _rmsd_notfit = frame0.rmsd_nofit(ref, traj.top("@CA"))
         print ("_rmsd_notfit before fitting = ", _rmsd_notfit)

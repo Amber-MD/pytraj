@@ -61,7 +61,7 @@ def main():
     fa3[0] = traj[0]
     fa3.top = traj.top
     fa3[0].xyz
-    #fa3.xyz # FIXME: segfault (because you have not created other frames yet)
+    #fa3.xyz # FIXME: DON'T NEED, segfault (because you have not created other frames yet)
     print (fa3[0, 0])
 
     # try to append new frames
