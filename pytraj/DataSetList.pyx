@@ -391,7 +391,7 @@ cdef class DataSetList:
         from pytraj._xyz import XYZ
         # read-only
         try:
-            return XYZ(self.to_ndarray(copy=True))
+            return XYZ(self.to_ndarray())
         except:
             raise ValueError("don't know how to cast to numpy array")
 
@@ -399,17 +399,14 @@ cdef class DataSetList:
         # make sure to use copy=True to avoid memory error for memoryview
         has_np, np = _import("numpy")
         if has_np:
-            d0 = self[0]
-            return d0.to_ndarray(copy=True)
-            #return self[0].to_ndarray(copy=True)
-            #try:
-            #    if self.size == 1:
-            #        return self[0].to_ndarray(copy=True)
-            #    else:
-            #        # more than one set
-            #        return np.asarray([d0.to_ndarray(copy=True) for d0 in self])
-            #except:
-            #    raise PytrajConvertError("don't know how to convert to ndarray")
+            try:
+                if self.size == 1:
+                    return self[0].to_ndarray(copy=True)
+                else:
+                    # more than one set
+                    return np.asarray([d0.to_ndarray(copy=True) for d0 in self])
+            except:
+                raise PytrajConvertError("don't know how to convert to ndarray")
         else:
             raise PytrajConvertError("don't have numpy")
 

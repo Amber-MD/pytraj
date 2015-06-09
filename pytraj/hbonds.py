@@ -77,7 +77,7 @@ def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WA
     """
     dslist = DataSetList()
     act = adict['hbond']
-    command = "series nointramol" + mask
+    command = "series nointramol " + mask
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
     return _get_data_from_dtype(dslist, dtype=dtype)

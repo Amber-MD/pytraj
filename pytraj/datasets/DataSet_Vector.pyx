@@ -58,11 +58,10 @@ cdef class DataSet_Vector (DataSet_1D):
         # x is memview array
         return [x.tolist() for x in self.data]
 
-    def to_ndarray(self):
+    def to_ndarray(self, copy=True):
         import numpy as np
-        # overwrite
-        # x is memview array
-        return np.asarray([np.asarray(x[:]) for x in self.data])
+        # use `copy=True` as dummy argument to be consistent with DataSet_1D
+        return np.array([np.array(x[:]) for x in self.data])
 
     def to_dataframe(self):
         from pytraj.utils import _import

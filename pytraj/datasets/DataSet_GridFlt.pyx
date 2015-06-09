@@ -64,7 +64,8 @@ cdef class DataSet_GridFlt(DataSet_3D):
         cdef float* ptr = &self.thisptr.index_opr(0)
         return <float[:nx, :ny, :nz]> ptr
 
-    def to_ndarray(self):
+    def to_ndarray(self, copy=True):
+        # copy=True: is a dummy argument to be consistent with DataSet_1D
         has_np, np = _import_numpy()
         if not has_np:
             raise PytrajError("need numpy")
