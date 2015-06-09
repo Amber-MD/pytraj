@@ -17,7 +17,6 @@ class Test(unittest.TestCase):
         act = adict['matrix']
         print (act)
 
-        # FIXME: not work with combination of chunk_iter in the list or tuple (but still work with frame_iter)
         act("", current_frame=(traj, traj(1, 5, 1), traj.chunk_iter(chunk=2)), top=traj.top)
         print (act.n_frames)
         assert act.n_frames == 25

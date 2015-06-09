@@ -1,4 +1,5 @@
 from __future__ import print_function
+import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -8,18 +9,19 @@ from pytraj.decorators import no_test, test_if_having
 import numpy as np
 
 @test_if_having("MDAnalysis")
-def test_load_Amber(self):
+def test_load_Amber():
+    import numpy as np
     import pytraj.io as io
     from MDAnalysis import Universe
 
     # load pytraj's TrajectoryIterator
     traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-    # Fail
-    #u = Universe(traj.top.filename, traj.filename, 
-    #             format='mdcrd', topology_format='prmtop')
-    #print (u)
-    #io.load_MDAnalysis(u)
+    u = Universe(traj.top.filename, traj.filename, 
+                 format='mdcrd', topology_format='prmtop')
+    utraj = io.load_MDAnalysis(u)
+    aa_eq(np.asarray(utraj.calc_dssp()).flatten(), 
+          np.asarray(traj.calc_dssp()).flatten())
 
     # OK
     from MDAnalysisTests.datafiles import PSF, DCD

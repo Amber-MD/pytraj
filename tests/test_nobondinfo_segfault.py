@@ -18,13 +18,10 @@ class Test(unittest.TestCase):
         t = md.load(get_fn("frame0.gro"))
         traj = io.load_mdtraj(t, autoconvert=False)
 
-        traj.calc_dssp()
-
-        # FIXME
-        # segmentation fault: no radii info
+        # FIXME: segmentation fault: no radii info, calc_molsurf
         #traj.calc_molsurf()
 
-        # NO segmentation fault
+        traj.calc_dssp()
         traj.rmsd(mode='cpptraj')
         traj.rmsd(0)
         md.rmsd(t, t, 0)

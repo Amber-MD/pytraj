@@ -20,7 +20,8 @@ class Test(unittest.TestCase):
 
         for idx, frame in enumerate(it):
             pass
-            #print ("segmentation faul if uncommenting #traj")
+            #print ("segmentation fault if uncommenting #traj")
+            # Status: don't need to fix since "it" and "traj" share the same iterator
             #traj[idx]
 
         fa = traj[:]
@@ -37,7 +38,6 @@ class Test(unittest.TestCase):
     def test_2(self):
         print ("DataSetList lifetime")
         #d = pyca.search_hbonds(traj)
-        # FIXME: segmentation fault
         d = pyca.search_hbonds(traj).groupby("SER")
         d2 = pyca.search_hbonds(traj).groupby("SER").to_ndarray()
         print (d.size)
@@ -64,7 +64,7 @@ class Test(unittest.TestCase):
         from pytraj.hbonds import search_hbonds
 
         # segmentation fault
-        #print (da.calc_phi(traj)[0])
+        print (da.calc_phi(traj)[0])
         print (search_hbonds(traj)[0])
         # new DSL
         print (search_hbonds(traj)[:][:][:][:][0])

@@ -107,7 +107,6 @@ class TestTrajectory(unittest.TestCase):
         assert TRAJ2[9].atoms(0) == farray[1].atoms(0)
         assert TRAJ2[1].atoms(0) == farray[2].atoms(0)
 
-        # FIXME: arr = np.asarray(TRAJ2[0].buffer1d) does not rerturn correct view
         arr = np.asarray(TRAJ2[0].buffer1d[:])
         print("len")
         print(len(arr))

@@ -148,19 +148,18 @@ class Test(unittest.TestCase):
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
-        #xyz_list = dslist[1].to_ndarray()
+        xyz_list = dslist[1].to_ndarray()
         t = dslist[1]
         print (t[0])
-        # FIXME: segmentation fault
-        #xyz_list = dslist[1].xyz
-        #assert len(xyz_list) == traj.n_frames
-        #print (farray_0)
-        #farray_0 = Trajectory()
-        #farray_0.top = traj.top.copy()
-        #farray_0.append_xyz(xyz_list)
+        xyz_list = dslist[1].xyz
+        assert len(xyz_list) == traj.n_frames
+        print (farray_0)
+        farray_0 = Trajectory()
+        farray_0.top = traj.top.copy()
+        farray_0.append_xyz(xyz_list)
 
-        #for f0, f1 in izip(farray_0, traj):
-        #    assert_almost_equal(f0.coords, f1.coords)
+        for f0, f1 in izip(farray_0, traj):
+            assert_almost_equal(f0.coords, f1.coords)
 
     @test_if_having("mdtraj")
     def test_10(self):
