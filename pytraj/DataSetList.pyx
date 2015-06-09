@@ -391,7 +391,7 @@ cdef class DataSetList:
         from pytraj._xyz import XYZ
         # read-only
         try:
-            return XYZ(self.to_ndarray(copy=True))
+            return XYZ(self.to_ndarray())
         except:
             raise ValueError("don't know how to cast to numpy array")
 
