@@ -62,5 +62,13 @@ class Test(unittest.TestCase):
         arr1 = pyca.calc_distance(traj, indices, n_frames=traj.n_frames)
         assert_almost_equal(arr0.flatten(), arr1.flatten())
 
+    def test_2(self):
+        # test memory error
+        traj = mdio.load("./data/Tc5b.crd", "./data/Tc5b.top")
+        dslist0 = traj.search_hbonds()
+        expected_n_hbonds = 6
+        assert dslist0.groupby("UU").values[0] == expected_n_hbonds
+        assert traj.search_hbonds().groupby("UU").values[0] == expected_n_hbonds
+
 if __name__ == "__main__":
     unittest.main()
