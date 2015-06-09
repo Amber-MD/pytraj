@@ -130,3 +130,6 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionInTraj):
 
     def tolist(self):
         return _tolist(self)
+
+    def to_mutable_trajectory(self):
+        return self[:]
