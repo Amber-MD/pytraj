@@ -762,3 +762,6 @@ cdef class Topology:
     @property
     def total_charge(self):
         return sum([atom.charge for atom in self.atoms])
+
+    def guess_bond(self):
+        self.thisptr.CommonSetup(True)

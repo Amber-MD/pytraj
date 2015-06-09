@@ -960,3 +960,17 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset',
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 calc_grid.__doc__ = _long_manual.__grid__
+
+def check_structure(traj=None, command="", top=None,
+                    *args, **kwd):
+    """
+    Examples
+    --------
+    >>> check_structure(traj[0], top=traj.top)
+    """
+    from .actions.Action_CheckStructure import Action_CheckStructure
+    act = Action_CheckStructure()
+
+    # cpptraj require output
+    _top = _get_top(traj, top)
+    act(command, traj, top=_top, *args, **kwd)
