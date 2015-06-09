@@ -1,4 +1,3 @@
-# FIXME: segmentation fault, don't know why
 import unittest
 from pytraj.base import *
 from pytraj import adict
@@ -18,8 +17,7 @@ class Test(unittest.TestCase):
         for i in range(100):
             d1d.append(i, i)
         print (d1d[:])
-        # FIXME : segmentation fault
-        #dflist.add_dataset("./output/test_write_dfile.txt", d1d)
+        dflist.add_dataset("./output/test_write_dfile.txt", d1d)
 
 if __name__ == "__main__":
     unittest.main()

@@ -55,6 +55,8 @@ cdef class DataSetList:
     def __str__(self):
         has_pd, _ = _import_pandas()
         safe_msg = "<pytraj.DataSetList with %s datasets>" % self.size
+        if self.size == 0:
+            return safe_msg
         if not has_pd:
             msg = "<pytraj.DataSetList with %s datasets> (install pandas for pretty print)" % self.size
             return msg

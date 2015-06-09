@@ -115,4 +115,8 @@ def load_pseudo_parm(parm):
         except:
             # no box
             pseudotop.box = Box()
+    try:
+        pseudotop._bonds_ndarray[0]
+    except:
+        pseudotop.guess_bond()
     return pseudotop

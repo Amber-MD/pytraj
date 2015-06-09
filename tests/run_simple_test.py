@@ -13,8 +13,8 @@ class Test(unittest.TestCase):
     def test_1(self):
         print ("try to make all action objects")
         from pytraj import adict
-        # FIXME, TODO : make failed_list empty
-        failed_list = ['createreservoir',]
+        #failed_list = ['createreservoir',]
+        failed_list = []
 
         for key in adict.keys():
             if key not in failed_list:

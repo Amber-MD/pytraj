@@ -14,7 +14,6 @@ class Test(unittest.TestCase):
         f0 = trajiter[0]
         f0.strip_atoms('@CA', trajiter.top, update_top=False)
 
-        # segfault (FIXED)
         print ("start iterating")
         for frame in trajiter:
             frame.strip_atoms('@CA', trajiter.top, update_top=False)

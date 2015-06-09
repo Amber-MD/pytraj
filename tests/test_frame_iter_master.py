@@ -25,16 +25,7 @@ def iter_me(obj, n_frames):
     assert idx + 1 == n_frames
 
 class Test(unittest.TestCase):
-    # Potentail failing: using iterator of iterator
-    # for example: it = _frame_iter_master(traj)
-    # for idx, frame in enumerate(it):
-    #     traj[idx]
-    # will give segmentation fault
-    @no_test
     def test_cpptraj_file(self):
-        # FIXME: got segmentation fault.
-        # reason: when iterating TrajinLis, no information about Topology in `traj`
-        # --> can not read frame correctly
         from pytraj._shared_methods import _frame_iter_master
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fname = "./tc5b.rotate.in"
