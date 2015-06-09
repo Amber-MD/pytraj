@@ -2582,7 +2582,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_151vdw_radii(struct __pyx_
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_153to_dataframe(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_155NonbondParmType(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_157total_charge(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_159_update_extra_info(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_159guess_bond(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_11py_free_mem___get__(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8Topology_8Topology_11py_free_mem_2__set__(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
@@ -19610,7 +19610,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_157total_charge(struct __p
  *     def total_charge(self):
  *         return sum([atom.charge for atom in self.atoms])             # <<<<<<<<<<<<<<
  * 
- *     def _update_extra_info(self):
+ *     def guess_bond(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -19700,32 +19700,32 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_157total_charge(struct __p
 /* "pytraj/Topology.pyx":766
  *         return sum([atom.charge for atom in self.atoms])
  * 
- *     def _update_extra_info(self):             # <<<<<<<<<<<<<<
+ *     def guess_bond(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.CommonSetup(True)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_160_update_extra_info(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Topology_8Topology_159_update_extra_info[] = "Topology._update_extra_info(self)";
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_160_update_extra_info(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_160guess_bond(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8Topology_8Topology_159guess_bond[] = "Topology.guess_bond(self)";
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_160guess_bond(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("_update_extra_info (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_159_update_extra_info(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("guess_bond (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_159guess_bond(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_159_update_extra_info(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_159guess_bond(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("_update_extra_info", 0);
+  __Pyx_RefNannySetupContext("guess_bond", 0);
 
   /* "pytraj/Topology.pyx":767
  * 
- *     def _update_extra_info(self):
+ *     def guess_bond(self):
  *         self.thisptr.CommonSetup(True)             # <<<<<<<<<<<<<<
  */
   __pyx_v_self->thisptr->CommonSetup(1);
@@ -19733,7 +19733,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_159_update_extra_info(stru
   /* "pytraj/Topology.pyx":766
  *         return sum([atom.charge for atom in self.atoms])
  * 
- *     def _update_extra_info(self):             # <<<<<<<<<<<<<<
+ *     def guess_bond(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.CommonSetup(True)
  */
 
@@ -32762,7 +32762,7 @@ static PyMethodDef __pyx_methods_6pytraj_8Topology_Topology[] = {
   {"to_dataframe", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_154to_dataframe, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_153to_dataframe},
   {"NonbondParmType", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_156NonbondParmType, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_155NonbondParmType},
   {"total_charge", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_158total_charge, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_157total_charge},
-  {"_update_extra_info", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_160_update_extra_info, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_159_update_extra_info},
+  {"guess_bond", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_160guess_bond, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_159guess_bond},
   {"__pyx_fuse_0add_bonds", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_162add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds},
   {"__pyx_fuse_1add_bonds", (PyCFunction)__pyx_fuse_1__pyx_pw_6pytraj_8Topology_8Topology_164add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds},
   {"__pyx_fuse_2add_bonds", (PyCFunction)__pyx_fuse_2__pyx_pw_6pytraj_8Topology_8Topology_166add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_121add_bonds},
