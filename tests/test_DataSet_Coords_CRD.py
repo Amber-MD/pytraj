@@ -75,24 +75,6 @@ class Test(unittest.TestCase):
         for i in range(Nframe):
             traj.append(TRAJ0[i])
 
-        dataset = traj.alloc()
-        assert isinstance(dataset, DataSet) == True
-
-        # cast back
-        casted_traj = cast_dataset(dataset, 'coords')
-        print (casted_traj)
-        assert isinstance(casted_traj, DataSet_Coords_CRD) == True
-
-        # FIXME: make sure we get frames correctly after casting
-        print ("test more")
-        print (casted_traj.size) # = 0, wrong
-        print (dir(casted_traj))
-        #assert casted_traj.size == TRAJ0.size
-
-        #for f0, f1 in izip(TRAJ0, casted_traj):
-        #    print (f0, f1)
-        #    assert_almost_equal(f0.coords, f1.coords)
-        
     def test_3(self):
         # test commond DataSet methods
         TRAJ0 = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
