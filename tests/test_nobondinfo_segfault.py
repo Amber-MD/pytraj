@@ -17,12 +17,10 @@ class Test(unittest.TestCase):
         from pytraj import common_actions as pyca
         t = md.load(get_fn("frame0.gro"))
         traj = io.load_mdtraj(t, autoconvert=False)
-        assert list(traj.top.bond_indices) == []
+
+        traj.calc_dssp()
 
         # FIXME
-        # segmentation fault
-        #traj.calc_dssp()
-
         # segmentation fault: no radii info
         #traj.calc_molsurf()
 
