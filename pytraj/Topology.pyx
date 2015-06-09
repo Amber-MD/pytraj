@@ -762,3 +762,6 @@ cdef class Topology:
     @property
     def total_charge(self):
         return sum([atom.charge for atom in self.atoms])
+
+    def _update_extra_info(self):
+        self.thisptr.CommonSetup(True)
