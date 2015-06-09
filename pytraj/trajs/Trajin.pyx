@@ -518,6 +518,6 @@ cdef class Trajin (TrajectoryFile):
     def box_to_ndarray(self):
         return _box_to_ndarray(self)
 
-    def to_mutable_traj(self):
+    def to_mutable_trajectory(self):
         """same as self[:] but more explicit"""
         return self[:]

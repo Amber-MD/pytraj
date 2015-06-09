@@ -2264,7 +2264,7 @@ static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_71xyz(struct __pyx_obj_
 static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_73tolist(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_75coordinfo(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_77box_to_ndarray(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_traj(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_trajectory(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_5debug___get__(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_5debug_2__set__(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_7_tmpobj___get__(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *__pyx_v_self); /* proto */
@@ -8607,14 +8607,14 @@ static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_33_fast_slice_openmp(st
                         #endif /* _OPENMP */
                         {
                             #ifdef _OPENMP
-                            #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v__frame_ptr) lastprivate(__pyx_v__frame_ptr2)
+                            #pragma omp for lastprivate(__pyx_v__frame_ptr2) lastprivate(__pyx_v__frame_ptr) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
                             #endif /* _OPENMP */
                             for (__pyx_t_17 = 0; __pyx_t_17 < __pyx_t_18; __pyx_t_17++){
                                 {
                                     __pyx_v_i = __pyx_t_9 + __pyx_t_2 * __pyx_t_17;
                                     /* Initialize private variables to invalid values */
-                                    __pyx_v__frame_ptr = ((Frame *)1);
                                     __pyx_v__frame_ptr2 = ((Frame *)1);
+                                    __pyx_v__frame_ptr = ((Frame *)1);
 
                                     /* "pytraj/trajs/Trajin.pyx":378
  *             # YES: need to compile parallel version?
@@ -11168,7 +11168,7 @@ static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_77box_to_ndarray(struct
  *     def box_to_ndarray(self):
  *         return _box_to_ndarray(self)             # <<<<<<<<<<<<<<
  * 
- *     def to_mutable_traj(self):
+ *     def to_mutable_trajectory(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_box_to_ndarray); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 519; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -11227,36 +11227,36 @@ static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_77box_to_ndarray(struct
 /* "pytraj/trajs/Trajin.pyx":521
  *         return _box_to_ndarray(self)
  * 
- *     def to_mutable_traj(self):             # <<<<<<<<<<<<<<
+ *     def to_mutable_trajectory(self):             # <<<<<<<<<<<<<<
  *         """same as self[:] but more explicit"""
  *         return self[:]
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_5trajs_6Trajin_6Trajin_80to_mutable_traj(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_traj[] = "Trajin.to_mutable_traj(self)\nsame as self[:] but more explicit";
-static PyObject *__pyx_pw_6pytraj_5trajs_6Trajin_6Trajin_80to_mutable_traj(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_5trajs_6Trajin_6Trajin_80to_mutable_trajectory(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_trajectory[] = "Trajin.to_mutable_trajectory(self)\nsame as self[:] but more explicit";
+static PyObject *__pyx_pw_6pytraj_5trajs_6Trajin_6Trajin_80to_mutable_trajectory(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("to_mutable_traj (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_traj(((struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("to_mutable_trajectory (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_trajectory(((struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_traj(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_trajectory(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("to_mutable_traj", 0);
+  __Pyx_RefNannySetupContext("to_mutable_trajectory", 0);
 
   /* "pytraj/trajs/Trajin.pyx":523
- *     def to_mutable_traj(self):
+ *     def to_mutable_trajectory(self):
  *         """same as self[:] but more explicit"""
  *         return self[:]             # <<<<<<<<<<<<<<
  */
@@ -11270,7 +11270,7 @@ static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_traj(struc
   /* "pytraj/trajs/Trajin.pyx":521
  *         return _box_to_ndarray(self)
  * 
- *     def to_mutable_traj(self):             # <<<<<<<<<<<<<<
+ *     def to_mutable_trajectory(self):             # <<<<<<<<<<<<<<
  *         """same as self[:] but more explicit"""
  *         return self[:]
  */
@@ -11278,7 +11278,7 @@ static PyObject *__pyx_pf_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_traj(struc
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.trajs.Trajin.Trajin.to_mutable_traj", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.trajs.Trajin.Trajin.to_mutable_trajectory", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -23180,7 +23180,7 @@ static PyMethodDef __pyx_methods_6pytraj_5trajs_6Trajin_Trajin[] = {
   {"tolist", (PyCFunction)__pyx_pw_6pytraj_5trajs_6Trajin_6Trajin_74tolist, METH_NOARGS, __pyx_doc_6pytraj_5trajs_6Trajin_6Trajin_73tolist},
   {"coordinfo", (PyCFunction)__pyx_pw_6pytraj_5trajs_6Trajin_6Trajin_76coordinfo, METH_NOARGS, __pyx_doc_6pytraj_5trajs_6Trajin_6Trajin_75coordinfo},
   {"box_to_ndarray", (PyCFunction)__pyx_pw_6pytraj_5trajs_6Trajin_6Trajin_78box_to_ndarray, METH_NOARGS, __pyx_doc_6pytraj_5trajs_6Trajin_6Trajin_77box_to_ndarray},
-  {"to_mutable_traj", (PyCFunction)__pyx_pw_6pytraj_5trajs_6Trajin_6Trajin_80to_mutable_traj, METH_NOARGS, __pyx_doc_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_traj},
+  {"to_mutable_trajectory", (PyCFunction)__pyx_pw_6pytraj_5trajs_6Trajin_6Trajin_80to_mutable_trajectory, METH_NOARGS, __pyx_doc_6pytraj_5trajs_6Trajin_6Trajin_79to_mutable_trajectory},
   {0, 0, 0, 0}
 };
 
@@ -24808,7 +24808,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__22);
 
   /* "pytraj/trajs/Trajin.pyx":523
- *     def to_mutable_traj(self):
+ *     def to_mutable_trajectory(self):
  *         """same as self[:] but more explicit"""
  *         return self[:]             # <<<<<<<<<<<<<<
  */
