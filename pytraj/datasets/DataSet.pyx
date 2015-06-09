@@ -288,12 +288,16 @@ cdef class DataSet:
     def values(self):
         return self.to_ndarray()
 
-    def to_ndarray(self):
+    def to_ndarray(self, copy=False):
         """return ndarray view of self.data"""
         from pytraj.utils import _import_numpy
         has_np, np = _import_numpy()
         if has_np:
-            return np.asarray(self.data)
+            if not copy:
+                return np.asarray(self.data)
+            else:
+                # make copy
+                return np.array(self.data)
         else:
             raise ImportError("require numpy")
 

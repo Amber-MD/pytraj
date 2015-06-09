@@ -379,7 +379,7 @@ cdef class DataSetList:
         """return a dict object with key=legend, value=list"""
         try:
             if use_numpy:
-                return dict((d0.legend, d0.to_ndarray()) for d0 in self)
+                return dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
             else:
                 return dict((d0.legend, d0.tolist()) for d0 in self)
         except:
@@ -391,21 +391,25 @@ cdef class DataSetList:
         from pytraj._xyz import XYZ
         # read-only
         try:
-            return XYZ(self.to_ndarray())
+            return XYZ(self.to_ndarray(copy=True))
         except:
             raise ValueError("don't know how to cast to numpy array")
 
     def to_ndarray(self):
+        # make sure to use copy=True to avoid memory error for memoryview
         has_np, np = _import("numpy")
         if has_np:
-            try:
-                if self.size == 1:
-                    return self[0].to_ndarray()
-                else:
-                    # more than one set
-                    return np.asarray([d0.to_ndarray() for d0 in self])
-            except:
-                raise PytrajConvertError("don't know how to convert to ndarray")
+            d0 = self[0]
+            return d0.to_ndarray(copy=True)
+            #return self[0].to_ndarray(copy=True)
+            #try:
+            #    if self.size == 1:
+            #        return self[0].to_ndarray(copy=True)
+            #    else:
+            #        # more than one set
+            #        return np.asarray([d0.to_ndarray(copy=True) for d0 in self])
+            #except:
+            #    raise PytrajConvertError("don't know how to convert to ndarray")
         else:
             raise PytrajConvertError("don't have numpy")
 
@@ -417,7 +421,7 @@ cdef class DataSetList:
         pandas
         """
         _, pandas = _import_pandas()
-        my_dict = dict((d0.legend, d0.to_ndarray()) for d0 in self)
+        my_dict = dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
 
     def set_py_free_mem(self, bint value):
