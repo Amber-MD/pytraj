@@ -46,6 +46,7 @@ class Test(unittest.TestCase):
         d = traj.calc_multidihedral(dtype='dataset')
         d2 = d.groupby("phi:2+")
         assert sorted(d2.keys()) == sorted(['phi:2', 'phi:20'])
+        d3 = d.groupby(['phi', 'psi'])
 
 if __name__ == "__main__":
     unittest.main()
