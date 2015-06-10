@@ -62,7 +62,7 @@ cdef class DataSetList:
             return msg
         else:
             try:
-                df = self.to_dataframe()
+                df = self.to_dataframe().T
                 return df.__str__()
             except:
                 return safe_msg
