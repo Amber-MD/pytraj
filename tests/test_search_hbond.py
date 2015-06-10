@@ -41,7 +41,7 @@ class Test(unittest.TestCase):
         from pytraj.misc import from_legends_to_indices
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         import pytraj.common_actions as pyca
-        ds = pyca.search_hbonds(traj, dtype='dataset')
+        ds = pyca.search_hbonds(traj, dtype='dataset', update_legend=False)
         print (ds.size)
         print (ds.to_dict())
         d0 = ds.groupby("@")

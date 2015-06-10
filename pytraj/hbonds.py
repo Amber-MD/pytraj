@@ -35,15 +35,24 @@ def search_hbonds_noseries(traj, mask="", dtype='dataset', *args, **kwd):
 
     http://ambermd.org/doc12/Amber15.pdf (page 575)
     """
+    update_legend = False
+    if 'update_legend' in kwd.keys():
+        if kwd['update_legend'] == True:
+            update_legend = True
+        del kwd['update_legend']
+
     dslist = DataSetList()
     act = adict['hbond']
+
     command = mask
     if "series" in command:
         raise ValueError("don't accept key `series`")
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
 
-    _update_legend_hbond(dslist)
+    if update_legend:
+        _update_legend_hbond(dslist)
+
     if dtype == 'dataframe':
         # return DataFrame.T to have better visual effect
         return dslist.to_dataframe().T
@@ -85,13 +94,21 @@ def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
     --------
     http://ambermd.org/doc12/Amber15.pdf (page 575)
     """
+    update_legend = False
+    if 'update_legend' in kwd.keys():
+        if kwd['update_legend'] == True:
+            update_legend = True
+        del kwd['update_legend']
+
     dslist = DataSetList()
     act = adict['hbond']
+
     command = "series " + mask
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
 
-    _update_legend_hbond(dslist)
+    if update_legend:
+        _update_legend_hbond(dslist)
     if dtype == 'dataframe':
         # return DataFrame.T to have better visual effect
         return dslist.to_dataframe().T
@@ -120,11 +137,18 @@ def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WA
     --------
        search_hbonds
     """
+    update_legend = False
+    if 'update_legend' in kwd.keys():
+        if kwd['update_legend'] == True:
+            update_legend = True
+        del kwd['update_legend']
+
     dslist = DataSetList()
     act = adict['hbond']
     command = "series nointramol " + mask
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
 
-    _update_legend_hbond(dslist)
+    if update_legend:
+        _update_legend_hbond(dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
