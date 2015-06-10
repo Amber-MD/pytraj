@@ -65,10 +65,10 @@ class Test(unittest.TestCase):
     def test_2(self):
         # test memory error
         traj = mdio.load("./data/Tc5b.crd", "./data/Tc5b.top")
-        dslist0 = traj.search_hbonds()
+        dslist0 = traj.search_hbonds(update_legend=False)
         expected_n_hbonds = 6
         assert dslist0.groupby("UU").values[0] == expected_n_hbonds
-        assert traj.search_hbonds().groupby("UU").values[0] == expected_n_hbonds
+        assert traj.search_hbonds(update_legend=False).groupby("UU").values[0] == expected_n_hbonds
 
 if __name__ == "__main__":
     unittest.main()

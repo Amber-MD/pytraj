@@ -19,7 +19,8 @@ def _update_legend_hbond(_dslist):
             d0.legend = 'avg_solute_solute'
 
 
-def search_hbonds_noseries(traj, mask="", dtype='dataset', *args, **kwd):
+def search_hbonds_noseries(traj, mask="", dtype='dataset', update_legend=True,
+                           *args, **kwd):
     """search hbonds for a given mask
     Parameters
     ----------
@@ -35,11 +36,6 @@ def search_hbonds_noseries(traj, mask="", dtype='dataset', *args, **kwd):
 
     http://ambermd.org/doc12/Amber15.pdf (page 575)
     """
-    update_legend = False
-    if 'update_legend' in kwd.keys():
-        if kwd['update_legend'] == True:
-            update_legend = True
-        del kwd['update_legend']
 
     dslist = DataSetList()
     act = adict['hbond']
@@ -59,7 +55,8 @@ def search_hbonds_noseries(traj, mask="", dtype='dataset', *args, **kwd):
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
-def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
+def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
+                 *args, **kwd):
     """search hbonds for a given mask
     Parameters
     ----------
@@ -94,12 +91,6 @@ def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
     --------
     http://ambermd.org/doc12/Amber15.pdf (page 575)
     """
-    update_legend = False
-    if 'update_legend' in kwd.keys():
-        if kwd['update_legend'] == True:
-            update_legend = True
-        del kwd['update_legend']
-
     dslist = DataSetList()
     act = adict['hbond']
 
@@ -116,7 +107,8 @@ def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WAT", 
-                             dtype='dataset', *args, **kwd):
+                             dtype='dataset', update_legend=True,
+                             *args, **kwd):
     """
     Search hbonds between solute and solvent, ignoring intra-hbond
 
@@ -137,12 +129,6 @@ def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WA
     --------
        search_hbonds
     """
-    update_legend = False
-    if 'update_legend' in kwd.keys():
-        if kwd['update_legend'] == True:
-            update_legend = True
-        del kwd['update_legend']
-
     dslist = DataSetList()
     act = adict['hbond']
     command = "series nointramol " + mask
