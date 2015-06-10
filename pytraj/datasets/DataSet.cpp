@@ -977,7 +977,7 @@ static char __pyx_k_f[] = "f";
 static char __pyx_k_i[] = "i";
 static char __pyx_k_s[] = "s";
 static char __pyx_k_np[] = "np";
-static char __pyx_k__14[] = "_";
+static char __pyx_k__15[] = "_";
 static char __pyx_k_idx[] = "idx";
 static char __pyx_k_str[] = "__str__";
 static char __pyx_k_bins[] = "bins";
@@ -1054,6 +1054,7 @@ static char __pyx_k_scalarModeDict[] = "scalarModeDict";
 static char __pyx_k_set_worl_silent[] = "set_worl_silent";
 static char __pyx_k_matplotlib_pyplot[] = "matplotlib.pyplot";
 static char __pyx_k_not_yet_stay_tuned[] = "not yet, stay tuned";
+static char __pyx_k_require_matplotlib[] = "require matplotlib";
 static char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static char __pyx_k_not_implemented_for_s[] = "not implemented for %s";
 static char __pyx_k_write_to_cpptraj_format[] = "write_to_cpptraj_format";
@@ -1071,7 +1072,7 @@ static PyObject *__pyx_kp_s_Must_over_write_DataSet_data_att;
 static PyObject *__pyx_n_s_NotImplemented;
 static PyObject *__pyx_n_s_NotImplementedError;
 static PyObject *__pyx_n_s_TypeError;
-static PyObject *__pyx_n_s__14;
+static PyObject *__pyx_n_s__15;
 static PyObject *__pyx_n_s_add_datafile;
 static PyObject *__pyx_n_s_add_dataset;
 static PyObject *__pyx_n_s_append;
@@ -1133,6 +1134,7 @@ static PyObject *__pyx_kp_s_pytraj_datasets_0_size_1_name_2;
 static PyObject *__pyx_n_s_pytraj_utils;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_require_having;
+static PyObject *__pyx_kp_s_require_matplotlib;
 static PyObject *__pyx_kp_s_require_numpy;
 static PyObject *__pyx_n_s_resize;
 static PyObject *__pyx_n_s_s;
@@ -1167,6 +1169,7 @@ static PyObject *__pyx_slice__11;
 static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_tuple__13;
+static PyObject *__pyx_tuple__14;
 
 /* "pytraj/datasets/DataSet.pyx":33
  *     """
@@ -7493,6 +7496,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_92plot(struct __py
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
+  int __pyx_t_9;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -7589,7 +7593,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_92plot(struct __py
  *         _, plt = _import("matplotlib.pyplot")
  *         try:             # <<<<<<<<<<<<<<
  *             return plt.pyplot.plot(self.data, *args, **kwd)
- *         except:
+ *         except ImportError:
  */
   {
     __Pyx_ExceptionSave(&__pyx_t_6, &__pyx_t_7, &__pyx_t_8);
@@ -7602,8 +7606,8 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_92plot(struct __py
  *         _, plt = _import("matplotlib.pyplot")
  *         try:
  *             return plt.pyplot.plot(self.data, *args, **kwd)             # <<<<<<<<<<<<<<
- *         except:
- *             raise NotImplementedError()
+ *         except ImportError:
+ *             raise ImportError("require matplotlib")
  */
       __Pyx_XDECREF(__pyx_r);
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_plt, __pyx_n_s_pyplot); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 345; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
@@ -7644,10 +7648,12 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_92plot(struct __py
     /* "pytraj/datasets/DataSet.pyx":346
  *         try:
  *             return plt.pyplot.plot(self.data, *args, **kwd)
- *         except:             # <<<<<<<<<<<<<<
- *             raise NotImplementedError()
+ *         except ImportError:             # <<<<<<<<<<<<<<
+ *             raise ImportError("require matplotlib")
+ *         else:
  */
-    /*except:*/ {
+    __pyx_t_9 = PyErr_ExceptionMatches(__pyx_builtin_ImportError);
+    if (__pyx_t_9) {
       __Pyx_AddTraceback("pytraj.datasets.DataSet.DataSet.plot", __pyx_clineno, __pyx_lineno, __pyx_filename);
       if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_2, &__pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 346; __pyx_clineno = __LINE__; goto __pyx_L7_except_error;}
       __Pyx_GOTREF(__pyx_t_1);
@@ -7656,15 +7662,18 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_92plot(struct __py
 
       /* "pytraj/datasets/DataSet.pyx":347
  *             return plt.pyplot.plot(self.data, *args, **kwd)
- *         except:
- *             raise NotImplementedError()             # <<<<<<<<<<<<<<
+ *         except ImportError:
+ *             raise ImportError("require matplotlib")             # <<<<<<<<<<<<<<
+ *         else:
+ *             raise NotImplementedError()
  */
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L7_except_error;}
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L7_except_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L7_except_error;}
     }
+    goto __pyx_L7_except_error;
     __pyx_L7_except_error:;
     __Pyx_XGIVEREF(__pyx_t_6);
     __Pyx_XGIVEREF(__pyx_t_7);
@@ -9055,7 +9064,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_NotImplemented, __pyx_k_NotImplemented, sizeof(__pyx_k_NotImplemented), 0, 0, 1, 1},
   {&__pyx_n_s_NotImplementedError, __pyx_k_NotImplementedError, sizeof(__pyx_k_NotImplementedError), 0, 0, 1, 1},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
-  {&__pyx_n_s__14, __pyx_k__14, sizeof(__pyx_k__14), 0, 0, 1, 1},
+  {&__pyx_n_s__15, __pyx_k__15, sizeof(__pyx_k__15), 0, 0, 1, 1},
   {&__pyx_n_s_add_datafile, __pyx_k_add_datafile, sizeof(__pyx_k_add_datafile), 0, 0, 1, 1},
   {&__pyx_n_s_add_dataset, __pyx_k_add_dataset, sizeof(__pyx_k_add_dataset), 0, 0, 1, 1},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
@@ -9117,6 +9126,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pytraj_utils, __pyx_k_pytraj_utils, sizeof(__pyx_k_pytraj_utils), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_require_having, __pyx_k_require_having, sizeof(__pyx_k_require_having), 0, 0, 1, 1},
+  {&__pyx_kp_s_require_matplotlib, __pyx_k_require_matplotlib, sizeof(__pyx_k_require_matplotlib), 0, 0, 1, 0},
   {&__pyx_kp_s_require_numpy, __pyx_k_require_numpy, sizeof(__pyx_k_require_numpy), 0, 0, 1, 0},
   {&__pyx_n_s_resize, __pyx_k_resize, sizeof(__pyx_k_resize), 0, 0, 1, 1},
   {&__pyx_n_s_s, __pyx_k_s, sizeof(__pyx_k_s), 0, 0, 1, 1},
@@ -9296,6 +9306,17 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_s_matplotlib_pyplot); if (unlikely(!__pyx_tuple__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 343; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
+
+  /* "pytraj/datasets/DataSet.pyx":347
+ *             return plt.pyplot.plot(self.data, *args, **kwd)
+ *         except ImportError:
+ *             raise ImportError("require matplotlib")             # <<<<<<<<<<<<<<
+ *         else:
+ *             raise NotImplementedError()
+ */
+  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_s_require_matplotlib); if (unlikely(!__pyx_tuple__14)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -9617,7 +9638,7 @@ PyMODINIT_FUNC PyInit_DataSet(void)
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_L3_unpacking_done:;
   }
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s__14, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s__15, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;

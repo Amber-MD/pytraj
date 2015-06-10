@@ -343,5 +343,7 @@ cdef class DataSet:
         _, plt = _import("matplotlib.pyplot")
         try:
             return plt.pyplot.plot(self.data, *args, **kwd)
-        except:
+        except ImportError:
+            raise ImportError("require matplotlib")
+        else:
             raise NotImplementedError()
