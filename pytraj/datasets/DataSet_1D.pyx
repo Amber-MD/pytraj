@@ -64,6 +64,9 @@ cdef class DataSet_1D (DataSet):
             sd = args[0]
             return self.baseptr_1.Avg(sd)
 
+    def mean(self, *args):
+        return self.avg(*args)
+
     def min(self):
         return self.baseptr_1.Min()
 
