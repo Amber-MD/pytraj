@@ -7,7 +7,56 @@ from pytraj._get_common_objects import _get_data_from_dtype
 
 adict = ActionDict()
 
-def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
+def _update_legend_hbond(_dslist):
+
+    # SER_20@O-SER_20@OG-HG --> SER20_O-SER20_OG-HG
+    for d0 in _dslist:
+        d0.legend = d0.legend.replace("_", "")
+        d0.legend = d0.legend.replace("@", "_")
+
+    for d0 in _dslist:
+        if d0.legend == 'HB00000[UU]':
+            d0.legend = 'avg_solute_solute'
+
+
+def search_hbonds_noseries(traj, mask="", dtype='dataset', update_legend=True,
+                           *args, **kwd):
+    """search hbonds for a given mask
+    Parameters
+    ----------
+    traj : {Trajectory-like object, frame_iter object, list of traj}
+    mask : str 
+        Amber atom mask
+    dtype : str {'list', 'pyarray', 'dataset', 'ndarray'}, default='dataset'
+    *args, **kwd: optional
+
+    Returns
+    -------
+    out : DataSetList | pyarray | ndarray | list | dict (depend on 'dtype')
+
+    http://ambermd.org/doc12/Amber15.pdf (page 575)
+    """
+
+    dslist = DataSetList()
+    act = adict['hbond']
+
+    command = mask
+    if "series" in command:
+        raise ValueError("don't accept key `series`")
+    act(command, traj, dslist=dslist, *args, **kwd)
+    act.print_output()
+
+    if update_legend:
+        _update_legend_hbond(dslist)
+
+    if dtype == 'dataframe':
+        # return DataFrame.T to have better visual effect
+        return dslist.to_dataframe().T
+    else:
+        return _get_data_from_dtype(dslist, dtype=dtype)
+
+def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
+                 *args, **kwd):
     """search hbonds for a given mask
     Parameters
     ----------
@@ -44,9 +93,13 @@ def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
     """
     dslist = DataSetList()
     act = adict['hbond']
+
     command = "series " + mask
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
+
+    if update_legend:
+        _update_legend_hbond(dslist)
     if dtype == 'dataframe':
         # return DataFrame.T to have better visual effect
         return dslist.to_dataframe().T
@@ -54,7 +107,8 @@ def search_hbonds(traj, mask="", dtype='dataset', *args, **kwd):
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WAT", 
-                             dtype='dataset', *args, **kwd):
+                             dtype='dataset', update_legend=True,
+                             *args, **kwd):
     """
     Search hbonds between solute and solvent, ignoring intra-hbond
 
@@ -80,4 +134,7 @@ def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WA
     command = "series nointramol " + mask
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
+
+    if update_legend:
+        _update_legend_hbond(dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)

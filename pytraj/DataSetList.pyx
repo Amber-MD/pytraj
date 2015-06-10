@@ -62,13 +62,20 @@ cdef class DataSetList:
             return msg
         else:
             try:
-                df = self.to_dataframe()
+                df = self.to_dataframe().T
                 return df.__str__()
             except:
                 return safe_msg
 
     def __repr__(self):
         return self.__str__()
+
+    def __contains__(self, DataSet other):
+        cdef DataSet d0
+        for d0 in self:
+            if d0.baseptr0 == other.baseptr0:
+                return True
+        return False
 
     def copy(self):
         cdef DataSetList dnew = DataSetList()
@@ -340,12 +347,28 @@ cdef class DataSetList:
         for key in self.keys():
             yield key, self[key]
 
+    def map(self, func):
+        for d0 in self:
+            yield func(d0)
+
+    def filter(self, func):
+        """return a new view of DataSetList of func return True"""
+        cdef DataSetList dslist = DataSetList()
+        dslist.py_free_mem = False
+
+        for d0 in self:
+            if func(d0):
+                dslist.add_existing_set(d0)
+
+        dslist._parent_lists.append(self)
+        return dslist
+
     def groupby(self, key, mode='legend'):
         """"return a new DataSetList object as a view of `self`
 
         Parameters
         ----------
-        key : str
+        key : str or list
             keyword for searching
         mode: str, default='legend'
             mode = 'legend' | 'name' | 'dtype' | 'aspect'
@@ -360,8 +383,15 @@ cdef class DataSetList:
         dtmp.py_free_mem = False
         for d0 in self:
             att = getattr(d0, mode)
-            if re.search(key, att):
-                dtmp.add_existing_set(d0)
+            if isinstance(key, string_types):
+                if re.search(key, att):
+                    dtmp.add_existing_set(d0)
+            elif isinstance(key, (list, tuple)):
+                for _key in key:
+                    if re.search(_key, att):
+                        dtmp.add_existing_set(d0)
+            else:
+                raise ValueError("support string or list/tuple of strings")
 
         # dtmp is just a view, so keep track of parent to avoid GC
         dtmp._parent_lists.append(self)

@@ -41,7 +41,7 @@ class Test(unittest.TestCase):
         from pytraj.misc import from_legends_to_indices
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         import pytraj.common_actions as pyca
-        ds = pyca.search_hbonds(traj, dtype='dataset')
+        ds = pyca.search_hbonds(traj, dtype='dataset', update_legend=False)
         print (ds.size)
         print (ds.to_dict())
         d0 = ds.groupby("@")
@@ -61,6 +61,14 @@ class Test(unittest.TestCase):
         print (d)
         arr1 = pyca.calc_distance(traj, indices, n_frames=traj.n_frames)
         assert_almost_equal(arr0.flatten(), arr1.flatten())
+
+    def test_2(self):
+        # test memory error
+        traj = mdio.load("./data/Tc5b.crd", "./data/Tc5b.top")
+        dslist0 = traj.search_hbonds(update_legend=False)
+        expected_n_hbonds = 6
+        assert dslist0.groupby("UU").values[0] == expected_n_hbonds
+        assert traj.search_hbonds(update_legend=False).groupby("UU").values[0] == expected_n_hbonds
 
 if __name__ == "__main__":
     unittest.main()
