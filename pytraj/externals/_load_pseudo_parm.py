@@ -16,7 +16,7 @@ def load_pseudo_parm(parm):
 
     Parameters
     ---------
-    parm : external Topology/Parm objects (mdtraj, chemistry) 
+    parm : external Topology/Parm objects (mdtraj, parmed) 
         or Universe object (MDAnalysis)
     """
     from pytraj.core import Box
