@@ -6,8 +6,8 @@ from libcpp.vector cimport vector
 from pytraj.TrajinList cimport _TrajinList, TrajinList
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj.TopologyList cimport _TopologyList, TopologyList
-from pytraj.DataSetList cimport _DataSetList, DataSetList
-from pytraj.DataFileList cimport _DataFileList, DataFileList
+from pytraj.datasets.DataSetList cimport _DataSetList, DataSetList
+from pytraj.core.DataFileList cimport _DataFileList, DataFileList
 from pytraj.ActionList cimport _ActionList, ActionList
 from pytraj.AnalysisList cimport _AnalysisList, AnalysisList
 from pytraj._FunctPtr cimport FunctPtr

@@ -3,8 +3,8 @@ from .DispatchObject  cimport DispatchAllocatorType
 from .analyses.Analysis cimport _Analysis, Analysis
 from .ArgList cimport _ArgList 
 from .TopologyList cimport _TopologyList
-from .DataSetList cimport _DataSetList
-from .DataFileList cimport _DataFileList
+from .datasets.DataSetList cimport _DataSetList
+from .core.DataFileList cimport _DataFileList
 
 
 cdef extern from "AnalysisList.h": 

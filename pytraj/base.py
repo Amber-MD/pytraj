@@ -14,10 +14,9 @@ from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .TrajinList import TrajinList
 from .TopologyList import TopologyList
-from .DataFileList import DataFileList
+from .core.DataFileList import DataFileList
 from .DataSetList import DataSetList
 from .ActionList import ActionList
-from .datasets.cast_dataset import cast_dataset
 from . import cpptraj_dict
 
 
@@ -32,5 +31,4 @@ __all__ = ['Atom',
            'DataSetList', 'DataFileList', 
            'ActionList',
            'Trajout', 'TrajinList',
-           'cast_dataset',
            'cpptraj_dict']

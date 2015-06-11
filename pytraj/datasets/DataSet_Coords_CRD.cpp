@@ -1159,7 +1159,7 @@ struct __pyx_obj_6pytraj_8Topology_Topology {
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
  *     cdef _DataSet* baseptr0
- *     cdef object _base
+ *     cdef public object _base
  */
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
   PyObject_HEAD

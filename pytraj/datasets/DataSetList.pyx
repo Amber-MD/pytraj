@@ -1,11 +1,12 @@
 # distutils: language = c++
+from __future__ import absolute_import
 from python_ref cimport Py_INCREF, Py_DECREF
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array
 
 # python level
-from pytraj.datasets.cast_dataset import cast_dataset
+from .cast_dataset import cast_dataset
 from pytraj.utils.check_and_assert import _import, is_array
 from pytraj.utils.check_and_assert import _import_numpy, _import_pandas
 from pytraj.utils.check_and_assert import is_word_in_class_name
@@ -551,7 +552,7 @@ cdef class DataSetList:
             return self.to_dataframe().describe()
 
     def write_all_datafiles(self, filenames=None):
-        from pytraj import DataFileList
+        from pytraj.core import DataFileList
         df = DataFileList()
 
         for idx, d in enumerate(self):

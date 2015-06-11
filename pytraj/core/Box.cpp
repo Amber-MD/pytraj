@@ -1981,9 +1981,9 @@ static int __pyx_pf_6pytraj_4core_3Box_3Box___cinit__(struct __pyx_obj_6pytraj_4
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         goto __pyx_L12_try_end;
         __pyx_L5_error:;
+        __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
 
         /* "pytraj/core/Box.pyx":36
  *                     # if args[0] has buffer interface

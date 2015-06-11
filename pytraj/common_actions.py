@@ -23,7 +23,7 @@ from .Frame import Frame
 from .AtomMask import AtomMask
 from .Topology import Topology
 from .DataSetList import DataSetList
-from .DataFileList import DataFileList
+from .core.DataFileList import DataFileList
 from .math.DistRoutines import distance 
 from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds, search_nointramol_hbonds

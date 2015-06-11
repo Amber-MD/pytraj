@@ -2899,8 +2899,8 @@ static PyObject *__pyx_pf_6pytraj_8datasets_15DataSet_integer_15DataSet_integer_
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             goto __pyx_L24_try_end;
             __pyx_L17_error:;
-            __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
             __PYX_XDEC_MEMVIEW(&__pyx_t_8, 1);
+            __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
 
             /* "pytraj/datasets/DataSet_integer.pyx":97
  *                     try:

@@ -3,7 +3,7 @@ from __future__ import division
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
 from ..decorators import makesureABC, require_having
-from ..DataFileList import DataFileList
+from ..core.DataFileList import DataFileList
 from ..DataFile import DataFile
 from pytraj.utils import _import_numpy
 

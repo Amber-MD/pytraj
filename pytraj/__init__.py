@@ -36,7 +36,6 @@ from .io import  (load, iterload, load_remd, iterload_remd,
 from .dataframe import to_dataframe
 from .data_sample.load_sample_data import load_sample_data
 from .DataSetList import DataSetList
-from .DataFileList import DataFileList
 
 # actions and analyses
 from .actions import allactions
