@@ -27,6 +27,12 @@ class TrajectoryIterator(Trajin_Single, ActionInTraj):
     def topology(self, newtop):
         self.top = newtop
 
+    def islice(self, start=0, stop=None, stride=None):
+        from itertools import islice
+        if stop is None:
+            stop = self.n_frames
+        return islice(self, start, stop, stride)
+
     def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False, rmsfit_to=None):
         """frame iterator
 
