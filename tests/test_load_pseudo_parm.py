@@ -47,6 +47,15 @@ class Test(unittest.TestCase):
             assert a0.mass == a1.mass
             assert abs(a0.charge - a1.charge) < 1E-3
 
+    @test_if_having('parmed')
+    def test_2(self):
+        from pytraj import io
+        import parmed as pmd
+        print (pmd)
+        pdb = pmd.download_PDB("1o15")
+        top = io.load_pseudo_parm(pdb, guess_bond=False)
+        ptop = io.loadpdb_rcsb("1o15").top
+
 
 if __name__ == "__main__":
     unittest.main()
