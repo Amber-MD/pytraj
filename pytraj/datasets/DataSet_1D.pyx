@@ -57,15 +57,24 @@ cdef class DataSet_1D (DataSet):
     def _is_torsion_array(self):
         return self.baseptr_1.IsTorsionArray()
 
-    def avg(self, *args):
-        if not args:
-            return self.baseptr_1.Avg()
-        else:
-            sd = args[0]
-            return self.baseptr_1.Avg(sd)
+    def from_array_like(self, array_like):
+        """
+        Notes: require numpy
+        """
+        old_size = self.size
+        self.resize(self.size + len(array_like))
+        self.values[old_size:] = array_like
 
-    def mean(self, *args):
-        return self.avg(*args)
+    def avg(self):
+        return self.baseptr_1.Avg()
+
+    def mean(self):
+        return self.avg()
+
+    def mean_with_error(self, DataSet other):
+        m0 = self.mean()
+        m1 = other.mean() 
+        return ((m0 + m1)/2., abs(m0 - m1)/2.)
 
     def min(self):
         return self.baseptr_1.Min()
