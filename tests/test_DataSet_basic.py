@@ -94,5 +94,10 @@ class Test(unittest.TestCase):
         print (d2_double.values)
         assert (d2_double.mean_with_error(d_double) == (3., 1.))
 
+        # chunk_average
+        d3_double = DataSet_double()
+        d3_double.from_array_like(range(10))
+        aa_eq(d3_double.chunk_average(5), np.array([ 0.5,  2.5,  4.5,  6.5,  8.5]))
+
 if __name__ == "__main__":
     unittest.main()

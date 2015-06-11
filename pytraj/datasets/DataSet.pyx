@@ -348,3 +348,7 @@ cdef class DataSet:
             raise ImportError("require matplotlib")
         else:
             raise NotImplementedError()
+
+    def chunk_average(self, n_chunk):
+        import numpy as np
+        return np.mean(np.array_split(self.values, n_chunk), axis=1)
