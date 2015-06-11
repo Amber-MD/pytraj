@@ -44,14 +44,14 @@ cdef class DataSet:
     def __str__(self):
         cname = self.class_name
         dname = self.name
-        dformat = self.data_format
+        dformat = self.format
         size = self.size
         legend = self.legend
         aspect = self.aspect
         dtype = self.dtype
 
         msg0 = """<pytraj.datasets.{0}: size={1}, name={2}, """.format(cname, size, dname)
-        msg1 = """legend={0}, aspect={1}, dtype={2}, data_format={3}>""".format(legend, 
+        msg1 = """legend={0}, aspect={1}, dtype={2}, format={3}>""".format(legend, 
             aspect, dtype, dformat)
         return msg0 + msg1 
 
@@ -247,8 +247,9 @@ cdef class DataSet:
             raise NotImplemented()
 
     @property
-    def data_format(self):
-        return self.baseptr0.DataFormat().decode()
+    def format(self):
+        my_format = self.baseptr0.DataFormat().decode()
+        return my_format.strip()
 
     @property
     def data(self):
@@ -347,3 +348,7 @@ cdef class DataSet:
             raise ImportError("require matplotlib")
         else:
             raise NotImplementedError()
+
+    def chunk_average(self, n_chunk):
+        import numpy as np
+        return np.mean(np.array_split(self.values, n_chunk), axis=1)

@@ -297,7 +297,6 @@ cdef class DataSetList:
             raise MemoryError("Can not initialize pointer")
         return dset
 
-    # TODO: combine those methods into one
     def get_legends(self):
         """return a list"""
         tmp_list = []
@@ -426,6 +425,9 @@ cdef class DataSetList:
             raise ValueError("don't know how to cast to numpy array")
 
     def to_ndarray(self):
+        """
+        Notes: require numpy
+        """
         # make sure to use copy=True to avoid memory error for memoryview
         has_np, np = _import("numpy")
         if has_np:
@@ -480,12 +482,21 @@ cdef class DataSetList:
         raise NotImplementedError("Not yet")
 
     def mean(self, axis=1):
+        """
+        Notes: require numpy
+        """
         return self.to_ndarray().mean(axis=axis)
 
     def median(self, axis=1):
+        """
+        Notes: require numpy
+        """
         return np.median(self.to_ndarray(), axis=axis)
 
     def std(self, axis=1):
+        """
+        Notes: require numpy
+        """
         return np.std(self.to_ndarray(), axis=axis)
 
     def min(self):
@@ -501,6 +512,9 @@ cdef class DataSetList:
         return arr
 
     def sum(self, legend=None, axis=1):
+        """
+        Notes: require numpy
+        """
         _, np = _import_numpy()
         if not legend:
             return np.sum(self.to_ndarray(), axis=axis)
@@ -512,6 +526,14 @@ cdef class DataSetList:
         (from numpy doc)
         """
         return np.cumsum(self.to_ndarray(), axis=axis)
+
+    def mean_with_error(self, DataSetList other):
+        from collections import defaultdict
+
+        ddict = defaultdict(tuple)
+        for key, dset in self.iteritems():
+            ddict[key] = dset.mean_with_error(other[key])
+        return ddict
 
     def count(self, number=None):
         return dict((d0.legend, d0.count(number)) for d0 in self)
@@ -541,3 +563,20 @@ cdef class DataSetList:
                 fname = filenames[i]
             df.add_dataset(fname, d)
         df.write_all_datafiles()
+
+    def savetxt(self, filename='dslist_default_name.txt', labels=None):
+        """just like `numpy.savetxt`
+        Notes: require numpy
+        """
+        import numpy as np
+        if labels is None:
+            headers = "\t".join([d.legend for d in self])
+            headers = "frame\t" + headers
+        else:
+            headers = "frame\t" + labels
+
+        frame_number = np.arange(self[0].size)
+        # transpose `values` first
+        values = np.column_stack((frame_number, self.values.T))
+        formats = ['%8i'] + [d.format for d in self]
+        np.savetxt(filename, values, fmt=formats, header=headers) 

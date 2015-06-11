@@ -72,5 +72,32 @@ class Test(unittest.TestCase):
         print (np.sum(d0))
         print (np.array_split(d0, 3))
 
+        # from_array
+        d_double = DataSet_double()
+        d_float = DataSet_float()
+        d_int = DataSet_integer()
+
+        d_double.from_array_like([1, 2, 3])
+        d_float.from_array_like([1, 2, 3])
+        d_int.from_array_like([1, 2, 3])
+        assert d_double.size == d_float.size == d_int.size
+        arr = [1, 2, 3]
+        # values
+        aa_eq(d_double, arr)
+        aa_eq(d_float, arr)
+        aa_eq(d_int, arr)
+        print (d_double.values, d_float.values, d_int.values)
+
+        # mean_with_error
+        d2_double = d_double.copy()
+        d2_double.values[:] *= 2.
+        print (d2_double.values)
+        assert (d2_double.mean_with_error(d_double) == (3., 1.))
+
+        # chunk_average
+        d3_double = DataSet_double()
+        d3_double.from_array_like(range(10))
+        aa_eq(d3_double.chunk_average(5), np.array([ 0.5,  2.5,  4.5,  6.5,  8.5]))
+
 if __name__ == "__main__":
     unittest.main()

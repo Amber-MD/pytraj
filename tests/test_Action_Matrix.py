@@ -25,7 +25,7 @@ class TestRadgyr(unittest.TestCase):
         print (d1.dtype)
         print (d1.ndim)
         print (d1.mkind)
-        print (d1.data_format)
+        print (d1.format)
         # TODO : add assert to make sure reproducing cpptraj output
 
         for i in range(d1.size):
@@ -39,7 +39,7 @@ class TestRadgyr(unittest.TestCase):
         print (d0.dtype)
         print (d0.ndim)
         print (d0.mkind)
-        print (d0.data_format)
+        print (d0.format)
 
         assert_almost_equal(d0, d1)
         d2 = adict['distance'](":2@CA :10@CA", farray, farray.top, quick_get=True)
