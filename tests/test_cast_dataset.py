@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         print(traj.size)
         dset = traj.alloc()
         #print dir(dset)
-        print(dset.data_format)
+        print(dset.format)
         print(dset.is_empty())
         print(dset.dtype)
         print(dset.column_width)

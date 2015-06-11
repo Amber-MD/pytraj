@@ -563,3 +563,20 @@ cdef class DataSetList:
                 fname = filenames[i]
             df.add_dataset(fname, d)
         df.write_all_datafiles()
+
+    def savetxt(self, filename='dslist_default_name.txt', labels=None):
+        """just like `numpy.savetxt`
+        Notes: require numpy
+        """
+        import numpy as np
+        if labels is None:
+            headers = "\t".join([d.legend for d in self])
+            headers = "frame\t" + headers
+        else:
+            headers = "frame\t" + labels
+
+        frame_number = np.arange(self[0].size)
+        # transpose `values` first
+        values = np.column_stack((frame_number, self.values.T))
+        formats = ['%8i'] + [d.format for d in self]
+        np.savetxt(filename, values, fmt=formats, header=headers) 
