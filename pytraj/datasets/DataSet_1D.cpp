@@ -726,14 +726,16 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_16_d_val(s
 static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_18_xcrd(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, size_t __pyx_v_sizet); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_20_is_torsion_array(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_22avg(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24min(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26max(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28cross_corr(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_D2, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_Ct, int __pyx_v_lagmaxIn, int __pyx_v_calccovar, int __pyx_v_usefft); /* proto */
-static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30corr_coeff(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24mean(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, PyObject *__pyx_v_args); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26min(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28max(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30cross_corr(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_D2, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_Ct, int __pyx_v_lagmaxIn, int __pyx_v_calccovar, int __pyx_v_usefft); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_32corr_coeff(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_other); /* proto */
 static PyObject *__pyx_tp_new_6pytraj_8datasets_10DataSet_1D_DataSet_1D(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static char __pyx_k_[] = "\n";
 static char __pyx_k_Ct[] = "Ct";
 static char __pyx_k_D2[] = "D2";
+static char __pyx_k_avg[] = "avg";
 static char __pyx_k_idx[] = "idx";
 static char __pyx_k_str[] = "__str__";
 static char __pyx_k_main[] = "__main__";
@@ -759,6 +761,7 @@ static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_n_s_Ct;
 static PyObject *__pyx_n_s_D2;
 static PyObject *__pyx_n_s_ValueError;
+static PyObject *__pyx_n_s_avg;
 static PyObject *__pyx_n_s_calccovar;
 static PyObject *__pyx_n_s_cppfile;
 static PyObject *__pyx_n_s_idx;
@@ -2001,7 +2004,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_22avg(stru
  *             sd = args[0]
  *             return self.baseptr_1.Avg(sd)             # <<<<<<<<<<<<<<
  * 
- *     def min(self):
+ *     def mean(self, *args):
  */
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_sd); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 65; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2035,26 +2038,105 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_22avg(stru
 /* "pytraj/datasets/DataSet_1D.pyx":67
  *             return self.baseptr_1.Avg(sd)
  * 
+ *     def mean(self, *args):             # <<<<<<<<<<<<<<
+ *         return self.avg(*args)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_25mean(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24mean[] = "DataSet_1D.mean(self, *args)";
+static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_25mean(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_args = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("mean (wrapper)", 0);
+  if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "mean", 0))) return NULL;
+  __Pyx_INCREF(__pyx_args);
+  __pyx_v_args = __pyx_args;
+  __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24mean(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self), __pyx_v_args);
+
+  /* function exit code */
+  __Pyx_XDECREF(__pyx_v_args);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24mean(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, PyObject *__pyx_v_args) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("mean", 0);
+
+  /* "pytraj/datasets/DataSet_1D.pyx":68
+ * 
+ *     def mean(self, *args):
+ *         return self.avg(*args)             # <<<<<<<<<<<<<<
+ * 
+ *     def min(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_avg); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_3;
+  __pyx_t_3 = 0;
+  goto __pyx_L0;
+
+  /* "pytraj/datasets/DataSet_1D.pyx":67
+ *             return self.baseptr_1.Avg(sd)
+ * 
+ *     def mean(self, *args):             # <<<<<<<<<<<<<<
+ *         return self.avg(*args)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("pytraj.datasets.DataSet_1D.DataSet_1D.mean", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pytraj/datasets/DataSet_1D.pyx":70
+ *         return self.avg(*args)
+ * 
  *     def min(self):             # <<<<<<<<<<<<<<
  *         return self.baseptr_1.Min()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_25min(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24min[] = "DataSet_1D.min(self)";
-static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_25min(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_27min(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26min[] = "DataSet_1D.min(self)";
+static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_27min(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("min (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24min(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26min(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24min(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26min(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2063,7 +2145,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24min(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("min", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":68
+  /* "pytraj/datasets/DataSet_1D.pyx":71
  * 
  *     def min(self):
  *         return self.baseptr_1.Min()             # <<<<<<<<<<<<<<
@@ -2071,14 +2153,14 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24min(stru
  *     def max(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Min()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Min()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":67
- *             return self.baseptr_1.Avg(sd)
+  /* "pytraj/datasets/DataSet_1D.pyx":70
+ *         return self.avg(*args)
  * 
  *     def min(self):             # <<<<<<<<<<<<<<
  *         return self.baseptr_1.Min()
@@ -2096,7 +2178,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24min(stru
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":70
+/* "pytraj/datasets/DataSet_1D.pyx":73
  *         return self.baseptr_1.Min()
  * 
  *     def max(self):             # <<<<<<<<<<<<<<
@@ -2105,20 +2187,20 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24min(stru
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_27max(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26max[] = "DataSet_1D.max(self)";
-static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_27max(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_29max(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28max[] = "DataSet_1D.max(self)";
+static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_29max(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("max (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26max(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28max(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26max(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28max(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2127,7 +2209,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26max(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("max", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":71
+  /* "pytraj/datasets/DataSet_1D.pyx":74
  * 
  *     def max(self):
  *         return self.baseptr_1.Max()             # <<<<<<<<<<<<<<
@@ -2135,13 +2217,13 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26max(stru
  *     def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn,
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Max()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->Max()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":70
+  /* "pytraj/datasets/DataSet_1D.pyx":73
  *         return self.baseptr_1.Min()
  * 
  *     def max(self):             # <<<<<<<<<<<<<<
@@ -2160,7 +2242,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26max(stru
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":73
+/* "pytraj/datasets/DataSet_1D.pyx":76
  *         return self.baseptr_1.Max()
  * 
  *     def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn,             # <<<<<<<<<<<<<<
@@ -2169,9 +2251,9 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26max(stru
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_29cross_corr(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28cross_corr[] = "DataSet_1D.cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn, bool calccovar, bool usefft)";
-static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_29cross_corr(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_31cross_corr(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30cross_corr[] = "DataSet_1D.cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn, bool calccovar, bool usefft)";
+static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_31cross_corr(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_D2 = 0;
   struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_Ct = 0;
   int __pyx_v_lagmaxIn;
@@ -2206,26 +2288,26 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_29cross_co
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_Ct)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_lagmaxIn)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_calccovar)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_usefft)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "cross_corr") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "cross_corr") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -2238,21 +2320,21 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_29cross_co
     }
     __pyx_v_D2 = ((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)values[0]);
     __pyx_v_Ct = ((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)values[1]);
-    __pyx_v_lagmaxIn = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_lagmaxIn == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_calccovar = __Pyx_PyObject_IsTrue(values[3]); if (unlikely((__pyx_v_calccovar == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_usefft = __Pyx_PyObject_IsTrue(values[4]); if (unlikely((__pyx_v_usefft == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_lagmaxIn = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_lagmaxIn == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_calccovar = __Pyx_PyObject_IsTrue(values[3]); if (unlikely((__pyx_v_calccovar == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_usefft = __Pyx_PyObject_IsTrue(values[4]); if (unlikely((__pyx_v_usefft == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("cross_corr", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.datasets.DataSet_1D.DataSet_1D.cross_corr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_D2), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "D2", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_Ct), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "Ct", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28cross_corr(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self), __pyx_v_D2, __pyx_v_Ct, __pyx_v_lagmaxIn, __pyx_v_calccovar, __pyx_v_usefft);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_D2), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "D2", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_Ct), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "Ct", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30cross_corr(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self), __pyx_v_D2, __pyx_v_Ct, __pyx_v_lagmaxIn, __pyx_v_calccovar, __pyx_v_usefft);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2263,7 +2345,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_29cross_co
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28cross_corr(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_D2, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_Ct, int __pyx_v_lagmaxIn, int __pyx_v_calccovar, int __pyx_v_usefft) {
+static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30cross_corr(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_D2, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_Ct, int __pyx_v_lagmaxIn, int __pyx_v_calccovar, int __pyx_v_usefft) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2272,7 +2354,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28cross_co
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cross_corr", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":75
+  /* "pytraj/datasets/DataSet_1D.pyx":78
  *     def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn,
  *                 bint calccovar, bint usefft):
  *         return self.baseptr_1.CrossCorr(D2.baseptr_1[0], Ct.baseptr_1[0],             # <<<<<<<<<<<<<<
@@ -2281,20 +2363,20 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28cross_co
  */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":76
+  /* "pytraj/datasets/DataSet_1D.pyx":79
  *                 bint calccovar, bint usefft):
  *         return self.baseptr_1.CrossCorr(D2.baseptr_1[0], Ct.baseptr_1[0],
  *                 lagmaxIn, calccovar, usefft)             # <<<<<<<<<<<<<<
  * 
  *     def corr_coeff(self, DataSet_1D other):
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->baseptr_1->CrossCorr((__pyx_v_D2->baseptr_1[0]), (__pyx_v_Ct->baseptr_1[0]), __pyx_v_lagmaxIn, __pyx_v_calccovar, __pyx_v_usefft)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->baseptr_1->CrossCorr((__pyx_v_D2->baseptr_1[0]), (__pyx_v_Ct->baseptr_1[0]), __pyx_v_lagmaxIn, __pyx_v_calccovar, __pyx_v_usefft)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":73
+  /* "pytraj/datasets/DataSet_1D.pyx":76
  *         return self.baseptr_1.Max()
  * 
  *     def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn,             # <<<<<<<<<<<<<<
@@ -2313,7 +2395,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28cross_co
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":78
+/* "pytraj/datasets/DataSet_1D.pyx":81
  *                 lagmaxIn, calccovar, usefft)
  * 
  *     def corr_coeff(self, DataSet_1D other):             # <<<<<<<<<<<<<<
@@ -2321,17 +2403,17 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28cross_co
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_31corr_coeff(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
-static char __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30corr_coeff[] = "DataSet_1D.corr_coeff(self, DataSet_1D other)";
-static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_31corr_coeff(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_33corr_coeff(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_32corr_coeff[] = "DataSet_1D.corr_coeff(self, DataSet_1D other)";
+static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_33corr_coeff(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("corr_coeff (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30corr_coeff(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self), ((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_other));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_32corr_coeff(((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_self), ((struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *)__pyx_v_other));
 
   /* function exit code */
   goto __pyx_L0;
@@ -2342,7 +2424,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_31corr_coe
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30corr_coeff(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_other) {
+static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_32corr_coeff(struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_other) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2351,19 +2433,19 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30corr_coe
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("corr_coeff", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":79
+  /* "pytraj/datasets/DataSet_1D.pyx":82
  * 
  *     def corr_coeff(self, DataSet_1D other):
  *         return self.baseptr_1.CorrCoeff(other.baseptr_1[0])             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->CorrCoeff((__pyx_v_other->baseptr_1[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 79; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->baseptr_1->CorrCoeff((__pyx_v_other->baseptr_1[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/datasets/DataSet_1D.pyx":78
+  /* "pytraj/datasets/DataSet_1D.pyx":81
  *                 lagmaxIn, calccovar, usefft)
  * 
  *     def corr_coeff(self, DataSet_1D other):             # <<<<<<<<<<<<<<
@@ -2429,10 +2511,11 @@ static PyMethodDef __pyx_methods_6pytraj_8datasets_10DataSet_1D_DataSet_1D[] = {
   {"_xcrd", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_19_xcrd, METH_O, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_18_xcrd},
   {"_is_torsion_array", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_21_is_torsion_array, METH_NOARGS, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_20_is_torsion_array},
   {"avg", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_23avg, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_22avg},
-  {"min", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_25min, METH_NOARGS, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24min},
-  {"max", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_27max, METH_NOARGS, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26max},
-  {"cross_corr", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_29cross_corr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28cross_corr},
-  {"corr_coeff", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_31corr_coeff, METH_O, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30corr_coeff},
+  {"mean", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_25mean, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_24mean},
+  {"min", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_27min, METH_NOARGS, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_26min},
+  {"max", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_29max, METH_NOARGS, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_28max},
+  {"cross_corr", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_31cross_corr, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_30cross_corr},
+  {"corr_coeff", (PyCFunction)__pyx_pw_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_33corr_coeff, METH_O, __pyx_doc_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_32corr_coeff},
   {0, 0, 0, 0}
 };
 
@@ -2520,6 +2603,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Ct, __pyx_k_Ct, sizeof(__pyx_k_Ct), 0, 0, 1, 1},
   {&__pyx_n_s_D2, __pyx_k_D2, sizeof(__pyx_k_D2), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
+  {&__pyx_n_s_avg, __pyx_k_avg, sizeof(__pyx_k_avg), 0, 0, 1, 1},
   {&__pyx_n_s_calccovar, __pyx_k_calccovar, sizeof(__pyx_k_calccovar), 0, 0, 1, 1},
   {&__pyx_n_s_cppfile, __pyx_k_cppfile, sizeof(__pyx_k_cppfile), 0, 0, 1, 1},
   {&__pyx_n_s_idx, __pyx_k_idx, sizeof(__pyx_k_idx), 0, 0, 1, 1},
