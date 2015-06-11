@@ -24,7 +24,7 @@ from ._get_common_objects import _get_top
 load_cpptraj_datafile = load_datafile
 
 try:
-    from .externals._load_ParmEd import load_ParmEd, _load_chem
+    from .externals._load_ParmEd import load_ParmEd, _load_parmed
 except:
     load_ParmEd = None
 

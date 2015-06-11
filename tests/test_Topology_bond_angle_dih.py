@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         top = traj.top
 
         # load ParmEd object
-        parm = mdio._load_chem("./data/Tc5b.top")
+        parm = mdio._load_parmed("./data/Tc5b.top")
 
         # make pseudo parm
         ptop = mdio.load_pseudo_parm(parm)
