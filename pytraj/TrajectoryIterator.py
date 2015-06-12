@@ -28,7 +28,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionInTraj):
     def topology(self, newtop):
         self.top = newtop
 
-    def islice(self, start=0, stop=None, stride=None):
+    def iterator_slice(self, start=0, stop=None, stride=None):
+        """iterator slice"""
         from itertools import islice
         if stop is None:
             stop = self.n_frames
