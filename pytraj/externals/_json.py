@@ -43,5 +43,5 @@ def read_json(path):
             with open(path, mode) as fh:
                 return json.load(fh)
         except (Exception) as e:
-            raise
+            raise e
     return try_read(path)

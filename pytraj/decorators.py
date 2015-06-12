@@ -1,6 +1,6 @@
 from __future__ import print_function, absolute_import
-from .utils import _import
 import os
+import warnings
 
 def memoize(f):
     # from: http://www.python-course.eu/python3_memoization.php

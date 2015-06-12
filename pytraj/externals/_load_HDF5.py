@@ -43,7 +43,6 @@ def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None, top=None):
     import json
     from ..Topology import Topology
     from ..Trajectory import Trajectory
-    from ..Frame import Frame
     from ..core import Atom, Box
     from ..core import mass_atomic_number_dict, mass_element_dict
     # NOTE: always use `np.float64` in pytraj

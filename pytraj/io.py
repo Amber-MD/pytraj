@@ -352,16 +352,11 @@ def load_full_ParmEd(parmed_obj):
     import os
     import tempfile
 
-    name = "mytmptop"
-    cwd = os.getcwd()
-    directory_name = tempfile.mkdtemp()
-    os.chdir(directory_name)
-    parmed_obj.write_parm(name)
-    top = load(name)
-    os.remove(name)
-    os.removedirs(directory_name)
-    os.chdir(cwd)
-    return top
+    with goto_temp_folder():
+        name = "mytmptop"
+        parmed_obj.write_parm(name)
+        top = load(name)
+        return top
 
 def load_MDAnalysisIterator(u):
     from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator

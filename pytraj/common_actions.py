@@ -473,8 +473,6 @@ def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **k
     """
     _top = _get_top(traj, top)
     dslist = DataSetList()
-    from pytraj.compat import izip as zip
-    from array import array
     act = adict['multidihedral']
     act(command, traj, _top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
@@ -935,7 +933,7 @@ def nastruct(traj=None, command="", top=None, dtype='dataset',
     dslist = DataSetList()
 
     _top = _get_top(traj, top)
-    act(command, traj, dslist=dslist, *args, **kwd)
+    act(command, traj, dslist=dslist, top=_top, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_grid(traj=None, command="", top=None, dtype='dataset',

@@ -13,24 +13,16 @@ def load_pseudo_parm(parm, guess_bond=True):
     parm : external Topology/Parm objects (mdtraj, parmed) 
         or Universe object (MDAnalysis)
     """
-    from pytraj.utils import has_, _import_numpy
+    from pytraj.utils import _import_numpy
     from pytraj.Trajectory import Trajectory
     from pytraj.Topology import Topology
     from pytraj.core.Atom import Atom
-    from pytraj.Frame import Frame
     from pytraj.utils.check_and_assert import is_mdtraj, is_mdanalysis
     _, np = _import_numpy()
 
     from pytraj.core import Box
-    farray = Trajectory()
 
-    # convert to pseudo-topology
-    # to fully use Topology object in pytraj, we can do:
-    # >>> farray.top = Topology(top_name) # or
-    # >>> from pytraj import io
-    # >>> farray.top = io.load(top_name) 
     if is_mdanalysis(parm):
-        #chains = parm.fragments
         chains = parm.segments
     elif is_mdtraj(parm):
         chains = parm.chains
@@ -70,7 +62,7 @@ def load_pseudo_parm(parm, guess_bond=True):
         # not sure how to get angles, dihedrals quickly
         try:
             pseudotop.add_bonds(np.array([(a.index, b.index) for (a, b) in parm.bonds]))
-        except:
+        except TypeError:
             pass
         # load Box in _load_mdtraj since Box is stored in traj
     elif is_mdanalysis(parm):
@@ -78,45 +70,45 @@ def load_pseudo_parm(parm, guess_bond=True):
         # ack, lots of try and except
         try:
             pseudotop.add_bonds(np.asarray(parm.universe.bonds.to_indices()))
-        except:
+        except TypeError:
             pass
 
         try:
             pseudotop.add_angles(np.asarray(parm.universe.angles.to_indices()))
-        except:
+        except TypeError:
             pass
 
-        try:
+        try :
             pseudotop.add_dihedrals(np.asarray(parm.universe.torsions.to_indices()))
-        except:
+        except TypeError:
             pass
 
         try:
             pseudotop.box = Box(parm.dimensions.astype(np.float64))
-        except:
+        except AttributeError:
             pass
     else:
         # TODO : add bonds, dihedrals, angles for ParmEd
         # parmed
         # add dihedrals
-        try:
-            bond_list = [(x.atom1.idx, x.atom2.idx)
-                        for x in parm.bonds]
-            angle_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx)
-                        for x in parm.angles]
-            dihedral_list= [(x.atom1.idx, x.atom2.idx, x.atom3.idx, x.atom4.idx)
-                      for x in parm.dihedrals]
+        bond_list = [(x.atom1.idx, x.atom2.idx)
+                    for x in parm.bonds]
+        angle_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx)
+                    for x in parm.angles]
+        dihedral_list= [(x.atom1.idx, x.atom2.idx, x.atom3.idx, x.atom4.idx)
+                  for x in parm.dihedrals]
+        if bond_list:
             pseudotop.add_bonds(np.asarray(bond_list))
+        if angle_list:
             pseudotop.add_angles(np.asarray(angle_list))
+        if dihedral_list:
             pseudotop.add_dihedrals(np.asarray(dihedral_list))
-        except:
-            pass
 
         try:
             pseudotop.box = Box(np.array(parm.box))
-        except:
-            # no box
+        except (ValueError, TypeError):
             pseudotop.box = Box()
+
     try:
         pseudotop._bonds_ndarray[0]
     except IndexError:

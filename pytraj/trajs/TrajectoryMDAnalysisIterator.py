@@ -5,10 +5,10 @@ from .. Trajectory import Trajectory
 from .. Frame import Frame
 from .. externals import load_pseudo_parm
 from .. _shared_methods import my_str_method
-from .. _action_in_traj import ActionInTraj
+from .. _action_in_traj import ActionTrajectory
 from . TrajectoryBaseIterator import TrajectoryBaseIterator
 
-class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionInTraj):
+class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionTrajectory):
     def __init__(self, mdanalysis_object, top=None):
         self._ext_holder = mdanalysis_object
         self._traj_holder = mdanalysis_object.trajectory

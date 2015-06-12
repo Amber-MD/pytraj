@@ -4,9 +4,8 @@ We need to sub-class Trajin_Single to use Trajectory
 Trajin_Single)
 """
 from __future__ import absolute_import
-from pytraj.utils.check_and_assert import is_pytraj_trajectory
 from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
-from pytraj._action_in_traj import ActionInTraj
+from pytraj._action_in_traj import ActionTrajectory
 from pytraj.action_dict import ActionDict
 from pytraj.Frame import Frame
 from pytraj.AtomMask import AtomMask
@@ -15,7 +14,7 @@ from pytraj.exceptions import PytrajMemviewError
 from pytraj._shared_methods import _tolist
 
 
-class TrajectoryIterator(TrajectoryCpptraj, ActionInTraj):
+class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
     def __init__(self, *args, **kwd):
         pass
 
