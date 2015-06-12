@@ -13,11 +13,6 @@ class Test(unittest.TestCase):
         dist = dslist.add_set('double', "myname", "dis_")
         print (scalarModeDict.keys())
         dist.set_scalar('m_distance')
-        d1d = cast_dataset(dist, 'double')
-        for i in range(100):
-            d1d.append(i, i)
-        print (d1d[:])
-        dflist.add_dataset("./output/test_write_dfile.txt", d1d)
 
 if __name__ == "__main__":
     unittest.main()

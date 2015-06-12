@@ -8,7 +8,7 @@ for compatibility with cpptraj
 TrajinList, ...
 """
 from __future__ import absolute_import
-from .Command import Command
+from .core.Command import Command
 from .utils import file_exist as file_exists
 
 def load_cpptraj_file(fname):

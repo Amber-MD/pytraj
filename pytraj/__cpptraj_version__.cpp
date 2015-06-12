@@ -570,11 +570,11 @@ static char __pyx_k_main[] = "__main__";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_cpptraj_version[] = "__cpptraj_version__";
 static char __pyx_k_pytraj___cpptraj_version[] = "pytraj.__cpptraj_version__";
-static char __pyx_k_mnt_raidc2_haichit_study_Cython[] = "/mnt/raidc2/haichit/study/Cython/pytraj_git_fork/pytraj/pytraj/__cpptraj_version__.pyx";
+static char __pyx_k_mnt_raidc2_haichit_programs_pyt[] = "/mnt/raidc2/haichit/programs/pytraj/pytraj/__cpptraj_version__.pyx";
 static PyObject *__pyx_n_s_cpptraj_version;
 static PyObject *__pyx_n_s_info;
 static PyObject *__pyx_n_s_main;
-static PyObject *__pyx_kp_s_mnt_raidc2_haichit_study_Cython;
+static PyObject *__pyx_kp_s_mnt_raidc2_haichit_programs_pyt;
 static PyObject *__pyx_n_s_pytraj___cpptraj_version;
 static PyObject *__pyx_n_s_s;
 static PyObject *__pyx_n_s_test;
@@ -928,7 +928,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_cpptraj_version, __pyx_k_cpptraj_version, sizeof(__pyx_k_cpptraj_version), 0, 0, 1, 1},
   {&__pyx_n_s_info, __pyx_k_info, sizeof(__pyx_k_info), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
-  {&__pyx_kp_s_mnt_raidc2_haichit_study_Cython, __pyx_k_mnt_raidc2_haichit_study_Cython, sizeof(__pyx_k_mnt_raidc2_haichit_study_Cython), 0, 0, 1, 0},
+  {&__pyx_kp_s_mnt_raidc2_haichit_programs_pyt, __pyx_k_mnt_raidc2_haichit_programs_pyt, sizeof(__pyx_k_mnt_raidc2_haichit_programs_pyt), 0, 0, 1, 0},
   {&__pyx_n_s_pytraj___cpptraj_version, __pyx_k_pytraj___cpptraj_version, sizeof(__pyx_k_pytraj___cpptraj_version), 0, 0, 1, 1},
   {&__pyx_n_s_s, __pyx_k_s, sizeof(__pyx_k_s), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
@@ -952,7 +952,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_s); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(0, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_study_Cython, __pyx_n_s_info, 15, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(0, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_programs_pyt, __pyx_n_s_info, 15, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;

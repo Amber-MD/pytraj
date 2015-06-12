@@ -13,7 +13,8 @@ class Test(unittest.TestCase):
         dflist = DataFileList()
 
         dslist.add_set("traj", "my_clustering", "")
-        traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        from pytraj.trajs.Trajin_Single import Trajin_Single
+        traj = Trajin_Single("./data/tz2.nc", "./data/tz2.parm7")
         dslist[0].top = traj.top
         dslist[0].add_trajin(traj)
         command = """

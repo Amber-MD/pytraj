@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(arr1, f1[0])
 
         print ("test_frame_fit: after fit_to: exect coords will be updated")
-        f1.rmsfit_to(f0)
+        f1.rmsfit(f0)
         print (f0[0], f1[0])
 
         # expect reference `f0` coords are not changed
@@ -40,11 +40,11 @@ class Test(unittest.TestCase):
         farray = traj[:]
         print (farray)
         print (farray[1, 0])  
-        farray.rmsfit_to(traj[0])
+        farray.rmsfit(traj[0])
         print (farray[1, 0]) 
         assert_almost_equal(farray[1].coords, f1saved.coords)
 
-        farray.rmsfit_to('first')
+        farray.rmsfit('first')
 
 if __name__ == "__main__":
     unittest.main()

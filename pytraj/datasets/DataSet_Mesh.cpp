@@ -252,10 +252,6 @@ class __Pyx_FakeReference {
 #include "string.h"
 #include <string>
 #include "DataSet.h"
-#include "sys/types.h"
-#include "unistd.h"
-#include "FileName.h"
-#include "CpptrajFile.h"
 #include "DataSet_1D.h"
 #include "DataSet_Mesh.h"
 #include "stdio.h"
@@ -449,8 +445,6 @@ static const char *__pyx_f[] = {
   "array.pxd",
   "stringsource",
   "pytraj/datasets/DataSet.pxd",
-  "pytraj/FileName.pxd",
-  "pytraj/CpptrajFile.pxd",
 };
 struct __pyx_memoryview_obj;
 typedef struct {
@@ -550,8 +544,6 @@ struct arrayobject;
 typedef struct arrayobject arrayobject;
 #endif
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet;
-struct __pyx_obj_6pytraj_8FileName_FileName;
-struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile;
 struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D;
 struct __pyx_obj_6pytraj_8datasets_12DataSet_Mesh_DataSet_Mesh;
 struct __pyx_array_obj;
@@ -573,31 +565,7 @@ struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
 };
 
 
-/* "pytraj/FileName.pxd":23
- *         bint empty()
- * 
- * cdef class FileName:             # <<<<<<<<<<<<<<
- *     cdef _FileName* thisptr
- */
-struct __pyx_obj_6pytraj_8FileName_FileName {
-  PyObject_HEAD
-  FileName *thisptr;
-};
-
-
-/* "pytraj/CpptrajFile.pxd":51
- *         #off_t Tell()
- * 
- * cdef class CpptrajFile:             # <<<<<<<<<<<<<<
- *     cdef _CpptrajFile* thisptr
- */
-struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile {
-  PyObject_HEAD
-  CpptrajFile *thisptr;
-};
-
-
-/* "pytraj/datasets/DataSet_1D.pxd":26
+/* "pytraj/datasets/DataSet_1D.pxd":24
  * 
  * 
  * cdef class DataSet_1D (DataSet):             # <<<<<<<<<<<<<<
@@ -610,7 +578,7 @@ struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D {
 };
 
 
-/* "pytraj/datasets/DataSet_Mesh.pxd":32
+/* "pytraj/datasets/DataSet_Mesh.pxd":30
  *         int LinearRegression(double&, double&, double&, bint) const
  * 
  * cdef class DataSet_Mesh(DataSet_1D):             # <<<<<<<<<<<<<<
@@ -1237,16 +1205,6 @@ static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memo
 
 /* Module declarations from 'pytraj.datasets.DataSet' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = 0;
-
-/* Module declarations from 'posix.types' */
-
-/* Module declarations from 'posix.unistd' */
-
-/* Module declarations from 'pytraj.FileName' */
-static PyTypeObject *__pyx_ptype_6pytraj_8FileName_FileName = 0;
-
-/* Module declarations from 'pytraj.CpptrajFile' */
-static PyTypeObject *__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = 0;
 
 /* Module declarations from 'pytraj.datasets.DataSet_1D' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D = 0;
@@ -2154,7 +2112,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12DataSet_Mesh_12DataSet_Mesh_8to_nd
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_Mesh.pxd":34
+/* "pytraj/datasets/DataSet_Mesh.pxd":32
  * cdef class DataSet_Mesh(DataSet_1D):
  *     cdef _DataSet_Mesh* thisptr
  *     cdef public bint py_free_mem             # <<<<<<<<<<<<<<
@@ -2182,7 +2140,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12DataSet_Mesh_12DataSet_Mesh_11py_f
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->py_free_mem); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->py_free_mem); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2220,7 +2178,7 @@ static int __pyx_pf_6pytraj_8datasets_12DataSet_Mesh_12DataSet_Mesh_11py_free_me
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_self->py_free_mem = __pyx_t_1;
 
   /* function exit code */
@@ -14707,8 +14665,6 @@ PyMODINIT_FUNC PyInit_DataSet_Mesh(void)
   __pyx_memoryviewslice_type = &__pyx_type___pyx_memoryviewslice;
   /*--- Type import code ---*/
   __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/

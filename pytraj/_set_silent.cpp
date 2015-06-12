@@ -545,9 +545,9 @@ static char __pyx_k_turnoff[] = "turnoff";
 static char __pyx_k_set_error_silent[] = "set_error_silent";
 static char __pyx_k_set_world_silent[] = "set_world_silent";
 static char __pyx_k_pytraj__set_silent[] = "pytraj._set_silent";
-static char __pyx_k_mnt_raidc2_haichit_study_Cython[] = "/mnt/raidc2/haichit/study/Cython/pytraj_git_fork/pytraj/pytraj/_set_silent.pyx";
+static char __pyx_k_mnt_raidc2_haichit_programs_pyt[] = "/mnt/raidc2/haichit/programs/pytraj/pytraj/_set_silent.pyx";
 static PyObject *__pyx_n_s_main;
-static PyObject *__pyx_kp_s_mnt_raidc2_haichit_study_Cython;
+static PyObject *__pyx_kp_s_mnt_raidc2_haichit_programs_pyt;
 static PyObject *__pyx_n_s_pytraj__set_silent;
 static PyObject *__pyx_n_s_set_error_silent;
 static PyObject *__pyx_n_s_set_world_silent;
@@ -790,7 +790,7 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
-  {&__pyx_kp_s_mnt_raidc2_haichit_study_Cython, __pyx_k_mnt_raidc2_haichit_study_Cython, sizeof(__pyx_k_mnt_raidc2_haichit_study_Cython), 0, 0, 1, 0},
+  {&__pyx_kp_s_mnt_raidc2_haichit_programs_pyt, __pyx_k_mnt_raidc2_haichit_programs_pyt, sizeof(__pyx_k_mnt_raidc2_haichit_programs_pyt), 0, 0, 1, 0},
   {&__pyx_n_s_pytraj__set_silent, __pyx_k_pytraj__set_silent, sizeof(__pyx_k_pytraj__set_silent), 0, 0, 1, 1},
   {&__pyx_n_s_set_error_silent, __pyx_k_set_error_silent, sizeof(__pyx_k_set_error_silent), 0, 0, 1, 1},
   {&__pyx_n_s_set_world_silent, __pyx_k_set_world_silent, sizeof(__pyx_k_set_world_silent), 0, 0, 1, 1},
@@ -816,7 +816,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_turnoff); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_study_Cython, __pyx_n_s_set_error_silent, 7, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_programs_pyt, __pyx_n_s_set_error_silent, 7, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "pytraj/_set_silent.pyx":10
  *     SupressErrorMsg(turnoff)
@@ -827,7 +827,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__3 = PyTuple_Pack(1, __pyx_n_s_turnoff); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_study_Cython, __pyx_n_s_set_world_silent, 10, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_programs_pyt, __pyx_n_s_set_world_silent, 10, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 10; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;

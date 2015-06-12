@@ -261,8 +261,8 @@ class __Pyx_FakeReference {
 #include "Molecule.h"
 #include "ParameterTypes.h"
 #include "CoordinateInfo.h"
-#include "AtomMask.h"
 #include "FileName.h"
+#include "AtomMask.h"
 #include "Topology.h"
 #include "Frame.h"
 #include "BaseIOtype.h"
@@ -462,17 +462,17 @@ static const char *__pyx_f[] = {
   "pytraj/ArgList.pxd",
   "pytraj/math/Vec3.pxd",
   "pytraj/math/Matrix_3x3.pxd",
-  "pytraj/NameType.pxd",
+  "pytraj/core/NameType.pxd",
   "pytraj/core/Atom.pxd",
   "pytraj/core/Box.pxd",
   "pytraj/core/Residue.pxd",
   "pytraj/core/Molecule.pxd",
   "pytraj/core/ParameterTypes.pxd",
   "pytraj/core/CoordinateInfo.pxd",
+  "pytraj/core/FileName.pxd",
   "pytraj/AtomMask.pxd",
-  "pytraj/FileName.pxd",
   "pytraj/Topology.pxd",
-  "pytraj/BaseIOtype.pxd",
+  "pytraj/core/BaseIOtype.pxd",
   "pytraj/trajs/TrajectoryIO.pxd",
   "pytraj/trajs/TrajectoryFile.pxd",
   "pytraj/trajs/Trajin.pxd",
@@ -573,7 +573,7 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
 struct __pyx_obj_6pytraj_7ArgList_ArgList;
 struct __pyx_obj_6pytraj_4math_4Vec3_Vec3;
 struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3;
-struct __pyx_obj_6pytraj_8NameType_NameType;
+struct __pyx_obj_6pytraj_4core_8NameType_NameType;
 struct __pyx_obj_6pytraj_4core_4Atom_Atom;
 struct __pyx_obj_6pytraj_4core_3Box_Box;
 struct __pyx_obj_6pytraj_4core_7Residue_Residue;
@@ -594,11 +594,11 @@ struct __pyx_obj_6pytraj_4core_14ParameterTypes_BondType;
 struct __pyx_obj_6pytraj_4core_14ParameterTypes_CapParmType;
 struct __pyx_obj_6pytraj_4core_14ParameterTypes_DihedralParmType;
 struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo;
+struct __pyx_obj_6pytraj_4core_8FileName_FileName;
 struct __pyx_obj_6pytraj_8AtomMask_AtomMask;
-struct __pyx_obj_6pytraj_8FileName_FileName;
 struct __pyx_obj_6pytraj_8Topology_Topology;
 struct __pyx_obj_6pytraj_5Frame_Frame;
-struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype;
+struct __pyx_obj_6pytraj_4core_10BaseIOtype_BaseIOtype;
 struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO;
 struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile;
 struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin;
@@ -726,8 +726,8 @@ typedef std::vector<CmapGridType>  __pyx_t_6pytraj_4core_14ParameterTypes_CmapGr
  */
 typedef std::vector<CmapType>  __pyx_t_6pytraj_4core_14ParameterTypes_CmapArray;
 
-/* "pytraj/Topology.pxd":16
- * from pytraj.NameType cimport _NameType, NameType
+/* "pytraj/Topology.pxd":18
+ * from pytraj.Frame cimport _Frame, Frame
  * 
  * ctypedef cppvector[_Atom].const_iterator atom_iterator             # <<<<<<<<<<<<<<
  * ctypedef cppvector[_Residue].const_iterator res_iterator
@@ -735,7 +735,7 @@ typedef std::vector<CmapType>  __pyx_t_6pytraj_4core_14ParameterTypes_CmapArray;
  */
 typedef std::vector<Atom> ::const_iterator __pyx_t_6pytraj_8Topology_atom_iterator;
 
-/* "pytraj/Topology.pxd":17
+/* "pytraj/Topology.pxd":19
  * 
  * ctypedef cppvector[_Atom].const_iterator atom_iterator
  * ctypedef cppvector[_Residue].const_iterator res_iterator             # <<<<<<<<<<<<<<
@@ -744,7 +744,7 @@ typedef std::vector<Atom> ::const_iterator __pyx_t_6pytraj_8Topology_atom_iterat
  */
 typedef std::vector<Residue> ::const_iterator __pyx_t_6pytraj_8Topology_res_iterator;
 
-/* "pytraj/Topology.pxd":18
+/* "pytraj/Topology.pxd":20
  * ctypedef cppvector[_Atom].const_iterator atom_iterator
  * ctypedef cppvector[_Residue].const_iterator res_iterator
  * ctypedef cppvector[_Molecule].const_iterator mol_iterator             # <<<<<<<<<<<<<<
@@ -771,23 +771,23 @@ typedef std::vector<float>  __pyx_t_6pytraj_5Frame_CRDtype;
  */
 typedef std::vector<double>  __pyx_t_6pytraj_5Frame_Darray;
 
-/* "pytraj/BaseIOtype.pxd":3
+/* "pytraj/core/BaseIOtype.pxd":3
  * # distutil: language = c++
  * 
  * ctypedef _BaseIOtype* (*AllocatorType)()             # <<<<<<<<<<<<<<
  * ctypedef void (*HelpType)()
  * 
  */
-typedef BaseIOtype *(*__pyx_t_6pytraj_10BaseIOtype_AllocatorType)(void);
+typedef BaseIOtype *(*__pyx_t_6pytraj_4core_10BaseIOtype_AllocatorType)(void);
 
-/* "pytraj/BaseIOtype.pxd":4
+/* "pytraj/core/BaseIOtype.pxd":4
  * 
  * ctypedef _BaseIOtype* (*AllocatorType)()
  * ctypedef void (*HelpType)()             # <<<<<<<<<<<<<<
  * 
  * cdef extern from "BaseIOtype.h":
  */
-typedef void (*__pyx_t_6pytraj_10BaseIOtype_HelpType)(void);
+typedef void (*__pyx_t_6pytraj_4core_10BaseIOtype_HelpType)(void);
 
 /* "pytraj/ArgList.pxd":46
  *         bint Contains(const char *) const
@@ -827,13 +827,13 @@ struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3 {
 };
 
 
-/* "pytraj/NameType.pxd":25
+/* "pytraj/core/NameType.pxd":25
  * 
  * 
  * cdef class NameType:             # <<<<<<<<<<<<<<
  *         cdef _NameType* thisptr
  */
-struct __pyx_obj_6pytraj_8NameType_NameType {
+struct __pyx_obj_6pytraj_4core_8NameType_NameType {
   PyObject_HEAD
   NameType *thisptr;
 };
@@ -1097,6 +1097,18 @@ struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo {
 };
 
 
+/* "pytraj/core/FileName.pxd":23
+ *         bint empty()
+ * 
+ * cdef class FileName:             # <<<<<<<<<<<<<<
+ *     cdef _FileName* thisptr
+ */
+struct __pyx_obj_6pytraj_4core_8FileName_FileName {
+  PyObject_HEAD
+  FileName *thisptr;
+};
+
+
 /* "pytraj/AtomMask.pxd":56
  * #    string
  * 
@@ -1109,19 +1121,7 @@ struct __pyx_obj_6pytraj_8AtomMask_AtomMask {
 };
 
 
-/* "pytraj/FileName.pxd":23
- *         bint empty()
- * 
- * cdef class FileName:             # <<<<<<<<<<<<<<
- *     cdef _FileName* thisptr
- */
-struct __pyx_obj_6pytraj_8FileName_FileName {
-  PyObject_HEAD
-  FileName *thisptr;
-};
-
-
-/* "pytraj/Topology.pxd":132
+/* "pytraj/Topology.pxd":134
  *         double GetVDWradius(int) except +
  * 
  * cdef class Topology:             # <<<<<<<<<<<<<<
@@ -1151,13 +1151,13 @@ struct __pyx_obj_6pytraj_5Frame_Frame {
 };
 
 
-/* "pytraj/BaseIOtype.pxd":12
+/* "pytraj/core/BaseIOtype.pxd":12
  *         pass
  * 
  * cdef class BaseIOtype:             # <<<<<<<<<<<<<<
  *     cdef _BaseIOtype* baseptr0
  */
-struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype {
+struct __pyx_obj_6pytraj_4core_10BaseIOtype_BaseIOtype {
   PyObject_HEAD
   BaseIOtype *baseptr0;
 };
@@ -1170,7 +1170,7 @@ struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype {
  *     cdef _TrajectoryIO* baseptr_1
  */
 struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO {
-  struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype __pyx_base;
+  struct __pyx_obj_6pytraj_4core_10BaseIOtype_BaseIOtype __pyx_base;
   TrajectoryIO *baseptr_1;
 };
 
@@ -1744,8 +1744,8 @@ static PyTypeObject *__pyx_ptype_6pytraj_4math_4Vec3_Vec3 = 0;
 /* Module declarations from 'pytraj.math.Matrix_3x3' */
 static PyTypeObject *__pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3 = 0;
 
-/* Module declarations from 'pytraj.NameType' */
-static PyTypeObject *__pyx_ptype_6pytraj_8NameType_NameType = 0;
+/* Module declarations from 'pytraj.core.NameType' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_8NameType_NameType = 0;
 
 /* Module declarations from 'pytraj.core.Atom' */
 static PyTypeObject *__pyx_ptype_6pytraj_4core_4Atom_Atom = 0;
@@ -1779,11 +1779,11 @@ static PyTypeObject *__pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralParmType
 /* Module declarations from 'pytraj.core.CoordinateInfo' */
 static PyTypeObject *__pyx_ptype_6pytraj_4core_14CoordinateInfo_CoordinateInfo = 0;
 
+/* Module declarations from 'pytraj.core.FileName' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_8FileName_FileName = 0;
+
 /* Module declarations from 'pytraj.AtomMask' */
 static PyTypeObject *__pyx_ptype_6pytraj_8AtomMask_AtomMask = 0;
-
-/* Module declarations from 'pytraj.FileName' */
-static PyTypeObject *__pyx_ptype_6pytraj_8FileName_FileName = 0;
 
 /* Module declarations from 'pytraj.Topology' */
 static PyTypeObject *__pyx_ptype_6pytraj_8Topology_Topology = 0;
@@ -1791,8 +1791,8 @@ static PyTypeObject *__pyx_ptype_6pytraj_8Topology_Topology = 0;
 /* Module declarations from 'pytraj.Frame' */
 static PyTypeObject *__pyx_ptype_6pytraj_5Frame_Frame = 0;
 
-/* Module declarations from 'pytraj.BaseIOtype' */
-static PyTypeObject *__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = 0;
+/* Module declarations from 'pytraj.core.BaseIOtype' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_10BaseIOtype_BaseIOtype = 0;
 
 /* Module declarations from 'pytraj.trajs.TrajectoryIO' */
 static PyTypeObject *__pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO = 0;
@@ -13997,7 +13997,7 @@ PyMODINIT_FUNC PyInit_TrajectoryREMDIterator(void)
   __pyx_ptype_6pytraj_7ArgList_ArgList = __Pyx_ImportType("pytraj.ArgList", "ArgList", sizeof(struct __pyx_obj_6pytraj_7ArgList_ArgList), 1); if (unlikely(!__pyx_ptype_6pytraj_7ArgList_ArgList)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4math_4Vec3_Vec3 = __Pyx_ImportType("pytraj.math.Vec3", "Vec3", sizeof(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Vec3_Vec3)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3 = __Pyx_ImportType("pytraj.math.Matrix_3x3", "Matrix_3x3", sizeof(struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8NameType_NameType = __Pyx_ImportType("pytraj.NameType", "NameType", sizeof(struct __pyx_obj_6pytraj_8NameType_NameType), 1); if (unlikely(!__pyx_ptype_6pytraj_8NameType_NameType)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_8NameType_NameType = __Pyx_ImportType("pytraj.core.NameType", "NameType", sizeof(struct __pyx_obj_6pytraj_4core_8NameType_NameType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_8NameType_NameType)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_4Atom_Atom = __Pyx_ImportType("pytraj.core.Atom", "Atom", sizeof(struct __pyx_obj_6pytraj_4core_4Atom_Atom), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_4Atom_Atom)) {__pyx_filename = __pyx_f[7]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_3Box_Box = __Pyx_ImportType("pytraj.core.Box", "Box", sizeof(struct __pyx_obj_6pytraj_4core_3Box_Box), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_3Box_Box)) {__pyx_filename = __pyx_f[8]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_7Residue_Residue = __Pyx_ImportType("pytraj.core.Residue", "Residue", sizeof(struct __pyx_obj_6pytraj_4core_7Residue_Residue), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_7Residue_Residue)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -14018,12 +14018,12 @@ PyMODINIT_FUNC PyInit_TrajectoryREMDIterator(void)
   __pyx_ptype_6pytraj_4core_14ParameterTypes_CapParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "CapParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_CapParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_CapParmType)) {__pyx_filename = __pyx_f[11]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralParmType = __Pyx_ImportType("pytraj.core.ParameterTypes", "DihedralParmType", sizeof(struct __pyx_obj_6pytraj_4core_14ParameterTypes_DihedralParmType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14ParameterTypes_DihedralParmType)) {__pyx_filename = __pyx_f[11]; __pyx_lineno = 229; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_14CoordinateInfo_CoordinateInfo = __Pyx_ImportType("pytraj.core.CoordinateInfo", "CoordinateInfo", sizeof(struct __pyx_obj_6pytraj_4core_14CoordinateInfo_CoordinateInfo), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14CoordinateInfo_CoordinateInfo)) {__pyx_filename = __pyx_f[12]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8AtomMask_AtomMask = __Pyx_ImportType("pytraj.AtomMask", "AtomMask", sizeof(struct __pyx_obj_6pytraj_8AtomMask_AtomMask), 1); if (unlikely(!__pyx_ptype_6pytraj_8AtomMask_AtomMask)) {__pyx_filename = __pyx_f[13]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[14]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8Topology_Topology = __Pyx_ImportType("pytraj.Topology", "Topology", sizeof(struct __pyx_obj_6pytraj_8Topology_Topology), 1); if (unlikely(!__pyx_ptype_6pytraj_8Topology_Topology)) {__pyx_filename = __pyx_f[15]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_8FileName_FileName = __Pyx_ImportType("pytraj.core.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_4core_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_8FileName_FileName)) {__pyx_filename = __pyx_f[13]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8AtomMask_AtomMask = __Pyx_ImportType("pytraj.AtomMask", "AtomMask", sizeof(struct __pyx_obj_6pytraj_8AtomMask_AtomMask), 1); if (unlikely(!__pyx_ptype_6pytraj_8AtomMask_AtomMask)) {__pyx_filename = __pyx_f[14]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8Topology_Topology = __Pyx_ImportType("pytraj.Topology", "Topology", sizeof(struct __pyx_obj_6pytraj_8Topology_Topology), 1); if (unlikely(!__pyx_ptype_6pytraj_8Topology_Topology)) {__pyx_filename = __pyx_f[15]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_5Frame_Frame = __Pyx_ImportType("pytraj.Frame", "Frame", sizeof(struct __pyx_obj_6pytraj_5Frame_Frame), 1); if (unlikely(!__pyx_ptype_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_vtabptr_6pytraj_5Frame_Frame = (struct __pyx_vtabstruct_6pytraj_5Frame_Frame*)__Pyx_GetVtable(__pyx_ptype_6pytraj_5Frame_Frame->tp_dict); if (unlikely(!__pyx_vtabptr_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = __Pyx_ImportType("pytraj.BaseIOtype", "BaseIOtype", sizeof(struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype), 1); if (unlikely(!__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype)) {__pyx_filename = __pyx_f[16]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_10BaseIOtype_BaseIOtype = __Pyx_ImportType("pytraj.core.BaseIOtype", "BaseIOtype", sizeof(struct __pyx_obj_6pytraj_4core_10BaseIOtype_BaseIOtype), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_10BaseIOtype_BaseIOtype)) {__pyx_filename = __pyx_f[16]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO = __Pyx_ImportType("pytraj.trajs.TrajectoryIO", "TrajectoryIO", sizeof(struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO)) {__pyx_filename = __pyx_f[17]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile = __Pyx_ImportType("pytraj.trajs.TrajectoryFile", "TrajectoryFile", sizeof(struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile)) {__pyx_filename = __pyx_f[18]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_5trajs_6Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_5trajs_6Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_6Trajin_Trajin)) {__pyx_filename = __pyx_f[19]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

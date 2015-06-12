@@ -8,7 +8,9 @@ from pytraj._shared_methods import _frame_iter
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        from pytraj.trajs.Trajin_Single import Trajin_Single
+        traj0 = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = Trajin_Single(traj0.filename, traj0.top) 
         
         print ("TrajectoryIterator")
         print (traj)

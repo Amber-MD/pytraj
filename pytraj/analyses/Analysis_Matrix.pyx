@@ -1,6 +1,4 @@
 # distutils: language = c++
-from cython.operator cimport dereference as deref
-
 
 cdef class Analysis_Matrix (Analysis):
     def __cinit__(self):

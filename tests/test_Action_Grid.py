@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.load_sample_data("tz2")[:]
         traj.autoimage()
-        traj.rmsfit_to(mask=':1-13')
+        traj.rmsfit(mask=':1-13')
         d = pyca.calc_grid(traj, " 20 0.5 20 0.5 20 0.5 :WAT@O")
         d[0].save("./output/test_grid.dx")
         print (d[0])

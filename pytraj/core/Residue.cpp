@@ -435,20 +435,20 @@ static const char *__pyx_filename;
 
 static const char *__pyx_f[] = {
   "pytraj/core/Residue.pyx",
-  "pytraj/NameType.pxd",
+  "pytraj/core/NameType.pxd",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_6pytraj_8NameType_NameType;
+struct __pyx_obj_6pytraj_4core_8NameType_NameType;
 struct __pyx_obj_6pytraj_4core_7Residue_Residue;
 
-/* "pytraj/NameType.pxd":25
+/* "pytraj/core/NameType.pxd":25
  * 
  * 
  * cdef class NameType:             # <<<<<<<<<<<<<<
  *         cdef _NameType* thisptr
  */
-struct __pyx_obj_6pytraj_8NameType_NameType {
+struct __pyx_obj_6pytraj_4core_8NameType_NameType {
   PyObject_HEAD
   NameType *thisptr;
 };
@@ -655,8 +655,8 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libcpp.string' */
 
-/* Module declarations from 'pytraj.NameType' */
-static PyTypeObject *__pyx_ptype_6pytraj_8NameType_NameType = 0;
+/* Module declarations from 'pytraj.core.NameType' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_8NameType_NameType = 0;
 
 /* Module declarations from 'pytraj.core.Residue' */
 static PyTypeObject *__pyx_ptype_6pytraj_4core_7Residue_Residue = 0;
@@ -740,7 +740,7 @@ static int __pyx_pw_6pytraj_4core_7Residue_7Residue_1__cinit__(PyObject *__pyx_v
 
 static int __pyx_pf_6pytraj_4core_7Residue_7Residue___cinit__(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self, PyObject *__pyx_v_args) {
   int __pyx_v_orig_num;
-  struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_nametype = 0;
+  struct __pyx_obj_6pytraj_4core_8NameType_NameType *__pyx_v_nametype = 0;
   int __pyx_v_firstAtomIn;
   PyObject *__pyx_v__resname = NULL;
   int __pyx_r;
@@ -862,10 +862,10 @@ static int __pyx_pf_6pytraj_4core_7Residue_7Residue___cinit__(struct __pyx_obj_6
         __Pyx_INCREF(__pyx_v__resname);
         PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v__resname);
         __Pyx_GIVEREF(__pyx_v__resname);
-        __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8NameType_NameType)), __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4core_8NameType_NameType)), __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_v_nametype = ((struct __pyx_obj_6pytraj_8NameType_NameType *)__pyx_t_5);
+        __pyx_v_nametype = ((struct __pyx_obj_6pytraj_4core_8NameType_NameType *)__pyx_t_5);
         __pyx_t_5 = 0;
         goto __pyx_L5;
       }
@@ -878,10 +878,10 @@ static int __pyx_pf_6pytraj_4core_7Residue_7Residue___cinit__(struct __pyx_obj_6
  *                 self.thisptr = new _Residue(orig_num, nametype.thisptr[0], firstAtomIn)
  * 
  */
-        if (!(likely(((__pyx_v__resname) == Py_None) || likely(__Pyx_TypeTest(__pyx_v__resname, __pyx_ptype_6pytraj_8NameType_NameType))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        if (!(likely(((__pyx_v__resname) == Py_None) || likely(__Pyx_TypeTest(__pyx_v__resname, __pyx_ptype_6pytraj_4core_8NameType_NameType))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __pyx_t_5 = __pyx_v__resname;
         __Pyx_INCREF(__pyx_t_5);
-        __pyx_v_nametype = ((struct __pyx_obj_6pytraj_8NameType_NameType *)__pyx_t_5);
+        __pyx_v_nametype = ((struct __pyx_obj_6pytraj_4core_8NameType_NameType *)__pyx_t_5);
         __pyx_t_5 = 0;
       }
       __pyx_L5:;
@@ -1634,7 +1634,7 @@ static PyObject *__pyx_pw_6pytraj_4core_7Residue_7Residue_21ntype(PyObject *__py
 }
 
 static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_20ntype(struct __pyx_obj_6pytraj_4core_7Residue_Residue *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_8NameType_NameType *__pyx_v_nt = 0;
+  struct __pyx_obj_6pytraj_4core_8NameType_NameType *__pyx_v_nt = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1650,9 +1650,9 @@ static PyObject *__pyx_pf_6pytraj_4core_7Residue_7Residue_20ntype(struct __pyx_o
  *         nt.thisptr[0] = self.thisptr.Name()
  *         return nt
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8NameType_NameType)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_4core_8NameType_NameType)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_nt = ((struct __pyx_obj_6pytraj_8NameType_NameType *)__pyx_t_1);
+  __pyx_v_nt = ((struct __pyx_obj_6pytraj_4core_8NameType_NameType *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* "pytraj/core/Residue.pyx":61
@@ -2137,7 +2137,7 @@ PyMODINIT_FUNC PyInit_Residue(void)
   if (PyObject_SetAttrString(__pyx_m, "Residue", (PyObject *)&__pyx_type_6pytraj_4core_7Residue_Residue) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_7Residue_Residue = &__pyx_type_6pytraj_4core_7Residue_Residue;
   /*--- Type import code ---*/
-  __pyx_ptype_6pytraj_8NameType_NameType = __Pyx_ImportType("pytraj.NameType", "NameType", sizeof(struct __pyx_obj_6pytraj_8NameType_NameType), 1); if (unlikely(!__pyx_ptype_6pytraj_8NameType_NameType)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_8NameType_NameType = __Pyx_ImportType("pytraj.core.NameType", "NameType", sizeof(struct __pyx_obj_6pytraj_4core_8NameType_NameType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_8NameType_NameType)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/

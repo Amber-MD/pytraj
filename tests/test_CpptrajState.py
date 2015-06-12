@@ -4,6 +4,7 @@ from pytraj import io as mdio
 from pytraj.base import *
 from pytraj import allactions
 from pytraj import adict
+from pytraj.datasets import cast_dataset
 
 # setup filenames
 datadir = "./data/"

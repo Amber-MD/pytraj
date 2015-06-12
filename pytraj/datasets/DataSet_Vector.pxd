@@ -4,14 +4,12 @@ from .DataSet cimport _DataSet, DataSet
 from .DataSet_1D cimport _DataSet_1D, DataSet_1D
 from ..math.Grid cimport _Grid
 from ..math.Vec3 cimport _Vec3, Vec3
-from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
 
 
 cdef extern from "DataSet_Vector.h": 
     cdef cppclass _DataSet_Vector "DataSet_Vector" (_DataSet_1D):
         _DataSet_Vector() 
         _DataSet * Alloc() 
-        void WriteBuffer(_CpptrajFile&, size_t) const 
         void SetIred() 
         bint IsIred() const 
         void reset() 

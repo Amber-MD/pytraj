@@ -4,6 +4,7 @@ from pytraj import io as mdio
 from pytraj import info, adict
 from pytraj import allactions
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.datasets import cast_dataset
 
 class Test(unittest.TestCase):
     def test_action(self):

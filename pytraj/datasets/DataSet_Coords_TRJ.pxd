@@ -8,7 +8,6 @@ from ..trajs.Trajin cimport _Trajin, Trajin
 from ..Frame cimport _Frame, Frame
 from ..Topology cimport _Topology, Topology
 from ..ArgList cimport _ArgList, ArgList
-from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
 from ..AtomMask cimport _AtomMask, AtomMask
 
 
@@ -25,7 +24,6 @@ cdef extern from "DataSet_Coords_TRJ.h":
         void Add(size_t, const void *)
         double Dval(size_t) const 
         double Xcrd(size_t idx) const 
-        void WriteBuffer(_CpptrajFile&, size_t) const 
         void _AddFrame "AddFrame"(const _Frame& fIn)
         void SetCRD(int idx, const _Frame& fIn)
         void _GetFrame "GetFrame"(int idx, _Frame& fIn)

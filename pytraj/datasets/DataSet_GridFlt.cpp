@@ -251,10 +251,6 @@ class __Pyx_FakeReference {
 #include "stdexcept"
 #include "typeinfo"
 #include "DataSet.h"
-#include "sys/types.h"
-#include "unistd.h"
-#include "FileName.h"
-#include "CpptrajFile.h"
 #include <vector>
 #include "Vec3.h"
 #include "DataSet_3D.h"
@@ -450,8 +446,6 @@ static const char *__pyx_f[] = {
   "pytraj/datasets/DataSet_GridFlt.pxd",
   "stringsource",
   "pytraj/datasets/DataSet.pxd",
-  "pytraj/FileName.pxd",
-  "pytraj/CpptrajFile.pxd",
   "pytraj/math/Vec3.pxd",
   "pytraj/math/Grid.pxd",
 };
@@ -549,8 +543,6 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
 
 /*--- Type declarations ---*/
 struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet;
-struct __pyx_obj_6pytraj_8FileName_FileName;
-struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile;
 struct __pyx_obj_6pytraj_4math_4Vec3_Vec3;
 struct __pyx_obj_6pytraj_8datasets_10DataSet_3D_DataSet_3D;
 struct __pyx_obj_6pytraj_4math_4Grid_Grid;
@@ -574,30 +566,6 @@ struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
 };
 
 
-/* "pytraj/FileName.pxd":23
- *         bint empty()
- * 
- * cdef class FileName:             # <<<<<<<<<<<<<<
- *     cdef _FileName* thisptr
- */
-struct __pyx_obj_6pytraj_8FileName_FileName {
-  PyObject_HEAD
-  FileName *thisptr;
-};
-
-
-/* "pytraj/CpptrajFile.pxd":51
- *         #off_t Tell()
- * 
- * cdef class CpptrajFile:             # <<<<<<<<<<<<<<
- *     cdef _CpptrajFile* thisptr
- */
-struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile {
-  PyObject_HEAD
-  CpptrajFile *thisptr;
-};
-
-
 /* "pytraj/math/Vec3.pxd":44
  * 
  * 
@@ -612,7 +580,7 @@ struct __pyx_obj_6pytraj_4math_4Vec3_Vec3 {
 };
 
 
-/* "pytraj/datasets/DataSet_3D.pxd":28
+/* "pytraj/datasets/DataSet_3D.pxd":27
  *         inline _Vec3 BinCenter(int, int, int)
  * 
  * cdef class DataSet_3D (DataSet):             # <<<<<<<<<<<<<<
@@ -623,13 +591,21 @@ struct __pyx_obj_6pytraj_8datasets_10DataSet_3D_DataSet_3D {
   DataSet_3D *baseptr_1;
 };
 
+
+/* "pytraj/math/Grid.pxd":28
+ *         #iterator end()
+ * 
+ * cdef class Grid:             # <<<<<<<<<<<<<<
+ *     pass
+ *     cdef _Grid[float]* thisptr
+ */
 struct __pyx_obj_6pytraj_4math_4Grid_Grid {
   PyObject_HEAD
   Grid<float>  *thisptr;
 };
 
 
-/* "pytraj/datasets/DataSet_GridFlt.pxd":35
+/* "pytraj/datasets/DataSet_GridFlt.pxd":33
  *         long int CalcIndex(int i, int j, int k) const
  * 
  * cdef class DataSet_GridFlt (DataSet_3D):             # <<<<<<<<<<<<<<
@@ -1178,16 +1154,6 @@ static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memo
 
 /* Module declarations from 'pytraj.datasets.DataSet' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = 0;
-
-/* Module declarations from 'posix.types' */
-
-/* Module declarations from 'posix.unistd' */
-
-/* Module declarations from 'pytraj.FileName' */
-static PyTypeObject *__pyx_ptype_6pytraj_8FileName_FileName = 0;
-
-/* Module declarations from 'pytraj.CpptrajFile' */
-static PyTypeObject *__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = 0;
 
 /* Module declarations from 'libcpp.vector' */
 
@@ -3229,7 +3195,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_15DataSet_GridFlt_15DataSet_GridFlt_
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_GridFlt.pxd":37
+/* "pytraj/datasets/DataSet_GridFlt.pxd":35
  * cdef class DataSet_GridFlt (DataSet_3D):
  *     cdef _DataSet_GridFlt* thisptr
  *     cdef public bint py_free_mem             # <<<<<<<<<<<<<<
@@ -3257,7 +3223,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_15DataSet_GridFlt_15DataSet_GridFlt_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->py_free_mem); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->py_free_mem); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3295,7 +3261,7 @@ static int __pyx_pf_6pytraj_8datasets_15DataSet_GridFlt_15DataSet_GridFlt_11py_f
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_self->py_free_mem = __pyx_t_1;
 
   /* function exit code */
@@ -15572,10 +15538,8 @@ PyMODINIT_FUNC PyInit_DataSet_GridFlt(void)
   __pyx_memoryviewslice_type = &__pyx_type___pyx_memoryviewslice;
   /*--- Type import code ---*/
   __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8FileName_FileName = __Pyx_ImportType("pytraj.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_8FileName_FileName)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile = __Pyx_ImportType("pytraj.CpptrajFile", "CpptrajFile", sizeof(struct __pyx_obj_6pytraj_11CpptrajFile_CpptrajFile), 1); if (unlikely(!__pyx_ptype_6pytraj_11CpptrajFile_CpptrajFile)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4math_4Vec3_Vec3 = __Pyx_ImportType("pytraj.math.Vec3", "Vec3", sizeof(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Vec3_Vec3)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_4math_4Grid_Grid = __Pyx_ImportType("pytraj.math.Grid", "Grid", sizeof(struct __pyx_obj_6pytraj_4math_4Grid_Grid), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Grid_Grid)) {__pyx_filename = __pyx_f[7]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4math_4Vec3_Vec3 = __Pyx_ImportType("pytraj.math.Vec3", "Vec3", sizeof(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Vec3_Vec3)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4math_4Grid_Grid = __Pyx_ImportType("pytraj.math.Grid", "Grid", sizeof(struct __pyx_obj_6pytraj_4math_4Grid_Grid), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Grid_Grid)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/

@@ -1,6 +1,5 @@
 # distutils: language = c++
-from pytraj.DataSetList cimport _DataSetList, DataSetList
-#from pytraj.FrameList cimport _FrameList, FrameList
+from pytraj.datasets.DataSetList cimport _DataSetList, DataSetList
 from pytraj.datasets.DataSet_GridFlt cimport _DataSet_GridFlt, DataSet_GridFlt
 from pytraj.Frame cimport _Frame, Frame
 from pytraj.ArgList cimport _ArgList, ArgList
@@ -28,4 +27,3 @@ cdef extern from "GridAction.h":
 
 cdef class GridAction:
     cdef _GridAction* thisptr
-

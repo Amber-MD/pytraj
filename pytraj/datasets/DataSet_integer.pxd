@@ -2,7 +2,6 @@
 from libcpp.vector cimport vector
 from .DataSet cimport _DataSet, DataSet
 from .DataSet_1D cimport _DataSet_1D, DataSet_1D
-from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
 
 
 cdef extern from "DataSet_integer.h": 

@@ -2,7 +2,6 @@
 from libcpp.vector cimport vector
 from .DataSet_1D cimport _DataSet_1D, DataSet_1D
 from .DataSet cimport _DataSet, DataSet
-from ..CpptrajFile cimport _CpptrajFile
 
 
 cdef extern from "DataSet_Mesh.h": 
@@ -17,7 +16,6 @@ cdef extern from "DataSet_Mesh.h":
         void Add(size_t, const void *)
         double Dval(size_t idx) const 
         double Xcrd(size_t idx) const 
-        void WriteBuffer(_CpptrajFile&, size_t) const 
         inline void AddXY(double, double)
         double X(int i) const 
         double Y(int i) const 

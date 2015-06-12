@@ -1,7 +1,7 @@
 import os
 import unittest
 from pytraj.base import *
-from pytraj.TrajinList import TrajinList
+from pytraj.core.TrajinList import TrajinList
 
 class TestTrajinList(unittest.TestCase):
     def test_0(self):
