@@ -2,14 +2,16 @@
 pytraj
 """
 from __future__ import absolute_import
-import os
+
+from .__version__ import __version__
+version = __version__
 
 from .core import Atom, Residue, Molecule
-from pytraj.Topology import Topology
+from .core.CpptrajState import CpptrajState
+from .Topology import Topology
 from .ArgList import ArgList
 from .AtomMask import AtomMask
 from .math import Vec3
-from .core.CpptrajState import CpptrajState
 from .Frame import Frame
 from .Trajectory import Trajectory
 from .TrajectoryIterator import TrajectoryIterator

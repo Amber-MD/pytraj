@@ -1,13 +1,6 @@
 from __future__ import absolute_import
 from .externals.six import string_types, PY3
-from .Topology import Topology
-from .TrajectoryIterator import TrajectoryIterator
 from .data_sample.load_sample_data import load_sample_data
-from .Frame import Frame
-from .Trajectory import Trajectory
-from .trajs.Trajin_Single import Trajin_Single
-from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
-from .trajs.Trajout import Trajout
 from .utils.check_and_assert import make_sure_exist, is_frame_iter
 from .utils import goto_temp_folder
 from .externals._load_HDF5 import load_hdf5
@@ -141,7 +134,7 @@ def _iterload_from_filelist(*args, **kwd):
         raise ValueError()
     return [load_traj(filename, *args_less, **kwd) for filename in mylist]
 
-def load_traj(filename=None, top=Topology(), indices=None, *args, **kwd):
+def load_traj(filename=None, top=None, indices=None, *args, **kwd):
     """load trajectory from filename
     Parameters
     ----------
@@ -155,6 +148,8 @@ def load_traj(filename=None, top=Topology(), indices=None, *args, **kwd):
     or 
     Trajectory : if there is indices
     """
+    from .Topology import Topology
+    from .TrajectoryIterator import TrajectoryIterator
     if not isinstance(top, Topology):
         top = Topology(top)
     if top.is_empty():
@@ -174,12 +169,13 @@ def load_traj(filename=None, top=Topology(), indices=None, *args, **kwd):
         return ts
 
 def _load_from_frame_iter(traj_frame_iter, top=None):
+    from .Trajectory import Trajectory
     if top is None or top.is_empty():
         raise ValueError("must provide non-empty Topology")
     fa = Trajectory(traj_frame_iter, top=top)
     return fa
 
-def iterload_remd(filename, top=Topology(), T="300.0"):
+def iterload_remd(filename, top=None, T="300.0"):
     """Load remd trajectory for single temperature.
     Example: Suppose you have replica trajectoris remd.x.00{1-4}. 
     You want to load and extract only frames at 300 K, use this "load_remd" method
@@ -213,7 +209,7 @@ def iterload_remd(filename, top=Topology(), T="300.0"):
     traj._tmpobj = state
     return traj
 
-def load_remd(filename, top=Topology(), T="300.0"):
+def load_remd(filename, top=None, T="300.0"):
     return iterload_remd(filename, top, T)[:]
 
 def write_traj(filename="", traj=None, top=None, 
@@ -258,6 +254,8 @@ def write_traj(filename="", traj=None, top=None,
     Options for SQM input format:
     [charge <c>]
     """
+    from .Frame import Frame
+    from .trajs.Trajout import Trajout
 
     if fmt.upper() == 'UNKNOWN':
         fmt = fmt.upper() + "_TRAJ"
@@ -303,6 +301,7 @@ def write_parm(filename=None, top=None, fmt='AMBERPARM'):
     parm.writeparm(filename=filename, top=top, fmt=fmt)
 
 def read_parm(filename):
+    from .Topology import Topology
     """return topology instance from reading filename"""
     #filename = filename.encode("UTF-8")
     set_error_silent(True)
@@ -363,6 +362,7 @@ def load_full_ParmEd(parmed_obj):
     return top
 
 def load_MDAnalysisIterator(u):
+    from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
     return TrajectoryMDAnalysisIterator(u)
 
 # creat alias
