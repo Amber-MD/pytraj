@@ -1,23 +1,24 @@
 # distutils: language = c++
 from __future__ import absolute_import
+
 from python_ref cimport Py_INCREF, Py_DECREF
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array
+from .._utils cimport get_positive_idx
 
 # python level
-from .cast_dataset import cast_dataset
-from pytraj.utils.check_and_assert import _import, is_array
-from pytraj.utils.check_and_assert import _import_numpy, _import_pandas
-from pytraj.utils.check_and_assert import is_word_in_class_name
 from collections import defaultdict
-from pytraj._utils cimport get_positive_idx
-from pytraj.externals.six import string_types
-from pytraj.compat import set
-from pytraj.utils import is_int
-from pytraj.exceptions import *
-from pytraj.DataFile import DataFile
-from pytraj.ArgList import ArgList
+from .cast_dataset import cast_dataset
+from ..utils.check_and_assert import _import, is_array
+from ..utils.check_and_assert import _import_numpy, _import_pandas
+from ..utils.check_and_assert import is_word_in_class_name
+from ..externals.six import string_types
+from ..compat import set
+from ..utils import is_int
+from ..exceptions import *
+from ..core.DataFile import DataFile
+from ..ArgList import ArgList
 
 # can not import cpptraj_dict here
 # if doing this, we introduce circle-import since cpptraj_dict already imported
@@ -552,7 +553,7 @@ cdef class DataSetList:
             return self.to_dataframe().describe()
 
     def write_all_datafiles(self, filenames=None):
-        from pytraj.core import DataFileList
+        from pytraj.core.DataFileList import DataFileList
         df = DataFileList()
 
         for idx, d in enumerate(self):

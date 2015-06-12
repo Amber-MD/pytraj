@@ -4,7 +4,8 @@ from pytraj.base import *
 from pytraj import io as mdio
 from pytraj import adict
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj import DataSetList, DataFileList
+from pytraj.core.DataFileList import DataFileList
+from pytraj import DataSetList
 from pytraj.testing import cpptraj_test_dir, aa_eq
 
 class Test(unittest.TestCase):

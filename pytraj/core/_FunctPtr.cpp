@@ -242,8 +242,9 @@ class __Pyx_FakeReference {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__pytraj__BaseIOtype
-#define __PYX_HAVE_API__pytraj__BaseIOtype
+#define __PYX_HAVE__pytraj__core___FunctPtr
+#define __PYX_HAVE_API__pytraj__core___FunctPtr
+#include "DispatchObject.h"
 #include "BaseIOtype.h"
 #ifdef _OPENMP
 #include <omp.h>
@@ -427,39 +428,70 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pytraj/BaseIOtype.pyx",
+  "pytraj/core/_FunctPtr.pyx",
+  "pytraj/core/DispatchObject.pxd",
+  "pytraj/core/BaseIOtype.pxd",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype;
+struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject;
+struct __pyx_obj_6pytraj_4core_10BaseIOtype_BaseIOtype;
+struct __pyx_obj_6pytraj_4core_9_FunctPtr_FunctPtr;
 
-/* "pytraj/BaseIOtype.pxd":3
+/* "pytraj/core/DispatchObject.pxd":3
  * # distutil: language = c++
  * 
- * ctypedef _BaseIOtype* (*AllocatorType)()             # <<<<<<<<<<<<<<
- * ctypedef void (*HelpType)()
- * 
+ * ctypedef _DispatchObject* (*DispatchAllocatorType)()             # <<<<<<<<<<<<<<
+ * cdef extern from "DispatchObject.h":
+ *     cdef cppclass _DispatchObject "DispatchObject":
  */
-typedef BaseIOtype *(*__pyx_t_6pytraj_10BaseIOtype_AllocatorType)(void);
+typedef DispatchObject *(*__pyx_t_6pytraj_4core_14DispatchObject_DispatchAllocatorType)(void);
+typedef BaseIOtype *(*__pyx_t_6pytraj_4core_10BaseIOtype_AllocatorType)(void);
 
-/* "pytraj/BaseIOtype.pxd":4
+/* "pytraj/core/BaseIOtype.pxd":4
  * 
  * ctypedef _BaseIOtype* (*AllocatorType)()
  * ctypedef void (*HelpType)()             # <<<<<<<<<<<<<<
  * 
  * cdef extern from "BaseIOtype.h":
  */
-typedef void (*__pyx_t_6pytraj_10BaseIOtype_HelpType)(void);
+typedef void (*__pyx_t_6pytraj_4core_10BaseIOtype_HelpType)(void);
 
-/* "pytraj/BaseIOtype.pxd":12
+/* "pytraj/core/DispatchObject.pxd":8
+ *         pass
+ * 
+ * cdef class DispatchObject:             # <<<<<<<<<<<<<<
+ *     cdef _DispatchObject* thisptr
+ */
+struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject {
+  PyObject_HEAD
+  DispatchObject *thisptr;
+};
+
+
+/* "pytraj/core/BaseIOtype.pxd":12
  *         pass
  * 
  * cdef class BaseIOtype:             # <<<<<<<<<<<<<<
  *     cdef _BaseIOtype* baseptr0
  */
-struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype {
+struct __pyx_obj_6pytraj_4core_10BaseIOtype_BaseIOtype {
   PyObject_HEAD
   BaseIOtype *baseptr0;
+};
+
+
+/* "pytraj/core/_FunctPtr.pxd":6
+ * 
+ * # dummy class to hold function pointer
+ * cdef class FunctPtr:             # <<<<<<<<<<<<<<
+ *     cdef DispatchAllocatorType ptr
+ *     # used for BaseIOtype
+ */
+struct __pyx_obj_6pytraj_4core_9_FunctPtr_FunctPtr {
+  PyObject_HEAD
+  __pyx_t_6pytraj_4core_14DispatchObject_DispatchAllocatorType ptr;
+  __pyx_t_6pytraj_4core_10BaseIOtype_AllocatorType allocptr;
 };
 
 
@@ -556,48 +588,65 @@ static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 static int __Pyx_check_binary_version(void);
 
+#if !defined(__Pyx_PyIdentifier_FromString)
+#if PY_MAJOR_VERSION < 3
+  #define __Pyx_PyIdentifier_FromString(s) PyString_FromString(s)
+#else
+  #define __Pyx_PyIdentifier_FromString(s) PyUnicode_FromString(s)
+#endif
+#endif
+
+static PyObject *__Pyx_ImportModule(const char *name);
+
+static PyTypeObject *__Pyx_ImportType(const char *module_name, const char *class_name, size_t size, int strict);
+
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'pytraj.BaseIOtype' */
-static PyTypeObject *__pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = 0;
-#define __Pyx_MODULE_NAME "pytraj.BaseIOtype"
-int __pyx_module_is_main_pytraj__BaseIOtype = 0;
+/* Module declarations from 'pytraj.core.DispatchObject' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_14DispatchObject_DispatchObject = 0;
 
-/* Implementation of 'pytraj.BaseIOtype' */
-static int __pyx_pf_6pytraj_10BaseIOtype_10BaseIOtype___cinit__(CYTHON_UNUSED struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype *__pyx_v_self); /* proto */
-static void __pyx_pf_6pytraj_10BaseIOtype_10BaseIOtype_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype *__pyx_v_self); /* proto */
-static PyObject *__pyx_tp_new_6pytraj_10BaseIOtype_BaseIOtype(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+/* Module declarations from 'pytraj.core.BaseIOtype' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_10BaseIOtype_BaseIOtype = 0;
+
+/* Module declarations from 'pytraj.core._FunctPtr' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_9_FunctPtr_FunctPtr = 0;
+#define __Pyx_MODULE_NAME "pytraj.core._FunctPtr"
+int __pyx_module_is_main_pytraj__core___FunctPtr = 0;
+
+/* Implementation of 'pytraj.core._FunctPtr' */
+static int __pyx_pf_6pytraj_4core_9_FunctPtr_8FunctPtr___cinit__(CYTHON_UNUSED struct __pyx_obj_6pytraj_4core_9_FunctPtr_FunctPtr *__pyx_v_self); /* proto */
+static PyObject *__pyx_tp_new_6pytraj_4core_9_FunctPtr_FunctPtr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_test[] = "__test__";
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_test;
 
-/* "pytraj/BaseIOtype.pyx":5
+/* "pytraj/core/_FunctPtr.pyx":4
  * 
- * cdef class BaseIOtype:
+ * cdef class FunctPtr:
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
+ *         # just dummy class
  *         pass
- * 
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_10BaseIOtype_10BaseIOtype_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_6pytraj_10BaseIOtype_10BaseIOtype_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6pytraj_4core_9_FunctPtr_8FunctPtr_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_6pytraj_4core_9_FunctPtr_8FunctPtr_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
-  __pyx_r = __pyx_pf_6pytraj_10BaseIOtype_10BaseIOtype___cinit__(((struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_9_FunctPtr_8FunctPtr___cinit__(((struct __pyx_obj_6pytraj_4core_9_FunctPtr_FunctPtr *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_10BaseIOtype_10BaseIOtype___cinit__(CYTHON_UNUSED struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype *__pyx_v_self) {
+static int __pyx_pf_6pytraj_4core_9_FunctPtr_8FunctPtr___cinit__(CYTHON_UNUSED struct __pyx_obj_6pytraj_4core_9_FunctPtr_FunctPtr *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
@@ -608,34 +657,7 @@ static int __pyx_pf_6pytraj_10BaseIOtype_10BaseIOtype___cinit__(CYTHON_UNUSED st
   return __pyx_r;
 }
 
-/* "pytraj/BaseIOtype.pyx":8
- *         pass
- * 
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         pass
- * 
- */
-
-/* Python wrapper */
-static void __pyx_pw_6pytraj_10BaseIOtype_10BaseIOtype_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6pytraj_10BaseIOtype_10BaseIOtype_3__dealloc__(PyObject *__pyx_v_self) {
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6pytraj_10BaseIOtype_10BaseIOtype_2__dealloc__(((struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-}
-
-static void __pyx_pf_6pytraj_10BaseIOtype_10BaseIOtype_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype *__pyx_v_self) {
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__dealloc__", 0);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-}
-
-static PyObject *__pyx_tp_new_6pytraj_10BaseIOtype_BaseIOtype(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_6pytraj_4core_9_FunctPtr_FunctPtr(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -643,39 +665,31 @@ static PyObject *__pyx_tp_new_6pytraj_10BaseIOtype_BaseIOtype(PyTypeObject *t, C
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_6pytraj_10BaseIOtype_10BaseIOtype_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
+  if (unlikely(__pyx_pw_6pytraj_4core_9_FunctPtr_8FunctPtr_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
     Py_DECREF(o); o = 0;
   }
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_10BaseIOtype_BaseIOtype(PyObject *o) {
+static void __pyx_tp_dealloc_6pytraj_4core_9_FunctPtr_FunctPtr(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
   }
   #endif
-  {
-    PyObject *etype, *eval, *etb;
-    PyErr_Fetch(&etype, &eval, &etb);
-    ++Py_REFCNT(o);
-    __pyx_pw_6pytraj_10BaseIOtype_10BaseIOtype_3__dealloc__(o);
-    --Py_REFCNT(o);
-    PyErr_Restore(etype, eval, etb);
-  }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_6pytraj_10BaseIOtype_BaseIOtype[] = {
+static PyMethodDef __pyx_methods_6pytraj_4core_9_FunctPtr_FunctPtr[] = {
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_6pytraj_10BaseIOtype_BaseIOtype = {
+static PyTypeObject __pyx_type_6pytraj_4core_9_FunctPtr_FunctPtr = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.BaseIOtype.BaseIOtype", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_10BaseIOtype_BaseIOtype), /*tp_basicsize*/
+  "pytraj.core._FunctPtr.FunctPtr", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_4core_9_FunctPtr_FunctPtr), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_10BaseIOtype_BaseIOtype, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_4core_9_FunctPtr_FunctPtr, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -702,7 +716,7 @@ static PyTypeObject __pyx_type_6pytraj_10BaseIOtype_BaseIOtype = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6pytraj_10BaseIOtype_BaseIOtype, /*tp_methods*/
+  __pyx_methods_6pytraj_4core_9_FunctPtr_FunctPtr, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -712,7 +726,7 @@ static PyTypeObject __pyx_type_6pytraj_10BaseIOtype_BaseIOtype = {
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_10BaseIOtype_BaseIOtype, /*tp_new*/
+  __pyx_tp_new_6pytraj_4core_9_FunctPtr_FunctPtr, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -738,7 +752,7 @@ static struct PyModuleDef __pyx_moduledef = {
   #else
     PyModuleDef_HEAD_INIT,
   #endif
-    "BaseIOtype",
+    "_FunctPtr",
     0, /* m_doc */
     -1, /* m_size */
     __pyx_methods /* m_methods */,
@@ -773,11 +787,11 @@ static int __Pyx_InitGlobals(void) {
 }
 
 #if PY_MAJOR_VERSION < 3
-PyMODINIT_FUNC initBaseIOtype(void); /*proto*/
-PyMODINIT_FUNC initBaseIOtype(void)
+PyMODINIT_FUNC init_FunctPtr(void); /*proto*/
+PyMODINIT_FUNC init_FunctPtr(void)
 #else
-PyMODINIT_FUNC PyInit_BaseIOtype(void); /*proto*/
-PyMODINIT_FUNC PyInit_BaseIOtype(void)
+PyMODINIT_FUNC PyInit__FunctPtr(void); /*proto*/
+PyMODINIT_FUNC PyInit__FunctPtr(void)
 #endif
 {
   PyObject *__pyx_t_1 = NULL;
@@ -794,7 +808,7 @@ PyMODINIT_FUNC PyInit_BaseIOtype(void)
           Py_FatalError("failed to import 'refnanny' module");
   }
   #endif
-  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit_BaseIOtype(void)", 0);
+  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit__FunctPtr(void)", 0);
   if ( __Pyx_check_binary_version() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -816,7 +830,7 @@ PyMODINIT_FUNC PyInit_BaseIOtype(void)
   #endif
   /*--- Module creation code ---*/
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("BaseIOtype", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("_FunctPtr", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -833,14 +847,14 @@ PyMODINIT_FUNC PyInit_BaseIOtype(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_pytraj__BaseIOtype) {
+  if (__pyx_module_is_main_pytraj__core___FunctPtr) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "pytraj.BaseIOtype")) {
-      if (unlikely(PyDict_SetItemString(modules, "pytraj.BaseIOtype", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "pytraj.core._FunctPtr")) {
+      if (unlikely(PyDict_SetItemString(modules, "pytraj.core._FunctPtr", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -852,19 +866,21 @@ PyMODINIT_FUNC PyInit_BaseIOtype(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_6pytraj_10BaseIOtype_BaseIOtype) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_10BaseIOtype_BaseIOtype.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "BaseIOtype", (PyObject *)&__pyx_type_6pytraj_10BaseIOtype_BaseIOtype) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10BaseIOtype_BaseIOtype = &__pyx_type_6pytraj_10BaseIOtype_BaseIOtype;
+  if (PyType_Ready(&__pyx_type_6pytraj_4core_9_FunctPtr_FunctPtr) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_4core_9_FunctPtr_FunctPtr.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "FunctPtr", (PyObject *)&__pyx_type_6pytraj_4core_9_FunctPtr_FunctPtr) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_9_FunctPtr_FunctPtr = &__pyx_type_6pytraj_4core_9_FunctPtr_FunctPtr;
   /*--- Type import code ---*/
+  __pyx_ptype_6pytraj_4core_14DispatchObject_DispatchObject = __Pyx_ImportType("pytraj.core.DispatchObject", "DispatchObject", sizeof(struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_14DispatchObject_DispatchObject)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_10BaseIOtype_BaseIOtype = __Pyx_ImportType("pytraj.core.BaseIOtype", "BaseIOtype", sizeof(struct __pyx_obj_6pytraj_4core_10BaseIOtype_BaseIOtype), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_10BaseIOtype_BaseIOtype)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/BaseIOtype.pyx":1
- * # distutils: language = c++             # <<<<<<<<<<<<<<
+  /* "pytraj/core/_FunctPtr.pyx":1
+ * # distuils: language = c++             # <<<<<<<<<<<<<<
  * 
- * 
+ * cdef class FunctPtr:
  */
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -878,11 +894,11 @@ PyMODINIT_FUNC PyInit_BaseIOtype(void)
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pytraj.BaseIOtype", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pytraj.core._FunctPtr", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pytraj.BaseIOtype");
+    PyErr_SetString(PyExc_ImportError, "init pytraj.core._FunctPtr");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -1384,6 +1400,87 @@ static int __Pyx_check_binary_version(void) {
     }
     return 0;
 }
+
+#ifndef __PYX_HAVE_RT_ImportModule
+#define __PYX_HAVE_RT_ImportModule
+static PyObject *__Pyx_ImportModule(const char *name) {
+    PyObject *py_name = 0;
+    PyObject *py_module = 0;
+    py_name = __Pyx_PyIdentifier_FromString(name);
+    if (!py_name)
+        goto bad;
+    py_module = PyImport_Import(py_name);
+    Py_DECREF(py_name);
+    return py_module;
+bad:
+    Py_XDECREF(py_name);
+    return 0;
+}
+#endif
+
+#ifndef __PYX_HAVE_RT_ImportType
+#define __PYX_HAVE_RT_ImportType
+static PyTypeObject *__Pyx_ImportType(const char *module_name, const char *class_name,
+    size_t size, int strict)
+{
+    PyObject *py_module = 0;
+    PyObject *result = 0;
+    PyObject *py_name = 0;
+    char warning[200];
+    Py_ssize_t basicsize;
+#ifdef Py_LIMITED_API
+    PyObject *py_basicsize;
+#endif
+    py_module = __Pyx_ImportModule(module_name);
+    if (!py_module)
+        goto bad;
+    py_name = __Pyx_PyIdentifier_FromString(class_name);
+    if (!py_name)
+        goto bad;
+    result = PyObject_GetAttr(py_module, py_name);
+    Py_DECREF(py_name);
+    py_name = 0;
+    Py_DECREF(py_module);
+    py_module = 0;
+    if (!result)
+        goto bad;
+    if (!PyType_Check(result)) {
+        PyErr_Format(PyExc_TypeError,
+            "%.200s.%.200s is not a type object",
+            module_name, class_name);
+        goto bad;
+    }
+#ifndef Py_LIMITED_API
+    basicsize = ((PyTypeObject *)result)->tp_basicsize;
+#else
+    py_basicsize = PyObject_GetAttrString(result, "__basicsize__");
+    if (!py_basicsize)
+        goto bad;
+    basicsize = PyLong_AsSsize_t(py_basicsize);
+    Py_DECREF(py_basicsize);
+    py_basicsize = 0;
+    if (basicsize == (Py_ssize_t)-1 && PyErr_Occurred())
+        goto bad;
+#endif
+    if (!strict && (size_t)basicsize > size) {
+        PyOS_snprintf(warning, sizeof(warning),
+            "%s.%s size changed, may indicate binary incompatibility",
+            module_name, class_name);
+        if (PyErr_WarnEx(NULL, warning, 0) < 0) goto bad;
+    }
+    else if ((size_t)basicsize != size) {
+        PyErr_Format(PyExc_ValueError,
+            "%.200s.%.200s has the wrong size, try recompiling",
+            module_name, class_name);
+        goto bad;
+    }
+    return (PyTypeObject *)result;
+bad:
+    Py_XDECREF(py_module);
+    Py_XDECREF(result);
+    return NULL;
+}
+#endif
 
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
     while (t->p) {

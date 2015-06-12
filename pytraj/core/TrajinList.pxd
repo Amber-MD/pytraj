@@ -1,7 +1,10 @@
 # distutils: language = c++
-from pytraj.cpp_vector cimport vector as cppvector
-from pytraj.trajs.Trajin cimport *
-from pytraj.TopologyList cimport *
+from libcpp.string cimport string
+from ..cpp_vector cimport vector as cppvector
+from ..trajs.Trajin cimport _Trajin, Trajin
+from ..trajs.TrajectoryFile cimport _TrajectoryFile
+from .TopologyList cimport _TopologyList, TopologyList
+from ..ArgList cimport _ArgList, ArgList
 
 
 cdef extern from "TrajinList.h": 

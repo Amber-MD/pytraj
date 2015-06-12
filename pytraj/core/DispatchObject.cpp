@@ -242,8 +242,8 @@ class __Pyx_FakeReference {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__pytraj__DispatchObject
-#define __PYX_HAVE_API__pytraj__DispatchObject
+#define __PYX_HAVE__pytraj__core__DispatchObject
+#define __PYX_HAVE_API__pytraj__core__DispatchObject
 #include "DispatchObject.h"
 #ifdef _OPENMP
 #include <omp.h>
@@ -427,28 +427,28 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pytraj/DispatchObject.pyx",
+  "pytraj/core/DispatchObject.pyx",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_6pytraj_14DispatchObject_DispatchObject;
+struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject;
 
-/* "pytraj/DispatchObject.pxd":3
+/* "pytraj/core/DispatchObject.pxd":3
  * # distutil: language = c++
  * 
  * ctypedef _DispatchObject* (*DispatchAllocatorType)()             # <<<<<<<<<<<<<<
  * cdef extern from "DispatchObject.h":
  *     cdef cppclass _DispatchObject "DispatchObject":
  */
-typedef DispatchObject *(*__pyx_t_6pytraj_14DispatchObject_DispatchAllocatorType)(void);
+typedef DispatchObject *(*__pyx_t_6pytraj_4core_14DispatchObject_DispatchAllocatorType)(void);
 
-/* "pytraj/DispatchObject.pxd":8
+/* "pytraj/core/DispatchObject.pxd":8
  *         pass
  * 
  * cdef class DispatchObject:             # <<<<<<<<<<<<<<
  *     cdef _DispatchObject* thisptr
  */
-struct __pyx_obj_6pytraj_14DispatchObject_DispatchObject {
+struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject {
   PyObject_HEAD
   DispatchObject *thisptr;
 };
@@ -589,21 +589,21 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'pytraj.DispatchObject' */
-static PyTypeObject *__pyx_ptype_6pytraj_14DispatchObject_DispatchObject = 0;
-#define __Pyx_MODULE_NAME "pytraj.DispatchObject"
-int __pyx_module_is_main_pytraj__DispatchObject = 0;
+/* Module declarations from 'pytraj.core.DispatchObject' */
+static PyTypeObject *__pyx_ptype_6pytraj_4core_14DispatchObject_DispatchObject = 0;
+#define __Pyx_MODULE_NAME "pytraj.core.DispatchObject"
+int __pyx_module_is_main_pytraj__core__DispatchObject = 0;
 
-/* Implementation of 'pytraj.DispatchObject' */
-static int __pyx_pf_6pytraj_14DispatchObject_14DispatchObject___cinit__(struct __pyx_obj_6pytraj_14DispatchObject_DispatchObject *__pyx_v_self); /* proto */
-static void __pyx_pf_6pytraj_14DispatchObject_14DispatchObject_2__dealloc__(struct __pyx_obj_6pytraj_14DispatchObject_DispatchObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_tp_new_6pytraj_14DispatchObject_DispatchObject(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+/* Implementation of 'pytraj.core.DispatchObject' */
+static int __pyx_pf_6pytraj_4core_14DispatchObject_14DispatchObject___cinit__(struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject *__pyx_v_self); /* proto */
+static void __pyx_pf_6pytraj_4core_14DispatchObject_14DispatchObject_2__dealloc__(struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_tp_new_6pytraj_4core_14DispatchObject_DispatchObject(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_test[] = "__test__";
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_test;
 
-/* "pytraj/DispatchObject.pyx":5
+/* "pytraj/core/DispatchObject.pyx":5
  * 
  * cdef class DispatchObject:
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -612,22 +612,22 @@ static PyObject *__pyx_n_s_test;
  */
 
 /* Python wrapper */
-static int __pyx_pw_6pytraj_14DispatchObject_14DispatchObject_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_6pytraj_14DispatchObject_14DispatchObject_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_6pytraj_4core_14DispatchObject_14DispatchObject_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_6pytraj_4core_14DispatchObject_14DispatchObject_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
-  __pyx_r = __pyx_pf_6pytraj_14DispatchObject_14DispatchObject___cinit__(((struct __pyx_obj_6pytraj_14DispatchObject_DispatchObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_4core_14DispatchObject_14DispatchObject___cinit__(((struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6pytraj_14DispatchObject_14DispatchObject___cinit__(struct __pyx_obj_6pytraj_14DispatchObject_DispatchObject *__pyx_v_self) {
+static int __pyx_pf_6pytraj_4core_14DispatchObject_14DispatchObject___cinit__(struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   DispatchObject *__pyx_t_1;
@@ -636,7 +636,7 @@ static int __pyx_pf_6pytraj_14DispatchObject_14DispatchObject___cinit__(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pytraj/DispatchObject.pyx":6
+  /* "pytraj/core/DispatchObject.pyx":6
  * cdef class DispatchObject:
  *     def __cinit__(self):
  *         self.thisptr = new _DispatchObject()             # <<<<<<<<<<<<<<
@@ -651,7 +651,7 @@ static int __pyx_pf_6pytraj_14DispatchObject_14DispatchObject___cinit__(struct _
   }
   __pyx_v_self->thisptr = __pyx_t_1;
 
-  /* "pytraj/DispatchObject.pyx":5
+  /* "pytraj/core/DispatchObject.pyx":5
  * 
  * cdef class DispatchObject:
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -663,14 +663,14 @@ static int __pyx_pf_6pytraj_14DispatchObject_14DispatchObject___cinit__(struct _
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("pytraj.DispatchObject.DispatchObject.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.core.DispatchObject.DispatchObject.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "pytraj/DispatchObject.pyx":8
+/* "pytraj/core/DispatchObject.pyx":8
  *         self.thisptr = new _DispatchObject()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -678,28 +678,28 @@ static int __pyx_pf_6pytraj_14DispatchObject_14DispatchObject___cinit__(struct _
  */
 
 /* Python wrapper */
-static void __pyx_pw_6pytraj_14DispatchObject_14DispatchObject_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_6pytraj_14DispatchObject_14DispatchObject_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_6pytraj_4core_14DispatchObject_14DispatchObject_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_6pytraj_4core_14DispatchObject_14DispatchObject_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_6pytraj_14DispatchObject_14DispatchObject_2__dealloc__(((struct __pyx_obj_6pytraj_14DispatchObject_DispatchObject *)__pyx_v_self));
+  __pyx_pf_6pytraj_4core_14DispatchObject_14DispatchObject_2__dealloc__(((struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_6pytraj_14DispatchObject_14DispatchObject_2__dealloc__(struct __pyx_obj_6pytraj_14DispatchObject_DispatchObject *__pyx_v_self) {
+static void __pyx_pf_6pytraj_4core_14DispatchObject_14DispatchObject_2__dealloc__(struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pytraj/DispatchObject.pyx":9
+  /* "pytraj/core/DispatchObject.pyx":9
  * 
  *     def __dealloc__(self):
  *         del self.thisptr             # <<<<<<<<<<<<<<
  */
   delete __pyx_v_self->thisptr;
 
-  /* "pytraj/DispatchObject.pyx":8
+  /* "pytraj/core/DispatchObject.pyx":8
  *         self.thisptr = new _DispatchObject()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -710,7 +710,7 @@ static void __pyx_pf_6pytraj_14DispatchObject_14DispatchObject_2__dealloc__(stru
   __Pyx_RefNannyFinishContext();
 }
 
-static PyObject *__pyx_tp_new_6pytraj_14DispatchObject_DispatchObject(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_6pytraj_4core_14DispatchObject_DispatchObject(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -718,13 +718,13 @@ static PyObject *__pyx_tp_new_6pytraj_14DispatchObject_DispatchObject(PyTypeObje
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_6pytraj_14DispatchObject_14DispatchObject_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
+  if (unlikely(__pyx_pw_6pytraj_4core_14DispatchObject_14DispatchObject_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
     Py_DECREF(o); o = 0;
   }
   return o;
 }
 
-static void __pyx_tp_dealloc_6pytraj_14DispatchObject_DispatchObject(PyObject *o) {
+static void __pyx_tp_dealloc_6pytraj_4core_14DispatchObject_DispatchObject(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -734,23 +734,23 @@ static void __pyx_tp_dealloc_6pytraj_14DispatchObject_DispatchObject(PyObject *o
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_6pytraj_14DispatchObject_14DispatchObject_3__dealloc__(o);
+    __pyx_pw_6pytraj_4core_14DispatchObject_14DispatchObject_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_6pytraj_14DispatchObject_DispatchObject[] = {
+static PyMethodDef __pyx_methods_6pytraj_4core_14DispatchObject_DispatchObject[] = {
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_6pytraj_14DispatchObject_DispatchObject = {
+static PyTypeObject __pyx_type_6pytraj_4core_14DispatchObject_DispatchObject = {
   PyVarObject_HEAD_INIT(0, 0)
-  "pytraj.DispatchObject.DispatchObject", /*tp_name*/
-  sizeof(struct __pyx_obj_6pytraj_14DispatchObject_DispatchObject), /*tp_basicsize*/
+  "pytraj.core.DispatchObject.DispatchObject", /*tp_name*/
+  sizeof(struct __pyx_obj_6pytraj_4core_14DispatchObject_DispatchObject), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_6pytraj_14DispatchObject_DispatchObject, /*tp_dealloc*/
+  __pyx_tp_dealloc_6pytraj_4core_14DispatchObject_DispatchObject, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -777,7 +777,7 @@ static PyTypeObject __pyx_type_6pytraj_14DispatchObject_DispatchObject = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_6pytraj_14DispatchObject_DispatchObject, /*tp_methods*/
+  __pyx_methods_6pytraj_4core_14DispatchObject_DispatchObject, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -787,7 +787,7 @@ static PyTypeObject __pyx_type_6pytraj_14DispatchObject_DispatchObject = {
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_6pytraj_14DispatchObject_DispatchObject, /*tp_new*/
+  __pyx_tp_new_6pytraj_4core_14DispatchObject_DispatchObject, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -908,14 +908,14 @@ PyMODINIT_FUNC PyInit_DispatchObject(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_pytraj__DispatchObject) {
+  if (__pyx_module_is_main_pytraj__core__DispatchObject) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "pytraj.DispatchObject")) {
-      if (unlikely(PyDict_SetItemString(modules, "pytraj.DispatchObject", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "pytraj.core.DispatchObject")) {
+      if (unlikely(PyDict_SetItemString(modules, "pytraj.core.DispatchObject", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -927,16 +927,16 @@ PyMODINIT_FUNC PyInit_DispatchObject(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_6pytraj_14DispatchObject_DispatchObject) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_6pytraj_14DispatchObject_DispatchObject.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "DispatchObject", (PyObject *)&__pyx_type_6pytraj_14DispatchObject_DispatchObject) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_14DispatchObject_DispatchObject = &__pyx_type_6pytraj_14DispatchObject_DispatchObject;
+  if (PyType_Ready(&__pyx_type_6pytraj_4core_14DispatchObject_DispatchObject) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_6pytraj_4core_14DispatchObject_DispatchObject.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "DispatchObject", (PyObject *)&__pyx_type_6pytraj_4core_14DispatchObject_DispatchObject) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 4; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_4core_14DispatchObject_DispatchObject = &__pyx_type_6pytraj_4core_14DispatchObject_DispatchObject;
   /*--- Type import code ---*/
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/DispatchObject.pyx":1
+  /* "pytraj/core/DispatchObject.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * 
  * 
@@ -953,11 +953,11 @@ PyMODINIT_FUNC PyInit_DispatchObject(void)
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pytraj.DispatchObject", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pytraj.core.DispatchObject", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pytraj.DispatchObject");
+    PyErr_SetString(PyExc_ImportError, "init pytraj.core.DispatchObject");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

@@ -1,7 +1,7 @@
 # distutils: language = c++
 from __future__ import absolute_import
 from .CpptrajState cimport *
-from .ArgList cimport *
+from ..ArgList cimport *
 from .DispatchObject cimport *
 from ._FunctPtr cimport FunctPtr
 

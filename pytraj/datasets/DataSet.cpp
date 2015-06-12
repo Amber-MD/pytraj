@@ -1004,6 +1004,7 @@ static char __pyx_k_numpy[] = "numpy";
 static char __pyx_k_range[] = "range";
 static char __pyx_k_strip[] = "strip";
 static char __pyx_k_upper[] = "upper";
+static char __pyx_k_utils[] = "utils";
 static char __pyx_k_width[] = "width";
 static char __pyx_k_append[] = "append";
 static char __pyx_k_aspect[] = "aspect";
@@ -1050,6 +1051,7 @@ static char __pyx_k_column_width[] = "column_width";
 static char __pyx_k_cpptraj_dict[] = "cpptraj_dict";
 static char __pyx_k_import_numpy[] = "_import_numpy";
 static char __pyx_k_pytraj_utils[] = "pytraj.utils";
+static char __pyx_k_core_DataFile[] = "core.DataFile";
 static char __pyx_k_pytraj__utils[] = "pytraj._utils";
 static char __pyx_k_require_numpy[] = "require numpy";
 static char __pyx_k_NotImplemented[] = "NotImplemented";
@@ -1091,6 +1093,7 @@ static PyObject *__pyx_n_s_class;
 static PyObject *__pyx_n_s_class_name;
 static PyObject *__pyx_n_s_column_width;
 static PyObject *__pyx_n_s_copy;
+static PyObject *__pyx_n_s_core_DataFile;
 static PyObject *__pyx_n_s_core_DataFileList;
 static PyObject *__pyx_n_s_cpptraj;
 static PyObject *__pyx_n_s_cpptraj_dict;
@@ -1158,6 +1161,7 @@ static PyObject *__pyx_n_s_strip;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_to_ndarray;
 static PyObject *__pyx_n_s_upper;
+static PyObject *__pyx_n_s_utils;
 static PyObject *__pyx_n_s_values;
 static PyObject *__pyx_n_s_width;
 static PyObject *__pyx_n_s_write_data;
@@ -9255,6 +9259,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_class_name, __pyx_k_class_name, sizeof(__pyx_k_class_name), 0, 0, 1, 1},
   {&__pyx_n_s_column_width, __pyx_k_column_width, sizeof(__pyx_k_column_width), 0, 0, 1, 1},
   {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
+  {&__pyx_n_s_core_DataFile, __pyx_k_core_DataFile, sizeof(__pyx_k_core_DataFile), 0, 0, 1, 1},
   {&__pyx_n_s_core_DataFileList, __pyx_k_core_DataFileList, sizeof(__pyx_k_core_DataFileList), 0, 0, 1, 1},
   {&__pyx_n_s_cpptraj, __pyx_k_cpptraj, sizeof(__pyx_k_cpptraj), 0, 0, 1, 1},
   {&__pyx_n_s_cpptraj_dict, __pyx_k_cpptraj_dict, sizeof(__pyx_k_cpptraj_dict), 0, 0, 1, 1},
@@ -9322,6 +9327,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_to_ndarray, __pyx_k_to_ndarray, sizeof(__pyx_k_to_ndarray), 0, 0, 1, 1},
   {&__pyx_n_s_upper, __pyx_k_upper, sizeof(__pyx_k_upper), 0, 0, 1, 1},
+  {&__pyx_n_s_utils, __pyx_k_utils, sizeof(__pyx_k_utils), 0, 0, 1, 1},
   {&__pyx_n_s_values, __pyx_k_values, sizeof(__pyx_k_values), 0, 0, 1, 1},
   {&__pyx_n_s_width, __pyx_k_width, sizeof(__pyx_k_width), 0, 0, 1, 1},
   {&__pyx_n_s_write_data, __pyx_k_write_data, sizeof(__pyx_k_write_data), 0, 0, 1, 1},
@@ -9657,7 +9663,7 @@ PyMODINIT_FUNC PyInit_DataSet(void)
  * from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
  * from ..decorators import makesureABC, require_having             # <<<<<<<<<<<<<<
  * from ..core.DataFileList import DataFileList
- * from ..DataFile import DataFile
+ * from ..core.DataFile import DataFile
  */
   __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 5; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -9684,8 +9690,8 @@ PyMODINIT_FUNC PyInit_DataSet(void)
  * from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
  * from ..decorators import makesureABC, require_having
  * from ..core.DataFileList import DataFileList             # <<<<<<<<<<<<<<
- * from ..DataFile import DataFile
- * from pytraj.utils import _import_numpy
+ * from ..core.DataFile import DataFile
+ * from ..utils import _import_numpy
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -9704,8 +9710,8 @@ PyMODINIT_FUNC PyInit_DataSet(void)
   /* "pytraj/datasets/DataSet.pyx":7
  * from ..decorators import makesureABC, require_having
  * from ..core.DataFileList import DataFileList
- * from ..DataFile import DataFile             # <<<<<<<<<<<<<<
- * from pytraj.utils import _import_numpy
+ * from ..core.DataFile import DataFile             # <<<<<<<<<<<<<<
+ * from ..utils import _import_numpy
  * 
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -9713,7 +9719,7 @@ PyMODINIT_FUNC PyInit_DataSet(void)
   __Pyx_INCREF(__pyx_n_s_DataFile);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_DataFile);
   __Pyx_GIVEREF(__pyx_n_s_DataFile);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_DataFile, __pyx_t_2, 2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_core_DataFile, __pyx_t_2, 2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_DataFile); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -9724,8 +9730,8 @@ PyMODINIT_FUNC PyInit_DataSet(void)
 
   /* "pytraj/datasets/DataSet.pyx":8
  * from ..core.DataFileList import DataFileList
- * from ..DataFile import DataFile
- * from pytraj.utils import _import_numpy             # <<<<<<<<<<<<<<
+ * from ..core.DataFile import DataFile
+ * from ..utils import _import_numpy             # <<<<<<<<<<<<<<
  * 
  * _, np = _import_numpy()
  */
@@ -9734,7 +9740,7 @@ PyMODINIT_FUNC PyInit_DataSet(void)
   __Pyx_INCREF(__pyx_n_s_import_numpy);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_import_numpy);
   __Pyx_GIVEREF(__pyx_n_s_import_numpy);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj_utils, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_utils, __pyx_t_1, 2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_import_numpy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -9744,7 +9750,7 @@ PyMODINIT_FUNC PyInit_DataSet(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pytraj/datasets/DataSet.pyx":10
- * from pytraj.utils import _import_numpy
+ * from ..utils import _import_numpy
  * 
  * _, np = _import_numpy()             # <<<<<<<<<<<<<<
  * 

@@ -9,7 +9,7 @@ from pytraj.Topology import Topology
 from .ArgList import ArgList
 from .AtomMask import AtomMask
 from .math import Vec3
-from .CpptrajState import CpptrajState
+from .core.CpptrajState import CpptrajState
 from .Frame import Frame
 from .Trajectory import Trajectory
 from .TrajectoryIterator import TrajectoryIterator
@@ -29,11 +29,10 @@ from .io import  (load, iterload, load_remd, iterload_remd,
                   load_topology, read_parm, write_parm, 
                   save, write_traj,
                   read_pickle, read_json,
-                  to_dataframe, to_pickle, to_json,
+                  to_pickle, to_json,
                   )
 
 # dataset stuff
-from .dataframe import to_dataframe
 from .data_sample.load_sample_data import load_sample_data
 from .DataSetList import DataSetList
 
@@ -54,8 +53,6 @@ from ._shared_methods import _frame_iter_master as frame_iter_master
 # turn off verbose in cpptraj
 # TODO: need to move set_world_silent and set_error_silent to the same file
 from ._set_silent import set_error_silent, set_world_silent
+from ._set_silent import set_world_silent as set_cpptraj_verbose
 
 set_world_silent(True)
-
-# we still need cpptraj notify error
-#set_error_silent(True)

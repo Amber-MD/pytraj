@@ -9,7 +9,6 @@ from libc.string cimport memcpy
 from .Topology cimport Topology
 from .AtomMask cimport AtomMask
 from ._utils cimport get_positive_idx
-from .TrajinList cimport TrajinList
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
 from .actions.Action_Rmsd cimport Action_Rmsd
@@ -143,7 +142,6 @@ cdef class Trajectory (object):
         # should we add hdf5 format here?
         #cdef Trajin_Single ts
         cdef int idx
-        cdef TrajinList tlist
         cdef Frame frame
         cdef Trajin trajin
 
@@ -207,16 +205,6 @@ cdef class Trajectory (object):
                     self.append_xyz(_xyz)
                 except:
                     raise ValueError("must be a list/tuple of either filenames/Traj/numbers")
-        elif isinstance(filename, TrajinList):
-            # load from TrajinList
-            if indices is not None:
-                if self.warning:
-                    print ("Loading from TrajinList. Ignore `indices`")
-            tlist = <TrajinList> filename
-            for trajin in tlist:
-                trajin.top = tlist.top
-                for frame in trajin:
-                    self.append(frame)
         elif hasattr(filename, 'n_frames') and not is_mdtraj(filename):
             # load from Traj-like object
             # make temp traj to remind about traj-like

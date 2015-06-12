@@ -1,18 +1,18 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
 from libcpp.string cimport string
-from pytraj.DispatchObject cimport DispatchAllocatorType
-from libcpp.vector cimport vector
-from pytraj.TrajinList cimport _TrajinList, TrajinList
-from pytraj.ArgList cimport _ArgList, ArgList
-from pytraj.TopologyList cimport _TopologyList, TopologyList
-from pytraj.datasets.DataSetList cimport _DataSetList, DataSetList
-from pytraj.core.DataFileList cimport _DataFileList, DataFileList
-from pytraj.ActionList cimport _ActionList, ActionList
-from pytraj.AnalysisList cimport _AnalysisList, AnalysisList
-from pytraj._FunctPtr cimport FunctPtr
-from pytraj.DataFile cimport _DataFile, DataFile
-from pytraj.FileName cimport _FileName, FileName
+
+from .DispatchObject cimport DispatchAllocatorType
+from .TopologyList cimport _TopologyList, TopologyList
+from .DataFileList cimport _DataFileList, DataFileList
+from .ActionList cimport _ActionList, ActionList
+from ._FunctPtr cimport FunctPtr
+from .DataFile cimport _DataFile, DataFile
+from .FileName cimport _FileName, FileName
+from .TrajinList cimport _TrajinList, TrajinList
+
+from ..ArgList cimport _ArgList, ArgList
+from ..datasets.DataSetList cimport _DataSetList, DataSetList
 
 
 cdef extern from "CpptrajState.h": 

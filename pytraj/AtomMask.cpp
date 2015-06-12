@@ -3649,11 +3649,11 @@ static PyObject *__pyx_pf_6pytraj_8AtomMask_8AtomMask_23add_selected_indices(str
       __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       goto __pyx_L11_try_end;
       __pyx_L4_error:;
+      __PYX_XDEC_MEMVIEW(&__pyx_t_7, 1);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __PYX_XDEC_MEMVIEW(&__pyx_t_7, 1);
 
       /* "pytraj/AtomMask.pyx":134
  *             try:

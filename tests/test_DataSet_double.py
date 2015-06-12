@@ -1,6 +1,5 @@
 import unittest
 from pytraj import datasets
-from pytraj.CpptrajFile import CpptrajFile
 from pytraj.datasets.DataSet_double import DataSet_double
 import numpy as np
 from array import array
@@ -39,13 +38,6 @@ class TestDataSetDB(unittest.TestCase):
         dset0.append(50, idx=99)
         assert dset0.size == 100
         assert dset0[99] == 50.
-
-        # test write_buffer
-        with CpptrajFile("./output/test0.dat", 'w') as cppfile:
-            print(cppfile.is_open())
-            for i in range(dset0.size):
-                dset0.write_buffer(cppfile, i)
-        #dset0.write_buffer(cppfile, 100)
 
         # update elements
         dset0.data[:10] = np.empty(10, dtype=np.float64)

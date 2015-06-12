@@ -1,6 +1,5 @@
 # distutils: language = c++
 from .DataSet cimport _DataSet, DataSet, DataType
-from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
 from ..math.Vec3 cimport _Vec3, Vec3
 
 

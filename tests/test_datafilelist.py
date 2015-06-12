@@ -10,7 +10,7 @@ import pytraj.common_actions as pyca
 
 class Test(unittest.TestCase):
     def test_0(self):
-        from pytraj import DataFileList
+        from pytraj.core.DataFileList import DataFileList
         df = DataFileList()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = traj.calc_dssp(dtype='dataset')

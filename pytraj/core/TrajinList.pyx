@@ -1,15 +1,14 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
-from pytraj._utils cimport get_positive_idx
-from pytraj.trajs.Trajin_Single cimport _Trajin_Single, Trajin_Single
-from pytraj.trajs.Trajin_Single cimport Trajin_Single as TrajectoryREMDIterator
-from pytraj.TrajectoryREMDIterator cimport TrajectoryREMDIterator
+from .._utils cimport get_positive_idx
+from ..trajs.Trajin_Single cimport _Trajin_Single, Trajin_Single
+from ..trajs.Trajin_Single cimport Trajin_Single as TrajectoryREMDIterator
+from ..TrajectoryREMDIterator cimport TrajectoryREMDIterator
 
-from pytraj.TrajectoryIterator import TrajectoryIterator
-from pytraj.externals.six import string_types
-from pytraj.cpptraj_dict import TrajModeDict, get_key
-
+from ..TrajectoryIterator import TrajectoryIterator
+from ..externals.six import string_types
+from ..cpptraj_dict import TrajModeDict, get_key
 
 
 cdef class TrajinList:
@@ -155,25 +154,9 @@ cdef class TrajinList:
     def is_empty(self):
         return self.thisptr.empty()
 
-    @property
-    def mode(self):
-        return get_key(self.thisptr.Mode(), TrajModeDict)
-
-    def front(self):
-        # TODO: add doc
-        cdef Trajin trajin = Trajin()
-        # create memoryview
-        trajin.baseptr_1 = <_Trajin*> self.thisptr.front()
-        # make sure two pointers pointing to the same address
-        trajin.baseptr0 = <_TrajectoryFile*> trajin.baseptr_1
-        return trajin
-
     def append(self, Trajin trajin):
         raise NotImplementedError("not yet")
 
     @property
     def max_frames(self):
         return self.thisptr.MaxFrames()
-
-    def printlist(self):
-        self.thisptr.List()

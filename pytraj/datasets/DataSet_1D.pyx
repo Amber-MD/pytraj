@@ -45,9 +45,6 @@ cdef class DataSet_1D (DataSet):
     def allocate_1D(self, size_t sizet):
         return self.baseptr_1.Allocate1D(sizet)
 
-    def write_buffer(self, CpptrajFile cppfile, size_t sizet):
-        self.baseptr_1.WriteBuffer(cppfile.thisptr[0], sizet)
-
     def _d_val(self, size_t sizet):
         return self.baseptr_1.Dval(sizet)
 
