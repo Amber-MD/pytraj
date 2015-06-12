@@ -38,7 +38,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionInTraj):
         from itertools import tee
         return tee(self, n_iters)
 
-    def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False, rmsfit_to=None):
+    def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False, rmsfit=None):
         """frame iterator
 
         Parameters
