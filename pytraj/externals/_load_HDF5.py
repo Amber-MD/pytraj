@@ -1,10 +1,5 @@
 from __future__ import absolute_import
 from .six import string_types
-from ..Topology import Topology
-from ..Trajectory import Trajectory
-from ..Frame import Frame
-from ..core import Atom, Box
-from ..core import mass_atomic_number_dict, mass_element_dict
 
 def load_hdf5(filename_or_buffer, autoconvert=True, restype=None, top=None):
     """"load hd5f format from openmm (?)
@@ -24,6 +19,7 @@ def load_hdf5(filename_or_buffer, autoconvert=True, restype=None, top=None):
         traj = io.load_hdf5(fname, autoconvert=False)
         print (traj)
     """
+
     try:
         import h5py
     except ImportError:
@@ -45,6 +41,11 @@ def load_hdf5(filename_or_buffer, autoconvert=True, restype=None, top=None):
 
 def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None, top=None):
     import json
+    from ..Topology import Topology
+    from ..Trajectory import Trajectory
+    from ..Frame import Frame
+    from ..core import Atom, Box
+    from ..core import mass_atomic_number_dict, mass_element_dict
     # NOTE: always use `np.float64` in pytraj
     if autoconvert:
         UNIT = 10.

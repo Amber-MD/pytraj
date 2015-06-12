@@ -1,15 +1,9 @@
 """Load external parm object
 """
 from __future__ import absolute_import
-from pytraj.utils import has_, _import_numpy
-from pytraj.Trajectory import Trajectory
-from pytraj.Topology import Topology
-from pytraj.core.Atom import Atom
-from pytraj.Frame import Frame
-from pytraj.utils.check_and_assert import is_mdtraj, is_mdanalysis
-_, np = _import_numpy()
 
 __all__ = ['load_pseudo_parm']
+
 
 def load_pseudo_parm(parm, guess_bond=True):
     """load_external's parm objects
@@ -19,6 +13,14 @@ def load_pseudo_parm(parm, guess_bond=True):
     parm : external Topology/Parm objects (mdtraj, parmed) 
         or Universe object (MDAnalysis)
     """
+    from pytraj.utils import has_, _import_numpy
+    from pytraj.Trajectory import Trajectory
+    from pytraj.Topology import Topology
+    from pytraj.core.Atom import Atom
+    from pytraj.Frame import Frame
+    from pytraj.utils.check_and_assert import is_mdtraj, is_mdanalysis
+    _, np = _import_numpy()
+
     from pytraj.core import Box
     farray = Trajectory()
 

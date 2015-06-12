@@ -6,7 +6,6 @@ from pytraj.Trajectory import Trajectory
 from ._load_pseudo_parm import load_pseudo_parm
 from ..Frame import Frame
 
-_, np = _import_numpy()
 
 def load_mdtraj(m_traj, autoconvert=True, top=None):
     """load_mdtraj traj object
@@ -18,6 +17,8 @@ def load_mdtraj(m_traj, autoconvert=True, top=None):
         convert from "nm" (mdtraj )to "Angstrom" (pytraj)
     """
     from pytraj.core import Box
+    _, np = _import_numpy()
+
     if autoconvert:
         unit = 10.
     else:
