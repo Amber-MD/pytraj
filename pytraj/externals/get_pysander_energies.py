@@ -44,7 +44,7 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         energy_decomposition([frame0, frame1], top=my_topology_object)
 
         # with provided ParmEd object
-        import chemistry as chem
+        import parmed as chem
         parm = chem.load_file("myfile.prmtop")
         energy_decomposition(traj, parm=parm, igb=5)
     """
@@ -54,9 +54,9 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
     try:
         import sander
         # support AmberParm only?
-        from chemistry.amber.readparm import AmberParm
+        from parmed.amber.readparm import AmberParm
     except ImportError:
-        raise ImportError("need both `pysander` and `chemistry` installed. Check Ambertools15")
+        raise ImportError("need both `pysander` and `parmed` installed. Check Ambertools15")
 
     ddict = defaultdict(lambda : pyarray('d', []))
     _top = _get_top(traj, top)

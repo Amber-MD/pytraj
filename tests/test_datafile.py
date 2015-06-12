@@ -11,7 +11,7 @@ import pytraj.common_actions as pyca
 class Test(unittest.TestCase):
     def test_0(self):
         # basic (long)
-        from pytraj.DataFileList import DataFileList
+        from pytraj.core.DataFileList import DataFileList
         from pytraj import ArgList
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ds = pyca.calc_molsurf(traj)

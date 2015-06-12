@@ -31,7 +31,8 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ds = traj.search_hbonds()
         ds0 = ds[0]
-        assert np.mean(ds0) == ds0.avg()
+        print (ds0)
+        assert np.mean(ds0.values) == ds0.avg()
         assert np.sum(ds0) == np.sum(ds0.data)
 
         print ("test split")

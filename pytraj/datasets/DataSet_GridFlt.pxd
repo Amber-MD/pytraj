@@ -4,7 +4,6 @@ from .DataSet cimport _DataSet, DataSet
 from .DataSet_3D cimport _DataSet_3D, DataSet_3D
 from ..math.Grid cimport _Grid
 from ..math.Vec3 cimport _Vec3, Vec3
-from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
 
 
 cdef extern from "DataSet_GridFlt.h": 
@@ -17,7 +16,6 @@ cdef extern from "DataSet_GridFlt.h":
         int Sync() 
         void Info() const 
         int Allocate3D(size_t x, size_t y, size_t z)
-        void Write3D(_CpptrajFile&, int, int, int) const 
         double GetElement(int x, int y, int z) const 
         void SetElement(int x, int y, int z, float v)
         double operator[](size_t idx) const 

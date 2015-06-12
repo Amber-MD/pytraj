@@ -41,7 +41,7 @@ class TestRadgyr(unittest.TestCase):
             print(fnew[0].rmsd(farray[0]))
 
     def test_1(self):
-        from pytraj.ActionList import ActionList
+        from pytraj.core.ActionList import ActionList
         farray = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")[:2]
         f_old = farray.copy()
         print("old file: ", f_old[0, 0, :])

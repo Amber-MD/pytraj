@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 from libcpp.string cimport string
 from .TrajectoryIO cimport _TrajectoryIO, TrajectoryIO
-from ..FileName cimport *
+from ..core.FileName cimport *
 from ..ArgList cimport _ArgList, ArgList
 from ..Topology cimport _Topology, Topology
 

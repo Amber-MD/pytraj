@@ -9,7 +9,7 @@ my_script = sys.argv[0]
 try:
     verbose = sys.argv[1] in ['-verbose', 'verbose', '-v']
     need_help = sys.argv[1] in ['help', '-help', '--help']
-    do_simple_test = sys.argv[1] in ['simple', 'minimal', '-simple', '-minimal']
+    do_simple_test = sys.argv[1] in ['simple', 'minimal', '-simple', '-minimal', 'sim']
 except:
     verbose = False
     need_help = False

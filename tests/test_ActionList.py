@@ -5,6 +5,7 @@ from pytraj.base import *
 from pytraj import allactions
 from pytraj import io as mdio
 from pytraj import adict
+from pytraj.datasets import cast_dataset
 
 class TestActionList(unittest.TestCase):
     def test_run_0(self):

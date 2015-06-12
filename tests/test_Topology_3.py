@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
     def test_2(self):
         print ("test _original_filename")
         fname = top._original_filename
-        parm = mdio._load_chem(fname)
+        parm = mdio._load_parmed(fname)
         assert parm.__str__() == fname
 
 if __name__ == "__main__":

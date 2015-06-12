@@ -53,7 +53,7 @@ class Test(unittest.TestCase):
         Frame()
         Trajectory()
         TrajectoryIterator()
-        TrajinList.TrajinList()
+        core.TrajinList.TrajinList()
 
     def test_5(self):
         print ("other stuff. throw all tests don't belong anywhere else here")

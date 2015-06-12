@@ -38,6 +38,11 @@ class Test(unittest.TestCase):
             print (d0.scalar_mode)
             print (d0.scalar_type)
 
+        dslist3 = traj.search_hbonds()
+        print (dslist3[:5].values)
+        dslist3[:5].savetxt("./output/test_dslist_savetxt.txt",
+                            labels="\t".join("test" for _ in range(5)))
+
 
 if __name__ == "__main__":
     unittest.main()

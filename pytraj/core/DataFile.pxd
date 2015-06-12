@@ -1,10 +1,10 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from pytraj.datasets.DataIO cimport *
-from pytraj.datasets.DataSet cimport _DataSet, DataSet
-from pytraj.ArgList cimport _ArgList, ArgList
-from pytraj.DataSetList cimport _DataSetList, DataSetList
-from pytraj.FileName cimport _FileName, FileName
+from ..datasets.DataIO cimport *
+from ..datasets.DataSet cimport _DataSet, DataSet
+from ..ArgList cimport _ArgList, ArgList
+from ..datasets.DataSetList cimport _DataSetList, DataSetList
+from .FileName cimport _FileName, FileName
 
 
 cdef extern from "DataFile.h": 

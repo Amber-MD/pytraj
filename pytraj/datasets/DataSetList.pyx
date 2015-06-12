@@ -1,22 +1,24 @@
 # distutils: language = c++
+from __future__ import absolute_import
+
 from python_ref cimport Py_INCREF, Py_DECREF
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array
+from .._utils cimport get_positive_idx
 
 # python level
-from pytraj.datasets.cast_dataset import cast_dataset
-from pytraj.utils.check_and_assert import _import, is_array
-from pytraj.utils.check_and_assert import _import_numpy, _import_pandas
-from pytraj.utils.check_and_assert import is_word_in_class_name
 from collections import defaultdict
-from pytraj._utils cimport get_positive_idx
-from pytraj.externals.six import string_types
-from pytraj.compat import set
-from pytraj.utils import is_int
-from pytraj.exceptions import *
-from pytraj.DataFile import DataFile
-from pytraj.ArgList import ArgList
+from .cast_dataset import cast_dataset
+from ..utils.check_and_assert import _import, is_array
+from ..utils.check_and_assert import _import_numpy, _import_pandas
+from ..utils.check_and_assert import is_word_in_class_name
+from ..externals.six import string_types
+from ..compat import set
+from ..utils import is_int
+from ..exceptions import *
+from ..core.DataFile import DataFile
+from ..ArgList import ArgList
 
 # can not import cpptraj_dict here
 # if doing this, we introduce circle-import since cpptraj_dict already imported
@@ -62,13 +64,20 @@ cdef class DataSetList:
             return msg
         else:
             try:
-                df = self.to_dataframe()
+                df = self.to_dataframe().T
                 return df.__str__()
             except:
                 return safe_msg
 
     def __repr__(self):
         return self.__str__()
+
+    def __contains__(self, DataSet other):
+        cdef DataSet d0
+        for d0 in self:
+            if d0.baseptr0 == other.baseptr0:
+                return True
+        return False
 
     def copy(self):
         cdef DataSetList dnew = DataSetList()
@@ -290,7 +299,6 @@ cdef class DataSetList:
             raise MemoryError("Can not initialize pointer")
         return dset
 
-    # TODO: combine those methods into one
     def get_legends(self):
         """return a list"""
         tmp_list = []
@@ -340,12 +348,28 @@ cdef class DataSetList:
         for key in self.keys():
             yield key, self[key]
 
+    def map(self, func):
+        for d0 in self:
+            yield func(d0)
+
+    def filter(self, func):
+        """return a new view of DataSetList of func return True"""
+        cdef DataSetList dslist = DataSetList()
+        dslist.py_free_mem = False
+
+        for d0 in self:
+            if func(d0):
+                dslist.add_existing_set(d0)
+
+        dslist._parent_lists.append(self)
+        return dslist
+
     def groupby(self, key, mode='legend'):
         """"return a new DataSetList object as a view of `self`
 
         Parameters
         ----------
-        key : str
+        key : str or list
             keyword for searching
         mode: str, default='legend'
             mode = 'legend' | 'name' | 'dtype' | 'aspect'
@@ -360,8 +384,15 @@ cdef class DataSetList:
         dtmp.py_free_mem = False
         for d0 in self:
             att = getattr(d0, mode)
-            if re.search(key, att):
-                dtmp.add_existing_set(d0)
+            if isinstance(key, string_types):
+                if re.search(key, att):
+                    dtmp.add_existing_set(d0)
+            elif isinstance(key, (list, tuple)):
+                for _key in key:
+                    if re.search(_key, att):
+                        dtmp.add_existing_set(d0)
+            else:
+                raise ValueError("support string or list/tuple of strings")
 
         # dtmp is just a view, so keep track of parent to avoid GC
         dtmp._parent_lists.append(self)
@@ -396,6 +427,9 @@ cdef class DataSetList:
             raise ValueError("don't know how to cast to numpy array")
 
     def to_ndarray(self):
+        """
+        Notes: require numpy
+        """
         # make sure to use copy=True to avoid memory error for memoryview
         has_np, np = _import("numpy")
         if has_np:
@@ -450,12 +484,21 @@ cdef class DataSetList:
         raise NotImplementedError("Not yet")
 
     def mean(self, axis=1):
+        """
+        Notes: require numpy
+        """
         return self.to_ndarray().mean(axis=axis)
 
     def median(self, axis=1):
+        """
+        Notes: require numpy
+        """
         return np.median(self.to_ndarray(), axis=axis)
 
     def std(self, axis=1):
+        """
+        Notes: require numpy
+        """
         return np.std(self.to_ndarray(), axis=axis)
 
     def min(self):
@@ -471,6 +514,9 @@ cdef class DataSetList:
         return arr
 
     def sum(self, legend=None, axis=1):
+        """
+        Notes: require numpy
+        """
         _, np = _import_numpy()
         if not legend:
             return np.sum(self.to_ndarray(), axis=axis)
@@ -482,6 +528,14 @@ cdef class DataSetList:
         (from numpy doc)
         """
         return np.cumsum(self.to_ndarray(), axis=axis)
+
+    def mean_with_error(self, DataSetList other):
+        from collections import defaultdict
+
+        ddict = defaultdict(tuple)
+        for key, dset in self.iteritems():
+            ddict[key] = dset.mean_with_error(other[key])
+        return ddict
 
     def count(self, number=None):
         return dict((d0.legend, d0.count(number)) for d0 in self)
@@ -499,7 +553,7 @@ cdef class DataSetList:
             return self.to_dataframe().describe()
 
     def write_all_datafiles(self, filenames=None):
-        from pytraj import DataFileList
+        from pytraj.core.DataFileList import DataFileList
         df = DataFileList()
 
         for idx, d in enumerate(self):
@@ -511,3 +565,20 @@ cdef class DataSetList:
                 fname = filenames[i]
             df.add_dataset(fname, d)
         df.write_all_datafiles()
+
+    def savetxt(self, filename='dslist_default_name.txt', labels=None):
+        """just like `numpy.savetxt`
+        Notes: require numpy
+        """
+        import numpy as np
+        if labels is None:
+            headers = "\t".join([d.legend for d in self])
+            headers = "frame\t" + headers
+        else:
+            headers = "frame\t" + labels
+
+        frame_number = np.arange(self[0].size)
+        # transpose `values` first
+        values = np.column_stack((frame_number, self.values.T))
+        formats = ['%8i'] + [d.format for d in self]
+        np.savetxt(filename, values, fmt=formats, header=headers) 

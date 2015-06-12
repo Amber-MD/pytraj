@@ -1,6 +1,6 @@
 import os
 import unittest
-from pytraj.TopologyList import TopologyList 
+from pytraj.core.TopologyList import TopologyList 
 from pytraj.Topology import Topology
 
 class TestTopologyList(unittest.TestCase):

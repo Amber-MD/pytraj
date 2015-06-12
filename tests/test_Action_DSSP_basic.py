@@ -4,7 +4,7 @@ from pytraj import allactions
 from pytraj.datasets import cast_dataset
 from pytraj import adict 
 from pytraj.common_actions import to_string_ss
-from pytraj.DataFileList import DataFileList
+from pytraj.core.DataFileList import DataFileList
 
 traj = TrajectoryIterator(top=Topology("./data/DPDP.parm7"), 
                     filename='./data/DPDP.nc', 

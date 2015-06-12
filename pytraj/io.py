@@ -16,7 +16,6 @@ from .externals._json import to_json, read_json
 from .datasets.utils import load_datafile
 from .load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import _frame_iter_master
-from .dataframe import to_dataframe
 from ._set_silent import set_error_silent
 from ._guess_filetype import _guess_filetype
 from ._get_common_objects import _get_top
@@ -24,7 +23,7 @@ from ._get_common_objects import _get_top
 load_cpptraj_datafile = load_datafile
 
 try:
-    from .externals._load_ParmEd import load_ParmEd, _load_chem
+    from .externals._load_ParmEd import load_ParmEd, _load_parmed
 except:
     load_ParmEd = None
 
@@ -54,7 +53,7 @@ __all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
            'load_topology', 'read_parm', 'write_parm', 
            'save', 'write_traj',
            'read_pickle', 'read_json',
-           'to_dataframe', 'to_pickle', 'to_json',
+           'to_pickle', 'to_json',
            ]
 
 EXTRA_LOAD_METHODS = {'HDF5' : load_hdf5, }

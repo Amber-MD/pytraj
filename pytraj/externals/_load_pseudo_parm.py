@@ -11,12 +11,12 @@ _, np = _import_numpy()
 
 __all__ = ['load_pseudo_parm']
 
-def load_pseudo_parm(parm):
+def load_pseudo_parm(parm, guess_bond=True):
     """load_external's parm objects
 
     Parameters
     ---------
-    parm : external Topology/Parm objects (mdtraj, chemistry) 
+    parm : external Topology/Parm objects (mdtraj, parmed) 
         or Universe object (MDAnalysis)
     """
     from pytraj.core import Box
@@ -117,6 +117,12 @@ def load_pseudo_parm(parm):
             pseudotop.box = Box()
     try:
         pseudotop._bonds_ndarray[0]
-    except:
-        pseudotop.guess_bond()
+    except IndexError:
+        # TODO, FIXME: really slow if loading parmed
+        # >>> import parmed as pmd
+        # >>> pdb = pmd.download_PDB("1o15")
+        # >>> top = io.load_pseudo_parm(pdb) $ 46 s. Really?
+        if guess_bond:
+            pseudotop.guess_bond()
+        pass
     return pseudotop

@@ -1,9 +1,8 @@
 # distutils: language = c++
 from ..ArgList cimport _ArgList, ArgList
 from .DataSet cimport _DataSet, DataSet
-from ..DataSetList cimport _DataSetList, DataSetList
-from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
-from ..BaseIOtype cimport _BaseIOtype, BaseIOtype
+from .DataSetList cimport _DataSetList, DataSetList
+from ..core.BaseIOtype cimport _BaseIOtype, BaseIOtype
 
 
 cdef extern from "DataIO.h": 

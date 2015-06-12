@@ -9,7 +9,7 @@ from pytraj.utils.check_and_assert import is_word_in_class_name
 from pytraj.decorators import no_test, test_if_having
 from pytraj.compat import zip
 from pytraj.utils import Timer
-from pytraj.TrajinList import TrajinList
+from pytraj.core.TrajinList import TrajinList
 
 fname = "./data/md1_prod.Tc5b.x"
 topname = "./data/Tc5b.top"

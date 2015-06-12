@@ -1,5 +1,6 @@
 import unittest
 from pytraj.base import *
+from pytraj.datasets import cast_dataset
 from pytraj.decorators import no_test
 from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ
 
@@ -14,7 +15,7 @@ class Test(unittest.TestCase):
         print(traj.size)
         dset = traj.alloc()
         #print dir(dset)
-        print(dset.data_format)
+        print(dset.format)
         print(dset.is_empty())
         print(dset.dtype)
         print(dset.column_width)

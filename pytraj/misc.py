@@ -8,10 +8,7 @@ from pytraj.Topology import Topology
 from .TopologyList import TopologyList
 from .ArgList import ArgList
 from pytraj.Frame import Frame
-#from pytraj.Trajin_Single import Trajin_Single
 from pytraj.Trajectory import Trajectory
-from pytraj.actions import allactions
-from pytraj import adict, analdict
 from pytraj.DataSetList import DataSetList
 from pytraj._shared_methods import _frame_iter as frame_iter
 from pytraj._set_silent import set_world_silent
@@ -85,6 +82,7 @@ def info(obj=None):
     Since we use `set_worl_silent` to turn-off cpptraj' stdout, we need 
     to turn on to use cpptraj's help methods
     """
+    from pytraj import adict, analdict
     adict_keys = adict.keys()
     anal_keys = analdict.keys()
 
@@ -124,6 +122,7 @@ def info(obj=None):
             raise ValueError("object does not have `help` method")
 
 def get_action_dict():
+    from pytraj.actions import allactions
     actdict = {}
     for key in allactions.__dict__.keys():
         if "Action_" in key:

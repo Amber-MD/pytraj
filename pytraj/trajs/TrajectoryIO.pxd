@@ -1,10 +1,10 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from ..Topology cimport _Topology, Topology
 from ..ArgList cimport _ArgList, ArgList
-from ..BaseIOtype cimport _BaseIOtype, BaseIOtype
+from ..core.BaseIOtype cimport _BaseIOtype, BaseIOtype
 from ..core.Box cimport _Box, Box
 from ..Frame cimport _Frame, Frame
+from ..Topology cimport _Topology, Topology
 
 
 cdef extern from "TrajectoryIO.h": 

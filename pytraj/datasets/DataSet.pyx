@@ -3,9 +3,9 @@ from __future__ import division
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
 from ..decorators import makesureABC, require_having
-from ..DataFileList import DataFileList
-from ..DataFile import DataFile
-from pytraj.utils import _import_numpy
+from ..core.DataFileList import DataFileList
+from ..core.DataFile import DataFile
+from ..utils import _import_numpy
 
 _, np = _import_numpy()
 
@@ -44,14 +44,14 @@ cdef class DataSet:
     def __str__(self):
         cname = self.class_name
         dname = self.name
-        dformat = self.data_format
+        dformat = self.format
         size = self.size
         legend = self.legend
         aspect = self.aspect
         dtype = self.dtype
 
         msg0 = """<pytraj.datasets.{0}: size={1}, name={2}, """.format(cname, size, dname)
-        msg1 = """legend={0}, aspect={1}, dtype={2}, data_format={3}>""".format(legend, 
+        msg1 = """legend={0}, aspect={1}, dtype={2}, format={3}>""".format(legend, 
             aspect, dtype, dformat)
         return msg0 + msg1 
 
@@ -247,8 +247,9 @@ cdef class DataSet:
             raise NotImplemented()
 
     @property
-    def data_format(self):
-        return self.baseptr0.DataFormat().decode()
+    def format(self):
+        my_format = self.baseptr0.DataFormat().decode()
+        return my_format.strip()
 
     @property
     def data(self):
@@ -343,5 +344,11 @@ cdef class DataSet:
         _, plt = _import("matplotlib.pyplot")
         try:
             return plt.pyplot.plot(self.data, *args, **kwd)
-        except:
+        except ImportError:
+            raise ImportError("require matplotlib")
+        else:
             raise NotImplementedError()
+
+    def chunk_average(self, n_chunk):
+        import numpy as np
+        return np.mean(np.array_split(self.values, n_chunk), axis=1)

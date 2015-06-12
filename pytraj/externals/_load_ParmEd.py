@@ -29,14 +29,14 @@ def load_ParmEd(parmed_obj, restype="top"):
     else:
         raise ValueError("only support `top` or `traj` keyword")
 
-def _load_chem(parm_name):
-    has_parmed = has_("chemistry")
+def _load_parmed(parm_name):
+    has_parmed = has_("parmed")
     if has_parmed:
-        from chemistry import load_file
+        from parmed import load_file
         return load_file(parm_name)
     else:
         if not has_parmed:
-            PytrajWarningMissing("`chemistry`")
+            PytrajWarningMissing("`parmed`")
         return None
 
 def to_ParmEd(pytraj_top):
@@ -45,7 +45,7 @@ def to_ParmEd(pytraj_top):
     """convert to ParmEd object"""
     from pytraj.utils.context import goto_temp_folder
     from pytraj.parms.ParmFile import ParmFile
-    import chemistry as chem
+    import parmed as chem
 
     # I am not a fan of saving/loading again but this might be best choice
     with goto_temp_folder():

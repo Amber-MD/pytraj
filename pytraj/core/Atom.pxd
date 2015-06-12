@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
 #from libcpp.set cimport set
-from pytraj.NameType cimport _NameType, NameType
+from pytraj.core.NameType cimport _NameType, NameType
 from pytraj.cpp_vector cimport vector as cppvector
 
 
