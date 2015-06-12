@@ -5,7 +5,7 @@ from __future__ import print_function, absolute_import
 import os
 from glob import glob
 from pytraj.Topology import Topology
-from .TopologyList import TopologyList
+from .core.TopologyList import TopologyList
 from .ArgList import ArgList
 from pytraj.Frame import Frame
 from pytraj.Trajectory import Trajectory
