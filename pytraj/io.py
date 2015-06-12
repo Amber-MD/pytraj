@@ -150,6 +150,8 @@ def load_traj(filename=None, top=None, indices=None, *args, **kwd):
     """
     from .Topology import Topology
     from .TrajectoryIterator import TrajectoryIterator
+    from .Trajectory import Trajectory
+
     if not isinstance(top, Topology):
         top = Topology(top)
     if top.is_empty():

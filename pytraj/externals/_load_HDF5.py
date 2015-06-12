@@ -19,11 +19,6 @@ def load_hdf5(filename_or_buffer, autoconvert=True, restype=None, top=None):
         traj = io.load_hdf5(fname, autoconvert=False)
         print (traj)
     """
-    from ..Topology import Topology
-    from ..Trajectory import Trajectory
-    from ..Frame import Frame
-    from ..core import Atom, Box
-    from ..core import mass_atomic_number_dict, mass_element_dict
 
     try:
         import h5py
@@ -46,6 +41,11 @@ def load_hdf5(filename_or_buffer, autoconvert=True, restype=None, top=None):
 
 def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None, top=None):
     import json
+    from ..Topology import Topology
+    from ..Trajectory import Trajectory
+    from ..Frame import Frame
+    from ..core import Atom, Box
+    from ..core import mass_atomic_number_dict, mass_element_dict
     # NOTE: always use `np.float64` in pytraj
     if autoconvert:
         UNIT = 10.
