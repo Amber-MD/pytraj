@@ -482,16 +482,16 @@ static const char *__pyx_f[] = {
   "pytraj/datasets/DataSet_2D.pxd",
   "pytraj/math/Vec3.pxd",
   "pytraj/datasets/DataSet_3D.pxd",
-  "pytraj/datasets/DataSet_double.pxd",
-  "pytraj/datasets/DataSet_float.pxd",
-  "pytraj/datasets/DataSet_integer.pxd",
-  "pytraj/datasets/DataSet_string.pxd",
+  "pytraj/datasets/DatasetDouble.pxd",
+  "pytraj/datasets/DatasetFloat.pxd",
+  "pytraj/datasets/DatasetInteger.pxd",
+  "pytraj/datasets/DatasetString.pxd",
   "pytraj/datasets/DataSet_Mesh.pxd",
   "pytraj/math/Grid.pxd",
-  "pytraj/datasets/DataSet_Vector.pxd",
-  "pytraj/datasets/DataSet_MatrixDbl.pxd",
+  "pytraj/datasets/DatasetVector.pxd",
+  "pytraj/datasets/DatasetMatrixDouble.pxd",
   "pytraj/datasets/DataSet_MatrixFlt.pxd",
-  "pytraj/datasets/DataSet_GridFlt.pxd",
+  "pytraj/datasets/DatasetGridFloat.pxd",
   "pytraj/core/NameType.pxd",
   "pytraj/core/Atom.pxd",
   "pytraj/core/Residue.pxd",
@@ -611,16 +611,16 @@ struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D;
 struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D;
 struct __pyx_obj_6pytraj_4math_4Vec3_Vec3;
 struct __pyx_obj_6pytraj_8datasets_10DataSet_3D_DataSet_3D;
-struct __pyx_obj_6pytraj_8datasets_14DataSet_double_DataSet_double;
-struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float;
-struct __pyx_obj_6pytraj_8datasets_15DataSet_integer_DataSet_integer;
-struct __pyx_obj_6pytraj_8datasets_14DataSet_string_DataSet_string;
+struct __pyx_obj_6pytraj_8datasets_13DatasetDouble_DatasetDouble;
+struct __pyx_obj_6pytraj_8datasets_12DatasetFloat_DatasetFloat;
+struct __pyx_obj_6pytraj_8datasets_14DatasetInteger_DatasetInteger;
+struct __pyx_obj_6pytraj_8datasets_13DatasetString_DatasetString;
 struct __pyx_obj_6pytraj_8datasets_12DataSet_Mesh_DataSet_Mesh;
 struct __pyx_obj_6pytraj_4math_4Grid_Grid;
-struct __pyx_obj_6pytraj_8datasets_14DataSet_Vector_DataSet_Vector;
-struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl;
+struct __pyx_obj_6pytraj_8datasets_13DatasetVector_DatasetVector;
+struct __pyx_obj_6pytraj_8datasets_19DatasetMatrixDouble_DatasetMatrixDouble;
 struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt;
-struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt;
+struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat;
 struct __pyx_obj_6pytraj_4core_8NameType_NameType;
 struct __pyx_obj_6pytraj_4core_4Atom_Atom;
 struct __pyx_obj_6pytraj_4core_7Residue_Residue;
@@ -661,14 +661,14 @@ struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 
-/* "pytraj/datasets/DataSet_MatrixDbl.pxd":7
+/* "pytraj/datasets/DatasetMatrixDouble.pxd":7
  * 
  * #ctypedef Matrix[double].iterator iterator
  * ctypedef vector[double] Darray             # <<<<<<<<<<<<<<
  * 
  * cdef extern from "DataSet_MatrixDbl.h":
  */
-typedef std::vector<double>  __pyx_t_6pytraj_8datasets_17DataSet_MatrixDbl_Darray;
+typedef std::vector<double>  __pyx_t_6pytraj_8datasets_19DatasetMatrixDouble_Darray;
 typedef std::vector<double>  __pyx_t_6pytraj_8datasets_17DataSet_MatrixFlt_Darray;
 
 /* "pytraj/core/Atom.pxd":8
@@ -916,56 +916,56 @@ struct __pyx_obj_6pytraj_8datasets_10DataSet_3D_DataSet_3D {
 };
 
 
-/* "pytraj/datasets/DataSet_double.pxd":33
+/* "pytraj/datasets/DatasetDouble.pxd":33
  * 
  * 
- * cdef class DataSet_double (DataSet_1D):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_double* thisptr
+ * cdef class DatasetDouble (DataSet_1D):             # <<<<<<<<<<<<<<
+ *     cdef _DatasetDouble* thisptr
  *     cdef bint py_free_mem
  */
-struct __pyx_obj_6pytraj_8datasets_14DataSet_double_DataSet_double {
+struct __pyx_obj_6pytraj_8datasets_13DatasetDouble_DatasetDouble {
   struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D __pyx_base;
   DataSet_double *thisptr;
   int py_free_mem;
 };
 
 
-/* "pytraj/datasets/DataSet_float.pxd":17
+/* "pytraj/datasets/DatasetFloat.pxd":17
  *         void Resize(size_t)
  * 
- * cdef class DataSet_float (DataSet_1D):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_float* thisptr
+ * cdef class DatasetFloat (DataSet_1D):             # <<<<<<<<<<<<<<
+ *     cdef _DatasetFloat* thisptr
  *     cdef bint py_free_mem
  */
-struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float {
+struct __pyx_obj_6pytraj_8datasets_12DatasetFloat_DatasetFloat {
   struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D __pyx_base;
   DataSet_float *thisptr;
   int py_free_mem;
 };
 
 
-/* "pytraj/datasets/DataSet_integer.pxd":19
+/* "pytraj/datasets/DatasetInteger.pxd":19
  *         void Add( size_t, const void* )
  * 
- * cdef class DataSet_integer (DataSet_1D):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_integer* thisptr
+ * cdef class DatasetInteger (DataSet_1D):             # <<<<<<<<<<<<<<
+ *     cdef _DatasetInteger* thisptr
  *     cdef bint py_free_mem
  */
-struct __pyx_obj_6pytraj_8datasets_15DataSet_integer_DataSet_integer {
+struct __pyx_obj_6pytraj_8datasets_14DatasetInteger_DatasetInteger {
   struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D __pyx_base;
   DataSet_integer *thisptr;
   int py_free_mem;
 };
 
 
-/* "pytraj/datasets/DataSet_string.pxd":16
+/* "pytraj/datasets/DatasetString.pxd":16
  *         int Size()
  * 
- * cdef class DataSet_string(DataSet_1D):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_string* thisptr
+ * cdef class DatasetString(DataSet_1D):             # <<<<<<<<<<<<<<
+ *     cdef _DatasetString* thisptr
  *     cdef bint py_free_mem
  */
-struct __pyx_obj_6pytraj_8datasets_14DataSet_string_DataSet_string {
+struct __pyx_obj_6pytraj_8datasets_13DatasetString_DatasetString {
   struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D __pyx_base;
   DataSet_string *thisptr;
   int py_free_mem;
@@ -999,28 +999,28 @@ struct __pyx_obj_6pytraj_4math_4Grid_Grid {
 };
 
 
-/* "pytraj/datasets/DataSet_Vector.pxd":33
+/* "pytraj/datasets/DatasetVector.pxd":33
  * 
  * 
- * cdef class DataSet_Vector (DataSet_1D):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_Vector* thisptr
+ * cdef class DatasetVector (DataSet_1D):             # <<<<<<<<<<<<<<
+ *     cdef _DatasetVector* thisptr
  *     cdef bint py_free_mem
  */
-struct __pyx_obj_6pytraj_8datasets_14DataSet_Vector_DataSet_Vector {
+struct __pyx_obj_6pytraj_8datasets_13DatasetVector_DatasetVector {
   struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D __pyx_base;
   DataSet_Vector *thisptr;
   int py_free_mem;
 };
 
 
-/* "pytraj/datasets/DataSet_MatrixDbl.pxd":46
+/* "pytraj/datasets/DatasetMatrixDouble.pxd":46
  * 
  * 
- * cdef class DataSet_MatrixDbl (DataSet_2D):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_MatrixDbl* thisptr
+ * cdef class DatasetMatrixDouble (DataSet_2D):             # <<<<<<<<<<<<<<
+ *     cdef _DatasetMatrixDouble* thisptr
  *     cdef bint py_free_mem
  */
-struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl {
+struct __pyx_obj_6pytraj_8datasets_19DatasetMatrixDouble_DatasetMatrixDouble {
   struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D __pyx_base;
   DataSet_MatrixDbl *thisptr;
   int py_free_mem;
@@ -1041,14 +1041,14 @@ struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt {
 };
 
 
-/* "pytraj/datasets/DataSet_GridFlt.pxd":33
+/* "pytraj/datasets/DatasetGridFloat.pxd":33
  *         long int CalcIndex(int i, int j, int k) const
  * 
- * cdef class DataSet_GridFlt (DataSet_3D):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_GridFlt* thisptr
+ * cdef class DatasetGridFloat (DataSet_3D):             # <<<<<<<<<<<<<<
+ *     cdef _DatasetGridFloat* thisptr
  *     cdef public bint py_free_mem
  */
-struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt {
+struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat {
   struct __pyx_obj_6pytraj_8datasets_10DataSet_3D_DataSet_3D __pyx_base;
   DataSet_GridFlt *thisptr;
   int py_free_mem;
@@ -2028,17 +2028,17 @@ static PyTypeObject *__pyx_ptype_6pytraj_4math_4Vec3_Vec3 = 0;
 /* Module declarations from 'pytraj.datasets.DataSet_3D' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_10DataSet_3D_DataSet_3D = 0;
 
-/* Module declarations from 'pytraj.datasets.DataSet_double' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_14DataSet_double_DataSet_double = 0;
+/* Module declarations from 'pytraj.datasets.DatasetDouble' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_13DatasetDouble_DatasetDouble = 0;
 
-/* Module declarations from 'pytraj.datasets.DataSet_float' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_13DataSet_float_DataSet_float = 0;
+/* Module declarations from 'pytraj.datasets.DatasetFloat' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_12DatasetFloat_DatasetFloat = 0;
 
-/* Module declarations from 'pytraj.datasets.DataSet_integer' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_15DataSet_integer_DataSet_integer = 0;
+/* Module declarations from 'pytraj.datasets.DatasetInteger' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_14DatasetInteger_DatasetInteger = 0;
 
-/* Module declarations from 'pytraj.datasets.DataSet_string' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_14DataSet_string_DataSet_string = 0;
+/* Module declarations from 'pytraj.datasets.DatasetString' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_13DatasetString_DatasetString = 0;
 
 /* Module declarations from 'pytraj.datasets.DataSet_Mesh' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_12DataSet_Mesh_DataSet_Mesh = 0;
@@ -2046,19 +2046,19 @@ static PyTypeObject *__pyx_ptype_6pytraj_8datasets_12DataSet_Mesh_DataSet_Mesh =
 /* Module declarations from 'pytraj.math.Grid' */
 static PyTypeObject *__pyx_ptype_6pytraj_4math_4Grid_Grid = 0;
 
-/* Module declarations from 'pytraj.datasets.DataSet_Vector' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_14DataSet_Vector_DataSet_Vector = 0;
+/* Module declarations from 'pytraj.datasets.DatasetVector' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_13DatasetVector_DatasetVector = 0;
 
 /* Module declarations from 'pytraj.math.Matrix' */
 
-/* Module declarations from 'pytraj.datasets.DataSet_MatrixDbl' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl = 0;
+/* Module declarations from 'pytraj.datasets.DatasetMatrixDouble' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_19DatasetMatrixDouble_DatasetMatrixDouble = 0;
 
 /* Module declarations from 'pytraj.datasets.DataSet_MatrixFlt' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt = 0;
 
-/* Module declarations from 'pytraj.datasets.DataSet_GridFlt' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt = 0;
+/* Module declarations from 'pytraj.datasets.DatasetGridFloat' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat = 0;
 
 /* Module declarations from 'pytraj.cpp_vector' */
 
@@ -2340,7 +2340,7 @@ static char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cython.ar
 static char __pyx_k_pytraj_datasets_cast_dataset[] = "pytraj.datasets.cast_dataset";
 static char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
-static char __pyx_k_mnt_raidc2_haichit_programs_pyt[] = "/mnt/raidc2/haichit/programs/pytraj/pytraj/datasets/cast_dataset.pyx";
+static char __pyx_k_mnt_raidc2_haichit_study_Cython[] = "/mnt/raidc2/haichit/study/Cython/pytraj_git_fork/pytraj/pytraj/datasets/cast_dataset.pyx";
 static char __pyx_k_All_dimensions_preceding_dimensi[] = "All dimensions preceding dimension %d must be indexed and not sliced";
 static char __pyx_k_Buffer_view_does_not_expose_stri[] = "Buffer view does not expose strides";
 static char __pyx_k_Can_only_create_a_buffer_that_is[] = "Can only create a buffer that is contiguous in memory.";
@@ -2429,7 +2429,7 @@ static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_memview;
-static PyObject *__pyx_kp_s_mnt_raidc2_haichit_programs_pyt;
+static PyObject *__pyx_kp_s_mnt_raidc2_haichit_study_Cython;
 static PyObject *__pyx_n_s_mode;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_name_2;
@@ -2577,15 +2577,15 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
   struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_dset = 0;
   struct __pyx_obj_6pytraj_8datasets_10DataSet_1D_DataSet_1D *__pyx_v_newset1D = 0;
   struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D *__pyx_v_newset2D = 0;
-  struct __pyx_obj_6pytraj_8datasets_14DataSet_double_DataSet_double *__pyx_v_newset_double = 0;
-  struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *__pyx_v_newset_float = 0;
-  struct __pyx_obj_6pytraj_8datasets_15DataSet_integer_DataSet_integer *__pyx_v_newset_integer = 0;
-  struct __pyx_obj_6pytraj_8datasets_14DataSet_string_DataSet_string *__pyx_v_newset_string = 0;
+  struct __pyx_obj_6pytraj_8datasets_13DatasetDouble_DatasetDouble *__pyx_v_newset_double = 0;
+  struct __pyx_obj_6pytraj_8datasets_12DatasetFloat_DatasetFloat *__pyx_v_newset_float = 0;
+  struct __pyx_obj_6pytraj_8datasets_14DatasetInteger_DatasetInteger *__pyx_v_newset_integer = 0;
+  struct __pyx_obj_6pytraj_8datasets_13DatasetString_DatasetString *__pyx_v_newset_string = 0;
   struct __pyx_obj_6pytraj_8datasets_12DataSet_Mesh_DataSet_Mesh *__pyx_v_newset_mesh = 0;
-  struct __pyx_obj_6pytraj_8datasets_14DataSet_Vector_DataSet_Vector *__pyx_v_newset_vector = 0;
-  struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *__pyx_v_newset_matrixdbl = 0;
+  struct __pyx_obj_6pytraj_8datasets_13DatasetVector_DatasetVector *__pyx_v_newset_vector = 0;
+  struct __pyx_obj_6pytraj_8datasets_19DatasetMatrixDouble_DatasetMatrixDouble *__pyx_v_newset_matrixdbl = 0;
   struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt *__pyx_v_newset_matrixflt = 0;
-  struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *__pyx_v_newset_gridflt = 0;
+  struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *__pyx_v_newset_gridflt = 0;
   struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_REF_DataSet_Coords_REF *__pyx_v_newset_coords_ref = 0;
   struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_CRD_DataSet_Coords_CRD *__pyx_v_newset_coords_crd = 0;
   struct __pyx_obj_6pytraj_8datasets_18DataSet_Coords_TRJ_DataSet_Coords_TRJ *__pyx_v_newset_coords_trj = 0;
@@ -2810,7 +2810,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         return newset2D
  * 
  *     elif dtype in ['GENERAL', 'DOUBLE']:             # <<<<<<<<<<<<<<
- *         newset_double = DataSet_double()
+ *         newset_double = DatasetDouble()
  *         # since we introduce memory view, we let cpptraj free memory
  */
   __Pyx_INCREF(__pyx_v_dtype);
@@ -2831,17 +2831,17 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":75
  * 
  *     elif dtype in ['GENERAL', 'DOUBLE']:
- *         newset_double = DataSet_double()             # <<<<<<<<<<<<<<
+ *         newset_double = DatasetDouble()             # <<<<<<<<<<<<<<
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_double.py_free_mem = False
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_14DataSet_double_DataSet_double)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_13DatasetDouble_DatasetDouble)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_v_newset_double = ((struct __pyx_obj_6pytraj_8datasets_14DataSet_double_DataSet_double *)__pyx_t_3);
+    __pyx_v_newset_double = ((struct __pyx_obj_6pytraj_8datasets_13DatasetDouble_DatasetDouble *)__pyx_t_3);
     __pyx_t_3 = 0;
 
     /* "pytraj/datasets/cast_dataset.pyx":77
- *         newset_double = DataSet_double()
+ *         newset_double = DatasetDouble()
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_double.py_free_mem = False             # <<<<<<<<<<<<<<
  *         newset_double.baseptr0 = dset.baseptr0
@@ -2863,7 +2863,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         newset_double.baseptr0 = dset.baseptr0
  *         # make sure other pointers pointing to the same address
  *         newset_double.baseptr_1 = <_DataSet_1D*> dset.baseptr0             # <<<<<<<<<<<<<<
- *         newset_double.thisptr = <_DataSet_double*> dset.baseptr0
+ *         newset_double.thisptr = <_DatasetDouble*> dset.baseptr0
  *         return newset_double
  */
     __pyx_v_newset_double->__pyx_base.baseptr_1 = ((DataSet_1D *)__pyx_v_dset->baseptr0);
@@ -2871,7 +2871,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":81
  *         # make sure other pointers pointing to the same address
  *         newset_double.baseptr_1 = <_DataSet_1D*> dset.baseptr0
- *         newset_double.thisptr = <_DataSet_double*> dset.baseptr0             # <<<<<<<<<<<<<<
+ *         newset_double.thisptr = <_DatasetDouble*> dset.baseptr0             # <<<<<<<<<<<<<<
  *         return newset_double
  * 
  */
@@ -2879,7 +2879,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
 
     /* "pytraj/datasets/cast_dataset.pyx":82
  *         newset_double.baseptr_1 = <_DataSet_1D*> dset.baseptr0
- *         newset_double.thisptr = <_DataSet_double*> dset.baseptr0
+ *         newset_double.thisptr = <_DatasetDouble*> dset.baseptr0
  *         return newset_double             # <<<<<<<<<<<<<<
  * 
  *     elif dtype in ['FLOAT']:
@@ -2894,7 +2894,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         return newset_double
  * 
  *     elif dtype in ['FLOAT']:             # <<<<<<<<<<<<<<
- *         newset_float = DataSet_float()
+ *         newset_float = DatasetFloat()
  *         # since we introduce memory view, we let cpptraj free memory
  */
   __Pyx_INCREF(__pyx_v_dtype);
@@ -2907,17 +2907,17 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":85
  * 
  *     elif dtype in ['FLOAT']:
- *         newset_float = DataSet_float()             # <<<<<<<<<<<<<<
+ *         newset_float = DatasetFloat()             # <<<<<<<<<<<<<<
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_float.py_free_mem = False
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_13DataSet_float_DataSet_float)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_12DatasetFloat_DatasetFloat)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_v_newset_float = ((struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float *)__pyx_t_3);
+    __pyx_v_newset_float = ((struct __pyx_obj_6pytraj_8datasets_12DatasetFloat_DatasetFloat *)__pyx_t_3);
     __pyx_t_3 = 0;
 
     /* "pytraj/datasets/cast_dataset.pyx":87
- *         newset_float = DataSet_float()
+ *         newset_float = DatasetFloat()
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_float.py_free_mem = False             # <<<<<<<<<<<<<<
  *         newset_float.baseptr0 = dset.baseptr0
@@ -2939,7 +2939,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         newset_float.baseptr0 = dset.baseptr0
  *         # make sure other pointers pointing to the same address
  *         newset_float.baseptr_1 = <_DataSet_1D*> dset.baseptr0             # <<<<<<<<<<<<<<
- *         newset_float.thisptr = <_DataSet_float*> dset.baseptr0
+ *         newset_float.thisptr = <_DatasetFloat*> dset.baseptr0
  *         return newset_float
  */
     __pyx_v_newset_float->__pyx_base.baseptr_1 = ((DataSet_1D *)__pyx_v_dset->baseptr0);
@@ -2947,7 +2947,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":91
  *         # make sure other pointers pointing to the same address
  *         newset_float.baseptr_1 = <_DataSet_1D*> dset.baseptr0
- *         newset_float.thisptr = <_DataSet_float*> dset.baseptr0             # <<<<<<<<<<<<<<
+ *         newset_float.thisptr = <_DatasetFloat*> dset.baseptr0             # <<<<<<<<<<<<<<
  *         return newset_float
  * 
  */
@@ -2955,7 +2955,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
 
     /* "pytraj/datasets/cast_dataset.pyx":92
  *         newset_float.baseptr_1 = <_DataSet_1D*> dset.baseptr0
- *         newset_float.thisptr = <_DataSet_float*> dset.baseptr0
+ *         newset_float.thisptr = <_DatasetFloat*> dset.baseptr0
  *         return newset_float             # <<<<<<<<<<<<<<
  * 
  *     elif dtype in ['INTEGER']:
@@ -2970,7 +2970,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         return newset_float
  * 
  *     elif dtype in ['INTEGER']:             # <<<<<<<<<<<<<<
- *         newset_integer = DataSet_integer()
+ *         newset_integer = DatasetInteger()
  *         # since we introduce memory view, we let cpptraj free memory
  */
   __Pyx_INCREF(__pyx_v_dtype);
@@ -2983,17 +2983,17 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":95
  * 
  *     elif dtype in ['INTEGER']:
- *         newset_integer = DataSet_integer()             # <<<<<<<<<<<<<<
+ *         newset_integer = DatasetInteger()             # <<<<<<<<<<<<<<
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_integer.py_free_mem = False
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_15DataSet_integer_DataSet_integer)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_14DatasetInteger_DatasetInteger)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_v_newset_integer = ((struct __pyx_obj_6pytraj_8datasets_15DataSet_integer_DataSet_integer *)__pyx_t_3);
+    __pyx_v_newset_integer = ((struct __pyx_obj_6pytraj_8datasets_14DatasetInteger_DatasetInteger *)__pyx_t_3);
     __pyx_t_3 = 0;
 
     /* "pytraj/datasets/cast_dataset.pyx":97
- *         newset_integer = DataSet_integer()
+ *         newset_integer = DatasetInteger()
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_integer.py_free_mem = False             # <<<<<<<<<<<<<<
  *         newset_integer.baseptr0 = dset.baseptr0
@@ -3015,7 +3015,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         newset_integer.baseptr0 = dset.baseptr0
  *         # make sure other pointers pointing to the same address
  *         newset_integer.baseptr_1 = <_DataSet_1D*> dset.baseptr0             # <<<<<<<<<<<<<<
- *         newset_integer.thisptr = <_DataSet_integer*> dset.baseptr0
+ *         newset_integer.thisptr = <_DatasetInteger*> dset.baseptr0
  *         return newset_integer
  */
     __pyx_v_newset_integer->__pyx_base.baseptr_1 = ((DataSet_1D *)__pyx_v_dset->baseptr0);
@@ -3023,7 +3023,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":101
  *         # make sure other pointers pointing to the same address
  *         newset_integer.baseptr_1 = <_DataSet_1D*> dset.baseptr0
- *         newset_integer.thisptr = <_DataSet_integer*> dset.baseptr0             # <<<<<<<<<<<<<<
+ *         newset_integer.thisptr = <_DatasetInteger*> dset.baseptr0             # <<<<<<<<<<<<<<
  *         return newset_integer
  * 
  */
@@ -3031,7 +3031,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
 
     /* "pytraj/datasets/cast_dataset.pyx":102
  *         newset_integer.baseptr_1 = <_DataSet_1D*> dset.baseptr0
- *         newset_integer.thisptr = <_DataSet_integer*> dset.baseptr0
+ *         newset_integer.thisptr = <_DatasetInteger*> dset.baseptr0
  *         return newset_integer             # <<<<<<<<<<<<<<
  * 
  *     elif dtype in ['STRING']:
@@ -3046,7 +3046,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         return newset_integer
  * 
  *     elif dtype in ['STRING']:             # <<<<<<<<<<<<<<
- *         newset_string = DataSet_string()
+ *         newset_string = DatasetString()
  *         # since we introduce memory view, we let cpptraj free memory
  */
   __Pyx_INCREF(__pyx_v_dtype);
@@ -3059,17 +3059,17 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":105
  * 
  *     elif dtype in ['STRING']:
- *         newset_string = DataSet_string()             # <<<<<<<<<<<<<<
+ *         newset_string = DatasetString()             # <<<<<<<<<<<<<<
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_string.py_free_mem = False
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_14DataSet_string_DataSet_string)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_13DatasetString_DatasetString)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_v_newset_string = ((struct __pyx_obj_6pytraj_8datasets_14DataSet_string_DataSet_string *)__pyx_t_3);
+    __pyx_v_newset_string = ((struct __pyx_obj_6pytraj_8datasets_13DatasetString_DatasetString *)__pyx_t_3);
     __pyx_t_3 = 0;
 
     /* "pytraj/datasets/cast_dataset.pyx":107
- *         newset_string = DataSet_string()
+ *         newset_string = DatasetString()
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_string.py_free_mem = False             # <<<<<<<<<<<<<<
  *         newset_string.baseptr0 = dset.baseptr0
@@ -3091,7 +3091,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         newset_string.baseptr0 = dset.baseptr0
  *         # make sure other pointers pointing to the same address
  *         newset_string.baseptr_1 = <_DataSet_1D*> dset.baseptr0             # <<<<<<<<<<<<<<
- *         newset_string.thisptr = <_DataSet_string*> dset.baseptr0
+ *         newset_string.thisptr = <_DatasetString*> dset.baseptr0
  *         return newset_string
  */
     __pyx_v_newset_string->__pyx_base.baseptr_1 = ((DataSet_1D *)__pyx_v_dset->baseptr0);
@@ -3099,7 +3099,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":111
  *         # make sure other pointers pointing to the same address
  *         newset_string.baseptr_1 = <_DataSet_1D*> dset.baseptr0
- *         newset_string.thisptr = <_DataSet_string*> dset.baseptr0             # <<<<<<<<<<<<<<
+ *         newset_string.thisptr = <_DatasetString*> dset.baseptr0             # <<<<<<<<<<<<<<
  *         return newset_string
  * 
  */
@@ -3107,7 +3107,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
 
     /* "pytraj/datasets/cast_dataset.pyx":112
  *         newset_string.baseptr_1 = <_DataSet_1D*> dset.baseptr0
- *         newset_string.thisptr = <_DataSet_string*> dset.baseptr0
+ *         newset_string.thisptr = <_DatasetString*> dset.baseptr0
  *         return newset_string             # <<<<<<<<<<<<<<
  * 
  *     elif dtype in ['XYMESH']:
@@ -3198,7 +3198,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         return newset_mesh
  * 
  *     elif dtype in ['VECTOR']:             # <<<<<<<<<<<<<<
- *         newset_vector = DataSet_Vector()
+ *         newset_vector = DatasetVector()
  *         # since we introduce memory view, we let cpptraj free memory
  */
   __Pyx_INCREF(__pyx_v_dtype);
@@ -3211,17 +3211,17 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":125
  * 
  *     elif dtype in ['VECTOR']:
- *         newset_vector = DataSet_Vector()             # <<<<<<<<<<<<<<
+ *         newset_vector = DatasetVector()             # <<<<<<<<<<<<<<
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_vector.py_free_mem = False
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_14DataSet_Vector_DataSet_Vector)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_13DatasetVector_DatasetVector)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_v_newset_vector = ((struct __pyx_obj_6pytraj_8datasets_14DataSet_Vector_DataSet_Vector *)__pyx_t_3);
+    __pyx_v_newset_vector = ((struct __pyx_obj_6pytraj_8datasets_13DatasetVector_DatasetVector *)__pyx_t_3);
     __pyx_t_3 = 0;
 
     /* "pytraj/datasets/cast_dataset.pyx":127
- *         newset_vector = DataSet_Vector()
+ *         newset_vector = DatasetVector()
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_vector.py_free_mem = False             # <<<<<<<<<<<<<<
  *         newset_vector.baseptr0 = dset.baseptr0
@@ -3243,7 +3243,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         newset_vector.baseptr0 = dset.baseptr0
  *         # make sure other pointers pointing to the same address
  *         newset_vector.baseptr_1 = <_DataSet_1D*> dset.baseptr0             # <<<<<<<<<<<<<<
- *         newset_vector.thisptr = <_DataSet_Vector*> dset.baseptr0
+ *         newset_vector.thisptr = <_DatasetVector*> dset.baseptr0
  *         return newset_vector
  */
     __pyx_v_newset_vector->__pyx_base.baseptr_1 = ((DataSet_1D *)__pyx_v_dset->baseptr0);
@@ -3251,7 +3251,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":131
  *         # make sure other pointers pointing to the same address
  *         newset_vector.baseptr_1 = <_DataSet_1D*> dset.baseptr0
- *         newset_vector.thisptr = <_DataSet_Vector*> dset.baseptr0             # <<<<<<<<<<<<<<
+ *         newset_vector.thisptr = <_DatasetVector*> dset.baseptr0             # <<<<<<<<<<<<<<
  *         return newset_vector
  * 
  */
@@ -3259,7 +3259,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
 
     /* "pytraj/datasets/cast_dataset.pyx":132
  *         newset_vector.baseptr_1 = <_DataSet_1D*> dset.baseptr0
- *         newset_vector.thisptr = <_DataSet_Vector*> dset.baseptr0
+ *         newset_vector.thisptr = <_DatasetVector*> dset.baseptr0
  *         return newset_vector             # <<<<<<<<<<<<<<
  * 
  *     elif dtype in ['MATRIX_DBL', 'MATRIX_DOUBLE', 'MATRIX DOUBLE']:
@@ -3274,7 +3274,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         return newset_vector
  * 
  *     elif dtype in ['MATRIX_DBL', 'MATRIX_DOUBLE', 'MATRIX DOUBLE']:             # <<<<<<<<<<<<<<
- *         newset_matrixdbl = DataSet_MatrixDbl()
+ *         newset_matrixdbl = DatasetMatrixDouble()
  *         # since we introduce memory view, we let cpptraj free memory
  */
   __Pyx_INCREF(__pyx_v_dtype);
@@ -3301,17 +3301,17 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":135
  * 
  *     elif dtype in ['MATRIX_DBL', 'MATRIX_DOUBLE', 'MATRIX DOUBLE']:
- *         newset_matrixdbl = DataSet_MatrixDbl()             # <<<<<<<<<<<<<<
+ *         newset_matrixdbl = DatasetMatrixDouble()             # <<<<<<<<<<<<<<
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_matrixdbl.py_free_mem = False
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_19DatasetMatrixDouble_DatasetMatrixDouble)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_v_newset_matrixdbl = ((struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl *)__pyx_t_3);
+    __pyx_v_newset_matrixdbl = ((struct __pyx_obj_6pytraj_8datasets_19DatasetMatrixDouble_DatasetMatrixDouble *)__pyx_t_3);
     __pyx_t_3 = 0;
 
     /* "pytraj/datasets/cast_dataset.pyx":137
- *         newset_matrixdbl = DataSet_MatrixDbl()
+ *         newset_matrixdbl = DatasetMatrixDouble()
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_matrixdbl.py_free_mem = False             # <<<<<<<<<<<<<<
  *         newset_matrixdbl.baseptr0 = dset.baseptr0
@@ -3333,7 +3333,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         newset_matrixdbl.baseptr0 = dset.baseptr0
  *         # make sure other pointers pointing to the same address
  *         newset_matrixdbl.baseptr_1 = <_DataSet_2D*> dset.baseptr0             # <<<<<<<<<<<<<<
- *         newset_matrixdbl.thisptr = <_DataSet_MatrixDbl*> dset.baseptr0
+ *         newset_matrixdbl.thisptr = <_DatasetMatrixDouble*> dset.baseptr0
  *         return newset_matrixdbl
  */
     __pyx_v_newset_matrixdbl->__pyx_base.baseptr_1 = ((DataSet_2D *)__pyx_v_dset->baseptr0);
@@ -3341,7 +3341,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":141
  *         # make sure other pointers pointing to the same address
  *         newset_matrixdbl.baseptr_1 = <_DataSet_2D*> dset.baseptr0
- *         newset_matrixdbl.thisptr = <_DataSet_MatrixDbl*> dset.baseptr0             # <<<<<<<<<<<<<<
+ *         newset_matrixdbl.thisptr = <_DatasetMatrixDouble*> dset.baseptr0             # <<<<<<<<<<<<<<
  *         return newset_matrixdbl
  * 
  */
@@ -3349,7 +3349,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
 
     /* "pytraj/datasets/cast_dataset.pyx":142
  *         newset_matrixdbl.baseptr_1 = <_DataSet_2D*> dset.baseptr0
- *         newset_matrixdbl.thisptr = <_DataSet_MatrixDbl*> dset.baseptr0
+ *         newset_matrixdbl.thisptr = <_DatasetMatrixDouble*> dset.baseptr0
  *         return newset_matrixdbl             # <<<<<<<<<<<<<<
  * 
  *     elif dtype in ['MATRIX_FLT', 'MATRIX_FLOAT', 'MATRIX FLOAT']:
@@ -3454,7 +3454,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         return newset_matrixflt
  * 
  *     elif dtype in ['GRID_FLT', 'GRID_FLOAT', 'GRID FLOAT']:             # <<<<<<<<<<<<<<
- *         newset_gridflt = DataSet_GridFlt()
+ *         newset_gridflt = DatasetGridFloat()
  *         # since we introduce memory view, we let cpptraj free memory
  */
   __Pyx_INCREF(__pyx_v_dtype);
@@ -3481,17 +3481,17 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":155
  * 
  *     elif dtype in ['GRID_FLT', 'GRID_FLOAT', 'GRID FLOAT']:
- *         newset_gridflt = DataSet_GridFlt()             # <<<<<<<<<<<<<<
+ *         newset_gridflt = DatasetGridFloat()             # <<<<<<<<<<<<<<
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_gridflt.py_free_mem = False
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_v_newset_gridflt = ((struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *)__pyx_t_3);
+    __pyx_v_newset_gridflt = ((struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *)__pyx_t_3);
     __pyx_t_3 = 0;
 
     /* "pytraj/datasets/cast_dataset.pyx":157
- *         newset_gridflt = DataSet_GridFlt()
+ *         newset_gridflt = DatasetGridFloat()
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_gridflt.py_free_mem = False             # <<<<<<<<<<<<<<
  *         newset_gridflt.baseptr0 = dset.baseptr0
@@ -3513,7 +3513,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         newset_gridflt.baseptr0 = dset.baseptr0
  *         # make sure other pointers pointing to the same address
  *         newset_gridflt.baseptr_1 = <_DataSet_3D*> dset.baseptr0             # <<<<<<<<<<<<<<
- *         newset_gridflt.thisptr = <_DataSet_GridFlt*> dset.baseptr0
+ *         newset_gridflt.thisptr = <_DatasetGridFloat*> dset.baseptr0
  *         return newset_gridflt
  */
     __pyx_v_newset_gridflt->__pyx_base.baseptr_1 = ((DataSet_3D *)__pyx_v_dset->baseptr0);
@@ -3521,7 +3521,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":161
  *         # make sure other pointers pointing to the same address
  *         newset_gridflt.baseptr_1 = <_DataSet_3D*> dset.baseptr0
- *         newset_gridflt.thisptr = <_DataSet_GridFlt*> dset.baseptr0             # <<<<<<<<<<<<<<
+ *         newset_gridflt.thisptr = <_DatasetGridFloat*> dset.baseptr0             # <<<<<<<<<<<<<<
  *         return newset_gridflt
  * 
  */
@@ -3529,7 +3529,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
 
     /* "pytraj/datasets/cast_dataset.pyx":162
  *         newset_gridflt.baseptr_1 = <_DataSet_3D*> dset.baseptr0
- *         newset_gridflt.thisptr = <_DataSet_GridFlt*> dset.baseptr0
+ *         newset_gridflt.thisptr = <_DatasetGridFloat*> dset.baseptr0
  *         return newset_gridflt             # <<<<<<<<<<<<<<
  * 
  *     elif dtype in ['COORDS_CRD', 'COORDS', 'CRD']:
@@ -15390,7 +15390,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
-  {&__pyx_kp_s_mnt_raidc2_haichit_programs_pyt, __pyx_k_mnt_raidc2_haichit_programs_pyt, sizeof(__pyx_k_mnt_raidc2_haichit_programs_pyt), 0, 0, 1, 0},
+  {&__pyx_kp_s_mnt_raidc2_haichit_study_Cython, __pyx_k_mnt_raidc2_haichit_study_Cython, sizeof(__pyx_k_mnt_raidc2_haichit_study_Cython), 0, 0, 1, 0},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_name_2, __pyx_k_name_2, sizeof(__pyx_k_name_2), 0, 0, 1, 1},
@@ -15637,7 +15637,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__18 = PyTuple_Pack(17, __pyx_n_s_dsetin, __pyx_n_s_dtype, __pyx_n_s_dset, __pyx_n_s_newset1D, __pyx_n_s_newset2D, __pyx_n_s_newset_double, __pyx_n_s_newset_float, __pyx_n_s_newset_integer, __pyx_n_s_newset_string, __pyx_n_s_newset_mesh, __pyx_n_s_newset_vector, __pyx_n_s_newset_matrixdbl, __pyx_n_s_newset_matrixflt, __pyx_n_s_newset_gridflt, __pyx_n_s_newset_coords_ref, __pyx_n_s_newset_coords_crd, __pyx_n_s_newset_coords_trj); if (unlikely(!__pyx_tuple__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 17, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_programs_pyt, __pyx_n_s_cast_dataset, 22, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 17, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_study_Cython, __pyx_n_s_cast_dataset, 22, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "View.MemoryView":276
  *         return self.name
@@ -15828,16 +15828,16 @@ PyMODINIT_FUNC PyInit_cast_dataset(void)
   __pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D = __Pyx_ImportType("pytraj.datasets.DataSet_2D", "DataSet_2D", sizeof(struct __pyx_obj_6pytraj_8datasets_10DataSet_2D_DataSet_2D), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_10DataSet_2D_DataSet_2D)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4math_4Vec3_Vec3 = __Pyx_ImportType("pytraj.math.Vec3", "Vec3", sizeof(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Vec3_Vec3)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8datasets_10DataSet_3D_DataSet_3D = __Pyx_ImportType("pytraj.datasets.DataSet_3D", "DataSet_3D", sizeof(struct __pyx_obj_6pytraj_8datasets_10DataSet_3D_DataSet_3D), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_10DataSet_3D_DataSet_3D)) {__pyx_filename = __pyx_f[7]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_14DataSet_double_DataSet_double = __Pyx_ImportType("pytraj.datasets.DataSet_double", "DataSet_double", sizeof(struct __pyx_obj_6pytraj_8datasets_14DataSet_double_DataSet_double), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_14DataSet_double_DataSet_double)) {__pyx_filename = __pyx_f[8]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_13DataSet_float_DataSet_float = __Pyx_ImportType("pytraj.datasets.DataSet_float", "DataSet_float", sizeof(struct __pyx_obj_6pytraj_8datasets_13DataSet_float_DataSet_float), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_13DataSet_float_DataSet_float)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_15DataSet_integer_DataSet_integer = __Pyx_ImportType("pytraj.datasets.DataSet_integer", "DataSet_integer", sizeof(struct __pyx_obj_6pytraj_8datasets_15DataSet_integer_DataSet_integer), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_15DataSet_integer_DataSet_integer)) {__pyx_filename = __pyx_f[10]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_14DataSet_string_DataSet_string = __Pyx_ImportType("pytraj.datasets.DataSet_string", "DataSet_string", sizeof(struct __pyx_obj_6pytraj_8datasets_14DataSet_string_DataSet_string), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_14DataSet_string_DataSet_string)) {__pyx_filename = __pyx_f[11]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_13DatasetDouble_DatasetDouble = __Pyx_ImportType("pytraj.datasets.DatasetDouble", "DatasetDouble", sizeof(struct __pyx_obj_6pytraj_8datasets_13DatasetDouble_DatasetDouble), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_13DatasetDouble_DatasetDouble)) {__pyx_filename = __pyx_f[8]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_12DatasetFloat_DatasetFloat = __Pyx_ImportType("pytraj.datasets.DatasetFloat", "DatasetFloat", sizeof(struct __pyx_obj_6pytraj_8datasets_12DatasetFloat_DatasetFloat), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_12DatasetFloat_DatasetFloat)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_14DatasetInteger_DatasetInteger = __Pyx_ImportType("pytraj.datasets.DatasetInteger", "DatasetInteger", sizeof(struct __pyx_obj_6pytraj_8datasets_14DatasetInteger_DatasetInteger), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_14DatasetInteger_DatasetInteger)) {__pyx_filename = __pyx_f[10]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_13DatasetString_DatasetString = __Pyx_ImportType("pytraj.datasets.DatasetString", "DatasetString", sizeof(struct __pyx_obj_6pytraj_8datasets_13DatasetString_DatasetString), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_13DatasetString_DatasetString)) {__pyx_filename = __pyx_f[11]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8datasets_12DataSet_Mesh_DataSet_Mesh = __Pyx_ImportType("pytraj.datasets.DataSet_Mesh", "DataSet_Mesh", sizeof(struct __pyx_obj_6pytraj_8datasets_12DataSet_Mesh_DataSet_Mesh), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_12DataSet_Mesh_DataSet_Mesh)) {__pyx_filename = __pyx_f[12]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4math_4Grid_Grid = __Pyx_ImportType("pytraj.math.Grid", "Grid", sizeof(struct __pyx_obj_6pytraj_4math_4Grid_Grid), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Grid_Grid)) {__pyx_filename = __pyx_f[13]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_14DataSet_Vector_DataSet_Vector = __Pyx_ImportType("pytraj.datasets.DataSet_Vector", "DataSet_Vector", sizeof(struct __pyx_obj_6pytraj_8datasets_14DataSet_Vector_DataSet_Vector), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_14DataSet_Vector_DataSet_Vector)) {__pyx_filename = __pyx_f[14]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl = __Pyx_ImportType("pytraj.datasets.DataSet_MatrixDbl", "DataSet_MatrixDbl", sizeof(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixDbl_DataSet_MatrixDbl)) {__pyx_filename = __pyx_f[15]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_13DatasetVector_DatasetVector = __Pyx_ImportType("pytraj.datasets.DatasetVector", "DatasetVector", sizeof(struct __pyx_obj_6pytraj_8datasets_13DatasetVector_DatasetVector), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_13DatasetVector_DatasetVector)) {__pyx_filename = __pyx_f[14]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_19DatasetMatrixDouble_DatasetMatrixDouble = __Pyx_ImportType("pytraj.datasets.DatasetMatrixDouble", "DatasetMatrixDouble", sizeof(struct __pyx_obj_6pytraj_8datasets_19DatasetMatrixDouble_DatasetMatrixDouble), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_19DatasetMatrixDouble_DatasetMatrixDouble)) {__pyx_filename = __pyx_f[15]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt = __Pyx_ImportType("pytraj.datasets.DataSet_MatrixFlt", "DataSet_MatrixFlt", sizeof(struct __pyx_obj_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_17DataSet_MatrixFlt_DataSet_MatrixFlt)) {__pyx_filename = __pyx_f[16]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt = __Pyx_ImportType("pytraj.datasets.DataSet_GridFlt", "DataSet_GridFlt", sizeof(struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt)) {__pyx_filename = __pyx_f[17]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat = __Pyx_ImportType("pytraj.datasets.DatasetGridFloat", "DatasetGridFloat", sizeof(struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat)) {__pyx_filename = __pyx_f[17]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_8NameType_NameType = __Pyx_ImportType("pytraj.core.NameType", "NameType", sizeof(struct __pyx_obj_6pytraj_4core_8NameType_NameType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_8NameType_NameType)) {__pyx_filename = __pyx_f[18]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_4Atom_Atom = __Pyx_ImportType("pytraj.core.Atom", "Atom", sizeof(struct __pyx_obj_6pytraj_4core_4Atom_Atom), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_4Atom_Atom)) {__pyx_filename = __pyx_f[19]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_7Residue_Residue = __Pyx_ImportType("pytraj.core.Residue", "Residue", sizeof(struct __pyx_obj_6pytraj_4core_7Residue_Residue), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_7Residue_Residue)) {__pyx_filename = __pyx_f[20]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

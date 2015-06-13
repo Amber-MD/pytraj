@@ -17,8 +17,5 @@ class Test(unittest.TestCase):
         assert is_word_in_class_name(d0, 'DataSetList') == True
         print (d0.get_legends())
 
-        if has_("pandas"):
-            print (d0.to_dataframe())
-
 if __name__ == "__main__":
     unittest.main()

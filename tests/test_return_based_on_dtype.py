@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         d0 = traj.calc_COG(dtype='dataset') # default = 'dataset'
         print (d0)
-        assert is_in_class_name(d0, 'DataSet_Vector') == True
+        assert is_in_class_name(d0, 'DatasetVector') == True
         mylist = traj.calc_COG(dtype='list') # default = 'dataset'
         print (mylist)
         assert isinstance(mylist, list) == True

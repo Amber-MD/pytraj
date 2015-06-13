@@ -61,7 +61,7 @@ class Test(unittest.TestCase):
         traj = mdio.load(*("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
         from pytraj.common_actions import calc_distance
         d0 = calc_distance(traj, ":2@CA :10@CA")
-        assert is_word_in_class_name(d0, 'DataSet')
+        assert is_word_in_class_name(d0, 'Dataset')
         assert hasattr(d0.data, 'memview')
 
 if __name__ == "__main__":

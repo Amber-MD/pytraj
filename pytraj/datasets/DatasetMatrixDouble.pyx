@@ -2,9 +2,9 @@
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import MatrixDict, MatrixKindDict, get_key
 
-cdef class DataSet_MatrixDbl (DataSet_2D):
+cdef class DatasetMatrixDouble (DataSet_2D):
     def __cinit__(self):
-        self.thisptr = new _DataSet_MatrixDbl()
+        self.thisptr = new _DatasetMatrixDouble()
         self.baseptr_1 = <_DataSet_2D*> self.thisptr
         self.baseptr0 = <_DataSet*> self.thisptr
 
@@ -21,7 +21,7 @@ cdef class DataSet_MatrixDbl (DataSet_2D):
 
     def alloc(self):
         cdef DataSet dset = DataSet()
-        dset.baseptr0 = _DataSet_MatrixDbl.Alloc()
+        dset.baseptr0 = _DatasetMatrixDouble.Alloc()
         return dset
 
     @property

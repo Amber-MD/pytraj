@@ -2,16 +2,12 @@
 from cpython.array cimport array as pyarray
 from cython.view cimport array as cyarray
 
-# python level
-#from pytraj.optional_libs import HAS_NUMPY, ndarray
 
-cdef class DataSet_float (DataSet_1D):
+cdef class DatasetFloat (DataSet_1D):
     def __cinit__(self):
-        # TODO : Use only one pointer? 
-        self.baseptr0 = <_DataSet*> new _DataSet_float()
-        # make sure 3 pointers pointing to the same address?
+        self.baseptr0 = <_DataSet*> new _DatasetFloat()
         self.baseptr_1 = <_DataSet_1D*> self.baseptr0
-        self.thisptr = <_DataSet_float*> self.baseptr0
+        self.thisptr = <_DatasetFloat*> self.baseptr0
 
         # let Python/Cython free memory
         self.py_free_mem = True
@@ -27,7 +23,6 @@ cdef class DataSet_float (DataSet_1D):
         return dset
 
     def __getitem__(self, idx):
-        #return self.thisptr.index_opr(idx)
         return self.data[idx]
 
     def __setitem__(self, idx, value):

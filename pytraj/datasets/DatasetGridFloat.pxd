@@ -7,8 +7,8 @@ from ..math.Vec3 cimport _Vec3, Vec3
 
 
 cdef extern from "DataSet_GridFlt.h": 
-    cdef cppclass _DataSet_GridFlt "DataSet_GridFlt" (_DataSet_3D):
-        _DataSet_GridFlt()
+    cdef cppclass _DatasetGridFloat "DataSet_GridFlt" (_DataSet_3D):
+        _DatasetGridFloat()
         float& index_opr "operator[]"(size_t idx)
         _DataSet * Alloc() 
         const _Grid[float]& InternalGrid() const 
@@ -30,6 +30,6 @@ cdef extern from "DataSet_GridFlt.h":
         float GridVal(int x, int y, int z) const 
         long int CalcIndex(int i, int j, int k) const 
 
-cdef class DataSet_GridFlt (DataSet_3D):
-    cdef _DataSet_GridFlt* thisptr
+cdef class DatasetGridFloat (DataSet_3D):
+    cdef _DatasetGridFloat* thisptr
     cdef public bint py_free_mem

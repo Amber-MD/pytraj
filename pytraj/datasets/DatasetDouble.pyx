@@ -2,13 +2,13 @@
 from cpython.array cimport array as pyarray
 from cython.view cimport array as cyarray
 
-cdef class DataSet_double (DataSet_1D):
+cdef class DatasetDouble (DataSet_1D):
     def __cinit__(self, *args):
         # TODO : Use only one pointer? 
-        self.baseptr0 = <_DataSet*> new _DataSet_double()
+        self.baseptr0 = <_DataSet*> new _DatasetDouble()
         # make sure 3 pointers pointing to the same address?
         self.baseptr_1 = <_DataSet_1D*> self.baseptr0
-        self.thisptr = <_DataSet_double*> self.baseptr0
+        self.thisptr = <_DatasetDouble*> self.baseptr0
 
         # let Python/Cython free memory
         self.py_free_mem = True
@@ -56,13 +56,13 @@ cdef class DataSet_double (DataSet_1D):
         raise NotImplementedError()
 
     def append(self, dset, idx=None):
-        cdef DataSet_double dset_
+        cdef DatasetDouble dset_
         cdef double elm
         cdef size_t idx_
 
-        if isinstance(dset, DataSet_double):
+        if isinstance(dset, DatasetDouble):
             if idx is not None:
-                raise ValueError("can not use id with DataSet_double instance")
+                raise ValueError("can not use id with DatasetDouble instance")
             dset_ = dset
             self.thisptr.Append(dset_.thisptr[0])
         else:

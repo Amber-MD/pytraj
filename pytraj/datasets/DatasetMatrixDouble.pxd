@@ -7,8 +7,8 @@ from ..math.Matrix cimport *
 ctypedef vector[double] Darray
 
 cdef extern from "DataSet_MatrixDbl.h": 
-    cdef cppclass _DataSet_MatrixDbl "DataSet_MatrixDbl" (_DataSet_2D):
-        _DataSet_MatrixDbl() 
+    cdef cppclass _DatasetMatrixDouble "DataSet_MatrixDbl" (_DataSet_2D):
+        _DatasetMatrixDouble() 
         double& index_opr "operator[]"(size_t idx)
         @staticmethod
         _DataSet * Alloc() 
@@ -43,7 +43,7 @@ cdef extern from "DataSet_MatrixDbl.h":
         const Darray& Mass() const 
 
 
-cdef class DataSet_MatrixDbl (DataSet_2D):
-    cdef _DataSet_MatrixDbl* thisptr
+cdef class DatasetMatrixDouble (DataSet_2D):
+    cdef _DatasetMatrixDouble* thisptr
     cdef bint py_free_mem
 

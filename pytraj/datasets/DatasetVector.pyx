@@ -5,10 +5,10 @@ from pytraj.utils import _import
 from pytraj._xyz import XYZ
 
 
-cdef class DataSet_Vector (DataSet_1D):
+cdef class DatasetVector (DataSet_1D):
     def __cinit__(self):
         self.py_free_mem = True
-        self.thisptr = new _DataSet_Vector()
+        self.thisptr = new _DatasetVector()
         self.baseptr0 = <_DataSet*> self.thisptr
         self.baseptr_1= <_DataSet_1D*> self.thisptr
 
@@ -22,7 +22,7 @@ cdef class DataSet_Vector (DataSet_1D):
             return self.to_dataframe().__str__()
         else:
             print ("don't have pandas: use simple __str__")
-            return super(DataSet_Vector, self).__str__()
+            return super(DatasetVector, self).__str__()
 
     @property
     def shape(self):

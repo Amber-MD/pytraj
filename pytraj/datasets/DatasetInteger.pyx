@@ -5,13 +5,13 @@ from cython.view cimport array as cyarray
 # python level
 from ..utils import is_int
 
-cdef class DataSet_integer (DataSet_1D):
+cdef class DatasetInteger (DataSet_1D):
     def __cinit__(self):
         # TODO : Use only one pointer? 
-        self.baseptr0 = <_DataSet*> new _DataSet_integer()
+        self.baseptr0 = <_DataSet*> new _DatasetInteger()
         # make sure 3 pointers pointing to the same address?
         self.baseptr_1 = <_DataSet_1D*> self.baseptr0
-        self.thisptr = <_DataSet_integer*> self.baseptr0
+        self.thisptr = <_DatasetInteger*> self.baseptr0
 
         # let Python/Cython free memory
         self.py_free_mem = True
