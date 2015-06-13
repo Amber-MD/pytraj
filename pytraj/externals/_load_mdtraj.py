@@ -29,7 +29,7 @@ def load_mdtraj(m_traj, autoconvert=True, top=None):
     else:
         from mdtraj import Trajectory as MDTrajectory
         if not isinstance(m_traj, MDTrajectory):
-            raise PyTrajRequireObject("Trajectory")
+            raise ValueError("must be mdtraj's Trajectory object")
         else:
             if top is not None:
                 print ("test")

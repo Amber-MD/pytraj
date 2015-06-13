@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
 
     #@no_test
     def test_2(self):
-        from pytraj.misc import frame_iter
+        from pytraj import frame_iter_master as frame_iter
         print ("test frame_iter for both pytraj/cpptraj Traj objects")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
@@ -56,7 +56,7 @@ class Test(unittest.TestCase):
 
     #@no_test
     def test_3(self):
-        from pytraj.misc import frame_iter
+        from pytraj import frame_iter_master as frame_iter
         print ("test frame_iter for both pytraj/cpptraj Traj objects")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 

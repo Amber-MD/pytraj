@@ -2,8 +2,7 @@ from __future__ import absolute_import
 from .utils import _import_numpy
 from .core import Box
 from .Frame import Frame
-from .Topology import Topology
-from ._action_in_traj import ActionInTraj
+from ._action_in_traj import ActionTrajectory
 from ._shared_methods import _frame_iter, _frame_iter_master
 from .trajs.Trajin_Single import Trajin_Single
 from  .utils.check_and_assert import is_int, is_frame_iter
@@ -16,8 +15,7 @@ _, np = _import_numpy()
 
 __all__ = ['Trajectory']
 
-# TODO : more checking.
-class Trajectory(ActionInTraj):
+class Trajectory(ActionTrajectory):
     def __init__(self, filename_or_traj=None, top=None):
         self.top = _get_top(filename_or_traj, top)
         self.xyz = None

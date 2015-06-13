@@ -4,13 +4,7 @@ randomizeions, strip atoms, ..."""
 from __future__ import print_function, absolute_import
 import os
 from glob import glob
-from pytraj.Topology import Topology
-from .core.TopologyList import TopologyList
-from .ArgList import ArgList
-from pytraj.Frame import Frame
 from pytraj.Trajectory import Trajectory
-from pytraj.DataSetList import DataSetList
-from pytraj._shared_methods import _frame_iter as frame_iter
 from pytraj._set_silent import set_world_silent
 from pytraj.compat import set
 

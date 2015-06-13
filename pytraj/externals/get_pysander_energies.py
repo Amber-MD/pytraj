@@ -1,4 +1,3 @@
-from pytraj.utils import has_
 from pytraj.externals.six import string_types
 from pytraj._shared_methods import _frame_iter_master
 from pytraj._get_common_objects import _get_top, _get_data_from_dtype
