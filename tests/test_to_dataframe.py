@@ -10,7 +10,6 @@ from pytraj.testing import test_if_having
 class Test(unittest.TestCase):
     @test_if_having("pandas")
     def test_0(self):
-        from pytraj import to_dataframe
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['multidihedral']
         dslist = DataSetList()
@@ -20,10 +19,8 @@ class Test(unittest.TestCase):
         print (dslist['phi:5'][:].shape)
         
         print ("has_pandas")
-        dframe = to_dataframe(dslist)
+        dframe = dslist.to_dataframe()
         print (dframe)
-        # try dummy test
-        print (to_dataframe(dict()))
 
         # frame.to_dataframe
         print (traj[0].to_dataframe(traj.top))

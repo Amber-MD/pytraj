@@ -18,8 +18,7 @@ class Test(unittest.TestCase):
         print (d0.get_legends())
 
         if has_("pandas"):
-            from pytraj.dataframe import to_dataframe
-            print (to_dataframe(d0))
+            print (d0.to_dataframe())
 
 if __name__ == "__main__":
     unittest.main()
