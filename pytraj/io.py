@@ -336,6 +336,29 @@ def loadpdb_rcsb(pdbid):
     traj = load(fname, fname)
     return traj
 
+def download_PDB(pdbid, location="./", overwrite=False):
+    """download pdb to local disk
+
+    Return
+    ------
+    None
+
+    Notes
+    -----
+    this method is different from `parmed.download_PDB`, which return a `Structure` object
+    """
+    import os
+    fname = location + pdbid + ".pdb"
+    if os.path.exists(fname) and not overwrite:
+        raise ValueError("must set overwrite to True")
+
+    url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid
+    txt = urlopen(url).read()
+    with open(fname, 'w') as fh:
+        if PY3:
+            txt = txt.decode()
+        fh.write(txt)
+
 # create alias
 load_pdb_rcsb = loadpdb_rcsb
 
