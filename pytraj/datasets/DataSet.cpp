@@ -1066,7 +1066,7 @@ static char __pyx_k_NotImplementedError[] = "NotImplementedError";
 static char __pyx_k_not_implemented_for_s[] = "not implemented for %s";
 static char __pyx_k_write_to_cpptraj_format[] = "write_to_cpptraj_format";
 static char __pyx_k_don_t_know_how_to_copy_s[] = "don't know how to copy %s";
-static char __pyx_k_pytraj_datasets_0_size_1_name_2[] = "<pytraj.datasets.{0}: size={1}, name={2}> ";
+static char __pyx_k_pytraj_datasets_0_size_1_key_2[] = "<pytraj.datasets.{0}: size={1}, key={2}> ";
 static char __pyx_k_Must_over_write_DataSet_data_att[] = "Must over-write DataSet data attr";
 static char __pyx_k_don_t_know_how_to_cast_to_ndarra[] = "don't know how to cast to ndarray";
 static PyObject *__pyx_n_s_DataFile;
@@ -1139,7 +1139,7 @@ static PyObject *__pyx_n_s_precision;
 static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pyplot;
 static PyObject *__pyx_n_s_pytraj__utils;
-static PyObject *__pyx_kp_s_pytraj_datasets_0_size_1_name_2;
+static PyObject *__pyx_kp_s_pytraj_datasets_0_size_1_key_2;
 static PyObject *__pyx_n_s_pytraj_utils;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_require_having;
@@ -1364,7 +1364,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_4__str__(struct __
  *         aspect = self.aspect
  *         dtype = self.dtype             # <<<<<<<<<<<<<<
  * 
- *         msg0 = """<pytraj.datasets.{0}: size={1}, name={2}> """.format(cname, size, legend)
+ *         msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(cname, size, legend)
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_dtype); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -1374,11 +1374,11 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_4__str__(struct __
   /* "pytraj/datasets/DataSet.pyx":53
  *         dtype = self.dtype
  * 
- *         msg0 = """<pytraj.datasets.{0}: size={1}, name={2}> """.format(cname, size, legend)             # <<<<<<<<<<<<<<
+ *         msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(cname, size, legend)             # <<<<<<<<<<<<<<
  *         return msg0
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_pytraj_datasets_0_size_1_name_2, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_pytraj_datasets_0_size_1_key_2, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -1415,7 +1415,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_4__str__(struct __
 
   /* "pytraj/datasets/DataSet.pyx":54
  * 
- *         msg0 = """<pytraj.datasets.{0}: size={1}, name={2}> """.format(cname, size, legend)
+ *         msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(cname, size, legend)
  *         return msg0             # <<<<<<<<<<<<<<
  * 
  *     def __repr__(self):
@@ -9247,7 +9247,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_pyplot, __pyx_k_pyplot, sizeof(__pyx_k_pyplot), 0, 0, 1, 1},
   {&__pyx_n_s_pytraj__utils, __pyx_k_pytraj__utils, sizeof(__pyx_k_pytraj__utils), 0, 0, 1, 1},
-  {&__pyx_kp_s_pytraj_datasets_0_size_1_name_2, __pyx_k_pytraj_datasets_0_size_1_name_2, sizeof(__pyx_k_pytraj_datasets_0_size_1_name_2), 0, 0, 1, 0},
+  {&__pyx_kp_s_pytraj_datasets_0_size_1_key_2, __pyx_k_pytraj_datasets_0_size_1_key_2, sizeof(__pyx_k_pytraj_datasets_0_size_1_key_2), 0, 0, 1, 0},
   {&__pyx_n_s_pytraj_utils, __pyx_k_pytraj_utils, sizeof(__pyx_k_pytraj_utils), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_require_having, __pyx_k_require_having, sizeof(__pyx_k_require_having), 0, 0, 1, 1},

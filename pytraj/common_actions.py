@@ -327,6 +327,8 @@ def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=
     --------
     Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 588)
     """
+    _, np = _import_numpy()
+
     _top = _get_top(traj, top)
     if dslist is None:
         dslist = DataSetList()
@@ -345,11 +347,14 @@ def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=
     dtype = dtype.upper()
 
     # get all dataset from DatSetList if dtype == integer
-    arr0 = list(dslist.get_dataset(dtype="integer"))
+    if not np:
+        arr0 = list(dslist.get_dataset(dtype="integer"))
 
-    # cpptraj store data for each residue for each frame (n_residues, n_frames)
-    # we need to transpose data
-    arr0 = list(zip(*arr0))
+        # cpptraj store data for each residue for each frame (n_residues, n_frames)
+        # we need to transpose data
+        arr0 = list(zip(*arr0))
+    else:
+        arr0 = dslist.groupby("integer", mode='dtype').values
     if dtype in ['INT', 'INTERGER']:
         return arr0
     elif dtype in ['STRING', 'STR']:
