@@ -68,7 +68,6 @@ calc_molsurf = partial(calculate, 'molsurf', quick_get=True)
 calc_distrmsd = partial(calculate, 'distrmsd', quick_get=True)
 calc_volume = partial(calculate, 'volume', quick_get=True)
 calc_matrix = partial(calculate, 'matrix', print_output=True)
-calc_jcoupling = partial(calculate, 'jcoupling', dtype='dataset')
 calc_multivector = partial(calculate, 'multivector')
 calc_volmap = partial(calculate, 'volmap')
 calc_linear_interaction_energy = partial(calculate, 'lie')
@@ -236,6 +235,29 @@ def calc_radial(traj=None, command="", top=Topology()):
 
     # dump data to dslist.
     act.print_output()
+    return dslist
+
+def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset', *args, **kwd):
+    """
+    Paramters
+    ---------
+    traj : any things that make `frame_iter_master` returning Frame object
+    command : str, default ""
+        cpptraj's command/mask
+    kfile : str, default None, optional
+        Dir for Karplus file. If "None", use $AMBERHOME dir 
+    dtype : str, {'dataset', ...}, default 'dataset'
+    *args, **kwd: optional
+    """
+    from pytraj.actions.Action_Jcoupling import Action_Jcoupling
+    act = Action_Jcoupling()
+    # add `radial` keyword to command (need to check `why`?)
+    dslist = DataSetList()
+    _top = _get_top(traj, top)
+
+    if kfile is not None:
+        command += " kfile %s" % kfile
+    act(command, traj, dslist=dslist, top=_top, *args, **kwd)
     return dslist
 
 def to_string_ss(arr0):

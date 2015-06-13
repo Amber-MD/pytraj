@@ -1,6 +1,5 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from ..datasets.DataIO cimport *
 from ..datasets.DataSet cimport _DataSet, DataSet
 from ..ArgList cimport _ArgList, ArgList
 from ..datasets.DataSetList cimport _DataSetList, DataSetList

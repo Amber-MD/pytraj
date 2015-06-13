@@ -30,10 +30,13 @@ class Test(unittest.TestCase):
         from pytraj.common_actions import calc_jcoupling
         print (command)
         d0 = calc_jcoupling(traj, command)
+        d1 = calc_jcoupling(traj, kfile=kfile)
         print ("d0", d0)
-        d1 = mdio.load_datafile(os.path.join(cpptraj_test_dir, 
-                              "Test_Jcoupling", "Jcoupling.dat"))
-        print (d1)
+        print ("d1", d1)
+        assert (d0.to_dict() == d1.to_dict())
+        d_saved = mdio.load_datafile(os.path.join(cpptraj_test_dir, 
+                              "Test_Jcoupling", "Jcoupling.dat.save"))
+        print (d_saved)
 
 
 if __name__ == "__main__":

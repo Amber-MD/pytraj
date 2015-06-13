@@ -16,7 +16,6 @@ class Test(unittest.TestCase):
     @test_if_path_exists(cpptraj_test_dir)
     @test_if_having("pandas")
     def test_0(self):
-        from pytraj import to_dataframe
         import os
         trajin_file = "./data/ptraj_comp.in"
         command = "cat %s" % trajin_file
@@ -24,7 +23,7 @@ class Test(unittest.TestCase):
         state.run()
         dslist = state.datasetlist
         print (dslist.get_legends())
-        print (to_dataframe(dslist))
+        print (dslist.to_dataframe())
 
 
 if __name__ == "__main__":
