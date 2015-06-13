@@ -8,7 +8,7 @@ import numpy as np
 
 try:
     import sander
-    from chemistry.amber.readparm import AmberParm
+    from parmed.amber.readparm import AmberParm
     has_sander_and_parmed = True
 except:
     has_sander_and_parmed = False

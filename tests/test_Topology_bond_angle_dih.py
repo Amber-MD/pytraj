@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         assert list(top.dihedrals).__len__() == 1351
 
     @test_if_having("numpy")
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_1(self):
         # try to rebuild pseudoparm
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

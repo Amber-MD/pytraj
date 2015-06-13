@@ -7,7 +7,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test, test_if_having
 
 class Test(unittest.TestCase):
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_0(self):
         top_fn = "./data/Tc5b.top"
         p_top = mdio._load_parmed(top_fn)

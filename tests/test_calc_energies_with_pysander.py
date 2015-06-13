@@ -12,7 +12,7 @@ def assert_close(x, y, tol=1E-4):
 
 class Test(unittest.TestCase):
     @test_if_having("sander")
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_2(self):
         # compare to saved test: GB
         import os
@@ -50,7 +50,7 @@ class Test(unittest.TestCase):
             print ("has not set AMBERHOME or can not find test folder. skip")
         
     @test_if_having("sander")
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_3(self):
         # compare to saved test: PME
         import os
@@ -71,7 +71,7 @@ class Test(unittest.TestCase):
             print ("has not set AMBERHOME or can not find test folder. skip")
 
     @test_if_having("sander")
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_4(self):
         # compare to saved test: GB + QMMM
         import os
@@ -105,7 +105,7 @@ class Test(unittest.TestCase):
             print ("has not set AMBERHOME or can not find test folder. skip")
 
     @test_if_having("sander")
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_5(self):
         # compare to saved test: PME + QMMM
         import os
@@ -140,7 +140,7 @@ class Test(unittest.TestCase):
             print ("has not set AMBERHOME or can not find test folder. skip")
 
     @test_if_having("sander")
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_6(self):
         # compare to saved test: GBneck2nu
         import os

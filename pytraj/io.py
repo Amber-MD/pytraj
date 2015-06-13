@@ -79,8 +79,8 @@ def load(*args, **kwd):
         if hasattr(top, 'is_empty') and top.is_empty():
             try:
                 # use ParmEd to load if cpptraj fails
-                import chemistry
-                return load_pseudo_parm(chemistry.load_file(args[0]))
+                import parmed
+                return load_pseudo_parm(parmed.load_file(args[0]))
             except:
                 try:
                     # try to predict filetype and use proper loading method

@@ -19,11 +19,11 @@ class Test(unittest.TestCase):
         mat = Matrix_3x3(list(range(9)))
         print(mat*v1)
 
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_1(self):
         l = [1., 2., 3.]
         v1 = Vec3(l)
-        from chemistry.vec3 import Vec3 as chem_v3
+        from parmed.vec3 import Vec3 as chem_v3
         cv3 = chem_v3.__new__(chem_v3, *l)
 
         v2 = Vec3(cv3)

@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
         for atom in atom_list:
             assert atom.name == 'CA  '
 
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_2(self):
         print ("test _original_filename")
         fname = top._original_filename
