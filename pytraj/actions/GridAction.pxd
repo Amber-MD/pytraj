@@ -1,6 +1,6 @@
 # distutils: language = c++
 from pytraj.datasets.DataSetList cimport _DataSetList, DataSetList
-from pytraj.datasets.DataSet_GridFlt cimport _DataSet_GridFlt, DataSet_GridFlt
+from pytraj.datasets.DatasetGridFloat cimport _DatasetGridFloat, DatasetGridFloat
 from pytraj.Frame cimport _Frame, Frame
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj.AtomMask cimport _AtomMask, AtomMask
@@ -16,10 +16,10 @@ cdef extern from "GridAction.h":
         SPECIFIEDCENTER "GridAction::SPECIFIEDCENTER"
     cdef cppclass _GridAction "GridAction":
         Grid_Action() 
-        _DataSet_GridFlt * GridInit(const char *, _ArgList&, _DataSetList&)
-        void GridInfo(const _DataSet_GridFlt&)
+        _DatasetGridFloat * GridInit(const char *, _ArgList&, _DataSetList&)
+        void GridInfo(const _DatasetGridFloat&)
         int GridSetup(const _Topology&)
-        inline void GridFrame(const _Frame&, const _AtomMask&, _DataSet_GridFlt&)
+        inline void GridFrame(const _Frame&, const _AtomMask&, _DatasetGridFloat&)
         GridModeType GridMode() const 
         const _AtomMask& CenterMask() const 
         float Increment() const 

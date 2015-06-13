@@ -29,11 +29,11 @@ class Test(unittest.TestCase):
             print (d0.name, d0.dtype)
 
         # test resize
-        d_double = DataSet_double()
-        d_float = DataSet_float()
-        d_int = DataSet_integer()
-        d_v = DataSet_Vector()
-        d_s = DataSet_string()
+        d_double = DatasetDouble()
+        d_float = DatasetFloat()
+        d_int = DatasetInteger()
+        d_v = DatasetVector()
+        d_s = DatasetString()
         
         N = 100
         d_double.resize(N)
@@ -73,9 +73,9 @@ class Test(unittest.TestCase):
         print (np.array_split(d0, 3))
 
         # from_array
-        d_double = DataSet_double()
-        d_float = DataSet_float()
-        d_int = DataSet_integer()
+        d_double = DatasetDouble()
+        d_float = DatasetFloat()
+        d_int = DatasetInteger()
 
         d_double.from_array_like([1, 2, 3])
         d_float.from_array_like([1, 2, 3])
@@ -95,7 +95,7 @@ class Test(unittest.TestCase):
         assert (d2_double.mean_with_error(d_double) == (3., 1.))
 
         # chunk_average
-        d3_double = DataSet_double()
+        d3_double = DatasetDouble()
         d3_double.from_array_like(range(10))
         aa_eq(d3_double.chunk_average(5), np.array([ 0.5,  2.5,  4.5,  6.5,  8.5]))
 

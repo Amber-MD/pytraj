@@ -747,7 +747,7 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
 
     """
     from array import array as pyarray
-    from pytraj.datasets import DataSet_double
+    from pytraj.datasets import DatasetDouble
 
     _top = _get_top(traj, top)
     if ref is None or ref == 'first':
@@ -789,7 +789,7 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
         if dtype == 'pyarray':
             return arr
         else:
-            dset = DataSet_double()
+            dset = DatasetDouble()
             dset.resize(len(arr))
             dset.values[:] = arr
             dset.legend = 'rmsd'
@@ -806,7 +806,7 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
         if dtype == 'pyarray':
             return pyarray('d', dslist[0].data)[1:]
         else:
-            dset = DataSet_double()
+            dset = DatasetDouble()
             dset.resize(dslist[0].size - 1)
             dset.values[:] = pyarray('d', dslist[0].data[1:])
             dset.legend = 'rmsd'

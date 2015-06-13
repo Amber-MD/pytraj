@@ -465,7 +465,7 @@ static const char *__pyx_f[] = {
   "pytraj/math/Vec3.pxd",
   "pytraj/datasets/DataSet_3D.pxd",
   "pytraj/math/Grid.pxd",
-  "pytraj/datasets/DataSet_GridFlt.pxd",
+  "pytraj/datasets/DatasetGridFloat.pxd",
   "pytraj/math/Matrix_3x3.pxd",
   "pytraj/core/NameType.pxd",
   "pytraj/core/Atom.pxd",
@@ -577,7 +577,7 @@ struct __pyx_obj_6pytraj_8datasets_11DataSetList_DataSetList;
 struct __pyx_obj_6pytraj_4math_4Vec3_Vec3;
 struct __pyx_obj_6pytraj_8datasets_10DataSet_3D_DataSet_3D;
 struct __pyx_obj_6pytraj_4math_4Grid_Grid;
-struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt;
+struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat;
 struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3;
 struct __pyx_obj_6pytraj_4core_8NameType_NameType;
 struct __pyx_obj_6pytraj_4core_4Atom_Atom;
@@ -859,14 +859,14 @@ struct __pyx_obj_6pytraj_4math_4Grid_Grid {
 };
 
 
-/* "pytraj/datasets/DataSet_GridFlt.pxd":33
+/* "pytraj/datasets/DatasetGridFloat.pxd":33
  *         long int CalcIndex(int i, int j, int k) const
  * 
- * cdef class DataSet_GridFlt (DataSet_3D):             # <<<<<<<<<<<<<<
- *     cdef _DataSet_GridFlt* thisptr
+ * cdef class DatasetGridFloat (DataSet_3D):             # <<<<<<<<<<<<<<
+ *     cdef _DatasetGridFloat* thisptr
  *     cdef public bint py_free_mem
  */
-struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt {
+struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat {
   struct __pyx_obj_6pytraj_8datasets_10DataSet_3D_DataSet_3D __pyx_base;
   DataSet_GridFlt *thisptr;
   int py_free_mem;
@@ -1793,8 +1793,8 @@ static PyTypeObject *__pyx_ptype_6pytraj_8datasets_10DataSet_3D_DataSet_3D = 0;
 /* Module declarations from 'pytraj.math.Grid' */
 static PyTypeObject *__pyx_ptype_6pytraj_4math_4Grid_Grid = 0;
 
-/* Module declarations from 'pytraj.datasets.DataSet_GridFlt' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt = 0;
+/* Module declarations from 'pytraj.datasets.DatasetGridFloat' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat = 0;
 
 /* Module declarations from 'pytraj.math.Matrix_3x3' */
 static PyTypeObject *__pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3 = 0;
@@ -1907,9 +1907,9 @@ static PyObject *__pyx_builtin_IndexError;
 static int __pyx_pf_6pytraj_7actions_10GridAction_10GridAction___cinit__(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_7actions_10GridAction_10GridAction_2__dealloc__(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_4init(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, char *__pyx_v_callingRoutine, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_arglist, struct __pyx_obj_6pytraj_8datasets_11DataSetList_DataSetList *__pyx_v_dslist); /* proto */
-static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_6info(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *__pyx_v_dset_gf); /* proto */
+static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_6info(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *__pyx_v_dset_gf); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_8process(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top); /* proto */
-static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_10frame(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame, struct __pyx_obj_6pytraj_8AtomMask_AtomMask *__pyx_v_atm, struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *__pyx_v_dset_gf); /* proto */
+static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_10frame(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame, struct __pyx_obj_6pytraj_8AtomMask_AtomMask *__pyx_v_atm, struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *__pyx_v_dset_gf); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_12mode(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_14center_mask(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_16increment(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self); /* proto */
@@ -2232,7 +2232,7 @@ static void __pyx_pf_6pytraj_7actions_10GridAction_10GridAction_2__dealloc__(str
  *         del self.thisptr
  * 
  *     def init(self, char* callingRoutine, ArgList arglist, DataSetList dslist):             # <<<<<<<<<<<<<<
- *         cdef DataSet_GridFlt dset_gf = DataSet_GridFlt()
+ *         cdef DatasetGridFloat dset_gf = DatasetGridFloat()
  *         # since we use memory view, we let cpptraj free memory
  */
 
@@ -2314,7 +2314,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_10GridAction_10GridAction_5init(PyObj
 }
 
 static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_4init(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, char *__pyx_v_callingRoutine, struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_arglist, struct __pyx_obj_6pytraj_8datasets_11DataSetList_DataSetList *__pyx_v_dslist) {
-  struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *__pyx_v_dset_gf = 0;
+  struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *__pyx_v_dset_gf = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2326,17 +2326,17 @@ static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_4init(struc
   /* "pytraj/actions/GridAction.pyx":13
  * 
  *     def init(self, char* callingRoutine, ArgList arglist, DataSetList dslist):
- *         cdef DataSet_GridFlt dset_gf = DataSet_GridFlt()             # <<<<<<<<<<<<<<
+ *         cdef DatasetGridFloat dset_gf = DatasetGridFloat()             # <<<<<<<<<<<<<<
  *         # since we use memory view, we let cpptraj free memory
  *         dset_gf.py_free_mem = False
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_dset_gf = ((struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *)__pyx_t_1);
+  __pyx_v_dset_gf = ((struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* "pytraj/actions/GridAction.pyx":15
- *         cdef DataSet_GridFlt dset_gf = DataSet_GridFlt()
+ *         cdef DatasetGridFloat dset_gf = DatasetGridFloat()
  *         # since we use memory view, we let cpptraj free memory
  *         dset_gf.py_free_mem = False             # <<<<<<<<<<<<<<
  *         dset_gf.thisptr = self.thisptr.GridInit(callingRoutine, arglist.thisptr[0], dslist.thisptr[0])
@@ -2358,7 +2358,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_4init(struc
  *         dset_gf.thisptr = self.thisptr.GridInit(callingRoutine, arglist.thisptr[0], dslist.thisptr[0])
  *         return dset_gf             # <<<<<<<<<<<<<<
  * 
- *     def info(self, DataSet_GridFlt dset_gf):
+ *     def info(self, DatasetGridFloat dset_gf):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_dset_gf));
@@ -2369,7 +2369,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_4init(struc
  *         del self.thisptr
  * 
  *     def init(self, char* callingRoutine, ArgList arglist, DataSetList dslist):             # <<<<<<<<<<<<<<
- *         cdef DataSet_GridFlt dset_gf = DataSet_GridFlt()
+ *         cdef DatasetGridFloat dset_gf = DatasetGridFloat()
  *         # since we use memory view, we let cpptraj free memory
  */
 
@@ -2388,14 +2388,14 @@ static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_4init(struc
 /* "pytraj/actions/GridAction.pyx":19
  *         return dset_gf
  * 
- *     def info(self, DataSet_GridFlt dset_gf):             # <<<<<<<<<<<<<<
+ *     def info(self, DatasetGridFloat dset_gf):             # <<<<<<<<<<<<<<
  *         self.thisptr.GridInfo(dset_gf.thisptr[0])
  * 
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_7actions_10GridAction_10GridAction_7info(PyObject *__pyx_v_self, PyObject *__pyx_v_dset_gf); /*proto*/
-static char __pyx_doc_6pytraj_7actions_10GridAction_10GridAction_6info[] = "GridAction.info(self, DataSet_GridFlt dset_gf)";
+static char __pyx_doc_6pytraj_7actions_10GridAction_10GridAction_6info[] = "GridAction.info(self, DatasetGridFloat dset_gf)";
 static PyObject *__pyx_pw_6pytraj_7actions_10GridAction_10GridAction_7info(PyObject *__pyx_v_self, PyObject *__pyx_v_dset_gf) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
@@ -2403,8 +2403,8 @@ static PyObject *__pyx_pw_6pytraj_7actions_10GridAction_10GridAction_7info(PyObj
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("info (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dset_gf), __pyx_ptype_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt, 1, "dset_gf", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6pytraj_7actions_10GridAction_10GridAction_6info(((struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *)__pyx_v_self), ((struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *)__pyx_v_dset_gf));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dset_gf), __pyx_ptype_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat, 1, "dset_gf", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_7actions_10GridAction_10GridAction_6info(((struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *)__pyx_v_self), ((struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *)__pyx_v_dset_gf));
 
   /* function exit code */
   goto __pyx_L0;
@@ -2415,14 +2415,14 @@ static PyObject *__pyx_pw_6pytraj_7actions_10GridAction_10GridAction_7info(PyObj
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_6info(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *__pyx_v_dset_gf) {
+static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_6info(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *__pyx_v_dset_gf) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("info", 0);
 
   /* "pytraj/actions/GridAction.pyx":20
  * 
- *     def info(self, DataSet_GridFlt dset_gf):
+ *     def info(self, DatasetGridFloat dset_gf):
  *         self.thisptr.GridInfo(dset_gf.thisptr[0])             # <<<<<<<<<<<<<<
  * 
  *     def process(self, Topology top):
@@ -2432,7 +2432,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_6info(struc
   /* "pytraj/actions/GridAction.pyx":19
  *         return dset_gf
  * 
- *     def info(self, DataSet_GridFlt dset_gf):             # <<<<<<<<<<<<<<
+ *     def info(self, DatasetGridFloat dset_gf):             # <<<<<<<<<<<<<<
  *         self.thisptr.GridInfo(dset_gf.thisptr[0])
  * 
  */
@@ -2488,7 +2488,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_8process(st
  *     def process(self, Topology top):
  *         return self.thisptr.GridSetup(top.thisptr[0])             # <<<<<<<<<<<<<<
  * 
- *     def frame(self, Frame frame, AtomMask atm, DataSet_GridFlt dset_gf):
+ *     def frame(self, Frame frame, AtomMask atm, DatasetGridFloat dset_gf):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->thisptr->GridSetup((__pyx_v_top->thisptr[0]))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2519,18 +2519,18 @@ static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_8process(st
 /* "pytraj/actions/GridAction.pyx":25
  *         return self.thisptr.GridSetup(top.thisptr[0])
  * 
- *     def frame(self, Frame frame, AtomMask atm, DataSet_GridFlt dset_gf):             # <<<<<<<<<<<<<<
+ *     def frame(self, Frame frame, AtomMask atm, DatasetGridFloat dset_gf):             # <<<<<<<<<<<<<<
  *         self.thisptr.GridFrame(frame.thisptr[0], atm.thisptr[0], dset_gf.thisptr[0])
  * 
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_7actions_10GridAction_10GridAction_11frame(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_7actions_10GridAction_10GridAction_10frame[] = "GridAction.frame(self, Frame frame, AtomMask atm, DataSet_GridFlt dset_gf)";
+static char __pyx_doc_6pytraj_7actions_10GridAction_10GridAction_10frame[] = "GridAction.frame(self, Frame frame, AtomMask atm, DatasetGridFloat dset_gf)";
 static PyObject *__pyx_pw_6pytraj_7actions_10GridAction_10GridAction_11frame(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame = 0;
   struct __pyx_obj_6pytraj_8AtomMask_AtomMask *__pyx_v_atm = 0;
-  struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *__pyx_v_dset_gf = 0;
+  struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *__pyx_v_dset_gf = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2578,7 +2578,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_10GridAction_10GridAction_11frame(PyO
     }
     __pyx_v_frame = ((struct __pyx_obj_6pytraj_5Frame_Frame *)values[0]);
     __pyx_v_atm = ((struct __pyx_obj_6pytraj_8AtomMask_AtomMask *)values[1]);
-    __pyx_v_dset_gf = ((struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *)values[2]);
+    __pyx_v_dset_gf = ((struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *)values[2]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -2590,7 +2590,7 @@ static PyObject *__pyx_pw_6pytraj_7actions_10GridAction_10GridAction_11frame(PyO
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_frame), __pyx_ptype_6pytraj_5Frame_Frame, 1, "frame", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_atm), __pyx_ptype_6pytraj_8AtomMask_AtomMask, 1, "atm", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dset_gf), __pyx_ptype_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt, 1, "dset_gf", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dset_gf), __pyx_ptype_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat, 1, "dset_gf", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_6pytraj_7actions_10GridAction_10GridAction_10frame(((struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *)__pyx_v_self), __pyx_v_frame, __pyx_v_atm, __pyx_v_dset_gf);
 
   /* function exit code */
@@ -2602,14 +2602,14 @@ static PyObject *__pyx_pw_6pytraj_7actions_10GridAction_10GridAction_11frame(PyO
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_10frame(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame, struct __pyx_obj_6pytraj_8AtomMask_AtomMask *__pyx_v_atm, struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt *__pyx_v_dset_gf) {
+static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_10frame(struct __pyx_obj_6pytraj_7actions_10GridAction_GridAction *__pyx_v_self, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame, struct __pyx_obj_6pytraj_8AtomMask_AtomMask *__pyx_v_atm, struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat *__pyx_v_dset_gf) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("frame", 0);
 
   /* "pytraj/actions/GridAction.pyx":26
  * 
- *     def frame(self, Frame frame, AtomMask atm, DataSet_GridFlt dset_gf):
+ *     def frame(self, Frame frame, AtomMask atm, DatasetGridFloat dset_gf):
  *         self.thisptr.GridFrame(frame.thisptr[0], atm.thisptr[0], dset_gf.thisptr[0])             # <<<<<<<<<<<<<<
  * 
  *     def mode(self):
@@ -2619,7 +2619,7 @@ static PyObject *__pyx_pf_6pytraj_7actions_10GridAction_10GridAction_10frame(str
   /* "pytraj/actions/GridAction.pyx":25
  *         return self.thisptr.GridSetup(top.thisptr[0])
  * 
- *     def frame(self, Frame frame, AtomMask atm, DataSet_GridFlt dset_gf):             # <<<<<<<<<<<<<<
+ *     def frame(self, Frame frame, AtomMask atm, DatasetGridFloat dset_gf):             # <<<<<<<<<<<<<<
  *         self.thisptr.GridFrame(frame.thisptr[0], atm.thisptr[0], dset_gf.thisptr[0])
  * 
  */
@@ -14846,7 +14846,7 @@ PyMODINIT_FUNC PyInit_GridAction(void)
   __pyx_ptype_6pytraj_4math_4Vec3_Vec3 = __Pyx_ImportType("pytraj.math.Vec3", "Vec3", sizeof(struct __pyx_obj_6pytraj_4math_4Vec3_Vec3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Vec3_Vec3)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8datasets_10DataSet_3D_DataSet_3D = __Pyx_ImportType("pytraj.datasets.DataSet_3D", "DataSet_3D", sizeof(struct __pyx_obj_6pytraj_8datasets_10DataSet_3D_DataSet_3D), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_10DataSet_3D_DataSet_3D)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4math_4Grid_Grid = __Pyx_ImportType("pytraj.math.Grid", "Grid", sizeof(struct __pyx_obj_6pytraj_4math_4Grid_Grid), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_4Grid_Grid)) {__pyx_filename = __pyx_f[7]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt = __Pyx_ImportType("pytraj.datasets.DataSet_GridFlt", "DataSet_GridFlt", sizeof(struct __pyx_obj_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_15DataSet_GridFlt_DataSet_GridFlt)) {__pyx_filename = __pyx_f[8]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat = __Pyx_ImportType("pytraj.datasets.DatasetGridFloat", "DatasetGridFloat", sizeof(struct __pyx_obj_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_16DatasetGridFloat_DatasetGridFloat)) {__pyx_filename = __pyx_f[8]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3 = __Pyx_ImportType("pytraj.math.Matrix_3x3", "Matrix_3x3", sizeof(struct __pyx_obj_6pytraj_4math_10Matrix_3x3_Matrix_3x3), 1); if (unlikely(!__pyx_ptype_6pytraj_4math_10Matrix_3x3_Matrix_3x3)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_8NameType_NameType = __Pyx_ImportType("pytraj.core.NameType", "NameType", sizeof(struct __pyx_obj_6pytraj_4core_8NameType_NameType), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_8NameType_NameType)) {__pyx_filename = __pyx_f[10]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_4Atom_Atom = __Pyx_ImportType("pytraj.core.Atom", "Atom", sizeof(struct __pyx_obj_6pytraj_4core_4Atom_Atom), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_4Atom_Atom)) {__pyx_filename = __pyx_f[11]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
