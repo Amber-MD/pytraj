@@ -40,6 +40,9 @@ It's recommended to use ``cython`` to write or wrap high performance code. Pleas
 
 Since ``pytraj`` will be bundled with AmberTools in Amber, it's important that we should commit cythonized file too. The main idea is that user only need C++ compiler and ``cpptraj``, nothing else.
 
-Read cpptraj developer guide
-----------------------------
+Read Also
+---------
 `cpptraj-dev guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.lyx>`
+`pandas contributing guide <http://pandas.pydata.org/pandas-docs/stable/contributing.html>`
+
+
