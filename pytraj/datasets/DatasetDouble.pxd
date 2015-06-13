@@ -5,8 +5,8 @@ from .DataSet_1D cimport _DataSet_1D, DataSet_1D
 
 
 cdef extern from "DataSet_double.h": 
-    cdef cppclass _DataSet_double "DataSet_double" (_DataSet_1D):
-        _DataSet_double() 
+    cdef cppclass _DatasetDouble "DataSet_double" (_DataSet_1D):
+        _DatasetDouble() 
         @staticmethod
         _DataSet * Alloc() 
         double& operator[](size_t idx)
@@ -22,7 +22,7 @@ cdef extern from "DataSet_double.h":
         void Add(size_t, const void *)
         double Dval(size_t idx) const 
         double Xcrd(size_t idx) const 
-        void Append(const _DataSet_double&)
+        void Append(const _DatasetDouble&)
         void SetNOE(double b, double bh, double r)
         double NOE_bound() const 
         double NOE_boundH() const 
@@ -30,6 +30,6 @@ cdef extern from "DataSet_double.h":
         void ShiftTorsions(double, double)
 
 
-cdef class DataSet_double (DataSet_1D):
-    cdef _DataSet_double* thisptr
+cdef class DatasetDouble (DataSet_1D):
+    cdef _DatasetDouble* thisptr
     cdef bint py_free_mem 

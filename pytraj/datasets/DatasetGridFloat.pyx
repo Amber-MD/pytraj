@@ -4,11 +4,11 @@ from cython.view cimport array as cyarray
 from ..utils import _import_numpy 
 from ..exceptions import PytrajError
 
-cdef class DataSet_GridFlt(DataSet_3D):
+cdef class DatasetGridFloat(DataSet_3D):
     def __cinit__(self):
-        self.baseptr0 = <_DataSet*> new _DataSet_GridFlt()
+        self.baseptr0 = <_DataSet*> new _DatasetGridFloat()
         self.baseptr_1 = <_DataSet_3D*> self.baseptr0
-        self.thisptr = <_DataSet_GridFlt*> self.baseptr0
+        self.thisptr = <_DatasetGridFloat*> self.baseptr0
         self.py_free_mem = True
 
     def __dealloc__(self):

@@ -5,8 +5,8 @@ from .DataSet_1D cimport _DataSet_1D, DataSet_1D
 
 
 cdef extern from "DataSet_integer.h": 
-    cdef cppclass _DataSet_integer "DataSet_integer" (_DataSet_1D):
-        _DataSet_integer() 
+    cdef cppclass _DatasetInteger "DataSet_integer" (_DataSet_1D):
+        _DatasetInteger() 
         @staticmethod
         _DataSet * Alloc() 
         int& operator[](size_t idx)
@@ -16,7 +16,7 @@ cdef extern from "DataSet_integer.h":
         void Resize(size_t)
         void Add( size_t, const void* )
 
-cdef class DataSet_integer (DataSet_1D):
-    cdef _DataSet_integer* thisptr
+cdef class DatasetInteger (DataSet_1D):
+    cdef _DatasetInteger* thisptr
     cdef bint py_free_mem 
 

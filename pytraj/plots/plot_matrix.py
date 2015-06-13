@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from pytraj.datasets.DataSet_MatrixDbl import DataSet_MatrixDbl
+from pytraj.datasets.DatasetMatrixDouble import DatasetMatrixDouble
 from ..utils import _import_numpy
 from .base import plt, np
 

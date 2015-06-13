@@ -7,8 +7,8 @@ from ..math.Vec3 cimport _Vec3, Vec3
 
 
 cdef extern from "DataSet_Vector.h": 
-    cdef cppclass _DataSet_Vector "DataSet_Vector" (_DataSet_1D):
-        _DataSet_Vector() 
+    cdef cppclass _DatasetVector "DataSet_Vector" (_DataSet_1D):
+        _DatasetVector() 
         _DataSet * Alloc() 
         void SetIred() 
         bint IsIred() const 
@@ -30,7 +30,7 @@ cdef extern from "DataSet_Vector.h":
         double SphericalHarmonicsNorm(int)
 
 
-cdef class DataSet_Vector (DataSet_1D):
-    cdef _DataSet_Vector* thisptr
+cdef class DatasetVector (DataSet_1D):
+    cdef _DatasetVector* thisptr
     cdef bint py_free_mem
 

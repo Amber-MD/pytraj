@@ -58,3 +58,12 @@ from ._set_silent import set_error_silent, set_world_silent
 from ._set_silent import set_world_silent as set_cpptraj_verbose
 
 set_world_silent(True)
+
+def show_versions():
+    """
+    """
+    from .__cpptraj_version__ import info as compiled_info
+    from .__cpptraj_version__ import __cpptraj_version__
+    print ("pytraj version = ", version)
+    print ("cpptraj version = ", __cpptraj_version__)
+    print ("cpptraj compiled flag = ", compiled_info())

@@ -4,12 +4,12 @@ from cpython.array cimport array as pyarray
 # python level
 #from pytraj.optional_libs import HAS_NUMPY, ndarray
 
-cdef class DataSet_string (DataSet_1D):
+cdef class DatasetString (DataSet_1D):
     def __cinit__(self):
-        self.baseptr0 = <_DataSet*> new _DataSet_string()
+        self.baseptr0 = <_DataSet*> new _DatasetString()
         # make sure 3 pointers pointing to the same address?
         self.baseptr_1 = <_DataSet_1D*> self.baseptr0
-        self.thisptr = <_DataSet_string*> self.baseptr0
+        self.thisptr = <_DatasetString*> self.baseptr0
 
         # let Python/Cython free memory
         self.py_free_mem = True

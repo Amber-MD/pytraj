@@ -5,7 +5,7 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ
-from pytraj.datasets.DataSet_MatrixDbl import DataSet_MatrixDbl
+from pytraj.datasets.DatasetMatrixDouble import DatasetMatrixDouble
 
 class Test(unittest.TestCase):
     # FIXME: need to add dataset's name to add to DSL
@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         print (dslist.size) # = 0, but I expected "=1"
 
     def test_1(self):
-        dset_traj = DataSet_MatrixDbl()
+        dset_traj = DatasetMatrixDouble()
         dslist = DataSetList()
 
         # wrapper of "AddSet(DataSet*)

@@ -50,10 +50,8 @@ cdef class DataSet:
         aspect = self.aspect
         dtype = self.dtype
 
-        msg0 = """<pytraj.datasets.{0}: size={1}, name={2}, """.format(cname, size, dname)
-        msg1 = """legend={0}, aspect={1}, dtype={2}, format={3}>""".format(legend, 
-            aspect, dtype, dformat)
-        return msg0 + msg1 
+        msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(cname, size, legend)
+        return msg0
 
     def __repr__(self):
         return self.__str__()

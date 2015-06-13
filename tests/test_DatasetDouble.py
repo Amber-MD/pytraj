@@ -1,12 +1,12 @@
 import unittest
 from pytraj import datasets
-from pytraj.datasets.DataSet_double import DataSet_double
+from pytraj.datasets.DatasetDouble import DatasetDouble
 import numpy as np
 from array import array
 
 class TestDataSetDB(unittest.TestCase):
     def test_0(self):
-        dset0 = DataSet_double()
+        dset0 = DatasetDouble()
 
         # test assign to list
         tlist = [1., 2. , 3.]
@@ -27,10 +27,10 @@ class TestDataSetDB(unittest.TestCase):
 
         # test append dset
         # reset dset0
-        dset0 = DataSet_double()
+        dset0 = DatasetDouble()
         tlist = [1., 2. , 3., 4.]
         dset0.data = [1., 2. , 3., 4.]
-        dset1 = DataSet_double(list(range(10)))
+        dset1 = DatasetDouble(list(range(10)))
         dset0.append(dset1)
         assert dset0.size == 4 + 10 
 
