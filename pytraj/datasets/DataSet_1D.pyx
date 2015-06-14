@@ -1,4 +1,5 @@
 # distutils: language = c++
+from __future__ import division
 from pytraj.utils import _import_numpy
 
 
