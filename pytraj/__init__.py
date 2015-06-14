@@ -39,8 +39,8 @@ from .data_sample.load_sample_data import load_sample_data
 from .DataSetList import DataSetList
 
 # actions and analyses
-from .actions import allactions
-from .analyses import allanalyses
+from .actions import CpptrajActions as allactions
+from .analyses import CpptrajAnalyses as allanalyses
 from ._common_actions import calculate
 from . import common_actions
 from .action_dict import ActionDict

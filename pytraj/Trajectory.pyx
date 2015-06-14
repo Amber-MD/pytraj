@@ -11,7 +11,7 @@ from .AtomMask cimport AtomMask
 from ._utils cimport get_positive_idx
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
-from .actions.Action_Rmsd cimport Action_Rmsd
+from .actions.CpptrajActions cimport Action_Rmsd
 from .math.Matrix_3x3 cimport Matrix_3x3
 from .cpp_algorithm cimport iter_swap
 

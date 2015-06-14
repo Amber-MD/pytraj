@@ -887,7 +887,7 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
     >>> new_traj, dslist = pyca.closest (traj, "100 :1-13 first closestout test.out", dtype='dataframe')
     """
 
-    from .actions.Action_Closest import Action_Closest
+    from .actions.CpptrajActions import Action_Closest
     from pytraj.Trajectory import Trajectory
     from pytraj import DataSetList
     dslist = DataSetList()
@@ -930,7 +930,7 @@ def native_contacts(traj=None, command="", top=None, dtype='dataset',
     ----
     if `ref` is not None: first number in result corresponds to reference
     """
-    from .actions.Action_NativeContacts import Action_NativeContacts
+    from .actions.CpptrajActions import Action_NativeContacts
     act = Action_NativeContacts()
     dslist = DataSetList()
 
@@ -955,7 +955,7 @@ def nastruct(traj=None, command="", top=None, dtype='dataset',
         Amber15 manual (http://ambermd.org/doc12/Amber15.pdf page 580)
     """
     # TODO: doc, rename method, move to seperate module?
-    from .actions.Action_NAstruct import Action_NAstruct
+    from .actions.CpptrajActions import Action_NAstruct
     act = Action_NAstruct()
     dslist = DataSetList()
 
@@ -974,7 +974,7 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset',
         Amber15 manual (http://ambermd.org/doc12/Amber15.pdf)
     """
     # TODO: doc, rename method, move to seperate module?
-    from .actions.Action_Grid import Action_Grid
+    from .actions.CpptrajActions import Action_Grid
     act = Action_Grid()
     dslist = DataSetList()
 
@@ -993,7 +993,7 @@ def check_structure(traj=None, command="", top=None,
     --------
     >>> check_structure(traj[0], top=traj.top)
     """
-    from .actions.Action_CheckStructure import Action_CheckStructure
+    from .actions.CpptrajActions import Action_CheckStructure
     act = Action_CheckStructure()
 
     # cpptraj require output
