@@ -7,7 +7,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 try:
     import sander
-    from chemistry.amber.readparm import AmberParm
+    from parmed.amber.readparm import AmberParm
     has_sander_and_parmed = True
 except:
     has_sander_and_parmed = False

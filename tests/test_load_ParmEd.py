@@ -9,17 +9,17 @@ import pytraj.common_actions as pyca
 
 class Test(unittest.TestCase):
     @test_if_having("numpy")
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_0(self):
         import numpy as np
-        import chemistry as chem
+        import parmed as chem
         parm_name = "./data/Tc5b.top"
         traj = mdio.iterload("./data/md1_prod.Tc5b.x",  parm_name)
         print (traj[0].coords[:10])
         true_top = mdio.load(parm_name)
 
         # load ParmEd
-        parm = mdio._load_chem(parm_name) 
+        parm = mdio._load_parmed(parm_name) 
         assert isinstance(parm, chem.Structure)
         parm.load_coordinates(traj[0].coords)
 
@@ -28,6 +28,7 @@ class Test(unittest.TestCase):
         fake_fa = mdio.load_ParmEd(parm, restype='traj')
         assert isinstance(fake_fa, Trajectory)
         aa_eq(fake_fa[0].coords, traj[0].coords)
+        print (fake_fa[0].coords, traj[0].coords)
         print (ptop)
 
         # assert
@@ -43,10 +44,10 @@ class Test(unittest.TestCase):
         assert (ptop.box.type == 'nobox')
 
     @test_if_having("numpy")
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_1(self):
         import numpy as np
-        import chemistry as chem
+        import parmed as chem
         from pytraj.externals._load_ParmEd import to_ParmEd
         parm_name = "./data/Tc5b.top"
         traj = mdio.iterload("./data/md1_prod.Tc5b.x",  parm_name)
@@ -66,13 +67,13 @@ class Test(unittest.TestCase):
 
     @no_test
     @test_if_having("numpy")
-    @test_if_having("chemistry")
+    @test_if_having("parmed")
     def test_2(self):
         # turn off test to check loading code
         import pytraj.io as io
         # try loading PSF and doing analysis 
         import numpy as np
-        import chemistry as chem
+        import parmed as chem
         parm_name = "./data/ala3.psf"
         traj = mdio.iterload("./data/ala3.dcd",  parm_name)
         parm = chem.load_file(parm_name)

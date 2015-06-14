@@ -16,7 +16,7 @@ if not has_pycuda():
     print ("does not have pycuda. Quite")
     sys.exit()
 
-import unittest # pragma no test
+import unittest # pragma no_test for travis
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
