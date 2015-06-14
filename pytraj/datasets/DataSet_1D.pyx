@@ -26,6 +26,9 @@ cdef class DataSet_1D (DataSet):
     def __repr__(self):
         return self.__str__()
 
+    def __len__(self):
+        return self.size
+
     @property
     def shape(self):
         return (self.size,)
@@ -63,7 +66,7 @@ cdef class DataSet_1D (DataSet):
         self.values[old_size:] = array_like
 
     def avg(self):
-        return self.baseptr_1.Avg()
+        return sum(self.values) / len(self)
 
     def mean(self):
         return self.avg()

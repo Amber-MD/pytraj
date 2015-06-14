@@ -8,12 +8,13 @@ from pytraj.decorators import no_test, test_if_having
 
 class Test(unittest.TestCase):
     def test_0(self):
+        from pytraj import DataSetList
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj.common_actions import calc_multidihedral
         command =  "resrange 2-19 phi psi"
         d0 = calc_multidihedral(traj, command)
         d1 = calc_multidihedral(traj, command)
-        assert isinstance(d0, dict) == True
+        assert isinstance(d0, DataSetList) == True
         assert (len(d0.keys()) == len(d1.keys()))
 
         d3 = calc_multidihedral(traj)

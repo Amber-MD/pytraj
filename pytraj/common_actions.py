@@ -460,7 +460,7 @@ def do_clustering(traj=None, command="", top=None, dtype='dataset',
     dslist.remove_set(dslist['__pytraj_cluster'])
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **kwd): 
+def calc_multidihedral(traj=None, command="", dtype='dataset', top=None, *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
