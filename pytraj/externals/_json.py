@@ -2,9 +2,6 @@ from __future__ import absolute_import
 import json
 from .six import PY3
 
-# adapted from pandas package
-# see license in $PYTRAJHOME/license/externals/
-
 def to_json(obj, path):
     """
     Parameters
