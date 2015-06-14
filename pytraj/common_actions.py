@@ -249,7 +249,7 @@ def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset',
     dtype : str, {'dataset', ...}, default 'dataset'
     *args, **kwd: optional
     """
-    from pytraj.actions.Action_Jcoupling import Action_Jcoupling
+    from pytraj.actions.CpptrajActions import Action_Jcoupling
     act = Action_Jcoupling()
     # add `radial` keyword to command (need to check `why`?)
     dslist = DataSetList()
@@ -536,7 +536,7 @@ def calc_vector(traj=None, mask="", dtype='dataset', *args, **kwd):
     >>> pyca.calc_vector(traj, "boxcenter").tolist()
     >>> pyca.calc_vector(traj, "box").tolist()
     """
-    from pytraj.actions.Action_Vector import Action_Vector
+    from pytraj.actions.CpptrajActions import Action_Vector
     from pytraj.DataSetList import DataSetList
     act = Action_Vector()
     dslist = DataSetList()
@@ -643,7 +643,7 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
         from pytraj import info
         info("rms2d")
     """
-    from pytraj.analyses import Analysis_Rms2d
+    from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
     if 'dtype' in kwd.keys():
         dtype = kwd['dtype']
         del kwd['dtype']
@@ -681,7 +681,7 @@ def calc_density(traj=None, command="", top=None, *args, **kwd):
     with goto_temp_folder():
         def _calc_density(traj, command, *args, **kwd):
             # TODO: update this method if cpptraj save data to DataSetList
-            from pytraj.actions.Action_Density import Action_Density
+            from pytraj.actions.CpptrajActions import Action_Density
         
             _top = _get_top(traj, top)
             dflist = DataFileList()
@@ -798,7 +798,7 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
     elif mode == 'cpptraj':
         if not isinstance(command, string_types):
             raise ValueError("only support string mask/command in mode=cpptraj")
-        from pytraj.actions.Action_Rmsd import Action_Rmsd
+        from pytraj.actions.CpptrajActions import Action_Rmsd
         act = Action_Rmsd()
         dslist = DataSetList()
         act(command, [ref, traj], top=_top, dslist=dslist)
