@@ -115,19 +115,6 @@ def info(obj=None):
         else:
             raise ValueError("object does not have `help` method")
 
-def get_action_dict():
-    from pytraj.actions import allactions
-    actdict = {}
-    for key in allactions.__dict__.keys():
-        if "Action_" in key:
-            act = key.split("Action_")[1]
-            # add Action classes
-            actdict[act] = allactions.__dict__["Action_" + act]
-    return actdict
-
-# add action_dict
-action_dict = get_action_dict()
-
 def show_code(func, get_txt=False):
     """show code of func or module"""
     import inspect
