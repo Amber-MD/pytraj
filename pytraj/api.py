@@ -4,7 +4,7 @@ from .core import Box
 from .Frame import Frame
 from ._action_in_traj import ActionTrajectory
 from ._shared_methods import _frame_iter, _frame_iter_master
-from .trajs.Trajin_Single import Trajin_Single
+from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from  .utils.check_and_assert import is_int, is_frame_iter
 from .externals.six import string_types
 from .externals.six.moves import range
@@ -179,7 +179,7 @@ class Trajectory(ActionTrajectory):
         return _frame_iter(self, start, stop, stride, mask)
 
     def load(self, filename=''):
-        ts = Trajin_Single(filename, self.top)
+        ts = TrajectoryCpptraj(filename, self.top)
         self.append(ts.xyz[:])
         self._boxes = ts.box_to_ndarray()
 

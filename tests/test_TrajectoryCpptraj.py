@@ -69,6 +69,13 @@ class Test(unittest.TestCase):
         aa_eq(tc[22].xyz, traj[4].xyz)
         print (tc.filelist)
 
+    def test_load_from_list(self):
+        from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
+        from glob import glob
+        flist = glob("./data/Test_RemdTraj/rem.nc.*")
+        top = glob("./data/Test_RemdTraj/ala*parm7")[0]
+        TrajectoryCpptraj(flist, top)
+
 
 if __name__ == "__main__":
     unittest.main()
