@@ -38,10 +38,5 @@ def read_json(path):
     else:
         mode = 'rb'
 
-    def try_read(path):
-        try:
-            with open(path, mode) as fh:
-                return json.load(fh)
-        except (Exception) as e:
-            raise e
-    return try_read(path)
+    with open(path, mode) as fh:
+        return json.load(fh)
