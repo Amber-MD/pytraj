@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 from .externals.six import string_types, PY3
-from .data_sample.load_sample_data import load_sample_data
+from .datafiles.load_sample_data import load_sample_data
 from .utils.check_and_assert import make_sure_exist, is_frame_iter
 from .utils import goto_temp_folder
 from .externals._load_HDF5 import load_hdf5

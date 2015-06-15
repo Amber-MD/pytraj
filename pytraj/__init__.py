@@ -35,7 +35,7 @@ from .io import  (load, iterload, load_remd, iterload_remd,
                   )
 
 # dataset stuff
-from .data_sample.load_sample_data import load_sample_data
+from .datafiles.load_sample_data import load_sample_data
 from .DataSetList import DataSetList
 
 # actions and analyses
