@@ -1,13 +1,13 @@
 from __future__ import absolute_import
 from .externals.six import string_types, PY3
-from .data_sample.load_sample_data import load_sample_data
+from .datafiles.load_sample_data import load_sample_data
 from .utils.check_and_assert import make_sure_exist, is_frame_iter
 from .utils import goto_temp_folder
 from .externals._load_HDF5 import load_hdf5
 from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datasets.utils import load_datafile
-from .load_cpptraj_file import load_cpptraj_file
+from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import _frame_iter_master
 from ._set_silent import set_error_silent
 from ._guess_filetype import _guess_filetype
