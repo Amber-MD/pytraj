@@ -11,7 +11,7 @@ from .AtomMask cimport AtomMask
 from ._utils cimport get_positive_idx
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
-from .actions.Action_Rmsd cimport Action_Rmsd
+from .actions.CpptrajActions cimport Action_Rmsd
 from .math.Matrix_3x3 cimport Matrix_3x3
 from .cpp_algorithm cimport iter_swap
 
@@ -1238,7 +1238,7 @@ cdef class Trajectory (object):
         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
 
     def calc_vector(self, mask="", dtype='dataset', *args, **kwd):
-        from pytraj.actions.Action_Vector import Action_Vector
+        from pytraj.actions.CpptrajActions import Action_Vector
         from pytraj.DataSetList import DataSetList
         act = Action_Vector()
         dslist = DataSetList()
@@ -1297,7 +1297,7 @@ cdef class Trajectory (object):
             Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 546)
 
         """
-        from pytraj.actions.Action_Center import Action_Center
+        from pytraj.actions.CpptrajActions import Action_Center
         act = Action_Center()
         act(mask, self)
 

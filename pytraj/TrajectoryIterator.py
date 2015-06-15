@@ -59,7 +59,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         if rmsfit is not None:
             ref, mask_for_rmsfit = rmsfit
             need_align = True
-            from pytraj.actions.Action_Rmsd import Action_Rmsd
+            from pytraj.actions.CpptrajActions import Action_Rmsd
         else:
             need_align = False
             ref, mask_for_rmsfit = None, None

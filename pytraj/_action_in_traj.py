@@ -48,7 +48,7 @@ class ActionTrajectory(object):
         """
         dtype = {'dataset', 'list', 'ndarray'}
         """
-        from pytraj.actions.Action_Vector import Action_Vector
+        from pytraj.actions.CpptrajActions import Action_Vector
         from pytraj.DataSetList import DataSetList
         act = Action_Vector()
         dslist = DataSetList()

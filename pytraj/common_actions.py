@@ -249,7 +249,7 @@ def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset',
     dtype : str, {'dataset', ...}, default 'dataset'
     *args, **kwd: optional
     """
-    from pytraj.actions.Action_Jcoupling import Action_Jcoupling
+    from pytraj.actions.CpptrajActions import Action_Jcoupling
     act = Action_Jcoupling()
     # add `radial` keyword to command (need to check `why`?)
     dslist = DataSetList()
@@ -460,7 +460,7 @@ def do_clustering(traj=None, command="", top=None, dtype='dataset',
     dslist.remove_set(dslist['__pytraj_cluster'])
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def calc_multidihedral(traj=None, command="", dtype='dict', top=None, *args, **kwd): 
+def calc_multidihedral(traj=None, command="", dtype='dataset', top=None, *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -536,7 +536,7 @@ def calc_vector(traj=None, mask="", dtype='dataset', *args, **kwd):
     >>> pyca.calc_vector(traj, "boxcenter").tolist()
     >>> pyca.calc_vector(traj, "box").tolist()
     """
-    from pytraj.actions.Action_Vector import Action_Vector
+    from pytraj.actions.CpptrajActions import Action_Vector
     from pytraj.DataSetList import DataSetList
     act = Action_Vector()
     dslist = DataSetList()
@@ -643,7 +643,7 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
         from pytraj import info
         info("rms2d")
     """
-    from pytraj.analyses import Analysis_Rms2d
+    from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
     if 'dtype' in kwd.keys():
         dtype = kwd['dtype']
         del kwd['dtype']
@@ -681,7 +681,7 @@ def calc_density(traj=None, command="", top=None, *args, **kwd):
     with goto_temp_folder():
         def _calc_density(traj, command, *args, **kwd):
             # TODO: update this method if cpptraj save data to DataSetList
-            from pytraj.actions.Action_Density import Action_Density
+            from pytraj.actions.CpptrajActions import Action_Density
         
             _top = _get_top(traj, top)
             dflist = DataFileList()
@@ -798,7 +798,7 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
     elif mode == 'cpptraj':
         if not isinstance(command, string_types):
             raise ValueError("only support string mask/command in mode=cpptraj")
-        from pytraj.actions.Action_Rmsd import Action_Rmsd
+        from pytraj.actions.CpptrajActions import Action_Rmsd
         act = Action_Rmsd()
         dslist = DataSetList()
         act(command, [ref, traj], top=_top, dslist=dslist)
@@ -887,7 +887,7 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
     >>> new_traj, dslist = pyca.closest (traj, "100 :1-13 first closestout test.out", dtype='dataframe')
     """
 
-    from .actions.Action_Closest import Action_Closest
+    from .actions.CpptrajActions import Action_Closest
     from pytraj.Trajectory import Trajectory
     from pytraj import DataSetList
     dslist = DataSetList()
@@ -930,7 +930,7 @@ def native_contacts(traj=None, command="", top=None, dtype='dataset',
     ----
     if `ref` is not None: first number in result corresponds to reference
     """
-    from .actions.Action_NativeContacts import Action_NativeContacts
+    from .actions.CpptrajActions import Action_NativeContacts
     act = Action_NativeContacts()
     dslist = DataSetList()
 
@@ -955,7 +955,7 @@ def nastruct(traj=None, command="", top=None, dtype='dataset',
         Amber15 manual (http://ambermd.org/doc12/Amber15.pdf page 580)
     """
     # TODO: doc, rename method, move to seperate module?
-    from .actions.Action_NAstruct import Action_NAstruct
+    from .actions.CpptrajActions import Action_NAstruct
     act = Action_NAstruct()
     dslist = DataSetList()
 
@@ -974,7 +974,7 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset',
         Amber15 manual (http://ambermd.org/doc12/Amber15.pdf)
     """
     # TODO: doc, rename method, move to seperate module?
-    from .actions.Action_Grid import Action_Grid
+    from .actions.CpptrajActions import Action_Grid
     act = Action_Grid()
     dslist = DataSetList()
 
@@ -993,7 +993,7 @@ def check_structure(traj=None, command="", top=None,
     --------
     >>> check_structure(traj[0], top=traj.top)
     """
-    from .actions.Action_CheckStructure import Action_CheckStructure
+    from .actions.CpptrajActions import Action_CheckStructure
     act = Action_CheckStructure()
 
     # cpptraj require output

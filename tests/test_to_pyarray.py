@@ -28,9 +28,13 @@ class Test(unittest.TestCase):
         aa_eq(alist2, a_pyarray2)
 
         # test hist
-        d0 = traj.calc_molsurf()
-        print (d0.hist(bins=3, range=[d0.min(), d0.max()]))
-        print (d0.to_ndarray())
+        try:
+            import matplotlib
+            d0 = traj.calc_molsurf()
+            print (d0.hist(bins=3, range=[d0.min(), d0.max()]))
+            print (d0.to_ndarray())
+        except:
+            print ("pass `hist` test since don't have matplotlib")
 
 if __name__ == "__main__":
     unittest.main()

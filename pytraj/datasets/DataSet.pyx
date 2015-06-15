@@ -300,13 +300,12 @@ cdef class DataSet:
         else:
             raise ImportError("require numpy")
 
-    def hist(self, bins=100, normed=True, range=None):
-        from pytraj.utils import _import_numpy
-
-        _, np = _import_numpy()
-        hist, bedge  = np.histogram(self.to_ndarray(), bins=bins, normed=normed,range=range)
-        bedge = bedge[:-1]
-        return np.array([bedge, hist])
+    def hist(self, *args, **kwd):
+        try:
+            from matplotlib import pyplot as plt
+            return plt.hist(self, *args, **kwd)
+        except ImportError:
+            raise ImportError("require matplotlib")
 
     def split(self, n_chunks_or_array):
         """split `self.data` to n_chunks
@@ -350,3 +349,7 @@ cdef class DataSet:
     def chunk_average(self, n_chunk):
         import numpy as np
         return np.mean(np.array_split(self.values, n_chunk), axis=1)
+
+    def std(self):
+        import numpy as np
+        return np.std(self.values)

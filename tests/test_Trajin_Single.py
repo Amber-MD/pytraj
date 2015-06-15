@@ -4,7 +4,7 @@ import unittest
 import numpy as np
 from pytraj.Frame import Frame
 from pytraj.Trajectory import Trajectory
-from pytraj.actions.Action_Rmsd import Action_Rmsd
+from pytraj.actions.CpptrajActions import Action_Rmsd
 from pytraj.trajs.Trajin_Single import Trajin_Single
 from pytraj.trajs.Trajin import Trajin
 from pytraj.ArgList import ArgList

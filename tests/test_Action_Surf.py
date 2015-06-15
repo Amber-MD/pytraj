@@ -1,7 +1,7 @@
 import unittest
 from pytraj.common_actions import calc_molsurf
 from pytraj.base import *
-from pytraj.actions.Action_Surf import Action_Surf
+from pytraj.actions.CpptrajActions import Action_Surf
 from pytraj.actions import Action
 from pytraj.TrajectoryIterator import TrajectoryIterator
 from pytraj.datasets import cast_dataset

@@ -1,4 +1,5 @@
 # distutils: language = c++
+from __future__ import division
 from pytraj.utils import _import_numpy
 
 
@@ -25,6 +26,9 @@ cdef class DataSet_1D (DataSet):
 
     def __repr__(self):
         return self.__str__()
+
+    def __len__(self):
+        return self.size
 
     @property
     def shape(self):
@@ -63,7 +67,7 @@ cdef class DataSet_1D (DataSet):
         self.values[old_size:] = array_like
 
     def avg(self):
-        return self.baseptr_1.Avg()
+        return sum(self.values) / len(self)
 
     def mean(self):
         return self.avg()

@@ -4,7 +4,7 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.analyses.Analysis_Clustering import Analysis_Clustering
+from pytraj.analyses.CpptrajAnalyses import Analysis_Clustering
 from pytraj import DataSetList
 
 class Test(unittest.TestCase):

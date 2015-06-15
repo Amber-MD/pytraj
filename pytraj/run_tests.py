@@ -3,7 +3,7 @@ from pytraj.base import *
 from pytraj.core import *
 from pytraj.math import *
 from pytraj.externals import *
-from pytraj.plots import *
+from pytraj.plotting import *
 from pytraj.trajs import *
 from pytraj.hbonds import *
 from pytraj import io as mdio
@@ -18,8 +18,8 @@ from pytraj import *
 from pytraj.parms import *
 from pytraj.datasets import *
 from pytraj.common_actions import *
-from pytraj.actions import *
-from pytraj.analyses import *
+from pytraj.actions import CpptrajActions
+from pytraj.analyses import CpptrajAnalyses
 
 def run_tests():
     print ("try to load sample data")

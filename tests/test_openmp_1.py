@@ -5,7 +5,7 @@ from pytraj.utils import Timer
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD
-from pytraj.analyses.Analysis_Rms2d import Analysis_Rms2d
+from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
 
 
 class Test(unittest.TestCase):

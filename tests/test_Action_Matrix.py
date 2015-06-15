@@ -86,8 +86,8 @@ class TestRadgyr(unittest.TestCase):
 
         assert_almost_equal(arr1[:20], fullmat[:20])
         try:
-            from pytraj.plots.plot_matrix import plot_matrix
-            from pytraj.plots.base import plt
+            from pytraj.plottingplot_matrix import plot_matrix
+            from pytraj.plottingbase import plt
             ax0 = plot_matrix(d0)
             print (ax0)
             #plt.show()

@@ -1,6 +1,6 @@
 import unittest
 from pytraj.base import *
-from pytraj.actions.Action_Strip import Action_Strip
+from pytraj.actions.CpptrajActions import Action_Strip
 from pytraj import allactions
 from pytraj.actions import Action
 from pytraj.TrajectoryIterator import TrajectoryIterator

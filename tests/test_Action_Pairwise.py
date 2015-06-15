@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
 
         has_pylab, _ = _import("matplotlib")
         if has_pylab:
-            from pytraj.plots import plot_matrix
+            from pytraj.plotting import plot_matrix
             ax0 = plot_matrix(d0)
             from matplotlib import pyplot
             pyplot.show()

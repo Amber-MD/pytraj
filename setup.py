@@ -200,7 +200,7 @@ packages = [
         'pytraj.data_sample',
         'pytraj.data_sample.Ala3',
         'pytraj.data_sample.tz2',
-        'pytraj.plots',
+        'pytraj.plotting',
         'pytraj.math',
         'pytraj.core',
         'pytraj.parallel',

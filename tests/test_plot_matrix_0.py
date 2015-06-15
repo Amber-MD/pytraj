@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         # all atom distance matrix
         act("", traj, dslist=dslist) 
         if has_("matplotlib"):
-            from pytraj.plots import plot_matrix
+            from pytraj.plotting import plot_matrix
             outfit = plot_matrix(dslist[0]) 
             print (outfit)
             assert isinstance(outfit, tuple)
