@@ -300,12 +300,23 @@ cdef class DataSet:
         else:
             raise ImportError("require numpy")
 
-    def hist(self, *args, **kwd):
-        try:
-            from matplotlib import pyplot as plt
-            return plt.hist(self, *args, **kwd)
-        except ImportError:
-            raise ImportError("require matplotlib")
+    def hist(self, plot=True, *args, **kwd):
+        """
+        Parameters
+        ----------
+        plot : bool, default True
+            if True, use `matplotlib` to plot. 
+            if False, return `2D numpy array`
+        """
+        if not plot:
+            import numpy as np
+            return np.histogram(self.values)
+        else:
+            try:
+                from matplotlib import pyplot as plt
+                return plt.hist(self, *args, **kwd)
+            except ImportError:
+                raise ImportError("require matplotlib")
 
     def split(self, n_chunks_or_array):
         """split `self.data` to n_chunks
