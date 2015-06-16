@@ -196,10 +196,10 @@ packages = [
         'pytraj.externals.gdt',
         'pytraj.parms',
         'pytraj.trajs',
-        'pytraj.data_sample',
-        'pytraj.data_sample.Ala3',
-        'pytraj.data_sample.tz2',
-        'pytraj.plots',
+        'pytraj.datafiles',
+        'pytraj.datafiles.Ala3',
+        'pytraj.datafiles.tz2',
+        'pytraj.plotting',
         'pytraj.math',
         'pytraj.core',
         'pytraj.parallel',
@@ -208,7 +208,7 @@ packages = [
 
 pylen = len('pytraj') + 1
 pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
-sample_data = ["data_sample/Ala3/Ala3.*", "data_sample/tz2/tz2.*"]
+sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*"]
 datalist = pxdlist +  sample_data
 
 def build_func(my_ext):
@@ -241,7 +241,7 @@ def build_func(my_ext):
             cmdclass = cmdclass,
             )
         return True
-    except:
+    except: # Bare except catches all errors
         return False
 
 def remind_ld_lib_path(build_tag):
