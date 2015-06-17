@@ -46,14 +46,14 @@ class Test(unittest.TestCase):
         print (f_saved[:2])
 
         # test iter
-        frame5 = get_average_frame(traj=traj(1, 7, 2), top=traj.top)
+        frame5 = get_average_frame(traj=traj(1, 8, 2), top=traj.top)
         f5_saved = mdio.iterload("./data/avg.Tc5b.frame_2_to_8_skip_2.pdb", traj.top)[0]
         assert_almost_equal(frame5.coords, f5_saved.coords)
         print (frame5[:2])
         print (f5_saved[:2])
 
         # test iter CA
-        frame5 = get_average_frame(traj(1, 7, 2), '@CA', top=traj.top)
+        frame5 = get_average_frame(traj(1, 8, 2), '@CA', top=traj.top)
         print (frame5[:2])
 
         print ("frame5.n_atoms: for CA")
