@@ -23,3 +23,10 @@ class DataSetList(DSL):
             if True, return a dictionary of matplotlib object
         """
         return dict(map(lambda x : (x.legend,  x.hist(plot=plot)), self))
+
+    def count(self):
+        from collections import Counter
+        return dict((d0.legend, Counter(d0.values)) for d0 in self)
+
+    def chunk_average(self, n_chunks):
+        return dict((d0.legend, d0.chunk_average(n_chunks)) for d0 in self)

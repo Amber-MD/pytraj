@@ -353,14 +353,14 @@ cdef class DataSetList:
 
     def filter(self, func):
         """return a new view of DataSetList of func return True"""
-        cdef DataSetList dslist = DataSetList()
-        dslist.py_free_mem = False
+        dslist = self.__class__()
+        dslist.set_py_free_mem(False)
 
         for d0 in self:
             if func(d0):
                 dslist.add_existing_set(d0)
 
-        dslist._parent_lists.append(self)
+        dslist._parent_lists_append(self)
         return dslist
 
     def groupby(self, key, mode='legend'):
@@ -375,12 +375,12 @@ cdef class DataSetList:
         """
         import re
 
-        cdef DataSetList dtmp
-
-        dtmp = DataSetList()
+        # use __class__ so we can `groupby` return the same class
+        # we subclass this Cython class to python level
+        dtmp = self.__class__()
 
         # dont free mem here
-        dtmp.py_free_mem = False
+        dtmp.set_py_free_mem(False)
         for d0 in self:
             att = getattr(d0, mode)
             if isinstance(key, string_types):
@@ -394,7 +394,7 @@ cdef class DataSetList:
                 raise ValueError("support string or list/tuple of strings")
 
         # dtmp is just a view, so keep track of parent to avoid GC
-        dtmp._parent_lists.append(self)
+        dtmp._parent_lists_append(self)
 
         return dtmp
 
@@ -577,3 +577,9 @@ cdef class DataSetList:
         values = np.column_stack((frame_number, self.values.T))
         formats = ['%8i'] + [d.format for d in self]
         np.savetxt(filename, values, fmt=formats, header=headers) 
+
+    def _parent_lists_append(self, data):
+        self._parent_lists.append(data)
+
+    def _parent_lists_free(self):
+        self._parent_lists_free = []
