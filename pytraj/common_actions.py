@@ -103,7 +103,8 @@ def calc_distance(traj=None, command="", top=None, dtype='dataset', *args, **kwd
         except:
             pass
         # cpptraj mask for action
-        return calculate("distance", traj, command, top=_top,  quick_get=True, *args, **kwd)
+        dset = calculate("distance", traj, command, top=_top,  quick_get=True, *args, **kwd)
+        return _get_data_from_dtype(dset, dtype)
     elif isinstance(command, (list, tuple)):
         list_of_commands = command
         from pytraj.core.ActionList import ActionList
@@ -150,7 +151,8 @@ def calc_angle(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
         except:
             pass
         # cpptraj mask for action
-        return calculate("angle", traj, command, top=_top, quick_get=True, *args, **kwd)
+        dset = calculate("angle", traj, command, top=_top, quick_get=True, *args, **kwd)
+        return _get_data_from_dtype(dset, dtype)
     elif isinstance(command, (list, tuple)):
         list_of_commands = command
         from pytraj.core.ActionList import ActionList
@@ -197,7 +199,8 @@ def calc_dihedral(traj=None, command="", top=None, dtype='dataset', *args, **kwd
         except:
             pass
         # cpptraj mask for action
-        return calculate("dihedral", traj, command, top=_top, quick_get=True, *args, **kwd)
+        dset = calculate("dihedral", traj, command, top=_top, quick_get=True, *args, **kwd)
+        return _get_data_from_dtype(dset, dtype)
     elif isinstance(command, (list, tuple)):
         list_of_commands = command
         from pytraj.core.ActionList import ActionList

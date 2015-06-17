@@ -18,6 +18,7 @@ class Test(unittest.TestCase):
         aa_eq(alist, a_pyarray)
 
         alist2 = pyca.calc_distance(traj, "@2 @4", dtype='list')
+        print (type(alist2))
         anp2 = pyca.calc_distance(traj, "@2 @4", dtype='ndarray')
         a_pyarray2 = pyca.calc_distance(traj, "@2 @4", dtype='pyarray')
         a_isinstance(alist2, list)
