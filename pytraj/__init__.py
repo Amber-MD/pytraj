@@ -47,6 +47,10 @@ from .action_dict import ActionDict
 from .analysis_dict import AnalysisDict
 adict = ActionDict()
 analdict = AnalysisDict()
+from . import matrix_analysis
+from . import dihedral_analysis
+
+# others 
 from .misc import info
 from .run_tests import run_tests
 
