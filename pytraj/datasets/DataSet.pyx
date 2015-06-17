@@ -144,6 +144,7 @@ cdef class DataSet:
         cdef int size = self.size
 
         new_ds = self.__class__()
+        new_ds.legend = self.legend
         try:
             try:
                 new_ds.resize(self.size)
@@ -361,6 +362,6 @@ cdef class DataSet:
         import numpy as np
         return np.mean(np.array_split(self.values, n_chunk), axis=1)
 
-    def std(self):
+    def std(self, *args, **kwd):
         import numpy as np
-        return np.std(self.values)
+        return np.std(self.values, *args, **kwd)
