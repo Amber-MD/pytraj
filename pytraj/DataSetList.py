@@ -33,3 +33,9 @@ class DataSetList(DSL):
 
     def chunk_average(self, n_chunks):
         return dict((d0.legend, d0.chunk_average(n_chunks)) for d0 in self)
+
+    def dtypes(self):
+        return self.get_dtypes()
+
+    def aspects(self):
+        return self.get_aspects()
