@@ -3,6 +3,11 @@ from __future__ import absolute_import
 from pytraj.utils.check_and_assert import require
 from .plot_matrix import plot_matrix
 
+try:
+    from matplotlib.pyplot import show
+except ImportError:
+    show = None
+
 def show_config():
     """show good ipython config"""
     txt = """

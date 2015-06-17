@@ -1,7 +1,6 @@
 # distutils: language = c++
 from __future__ import absolute_import
 
-from python_ref cimport Py_INCREF, Py_DECREF
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array
@@ -478,10 +477,6 @@ cdef class DataSetList:
         for d in self:
             arr = np.asarray(d.data)
             arr[:] = func(arr)
-
-    def data(self):
-        """"""
-        raise NotImplementedError("Not yet")
 
     def mean(self, axis=1):
         """
