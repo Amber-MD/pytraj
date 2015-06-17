@@ -180,7 +180,7 @@ def calc_angle(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     else:
         raise ValueError("")
 
-def calc_dihedral(traj=None, command="", top=None, *args, **kwd):
+def calc_dihedral(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """calculate dihedral
 
     Notes:
@@ -198,6 +198,17 @@ def calc_dihedral(traj=None, command="", top=None, *args, **kwd):
             pass
         # cpptraj mask for action
         return calculate("dihedral", traj, command, top=_top, quick_get=True, *args, **kwd)
+    elif isinstance(command, (list, tuple)):
+        list_of_commands = command
+        from pytraj.core.ActionList import ActionList
+        from pytraj.actions.CpptrajActions import Action_Dihedral
+        dslist = DataSetList()
+        actlist = ActionList()
+
+        for cm in list_of_commands:
+            actlist.add_action(Action_Dihedral(), cm, _top, dslist=dslist, *args, **kwd)
+        actlist.do_actions(traj)
+        return _get_data_from_dtype(dslist, dtype)
     elif isinstance(command, np.ndarray):
         int_2darr = command
         if int_2darr.shape[1]  != 4:
