@@ -40,14 +40,14 @@ except ImportError:
 try:
     amberhome = os.environ['AMBERHOME']
     has_amberhome = True
-except:
+except KeyError:
     has_amberhome = False
 
 # check CPPTRAJHOME or "./cpptraj" folder
 try:
     cpptrajhome = os.environ['CPPTRAJHOME']
     has_cpptrajhome = True
-except:
+except KeyError:
     has_cpptrajhome = False
 
 has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
@@ -153,7 +153,7 @@ else:
 installtype = os.environ.get("INSTALLTYPE", "")
 try:
     sys.argv.remove(installtype)
-except:
+except ValueError:
     pass
 
 ext_modules = []
@@ -212,37 +212,33 @@ sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*"]
 datalist = pxdlist +  sample_data
 
 def build_func(my_ext):
-    try:
-        setup(name="pytraj",
-            version=pytraj_version,
-            author="Hai Nguyen",
-            author_email="hainm.comp@gmail.com",
-            url="https://github.com/pytraj/pytraj",
-            packages=packages,
-            description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
-            long_description=read("../README.rst"),
-            license = "BSD License",
-            classifiers=[
-                        'Development Status :: 4 - Beta',
-                        'Operating System :: Unix',
-                        'Operating System :: MacOS',
-                        'Intended Audience :: Science/Research',
-                        'License :: OSI Approved :: BSD License',
-                        'Programming Language :: Python :: 2.6'
-                        'Programming Language :: Python :: 2.7',
-                        'Programming Language :: Python :: 3.3',
-                        'Programming Language :: Python :: 3.4',
-                        'Programming Language :: Cython',
-                        'Programming Language :: C',
-                        'Programming Language :: C++',
-                        'Topic :: Scientific/Engineering'],
-            ext_modules = my_ext,
-            package_data = {'pytraj' : datalist},
-            cmdclass = cmdclass,
-            )
-        return True
-    except: # Bare except catches all errors
-        return False
+    return setup(name="pytraj",
+        version=pytraj_version,
+        author="Hai Nguyen",
+        author_email="hainm.comp@gmail.com",
+        url="https://github.com/pytraj/pytraj",
+        packages=packages,
+        description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
+        long_description=read("../README.rst"),
+        license = "BSD License",
+        classifiers=[
+                    'Development Status :: 4 - Beta',
+                    'Operating System :: Unix',
+                    'Operating System :: MacOS',
+                    'Intended Audience :: Science/Research',
+                    'License :: OSI Approved :: BSD License',
+                    'Programming Language :: Python :: 2.6'
+                    'Programming Language :: Python :: 2.7',
+                    'Programming Language :: Python :: 3.3',
+                    'Programming Language :: Python :: 3.4',
+                    'Programming Language :: Cython',
+                    'Programming Language :: C',
+                    'Programming Language :: C++',
+                    'Topic :: Scientific/Engineering'],
+        ext_modules = my_ext,
+        package_data = {'pytraj' : datalist},
+        cmdclass = cmdclass,
+        )
 
 def remind_ld_lib_path(build_tag):
     if build_tag:
