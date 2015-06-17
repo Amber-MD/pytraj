@@ -18,7 +18,7 @@ cdef class DataSet_1D (DataSet):
         basic_str = super(DataSet_1D, self).__str__() + "\n"
         if np:
             try:
-                my_str = basic_str + "values: " + self.values.__str__()
+                my_str = basic_str + "values: \n" + self.values.__str__()
             except:
                 my_str = basic_str
         else:
@@ -71,7 +71,8 @@ cdef class DataSet_1D (DataSet):
         return sum(self.values) / len(self)
 
     def mean(self, *args, **kwd):
-        return self.avg()
+        import numpy as np
+        return np.mean(self.values, *args, **kwd)
 
     def mean_with_error(self, DataSet other):
         m0 = self.mean()

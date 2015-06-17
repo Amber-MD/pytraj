@@ -16,14 +16,6 @@ cdef class DatasetVector (DataSet_1D):
         if self.py_free_mem:
             del self.thisptr
 
-    def __str__(self):
-        _, pd = _import("pandas")
-        if pd:
-            return self.to_dataframe().__str__()
-        else:
-            print ("don't have pandas: use simple __str__")
-            return super(DatasetVector, self).__str__()
-
     @property
     def shape(self):
         return (self.size, 3)
