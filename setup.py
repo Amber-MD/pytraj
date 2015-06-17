@@ -1,6 +1,8 @@
 import sys
 from glob import glob
 from itertools import chain
+# import ./scripts
+from scripts import setup_for_amber
 
 if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
@@ -212,6 +214,18 @@ pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
 sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*"]
 datalist = pxdlist +  sample_data
 
+# compare to "setup_for_amber" script
+package_match = (sorted(packages) == sorted(setup_for_amber.packages))
+datalist_match = (sorted(datalist) == sorted(setup_for_amber.datalist))
+
+if not package_match:
+    sys.stderr.write("packages mistmatch\n")
+    sys.exit(1)
+
+if not datalist_match:
+    sys.stderr.write("datalist mistmatch\n")
+    sys.exit(1)
+    
 def build_func(my_ext):
     try:
         setup(name="pytraj",
