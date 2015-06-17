@@ -153,6 +153,8 @@ cdef class DataSet_1D (DataSet):
     def __rxor__(self, other):
         return elemwise(operator.xor, other, self)
 
+    # end of copy from dask
+
 def elemwise(op, self, other=None):
     if other:
         if hasattr(other, 'values'):

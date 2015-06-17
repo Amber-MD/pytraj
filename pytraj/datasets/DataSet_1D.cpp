@@ -5824,7 +5824,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_94__rxor__
  *     def __rxor__(self, other):
  *         return elemwise(operator.xor, other, self)             # <<<<<<<<<<<<<<
  * 
- * def elemwise(op, self, other=None):
+ *     # end of copy from dask
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_elemwise); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 154; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -5891,8 +5891,8 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_10DataSet_1D_94__rxor__
   return __pyx_r;
 }
 
-/* "pytraj/datasets/DataSet_1D.pyx":156
- *         return elemwise(operator.xor, other, self)
+/* "pytraj/datasets/DataSet_1D.pyx":158
+ *     # end of copy from dask
  * 
  * def elemwise(op, self, other=None):             # <<<<<<<<<<<<<<
  *     if other:
@@ -5935,7 +5935,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_1elemwise(PyObject *__p
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_self)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("elemwise", 0, 2, 3, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("elemwise", 0, 2, 3, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (kw_args > 0) {
@@ -5944,7 +5944,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_1elemwise(PyObject *__p
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "elemwise") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "elemwise") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -5961,7 +5961,7 @@ static PyObject *__pyx_pw_6pytraj_8datasets_10DataSet_1D_1elemwise(PyObject *__p
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("elemwise", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("elemwise", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pytraj.datasets.DataSet_1D.elemwise", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5992,40 +5992,40 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("elemwise", 0);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":157
+  /* "pytraj/datasets/DataSet_1D.pyx":159
  * 
  * def elemwise(op, self, other=None):
  *     if other:             # <<<<<<<<<<<<<<
  *         if hasattr(other, 'values'):
  *             _other = other.values
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_other); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_other); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
-    /* "pytraj/datasets/DataSet_1D.pyx":158
+    /* "pytraj/datasets/DataSet_1D.pyx":160
  * def elemwise(op, self, other=None):
  *     if other:
  *         if hasattr(other, 'values'):             # <<<<<<<<<<<<<<
  *             _other = other.values
  *         else:
  */
-    __pyx_t_1 = PyObject_HasAttr(__pyx_v_other, __pyx_n_s_values_2); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PyObject_HasAttr(__pyx_v_other, __pyx_n_s_values_2); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 160; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_2 = (__pyx_t_1 != 0);
     if (__pyx_t_2) {
 
-      /* "pytraj/datasets/DataSet_1D.pyx":159
+      /* "pytraj/datasets/DataSet_1D.pyx":161
  *     if other:
  *         if hasattr(other, 'values'):
  *             _other = other.values             # <<<<<<<<<<<<<<
  *         else:
  *             _other = other
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_values_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_values_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_v__other = __pyx_t_3;
       __pyx_t_3 = 0;
 
-      /* "pytraj/datasets/DataSet_1D.pyx":158
+      /* "pytraj/datasets/DataSet_1D.pyx":160
  * def elemwise(op, self, other=None):
  *     if other:
  *         if hasattr(other, 'values'):             # <<<<<<<<<<<<<<
@@ -6035,7 +6035,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
       goto __pyx_L4;
     }
 
-    /* "pytraj/datasets/DataSet_1D.pyx":161
+    /* "pytraj/datasets/DataSet_1D.pyx":163
  *             _other = other.values
  *         else:
  *             _other = other             # <<<<<<<<<<<<<<
@@ -6048,30 +6048,30 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
     }
     __pyx_L4:;
 
-    /* "pytraj/datasets/DataSet_1D.pyx":162
+    /* "pytraj/datasets/DataSet_1D.pyx":164
  *         else:
  *             _other = other
  *         if hasattr(self, 'values'):             # <<<<<<<<<<<<<<
  *             _self = self.values
  *         else:
  */
-    __pyx_t_2 = PyObject_HasAttr(__pyx_v_self, __pyx_n_s_values_2); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PyObject_HasAttr(__pyx_v_self, __pyx_n_s_values_2); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_1 = (__pyx_t_2 != 0);
     if (__pyx_t_1) {
 
-      /* "pytraj/datasets/DataSet_1D.pyx":163
+      /* "pytraj/datasets/DataSet_1D.pyx":165
  *             _other = other
  *         if hasattr(self, 'values'):
  *             _self = self.values             # <<<<<<<<<<<<<<
  *         else:
  *             _self = self
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_values_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_values_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 165; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __pyx_v__self = __pyx_t_3;
       __pyx_t_3 = 0;
 
-      /* "pytraj/datasets/DataSet_1D.pyx":162
+      /* "pytraj/datasets/DataSet_1D.pyx":164
  *         else:
  *             _other = other
  *         if hasattr(self, 'values'):             # <<<<<<<<<<<<<<
@@ -6081,7 +6081,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
       goto __pyx_L5;
     }
 
-    /* "pytraj/datasets/DataSet_1D.pyx":165
+    /* "pytraj/datasets/DataSet_1D.pyx":167
  *             _self = self.values
  *         else:
  *             _self = self             # <<<<<<<<<<<<<<
@@ -6094,7 +6094,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
     }
     __pyx_L5:;
 
-    /* "pytraj/datasets/DataSet_1D.pyx":166
+    /* "pytraj/datasets/DataSet_1D.pyx":168
  *         else:
  *             _self = self
  *         return op(_self, _other)             # <<<<<<<<<<<<<<
@@ -6115,7 +6115,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
         __pyx_t_6 = 1;
       }
     }
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_5) {
       PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
@@ -6126,7 +6126,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
     __Pyx_INCREF(__pyx_v__other);
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v__other);
     __Pyx_GIVEREF(__pyx_v__other);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -6134,7 +6134,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
     __pyx_t_3 = 0;
     goto __pyx_L0;
 
-    /* "pytraj/datasets/DataSet_1D.pyx":157
+    /* "pytraj/datasets/DataSet_1D.pyx":159
  * 
  * def elemwise(op, self, other=None):
  *     if other:             # <<<<<<<<<<<<<<
@@ -6143,14 +6143,14 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
  */
   }
 
-  /* "pytraj/datasets/DataSet_1D.pyx":168
+  /* "pytraj/datasets/DataSet_1D.pyx":170
  *         return op(_self, _other)
  *     else:
  *         return op(self.values)             # <<<<<<<<<<<<<<
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_values_2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_values_2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_v_op);
     __pyx_t_7 = __pyx_v_op; __pyx_t_5 = NULL;
@@ -6164,17 +6164,17 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else {
-      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
       PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
@@ -6184,8 +6184,8 @@ static PyObject *__pyx_pf_6pytraj_8datasets_10DataSet_1D_elemwise(CYTHON_UNUSED 
     goto __pyx_L0;
   }
 
-  /* "pytraj/datasets/DataSet_1D.pyx":156
- *         return elemwise(operator.xor, other, self)
+  /* "pytraj/datasets/DataSet_1D.pyx":158
+ *     # end of copy from dask
  * 
  * def elemwise(op, self, other=None):             # <<<<<<<<<<<<<<
  *     if other:
@@ -6518,17 +6518,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":156
- *         return elemwise(operator.xor, other, self)
+  /* "pytraj/datasets/DataSet_1D.pyx":158
+ *     # end of copy from dask
  * 
  * def elemwise(op, self, other=None):             # <<<<<<<<<<<<<<
  *     if other:
  *         if hasattr(other, 'values'):
  */
-  __pyx_tuple__3 = PyTuple_Pack(5, __pyx_n_s_op, __pyx_n_s_self, __pyx_n_s_other, __pyx_n_s_other_2, __pyx_n_s_self_2); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__3 = PyTuple_Pack(5, __pyx_n_s_op, __pyx_n_s_self, __pyx_n_s_other, __pyx_n_s_other_2, __pyx_n_s_self_2); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_n_s_elemwise, 156, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_n_s_elemwise, 158, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6700,16 +6700,16 @@ PyMODINIT_FUNC PyInit_DataSet_1D(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_8datasets_10DataSet_1D_DataSet_1D);
 
-  /* "pytraj/datasets/DataSet_1D.pyx":156
- *         return elemwise(operator.xor, other, self)
+  /* "pytraj/datasets/DataSet_1D.pyx":158
+ *     # end of copy from dask
  * 
  * def elemwise(op, self, other=None):             # <<<<<<<<<<<<<<
  *     if other:
  *         if hasattr(other, 'values'):
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pytraj_8datasets_10DataSet_1D_1elemwise, NULL, __pyx_n_s_pytraj_datasets_DataSet_1D); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pytraj_8datasets_10DataSet_1D_1elemwise, NULL, __pyx_n_s_pytraj_datasets_DataSet_1D); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_elemwise, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_elemwise, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pytraj/datasets/DataSet_1D.pyx":1
