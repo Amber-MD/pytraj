@@ -14,7 +14,8 @@ except:
     has_sander_and_parmed = False
 
 class Test(unittest.TestCase):
-    @test_if_having("pandas")
+    @test_if_having("sander")
+    @test_if_having("parmed")
     def test_0(self):
         if has_sander_and_parmed:
             from pytraj.misc import get_atts
@@ -46,11 +47,11 @@ class Test(unittest.TestCase):
             print (dslist['ENE_00000[bond]'][:])
 
             # to DataFrame
-            import pandas as pd
-            from pytraj.dataframe import to_dataframe
-            dframe = to_dataframe(dslist)
-            print (dframe)
-            print (pd.DataFrame(ddict))
+            try:
+                import pandas as pd
+                print (dslist.to_dataframe())
+            except ImportError:
+                print ("does not have pandas. skip")
 
         else:
             print ("require both sander and parmed. Skip test")
