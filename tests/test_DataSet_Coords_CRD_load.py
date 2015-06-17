@@ -36,7 +36,7 @@ class Test(unittest.TestCase):
         coords = DataSet_Coords_CRD()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         coords.load(traj(2, 8, 2), traj.top)
-        assert coords.size == 4
+        assert coords.size == 3
 
 if __name__ == "__main__":
     unittest.main()

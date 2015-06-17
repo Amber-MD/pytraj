@@ -75,7 +75,7 @@ class Test(unittest.TestCase):
             count += 1
             pass
         print ('count = ', count)
-        assert_almost_equal(traj[7].coords, frame0.coords)
+        assert_almost_equal(traj[6].coords, frame0.coords)
 
         for frame0 in traj.frame_iter():
             pass
@@ -98,21 +98,21 @@ class Test(unittest.TestCase):
             count += 1
             pass
         print ('count = ', count)
-        assert_almost_equal(traj[7].coords, frame0.coords)
+        assert_almost_equal(traj[6].coords, frame0.coords)
 
         count = 0
         for frame0 in farray(start=2, stop=7):
             count += 1
             pass
         print ('count = ', count)
-        assert_almost_equal(traj[7].coords, frame0.coords)
+        assert_almost_equal(traj[6].coords, frame0.coords)
 
         count = 0
         for frame0 in farray(2, 7, 1):
             count += 1
             pass
         print ('count = ', count)
-        assert_almost_equal(traj[7].coords, frame0.coords)
+        assert_almost_equal(traj[6].coords, frame0.coords)
 
         count = 0
         for frame0 in farray(2, 7, 2):

@@ -1,10 +1,9 @@
 from __future__ import print_function
 import unittest
 from pytraj import io as mdio
-from pytraj.testing import test_if_having
+from pytraj.testing import test_if_having, no_test
 
 class Test(unittest.TestCase):
-    #@no_test
     @test_if_having("MDAnalysis")
     def test_0(self):
         # PSF, DCD
@@ -18,10 +17,9 @@ class Test(unittest.TestCase):
             print (idx, f)
 
         # hanged out if use iteration again
-        #for idx, f in enumerate(t):
-        #    print (idx, f)
+        for idx, f in enumerate(t):
+            print (idx, f)
 
-    #@no_test
     @test_if_having("MDAnalysis")
     def test_1(self):
         # GRO, TRR

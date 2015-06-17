@@ -70,8 +70,8 @@ class Test(unittest.TestCase):
         for frame in traj.frame_iter(2, 8, 2):
             count += 1
         print ("count = %s" % count)
-        assert count == 4
-        assert_almost_equal(frame.coords, traj[8].coords)
+        assert count == 3
+        assert_almost_equal(frame.coords, traj[6].coords)
 
         count = 0
         for frame in traj[:].frame_iter():

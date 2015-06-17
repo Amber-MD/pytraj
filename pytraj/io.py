@@ -113,6 +113,8 @@ def iterload(*args, **kwd):
     """
     if kwd and 'indices' in kwd.keys():
         raise ValueError("do not support indices for TrajectoryIterator loading")
+    if kwd and 'engine' in kwd.keys() and kwd['engine'] == 'mdtraj':
+        raise ValueError("do not support iterload with engine=='mdtraj'")
     return load_traj(*args, **kwd)
 
 def _iterload_from_filelist(*args, **kwd):
@@ -134,41 +136,56 @@ def _iterload_from_filelist(*args, **kwd):
         raise ValueError()
     return [load_traj(filename, *args_less, **kwd) for filename in mylist]
 
-def load_traj(filename=None, top=None, indices=None, *args, **kwd):
+def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **kwd):
     """load trajectory from filename
     Parameters
     ----------
     filename : str
     top : {str, Topology}
     indices : {None, list, array ...}
+    engine : str, {'pytraj', 'mdanalysis'}, default 'pytraj'
+        if 'pytraj', use pytraj for iterload (return `TrajectoryIterator`)
+        if 'mdanalysis', use this package (return `TrajectoryMDAnalysisIterator`)
 
     Returns
     -------
-    TrajectoryIterator : if indices is None
+    TrajectoryIterator : if indices is None and engine='pytraj'
     or 
     Trajectory : if there is indices
+    or TrajectoryMDAnalysisIterator if engine='mdanalysis'
     """
-    from .Topology import Topology
-    from .TrajectoryIterator import TrajectoryIterator
-    from .Trajectory import Trajectory
 
-    if not isinstance(top, Topology):
-        top = Topology(top)
-    if top.is_empty():
-        raise ValueError("can not load file without Topology or empty Topology")
-    ts = TrajectoryIterator()
-    ts.load(filename, top)
+    if engine.lower() == 'pytraj':
+        from .Topology import Topology
+        from .TrajectoryIterator import TrajectoryIterator
+        from .Trajectory import Trajectory
 
-    if indices is not None:
-        farray = Trajectory()
-        farray.top = top.copy()
-        for i in indices:
-            farray.append(ts[i])
-        return farray
-    elif is_frame_iter(filename):
-        return _load_from_frame_iter(filename, top)
+        if not isinstance(top, Topology):
+            top = Topology(top)
+        if top.is_empty():
+            raise ValueError("can not load file without Topology or empty Topology")
+        ts = TrajectoryIterator()
+        ts.load(filename, top)
+
+        if indices is not None:
+            farray = Trajectory()
+            farray.top = top.copy()
+            for i in indices:
+                farray.append(ts[i])
+            return farray
+        elif is_frame_iter(filename):
+            return _load_from_frame_iter(filename, top)
+        else:
+            return ts
+    elif engine == 'mdanalysis':
+        from MDAnalysis import Universe as U
+        return load_MDAnalysisIterator(U(top, filename *args, **kwd))
+    elif engine == 'mdtraj':
+        import mdtraj as md
+        return load_mdtraj(md.load(filename, top=top), *args, **kwd)
     else:
-        return ts
+        raise NotImplementedError("support only pytraj or MDAnalysis engines")
+
 
 def _load_from_frame_iter(traj_frame_iter, top=None):
     from .Trajectory import Trajectory
