@@ -12,13 +12,18 @@ class Test(unittest.TestCase):
     @test_if_having("MDAnalysis")
     def test_0(self):
         from MDAnalysisTests.datafiles import PSF, DCD
-        from pytraj import TrajectoryIterator
+        from pytraj import TrajectoryIterator, Trajectory
         from pytraj.trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
         traj = mdio.iterload(DCD, PSF, engine='pytraj')
         traj2 = mdio.iterload(DCD, PSF, engine='mdanalysis')
+        traj3 = mdio.load(DCD, PSF, engine='mdanalysis')
         assert isinstance(traj, TrajectoryIterator) == True
+
+        # load to mutable Trajectory
+        assert isinstance(traj3, Trajectory) == True
         assert isinstance(traj2, TrajectoryMDAnalysisIterator) == True
         aa_eq(traj.xyz, traj2.xyz)
+        aa_eq(traj.xyz, traj3.xyz)
 
         print (pyca.calc_COM(traj2).to_ndarray())
 
