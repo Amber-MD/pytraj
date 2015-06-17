@@ -513,7 +513,7 @@ def calc_atomicfluct(traj=None, command="", *args, **kwd):
     act.print_output() # need to have this. check cpptraj's code
     return dslist[-1]
 
-def calc_vector(traj=None, mask="", dtype='dataset', *args, **kwd): 
+def calc_vector(traj=None, mask="", top=None, dtype='dataset', *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -538,11 +538,22 @@ def calc_vector(traj=None, mask="", dtype='dataset', *args, **kwd):
     """
     from pytraj.actions.CpptrajActions import Action_Vector
     from pytraj.DataSetList import DataSetList
-    act = Action_Vector()
     dslist = DataSetList()
+    _top = _get_top(traj, top)
 
-    act(command=mask, current_frame=traj, dslist=dslist, *args, **kwd)
-    dslist.set_py_free_mem(False)
+    if not isinstance(mask, (list, tuple)):
+        act = Action_Vector()
+        act(command=mask, current_frame=traj, dslist=dslist, *args, **kwd)
+        dslist.set_py_free_mem(False)
+    else:
+        list_of_commands = mask
+        from pytraj.core.ActionList import ActionList
+        actlist = ActionList()
+        for command in list_of_commands:
+            act = Action_Vector()
+            actlist.add_action(act, command, _top, dslist=dslist, *args, **kwd)
+            actlist.do_actions(traj)
+
     if dtype == 'vector':
         return dslist[-1]
     else:
