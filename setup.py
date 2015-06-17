@@ -1,6 +1,8 @@
 import sys
 from glob import glob
 from itertools import chain
+# import ./scripts
+from scripts import setup_for_amber
 
 if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
@@ -40,14 +42,14 @@ except ImportError:
 try:
     amberhome = os.environ['AMBERHOME']
     has_amberhome = True
-except:
+except KeyError:
     has_amberhome = False
 
 # check CPPTRAJHOME or "./cpptraj" folder
 try:
     cpptrajhome = os.environ['CPPTRAJHOME']
     has_cpptrajhome = True
-except:
+except KeyError:
     has_cpptrajhome = False
 
 has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
@@ -154,7 +156,7 @@ else:
 installtype = os.environ.get("INSTALLTYPE", "")
 try:
     sys.argv.remove(installtype)
-except:
+except ValueError:
     pass
 
 ext_modules = []
@@ -212,38 +214,46 @@ pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
 sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*"]
 datalist = pxdlist +  sample_data
 
+# compare to "setup_for_amber" script
+package_match = (sorted(packages) == sorted(setup_for_amber.packages))
+datalist_match = (sorted(datalist) == sorted(setup_for_amber.datalist))
+
+if not package_match:
+    sys.stderr.write("packages mistmatch\n")
+    sys.exit(1)
+
+if not datalist_match:
+    sys.stderr.write("datalist mistmatch\n")
+    sys.exit(1)
+    
 def build_func(my_ext):
-    try:
-        setup(name="pytraj",
-            version=pytraj_version,
-            author="Hai Nguyen",
-            author_email="hainm.comp@gmail.com",
-            url="https://github.com/pytraj/pytraj",
-            packages=packages,
-            description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
-            long_description=read("README.rst"),
-            license = "BSD License",
-            classifiers=[
-                        'Development Status :: 4 - Beta',
-                        'Operating System :: Unix',
-                        'Operating System :: MacOS',
-                        'Intended Audience :: Science/Research',
-                        'License :: OSI Approved :: BSD License',
-                        'Programming Language :: Python :: 2.6'
-                        'Programming Language :: Python :: 2.7',
-                        'Programming Language :: Python :: 3.3',
-                        'Programming Language :: Python :: 3.4',
-                        'Programming Language :: Cython',
-                        'Programming Language :: C',
-                        'Programming Language :: C++',
-                        'Topic :: Scientific/Engineering'],
-            ext_modules = my_ext,
-            package_data = {'pytraj' : datalist},
-            cmdclass = cmdclass,
-            )
-        return True
-    except:
-        return False
+    return setup(name="pytraj",
+        version=pytraj_version,
+        author="Hai Nguyen",
+        author_email="hainm.comp@gmail.com",
+        url="https://github.com/pytraj/pytraj",
+        packages=packages,
+        description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
+        long_description=read("README.rst"),
+        license = "BSD License",
+        classifiers=[
+                    'Development Status :: 4 - Beta',
+                    'Operating System :: Unix',
+                    'Operating System :: MacOS',
+                    'Intended Audience :: Science/Research',
+                    'License :: OSI Approved :: BSD License',
+                    'Programming Language :: Python :: 2.6'
+                    'Programming Language :: Python :: 2.7',
+                    'Programming Language :: Python :: 3.3',
+                    'Programming Language :: Python :: 3.4',
+                    'Programming Language :: Cython',
+                    'Programming Language :: C',
+                    'Programming Language :: C++',
+                    'Topic :: Scientific/Engineering'],
+        ext_modules = my_ext,
+        package_data = {'pytraj' : datalist},
+        cmdclass = cmdclass,
+        )
 
 def remind_ld_lib_path(build_tag):
     if build_tag:
