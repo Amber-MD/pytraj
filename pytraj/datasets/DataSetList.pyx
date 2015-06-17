@@ -64,8 +64,8 @@ cdef class DataSetList:
         else:
             try:
                 df = self.to_dataframe().T
-                return df.__str__()
-            except:
+                return safe_msg + "\n" + df.__str__()
+            except ImportError:
                 return safe_msg
 
     def __repr__(self):

@@ -14,7 +14,7 @@ adict = ActionDict()
 from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
-from ._get_common_objects import _get_top, _get_data_from_dtype
+from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
 from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .externals.six import string_types
@@ -86,11 +86,11 @@ rotate = do_rotation
 do_scaling = partial(action_type, 'scale')
 scale = do_scaling
 
-def calc_distance(traj=None, command="", top=None, *args, **kwd):
+def calc_distance(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """calculate distance
 
     Notes:
-    command : str | int_2d numpy array
+    command : str | list of strings | int_2d numpy array
     """
     ensure_not_none_or_string(traj)
 
@@ -104,6 +104,17 @@ def calc_distance(traj=None, command="", top=None, *args, **kwd):
             pass
         # cpptraj mask for action
         return calculate("distance", traj, command, top=_top,  quick_get=True, *args, **kwd)
+    elif isinstance(command, (list, tuple)):
+        list_of_commands = command
+        from pytraj.core.ActionList import ActionList
+        from pytraj.actions.CpptrajActions import Action_Distance
+        dslist = DataSetList()
+        actlist = ActionList()
+
+        for cm in list_of_commands:
+            actlist.add_action(Action_Distance(), cm, _top, dslist=dslist, *args, **kwd)
+        actlist.do_actions(traj)
+        return _get_data_from_dtype(dslist, dtype)
     elif isinstance(command, np.ndarray):
         int_2darr = command
         if int_2darr.shape[1]  != 2:
@@ -122,7 +133,7 @@ def calc_distance(traj=None, command="", top=None, *args, **kwd):
     else:
         raise ValueError("")
 
-def calc_angle(traj=None, command="", top=None, *args, **kwd):
+def calc_angle(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """calculate dihedral
 
     Notes:
@@ -140,6 +151,17 @@ def calc_angle(traj=None, command="", top=None, *args, **kwd):
             pass
         # cpptraj mask for action
         return calculate("angle", traj, command, top=_top, quick_get=True, *args, **kwd)
+    elif isinstance(command, (list, tuple)):
+        list_of_commands = command
+        from pytraj.core.ActionList import ActionList
+        from pytraj.actions.CpptrajActions import Action_Angle
+        dslist = DataSetList()
+        actlist = ActionList()
+
+        for cm in list_of_commands:
+            actlist.add_action(Action_Angle(), cm, _top, dslist=dslist, *args, **kwd)
+        actlist.do_actions(traj)
+        return _get_data_from_dtype(dslist, dtype)
     elif isinstance(command, np.ndarray):
         int_2darr = command
         if int_2darr.shape[1]  != 3:
@@ -538,21 +560,17 @@ def calc_vector(traj=None, mask="", top=None, dtype='dataset', *args, **kwd):
     """
     from pytraj.actions.CpptrajActions import Action_Vector
     from pytraj.DataSetList import DataSetList
+    from pytraj.core.ActionList import ActionList
+
     dslist = DataSetList()
     _top = _get_top(traj, top)
+    list_of_commands = _get_list_of_commands(mask)
+    actlist = ActionList()
 
-    if not isinstance(mask, (list, tuple)):
+    for command in list_of_commands:
         act = Action_Vector()
-        act(command=mask, current_frame=traj, dslist=dslist, *args, **kwd)
-        dslist.set_py_free_mem(False)
-    else:
-        list_of_commands = mask
-        from pytraj.core.ActionList import ActionList
-        actlist = ActionList()
-        for command in list_of_commands:
-            act = Action_Vector()
-            actlist.add_action(act, command, _top, dslist=dslist, *args, **kwd)
-            actlist.do_actions(traj)
+        actlist.add_action(act, command, _top, dslist=dslist, *args, **kwd)
+    actlist.do_actions(traj)
 
     if dtype == 'vector':
         return dslist[-1]
