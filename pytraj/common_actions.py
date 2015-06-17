@@ -32,7 +32,7 @@ from .externals.get_pysander_energies import get_pysander_energies
 from .utils.context import goto_temp_folder
 from . import _long_manual
 
-list_of_cal = ['calc_distance', 'calc_dih', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
+list_of_cal = ['calc_distance', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
                'calc_molsurf', 'calc_distrmsd', 'calc_volume', 'calc_protein_score', 
                'calc_dssp', 'calc_matrix', 'calc_jcoupling',
                'calc_radial', 'calc_watershell',
@@ -229,9 +229,6 @@ def calc_dihedral(traj=None, command="", top=None, dtype='dataset', *args, **kwd
         return arr
     else:
         raise ValueError("")
-
-# creat alias
-calc_dih = calc_dihedral 
 
 def calc_mindist(traj=None, command="", top=None, *args, **kwd):
     _command = "mindist " + command 
