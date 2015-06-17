@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         arr0 = d0.to_ndarray().copy()
         d1 = d0 + 1.
         print (d1.tolist())
-        aa_eq(d1.data, arr0 + 1)
+        aa_eq(d1, arr0 + 1)
 
         # += for DataSetList
         arr0 = dslist[0].to_ndarray().copy()
