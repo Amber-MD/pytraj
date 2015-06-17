@@ -325,10 +325,6 @@ cdef class DataSet:
         Notes : require numpy (same as `array_split`)
         """
         return np.array_split(self.to_ndarray(), n_chunks_or_array)
-        #try:
-        #    return np.split(self, n_chunks_or_array)
-        #except:
-        #    raise NotImplementedError("try to split but failed for %s" % self.name)
 
     def write_to_cpptraj_format(self, filename):
         dflist = DataFileList()
@@ -355,12 +351,10 @@ cdef class DataSet:
             return plt.pyplot.plot(self.data, *args, **kwd)
         except ImportError:
             raise ImportError("require matplotlib")
-        else:
-            raise NotImplementedError()
 
     def chunk_average(self, n_chunk):
         import numpy as np
-        return np.mean(np.array_split(self.values, n_chunk), axis=1)
+        return np.array(list(map(np.mean, self.split(n_chunk))))
 
     def std(self, *args, **kwd):
         import numpy as np
