@@ -359,3 +359,10 @@ cdef class DataSet:
     def std(self, *args, **kwd):
         import numpy as np
         return np.std(self.values, *args, **kwd)
+
+    def topk(self, k):
+        """pick top k max-values
+        """
+        # http://stackoverflow.com/a/23734295/616616 by larsmans
+        ind = np.argpartition(self.values, -k)[-k:]
+        return np.sort(self.values[ind])[::-1]
