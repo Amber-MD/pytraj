@@ -139,7 +139,6 @@ cdef class DataSetList:
         Should we use a copy instead?
         """
         cdef DataSet dset = DataSet()
-        cdef DataSetList new_dslist
         cdef int start, stop, step
         cdef object _idx # _idx can be 'int' or 'string'
 
@@ -162,18 +161,18 @@ cdef class DataSetList:
         elif isinstance(idx, slice):
             # return new view of `self`
             start, stop, step = idx.indices(self.size)
-            new_dslist = DataSetList()
-            new_dslist.py_free_mem = False # view
+            new_dslist = self.__class__()
+            new_dslist.set_py_free_mem(False)
             for _idx in range(start, stop, step):
                 new_dslist.add_existing_set(self[_idx])
-            new_dslist._parent_lists.append(self)
+            new_dslist._parent_lists_append(self)
             return new_dslist
         elif is_array(idx) or isinstance(idx, list):
-            new_dslist = DataSetList()
-            new_dslist.py_free_mem = False # view
+            new_dslist = self.__class__()
+            new_dslist.set_py_free_mem(False)
             for _idx in idx: 
                 new_dslist.add_existing_set(self[_idx])
-            new_dslist._parent_lists.append(self)
+            new_dslist._parent_lists_append(self)
             return new_dslist
         else:
             raise ValueError()
@@ -524,7 +523,7 @@ cdef class DataSetList:
         """
         return np.cumsum(self.to_ndarray(), axis=axis)
 
-    def mean_with_error(self, DataSetList other):
+    def mean_with_error(self, other):
         from collections import defaultdict
 
         ddict = defaultdict(tuple)

@@ -39,3 +39,11 @@ class DataSetList(DSL):
 
     def aspects(self):
         return self.get_aspects()
+
+    def pipe(self, *funcs):
+        """apply a series of functions to self's data
+        """
+        values = self.values
+        for func in funcs:
+            values = func(values)
+        return values
