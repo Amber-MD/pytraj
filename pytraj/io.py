@@ -164,8 +164,8 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
             top = Topology(top)
         if top.is_empty():
             raise ValueError("can not load file without Topology or empty Topology")
-        ts = TrajectoryIterator()
-        ts.load(filename, top)
+        ts = TrajectoryIterator(top=top)
+        ts.load(filename)
 
         if indices is not None:
             farray = Trajectory()
