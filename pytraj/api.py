@@ -179,7 +179,9 @@ class Trajectory(ActionTrajectory):
         return _frame_iter(self, start, stop, stride, mask)
 
     def load(self, filename=''):
-        ts = TrajectoryCpptraj(filename, self.top)
+        ts = TrajectoryCpptraj()
+        ts.top = self.top
+        ts.load(filename, top=ts.top)
         self.append(ts.xyz[:])
         self._boxes = ts.box_to_ndarray()
 

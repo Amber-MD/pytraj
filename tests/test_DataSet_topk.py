@@ -12,9 +12,10 @@ class Test(unittest.TestCase):
         print (dslist)
         d0 = dslist[0]
         top5 = d0.topk(5)
-        arr0 = sorted(d0.values)[-5:-1]
-        print (top5, arr0)
-        aa_eq(sorted(top5), arr0, decimal=3)
+        arr0 = sorted(d0.values, reverse=True)[:5]
+        print ("top5: ", top5)
+        print (arr0)
+        aa_eq(top5, arr0, decimal=3)
 
 if __name__ == "__main__":
     unittest.main()

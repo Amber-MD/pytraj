@@ -370,7 +370,10 @@ cdef class DataSet:
 
     def topk(self, k):
         """pick top k max-values
+        Returns
+        -------
+        a list with len = k
+
+        # TODO : array?
         """
-        # http://stackoverflow.com/a/23734295/616616 by larsmans
-        ind = np.argpartition(self.values, -k)[-k:]
-        return np.sort(self.values[ind])[::-1]
+        return sorted(self.values, reverse=True)[:k]

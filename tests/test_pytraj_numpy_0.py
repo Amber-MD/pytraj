@@ -90,6 +90,7 @@ class Test(unittest.TestCase):
         traj2 = api.Trajectory()
         fnames = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         trajread= mdio.iterload(*fnames)
+        print (trajread.top)
         traj.top = trajread.top.copy()
         traj.load(fnames[0])
         traj2.append(traj)
