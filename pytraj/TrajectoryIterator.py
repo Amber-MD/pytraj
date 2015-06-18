@@ -14,9 +14,36 @@ from pytraj.exceptions import PytrajMemviewError
 from pytraj._shared_methods import _tolist
 
 
+def _make_frame_slices(n_files, original_frame_slice):
+    if isinstance(original_frame_slice, tuple):
+        return [original_frame_slice for i in range(n_files)]
+    elif isinstance(original_frame_slice, list):
+        fs_len = len(original_frame_slice)
+        if fs_len < n_files:
+            old_list = original_frame_slice[:] + [original_frame_slice[-1]
+                                                 for _ in range(fs_len, n_files)]
+
 class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
     def __init__(self, *args, **kwd):
-        pass
+        super(TrajectoryIterator, self).__init__(*args, **kwd)
+
+    def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
+        """load trajectory/trajectories from filename/filenames with 
+        a single frame_slice or a list of frame_slice
+        """
+        if isinstance(filename, string_types):
+            super(TrajectoryIterator, self).load(filename, top, frame_slice)
+
+        elif isinstance(filename, (list, tuple)):
+            filename_list = filename
+            full_frame_slice = _make_frame_slices(len(filename_list), frame_slice)
+            for fname, fslice in enumerate(filename_list, full_frame_slice):
+                super(TrajectoryIterator, self).load(fname, frame_slice=fslice)
+        elif filename is None:
+            # empty constructor
+            pass
+        else:
+            raise ValueError("filename must a a string or a list of strings")
 
     @property
     def topology(self):
