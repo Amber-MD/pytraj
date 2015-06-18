@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         for _ in range(2):
             traj.join(traj[:])
-        print (calc_dih(command=":2@CA :3@CA :10@CA :11@CA", traj=traj)[:])
+        print (calc_dihedral(command=":2@CA :3@CA :10@CA :11@CA", traj=traj)[:])
         print (calc_distance(command=":2@CA :3@CA", traj=traj)[:])
         print (calc_angle(command=":2@CA :3@CA :10@CA", traj=traj)[:])
         print (calc_radgyr(command="@CA", traj=traj)[:])
