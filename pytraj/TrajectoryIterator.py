@@ -9,9 +9,11 @@ from pytraj._action_in_traj import ActionTrajectory
 from pytraj.action_dict import ActionDict
 from pytraj.Frame import Frame
 from pytraj.AtomMask import AtomMask
-from pytraj.externals.six import string_types
+from pytraj.compat import string_types, zip
 from pytraj.exceptions import PytrajMemviewError
 from pytraj._shared_methods import _tolist
+from pytraj._get_common_objects import _get_top
+from pytraj.Topology import Topology
 
 
 def _make_frame_slices(n_files, original_frame_slice):
@@ -22,26 +24,41 @@ def _make_frame_slices(n_files, original_frame_slice):
         if fs_len < n_files:
             old_list = original_frame_slice[:] + [original_frame_slice[-1]
                                                  for _ in range(fs_len, n_files)]
+    else:
+        raise ValueError("must be a tuple of integer values or a list of tuple of integer values")
 
 class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
-    def __init__(self, *args, **kwd):
-        super(TrajectoryIterator, self).__init__(*args, **kwd)
+    def __init__(self, filename=None, top=None, *args, **kwd):
+        super(TrajectoryIterator, self).__init__()
+
+        if not top:
+            self.top = Topology()
+        elif isinstance(top, string_types):
+            self.top = Topology(top)
+        elif isinstance(top, Topology):
+            self.top = top.copy()
+        else:
+            raise ValueError("Topology must be None/string/Topology")
+        if filename:
+            self.load(filename, *args, **kwd)
 
     def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         """load trajectory/trajectories from filename/filenames with 
         a single frame_slice or a list of frame_slice
         """
-        if isinstance(filename, string_types):
-            super(TrajectoryIterator, self).load(filename, top, frame_slice)
+        if not top:
+            _top = self.top
+        else:
+            _top = top
 
+        if isinstance(filename, string_types):
+            super(TrajectoryIterator, self).load(filename, _top, frame_slice)
         elif isinstance(filename, (list, tuple)):
             filename_list = filename
             full_frame_slice = _make_frame_slices(len(filename_list), frame_slice)
-            for fname, fslice in enumerate(filename_list, full_frame_slice):
-                super(TrajectoryIterator, self).load(fname, frame_slice=fslice)
-        elif filename is None:
-            # empty constructor
-            pass
+
+            for fname, fslice in zip(filename_list, full_frame_slice):
+                super(TrajectoryIterator, self).load(fname, _top, frame_slice=fslice)
         else:
             raise ValueError("filename must a a string or a list of strings")
 

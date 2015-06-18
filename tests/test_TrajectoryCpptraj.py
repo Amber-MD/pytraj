@@ -15,12 +15,12 @@ class Test(unittest.TestCase):
         from pytraj.trajs.Trajin_Single import Trajin_Single
         traj = Trajin_Single("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        tc = TrajectoryCpptraj(traj.filename, traj.top)
+        tc = TrajectoryCpptraj()
+        tc.top = traj.top
+        tc.load(traj.filename, traj.top)
+        print (tc)
         assert traj.n_frames == tc.n_frames
         assert traj.top.n_atoms == tc.top.n_atoms
-
-        assert TrajectoryCpptraj(top=traj.top.filename).n_atoms == traj.n_atoms
-        assert TrajectoryCpptraj(top=traj.top).n_atoms == traj.n_atoms
 
         # __iter__
         for f0, f1 in zip(traj, tc):
@@ -76,7 +76,10 @@ class Test(unittest.TestCase):
         # TODO: load constructore with filelist
         flist = glob("./data/Test_RemdTraj/rem.nc.*")
         top = glob("./data/Test_RemdTraj/ala*parm7")[0]
-        TrajectoryCpptraj(flist, top)
+        tc = TrajectoryCpptraj()
+        tc.top = mdio.load_topology(top)
+        tc.load(flist, tc.top)
+        print (tc)
 
 
 if __name__ == "__main__":
