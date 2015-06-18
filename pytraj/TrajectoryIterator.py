@@ -4,6 +4,7 @@ We need to sub-class Trajin_Single to use Trajectory
 Trajin_Single)
 """
 from __future__ import absolute_import
+import warnings
 from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from pytraj._action_in_traj import ActionTrajectory
 from pytraj.action_dict import ActionDict
@@ -22,8 +23,13 @@ def _make_frame_slices(n_files, original_frame_slice):
     elif isinstance(original_frame_slice, list):
         fs_len = len(original_frame_slice)
         if fs_len < n_files:
-            old_list = original_frame_slice[:] + [original_frame_slice[-1]
+            new_list = original_frame_slice[:] + [original_frame_slice[-1]
                                                  for _ in range(fs_len, n_files)]
+        elif fs_len == n_files:
+            new_list = original_frame_slice
+        else:
+            raise ValueError("len of frame_slice tuple-list must be smaller or equal number of files")
+        return new_list
     else:
         raise ValueError("must be a tuple of integer values or a list of tuple of integer values")
 
@@ -40,7 +46,14 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         else:
             raise ValueError("Topology must be None/string/Topology")
         if filename:
-            self.load(filename, *args, **kwd)
+            if self.top.is_empty():
+                raise ValueError('First argument is always a trajectory filename'
+                                 ' or a list of filenames'
+                                  'must have a non-empty Topology')
+            self.load(filename, self.top, *args, **kwd)
+        if not top and (args or kwd):
+            warnings.warn('creating an empty TrajectoryIterator since does not '
+                          'have Topology information. Ignore other arguments')
 
     def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         """load trajectory/trajectories from filename/filenames with 
@@ -56,6 +69,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         elif isinstance(filename, (list, tuple)):
             filename_list = filename
             full_frame_slice = _make_frame_slices(len(filename_list), frame_slice)
+            print (full_frame_slice)
 
             for fname, fslice in zip(filename_list, full_frame_slice):
                 super(TrajectoryIterator, self).load(fname, _top, frame_slice=fslice)
