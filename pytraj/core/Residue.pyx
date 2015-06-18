@@ -24,10 +24,13 @@ cdef class Residue:
         del self.thisptr
 
     def __str__(self):
-        name = self.name.split()[0]
-        txt = "<%s%s, %s atoms>" % (name,
-                                   self.original_resnum-1,
-                                   self.n_atoms)
+        if self.n_atoms > 0:
+            name = self.name.split()[0]
+            txt = "<%s%s, %s atoms>" % (name,
+                                       self.original_resnum-1,
+                                       self.n_atoms)
+        else:
+            txt = '<Emtpy Residue>'
         return txt
 
     def __repr__(self):

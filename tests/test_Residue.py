@@ -74,6 +74,10 @@ class TestResidue(unittest.TestCase):
         top = Topology("./data/Tc5b.top")
         for res in top.residuelist:
             print (res)
+
+    def test_5(self):
+        # check segmentation fault for empty Residue
+        print (Residue())
         
 if __name__ == '__main__':
     unittest.main()
