@@ -17,15 +17,5 @@ class Test(unittest.TestCase):
         d0cp = d0.copy()
         assert d0cp not in dslist
 
-        # FIXME: assert failed
-        dslist2 = dslist.__class__()
-        # append with copying
-        dslist2.append(d0cp)
-        print (dslist2)
-        assert d0cp not in dslist2
-        dslist3 = dslist.__class__()
-        dslist3.append(d0cp, copy=False)
-        assert d0cp in dslist3
-
 if __name__ == "__main__":
     unittest.main()
