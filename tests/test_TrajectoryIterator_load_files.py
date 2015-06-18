@@ -28,13 +28,13 @@ class Test(unittest.TestCase):
         traj = TrajectoryIterator(["./data/md1_prod.Tc5b.x" for _ in range(N)],
                                    "./data/Tc5b.top", frame_slice=[(0, 5), (3, 8)])
         print (traj)
-        assert traj.n_frames == 15
+        assert traj.n_frames == 20
 
         # a list of files with frame_slice argument but not using `frame_slice = `
         traj = TrajectoryIterator(["./data/md1_prod.Tc5b.x" for _ in range(N)],
                                    "./data/Tc5b.top", [(0, 5), (3, 8)])
         print (traj)
-        assert traj.n_frames == 15
+        assert traj.n_frames == 20
 
 
         # dummy constructor without Topology. need to catch ValueError
@@ -56,6 +56,36 @@ class Test(unittest.TestCase):
         #self.assertWarns(UserWarning, TrajectoryIterator(frame_slice=(0, 4)))
         TrajectoryIterator(frame_slice=(0, 4))
 
+    def test_1(self):
+        # test load using `pytraj.io`
+        import pytraj as pt
+
+        traj = pt.io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        print (traj)
+        n_frame0 = 10
+        assert traj.n_frames == n_frame0
+
+        # load a list of files
+        N = 3
+        traj = pt.io.iterload(["./data/md1_prod.Tc5b.x" for _ in range(N)],
+                                   "./data/Tc5b.top")
+        print (traj)
+        assert traj.n_frames == n_frame0 * N
+
+        traj = pt.io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        print (traj)
+        n_frame0 = 10
+        assert traj.n_frames == n_frame0
+
+        # a list of files with frame_slice argument
+        traj = pt.io.iterload(["./data/md1_prod.Tc5b.x" for _ in range(N)],
+                                   "./data/Tc5b.top", frame_slice=[(0, 5), (3, 8)])
+        print (traj)
+        assert traj.n_frames == 20
+
+        # a list of files with frame_slice argument but not using `frame_slice = `
+        self.assertRaises(TypeError, lambda : pt.io.iterload(["./data/md1_prod.Tc5b.x" for _ in range(N)],
+                               "./data/Tc5b.top", [(0, 5), (3, 8)]))
 
 if __name__ == "__main__":
     unittest.main()

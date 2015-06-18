@@ -23,7 +23,7 @@ def _make_frame_slices(n_files, original_frame_slice):
     elif isinstance(original_frame_slice, list):
         fs_len = len(original_frame_slice)
         if fs_len < n_files:
-            new_list = original_frame_slice[:] + [original_frame_slice[-1]
+            new_list = original_frame_slice[:] + [(0, -1, 1)
                                                  for _ in range(fs_len, n_files)]
         elif fs_len == n_files:
             new_list = original_frame_slice

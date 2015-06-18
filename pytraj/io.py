@@ -154,6 +154,9 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
     Trajectory : if there is indices
     or TrajectoryMDAnalysisIterator if engine='mdanalysis'
     """
+    if 'frame_slice' in kwd.keys() and not engine == 'pytraj':
+        raise KeyError("only support frame_slice in engine mode = 'pytraj'")
+
 
     if engine.lower() == 'pytraj':
         from .Topology import Topology
@@ -165,7 +168,11 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
         if top.is_empty():
             raise ValueError("can not load file without Topology or empty Topology")
         ts = TrajectoryIterator(top=top)
-        ts.load(filename)
+
+        if 'frame_slice' in kwd.keys():
+            ts.load(filename, frame_slice=kwd['frame_slice'])
+        else:
+            ts.load(filename)
 
         if indices is not None:
             farray = Trajectory()
