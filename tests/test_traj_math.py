@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         saved_xyz = traj.xyz[:].copy()
 
         traj_view = traj[0:3]
-        traj_view += trajiter(stop=2)
+        traj_view += trajiter(stop=3)
         aa_eq(saved_xyz[0:3] * 2, traj[0:3].xyz)
 
         # reload

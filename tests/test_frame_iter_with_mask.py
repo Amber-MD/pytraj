@@ -9,11 +9,15 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
+        print (farray)
         traj0_CA = traj[:]
         traj0_CA.strip_atoms("!@CA")
+        print ("after stripping")
+        print (farray, traj0_CA, traj0_CA.n_frames)
 
         # test TrajectoryIterator
         for idx, f0 in enumerate(traj(mask='@CA')):
+            print (idx, traj0_CA.n_frames)
             f1 = traj0_CA[idx]
             print (idx, f0, f1)
             assert_almost_equal(f0.coords, f1.coords)

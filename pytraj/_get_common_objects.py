@@ -54,3 +54,11 @@ def _get_data_from_dtype(d0, dtype='dataset'):
            return d0.to_dataframe()
        else:
            raise NotImplenmentedError()
+
+def _get_list_of_commands(mask_or_commands):
+    if isinstance(mask_or_commands, string_types):
+        return [mask_or_commands,]
+    elif isinstance(mask_or_commands, (list, tuple)):
+        return mask_or_commands
+    else:
+        raise ValueError("must be string or list/tuple of strings")

@@ -731,7 +731,8 @@ cdef class Trajectory (object):
         if stop == -1:
             _end = <int> self.n_frames
         else:
-            _end = stop + 1
+            #_end = stop
+            _end = stop
 
         if mask is not None:
             frame2 = Frame() # just make a pointer

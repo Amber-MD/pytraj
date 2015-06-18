@@ -19,14 +19,14 @@ class Test(unittest.TestCase):
 
         act("", current_frame=(traj, traj(1, 5, 1), traj.chunk_iter(chunk=2)), top=traj.top)
         print (act.n_frames)
-        assert act.n_frames == 25
+        assert act.n_frames == 24
 
         act("@CA", (traj, traj(1, 5, 1), traj.frame_iter(stride=2)), traj.top)
         print (act.n_frames)
-        assert act.n_frames == 45
+        assert act.n_frames == 43
 
         act("@CA", traj.chunk_iter(), traj.top)
-        assert act.n_frames == 55
+        assert act.n_frames == 53
 
 if __name__ == "__main__":
     unittest.main()

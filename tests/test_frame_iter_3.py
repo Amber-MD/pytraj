@@ -8,7 +8,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        for i, frame in enumerate(traj.frame_iter(1, 5, 2)):
+        for i, frame in enumerate(traj.frame_iter(1, 6, 2)):
             pass
 
         assert i == 2
@@ -16,17 +16,17 @@ class Test(unittest.TestCase):
         for i, frame in enumerate(traj.frame_iter(1, 5, 1)):
             pass
 
-        assert i == 4
+        assert i == 3
 
         for i, frame in enumerate(traj.frame_iter(stop=8)):
             pass
 
-        assert i == 8
+        assert i == 7
 
         for i, frame in enumerate(traj.frame_iter(start=7, stop=8)):
             print (frame)
 
-        assert i == 1
+        assert i == 0
 
     def test_1(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
         print (act2.n_frames)
         print (dslist.size)
         print (dslist[0].size)
-        assert act2.n_frames == 6
+        assert act2.n_frames == 5
         print (dslist[0][:])
 
 if __name__ == "__main__":

@@ -167,7 +167,7 @@ cdef class TrajectoryCpptraj:
         if stop == -1:
             _end = <int> self.n_frames
         else:
-            _end = stop + 1
+            _end = stop
 
         del frame.thisptr
         if mask is not None:
@@ -383,7 +383,7 @@ cdef class TrajectoryCpptraj:
                  else:
                      is_reversed = False
      
-                 for frame in self.frame_iter(start, stop-1, step):
+                 for frame in self.frame_iter(start, stop, step):
                      # add '-1' to stop 
                      # in `frame_iter`, we include `stop`
                      # but for slicing, python does not include stop
