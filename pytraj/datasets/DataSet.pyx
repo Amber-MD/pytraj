@@ -377,3 +377,9 @@ cdef class DataSet:
         # TODO : array?
         """
         return sorted(self.values, reverse=True)[:k]
+
+    def head(self, k):
+        return self.values[:k]
+
+    def tail(self, k):
+        return self.values[-k:]
