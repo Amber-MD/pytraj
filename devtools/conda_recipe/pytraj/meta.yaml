@@ -15,7 +15,10 @@ requirements:
     - python
     - libcpptraj
     - matplotlib
+    - seaborn
     - numpy
+    - pandas
+    - tools
 
 about:
   home: http://github.com/pytraj/pytraj
