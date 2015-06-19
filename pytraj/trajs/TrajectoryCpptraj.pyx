@@ -43,6 +43,11 @@ cdef class TrajectoryCpptraj:
         cdef Topology tmp_top
         cdef ArgList _arglist
 
+        if top is None:
+            tmp_top = <Topology> self.top
+        else:
+            tmp_top = <Topology> top
+
         # convert pytraj frame_slice to cpptraj's understandable format (str)
         # need to increase start, stop by +1 since cpptraj use +1 for cpptraj.in
         if not isinstance(frame_slice, tuple):
@@ -65,19 +70,12 @@ cdef class TrajectoryCpptraj:
         # slice(0, 10, None) --> python does not take last `10`
         arg = " ".join((str(start), str(stop), str(stride)))
 
-        # cast to Topology type so we can use cpptraj method
-        tmp_top = <Topology> top
-
         if isinstance(filename, string_types):
             _arglist = ArgList(arg)
             self.thisptr.AddSingleTrajin(filename.encode(), _arglist.thisptr[0], tmp_top.thisptr)
             self._filelist.append(filename)
-        elif isinstance(filename, (list, tuple)):
-            # rename to avoid confusion
-            filename_list = filename
-            # recursive
-            for fn in filename_list:
-                self.load(fn, top, arg)
+        else:
+            raise ValueError("filename must a a string")
 
     def load_new(self, *args, **kwd):
         '''

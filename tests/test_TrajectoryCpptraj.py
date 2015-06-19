@@ -10,6 +10,7 @@ import pytraj.common_actions as pyca
 from pytraj.compat import zip
 
 class Test(unittest.TestCase):
+    @no_test
     def test_0(self):
         from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
         from pytraj.trajs.Trajin_Single import Trajin_Single
@@ -67,19 +68,20 @@ class Test(unittest.TestCase):
         aa_eq(tc[20].xyz, traj[0].xyz)
         aa_eq(tc[21].xyz, traj[2].xyz)
         aa_eq(tc[22].xyz, traj[4].xyz)
-        print (tc.filelist)
+        print ('filelist', tc.filelist)
 
-    @no_test
     def test_load_from_list(self):
-        from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
-        from glob import glob
-        # TODO: load constructore with filelist
-        flist = glob("./data/Test_RemdTraj/rem.nc.*")
-        top = glob("./data/Test_RemdTraj/ala*parm7")[0]
-        tc = TrajectoryCpptraj()
-        tc.top = mdio.load_topology(top)
-        tc.load(flist, tc.top)
-        print (tc)
+        # NOTE: not supported anymore.
+        # use `pytraj.TrajectoryIterator`
+        #from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
+        #from glob import glob
+        #flist = glob("./data/Test_RemdTraj/rem.nc.*")
+        #top = glob("./data/Test_RemdTraj/ala*parm7")[0]
+        #tc = TrajectoryCpptraj()
+        #tc.top = mdio.load_topology(top)
+        #tc.load(flist, frame_slice=(0, -1, 1))
+        #print (tc)
+        pass
 
 
 if __name__ == "__main__":
