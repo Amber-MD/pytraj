@@ -85,3 +85,9 @@ class DataSetList(DSL):
         for func in funcs:
             values = func(values)
         return values
+
+    def apply(self, func):
+        """update self's values from `funcs` and return `self`
+        """
+        super(DataSetList, self).apply(func)
+        return self
