@@ -8,6 +8,19 @@ class DataSetList(DSL):
     def from_pickle(self, filename):
         from pytraj.datasets import cast_dataset
         ddict = read_pickle(filename)
+        self._from_full_dict(ddict)
+
+    def from_json(self, filename):
+        ddict = read_json(filename)
+        self._from_full_dict(ddict)
+
+    def to_pickle(self, filename, use_numpy=True):
+        to_pickle(self._to_full_dict(use_numpy), filename)
+
+    def to_json(self, filename, use_numpy=False):
+        to_json(self._to_full_dict(use_numpy), filename)
+
+    def _from_full_dict(self, ddict):
         ordered_keys = ddict['ordered_keys']
 
         for legend in ordered_keys:
@@ -19,9 +32,6 @@ class DataSetList(DSL):
             last.set_legend(legend)
             last.resize(len(values))
             last.values[:] = values
-
-    def to_pickle(self, filename, use_numpy=True):
-        to_pickle(self._to_full_dict(use_numpy), filename)
 
     def _to_full_dict(self, use_numpy=True):
         """
