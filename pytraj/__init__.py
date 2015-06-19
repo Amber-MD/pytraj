@@ -68,6 +68,8 @@ def show_versions():
     """
     from .__cpptraj_version__ import info as compiled_info
     from .__cpptraj_version__ import __cpptraj_version__
+    from .__cpptraj_version__ import __cpptraj_internal_version__
     print ("pytraj version = ", version)
     print ("cpptraj version = ", __cpptraj_version__)
+    print ("cpptraj internal version = ", __cpptraj_internal_version__)
     print ("cpptraj compiled flag = ", compiled_info())
