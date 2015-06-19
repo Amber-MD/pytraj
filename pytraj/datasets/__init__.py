@@ -23,3 +23,9 @@ def from_pickle(filename):
     dslist = DataSetList()
     dslist.from_pickle(filename)
     return dslist
+
+def from_json(filename):
+    from .. DataSetList import DataSetList
+    dslist = DataSetList()
+    dslist.from_json(filename)
+    return dslist
