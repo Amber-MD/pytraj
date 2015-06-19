@@ -35,6 +35,7 @@ with open("log", 'r') as log_file, open("log2.sh", 'w') as log2:
             log2.write("python " + test + "\n")
             i_fails += 1
         if 'Segmentation' in line:
+            print (line)
             i_seg += 1
 
 os.system("sh log2.sh")

@@ -145,6 +145,11 @@ cdef class DataSet:
 
         new_ds = self.__class__()
         new_ds.legend = self.legend
+        new_ds.set_scalar(self.scalar_mode, self.scalar_type)
+        new_ds.set_name_aspect_index_ensemble_num(self.name,
+                                                  self.aspect,
+                                                  self.idx,
+                                                  0)
         try:
             try:
                 new_ds.resize(self.size)
@@ -185,6 +190,9 @@ cdef class DataSet:
 
     def set_format(self, bint leftAlignIn):
         return self.baseptr0.SetDataSetFormat(leftAlignIn)
+
+    def set_name_aspect_index_ensemble_num(self, name, aspect, idx, num):
+        self.baseptr0.SetupSet(name.encode(), idx, aspect.encode(), num)
 
     def scalar_descr(self):
         from pytraj._utils import set_worl_silent
@@ -359,3 +367,19 @@ cdef class DataSet:
     def std(self, *args, **kwd):
         import numpy as np
         return np.std(self.values, *args, **kwd)
+
+    def topk(self, k):
+        """pick top k max-values
+        Returns
+        -------
+        a list with len = k
+
+        # TODO : array?
+        """
+        return sorted(self.values, reverse=True)[:k]
+
+    def head(self, k):
+        return self.values[:k]
+
+    def tail(self, k):
+        return self.values[-k:]

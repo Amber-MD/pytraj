@@ -31,10 +31,9 @@ class Test(unittest.TestCase):
         # test Atom() from `pytraj` namespace
         # Aim: test if having segmentation fault
         import pytraj as pt
-        #pt.Atom()
+        pt.Atom()
         # FIXME: segmentation fault
-        #print (pt.Atom())
-        pass
+        print (pt.Atom())
 
 if __name__ == "__main__":
     unittest.main()

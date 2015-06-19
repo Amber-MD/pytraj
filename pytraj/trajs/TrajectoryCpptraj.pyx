@@ -2,6 +2,7 @@
 from .._utils cimport get_positive_idx
 from ..Trajectory cimport Trajectory
 from ..AtomMask cimport AtomMask
+from ..Topology cimport Topology
 
 from pytraj.externals.six import string_types
 from ..decorators import memoize # cache
@@ -17,11 +18,10 @@ from .Trajout import Trajout
 
 
 cdef class TrajectoryCpptraj:
-    def __cinit__(self, *args, **kwd):
+    def __cinit__(self):
         self.thisptr = new _TrajectoryCpptraj()
         self._top = Topology()
         self._filelist = []
-        self.load(*args, **kwd)
 
     def __dealloc__(self):
         if self.thisptr:
@@ -43,9 +43,20 @@ cdef class TrajectoryCpptraj:
         cdef Topology tmp_top
         cdef ArgList _arglist
 
+        if top is None:
+            tmp_top = <Topology> self.top
+        else:
+            tmp_top = <Topology> top
+
         # convert pytraj frame_slice to cpptraj's understandable format (str)
         # need to increase start, stop by +1 since cpptraj use +1 for cpptraj.in
-        if len(frame_slice) == 2:
+        if not isinstance(frame_slice, tuple):
+            raise ValueError("frame_slice must be a tuple")
+        if len(frame_slice) == 1:
+            start = frame_slice[0]
+            stop = -1
+            stride = 1
+        elif len(frame_slice) == 2:
             # no stride info
             start, stop = frame_slice
             stride = 1
@@ -59,34 +70,12 @@ cdef class TrajectoryCpptraj:
         # slice(0, 10, None) --> python does not take last `10`
         arg = " ".join((str(start), str(stop), str(stride)))
 
-        if top is not None and self.top.is_empty():
-            self.top = _get_top(None, top)
-
-        if filename is None:
-            pass
-            # used for empty constructor in __init__
+        if isinstance(filename, string_types):
+            _arglist = ArgList(arg)
+            self.thisptr.AddSingleTrajin(filename.encode(), _arglist.thisptr[0], tmp_top.thisptr)
+            self._filelist.append(filename)
         else:
-            if self.top.is_empty():
-                if isinstance(top, string_types):
-                    self.top = Topology(top)
-                elif isinstance(top, Topology):
-                    self.top = top.copy()
-                else:
-                    raise ValueError("need to have non-empty topology file")
-
-            # cast to Topology type so we can use cpptraj method
-            tmp_top = <Topology> self.top
-
-            if isinstance(filename, string_types):
-                _arglist = ArgList(arg)
-                self.thisptr.AddSingleTrajin(filename.encode(), _arglist.thisptr[0], tmp_top.thisptr)
-                self._filelist.append(filename)
-            elif isinstance(filename, (list, tuple)):
-                # rename to avoid confusion
-                filename_list = filename
-                # recursive
-                for fn in filename_list:
-                    self.load(fn, top, arg)
+            raise ValueError("filename must a a string")
 
     def load_new(self, *args, **kwd):
         '''

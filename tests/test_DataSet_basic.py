@@ -61,6 +61,10 @@ class Test(unittest.TestCase):
 
         ds_v = traj.calc_vector("@CA @CB")
         dcp = ds_v[0].copy()
+        d0 = ds_v[0]
+        assert dcp.name == d0.name
+        assert dcp.legend == d0.legend
+        assert dcp.aspect == d0.aspect
 
         # shape
         d0 = d[0]

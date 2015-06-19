@@ -16,7 +16,7 @@ cdef extern from "DataSet.h":
         #_DataSet& operator =(const _DataSet&)
         void SetWidth(int)
         void SetPrecision(int, int)
-        int SetupSet(const string&, int, const string&)
+        int SetupSet(const string&, int, const string&, int)
         void SetLegend(const string& lIn)
         void SetScalar(scalarMode mIn)
         inline void SetScalar(scalarMode, scalarType)

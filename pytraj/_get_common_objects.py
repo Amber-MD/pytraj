@@ -49,7 +49,11 @@ def _get_data_from_dtype(d0, dtype='dataset'):
        elif dtype == 'pyarray':
            return d0.to_pyarray()
        elif dtype == 'dict':
-           return d0.to_dict()
+           try:
+               import numpy
+               return d0.to_dict(use_numpy=True)
+           except ImportError:
+               return d0.to_dict(use_numpy=False)
        elif dtype == 'dataframe':
            return d0.to_dataframe()
        else:

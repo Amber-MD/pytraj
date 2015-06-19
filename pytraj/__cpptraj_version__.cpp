@@ -569,20 +569,22 @@ static char __pyx_k_info[] = "info";
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_cpptraj_version[] = "__cpptraj_version__";
+static char __pyx_k_cpptraj_internal_version[] = "__cpptraj_internal_version__";
 static char __pyx_k_pytraj___cpptraj_version[] = "pytraj.__cpptraj_version__";
-static char __pyx_k_mnt_raidc2_haichit_programs_pyt[] = "/mnt/raidc2/haichit/programs/pytraj/pytraj/__cpptraj_version__.pyx";
+static char __pyx_k_u1_haichit_pytraj_git_hainm_pyt[] = "/u1/haichit/pytraj_git_hainm/pytraj/pytraj/__cpptraj_version__.pyx";
+static PyObject *__pyx_n_s_cpptraj_internal_version;
 static PyObject *__pyx_n_s_cpptraj_version;
 static PyObject *__pyx_n_s_info;
 static PyObject *__pyx_n_s_main;
-static PyObject *__pyx_kp_s_mnt_raidc2_haichit_programs_pyt;
 static PyObject *__pyx_n_s_pytraj___cpptraj_version;
 static PyObject *__pyx_n_s_s;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_codeobj__2;
 
-/* "pytraj/__cpptraj_version__.pyx":15
- * __cpptraj_version__ = CPPTRAJ_VERSION_STRING.decode()
+/* "pytraj/__cpptraj_version__.pyx":17
+ * __cpptraj_internal_version__ = CPPTRAJ_INTERNAL_VERSION.decode()
  * 
  * def info():             # <<<<<<<<<<<<<<
  *     cdef string s
@@ -614,7 +616,7 @@ static PyObject *__pyx_pf_6pytraj_19__cpptraj_version___info(CYTHON_UNUSED PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("info", 0);
 
-  /* "pytraj/__cpptraj_version__.pyx":18
+  /* "pytraj/__cpptraj_version__.pyx":20
  *     cdef string s
  * 
  *     s = Cpptraj.Defines()             # <<<<<<<<<<<<<<
@@ -622,20 +624,20 @@ static PyObject *__pyx_pf_6pytraj_19__cpptraj_version___info(CYTHON_UNUSED PyObj
  */
   __pyx_v_s = Cpptraj::Defines();
 
-  /* "pytraj/__cpptraj_version__.pyx":19
+  /* "pytraj/__cpptraj_version__.pyx":21
  * 
  *     s = Cpptraj.Defines()
  *     return s.decode()             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_s, 0, PY_SSIZE_T_MAX, NULL, NULL, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_s, 0, PY_SSIZE_T_MAX, NULL, NULL, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pytraj/__cpptraj_version__.pyx":15
- * __cpptraj_version__ = CPPTRAJ_VERSION_STRING.decode()
+  /* "pytraj/__cpptraj_version__.pyx":17
+ * __cpptraj_internal_version__ = CPPTRAJ_INTERNAL_VERSION.decode()
  * 
  * def info():             # <<<<<<<<<<<<<<
  *     cdef string s
@@ -925,13 +927,14 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_n_s_cpptraj_internal_version, __pyx_k_cpptraj_internal_version, sizeof(__pyx_k_cpptraj_internal_version), 0, 0, 1, 1},
   {&__pyx_n_s_cpptraj_version, __pyx_k_cpptraj_version, sizeof(__pyx_k_cpptraj_version), 0, 0, 1, 1},
   {&__pyx_n_s_info, __pyx_k_info, sizeof(__pyx_k_info), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
-  {&__pyx_kp_s_mnt_raidc2_haichit_programs_pyt, __pyx_k_mnt_raidc2_haichit_programs_pyt, sizeof(__pyx_k_mnt_raidc2_haichit_programs_pyt), 0, 0, 1, 0},
   {&__pyx_n_s_pytraj___cpptraj_version, __pyx_k_pytraj___cpptraj_version, sizeof(__pyx_k_pytraj___cpptraj_version), 0, 0, 1, 1},
   {&__pyx_n_s_s, __pyx_k_s, sizeof(__pyx_k_s), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_k_u1_haichit_pytraj_git_hainm_pyt, sizeof(__pyx_k_u1_haichit_pytraj_git_hainm_pyt), 0, 0, 1, 0},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
@@ -942,17 +945,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pytraj/__cpptraj_version__.pyx":15
- * __cpptraj_version__ = CPPTRAJ_VERSION_STRING.decode()
+  /* "pytraj/__cpptraj_version__.pyx":17
+ * __cpptraj_internal_version__ = CPPTRAJ_INTERNAL_VERSION.decode()
  * 
  * def info():             # <<<<<<<<<<<<<<
  *     cdef string s
  * 
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_s); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_s); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(0, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_programs_pyt, __pyx_n_s_info, 15, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(0, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_n_s_info, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1052,28 +1055,40 @@ PyMODINIT_FUNC PyInit___cpptraj_version__(void)
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "pytraj/__cpptraj_version__.pyx":13
+  /* "pytraj/__cpptraj_version__.pyx":14
  *         string Defines()
  * 
  * __cpptraj_version__ = CPPTRAJ_VERSION_STRING.decode()             # <<<<<<<<<<<<<<
+ * __cpptraj_internal_version__ = CPPTRAJ_INTERNAL_VERSION.decode()
  * 
- * def info():
  */
-  __pyx_t_1 = __Pyx_decode_cpp_string(CPPTRAJ_VERSION_STRING, 0, PY_SSIZE_T_MAX, NULL, NULL, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_decode_cpp_string(CPPTRAJ_VERSION_STRING, 0, PY_SSIZE_T_MAX, NULL, NULL, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_cpptraj_version, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_cpptraj_version, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pytraj/__cpptraj_version__.pyx":15
+ * 
  * __cpptraj_version__ = CPPTRAJ_VERSION_STRING.decode()
+ * __cpptraj_internal_version__ = CPPTRAJ_INTERNAL_VERSION.decode()             # <<<<<<<<<<<<<<
+ * 
+ * def info():
+ */
+  __pyx_t_1 = __Pyx_decode_cpp_string(CPPTRAJ_INTERNAL_VERSION, 0, PY_SSIZE_T_MAX, NULL, NULL, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_cpptraj_internal_version, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pytraj/__cpptraj_version__.pyx":17
+ * __cpptraj_internal_version__ = CPPTRAJ_INTERNAL_VERSION.decode()
  * 
  * def info():             # <<<<<<<<<<<<<<
  *     cdef string s
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pytraj_19__cpptraj_version___1info, NULL, __pyx_n_s_pytraj___cpptraj_version); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pytraj_19__cpptraj_version___1info, NULL, __pyx_n_s_pytraj___cpptraj_version); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_info, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_info, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pytraj/__cpptraj_version__.pyx":1
