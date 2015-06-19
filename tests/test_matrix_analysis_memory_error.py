@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         arr3 = ma.distance_matrix(traj, '@CA').to_ndarray()
 
         aa_eq(arr0, arr1)
-        aa_eq(arr1, arr2)
+        aa_eq(arr1, arr2.flatten())
         aa_eq(arr1, arr3.flatten())
         aa_eq(arr1, saved_data.flatten())
 

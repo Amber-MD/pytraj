@@ -12,7 +12,7 @@ from pytraj.externals.six import PY2
 class Test(unittest.TestCase):
     def test_0(self):
         traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        mydict = traj.search_hbonds(dtype='dict')
+        mydict = traj.search_hbonds().to_dict(use_numpy=False)
 
         # pickle
         pk_fname = "./output/test_dict_pickle.pk"
