@@ -19,9 +19,6 @@ from ..exceptions import *
 from ..core.DataFile import DataFile
 from ..ArgList import ArgList
 
-# can not import cpptraj_dict here
-# if doing this, we introduce circle-import since cpptraj_dict already imported
-# DataSet
 from pytraj.cpptraj_dict import DataTypeDict
 
 __all__ = ['DataSetList']
@@ -269,15 +266,13 @@ cdef class DataSetList:
         --------
         dtype : str
             DataType
-
         name_1 : str
-
         name_2 : str
         """
         cdef DataSet ds = DataSet()
         if aspect is None:
             aspect = name
-        ds.baseptr0 = self.thisptr.AddSetAspect(DataTypeDict[dtype], 
+        ds.baseptr0 = self.thisptr.AddSetAspect(DataTypeDict[dtype.upper()], 
                                                 name.encode(), aspect.encode())
         return ds
 
