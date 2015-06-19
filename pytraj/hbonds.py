@@ -1,11 +1,25 @@
-from __future__ import absolute_import, print_function
+from __future__ import absolute_import, print_function, division
 
-from pytraj.action_dict import ActionDict
+from .action_dict import ActionDict
 from .externals.six import string_types
-from pytraj.DataSetList import DataSetList
-from pytraj._get_common_objects import _get_data_from_dtype
+from .DataSetList import DataSetList
+from ._get_common_objects import _get_data_from_dtype
+from . _base_result_class import BaseAnalysisResult
 
 adict = ActionDict()
+
+__all__ = ['HbondAnalaysisResult', 'search_hbonds', 'search_nointramol_hbonds',
+           'search_hbonds_noseries']
+
+class HbondAnalaysisResult(BaseAnalysisResult):
+    @property
+    def donor_aceptor(self):
+        return [x for x in self.dslist.keys() if x != 'avg_solute_solute']
+
+    def lifetime(self):
+        c = self.dslist.count()
+        n_frames = self.dslist[0].size
+        return dict((key, c[key][1] / n_frames) for key in self.donor_aceptor) 
 
 def _update_legend_hbond(_dslist):
 
