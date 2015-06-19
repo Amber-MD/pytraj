@@ -1,7 +1,7 @@
 import unittest
 from pytraj.base import *
 from pytraj import TrajectoryIterator
-from pytraj.datafiles.load_sample_data import load_sample_data
+from pytraj.data_sample.load_sample_data import load_sample_data
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 

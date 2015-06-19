@@ -199,9 +199,9 @@ packages = [
         'pytraj.externals.gdt',
         'pytraj.parms',
         'pytraj.trajs',
-        'pytraj.datafiles',
-        'pytraj.datafiles.Ala3',
-        'pytraj.datafiles.tz2',
+        'pytraj.data_sample',
+        'pytraj.data_sample.Ala3',
+        'pytraj.data_sample.tz2',
         'pytraj.plotting',
         'pytraj.math',
         'pytraj.core',
@@ -211,7 +211,7 @@ packages = [
 
 pylen = len('pytraj') + 1
 pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
-sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*"]
+sample_data = ["data_sample/Ala3/Ala3.*", "data_sample/tz2/tz2.*"]
 datalist = pxdlist +  sample_data
 
 # compare to "setup_for_amber" script

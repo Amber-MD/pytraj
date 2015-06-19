@@ -8,7 +8,7 @@ from pytraj.trajs import *
 from pytraj.hbonds import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
-from .datafiles.load_sample_data import load_sample_data
+from .data_sample.load_sample_data import load_sample_data
 from pytraj import adict
 from pytraj.misc import info
 from pytraj._set_silent import set_world_silent
