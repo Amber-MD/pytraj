@@ -215,3 +215,20 @@ def find_library(libname, unique=False):
             return set(lib_path_list)
         else:
             return lib_path_list
+
+def rmsd_1darray(a1, a2):
+    '''rmsd of a1 and a2
+    '''
+    import numpy as np
+    from math import sqrt
+    arr1 = np.asarray(a1)
+    arr2 = np.asarray(a2)
+
+    if len(arr1.shape) > 1 or len(arr2.shape) > 1:
+        raise ValueError("1D array only")
+
+    if arr1.shape != arr2.shape:
+        raise ValueError("must have the same shape")
+    
+    tmp = sum((arr1-arr2)**2)
+    return sqrt(tmp/arr1.shape[0])
