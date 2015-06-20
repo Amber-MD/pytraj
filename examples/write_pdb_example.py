@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         from pytraj import set_world_silent
         set_world_silent(False)
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
         mdio.write_traj("test_1.pdb", traj[0], top=traj.top, fmt='CHARMMDCD', overwrite=True)
         mdio.write_traj("test_1.dcd", traj[0], top=traj.top, fmt='CHARMMDCD', overwrite=True)
 
@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         # TODO: get absolute path so we can use `goto_temp_folder`
         # if not: wrong dir if using TrajectoryIterator
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        traj = mdio.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")[:]
         trajout = Trajout()
         print(trajout.formats)
 
