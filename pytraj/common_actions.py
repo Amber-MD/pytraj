@@ -62,16 +62,6 @@ list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds',
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
-calc_radgyr = partial(calculate, 'radgyr', quick_get=True)
-calc_molsurf = partial(calculate, 'molsurf', quick_get=True)
-calc_distrmsd = partial(calculate, 'distrmsd', quick_get=True)
-calc_volume = partial(calculate, 'volume', quick_get=True)
-calc_multivector = partial(calculate, 'multivector')
-calc_volmap = partial(calculate, 'volmap')
-calc_linear_interaction_energy = partial(calculate, 'lie')
-# create alias
-calc_LIE = calc_linear_interaction_energy
-calc_rdf = partial(calculate, 'radial', print_output=True)
 calc_protein_score = calc_score
 calc_energies = get_pysander_energies
 energy_decomposition = get_pysander_energies
@@ -277,6 +267,92 @@ def calc_matrix(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     act.print_output()
     return _get_data_from_dtype(dslist, dtype)
+
+
+def calc_radgyr(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+    from pytraj.actions.CpptrajActions import Action_Radgyr
+    act = Action_Radgyr()
+
+    _top = _get_top(traj, top)
+    dslist = DataSetList()
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist[0].copy(), dtype)
+
+
+def calc_molsurf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+    from pytraj.actions.CpptrajActions import Action_Molsurf
+    act = Action_Molsurf()
+
+    _top = _get_top(traj, top)
+    dslist = DataSetList()
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist[0].copy(), dtype)
+
+
+def calc_distrmsd(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+    from pytraj.actions.CpptrajActions import Action_DistRmsd
+    act = Action_DistRmsd()
+
+    _top = _get_top(traj, top)
+    dslist = DataSetList()
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist[0].copy(), dtype)
+
+
+def calc_volume(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+    from pytraj.actions.CpptrajActions import Action_Volume
+    act = Action_Volume()
+
+    _top = _get_top(traj, top)
+    dslist = DataSetList()
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist[0].copy(), dtype)
+
+
+def calc_multivector(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+    from pytraj.actions.CpptrajActions import Action_MultiVector
+    act = Action_MultiVector()
+
+    _top = _get_top(traj, top)
+    dslist = DataSetList()
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype)
+
+
+def calc_volmap(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+    from pytraj.actions.CpptrajActions import Action_Volmap
+    act = Action_Volmap()
+
+    _top = _get_top(traj, top)
+    dslist = DataSetList()
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype)
+
+
+def calc_linear_interaction_energy(traj=None, command="", top=None, 
+        dtype='dataset', *args, **kwd):
+    from pytraj.actions.CpptrajActions import Action_LIE
+    act = Action_LIE()
+
+    _top = _get_top(traj, top)
+    dslist = DataSetList()
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype)
+
+# alias
+calc_LIE = calc_linear_interaction_energy
+
+
+def calc_rdf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+    from pytraj.actions.CpptrajActions import Action_Radial
+    act = Action_Radial()
+
+    _top = _get_top(traj, top)
+    dslist = DataSetList()
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act.print_output()
+    return _get_data_from_dtype(dslist, dtype)
+
 
 def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset', *args, **kwd):
     """
