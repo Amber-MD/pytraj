@@ -101,3 +101,9 @@ class DataSetList(DSL):
         """
         super(DataSetList, self).apply(func)
         return self
+
+    def to_pyarray(self):
+        if self.size > 1:
+            raise NotImplementedError("only use `to_pyarray` for DataSet_1D")
+
+        return self[0].to_pyarray()

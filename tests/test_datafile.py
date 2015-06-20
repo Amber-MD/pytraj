@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         from pytraj.core.DataFileList import DataFileList
         from pytraj import ArgList
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        ds = pyca.calc_molsurf(traj)
+        ds = pyca.calc_molsurf(traj)[0]
         print (ds.legend)
 
         df = DataFileList()
