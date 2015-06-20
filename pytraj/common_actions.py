@@ -63,11 +63,9 @@ list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds',
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
 calc_radgyr = partial(calculate, 'radgyr', quick_get=True)
-calc_angle = partial(calculate, 'angle', quick_get=True)
 calc_molsurf = partial(calculate, 'molsurf', quick_get=True)
 calc_distrmsd = partial(calculate, 'distrmsd', quick_get=True)
 calc_volume = partial(calculate, 'volume', quick_get=True)
-calc_matrix = partial(calculate, 'matrix', print_output=True)
 calc_multivector = partial(calculate, 'multivector')
 calc_volmap = partial(calculate, 'volmap')
 calc_linear_interaction_energy = partial(calculate, 'lie')
@@ -269,6 +267,16 @@ def calc_radial(traj=None, command="", top=Topology()):
     # dump data to dslist.
     act.print_output()
     return dslist
+
+def calc_matrix(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+    from pytraj.actions.CpptrajActions import Action_Matrix
+    act = Action_Matrix()
+
+    _top = _get_top(traj, top)
+    dslist = DataSetList()
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act.print_output()
+    return _get_data_from_dtype(dslist, dtype)
 
 def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset', *args, **kwd):
     """
