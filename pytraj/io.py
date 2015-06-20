@@ -158,8 +158,9 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
     if 'frame_slice' in kwd.keys() and not engine == 'pytraj':
         raise KeyError("only support frame_slice in engine mode = 'pytraj'")
 
+    engine = engine.lower()
 
-    if engine.lower() == 'pytraj':
+    if engine == 'pytraj':
         from .Topology import Topology
         from .TrajectoryIterator import TrajectoryIterator
         from .Trajectory import Trajectory
