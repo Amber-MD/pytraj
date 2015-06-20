@@ -22,6 +22,7 @@ def main():
     #     "@CA" : follow AMBER mask, change it if needed
     score = 'tmscore'
     print(calc_score(traj[IDX1], ref=traj[IDX0], mask="@CA", top=traj.top, score=score))
+    print(calc_score(traj, ref=traj[IDX0], mask="@CA", top=traj.top, score=score, dtype='dataset'))
 
 if __name__ == "__main__":
     main()

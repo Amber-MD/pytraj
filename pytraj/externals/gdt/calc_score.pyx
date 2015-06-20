@@ -19,6 +19,11 @@ def calc_score(traj, top=None, ref=None, mask="*",
     mask : str, atom mask
     score : str
         `gdtscore` or `tmscore` or `maxsub`
+
+    Examples
+    -------
+    >>> from pytraj.common_actions import calc_protein_score
+    >>> calc_protein_score(traj, ref=traj[0])
     """
     cdef pyarray score_arr = pyarray('d', [])
     cdef Frame _frame, _ref
@@ -34,13 +39,13 @@ def calc_score(traj, top=None, ref=None, mask="*",
         int_score = 3
 
     if ref is None:
-        _ref = traj[0]
+        try:
+            _ref = traj[0]
+        except IndexError:
+            raise IndexError("must be a Trajectory")
     else:
         _ref = ref
 
-    if traj.n_atoms != _ref.n_atoms: 
-        raise ValueError("traj and ref must have the same n_atoms")
-    
     _top = _get_top(traj, top)
     atm = top(mask)
     _ref = Frame(ref, atm)
@@ -55,8 +60,8 @@ def calc_score(traj, top=None, ref=None, mask="*",
     if dtype == 'pyarray':
         return score_arr
     else:
-        from pytraj.datasets import DataSet_double
-        dset = DataSet_double()
+        from pytraj.datasets import DatasetDouble
+        dset = DatasetDouble()
         dset.resize(score_arr.__len__())
         dset.values[:] = score_arr
         return _get_data_from_dtype(dset, dtype)

@@ -378,8 +378,8 @@ cdef class DataSet:
         """
         return sorted(self.values, reverse=True)[:k]
 
-    def head(self, k):
+    def head(self, k=20):
         return self.values[:k]
 
-    def tail(self, k):
+    def tail(self, k=20):
         return self.values[-k:]
