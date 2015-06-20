@@ -146,6 +146,7 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
     engine : str, {'pytraj', 'mdanalysis'}, default 'pytraj'
         if 'pytraj', use pytraj for iterload (return `TrajectoryIterator`)
         if 'mdanalysis', use this package (return `TrajectoryMDAnalysisIterator`)
+    *args, **kwd: additional arguments, depending on `engine`
 
     Returns
     -------
@@ -186,12 +187,16 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
             return ts
     elif engine == 'mdanalysis':
         from MDAnalysis import Universe as U
-        return load_MDAnalysisIterator(U(top, filename *args, **kwd))
+        if top is None:
+            top = filename
+        return load_MDAnalysisIterator(U(top, filename, *args, **kwd))
     elif engine == 'mdtraj':
         import mdtraj as md
-        return load_mdtraj(md.load(filename, top=top), *args, **kwd)
+        if top is None:
+            top = filename
+        return load_mdtraj(md.load(filename, top=top, *args, **kwd))
     else:
-        raise NotImplementedError("support only pytraj or MDAnalysis engines")
+        raise NotImplementedError("support only {'pytraj', 'mdanlaysis', 'mdtraj'} engines")
 
 
 def _load_from_frame_iter(traj_frame_iter, top=None):
