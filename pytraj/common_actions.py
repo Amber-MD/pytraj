@@ -286,7 +286,7 @@ def calc_molsurf(traj=None, command="", top=None, dtype='dataset', *args, **kwd)
     _top = _get_top(traj, top)
     dslist = DataSetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
-    return _get_data_from_dtype(dslist[0].copy(), dtype)
+    return _get_data_from_dtype(dslist, dtype)
 
 
 def calc_distrmsd(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
@@ -296,7 +296,7 @@ def calc_distrmsd(traj=None, command="", top=None, dtype='dataset', *args, **kwd
     _top = _get_top(traj, top)
     dslist = DataSetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
-    return _get_data_from_dtype(dslist[0].copy(), dtype)
+    return _get_data_from_dtype(dslist, dtype)
 
 
 def calc_volume(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
@@ -306,7 +306,7 @@ def calc_volume(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     _top = _get_top(traj, top)
     dslist = DataSetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
-    return _get_data_from_dtype(dslist[0].copy(), dtype)
+    return _get_data_from_dtype(dslist, dtype)
 
 
 def calc_multivector(traj=None, command="", top=None, dtype='dataset', *args, **kwd):

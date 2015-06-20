@@ -4,6 +4,7 @@ from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq, a_isinstance
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 import pytraj.common_actions as pyca
+from pytraj.misc import rmsd_1darray
 
 class Test(unittest.TestCase):
     @test_if_having("numpy")
@@ -11,9 +12,12 @@ class Test(unittest.TestCase):
         import numpy as np
         from array import array as pyarray
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        alist = traj.calc_molsurf().tolist()
+        alist = traj.calc_molsurf().tolist()[0]
         anp = traj.calc_molsurf().to_ndarray()
         a_pyarray = traj.calc_molsurf().to_pyarray()
+        print(alist, anp, a_pyarray)
+        print (rmsd_1darray(a_pyarray, alist))
+        print (rmsd_1darray(anp, alist))
         aa_eq(alist, anp)
         aa_eq(alist, a_pyarray)
 
