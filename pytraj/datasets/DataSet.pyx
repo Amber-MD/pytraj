@@ -368,6 +368,9 @@ cdef class DataSet:
         import numpy as np
         return np.std(self.values, *args, **kwd)
 
+    def sum(self):
+        return sum(self)
+
     def topk(self, k):
         """pick top k max-values
         Returns
