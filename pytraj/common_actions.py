@@ -22,7 +22,7 @@ from .Frame import Frame
 #from .Trajectory import Trajectory
 from .AtomMask import AtomMask
 from .Topology import Topology
-from .DataSetList import DataSetList
+from .datasets.DataSetList import DataSetList
 from .core.DataFileList import DataFileList
 from .math.DistRoutines import distance 
 from .externals.gdt.calc_score import calc_score

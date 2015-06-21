@@ -4,6 +4,7 @@ from .Topology import Topology
 from .ArgList import ArgList
 from .utils import _import
 from .utils.check_and_assert import is_frame_iter, is_chunk_iter
+from .datasetlist import DataSetList as DSL
 
 def _get_top(traj, top):
     if isinstance(top, string_types):
@@ -34,30 +35,32 @@ def _get_arglist(arg):
         return ArgList(arg)
 
 def _get_data_from_dtype(d0, dtype='dataset'):
-   if dtype is None:
-       return d0
-   elif not isinstance(dtype, string_types):
-       raise ValueError("dtype must a None or a string")
-   else:
-       dtype = dtype.lower()
-       if dtype == 'dataset':
-           return d0
-       elif dtype == 'list':
-           return d0.tolist()
-       elif dtype == 'ndarray':
-           return d0.to_ndarray()
-       elif dtype == 'pyarray':
-           return d0.to_pyarray()
-       elif dtype == 'dict':
-           try:
-               import numpy
-               return d0.to_dict(use_numpy=True)
-           except ImportError:
-               return d0.to_dict(use_numpy=False)
-       elif dtype == 'dataframe':
-           return d0.to_dataframe()
-       else:
-           raise NotImplenmentedError()
+    if dtype is None or dtype == 'dataset':
+        d0.set_py_free_mem(False)
+    if dtype is None:
+        return DSL(d0)
+    elif not isinstance(dtype, string_types):
+        raise ValueError("dtype must a None or a string")
+    else:
+        dtype = dtype.lower()
+        if dtype == 'dataset':
+            return DSL(d0)
+        elif dtype == 'list':
+            return d0.tolist()
+        elif dtype == 'ndarray':
+            return d0.to_ndarray()
+        elif dtype == 'pyarray':
+            return d0.to_pyarray()
+        elif dtype == 'dict':
+            try:
+                import numpy
+                return d0.to_dict(use_numpy=True)
+            except ImportError:
+                return d0.to_dict(use_numpy=False)
+        elif dtype == 'dataframe':
+            return d0.to_dataframe()
+        else:
+            raise NotImplenmentedError()
 
 def _get_list_of_commands(mask_or_commands):
     if isinstance(mask_or_commands, string_types):
