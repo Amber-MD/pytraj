@@ -6,6 +6,7 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
+from pytraj.datasets.DataSetList import DataSetList
 
 class Test(unittest.TestCase):
     @test_if_having("numpy")

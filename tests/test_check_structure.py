@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
         tbad[1, 0] = 1.3
 
         check = adict['checkstructure']
-        from pytraj import DataSetList
+        from pytraj.datasets.DataSetList import DataSetList
         dslist = DataSetList()
         check("", traj[0], top=traj.top, dslist=dslist)
         print (dslist)

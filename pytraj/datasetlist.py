@@ -6,12 +6,14 @@ from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import _import_numpy, _import_pandas, is_int, is_array
 from pytraj._xyz import XYZ
 from pytraj.compat import string_types
+from pytraj.core.DataFile import DataFile
+from pytraj.ArgList import ArgList
 
 _, np = _import_numpy()
 
-__all__ = ['stack', 'DataSetList']
+__all__ = ['vstack', 'DataSetList']
 
-def stack(args):
+def vstack(args):
     """return a new DataSetList by joining (vstack)
 
     Parameters
@@ -51,6 +53,7 @@ class DataSetList(list):
         dslist = self.__class__()
         for d0 in self:
             dslist.append(d0.copy())
+        return dslist
 
     def from_pickle(self, filename):
         ddict = read_pickle(filename)
@@ -167,7 +170,7 @@ class DataSetList(list):
             try:
                 df = self.to_dataframe().T
                 return safe_msg + "\n" + df.__str__()
-            except ImportError:
+            except (ImportError, ValueError):
                 return safe_msg
 
     def __repr__(self):

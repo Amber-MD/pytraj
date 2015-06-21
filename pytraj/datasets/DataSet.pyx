@@ -10,6 +10,7 @@ from ..utils import _import_numpy
 _, np = _import_numpy()
 
 cdef class DataSet:
+    __cpptraj_dataset__ = None
     """
     Original doc from cpptraj
     -------------------------

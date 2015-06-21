@@ -35,8 +35,12 @@ def _get_arglist(arg):
         return ArgList(arg)
 
 def _get_data_from_dtype(d0, dtype='dataset'):
+    from pytraj.datasets.DataSet import DataSet
     if dtype is None or dtype == 'dataset':
-        d0.set_py_free_mem(False)
+        if hasattr(d0, 'set_py_free_mem'):
+            d0.set_py_free_mem(False)
+        elif hasattr(d0, 'py_free_mem'):
+            d0.py_free_mem = False
     if dtype is None:
         return DSL(d0)
     elif not isinstance(dtype, string_types):
@@ -44,7 +48,10 @@ def _get_data_from_dtype(d0, dtype='dataset'):
     else:
         dtype = dtype.lower()
         if dtype == 'dataset':
-            return DSL(d0)
+            if isinstance(d0, DataSet):
+                return d0
+            else:
+                return DSL(d0)
         elif dtype == 'list':
             return d0.tolist()
         elif dtype == 'ndarray':

@@ -654,7 +654,6 @@ def calc_vector(traj=None, mask="", top=None, dtype='dataset', *args, **kwd):
     >>> pyca.calc_vector(traj, "box").tolist()
     """
     from pytraj.actions.CpptrajActions import Action_Vector
-    from pytraj.DataSetList import DataSetList
     from pytraj.core.ActionList import ActionList
 
     dslist = DataSetList()
@@ -690,7 +689,7 @@ def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='
         if use_mass:
             frame.set_frame_mass(_top)
         act.do_action(frame)
-    return _get_data_from_dtype(dslist[0], dtype=dtype)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
 
@@ -702,7 +701,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='dataset'):
     #dslist.set_py_free_mem(False) # need this to avoid segmentation fault
     for frame in _frame_iter_master(traj):
         dslist[0].append(frame.center_of_geometry(atom_mask_obj))
-    return _get_data_from_dtype(dslist[0], dtype=dtype)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 calc_COG = calc_center_of_geometry
 
