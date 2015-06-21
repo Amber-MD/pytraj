@@ -6,6 +6,7 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.analyses.CpptrajAnalyses import Analysis_Clustering
 from pytraj import DataSetList
+from pytraj.datasets.DataSetList import DataSetList
 
 class Test(unittest.TestCase):
     def test_0(self):

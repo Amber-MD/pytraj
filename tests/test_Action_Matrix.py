@@ -6,6 +6,7 @@ from pytraj.datasets.cast_dataset import cast_dataset
 from pytraj import adict
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test
+from pytraj.datasets.DataSetList import DataSetList
 
 farray = TrajectoryIterator(top=Topology("./data/Tc5b.top"), 
                     filename='data/md1_prod.Tc5b.x', 
@@ -16,7 +17,7 @@ class TestRadgyr(unittest.TestCase):
         dslist = DataSetList()
         act = adict['matrix']
         act(command="byres @CA", current_frame=farray, 
-                top=farray.top, dslist=dslist)
+            top=farray.top, dslist=dslist)
 
         d1 = cast_dataset(dslist[0], dtype="matrix double")
         print (d1.size)

@@ -8,6 +8,7 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 import numpy as np
 from numpy.testing import assert_almost_equal as aa_eq
+from pytraj.datasets.DataSetList import DataSetList
 
 """enhance DataSetList by using numpy"""
 

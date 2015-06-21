@@ -2,7 +2,7 @@
 Notes : might move to cython
 """
 from __future__ import absolute_import
-from ..DataSetList import DataSetList
+from ..datasetlist import DataSetList
 from ..compat import zip
 
 def stack(*args):

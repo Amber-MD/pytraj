@@ -6,6 +6,7 @@ from pytraj.actions import Action
 from pytraj.TrajectoryIterator import TrajectoryIterator
 from pytraj.datasets import cast_dataset
 from pytraj import adict
+from pytraj.datasets.DataSetList import DataSetList
 
 print(dir(Action_Surf()))
 
