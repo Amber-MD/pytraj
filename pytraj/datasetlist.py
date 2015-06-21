@@ -9,14 +9,14 @@ from pytraj.compat import string_types
 
 _, np = _import_numpy()
 
-__all__ = ['start', 'DataSetList']
+__all__ = ['stack', 'DataSetList']
 
-def stack(*args):
+def stack(args):
     """return a new DataSetList by joining (vstack)
 
     Parameters
     ----------
-    *args : list/tuple of DataSetList
+    args : tuple of DataSetList
 
     Notes
     -----
@@ -28,18 +28,16 @@ def stack(*args):
         d2 = calc_dssp(traj2, dtype='dataset')
         d3 = stack(d1, d2)
     """
-
-    if len(args) <= 1:
-        raise ValueError("need more than 1 DataSetList to stack")
-
     if not isinstance(args, tuple):
         raise ValueError("must a tuple")
+
     dslist0 = args[0].copy()
+
     for dslist in args[1:]:
         for d0, d in zip(dslist0, dslist):
             if d0.dtype != d.dtype:
                 raise ValueError("Dont support stack different dtype together")
-            d0.append(d)
+            d0.append(d.copy())
     return dslist0
 
 
@@ -48,6 +46,11 @@ class DataSetList(list):
         if dslist:
             for d0 in dslist:
                 self.append(d0)
+
+    def copy(self):
+        dslist = self.__class__()
+        for d0 in self:
+            dslist.append(d0.copy())
 
     def from_pickle(self, filename):
         ddict = read_pickle(filename)
