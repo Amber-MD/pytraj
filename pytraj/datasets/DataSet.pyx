@@ -389,3 +389,6 @@ cdef class DataSet:
 
     def tail(self, k=20):
         return self.values[-k:]
+
+    def is_(self, DataSet other):
+        return self.baseptr0 == other.baseptr0

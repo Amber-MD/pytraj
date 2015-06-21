@@ -1216,6 +1216,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_98std(struct __pyx
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_100topk(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_k); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_102head(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_k); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_104tail(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_k); /* proto */
+static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_106is_(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_other); /* proto */
 static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base___get__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base_2__set__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_5_base_4__del__(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self); /* proto */
@@ -8636,6 +8637,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_102head(struct __p
  * 
  *     def tail(self, k=20):             # <<<<<<<<<<<<<<
  *         return self.values[-k:]
+ * 
  */
 
 /* Python wrapper */
@@ -8711,6 +8713,8 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_104tail(struct __p
  * 
  *     def tail(self, k=20):
  *         return self.values[-k:]             # <<<<<<<<<<<<<<
+ * 
+ *     def is_(self, DataSet other):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_values); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 391; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -8730,6 +8734,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_104tail(struct __p
  * 
  *     def tail(self, k=20):             # <<<<<<<<<<<<<<
  *         return self.values[-k:]
+ * 
  */
 
   /* function exit code */
@@ -8738,6 +8743,74 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_104tail(struct __p
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("pytraj.datasets.DataSet.DataSet.tail", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pytraj/datasets/DataSet.pyx":393
+ *         return self.values[-k:]
+ * 
+ *     def is_(self, DataSet other):             # <<<<<<<<<<<<<<
+ *         return self.baseptr0 == other.baseptr0
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_107is_(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static char __pyx_doc_6pytraj_8datasets_7DataSet_7DataSet_106is_[] = "DataSet.is_(self, DataSet other)";
+static PyObject *__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_107is_(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+  CYTHON_UNUSED int __pyx_lineno = 0;
+  CYTHON_UNUSED const char *__pyx_filename = NULL;
+  CYTHON_UNUSED int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("is_ (wrapper)", 0);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet, 1, "other", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 393; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_106is_(((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_v_self), ((struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *)__pyx_v_other));
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_106is_(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_self, struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet *__pyx_v_other) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("is_", 0);
+
+  /* "pytraj/datasets/DataSet.pyx":394
+ * 
+ *     def is_(self, DataSet other):
+ *         return self.baseptr0 == other.baseptr0             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyBool_FromLong((__pyx_v_self->baseptr0 == __pyx_v_other->baseptr0)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 394; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pytraj/datasets/DataSet.pyx":393
+ *         return self.values[-k:]
+ * 
+ *     def is_(self, DataSet other):             # <<<<<<<<<<<<<<
+ *         return self.baseptr0 == other.baseptr0
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pytraj.datasets.DataSet.DataSet.is_", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -9942,6 +10015,7 @@ static PyMethodDef __pyx_methods_6pytraj_8datasets_7DataSet_DataSet[] = {
   {"topk", (PyCFunction)__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_101topk, METH_O, __pyx_doc_6pytraj_8datasets_7DataSet_7DataSet_100topk},
   {"head", (PyCFunction)__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_103head, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8datasets_7DataSet_7DataSet_102head},
   {"tail", (PyCFunction)__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_105tail, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8datasets_7DataSet_7DataSet_104tail},
+  {"is_", (PyCFunction)__pyx_pw_6pytraj_8datasets_7DataSet_7DataSet_107is_, METH_O, __pyx_doc_6pytraj_8datasets_7DataSet_7DataSet_106is_},
   {0, 0, 0, 0}
 };
 

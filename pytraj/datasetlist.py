@@ -11,7 +11,13 @@ from pytraj.ArgList import ArgList
 
 _, np = _import_numpy()
 
-__all__ = ['vstack', 'DataSetList']
+__all__ = ['load_datafile', 'vstack', 'DataSetList']
+
+def load_datafile(filename):
+    """load cpptraj's output"""
+    ds = DataSetList()
+    ds.read_data(filename)
+    return ds
 
 def vstack(args):
     """return a new DataSetList by joining (vstack)
@@ -48,6 +54,12 @@ class DataSetList(list):
         if dslist:
             for d0 in dslist:
                 self.append(d0)
+
+    def __contains__(self, d0):
+        for d in self:
+            if d.is_(d0):
+                return True
+        return False
 
     def copy(self):
         dslist = self.__class__()

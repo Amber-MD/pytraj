@@ -7,6 +7,7 @@ from pytraj import *
 
 class Test(unittest.TestCase):
     def test_0(self):
+        from pytraj.datasets.DataSetList import DataSetList
         traj = mdio.iterload("./data/tz2.crd", "./data/tz2.parm7")[:]
         # NOT SURE CORRECTLY YET
         # FIXME: Segmentation fault (core dumped)

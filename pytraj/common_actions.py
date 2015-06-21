@@ -653,6 +653,7 @@ def calc_vector(traj=None, mask="", top=None, dtype='dataset', *args, **kwd):
     >>> pyca.calc_vector(traj, "boxcenter").tolist()
     >>> pyca.calc_vector(traj, "box").tolist()
     """
+    from pytraj.datasets.DataSetList import DataSetList
     from pytraj.actions.CpptrajActions import Action_Vector
     from pytraj.core.ActionList import ActionList
 
@@ -1012,7 +1013,6 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
 
     from .actions.CpptrajActions import Action_Closest
     from pytraj.Trajectory import Trajectory
-    from pytraj import DataSetList
     dslist = DataSetList()
 
     if 'dtype' in kwd.keys():
