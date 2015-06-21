@@ -201,6 +201,9 @@ class DataSetList(list):
     def size(self):
         return len(self)
 
+    def __getslice__(self, i, j):
+        return self.__getitem__(slice(i, j))
+
     def __getitem__(self, idx):
         """return a DataSet instance
         Memory view is applied (which mean this new insance is just alias of self[idx])
