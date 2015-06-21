@@ -368,8 +368,10 @@ cdef class DataSet:
         import numpy as np
         return np.std(self.values, *args, **kwd)
 
-    def sum(self):
-        return sum(self)
+    #def sum(self):
+    # don't create `sum` method here. mess up with numpy
+    # TypeError: sum() takes no keyword arguments
+    #    pass
 
     def topk(self, k):
         """pick top k max-values
