@@ -24,7 +24,7 @@ def vstack(args):
 
     Parameters
     ----------
-    args : tuple of DataSetList
+    args : list/tuple of DataSetList
 
     Notes
     -----
@@ -36,12 +36,17 @@ def vstack(args):
         d2 = calc_dssp(traj2, dtype='dataset')
         d3 = stack(d1, d2)
     """
-    if not isinstance(args, tuple):
-        raise ValueError("must a tuple")
+    if not isinstance(args, (list, tuple, map)):
+        raise ValueError("must a tuple/list/map")
 
-    dslist0 = args[0].copy()
+    if not isinstance(args, map):
+        dslist0 = args[0].copy()
+    else:
+        dslist0 = next(args)
 
-    for dslist in args[1:]:
+    dslist_iter = args[1:] if not isinstance(args, map) else args
+
+    for dslist in dslist_iter:
         for d0, d in zip(dslist0, dslist):
             if d0.dtype != d.dtype:
                 raise ValueError("Dont support stack different dtype together")
