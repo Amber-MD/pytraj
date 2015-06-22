@@ -1,6 +1,7 @@
 import unittest
 from pytraj.base import *
 from pytraj.datasets import cast_dataset
+from pytraj.datasets.DataSetList import DataSetList
 from pytraj.decorators import no_test
 from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ
 

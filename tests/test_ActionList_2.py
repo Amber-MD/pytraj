@@ -31,7 +31,7 @@ class TestActionList(unittest.TestCase):
         #alist.add_action("strip", "!CA", traj.top)
         alist.add_action("outtraj", "./output/test_trajout.nc", traj.top)
         alist.do_actions([traj[0], traj[1], traj,
-                          traj.chunk_iter(chunk=4, stop=8) , traj.frame_iter()])
+                          traj.chunk_iter(chunksize=4, stop=8) , traj.frame_iter()])
         Nframes = 1 + 1 + traj.n_frames + 9 + traj.n_frames
         dflist.write_all_datafiles()
         print (dslist.size)

@@ -24,14 +24,14 @@ class Test(unittest.TestCase):
         assert dslist[0].size == traj.n_frames
         cppout = np.loadtxt("./data/CAres2_CAres10.Tc5b.dat", skiprows=1).transpose()[1]
         assert_almost_equal(dslist[0][:], cppout)
-        act.do_action((traj.chunk_iter(chunk=4, stop=8),))
+        act.do_action((traj.chunk_iter(chunksize=4, stop=8),))
         print (act.n_frames)
         print (dslist[0].size)
 
     def test_1(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         i = 0
-        for farray in traj.chunk_iter(chunk=4, stop=8):
+        for farray in traj.chunk_iter(chunksize=4, stop=8):
             print (farray)
             i += 1
             print (i)
@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
         print ("n-chunk = ", i)
 
         i = 0
-        for farray in traj.chunk_iter(chunk=4):
+        for farray in traj.chunk_iter(chunksize=4):
             print (farray)
             i += 1
             print (i)
@@ -47,16 +47,16 @@ class Test(unittest.TestCase):
         print ("n-chunk = ", i)
 
         i = 0
-        for farray in traj.chunk_iter(chunk=2):
+        for farray in traj.chunk_iter(chunksize=2):
             print (farray)
             i += 1
             print (i)
         assert i == 5
         print ("n-chunk = ", i)
 
-        print ("for farray in traj.chunk_iter(start=3, chunk=4, stop=8)")
+        print ("for farray in traj.chunk_iter(start=3, chunksize=4, stop=8)")
         i = 0
-        for farray in traj.chunk_iter(start=3, chunk=4, stop=8):
+        for farray in traj.chunk_iter(start=3, chunksize=4, stop=8):
             print (farray)
             i += 1
             print (i)

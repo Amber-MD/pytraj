@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from .externals.six import string_types
 from ._set_silent import set_world_silent
 from .Topology import Topology
-from .DataSetList import DataSetList
+from .datasets.DataSetList import DataSetList
 from ._get_common_objects import _get_top
 
 def calculate(action=None, traj=None, command="", top=None, 

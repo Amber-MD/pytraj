@@ -11,7 +11,7 @@ import pytraj.common_actions as pyca
 class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
-        from pytraj.datasets.utils import stack
+        from pytraj.datasetlist import vstack as stack
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         _ds1 = pyca.calc_dssp(traj[:5], dtype='dataset')
         ds1 = _ds1.groupby('LYS')
@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
         print (ds2.keys(), ds1.keys())
         print (ds1.to_ndarray(), ds2.to_ndarray())
 
-        dstack = stack(ds1, ds2)
+        dstack = stack((ds1, ds2))
         _d12 = pyca.calc_dssp(traj, dtype='dataset')
         d12 = _d12.groupby("LYS")
 

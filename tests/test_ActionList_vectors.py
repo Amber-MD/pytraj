@@ -11,7 +11,7 @@ import pytraj.common_actions as pyca
 class Test(unittest.TestCase):
     def test_0(self):
         from pytraj.core.ActionList import ActionList
-        from pytraj import DataSetList
+        from pytraj.datasets.DataSetList import DataSetList
         from pytraj.actions import CpptrajActions as CA
 
         dslist = DataSetList()

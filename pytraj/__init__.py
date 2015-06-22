@@ -36,7 +36,7 @@ from .io import  (load, iterload, load_remd, iterload_remd,
 
 # dataset stuff
 from .datafiles.load_sample_data import load_sample_data
-from .DataSetList import DataSetList
+from .datasetlist import DataSetList
 
 # actions and analyses
 from .actions import CpptrajActions as allactions

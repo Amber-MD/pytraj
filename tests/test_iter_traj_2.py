@@ -30,7 +30,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         count = 0
-        for farray in traj.chunk_iter(chunk=4):
+        for farray in traj.chunk_iter(chunksize=4):
             count += 1
             print(farray)
         print ("count = %s" % count)

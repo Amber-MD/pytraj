@@ -2,7 +2,7 @@ from __future__ import absolute_import, print_function, division
 
 from .action_dict import ActionDict
 from .externals.six import string_types
-from .DataSetList import DataSetList
+from .datasets.DataSetList import DataSetList
 from ._get_common_objects import _get_data_from_dtype
 from . _base_result_class import BaseAnalysisResult
 

@@ -11,7 +11,6 @@ from .AtomMask cimport AtomMask
 from ._utils cimport get_positive_idx
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
-from .actions.CpptrajActions cimport Action_Rmsd
 from .math.Matrix_3x3 cimport Matrix_3x3
 from .cpp_algorithm cimport iter_swap
 
@@ -21,21 +20,21 @@ from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types, PY2
 from .externals._load_pseudo_parm import load_pseudo_parm
 from .TrajectoryIterator import TrajectoryIterator
-from .utils.check_and_assert import _import_numpy, is_int, is_frame_iter
-from .utils.check_and_assert import file_exist, is_mdtraj, is_pytraj_trajectory
-from .utils.check_and_assert import is_word_in_class_name
-from .utils.check_and_assert import is_array, is_range
+from .utils.check_and_assert import (_import_numpy, is_int, is_frame_iter,
+                                     file_exist, is_mdtraj, is_pytraj_trajectory,
+                                     is_word_in_class_name,
+                                     is_array, is_range)
 from .trajs.Trajout import Trajout
 from ._get_common_objects import _get_top, _get_data_from_dtype
-from ._shared_methods import _savetraj, _get_temperature_set
-from ._shared_methods import _xyz, _tolist
+from ._shared_methods import (_savetraj, _get_temperature_set,
+                              _xyz, _tolist)
 from ._utils import _int_array1d_like_to_memview
 from ._shared_methods import my_str_method
 from ._shared_methods import _box_to_ndarray
 from ._xyz import XYZ
 
-import pytraj.common_actions as pyca
-from pytraj.hbonds import search_hbonds
+from . import common_actions as pyca
+from .hbonds import search_hbonds
 
 cdef class Trajectory (object):
     def __cinit__(self, filename=None, top=None, indices=None, 
@@ -1134,11 +1133,12 @@ cdef class Trajectory (object):
             traj.rmsfit('last', '@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
+        from pytraj.actions.CpptrajActions import Action_Rmsd
         cdef Frame frame
         cdef AtomMask atm
         cdef Frame ref_frame
         cdef int i
-        cdef Action_Rmsd act
+
 
         if isinstance(ref, Frame):
             ref_frame = <Frame> ref
@@ -1239,13 +1239,7 @@ cdef class Trajectory (object):
         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
 
     def calc_vector(self, mask="", dtype='dataset', *args, **kwd):
-        from pytraj.actions.CpptrajActions import Action_Vector
-        from pytraj.DataSetList import DataSetList
-        act = Action_Vector()
-        dslist = DataSetList()
-
-        act(mask, self, dslist=dslist)
-        return _get_data_from_dtype(dslist, dtype)
+        return pyca.calc_vector(self, mask, dtype=dtype, *args, **kwd)
 
     def search_hbonds(self, mask="*", *args, **kwd):
         return pyca.search_hbonds(self, mask, *args, **kwd)
@@ -1474,7 +1468,7 @@ cdef class Trajectory (object):
         frame /= self.n_frames
         return frame
 
-    def chunk_iter(self, int chunk=2, int start=0, int stop=-1):
+    def chunk_iter(self, int chunksize=2, int start=0, int stop=-1):
         """iterately get Frames with start, chunk
         returning Trajectory
 
@@ -1486,6 +1480,8 @@ cdef class Trajectory (object):
         copy_top : bool, default=False
             if False: no Topology copy is done for new (chunk) Trajectory
         """
+        # use `chunk` so we don't need to change `chunk` to `chunksize`
+        cdef int chunk = chunksize
         cdef int n_chunk, i, _stop
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms

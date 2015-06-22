@@ -10,6 +10,7 @@ from ..utils import _import_numpy
 _, np = _import_numpy()
 
 cdef class DataSet:
+    __cpptraj_dataset__ = None
     """
     Original doc from cpptraj
     -------------------------
@@ -368,6 +369,11 @@ cdef class DataSet:
         import numpy as np
         return np.std(self.values, *args, **kwd)
 
+    #def sum(self):
+    # don't create `sum` method here. mess up with numpy
+    # TypeError: sum() takes no keyword arguments
+    #    pass
+
     def topk(self, k):
         """pick top k max-values
         Returns
@@ -383,3 +389,6 @@ cdef class DataSet:
 
     def tail(self, k=20):
         return self.values[-k:]
+
+    def is_(self, DataSet other):
+        return self.baseptr0 == other.baseptr0

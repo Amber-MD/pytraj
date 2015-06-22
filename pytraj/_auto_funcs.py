@@ -2,7 +2,7 @@ from __future__ import print_function, absolute_import
 
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from .externals.six import iteritems
-from .DataSetList import DataSetList
+from .datasets.DataSetList import DataSetList
 from pytraj import adict
 
 # auto-create `calc_` methods
@@ -13,7 +13,7 @@ supported_keys = adict.keys()
 template = '''
 def calc_%s(traj=None, command="", top=None, *args, **kwd):
     from pytraj.action_dict import ActionDict
-    from pytraj import DataSetList
+    from pytraj.datasets.DataSetList import DataSetList
     from ._get_common_objects import _get_top, _get_data_from_dtype
 
     if 'dtype' in kwd.keys():

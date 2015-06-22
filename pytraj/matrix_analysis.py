@@ -3,7 +3,7 @@ from __future__ import print_function, absolute_import
 from .actions.CpptrajActions import Action_Matrix
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from .externals.six import iteritems
-from .DataSetList import DataSetList
+from .datasets.DataSetList import DataSetList
 
 
 __all__ = ['distance_matrix', 'correlation_matrix', 'coord_covariance_matrix',

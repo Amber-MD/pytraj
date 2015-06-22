@@ -5,7 +5,7 @@ from pytraj import io as mdio
 from pytraj import adict
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.core.DataFileList import DataFileList
-from pytraj import DataSetList
+from pytraj.datasets.DataSetList import DataSetList
 from pytraj.testing import cpptraj_test_dir, aa_eq
 
 class Test(unittest.TestCase):
@@ -34,9 +34,6 @@ class Test(unittest.TestCase):
         print ("d0", d0)
         print ("d1", d1)
         assert (d0.to_dict() == d1.to_dict())
-        d_saved = mdio.load_datafile(os.path.join(cpptraj_test_dir, 
-                              "Test_Jcoupling", "Jcoupling.dat.save"))
-        print (d_saved)
 
 
 if __name__ == "__main__":
