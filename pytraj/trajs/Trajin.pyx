@@ -100,7 +100,7 @@ cdef class Trajin (TrajectoryFile):
                     yield frame
                 i += stride
 
-    def chunk_iter(self, int chunk=2, int start=0, int stop=-1, bint copy_top=False):
+    def chunk_iter(self, int chunksize=2, int start=0, int stop=-1, bint copy_top=False):
         """iterately get Frames with start, chunk
         returning Trajectory or Frame instance depend on `chunk` value
         Parameters
@@ -111,6 +111,7 @@ cdef class Trajin (TrajectoryFile):
         copy_top : bool, default=False
             if False: no Topology copy is done for new (chunk) Trajectory
         """
+        cdef int chunk = chunksize
         cdef int n_chunk, i, j, _stop
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms

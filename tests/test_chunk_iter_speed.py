@@ -16,7 +16,7 @@ def test_0():
 
     @Timer()
     def normal(chunk, stop):
-        for chunk in traj.chunk_iter(chunk=chunk, stop=stop):
+        for chunk in traj.chunk_iter(chunksize=chunk, stop=stop):
             pass
 
     @Timer()
@@ -52,7 +52,7 @@ def test_0():
             pass
 
     def check_eq(stop, chunk):
-        for c0, c1 in zip(traj.chunk_iter(stop=stop, chunk=chunk), traj2.chunk_iter(stop=stop, chunk=chunk)):
+        for c0, c1 in zip(traj.chunk_iter(stop=stop, chunksize=chunk), traj2.chunk_iter(stop=stop, chunksize=chunk)):
             aa_eq(c0.xyz, c1.xyz)
 
     print ("chunk: trajiter")

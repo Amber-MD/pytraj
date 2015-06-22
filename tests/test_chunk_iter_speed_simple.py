@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         fa = make_fake_traj(1000, 1000)
         fa2 = fa.__class__(top=fa.top)
 
-        for chunk in fa.chunk_iter(chunk=100):
+        for chunk in fa.chunk_iter(chunksize=100):
             fa2.join(chunk, copy=False)
 
         print (fa2.n_frames, fa.n_frames)
@@ -26,9 +26,9 @@ class Test(unittest.TestCase):
 
         from pytraj.utils import Timer
         @Timer()
-        def test_chunk(chunk=2): 
-            print ("chunk = %s" % chunk)
-            for chunk in fa.chunk_iter(chunk=chunk):
+        def test_chunk(chunksize=2): 
+            print ("chunk = %s" % chunksize)
+            for chunk in fa.chunk_iter(chunksize=chunksize):
                 pass
 
         @Timer()
@@ -49,7 +49,7 @@ class Test(unittest.TestCase):
         fa = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f_list = []
 
-        for chunk in fa.chunk_iter(chunk=2):
+        for chunk in fa.chunk_iter(chunksize=2):
             f_list.append(chunk.average())
 
         print (f_list)

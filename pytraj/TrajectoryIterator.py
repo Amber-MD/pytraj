@@ -144,7 +144,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             else:
                 yield frame
 
-    def chunk_iter(self, chunk=2, start=0, stop=-1, 
+    def chunk_iter(self, chunksize=2, start=0, stop=-1, 
                    autoimage=False, 
                    rmsfit=None,
                    copy_top=False):
@@ -162,6 +162,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         --------
             for chunk in trajiter.chunk_iter(100, autoimage=True, rmsfit=(ref0, '@CA'))
         """
+        chunk = chunksize
 
         if rmsfit is not None:
             ref, mask_for_rmsfit = rmsfit

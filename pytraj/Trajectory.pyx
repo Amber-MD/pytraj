@@ -1468,7 +1468,7 @@ cdef class Trajectory (object):
         frame /= self.n_frames
         return frame
 
-    def chunk_iter(self, int chunk=2, int start=0, int stop=-1):
+    def chunk_iter(self, int chunksize=2, int start=0, int stop=-1):
         """iterately get Frames with start, chunk
         returning Trajectory
 
@@ -1480,6 +1480,8 @@ cdef class Trajectory (object):
         copy_top : bool, default=False
             if False: no Topology copy is done for new (chunk) Trajectory
         """
+        # use `chunk` so we don't need to change `chunk` to `chunksize`
+        cdef int chunk = chunksize
         cdef int n_chunk, i, _stop
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms

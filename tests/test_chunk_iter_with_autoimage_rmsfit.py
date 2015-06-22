@@ -17,21 +17,21 @@ def test_0():
     mask = '@H='
 
     # test autoimage
-    for chunk in traj.chunk_iter(chunk=2, autoimage=True):
+    for chunk in traj.chunk_iter(chunksize=2, autoimage=True):
         pass
     fa0 = fa.copy()
     fa0.autoimage()
     aa_eq(chunk.xyz, fa0[-2:].xyz)
 
     # test rmsfit
-    for chunk in traj.chunk_iter(chunk=2, rmsfit=(ref0, mask)):
+    for chunk in traj.chunk_iter(chunksize=2, rmsfit=(ref0, mask)):
         pass
     fa0 = fa.copy()
     fa0.rmsfit(ref0, mask)
     aa_eq(chunk.xyz, fa0[-2:].xyz)
 
     # test rmsfit and autoimage
-    for chunk in traj.chunk_iter(chunk=2, rmsfit=(ref0, mask), autoimage=True):
+    for chunk in traj.chunk_iter(chunksize=2, rmsfit=(ref0, mask), autoimage=True):
         pass
 
     fa0 = fa.copy()

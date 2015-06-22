@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         act = adict['matrix']
         print (act)
 
-        act("", current_frame=(traj, traj(1, 5, 1), traj.chunk_iter(chunk=2)), top=traj.top)
+        act("", current_frame=(traj, traj(1, 5, 1), traj.chunk_iter(chunksize=2)), top=traj.top)
         print (act.n_frames)
         assert act.n_frames == 24
 
