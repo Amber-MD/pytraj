@@ -500,3 +500,23 @@ class DataSetList(list):
         values = np.column_stack((frame_number, self.values.T))
         formats = ['%8i'] + [d.format for d in self]
         np.savetxt(filename, values, fmt=formats, header=headers) 
+
+    def plot(self, use_seaborn=False, *args, **kwd):
+        """very simple plot for quickly visualize the data
+
+        >>> dslist[['psi:7', 'phi:7']].plot()
+        """
+        try:
+            from matplotlib import pyplot as plt
+            fig = plt.figure()
+            ax = fig.add_subplot(111)
+            for d0 in self:
+                ax.plot(d0, *args, **kwd)
+            return ax
+        except ImportError:
+            raise ImportError("require matplotlib")
+        if use_seaborn:
+            try:
+                import seaborn
+            except ImportError:
+                raise ImportError("require seaborn")
