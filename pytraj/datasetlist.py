@@ -8,6 +8,7 @@ from pytraj._xyz import XYZ
 from pytraj.compat import string_types
 from pytraj.core.DataFile import DataFile
 from pytraj.ArgList import ArgList
+from pytraj.compat import map
 
 _, np = _import_numpy()
 
