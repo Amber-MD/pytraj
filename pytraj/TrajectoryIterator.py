@@ -12,7 +12,7 @@ from pytraj.Frame import Frame
 from pytraj.AtomMask import AtomMask
 from pytraj.compat import string_types, zip
 from pytraj.exceptions import PytrajMemviewError
-from pytraj._shared_methods import _tolist
+from pytraj._shared_methods import _tolist, _split_and_write_traj
 from pytraj._get_common_objects import _get_top
 from pytraj.Topology import Topology
 
@@ -69,7 +69,6 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         elif isinstance(filename, (list, tuple)):
             filename_list = filename
             full_frame_slice = _make_frame_slices(len(filename_list), frame_slice)
-            print (full_frame_slice)
 
             for fname, fslice in zip(filename_list, full_frame_slice):
                 super(TrajectoryIterator, self).load(fname, _top, frame_slice=fslice)
@@ -202,3 +201,6 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
     def to_mutable_trajectory(self):
         return self[:]
+
+    def split_and_write_traj(self, *args, **kwd):
+        _split_and_write_traj(self, *args, **kwd)

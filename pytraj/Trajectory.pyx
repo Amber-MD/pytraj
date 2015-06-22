@@ -27,7 +27,7 @@ from .utils.check_and_assert import (_import_numpy, is_int, is_frame_iter,
 from .trajs.Trajout import Trajout
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._shared_methods import (_savetraj, _get_temperature_set,
-                              _xyz, _tolist)
+                              _xyz, _tolist, _split_and_write_traj)
 from ._utils import _int_array1d_like_to_memview
 from ._shared_methods import my_str_method
 from ._shared_methods import _box_to_ndarray
@@ -1111,6 +1111,9 @@ cdef class Trajectory (object):
     def write(self, *args, **kwd):
         """same as `save` method"""
         self.save(*args, **kwd)
+
+    def split_and_write_traj(self, *args, **kwd):
+        _split_and_write_traj(self, *args, **kwd)
 
     def set_frame_mass(self):
         """update mass for each Frame from self.top"""
