@@ -520,3 +520,17 @@ class DataSetList(list):
                 import seaborn
             except ImportError:
                 raise ImportError("require seaborn")
+
+    def append(self, dset, copy=True):
+        if copy:
+            d0 = dset.copy()
+        else:
+            d0 = dset
+        super(DataSetList, self).append(d0)
+
+    @classmethod
+    def from_datasetlist(cls, dslist, copy=True):
+        new_ds = cls()
+        for d in dslist:
+            new_ds.append(d, copy=copy)
+        return new_ds
