@@ -50,6 +50,7 @@ from . common_actions import (rmsd, search_hbonds, calc_dssp,
                               calc_center_of_mass, calc_center_of_geometry,
                               calc_dssp, calc_jcoupling, calc_molsurf,
                               calc_radgyr, calc_rdf, calc_vector,
+                              calc_pairwise_rmsd,
                               energy_decomposition,)
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (calc_phi, calc_psi, calc_omega, calc_chin, calc_chip)

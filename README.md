@@ -10,7 +10,6 @@ PYTRAJ
         * most of `pytraj's codes` were written in [Cython language] (http://cython.org/)
         * its core (cpptraj) was written in C++ (big thanks to [cpptraj developers] (https://github.com/mojyt/cpptraj))
         * it supports parallel computing (openmp from cpptraj or mpi from mpi4py or parallel in ipython)
-        * it has interface with numpy. Data calculation are performed without copying
     * It supports more than 100 types of analyses in [cpptraj] (http://ambermd.org/doc12/Amber15.pdf)
     * It has clean Python/Cython syntax
     * It has been extensively tested (>10K lines of testing code)
@@ -19,8 +18,7 @@ PYTRAJ
             (io.load("myparm.crazy_ext"))
         * you can write extension modules in either high (Python) or low (C/C++ or Cython) level
         * you can easily load objects from other packages (ParmEd, MDAnalysis, mdtraj...)
-    * It's portable: you only need to install "libcpptraj"
-        * (but you can use extra help from other popular packages such as numpy, matplotlib)
+    * It's portable: you only need to install "libcpptraj" and optional numpy
 - Note: `pytraj` is still in its infancy and its API might be rapidly changed. But it's not hurt to try :).
 
 
@@ -28,9 +26,9 @@ Install
 -------
 - require:
     - cpptraj
+    - numpy
 - (optional):
     - libnetcdf (highly recommended)
-    - numpy (highly recommended)
     - pandas (if you want to use DataFrame) 
     - matplotlib (if you want to plot)
 - easiest and less headache:

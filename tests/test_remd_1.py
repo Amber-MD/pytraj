@@ -48,10 +48,10 @@ class Test(unittest.TestCase):
 
         # test methods
         aa_eq(pyca.rmsd(trajiter), saved_traj.calc_rmsd())
-        aa_eq(pyca.calc_COM(trajiter).to_ndarray(), 
-              saved_traj.calc_COM().to_ndarray())
-        aa_eq(pyca.calc_COG(trajiter).to_ndarray(), 
-              saved_traj.calc_COG().to_ndarray())
+        aa_eq(pyca.calc_COM(trajiter),
+              saved_traj.calc_COM())
+        aa_eq(pyca.calc_COG(trajiter),
+              saved_traj.calc_COG())
         aa_eq(pyca.calc_dssp(trajiter, dtype='int')[0],
               saved_traj.calc_dssp(dtype='int')[0])
 

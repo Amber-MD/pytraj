@@ -27,11 +27,11 @@ class Test(unittest.TestCase):
 
         dslist3_0 = pyca.calc_vector(traj, mask_list[0])
         dslist3_1 = pyca.calc_vector(traj, mask_list[1])
-        aa_eq(dslist3_0.to_ndarray(), dslist2[0].to_ndarray())
-        aa_eq(dslist3_1.to_ndarray(), dslist2[1].to_ndarray())
+        aa_eq(dslist3_0, dslist2[0])
+        aa_eq(dslist3_1, dslist2[1])
 
-        aa_eq(dslist3_0.to_ndarray(), dslist[0].to_ndarray())
-        aa_eq(dslist3_1.to_ndarray(), dslist[1].to_ndarray())
+        aa_eq(dslist3_0, dslist[0].to_ndarray())
+        aa_eq(dslist3_1, dslist[1].to_ndarray())
 
 if __name__ == "__main__":
     unittest.main()

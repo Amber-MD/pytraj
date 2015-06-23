@@ -60,7 +60,7 @@ class Test(unittest.TestCase):
         # load and calc_distance at the same time
         traj = mdio.load(*("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
         from pytraj.common_actions import calc_distance
-        d0 = calc_distance(traj, ":2@CA :10@CA")
+        d0 = calc_distance(traj, ":2@CA :10@CA", dtype='dataset')
         assert is_word_in_class_name(d0, 'Dataset')
         assert hasattr(d0.data, 'memview')
 

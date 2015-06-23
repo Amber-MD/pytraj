@@ -71,7 +71,7 @@ class Test(unittest.TestCase):
         print ("test calc_pairwise_rmsd")
         trajin = "./data/md1_prod.Tc5b.x"
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = pyca.calc_pairwise_rmsd(traj, "@CA")
+        dslist = pyca.calc_pairwise_rmsd(traj, "@CA", dtype='dataset')
         print (dslist.size)
         print (dslist[0].size)
         print (dslist[0].name)
@@ -80,7 +80,7 @@ class Test(unittest.TestCase):
         assert (dslist[0].tolist().__len__() == 100)
         assert (dslist[0].to_ndarray().__len__() == 100)
 
-        dslist2 = traj.calc_pairwise_rmsd("@CA")
+        dslist2 = traj.calc_pairwise_rmsd("@CA", dtype='dataset')
         arr = dslist[0].to_ndarray().flatten()
         arr2 = dslist2[0].to_ndarray().flatten()
         assert_almost_equal(arr, arr2)
