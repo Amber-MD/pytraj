@@ -34,7 +34,7 @@ __cpptrajdoc__ = """
 """
 
 template = '''
-def %s(traj=None, command="", top=None, *args, **kwd):
+def %s(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     """
     Parameters
     ----------
@@ -69,12 +69,6 @@ def %s(traj=None, command="", top=None, *args, **kwd):
     from .actions.CpptrajActions import Action_Matrix
     from ._get_common_objects import _get_top, _get_data_from_dtype
     from .datasets.DataSetList import DataSetList
-
-    if 'dtype' in kwd.keys():
-        dtype = kwd['dtype']
-        del kwd['dtype']
-    else:
-        dtype = None
 
     _top = _get_top(traj, top)
     dslist = DataSetList()
