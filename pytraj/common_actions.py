@@ -74,7 +74,7 @@ rotate = do_rotation
 do_scaling = partial(action_type, 'scale')
 scale = do_scaling
 
-def calc_distance(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     """calculate distance
 
     Notes:
@@ -122,7 +122,7 @@ def calc_distance(traj=None, command="", top=None, dtype='dataset', *args, **kwd
     else:
         raise ValueError("")
 
-def calc_angle(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_angle(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     """calculate dihedral
 
     Notes:
@@ -170,7 +170,7 @@ def calc_angle(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     else:
         raise ValueError("")
 
-def calc_dihedral(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     """calculate dihedral
 
     Notes:
@@ -258,7 +258,7 @@ def calc_radial(traj=None, command="", top=Topology()):
     act.print_output()
     return dslist
 
-def calc_matrix(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_matrix(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_Matrix
     act = Action_Matrix()
 
@@ -269,7 +269,7 @@ def calc_matrix(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_radgyr(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_radgyr(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_Radgyr
     act = Action_Radgyr()
 
@@ -289,7 +289,7 @@ def calc_molsurf(traj=None, command="", top=None, dtype='dataset', *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_distrmsd(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_distrmsd(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_DistRmsd
     act = Action_DistRmsd()
 
@@ -299,7 +299,7 @@ def calc_distrmsd(traj=None, command="", top=None, dtype='dataset', *args, **kwd
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_volume(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_volume(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_Volume
     act = Action_Volume()
 
@@ -309,7 +309,7 @@ def calc_volume(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_multivector(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_multivector(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_MultiVector
     act = Action_MultiVector()
 
@@ -319,7 +319,7 @@ def calc_multivector(traj=None, command="", top=None, dtype='dataset', *args, **
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_volmap(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_volmap(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_Volmap
     act = Action_Volmap()
 
@@ -630,7 +630,7 @@ def calc_atomicfluct(traj=None, command="", *args, **kwd):
     act.print_output() # need to have this. check cpptraj's code
     return dslist[-1]
 
-def calc_vector(traj=None, mask="", top=None, dtype='dataset', *args, **kwd): 
+def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd): 
     """perform dihedral search
     Parameters
     ----------
@@ -672,7 +672,7 @@ def calc_vector(traj=None, mask="", top=None, dtype='dataset', *args, **kwd):
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
-def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='dataset'):
+def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='ndarray'):
     _top = _get_top(traj, top)
 
     dslist = DataSetList()
@@ -694,7 +694,7 @@ def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='
 
 calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
 
-def calc_center_of_geometry(traj=None, command="", top=None, dtype='dataset'):
+def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
     _top = _get_top(traj, top)
     atom_mask_obj = _top(command)
     dslist = DataSetList()
@@ -706,7 +706,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='dataset'):
 
 calc_COG = calc_center_of_geometry
 
-def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
+def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     """return  DataSetList object
     Parameters
     ----------
@@ -768,12 +768,6 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
         info("rms2d")
     """
     from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
-    if 'dtype' in kwd.keys():
-        dtype = kwd['dtype']
-        del kwd['dtype']
-    else:
-        dtype = None
-
     act = Analysis_Rms2d()
 
     dslist = DataSetList()
@@ -794,13 +788,8 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, *args, **kwd):
 
     return _get_data_from_dtype(dslist, dtype)
 
-def calc_density(traj=None, command="", top=None, *args, **kwd):
+def calc_density(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     # NOTE: trick cpptraj to write to file first and the reload
-    if 'dtype' in kwd.keys():
-        dtype = kwd['dtype']
-        del kwd['dtype']
-    else:
-        dtype = None
     
     with goto_temp_folder():
         def _calc_density(traj, command, *args, **kwd):
@@ -825,7 +814,7 @@ def calc_density(traj=None, command="", top=None, *args, **kwd):
         dslist.read_data(fname)
         return _get_data_from_dtype(dslist, dtype)
 
-def calc_temperatures(traj=None, command="", top=None):
+def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
     """return 1D python array of temperatures (from velocity) in traj
     if `frame` keyword is specified cpptraj/pytraj will take existing T
 
@@ -834,10 +823,10 @@ def calc_temperatures(traj=None, command="", top=None):
     from array import array as pyarray
     _top = _get_top(traj, top)
     dslist = calculate('temperature', traj, command, _top)
-    return pyarray('d', dslist[0].tolist())
+    return _get_data_from_dtype(dslist, dtype)
 
 def calc_rmsd(traj=None, command="", ref=None, mass=False, 
-              fit=True, top=None, dtype='pyarray',
+              fit=True, top=None, dtype='ndarray',
               mode='pytraj'):
     """calculate rmsd
 
