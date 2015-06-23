@@ -3,8 +3,8 @@ from pytraj.trajs.Trajout import Trajout
 from pytraj.TrajinList import TrajinList as _TrajinList
 
 class TrajinList2(list):
-    def write(self, filename="", fmt='UNKNOWN_TRAJ', top=None):
-        with Trajout(filename=filename, fmt=fmt, top=top) as trajout:
+    def write(self, filename="", format='UNKNOWN_TRAJ', top=None):
+        with Trajout(filename=filename, format=format, top=top) as trajout:
             for traj in self:
                 for frame in traj:
                     trajout.writeframe(0, frame, top)

@@ -11,10 +11,10 @@ class Test(unittest.TestCase):
         from pytraj import set_world_silent
         set_world_silent(False)
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        mdio.write_traj("test_1.pdb", traj[0], top=traj.top, fmt='CHARMMDCD', overwrite=True)
-        mdio.write_traj("test_1.dcd", traj[0], top=traj.top, fmt='CHARMMDCD', overwrite=True)
+        mdio.write_traj("test_1.pdb", traj[0], top=traj.top, format='CHARMMDCD', overwrite=True)
+        mdio.write_traj("test_1.dcd", traj[0], top=traj.top, format='CHARMMDCD', overwrite=True)
 
-        with Trajout("./output/test_1", fmt="PDBFILE", overwrite=True) as trajout:
+        with Trajout("./output/test_1", format="PDBFILE", overwrite=True) as trajout:
             trajout.writeframe(frame=traj[0], top=traj.top)
 
     def test_1(self):

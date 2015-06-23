@@ -414,8 +414,8 @@ cdef class TrajectoryCpptraj:
                 count += step
         return farray
 
-    def save(self, filename="", fmt='unknown', overwrite=True, *args, **kwd):
-        _savetraj(self, filename, fmt, overwrite, *args, **kwd)
+    def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
+        _savetraj(self, filename, format, overwrite, *args, **kwd)
 
     def write(self, *args, **kwd):
         self.save(*args, **kwd)

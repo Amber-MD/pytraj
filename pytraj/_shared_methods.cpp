@@ -2197,7 +2197,6 @@ static char __pyx_k_all[] = "__all__";
 static char __pyx_k_atm[] = "atm";
 static char __pyx_k_box[] = "box";
 static char __pyx_k_end[] = "_end";
-static char __pyx_k_fmt[] = "fmt";
 static char __pyx_k_idx[] = "idx";
 static char __pyx_k_kwd[] = "kwd";
 static char __pyx_k_obj[] = "obj";
@@ -2409,7 +2408,6 @@ static PyObject *__pyx_n_s_f8;
 static PyObject *__pyx_n_s_filename;
 static PyObject *__pyx_n_s_flags;
 static PyObject *__pyx_n_s_float64;
-static PyObject *__pyx_n_s_fmt;
 static PyObject *__pyx_n_s_fname;
 static PyObject *__pyx_n_s_format;
 static PyObject *__pyx_n_s_fortran;
@@ -2514,7 +2512,7 @@ static PyObject *__pyx_n_s_unpack;
 static PyObject *__pyx_n_s_upper;
 static PyObject *__pyx_n_s_writeframe;
 static PyObject *__pyx_n_s_xyz;
-static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_fmt, PyObject *__pyx_v_overwrite, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_format, PyObject *__pyx_v_overwrite, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_15_shared_methods_2_split_and_write_traj(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_n_chunks, PyObject *__pyx_v_root_name, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_15_shared_methods_4_get_temperature_set(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_15_shared_methods_6_xyz(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
@@ -2611,19 +2609,19 @@ static PyObject *__pyx_codeobj__39;
 /* "pytraj/_shared_methods.pyx":18
  *            '_tolist', '_box_to_ndarray']
  * 
- * def _savetraj(self, filename="", fmt='unknown', overwrite=False, *args, **kwd):             # <<<<<<<<<<<<<<
- *     if fmt == 'unknown':
+ * def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd):             # <<<<<<<<<<<<<<
+ *     if format == 'unknown':
  *         # convert to "UNKNOWN_TRAJ"
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_15_shared_methods_1_savetraj(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_15_shared_methods__savetraj[] = "_savetraj(self, filename='', fmt='unknown', overwrite=False, *args, **kwd)";
+static char __pyx_doc_6pytraj_15_shared_methods__savetraj[] = "_savetraj(self, filename='', format='unknown', overwrite=False, *args, **kwd)";
 static PyMethodDef __pyx_mdef_6pytraj_15_shared_methods_1_savetraj = {"_savetraj", (PyCFunction)__pyx_pw_6pytraj_15_shared_methods_1_savetraj, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_15_shared_methods__savetraj};
 static PyObject *__pyx_pw_6pytraj_15_shared_methods_1_savetraj(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_filename = 0;
-  PyObject *__pyx_v_fmt = 0;
+  PyObject *__pyx_v_format = 0;
   PyObject *__pyx_v_overwrite = 0;
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwd = 0;
@@ -2647,7 +2645,7 @@ static PyObject *__pyx_pw_6pytraj_15_shared_methods_1_savetraj(PyObject *__pyx_s
     __pyx_v_args = __pyx_empty_tuple; __Pyx_INCREF(__pyx_empty_tuple);
   }
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_filename,&__pyx_n_s_fmt,&__pyx_n_s_overwrite,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_filename,&__pyx_n_s_format,&__pyx_n_s_overwrite,0};
     PyObject* values[4] = {0,0,0,0};
     values[1] = ((PyObject *)__pyx_kp_s_);
     values[2] = ((PyObject *)__pyx_n_s_unknown);
@@ -2675,7 +2673,7 @@ static PyObject *__pyx_pw_6pytraj_15_shared_methods_1_savetraj(PyObject *__pyx_s
         }
         case  2:
         if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_fmt);
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_format);
           if (value) { values[2] = value; kw_args--; }
         }
         case  3:
@@ -2702,7 +2700,7 @@ static PyObject *__pyx_pw_6pytraj_15_shared_methods_1_savetraj(PyObject *__pyx_s
     }
     __pyx_v_self = values[0];
     __pyx_v_filename = values[1];
-    __pyx_v_fmt = values[2];
+    __pyx_v_format = values[2];
     __pyx_v_overwrite = values[3];
   }
   goto __pyx_L4_argument_unpacking_done;
@@ -2715,7 +2713,7 @@ static PyObject *__pyx_pw_6pytraj_15_shared_methods_1_savetraj(PyObject *__pyx_s
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_15_shared_methods__savetraj(__pyx_self, __pyx_v_self, __pyx_v_filename, __pyx_v_fmt, __pyx_v_overwrite, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_15_shared_methods__savetraj(__pyx_self, __pyx_v_self, __pyx_v_filename, __pyx_v_format, __pyx_v_overwrite, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -2724,7 +2722,7 @@ static PyObject *__pyx_pw_6pytraj_15_shared_methods_1_savetraj(PyObject *__pyx_s
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_fmt, PyObject *__pyx_v_overwrite, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_format, PyObject *__pyx_v_overwrite, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_v_trajout = NULL;
   PyObject *__pyx_v_idx = NULL;
   PyObject *__pyx_v_frame = NULL;
@@ -2751,26 +2749,26 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_savetraj", 0);
-  __Pyx_INCREF(__pyx_v_fmt);
+  __Pyx_INCREF(__pyx_v_format);
 
   /* "pytraj/_shared_methods.pyx":19
  * 
- * def _savetraj(self, filename="", fmt='unknown', overwrite=False, *args, **kwd):
- *     if fmt == 'unknown':             # <<<<<<<<<<<<<<
+ * def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd):
+ *     if format == 'unknown':             # <<<<<<<<<<<<<<
  *         # convert to "UNKNOWN_TRAJ"
- *         fmt = fmt.upper() + "_TRAJ"
+ *         format = format.upper() + "_TRAJ"
  */
-  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_fmt, __pyx_n_s_unknown, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_format, __pyx_n_s_unknown, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
     /* "pytraj/_shared_methods.pyx":21
- *     if fmt == 'unknown':
+ *     if format == 'unknown':
  *         # convert to "UNKNOWN_TRAJ"
- *         fmt = fmt.upper() + "_TRAJ"             # <<<<<<<<<<<<<<
+ *         format = format.upper() + "_TRAJ"             # <<<<<<<<<<<<<<
  *     else:
- *         fmt = fmt.upper()
+ *         format = format.upper()
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_fmt, __pyx_n_s_upper); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_format, __pyx_n_s_upper); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
@@ -2793,28 +2791,28 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
     __pyx_t_3 = PyNumber_Add(__pyx_t_2, __pyx_n_s_TRAJ); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF_SET(__pyx_v_fmt, __pyx_t_3);
+    __Pyx_DECREF_SET(__pyx_v_format, __pyx_t_3);
     __pyx_t_3 = 0;
 
     /* "pytraj/_shared_methods.pyx":19
  * 
- * def _savetraj(self, filename="", fmt='unknown', overwrite=False, *args, **kwd):
- *     if fmt == 'unknown':             # <<<<<<<<<<<<<<
+ * def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd):
+ *     if format == 'unknown':             # <<<<<<<<<<<<<<
  *         # convert to "UNKNOWN_TRAJ"
- *         fmt = fmt.upper() + "_TRAJ"
+ *         format = format.upper() + "_TRAJ"
  */
     goto __pyx_L3;
   }
 
   /* "pytraj/_shared_methods.pyx":23
- *         fmt = fmt.upper() + "_TRAJ"
+ *         format = format.upper() + "_TRAJ"
  *     else:
- *         fmt = fmt.upper()             # <<<<<<<<<<<<<<
+ *         format = format.upper()             # <<<<<<<<<<<<<<
  * 
- *     with Trajout(filename=filename, top=self.top, fmt=fmt,
+ *     with Trajout(filename=filename, top=self.top, format=format,
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_fmt, __pyx_n_s_upper); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_format, __pyx_n_s_upper); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_4 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2834,15 +2832,15 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF_SET(__pyx_v_fmt, __pyx_t_3);
+    __Pyx_DECREF_SET(__pyx_v_format, __pyx_t_3);
     __pyx_t_3 = 0;
   }
   __pyx_L3:;
 
   /* "pytraj/_shared_methods.pyx":25
- *         fmt = fmt.upper()
+ *         format = format.upper()
  * 
- *     with Trajout(filename=filename, top=self.top, fmt=fmt,             # <<<<<<<<<<<<<<
+ *     with Trajout(filename=filename, top=self.top, format=format,             # <<<<<<<<<<<<<<
  *                  overwrite=overwrite, *args, **kwd) as trajout:
  *         for idx, frame in enumerate(self):
  */
@@ -2852,7 +2850,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
 
     /* "pytraj/_shared_methods.pyx":26
  * 
- *     with Trajout(filename=filename, top=self.top, fmt=fmt,
+ *     with Trajout(filename=filename, top=self.top, format=format,
  *                  overwrite=overwrite, *args, **kwd) as trajout:             # <<<<<<<<<<<<<<
  *         for idx, frame in enumerate(self):
  *             trajout.writeframe(idx, frame, self.top)
@@ -2861,9 +2859,9 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
     __Pyx_GOTREF(__pyx_t_4);
 
     /* "pytraj/_shared_methods.pyx":25
- *         fmt = fmt.upper()
+ *         format = format.upper()
  * 
- *     with Trajout(filename=filename, top=self.top, fmt=fmt,             # <<<<<<<<<<<<<<
+ *     with Trajout(filename=filename, top=self.top, format=format,             # <<<<<<<<<<<<<<
  *                  overwrite=overwrite, *args, **kwd) as trajout:
  *         for idx, frame in enumerate(self):
  */
@@ -2872,11 +2870,11 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
     __Pyx_GOTREF(__pyx_t_5);
     if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_top, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_fmt, __pyx_v_fmt) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_format, __pyx_v_format) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
     /* "pytraj/_shared_methods.pyx":26
  * 
- *     with Trajout(filename=filename, top=self.top, fmt=fmt,
+ *     with Trajout(filename=filename, top=self.top, format=format,
  *                  overwrite=overwrite, *args, **kwd) as trajout:             # <<<<<<<<<<<<<<
  *         for idx, frame in enumerate(self):
  *             trajout.writeframe(idx, frame, self.top)
@@ -2887,9 +2885,9 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
     if (__Pyx_MergeKeywords(__pyx_t_2, __pyx_v_kwd) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
     /* "pytraj/_shared_methods.pyx":25
- *         fmt = fmt.upper()
+ *         format = format.upper()
  * 
- *     with Trajout(filename=filename, top=self.top, fmt=fmt,             # <<<<<<<<<<<<<<
+ *     with Trajout(filename=filename, top=self.top, format=format,             # <<<<<<<<<<<<<<
  *                  overwrite=overwrite, *args, **kwd) as trajout:
  *         for idx, frame in enumerate(self):
  */
@@ -2933,7 +2931,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
           __pyx_t_3 = 0;
 
           /* "pytraj/_shared_methods.pyx":27
- *     with Trajout(filename=filename, top=self.top, fmt=fmt,
+ *     with Trajout(filename=filename, top=self.top, format=format,
  *                  overwrite=overwrite, *args, **kwd) as trajout:
  *         for idx, frame in enumerate(self):             # <<<<<<<<<<<<<<
  *             trajout.writeframe(idx, frame, self.top)
@@ -3034,7 +3032,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
             /* "pytraj/_shared_methods.pyx":27
- *     with Trajout(filename=filename, top=self.top, fmt=fmt,
+ *     with Trajout(filename=filename, top=self.top, format=format,
  *                  overwrite=overwrite, *args, **kwd) as trajout:
  *         for idx, frame in enumerate(self):             # <<<<<<<<<<<<<<
  *             trajout.writeframe(idx, frame, self.top)
@@ -3045,9 +3043,9 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
           /* "pytraj/_shared_methods.pyx":25
- *         fmt = fmt.upper()
+ *         format = format.upper()
  * 
- *     with Trajout(filename=filename, top=self.top, fmt=fmt,             # <<<<<<<<<<<<<<
+ *     with Trajout(filename=filename, top=self.top, format=format,             # <<<<<<<<<<<<<<
  *                  overwrite=overwrite, *args, **kwd) as trajout:
  *         for idx, frame in enumerate(self):
  */
@@ -3131,8 +3129,8 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
   /* "pytraj/_shared_methods.pyx":18
  *            '_tolist', '_box_to_ndarray']
  * 
- * def _savetraj(self, filename="", fmt='unknown', overwrite=False, *args, **kwd):             # <<<<<<<<<<<<<<
- *     if fmt == 'unknown':
+ * def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd):             # <<<<<<<<<<<<<<
+ *     if format == 'unknown':
  *         # convert to "UNKNOWN_TRAJ"
  */
 
@@ -3153,7 +3151,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
   __Pyx_XDECREF(__pyx_v_trajout);
   __Pyx_XDECREF(__pyx_v_idx);
   __Pyx_XDECREF(__pyx_v_frame);
-  __Pyx_XDECREF(__pyx_v_fmt);
+  __Pyx_XDECREF(__pyx_v_format);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -18884,7 +18882,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_filename, __pyx_k_filename, sizeof(__pyx_k_filename), 0, 0, 1, 1},
   {&__pyx_n_s_flags, __pyx_k_flags, sizeof(__pyx_k_flags), 0, 0, 1, 1},
   {&__pyx_n_s_float64, __pyx_k_float64, sizeof(__pyx_k_float64), 0, 0, 1, 1},
-  {&__pyx_n_s_fmt, __pyx_k_fmt, sizeof(__pyx_k_fmt), 0, 0, 1, 1},
   {&__pyx_n_s_fname, __pyx_k_fname, sizeof(__pyx_k_fname), 0, 0, 1, 1},
   {&__pyx_n_s_format, __pyx_k_format, sizeof(__pyx_k_format), 0, 0, 1, 1},
   {&__pyx_n_s_fortran, __pyx_k_fortran, sizeof(__pyx_k_fortran), 0, 0, 1, 1},
@@ -19011,9 +19008,9 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
   /* "pytraj/_shared_methods.pyx":25
- *         fmt = fmt.upper()
+ *         format = format.upper()
  * 
- *     with Trajout(filename=filename, top=self.top, fmt=fmt,             # <<<<<<<<<<<<<<
+ *     with Trajout(filename=filename, top=self.top, format=format,             # <<<<<<<<<<<<<<
  *                  overwrite=overwrite, *args, **kwd) as trajout:
  *         for idx, frame in enumerate(self):
  */
@@ -19213,11 +19210,11 @@ static int __Pyx_InitCachedConstants(void) {
   /* "pytraj/_shared_methods.pyx":18
  *            '_tolist', '_box_to_ndarray']
  * 
- * def _savetraj(self, filename="", fmt='unknown', overwrite=False, *args, **kwd):             # <<<<<<<<<<<<<<
- *     if fmt == 'unknown':
+ * def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd):             # <<<<<<<<<<<<<<
+ *     if format == 'unknown':
  *         # convert to "UNKNOWN_TRAJ"
  */
-  __pyx_tuple__21 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_filename, __pyx_n_s_fmt, __pyx_n_s_overwrite, __pyx_n_s_args, __pyx_n_s_kwd, __pyx_n_s_trajout, __pyx_n_s_idx, __pyx_n_s_frame); if (unlikely(!__pyx_tuple__21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__21 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_filename, __pyx_n_s_format, __pyx_n_s_overwrite, __pyx_n_s_args, __pyx_n_s_kwd, __pyx_n_s_trajout, __pyx_n_s_idx, __pyx_n_s_frame); if (unlikely(!__pyx_tuple__21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
   __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(4, 0, 9, 0, CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_n_s_savetraj, 18, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -19760,8 +19757,8 @@ PyMODINIT_FUNC PyInit__shared_methods(void)
   /* "pytraj/_shared_methods.pyx":18
  *            '_tolist', '_box_to_ndarray']
  * 
- * def _savetraj(self, filename="", fmt='unknown', overwrite=False, *args, **kwd):             # <<<<<<<<<<<<<<
- *     if fmt == 'unknown':
+ * def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd):             # <<<<<<<<<<<<<<
+ *     if format == 'unknown':
  *         # convert to "UNKNOWN_TRAJ"
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6pytraj_15_shared_methods_1_savetraj, NULL, __pyx_n_s_pytraj__shared_methods); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

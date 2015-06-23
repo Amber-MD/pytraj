@@ -39,7 +39,7 @@ from .io import  (load, iterload, load_remd, iterload_remd,
 
 # dataset stuff
 from .datafiles.load_sample_data import load_sample_data
-from .datasetlist import DataSetList
+from .datasetlist import DatasetList
 
 # actions and analyses
 from .actions import CpptrajActions as allactions

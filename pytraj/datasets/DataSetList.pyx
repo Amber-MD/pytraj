@@ -570,7 +570,7 @@ cdef class DataSetList:
         # transpose `values` first
         values = np.column_stack((frame_number, self.values.T))
         formats = ['%8i'] + [d.format for d in self]
-        np.savetxt(filename, values, fmt=formats, header=headers) 
+        np.savetxt(filename, values, format=formats, header=headers) 
 
     def _parent_lists_append(self, data):
         self._parent_lists.append(data)

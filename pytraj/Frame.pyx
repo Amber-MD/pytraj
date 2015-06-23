@@ -1137,12 +1137,12 @@ cdef class Frame (object):
     def get_top(self):
         return self.top
 
-    def save(self, filename="", top=None, fmt='unknown', 
+    def save(self, filename="", top=None, format='unknown', 
              overwrite=False, *args, **kwd):
-        if fmt == 'unknown':
+        if format== 'unknown':
             # convert to "UNKNOWN_TRAJ"
-            fmt = fmt.upper() + "_TRAJ"
-        with Trajout(filename=filename, top=top, fmt=fmt, 
+            format= format.upper() + "_TRAJ"
+        with Trajout(filename=filename, top=top, format=format, 
                      overwrite=overwrite, *args, **kwd) as trajout:
             trajout.writeframe(0, self, top)
 

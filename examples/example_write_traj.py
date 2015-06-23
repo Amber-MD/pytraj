@@ -8,7 +8,7 @@ traj = mdio.load("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
 subtraj = traj[:10]
 mdio.write_traj(filename="./output/subtraj_0_CHARMM.dcd", traj=subtraj, 
                top=traj.top,
-               fmt="CHARMMDCD",
+               format="CHARMMDCD",
                overwrite=True)
 
 # make sure we can load the traj,

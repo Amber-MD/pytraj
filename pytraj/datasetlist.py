@@ -12,20 +12,20 @@ from pytraj.compat import map
 
 _, np = _import_numpy()
 
-__all__ = ['load_datafile', 'vstack', 'DataSetList']
+__all__ = ['load_datafile', 'vstack', 'DatasetList']
 
 def load_datafile(filename):
     """load cpptraj's output"""
-    ds = DataSetList()
+    ds = DatasetList()
     ds.read_data(filename)
     return ds
 
 def vstack(args):
-    """return a new DataSetList by joining (vstack)
+    """return a new DatasetList by joining (vstack)
 
     Parameters
     ----------
-    args : list/tuple of DataSetList
+    args : list/tuple of DatasetList
 
     Notes
     -----
@@ -55,7 +55,7 @@ def vstack(args):
     return dslist0
 
 
-class DataSetList(list):
+class DatasetList(list):
     def __init__(self, dslist=None):
         if dslist:
             for d0 in dslist:
@@ -178,11 +178,11 @@ class DataSetList(list):
 
     def __str__(self):
         has_pd, _ = _import_pandas()
-        safe_msg = "<pytraj.DataSetList with %s datasets>" % self.size
+        safe_msg = "<pytraj.DatasetList with %s datasets>" % self.size
         if self.size == 0:
             return safe_msg
         if not has_pd:
-            msg = "<pytraj.DataSetList with %s datasets> (install pandas for pretty print)" % self.size
+            msg = "<pytraj.DatasetList with %s datasets> (install pandas for pretty print)" % self.size
             return msg
         else:
             try:
@@ -219,7 +219,7 @@ class DataSetList(list):
             raise ValueError("size = 0: can not index")
 
         if is_int(idx):
-            return super(DataSetList, self).__getitem__(idx)
+            return super(DatasetList, self).__getitem__(idx)
         elif isinstance(idx, string_types):
              # return a list of datasets having idx as legend
              for d0 in self:
@@ -297,7 +297,7 @@ class DataSetList(list):
             yield func(d0)
 
     def filter(self, func):
-        """return a new view of DataSetList of func return True"""
+        """return a new view of DatasetList of func return True"""
         dslist = self.__class__()
 
         for d0 in self:
@@ -306,7 +306,7 @@ class DataSetList(list):
         return dslist
 
     def groupby(self, key, mode='legend'):
-        """"return a new DataSetList object as a view of `self`
+        """"return a new DatasetList object as a view of `self`
 
         Parameters
         ----------
@@ -455,8 +455,8 @@ class DataSetList(list):
 
     def read_data(self, filename, arg=""):
         df = DataFile()
-        from pytraj.datasets.DataSetList import DataSetList
-        dslist = DataSetList()
+        from pytraj.datasets.DatasetList import DatasetList
+        dslist = DatasetList()
         df.read_data(filename, ArgList(arg), dslist)
 
         for d0 in dslist:
@@ -499,7 +499,7 @@ class DataSetList(list):
         # transpose `values` first
         values = np.column_stack((frame_number, self.values.T))
         formats = ['%8i'] + [d.format for d in self]
-        np.savetxt(filename, values, fmt=formats, header=headers) 
+        np.savetxt(filename, values, format=formats, header=headers) 
 
     def plot(self, use_seaborn=False, *args, **kwd):
         """very simple plot for quickly visualize the data
@@ -526,7 +526,7 @@ class DataSetList(list):
             d0 = dset.copy()
         else:
             d0 = dset
-        super(DataSetList, self).append(d0)
+        super(DatasetList, self).append(d0)
 
     @classmethod
     def from_datasetlist(cls, dslist, copy=True):

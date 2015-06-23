@@ -30,8 +30,8 @@ cdef class DataFile:
 
     #@classmethod
     def format_string(self, string t):
-        cdef DataFormatType fmt = DataFormatDict[t]
-        return self.thisptr.FormatString(fmt)
+        cdef DataFormatType format = DataFormatDict[t]
+        return self.thisptr.FormatString(format)
 
     def set_precision(self, int widthIn, int precisionIn):
         self.thisptr.SetDataFilePrecision(widthIn, precisionIn)

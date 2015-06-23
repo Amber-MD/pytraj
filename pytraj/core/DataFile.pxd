@@ -1,9 +1,12 @@
 # distutils: language = c++
+from __future__ import absolute_import
 from libcpp.string cimport string
-from ..datasets.DataSet cimport _DataSet, DataSet
 from ..ArgList cimport _ArgList, ArgList
-from ..datasets.DataSetList cimport _DataSetList, DataSetList
 from .FileName cimport _FileName, FileName
+
+# for some reasons, I need to use absolute path here
+from pytraj.datasets.DataSet cimport _DataSet, DataSet
+from pytraj.datasets.DataSetList cimport _DataSetList, DataSetList
 
 
 cdef extern from "DataFile.h": 
