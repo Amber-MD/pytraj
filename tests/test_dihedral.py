@@ -15,9 +15,9 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
         mask = ':1@CA :14@CB :15CA :16@H'
-        d0 = pyca.calc_dihedral(traj, mask).to_ndarray()
-        d1 = traj.calc_dihedral(mask).to_ndarray()
-        d2 = fa.calc_dihedral(mask).to_ndarray()
+        d0 = pyca.calc_dihedral(traj, mask, dtype='dataset').to_ndarray()
+        d1 = traj.calc_dihedral(mask)
+        d2 = fa.calc_dihedral(mask)
 
         aa_eq(d0, d1)
         aa_eq(d0, d2)

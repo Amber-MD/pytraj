@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
 
         d0 = dslist[0]
         print (d0)
-        arr = dslist[0].to_ndarray()
+        arr = dslist[0]
         print (arr.shape)
         print (arr)
         print (dslist.get_legends())
@@ -53,7 +53,6 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         ds = calc_volmap(traj, "0.5 0.5 0.5 :WAT@O buffer 2.0 centermask !:1-13 radscale 1.36 peakcut 0.10 peakfile peaks.xyz")
         print (ds)
-        print (ds.to_ndarray())
         #print (ds.tolist())
 
 if __name__ == "__main__":

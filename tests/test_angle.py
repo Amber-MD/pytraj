@@ -15,9 +15,9 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
         mask = ':1@CA :14@CB :15CA'
-        d0 = pyca.calc_angle(traj, mask).to_ndarray()
-        d1 = traj.calc_angle(mask).to_ndarray()
-        d2 = fa.calc_angle(mask).to_ndarray()
+        d0 = pyca.calc_angle(traj, mask, dtype='dataset').to_ndarray()
+        d1 = traj.calc_angle(mask)
+        d2 = fa.calc_angle(mask)
 
         aa_eq(d0, d1)
         aa_eq(d0, d2)

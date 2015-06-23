@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         from pytraj.common_actions import calc_vector
         traj = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         d0 = calc_vector(traj, "@CA @CB mass")
-        print (d0.to_ndarray())
+        print (d0)
         print (d0.tolist())
 
 if __name__ == "__main__":

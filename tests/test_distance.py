@@ -16,9 +16,9 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
         mask = ':1@CA :14@CB'
-        d0 = pyca.calc_distance(traj, mask).to_ndarray()
-        d1 = traj.calc_distance(mask).to_ndarray()
-        d2 = fa.calc_distance(mask).to_ndarray()
+        d0 = pyca.calc_distance(traj, mask)
+        d1 = traj.calc_distance(mask)
+        d2 = fa.calc_distance(mask)
 
         aa_eq(d0, d1)
         aa_eq(d0, d2)
