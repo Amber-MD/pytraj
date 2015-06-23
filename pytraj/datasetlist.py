@@ -59,7 +59,7 @@ class DataSetList(list):
     def __init__(self, dslist=None):
         if dslist:
             for d0 in dslist:
-                self.append(d0)
+                self.append(d0, False)
 
     def __contains__(self, d0):
         for d in self:
