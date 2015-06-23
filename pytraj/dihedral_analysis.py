@@ -9,7 +9,7 @@ supported_dihedral_types = [x for x in
 'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
 
 template = '''
-def calc_%s(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_%s(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
     Parameters
     ----------
