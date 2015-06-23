@@ -455,8 +455,8 @@ class DatasetList(list):
 
     def read_data(self, filename, arg=""):
         df = DataFile()
-        from pytraj.datasets.DatasetList import DatasetList
-        dslist = DatasetList()
+        from pytraj.datasets.DataSetList import DataSetList
+        dslist = DataSetList()
         df.read_data(filename, ArgList(arg), dslist)
 
         for d0 in dslist:
@@ -499,7 +499,7 @@ class DatasetList(list):
         # transpose `values` first
         values = np.column_stack((frame_number, self.values.T))
         formats = ['%8i'] + [d.format for d in self]
-        np.savetxt(filename, values, format=formats, header=headers) 
+        np.savetxt(filename, values, fmt=formats, header=headers) 
 
     def plot(self, use_seaborn=False, *args, **kwd):
         """very simple plot for quickly visualize the data
