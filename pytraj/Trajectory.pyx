@@ -420,10 +420,6 @@ cdef class Trajectory (object):
                 _frame = Frame(frame, atom_mask_obj) # 1st copy
                 _frame.py_free_mem = False #
                 _farray.append(_frame, copy=False) # 2nd copy if using `copy=True`
-            #self.tmpfarray = _farray # why need this?
-            # hold _farray in self.tmpfarray to avoid memory lost
-            # traj[AtomMask, :, 0]
-            #return self.tmpfarray
             return _farray
 
         elif isinstance(idxs, string_types):
@@ -456,16 +452,12 @@ cdef class Trajectory (object):
                     raise NotImplementedError("support indexing up to 3 elements")
                 idx0 = idxs[0]
 
-                all_are_slice_instances = True
-                for tmp in idxs:
-                    if not isinstance(tmp, slice): all_are_slice_instances = False
-
                 has_numpy, _np = _import_numpy()
                 # got Segmentation fault if using "is_instance3 and not has_numpy"
                 # TODO : Why?
                 #if is_instance3 and not has_numpy:
                 # TODO : make memoryview for traj[:, :, :]
-                if all_are_slice_instances:
+                if any(isinstance(x, slice) for x in idxs):
                     # return 3D array or list of 2D arrays?
                     # traj[:, :, :]
                     # traj[1:2, :, :]
