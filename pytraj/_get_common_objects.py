@@ -4,7 +4,7 @@ from .Topology import Topology
 from .ArgList import ArgList
 from .utils import _import
 from .utils.check_and_assert import is_frame_iter, is_chunk_iter
-from .datasetlist import DataSetList as DSL
+from .datasetlist import DatasetList as DSL
 
 def _get_top(traj, top):
     if isinstance(top, string_types):

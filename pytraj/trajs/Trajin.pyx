@@ -450,8 +450,8 @@ cdef class Trajin (TrajectoryFile):
         # TODO : add checking frame.n_atoms == self.top.n_atoms?
         return self.baseptr_1.ReadTrajFrame(currentFrame, frameIn.thisptr[0])
 
-    def save(self, filename="", fmt='unknown', overwrite=True, *args, **kwd):
-        _savetraj(self, filename, fmt, overwrite, *args, **kwd)
+    def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
+        _savetraj(self, filename, format, overwrite, *args, **kwd)
 
     def write(self, *args, **kwd):
         self.save(*args, **kwd)

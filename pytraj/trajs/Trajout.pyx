@@ -10,13 +10,13 @@ cdef class Trajout:
     Parameters :
     filename: str
 
-    fmt : str, optional, default='AMBERTRAJ'
+    format: str, optional, default='AMBERTRAJ'
         output format: %s 
 
-    if `fmt` is not provided, Trajout will decide format based on extension.
-    if not `fmt` and no extension, default format = AMBERTRAJ
+    if `format` is not provided, Trajout will decide format based on extension.
+    if not `format` and no extension, default format = AMBERTRAJ
 
-    So the priority is fmt > extension > default
+    So the priority is format> extension > default
         
     """
     def __cinit__(self, *args, **kwd):
@@ -39,7 +39,7 @@ cdef class Trajout:
         print "TrajFormat"
         print TrajFormatDict.keys()
 
-    def open(self, filename='', top=Topology(), fmt='UNKNOWN_TRAJ', 
+    def open(self, filename='', top=Topology(), format='unknown_traj', 
              more_args=None, overwrite=False):
         cdef ArgList arglist
         cdef Topology top_ 
@@ -61,12 +61,12 @@ cdef class Trajout:
         local_dict = TrajFormatDict.copy()
         local_dict.get("", "")
         # make upper case in case user uses lower ones
-        fmt = fmt.upper()
+        format= format.upper()
 
-        if fmt == "PDB" or fmt == "MOL2":
+        if format == "PDB" or format == "MOL2":
             # add 'FILE' the end
             # 'PDBFILE' 'MOL2FILE'
-            fmt += 'FILE'
+            format += 'FILE'
 
         if more_args:
             if isinstance(more_args, string_types):
@@ -76,9 +76,9 @@ cdef class Trajout:
                 arglist = <ArgList> more_args
             else:
                 raise ValueError()
-            self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr, local_dict[fmt])
+            self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr, local_dict[format])
         else:
-            self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr, local_dict[fmt])
+            self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr, local_dict[format])
 
         # real open
         self.thisptr.SetupTrajWrite(top_.thisptr)

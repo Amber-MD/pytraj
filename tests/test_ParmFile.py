@@ -65,7 +65,7 @@ class TestParmFile(unittest.TestCase):
 
     def test_write_CHARMMPSF(self):
         print("write parm for CHARMM")
-        parm.writeparm(top=top, filename="output/test.psf", fmt="CHARMMPSF")
+        parm.writeparm(top=top, filename="output/test.psf", format="CHARMMPSF")
         top2 = Topology()
         parm.readparm(filename="output/test.psf", top=top2)
         assert top2.n_atoms == 304

@@ -353,9 +353,8 @@ cdef class Trajectory (object):
         else:
             raise NotImplementedError("must have numpy")
 
-    def update_xyz(self, double[:, :, :] xyz):
+    def update_coordinates(self, double[:, :, :] xyz):
         '''update coords from 3D xyz array, dtype=f8'''
-        # NOTE: tried openmp for this but no speed gain (much)
         cdef int idx, n_frames
         cdef double* ptr_src
         cdef double* ptr_dest
@@ -369,6 +368,9 @@ cdef class Trajectory (object):
             ptr_dest = self.frame_v[idx].xAddress()
             ptr_src = &(xyz[idx, 0, 0])
             memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
+    def update_xyz(self, double[:, :, :] xyz):
+        self.update_coordinates(xyz)
 
     def tolist(self):
         return _tolist(self)

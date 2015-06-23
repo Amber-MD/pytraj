@@ -234,7 +234,6 @@ def build_func(my_ext):
         url="https://github.com/pytraj/pytraj",
         packages=packages,
         description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
-        long_description=read("README.rst"),
         license = "BSD License",
         classifiers=[
                     'Development Status :: 4 - Beta',

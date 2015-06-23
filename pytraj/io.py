@@ -245,7 +245,7 @@ def load_remd(filename, top=None, T="300.0"):
     return iterload_remd(filename, top, T)[:]
 
 def write_traj(filename="", traj=None, top=None, 
-              fmt='UNKNOWN_TRAJ', indices=None,
+              format='unknown_traj', indices=None,
               overwrite=False, more_args="", 
               *args, **kwd):
     """write Trajectory-like, list of trajs, frames, ... to file/files
@@ -253,7 +253,7 @@ def write_traj(filename="", traj=None, top=None,
     Suppot file extensions
     ----------------------
     .crd, .nc, .rst7, .ncrst, .dcd, .pdb, .mol2, .binpos, .trr, .sqm
-    if extension or fmt is not specify correctly, 
+    if extension or format is not specify correctly, 
     cpptraj will use Amber Trajectory format (.crd)
 
     Examples
@@ -289,10 +289,10 @@ def write_traj(filename="", traj=None, top=None,
     from .Frame import Frame
     from .trajs.Trajout import Trajout
 
-    if fmt.upper() == 'UNKNOWN':
-        fmt = fmt.upper() + "_TRAJ"
+    if format.upper() == 'UNKNOWN':
+        format= format.upper() + "_TRAJ"
     else:
-        fmt = fmt.upper()
+        format= format.upper()
 
     _top = _get_top(traj, top)
     if _top is None:
@@ -301,7 +301,7 @@ def write_traj(filename="", traj=None, top=None,
     if traj is None or _top is None:
         raise ValueError("Need non-empty traj and top files")
 
-    with Trajout(filename=filename, top=_top, fmt=fmt, 
+    with Trajout(filename=filename, top=_top, format=format, 
                  overwrite=overwrite, more_args=more_args,
                  *args, **kwd) as trajout:
         if isinstance(traj, Frame):
@@ -325,12 +325,12 @@ def write_traj(filename="", traj=None, top=None,
                     trajout.writeframe(idx, frame, _top)
 
 
-def write_parm(filename=None, top=None, fmt='AMBERPARM'):
+def write_parm(filename=None, top=None, format='AMBERPARM'):
     # TODO : add *args
     from pytraj.parms.ParmFile import ParmFile
     #filename = filename.encode("UTF-8")
     parm = ParmFile()
-    parm.writeparm(filename=filename, top=top, fmt=fmt)
+    parm.writeparm(filename=filename, top=top, format=format)
 
 def read_parm(filename):
     from .Topology import Topology
