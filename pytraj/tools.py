@@ -9,7 +9,7 @@ except ImportError:
     pass
 
 # this module gathers commonly used functions
-# from toolz, stackoverflow, and from myself
+# from toolz, stackoverflow, ... and from myself
 
 _, np = _import_numpy()
 
