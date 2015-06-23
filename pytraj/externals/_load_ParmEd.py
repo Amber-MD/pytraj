@@ -50,5 +50,5 @@ def to_ParmEd(pytraj_top):
     # I am not a fan of saving/loading again but this might be best choice
     with goto_temp_folder():
         fname = "tmp_pytrajtop.prmtop"
-        ParmFile().writeparm(pytraj_top, fname, fmt="")
+        ParmFile().writeparm(pytraj_top, fname, format="")
         return chem.load_file(fname)
