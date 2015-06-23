@@ -901,6 +901,9 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
             arr.append(_rmsd)
         if dtype == 'pyarray':
             return arr
+        elif dtype == 'ndarray':
+            import numpy as np
+            return np.array(arr)
         else:
             dset = DatasetDouble()
             dset.resize(len(arr))
