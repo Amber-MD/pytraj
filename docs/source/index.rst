@@ -11,6 +11,14 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   installation
+   basic_examples
+   trajectories
+   atom_selection
+   faq
+   parallel
+   whatsnew
+   developer_guide
 
 
 Indices and tables
