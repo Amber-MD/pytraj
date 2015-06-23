@@ -1,9 +1,5 @@
 from __future__ import print_function, absolute_import
-
-from .actions.CpptrajActions import Action_Matrix
-from ._get_common_objects import _get_top, _get_data_from_dtype
 from .externals.six import iteritems
-from .datasets.DataSetList import DataSetList
 
 
 __all__ = ['distance_matrix', 'correlation_matrix', 'coord_covariance_matrix',
@@ -70,6 +66,9 @@ def %s(traj=None, command="", top=None, *args, **kwd):
     'distcovar_matrix' : 'distcovar',
     'idea_matrix' : 'idea'}
     """
+    from .actions.CpptrajActions import Action_Matrix
+    from ._get_common_objects import _get_top, _get_data_from_dtype
+    from .datasets.DataSetList import DataSetList
 
     if 'dtype' in kwd.keys():
         dtype = kwd['dtype']

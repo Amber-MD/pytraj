@@ -1,9 +1,6 @@
 from __future__ import print_function, absolute_import
 
-from .actions.CpptrajActions import Action_MultiDihedral
-from ._get_common_objects import _get_top, _get_data_from_dtype
 from .externals.six import iteritems
-from .datasets.DataSetList import DataSetList
 
 
 __all__ = []
@@ -41,6 +38,10 @@ def calc_%s(traj=None, command="", top=None, *args, **kwd):
     See Also
     --------
     """
+
+    from .datasets.DataSetList import DataSetList
+    from .actions.CpptrajActions import Action_MultiDihedral
+    from ._get_common_objects import _get_top, _get_data_from_dtype
 
     if 'dtype' in kwd.keys():
         dtype = kwd['dtype']
