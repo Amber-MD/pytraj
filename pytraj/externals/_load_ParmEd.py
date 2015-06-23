@@ -17,13 +17,21 @@ def load_ParmEd(parmed_obj, restype="top"):
     if restype.lower() == 'top':
         return ptop
     elif restype.lower() == 'traj':
-        if parmed_obj.coordinates is None:
+        if hasattr(parmed_obj, 'coordinates'):
+            coords = parmed_obj.coordinates
+        elif hasattr(parmed_obj, 'coords'):
+            coords = parmed_obj.coords
+        if coords is None:
             raise ValueError("can not convert to Traj with None-coords")
         else:
-            coords = parmed_obj.coordinates
-            shape = coords.shape
             fa = Trajectory()
             fa.top = ptop
+            try:
+                shape = coords.shape
+            except AttributeError:
+                import numpy as np
+                coords = np.asarray(coords).reshape(1, fa.top.n_atoms, 3)
+                shape = coords.shape
             fa._allocate(shape[0], shape[1])
             fa.update_coordinates(coords)
             return fa
