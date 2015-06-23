@@ -43,6 +43,17 @@ from .actions import CpptrajActions as allactions
 from .analyses import CpptrajAnalyses as allanalyses
 from ._common_actions import calculate
 from . import common_actions
+from . common_actions import (rmsd, search_hbonds, calc_dssp, 
+                              calc_multidihedral,
+                              autoimage, 
+                              calc_angle, calc_dihedral, calc_distance,
+                              calc_center_of_mass, calc_center_of_geometry,
+                              calc_dssp, calc_jcoupling, calc_molsurf,
+                              calc_radgyr, calc_rdf, calc_vector,
+                              energy_decomposition,)
+from . matrix_analysis import distance_matrix
+from . dihedral_analysis import (calc_phi, calc_psi, calc_omega, calc_chin, calc_chip)
+
 from .action_dict import ActionDict
 from .analysis_dict import AnalysisDict
 adict = ActionDict()

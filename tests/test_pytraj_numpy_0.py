@@ -50,8 +50,8 @@ class Test(unittest.TestCase):
         assert count == traj.n_frames
 
     def test_calc(self):
-        arr0 = fa.calc_radgyr().tolist()
-        arr1 = traj.calc_radgyr().tolist()
+        arr0 = fa.calc_radgyr().to_ndarray()
+        arr1 = traj.calc_radgyr().to_ndarray()
         assert_almost_equal(arr0, arr1)
 
     def test_frame_iter(self):

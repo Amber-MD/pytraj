@@ -46,5 +46,9 @@ class Test(unittest.TestCase):
         from pytraj import Frame
         run_docstring(Frame.__getitem__)
 
+        print ("split_range")
+        from pytraj.misc import split_range
+        run_docstring(split_range)
+
 if __name__ == "__main__":
     unittest.main()

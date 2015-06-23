@@ -276,7 +276,7 @@ def calc_radgyr(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     _top = _get_top(traj, top)
     dslist = DataSetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
-    return _get_data_from_dtype(dslist[0].copy(), dtype)
+    return _get_data_from_dtype(dslist, dtype)
 
 
 def calc_molsurf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
@@ -375,7 +375,7 @@ def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset',
     if kfile is not None:
         command += " kfile %s" % kfile
     act(command, traj, dslist=dslist, top=_top, *args, **kwd)
-    return dslist
+    return _get_data_from_dtype(dslist, dtype)
 
 def to_string_ss(arr0):
     """
