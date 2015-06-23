@@ -235,6 +235,7 @@ def rmsd_1darray(a1, a2):
 
 def split_range(n_chunks, start, stop):
     '''
+    >>> from pytraj.misc import split_range
     >>> split_range(3, 0, 10)
     [(0, 3), (3, 6), (6, 10)]
     '''
