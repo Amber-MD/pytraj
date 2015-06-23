@@ -1,7 +1,8 @@
 from __future__ import print_function
 import unittest
+from pytraj import DatasetList
+from pytraj import adict
 from pytraj import calculate
-from pytraj import adict, DataSetList
 from pytraj import analdict
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
