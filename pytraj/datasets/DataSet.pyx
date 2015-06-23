@@ -392,3 +392,14 @@ cdef class DataSet:
 
     def is_(self, DataSet other):
         return self.baseptr0 == other.baseptr0
+
+    def filter(self, func):
+        """return a numpy array with all elements that satisfy `func`
+
+        Example
+        -------
+        >>> d0 = traj.calc_radgyr(dtype='dataset')[0]
+        >>> d0.filter(lambda x : 105. < x < 200.)
+        """
+        import numpy as np
+        return np.array(list(filter(func, self.values)))
