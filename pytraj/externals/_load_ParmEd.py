@@ -17,14 +17,15 @@ def load_ParmEd(parmed_obj, restype="top"):
     if restype.lower() == 'top':
         return ptop
     elif restype.lower() == 'traj':
-        if parmed_obj.coords is None:
+        if parmed_obj.coordinates is None:
             raise ValueError("can not convert to Traj with None-coords")
         else:
+            coords = parmed_obj.coordinates
+            shape = coords.shape
             fa = Trajectory()
             fa.top = ptop
-            frame = Frame()
-            frame.set_from_crd(parmed_obj.coords)
-            fa.append(frame)
+            fa._allocate(shape[0], shape[1])
+            fa.update_coordinates(coords)
             return fa
     else:
         raise ValueError("only support `top` or `traj` keyword")
