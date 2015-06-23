@@ -6,6 +6,9 @@ from __future__ import absolute_import
 from .__version__ import __version__
 version = __version__
 
+# import partial from functools
+from functools import partial
+
 from .core import Atom, Residue, Molecule
 from .core.CpptrajState import CpptrajState
 from .Topology import Topology
