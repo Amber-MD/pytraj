@@ -533,6 +533,10 @@ class DatasetList(list):
 
     @classmethod
     def from_datasetlist(cls, dslist, copy=True):
+        return cls.from_sequence(dslist, copy=copy)
+
+    @classmethod
+    def from_sequence(cls, dslist, copy=True):
         new_ds = cls()
         for d in dslist:
             new_ds.append(d, copy=copy)
