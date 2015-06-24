@@ -52,11 +52,11 @@ class Test(unittest.TestCase):
         print (d.keys())
         print (d.get_dtypes())
 
-        ds_new = d.groupby('integer', mode='dtype')
+        ds_new = d.filter('integer', mode='dtype')
         d_new_cp = ds_new[0].copy()
         aa_eq(d_new_cp.data, ds_new[0].data)
 
-        ds_new = d.groupby('float', mode='dtype')
+        ds_new = d.filter('float', mode='dtype')
         d_new_cp = ds_new[0].copy()
         aa_eq(d_new_cp.data, ds_new[0].data)
 
