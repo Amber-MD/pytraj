@@ -351,6 +351,9 @@ cdef class TrajectoryCpptraj:
                              raise NotImplementedError()
              elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
                  farray = Trajectory()
+                 if hasattr(idxs, '__getitem__'):
+                    if isinstance(idxs[0], bool):
+                        raise NotImplementedError("don't support bool indexing")
                  # for unknown reason, this does not work, it returns a Frame (?)
                  farray.get_frames(from_traj=self, indices=idxs, update_top=True)
                  # need to use `farray` so Cython knows its type

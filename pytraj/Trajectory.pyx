@@ -540,6 +540,10 @@ cdef class Trajectory (object):
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
                 _farray = Trajectory(check_top=False)
                 _farray.top = self.top # just make a view, don't need to copy Topology
+                # check if there are bool index
+                if hasattr(idxs, '__getitem__'):
+                    if isinstance(idxs[0], bool):
+                        raise NotImplementedError("don't support bool indexing")
                 for i in idxs:
                     frame.thisptr = self.frame_v[i] # point to i-th item
                     frame.py_free_mem = False # don't free mem
