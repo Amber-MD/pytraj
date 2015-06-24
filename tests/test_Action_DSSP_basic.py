@@ -3,7 +3,7 @@ from pytraj.base import *
 from pytraj import allactions
 from pytraj.datasets import cast_dataset
 from pytraj import adict 
-from pytraj.common_actions import to_string_ss
+from pytraj.dssp_analysis import to_string_ss
 from pytraj.core.DataFileList import DataFileList
 
 traj = TrajectoryIterator(top=Topology("./data/DPDP.parm7"), 
