@@ -27,6 +27,7 @@ from .core.DataFileList import DataFileList
 from .math.DistRoutines import distance 
 from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds, search_nointramol_hbonds
+from .dssp_analysis import calc_dssp
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
 from .utils.context import goto_temp_folder
@@ -377,91 +378,7 @@ def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset',
     act(command, traj, dslist=dslist, top=_top, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
-def to_string_ss(arr0):
-    """
-    arr0 : ndarray
-    """
-    _, np = _import_numpy()
-    #ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
-    ss = ["0", "b", "B", "G", "H", "I", "T", "S"]
-    len_ss = len(ss)
-    ssdict = dict(zip(range(len_ss), ss))
 
-    if np:
-        def myfunc(key):
-            return ssdict[key]
-        if not isinstance(arr0, dict):
-            return np.vectorize(myfunc)(arr0)
-        else:
-            new_dict = {}
-            for key in arr0.keys():
-                new_dict[key] = to_string_ss(arr0[key])
-            return new_dict
-    else:
-        print ("doest not have numpy, return a list")
-        return list(map(lambda idx: ssdict[idx], arr0))
-
-def calc_dssp(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
-    """return dssp profile for frame/traj
-
-    Parameters
-    ----------
-    command : str
-    traj : {Trajectory, Frame, mix of them}
-    dtype : str {'dataset', 'ndarray', 'dict', 'dataframe'}, default 'ndarray'
-
-    Returns
-    -------
-    (try it)
-
-    Examples
-    --------
-        calc_dssp(traj, ":2-10", dtype='ndarray')
-        calc_dssp(traj, ":2-10", dtype='dict')
-        calc_dssp(traj, ":2-10", dtype='dataframe')
-        calc_dssp(traj, ":2-10", dtype='dataset')
-
-    Notes
-    -----
-    Character Integer DSSP_Char SS_type
-    0         0       ' '       None
-    b         1       'E'       Parallel Beta-sheet
-    B         2       'B'       Anti-parallel Beta-sheet
-    G         3       'G'       3-10 helix
-    H         4       'H'       Alpha helix
-    I         5       'I'       Pi (3-14) helix
-    T         6       'T'       Turn
-    S         7       'S'       Bend
-
-    See Also
-    --------
-    Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 588)
-    """
-    _, np = _import_numpy()
-
-    _top = _get_top(traj, top)
-    dslist = CpptrajDatasetList()
-
-    adict['dssp'](command,
-                  current_frame=traj, 
-                  top=_top,
-                  dslist=dslist,
-                  *args, **kwd)
-
-    # replace legend to something nicer
-    for legend, dset in dslist.iteritems():
-        if 'DSSP' in legend:
-            legend = legend.replace("DSSP_00000[", "")
-            legend = legend.replace("]", "_avg")
-            dset.legend = legend.lower()
-    dtype = dtype.lower()
-
-    if dtype == 'ndarray':
-        # get all dataset from DatSetList if dtype == integer
-        arr0 = dslist.grep("integer", mode='dtype').values
-        return np.array([to_string_ss(arr) for arr in arr0])
-    else:
-        return _get_data_from_dtype(dslist, dtype=dtype)
 
 def do_translation(traj=None, command="", top=Topology()):
     adict['translate'](command, traj, top)
@@ -627,7 +544,7 @@ def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> pyca.calc_vector(traj, "boxcenter").tolist()
     >>> pyca.calc_vector(traj, "box").tolist()
     """
-    from pytraj.datasets.CpptrajDatasetList import CpptrajDatasetList
+    from pytraj.datasets.DataSetList import DataSetList as CpptrajDatasetList
     from pytraj.actions.CpptrajActions import Action_Vector
     from pytraj.core.ActionList import ActionList
 

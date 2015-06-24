@@ -52,8 +52,10 @@ class Test(unittest.TestCase):
               saved_traj.calc_COM())
         aa_eq(pyca.calc_COG(trajiter),
               saved_traj.calc_COG())
-        aa_eq(pyca.calc_dssp(trajiter, dtype='int')[0],
-              saved_traj.calc_dssp(dtype='int')[0])
+
+        import numpy as np
+        assert np.all(pyca.calc_dssp(trajiter, dtype='ndarray')[0] ==
+                      saved_traj.calc_dssp(dtype='ndarray')[0])
 
 if __name__ == "__main__":
     unittest.main()

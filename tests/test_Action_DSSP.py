@@ -45,24 +45,8 @@ class TestRadgyr(unittest.TestCase):
             current_frame=farray, top=farray.top, 
             dslist=dslist, dflist=dflist)
         print (dslist.size)
-        arr0 = dslist.get_dataset(dtype="integer")
 
         # Secondary structure for each residue in mask for 100 frames
-
-    def test_2(self):
-        def calc_dssp(command="", traj=None):
-            dslist = DataSetList()
-            adict['dssp'](command, 
-                          current_frame=traj, top=traj.top, 
-                          dslist=dslist)
-            return dslist.get_dataset(dtype="integer")
-        arr0 = calc_dssp(":10-22", farray[:2])
-
-    def test_3(self):
-        arr0 = calc_dssp(farray[:3], ":10-22", dtype='int')
-        arr1 = calc_dssp(farray[:3], ":10-22", dtype='str')
-        print (arr0)
-        print (arr1)
 
     def test_4(self):
         # add assert 

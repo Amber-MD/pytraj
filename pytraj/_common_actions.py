@@ -2,11 +2,11 @@ from __future__ import absolute_import
 from .externals.six import string_types
 from ._set_silent import set_world_silent
 from .Topology import Topology
-from .datasets.DataSetList import DataSetList
+from .datasets.DataSetList import DataSetList as CpptrajDatasetList
 from ._get_common_objects import _get_top
 
 def calculate(action=None, traj=None, command="", top=None, 
-              dslist=DataSetList(), dtype='dataset', quick_get=False, **kwd): 
+              dslist=CpptrajDatasetList(), dtype='dataset', quick_get=False, **kwd): 
     """ quick way to get data 
     Parameters
     ----------
@@ -15,7 +15,7 @@ def calculate(action=None, traj=None, command="", top=None,
         command for specific action. For example, if action=`rmsd`, command might be `@CA`
     traj : Trajectory object (Trajectory, TrajectoryIterator, ...) or list, tuple of traj object 
     top : topology 
-    dslist : DataSetList
+    dslist : CpptrajDatasetList
         Hold output
     dtype : str {'pyarray', 'list', 'ndarray', 'dataset'}
     **kwd : additional arguments
@@ -27,8 +27,8 @@ def calculate(action=None, traj=None, command="", top=None,
     DatSet object
 
     >>> from pytraj import calculate
-    >>> from pytraj import DataSetList 
-    >>> dslist = DataSetList()
+    >>> from pytraj import CpptrajDatasetList 
+    >>> dslist = CpptrajDatasetList()
     >>> d0 = calculate('distance', ":2@CA :4@CA", traj, dslist=dslist)
     >>> # d0 == dslist[-1]
  
@@ -49,9 +49,9 @@ def calculate(action=None, traj=None, command="", top=None,
             kwd.pop('print_output', None)
 
     if dslist is None:
-        dslist = DataSetList()
-    elif not isinstance(dslist, DataSetList):
-        raise NotImplementedError("must have None or DataSetList object")
+        dslist = CpptrajDatasetList()
+    elif not isinstance(dslist, CpptrajDatasetList):
+        raise NotImplementedError("must have None or CpptrajDatasetList object")
 
     old_size = dslist.size
 
@@ -75,10 +75,10 @@ def calculate(action=None, traj=None, command="", top=None,
     if need_print_output:
         act.print_output()
 
-    # make new view for DataSetList
+    # make new view for CpptrajDatasetList
     # for some reasons, if I kept calling `calculate` several times,
     # data will be added to the same dslist
-    _dslist = DataSetList()
+    _dslist = CpptrajDatasetList()
     _dslist.set_py_free_mem(False)
     for idx, ds in enumerate(dslist):
         if idx >= old_size:
