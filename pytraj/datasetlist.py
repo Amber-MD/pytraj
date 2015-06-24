@@ -221,7 +221,6 @@ class DatasetList(list):
         if is_int(idx):
             return super(DatasetList, self).__getitem__(idx)
         elif isinstance(idx, string_types):
-             # return a list of datasets having idx as legend
              for d0 in self:
                  if d0.legend.upper() == idx.upper():
                      d0._base = self
@@ -530,6 +529,15 @@ class DatasetList(list):
             if d0.legend == key:
                 raise KeyError("must have different legend", dset.legend)
         super(DatasetList, self).append(d0)
+
+    def remove(self, dset):
+        for idx, d in enumerate(self):
+            if dset.legend == d.legend:
+                # do not work with
+                # super(DatasetList, self).remove(d)
+                # TypeError: 'NotImplementedType' object is not callable
+                # why?
+                super(DatasetList, self).remove(self.__getitem__(idx))
 
     @classmethod
     def from_datasetlist(cls, dslist, copy=True):
