@@ -401,7 +401,7 @@ def to_string_ss(arr0):
         print ("doest not have numpy, return a list")
         return list(map(lambda idx: ssdict[idx], arr0))
 
-def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=DataFileList()):
+def calc_dssp(traj=None, command="", top=None, dtype='string', dslist=None, dflist=DataFileList()):
     """return dssp profile for frame/traj
 
     Parameters
@@ -463,34 +463,22 @@ def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=
             dset.legend = legend.lower()
     dtype = dtype.upper()
 
-    # get all dataset from DatSetList if dtype == integer
-    if not np:
-        arr0 = list(dslist.get_dataset(dtype="integer"))
-
-        # cpptraj store data for each residue for each frame (n_residues, n_frames)
-        # we need to transpose data
-        arr0 = list(zip(*arr0))
-    else:
-        # 
-        arr0 = dslist.groupby("integer", mode='dtype').values
-    if dtype in ['INT', 'INTERGER']:
-        return arr0
-    elif dtype in ['STRING', 'STR']:
-        tmplist = [to_string_ss(arr) for arr in arr0]
-        return tmplist
-    elif dtype in ['DATASET',]:
+    if dtype in ['DATASET',]:
         from .datasetlist import DatasetList
         # convert to pytraj DatasetList
-        DatasetList(dslist)
-    if dtype in ['NDARRAY',]:
-        # return a numpy array of strings
-        _, np = _import_numpy()
-        return np.array([to_string_ss(arr) for arr in arr0])
+        return _get_data_from_dtype(dslist, dtype='dataset')
     else:
-        try:
-            return _get_data_from_dtype(dslist, dtype)
-        except:
-            raise ValueError("")
+        # get all dataset from DatSetList if dtype == integer
+        arr0 = dslist.grep("integer", mode='dtype').values
+        if dtype in ['INT', 'INTERGER']:
+            return arr0
+        elif dtype in ['STRING', 'STR']:
+            tmplist = [to_string_ss(arr) for arr in arr0]
+            return tmplist
+        elif dtype in ['NDARRAY',]:
+            # return a numpy array of strings
+            _, np = _import_numpy()
+            return np.array([to_string_ss(arr) for arr in arr0])
 
 def do_translation(traj=None, command="", top=Topology()):
     adict['translate'](command, traj, top)
