@@ -1076,6 +1076,12 @@ def nastruct(traj=None, command="", top=None, dtype='dataset',
 
     _top = _get_top(traj, top)
     act(command, traj, dslist=dslist, top=_top, *args, **kwd)
+
+    # need to update legend to avoid duplicate (same legend with different
+    # aspect)
+    for d in dslist:
+        d.legend = d.legend + "_" + d.aspect
+
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_grid(traj=None, command="", top=None, dtype='dataset',
