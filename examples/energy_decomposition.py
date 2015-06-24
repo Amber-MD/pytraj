@@ -6,9 +6,9 @@ import pytraj.common_actions as pyca
 # See Also: ../tests/test_calc_energies.py
 
 @test_if_having("sander")
-@test_if_having("chemistry")
+@test_if_having("parmed")
 def main():
-    # require 'sanderapi' and 'chemistry' packages in AmberTools15
+    # require 'sanderapi' and 'parmed' packages in AmberTools15
     # http://ambermd.org/#AmberTools
     # more info about `sanderapi` in Amber15 manual
     # http://ambermd.org/doc12/Amber15.pdf (page 341)
