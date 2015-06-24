@@ -348,6 +348,7 @@ class DatasetList(list):
 
     def to_dict(self, use_numpy=False):
         """return a dict object with key=legend, value=list"""
+        from collections import OrderedDict as dict
         try:
             if use_numpy:
                 return dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
