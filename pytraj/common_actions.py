@@ -22,7 +22,7 @@ from .Frame import Frame
 #from .Trajectory import Trajectory
 from .AtomMask import AtomMask
 from .Topology import Topology
-from .datasets.DataSetList import DataSetList
+from .datasets.DataSetList import DataSetList as CpptrajDatasetList
 from .core.DataFileList import DataFileList
 from .math.DistRoutines import distance 
 from .externals.gdt.calc_score import calc_score
@@ -97,7 +97,7 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
         list_of_commands = command
         from pytraj.core.ActionList import ActionList
         from pytraj.actions.CpptrajActions import Action_Distance
-        dslist = DataSetList()
+        dslist = CpptrajDatasetList()
         actlist = ActionList()
 
         for cm in list_of_commands:
@@ -145,7 +145,7 @@ def calc_angle(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
         list_of_commands = command
         from pytraj.core.ActionList import ActionList
         from pytraj.actions.CpptrajActions import Action_Angle
-        dslist = DataSetList()
+        dslist = CpptrajDatasetList()
         actlist = ActionList()
 
         for cm in list_of_commands:
@@ -193,7 +193,7 @@ def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
         list_of_commands = command
         from pytraj.core.ActionList import ActionList
         from pytraj.actions.CpptrajActions import Action_Dihedral
-        dslist = DataSetList()
+        dslist = CpptrajDatasetList()
         actlist = ActionList()
 
         for cm in list_of_commands:
@@ -224,7 +224,7 @@ def calc_mindist(traj=None, command="", top=None, *args, **kwd):
     return calculate("nativecontacts", traj, _command, top=_top, quick_get=True, *args, **kwd)
 
 def calc_watershell(traj=None, command="", top=Topology()):
-    """return a DataSetList object having the number of water 
+    """return a CpptrajDatasetList object having the number of water 
     in 1st and 2nd water shell for each frame
     >>> d0 = calc_watershell(":WAT", traj)
     >>> # get 1st shell
@@ -239,7 +239,7 @@ def calc_watershell(traj=None, command="", top=Topology()):
         # current Watershell action require specifying output
         # 
         command += ' out .tmp'
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     adict['watershell'](command, traj, _top, dslist=dslist)
     return dslist
 
@@ -248,7 +248,7 @@ def calc_radial(traj=None, command="", top=Topology()):
     act = adict['radial']
     # add `radial` keyword to command (need to check `why`?)
     command = 'radial ' + command
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     if not top.is_empty():
         act(command, traj, top, dslist=dslist)
     else:
@@ -263,7 +263,7 @@ def calc_matrix(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     act = Action_Matrix()
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     act.print_output()
     return _get_data_from_dtype(dslist, dtype)
@@ -274,7 +274,7 @@ def calc_radgyr(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     act = Action_Radgyr()
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
@@ -284,7 +284,7 @@ def calc_molsurf(traj=None, command="", top=None, dtype='dataset', *args, **kwd)
     act = Action_Molsurf()
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
@@ -294,7 +294,7 @@ def calc_distrmsd(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     act = Action_DistRmsd()
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
@@ -304,7 +304,7 @@ def calc_volume(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     act = Action_Volume()
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
@@ -314,7 +314,7 @@ def calc_multivector(traj=None, command="", top=None, dtype='ndarray', *args, **
     act = Action_MultiVector()
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
@@ -324,7 +324,7 @@ def calc_volmap(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     act = Action_Volmap()
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
@@ -335,7 +335,7 @@ def calc_linear_interaction_energy(traj=None, command="", top=None,
     act = Action_LIE()
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
@@ -348,7 +348,7 @@ def calc_rdf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     act = Action_Radial()
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     act.print_output()
     return _get_data_from_dtype(dslist, dtype)
@@ -369,7 +369,7 @@ def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset',
     from pytraj.actions.CpptrajActions import Action_Jcoupling
     act = Action_Jcoupling()
     # add `radial` keyword to command (need to check `why`?)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     _top = _get_top(traj, top)
 
     if kfile is not None:
@@ -401,32 +401,25 @@ def to_string_ss(arr0):
         print ("doest not have numpy, return a list")
         return list(map(lambda idx: ssdict[idx], arr0))
 
-def calc_dssp(traj=None, command="", top=None, dtype='string', dslist=None, dflist=DataFileList()):
+def calc_dssp(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     """return dssp profile for frame/traj
 
     Parameters
     ----------
     command : str
     traj : {Trajectory, Frame, mix of them}
-    dtype : str {'int', 'integer', 'str', 'string', 'dataset', 'ndarray'}
+    dtype : str {'dataset', 'ndarray', 'dict', 'dataframe'}, default 'ndarray'
 
     Returns
     -------
-    if dtype in ['int', 'integer', 'str', 'string']
-        List of tuples with shape (n_frames, n_residues)
-    if dtype in ['dataset',]
-        DataSetList object
+    (try it)
 
     Examples
     --------
-        calc_dssp(traj, ":2-10")
-
-        calc_dssp(traj, ":2-10 out dssp.gnu", dflist=dflist)
-        dflist.write_all_datafiles()
-
-        calc_dssp(traj, ":2-10 sumout dssp.agr", dflist=dflist)
-        dflist.write_all_datafiles()
-        # from terminal: xmgrace dssp.agr
+        calc_dssp(traj, ":2-10", dtype='ndarray')
+        calc_dssp(traj, ":2-10", dtype='dict')
+        calc_dssp(traj, ":2-10", dtype='dataframe')
+        calc_dssp(traj, ":2-10", dtype='dataset')
 
     Notes
     -----
@@ -447,13 +440,13 @@ def calc_dssp(traj=None, command="", top=None, dtype='string', dslist=None, dfli
     _, np = _import_numpy()
 
     _top = _get_top(traj, top)
-    if dslist is None:
-        dslist = DataSetList()
+    dslist = CpptrajDatasetList()
+
     adict['dssp'](command,
                   current_frame=traj, 
                   top=_top,
                   dslist=dslist,
-                  dflist=dflist)
+                  *args, **kwd)
 
     # replace legend to something nicer
     for legend, dset in dslist.iteritems():
@@ -461,24 +454,14 @@ def calc_dssp(traj=None, command="", top=None, dtype='string', dslist=None, dfli
             legend = legend.replace("DSSP_00000[", "")
             legend = legend.replace("]", "_avg")
             dset.legend = legend.lower()
-    dtype = dtype.upper()
+    dtype = dtype.lower()
 
-    if dtype in ['DATASET',]:
-        from .datasetlist import DatasetList
-        # convert to pytraj DatasetList
-        return _get_data_from_dtype(dslist, dtype='dataset')
-    else:
+    if dtype == 'ndarray':
         # get all dataset from DatSetList if dtype == integer
         arr0 = dslist.grep("integer", mode='dtype').values
-        if dtype in ['INT', 'INTERGER']:
-            return arr0
-        elif dtype in ['STRING', 'STR']:
-            tmplist = [to_string_ss(arr) for arr in arr0]
-            return tmplist
-        elif dtype in ['NDARRAY',]:
-            # return a numpy array of strings
-            _, np = _import_numpy()
-            return np.array([to_string_ss(arr) for arr in arr0])
+        return np.array([to_string_ss(arr) for arr in arr0])
+    else:
+        return _get_data_from_dtype(dslist, dtype=dtype)
 
 def do_translation(traj=None, command="", top=Topology()):
     adict['translate'](command, traj, top)
@@ -493,7 +476,7 @@ autoimage = do_autoimage
 
 def get_average_frame(traj=None, command="", top=Topology()):
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
 
     # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
     command += " crdset s1"
@@ -528,7 +511,7 @@ def do_clustering(traj=None, command="", top=None, dtype='dataset',
     traj : Trajectory-like | list of Trajectory-like | frame or chunk iterator
     command : cpptraj command
     top : Topology, optional
-    dslist : DataSetList, optional
+    dslist : CpptrajDatasetList, optional
     dflist : DataFileList, optional
 
     Notes:
@@ -540,7 +523,7 @@ def do_clustering(traj=None, command="", top=None, dtype='dataset',
 
     Returns
     -------
-    DataSetList object
+    CpptrajDatasetList object
  
     """
 
@@ -549,7 +532,7 @@ def do_clustering(traj=None, command="", top=None, dtype='dataset',
     # need to creat `dslist` here so that every time `do_clustering` is called,
     # we will get a fresh one (or will get segfault)
     if dslist is None:
-        dslist = DataSetList()
+        dslist = CpptrajDatasetList()
     else:
         dslist = dslist
 
@@ -593,10 +576,10 @@ def calc_multidihedral(traj=None, command="", dtype='dataset', top=None, *args, 
         from pytraj.dataframe import to_dataframe
         print (to_dataframe(d))
 
-        # calculate dihedrals for N:CA:CB:CG for all residues, return 'DataSetList' object 
+        # calculate dihedrals for N:CA:CB:CG for all residues, return 'CpptrajDatasetList' object 
         d = calc_multidihedral(traj, "dihtype chi1:N:CA:CB:CG", dtype='dataset'))
 
-        # calculate all dihedrals, save output to DataSetList and write output to disk too 
+        # calculate all dihedrals, save output to CpptrajDatasetList and write output to disk too 
         from pytraj import DataFileList
         dflist = DataFileList()
         d = pdb.calc_multidihedral("out ./output/test_multdih.dat", dtype='dataset', dflist=dflist)
@@ -607,13 +590,13 @@ def calc_multidihedral(traj=None, command="", dtype='dataset', top=None, *args, 
         Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 579)
     """
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     act = adict['multidihedral']
     act(command, traj, _top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_atomicfluct(traj=None, command="", *args, **kwd):
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     dslist.set_py_free_mem(False)
     act = adict['atomicfluct']
     act(command, traj, dslist=dslist, *args, **kwd)
@@ -644,11 +627,11 @@ def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> pyca.calc_vector(traj, "boxcenter").tolist()
     >>> pyca.calc_vector(traj, "box").tolist()
     """
-    from pytraj.datasets.DataSetList import DataSetList
+    from pytraj.datasets.CpptrajDatasetList import CpptrajDatasetList
     from pytraj.actions.CpptrajActions import Action_Vector
     from pytraj.core.ActionList import ActionList
 
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     _top = _get_top(traj, top)
     list_of_commands = _get_list_of_commands(mask)
     actlist = ActionList()
@@ -666,7 +649,7 @@ def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 def _calc_vector_center(traj=None, command="", top=None, use_mass=False, dtype='ndarray'):
     _top = _get_top(traj, top)
 
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     dslist.set_py_free_mem(False) # need this to avoid segmentation fault
     act = adict['vector']
     command = "center " + command
@@ -688,7 +671,7 @@ calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
 def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
     _top = _get_top(traj, top)
     atom_mask_obj = _top(command)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     dslist.add_set("vector")
     #dslist.set_py_free_mem(False) # need this to avoid segmentation fault
     for frame in _frame_iter_master(traj):
@@ -698,7 +681,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
 calc_COG = calc_center_of_geometry
 
 def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
-    """return  DataSetList object
+    """return  CpptrajDatasetList object
     Parameters
     ----------
     traj : Trajectory-like, iterable object
@@ -761,7 +744,7 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', *args, 
     from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
     act = Analysis_Rms2d()
 
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     dslist.add_set("coords", "mylovelypairwisermsd")
     _top = _get_top(traj, top)
     dslist[0].top = _top
@@ -784,7 +767,7 @@ def calc_density(traj=None, command="", top=None, dtype='ndarray', *args, **kwd)
     
     with goto_temp_folder():
         def _calc_density(traj, command, *args, **kwd):
-            # TODO: update this method if cpptraj save data to DataSetList
+            # TODO: update this method if cpptraj save data to CpptrajDatasetList
             from pytraj.actions.CpptrajActions import Action_Density
         
             _top = _get_top(traj, top)
@@ -800,7 +783,7 @@ def calc_density(traj=None, command="", top=None, dtype='ndarray', *args, **kwd)
             absolute_path_tmp = os.path.abspath(tmp_filename)
             return absolute_path_tmp
 
-        dslist = DataSetList()
+        dslist = CpptrajDatasetList()
         fname = _calc_density(traj, command, *args, **kwd)
         dslist.read_data(fname)
         return _get_data_from_dtype(dslist, dtype)
@@ -907,7 +890,7 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
             raise ValueError("only support string mask/command in mode=cpptraj")
         from pytraj.actions.CpptrajActions import Action_Rmsd
         act = Action_Rmsd()
-        dslist = DataSetList()
+        dslist = CpptrajDatasetList()
         act(command, [ref, traj], top=_top, dslist=dslist)
 
         if dtype == 'pyarray':
@@ -948,7 +931,7 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
     top : Topology-like object, default=None, optional
     *args, **kwd: more arguments
         if dtype == 'dataset': return a tuple (new_traj, datasetlist)
-            cpptraj only save data to DataSetList if `closestout` is specified (check example)
+            cpptraj only save data to CpptrajDatasetList if `closestout` is specified (check example)
         if dtype != 'dataset': return only new_traj
 
     cpptraj command
@@ -988,7 +971,7 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
     >>> # obtain new traj, keeping only closest 100 waters 
     >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
     >>> t = pyca.closest (traj, "100 :1-13 first")
-    >>> # get new traj and get new DataSetList object to store more information
+    >>> # get new traj and get new CpptrajDatasetList object to store more information
     >>> # (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
     >>> new_traj, dslist = pyca.closest (traj, "100 :1-13 first closestout test.out", dtype='dataset')
     >>> new_traj, dslist = pyca.closest (traj, "100 :1-13 first closestout test.out", dtype='dataframe')
@@ -996,7 +979,7 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
 
     from .actions.CpptrajActions import Action_Closest
     from pytraj.Trajectory import Trajectory
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
 
     if 'dtype' in kwd.keys():
         dtype = kwd['dtype']
@@ -1010,7 +993,7 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
     new_top = Topology()
     new_top.py_free_mem = False # cpptraj will do
     if dtype and 'closestout' not in command:
-        # trick cpptraj to dump data to DataSetList too
+        # trick cpptraj to dump data to CpptrajDatasetList too
         command = command + " closestout tmp_pytraj_closestout.out"
     act.read_input(command, _top, dslist=dslist)
     act.process(_top, new_top)
@@ -1038,7 +1021,7 @@ def native_contacts(traj=None, command="", top=None, dtype='dataset',
     """
     from .actions.CpptrajActions import Action_NativeContacts
     act = Action_NativeContacts()
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
 
     _top = _get_top(traj, top)
     if ref is not None:
@@ -1063,7 +1046,7 @@ def nastruct(traj=None, command="", top=None, dtype='dataset',
     # TODO: doc, rename method, move to seperate module?
     from .actions.CpptrajActions import Action_NAstruct
     act = Action_NAstruct()
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
 
     _top = _get_top(traj, top)
     act(command, traj, dslist=dslist, top=_top, *args, **kwd)
@@ -1088,7 +1071,7 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset',
     # TODO: doc, rename method, move to seperate module?
     from .actions.CpptrajActions import Action_Grid
     act = Action_Grid()
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
 
     # cpptraj require output
     command = "tmp_pytraj_grid_output.txt " + command
