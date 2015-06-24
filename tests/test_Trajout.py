@@ -4,6 +4,7 @@ from pytraj.base import *
 from pytraj.decorators import no_test
 from pytraj.io import write_traj
 from pytraj import io as mdio
+from pytraj.testing import aa_eq
 
 farray = Trajectory("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
 
@@ -73,8 +74,7 @@ class TestTrajout(unittest.TestCase):
         # reproduce result?
         f0 = mdio.iterload("./output/test_write_output.x", "./data/Tc5b.top")
         f1 = mdio.iterload("./output/test_write_output_save_method.x", "./data/Tc5b.top")
-        from numpy.testing import assert_almost_equal as assert_ae
-        assert_ae(f0[:, :, :], f1[:, :, :])
+        aa_eq(f0[:, :, :].xyz, f1[:, :, :].xyz)
 
     #@no_test
     def test_5(self):
