@@ -5,7 +5,7 @@ from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import _import_numpy, _import_pandas, is_int, is_array
 from pytraj._xyz import XYZ
-from pytraj.compat import string_types
+from pytraj.compat import string_types, callable
 from pytraj.core.DataFile import DataFile
 from pytraj.ArgList import ArgList
 from pytraj.compat import map
@@ -195,7 +195,7 @@ class DatasetList(list):
         return self.__str__()
 
     def __call__(self, *args, **kwd):
-        return self.groupby(*args, **kwd)
+        return self.filter(*args, **kwd)
 
     def clear(self):
         self = []
@@ -295,16 +295,21 @@ class DatasetList(list):
         for d0 in self:
             yield func(d0)
 
-    def filter(self, func):
+    def filter(self, func, *args, **kwd):
         """return a new view of DatasetList of func return True"""
         dslist = self.__class__()
 
-        for d0 in self:
-            if func(d0):
-                dslist.append(d0)
-        return dslist
+        if isinstance(func, (string_types, list, tuple)):
+            return self.grep(func, *args, **kwd)
+        elif callable(func):
+            for d0 in self:
+                if func(d0, *args, **kwd):
+                    dslist.append(d0)
+            return dslist
+        else:
+            raise NotImplementedError("func must be a string or callable")
 
-    def groupby(self, key, mode='legend'):
+    def grep(self, key, mode='legend'):
         """"return a new DatasetList object as a view of `self`
 
         Parameters
@@ -316,7 +321,7 @@ class DatasetList(list):
         """
         import re
 
-        # use __class__ so we can `groupby` return the same class
+        # use __class__ so we can `filter` return the same class
         # we subclass this Cython class to python level
         dtmp = self.__class__()
 
@@ -433,7 +438,7 @@ class DatasetList(list):
         if not legend:
             return np.sum(self.to_ndarray(), axis=axis)
         else:
-            return self.groupby(legend).sum(axis=axis)
+            return self.filter(legend).sum(axis=axis)
 
     def cumsum(self, axis=1):
         """Return the cumulative sum of the elements along a given axis.

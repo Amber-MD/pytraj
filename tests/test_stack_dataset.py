@@ -14,15 +14,15 @@ class Test(unittest.TestCase):
         from pytraj.datasetlist import vstack as stack
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         _ds1 = pyca.calc_dssp(traj[:5], dtype='dataset')
-        ds1 = _ds1.groupby('LYS')
+        ds1 = _ds1.filter('LYS')
         _ds2 = pyca.calc_dssp(traj[5:], dtype='dataset')
-        ds2 = _ds2.groupby('LYS')
+        ds2 = _ds2.filter('LYS')
         print (ds2.keys(), ds1.keys())
         print (ds1.to_ndarray(), ds2.to_ndarray())
 
         dstack = stack((ds1, ds2))
         _d12 = pyca.calc_dssp(traj, dtype='dataset')
-        d12 = _d12.groupby("LYS")
+        d12 = _d12.filter("LYS")
 
         dstack_dict = dstack.to_dict()
         d12_dict = d12.to_dict()

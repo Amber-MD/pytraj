@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
             df.add_dataset("./output/testdf_" + d.legend + ".txt", d)
         df.write_all_datafiles()
 
-        dslist.groupby("SER").write_all_datafiles()
+        dslist.filter("SER").write_all_datafiles()
 
 if __name__ == "__main__":
     unittest.main()

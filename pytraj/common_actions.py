@@ -471,6 +471,7 @@ def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=
         # we need to transpose data
         arr0 = list(zip(*arr0))
     else:
+        # 
         arr0 = dslist.groupby("integer", mode='dtype').values
     if dtype in ['INT', 'INTERGER']:
         return arr0
@@ -478,7 +479,9 @@ def calc_dssp(traj=None, command="", top=None, dtype='int', dslist=None, dflist=
         tmplist = [to_string_ss(arr) for arr in arr0]
         return tmplist
     elif dtype in ['DATASET',]:
-        return dslist
+        from .datasetlist import DatasetList
+        # convert to pytraj DatasetList
+        DatasetList(dslist)
     if dtype in ['NDARRAY',]:
         # return a numpy array of strings
         _, np = _import_numpy()
@@ -1062,7 +1065,7 @@ def nastruct(traj=None, command="", top=None, dtype='dataset',
     Examples
     --------
         dslist = nastruct(traj)
-        dslist.groupby("major", mode='aspect') # information for major groove
+        dslist.filter("major", mode='aspect') # information for major groove
         print (dslist.get_aspect())
 
     See Also

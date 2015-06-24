@@ -19,14 +19,14 @@ class TestReferentCounting(unittest.TestCase):
         
         assert sys.getrefcount(d) == 2
         sys.getrefcount(d) == 2
-        junk = d.groupby('SER'); del junk
+        junk = d.filter('SER'); del junk
         
         assert sys.getrefcount(d) == 2
         sys.getrefcount(d)
         
-        pyca.search_hbonds(traj).groupby('SER')
-        pyca.search_hbonds(traj).groupby('SER').groupby("SER")
-        e = pyca.search_hbonds(traj).groupby('SER').groupby("SER").groupby("").groupby("")
+        pyca.search_hbonds(traj).filter('SER')
+        pyca.search_hbonds(traj).filter('SER').filter("SER")
+        e = pyca.search_hbonds(traj).filter('SER').filter("SER").filter("").filter("")
         # make sure getting not segmentation fault
         print (e.size)
         print (e[0])
@@ -38,16 +38,16 @@ class TestReferentCounting(unittest.TestCase):
         
         assert sys.getrefcount(d) == 2
         sys.getrefcount(d) == 2
-        junk = d.groupby('SER'); del junk
+        junk = d.filter('SER'); del junk
         
         assert sys.getrefcount(d) == 2
         sys.getrefcount(d)
-        junk = d[:3].groupby('SER'); del junk
+        junk = d[:3].filter('SER'); del junk
         assert sys.getrefcount(d) == 2
         
-        traj.search_hbonds().groupby('SER')
-        traj.search_hbonds().groupby('SER').groupby("SER")
-        e = traj.search_hbonds().groupby('SER').groupby("SER").groupby("").groupby("")
+        traj.search_hbonds().filter('SER')
+        traj.search_hbonds().filter('SER').filter("SER")
+        e = traj.search_hbonds().filter('SER').filter("SER").filter("").filter("")
         # make sure getting not segmentation fault
         print (e.size)
         print (e[0])
