@@ -283,75 +283,8 @@ cdef class TrajectoryCpptraj:
                  except:
                      txt = "not supported keyword `%s`" % idxs
                      raise NotImplementedError(txt)
-         elif not isinstance(idxs, slice):
-             if idxs == ():
-                 return self
-             elif isinstance(idxs, tuple):
-                 idxs_size = len(idxs)
-                 if idxs_size >= 4:
-                     raise NotImplementedError("number of elements must me smaller than 4")
-                 idx0 = idxs[0]
-     
-                 all_are_slice_instances = True
-                 for tmp in idxs:
-                     if not isinstance(tmp, slice): all_are_slice_instances = False
-     
-                 has_numpy, _np = _import_numpy()
-                 # got Segmentation fault if using "is_instance3 and not has_numpy"
-                 # TODO : Why?
-                 #if is_instance3 and not has_numpy:
-                 if all_are_slice_instances:
-                     # traj[:, :, :]
-                     # traj[1:2, :, :]
-                     tmplist = []
-                     for frame in self[idxs[0]]:
-                         tmplist.append(frame[idxs[1:]])
-                     if has_numpy:
-                         return _np.asarray(tmplist)
-                     else:
-                         return tmplist
-                     #raise NotImplementedError("not yet supported if all indcies are slices")
-                 idx1 = idxs[1]
-                 if isinstance(self[idx0], Frame):
-                     frame = self[idx0]
-                     self.tmpfarray = frame
-                     if isinstance(idx1, string_types):
-                         # traj[0, '@CA']
-                         frame.set_top(self.top)
-                     return self.tmpfarray[idxs[1:]]
-                 elif isinstance(self[idx0], Trajectory):
-                     farray = self[idx0]
-                     self.tmpfarray = farray
-                     if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
-                         if idxs_size == 2:
-                             return self.tmpfarray[idxs[1]]
-                         else:
-                             return self.tmpfarray[idxs[1]][idxs[2]]
-                     else:
-                         try:
-                             return self.tmpfarray[idxs[1]]
-                         except:
-                             raise NotImplementedError()
-             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                 farray = Trajectory()
-                 # for unknown reason, this does not work, it returns a Frame (?)
-                 farray.get_frames(from_traj=self, indices=idxs, update_top=True)
-                 # need to use `farray` so Cython knows its type
-                 self.tmpfarray = farray
-                 return self.tmpfarray
 
-             else:
-                 # assuming that `idxs` is integer
-                 idx_1 = <int> get_positive_idx(idxs, self.size)
-                 # raise index out of range
-                 if idxs != 0 and idx_1 == 0:
-                     raise ValueError("index is out of range")
-
-                 with self:
-                     self.thisptr.GetFrame(idx_1, frame.thisptr[0])
-                 self.tmpfarray = frame
-                 return self.tmpfarray
-         else:
+         elif isinstance(idxs, slice):
              # idxs is slice
              farray = Trajectory()
              # NOTE: MUST make a copy self.top
@@ -385,12 +318,59 @@ cdef class TrajectoryCpptraj:
                      # traj[:-1:-3]
                      farray.reverse()
              return farray
-             # I am not really sure about below comment (happend before but 
-             # not sure if this is the reason.)
-             # use tmpfarray to hold farray for nested indexing
-             # if not, Python will free memory for sub-Trajectory 
-             #self.tmpfarray = farray
-             #return self.tmpfarray
+         else:
+             # not is a slice
+             if idxs == ():
+                 return self
+             elif isinstance(idxs, tuple):
+                 idxs_size = len(idxs)
+                 if idxs_size >= 4:
+                     raise NotImplementedError("number of elements must me smaller than 4")
+                 idx0 = idxs[0]
+     
+                 idx1 = idxs[1]
+                 if isinstance(self[idx0], Frame):
+                     frame = self[idx0]
+                     self.tmpfarray = frame
+                     if isinstance(idx1, string_types):
+                         # traj[0, '@CA']
+                         frame.set_top(self.top)
+                     return self.tmpfarray[idxs[1:]]
+                 elif isinstance(self[idx0], Trajectory):
+                     farray = self[idx0]
+                     self.tmpfarray = farray
+                     if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
+                         if idxs_size == 2:
+                             return self.tmpfarray[idxs[1]]
+                         else:
+                             return self.tmpfarray[idxs[1]][idxs[2]]
+                     else:
+                         try:
+                             return self.tmpfarray[idxs[1]]
+                         except:
+                             raise NotImplementedError()
+             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
+                 farray = Trajectory()
+                 if hasattr(idxs, '__getitem__'):
+                    if isinstance(idxs[0], bool):
+                        raise NotImplementedError("don't support bool indexing")
+                 # for unknown reason, this does not work, it returns a Frame (?)
+                 farray.get_frames(from_traj=self, indices=idxs, update_top=True)
+                 # need to use `farray` so Cython knows its type
+                 self.tmpfarray = farray
+                 return self.tmpfarray
+
+             else:
+                 # assuming that `idxs` is integer
+                 idx_1 = <int> get_positive_idx(idxs, self.size)
+                 # raise index out of range
+                 if idxs != 0 and idx_1 == 0:
+                     raise ValueError("index is out of range")
+
+                 with self:
+                     self.thisptr.GetFrame(idx_1, frame.thisptr[0])
+                 self.tmpfarray = frame
+                 return self.tmpfarray
 
     def _fast_slice(self, slice my_slice):
         cdef int start, stop, step
