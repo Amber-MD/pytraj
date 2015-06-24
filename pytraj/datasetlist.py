@@ -526,6 +526,9 @@ class DatasetList(list):
             d0 = dset.copy()
         else:
             d0 = dset
+        for legend in self.keys():
+            if dset.legend == legend:
+                raise KeyError("must have different legend", dset.legend)
         super(DatasetList, self).append(d0)
 
     @classmethod
