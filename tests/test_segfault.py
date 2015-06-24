@@ -38,8 +38,8 @@ class Test(unittest.TestCase):
     def test_2(self):
         print ("DataSetList lifetime")
         #d = pyca.search_hbonds(traj)
-        d = pyca.search_hbonds(traj).groupby("SER")
-        d2 = pyca.search_hbonds(traj).groupby("SER").to_ndarray()
+        d = pyca.search_hbonds(traj).filter("SER")
+        d2 = pyca.search_hbonds(traj).filter("SER").to_ndarray()
         print (d.size)
         print (d.keys())
         print (d)
@@ -72,8 +72,8 @@ class Test(unittest.TestCase):
         d0_dummy = search_hbonds(traj)[:][:][:][:][0]
         d0 = search_hbonds(traj)[0]
         aa_eq(d0_dummy.to_ndarray(), d0.to_ndarray())
-        # groupby
-        print (search_hbonds(traj)[0:4].groupby("").groupby(""))
+        # filter
+        print (search_hbonds(traj)[0:4].filter("").filter(""))
 
         dslist = da.calc_phi(traj)
         x = dslist[0]

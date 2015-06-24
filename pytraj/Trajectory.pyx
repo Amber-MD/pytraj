@@ -1091,6 +1091,10 @@ cdef class Trajectory (object):
     def split_and_write_traj(self, *args, **kwd):
         _split_and_write_traj(self, *args, **kwd)
 
+    def split(self, n_chunks):
+        chunksize = self.n_frames // n_chunks
+        return (fa for fa in self.chunk_iter(chunksize=chunksize))
+
     def set_frame_mass(self):
         """update mass for each Frame from self.top"""
         cdef Frame frame

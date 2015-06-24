@@ -47,8 +47,8 @@ class Test(unittest.TestCase):
         for i in range(20):
             d0 = pyca.calc_dssp(traj[:], dtype='dataset')
             assert d0.size == 28
-            # WARNING: don't assign `d0 = d0.groupby("your_mask")`
-            d1 = d0.groupby("TRP:6")
+            # WARNING: don't assign `d0 = d0.filter("your_mask")`
+            d1 = d0.filter("TRP:6")
 
         print (d1.keys())
 

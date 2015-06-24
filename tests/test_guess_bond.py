@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         import mdtraj as md
         t = md.load(get_fn("frame0.gro"))
         traj = io.load_mdtraj(t)
-        print (traj.calc_dssp(dtype='str'))
+        print (traj.calc_dssp(dtype='ndarray'))
         print (traj.calc_multidihedral("phi"))
 
 if __name__ == "__main__":

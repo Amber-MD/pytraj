@@ -49,9 +49,9 @@ class ActionTrajectory(object):
         dtype = {'dataset', 'list', 'ndarray'}
         """
         from pytraj.actions.CpptrajActions import Action_Vector
-        from pytraj.datasets.DataSetList import DataSetList
+        from pytraj.datasets.DataSetList import DataSetList as CpptrajDatasetList
         act = Action_Vector()
-        dslist = DataSetList()
+        dslist = CpptrajDatasetList()
 
         act(mask, self, dslist=dslist, *args, **kwd)
         dtype = dtype.lower()
@@ -72,7 +72,7 @@ class ActionTrajectory(object):
         return self.rmsd(*args, **kwd)
 
     def search_hbonds(self, mask="*", *args, **kwd):
-        """return DataSetList
+        """return CpptrajDatasetList
         """
         return pyca.search_hbonds(self, mask, *args, **kwd)
 

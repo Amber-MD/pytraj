@@ -5,6 +5,7 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import has_
 from pytraj.utils.check_and_assert import assert_almost_equal, eq
+from pytraj.testing import aa_eq
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -14,11 +15,11 @@ class Test(unittest.TestCase):
             from numpy.testing import assert_almost_equal
             arr0 = traj.xyz
             print (arr0.shape)
-            assert_almost_equal(arr0, traj[:, :, :])
+            aa_eq(arr0, traj[:, :, :].xyz)
 
             # create Trajectory
             farray = traj[:]
-            assert_almost_equal(arr0, farray[:, :, :])
+            aa_eq(arr0, farray[:, :, :].xyz)
         else:
             print ("need numpy. skip test")
 

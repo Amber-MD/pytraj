@@ -48,7 +48,7 @@ class Test(unittest.TestCase):
         for i in range(100):
             dslist = nastruct(traj)
             assert dslist.size == dsize
-        print (dslist.groupby("major", mode='aspect'))
+        print (dslist.filter("major", mode='aspect'))
 
 if __name__ == "__main__":
     unittest.main()
