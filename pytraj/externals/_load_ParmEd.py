@@ -17,14 +17,23 @@ def load_ParmEd(parmed_obj, restype="top"):
     if restype.lower() == 'top':
         return ptop
     elif restype.lower() == 'traj':
-        if parmed_obj.coords is None:
+        if hasattr(parmed_obj, 'coordinates'):
+            coords = parmed_obj.coordinates
+        elif hasattr(parmed_obj, 'coords'):
+            coords = parmed_obj.coords
+        if coords is None:
             raise ValueError("can not convert to Traj with None-coords")
         else:
             fa = Trajectory()
             fa.top = ptop
-            frame = Frame()
-            frame.set_from_crd(parmed_obj.coords)
-            fa.append(frame)
+            try:
+                shape = coords.shape
+            except AttributeError:
+                import numpy as np
+                coords = np.asarray(coords).reshape(1, fa.top.n_atoms, 3)
+                shape = coords.shape
+            fa._allocate(shape[0], shape[1])
+            fa.update_coordinates(coords)
             return fa
     else:
         raise ValueError("only support `top` or `traj` keyword")
@@ -50,5 +59,5 @@ def to_ParmEd(pytraj_top):
     # I am not a fan of saving/loading again but this might be best choice
     with goto_temp_folder():
         fname = "tmp_pytrajtop.prmtop"
-        ParmFile().writeparm(pytraj_top, fname, fmt="")
+        ParmFile().writeparm(pytraj_top, fname, format="")
         return chem.load_file(fname)

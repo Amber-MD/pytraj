@@ -353,9 +353,8 @@ cdef class Trajectory (object):
         else:
             raise NotImplementedError("must have numpy")
 
-    def update_xyz(self, double[:, :, :] xyz):
+    def update_coordinates(self, double[:, :, :] xyz):
         '''update coords from 3D xyz array, dtype=f8'''
-        # NOTE: tried openmp for this but no speed gain (much)
         cdef int idx, n_frames
         cdef double* ptr_src
         cdef double* ptr_dest
@@ -369,6 +368,9 @@ cdef class Trajectory (object):
             ptr_dest = self.frame_v[idx].xAddress()
             ptr_src = &(xyz[idx, 0, 0])
             memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
+    def update_xyz(self, double[:, :, :] xyz):
+        self.update_coordinates(xyz)
 
     def tolist(self):
         return _tolist(self)
@@ -418,10 +420,6 @@ cdef class Trajectory (object):
                 _frame = Frame(frame, atom_mask_obj) # 1st copy
                 _frame.py_free_mem = False #
                 _farray.append(_frame, copy=False) # 2nd copy if using `copy=True`
-            #self.tmpfarray = _farray # why need this?
-            # hold _farray in self.tmpfarray to avoid memory lost
-            # traj[AtomMask, :, 0]
-            #return self.tmpfarray
             return _farray
 
         elif isinstance(idxs, string_types):
@@ -443,99 +441,7 @@ cdef class Trajectory (object):
                     txt = "not supported keyword `%s` or there's proble with your topology" % idxs
                     raise NotImplementedError(txt)
 
-        elif not isinstance(idxs, slice):
-            if idxs == ():
-                # empty tuple
-                return self
-            if isinstance(idxs, tuple):
-                idxs_size = len(idxs)
-                idx1 = idxs[1]
-                if idxs_size > 3:
-                    raise NotImplementedError("support indexing up to 3 elements")
-                idx0 = idxs[0]
-
-                all_are_slice_instances = True
-                for tmp in idxs:
-                    if not isinstance(tmp, slice): all_are_slice_instances = False
-
-                has_numpy, _np = _import_numpy()
-                # got Segmentation fault if using "is_instance3 and not has_numpy"
-                # TODO : Why?
-                #if is_instance3 and not has_numpy:
-                # TODO : make memoryview for traj[:, :, :]
-                if all_are_slice_instances:
-                    # return 3D array or list of 2D arrays?
-                    # traj[:, :, :]
-                    # traj[1:2, :, :]
-                    tmplist = []
-                    for frame in self[idxs[0]]:
-                        tmplist.append(frame[idxs[1:]])
-                    if has_numpy:
-                        # test memoryview, does not work yet.
-                        # don't delete those line to remind we DID work on this
-                        #arr3d = _np.empty(shape=_np.asarray(tmplist).shape)
-                        #for i, frame in enumerate(self[idxs[0]]):
-                        #    for j, f0 in enumerate(frame[idxs[1]]):
-                        #        arr3d[i][j] = f0[:]
-                        #return arr3d
-
-                        return _np.asarray(tmplist)
-                    else:
-                        return tmplist
-
-                elif isinstance(self[idx0], Frame):
-                    frame = self[idx0]
-                    frame.py_free_mem = False
-                    if isinstance(idx1, string_types):
-                        # traj[0, '@CA']
-                        frame.set_top(self.top)
-                    # TODO: need to check memory
-                    if idxs_size == 2:
-                        return frame[idxs[1]]
-                    else:
-                        return frame[idxs[1]][idxs[2:]]
-                elif isinstance(self[idx0], Trajectory):
-                    farray = self[idx0]
-                    # place holder to avoid memory free
-                    # atm = traj.top("@CA")
-                    # traj[0, atm]
-                    #if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
-                    #    if idxs_size == 2:
-                    #        return farray[idxs[1]]
-                    #    else:
-                    #        return farray[idxs[1]][idxs[2]]
-                    #else:
-                    #    try:
-                    #        return farray[idxs[1:]]
-                    #    except:
-                    #        raise NotImplementedError("")
-                    if idxs_size == 2:
-                        return farray[idxs[1]]
-                    else:
-                        return farray[idxs[1]][idxs[2]]
-
-            elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                _farray = Trajectory(check_top=False)
-                _farray.top = self.top # just make a view, don't need to copy Topology
-                for i in idxs:
-                    frame.thisptr = self.frame_v[i] # point to i-th item
-                    frame.py_free_mem = False # don't free mem
-                    _farray.frame_v.push_back(frame.thisptr) # just copy pointer
-                return _farray
-            else:
-                idx_1 = get_positive_idx(idxs, self.size)
-                # raise index out of range
-                if idxs != 0 and idx_1 == 0:
-                    # need to check if array has only 1 element. 
-                    # arr[0] is  arr[-1]
-                    if idxs != -1:
-                        raise ValueError("index is out of range")
-                #print ("get memoryview")
-                #frame.thisptr = &(self.frame_v[idx_1])
-                frame.py_free_mem = False
-                frame.thisptr = self.frame_v[idx_1]
-                return frame
-        else:
+        elif isinstance(idxs, slice):
             # is slice
             # creat a subset array of `Trajectory`
             #farray = Trajectory()
@@ -586,6 +492,76 @@ cdef class Trajectory (object):
             #    return self.tmpfarray[0]
             #return self.tmpfarray
             return farray
+
+        else:
+            # not slice
+            if idxs == ():
+                # empty tuple
+                return self
+            if isinstance(idxs, tuple):
+                idxs_size = len(idxs)
+                idx1 = idxs[1]
+                if idxs_size > 3:
+                    raise NotImplementedError("support indexing up to 3 elements")
+                idx0 = idxs[0]
+
+                if isinstance(self[idx0], Frame):
+                    frame = self[idx0]
+                    frame.py_free_mem = False
+                    if isinstance(idx1, string_types):
+                        # traj[0, '@CA']
+                        frame.set_top(self.top)
+                    # TODO: need to check memory
+                    if idxs_size == 2:
+                        return frame[idxs[1]]
+                    else:
+                        return frame[idxs[1]][idxs[2:]]
+
+                elif isinstance(self[idx0], Trajectory):
+                    farray = self[idx0]
+                    # place holder to avoid memory free
+                    # atm = traj.top("@CA")
+                    # traj[0, atm]
+                    #if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
+                    #    if idxs_size == 2:
+                    #        return farray[idxs[1]]
+                    #    else:
+                    #        return farray[idxs[1]][idxs[2]]
+                    #else:
+                    #    try:
+                    #        return farray[idxs[1:]]
+                    #    except:
+                    #        raise NotImplementedError("")
+                    if idxs_size == 2:
+                        return farray[idxs[1]]
+                    else:
+                        return farray[idxs[1]][idxs[2]]
+
+            elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
+                _farray = Trajectory(check_top=False)
+                _farray.top = self.top # just make a view, don't need to copy Topology
+                # check if there are bool index
+                if hasattr(idxs, '__getitem__'):
+                    if isinstance(idxs[0], bool):
+                        raise NotImplementedError("don't support bool indexing")
+                for i in idxs:
+                    frame.thisptr = self.frame_v[i] # point to i-th item
+                    frame.py_free_mem = False # don't free mem
+                    _farray.frame_v.push_back(frame.thisptr) # just copy pointer
+                return _farray
+            else:
+                idx_1 = get_positive_idx(idxs, self.size)
+                # raise index out of range
+                if idxs != 0 and idx_1 == 0:
+                    # need to check if array has only 1 element. 
+                    # arr[0] is  arr[-1]
+                    if idxs != -1:
+                        raise ValueError("index is out of range")
+                #print ("get memoryview")
+                #frame.thisptr = &(self.frame_v[idx_1])
+                frame.py_free_mem = False
+                frame.thisptr = self.frame_v[idx_1]
+                return frame
 
     def _fast_slice(self, my_slice):
         """only positive indexing

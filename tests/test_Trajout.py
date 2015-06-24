@@ -4,6 +4,7 @@ from pytraj.base import *
 from pytraj.decorators import no_test
 from pytraj.io import write_traj
 from pytraj import io as mdio
+from pytraj.testing import aa_eq
 
 farray = Trajectory("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
 
@@ -13,9 +14,9 @@ class TestTrajout(unittest.TestCase):
         farray = Trajectory("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
         frame0 = farray[0]
         trajout = Trajout()
-        #trajout.open(filename="test.x", top=farray.top, fmt="AMBERTRAJ")
-        trajout.open(filename="./output/test.x", top=farray.top, fmt="AMBERNETCDF", overwrite=True)
-        #trajout.open(filename="test.pdb", top=farray.top, fmt="PDBFILE", more_args="pdb")
+        #trajout.open(filename="test.x", top=farray.top, format="AMBERTRAJ")
+        trajout.open(filename="./output/test.x", top=farray.top, format="AMBERNETCDF", overwrite=True)
+        #trajout.open(filename="test.pdb", top=farray.top, format="PDBFILE", more_args="pdb")
         trajout.writeframe(0, frame0, farray.top)
         #assert trajout.is_open() == True
 
@@ -54,8 +55,8 @@ class TestTrajout(unittest.TestCase):
     #@no_test
     def test_3_write_PDBFILE(self):
         frame0 = farray[0]
-        with Trajout(filename="./output/test_0.pdb", top=farray.top, fmt="PDBFILE", overwrite=True) as trajout:
-        #with Trajout(filename="test_0.pdb", top=farray.top, fmt="PDBFILE") as trajout:
+        with Trajout(filename="./output/test_0.pdb", top=farray.top, format="PDBFILE", overwrite=True) as trajout:
+        #with Trajout(filename="test_0.pdb", top=farray.top, format="PDBFILE") as trajout:
             trajout.writeframe(0, frame0, farray.top)
 
 
@@ -64,7 +65,7 @@ class TestTrajout(unittest.TestCase):
         """test write Trajectory"""
         farray = Trajectory("data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
         write_traj("./output/test_write_output.x", farray, farray.top, overwrite=True)
-        write_traj("./output/test_pdb_1.dummyext", farray[0], farray.top, overwrite=True, fmt='pdb')
+        write_traj("./output/test_pdb_1.dummyext", farray[0], farray.top, overwrite=True, format='pdb')
 
         # test 'save'
         print(farray)
@@ -73,8 +74,7 @@ class TestTrajout(unittest.TestCase):
         # reproduce result?
         f0 = mdio.iterload("./output/test_write_output.x", "./data/Tc5b.top")
         f1 = mdio.iterload("./output/test_write_output_save_method.x", "./data/Tc5b.top")
-        from numpy.testing import assert_almost_equal as assert_ae
-        assert_ae(f0[:, :, :], f1[:, :, :])
+        aa_eq(f0[:, :, :].xyz, f1[:, :, :].xyz)
 
     #@no_test
     def test_5(self):
