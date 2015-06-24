@@ -1,3 +1,4 @@
+from itertools import islice
 from pytraj.utils import _import_numpy
 from pytraj.compat import string_types
 
@@ -90,3 +91,11 @@ def flatten(x):
         else:
             result.append(el)
     return result
+
+@_no_tested
+def n_grams(a, n):
+    """
+    """
+    # http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html
+    z = (islice(a, i, None) for i in range(n))
+    return zip(*z)
