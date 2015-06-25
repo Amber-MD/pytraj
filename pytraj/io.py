@@ -431,7 +431,7 @@ def get_coordinates(an_object, top=None):
         a frame_iter, FrameIter, ...
     top : optional Topology if `an_object` does not have this information
 
-        This method is designed to load coordinates without minimum memory requirement
+        This method is designed to load coordinates with minimum memory requirement
     '''
     if hasattr(an_object, 'xyz'):
         return an_object.xyz[:]
