@@ -30,8 +30,10 @@ def load_ParmEd(parmed_obj, restype="top"):
                 shape = coords.shape
             except AttributeError:
                 import numpy as np
-                coords = np.asarray(coords).reshape(1, fa.top.n_atoms, 3)
-                shape = coords.shape
+                coords = np.asarray(coords)
+            shape = coords.shape
+            if len(shape) == 2:
+                coords = coords.reshape(1, fa.top.n_atoms, 3)
             fa._allocate(shape[0], shape[1])
             fa.update_coordinates(coords)
             return fa
