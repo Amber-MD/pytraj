@@ -49,15 +49,19 @@ from .actions import CpptrajActions as allactions
 from .analyses import CpptrajAnalyses as allanalyses
 from ._common_actions import calculate
 from . import common_actions
-from . common_actions import (rmsd, search_hbonds, calc_dssp, 
+from . dssp_analysis import calc_dssp
+from . common_actions import (rmsd, search_hbonds,
                               calc_multidihedral,
-                              autoimage, 
+                              autoimage, nastruct, 
                               calc_angle, calc_dihedral, calc_distance,
                               calc_center_of_mass, calc_center_of_geometry,
                               calc_dssp, calc_jcoupling, calc_molsurf,
                               calc_radgyr, calc_rdf, calc_vector,
                               calc_pairwise_rmsd,
                               energy_decomposition,)
+
+# create alias
+nucleic_acid_analysis = nastruct
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (calc_phi, calc_psi, calc_omega, calc_chin, calc_chip)
 

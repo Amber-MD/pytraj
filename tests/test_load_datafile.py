@@ -15,11 +15,11 @@ class Test(unittest.TestCase):
         ds = traj.calc_dssp(dtype='dataset')
         print (sorted(ds.keys()))
         print (sorted(ds_saved.keys()))
-        aa_eq(ds.groupby("TYR:3").to_ndarray(), ds_saved.groupby("TYR:3").to_ndarray())
+        aa_eq(ds.filter("TYR:3").to_ndarray(), ds_saved.filter("TYR:3").to_ndarray())
 
         for i in range (2, 20):
             i_s = ":" + str(i)
-            aa_eq(ds.groupby(i_s).to_ndarray(), ds_saved.groupby(i_s).to_ndarray())
+            aa_eq(ds.filter(i_s).to_ndarray(), ds_saved.filter(i_s).to_ndarray())
 
 if __name__ == "__main__":
     unittest.main()

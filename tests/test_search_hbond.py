@@ -44,7 +44,7 @@ class Test(unittest.TestCase):
         ds = pyca.search_hbonds(traj, dtype='dataset', update_legend=False)
         print (ds.size)
         print (ds.to_dict())
-        d0 = ds.groupby("@")
+        d0 = ds.filter("@")
         legends = d0.keys()
         print (legends)
         indices = np.asarray(from_legends_to_indices(legends, traj.top))
@@ -67,8 +67,8 @@ class Test(unittest.TestCase):
         traj = mdio.load("./data/Tc5b.crd", "./data/Tc5b.top")
         dslist0 = traj.search_hbonds(update_legend=False)
         expected_n_hbonds = 6
-        assert dslist0.groupby("UU").values[0] == expected_n_hbonds
-        assert traj.search_hbonds(update_legend=False).groupby("UU").values[0] == expected_n_hbonds
+        assert dslist0.filter("UU").values[0] == expected_n_hbonds
+        assert traj.search_hbonds(update_legend=False).filter("UU").values[0] == expected_n_hbonds
 
 if __name__ == "__main__":
     unittest.main()

@@ -345,19 +345,21 @@ cdef class DataSetList:
         for d0 in self:
             yield func(d0)
 
-    def filter(self, func):
-        """return a new view of DataSetList of func return True"""
+    def filter(self, func, *args, **kwd):
+        """return a new view of DatasetList of func return True"""
         dslist = self.__class__()
-        dslist.set_py_free_mem(False)
 
-        for d0 in self:
-            if func(d0):
-                dslist.add_existing_set(d0)
+        if isinstance(func, (string_types, list, tuple)):
+            return self.grep(func, *args, **kwd)
+        elif callable(func):
+            for d0 in self:
+                if func(d0, *args, **kwd):
+                    dslist.append(d0)
+            return dslist
+        else:
+            raise NotImplementedError("func must be a string or callable")
 
-        dslist._parent_lists_append(self)
-        return dslist
-
-    def groupby(self, key, mode='legend'):
+    def grep(self, key, mode='legend'):
         """"return a new DataSetList object as a view of `self`
 
         Parameters
@@ -401,6 +403,7 @@ cdef class DataSetList:
 
     def to_dict(self, use_numpy=False):
         """return a dict object with key=legend, value=list"""
+        from collections import OrderedDict as dict
         try:
             if use_numpy:
                 return dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)

@@ -6,7 +6,7 @@ from pytraj.compat import range
 __all__ = ['get_pysander_energies']
 
 def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_options=None, 
-                          mode=None, top=None, dtype='dict'):
+                          mode=None, top=None, dtype='dict', verbose=True):
     # TODO: change method's name?
     """"
     Parameters
@@ -24,6 +24,8 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         if mode='minimal', get only 'bond', 'angle', 'dihedral' and 'total' energies
     top : {Topology, str}, default=None, optional
     dtype : str, {'dict', 'dataset', 'ndarray', 'dataframe'}, default='dict'
+    verbose : bool, default True
+        print warning message if True
 
     Returns:
     Dict of energies (to be used with DataFrame)
@@ -63,7 +65,8 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
     if input_options is None:
         inp = sander.gas_input(igb)
     elif igb is not None:
-        print ("inp is not None, ignore provided `igb` and use `inp`")
+        if verbose:
+            print ("inp is not None, ignore provided `igb` and use `inp`")
         inp = input_options
 
     if not isinstance(parm, AmberParm) or not isinstance(parm, string_types):
@@ -114,7 +117,7 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
     if dtype == 'dict':
         return new_dict
     else:
-        from pytraj import DataSetList
+        from pytraj.datasets.DataSetList import DataSetList
 
         dslist = DataSetList()
         size = new_dict['tot'].__len__()
