@@ -15,6 +15,7 @@ from pytraj.exceptions import PytrajMemviewError
 from pytraj._shared_methods import _tolist, _split_and_write_traj
 from pytraj._get_common_objects import _get_top
 from pytraj.Topology import Topology
+from pytraj.utils import is_int
 
 
 def _make_frame_slices(n_files, original_frame_slice):
@@ -103,6 +104,12 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             _top = self.top
         else:
             _top = self.top._get_new_from_mask(mask)
+        if rmsfit is not None:
+            if len(rmsfit) != 2:
+                raise ValueError("rmsfit must be a tuple of two elements (frame, mask)")
+            if is_int(rmsfit[0]):
+                index = rmsfit[0]
+                rmsfit = tuple([self[index], rmsfit[1]])
         frame_iter_super = super(TrajectoryIterator, self).frame_iter(start, stop, stride)
         return FrameIter(frame_iter_super,
                          original_top=self.top,

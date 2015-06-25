@@ -24,6 +24,7 @@ from .parms.ParmFile import ParmFile
 from . import io
 from .io import  (load, iterload, load_remd, iterload_remd,
                   _load_from_filelist, _iterload_from_filelist,
+                  _load_from_frame_iter,
                   load_pdb_rcsb, load_pdb,
                   load_pseudo_parm, load_cpptraj_file,
                   load_datafile, load_hdf5,
