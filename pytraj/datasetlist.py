@@ -95,7 +95,7 @@ class DatasetList(list):
     def to_pickle(self, filename, use_numpy=True):
         to_pickle(self._to_full_dict(use_numpy), filename)
 
-    def to_json(self, filename, use_numpy=False):
+    def to_json(self, filename, use_numpy=True):
         to_json(self._to_full_dict(use_numpy), filename)
 
     def _from_full_dict(self, ddict):
@@ -132,9 +132,6 @@ class DatasetList(list):
             _d['aspect'] = d.aspect
             _d['idx'] = d.idx
         return ddict
-
-    def to_json(self, filename):
-        to_json(self.to_dict(), filename)
 
     def to_dataframe(self, engine='pandas'):
         if engine == 'pandas':
