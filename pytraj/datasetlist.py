@@ -12,7 +12,18 @@ from pytraj.compat import map
 
 _, np = _import_numpy()
 
-__all__ = ['load_datafile', 'vstack', 'DatasetList']
+__all__ = ['load_datafile', 'vstack', 'DatasetList',
+           'from_pickle', 'from_json']
+
+def from_pickle(filename):
+    dslist = DatasetList()
+    dslist.from_pickle(filename)
+    return dslist
+
+def from_json(filename):
+    dslist = DatasetList()
+    dslist.from_json(filename)
+    return dslist
 
 def load_datafile(filename):
     """load cpptraj's output"""
@@ -88,17 +99,20 @@ class DatasetList(list):
         to_json(self._to_full_dict(use_numpy), filename)
 
     def _from_full_dict(self, ddict):
+        from pytraj.datasets.DataSetList import DataSetList as CpptrajDataSetList
         ordered_keys = ddict['ordered_keys']
 
+        cppdslist = CpptrajDataSetList()
         for legend in ordered_keys:
             d = ddict[legend]
             values = d['values']
-            self.add_set(d['dtype'], d['name'])
-            last = self[-1]
+            cppdslist.add_set(d['dtype'], d['name'])
+            last = cppdslist[-1]
             last.set_name_aspect_index_ensemble_num(d['aspect'], d['name'], d['idx'], 0)
             last.set_legend(legend)
             last.resize(len(values))
             last.values[:] = values
+        self.from_datasetlist(cppdslist)
 
     def _to_full_dict(self, use_numpy=True):
         """

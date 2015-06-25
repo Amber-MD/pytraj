@@ -263,9 +263,6 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "Topology.h"
 #include "Frame.h"
 #include "ArgList.h"
-#include "BaseIOtype.h"
-#include "TrajectoryIO.h"
-#include "TrajectoryFile.h"
 #include "Trajin.h"
 #include <algorithm>
 #include "pythread.h"
@@ -490,9 +487,6 @@ static const char *__pyx_f[] = {
   "pytraj/AtomMask.pxd",
   "pytraj/Topology.pxd",
   "pytraj/ArgList.pxd",
-  "pytraj/core/BaseIOtype.pxd",
-  "pytraj/trajs/TrajectoryIO.pxd",
-  "pytraj/trajs/TrajectoryFile.pxd",
   "pytraj/trajs/Trajin.pxd",
   "pytraj/Trajectory.pxd",
 };
@@ -622,10 +616,6 @@ struct __pyx_obj_6pytraj_8Topology_Topology;
 struct __pyx_obj_6pytraj_19core_dot_CoordinateInfo_CoordinateInfo;
 struct __pyx_obj_6pytraj_5Frame_Frame;
 struct __pyx_obj_6pytraj_7ArgList_ArgList;
-struct __pyx_obj_6pytraj_15core_dot_BaseIOtype_BaseIOtype;
-struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO;
-struct __pyx_obj_6pytraj_13core_dot_FileName_FileName;
-struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile;
 struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin;
 struct __pyx_obj_6pytraj_10Trajectory_Trajectory;
 struct __pyx_obj_6pytraj_15_shared_methods___pyx_scope_struct___frame_iter;
@@ -814,24 +804,6 @@ typedef std::vector<float>  __pyx_t_6pytraj_5Frame_CRDtype;
  * cdef extern from "Frame.h" nogil:
  */
 typedef std::vector<double>  __pyx_t_6pytraj_5Frame_Darray;
-
-/* "core/BaseIOtype.pxd":3
- * # distutil: language = c++
- * 
- * ctypedef _BaseIOtype* (*AllocatorType)()             # <<<<<<<<<<<<<<
- * ctypedef void (*HelpType)()
- * 
- */
-typedef BaseIOtype *(*__pyx_t_6pytraj_15core_dot_BaseIOtype_AllocatorType)(void);
-
-/* "core/BaseIOtype.pxd":4
- * 
- * ctypedef _BaseIOtype* (*AllocatorType)()
- * ctypedef void (*HelpType)()             # <<<<<<<<<<<<<<
- * 
- * cdef extern from "BaseIOtype.h":
- */
-typedef void (*__pyx_t_6pytraj_15core_dot_BaseIOtype_HelpType)(void);
 
 /* "pytraj/Trajectory.pxd":10
  * from .cpp_algorithm cimport reverse as cpp_reverse
@@ -1259,68 +1231,19 @@ struct __pyx_obj_6pytraj_7ArgList_ArgList {
 };
 
 
-/* "core/BaseIOtype.pxd":12
- *         pass
- * 
- * cdef class BaseIOtype:             # <<<<<<<<<<<<<<
- *     cdef _BaseIOtype* baseptr0
- */
-struct __pyx_obj_6pytraj_15core_dot_BaseIOtype_BaseIOtype {
-  PyObject_HEAD
-  BaseIOtype *baseptr0;
-};
-
-
-/* "pytraj/trajs/TrajectoryIO.pxd":41
- * 
- * 
- * cdef class TrajectoryIO (BaseIOtype):             # <<<<<<<<<<<<<<
- *     cdef _TrajectoryIO* baseptr_1
- */
-struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO {
-  struct __pyx_obj_6pytraj_15core_dot_BaseIOtype_BaseIOtype __pyx_base;
-  TrajectoryIO *baseptr_1;
-};
-
-
-/* "core/FileName.pxd":23
- *         bint empty()
- * 
- * cdef class FileName:             # <<<<<<<<<<<<<<
- *     cdef _FileName* thisptr
- */
-struct __pyx_obj_6pytraj_13core_dot_FileName_FileName {
-  PyObject_HEAD
-  FileName *thisptr;
-};
-
-
-/* "pytraj/trajs/TrajectoryFile.pxd":51
- * 
- * 
- * cdef class TrajectoryFile:             # <<<<<<<<<<<<<<
- *     cdef _TrajectoryFile* baseptr0
- *     cdef Topology _top
- */
-struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile {
-  PyObject_HEAD
-  TrajectoryFile *baseptr0;
-  struct __pyx_obj_6pytraj_8Topology_Topology *_top;
-};
-
-
 /* "trajs/Trajin.pxd":50
- *         _CoordinateInfo TrajCoordInfo()
+ *         const _FileName & TrajFilename ()const
  * 
- * cdef class Trajin (TrajectoryFile):             # <<<<<<<<<<<<<<
- *     #( baseptr0 is from TrajectoryFile
- *     # create tmpfarray to hold sub Trajectory
+ * cdef class Trajin:             # <<<<<<<<<<<<<<
+ *     cdef object tmpfarray
+ *     cdef _Trajin* baseptr_1
  */
 struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin {
-  struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile __pyx_base;
+  PyObject_HEAD
   PyObject *tmpfarray;
   Trajin *baseptr_1;
   int debug;
+  struct __pyx_obj_6pytraj_8Topology_Topology *_top;
   PyObject *_tmpobj;
 };
 
@@ -2104,18 +2027,6 @@ static PyTypeObject *__pyx_ptype_6pytraj_5Frame_Frame = 0;
 
 /* Module declarations from 'pytraj.ArgList' */
 static PyTypeObject *__pyx_ptype_6pytraj_7ArgList_ArgList = 0;
-
-/* Module declarations from 'pytraj.core.BaseIOtype' */
-static PyTypeObject *__pyx_ptype_6pytraj_15core_dot_BaseIOtype_BaseIOtype = 0;
-
-/* Module declarations from 'pytraj.trajs.TrajectoryIO' */
-static PyTypeObject *__pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO = 0;
-
-/* Module declarations from 'pytraj.core.FileName' */
-static PyTypeObject *__pyx_ptype_6pytraj_13core_dot_FileName_FileName = 0;
-
-/* Module declarations from 'pytraj.trajs.TrajectoryFile' */
-static PyTypeObject *__pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile = 0;
 
 /* Module declarations from 'pytraj.trajs.Trajin' */
 static PyTypeObject *__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = 0;
@@ -19550,12 +19461,8 @@ PyMODINIT_FUNC PyInit__shared_methods(void)
   __pyx_ptype_6pytraj_5Frame_Frame = __Pyx_ImportType("pytraj.Frame", "Frame", sizeof(struct __pyx_obj_6pytraj_5Frame_Frame), 1); if (unlikely(!__pyx_ptype_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_vtabptr_6pytraj_5Frame_Frame = (struct __pyx_vtabstruct_6pytraj_5Frame_Frame*)__Pyx_GetVtable(__pyx_ptype_6pytraj_5Frame_Frame->tp_dict); if (unlikely(!__pyx_vtabptr_6pytraj_5Frame_Frame)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_7ArgList_ArgList = __Pyx_ImportType("pytraj.ArgList", "ArgList", sizeof(struct __pyx_obj_6pytraj_7ArgList_ArgList), 1); if (unlikely(!__pyx_ptype_6pytraj_7ArgList_ArgList)) {__pyx_filename = __pyx_f[15]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_15core_dot_BaseIOtype_BaseIOtype = __Pyx_ImportType("pytraj.core.BaseIOtype", "BaseIOtype", sizeof(struct __pyx_obj_6pytraj_15core_dot_BaseIOtype_BaseIOtype), 1); if (unlikely(!__pyx_ptype_6pytraj_15core_dot_BaseIOtype_BaseIOtype)) {__pyx_filename = __pyx_f[16]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO = __Pyx_ImportType("pytraj.trajs.TrajectoryIO", "TrajectoryIO", sizeof(struct __pyx_obj_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_12TrajectoryIO_TrajectoryIO)) {__pyx_filename = __pyx_f[17]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_13core_dot_FileName_FileName = __Pyx_ImportType("pytraj.core.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_13core_dot_FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_13core_dot_FileName_FileName)) {__pyx_filename = __pyx_f[12]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile = __Pyx_ImportType("pytraj.trajs.TrajectoryFile", "TrajectoryFile", sizeof(struct __pyx_obj_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile), 1); if (unlikely(!__pyx_ptype_6pytraj_5trajs_14TrajectoryFile_TrajectoryFile)) {__pyx_filename = __pyx_f[18]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin)) {__pyx_filename = __pyx_f[19]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_10Trajectory_Trajectory = __Pyx_ImportType("pytraj.Trajectory", "Trajectory", sizeof(struct __pyx_obj_6pytraj_10Trajectory_Trajectory), 1); if (unlikely(!__pyx_ptype_6pytraj_10Trajectory_Trajectory)) {__pyx_filename = __pyx_f[20]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin = __Pyx_ImportType("pytraj.trajs.Trajin", "Trajin", sizeof(struct __pyx_obj_6pytraj_12trajs_dot_Trajin_Trajin), 1); if (unlikely(!__pyx_ptype_6pytraj_12trajs_dot_Trajin_Trajin)) {__pyx_filename = __pyx_f[16]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_10Trajectory_Trajectory = __Pyx_ImportType("pytraj.Trajectory", "Trajectory", sizeof(struct __pyx_obj_6pytraj_10Trajectory_Trajectory), 1); if (unlikely(!__pyx_ptype_6pytraj_10Trajectory_Trajectory)) {__pyx_filename = __pyx_f[17]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
