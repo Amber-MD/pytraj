@@ -32,9 +32,10 @@ def load_ParmEd(parmed_obj, restype="top"):
                 import numpy as np
                 coords = np.asarray(coords)
             shape = coords.shape
-            if len(shape) == 2:
+            if len(shape) in [1, 2]:
                 coords = coords.reshape(1, fa.top.n_atoms, 3)
                 shape = coords.shape
+            print (shape)
             fa._allocate(shape[0], shape[1])
             fa.update_coordinates(coords)
             return fa
