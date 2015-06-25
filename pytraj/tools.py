@@ -24,7 +24,7 @@ def _dispatch_value(func):
     inner.__doc__ = func.__doc__
     return inner
 
-def _no_tested(func):
+def _not_yet_tested(func):
     def inner(*args, **kwd):
         return func(*args, **kwd)
     msg = "This method is not tested. Use it with your own risk"
@@ -45,7 +45,7 @@ def chunk_average(self, n_chunk):
     return np.array(list(map(np.mean, split(self, n_chunk))))
 
 @_dispatch_value
-@_no_tested
+@_not_yet_tested
 def moving_average(data, n):
     # http://stackoverflow.com/questions/11352047/finding-moving-average-from-data-points-in-python
     """
@@ -92,7 +92,7 @@ def flatten(x):
             result.append(el)
     return result
 
-@_no_tested
+@_not_yet_tested
 def n_grams(a, n):
     """
     """
