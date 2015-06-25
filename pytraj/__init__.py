@@ -33,10 +33,13 @@ from .io import  (load, iterload, load_remd, iterload_remd,
                   load_mdtraj,
                   load_MDAnalysis, load_MDAnalysisIterator,
                   load_topology, read_parm, write_parm, 
+                  get_coordinates,
                   save, write_traj,
                   read_pickle, read_json,
                   to_pickle, to_json,
                   )
+
+load_from_frame_iter = _load_from_frame_iter
 
 # dataset stuff
 from .datafiles.load_sample_data import load_sample_data
