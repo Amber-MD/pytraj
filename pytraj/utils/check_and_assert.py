@@ -101,8 +101,9 @@ def is_frame_iter(iter_obj):
     """
     if iter_obj.__class__.__name__ == 'generator' and 'frame_iter' in iter_obj.__name__:
         return True
-    else:
-        return False
+    if iter_obj.__class__.__name__ == 'FrameIter':
+        return True
+    return False
 
 def is_chunk_iter(iter_obj):
     """check if is frame_iter

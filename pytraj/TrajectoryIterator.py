@@ -95,53 +95,24 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         from itertools import tee
         return tee(self, n_iters)
 
-    def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False, rmsfit=None):
-        """frame iterator
+    def frame_iter(self, start=0, stop=-1, stride=1, mask=None, 
+                   autoimage=False, rmsfit=None):
 
-        Parameters
-        ----------
-        start : int, default=0
-        stop : int, default=-1 (last frame)
-        stride : int, deault=1 (no skipping)
-        mask : str | array of integers | AtomMask object, default=None
-            get sub-frame with coords of given mask
-        autoimage : bool, default=False
-            perform `autoimage`
-        rmsfit : None | tuple/list of (Frame, mask)
-            perform `rmsfit` reference if not `None`
-            Notes : reference must have the same n_atoms
-        """
-        if autoimage:
-            act = ActionDict()['autoimage']
-        if rmsfit is not None:
-            ref, mask_for_rmsfit = rmsfit
-            need_align = True
-            from pytraj.actions.CpptrajActions import Action_Rmsd
+        from .core.frameiter import FrameIter
+        if mask is None:
+            _top = self.top
         else:
-            need_align = False
-            ref, mask_for_rmsfit = None, None
-
-        for frame in super(TrajectoryIterator, self).frame_iter(start, stop, stride):
-            if autoimage:
-                act(current_frame=frame, top=self.top)
-            if need_align:
-                act = Action_Rmsd()
-                # trick cpptraj to fit to 1st frame (=ref)
-                act(mask_for_rmsfit, [ref, frame], top=self.top)
-            if mask is not None:
-                if isinstance(mask, string_types):
-                    atm = self.top(mask)
-                else:
-                    try:
-                        atm = AtomMask()
-                        atm.add_selected_indices(mask)
-                    except TypeError:
-                        raise PytrajMemviewError()
-                frame2 = Frame(atm.n_atoms)
-                frame2.set_coords(frame, atm)
-                yield frame2
-            else:
-                yield frame
+            _top = self.top._get_new_from_mask(mask)
+        frame_iter_super = super(TrajectoryIterator, self).frame_iter(start, stop, stride)
+        return FrameIter(frame_iter_super,
+                         original_top=self.top,
+                         new_top=_top,
+                         start=start,
+                         stop=stop,
+                         stride=stride,
+                         mask=mask,
+                         autoimage=autoimage,
+                         rmsfit=rmsfit)
 
     def chunk_iter(self, chunksize=2, start=0, stop=-1, 
                    autoimage=False, 
