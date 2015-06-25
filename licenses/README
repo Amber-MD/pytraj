@@ -7,3 +7,4 @@ externals: licenses for external libs we used
     + magic.txt: magic package (MIT)
     + pandas.txt: pandas package ("new" BSD)
     + dask.txt: dask package (new BSD): used in ../pytraj/datasets/DataSet_1D.pyx
+    + toolz.txt: toolz package (BSD): copy/adapt several functions

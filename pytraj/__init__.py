@@ -45,6 +45,9 @@ load_from_frame_iter = _load_from_frame_iter
 from .datafiles.load_sample_data import load_sample_data
 from .datasetlist import DatasetList
 
+# tool
+from . import tools
+
 # actions and analyses
 from .actions import CpptrajActions as allactions
 from .analyses import CpptrajAnalyses as allanalyses
