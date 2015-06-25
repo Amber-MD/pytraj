@@ -34,6 +34,7 @@ def load_ParmEd(parmed_obj, restype="top"):
             shape = coords.shape
             if len(shape) == 2:
                 coords = coords.reshape(1, fa.top.n_atoms, 3)
+                shape = coords.shape
             fa._allocate(shape[0], shape[1])
             fa.update_coordinates(coords)
             return fa
