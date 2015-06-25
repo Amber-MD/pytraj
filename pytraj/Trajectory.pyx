@@ -8,13 +8,13 @@ from cython.parallel cimport prange, parallel
 from libc.string cimport memcpy
 from .Topology cimport Topology
 from .AtomMask cimport AtomMask
-from ._utils cimport get_positive_idx
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
 from .math.Matrix_3x3 cimport Matrix_3x3
 from .cpp_algorithm cimport iter_swap
 
 # python level
+from ._utils import get_positive_idx
 from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types, PY2

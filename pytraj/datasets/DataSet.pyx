@@ -196,7 +196,7 @@ cdef class DataSet:
         self.baseptr0.SetupSet(name.encode(), idx, aspect.encode(), num)
 
     def scalar_descr(self):
-        from pytraj._utils import set_worl_silent
+        from pytraj import set_worl_silent
         set_worl_silent(False)
         self.baseptr0.ScalarDescription()
         set_worl_silent(True)

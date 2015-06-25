@@ -4,9 +4,9 @@ from __future__ import absolute_import
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array
-from .._utils cimport get_positive_idx
 
 # python level
+from .._cyutils import get_positive_idx
 from collections import defaultdict
 from .cast_dataset import cast_dataset
 from ..utils.check_and_assert import _import, is_array
