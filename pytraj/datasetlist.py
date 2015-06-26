@@ -12,7 +12,18 @@ from pytraj.compat import map
 
 _, np = _import_numpy()
 
-__all__ = ['load_datafile', 'vstack', 'DatasetList']
+__all__ = ['load_datafile', 'vstack', 'DatasetList',
+           'from_pickle', 'from_json']
+
+def from_pickle(filename):
+    dslist = DatasetList()
+    dslist.from_pickle(filename)
+    return dslist
+
+def from_json(filename):
+    dslist = DatasetList()
+    dslist.from_json(filename)
+    return dslist
 
 def load_datafile(filename):
     """load cpptraj's output"""
@@ -84,21 +95,29 @@ class DatasetList(list):
     def to_pickle(self, filename, use_numpy=True):
         to_pickle(self._to_full_dict(use_numpy), filename)
 
-    def to_json(self, filename, use_numpy=False):
-        to_json(self._to_full_dict(use_numpy), filename)
+    def to_json(self, filename, use_numpy=True):
+        full_dict = self._to_full_dict(use_numpy=use_numpy)
+        for key in self.keys():
+            d = full_dict[key]['values'] 
+            if hasattr(d, 'dtype') and 'int' in d.dtype.name:
+                full_dict[key]['values'] = d.tolist()
+        to_json(full_dict, filename)
 
     def _from_full_dict(self, ddict):
+        from pytraj.datasets.DataSetList import DataSetList as CpptrajDataSetList
         ordered_keys = ddict['ordered_keys']
 
+        cppdslist = CpptrajDataSetList()
         for legend in ordered_keys:
             d = ddict[legend]
             values = d['values']
-            self.add_set(d['dtype'], d['name'])
-            last = self[-1]
+            cppdslist.add_set(d['dtype'], d['name'])
+            last = cppdslist[-1]
             last.set_name_aspect_index_ensemble_num(d['aspect'], d['name'], d['idx'], 0)
             last.set_legend(legend)
             last.resize(len(values))
             last.values[:] = values
+        self.from_datasetlist(cppdslist)
 
     def _to_full_dict(self, use_numpy=True):
         """
@@ -118,9 +137,6 @@ class DatasetList(list):
             _d['aspect'] = d.aspect
             _d['idx'] = d.idx
         return ddict
-
-    def to_json(self, filename):
-        to_json(self.to_dict(), filename)
 
     def to_dataframe(self, engine='pandas'):
         if engine == 'pandas':

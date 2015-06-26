@@ -2,14 +2,14 @@
 
 from libcpp.string cimport string
 from .DispatchObject cimport _DispatchObject, DispatchObject, DispatchAllocatorType
-from ..Topology cimport _Topology, Topology
 from .TopologyList cimport _TopologyList, TopologyList
-from ..Frame cimport _Frame, Frame
-from ..datasets.DataSetList cimport _DataSetList, DataSetList
 from .DataFileList cimport _DataFileList, DataFileList
-from ..ArgList cimport _ArgList, ArgList
 from ._FunctPtr cimport FunctPtr
+from ..Topology cimport _Topology, Topology
 from ..AtomMask cimport _AtomMask, AtomMask
+from ..Frame cimport _Frame, Frame
+from ..ArgList cimport _ArgList, ArgList
+from ..datasets.DataSetList cimport _DataSetList, DataSetList
 
 cdef extern from "ActionList.h":
     cdef cppclass _ActionList "ActionList":

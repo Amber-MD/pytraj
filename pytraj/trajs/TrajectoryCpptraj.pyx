@@ -1,9 +1,9 @@
 # distutils: language = c++
-from .._utils cimport get_positive_idx
 from ..Trajectory cimport Trajectory
 from ..AtomMask cimport AtomMask
 from ..Topology cimport Topology
 
+from .._cyutils import get_positive_idx
 from pytraj.externals.six import string_types
 from ..decorators import memoize # cache
 from .._shared_methods import my_str_method

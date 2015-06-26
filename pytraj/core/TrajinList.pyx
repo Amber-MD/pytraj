@@ -1,11 +1,12 @@
 # distutils: language = c++
+from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
-from .._utils cimport get_positive_idx
 from ..trajs.Trajin_Single cimport _Trajin_Single, Trajin_Single
 from ..trajs.Trajin_Single cimport Trajin_Single as TrajectoryREMDIterator
 from ..TrajectoryREMDIterator cimport TrajectoryREMDIterator
 
+from .._cyutils import get_positive_idx
 from ..TrajectoryIterator import TrajectoryIterator
 from ..externals.six import string_types
 from ..cpptraj_dict import TrajModeDict, get_key
@@ -71,9 +72,7 @@ cdef class TrajinList:
 
         while it != self.thisptr.end():
             ts = Trajin_Single()
-            ts.baseptr_1 = deref(it) # baseptr_1 is from `Trajin`
-            # need to cast other pointers too
-            ts.baseptr0 = <_TrajectoryFile*> ts.baseptr_1
+            ts.baseptr_1 = <_Trajin*> deref(it) # baseptr_1 is from `Trajin`
             # don't cast to `thisptr`, will get segfault
             # Why: because TrajinList might return Trajin_Multi (inherited from `Trajin`
             # but not `Trajin_Single`
@@ -93,9 +92,7 @@ cdef class TrajinList:
         for _traj in self:
             if s == idx:
                 # casting
-                traj.baseptr_1 = <_Trajin*> _traj.baseptr0
-                # need to cast other pointers too
-                traj.baseptr0 = <_TrajectoryFile*> traj.baseptr_1
+                traj.baseptr_1 = <_Trajin*> _traj.baseptr_1
                 # dont' cast to _Trajin_Single* or will get segfault
                 # we don't actually use _Trajin_Single here
                 # ideally we can subclass `Trajin` but we can directly allocate class

@@ -481,6 +481,16 @@ cdef class Topology:
         top.thisptr[0] = deref(self.thisptr.modifyStateByMask(m.thisptr[0]))
         return top
 
+    def _get_new_from_mask(self, mask=None):
+        '''
+        >>> top.get_new_with_mask('@CA')
+        '''
+        if mask is None or mask == "":
+            return self
+        else:
+            atm = self(mask)
+            return self._modify_state_by_mask(atm)
+
     def _modify_by_map(self, vector[int] m):
         cdef Topology top = Topology()
         top.thisptr[0] = deref(self.thisptr.ModifyByMap(m))

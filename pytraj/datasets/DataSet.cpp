@@ -995,6 +995,7 @@ static char __pyx_k_legend[] = "legend";
 static char __pyx_k_name_2[] = "__name__";
 static char __pyx_k_npdata[] = "_npdata";
 static char __pyx_k_pyplot[] = "pyplot";
+static char __pyx_k_pytraj[] = "pytraj";
 static char __pyx_k_resize[] = "resize";
 static char __pyx_k_sorted[] = "sorted";
 static char __pyx_k_string[] = "string";
@@ -1034,7 +1035,6 @@ static char __pyx_k_cpptraj_dict[] = "cpptraj_dict";
 static char __pyx_k_import_numpy[] = "_import_numpy";
 static char __pyx_k_pytraj_utils[] = "pytraj.utils";
 static char __pyx_k_core_DataFile[] = "core.DataFile";
-static char __pyx_k_pytraj__utils[] = "pytraj._utils";
 static char __pyx_k_require_numpy[] = "require numpy";
 static char __pyx_k_NotImplemented[] = "NotImplemented";
 static char __pyx_k_require_having[] = "require_having";
@@ -1129,7 +1129,7 @@ static PyObject *__pyx_n_s_plot;
 static PyObject *__pyx_n_s_precision;
 static PyObject *__pyx_n_s_property;
 static PyObject *__pyx_n_s_pyplot;
-static PyObject *__pyx_n_s_pytraj__utils;
+static PyObject *__pyx_n_s_pytraj;
 static PyObject *__pyx_kp_s_pytraj_datasets_0_size_1_key_2;
 static PyObject *__pyx_n_s_pytraj_utils;
 static PyObject *__pyx_n_s_range;
@@ -4625,7 +4625,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_50set_name_aspect_
  *         self.baseptr0.SetupSet(name.encode(), idx, aspect.encode(), num)
  * 
  *     def scalar_descr(self):             # <<<<<<<<<<<<<<
- *         from pytraj._utils import set_worl_silent
+ *         from pytraj import set_worl_silent
  *         set_worl_silent(False)
  */
 
@@ -4657,7 +4657,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_52scalar_descr(str
   /* "pytraj/datasets/DataSet.pyx":199
  * 
  *     def scalar_descr(self):
- *         from pytraj._utils import set_worl_silent             # <<<<<<<<<<<<<<
+ *         from pytraj import set_worl_silent             # <<<<<<<<<<<<<<
  *         set_worl_silent(False)
  *         self.baseptr0.ScalarDescription()
  */
@@ -4666,7 +4666,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_52scalar_descr(str
   __Pyx_INCREF(__pyx_n_s_set_worl_silent);
   __Pyx_GIVEREF(__pyx_n_s_set_worl_silent);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_set_worl_silent);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj__utils, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 199; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pytraj, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 199; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_set_worl_silent); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 199; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4678,7 +4678,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_52scalar_descr(str
 
   /* "pytraj/datasets/DataSet.pyx":200
  *     def scalar_descr(self):
- *         from pytraj._utils import set_worl_silent
+ *         from pytraj import set_worl_silent
  *         set_worl_silent(False)             # <<<<<<<<<<<<<<
  *         self.baseptr0.ScalarDescription()
  *         set_worl_silent(True)
@@ -4688,7 +4688,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_52scalar_descr(str
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pytraj/datasets/DataSet.pyx":201
- *         from pytraj._utils import set_worl_silent
+ *         from pytraj import set_worl_silent
  *         set_worl_silent(False)
  *         self.baseptr0.ScalarDescription()             # <<<<<<<<<<<<<<
  *         set_worl_silent(True)
@@ -4711,7 +4711,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_7DataSet_7DataSet_52scalar_descr(str
  *         self.baseptr0.SetupSet(name.encode(), idx, aspect.encode(), num)
  * 
  *     def scalar_descr(self):             # <<<<<<<<<<<<<<
- *         from pytraj._utils import set_worl_silent
+ *         from pytraj import set_worl_silent
  *         set_worl_silent(False)
  */
 
@@ -10400,7 +10400,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_precision, __pyx_k_precision, sizeof(__pyx_k_precision), 0, 0, 1, 1},
   {&__pyx_n_s_property, __pyx_k_property, sizeof(__pyx_k_property), 0, 0, 1, 1},
   {&__pyx_n_s_pyplot, __pyx_k_pyplot, sizeof(__pyx_k_pyplot), 0, 0, 1, 1},
-  {&__pyx_n_s_pytraj__utils, __pyx_k_pytraj__utils, sizeof(__pyx_k_pytraj__utils), 0, 0, 1, 1},
+  {&__pyx_n_s_pytraj, __pyx_k_pytraj, sizeof(__pyx_k_pytraj), 0, 0, 1, 1},
   {&__pyx_kp_s_pytraj_datasets_0_size_1_key_2, __pyx_k_pytraj_datasets_0_size_1_key_2, sizeof(__pyx_k_pytraj_datasets_0_size_1_key_2), 0, 0, 1, 0},
   {&__pyx_n_s_pytraj_utils, __pyx_k_pytraj_utils, sizeof(__pyx_k_pytraj_utils), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
@@ -10512,7 +10512,7 @@ static int __Pyx_InitCachedConstants(void) {
 
   /* "pytraj/datasets/DataSet.pyx":200
  *     def scalar_descr(self):
- *         from pytraj._utils import set_worl_silent
+ *         from pytraj import set_worl_silent
  *         set_worl_silent(False)             # <<<<<<<<<<<<<<
  *         self.baseptr0.ScalarDescription()
  *         set_worl_silent(True)

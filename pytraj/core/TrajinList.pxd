@@ -2,7 +2,6 @@
 from libcpp.string cimport string
 from ..cpp_vector cimport vector as cppvector
 from ..trajs.Trajin cimport _Trajin, Trajin
-from ..trajs.TrajectoryFile cimport _TrajectoryFile
 from .TopologyList cimport _TopologyList, TopologyList
 from ..ArgList cimport _ArgList, ArgList
 

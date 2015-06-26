@@ -203,7 +203,10 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
 def _load_from_frame_iter(traj_frame_iter, top=None):
     from .Trajectory import Trajectory
     if top is None or top.is_empty():
-        raise ValueError("must provide non-empty Topology")
+        if hasattr(traj_frame_iter, 'new_top'):
+            top = traj_frame_iter.new_top
+        else:
+            raise ValueError("must provide non-empty Topology")
     fa = Trajectory(traj_frame_iter, top=top)
     return fa
 
@@ -418,3 +421,19 @@ def load_MDAnalysisIterator(u):
 # creat alias
 save = write_traj
 save_traj = write_traj
+
+def get_coordinates(an_object, top=None):
+    '''return 3D-ndarray coordinates of `an_object`
+    Parameters
+    ----------
+    an_object : could be anything having Frame info
+        a Trajectory, TrajectoryIterator,
+        a frame_iter, FrameIter, ...
+    top : optional Topology if `an_object` does not have this information
+
+        This method is designed to load coordinates with minimum memory requirement
+    '''
+    if hasattr(an_object, 'xyz'):
+        return an_object.xyz[:]
+    elif is_frame_iter(an_object):
+        return _load_from_frame_iter(an_object, top=top).xyz[:]

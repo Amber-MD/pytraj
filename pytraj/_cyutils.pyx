@@ -1,3 +1,16 @@
+from cython cimport view
+
+def get_positive_idx(idx, size):
+    """Used for negative indexing"""
+    if idx < 0:
+        idx = size + idx
+        if idx < 0:
+            raise ValueError("index is out of range")
+    if idx >= size:
+        raise ValueError("index is out of range")
+    return idx
+
+
 def _int_array2d_like_to_memview(mylist):
     """convert 2D array-like of integers to cython.view.array
     """
@@ -15,6 +28,7 @@ def _int_array2d_like_to_memview(mylist):
                 arr0[i, j] = mylist[i][j]
         int_view = arr0
     return int_view
+
 
 def _int_array1d_like_to_memview(mylist):
     """convert 1D array-like of integers to cython.view.array

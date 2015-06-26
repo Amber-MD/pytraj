@@ -4,10 +4,10 @@ import os
 cimport cython
 from cython.parallel cimport prange
 from cpython.array cimport array as pyarray
-from .._utils cimport get_positive_idx
 from ..Trajectory cimport Trajectory
 from ..AtomMask cimport AtomMask
 
+from .._cyutils import get_positive_idx
 from ..decorators import memoize # cache
 from ..externals.six import string_types
 from .._shared_methods import my_str_method
@@ -21,12 +21,14 @@ from pytraj.externals.six.moves import range
 from .Trajout import Trajout
 
 
-cdef class Trajin (TrajectoryFile):
+cdef class Trajin:
 
     def __cinit__(self):
-        self.baseptr_1 = <_Trajin*> self.baseptr0
         self.debug = False
-        pass
+        self._top = Topology()
+
+        # let cpptraj free memory for self._top
+        self._top.py_free_mem = False
 
     def __dealloc__(self):
         pass
@@ -522,3 +524,25 @@ cdef class Trajin (TrajectoryFile):
     def to_mutable_trajectory(self):
         """same as self[:] but more explicit"""
         return self[:]
+
+    @property
+    def filename(self):
+        cdef FileName fname = FileName()
+        fname.thisptr[0] = self.baseptr_1.TrajFilename()
+        return fname.__str__()
+
+    property top:
+        def __get__(self):
+            if not self._top.is_empty():
+                self._top.thisptr = self.baseptr_1.TrajParm()
+            return self._top
+
+        def __set__(self, Topology other):
+            # make a copy
+            cdef Topology newtop = other.copy()
+            # since we will pass a pointer to SetTrajParm method,
+            # we let cpptraj frees memory
+            newtop.py_free_mem = False
+
+            self.baseptr_1.SetTrajParm(newtop.thisptr)
+            self._top.thisptr = self.baseptr_1.TrajParm()

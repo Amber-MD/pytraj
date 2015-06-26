@@ -1,7 +1,7 @@
 from __future__ import print_function
 import unittest
-from pytraj._utils import _int_array1d_like_to_memview
-from pytraj._utils import _int_array2d_like_to_memview
+from pytraj._cyutils import _int_array1d_like_to_memview
+from pytraj._cyutils import _int_array2d_like_to_memview
 
 class Test(unittest.TestCase):
     def test_0(self):
@@ -29,7 +29,6 @@ class Test(unittest.TestCase):
     def test_1(self):
         import numpy as np
         from array import array
-        from pytraj._utils import _int_array2d_like_to_memview
 
         my2dlist = [[100, 200], [1, 2]]
         my2dnp = np.array(my2dlist) 

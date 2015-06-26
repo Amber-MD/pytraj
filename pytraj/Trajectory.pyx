@@ -8,13 +8,13 @@ from cython.parallel cimport prange, parallel
 from libc.string cimport memcpy
 from .Topology cimport Topology
 from .AtomMask cimport AtomMask
-from ._utils cimport get_positive_idx
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
 from .math.Matrix_3x3 cimport Matrix_3x3
 from .cpp_algorithm cimport iter_swap
 
 # python level
+from ._cyutils import get_positive_idx, _int_array1d_like_to_memview
 from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types, PY2
@@ -28,9 +28,7 @@ from .trajs.Trajout import Trajout
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._shared_methods import (_savetraj, _get_temperature_set,
                               _xyz, _tolist, _split_and_write_traj)
-from ._utils import _int_array1d_like_to_memview
-from ._shared_methods import my_str_method
-from ._shared_methods import _box_to_ndarray
+from ._shared_methods import my_str_method, _box_to_ndarray
 from ._xyz import XYZ
 
 from . import common_actions as pyca
