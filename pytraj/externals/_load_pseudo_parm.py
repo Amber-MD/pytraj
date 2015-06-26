@@ -5,7 +5,7 @@ from __future__ import absolute_import
 __all__ = ['load_pseudo_parm']
 
 
-def load_pseudo_parm(parm, guess_bond=True):
+def load_pseudo_parm(parm, guess_bond=False):
     """load_external's parm objects
 
     Parameters
@@ -60,10 +60,11 @@ def load_pseudo_parm(parm, guess_bond=True):
                 charge = atom.charge
                 mass = atom.mass
                 if mass == 0.:
-                    # need to assign mass
-                    # just to trick cpptraj to avoid create empty atom
-                    # with mass=0.0
-                    mass = 1E-6
+                    # assign 1.0 to mass
+                    # still better than 0.
+                    mass = 1.0
+                if charge == 0.0:
+                    charge = 1E-4
             atom = Atom(aname, atype, charge, mass)
             pseudotop.add_atom(atom=atom, resid=resid, resname=resname)
 
