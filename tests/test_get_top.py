@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
 
         # get top from frame_iter
         _top = _get_top(traj(), None)
-        assert _top is None
+        assert _top is not None
 
         # get top from chunk_iter
         _top = _get_top(traj.chunk_iter(), None)
