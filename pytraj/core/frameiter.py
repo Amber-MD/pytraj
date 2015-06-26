@@ -51,6 +51,11 @@ class FrameIter(object):
                 ref = self.rmsfit[0]
                 mask_for_rmsfit = "*"
             need_align = True
+            if self.autoimage:
+                # need to do autoimage for ref too
+                # make a copy to avoid changing ref
+                ref = ref.copy() 
+                image_act.do_action(ref)
             from pytraj.actions.CpptrajActions import Action_Rmsd
             rmsd_act = Action_Rmsd()
             rmsd_act.read_input(mask_for_rmsfit, top=self.original_top)
