@@ -41,7 +41,9 @@ class FrameIter(object):
     def __iter__(self):
         if self.autoimage:
             from pytraj.actions.CpptrajActions import Action_AutoImage
-            act = Action_AutoImage()
+            image_act = Action_AutoImage()
+            image_act.read_input("", top=self.original_top)
+            image_act.process(self.original_top)
         if self.rmsfit is not None:
             try:
                 ref, mask_for_rmsfit = self.rmsfit
@@ -50,17 +52,21 @@ class FrameIter(object):
                 mask_for_rmsfit = "*"
             need_align = True
             from pytraj.actions.CpptrajActions import Action_Rmsd
+            rmsd_act = Action_Rmsd()
+            rmsd_act.read_input(mask_for_rmsfit, top=self.original_top)
+            rmsd_act.process(self.original_top)
+            # creat first frame to trick cpptraj to align to this.
+            rmsd_act.do_action(ref)
         else:
             need_align = False
             ref, mask_for_rmsfit = None, None
 
         for frame in self.frame_iter:
             if self.autoimage:
-                act(current_frame=frame, top=self.original_top)
+                image_act.do_action(frame)
             if need_align:
-                act = Action_Rmsd()
                 # trick cpptraj to fit to 1st frame (=ref)
-                act(mask_for_rmsfit, [ref, frame], top=self.original_top)
+                rmsd_act.do_action(frame)
             if self.mask is not None:
                 mask = self.mask
                 if isinstance(mask, string_types):

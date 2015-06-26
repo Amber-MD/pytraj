@@ -1,4 +1,5 @@
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -67,6 +68,48 @@ class Test(unittest.TestCase):
         for frame in fake_fa:
             assert frame.has_box() == True
         assert fake_fa.top.has_box() == True
+
+    def test_4(self):
+        # combined with get_coordinates
+        from pytraj.misc import rmsd_1darray
+        traj0 = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+
+        # test autoimage
+        traj1 = traj0.to_mutable_trajectory()
+        xyz0 = pt.get_coordinates(traj0(autoimage=True))
+        traj1.autoimage()
+        xyz1 = traj1.xyz
+        # OK
+        assert rmsd_1darray(xyz0.flatten(), xyz1.flatten()) == 0.
+
+        # rmsfit
+        # reset traj1
+        traj1 = traj0.to_mutable_trajectory()
+        # get new trajectory from traj0
+        traj2 = pt._load_from_frame_iter(traj0(rmsfit=(0, '@CA,C,N')))
+        traj1.rmsfit(ref=0, mask='@CA,C,N')
+
+        # take '@CA,C,N' coords
+        xyz2 = traj2['@CA,C,N'].xyz
+        xyz1 = traj1['@CA,C,N'].xyz
+        # OK
+        assert rmsd_1darray(xyz1.flatten(), xyz2.flatten()) < 1E-10
+
+        # combine autoimage with rmsfit
+        # reset traj1
+        traj1 = traj0.to_mutable_trajectory()
+        # get new trajectory from traj0
+        traj2 = pt._load_from_frame_iter(traj0(autoimage=True, rmsfit=(0, '@CA,C,N')))
+        traj1.autoimage()
+        traj1.rmsfit(ref=0, mask='@CA,C,N')
+
+        # take '@CA,C,N' coords
+        xyz2 = traj2['@CA,C,N'].xyz
+        xyz1 = traj1['@CA,C,N'].xyz
+        # Failed
+        print(rmsd_1darray(xyz1.flatten(), xyz2.flatten()))
+        assert rmsd_1darray(xyz1.flatten(), xyz2.flatten()) < 1E-10
+
 
 if __name__ == "__main__":
     unittest.main()
