@@ -106,8 +106,7 @@ class Test(unittest.TestCase):
         # take '@CA,C,N' coords
         xyz2 = traj2['@CA,C,N'].xyz
         xyz1 = traj1['@CA,C,N'].xyz
-        # Failed
-        print(rmsd_1darray(xyz1.flatten(), xyz2.flatten()))
+        # PASSED
         assert rmsd_1darray(xyz1.flatten(), xyz2.flatten()) < 1E-10
 
 
