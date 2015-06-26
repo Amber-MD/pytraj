@@ -7,12 +7,12 @@ from ..math.Matrix cimport *
 ctypedef vector[double] Darray
 
 cdef extern from "DataSet_MatrixFlt.h": 
-    cdef cppclass _DataSet_MatrixFlt "DataSet_MatrixFlt" (_DataSet_2D):
+    cdef cppclass _DatasetMatrixFloat  "DataSet_MatrixFlt" (_DataSet_2D):
         _DataSet_MatrixFlt() 
         @staticmethod
         _DataSet * Alloc() 
 
 
-cdef class DataSet_MatrixFlt (DataSet_2D):
-    cdef _DataSet_MatrixFlt* thisptr
+cdef class DatasetMatrixFloat(DataSet_2D):
+    cdef _DatasetMatrixFloat * thisptr
     cdef bint py_free_mem
