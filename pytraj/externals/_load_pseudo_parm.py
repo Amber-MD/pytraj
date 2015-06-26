@@ -63,8 +63,6 @@ def load_pseudo_parm(parm, guess_bond=False):
                     # assign 1.0 to mass
                     # still better than 0.
                     mass = 1.0
-                if charge == 0.0:
-                    charge = 1E-4
             atom = Atom(aname, atype, charge, mass)
             pseudotop.add_atom(atom=atom, resid=resid, resname=resname)
 
