@@ -16,6 +16,7 @@ from pytraj._shared_methods import _tolist, _split_and_write_traj
 from pytraj._get_common_objects import _get_top
 from pytraj.Topology import Topology
 from pytraj.utils import is_int
+from pytraj.tools import split_range, _not_yet_tested
 
 
 def _make_frame_slices(n_files, original_frame_slice):
@@ -46,6 +47,9 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             self.top = top.copy()
         else:
             raise ValueError("Topology must be None/string/Topology")
+
+        self.frame_slice_list = []
+
         if filename:
             if self.top.is_empty():
                 raise ValueError('First argument is always a trajectory filename'
@@ -67,11 +71,13 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
         if isinstance(filename, string_types):
             super(TrajectoryIterator, self).load(filename, _top, frame_slice)
+            self.frame_slice_list.append(frame_slice)
         elif isinstance(filename, (list, tuple)):
             filename_list = filename
             full_frame_slice = _make_frame_slices(len(filename_list), frame_slice)
 
             for fname, fslice in zip(filename_list, full_frame_slice):
+                self.frame_slice_list.append(frame_slice)
                 super(TrajectoryIterator, self).load(fname, _top, frame_slice=fslice)
         else:
             raise ValueError("filename must a a string or a list of strings")
@@ -182,3 +188,40 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
     def split_and_write_traj(self, *args, **kwd):
         _split_and_write_traj(self, *args, **kwd)
+
+    @_not_yet_tested
+    def split_iterators(self, n_chunks=None):
+        """simple splitting `self` to n_chunks
+
+        Notes
+        ----
+        n_chunks <= len(self.filelist)
+
+        TODO
+        ----
+        arbitrarily spliting
+        shorten this code too
+        """
+        from pytraj.tools import split_range
+        from pytraj.compat import zip, range
+
+        len_flist = len(self.filelist)
+        fs_list = self.frame_slice_list
+
+        if len_flist < n_chunks:
+            raise ValueError("n_chunks must be smaller than the number of files")
+
+        if n_chunks <= 1:
+            raise ValueError("n_chunks must be larger than 1")
+
+        rlist = split_range(n_chunks, 0, len_flist)
+        trajlist = []
+        for i in range(n_chunks):
+            start, stop = rlist[i]
+            frame_slices = fs_list[start:stop]
+            filenames = self.filelist[start:stop]
+            new_traj = self.__class__()
+            new_traj.top = self.top
+            for fname, fslice in zip(filenames, frame_slices):
+                new_traj.load(fname, frame_slice=fslice)
+            yield new_traj
