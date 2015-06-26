@@ -30,7 +30,8 @@ class Test(unittest.TestCase):
         # json
         js_name = "./output/my_json.js"
         for key in mydict.keys():
-                mydict[key] = mydict.pop(key)
+            print (key)
+            mydict[key] = mydict.pop(key)
         io.to_json(mydict, js_name)
         new_dict2 = io.read_json(js_name)
         for key in mydict.keys():
