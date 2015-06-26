@@ -210,6 +210,14 @@ cdef class DataSet:
             return legend.decode()
         def __set__(self, legend):
             self.baseptr0.SetLegend(legend.encode())
+
+    property key:
+        # retire self.legend?
+        def __get__(self):
+            legend = self.baseptr0.Legend()
+            return legend.decode()
+        def __set__(self, legend):
+            self.baseptr0.SetLegend(legend.encode())
     
     @property
     def name(self):
