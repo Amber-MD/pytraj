@@ -62,11 +62,11 @@ cdef class Topology:
         else:
             box_txt = "non-PBC"
          
-        tmp = "<%s with %s mols, %s residues, %s atoms, %s bonds, %s>" % (
+        tmp = "<%s with %s atoms, %s residues, %s mols, %s bonds, %s>" % (
                 self.__class__.__name__,
-                self.n_mols,
-                self.n_residues,
                 self.n_atoms,
+                self.n_residues,
+                self.n_mols,
                 list(self.bonds).__len__(),
                 box_txt)
         return tmp
@@ -774,4 +774,5 @@ cdef class Topology:
         return sum([atom.charge for atom in self.atoms])
 
     def guess_bond(self):
+        # FIXME, TODO: wrong name
         self.thisptr.CommonSetup(True)

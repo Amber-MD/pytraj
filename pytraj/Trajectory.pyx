@@ -685,12 +685,20 @@ cdef class Trajectory (object):
         pass
 
     def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False, rmsfit=None):
+        # TODO: combined with TrajectoryIterator
         from pytraj.core.frameiter import FrameIter
 
         if mask is None:
             _top = self.top
         else:
             _top = self.top._get_new_from_mask(mask)
+
+        if rmsfit is not None:
+            if len(rmsfit) != 2:
+                raise ValueError("rmsfit must be a tuple of two elements (frame, mask)")
+            if is_int(rmsfit[0]):
+                index = rmsfit[0]
+                rmsfit = tuple([self[index], rmsfit[1]])
 
         frame_iter_super = self._frame_iter(start=start, stop=stop, stride=stride)
         return FrameIter(frame_iter_super,

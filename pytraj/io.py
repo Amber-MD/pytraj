@@ -410,9 +410,13 @@ def load_full_ParmEd(parmed_obj):
 
     with goto_temp_folder():
         name = "mytmptop"
-        parmed_obj.write_parm(name)
-        top = load(name)
-        return top
+        if hasattr(parmed_obj, 'write_parm'):
+            parmed_obj.write_parm(name)
+        elif hasattr(parmed_obj, 'write_pdb'):
+            name = name + ".pdb"
+            parmed_obj.write_pdb(name)
+        top = load_topology(name)
+    return top
 
 def load_MDAnalysisIterator(u):
     from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
