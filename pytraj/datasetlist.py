@@ -3,7 +3,7 @@ from array import array
 from pytraj.datasets.DataSetList import DataSetList as DSL
 from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
-from pytraj.utils import _import_numpy, _import_pandas, is_int, is_array
+from pytraj.utils import _import_numpy, _import_pandas, is_int, is_array, is_generator
 from pytraj._xyz import XYZ
 from pytraj.compat import string_types, callable
 from pytraj.core.DataFile import DataFile
@@ -46,22 +46,26 @@ def vstack(args):
     --------
         d1 = calc_dssp(traj1, dtype='dataset')
         d2 = calc_dssp(traj2, dtype='dataset')
-        d3 = stack(d1, d2)
+        d3 = stack((d1, d2))
     """
-    if not isinstance(args, (list, tuple, map)):
-        raise ValueError("must a tuple/list/map")
+    is_subcriptable = not (isinstance(args, map) or is_generator(args))
 
-    if not isinstance(args, map):
+    if not isinstance(args, (list, tuple, map)) and not is_generator(args):
+        raise ValueError("must a tuple/list/map/generator")
+
+    if is_subcriptable:
         dslist0 = args[0].copy()
     else:
         dslist0 = next(args)
 
-    dslist_iter = args[1:] if not isinstance(args, map) else args
+    dslist_iter = args[1:] if is_subcriptable  else args
 
     for dslist in dslist_iter:
         for d0, d in zip(dslist0, dslist):
             if d0.dtype != d.dtype:
-                raise ValueError("Dont support stack different dtype together")
+                raise TypeError("Dont support stack different dtype together")
+            if d0.key != d.key:
+                raise KeyError("Don't support stack different key")
             d0.append(d.copy())
     return dslist0
 

@@ -99,6 +99,18 @@ def pipe(self, *funcs):
         values = func(values)
     return values
 
+def grep(self, key):
+    """
+    >>> import pytraj as pt
+    >>> dslist = pt.calc_multidihedral(traj) 
+    >>> pt.tools.grep(dslist, 'psi') 
+    """
+    new_self = self.__class__()
+    for d in self:
+        if key in d.key:
+            new_self.append(d)
+    return new_self
+
 def flatten(x):
     # http://kogs-www.informatik.uni-hamburg.de/~meine/python_tricks
     """flatten(sequence) -> list

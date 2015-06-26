@@ -50,5 +50,9 @@ class Test(unittest.TestCase):
         from pytraj.misc import split_range
         run_docstring(split_range)
 
+        print ("pytraj.tools.grep")
+        from pytraj.tools import grep
+        run_docstring(grep)
+
 if __name__ == "__main__":
     unittest.main()
