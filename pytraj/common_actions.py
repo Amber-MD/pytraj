@@ -513,14 +513,15 @@ def calc_multidihedral(traj=None, command="", dtype='dataset', top=None, *args, 
     act(command, traj, _top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def calc_atomicfluct(traj=None, command="", *args, **kwd):
+def calc_atomicfluct(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+    _top = _get_top(traj, top)
+
     dslist = CpptrajDatasetList()
-    dslist.set_py_free_mem(False)
     act = adict['atomicfluct']
-    act(command, traj, dslist=dslist, *args, **kwd)
+    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     # tag: print_output()
     act.print_output() # need to have this. check cpptraj's code
-    return dslist[-1]
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd): 
     """perform dihedral search

@@ -30,6 +30,8 @@ cdef class DataSet_Mesh (DataSet_1D):
         # we need to subtract "1"
         return [[int(self._xcrd(i)-1), self._d_val(i)] for i in range(self.size)]
 
-    def to_ndarray(self):
+    def to_ndarray(self, copy=True):
+        """use copy=True to make consistent with DataSet_1D
+        """
         _, np = _import_numpy()
-        return np.asarray(self.tolist())
+        return np.array(self.tolist())
