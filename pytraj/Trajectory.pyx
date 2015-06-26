@@ -1250,10 +1250,10 @@ cdef class Trajectory (object):
     def calc_watershell(self, mask="", *args, **kwd):
         return pyca.calc_watershell(self, mask, *args, **kwd)
 
-    def autoimage(self, mask=""):
+    def autoimage(self, command=""):
         # NOTE: I tried to used cpptraj's Action_AutoImage directly but
         # there is no gain in speed. don't try.
-        pyca.do_autoimage(self, mask)
+        pyca.do_autoimage(self, command)
 
     def rotate(self, mask="", matrix=None):
         cdef Frame frame

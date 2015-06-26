@@ -1,6 +1,6 @@
 from cython cimport view
 
-def get_positive_idx(idx, size):
+def get_positive_idx(int idx, int size):
     """Used for negative indexing"""
     if idx < 0:
         idx = size + idx

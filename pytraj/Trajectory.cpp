@@ -3198,7 +3198,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_130calc_vector(struc
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_132search_hbonds(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_134get_average_frame(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_136calc_watershell(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_138autoimage(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_138autoimage(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_command); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_140rotate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_matrix); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_142translate(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_144center(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
@@ -23508,7 +23508,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_136calc_watershell(s
  *     def calc_watershell(self, mask="", *args, **kwd):
  *         return pyca.calc_watershell(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
  * 
- *     def autoimage(self, mask=""):
+ *     def autoimage(self, command=""):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -23559,16 +23559,16 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_136calc_watershell(s
 /* "pytraj/Trajectory.pyx":1253
  *         return pyca.calc_watershell(self, mask, *args, **kwd)
  * 
- *     def autoimage(self, mask=""):             # <<<<<<<<<<<<<<
+ *     def autoimage(self, command=""):             # <<<<<<<<<<<<<<
  *         # NOTE: I tried to used cpptraj's Action_AutoImage directly but
  *         # there is no gain in speed. don't try.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_139autoimage(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_138autoimage[] = "Trajectory.autoimage(self, mask='')";
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_138autoimage[] = "Trajectory.autoimage(self, command='')";
 static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_139autoimage(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_mask = 0;
+  PyObject *__pyx_v_command = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -23576,7 +23576,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_139autoimage(PyObjec
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("autoimage (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_mask,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_command,0};
     PyObject* values[1] = {0};
     values[0] = ((PyObject *)__pyx_kp_s__2);
     if (unlikely(__pyx_kwds)) {
@@ -23591,7 +23591,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_139autoimage(PyObjec
       switch (pos_args) {
         case  0:
         if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_mask);
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_command);
           if (value) { values[0] = value; kw_args--; }
         }
       }
@@ -23605,7 +23605,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_139autoimage(PyObjec
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_mask = values[0];
+    __pyx_v_command = values[0];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -23615,14 +23615,14 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_139autoimage(PyObjec
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_138autoimage(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_138autoimage(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_command);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_138autoimage(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_138autoimage(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_command) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -23638,7 +23638,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_138autoimage(struct 
   /* "pytraj/Trajectory.pyx":1256
  *         # NOTE: I tried to used cpptraj's Action_AutoImage directly but
  *         # there is no gain in speed. don't try.
- *         pyca.do_autoimage(self, mask)             # <<<<<<<<<<<<<<
+ *         pyca.do_autoimage(self, command)             # <<<<<<<<<<<<<<
  * 
  *     def rotate(self, mask="", matrix=None):
  */
@@ -23667,9 +23667,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_138autoimage(struct 
   __Pyx_INCREF(((PyObject *)__pyx_v_self));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_self));
   PyTuple_SET_ITEM(__pyx_t_5, 0+__pyx_t_4, ((PyObject *)__pyx_v_self));
-  __Pyx_INCREF(__pyx_v_mask);
-  __Pyx_GIVEREF(__pyx_v_mask);
-  PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, __pyx_v_mask);
+  __Pyx_INCREF(__pyx_v_command);
+  __Pyx_GIVEREF(__pyx_v_command);
+  PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_4, __pyx_v_command);
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -23679,7 +23679,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_138autoimage(struct 
   /* "pytraj/Trajectory.pyx":1253
  *         return pyca.calc_watershell(self, mask, *args, **kwd)
  * 
- *     def autoimage(self, mask=""):             # <<<<<<<<<<<<<<
+ *     def autoimage(self, command=""):             # <<<<<<<<<<<<<<
  *         # NOTE: I tried to used cpptraj's Action_AutoImage directly but
  *         # there is no gain in speed. don't try.
  */
@@ -23701,7 +23701,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_138autoimage(struct 
 }
 
 /* "pytraj/Trajectory.pyx":1258
- *         pyca.do_autoimage(self, mask)
+ *         pyca.do_autoimage(self, command)
  * 
  *     def rotate(self, mask="", matrix=None):             # <<<<<<<<<<<<<<
  *         cdef Frame frame
@@ -24096,7 +24096,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_140rotate(struct __p
   __pyx_L3:;
 
   /* "pytraj/Trajectory.pyx":1258
- *         pyca.do_autoimage(self, mask)
+ *         pyca.do_autoimage(self, command)
  * 
  *     def rotate(self, mask="", matrix=None):             # <<<<<<<<<<<<<<
  *         cdef Frame frame
