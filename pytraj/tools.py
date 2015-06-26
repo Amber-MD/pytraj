@@ -1,5 +1,6 @@
 import sys
 from itertools import islice
+from collections import OrderedDict
 
 # string_types, PY2, PY3 is copied from six.py
 # see license in $PYTRAJHOME/license/externals/
@@ -150,5 +151,8 @@ def dict_to_ndarray(dict_of_array):
     >>> np.all(pt.tools.dict_to_ndarray(dict_of_array) == dslist.values)
     True
     """
+    if not isinstance(dict_of_array, OrderedDict):
+        raise NotImplementedError("support only OrderedDict")
     from pytraj.externals.six import iteritems
+
     return np.array([v for _, v in iteritems(dict_of_array)])
