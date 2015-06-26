@@ -69,11 +69,9 @@ def load_pseudo_parm(parm, guess_bond=True):
 
     if is_mdtraj(parm):
         # not sure how to get angles, dihedrals quickly
-        try:
+        if list(parm.bonds):
             pseudotop.add_bonds(np.array([(a.index, b.index) for (a, b) in parm.bonds]))
-        except TypeError:
-            pass
-        # load Box in _load_mdtraj since Box is stored in traj
+
     elif is_mdanalysis(parm):
         # turn-off. need to check MDAnalysis
         # ack, lots of try and except
@@ -98,7 +96,7 @@ def load_pseudo_parm(parm, guess_bond=True):
             pass
     else:
         # parmed
-        if parmed.bonds:
+        if parm.bonds:
             bond_list = [(x.atom1.idx, x.atom2.idx)
                         for x in parm.bonds]
         else:
