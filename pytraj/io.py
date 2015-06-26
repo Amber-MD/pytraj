@@ -203,8 +203,8 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
 def _load_from_frame_iter(traj_frame_iter, top=None):
     from .Trajectory import Trajectory
     if top is None or top.is_empty():
-        if hasattr(traj_frame_iter, 'new_top'):
-            top = traj_frame_iter.new_top
+        if hasattr(traj_frame_iter, 'top'):
+            top = traj_frame_iter.top
         else:
             raise ValueError("must provide non-empty Topology")
     fa = Trajectory(traj_frame_iter, top=top)
