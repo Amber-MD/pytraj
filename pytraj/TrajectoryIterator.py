@@ -196,6 +196,11 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         Notes
         ----
         n_chunks <= len(self.filelist)
+
+        TODO
+        ----
+        arbitrarily spliting
+        shorten this code too
         """
         from pytraj.tools import split_range
         from pytraj.compat import zip, range
@@ -219,5 +224,4 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             new_traj.top = self.top
             for fname, fslice in zip(filenames, frame_slices):
                 new_traj.load(fname, frame_slice=fslice)
-            trajlist.append(new_traj)
-        return trajlist
+            yield new_traj
