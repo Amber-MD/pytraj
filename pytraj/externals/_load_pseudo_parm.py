@@ -30,6 +30,7 @@ def load_pseudo_parm(parm, guess_bond=True):
         chains = [parm,] # fake
 
     pseudotop = Topology()
+    i = 0
     for chain in chains:
         pseudotop.start_new_mol()
         for atom in chain.atoms:
@@ -51,10 +52,18 @@ def load_pseudo_parm(parm, guess_bond=True):
                 charge = atom.charge
                 mass = atom.mass
             else:
-                atype = str(atom.type) # parmed
+                if atom.type:
+                    atype = str(atom.type) # parmed
+                else:
+                    atype = atom.name
                 resid = res.idx
                 charge = atom.charge
                 mass = atom.mass
+                if mass == 0.:
+                    # need to assign mass
+                    # just to trick cpptraj to avoid create empty atom
+                    # with mass=0.0
+                    mass = 1E-6
             atom = Atom(aname, atype, charge, mass)
             pseudotop.add_atom(atom=atom, resid=resid, resname=resname)
 
@@ -88,19 +97,31 @@ def load_pseudo_parm(parm, guess_bond=True):
         except AttributeError:
             pass
     else:
-        # TODO : add bonds, dihedrals, angles for ParmEd
         # parmed
-        # add dihedrals
-        bond_list = [(x.atom1.idx, x.atom2.idx)
-                    for x in parm.bonds]
-        angle_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx)
-                    for x in parm.angles]
-        dihedral_list= [(x.atom1.idx, x.atom2.idx, x.atom3.idx, x.atom4.idx)
-                  for x in parm.dihedrals]
+        if parmed.bonds:
+            bond_list = [(x.atom1.idx, x.atom2.idx)
+                        for x in parm.bonds]
+        else:
+            bond_list = []
+
+        if parm.angles:
+            angle_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx)
+                        for x in parm.angles]
+        else:
+            angle_list = []
+
+        if parm.dihedrals:
+            dihedral_list= [(x.atom1.idx, x.atom2.idx, x.atom3.idx, x.atom4.idx)
+                      for x in parm.dihedrals]
+        else:
+            dihedral_list = []
+
         if bond_list:
             pseudotop.add_bonds(np.asarray(bond_list))
+
         if angle_list:
             pseudotop.add_angles(np.asarray(angle_list))
+
         if dihedral_list:
             pseudotop.add_dihedrals(np.asarray(dihedral_list))
 
