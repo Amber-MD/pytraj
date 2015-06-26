@@ -10,7 +10,7 @@ from .DatasetInteger import DatasetInteger
 from .DatasetString  import DatasetString
 from .DataSet_Mesh import DataSet_Mesh
 from .DatasetMatrixDouble import DatasetMatrixDouble
-from .DataSet_MatrixFlt import DataSet_MatrixFlt
+from .DatasetMatrixFloat import DatasetMatrixFloat
 from .DatasetGridFloat import DatasetGridFloat
 from .DatasetVector import DatasetVector
 from .DataSet_Coords import DataSet_Coords

@@ -51,7 +51,7 @@ def run_tests():
     DatasetString()
     DatasetMatrixDouble()
     DatasetGridFloat()
-    DataSet_MatrixFlt()
+    DatasetMatrixFloat()
     DatasetVector()
     DataSet_Coords()
     DataSet_Coords_REF()

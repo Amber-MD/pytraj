@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
         DatasetInteger()
         DatasetString()
         DatasetMatrixDouble()
-        DataSet_MatrixFlt()
+        DatasetMatrixFloat()
         DatasetVector()
         DataSet_Coords()
         DataSet_Coords_REF()
