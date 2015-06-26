@@ -96,7 +96,12 @@ class DatasetList(list):
         to_pickle(self._to_full_dict(use_numpy), filename)
 
     def to_json(self, filename, use_numpy=True):
-        to_json(self._to_full_dict(use_numpy), filename)
+        full_dict = self._to_full_dict(use_numpy=use_numpy)
+        for key in self.keys():
+            d = full_dict[key]['values'] 
+            if hasattr(d, 'dtype') and 'int' in d.dtype.name:
+                full_dict[key]['values'] = d.tolist()
+        to_json(full_dict, filename)
 
     def _from_full_dict(self, ddict):
         from pytraj.datasets.DataSetList import DataSetList as CpptrajDataSetList

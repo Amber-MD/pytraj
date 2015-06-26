@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
         print (traj[0].to_dataframe(traj.top))
 
         # 
-        self.assertRaises(NotImplementedError, lambda : dslist.to_dataframe(engine='xray'))
+        self.assertRaises(TypeError, lambda : dslist.to_dataframe(engine='xray'))
 
 if __name__ == "__main__":
     unittest.main()
