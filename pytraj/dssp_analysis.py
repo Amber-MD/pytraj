@@ -105,7 +105,7 @@ def calc_dssp(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
         # get all dataset from DatSetList if dtype == integer
         arr0 = dslist.grep("integer", mode='dtype').values
         return np.array([to_string_ss(arr) for arr in arr0])
-    if dtype == 'dsspclass':
+    if dtype == 'dssp_class':
         return DSSPAnalysisResult(_get_data_from_dtype(dslist, dtype='dataset'))
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)

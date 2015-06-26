@@ -348,6 +348,7 @@ def calc_rdf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_Radial
     act = Action_Radial()
 
+    command = "pytraj_tmp_output.agr " + command
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)

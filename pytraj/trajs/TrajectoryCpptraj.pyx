@@ -3,6 +3,7 @@ from ..Trajectory cimport Trajectory
 from ..AtomMask cimport AtomMask
 from ..Topology cimport Topology
 
+import os
 from .._cyutils import get_positive_idx
 from pytraj.externals.six import string_types
 from ..decorators import memoize # cache
@@ -73,7 +74,7 @@ cdef class TrajectoryCpptraj:
         if isinstance(filename, string_types):
             _arglist = ArgList(arg)
             self.thisptr.AddSingleTrajin(filename.encode(), _arglist.thisptr[0], tmp_top.thisptr)
-            self._filelist.append(filename)
+            self._filelist.append(os.path.abspath(filename))
         else:
             raise ValueError("filename must a a string")
 

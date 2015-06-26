@@ -366,9 +366,9 @@ class DatasetList(list):
         except:
             raise NotImplementedError("dont know how to convert to list")
 
-    def to_dict(self, use_numpy=False):
+    def to_dict(self, use_numpy=True):
         """return a dict object with key=legend, value=list"""
-        from collections import OrderedDict as dict
+        #from collections import OrderedDict as dict
         try:
             if use_numpy:
                 return dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
@@ -412,6 +412,7 @@ class DatasetList(list):
         --------
         pandas
         """
+        from collections import OrderedDict as dict
         _, pandas = _import_pandas()
         my_dict = dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
@@ -420,6 +421,7 @@ class DatasetList(list):
         for d in self:
             arr = np.asarray(d.data)
             arr[:] = func(arr)
+        return self
 
     def mean(self, axis=1):
         """
@@ -440,16 +442,12 @@ class DatasetList(list):
         return np.std(self.to_ndarray(), axis=axis)
 
     def min(self):
-        arr = array('d', [])
-        for d in self:
-            arr.append(d.min())
-        return arr
+        from collections import OrderedDict as dict
+        return dict((x.legend, x.min()) for x in self)
 
     def max(self):
-        arr = array('d', [])
-        for d in self:
-            arr.append(d.max())
-        return arr
+        from collections import OrderedDict as dict
+        return dict((x.legend, x.max()) for x in self)
 
     def sum(self, legend=None, axis=1):
         """
@@ -476,6 +474,7 @@ class DatasetList(list):
         return ddict
 
     def count(self, number=None):
+        from collections import OrderedDict as dict
         return dict((d0.legend, d0.count(number)) for d0 in self)
 
     def read_data(self, filename, arg=""):
@@ -578,3 +577,16 @@ class DatasetList(list):
 
     def chunk_average(self, n_chunks):
         return dict(map(lambda x : (x.legend, x.chunk_average(n_chunks)), self))
+
+    def topk(self, k):
+        return dict((x.legend, x.topk(k)) for x in self)
+
+    def lowk(self, k):
+        from heapq import nsmallest
+        return dict((x.legend, list(nsmallest(k, x))) for x in self)
+
+    def head(self, k):
+        return dict((x.legend, x.head(k, restype='list')) for x in  self)
+
+    def tail(self, k):
+        return dict((x.legend, x.tail(k)) for x in self)

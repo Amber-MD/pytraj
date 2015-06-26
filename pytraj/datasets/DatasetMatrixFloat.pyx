@@ -2,9 +2,9 @@
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import MatrixDict, MatrixKindDict, get_key
 
-cdef class DataSet_MatrixFlt (DataSet_2D):
+cdef class DatasetMatrixFloat (DataSet_2D):
     def __cinit__(self):
-        self.thisptr = new _DataSet_MatrixFlt()
+        self.thisptr = new _DatasetMatrixFloat()
         self.baseptr_1 = <_DataSet_2D*> self.thisptr
         self.baseptr0 = <_DataSet*> self.thisptr
 
@@ -17,7 +17,7 @@ cdef class DataSet_MatrixFlt (DataSet_2D):
 
     def alloc(self):
         cdef DataSet dset = DataSet()
-        dset.baseptr0 = _DataSet_MatrixFlt.Alloc()
+        dset.baseptr0 = _DatasetMatrixFloat.Alloc()
         return dset
 
     #@property
@@ -40,3 +40,14 @@ cdef class DataSet_MatrixFlt (DataSet_2D):
     def data(self):
         """return 1D python array of matrix' data"""
         return self.get_full_matrix()
+
+    def to_ndarray(self, copy=True):
+        # use copy=True to be consistent with DataSet_1D
+        from pytraj.utils import _import_numpy
+        _, np = _import_numpy()
+        if np:
+            arr = np.array(self.get_full_matrix()).reshape(
+                             self.n_rows, self.n_cols)
+            return arr
+        else:
+            raise ImportError("require numpy")

@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         # calc_rdf with  spacing=0.5, max=10.0, solute mask=":5@CD
         # solvent mask = ":WAT@O"
-        dslist = pyca.calc_rdf(traj, "Radial.agr 0.5 10.0 :5@CD :WAT@O")
+        dslist = pyca.calc_rdf(traj, "0.5 10.0 :5@CD :WAT@O")
         print (dslist.size)
         print (dslist[0].tolist())
         # you can find the test here too:

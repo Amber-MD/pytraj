@@ -1,5 +1,6 @@
 import sys
 from itertools import islice
+from collections import OrderedDict
 
 # string_types, PY2, PY3 is copied from six.py
 # see license in $PYTRAJHOME/license/externals/
@@ -7,7 +8,7 @@ PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
 
 if PY3:
-    string_types = str,
+    string_types = str
 else:
     string_types = basestring
 
@@ -141,3 +142,17 @@ def n_grams(a, n):
     # http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html
     z = (islice(a, i, None) for i in range(n))
     return zip(*z)
+
+def dict_to_ndarray(dict_of_array):
+    """
+    >>> import pytraj as pt
+    >>> dslist = traj.search_hbonds()
+    >>> dict_of_array = dslist.to_dict(use_numpy=True)
+    >>> np.all(pt.tools.dict_to_ndarray(dict_of_array) == dslist.values)
+    True
+    """
+    if not isinstance(dict_of_array, OrderedDict):
+        raise NotImplementedError("support only OrderedDict")
+    from pytraj.externals.six import iteritems
+
+    return np.array([v for _, v in iteritems(dict_of_array)])

@@ -78,7 +78,7 @@ class Test(unittest.TestCase):
         assert (dslist[0].dtype == 'matrix_flt')
         print (dslist[0].get_full_matrix())
         assert (dslist[0].tolist().__len__() == 100)
-        assert (dslist[0].to_ndarray().__len__() == 100)
+        assert (dslist[0].to_ndarray().__len__() == 10)
 
         dslist2 = traj.calc_pairwise_rmsd("@CA", dtype='dataset')
         arr = dslist[0].to_ndarray().flatten()
