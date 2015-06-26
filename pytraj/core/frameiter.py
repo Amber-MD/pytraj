@@ -14,7 +14,7 @@ class FrameIter(object):
                  new_top=None, start=0, stop=-1, stride=1, 
                  mask="", autoimage=False,
                  rmsfit=None):
-        self.new_top = new_top
+        self.top = new_top
         self.original_top = original_top
         self.frame_iter = fi_generator
         self.start = start
