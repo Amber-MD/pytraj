@@ -16,10 +16,22 @@ class HbondAnalaysisResult(BaseAnalysisResult):
     def donor_aceptor(self):
         return [x for x in self.dslist.keys() if x != 'avg_solute_solute']
 
-    def lifetime(self):
-        c = self.dslist.count()
+    def lifetime(self, cut=None):
+        c = self.dslist.count(1)
         n_frames = self.dslist[0].size
-        return dict((key, c[key][1] / n_frames) for key in self.donor_aceptor) 
+
+        result_dict = dict((key, c[key][1] / n_frames) for key in self.donor_aceptor) 
+
+        if cut is None:
+            return result_dict
+        else:
+            def func(result_dict, cut=cut):
+                d = {}
+                for k in result_dict.keys():
+                    if result_dict[k] >= cut:
+                        d[k] = result_dict[k]
+                return d
+            return func(result_dict, cut=cut)
 
 def _update_legend_hbond(_dslist):
 
@@ -117,6 +129,8 @@ def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
     if dtype == 'dataframe':
         # return DataFrame.T to have better visual effect
         return dslist.to_dataframe().T
+    elif dtype == 'hbond_class':
+        return HbondAnalaysisResult(dslist)
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -151,4 +165,7 @@ def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WA
 
     if update_legend:
         _update_legend_hbond(dslist)
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    if dtype == 'hbond_class':
+        return HbondAnalaysisResult(dslist)
+    else:
+        return _get_data_from_dtype(dslist, dtype=dtype)
