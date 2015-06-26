@@ -20,7 +20,7 @@ class HbondAnalaysisResult(BaseAnalysisResult):
         c = self.dslist.count(1)
         n_frames = self.dslist[0].size
 
-        result_dict = dict((key, c[key][1] / n_frames) for key in self.donor_aceptor) 
+        result_dict = dict((key, c[key] / n_frames) for key in self.donor_aceptor) 
 
         if cut is None:
             return result_dict
