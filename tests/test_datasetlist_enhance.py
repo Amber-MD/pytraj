@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -20,8 +21,8 @@ class Test(unittest.TestCase):
         aa_eq(arr0.mean(1), ds.mean())
         aa_eq(np.median(arr0, 1), ds.median())
         aa_eq(arr0.sum(1), ds.sum())
-        aa_eq(arr0.min(1), ds.min())
-        aa_eq(arr0.max(1), ds.max())
+        aa_eq(arr0.min(1), pt.tools.dict_to_ndarray(ds.min()))
+        aa_eq(arr0.max(1), pt.tools.dict_to_ndarray(ds.max()))
         aa_eq(arr0.std(1), ds.std())
         ds.apply(lambda x: 2*x)
         newarr = ds.to_ndarray()

@@ -368,7 +368,7 @@ class DatasetList(list):
 
     def to_dict(self, use_numpy=True):
         """return a dict object with key=legend, value=list"""
-        from collections import OrderedDict as dict
+        #from collections import OrderedDict as dict
         try:
             if use_numpy:
                 return dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
@@ -442,9 +442,11 @@ class DatasetList(list):
         return np.std(self.to_ndarray(), axis=axis)
 
     def min(self):
+        from collections import OrderedDict as dict
         return dict((x.legend, x.min()) for x in self)
 
     def max(self):
+        from collections import OrderedDict as dict
         return dict((x.legend, x.max()) for x in self)
 
     def sum(self, legend=None, axis=1):

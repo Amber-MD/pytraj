@@ -33,7 +33,7 @@ class Test(unittest.TestCase):
         d1 = calc_jcoupling(traj, kfile=kfile)
         print ("d0", d0)
         print ("d1", d1)
-        assert (d0.to_dict() == d1.to_dict())
+        aa_eq(d0.values, d1.values)
 
 
 if __name__ == "__main__":
