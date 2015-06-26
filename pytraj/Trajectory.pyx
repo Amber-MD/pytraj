@@ -684,7 +684,26 @@ cdef class Trajectory (object):
         # we don't do anythin here. Just create the same API for TrajectoryIterator
         pass
 
-    def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
+    def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False, rmsfit=None):
+        from pytraj.core.frameiter import FrameIter
+
+        if mask is None:
+            _top = self.top
+        else:
+            _top = self.top._get_new_from_mask(mask)
+
+        frame_iter_super = self._frame_iter(start=start, stop=stop, stride=stride)
+        return FrameIter(frame_iter_super,
+                         original_top=self.top,
+                         new_top=_top,
+                         start=start,
+                         stop=stop,
+                         stride=stride,
+                         mask=mask,
+                         autoimage=autoimage,
+                         rmsfit=rmsfit)
+
+    def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         """iterately get Frames with start, stop, stride 
         Parameters
         ---------

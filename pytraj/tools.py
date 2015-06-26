@@ -1,6 +1,15 @@
+import sys
 from itertools import islice
-from pytraj.utils import _import_numpy
-from pytraj.compat import string_types
+
+# string_types, PY2, PY3 is copied from six.py
+# see license in $PYTRAJHOME/license/externals/
+PY2 = sys.version_info[0] == 2
+PY3 = sys.version_info[0] == 3
+
+if PY3:
+    string_types = str,
+else:
+    string_types = basestring
 
 try:
     # PY3
@@ -11,8 +20,13 @@ except ImportError:
 
 # this module gathers commonly used functions
 # from toolz, stackoverflow, ... and from myself
+# should make this independent from pytraj
 
-_, np = _import_numpy()
+try:
+    import numpy as np
+except ImportError:
+    np = None
+
 
 def _dispatch_value(func):
     def inner(data, *args, **kwd):

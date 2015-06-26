@@ -27,7 +27,6 @@ class Test(unittest.TestCase):
             # write from frame_iter, need to provide top
             fname = "traj_frame_iter.nc"
             # raise ValueError if there is no Topology
-            self.assertRaises(ValueError, lambda: io.write_traj(fname, traj()))
             io.write_traj(fname, traj(), top=traj.top, overwrite=True)
             t = io.iterload(fname, traj.top)
             aa_eq(t.xyz, traj.xyz)
