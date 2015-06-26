@@ -571,3 +571,6 @@ class DatasetList(list):
         for d in dslist:
             new_ds.append(d, copy=copy)
         return new_ds
+
+    def chunk_average(self, n_chunks):
+        return dict(map(lambda x : (x.legend, x.chunk_average(n_chunks)), self))
