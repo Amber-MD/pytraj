@@ -189,39 +189,41 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
     def split_and_write_traj(self, *args, **kwd):
         _split_and_write_traj(self, *args, **kwd)
 
-    @_not_yet_tested
-    def split_iterators(self, n_chunks=None):
-        """simple splitting `self` to n_chunks
+    def split_iterators(self, n_chunks=1, start=0, stop=-1, stride=1,
+                        mask=None,
 
-        Notes
-        ----
-        n_chunks <= len(self.filelist)
-
-        TODO
-        ----
-        arbitrarily spliting
-        shorten this code too
+                        autoimage=False, rmsfit=None):
+        """simple splitting `self` to n_chunks FrameIter objects
+        
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')
+        >>> list(traj.split_iterators(n_chunks=4, mask='@CA'))
+        [<pytraj.core.frameiter.FrameIter with start=0, stop=2, stride=1
+         autoimage=False, rmsfit=None> ,
+         <pytraj.core.frameiter.FrameIter with start=2, stop=4, stride=1
+         autoimage=False, rmsfit=None> ,
+         <pytraj.core.frameiter.FrameIter with start=4, stop=6, stride=1
+         autoimage=False, rmsfit=None> ,
+         <pytraj.core.frameiter.FrameIter with start=6, stop=10, stride=1
+         autoimage=False, rmsfit=None> ]
         """
         from pytraj.tools import split_range
         from pytraj.compat import zip, range
 
-        len_flist = len(self.filelist)
-        fs_list = self.frame_slice_list
+        assert 0 <= start <= self.n_frames, "0 <= start <= self.n_frames"
 
-        if len_flist < n_chunks:
-            raise ValueError("n_chunks must be smaller than the number of files")
+        if stop <= 0 or stop > self.n_frames:
+            stop = self.n_frames
 
-        if n_chunks <= 1:
-            raise ValueError("n_chunks must be larger than 1")
-
-        rlist = split_range(n_chunks, 0, len_flist)
-        trajlist = []
-        for i in range(n_chunks):
-            start, stop = rlist[i]
-            frame_slices = fs_list[start:stop]
-            filenames = self.filelist[start:stop]
-            new_traj = self.__class__()
-            new_traj.top = self.top
-            for fname, fslice in zip(filenames, frame_slices):
-                new_traj.load(fname, frame_slice=fslice)
-            yield new_traj
+        if n_chunks == 1:
+            yield self(start=start, stop=stop, stride=stride, mask=mask,
+                       autoimage=autoimage, rmsfit=rmsfit)
+        else:
+            for (_start, _stop) in split_range(n_chunks=n_chunks,
+                                             start=start, stop=stop):
+                yield self.frame_iter(start=_start, stop=_stop, stride=stride,
+                                      mask=mask,
+                                      autoimage=autoimage,
+                                      rmsfit=rmsfit)
