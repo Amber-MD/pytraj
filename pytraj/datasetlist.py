@@ -12,7 +12,7 @@ from pytraj.compat import map
 
 _, np = _import_numpy()
 
-__all__ = ['load_datafile', 'vstack', 'DatasetList',
+__all__ = ['load_datafile', 'stack', 'DatasetList',
            'from_pickle', 'from_json']
 
 def from_pickle(filename):
@@ -37,7 +37,7 @@ def _from_full_dict(full_dict):
 def from_sequence(seq):
     return DatasetList().from_sequence(seq)
 
-def vstack(args):
+def stack(args):
     """return a new DatasetList by joining (vstack)
 
     Parameters
