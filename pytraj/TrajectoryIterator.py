@@ -19,6 +19,12 @@ from pytraj.utils import is_int
 from pytraj.tools import split_range, _not_yet_tested
 
 
+__all__ = ['TrajectoryIterator', 'split_iterators']
+
+def split_iterators(traj, n_chunks=1, start=0, stop=-1, stride=1, mask=None,
+                    autoimage=False, rmsfit=None):
+    return traj.split_iterators(n_chunks, start, stop, stride, mask, autoimage, rmsfit)
+
 def _make_frame_slices(n_files, original_frame_slice):
     if isinstance(original_frame_slice, tuple):
         return [original_frame_slice for i in range(n_files)]
@@ -34,6 +40,16 @@ def _make_frame_slices(n_files, original_frame_slice):
         return new_list
     else:
         raise ValueError("must be a tuple of integer values or a list of tuple of integer values")
+
+def _turn_to_list_with_rank(func):
+    def inner(*args, **kwd):
+        if 'rank' not in kwd:
+            return list(func(*args, **kwd))
+        else:
+            return list(func(*args, **kwd))[kwd['rank']]
+    inner.__doc__ = func.__doc__
+    return inner
+
 
 class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
     def __init__(self, filename=None, top=None, *args, **kwd):
@@ -189,10 +205,10 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
     def split_and_write_traj(self, *args, **kwd):
         _split_and_write_traj(self, *args, **kwd)
 
+    @_turn_to_list_with_rank
     def split_iterators(self, n_chunks=1, start=0, stop=-1, stride=1,
                         mask=None,
-
-                        autoimage=False, rmsfit=None):
+                        autoimage=False, rmsfit=None, **kwd):
         """simple splitting `self` to n_chunks FrameIter objects
         
         Examples

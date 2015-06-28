@@ -1,4 +1,5 @@
 from .map import map
+from pytraj.tools import concat_dict
 
 def gather(name='data', clients=None, restype='ndarray'):
     '''gather data from different clients
@@ -26,3 +27,7 @@ def gather(name='data', clients=None, restype='ndarray'):
         from pytraj import datasetlist
         iter_of_dslist = (datasetlist._from_full_dict(x[name]) for x in clients)
         return datasetlist.vstack(iter_of_dslist)
+    elif restype == 'dict':
+        return concat_dict((x[name] for x in clients))
+    else:
+        raise ValueError("must be ndarray | dataset | dict")
