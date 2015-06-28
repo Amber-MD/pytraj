@@ -11,7 +11,7 @@ from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _savetraj, _get_temperature_set
 from .._shared_methods import _box_to_ndarray
-from ..utils.check_and_assert import _import_numpy
+from ..utils.check_and_assert import _import_numpy, ensure_exist
 from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
 from .._get_common_objects import _get_top
@@ -41,6 +41,8 @@ cdef class TrajectoryCpptraj:
         top : Topology-like object
         take_slice : add slice
         '''
+        ensure_exist(filename)
+
         cdef Topology tmp_top
         cdef ArgList _arglist
 

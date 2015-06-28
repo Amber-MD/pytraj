@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+import os
 import numbers
 from ..externals.six import string_types
 from functools import wraps
@@ -124,8 +125,8 @@ def is_int(num):
     """
     return isinstance(num, numbers.Integral)
 
-def make_sure_exist(filename):
-    if not file_exist(filename):
+def ensure_exist(filename):
+    if not os.path.exists(filename):
         txt = "can not find %s" % filename
         raise RuntimeError(txt)
 

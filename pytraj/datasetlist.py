@@ -31,6 +31,12 @@ def load_datafile(filename):
     ds.read_data(filename)
     return ds
 
+def _from_full_dict(full_dict):
+    return DatasetList()._from_full_dict(full_dict)
+
+def from_sequence(seq):
+    return DatasetList().from_sequence(seq)
+
 def vstack(args):
     """return a new DatasetList by joining (vstack)
 
@@ -108,6 +114,8 @@ class DatasetList(list):
         to_json(full_dict, filename)
 
     def _from_full_dict(self, ddict):
+        if not isinstance(ddict, dict):
+            raise ValueError("must be a dict")
         from pytraj.datasets.DataSetList import DataSetList as CpptrajDataSetList
         ordered_keys = ddict['ordered_keys']
 
@@ -122,6 +130,7 @@ class DatasetList(list):
             last.resize(len(values))
             last.values[:] = values
         self.from_datasetlist(cppdslist)
+        return self
 
     def _to_full_dict(self, use_numpy=True):
         """
@@ -564,16 +573,14 @@ class DatasetList(list):
                 # why?
                 super(DatasetList, self).remove(self.__getitem__(idx))
 
-    @classmethod
-    def from_datasetlist(cls, dslist, copy=True):
-        return cls.from_sequence(dslist, copy=copy)
+    def from_datasetlist(self, dslist, copy=True):
+        self.from_sequence(dslist, copy=copy)
+        return self
 
-    @classmethod
-    def from_sequence(cls, dslist, copy=True):
-        new_ds = cls()
+    def from_sequence(self, dslist, copy=True):
         for d in dslist:
-            new_ds.append(d, copy=copy)
-        return new_ds
+            self.append(d, copy=copy)
+        return self
 
     def chunk_average(self, n_chunks):
         return dict(map(lambda x : (x.legend, x.chunk_average(n_chunks)), self))
