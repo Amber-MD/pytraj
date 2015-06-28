@@ -1,6 +1,8 @@
 import sys
 from itertools import islice
+import functools
 from collections import OrderedDict
+from pytraj.externals.six import iteritems
 
 # string_types, PY2, PY3 is copied from six.py
 # see license in $PYTRAJHOME/license/externals/
@@ -40,6 +42,7 @@ def _dispatch_value(func):
     return inner
 
 def _not_yet_tested(func):
+    @functools.wraps(func)
     def inner(*args, **kwd):
         return func(*args, **kwd)
     msg = "This method is not tested. Use it with your own risk"
@@ -156,3 +159,16 @@ def dict_to_ndarray(dict_of_array):
     from pytraj.externals.six import iteritems
 
     return np.array([v for _, v in iteritems(dict_of_array)])
+
+def concat_dict(iterables):
+    """
+    """
+    new_dict = {}
+    for i, d in enumerate(iterables): 
+        if i == 0:
+            # make a copy of first dict
+            new_dict.update(d)
+        else:
+            for k, v in  iteritems(new_dict):
+                new_dict[k] = np.concatenate((new_dict[k], d[k]))
+    return new_dict
