@@ -7,24 +7,25 @@ import pytraj.common_actions as pyca
 
 class Test(unittest.TestCase):
     def test_0(self):
+        import numpy as np
         from glob import glob
-        fname = "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7"
-        flist = sorted(glob("./data/Test_RemdTraj/rem.nc.*")) 
-        print (flist)
+        fname = "./data/md1_prod.Tc5b.x"
+        ftop = "./data/Tc5b.top" 
+        traj = pt.iterload(fname, ftop)
 
-        traj = pt.iterload(flist, fname)
+        # naive
+        assert np.all(pt.calc_center_of_mass(list(traj.split_iterators(4))) ==
+                      pt.calc_center_of_mass(traj))
 
-        # 4 chunks
-        trajlist = list(traj.split_iterators(4))
-        aa_eq(trajlist[0].xyz, traj[:10].xyz)
-        aa_eq(trajlist[1].xyz, traj[10:20].xyz)
-        aa_eq(trajlist[2].xyz, traj[20:30].xyz)
-        aa_eq(trajlist[3].xyz, traj[30:].xyz)
+        # with mask
+        assert np.all(pt.calc_center_of_mass(list(traj.split_iterators(4, mask='@CA'))) ==
+                      pt.calc_center_of_mass(traj, '@CA'))
 
-        # 2 chunks
-        trajlist = list(traj.split_iterators(2))
-        aa_eq(trajlist[0].xyz, traj[:20].xyz)
-        aa_eq(trajlist[1].xyz, traj[20:].xyz)
+        # with mask and rmsfit
+        ilist = list(traj.split_iterators(n_chunks=4, mask='!@H=', rmsfit=(traj[0], '@CA')))
+        arr0 = pt.calc_center_of_mass(ilist)
+        arr1 = pt.calc_center_of_mass(traj(rmsfit=(traj[0], '@CA')), '!@H=')
+        aa_eq(arr0, arr1)
 
 if __name__ == "__main__":
     unittest.main()
