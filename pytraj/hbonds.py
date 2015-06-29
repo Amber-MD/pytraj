@@ -12,6 +12,25 @@ __all__ = ['HbondAnalaysisResult', 'search_hbonds', 'search_nointramol_hbonds',
            'search_hbonds_noseries']
 
 class HbondAnalaysisResult(BaseAnalysisResult):
+    """Hold data for HbondAnalaysisResult
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load_pdb_rcsb("1l2y")
+    >>> h = pt.hbonds.HbondAnalaysisResult(traj.search_hbonds())
+    >>> h
+    <pytraj.hbonds.HbondAnalaysisResult
+    donor_aceptor pairs : 31>
+    >>> 
+    >>> h.lifetime(cut=(0.5, 1.0))
+    {'ARG16_O-TRP6_NE1-HE1': 0.9473684210526315,
+     'ILE4_O-LYS8_N-H': 0.7631578947368421,
+     'LEU7_O-GLY10_N-H': 0.8947368421052632,
+     'TYR3_O-LEU7_N-H': 1.0}
+    >>>
+    >>> h.grep(['ARG', 'TYR']).dslist.to_dict()
+    """
     def __str__(self):
         root_msg = "<pytraj.hbonds.HbondAnalaysisResult"
         more_info = "donor_aceptor pairs : %s>" % len(self.donor_aceptor)
@@ -25,6 +44,11 @@ class HbondAnalaysisResult(BaseAnalysisResult):
         return [x for x in self.dslist.keys() if x != 'total_solute_solute']
 
     def lifetime(self, cut=None):
+        """return a dict with keys as donor_aceptor pairs and
+        values as fraction of frames (vs total) having hbond. This fraction
+        within `cut`. If `cut` is a single number, cut=(cut, 1.0). If `cut`
+        is a tuple, cut=(min, max)
+        """
         c = self.dslist.count(1)
         n_frames = self.dslist[0].size
 
@@ -44,6 +68,14 @@ class HbondAnalaysisResult(BaseAnalysisResult):
                             d[k] = result_dict[k]
                 return d
             return func(result_dict, cut=cut)
+
+    def to_amber_mask(self):
+        """convert donor_aceptor pair mask to amber mask to calculate
+        distance (for example: 'ARG16_O-TRP6_NE1-HE1' will be ':16@O :6@HE1')
+        """
+        for raw_mask in self.donor_aceptor:
+
+
 
 def _update_legend_hbond(_dslist):
 
