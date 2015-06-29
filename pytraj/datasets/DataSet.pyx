@@ -356,7 +356,7 @@ cdef class DataSet:
         else:
             raise NotImplementedError("not yet, stay tuned")
 
-    def plot(self, *args, **kwd):
+    def plot(self, show=False, *args, **kwd):
         """return matplotlib object
         Notes
         ----
@@ -365,7 +365,10 @@ cdef class DataSet:
         from pytraj.utils import _import
         _, plt = _import("matplotlib.pyplot")
         try:
-            return plt.pyplot.plot(self.data, *args, **kwd)
+            ax = plt.pyplot.plot(self.data, *args, **kwd)
+            if show:
+                plt.pyplot.show()
+            return ax
         except ImportError:
             raise ImportError("require matplotlib")
 

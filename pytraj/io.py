@@ -12,6 +12,7 @@ from ._shared_methods import _frame_iter_master
 from ._set_silent import set_error_silent
 from ._guess_filetype import _guess_filetype
 from ._get_common_objects import _get_top
+from .compat import zip
 
 load_cpptraj_datafile = load_datafile
 
@@ -117,24 +118,40 @@ def iterload(*args, **kwd):
         raise ValueError("do not support iterload with engine=='mdtraj'")
     return load_traj(*args, **kwd)
 
-def _iterload_from_filelist(*args, **kwd):
+def _iterload_from_filelist(filename=None, top=None, force_load=False, *args, **kwd):
     """return a list of TrajectoryIterator"""
-    """return TrajectoryIterator object
-    """
-    args_less = args[1:]
 
     if kwd and 'indices' in kwd.keys():
         raise ValueError("do not support indices for TrajectoryIterator loading")
 
-    if isinstance(args[0], (list, tuple)):
-        mylist = args[0]
-    elif isinstance(args[0], string_types):
+    if isinstance(filename, (list, tuple)):
+        trajnamelist = filename
+    elif isinstance(filename, string_types):
         # "remd.x.*"
         from glob import glob
-        mylist = sorted(glob(args[0]))
+        trajnamelist = sorted(glob(filename))
     else:
         raise ValueError()
-    return [load_traj(filename, *args_less, **kwd) for filename in mylist]
+
+    if isinstance(top, (list, tuple)):
+        toplist = top
+    elif isinstance(top, string_types):
+        # "remd.x.*"
+        from glob import glob
+        toplist = sorted(glob(top))
+    else:
+        raise ValueError()
+
+    if len(trajnamelist) != len(toplist):
+        if not force_load:
+            raise ValueError("len of filename list is not equal to len of toplist")
+        else:
+            assert len(trajnamelist) > len(toplist), "toplist must have smaller len"
+            last_top = toplist[-1]
+            toplist += [last_top for _ in range(len(toplist), len(trajnamelist))] 
+
+    return [load_traj(_filename, _top, *args, **kwd) 
+            for _filename, _top  in zip(trajnamelist, toplist)]
 
 def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **kwd):
     """load trajectory from filename

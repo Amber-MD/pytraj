@@ -73,8 +73,7 @@ class HbondAnalaysisResult(BaseAnalysisResult):
         """convert donor_aceptor pair mask to amber mask to calculate
         distance (for example: 'ARG16_O-TRP6_NE1-HE1' will be ':16@O :6@HE1')
         """
-        for raw_mask in self.donor_aceptor:
-
+        raise NotImplementedError("not yet")
 
 
 def _update_legend_hbond(_dslist):

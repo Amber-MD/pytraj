@@ -542,8 +542,16 @@ cdef class Frame (object):
 
     @property
     def coords(self):
+        return self.coordinates
+
+    @property
+    def coordinates(self):
         """
         return 1D-coords (copy) of Frame
+        Notes
+        -----
+        same as `Frame.coords`. We use `coordinates` to be the same as in
+        `parmed`
         """
         cdef pyarray arr = cparray.clone(pyarray('d', []), 
                             self.n_atoms*3, zero=False)

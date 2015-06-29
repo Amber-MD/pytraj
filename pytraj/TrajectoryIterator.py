@@ -107,6 +107,12 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
     def topology(self, newtop):
         self.top = newtop
 
+    @property
+    def coordinates(self):
+        """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
+        """
+        return self.xyz
+
     def iterator_slice(self, start=0, stop=None, stride=None):
         """iterator slice"""
         from itertools import islice
