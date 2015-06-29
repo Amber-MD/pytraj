@@ -12,9 +12,17 @@ __all__ = ['HbondAnalaysisResult', 'search_hbonds', 'search_nointramol_hbonds',
            'search_hbonds_noseries']
 
 class HbondAnalaysisResult(BaseAnalysisResult):
+    def __str__(self):
+        root_msg = "<pytraj.hbonds.HbondAnalaysisResult"
+        more_info = "donor_aceptor pairs : %s>" % len(self.donor_aceptor)
+        return root_msg + "\n" + more_info
+    
+    def __repr__(self):
+        return self.__str__()
+
     @property
     def donor_aceptor(self):
-        return [x for x in self.dslist.keys() if x != 'avg_solute_solute']
+        return [x for x in self.dslist.keys() if x != 'total_solute_solute']
 
     def lifetime(self, cut=None):
         c = self.dslist.count(1)
@@ -28,8 +36,12 @@ class HbondAnalaysisResult(BaseAnalysisResult):
             def func(result_dict, cut=cut):
                 d = {}
                 for k in result_dict.keys():
-                    if result_dict[k] >= cut:
-                        d[k] = result_dict[k]
+                    if isinstance(cut, tuple):
+                        if cut[0] <= result_dict[k] <= cut[1]:
+                            d[k] = result_dict[k]
+                    else:
+                        if result_dict[k] >= cut:
+                            d[k] = result_dict[k]
                 return d
             return func(result_dict, cut=cut)
 
@@ -42,7 +54,7 @@ def _update_legend_hbond(_dslist):
 
     for d0 in _dslist:
         if d0.legend == 'HB00000[UU]':
-            d0.legend = 'avg_solute_solute'
+            d0.legend = 'total_solute_solute'
 
 
 def search_hbonds_noseries(traj, mask="", dtype='dataset', update_legend=True,

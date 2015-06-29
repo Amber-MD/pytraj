@@ -375,16 +375,17 @@ class DatasetList(list):
         except:
             raise NotImplementedError("dont know how to convert to list")
 
-    def to_dict(self, use_numpy=True):
+    def to_dict(self, use_numpy=True, ordered_dict=False):
         """return a dict object with key=legend, value=list"""
-        #from collections import OrderedDict as dict
-        try:
-            if use_numpy:
-                return dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
-            else:
-                return dict((d0.legend, d0.tolist()) for d0 in self)
-        except:
-            raise PytrajConvertError("don't know tho to convert to dict")
+        _dict = dict
+        if ordered_dict:
+            # use OrderedDict
+            from collections import OrderedDict
+            _dict = OrderedDict
+        if use_numpy:
+            return _dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
+        else:
+            return _dict((d0.legend, d0.tolist()) for d0 in self)
 
     @property
     def values(self):
