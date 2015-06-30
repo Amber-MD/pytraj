@@ -185,7 +185,7 @@ class DataArray(object):
         from pytraj.utils import _import
         _, plt = _import("matplotlib.pyplot")
         try:
-            return plt.pyplot.plot(self.data, *args, **kwd)
+            return plt.pyplot.plot(self, *args, **kwd)
         except ImportError:
             raise ImportError("require matplotlib")
 
