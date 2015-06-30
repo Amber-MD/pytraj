@@ -74,10 +74,16 @@ def split(data, n_chunks_or_array):
     """
     return np.array_split(data, n_chunks_or_array)
 
-@_dispatch_value
-def chunk_average(self, n_chunk):
+def chunk_average(self, n_chunk, restype='same'):
     import numpy as np
-    return np.array(list(map(np.mean, split(self, n_chunk))))
+    data = np.array(list(map(np.mean, split(self, n_chunk))))
+    if restype == 'same':
+        new_array = self.shallow_copy()
+        new_array.values = data
+        return new_array
+    else:
+        return data
+
 
 @_not_yet_tested
 def moving_average(data, n):

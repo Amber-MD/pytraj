@@ -186,8 +186,8 @@ class DataArray(object):
             raise ImportError("require matplotlib")
 
     def chunk_average(self, n_chunk):
-        import numpy as np
-        return np.array(list(map(np.mean, self.split(n_chunk))))
+        from pytraj.tools import chunk_average
+        return chunk_average(self, n_chunk)
 
     def std(self, *args, **kwd):
         import numpy as np
