@@ -20,13 +20,17 @@ def elemwise(op, self, other=None):
 class DataArray(object):
     """place holder for all cpptraj' output
     """
-    def __init__(self, dset=None):
-        self.values = dset.values
+    def __init__(self, dset=None, full_copy=True):
         self.legend = dset.legend
         self.name = dset.name
         self.aspect = dset.aspect
         self.idx = dset.idx
         self.format = dset.format
+
+        if full_copy:
+            self.values = dset.values.copy()
+        else:
+            self.values = dset.values
 
     def __iter__(self):
         for x in self.values:
@@ -65,7 +69,7 @@ class DataArray(object):
         msg0 = """<pytraj.arrray.DataArray: size={0}, key={1}, dtype={2}> """.format(
                   size, key, self.dtype)
         value_str = self.values.__str__()
-        return msg0 + '\nvalues: ' + value_str
+        return msg0 + '\nvalues:\n' + value_str
 
     def __repr__(self):
         return self.__str__()
@@ -77,9 +81,15 @@ class DataArray(object):
         return len(self.values)
 
     def copy(self):
+        """deep copy"""
         new_ds = self.__class__(self)
         new_ds.values = self.values.copy()
         return new_ds
+
+    def shallow_copy(self):
+        """everything is copied but `self.values`
+        """
+        return self.__class__(self, full_copy=False)
 
     def is_empty(self):
         return len(self.values) == 0 

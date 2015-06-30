@@ -14,5 +14,9 @@ class Test(unittest.TestCase):
         da = pt.array.DataArray(dslist[0])
         print (da)
 
+        # test copy
+        assert da.copy().values is not da.values
+        assert da.shallow_copy().values is da.values
+
 if __name__ == "__main__":
     unittest.main()

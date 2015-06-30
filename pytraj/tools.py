@@ -78,7 +78,6 @@ def chunk_average(self, n_chunk):
     import numpy as np
     return np.array(list(map(np.mean, split(self, n_chunk))))
 
-@_dispatch_value
 @_not_yet_tested
 def moving_average(data, n):
     # http://stackoverflow.com/questions/11352047/finding-moving-average-from-data-points-in-python
@@ -88,7 +87,13 @@ def moving_average(data, n):
     not assert yet
     """
     window = np.ones(int(n))/float(n)
-    return np.convolve(data, window, 'same')
+    new_data = np.convolve(data, window, 'same')
+    if hasattr(data, 'values'):
+        new_array = data.shallow_copy()
+        new_array.values = new_data
+        return new_array
+    else:
+        return new_data
 
 @_dispatch_value
 def pipe(self, *funcs):
