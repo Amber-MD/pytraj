@@ -5,7 +5,8 @@ from pytraj.compat import range
 
 __all__ = ['get_pysander_energies']
 
-def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_options=None, 
+
+def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_options=None,
                           mode=None, top=None, dtype='dict', verbose=True):
     # TODO: change method's name?
     """"
@@ -57,16 +58,17 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         # support AmberParm only?
         from parmed.amber.readparm import AmberParm
     except ImportError:
-        raise ImportError("need both `pysander` and `parmed` installed. Check Ambertools15")
+        raise ImportError(
+            "need both `pysander` and `parmed` installed. Check Ambertools15")
 
-    ddict = defaultdict(lambda : pyarray('d', []))
+    ddict = defaultdict(lambda: pyarray('d', []))
     _top = _get_top(traj, top)
 
     if input_options is None:
         inp = sander.gas_input(igb)
     elif igb is not None:
         if verbose:
-            print ("inp is not None, ignore provided `igb` and use `inp`")
+            print("inp is not None, ignore provided `igb` and use `inp`")
         inp = input_options
 
     if not isinstance(parm, AmberParm) or not isinstance(parm, string_types):
@@ -78,7 +80,8 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
 
     if not hasattr(parm, 'coords') or parm.coords is None:
         try:
-            # if `traj` is Trajectory-like (not frame_iter), try to take 1st coords
+            # if `traj` is Trajectory-like (not frame_iter), try to take 1st
+            # coords
             coords = traj[0].coords
         except:
             # create fake list

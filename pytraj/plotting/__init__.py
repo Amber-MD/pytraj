@@ -8,6 +8,7 @@ try:
 except ImportError:
     show = None
 
+
 def show_config():
     """show good ipython config"""
     txt = """
@@ -16,4 +17,4 @@ def show_config():
     import matplotlib
     matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image
     """
-    print (txt)
+    print(txt)

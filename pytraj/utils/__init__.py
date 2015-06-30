@@ -14,6 +14,7 @@ from ..compat import range
 # add amberhome
 from .amber_test import amberhome, cpptraj_test_dir, has_amberhome
 
+
 def duplicate_traj(orig_traj, n_times):
     # always make copy
     if 'Iter' in orig_traj.__class__.__name__:
@@ -22,6 +23,6 @@ def duplicate_traj(orig_traj, n_times):
         traj = orig_traj
 
     fa = traj.copy()
-    for _ in range(n_times-1):
+    for _ in range(n_times - 1):
         fa.join(traj.copy())
     return fa

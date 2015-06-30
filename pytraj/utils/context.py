@@ -3,6 +3,7 @@ from contextlib import contextmanager
 import tempfile
 from shutil import rmtree
 
+
 @contextmanager
 def goto_temp_folder():
     my_temp = tempfile.mkdtemp()

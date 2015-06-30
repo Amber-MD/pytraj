@@ -27,7 +27,7 @@ def load_pseudo_parm(parm, guess_bond=False):
     elif is_mdtraj(parm):
         chains = parm.chains
     else:
-        chains = [parm,] # fake
+        chains = [parm, ]  # fake
 
     pseudotop = Topology()
     i = 0
@@ -40,20 +40,20 @@ def load_pseudo_parm(parm, guess_bond=False):
             resname = str(res.name)
 
             if is_mdtraj(parm):
-                atype = str(atom.name) # mdtraj
+                atype = str(atom.name)  # mdtraj
                 resid = res.index
                 mass = atom.element.mass
                 #charge = atom.element.charge
                 charge = 0.0
             elif is_mdanalysis(parm):
                 # in MDAnalysis, atom.type is `int`
-                atype = str(atom.type) 
+                atype = str(atom.type)
                 resid = atom.resid
                 charge = atom.charge
                 mass = atom.mass
             else:
                 if atom.type:
-                    atype = str(atom.type) # parmed
+                    atype = str(atom.type)  # parmed
                 else:
                     atype = atom.name
                 resid = res.idx
@@ -69,7 +69,8 @@ def load_pseudo_parm(parm, guess_bond=False):
     if is_mdtraj(parm):
         # not sure how to get angles, dihedrals quickly
         if list(parm.bonds):
-            pseudotop.add_bonds(np.array([(a.index, b.index) for (a, b) in parm.bonds]))
+            pseudotop.add_bonds(
+                np.array([(a.index, b.index) for (a, b) in parm.bonds]))
 
     elif is_mdanalysis(parm):
         # turn-off. need to check MDAnalysis
@@ -84,8 +85,9 @@ def load_pseudo_parm(parm, guess_bond=False):
         except TypeError:
             pass
 
-        try :
-            pseudotop.add_dihedrals(np.asarray(parm.universe.torsions.to_indices()))
+        try:
+            pseudotop.add_dihedrals(
+                np.asarray(parm.universe.torsions.to_indices()))
         except TypeError:
             pass
 
@@ -97,19 +99,19 @@ def load_pseudo_parm(parm, guess_bond=False):
         # parmed
         if parm.bonds:
             bond_list = [(x.atom1.idx, x.atom2.idx)
-                        for x in parm.bonds]
+                         for x in parm.bonds]
         else:
             bond_list = []
 
         if parm.angles:
             angle_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx)
-                        for x in parm.angles]
+                          for x in parm.angles]
         else:
             angle_list = []
 
         if parm.dihedrals:
-            dihedral_list= [(x.atom1.idx, x.atom2.idx, x.atom3.idx, x.atom4.idx)
-                      for x in parm.dihedrals]
+            dihedral_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx, x.atom4.idx)
+                             for x in parm.dihedrals]
         else:
             dihedral_list = []
 

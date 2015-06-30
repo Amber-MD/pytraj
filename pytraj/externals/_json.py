@@ -2,6 +2,7 @@ from __future__ import absolute_import
 import json
 from .six import PY3
 
+
 def to_json(obj, path):
     """
     Parameters
@@ -17,6 +18,7 @@ def to_json(obj, path):
 
     with open(path, mode) as f:
         json.dump(obj, f)
+
 
 def read_json(path):
     """

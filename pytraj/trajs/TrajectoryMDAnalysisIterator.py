@@ -8,7 +8,9 @@ from .. _shared_methods import my_str_method
 from .. _action_in_traj import ActionTrajectory
 from . TrajectoryBaseIterator import TrajectoryBaseIterator
 
+
 class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionTrajectory):
+
     def __init__(self, mdanalysis_object, top=None):
         self._ext_holder = mdanalysis_object
         self._traj_holder = mdanalysis_object.trajectory
@@ -35,17 +37,17 @@ class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionTrajectory):
     def __getitem__(self, idx):
         atom_groups = self._ext_holder.atoms
         if is_int(idx):
-            if idx >= self.n_frames or idx < 0: 
+            if idx >= self.n_frames or idx < 0:
                 raise ValueError("must have 0 <= idx < self.n_frames")
             i = 0
             for _ in self._traj_holder:
                 if i == idx:
                     frame = Frame(self.n_atoms)
-                    # for some reasons, need to set py_free_mem=Fale 
+                    # for some reasons, need to set py_free_mem=Fale
                     # to keep Frame's lifetime
                     frame.py_free_mem = False
                     frame.xyz[:] = atom_groups.positions
-                    return frame # break the loop
+                    return frame  # break the loop
                 i += 1
         elif isinstance(idx, slice):
             fa = Trajectory()

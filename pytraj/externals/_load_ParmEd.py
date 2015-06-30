@@ -4,6 +4,7 @@ from ._load_pseudo_parm import load_pseudo_parm
 from ..Trajectory import Trajectory
 from ..Frame import Frame
 
+
 def load_ParmEd(parmed_obj, restype="top"):
     """return pytraj's Topology or Trajectory objects
 
@@ -35,12 +36,13 @@ def load_ParmEd(parmed_obj, restype="top"):
             if len(shape) in [1, 2]:
                 coords = coords.reshape(1, fa.top.n_atoms, 3)
                 shape = coords.shape
-            print (shape)
+            print(shape)
             fa._allocate(shape[0], shape[1])
             fa.update_coordinates(coords)
             return fa
     else:
         raise ValueError("only support `top` or `traj` keyword")
+
 
 def _load_parmed(parm_name):
     has_parmed = has_("parmed")
@@ -51,6 +53,7 @@ def _load_parmed(parm_name):
         if not has_parmed:
             PytrajWarningMissing("`parmed`")
         return None
+
 
 def to_ParmEd(pytraj_top):
     # TODO: exten to gromacs, charmm too

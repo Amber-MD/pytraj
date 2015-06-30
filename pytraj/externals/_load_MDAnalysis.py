@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+
 def load_MDAnalysis(its_obj, top=None):
     """load MDAnalysis' Universe object to pytra's traj object
 
@@ -16,18 +17,18 @@ def load_MDAnalysis(its_obj, top=None):
     from pytraj.exceptions import PytrajRequireObject
     from ._load_pseudo_parm import load_pseudo_parm
     from ..Frame import Frame
-    
-    # don't import here since we import load_pseudo_parm in 
+
+    # don't import here since we import load_pseudo_parm in
     # TrajectoryMDAnalysisIterator
     #from ..trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
-    
+
     # MDAnalysis needs numpy. So we always have numpy when using this
     _, np = _import_numpy()
 
     if not has_("MDAnalysis"):
         require("MDAnalysis")
     else:
-        from MDAnalysis import Universe 
+        from MDAnalysis import Universe
         if not isinstance(its_obj, Universe):
             raise PytrajRequireObject("Universe")
 

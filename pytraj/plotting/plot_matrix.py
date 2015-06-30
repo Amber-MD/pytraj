@@ -3,6 +3,7 @@ from pytraj.datasets.DatasetMatrixDouble import DatasetMatrixDouble
 from ..utils import _import_numpy
 from .base import plt, np
 
+
 def plot_matrix(dset, show=False, *args, **kwd):
     """plot matrix and return pyplot object
     Parameters
