@@ -83,12 +83,6 @@ class DatasetList(list):
             for d0 in dslist:
                 self.append(DataArray(d0))
 
-    def __contains__(self, d0):
-        for d in self:
-            if d.is_(d0):
-                return True
-        return False
-
     def copy(self):
         dslist = self.__class__()
         for d0 in self:

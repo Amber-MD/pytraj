@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import operator
 from pytraj.utils import _import_numpy
 
@@ -26,7 +27,6 @@ class DataArray(object):
         self.aspect = dset.aspect
         self.idx = dset.idx
         self.format = dset.format
-        self.scalar_mode = dset.scalar_mode
         self.scalar_type = dset.scalar_type
         if hasattr(dset, 'cpptraj_dtype'):
             self.cpptraj_dtype = dset.cpptraj_dtype
