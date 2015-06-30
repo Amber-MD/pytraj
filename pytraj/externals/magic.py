@@ -28,9 +28,13 @@ import threading
 
 from ctypes import c_char_p, c_int, c_size_t, c_void_p
 
-class MagicException(Exception): pass
+
+class MagicException(Exception):
+    pass
+
 
 class Magic:
+
     """
     Magic is a wrapper around the libmagic C library.
 
@@ -119,11 +123,13 @@ class Magic:
 
 instances = threading.local()
 
+
 def _get_magic_type(mime):
     i = instances.__dict__.get(mime)
     if i is None:
         i = instances.__dict__[mime] = Magic(mime=mime)
     return i
+
 
 def from_file(filename, mime=False):
     """"
@@ -136,6 +142,7 @@ def from_file(filename, mime=False):
     """
     m = _get_magic_type(mime)
     return m.from_file(filename)
+
 
 def from_buffer(buffer, mime=False):
     """
@@ -150,24 +157,25 @@ def from_buffer(buffer, mime=False):
     return m.from_buffer(buffer)
 
 
-
-
 libmagic = None
 # Let's try to find magic or magic1
-dll = ctypes.util.find_library('magic') or ctypes.util.find_library('magic1') or ctypes.util.find_library('cygmagic-1')
+dll = ctypes.util.find_library('magic') or ctypes.util.find_library(
+    'magic1') or ctypes.util.find_library('cygmagic-1')
 
-# This is necessary because find_library returns None if it doesn't find the library
+# This is necessary because find_library returns None if it doesn't find
+# the library
 if dll:
     libmagic = ctypes.CDLL(dll)
 
 if not libmagic or not libmagic._name:
-    windows_dlls = ['magic1.dll','cygmagic-1.dll']
+    windows_dlls = ['magic1.dll', 'cygmagic-1.dll']
     platform_to_lib = {'darwin': ['/opt/local/lib/libmagic.dylib',
                                   '/usr/local/lib/libmagic.dylib'] +
-                         # Assumes there will only be one version installed
-                         glob.glob('/usr/local/Cellar/libmagic/*/lib/libmagic.dylib'),
-                       'win32': windows_dlls,
-                       'cygwin': windows_dlls }
+                       # Assumes there will only be one version installed
+                       glob.glob(
+        '/usr/local/Cellar/libmagic/*/lib/libmagic.dylib'),
+        'win32': windows_dlls,
+        'cygwin': windows_dlls}
     for dll in platform_to_lib.get(sys.platform, []):
         try:
             libmagic = ctypes.CDLL(dll)
@@ -181,12 +189,14 @@ if not libmagic or not libmagic._name:
 
 magic_t = ctypes.c_void_p
 
+
 def errorcheck_null(result, func, args):
     if result is None:
         err = magic_error(args[0])
         raise MagicException(err)
     else:
         return result
+
 
 def errorcheck_negative_one(result, func, args):
     if result is -1:
@@ -201,13 +211,13 @@ def coerce_filename(filename):
         return None
 
     # ctypes will implicitly convert unicode strings to bytes with
-    # .encode('ascii').  If you use the filesystem encoding 
+    # .encode('ascii').  If you use the filesystem encoding
     # then you'll get inconsistent behavior (crashes) depending on the user's
     # LANG environment variable
     is_unicode = (sys.version_info[0] <= 2 and
                   isinstance(filename, unicode)) or \
-                  (sys.version_info[0] >= 3 and
-                   isinstance(filename, str))
+        (sys.version_info[0] >= 3 and
+         isinstance(filename, str))
     if is_unicode:
         return filename.encode('utf-8')
     else:
@@ -234,6 +244,7 @@ _magic_file.restype = c_char_p
 _magic_file.argtypes = [magic_t, c_char_p]
 _magic_file.errcheck = errorcheck_null
 
+
 def magic_file(cookie, filename):
     return _magic_file(cookie, coerce_filename(filename))
 
@@ -241,6 +252,7 @@ _magic_buffer = libmagic.magic_buffer
 _magic_buffer.restype = c_char_p
 _magic_buffer.argtypes = [magic_t, c_void_p, c_size_t]
 _magic_buffer.errcheck = errorcheck_null
+
 
 def magic_buffer(cookie, buf):
     return _magic_buffer(cookie, buf, len(buf))
@@ -250,6 +262,7 @@ _magic_load = libmagic.magic_load
 _magic_load.restype = c_int
 _magic_load.argtypes = [magic_t, c_char_p]
 _magic_load.errcheck = errorcheck_negative_one
+
 
 def magic_load(cookie, filename):
     return _magic_load(cookie, coerce_filename(filename))
@@ -267,45 +280,44 @@ magic_compile.restype = c_int
 magic_compile.argtypes = [magic_t, c_char_p]
 
 
+MAGIC_NONE = 0x000000  # No flags
 
-MAGIC_NONE = 0x000000 # No flags
+MAGIC_DEBUG = 0x000001  # Turn on debugging
 
-MAGIC_DEBUG = 0x000001 # Turn on debugging
+MAGIC_SYMLINK = 0x000002  # Follow symlinks
 
-MAGIC_SYMLINK = 0x000002 # Follow symlinks
+MAGIC_COMPRESS = 0x000004  # Check inside compressed files
 
-MAGIC_COMPRESS = 0x000004 # Check inside compressed files
+MAGIC_DEVICES = 0x000008  # Look at the contents of devices
 
-MAGIC_DEVICES = 0x000008 # Look at the contents of devices
+MAGIC_MIME = 0x000010  # Return a mime string
 
-MAGIC_MIME = 0x000010 # Return a mime string
+MAGIC_MIME_ENCODING = 0x000400  # Return the MIME encoding
 
-MAGIC_MIME_ENCODING = 0x000400 # Return the MIME encoding
+MAGIC_CONTINUE = 0x000020  # Return all matches
 
-MAGIC_CONTINUE = 0x000020 # Return all matches
+MAGIC_CHECK = 0x000040  # Print warnings to stderr
 
-MAGIC_CHECK = 0x000040 # Print warnings to stderr
+MAGIC_PRESERVE_ATIME = 0x000080  # Restore access time on exit
 
-MAGIC_PRESERVE_ATIME = 0x000080 # Restore access time on exit
+MAGIC_RAW = 0x000100  # Don't translate unprintable chars
 
-MAGIC_RAW = 0x000100 # Don't translate unprintable chars
+MAGIC_ERROR = 0x000200  # Handle ENOENT etc as real errors
 
-MAGIC_ERROR = 0x000200 # Handle ENOENT etc as real errors
+MAGIC_NO_CHECK_COMPRESS = 0x001000  # Don't check for compressed files
 
-MAGIC_NO_CHECK_COMPRESS = 0x001000 # Don't check for compressed files
+MAGIC_NO_CHECK_TAR = 0x002000  # Don't check for tar files
 
-MAGIC_NO_CHECK_TAR = 0x002000 # Don't check for tar files
+MAGIC_NO_CHECK_SOFT = 0x004000  # Don't check magic entries
 
-MAGIC_NO_CHECK_SOFT = 0x004000 # Don't check magic entries
+MAGIC_NO_CHECK_APPTYPE = 0x008000  # Don't check application type
 
-MAGIC_NO_CHECK_APPTYPE = 0x008000 # Don't check application type
+MAGIC_NO_CHECK_ELF = 0x010000  # Don't check for elf details
 
-MAGIC_NO_CHECK_ELF = 0x010000 # Don't check for elf details
+MAGIC_NO_CHECK_ASCII = 0x020000  # Don't check for ascii files
 
-MAGIC_NO_CHECK_ASCII = 0x020000 # Don't check for ascii files
+MAGIC_NO_CHECK_TROFF = 0x040000  # Don't check ascii/troff
 
-MAGIC_NO_CHECK_TROFF = 0x040000 # Don't check ascii/troff
+MAGIC_NO_CHECK_FORTRAN = 0x080000  # Don't check ascii/fortran
 
-MAGIC_NO_CHECK_FORTRAN = 0x080000 # Don't check ascii/fortran
-
-MAGIC_NO_CHECK_TOKENS = 0x100000 # Don't check ascii/tokens
+MAGIC_NO_CHECK_TOKENS = 0x100000  # Don't check ascii/tokens

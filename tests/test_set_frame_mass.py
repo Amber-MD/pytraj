@@ -9,7 +9,9 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 from pytraj.compat import zip
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -26,7 +28,7 @@ class Test(unittest.TestCase):
 
         # make sure we get correct mass
         aa_eq(f0.mass, traj.top.mass)
-        print (f0.mass)
+        print(f0.mass)
 
 if __name__ == "__main__":
     unittest.main()

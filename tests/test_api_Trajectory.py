@@ -10,7 +10,9 @@ import pytraj.common_actions as pyca
 from pytraj import api
 from pytraj.compat import zip
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         api_traj = api.Trajectory(traj)
@@ -40,10 +42,11 @@ class Test(unittest.TestCase):
         t_api2 = api.Trajectory(fa)
         t_api2.autoimage()
         fa.autoimage()
-        saved_traj = mdio.iterload("./data/tz2.autoimage.nc", "./data/tz2.ortho.parm7")
+        saved_traj = mdio.iterload(
+            "./data/tz2.autoimage.nc", "./data/tz2.ortho.parm7")
         for f1, f2 in zip(fa, t_api2):
             aa_eq(f1.box.tolist(), f2.box.tolist())
-            print (f1.rmsd(f2))
+            print(f1.rmsd(f2))
         aa_eq(t_api2.xyz, fa.xyz, decimal=1)
 
         # make sure to reproduce cpptraj's output too

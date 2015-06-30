@@ -34,6 +34,9 @@ from ._xyz import XYZ
 from . import common_actions as pyca
 from .hbonds import search_hbonds
 
+__all__ = ['Trajectory']
+
+
 cdef class Trajectory (object):
     def __cinit__(self, filename=None, top=None, indices=None, 
             bint warning=False, n_frames=None, check_top=True):
@@ -48,9 +51,9 @@ cdef class Trajectory (object):
         indices : array-like, frames to take, default=None
         warning : bool, default=False
             for debuging
-        n_frames : int, default=None
+        n_frames : int, optional, default=None
             preallocate n_frames
-        check_top : bool, default=True, don't check Topology
+        check_top : bool, optional, default=True, don't check Topology
 
         Examples
         --------
@@ -350,6 +353,12 @@ cdef class Trajectory (object):
             return XYZ(myview)
         else:
             raise NotImplementedError("must have numpy")
+
+    @property
+    def coordinates(self):
+        """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
+        """
+        return self.xyz
 
     def update_coordinates(self, double[:, :, :] xyz):
         '''update coords from 3D xyz array, dtype=f8'''
@@ -902,10 +911,10 @@ cdef class Trajectory (object):
         """
         cdef Trajectory other, farray
         cdef Frame frame
-        # TODO : do we need this method when we have `get_frames`
+
         if traj is self:
             raise ValueError("why do you join your self?")
-        if is_pytraj_trajectory(traj):
+        if is_pytraj_trajectory(traj) or is_frame_iter(traj):
             if self.top.n_atoms != traj.top.n_atoms:
                 raise ValueError("n_atoms of two arrays do not match")
             for frame in traj:
@@ -914,6 +923,8 @@ cdef class Trajectory (object):
             # assume a list or tuple of Trajectory
             for farray in traj:
                 self.join(farray, copy=copy)
+        else:
+            raise ValueError("traj must a Trajectory-like for frame iter")
 
     def resize(self, int n_frames):
         self.frame_v.resize(n_frames)
@@ -1527,3 +1538,18 @@ cdef class Trajectory (object):
             farray.frame_v.resize(_stop - i * chunk)
             farray.frame_v.assign(it + i * chunk, it + _stop)
             yield farray
+
+    @classmethod
+    def from_iterable(cls, iteratable, top=None, copy=False):
+        """return a new Trajectory from `iteratable` object
+        """
+        if top is None:
+            try:
+                top = iteratable.top
+            except AttributeError:
+                raise AttributeError("require a Topology")
+
+        traj = cls(top=top)
+        for f in iteratable:
+            traj.append(f, copy=copy)
+        return traj

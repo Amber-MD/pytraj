@@ -10,7 +10,9 @@ from pytraj.utils import _import_numpy
 
 has_np, np = _import_numpy()
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
@@ -29,7 +31,7 @@ class Test(unittest.TestCase):
         from pytraj.common_actions import calc_multidihedral
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         d0 = calc_multidihedral(traj, "psi")
-        print (d0)
+        print(d0)
         if not has_np:
             self.assertRaises(PytrajConvertError, lambda: dslist.to_ndarray())
 

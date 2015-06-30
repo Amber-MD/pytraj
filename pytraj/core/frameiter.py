@@ -1,17 +1,20 @@
 from __future__ import absolute_import
-from pytraj.AtomMask import AtomMask 
+from pytraj.AtomMask import AtomMask
 from pytraj.compat import string_types
 from pytraj.Frame import Frame
 
+
 class FrameIter(object):
+
     """
     internal class, not for user
     create this class to hold topology
     only iterate this once
     """
-    def __init__(self, fi_generator, 
+
+    def __init__(self, fi_generator,
                  original_top=None,
-                 new_top=None, start=0, stop=-1, stride=1, 
+                 new_top=None, start=0, stop=-1, stride=1,
                  mask="", autoimage=False,
                  rmsfit=None):
         self.top = new_top
@@ -30,9 +33,11 @@ class FrameIter(object):
 
     def __str__(self):
         root_msg = '<pytraj.core.frameiter.FrameIter with '
-        root_msg2 = 'start=%s, stop=%s, stride=%s \n' % (self.start, self.stop, self.stride)
+        root_msg2 = 'start=%s, stop=%s, stride=%s \n' % (
+            self.start, self.stop, self.stride)
 
-        more_msg = 'autoimage=%s, rmsfit=%s> \n' % (self.autoimage, self.rmsfit) 
+        more_msg = 'autoimage=%s, rmsfit=%s> \n' % (
+            self.autoimage, self.rmsfit)
         return "".join((root_msg, root_msg2, more_msg))
 
     def __repr__(self):
@@ -54,7 +59,7 @@ class FrameIter(object):
             if self.autoimage:
                 # need to do autoimage for ref too
                 # make a copy to avoid changing ref
-                ref = ref.copy() 
+                ref = ref.copy()
                 image_act.do_action(ref)
             from pytraj.actions.CpptrajActions import Action_Rmsd
             rmsd_act = Action_Rmsd()

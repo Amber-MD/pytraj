@@ -25,10 +25,12 @@ frame2 = Frame(frame)
 # create Trajectory to store Frame
 FARRAY = Trajectory()
 #FARRAY.get_frames(ts, update_top=True)
-FRAMENUM=999
+FRAMENUM = 999
 FARRAY = ts[:FRAMENUM]
 
+
 class TestTrajectory(unittest.TestCase):
+
     def test_len(self):
         N = 10
         farray = FARRAY[:N].copy()
@@ -40,11 +42,11 @@ class TestTrajectory(unittest.TestCase):
         assert farray[3:1:-1].size == 2
         assert farray[-1:-3].size == 0
         assert farray[-1:-3:-1].size == 2
-        assert farray[-1].same_coords_as(farray[N-1]) == True
+        assert farray[-1].same_coords_as(farray[N - 1]) == True
 
         #assert farray[5:1:-1][0].same_coords_as(farray[5]) == True
         # segment fault if using below expression
-        #print farray[5:1:-1][0].coords[:10]
+        # print farray[5:1:-1][0].coords[:10]
 
         # need to create a temp farray
         subfarray = farray[5:1:-1]
@@ -57,10 +59,10 @@ class TestTrajectory(unittest.TestCase):
         f_last = farray[-3:-1][-1]
         print("***********XXXXXXXXXXXXX*")
         print(f_last)
-        #print f_last.coords[:10]
-        #print farray[-1].coords[:10]
-        #print farray[-2].coords[:10]
-        #print farray[-3].coords[:10]
+        # print f_last.coords[:10]
+        # print farray[-1].coords[:10]
+        # print farray[-2].coords[:10]
+        # print farray[-3].coords[:10]
         #assert f_last.same_coords_as(farray[-2]) == True
 
     def test_len_TrajectoryIterator(self):
@@ -75,11 +77,11 @@ class TestTrajectory(unittest.TestCase):
         assert farray[3:1:-1].size == 2
         assert farray[-1:-3].size == 0
         assert farray[-1:-3:-1].size == 2
-        assert farray[-1].same_coords_as(farray[N-1]) == True
+        assert farray[-1].same_coords_as(farray[N - 1]) == True
 
         #assert farray[5:1:-1][0].same_coords_as(farray[5]) == True
         # segment fault if using below expression
-        #print farray[5:1:-1][0].coords[:10]
+        # print farray[5:1:-1][0].coords[:10]
 
         # need to create a temp farray
         subfarray = farray[5:1:-1]

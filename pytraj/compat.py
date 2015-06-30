@@ -10,7 +10,7 @@ except NameError:
     set = set
 
 try:
-    from itertools import izip 
+    from itertools import izip
 except ImportError:
     izip = zip
 

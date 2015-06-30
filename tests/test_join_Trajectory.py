@@ -8,13 +8,15 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa0 = traj.copy()
         fa1 = traj.copy()
 
-        # += 
+        # +=
         SIZE = 10
         fa0.join(fa1, copy=False)
         assert fa0.size == traj.size * 2 == 20
@@ -22,8 +24,8 @@ class Test(unittest.TestCase):
         aa_eq(fa0[:SIZE].xyz, traj.xyz)
 
         # memview
-        print (fa0)
-        print (fa0[SIZE])
+        print(fa0)
+        print(fa0[SIZE])
         fa1[0, 0, 0] = 1000.
         assert fa1[0, 0, 0] == 1000.
         assert fa0[SIZE, 0, 0] == 1000.

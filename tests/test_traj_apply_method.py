@@ -8,7 +8,9 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
@@ -43,7 +45,7 @@ class Test(unittest.TestCase):
         def func(xyz, xyz0):
             return xyz + xyz0
 
-        fa.apply(func, [xyz0,])
+        fa.apply(func, [xyz0, ])
         xyz += xyz0
         aa_eq(fa.xyz, xyz)
 
@@ -51,7 +53,7 @@ class Test(unittest.TestCase):
         xyz += xyz0
         aa_eq(fa.xyz, xyz)
 
-        xyz1 = xyz0[[0, 1, 2]] # atom 0, 1, 2
+        xyz1 = xyz0[[0, 1, 2]]  # atom 0, 1, 2
         fa.apply(func, args=xyz1, indices_or_mask=[0, 1, 2])
         for i in range(xyz.shape[0]):
             xyz[i][[0, 1, 2]] += xyz1

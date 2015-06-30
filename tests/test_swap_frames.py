@@ -8,7 +8,9 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         from array import array
         list0 = [0, 1]

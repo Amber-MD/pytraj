@@ -27,20 +27,22 @@ frame2 = Frame(frame)
 # create Trajectory to store Frame
 FARRAY = Trajectory()
 #FARRAY.get_frames(ts, update_top=True)
-FRAMENUM=10
+FRAMENUM = 10
 FARRAY = ts[:FRAMENUM]
+
 
 class TestTrajectory(unittest.TestCase):
     #@no_test
+
     def test_silly_index(self):
         farray = Trajectory()
         farray.top = Topology(datadir + "Tc5b.top")
         farray.load("./data/md1_prod.Tc5b.x", indices=list(range(8)))
         # got segmentation fault
-        #print farray[:][0][0]
+        # print farray[:][0][0]
         # got segmentation fault
         # why?
-        #print farray[0:][0][0]
+        # print farray[0:][0][0]
 
         # NOT getting segmentation fault
         # why?
@@ -73,9 +75,9 @@ class TestTrajectory(unittest.TestCase):
 
         # got Segmentation fault for this
         # why?
-        #farray.load("ala3.dcd")
+        # farray.load("ala3.dcd")
 
-        #print farray.top
+        # print farray.top
         ts = TrajectoryIterator()
         ts.top = farray.top.copy()
         ts.load("./data/ala3.dcd")
@@ -84,10 +86,13 @@ class TestTrajectory(unittest.TestCase):
 
     #@no_test
     def test_default_load(self):
-        farray0 = Trajectory(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=slice(0, 9, 2))
+        farray0 = Trajectory(filename="./data/md1_prod.Tc5b.x",
+                             top=Topology(datadir + "Tc5b.top"), indices=slice(0, 9, 2))
         print(farray0)
-        farray1 = Trajectory(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
-        farray2 = Trajectory(filename="./data/md1_prod.Tc5b.x", top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
+        farray1 = Trajectory(filename="./data/md1_prod.Tc5b.x",
+                             top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
+        farray2 = Trajectory(filename="./data/md1_prod.Tc5b.x",
+                             top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
         farray0.join((farray1, farray2))
         print(farray0)
 
@@ -110,9 +115,12 @@ class TestTrajectory(unittest.TestCase):
         # add more frame
         farray.load(filename="./data/md1_prod.Tc5b.x", top=ts.top)
         # add slice
-        farray.load(filename="./data/md1_prod.Tc5b.x", top=ts.top, indices=slice(0, ts.size, 2))
-        farray.load(filename="./data/md1_prod.Tc5b.x", top=ts.top, indices=slice(0, ts.size, 2))
-        farray.load(filename="./data/md1_prod.Tc5b.x", top=ts.top, indices=(1, 3, 9, 5))
+        farray.load(filename="./data/md1_prod.Tc5b.x",
+                    top=ts.top, indices=slice(0, ts.size, 2))
+        farray.load(filename="./data/md1_prod.Tc5b.x",
+                    top=ts.top, indices=slice(0, ts.size, 2))
+        farray.load(
+            filename="./data/md1_prod.Tc5b.x", top=ts.top, indices=(1, 3, 9, 5))
 
         # load list of files
         flist = ["./data/md1_prod.Tc5b.x", "./data/md1_prod.Tc5b.x"]
@@ -127,12 +135,12 @@ class TestTrajectory(unittest.TestCase):
         print(FARRAYcp[0].buffer1d)
         arr0 = np.asarray(FARRAYcp[0].buffer1d)
         print(arr0[:10])
-        
+
         # what happen if we assign arr0 to `None`?
         arr0 = None
         print(FARRAYcp[0].coords[:10])
         print(arr0)
-        
+
     #@no_test
     def test_strip_atoms(self):
         FARRAYcp = FARRAY.copy()
@@ -174,7 +182,7 @@ class TestTrajectory(unittest.TestCase):
         subfarray = FARRAYcp[:2]
         print("subfarray: ", subfarray)
         assert subfarray[0, 0, 0] == 2 * tmp
-        subfarray[0][:] = [4*tmp, 1000, 1000.]
+        subfarray[0][:] = [4 * tmp, 1000, 1000.]
         assert subfarray[0, 0, 0] == 4 * tmp
         arr[0] = 4 * tmp
         print(subfarray)
@@ -199,22 +207,22 @@ class TestTrajectory(unittest.TestCase):
         # doing Frame calculation
         print("test *= ")
         tmp = subfarray[0, 0, 0]
-        subfarray[0]*= subfarray[0]
-        assert subfarray[0, 0, 0] == tmp*tmp
+        subfarray[0] *= subfarray[0]
+        assert subfarray[0, 0, 0] == tmp * tmp
 
         #subfarray[0] /= subfarray[0]
-        
+
     #@no_test
     def test_fancy_indexing(self):
         FARRAYcp = FARRAY.copy()
         FARRAY_sub0 = FARRAYcp[:3]
         print(FARRAY_sub0)
-        tmp = 10000. 
+        tmp = 10000.
         FARRAY_sub0[0][100, 0] = tmp
         assert FARRAY_sub0[0, 100, 0] == tmp
         FARRAY_sub0 = FARRAYcp[:3]
         print(FARRAY_sub0)
-        print(FARRAY_sub0[0].py_free_mem) 
+        print(FARRAY_sub0[0].py_free_mem)
         print(FARRAYcp[0][100])
         assert FARRAY_sub0[0].n_atoms == 304
 
@@ -276,7 +284,7 @@ class TestTrajectory(unittest.TestCase):
         assert farray.size == N
         # store 10th atom coord of 5th frame for comparison
         # make getting results after printing 3 times
-        ## framearray size = 10
+        # framearray size = 10
         print()
         print("test Trajectory size")
         assert farray.size == N
@@ -284,29 +292,29 @@ class TestTrajectory(unittest.TestCase):
         assert farray.__len__() == farray.size
 
         print("test __getitem__ and __setitem__")
-        print() 
+        print()
         frame = farray[5]
         print(frame.size)
-        print("do some calculation with 'frame', make sure this will not affect farray[5]")
-        print() 
+        print(
+            "do some calculation with 'frame', make sure this will not affect farray[5]")
+        print()
         frame += frame
 
         print("test assignment")
-        print() 
+        print()
         farray[5] = frame
 
         print("test remove Frame from farray")
-        print() 
+        print()
         print("10th atom of farray[4 or 5 or 6] before erasing farray[5]")
-        print() 
-        #farray.erase(5)
+        print()
+        # farray.erase(5)
         del farray[5]
 
-        print() 
+        print()
         print("10th atom of farray[4 or 5 or 6] after erasing farray[5]")
-        print() 
+        print()
         assert farray.size == N - 1
-
 
         print("test Trajectory copy")
         farray_cp = farray.copy()
@@ -314,8 +322,8 @@ class TestTrajectory(unittest.TestCase):
         print(farray_cp.size)
         print(farray.size)
         assert farray_cp.size != farray.size
-        #print farray[5].b_address()
-        
+        # print farray[5].b_address()
+
         # make sure copy topology too
         assert farray_cp.top.n_atoms == farray.top.n_atoms
 
@@ -325,7 +333,8 @@ class TestTrajectory(unittest.TestCase):
         t = Timer()
         with t:
             farray_cp.strip_atoms("!@CA")
-        print("time for stripping atoms of %s frames is %s" % (N, t.time_gap()))
+        print("time for stripping atoms of %s frames is %s" %
+              (N, t.time_gap()))
         print(farray_cp.top.n_atoms)
         print(farray_cp[0].coords)
 
@@ -346,7 +355,7 @@ class TestTrajectory(unittest.TestCase):
         arr_end_new = farray[-1].coords[:10]
         arr_begin_new = farray[0].coords[:10]
         assert arr_end_old != arr_end_new
-        assert arr_end_old  == arr_begin_new
+        assert arr_end_old == arr_begin_new
 
     def test_reverse_0(self):
         farray = FARRAY.copy()

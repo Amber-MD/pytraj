@@ -37,37 +37,23 @@ def check_instance(inst, clsname):
         raise ValueError("Must be instance of %s") % clsname.__name__
 
 cdef class Frame (object):
-    """Original cpptraj doc (Frame.h) (written by Daniel R. Roe)
-    (pytraj doc will be updated) 
-    Class: Frame
-        Hold coordinates, perform various operations/transformations on them.
-        Intended to hold coordinates e.g. from a trajectory or reference frame,
-        along with box coordinates (used in imaging calculations), mass information,
-        and optionally velocity information. Frame can be set up coords only (all 
-        masses set to 1.0), coords and masses, or coords/masses/velocities. Mass is 
-        stored since several functions (like COM, RMSD, Inertia etc) have the option
-        to factor in the mass of the atoms involved, and this avoids having to pass
-        a mass pointer in, which takes the burden of keeping track of mass away from 
-        actions etc. Mass is stored when the frame is initially created, and is 
-        modified if necessary by SetFrame (which is the case when e.g. calculating
-        per-residue RMSD).
-        
-        - Implementation Details:
-        
-        In addition to the constructors, there are two classes of routine that
-        can be used to set up Frames. The SetupX routines do any memory allocation,
-        and assign masses, and the SetX routines assign coordinates/velocities. The
-        SetX routines will dynamically adjust the size of the frame up to maxnatom,
-        but no reallocation will occur so the frame should be set up for the largest
-        possible # of atoms it will hold. This avoids expensive reallocations.
-        The representation of coordinates (X) and velocities (V) are double*
-        instead of STL vectors so as to easily interface with the FileIO routines
-        which tend to be much faster than iostream ops. 
+    """
+    Parameters
+    ----------
+    n_atoms : int, default=0 
+        create a new Frame with n_atoms
+    frame : a Frame, default=None
+        make a copy from `frame`
+    atommask : AtomMask, default=None
+        make a copy from `frame` with atommask
 
-        pytraj doc
-        ============
-        Should Frame hold topology info? (may be NOT, it's expesive)
-        TODO : should we really need all methods here?
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> pt.Frame.from_ndarray(xyz)
+    >>> frame = pt.Frame(304)
+    >>> frame.append_xyz(xyz)
+    >>> frame2 = pt.Frame(frame)
     """
     def __cinit__(self, *args):
         # Should I include topology in Frame?
@@ -166,11 +152,14 @@ cdef class Frame (object):
         self.thisptr.ClearAtoms()
 
     def append_xyz(self, double[:, :] xyz):
+        """append 3D array and return itself
+        """
         cdef int i
         cdef int N = xyz.shape[0]
 
         for i in range(N):
             self.thisptr.AddXYZ(&xyz[i, 0])
+        return self
 
     cdef void _append_xyz_2d(self, double[:, :] xyz):
         # for internal use
@@ -542,8 +531,16 @@ cdef class Frame (object):
 
     @property
     def coords(self):
+        return self.coordinates
+
+    @property
+    def coordinates(self):
         """
         return 1D-coords (copy) of Frame
+        Notes
+        -----
+        same as `Frame.coords`. We use `coordinates` to be the same as in
+        `parmed`
         """
         cdef pyarray arr = cparray.clone(pyarray('d', []), 
                             self.n_atoms*3, zero=False)
@@ -1242,6 +1239,12 @@ cdef class Frame (object):
             return np.asarray(self.buffer2d)
         else:
             raise PytrajNumpyError()
+
+    @classmethod
+    def from_ndarray(cls, xyz):
+        """create new Frame from a numpy.ndarray
+        """
+        return Frame().append_xyz(xyz)
 
     def to_dataframe(self, top=None):
         from pytraj.utils import _import_pandas

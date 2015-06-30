@@ -9,16 +9,18 @@ from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 from pytraj.compat import zip
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("h5py")
     def test_0(self):
         from pytraj.trajs.TrajectoryHDF5Iterator import TrajectoryHDF5Iterator
         t = TrajectoryHDF5Iterator("./data/ala2.h5")
-        print (t.xyz)
-        print (t)
+        print(t.xyz)
+        print(t)
 
         for frame in t:
-            print (frame)
+            print(frame)
 
     @test_if_having("h5py")
     @test_if_having("mdtraj")
@@ -29,15 +31,15 @@ class Test(unittest.TestCase):
 
         namelist = "frame0.h5  frame0.xtc.h5 frame0.dcd.h5 traj.h5"
         for x in namelist.split():
-            print (x)
+            print(x)
             fn = get_fn(x)
             t = TrajectoryHDF5Iterator(fn, top=traj.top)
-            print (t.top.box)
-            print (t.has_box())
+            print(t.top.box)
+            print(t.has_box())
             for frame in t:
                 pass
 
-            print (t[:2])
+            print(t[:2])
 
 
 if __name__ == "__main__":

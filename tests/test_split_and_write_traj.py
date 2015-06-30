@@ -6,7 +6,9 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 import pytraj.common_actions as pyca
 from pytraj.testing import goto_temp_folder
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         # duplcate
@@ -21,16 +23,16 @@ class Test(unittest.TestCase):
             # reload
             from glob import glob
             flist = sorted(glob("trajx*"))
-            print (flist)
+            print(flist)
             traj3 = pt.iterload(flist, top)
-            eq_coords(traj2, traj3)
-            print (traj2.rmsd())
-            print (traj3.rmsd())
+            aa_eq(traj2.xyz, traj3.xyz)
+            print(traj2.rmsd())
+            print(traj3.rmsd())
 
         # test TrajectoryIterator object
         traj.split_and_write_traj(n_chunks=4, root_name='./output/trajiterx')
         flist = sorted(glob("./output/trajiterx*"))
-        print (flist)
+        print(flist)
         traj4 = pt.iterload(flist, top)
         eq_coords(traj4, traj)
 

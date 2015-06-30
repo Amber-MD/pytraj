@@ -10,23 +10,25 @@ def frame_iter_pytraj():
     for frame in traj():
         pass
 
+
 @Timer()
 def chunk_iter_pytraj():
     traj = io.iterload("md_first_100.nc", "../../tc5bwat.top")
     for traj in traj.chunk_iter(chunksize=10):
         pass
 
+
 @Timer()
 def chunk_iter_mdtraj():
     for traj in md.iterload("md_first_100.nc", top="tc5bwat.prmtop", chunksize=10):
-            pass
+        pass
 
 frame_iter_pytraj()
 chunk_iter_pytraj()
 chunk_iter_mdtraj()
 
 traj = io.iterload("md_first_100.nc", "../../tc5bwat.top")
-print (traj)
+print(traj)
 
 # result:
 #    0.095

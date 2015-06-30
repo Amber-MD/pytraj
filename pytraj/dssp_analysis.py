@@ -4,11 +4,13 @@ from .utils import _import_numpy
 
 
 class DSSPAnalysisResult(BaseAnalysisResult):
+
     """
     Notes
     -----
     class's name might be changed
     """
+
     def to_dict(self, dtype='int'):
         """
         Return a dict of numpy.ndarray
@@ -88,7 +90,7 @@ def calc_dssp(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     dslist = CpptrajDatasetList()
 
     Action_DSSP()(command,
-                  current_frame=traj, 
+                  current_frame=traj,
                   top=_top,
                   dslist=dslist,
                   *args, **kwd)
@@ -109,6 +111,7 @@ def calc_dssp(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
         return DSSPAnalysisResult(_get_data_from_dtype(dslist, dtype='dataset'))
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
+
 
 def to_string_ss(arr0):
     """

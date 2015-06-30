@@ -126,9 +126,12 @@ cdef class TrajectoryCpptraj:
         cdef int i
         cdef int n_atoms = self.n_atoms
         cdef n_frames = self.n_frames
-        cdef Frame frame = Frame(n_atoms)
+        cdef Frame frame
 
         for i in range(n_frames):
+            # always create a new Frame
+            # if not [frame for frame in traj] will return a list of last frame (identical)
+            frame = Frame(n_atoms)
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 

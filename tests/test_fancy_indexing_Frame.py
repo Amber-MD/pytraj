@@ -4,7 +4,9 @@ from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
@@ -19,7 +21,7 @@ class Test(unittest.TestCase):
         aa_eq(f0[mask], xyz[indices])
         aa_eq(f0[atm, 0], xyz[indices][0])
         aa_eq(f0[atm, 0, 0], xyz[indices][0, 0])
-        aa_eq(f0[indices][0, 0], xyz[indices][ 0, 0])
+        aa_eq(f0[indices][0, 0], xyz[indices][0, 0])
         aa_eq(f0[atm, 1:10, :], xyz[indices][1:10, :])
         aa_eq(f0[atm, :, 0], xyz[indices][:, 0])
         aa_eq(f0[atm, :, :], xyz[indices][:, :])

@@ -17,7 +17,9 @@ ADICT['secstruct'] = allactions.__dict__['Action_DSSP']
 
 # make another dict to convert something like 'MolSurf' to 'molsurf'
 
+
 class ActionDict:
+
     def __init__(self):
         self.adict = ADICT
         self.action_holder = None

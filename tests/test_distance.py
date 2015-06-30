@@ -11,7 +11,9 @@ from pytraj.misc import from_legends_to_indices
 from pytraj.utils import Timer
 import numpy as np
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -24,12 +26,12 @@ class Test(unittest.TestCase):
         aa_eq(d0, d2)
 
         Nsize = 10
-        arr = np.random.randint(0, 300, size=Nsize*2).reshape(Nsize, 2)
+        arr = np.random.randint(0, 300, size=Nsize * 2).reshape(Nsize, 2)
         d3 = fa.calc_distance(arr)
         d4 = traj.calc_distance(arr)
         d5 = pyca.calc_distance(traj, arr)
         d6 = pyca.calc_distance(fa, arr)
-        d7 = pyca.calc_distance([fa, traj], arr, n_frames=2*fa.n_frames)
+        d7 = pyca.calc_distance([fa, traj], arr, n_frames=2 * fa.n_frames)
         aa_eq(d3, d4)
         aa_eq(d3, d5)
         aa_eq(d3, d6)
@@ -44,7 +46,7 @@ class Test(unittest.TestCase):
         fa = Frame()
         fa.append_xyz(xyz_frame)
         Nsize = 10**6
-        arr = np.random.randint(0, 300, size=Nsize*2).reshape(Nsize, 2)
+        arr = np.random.randint(0, 300, size=Nsize * 2).reshape(Nsize, 2)
 
         @Timer()
         def no_openmp():
@@ -58,7 +60,7 @@ class Test(unittest.TestCase):
         with_openmp()
 
         d_no_omp = fa.calc_distance(arr, parallel=False)
-        d_with_omp  = fa.calc_distance(arr, parallel=True)
+        d_with_omp = fa.calc_distance(arr, parallel=True)
         aa_eq(d_no_omp, d_with_omp)
 
 

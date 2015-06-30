@@ -22,8 +22,8 @@ print(actionArgs.get_string_key("out"))
 
 traj = Trajectory()
 print(traj.check_frame_args(ArgList("1 100 10"), 9999))
-print(traj.setup_frame_info()) 
+print(traj.setup_frame_info())
 
 top = Topology("data/Tc5b.top")
 #trajio = TrajectoryIO()
-#print trajio.total_frames("./data/md1_prod.Tc5b.x", top)
+# print trajio.total_frames("./data/md1_prod.Tc5b.x", top)

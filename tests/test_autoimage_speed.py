@@ -1,4 +1,4 @@
-#import unittest # no test
+import unittest # no test
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -9,9 +9,12 @@ from pytraj.compat import izip as zip
 from pytraj.utils import Timer
 from pytraj.externals.six.moves import range
 
+
 class Test(unittest.TestCase):
+
     def test_1(self):
-        traj = mdio.iterload("./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = mdio.iterload(
+            "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
 
         fa = traj[:]
         for i in range(100):
@@ -31,8 +34,9 @@ class Test(unittest.TestCase):
         normal()
         supposed_faster()
 
-        print (fa2, fa)
+        print(fa2, fa)
         # Conclusion: not much faster
 
 if __name__ == "__main__":
-    unittest.main()
+    pass
+    #unittest.main()

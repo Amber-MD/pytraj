@@ -9,7 +9,10 @@ from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 
 '''Aim: check segmentation fault for Topology that does not have bond info'''
+
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = io.load_sample_data('tz2').to_mutable_trajectory()
         tbad = traj.copy()
@@ -22,7 +25,7 @@ class Test(unittest.TestCase):
         from pytraj.datasets.DataSetList import DataSetList
         dslist = DataSetList()
         check("", traj[0], top=traj.top, dslist=dslist)
-        print (dslist)
+        print(dslist)
         pyca.check_structure(tbad[0], top=tbad.top)
 
 

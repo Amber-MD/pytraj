@@ -9,7 +9,9 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 from pytraj import AtomMask
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -59,10 +61,10 @@ class Test(unittest.TestCase):
         # automatically cast
         fa0 = fa.copy()
         xyz = fa.xyz + 1.
-        fa0[0] = xyz[0] # fa[0] return a Frame
+        fa0[0] = xyz[0]  # fa[0] return a Frame
         aa_eq(fa0[0].xyz, xyz[0])
         # try to assign a Frame
-        print (fa0, fa)
+        print(fa0, fa)
         fa0[0] = fa[0]
         aa_eq(fa0[0].xyz, fa[0].xyz)
 

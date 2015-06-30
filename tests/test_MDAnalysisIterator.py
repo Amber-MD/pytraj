@@ -9,32 +9,35 @@ from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 from pytraj.compat import zip
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("MDAnalysis")
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from MDAnalysis import Universe
         from pytraj.trajs.TrajectoryMDAnalysisIterator import (
-                TrajectoryMDAnalysisIterator as MDIterator)
+            TrajectoryMDAnalysisIterator as MDIterator)
 
-        u = Universe(traj.top.filename, traj.filename, format='mdcrd', topology_format='prmtop')
+        u = Universe(
+            traj.top.filename, traj.filename, format='mdcrd', topology_format='prmtop')
         traj_converted = mdio.load_MDAnalysis(u, top=traj.top)
         aa_eq(traj.xyz, traj_converted.xyz)
         aa_eq(traj[0].xyz, traj_converted[0].xyz)
-        print (u.atoms)
+        print(u.atoms)
         u_traj = u.trajectory
 
         titer = MDIterator(u, top=traj.top)
         titer2 = mdio.load_MDAnalysisIterator(u)
         aa_eq(traj.xyz, titer.xyz)
         aa_eq(traj.xyz, titer2.xyz)
-        print (titer)
+        print(titer)
         assert titer.n_atoms == u_traj.numatoms
         assert titer.n_frames == u_traj.numframes
 
         # make sure titer.top is Topology object
         assert isinstance(titer.top, Topology)
-        print (titer[0][0])
+        print(titer[0][0])
 
         # make sure we get correct frame with given index
         aa_eq(traj_converted[0].xyz, titer[0].xyz)
@@ -58,8 +61,8 @@ class Test(unittest.TestCase):
 
         # FIXME : failed assertion
         #aa_eq(d_mda2, d_traj)
-        print (d_mda2)
-        print (d_traj)
+        print(d_mda2)
+        print(d_traj)
 
     @test_if_having("MDAnalysis")
     def test_1(self):
@@ -74,18 +77,18 @@ class Test(unittest.TestCase):
 
         aa_eq(t[:2].xyz, traj[:2].xyz)
         d0 = traj.search_hbonds()
-        print (d0)
+        print(d0)
         # make sure no segfault
         d1 = t.search_hbonds(":1-10")
         d1 = t.search_hbonds(":1-10")
         d1 = t.search_hbonds(":1-10")
         d1 = t.search_hbonds(":1-10")
         d1 = t.search_hbonds(":1-10")
-        print (d0.to_ndarray(), d1.to_ndarray())
+        print(d0.to_ndarray(), d1.to_ndarray())
         # FIXME: failed
         #aa_eq(d0.to_ndarray(), d1.to_ndarray())
 
-        ## try another action: COM
+        # try another action: COM
         d0 = traj.calc_COM().to_ndarray()
         d1 = t.calc_COM().to_ndarray()
         aa_eq(d0, d1)
@@ -118,14 +121,14 @@ class Test(unittest.TestCase):
         pyca.do_clustering(t, "kmeans clusters 5 @CA")
         pyca.do_clustering(t[:], "kmeans clusters 5 @CA")
         pyca.do_clustering(t_in_mem, "kmeans clusters 5 @CA")
-        print (t)
+        print(t)
 
     @test_if_having("MDAnalysis")
     def test_2(self):
         from MDAnalysis import Universe
         from MDAnalysisTests.datafiles import XYZ_psf, XYZ_bz2
         u = Universe(XYZ_psf, XYZ_bz2)
-        print (u)
+        print(u)
         t = mdio.load_MDAnalysisIterator(u)
         traj = mdio.load_MDAnalysis(u)
         aa_eq(t.xyz, traj.xyz)
@@ -155,11 +158,11 @@ class Test(unittest.TestCase):
         from MDAnalysisTests.datafiles import GRO, TRR
         u = Universe(GRO, TRR)
 
-        print (u)
+        print(u)
         t = mdio.load_MDAnalysisIterator(u)
-        print (t)
+        print(t)
         traj = mdio.load_MDAnalysis(u)
-        print (traj)
+        print(traj)
         xyz = t.xyz
         aa_eq(t.xyz, traj.xyz)
         fa0 = t[:]

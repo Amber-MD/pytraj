@@ -24,7 +24,7 @@ def load_mdtraj(m_traj, autoconvert=True, top=None):
     else:
         unit = 1.
     if not has_("mdtraj"):
-        # we dont need checking `numpy` since mdtraj needs numpy 
+        # we dont need checking `numpy` since mdtraj needs numpy
         require("mdtraj")
     else:
         from mdtraj import Trajectory as MDTrajectory
@@ -32,14 +32,15 @@ def load_mdtraj(m_traj, autoconvert=True, top=None):
             raise ValueError("must be mdtraj's Trajectory object")
         else:
             if top is not None:
-                print ("test")
+                print("test")
                 pseudotop = top
             else:
                 pseudotop = load_pseudo_parm(m_traj.top)
                 if not m_traj.unitcell_lengths is None:
                     # convert "nm" to "Angstrom"
                     # only check box in 1st frame
-                    arr = np.append(unit*m_traj.unitcell_lengths[0], m_traj.unitcell_angles[0])
+                    arr = np.append(
+                        unit * m_traj.unitcell_lengths[0], m_traj.unitcell_angles[0])
                     pseudotop.box = Box(arr.astype(np.float64))
 
             farray = Trajectory()

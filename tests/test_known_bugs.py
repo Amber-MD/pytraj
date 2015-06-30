@@ -6,7 +6,9 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 import numpy as np
 
+
 class TestBugs(unittest.TestCase):
+
     def test_0(self):
         trajcpp = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = trajcpp[:]

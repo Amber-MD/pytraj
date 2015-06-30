@@ -8,7 +8,9 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("numpy")
     def test_0(self):
         from pytraj._xyz import XYZ
@@ -30,7 +32,7 @@ class Test(unittest.TestCase):
         arr = np.asarray(xyz)
 
         # try to do some basic math
-        xyz/3.
+        xyz / 3.
 
         def try_to_set_atts():
             traj.xyz = traj.xyz + 1.

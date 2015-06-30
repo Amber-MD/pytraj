@@ -1,5 +1,6 @@
 from pytraj.externals.six import PY3
 
+
 def _guess_filetype(myfile):
     """determine filetype of `myfile` based on its contents
     Use with your own risk

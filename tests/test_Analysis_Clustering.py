@@ -8,7 +8,9 @@ from pytraj.analyses.CpptrajAnalyses import Analysis_Clustering
 from pytraj import DatasetList
 from pytraj.datasets.DataSetList import DataSetList
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         dslist = DataSetList()
         dflist = DataFileList()
@@ -27,7 +29,7 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         import numpy as np
-        print ("use common_actions")
+        print("use common_actions")
         from pytraj.common_actions import do_clustering
 
         traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
@@ -35,7 +37,7 @@ class Test(unittest.TestCase):
         :2-10 clusters 3 epsilon 4.0 summary ./output/avg.summary.do_clustering.dat nofit
         """
         dslist = do_clustering(traj, command, traj.top)
-        print (dslist.to_dict())
+        print(dslist.to_dict())
 
         dslist = do_clustering(traj, command, traj.top, dtype='ndarray')
 

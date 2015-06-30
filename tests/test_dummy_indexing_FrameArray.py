@@ -24,10 +24,12 @@ frame2 = Frame(frame)
 # create Trajectory to store Frame
 FARRAY = Trajectory()
 #FARRAY.get_frames(ts, update_top=True)
-FRAMENUM=1000
+FRAMENUM = 1000
 FARRAY = ts[:FRAMENUM]
 
+
 class TestTrajectory(unittest.TestCase):
+
     def test_dummy(self):
         farray = FARRAY.copy()
         print(farray[:])
