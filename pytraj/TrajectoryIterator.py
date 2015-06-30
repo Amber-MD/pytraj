@@ -7,23 +7,19 @@ from __future__ import absolute_import
 import warnings
 from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from pytraj._action_in_traj import ActionTrajectory
-from pytraj.action_dict import ActionDict
-from pytraj.Frame import Frame
-from pytraj.AtomMask import AtomMask
-from pytraj.compat import string_types, zip
-from pytraj.exceptions import PytrajMemviewError
+from pytraj.compat import string_types
 from pytraj._shared_methods import _tolist, _split_and_write_traj
-from pytraj._get_common_objects import _get_top
 from pytraj.Topology import Topology
 from pytraj.utils import is_int
-from pytraj.tools import split_range, _not_yet_tested
 
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
 
+
 def split_iterators(traj, n_chunks=1, start=0, stop=-1, stride=1, mask=None,
                     autoimage=False, rmsfit=None):
     return traj.split_iterators(n_chunks, start, stop, stride, mask, autoimage, rmsfit)
+
 
 def _make_frame_slices(n_files, original_frame_slice):
     if isinstance(original_frame_slice, tuple):
@@ -32,14 +28,17 @@ def _make_frame_slices(n_files, original_frame_slice):
         fs_len = len(original_frame_slice)
         if fs_len < n_files:
             new_list = original_frame_slice[:] + [(0, -1, 1)
-                                                 for _ in range(fs_len, n_files)]
+                                                  for _ in range(fs_len, n_files)]
         elif fs_len == n_files:
             new_list = original_frame_slice
         else:
-            raise ValueError("len of frame_slice tuple-list must be smaller or equal number of files")
+            raise ValueError(
+                "len of frame_slice tuple-list must be smaller or equal number of files")
         return new_list
     else:
-        raise ValueError("must be a tuple of integer values or a list of tuple of integer values")
+        raise ValueError(
+            "must be a tuple of integer values or a list of tuple of integer values")
+
 
 def _turn_to_list_with_rank(func):
     def inner(*args, **kwd):
@@ -52,6 +51,7 @@ def _turn_to_list_with_rank(func):
 
 
 class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
+
     def __init__(self, filename=None, top=None, *args, **kwd):
         super(TrajectoryIterator, self).__init__()
 
@@ -70,15 +70,15 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             if self.top.is_empty():
                 raise ValueError('First argument is always a trajectory filename'
                                  ' or a list of filenames'
-                                  'must have a non-empty Topology')
+                                 'must have a non-empty Topology')
             self.load(filename, self.top, *args, **kwd)
         if not top and (args or kwd):
             warnings.warn('creating an empty TrajectoryIterator since does not '
                           'have Topology information. Ignore other arguments')
 
     def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
-        """load trajectory/trajectories from filename/filenames with 
-        a single frame_slice or a list of frame_slice
+        """load trajectory/trajectories from filename/filenames
+        with a single frame_slice or a list of frame_slice
         """
         if not top:
             _top = self.top
@@ -90,11 +90,13 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             self.frame_slice_list.append(frame_slice)
         elif isinstance(filename, (list, tuple)):
             filename_list = filename
-            full_frame_slice = _make_frame_slices(len(filename_list), frame_slice)
+            full_frame_slice = _make_frame_slices(
+                len(filename_list), frame_slice)
 
             for fname, fslice in zip(filename_list, full_frame_slice):
                 self.frame_slice_list.append(frame_slice)
-                super(TrajectoryIterator, self).load(fname, _top, frame_slice=fslice)
+                super(TrajectoryIterator, self).load(
+                    fname, _top, frame_slice=fslice)
         else:
             raise ValueError("filename must a a string or a list of strings")
 
@@ -124,7 +126,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         from itertools import tee
         return tee(self, n_iters)
 
-    def frame_iter(self, start=0, stop=-1, stride=1, mask=None, 
+    def frame_iter(self, start=0, stop=-1, stride=1, mask=None,
                    autoimage=False, rmsfit=None):
 
         from .core.frameiter import FrameIter
@@ -134,11 +136,13 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             _top = self.top._get_new_from_mask(mask)
         if rmsfit is not None:
             if len(rmsfit) != 2:
-                raise ValueError("rmsfit must be a tuple of two elements (frame, mask)")
+                raise ValueError(
+                    "rmsfit must be a tuple of two elements (frame, mask)")
             if is_int(rmsfit[0]):
                 index = rmsfit[0]
                 rmsfit = tuple([self[index], rmsfit[1]])
-        frame_iter_super = super(TrajectoryIterator, self).frame_iter(start, stop, stride)
+        frame_iter_super = super(
+            TrajectoryIterator, self).frame_iter(start, stop, stride)
         return FrameIter(frame_iter_super,
                          original_top=self.top,
                          new_top=_top,
@@ -149,8 +153,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          autoimage=autoimage,
                          rmsfit=rmsfit)
 
-    def chunk_iter(self, chunksize=2, start=0, stop=-1, 
-                   autoimage=False, 
+    def chunk_iter(self, chunksize=2, start=0, stop=-1,
+                   autoimage=False,
                    rmsfit=None,
                    copy_top=False):
         """
@@ -176,9 +180,11 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             need_align = False
             ref, mask_for_rmsfit = None, None
 
-        for chunk in super(TrajectoryIterator, self).chunk_iter(chunk, start, stop, copy_top):
+        for chunk in super(TrajectoryIterator, self).chunk_iter(chunk, 
+                                                start, stop, copy_top):
             # always perform autoimage before doing fitting
-            # chunk is `Trajectory` object, having very fast `autoimage` and `rmsfit` methods
+            # chunk is `Trajectory` object, having very fast `autoimage` and
+            # `rmsfit` methods
             if autoimage:
                 chunk.autoimage()
             if need_align:
@@ -215,8 +221,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
     def split_iterators(self, n_chunks=1, start=0, stop=-1, stride=1,
                         mask=None,
                         autoimage=False, rmsfit=None, **kwd):
-        """simple splitting `self` to n_chunks FrameIter objects
-        
+        """simple splitting `self` to n_chunks FrameIter objects        
+
         Examples
         --------
         >>> import pytraj as pt
@@ -232,7 +238,6 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
          autoimage=False, rmsfit=None> ]
         """
         from pytraj.tools import split_range
-        from pytraj.compat import zip, range
 
         assert 0 <= start <= self.n_frames, "0 <= start <= self.n_frames"
 
@@ -244,7 +249,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                        autoimage=autoimage, rmsfit=rmsfit)
         else:
             for (_start, _stop) in split_range(n_chunks=n_chunks,
-                                             start=start, stop=stop):
+                                               start=start, stop=stop):
                 yield self.frame_iter(start=_start, stop=_stop, stride=stride,
                                       mask=mask,
                                       autoimage=autoimage,
