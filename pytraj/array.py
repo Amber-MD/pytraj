@@ -176,16 +176,19 @@ class DataArray(object):
         """
         return np.array_split(self.to_ndarray(), n_chunks_or_array)
 
-    def plot(self, *args, **kwd):
+    def plot(self, show=False, *args, **kwd):
         """return matplotlib object
         Notes
         ----
         Need to over-write this method for subclass if needed.
         """
         from pytraj.utils import _import
-        _, plt = _import("matplotlib.pyplot")
         try:
-            return plt.pyplot.plot(self.data, *args, **kwd)
+            from matplotlib import pyplot as plt
+            ax = plt.plot(self, *args, **kwd)
+            if show:
+                plt.show()
+            return ax
         except ImportError:
             raise ImportError("require matplotlib")
 

@@ -1,6 +1,14 @@
 from .map import map
 from pytraj.tools import concat_dict
 
+try:
+    from mpi4py import MPI
+    comm = MPI.COMM_WORLD
+    rank = comm.rank
+    size = comm.size
+except ImportError:
+    comm = rank = size = None
+
 
 def gather(name='data', clients=None, restype='ndarray'):
     '''gather data from different clients

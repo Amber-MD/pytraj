@@ -318,9 +318,11 @@ class DatasetList(list):
         return self.get_legends()
 
     def iteritems(self):
-        from pytraj.compat import zip
         for key in self.keys():
             yield key, self[key]
+
+    def items(self):
+        return self.iteritems()
 
     def map(self, func):
         for d0 in self:
