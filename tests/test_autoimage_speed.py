@@ -1,4 +1,4 @@
-# import unittest # no test
+import unittest # no test
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -38,4 +38,5 @@ class Test(unittest.TestCase):
         # Conclusion: not much faster
 
 if __name__ == "__main__":
-    unittest.main()
+    pass
+    #unittest.main()
