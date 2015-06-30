@@ -3,9 +3,11 @@ from pytraj.warnings import PytrajWarningMissing
 from ._load_pseudo_parm import load_pseudo_parm
 from ..Trajectory import Trajectory
 from ..Frame import Frame
+from ..Topology import Topology
+from ..utils.context import goto_temp_folder
 
 
-def load_ParmEd(parmed_obj, restype="top"):
+def load_ParmEd(parmed_obj, restype="top", load_from_pdb=True):
     """return pytraj's Topology or Trajectory objects
 
     Parameters
@@ -14,34 +16,44 @@ def load_ParmEd(parmed_obj, restype="top"):
     restype : str {'top', 'traj'}
        return type
     """
-    ptop = load_pseudo_parm(parmed_obj)
-    if restype.lower() == 'top':
-        return ptop
-    elif restype.lower() == 'traj':
-        if hasattr(parmed_obj, 'coordinates'):
-            coords = parmed_obj.coordinates
-        elif hasattr(parmed_obj, 'coords'):
-            coords = parmed_obj.coords
-        if coords is None:
-            raise ValueError("can not convert to Traj with None-coords")
-        else:
-            fa = Trajectory()
-            fa.top = ptop
-            try:
-                shape = coords.shape
-            except AttributeError:
-                import numpy as np
-                coords = np.asarray(coords)
-            shape = coords.shape
-            if len(shape) in [1, 2]:
-                coords = coords.reshape(1, fa.top.n_atoms, 3)
-                shape = coords.shape
-            print(shape)
-            fa._allocate(shape[0], shape[1])
-            fa.update_coordinates(coords)
-            return fa
+    if load_from_pdb:
+        # faster
+        with goto_temp_folder():
+            fname = 'tmppdb.pdb'
+            parmed_obj.write_pdb(fname)
+            if restype == 'top':
+                return Topology(fname)
+            elif restype == 'traj':
+                return Trajectory(fname, fname)
     else:
-        raise ValueError("only support `top` or `traj` keyword")
+        ptop = load_pseudo_parm(parmed_obj)
+        if restype.lower() == 'top':
+            return ptop
+        elif restype.lower() == 'traj':
+            if hasattr(parmed_obj, 'coordinates'):
+                coords = parmed_obj.coordinates
+            elif hasattr(parmed_obj, 'coords'):
+                coords = parmed_obj.coords
+            if coords is None:
+                raise ValueError("can not convert to Traj with None-coords")
+            else:
+                fa = Trajectory()
+                fa.top = ptop
+                try:
+                    shape = coords.shape
+                except AttributeError:
+                    import numpy as np
+                    coords = np.asarray(coords)
+                shape = coords.shape
+                if len(shape) in [1, 2]:
+                    coords = coords.reshape(1, fa.top.n_atoms, 3)
+                    shape = coords.shape
+                print(shape)
+                fa._allocate(shape[0], shape[1])
+                fa.update_coordinates(coords)
+                return fa
+        else:
+            raise ValueError("only support `top` or `traj` keyword")
 
 
 def _load_parmed(parm_name):
