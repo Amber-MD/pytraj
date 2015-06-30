@@ -1,4 +1,14 @@
+cimport cython
 from cython cimport view
+
+def _fast_count(cython.integral[:] values, int target):
+    cdef int i
+    cdef int count = 0
+
+    for i in range(values.shape[0]):
+        if values[i] == target:
+            count += 1
+    return count
 
 def get_positive_idx(int idx, int size):
     """Used for negative indexing"""

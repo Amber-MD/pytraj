@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import operator
 from pytraj.utils import _import_numpy
+from pytraj._cyutils import _fast_count
 
 np = _import_numpy()[-1]
 
@@ -144,11 +145,7 @@ class DataArray(object):
             from collections import Counter
             return Counter(self.values)
         else:
-            count = 0
-            for i in self.values:
-                if value == i:
-                    count += 1
-            return count
+            return _fast_count(self.values, value)
 
     def hist(self, plot=True, *args, **kwd):
         """
