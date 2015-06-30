@@ -12,7 +12,9 @@ for key in allanalyses.__dict__.keys():
 
 # make another dict to convert something like 'MolSurf' to 'molsurf'
 
+
 class AnalysisDict:
+
     def __init__(self):
         self.analysisdict = ADICT
 

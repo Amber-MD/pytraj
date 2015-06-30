@@ -5,6 +5,7 @@ from pytraj._cyutils import _fast_count
 
 np = _import_numpy()[-1]
 
+
 def elemwise(op, self, other=None):
     if other:
         if hasattr(other, 'values'):
@@ -19,9 +20,12 @@ def elemwise(op, self, other=None):
     else:
         return op(self.values)
 
+
 class DataArray(object):
+
     """place holder for all cpptraj' output
     """
+
     def __init__(self, dset=None, full_copy=True):
         self.legend = dset.legend
         self.name = dset.name
@@ -74,7 +78,7 @@ class DataArray(object):
         key = self.key
         dtype = self.dtype
         msg0 = """<pytraj.arrray.DataArray: size={0}, key={1}, dtype={2}> """.format(
-                  size, key, self.dtype)
+            size, key, self.dtype)
         value_str = self.values.__str__()
         return msg0 + '\nvalues:\n' + value_str
 
@@ -99,16 +103,16 @@ class DataArray(object):
         return self.__class__(self, full_copy=False)
 
     def is_empty(self):
-        return len(self.values) == 0 
+        return len(self.values) == 0
 
     def append(self, value, axis=None):
         self.values = np.append(self.values[:], value, axis=axis)
 
-    @property 
+    @property
     def ndim(self):
         return self.values.ndim
 
-    @property 
+    @property
     def shape(self):
         return self.values.shape
 
@@ -122,7 +126,7 @@ class DataArray(object):
             return self.values
 
     def to_dict(self):
-        return {self.key:self.values}
+        return {self.key: self.values}
 
     def to_pyarray(self):
         from array import array
@@ -242,60 +246,88 @@ class DataArray(object):
     # see pytraj/licenses/externals/dask.txt for license
     def __abs__(self):
         return elemwise(operator.abs, self)
+
     def __add__(self, other):
         return elemwise(operator.add, self, other)
+
     def __radd__(self, other):
         return elemwise(operator.add, other, self)
+
     def __and__(self, other):
         return elemwise(operator.and_, self, other)
+
     def __rand__(self, other):
         return elemwise(operator.and_, other, self)
+
     def __div__(self, other):
         return elemwise(operator.div, self, other)
+
     def __rdiv__(self, other):
         return elemwise(operator.div, other, self)
+
     def __invert__(self):
         return elemwise(operator.invert, self)
+
     def __lshift__(self, other):
         return elemwise(operator.lshift, self, other)
+
     def __rlshift__(self, other):
         return elemwise(operator.lshift, other, self)
+
     def __mod__(self, other):
         return elemwise(operator.mod, self, other)
+
     def __rmod__(self, other):
         return elemwise(operator.mod, other, self)
+
     def __mul__(self, other):
         return elemwise(operator.mul, self, other)
+
     def __rmul__(self, other):
         return elemwise(operator.mul, other, self)
+
     def __neg__(self):
         return elemwise(operator.neg, self)
+
     def __or__(self, other):
         return elemwise(operator.or_, self, other)
+
     def __pos__(self):
         return self
+
     def __ror__(self, other):
         return elemwise(operator.or_, other, self)
+
     def __rpow__(self, other):
         return elemwise(operator.pow, other, self)
+
     def __rshift__(self, other):
         return elemwise(operator.rshift, self, other)
+
     def __rrshift__(self, other):
         return elemwise(operator.rshift, other, self)
+
     def __sub__(self, other):
         return elemwise(operator.sub, self, other)
+
     def __rsub__(self, other):
         return elemwise(operator.sub, other, self)
+
     def __truediv__(self, other):
         return elemwise(operator.truediv, self, other)
+
     def __rtruediv__(self, other):
         return elemwise(operator.truediv, other, self)
+
     def __floordiv__(self, other):
         return elemwise(operator.floordiv, self, other)
+
     def __rfloordiv__(self, other):
         return elemwise(operator.floordiv, other, self)
+
     def __xor__(self, other):
         return elemwise(operator.xor, self, other)
+
     def __rxor__(self, other):
         return elemwise(operator.xor, other, self)
     # end of copy from dask

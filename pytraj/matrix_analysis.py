@@ -6,12 +6,12 @@ __all__ = ['distance_matrix', 'correlation_matrix', 'coord_covariance_matrix',
            'mw_covariance_matrix', 'distcovar_matrix', 'idea_matrix',
            ]
 
-default_key_dict = {'distance_matrix' : 'dist',
-        'correlation_matrix' : 'correl',
-        'coord_covariance_matrix' : 'covar',
-        'mw_covariance_matrix' : 'mwcovar',
-        'distcovar_matrix' : 'distcovar',
-        'idea_matrix' : 'idea'}
+default_key_dict = {'distance_matrix': 'dist',
+                    'correlation_matrix': 'correl',
+                    'coord_covariance_matrix': 'covar',
+                    'mw_covariance_matrix': 'mwcovar',
+                    'distcovar_matrix': 'distcovar',
+                    'idea_matrix': 'idea'}
 
 __cpptrajdoc__ = """
     cpptraj manual

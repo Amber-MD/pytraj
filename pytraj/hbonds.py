@@ -11,7 +11,9 @@ adict = ActionDict()
 __all__ = ['HbondAnalaysisResult', 'search_hbonds', 'search_nointramol_hbonds',
            'search_hbonds_noseries']
 
+
 class HbondAnalaysisResult(BaseAnalysisResult):
+
     """Hold data for HbondAnalaysisResult
 
     Examples
@@ -31,11 +33,12 @@ class HbondAnalaysisResult(BaseAnalysisResult):
     >>>
     >>> h.grep(['ARG', 'TYR']).dslist.to_dict()
     """
+
     def __str__(self):
         root_msg = "<pytraj.hbonds.HbondAnalaysisResult"
         more_info = "donor_aceptor pairs : %s>" % len(self.donor_aceptor)
         return root_msg + "\n" + more_info
-    
+
     def __repr__(self):
         return self.__str__()
 
@@ -52,7 +55,8 @@ class HbondAnalaysisResult(BaseAnalysisResult):
         c = self.dslist.count(1)
         n_frames = self.dslist[0].size
 
-        result_dict = dict((key, c[key] / n_frames) for key in self.donor_aceptor) 
+        result_dict = dict((key, c[key] / n_frames)
+                           for key in self.donor_aceptor)
 
         if cut is None:
             return result_dict
@@ -124,8 +128,9 @@ def search_hbonds_noseries(traj, mask="", dtype='dataset', update_legend=True,
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
+
 def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
-                 *args, **kwd):
+                  *args, **kwd):
     """search hbonds for a given mask
     Parameters
     ----------
@@ -146,7 +151,7 @@ def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
 
     * "search for all hydrogen bonds within residues 1-22"
         dslist = search_hbonds(traj, ":1-22")
-        
+
     * "search for all hydrogen bonds within residues 1-22, specifying output files"
 
         dslist = search_hbonds(traj, ":1-22 out nhb.dat avgout avghb.dat", dflist=dflist)
@@ -155,7 +160,7 @@ def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
     * "search for all hydrogen bonds formed between donors in residue 1 and acceptors in residue 2" 
 
         dslist = search_hbonds(traj, "donormask :1 acceptormask :2", dtype='ndarray'))
-   
+
     See Also
     --------
     http://ambermd.org/doc12/Amber15.pdf (page 575)
@@ -177,7 +182,8 @@ def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
-def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WAT", 
+
+def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WAT",
                              dtype='dataset', update_legend=True,
                              *args, **kwd):
     """

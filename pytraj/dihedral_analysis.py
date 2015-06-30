@@ -5,8 +5,8 @@ from .externals.six import iteritems
 
 __all__ = []
 
-supported_dihedral_types = [x for x in 
-'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
+supported_dihedral_types = [x for x in
+                            'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
 
 template = '''
 def calc_%s(traj=None, command="", top=None, dtype='dataset', *args, **kwd):

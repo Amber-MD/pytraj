@@ -5,8 +5,9 @@ from .Topology import Topology
 from .datasets.DataSetList import DataSetList as CpptrajDatasetList
 from ._get_common_objects import _get_top
 
-def calculate(action=None, traj=None, command="", top=None, 
-              dslist=CpptrajDatasetList(), dtype='dataset', quick_get=False, **kwd): 
+
+def calculate(action=None, traj=None, command="", top=None,
+              dslist=CpptrajDatasetList(), dtype='dataset', quick_get=False, **kwd):
     """ quick way to get data 
     Parameters
     ----------
@@ -19,7 +20,7 @@ def calculate(action=None, traj=None, command="", top=None,
         Hold output
     dtype : str {'pyarray', 'list', 'ndarray', 'dataset'}
     **kwd : additional arguments
- 
+
     Use `calculate(ahelp=True)` or `calculate(ahelp='action name')` for help 
 
     Returns
@@ -31,18 +32,20 @@ def calculate(action=None, traj=None, command="", top=None,
     >>> dslist = CpptrajDatasetList()
     >>> d0 = calculate('distance', ":2@CA :4@CA", traj, dslist=dslist)
     >>> # d0 == dslist[-1]
- 
-    """ 
+
+    """
     from pytraj import ActionDict
     adict = ActionDict()
 
-    not_return_list = ['action_autoimage', 'action_translate', 'action_rotate', 'action_scale', 'action_strip']
+    not_return_list = ['action_autoimage', 'action_translate',
+                       'action_rotate', 'action_scale', 'action_strip']
 
     need_print_output = False
     if kwd:
         if 'print_output' in kwd.keys() and kwd['print_output'] == True:
             need_print_output = True
-            # need to remove "print_output" since Action does not have this keyword
+            # need to remove "print_output" since Action does not have this
+            # keyword
         else:
             need_print_output = False
         if 'print_output' in kwd.keys():
@@ -51,23 +54,24 @@ def calculate(action=None, traj=None, command="", top=None,
     if dslist is None:
         dslist = CpptrajDatasetList()
     elif not isinstance(dslist, CpptrajDatasetList):
-        raise NotImplementedError("must have None or CpptrajDatasetList object")
+        raise NotImplementedError(
+            "must have None or CpptrajDatasetList object")
 
     old_size = dslist.size
 
-    if traj is None or isinstance(traj, string_types): 
-        raise ValueError("must have trajectory object") 
+    if traj is None or isinstance(traj, string_types):
+        raise ValueError("must have trajectory object")
 
     try:
         _top = _get_top(traj, top)
     except:
         raise ValueError("can not get Topology")
 
-    if isinstance(action, string_types): 
-        # convert to action 
-        act = adict[action] 
-    else: 
-        act = action 
+    if isinstance(action, string_types):
+        # convert to action
+        act = adict[action]
+    else:
+        act = action
 
     act_name = act.__class__.__name__.lower()
 

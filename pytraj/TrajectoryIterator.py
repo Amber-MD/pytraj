@@ -180,8 +180,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             need_align = False
             ref, mask_for_rmsfit = None, None
 
-        for chunk in super(TrajectoryIterator, self).chunk_iter(chunk, 
-                                                start, stop, copy_top):
+        for chunk in super(TrajectoryIterator, self).chunk_iter(chunk,
+                                                                start, stop, copy_top):
             # always perform autoimage before doing fitting
             # chunk is `Trajectory` object, having very fast `autoimage` and
             # `rmsfit` methods

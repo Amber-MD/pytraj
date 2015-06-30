@@ -20,6 +20,7 @@ except ImportError:
 __all__ = ['to_amber_mask', 'from_legends_to_indices', 'info',
            'get_atts', 'merge_trajs']
 
+
 def to_amber_mask(txt, mode=None):
     import re
     """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'
@@ -51,10 +52,11 @@ def to_amber_mask(txt, mode=None):
             raise NotImplementedError()
     elif mode == 'int_to_str':
         # need to add +1 since cpptraj's mask uses starting index of 1
-        my_long_str = ",".join(str(i+1) for i in txt)
+        my_long_str = ",".join(str(i + 1) for i in txt)
         return "@" + my_long_str
     else:
         raise NotImplementedError()
+
 
 def from_legends_to_indices(legends, top):
     """return somethine like "ASP_16@OD1-ARG_18@N-H" to list of indices
@@ -70,10 +72,11 @@ def from_legends_to_indices(legends, top):
         index_list.append(top(m).indices)
     return index_list
 
+
 def info(obj=None):
     """get `help` for obj
     Useful for Actions and Analyses
-    
+
     Since we use `set_worl_silent` to turn-off cpptraj' stdout, we need 
     to turn on to use cpptraj's help methods
     """
@@ -82,8 +85,8 @@ def info(obj=None):
     anal_keys = analdict.keys()
 
     if obj is None:
-        print ("action's keys", adict_keys)
-        print ("analysis' keys", anal_keys)
+        print("action's keys", adict_keys)
+        print("analysis' keys", anal_keys)
     else:
         if isinstance(obj, string_types):
             if obj in adict.keys():
@@ -112,27 +115,30 @@ def info(obj=None):
             adict[key].help()
             set_world_silent(True)
         elif hasattr(_obj, '__doc__'):
-            print (_obj.__doc_)
+            print(_obj.__doc_)
         else:
             raise ValueError("object does not have `help` method")
+
 
 def show_code(func, get_txt=False):
     """show code of func or module"""
     import inspect
     txt = inspect.getsource(func)
     if not get_txt:
-        print (txt)
+        print(txt)
     else:
         return txt
+
 
 def get_atts(obj):
     """get methods and atts from obj but excluding special methods __"""
     atts_dict = dir(obj)
     return [a for a in atts_dict if not a.startswith("__")]
 
+
 def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     """
-    
+
     Examples
     --------
        # from two Trajectory or TrajectoryIterator
@@ -164,7 +170,7 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     if isinstance(traj2, (list, tuple)):
         n_frames_2 = n_frames
-        top2 = traj2[1] # example: (traj(0, 5), traj.top)
+        top2 = traj2[1]  # example: (traj(0, 5), traj.top)
         _traj2 = traj2[0]
     else:
         n_frames_2 = traj2.n_frames
@@ -193,8 +199,10 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     return traj
 
+
 def find_libcpptraj(**kwd):
     return find_library('cpptraj', **kwd)
+
 
 def find_library(libname, unique=False):
     """return a list of all library files"""
@@ -205,7 +213,7 @@ def find_library(libname, unique=False):
     for path in paths:
         path = path.strip()
         fnamelist = glob(os.path.join(path, key))
-        for fname in fnamelist: 
+        for fname in fnamelist:
             if os.path.isfile(fname):
                 lib_path_list.append(fname)
 

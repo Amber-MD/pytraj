@@ -27,7 +27,7 @@ except:
     load_pseudo_parm = None
 
 # load mdtraj and MDAnalysis
-from .externals._load_mdtraj import load_mdtraj 
+from .externals._load_mdtraj import load_mdtraj
 from .externals._load_MDAnalysis import load_MDAnalysis
 
 try:
@@ -44,13 +44,14 @@ __all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
            'load_ParmEd', 'load_full_ParmEd',
            'load_mdtraj',
            'load_MDAnalysis', 'load_MDAnalysisIterator',
-           'load_topology', 'read_parm', 'write_parm', 
+           'load_topology', 'read_parm', 'write_parm',
            'save', 'write_traj',
            'read_pickle', 'read_json',
            'to_pickle', 'to_json',
            ]
 
-EXTRA_LOAD_METHODS = {'HDF5' : load_hdf5, }
+EXTRA_LOAD_METHODS = {'HDF5': load_hdf5, }
+
 
 def load(*args, **kwd):
     """try loading and returning appropriate values"""
@@ -85,7 +86,7 @@ def load(*args, **kwd):
             except:
                 try:
                     # try to predict filetype and use proper loading method
-                    filetype = _guess_filetype(filename) 
+                    filetype = _guess_filetype(filename)
                     new_object = EXTRA_LOAD_METHODS[filetype](*args, **kwd)
                     return new_object
                 except:
@@ -95,6 +96,7 @@ def load(*args, **kwd):
     else:
         # load to Trajectory object
         return load_traj(*args, **kwd)[:]
+
 
 def _load_from_filelist(*args, **kwd):
     """return a list of Trajectory"""
@@ -109,20 +111,24 @@ def _load_from_filelist(*args, **kwd):
         raise ValueError()
     return [load_traj(filename, *args_less, **kwd)[:] for filename in mylist]
 
+
 def iterload(*args, **kwd):
     """return TrajectoryIterator object
     """
     if kwd and 'indices' in kwd.keys():
-        raise ValueError("do not support indices for TrajectoryIterator loading")
+        raise ValueError(
+            "do not support indices for TrajectoryIterator loading")
     if kwd and 'engine' in kwd.keys() and kwd['engine'] == 'mdtraj':
         raise ValueError("do not support iterload with engine=='mdtraj'")
     return load_traj(*args, **kwd)
+
 
 def _iterload_from_filelist(filename=None, top=None, force_load=False, *args, **kwd):
     """return a list of TrajectoryIterator"""
 
     if kwd and 'indices' in kwd.keys():
-        raise ValueError("do not support indices for TrajectoryIterator loading")
+        raise ValueError(
+            "do not support indices for TrajectoryIterator loading")
 
     if isinstance(filename, (list, tuple)):
         trajnamelist = filename
@@ -144,14 +150,18 @@ def _iterload_from_filelist(filename=None, top=None, force_load=False, *args, **
 
     if len(trajnamelist) != len(toplist):
         if not force_load:
-            raise ValueError("len of filename list is not equal to len of toplist")
+            raise ValueError(
+                "len of filename list is not equal to len of toplist")
         else:
-            assert len(trajnamelist) > len(toplist), "toplist must have smaller len"
+            assert len(trajnamelist) > len(
+                toplist), "toplist must have smaller len"
             last_top = toplist[-1]
-            toplist += [last_top for _ in range(len(toplist), len(trajnamelist))] 
+            toplist += [
+                last_top for _ in range(len(toplist), len(trajnamelist))]
 
-    return [load_traj(_filename, _top, *args, **kwd) 
-            for _filename, _top  in zip(trajnamelist, toplist)]
+    return [load_traj(_filename, _top, *args, **kwd)
+            for _filename, _top in zip(trajnamelist, toplist)]
+
 
 def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **kwd):
     """load trajectory from filename
@@ -185,7 +195,8 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
         if not isinstance(top, Topology):
             top = Topology(top)
         if top.is_empty():
-            raise ValueError("can not load file without Topology or empty Topology")
+            raise ValueError(
+                "can not load file without Topology or empty Topology")
         ts = TrajectoryIterator(top=top)
 
         if 'frame_slice' in kwd.keys():
@@ -214,7 +225,8 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
             top = filename
         return load_mdtraj(md.load(filename, top=top, *args, **kwd))
     else:
-        raise NotImplementedError("support only {'pytraj', 'mdanlaysis', 'mdtraj'} engines")
+        raise NotImplementedError(
+            "support only {'pytraj', 'mdanlaysis', 'mdtraj'} engines")
 
 
 def _load_from_frame_iter(traj_frame_iter, top=None):
@@ -226,6 +238,7 @@ def _load_from_frame_iter(traj_frame_iter, top=None):
             raise ValueError("must provide non-empty Topology")
     fa = Trajectory(traj_frame_iter, top=top)
     return fa
+
 
 def iterload_remd(filename, top=None, T="300.0"):
     """Load remd trajectory for single temperature.
@@ -261,13 +274,15 @@ def iterload_remd(filename, top=None, T="300.0"):
     traj._tmpobj = state
     return traj
 
+
 def load_remd(filename, top=None, T="300.0"):
     return iterload_remd(filename, top, T)[:]
 
-def write_traj(filename="", traj=None, top=None, 
-              format='unknown_traj', indices=None,
-              overwrite=False, more_args="", 
-              *args, **kwd):
+
+def write_traj(filename="", traj=None, top=None,
+               format='unknown_traj', indices=None,
+               overwrite=False, more_args="",
+               *args, **kwd):
     """write Trajectory-like, list of trajs, frames, ... to file/files
 
     Suppot file extensions
@@ -310,9 +325,9 @@ def write_traj(filename="", traj=None, top=None,
     from .trajs.Trajout import Trajout
 
     if format.upper() == 'UNKNOWN':
-        format= format.upper() + "_TRAJ"
+        format = format.upper() + "_TRAJ"
     else:
-        format= format.upper()
+        format = format.upper()
 
     _top = _get_top(traj, top)
     if _top is None:
@@ -321,7 +336,7 @@ def write_traj(filename="", traj=None, top=None,
     if traj is None or _top is None:
         raise ValueError("Need non-empty traj and top files")
 
-    with Trajout(filename=filename, top=_top, format=format, 
+    with Trajout(filename=filename, top=_top, format=format,
                  overwrite=overwrite, more_args=more_args,
                  *args, **kwd) as trajout:
         if isinstance(traj, Frame):
@@ -336,7 +351,8 @@ def write_traj(filename="", traj=None, top=None,
 
             if indices is not None:
                 if isinstance(traj2, (list, tuple)):
-                    raise NotImplementedError("must be Trajectory or TrajectoryIterator instance")
+                    raise NotImplementedError(
+                        "must be Trajectory or TrajectoryIterator instance")
                 for idx in indices:
                     trajout.writeframe(idx, traj2[idx], _top)
 
@@ -352,6 +368,7 @@ def write_parm(filename=None, top=None, format='AMBERPARM'):
     parm = ParmFile()
     parm.writeparm(filename=filename, top=top, format=format)
 
+
 def read_parm(filename):
     from .Topology import Topology
     """return topology instance from reading filename"""
@@ -363,6 +380,7 @@ def read_parm(filename):
 
 # creat alias
 load_topology = read_parm
+
 
 def loadpdb_rcsb(pdbid):
     """load pdb file from rcsb website
@@ -385,6 +403,7 @@ def loadpdb_rcsb(pdbid):
         fh.write(txt)
     traj = load(fname, fname)
     return traj
+
 
 def download_PDB(pdbid, location="./", overwrite=False):
     """download pdb to local disk
@@ -412,13 +431,16 @@ def download_PDB(pdbid, location="./", overwrite=False):
 # create alias
 load_pdb_rcsb = loadpdb_rcsb
 
+
 def load_pdb(pdb_file):
     """return a Trajectory object"""
     return load_traj(pdb_file, pdb_file)
 
+
 def load_single_frame(frame=None, top=None, index=0):
     """load single Frame"""
     return load(frame, top)[index]
+
 
 def load_full_ParmEd(parmed_obj):
     """save and reload ParmEd object to pytraj object"""
@@ -435,6 +457,7 @@ def load_full_ParmEd(parmed_obj):
         top = load_topology(name)
     return top
 
+
 def load_MDAnalysisIterator(u):
     from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
     return TrajectoryMDAnalysisIterator(u)
@@ -442,6 +465,7 @@ def load_MDAnalysisIterator(u):
 # creat alias
 save = write_traj
 save_traj = write_traj
+
 
 def get_coordinates(an_object, top=None):
     '''return 3D-ndarray coordinates of `an_object`

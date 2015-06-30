@@ -16,15 +16,18 @@ _, np = _import_numpy()
 __all__ = ['load_datafile', 'stack', 'DatasetList',
            'from_pickle', 'from_json']
 
+
 def from_pickle(filename):
     dslist = DatasetList()
     dslist.from_pickle(filename)
     return dslist
 
+
 def from_json(filename):
     dslist = DatasetList()
     dslist.from_json(filename)
     return dslist
+
 
 def load_datafile(filename):
     """load cpptraj's output"""
@@ -32,11 +35,14 @@ def load_datafile(filename):
     ds.read_data(filename)
     return ds
 
+
 def _from_full_dict(full_dict):
     return DatasetList()._from_full_dict(full_dict)
 
+
 def from_sequence(seq):
     return DatasetList().from_sequence(seq)
+
 
 def stack(args):
     """return a new DatasetList by joining (vstack)
@@ -65,7 +71,7 @@ def stack(args):
     else:
         dslist0 = next(args)
 
-    dslist_iter = args[1:] if is_subcriptable  else args
+    dslist_iter = args[1:] if is_subcriptable else args
 
     for dslist in dslist_iter:
         for d0, d in zip(dslist0, dslist):
@@ -78,6 +84,7 @@ def stack(args):
 
 
 class DatasetList(list):
+
     def __init__(self, dslist=None):
         if dslist:
             for d0 in dslist:
@@ -103,7 +110,7 @@ class DatasetList(list):
     def to_json(self, filename, use_numpy=True):
         full_dict = self._to_full_dict(use_numpy=use_numpy)
         for key in self.keys():
-            d = full_dict[key]['values'] 
+            d = full_dict[key]['values']
             if hasattr(d, 'dtype') and 'int' in d.dtype.name:
                 full_dict[key]['values'] = d.tolist()
         to_json(full_dict, filename)
@@ -129,7 +136,7 @@ class DatasetList(list):
     def _to_full_dict(self, use_numpy=True):
         """
         """
-        ddict  = {}
+        ddict = {}
         ddict['ordered_keys'] = []
         for d in self:
             ddict['ordered_keys'].append(d.legend)
@@ -153,7 +160,8 @@ class DatasetList(list):
             except ImportError:
                 raise ImportError("must have pandas")
         else:
-            raise NotImplementedError("currently support only pandas' DataFrame")
+            raise NotImplementedError(
+                "currently support only pandas' DataFrame")
 
     def hist(self, plot=False):
         """
@@ -163,7 +171,7 @@ class DatasetList(list):
             if False, return a dictionary of 2D numpy array
             if True, return a dictionary of matplotlib object
         """
-        return dict(map(lambda x : (x.legend,  x.hist(plot=plot)), self))
+        return dict(map(lambda x: (x.legend,  x.hist(plot=plot)), self))
 
     def count(self):
         from collections import Counter
@@ -244,10 +252,10 @@ class DatasetList(list):
         if is_int(idx):
             return super(DatasetList, self).__getitem__(idx)
         elif isinstance(idx, string_types):
-             for d0 in self:
-                 if d0.legend.upper() == idx.upper():
-                     d0._base = self
-                     return d0
+            for d0 in self:
+                if d0.legend.upper() == idx.upper():
+                    d0._base = self
+                    return d0
         elif isinstance(idx, slice):
             # return new view of `self`
             start, stop, step = idx.indices(self.size)
@@ -257,7 +265,7 @@ class DatasetList(list):
             return new_dslist
         elif is_array(idx) or isinstance(idx, list):
             new_dslist = self.__class__()
-            for _idx in idx: 
+            for _idx in idx:
                 new_dslist.append(self[_idx])
             return new_dslist
         elif isinstance(idx, tuple) and len(idx) == 2:
@@ -527,7 +535,7 @@ class DatasetList(list):
         # transpose `values` first
         values = np.column_stack((frame_number, self.values.T))
         formats = ['%8i'] + [d.format for d in self]
-        np.savetxt(filename, values, fmt=formats, header=headers) 
+        np.savetxt(filename, values, fmt=formats, header=headers)
 
     def plot(self, show=False, use_seaborn=False, *args, **kwd):
         """very simple plot for quickly visualize the data
@@ -582,7 +590,7 @@ class DatasetList(list):
         return self
 
     def chunk_average(self, n_chunks):
-        return dict(map(lambda x : (x.legend, x.chunk_average(n_chunks)), self))
+        return dict(map(lambda x: (x.legend, x.chunk_average(n_chunks)), self))
 
     def topk(self, k):
         return dict((x.legend, x.topk(k)) for x in self)
@@ -592,7 +600,7 @@ class DatasetList(list):
         return dict((x.legend, list(nsmallest(k, x))) for x in self)
 
     def head(self, k):
-        return dict((x.legend, x.head(k, restype='list')) for x in  self)
+        return dict((x.legend, x.head(k, restype='list')) for x in self)
 
     def tail(self, k):
         return dict((x.legend, x.tail(k)) for x in self)

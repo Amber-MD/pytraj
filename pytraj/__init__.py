@@ -23,22 +23,22 @@ from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .parms.ParmFile import ParmFile
 from . import io
-from .io import  (load, iterload, load_remd, iterload_remd,
-                  _load_from_filelist, _iterload_from_filelist,
-                  _load_from_frame_iter,
-                  load_pdb_rcsb, load_pdb,
-                  load_pseudo_parm, load_cpptraj_file,
-                  load_datafile, load_hdf5,
-                  load_sample_data,
-                  load_ParmEd, load_full_ParmEd,
-                  load_mdtraj,
-                  load_MDAnalysis, load_MDAnalysisIterator,
-                  load_topology, read_parm, write_parm, 
-                  get_coordinates,
-                  save, write_traj,
-                  read_pickle, read_json,
-                  to_pickle, to_json,
-                  )
+from .io import (load, iterload, load_remd, iterload_remd,
+                 _load_from_filelist, _iterload_from_filelist,
+                 _load_from_frame_iter,
+                 load_pdb_rcsb, load_pdb,
+                 load_pseudo_parm, load_cpptraj_file,
+                 load_datafile, load_hdf5,
+                 load_sample_data,
+                 load_ParmEd, load_full_ParmEd,
+                 load_mdtraj,
+                 load_MDAnalysis, load_MDAnalysisIterator,
+                 load_topology, read_parm, write_parm,
+                 get_coordinates,
+                 save, write_traj,
+                 read_pickle, read_json,
+                 to_pickle, to_json,
+                 )
 
 load_from_frame_iter = _load_from_frame_iter
 
@@ -57,7 +57,7 @@ from . import common_actions
 from . dssp_analysis import calc_dssp
 from . common_actions import (rmsd, search_hbonds,
                               calc_multidihedral,
-                              autoimage, nastruct, 
+                              autoimage, nastruct,
                               calc_angle, calc_dihedral, calc_distance,
                               calc_center_of_mass, calc_center_of_geometry,
                               calc_dssp, calc_jcoupling, calc_molsurf,
@@ -68,7 +68,8 @@ from . common_actions import (rmsd, search_hbonds,
 # create alias
 nucleic_acid_analysis = nastruct
 from . matrix_analysis import distance_matrix
-from . dihedral_analysis import (calc_phi, calc_psi, calc_omega, calc_chin, calc_chip)
+from . dihedral_analysis import (
+    calc_phi, calc_psi, calc_omega, calc_chin, calc_chip)
 
 from .action_dict import ActionDict
 from .analysis_dict import AnalysisDict
@@ -77,7 +78,7 @@ analdict = AnalysisDict()
 from . import matrix_analysis
 from . import dihedral_analysis
 
-# others 
+# others
 from .misc import info
 from .run_tests import run_tests
 
@@ -90,13 +91,14 @@ from ._set_silent import set_world_silent as set_cpptraj_verbose
 
 set_world_silent(True)
 
+
 def show_versions():
     """
     """
     from .__cpptraj_version__ import info as compiled_info
     from .__cpptraj_version__ import __cpptraj_version__
     from .__cpptraj_version__ import __cpptraj_internal_version__
-    print ("pytraj version = ", version)
-    print ("cpptraj version = ", __cpptraj_version__)
-    print ("cpptraj internal version = ", __cpptraj_internal_version__)
-    print ("cpptraj compiled flag = ", compiled_info())
+    print("pytraj version = ", version)
+    print("cpptraj version = ", __cpptraj_version__)
+    print("cpptraj internal version = ", __cpptraj_internal_version__)
+    print("cpptraj compiled flag = ", compiled_info())
