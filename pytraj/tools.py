@@ -208,7 +208,7 @@ def rmsd_1darray(a1, a2):
     tmp = sum((arr1-arr2)**2)
     return sqrt(tmp/arr1.shape[0])
 
-def rmsd(a1, a2, flatten=False):
+def rmsd(a1, a2, flatten=True):
     """
     rmsd for two array with the same shape
 

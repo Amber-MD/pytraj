@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
 
         # m_torsion
         key = "torsion"
-        mode = "scalar_mode"
+        mode = "scalar_type"
         dnew = dslist.filter(key, mode)
         for d0 in dnew:
             assert (key in d0.scalar_mode) == True

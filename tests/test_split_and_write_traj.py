@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
             flist = sorted(glob("trajx*"))
             print (flist)
             traj3 = pt.iterload(flist, top)
-            eq_coords(traj2, traj3)
+            aa_eq(traj2.xyz, traj3.xyz)
             print (traj2.rmsd())
             print (traj3.rmsd())
 
