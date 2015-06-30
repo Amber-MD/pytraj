@@ -1,4 +1,4 @@
-
+import operator
 from pytraj.utils import _import_numpy
 
 np = _import_numpy()[-1]
@@ -26,6 +26,12 @@ class DataArray(object):
         self.aspect = dset.aspect
         self.idx = dset.idx
         self.format = dset.format
+        self.scalar_mode = dset.scalar_mode
+        self.scalar_type = dset.scalar_type
+        if hasattr(dset, 'cpptraj_dtype'):
+            self.cpptraj_dtype = dset.cpptraj_dtype
+        else:
+            self.cpptraj_dtype = dset.dtype
 
         if full_copy:
             self.values = dset.values.copy()
@@ -94,9 +100,16 @@ class DataArray(object):
     def is_empty(self):
         return len(self.values) == 0 
 
+    def append(self, value, axis=None):
+        self.values = np.append(self.values[:], value, axis=axis)
+
     @property 
     def ndim(self):
         return self.values.ndim
+
+    @property 
+    def shape(self):
+        return self.values.shape
 
     def tolist(self):
         return self.values.tolist()
@@ -106,6 +119,36 @@ class DataArray(object):
             return self.values.copy()
         else:
             return self.values
+
+    def to_dict(self):
+        return {self.key:self.values}
+
+    def to_pyarray(self):
+        from array import array
+        if 'int' in self.dtype.name:
+            return array('i', self.values.flatten())
+        else:
+            return array('d', self.values.flatten())
+
+    def count(self, value=None):
+        """
+        Parameters
+        value : int, optional
+
+        Examples
+        --------
+        ds.count()
+        ds.count(1)
+        """
+        if value is None:
+            from collections import Counter
+            return Counter(self.values)
+        else:
+            count = 0
+            for i in self.values:
+                if value == i:
+                    count += 1
+            return count
 
     def hist(self, plot=True, *args, **kwd):
         """

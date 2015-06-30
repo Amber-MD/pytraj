@@ -12,27 +12,28 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = traj.search_hbonds()
+        print (dslist)
 
         # +=
         d0 = dslist[0]
-        arr0 = d0.to_ndarray().copy()
-        d0 += 1
+        arr0 = d0.copy().values
+        d0.values += 1
         aa_eq(d0.data, arr0 + 1)
 
         # +
-        arr0 = d0.to_ndarray().copy()
+        arr0 = d0.copy().values
         d1 = d0 + 1.
         print (d1.tolist())
         aa_eq(d1, arr0 + 1)
 
         # += for DataSetList
-        arr0 = dslist[0].to_ndarray().copy()
-        dslist[0] += 2
+        arr0 = dslist[0].copy().values
+        dslist[0].values += 2
         aa_eq(dslist[0].tolist(), arr0 + 2)
 
         # *=
-        arr0 = dslist[0].to_ndarray().copy()
-        dslist[0] *= 2
+        arr0 = dslist[0].copy().values
+        dslist[0].values *= 2
         aa_eq(dslist[0].tolist(), arr0 * 2)
 
         # /=

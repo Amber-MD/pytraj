@@ -7,6 +7,7 @@ from glob import glob
 from pytraj.Trajectory import Trajectory
 from pytraj._set_silent import set_world_silent
 from pytraj.compat import set
+from pytraj.tools import rmsd, rmsd_1darray
 
 # external
 from pytraj.externals.six import string_types
@@ -216,35 +217,6 @@ def find_library(libname, unique=False):
         else:
             return lib_path_list
 
-def rmsd_1darray(a1, a2):
-    '''rmsd of a1 and a2
-    '''
-    import numpy as np
-    from math import sqrt
-    arr1 = np.asarray(a1)
-    arr2 = np.asarray(a2)
-
-    if len(arr1.shape) > 1 or len(arr2.shape) > 1:
-        raise ValueError("1D array only")
-
-    if arr1.shape != arr2.shape:
-        raise ValueError("must have the same shape")
-    
-    tmp = sum((arr1-arr2)**2)
-    return sqrt(tmp/arr1.shape[0])
-
-def rmsd(a1, a2, flatten=False):
-    """
-    rmsd for two array with the same shape
-
-    Parameters
-    ----------
-    a1, a2: np.ndarray
-    """
-    if a1.shape != a2.shape and not flatten:
-        raise ValueError("must have the same shape")
-    return rmsd_1darray(a1.flatten(), a2.flatten())
-    
 
 def split_range(n_chunks, start, stop):
     '''

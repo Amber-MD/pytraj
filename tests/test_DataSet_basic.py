@@ -52,14 +52,6 @@ class Test(unittest.TestCase):
         print (d.keys())
         print (d.get_dtypes())
 
-        ds_new = d.filter('integer', mode='dtype')
-        d_new_cp = ds_new[0].copy()
-        aa_eq(d_new_cp.data, ds_new[0].data)
-
-        ds_new = d.filter('float', mode='dtype')
-        d_new_cp = ds_new[0].copy()
-        aa_eq(d_new_cp.data, ds_new[0].data)
-
         ds_v = traj.calc_vector("@CA @CB")
         dcp = ds_v[0].copy()
         d0 = ds_v[0]
@@ -71,7 +63,7 @@ class Test(unittest.TestCase):
         d0 = d[0]
         assert d0.shape == (d0.size,)
         import numpy as np
-        assert np.abs((np.mean(d0.values) == d0.avg())) < 1E-4
+        assert np.abs((np.mean(d0.values) - d0.avg())) < 1E-4
         print (np.mean(d0.values))
         print (d0.avg())
         print (np.sum(d0))

@@ -61,7 +61,6 @@ class Test(unittest.TestCase):
         print (dslist[1].mkind)
         print (dslist[1].name)
         print (dslist[1].dtype)
-        assert (dslist[1].dtype == 'matrix_flt')
         print (len(dslist[1][:]))
         #dflist.write_all_datafiles()
 
@@ -75,9 +74,7 @@ class Test(unittest.TestCase):
         print (dslist.size)
         print (dslist[0].size)
         print (dslist[0].name)
-        assert (dslist[0].dtype == 'matrix_flt')
-        print (dslist[0].get_full_matrix())
-        assert (dslist[0].tolist().__len__() == 100)
+        assert (dslist[0].values.flatten().tolist().__len__() == 100)
         assert (dslist[0].to_ndarray().__len__() == 10)
 
         dslist2 = traj.calc_pairwise_rmsd("@CA", dtype='dataset')
