@@ -75,19 +75,6 @@ class Test(unittest.TestCase):
             assert_almost_equal(f0.coords, f1.coords)
 
     @Timer()
-    def test_4(self):
-        print("from dataset Traj")
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = DataSetList()
-        dslist.add_set("traj", "", "")
-        dslist[0].top = traj.top.copy()
-        dslist[0].load("./data/md1_prod.Tc5b.x")
-
-        farray_0 = Trajectory(dslist[0], traj.top)
-        for f0, f1 in izip(farray_0, traj):
-            assert_almost_equal(f0.coords, f1.coords)
-
-    @Timer()
     @test_if_having("numpy")
     def test_5(self):
         print("from list")
