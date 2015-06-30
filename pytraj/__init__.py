@@ -11,6 +11,7 @@ from functools import partial
 
 from .core import Atom, Residue, Molecule
 from .core.CpptrajState import CpptrajState
+from .import array
 from .Topology import Topology
 from .ArgList import ArgList
 from .AtomMask import AtomMask

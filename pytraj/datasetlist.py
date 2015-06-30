@@ -9,6 +9,7 @@ from pytraj.compat import string_types, callable
 from pytraj.core.DataFile import DataFile
 from pytraj.ArgList import ArgList
 from pytraj.compat import map
+from pytraj.array import DataArray
 
 _, np = _import_numpy()
 
@@ -80,7 +81,7 @@ class DatasetList(list):
     def __init__(self, dslist=None):
         if dslist:
             for d0 in dslist:
-                self.append(d0, False)
+                self.append(DataArray(d0))
 
     def __contains__(self, d0):
         for d in self:
@@ -114,22 +115,21 @@ class DatasetList(list):
         to_json(full_dict, filename)
 
     def _from_full_dict(self, ddict):
+        from pytraj.array import DataArray
+        da = DataArray()
+
         if not isinstance(ddict, dict):
             raise ValueError("must be a dict")
-        from pytraj.datasets.DataSetList import DataSetList as CpptrajDataSetList
         ordered_keys = ddict['ordered_keys']
 
-        cppdslist = CpptrajDataSetList()
         for legend in ordered_keys:
             d = ddict[legend]
-            values = d['values']
-            cppdslist.add_set(d['dtype'], d['name'])
-            last = cppdslist[-1]
-            last.set_name_aspect_index_ensemble_num(d['aspect'], d['name'], d['idx'], 0)
-            last.set_legend(legend)
-            last.resize(len(values))
-            last.values[:] = values
-        self.from_datasetlist(cppdslist)
+            da.values = d['values']
+            da.aspect = d['aspect']
+            da.name = d['name']
+            da.idx = d['idx']
+            da.legend = legend
+            self.append(da)
         return self
 
     def _to_full_dict(self, use_numpy=True):
