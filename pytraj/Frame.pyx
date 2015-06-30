@@ -46,6 +46,14 @@ cdef class Frame (object):
         make a copy from `frame`
     atommask : AtomMask, default=None
         make a copy from `frame` with atommask
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> pt.Frame.from_ndarray(xyz)
+    >>> frame = pt.Frame(304)
+    >>> frame.append_xyz(xyz)
+    >>> frame2 = pt.Frame(frame)
     """
     def __cinit__(self, *args):
         # Should I include topology in Frame?
