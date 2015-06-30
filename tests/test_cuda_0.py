@@ -3,20 +3,21 @@
 
 import sys
 
+
 def has_pycuda():
     try:
-        import pycuda 
+        import pycuda
         return True
     except ImportError:
         return False
 
-print (has_pycuda())
+print(has_pycuda())
 
 if not has_pycuda():
-    print ("does not have pycuda. Quite")
+    print("does not have pycuda. Quite")
     sys.exit()
 
-import unittest # pragma no_test for travis
+import unittest  # pragma no_test for travis
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio

@@ -9,7 +9,10 @@ from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 
 '''Aim: check segmentation fault for Topology that does not have bond info'''
+
+
 class Test(unittest.TestCase):
+
     @test_if_having("mdtraj")
     def test_0(self):
         import mdtraj as md
@@ -19,7 +22,7 @@ class Test(unittest.TestCase):
         traj = io.load_mdtraj(t, autoconvert=False)
 
         # FIXME: segmentation fault: no radii info, calc_molsurf
-        #traj.calc_molsurf()
+        # traj.calc_molsurf()
 
         traj.calc_dssp()
         traj.rmsd(mode='cpptraj')

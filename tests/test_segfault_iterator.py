@@ -13,6 +13,7 @@ try not to get segmentation fault error (due to whatever freaking reason)
 """
 traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
+
 class Test(unittest.TestCase):
 
     def test_0_trajiter(self):

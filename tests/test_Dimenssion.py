@@ -30,6 +30,6 @@ print(d3.Step)
 # print d3.CalcBinsOrStep()
 print(d3.Coord(100))
 
-# 
+#
 d4 = d3
 print("d4 and d3 are the same instance? %s" % (d4 == d3))

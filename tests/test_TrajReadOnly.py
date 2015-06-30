@@ -8,7 +8,9 @@ TRAJ.top = Topology("./data/Tc5b.top")
 TRAJ.load("./data/md1_prod.Tc5b.x")
 print("TRAJ.size", TRAJ.size)
 
+
 class TestTrajectory(unittest.TestCase):
+
     def test_slice_basic(self):
         print("test_slice_basic")
         TRAJ2 = Trajectory()
@@ -35,19 +37,19 @@ class TestTrajectory(unittest.TestCase):
         fsub[0][0] = 100.
         print(fsub[0][0])
         print(TRAJ2[2].coords[0])
-        #print TRAJ2[2:10].copy()[0].coords[:10]
-        #print TRAJ2[::]
+        # print TRAJ2[2:10].copy()[0].coords[:10]
+        # print TRAJ2[::]
         #farray = TRAJ2[::]
-        #print farray
-        #print "REALLY REALLY "
-        #print farray.size
-        #print farray[:4][0].n_atoms
-        #print farray[:200][0].n_atoms
-        #print farray[:50][0].n_atoms
+        # print farray
+        # print "REALLY REALLY "
+        # print farray.size
+        # print farray[:4][0].n_atoms
+        # print farray[:200][0].n_atoms
+        # print farray[:50][0].n_atoms
         #fsub = farray[:200]
-        #print fsub[0].n_atoms
+        # print fsub[0].n_atoms
 
-        print (TRAJ2[::][0].n_atoms)
+        print(TRAJ2[::][0].n_atoms)
 
     #@no_test
     def test_slice(self):
@@ -63,7 +65,7 @@ class TestTrajectory(unittest.TestCase):
         print("n_atoms = ", TRAJ2[9:1000:50][0].n_atoms)
         print(farray0.size)
         print(farray0[0].n_atoms)
-        
+
         print("test dummy slicing")
         print(TRAJ2[0:3])
         farray1 = TRAJ2[0:3]
@@ -119,19 +121,19 @@ class TestTrajectory(unittest.TestCase):
         print(TRAJ2[0].coords[:10])
         print(frame0.coords[:10])
 
-        mat0 = np.asmatrix(arr0).reshape(304, 3) 
+        mat0 = np.asmatrix(arr0).reshape(304, 3)
         print(mat0.shape)
         mat0[:, 0] = np.asmatrix(list(range(304))).reshape(304, 1)
         assert frame0[0, 0] == 0.
         assert frame0[1, 0] == 1.
         assert frame0[2, 0] == 2.
-        
+
     #@no_test
     def test_indexing_1(self):
         print("test_indexing_1")
         TRAJ2 = TrajectoryIterator()
         TRAJ2.top = Topology("./data/Tc5b.top")
-        #TRAJ2.top.strip_atoms("!@CA")
+        # TRAJ2.top.strip_atoms("!@CA")
         TRAJ2.load("./data/md1_prod.Tc5b.x")
         print(TRAJ2.size)
         print(TRAJ2.top.n_atoms)
@@ -142,7 +144,7 @@ class TestTrajectory(unittest.TestCase):
         assert TRAJ2[0] != TRAJ2[9]
 
         print("test negative indexing")
-        print(TRAJ2[-1].coords[0]) 
+        print(TRAJ2[-1].coords[0])
         print(TRAJ2[9].coords[0])
         assert TRAJ2[-1].coords[0] == TRAJ2[9].coords[0]
 
@@ -162,19 +164,20 @@ class TestTrajectory(unittest.TestCase):
         print("test_info")
         i = 0
         for frame in TRAJ:
-            i +=1
+            i += 1
             frame.strip_atoms(top=TRAJ.top.copy(), mask="!@CA")
             farray.append(frame.copy())
         assert i == TRAJ.size == TRAJ.max_frames
         assert frame.size == TRAJ.top.n_res * 3
         farray.top.strip_atoms("!@CA")
         print("farray.top.n_atoms= ", farray.top.n_atoms)
-        assert farray.top.n_atoms == TRAJ.top.n_res 
+        assert farray.top.n_atoms == TRAJ.top.n_res
         farray.top.summary()
         assert farray.size == TRAJ.max_frames
         print("rmsd to first = ", farray[0].rmsd(farray[1]))
         arr = np.zeros(farray.size)
-        cpptraj_rmsd = np.loadtxt("./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1]
+        cpptraj_rmsd = np.loadtxt(
+            "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1]
         print(cpptraj_rmsd[:10])
 
         # caculate rmsd to 1st frame
@@ -190,7 +193,7 @@ class TestTrajectory(unittest.TestCase):
         print(traj.top.is_empty())
         assert traj.top.is_empty() == True
         traj.top = Topology("./data/Tc5b.top")
-        #traj.top.summary()
+        # traj.top.summary()
         assert traj.top.is_empty() == False
         traj.load("./data/md1_prod.Tc5b.x")
         #traj.load("./data/md1_prod.Tc5b.x", Topology("./data/Tc5b.top"))

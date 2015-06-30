@@ -11,13 +11,13 @@ with open("./pyxlist.txt") as pylist:
 
 try:
     # if exist sys.argv[1]: test only this mod name
-    modlist = [sys.argv[1],]
+    modlist = [sys.argv[1], ]
 except:
     # else: use modlist just created above
     pass
 
 for mod in modlist:
-    #print "test import pytraj.%s" % mod
+    # print "test import pytraj.%s" % mod
     classname = ".".join(['pytraj', mod])
     if "/" in classname:
         classname = classname.replace("/", ".")

@@ -8,7 +8,9 @@ from pytraj.core.DataFileList import DataFileList
 from pytraj.datasets.DataSetList import DataSetList
 from pytraj.testing import cpptraj_test_dir, aa_eq
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         kfile = os.path.join(cpptraj_test_dir, "Test_Jcoupling", "Karplus.txt")
         traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
@@ -17,22 +19,22 @@ class Test(unittest.TestCase):
         dslist = DataSetList()
         dflist = DataFileList()
         d0 = adict['jcoupling'](command,
-                               frame, traj.top, 
-                               dslist=dslist, dflist=dflist)
-        print (dslist.size)
-        print (dslist[0].data)
-        print (dslist[80])
-        print (dslist.get_legends())
-        print (dslist['LYS:8_C-CA-CB-HB2'][:])
+                                frame, traj.top,
+                                dslist=dslist, dflist=dflist)
+        print(dslist.size)
+        print(dslist[0].data)
+        print(dslist[80])
+        print(dslist.get_legends())
+        print(dslist['LYS:8_C-CA-CB-HB2'][:])
 
         # another way, and assert
         dslist = DataSetList()
         from pytraj.common_actions import calc_jcoupling
-        print (command)
+        print(command)
         d0 = calc_jcoupling(traj, command)
         d1 = calc_jcoupling(traj, kfile=kfile)
-        print ("d0", d0)
-        print ("d1", d1)
+        print("d0", d0)
+        print("d1", d1)
         aa_eq(d0.values, d1.values)
 
 

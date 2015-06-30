@@ -4,6 +4,7 @@ from pytraj.testing import run_docstring
 import pytraj.common_actions as pyca
 from pytraj.base import *
 
+
 def silly_doc_func():
     """
     >>> print (traj)
@@ -11,46 +12,48 @@ def silly_doc_func():
     """
     pass
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
-        print ("silly_doc_func")
+        print("silly_doc_func")
         run_docstring(silly_doc_func)
 
-        print ("_frame_iter_master")
+        print("_frame_iter_master")
         from pytraj._shared_methods import _frame_iter_master as fi
         run_docstring(fi)
 
-        print ("matrix_analysis")
+        print("matrix_analysis")
         from pytraj import matrix_analysis as ma
         func_names = ma.default_key_dict.keys()
         for key in func_names:
             run_docstring(ma.__dict__[key])
 
-        print ("dihedral_analysis")
+        print("dihedral_analysis")
         from pytraj import dihedral_analysis as da
         func_names = da.supported_dihedral_types
         for key in func_names:
             run_docstring(da.__dict__['calc_' + key])
 
-        print ("pyca.calc_rmsd")
+        print("pyca.calc_rmsd")
         run_docstring(pyca.calc_rmsd)
 
-        print ("Trajectory.calc_rmsd")
+        print("Trajectory.calc_rmsd")
         from pytraj import Trajectory
         run_docstring(Trajectory.calc_rmsd)
 
-        print ("Topology.select")
+        print("Topology.select")
         run_docstring(Topology.select)
 
-        print ("frame __getitem__")
+        print("frame __getitem__")
         from pytraj import Frame
         run_docstring(Frame.__getitem__)
 
-        print ("split_range")
+        print("split_range")
         from pytraj.misc import split_range
         run_docstring(split_range)
 
-        print ("pytraj.tools.grep")
+        print("pytraj.tools.grep")
         from pytraj.tools import grep
         run_docstring(grep)
 

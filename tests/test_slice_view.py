@@ -9,7 +9,9 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 from pytraj.compat import zip
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
 
         # create TrajectoryIter (readonly)
@@ -20,7 +22,7 @@ class Test(unittest.TestCase):
         fa = traj[:]
 
         # frame view
-        f0 =fa[0]
+        f0 = fa[0]
         aa_eq(f0.xyz, fa[0].xyz)
         # assign new values
         f0[0, 0] = 1000.

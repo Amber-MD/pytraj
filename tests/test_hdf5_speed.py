@@ -10,7 +10,9 @@ import pytraj.common_actions as pyca
 from pytraj.utils import Timer
 from pytraj.compat import range
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("h5py")
     @test_if_having("mdtraj")
     def test_0(self):
@@ -24,7 +26,7 @@ class Test(unittest.TestCase):
         fn = get_fn("frame0.h5")
         m0 = mdtraj.load(fn)
         top = io.load_mdtraj(m0).top
-        
+
         @Timer()
         def normal_load():
             io.load_hdf5(fn)
@@ -42,14 +44,14 @@ class Test(unittest.TestCase):
         @Timer()
         def _mdtraj_load():
             m = mdtraj.load(fn)
-        
-        print ("normal load")
+
+        print("normal load")
         normal_load()
-        print ("load_from_Trajectory")
+        print("load_from_Trajectory")
         load_from_Trajectory()
-        print ("_tfancy")
+        print("_tfancy")
         _tfancy_load()
-        print ("_mdtraj_load")
+        print("_mdtraj_load")
         _mdtraj_load()
 
         _t = Trajectory(m0, top)
@@ -83,13 +85,13 @@ class Test(unittest.TestCase):
         def test_load_hdf5_with_top(n_times, ptop):
             for i in range(n_times):
                 io.load_hdf5(fn, top=ptop)
-        
+
         n_times = 50
-        print ("test_load_hdf5_no_top")
+        print("test_load_hdf5_no_top")
         test_load_hdf5_no_top(n_times)
-        print ("test_load_hdf5_with_top")
+        print("test_load_hdf5_with_top")
         test_load_hdf5_with_top(n_times, ptop)
-        print (ptop)
+        print(ptop)
 
 if __name__ == "__main__":
     unittest.main()

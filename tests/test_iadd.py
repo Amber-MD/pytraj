@@ -9,15 +9,17 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 from pytraj.utils import Timer
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         old_size = traj.n_frames
-        print (traj)
+        print(traj)
 
         traj.join(traj.copy(), copy=False)
-        print (traj)
-        assert  traj.n_frames == 2 * old_size
+        print(traj)
+        assert traj.n_frames == 2 * old_size
         aa_eq(traj[0].xyz, traj[old_size].xyz)
 
         @Timer()

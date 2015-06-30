@@ -5,7 +5,9 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.utils import _import, flatten_list
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         has_np, np = _import('numpy')
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -25,8 +27,8 @@ class Test(unittest.TestCase):
             assert_almost_equal(flatten_list(arr0[idx]), frame.coords)
 
         # it's time to see the output :D
-        print (arr0)
-        print (type(arr0))
+        print(arr0)
+        print(type(arr0))
 
 if __name__ == "__main__":
     unittest.main()

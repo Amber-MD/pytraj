@@ -9,7 +9,9 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 from timeit import timeit
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         # Trajectory
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -17,18 +19,18 @@ class Test(unittest.TestCase):
             traj.join(traj.copy(), copy=False)
         traj2 = traj.copy()
         traj3 = traj.copy()
-        print (traj, traj2)
+        print(traj, traj2)
         xyz = traj.xyz * 2
 
         def normal():
             traj.update_xyz(xyz)
 
-        print (timeit(normal, number=1000))
+        print(timeit(normal, number=1000))
 
         aa_eq(traj.xyz, xyz)
 
     def test_1(self):
-        print ("Frame")
+        print("Frame")
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0, f1 = traj[:2]
         xyz = f0.xyz + 1.0
@@ -40,32 +42,35 @@ class Test(unittest.TestCase):
         frame = f0.copy()
         xyz = frame.xyz.copy()
         z = xyz.copy()
+
         def normal():
             frame.buffer2d[:] = xyz
 
         frame = f0.copy()
         xyz = frame.xyz.copy()
         z = xyz.copy()
+
         def use_memcpy():
             frame._fast_copy_from_xyz(xyz)
-            
+
         frame = f0.copy()
         xyz = frame.xyz.copy()
         z = xyz.copy()
+
         def numpy_assigment():
             z[:] = xyz
 
-        print ("normal method")
-        print (timeit(normal, number=1000))
-        print ("use_memcpy")
-        print (timeit(use_memcpy, number=1000))
-        print ("use_numpy")
-        print (timeit(numpy_assigment, number=1000))
+        print("normal method")
+        print(timeit(normal, number=1000))
+        print("use_memcpy")
+        print(timeit(use_memcpy, number=1000))
+        print("use_numpy")
+        print(timeit(numpy_assigment, number=1000))
 
     @test_if_path_exists("./data/nogit/tip3p/")
     def test_2(self):
-        print ("tip3p data")
-        print ("Frame")
+        print("tip3p data")
+        print("Frame")
         mydir = "./data/nogit/tip3p/"
         traj = mdio.iterload(mydir + "/md.trj", mydir + "/tc5bwat.top")
         f0, f1 = traj[:2]
@@ -78,29 +83,32 @@ class Test(unittest.TestCase):
         frame = f0.copy()
         xyz = frame.xyz.copy()
         z = xyz.copy()
+
         def normal():
             frame.buffer2d[:] = xyz
 
         frame = f0.copy()
         xyz = frame.xyz.copy()
         z = xyz.copy()
+
         def use_memcpy():
             frame._fast_copy_from_xyz(xyz)
-            
+
         frame = f0.copy()
         xyz = frame.xyz.copy()
         z = xyz.copy()
+
         def numpy_assigment():
             z[:] = xyz
 
-        print ("normal method")
-        print (timeit(normal, number=1000))
-        print ("use_memcpy")
-        print (timeit(use_memcpy, number=1000))
-        print ("use_numpy")
-        print (timeit(numpy_assigment, number=1000))
+        print("normal method")
+        print(timeit(normal, number=1000))
+        print("use_memcpy")
+        print(timeit(use_memcpy, number=1000))
+        print("use_numpy")
+        print(timeit(numpy_assigment, number=1000))
 
-        # RESULT: similiar copying times for all 3 methods 
+        # RESULT: similiar copying times for all 3 methods
         # --> IO is bottle neck for all?
 
 if __name__ == "__main__":

@@ -8,7 +8,9 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         from pytraj.core.ActionList import ActionList
         from pytraj.datasets.DataSetList import DataSetList
@@ -20,7 +22,8 @@ class Test(unittest.TestCase):
         mask_list = ['@CB @CA', '@CA @H']
 
         for mask in mask_list:
-            actlist.add_action(CA.Action_Distance(), mask, traj.top, dslist=dslist)
+            actlist.add_action(
+                CA.Action_Distance(), mask, traj.top, dslist=dslist)
         actlist.do_actions(traj)
 
         dslist2 = pyca.calc_distance(traj, mask_list)

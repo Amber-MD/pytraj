@@ -6,4 +6,4 @@ from pytraj import io as mdio
 
 traj = mdio.iterload(sys.argv[2], sys.argv[1])
 
-print (traj.temperatures)
+print(traj.temperatures)

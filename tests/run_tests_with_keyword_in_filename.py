@@ -1,4 +1,4 @@
-#usr/bin/env python
+# usr/bin/env python
 from subprocess import call
 import sys
 import os
@@ -13,5 +13,5 @@ all_test = set(glob("test_*.py"))
 flist = keyword_flist & all_test
 
 for fname in flist:
-    print (fname)
+    print(fname)
     os.system("python %s" % fname)

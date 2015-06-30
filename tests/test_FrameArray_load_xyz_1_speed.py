@@ -8,7 +8,9 @@ from pytraj.compat import izip
 from pytraj.decorators import test_if_having
 from pytraj.utils import Timer
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
@@ -24,20 +26,20 @@ class Test(unittest.TestCase):
             farray.append_xyz(xyz)
 
         xyz = traj.xyz
-        print (xyz.shape)
+        print(xyz.shape)
 
         f0 = Trajectory()
         f0.top = traj.top.copy()
 
-        print ("_f_ndarray")
+        print("_f_ndarray")
         _f_ndarray(f0, xyz)
-        print (f0.xyz.shape)
+        print(f0.xyz.shape)
 
-        print ("_f_dontknow")
+        print("_f_dontknow")
         f1 = Trajectory()
         f1.top = traj.top.copy()
         _f_dontknow(f1, xyz)
-        print (f0.xyz.shape, f1.xyz.shape)
+        print(f0.xyz.shape, f1.xyz.shape)
         #assert_almost_equal(f0.xyz, f1.xyz)
 
 if __name__ == "__main__":

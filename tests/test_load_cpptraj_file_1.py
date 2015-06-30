@@ -12,7 +12,9 @@ try:
 except:
     test_dir = None
 
+
 class Test(unittest.TestCase):
+
     @test_if_path_exists(cpptraj_test_dir)
     @test_if_having("pandas")
     def test_0(self):
@@ -22,8 +24,8 @@ class Test(unittest.TestCase):
         state = mdio.load_cpptraj_file(trajin_file)
         state.run()
         dslist = state.datasetlist
-        print (dslist.get_legends())
-        print (dslist.to_dataframe())
+        print(dslist.get_legends())
+        print(dslist.to_dataframe())
 
 
 if __name__ == "__main__":

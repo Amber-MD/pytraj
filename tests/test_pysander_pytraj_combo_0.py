@@ -12,7 +12,9 @@ try:
 except:
     has_sander_and_parmed = False
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         if has_sander_and_parmed:
             traj_fn = "./data/md1_prod.Tc5b.x"
@@ -25,14 +27,14 @@ class Test(unittest.TestCase):
                 parm.load_coordinates(frame.coords)
                 sander.setup(parm, parm.coords, None, inp)
                 ene, frc = sander.energy_forces()
-                print (ene.gb)
+                print(ene.gb)
                 sander.cleanup()
         else:
-            print ("require both sander and parmed. Skip test")
+            print("require both sander and parmed. Skip test")
 
     def test_1(self):
         if has_sander_and_parmed:
-            print ("memoryview")
+            print("memoryview")
             traj_fn = "./data/md1_prod.Tc5b.x"
             top_fn = "./data/Tc5b.top"
             traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -46,10 +48,10 @@ class Test(unittest.TestCase):
                 parm.load_coordinates(arr0)
                 sander.setup(parm, parm.coords, None, inp)
                 ene, frc = sander.energy_forces()
-                print (ene.gb)
+                print(ene.gb)
                 sander.cleanup()
         else:
-            print ("require both sander and parmed. Skip test")
+            print("require both sander and parmed. Skip test")
 
 if __name__ == "__main__":
     unittest.main()

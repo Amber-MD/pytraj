@@ -9,16 +9,18 @@ from pytraj.testing import cpptraj_test_dir
 from pytraj.utils.check_and_assert import is_word_in_class_name as is_in_class_name
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        d0 = traj.calc_COG(dtype='dataset') # default = 'dataset'
-        print (d0[0])
-        mylist = traj.calc_COG(dtype='list') # default = 'dataset'
-        print (mylist)
+        d0 = traj.calc_COG(dtype='dataset')  # default = 'dataset'
+        print(d0[0])
+        mylist = traj.calc_COG(dtype='list')  # default = 'dataset'
+        print(mylist)
         assert isinstance(mylist, list) == True
-        mynp = traj.calc_COG(dtype='ndarray') # default = 'dataset'
+        mynp = traj.calc_COG(dtype='ndarray')  # default = 'dataset'
         assert is_in_class_name(mynp, 'ndarray')
         aa_eq(np.asarray(mylist).flatten(), mynp.flatten())
 

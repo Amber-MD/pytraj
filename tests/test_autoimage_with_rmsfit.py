@@ -6,13 +6,15 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 import pytraj.common_actions as pyca
 from pytraj.misc import rmsd as rmsd_2darray
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         # TrajectoryIterrator
         # status: failed
         from pytraj.compat import zip
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        pt.write_traj("./output/tz2.autoimage_with_rmsfit.nc", 
+        pt.write_traj("./output/tz2.autoimage_with_rmsfit.nc",
                       traj(autoimage=True, rmsfit=(0, '@CA,C,N')),
                       overwrite=True)
 
@@ -21,7 +23,7 @@ class Test(unittest.TestCase):
 
         aa_eq(saved_traj.xyz, p_traj.xyz)
         for f1, f2 in zip(p_traj, saved_traj):
-            print (rmsd_2darray(f1.xyz, f2.xyz))
+            print(rmsd_2darray(f1.xyz, f2.xyz))
 
     def test_1(self):
         # Trajectory (mutable)

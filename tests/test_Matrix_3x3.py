@@ -7,24 +7,28 @@ from pytraj.math import Matrix_3x3
 from pytraj.decorators import no_test, test_if_having
 from numpy.testing import assert_almost_equal as aa_eq_np
 
+
 def npmat_fromlist(mlist):
     # convert 1D list to 2D matrix
-    return np.asmatrix(np.array(mlist).reshape((3,3)))
+    return np.asmatrix(np.array(mlist).reshape((3, 3)))
+
 
 def eq_np_to_mat(npmat, mymat):
     assert np.any(npmat == mymat.to_ndmatrix()) == True
 
+
 class TestMatrix_3x3(unittest.TestCase):
+
     def test_construct(self):
         from pytraj.math import Matrix_3x3 as M
 
         # 0
-        m0 = M() 
+        m0 = M()
         nm0 = npmat_fromlist([0 for _ in range(9)])
         eq_np_to_mat(nm0, m0)
 
         # a number: 1
-        m0 = M(1.) 
+        m0 = M(1.)
         nm0 = npmat_fromlist([1. for _ in range(9)])
         eq_np_to_mat(nm0, m0)
 
@@ -59,8 +63,8 @@ class TestMatrix_3x3(unittest.TestCase):
 
         assert mat[:].shape == (3, 3)
         assert mat.buffer1d.shape == (9,)
-        asmat1 = np.asmatrix(np.arange(9).reshape((3,3))).astype(np.float64)
-        print (asmat1)
+        asmat1 = np.asmatrix(np.arange(9).reshape((3, 3))).astype(np.float64)
+        print(asmat1)
         eq_np_to_mat(asmat1, mat)
 
         mat[0, 0] = 100.
@@ -73,15 +77,15 @@ class TestMatrix_3x3(unittest.TestCase):
         mat *= mat
         print(mat)
         print(mat.tolist())
-        print (npmat)
+        print(npmat)
         v1 = mat.row1
         assert v1.tolist() == list(mat[0])
         assert np.any(npmat == mat.to_ndmatrix()) == True
-        
+
         mat_as_ndmatrix = mat.as_ndmatrix()
         mat_as_ndmatrix[0] = 10000.
-        print ("test as_ndmatrix")
-        print (npmat, mat, mat_as_ndmatrix)
+        print("test as_ndmatrix")
+        print(npmat, mat, mat_as_ndmatrix)
         assert np.any(npmat == mat.to_ndmatrix()) == True
         assert np.any(npmat == mat_as_ndmatrix) == True
 
@@ -90,6 +94,6 @@ class TestMatrix_3x3(unittest.TestCase):
         print((npmat * v1np))
         print((mat * v1).tolist())
         print(mat[0, :])
-        
+
 if __name__ == "__main__":
     unittest.main()

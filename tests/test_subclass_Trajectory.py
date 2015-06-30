@@ -9,7 +9,9 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 from pytraj._action_in_traj import ActionTrajectory
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         from pytraj import Trajectory
         # Aim: no segmentation fault

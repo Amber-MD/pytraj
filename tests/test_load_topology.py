@@ -2,7 +2,9 @@ from __future__ import print_function
 import unittest
 from pytraj import io as mdio
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         top0 = mdio.load("./data/Tc5b.top")
         top1 = mdio.load_topology(top0.filename)
