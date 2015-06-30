@@ -70,7 +70,7 @@ def _get_data_from_dtype(d0, dtype='dataset'):
         elif dtype == 'dataframe':
             return d0.to_dataframe()
         else:
-            raise NotImplenmentedError()
+            raise NotImplementedError()
 
 
 def _get_list_of_commands(mask_or_commands):

@@ -77,8 +77,8 @@ class DataArray(object):
         size = self.size
         key = self.key
         dtype = self.dtype
-        msg0 = """<pytraj.arrray.DataArray: size={0}, key={1}, dtype={2}> """.format(
-            size, key, self.dtype)
+        msg0 = """<pytraj.array.DataArray: size={0}, key={1}, dtype={2}, ndim={3}> """.format(
+            size, key, self.dtype, self.ndim)
         value_str = self.values.__str__()
         return msg0 + '\nvalues:\n' + value_str
 
