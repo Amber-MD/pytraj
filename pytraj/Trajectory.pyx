@@ -1540,11 +1540,15 @@ cdef class Trajectory (object):
             yield farray
 
     @classmethod
-    def frome_iterable(cls, iteratable, top=None, copy=False):
+    def from_iterable(cls, iteratable, top=None, copy=False):
         """return a new Trajectory from `iteratable` object
         """
         if top is None:
-            raise ValueError("require a Topology")
+            try:
+                top = iteratable.top
+            except AttributeError:
+                raise AttributeError("require a Topology")
+
         traj = cls(top=top)
         for f in iteratable:
             traj.append(f, copy=copy)

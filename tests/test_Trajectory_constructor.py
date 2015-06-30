@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -10,6 +11,8 @@ from pytraj.decorators import test_if_having, no_test
 from itertools import chain
 from pytraj import Trajectory
 from pytraj.testing import aa_eq
+
+TRAJ = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 class Test(unittest.TestCase):
     @Timer()
@@ -170,6 +173,17 @@ class Test(unittest.TestCase):
         m_traj  = md.load_mdcrd("./data/md1_prod.Tc5b.x", top=mtop)
         fa = Trajectory(m_traj)
         aa_eq(fa.xyz, m_traj.xyz)
+
+    def test_11(self):
+        # from_iterable
+        t = pt.Trajectory.from_iterable(TRAJ)
+        aa_eq(t.xyz, TRAJ.xyz)
+
+        t = pt.Trajectory.from_iterable(TRAJ(mask='@CA'))
+        aa_eq(t.xyz, TRAJ['@CA'].xyz)
+
+        t = pt.Trajectory.from_iterable(TRAJ(mask='@CA', rmsfit=(0, '@CA')))
+        aa_eq(t.xyz, pt.get_coordinates(TRAJ(mask='@CA', rmsfit=(0, '@CA'))))
 
 if __name__ == "__main__":
     unittest.main()
