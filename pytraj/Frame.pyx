@@ -166,11 +166,14 @@ cdef class Frame (object):
         self.thisptr.ClearAtoms()
 
     def append_xyz(self, double[:, :] xyz):
+        """append 3D array and return itself
+        """
         cdef int i
         cdef int N = xyz.shape[0]
 
         for i in range(N):
             self.thisptr.AddXYZ(&xyz[i, 0])
+        return self
 
     cdef void _append_xyz_2d(self, double[:, :] xyz):
         # for internal use

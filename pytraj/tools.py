@@ -172,3 +172,15 @@ def concat_dict(iterables):
             for k, v in  iteritems(new_dict):
                 new_dict[k] = np.concatenate((new_dict[k], d[k]))
     return new_dict
+
+def merge_coordinates(iterables):
+    """merge_coordinates from frames
+    """
+    return np.vstack((np.array(f.xyz) for f in iterables))
+
+def merge_frames(iterables):
+    """merge_coordinates from frames
+    """
+    from pytraj import Frame
+    xyz = np.vstack((np.array(f.xyz) for f in iterables))
+    return Frame().append_xyz(xyz)

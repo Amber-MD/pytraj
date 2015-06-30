@@ -233,7 +233,7 @@ def rmsd_1darray(a1, a2):
     tmp = sum((arr1-arr2)**2)
     return sqrt(tmp/arr1.shape[0])
 
-def rmsd(a1, a2):
+def rmsd(a1, a2, flatten=False):
     """
     rmsd for two array with the same shape
 
@@ -241,7 +241,7 @@ def rmsd(a1, a2):
     ----------
     a1, a2: np.ndarray
     """
-    if a1.shape != a2.shape:
+    if a1.shape != a2.shape and not flatten:
         raise ValueError("must have the same shape")
     return rmsd_1darray(a1.flatten(), a2.flatten())
     
