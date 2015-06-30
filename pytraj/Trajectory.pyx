@@ -911,10 +911,10 @@ cdef class Trajectory (object):
         """
         cdef Trajectory other, farray
         cdef Frame frame
-        # TODO : do we need this method when we have `get_frames`
+
         if traj is self:
             raise ValueError("why do you join your self?")
-        if is_pytraj_trajectory(traj):
+        if is_pytraj_trajectory(traj) or is_frame_iter(traj):
             if self.top.n_atoms != traj.top.n_atoms:
                 raise ValueError("n_atoms of two arrays do not match")
             for frame in traj:
@@ -923,6 +923,8 @@ cdef class Trajectory (object):
             # assume a list or tuple of Trajectory
             for farray in traj:
                 self.join(farray, copy=copy)
+        else:
+            raise ValueError("traj must a Trajectory-like for frame iter")
 
     def resize(self, int n_frames):
         self.frame_v.resize(n_frames)
