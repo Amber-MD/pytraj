@@ -20,11 +20,42 @@ def load_ParmEd(parmed_obj, restype="top", load_from_pdb=True):
         # faster
         with goto_temp_folder():
             fname = 'tmppdb.pdb'
-            parmed_obj.write_pdb(fname)
-            if restype == 'top':
+            if parmed_obj.coordinates is None:
+                none_coords = True
+            else:
+                none_coords = False
+
+            if hasattr(parmed_obj, 'write_parm') and none_coords:
+                fname = 'tmpparm.parm7'
+                parmed_obj.write_parm(fname)
                 return Topology(fname)
+            elif hasattr(parmed_obj, 'coordinates') and none_coords:
+                n_atoms = len(parmed_obj.atoms)
+                need_to_reset_coords = True
+                # make fake pdb
+                import numpy as np
+                parmed_obj.coordinates = np.array([0. for _ in range(3 * n_atoms)]
+                                                 ).reshape(n_atoms, 3)
+                parmed_obj.write_pdb(fname)
+                return Topology(fname)
+            else:
+                need_to_reset_coords = False
+
+            parmed_obj.write_pdb(fname)
+
+            if restype == 'top':
+                result = Topology(fname)
             elif restype == 'traj':
-                return Trajectory(fname, fname)
+                if none_coords:
+                    raise ValueError("need coordinates to load to traj")
+                result= Trajectory(fname, fname)
+            else:
+                raise ValueError()
+
+            if need_to_reset_coords:
+                parmed_obj.coordinates = None
+        return result
+
     else:
         ptop = load_pseudo_parm(parmed_obj)
         if restype.lower() == 'top':
