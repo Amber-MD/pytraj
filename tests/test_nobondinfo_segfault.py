@@ -24,6 +24,7 @@ class Test(unittest.TestCase):
         # FIXME: segmentation fault: no radii info, calc_molsurf
         # traj.calc_molsurf()
 
+        traj.top.guess_bond()
         traj.calc_dssp()
         traj.rmsd(mode='cpptraj')
         traj.rmsd(0)
