@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 import sys
-from itertools import islice
+from itertools import islice, groupby
 import functools
 from collections import OrderedDict
 from pytraj.externals.six import iteritems
@@ -106,20 +106,49 @@ def moving_average(data, n):
     else:
         return new_data
 
-
-@_dispatch_value
-def pipe(self, *funcs):
-    """apply a series of functions to self's data
+def pipe(obj, func, *args, **kwargs):
+    # copied from pandas PR
+    # https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py
+    # see license in pytraj/license/
     """
-    if hasattr(self, 'values'):
-        values = self.values
+    Apply a function to a obj either by
+    passing the obj as the first argument
+    to the function or, in the case that
+    the func is a tuple, interpret the first
+    element of the tuple as a function and
+    pass the obj to that function as a keyword
+    arguemnt whose key is the value of the
+    second element of the tuple
+    """
+    if isinstance(func, tuple):
+        func, target = func
+        if target in kwargs:
+            msg = '%s is both the pipe target and a keyword argument' % target
+            raise ValueError(msg)
+        kwargs[target] = obj
+        return func(*args, **kwargs)
     else:
-        values = self
+        return func(obj, *args, **kwargs)
 
-    for func in funcs:
-        values = func(values)
-    return values
+def _compose2(f, g):
+    # copied from pandas
+    # see license in pytraj/license/
+    """Compose 2 callables"""
+    return lambda *args, **kwargs: f(g(*args, **kwargs))
 
+def compose(*funcs):
+    # copied from pandas (added pytraj's example)
+    # see license in pytraj/license/
+    """Compose 2 or more callables
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> func = pt.tools.compose(pt.calc_radgyr, pt.iterload)
+    >>> func("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+    """
+    assert len(funcs) > 1, 'At least 2 callables must be passed to compose'
+    return reduce(_compose2, funcs)
 
 def grep(self, key):
     """
