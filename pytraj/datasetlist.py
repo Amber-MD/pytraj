@@ -83,6 +83,13 @@ def stack(args):
             d0.append(d.copy())
     return dslist0
 
+from collections import OrderedDict
+
+class _OrderedDict(OrderedDict):
+    def to_ndarray(self):
+        from pytraj.tools import dict_to_ndarray
+        return dict_to_ndarray(self)
+
 
 class DatasetList(list):
 
@@ -399,8 +406,7 @@ class DatasetList(list):
         _dict = dict
         if ordered_dict:
             # use OrderedDict
-            from collections import OrderedDict
-            _dict = OrderedDict
+            _dict = _OrderedDict
         if use_numpy:
             return _dict((d0.legend, d0.to_ndarray()) for d0 in self)
         else:
@@ -441,7 +447,7 @@ class DatasetList(list):
         --------
         pandas
         """
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         _, pandas = _import_pandas()
         my_dict = dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
@@ -453,47 +459,47 @@ class DatasetList(list):
         return self
 
     def mean(self):
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((x.key, x.mean()) for x in self)
 
     def median(self):
         """
         Notes: require numpy
         """
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((x.key, x.median()) for x in self)
 
     def std(self, axis=1):
         """
         Notes: require numpy
         """
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((x.key, x.std()) for x in self)
 
     def min(self):
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((x.legend, x.min()) for x in self)
 
     def max(self):
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((x.legend, x.max()) for x in self)
 
     def sum(self):
         """
         Notes: require numpy
         """
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((x.legend, x.sum()) for x in self)
 
     def cumsum(self, axis=1):
         """Return the cumulative sum of the elements along a given axis.
         (from numpy doc)
         """
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((x.legend, np.cumsum(x.values)) for x in self)
 
     def mean_with_error(self, other):
-        from collections import defaultdict
+        dict = _OrderedDict
 
         ddict = defaultdict(tuple)
         for key, dset in self.iteritems():
@@ -501,7 +507,7 @@ class DatasetList(list):
         return ddict
 
     def count(self, number=None):
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((d0.legend, d0.count(number)) for d0 in self)
 
     def read_data(self, filename, arg=""):
