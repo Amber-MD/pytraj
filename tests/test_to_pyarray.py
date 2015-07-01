@@ -14,9 +14,9 @@ class Test(unittest.TestCase):
         import numpy as np
         from array import array as pyarray
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        alist = traj.calc_molsurf().tolist()[0]
-        anp = traj.calc_molsurf().to_ndarray()
-        a_pyarray = traj.calc_molsurf().to_pyarray()
+        alist = traj.calc_molsurf().tolist()
+        anp = traj.calc_molsurf().flatten()
+        a_pyarray = traj.calc_molsurf(dtype='dataset').to_pyarray()
         print(alist, anp, a_pyarray)
         print(rmsd_1darray(a_pyarray, alist))
         print(rmsd_1darray(anp, alist))
@@ -37,10 +37,10 @@ class Test(unittest.TestCase):
         # test hist
         try:
             import matplotlib
-            d0 = traj.calc_molsurf()
-            print(d0.hist(bins=3, range=[d0.min(), d0.max()]))
+            d0 = traj.calc_molsurf(dtype='dataset')
+            print(d0.hist(show=False))
             print(d0.to_ndarray())
-        except:
+        except ImportError:
             print("pass `hist` test since don't have matplotlib")
 
 if __name__ == "__main__":

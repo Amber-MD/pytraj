@@ -32,7 +32,7 @@ class ActionTrajectory(object):
         return pyca.calc_multidihedral(self, mask, *args, **kwd)
 
     def calc_molsurf(self, mask="", *args, **kwd):
-        return pyca.calc_molsurf(self, mask)
+        return pyca.calc_molsurf(self, mask, *args, **kwd)
 
     def calc_center_of_mass(self, mask="", *args, **kwd):
         return pyca.calc_center_of_mass(self, mask, *args, **kwd)
