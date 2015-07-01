@@ -131,6 +131,7 @@ class DatasetList(list):
             da.name = d['name']
             da.idx = d['idx']
             da.legend = legend
+            da.cpptraj_dtype = d['cpptraj_dtype']
             self.append(da)
         return self
 
@@ -148,7 +149,7 @@ class DatasetList(list):
             else:
                 _d['values'] = list(d.values)
             _d['name'] = d.name
-            _d['dtype'] = d.dtype
+            _d['cpptraj_dtype'] = d.cpptraj_dtype
             _d['aspect'] = d.aspect
             _d['idx'] = d.idx
         return ddict

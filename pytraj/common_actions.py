@@ -297,7 +297,7 @@ def calc_radgyr(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_molsurf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_molsurf(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_Molsurf
     act = Action_Molsurf()
 
