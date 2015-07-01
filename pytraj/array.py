@@ -61,6 +61,9 @@ class DataArray(object):
     def dtype(self):
         return self.values.dtype
 
+    def astype(self, t):
+        self.values = self.values.astype(t)
+
     @property
     def key(self):
         return self.legend
@@ -247,6 +250,9 @@ class DataArray(object):
 
     def max(self):
         return self.values.max()
+
+    def median(self):
+        return np.median(self.values)
 
     # below are copied from `dask` package: New BSD
     # see pytraj/licenses/externals/dask.txt for license
