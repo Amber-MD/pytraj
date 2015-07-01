@@ -25,7 +25,7 @@ class DataArray(object):
     """place holder for all cpptraj' output
     """
 
-    def __init__(self, dset=None, full_copy=True):
+    def __init__(self, dset=None, copy=True):
         self.legend = getattr(dset, 'legend', "")
         self.name = getattr(dset, 'name', "")
         self.aspect = getattr(dset, 'aspect', 'unknown')
@@ -38,7 +38,7 @@ class DataArray(object):
             self.cpptraj_dtype = getattr(dset, 'dtype', None)
 
         if dset is not None:
-            if full_copy:
+            if copy:
                 self.values = dset.values.copy()
             else:
                 self.values = dset.values

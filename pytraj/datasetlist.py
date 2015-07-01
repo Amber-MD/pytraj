@@ -86,10 +86,14 @@ def stack(args):
 
 class DatasetList(list):
 
-    def __init__(self, dslist=None, copy=True):
+    def __init__(self, dslist=None):
         if dslist:
             for d0 in dslist:
-                self.append(DataArray(d0), copy=copy)
+                # always make a copy
+                # from DataArray(d0)
+                # so we set copy=False here
+                # to avoid copying twice
+                self.append(DataArray(d0), copy=False)
 
     def copy(self):
         dslist = self.__class__()
@@ -337,7 +341,7 @@ class DatasetList(list):
         for d0 in self:
             yield func(d0)
 
-    def filter(self, func, *args, **kwd):
+    def filter(self, func, copy=False, *args, **kwd):
         """return a new view of DatasetList of func return True"""
         dslist = self.__class__()
 
@@ -346,12 +350,12 @@ class DatasetList(list):
         elif callable(func):
             for d0 in self:
                 if func(d0, *args, **kwd):
-                    dslist.append(d0, copy=False)
+                    dslist.append(d0, copy=copy)
             return dslist
         else:
             raise NotImplementedError("func must be a string or callable")
 
-    def grep(self, key, mode='legend'):
+    def grep(self, key, mode='legend', copy=False):
         """"return a new DatasetList object as a view of `self`
 
         Parameters
@@ -372,11 +376,11 @@ class DatasetList(list):
             att = getattr(d0, mode)
             if isinstance(key, string_types):
                 if re.search(key, att):
-                    dtmp.append(d0, copy=False)
+                    dtmp.append(d0, copy=copy)
             elif isinstance(key, (list, tuple)):
                 for _key in key:
                     if re.search(_key, att):
-                        dtmp.append(d0, copy=False)
+                        dtmp.append(d0, copy=copy)
             else:
                 raise ValueError("support string or list/tuple of strings")
         return dtmp
@@ -396,7 +400,7 @@ class DatasetList(list):
             from collections import OrderedDict
             _dict = OrderedDict
         if use_numpy:
-            return _dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
+            return _dict((d0.legend, d0.to_ndarray()) for d0 in self)
         else:
             return _dict((d0.legend, d0.tolist()) for d0 in self)
 
