@@ -8,21 +8,21 @@ from . _base_result_class import BaseAnalysisResult
 
 adict = ActionDict()
 
-__all__ = ['HbondAnalaysisResult', 'search_hbonds', 'search_nointramol_hbonds',
+__all__ = ['HbondAnalysisResult', 'search_hbonds', 'search_nointramol_hbonds',
            'search_hbonds_noseries']
 
 
-class HbondAnalaysisResult(BaseAnalysisResult):
+class HbondAnalysisResult(BaseAnalysisResult):
 
-    """Hold data for HbondAnalaysisResult
+    """Hold data for HbondAnalysisResult
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.load_pdb_rcsb("1l2y")
-    >>> h = pt.hbonds.HbondAnalaysisResult(traj.search_hbonds())
+    >>> h = pt.hbonds.HbondAnalysisResult(traj.search_hbonds())
     >>> h
-    <pytraj.hbonds.HbondAnalaysisResult
+    <pytraj.hbonds.HbondAnalysisResult
     donor_aceptor pairs : 31>
     >>> 
     >>> h.lifetime(cut=(0.5, 1.0))
@@ -35,7 +35,7 @@ class HbondAnalaysisResult(BaseAnalysisResult):
     """
 
     def __str__(self):
-        root_msg = "<pytraj.hbonds.HbondAnalaysisResult"
+        root_msg = "<pytraj.hbonds.HbondAnalysisResult"
         more_info = "donor_aceptor pairs : %s>" % len(self.donor_aceptor)
         return root_msg + "\n" + more_info
 
@@ -178,7 +178,7 @@ def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
         # return DataFrame.T to have better visual effect
         return dslist.to_dataframe().T
     elif dtype == 'hbond_class':
-        return HbondAnalaysisResult(dslist)
+        return HbondAnalysisResult(dslist)
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -215,6 +215,6 @@ def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WA
     if update_legend:
         _update_legend_hbond(dslist)
     if dtype == 'hbond_class':
-        return HbondAnalaysisResult(dslist)
+        return HbondAnalysisResult(dslist)
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)

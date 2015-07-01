@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 from array import array
+from itertools import groupby
 from pytraj.datasets.DataSetList import DataSetList as DSL
 from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
@@ -23,7 +24,7 @@ def from_pickle(filename):
     return dslist
 
 
-def from_json(filename):
+def rom_json(filename):
     dslist = DatasetList()
     dslist.from_json(filename)
     return dslist
@@ -40,8 +41,8 @@ def _from_full_dict(full_dict):
     return DatasetList()._from_full_dict(full_dict)
 
 
-def from_sequence(seq):
-    return DatasetList().from_sequence(seq)
+def from_sequence(seq, copy=True):
+    return DatasetList().from_sequence(seq, copy=copy)
 
 
 def stack(args):
@@ -85,15 +86,15 @@ def stack(args):
 
 class DatasetList(list):
 
-    def __init__(self, dslist=None):
+    def __init__(self, dslist=None, copy=True):
         if dslist:
             for d0 in dslist:
-                self.append(DataArray(d0))
+                self.append(DataArray(d0), copy=copy)
 
     def copy(self):
         dslist = self.__class__()
         for d0 in self:
-            dslist.append(d0.copy())
+            dslist.append(d0, copy=True)
         return dslist
 
     def from_pickle(self, filename):
@@ -261,12 +262,12 @@ class DatasetList(list):
             start, stop, step = idx.indices(self.size)
             new_dslist = self.__class__()
             for _idx in range(start, stop, step):
-                new_dslist.append(self[_idx])
+                new_dslist.append(self[_idx], copy=False)
             return new_dslist
         elif is_array(idx) or isinstance(idx, list):
             new_dslist = self.__class__()
             for _idx in idx:
-                new_dslist.append(self[_idx])
+                new_dslist.append(self[_idx], copy=False)
             return new_dslist
         elif isinstance(idx, tuple) and len(idx) == 2:
             return self[idx[0]][idx[1]]
@@ -337,7 +338,7 @@ class DatasetList(list):
         elif callable(func):
             for d0 in self:
                 if func(d0, *args, **kwd):
-                    dslist.append(d0)
+                    dslist.append(d0, copy=False)
             return dslist
         else:
             raise NotImplementedError("func must be a string or callable")
@@ -363,11 +364,11 @@ class DatasetList(list):
             att = getattr(d0, mode)
             if isinstance(key, string_types):
                 if re.search(key, att):
-                    dtmp.append(d0)
+                    dtmp.append(d0, copy=False)
             elif isinstance(key, (list, tuple)):
                 for _key in key:
                     if re.search(_key, att):
-                        dtmp.append(d0)
+                        dtmp.append(d0, copy=False)
             else:
                 raise ValueError("support string or list/tuple of strings")
         return dtmp
@@ -498,7 +499,7 @@ class DatasetList(list):
         df.read_data(filename, ArgList(arg), dslist)
 
         for d0 in dslist:
-            self.append(d0.copy())
+            self.append(d0, copy=False)
 
     # pandas related
     def describe(self):
@@ -606,3 +607,7 @@ class DatasetList(list):
 
     def tail(self, k):
         return dict((x.legend, x.tail(k)) for x in self)
+
+    def groupy(self, func_or_key, copy=False):
+        return dict((x, from_sequence(y, copy=copy)) 
+               for x, y in groupby(self, func_or_key))
