@@ -100,7 +100,7 @@ class DataArray(object):
     def shallow_copy(self):
         """everything is copied but `self.values`
         """
-        return self.__class__(self, full_copy=False)
+        return self.__class__(self, copy=False)
 
     def is_empty(self):
         return len(self.values) == 0
