@@ -411,8 +411,9 @@ cdef class DataSetList:
         # read-only
         try:
             return XYZ(self.to_ndarray())
-        except:
-            raise ValueError("don't know how to cast to numpy array")
+        except ValueError:
+            raise ValueError("don't know how to cast to numpy array"
+                             "try `tolist`, `to_dict`")
 
     def to_ndarray(self):
         """
@@ -430,7 +431,8 @@ cdef class DataSetList:
             except:
                 raise PytrajConvertError("don't know how to convert to ndarray")
         else:
-            raise PytrajConvertError("don't have numpy")
+            raise ImportError("don't have numpy, "
+                              "try `tolist`, `to_dict`")
 
     def to_dataframe(self):
         """return pandas' DataFrame
