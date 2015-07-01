@@ -39,6 +39,14 @@ def _get_arglist(arg):
 
 def _get_data_from_dtype(d0, dtype='dataset'):
     from pytraj.datasets.DataSet import DataSet
+    try:
+        import numpy as np
+        has_np = True
+    except ImportError:
+        has_np = False
+        if dtype != 'cpptraj_dataset':
+            raise ImportError("require numpy. use `dtype='cpptraj_dataset'`")
+
     if dtype is None or dtype == 'dataset':
         if hasattr(d0, 'set_py_free_mem'):
             d0.set_py_free_mem(False)
@@ -69,6 +77,8 @@ def _get_data_from_dtype(d0, dtype='dataset'):
                 return d0.to_dict(use_numpy=False)
         elif dtype == 'dataframe':
             return d0.to_dataframe()
+        elif dtype == 'cpptraj_dataset':
+            return d0
         else:
             raise NotImplementedError()
 

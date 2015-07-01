@@ -224,9 +224,12 @@ class DatasetList(list):
         safe_msg = "<pytraj.DatasetList with %s datasets>\n" % self.size
         if self.size == 0:
             return safe_msg
-        msg = "\n\n".join(d.__str__() for d in self)
-        str_first_3= "\n\n".join(d.__str__() for d in self[:3])
-        str_last_2 = "\n\n".join(d.__str__() for d in self[-2:])
+        msg = "\n\n".join("\n".join((d.key, d.values.__str__()))
+                          for d in self)
+        str_first_3= "\n\n".join("\n".join((d.key, d.values.__str__())) 
+                                 for d in self[:3])
+        str_last_2 = "\n\n".join("\n".join((d.key, d.values.__str__())) 
+                                for d in self[-2:])
 
         if self.size <= 5:
             return safe_msg + msg
