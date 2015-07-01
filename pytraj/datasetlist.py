@@ -221,19 +221,18 @@ class DatasetList(list):
         return self[0].to_pyarray()
 
     def __str__(self):
-        has_pd, _ = _import_pandas()
-        safe_msg = "<pytraj.DatasetList with %s datasets>" % self.size
+        safe_msg = "<pytraj.DatasetList with %s datasets>\n" % self.size
         if self.size == 0:
             return safe_msg
-        if not has_pd:
-            msg = "<pytraj.DatasetList with %s datasets>" % self.size
-            return msg
+        msg = "\n\n".join((d.key + d.__str__()) for d in self)
+        str_first_3= "\n\n".join((d.key + d.__str__()) for d in self[:3])
+        str_last_2 = "\n\n".join((d.key + d.__str__()) for d in self[-2:])
+
+        if self.size <= 5:
+            return safe_msg + msg
         else:
-            try:
-                df = self.to_dataframe().T
-                return safe_msg + "\n" + df.__str__()
-            except (ImportError, ValueError, Exception):
-                return safe_msg
+            return safe_msg + str_first_3 + "\n...\n\n" + str_last_2
+
 
     def __repr__(self):
         return self.__str__()
