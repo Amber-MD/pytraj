@@ -25,6 +25,13 @@ class Test(unittest.TestCase):
         aa_eq(arr0.min(1), pt.tools.dict_to_ndarray(ds.min()))
         aa_eq(arr0.max(1), pt.tools.dict_to_ndarray(ds.max()))
         aa_eq(arr0.std(1), pt.tools.dict_to_ndarray(ds.std()))
+
+        aa_eq(arr0.mean(1),ds.mean().to_ndarray())
+        aa_eq(arr0.sum(1), ds.sum().to_ndarray())
+        aa_eq(arr0.min(1), ds.min().to_ndarray())
+        aa_eq(arr0.max(1), ds.max().to_ndarray())
+        aa_eq(arr0.std(1), ds.std().to_ndarray())
+
         ds.apply(lambda x: 2 * x)
         newarr = ds.to_ndarray()
         aa_eq(2 * arr0, newarr)
