@@ -852,10 +852,10 @@ cdef class Trajectory (object):
         cdef vector[_Frame*].iterator it  = self.frame_v.begin()
         cdef Frame frame 
 
-        frame = Frame()
         # use memoryview, don't let python free memory of this instance
-        frame.py_free_mem = False
         while it != self.frame_v.end():
+            frame = Frame()
+            frame.py_free_mem = False
             frame.thisptr = deref(it)
             yield frame
             incr(it)
