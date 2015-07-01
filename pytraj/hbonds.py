@@ -178,7 +178,8 @@ def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
         # return DataFrame.T to have better visual effect
         return dslist.to_dataframe().T
     elif dtype == 'hbond_class':
-        return HbondAnalysisResult(dslist)
+        dslist_new = _get_data_from_dtype(dslist, dtype='dataset')
+        return HbondAnalysisResult(dslist_new)
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
