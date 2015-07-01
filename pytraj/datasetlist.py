@@ -452,11 +452,9 @@ class DatasetList(list):
             arr[:] = func(arr)
         return self
 
-    def mean(self, axis=1):
-        """
-        Notes: require numpy
-        """
-        return self.to_ndarray().mean(axis=axis)
+    def mean(self):
+        from collections import OrderedDict as dict
+        return dict((x.key, x.mean()) for x in self)
 
     def median(self):
         """
