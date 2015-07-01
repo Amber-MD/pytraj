@@ -180,9 +180,6 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     if n_frames_1 != n_frames_2:
         raise ValueError("must have the same n_frames")
 
-    if top1.n_atoms != top2.n_atoms:
-        raise ValueError("must have the same n_atoms")
-
     traj = Trajectory()
     traj._allocate(n_frames_1, top1.n_atoms + top2.n_atoms)
 
