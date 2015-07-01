@@ -53,6 +53,9 @@ def _turn_to_list_with_rank(func):
 class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
     def __init__(self, filename=None, top=None, *args, **kwd):
+        self._force_load = False
+        # only allow to load <= 1000 Mb
+        self._size_limit_in_MB = 1000
         super(TrajectoryIterator, self).__init__()
 
         if not top:
@@ -114,6 +117,16 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
         """
         return self.xyz
+
+    @property
+    def xyz(self):
+        size_in_MB = self.n_frames * self.n_atoms * 3 * 8 / 1E6
+        # check if larger than size_limit_in_MB
+        if size_in_MB > self._size_limit_in_MB and not self._force_load:
+            raise MemoryError("you are loading %s Mb, larger than size_limit %s Mb. "
+                               "Please increase self._size_limit_in_MB or set self._force_load=True"
+                               % (size_in_MB, self._size_limit_in_MB))
+        return super(TrajectoryIterator, self).xyz
 
     def iterator_slice(self, start=0, stop=None, stride=None):
         """iterator slice"""
