@@ -220,7 +220,7 @@ class DatasetList(list):
             try:
                 df = self.to_dataframe().T
                 return safe_msg + "\n" + df.__str__()
-            except (ImportError, ValueError):
+            except (ImportError, ValueError, Exception):
                 return safe_msg
 
     def __repr__(self):

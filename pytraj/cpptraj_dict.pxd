@@ -213,13 +213,14 @@ cdef extern from "DataSet.h":
         MATRIX_DBL "DataSet::MATRIX_DBL"
         MATRIX_FLT "DataSet::MATRIX_FLT"
         COORDS "DataSet::COORDS"
-        REF_FRAME "DataSet::REF_FRAME"
         VECTOR "DataSet::VECTOR"
         MODES "DataSet::MODES"
         GRID_FLT "DataSet::GRID_FLT"
         REMLOGDATATYPE "DataSet::REMLOG"
         XYMESH "DataSet::XYMESH"
         TRAJ "DataSet::TRAJ"
+        REF_FRAME "DataSet::REF_FRAME"
+        MAT3X3 "DataSet::MAT3X3"
     # DataSet.h
     ctypedef enum scalarMode "DataSet::scalarMode":
         M_DISTANCE "DataSet::M_DISTANCE"
