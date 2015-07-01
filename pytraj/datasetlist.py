@@ -24,7 +24,7 @@ def from_pickle(filename):
     return dslist
 
 
-def rom_json(filename):
+def from_json(filename):
     dslist = DatasetList()
     dslist.from_json(filename)
     return dslist
@@ -164,7 +164,7 @@ class DatasetList(list):
             raise NotImplementedError(
                 "currently support only pandas' DataFrame")
 
-    def hist(self, plot=False):
+    def hist(self, plot=True, show=True, *args, **kwd):
         """
         Paramters
         ---------
@@ -172,7 +172,14 @@ class DatasetList(list):
             if False, return a dictionary of 2D numpy array
             if True, return a dictionary of matplotlib object
         """
-        return dict(map(lambda x: (x.legend,  x.hist(plot=plot)), self))
+        hist_dict= dict(map(lambda x: (x.legend,  x.hist(plot=plot, show=False,
+                                                     *args, **kwd)), self))
+
+        if show:
+            # only show once
+            from pytraj.plotting import show
+            show()
+        return hist_dict
 
     def count(self):
         from collections import Counter
@@ -214,7 +221,7 @@ class DatasetList(list):
         if self.size == 0:
             return safe_msg
         if not has_pd:
-            msg = "<pytraj.DatasetList with %s datasets> (install pandas for pretty print)" % self.size
+            msg = "<pytraj.DatasetList with %s datasets>" % self.size
             return msg
         else:
             try:
@@ -608,6 +615,15 @@ class DatasetList(list):
     def tail(self, k):
         return dict((x.legend, x.tail(k)) for x in self)
 
-    def groupy(self, func_or_key, copy=False):
+    def groupby(self, func_or_key, copy=False):
         return dict((x, from_sequence(y, copy=copy)) 
                for x, y in groupby(self, func_or_key))
+
+    def cpptraj_dtypes(self):
+        return np.array([x.cpptraj_dtype for x in self])
+
+    def names(self):
+        return np.array([x.name for x in self])
+
+    def sort(self, key=None, copy=False, *args, **kwd):
+        return from_sequence(sorted(self, key=key, *args, **kwd), copy=copy)

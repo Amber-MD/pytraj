@@ -151,7 +151,7 @@ class DataArray(object):
         else:
             return _fast_count(self.values, value)
 
-    def hist(self, plot=True, *args, **kwd):
+    def hist(self, plot=True, show=True, *args, **kwd):
         """
         Parameters
         ----------
@@ -165,7 +165,10 @@ class DataArray(object):
         else:
             try:
                 from matplotlib import pyplot as plt
-                return plt.hist(self, *args, **kwd)
+                ax = plt.hist(self, *args, **kwd)
+                if show:
+                    plt.show()
+                return ax
             except ImportError:
                 raise ImportError("require matplotlib")
 

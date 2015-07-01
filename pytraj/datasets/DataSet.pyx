@@ -318,7 +318,7 @@ cdef class DataSet:
         else:
             raise ImportError("require numpy")
 
-    def hist(self, plot=True, *args, **kwd):
+    def hist(self, plot=True, show=True, *args, **kwd):
         """
         Parameters
         ----------
@@ -332,7 +332,10 @@ cdef class DataSet:
         else:
             try:
                 from matplotlib import pyplot as plt
-                return plt.hist(self, *args, **kwd)
+                ax = plt.hist(self.values, *args, **kwd)
+                if show:
+                    plt.show()
+                return ax
             except ImportError:
                 raise ImportError("require matplotlib")
 
