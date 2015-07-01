@@ -261,6 +261,7 @@ DataTypeDict = {
         "REMLOG" : REMLOGDATATYPE, 
         "XYMESH" : XYMESH, 
         "TRAJ" : TRAJ, 
+        "MAT3x3" : MAT3X3, 
     }
 
     # DataSet.h

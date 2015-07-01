@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 from array import array
+from itertools import groupby
 from pytraj.datasets.DataSetList import DataSetList as DSL
 from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
@@ -40,8 +41,8 @@ def _from_full_dict(full_dict):
     return DatasetList()._from_full_dict(full_dict)
 
 
-def from_sequence(seq):
-    return DatasetList().from_sequence(seq)
+def from_sequence(seq, copy=True):
+    return DatasetList().from_sequence(seq, copy=copy)
 
 
 def stack(args):
@@ -88,12 +89,16 @@ class DatasetList(list):
     def __init__(self, dslist=None):
         if dslist:
             for d0 in dslist:
-                self.append(DataArray(d0))
+                # always make a copy
+                # from DataArray(d0)
+                # so we set copy=False here
+                # to avoid copying twice
+                self.append(DataArray(d0), copy=False)
 
     def copy(self):
         dslist = self.__class__()
         for d0 in self:
-            dslist.append(d0.copy())
+            dslist.append(d0, copy=True)
         return dslist
 
     def from_pickle(self, filename):
@@ -130,6 +135,7 @@ class DatasetList(list):
             da.name = d['name']
             da.idx = d['idx']
             da.legend = legend
+            da.cpptraj_dtype = d['cpptraj_dtype']
             self.append(da)
         return self
 
@@ -147,7 +153,7 @@ class DatasetList(list):
             else:
                 _d['values'] = list(d.values)
             _d['name'] = d.name
-            _d['dtype'] = d.dtype
+            _d['cpptraj_dtype'] = d.cpptraj_dtype
             _d['aspect'] = d.aspect
             _d['idx'] = d.idx
         return ddict
@@ -163,7 +169,7 @@ class DatasetList(list):
             raise NotImplementedError(
                 "currently support only pandas' DataFrame")
 
-    def hist(self, plot=False):
+    def hist(self, plot=True, show=True, *args, **kwd):
         """
         Paramters
         ---------
@@ -171,7 +177,14 @@ class DatasetList(list):
             if False, return a dictionary of 2D numpy array
             if True, return a dictionary of matplotlib object
         """
-        return dict(map(lambda x: (x.legend,  x.hist(plot=plot)), self))
+        hist_dict= dict(map(lambda x: (x.legend,  x.hist(plot=plot, show=False,
+                                                     *args, **kwd)), self))
+
+        if show:
+            # only show once
+            from pytraj.plotting import show
+            show()
+        return hist_dict
 
     def count(self):
         from collections import Counter
@@ -213,13 +226,13 @@ class DatasetList(list):
         if self.size == 0:
             return safe_msg
         if not has_pd:
-            msg = "<pytraj.DatasetList with %s datasets> (install pandas for pretty print)" % self.size
+            msg = "<pytraj.DatasetList with %s datasets>" % self.size
             return msg
         else:
             try:
                 df = self.to_dataframe().T
                 return safe_msg + "\n" + df.__str__()
-            except (ImportError, ValueError):
+            except (ImportError, ValueError, Exception):
                 return safe_msg
 
     def __repr__(self):
@@ -261,12 +274,12 @@ class DatasetList(list):
             start, stop, step = idx.indices(self.size)
             new_dslist = self.__class__()
             for _idx in range(start, stop, step):
-                new_dslist.append(self[_idx])
+                new_dslist.append(self[_idx], copy=False)
             return new_dslist
         elif is_array(idx) or isinstance(idx, list):
             new_dslist = self.__class__()
             for _idx in idx:
-                new_dslist.append(self[_idx])
+                new_dslist.append(self[_idx], copy=False)
             return new_dslist
         elif isinstance(idx, tuple) and len(idx) == 2:
             return self[idx[0]][idx[1]]
@@ -328,7 +341,7 @@ class DatasetList(list):
         for d0 in self:
             yield func(d0)
 
-    def filter(self, func, *args, **kwd):
+    def filter(self, func, copy=False, *args, **kwd):
         """return a new view of DatasetList of func return True"""
         dslist = self.__class__()
 
@@ -337,12 +350,12 @@ class DatasetList(list):
         elif callable(func):
             for d0 in self:
                 if func(d0, *args, **kwd):
-                    dslist.append(d0)
+                    dslist.append(d0, copy=copy)
             return dslist
         else:
             raise NotImplementedError("func must be a string or callable")
 
-    def grep(self, key, mode='legend'):
+    def grep(self, key, mode='legend', copy=False):
         """"return a new DatasetList object as a view of `self`
 
         Parameters
@@ -363,11 +376,11 @@ class DatasetList(list):
             att = getattr(d0, mode)
             if isinstance(key, string_types):
                 if re.search(key, att):
-                    dtmp.append(d0)
+                    dtmp.append(d0, copy=copy)
             elif isinstance(key, (list, tuple)):
                 for _key in key:
                     if re.search(_key, att):
-                        dtmp.append(d0)
+                        dtmp.append(d0, copy=copy)
             else:
                 raise ValueError("support string or list/tuple of strings")
         return dtmp
@@ -387,7 +400,7 @@ class DatasetList(list):
             from collections import OrderedDict
             _dict = OrderedDict
         if use_numpy:
-            return _dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
+            return _dict((d0.legend, d0.to_ndarray()) for d0 in self)
         else:
             return _dict((d0.legend, d0.tolist()) for d0 in self)
 
@@ -498,7 +511,7 @@ class DatasetList(list):
         df.read_data(filename, ArgList(arg), dslist)
 
         for d0 in dslist:
-            self.append(d0.copy())
+            self.append(d0, copy=False)
 
     # pandas related
     def describe(self):
@@ -606,3 +619,16 @@ class DatasetList(list):
 
     def tail(self, k):
         return dict((x.legend, x.tail(k)) for x in self)
+
+    def groupby(self, func_or_key, copy=False):
+        return dict((x, from_sequence(y, copy=copy)) 
+               for x, y in groupby(self, func_or_key))
+
+    def cpptraj_dtypes(self):
+        return np.array([x.cpptraj_dtype for x in self])
+
+    def names(self):
+        return np.array([x.name for x in self])
+
+    def sort(self, key=None, copy=False, *args, **kwd):
+        return from_sequence(sorted(self, key=key, *args, **kwd), copy=copy)

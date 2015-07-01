@@ -20,28 +20,28 @@ def elemwise(op, self, other=None):
     else:
         return op(self.values)
 
-
 class DataArray(object):
 
     """place holder for all cpptraj' output
     """
 
-    def __init__(self, dset=None, full_copy=True):
-        self.legend = dset.legend
-        self.name = dset.name
-        self.aspect = dset.aspect
-        self.idx = dset.idx
-        self.format = dset.format
-        self.scalar_type = dset.scalar_type
+    def __init__(self, dset=None, copy=True):
+        self.legend = getattr(dset, 'legend', "")
+        self.name = getattr(dset, 'name', "")
+        self.aspect = getattr(dset, 'aspect', 'unknown')
+        self.idx = getattr(dset, 'idx', 0)
+        self.format = getattr(dset, 'format', None)
+        self.scalar_type = getattr(dset, 'scalar_type', 'unknown')
         if hasattr(dset, 'cpptraj_dtype'):
             self.cpptraj_dtype = dset.cpptraj_dtype
         else:
-            self.cpptraj_dtype = dset.dtype
+            self.cpptraj_dtype = getattr(dset, 'dtype', None)
 
-        if full_copy:
-            self.values = dset.values.copy()
-        else:
-            self.values = dset.values
+        if dset is not None:
+            if copy:
+                self.values = dset.values.copy()
+            else:
+                self.values = dset.values
 
     def __iter__(self):
         for x in self.values:
@@ -100,7 +100,7 @@ class DataArray(object):
     def shallow_copy(self):
         """everything is copied but `self.values`
         """
-        return self.__class__(self, full_copy=False)
+        return self.__class__(self, copy=False)
 
     def is_empty(self):
         return len(self.values) == 0
@@ -151,7 +151,7 @@ class DataArray(object):
         else:
             return _fast_count(self.values, value)
 
-    def hist(self, plot=True, *args, **kwd):
+    def hist(self, plot=True, show=True, *args, **kwd):
         """
         Parameters
         ----------
@@ -165,7 +165,10 @@ class DataArray(object):
         else:
             try:
                 from matplotlib import pyplot as plt
-                return plt.hist(self, *args, **kwd)
+                ax = plt.hist(self, *args, **kwd)
+                if show:
+                    plt.show()
+                return ax
             except ImportError:
                 raise ImportError("require matplotlib")
 

@@ -54,6 +54,7 @@ def run_tests():
     DatasetGridFloat()
     DatasetMatrixFloat()
     DatasetVector()
+    DatasetMatrix3x3()
     DataSet_Coords()
     DataSet_Coords_REF()
     DataSet_Coords_CRD()

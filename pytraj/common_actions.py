@@ -58,7 +58,8 @@ list_of_do = ['do_translation', 'do_rotation', 'do_autoimage',
 list_of_get = ['get_average_frame']
 
 list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds',
-                    'align_principal_axis', 'closest',
+                    'align_principal_axis', 'pca',
+                    'closest',
                     'native_contacts', 'nastruct']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
@@ -296,7 +297,7 @@ def calc_radgyr(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_molsurf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_molsurf(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_Molsurf
     act = Action_Molsurf()
 
@@ -871,6 +872,17 @@ def align_principal_axis(traj=None, command="*", top=None):
     command += " dorotation"
     act(command, traj, top)
 
+def pca(traj=None, command="* dorotation mass", top=None, dtype='dataset', *args, **kwd):
+    """not work yet
+    """
+    print ("not work yet")
+    from pytraj.actions.CpptrajActions import Action_Principal
+    act = Action_Principal()
+
+    _top = _get_top(traj, top)
+    dslist = CpptrajDatasetList()
+    act(command, traj, _top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 def closest(traj=None, command=None, top=None, *args, **kwd):
     """

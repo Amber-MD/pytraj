@@ -13,6 +13,7 @@ from .DatasetMatrixDouble import DatasetMatrixDouble
 from .DatasetMatrixFloat import DatasetMatrixFloat
 from .DatasetGridFloat import DatasetGridFloat
 from .DatasetVector import DatasetVector
+from .DatasetMatrix3x3 import DatasetMatrix3x3
 from .DataSet_Coords import DataSet_Coords
 from .DataSet_Coords_REF import DataSet_Coords_REF
 from .DataSet_Coords_CRD import DataSet_Coords_CRD
