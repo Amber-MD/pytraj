@@ -83,6 +83,13 @@ def stack(args):
             d0.append(d.copy())
     return dslist0
 
+from collections import OrderedDict
+
+class _OrderedDict(OrderedDict):
+    def to_ndarray(self):
+        from pytraj.tools import dict_to_ndarray
+        return dict_to_ndarray(self)
+
 
 class DatasetList(list):
 
@@ -224,9 +231,12 @@ class DatasetList(list):
         safe_msg = "<pytraj.DatasetList with %s datasets>\n" % self.size
         if self.size == 0:
             return safe_msg
-        msg = "\n\n".join((d.key + d.__str__()) for d in self)
-        str_first_3= "\n\n".join((d.key + d.__str__()) for d in self[:3])
-        str_last_2 = "\n\n".join((d.key + d.__str__()) for d in self[-2:])
+        msg = "\n\n".join("\n".join((d.key, d.values.__str__()))
+                          for d in self)
+        str_first_3= "\n\n".join("\n".join((d.key, d.values.__str__())) 
+                                 for d in self[:3])
+        str_last_2 = "\n\n".join("\n".join((d.key, d.values.__str__())) 
+                                for d in self[-2:])
 
         if self.size <= 5:
             return safe_msg + msg
@@ -396,8 +406,7 @@ class DatasetList(list):
         _dict = dict
         if ordered_dict:
             # use OrderedDict
-            from collections import OrderedDict
-            _dict = OrderedDict
+            _dict = _OrderedDict
         if use_numpy:
             return _dict((d0.legend, d0.to_ndarray()) for d0 in self)
         else:
@@ -438,7 +447,7 @@ class DatasetList(list):
         --------
         pandas
         """
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         _, pandas = _import_pandas()
         my_dict = dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
@@ -449,50 +458,48 @@ class DatasetList(list):
             arr[:] = func(arr)
         return self
 
-    def mean(self, axis=1):
-        """
-        Notes: require numpy
-        """
-        return self.to_ndarray().mean(axis=axis)
+    def mean(self):
+        dict = _OrderedDict
+        return dict((x.key, x.mean()) for x in self)
 
-    def median(self, axis=1):
+    def median(self):
         """
         Notes: require numpy
         """
-        return np.median(self.to_ndarray(), axis=axis)
+        dict = _OrderedDict
+        return dict((x.key, x.median()) for x in self)
 
     def std(self, axis=1):
         """
         Notes: require numpy
         """
-        return np.std(self.to_ndarray(), axis=axis)
+        dict = _OrderedDict
+        return dict((x.key, x.std()) for x in self)
 
     def min(self):
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((x.legend, x.min()) for x in self)
 
     def max(self):
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((x.legend, x.max()) for x in self)
 
-    def sum(self, legend=None, axis=1):
+    def sum(self):
         """
         Notes: require numpy
         """
-        _, np = _import_numpy()
-        if not legend:
-            return np.sum(self.to_ndarray(), axis=axis)
-        else:
-            return self.filter(legend).sum(axis=axis)
+        dict = _OrderedDict
+        return dict((x.legend, x.sum()) for x in self)
 
     def cumsum(self, axis=1):
         """Return the cumulative sum of the elements along a given axis.
         (from numpy doc)
         """
-        return np.cumsum(self.to_ndarray(), axis=axis)
+        dict = _OrderedDict
+        return dict((x.legend, np.cumsum(x.values)) for x in self)
 
     def mean_with_error(self, other):
-        from collections import defaultdict
+        dict = _OrderedDict
 
         ddict = defaultdict(tuple)
         for key, dset in self.iteritems():
@@ -500,7 +507,7 @@ class DatasetList(list):
         return ddict
 
     def count(self, number=None):
-        from collections import OrderedDict as dict
+        dict = _OrderedDict
         return dict((d0.legend, d0.count(number)) for d0 in self)
 
     def read_data(self, filename, arg=""):
@@ -508,9 +515,7 @@ class DatasetList(list):
         from pytraj.datasets.DataSetList import DataSetList
         dslist = DataSetList()
         df.read_data(filename, ArgList(arg), dslist)
-
-        for d0 in dslist:
-            self.append(d0, copy=False)
+        df.from_sequence(dslist, copy=False)
 
     # pandas related
     def describe(self):
@@ -519,20 +524,6 @@ class DatasetList(list):
             raise ImportError("require pandas")
         else:
             return self.to_dataframe().describe()
-
-    def write_all_datafiles(self, filenames=None):
-        from pytraj.core.DataFileList import DataFileList
-        df = DataFileList()
-
-        for idx, d in enumerate(self):
-            if filenames is None:
-                # make default name
-                d.legend = d.legend.replace(":", "_")
-                fname = "pytraj_datafile_" + d.legend + ".txt"
-            else:
-                fname = filenames[i]
-            df.add_dataset(fname, d)
-        df.write_all_datafiles()
 
     def savetxt(self, filename='dslist_default_name.txt', labels=None):
         """just like `numpy.savetxt`
@@ -631,3 +622,17 @@ class DatasetList(list):
 
     def sort(self, key=None, copy=False, *args, **kwd):
         return from_sequence(sorted(self, key=key, *args, **kwd), copy=copy)
+
+    def __add__(self, other):
+        raise NotImplementedError()
+
+    def __mul__(self, other):
+        raise NotImplementedError()
+
+    def extend(self, other, copy=True):
+        self.from_sequence(other, copy=copy)
+
+    def dot(self, idx0, idx1):
+        """equal to np.dot(D[idx0].values, D[idx1].values)
+        """
+        return np.dot(self[idx0].values, self[idx1].values)

@@ -51,19 +51,11 @@ cdef class DataSetList:
             del self.thisptr
 
     def __str__(self):
-        has_pd, _ = _import_pandas()
         safe_msg = "<pytraj.DataSetList with %s datasets>" % self.size
         if self.size == 0:
             return safe_msg
-        if not has_pd:
-            msg = "<pytraj.DataSetList with %s datasets> (install pandas for pretty print)" % self.size
-            return msg
-        else:
-            try:
-                df = self.to_dataframe().T
-                return safe_msg + "\n" + df.__str__()
-            except ImportError:
-                return safe_msg
+        msg = "<pytraj.datasets.DataSetList - %s datasets>" % self.size
+        return msg
 
     def __repr__(self):
         return self.__str__()
@@ -419,8 +411,9 @@ cdef class DataSetList:
         # read-only
         try:
             return XYZ(self.to_ndarray())
-        except:
-            raise ValueError("don't know how to cast to numpy array")
+        except ValueError:
+            raise ValueError("don't know how to cast to numpy array"
+                             "try `tolist`, `to_dict`")
 
     def to_ndarray(self):
         """
@@ -438,7 +431,8 @@ cdef class DataSetList:
             except:
                 raise PytrajConvertError("don't know how to convert to ndarray")
         else:
-            raise PytrajConvertError("don't have numpy")
+            raise ImportError("don't have numpy, "
+                              "try `tolist`, `to_dict`")
 
     def to_dataframe(self):
         """return pandas' DataFrame

@@ -316,7 +316,15 @@ cdef class DataSet:
                 # make copy
                 return np.array(self.data)
         else:
-            raise ImportError("require numpy")
+            raise ImportError("require numpy. Use `tolist` or `to_pyarray`"
+                              " or `to_dict` to access data")
+
+    def to_dict(self, use_numpy=False):
+        if np and use_numpy:
+            return {self.legend : self.values}
+        if not np and use_numpy:
+            raise ImportError("require numpy. Set `use_numpy=False`")
+        return {self.legend : self.tolist()}
 
     def hist(self, plot=True, show=True, *args, **kwd):
         """

@@ -17,12 +17,9 @@ cdef class DataSet_1D (DataSet):
         _, np = _import_numpy()
         basic_str = super(DataSet_1D, self).__str__() + "\n"
         if np:
-            try:
-                my_str = basic_str + "values: \n" + self.values.__str__()
-            except:
-                my_str = basic_str
+            my_str = basic_str + "values: \n" + self.values.__str__()
         else:
-            my_str = basic_str + "(install numpy for pretty print)"
+            my_str = basic_str
         return my_str
 
     def __repr__(self):
