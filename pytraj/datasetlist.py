@@ -86,10 +86,14 @@ def stack(args):
 from collections import OrderedDict
 
 class _OrderedDict(OrderedDict):
-    def to_ndarray(self):
+    def to_ndarray(self, with_key=False):
         from pytraj.tools import dict_to_ndarray
-        return dict_to_ndarray(self)
+        arr = dict_to_ndarray(self)
 
+        if not with_key:
+            return arr
+        else:
+            return np.array([[key for key in self.keys()], arr])
 
 class DatasetList(list):
 
@@ -422,19 +426,23 @@ class DatasetList(list):
         except:
             raise ValueError("don't know how to cast to numpy array")
 
-    def to_ndarray(self):
+    def to_ndarray(self, with_key=False):
         """
         Notes: require numpy
         """
-        # make sure to use copy=True to avoid memory error for memoryview
         has_np, np = _import_numpy()
         if has_np:
             try:
                 if self.size == 1:
-                    return self[0].to_ndarray(copy=True)
+                    arr = self[0].values
                 else:
                     # more than one set
-                    return np.asarray([d0.to_ndarray(copy=True) for d0 in self])
+                    arr = np.asarray([d0.values for d0 in self])
+                if not with_key:
+                    return arr
+                else:
+                    key_arr = np.array([d.key for d in self])
+                    return np.array([key_arr, arr.T])
             except:
                 raise ValueError("don't know how to convert to ndarray")
         else:

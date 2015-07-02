@@ -20,9 +20,11 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         dtype : str, {'int', 'string'}
         """
         if dtype == 'string':
-            return to_string_ss(self.dslist.grep("int", mode='dtype').to_dict())
+            return to_string_ss(self.dslist.filter(
+                lambda x: 'int' in x.dtype.name).to_dict())
         elif dtype == 'int':
-            return self.dslist.grep("int", mode='dtype').to_dict()
+            return self.dslist.filter(
+                lambda x: 'int' in x.dtype.name).to_dict()
         else:
             raise NotImplementedError()
 
@@ -34,9 +36,13 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         dtype : str, {'string', 'int'}
         """
         if dtype == 'string':
-            return to_string_ss(self.dslist.grep("int", mode='dtype').to_ndarray())
+            return to_string_ss(self.dslist.filter(
+                lambda x: 'int' in x.dtype.name).to_ndarray())
+        elif dtype == 'int':
+            return self.dslist.filter(
+                lambda x: 'int' in x.dtype.name).to_ndarray()
         else:
-            return self.dslist.grep("int", mode='dtype').to_ndarray()
+            raise NotImplementedError()
 
     def average(self):
         """
@@ -53,7 +59,7 @@ def calc_dssp(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     ----------
     command : str
     traj : {Trajectory, Frame, mix of them}
-    dtype : str {'dataset', 'ndarray', 'dict', 'dataframe'}, default 'ndarray'
+    dtype : str {'dataset', 'ndarray', 'dict', 'dataframe', '_dssp_class'}, default 'ndarray'
 
     Returns
     -------
@@ -107,7 +113,7 @@ def calc_dssp(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
         # get all dataset from DatSetList if dtype == integer
         arr0 = dslist.grep("integer", mode='dtype').values
         return np.array([to_string_ss(arr) for arr in arr0])
-    if dtype == 'dssp_class':
+    if dtype == '_dssp_class':
         return DSSPAnalysisResult(_get_data_from_dtype(dslist, dtype='dataset'))
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
