@@ -2,6 +2,8 @@ from . _base_result_class import BaseAnalysisResult
 from ._get_common_objects import _get_data_from_dtype, _get_top
 from .utils import _import_numpy
 
+_, np = _import_numpy()
+
 
 class DSSPAnalysisResult(BaseAnalysisResult):
 
@@ -44,12 +46,27 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         else:
             raise NotImplementedError()
 
+    def to_ndarray_per_frame(self, dtype='string'):
+        return self.to_ndarray(dtype).T
+
     def average(self):
         """
         Return a `pytraj.datasetlist.DatasetList` object having average value
         for each frame for each type of secondary structure
         """
         return self.dslist.grep("avg")
+
+    @property
+    def residues(self):
+        return np.array(self.dslist.grep('res', mode='aspect').keys())
+
+    def values_per_frame(self, restype='string'):
+        return np.vstack((self.residues, 
+                          self.to_ndarray(restype).T))
+
+    def values_per_residue(self, restype='string'):
+        return np.vstack((self.residues, 
+                          self.to_ndarray(restype).T)).T
 
 
 def calc_dssp(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
