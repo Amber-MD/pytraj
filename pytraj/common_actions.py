@@ -868,9 +868,10 @@ def align_principal_axis(traj=None, command="*", top=None):
     -----
     apply for mutatble traj (Trajectory, Frame)
     """
+    _top = _get_top(traj, top)
     act = adict['principal']
     command += " dorotation"
-    act(command, traj, top)
+    act(command, traj, top=_top)
 
 def pca(traj=None, command="* dorotation mass", top=None, dtype='dataset', *args, **kwd):
     """not work yet

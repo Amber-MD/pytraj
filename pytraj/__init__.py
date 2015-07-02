@@ -5,6 +5,7 @@ from __future__ import absolute_import
 
 from .__version__ import __version__
 version = __version__
+from . import options
 
 # import partial from functools
 from functools import partial

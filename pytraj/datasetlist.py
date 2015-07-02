@@ -137,11 +137,14 @@ class DatasetList(list):
 
         if not isinstance(ddict, dict):
             raise ValueError("must be a dict")
-        ordered_keys = ddict['ordered_keys']
+        try:
+            ordered_keys = ddict['ordered_keys']
+        except KeyError:
+            ordered_keys = ddict.keys()
 
         for legend in ordered_keys:
             d = ddict[legend]
-            da.values = d['values']
+            da.values = np.array(d['values'])
             da.aspect = d['aspect']
             da.name = d['name']
             da.idx = d['idx']
