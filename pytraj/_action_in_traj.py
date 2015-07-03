@@ -10,9 +10,6 @@ class ActionTrajectory(object):
     def calc_distance(self, mask="", *args, **kwd):
         return pyca.calc_distance(self, mask, *args, **kwd)
 
-    def calc_distrmsd(self, mask="", *args, **kwd):
-        return pyca.calc_distrmsd(self, mask, *args, **kwd)
-
     def calc_radgyr(self, mask="", *args, **kwd):
         return pyca.calc_radgyr(self, mask, *args, **kwd)
 
@@ -62,6 +59,9 @@ class ActionTrajectory(object):
     def calc_pairwise_rmsd(self, mask="", *args, **kwd):
         return pyca.calc_pairwise_rmsd(self, mask, *args, **kwd)
 
+    def calc_distrmsd(self, mask="", *args, **kwd):
+        return pyca.calc_distrmsd(self, mask, *args, **kwd)
+
     def rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):
         """"""
         if is_int(ref):
@@ -73,6 +73,9 @@ class ActionTrajectory(object):
     def calc_rmsd(self, *args, **kwd):
         return self.rmsd(*args, **kwd)
 
+    def calc_bfactors(self, *args, **kwd):
+        return pyca.calc_bfactors(*args, **kwd)
+
     def search_hbonds(self, mask="*", *args, **kwd):
         """return CpptrajDatasetList
         """
@@ -82,12 +85,6 @@ class ActionTrajectory(object):
         """return Frame
         """
         return pyca.get_average_frame(self, mask, *args, **kwd)
-
-    def calc_temperatures(self, mask=""):
-        return pyca.calc_temperatures(self, mask)
-
-    def calc_watershell(self, mask="", *args, **kwd):
-        return pyca.calc_watershell(self, mask, *args, **kwd)
 
     @property
     def temperatures(self):
