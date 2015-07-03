@@ -26,30 +26,56 @@ class DataArray(object):
     """
 
     def __init__(self, dset=None, copy=True):
-        self.legend = getattr(dset, 'legend', "")
-        self.name = getattr(dset, 'name', "")
-        self.aspect = getattr(dset, 'aspect', 'unknown')
-        self.idx = getattr(dset, 'idx', 0)
-        self.format = getattr(dset, 'format', None)
-        self.scalar_type = getattr(dset, 'scalar_type', 'unknown')
-        if hasattr(dset, 'cpptraj_dtype'):
-            self.cpptraj_dtype = dset.cpptraj_dtype
-        else:
-            from pytraj.datasets import DataSet
-            if isinstance(dset, DataSet):
-                self.cpptraj_dtype = dset.dtype
-            else:
-                self.cpptraj_dtype = None
+        """
+        Parameters
+        ----------
+        dset : Cpptraj's DataSet or a Dict
 
-        if dset is not None:
-            if hasattr(dset, 'values'):
-                values = dset.values
+        Examples
+        --------
+        >>> DataArray({'x' : [3, 5, 6]])
+        """
+        if isinstance(dset, dict):
+            assert len(dset.keys()) == 1, "single dict"
+            key = list(dset.keys())[0]
+            self.key = key
+            self.values = np.asarray(dset[key])
+            self.name = ""
+            self.aspect = "unknown"
+            self.idx = 0
+            self.format = None
+            self.scalar_type = 'unknown'
+            self.cpptraj_dtype = None
+        else:
+            self.legend = getattr(dset, 'legend', "")
+            self.name = getattr(dset, 'name', "")
+            self.aspect = getattr(dset, 'aspect', 'unknown')
+            self.idx = getattr(dset, 'idx', 0)
+            self.format = getattr(dset, 'format', None)
+            self.scalar_type = getattr(dset, 'scalar_type', 'unknown')
+            if hasattr(dset, 'cpptraj_dtype'):
+                self.cpptraj_dtype = dset.cpptraj_dtype
             else:
-                values = dset
+                from pytraj.datasets import DataSet
+                if isinstance(dset, DataSet):
+                    self.cpptraj_dtype = dset.dtype
+                else:
+                    self.cpptraj_dtype = None
+
+        if dset is not None and not isinstance(dset, dict):
+            if hasattr(dset, 'values'):
+                values = np.asarray(dset.values)
+            else:
+                values = np.asarray(dset)
             if copy:
                 self.values = values.copy()
             else:
                 self.values = values
+
+    @classmethod
+    def from_dict(cls, d):
+        assert isinstance(d, dict), "must be a dict"
+        return cls(d)
 
     def __iter__(self):
         for x in self.values:

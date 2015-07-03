@@ -869,11 +869,10 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
         if dtype == 'pyarray':
             return pyarray('d', dslist[0].data)[1:]
         else:
-            dset = DatasetDouble()
-            dset.resize(dslist[0].size - 1)
-            dset.values[:] = pyarray('d', dslist[0].data[1:])
-            dset.legend = 'rmsd'
-            return _get_data_from_dtype(dset, dtype=dtype)
+            from pytraj.datasetlist import DatasetList
+            dnew = DatasetList(dslist)
+            dnew[0].values = dnew[0].values[1:]
+            return _get_data_from_dtype(dnew, dtype=dtype)
     else:
         raise ValueError("mode = `pytraj` or `cpptraj`")
 

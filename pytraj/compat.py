@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from .externals.six.moves import range, map
-from .externals.six import string_types, callable
+from .externals.six import string_types, callable, iteritems
 
 try:
     set = set
