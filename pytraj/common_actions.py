@@ -546,7 +546,8 @@ def calc_atomicfluct(traj=None, command="", top=None, dtype='dataset', *args, **
     act.print_output()  # need to have this. check cpptraj's code
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def calc_bfactors(traj=None, mask="", byres=True, top=None, 
+
+def calc_bfactors(traj=None, mask="", byres=True, top=None,
                   dtype='ndarray', *args, **kwd):
     """
     Returns
@@ -881,6 +882,37 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
 rmsd = calc_rmsd
 
 
+def calc_rmsd_with_rotation_matrices(
+        traj=None, command="", ref=None,
+        top=None, dtype='dataset',
+        *args, **kwd):
+
+    if not isinstance(command, string_types):
+        raise ValueError(
+            "only support string mask/command in mode=cpptraj")
+    if dtype in ['ndarray', 'pyarray']:
+        raise ValueError("does not support ndarray/pyarray here")
+
+    if ref is None or ref == 'first':
+        try:
+            ref = traj[0]
+        except IndexError:
+            raise ValueError("require reference")
+
+    _top = _get_top(traj, top)
+    from pytraj.actions.CpptrajActions import Action_Rmsd
+    act = Action_Rmsd()
+    dslist = CpptrajDatasetList()
+    act(command + " savematrices", [ref, traj], top=_top, dslist=dslist)
+
+    # skip reference frame
+    from pytraj.datasetlist import DatasetList
+    dslist = DatasetList(dslist)
+    dslist[0].values = dslist[0].values[1:]
+    dslist[1].values = dslist[1].values[1:]
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+
 def align_principal_axis(traj=None, command="*", top=None):
     # TODO : does not match with cpptraj output
     # rmsd_nofit ~ 0.5 for md1_prod.Tc5b.x, 1st frame
@@ -894,10 +926,11 @@ def align_principal_axis(traj=None, command="*", top=None):
     command += " dorotation"
     act(command, traj, top=_top)
 
+
 def pca(traj=None, command="* dorotation mass", top=None, dtype='dataset', *args, **kwd):
     """not work yet
     """
-    print ("not work yet")
+    print("not work yet")
     from pytraj.actions.CpptrajActions import Action_Principal
     act = Action_Principal()
 
@@ -905,6 +938,7 @@ def pca(traj=None, command="* dorotation mass", top=None, dtype='dataset', *args
     dslist = CpptrajDatasetList()
     act(command, traj, _top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
+
 
 def closest(traj=None, command=None, top=None, *args, **kwd):
     """
