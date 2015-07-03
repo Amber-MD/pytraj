@@ -580,8 +580,13 @@ class DatasetList(list):
             from matplotlib import pyplot as plt
             fig = plt.figure()
             ax = fig.add_subplot(111)
-            for d0 in self:
-                ax.plot(d0, *args, **kwd)
+            if self.size == 1:
+                # good for plotting bfactors
+                # let DatasetList `show`
+                ax = self[0].plot(show=False, *args, **kwd)
+            else:
+                for d0 in self:
+                    ax.plot(d0, *args, **kwd)
             if show:
                 plt.show()
             return ax

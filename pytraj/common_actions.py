@@ -552,8 +552,7 @@ def calc_bfactors(traj=None, mask="", byres=True, top=None,
     Returns
     -------
     if dtype is 'ndarray' (default), return a numpy array
-    with shape=(n_atoms/n_residues, 2)
-
+    with shape=(n_atoms/n_residues, 2) ([atom_or_residue_idx, value])
 
     Examples
     --------
