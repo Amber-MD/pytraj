@@ -64,6 +64,8 @@ from . common_actions import (rmsd, search_hbonds,
                               calc_dssp, calc_jcoupling, calc_molsurf,
                               calc_radgyr, calc_rdf, calc_vector,
                               calc_pairwise_rmsd,
+                              calc_atomicfluct,
+                              calc_bfactors,
                               energy_decomposition,)
 
 # create alias
