@@ -549,6 +549,12 @@ def calc_atomicfluct(traj=None, command="", top=None, dtype='dataset', *args, **
 def calc_bfactors(traj=None, mask="", byres=True, top=None, 
                   dtype='ndarray', *args, **kwd):
     """
+    Returns
+    -------
+    if dtype is 'ndarray' (default), return a numpy array
+    with shape=(n_atoms/n_residues, 2)
+
+
     Examples
     --------
     >>> import pytraj as pt
