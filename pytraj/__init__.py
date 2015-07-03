@@ -3,6 +3,12 @@ pytraj
 """
 from __future__ import absolute_import
 
+try:
+    import numpy as np
+    np.set_printoptions(threshold=10)
+except ImportError:
+    np = None
+
 from .__version__ import __version__
 version = __version__
 from . import options

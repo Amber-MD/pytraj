@@ -30,6 +30,9 @@ def from_json(filename):
     dslist.from_json(filename)
     return dslist
 
+def from_dict(d):
+    return DatasetList(d)
+
 
 def load_datafile(filename):
     """load cpptraj's output"""
