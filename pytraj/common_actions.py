@@ -546,6 +546,28 @@ def calc_atomicfluct(traj=None, command="", top=None, dtype='dataset', *args, **
     act.print_output()  # need to have this. check cpptraj's code
     return _get_data_from_dtype(dslist, dtype=dtype)
 
+def calc_bfactors(traj=None, mask="", byres=True, top=None, 
+                  dtype='ndarray', *args, **kwd):
+    """
+    Returns
+    -------
+    if dtype is 'ndarray' (default), return a numpy array
+    with shape=(n_atoms/n_residues, 2) ([atom_or_residue_idx, value])
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> pt.calc_bfactors(traj, byres=True)
+
+    See also
+    --------
+    Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 557)
+    """
+    byres_text = "byres" if byres else ""
+
+    _command = " ".join((mask, byres_text, "bfactor"))
+    return calc_atomicfluct(traj=traj, command=_command, top=top, dtype=dtype, *args, **kwd)
+
 
 def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """perform dihedral search
@@ -868,9 +890,10 @@ def align_principal_axis(traj=None, command="*", top=None):
     -----
     apply for mutatble traj (Trajectory, Frame)
     """
+    _top = _get_top(traj, top)
     act = adict['principal']
     command += " dorotation"
-    act(command, traj, top)
+    act(command, traj, top=_top)
 
 def pca(traj=None, command="* dorotation mass", top=None, dtype='dataset', *args, **kwd):
     """not work yet

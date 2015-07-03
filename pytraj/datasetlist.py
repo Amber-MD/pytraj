@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from array import array
 from itertools import groupby
+from functools import partial
 from pytraj.datasets.DataSetList import DataSetList as DSL
 from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
@@ -86,6 +87,12 @@ def stack(args):
 from collections import OrderedDict
 
 class _OrderedDict(OrderedDict):
+    @property
+    def values(self):
+        from pytraj.tools import dict_to_ndarray
+        arr = dict_to_ndarray(self)
+        return np.array([[key for key in self.keys()], arr], dtype='object')
+
     def to_ndarray(self, with_key=False):
         from pytraj.tools import dict_to_ndarray
         arr = dict_to_ndarray(self)
@@ -137,11 +144,14 @@ class DatasetList(list):
 
         if not isinstance(ddict, dict):
             raise ValueError("must be a dict")
-        ordered_keys = ddict['ordered_keys']
+        try:
+            ordered_keys = ddict['ordered_keys']
+        except KeyError:
+            ordered_keys = ddict.keys()
 
         for legend in ordered_keys:
             d = ddict[legend]
-            da.values = d['values']
+            da.values = np.array(d['values'])
             da.aspect = d['aspect']
             da.name = d['name']
             da.idx = d['idx']
@@ -468,43 +478,47 @@ class DatasetList(list):
 
     def mean(self):
         dict = _OrderedDict
-        return dict((x.key, x.mean()) for x in self)
+        return dict((x.key, x.mean()) for x in self).values
 
     def median(self):
         """
         Notes: require numpy
         """
         dict = _OrderedDict
-        return dict((x.key, x.median()) for x in self)
+        return dict((x.key, x.median()) for x in self).values
 
     def std(self, axis=1):
         """
         Notes: require numpy
         """
         dict = _OrderedDict
-        return dict((x.key, x.std()) for x in self)
+        return dict((x.key, x.std()) for x in self).values
 
     def min(self):
         dict = _OrderedDict
-        return dict((x.legend, x.min()) for x in self)
+        return dict((x.legend, x.min()) for x in self).values
 
     def max(self):
         dict = _OrderedDict
-        return dict((x.legend, x.max()) for x in self)
+        return dict((x.legend, x.max()) for x in self).values
 
-    def sum(self):
+    def sum(self, restype='dict'):
         """
         Notes: require numpy
         """
         dict = _OrderedDict
-        return dict((x.legend, x.sum()) for x in self)
+        if restype == 'dict':
+            return dict((x.legend, x.sum()) for x in self).values
+        elif restype == 'ndarray':
+            return np.array([self.keys(), 
+                           dict((x.legend, x.sum()) for x in self).to_ndarray()]).T
 
     def cumsum(self, axis=1):
         """Return the cumulative sum of the elements along a given axis.
         (from numpy doc)
         """
         dict = _OrderedDict
-        return dict((x.legend, np.cumsum(x.values)) for x in self)
+        return dict((x.legend, np.cumsum(x.values)) for x in self).values
 
     def mean_with_error(self, other):
         dict = _OrderedDict
@@ -566,8 +580,13 @@ class DatasetList(list):
             from matplotlib import pyplot as plt
             fig = plt.figure()
             ax = fig.add_subplot(111)
-            for d0 in self:
-                ax.plot(d0, *args, **kwd)
+            if self.size == 1:
+                # good for plotting bfactors
+                # let DatasetList `show`
+                ax = self[0].plot(show=False, *args, **kwd)
+            else:
+                for d0 in self:
+                    ax.plot(d0, *args, **kwd)
             if show:
                 plt.show()
             return ax

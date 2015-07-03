@@ -35,13 +35,21 @@ class DataArray(object):
         if hasattr(dset, 'cpptraj_dtype'):
             self.cpptraj_dtype = dset.cpptraj_dtype
         else:
-            self.cpptraj_dtype = getattr(dset, 'dtype', None)
+            from pytraj.datasets import DataSet
+            if isinstance(dset, DataSet):
+                self.cpptraj_dtype = dset.dtype
+            else:
+                self.cpptraj_dtype = None
 
         if dset is not None:
-            if copy:
-                self.values = dset.values.copy()
+            if hasattr(dset, 'values'):
+                values = dset.values
             else:
-                self.values = dset.values
+                values = dset
+            if copy:
+                self.values = values.copy()
+            else:
+                self.values = values
 
     def __iter__(self):
         for x in self.values:
@@ -191,7 +199,12 @@ class DataArray(object):
         from pytraj.utils import _import
         try:
             from matplotlib import pyplot as plt
-            ax = plt.plot(self, *args, **kwd)
+            if self.ndim == 2 and 'B-factor' in self.key:
+                values = self.values.T
+                # good for bfactor plotting
+                ax = plt.plot(values[0], values[1], *args, **kwd)
+            else:
+                ax = plt.plot(self, *args, **kwd)
             if show:
                 plt.show()
             return ax
@@ -235,6 +248,12 @@ class DataArray(object):
         """
         import numpy as np
         return np.array(list(filter(func, self.values)))
+
+    def _normalize(self):
+        """simple normalization
+        (data - data.mean()) / (data.max() - data.min())
+        """
+        return (self - self.mean()) / (self.max() - self.min())
 
     def sum(self, axis=None, *args, **kwd):
         return self.values.sum(axis=axis, *args, **kwd)
