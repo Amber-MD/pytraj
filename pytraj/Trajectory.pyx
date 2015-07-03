@@ -1224,6 +1224,9 @@ cdef class Trajectory (object):
     def rmsd(self, *args, **kwd):
             return self.calc_rmsd(*args, **kwd)
 
+    def calc_bfactors(self, mask="", *args, **kwd):
+        return pyca.calc_bfactors(self, mask, *args, **kwd)
+
     def calc_radgyr(self, mask="", *args, **kwd):
         return pyca.calc_radgyr(self, mask, *args, **kwd)
 
