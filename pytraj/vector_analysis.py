@@ -6,7 +6,7 @@ supported_types= [x for x in
 'mask minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split()]
 
 template = '''
-def calc_%s(traj=None, command="", top=None, *args, **kwd):
+def vector_%s(traj=None, command="", top=None, *args, **kwd):
     """
     Parameters
     ----------
@@ -16,8 +16,8 @@ def calc_%s(traj=None, command="", top=None, *args, **kwd):
     *args, **kwd: more arguments
     """
     from ._get_common_objects import _get_top, _get_data_from_dtype
-    from .DataSetList import DataSetList
-    from .actions.Action_Vector import Action_Vector
+    from .datasets.DataSetList import DataSetList
+    from .actions.CpptrajActions import Action_Vector
 
     if 'dtype' in kwd.keys():
         dtype = kwd['dtype']
