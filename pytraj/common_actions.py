@@ -940,6 +940,20 @@ def pca(traj=None, command="* dorotation mass", top=None, dtype='dataset', *args
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+def atomiccorr(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+    """
+    """
+    from pytraj.actions.CpptrajActions import Action_AtomicCorr
+    _top = _get_top(traj, top)
+
+    dslist = CpptrajDatasetList()
+    act = adict['atomiccorr']
+    act("out mytempfile.out " + command, traj, top=_top, 
+        dslist=dslist, *args, **kwd)
+    act.print_output()
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+
 def closest(traj=None, command=None, top=None, *args, **kwd):
     """
     Parameters
