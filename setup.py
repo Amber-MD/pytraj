@@ -188,6 +188,8 @@ for ext_name in pyxfiles:
             }
     ext_modules.append(extmod)
 
+shuffle(ext_modules)
+
 setup_args = {}
 packages = [
         'pytraj',

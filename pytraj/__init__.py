@@ -70,6 +70,8 @@ from . common_actions import (rmsd, search_hbonds,
 
 # create alias
 nucleic_acid_analysis = nastruct
+calc_RMSF = calc_atomicfluct
+
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (
     calc_phi, calc_psi, calc_omega, calc_chin, calc_chip)
@@ -80,6 +82,7 @@ adict = ActionDict()
 analdict = AnalysisDict()
 from . import matrix_analysis
 from . import dihedral_analysis
+from . import vector_analysis
 
 # others
 from .misc import info

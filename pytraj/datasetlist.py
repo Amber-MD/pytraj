@@ -10,7 +10,7 @@ from pytraj._xyz import XYZ
 from pytraj.compat import string_types, callable
 from pytraj.core.DataFile import DataFile
 from pytraj.ArgList import ArgList
-from pytraj.compat import map
+from pytraj.compat import map, iteritems
 from pytraj.array import DataArray
 
 _, np = _import_numpy()
@@ -104,14 +104,19 @@ class _OrderedDict(OrderedDict):
 
 class DatasetList(list):
 
-    def __init__(self, dslist=None):
+    def __init__(self, dslist=None, copy=False):
         if dslist:
-            for d0 in dslist:
-                # always make a copy
-                # from DataArray(d0)
-                # so we set copy=False here
-                # to avoid copying twice
-                self.append(DataArray(d0), copy=False)
+            if isinstance(dslist, dict):
+                # {'x': [1, 3, 5], 'y': [4, 7, 8]}
+                for key, values in iteritems(dslist):
+                    self.append(DataArray({key : values}), copy=copy)
+            else:
+                for d0 in dslist:
+                    # always make a copy
+                    # from DataArray(d0)
+                    # so we set copy=False here
+                    # to avoid copying twice
+                    self.append(DataArray(d0), copy=copy)
 
     def copy(self):
         dslist = self.__class__()
@@ -594,14 +599,27 @@ class DatasetList(list):
             raise ImportError("require matplotlib")
 
     def append(self, dset, copy=True):
+        """append anythin having `key` attribute
+        """
         if copy:
             d0 = dset.copy()
         else:
             d0 = dset
-        for key in self.keys():
-            if d0.legend == key:
-                raise KeyError("must have different legend", dset.legend)
-        super(DatasetList, self).append(d0)
+
+        def check_key(self, key):
+            for k0 in self.keys():
+                if k0 == key:
+                    raise KeyError("must have different legend")
+
+        if hasattr(dset, 'key'):
+            check_key(self, dset.key)
+            super(DatasetList, self).append(d0)
+        elif isinstance(dset, dict):
+            for key, values in iteritems(dset):
+                check_key(self, key)
+                super(DatasetList, self).append(DataArray({key : values}))
+        else:
+            raise ValueError()
 
     def remove(self, dset):
         for idx, d in enumerate(self):
