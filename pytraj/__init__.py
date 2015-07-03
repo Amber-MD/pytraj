@@ -67,7 +67,8 @@ from . common_actions import (rmsd, search_hbonds,
                               calc_pairwise_rmsd,
                               calc_atomicfluct,
                               calc_bfactors,
-                              energy_decomposition,)
+                              energy_decomposition,
+                              native_contacts,)
 
 # create alias
 nucleic_acid_analysis = nastruct

@@ -1048,21 +1048,43 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
 
 def native_contacts(traj=None, command="", top=None, dtype='dataset',
                     ref=None,
+                    distance=7.0,
+                    noimage=False,
+                    include_solvent=False,
+                    byres=False,
                     *args, **kwd):
     """
     Notes
     ----
     if `ref` is not None: first number in result corresponds to reference
+    Not assert to cpptraj's output yet
     """
     from .actions.CpptrajActions import Action_NativeContacts
     act = Action_NativeContacts()
     dslist = CpptrajDatasetList()
 
+    if ref is None or ref == 'first':
+        try:
+            ref = traj[0]
+        except IndexError:
+            raise ValueError("require reference")
+
+    _distance = str(distance)
+    _noimage = "noimage" if noimage else ""
+    _includesolvent = "includesolvent" if include_solvent else ""
+    _byres = "byresidue" if byres else ""
+
+    _command = " ".join((command, _distance, _noimage, 
+                         _includesolvent, _byres))
+
     _top = _get_top(traj, top)
-    if ref is not None:
-        act(command, [ref, traj], top=_top, dslist=dslist, *args, **kwd)
-    else:
-        act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(_command, [ref, traj], top=_top, dslist=dslist, *args, **kwd)
+
+    from pytraj.datasetlist import DatasetList
+    dslist = DatasetList(dslist)
+    for d in dslist:
+        # exclude ref frame
+        d.values = d.values[1:]
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
