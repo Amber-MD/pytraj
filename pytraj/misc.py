@@ -115,7 +115,7 @@ def info(obj=None):
             adict[key].help()
             set_world_silent(True)
         elif hasattr(_obj, '__doc__'):
-            print(_obj.__doc_)
+            print(_obj.__doc__)
         else:
             raise ValueError("object does not have `help` method")
 
