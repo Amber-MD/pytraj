@@ -28,3 +28,13 @@ cdef class DataSet_Coords_REF (DataSet_Coords):
         cdef Frame frame = Frame()
         frame.thisptr[0] = self.thisptr.RefFrame()
         return frame
+
+    @property
+    def values(self):
+        """"""
+        return self[0].to_ndarray()
+
+    @property
+    def data(self):
+        """"""
+        return self.values

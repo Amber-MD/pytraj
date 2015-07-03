@@ -57,6 +57,7 @@ from ._common_actions import calculate
 from . import common_actions
 from . dssp_analysis import calc_dssp
 from . common_actions import (rmsd, search_hbonds,
+                              calc_rmsd_with_rotation_matrices,
                               calc_multidihedral,
                               autoimage, nastruct,
                               calc_angle, calc_dihedral, calc_distance,
@@ -71,6 +72,7 @@ from . common_actions import (rmsd, search_hbonds,
 # create alias
 nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
+rmsd_with_rotation_matrices = calc_rmsd_with_rotation_matrices
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (

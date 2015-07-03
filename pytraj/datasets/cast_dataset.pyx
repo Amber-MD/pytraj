@@ -133,7 +133,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_vector.thisptr = <_DatasetVector*> dset.baseptr0
         return newset_vector
 
-    elif dtype in ['MAT3x3']:
+    elif dtype in ['MAT3X3']:
         newset_matrix3x3 = DatasetMatrix3x3()
         # since we introduce memory view, we let cpptraj free memory
         newset_matrix3x3.py_free_mem = False

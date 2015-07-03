@@ -892,7 +892,7 @@ cdef class Frame (object):
         has_numpy, np = _import_numpy()
         if not has_numpy:
             assert isinstance(mat, Matrix_3x3)
-        if isinstance(mat, np.matrix):
+        if isinstance(mat, np.matrix) or isinstance(mat, np.ndarray):
             _mat = Matrix_3x3(mat)
         else:
             # assume Matrix_3x3

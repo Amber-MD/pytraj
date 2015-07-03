@@ -2326,7 +2326,7 @@ static char __pyx_k_start[] = "start";
 static char __pyx_k_upper[] = "upper";
 static char __pyx_k_COORDS[] = "COORDS";
 static char __pyx_k_DOUBLE[] = "DOUBLE";
-static char __pyx_k_MAT3x3[] = "MAT3x3";
+static char __pyx_k_MAT3X3[] = "MAT3X3";
 static char __pyx_k_STRING[] = "STRING";
 static char __pyx_k_VECTOR[] = "VECTOR";
 static char __pyx_k_XYMESH[] = "XYMESH";
@@ -2403,7 +2403,7 @@ static char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cython.ar
 static char __pyx_k_pytraj_datasets_cast_dataset[] = "pytraj.datasets.cast_dataset";
 static char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
-static char __pyx_k_mnt_raidc2_haichit_study_Cython[] = "/mnt/raidc2/haichit/study/Cython/pytraj_git_fork/pytraj/pytraj/datasets/cast_dataset.pyx";
+static char __pyx_k_u1_haichit_pytraj_git_hainm_pyt[] = "/u1/haichit/pytraj_git_hainm/pytraj/pytraj/datasets/cast_dataset.pyx";
 static char __pyx_k_All_dimensions_preceding_dimensi[] = "All dimensions preceding dimension %d must be indexed and not sliced";
 static char __pyx_k_Buffer_view_does_not_expose_stri[] = "Buffer view does not expose strides";
 static char __pyx_k_Can_only_create_a_buffer_that_is[] = "Can only create a buffer that is contiguous in memory.";
@@ -2439,7 +2439,7 @@ static PyObject *__pyx_n_s_IndexError;
 static PyObject *__pyx_kp_s_Indirect_dimensions_not_supporte;
 static PyObject *__pyx_kp_s_Invalid_mode_expected_c_or_fortr;
 static PyObject *__pyx_kp_s_Invalid_shape_in_axis_d_d;
-static PyObject *__pyx_n_s_MAT3x3;
+static PyObject *__pyx_n_s_MAT3X3;
 static PyObject *__pyx_n_s_MATRIX_DBL;
 static PyObject *__pyx_n_s_MATRIX_DOUBLE;
 static PyObject *__pyx_kp_s_MATRIX_DOUBLE_2;
@@ -2493,7 +2493,6 @@ static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_memview;
-static PyObject *__pyx_kp_s_mnt_raidc2_haichit_study_Cython;
 static PyObject *__pyx_n_s_mode;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_name_2;
@@ -2530,6 +2529,7 @@ static PyObject *__pyx_kp_s_strided_and_direct_or_indirect;
 static PyObject *__pyx_kp_s_strided_and_indirect;
 static PyObject *__pyx_n_s_struct;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt;
 static PyObject *__pyx_kp_s_unable_to_allocate_array_data;
 static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
 static PyObject *__pyx_n_s_unpack;
@@ -3429,7 +3429,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
  *         newset_vector.thisptr = <_DatasetVector*> dset.baseptr0
  *         return newset_vector             # <<<<<<<<<<<<<<
  * 
- *     elif dtype in ['MAT3x3']:
+ *     elif dtype in ['MAT3X3']:
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(((PyObject *)__pyx_v_newset_vector));
@@ -3448,20 +3448,20 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
   /* "pytraj/datasets/cast_dataset.pyx":136
  *         return newset_vector
  * 
- *     elif dtype in ['MAT3x3']:             # <<<<<<<<<<<<<<
+ *     elif dtype in ['MAT3X3']:             # <<<<<<<<<<<<<<
  *         newset_matrix3x3 = DatasetMatrix3x3()
  *         # since we introduce memory view, we let cpptraj free memory
  */
   __Pyx_INCREF(__pyx_v_dtype);
   __pyx_t_3 = __pyx_v_dtype;
-  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_MAT3x3, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_MAT3X3, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
     /* "pytraj/datasets/cast_dataset.pyx":137
  * 
- *     elif dtype in ['MAT3x3']:
+ *     elif dtype in ['MAT3X3']:
  *         newset_matrix3x3 = DatasetMatrix3x3()             # <<<<<<<<<<<<<<
  *         # since we introduce memory view, we let cpptraj free memory
  *         newset_matrix3x3.py_free_mem = False
@@ -3523,7 +3523,7 @@ static PyObject *__pyx_pf_6pytraj_8datasets_12cast_dataset_cast_dataset(CYTHON_U
     /* "pytraj/datasets/cast_dataset.pyx":136
  *         return newset_vector
  * 
- *     elif dtype in ['MAT3x3']:             # <<<<<<<<<<<<<<
+ *     elif dtype in ['MAT3X3']:             # <<<<<<<<<<<<<<
  *         newset_matrix3x3 = DatasetMatrix3x3()
  *         # since we introduce memory view, we let cpptraj free memory
  */
@@ -16562,7 +16562,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Indirect_dimensions_not_supporte, __pyx_k_Indirect_dimensions_not_supporte, sizeof(__pyx_k_Indirect_dimensions_not_supporte), 0, 0, 1, 0},
   {&__pyx_kp_s_Invalid_mode_expected_c_or_fortr, __pyx_k_Invalid_mode_expected_c_or_fortr, sizeof(__pyx_k_Invalid_mode_expected_c_or_fortr), 0, 0, 1, 0},
   {&__pyx_kp_s_Invalid_shape_in_axis_d_d, __pyx_k_Invalid_shape_in_axis_d_d, sizeof(__pyx_k_Invalid_shape_in_axis_d_d), 0, 0, 1, 0},
-  {&__pyx_n_s_MAT3x3, __pyx_k_MAT3x3, sizeof(__pyx_k_MAT3x3), 0, 0, 1, 1},
+  {&__pyx_n_s_MAT3X3, __pyx_k_MAT3X3, sizeof(__pyx_k_MAT3X3), 0, 0, 1, 1},
   {&__pyx_n_s_MATRIX_DBL, __pyx_k_MATRIX_DBL, sizeof(__pyx_k_MATRIX_DBL), 0, 0, 1, 1},
   {&__pyx_n_s_MATRIX_DOUBLE, __pyx_k_MATRIX_DOUBLE, sizeof(__pyx_k_MATRIX_DOUBLE), 0, 0, 1, 1},
   {&__pyx_kp_s_MATRIX_DOUBLE_2, __pyx_k_MATRIX_DOUBLE_2, sizeof(__pyx_k_MATRIX_DOUBLE_2), 0, 0, 1, 0},
@@ -16616,7 +16616,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
-  {&__pyx_kp_s_mnt_raidc2_haichit_study_Cython, __pyx_k_mnt_raidc2_haichit_study_Cython, sizeof(__pyx_k_mnt_raidc2_haichit_study_Cython), 0, 0, 1, 0},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_name_2, __pyx_k_name_2, sizeof(__pyx_k_name_2), 0, 0, 1, 1},
@@ -16653,6 +16652,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_strided_and_indirect, __pyx_k_strided_and_indirect, sizeof(__pyx_k_strided_and_indirect), 0, 0, 1, 0},
   {&__pyx_n_s_struct, __pyx_k_struct, sizeof(__pyx_k_struct), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_k_u1_haichit_pytraj_git_hainm_pyt, sizeof(__pyx_k_u1_haichit_pytraj_git_hainm_pyt), 0, 0, 1, 0},
   {&__pyx_kp_s_unable_to_allocate_array_data, __pyx_k_unable_to_allocate_array_data, sizeof(__pyx_k_unable_to_allocate_array_data), 0, 0, 1, 0},
   {&__pyx_kp_s_unable_to_allocate_shape_and_str, __pyx_k_unable_to_allocate_shape_and_str, sizeof(__pyx_k_unable_to_allocate_shape_and_str), 0, 0, 1, 0},
   {&__pyx_n_s_unpack, __pyx_k_unpack, sizeof(__pyx_k_unpack), 0, 0, 1, 1},
@@ -16864,7 +16864,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__18 = PyTuple_Pack(18, __pyx_n_s_dsetin, __pyx_n_s_dtype, __pyx_n_s_dset, __pyx_n_s_newset1D, __pyx_n_s_newset2D, __pyx_n_s_newset_double, __pyx_n_s_newset_float, __pyx_n_s_newset_integer, __pyx_n_s_newset_string, __pyx_n_s_newset_mesh, __pyx_n_s_newset_vector, __pyx_n_s_newset_matrix3x3, __pyx_n_s_newset_matrixdbl, __pyx_n_s_newset_matrixflt, __pyx_n_s_newset_gridflt, __pyx_n_s_newset_coords_ref, __pyx_n_s_newset_coords_crd, __pyx_n_s_newset_coords_trj); if (unlikely(!__pyx_tuple__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 18, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_mnt_raidc2_haichit_study_Cython, __pyx_n_s_cast_dataset, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 18, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_n_s_cast_dataset, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "View.MemoryView":276
  *         return self.name
