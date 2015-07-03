@@ -3,13 +3,14 @@ from __future__ import division
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
 from ..decorators import makesureABC, require_having
-from ..DataFileList import DataFileList
-from ..DataFile import DataFile
-from pytraj.utils import _import_numpy
+from ..core.DataFileList import DataFileList
+from ..core.DataFile import DataFile
+from ..utils import _import_numpy
 
 _, np = _import_numpy()
 
 cdef class DataSet:
+    __cpptraj_dataset__ = None
     """
     Original doc from cpptraj
     -------------------------
@@ -44,16 +45,14 @@ cdef class DataSet:
     def __str__(self):
         cname = self.class_name
         dname = self.name
-        dformat = self.data_format
+        dformat = self.format
         size = self.size
         legend = self.legend
         aspect = self.aspect
         dtype = self.dtype
 
-        msg0 = """<pytraj.datasets.{0}: size={1}, name={2}, """.format(cname, size, dname)
-        msg1 = """legend={0}, aspect={1}, dtype={2}, data_format={3}>""".format(legend, 
-            aspect, dtype, dformat)
-        return msg0 + msg1 
+        msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(cname, size, legend)
+        return msg0
 
     def __repr__(self):
         return self.__str__()
@@ -146,6 +145,12 @@ cdef class DataSet:
         cdef int size = self.size
 
         new_ds = self.__class__()
+        new_ds.legend = self.legend
+        new_ds.set_scalar(self.scalar_mode, self.scalar_type)
+        new_ds.set_name_aspect_index_ensemble_num(self.name,
+                                                  self.aspect,
+                                                  self.idx,
+                                                  0)
         try:
             try:
                 new_ds.resize(self.size)
@@ -187,8 +192,11 @@ cdef class DataSet:
     def set_format(self, bint leftAlignIn):
         return self.baseptr0.SetDataSetFormat(leftAlignIn)
 
+    def set_name_aspect_index_ensemble_num(self, name, aspect, idx, num):
+        self.baseptr0.SetupSet(name.encode(), idx, aspect.encode(), num)
+
     def scalar_descr(self):
-        from pytraj._utils import set_worl_silent
+        from pytraj import set_worl_silent
         set_worl_silent(False)
         self.baseptr0.ScalarDescription()
         set_worl_silent(True)
@@ -197,6 +205,14 @@ cdef class DataSet:
         return self.baseptr0.Empty()
 
     property legend:
+        def __get__(self):
+            legend = self.baseptr0.Legend()
+            return legend.decode()
+        def __set__(self, legend):
+            self.baseptr0.SetLegend(legend.encode())
+
+    property key:
+        # retire self.legend?
         def __get__(self):
             legend = self.baseptr0.Legend()
             return legend.decode()
@@ -247,8 +263,9 @@ cdef class DataSet:
             raise NotImplemented()
 
     @property
-    def data_format(self):
-        return self.baseptr0.DataFormat().decode()
+    def format(self):
+        my_format = self.baseptr0.DataFormat().decode()
+        return my_format.strip()
 
     @property
     def data(self):
@@ -288,22 +305,47 @@ cdef class DataSet:
     def values(self):
         return self.to_ndarray()
 
-    def to_ndarray(self):
+    def to_ndarray(self, copy=False):
         """return ndarray view of self.data"""
         from pytraj.utils import _import_numpy
         has_np, np = _import_numpy()
         if has_np:
-            return np.asarray(self.data)
+            if not copy:
+                return np.asarray(self.data)
+            else:
+                # make copy
+                return np.array(self.data)
         else:
-            raise ImportError("require numpy")
+            raise ImportError("require numpy. Use `tolist` or `to_pyarray`"
+                              " or `to_dict` to access data")
 
-    def hist(self, bins=100, normed=True, range=None):
-        from pytraj.utils import _import_numpy
+    def to_dict(self, use_numpy=False):
+        if np and use_numpy:
+            return {self.legend : self.values}
+        if not np and use_numpy:
+            raise ImportError("require numpy. Set `use_numpy=False`")
+        return {self.legend : self.tolist()}
 
-        _, np = _import_numpy()
-        hist, bedge  = np.histogram(self.to_ndarray(), bins=bins, normed=normed,range=range)
-        bedge = bedge[:-1]
-        return np.array([bedge, hist])
+    def hist(self, plot=True, show=True, *args, **kwd):
+        """
+        Parameters
+        ----------
+        plot : bool, default True
+            if True, use `matplotlib` to plot. 
+            if False, return `2D numpy array`
+        """
+        if not plot:
+            import numpy as np
+            return np.histogram(self.values)
+        else:
+            try:
+                from matplotlib import pyplot as plt
+                ax = plt.hist(self.values, *args, **kwd)
+                if show:
+                    plt.show()
+                return ax
+            except ImportError:
+                raise ImportError("require matplotlib")
 
     def split(self, n_chunks_or_array):
         """split `self.data` to n_chunks
@@ -311,10 +353,6 @@ cdef class DataSet:
         Notes : require numpy (same as `array_split`)
         """
         return np.array_split(self.to_ndarray(), n_chunks_or_array)
-        #try:
-        #    return np.split(self, n_chunks_or_array)
-        #except:
-        #    raise NotImplementedError("try to split but failed for %s" % self.name)
 
     def write_to_cpptraj_format(self, filename):
         dflist = DataFileList()
@@ -329,7 +367,7 @@ cdef class DataSet:
         else:
             raise NotImplementedError("not yet, stay tuned")
 
-    def plot(self, *args, **kwd):
+    def plot(self, show=False, *args, **kwd):
         """return matplotlib object
         Notes
         ----
@@ -338,6 +376,53 @@ cdef class DataSet:
         from pytraj.utils import _import
         _, plt = _import("matplotlib.pyplot")
         try:
-            return plt.pyplot.plot(self.data, *args, **kwd)
-        except:
-            raise NotImplementedError()
+            ax = plt.pyplot.plot(self.data, *args, **kwd)
+            if show:
+                plt.pyplot.show()
+            return ax
+        except ImportError:
+            raise ImportError("require matplotlib")
+
+    def chunk_average(self, n_chunk):
+        import numpy as np
+        return np.array(list(map(np.mean, self.split(n_chunk))))
+
+    def std(self, *args, **kwd):
+        import numpy as np
+        return np.std(self.values, *args, **kwd)
+
+    def sum(self, *args, **kwd):
+        return np.sum(self.values, *args, **kwd)
+
+    def topk(self, k):
+        """pick top k max-values
+        Returns
+        -------
+        a list with len = k
+
+        # TODO : array?
+        """
+        return sorted(self.values, reverse=True)[:k]
+
+    def head(self, k=20, restype='ndarray'):
+        if restype == 'ndarray':
+            return self.values[:k]
+        elif restype == 'list':
+            return self.tolist()[:k]
+
+    def tail(self, k=20):
+        return self.values[-k:]
+
+    def is_(self, DataSet other):
+        return self.baseptr0 == other.baseptr0
+
+    def filter(self, func):
+        """return a numpy array with all elements that satisfy `func`
+
+        Example
+        -------
+        >>> d0 = traj.calc_radgyr(dtype='dataset')[0]
+        >>> d0.filter(lambda x : 105. < x < 200.)
+        """
+        import numpy as np
+        return np.array(list(filter(func, self.values)))

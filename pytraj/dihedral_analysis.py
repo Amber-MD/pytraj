@@ -1,18 +1,15 @@
 from __future__ import print_function, absolute_import
 
-from .actions.Action_MultiDihedral import Action_MultiDihedral
-from ._get_common_objects import _get_top, _get_data_from_dtype
 from .externals.six import iteritems
-from .DataSetList import DataSetList
 
 
 __all__ = []
 
-supported_dihedral_types = [x for x in 
-'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
+supported_dihedral_types = [x for x in
+                            'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
 
 template = '''
-def calc_%s(traj=None, command="", top=None, *args, **kwd):
+def calc_%s(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
     Parameters
     ----------
@@ -42,11 +39,9 @@ def calc_%s(traj=None, command="", top=None, *args, **kwd):
     --------
     """
 
-    if 'dtype' in kwd.keys():
-        dtype = kwd['dtype']
-        del kwd['dtype']
-    else:
-        dtype = None
+    from .datasets.DataSetList import DataSetList
+    from .actions.CpptrajActions import Action_MultiDihedral
+    from ._get_common_objects import _get_top, _get_data_from_dtype
 
     _top = _get_top(traj, top)
     dslist = DataSetList()

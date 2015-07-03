@@ -1,7 +1,6 @@
 # distutils: language = c++
 from __future__ import absolute_import
 from .DataSet cimport _DataSet, DataSet, DataType
-from ..CpptrajFile cimport _CpptrajFile, CpptrajFile
 
 
 cdef extern from "DataSet_2D.h": 
@@ -17,7 +16,6 @@ cdef extern from "DataSet_2D.h":
         int Allocate2D(size_t, size_t) 
         int AllocateHalf(size_t) 
         int AllocateTriangle(size_t) 
-        void Write2D(_CpptrajFile&, int, int) const  
         double GetElement(size_t, size_t) const  
         size_t Nrows() const  
         size_t Ncols() const  

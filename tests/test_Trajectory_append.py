@@ -13,7 +13,9 @@ from pytraj.compat import izip
 fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
 traj = Trajectory(mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         # test append
         traj = Trajectory()
@@ -27,7 +29,7 @@ class Test(unittest.TestCase):
         # append xyz
         traj.append(t.xyz[:])
         assert traj.n_frames == t.n_frames + 1
-        
+
         # append TrajectoryIterator
         traj.append(t)
         assert traj.n_frames == t.n_frames * 2 + 1
@@ -60,7 +62,7 @@ class Test(unittest.TestCase):
         n1 = t.n_frames
         traj.append(_frame_iter_master([traj, t]))
         assert traj.n_frames == 2 * n0 + n1
-                
+
 
 if __name__ == "__main__":
     unittest.main()

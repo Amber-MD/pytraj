@@ -8,6 +8,8 @@ TRAJ.top = Topology("./data/Tc5b.top")
 TRAJ.load("./data/md1_prod.Tc5b.x")
 
 #@profile
+
+
 def calc_pairwise_rmsd():
     farray = Trajectory()
     farray.top = TRAJ.top
@@ -15,7 +17,7 @@ def calc_pairwise_rmsd():
     for frame in TRAJ:
         frame.strip_atoms("!@CA", TRAJ.top.copy())
         farray.append(frame)
-    
+
     size = farray.size
     arr = np.empty(shape=(size, size))
     #

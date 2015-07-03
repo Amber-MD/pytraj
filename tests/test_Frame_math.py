@@ -3,7 +3,9 @@ import unittest
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
@@ -37,7 +39,7 @@ class Test(unittest.TestCase):
         f1 = traj[1].copy()
         xyz1 = f1.xyz.copy()
         f0 /= f1
-        aa_eq(f0.xyz, xyz / xyz1) 
+        aa_eq(f0.xyz, xyz / xyz1)
 
         # +
         f0 = traj[0].copy()

@@ -1,21 +1,17 @@
 from __future__ import print_function, absolute_import
-
-from .actions.Action_Matrix import Action_Matrix
-from ._get_common_objects import _get_top, _get_data_from_dtype
 from .externals.six import iteritems
-from .DataSetList import DataSetList
 
 
 __all__ = ['distance_matrix', 'correlation_matrix', 'coord_covariance_matrix',
            'mw_covariance_matrix', 'distcovar_matrix', 'idea_matrix',
            ]
 
-default_key_dict = {'distance_matrix' : 'dist',
-        'correlation_matrix' : 'correl',
-        'coord_covariance_matrix' : 'covar',
-        'mw_covariance_matrix' : 'mwcovar',
-        'distcovar_matrix' : 'distcovar',
-        'idea_matrix' : 'idea'}
+default_key_dict = {'distance_matrix': 'dist',
+                    'correlation_matrix': 'correl',
+                    'coord_covariance_matrix': 'covar',
+                    'mw_covariance_matrix': 'mwcovar',
+                    'distcovar_matrix': 'distcovar',
+                    'idea_matrix': 'idea'}
 
 __cpptrajdoc__ = """
     cpptraj manual
@@ -38,7 +34,7 @@ __cpptrajdoc__ = """
 """
 
 template = '''
-def %s(traj=None, command="", top=None, *args, **kwd):
+def %s(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     """
     Parameters
     ----------
@@ -70,12 +66,9 @@ def %s(traj=None, command="", top=None, *args, **kwd):
     'distcovar_matrix' : 'distcovar',
     'idea_matrix' : 'idea'}
     """
-
-    if 'dtype' in kwd.keys():
-        dtype = kwd['dtype']
-        del kwd['dtype']
-    else:
-        dtype = None
+    from .actions.CpptrajActions import Action_Matrix
+    from ._get_common_objects import _get_top, _get_data_from_dtype
+    from .datasets.DataSetList import DataSetList
 
     _top = _get_top(traj, top)
     dslist = DataSetList()

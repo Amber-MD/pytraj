@@ -11,7 +11,9 @@ from .. _shared_methods import my_str_method
 from .. Topology import Topology
 from . TrajectoryBaseIterator import TrajectoryBaseIterator
 
+
 class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
+
     def __init__(self, filename, top=None):
         self._top = Topology()
         self._filename = filename
@@ -101,7 +103,8 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
 
         try:
             cell_lengths = fh['cell_lengths'].value
-            box_arr = np.hstack((cell_lengths, fh['cell_angles'])).astype(np.float64)
+            box_arr = np.hstack(
+                (cell_lengths, fh['cell_angles'])).astype(np.float64)
             has_box = True
             self._box_arr = box_arr
         except:
@@ -133,7 +136,8 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
                     resid = residue['index']
                     for atom in residue['atoms']:
                         aname = atom['name']
-                        atype = aname # no infor about atom type in .h5 file from openmm (?)
+                        # no infor about atom type in .h5 file from openmm (?)
+                        atype = aname
                         try:
                             charge = atom['charge']
                         except:
@@ -145,7 +149,8 @@ class TrajectoryHDF5Iterator(TrajectoryBaseIterator):
                                 mass = mass_element_dict[atom['element']]
                             except:
                                 try:
-                                    mass = mass_atomic_number_dict[atom['atomic_number']]
+                                    mass = mass_atomic_number_dict[
+                                        atom['atomic_number']]
                                 except:
                                     mass = 1.0
                         atom = Atom(aname, atype, charge, mass)

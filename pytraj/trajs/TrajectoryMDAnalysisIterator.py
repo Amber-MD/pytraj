@@ -5,10 +5,12 @@ from .. Trajectory import Trajectory
 from .. Frame import Frame
 from .. externals import load_pseudo_parm
 from .. _shared_methods import my_str_method
-from .. _action_in_traj import ActionInTraj
+from .. _action_in_traj import ActionTrajectory
 from . TrajectoryBaseIterator import TrajectoryBaseIterator
 
-class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionInTraj):
+
+class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionTrajectory):
+
     def __init__(self, mdanalysis_object, top=None):
         self._ext_holder = mdanalysis_object
         self._traj_holder = mdanalysis_object.trajectory
@@ -26,29 +28,27 @@ class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionInTraj):
 
     def __iter__(self):
 
-        with self:
-            atom_groups = self._ext_holder.atoms
-            for _ in self._traj_holder:
-                frame = Frame(self.n_atoms)
-                frame.xyz[:] = atom_groups.positions.astype('f8')
-                yield frame
+        atom_groups = self._ext_holder.atoms
+        for _ in self._traj_holder:
+            frame = Frame(self.n_atoms)
+            frame.xyz[:] = atom_groups.positions.astype('f8')
+            yield frame
 
     def __getitem__(self, idx):
         atom_groups = self._ext_holder.atoms
         if is_int(idx):
-            with self:
-                if idx >= self.n_frames or idx < 0: 
-                    raise ValueError("must have 0 <= idx < self.n_frames")
-                i = 0
-                for _ in self._traj_holder:
-                    if i == idx:
-                        frame = Frame(self.n_atoms)
-                        # for some reasons, need to set py_free_mem=Fale 
-                        # to keep Frame's lifetime
-                        frame.py_free_mem = False
-                        frame.xyz[:] = atom_groups.positions
-                        return frame # break the loop
-                    i += 1
+            if idx >= self.n_frames or idx < 0:
+                raise ValueError("must have 0 <= idx < self.n_frames")
+            i = 0
+            for _ in self._traj_holder:
+                if i == idx:
+                    frame = Frame(self.n_atoms)
+                    # for some reasons, need to set py_free_mem=Fale
+                    # to keep Frame's lifetime
+                    frame.py_free_mem = False
+                    frame.xyz[:] = atom_groups.positions
+                    return frame  # break the loop
+                i += 1
         elif isinstance(idx, slice):
             fa = Trajectory()
             fa.top = self.top
@@ -73,11 +73,10 @@ class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionInTraj):
             raise NotImplementedError()
 
     def __enter__(self):
-        self._traj_holder.rewind()
         return self
 
     def __exit__(self, *args):
-        self._traj_holder.close()
+        pass
 
     @property
     def n_frames(self):
@@ -100,3 +99,6 @@ class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionInTraj):
     @property
     def filename(self):
         return self._ext_holder.filename
+
+    def to_mutable_trajectory(self):
+        return self[:]

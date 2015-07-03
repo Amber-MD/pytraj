@@ -94,9 +94,15 @@ cdef class Atom:
         return self.thisptr.NoMol()
 
     def __str__(self):
-        name = self.thisptr.c_str()
-        name = name.decode().split()[0]
-        txt = "<%s-atom, resnum=%s, n_bonds=%s>" % (name, self.resnum, self.n_bonds)
+        if self.atomic_number > 0:
+            name = self.name
+            if name != '':
+                name = name.split()[0]
+                txt = "<%s-atom, resnum=%s, n_bonds=%s>" % (name, self.resnum, self.n_bonds)
+            else:
+                txt = '<Empty Atom>'
+        else:
+            txt = '<Empty Atom>'
         return txt
 
     def __repr__(self):
@@ -123,9 +129,7 @@ cdef class Atom:
 
     @property
     def name(self):
-        # TODO : do we need this method?
         return self.thisptr.c_str().decode('UTF-8')
-        #return _ustring(self.thisptr.c_str())
 
     @property
     def type(self):

@@ -1,5 +1,5 @@
 from __future__ import print_function
-from pytraj.analyses import allanalyses
+from pytraj.analyses import CpptrajAnalyses as allanalyses
 
 ADICT = {}
 
@@ -12,7 +12,9 @@ for key in allanalyses.__dict__.keys():
 
 # make another dict to convert something like 'MolSurf' to 'molsurf'
 
+
 class AnalysisDict:
+
     def __init__(self):
         self.analysisdict = ADICT
 

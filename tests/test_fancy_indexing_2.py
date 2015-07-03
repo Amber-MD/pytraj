@@ -3,15 +3,17 @@ from pytraj import io as mdio
 from pytraj import Trajectory
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         FA = traj[:]
 
-        print (traj['@CA'])
+        print(traj['@CA'])
         frame0 = traj[0]
-        print (hasattr(frame0, 'shape'))
-        aa_eq(frame0[traj.top("@CA")].flatten(), 
+        print(hasattr(frame0, 'shape'))
+        aa_eq(frame0[traj.top("@CA")].flatten(),
               traj['@CA'].xyz.flatten())
 
         # slicing with list or array
@@ -37,7 +39,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         # AtomMask
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        fa = traj.to_mutable_traj()
+        fa = traj.to_mutable_trajectory()
         xyz = traj.xyz[:]
         atm = traj.top.select("@CA")
         indices = atm.indices

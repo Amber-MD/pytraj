@@ -1,10 +1,14 @@
 import unittest
 from pytraj.base import *
+from pytraj.datasets import cast_dataset
+from pytraj.datasets.DataSetList import DataSetList
 from pytraj.decorators import no_test
 from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ
 
+
 class Test(unittest.TestCase):
     #@no_test
+
     def test_0(self):
         # DataSet_Coords_TRJ class
         traj = DataSet_Coords_TRJ()
@@ -13,15 +17,15 @@ class Test(unittest.TestCase):
         print(dir(traj))
         print(traj.size)
         dset = traj.alloc()
-        #print dir(dset)
-        print(dset.data_format)
+        # print dir(dset)
+        print(dset.format)
         print(dset.is_empty())
         print(dset.dtype)
         print(dset.column_width)
         db = cast_dataset(dset, dtype="general")
-        #print cast_dataset.__doc__
+        # print cast_dataset.__doc__
         print(db.is_empty())
-        #print dir(db)
+        # print dir(db)
 
     #@no_test
     def test_add_trajin(self):
@@ -34,14 +38,13 @@ class Test(unittest.TestCase):
         db.top = dset_traj.top
         print(db)
         assert db.size == dset_traj.size
-        print (db[0])
+        print(db[0])
 
         # try to add to DataSetList
         dslist = DataSetList()
         dslist._add_copy_of_set(db)
-        print (dslist[0])
+        print(dslist[0])
         assert isinstance(dslist[0], DataSet_Coords_TRJ)
 
 if __name__ == "__main__":
     unittest.main()
-

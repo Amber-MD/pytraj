@@ -1,14 +1,16 @@
 import unittest
 from pytraj.base import *
 from pytraj.datasets.DataSet import DataSet
-from pytraj.DataFile import DataFile
+from pytraj.core.DataFile import DataFile
+
 
 class TestDataSetList(unittest.TestCase):
+
     def test_1(self):
         dlist = DataSetList()
-        dumset= DataSet()
+        dumset = DataSet()
         assert len(dlist) == 0
-        print (dlist.size)
+        print(dlist.size)
 
         # make sure raising ValueError when index is out of range
         self.assertRaises(ValueError, lambda: dlist[0])

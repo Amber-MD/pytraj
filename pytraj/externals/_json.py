@@ -1,7 +1,7 @@
+from __future__ import absolute_import
 import json
+from .six import PY3
 
-# adapted from pandas package
-# see license in $PYTRAJHOME/license/externals/
 
 def to_json(obj, path):
     """
@@ -11,8 +11,14 @@ def to_json(obj, path):
     path : string
         File path
     """
-    with open(path, 'wb') as f:
+    if PY3:
+        mode = 'w'
+    else:
+        mode = 'wb'
+
+    with open(path, mode) as f:
         json.dump(obj, f)
+
 
 def read_json(path):
     """
@@ -26,10 +32,10 @@ def read_json(path):
     dict : python dict
     """
 
-    def try_read(path):
-        try:
-            with open(path, 'rb') as fh:
-                return json.load(fh)
-        except (Exception) as e:
-            raise
-    return try_read(path)
+    if PY3:
+        mode = 'r'
+    else:
+        mode = 'rb'
+
+    with open(path, mode) as fh:
+        return json.load(fh)

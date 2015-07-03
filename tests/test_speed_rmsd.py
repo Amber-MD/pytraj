@@ -9,20 +9,22 @@ import pytraj.common_actions as pyca
 
 tip3p_dir = "./data/nogit/tip3p/"
 
+
 class Test(unittest.TestCase):
+
     @test_if_path_exists(tip3p_dir)
     def test_0(self):
         # iterload
         @Timer()
         def test_rmsd_pytraj_mode():
-            fname = tip3p_dir  + "/md.trj"
+            fname = tip3p_dir + "/md.trj"
             topname = tip3p_dir + "/tc5bwat.top"
             traj = mdio.iterload(fname, topname)
             traj.rmsd(ref=10, mode='pytraj')
 
         @Timer()
         def test_rmsd_cpptraj_mode():
-            fname = tip3p_dir  + "/md.trj"
+            fname = tip3p_dir + "/md.trj"
             topname = tip3p_dir + "/tc5bwat.top"
             traj = mdio.iterload(fname, topname)
             traj.rmsd(ref=10, mode='cpptraj')
@@ -33,34 +35,34 @@ class Test(unittest.TestCase):
         if has_mdtraj:
             @Timer()
             def test_rmsd_mdtraj():
-                fname = tip3p_dir  + "/md.trj"
+                fname = tip3p_dir + "/md.trj"
                 topname = tip3p_dir + "/tc5bwat.top"
                 mtop = md.load_prmtop(topname)
                 m_traj = md.load_netcdf(fname, top=mtop)
                 md.rmsd(m_traj, m_traj, 10)
 
-        print ("test_rmsd_pytraj_mode")
+        print("test_rmsd_pytraj_mode")
         test_rmsd_pytraj_mode()
-        print ("test_rmsd_cpptraj_mode")
+        print("test_rmsd_cpptraj_mode")
         test_rmsd_cpptraj_mode()
         if has_mdtraj:
-            print ("test_rmsd_mdtraj")
+            print("test_rmsd_mdtraj")
             test_rmsd_mdtraj()
 
     @test_if_having("mdtraj")
     def test_1(self):
         import mdtraj as md
         # in memory
-        fname = tip3p_dir  + "/md.trj"
+        fname = tip3p_dir + "/md.trj"
         topname = tip3p_dir + "/tc5bwat.top"
         traj = mdio.load(fname, topname, indices=range(1000))
-        print (traj)
+        print(traj)
 
         @Timer()
         def test_rmsd_cpptraj_mode():
             traj.rmsd(ref=10, mode='cpptraj')
 
-        print ("test_rmsd_cpptraj_mode")
+        print("test_rmsd_cpptraj_mode")
         test_rmsd_cpptraj_mode()
         del traj
 
@@ -71,8 +73,8 @@ class Test(unittest.TestCase):
         def test_rmsd_mdtraj():
             md.rmsd(m_traj, m_traj, 10)
 
-        print ("test_rmsd_mdtraj")
+        print("test_rmsd_mdtraj")
         test_rmsd_mdtraj()
-         
+
 if __name__ == "__main__":
     unittest.main()

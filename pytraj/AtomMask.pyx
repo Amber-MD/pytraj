@@ -8,7 +8,7 @@ from pytraj.decorators import deprecated
 from pytraj._set_silent import set_world_silent
 from pytraj.externals.six import string_types
 from pytraj.utils import is_array, is_int
-from pytraj._utils import _int_array1d_like_to_memview
+from pytraj._cyutils import _int_array1d_like_to_memview
 from pytraj.compat import range
 
 __all__ = ['AtomMask']

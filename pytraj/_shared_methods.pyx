@@ -15,17 +15,23 @@ from pytraj._xyz import XYZ
 __all__ = ['_savetraj', '_frame_iter_master', '_xyz', 'my_str_method',
            '_tolist', '_box_to_ndarray']
 
-def _savetraj(self, filename="", fmt='unknown', overwrite=False, *args, **kwd):
-    if fmt == 'unknown':
+def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd):
+    if format == 'unknown':
         # convert to "UNKNOWN_TRAJ"
-        fmt = fmt.upper() + "_TRAJ"
+        format = format.upper() + "_TRAJ"
     else:
-        fmt = fmt.upper()
+        format = format.upper()
 
-    with Trajout(filename=filename, top=self.top, fmt=fmt, 
+    with Trajout(filename=filename, top=self.top, format=format, 
                  overwrite=overwrite, *args, **kwd) as trajout:
         for idx, frame in enumerate(self):
             trajout.writeframe(idx, frame, self.top)
+
+def _split_and_write_traj(self, n_chunks=None, root_name="trajx", *args, **kwd):
+    chunksize = self.n_frames // n_chunks
+    for idx, traj in enumerate(self.chunk_iter(chunksize=chunksize)):
+        fname = ".".join((root_name, str(idx), 'nc'))
+        traj.save(fname, *args, **kwd)
 
 def _get_temperature_set(self):
     return set(self.temperatures) 

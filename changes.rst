@@ -7,6 +7,19 @@ Lastest change
 
 Features and bugfixs added (from May 2015 - )
 -----------------------------------
+* speed up compiling time (~10 times) without using multiprocess
+* move all cpptraj's Analysis classes to a single file (CpptrajAnalyses)
+* move all cpptraj's Action classes to a single file (CpptrajActions)
+* add show_version()
+* change name for several DataSet classes (DataSet_integer to DatasetInteger)
+* change islice to iterator_slice
+* rmsfit_to --> rmsfit
+* add load_cpptraj_datafile to read cpptraj's datafile
+* use TrajectoryCpptraj as backend for TrajectoryIterator (able to load multiple files)
+* add TrajectoryCpptraj
+* add seperate command for each dihedral calculation (phi, psi,...)
+* top.select("@CA") returns an AtomMask object
+* add memoryview for DataSet_GridFlt
 * start working on pytraj-dev 0.1.2.dev5
 * release pytraj-dev 0.1.2.dev4 (May 26, 2015) (binstar, github)
 * add pretty print for DataSetList when having `pandas` 

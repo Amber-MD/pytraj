@@ -1,10 +1,12 @@
 
 class XYZ(object):
+
     """Wrapper of numpy array for read-only
     This class is intended to be used with Trajectory-like class
 
     There are limited methods compared to numpy's ndarray
     """
+
     def __init__(self, xyz):
         self._xyz = xyz
 
@@ -37,7 +39,7 @@ class XYZ(object):
 
     def __imul__(self, value):
         raise NotImplementedError("read only")
-    
+
     def __idiv__(self, value):
         raise NotImplementedError("read only")
 

@@ -8,7 +8,7 @@ import numpy as np
 
 try:
     import sander
-    from chemistry.amber.readparm import AmberParm
+    from parmed.amber.readparm import AmberParm
     has_sander_and_parmed = True
 except:
     has_sander_and_parmed = False
@@ -23,4 +23,4 @@ if has_sander_and_parmed:
     inp = sander.gas_input(8)
     parm.load_coordinates(frame0.coords)
 else:
-    print ("require both sander and parmed. Skip test")
+    print("require both sander and parmed. Skip test")

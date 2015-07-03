@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+import os
 import numbers
 from ..externals.six import string_types
 from functools import wraps
@@ -9,12 +10,15 @@ try:
 except:
     pass
 
+
 def eq(arr0, arr1):
     assert arr0 == arr1
 
+
 def eq_coords(fa0, fa1):
     # use this method for very large trajs
-    # use `assert_almost_equal` for `xyz` is to slow since need to copy to xyz first
+    # use `assert_almost_equal` for `xyz` is to slow since need to copy to xyz
+    # first
     count = 0
     import numpy as np
     for f0, f1 in zip(fa0, fa1):
@@ -22,12 +26,15 @@ def eq_coords(fa0, fa1):
         assert np.any(f0.xyz == f1.xyz) == True
     assert count == fa0.n_frames == fa1.n_frames
 
+
 def a_isinstance(obj, class_type):
     assert isinstance(obj, class_type) == True
+
 
 def file_exist(filename):
     import os
     return os.path.isfile(filename)
+
 
 def get_amber_saved_test_dir(suffix):
     """return full dir of amber test file or None
@@ -44,20 +51,25 @@ def get_amber_saved_test_dir(suffix):
     except:
         return None
 
+
 def is_linux():
     import sys
     return 'linux' in sys.platform
+
 
 def is_word_in_class_name(obj, word):
     """check if a `word` is in obj.__class__.__name__
     """
     return word in obj.__class__.__name__
 
+
 def is_pytraj_trajectory(obj):
     return is_word_in_class_name(obj, 'Trajectory')
 
+
 def is_range(obj):
     return is_word_in_class_name(obj, 'range')
+
 
 def is_array(obj):
     """check if a `word` is in obj.__class__.__name__
@@ -67,11 +79,14 @@ def is_array(obj):
     else:
         return False
 
+
 def are_instance(obj_list, cls):
     """check if all elements have the same class `cls`"""
     for element in obj_list:
-        if not isinstance(element, cls): return False
+        if not isinstance(element, cls):
+            return False
     return True
+
 
 def is_generator(iter_obj):
     # use this method instead of `inspect` in python since this does not work with Cython
@@ -81,15 +96,19 @@ def is_generator(iter_obj):
     else:
         return False
 
+
 def is_mdanalysis(obj):
     return is_word_in_class_name(obj, 'Universe')
+
 
 def is_mdtraj(obj):
     """check if traj is mdtraj object"""
     return True if 'mdtraj' in obj.__str__() else False
 
+
 def is_mdanalysis(obj):
     return is_word_in_class_name(obj, 'Universe')
+
 
 def is_frame_iter(iter_obj):
     """check if is frame_iter
@@ -101,8 +120,10 @@ def is_frame_iter(iter_obj):
     """
     if iter_obj.__class__.__name__ == 'generator' and 'frame_iter' in iter_obj.__name__:
         return True
-    else:
-        return False
+    if iter_obj.__class__.__name__ == 'FrameIter':
+        return True
+    return False
+
 
 def is_chunk_iter(iter_obj):
     """check if is frame_iter
@@ -117,22 +138,26 @@ def is_chunk_iter(iter_obj):
     else:
         return False
 
+
 def is_int(num):
     """wrapper class to check if `num` is int
     isinstance(nu, (int, long)) does not work with numpy.int64, so we use numbers.Integral
     """
     return isinstance(num, numbers.Integral)
 
-def make_sure_exist(filename):
-    if not file_exist(filename):
+
+def ensure_exist(filename):
+    if not os.path.exists(filename):
         txt = "can not find %s" % filename
         raise RuntimeError(txt)
+
 
 def ensure_not_none_or_string(obj):
     name = obj.__str__()
     msg = "<%s> is a wrong input. Can not use `None` or string type" % name
     if obj is None or isinstance(obj, string_types):
         raise ValueError(msg)
+
 
 def assert_almost_equal(arr0, arr1, decimal=3):
     '''numpy-like assert'''
@@ -151,6 +176,7 @@ def assert_almost_equal(arr0, arr1, decimal=3):
             almost_equal = False
     assert almost_equal == True
 
+
 def _import_numpy():
     has_numpy = False
     try:
@@ -161,17 +187,19 @@ def _import_numpy():
         has_numpy = False
         return (has_numpy, None)
 
+
 def _import_pandas():
     has_pd = False
     try:
         pd = __import__('pandas')
-        has_pd= True
+        has_pd = True
         # set print options
         pd.options.display.max_rows = 20
         return (has_pd, pd)
     except ImportError:
-        has_pd= False
+        has_pd = False
         return (has_pd, None)
+
 
 def _import_h5py():
     has_h5py = False
@@ -182,6 +210,7 @@ def _import_h5py():
     except ImportError:
         has_h5py = False
         return (has_h5py, None)
+
 
 def _import(modname):
     """has_numpy, np = _import('numpy')"""
@@ -194,12 +223,14 @@ def _import(modname):
         has_module = False
         return (has_module, None)
 
+
 def has_(lib):
     """check if having `lib` library
     Example:
     >>> has_("numpy")
     """
     return _import(lib)[0]
+
 
 def require(libname):
     has_lib, lib = _import(libname)
@@ -210,7 +241,7 @@ def require(libname):
 if __name__ == "__main__":
     import numpy as np
     assert_almost_equal([1., 2., 3.], [1., 2., 3.], decimals=3)
-    assert_almost_equal([1., 2., 3.], [1., 2.,], decimals=3)
+    assert_almost_equal([1., 2., 3.], [1., 2., ], decimals=3)
     #assert_almost_equal([1., 2., 4.], [1., 2., 3.], decimals=3)
 
     arr0 = np.array([1., 2., 3.])

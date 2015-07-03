@@ -1,13 +1,14 @@
 '''pytraj note: changed (a bit) from pandas.io.pickle module
 '''
 # pandas is distributed under a 3-clause ("Simplified" or "New") BSD
-# license. 
+# license.
 
 # Note: full license is in $PYTRAJHOME/license/externals/pandas.txt
 
 from __future__ import absolute_import
 from .six.moves import cPickle as pkl
 from .six import PY3
+
 
 def to_pickle(obj, path):
     """
@@ -63,7 +64,7 @@ def read_pickle(path):
             # compat pickle
             except:
                 raise NotImplementedError("don't know how to read")
-                #with open(path, 'rb') as fh:
+                # with open(path, 'rb') as fh:
                 #    return pc.load(fh, encoding=encoding, compat=True)
 
     try:

@@ -2,6 +2,7 @@ from pytraj.utils import _import_numpy
 
 has_np, np = _import_numpy()
 
+
 def map(comm, calc_method, traj_or_list, command, root=0, dtype='ndarray', *args, **kwd):
     """
 
@@ -32,11 +33,11 @@ def map(comm, calc_method, traj_or_list, command, root=0, dtype='ndarray', *args
         # split single traj into n_cores
         traj = traj_or_list
         chunk = traj.n_frames // size
-        
+
         if rank == size - 1:
-            fa_chunk = traj(start=rank*chunk)
+            fa_chunk = traj(start=rank * chunk)
         else:
-            fa_chunk = traj(start=rank*chunk, stop=(rank + 1) *chunk-1)
+            fa_chunk = traj(start=rank * chunk, stop=(rank + 1) * chunk - 1)
 
     dslist = calc_method(fa_chunk, command, dtype=dtype, *args, **kwd)
     total = comm.gather(dslist, root=root)

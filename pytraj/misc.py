@@ -4,18 +4,10 @@ randomizeions, strip atoms, ..."""
 from __future__ import print_function, absolute_import
 import os
 from glob import glob
-from pytraj.Topology import Topology
-from .TopologyList import TopologyList
-from .ArgList import ArgList
-from pytraj.Frame import Frame
-#from pytraj.Trajin_Single import Trajin_Single
 from pytraj.Trajectory import Trajectory
-from pytraj.actions import allactions
-from pytraj import adict, analdict
-from pytraj.DataSetList import DataSetList
-from pytraj._shared_methods import _frame_iter as frame_iter
 from pytraj._set_silent import set_world_silent
 from pytraj.compat import set
+from pytraj.tools import rmsd, rmsd_1darray
 
 # external
 from pytraj.externals.six import string_types
@@ -27,6 +19,7 @@ except ImportError:
 
 __all__ = ['to_amber_mask', 'from_legends_to_indices', 'info',
            'get_atts', 'merge_trajs']
+
 
 def to_amber_mask(txt, mode=None):
     import re
@@ -59,10 +52,11 @@ def to_amber_mask(txt, mode=None):
             raise NotImplementedError()
     elif mode == 'int_to_str':
         # need to add +1 since cpptraj's mask uses starting index of 1
-        my_long_str = ",".join(str(i+1) for i in txt)
+        my_long_str = ",".join(str(i + 1) for i in txt)
         return "@" + my_long_str
     else:
         raise NotImplementedError()
+
 
 def from_legends_to_indices(legends, top):
     """return somethine like "ASP_16@OD1-ARG_18@N-H" to list of indices
@@ -78,19 +72,21 @@ def from_legends_to_indices(legends, top):
         index_list.append(top(m).indices)
     return index_list
 
+
 def info(obj=None):
     """get `help` for obj
     Useful for Actions and Analyses
-    
+
     Since we use `set_worl_silent` to turn-off cpptraj' stdout, we need 
     to turn on to use cpptraj's help methods
     """
+    from pytraj import adict, analdict
     adict_keys = adict.keys()
     anal_keys = analdict.keys()
 
     if obj is None:
-        print ("action's keys", adict_keys)
-        print ("analysis' keys", anal_keys)
+        print("action's keys", adict_keys)
+        print("analysis' keys", anal_keys)
     else:
         if isinstance(obj, string_types):
             if obj in adict.keys():
@@ -119,39 +115,30 @@ def info(obj=None):
             adict[key].help()
             set_world_silent(True)
         elif hasattr(_obj, '__doc__'):
-            print (_obj.__doc_)
+            print(_obj.__doc_)
         else:
             raise ValueError("object does not have `help` method")
 
-def get_action_dict():
-    actdict = {}
-    for key in allactions.__dict__.keys():
-        if "Action_" in key:
-            act = key.split("Action_")[1]
-            # add Action classes
-            actdict[act] = allactions.__dict__["Action_" + act]
-    return actdict
-
-# add action_dict
-action_dict = get_action_dict()
 
 def show_code(func, get_txt=False):
     """show code of func or module"""
     import inspect
     txt = inspect.getsource(func)
     if not get_txt:
-        print (txt)
+        print(txt)
     else:
         return txt
+
 
 def get_atts(obj):
     """get methods and atts from obj but excluding special methods __"""
     atts_dict = dir(obj)
     return [a for a in atts_dict if not a.startswith("__")]
 
+
 def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     """
-    
+
     Examples
     --------
        # from two Trajectory or TrajectoryIterator
@@ -183,7 +170,7 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     if isinstance(traj2, (list, tuple)):
         n_frames_2 = n_frames
-        top2 = traj2[1] # example: (traj(0, 5), traj.top)
+        top2 = traj2[1]  # example: (traj(0, 5), traj.top)
         _traj2 = traj2[0]
     else:
         n_frames_2 = traj2.n_frames
@@ -192,9 +179,6 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     if n_frames_1 != n_frames_2:
         raise ValueError("must have the same n_frames")
-
-    if top1.n_atoms != top2.n_atoms:
-        raise ValueError("must have the same n_atoms")
 
     traj = Trajectory()
     traj._allocate(n_frames_1, top1.n_atoms + top2.n_atoms)
@@ -212,8 +196,10 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     return traj
 
+
 def find_libcpptraj(**kwd):
     return find_library('cpptraj', **kwd)
+
 
 def find_library(libname, unique=False):
     """return a list of all library files"""
@@ -224,7 +210,7 @@ def find_library(libname, unique=False):
     for path in paths:
         path = path.strip()
         fnamelist = glob(os.path.join(path, key))
-        for fname in fnamelist: 
+        for fname in fnamelist:
             if os.path.isfile(fname):
                 lib_path_list.append(fname)
 
@@ -235,3 +221,20 @@ def find_library(libname, unique=False):
             return set(lib_path_list)
         else:
             return lib_path_list
+
+
+def split_range(n_chunks, start, stop):
+    '''
+    >>> from pytraj.misc import split_range
+    >>> split_range(3, 0, 10)
+    [(0, 3), (3, 6), (6, 10)]
+    '''
+    list_of_tuple = []
+    chunksize = (stop - start) // n_chunks
+    for i in range(n_chunks):
+        if i < n_chunks - 1:
+            _stop = (i + 1) * chunksize
+        else:
+            _stop = stop
+        list_of_tuple.append((start + i * chunksize, _stop))
+    return list_of_tuple

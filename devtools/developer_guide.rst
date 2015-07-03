@@ -11,12 +11,15 @@ Try to read `numpy doc <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOC
 Python 2 and 3 compat
 ---------------------
 Use ``six.py`` to write your compat code. `six <http://pythonhosted.org/six/>`
+``pytraj`` have ``pytraj.compat`` module to have most commonly used methods (example: ``from pytraj.compat import zip``)
 
 Test your code
 --------------
 New method, new change must have testing code.
 
 Currently, all testing codes are in ``pytraj/tests/`` folder. We can use ``cp template_unittest.py test_new_method_name_example.py``. To run all tests, ``python ./run_all_and_find_fails.py``. To run tests having specific keywords ``python ./run_tests_with_keyword.py your_key_word``. Outputs from test scripts are saved to ``output.txt`` and error status is saved to ``log`` file.
+
+The script ``./run_all_and_find_fails.py`` only look for file starting with ``test_`` and having key word ``unittest``. Check ``tests/get_unittest_files.py`` for further detail.
 
 External codes
 --------------
@@ -35,6 +38,11 @@ cython
 It's recommended to use ``cython`` to write or wrap high performance code. Please don't use ``cimport numpy``, use memoryview instead.
 `memoryview <http://docs.cython.org/src/userguide/memoryviews.html>`.
 
-Read cpptraj developer guide
-----------------------------
+Since ``pytraj`` will be bundled with AmberTools in Amber, it's important that we should commit cythonized file too. The main idea is that user only need C++ compiler and ``cpptraj``, nothing else.
+
+Read Also
+---------
 `cpptraj-dev guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.lyx>`
+`pandas contributing guide <http://pandas.pydata.org/pandas-docs/stable/contributing.html>`
+
+

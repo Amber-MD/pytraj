@@ -4,8 +4,11 @@ from glob import glob
 lines = []
 testlist = glob("*.py")
 # remove ./run_all_and_find_fails.py to avoid infinite loops
-testlist.remove("run_all_and_find_fails.py")
-testlist.remove("get_py_files.py")
+remove_list = ['run_all_and_find_fails.py', 'get_py_files.py', 
+               'dihedral.py',]
+
+for key in remove_list:
+    testlist.remove(key)
 
 # turn off mpi test
 for fname in testlist:

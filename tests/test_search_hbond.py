@@ -10,14 +10,16 @@ from pytraj.testing import cpptraj_test_dir
 from pytraj.externals.six import iteritems as items
 from pytraj.compat import izip as zip
 
+
 class Test(unittest.TestCase):
     #@no_test
+
     def test_0(self):
         from pytraj.hbonds import search_hbonds, search_nointramol_hbonds
         traj = mdio.iterload("./data/DPDP.nc", "./data/DPDP.parm7")
-        print ('n_frames = %s' % traj.n_frames)
+        print('n_frames = %s' % traj.n_frames)
         dslist = search_hbonds(traj)
-        print (dslist.keys())
+        print(dslist.keys())
         for key in dslist.keys():
             if 'UU' not in key:
                 assert dslist[key].tolist().__len__() == traj.n_frames
@@ -32,35 +34,44 @@ class Test(unittest.TestCase):
             aa_eq(mydict[key], mydict_np[key])
 
         dslist_b = search_nointramol_hbonds(traj)
-        print (dslist_b.size, dslist_b.keys())
+        print(dslist_b.size, dslist_b.keys())
 
     def test_1(self):
-        print ("test get indices from legends")
+        print("test get indices from legends")
         import numpy as np
         from pytraj.hbonds import search_hbonds
         from pytraj.misc import from_legends_to_indices
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         import pytraj.common_actions as pyca
-        ds = pyca.search_hbonds(traj, dtype='dataset')
-        print (ds.size)
-        print (ds.to_dict())
-        d0 = ds.groupby("@")
+        ds = pyca.search_hbonds(traj, dtype='dataset', update_legend=False)
+        print(ds.size)
+        print(ds.to_dict())
+        d0 = ds.filter("@")
         legends = d0.keys()
-        print (legends)
+        print(legends)
         indices = np.asarray(from_legends_to_indices(legends, traj.top))
-        print (indices)
+        print(indices)
 
-        print (traj.n_frames)
+        print(traj.n_frames)
         shape = [traj.n_frames, indices.shape[0]]
         arr0 = np.empty(shape)
-        print (arr0.shape)
+        print(arr0.shape)
         for i, frame in enumerate(traj):
             arr0[i] = frame.calc_distance(indices)
 
         d = dict(zip(legends, zip(*arr0)))
-        print (d)
+        print(d)
         arr1 = pyca.calc_distance(traj, indices, n_frames=traj.n_frames)
         assert_almost_equal(arr0.flatten(), arr1.flatten())
+
+    def test_2(self):
+        # test memory error
+        traj = mdio.load("./data/Tc5b.crd", "./data/Tc5b.top")
+        dslist0 = traj.search_hbonds(update_legend=False)
+        expected_n_hbonds = 6
+        assert dslist0.filter("UU").values[0] == expected_n_hbonds
+        assert traj.search_hbonds(update_legend=False).filter(
+            "UU").values[0] == expected_n_hbonds
 
 if __name__ == "__main__":
     unittest.main()

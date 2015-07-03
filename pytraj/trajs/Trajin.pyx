@@ -4,29 +4,31 @@ import os
 cimport cython
 from cython.parallel cimport prange
 from cpython.array cimport array as pyarray
-from .._utils cimport get_positive_idx
 from ..Trajectory cimport Trajectory
 from ..AtomMask cimport AtomMask
 
+from .._cyutils import get_positive_idx
 from ..decorators import memoize # cache
 from ..externals.six import string_types
 from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _savetraj, _get_temperature_set
 from .._shared_methods import _box_to_ndarray
-from ..utils.check_and_assert import _import_numpy
+from ..utils.check_and_assert import _import_numpy, is_int
 from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
 from pytraj.externals.six.moves import range
 from .Trajout import Trajout
 
 
-cdef class Trajin (TrajectoryFile):
+cdef class Trajin:
 
     def __cinit__(self):
-        self.baseptr_1 = <_Trajin*> self.baseptr0
         self.debug = False
-        pass
+        self._top = Topology()
+
+        # let cpptraj free memory for self._top
+        self._top.py_free_mem = False
 
     def __dealloc__(self):
         pass
@@ -100,7 +102,7 @@ cdef class Trajin (TrajectoryFile):
                     yield frame
                 i += stride
 
-    def chunk_iter(self, int chunk=2, int start=0, int stop=-1, bint copy_top=False):
+    def chunk_iter(self, int chunksize=2, int start=0, int stop=-1, bint copy_top=False):
         """iterately get Frames with start, chunk
         returning Trajectory or Frame instance depend on `chunk` value
         Parameters
@@ -111,6 +113,7 @@ cdef class Trajin (TrajectoryFile):
         copy_top : bool, default=False
             if False: no Topology copy is done for new (chunk) Trajectory
         """
+        cdef int chunk = chunksize
         cdef int n_chunk, i, j, _stop
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms
@@ -189,8 +192,20 @@ cdef class Trajin (TrajectoryFile):
         cdef list tmplist
         cdef AtomMask atom_mask_obj
         cdef idxs_size
+
+        if is_int(idxs):
+            # assuming that `idxs` is integer
+            idx_1 = <int> get_positive_idx(idxs, self.size)
+            # raise index out of range
+            if idxs != 0 and idx_1 == 0:
+                raise ValueError("index is out of range")
+
+            with self:
+                self._read_traj_frame(idx_1, frame)
+            self.tmpfarray = frame
+            return self.tmpfarray
     
-        if isinstance(idxs, AtomMask):
+        elif isinstance(idxs, AtomMask):
             atom_mask_obj = <AtomMask> idxs
             _farray = Trajectory()
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
@@ -274,18 +289,9 @@ cdef class Trajin (TrajectoryFile):
                 # need to use `farray` so Cython knows its type
                 self.tmpfarray = farray
                 return self.tmpfarray
-
             else:
-                # assuming that `idxs` is integer
-                idx_1 = <int> get_positive_idx(idxs, self.size)
-                # raise index out of range
-                if idxs != 0 and idx_1 == 0:
-                    raise ValueError("index is out of range")
+                raise NotImplementedError()
 
-                with self:
-                    self._read_traj_frame(idx_1, frame)
-                self.tmpfarray = frame
-                return self.tmpfarray
         else:
             # idxs is slice
             farray = Trajectory()
@@ -446,8 +452,8 @@ cdef class Trajin (TrajectoryFile):
         # TODO : add checking frame.n_atoms == self.top.n_atoms?
         return self.baseptr_1.ReadTrajFrame(currentFrame, frameIn.thisptr[0])
 
-    def save(self, filename="", fmt='unknown', overwrite=True, *args, **kwd):
-        _savetraj(self, filename, fmt, overwrite, *args, **kwd)
+    def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
+        _savetraj(self, filename, format, overwrite, *args, **kwd)
 
     def write(self, *args, **kwd):
         self.save(*args, **kwd)
@@ -515,6 +521,28 @@ cdef class Trajin (TrajectoryFile):
     def box_to_ndarray(self):
         return _box_to_ndarray(self)
 
-    def to_mutable_traj(self):
+    def to_mutable_trajectory(self):
         """same as self[:] but more explicit"""
         return self[:]
+
+    @property
+    def filename(self):
+        cdef FileName fname = FileName()
+        fname.thisptr[0] = self.baseptr_1.TrajFilename()
+        return fname.__str__()
+
+    property top:
+        def __get__(self):
+            if not self._top.is_empty():
+                self._top.thisptr = self.baseptr_1.TrajParm()
+            return self._top
+
+        def __set__(self, Topology other):
+            # make a copy
+            cdef Topology newtop = other.copy()
+            # since we will pass a pointer to SetTrajParm method,
+            # we let cpptraj frees memory
+            newtop.py_free_mem = False
+
+            self.baseptr_1.SetTrajParm(newtop.thisptr)
+            self._top.thisptr = self.baseptr_1.TrajParm()

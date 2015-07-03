@@ -5,11 +5,13 @@ from pytraj import io as io
 from pytraj.utils import aa_eq
 from pytraj.decorators import test_if_having
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("h5py")
     def test_0(self):
         traj = io.load_hdf5("./data/ala2.h5")
-        print (traj)
+        print(traj)
         assert traj.top.has_box() == False
 
     @test_if_having("h5py")
@@ -19,16 +21,16 @@ class Test(unittest.TestCase):
         from mdtraj.testing import get_fn
         fn = get_fn("frame0.h5")
         m_traj = md.load(fn)
-        print (m_traj)
+        print(m_traj)
         traj = io.load_hdf5(fn)
         traj2 = io.load_hdf5(fn, autoconvert=False)
-        print (traj)
+        print(traj)
         assert traj.top.has_box() == True
         assert traj2.top.has_box() == True
 
         aa_eq(traj.xyz, m_traj.xyz * 10)
         aa_eq(traj2.xyz, m_traj.xyz)
-        print (traj.top.box, traj2.top.box)
+        print(traj.top.box, traj2.top.box)
         save_list10 = [10.0, 10.0, 10.0, 90.0, 90.0, 90.0]
         save_list = [1.0, 1.0, 1.0, 90.0, 90.0, 90.0]
         blist = traj.top.box.tolist()
@@ -85,7 +87,7 @@ class Test(unittest.TestCase):
         t_xyz = timeit(assign_xyz, number=10)
         t_api = timeit(use_api, number=10)
 
-        print (t_mdtraj, t_pytraj, t_convert, t_alloc, t_xyz, t_api)
+        print(t_mdtraj, t_pytraj, t_convert, t_alloc, t_xyz, t_api)
 
     @test_if_having("h5py")
     def test_2(self):

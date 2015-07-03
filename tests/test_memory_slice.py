@@ -4,13 +4,15 @@ from pytraj import Frame
 from pytraj.compat import range
 # require`pip install memory_profiler`
 
+
 @profile
 def main():
     import pytraj.common_actions as pyca
     from pytraj import Trajectory
-    print ("create TrajectoryIterator")
-    traj = mdio.iterload("./data/nogit/tip3p/md.trj", "./data/nogit/tip3p/tc5bwat.top")
-    print ("create mutable Trajectory in memory")
+    print("create TrajectoryIterator")
+    traj = mdio.iterload(
+        "./data/nogit/tip3p/md.trj", "./data/nogit/tip3p/tc5bwat.top")
+    print("create mutable Trajectory in memory")
     # try to slice
     fa = traj[:100]
     traj[:100]
@@ -48,8 +50,8 @@ def main():
 
     # try to create frames
     Frame(fa.n_atoms)
-    Frame(2*fa.n_atoms)
-    Frame(4*fa.n_atoms)
+    Frame(2 * fa.n_atoms)
+    Frame(4 * fa.n_atoms)
 
     # try to create empty Trajectory
     fa1 = Trajectory()
@@ -61,8 +63,9 @@ def main():
     fa3[0] = traj[0]
     fa3.top = traj.top
     fa3[0].xyz
-    #fa3.xyz # FIXME: segfault (because you have not created other frames yet)
-    print (fa3[0, 0])
+    # fa3.xyz # FIXME: DON'T NEED, segfault (because you have not created
+    # other frames yet)
+    print(fa3[0, 0])
 
     # try to append new frames
     for _ in range(100):
@@ -93,7 +96,7 @@ def main():
         f
 
     # try to _allocate memory
-    fa1._allocate(traj.n_frames/10, traj.n_atoms)
+    fa1._allocate(traj.n_frames / 10, traj.n_atoms)
 
 if __name__ == "__main__":
     main()

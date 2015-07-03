@@ -4,7 +4,7 @@ import numpy as np
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.Frame import Frame
 from pytraj.base import *
-from pytraj import Vec3
+from pytraj.math import Vec3
 from pytraj import io as mdio
 from pytraj.decorators import no_test
 from rmsd import rmsd as arr_rmsd
@@ -17,11 +17,14 @@ arr = np.arange(3 * N_ATOMS)
 FRAME.set_from_crd(arr)
 FRAME_orig = FRAME.copy()
 
+
 class TestFrame(unittest.TestCase):
     #@no_test
+
     def test_fit(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajnew = mdio.iterload("./data/md1_prod.fit_to_first.Tc5b.x", "./data/Tc5b.top")
+        trajnew = mdio.iterload(
+            "./data/md1_prod.fit_to_first.Tc5b.x", "./data/Tc5b.top")
 
         # make sure 0-th frame does not change
         frame0 = traj[0]
@@ -44,7 +47,8 @@ class TestFrame(unittest.TestCase):
         #frame1.trans_rot_trans(v1, mat, Vec3(0, 0, 0))
         #assert frame1[:10] == frame1new[:10]
         print(frame1.rmsd_nofit(frame1new))
-        print(arr_rmsd(np.asarray(frame1.coords), np.asarray(frame1new.coords)))
+        print(
+            arr_rmsd(np.asarray(frame1.coords), np.asarray(frame1new.coords)))
         print(frame1.rmsd(frame1new))
         assert frame1.rmsd(frame1new) < 1E-3
         assert frame1new.rmsd(frame1, top=trajnew.top, mask="@CA") < 1E-3
@@ -69,10 +73,12 @@ class TestFrame(unittest.TestCase):
         _, mat, v1, v2 = frame2.rmsd(frame3, get_mvv=True)
         print(mat, v1, v2)
         print(frame2[:10])
-        print(mdio.write_traj("./output/test_0_before.pdb", traj=frame2, top=traj.top, overwrite=True))
+        print(mdio.write_traj(
+            "./output/test_0_before.pdb", traj=frame2, top=traj.top, overwrite=True))
         frame2.trans_rot_trans(v1, mat, v2)
         print(frame2[:10])
-        print(mdio.write_traj("./output/test_0_afeter.pdb", traj=frame2, top=traj.top, overwrite=True))
+        print(mdio.write_traj(
+            "./output/test_0_afeter.pdb", traj=frame2, top=traj.top, overwrite=True))
         print(Trajout().help())
 
     #@no_test
@@ -89,13 +95,13 @@ class TestFrame(unittest.TestCase):
         assert arr0.shape == (100, 3)
         assert frame.buffer2d.shape == (100, 3)
         assert frame[0, 1] == arr0[0, 1]
-        ##frame[:], np.arange(300, 0, -1).reshape(100, 3))
+        # frame[:], np.arange(300, 0, -1).reshape(100, 3))
         #assert frame.coords == array('d', range(300, 0, -1))
 
         #frame[:] = np.arange(300, dtype='d')
         #assert frame.coords == array('d', [x for x in range(300)])
         #assert frame[:] == frame.coords
-  
+
     #@no_test
     def test_buffer1d(self):
         print("+++++start test_buffer1d+++++++")
@@ -115,7 +121,7 @@ class TestFrame(unittest.TestCase):
         assert FRAME.coords[:3] == array('d', [1, 2.3, 3.4])
 
         print("test slices")
-        print(FRAME[0:10:2]) 
+        print(FRAME[0:10:2])
 
         arr0 = np.asarray(FRAME.buffer1d)
         print(arr0.__len__())
@@ -130,7 +136,7 @@ class TestFrame(unittest.TestCase):
         start = 0
         stop = 10
         strip = 2
-        arr = np.asarray(FRAME[start:stop:strip]) 
+        arr = np.asarray(FRAME[start:stop:strip])
 
         # does not work, got "ValueError: ndarray is not contiguous"
         #FRAME[start:stop:strip] = arr_tmp[start:stop:strip]
@@ -146,18 +152,18 @@ class TestFrame(unittest.TestCase):
         frame.set_from_crd(arr)
         print(frame.coords)
 
-        #print "test negative indexing"
+        # print "test negative indexing"
         print(frame[-1])
         #assert frame[-1] == 29.
         print(frame[-2])
-        assert_almost_equal (frame[-2], frame[N_ATOMS - 2])
+        assert_almost_equal(frame[-2], frame[N_ATOMS - 2])
         print(np.asarray(frame[-2]))
         print(arr.reshape(N_ATOMS, 3)[-2])
         assert_almost_equal(frame[-2], arr.reshape(N_ATOMS, 3)[-2])
 
         frame[-1] = [100., 0, 0]
         assert frame[-1, 0] == 100.
-        #print frame[-1]
+        # print frame[-1]
 
         #frame[-2] = 101.
         #assert frame[-2] == frame[N_ATOMS*3 - 2] == 101.
@@ -171,7 +177,8 @@ class TestFrame(unittest.TestCase):
         print("print FRAME")
         print(FRAME)
 
-        farray = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(1,))
+        farray = Trajectory(
+            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(1,))
         frame0 = farray[0]
         print(frame0)
         atm = AtomMask("@CA")
@@ -188,7 +195,8 @@ class TestFrame(unittest.TestCase):
     def test_rmsd_return_mat_vec_vec(self):
         # TODO : add assert
         print("test_rmsd_return_mat_vec_vec")
-        farray = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0,1))
+        farray = Trajectory(
+            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0, 1))
         frame0 = farray[0]
         rmsd, mat, v1, v2 = frame0.rmsd(farray[1], get_mvv=True)
         print(rmsd,  mat, v1, v2)
@@ -208,13 +216,13 @@ class TestFrame(unittest.TestCase):
         # create frame instance with 10 atoms
         frame = Frame(N_ATOMS)
         frameref = Frame(N_ATOMS)
-        
+
         arr = np.random.rand(N_ATOMS * 3)
         arr_reshape = arr.reshape(N_ATOMS, 3)
         frame.set_from_crd(arr, 30, 0, False)
         assert frame.n_atoms == N_ATOMS
-        assert frame.size == N_ATOMS*3
-        
+        assert frame.size == N_ATOMS * 3
+
         print(frame.atoms(0))
         print(arr_reshape[0])
         assert_almost_equal(np.array(frame.atoms(0)), arr_reshape[0])
@@ -222,7 +230,7 @@ class TestFrame(unittest.TestCase):
 
         # frame.info('frame info')
         frame.swap_atoms(1, 8)
-        
+
         print("after swapping 1 - 8")
 
         print("update coords_copy for atom 1")
@@ -232,7 +240,7 @@ class TestFrame(unittest.TestCase):
         print("assign frame[3] to 1000000.")
         frame[3] = 1000000.
         print(frame.atoms(1))
-        
+
         print("deviding Frame")
         frame.divide(2.)
 
@@ -251,7 +259,7 @@ class TestFrame(unittest.TestCase):
         print(i)
         assert i == N_ATOMS - 1
         print(x)
-        assert_almost_equal (x, old_i)
+        assert_almost_equal(x, old_i)
         assert frame[9][0] == 1010.
 
         print("set zero_coords_copy")
@@ -260,15 +268,16 @@ class TestFrame(unittest.TestCase):
         frame[0] = 1001.10
         assert frame[0, 0] == frame.coords[0]
         print(frame[0])
-        
+
         arrref = np.random.rand(30)
         frameref.set_from_crd(arr, 30, 0, False)
 
-        frame.update_atoms(array('i', [0, 3]), array('d', [0., 0., 0.1, 1.1, 2.3, 3.]))
+        frame.update_atoms(
+            array('i', [0, 3]), array('d', [0., 0., 0.1, 1.1, 2.3, 3.]))
         print(type(frame.atoms(0)))
         print(frame.atoms(0))
         assert frame.atoms(0) == array('d', [0., 0., 0.1])
-        assert frame.atoms(3) ==  array('d', [1.1, 2.3, 3.])
+        assert frame.atoms(3) == array('d', [1.1, 2.3, 3.])
 
     def test_iter(self):
         print("test iteration")
@@ -289,7 +298,8 @@ class TestFrame(unittest.TestCase):
         print("====================end test_iter")
 
     def test_tranlate(self):
-        farray = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0,1))
+        farray = Trajectory(
+            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0, 1))
         f0 = farray[0]
         f1 = f0.copy()
         f2 = f0.copy()
@@ -300,7 +310,7 @@ class TestFrame(unittest.TestCase):
         assert vec3.tolist() == mylist
         f0.translate(vec3)
         f1.translate(mylist)
-        print ("to_ndarray", vec3.to_ndarray())
+        print("to_ndarray", vec3.to_ndarray())
         f2.translate(vec3.to_ndarray())
         assert_almost_equal(f0.coords, f1.coords)
         assert_almost_equal(f0.coords, f2.coords)

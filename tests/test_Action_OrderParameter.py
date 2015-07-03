@@ -4,15 +4,18 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.datasets.DataSetList import DataSetList
+
 
 class TestOrderParameter(unittest.TestCase):
+
     def test_0(self):
         # TODO : add assert
         # results seem wrong
-        print ("test")
+        print("test")
         traj = mdio.iterload('./data/DOPC.rst7', './data/DOPC.parm7')
 
-        command='''lipiorder out ./output/sn2_dir.dat z scd
+        command = '''lipiorder out ./output/sn2_dir.dat z scd
         :OL2@C12 :OL2@H2R :OL2@H2S :OL2@C13 :OL2@H3R :OL2@H3S \
         :OL2@C14 :OL2@H4R :OL2@H4S :OL2@C15 :OL2@H5R :OL2@H5S \
         :OL2@C16 :OL2@H6R :OL2@H6S :OL2@C17 :OL2@H7R :OL2@H7S \
@@ -27,9 +30,9 @@ class TestOrderParameter(unittest.TestCase):
         act = adict['orderparameter']
         dslist = DataSetList()
         act(command, traj, dslist=dslist)
-        print ("print out dslist")
-        print (dslist.get_legends())
-        print (dslist.size)
+        print("print out dslist")
+        print(dslist.get_legends())
+        print(dslist.size)
 
 if __name__ == '__main__':
     unittest.main()

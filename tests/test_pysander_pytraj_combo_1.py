@@ -4,17 +4,20 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.decorators import test_if_having 
+from pytraj.decorators import test_if_having
 
 try:
     import sander
-    from chemistry.amber.readparm import AmberParm
+    from parmed.amber.readparm import AmberParm
     has_sander_and_parmed = True
 except:
     has_sander_and_parmed = False
 
+
 class Test(unittest.TestCase):
-    @test_if_having("pandas")
+
+    @test_if_having("sander")
+    @test_if_having("parmed")
     def test_0(self):
         if has_sander_and_parmed:
             from pytraj.misc import get_atts
@@ -31,7 +34,7 @@ class Test(unittest.TestCase):
             with sander.setup(parm, parm.coords, None, inp):
                 for frame in traj:
                     sander.set_positions(frame.coords)
-                    #sander.set_positions(frame.buffer1d)
+                    # sander.set_positions(frame.buffer1d)
                     ene, frc = sander.energy_forces()
                     ene_atts = get_atts(ene)
                     for att in ene_atts:
@@ -43,17 +46,17 @@ class Test(unittest.TestCase):
             dslist = DataSetList()
             act = adict['energy']
             act("", traj, dslist=dslist)
-            print (dslist['ENE_00000[bond]'][:])
+            print(dslist['ENE_00000[bond]'][:])
 
             # to DataFrame
-            import pandas as pd
-            from pytraj.dataframe import to_dataframe
-            dframe = to_dataframe(dslist)
-            print (dframe)
-            print (pd.DataFrame(ddict))
+            try:
+                import pandas as pd
+                print(dslist.to_dataframe())
+            except ImportError:
+                print("does not have pandas. skip")
 
         else:
-            print ("require both sander and parmed. Skip test")
+            print("require both sander and parmed. Skip test")
 
 
 if __name__ == "__main__":

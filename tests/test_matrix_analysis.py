@@ -26,10 +26,12 @@ matrix distcovar :1-4@CA out mtest.13.dat
 """
 
 # return a list of non-blank lines
-command_list = list(filter(lambda x : x, cpptraj_trajin.split("\n")))
-print (command_list)
+command_list = list(filter(lambda x: x, cpptraj_trajin.split("\n")))
+print(command_list)
+
 
 class Test(unittest.TestCase):
+
     @test_if_path_exists(cpptraj_test_dir)
     def test_0(self):
         import numpy as np
@@ -47,7 +49,7 @@ class Test(unittest.TestCase):
         for line in command_list:
             arg = ArgList(line)
             # get function
-            act_key = arg.get_string_key (b"matrix")
+            act_key = arg.get_string_key(b"matrix")
             slist = arg.get_string_key(b'out').split(".")
             mask = arg.get_mask_next()
             fname = ".".join((slist[0], slist[-1], slist[1]))
@@ -57,9 +59,9 @@ class Test(unittest.TestCase):
             func = ma.__dict__[new_dict[act_key]]
             # get command
             command = line.split(act_key)[1]
-            print (line)
-            print ("command = %s, func = %s" % (command, func))
-            print ("saved file dir = '%s'" % saved_file_name)
+            print(line)
+            print("command = %s, func = %s" % (command, func))
+            print("saved file dir = '%s'" % saved_file_name)
             mat_out = func(traj, command, dtype='ndarray')
 
             if 'byres' in command:
@@ -69,7 +71,7 @@ class Test(unittest.TestCase):
             if 'bymask' in command:
                 aa_eq(np.mean(mat_out.flatten()), saved_mat, decimal=2)
             else:
-                aa_eq(mat_out.flatten(),  saved_mat.flatten()) 
+                aa_eq(mat_out.flatten(),  saved_mat.flatten())
 
 if __name__ == "__main__":
     unittest.main()

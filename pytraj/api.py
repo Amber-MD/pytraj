@@ -2,22 +2,23 @@ from __future__ import absolute_import
 from .utils import _import_numpy
 from .core import Box
 from .Frame import Frame
-from .Topology import Topology
-from ._action_in_traj import ActionInTraj
+from ._action_in_traj import ActionTrajectory
 from ._shared_methods import _frame_iter, _frame_iter_master
-from .trajs.Trajin_Single import Trajin_Single
-from  .utils.check_and_assert import is_int, is_frame_iter
+from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
+from .utils.check_and_assert import is_int, is_frame_iter
 from .externals.six import string_types
 from .externals.six.moves import range
 from .AtomMask import AtomMask
-from ._get_common_objects  import _get_top # need to move this method to more correct module
+# need to move this method to more correct module
+from ._get_common_objects import _get_top
 
 _, np = _import_numpy()
 
 __all__ = ['Trajectory']
 
-# TODO : more checking.
-class Trajectory(ActionInTraj):
+
+class Trajectory(ActionTrajectory):
+
     def __init__(self, filename_or_traj=None, top=None):
         self.top = _get_top(filename_or_traj, top)
         self.xyz = None
@@ -32,14 +33,15 @@ class Trajectory(ActionInTraj):
         elif isinstance(filename_or_traj, string_types):
             self.load(filename_or_traj)
         else:
-            raise NotImplementedError("need to have filename or 3D array or Trajectory-like object")
+            raise NotImplementedError(
+                "need to have filename or 3D array or Trajectory-like object")
         if hasattr(filename_or_traj, 'box_to_ndarray'):
             self._boxes = filename_or_traj.box_to_ndarray()
 
     def __str__(self):
         clsname = self.__class__.__name__
-        txt = "%s with %s frames, %s atoms" % (clsname, self.n_frames, 
-                                               self.n_atoms) 
+        txt = "%s with %s frames, %s atoms" % (clsname, self.n_frames,
+                                               self.n_atoms)
         return txt
 
     def __repr__(self):
@@ -145,7 +147,7 @@ class Trajectory(ActionInTraj):
             barr = other.box.to_ndarray().reshape((1, 6))
             if self.xyz is None:
                 self.xyz = arr0.copy()
-                self._boxes = barr 
+                self._boxes = barr
             else:
                 self.xyz = np.vstack((self.xyz, arr0))
                 self._boxes = np.vstack((self._boxes, barr))
@@ -181,7 +183,9 @@ class Trajectory(ActionInTraj):
         return _frame_iter(self, start, stop, stride, mask)
 
     def load(self, filename=''):
-        ts = Trajin_Single(filename, self.top)
+        ts = TrajectoryCpptraj()
+        ts.top = self.top
+        ts.load(filename, top=ts.top)
         self.append(ts.xyz[:])
         self._boxes = ts.box_to_ndarray()
 
@@ -194,7 +198,7 @@ class Trajectory(ActionInTraj):
     def autoimage(self):
         import pytraj.common_actions as pyca
         if not self.has_box():
-            print ("there is no box, skip")
+            print("there is no box, skip")
         else:
             for idx, frame in enumerate(self):
                 pyca.autoimage(frame, top=self.top)

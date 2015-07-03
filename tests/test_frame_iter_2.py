@@ -4,6 +4,7 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 
+
 class Test(unittest.TestCase):
 
     def test_1(self):
@@ -14,7 +15,7 @@ class Test(unittest.TestCase):
         act2.process(traj.top)
         act2.do_action(traj.chunk_iter())
         assert act2.n_frames == 10
-        print (dslist[0][:])
+        print(dslist[0][:])
 
 if __name__ == "__main__":
-   unittest.main()
+    unittest.main()

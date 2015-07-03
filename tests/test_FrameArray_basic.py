@@ -8,13 +8,15 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
-        print (fa)
+        print(fa)
         for frame in fa:
-            print (frame)
+            print(frame)
 
 if __name__ == "__main__":
     unittest.main()

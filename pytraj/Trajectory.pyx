@@ -8,35 +8,34 @@ from cython.parallel cimport prange, parallel
 from libc.string cimport memcpy
 from .Topology cimport Topology
 from .AtomMask cimport AtomMask
-from ._utils cimport get_positive_idx
-from .TrajinList cimport TrajinList
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
-from .actions.Action_Rmsd cimport Action_Rmsd
 from .math.Matrix_3x3 cimport Matrix_3x3
 from .cpp_algorithm cimport iter_swap
 
 # python level
+from ._cyutils import get_positive_idx, _int_array1d_like_to_memview
 from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types, PY2
 from .externals._load_pseudo_parm import load_pseudo_parm
 from .TrajectoryIterator import TrajectoryIterator
-from .utils.check_and_assert import _import_numpy, is_int, is_frame_iter
-from .utils.check_and_assert import file_exist, is_mdtraj, is_pytraj_trajectory
-from .utils.check_and_assert import is_word_in_class_name
-from .utils.check_and_assert import is_array, is_range
+from .utils.check_and_assert import (_import_numpy, is_int, is_frame_iter,
+                                     file_exist, is_mdtraj, is_pytraj_trajectory,
+                                     is_word_in_class_name,
+                                     is_array, is_range)
 from .trajs.Trajout import Trajout
 from ._get_common_objects import _get_top, _get_data_from_dtype
-from ._shared_methods import _savetraj, _get_temperature_set
-from ._shared_methods import _xyz, _tolist
-from ._utils import _int_array1d_like_to_memview
-from ._shared_methods import my_str_method
-from ._shared_methods import _box_to_ndarray
+from ._shared_methods import (_savetraj, _get_temperature_set,
+                              _xyz, _tolist, _split_and_write_traj)
+from ._shared_methods import my_str_method, _box_to_ndarray
 from ._xyz import XYZ
 
-import pytraj.common_actions as pyca
-from pytraj.hbonds import search_hbonds
+from . import common_actions as pyca
+from .hbonds import search_hbonds
+
+__all__ = ['Trajectory']
+
 
 cdef class Trajectory (object):
     def __cinit__(self, filename=None, top=None, indices=None, 
@@ -52,9 +51,9 @@ cdef class Trajectory (object):
         indices : array-like, frames to take, default=None
         warning : bool, default=False
             for debuging
-        n_frames : int, default=None
+        n_frames : int, optional, default=None
             preallocate n_frames
-        check_top : bool, default=True, don't check Topology
+        check_top : bool, optional, default=True, don't check Topology
 
         Examples
         --------
@@ -143,7 +142,6 @@ cdef class Trajectory (object):
         # should we add hdf5 format here?
         #cdef Trajin_Single ts
         cdef int idx
-        cdef TrajinList tlist
         cdef Frame frame
         cdef Trajin trajin
 
@@ -207,16 +205,6 @@ cdef class Trajectory (object):
                     self.append_xyz(_xyz)
                 except:
                     raise ValueError("must be a list/tuple of either filenames/Traj/numbers")
-        elif isinstance(filename, TrajinList):
-            # load from TrajinList
-            if indices is not None:
-                if self.warning:
-                    print ("Loading from TrajinList. Ignore `indices`")
-            tlist = <TrajinList> filename
-            for trajin in tlist:
-                trajin.top = tlist.top
-                for frame in trajin:
-                    self.append(frame)
         elif hasattr(filename, 'n_frames') and not is_mdtraj(filename):
             # load from Traj-like object
             # make temp traj to remind about traj-like
@@ -366,9 +354,14 @@ cdef class Trajectory (object):
         else:
             raise NotImplementedError("must have numpy")
 
-    def update_xyz(self, double[:, :, :] xyz):
+    @property
+    def coordinates(self):
+        """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
+        """
+        return self.xyz
+
+    def update_coordinates(self, double[:, :, :] xyz):
         '''update coords from 3D xyz array, dtype=f8'''
-        # NOTE: tried openmp for this but no speed gain (much)
         cdef int idx, n_frames
         cdef double* ptr_src
         cdef double* ptr_dest
@@ -382,6 +375,9 @@ cdef class Trajectory (object):
             ptr_dest = self.frame_v[idx].xAddress()
             ptr_src = &(xyz[idx, 0, 0])
             memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
+    def update_xyz(self, double[:, :, :] xyz):
+        self.update_coordinates(xyz)
 
     def tolist(self):
         return _tolist(self)
@@ -431,10 +427,6 @@ cdef class Trajectory (object):
                 _frame = Frame(frame, atom_mask_obj) # 1st copy
                 _frame.py_free_mem = False #
                 _farray.append(_frame, copy=False) # 2nd copy if using `copy=True`
-            #self.tmpfarray = _farray # why need this?
-            # hold _farray in self.tmpfarray to avoid memory lost
-            # traj[AtomMask, :, 0]
-            #return self.tmpfarray
             return _farray
 
         elif isinstance(idxs, string_types):
@@ -456,99 +448,7 @@ cdef class Trajectory (object):
                     txt = "not supported keyword `%s` or there's proble with your topology" % idxs
                     raise NotImplementedError(txt)
 
-        elif not isinstance(idxs, slice):
-            if idxs == ():
-                # empty tuple
-                return self
-            if isinstance(idxs, tuple):
-                idxs_size = len(idxs)
-                idx1 = idxs[1]
-                if idxs_size > 3:
-                    raise NotImplementedError("support indexing up to 3 elements")
-                idx0 = idxs[0]
-
-                all_are_slice_instances = True
-                for tmp in idxs:
-                    if not isinstance(tmp, slice): all_are_slice_instances = False
-
-                has_numpy, _np = _import_numpy()
-                # got Segmentation fault if using "is_instance3 and not has_numpy"
-                # TODO : Why?
-                #if is_instance3 and not has_numpy:
-                # TODO : make memoryview for traj[:, :, :]
-                if all_are_slice_instances:
-                    # return 3D array or list of 2D arrays?
-                    # traj[:, :, :]
-                    # traj[1:2, :, :]
-                    tmplist = []
-                    for frame in self[idxs[0]]:
-                        tmplist.append(frame[idxs[1:]])
-                    if has_numpy:
-                        # test memoryview, does not work yet.
-                        # don't delete those line to remind we DID work on this
-                        #arr3d = _np.empty(shape=_np.asarray(tmplist).shape)
-                        #for i, frame in enumerate(self[idxs[0]]):
-                        #    for j, f0 in enumerate(frame[idxs[1]]):
-                        #        arr3d[i][j] = f0[:]
-                        #return arr3d
-
-                        return _np.asarray(tmplist)
-                    else:
-                        return tmplist
-
-                elif isinstance(self[idx0], Frame):
-                    frame = self[idx0]
-                    frame.py_free_mem = False
-                    if isinstance(idx1, string_types):
-                        # traj[0, '@CA']
-                        frame.set_top(self.top)
-                    # TODO: need to check memory
-                    if idxs_size == 2:
-                        return frame[idxs[1]]
-                    else:
-                        return frame[idxs[1]][idxs[2:]]
-                elif isinstance(self[idx0], Trajectory):
-                    farray = self[idx0]
-                    # place holder to avoid memory free
-                    # atm = traj.top("@CA")
-                    # traj[0, atm]
-                    #if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
-                    #    if idxs_size == 2:
-                    #        return farray[idxs[1]]
-                    #    else:
-                    #        return farray[idxs[1]][idxs[2]]
-                    #else:
-                    #    try:
-                    #        return farray[idxs[1:]]
-                    #    except:
-                    #        raise NotImplementedError("")
-                    if idxs_size == 2:
-                        return farray[idxs[1]]
-                    else:
-                        return farray[idxs[1]][idxs[2]]
-
-            elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                _farray = Trajectory(check_top=False)
-                _farray.top = self.top # just make a view, don't need to copy Topology
-                for i in idxs:
-                    frame.thisptr = self.frame_v[i] # point to i-th item
-                    frame.py_free_mem = False # don't free mem
-                    _farray.frame_v.push_back(frame.thisptr) # just copy pointer
-                return _farray
-            else:
-                idx_1 = get_positive_idx(idxs, self.size)
-                # raise index out of range
-                if idxs != 0 and idx_1 == 0:
-                    # need to check if array has only 1 element. 
-                    # arr[0] is  arr[-1]
-                    if idxs != -1:
-                        raise ValueError("index is out of range")
-                #print ("get memoryview")
-                #frame.thisptr = &(self.frame_v[idx_1])
-                frame.py_free_mem = False
-                frame.thisptr = self.frame_v[idx_1]
-                return frame
-        else:
+        elif isinstance(idxs, slice):
             # is slice
             # creat a subset array of `Trajectory`
             #farray = Trajectory()
@@ -599,6 +499,76 @@ cdef class Trajectory (object):
             #    return self.tmpfarray[0]
             #return self.tmpfarray
             return farray
+
+        else:
+            # not slice
+            if idxs == ():
+                # empty tuple
+                return self
+            if isinstance(idxs, tuple):
+                idxs_size = len(idxs)
+                idx1 = idxs[1]
+                if idxs_size > 3:
+                    raise NotImplementedError("support indexing up to 3 elements")
+                idx0 = idxs[0]
+
+                if isinstance(self[idx0], Frame):
+                    frame = self[idx0]
+                    frame.py_free_mem = False
+                    if isinstance(idx1, string_types):
+                        # traj[0, '@CA']
+                        frame.set_top(self.top)
+                    # TODO: need to check memory
+                    if idxs_size == 2:
+                        return frame[idxs[1]]
+                    else:
+                        return frame[idxs[1]][idxs[2:]]
+
+                elif isinstance(self[idx0], Trajectory):
+                    farray = self[idx0]
+                    # place holder to avoid memory free
+                    # atm = traj.top("@CA")
+                    # traj[0, atm]
+                    #if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
+                    #    if idxs_size == 2:
+                    #        return farray[idxs[1]]
+                    #    else:
+                    #        return farray[idxs[1]][idxs[2]]
+                    #else:
+                    #    try:
+                    #        return farray[idxs[1:]]
+                    #    except:
+                    #        raise NotImplementedError("")
+                    if idxs_size == 2:
+                        return farray[idxs[1]]
+                    else:
+                        return farray[idxs[1]][idxs[2]]
+
+            elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
+                _farray = Trajectory(check_top=False)
+                _farray.top = self.top # just make a view, don't need to copy Topology
+                # check if there are bool index
+                if hasattr(idxs, '__getitem__'):
+                    if isinstance(idxs[0], bool):
+                        raise NotImplementedError("don't support bool indexing")
+                for i in idxs:
+                    frame.thisptr = self.frame_v[i] # point to i-th item
+                    frame.py_free_mem = False # don't free mem
+                    _farray.frame_v.push_back(frame.thisptr) # just copy pointer
+                return _farray
+            else:
+                idx_1 = get_positive_idx(idxs, self.size)
+                # raise index out of range
+                if idxs != 0 and idx_1 == 0:
+                    # need to check if array has only 1 element. 
+                    # arr[0] is  arr[-1]
+                    if idxs != -1:
+                        raise ValueError("index is out of range")
+                #print ("get memoryview")
+                #frame.thisptr = &(self.frame_v[idx_1])
+                frame.py_free_mem = False
+                frame.thisptr = self.frame_v[idx_1]
+                return frame
 
     def _fast_slice(self, my_slice):
         """only positive indexing
@@ -723,7 +693,34 @@ cdef class Trajectory (object):
         # we don't do anythin here. Just create the same API for TrajectoryIterator
         pass
 
-    def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
+    def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False, rmsfit=None):
+        # TODO: combined with TrajectoryIterator
+        from pytraj.core.frameiter import FrameIter
+
+        if mask is None:
+            _top = self.top
+        else:
+            _top = self.top._get_new_from_mask(mask)
+
+        if rmsfit is not None:
+            if len(rmsfit) != 2:
+                raise ValueError("rmsfit must be a tuple of two elements (frame, mask)")
+            if is_int(rmsfit[0]):
+                index = rmsfit[0]
+                rmsfit = tuple([self[index], rmsfit[1]])
+
+        frame_iter_super = self._frame_iter(start=start, stop=stop, stride=stride)
+        return FrameIter(frame_iter_super,
+                         original_top=self.top,
+                         new_top=_top,
+                         start=start,
+                         stop=stop,
+                         stride=stride,
+                         mask=mask,
+                         autoimage=autoimage,
+                         rmsfit=rmsfit)
+
+    def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         """iterately get Frames with start, stop, stride 
         Parameters
         ---------
@@ -743,7 +740,8 @@ cdef class Trajectory (object):
         if stop == -1:
             _end = <int> self.n_frames
         else:
-            _end = stop + 1
+            #_end = stop
+            _end = stop
 
         if mask is not None:
             frame2 = Frame() # just make a pointer
@@ -854,10 +852,10 @@ cdef class Trajectory (object):
         cdef vector[_Frame*].iterator it  = self.frame_v.begin()
         cdef Frame frame 
 
-        frame = Frame()
         # use memoryview, don't let python free memory of this instance
-        frame.py_free_mem = False
         while it != self.frame_v.end():
+            frame = Frame()
+            frame.py_free_mem = False
             frame.thisptr = deref(it)
             yield frame
             incr(it)
@@ -913,10 +911,10 @@ cdef class Trajectory (object):
         """
         cdef Trajectory other, farray
         cdef Frame frame
-        # TODO : do we need this method when we have `get_frames`
+
         if traj is self:
             raise ValueError("why do you join your self?")
-        if is_pytraj_trajectory(traj):
+        if is_pytraj_trajectory(traj) or is_frame_iter(traj):
             if self.top.n_atoms != traj.top.n_atoms:
                 raise ValueError("n_atoms of two arrays do not match")
             for frame in traj:
@@ -925,6 +923,8 @@ cdef class Trajectory (object):
             # assume a list or tuple of Trajectory
             for farray in traj:
                 self.join(farray, copy=copy)
+        else:
+            raise ValueError("traj must a Trajectory-like for frame iter")
 
     def resize(self, int n_frames):
         self.frame_v.resize(n_frames)
@@ -996,11 +996,9 @@ cdef class Trajectory (object):
                     frame = Frame()
                     #frame.set_frame_v(ts.top, ts.has_vel(), ts.n_repdims)
                     frame.set_frame_v(ts.top)
-                    ts._begin_traj()
-                    for i in range(ts.max_frames):
-                        ts._get_next_frame(frame)
-                        self.append(frame)
-                    ts._end_traj()
+                    with ts:
+                        for i in range(ts.n_frames):
+                            self.append(ts[i])
 
             elif isinstance(ts, Trajectory):
                 # can return a copy or no-copy based on `copy` value
@@ -1126,13 +1124,20 @@ cdef class Trajectory (object):
         """same as `save` method"""
         self.save(*args, **kwd)
 
+    def split_and_write_traj(self, *args, **kwd):
+        _split_and_write_traj(self, *args, **kwd)
+
+    def split(self, n_chunks):
+        chunksize = self.n_frames // n_chunks
+        return (fa for fa in self.chunk_iter(chunksize=chunksize))
+
     def set_frame_mass(self):
         """update mass for each Frame from self.top"""
         cdef Frame frame
         for frame in self:
             frame.set_frame_mass(self.top)
 
-    def rmsfit_to(self, ref=None, mask="*", mode='pytraj'):
+    def rmsfit(self, ref=None, mask="*", mode='pytraj'):
         """do the fitting to reference Frame by rotation and translation
         Parameters
         ----------
@@ -1143,15 +1148,16 @@ cdef class Trajectory (object):
 
         Examples
         --------
-            traj.rmsfit_to(0) # fit to 1st frame
-            traj.rmsfit_to('last', '@CA') # fit to last frame using @CA atoms
+            traj.rmsfit(0) # fit to 1st frame
+            traj.rmsfit('last', '@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
+        from pytraj.actions.CpptrajActions import Action_Rmsd
         cdef Frame frame
         cdef AtomMask atm
         cdef Frame ref_frame
         cdef int i
-        cdef Action_Rmsd act
+
 
         if isinstance(ref, Frame):
             ref_frame = <Frame> ref
@@ -1218,6 +1224,9 @@ cdef class Trajectory (object):
     def rmsd(self, *args, **kwd):
             return self.calc_rmsd(*args, **kwd)
 
+    def calc_bfactors(self, mask="", *args, **kwd):
+        return pyca.calc_bfactors(self, mask, *args, **kwd)
+
     def calc_radgyr(self, mask="", *args, **kwd):
         return pyca.calc_radgyr(self, mask, *args, **kwd)
 
@@ -1252,13 +1261,7 @@ cdef class Trajectory (object):
         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
 
     def calc_vector(self, mask="", dtype='dataset', *args, **kwd):
-        from pytraj.actions.Action_Vector import Action_Vector
-        from pytraj.DataSetList import DataSetList
-        act = Action_Vector()
-        dslist = DataSetList()
-
-        act(mask, self, dslist=dslist)
-        return _get_data_from_dtype(dslist, dtype)
+        return pyca.calc_vector(self, mask, dtype=dtype, *args, **kwd)
 
     def search_hbonds(self, mask="*", *args, **kwd):
         return pyca.search_hbonds(self, mask, *args, **kwd)
@@ -1269,10 +1272,10 @@ cdef class Trajectory (object):
     def calc_watershell(self, mask="", *args, **kwd):
         return pyca.calc_watershell(self, mask, *args, **kwd)
 
-    def autoimage(self, mask=""):
+    def autoimage(self, command=""):
         # NOTE: I tried to used cpptraj's Action_AutoImage directly but
         # there is no gain in speed. don't try.
-        pyca.do_autoimage(self, mask)
+        pyca.do_autoimage(self, command)
 
     def rotate(self, mask="", matrix=None):
         cdef Frame frame
@@ -1311,7 +1314,7 @@ cdef class Trajectory (object):
             Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 546)
 
         """
-        from pytraj.actions.Action_Center import Action_Center
+        from pytraj.actions.CpptrajActions import Action_Center
         act = Action_Center()
         act(mask, self)
 
@@ -1487,7 +1490,7 @@ cdef class Trajectory (object):
         frame /= self.n_frames
         return frame
 
-    def chunk_iter(self, int chunk=2, int start=0, int stop=-1):
+    def chunk_iter(self, int chunksize=2, int start=0, int stop=-1):
         """iterately get Frames with start, chunk
         returning Trajectory
 
@@ -1499,6 +1502,8 @@ cdef class Trajectory (object):
         copy_top : bool, default=False
             if False: no Topology copy is done for new (chunk) Trajectory
         """
+        # use `chunk` so we don't need to change `chunk` to `chunksize`
+        cdef int chunk = chunksize
         cdef int n_chunk, i, _stop
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms
@@ -1536,3 +1541,18 @@ cdef class Trajectory (object):
             farray.frame_v.resize(_stop - i * chunk)
             farray.frame_v.assign(it + i * chunk, it + _stop)
             yield farray
+
+    @classmethod
+    def from_iterable(cls, iteratable, top=None, copy=False):
+        """return a new Trajectory from `iteratable` object
+        """
+        if top is None:
+            try:
+                top = iteratable.top
+            except AttributeError:
+                raise AttributeError("require a Topology")
+
+        traj = cls(top=top)
+        for f in iteratable:
+            traj.append(f, copy=copy)
+        return traj
