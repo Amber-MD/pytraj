@@ -21,5 +21,8 @@ class Test(unittest.TestCase):
 
         aa_eq(saved_bfactors, bfactors.T[1])
 
+        b2 = pt.calc_bfactors(traj(**iter_options), dtype='dataset')
+        assert b2[0].key == 'B-factors'
+
 if __name__ == "__main__":
     unittest.main()
