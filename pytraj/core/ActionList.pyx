@@ -76,7 +76,7 @@ cdef class ActionList:
         self.thisptr.SetupActions(&(top.thisptr))
         self.top_is_processed = True
 
-    def do_actions(self, traj=Frame(), int idx=0):
+    def do_actions(self, traj=Frame(), int idx=0, use_mass=True):
         cdef Frame frame
         cdef int i
 
@@ -86,6 +86,8 @@ cdef class ActionList:
         if isinstance(traj, Frame):
             frame = <Frame> traj
             frame.py_free_mem = False
+            if use_mass:
+                frame.set_frame_mass(self.toplist[0])
             self.thisptr.DoActions(&(frame.thisptr), idx)
         else:
             for i, frame in enumerate( _frame_iter_master(traj)):

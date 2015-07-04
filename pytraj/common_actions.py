@@ -1154,3 +1154,37 @@ def check_structure(traj=None, command="", top=None,
     # cpptraj require output
     _top = _get_top(traj, top)
     act(command, traj, top=_top, *args, **kwd)
+
+def timecorr(vec0, vec1, order=2, timestep=1., tcorr=10000.,
+             norm=False,
+             dtype='ndarray'):
+    """TODO: doc. not yet assert to cpptraj's output
+
+    Parameters
+    ----------
+    vec0 : 2D array-like, shape=(n_frames, 3)
+    vec1 : 2D array-like, shape=(n_frames, 3)
+    order : int, default 2
+    timestep : float, default 1.
+    tcorr : float, default 10000.
+    norm : bool, default False
+    """
+    from pytraj.datasets import DatasetVector, DataSetList as CDSL
+    from pytraj.math import Vec3
+    act = analdict['timecorr']
+
+    cdslist = CDSL()
+
+    cdslist.add_set("vector", "_vec0")
+    cdslist.add_set("vector", "_vec1")
+    for v0, v1 in zip(vec0, vec1):
+        cdslist[0].append(Vec3(v0))
+        cdslist[1].append(Vec3(v1))
+
+    _order = "order " + str(order)
+    _tstep = "tstep " + str(timestep)
+    _tcorr = "tcorr " + str(tcorr)
+    _norm = "norm" if norm else ""
+    command = " ".join(('vec1 _vec0 vec2 _vec1', _order, _tstep, _tcorr, _norm))
+    act(command, dslist=cdslist)
+    return _get_data_from_dtype(cdslist[2:], dtype=dtype)
