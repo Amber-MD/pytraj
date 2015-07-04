@@ -3201,7 +3201,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_98set_frame_mass(str
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_100rmsfit(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_ref, PyObject *__pyx_v_mask, PyObject *__pyx_v_mode); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_102calc_distance(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_104calc_distrmsd(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_ref, PyObject *__pyx_v_mask, PyObject *__pyx_v_mass, PyObject *__pyx_v_fit, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_ref, PyObject *__pyx_v_mass, PyObject *__pyx_v_fit, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_108rmsd(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_110calc_bfactors(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_112calc_radgyr(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
@@ -14016,13 +14016,13 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_53swap(struct __pyx_
         __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
         goto __pyx_L24_try_end;
         __pyx_L17_error:;
+        __PYX_XDEC_MEMVIEW(&__pyx_t_10, 1);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __PYX_XDEC_MEMVIEW(&__pyx_t_10, 1);
 
         /* "pytraj/Trajectory.pyx":803
  *                     j_view = arr1
@@ -14189,9 +14189,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_55_swap_from_array(s
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
-  int __pyx_v_int_is_signed;
-  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
+  int __pyx_v_long_is_signed;
+  int __pyx_v_int_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -14293,9 +14293,9 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_55_swap_from_array(s
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
-  __pyx_v_int_is_signed = (((int)-1) < 0);
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_int_is_signed = (((int)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 806; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21189,7 +21189,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_104calc_distrmsd(str
  *     def calc_distrmsd(self, mask="", *args, **kwd):
  *         return pyca.calc_distrmsd(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
  * 
- *     def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):
+ *     def calc_rmsd(self, mask="", ref=None, mass=False, fit=True, *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21240,17 +21240,17 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_104calc_distrmsd(str
 /* "pytraj/Trajectory.pyx":1204
  *         return pyca.calc_distrmsd(self, mask, *args, **kwd)
  * 
- *     def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):             # <<<<<<<<<<<<<<
+ *     def calc_rmsd(self, mask="", ref=None, mass=False, fit=True, *args, **kwd):             # <<<<<<<<<<<<<<
  *         """
  *         Examples
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_107calc_rmsd(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_106calc_rmsd[] = "Trajectory.calc_rmsd(self, ref=None, mask='', mass=False, fit=True, *args, **kwd)\n\n        Examples\n        --------\n        >>> from pytraj import io\n        >>> traj = io.load_sample_data('tz2')[:]\n        >>> traj.calc_rmsd() \n        >>> traj.calc_rmsd(0)\n        >>> traj.calc_rmsd(-1)\n        >>> traj.calc_rmsd(-1, '@CA', True, True, dtype='dataset')\n        >>> traj.calc_rmsd(-1, '@CA', True, True, dtype='pyarray')\n        ";
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_106calc_rmsd[] = "Trajectory.calc_rmsd(self, mask='', ref=None, mass=False, fit=True, *args, **kwd)\n\n        Examples\n        --------\n        >>> from pytraj import io\n        >>> traj = io.load_sample_data('tz2')[:]\n        >>> traj.calc_rmsd() \n        >>> traj.calc_rmsd(0)\n        >>> traj.calc_rmsd(-1)\n        >>> traj.calc_rmsd(-1, '@CA', True, True, dtype='dataset')\n        >>> traj.calc_rmsd(-1, '@CA', True, True, dtype='pyarray')\n        ";
 static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_107calc_rmsd(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_ref = 0;
   PyObject *__pyx_v_mask = 0;
+  PyObject *__pyx_v_ref = 0;
   PyObject *__pyx_v_mass = 0;
   PyObject *__pyx_v_fit = 0;
   PyObject *__pyx_v_args = 0;
@@ -21275,10 +21275,10 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_107calc_rmsd(PyObjec
     __pyx_v_args = __pyx_empty_tuple; __Pyx_INCREF(__pyx_empty_tuple);
   }
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_ref,&__pyx_n_s_mask,&__pyx_n_s_mass,&__pyx_n_s_fit,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_mask,&__pyx_n_s_ref,&__pyx_n_s_mass,&__pyx_n_s_fit,0};
     PyObject* values[4] = {0,0,0,0};
-    values[0] = ((PyObject *)Py_None);
-    values[1] = ((PyObject *)__pyx_kp_s__2);
+    values[0] = ((PyObject *)__pyx_kp_s__2);
+    values[1] = ((PyObject *)Py_None);
     values[2] = ((PyObject *)Py_False);
     values[3] = ((PyObject *)Py_True);
     if (unlikely(__pyx_kwds)) {
@@ -21296,12 +21296,12 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_107calc_rmsd(PyObjec
       switch (pos_args) {
         case  0:
         if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ref);
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_mask);
           if (value) { values[0] = value; kw_args--; }
         }
         case  1:
         if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_mask);
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ref);
           if (value) { values[1] = value; kw_args--; }
         }
         case  2:
@@ -21329,8 +21329,8 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_107calc_rmsd(PyObjec
         case  0: break;
       }
     }
-    __pyx_v_ref = values[0];
-    __pyx_v_mask = values[1];
+    __pyx_v_mask = values[0];
+    __pyx_v_ref = values[1];
     __pyx_v_mass = values[2];
     __pyx_v_fit = values[3];
   }
@@ -21342,7 +21342,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_107calc_rmsd(PyObjec
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_ref, __pyx_v_mask, __pyx_v_mass, __pyx_v_fit, __pyx_v_args, __pyx_v_kwd);
+  __pyx_r = __pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(((struct __pyx_obj_6pytraj_10Trajectory_Trajectory *)__pyx_v_self), __pyx_v_mask, __pyx_v_ref, __pyx_v_mass, __pyx_v_fit, __pyx_v_args, __pyx_v_kwd);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -21351,7 +21351,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_107calc_rmsd(PyObjec
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_ref, PyObject *__pyx_v_mask, PyObject *__pyx_v_mass, PyObject *__pyx_v_fit, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
+static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct __pyx_obj_6pytraj_10Trajectory_Trajectory *__pyx_v_self, PyObject *__pyx_v_mask, PyObject *__pyx_v_ref, PyObject *__pyx_v_mass, PyObject *__pyx_v_fit, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd) {
   PyObject *__pyx_v__ref = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -21504,7 +21504,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct 
   /* "pytraj/Trajectory.pyx":1204
  *         return pyca.calc_distrmsd(self, mask, *args, **kwd)
  * 
- *     def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):             # <<<<<<<<<<<<<<
+ *     def calc_rmsd(self, mask="", ref=None, mass=False, fit=True, *args, **kwd):             # <<<<<<<<<<<<<<
  *         """
  *         Examples
  */

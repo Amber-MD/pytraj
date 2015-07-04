@@ -15,6 +15,7 @@ from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
 from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
+from ._get_common_objects import _get_matrix_from_dataset
 from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .externals.six import string_types
@@ -86,7 +87,6 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     ensure_not_none_or_string(traj)
 
     _top = _get_top(traj, top)
-
 
 
     if 'ndarray' in command.__class__.__name__: 
@@ -649,7 +649,9 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
 calc_COG = calc_center_of_geometry
 
 
-def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', 
+                      mat_type='full',
+                      *args, **kwd):
     """return  CpptrajDatasetList object
     Parameters
     ----------
@@ -729,7 +731,10 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', *args, 
     # remove dataset coords to free memory
     dslist.remove_set(dslist[0])
 
-    return _get_data_from_dtype(dslist, dtype)
+    if dtype == 'ndarray':
+        return _get_matrix_from_dataset(dslist[0], mat_type)
+    else:
+        return _get_data_from_dtype(dslist, dtype)
 
 
 def calc_density(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):

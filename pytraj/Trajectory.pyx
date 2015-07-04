@@ -1201,7 +1201,7 @@ cdef class Trajectory (object):
     def calc_distrmsd(self, mask="", *args, **kwd):
         return pyca.calc_distrmsd(self, mask, *args, **kwd)
 
-    def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):
+    def calc_rmsd(self, mask="", ref=None, mass=False, fit=True, *args, **kwd):
         """
         Examples
         --------
