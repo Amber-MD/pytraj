@@ -81,36 +81,17 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     """calculate distance
 
     Notes:
-    command : str | list of strings | int_2d numpy array
+    command : str | list of strings | 2d numpy array of integers
     """
     ensure_not_none_or_string(traj)
 
-    _, np = _import_numpy()
     _top = _get_top(traj, top)
-    if isinstance(command, string_types):
-        # need to remove 'n_frames' keyword since Action._master does not use
-        # it
-        try:
-            del kwd['n_frames']
-        except:
-            pass
-        # cpptraj mask for action
-        dset = calculate(
-            "distance", traj, command, top=_top,  quick_get=True, *args, **kwd)
-        return _get_data_from_dtype(dset, dtype)
-    elif isinstance(command, (list, tuple)):
-        list_of_commands = command
-        from pytraj.core.ActionList import ActionList
-        from pytraj.actions.CpptrajActions import Action_Distance
-        dslist = CpptrajDatasetList()
-        actlist = ActionList()
 
-        for cm in list_of_commands:
-            actlist.add_action(
-                Action_Distance(), cm, _top, dslist=dslist, *args, **kwd)
-        actlist.do_actions(traj)
-        return _get_data_from_dtype(dslist, dtype)
-    elif isinstance(command, np.ndarray):
+
+
+    if 'ndarray' in command.__class__.__name__: 
+        from pytraj.datasetlist import from_dict
+        import numpy as np
         int_2darr = command
         if int_2darr.shape[1] != 2:
             raise ValueError("require int-array with shape=(n_atoms, 2)")
@@ -124,9 +105,28 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
         arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(_frame_iter_master(traj)):
             arr[idx] = frame.calc_distance(int_2darr)
-        return arr
+        py_dslist = from_dict({'rmsd' : arr})
+        return _get_data_from_dtype(py_dslist, dtype)
+
+    elif isinstance(command, (list, tuple, string_types)):
+        # create a list
+        list_of_commands = _get_list_of_commands(command)
+
+        from pytraj.core.ActionList import ActionList
+        from pytraj.actions.CpptrajActions import Action_Distance
+
+        dslist = CpptrajDatasetList()
+        actlist = ActionList()
+
+        for cm in list_of_commands:
+            actlist.add_action(
+                Action_Distance(), cm, _top, dslist=dslist, *args, **kwd)
+        actlist.do_actions(traj)
+        return _get_data_from_dtype(dslist, dtype)
+
     else:
-        raise ValueError("")
+        raise ValueError("command must be a string, a list/tuple of strings, or "
+                         "a numpy 2D array")
 
 
 def calc_angle(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
