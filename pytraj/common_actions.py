@@ -777,7 +777,7 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_rmsd(traj=None, command="", ref=None, mass=False,
+def calc_rmsd(traj=None, ref=None, command="", mass=False,
               fit=True, top=None, dtype='ndarray',
               mode='pytraj'):
     """calculate rmsd
