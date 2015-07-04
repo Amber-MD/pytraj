@@ -75,6 +75,8 @@ from . common_actions import (rmsd, search_hbonds,
                               calc_bfactors,
                               energy_decomposition,
                               native_contacts,
+                              auto_correlation_function,
+                              cross_correlation_function,
                               timecorr)
 
 # create alias

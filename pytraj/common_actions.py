@@ -1189,7 +1189,7 @@ def timecorr(vec0, vec1, order=2, timestep=1., tcorr=10000.,
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
-def cross_correlation(data0, data1, dtype='ndarray'):
+def cross_correlation_function(data0, data1, dtype='ndarray'):
     """
     Notes
     -----
@@ -1209,7 +1209,7 @@ def cross_correlation(data0, data1, dtype='ndarray'):
     act("d0 d1 out _tmp.out", dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
-def autocorrelation(data, dtype='ndarray', covar=True):
+def auto_correlation_function(data, dtype='ndarray', covar=True):
     """
     Notes
     -----
