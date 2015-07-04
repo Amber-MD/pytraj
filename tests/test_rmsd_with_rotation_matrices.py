@@ -39,12 +39,10 @@ class Test(unittest.TestCase):
             dslist1 = pt.rmsd_with_rotation_matrices(traj, '@CA', ref=ref)
             dslist2 = pt.rmsd_with_rotation_matrices(traj, '@CA', ref=ref, dtype='dict')
 
-            print(pt.tools.rmsd_1darray(dslist0[0].values.flatten(),
-                                        dslist1[0].values.flatten()))
-            print(dslist0[1].shape)
-            print(dslist1[1].shape)
-            print(pt.tools.rmsd_1darray(dslist0[1].values.flatten(),
-                                        dslist1[1].values.flatten()))
+            assert (pt.tools.rmsd_1darray(dslist0[0].values.flatten(),
+                                        dslist1[0].values.flatten())) < 1E-6
+            assert (pt.tools.rmsd_1darray(dslist0[1].values.flatten(),
+                                        dslist1[1].values.flatten())) < 1E-6
 
 if __name__ == "__main__":
     unittest.main()
