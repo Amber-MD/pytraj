@@ -1169,7 +1169,7 @@ def timecorr(vec0, vec1, order=2, timestep=1., tcorr=10000.,
     tcorr : float, default 10000.
     norm : bool, default False
     """
-    from pytraj.datasets import DatasetVector, DataSetList as CDSL
+    from pytraj.datasets import  DataSetList as CDSL
     from pytraj.math import Vec3
     import numpy as np
     act = analdict['timecorr']
@@ -1180,9 +1180,6 @@ def timecorr(vec0, vec1, order=2, timestep=1., tcorr=10000.,
     cdslist.add_set("vector", "_vec1")
     cdslist[0].add_from_array(np.asarray(vec0).astype('f8'))
     cdslist[1].add_from_array(np.asarray(vec1).astype('f8'))
-    #for v0, v1 in zip(vec0, vec1):
-    #    cdslist[0].append(Vec3(v0))
-    #    cdslist[1].append(Vec3(v1))
 
     _order = "order " + str(order)
     _tstep = "tstep " + str(timestep)
@@ -1191,3 +1188,44 @@ def timecorr(vec0, vec1, order=2, timestep=1., tcorr=10000.,
     command = " ".join(('vec1 _vec0 vec2 _vec1', _order, _tstep, _tcorr, _norm))
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
+
+def cross_correlation(data0, data1, dtype='ndarray'):
+    """
+    Notes
+    -----
+    Same as `corr` in cpptraj
+    """
+    from pytraj.datasets import DataSetList as CDSL
+    import numpy as np
+
+    cdslist = CDSL()
+    cdslist.add_set("double", "d0")
+    cdslist.add_set("double", "d1")
+
+    cdslist[0].from_array_like(np.asarray(data0))
+    cdslist[1].from_array_like(np.asarray(data1))
+
+    act = analdict['corr']
+    act("d0 d1 out _tmp.out", dslist=cdslist)
+    return _get_data_from_dtype(cdslist[2:], dtype=dtype)
+
+def autocorrelation(data, dtype='ndarray', covar=True):
+    """
+    Notes
+    -----
+    Same as `autocorr` in cpptraj
+    """
+    from pytraj.datasets import DataSetList as CDSL
+    import numpy as np
+
+    _nocovar = " " if covar else " nocovar"
+
+    cdslist = CDSL()
+    cdslist.add_set("double", "d0")
+
+    cdslist[0].from_array_like(np.asarray(data))
+
+    act = analdict['autocorr']
+    command = "d0 out _tmp.out" + _nocovar
+    act(command, dslist=cdslist)
+    return _get_data_from_dtype(cdslist[1:], dtype=dtype)
