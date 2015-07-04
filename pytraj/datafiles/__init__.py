@@ -18,8 +18,11 @@ trajin %s
 
 fname = os.path.abspath("./data/md1_prod.Tc5b.x")
 topname = os.path.abspath("./data/Tc5b.top")
-refname = os.path.abspath("./data/Tc5b.crd")
 tc5b_trajin = trajin_template % (topname, fname)
+
+fname = os.path.abspath("./data/DPDP.nc")
+topname = os.path.abspath("./data/DPDP.parm7")
+DPDP_trajin = trajin_template % (topname, fname)
 
 def load_result_from_cpptraj_state(txt):
     """load output from cpptraj
