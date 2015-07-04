@@ -1171,15 +1171,18 @@ def timecorr(vec0, vec1, order=2, timestep=1., tcorr=10000.,
     """
     from pytraj.datasets import DatasetVector, DataSetList as CDSL
     from pytraj.math import Vec3
+    import numpy as np
     act = analdict['timecorr']
 
     cdslist = CDSL()
 
     cdslist.add_set("vector", "_vec0")
     cdslist.add_set("vector", "_vec1")
-    for v0, v1 in zip(vec0, vec1):
-        cdslist[0].append(Vec3(v0))
-        cdslist[1].append(Vec3(v1))
+    cdslist[0].add_from_array(np.asarray(vec0).astype('f8'))
+    cdslist[1].add_from_array(np.asarray(vec1).astype('f8'))
+    #for v0, v1 in zip(vec0, vec1):
+    #    cdslist[0].append(Vec3(v0))
+    #    cdslist[1].append(Vec3(v1))
 
     _order = "order " + str(order)
     _tstep = "tstep " + str(timestep)

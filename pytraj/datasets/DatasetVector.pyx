@@ -45,6 +45,19 @@ cdef class DatasetVector (DataSet_1D):
     def append(self, Vec3 vec):
         self.thisptr.AddVxyz(vec.thisptr[0])
 
+    def add_from_array(self, double[:, :] arr):
+        cdef int i
+        cdef double[:] xyz
+        cdef _Vec3 _vec
+
+        if arr.shape[1] != 3:
+            raise ValueError("must have shape = (n_frames, 3))")
+
+        for i in range(arr.shape[0]):
+            xyz = arr[i]
+            _vec.Assign(&xyz[0])
+            self.thisptr.AddVxyz(_vec)
+
     def tolist(self):
         # overwrite
         # x is memview array
