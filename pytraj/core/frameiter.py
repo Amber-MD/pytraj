@@ -17,7 +17,7 @@ class FrameIter(object):
                  new_top=None, start=0, stop=-1, stride=1,
                  mask="", autoimage=False,
                  rmsfit=None,
-                 copy_frame=False):
+                 is_trajiter=False):
         self.top = new_top
         self.original_top = original_top
         self.frame_iter = fi_generator
@@ -28,7 +28,7 @@ class FrameIter(object):
         self.autoimage = autoimage
         self.rmsfit = rmsfit
         # use `copy_frame` for TrajectoryIterator
-        self.copy_frame = copy_frame
+        self.is_trajiter = is_trajiter
 
     @property
     def __name__(self):
@@ -47,11 +47,11 @@ class FrameIter(object):
         return self.__str__()
 
     def __iter__(self):
-        if self.autoimage:
-            from pytraj.actions.CpptrajActions import Action_AutoImage
-            image_act = Action_AutoImage()
-            image_act.read_input("", top=self.original_top)
-            image_act.process(self.original_top)
+        #if self.autoimage:
+        #    from pytraj.actions.CpptrajActions import Action_AutoImage
+        #    image_act = Action_AutoImage()
+        #    image_act.read_input("", top=self.original_top)
+        #    image_act.process(self.original_top)
         if self.rmsfit is not None:
             try:
                 ref, mask_for_rmsfit = self.rmsfit
@@ -74,14 +74,18 @@ class FrameIter(object):
             need_align = False
             ref, mask_for_rmsfit = None, None
 
-        for frame in self.frame_iter:
-            if self.copy_frame:
+        for frame0 in self.frame_iter:
+            if self.is_trajiter:
                 # use copy for TrajectoryIterator
                 # so [f for f in traj()] will return a list of different 
                 # frames
-                frame = frame.copy()
+                frame = frame0.copy()
+            else:
+                frame = frame0
             if self.autoimage:
-                image_act.do_action(frame)
+                from pytraj.actions.CpptrajActions import Action_AutoImage
+                Action_AutoImage()("", frame, self.top)
+                #image_act.do_action(frame)
             if need_align:
                 # trick cpptraj to fit to 1st frame (=ref)
                 rmsd_act.do_action(frame)
@@ -97,6 +101,7 @@ class FrameIter(object):
                         raise PytrajMemviewError()
                 frame2 = Frame(atm.n_atoms)
                 frame2.set_coords(frame, atm)
+
                 yield frame2
             else:
                 yield frame

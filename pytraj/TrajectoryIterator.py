@@ -176,7 +176,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          mask=mask,
                          autoimage=autoimage,
                          rmsfit=rmsfit,
-                         copy_frame=True,
+                         is_trajiter=True,
                          )
 
     def chunk_iter(self, chunksize=2, start=0, stop=-1,
@@ -216,6 +216,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             if need_align:
                 chunk.rmsfit(ref, mask_for_rmsfit)
             # free memory
+            # if not, memory will be quicly accumulated. 
             if self.chunk:
                 self.chunk.__del__()
 

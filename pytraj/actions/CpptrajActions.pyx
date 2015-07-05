@@ -108,7 +108,7 @@ cdef class Action_AutoImage (Action):
         self.thisptr = <_Action_AutoImage*> self.baseptr
 
     def __dealloc__(self):
-        if self.baseptr is not NULL:
+        if self.baseptr:
             del self.baseptr
 
     def alloc(self):

@@ -806,8 +806,8 @@ struct __pyx_memoryviewslice_obj;
  */
 typedef DispatchObject *(*__pyx_t_6pytraj_4core_14DispatchObject_DispatchAllocatorType)(void);
 
-/* "pytraj/datasets/DataSetList.pxd":6
- * from pytraj.cpp_vector cimport vector as cppvector
+/* "pytraj/datasets/DataSetList.pxd":8
+ * from ..cpp_vector cimport vector as cppvector
  * 
  * ctypedef cppvector[_DataSet*] DataListType             # <<<<<<<<<<<<<<
  * ctypedef cppvector[_DataSet*].const_iterator const_iterator
@@ -815,7 +815,7 @@ typedef DispatchObject *(*__pyx_t_6pytraj_4core_14DispatchObject_DispatchAllocat
  */
 typedef std::vector<DataSet *>  __pyx_t_6pytraj_8datasets_11DataSetList_DataListType;
 
-/* "pytraj/datasets/DataSetList.pxd":7
+/* "pytraj/datasets/DataSetList.pxd":9
  * 
  * ctypedef cppvector[_DataSet*] DataListType
  * ctypedef cppvector[_DataSet*].const_iterator const_iterator             # <<<<<<<<<<<<<<
@@ -1072,7 +1072,7 @@ struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
 };
 
 
-/* "pytraj/datasets/DataSetList.pxd":48
+/* "pytraj/datasets/DataSetList.pxd":50
  * 
  * 
  * cdef class DataSetList:             # <<<<<<<<<<<<<<
@@ -5303,7 +5303,7 @@ static int __pyx_pf_6pytraj_7actions_14CpptrajActions_16Action_AutoImage___cinit
  *         self.thisptr = <_Action_AutoImage*> self.baseptr
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         if self.baseptr is not NULL:
+ *         if self.baseptr:
  *             del self.baseptr
  */
 
@@ -5326,16 +5326,16 @@ static void __pyx_pf_6pytraj_7actions_14CpptrajActions_16Action_AutoImage_2__dea
   /* "pytraj/actions/CpptrajActions.pyx":111
  * 
  *     def __dealloc__(self):
- *         if self.baseptr is not NULL:             # <<<<<<<<<<<<<<
+ *         if self.baseptr:             # <<<<<<<<<<<<<<
  *             del self.baseptr
  * 
  */
-  __pyx_t_1 = ((__pyx_v_self->__pyx_base.baseptr != NULL) != 0);
+  __pyx_t_1 = (__pyx_v_self->__pyx_base.baseptr != 0);
   if (__pyx_t_1) {
 
     /* "pytraj/actions/CpptrajActions.pyx":112
  *     def __dealloc__(self):
- *         if self.baseptr is not NULL:
+ *         if self.baseptr:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
  *     def alloc(self):
@@ -5345,7 +5345,7 @@ static void __pyx_pf_6pytraj_7actions_14CpptrajActions_16Action_AutoImage_2__dea
     /* "pytraj/actions/CpptrajActions.pyx":111
  * 
  *     def __dealloc__(self):
- *         if self.baseptr is not NULL:             # <<<<<<<<<<<<<<
+ *         if self.baseptr:             # <<<<<<<<<<<<<<
  *             del self.baseptr
  * 
  */
@@ -5355,7 +5355,7 @@ static void __pyx_pf_6pytraj_7actions_14CpptrajActions_16Action_AutoImage_2__dea
  *         self.thisptr = <_Action_AutoImage*> self.baseptr
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         if self.baseptr is not NULL:
+ *         if self.baseptr:
  *             del self.baseptr
  */
 
@@ -43862,7 +43862,7 @@ PyMODINIT_FUNC PyInit_CpptrajActions(void)
   __pyx_ptype_6pytraj_7ArgList_ArgList = __Pyx_ImportType("pytraj.ArgList", "ArgList", sizeof(struct __pyx_obj_6pytraj_7ArgList_ArgList), 1); if (unlikely(!__pyx_ptype_6pytraj_7ArgList_ArgList)) {__pyx_filename = __pyx_f[5]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_8FileName_FileName = __Pyx_ImportType("pytraj.core.FileName", "FileName", sizeof(struct __pyx_obj_6pytraj_4core_8FileName_FileName), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_8FileName_FileName)) {__pyx_filename = __pyx_f[6]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[7]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_6pytraj_8datasets_11DataSetList_DataSetList = __Pyx_ImportType("pytraj.datasets.DataSetList", "DataSetList", sizeof(struct __pyx_obj_6pytraj_8datasets_11DataSetList_DataSetList), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_11DataSetList_DataSetList)) {__pyx_filename = __pyx_f[8]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_11DataSetList_DataSetList = __Pyx_ImportType("pytraj.datasets.DataSetList", "DataSetList", sizeof(struct __pyx_obj_6pytraj_8datasets_11DataSetList_DataSetList), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_11DataSetList_DataSetList)) {__pyx_filename = __pyx_f[8]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_8DataFile_DataFile = __Pyx_ImportType("pytraj.core.DataFile", "DataFile", sizeof(struct __pyx_obj_6pytraj_4core_8DataFile_DataFile), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_8DataFile_DataFile)) {__pyx_filename = __pyx_f[9]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_16datasets_dot_DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_16datasets_dot_DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_16datasets_dot_DataSet_DataSet)) {__pyx_filename = __pyx_f[7]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_4core_12DataFileList_DataFileList = __Pyx_ImportType("pytraj.core.DataFileList", "DataFileList", sizeof(struct __pyx_obj_6pytraj_4core_12DataFileList_DataFileList), 1); if (unlikely(!__pyx_ptype_6pytraj_4core_12DataFileList_DataFileList)) {__pyx_filename = __pyx_f[10]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

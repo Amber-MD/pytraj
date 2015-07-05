@@ -406,7 +406,8 @@ def do_rotation(traj=None, command="",  top=Topology()):
 
 
 def do_autoimage(traj=None, command="", top=Topology()):
-    adict['autoimage'](command, traj, top)
+    from pytraj.actions.CpptrajActions import Action_AutoImage
+    Action_AutoImage()(command, traj, top)
 
 autoimage = do_autoimage
 
