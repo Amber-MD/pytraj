@@ -777,14 +777,14 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_rmsd(traj=None, ref=None, command="", mass=False,
+def calc_rmsd(traj=None, mask="", ref=None, mass=False,
               fit=True, top=None, dtype='ndarray',
               mode='pytraj'):
     """calculate rmsd
 
     Parameters
     ---------
-    command : str
+    mask : str
         Atom mask
     traj : Trajectory | List of trajectories | Trajectory or frame_iter
     top : Topology | str
@@ -805,14 +805,17 @@ def calc_rmsd(traj=None, ref=None, command="", mass=False,
     >>> from pytraj import io
     >>> from pytraj.common_actions import calc_rmsd
     >>> traj = io.load_sample_data("tz2")
-    >>> calc_rmsd(traj, ":3-13@CA", ref=traj[0], mass=True, fit=True)
-    >>> calc_rmsd(traj, ":3-13@CA", ref=traj[0], mass=True, fit=False)
-    >>> calc_rmsd(traj, ":3-13@CA", ref=traj[0], mass=True, fit=False, mode='cpptraj')
-    >>> calc_rmsd([traj, traj[-1]], ":3-13@CA", ref=traj[0], top=traj.top, mass=True, fit=False)
+    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13', mass=True, fit=True)
+    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13', mass=True, fit=False)
+    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13', mass=True, fit=False, mode='cpptraj')
+    >>> calc_rmsd([traj, traj[-1]], ref=traj[0], mask=':3-13', top=traj.top, mass=True, fit=False)
 
     """
+    from pytraj.utils import is_int
     from array import array as pyarray
     from pytraj.datasets import DatasetDouble
+
+    command = mask
 
     _top = _get_top(traj, top)
     if ref is None or ref == 'first':
@@ -820,10 +823,14 @@ def calc_rmsd(traj=None, ref=None, command="", mass=False,
         ref = traj[0]
     elif ref == 'last':
         ref = traj[-1]
+    elif is_int(ref):
+        ref = traj[ref]
     elif isinstance(ref, string_types):
         # need to check this in the end to avoid using 'last' keyword
         from .trajs.Trajin_Single import Trajin_Single
         ref = Trajin_Single(ref, _top)[0]
+    else:
+        ref = ref
 
     if mode == 'pytraj':
         arr = array('d')

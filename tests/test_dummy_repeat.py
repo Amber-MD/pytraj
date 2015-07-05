@@ -18,9 +18,9 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj import calculate
 
-        d0 = calculate("distance", traj, ":2@CA :10@CB")
+        d0 = calculate("distance", traj, ":2@CA :10@CA")
         print(d0.size)
-        d1 = calculate("distance", traj, ":3@CA :10@CB")
+        d1 = calculate("distance", traj, ":3@CA :10@CA")
         print(d1.size)
         assert d0[0].size == d1[0].size == traj.n_frames
 
@@ -32,10 +32,10 @@ class Test(unittest.TestCase):
 
         d0 = calc_distance(traj, ":2@CA :10@CA")
         print(d0.size, d0)
-        d1 = calc_distance(traj, ":3@CA :10@CB")
+        d1 = calc_distance(traj, ":3@CA :10@CA")
         print(d1.size)
-        d2 = calc_distance(traj, ":3@CA :10@CB")
-        d3 = calc_distance(traj, ":3@CA :10@CB")
+        d2 = calc_distance(traj, ":3@CA :10@CA")
+        d3 = calc_distance(traj, ":3@CA :10@CA")
 
         assert d0.size == d1.size == traj.n_frames
         assert d0.size == d2.size == d3.size

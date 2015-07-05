@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
                           pt.get_coordinates(traj), True)
         assert r0 == 0.
 
-        coords = pt.tools.merge_coordinates([f for f in traj])
+        coords = pt.tools.merge_coordinates([f.copy() for f in traj])
         print(coords.shape)
         print(traj.xyz.shape)
         r0 = pt.misc.rmsd(coords,
