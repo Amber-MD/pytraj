@@ -14,8 +14,12 @@ class Test(unittest.TestCase):
         # TrajectoryIterator
         # assert will fail since we only allow to load a single 
         # frame at a time to memory. Use frame_iter instead.
-        #aa_eq(pt.calc_molsurf([f for f in traj], top=traj.top),
-        #       pt.calc_molsurf(traj))
+        aa_eq(pt.calc_molsurf([f for f in traj], top=traj.top),
+               pt.calc_molsurf(traj))
+
+        # frame_iter
+        aa_eq(pt.calc_molsurf([f for f in traj()], top=traj.top),
+               pt.calc_molsurf(traj))
 
         # Trajectory
         aa_eq(pt.calc_molsurf([f for f in traj.to_mutable_trajectory()], top=traj.top),

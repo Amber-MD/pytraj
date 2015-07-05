@@ -116,6 +116,9 @@ cdef class Frame (object):
         if self.py_free_mem and self.thisptr:
             del self.thisptr
 
+    def __del__(self):
+        del self.thisptr
+
     def same_coords_as(self, Frame other):
         """check if two frames having the same coords"""
         return (self.coords == other.coords)
