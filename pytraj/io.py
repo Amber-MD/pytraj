@@ -345,7 +345,7 @@ def write_traj(filename="", traj=None, top=None,
             trajout.writeframe(0, traj, _top)
         else:
             if isinstance(traj, string_types):
-                traj2 = load(traj, _top)
+                traj2 = iterload(traj, _top)
             else:
                 traj2 = traj
 
@@ -438,8 +438,10 @@ def load_pdb(pdb_file):
 
 
 def load_single_frame(frame=None, top=None, index=0):
-    """load single Frame"""
-    return load(frame, top)[index]
+    """load a single Frame"""
+    return iterload(frame, top)[index]
+
+load_frame = load_single_frame
 
 
 def load_full_ParmEd(parmed_obj):

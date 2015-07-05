@@ -1069,7 +1069,7 @@ def native_contacts(traj=None, command="", top=None, dtype='dataset',
     """
     Notes
     ----
-    if `ref` is not None: first number in result corresponds to reference
+    if `ref` is None: first number in result corresponds to reference
     Not assert to cpptraj's output yet
     """
     from .actions.CpptrajActions import Action_NativeContacts
@@ -1081,6 +1081,8 @@ def native_contacts(traj=None, command="", top=None, dtype='dataset',
             ref = traj[0]
         except IndexError:
             raise ValueError("require reference")
+    else:
+        ref = ref
 
     _distance = str(distance)
     _noimage = "noimage" if noimage else ""
