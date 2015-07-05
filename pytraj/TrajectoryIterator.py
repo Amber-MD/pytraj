@@ -90,6 +90,14 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             # so [frame for frame in traj] will return a list of different ones
             yield frame.copy()
 
+    def copy(self):
+        """Very simple"""
+        other = self.__class__()
+        other.top = self.top.copy()
+        other.load(self.filelist)
+
+        return other
+
     def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         """load trajectory/trajectories from filename/filenames
         with a single frame_slice or a list of frame_slice
