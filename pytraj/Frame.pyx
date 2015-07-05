@@ -531,10 +531,10 @@ cdef class Frame (object):
 
     @property
     def coords(self):
-        return self.coordinates
+        return self.xyz
 
     @property
-    def coordinates(self):
+    def coords(self):
         """
         return 1D-coords (copy) of Frame
         Notes

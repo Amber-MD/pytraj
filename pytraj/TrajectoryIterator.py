@@ -54,6 +54,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
     def __init__(self, filename=None, top=None, *args, **kwd):
         self._force_load = False
+        self.chunk = None
         # only allow to load <= 1000 Mb
         self._size_limit_in_MB = 1000
         super(TrajectoryIterator, self).__init__()
@@ -202,7 +203,12 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                 chunk.autoimage()
             if need_align:
                 chunk.rmsfit(ref, mask_for_rmsfit)
-            yield chunk
+            # free memory
+            if self.chunk:
+                self.chunk.__del__()
+
+            self.chunk = chunk
+            yield self.chunk
 
     @property
     def filename(self):
