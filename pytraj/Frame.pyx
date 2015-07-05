@@ -533,7 +533,7 @@ cdef class Frame (object):
         return arr
 
     @property
-    def coords(self):
+    def coordinates(self):
         return self.xyz
 
     @property

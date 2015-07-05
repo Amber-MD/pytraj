@@ -2653,6 +2653,7 @@ static char __pyx_k_update_top[] = "update_top";
 static char __pyx_k_writeframe[] = "writeframe";
 static char __pyx_k_ImportError[] = "ImportError";
 static char __pyx_k_MemoryError[] = "MemoryError";
+static char __pyx_k_coordinates[] = "coordinates";
 static char __pyx_k_for_testing[] = "for_testing";
 static char __pyx_k_get_residue[] = "_get_residue";
 static char __pyx_k_invert_mask[] = "invert_mask";
@@ -2834,6 +2835,7 @@ static PyObject *__pyx_n_s_clsname;
 static PyObject *__pyx_n_s_columns;
 static PyObject *__pyx_kp_s_contiguous_and_direct;
 static PyObject *__pyx_kp_s_contiguous_and_indirect;
+static PyObject *__pyx_n_s_coordinates;
 static PyObject *__pyx_n_s_coords;
 static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_d;
@@ -3044,7 +3046,7 @@ static int __pyx_pf_6pytraj_5Frame_5Frame_4time_2__set__(struct __pyx_obj_6pytra
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_66update_atom(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, int __pyx_v_idx, __Pyx_memviewslice __pyx_v_xyz); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_68update_atoms(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, PyObject *__pyx_v_indices, PyObject *__pyx_v_xyz); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_70atoms(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, int __pyx_v_atomnum); /* proto */
-static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_72coords(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_72coordinates(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_74coords(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_76v_xyz(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self, int __pyx_v_atnum); /* proto */
 static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_78mass(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self); /* proto */
@@ -10895,37 +10897,37 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_70atoms(struct __pyx_obj_6pytraj
 /* "pytraj/Frame.pyx":536
  * 
  *     @property
- *     def coords(self):             # <<<<<<<<<<<<<<
+ *     def coordinates(self):             # <<<<<<<<<<<<<<
  *         return self.xyz
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_73coords(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_5Frame_5Frame_72coords[] = "Frame.coords(self)";
-static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_73coords(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_73coordinates(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_5Frame_5Frame_72coordinates[] = "Frame.coordinates(self)";
+static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_73coordinates(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("coords (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_5Frame_5Frame_72coords(((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("coordinates (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_5Frame_5Frame_72coordinates(((struct __pyx_obj_6pytraj_5Frame_Frame *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_72coords(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_72coordinates(struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("coords", 0);
+  __Pyx_RefNannySetupContext("coordinates", 0);
 
   /* "pytraj/Frame.pyx":537
  *     @property
- *     def coords(self):
+ *     def coordinates(self):
  *         return self.xyz             # <<<<<<<<<<<<<<
  * 
  *     @property
@@ -10940,7 +10942,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_72coords(struct __pyx_obj_6pytra
   /* "pytraj/Frame.pyx":536
  * 
  *     @property
- *     def coords(self):             # <<<<<<<<<<<<<<
+ *     def coordinates(self):             # <<<<<<<<<<<<<<
  *         return self.xyz
  * 
  */
@@ -10948,7 +10950,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_72coords(struct __pyx_obj_6pytra
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.Frame.Frame.coords", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.Frame.Frame.coordinates", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -23995,18 +23997,18 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_224_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_8, __pyx_t_10, __pyx_t_12, __pyx_t_9, __pyx_t_11)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_12, __pyx_t_8, __pyx_t_10, __pyx_t_11)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx0)
+                      #pragma omp for lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
                               __pyx_v_i = 0 + 1 * __pyx_t_6;
                               /* Initialize private variables to invalid values */
-                              __pyx_v_idx1 = ((int)0xbad0bad0);
                               __pyx_v_idx0 = ((int)0xbad0bad0);
+                              __pyx_v_idx1 = ((int)0xbad0bad0);
 
                               /* "pytraj/Frame.pyx":1223
  *         if parallel:
@@ -24339,11 +24341,11 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_226_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_8, __pyx_t_10, __pyx_t_12, __pyx_t_9, __pyx_t_11)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_12, __pyx_t_8, __pyx_t_10, __pyx_t_11)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1)
+                      #pragma omp for lastprivate(__pyx_v_idx0) lastprivate(__pyx_v_idx1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
@@ -24683,18 +24685,18 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_228_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_8, __pyx_t_10, __pyx_t_12, __pyx_t_9, __pyx_t_11)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_12, __pyx_t_8, __pyx_t_10, __pyx_t_11)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1)
+                      #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1) lastprivate(__pyx_v_idx0)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
                               __pyx_v_i = 0 + 1 * __pyx_t_6;
                               /* Initialize private variables to invalid values */
-                              __pyx_v_idx0 = ((int)0xbad0bad0);
                               __pyx_v_idx1 = ((int)0xbad0bad0);
+                              __pyx_v_idx0 = ((int)0xbad0bad0);
 
                               /* "pytraj/Frame.pyx":1223
  *         if parallel:
@@ -39549,7 +39551,7 @@ static PyMethodDef __pyx_methods_6pytraj_5Frame_Frame[] = {
   {"update_atom", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_67update_atom, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_5Frame_5Frame_66update_atom},
   {"update_atoms", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_69update_atoms, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_5Frame_5Frame_68update_atoms},
   {"atoms", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_71atoms, METH_O, __pyx_doc_6pytraj_5Frame_5Frame_70atoms},
-  {"coords", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_73coords, METH_NOARGS, __pyx_doc_6pytraj_5Frame_5Frame_72coords},
+  {"coordinates", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_73coordinates, METH_NOARGS, __pyx_doc_6pytraj_5Frame_5Frame_72coordinates},
   {"coords", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_75coords, METH_NOARGS, __pyx_doc_6pytraj_5Frame_5Frame_74coords},
   {"v_xyz", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_77v_xyz, METH_O, __pyx_doc_6pytraj_5Frame_5Frame_76v_xyz},
   {"mass", (PyCFunction)__pyx_pw_6pytraj_5Frame_5Frame_79mass, METH_NOARGS, __pyx_doc_6pytraj_5Frame_5Frame_78mass},
@@ -40936,6 +40938,11 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     type_name++;
   }
   if (0);
+  else if (__Pyx_StrEq(name, "indirect")) {
+    Py_INCREF(o);
+    Py_DECREF(indirect);
+    indirect = o;
+  }
   else if (__Pyx_StrEq(name, "generic")) {
     Py_INCREF(o);
     Py_DECREF(generic);
@@ -40946,24 +40953,19 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     Py_DECREF(strided);
     strided = o;
   }
-  else if (__Pyx_StrEq(name, "indirect")) {
-    Py_INCREF(o);
-    Py_DECREF(indirect);
-    indirect = o;
-  }
   else if (__Pyx_StrEq(name, "contiguous")) {
     Py_INCREF(o);
     Py_DECREF(contiguous);
     contiguous = o;
   }
-  else if (__Pyx_StrEq(name, "Py_None")) {
-    PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
-    {__pyx_filename = __pyx_f[3]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L2_error;}
-  }
   else if (__Pyx_StrEq(name, "indirect_contiguous")) {
     Py_INCREF(o);
     Py_DECREF(indirect_contiguous);
     indirect_contiguous = o;
+  }
+  else if (__Pyx_StrEq(name, "Py_None")) {
+    PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
+    {__pyx_filename = __pyx_f[3]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L2_error;}
   }
   else {
     if (PyObject_SetAttr(__pyx_m, py_name, o) < 0) goto bad;
@@ -41322,6 +41324,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_columns, __pyx_k_columns, sizeof(__pyx_k_columns), 0, 0, 1, 1},
   {&__pyx_kp_s_contiguous_and_direct, __pyx_k_contiguous_and_direct, sizeof(__pyx_k_contiguous_and_direct), 0, 0, 1, 0},
   {&__pyx_kp_s_contiguous_and_indirect, __pyx_k_contiguous_and_indirect, sizeof(__pyx_k_contiguous_and_indirect), 0, 0, 1, 0},
+  {&__pyx_n_s_coordinates, __pyx_k_coordinates, sizeof(__pyx_k_coordinates), 0, 0, 1, 1},
   {&__pyx_n_s_coords, __pyx_k_coords, sizeof(__pyx_k_coords), 0, 0, 1, 1},
   {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_d, __pyx_k_d, sizeof(__pyx_k_d), 0, 0, 1, 1},
@@ -42804,18 +42807,18 @@ PyMODINIT_FUNC PyInit_Frame(void)
   /* "pytraj/Frame.pyx":536
  * 
  *     @property
- *     def coords(self):             # <<<<<<<<<<<<<<
+ *     def coordinates(self):             # <<<<<<<<<<<<<<
  *         return self.xyz
  * 
  */
-  __pyx_t_3 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_5Frame_Frame, __pyx_n_s_coords); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 536; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_6pytraj_5Frame_Frame, __pyx_n_s_coordinates); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 536; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
 
   /* "pytraj/Frame.pyx":535
  *         return arr
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def coords(self):
+ *     def coordinates(self):
  *         return self.xyz
  */
   __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 535; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -42826,7 +42829,7 @@ PyMODINIT_FUNC PyInit_Frame(void)
   __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 535; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_5Frame_Frame->tp_dict, __pyx_n_s_coords, __pyx_t_3) < 0) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 536; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_6pytraj_5Frame_Frame->tp_dict, __pyx_n_s_coordinates, __pyx_t_3) < 0) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 536; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   PyType_Modified(__pyx_ptype_6pytraj_5Frame_Frame);
 
