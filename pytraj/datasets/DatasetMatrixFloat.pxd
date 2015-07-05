@@ -9,6 +9,7 @@ ctypedef vector[double] Darray
 cdef extern from "DataSet_MatrixFlt.h": 
     cdef cppclass _DatasetMatrixFloat  "DataSet_MatrixFlt" (_DataSet_2D):
         _DataSet_MatrixFlt() 
+        float& index_opr "operator[]" (size_t idx)
         @staticmethod
         _DataSet * Alloc() 
 

@@ -1201,7 +1201,7 @@ cdef class Trajectory (object):
     def calc_distrmsd(self, mask="", *args, **kwd):
         return pyca.calc_distrmsd(self, mask, *args, **kwd)
 
-    def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):
+    def calc_rmsd(self, ref=None, mask='', mass=False, fit=True, *args, **kwd):
         """
         Examples
         --------
@@ -1218,7 +1218,7 @@ cdef class Trajectory (object):
             _ref = self[ref]
         else:
             _ref = ref
-        return pyca.calc_rmsd(command=mask, traj=self, ref=_ref,
+        return pyca.calc_rmsd(mask=mask, traj=self, ref=_ref,
                               mass=mass, fit=fit, *args, **kwd)
 
     def rmsd(self, *args, **kwd):
@@ -1543,7 +1543,7 @@ cdef class Trajectory (object):
             yield farray
 
     @classmethod
-    def from_iterable(cls, iteratable, top=None, copy=False):
+    def from_iterable(cls, iteratable, top=None, copy=True):
         """return a new Trajectory from `iteratable` object
         """
         if top is None:

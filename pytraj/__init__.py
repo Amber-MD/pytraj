@@ -3,6 +3,12 @@ pytraj
 """
 from __future__ import absolute_import
 
+try:
+    import numpy as np
+    np.set_printoptions(threshold=10)
+except ImportError:
+    np = None
+
 from .__version__ import __version__
 version = __version__
 from . import options
@@ -67,7 +73,11 @@ from . common_actions import (rmsd, search_hbonds,
                               calc_pairwise_rmsd,
                               calc_atomicfluct,
                               calc_bfactors,
-                              energy_decomposition,)
+                              energy_decomposition,
+                              native_contacts,
+                              auto_correlation_function,
+                              cross_correlation_function,
+                              timecorr)
 
 # create alias
 nucleic_acid_analysis = nastruct

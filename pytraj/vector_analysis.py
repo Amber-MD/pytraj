@@ -16,8 +16,10 @@ def vector_%s(traj=None, command="", top=None, *args, **kwd):
     *args, **kwd: more arguments
     """
     from ._get_common_objects import _get_top, _get_data_from_dtype
+    from ._get_common_objects import _get_list_of_commands
     from .datasets.DataSetList import DataSetList
     from .actions.CpptrajActions import Action_Vector
+    from .core.ActionList import ActionList
 
     if 'dtype' in kwd.keys():
         dtype = kwd['dtype']
@@ -27,11 +29,16 @@ def vector_%s(traj=None, command="", top=None, *args, **kwd):
 
     _top = _get_top(traj, top)
     dslist = DataSetList()
-    template_command = '%s '
-    template_command += command 
+    template_command = ' %s '
 
-    act = Action_Vector()
-    act(template_command, traj, top=_top, dslist=dslist, *args, **kwd)
+    list_of_commands = _get_list_of_commands(command)
+    actlist = ActionList()
+
+    for command in list_of_commands:
+        act = Action_Vector()
+        _command = command + template_command
+        actlist.add_action(act, _command, _top, dslist=dslist, *args, **kwd)
+    actlist.do_actions(traj)
     return _get_data_from_dtype(dslist, dtype=dtype)
 '''
 

@@ -32,9 +32,6 @@ class TestRadgyr(unittest.TestCase):
         print(d1.format)
         # TODO : add assert to make sure reproducing cpptraj output
 
-        for i in range(d1.size):
-            print(d1[i])
-
         # another way
         d0 = adict['matrix']("byres @CA", farray, farray.top, quick_get=True)
         print(d0.size)
@@ -62,23 +59,12 @@ class TestRadgyr(unittest.TestCase):
         print(cast_dataset(d0, dtype=d0.dtype))
         print(dslist.get_dataset(0))
 
-        for i in range(d0.size):
-            print(d0[i])
-
-        #print (d0.scalar_type)
-        #print (d0)
         arr0 = []
         for _d in d0:
             arr0.append(_d)
 
-        arr1 = []
-        for i in range(d0.size):
-            arr1.append(d0[i])
-
         print(arr0[:10])
-        print(arr1[:10])
         print(len(arr0))
-        assert_almost_equal(arr0, arr1)
 
         print(d0.get_element(10, 10))
         for i in range(d0.n_rows):
@@ -89,7 +75,6 @@ class TestRadgyr(unittest.TestCase):
         print(type(fullmat))
         print(len(fullmat))
 
-        assert_almost_equal(arr1[:20], fullmat[:20])
         try:
             from pytraj.plottingplot_matrix import plot_matrix
             from pytraj.plottingbase import plt

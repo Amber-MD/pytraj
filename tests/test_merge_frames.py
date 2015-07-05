@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
                              pt.get_coordinates(traj).flatten()) < 1E-5
 
         # test list
-        big_frame = pt.tools.merge_frames([frame for frame in traj])
+        big_frame = pt.tools.merge_frames([frame.copy() for frame in traj])
         assert pt.tools.rmsd(big_frame.xyz.flatten(),
                              pt.get_coordinates(traj).flatten()) < 1E-5
 

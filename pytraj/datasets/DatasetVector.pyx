@@ -45,15 +45,42 @@ cdef class DatasetVector (DataSet_1D):
     def append(self, Vec3 vec):
         self.thisptr.AddVxyz(vec.thisptr[0])
 
+    def from_array_like(self, double[:, :] arr):
+        cdef int i
+        cdef double[:] xyz
+        cdef _Vec3 _vec
+
+        if arr.shape[1] != 3:
+            raise ValueError("must have shape = (n_frames, 3))")
+
+        for i in range(arr.shape[0]):
+            xyz = arr[i]
+            _vec.Assign(&xyz[0])
+            self.thisptr.AddVxyz(_vec)
+
     def tolist(self):
         # overwrite
         # x is memview array
         return [x.tolist() for x in self.data]
 
     def to_ndarray(self, copy=True):
+        # rewrite to make fast copy
+        # use `copy=True` as dummy argument to be 
+        # consistent with DataSet_1D
         import numpy as np
-        # use `copy=True` as dummy argument to be consistent with DataSet_1D
-        return np.array([np.array(x[:]) for x in self.data])
+        cdef int i
+        cdef int size = self.size
+        cdef _Vec3 _vec3
+        #cdef double[:, :] dview = np.empty((size, 3), dtype='f8')
+        cdef double[:, :] dview = cyarray(shape=(size, 3), 
+                itemsize=sizeof(double), format="d")
+
+        for i in range(size):
+            _vec3 = self.thisptr.index_opr(i)
+            dview[i, 0] = _vec3.Dptr()[0]
+            dview[i, 1] = _vec3.Dptr()[1]
+            dview[i, 2] = _vec3.Dptr()[2]
+        return np.array(dview)
 
     def to_dataframe(self):
         from pytraj.utils import _import

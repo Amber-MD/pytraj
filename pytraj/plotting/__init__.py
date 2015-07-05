@@ -4,9 +4,10 @@ from pytraj.utils.check_and_assert import require
 from .plot_matrix import plot_matrix
 
 try:
-    from matplotlib.pyplot import show
+    from matplotlib.pyplot import show, plot
 except ImportError:
     show = None
+    plto = None
 
 
 def show_config():

@@ -54,6 +54,11 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
     def __init__(self, filename=None, top=None, *args, **kwd):
         self._force_load = False
+        # use self.chunk to store `chunk` in chunk_iter
+        # to deallocate memory
+        self.chunk = None
+        # same as self.chunk but for frame_iter
+        self.frame = None
         # only allow to load <= 1000 Mb
         self._size_limit_in_MB = 1000
         super(TrajectoryIterator, self).__init__()
@@ -78,6 +83,20 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         if not top and (args or kwd):
             warnings.warn('creating an empty TrajectoryIterator since does not '
                           'have Topology information. Ignore other arguments')
+
+    def __iter__(self):
+        for frame in super(TrajectoryIterator, self).__iter__():
+            # we need to use `copy` to create different frame pointer
+            # so [frame for frame in traj] will return a list of different ones
+            yield frame.copy()
+
+    def copy(self):
+        """Very simple"""
+        other = self.__class__()
+        other.top = self.top.copy()
+        other.load(self.filelist)
+
+        return other
 
     def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         """load trajectory/trajectories from filename/filenames
@@ -164,7 +183,9 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          stride=stride,
                          mask=mask,
                          autoimage=autoimage,
-                         rmsfit=rmsfit)
+                         rmsfit=rmsfit,
+                         is_trajiter=True,
+                         )
 
     def chunk_iter(self, chunksize=2, start=0, stop=-1,
                    autoimage=False,
@@ -202,7 +223,13 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                 chunk.autoimage()
             if need_align:
                 chunk.rmsfit(ref, mask_for_rmsfit)
-            yield chunk
+            # free memory
+            # if not, memory will be quicly accumulated. 
+            if self.chunk:
+                self.chunk.__del__()
+
+            self.chunk = chunk
+            yield self.chunk
 
     @property
     def filename(self):

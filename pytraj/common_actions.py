@@ -15,6 +15,7 @@ from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
 from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
+from ._get_common_objects import _get_matrix_from_dataset
 from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .externals.six import string_types
@@ -81,36 +82,16 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     """calculate distance
 
     Notes:
-    command : str | list of strings | int_2d numpy array
+    command : str | list of strings | 2d numpy array of integers
     """
     ensure_not_none_or_string(traj)
 
-    _, np = _import_numpy()
     _top = _get_top(traj, top)
-    if isinstance(command, string_types):
-        # need to remove 'n_frames' keyword since Action._master does not use
-        # it
-        try:
-            del kwd['n_frames']
-        except:
-            pass
-        # cpptraj mask for action
-        dset = calculate(
-            "distance", traj, command, top=_top,  quick_get=True, *args, **kwd)
-        return _get_data_from_dtype(dset, dtype)
-    elif isinstance(command, (list, tuple)):
-        list_of_commands = command
-        from pytraj.core.ActionList import ActionList
-        from pytraj.actions.CpptrajActions import Action_Distance
-        dslist = CpptrajDatasetList()
-        actlist = ActionList()
 
-        for cm in list_of_commands:
-            actlist.add_action(
-                Action_Distance(), cm, _top, dslist=dslist, *args, **kwd)
-        actlist.do_actions(traj)
-        return _get_data_from_dtype(dslist, dtype)
-    elif isinstance(command, np.ndarray):
+
+    if 'ndarray' in command.__class__.__name__: 
+        from pytraj.datasetlist import from_dict
+        import numpy as np
         int_2darr = command
         if int_2darr.shape[1] != 2:
             raise ValueError("require int-array with shape=(n_atoms, 2)")
@@ -124,9 +105,28 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
         arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(_frame_iter_master(traj)):
             arr[idx] = frame.calc_distance(int_2darr)
-        return arr
+        py_dslist = from_dict({'rmsd' : arr})
+        return _get_data_from_dtype(py_dslist, dtype)
+
+    elif isinstance(command, (list, tuple, string_types)):
+        # create a list
+        list_of_commands = _get_list_of_commands(command)
+
+        from pytraj.core.ActionList import ActionList
+        from pytraj.actions.CpptrajActions import Action_Distance
+
+        dslist = CpptrajDatasetList()
+        actlist = ActionList()
+
+        for cm in list_of_commands:
+            actlist.add_action(
+                Action_Distance(), cm, _top, dslist=dslist, *args, **kwd)
+        actlist.do_actions(traj)
+        return _get_data_from_dtype(dslist, dtype)
+
     else:
-        raise ValueError("")
+        raise ValueError("command must be a string, a list/tuple of strings, or "
+                         "a numpy 2D array")
 
 
 def calc_angle(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
@@ -406,7 +406,8 @@ def do_rotation(traj=None, command="",  top=Topology()):
 
 
 def do_autoimage(traj=None, command="", top=Topology()):
-    adict['autoimage'](command, traj, top)
+    from pytraj.actions.CpptrajActions import Action_AutoImage
+    Action_AutoImage()(command, traj, top)
 
 autoimage = do_autoimage
 
@@ -649,7 +650,9 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
 calc_COG = calc_center_of_geometry
 
 
-def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', 
+                      mat_type='full',
+                      *args, **kwd):
     """return  CpptrajDatasetList object
     Parameters
     ----------
@@ -729,7 +732,10 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', *args, 
     # remove dataset coords to free memory
     dslist.remove_set(dslist[0])
 
-    return _get_data_from_dtype(dslist, dtype)
+    if dtype == 'ndarray':
+        return _get_matrix_from_dataset(dslist[0], mat_type)
+    else:
+        return _get_data_from_dtype(dslist, dtype)
 
 
 def calc_density(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
@@ -772,14 +778,14 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_rmsd(traj=None, command="", ref=None, mass=False,
+def calc_rmsd(traj=None, mask="", ref=None, mass=False,
               fit=True, top=None, dtype='ndarray',
               mode='pytraj'):
     """calculate rmsd
 
     Parameters
     ---------
-    command : str
+    mask : str
         Atom mask
     traj : Trajectory | List of trajectories | Trajectory or frame_iter
     top : Topology | str
@@ -800,14 +806,17 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
     >>> from pytraj import io
     >>> from pytraj.common_actions import calc_rmsd
     >>> traj = io.load_sample_data("tz2")
-    >>> calc_rmsd(traj, ":3-13@CA", ref=traj[0], mass=True, fit=True)
-    >>> calc_rmsd(traj, ":3-13@CA", ref=traj[0], mass=True, fit=False)
-    >>> calc_rmsd(traj, ":3-13@CA", ref=traj[0], mass=True, fit=False, mode='cpptraj')
-    >>> calc_rmsd([traj, traj[-1]], ":3-13@CA", ref=traj[0], top=traj.top, mass=True, fit=False)
+    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13', mass=True, fit=True)
+    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13', mass=True, fit=False)
+    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13', mass=True, fit=False, mode='cpptraj')
+    >>> calc_rmsd([traj, traj[-1]], ref=traj[0], mask=':3-13', top=traj.top, mass=True, fit=False)
 
     """
+    from pytraj.utils import is_int
     from array import array as pyarray
     from pytraj.datasets import DatasetDouble
+
+    command = mask
 
     _top = _get_top(traj, top)
     if ref is None or ref == 'first':
@@ -815,10 +824,14 @@ def calc_rmsd(traj=None, command="", ref=None, mass=False,
         ref = traj[0]
     elif ref == 'last':
         ref = traj[-1]
+    elif is_int(ref):
+        ref = traj[ref]
     elif isinstance(ref, string_types):
         # need to check this in the end to avoid using 'last' keyword
         from .trajs.Trajin_Single import Trajin_Single
         ref = Trajin_Single(ref, _top)[0]
+    else:
+        ref = ref
 
     if mode == 'pytraj':
         arr = array('d')
@@ -940,6 +953,20 @@ def pca(traj=None, command="* dorotation mass", top=None, dtype='dataset', *args
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+def atomiccorr(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+    """
+    """
+    from pytraj.actions.CpptrajActions import Action_AtomicCorr
+    _top = _get_top(traj, top)
+
+    dslist = CpptrajDatasetList()
+    act = adict['atomiccorr']
+    act("out mytempfile.out " + command, traj, top=_top, 
+        dslist=dslist, *args, **kwd)
+    act.print_output()
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+
 def closest(traj=None, command=None, top=None, *args, **kwd):
     """
     Parameters
@@ -1034,21 +1061,43 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
 
 def native_contacts(traj=None, command="", top=None, dtype='dataset',
                     ref=None,
+                    distance=7.0,
+                    noimage=False,
+                    include_solvent=False,
+                    byres=False,
                     *args, **kwd):
     """
     Notes
     ----
     if `ref` is not None: first number in result corresponds to reference
+    Not assert to cpptraj's output yet
     """
     from .actions.CpptrajActions import Action_NativeContacts
     act = Action_NativeContacts()
     dslist = CpptrajDatasetList()
 
+    if ref is None or ref == 'first':
+        try:
+            ref = traj[0]
+        except IndexError:
+            raise ValueError("require reference")
+
+    _distance = str(distance)
+    _noimage = "noimage" if noimage else ""
+    _includesolvent = "includesolvent" if include_solvent else ""
+    _byres = "byresidue" if byres else ""
+
+    _command = " ".join((command, _distance, _noimage, 
+                         _includesolvent, _byres))
+
     _top = _get_top(traj, top)
-    if ref is not None:
-        act(command, [ref, traj], top=_top, dslist=dslist, *args, **kwd)
-    else:
-        act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(_command, [ref, traj], top=_top, dslist=dslist, *args, **kwd)
+
+    from pytraj.datasetlist import DatasetList
+    dslist = DatasetList(dslist)
+    for d in dslist:
+        # exclude ref frame
+        d.values = d.values[1:]
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
@@ -1118,3 +1167,78 @@ def check_structure(traj=None, command="", top=None,
     # cpptraj require output
     _top = _get_top(traj, top)
     act(command, traj, top=_top, *args, **kwd)
+
+def timecorr(vec0, vec1, order=2, timestep=1., tcorr=10000.,
+             norm=False,
+             dtype='ndarray'):
+    """TODO: doc. not yet assert to cpptraj's output
+
+    Parameters
+    ----------
+    vec0 : 2D array-like, shape=(n_frames, 3)
+    vec1 : 2D array-like, shape=(n_frames, 3)
+    order : int, default 2
+    timestep : float, default 1.
+    tcorr : float, default 10000.
+    norm : bool, default False
+    """
+    from pytraj.datasets import  DataSetList as CDSL, DatasetVector
+    from pytraj.math import Vec3
+    import numpy as np
+    act = analdict['timecorr']
+
+    cdslist = CDSL()
+
+    cdslist.add_set("vector", "_vec0")
+    cdslist.add_set("vector", "_vec1")
+    cdslist[0].from_array_like(np.asarray(vec0).astype('f8'))
+    cdslist[1].from_array_like(np.asarray(vec1).astype('f8'))
+
+    _order = "order " + str(order)
+    _tstep = "tstep " + str(timestep)
+    _tcorr = "tcorr " + str(tcorr)
+    _norm = "norm" if norm else ""
+    command = " ".join(('vec1 _vec0 vec2 _vec1', _order, _tstep, _tcorr, _norm))
+    act(command, dslist=cdslist)
+    return _get_data_from_dtype(cdslist[2:], dtype=dtype)
+
+def cross_correlation_function(data0, data1, dtype='ndarray'):
+    """
+    Notes
+    -----
+    Same as `corr` in cpptraj
+    """
+    from pytraj.datasets import DataSetList as CDSL
+    import numpy as np
+
+    cdslist = CDSL()
+    cdslist.add_set("double", "d0")
+    cdslist.add_set("double", "d1")
+
+    cdslist[0].from_array_like(np.asarray(data0))
+    cdslist[1].from_array_like(np.asarray(data1))
+
+    act = analdict['corr']
+    act("d0 d1 out _tmp.out", dslist=cdslist)
+    return _get_data_from_dtype(cdslist[2:], dtype=dtype)
+
+def auto_correlation_function(data, dtype='ndarray', covar=True):
+    """
+    Notes
+    -----
+    Same as `autocorr` in cpptraj
+    """
+    from pytraj.datasets import DataSetList as CDSL
+    import numpy as np
+
+    _nocovar = " " if covar else " nocovar"
+
+    cdslist = CDSL()
+    cdslist.add_set("double", "d0")
+
+    cdslist[0].from_array_like(np.asarray(data))
+
+    act = analdict['autocorr']
+    command = "d0 out _tmp.out" + _nocovar
+    act(command, dslist=cdslist)
+    return _get_data_from_dtype(cdslist[1:], dtype=dtype)

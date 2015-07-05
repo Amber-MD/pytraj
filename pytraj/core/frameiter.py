@@ -16,7 +16,8 @@ class FrameIter(object):
                  original_top=None,
                  new_top=None, start=0, stop=-1, stride=1,
                  mask="", autoimage=False,
-                 rmsfit=None):
+                 rmsfit=None,
+                 is_trajiter=False):
         self.top = new_top
         self.original_top = original_top
         self.frame_iter = fi_generator
@@ -26,6 +27,8 @@ class FrameIter(object):
         self.mask = mask
         self.autoimage = autoimage
         self.rmsfit = rmsfit
+        # use `copy_frame` for TrajectoryIterator
+        self.is_trajiter = is_trajiter
 
     @property
     def __name__(self):
@@ -71,8 +74,17 @@ class FrameIter(object):
             need_align = False
             ref, mask_for_rmsfit = None, None
 
-        for frame in self.frame_iter:
+        for frame0 in self.frame_iter:
+            if self.is_trajiter:
+                # use copy for TrajectoryIterator
+                # so [f for f in traj()] will return a list of different 
+                # frames
+                frame = frame0.copy()
+            else:
+                frame = frame0
             if self.autoimage:
+                #from pytraj.actions.CpptrajActions import Action_AutoImage
+                #Action_AutoImage()("", frame, self.top)
                 image_act.do_action(frame)
             if need_align:
                 # trick cpptraj to fit to 1st frame (=ref)
@@ -89,6 +101,7 @@ class FrameIter(object):
                         raise PytrajMemviewError()
                 frame2 = Frame(atm.n_atoms)
                 frame2.set_coords(frame, atm)
+
                 yield frame2
             else:
                 yield frame

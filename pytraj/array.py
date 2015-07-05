@@ -39,7 +39,10 @@ class DataArray(object):
             assert len(dset.keys()) == 1, "single dict"
             key = list(dset.keys())[0]
             self.key = key
-            self.values = np.asarray(dset[key])
+            if copy:
+                self.values = np.asarray(dset[key]).copy()
+            else:
+                self.values = np.asarray(dset[key])
             self.name = ""
             self.aspect = "unknown"
             self.idx = 0

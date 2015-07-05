@@ -44,7 +44,7 @@ class HbondAnalysisResult(BaseAnalysisResult):
 
     @property
     def donor_aceptor(self):
-        return [x for x in self.dslist.keys() if x != 'total_solute_solute']
+        return self.dslist.grep(["solventhb", "solutehb"], mode='aspect').keys()
 
     def lifetime(self, cut=None):
         """return a dict with keys as donor_aceptor pairs and
@@ -129,7 +129,10 @@ def search_hbonds_noseries(traj, mask="", dtype='dataset', update_legend=True,
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
+def search_hbonds(traj, mask="", dtype='dataset', 
+                  solventdonor=None,
+                  solventacceptor=None,
+                  update_legend=True,
                   *args, **kwd):
     """search hbonds for a given mask
     Parameters
@@ -165,10 +168,13 @@ def search_hbonds(traj, mask="", dtype='dataset', update_legend=True,
     --------
     http://ambermd.org/doc12/Amber15.pdf (page 575)
     """
+    s_donor = "solventdonor " + str(solventdonor) if solventdonor else ""
+    s_acceptor = "solventacceptor " + str(solventacceptor) if solventacceptor else ""
+
     dslist = DataSetList()
     act = adict['hbond']
 
-    command = "series " + mask
+    command = " ".join(("series", mask, s_donor, s_acceptor))
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
 

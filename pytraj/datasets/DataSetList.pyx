@@ -229,7 +229,9 @@ cdef class DataSetList:
         return dlist
 
     def add_set(self, dtype=None, name="", default_name=""):
-        # TODO: check cpptraj for this method
+        """create new (empty) DataSet and add to `self`
+        this is for internal use
+        """
         cdef DataSet dset = DataSet()
         if dtype is None:
             raise ValueError("dtype must not be None")
@@ -250,6 +252,9 @@ cdef class DataSetList:
         return dset
 
     def _add_copy_of_set(self, DataSet dset):
+        self.thisptr.AddCopyOfSet(dset.baseptr0)
+
+    def add_copy_of_set(self, DataSet dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
 
     def add_set_aspect(self, dtype, name=None, aspect=None):
@@ -574,3 +579,9 @@ cdef class DataSetList:
 
     def _parent_lists_free(self):
         self._parent_lists_free = []
+
+    def to_pyarray(self):
+        if self.size > 1:
+            return [d.to_pyarray() for d in self]
+        else:
+            return self[0].to_pyarray()

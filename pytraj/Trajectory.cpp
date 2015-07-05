@@ -21189,7 +21189,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_104calc_distrmsd(str
  *     def calc_distrmsd(self, mask="", *args, **kwd):
  *         return pyca.calc_distrmsd(self, mask, *args, **kwd)             # <<<<<<<<<<<<<<
  * 
- *     def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):
+ *     def calc_rmsd(self, ref=None, mask='', mass=False, fit=True, *args, **kwd):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_pyca); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21240,7 +21240,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_104calc_distrmsd(str
 /* "pytraj/Trajectory.pyx":1204
  *         return pyca.calc_distrmsd(self, mask, *args, **kwd)
  * 
- *     def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):             # <<<<<<<<<<<<<<
+ *     def calc_rmsd(self, ref=None, mask='', mass=False, fit=True, *args, **kwd):             # <<<<<<<<<<<<<<
  *         """
  *         Examples
  */
@@ -21429,7 +21429,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct 
  *             _ref = self[ref]
  *         else:
  *             _ref = ref             # <<<<<<<<<<<<<<
- *         return pyca.calc_rmsd(command=mask, traj=self, ref=_ref,
+ *         return pyca.calc_rmsd(mask=mask, traj=self, ref=_ref,
  *                               mass=mass, fit=fit, *args, **kwd)
  */
   /*else*/ {
@@ -21441,7 +21441,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct 
   /* "pytraj/Trajectory.pyx":1221
  *         else:
  *             _ref = ref
- *         return pyca.calc_rmsd(command=mask, traj=self, ref=_ref,             # <<<<<<<<<<<<<<
+ *         return pyca.calc_rmsd(mask=mask, traj=self, ref=_ref,             # <<<<<<<<<<<<<<
  *                               mass=mass, fit=fit, *args, **kwd)
  * 
  */
@@ -21454,7 +21454,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct 
 
   /* "pytraj/Trajectory.pyx":1222
  *             _ref = ref
- *         return pyca.calc_rmsd(command=mask, traj=self, ref=_ref,
+ *         return pyca.calc_rmsd(mask=mask, traj=self, ref=_ref,
  *                               mass=mass, fit=fit, *args, **kwd)             # <<<<<<<<<<<<<<
  * 
  *     def rmsd(self, *args, **kwd):
@@ -21465,17 +21465,17 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct 
   /* "pytraj/Trajectory.pyx":1221
  *         else:
  *             _ref = ref
- *         return pyca.calc_rmsd(command=mask, traj=self, ref=_ref,             # <<<<<<<<<<<<<<
+ *         return pyca.calc_rmsd(mask=mask, traj=self, ref=_ref,             # <<<<<<<<<<<<<<
  *                               mass=mass, fit=fit, *args, **kwd)
  * 
  */
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_command, __pyx_v_mask) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_mask, __pyx_v_mask) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_traj, ((PyObject *)__pyx_v_self)) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_ref, __pyx_v__ref) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "pytraj/Trajectory.pyx":1222
  *             _ref = ref
- *         return pyca.calc_rmsd(command=mask, traj=self, ref=_ref,
+ *         return pyca.calc_rmsd(mask=mask, traj=self, ref=_ref,
  *                               mass=mass, fit=fit, *args, **kwd)             # <<<<<<<<<<<<<<
  * 
  *     def rmsd(self, *args, **kwd):
@@ -21489,7 +21489,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct 
   /* "pytraj/Trajectory.pyx":1221
  *         else:
  *             _ref = ref
- *         return pyca.calc_rmsd(command=mask, traj=self, ref=_ref,             # <<<<<<<<<<<<<<
+ *         return pyca.calc_rmsd(mask=mask, traj=self, ref=_ref,             # <<<<<<<<<<<<<<
  *                               mass=mass, fit=fit, *args, **kwd)
  * 
  */
@@ -21504,7 +21504,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_106calc_rmsd(struct 
   /* "pytraj/Trajectory.pyx":1204
  *         return pyca.calc_distrmsd(self, mask, *args, **kwd)
  * 
- *     def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):             # <<<<<<<<<<<<<<
+ *     def calc_rmsd(self, ref=None, mask='', mass=False, fit=True, *args, **kwd):             # <<<<<<<<<<<<<<
  *         """
  *         Examples
  */
@@ -28905,14 +28905,14 @@ static PyObject *__pyx_gb_6pytraj_10Trajectory_10Trajectory_176generator2(__pyx_
 /* "pytraj/Trajectory.pyx":1546
  * 
  *     @classmethod
- *     def from_iterable(cls, iteratable, top=None, copy=False):             # <<<<<<<<<<<<<<
+ *     def from_iterable(cls, iteratable, top=None, copy=True):             # <<<<<<<<<<<<<<
  *         """return a new Trajectory from `iteratable` object
  *         """
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_178from_iterable(PyObject *__pyx_v_cls, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_177from_iterable[] = "Trajectory.from_iterable(type cls, iteratable, top=None, copy=False)\nreturn a new Trajectory from `iteratable` object\n        ";
+static char __pyx_doc_6pytraj_10Trajectory_10Trajectory_177from_iterable[] = "Trajectory.from_iterable(type cls, iteratable, top=None, copy=True)\nreturn a new Trajectory from `iteratable` object\n        ";
 static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_178from_iterable(PyObject *__pyx_v_cls, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_iteratable = 0;
   PyObject *__pyx_v_top = 0;
@@ -28927,7 +28927,7 @@ static PyObject *__pyx_pw_6pytraj_10Trajectory_10Trajectory_178from_iterable(PyO
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_iteratable,&__pyx_n_s_top,&__pyx_n_s_copy,0};
     PyObject* values[3] = {0,0,0};
     values[1] = ((PyObject *)Py_None);
-    values[2] = ((PyObject *)Py_False);
+    values[2] = ((PyObject *)Py_True);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -29227,7 +29227,7 @@ static PyObject *__pyx_pf_6pytraj_10Trajectory_10Trajectory_177from_iterable(PyO
   /* "pytraj/Trajectory.pyx":1546
  * 
  *     @classmethod
- *     def from_iterable(cls, iteratable, top=None, copy=False):             # <<<<<<<<<<<<<<
+ *     def from_iterable(cls, iteratable, top=None, copy=True):             # <<<<<<<<<<<<<<
  *         """return a new Trajectory from `iteratable` object
  *         """
  */
@@ -45512,7 +45512,7 @@ PyMODINIT_FUNC PyInit_Trajectory(void)
   /* "pytraj/Trajectory.pyx":1546
  * 
  *     @classmethod
- *     def from_iterable(cls, iteratable, top=None, copy=False):             # <<<<<<<<<<<<<<
+ *     def from_iterable(cls, iteratable, top=None, copy=True):             # <<<<<<<<<<<<<<
  *         """return a new Trajectory from `iteratable` object
  *         """
  */
@@ -45523,7 +45523,7 @@ PyMODINIT_FUNC PyInit_Trajectory(void)
  *             yield farray
  * 
  *     @classmethod             # <<<<<<<<<<<<<<
- *     def from_iterable(cls, iteratable, top=None, copy=False):
+ *     def from_iterable(cls, iteratable, top=None, copy=True):
  *         """return a new Trajectory from `iteratable` object
  */
   __pyx_t_4 = __Pyx_Method_ClassMethod(__pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1545; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

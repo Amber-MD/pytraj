@@ -67,7 +67,7 @@ class ActionTrajectory(object):
         if is_int(ref):
             # index
             ref = self[ref]
-        return pyca.calc_rmsd(command=mask, traj=self,
+        return pyca.calc_rmsd(mask=mask, traj=self,
                               ref=ref, mass=mass, fit=fit, *args, **kwd)
 
     def calc_rmsd(self, *args, **kwd):

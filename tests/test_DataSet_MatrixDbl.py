@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
         print(get_atts(mat))
 
         n_residues = traj.top.n_residues
-        assert len(mat.data) == (n_residues * n_residues)
+        assert mat.data.shape == (n_residues, n_residues)
         arr0 = np.asarray(mat.data)
         indices = np.where(arr0 == 0.0)[0]
         print(indices.shape)
