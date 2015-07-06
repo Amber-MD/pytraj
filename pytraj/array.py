@@ -228,12 +228,13 @@ class DataArray(object):
         from pytraj.utils import _import
         try:
             from matplotlib import pyplot as plt
+            ax = plt.subplot(111)
             if self.ndim == 2 and 'B-factor' in self.key:
                 values = self.values.T
                 # good for bfactor plotting
-                ax = plt.plot(values[0], values[1], *args, **kwd)
+                ax.plot(values[0], values[1], *args, **kwd)
             else:
-                ax = plt.plot(self, *args, **kwd)
+                ax.plot(self, *args, **kwd)
             if show:
                 plt.show()
             return ax

@@ -586,8 +586,7 @@ class DatasetList(list):
                 print ("no seaborn package. skip importing")
         try:
             from matplotlib import pyplot as plt
-            fig = plt.figure()
-            ax = fig.add_subplot(111)
+            ax = plt.subplot(111)
             if self.size == 1:
                 # good for plotting bfactors
                 # let DatasetList `show`
