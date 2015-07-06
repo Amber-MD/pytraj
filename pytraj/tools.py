@@ -283,3 +283,22 @@ def mean_and_error(a1, a2):
 def get_parmed_info(its_obj, att):
     import numpy as np
     return np.asarray([getattr(atom, att) for atom in its_obj.atoms])
+
+def split_traj_by_residues(traj, start=0, stop=-1, stride=1):
+    '''return a generator
+
+    Examples
+    --------
+    >>> g = pt.tools.split_traj_by_residues(traj)
+    >>> next(g)
+    >>> next(g)
+    '''
+    from pytraj.compat import range
+    from pytraj._cyutils import get_positive_idx
+
+    _stop = get_positive_idx(stop, traj.top.n_residues)
+
+    for i in range(start, _stop, stride):
+        j = ':' + str(i + 1)
+        # example: traj[':3']
+        yield traj[j]
