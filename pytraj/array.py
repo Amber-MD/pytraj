@@ -219,7 +219,7 @@ class DataArray(object):
         """
         return np.array_split(self.to_ndarray(), n_chunks_or_array)
 
-    def plot(self, show=False, *args, **kwd):
+    def plot(self, show=True, *args, **kwd):
         """return matplotlib object
         Notes
         ----

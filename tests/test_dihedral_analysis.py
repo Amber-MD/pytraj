@@ -20,11 +20,11 @@ class Test(unittest.TestCase):
         saved_file = './data/test_multidihedral.dat'
         saved_data_phi = np.loadtxt(saved_file, skiprows=1).transpose()[1]
 
-        arr0 = da.calc_phi(traj, 'resrange 7').to_ndarray()
-        dslist1 = da.calc_phi(traj, 'resrange 7')
+        arr0 = da.calc_phi(traj, resrange='7').to_ndarray()
+        dslist1 = da.calc_phi(traj, resrange='7')
         arr1 = dslist1.to_ndarray()
-        arr2 = da.calc_phi(traj, 'resrange 7', dtype='ndarray')
-        arr3 = da.calc_phi(traj, 'resrange 7').to_dict()
+        arr2 = da.calc_phi(traj, resrange='7', dtype='ndarray')
+        arr3 = da.calc_phi(traj, resrange='7').to_dict()
         print(arr3)
 
         # assert to cpptraj output

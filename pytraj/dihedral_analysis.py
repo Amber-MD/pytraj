@@ -9,7 +9,9 @@ supported_dihedral_types = [x for x in
                             'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
 
 template = '''
-def calc_%s(traj=None, resrange="", top=None, dtype='dataset', *args, **kwd):
+def calc_%s(traj=None, resrange="", 
+            range360=False,
+            top=None, dtype='dataset', *args, **kwd):
     """
     Parameters
     ----------
@@ -22,10 +24,10 @@ def calc_%s(traj=None, resrange="", top=None, dtype='dataset', *args, **kwd):
     --------
     >>> import pytraj.dihedral_analysis as da
     >>> da.calc_phi(traj)
-    >>> da.calc_psi(traj, "resrange 3-10")
-    >>> da.calc_chip(traj, "resrange 3-10")
-    >>> da.calc_chip(traj, "resrange 3-10", dtype='dict')
-    >>> da.calc_multidihedral(traj, "resrange 3-10")
+    >>> da.calc_psi(traj, resrange="3-10")
+    >>> da.calc_chip(traj, resrange="3-10")
+    >>> da.calc_chip(traj, resrange="3-10", dtype='dict')
+    >>> da.calc_multidihedral(traj, resrange="3-10")
     >>> # assert
     >>> from pytraj import common_actions as pyca
     >>> phi0 = pyca.calc_multidihedral(traj, "phi", dtype='dataset')
@@ -43,10 +45,15 @@ def calc_%s(traj=None, resrange="", top=None, dtype='dataset', *args, **kwd):
     from .actions.CpptrajActions import Action_MultiDihedral
     from ._get_common_objects import _get_top, _get_data_from_dtype
 
+    if range360:
+        _range360 = 'range360'
+    else:
+        _range360 = ''
+
     _top = _get_top(traj, top)
     dslist = DataSetList()
     template_command = '%s '
-    template_command = " ".join((template_command, 'resrange', resrange ))
+    template_command = " ".join((template_command, 'resrange', resrange, _range360))
 
     act = Action_MultiDihedral()
     act(template_command, traj, top=_top, dslist=dslist, *args, **kwd)

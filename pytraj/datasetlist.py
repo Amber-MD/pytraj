@@ -572,7 +572,7 @@ class DatasetList(list):
         formats = ['%8i'] + [d.format for d in self]
         np.savetxt(filename, values, fmt=formats, header=headers)
 
-    def plot(self, show=False, use_seaborn=False, *args, **kwd):
+    def plot(self, show=True, use_seaborn=True, *args, **kwd):
         """very simple plot for quickly visualize the data
 
         >>> dslist[['psi:7', 'phi:7']].plot()
@@ -583,7 +583,7 @@ class DatasetList(list):
                 import seaborn as snb
                 snb.set()
             except ImportError:
-                raise ImportError("need seaborn")
+                print ("no seaborn package. skip importing")
         try:
             from matplotlib import pyplot as plt
             fig = plt.figure()

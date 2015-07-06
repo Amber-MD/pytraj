@@ -496,6 +496,7 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
         dihedral_types=None,
         resrange=None,
         define_new_type=None,
+        range360=False,
         top=None, *args, **kwd):
     """perform dihedral search
     Parameters
@@ -549,7 +550,12 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
     else:
         dh_types = ''
 
-    _command = " ".join((command, d_types, _resrange, dh_types))
+    if range360:
+        _range360 = 'range360'
+    else:
+        _range360 = ''
+
+    _command = " ".join((command, d_types, _resrange, dh_types, _range360))
 
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
