@@ -268,3 +268,14 @@ def rmsd(a1, a2, flatten=True):
     if a1.shape != a2.shape and not flatten:
         raise ValueError("must have the same shape")
     return rmsd_1darray(a1.flatten(), a2.flatten())
+
+def mean_and_error(a1, a2):
+    """calculate mean and error from two 1D array-like
+    """
+    import numpy as np
+    mean = np.mean
+
+    a1 = np.asarray(a1)
+    a2 = np.asarray(a2)
+    assert len(a1.shape) == len(a2.shape) == 1, "1D array"
+    return (mean(a1 + a2)/2, mean(np.abs(a1 - a2))/2)

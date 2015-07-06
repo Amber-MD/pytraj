@@ -572,7 +572,7 @@ class DatasetList(list):
         formats = ['%8i'] + [d.format for d in self]
         np.savetxt(filename, values, fmt=formats, header=headers)
 
-    def plot(self, show=False, use_seaborn=False, *args, **kwd):
+    def plot(self, show=True, use_seaborn=True, *args, **kwd):
         """very simple plot for quickly visualize the data
 
         >>> dslist[['psi:7', 'phi:7']].plot()
@@ -583,11 +583,10 @@ class DatasetList(list):
                 import seaborn as snb
                 snb.set()
             except ImportError:
-                raise ImportError("need seaborn")
+                print ("no seaborn package. skip importing")
         try:
             from matplotlib import pyplot as plt
-            fig = plt.figure()
-            ax = fig.add_subplot(111)
+            ax = plt.subplot(111)
             if self.size == 1:
                 # good for plotting bfactors
                 # let DatasetList `show`
@@ -684,3 +683,6 @@ class DatasetList(list):
         """equal to np.dot(D[idx0].values, D[idx1].values)
         """
         return np.dot(self[idx0].values, self[idx1].values)
+
+    def astype(self, dtype):
+        return self.values.astype(dtype)
