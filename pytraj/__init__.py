@@ -83,6 +83,7 @@ from . common_actions import (rmsd, search_hbonds,
 nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
 rmsd_with_rotation_matrices = calc_rmsd_with_rotation_matrices
+multidihedral = calc_multidihedral
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (
@@ -105,7 +106,12 @@ from ._shared_methods import _frame_iter_master as frame_iter_master
 # turn off verbose in cpptraj
 # TODO: need to move set_world_silent and set_error_silent to the same file
 from ._set_silent import set_error_silent, set_world_silent
-from ._set_silent import set_world_silent as set_cpptraj_verbose
+
+def set_cpptraj_verbose(cm):
+    if cm:
+        set_world_silent(False)
+    else:
+        set_world_silent(True)
 
 set_world_silent(True)
 
