@@ -684,3 +684,6 @@ class DatasetList(list):
         """equal to np.dot(D[idx0].values, D[idx1].values)
         """
         return np.dot(self[idx0].values, self[idx1].values)
+
+    def astype(self, dtype):
+        return self.values.astype(dtype)

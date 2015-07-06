@@ -492,7 +492,11 @@ def do_clustering(traj=None, command="", top=None, dtype='dataset',
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_multidihedral(traj=None, command="", dtype='dataset', top=None, *args, **kwd):
+def calc_multidihedral(traj=None, command="", dtype='dataset', 
+        dihedral_types=None,
+        resrange=None,
+        define_new_type=None,
+        top=None, *args, **kwd):
     """perform dihedral search
     Parameters
     ----------
@@ -530,10 +534,27 @@ def calc_multidihedral(traj=None, command="", dtype='dataset', top=None, *args, 
     -------
         Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 579)
     """
+    if resrange and 'resrange' not in command:
+        _resrange = "resrange " + str(resrange)
+    else:
+        _resrange = " "
+
+    if dihedral_types:
+        d_types = str(dihedral_types)
+    else:
+        d_types = " "
+
+    if define_new_type:
+        dh_types = ' '.join(('dihtype', str(define_new_type)))
+    else:
+        dh_types = ''
+
+    _command = " ".join((command, d_types, _resrange, dh_types))
+
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
     act = adict['multidihedral']
-    act(command, traj, _top, dslist=dslist, *args, **kwd)
+    act(_command, traj, _top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 

@@ -9,12 +9,12 @@ supported_dihedral_types = [x for x in
                             'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
 
 template = '''
-def calc_%s(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_%s(traj=None, resrange="", top=None, dtype='dataset', *args, **kwd):
     """
     Parameters
     ----------
     traj : Trajectory-like or anything that makes _frame_iter_master(traj) return Frame
-    command : cpptraj command
+    resrange : cpptraj resrange
     top : {str, Topology}, optional, default None
     *args, **kwd: more arguments
 
@@ -46,7 +46,7 @@ def calc_%s(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     _top = _get_top(traj, top)
     dslist = DataSetList()
     template_command = '%s '
-    template_command += command 
+    template_command = " ".join((template_command, 'resrange', resrange ))
 
     act = Action_MultiDihedral()
     act(template_command, traj, top=_top, dslist=dslist, *args, **kwd)
