@@ -1271,3 +1271,19 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     command = "d0 out _tmp.out" + _nocovar
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
+
+def find_neighborlist(traj=None, mask='', top=None, dtype='dataset'):
+    """Note: not validate yet
+
+    pt.common_actions.find_neighborlist(traj, ':5 <:5.0')
+    """
+    from pytraj.datasetlist import DatasetList
+    import numpy as np
+
+    dslist = DatasetList()
+
+    _top = _get_top(traj, top)
+    for idx, frame in enumerate(_frame_iter_master(traj)):
+        _top.set_reference_frame(frame)
+        dslist.append({str(idx) : np.asarray(_top.select(mask).indices)})
+    return _get_data_from_dtype(dslist, dtype)
