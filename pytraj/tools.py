@@ -279,3 +279,7 @@ def mean_and_error(a1, a2):
     a2 = np.asarray(a2)
     assert len(a1.shape) == len(a2.shape) == 1, "1D array"
     return (mean(a1 + a2)/2, mean(np.abs(a1 - a2))/2)
+
+def get_parmed_info(its_obj, att):
+    import numpy as np
+    return np.asarray([getattr(atom, att) for atom in its_obj.atoms])
