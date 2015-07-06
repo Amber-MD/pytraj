@@ -19,6 +19,10 @@ class ActionTrajectory(object):
     def calc_matrix(self, mask="", *args, **kwd):
         return pyca.calc_matrix(self, mask, *args, **kwd)
 
+    def distance_matrix(self, mask="", *args, **kwd):
+        from . matrix_analysis import distance_matrix
+        return distance_matrix(self, mask, *args, **kwd)
+
     def calc_dssp(self, mask="", *args, **kwd):
         return pyca.calc_dssp(self, mask, *args, **kwd)
 

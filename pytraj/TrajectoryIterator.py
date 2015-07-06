@@ -167,12 +167,20 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         else:
             _top = self.top._get_new_from_mask(mask)
         if rmsfit is not None:
-            if len(rmsfit) != 2:
-                raise ValueError(
-                    "rmsfit must be a tuple of two elements (frame, mask)")
+            if isinstance(rmsfit, tuple):
+                assert len(rmsfit) <= 2, ("rmsfit must be a tuple of one (frame,) "
+                                         "or two elements (frame, mask)")
+                if len(rmsfit) == 1:
+                    rmsfit = (rmsfit, '*')
+            elif isinstance(rmsfit, int):
+                rmsfit = (rmsfit, '*')
+            else:
+                raise ValueError("rmsfit must be a tuple or an integer")
+
             if is_int(rmsfit[0]):
                 index = rmsfit[0]
-                rmsfit = tuple([self[index], rmsfit[1]])
+                rmsfit = ([self[index], rmsfit[1]])
+
         frame_iter_super = super(
             TrajectoryIterator, self).frame_iter(start, stop, stride)
         return FrameIter(frame_iter_super,

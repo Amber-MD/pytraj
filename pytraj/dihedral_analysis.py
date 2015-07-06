@@ -26,6 +26,7 @@ def calc_%s(traj=None, resrange="",
     >>> da.calc_phi(traj)
     >>> da.calc_psi(traj, resrange="3-10")
     >>> da.calc_chip(traj, resrange="3-10")
+    >>> da.calc_chip(traj, resrange="3-10", range360=True)
     >>> da.calc_chip(traj, resrange="3-10", dtype='dict')
     >>> da.calc_multidihedral(traj, resrange="3-10")
     >>> # assert
@@ -50,10 +51,15 @@ def calc_%s(traj=None, resrange="",
     else:
         _range360 = ''
 
+    if resrange:
+        _resrange = "resrange " + str(resrange)
+    else:
+        _resrange = ""
+
     _top = _get_top(traj, top)
     dslist = DataSetList()
     template_command = '%s '
-    template_command = " ".join((template_command, 'resrange', resrange, _range360))
+    template_command = " ".join((template_command, _resrange, _range360))
 
     act = Action_MultiDihedral()
     act(template_command, traj, top=_top, dslist=dslist, *args, **kwd)

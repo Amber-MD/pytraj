@@ -1,19 +1,27 @@
+"""seperate module, only use stdlib
+If want to use external package, import it inside the function
+"""
 from __future__ import absolute_import
 import sys
 from itertools import islice, groupby
 import functools
 from collections import OrderedDict
-from pytraj.externals.six import iteritems
 
-# string_types, PY2, PY3 is copied from six.py
+# string_types, PY2, PY3, iteritems were copied from six.py
 # see license in $PYTRAJHOME/license/externals/
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
 
 if PY3:
+    _iteritems = "items"
     string_types = str
 else:
+    _iteritems = "iteritems"
     string_types = basestring
+
+def iteritems(d, **kw):
+    """Return an iterator over the (key, value) pairs of a dictionary."""
+    return iter(getattr(d, _iteritems)(**kw))
 
 try:
     # PY3
@@ -279,3 +287,26 @@ def mean_and_error(a1, a2):
     a2 = np.asarray(a2)
     assert len(a1.shape) == len(a2.shape) == 1, "1D array"
     return (mean(a1 + a2)/2, mean(np.abs(a1 - a2))/2)
+
+def get_parmed_info(its_obj, att):
+    import numpy as np
+    return np.asarray([getattr(atom, att) for atom in its_obj.atoms])
+
+def split_traj_by_residues(traj, start=0, stop=-1, stride=1):
+    '''return a generator
+
+    Examples
+    --------
+    >>> g = pt.tools.split_traj_by_residues(traj)
+    >>> next(g)
+    >>> next(g)
+    '''
+    from pytraj.compat import range
+    from pytraj._cyutils import get_positive_idx
+
+    _stop = get_positive_idx(stop, traj.top.n_residues)
+
+    for i in range(start, _stop, stride):
+        j = ':' + str(i + 1)
+        # example: traj[':3']
+        yield traj[j]
