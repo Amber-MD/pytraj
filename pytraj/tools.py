@@ -1,19 +1,27 @@
+"""seperate module, only use stdlib
+If want to use external package, import it inside the function
+"""
 from __future__ import absolute_import
 import sys
 from itertools import islice, groupby
 import functools
 from collections import OrderedDict
-from pytraj.externals.six import iteritems
 
-# string_types, PY2, PY3 is copied from six.py
+# string_types, PY2, PY3, iteritems were copied from six.py
 # see license in $PYTRAJHOME/license/externals/
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
 
 if PY3:
+    _iteritems = "items"
     string_types = str
 else:
+    _iteritems = "iteritems"
     string_types = basestring
+
+def iteritems(d, **kw):
+    """Return an iterator over the (key, value) pairs of a dictionary."""
+    return iter(getattr(d, _iteritems)(**kw))
 
 try:
     # PY3

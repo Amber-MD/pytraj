@@ -8,8 +8,6 @@ from ..utils import _import_numpy, _import
 
 from .._cyutils import get_positive_idx
 
-_, pd = _import("pandas")
-
 cdef class DataSet_Coords(DataSet):
     def __cinit__(self):
         # abstract class, dont' create new object here

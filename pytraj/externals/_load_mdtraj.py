@@ -1,10 +1,6 @@
 """Load mdtraj traj object
 """
 from __future__ import absolute_import
-from pytraj.utils import has_, require, _import_numpy
-from pytraj.Trajectory import Trajectory
-from ._load_pseudo_parm import load_pseudo_parm
-from ..Frame import Frame
 
 
 def load_mdtraj(m_traj, autoconvert=True, top=None):
@@ -17,6 +13,11 @@ def load_mdtraj(m_traj, autoconvert=True, top=None):
         convert from "nm" (mdtraj )to "Angstrom" (pytraj)
     """
     from pytraj.core import Box
+    from ._load_pseudo_parm import load_pseudo_parm
+    from pytraj.Trajectory import Trajectory
+    from pytraj.utils import has_, require, _import_numpy
+    from pytraj.Frame import Frame
+
     _, np = _import_numpy()
 
     if autoconvert:
