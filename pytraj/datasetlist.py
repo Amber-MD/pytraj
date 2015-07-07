@@ -87,6 +87,8 @@ def stack(args):
             d0.append(d.copy())
     return dslist0
 
+concat_datasetlist = stack
+
 from collections import OrderedDict
 
 class _OrderedDict(OrderedDict):
