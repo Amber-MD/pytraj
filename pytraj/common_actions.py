@@ -336,8 +336,14 @@ def calc_matrix(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_radgyr(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_radgyr(traj=None, mask="", top=None, 
+                nomax=False,
+                dtype='ndarray', *args, **kwd):
+
     from pytraj.actions.CpptrajActions import Action_Radgyr
+    _nomax = 'nomax' if nomax else ""
+    command = " ".join((mask, _nomax))
+
     act = Action_Radgyr()
 
     _top = _get_top(traj, top)
