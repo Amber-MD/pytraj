@@ -584,7 +584,11 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
         Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 579)
     """
     if resrange and 'resrange' not in command:
-        _resrange = "resrange " + str(resrange)
+        if isinstance(resrange, string_types):
+            _resrange = "resrange " + str(resrange)
+        else:
+            from pytraj.utils import convert as cv
+            _resrange = cv.array_to_cpptraj_range(resrange)
     else:
         _resrange = " "
 

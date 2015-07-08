@@ -45,6 +45,7 @@ def calc_%s(traj=None, resrange="",
     from .datasets.DataSetList import DataSetList
     from .actions.CpptrajActions import Action_MultiDihedral
     from ._get_common_objects import _get_top, _get_data_from_dtype
+    from .compat import string_types
 
     if range360:
         _range360 = 'range360'
@@ -52,7 +53,11 @@ def calc_%s(traj=None, resrange="",
         _range360 = ''
 
     if resrange:
-        _resrange = "resrange " + str(resrange)
+        if isinstance(resrange, string_types):
+            _resrange = "resrange " + str(resrange)
+        else:
+            from pytraj.utils import convert as cv
+            _resrange = cv.array_to_cpptraj_range(resrange)
     else:
         _resrange = ""
 
