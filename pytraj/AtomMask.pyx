@@ -57,11 +57,12 @@ cdef class AtomMask(object):
             del self.thisptr
 
     def selected_indices(self):
-        return pyarrary('i', self.thisptr.Selected())
+        return self.indices
 
     @property
     def indices(self):
-        return pyarrary('i', self.thisptr.Selected())
+        import numpy as np
+        return np.asarray(self.thisptr.Selected())
 
     @property
     def _indices_view(self):

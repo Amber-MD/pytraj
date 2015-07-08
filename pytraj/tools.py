@@ -195,13 +195,28 @@ def flatten(x):
     return result
 
 
-@_not_yet_tested
-def n_grams(a, n):
+def n_grams(a, n, asarray=False):
     """
+    Parameters
+    ----------
+    a : sequence
+    n : number of elements
+    asarray : bool, default False
+        if False: return an iterator
+        if True: return a numpy array
     """
-    # http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html
+    # adapted from:
+    # http://sahandsaba.com/
+    # thirty-python-language-features-and-tricks-you-may-not-know.html
+
     z = (islice(a, i, None) for i in range(n))
-    return zip(*z)
+    it = zip(*z)
+
+    if not asarray:
+        return it
+    else:
+        import numpy as np
+        return np.array([x for x in it])
 
 
 def dict_to_ndarray(dict_of_array):
