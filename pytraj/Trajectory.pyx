@@ -653,7 +653,10 @@ cdef class Trajectory (object):
                     self[i][atm] = other_traj[i].xyz
             else:
                 view3d = other
-                int_view = atm.indices
+                try:
+                    int_view = atm.indices.astype('i4')
+                except ValueError:
+                    int_view = atm.indices
                 # loop all frames
                 for i in range(view3d.shape[0]):
                     # don't use pointer: frame.thisptr = self.frame_v[i]
