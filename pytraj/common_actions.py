@@ -84,17 +84,25 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     Notes:
     command : str | list of strings | 2d numpy array of integers
     """
+    import numpy as np
     ensure_not_none_or_string(traj)
 
     _top = _get_top(traj, top)
 
 
-    if 'ndarray' in command.__class__.__name__: 
+    cm_arr = np.asarray(command)
+
+    if 'int' in cm_arr.dtype.name:
         from pytraj.datasetlist import from_dict
-        import numpy as np
-        int_2darr = command
+
+        int_2darr = cm_arr
+
+        if int_2darr.ndim == 1:
+            int_2darr = np.atleast_2d(cm_arr)
+
         if int_2darr.shape[1] != 2:
             raise ValueError("require int-array with shape=(n_atoms, 2)")
+
         if 'n_frames' not in kwd.keys():
             try:
                 n_frames = traj.n_frames
@@ -102,11 +110,18 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
                 raise ValueError("require specifying n_frames")
         else:
             n_frames = kwd['n_frames']
+
         arr = np.empty([n_frames, len(int_2darr)])
+
         for idx, frame in enumerate(_frame_iter_master(traj)):
             arr[idx] = frame.calc_distance(int_2darr)
-        py_dslist = from_dict({'rmsd' : arr})
-        return _get_data_from_dtype(py_dslist, dtype)
+
+
+        if dtype == 'ndarray':
+            return arr
+        else:
+            py_dslist = from_dict({'distance' : arr})
+            return _get_data_from_dtype(py_dslist, dtype)
 
     elif isinstance(command, (list, tuple, string_types)):
         # create a list
@@ -135,37 +150,51 @@ def calc_angle(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     Notes:
     command : str | int_2d numpy array
     """
+    import numpy as np
+    from pytraj.datasetlist import from_dict
+
     ensure_not_none_or_string(traj)
 
     _, np = _import_numpy()
     _top = _get_top(traj, top)
-    if isinstance(command, string_types):
-        # need to remove 'n_frames' keyword since Action._master does not use
-        # it
-        try:
-            del kwd['n_frames']
-        except:
-            pass
-        # cpptraj mask for action
-        dset = calculate(
-            "angle", traj, command, top=_top, quick_get=True, *args, **kwd)
-        return _get_data_from_dtype(dset, dtype)
-    elif isinstance(command, (list, tuple)):
-        list_of_commands = command
-        from pytraj.core.ActionList import ActionList
-        from pytraj.actions.CpptrajActions import Action_Angle
-        dslist = CpptrajDatasetList()
-        actlist = ActionList()
+    cm_arr = np.asarray(command)
 
-        for cm in list_of_commands:
-            actlist.add_action(
-                Action_Angle(), cm, _top, dslist=dslist, *args, **kwd)
-        actlist.do_actions(traj)
-        return _get_data_from_dtype(dslist, dtype)
-    elif isinstance(command, np.ndarray):
-        int_2darr = command
+    if 'int' not in cm_arr.dtype.name:
+        if isinstance(command, string_types):
+            # need to remove 'n_frames' keyword since Action._master does not use
+            # it
+            try:
+                del kwd['n_frames']
+            except:
+                pass
+            # cpptraj mask for action
+            dset = calculate(
+                "angle", traj, command, top=_top, quick_get=True, *args, **kwd)
+            return _get_data_from_dtype(dset, dtype)
+
+        elif isinstance(command, (list, tuple)):
+            list_of_commands = command
+            from pytraj.core.ActionList import ActionList
+            from pytraj.actions.CpptrajActions import Action_Angle
+            dslist = CpptrajDatasetList()
+            actlist = ActionList()
+
+            for cm in list_of_commands:
+                actlist.add_action(
+                    Action_Angle(), cm, _top, dslist=dslist, *args, **kwd)
+            actlist.do_actions(traj)
+            return _get_data_from_dtype(dslist, dtype)
+
+    else:
+        # ndarray of integer
+        int_2darr = cm_arr
+
+        if int_2darr.ndim == 1:
+            int_2darr = np.atleast_2d(int_2darr)
+
         if int_2darr.shape[1] != 3:
             raise ValueError("require int-array with shape=(n_atoms, 3)")
+
         if 'n_frames' not in kwd.keys():
             try:
                 n_frames = traj.n_frames
@@ -176,9 +205,12 @@ def calc_angle(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
         arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(_frame_iter_master(traj)):
             arr[idx] = frame.calc_angle(int_2darr)
-        return arr
-    else:
-        raise ValueError("")
+
+        if dtype == 'ndarray':
+            return arr
+        else:
+            py_dslist = from_dict({'angle' : arr})
+            return _get_data_from_dtype(py_dslist, dtype)
 
 
 def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
@@ -187,37 +219,49 @@ def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     Notes:
     command : str | int_2d numpy array
     """
+    import numpy as np
     ensure_not_none_or_string(traj)
 
     _, np = _import_numpy()
     _top = _get_top(traj, top)
-    if isinstance(command, string_types):
-        # need to remove 'n_frames' keyword since Action._master does not use
-        # it
-        try:
-            del kwd['n_frames']
-        except:
-            pass
-        # cpptraj mask for action
-        dset = calculate(
-            "dihedral", traj, command, top=_top, quick_get=True, *args, **kwd)
-        return _get_data_from_dtype(dset, dtype)
-    elif isinstance(command, (list, tuple)):
-        list_of_commands = command
-        from pytraj.core.ActionList import ActionList
-        from pytraj.actions.CpptrajActions import Action_Dihedral
-        dslist = CpptrajDatasetList()
-        actlist = ActionList()
+    cm_arr = np.asarray(command)
 
-        for cm in list_of_commands:
-            actlist.add_action(
-                Action_Dihedral(), cm, _top, dslist=dslist, *args, **kwd)
-        actlist.do_actions(traj)
-        return _get_data_from_dtype(dslist, dtype)
-    elif isinstance(command, np.ndarray):
-        int_2darr = command
+
+    if 'int' not in cm_arr.dtype.name:
+        if isinstance(command, string_types):
+            # need to remove 'n_frames' keyword since Action._master does not use
+            # it
+            try:
+                del kwd['n_frames']
+            except:
+                pass
+            # cpptraj mask for action
+            dset = calculate(
+                "dihedral", traj, command, top=_top, quick_get=True, *args, **kwd)
+            return _get_data_from_dtype(dset, dtype)
+
+        elif isinstance(command, (list, tuple)):
+            list_of_commands = command
+            from pytraj.core.ActionList import ActionList
+            from pytraj.actions.CpptrajActions import Action_Dihedral
+            dslist = CpptrajDatasetList()
+            actlist = ActionList()
+
+            for cm in list_of_commands:
+                actlist.add_action(
+                    Action_Dihedral(), cm, _top, dslist=dslist, *args, **kwd)
+            actlist.do_actions(traj)
+            return _get_data_from_dtype(dslist, dtype)
+    else:
+        # ndarray
+        int_2darr = cm_arr
+
+        if int_2darr.ndim == 1:
+            int_2darr = np.atleast_2d(int_2darr)
+
         if int_2darr.shape[1] != 4:
             raise ValueError("require int-array with shape=(n_atoms, 4)")
+
         if 'n_frames' not in kwd.keys():
             try:
                 n_frames = traj.n_frames
@@ -228,9 +272,13 @@ def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
         arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(_frame_iter_master(traj)):
             arr[idx] = frame.calc_dihedral(int_2darr)
-        return arr
-    else:
-        raise ValueError("")
+
+        if dtype == 'ndarray':
+            return arr
+        else:
+            from pytraj.datasetlist import from_dict
+            py_dslist = from_dict({'dihedral' : arr})
+            return _get_data_from_dtype(py_dslist, dtype)
 
 
 def calc_mindist(traj=None, command="", top=None, *args, **kwd):
@@ -536,7 +584,11 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
         Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 579)
     """
     if resrange and 'resrange' not in command:
-        _resrange = "resrange " + str(resrange)
+        if isinstance(resrange, string_types):
+            _resrange = "resrange " + str(resrange)
+        else:
+            from pytraj.utils import convert as cv
+            _resrange = cv.array_to_cpptraj_range(resrange)
     else:
         _resrange = " "
 

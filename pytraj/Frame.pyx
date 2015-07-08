@@ -384,7 +384,10 @@ cdef class Frame (object):
             memcpy(<void*> ptr_dest, <void*> ptr_src, count)
         else:
             count = 3 * sizeof(double)
-            int_view = indices # create `view`
+            try:
+                int_view = indices # create `view`
+            except:
+                int_view = indices.astype('i4')
             # NOTE: try `prange` with different `schedule` but no gain
             for i in range(int_view.shape[0]):
                 j = int_view[i]

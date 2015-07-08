@@ -80,10 +80,15 @@ from . common_actions import (rmsd, search_hbonds,
                               timecorr)
 
 # create alias
+distance = calc_distance
+angle = calc_angle
+dihedral = calc_dihedral
 nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
 rmsd_with_rotation_matrices = calc_rmsd_with_rotation_matrices
 multidihedral = calc_multidihedral
+xcorr = cross_correlation_function
+acorr = auto_correlation_function
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (

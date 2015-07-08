@@ -195,13 +195,28 @@ def flatten(x):
     return result
 
 
-@_not_yet_tested
-def n_grams(a, n):
+def n_grams(a, n, asarray=False):
     """
+    Parameters
+    ----------
+    a : sequence
+    n : number of elements
+    asarray : bool, default False
+        if False: return an iterator
+        if True: return a numpy array
     """
-    # http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html
+    # adapted from:
+    # http://sahandsaba.com/
+    # thirty-python-language-features-and-tricks-you-may-not-know.html
+
     z = (islice(a, i, None) for i in range(n))
-    return zip(*z)
+    it = zip(*z)
+
+    if not asarray:
+        return it
+    else:
+        import numpy as np
+        return np.array([x for x in it])
 
 
 def dict_to_ndarray(dict_of_array):
@@ -291,6 +306,19 @@ def mean_and_error(a1, a2):
 def get_parmed_info(its_obj, att):
     import numpy as np
     return np.asarray([getattr(atom, att) for atom in its_obj.atoms])
+
+def split_parmed_by_residues(struct, start=0, stop=-1, stride=1):
+    '''split `ParmEd`'s Structure into different residue
+    '''
+    from pytraj.compat import range
+    from pytraj._cyutils import get_positive_idx
+
+    _stop = get_positive_idx(stop, len(struct.residues))
+
+    for i in range(start, _stop, stride):
+        j = ':' + str(i + 1)
+        # example: traj[':3']
+        yield struct[j]
 
 def split_traj_by_residues(traj, start=0, stop=-1, stride=1):
     '''return a generator
