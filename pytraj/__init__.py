@@ -4,6 +4,17 @@ pytraj
 from __future__ import absolute_import
 
 try:
+    from .core import Atom, Residue, Molecule
+except ImportError:
+    import os
+    source_folders = ['./scripts', './devtools', './docs']
+    is_source_folder = True
+    for f in source_folders:
+        is_source_folder = False if not os.path.exists(f) else True
+    if is_source_folder:
+        raise ImportError("you are import pytraj in source folder. "
+                          "Should go to another location and try again")
+try:
     import numpy as np
     np.set_printoptions(threshold=10)
 except ImportError:
