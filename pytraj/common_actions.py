@@ -1339,3 +1339,37 @@ def find_neighborlist(traj=None, mask='', top=None, dtype='dataset'):
         _top.set_reference_frame(frame)
         dslist.append({str(idx) : np.asarray(_top.select(mask).indices)})
     return _get_data_from_dtype(dslist, dtype)
+
+def pucker(traj=None, pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
+           resrange=None,
+           top=None, dtype='dataset',
+           range360=False,
+           method='altona',
+           use_com=True,
+           amplitude=True,
+           offset=None,
+           *args, **kwd):
+    """Note: not validate yet
+
+    pt.common_actions.find_neighborlist(traj, ':5 <:5.0')
+    """
+    from pytraj.datasetlist import DatasetList
+    from pytraj.datasets import DataSetList as CDL
+    from pytraj.actions.CpptrajActions import Action_Pucker
+
+    _top = _get_top(traj, top)
+
+    _range360 = "range360" if range360 else ""
+    geom = "geom" if not use_com else ""
+    amp = "amplitude" if amplitude else ""
+    _offset = "offset " + str(offset) if offset else ""
+
+    cdslist = CDL()
+    act = Action_Pucker()
+    for res in resrange:
+        command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
+        name = "pucker_res" + str(res+1)
+        command = " ".join((name, command, _range360, method, geom, _offset))
+        act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
+        print (command)
+    return _get_data_from_dtype(cdslist, dtype)
