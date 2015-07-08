@@ -103,3 +103,13 @@ def _get_matrix_from_dataset(dset, mat_type='full'):
         return dset.to_cpptraj_sparse_matrix()
     else:
         raise ValueError()
+
+def _get_reference_from_traj(traj, ref):
+    from pytraj.utils import is_int
+    if is_int(ref):
+        try:
+            return traj[ref]
+        except IndexError:
+            raise IndexError("%s does not support indexing" % traj.__str__())
+    else:
+        return ref

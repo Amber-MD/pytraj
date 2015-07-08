@@ -16,6 +16,7 @@ analdict = AnalysisDict()
 
 from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
+from ._get_common_objects import _get_reference_from_traj
 from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .externals.six import string_types
@@ -976,9 +977,12 @@ rmsd = calc_rmsd
 
 
 def calc_rmsd_with_rotation_matrices(
-        traj=None, command="", ref=None,
+        traj=None, mask="", ref=None,
         top=None, dtype='dataset',
         *args, **kwd):
+
+    ref = _get_reference_from_traj(traj, ref)
+    command = mask
 
     if not isinstance(command, string_types):
         raise ValueError(
