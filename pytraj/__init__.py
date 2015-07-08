@@ -89,6 +89,12 @@ rmsd_with_rotation_matrices = calc_rmsd_with_rotation_matrices
 multidihedral = calc_multidihedral
 xcorr = cross_correlation_function
 acorr = auto_correlation_function
+dssp = calc_dssp
+bfactors = calc_bfactors
+radgyr = calc_radgyr
+molsurf = calc_molsurf
+center_of_mass = calc_center_of_mass
+center_of_geometry = calc_center_of_geometry
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (
@@ -112,7 +118,7 @@ from ._shared_methods import _frame_iter_master as frame_iter_master
 # TODO: need to move set_world_silent and set_error_silent to the same file
 from ._set_silent import set_error_silent, set_world_silent
 
-def set_cpptraj_verbose(cm):
+def set_cpptraj_verbose(cm=True):
     if cm:
         set_world_silent(False)
     else:

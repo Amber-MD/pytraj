@@ -12,7 +12,8 @@ class Test(unittest.TestCase):
         pt.set_cpptraj_verbose()
         traj = pt.load_pdb("./data/Test_NAstruct/adh026.3.pdb")
         print (traj.top.n_residues)
-        pt.common_actions.pucker(traj, resrange=range(3, 7))
+        d = pt.common_actions.pucker(traj, resrange=range(3, 7))
+        print (d)
 
 if __name__ == "__main__":
     unittest.main()

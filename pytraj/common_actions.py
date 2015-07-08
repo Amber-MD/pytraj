@@ -1356,8 +1356,11 @@ def pucker(traj=None, pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
     from pytraj.datasetlist import DatasetList
     from pytraj.datasets import DataSetList as CDL
     from pytraj.actions.CpptrajActions import Action_Pucker
+    from pytraj.compat import range
 
     _top = _get_top(traj, top)
+    if not resrange:
+        resrange = range(_top.n_residues)
 
     _range360 = "range360" if range360 else ""
     geom = "geom" if not use_com else ""
@@ -1365,11 +1368,10 @@ def pucker(traj=None, pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
     _offset = "offset " + str(offset) if offset else ""
 
     cdslist = CDL()
-    act = Action_Pucker()
     for res in resrange:
+        act = Action_Pucker()
         command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
         name = "pucker_res" + str(res+1)
         command = " ".join((name, command, _range360, method, geom, _offset))
         act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
-        print (command)
     return _get_data_from_dtype(cdslist, dtype)
