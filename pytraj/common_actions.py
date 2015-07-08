@@ -589,6 +589,7 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
         else:
             from pytraj.utils import convert as cv
             _resrange = cv.array_to_cpptraj_range(resrange)
+            _resrange = "resrange " + str(_resrange)
     else:
         _resrange = " "
 
