@@ -227,7 +227,7 @@ def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     cm_arr = np.asarray(command)
 
 
-    if 'int' in cm_arr.dtype.name:
+    if 'int' not in cm_arr.dtype.name:
         if isinstance(command, string_types):
             # need to remove 'n_frames' keyword since Action._master does not use
             # it
@@ -278,6 +278,7 @@ def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
         else:
             from pytraj.datasetlist import from_dict
             py_dslist = from_dict({'dihedral' : arr})
+            return _get_data_from_dtype(py_dslist, dtype)
 
 
 def calc_mindist(traj=None, command="", top=None, *args, **kwd):
