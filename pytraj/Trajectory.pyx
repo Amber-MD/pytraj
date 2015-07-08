@@ -712,7 +712,13 @@ cdef class Trajectory (object):
                 index = rmsfit[0]
                 rmsfit = tuple([self[index], rmsfit[1]])
 
-        frame_iter_super = self._frame_iter(start=start, stop=stop, stride=stride)
+        # check how many frames will be calculated
+        _start, _stop, _stride = slice(start, stop, stride).indices(self.n_frames)
+        # make sure `range` return iterator
+        n_frames = len(range(_start, _stop, _stride))
+
+        frame_iter_super = self._frame_iter(_start, _stop, _stride)
+
         return FrameIter(frame_iter_super,
                          original_top=self.top,
                          new_top=_top,
@@ -721,7 +727,8 @@ cdef class Trajectory (object):
                          stride=stride,
                          mask=mask,
                          autoimage=autoimage,
-                         rmsfit=rmsfit)
+                         rmsfit=rmsfit,
+                         n_frames=n_frames)
 
     def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         """iterately get Frames with start, stop, stride 
@@ -1559,3 +1566,9 @@ cdef class Trajectory (object):
         for f in iteratable:
             traj.append(f, copy=copy)
         return traj
+
+    @property
+    def _estimated_MB(self):
+        """esimated MB of data will be loaded to memory
+        """
+        return self.n_frames * self.n_atoms * 3 * 8 / 1E6

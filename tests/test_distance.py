@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
 from pytraj.base import *
 from pytraj import adict
@@ -38,7 +39,6 @@ class Test(unittest.TestCase):
         aa_eq(d3, d7[:fa.n_frames])
         aa_eq(d3, d7[fa.n_frames:])
 
-    @local_test('edu')
     def test_1(self):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -63,6 +63,28 @@ class Test(unittest.TestCase):
         d_with_omp = fa.calc_distance(arr, parallel=True)
         aa_eq(d_no_omp, d_with_omp)
 
+    def test_2(self):
+        # calculate distance without specifying n_frames
+        # TrajectoryIterator
+        import numpy as np
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        arr = pt.distance(traj(stop=4), [0, 5])
+        arr1 = pt.distance(traj(stop=4), [0, 5], n_frames=4)
+        assert np.all(arr == arr1)
+
+        arr2 = pt.distance(traj(stop=1000), [0, 5])
+        arr3 = pt.distance(traj(stop=traj.n_frames), [0, 5])
+        assert np.all(arr2 == arr3)
+
+        # Trajectory
+        traj = traj.to_mutable_trajectory()
+        arr = pt.distance(traj(stop=4), [0, 5])
+        arr1 = pt.distance(traj(stop=4), [0, 5], n_frames=4)
+        assert np.all(arr == arr1)
+
+        arr2 = pt.distance(traj(stop=1000), [0, 5])
+        arr3 = pt.distance(traj(stop=traj.n_frames), [0, 5])
+        assert np.all(arr2 == arr3)
 
 if __name__ == "__main__":
     unittest.main()

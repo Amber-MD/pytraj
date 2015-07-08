@@ -7,7 +7,7 @@ from __future__ import absolute_import
 import warnings
 from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from pytraj._action_in_traj import ActionTrajectory
-from pytraj.compat import string_types
+from pytraj.compat import string_types, range
 from pytraj._shared_methods import _tolist, _split_and_write_traj
 from pytraj.Topology import Topology
 from pytraj.utils import is_int
@@ -138,8 +138,14 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         return self.xyz
 
     @property
+    def _estimated_MB(self):
+        """esimated MB of data will be loaded to memory
+        """
+        return self.n_frames * self.n_atoms * 3 * 8 / 1E6
+
+    @property
     def xyz(self):
-        size_in_MB = self.n_frames * self.n_atoms * 3 * 8 / 1E6
+        size_in_MB = self._estimated_MB
         # check if larger than size_limit_in_MB
         if size_in_MB > self._size_limit_in_MB and not self._force_load:
             raise MemoryError("you are loading %s Mb, larger than size_limit %s Mb. "
@@ -166,6 +172,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             _top = self.top
         else:
             _top = self.top._get_new_from_mask(mask)
+
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):
                 assert len(rmsfit) <= 2, ("rmsfit must be a tuple of one (frame,) "
@@ -181,8 +188,15 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                 index = rmsfit[0]
                 rmsfit = ([self[index], rmsfit[1]])
 
+        # check how many frames will be calculated
+        _start, _stop, _stride = slice(start, stop, stride).indices(self.n_frames)
+        # make sure `range` return iterator
+        n_frames = len(range(_start, _stop, _stride))
+
         frame_iter_super = super(
-            TrajectoryIterator, self).frame_iter(start, stop, stride)
+            TrajectoryIterator, self).frame_iter(_start, _stop, _stride)
+
+        
         return FrameIter(frame_iter_super,
                          original_top=self.top,
                          new_top=_top,
@@ -193,6 +207,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          autoimage=autoimage,
                          rmsfit=rmsfit,
                          is_trajiter=True,
+                         n_frames=n_frames,
                          )
 
     def chunk_iter(self, chunksize=2, start=0, stop=-1,
