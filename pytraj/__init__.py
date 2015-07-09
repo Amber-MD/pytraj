@@ -2,6 +2,23 @@
 pytraj
 """
 from __future__ import absolute_import
+from sys import platform as _platform
+import os
+
+from .tools import find_lib as _find_lib
+
+# check `libcpptraj` and raise ImportError
+# only check for Linux since I don't know much about
+# OS X and Windows
+try:
+    # try to check `libcpptraj` that not in LD_LIBRARY_PATH search
+    # in _find_lib
+    from .core import Atom
+except ImportError:
+    if 'linux' in _platform:
+        if not _find_lib("cpptraj"):
+            raise ImportError("can not find libcpptraj. Make sure to install it "
+                              "or export LD_LIBRARY_PATH correctly")
 
 try:
     from .core import Atom, Residue, Molecule

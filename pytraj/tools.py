@@ -2,7 +2,8 @@
 If want to use external package, import it inside the function
 """
 from __future__ import absolute_import
-import sys
+import sys, os
+from glob import glob
 from itertools import islice, groupby
 import functools
 from collections import OrderedDict
@@ -338,3 +339,24 @@ def split_traj_by_residues(traj, start=0, stop=-1, stride=1):
         j = ':' + str(i + 1)
         # example: traj[':3']
         yield traj[j]
+
+def find_lib(libname, unique=False):
+    """return a list of all library files"""
+    paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
+    lib_path_list = []
+    key = "lib" + libname + "*"
+
+    for path in paths:
+        path = path.strip()
+        fnamelist = glob(os.path.join(path, key))
+        for fname in fnamelist:
+            if os.path.isfile(fname):
+                lib_path_list.append(fname)
+
+    if not lib_path_list:
+        return None
+    else:
+        if unique:
+            return set(lib_path_list)
+        else:
+            return lib_path_list
