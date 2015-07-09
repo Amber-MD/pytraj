@@ -715,9 +715,9 @@ cdef class Trajectory (object):
         # check how many frames will be calculated
         _start, _stop, _stride = slice(start, stop, stride).indices(self.n_frames)
         # make sure `range` return iterator
-        n_frames = len(range(_start, _stop, _stride))
+        n_frames = len(range(_start, _stop+1, _stride))
 
-        frame_iter_super = self._frame_iter(_start, _stop, _stride)
+        frame_iter_super = self._frame_iter(start, stop, stride)
 
         return FrameIter(frame_iter_super,
                          original_top=self.top,

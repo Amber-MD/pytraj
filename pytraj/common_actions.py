@@ -79,7 +79,7 @@ do_scaling = partial(action_type, 'scale')
 scale = do_scaling
 
 
-def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """calculate distance
 
     Notes:
@@ -87,6 +87,7 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     """
     import numpy as np
     ensure_not_none_or_string(traj)
+    command = mask
 
     _top = _get_top(traj, top)
 
@@ -145,14 +146,15 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
                          "a numpy 2D array")
 
 
-def calc_angle(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
-    """calculate dihedral
+def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    """calculate angle
 
     Notes:
     command : str | int_2d numpy array
     """
     import numpy as np
     from pytraj.datasetlist import from_dict
+    command = mask
 
     ensure_not_none_or_string(traj)
 
@@ -214,7 +216,7 @@ def calc_angle(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
             return _get_data_from_dtype(py_dslist, dtype)
 
 
-def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """calculate dihedral
 
     Notes:
@@ -222,6 +224,7 @@ def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     """
     import numpy as np
     ensure_not_none_or_string(traj)
+    command = mask
 
     _, np = _import_numpy()
     _top = _get_top(traj, top)
@@ -352,7 +355,8 @@ def calc_radgyr(traj=None, mask="", top=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_molsurf(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    command = mask
     from pytraj.actions.CpptrajActions import Action_Molsurf
     act = Action_Molsurf()
 
