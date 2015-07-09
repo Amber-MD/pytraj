@@ -355,6 +355,38 @@ cdef class Trajectory (object):
             raise NotImplementedError("must have numpy")
 
     @property
+    def _xyz(self):
+        """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
+        We can not return a memoryview since Trajectory is a C++ vector of Frame object
+
+        Notes
+        -----
+            read-only
+        """
+        import numpy as np
+        cdef:
+            int i
+            int n_frames = self.n_frames
+            int n_atoms = self.n_atoms
+            int count
+            _Frame _frame
+            double *ptr_src
+            double *ptr_dest
+
+        cdef double[:, :] memview = cython.view.array(shape=(n_frames, n_atoms * 3),
+                                             itemsize=sizeof(double),
+                                             format='d')
+
+        for i in range(n_frames):
+            _frame = self.frame_v[i][0]
+            ptr_src = _frame.xAddress()
+            ptr_dest = &memview[i, 0]
+            count = n_atoms * 3 * sizeof(double)
+            memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
+        return np.asarray(memview).reshape(n_frames, n_atoms, 3)
+
+    @property
     def coordinates(self):
         """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
         """
