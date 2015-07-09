@@ -16,15 +16,23 @@ parm %s
 trajin %s
 """
 
-fname = os.path.abspath("./data/md1_prod.Tc5b.x")
-topname = os.path.abspath("./data/Tc5b.top")
-tc5b_trajin = trajin_template % (topname, fname)
+pairlist = {
+        'tc5b_trajin' : ["./data/md1_prod.Tc5b.x", "./data/Tc5b.top"],
+        'DPDP_trajin' : ["./data/DPDP.nc", "./data/DPDP.parm7"],
+        'tz2_ortho_trajin' : ["./data/tz2.ortho.nc", "./data/tz2.ortho.parm7"],
+        }
 
-fname = os.path.abspath("./data/DPDP.nc")
-topname = os.path.abspath("./data/DPDP.parm7")
-DPDP_trajin = trajin_template % (topname, fname)
+def _get_trajin_text(alist, template=trajin_template):
+    fname = os.path.abspath(alist[0])
+    topname = os.path.abspath(alist[1])
+    return trajin_template % (topname, fname)
 
-def load_result_from_cpptraj_state(txt):
+tc5b_trajin = _get_trajin_text(pairlist['tc5b_trajin'])
+DPDP_trajin = _get_trajin_text(pairlist['DPDP_trajin'])
+tz2_ortho_trajin = _get_trajin_text(pairlist['tz2_ortho_trajin'])
+
+
+def load_result_from_cpptraj_state(txt, dtype=None):
     """load output from cpptraj
     """
     from pytraj.utils.context import goto_temp_folder
@@ -36,6 +44,8 @@ def load_result_from_cpptraj_state(txt):
             fh.write(txt)
         state = load_cpptraj_file("tmp.in")
         state.run()
+        if dtype == 'cpptraj_dataset':
+            return state.datasetlist
         return DatasetList(state.datasetlist)
 
 load_cpptraj_output = load_result_from_cpptraj_state

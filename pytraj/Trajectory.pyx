@@ -696,7 +696,7 @@ cdef class Trajectory (object):
         # we don't do anythin here. Just create the same API for TrajectoryIterator
         pass
 
-    def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False, rmsfit=None):
+    def frame_iter(self, start=0, stop=None, stride=1, mask=None, autoimage=False, rmsfit=None):
         # TODO: combined with TrajectoryIterator
         from pytraj.core.frameiter import FrameIter
 
@@ -712,7 +712,17 @@ cdef class Trajectory (object):
                 index = rmsfit[0]
                 rmsfit = tuple([self[index], rmsfit[1]])
 
-        frame_iter_super = self._frame_iter(start=start, stop=stop, stride=stride)
+        # check how many frames will be calculated
+        if stop is None or stop >= self.n_frames:
+            stop = self.n_frames
+        elif stop < 0:
+            stop = get_positive_idx(stop, self.n_frames)
+
+        # make sure `range` return iterator
+        n_frames = len(range(start, stop, stride))
+
+        frame_iter_super = self._frame_iter(start, stop, stride)
+
         return FrameIter(frame_iter_super,
                          original_top=self.top,
                          new_top=_top,
@@ -721,7 +731,8 @@ cdef class Trajectory (object):
                          stride=stride,
                          mask=mask,
                          autoimage=autoimage,
-                         rmsfit=rmsfit)
+                         rmsfit=rmsfit,
+                         n_frames=n_frames)
 
     def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         """iterately get Frames with start, stop, stride 
@@ -740,10 +751,9 @@ cdef class Trajectory (object):
         cdef int _end
         cdef int[:] int_view
 
-        if stop == -1:
+        if stop == -1 or stop >= self.n_frames:
             _end = <int> self.n_frames
         else:
-            #_end = stop
             _end = stop
 
         if mask is not None:
@@ -1559,3 +1569,9 @@ cdef class Trajectory (object):
         for f in iteratable:
             traj.append(f, copy=copy)
         return traj
+
+    @property
+    def _estimated_MB(self):
+        """esimated MB of data will be loaded to memory
+        """
+        return self.n_frames * self.n_atoms * 3 * 8 / 1E6

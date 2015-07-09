@@ -16,6 +16,7 @@ analdict = AnalysisDict()
 
 from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
+from ._get_common_objects import _get_reference_from_traj
 from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .externals.six import string_types
@@ -78,7 +79,7 @@ do_scaling = partial(action_type, 'scale')
 scale = do_scaling
 
 
-def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """calculate distance
 
     Notes:
@@ -86,6 +87,7 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     """
     import numpy as np
     ensure_not_none_or_string(traj)
+    command = mask
 
     _top = _get_top(traj, top)
 
@@ -144,14 +146,15 @@ def calc_distance(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
                          "a numpy 2D array")
 
 
-def calc_angle(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
-    """calculate dihedral
+def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    """calculate angle
 
     Notes:
     command : str | int_2d numpy array
     """
     import numpy as np
     from pytraj.datasetlist import from_dict
+    command = mask
 
     ensure_not_none_or_string(traj)
 
@@ -213,7 +216,7 @@ def calc_angle(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
             return _get_data_from_dtype(py_dslist, dtype)
 
 
-def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """calculate dihedral
 
     Notes:
@@ -221,6 +224,7 @@ def calc_dihedral(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     """
     import numpy as np
     ensure_not_none_or_string(traj)
+    command = mask
 
     _, np = _import_numpy()
     _top = _get_top(traj, top)
@@ -335,8 +339,14 @@ def calc_matrix(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_radgyr(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_radgyr(traj=None, mask="", top=None, 
+                nomax=False,
+                dtype='ndarray', *args, **kwd):
+
     from pytraj.actions.CpptrajActions import Action_Radgyr
+    _nomax = 'nomax' if nomax else ""
+    command = " ".join((mask, _nomax))
+
     act = Action_Radgyr()
 
     _top = _get_top(traj, top)
@@ -345,7 +355,8 @@ def calc_radgyr(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_molsurf(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    command = mask
     from pytraj.actions.CpptrajActions import Action_Molsurf
     act = Action_Molsurf()
 
@@ -589,6 +600,7 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
         else:
             from pytraj.utils import convert as cv
             _resrange = cv.array_to_cpptraj_range(resrange)
+            _resrange = "resrange " + str(_resrange)
     else:
         _resrange = " "
 
@@ -975,9 +987,12 @@ rmsd = calc_rmsd
 
 
 def calc_rmsd_with_rotation_matrices(
-        traj=None, command="", ref=None,
+        traj=None, mask="", ref=None,
         top=None, dtype='dataset',
         *args, **kwd):
+
+    ref = _get_reference_from_traj(traj, ref)
+    command = mask
 
     if not isinstance(command, string_types):
         raise ValueError(
@@ -1339,3 +1354,39 @@ def find_neighborlist(traj=None, mask='', top=None, dtype='dataset'):
         _top.set_reference_frame(frame)
         dslist.append({str(idx) : np.asarray(_top.select(mask).indices)})
     return _get_data_from_dtype(dslist, dtype)
+
+def pucker(traj=None, pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
+           resrange=None,
+           top=None, dtype='dataset',
+           range360=False,
+           method='altona',
+           use_com=True,
+           amplitude=True,
+           offset=None,
+           *args, **kwd):
+    """Note: not validate yet
+
+    pt.common_actions.find_neighborlist(traj, ':5 <:5.0')
+    """
+    from pytraj.datasetlist import DatasetList
+    from pytraj.datasets import DataSetList as CDL
+    from pytraj.actions.CpptrajActions import Action_Pucker
+    from pytraj.compat import range
+
+    _top = _get_top(traj, top)
+    if not resrange:
+        resrange = range(_top.n_residues)
+
+    _range360 = "range360" if range360 else ""
+    geom = "geom" if not use_com else ""
+    amp = "amplitude" if amplitude else ""
+    _offset = "offset " + str(offset) if offset else ""
+
+    cdslist = CDL()
+    for res in resrange:
+        act = Action_Pucker()
+        command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
+        name = "pucker_res" + str(res+1)
+        command = " ".join((name, command, _range360, method, geom, _offset))
+        act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
+    return _get_data_from_dtype(cdslist, dtype)

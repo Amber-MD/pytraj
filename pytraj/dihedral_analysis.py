@@ -16,7 +16,12 @@ def calc_%s(traj=None, resrange="",
     Parameters
     ----------
     traj : Trajectory-like or anything that makes _frame_iter_master(traj) return Frame
-    resrange : cpptraj resrange
+    resrange : string or iterable, cpptraj resrange, default ""
+        if resrange is a string, use index of 1-based
+        if resrange is a python sequence (range, list, array, ...),
+           use index of 0-based
+    range360 : bool, default False
+        use -180/180 or 0/360
     top : {str, Topology}, optional, default None
     *args, **kwd: more arguments
 
@@ -29,6 +34,7 @@ def calc_%s(traj=None, resrange="",
     >>> da.calc_chip(traj, resrange="3-10", range360=True)
     >>> da.calc_chip(traj, resrange="3-10", dtype='dict')
     >>> da.calc_multidihedral(traj, resrange="3-10")
+    >>> da.calc_multidihedral(traj, resrange=range(5, 10))
     >>> # assert
     >>> from pytraj import common_actions as pyca
     >>> phi0 = pyca.calc_multidihedral(traj, "phi", dtype='dataset')
@@ -57,7 +63,7 @@ def calc_%s(traj=None, resrange="",
             _resrange = "resrange " + str(resrange)
         else:
             from pytraj.utils import convert as cv
-            _resrange = cv.array_to_cpptraj_range(resrange)
+            _resrange = "resrange " + cv.array_to_cpptraj_range(resrange)
     else:
         _resrange = ""
 
