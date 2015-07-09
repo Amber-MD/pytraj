@@ -3,6 +3,7 @@ import unittest
 from pytraj.testing import run_docstring
 import pytraj.common_actions as pyca
 from pytraj.base import *
+import pytraj as pt
 
 
 def silly_doc_func():
@@ -34,6 +35,8 @@ class Test(unittest.TestCase):
         func_names = da.supported_dihedral_types
         for key in func_names:
             run_docstring(da.__dict__['calc_' + key])
+
+        run_docstring(pt.multidihedral)
 
         print("pyca.calc_rmsd")
         run_docstring(pyca.calc_rmsd)

@@ -19,6 +19,7 @@ from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj
 from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
+from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
 from .externals.six import string_types
 from .Frame import Frame
 #from .Trajectory import Trajectory
@@ -342,6 +343,10 @@ def calc_radgyr(traj=None, mask="", top=None,
                 dtype='ndarray', *args, **kwd):
 
     from pytraj.actions.CpptrajActions import Action_Radgyr
+
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
     _nomax = 'nomax' if nomax else ""
     command = " ".join((mask, _nomax))
 
@@ -354,7 +359,10 @@ def calc_radgyr(traj=None, mask="", top=None,
 
 
 def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
     command = mask
+
     from pytraj.actions.CpptrajActions import Action_Molsurf
     act = Action_Molsurf()
 
@@ -364,7 +372,12 @@ def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_distrmsd(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_distrmsd(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     from pytraj.actions.CpptrajActions import Action_DistRmsd
     act = Action_DistRmsd()
 
@@ -374,7 +387,12 @@ def calc_distrmsd(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_volume(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     from pytraj.actions.CpptrajActions import Action_Volume
     act = Action_Volume()
 
@@ -394,7 +412,12 @@ def calc_multivector(traj=None, command="", top=None, dtype='ndarray', *args, **
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_volmap(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     from pytraj.actions.CpptrajActions import Action_Volmap
     act = Action_Volmap()
 
@@ -404,8 +427,12 @@ def calc_volmap(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_linear_interaction_energy(traj=None, command="", top=None,
+def calc_linear_interaction_energy(traj=None, mask="", top=None,
                                    dtype='dataset', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
     from pytraj.actions.CpptrajActions import Action_LIE
     act = Action_LIE()
 
@@ -430,7 +457,8 @@ def calc_rdf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset', *args, **kwd):
+def calc_jcoupling(traj=None, mask="", top=None, 
+                   kfile=None, dtype='dataset', *args, **kwd):
     """
     Paramters
     ---------
@@ -442,6 +470,10 @@ def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset',
     dtype : str, {'dataset', ...}, default 'dataset'
     *args, **kwd: optional
     """
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+    command = mask
+
     from pytraj.actions.CpptrajActions import Action_Jcoupling
     act = Action_Jcoupling()
     # add `radial` keyword to command (need to check `why`?)
@@ -574,7 +606,16 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
     ----------
     command : str, cpptraj command 
     traj : Trajectory-like object
+    resrange : str | array-like
+        residue range for searching
+    define_new_type : str
+        define new type for searching
+    range360 : bool, default False
+        if True: use 0-360
+    top : Topology | str, optional
+        only need to have 'top' if can not find it in `traj`
     *arg and **kwd: additional arguments
+
 
     Returns
     -------
@@ -586,21 +627,10 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
 
     Examples
     --------
-        from pytraj.common_actions import calc_multidihedral
-        # calculate all phi/psi dihedrals for residues 6 to 9 (for Amber string mask, index starts from 1)
-        d = calc_multidihedral(traj, "resrange 6-9 phi psi chi")
-        assert isinstance(d, dict) == True
-        from pytraj.dataframe import to_dataframe
-        print (to_dataframe(d))
-
-        # calculate dihedrals for N:CA:CB:CG for all residues, return 'CpptrajDatasetList' object 
-        d = calc_multidihedral(traj, "dihtype chi1:N:CA:CB:CG", dtype='dataset'))
-
-        # calculate all dihedrals, save output to CpptrajDatasetList and write output to disk too 
-        from pytraj import DataFileList
-        dflist = DataFileList()
-        d = pdb.calc_multidihedral("out ./output/test_multdih.dat", dtype='dataset', dflist=dflist)
-        dflist.write_all_datafiles()
+    >>> import pytraj as pt
+    >>> pt.calc_multidihedral(traj)
+    >>> pt.multidihedral(traj, resrange=range(8))
+    >>> pt.multidihedral(traj, range360=True)
 
     See Also
     -------
@@ -640,7 +670,12 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_atomicfluct(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_atomicfluct(traj=None, mask="", top=None, dtype='dataset', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     _top = _get_top(traj, top)
 
     dslist = CpptrajDatasetList()
@@ -668,10 +703,13 @@ def calc_bfactors(traj=None, mask="", byres=True, top=None,
     --------
     Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 557)
     """
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
     byres_text = "byres" if byres else ""
 
     _command = " ".join((mask, byres_text, "bfactor"))
-    return calc_atomicfluct(traj=traj, command=_command, top=top, dtype=dtype, *args, **kwd)
+    return calc_atomicfluct(traj=traj, mask=_command, top=top, dtype=dtype, *args, **kwd)
 
 
 def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
@@ -753,7 +791,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
 calc_COG = calc_center_of_geometry
 
 
-def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', 
+def calc_pairwise_rmsd(traj=None, mask="", top=None, dtype='ndarray', 
                       mat_type='full',
                       *args, **kwd):
     """return  CpptrajDatasetList object
@@ -816,6 +854,11 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray',
         from pytraj import info
         info("rms2d")
     """
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
     act = Analysis_Rms2d()
 
@@ -888,8 +931,8 @@ def calc_rmsd(traj=None, mask="", ref=None, mass=False,
 
     Parameters
     ---------
-    mask : str
-        Atom mask
+    mask : str or array
+        Atom mask/indices
     traj : Trajectory | List of trajectories | Trajectory or frame_iter
     top : Topology | str
         (optional) Topology
@@ -918,6 +961,10 @@ def calc_rmsd(traj=None, mask="", ref=None, mass=False,
     from pytraj.utils import is_int
     from array import array as pyarray
     from pytraj.datasets import DatasetDouble
+
+    if not isinstance(mask, string_types):
+        # [1, 3, 5] to "@1,3,5
+        mask = to_cpptraj_mask(mask)
 
     command = mask
 
@@ -1004,6 +1051,11 @@ def calc_rmsd_with_rotation_matrices(
         *args, **kwd):
 
     ref = _get_reference_from_traj(traj, ref)
+
+    if not isinstance(mask, string_types):
+        # [1, 3, 5] to "@1,3,5
+        mask = to_cpptraj_mask(mask)
+
     command = mask
 
     if not isinstance(command, string_types):
@@ -1059,11 +1111,17 @@ def pca(traj=None, command="* dorotation mass", top=None, dtype='dataset', *args
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def atomiccorr(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """
     """
     from pytraj.actions.CpptrajActions import Action_AtomicCorr
     _top = _get_top(traj, top)
+
+    if not isinstance(mask, string_types):
+        # [1, 3, 5] to "@1,3,5
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
 
     dslist = CpptrajDatasetList()
     act = adict['atomiccorr']
@@ -1165,7 +1223,7 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
         return fa
 
 
-def native_contacts(traj=None, command="", top=None, dtype='dataset',
+def native_contacts(traj=None, mask="", top=None, dtype='dataset',
                     ref=None,
                     distance=7.0,
                     noimage=False,
@@ -1181,6 +1239,12 @@ def native_contacts(traj=None, command="", top=None, dtype='dataset',
     from .actions.CpptrajActions import Action_NativeContacts
     act = Action_NativeContacts()
     dslist = CpptrajDatasetList()
+
+    if not isinstance(mask, string_types):
+        # [1, 3, 5] to "@1,3,5
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
 
     if ref is None or ref == 'first':
         try:
@@ -1209,7 +1273,7 @@ def native_contacts(traj=None, command="", top=None, dtype='dataset',
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def nastruct(traj=None, command="", top=None, dtype='dataset',
+def nastruct(traj=None, mask="", top=None, dtype='dataset',
              *args, **kwd):
     """
     Examples
@@ -1223,6 +1287,12 @@ def nastruct(traj=None, command="", top=None, dtype='dataset',
         Amber15 manual (http://ambermd.org/doc12/Amber15.pdf page 580)
     """
     # TODO: doc, rename method, move to seperate module?
+    if not isinstance(mask, string_types):
+        # [1, 3, 5] to "@1,3,5
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     from .actions.CpptrajActions import Action_NAstruct
     act = Action_NAstruct()
     dslist = CpptrajDatasetList()
@@ -1351,13 +1421,23 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
-def find_neighborlist(traj=None, mask='', top=None, dtype='dataset'):
+def find_neighborlist(traj=None, mask='', 
+                      top=None, 
+                      cutoff='',
+                      dtype='dataset'):
     """Note: not validate yet
 
-    pt.common_actions.find_neighborlist(traj, ':5 <:5.0')
+    >>> pt.common_actions.find_neighborlist(traj, ':5 <:5.0')
+    >>> pt.common_actions.find_neighborlist(traj, ':5', cutoff="<:5.0")
+    >>> pt.common_actions.find_neighborlist(traj, [3, 7, 8], cutoff=">:10.0")
     """
     from pytraj.datasetlist import DatasetList
     import numpy as np
+
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    mask = " ".join((mask, cutoff))
 
     dslist = DatasetList()
 
@@ -1378,7 +1458,6 @@ def pucker(traj=None, pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
            *args, **kwd):
     """Note: not validate yet
 
-    pt.common_actions.find_neighborlist(traj, ':5 <:5.0')
     """
     from pytraj.datasetlist import DatasetList
     from pytraj.datasets import DataSetList as CDL

@@ -288,20 +288,28 @@ class DataArray(object):
     def sum(self, axis=None, *args, **kwd):
         return self.values.sum(axis=axis, *args, **kwd)
 
-    def avg(self):
+    def avg(self, *args, **kwd):
+        # use *args, **kwd so we can use numpy too
         return self.mean()
 
-    def mean(self):
+    def mean(self, *args, **kwd):
+        # use *args, **kwd so we can use numpy too
         return self.values.mean()
 
-    def min(self):
+    def min(self, *args, **kwd):
+        # use *args, **kwd so we can use numpy too
         return self.values.min()
 
-    def max(self):
+    def max(self, *args, **kwd):
+        # use *args, **kwd so we can use numpy too
         return self.values.max()
 
-    def median(self):
+    def median(self, *args, **kwd):
+        # use *args, **kwd so we can use numpy too
         return np.median(self.values)
+
+    def flatten(self):
+        return self.values.flatten()
 
     # below are copied from `dask` package: New BSD
     # see pytraj/licenses/externals/dask.txt for license

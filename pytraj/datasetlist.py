@@ -486,11 +486,11 @@ class DatasetList(list):
             arr[:] = func(arr)
         return self
 
-    def mean(self):
+    def mean(self, *args, **kwd):
         dict = _OrderedDict
         return dict((x.key, x.mean()) for x in self).values
 
-    def median(self):
+    def median(self, *args, **kwd):
         """
         Notes: require numpy
         """
@@ -504,11 +504,11 @@ class DatasetList(list):
         dict = _OrderedDict
         return dict((x.key, x.std()) for x in self).values
 
-    def min(self):
+    def min(self, *args, **kwd):
         dict = _OrderedDict
         return dict((x.legend, x.min()) for x in self).values
 
-    def max(self):
+    def max(self, *args, **kwd):
         dict = _OrderedDict
         return dict((x.legend, x.max()) for x in self).values
 
@@ -688,3 +688,14 @@ class DatasetList(list):
 
     def astype(self, dtype):
         return self.values.astype(dtype)
+
+    def flatten(self):
+        """return flatten numpy array
+        """
+        try:
+            return self.values.flatten()
+        except ValueError:
+            from pytraj.tools import flatten
+            import numpy as np
+            return np.asarray(flatten(self))
+
