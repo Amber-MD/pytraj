@@ -38,8 +38,8 @@ class FrameIter(object):
 
     def __str__(self):
         root_msg = '<pytraj.core.frameiter.FrameIter with '
-        root_msg2 = 'start=%s, stop=%s, stride=%s \n' % (
-            self.start, self.stop, self.stride)
+        root_msg2 = 'start=%s, stop=%s, stride=%s, n_frames=%s \n' % (
+            self.start, self.stop, self.stride, self.n_frames)
 
         more_msg = 'autoimage=%s, rmsfit=%s> \n' % (
             self.autoimage, self.rmsfit)

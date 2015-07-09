@@ -696,7 +696,7 @@ cdef class Trajectory (object):
         # we don't do anythin here. Just create the same API for TrajectoryIterator
         pass
 
-    def frame_iter(self, start=0, stop=-1, stride=1, mask=None, autoimage=False, rmsfit=None):
+    def frame_iter(self, start=0, stop=None, stride=1, mask=None, autoimage=False, rmsfit=None):
         # TODO: combined with TrajectoryIterator
         from pytraj.core.frameiter import FrameIter
 
@@ -713,9 +713,13 @@ cdef class Trajectory (object):
                 rmsfit = tuple([self[index], rmsfit[1]])
 
         # check how many frames will be calculated
-        _start, _stop, _stride = slice(start, stop, stride).indices(self.n_frames)
+        if stop is None or stop >= self.n_frames:
+            stop = self.n_frames
+        elif stop < 0:
+            stop = get_positive_idx(stop, self.n_frames)
+
         # make sure `range` return iterator
-        n_frames = len(range(_start, _stop+1, _stride))
+        n_frames = len(range(start, stop, stride))
 
         frame_iter_super = self._frame_iter(start, stop, stride)
 
@@ -747,10 +751,9 @@ cdef class Trajectory (object):
         cdef int _end
         cdef int[:] int_view
 
-        if stop == -1:
+        if stop == -1 or stop >= self.n_frames:
             _end = <int> self.n_frames
         else:
-            #_end = stop
             _end = stop
 
         if mask is not None:

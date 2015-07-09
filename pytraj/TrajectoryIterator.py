@@ -11,6 +11,7 @@ from pytraj.compat import string_types, range
 from pytraj._shared_methods import _tolist, _split_and_write_traj
 from pytraj.Topology import Topology
 from pytraj.utils import is_int
+from pytraj._cyutils import get_positive_idx
 
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
@@ -164,7 +165,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         from itertools import tee
         return tee(self, n_iters)
 
-    def frame_iter(self, start=0, stop=-1, stride=1, mask=None,
+    def frame_iter(self, start=0, stop=None, stride=1, mask=None,
                    autoimage=False, rmsfit=None):
 
         from .core.frameiter import FrameIter
@@ -189,9 +190,12 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                 rmsfit = ([self[index], rmsfit[1]])
 
         # check how many frames will be calculated
-        _start, _stop, _stride = slice(start, stop, stride).indices(self.n_frames)
-        # make sure `range` return iterator
-        n_frames = len(range(_start, _stop+1, _stride))
+        if stop is None or stop >= self.n_frames:
+            stop = self.n_frames
+        elif stop < 0:
+            stop = get_positive_idx(stop, self.n_frames)
+
+        n_frames = len(range(start, stop, stride))
 
         frame_iter_super = super(
             TrajectoryIterator, self).frame_iter(start, stop, stride)
