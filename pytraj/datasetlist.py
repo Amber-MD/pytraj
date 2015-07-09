@@ -688,3 +688,14 @@ class DatasetList(list):
 
     def astype(self, dtype):
         return self.values.astype(dtype)
+
+    def flatten(self):
+        """return flatten numpy array
+        """
+        try:
+            return self.values.flatten()
+        except ValueError:
+            from pytraj.tools import flatten
+            import numpy as np
+            return np.asarray(flatten(self))
+

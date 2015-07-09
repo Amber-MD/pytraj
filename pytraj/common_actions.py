@@ -343,6 +343,10 @@ def calc_radgyr(traj=None, mask="", top=None,
                 dtype='ndarray', *args, **kwd):
 
     from pytraj.actions.CpptrajActions import Action_Radgyr
+
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
     _nomax = 'nomax' if nomax else ""
     command = " ".join((mask, _nomax))
 
@@ -355,7 +359,10 @@ def calc_radgyr(traj=None, mask="", top=None,
 
 
 def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
     command = mask
+
     from pytraj.actions.CpptrajActions import Action_Molsurf
     act = Action_Molsurf()
 
@@ -365,7 +372,12 @@ def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_distrmsd(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_distrmsd(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     from pytraj.actions.CpptrajActions import Action_DistRmsd
     act = Action_DistRmsd()
 
@@ -375,7 +387,12 @@ def calc_distrmsd(traj=None, command="", top=None, dtype='ndarray', *args, **kwd
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_volume(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     from pytraj.actions.CpptrajActions import Action_Volume
     act = Action_Volume()
 
@@ -395,7 +412,12 @@ def calc_multivector(traj=None, command="", top=None, dtype='ndarray', *args, **
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_volmap(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     from pytraj.actions.CpptrajActions import Action_Volmap
     act = Action_Volmap()
 
@@ -405,8 +427,12 @@ def calc_volmap(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_linear_interaction_energy(traj=None, command="", top=None,
+def calc_linear_interaction_energy(traj=None, mask="", top=None,
                                    dtype='dataset', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
     from pytraj.actions.CpptrajActions import Action_LIE
     act = Action_LIE()
 
@@ -431,7 +457,8 @@ def calc_rdf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset', *args, **kwd):
+def calc_jcoupling(traj=None, mask="", top=None, 
+                   kfile=None, dtype='dataset', *args, **kwd):
     """
     Paramters
     ---------
@@ -443,6 +470,10 @@ def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset',
     dtype : str, {'dataset', ...}, default 'dataset'
     *args, **kwd: optional
     """
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+    command = mask
+
     from pytraj.actions.CpptrajActions import Action_Jcoupling
     act = Action_Jcoupling()
     # add `radial` keyword to command (need to check `why`?)
@@ -639,7 +670,12 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_atomicfluct(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_atomicfluct(traj=None, mask="", top=None, dtype='dataset', *args, **kwd):
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     _top = _get_top(traj, top)
 
     dslist = CpptrajDatasetList()
@@ -667,10 +703,13 @@ def calc_bfactors(traj=None, mask="", byres=True, top=None,
     --------
     Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 557)
     """
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
     byres_text = "byres" if byres else ""
 
     _command = " ".join((mask, byres_text, "bfactor"))
-    return calc_atomicfluct(traj=traj, command=_command, top=top, dtype=dtype, *args, **kwd)
+    return calc_atomicfluct(traj=traj, mask=_command, top=top, dtype=dtype, *args, **kwd)
 
 
 def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
@@ -752,7 +791,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
 calc_COG = calc_center_of_geometry
 
 
-def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray', 
+def calc_pairwise_rmsd(traj=None, mask="", top=None, dtype='ndarray', 
                       mat_type='full',
                       *args, **kwd):
     """return  CpptrajDatasetList object
@@ -815,6 +854,11 @@ def calc_pairwise_rmsd(traj=None, command="", top=None, dtype='ndarray',
         from pytraj import info
         info("rms2d")
     """
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_mask(mask)
+
+    command = mask
+
     from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
     act = Analysis_Rms2d()
 
@@ -918,6 +962,10 @@ def calc_rmsd(traj=None, mask="", ref=None, mass=False,
     from array import array as pyarray
     from pytraj.datasets import DatasetDouble
 
+    if not isinstance(mask, string_types):
+        # [1, 3, 5] to "@1,3,5
+        mask = to_cpptraj_mask(mask)
+
     command = mask
 
     _top = _get_top(traj, top)
@@ -934,10 +982,6 @@ def calc_rmsd(traj=None, mask="", ref=None, mass=False,
         ref = Trajin_Single(ref, _top)[0]
     else:
         ref = ref
-
-    if not isinstance(mask, string_types):
-        # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_mask(mask)
 
     if mode == 'pytraj':
         arr = array('d')
