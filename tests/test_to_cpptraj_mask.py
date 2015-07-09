@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         # rmsd
         flist = [pt.rmsd, pt.radgyr, pt.molsurf,
                  pt.calc_atomicfluct, pt.bfactors,
-                 pt.calc_jcoupling,
+                 # pt.calc_jcoupling, # need to set AMBERHOME or point to file
                  pt.calc_pairwise_rmsd,
                  pt.calc_rmsd_with_rotation_matrices,
                 ]
