@@ -256,12 +256,13 @@ def build_func(my_ext):
         cmdclass = cmdclass,
         )
 
-def remind_ld_lib_path(build_tag):
+def remind_ld_lib_path(build_tag, libdir):
     if build_tag:
         from scripts.acsii_art import batman
         print ("")
         print ("")
         print (batman)
+        libdir = os.path.abspath(libdir)
         print ("make sure to add %s to your LD_LIBRARY_PATH" % libdir)
         print ("")
     else:
@@ -270,7 +271,7 @@ def remind_ld_lib_path(build_tag):
 if __name__ == "__main__":
     if not faster_build:
         build_tag = build_func(ext_modules)
-        remind_ld_lib_path(build_tag)
+        remind_ld_lib_path(build_tag, libdir)
     else:
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
