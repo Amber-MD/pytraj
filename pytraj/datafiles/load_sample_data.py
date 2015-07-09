@@ -2,6 +2,7 @@ from __future__ import absolute_import
 import os
 from .. TrajectoryIterator import TrajectoryIterator
 
+
 def load_sample_data(data_name=None):
     """
     Return TrajectoryIterator instance for Ala3 or tz2 data

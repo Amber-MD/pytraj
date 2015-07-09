@@ -5,7 +5,7 @@ from __future__ import absolute_import
 __all__ = ['load_pseudo_parm']
 
 
-def load_pseudo_parm(parm, guess_bond=True):
+def load_pseudo_parm(parm, guess_bond=False):
     """load_external's parm objects
 
     Parameters
@@ -27,9 +27,10 @@ def load_pseudo_parm(parm, guess_bond=True):
     elif is_mdtraj(parm):
         chains = parm.chains
     else:
-        chains = [parm,] # fake
+        chains = [parm, ]  # fake
 
     pseudotop = Topology()
+    i = 0
     for chain in chains:
         pseudotop.start_new_mol()
         for atom in chain.atoms:
@@ -39,32 +40,38 @@ def load_pseudo_parm(parm, guess_bond=True):
             resname = str(res.name)
 
             if is_mdtraj(parm):
-                atype = str(atom.name) # mdtraj
+                atype = str(atom.name)  # mdtraj
                 resid = res.index
                 mass = atom.element.mass
                 #charge = atom.element.charge
                 charge = 0.0
             elif is_mdanalysis(parm):
                 # in MDAnalysis, atom.type is `int`
-                atype = str(atom.type) 
+                atype = str(atom.type)
                 resid = atom.resid
                 charge = atom.charge
                 mass = atom.mass
             else:
-                atype = str(atom.type) # parmed
+                if atom.type:
+                    atype = str(atom.type)  # parmed
+                else:
+                    atype = atom.name
                 resid = res.idx
                 charge = atom.charge
                 mass = atom.mass
+                if mass == 0.:
+                    # assign 1.0 to mass
+                    # still better than 0.
+                    mass = 1.0
             atom = Atom(aname, atype, charge, mass)
             pseudotop.add_atom(atom=atom, resid=resid, resname=resname)
 
     if is_mdtraj(parm):
         # not sure how to get angles, dihedrals quickly
-        try:
-            pseudotop.add_bonds(np.array([(a.index, b.index) for (a, b) in parm.bonds]))
-        except TypeError:
-            pass
-        # load Box in _load_mdtraj since Box is stored in traj
+        if list(parm.bonds):
+            pseudotop.add_bonds(
+                np.array([(a.index, b.index) for (a, b) in parm.bonds]))
+
     elif is_mdanalysis(parm):
         # turn-off. need to check MDAnalysis
         # ack, lots of try and except
@@ -78,8 +85,9 @@ def load_pseudo_parm(parm, guess_bond=True):
         except TypeError:
             pass
 
-        try :
-            pseudotop.add_dihedrals(np.asarray(parm.universe.torsions.to_indices()))
+        try:
+            pseudotop.add_dihedrals(
+                np.asarray(parm.universe.torsions.to_indices()))
         except TypeError:
             pass
 
@@ -88,19 +96,31 @@ def load_pseudo_parm(parm, guess_bond=True):
         except AttributeError:
             pass
     else:
-        # TODO : add bonds, dihedrals, angles for ParmEd
         # parmed
-        # add dihedrals
-        bond_list = [(x.atom1.idx, x.atom2.idx)
-                    for x in parm.bonds]
-        angle_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx)
-                    for x in parm.angles]
-        dihedral_list= [(x.atom1.idx, x.atom2.idx, x.atom3.idx, x.atom4.idx)
-                  for x in parm.dihedrals]
+        if parm.bonds:
+            bond_list = [(x.atom1.idx, x.atom2.idx)
+                         for x in parm.bonds]
+        else:
+            bond_list = []
+
+        if parm.angles:
+            angle_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx)
+                          for x in parm.angles]
+        else:
+            angle_list = []
+
+        if parm.dihedrals:
+            dihedral_list = [(x.atom1.idx, x.atom2.idx, x.atom3.idx, x.atom4.idx)
+                             for x in parm.dihedrals]
+        else:
+            dihedral_list = []
+
         if bond_list:
             pseudotop.add_bonds(np.asarray(bond_list))
+
         if angle_list:
             pseudotop.add_angles(np.asarray(angle_list))
+
         if dihedral_list:
             pseudotop.add_dihedrals(np.asarray(dihedral_list))
 

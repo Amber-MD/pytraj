@@ -26,9 +26,10 @@ tlist = TrajinList()
 tlist.top = traj.top.copy()
 tlist.add_traj(fname)
 
+
 @Timer()
 def test_load(my_traj, ref_traj=None, n_frames=None):
-    print ()
+    print()
     if ref_traj is None:
         ref_traj = traj
 
@@ -38,41 +39,43 @@ def test_load(my_traj, ref_traj=None, n_frames=None):
     fa = Trajectory()
     fa.top = traj.top.copy()
     fa.load(my_traj)
-    
+
     assert fa.size == n_frames
 
     for f0, f1 in zip(fa, ref_traj):
         assert_almost_equal(f0.coords, f1.coords)
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
-        print ("load from TrajectoryIterator")
+        print("load from TrajectoryIterator")
         test_load(traj)
-        print ("load from Trajectory")
+        print("load from Trajectory")
         test_load(farray)
-        print (" load from frame_iter, TrajectoryIterator")
+        print(" load from frame_iter, TrajectoryIterator")
         test_load(traj())
-        print (" load from frame_iter, Trajectory")
+        print(" load from frame_iter, Trajectory")
         test_load(farray())
-        print (" load from file")
+        print(" load from file")
         test_load(fname)
-        print (" load from a list of files")
-        test_load([fname for _ in range(10)], n_frames=traj.n_frames*10)
-        print (" load from TrajectoryIterator")
+        print(" load from a list of files")
+        test_load([fname for _ in range(10)], n_frames=traj.n_frames * 10)
+        print(" load from TrajectoryIterator")
         test_load(traj)
-        print (" load from DataSet Coords")
+        print(" load from DataSet Coords")
         test_load(dslist[0])
         #print (" load from DataSet Traj, sometimes got segmentation fault")
-        #test_load(dslist[1])
-        print (" load from ndarray")
+        # test_load(dslist[1])
+        print(" load from ndarray")
         test_load(traj.xyz)
-        print (" load from ndarray, flatten")
+        print(" load from ndarray, flatten")
         test_load(traj.xyz.flatten())
-        print (" load from ndarray, flatten")
+        print(" load from ndarray, flatten")
         test_load(traj.xyz.flatten().tolist())
-        print (" load from ndarray, flatten")
+        print(" load from ndarray, flatten")
         test_load(traj.xyz.tolist())
 
     @test_if_having("mdtraj")
@@ -84,16 +87,16 @@ class Test(unittest.TestCase):
 
         m_top = md.load_prmtop(topname)
         m_traj = md.load_mdcrd(fname, m_top)
-        print (m_traj.xyz[0, 0, 0])
-        print (traj[0, 0, 0])
+        print(m_traj.xyz[0, 0, 0])
+        print(traj[0, 0, 0])
         indices = np.empty((20, 2), dtype=np.int64)
         indices[:, 0] = traj.top("@CA").selected_indices()[:20]
         indices[:, 1] = traj.top("@H*").selected_indices()[:20]
 
         _fa = Trajectory()
         _fa.top = traj.top.copy()
-        _fa.load(m_traj) # not auto-cast from `nm` to `angstrom`
-        aa_eq(_fa.xyz*10., traj.xyz)
+        _fa.load(m_traj)  # not auto-cast from `nm` to `angstrom`
+        aa_eq(_fa.xyz * 10., traj.xyz)
 
         a_mdtraj = md.compute_distances(m_traj, indices)
         a_fa_from_mdtraj = _fa.calc_distance(indices)
@@ -111,9 +114,9 @@ class Test(unittest.TestCase):
     def test_2(self):
         # turn off this test since getting 2/3 chances of segmentation fault
         # Don't know why
-        print ("test loading DataSetList")
+        print("test loading DataSetList")
         _dslist = dslist
-        print (dslist)
+        print(dslist)
         ref_traj = Trajectory()
         ref_traj.top = traj.top.copy()
         ref_traj.load(traj)
@@ -121,7 +124,7 @@ class Test(unittest.TestCase):
         test_load(_dslist, ref_traj=ref_traj)
 
     def test_3(self):
-        print ("test loading frame")
+        print("test loading frame")
         fa = Trajectory(traj[0], traj.top)
         assert fa.size == 1
         assert_almost_equal(fa[0].coords, traj[0].coords)

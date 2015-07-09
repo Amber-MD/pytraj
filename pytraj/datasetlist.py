@@ -1,18 +1,38 @@
 from __future__ import absolute_import
 from array import array
+from itertools import groupby
+from functools import partial
 from pytraj.datasets.DataSetList import DataSetList as DSL
 from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
-from pytraj.utils import _import_numpy, _import_pandas, is_int, is_array
+from pytraj.utils import _import_numpy, _import_pandas, is_int, is_array, is_generator
 from pytraj._xyz import XYZ
 from pytraj.compat import string_types, callable
 from pytraj.core.DataFile import DataFile
 from pytraj.ArgList import ArgList
-from pytraj.compat import map
+from pytraj.compat import map, iteritems
+from pytraj.array import DataArray
 
 _, np = _import_numpy()
 
-__all__ = ['load_datafile', 'vstack', 'DatasetList']
+__all__ = ['load_datafile', 'stack', 'DatasetList',
+           'from_pickle', 'from_json']
+
+
+def from_pickle(filename):
+    dslist = DatasetList()
+    dslist.from_pickle(filename)
+    return dslist
+
+
+def from_json(filename):
+    dslist = DatasetList()
+    dslist.from_json(filename)
+    return dslist
+
+def from_dict(d):
+    return DatasetList(d)
+
 
 def load_datafile(filename):
     """load cpptraj's output"""
@@ -20,7 +40,16 @@ def load_datafile(filename):
     ds.read_data(filename)
     return ds
 
-def vstack(args):
+
+def _from_full_dict(full_dict):
+    return DatasetList()._from_full_dict(full_dict)
+
+
+def from_sequence(seq, copy=True):
+    return DatasetList().from_sequence(seq, copy=copy)
+
+
+def stack(args):
     """return a new DatasetList by joining (vstack)
 
     Parameters
@@ -35,42 +64,69 @@ def vstack(args):
     --------
         d1 = calc_dssp(traj1, dtype='dataset')
         d2 = calc_dssp(traj2, dtype='dataset')
-        d3 = stack(d1, d2)
+        d3 = stack((d1, d2))
     """
-    if not isinstance(args, (list, tuple, map)):
-        raise ValueError("must a tuple/list/map")
+    is_subcriptable = not (isinstance(args, map) or is_generator(args))
 
-    if not isinstance(args, map):
+    if not isinstance(args, (list, tuple, map)) and not is_generator(args):
+        raise ValueError("must a tuple/list/map/generator")
+
+    if is_subcriptable:
         dslist0 = args[0].copy()
     else:
         dslist0 = next(args)
 
-    dslist_iter = args[1:] if not isinstance(args, map) else args
+    dslist_iter = args[1:] if is_subcriptable else args
 
     for dslist in dslist_iter:
         for d0, d in zip(dslist0, dslist):
             if d0.dtype != d.dtype:
-                raise ValueError("Dont support stack different dtype together")
+                raise TypeError("Dont support stack different dtype together")
+            if d0.key != d.key:
+                raise KeyError("Don't support stack different key")
             d0.append(d.copy())
     return dslist0
 
+concat_datasetlist = stack
+
+from collections import OrderedDict
+
+class _OrderedDict(OrderedDict):
+    @property
+    def values(self):
+        from pytraj.tools import dict_to_ndarray
+        arr = dict_to_ndarray(self)
+        return np.array([[key for key in self.keys()], arr], dtype='object')
+
+    def to_ndarray(self, with_key=False):
+        from pytraj.tools import dict_to_ndarray
+        arr = dict_to_ndarray(self)
+
+        if not with_key:
+            return arr
+        else:
+            return np.array([[key for key in self.keys()], arr])
 
 class DatasetList(list):
-    def __init__(self, dslist=None):
-        if dslist:
-            for d0 in dslist:
-                self.append(d0, False)
 
-    def __contains__(self, d0):
-        for d in self:
-            if d.is_(d0):
-                return True
-        return False
+    def __init__(self, dslist=None, copy=False):
+        if dslist:
+            if isinstance(dslist, dict):
+                # {'x': [1, 3, 5], 'y': [4, 7, 8]}
+                for key, values in iteritems(dslist):
+                    self.append(DataArray({key : values}), copy=copy)
+            else:
+                for d0 in dslist:
+                    # always make a copy
+                    # from DataArray(d0)
+                    # so we set copy=False here
+                    # to avoid copying twice
+                    self.append(DataArray(d0), copy=copy)
 
     def copy(self):
         dslist = self.__class__()
         for d0 in self:
-            dslist.append(d0.copy())
+            dslist.append(d0, copy=True)
         return dslist
 
     def from_pickle(self, filename):
@@ -84,26 +140,40 @@ class DatasetList(list):
     def to_pickle(self, filename, use_numpy=True):
         to_pickle(self._to_full_dict(use_numpy), filename)
 
-    def to_json(self, filename, use_numpy=False):
-        to_json(self._to_full_dict(use_numpy), filename)
+    def to_json(self, filename, use_numpy=True):
+        full_dict = self._to_full_dict(use_numpy=use_numpy)
+        for key in self.keys():
+            d = full_dict[key]['values']
+            if hasattr(d, 'dtype') and 'int' in d.dtype.name:
+                full_dict[key]['values'] = d.tolist()
+        to_json(full_dict, filename)
 
     def _from_full_dict(self, ddict):
-        ordered_keys = ddict['ordered_keys']
+        from pytraj.array import DataArray
+        da = DataArray()
+
+        if not isinstance(ddict, dict):
+            raise ValueError("must be a dict")
+        try:
+            ordered_keys = ddict['ordered_keys']
+        except KeyError:
+            ordered_keys = ddict.keys()
 
         for legend in ordered_keys:
             d = ddict[legend]
-            values = d['values']
-            self.add_set(d['dtype'], d['name'])
-            last = self[-1]
-            last.set_name_aspect_index_ensemble_num(d['aspect'], d['name'], d['idx'], 0)
-            last.set_legend(legend)
-            last.resize(len(values))
-            last.values[:] = values
+            da.values = np.array(d['values'])
+            da.aspect = d['aspect']
+            da.name = d['name']
+            da.idx = d['idx']
+            da.legend = legend
+            da.cpptraj_dtype = d['cpptraj_dtype']
+            self.append(da)
+        return self
 
     def _to_full_dict(self, use_numpy=True):
         """
         """
-        ddict  = {}
+        ddict = {}
         ddict['ordered_keys'] = []
         for d in self:
             ddict['ordered_keys'].append(d.legend)
@@ -114,13 +184,10 @@ class DatasetList(list):
             else:
                 _d['values'] = list(d.values)
             _d['name'] = d.name
-            _d['dtype'] = d.dtype
+            _d['cpptraj_dtype'] = d.cpptraj_dtype
             _d['aspect'] = d.aspect
             _d['idx'] = d.idx
         return ddict
-
-    def to_json(self, filename):
-        to_json(self.to_dict(), filename)
 
     def to_dataframe(self, engine='pandas'):
         if engine == 'pandas':
@@ -130,9 +197,10 @@ class DatasetList(list):
             except ImportError:
                 raise ImportError("must have pandas")
         else:
-            raise NotImplementedError("currently support only pandas' DataFrame")
+            raise NotImplementedError(
+                "currently support only pandas' DataFrame")
 
-    def hist(self, plot=False):
+    def hist(self, plot=True, show=True, *args, **kwd):
         """
         Paramters
         ---------
@@ -140,7 +208,14 @@ class DatasetList(list):
             if False, return a dictionary of 2D numpy array
             if True, return a dictionary of matplotlib object
         """
-        return dict(map(lambda x : (x.legend,  x.hist(plot=plot)), self))
+        hist_dict= dict(map(lambda x: (x.legend,  x.hist(plot=plot, show=False,
+                                                     *args, **kwd)), self))
+
+        if show:
+            # only show once
+            from pytraj.plotting import show
+            show()
+        return hist_dict
 
     def count(self):
         from collections import Counter
@@ -177,19 +252,21 @@ class DatasetList(list):
         return self[0].to_pyarray()
 
     def __str__(self):
-        has_pd, _ = _import_pandas()
-        safe_msg = "<pytraj.DatasetList with %s datasets>" % self.size
+        safe_msg = "<pytraj.DatasetList with %s datasets>\n" % self.size
         if self.size == 0:
             return safe_msg
-        if not has_pd:
-            msg = "<pytraj.DatasetList with %s datasets> (install pandas for pretty print)" % self.size
-            return msg
+        msg = "\n\n".join("\n".join((d.key, d.values.__str__()))
+                          for d in self)
+        str_first_3= "\n\n".join("\n".join((d.key, d.values.__str__())) 
+                                 for d in self[:3])
+        str_last_2 = "\n\n".join("\n".join((d.key, d.values.__str__())) 
+                                for d in self[-2:])
+
+        if self.size <= 5:
+            return safe_msg + msg
         else:
-            try:
-                df = self.to_dataframe().T
-                return safe_msg + "\n" + df.__str__()
-            except (ImportError, ValueError):
-                return safe_msg
+            return safe_msg + str_first_3 + "\n...\n\n" + str_last_2
+
 
     def __repr__(self):
         return self.__str__()
@@ -221,21 +298,21 @@ class DatasetList(list):
         if is_int(idx):
             return super(DatasetList, self).__getitem__(idx)
         elif isinstance(idx, string_types):
-             for d0 in self:
-                 if d0.legend.upper() == idx.upper():
-                     d0._base = self
-                     return d0
+            for d0 in self:
+                if d0.legend.upper() == idx.upper():
+                    d0._base = self
+                    return d0
         elif isinstance(idx, slice):
             # return new view of `self`
             start, stop, step = idx.indices(self.size)
             new_dslist = self.__class__()
             for _idx in range(start, stop, step):
-                new_dslist.append(self[_idx])
+                new_dslist.append(self[_idx], copy=False)
             return new_dslist
         elif is_array(idx) or isinstance(idx, list):
             new_dslist = self.__class__()
-            for _idx in idx: 
-                new_dslist.append(self[_idx])
+            for _idx in idx:
+                new_dslist.append(self[_idx], copy=False)
             return new_dslist
         elif isinstance(idx, tuple) and len(idx) == 2:
             return self[idx[0]][idx[1]]
@@ -287,15 +364,17 @@ class DatasetList(list):
         return self.get_legends()
 
     def iteritems(self):
-        from pytraj.compat import zip
         for key in self.keys():
             yield key, self[key]
+
+    def items(self):
+        return self.iteritems()
 
     def map(self, func):
         for d0 in self:
             yield func(d0)
 
-    def filter(self, func, *args, **kwd):
+    def filter(self, func, copy=False, *args, **kwd):
         """return a new view of DatasetList of func return True"""
         dslist = self.__class__()
 
@@ -304,12 +383,12 @@ class DatasetList(list):
         elif callable(func):
             for d0 in self:
                 if func(d0, *args, **kwd):
-                    dslist.append(d0)
+                    dslist.append(d0, copy=copy)
             return dslist
         else:
             raise NotImplementedError("func must be a string or callable")
 
-    def grep(self, key, mode='legend'):
+    def grep(self, key, mode='legend', copy=False):
         """"return a new DatasetList object as a view of `self`
 
         Parameters
@@ -330,11 +409,11 @@ class DatasetList(list):
             att = getattr(d0, mode)
             if isinstance(key, string_types):
                 if re.search(key, att):
-                    dtmp.append(d0)
+                    dtmp.append(d0, copy=copy)
             elif isinstance(key, (list, tuple)):
                 for _key in key:
                     if re.search(_key, att):
-                        dtmp.append(d0)
+                        dtmp.append(d0, copy=copy)
             else:
                 raise ValueError("support string or list/tuple of strings")
         return dtmp
@@ -346,16 +425,16 @@ class DatasetList(list):
         except:
             raise NotImplementedError("dont know how to convert to list")
 
-    def to_dict(self, use_numpy=False):
+    def to_dict(self, use_numpy=True, ordered_dict=False):
         """return a dict object with key=legend, value=list"""
-        from collections import OrderedDict as dict
-        try:
-            if use_numpy:
-                return dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
-            else:
-                return dict((d0.legend, d0.tolist()) for d0 in self)
-        except:
-            raise PytrajConvertError("don't know tho to convert to dict")
+        _dict = dict
+        if ordered_dict:
+            # use OrderedDict
+            _dict = _OrderedDict
+        if use_numpy:
+            return _dict((d0.legend, d0.to_ndarray()) for d0 in self)
+        else:
+            return _dict((d0.legend, d0.tolist()) for d0 in self)
 
     @property
     def values(self):
@@ -367,19 +446,23 @@ class DatasetList(list):
         except:
             raise ValueError("don't know how to cast to numpy array")
 
-    def to_ndarray(self):
+    def to_ndarray(self, with_key=False):
         """
         Notes: require numpy
         """
-        # make sure to use copy=True to avoid memory error for memoryview
         has_np, np = _import_numpy()
         if has_np:
             try:
                 if self.size == 1:
-                    return self[0].to_ndarray(copy=True)
+                    arr = self[0].values
                 else:
                     # more than one set
-                    return np.asarray([d0.to_ndarray(copy=True) for d0 in self])
+                    arr = np.asarray([d0.values for d0 in self])
+                if not with_key:
+                    return arr
+                else:
+                    key_arr = np.array([d.key for d in self])
+                    return np.array([key_arr, arr.T])
             except:
                 raise ValueError("don't know how to convert to ndarray")
         else:
@@ -392,6 +475,7 @@ class DatasetList(list):
         --------
         pandas
         """
+        dict = _OrderedDict
         _, pandas = _import_pandas()
         my_dict = dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
@@ -400,55 +484,54 @@ class DatasetList(list):
         for d in self:
             arr = np.asarray(d.data)
             arr[:] = func(arr)
+        return self
 
-    def mean(self, axis=1):
+    def mean(self, *args, **kwd):
+        dict = _OrderedDict
+        return dict((x.key, x.mean()) for x in self).values
+
+    def median(self, *args, **kwd):
         """
         Notes: require numpy
         """
-        return self.to_ndarray().mean(axis=axis)
-
-    def median(self, axis=1):
-        """
-        Notes: require numpy
-        """
-        return np.median(self.to_ndarray(), axis=axis)
+        dict = _OrderedDict
+        return dict((x.key, x.median()) for x in self).values
 
     def std(self, axis=1):
         """
         Notes: require numpy
         """
-        return np.std(self.to_ndarray(), axis=axis)
+        dict = _OrderedDict
+        return dict((x.key, x.std()) for x in self).values
 
-    def min(self):
-        arr = array('d', [])
-        for d in self:
-            arr.append(d.min())
-        return arr
+    def min(self, *args, **kwd):
+        dict = _OrderedDict
+        return dict((x.legend, x.min()) for x in self).values
 
-    def max(self):
-        arr = array('d', [])
-        for d in self:
-            arr.append(d.max())
-        return arr
+    def max(self, *args, **kwd):
+        dict = _OrderedDict
+        return dict((x.legend, x.max()) for x in self).values
 
-    def sum(self, legend=None, axis=1):
+    def sum(self, restype='dict'):
         """
         Notes: require numpy
         """
-        _, np = _import_numpy()
-        if not legend:
-            return np.sum(self.to_ndarray(), axis=axis)
-        else:
-            return self.filter(legend).sum(axis=axis)
+        dict = _OrderedDict
+        if restype == 'dict':
+            return dict((x.legend, x.sum()) for x in self).values
+        elif restype == 'ndarray':
+            return np.array([self.keys(), 
+                           dict((x.legend, x.sum()) for x in self).to_ndarray()]).T
 
     def cumsum(self, axis=1):
         """Return the cumulative sum of the elements along a given axis.
         (from numpy doc)
         """
-        return np.cumsum(self.to_ndarray(), axis=axis)
+        dict = _OrderedDict
+        return dict((x.legend, np.cumsum(x.values)) for x in self).values
 
     def mean_with_error(self, other):
-        from collections import defaultdict
+        dict = _OrderedDict
 
         ddict = defaultdict(tuple)
         for key, dset in self.iteritems():
@@ -456,6 +539,7 @@ class DatasetList(list):
         return ddict
 
     def count(self, number=None):
+        dict = _OrderedDict
         return dict((d0.legend, d0.count(number)) for d0 in self)
 
     def read_data(self, filename, arg=""):
@@ -463,9 +547,7 @@ class DatasetList(list):
         from pytraj.datasets.DataSetList import DataSetList
         dslist = DataSetList()
         df.read_data(filename, ArgList(arg), dslist)
-
-        for d0 in dslist:
-            self.append(d0.copy())
+        df.from_sequence(dslist, copy=False)
 
     # pandas related
     def describe(self):
@@ -474,20 +556,6 @@ class DatasetList(list):
             raise ImportError("require pandas")
         else:
             return self.to_dataframe().describe()
-
-    def write_all_datafiles(self, filenames=None):
-        from pytraj.core.DataFileList import DataFileList
-        df = DataFileList()
-
-        for idx, d in enumerate(self):
-            if filenames is None:
-                # make default name
-                d.legend = d.legend.replace(":", "_")
-                fname = "pytraj_datafile_" + d.legend + ".txt"
-            else:
-                fname = filenames[i]
-            df.add_dataset(fname, d)
-        df.write_all_datafiles()
 
     def savetxt(self, filename='dslist_default_name.txt', labels=None):
         """just like `numpy.savetxt`
@@ -504,37 +572,58 @@ class DatasetList(list):
         # transpose `values` first
         values = np.column_stack((frame_number, self.values.T))
         formats = ['%8i'] + [d.format for d in self]
-        np.savetxt(filename, values, fmt=formats, header=headers) 
+        np.savetxt(filename, values, fmt=formats, header=headers)
 
-    def plot(self, use_seaborn=False, *args, **kwd):
+    def plot(self, show=True, use_seaborn=True, *args, **kwd):
         """very simple plot for quickly visualize the data
 
         >>> dslist[['psi:7', 'phi:7']].plot()
+        >>> dslist[['psi:7', 'phi:7']].plot(show=True)
         """
+        if use_seaborn:
+            try:
+                import seaborn as snb
+                snb.set()
+            except ImportError:
+                print ("no seaborn package. skip importing")
         try:
             from matplotlib import pyplot as plt
-            fig = plt.figure()
-            ax = fig.add_subplot(111)
-            for d0 in self:
-                ax.plot(d0, *args, **kwd)
+            ax = plt.subplot(111)
+            if self.size == 1:
+                # good for plotting bfactors
+                # let DatasetList `show`
+                ax = self[0].plot(show=False, *args, **kwd)
+            else:
+                for d0 in self:
+                    ax.plot(d0, *args, **kwd)
+            if show:
+                plt.show()
             return ax
         except ImportError:
             raise ImportError("require matplotlib")
-        if use_seaborn:
-            try:
-                import seaborn
-            except ImportError:
-                raise ImportError("require seaborn")
 
     def append(self, dset, copy=True):
+        """append anythin having `key` attribute
+        """
         if copy:
             d0 = dset.copy()
         else:
             d0 = dset
-        for key in self.keys():
-            if d0.legend == key:
-                raise KeyError("must have different legend", dset.legend)
-        super(DatasetList, self).append(d0)
+
+        def check_key(self, key):
+            for k0 in self.keys():
+                if k0 == key:
+                    raise KeyError("must have different legend")
+
+        if hasattr(dset, 'key'):
+            check_key(self, dset.key)
+            super(DatasetList, self).append(d0)
+        elif isinstance(dset, dict):
+            for key, values in iteritems(dset):
+                check_key(self, key)
+                super(DatasetList, self).append(DataArray({key : values}))
+        else:
+            raise ValueError()
 
     def remove(self, dset):
         for idx, d in enumerate(self):
@@ -545,13 +634,68 @@ class DatasetList(list):
                 # why?
                 super(DatasetList, self).remove(self.__getitem__(idx))
 
-    @classmethod
-    def from_datasetlist(cls, dslist, copy=True):
-        return cls.from_sequence(dslist, copy=copy)
+    def from_datasetlist(self, dslist, copy=True):
+        self.from_sequence(dslist, copy=copy)
+        return self
 
-    @classmethod
-    def from_sequence(cls, dslist, copy=True):
-        new_ds = cls()
+    def from_sequence(self, dslist, copy=True):
         for d in dslist:
-            new_ds.append(d, copy=copy)
-        return new_ds
+            self.append(d, copy=copy)
+        return self
+
+    def chunk_average(self, n_chunks):
+        return dict(map(lambda x: (x.legend, x.chunk_average(n_chunks)), self))
+
+    def topk(self, k):
+        return dict((x.legend, x.topk(k)) for x in self)
+
+    def lowk(self, k):
+        from heapq import nsmallest
+        return dict((x.legend, list(nsmallest(k, x))) for x in self)
+
+    def head(self, k):
+        return dict((x.legend, x.head(k, restype='list')) for x in self)
+
+    def tail(self, k):
+        return dict((x.legend, x.tail(k)) for x in self)
+
+    def groupby(self, func_or_key, copy=False):
+        return dict((x, from_sequence(y, copy=copy)) 
+               for x, y in groupby(self, func_or_key))
+
+    def cpptraj_dtypes(self):
+        return np.array([x.cpptraj_dtype for x in self])
+
+    def names(self):
+        return np.array([x.name for x in self])
+
+    def sort(self, key=None, copy=False, *args, **kwd):
+        return from_sequence(sorted(self, key=key, *args, **kwd), copy=copy)
+
+    def __add__(self, other):
+        raise NotImplementedError()
+
+    def __mul__(self, other):
+        raise NotImplementedError()
+
+    def extend(self, other, copy=True):
+        self.from_sequence(other, copy=copy)
+
+    def dot(self, idx0, idx1):
+        """equal to np.dot(D[idx0].values, D[idx1].values)
+        """
+        return np.dot(self[idx0].values, self[idx1].values)
+
+    def astype(self, dtype):
+        return self.values.astype(dtype)
+
+    def flatten(self):
+        """return flatten numpy array
+        """
+        try:
+            return self.values.flatten()
+        except ValueError:
+            from pytraj.tools import flatten
+            import numpy as np
+            return np.asarray(flatten(self))
+

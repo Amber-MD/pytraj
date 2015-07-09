@@ -9,7 +9,9 @@ from pytraj import Trajectory
 import pytraj.common_actions as pyca
 from pytraj.testing import aa_eq
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         from pytraj.TrajectoryREMDIterator import TrajectoryREMDIterator
         top = Topology("./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
@@ -19,25 +21,26 @@ class Test(unittest.TestCase):
 
         # load all traj and extract frames having 300.0 K
         traj = mdio.load_remd("./data/Test_RemdTraj/rem.nc.000", top, "300.0")
-        trajiter = mdio.iterload_remd("./data/Test_RemdTraj/rem.nc.000", top, "300.0")
+        trajiter = mdio.iterload_remd(
+            "./data/Test_RemdTraj/rem.nc.000", top, "300.0")
         assert isinstance(traj, Trajectory)
         assert isinstance(trajiter, TrajectoryREMDIterator)
         # test slicing
         assert isinstance(trajiter[:], Trajectory)
 
-        print (traj)
-        print (trajiter)
-        print (traj, traj.top, traj.n_frames)
+        print(traj)
+        print(trajiter)
+        print(traj, traj.top, traj.n_frames)
 
         # make sure to get 300.0 K for all frames
         for T in traj.temperatures:
-            assert_almost_equal([T], [300.0,])
+            assert_almost_equal([T], [300.0, ])
 
         # make sure to reproduce cpptraj output
-        saved_traj = mdio.iterload("data/Test_RemdTraj/temp0.crd.300.00", 
-                               "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
+        saved_traj = mdio.iterload("data/Test_RemdTraj/temp0.crd.300.00",
+                                   "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
 
-        print (traj.n_frames)
+        print(traj.n_frames)
         count = 0
         for f0, f1, f2 in zip(traj, trajiter, saved_traj):
             aa_eq(f0.xyz, f1.xyz)

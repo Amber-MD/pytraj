@@ -7,6 +7,7 @@ from glob import glob
 from pytraj.Trajectory import Trajectory
 from pytraj._set_silent import set_world_silent
 from pytraj.compat import set
+from pytraj.tools import rmsd, rmsd_1darray
 
 # external
 from pytraj.externals.six import string_types
@@ -18,6 +19,7 @@ except ImportError:
 
 __all__ = ['to_amber_mask', 'from_legends_to_indices', 'info',
            'get_atts', 'merge_trajs']
+
 
 def to_amber_mask(txt, mode=None):
     import re
@@ -50,10 +52,13 @@ def to_amber_mask(txt, mode=None):
             raise NotImplementedError()
     elif mode == 'int_to_str':
         # need to add +1 since cpptraj's mask uses starting index of 1
-        my_long_str = ",".join(str(i+1) for i in txt)
+        my_long_str = ",".join(str(i + 1) for i in txt)
         return "@" + my_long_str
     else:
         raise NotImplementedError()
+
+def array_to_cpptraj_atommask(arr):
+    return to_amber_mask(arr, mode='int_to_str')
 
 def from_legends_to_indices(legends, top):
     """return somethine like "ASP_16@OD1-ARG_18@N-H" to list of indices
@@ -69,10 +74,11 @@ def from_legends_to_indices(legends, top):
         index_list.append(top(m).indices)
     return index_list
 
+
 def info(obj=None):
     """get `help` for obj
     Useful for Actions and Analyses
-    
+
     Since we use `set_worl_silent` to turn-off cpptraj' stdout, we need 
     to turn on to use cpptraj's help methods
     """
@@ -81,8 +87,8 @@ def info(obj=None):
     anal_keys = analdict.keys()
 
     if obj is None:
-        print ("action's keys", adict_keys)
-        print ("analysis' keys", anal_keys)
+        print("action's keys", adict_keys)
+        print("analysis' keys", anal_keys)
     else:
         if isinstance(obj, string_types):
             if obj in adict.keys():
@@ -111,27 +117,30 @@ def info(obj=None):
             adict[key].help()
             set_world_silent(True)
         elif hasattr(_obj, '__doc__'):
-            print (_obj.__doc_)
+            print(_obj.__doc__)
         else:
             raise ValueError("object does not have `help` method")
+
 
 def show_code(func, get_txt=False):
     """show code of func or module"""
     import inspect
     txt = inspect.getsource(func)
     if not get_txt:
-        print (txt)
+        print(txt)
     else:
         return txt
+
 
 def get_atts(obj):
     """get methods and atts from obj but excluding special methods __"""
     atts_dict = dir(obj)
     return [a for a in atts_dict if not a.startswith("__")]
 
+
 def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     """
-    
+
     Examples
     --------
        # from two Trajectory or TrajectoryIterator
@@ -163,7 +172,7 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     if isinstance(traj2, (list, tuple)):
         n_frames_2 = n_frames
-        top2 = traj2[1] # example: (traj(0, 5), traj.top)
+        top2 = traj2[1]  # example: (traj(0, 5), traj.top)
         _traj2 = traj2[0]
     else:
         n_frames_2 = traj2.n_frames
@@ -172,9 +181,6 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     if n_frames_1 != n_frames_2:
         raise ValueError("must have the same n_frames")
-
-    if top1.n_atoms != top2.n_atoms:
-        raise ValueError("must have the same n_atoms")
 
     traj = Trajectory()
     traj._allocate(n_frames_1, top1.n_atoms + top2.n_atoms)
@@ -192,8 +198,10 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     return traj
 
+
 def find_libcpptraj(**kwd):
     return find_library('cpptraj', **kwd)
+
 
 def find_library(libname, unique=False):
     """return a list of all library files"""
@@ -204,7 +212,7 @@ def find_library(libname, unique=False):
     for path in paths:
         path = path.strip()
         fnamelist = glob(os.path.join(path, key))
-        for fname in fnamelist: 
+        for fname in fnamelist:
             if os.path.isfile(fname):
                 lib_path_list.append(fname)
 
@@ -216,22 +224,6 @@ def find_library(libname, unique=False):
         else:
             return lib_path_list
 
-def rmsd_1darray(a1, a2):
-    '''rmsd of a1 and a2
-    '''
-    import numpy as np
-    from math import sqrt
-    arr1 = np.asarray(a1)
-    arr2 = np.asarray(a2)
-
-    if len(arr1.shape) > 1 or len(arr2.shape) > 1:
-        raise ValueError("1D array only")
-
-    if arr1.shape != arr2.shape:
-        raise ValueError("must have the same shape")
-    
-    tmp = sum((arr1-arr2)**2)
-    return sqrt(tmp/arr1.shape[0])
 
 def split_range(n_chunks, start, stop):
     '''

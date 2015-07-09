@@ -7,21 +7,23 @@ from pytraj.utils import has_
 from pytraj.utils.check_and_assert import assert_almost_equal, eq
 from pytraj.testing import aa_eq
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         if has_("numpy"):
             import numpy as np
             from numpy.testing import assert_almost_equal
             arr0 = traj.xyz
-            print (arr0.shape)
+            print(arr0.shape)
             aa_eq(arr0, traj[:, :, :].xyz)
 
             # create Trajectory
             farray = traj[:]
             aa_eq(arr0, farray[:, :, :].xyz)
         else:
-            print ("need numpy. skip test")
+            print("need numpy. skip test")
 
 if __name__ == "__main__":
     unittest.main()

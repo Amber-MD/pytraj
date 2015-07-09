@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from .six import string_types
 
+
 def load_hdf5(filename_or_buffer, autoconvert=True, restype=None, top=None):
     """"load hd5f format from openmm (?)
 
@@ -32,12 +33,14 @@ def load_hdf5(filename_or_buffer, autoconvert=True, restype=None, top=None):
         fh = filename_or_buffer
         should_be_closed = False
 
-    traj = _load_hdf5_from_buffer(fh, autoconvert=autoconvert, restype=restype, top=top)
+    traj = _load_hdf5_from_buffer(
+        fh, autoconvert=autoconvert, restype=restype, top=top)
 
     if should_be_closed:
         fh.close()
 
     return traj
+
 
 def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None, top=None):
     import json
@@ -59,7 +62,8 @@ def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None, top=None):
 
     try:
         cell_lengths = fh['cell_lengths'].value * UNIT
-        box_arr = np.hstack((cell_lengths, fh['cell_angles'])).astype(np.float64)
+        box_arr = np.hstack(
+            (cell_lengths, fh['cell_angles'])).astype(np.float64)
         has_box = True
     except:
         has_box = False
@@ -90,7 +94,8 @@ def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None, top=None):
                 resid = residue['index']
                 for atom in residue['atoms']:
                     aname = atom['name']
-                    atype = aname # no infor about atom type in .h5 file from openmm (?)
+                    # no infor about atom type in .h5 file from openmm (?)
+                    atype = aname
                     try:
                         charge = atom['charge']
                     except:
@@ -102,7 +107,8 @@ def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None, top=None):
                             mass = mass_element_dict[atom['element']]
                         except:
                             try:
-                                mass = mass_atomic_number_dict[atom['atomic_number']]
+                                mass = mass_atomic_number_dict[
+                                    atom['atomic_number']]
                             except:
                                 mass = 1.0
                     atom = Atom(aname, atype, charge, mass)
@@ -120,7 +126,7 @@ def _load_hdf5_from_buffer(fh, autoconvert=True, restype=None, top=None):
         farray.update_xyz(crd)
         if has_box:
             for idx, arr in enumerate(crd):
-                farray[idx].box = box_arr[idx] # auto-cast
+                farray[idx].box = box_arr[idx]  # auto-cast
     else:
         farray.xyz = crd
 

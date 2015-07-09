@@ -1,6 +1,8 @@
 from time import time
 
+
 class Timer:
+
     def __init__(self):
         self.start = -1
         self._time_gap = -1
@@ -16,7 +18,7 @@ class Timer:
         def inner(*args, **kwd):
             with self:
                 func(*args, **kwd)
-            print (self.time_gap())
+            print(self.time_gap())
         return inner
 
     def time_gap(self):

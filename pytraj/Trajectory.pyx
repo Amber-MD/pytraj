@@ -8,13 +8,13 @@ from cython.parallel cimport prange, parallel
 from libc.string cimport memcpy
 from .Topology cimport Topology
 from .AtomMask cimport AtomMask
-from ._utils cimport get_positive_idx
 from .Frame cimport Frame
 from .trajs.Trajin cimport Trajin
 from .math.Matrix_3x3 cimport Matrix_3x3
 from .cpp_algorithm cimport iter_swap
 
 # python level
+from ._cyutils import get_positive_idx, _int_array1d_like_to_memview
 from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types, PY2
@@ -28,13 +28,14 @@ from .trajs.Trajout import Trajout
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._shared_methods import (_savetraj, _get_temperature_set,
                               _xyz, _tolist, _split_and_write_traj)
-from ._utils import _int_array1d_like_to_memview
-from ._shared_methods import my_str_method
-from ._shared_methods import _box_to_ndarray
+from ._shared_methods import my_str_method, _box_to_ndarray
 from ._xyz import XYZ
 
 from . import common_actions as pyca
 from .hbonds import search_hbonds
+
+__all__ = ['Trajectory']
+
 
 cdef class Trajectory (object):
     def __cinit__(self, filename=None, top=None, indices=None, 
@@ -50,9 +51,9 @@ cdef class Trajectory (object):
         indices : array-like, frames to take, default=None
         warning : bool, default=False
             for debuging
-        n_frames : int, default=None
+        n_frames : int, optional, default=None
             preallocate n_frames
-        check_top : bool, default=True, don't check Topology
+        check_top : bool, optional, default=True, don't check Topology
 
         Examples
         --------
@@ -353,6 +354,44 @@ cdef class Trajectory (object):
         else:
             raise NotImplementedError("must have numpy")
 
+    @property
+    def _xyz(self):
+        """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
+        We can not return a memoryview since Trajectory is a C++ vector of Frame object
+
+        Notes
+        -----
+            read-only
+        """
+        import numpy as np
+        cdef:
+            int i
+            int n_frames = self.n_frames
+            int n_atoms = self.n_atoms
+            int count
+            _Frame _frame
+            double *ptr_src
+            double *ptr_dest
+
+        cdef double[:, :] memview = cython.view.array(shape=(n_frames, n_atoms * 3),
+                                             itemsize=sizeof(double),
+                                             format='d')
+
+        for i in range(n_frames):
+            _frame = self.frame_v[i][0]
+            ptr_src = _frame.xAddress()
+            ptr_dest = &memview[i, 0]
+            count = n_atoms * 3 * sizeof(double)
+            memcpy(<void*> ptr_dest, <void*> ptr_src, count)
+
+        return np.asarray(memview).reshape(n_frames, n_atoms, 3)
+
+    @property
+    def coordinates(self):
+        """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
+        """
+        return self.xyz
+
     def update_coordinates(self, double[:, :, :] xyz):
         '''update coords from 3D xyz array, dtype=f8'''
         cdef int idx, n_frames
@@ -646,7 +685,10 @@ cdef class Trajectory (object):
                     self[i][atm] = other_traj[i].xyz
             else:
                 view3d = other
-                int_view = atm.indices
+                try:
+                    int_view = atm.indices.astype('i4')
+                except ValueError:
+                    int_view = atm.indices
                 # loop all frames
                 for i in range(view3d.shape[0]):
                     # don't use pointer: frame.thisptr = self.frame_v[i]
@@ -686,7 +728,45 @@ cdef class Trajectory (object):
         # we don't do anythin here. Just create the same API for TrajectoryIterator
         pass
 
-    def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
+    def frame_iter(self, start=0, stop=None, stride=1, mask=None, autoimage=False, rmsfit=None):
+        # TODO: combined with TrajectoryIterator
+        from pytraj.core.frameiter import FrameIter
+
+        if mask is None:
+            _top = self.top
+        else:
+            _top = self.top._get_new_from_mask(mask)
+
+        if rmsfit is not None:
+            if len(rmsfit) != 2:
+                raise ValueError("rmsfit must be a tuple of two elements (frame, mask)")
+            if is_int(rmsfit[0]):
+                index = rmsfit[0]
+                rmsfit = tuple([self[index], rmsfit[1]])
+
+        # check how many frames will be calculated
+        if stop is None or stop >= self.n_frames:
+            stop = self.n_frames
+        elif stop < 0:
+            stop = get_positive_idx(stop, self.n_frames)
+
+        # make sure `range` return iterator
+        n_frames = len(range(start, stop, stride))
+
+        frame_iter_super = self._frame_iter(start, stop, stride)
+
+        return FrameIter(frame_iter_super,
+                         original_top=self.top,
+                         new_top=_top,
+                         start=start,
+                         stop=stop,
+                         stride=stride,
+                         mask=mask,
+                         autoimage=autoimage,
+                         rmsfit=rmsfit,
+                         n_frames=n_frames)
+
+    def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         """iterately get Frames with start, stop, stride 
         Parameters
         ---------
@@ -703,10 +783,9 @@ cdef class Trajectory (object):
         cdef int _end
         cdef int[:] int_view
 
-        if stop == -1:
+        if stop == -1 or stop >= self.n_frames:
             _end = <int> self.n_frames
         else:
-            #_end = stop
             _end = stop
 
         if mask is not None:
@@ -818,10 +897,10 @@ cdef class Trajectory (object):
         cdef vector[_Frame*].iterator it  = self.frame_v.begin()
         cdef Frame frame 
 
-        frame = Frame()
         # use memoryview, don't let python free memory of this instance
-        frame.py_free_mem = False
         while it != self.frame_v.end():
+            frame = Frame()
+            frame.py_free_mem = False
             frame.thisptr = deref(it)
             yield frame
             incr(it)
@@ -877,10 +956,10 @@ cdef class Trajectory (object):
         """
         cdef Trajectory other, farray
         cdef Frame frame
-        # TODO : do we need this method when we have `get_frames`
+
         if traj is self:
             raise ValueError("why do you join your self?")
-        if is_pytraj_trajectory(traj):
+        if is_pytraj_trajectory(traj) or is_frame_iter(traj):
             if self.top.n_atoms != traj.top.n_atoms:
                 raise ValueError("n_atoms of two arrays do not match")
             for frame in traj:
@@ -889,6 +968,8 @@ cdef class Trajectory (object):
             # assume a list or tuple of Trajectory
             for farray in traj:
                 self.join(farray, copy=copy)
+        else:
+            raise ValueError("traj must a Trajectory-like for frame iter")
 
     def resize(self, int n_frames):
         self.frame_v.resize(n_frames)
@@ -1165,7 +1246,7 @@ cdef class Trajectory (object):
     def calc_distrmsd(self, mask="", *args, **kwd):
         return pyca.calc_distrmsd(self, mask, *args, **kwd)
 
-    def calc_rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):
+    def calc_rmsd(self, ref=None, mask='', mass=False, fit=True, *args, **kwd):
         """
         Examples
         --------
@@ -1182,11 +1263,14 @@ cdef class Trajectory (object):
             _ref = self[ref]
         else:
             _ref = ref
-        return pyca.calc_rmsd(command=mask, traj=self, ref=_ref,
+        return pyca.calc_rmsd(mask=mask, traj=self, ref=_ref,
                               mass=mass, fit=fit, *args, **kwd)
 
     def rmsd(self, *args, **kwd):
             return self.calc_rmsd(*args, **kwd)
+
+    def calc_bfactors(self, mask="", *args, **kwd):
+        return pyca.calc_bfactors(self, mask, *args, **kwd)
 
     def calc_radgyr(self, mask="", *args, **kwd):
         return pyca.calc_radgyr(self, mask, *args, **kwd)
@@ -1233,10 +1317,10 @@ cdef class Trajectory (object):
     def calc_watershell(self, mask="", *args, **kwd):
         return pyca.calc_watershell(self, mask, *args, **kwd)
 
-    def autoimage(self, mask=""):
+    def autoimage(self, command=""):
         # NOTE: I tried to used cpptraj's Action_AutoImage directly but
         # there is no gain in speed. don't try.
-        pyca.do_autoimage(self, mask)
+        pyca.do_autoimage(self, command)
 
     def rotate(self, mask="", matrix=None):
         cdef Frame frame
@@ -1502,3 +1586,24 @@ cdef class Trajectory (object):
             farray.frame_v.resize(_stop - i * chunk)
             farray.frame_v.assign(it + i * chunk, it + _stop)
             yield farray
+
+    @classmethod
+    def from_iterable(cls, iteratable, top=None, copy=True):
+        """return a new Trajectory from `iteratable` object
+        """
+        if top is None:
+            try:
+                top = iteratable.top
+            except AttributeError:
+                raise AttributeError("require a Topology")
+
+        traj = cls(top=top)
+        for f in iteratable:
+            traj.append(f, copy=copy)
+        return traj
+
+    @property
+    def _estimated_MB(self):
+        """esimated MB of data will be loaded to memory
+        """
+        return self.n_frames * self.n_atoms * 3 * 8 / 1E6

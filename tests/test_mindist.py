@@ -8,7 +8,9 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         from itertools import product
         import numpy as np
@@ -19,13 +21,13 @@ class Test(unittest.TestCase):
         i1 = top("@CB").indices
         combinations = np.array(list(product(i0, i1)))
         d1 = traj.calc_distance(combinations)
-        print (d1.shape)
+        print(d1.shape)
 
         min_list = []
         for arr0 in d1:
             min_list.append(np.min(arr0))
-        print (min_list)
-        print (d0.tolist())
+        print(min_list)
+        print(d0.tolist())
         aa_eq(d0.tolist(), min_list)
 
 if __name__ == "__main__":

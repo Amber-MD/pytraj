@@ -1487,27 +1487,6 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
 
-#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
-    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
-               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
-#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
-    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
-    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
-                                                     int is_list, int wraparound, int boundscheck);
-
 static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
     const char *name, int exact);
 
@@ -1562,6 +1541,27 @@ static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb);
 
 static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
+
+#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
+    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
+               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
+#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
+                                                     int is_list, int wraparound, int boundscheck);
 
 static CYTHON_UNUSED int __pyx_memoryview_getbuffer(PyObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /*proto*/
 static PyObject *__pyx_memoryview_transpose(PyObject *__pyx_v_self); /*proto*/
@@ -2267,6 +2267,7 @@ static void __pyx_pf_6pytraj_5parms_8ParmFile_8ParmFile_2__dealloc__(struct __py
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_5help(PyObject *__pyx_v_cls, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_4help[] = "ParmFile.help(type cls)";
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_5help(PyObject *__pyx_v_cls, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -2407,6 +2408,7 @@ static PyObject *__pyx_pf_6pytraj_5parms_8ParmFile_8ParmFile_4help(PyObject *__p
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_7read_options(PyObject *__pyx_v_cls, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_6read_options[] = "ParmFile.read_options(type cls)";
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_7read_options(PyObject *__pyx_v_cls, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -2457,6 +2459,7 @@ static PyObject *__pyx_pf_6pytraj_5parms_8ParmFile_8ParmFile_6read_options(CYTHO
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_9write_options(PyObject *__pyx_v_cls, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_8write_options[] = "ParmFile.write_options(type cls)";
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_9write_options(PyObject *__pyx_v_cls, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -2507,7 +2510,7 @@ static PyObject *__pyx_pf_6pytraj_5parms_8ParmFile_8ParmFile_8write_options(CYTH
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_11formats(PyObject *__pyx_v_cls, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_10formats[] = "return a list of supported parm formats";
+static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_10formats[] = "ParmFile.formats(type cls)\nreturn a list of supported parm formats";
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_11formats(PyObject *__pyx_v_cls, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -2596,7 +2599,7 @@ static PyObject *__pyx_pf_6pytraj_5parms_8ParmFile_8ParmFile_10formats(CYTHON_UN
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_13readparm(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_12readparm[] = "readparm(Topology top=Topology(), string filename=\"\", \"*args)\n        Return : None (update `top`)\n\n        top : Topology instance\n        filename : str, output filename\n        arglist : ArgList instance, optional\n\n        ";
+static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_12readparm[] = "ParmFile.readparm(self, filename='', top=<\077\077?>, *args)\nreadparm(Topology top=Topology(), string filename=\"\", \"*args)\n        Return : None (update `top`)\n\n        top : Topology instance\n        filename : str, output filename\n        arglist : ArgList instance, optional\n\n        ";
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_13readparm(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_filename = 0;
   PyObject *__pyx_v_top = 0;
@@ -2785,13 +2788,10 @@ static PyObject *__pyx_pf_6pytraj_5parms_8ParmFile_8ParmFile_12readparm(struct _
  * 
  */
   /*else*/ {
-    __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_args, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __pyx_t_1;
-    __Pyx_INCREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_v_arglist = ((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_t_2);
-    __pyx_t_2 = 0;
+    __pyx_t_1 = PyTuple_GET_ITEM(__pyx_v_args, 0);
+    __Pyx_INCREF(__pyx_t_1);
+    __pyx_v_arglist = ((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_t_1);
+    __pyx_t_1 = 0;
 
     /* "pytraj/parms/ParmFile.pyx":52
  *         else:
@@ -2843,7 +2843,7 @@ static PyObject *__pyx_pf_6pytraj_5parms_8ParmFile_8ParmFile_12readparm(struct _
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_15write_prefix_topology(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_14write_prefix_topology[] = "write_prefix_topology(Topology Top, string prefix, format=\"AMBER\")\n        TODO : automatically get ParmFormatDict for this doc\n        ParmFormatDict = {\n            \"AMBER\" : AMBERPARM,\n            \"PDB\" : PDBFILE,\n            \"MOL2\" : MOL2FILE,\n            \"CHARMMPSF\" : CHARMMPSF,\n            \"CIF\" : CIFFILE,\n            \"SDF\" : SDFFILE,\n            \"UNKNOWN\" : UNKNOWN_PARM,\n                         }\n        TODO : do we need this method?\n        ";
+static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_14write_prefix_topology[] = "ParmFile.write_prefix_topology(self, Topology top=<\077\077?>, prefix='default', format='')\nwrite_prefix_topology(Topology Top, string prefix, format=\"AMBER\")\n        TODO : automatically get ParmFormatDict for this doc\n        ParmFormatDict = {\n            \"AMBER\" : AMBERPARM,\n            \"PDB\" : PDBFILE,\n            \"MOL2\" : MOL2FILE,\n            \"CHARMMPSF\" : CHARMMPSF,\n            \"CIF\" : CIFFILE,\n            \"SDF\" : SDFFILE,\n            \"UNKNOWN\" : UNKNOWN_PARM,\n                         }\n        TODO : do we need this method?\n        ";
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_15write_prefix_topology(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top = 0;
   PyObject *__pyx_v_prefix = 0;
@@ -3220,7 +3220,7 @@ static PyObject *__pyx_pf_6pytraj_5parms_8ParmFile_8ParmFile_14write_prefix_topo
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_17writeparm(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_16writeparm[] = "writeparm(Topology top=top, string filename=\"default.top\", \n                     ArgList arglist=ArgList(), string format=\"AMBER\")\")\n        TODO : automatically get ParmFormatDict for this doc\n        ParmFormatDict = {\n            \"AMBER\" : AMBERPARM,\n            \"PDB\" : PDBFILE,\n            \"MOL2\" : MOL2FILE,\n            \"CHARMMPSF\" : CHARMMPSF,\n            \"CIF\" : CIFFILE,\n            \"SDF\" : SDFFILE,\n            \"UNKNOWN\" : UNKNOWN_PARM,\n                         }\n        ";
+static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_16writeparm[] = "ParmFile.writeparm(self, Topology top=<\077\077?>, filename='default.top', ArgList arglist=<\077\077?>, format='')\nwriteparm(Topology top=top, string filename=\"default.top\", \n                     ArgList arglist=ArgList(), string format=\"AMBER\")\")\n        TODO : automatically get ParmFormatDict for this doc\n        ParmFormatDict = {\n            \"AMBER\" : AMBERPARM,\n            \"PDB\" : PDBFILE,\n            \"MOL2\" : MOL2FILE,\n            \"CHARMMPSF\" : CHARMMPSF,\n            \"CIF\" : CIFFILE,\n            \"SDF\" : SDFFILE,\n            \"UNKNOWN\" : UNKNOWN_PARM,\n                         }\n        ";
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_17writeparm(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top = 0;
   PyObject *__pyx_v_filename = 0;
@@ -3672,6 +3672,7 @@ static PyObject *__pyx_pf_6pytraj_5parms_8ParmFile_8ParmFile_16writeparm(struct 
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_19filename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_18filename[] = "ParmFile.filename(self)";
 static PyObject *__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_19filename(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -7533,7 +7534,7 @@ static PyObject *__pyx_memoryview_convert_item_to_object(struct __pyx_memoryview
  * 
  */
         __Pyx_XDECREF(__pyx_r);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_result, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 448; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;};
+        __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_result, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 448; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;};
         __Pyx_GOTREF(__pyx_t_1);
         __pyx_r = __pyx_t_1;
         __pyx_t_1 = 0;
@@ -15500,14 +15501,14 @@ static void __pyx_tp_dealloc_6pytraj_5parms_8ParmFile_ParmFile(PyObject *o) {
 }
 
 static PyMethodDef __pyx_methods_6pytraj_5parms_8ParmFile_ParmFile[] = {
-  {"help", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_5help, METH_NOARGS, 0},
-  {"read_options", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_7read_options, METH_NOARGS, 0},
-  {"write_options", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_9write_options, METH_NOARGS, 0},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_5help, METH_NOARGS, __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_4help},
+  {"read_options", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_7read_options, METH_NOARGS, __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_6read_options},
+  {"write_options", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_9write_options, METH_NOARGS, __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_8write_options},
   {"formats", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_11formats, METH_NOARGS, __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_10formats},
   {"readparm", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_13readparm, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_12readparm},
   {"write_prefix_topology", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_15write_prefix_topology, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_14write_prefix_topology},
   {"writeparm", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_17writeparm, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_16writeparm},
-  {"filename", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_19filename, METH_NOARGS, 0},
+  {"filename", (PyCFunction)__pyx_pw_6pytraj_5parms_8ParmFile_8ParmFile_19filename, METH_NOARGS, __pyx_doc_6pytraj_5parms_8ParmFile_8ParmFile_18filename},
   {0, 0, 0, 0}
 };
 
@@ -17386,87 +17387,6 @@ bad:
     return -1;
 }
 
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
-    PyObject *r;
-    if (!j) return NULL;
-    r = PyObject_GetItem(o, j);
-    Py_DECREF(j);
-    return r;
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (wraparound & unlikely(i < 0)) i += PyList_GET_SIZE(o);
-    if ((!boundscheck) || likely((0 <= i) & (i < PyList_GET_SIZE(o)))) {
-        PyObject *r = PyList_GET_ITEM(o, i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (wraparound & unlikely(i < 0)) i += PyTuple_GET_SIZE(o);
-    if ((!boundscheck) || likely((0 <= i) & (i < PyTuple_GET_SIZE(o)))) {
-        PyObject *r = PyTuple_GET_ITEM(o, i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
-                                                     CYTHON_NCP_UNUSED int wraparound,
-                                                     CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (is_list || PyList_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
-        if ((!boundscheck) || (likely((n >= 0) & (n < PyList_GET_SIZE(o))))) {
-            PyObject *r = PyList_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    }
-    else if (PyTuple_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
-        if ((!boundscheck) || likely((n >= 0) & (n < PyTuple_GET_SIZE(o)))) {
-            PyObject *r = PyTuple_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    } else {
-        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
-        if (likely(m && m->sq_item)) {
-            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
-                Py_ssize_t l = m->sq_length(o);
-                if (likely(l >= 0)) {
-                    i += l;
-                } else {
-                    if (PyErr_ExceptionMatches(PyExc_OverflowError))
-                        PyErr_Clear();
-                    else
-                        return NULL;
-                }
-            }
-            return m->sq_item(o, i);
-        }
-    }
-#else
-    if (is_list || PySequence_Check(o)) {
-        return PySequence_GetItem(o, i);
-    }
-#endif
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-}
-
 static void __Pyx_RaiseArgumentTypeInvalid(const char* name, PyObject *obj, PyTypeObject *type) {
     PyErr_Format(PyExc_TypeError,
         "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
@@ -18090,6 +18010,87 @@ bad:
     Py_XDECREF(empty_list);
     Py_XDECREF(empty_dict);
     return module;
+}
+
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+    PyObject *r;
+    if (!j) return NULL;
+    r = PyObject_GetItem(o, j);
+    Py_DECREF(j);
+    return r;
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (wraparound & unlikely(i < 0)) i += PyList_GET_SIZE(o);
+    if ((!boundscheck) || likely((0 <= i) & (i < PyList_GET_SIZE(o)))) {
+        PyObject *r = PyList_GET_ITEM(o, i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (wraparound & unlikely(i < 0)) i += PyTuple_GET_SIZE(o);
+    if ((!boundscheck) || likely((0 <= i) & (i < PyTuple_GET_SIZE(o)))) {
+        PyObject *r = PyTuple_GET_ITEM(o, i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
+                                                     CYTHON_NCP_UNUSED int wraparound,
+                                                     CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
+        if ((!boundscheck) || (likely((n >= 0) & (n < PyList_GET_SIZE(o))))) {
+            PyObject *r = PyList_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    }
+    else if (PyTuple_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
+        if ((!boundscheck) || likely((n >= 0) & (n < PyTuple_GET_SIZE(o)))) {
+            PyObject *r = PyTuple_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (PyErr_ExceptionMatches(PyExc_OverflowError))
+                        PyErr_Clear();
+                    else
+                        return NULL;
+                }
+            }
+            return m->sq_item(o, i);
+        }
+    }
+#else
+    if (is_list || PySequence_Check(o)) {
+        return PySequence_GetItem(o, i);
+    }
+#endif
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
 }
 
 #if CYTHON_USE_PYLONG_INTERNALS

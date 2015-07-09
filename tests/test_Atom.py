@@ -4,7 +4,9 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.testing import no_test
 
+
 class Test(unittest.TestCase):
+
     def test_1(self):
         top = Topology("./data/HP36.top")
         a0 = top.atomlist[0]
@@ -25,7 +27,7 @@ class Test(unittest.TestCase):
     def test_2(self):
         top = Topology("./data/HP36.top")
         for atom in top:
-            print (atom)
+            print(atom)
 
     def test_3(self):
         # test Atom() from `pytraj` namespace
@@ -33,7 +35,7 @@ class Test(unittest.TestCase):
         import pytraj as pt
         pt.Atom()
         # FIXME: segmentation fault
-        print (pt.Atom())
+        print(pt.Atom())
 
 if __name__ == "__main__":
     unittest.main()

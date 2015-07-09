@@ -1,6 +1,6 @@
 from __future__ import absolute_import
-import json
 from .six import PY3
+
 
 def to_json(obj, path):
     """
@@ -10,6 +10,7 @@ def to_json(obj, path):
     path : string
         File path
     """
+    import json
     if PY3:
         mode = 'w'
     else:
@@ -17,6 +18,7 @@ def to_json(obj, path):
 
     with open(path, mode) as f:
         json.dump(obj, f)
+
 
 def read_json(path):
     """
@@ -29,6 +31,7 @@ def read_json(path):
     -------
     dict : python dict
     """
+    import json
 
     if PY3:
         mode = 'r'

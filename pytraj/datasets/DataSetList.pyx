@@ -4,9 +4,9 @@ from __future__ import absolute_import
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array
-from .._utils cimport get_positive_idx
 
 # python level
+from .._cyutils import get_positive_idx
 from collections import defaultdict
 from .cast_dataset import cast_dataset
 from ..utils.check_and_assert import _import, is_array
@@ -51,19 +51,11 @@ cdef class DataSetList:
             del self.thisptr
 
     def __str__(self):
-        has_pd, _ = _import_pandas()
         safe_msg = "<pytraj.DataSetList with %s datasets>" % self.size
         if self.size == 0:
             return safe_msg
-        if not has_pd:
-            msg = "<pytraj.DataSetList with %s datasets> (install pandas for pretty print)" % self.size
-            return msg
-        else:
-            try:
-                df = self.to_dataframe().T
-                return safe_msg + "\n" + df.__str__()
-            except ImportError:
-                return safe_msg
+        msg = "<pytraj.datasets.DataSetList - %s datasets>" % self.size
+        return msg
 
     def __repr__(self):
         return self.__str__()
@@ -237,7 +229,9 @@ cdef class DataSetList:
         return dlist
 
     def add_set(self, dtype=None, name="", default_name=""):
-        # TODO: check cpptraj for this method
+        """create new (empty) DataSet and add to `self`
+        this is for internal use
+        """
         cdef DataSet dset = DataSet()
         if dtype is None:
             raise ValueError("dtype must not be None")
@@ -258,6 +252,9 @@ cdef class DataSetList:
         return dset
 
     def _add_copy_of_set(self, DataSet dset):
+        self.thisptr.AddCopyOfSet(dset.baseptr0)
+
+    def add_copy_of_set(self, DataSet dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
 
     def add_set_aspect(self, dtype, name=None, aspect=None):
@@ -419,8 +416,9 @@ cdef class DataSetList:
         # read-only
         try:
             return XYZ(self.to_ndarray())
-        except:
-            raise ValueError("don't know how to cast to numpy array")
+        except ValueError:
+            raise ValueError("don't know how to cast to numpy array"
+                             "try `tolist`, `to_dict`")
 
     def to_ndarray(self):
         """
@@ -438,7 +436,8 @@ cdef class DataSetList:
             except:
                 raise PytrajConvertError("don't know how to convert to ndarray")
         else:
-            raise PytrajConvertError("don't have numpy")
+            raise ImportError("don't have numpy, "
+                              "try `tolist`, `to_dict`")
 
     def to_dataframe(self):
         """return pandas' DataFrame
@@ -580,3 +579,9 @@ cdef class DataSetList:
 
     def _parent_lists_free(self):
         self._parent_lists_free = []
+
+    def to_pyarray(self):
+        if self.size > 1:
+            return [d.to_pyarray() for d in self]
+        else:
+            return self[0].to_pyarray()

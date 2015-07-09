@@ -8,7 +8,9 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         from pytraj.core.ActionList import ActionList
         from pytraj.datasets.DataSetList import DataSetList
@@ -20,7 +22,8 @@ class Test(unittest.TestCase):
         mask_list = ['@CB @CA @N', '@CA @H @N']
 
         for mask in mask_list:
-            actlist.add_action(CA.Action_Angle(), mask, traj.top, dslist=dslist)
+            actlist.add_action(
+                CA.Action_Angle(), mask, traj.top, dslist=dslist)
         actlist.do_actions(traj)
 
         dslist2 = pyca.calc_angle(traj, mask_list)
@@ -32,7 +35,7 @@ class Test(unittest.TestCase):
 
         aa_eq(dslist3_0, dslist[0].to_ndarray())
         aa_eq(dslist3_1, dslist[1].to_ndarray())
-        print (dslist2)
+        print(dslist2)
 
 if __name__ == "__main__":
     unittest.main()

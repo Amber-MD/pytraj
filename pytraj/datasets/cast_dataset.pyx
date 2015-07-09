@@ -10,8 +10,9 @@ from .DatasetInteger cimport DatasetInteger, _DatasetInteger
 from .DatasetString cimport DatasetString, _DatasetString
 from .DataSet_Mesh cimport DataSet_Mesh, _DataSet_Mesh
 from .DatasetVector cimport _DatasetVector, DatasetVector
+from .DatasetMatrix3x3 cimport _DatasetMatrix3x3, DatasetMatrix3x3
 from .DatasetMatrixDouble cimport DatasetMatrixDouble, _DatasetMatrixDouble
-from .DataSet_MatrixFlt cimport DataSet_MatrixFlt, _DataSet_MatrixFlt
+from .DatasetMatrixFloat cimport DatasetMatrixFloat, _DatasetMatrixFloat
 from .DatasetGridFloat cimport DatasetGridFloat, _DatasetGridFloat
 from .DataSet cimport DataSet, _DataSet
 from .DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
@@ -43,8 +44,9 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DatasetString newset_string
     cdef DataSet_Mesh newset_mesh
     cdef DatasetVector newset_vector
+    cdef DatasetMatrix3x3 newset_matrix3x3
     cdef DatasetMatrixDouble newset_matrixdbl
-    cdef DataSet_MatrixFlt newset_matrixflt
+    cdef DatasetMatrixFloat newset_matrixflt
     cdef DatasetGridFloat newset_gridflt
     cdef DataSet_Coords_REF newset_coords_ref
     cdef DataSet_Coords_CRD newset_coords_crd
@@ -131,6 +133,16 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_vector.thisptr = <_DatasetVector*> dset.baseptr0
         return newset_vector
 
+    elif dtype in ['MAT3X3']:
+        newset_matrix3x3 = DatasetMatrix3x3()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_matrix3x3.py_free_mem = False
+        newset_matrix3x3.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_matrix3x3.baseptr_1 = <_DataSet_1D*> dset.baseptr0
+        newset_matrix3x3.thisptr = <_DatasetMatrix3x3*> dset.baseptr0
+        return newset_matrix3x3
+
     elif dtype in ['MATRIX_DBL', 'MATRIX_DOUBLE', 'MATRIX DOUBLE']:
         newset_matrixdbl = DatasetMatrixDouble()
         # since we introduce memory view, we let cpptraj free memory
@@ -142,13 +154,13 @@ def cast_dataset(dsetin=None, dtype='general'):
         return newset_matrixdbl
 
     elif dtype in ['MATRIX_FLT', 'MATRIX_FLOAT', 'MATRIX FLOAT']:
-        newset_matrixflt = DataSet_MatrixFlt()
+        newset_matrixflt = DatasetMatrixFloat()
         # since we introduce memory view, we let cpptraj free memory
         newset_matrixflt.py_free_mem = False
         newset_matrixflt.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_matrixflt.baseptr_1 = <_DataSet_2D*> dset.baseptr0
-        newset_matrixflt.thisptr = <_DataSet_MatrixFlt*> dset.baseptr0
+        newset_matrixflt.thisptr = <_DatasetMatrixFloat*> dset.baseptr0
         return newset_matrixflt
 
     elif dtype in ['GRID_FLT', 'GRID_FLOAT', 'GRID FLOAT']:

@@ -7,7 +7,9 @@ from pytraj.testing import eq, aa_eq
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("numpy")
     @test_if_having("parmed")
     def test_0(self):
@@ -15,11 +17,11 @@ class Test(unittest.TestCase):
         import parmed as chem
         parm_name = "./data/Tc5b.top"
         traj = mdio.iterload("./data/md1_prod.Tc5b.x",  parm_name)
-        print (traj[0].coords[:10])
+        print(traj[0].coords[:10])
         true_top = mdio.load(parm_name)
 
         # load ParmEd
-        parm = mdio._load_parmed(parm_name) 
+        parm = mdio._load_parmed(parm_name)
         assert isinstance(parm, chem.Structure)
         parm.load_coordinates(traj[0].coords)
 
@@ -28,17 +30,17 @@ class Test(unittest.TestCase):
         fake_fa = mdio.load_ParmEd(parm, restype='traj')
         assert isinstance(fake_fa, Trajectory)
         aa_eq(fake_fa[0].coords, traj[0].coords)
-        print (fake_fa[0].coords, traj[0].coords)
-        print (ptop)
+        print(fake_fa[0].coords, traj[0].coords)
+        print(ptop)
 
         # assert
-        eq(sorted(ptop._bonds_ndarray.flatten()), 
+        eq(sorted(ptop._bonds_ndarray.flatten()),
            sorted(true_top._bonds_ndarray.flatten()))
 
-        eq(sorted(ptop._angles_ndarray.flatten()), 
+        eq(sorted(ptop._angles_ndarray.flatten()),
            sorted(true_top._angles_ndarray.flatten()))
 
-        eq(sorted(ptop._dihedrals_ndarray.flatten()), 
+        eq(sorted(ptop._dihedrals_ndarray.flatten()),
            sorted(true_top._dihedrals_ndarray.flatten()))
 
         assert (ptop.box.type == 'nobox')
@@ -56,13 +58,13 @@ class Test(unittest.TestCase):
 
         true_top = traj.top
         ptop = top2
-        eq(sorted(ptop._bonds_ndarray.flatten()), 
+        eq(sorted(ptop._bonds_ndarray.flatten()),
            sorted(true_top._bonds_ndarray.flatten()))
 
-        eq(sorted(ptop._angles_ndarray.flatten()), 
+        eq(sorted(ptop._angles_ndarray.flatten()),
            sorted(true_top._angles_ndarray.flatten()))
 
-        eq(sorted(ptop._dihedrals_ndarray.flatten()), 
+        eq(sorted(ptop._dihedrals_ndarray.flatten()),
            sorted(true_top._dihedrals_ndarray.flatten()))
 
     @no_test
@@ -71,7 +73,7 @@ class Test(unittest.TestCase):
     def test_2(self):
         # turn off test to check loading code
         import pytraj.io as io
-        # try loading PSF and doing analysis 
+        # try loading PSF and doing analysis
         import numpy as np
         import parmed as chem
         parm_name = "./data/ala3.psf"
@@ -79,8 +81,8 @@ class Test(unittest.TestCase):
         parm = chem.load_file(parm_name)
         #p_top = io.load_pseudo_parm(parm)
         p_top = io.load_full_ParmEd(parm)
-        print ('test2: parm', parm.__repr__())
-        print ('test2: p_top', p_top)
+        print('test2: parm', parm.__repr__())
+        print('test2: p_top', p_top)
         traj_new_ptop = mdio.iterload(traj.filename, top=p_top)
         # use `search_hbonds` since I got segfault with MDAnalysis
         ds = traj.search_hbonds(dtype='ndarray')

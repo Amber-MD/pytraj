@@ -9,7 +9,9 @@ from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 from pytraj.compat import zip
 
+
 class Test(unittest.TestCase):
+
     @no_test
     def test_0(self):
         from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
@@ -19,7 +21,7 @@ class Test(unittest.TestCase):
         tc = TrajectoryCpptraj()
         tc.top = traj.top
         tc.load(traj.filename, traj.top)
-        print (tc)
+        print(tc)
         assert traj.n_frames == tc.n_frames
         assert traj.top.n_atoms == tc.top.n_atoms
 
@@ -41,6 +43,7 @@ class Test(unittest.TestCase):
         # slice
         from pytraj.utils import Timer
         s = slice(0, 9, 2)
+
         @Timer()
         def normal_slice(tc):
             tc[s]
@@ -68,7 +71,7 @@ class Test(unittest.TestCase):
         aa_eq(tc[20].xyz, traj[0].xyz)
         aa_eq(tc[21].xyz, traj[2].xyz)
         aa_eq(tc[22].xyz, traj[4].xyz)
-        print ('filelist', tc.filelist)
+        print('filelist', tc.filelist)
 
     def test_load_from_list(self):
         # NOTE: not supported anymore.

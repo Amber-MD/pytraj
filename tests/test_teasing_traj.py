@@ -11,6 +11,7 @@ print(ts.size)
 farray = ts[:]
 print(farray.size)
 
+
 def tease_Traj(N=10, ts=ts):
     def forward():
         for i in range(N):
@@ -49,11 +50,11 @@ def tease_Traj(N=10, ts=ts):
     def mix():
         for i in range(N):
             print(ts[-2:-8:-1][0])
-            ts[0:9:1][0] += ts[0:9:1][0] 
+            ts[0:9:1][0] += ts[0:9:1][0]
             print(ts)
 
-    #forward()
-    #backward()
+    # forward()
+    # backward()
     mix()
 
 tease_Traj(1, farray)

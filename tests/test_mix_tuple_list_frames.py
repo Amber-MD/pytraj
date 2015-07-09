@@ -4,6 +4,8 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 
 count = 0
+
+
 def count_frames(traj):
     global count
     if isinstance(traj, Frame):
@@ -18,13 +20,14 @@ def count_frames(traj):
         for i, frame in enumerate(traj):
             count_frames(frame)
 
+
 def main():
     global count
     traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
     boring_list = [traj[0], traj[1], traj, traj(1, 6, 2),
                    traj.chunk_iter(chunksize=4)]
     count_frames(boring_list)
-    print ('final count = %s' % count)
+    print('final count = %s' % count)
 
 if __name__ == "__main__":
     main()

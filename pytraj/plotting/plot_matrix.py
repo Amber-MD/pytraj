@@ -3,7 +3,8 @@ from pytraj.datasets.DatasetMatrixDouble import DatasetMatrixDouble
 from ..utils import _import_numpy
 from .base import plt, np
 
-def plot_matrix(dset, *args, **kwd):
+
+def plot_matrix(dset, show=False, *args, **kwd):
     """plot matrix and return pyplot object
     Parameters
     ---------
@@ -13,14 +14,7 @@ def plot_matrix(dset, *args, **kwd):
     """
     fig = plt.figure()
     ax = fig.add_subplot(111)
-
-    #if isinstance(dset, DataSet_MatrixDbl):
-    # use below for all kind of matrix datatypes
-    if 'matrix' in dset.dtype.lower(): 
-        # get matrix data
-        # need to reshape since dset stores data in 1D
-        mat = np.asarray(dset.get_full_matrix()).reshape(dset.n_rows, dset.n_cols)
-    if isinstance(dset, np.ndarray) and len(dset.shape) == 2:
-        mat = dset
-    cax = ax.matshow(mat, *args, **kwd)
+    cax = ax.matshow(dset, *args, **kwd)
+    if show:
+        plt.show()
     return (fig, ax, cax)

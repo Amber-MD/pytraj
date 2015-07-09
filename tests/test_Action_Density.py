@@ -13,33 +13,35 @@ try:
 except:
     test_density_dir = None
 
-delta='delta 0.25'
-masks='":PC@P31" ":PC@N31" ":PC@C2" ":PC | :OL | :OL2"'
+delta = 'delta 0.25'
+masks = '":PC@P31" ":PC@N31" ":PC@C2" ":PC | :OL | :OL2"'
 command = " ".join(["mass out ./output/test_density.dat", delta, masks])
 
+
 class Test(unittest.TestCase):
+
     @test_if_path_exists(test_density_dir)
     def test_0(self):
         from pytraj.common_actions import calculate
         # creat mutable Trajectory
         traj = mdio.iterload("./data/DOPC.rst7", "./data/DOPC.parm7")
         farray = traj[:]
-        print (farray)
+        print(farray)
 
         # centering
         f0 = farray[0].copy()
-        print (f0.tolist()[:10])
+        print(f0.tolist()[:10])
         center = adict['center']
         center('":PC | :OL | :OL2" origin', farray)
         f0 = farray[0].copy()
-        print (f0.tolist()[:10])
+        print(f0.tolist()[:10])
 
         # do action
         act = adict['density']
         dslist = DataSetList()
         act(command, farray, dslist=dslist)
         act.print_output()
-        print (dslist.size)
+        print(dslist.size)
 
     @test_if_path_exists(test_density_dir)
     def test_1(self):
@@ -52,7 +54,7 @@ class Test(unittest.TestCase):
         fa.center('":PC | :OL | :OL2" origin')
         command = 'mass delta 0.25 ":PC@P31" ":PC@N31" ":PC@C2" ":PC | :OL | :OL2"'
         dslist = pyca.calc_density(traj, command)
-        print (dslist)
+        print(dslist)
 
 if __name__ == "__main__":
     unittest.main()

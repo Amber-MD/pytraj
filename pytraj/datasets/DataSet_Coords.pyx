@@ -1,13 +1,12 @@
 # distutils: language = c++
 
-from .._utils cimport get_positive_idx
 from .._shared_methods import _frame_iter
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import my_str_method
 from ..Trajectory cimport Trajectory
 from ..utils import _import_numpy, _import
 
-_, pd = _import("pandas")
+from .._cyutils import get_positive_idx
 
 cdef class DataSet_Coords(DataSet):
     def __cinit__(self):

@@ -1,4 +1,6 @@
 # distutils: language = c++
+from cython.operator cimport dereference as deref
+from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import MatrixDict, MatrixKindDict, get_key
 
@@ -65,15 +67,40 @@ cdef class DatasetMatrixDouble (DataSet_2D):
     @property
     def data(self):
         """return 1D python array of matrix' data"""
-        return self.get_full_matrix()
+        return self.to_ndarray()
 
     def to_ndarray(self, copy=True):
-        # use copy=True to be consistent with DataSet_1D
-        from pytraj.utils import _import_numpy
-        _, np = _import_numpy()
-        if np:
-            arr = np.array(self.get_full_matrix()).reshape(
-                             self.n_rows, self.n_cols)
-            return arr
-        else:
-            raise ImportError("require numpy")
+        """use copy=True to be the same as DataSet_1D"""
+        import numpy as np
+        cdef int n_rows = self.n_rows
+        cdef int n_cols = self.n_cols
+        cdef double[:, :] dview = np.empty((n_rows, n_cols), dtype='f8')
+        cdef int i, j
+
+        for i in range(n_rows):
+            for j in range(n_cols):
+                dview[i, j] = self.baseptr_1.GetElement(i, j)
+        return np.asarray(dview)
+
+    @property
+    def kind(self):
+        return get_key(self.baseptr_1.Kind(), MatrixKindDict)
+
+    def to_cpptraj_sparse_matrix(self):
+        """return 1D numpy array, dtype='f8'
+        """
+        import numpy as np
+        cdef int size = self.size
+        cdef double[:] dview = np.empty(size, dtype='f8')
+
+        for i in range(size):
+            dview[i] = self.thisptr.index_opr(i)
+        return np.asarray(dview)
+
+    def to_half_matrix(self):
+        import numpy as np
+        hm = np.zeros((self.n_rows, self.n_cols)) 
+        mt = self.to_cpptraj_sparse_matrix()
+
+        hm[np.triu_indices(self.n_rows, 1)] = mt[mt !=0]
+        return hm

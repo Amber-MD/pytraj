@@ -9,7 +9,9 @@ from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 from pytraj.compat import zip
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         fa = traj[:]
@@ -19,7 +21,7 @@ class Test(unittest.TestCase):
         fa.center(":1 mass")
 
         for f0, f1 in zip(fa[:2], saved_traj):
-            print (f0.rmsd_nofit(f1))
+            print(f0.rmsd_nofit(f1))
 
         aa_eq(fa[:2].xyz, saved_traj.xyz, decimal=5)
 

@@ -17,15 +17,19 @@ import time
 fname = "./data/nogit/tip3p/md.trj"
 topname = "./data/nogit/tip3p/tc5bwat.top"
 
+
 def pytraj_load():
     io.load(fname, topname)
+
 
 def pytraj_constructor():
     traj = Trajectory(fname, topname)
 
+
 def pytraj_api():
     from pytraj import api
     traj = api.Trajectory(fname, topname)
+
 
 def mdtraj_load():
     top = md.load_prmtop(topname)
@@ -36,10 +40,10 @@ if __name__ == '__main__':
     from numpy import max
 
     m_pytraj_c = max(memory_usage(pytraj_constructor))
-    print ("pytraj_constructor", m_pytraj_c)
+    print("pytraj_constructor", m_pytraj_c)
     m_pytraj_l = max(memory_usage(pytraj_load))
-    print ("pytraj_load", m_pytraj_l)
+    print("pytraj_load", m_pytraj_l)
     m_pytraj_api = max(memory_usage(pytraj_api))
-    print ("pytraj_api", m_pytraj_api)
+    print("pytraj_api", m_pytraj_api)
     m_mdtraj = max(memory_usage(mdtraj_load))
-    print ("mdtraj_load", m_mdtraj)
+    print("mdtraj_load", m_mdtraj)

@@ -1,15 +1,17 @@
 from __future__ import print_function
 import unittest
-from pytraj._utils import _int_array1d_like_to_memview
-from pytraj._utils import _int_array2d_like_to_memview
+from pytraj._cyutils import _int_array1d_like_to_memview
+from pytraj._cyutils import _int_array2d_like_to_memview
+
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         import numpy as np
         from array import array
 
         my1dlist = [100, 200]
-        my1dnp = np.array(my1dlist) 
+        my1dnp = np.array(my1dlist)
 
         # 1D-list
         arr0 = _int_array1d_like_to_memview(my1dlist)
@@ -29,10 +31,9 @@ class Test(unittest.TestCase):
     def test_1(self):
         import numpy as np
         from array import array
-        from pytraj._utils import _int_array2d_like_to_memview
 
         my2dlist = [[100, 200], [1, 2]]
-        my2dnp = np.array(my2dlist) 
+        my2dnp = np.array(my2dlist)
 
         # 2D-list
         arr0 = _int_array2d_like_to_memview(my2dlist)
@@ -53,7 +54,7 @@ class Test(unittest.TestCase):
         # range
         arr = _int_array1d_like_to_memview(range(100))
         assert (list(arr)) == list(range(100))
-        print (list(arr))
+        print(list(arr))
 
 if __name__ == "__main__":
     unittest.main()

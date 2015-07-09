@@ -6,7 +6,9 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test, test_if_having
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("MDAnalysis")
     def test_0(self):
         # TODO: add assert
@@ -16,11 +18,11 @@ class Test(unittest.TestCase):
 
         # load to pytraj
         traj = mdio.load_MDAnalysis(u)
-        print (traj)
-        print (traj.top)
-        print (traj.xyz.shape)
-        print (traj.top.atom_names)
-        print (traj.top.residue_names)
+        print(traj)
+        print(traj.top)
+        print(traj.xyz.shape)
+        print(traj.top.atom_names)
+        print(traj.top.residue_names)
 
 if __name__ == "__main__":
     unittest.main()

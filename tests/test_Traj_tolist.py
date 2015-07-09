@@ -8,7 +8,9 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("numpy")
     def test_0(self):
         from numpy.testing import assert_almost_equal

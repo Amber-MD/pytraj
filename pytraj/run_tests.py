@@ -21,22 +21,23 @@ from pytraj.common_actions import *
 from pytraj.actions import CpptrajActions
 from pytraj.analyses import CpptrajAnalyses
 
+
 def run_tests():
-    print ("try to load sample data")
+    print("try to load sample data")
     traj = load_sample_data()
     traj = load_sample_data('tz2')
 
-    print ("try to make all action objects")
+    print("try to make all action objects")
     from pytraj import adict
     # FIXME, TODO : make failed_list empty
-    failed_list = ['createreservoir',]
+    failed_list = ['createreservoir', ]
 
     for key in adict.keys():
         if key not in failed_list:
             adict[key]
 
     DataSetList()
-    print ("try to make all analysis objects")
+    print("try to make all analysis objects")
     from pytraj import analdict
     failed_list = []
 
@@ -44,21 +45,22 @@ def run_tests():
         if key not in failed_list:
             analdict[key]
 
-    print ("try to make all dataset stuff")
+    print("try to make all dataset stuff")
     DatasetDouble()
     DatasetFloat()
     DatasetInteger()
     DatasetString()
     DatasetMatrixDouble()
     DatasetGridFloat()
-    DataSet_MatrixFlt()
+    DatasetMatrixFloat()
     DatasetVector()
+    DatasetMatrix3x3()
     DataSet_Coords()
     DataSet_Coords_REF()
     DataSet_Coords_CRD()
     DataSet_Coords_TRJ()
 
-    print ("try to make structure-related objects")
+    print("try to make structure-related objects")
     Topology()
     Molecule()
     Residue()
@@ -66,14 +68,14 @@ def run_tests():
     Box()
     Frame()
 
-    print ("try to create Trajectory-like objects")
+    print("try to create Trajectory-like objects")
     Trajectory()
     TrajectoryIterator()
     TrajectoryREMDIterator.TrajectoryREMDIterator()
     TrajinList.TrajinList()
     api.Trajectory()
 
-    print ("other stuff. throw all tests don't belong anywhere else here")
+    print("other stuff. throw all tests don't belong anywhere else here")
     from pytraj import cpptraj_dict
     from pytraj.misc import get_atts
     keys = get_atts(cpptraj_dict)
@@ -86,7 +88,7 @@ def run_tests():
     # other objects
     CpptrajState()
 
-    print ("OK")
+    print("OK")
 
 if __name__ == '__main__':
     run_tests()

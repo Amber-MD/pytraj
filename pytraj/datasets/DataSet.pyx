@@ -196,7 +196,7 @@ cdef class DataSet:
         self.baseptr0.SetupSet(name.encode(), idx, aspect.encode(), num)
 
     def scalar_descr(self):
-        from pytraj._utils import set_worl_silent
+        from pytraj import set_worl_silent
         set_worl_silent(False)
         self.baseptr0.ScalarDescription()
         set_worl_silent(True)
@@ -205,6 +205,14 @@ cdef class DataSet:
         return self.baseptr0.Empty()
 
     property legend:
+        def __get__(self):
+            legend = self.baseptr0.Legend()
+            return legend.decode()
+        def __set__(self, legend):
+            self.baseptr0.SetLegend(legend.encode())
+
+    property key:
+        # retire self.legend?
         def __get__(self):
             legend = self.baseptr0.Legend()
             return legend.decode()
@@ -308,9 +316,17 @@ cdef class DataSet:
                 # make copy
                 return np.array(self.data)
         else:
-            raise ImportError("require numpy")
+            raise ImportError("require numpy. Use `tolist` or `to_pyarray`"
+                              " or `to_dict` to access data")
 
-    def hist(self, plot=True, *args, **kwd):
+    def to_dict(self, use_numpy=False):
+        if np and use_numpy:
+            return {self.legend : self.values}
+        if not np and use_numpy:
+            raise ImportError("require numpy. Set `use_numpy=False`")
+        return {self.legend : self.tolist()}
+
+    def hist(self, plot=True, show=True, *args, **kwd):
         """
         Parameters
         ----------
@@ -324,7 +340,10 @@ cdef class DataSet:
         else:
             try:
                 from matplotlib import pyplot as plt
-                return plt.hist(self, *args, **kwd)
+                ax = plt.hist(self.values, *args, **kwd)
+                if show:
+                    plt.show()
+                return ax
             except ImportError:
                 raise ImportError("require matplotlib")
 
@@ -348,7 +367,7 @@ cdef class DataSet:
         else:
             raise NotImplementedError("not yet, stay tuned")
 
-    def plot(self, *args, **kwd):
+    def plot(self, show=False, *args, **kwd):
         """return matplotlib object
         Notes
         ----
@@ -357,7 +376,10 @@ cdef class DataSet:
         from pytraj.utils import _import
         _, plt = _import("matplotlib.pyplot")
         try:
-            return plt.pyplot.plot(self.data, *args, **kwd)
+            ax = plt.pyplot.plot(self.data, *args, **kwd)
+            if show:
+                plt.pyplot.show()
+            return ax
         except ImportError:
             raise ImportError("require matplotlib")
 
@@ -369,10 +391,8 @@ cdef class DataSet:
         import numpy as np
         return np.std(self.values, *args, **kwd)
 
-    #def sum(self):
-    # don't create `sum` method here. mess up with numpy
-    # TypeError: sum() takes no keyword arguments
-    #    pass
+    def sum(self, *args, **kwd):
+        return np.sum(self.values, *args, **kwd)
 
     def topk(self, k):
         """pick top k max-values
@@ -384,8 +404,11 @@ cdef class DataSet:
         """
         return sorted(self.values, reverse=True)[:k]
 
-    def head(self, k=20):
-        return self.values[:k]
+    def head(self, k=20, restype='ndarray'):
+        if restype == 'ndarray':
+            return self.values[:k]
+        elif restype == 'list':
+            return self.tolist()[:k]
 
     def tail(self, k=20):
         return self.values[-k:]

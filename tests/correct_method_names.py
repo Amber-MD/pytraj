@@ -8,7 +8,7 @@ with open("log", 'r') as fh_log:
     for line in fh_log.readlines():
         if word in line:
             tmp = line.split(word)[-1]
-            tmp = tmp.replace("'","")
+            tmp = tmp.replace("'", "")
             need2fixed.append(tmp.split()[0])
 print(need2fixed)
 newlist = [_to_lower_case(x) for x in need2fixed]
@@ -26,5 +26,5 @@ for testfile in glob("test*.py"):
                     lines[i] = line.replace(tmp, "." + newword)
                     found_word = True
     if found_word:
-        with open(testfile+"_", 'w') as fh:
+        with open(testfile + "_", 'w') as fh:
             fh.writelines(lines)

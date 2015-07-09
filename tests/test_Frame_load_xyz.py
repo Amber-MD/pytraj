@@ -6,19 +6,21 @@ from pytraj import io as mdio
 from pytraj.utils import assert_almost_equal, Timer
 from pytraj.decorators import test_if_having
 
+
 class Test(unittest.TestCase):
+
     @Timer()
     @test_if_having("numpy")
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = Frame()
         frame.append_xyz(traj[0].xyz)
-        print (frame.coords[:10])
-        print (traj[0].coords[:10])
+        print(frame.coords[:10])
+        print(traj[0].coords[:10])
         assert_almost_equal(frame.coords, traj[0].coords)
         assert_almost_equal(frame.xyz.flatten(), traj[0].xyz.flatten())
-        print (frame.buffer2d.shape)
-        print (traj[0].xyz.shape)
+        print(frame.buffer2d.shape)
+        print(traj[0].xyz.shape)
         assert_almost_equal(frame.buffer1d, traj[0].xyz.flatten())
 
     @Timer()
@@ -31,7 +33,7 @@ class Test(unittest.TestCase):
         import numpy as np
 
         m_traj = md.load(get_fn('ala_ala_ala.pdb'))
-        print (m_traj)
+        print(m_traj)
         f0 = Frame()
         f1 = f0.copy()
         f0.append_xyz(m_traj.xyz[0].astype(np.float64))

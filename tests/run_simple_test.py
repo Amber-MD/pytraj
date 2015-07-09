@@ -5,13 +5,15 @@ from pytraj.trajs import *
 from pytraj.datasets import *
 from pytraj.common_actions import *
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         from pytraj import run_tests
         run_tests()
 
     def test_1(self):
-        print ("try to make all action objects")
+        print("try to make all action objects")
         from pytraj import adict
         #failed_list = ['createreservoir',]
         failed_list = []
@@ -22,7 +24,7 @@ class Test(unittest.TestCase):
 
     def test_2(self):
         DataSetList()
-        print ("try to make all analysis objects")
+        print("try to make all analysis objects")
         from pytraj import analdict
         failed_list = []
 
@@ -31,13 +33,13 @@ class Test(unittest.TestCase):
                 analdict[key]
 
     def test_3(self):
-        print ("try to make all dataset stuff")
+        print("try to make all dataset stuff")
         DatasetDouble()
         DatasetFloat()
         DatasetInteger()
         DatasetString()
         DatasetMatrixDouble()
-        DataSet_MatrixFlt()
+        DatasetMatrixFloat()
         DatasetVector()
         DataSet_Coords()
         DataSet_Coords_REF()
@@ -45,7 +47,7 @@ class Test(unittest.TestCase):
         DataSet_Coords_TRJ()
 
     def test_4(self):
-        print ("try to make structure-related objects")
+        print("try to make structure-related objects")
         Topology()
         Molecule()
         Residue()
@@ -56,7 +58,7 @@ class Test(unittest.TestCase):
         core.TrajinList.TrajinList()
 
     def test_5(self):
-        print ("other stuff. throw all tests don't belong anywhere else here")
+        print("other stuff. throw all tests don't belong anywhere else here")
         from pytraj import cpptraj_dict
         from pytraj.misc import get_atts
         keys = get_atts(cpptraj_dict)
@@ -68,6 +70,6 @@ class Test(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-    print ("OK")
+    print("OK")
     from pytraj.__version__ import __version__
-    print (___version__)
+    print(___version__)

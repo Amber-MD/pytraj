@@ -8,7 +8,9 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 
+
 class Test(unittest.TestCase):
+
     @test_if_having("MDAnalysis")
     def test_0(self):
         from MDAnalysisTests.datafiles import PSF, DCD
@@ -25,7 +27,7 @@ class Test(unittest.TestCase):
         aa_eq(traj.xyz, traj2.xyz)
         aa_eq(traj.xyz, traj3.xyz)
 
-        print (pyca.calc_COM(traj2).to_ndarray())
+        print(pyca.calc_COM(traj2).to_ndarray())
 
     @test_if_having("MDAnalysis")
     @test_if_having("mdtraj")
@@ -46,10 +48,11 @@ class Test(unittest.TestCase):
         assert isinstance(traj2, Trajectory) == True
         aa_eq(traj.xyz, traj2.xyz)
 
-        print (pyca.calc_COM(traj2).to_ndarray())
+        print(pyca.calc_COM(traj2).to_ndarray())
 
         # raise if use engine='mdtraj' for iterload
-        self.assertRaises(ValueError, lambda : mdio.iterload(filename, topname, engine='mdtraj'))
+        self.assertRaises(
+            ValueError, lambda: mdio.iterload(filename, topname, engine='mdtraj'))
 
 if __name__ == "__main__":
     unittest.main()

@@ -23,4 +23,4 @@ if has_sander_and_parmed:
     inp = sander.gas_input(8)
     parm.load_coordinates(frame0.coords)
 else:
-    print ("require both sander and parmed. Skip test")
+    print("require both sander and parmed. Skip test")

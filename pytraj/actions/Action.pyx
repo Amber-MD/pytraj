@@ -136,14 +136,15 @@ cdef class Action:
         cdef int i
         cdef object traj, tmptraj, farray
 
-        new_frame.py_free_mem = False
+        if self.__class__.__name__ == 'Action_Strip':
+            # let cpptraj do its job for this special action
+            new_frame.py_free_mem = False
 
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame
             # make sure to update frame mass
             if update_mass and not top.is_empty():
                 frame.set_frame_mass(top)
-            frame.py_free_mem = False
             self.baseptr.DoAction(self.n_frames, frame.thisptr, &(new_frame.thisptr))
             self.n_frames += 1
         else:

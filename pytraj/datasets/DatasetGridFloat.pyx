@@ -19,12 +19,9 @@ cdef class DatasetGridFloat(DataSet_3D):
         _, np = _import_numpy()
         basic_str = super(DataSet_3D, self).__str__() + "\n"
         if np:
-            try:
-                my_str = basic_str + "values: " + self.values.__str__()
-            except:
-                my_str = basic_str
+            my_str = basic_str + "values: " + self.values.__str__()
         else:
-            my_str = basic_str + "(install numpy for pretty print)"
+            my_str = basic_str
         return my_str
 
     def __getitem__(self, idx):

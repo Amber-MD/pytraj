@@ -7,7 +7,9 @@ from pytraj.decorators import test_if_having
 from pytraj.testing import eq, aa_eq
 from pytraj.compat import zip
 
+
 class TestBox(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
@@ -20,7 +22,7 @@ class TestBox(unittest.TestCase):
         print(frame0.box)
 
     def test_help(self):
-        print (Box.all_box_types())
+        print(Box.all_box_types())
 
     def test_1(self):
         box = Box()
@@ -42,7 +44,7 @@ class TestBox(unittest.TestCase):
         box = Box()
         arr0 = np.arange(6).astype(np.float64)
         box.data[:] = arr0
-        print (box.tolist())
+        print(box.tolist())
 
         for idx, x in enumerate(arr0):
             assert box.data[idx] == x
@@ -59,13 +61,15 @@ class TestBox(unittest.TestCase):
     def test_real_box(self):
         traj = mdio.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         trajiter = mdio.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
-        saved_box = Box([3.94559740E+01,  4.68215170E+01,  4.04695410E+01, 90., 90., 90.])
-        print (traj.top.box)
-        print (trajiter.top.box)
+        saved_box = Box(
+            [3.94559740E+01,  4.68215170E+01,  4.04695410E+01, 90., 90., 90.])
+        print(traj.top.box)
+        print(trajiter.top.box)
         aa_eq(traj.top.box.tolist(), saved_box.tolist())
         for frame in traj:
             assert frame.box.type == 'ortho'
-            aa_eq(frame.box.tolist(), [35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
+            aa_eq(frame.box.tolist(), [
+                  35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
 
         # test box_to_ndarray
         arr0 = traj.box_to_ndarray()
@@ -74,7 +78,8 @@ class TestBox(unittest.TestCase):
         for b0, b1, frame in zip(arr0, arr1, trajiter):
             box = frame.box
             # FIXME:
-            #b2 = frame.box.to_ndarray() # got wrong box in python2 (ok with python3)
+            # b2 = frame.box.to_ndarray() # got wrong box in python2 (ok with
+            # python3)
             b2 = box.to_ndarray()
             aa_eq(b0,  b1)
             aa_eq(b0,  b2)
@@ -93,27 +98,27 @@ class TestBox(unittest.TestCase):
         from pytraj import Trajectory
         traj = Trajectory()
         traj._allocate(10, 10)
-        print (traj.box_to_ndarray())
+        print(traj.box_to_ndarray())
 
     def test_assign_box_type(self):
-        print ("test_assign_box_type")
+        print("test_assign_box_type")
         box = Box()
         assert box.type == 'nobox'
         box.type = 'ortho'
         assert box.type == 'ortho'
-        assert box.alpha> 0.
+        assert box.alpha > 0.
         box.type = 'truncoct'
         assert box.type == 'truncoct'
 
         box.type = 'rhombic'
         assert box.type == 'rhombic'
-        print ("rhombic box?")
-        print (box)
+        print("rhombic box?")
+        print(box)
 
         # assert raise if not correctly set type
         def wrong_word(box=box):
             box.type = 'test'
-        self.assertRaises(ValueError, lambda : wrong_word())
+        self.assertRaises(ValueError, lambda: wrong_word())
 
         # test update boxtype
         box = Box()

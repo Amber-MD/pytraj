@@ -3,7 +3,9 @@ from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         try:
             import mdtraj as md
@@ -23,7 +25,7 @@ class Test(unittest.TestCase):
             print(pseudotop("@CA").selected_indices())
             print(pseudotop[4])
 
-            # try loading traj with pseudotop 
+            # try loading traj with pseudotop
             traj = Trajectory()
             traj.top = pseudotop
             print('pseudotop: ', traj.top)

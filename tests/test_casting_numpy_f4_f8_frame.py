@@ -9,7 +9,9 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 from pytraj import AtomMask
 
+
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
@@ -17,7 +19,7 @@ class Test(unittest.TestCase):
         xyzf4 = f0.xyz.astype('f4').copy()
 
         # cast from np f4
-        f0[:] = xyzf4 # cast from f4 to f8
+        f0[:] = xyzf4  # cast from f4 to f8
         aa_eq(f0.xyz, f0s.xyz)
 
         # an integer

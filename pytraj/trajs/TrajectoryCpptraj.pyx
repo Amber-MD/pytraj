@@ -1,16 +1,17 @@
 # distutils: language = c++
-from .._utils cimport get_positive_idx
 from ..Trajectory cimport Trajectory
 from ..AtomMask cimport AtomMask
 from ..Topology cimport Topology
 
+import os
+from .._cyutils import get_positive_idx
 from pytraj.externals.six import string_types
 from ..decorators import memoize # cache
 from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _savetraj, _get_temperature_set
 from .._shared_methods import _box_to_ndarray
-from ..utils.check_and_assert import _import_numpy
+from ..utils.check_and_assert import _import_numpy, ensure_exist
 from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
 from .._get_common_objects import _get_top
@@ -40,6 +41,8 @@ cdef class TrajectoryCpptraj:
         top : Topology-like object
         take_slice : add slice
         '''
+        ensure_exist(filename)
+
         cdef Topology tmp_top
         cdef ArgList _arglist
 
@@ -73,7 +76,7 @@ cdef class TrajectoryCpptraj:
         if isinstance(filename, string_types):
             _arglist = ArgList(arg)
             self.thisptr.AddSingleTrajin(filename.encode(), _arglist.thisptr[0], tmp_top.thisptr)
-            self._filelist.append(filename)
+            self._filelist.append(os.path.abspath(filename))
         else:
             raise ValueError("filename must a a string")
 
@@ -126,6 +129,8 @@ cdef class TrajectoryCpptraj:
         cdef Frame frame = Frame(n_atoms)
 
         for i in range(n_frames):
+            # do not create new Frame inside this loop to reduce memory
+            # if not [frame for frame in traj] will return a list of last frame (identical)
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 

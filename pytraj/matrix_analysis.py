@@ -6,12 +6,12 @@ __all__ = ['distance_matrix', 'correlation_matrix', 'coord_covariance_matrix',
            'mw_covariance_matrix', 'distcovar_matrix', 'idea_matrix',
            ]
 
-default_key_dict = {'distance_matrix' : 'dist',
-        'correlation_matrix' : 'correl',
-        'coord_covariance_matrix' : 'covar',
-        'mw_covariance_matrix' : 'mwcovar',
-        'distcovar_matrix' : 'distcovar',
-        'idea_matrix' : 'idea'}
+default_key_dict = {'distance_matrix': 'dist',
+                    'correlation_matrix': 'correl',
+                    'coord_covariance_matrix': 'covar',
+                    'mw_covariance_matrix': 'mwcovar',
+                    'distcovar_matrix': 'distcovar',
+                    'idea_matrix': 'idea'}
 
 __cpptrajdoc__ = """
     cpptraj manual
@@ -34,13 +34,17 @@ __cpptrajdoc__ = """
 """
 
 template = '''
-def %s(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args, **kwd):
     """
     Parameters
     ----------
     traj : Trajectory-like or anything that makes _frame_iter_master(traj) return Frame
     command : cpptraj command
     top : {str, Topology}, optional, default None
+    mat_type : str, {'full', 'half', 'cpptraj'}, default 'full'
+        if 'full': 2D full matrix
+        if 'half': triangular matrix
+        if 'cpptraj': 1D array
     *args, **kwd: more arguments
 
     Examples
@@ -80,7 +84,17 @@ def %s(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     # need to call `print_output` so cpptraj can normalize some data
     # check cpptraj's code
     act.print_output()
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    if dtype == 'ndarray':
+        if mat_type == 'full':
+            return dslist[0].values
+        elif mat_type == 'half':
+            return dslist[0].to_half_matrix()
+        elif mat_type == 'cpptraj':
+            return dslist[0].to_cpptraj_sparse_matrix()
+        else:
+            raise ValueError()
+    else:
+        return _get_data_from_dtype(dslist, dtype=dtype)
 '''
 
 for k, v in iteritems(default_key_dict):

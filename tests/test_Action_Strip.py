@@ -8,10 +8,13 @@ from pytraj.decorators import no_test
 
 print(dir(Action_Strip()))
 
-farray = Trajectory(top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
+farray = Trajectory(
+    top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
+
 
 class TestStrip(unittest.TestCase):
     #@no_test
+
     def test_master(self):
         top = Topology("./data/Tc5b.top")
         newtop = top.copy()
@@ -24,22 +27,22 @@ class TestStrip(unittest.TestCase):
             current_frame = farray[i]
             newframe = Frame()
             dslist = DataSetList()
-            act(command="strip !@CA", 
-                       top=top, 
-                       dslist=dslist,
-                       current_frame=frame0, 
-                       new_frame=newframe, 
-                       new_top=newtop)
+            act(command="strip !@CA",
+                top=top,
+                dslist=dslist,
+                current_frame=frame0,
+                new_frame=newframe,
+                new_top=newtop)
 
-            act_surf(command="@CA", 
-                       top=top, 
-                       dslist=dslist,
-                       current_frame=farray)
+            act_surf(command="@CA",
+                     top=top,
+                     dslist=dslist,
+                     current_frame=farray)
 
-            act_surf(command="@H=", 
-                       top=top, 
-                       dslist=dslist,
-                       current_frame=farray)
+            act_surf(command="@H=",
+                     top=top,
+                     dslist=dslist,
+                     current_frame=farray)
 
         print(newtop)
         print(newframe)
@@ -57,12 +60,12 @@ class TestStrip(unittest.TestCase):
         farray0 = farray.copy()
         newtop = farray0.top.copy()
         oldtop = farray0.top
-        
+
         toplist = TopologyList()
         toplist.add_parm(newtop)
         dslist = DataSetList()
         dflist = DataFileList()
-        
+
         stripact = Action_Strip()
         #stripact.read_input("strip !@CA", toplist)
         stripact.read_input("strip !@CA", oldtop)
@@ -92,8 +95,8 @@ class TestStrip(unittest.TestCase):
         newf.top = farray0.top.strip_atoms("!@CA", copy=True)
 
         act("!@CA", farray0, farray0.top.copy(), new_frame=tmpframe)
-        print (farray0[0].n_atoms)
-        print (tmpframe.n_atoms)
+        print(farray0[0].n_atoms)
+        print(tmpframe.n_atoms)
 
 if __name__ == "__main__":
     unittest.main()

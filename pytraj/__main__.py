@@ -1,2 +1,2 @@
 ''''''
-print ("test pytraj")
+print("test pytraj")

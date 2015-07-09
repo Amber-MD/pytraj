@@ -8,7 +8,7 @@ from pytraj.decorators import deprecated
 from pytraj._set_silent import set_world_silent
 from pytraj.externals.six import string_types
 from pytraj.utils import is_array, is_int
-from pytraj._utils import _int_array1d_like_to_memview
+from pytraj._cyutils import _int_array1d_like_to_memview
 from pytraj.compat import range
 
 __all__ = ['AtomMask']
@@ -57,11 +57,12 @@ cdef class AtomMask(object):
             del self.thisptr
 
     def selected_indices(self):
-        return pyarrary('i', self.thisptr.Selected())
+        return self.indices
 
     @property
     def indices(self):
-        return pyarrary('i', self.thisptr.Selected())
+        import numpy as np
+        return np.asarray(self.thisptr.Selected())
 
     @property
     def _indices_view(self):

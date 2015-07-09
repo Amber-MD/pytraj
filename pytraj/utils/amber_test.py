@@ -8,4 +8,3 @@ except (EnvironmentError, KeyError):
     amberhome = None
     has_amberhome = False
     cpptraj_test_dir = None
-
