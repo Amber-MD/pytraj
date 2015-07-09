@@ -89,7 +89,7 @@ class Trajectory(ActionTrajectory):
         for i in range(self.xyz.shape[0]):
             frame = Frame(self.n_atoms)
             frame[:] = self.xyz[i]
-            if self._boxes:
+            if self._boxes is not None:
                 frame.box = Box(self._boxes[i])
             self._life_holder = frame
             yield self._life_holder
@@ -100,7 +100,7 @@ class Trajectory(ActionTrajectory):
             arr0 = self.xyz[idx]
             frame = Frame(self.n_atoms)
             frame[:] = arr0
-            if self._boxes:
+            if self._boxes is not None:
                 frame.box = Box(self._boxes[idx])
             self._life_holder = frame
         else:
