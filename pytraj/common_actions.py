@@ -71,13 +71,11 @@ calc_energies = get_pysander_energies
 energy_decomposition = get_pysander_energies
 
 action_type = calculate
-do_translation = partial(action_type, 'translate')
-translate = do_translation
-do_rotation = partial(action_type, 'rotate')
-rotate = do_rotation
-do_scaling = partial(action_type, 'scale')
-scale = do_scaling
 
+def _noaction_with_TrajectoryIterator(trajiter):
+    from pytraj import TrajectoryIterator
+    if isinstance(trajiter, TrajectoryIterator):
+        raise ValueError("This analysis does not support immutable object")
 
 def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """calculate distance
@@ -457,14 +455,27 @@ def calc_jcoupling(traj=None, command="", top=None, kfile=None, dtype='dataset',
 
 
 def do_translation(traj=None, command="", top=Topology()):
+    _noaction_with_TrajectoryIterator(traj)
     adict['translate'](command, traj, top)
+
+translate = do_translation
+
+def do_scaling(traj=None, command="", top=Topology()):
+    _noaction_with_TrajectoryIterator(traj)
+    adict['translate'](command, traj, top)
+
+scale = do_scaling
 
 
 def do_rotation(traj=None, command="",  top=Topology()):
+    _noaction_with_TrajectoryIterator(traj)
     adict['rotate'](command, traj, top)
+
+rotate = do_rotation
 
 
 def do_autoimage(traj=None, command="", top=Topology()):
+    _noaction_with_TrajectoryIterator(traj)
     from pytraj.actions.CpptrajActions import Action_AutoImage
     Action_AutoImage()(command, traj, top)
 
@@ -498,6 +509,7 @@ def randomize_ions(traj=Frame(), command="", top=Topology()):
     top : Topology instance, default=Topology()
 
     """
+    _noaction_with_TrajectoryIterator(traj)
     act = adict['randomizeions']
     act(command, traj, top)
 
