@@ -6,6 +6,9 @@ def array_to_cpptraj_range(seq):
 def array_to_cpptraj_atommask(seq):
     return '@' + array_to_cpptraj_range(seq)
 
+def array_to_cpptraj_residuemask(seq):
+    return ':' + array_to_cpptraj_range(seq)
+
 def atom_pairs_to_cpptraj_atommask(atom_pairs):
     """
     Notes: not validate yet
