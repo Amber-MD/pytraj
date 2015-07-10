@@ -111,5 +111,15 @@ def _get_reference_from_traj(traj, ref):
             return traj[ref]
         except IndexError:
             raise IndexError("%s does not support indexing" % traj.__str__())
+    elif ref == 'first':
+        try:
+            return traj[0]
+        except IndexError:
+            raise IndexError("%s does not support indexing" % traj.__str__())
+    elif ref == 'last':
+        try:
+            return traj[-1]
+        except IndexError:
+            raise IndexError("%s does not support indexing" % traj.__str__())
     else:
         return ref
