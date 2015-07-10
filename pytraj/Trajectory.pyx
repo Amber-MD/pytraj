@@ -435,7 +435,6 @@ cdef class Trajectory (object):
         cdef AtomMask atom_mask_obj
         cdef pyarray list_arr
         cdef int idxs_size
-        #cdef list tmplist
 
         # test memoryview for traj[:, :, :]
         cdef double[:, :, :] arr3d
@@ -580,13 +579,23 @@ cdef class Trajectory (object):
                 _farray = Trajectory(check_top=False)
                 _farray.top = self.top # just make a view, don't need to copy Topology
                 # check if there are bool index
-                if hasattr(idxs, '__getitem__'):
+                if isinstance(idxs, list):
                     if isinstance(idxs[0], bool):
-                        raise NotImplementedError("don't support bool indexing")
-                for i in idxs:
-                    frame.thisptr = self.frame_v[i] # point to i-th item
-                    frame.py_free_mem = False # don't free mem
-                    _farray.frame_v.push_back(frame.thisptr) # just copy pointer
+                        if any(not isinstance(x, bool) for x in idxs):
+                            raise NotImplementedError("can not mix boolean with other type")
+                        import numpy as np
+                        idxs = np.array(idxs, dtype=bool)
+                if hasattr(idxs, 'dtype') and 'bool' in idxs.dtype.name:
+                    for i in range(idxs.shape[0]):
+                        if idxs[i] == 1:
+                            frame.thisptr = self.frame_v[i] # point to i-th item
+                            frame.py_free_mem = False # don't free mem
+                            _farray.frame_v.push_back(frame.thisptr) # just copy pointer
+                else:
+                    for i in idxs:
+                        frame.thisptr = self.frame_v[i] # point to i-th item
+                        frame.py_free_mem = False # don't free mem
+                        _farray.frame_v.push_back(frame.thisptr) # just copy pointer
                 return _farray
             else:
                 idx_1 = get_positive_idx(idxs, self.size)
