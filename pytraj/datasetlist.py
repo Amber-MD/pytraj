@@ -579,7 +579,7 @@ class DatasetList(list):
             x=None,
             y=None,
             legends=[],
-            autoset=False,
+            autoset=True,
             xlim=None,
             ylim=None,
             *args, **kwd):
@@ -589,7 +589,7 @@ class DatasetList(list):
         >>> dslist[['psi:7', 'phi:7']].plot(show=True)
         """
         if autoset:
-            legends = self.keys()
+            legends = self.keys() if not legends else legends
 
         if use_seaborn:
             try:
