@@ -78,7 +78,7 @@ class Test(unittest.TestCase):
 
         print("rmsd to first, all atoms")
         arr0 = traj.calc_rmsd(0)
-        arr1 = traj.calc_rmsd(ref='first')
+        arr1 = traj.calc_rmsd(ref=0)
         arr2 = traj.calc_rmsd()
         a_md0 = md.rmsd(m_traj, m_traj, 0)
         assert_almost_equal(arr0, arr1)
@@ -86,7 +86,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(arr0, a_md0)
 
         print("rmsd to last frame, all atoms")
-        arr0 = traj.calc_rmsd(ref='last')
+        arr0 = traj.calc_rmsd(ref=-1)
         arr1 = traj.calc_rmsd(ref=-1)
         a_md = md.rmsd(m_traj, m_traj, -1)
         assert_almost_equal(arr0, arr1)
@@ -95,10 +95,10 @@ class Test(unittest.TestCase):
         print("rmsd with mask and indices")
         mask = ":3-18@CA,C"
         atm = traj.top(mask)
-        arr0 = traj.calc_rmsd(ref='last', mask=mask)
-        arr1 = traj.calc_rmsd(mask=atm.indices, ref='last')
-        arr2 = traj.calc_rmsd(mask=list(atm.indices), ref='last')
-        arr3 = traj.calc_rmsd(mask=tuple(atm.indices), ref='last')
+        arr0 = traj.calc_rmsd(ref=-1, mask=mask)
+        arr1 = traj.calc_rmsd(mask=atm.indices, ref=-1)
+        arr2 = traj.calc_rmsd(mask=list(atm.indices), ref=-1)
+        arr3 = traj.calc_rmsd(mask=tuple(atm.indices), ref=-1)
         a_md = md.rmsd(m_traj, m_traj, -1, atm.indices)
         print ('arr0', arr0, 'a_md', a_md)
         assert_almost_equal(arr0, a_md)
@@ -108,10 +108,10 @@ class Test(unittest.TestCase):
 
         from pytraj import Trajectory
         fa = Trajectory(traj)
-        arr0 = fa.calc_rmsd(ref='last', mask=mask)
-        arr1 = fa.calc_rmsd(mask=atm.indices, ref='last')
-        arr2 = fa.calc_rmsd(mask=list(atm.indices), ref='last')
-        arr3 = fa.calc_rmsd(mask=tuple(atm.indices), ref='last')
+        arr0 = fa.calc_rmsd(ref=-1, mask=mask)
+        arr1 = fa.calc_rmsd(mask=atm.indices, ref=-1)
+        arr2 = fa.calc_rmsd(mask=list(atm.indices), ref=-1)
+        arr3 = fa.calc_rmsd(mask=tuple(atm.indices), ref=-1)
         a_md = md.rmsd(m_traj, m_traj, -1, atm.indices)
         assert_almost_equal(arr0, a_md)
         assert_almost_equal(arr1, a_md)

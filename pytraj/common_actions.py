@@ -935,7 +935,7 @@ def calc_rmsd(traj=None, ref=0,  mask="", mass=False,
     Parameters
     ----------
     traj : Trajectory-like | List of trajectories | Trajectory or frame_iter
-    ref : Frame | str | int, default='first'
+    ref : Frame | str | int, default=0
     mask : str or 1D array-like of string or 1D or 2D array-like
         Atom mask/indices
     top : Topology | str
@@ -982,12 +982,7 @@ def calc_rmsd(traj=None, ref=0,  mask="", mass=False,
 
     _top = _get_top(traj, top)
 
-    if isinstance(ref, string_types) and ref not in ['first', 'last']:
-        # need to check this in the end to avoid using 'last' keyword
-        from .trajs.Trajin_Single import Trajin_Single
-        ref = Trajin_Single(ref, _top)[0]
-    else:
-        ref = _get_reference_from_traj(traj, ref)
+    ref = _get_reference_from_traj(traj, ref)
 
     alist = ActionList()
     dslist = CpptrajDatasetList()
@@ -1031,11 +1026,7 @@ def calc_rmsd_with_rotation_matrices(
     if dtype in ['ndarray', 'pyarray']:
         raise ValueError("does not support ndarray/pyarray here")
 
-    if ref is None or ref == 'first':
-        try:
-            ref = traj[0]
-        except IndexError:
-            raise ValueError("require reference")
+    ref = _get_reference_from_traj(traj, ref)
 
     _top = _get_top(traj, top)
     from pytraj.actions.CpptrajActions import Action_Rmsd
@@ -1191,7 +1182,7 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
 
 
 def native_contacts(traj=None, mask="", top=None, dtype='dataset',
-                    ref=None,
+                    ref=0,
                     distance=7.0,
                     noimage=False,
                     include_solvent=False,
@@ -1213,13 +1204,7 @@ def native_contacts(traj=None, mask="", top=None, dtype='dataset',
 
     command = mask
 
-    if ref is None or ref == 'first':
-        try:
-            ref = traj[0]
-        except IndexError:
-            raise ValueError("require reference")
-    else:
-        ref = ref
+    ref = _get_reference_from_traj(traj, ref)
 
     _distance = str(distance)
     _noimage = "noimage" if noimage else ""
