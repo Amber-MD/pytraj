@@ -971,9 +971,9 @@ def calc_rmsd(traj=None, ref=0,  mask="", mass=False,
         if 'str' in dname:
             command = cmd
         elif 'int' in dname or 'object' in dname:
-            if cmd.ndim == 1:
+            if cmd.ndim == 1 and 'object' not in dname:
                 command = [to_cpptraj_mask(mask),]
-            elif cmd.ndim == 2:
+            elif cmd.ndim == 2 or 'object' in dname:
                 command = [to_cpptraj_mask(x) for x in mask]
             else:
                 raise ValueError("only support array with ndim=1,2")
@@ -1370,6 +1370,29 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
 
     act = analdict['autocorr']
     command = "d0 out _tmp.out" + _nocovar
+    act(command, dslist=cdslist)
+    return _get_data_from_dtype(cdslist[1:], dtype=dtype)
+
+def lifetime(data, command="", dtype='ndarray', *args, **kwd):
+    """
+    Notes
+    -----
+    Same as `autocorr` in cpptraj
+    """
+    from pytraj.datasets import DataSetList as CDSL
+    from pytraj.analyses.CpptrajAnalyses import Analysis_Lifetime
+    import numpy as np
+
+    cdslist = CDSL()
+    if 'int' in data.dtype.name:
+        cdslist.add_set("integer", "d0")
+    else:
+        cdslist.add_set("double", "d0")
+
+    cdslist[0].from_array_like(np.asarray(data))
+
+    act = Analysis_Lifetime()
+    command = " ".join((command, "d0"))
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
