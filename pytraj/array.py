@@ -40,9 +40,9 @@ class DataArray(object):
             key = list(dset.keys())[0]
             self.key = key
             if copy:
-                self.values = np.asarray(dset[key]).copy()
+                self._values = np.asarray(dset[key]).copy()
             else:
-                self.values = np.asarray(dset[key])
+                self._values = np.asarray(dset[key])
             self.name = ""
             self.aspect = "unknown"
             self.idx = 0
@@ -71,35 +71,44 @@ class DataArray(object):
             else:
                 values = np.asarray(dset)
             if copy:
-                self.values = values.copy()
+                self._values = values.copy()
             else:
-                self.values = values
+                self._values = values
 
     @classmethod
     def from_dict(cls, d):
         assert isinstance(d, dict), "must be a dict"
         return cls(d)
 
+    @property
+    def values(self):
+        return self._values
+
+    @values.setter
+    def values(self, new_values):
+        import numpy as np
+        self._values = np.asarray(new_values)
+
     def __iter__(self):
-        for x in self.values:
+        for x in self._values:
             yield x
 
     def __getitem__(self, idx):
-        return self.values[idx]
+        return self._values[idx]
 
     def __setitem__(self, idx, value):
-        self.values[idx] = value
+        self._values[idx] = value
 
     @property
     def size(self):
-        return len(self.values)
+        return len(self._values)
 
     @property
     def dtype(self):
-        return self.values.dtype
+        return self._values.dtype
 
     def astype(self, t):
-        self.values = self.values.astype(t)
+        self._values = self._values.astype(t)
 
     @property
     def key(self):
