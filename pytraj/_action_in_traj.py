@@ -38,10 +38,16 @@ class ActionTrajectory(object):
     def calc_center_of_mass(self, mask="", *args, **kwd):
         return pyca.calc_center_of_mass(self, mask, *args, **kwd)
 
+    def center_of_mass(self, *args, **kwd):
+        return pyca.calc_center_of_mass(self, *args, **kwd)
+
     def calc_COM(self, mask="", *args, **kwd):
         return pyca.calc_center_of_mass(self, mask, *args, **kwd)
 
     def calc_center_of_geometry(self, mask="", *args, **kwd):
+        return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
+
+    def center_of_geometry(self, mask="", *args, **kwd):
         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
 
     def calc_COG(self, mask="", *args, **kwd):
