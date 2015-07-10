@@ -34,8 +34,8 @@ class Test(unittest.TestCase):
         aa_eq(d3, d4)
         aa_eq(d3, d5)
         aa_eq(d3, d6)
-        aa_eq(d3, d7[:fa.n_frames])
-        aa_eq(d3, d7[fa.n_frames:])
+        aa_eq(d3.T, d7.T[:fa.n_frames])
+        aa_eq(d3.T, d7.T[fa.n_frames:])
         print(d3)
 
 
