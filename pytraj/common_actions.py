@@ -124,9 +124,12 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
             py_dslist = from_dict({'distance' : arr})
             return _get_data_from_dtype(py_dslist, dtype)
 
-    elif isinstance(command, (list, tuple, string_types)):
+    elif isinstance(command, (list, tuple, string_types, np.ndarray)):
         # create a list
-        list_of_commands = _get_list_of_commands(command)
+        if not isinstance(command, np.ndarray):
+            list_of_commands = _get_list_of_commands(command)
+        else:
+            list_of_commands = command
 
         from pytraj.core.ActionList import ActionList
         from pytraj.actions.CpptrajActions import Action_Distance
