@@ -929,12 +929,12 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
 
 def calc_rmsd(traj=None, mask="", ref=None, mass=False,
               fit=True, top=None, dtype='ndarray',
-              mode='pytraj'):
+              mode='cpptraj'):
     """calculate rmsd
 
     Parameters
     ---------
-    mask : str or array
+    mask : str or 1D array-like of string or 1D or 2D array-like
         Atom mask/indices
     traj : Trajectory | List of trajectories | Trajectory or frame_iter
     top : Topology | str
@@ -964,8 +964,12 @@ def calc_rmsd(traj=None, mask="", ref=None, mass=False,
     from pytraj.utils import is_int
     from array import array as pyarray
     from pytraj.datasets import DatasetDouble
+    import numpy as np
 
-    if not isinstance(mask, string_types):
+    if isinstance(mask, string_types):
+        command = [mask,]
+    else:
+        cmd = np
         # [1, 3, 5] to "@1,3,5
         mask = to_cpptraj_mask(mask)
 
@@ -1484,3 +1488,23 @@ def pucker(traj=None, pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
         command = " ".join((name, command, _range360, method, geom, _offset))
         act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
     return _get_data_from_dtype(cdslist, dtype)
+
+def center(traj=None, mask="", top=None):
+    """
+    Examples
+    --------
+    >>> pt.center(traj) # all atoms, center to box center (x/2, y/2, z/2)
+    >>> pt.center(traj, '@CA origin') # center at origin, use @CA
+    >>> pt.center(traj, 'mass') # center to box center, use mass weighted.
+    >>> pt.center(traj, ':1 mass') # residue 1, use mass weighted.
+
+    See Also
+    --------
+        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 546)
+
+    """
+    _noaction_with_TrajectoryIterator(traj)
+    _top = _get_top(traj, top)
+    from pytraj.actions.CpptrajActions import Action_Center
+    act = Action_Center()
+    act(mask, traj, top=_top)

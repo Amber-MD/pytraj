@@ -105,7 +105,12 @@ from . common_actions import (rmsd, search_hbonds,
                               native_contacts,
                               auto_correlation_function,
                               cross_correlation_function,
-                              timecorr)
+                              timecorr,
+                              center,
+                              translate,
+                              rotate,
+                              scale,
+                              )
 
 # create alias
 distance = calc_distance
