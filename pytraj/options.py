@@ -6,7 +6,7 @@
 # traj(**pt.options.iter_option)
 iter_option = {
         'start' : 0,
-        'stop' : -1,
+        'stop' : None,
         'autoimage' : True,
         'rmsfit' : (0, '@CA')
         }
