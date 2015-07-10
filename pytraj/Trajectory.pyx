@@ -581,11 +581,13 @@ cdef class Trajectory (object):
                 # check if there are bool index
                 if isinstance(idxs, list):
                     if isinstance(idxs[0], bool):
+                        if any(not isinstance(x, bool) for x in idxs):
+                            raise NotImplementedError("can not mix boolean with other type")
                         import numpy as np
-                        idxs = np.array(idxs)
-                if hasattr(idxs, 'dtype') and idxs.dtype.name == 'bool':
+                        idxs = np.array(idxs, dtype=bool)
+                if hasattr(idxs, 'dtype') and 'bool' in idxs.dtype.name:
                     for i in range(idxs.shape[0]):
-                        if idxs[i] == True:
+                        if idxs[i] == 1:
                             frame.thisptr = self.frame_v[i] # point to i-th item
                             frame.py_free_mem = False # don't free mem
                             _farray.frame_v.push_back(frame.thisptr) # just copy pointer

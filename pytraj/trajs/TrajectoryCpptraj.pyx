@@ -359,8 +359,10 @@ cdef class TrajectoryCpptraj:
 
                  if isinstance(idxs, list):
                      if isinstance(idxs[0], bool):
+                         if any(not isinstance(x, bool) for x in idxs):
+                             raise NotImplementedError("can not mix boolean with other type")
                          import numpy as np
-                         idxs = np.array(idxs)
+                         idxs = np.array(idxs, dtype=bool)
 
                  if hasattr(idxs, 'dtype') and idxs.dtype.name == 'bool':
                      farray.top = self.top

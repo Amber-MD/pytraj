@@ -12,8 +12,12 @@ class Test(unittest.TestCase):
         import numpy as np
         for _ in range(5):
             # get different random number
-        # Trajectory (mutable)
-            traj = pt.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            # TrajectoryIterator (immutable): use `iterload`
+            traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
+            # make sure to raise if mixing dtype
+            self.assertRaises(NotImplementedError, lambda: traj[[True, 2]])
+            self.assertRaises(NotImplementedError, lambda: traj[:][[True, 2]])
 
             assert len(traj[[True, False]]) == 1
             assert pt.tools.rmsd(traj[[True, False]].xyz,
@@ -24,8 +28,8 @@ class Test(unittest.TestCase):
             print (arr)
             assert pt.tools.rmsd(traj[arr].xyz, traj[brr].xyz, flatten=True) < 1E-6
 
-            # TrajectoryIterator (immutable): use `iterload`
-            traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            # Trajectory (mutable)
+            traj = pt.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
             assert len(traj[[True, False]]) == 1
             assert pt.tools.rmsd(traj[[True, False]].xyz,
