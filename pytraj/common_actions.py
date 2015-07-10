@@ -124,9 +124,12 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
             py_dslist = from_dict({'distance' : arr})
             return _get_data_from_dtype(py_dslist, dtype)
 
-    elif isinstance(command, (list, tuple, string_types)):
+    elif isinstance(command, (list, tuple, string_types, np.ndarray)):
         # create a list
-        list_of_commands = _get_list_of_commands(command)
+        if not isinstance(command, np.ndarray):
+            list_of_commands = _get_list_of_commands(command)
+        else:
+            list_of_commands = command
 
         from pytraj.core.ActionList import ActionList
         from pytraj.actions.CpptrajActions import Action_Distance
@@ -924,121 +927,85 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_rmsd(traj=None, mask="", ref=None, mass=False,
-              fit=True, top=None, dtype='ndarray',
-              mode='pytraj'):
+def calc_rmsd(traj=None, ref=0,  mask="", mass=False,
+              top=None, dtype='ndarray',
+              *args, **kwd):
     """calculate rmsd
 
     Parameters
-    ---------
-    mask : str or array
+    ----------
+    traj : Trajectory-like | List of trajectories | Trajectory or frame_iter
+    ref : Frame | str | int, default='first'
+    mask : str or 1D array-like of string or 1D or 2D array-like
         Atom mask/indices
-    traj : Trajectory | List of trajectories | Trajectory or frame_iter
     top : Topology | str
         (optional) Topology
-    ref : Frame | str, default=None (ust 1st frame)
-    mass : bool, default=True
-        use mass or not
-    fit : bool, default=True
-        fit or no fit
-    dtype : data type, default='pyarray'
-    mode : str {'pytraj', 'cpptraj'}
-        if 'pytraj' a bit slower but original coords are not updated
-            mask (command) can be string mask for atom index array
-        if 'cpptraj': faster and coords for frame/traj are updated (rmsfit)
-            only string mask for mask (command)
+    dtype : return data type, default='ndarray'
+
     Examples
     --------
     >>> from pytraj import io
     >>> from pytraj.common_actions import calc_rmsd
     >>> traj = io.load_sample_data("tz2")
-    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13', mass=True, fit=True)
-    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13', mass=True, fit=False)
-    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13', mass=True, fit=False, mode='cpptraj')
-    >>> calc_rmsd([traj, traj[-1]], ref=traj[0], mask=':3-13', top=traj.top, mass=True, fit=False)
+    >>> calc_rmsd(traj, ref=-3) # ref=traj[-3]
+    >>> calc_rmsd(traj, mask=['@CA', '@C', ':3-18@CA'], dtype='dataset')
+    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13')
+    >>> calc_rmsd([traj, traj[-1]], ref=traj[0], mask=':3-13', top=traj.top)
 
     """
     from pytraj.utils import is_int
     from array import array as pyarray
     from pytraj.datasets import DatasetDouble
+    from pytraj.actions.CpptrajActions import Action_Rmsd
+    from pytraj.core.ActionList import ActionList
+    import numpy as np
 
-    if not isinstance(mask, string_types):
-        # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_mask(mask)
-
-    command = mask
+    if isinstance(mask, string_types):
+        command = [mask,]
+    else:
+        try:
+            cmd = np.asarray(mask)
+        except ValueError as e:
+            raise ValueError("don't mix different types")
+        dname = cmd.dtype.name
+        if 'str' in dname:
+            command = cmd
+        elif 'int' in dname or 'object' in dname:
+            if cmd.ndim == 1:
+                command = [to_cpptraj_mask(mask),]
+            elif cmd.ndim == 2:
+                command = [to_cpptraj_mask(x) for x in mask]
+            else:
+                raise ValueError("only support array with ndim=1,2")
+        else:
+            raise ValueError("not supported")
 
     _top = _get_top(traj, top)
-    if ref is None or ref == 'first':
-        # set ref to 1st frame
-        ref = traj[0]
-    elif ref == 'last':
-        ref = traj[-1]
-    elif is_int(ref):
-        ref = traj[ref]
-    elif isinstance(ref, string_types):
+
+    if isinstance(ref, string_types) and ref not in ['first', 'last']:
         # need to check this in the end to avoid using 'last' keyword
         from .trajs.Trajin_Single import Trajin_Single
         ref = Trajin_Single(ref, _top)[0]
     else:
-        ref = ref
+        ref = _get_reference_from_traj(traj, ref)
 
-    if mode == 'pytraj':
-        arr = array('d')
-        # creat AtomMask object
-        if isinstance(command, string_types):
-            atm = _top(command)
-        elif isinstance(command, AtomMask):
-            atm = command
-        elif is_array(command) or isinstance(command, (list, tuple)):
-            atm = AtomMask()
-            atm.add_selected_indices(command)
-        else:
-            atm = AtomMask()
+    alist = ActionList()
+    dslist = CpptrajDatasetList()
 
-        if mass:
-            ref.set_frame_mass(_top)
-        _ref = Frame(ref, atm)
-        for frame in _frame_iter_master(traj):
-            if mass:
-                # TODO : just need to set mass once
-                frame.set_frame_mass(_top)
-            if fit:
-                _rmsd = frame.rmsd(ref, atommask=atm, use_mass=mass)
-            else:
-                _frame = Frame(frame, atm)
-                _rmsd = _frame.rmsd_nofit(_ref, use_mass=mass)
-            arr.append(_rmsd)
-        if dtype == 'pyarray':
-            return arr
-        elif dtype == 'ndarray':
-            import numpy as np
-            return np.array(arr)
-        else:
-            dset = DatasetDouble()
-            dset.resize(len(arr))
-            dset.values[:] = arr
-            dset.legend = 'rmsd'
-            return _get_data_from_dtype(dset, dtype=dtype)
+    for cm in command:
+        alist.add_action(Action_Rmsd(), cm, top=_top, dslist=dslist)
 
-    elif mode == 'cpptraj':
-        if not isinstance(command, string_types):
-            raise ValueError(
-                "only support string mask/command in mode=cpptraj")
-        from pytraj.actions.CpptrajActions import Action_Rmsd
-        act = Action_Rmsd()
-        dslist = CpptrajDatasetList()
-        act(command, [ref, traj], top=_top, dslist=dslist)
+    alist.do_actions(ref)
+    alist.do_actions(traj)
 
-        if dtype == 'pyarray':
-            return pyarray('d', dslist[0].data)[1:]
-        else:
-            from pytraj.datasetlist import DatasetList
-            dnew = DatasetList(dslist)
-            dnew[0].values = dnew[0].values[1:]
-            return _get_data_from_dtype(dnew, dtype=dtype)
+    if dtype == 'pyarray':
+        return pyarray('d', dslist[0].data)[1:]
     else:
-        raise ValueError("mode = `pytraj` or `cpptraj`")
+        from pytraj.datasetlist import DatasetList
+        dnew = DatasetList(dslist)
+        for d in dnew:
+            d.values = d.values[1:]
+        return _get_data_from_dtype(dnew, dtype=dtype)
 
 
 # alias for `calc_rmsd`
@@ -1481,3 +1448,23 @@ def pucker(traj=None, pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
         command = " ".join((name, command, _range360, method, geom, _offset))
         act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
     return _get_data_from_dtype(cdslist, dtype)
+
+def center(traj=None, mask="", top=None):
+    """
+    Examples
+    --------
+    >>> pt.center(traj) # all atoms, center to box center (x/2, y/2, z/2)
+    >>> pt.center(traj, '@CA origin') # center at origin, use @CA
+    >>> pt.center(traj, 'mass') # center to box center, use mass weighted.
+    >>> pt.center(traj, ':1 mass') # residue 1, use mass weighted.
+
+    See Also
+    --------
+        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 546)
+
+    """
+    _noaction_with_TrajectoryIterator(traj)
+    _top = _get_top(traj, top)
+    from pytraj.actions.CpptrajActions import Action_Center
+    act = Action_Center()
+    act(mask, traj, top=_top)

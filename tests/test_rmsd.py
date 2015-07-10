@@ -93,13 +93,14 @@ class Test(unittest.TestCase):
         assert_almost_equal(arr0, a_md)
 
         print("rmsd with mask and indices")
-        mask = ":3-18@CA, C"
+        mask = ":3-18@CA,C"
         atm = traj.top(mask)
         arr0 = traj.calc_rmsd(ref='last', mask=mask)
         arr1 = traj.calc_rmsd(mask=atm.indices, ref='last')
         arr2 = traj.calc_rmsd(mask=list(atm.indices), ref='last')
         arr3 = traj.calc_rmsd(mask=tuple(atm.indices), ref='last')
         a_md = md.rmsd(m_traj, m_traj, -1, atm.indices)
+        print ('arr0', arr0, 'a_md', a_md)
         assert_almost_equal(arr0, a_md)
         assert_almost_equal(arr1, a_md)
         assert_almost_equal(arr2, a_md)
@@ -122,13 +123,25 @@ class Test(unittest.TestCase):
         fa = Trajectory(traj)
         mask = "!@H="
         atm = fa.top(mask)
-        arr0 = fa.calc_rmsd(ref=4, mask=mask, mode='cpptraj')
+        arr0 = fa.calc_rmsd(ref=4, mask=mask)
         a_md = md.rmsd(m_traj, m_traj, 4, atm.indices)
         print('mode=cpptraj', arr0[1:])
         print(a_md)
 
         # exclude 0-th frame for ref
         assert_almost_equal(arr0, a_md)
+
+    def test_list_of_masks(self):
+        aa_eq = assert_almost_equal
+        traj = TRAJ.copy()
+        mask = ['@CA', '@CB', ':3-18@CA,C']
+        arr = traj.rmsd(mask=mask)
+        for idx, m in enumerate(mask):
+            aa_eq(arr[idx], traj.rmsd(mask=m))
+            aa_eq(arr[idx], traj.rmsd(mask=traj.top.select(m).indices))
+
+        mask = ['@CA', '@CB', ':3-18@CA,C', [0, 3, 5]]
+        self.assertRaises(ValueError, lambda: traj.rmsd(mask=mask))
 
 if __name__ == "__main__":
     unittest.main()
