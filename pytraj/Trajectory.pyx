@@ -737,7 +737,8 @@ cdef class Trajectory (object):
         # we don't do anythin here. Just create the same API for TrajectoryIterator
         pass
 
-    def frame_iter(self, start=0, stop=None, stride=1, mask=None, autoimage=False, rmsfit=None):
+    def frame_iter(self, start=0, stop=None, stride=1,
+                   mask=None, autoimage=False, rmsfit=None):
         # TODO: combined with TrajectoryIterator
         from pytraj.core.frameiter import FrameIter
 
@@ -747,11 +748,19 @@ cdef class Trajectory (object):
             _top = self.top._get_new_from_mask(mask)
 
         if rmsfit is not None:
-            if len(rmsfit) != 2:
-                raise ValueError("rmsfit must be a tuple of two elements (frame, mask)")
+            if isinstance(rmsfit, tuple):
+                assert len(rmsfit) <= 2, ("rmsfit must be a tuple of one (frame,) "
+                                         "or two elements (frame, mask)")
+                if len(rmsfit) == 1:
+                    rmsfit = (rmsfit, '*')
+            elif isinstance(rmsfit, int):
+                rmsfit = (rmsfit, '*')
+            else:
+                raise ValueError("rmsfit must be a tuple or an integer")
+
             if is_int(rmsfit[0]):
                 index = rmsfit[0]
-                rmsfit = tuple([self[index], rmsfit[1]])
+                rmsfit = ([self[index], rmsfit[1]])
 
         # check how many frames will be calculated
         if stop is None or stop >= self.n_frames:

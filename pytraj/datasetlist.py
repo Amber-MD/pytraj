@@ -574,12 +574,23 @@ class DatasetList(list):
         formats = ['%8i'] + [d.format for d in self]
         np.savetxt(filename, values, fmt=formats, header=headers)
 
-    def plot(self, show=True, use_seaborn=True, *args, **kwd):
+    def plot(self, show=True, 
+            use_seaborn=True, 
+            x=None,
+            y=None,
+            legends=[],
+            autoset=False,
+            xlim=None,
+            ylim=None,
+            *args, **kwd):
         """very simple plot for quickly visualize the data
 
         >>> dslist[['psi:7', 'phi:7']].plot()
         >>> dslist[['psi:7', 'phi:7']].plot(show=True)
         """
+        if autoset:
+            legends = self.keys()
+
         if use_seaborn:
             try:
                 import seaborn as snb
@@ -589,13 +600,31 @@ class DatasetList(list):
         try:
             from matplotlib import pyplot as plt
             ax = plt.subplot(111)
-            if self.size == 1:
-                # good for plotting bfactors
-                # let DatasetList `show`
-                ax = self[0].plot(show=False, *args, **kwd)
-            else:
-                for d0 in self:
-                    ax.plot(d0, *args, **kwd)
+            for idx, d0 in enumerate(self):
+                lb = legends[idx] if legends else None
+                if lb:
+                    if d0.ndim == 2:
+                        ax.plot(d0[0], d0[1], label=lb, *args, **kwd)
+                    else:
+                        ax.plot(d0, label=lb, *args, **kwd)
+                else:
+                    if d0.ndim == 2 and 'B-factors' in d0.key:
+                        values = d0.values.T
+                        ax.plot(values[0], values[1], *args, **kwd)
+                    else:
+                        ax.plot(d0, *args, **kwd)
+            if x:
+                ax.set_xlabel(x)
+            if y:
+                ax.set_ylabel(y)
+            if xlim:
+                ax.set_xlim(xlim)
+            if ylim:
+                ax.set_ylim(ylim)
+
+            if legends:
+                plt.legend()
+
             if show:
                 plt.show()
             return ax
