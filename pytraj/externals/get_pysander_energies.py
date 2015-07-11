@@ -28,8 +28,9 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
     verbose : bool, default True
         print warning message if True
 
-    Returns:
-    Dict of energies (to be used with DataFrame)
+    Returns
+    -------
+    Dict of energies (to be used with DataFrame) or DatasetList
 
     Examples
     --------
@@ -74,11 +75,14 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
     if not isinstance(parm, AmberParm) or not isinstance(parm, string_types):
         try:
             # try to load from file by taking _top.filename
+            if verbose:
+                print ("can not find `Structure` from parmed, loading %s"
+                        % _top.filename)
             parm = _top.filename
         except:
             raise ValueError("parm must be AmberParm object in ParmEd")
 
-    if not hasattr(parm, 'coords') or parm.coords is None:
+    if not hasattr(parm, 'coordinates') or parm.coords is None:
         try:
             # if `traj` is Trajectory-like (not frame_iter), try to take 1st
             # coords
