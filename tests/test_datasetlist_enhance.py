@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
         aa_eq(arr0.max(1), ds.max()[1])
         aa_eq(arr0.std(1), ds.std()[1])
 
-        aa_eq(arr0.mean(1),ds.mean()[1])
+        aa_eq(arr0.mean(1), ds.mean()[1])
         aa_eq(arr0.sum(1), ds.sum()[1])
         aa_eq(arr0.min(1), ds.min()[1])
         aa_eq(arr0.max(1), ds.max()[1])

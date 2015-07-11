@@ -49,8 +49,8 @@ class Test(unittest.TestCase):
         for line in command_list:
             arg = ArgList(line)
             # get function
-            act_key = arg.get_string_key(b"matrix")
-            slist = arg.get_string_key(b'out').split(".")
+            act_key = arg.get_string_key("matrix")
+            slist = arg.get_string_key('out').split(".")
             mask = arg.get_mask_next()
             fname = ".".join((slist[0], slist[-1], slist[1]))
             # get correct name

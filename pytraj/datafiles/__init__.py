@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import os
 from .. TrajectoryIterator import TrajectoryIterator
+from .. utils.context import goto_temp_folder
 
 __all__ = ['Ala3_crd', 'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7']
 
@@ -17,10 +18,11 @@ trajin %s
 """
 
 pairlist = {
-        'tc5b_trajin' : ["./data/md1_prod.Tc5b.x", "./data/Tc5b.top"],
-        'DPDP_trajin' : ["./data/DPDP.nc", "./data/DPDP.parm7"],
-        'tz2_ortho_trajin' : ["./data/tz2.ortho.nc", "./data/tz2.ortho.parm7"],
-        }
+    'tc5b_trajin': ["./data/md1_prod.Tc5b.x", "./data/Tc5b.top"],
+    'DPDP_trajin': ["./data/DPDP.nc", "./data/DPDP.parm7"],
+    'tz2_ortho_trajin': ["./data/tz2.ortho.nc", "./data/tz2.ortho.parm7"],
+}
+
 
 def _get_trajin_text(alist, template=trajin_template):
     fname = os.path.abspath(alist[0])
@@ -32,20 +34,94 @@ DPDP_trajin = _get_trajin_text(pairlist['DPDP_trajin'])
 tz2_ortho_trajin = _get_trajin_text(pairlist['tz2_ortho_trajin'])
 
 
-def load_result_from_cpptraj_state(txt, dtype=None):
+def load_result_from_cpptraj_state(txt, with_state=False, dtype=None):
     """load output from cpptraj
+
+    Parameters
+    ----------
+    txt : str
+        cpptraj's trajin
+    with_state : bool, default False
+        return CpptrajState or not
+    dtype : str, return data type
     """
-    from pytraj.utils.context import goto_temp_folder
     from pytraj.io import load_cpptraj_file
     from pytraj.datasetlist import DatasetList
+    from pytraj import ArgList
+
+    command_list = list(filter(lambda x: x, txt.split("\n")))
+
+    for idx, line in enumerate(command_list):
+        if 'parm' in line:
+            arglist = ArgList(line)
+            # use absolute path
+            fname = os.path.abspath(arglist.get_string_key('parm'))
+            command_list[idx] = " ".join(('parm', fname))
+
+        if 'trajin' in line:
+            arglist = ArgList(line)
+            # use absolute path
+            fname = os.path.abspath(arglist.get_string_key('trajin'))
+            command_list[idx] = " ".join(('trajin', fname))
+
+    txt = "\n".join([line for line in command_list])
 
     with goto_temp_folder():
         with open("tmp.in", 'w') as fh:
             fh.write(txt)
         state = load_cpptraj_file("tmp.in")
         state.run()
+
         if dtype == 'cpptraj_dataset':
-            return state.datasetlist
-        return DatasetList(state.datasetlist)
+            out = [state, state.datasetlist]
+        else:
+            out = [state, DatasetList(state.datasetlist)]
+        if with_state:
+            return out
+        else:
+            return out[-1]
+
+
+def load_outtraj(txt, top=None):
+    '''
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> pt.datafiles.load_outtraj(tc5b_trajin + """
+    trajout test.nc
+    """, top=traj.top)
+    '''
+    from pytraj.io import load_cpptraj_file
+    from pytraj import ArgList
+    import pytraj as pt
+
+    command_list = list(filter(lambda x: x, txt.split("\n")))
+    arglist = ArgList(txt)
+
+    filelist = []
+    _top = None
+    for line in command_list:
+        if 'trajout' in line:
+            arg = ArgList(line)
+            filelist.append(arg.get_string_key('trajout'))
+
+        if 'parm' in line:
+            _top = ArgList(line).get_string_key('parm')
+
+    if top is None:
+        top = _top
+
+    with goto_temp_folder():
+        with open("tmp.in", 'w') as fh:
+            fh.write(txt)
+        state = load_cpptraj_file("tmp.in")
+        state.run()
+        traj = pt.iterload(filelist[0], top)
+        if traj._estimated_MB > 1000:
+            raise MemoryError(
+                "I don't want to load 1GB data to memory for testing")
+
+        # convert to in-memory Trajectory
+        return traj[:]
 
 load_cpptraj_output = load_result_from_cpptraj_state

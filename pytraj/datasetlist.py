@@ -599,7 +599,7 @@ class DatasetList(list):
                 import seaborn as snb
                 snb.set()
             except ImportError:
-                print ("no seaborn package. skip importing")
+                print("no seaborn package. skip importing")
         try:
             from matplotlib import pyplot as plt
             ax = plt.subplot(111)
