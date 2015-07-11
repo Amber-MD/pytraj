@@ -1405,7 +1405,7 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def find_neighborlist(traj=None, 
+def find_neighborlist(traj=None,
                       mask='',
                       cutoff='',
                       dtype='dataset',

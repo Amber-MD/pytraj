@@ -93,7 +93,7 @@ class TestAtomMask(unittest.TestCase):
         atm4 = AtomMask(np.asarray(indices), 1000)
 
         import numpy as np
-        assert np.all(atm1.indices == atm2.indices) 
+        assert np.all(atm1.indices == atm2.indices)
         assert np.all(atm3.indices == atm4.indices)
         # FIXME: can not catch RuntimeError here
         # since we don't set atm3 max_atoms, we expect to get RuntimeError

@@ -19,9 +19,9 @@ class Test(unittest.TestCase):
         indices = atm.indices
         new_mask = to_amber_mask(indices, mode='int_to_str')
         atm2 = traj.top(new_mask)
-        #print(new_mask)
-        #print(atm2.indices)
-        #print(atm.indices)
+        # print(new_mask)
+        # print(atm2.indices)
+        # print(atm.indices)
         print(atm.indices, atm2.indices)
         assert np.all(atm.indices == atm2.indices)
 

@@ -624,6 +624,8 @@ static CYTHON_INLINE PyObject* __Pyx_decode_cpp_string(
         cppstring.data(), cppstring.size(), start, stop, encoding, errors, decode_func);
 }
 
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
+
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
     PyListObject* L = (PyListObject*) list;
@@ -683,8 +685,6 @@ static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
 
 static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb);
-
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
 static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
 
@@ -820,7 +820,7 @@ static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_33print_debug(struct __pyx_o
 static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_35remove_first_arg(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_37command_is(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, char *__pyx_v_cm); /* proto */
 static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_39get_string_next(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_41get_string_key(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, char *__pyx_v_c); /* proto */
+static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_41get_string_key(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, PyObject *__pyx_v_c); /* proto */
 static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_43get_mask_next(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_45get_next_tag(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_47get_next_integer(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, PyObject *__pyx_v_defint); /* proto */
@@ -828,7 +828,7 @@ static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_49get_next_double(struct __p
 static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_51get_key_int(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, char *__pyx_v_key, int __pyx_v_defint); /* proto */
 static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_53get_key_double(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, char *__pyx_v_key, double __pyx_v_defd); /* proto */
 static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_55has_key(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, char *__pyx_v_key); /* proto */
-static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_57contains(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, char *__pyx_v_key); /* proto */
+static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_57contains(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, PyObject *__pyx_v_key); /* proto */
 static PyObject *__pyx_tp_new_6pytraj_7ArgList_ArgList(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_6pytraj_7ArgList___pyx_scope_struct____iter__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tuple_;
@@ -2473,7 +2473,7 @@ static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_39get_string_next(struct __p
  *         key = self.thisptr.GetStringNext()
  *         return key.decode()             # <<<<<<<<<<<<<<
  * 
- *     def get_string_key(self, char* c):
+ *     def get_string_key(self, c):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_decode_cpp_string(__pyx_v_key, 0, PY_SSIZE_T_MAX, NULL, NULL, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2504,43 +2504,33 @@ static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_39get_string_next(struct __p
 /* "pytraj/ArgList.pyx":123
  *         return key.decode()
  * 
- *     def get_string_key(self, char* c):             # <<<<<<<<<<<<<<
- *         key = self.thisptr.GetStringKey(c)
+ *     def get_string_key(self, c):             # <<<<<<<<<<<<<<
+ *         key = self.thisptr.GetStringKey(c.encode())
  *         return key.decode()
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7ArgList_7ArgList_42get_string_key(PyObject *__pyx_v_self, PyObject *__pyx_arg_c); /*proto*/
-static char __pyx_doc_6pytraj_7ArgList_7ArgList_41get_string_key[] = "ArgList.get_string_key(self, char *c)";
-static PyObject *__pyx_pw_6pytraj_7ArgList_7ArgList_42get_string_key(PyObject *__pyx_v_self, PyObject *__pyx_arg_c) {
-  char *__pyx_v_c;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
+static PyObject *__pyx_pw_6pytraj_7ArgList_7ArgList_42get_string_key(PyObject *__pyx_v_self, PyObject *__pyx_v_c); /*proto*/
+static char __pyx_doc_6pytraj_7ArgList_7ArgList_41get_string_key[] = "ArgList.get_string_key(self, c)";
+static PyObject *__pyx_pw_6pytraj_7ArgList_7ArgList_42get_string_key(PyObject *__pyx_v_self, PyObject *__pyx_v_c) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_string_key (wrapper)", 0);
-  assert(__pyx_arg_c); {
-    __pyx_v_c = __Pyx_PyObject_AsString(__pyx_arg_c); if (unlikely((!__pyx_v_c) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.ArgList.ArgList.get_string_key", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_7ArgList_7ArgList_41get_string_key(((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_v_self), ((char *)__pyx_v_c));
+  __pyx_r = __pyx_pf_6pytraj_7ArgList_7ArgList_41get_string_key(((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_v_self), ((PyObject *)__pyx_v_c));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_41get_string_key(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, char *__pyx_v_c) {
+static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_41get_string_key(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, PyObject *__pyx_v_c) {
   std::string __pyx_v_key;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  char const *__pyx_t_4;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2548,16 +2538,38 @@ static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_41get_string_key(struct __py
 
   /* "pytraj/ArgList.pyx":124
  * 
- *     def get_string_key(self, char* c):
- *         key = self.thisptr.GetStringKey(c)             # <<<<<<<<<<<<<<
+ *     def get_string_key(self, c):
+ *         key = self.thisptr.GetStringKey(c.encode())             # <<<<<<<<<<<<<<
  *         return key.decode()
  * 
  */
-  __pyx_v_key = __pyx_v_self->thisptr->GetStringKey(__pyx_v_c);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_c, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (__pyx_t_3) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else {
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __Pyx_PyObject_AsString(__pyx_t_1); if (unlikely((!__pyx_t_4) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_key = __pyx_v_self->thisptr->GetStringKey(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pytraj/ArgList.pyx":125
- *     def get_string_key(self, char* c):
- *         key = self.thisptr.GetStringKey(c)
+ *     def get_string_key(self, c):
+ *         key = self.thisptr.GetStringKey(c.encode())
  *         return key.decode()             # <<<<<<<<<<<<<<
  * 
  *     def get_mask_next(self):
@@ -2572,14 +2584,16 @@ static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_41get_string_key(struct __py
   /* "pytraj/ArgList.pyx":123
  *         return key.decode()
  * 
- *     def get_string_key(self, char* c):             # <<<<<<<<<<<<<<
- *         key = self.thisptr.GetStringKey(c)
+ *     def get_string_key(self, c):             # <<<<<<<<<<<<<<
+ *         key = self.thisptr.GetStringKey(c.encode())
  *         return key.decode()
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("pytraj.ArgList.ArgList.get_string_key", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -3142,7 +3156,7 @@ static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_55has_key(struct __pyx_obj_6
  *     def has_key(self, char* key):
  *         return self.thisptr.hasKey(key)             # <<<<<<<<<<<<<<
  * 
- *     def contains(self, char* key):
+ *     def contains(self, key):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->thisptr->hasKey(__pyx_v_key)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 147; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3173,42 +3187,31 @@ static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_55has_key(struct __pyx_obj_6
 /* "pytraj/ArgList.pyx":149
  *         return self.thisptr.hasKey(key)
  * 
- *     def contains(self, char* key):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Contains(key)
- * 
+ *     def contains(self, key):             # <<<<<<<<<<<<<<
+ *         return self.thisptr.Contains(key.encode())
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_7ArgList_7ArgList_58contains(PyObject *__pyx_v_self, PyObject *__pyx_arg_key); /*proto*/
-static char __pyx_doc_6pytraj_7ArgList_7ArgList_57contains[] = "ArgList.contains(self, char *key)";
-static PyObject *__pyx_pw_6pytraj_7ArgList_7ArgList_58contains(PyObject *__pyx_v_self, PyObject *__pyx_arg_key) {
-  char *__pyx_v_key;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
+static PyObject *__pyx_pw_6pytraj_7ArgList_7ArgList_58contains(PyObject *__pyx_v_self, PyObject *__pyx_v_key); /*proto*/
+static char __pyx_doc_6pytraj_7ArgList_7ArgList_57contains[] = "ArgList.contains(self, key)";
+static PyObject *__pyx_pw_6pytraj_7ArgList_7ArgList_58contains(PyObject *__pyx_v_self, PyObject *__pyx_v_key) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("contains (wrapper)", 0);
-  assert(__pyx_arg_key); {
-    __pyx_v_key = __Pyx_PyObject_AsString(__pyx_arg_key); if (unlikely((!__pyx_v_key) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.ArgList.ArgList.contains", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_7ArgList_7ArgList_57contains(((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_v_self), ((char *)__pyx_v_key));
+  __pyx_r = __pyx_pf_6pytraj_7ArgList_7ArgList_57contains(((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_v_self), ((PyObject *)__pyx_v_key));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_57contains(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, char *__pyx_v_key) {
+static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_57contains(struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_self, PyObject *__pyx_v_key) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  char const *__pyx_t_4;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3216,29 +3219,50 @@ static PyObject *__pyx_pf_6pytraj_7ArgList_7ArgList_57contains(struct __pyx_obj_
 
   /* "pytraj/ArgList.pyx":150
  * 
- *     def contains(self, char* key):
- *         return self.thisptr.Contains(key)             # <<<<<<<<<<<<<<
- * 
- *     # those methods exist in ArgList.h but don't in ArgList.cpp
+ *     def contains(self, key):
+ *         return self.thisptr.Contains(key.encode())             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->thisptr->Contains(__pyx_v_key)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_key, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (__pyx_t_3) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else {
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __Pyx_PyObject_AsString(__pyx_t_1); if (unlikely((!__pyx_t_4) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_v_self->thisptr->Contains(__pyx_t_4)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
   goto __pyx_L0;
 
   /* "pytraj/ArgList.pyx":149
  *         return self.thisptr.hasKey(key)
  * 
- *     def contains(self, char* key):             # <<<<<<<<<<<<<<
- *         return self.thisptr.Contains(key)
- * 
+ *     def contains(self, key):             # <<<<<<<<<<<<<<
+ *         return self.thisptr.Contains(key.encode())
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("pytraj.ArgList.ArgList.contains", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -4712,6 +4736,36 @@ static CYTHON_INLINE PyObject* __Pyx_decode_c_bytes(
     }
 }
 
+#if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_New(1);
+    if (unlikely(!args)) return NULL;
+    Py_INCREF(arg);
+    PyTuple_SET_ITEM(args, 0, arg);
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+#ifdef __Pyx_CyFunction_USED
+    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
+#else
+    if (likely(PyCFunction_Check(func))) {
+#endif
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
+            return __Pyx_PyObject_CallMethO(func, arg);
+        }
+    }
+    return __Pyx__PyObject_CallOneArg(func, arg);
+}
+#else
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject* args = PyTuple_Pack(1, arg);
+    return (likely(args)) ? __Pyx_PyObject_Call(func, args, NULL) : NULL;
+}
+#endif
+
 static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
     PyObject *empty_list = 0;
     PyObject *module = 0;
@@ -5690,36 +5744,6 @@ static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value,
     *value = tmp_value;
     *tb = tmp_tb;
 }
-
-#if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject *result;
-    PyObject *args = PyTuple_New(1);
-    if (unlikely(!args)) return NULL;
-    Py_INCREF(arg);
-    PyTuple_SET_ITEM(args, 0, arg);
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-#ifdef __Pyx_CyFunction_USED
-    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
-#else
-    if (likely(PyCFunction_Check(func))) {
-#endif
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
-            return __Pyx_PyObject_CallMethO(func, arg);
-        }
-    }
-    return __Pyx__PyObject_CallOneArg(func, arg);
-}
-#else
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject* args = PyTuple_Pack(1, arg);
-    return (likely(args)) ? __Pyx_PyObject_Call(func, args, NULL) : NULL;
-}
-#endif
 
 static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg) {
     PyObject *method, *result = NULL;

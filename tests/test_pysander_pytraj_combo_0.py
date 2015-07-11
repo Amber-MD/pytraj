@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
 
             for frame in traj:
                 parm.load_coordinates(frame.coords)
-                sander.setup(parm, parm.coords, None, inp)
+                sander.setup(parm, parm.coordinates, None, inp)
                 ene, frc = sander.energy_forces()
                 print(ene.gb)
                 sander.cleanup()
@@ -46,7 +46,7 @@ class Test(unittest.TestCase):
             for frame in traj:
                 arr0 = np.asarray(frame.buffer1d)
                 parm.load_coordinates(arr0)
-                sander.setup(parm, parm.coords, None, inp)
+                sander.setup(parm, parm.coordinates, None, inp)
                 ene, frc = sander.energy_forces()
                 print(ene.gb)
                 sander.cleanup()

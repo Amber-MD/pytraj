@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
         a_isinstance(anp2, np.ndarray)
         a_isinstance(a_pyarray2, pyarray)
 
-        print (anp2)
+        print(anp2)
         aa_eq(alist2[0], anp2)
         aa_eq(alist2[0], a_pyarray2)
 

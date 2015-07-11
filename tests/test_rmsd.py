@@ -100,7 +100,7 @@ class Test(unittest.TestCase):
         arr2 = traj.calc_rmsd(mask=list(atm.indices), ref=-1)
         arr3 = traj.calc_rmsd(mask=tuple(atm.indices), ref=-1)
         a_md = md.rmsd(m_traj, m_traj, -1, atm.indices)
-        print ('arr0', arr0, 'a_md', a_md)
+        print('arr0', arr0, 'a_md', a_md)
         assert_almost_equal(arr0, a_md)
         assert_almost_equal(arr1, a_md)
         assert_almost_equal(arr2, a_md)
