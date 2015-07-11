@@ -764,6 +764,12 @@ cdef class Topology:
         else:
             raise ValueError("must have pandas")
 
+    def to_parmed(self):
+        """try to load to ParmEd's Structure
+        """
+        import parmed as pmd
+        return pmd.load_file(self.filename)
+
     def NonbondParmType(self):
         cdef NonbondParmType nb = NonbondParmType()
         nb.thisptr[0] = self.thisptr.Nonbond()
