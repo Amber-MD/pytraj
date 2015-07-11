@@ -1405,10 +1405,11 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def find_neighborlist(traj=None, mask='',
-                      top=None,
+def find_neighborlist(traj=None, 
+                      mask='',
                       cutoff='',
-                      dtype='dataset'):
+                      dtype='dataset',
+                      top=None):
     """Note: not validate yet
 
     >>> pt.common_actions.find_neighborlist(traj, ':5 <:5.0')
