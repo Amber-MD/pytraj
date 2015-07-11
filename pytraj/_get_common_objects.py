@@ -104,6 +104,7 @@ def _get_matrix_from_dataset(dset, mat_type='full'):
     else:
         raise ValueError()
 
+
 def _get_reference_from_traj(traj, ref):
     from pytraj.utils import is_int
     if is_int(ref):

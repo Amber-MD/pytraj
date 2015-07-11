@@ -57,8 +57,10 @@ def to_amber_mask(txt, mode=None):
     else:
         raise NotImplementedError()
 
+
 def array_to_cpptraj_atommask(arr):
     return to_amber_mask(arr, mode='int_to_str')
+
 
 def from_legends_to_indices(legends, top):
     """return somethine like "ASP_16@OD1-ARG_18@N-H" to list of indices
