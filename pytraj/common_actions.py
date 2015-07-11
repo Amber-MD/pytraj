@@ -73,10 +73,12 @@ energy_decomposition = get_pysander_energies
 
 action_type = calculate
 
+
 def _noaction_with_TrajectoryIterator(trajiter):
     from pytraj import TrajectoryIterator
     if isinstance(trajiter, TrajectoryIterator):
         raise ValueError("This analysis does not support immutable object")
+
 
 def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """calculate distance
@@ -89,7 +91,6 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     command = mask
 
     _top = _get_top(traj, top)
-
 
     cm_arr = np.asarray(command)
 
@@ -117,12 +118,11 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
         for idx, frame in enumerate(_frame_iter_master(traj)):
             arr[idx] = frame.calc_distance(int_2darr)
 
-
         arr = arr.T
         if dtype == 'ndarray':
             return arr
         else:
-            py_dslist = from_dict({'distance' : arr})
+            py_dslist = from_dict({'distance': arr})
             return _get_data_from_dtype(py_dslist, dtype)
 
     elif isinstance(command, (list, tuple, string_types, np.ndarray)):
@@ -216,7 +216,7 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
         if dtype == 'ndarray':
             return arr
         else:
-            py_dslist = from_dict({'angle' : arr})
+            py_dslist = from_dict({'angle': arr})
             return _get_data_from_dtype(py_dslist, dtype)
 
 
@@ -233,7 +233,6 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     _, np = _import_numpy()
     _top = _get_top(traj, top)
     cm_arr = np.asarray(command)
-
 
     if 'int' not in cm_arr.dtype.name:
         if isinstance(command, string_types):
@@ -286,7 +285,7 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
             return arr
         else:
             from pytraj.datasetlist import from_dict
-            py_dslist = from_dict({'dihedral' : arr})
+            py_dslist = from_dict({'dihedral': arr})
             return _get_data_from_dtype(py_dslist, dtype)
 
 
@@ -344,7 +343,7 @@ def calc_matrix(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_radgyr(traj=None, mask="", top=None, 
+def calc_radgyr(traj=None, mask="", top=None,
                 nomax=False,
                 dtype='ndarray', *args, **kwd):
 
@@ -463,7 +462,7 @@ def calc_rdf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_jcoupling(traj=None, mask="", top=None, 
+def calc_jcoupling(traj=None, mask="", top=None,
                    kfile=None, dtype='dataset', *args, **kwd):
     """
     Paramters
@@ -497,6 +496,7 @@ def do_translation(traj=None, command="", top=Topology()):
     adict['translate'](command, traj, top)
 
 translate = do_translation
+
 
 def do_scaling(traj=None, command="", top=Topology()):
     _noaction_with_TrajectoryIterator(traj)
@@ -601,12 +601,12 @@ def do_clustering(traj=None, command="", top=None, dtype='dataset',
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_multidihedral(traj=None, command="", dtype='dataset', 
-        dihedral_types=None,
-        resrange=None,
-        define_new_type=None,
-        range360=False,
-        top=None, *args, **kwd):
+def calc_multidihedral(traj=None, command="", dtype='dataset',
+                       dihedral_types=None,
+                       resrange=None,
+                       define_new_type=None,
+                       range360=False,
+                       top=None, *args, **kwd):
     """perform dihedral search
     Parameters
     ----------
@@ -797,9 +797,9 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
 calc_COG = calc_center_of_geometry
 
 
-def calc_pairwise_rmsd(traj=None, mask="", top=None, dtype='ndarray', 
-                      mat_type='full',
-                      *args, **kwd):
+def calc_pairwise_rmsd(traj=None, mask="", top=None, dtype='ndarray',
+                       mat_type='full',
+                       *args, **kwd):
     """return  CpptrajDatasetList object
     Parameters
     ----------
@@ -964,7 +964,7 @@ def calc_rmsd(traj=None, ref=0,  mask="", mass=False,
     import numpy as np
 
     if isinstance(mask, string_types):
-        command = [mask,]
+        command = [mask, ]
     else:
         try:
             cmd = np.asarray(mask)
@@ -975,7 +975,7 @@ def calc_rmsd(traj=None, ref=0,  mask="", mass=False,
             command = cmd
         elif 'int' in dname or 'object' in dname:
             if cmd.ndim == 1 and 'object' not in dname:
-                command = [to_cpptraj_mask(mask),]
+                command = [to_cpptraj_mask(mask), ]
             elif cmd.ndim == 2 or 'object' in dname:
                 command = [to_cpptraj_mask(x) for x in mask]
             else:
@@ -1086,7 +1086,7 @@ def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
     dslist = CpptrajDatasetList()
     act = adict['atomiccorr']
-    act("out mytempfile.out " + command, traj, top=_top, 
+    act("out mytempfile.out " + command, traj, top=_top,
         dslist=dslist, *args, **kwd)
     act.print_output()
     return _get_data_from_dtype(dslist, dtype=dtype)
@@ -1214,7 +1214,7 @@ def native_contacts(traj=None, mask="", top=None, dtype='dataset',
     _includesolvent = "includesolvent" if include_solvent else ""
     _byres = "byresidue" if byres else ""
 
-    _command = " ".join((command, _distance, _noimage, 
+    _command = " ".join((command, _distance, _noimage,
                          _includesolvent, _byres))
 
     _top = _get_top(traj, top)
@@ -1301,6 +1301,7 @@ def check_structure(traj=None, command="", top=None,
     _top = _get_top(traj, top)
     act(command, traj, top=_top, *args, **kwd)
 
+
 def timecorr(vec0, vec1, order=2, timestep=1., tcorr=10000.,
              norm=False,
              dtype='ndarray'):
@@ -1315,7 +1316,7 @@ def timecorr(vec0, vec1, order=2, timestep=1., tcorr=10000.,
     tcorr : float, default 10000.
     norm : bool, default False
     """
-    from pytraj.datasets import  DataSetList as CDSL, DatasetVector
+    from pytraj.datasets import DataSetList as CDSL, DatasetVector
     from pytraj.math import Vec3
     import numpy as np
     act = analdict['timecorr']
@@ -1331,9 +1332,11 @@ def timecorr(vec0, vec1, order=2, timestep=1., tcorr=10000.,
     _tstep = "tstep " + str(timestep)
     _tcorr = "tcorr " + str(tcorr)
     _norm = "norm" if norm else ""
-    command = " ".join(('vec1 _vec0 vec2 _vec1', _order, _tstep, _tcorr, _norm))
+    command = " ".join(
+        ('vec1 _vec0 vec2 _vec1', _order, _tstep, _tcorr, _norm))
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
+
 
 def cross_correlation_function(data0, data1, dtype='ndarray'):
     """
@@ -1355,6 +1358,7 @@ def cross_correlation_function(data0, data1, dtype='ndarray'):
     act("d0 d1 out _tmp.out", dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
+
 def auto_correlation_function(data, dtype='ndarray', covar=True):
     """
     Notes
@@ -1375,6 +1379,7 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     command = "d0 out _tmp.out" + _nocovar
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
+
 
 def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     """
@@ -1399,8 +1404,9 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
-def find_neighborlist(traj=None, mask='', 
-                      top=None, 
+
+def find_neighborlist(traj=None, mask='',
+                      top=None,
                       cutoff='',
                       dtype='dataset'):
     """Note: not validate yet
@@ -1422,8 +1428,9 @@ def find_neighborlist(traj=None, mask='',
     _top = _get_top(traj, top)
     for idx, frame in enumerate(_frame_iter_master(traj)):
         _top.set_reference_frame(frame)
-        dslist.append({str(idx) : np.asarray(_top.select(mask).indices)})
+        dslist.append({str(idx): np.asarray(_top.select(mask).indices)})
     return _get_data_from_dtype(dslist, dtype)
+
 
 def pucker(traj=None, pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
            resrange=None,
@@ -1455,10 +1462,11 @@ def pucker(traj=None, pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
     for res in resrange:
         act = Action_Pucker()
         command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
-        name = "pucker_res" + str(res+1)
+        name = "pucker_res" + str(res + 1)
         command = " ".join((name, command, _range360, method, geom, _offset))
         act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
     return _get_data_from_dtype(cdslist, dtype)
+
 
 def center(traj=None, mask="", top=None):
     """

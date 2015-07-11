@@ -20,6 +20,7 @@ def elemwise(op, self, other=None):
     else:
         return op(self.values)
 
+
 class DataArray(object):
 
     """place holder for all cpptraj' output

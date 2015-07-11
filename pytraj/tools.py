@@ -2,7 +2,8 @@
 If want to use external package, import it inside the function
 """
 from __future__ import absolute_import
-import sys, os
+import sys
+import os
 from glob import glob
 from itertools import islice, groupby
 import functools
@@ -19,6 +20,7 @@ if PY3:
 else:
     _iteritems = "iteritems"
     string_types = basestring
+
 
 def iteritems(d, **kw):
     """Return an iterator over the (key, value) pairs of a dictionary."""
@@ -115,6 +117,7 @@ def moving_average(data, n):
     else:
         return new_data
 
+
 def pipe(obj, func, *args, **kwargs):
     # copied from pandas PR
     # https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py
@@ -139,11 +142,13 @@ def pipe(obj, func, *args, **kwargs):
     else:
         return func(obj, *args, **kwargs)
 
+
 def _compose2(f, g):
     # copied from pandas
     # see license in pytraj/license/
     """Compose 2 callables"""
     return lambda *args, **kwargs: f(g(*args, **kwargs))
+
 
 def compose(*funcs):
     # copied from pandas (added pytraj's example)
@@ -158,6 +163,7 @@ def compose(*funcs):
     """
     assert len(funcs) > 1, 'At least 2 callables must be passed to compose'
     return reduce(_compose2, funcs)
+
 
 def grep(self, key):
     """
@@ -277,7 +283,7 @@ def rmsd_1darray(a1, a2):
     if arr1.shape != arr2.shape:
         raise ValueError("must have the same shape")
 
-    tmp = sum((arr1 - arr2)**2)
+    tmp = sum((arr1 - arr2) ** 2)
     return sqrt(tmp / arr1.shape[0])
 
 
@@ -293,6 +299,7 @@ def rmsd(a1, a2, flatten=True):
         raise ValueError("must have the same shape")
     return rmsd_1darray(a1.flatten(), a2.flatten())
 
+
 def mean_and_error(a1, a2):
     """calculate mean and error from two 1D array-like
     """
@@ -302,11 +309,13 @@ def mean_and_error(a1, a2):
     a1 = np.asarray(a1)
     a2 = np.asarray(a2)
     assert len(a1.shape) == len(a2.shape) == 1, "1D array"
-    return (mean(a1 + a2)/2, mean(np.abs(a1 - a2))/2)
+    return (mean(a1 + a2) / 2, mean(np.abs(a1 - a2)) / 2)
+
 
 def get_parmed_info(its_obj, att):
     import numpy as np
     return np.asarray([getattr(atom, att) for atom in its_obj.atoms])
+
 
 def split_parmed_by_residues(struct, start=0, stop=-1, stride=1):
     '''split `ParmEd`'s Structure into different residue
@@ -320,6 +329,7 @@ def split_parmed_by_residues(struct, start=0, stop=-1, stride=1):
         j = ':' + str(i + 1)
         # example: traj[':3']
         yield struct[j]
+
 
 def split_traj_by_residues(traj, start=0, stop=-1, stride=1):
     '''return a generator
@@ -339,6 +349,7 @@ def split_traj_by_residues(traj, start=0, stop=-1, stride=1):
         j = ':' + str(i + 1)
         # example: traj[':3']
         yield traj[j]
+
 
 def find_lib(libname, unique=False):
     """return a list of all library files"""

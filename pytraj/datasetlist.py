@@ -30,6 +30,7 @@ def from_json(filename):
     dslist.from_json(filename)
     return dslist
 
+
 def from_dict(d):
     return DatasetList(d)
 
@@ -91,7 +92,9 @@ concat_datasetlist = stack
 
 from collections import OrderedDict
 
+
 class _OrderedDict(OrderedDict):
+
     @property
     def values(self):
         from pytraj.tools import dict_to_ndarray
@@ -107,6 +110,7 @@ class _OrderedDict(OrderedDict):
         else:
             return np.array([[key for key in self.keys()], arr])
 
+
 class DatasetList(list):
 
     def __init__(self, dslist=None, copy=False):
@@ -114,7 +118,7 @@ class DatasetList(list):
             if isinstance(dslist, dict):
                 # {'x': [1, 3, 5], 'y': [4, 7, 8]}
                 for key, values in iteritems(dslist):
-                    self.append(DataArray({key : values}), copy=copy)
+                    self.append(DataArray({key: values}), copy=copy)
             else:
                 for d0 in dslist:
                     # always make a copy
@@ -208,8 +212,8 @@ class DatasetList(list):
             if False, return a dictionary of 2D numpy array
             if True, return a dictionary of matplotlib object
         """
-        hist_dict= dict(map(lambda x: (x.legend,  x.hist(plot=plot, show=False,
-                                                     *args, **kwd)), self))
+        hist_dict = dict(map(lambda x: (x.legend,  x.hist(plot=plot, show=False,
+                                                          *args, **kwd)), self))
 
         if show:
             # only show once
@@ -257,16 +261,15 @@ class DatasetList(list):
             return safe_msg
         msg = "\n\n".join("\n".join((d.key, d.values.__str__()))
                           for d in self)
-        str_first_3= "\n\n".join("\n".join((d.key, d.values.__str__())) 
-                                 for d in self[:3])
-        str_last_2 = "\n\n".join("\n".join((d.key, d.values.__str__())) 
-                                for d in self[-2:])
+        str_first_3 = "\n\n".join("\n".join((d.key, d.values.__str__()))
+                                  for d in self[:3])
+        str_last_2 = "\n\n".join("\n".join((d.key, d.values.__str__()))
+                                 for d in self[-2:])
 
         if self.size <= 5:
             return safe_msg + msg
         else:
             return safe_msg + str_first_3 + "\n...\n\n" + str_last_2
-
 
     def __repr__(self):
         return self.__str__()
@@ -520,8 +523,8 @@ class DatasetList(list):
         if restype == 'dict':
             return dict((x.legend, x.sum()) for x in self).values
         elif restype == 'ndarray':
-            return np.array([self.keys(), 
-                           dict((x.legend, x.sum()) for x in self).to_ndarray()]).T
+            return np.array([self.keys(),
+                             dict((x.legend, x.sum()) for x in self).to_ndarray()]).T
 
     def cumsum(self, axis=1):
         """Return the cumulative sum of the elements along a given axis.
@@ -574,15 +577,15 @@ class DatasetList(list):
         formats = ['%8i'] + [d.format for d in self]
         np.savetxt(filename, values, fmt=formats, header=headers)
 
-    def plot(self, show=True, 
-            use_seaborn=True, 
-            x=None,
-            y=None,
-            legends=[],
-            autoset=True,
-            xlim=None,
-            ylim=None,
-            *args, **kwd):
+    def plot(self, show=True,
+             use_seaborn=True,
+             x=None,
+             y=None,
+             legends=[],
+             autoset=True,
+             xlim=None,
+             ylim=None,
+             *args, **kwd):
         """very simple plot for quickly visualize the data
 
         >>> dslist[['psi:7', 'phi:7']].plot()
@@ -650,7 +653,7 @@ class DatasetList(list):
         elif isinstance(dset, dict):
             for key, values in iteritems(dset):
                 check_key(self, key)
-                super(DatasetList, self).append(DataArray({key : values}))
+                super(DatasetList, self).append(DataArray({key: values}))
         else:
             raise ValueError()
 
@@ -689,8 +692,8 @@ class DatasetList(list):
         return dict((x.legend, x.tail(k)) for x in self)
 
     def groupby(self, func_or_key, copy=False):
-        return dict((x, from_sequence(y, copy=copy)) 
-               for x, y in groupby(self, func_or_key))
+        return dict((x, from_sequence(y, copy=copy))
+                    for x, y in groupby(self, func_or_key))
 
     def cpptraj_dtypes(self):
         return np.array([x.cpptraj_dtype for x in self])
@@ -727,4 +730,3 @@ class DatasetList(list):
             from pytraj.tools import flatten
             import numpy as np
             return np.asarray(flatten(self))
-

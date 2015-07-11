@@ -129,7 +129,7 @@ def search_hbonds_noseries(traj, mask="", dtype='dataset', update_legend=True,
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def search_hbonds(traj, mask="", dtype='dataset', 
+def search_hbonds(traj, mask="", dtype='dataset',
                   solventdonor=None,
                   solventacceptor=None,
                   update_legend=True,
@@ -169,7 +169,8 @@ def search_hbonds(traj, mask="", dtype='dataset',
     http://ambermd.org/doc12/Amber15.pdf (page 575)
     """
     s_donor = "solventdonor " + str(solventdonor) if solventdonor else ""
-    s_acceptor = "solventacceptor " + str(solventacceptor) if solventacceptor else ""
+    s_acceptor = "solventacceptor " + \
+        str(solventacceptor) if solventacceptor else ""
 
     dslist = DataSetList()
     act = adict['hbond']
