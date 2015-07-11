@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
         aa_eq(d0, d1)
         aa_eq(d0, d2)
 
-        Nsize = 10
+        Nsize = 12
         arr = np.random.randint(0, 300, size=Nsize * 2).reshape(Nsize, 2)
         d3 = fa.calc_distance(arr)
         d4 = traj.calc_distance(arr)
@@ -36,8 +36,8 @@ class Test(unittest.TestCase):
         aa_eq(d3, d4)
         aa_eq(d3, d5)
         aa_eq(d3, d6)
-        aa_eq(d3, d7[:fa.n_frames])
-        aa_eq(d3, d7[fa.n_frames:])
+        aa_eq(d3.T, d7.T[:fa.n_frames])
+        aa_eq(d3.T, d7.T[fa.n_frames:])
 
     def test_1(self):
         import numpy as np

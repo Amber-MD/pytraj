@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
         i0 = top("@CA").indices
         i1 = top("@CB").indices
         combinations = np.array(list(product(i0, i1)))
-        d1 = traj.calc_distance(combinations)
+        d1 = traj.calc_distance(combinations).T
         print(d1.shape)
 
         min_list = []
