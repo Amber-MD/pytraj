@@ -11,7 +11,7 @@ def test_0():
     from pytraj import set_world_silent
     # set_world_silent(False) # turn on cpptraj's verbose
     traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-    traj_saved = mdio.iterload("./data/tz2.autoimage_rmfit.nc", traj.top)
+    traj_saved = mdio.iterload("./data/tz2.autoimage_with_rmsfit.nc", traj.top)
     fa = traj[:]
     ref0 = fa[0].copy()
     ref1 = fa[0].copy()
