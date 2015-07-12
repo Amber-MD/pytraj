@@ -19,6 +19,8 @@ from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj
 from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
+from .utils import is_int
+from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
 from .externals.six import string_types
 from .Frame import Frame
@@ -33,7 +35,6 @@ from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
-from .utils.context import goto_temp_folder
 from . import _long_manual
 
 list_of_cal = ['calc_distance', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
@@ -643,6 +644,8 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
         Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 579)
     """
     if resrange and 'resrange' not in command:
+        if is_int(resrange):
+            resrange = [resrange,]
         if isinstance(resrange, string_types):
             _resrange = "resrange " + str(resrange)
         else:
@@ -1488,3 +1491,23 @@ def center(traj=None, mask="", top=None):
     from pytraj.actions.CpptrajActions import Action_Center
     act = Action_Center()
     act(mask, traj, top=_top)
+
+def rotate_dihedral(traj=None, mask="", top=None):
+    """
+    Examples
+    --------
+    >>> import pytraj asp t
+    >>> pt.rotate_dihedral(traj, "3:phi:120") # rotate phi of res 3 by to 120 deg
+    """
+    _noaction_with_TrajectoryIterator(traj)
+    _top = _get_top(traj, top)
+
+    if "custom:" in mask:
+        command = mask
+    else:
+        command = "custom:" + mask
+
+    from pytraj.actions.CpptrajActions import Action_MakeStructure
+    act = Action_MakeStructure()
+
+    act(command, traj, top=_top)

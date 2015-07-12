@@ -392,7 +392,8 @@ cdef class Topology:
     def filename(self):
         # I want to keep _original_filename so don't need to
         # change other codes
-        return self._original_filename
+        import os
+        return os.path.abspath(self._original_filename)
 
     @property
     def _original_filename(self):

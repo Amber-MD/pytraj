@@ -281,7 +281,7 @@ def load_remd(filename, top=None, T="300.0"):
 
 def write_traj(filename="", traj=None, top=None,
                format='unknown_traj', indices=None,
-               overwrite=False, more_args="",
+               overwrite=False, mode="",
                *args, **kwd):
     """write Trajectory-like, list of trajs, frames, ... to file/files
 
@@ -297,13 +297,13 @@ def write_traj(filename="", traj=None, top=None,
     >>> traj = io.load_sample_data()
     >>> io.write_traj("t.nc", traj) # write to amber netcdf file
     >>> # write to multi pdb files (t.pdb.1, t.pdb.2, ...)
-    >>> io.write_traj("t.pdb", traj, overwrite=True, more_args='multi')
+    >>> io.write_traj("t.pdb", traj, overwrite=True, mode='multi')
     >>> # write all frames to single pdb file and each frame is seperated by "MODEL" word
-    >>> io.write_traj("t.pdb", traj, overwrite=True, more_args='model')
+    >>> io.write_traj("t.pdb", traj, overwrite=True, mode='model')
     >>> # write to DCD file
     >>> io.write_traj("test.dcd", traj)
     >>> # set nobox for trajout
-    >>> io.write_traj("test.nc", traj, more_args='nobox')
+    >>> io.write_traj("test.nc", traj, mode='nobox')
 
     See Also
     --------
@@ -337,7 +337,7 @@ def write_traj(filename="", traj=None, top=None,
         raise ValueError("Need non-empty traj and top files")
 
     with Trajout(filename=filename, top=_top, format=format,
-                 overwrite=overwrite, more_args=more_args,
+                 overwrite=overwrite, mode=mode,
                  *args, **kwd) as trajout:
         if isinstance(traj, Frame):
             if indices is not None:

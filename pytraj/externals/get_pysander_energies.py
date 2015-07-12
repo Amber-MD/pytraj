@@ -47,8 +47,8 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         energy_decomposition([frame0, frame1], top=my_topology_object)
 
         # with provided ParmEd object
-        import parmed as chem
-        parm = chem.load_file("myfile.prmtop")
+        import parmed as pmd
+        parm = pmd.load_file("myfile.prmtop")
         energy_decomposition(traj, parm=parm, igb=5)
     """
     from array import array as pyarray
@@ -57,12 +57,13 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
     try:
         import sander
         # support AmberParm only?
-        from parmed.amber.readparm import AmberParm
+        from parmed import Structure
     except ImportError:
         raise ImportError(
             "need both `pysander` and `parmed` installed. Check Ambertools15")
 
     ddict = defaultdict(lambda: pyarray('d', []))
+
     _top = _get_top(traj, top)
 
     if input_options is None:
@@ -72,17 +73,19 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
             print("inp is not None, ignore provided `igb` and use `inp`")
         inp = input_options
 
-    if not isinstance(parm, AmberParm) or not isinstance(parm, string_types):
+    if parm is None:
         try:
             # try to load from file by taking _top.filename
             if verbose:
-                print ("can not find `Structure` from parmed, loading %s"
-                        % _top.filename)
-            parm = _top.filename
-        except:
+                print ("can not find `Structure` from parmed, loading %s")
+            _parm = _top.filename
+        except AttributeError:
             raise ValueError("parm must be AmberParm object in ParmEd")
+    else:
+        # Structure, string
+        _parm = parm
 
-    if not hasattr(parm, 'coordinates') or parm.coords is None:
+    if not hasattr(_parm, 'coordinates') or _parm.coordinates is None:
         try:
             # if `traj` is Trajectory-like (not frame_iter), try to take 1st
             # coords
@@ -92,7 +95,7 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
             coords = [0. for _ in range(_top.n_atoms * 3)]
     else:
         # use default coords in `AmberParm`
-        coords = parm.coords
+        coords = _parm.coordinates
 
     if _top.has_box():
         box = _top.box.tolist()
@@ -101,7 +104,7 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         box = None
         has_box = False
 
-    with sander.setup(parm, coords, box, inp, qmmm_options):
+    with sander.setup(_parm, coords, box, inp, qmmm_options):
         for frame in _frame_iter_master(traj):
             if has_box:
                 sander.set_box(*frame.box.tolist())
