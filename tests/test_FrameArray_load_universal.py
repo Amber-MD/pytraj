@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
 from pytraj.base import *
 from pytraj import adict
@@ -71,11 +72,6 @@ class Test(unittest.TestCase):
         # test_load(dslist[1])
         print(" load from ndarray")
         test_load(traj.xyz)
-        print(" load from ndarray, flatten")
-        test_load(traj.xyz.flatten())
-        print(" load from ndarray, flatten")
-        test_load(traj.xyz.flatten().tolist())
-        print(" load from ndarray, flatten")
         test_load(traj.xyz.tolist())
 
     @test_if_having("mdtraj")
@@ -99,12 +95,18 @@ class Test(unittest.TestCase):
         aa_eq(_fa.xyz * 10., traj.xyz)
 
         a_mdtraj = md.compute_distances(m_traj, indices)
-        a_fa_from_mdtraj = _fa.calc_distance(indices)
+        a_fa_from_mdtraj = _fa.calc_distance(indices).T
         import pytraj.common_actions as pyca
         a_traj = pyca.calc_distance(traj, indices)
+
+        print (a_mdtraj.shape, a_fa_from_mdtraj.shape)
+
+        for a0, a1 in zip(a_fa_from_mdtraj, a_mdtraj):
+            print ('rmsd = ', pt.tools.rmsd(a0, a1))
+
         aa_eq(a_mdtraj,  a_fa_from_mdtraj)
-        aa_eq(a_mdtraj * 10,  a_traj)
-        aa_eq(a_fa_from_mdtraj * 10,  a_traj)
+        aa_eq(a_mdtraj * 10,  a_traj.T)
+        aa_eq(a_fa_from_mdtraj * 10,  a_traj.T)
 
         # load mdtraj with given Topology
         fa2 = Trajectory(m_traj, top=_fa.top)
@@ -123,11 +125,6 @@ class Test(unittest.TestCase):
         ref_traj.load(traj)
         test_load(_dslist, ref_traj=ref_traj)
 
-    def test_3(self):
-        print("test loading frame")
-        fa = Trajectory(traj[0], traj.top)
-        assert fa.size == 1
-        assert_almost_equal(fa[0].coords, traj[0].coords)
 
 if __name__ == "__main__":
     unittest.main()

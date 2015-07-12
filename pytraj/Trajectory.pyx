@@ -241,9 +241,8 @@ cdef class Trajectory (object):
         elif is_mdtraj(filename):
             _traj = filename
             # add "10 *" since mdtraj use 'nm' while pytraj use 'Angstrom'
-            #self.append_ndarray(10 * _traj.xyz)
             # keep original coorsd, don't cast
-            self.append_ndarray(_traj.xyz)
+            self.append_xyz(_traj.xyz)
         elif is_word_in_class_name(filename, 'DataSetList'):
             # load DataSetList
             # iterate all datasets and get anything having frame_iter
@@ -262,72 +261,40 @@ cdef class Trajectory (object):
             except:
                 raise ValueError("filename must be str, traj-like or numpy array")
 
-    @cython.infer_types(True)
-    @cython.cdivision(True)
-    def append_xyz(self, xyz_in):
-        cdef int n_atoms = self.top.n_atoms
-        cdef int natom3 = n_atoms * 3
-        cdef int n_frames, i 
-        """Try loading xyz data with 
-        shape=(n_frames, n_atoms, 3) or (n_frames, n_atoms*3) or 1D array
 
-        If using numpy array with shape (n_frames, n_atoms, 3),
-        try "append_ndarray" method (much faster)
-        """
-
-        if n_atoms == 0:
-            raise ValueError("n_atoms = 0: need to set Topology or use `append_ndarray`'")
-
-        has_np, np = _import_numpy()
-        if has_np:
-            xyz = np.asarray(xyz_in)
-            if len(xyz.shape) == 1:
-                n_frames = int(xyz.shape[0]/natom3)
-                _xyz = xyz.reshape(n_frames, natom3) 
-            elif len(xyz.shape) in [2, 3]:
-                _xyz = xyz
-            else:
-                raise NotImplementedError("only support array/list/tuples with ndim=1,2,3")
-            for arr0 in _xyz:
-                frame = Frame(n_atoms)
-                # flatten either 1D or 2D array
-                frame.set_from_crd(arr0.flatten())
-                self.append(frame)
-        else:
-            if isinstance(xyz_in, (list, tuple)):
-                xyz_len = len(xyz_in)
-                if xyz_len % (natom3) != 0:
-                    raise ValueError("Len of list must be n_frames*n_atoms*3")
-                else:
-                    n_frames = int(xyz_len / natom3)
-                    for i in range(n_frames):
-                        frame = Frame(n_atoms)
-                        frame.set_from_crd(xyz_in[natom3 * i : natom3 * (i + 1)])
-                        self.append(frame)
-            elif hasattr(xyz_in, 'memview'):
-                    frame = Frame(n_atoms)
-                    for i in range(xyz_in.shape[0]):
-                        frame.append_xyz(xyz_in[i]) 
-                        self.append(frame)
-            else:
-                raise NotImplementedError("must have numpy or list/tuple must be 1D")
-
-    def append_ndarray(self, xyz):
-        """load ndarray with shape=(n_frames, n_atoms, 3)"""
+    def append_xyz(self, xyz):
+        """load array-like with shape=(n_frames, n_atoms, 3)"""
+        import numpy as np
         cdef Frame frame
         cdef int i
         cdef double[:, :] myview
-        cdef int n_frames = xyz.shape[0]
-        cdef int n_atoms = xyz.shape[1]
+        cdef int n_frames
+        cdef int n_atoms
         cdef int oldsize = self.frame_v.size()
-        cdef int newsize = oldsize + n_frames
-        import numpy as np
+        cdef int newsize
+
+        if not hasattr(xyz, 'dtype'):
+            xyz = np.asarray(xyz, dtype='f8')
+        else:
+            xyz = xyz
+
+        if xyz.ndim != 3:
+            raise ValueError("must have ndim=3")
+
+        n_frames, n_atoms = xyz.shape[:2]
+
+        if n_atoms != self.n_atoms:
+            raise ValueError("different n_atoms. skip")
+
+        newsize = oldsize + n_frames
 
         # need to use double precision
         if xyz.dtype != np.float64:
+            print ("warning: casting to float64")
             _xyz = xyz.astype(np.float64)
         else:
             _xyz = xyz
+
         self.frame_v.resize(newsize)
 
         for i in range(n_frames):
@@ -968,6 +935,9 @@ cdef class Trajectory (object):
         self.frame_v.insert(it + idx, tmp_frame.thisptr)
         
     def append(self, Frame framein, copy=True):
+        self.append_frame(framein, copy=copy)
+
+    def append_frame(self, Frame framein, copy=True):
         """append new Frame
 
         Parameters
