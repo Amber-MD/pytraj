@@ -22,8 +22,7 @@ class Test(unittest.TestCase):
         with pt.utils.context.goto_temp_folder():
             for k in range(20, 100):
                 p.bonds[3].type.k = k
-                p.save(fname)
-                p = pmd.load_file(fname)
+                p.remake_parm()
                 with sander.setup(p, coords, None, inp):
                     ene, frc = sander.energy_forces()
                     print (ene.bond, ene.dihedral)
