@@ -1969,7 +1969,6 @@ static char __pyx_k_filename[] = "filename";
 static char __pyx_k_itemsize[] = "itemsize";
 static char __pyx_k_TypeError[] = "TypeError";
 static char __pyx_k_enumerate[] = "enumerate";
-static char __pyx_k_more_args[] = "more_args";
 static char __pyx_k_overwrite[] = "overwrite";
 static char __pyx_k_IndexError[] = "IndexError";
 static char __pyx_k_TrajFormat[] = "TrajFormat";
@@ -2082,7 +2081,6 @@ static PyObject *__pyx_n_s_keys;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_memview;
 static PyObject *__pyx_n_s_mode;
-static PyObject *__pyx_n_s_more_args;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_name_2;
 static PyObject *__pyx_n_s_ndim;
@@ -2121,7 +2119,7 @@ static void __pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_2__dealloc__(struct __pyx_
 static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_4__enter__(struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_6__exit__(struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_arg1, CYTHON_UNUSED PyObject *__pyx_v_arg2, CYTHON_UNUSED PyObject *__pyx_v_arg3); /* proto */
 static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_8help(CYTHON_UNUSED PyObject *__pyx_v_cls); /* proto */
-static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_top, PyObject *__pyx_v_format, PyObject *__pyx_v_more_args, PyObject *__pyx_v_overwrite); /* proto */
+static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_top, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, PyObject *__pyx_v_overwrite); /* proto */
 static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_12close(struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_14writeframe(struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_16write_frame(struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *__pyx_v_self, int __pyx_v_idx, struct __pyx_obj_6pytraj_5Frame_Frame *__pyx_v_frame, PyObject *__pyx_v_top); /* proto */
@@ -2646,18 +2644,18 @@ static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_8help(CYTHON_UNUSED P
  *         print TrajFormatDict.keys()
  * 
  *     def open(self, filename='', top=Topology(), format='unknown_traj',             # <<<<<<<<<<<<<<
- *              more_args=None, overwrite=False):
+ *              mode=None, overwrite=False):
  *         cdef ArgList arglist
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_5trajs_7Trajout_7Trajout_11open(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pytraj_5trajs_7Trajout_7Trajout_10open[] = "Trajout.open(self, filename='', top=<\077\077?>, format='unknown_traj', more_args=None, overwrite=False)";
+static char __pyx_doc_6pytraj_5trajs_7Trajout_7Trajout_10open[] = "Trajout.open(self, filename='', top=<\077\077?>, format='unknown_traj', mode=None, overwrite=False)";
 static PyObject *__pyx_pw_6pytraj_5trajs_7Trajout_7Trajout_11open(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_filename = 0;
   PyObject *__pyx_v_top = 0;
   PyObject *__pyx_v_format = 0;
-  PyObject *__pyx_v_more_args = 0;
+  PyObject *__pyx_v_mode = 0;
   PyObject *__pyx_v_overwrite = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2666,7 +2664,7 @@ static PyObject *__pyx_pw_6pytraj_5trajs_7Trajout_7Trajout_11open(PyObject *__py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("open (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_filename,&__pyx_n_s_top,&__pyx_n_s_format,&__pyx_n_s_more_args,&__pyx_n_s_overwrite,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_filename,&__pyx_n_s_top,&__pyx_n_s_format,&__pyx_n_s_mode,&__pyx_n_s_overwrite,0};
     PyObject* values[5] = {0,0,0,0,0};
     values[0] = ((PyObject *)__pyx_kp_s_);
     values[1] = __pyx_k__2;
@@ -2675,7 +2673,7 @@ static PyObject *__pyx_pw_6pytraj_5trajs_7Trajout_7Trajout_11open(PyObject *__py
     /* "pytraj/trajs/Trajout.pyx":43
  * 
  *     def open(self, filename='', top=Topology(), format='unknown_traj',
- *              more_args=None, overwrite=False):             # <<<<<<<<<<<<<<
+ *              mode=None, overwrite=False):             # <<<<<<<<<<<<<<
  *         cdef ArgList arglist
  *         cdef Topology top_
  */
@@ -2712,7 +2710,7 @@ static PyObject *__pyx_pw_6pytraj_5trajs_7Trajout_7Trajout_11open(PyObject *__py
         }
         case  3:
         if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_more_args);
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_mode);
           if (value) { values[3] = value; kw_args--; }
         }
         case  4:
@@ -2738,7 +2736,7 @@ static PyObject *__pyx_pw_6pytraj_5trajs_7Trajout_7Trajout_11open(PyObject *__py
     __pyx_v_filename = values[0];
     __pyx_v_top = values[1];
     __pyx_v_format = values[2];
-    __pyx_v_more_args = values[3];
+    __pyx_v_mode = values[3];
     __pyx_v_overwrite = values[4];
   }
   goto __pyx_L4_argument_unpacking_done;
@@ -2749,13 +2747,13 @@ static PyObject *__pyx_pw_6pytraj_5trajs_7Trajout_7Trajout_11open(PyObject *__py
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(((struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *)__pyx_v_self), __pyx_v_filename, __pyx_v_top, __pyx_v_format, __pyx_v_more_args, __pyx_v_overwrite);
+  __pyx_r = __pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(((struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *)__pyx_v_self), __pyx_v_filename, __pyx_v_top, __pyx_v_format, __pyx_v_mode, __pyx_v_overwrite);
 
   /* "pytraj/trajs/Trajout.pyx":42
  *         print TrajFormatDict.keys()
  * 
  *     def open(self, filename='', top=Topology(), format='unknown_traj',             # <<<<<<<<<<<<<<
- *              more_args=None, overwrite=False):
+ *              mode=None, overwrite=False):
  *         cdef ArgList arglist
  */
 
@@ -2764,7 +2762,7 @@ static PyObject *__pyx_pw_6pytraj_5trajs_7Trajout_7Trajout_11open(PyObject *__py
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_top, PyObject *__pyx_v_format, PyObject *__pyx_v_more_args, PyObject *__pyx_v_overwrite) {
+static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(struct __pyx_obj_6pytraj_5trajs_7Trajout_Trajout *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_top, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, PyObject *__pyx_v_overwrite) {
   struct __pyx_obj_6pytraj_7ArgList_ArgList *__pyx_v_arglist = 0;
   struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_top_ = 0;
   PyObject *__pyx_v_err = NULL;
@@ -3085,7 +3083,7 @@ static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(struct __pyx_o
  *             # 'PDBFILE' 'MOL2FILE'
  *             format += 'FILE'             # <<<<<<<<<<<<<<
  * 
- *         if more_args:
+ *         if mode:
  */
     __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_v_format, __pyx_n_s_FILE); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_6);
@@ -3104,43 +3102,43 @@ static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(struct __pyx_o
   /* "pytraj/trajs/Trajout.pyx":71
  *             format += 'FILE'
  * 
- *         if more_args:             # <<<<<<<<<<<<<<
- *             if isinstance(more_args, string_types):
- *                 inputstring = more_args
+ *         if mode:             # <<<<<<<<<<<<<<
+ *             if isinstance(mode, string_types):
+ *                 inputstring = mode
  */
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_more_args); if (unlikely(__pyx_t_4 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v_mode); if (unlikely(__pyx_t_4 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_4) {
 
     /* "pytraj/trajs/Trajout.pyx":72
  * 
- *         if more_args:
- *             if isinstance(more_args, string_types):             # <<<<<<<<<<<<<<
- *                 inputstring = more_args
+ *         if mode:
+ *             if isinstance(mode, string_types):             # <<<<<<<<<<<<<<
+ *                 inputstring = mode
  *                 arglist = <ArgList> ArgList(inputstring)
  */
     __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_string_types); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_4 = PyObject_IsInstance(__pyx_v_more_args, __pyx_t_6); if (unlikely(__pyx_t_4 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyObject_IsInstance(__pyx_v_mode, __pyx_t_6); if (unlikely(__pyx_t_4 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __pyx_t_3 = (__pyx_t_4 != 0);
     if (__pyx_t_3) {
 
       /* "pytraj/trajs/Trajout.pyx":73
- *         if more_args:
- *             if isinstance(more_args, string_types):
- *                 inputstring = more_args             # <<<<<<<<<<<<<<
+ *         if mode:
+ *             if isinstance(mode, string_types):
+ *                 inputstring = mode             # <<<<<<<<<<<<<<
  *                 arglist = <ArgList> ArgList(inputstring)
- *             elif isinstance(more_args, ArgList):
+ *             elif isinstance(mode, ArgList):
  */
-      __Pyx_INCREF(__pyx_v_more_args);
-      __pyx_v_inputstring = __pyx_v_more_args;
+      __Pyx_INCREF(__pyx_v_mode);
+      __pyx_v_inputstring = __pyx_v_mode;
 
       /* "pytraj/trajs/Trajout.pyx":74
- *             if isinstance(more_args, string_types):
- *                 inputstring = more_args
+ *             if isinstance(mode, string_types):
+ *                 inputstring = mode
  *                 arglist = <ArgList> ArgList(inputstring)             # <<<<<<<<<<<<<<
- *             elif isinstance(more_args, ArgList):
- *                 arglist = <ArgList> more_args
+ *             elif isinstance(mode, ArgList):
+ *                 arglist = <ArgList> mode
  */
       __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_6);
@@ -3158,49 +3156,49 @@ static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(struct __pyx_o
 
       /* "pytraj/trajs/Trajout.pyx":72
  * 
- *         if more_args:
- *             if isinstance(more_args, string_types):             # <<<<<<<<<<<<<<
- *                 inputstring = more_args
+ *         if mode:
+ *             if isinstance(mode, string_types):             # <<<<<<<<<<<<<<
+ *                 inputstring = mode
  *                 arglist = <ArgList> ArgList(inputstring)
  */
       goto __pyx_L10;
     }
 
     /* "pytraj/trajs/Trajout.pyx":75
- *                 inputstring = more_args
+ *                 inputstring = mode
  *                 arglist = <ArgList> ArgList(inputstring)
- *             elif isinstance(more_args, ArgList):             # <<<<<<<<<<<<<<
- *                 arglist = <ArgList> more_args
+ *             elif isinstance(mode, ArgList):             # <<<<<<<<<<<<<<
+ *                 arglist = <ArgList> mode
  *             else:
  */
-    __pyx_t_3 = __Pyx_TypeCheck(__pyx_v_more_args, ((PyObject*)__pyx_ptype_6pytraj_7ArgList_ArgList)); 
+    __pyx_t_3 = __Pyx_TypeCheck(__pyx_v_mode, ((PyObject*)__pyx_ptype_6pytraj_7ArgList_ArgList)); 
     __pyx_t_4 = (__pyx_t_3 != 0);
     if (__pyx_t_4) {
 
       /* "pytraj/trajs/Trajout.pyx":76
  *                 arglist = <ArgList> ArgList(inputstring)
- *             elif isinstance(more_args, ArgList):
- *                 arglist = <ArgList> more_args             # <<<<<<<<<<<<<<
+ *             elif isinstance(mode, ArgList):
+ *                 arglist = <ArgList> mode             # <<<<<<<<<<<<<<
  *             else:
  *                 raise ValueError()
  */
-      __pyx_t_6 = __pyx_v_more_args;
+      __pyx_t_6 = __pyx_v_mode;
       __Pyx_INCREF(__pyx_t_6);
       __pyx_v_arglist = ((struct __pyx_obj_6pytraj_7ArgList_ArgList *)__pyx_t_6);
       __pyx_t_6 = 0;
 
       /* "pytraj/trajs/Trajout.pyx":75
- *                 inputstring = more_args
+ *                 inputstring = mode
  *                 arglist = <ArgList> ArgList(inputstring)
- *             elif isinstance(more_args, ArgList):             # <<<<<<<<<<<<<<
- *                 arglist = <ArgList> more_args
+ *             elif isinstance(mode, ArgList):             # <<<<<<<<<<<<<<
+ *                 arglist = <ArgList> mode
  *             else:
  */
       goto __pyx_L10;
     }
 
     /* "pytraj/trajs/Trajout.pyx":78
- *                 arglist = <ArgList> more_args
+ *                 arglist = <ArgList> mode
  *             else:
  *                 raise ValueError()             # <<<<<<<<<<<<<<
  *             self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr, local_dict[format])
@@ -3233,9 +3231,9 @@ static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(struct __pyx_o
     /* "pytraj/trajs/Trajout.pyx":71
  *             format += 'FILE'
  * 
- *         if more_args:             # <<<<<<<<<<<<<<
- *             if isinstance(more_args, string_types):
- *                 inputstring = more_args
+ *         if mode:             # <<<<<<<<<<<<<<
+ *             if isinstance(mode, string_types):
+ *                 inputstring = mode
  */
     goto __pyx_L9;
   }
@@ -3275,7 +3273,7 @@ static PyObject *__pyx_pf_6pytraj_5trajs_7Trajout_7Trajout_10open(struct __pyx_o
  *         print TrajFormatDict.keys()
  * 
  *     def open(self, filename='', top=Topology(), format='unknown_traj',             # <<<<<<<<<<<<<<
- *              more_args=None, overwrite=False):
+ *              mode=None, overwrite=False):
  *         cdef ArgList arglist
  */
 
@@ -16252,7 +16250,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
-  {&__pyx_n_s_more_args, __pyx_k_more_args, sizeof(__pyx_k_more_args), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_name_2, __pyx_k_name_2, sizeof(__pyx_k_name_2), 0, 0, 1, 1},
   {&__pyx_n_s_ndim, __pyx_k_ndim, sizeof(__pyx_k_ndim), 0, 0, 1, 1},
@@ -16857,7 +16854,7 @@ PyMODINIT_FUNC PyInit_Trajout(void)
  *         print TrajFormatDict.keys()
  * 
  *     def open(self, filename='', top=Topology(), format='unknown_traj',             # <<<<<<<<<<<<<<
- *              more_args=None, overwrite=False):
+ *              mode=None, overwrite=False):
  *         cdef ArgList arglist
  */
   __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_6pytraj_8Topology_Topology)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
