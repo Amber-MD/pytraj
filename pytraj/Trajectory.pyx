@@ -936,6 +936,9 @@ cdef class Trajectory (object):
         self.frame_v.insert(it + idx, tmp_frame.thisptr)
         
     def append(self, Frame framein, copy=True):
+        self.append_frame(framein, copy=copy)
+
+    def append_frame(self, Frame framein, copy=True):
         """append new Frame
 
         Parameters
