@@ -109,6 +109,7 @@ from . common_actions import (rmsd, search_hbonds,
                               center,
                               translate,
                               rotate,
+                              rotate_dihedral,
                               scale,
                               )
 

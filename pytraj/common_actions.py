@@ -1488,3 +1488,23 @@ def center(traj=None, mask="", top=None):
     from pytraj.actions.CpptrajActions import Action_Center
     act = Action_Center()
     act(mask, traj, top=_top)
+
+def rotate_dihedral(traj=None, mask="", top=None):
+    """
+    Examples
+    --------
+    >>> import pytraj asp t
+    >>> pt.rotate_dihedral(traj, 
+
+    See Also
+    --------
+        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 546)
+
+    """
+    _noaction_with_TrajectoryIterator(traj)
+    _top = _get_top(traj, top)
+
+    from pytraj.actions.CpptrajActions import Action_Makestructure
+    act = Action_Makestructure()
+
+    act(mask, traj, top=_top)

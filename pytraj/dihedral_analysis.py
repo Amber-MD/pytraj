@@ -1,4 +1,5 @@
 from __future__ import print_function, absolute_import
+from collections import namedtuple
 
 from .externals.six import iteritems
 
@@ -7,6 +8,16 @@ __all__ = []
 
 supported_dihedral_types = [x for x in
                             'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
+
+class ChiNu(object):
+    def __init__(self):
+        self.A = ("O4′", "C1′", "N9", "C4")
+        self.G = ("O4′", "C1′", "N9", "C4")
+        self.C = ("O4′", "C1′", "N1", "C2")
+        self.T = ("O4′", "C1′", "N1", "C2")
+        self.U = ("O4′", "C1′", "N1", "C2")
+
+chi_nu = ChiNu()
 
 template = '''
 def calc_%s(traj=None, resrange="", 
