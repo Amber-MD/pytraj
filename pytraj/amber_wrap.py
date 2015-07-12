@@ -40,8 +40,8 @@ def minimize(traj, engine='sander', input=None, top=None):
         pt.write_parm("tmp.prmtop", _top)
 
         for frame in traj:
-            pt.write_traj("tmp_frame.rst7", frame, top=traj.top, overwrite=True)
-            os.system("%s -p tmp.prmtop -c tmp_frame.rst7.1 -r min.r -i min.in" % _engine)
+            pt.write_traj("tmp_frame.rst7", frame, top=_top, overwrite=True)
+            os.system("%s -O -p tmp.prmtop -c tmp_frame.rst7.1 -r min.r -i min.in" % _engine)
             f0 = pt.load("min.r", traj.top)[0]
             # update coords
             frame.xyz[:] = f0.xyz
