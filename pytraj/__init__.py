@@ -161,6 +161,16 @@ def set_cpptraj_verbose(cm=True):
 
 set_world_silent(True)
 
+def show():
+    # just delay importing
+    """show plot
+    """
+    from matplotlib import pyplot
+    pyplot.show()
+
+def savefig(fname, *args, **kwd):
+    from matplotlib import pyplot
+    pyplot.savefig(fname, *args, **kwd)
 
 def show_versions():
     """
