@@ -19,6 +19,8 @@ from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj
 from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
+from .utils import is_int
+from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
 from .externals.six import string_types
 from .Frame import Frame
@@ -33,7 +35,6 @@ from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
-from .utils.context import goto_temp_folder
 from . import _long_manual
 
 list_of_cal = ['calc_distance', 'calc_dihedral', 'calc_radgyr', 'calc_angle',
