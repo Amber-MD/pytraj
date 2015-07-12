@@ -38,7 +38,9 @@ __all__ = ['Trajectory']
 
 
 cdef class Trajectory (object):
-    def __cinit__(self, filename=None, top=None, indices=None, 
+    def __cinit__(self, filename=None, top=None,
+            xyz=None,
+            indices=None, 
             bint warning=False, n_frames=None, check_top=True):
         """
         Parameters
@@ -94,6 +96,20 @@ cdef class Trajectory (object):
         #self.is_mem_parent = True
         if filename is not None:
             self.load(filename, self.top, indices)
+        elif xyz is not None:
+            import numpy as np
+            from ._xyz import XYZ
+            assert hasattr(xyz, 'dtype')
+            if xyz.itemsize != 8:
+                raise ValueError("dtype must be float64")
+            self._allocate(*xyz.shape[:2])
+            if isinstance(xyz, XYZ):
+                # convert to numpy
+                self.update_coordinates(xyz[:])
+            else:
+                self.update_coordinates(xyz)
+        else:
+            pass
 
     def copy(self):
         "Return a copy of Trajectory"
@@ -401,6 +417,9 @@ cdef class Trajectory (object):
 
         n_frames = xyz.shape[0]
         n_atoms = xyz.shape[1]
+        if any((self.n_frames != n_frames, self.n_atoms != n_atoms)):
+            raise ValueError("shape mismatch")
+
         count = sizeof(double) * n_atoms * 3
 
         for idx in range(n_frames):
