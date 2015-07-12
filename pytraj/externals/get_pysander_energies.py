@@ -105,7 +105,6 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         has_box = False
 
     with sander.setup(_parm, coords, box, inp, qmmm_options):
-        print(type(_parm))
         for frame in _frame_iter_master(traj):
             if has_box:
                 sander.set_box(*frame.box.tolist())

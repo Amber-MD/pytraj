@@ -643,6 +643,8 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
         Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 579)
     """
     if resrange and 'resrange' not in command:
+        if is_int(resrange):
+            resrange = [resrange,]
         if isinstance(resrange, string_types):
             _resrange = "resrange " + str(resrange)
         else:
@@ -1504,7 +1506,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
     _noaction_with_TrajectoryIterator(traj)
     _top = _get_top(traj, top)
 
-    from pytraj.actions.CpptrajActions import Action_Makestructure
-    act = Action_Makestructure()
+    from pytraj.actions.CpptrajActions import Action_MakeStructure
+    act = Action_MakeStructure()
 
     act(mask, traj, top=_top)
