@@ -145,6 +145,9 @@ def is_int(num):
     """
     return isinstance(num, numbers.Integral)
 
+def is_number(num):
+    return isinstance(num, numbers.Number)
+
 
 def ensure_exist(filename):
     if not os.path.exists(filename):
@@ -161,6 +164,11 @@ def ensure_not_none_or_string(obj):
 
 def assert_almost_equal(arr0, arr1, decimal=3):
     '''numpy-like assert'''
+
+    if is_number(arr0):
+        arr0 = [arr0,]
+    if is_number(arr1):
+        arr1 = [arr1,]
 
     almost_equal = True
     SMALL = 10**(-decimal)

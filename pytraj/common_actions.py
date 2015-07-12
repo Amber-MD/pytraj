@@ -1496,17 +1496,17 @@ def rotate_dihedral(traj=None, mask="", top=None):
     Examples
     --------
     >>> import pytraj asp t
-    >>> pt.rotate_dihedral(traj, 
-
-    See Also
-    --------
-        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 546)
-
+    >>> pt.rotate_dihedral(traj, "3:phi:120") # rotate phi of res 3 by to 120 deg
     """
     _noaction_with_TrajectoryIterator(traj)
     _top = _get_top(traj, top)
 
+    if "custom:" in mask:
+        command = mask
+    else:
+        command = "custom:" + mask
+
     from pytraj.actions.CpptrajActions import Action_MakeStructure
     act = Action_MakeStructure()
 
-    act(mask, traj, top=_top)
+    act(command, traj, top=_top)
