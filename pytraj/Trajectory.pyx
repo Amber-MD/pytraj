@@ -241,9 +241,8 @@ cdef class Trajectory (object):
         elif is_mdtraj(filename):
             _traj = filename
             # add "10 *" since mdtraj use 'nm' while pytraj use 'Angstrom'
-            #self.append_ndarray(10 * _traj.xyz)
             # keep original coorsd, don't cast
-            self.append_ndarray(_traj.xyz)
+            self.append_xyz(_traj.xyz)
         elif is_word_in_class_name(filename, 'DataSetList'):
             # load DataSetList
             # iterate all datasets and get anything having frame_iter
