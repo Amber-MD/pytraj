@@ -15,7 +15,17 @@ min.in
 /
 """
 
-def minimize(traj, engine='sander', input=None, top=None):
+def minimize(traj, engine='sander',
+             mpi_run="",
+             input=None, top=None):
+
+    """
+    >>> from pytraj.amber_wrap import minimize
+    >>> minimize(traj)
+
+    >>> minimize(traj, engine='pmemd', mpi_run='mpirun -n 4')
+    """
+
     from pytraj import Trajectory
 
     if not isinstance(traj, Trajectory):
@@ -41,7 +51,7 @@ def minimize(traj, engine='sander', input=None, top=None):
 
         for frame in traj:
             pt.write_traj("tmp_frame.rst7", frame, top=_top, overwrite=True)
-            os.system("%s -O -p tmp.prmtop -c tmp_frame.rst7.1 -r min.r -i min.in" % _engine)
+            os.system("%s %s -O -p tmp.prmtop -c tmp_frame.rst7.1 -r min.r -i min.in" % (mpi_run, _engine))
             f0 = pt.load("min.r", traj.top)[0]
             # update coords
             frame.xyz[:] = f0.xyz
