@@ -44,6 +44,12 @@ def load_result_from_cpptraj_state(txt, with_state=False, dtype=None):
     with_state : bool, default False
         return CpptrajState or not
     dtype : str, return data type
+
+    Returns
+    -------
+    if with_state=False: return DatasetList
+    if with_state=True: return [CpptrajState, DatasetList]
+
     """
     from pytraj.io import load_cpptraj_file
     from pytraj.datasetlist import DatasetList
