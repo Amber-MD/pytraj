@@ -15,8 +15,8 @@ class Test(unittest.TestCase):
         print (amberhome)
         from pytraj.amber_wrap import minimize
 
-        traj = pt.iterload("./data/Test_RemdTraj/rem.crd.003",
-                  "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
+        traj = pt.iterload("./data/Ala3/Ala3.crd",
+                  "./data/Ala3/Ala3.top")
         t0 = traj[:1]
 
         if has_("sander"):
@@ -30,6 +30,10 @@ class Test(unittest.TestCase):
 
         if has_("sander"):
             print ('egb: ', pt.energy_decomposition(t0, igb=8, verbose=False)['gb'])
+
+        # load saved file
+        saved_coords = pt.load("./data/Ala3/min/min.r", traj.top).xyz
+        aa_eq(t0.xyz, saved_coords, decimal=5)
 
 
 if __name__ == "__main__":

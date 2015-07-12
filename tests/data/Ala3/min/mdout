@@ -1,0 +1,264 @@
+
+          -------------------------------------------------------
+          Amber 14 SANDER                              2014
+          -------------------------------------------------------
+
+| Run on 07/12/2015 at 03:02:13
+
+|   Executable path: /home/haichit/amber_git/amber/bin/sander
+| Working directory: /u1/haichit/pytraj_git_hainm/pytraj/tests/data/Ala3/min
+|          Hostname: casegroup.rutgers.edu
+
+  [-O]verwriting output
+
+File Assignments:
+|  MDIN: min.in                                                                
+| MDOUT: mdout                                                                 
+|INPCRD: ../Ala3.crd                                                           
+|  PARM: ../Ala3.top                                                           
+|RESTRT: min.r                                                                 
+|  REFC: refc                                                                  
+| MDVEL: mdvel                                                                 
+| MDFRC: mdfrc                                                                 
+|  MDEN: mden                                                                  
+| MDCRD: mdcrd                                                                 
+|MDINFO: mdinfo                                                                
+|  MTMD: mtmd                                                                  
+|INPDIP: inpdip                                                                
+|RSTDIP: rstdip                                                                
+|INPTRA: inptraj                                                               
+
+
+ Here is the input file:
+
+min.in                                                                         
+&cntrl                                                                         
+  imin = 1,                                                                    
+  maxcyc = 500,                                                                
+  ncyc = 250,                                                                  
+  ntb = 0,                                                                     
+  igb = 8,                                                                     
+  cut = 999.0                                                                  
+/                                                                              
+
+--------------------------------------------------------------------------------
+   1.  RESOURCE   USE: 
+--------------------------------------------------------------------------------
+
+| Flags:                                                                        
+| New format PARM file being parsed.
+| Version =    1.000 Date = 01/10/15 Time = 21:10:59
+ NATOM  =      34 NTYPES =      10 NBONH =      18 MBONA  =      15
+ NTHETH =      38 MTHETA =      20 NPHIH =      65 MPHIA  =      44
+ NHPARM =       0 NPARM  =       0 NNB   =     168 NRES   =       3
+ NBONA  =      15 NTHETA =      20 NPHIA =      44 NUMBND =      13
+ NUMANG =      24 NPTRA  =      21 NATYP =      12 NPHB   =       0
+ IFBOX  =       0 NMXRS  =      12 IFCAP =       0 NEXTRA =       0
+ NCOPY  =       0
+
+ Implicit solvent radii are ArgH and AspGluO modified Bondi2 radii (mbondi3)                                
+ Replacing prmtop screening parameters with GBn2 (igb=8) values
+
+|     Memory Use     Allocated
+|     Real                6147
+|     Hollerith            107
+|     Integer            21729
+|     Max Pairs              1
+|     nblistReal             0
+|     nblist Int             0
+|       Total              133 kbytes
+
+| Note: 1-4 EEL scale factors are being read from the topology file.
+
+| Note: 1-4 VDW scale factors are being read from the topology file.
+| Duplicated    0 dihedrals
+| Duplicated    0 dihedrals
+
+--------------------------------------------------------------------------------
+   2.  CONTROL  DATA  FOR  THE  RUN
+--------------------------------------------------------------------------------
+
+NALA                                                                            
+
+General flags:
+     imin    =       1, nmropt  =       0
+
+Nature and format of input:
+     ntx     =       1, irest   =       0, ntrx    =       1
+
+Nature and format of output:
+     ntxo    =       1, ntpr    =      50, ntrx    =       1, ntwr    =     500
+     iwrap   =       0, ntwx    =       0, ntwv    =       0, ntwe    =       0
+     ioutfm  =       0, ntwprt  =       0, idecomp =       0, rbornstat=      0
+
+Potential function:
+     ntf     =       1, ntb     =       0, igb     =       8, nsnb    =      25
+     ipol    =       0, gbsa    =       0, iesp    =       0
+     dielc   =   1.00000, cut     = 999.00000, intdiel =   1.00000
+     saltcon =   0.00000, offset  =   0.19514, surften =   0.00500
+     rdt     =   0.00000, rgbmax  =  25.00000  extdiel =  78.50000
+     alpb  =        0
+     gbalphaH  =   0.78844, gbbetaH   =   0.79870,  gbgammaH  =    0.43733
+     gbalphaC  =   0.73376, gbbetaC   =   0.50638,  gbgammaC  =    0.20584
+     gbalphaN  =   0.50336, gbbetaN   =   0.31683,  gbgammaN  =    0.19292
+     gbalphaOS =   0.86781, gbbetaOS  =   0.87664,  gbgammaOS =    0.38788
+     gbalphaP  =   1.00000, gbbetaP   =   0.80000,  gbgammaP  =    4.85000
+     gb_alpha_hnu  =   0.53705, gb_beta_hnu   =   0.36286,  gb_gamma_hnu  =    0.11670
+     gb_alpha_cnu  =   0.33167, gb_beta_cnu   =   0.19684,  gb_gamma_cnu  =    0.09342
+     gb_alpha_nnu  =   0.68631, gb_beta_nnu   =   0.46319,  gb_gamma_nnu  =    0.13872
+     gb_alpha_onu  =   0.60634, gb_beta_onu   =   0.46301,  gb_gamma_onu  =    0.14226
+     gb_alpha_pnu  =   0.41836, gb_beta_pnu   =   0.29005,  gb_gamma_pnu  =    0.10642
+
+Frozen or restrained atoms:
+     ibelly  =       0, ntr     =       0
+
+Energy minimization:
+     maxcyc  =     500, ncyc    =     250, ntmin   =       1
+     dx0     =   0.01000, drms    =   0.00010
+|  INFO: Old style inpcrd file read
+
+
+--------------------------------------------------------------------------------
+   3.  ATOMIC COORDINATES AND VELOCITIES
+--------------------------------------------------------------------------------
+
+NALA                                                                            
+ begin time read from input coords =     0.000 ps
+
+ Number of triangulated 3-point waters found:        0
+
+--------------------------------------------------------------------------------
+   4.  RESULTS
+--------------------------------------------------------------------------------
+
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+      1      -7.8417E+01     1.9073E+01     1.4348E+02     C          31
+
+ BOND    =        5.5935  ANGLE   =        5.1218  DIHED      =       20.4734
+ VDWAALS =        4.7312  EEL     =     -192.8593  EGB        =      -92.8858
+ 1-4 VDW =        9.7444  1-4 EEL =      161.6642  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+     50      -9.9162E+01     1.8305E+00     1.2586E+01     C          31
+
+ BOND    =        0.7590  ANGLE   =        2.9280  DIHED      =       19.4841
+ VDWAALS =       -1.4273  EEL     =     -191.3959  EGB        =      -93.0343
+ 1-4 VDW =        6.0468  1-4 EEL =      157.4771  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    100      -1.0113E+02     1.0250E+00     6.6973E+00     C          31
+
+ BOND    =        0.9327  ANGLE   =        3.0777  DIHED      =       19.0393
+ VDWAALS =       -2.1977  EEL     =     -190.3502  EGB        =      -93.5936
+ 1-4 VDW =        5.1878  1-4 EEL =      156.7759  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    150      -1.0202E+02     1.6573E+00     1.1974E+01     C          31
+
+ BOND    =        1.0190  ANGLE   =        3.1126  DIHED      =       18.7858
+ VDWAALS =       -2.5292  EEL     =     -189.7536  EGB        =      -93.9176
+ 1-4 VDW =        4.8264  1-4 EEL =      156.4392  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    200      -1.0263E+02     9.2093E-01     4.8943E+00     C          21
+
+ BOND    =        1.0128  ANGLE   =        3.1200  DIHED      =       18.6179
+ VDWAALS =       -2.7133  EEL     =     -189.3969  EGB        =      -94.0834
+ 1-4 VDW =        4.6296  1-4 EEL =      156.1865  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    250      -1.0303E+02     2.8039E-01     1.0135E+00     O          12
+
+ BOND    =        0.9741  ANGLE   =        3.1332  DIHED      =       18.5090
+ VDWAALS =       -2.8220  EEL     =     -189.1412  EGB        =      -94.2675
+ 1-4 VDW =        4.4955  1-4 EEL =      156.0870  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    300      -1.0519E+02     9.7263E-01     2.9440E+00     H          24
+
+ BOND    =        0.8578  ANGLE   =        2.3853  DIHED      =       17.1504
+ VDWAALS =       -3.1150  EEL     =     -189.9518  EGB        =      -95.0996
+ 1-4 VDW =        4.2063  1-4 EEL =      158.3768  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    350      -1.0701E+02     7.9864E-01     1.9263E+00     OX2        33
+
+ BOND    =        0.8888  ANGLE   =        2.9850  DIHED      =       15.6363
+ VDWAALS =       -3.1635  EEL     =     -189.2864  EGB        =      -95.1964
+ 1-4 VDW =        4.1503  1-4 EEL =      156.9758  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    400      -1.0759E+02     1.1643E+00     4.1991E+00     OX2        33
+
+ BOND    =        0.9593  ANGLE   =        2.7437  DIHED      =       15.2913
+ VDWAALS =       -3.1940  EEL     =     -188.9590  EGB        =      -95.2698
+ 1-4 VDW =        4.0734  1-4 EEL =      156.7646  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    450      -1.0774E+02     2.4267E-01     5.4819E-01     HA         16
+
+ BOND    =        0.8344  ANGLE   =        2.9421  DIHED      =       15.2600
+ VDWAALS =       -3.2077  EEL     =     -188.9270  EGB        =      -95.2363
+ 1-4 VDW =        4.1535  1-4 EEL =      156.4411  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    500      -1.0778E+02     1.3460E-01     3.8152E-01     N          23
+
+ BOND    =        0.8511  ANGLE   =        2.9385  DIHED      =       15.2443
+ VDWAALS =       -3.2135  EEL     =     -188.8767  EGB        =      -95.2695
+ 1-4 VDW =        4.1728  1-4 EEL =      156.3770  RESTRAINT  =        0.0000
+
+
+  Maximum number of minimization cycles reached.
+
+
+                    FINAL RESULTS
+
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    500      -1.0778E+02     1.3460E-01     3.8152E-01     N          23
+
+ BOND    =        0.8511  ANGLE   =        2.9385  DIHED      =       15.2443
+ VDWAALS =       -3.2135  EEL     =     -188.8767  EGB        =      -95.2695
+ 1-4 VDW =        4.1728  1-4 EEL =      156.3770  RESTRAINT  =        0.0000
+
+--------------------------------------------------------------------------------
+   5.  TIMINGS
+--------------------------------------------------------------------------------
+
+|    Read coords time           0.00 ( 0.14% of Total)
+|                Calc gb radii              0.08 (32.03% of Gen B)
+|                Calc gb diag               0.11 (45.32% of Gen B)
+|                Calc gb off-diag           0.05 (22.46% of Gen B)
+|                Other                      0.00 ( 0.19% of Gen B)
+|             Gen Born time              0.24 (100.0% of Nonbo)
+|             IPS excludes               0.00 ( 0.03% of Nonbo)
+|          Nonbond force              0.24 (87.77% of Force)
+|          Bond/Angle/Dihedral        0.03 (11.85% of Force)
+|          Other                      0.00 ( 0.38% of Force)
+|       Force time                 0.27 (100.0% of Runmd)
+|    Runmd Time                 0.27 (97.52% of Total)
+|    Other                      0.01 ( 2.33% of Total)
+| Total time                 0.28 (100.0% of ALL  )
+
+| Number of list builds   :          0
+
+| Highest rstack allocated:          0
+| Highest istack allocated:          0
+|           Job began  at 03:02:13.570  on 07/12/2015
+|           Setup done at 03:02:13.575  on 07/12/2015
+|           Run   done at 03:02:13.850  on 07/12/2015
+|     wallclock() was called    9028 times
