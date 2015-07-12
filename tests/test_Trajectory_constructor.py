@@ -174,5 +174,13 @@ class Test(unittest.TestCase):
         t = pt.Trajectory.from_iterable(TRAJ(mask='@CA', rmsfit=(0, '@CA')))
         aa_eq(t.xyz, pt.get_coordinates(TRAJ(mask='@CA', rmsfit=(0, '@CA'))))
 
+    def test_12_xyz(self):
+        traj = TRAJ
+        aa_eq(pt.Trajectory(xyz=traj.xyz, top=traj.top.filename).xyz,
+              pt.Trajectory(xyz=traj.xyz, top=traj.top).xyz)
+
+        # raise if dtype != np.float64
+        self.assertRaises(ValueError, lambda: pt.Trajectory(xyz=traj.xyz.astype('f4'), top=traj.top))
+
 if __name__ == "__main__":
     unittest.main()
