@@ -16,14 +16,13 @@ min.in
 """
 
 def minimize(traj, engine='sander',
-             mpi_run="",
              input=None, top=None):
 
     """
     >>> from pytraj.amber_wrap import minimize
     >>> minimize(traj)
 
-    >>> minimize(traj, engine='pmemd', mpi_run='mpirun -n 4')
+    >>> minimize(traj, engine='pmemd')
     """
 
     from pytraj import Trajectory
@@ -51,7 +50,42 @@ def minimize(traj, engine='sander',
 
         for frame in traj:
             pt.write_traj("tmp_frame.rst7", frame, top=_top, overwrite=True)
-            os.system("%s %s -O -p tmp.prmtop -c tmp_frame.rst7.1 -r min.r -i min.in" % (mpi_run, _engine))
+            os.system("%s -O -p tmp.prmtop -c tmp_frame.rst7.1 -r min.r -i min.in" % (_engine))
             f0 = pt.load("min.r", traj.top)[0]
             # update coords
             frame.xyz[:] = f0.xyz
+
+
+leapin = """
+source leaprc.ff14SB
+set default PBradii mbondi3
+x = loadpdb %s
+saveamberparm x tmp.top tmp.crd
+quit
+"""
+
+def prmtop_from_tleap(fname, leapin=leapin):
+    import os
+    import subprocess
+    import pytraj as pt
+
+    try:
+        amberhome = os.environ['AMBERHOME']
+    except KeyError:
+        raise KeyError("must set AMBERHOME")
+
+    tleap = amberhome + '/bin/tleap'
+
+    fname = os.path.abspath(fname)
+    cm = " ".join((tleap, fname))
+
+    with goto_temp_folder():
+        leapin = leapin % fname
+
+        with open("_leap.in", 'w') as f:
+            f.write(leapin)
+
+        with open(os.devnull, 'wb') as devnull:
+            subprocess.check_call([tleap, ' -f _leap.in'], 
+                stdout=devnull, stderr=subprocess.STDOUT)
+        return pt.load_topology("tmp.top")

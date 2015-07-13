@@ -27,3 +27,16 @@ def duplicate_traj(orig_traj, n_times):
             # Trajectory
             traj.join(traj.copy())
     return traj
+
+def join_mask(m, res=None):
+    """ join_mask(('CA', 'CB'), res='1') return ':1@CA :1@CB'
+    """
+    if is_int(res):
+        res = str(res + 1)
+    else:
+        res = res
+
+    if not isinstance(m, (list, tuple)):
+        raise ValueError("must be a list/tuple")
+
+    return " ".join(':' + res + '@' + s for s in m)
