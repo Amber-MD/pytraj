@@ -10,11 +10,11 @@ supported_dihedral_types = [x for x in
                             'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
 
 chinu = {
-        'A': ("O4′", "C1′", "N9", "C4"),
-        'G': ("O4′", "C1′", "N9", "C4"),
-        'C': ("O4′", "C1′", "N1", "C2"),
-        'T': ("O4′", "C1′", "N1", "C2"),
-        'U': ("O4′", "C1′", "N1", "C2"),
+        'A': ("O4'", "C1'", "N9", "C4"),
+        'G': ("O4'", "C1'", "N9", "C4"),
+        'C': ("O4'", "C1'", "N1", "C2"),
+        'T': ("O4'", "C1'", "N1", "C2"),
+        'U': ("O4'", "C1'", "N1", "C2"),
         }
 
 template = '''
