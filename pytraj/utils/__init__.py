@@ -31,12 +31,17 @@ def duplicate_traj(orig_traj, n_times):
 def join_mask(m, res=None):
     """ join_mask(('CA', 'CB'), res='1') return ':1@CA :1@CB'
     """
+    from pytraj.compat import string_types
+
     if is_int(res):
         res = str(res + 1)
     else:
         res = res
 
-    if not isinstance(m, (list, tuple)):
+    if isinstance(m, string_types):
+        # 'CA CB' to ['CA', 'CB']
+        m = m.split()
+    elif not isinstance(m, (list, tuple)):
         raise ValueError("must be a list/tuple")
 
     return " ".join(':' + res + '@' + s for s in m)
