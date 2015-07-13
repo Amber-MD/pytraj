@@ -4,7 +4,7 @@
 PYTRAJ
 ------
 
-- pytraj is a Python package wrapping cpptraj program (a data analysis for biomolecular simulation)
+- pytraj is a Python front-end to cpptraj program (a data analysis for biomolecular simulation)
 - Why using pytraj?
     * It's fast
         * most of `pytraj's codes` were written in [Cython language] (http://cython.org/)
