@@ -783,3 +783,8 @@ cdef class Topology:
     def guess_bond(self):
         # FIXME, TODO: wrong name
         self.thisptr.CommonSetup(True)
+
+    def save(self, filename=None, format='AMBERPARM'):
+        from pytraj.parms.ParmFile import ParmFile
+        parm = ParmFile()
+        parm.writeparm(filename=filename, top=self, format=format)
