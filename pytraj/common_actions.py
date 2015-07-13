@@ -1493,11 +1493,14 @@ def center(traj=None, mask="", top=None):
     act(mask, traj, top=_top)
 
 def rotate_dihedral(traj=None, mask="", top=None):
+    # change to pt.rotate_dihedral(traj, res=0, 
+    #              mask=("O4'", "C1'", "N9", "C4"), deg=120)?
     """
     Examples
     --------
     >>> import pytraj asp t
     >>> pt.rotate_dihedral(traj, "3:phi:120") # rotate phi of res 3 by to 120 deg
+    >>> pt.rotate_dihedral(traj, "1:O4':C1':N9:C4:120")
     """
     _noaction_with_TrajectoryIterator(traj)
     _top = _get_top(traj, top)

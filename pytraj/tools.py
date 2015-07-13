@@ -371,3 +371,22 @@ def find_lib(libname, unique=False):
             return set(lib_path_list)
         else:
             return lib_path_list
+
+def read_orca_trj(fname):
+    """return numpy 2D array
+
+    Examples
+    --------
+
+    20
+    Coordinates from ORCA-job test3 E -384.457081946094
+    C      -0.000000     -0.000001      1.435895
+    C       1.216191     -0.000002      0.697727
+    ...
+
+    """
+    # http://stackoverflow.com/questions/14645789/
+    #numpy-reading-file-with-filtering-lines-on-the-fly
+    import numpy as np
+    regexp = r'\s+\w+' + r'\s+([-.0-9]+)' * 3 + r'\s*\n'
+    return np.fromregex(fname, regexp, dtype='f')
