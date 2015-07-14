@@ -320,3 +320,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                                       mask=mask,
                                       autoimage=autoimage,
                                       rmsfit=rmsfit)
+
+    @property
+    def unitcells(self):
+        return self.box_to_ndarray()

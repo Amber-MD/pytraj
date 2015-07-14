@@ -70,8 +70,13 @@ class Trajectory(ActionTrajectory):
         elif hasattr(filename_or_iterable, 'xyz'):
             # make sure to use `float64`
             self._xyz = filename_or_iterable.xyz.astype(np.float64)
-        elif isinstance(filename_or_iterable, string_types):
-            self.load(filename_or_iterable)
+        elif isinstance(filename_or_iterable, (string_types, list, tuple)):
+                if isinstance(filename_or_iterable, string_types):
+                    self.load(filename_or_iterable)
+                else:
+                    for fname in filename_or_iterable:
+                        self.load(fname)
+
         elif is_frame_iter(filename_or_iterable):
             for frame in filename_or_iterable:
                 self.append(frame.xyz[:])
@@ -272,6 +277,16 @@ class Trajectory(ActionTrajectory):
         else:
             self._xyz = np.vstack((self._xyz, _xyz))
 
+    def _append_unitcells(self, clen, cangle):
+        data = np.hstack((clen, cangle)) 
+        if self._boxes is None:
+            self._boxes = np.asarray([data])
+        else:
+            self._boxes = np.vstack((self._boxes, data))
+
+        if self._boxes.ndim == 3:
+            self._boxes = self._boxes.reshape((self.n_frames, 6))
+
     def append(self, other):
         """other: xyz, Frame, Trajectory, ...
 
@@ -330,6 +345,16 @@ class Trajectory(ActionTrajectory):
     def frame_iter(self, start=0, stop=-1, stride=1, mask=None):
         return _frame_iter(self, start, stop, stride, mask)
 
+    def _load_new_by_scipy(self, filename):
+        from scipy import io
+        import numpy as np
+
+        fh = io.netcdf_file(filename, mmap=False)
+        self.xyz = fh.variables['coordinates'].data
+        cell_lengths = fh.variables['cell_lengths'].data
+        cell_angles= fh.variables['cell_angles'].data
+        self.unitcells = np.hstack((cell_lengths, cell_angles))
+
     def load(self, filename='', top=None, indices=None):
         if top is not None:
             if self.top.is_empty():
@@ -354,24 +379,27 @@ class Trajectory(ActionTrajectory):
             # load from single filename
             # we don't use UTF-8 here since ts.load(filename) does this job
             #filename = filename.encode("UTF-8")
-            from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
-            ts = TrajectoryCpptraj()
-            ts.top = self.top.copy()
-            ts.load(filename)
-            if indices is None:
-                # load all frames
-                for frame in ts[:]:
-                    self.append_xyz(frame.xyz)
-            elif isinstance(indices, slice):
-                for frame in ts[indices]:
-                    self.append_xyz(frame.xyz)
-            else:
-                # indices is tuple, list, ...
-                # we loop all traj frames and extract frame-ith in indices 
-                # TODO : check negative indexing?
-                # increase size of vector
-                for idx in indices:
-                    self.append(ts[idx])
+            try:
+                # use scipy to guess netcdf
+                from scipy import io
+                fh = io.netcdf_file(filename, mmap=False)
+                self.append_xyz(fh.variables['coordinates'].data)
+            except (ImportError, TypeError):
+                from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
+                ts = TrajectoryCpptraj()
+                ts.top = self.top.copy()
+                ts.load(filename)
+                if indices is None:
+                    self.append_xyz(ts.xyz)
+                elif isinstance(indices, slice):
+                    self.append_xyz(ts[indices].xyz)
+                else:
+                    # indices is tuple, list, ...
+                    # we loop all traj frames and extract frame-ith in indices 
+                    # TODO : check negative indexing?
+                    # increase size of vector
+                    for idx in indices:
+                        self.append_xyz(ts[idx].xyz)
         elif isinstance(filename, Frame):
             self.append(filename)
         elif isinstance(filename, (list, tuple)):
@@ -434,6 +462,11 @@ class Trajectory(ActionTrajectory):
             except:
                 raise ValueError("filename must be str, traj-like or numpy array")
 
+        try:
+            if self._xyz.shape != self.unitcells.shape:
+                print ("make sure to update traj.unitcells too")
+        except AttributeError:
+                print ("make sure to update traj.unitcells too")
 
     def has_box(self):
         try:
@@ -442,17 +475,32 @@ class Trajectory(ActionTrajectory):
             return False
 
     def autoimage(self):
-        import pytraj.common_actions as pyca
+        from pytraj.actions.CpptrajActions import Action_AutoImage
+
         if not self.has_box():
             raise ValueError("must have a box")
         else:
+            act = Action_AutoImage()
+            act.read_input("", top=self.top)
+            act.process(self.top)
+
             for idx, frame in enumerate(self):
-                pyca.autoimage(frame, top=self.top)
+                act.do_action(frame)
                 self._xyz[idx] = frame.xyz[:]
 
     def rotate(self, *args, **kwd):
         import pytraj.common_actions as pyca
-        pyca.rotate(self, *args, **kwd)
+
+        for idx, frame in enumerate(self):
+            pyca.rotate(frame, top=self.top, *args, **kwd)
+            self.xyz[idx] = frame.xyz
+
+    def rotate_dihedral(self, *args, **kwd):
+        import pytraj.common_actions as pyca
+
+        for idx, frame in enumerate(self):
+            pyca.rotate_dihedral(frame, top=self.top, *args, **kwd)
+            self.xyz[idx] = frame.xyz
 
     def box_to_ndarray(self):
         return self._boxes
@@ -463,8 +511,6 @@ class Trajectory(ActionTrajectory):
 
     @unitcells.setter
     def unitcells(self, values):
-        if values.shape != self._xyz.shape:
-            raise ValueError("shape mismatch")
         self._boxes = values
 
     def update_box(self, box_arr):
