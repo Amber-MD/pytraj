@@ -50,7 +50,8 @@ How to get started?
     >>> pt.rmsd(traj, ref=0, mask='@CA')
     >>> pt.distance(traj, [[0, 2], [3, 7]])
     >>> pt.bfactors(traj, '@CA', byres=True, dtype='dataset').plot()
-    
+    >>> pt.energy_decomposition(traj, igb=8, parm="./top.parm7")['dihedral']
+    >>> traj['@CA'].xyz
     ```
 - many more:
     * check ./examples folder
