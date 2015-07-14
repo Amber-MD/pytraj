@@ -122,6 +122,20 @@ def iterload(*args, **kwd):
         raise ValueError("do not support iterload with engine=='mdtraj'")
     return load_traj(*args, **kwd)
 
+def _load_netcdf(filename, top, engine='scipy'):
+    from pytraj import api
+    traj = api.Trajectory(top=top)
+
+    if engine == 'scipy':
+        from scipy import io
+        fh = io.netcdf_file(filename, mmap=False)
+        data = fh.variables['coordinates'].data
+    if engine == 'netcdf4':
+        fh = netCDF4.Dataset(filename)
+
+    traj.xyz = fh.variables['coordinates'].data
+    return traj
+
 
 def _iterload_from_filelist(filename=None, top=None, force_load=False, *args, **kwd):
     """return a list of TrajectoryIterator"""
