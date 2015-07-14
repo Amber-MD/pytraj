@@ -111,6 +111,7 @@ from . common_actions import (rmsd, search_hbonds,
                               calc_pairwise_rmsd,
                               calc_atomicfluct,
                               calc_bfactors,
+                              get_average_frame,
                               energy_decomposition,
                               native_contacts,
                               auto_correlation_function,
@@ -140,6 +141,7 @@ radgyr = calc_radgyr
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
+get_average_structure = get_average_frame
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (
