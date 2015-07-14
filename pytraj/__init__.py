@@ -152,15 +152,22 @@ from ._shared_methods import _frame_iter_master as frame_iter_master
 # TODO: need to move set_world_silent and set_error_silent to the same file
 from ._set_silent import set_error_silent, set_world_silent
 
-def to_numpy_Trajectory(traj, top):
+def to_numpy_Trajectory(traj, top, unitcells=None):
     from . import api
     import numpy as np
+    from ._xyz import XYZ
 
     t = api.Trajectory(top=top)
-    if isinstance(traj, np.ndarray):
+    if isinstance(traj, np.ndarray) or isinstance(traj, XYZ):
         t.xyz = traj
+    elif hasattr(traj, 'xyz'):
+        t.xyz = traj.xyz
+        if hasattr(traj, 'unitcells'):
+            t.unitcells = traj.unitcells
     else:
         t.xyz = get_coordinates(traj)
+    if unitcells is not None:
+        t.unitcells = unitcells
     return t
 
 def set_cpptraj_verbose(cm=True):
