@@ -44,6 +44,7 @@ Install
 How to get started?
 ------------------
 - examples: 
+
     ```python
     >>> import pytraj as pt
     >>> traj = pt.iterload("data.nc", "top.parm7")
@@ -52,6 +53,7 @@ How to get started?
     >>> pt.bfactors(traj, '@CA', byres=True, dtype='dataset').plot()
     >>> pt.energy_decomposition(traj, igb=8, parm="./top.parm7")['dihedral']
     >>> traj['@CA'].xyz
+
     ```
 - many more:
     * check ./examples folder
