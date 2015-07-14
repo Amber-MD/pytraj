@@ -59,7 +59,7 @@ How to get started?
 
     ```
 - many more:
-    * check ./examples folder (always keep updated)
+    * check [examples folder] (./examples/) (always keep updated)
     * check pytraj-notebook: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/pytraj_overview.ipynb) (sometimes outdated)
     * [more will come] (http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/index.ipynb)
     * pytraj's tutorials and documents are growing, stay tuned.
