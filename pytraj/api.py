@@ -277,15 +277,19 @@ class Trajectory(ActionTrajectory):
         else:
             self._xyz = np.vstack((self._xyz, _xyz))
 
-    def _append_unitcells(self, clen, cangle):
-        data = np.hstack((clen, cangle)) 
-        if self._boxes is None:
-            self._boxes = np.asarray([data])
-        else:
-            self._boxes = np.vstack((self._boxes, data))
+    def _append_unitcells(self, box):
+        if isinstance(box, tuple):
+            clen, cangle = box
+            data = np.hstack((clen, cangle)) 
+            if self._boxes is None:
+                self._boxes = np.asarray([data])
+            else:
+                self._boxes = np.vstack((self._boxes, data))
 
-        if self._boxes.ndim == 3:
-            self._boxes = self._boxes.reshape((self.n_frames, 6))
+            if self._boxes.ndim == 3:
+                self._boxes = self._boxes.reshape((self.n_frames, 6))
+        else:
+            self._boxes = np.vstack((self._boxes, box))
 
     def append(self, other):
         """other: xyz, Frame, Trajectory, ...
@@ -473,6 +477,17 @@ class Trajectory(ActionTrajectory):
             return self.top.has_box()
         except:
             return False
+
+    def center(self, mask="", *args, **kwd):
+        from pytraj.actions.CpptrajActions import Action_Center as Action
+
+        act = Action()
+        act.read_input(mask, top=self.top)
+        act.process(self.top)
+
+        for idx, frame in enumerate(self):
+            act.do_action(frame)
+            self._xyz[idx] = frame.xyz[:]
 
     def autoimage(self):
         from pytraj.actions.CpptrajActions import Action_AutoImage

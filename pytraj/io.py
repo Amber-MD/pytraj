@@ -142,7 +142,7 @@ def _load_netcdf(filename, top, indices=None, engine='scipy'):
         traj.xyz = data
     else:
         traj.xyz = data[indices]
-    traj._append_unitcells(clen, cangle)
+    traj._append_unitcells((clen, cangle))
     return traj
 
 
