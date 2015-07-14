@@ -117,6 +117,7 @@ from . common_actions import (rmsd, search_hbonds,
 distance = calc_distance
 angle = calc_angle
 dihedral = calc_dihedral
+jcoupling = calc_jcoupling
 nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
 rmsd_with_rotation_matrices = calc_rmsd_with_rotation_matrices
