@@ -52,6 +52,8 @@ How to get started?
     >>> pt.distance(traj, [[0, 2], [3, 7]])
     >>> pt.bfactors(traj, '@CA', byres=True, dtype='dataset').plot()
     >>> pt.energy_decomposition(traj, igb=8, parm="./top.parm7")['dihedral']
+    >>> pt.dssp(traj, ':2-16')
+    >>> pt.rotate_dihedral(traj, '3:phi:120')
     >>> traj['@CA'].xyz
 
     ```
