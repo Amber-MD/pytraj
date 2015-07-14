@@ -159,7 +159,7 @@ def to_numpy_Trajectory(traj, top, unitcells=None):
 
     t = api.Trajectory(top=top)
     if isinstance(traj, np.ndarray) or isinstance(traj, XYZ):
-        t.xyz = traj
+        t.xyz = np.asarray(traj)
     elif hasattr(traj, 'xyz'):
         t.xyz = traj.xyz
         if hasattr(traj, 'unitcells'):
