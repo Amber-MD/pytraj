@@ -454,12 +454,17 @@ class Trajectory(ActionTrajectory):
             return False
 
     def autoimage(self):
-        import pytraj.common_actions as pyca
+        from pytraj.actions.CpptrajActions import Action_AutoImage
+
         if not self.has_box():
             raise ValueError("must have a box")
         else:
+            act = Action_AutoImage()
+            act.read_input("", top=self.top)
+            act.process(self.top)
+
             for idx, frame in enumerate(self):
-                pyca.autoimage(frame, top=self.top)
+                act.do_action(frame)
                 self._xyz[idx] = frame.xyz[:]
 
     def rotate(self, *args, **kwd):
