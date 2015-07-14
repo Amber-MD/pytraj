@@ -53,6 +53,7 @@ How to get started?
     >>> pt.bfactors(traj, '@CA', byres=True, dtype='dataset').plot()
     >>> pt.energy_decomposition(traj, igb=8, parm="./top.parm7")['dihedral']
     >>> pt.dssp(traj, ':2-16')
+    >>> pt.calc_phi(traj, resrange=range(2, 8, 2))
     >>> pt.rotate_dihedral(traj, '3:phi:120')
     >>> traj['@CA'].xyz
 
