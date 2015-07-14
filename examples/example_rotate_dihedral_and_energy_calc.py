@@ -39,6 +39,11 @@ pt.write_traj("output/test.pdb",
               mode='model')
 
 # plot the PMF
-arr[1] = arr[1] - np.min(arr[1])
-pt.plotting.plot(arr[0], arr[1])
-pt.plotting.plt.show()
+try:
+    import matplotlib
+    from pytraj import plot
+    arr[1] = arr[1] - np.min(arr[1])
+    pt.plot(0, 1, data=arr)
+    pt.savefig("output/test.png")
+except ImportError:
+    pass
