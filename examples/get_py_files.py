@@ -2,10 +2,11 @@ from glob import glob
 
 
 lines = []
-testlist = glob("*.py")
+testlist = glob("*.py") + glob("./more_compicated_examples/*.py")
+
 # remove ./run_all_and_find_fails.py to avoid infinite loops
 remove_list = ['run_all_and_find_fails.py', 'get_py_files.py', 
-               'dihedral.py',]
+               ]
 
 for key in remove_list:
     testlist.remove(key)
