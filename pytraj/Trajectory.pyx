@@ -1597,3 +1597,7 @@ cdef class Trajectory (object):
         """esimated MB of data will be loaded to memory
         """
         return self.n_frames * self.n_atoms * 3 * 8 / 1E6
+
+    @property
+    def unitcells(self):
+        return self.box_to_ndarray()

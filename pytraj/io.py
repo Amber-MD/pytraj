@@ -130,14 +130,19 @@ def _load_netcdf(filename, top, indices=None, engine='scipy'):
         from scipy import io
         fh = io.netcdf_file(filename, mmap=False)
         data = fh.variables['coordinates'].data
+        clen = fh.variables['cell_lengths'].data
+        cangle = fh.variables['cell_angles'].data
     if engine == 'netcdf4':
         import netCDF4
         fh = netCDF4.Dataset(filename)
         data = fh.variables['coordinates']
+        clen = fh.variables['cell_lengths']
+        cangle = fh.variables['cell_angles']
     if indices is None:
         traj.xyz = data
     else:
         traj.xyz = data[indices]
+    traj._append_unitcells(clen, cangle)
     return traj
 
 

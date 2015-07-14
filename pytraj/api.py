@@ -277,6 +277,16 @@ class Trajectory(ActionTrajectory):
         else:
             self._xyz = np.vstack((self._xyz, _xyz))
 
+    def _append_unitcells(self, clen, cangle):
+        data = np.hstack((clen, cangle)) 
+        if self._boxes is None:
+            self._boxes = np.asarray([data])
+        else:
+            self._boxes = np.vstack((self._boxes, data))
+
+        if self._boxes.ndim == 3:
+            self._boxes = self._boxes.reshape((self.n_frames, 6))
+
     def append(self, other):
         """other: xyz, Frame, Trajectory, ...
 
@@ -337,8 +347,13 @@ class Trajectory(ActionTrajectory):
 
     def _load_new_by_scipy(self, filename):
         from scipy import io
+        import numpy as np
+
         fh = io.netcdf_file(filename, mmap=False)
         self.xyz = fh.variables['coordinates'].data
+        cell_lengths = fh.variables['cell_lengths'].data
+        cell_angles= fh.variables['cell_angles'].data
+        self.unitcells = np.hstack((cell_lengths, cell_angles))
 
     def load(self, filename='', top=None, indices=None):
         if top is not None:
@@ -447,6 +462,12 @@ class Trajectory(ActionTrajectory):
             except:
                 raise ValueError("filename must be str, traj-like or numpy array")
 
+        try:
+            if self._xyz.shape != self.unitcells.shape:
+                print ("make sure to update traj.unitcells too")
+        except AttributeError:
+                print ("make sure to update traj.unitcells too")
+
     def has_box(self):
         try:
             return self.top.has_box()
@@ -469,7 +490,17 @@ class Trajectory(ActionTrajectory):
 
     def rotate(self, *args, **kwd):
         import pytraj.common_actions as pyca
-        pyca.rotate(self, *args, **kwd)
+
+        for idx, frame in enumerate(self):
+            pyca.rotate(frame, top=self.top, *args, **kwd)
+            self.xyz[idx] = frame.xyz
+
+    def rotate_dihedral(self, *args, **kwd):
+        import pytraj.common_actions as pyca
+
+        for idx, frame in enumerate(self):
+            pyca.rotate_dihedral(frame, top=self.top, *args, **kwd)
+            self.xyz[idx] = frame.xyz
 
     def box_to_ndarray(self):
         return self._boxes
@@ -480,8 +511,6 @@ class Trajectory(ActionTrajectory):
 
     @unitcells.setter
     def unitcells(self, values):
-        if values.shape != self._xyz.shape:
-            raise ValueError("shape mismatch")
         self._boxes = values
 
     def update_box(self, box_arr):
