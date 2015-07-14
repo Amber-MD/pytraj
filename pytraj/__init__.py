@@ -5,6 +5,16 @@ from __future__ import absolute_import
 from sys import platform as _platform
 import os
 
+# checking cpptraj version first
+from .__cpptraj_version__ import info as compiled_info
+from .__cpptraj_version__ import __cpptraj_version__
+from .__cpptraj_version__ import __cpptraj_internal_version__
+
+_v = __cpptraj_internal_version__
+# TODO: follow python's rule
+if _v < 'V4.2':
+    raise RuntimeError("need to have cpptraj version >= v4.2")
+
 from .tools import find_lib as _find_lib
 
 # check `libcpptraj` and raise ImportError
@@ -193,9 +203,6 @@ def savefig(fname, *args, **kwd):
 def show_versions():
     """
     """
-    from .__cpptraj_version__ import info as compiled_info
-    from .__cpptraj_version__ import __cpptraj_version__
-    from .__cpptraj_version__ import __cpptraj_internal_version__
     print("pytraj version = ", version)
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)
