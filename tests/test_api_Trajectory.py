@@ -31,10 +31,6 @@ class Test(unittest.TestCase):
             f_blist = frame.box.tolist()
             aa_eq(f_blist, boxes[i].tolist())
 
-        # test join
-        api_traj += traj
-        assert api_traj.n_frames == traj.n_frames * 2
-        aa_eq(api_traj.xyz[traj.n_frames:], api_traj.xyz[:traj.n_frames])
 
         # test autoimage
         # make Trajectory from TrajectoryIterator

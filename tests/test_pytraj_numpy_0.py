@@ -97,10 +97,14 @@ class Test(unittest.TestCase):
         print(trajread.top)
         traj.top = trajread.top.copy()
         traj.load(fnames[0])
+        print ('traj', traj)
+        traj2.top = traj.top
         traj2.append(traj)
         traj2.update_box(traj.box_to_ndarray())
         assert traj.n_frames == trajread.n_frames == traj2.n_frames == 10
 
+        print ("print trajecetories")
+        print (traj, traj2, trajread)
         for f0, f1, f2 in izip(traj, traj2, trajread):
             assert f0.same_coords_as(f1) == True
             assert f0.same_coords_as(f2) == True
