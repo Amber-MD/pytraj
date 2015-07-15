@@ -397,7 +397,7 @@ def read_gaussian_output(fname):
     """
     import pytraj as pt
     import cclib
-    from pytraj import Trajectory
+    from pytraj.api import Trajectory
     from pytraj.utils.context import goto_temp_folder
 
     try:
@@ -411,7 +411,7 @@ def read_gaussian_output(fname):
 
     with goto_temp_folder():
         at = amberhome + "/bin/antechamber"
-        out = "-i %s -fi gout -o tmp.mol2 -fo mol2" % fpath
+        out = "-i %s -fi gout -o tmp.mol2 -fo mol2 -c resp -j both -at amber" % fpath
         cm = " ".join((at, out))
         os.system(cm)
 
