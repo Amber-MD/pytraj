@@ -791,8 +791,6 @@ static CYTHON_INLINE int __pyx_sub_acquisition_count_locked(
 static CYTHON_INLINE void __Pyx_INC_MEMVIEW(__Pyx_memviewslice *, int, int);
 static CYTHON_INLINE void __Pyx_XDEC_MEMVIEW(__Pyx_memviewslice *, int, int);
 
-static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname);
-
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
 
@@ -928,6 +926,8 @@ static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
 #define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
 #endif
 
+static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname);
+
 #ifndef __PYX_FORCE_INIT_THREADS
   #define __PYX_FORCE_INIT_THREADS 0
 #endif
@@ -1051,8 +1051,6 @@ static PyObject *strided = 0;
 static PyObject *indirect = 0;
 static PyObject *contiguous = 0;
 static PyObject *indirect_contiguous = 0;
-static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__Pyx_memviewslice, int __pyx_skip_dispatch); /*proto*/
-static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_angle(__Pyx_memviewslice, int __pyx_skip_dispatch); /*proto*/
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char *, char *); /*proto*/
 static void *__pyx_align_pointer(void *, size_t); /*proto*/
 static PyObject *__pyx_memoryview_new(PyObject *, int, int, __Pyx_TypeInfo *); /*proto*/
@@ -1100,8 +1098,12 @@ static PyObject *__pyx_builtin_id;
 static PyObject *__pyx_builtin_IndexError;
 static char __pyx_k_O[] = "O";
 static char __pyx_k_c[] = "c";
+static char __pyx_k_i[] = "i";
+static char __pyx_k_p[] = "p";
 static char __pyx_k_id[] = "id";
+static char __pyx_k_np[] = "np";
 static char __pyx_k_obj[] = "obj";
+static char __pyx_k_out[] = "out";
 static char __pyx_k_base[] = "base";
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_math[] = "math";
@@ -1113,6 +1115,7 @@ static char __pyx_k_size[] = "size";
 static char __pyx_k_step[] = "step";
 static char __pyx_k_stop[] = "stop";
 static char __pyx_k_test[] = "__test__";
+static char __pyx_k_angle[] = "angle";
 static char __pyx_k_class[] = "__class__";
 static char __pyx_k_empty[] = "empty";
 static char __pyx_k_error[] = "error";
@@ -1130,6 +1133,7 @@ static char __pyx_k_asarray[] = "asarray";
 static char __pyx_k_degrees[] = "degrees";
 static char __pyx_k_fortran[] = "fortran";
 static char __pyx_k_memview[] = "memview";
+static char __pyx_k_torsion[] = "torsion";
 static char __pyx_k_Ellipsis[] = "Ellipsis";
 static char __pyx_k_itemsize[] = "itemsize";
 static char __pyx_k_TypeError[] = "TypeError";
@@ -1154,8 +1158,10 @@ static char __pyx_k_Invalid_shape_in_axis_d_d[] = "Invalid shape in axis %d: %d.
 static char __pyx_k_Index_out_of_bounds_axis_d[] = "Index out of bounds (axis %d)";
 static char __pyx_k_Step_may_not_be_zero_axis_d[] = "Step may not be zero (axis %d)";
 static char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cython.array";
+static char __pyx_k_pytraj_math_TorsionRoutines[] = "pytraj.math.TorsionRoutines";
 static char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
+static char __pyx_k_u1_haichit_pytraj_git_hainm_pyt[] = "/u1/haichit/pytraj_git_hainm/pytraj/pytraj/math/TorsionRoutines.pyx";
 static char __pyx_k_All_dimensions_preceding_dimensi[] = "All dimensions preceding dimension %d must be indexed and not sliced";
 static char __pyx_k_Buffer_view_does_not_expose_stri[] = "Buffer view does not expose strides";
 static char __pyx_k_Can_only_create_a_buffer_that_is[] = "Can only create a buffer that is contiguous in memory.";
@@ -1186,6 +1192,7 @@ static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_kp_s_Unable_to_convert_item_to_object;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_allocate_buffer;
+static PyObject *__pyx_n_s_angle;
 static PyObject *__pyx_n_s_asarray;
 static PyObject *__pyx_n_s_base;
 static PyObject *__pyx_n_s_c;
@@ -1203,6 +1210,7 @@ static PyObject *__pyx_n_s_format;
 static PyObject *__pyx_n_s_fortran;
 static PyObject *__pyx_n_u_fortran;
 static PyObject *__pyx_kp_s_got_differing_extents_in_dimensi;
+static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_itemsize;
@@ -1214,9 +1222,13 @@ static PyObject *__pyx_n_s_mode;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_name_2;
 static PyObject *__pyx_n_s_ndim;
+static PyObject *__pyx_n_s_np;
 static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_n_s_obj;
+static PyObject *__pyx_n_s_out;
+static PyObject *__pyx_n_s_p;
 static PyObject *__pyx_n_s_pack;
+static PyObject *__pyx_n_s_pytraj_math_TorsionRoutines;
 static PyObject *__pyx_n_s_pyx_getbuffer;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
@@ -1231,6 +1243,8 @@ static PyObject *__pyx_kp_s_strided_and_direct_or_indirect;
 static PyObject *__pyx_kp_s_strided_and_indirect;
 static PyObject *__pyx_n_s_struct;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_torsion;
+static PyObject *__pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt;
 static PyObject *__pyx_kp_s_unable_to_allocate_array_data;
 static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
 static PyObject *__pyx_n_s_unpack;
@@ -1290,21 +1304,52 @@ static PyObject *__pyx_slice__13;
 static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__14;
 static PyObject *__pyx_tuple__15;
-static PyObject *__pyx_tuple__16;
 static PyObject *__pyx_tuple__17;
-static PyObject *__pyx_tuple__18;
 static PyObject *__pyx_tuple__19;
+static PyObject *__pyx_tuple__20;
+static PyObject *__pyx_tuple__21;
+static PyObject *__pyx_tuple__22;
+static PyObject *__pyx_tuple__23;
+static PyObject *__pyx_codeobj__16;
+static PyObject *__pyx_codeobj__18;
 
 /* "pytraj/math/TorsionRoutines.pyx":13
  *     double C_CalcAngle "CalcAngle" (const double*, const double*, const double*)
  * 
- * cpdef torsion(double[:, :, :] p):             # <<<<<<<<<<<<<<
+ * def torsion(double[:, :, :] p):             # <<<<<<<<<<<<<<
  *    import numpy as np
  *    cdef double[:] out = np.empty(p.shape[0])
  */
 
+/* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_4math_15TorsionRoutines_1torsion(PyObject *__pyx_self, PyObject *__pyx_arg_p); /*proto*/
-static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__Pyx_memviewslice __pyx_v_p, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static char __pyx_doc_6pytraj_4math_15TorsionRoutines_torsion[] = "torsion(__Pyx_memviewslice p)";
+static PyMethodDef __pyx_mdef_6pytraj_4math_15TorsionRoutines_1torsion = {"torsion", (PyCFunction)__pyx_pw_6pytraj_4math_15TorsionRoutines_1torsion, METH_O, __pyx_doc_6pytraj_4math_15TorsionRoutines_torsion};
+static PyObject *__pyx_pw_6pytraj_4math_15TorsionRoutines_1torsion(PyObject *__pyx_self, PyObject *__pyx_arg_p) {
+  __Pyx_memviewslice __pyx_v_p = { 0, 0, { 0 }, { 0 }, { 0 } };
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("torsion (wrapper)", 0);
+  assert(__pyx_arg_p); {
+    __pyx_v_p = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_arg_p); if (unlikely(!__pyx_v_p.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pytraj.math.TorsionRoutines.torsion", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_6pytraj_4math_15TorsionRoutines_torsion(__pyx_self, __pyx_v_p);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pytraj_4math_15TorsionRoutines_torsion(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_p) {
   PyObject *__pyx_v_np = NULL;
   __Pyx_memviewslice __pyx_v_out = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_v_i;
@@ -1341,7 +1386,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__Pyx_memviewsl
 
   /* "pytraj/math/TorsionRoutines.pyx":14
  * 
- * cpdef torsion(double[:, :, :] p):
+ * def torsion(double[:, :, :] p):
  *    import numpy as np             # <<<<<<<<<<<<<<
  *    cdef double[:] out = np.empty(p.shape[0])
  *    cdef int i
@@ -1352,7 +1397,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__Pyx_memviewsl
   __pyx_t_1 = 0;
 
   /* "pytraj/math/TorsionRoutines.pyx":15
- * cpdef torsion(double[:, :, :] p):
+ * def torsion(double[:, :, :] p):
  *    import numpy as np
  *    cdef double[:] out = np.empty(p.shape[0])             # <<<<<<<<<<<<<<
  *    cdef int i
@@ -1398,12 +1443,12 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__Pyx_memviewsl
   /* "pytraj/math/TorsionRoutines.pyx":18
  *    cdef int i
  * 
- *    if p.shape[1] != 4 and p.shape[2] != 3:             # <<<<<<<<<<<<<<
+ *    if p.shape[1] != 4 or p.shape[2] != 3:             # <<<<<<<<<<<<<<
  *        raise ValueError("shape of input array must be (n_frames, 4, 3)")
  * 
  */
   __pyx_t_8 = (((__pyx_v_p.shape[1]) != 4) != 0);
-  if (__pyx_t_8) {
+  if (!__pyx_t_8) {
   } else {
     __pyx_t_7 = __pyx_t_8;
     goto __pyx_L4_bool_binop_done;
@@ -1415,7 +1460,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__Pyx_memviewsl
 
     /* "pytraj/math/TorsionRoutines.pyx":19
  * 
- *    if p.shape[1] != 4 and p.shape[2] != 3:
+ *    if p.shape[1] != 4 or p.shape[2] != 3:
  *        raise ValueError("shape of input array must be (n_frames, 4, 3)")             # <<<<<<<<<<<<<<
  * 
  *    for i in range(p.shape[0]):
@@ -1429,7 +1474,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__Pyx_memviewsl
     /* "pytraj/math/TorsionRoutines.pyx":18
  *    cdef int i
  * 
- *    if p.shape[1] != 4 and p.shape[2] != 3:             # <<<<<<<<<<<<<<
+ *    if p.shape[1] != 4 or p.shape[2] != 3:             # <<<<<<<<<<<<<<
  *        raise ValueError("shape of input array must be (n_frames, 4, 3)")
  * 
  */
@@ -1525,7 +1570,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__Pyx_memviewsl
  *                              &p[i, 2, 0], &p[i, 3, 0]))
  *    return np.asarray(out)             # <<<<<<<<<<<<<<
  * 
- * cpdef angle(double[:, :, :] p):
+ * def angle(double[:, :, :] p):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_np, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -1565,7 +1610,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__Pyx_memviewsl
   /* "pytraj/math/TorsionRoutines.pyx":13
  *     double C_CalcAngle "CalcAngle" (const double*, const double*, const double*)
  * 
- * cpdef torsion(double[:, :, :] p):             # <<<<<<<<<<<<<<
+ * def torsion(double[:, :, :] p):             # <<<<<<<<<<<<<<
  *    import numpy as np
  *    cdef double[:] out = np.empty(p.shape[0])
  */
@@ -1579,65 +1624,11 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__Pyx_memviewsl
   __Pyx_XDECREF(__pyx_t_5);
   __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __Pyx_AddTraceback("pytraj.math.TorsionRoutines.torsion", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_np);
-  __PYX_XDEC_MEMVIEW(&__pyx_v_out, 1);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_15TorsionRoutines_1torsion(PyObject *__pyx_self, PyObject *__pyx_arg_p); /*proto*/
-static char __pyx_doc_6pytraj_4math_15TorsionRoutines_torsion[] = "torsion(__Pyx_memviewslice p)";
-static PyObject *__pyx_pw_6pytraj_4math_15TorsionRoutines_1torsion(PyObject *__pyx_self, PyObject *__pyx_arg_p) {
-  __Pyx_memviewslice __pyx_v_p = { 0, 0, { 0 }, { 0 }, { 0 } };
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("torsion (wrapper)", 0);
-  assert(__pyx_arg_p); {
-    __pyx_v_p = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_arg_p); if (unlikely(!__pyx_v_p.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.math.TorsionRoutines.torsion", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_4math_15TorsionRoutines_torsion(__pyx_self, __pyx_v_p);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_4math_15TorsionRoutines_torsion(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_p) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("torsion", 0);
-  __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_p.memview)) { __Pyx_RaiseUnboundLocalError("p"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  __pyx_t_1 = __pyx_f_6pytraj_4math_15TorsionRoutines_torsion(__pyx_v_p, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.math.TorsionRoutines.torsion", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_p, 1);
+  __Pyx_XDECREF(__pyx_v_np);
+  __PYX_XDEC_MEMVIEW(&__pyx_v_out, 1);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -1646,13 +1637,40 @@ static PyObject *__pyx_pf_6pytraj_4math_15TorsionRoutines_torsion(CYTHON_UNUSED 
 /* "pytraj/math/TorsionRoutines.pyx":26
  *    return np.asarray(out)
  * 
- * cpdef angle(double[:, :, :] p):             # <<<<<<<<<<<<<<
+ * def angle(double[:, :, :] p):             # <<<<<<<<<<<<<<
  *    import numpy as np
  *    cdef double[:] out = np.empty(p.shape[0])
  */
 
+/* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_4math_15TorsionRoutines_3angle(PyObject *__pyx_self, PyObject *__pyx_arg_p); /*proto*/
-static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_angle(__Pyx_memviewslice __pyx_v_p, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static char __pyx_doc_6pytraj_4math_15TorsionRoutines_2angle[] = "angle(__Pyx_memviewslice p)";
+static PyMethodDef __pyx_mdef_6pytraj_4math_15TorsionRoutines_3angle = {"angle", (PyCFunction)__pyx_pw_6pytraj_4math_15TorsionRoutines_3angle, METH_O, __pyx_doc_6pytraj_4math_15TorsionRoutines_2angle};
+static PyObject *__pyx_pw_6pytraj_4math_15TorsionRoutines_3angle(PyObject *__pyx_self, PyObject *__pyx_arg_p) {
+  __Pyx_memviewslice __pyx_v_p = { 0, 0, { 0 }, { 0 }, { 0 } };
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("angle (wrapper)", 0);
+  assert(__pyx_arg_p); {
+    __pyx_v_p = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_arg_p); if (unlikely(!__pyx_v_p.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pytraj.math.TorsionRoutines.angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_6pytraj_4math_15TorsionRoutines_2angle(__pyx_self, __pyx_v_p);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pytraj_4math_15TorsionRoutines_2angle(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_p) {
   PyObject *__pyx_v_np = NULL;
   __Pyx_memviewslice __pyx_v_out = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_v_i;
@@ -1686,7 +1704,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_angle(__Pyx_memviewslic
 
   /* "pytraj/math/TorsionRoutines.pyx":27
  * 
- * cpdef angle(double[:, :, :] p):
+ * def angle(double[:, :, :] p):
  *    import numpy as np             # <<<<<<<<<<<<<<
  *    cdef double[:] out = np.empty(p.shape[0])
  *    cdef int i
@@ -1697,7 +1715,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_angle(__Pyx_memviewslic
   __pyx_t_1 = 0;
 
   /* "pytraj/math/TorsionRoutines.pyx":28
- * cpdef angle(double[:, :, :] p):
+ * def angle(double[:, :, :] p):
  *    import numpy as np
  *    cdef double[:] out = np.empty(p.shape[0])             # <<<<<<<<<<<<<<
  *    cdef int i
@@ -1743,12 +1761,12 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_angle(__Pyx_memviewslic
   /* "pytraj/math/TorsionRoutines.pyx":31
  *    cdef int i
  * 
- *    if p.shape[1] != 3 and p.shape[2] != 3:             # <<<<<<<<<<<<<<
+ *    if p.shape[1] != 3 or p.shape[2] != 3:             # <<<<<<<<<<<<<<
  *        raise ValueError("shape of input array must be (n_frames, 4, 3)")
  * 
  */
   __pyx_t_8 = (((__pyx_v_p.shape[1]) != 3) != 0);
-  if (__pyx_t_8) {
+  if (!__pyx_t_8) {
   } else {
     __pyx_t_7 = __pyx_t_8;
     goto __pyx_L4_bool_binop_done;
@@ -1760,7 +1778,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_angle(__Pyx_memviewslic
 
     /* "pytraj/math/TorsionRoutines.pyx":32
  * 
- *    if p.shape[1] != 3 and p.shape[2] != 3:
+ *    if p.shape[1] != 3 or p.shape[2] != 3:
  *        raise ValueError("shape of input array must be (n_frames, 4, 3)")             # <<<<<<<<<<<<<<
  * 
  *    for i in range(p.shape[0]):
@@ -1774,7 +1792,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_angle(__Pyx_memviewslic
     /* "pytraj/math/TorsionRoutines.pyx":31
  *    cdef int i
  * 
- *    if p.shape[1] != 3 and p.shape[2] != 3:             # <<<<<<<<<<<<<<
+ *    if p.shape[1] != 3 or p.shape[2] != 3:             # <<<<<<<<<<<<<<
  *        raise ValueError("shape of input array must be (n_frames, 4, 3)")
  * 
  */
@@ -1904,7 +1922,7 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_angle(__Pyx_memviewslic
   /* "pytraj/math/TorsionRoutines.pyx":26
  *    return np.asarray(out)
  * 
- * cpdef angle(double[:, :, :] p):             # <<<<<<<<<<<<<<
+ * def angle(double[:, :, :] p):             # <<<<<<<<<<<<<<
  *    import numpy as np
  *    cdef double[:] out = np.empty(p.shape[0])
  */
@@ -1918,65 +1936,11 @@ static PyObject *__pyx_f_6pytraj_4math_15TorsionRoutines_angle(__Pyx_memviewslic
   __Pyx_XDECREF(__pyx_t_5);
   __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __Pyx_AddTraceback("pytraj.math.TorsionRoutines.angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_np);
-  __PYX_XDEC_MEMVIEW(&__pyx_v_out, 1);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_4math_15TorsionRoutines_3angle(PyObject *__pyx_self, PyObject *__pyx_arg_p); /*proto*/
-static char __pyx_doc_6pytraj_4math_15TorsionRoutines_2angle[] = "angle(__Pyx_memviewslice p)";
-static PyObject *__pyx_pw_6pytraj_4math_15TorsionRoutines_3angle(PyObject *__pyx_self, PyObject *__pyx_arg_p) {
-  __Pyx_memviewslice __pyx_v_p = { 0, 0, { 0 }, { 0 }, { 0 } };
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("angle (wrapper)", 0);
-  assert(__pyx_arg_p); {
-    __pyx_v_p = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_arg_p); if (unlikely(!__pyx_v_p.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pytraj.math.TorsionRoutines.angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6pytraj_4math_15TorsionRoutines_2angle(__pyx_self, __pyx_v_p);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_4math_15TorsionRoutines_2angle(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_p) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("angle", 0);
-  __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_p.memview)) { __Pyx_RaiseUnboundLocalError("p"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  __pyx_t_1 = __pyx_f_6pytraj_4math_15TorsionRoutines_angle(__pyx_v_p, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.math.TorsionRoutines.angle", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_p, 1);
+  __Pyx_XDECREF(__pyx_v_np);
+  __PYX_XDEC_MEMVIEW(&__pyx_v_out, 1);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -14164,8 +14128,6 @@ static PyTypeObject __pyx_type___pyx_memoryviewslice = {
 };
 
 static PyMethodDef __pyx_methods[] = {
-  {"torsion", (PyCFunction)__pyx_pw_6pytraj_4math_15TorsionRoutines_1torsion, METH_O, __pyx_doc_6pytraj_4math_15TorsionRoutines_torsion},
-  {"angle", (PyCFunction)__pyx_pw_6pytraj_4math_15TorsionRoutines_3angle, METH_O, __pyx_doc_6pytraj_4math_15TorsionRoutines_2angle},
   {0, 0, 0, 0}
 };
 
@@ -14206,6 +14168,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Unable_to_convert_item_to_object, __pyx_k_Unable_to_convert_item_to_object, sizeof(__pyx_k_Unable_to_convert_item_to_object), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_allocate_buffer, __pyx_k_allocate_buffer, sizeof(__pyx_k_allocate_buffer), 0, 0, 1, 1},
+  {&__pyx_n_s_angle, __pyx_k_angle, sizeof(__pyx_k_angle), 0, 0, 1, 1},
   {&__pyx_n_s_asarray, __pyx_k_asarray, sizeof(__pyx_k_asarray), 0, 0, 1, 1},
   {&__pyx_n_s_base, __pyx_k_base, sizeof(__pyx_k_base), 0, 0, 1, 1},
   {&__pyx_n_s_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 0, 1, 1},
@@ -14223,6 +14186,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_fortran, __pyx_k_fortran, sizeof(__pyx_k_fortran), 0, 0, 1, 1},
   {&__pyx_n_u_fortran, __pyx_k_fortran, sizeof(__pyx_k_fortran), 0, 1, 0, 1},
   {&__pyx_kp_s_got_differing_extents_in_dimensi, __pyx_k_got_differing_extents_in_dimensi, sizeof(__pyx_k_got_differing_extents_in_dimensi), 0, 0, 1, 0},
+  {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_itemsize, __pyx_k_itemsize, sizeof(__pyx_k_itemsize), 0, 0, 1, 1},
@@ -14234,9 +14198,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_name_2, __pyx_k_name_2, sizeof(__pyx_k_name_2), 0, 0, 1, 1},
   {&__pyx_n_s_ndim, __pyx_k_ndim, sizeof(__pyx_k_ndim), 0, 0, 1, 1},
+  {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
   {&__pyx_n_s_obj, __pyx_k_obj, sizeof(__pyx_k_obj), 0, 0, 1, 1},
+  {&__pyx_n_s_out, __pyx_k_out, sizeof(__pyx_k_out), 0, 0, 1, 1},
+  {&__pyx_n_s_p, __pyx_k_p, sizeof(__pyx_k_p), 0, 0, 1, 1},
   {&__pyx_n_s_pack, __pyx_k_pack, sizeof(__pyx_k_pack), 0, 0, 1, 1},
+  {&__pyx_n_s_pytraj_math_TorsionRoutines, __pyx_k_pytraj_math_TorsionRoutines, sizeof(__pyx_k_pytraj_math_TorsionRoutines), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
@@ -14251,6 +14219,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_strided_and_indirect, __pyx_k_strided_and_indirect, sizeof(__pyx_k_strided_and_indirect), 0, 0, 1, 0},
   {&__pyx_n_s_struct, __pyx_k_struct, sizeof(__pyx_k_struct), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_torsion, __pyx_k_torsion, sizeof(__pyx_k_torsion), 0, 0, 1, 1},
+  {&__pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_k_u1_haichit_pytraj_git_hainm_pyt, sizeof(__pyx_k_u1_haichit_pytraj_git_hainm_pyt), 0, 0, 1, 0},
   {&__pyx_kp_s_unable_to_allocate_array_data, __pyx_k_unable_to_allocate_array_data, sizeof(__pyx_k_unable_to_allocate_array_data), 0, 0, 1, 0},
   {&__pyx_kp_s_unable_to_allocate_shape_and_str, __pyx_k_unable_to_allocate_shape_and_str, sizeof(__pyx_k_unable_to_allocate_shape_and_str), 0, 0, 1, 0},
   {&__pyx_n_s_unpack, __pyx_k_unpack, sizeof(__pyx_k_unpack), 0, 0, 1, 1},
@@ -14276,7 +14246,7 @@ static int __Pyx_InitCachedConstants(void) {
 
   /* "pytraj/math/TorsionRoutines.pyx":19
  * 
- *    if p.shape[1] != 4 and p.shape[2] != 3:
+ *    if p.shape[1] != 4 or p.shape[2] != 3:
  *        raise ValueError("shape of input array must be (n_frames, 4, 3)")             # <<<<<<<<<<<<<<
  * 
  *    for i in range(p.shape[0]):
@@ -14287,7 +14257,7 @@ static int __Pyx_InitCachedConstants(void) {
 
   /* "pytraj/math/TorsionRoutines.pyx":32
  * 
- *    if p.shape[1] != 3 and p.shape[2] != 3:
+ *    if p.shape[1] != 3 or p.shape[2] != 3:
  *        raise ValueError("shape of input array must be (n_frames, 4, 3)")             # <<<<<<<<<<<<<<
  * 
  *    for i in range(p.shape[0]):
@@ -14431,6 +14401,30 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
 
+  /* "pytraj/math/TorsionRoutines.pyx":13
+ *     double C_CalcAngle "CalcAngle" (const double*, const double*, const double*)
+ * 
+ * def torsion(double[:, :, :] p):             # <<<<<<<<<<<<<<
+ *    import numpy as np
+ *    cdef double[:] out = np.empty(p.shape[0])
+ */
+  __pyx_tuple__15 = PyTuple_Pack(5, __pyx_n_s_p, __pyx_n_s_p, __pyx_n_s_np, __pyx_n_s_out, __pyx_n_s_i); if (unlikely(!__pyx_tuple__15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_n_s_torsion, 13, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+  /* "pytraj/math/TorsionRoutines.pyx":26
+ *    return np.asarray(out)
+ * 
+ * def angle(double[:, :, :] p):             # <<<<<<<<<<<<<<
+ *    import numpy as np
+ *    cdef double[:] out = np.empty(p.shape[0])
+ */
+  __pyx_tuple__17 = PyTuple_Pack(5, __pyx_n_s_p, __pyx_n_s_p, __pyx_n_s_np, __pyx_n_s_out, __pyx_n_s_i); if (unlikely(!__pyx_tuple__17)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_n_s_angle, 26, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
   /* "View.MemoryView":276
  *         return self.name
  * 
@@ -14438,9 +14432,9 @@ static int __Pyx_InitCachedConstants(void) {
  * cdef strided = Enum("<strided and direct>") # default
  * cdef indirect = Enum("<strided and indirect>")
  */
-  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct_or_indirect); if (unlikely(!__pyx_tuple__15)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__15);
-  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct_or_indirect); if (unlikely(!__pyx_tuple__19)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
 
   /* "View.MemoryView":277
  * 
@@ -14449,9 +14443,9 @@ static int __Pyx_InitCachedConstants(void) {
  * cdef indirect = Enum("<strided and indirect>")
  * 
  */
-  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct); if (unlikely(!__pyx_tuple__16)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__16);
-  __Pyx_GIVEREF(__pyx_tuple__16);
+  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct); if (unlikely(!__pyx_tuple__20)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__20);
+  __Pyx_GIVEREF(__pyx_tuple__20);
 
   /* "View.MemoryView":278
  * cdef generic = Enum("<strided and direct or indirect>")
@@ -14460,9 +14454,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * 
  */
-  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_s_strided_and_indirect); if (unlikely(!__pyx_tuple__17)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
+  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_kp_s_strided_and_indirect); if (unlikely(!__pyx_tuple__21)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
 
   /* "View.MemoryView":281
  * 
@@ -14471,9 +14465,9 @@ static int __Pyx_InitCachedConstants(void) {
  * cdef indirect_contiguous = Enum("<contiguous and indirect>")
  * 
  */
-  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_direct); if (unlikely(!__pyx_tuple__18)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__18);
-  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_direct); if (unlikely(!__pyx_tuple__22)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
 
   /* "View.MemoryView":282
  * 
@@ -14482,9 +14476,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * 
  */
-  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_indirect); if (unlikely(!__pyx_tuple__19)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 282; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_indirect); if (unlikely(!__pyx_tuple__23)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 282; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__23);
+  __Pyx_GIVEREF(__pyx_tuple__23);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -14639,6 +14633,30 @@ PyMODINIT_FUNC PyInit_TorsionRoutines(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_math, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 2; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+  /* "pytraj/math/TorsionRoutines.pyx":13
+ *     double C_CalcAngle "CalcAngle" (const double*, const double*, const double*)
+ * 
+ * def torsion(double[:, :, :] p):             # <<<<<<<<<<<<<<
+ *    import numpy as np
+ *    cdef double[:] out = np.empty(p.shape[0])
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pytraj_4math_15TorsionRoutines_1torsion, NULL, __pyx_n_s_pytraj_math_TorsionRoutines); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_torsion, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pytraj/math/TorsionRoutines.pyx":26
+ *    return np.asarray(out)
+ * 
+ * def angle(double[:, :, :] p):             # <<<<<<<<<<<<<<
+ *    import numpy as np
+ *    cdef double[:] out = np.empty(p.shape[0])
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pytraj_4math_15TorsionRoutines_3angle, NULL, __pyx_n_s_pytraj_math_TorsionRoutines); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_angle, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
   /* "pytraj/math/TorsionRoutines.pyx":1
  * # distutil: language = c++             # <<<<<<<<<<<<<<
  * import math
@@ -14669,7 +14687,7 @@ PyMODINIT_FUNC PyInit_TorsionRoutines(void)
  * cdef strided = Enum("<strided and direct>") # default
  * cdef indirect = Enum("<strided and indirect>")
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__15, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(generic);
   __Pyx_DECREF_SET(generic, __pyx_t_1);
@@ -14683,7 +14701,7 @@ PyMODINIT_FUNC PyInit_TorsionRoutines(void)
  * cdef indirect = Enum("<strided and indirect>")
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(strided);
   __Pyx_DECREF_SET(strided, __pyx_t_1);
@@ -14697,7 +14715,7 @@ PyMODINIT_FUNC PyInit_TorsionRoutines(void)
  * 
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(indirect);
   __Pyx_DECREF_SET(indirect, __pyx_t_1);
@@ -14711,7 +14729,7 @@ PyMODINIT_FUNC PyInit_TorsionRoutines(void)
  * cdef indirect_contiguous = Enum("<contiguous and indirect>")
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(contiguous);
   __Pyx_DECREF_SET(contiguous, __pyx_t_1);
@@ -14725,7 +14743,7 @@ PyMODINIT_FUNC PyInit_TorsionRoutines(void)
  * 
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 282; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject *)__pyx_MemviewEnum_type)), __pyx_tuple__23, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 282; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_XGOTREF(indirect_contiguous);
   __Pyx_DECREF_SET(indirect_contiguous, __pyx_t_1);
@@ -15851,10 +15869,6 @@ static CYTHON_INLINE void __Pyx_XDEC_MEMVIEW(__Pyx_memviewslice *memslice,
     }
 }
 
-static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname) {
-    PyErr_Format(PyExc_UnboundLocalError, "local variable '%s' referenced before assignment", varname);
-}
-
 static void __Pyx_RaiseArgtupleInvalid(
     const char* func_name,
     int exact,
@@ -16500,6 +16514,10 @@ static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED
     return (inplace ? PyNumber_InPlaceAdd : PyNumber_Add)(op1, op2);
 }
 #endif
+
+static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname) {
+    PyErr_Format(PyExc_UnboundLocalError, "local variable '%s' referenced before assignment", varname);
+}
 
 static CYTHON_INLINE long __Pyx_div_long(long a, long b) {
     long q = a / b;
