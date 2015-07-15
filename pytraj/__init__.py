@@ -66,6 +66,7 @@ from .Trajectory import Trajectory
 from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
+from .datasetlist import DatasetList as Dataset
 from .parms.ParmFile import ParmFile
 from . import io
 from .io import (load, iterload, load_remd, iterload_remd,
