@@ -100,6 +100,13 @@ class DataArray(object):
     def __setitem__(self, idx, value):
         self._values[idx] = value
 
+    def transpose(self):
+        d = self.__class__(self, copy=False)
+        d.values = d.values.T
+        return d
+
+    T = property(transpose)
+
     @property
     def size(self):
         return len(self._values)
