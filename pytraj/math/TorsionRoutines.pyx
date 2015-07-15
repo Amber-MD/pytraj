@@ -10,8 +10,28 @@ cdef extern from "TorsionRoutines.h" nogil:
                              const double*, const double*, int, double&, double&)
     double C_CalcAngle "CalcAngle" (const double*, const double*, const double*)
 
-cpdef torsion(double[:, :] p):
-   return math.degrees(C_Torsion(&p[0, 0], &p[1, 0], &p[2, 0], &p[3, 0]))
+cpdef torsion(double[:, :, :] p):
+   import numpy as np
+   cdef double[:] out = np.empty(p.shape[0])
+   cdef int i
 
-cpdef angle(double[:, :] p):
-   return math.degrees(C_CalcAngle(&p[0, 0], &p[1, 0], &p[2, 0]))
+   if p.shape[1] != 4 and p.shape[2] != 3:
+       raise ValueError("shape of input array must be (n_frames, 4, 3)")
+
+   for i in range(p.shape[0]):
+       out[i] = math.degrees(C_Torsion(&p[i, 0, 0], &p[i, 1, 0],
+                             &p[i, 2, 0], &p[i, 3, 0]))
+   return np.asarray(out)
+
+cpdef angle(double[:, :, :] p):
+   import numpy as np
+   cdef double[:] out = np.empty(p.shape[0])
+   cdef int i
+
+   if p.shape[1] != 3 and p.shape[2] != 3:
+       raise ValueError("shape of input array must be (n_frames, 4, 3)")
+
+   for i in range(p.shape[0]):
+       out[i] = math.degrees(C_CalcAngle(&p[i, 0, 0], &p[i, 1, 0],
+                             &p[i, 2, 0]))
+   return np.asarray(out)
