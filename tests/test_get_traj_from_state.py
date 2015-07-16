@@ -14,9 +14,9 @@ class Test(unittest.TestCase):
         cout = pt.datafiles.load_cpptraj_output("""
         parm ./data/Tc5b.top
         trajin ./data/md1_prod.Tc5b.x
-        """, with_state=True)
+        """, with_traj=True)
 
-        traj2 = cout[0].get_trajectory()
+        traj2 = cout[0]
         aa_eq(traj.xyz, traj2.xyz)
 
 if __name__ == "__main__":
