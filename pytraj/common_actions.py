@@ -291,6 +291,8 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
 
 def calc_mindist(traj=None, command="", top=None, *args, **kwd):
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
     _command = "mindist " + command
     _top = _get_top(traj, top)
     return calculate("nativecontacts", traj, _command, top=_top, quick_get=True, *args, **kwd)
@@ -308,6 +310,8 @@ def calc_watershell(traj=None, command="", top=Topology()):
     >>> print (d0_1[:])
     """
     _top = _get_top(traj, top)
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
     if not 'out' in command:
         # current Watershell action require specifying output
         #
@@ -321,6 +325,8 @@ def calc_radial(traj=None, command="", top=Topology()):
     '''Action_Radial require calling Print() to get output. We make change here'''
     act = adict['radial']
     # add `radial` keyword to command (need to check `why`?)
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
     command = 'radial ' + command
     dslist = CpptrajDatasetList()
     if not top.is_empty():
@@ -335,6 +341,8 @@ def calc_radial(traj=None, command="", top=Topology()):
 
 def calc_matrix(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_Matrix
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
     act = Action_Matrix()
 
     _top = _get_top(traj, top)
@@ -454,6 +462,8 @@ calc_LIE = calc_linear_interaction_energy
 def calc_rdf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_Radial
     act = Action_Radial()
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
 
     command = "pytraj_tmp_output.agr " + command
     _top = _get_top(traj, top)
@@ -524,6 +534,8 @@ autoimage = do_autoimage
 def get_average_frame(traj=None, command="", top=Topology()):
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
 
     # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
     command += " crdset s1"
@@ -548,6 +560,8 @@ def randomize_ions(traj=Frame(), command="", top=Topology()):
     top : Topology instance, default=Topology()
 
     """
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
     _noaction_with_TrajectoryIterator(traj)
     act = adict['randomizeions']
     act(command, traj, top)
@@ -1060,6 +1074,8 @@ def align_principal_axis(traj=None, command="*", top=None):
     -----
     apply for mutatble traj (Trajectory, Frame)
     """
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
     _top = _get_top(traj, top)
     act = adict['principal']
     command += " dorotation"
@@ -1159,6 +1175,8 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
     from .actions.CpptrajActions import Action_Closest
     from pytraj.Trajectory import Trajectory
     dslist = CpptrajDatasetList()
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
 
     if 'dtype' in kwd.keys():
         dtype = kwd['dtype']
@@ -1282,6 +1300,8 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset',
     """
     # TODO: doc, rename method, move to seperate module?
     from .actions.CpptrajActions import Action_Grid
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
     act = Action_Grid()
     dslist = CpptrajDatasetList()
 
