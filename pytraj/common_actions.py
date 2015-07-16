@@ -21,7 +21,7 @@ from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
-from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
+from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_atommask
 from .externals.six import string_types
 from .Frame import Frame
 #from .Trajectory import Trajectory
@@ -351,7 +351,7 @@ def calc_radgyr(traj=None, mask="", top=None,
     from pytraj.actions.CpptrajActions import Action_Radgyr
 
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     _nomax = 'nomax' if nomax else ""
     command = " ".join((mask, _nomax))
@@ -366,7 +366,7 @@ def calc_radgyr(traj=None, mask="", top=None,
 
 def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
     command = mask
 
     from pytraj.actions.CpptrajActions import Action_Molsurf
@@ -380,7 +380,7 @@ def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
 def calc_distrmsd(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -395,7 +395,7 @@ def calc_distrmsd(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
 def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -420,7 +420,7 @@ def calc_multivector(traj=None, command="", top=None, dtype='ndarray', *args, **
 
 def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -436,7 +436,7 @@ def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 def calc_linear_interaction_energy(traj=None, mask="", top=None,
                                    dtype='dataset', *args, **kwd):
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     command = mask
     from pytraj.actions.CpptrajActions import Action_LIE
@@ -477,7 +477,7 @@ def calc_jcoupling(traj=None, mask="", top=None,
     *args, **kwd: optional
     """
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
     command = mask
 
     from pytraj.actions.CpptrajActions import Action_Jcoupling
@@ -681,7 +681,7 @@ def calc_multidihedral(traj=None, command="", dtype='dataset',
 
 def calc_atomicfluct(traj=None, mask="", top=None, dtype='dataset', *args, **kwd):
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -713,7 +713,7 @@ def calc_bfactors(traj=None, mask="", byres=True, top=None,
     Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 557)
     """
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     byres_text = "byres" if byres else ""
 
@@ -789,10 +789,14 @@ calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
 
 def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
     _top = _get_top(traj, top)
+
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
+
     atom_mask_obj = _top(command)
     dslist = CpptrajDatasetList()
     dslist.add_set("vector")
-    # dslist.set_py_free_mem(False) # need this to avoid segmentation fault
+
     for frame in _frame_iter_master(traj):
         dslist[0].append(frame.center_of_geometry(atom_mask_obj))
     return _get_data_from_dtype(dslist, dtype=dtype)
@@ -864,7 +868,7 @@ def calc_pairwise_rmsd(traj=None, mask="", top=None, dtype='ndarray',
         info("rms2d")
     """
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -978,9 +982,9 @@ def calc_rmsd(traj=None, ref=0,  mask="", mass=False,
             command = cmd
         elif 'int' in dname or 'object' in dname:
             if cmd.ndim == 1 and 'object' not in dname:
-                command = [to_cpptraj_mask(mask), ]
+                command = [to_cpptraj_atommask(mask), ]
             elif cmd.ndim == 2 or 'object' in dname:
-                command = [to_cpptraj_mask(x) for x in mask]
+                command = [to_cpptraj_atommask(x) for x in mask]
             else:
                 raise ValueError("only support array with ndim=1,2")
         else:
@@ -1022,7 +1026,7 @@ def calc_rmsd_with_rotation_matrices(
 
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -1083,7 +1087,7 @@ def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -1206,7 +1210,7 @@ def native_contacts(traj=None, mask="", top=None, dtype='dataset',
 
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -1247,7 +1251,7 @@ def nastruct(traj=None, mask="", top=None, dtype='dataset',
     # TODO: doc, rename method, move to seperate module?
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -1423,7 +1427,7 @@ def find_neighborlist(traj=None,
     import numpy as np
 
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
+        mask = to_cpptraj_atommask(mask)
 
     mask = " ".join((mask, cutoff))
 
