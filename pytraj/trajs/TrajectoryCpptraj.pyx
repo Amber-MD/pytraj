@@ -356,12 +356,22 @@ cdef class TrajectoryCpptraj:
                              raise NotImplementedError()
              elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
                  farray = Trajectory()
-                 if hasattr(idxs, '__getitem__'):
-                    if isinstance(idxs[0], bool):
-                        raise NotImplementedError("don't support bool indexing")
-                 # for unknown reason, this does not work, it returns a Frame (?)
-                 farray.get_frames(from_traj=self, indices=idxs, update_top=True)
-                 # need to use `farray` so Cython knows its type
+
+                 if isinstance(idxs, list):
+                     if isinstance(idxs[0], bool):
+                         if any(not isinstance(x, bool) for x in idxs):
+                             raise NotImplementedError("can not mix boolean with other type")
+                         import numpy as np
+                         idxs = np.array(idxs, dtype=bool)
+
+                 if hasattr(idxs, 'dtype') and idxs.dtype.name == 'bool':
+                     farray.top = self.top
+                     for i in range(idxs.shape[0]):
+                         if idxs[i] == True:
+                             farray.append(self[i], copy=True)
+                 else:
+                      farray.get_frames(from_traj=self, indices=idxs, update_top=True)
+
                  self.tmpfarray = farray
                  return self.tmpfarray
 

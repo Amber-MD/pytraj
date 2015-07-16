@@ -38,7 +38,9 @@ __all__ = ['Trajectory']
 
 
 cdef class Trajectory (object):
-    def __cinit__(self, filename=None, top=None, indices=None, 
+    def __cinit__(self, filename=None, top=None,
+            xyz=None,
+            indices=None, 
             bint warning=False, n_frames=None, check_top=True):
         """
         Parameters
@@ -94,6 +96,20 @@ cdef class Trajectory (object):
         #self.is_mem_parent = True
         if filename is not None:
             self.load(filename, self.top, indices)
+        elif xyz is not None:
+            import numpy as np
+            from ._xyz import XYZ
+            assert hasattr(xyz, 'dtype')
+            if xyz.itemsize != 8:
+                raise ValueError("dtype must be float64")
+            self._allocate(*xyz.shape[:2])
+            if isinstance(xyz, XYZ):
+                # convert to numpy
+                self.update_coordinates(xyz[:])
+            else:
+                self.update_coordinates(xyz)
+        else:
+            pass
 
     def copy(self):
         "Return a copy of Trajectory"
@@ -225,9 +241,8 @@ cdef class Trajectory (object):
         elif is_mdtraj(filename):
             _traj = filename
             # add "10 *" since mdtraj use 'nm' while pytraj use 'Angstrom'
-            #self.append_ndarray(10 * _traj.xyz)
             # keep original coorsd, don't cast
-            self.append_ndarray(_traj.xyz)
+            self.append_xyz(_traj.xyz)
         elif is_word_in_class_name(filename, 'DataSetList'):
             # load DataSetList
             # iterate all datasets and get anything having frame_iter
@@ -246,72 +261,40 @@ cdef class Trajectory (object):
             except:
                 raise ValueError("filename must be str, traj-like or numpy array")
 
-    @cython.infer_types(True)
-    @cython.cdivision(True)
-    def append_xyz(self, xyz_in):
-        cdef int n_atoms = self.top.n_atoms
-        cdef int natom3 = n_atoms * 3
-        cdef int n_frames, i 
-        """Try loading xyz data with 
-        shape=(n_frames, n_atoms, 3) or (n_frames, n_atoms*3) or 1D array
 
-        If using numpy array with shape (n_frames, n_atoms, 3),
-        try "append_ndarray" method (much faster)
-        """
-
-        if n_atoms == 0:
-            raise ValueError("n_atoms = 0: need to set Topology or use `append_ndarray`'")
-
-        has_np, np = _import_numpy()
-        if has_np:
-            xyz = np.asarray(xyz_in)
-            if len(xyz.shape) == 1:
-                n_frames = int(xyz.shape[0]/natom3)
-                _xyz = xyz.reshape(n_frames, natom3) 
-            elif len(xyz.shape) in [2, 3]:
-                _xyz = xyz
-            else:
-                raise NotImplementedError("only support array/list/tuples with ndim=1,2,3")
-            for arr0 in _xyz:
-                frame = Frame(n_atoms)
-                # flatten either 1D or 2D array
-                frame.set_from_crd(arr0.flatten())
-                self.append(frame)
-        else:
-            if isinstance(xyz_in, (list, tuple)):
-                xyz_len = len(xyz_in)
-                if xyz_len % (natom3) != 0:
-                    raise ValueError("Len of list must be n_frames*n_atoms*3")
-                else:
-                    n_frames = int(xyz_len / natom3)
-                    for i in range(n_frames):
-                        frame = Frame(n_atoms)
-                        frame.set_from_crd(xyz_in[natom3 * i : natom3 * (i + 1)])
-                        self.append(frame)
-            elif hasattr(xyz_in, 'memview'):
-                    frame = Frame(n_atoms)
-                    for i in range(xyz_in.shape[0]):
-                        frame.append_xyz(xyz_in[i]) 
-                        self.append(frame)
-            else:
-                raise NotImplementedError("must have numpy or list/tuple must be 1D")
-
-    def append_ndarray(self, xyz):
-        """load ndarray with shape=(n_frames, n_atoms, 3)"""
+    def append_xyz(self, xyz):
+        """load array-like with shape=(n_frames, n_atoms, 3)"""
+        import numpy as np
         cdef Frame frame
         cdef int i
         cdef double[:, :] myview
-        cdef int n_frames = xyz.shape[0]
-        cdef int n_atoms = xyz.shape[1]
+        cdef int n_frames
+        cdef int n_atoms
         cdef int oldsize = self.frame_v.size()
-        cdef int newsize = oldsize + n_frames
-        import numpy as np
+        cdef int newsize
+
+        if not hasattr(xyz, 'dtype'):
+            xyz = np.asarray(xyz, dtype='f8')
+        else:
+            xyz = xyz
+
+        if xyz.ndim != 3:
+            raise ValueError("must have ndim=3")
+
+        n_frames, n_atoms = xyz.shape[:2]
+
+        if n_atoms != self.n_atoms:
+            raise ValueError("different n_atoms. skip")
+
+        newsize = oldsize + n_frames
 
         # need to use double precision
         if xyz.dtype != np.float64:
+            print ("warning: casting to float64")
             _xyz = xyz.astype(np.float64)
         else:
             _xyz = xyz
+
         self.frame_v.resize(newsize)
 
         for i in range(n_frames):
@@ -401,6 +384,9 @@ cdef class Trajectory (object):
 
         n_frames = xyz.shape[0]
         n_atoms = xyz.shape[1]
+        if any((self.n_frames != n_frames, self.n_atoms != n_atoms)):
+            raise ValueError("shape mismatch")
+
         count = sizeof(double) * n_atoms * 3
 
         for idx in range(n_frames):
@@ -435,7 +421,6 @@ cdef class Trajectory (object):
         cdef AtomMask atom_mask_obj
         cdef pyarray list_arr
         cdef int idxs_size
-        #cdef list tmplist
 
         # test memoryview for traj[:, :, :]
         cdef double[:, :, :] arr3d
@@ -580,13 +565,23 @@ cdef class Trajectory (object):
                 _farray = Trajectory(check_top=False)
                 _farray.top = self.top # just make a view, don't need to copy Topology
                 # check if there are bool index
-                if hasattr(idxs, '__getitem__'):
+                if isinstance(idxs, list):
                     if isinstance(idxs[0], bool):
-                        raise NotImplementedError("don't support bool indexing")
-                for i in idxs:
-                    frame.thisptr = self.frame_v[i] # point to i-th item
-                    frame.py_free_mem = False # don't free mem
-                    _farray.frame_v.push_back(frame.thisptr) # just copy pointer
+                        if any(not isinstance(x, bool) for x in idxs):
+                            raise NotImplementedError("can not mix boolean with other type")
+                        import numpy as np
+                        idxs = np.array(idxs, dtype=bool)
+                if hasattr(idxs, 'dtype') and 'bool' in idxs.dtype.name:
+                    for i in range(idxs.shape[0]):
+                        if idxs[i] == 1:
+                            frame.thisptr = self.frame_v[i] # point to i-th item
+                            frame.py_free_mem = False # don't free mem
+                            _farray.frame_v.push_back(frame.thisptr) # just copy pointer
+                else:
+                    for i in idxs:
+                        frame.thisptr = self.frame_v[i] # point to i-th item
+                        frame.py_free_mem = False # don't free mem
+                        _farray.frame_v.push_back(frame.thisptr) # just copy pointer
                 return _farray
             else:
                 idx_1 = get_positive_idx(idxs, self.size)
@@ -728,7 +723,8 @@ cdef class Trajectory (object):
         # we don't do anythin here. Just create the same API for TrajectoryIterator
         pass
 
-    def frame_iter(self, start=0, stop=None, stride=1, mask=None, autoimage=False, rmsfit=None):
+    def frame_iter(self, start=0, stop=None, stride=1,
+                   mask=None, autoimage=False, rmsfit=None):
         # TODO: combined with TrajectoryIterator
         from pytraj.core.frameiter import FrameIter
 
@@ -738,11 +734,19 @@ cdef class Trajectory (object):
             _top = self.top._get_new_from_mask(mask)
 
         if rmsfit is not None:
-            if len(rmsfit) != 2:
-                raise ValueError("rmsfit must be a tuple of two elements (frame, mask)")
+            if isinstance(rmsfit, tuple):
+                assert len(rmsfit) <= 2, ("rmsfit must be a tuple of one (frame,) "
+                                         "or two elements (frame, mask)")
+                if len(rmsfit) == 1:
+                    rmsfit = (rmsfit, '*')
+            elif isinstance(rmsfit, int):
+                rmsfit = (rmsfit, '*')
+            else:
+                raise ValueError("rmsfit must be a tuple or an integer")
+
             if is_int(rmsfit[0]):
                 index = rmsfit[0]
-                rmsfit = tuple([self[index], rmsfit[1]])
+                rmsfit = ([self[index], rmsfit[1]])
 
         # check how many frames will be calculated
         if stop is None or stop >= self.n_frames:
@@ -931,6 +935,9 @@ cdef class Trajectory (object):
         self.frame_v.insert(it + idx, tmp_frame.thisptr)
         
     def append(self, Frame framein, copy=True):
+        self.append_frame(framein, copy=copy)
+
+    def append_frame(self, Frame framein, copy=True):
         """append new Frame
 
         Parameters
@@ -1246,25 +1253,8 @@ cdef class Trajectory (object):
     def calc_distrmsd(self, mask="", *args, **kwd):
         return pyca.calc_distrmsd(self, mask, *args, **kwd)
 
-    def calc_rmsd(self, ref=None, mask='', mass=False, fit=True, *args, **kwd):
-        """
-        Examples
-        --------
-        >>> from pytraj import io
-        >>> traj = io.load_sample_data('tz2')[:]
-        >>> traj.calc_rmsd() 
-        >>> traj.calc_rmsd(0)
-        >>> traj.calc_rmsd(-1)
-        >>> traj.calc_rmsd(-1, '@CA', True, True, dtype='dataset')
-        >>> traj.calc_rmsd(-1, '@CA', True, True, dtype='pyarray')
-        """
-        if is_int(ref):
-            # index
-            _ref = self[ref]
-        else:
-            _ref = ref
-        return pyca.calc_rmsd(mask=mask, traj=self, ref=_ref,
-                              mass=mass, fit=fit, *args, **kwd)
+    def calc_rmsd(self, *args, **kwd):
+        return pyca.calc_rmsd(self, *args, **kwd)
 
     def rmsd(self, *args, **kwd):
             return self.calc_rmsd(*args, **kwd)
@@ -1607,3 +1597,7 @@ cdef class Trajectory (object):
         """esimated MB of data will be loaded to memory
         """
         return self.n_frames * self.n_atoms * 3 * 8 / 1E6
+
+    @property
+    def unitcells(self):
+        return self.box_to_ndarray()

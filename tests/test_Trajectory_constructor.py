@@ -57,7 +57,7 @@ class Test(unittest.TestCase):
         for f0, f1 in izip(farray_0, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
-        farray_1 = Trajectory(traj.xyz.flatten(), traj.top)
+        farray_1 = Trajectory(xyz=traj.xyz, top=traj.top)
         for f0, f1 in izip(farray_1, traj):
             assert_almost_equal(f0.coords, f1.coords)
 
@@ -173,6 +173,14 @@ class Test(unittest.TestCase):
 
         t = pt.Trajectory.from_iterable(TRAJ(mask='@CA', rmsfit=(0, '@CA')))
         aa_eq(t.xyz, pt.get_coordinates(TRAJ(mask='@CA', rmsfit=(0, '@CA'))))
+
+    def test_12_xyz(self):
+        traj = TRAJ
+        aa_eq(pt.Trajectory(xyz=traj.xyz, top=traj.top.filename).xyz,
+              pt.Trajectory(xyz=traj.xyz, top=traj.top).xyz)
+
+        # raise if dtype != np.float64
+        self.assertRaises(ValueError, lambda: pt.Trajectory(xyz=traj.xyz.astype('f4'), top=traj.top))
 
 if __name__ == "__main__":
     unittest.main()

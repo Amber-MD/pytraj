@@ -21,7 +21,7 @@ class TestTrajout(unittest.TestCase):
         #trajout.open(filename="test.x", top=farray.top, format="AMBERTRAJ")
         trajout.open(filename="./output/test.x", top=farray.top,
                      format="AMBERNETCDF", overwrite=True)
-        #trajout.open(filename="test.pdb", top=farray.top, format="PDBFILE", more_args="pdb")
+        #trajout.open(filename="test.pdb", top=farray.top, format="PDBFILE", mode="pdb")
         trajout.writeframe(0, frame0, farray.top)
         #assert trajout.is_open() == True
 

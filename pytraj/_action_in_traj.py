@@ -38,10 +38,16 @@ class ActionTrajectory(object):
     def calc_center_of_mass(self, mask="", *args, **kwd):
         return pyca.calc_center_of_mass(self, mask, *args, **kwd)
 
+    def center_of_mass(self, *args, **kwd):
+        return pyca.calc_center_of_mass(self, *args, **kwd)
+
     def calc_COM(self, mask="", *args, **kwd):
         return pyca.calc_center_of_mass(self, mask, *args, **kwd)
 
     def calc_center_of_geometry(self, mask="", *args, **kwd):
+        return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
+
+    def center_of_geometry(self, mask="", *args, **kwd):
         return pyca.calc_center_of_geometry(self, mask, *args, **kwd)
 
     def calc_COG(self, mask="", *args, **kwd):
@@ -66,13 +72,8 @@ class ActionTrajectory(object):
     def calc_distrmsd(self, mask="", *args, **kwd):
         return pyca.calc_distrmsd(self, mask, *args, **kwd)
 
-    def rmsd(self, ref=None, mask="", mass=False, fit=True, *args, **kwd):
-        """"""
-        if is_int(ref):
-            # index
-            ref = self[ref]
-        return pyca.calc_rmsd(mask=mask, traj=self,
-                              ref=ref, mass=mass, fit=fit, *args, **kwd)
+    def rmsd(self, *args, **kwd):
+        return pyca.calc_rmsd(self, *args, **kwd)
 
     def calc_rmsd(self, *args, **kwd):
         return self.rmsd(*args, **kwd)

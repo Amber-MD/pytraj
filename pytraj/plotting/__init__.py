@@ -2,14 +2,21 @@
 from __future__ import absolute_import
 from .plot_matrix import plot_matrix
 from .wrap_seaborn import joinplot
+from . import symbols
 
 try:
+    from matplotlib.pyplot import rc
     from matplotlib.pyplot import show, plot
     from matplotlib import pyplot as plt
+    font = {'family': 'serif',
+            'size': '15'}
+    rc('font', **font)
 except ImportError:
     show = None
     plot = None
     plt = None
+    font = None
+    rc = None
 
 
 _pylab_config = """

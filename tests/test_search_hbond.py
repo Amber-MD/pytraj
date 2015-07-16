@@ -62,7 +62,7 @@ class Test(unittest.TestCase):
         d = dict(zip(legends, zip(*arr0)))
         print(d)
         arr1 = pyca.calc_distance(traj, indices, n_frames=traj.n_frames)
-        assert_almost_equal(arr0.flatten(), arr1.flatten())
+        assert_almost_equal(arr0.T.flatten(), arr1.flatten())
 
     def test_2(self):
         # test memory error

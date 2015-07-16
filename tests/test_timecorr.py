@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         """
         cpptraj_output = pt.datafiles.load_cpptraj_output(trajin)
 
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", 
+        traj = pt.iterload("./data/md1_prod.Tc5b.x",
                            "./data/Tc5b.top")
         dslist0 = traj.calc_center_of_mass()
         data = pt.timecorr(dslist0, dslist0)
@@ -43,8 +43,10 @@ class Test(unittest.TestCase):
         """
         cpptraj_output = pt.datafiles.load_cpptraj_output(trajin)
 
-        dslist0 = pt.calc_vector(traj, ['@2,@5,@9 corrplane', '@3,@7,@20 corrplane'])
-        dslist1 = pt.vector_analysis.vector_corrplane(traj, ['@2,@5,@9', '@3,@7,@20'])
+        dslist0 = pt.calc_vector(
+            traj, ['@2,@5,@9 corrplane', '@3,@7,@20 corrplane'])
+        dslist1 = pt.vector_analysis.vector_corrplane(
+            traj, ['@2,@5,@9', '@3,@7,@20'])
         data0 = pt.timecorr(dslist0[0], dslist0[1])
         data1 = pt.timecorr(dslist1[0], dslist1[1])
         aa_eq(data0, cpptraj_output[-1].values)

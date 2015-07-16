@@ -104,6 +104,7 @@ def _get_matrix_from_dataset(dset, mat_type='full'):
     else:
         raise ValueError()
 
+
 def _get_reference_from_traj(traj, ref):
     from pytraj.utils import is_int
     if is_int(ref):
@@ -111,5 +112,12 @@ def _get_reference_from_traj(traj, ref):
             return traj[ref]
         except IndexError:
             raise IndexError("%s does not support indexing" % traj.__str__())
+    elif ref is None:
+        try:
+            return traj[0]
+        except IndexError:
+            raise IndexError("%s does not support indexing" % traj.__str__())
+    elif isinstance(ref, string_types):
+        raise ValueError("must a an integer or a Frame")
     else:
         return ref

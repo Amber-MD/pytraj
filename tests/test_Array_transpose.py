@@ -10,13 +10,14 @@ class Test(unittest.TestCase):
 
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        c = pt.center_of_mass(traj, dtype='dataset')[0]
+        ct = c.T
+        aa_eq(ct.values, c.values.T)
 
-        # mutable traj
-        traj2 = traj.to_mutable_trajectory()
-        # NotImplementedError: mutable traj
-        self.assertRaises(NotImplementedError, lambda: traj2[[True, False]])
-        # NotImplementedError : trajiter
-        self.assertRaises(NotImplementedError, lambda: traj[[True, False]])
+        # view
+        ct.values[0, 0] = 100.
+        assert c.values.T[0, 0] == 100.
+        print (c, ct)
 
 if __name__ == "__main__":
     unittest.main()

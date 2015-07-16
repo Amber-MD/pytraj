@@ -13,6 +13,7 @@ import pytraj.common_actions as pyca
 traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 mask_list = ('@CB @CA', '@CA @H')
 
+
 class Test(unittest.TestCase):
 
     def test_0(self):

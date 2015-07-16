@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         with goto_temp_folder():
             # write traj with nobox info
             fname = "traj_nobox.nc"
-            io.write_traj(fname, traj, more_args='nobox')
+            io.write_traj(fname, traj, mode='nobox')
             t = io.load(fname, traj.top)
             print(t)
             # FIXME: assert failed

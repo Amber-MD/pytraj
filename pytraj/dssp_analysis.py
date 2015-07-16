@@ -64,11 +64,11 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         return np.array(self.dslist.grep('res', mode='aspect').keys())
 
     def values_per_frame(self, restype='string'):
-        return np.vstack((self.residues, 
+        return np.vstack((self.residues,
                           self.to_ndarray(restype).T))
 
     def values_per_residue(self, restype='string'):
-        return np.vstack((self.residues, 
+        return np.vstack((self.residues,
                           self.to_ndarray(restype).T)).T
 
 

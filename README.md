@@ -4,7 +4,7 @@
 PYTRAJ
 ------
 
-- pytraj is a Python package wrapping cpptraj program (a data analysis for biomolecular simulation)
+- pytraj is a Python front-end to cpptraj program (a data analysis for biomolecular simulation)
 - Why using pytraj?
     * It's fast
         * most of `pytraj's codes` were written in [Cython language] (http://cython.org/)
@@ -44,22 +44,23 @@ Install
 How to get started?
 ------------------
 - examples: 
-    * calculate distance: `dist = calc_distance(traj, ':2@CA :10@CA')`
-    * calculate distance matrix: `mat = calc_matrix(frame, '@CA', top)`
-    * calculate DSSP: `calc_dssp([[frame,], traj1, traj2(3, 9, 2), traj3.chunk_iter(chunk=5)], ':2-10', dtype='string', top=traj.top)`
-    * get new Trajectory with a given mask: `traj['@CA']`
-    * update coords for specific atoms in residues: `traj[':1-3'] = xyz_3d`
-    * scale and translate coords for non-H atoms: `traj.apply(lambda x : x * 2 + 1.2, indices_or_mask='!@H='`)
-    * expose to numpy: `arr0 = np.asarray(frame)` 
-    * convert to pandas's DataFrame: `dframe = traj.search_hbonds(dtype='dataframe')`
-    * load from other packages: 
-        * from `mdtraj`: `traj = io.load_mdtraj(mdtraj_traj_object)`
-        * from `MDAnalysis`: `trajiterator = io.load_MDAnalysisIterator(universe_object)`
-        * from `ParmEd`: `parm = io.load_ParmEd(its_obj)`
-    * expose to Cython (will be translated to C++ code): `from pytraj.Frame cimport _Frame`
+
+    ```python
+    >>> import pytraj as pt
+    >>> traj = pt.iterload("data.nc", "top.parm7")
+    >>> pt.rmsd(traj, ref=0, mask='@CA')
+    >>> pt.distance(traj, [[0, 2], [3, 7]])
+    >>> pt.bfactors(traj, '@CA', byres=True, dtype='dataset').plot()
+    >>> pt.energy_decomposition(traj, igb=8, parm="./top.parm7")['dihedral']
+    >>> pt.dssp(traj, ':2-16')
+    >>> pt.calc_phi(traj, resrange=range(2, 8, 2))
+    >>> pt.rotate_dihedral(traj, '3:phi:120')
+    >>> traj['@CA'].xyz
+
+    ```
 - many more:
-    * check ./examples folder
-    * check pytraj-notebook: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/pytraj_overview.ipynb)
+    * check [examples folder] (./examples/) (always keep updated)
+    * check pytraj-notebook: [pytraj-notebook](http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/pytraj_overview.ipynb) (sometimes outdated)
     * [more will come] (http://nbviewer.ipython.org/github/pytraj/pytraj/blob/master/note-books/index.ipynb)
     * pytraj's tutorials and documents are growing, stay tuned.
 

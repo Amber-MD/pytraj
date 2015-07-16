@@ -392,7 +392,8 @@ cdef class Topology:
     def filename(self):
         # I want to keep _original_filename so don't need to
         # change other codes
-        return self._original_filename
+        import os
+        return os.path.abspath(self._original_filename)
 
     @property
     def _original_filename(self):
@@ -470,6 +471,9 @@ cdef class Topology:
 
     def has_box(self):
         return self.box.has_box()
+
+    def set_nobox(self):
+        self.box = Box()
 
     def _partial_modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
@@ -764,6 +768,12 @@ cdef class Topology:
         else:
             raise ValueError("must have pandas")
 
+    def to_parmed(self):
+        """try to load to ParmEd's Structure
+        """
+        import parmed as pmd
+        return pmd.load_file(self.filename)
+
     def NonbondParmType(self):
         cdef NonbondParmType nb = NonbondParmType()
         nb.thisptr[0] = self.thisptr.Nonbond()
@@ -776,3 +786,8 @@ cdef class Topology:
     def guess_bond(self):
         # FIXME, TODO: wrong name
         self.thisptr.CommonSetup(True)
+
+    def save(self, filename=None, format='AMBERPARM'):
+        from pytraj.parms.ParmFile import ParmFile
+        parm = ParmFile()
+        parm.writeparm(filename=filename, top=self, format=format)

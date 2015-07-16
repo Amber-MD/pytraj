@@ -5,6 +5,16 @@ from __future__ import absolute_import
 from sys import platform as _platform
 import os
 
+# checking cpptraj version first
+from .__cpptraj_version__ import info as compiled_info
+from .__cpptraj_version__ import __cpptraj_version__
+from .__cpptraj_version__ import __cpptraj_internal_version__
+
+_v = __cpptraj_internal_version__
+# TODO: follow python's rule
+if _v < 'V4.2':
+    raise RuntimeError("need to have cpptraj version >= v4.2")
+
 from .tools import find_lib as _find_lib
 
 # check `libcpptraj` and raise ImportError
@@ -56,6 +66,7 @@ from .Trajectory import Trajectory
 from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
+from .datasetlist import DatasetList as Dataset
 from .parms.ParmFile import ParmFile
 from . import io
 from .io import (load, iterload, load_remd, iterload_remd,
@@ -101,16 +112,24 @@ from . common_actions import (rmsd, search_hbonds,
                               calc_pairwise_rmsd,
                               calc_atomicfluct,
                               calc_bfactors,
+                              get_average_frame,
                               energy_decomposition,
                               native_contacts,
                               auto_correlation_function,
                               cross_correlation_function,
-                              timecorr)
+                              timecorr,
+                              center,
+                              translate,
+                              rotate,
+                              rotate_dihedral,
+                              scale,
+                              )
 
 # create alias
 distance = calc_distance
 angle = calc_angle
 dihedral = calc_dihedral
+jcoupling = calc_jcoupling
 nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
 rmsd_with_rotation_matrices = calc_rmsd_with_rotation_matrices
@@ -123,6 +142,7 @@ radgyr = calc_radgyr
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
+get_average_structure = get_average_frame
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (
@@ -146,6 +166,24 @@ from ._shared_methods import _frame_iter_master as frame_iter_master
 # TODO: need to move set_world_silent and set_error_silent to the same file
 from ._set_silent import set_error_silent, set_world_silent
 
+def to_numpy_Trajectory(traj, top, unitcells=None):
+    from . import api
+    import numpy as np
+    from ._xyz import XYZ
+
+    t = api.Trajectory(top=top)
+    if isinstance(traj, np.ndarray) or isinstance(traj, XYZ):
+        t.xyz = np.asarray(traj)
+    elif hasattr(traj, 'xyz'):
+        t.xyz = traj.xyz
+        if hasattr(traj, 'unitcells'):
+            t.unitcells = traj.unitcells
+    else:
+        t.xyz = get_coordinates(traj)
+    if unitcells is not None:
+        t.unitcells = unitcells
+    return t
+
 def set_cpptraj_verbose(cm=True):
     if cm:
         set_world_silent(False)
@@ -154,13 +192,20 @@ def set_cpptraj_verbose(cm=True):
 
 set_world_silent(True)
 
+def show():
+    # just delay importing
+    """show plot
+    """
+    from matplotlib import pyplot
+    pyplot.show()
+
+def savefig(fname, *args, **kwd):
+    from matplotlib import pyplot
+    pyplot.savefig(fname, *args, **kwd)
 
 def show_versions():
     """
     """
-    from .__cpptraj_version__ import info as compiled_info
-    from .__cpptraj_version__ import __cpptraj_version__
-    from .__cpptraj_version__ import __cpptraj_internal_version__
     print("pytraj version = ", version)
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)

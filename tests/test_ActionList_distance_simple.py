@@ -14,12 +14,12 @@ class Test(unittest.TestCase):
         distance @CA @H
         """
         cout = pt.datafiles.load_cpptraj_output(trajin)
-        print ("cout", cout)
+        print("cout", cout)
 
         mask_list = ('@CB @CA', '@CA @H')
         dslist = pt.calc_distance(traj, mask_list)
 
-        ## compare to cpptraj output
+        # compare to cpptraj output
         aa_eq(dslist.flatten(), cout.values.flatten())
 
         print("@CB @CA", pt.calc_distance(traj, "@CB @CA"))

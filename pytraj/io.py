@@ -122,6 +122,29 @@ def iterload(*args, **kwd):
         raise ValueError("do not support iterload with engine=='mdtraj'")
     return load_traj(*args, **kwd)
 
+def _load_netcdf(filename, top, indices=None, engine='scipy'):
+    from pytraj import api
+    traj = api.Trajectory(top=top)
+
+    if engine == 'scipy':
+        from scipy import io
+        fh = io.netcdf_file(filename, mmap=False)
+        data = fh.variables['coordinates'].data
+        clen = fh.variables['cell_lengths'].data
+        cangle = fh.variables['cell_angles'].data
+    if engine == 'netcdf4':
+        import netCDF4
+        fh = netCDF4.Dataset(filename)
+        data = fh.variables['coordinates']
+        clen = fh.variables['cell_lengths']
+        cangle = fh.variables['cell_angles']
+    if indices is None:
+        traj.xyz = data
+    else:
+        traj.xyz = data[indices]
+    traj._append_unitcells((clen, cangle))
+    return traj
+
 
 def _iterload_from_filelist(filename=None, top=None, force_load=False, *args, **kwd):
     """return a list of TrajectoryIterator"""
@@ -281,7 +304,7 @@ def load_remd(filename, top=None, T="300.0"):
 
 def write_traj(filename="", traj=None, top=None,
                format='unknown_traj', indices=None,
-               overwrite=False, more_args="",
+               overwrite=False, mode="",
                *args, **kwd):
     """write Trajectory-like, list of trajs, frames, ... to file/files
 
@@ -297,13 +320,13 @@ def write_traj(filename="", traj=None, top=None,
     >>> traj = io.load_sample_data()
     >>> io.write_traj("t.nc", traj) # write to amber netcdf file
     >>> # write to multi pdb files (t.pdb.1, t.pdb.2, ...)
-    >>> io.write_traj("t.pdb", traj, overwrite=True, more_args='multi')
+    >>> io.write_traj("t.pdb", traj, overwrite=True, mode='multi')
     >>> # write all frames to single pdb file and each frame is seperated by "MODEL" word
-    >>> io.write_traj("t.pdb", traj, overwrite=True, more_args='model')
+    >>> io.write_traj("t.pdb", traj, overwrite=True, mode='model')
     >>> # write to DCD file
     >>> io.write_traj("test.dcd", traj)
     >>> # set nobox for trajout
-    >>> io.write_traj("test.nc", traj, more_args='nobox')
+    >>> io.write_traj("test.nc", traj, mode='nobox')
 
     See Also
     --------
@@ -337,7 +360,7 @@ def write_traj(filename="", traj=None, top=None,
         raise ValueError("Need non-empty traj and top files")
 
     with Trajout(filename=filename, top=_top, format=format,
-                 overwrite=overwrite, more_args=more_args,
+                 overwrite=overwrite, mode=mode,
                  *args, **kwd) as trajout:
         if isinstance(traj, Frame):
             if indices is not None:

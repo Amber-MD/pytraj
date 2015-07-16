@@ -150,8 +150,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         # check if larger than size_limit_in_MB
         if size_in_MB > self._size_limit_in_MB and not self._force_load:
             raise MemoryError("you are loading %s Mb, larger than size_limit %s Mb. "
-                               "Please increase self._size_limit_in_MB or set self._force_load=True"
-                               % (size_in_MB, self._size_limit_in_MB))
+                              "Please increase self._size_limit_in_MB or set self._force_load=True"
+                              % (size_in_MB, self._size_limit_in_MB))
         return super(TrajectoryIterator, self).xyz
 
     def iterator_slice(self, start=0, stop=None, stride=None):
@@ -177,7 +177,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):
                 assert len(rmsfit) <= 2, ("rmsfit must be a tuple of one (frame,) "
-                                         "or two elements (frame, mask)")
+                                          "or two elements (frame, mask)")
                 if len(rmsfit) == 1:
                     rmsfit = (rmsfit, '*')
             elif isinstance(rmsfit, int):
@@ -199,7 +199,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
         frame_iter_super = super(
             TrajectoryIterator, self).frame_iter(start, stop, stride)
-        
+
         return FrameIter(frame_iter_super,
                          original_top=self.top,
                          new_top=_top,
@@ -250,7 +250,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             if need_align:
                 chunk.rmsfit(ref, mask_for_rmsfit)
             # free memory
-            # if not, memory will be quicly accumulated. 
+            # if not, memory will be quicly accumulated.
             if self.chunk:
                 self.chunk.__del__()
 
@@ -320,3 +320,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                                       mask=mask,
                                       autoimage=autoimage,
                                       rmsfit=rmsfit)
+
+    @property
+    def unitcells(self):
+        return self.box_to_ndarray()

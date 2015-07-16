@@ -1,4 +1,5 @@
 from __future__ import print_function, absolute_import
+from collections import namedtuple
 
 from .externals.six import iteritems
 
@@ -7,6 +8,14 @@ __all__ = []
 
 supported_dihedral_types = [x for x in
                             'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split()]
+
+chinu = {
+        'A': ("O4'", "C1'", "N9", "C4"),
+        'G': ("O4'", "C1'", "N9", "C4"),
+        'C': ("O4'", "C1'", "N1", "C2"),
+        'T': ("O4'", "C1'", "N1", "C2"),
+        'U': ("O4'", "C1'", "N1", "C2"),
+        }
 
 template = '''
 def calc_%s(traj=None, resrange="", 
@@ -52,6 +61,7 @@ def calc_%s(traj=None, resrange="",
     from .actions.CpptrajActions import Action_MultiDihedral
     from ._get_common_objects import _get_top, _get_data_from_dtype
     from .compat import string_types
+    from .utils import is_int
 
     if range360:
         _range360 = 'range360'
@@ -59,6 +69,9 @@ def calc_%s(traj=None, resrange="",
         _range360 = ''
 
     if resrange:
+        if is_int(resrange):
+            resrange = [resrange,]
+
         if isinstance(resrange, string_types):
             _resrange = "resrange " + str(resrange)
         else:
