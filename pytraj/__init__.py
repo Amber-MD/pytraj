@@ -112,6 +112,7 @@ from . common_actions import (rmsd, search_hbonds,
                               calc_pairwise_rmsd,
                               calc_atomicfluct,
                               calc_bfactors,
+                              calc_density,
                               get_average_frame,
                               energy_decomposition,
                               native_contacts,
@@ -138,6 +139,7 @@ xcorr = cross_correlation_function
 acorr = auto_correlation_function
 dssp = calc_dssp
 bfactors = calc_bfactors
+density = calc_density
 radgyr = calc_radgyr
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
@@ -167,6 +169,7 @@ from ._shared_methods import _frame_iter_master as frame_iter_master
 from ._set_silent import set_error_silent, set_world_silent
 
 def to_numpy_Trajectory(traj, top, unitcells=None):
+    # TODO: move to `io`?
     from . import api
     import numpy as np
     from ._xyz import XYZ
@@ -183,6 +186,19 @@ def to_numpy_Trajectory(traj, top, unitcells=None):
     if unitcells is not None:
         t.unitcells = unitcells
     return t
+
+def to_mdtraj(traj, top=None):
+    # TODO: move to `io`?
+    from pytraj.utils.context import goto_temp_folder
+    import mdtraj as md
+
+    _top = top if top is not None else traj.top
+    xyz = get_coordinates(traj)
+
+    with goto_temp_folder():
+        _top.save("tmp.prmtop")
+        top = md.load_prmtop("tmp.prmtop")
+        return md.Trajectory(xyz, top)
 
 def set_cpptraj_verbose(cm=True):
     if cm:

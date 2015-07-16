@@ -179,8 +179,5 @@ class Test(unittest.TestCase):
         aa_eq(pt.Trajectory(xyz=traj.xyz, top=traj.top.filename).xyz,
               pt.Trajectory(xyz=traj.xyz, top=traj.top).xyz)
 
-        # raise if dtype != np.float64
-        self.assertRaises(ValueError, lambda: pt.Trajectory(xyz=traj.xyz.astype('f4'), top=traj.top))
-
 if __name__ == "__main__":
     unittest.main()

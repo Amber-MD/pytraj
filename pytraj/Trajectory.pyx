@@ -101,7 +101,10 @@ cdef class Trajectory (object):
             from ._xyz import XYZ
             assert hasattr(xyz, 'dtype')
             if xyz.itemsize != 8:
-                raise ValueError("dtype must be float64")
+                try:
+                    xyz = xyz.astype('f8')
+                except:
+                    raise ValueError("can not cast dtype to f8")
             self._allocate(*xyz.shape[:2])
             if isinstance(xyz, XYZ):
                 # convert to numpy
