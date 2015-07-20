@@ -446,8 +446,9 @@ cdef class DataSetList:
         --------
         pandas
         """
-        _, pandas = _import_pandas()
-        my_dict = dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
+        import pandas
+        from collections import OrderedDict
+        my_dict = OrderedDict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
 
     def set_py_free_mem(self, bint value):
