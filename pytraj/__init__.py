@@ -15,6 +15,10 @@ _v = __cpptraj_internal_version__
 if _v < 'V4.2':
     raise RuntimeError("need to have cpptraj version >= v4.2")
 
+if 'BINTRAJ' not in compiled_info():
+    from warnings import warn
+    warn('linking to libcpptraj that were not installed with libnetcdf')
+
 from .tools import find_lib as _find_lib
 
 # check `libcpptraj` and raise ImportError
