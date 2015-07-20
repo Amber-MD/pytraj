@@ -105,7 +105,9 @@ from .analyses import CpptrajAnalyses as allanalyses
 from ._common_actions import calculate
 from . import common_actions
 from . dssp_analysis import calc_dssp
-from . common_actions import (rmsd, search_hbonds,
+from . common_actions import (rmsd,
+                              rmsd_perres,
+                              search_hbonds,
                               calc_rmsd_with_rotation_matrices,
                               calc_multidihedral,
                               autoimage, nastruct,
