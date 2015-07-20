@@ -125,7 +125,7 @@ cdef class Frame:
     cdef void _strip_atoms(Frame self, Topology top, AtomMask atm, bint update_top, bint has_box)
     cdef _update_atoms(self, int[:], double[:], int)
     # create and object as alias to Topology instance
-    cdef object top
+    cdef object _top
     cdef void _append_xyz_1d(self, double[:] xyz)
     cdef void _append_xyz_2d(self, double[:, :] xyz)
 
