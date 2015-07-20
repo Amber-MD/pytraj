@@ -951,12 +951,31 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
     return _get_data_from_dtype(dslist, dtype)
 
 
+def rmsd_perres(traj=None,
+              ref=0,
+              mask="",
+              nofit=False,
+              use_mass=False,
+              top=None,
+              range=None,
+              dtype='ndarray',
+              *args, **kwd):
+    from pytraj.utils.convert import array_to_cpptraj_range
+    if range is not None:
+        if isinstance(range, string_types):
+            _range = 'range %s ' % range
+        else:
+            raise ValueError("range must be a string")
+    else:
+        _range = ''
+    cm = " ".join((mask, 'perres', _range))
+    return calc_rmsd(traj, ref, cm, nofit, use_mass, top, dtype, *args, **kwd)
+
 def calc_rmsd(traj=None,
               ref=0,
               mask="",
               nofit=False,
               use_mass=False,
-              perres=False,
               top=None,
               dtype='ndarray',
               *args, **kwd):
@@ -989,8 +1008,7 @@ def calc_rmsd(traj=None,
 
     _nofit = ' nofit ' if nofit else ''
     _mass = ' mass ' if use_mass else ''
-    _perres = ' perres ' if perres else ''
-    opt = _nofit + _mass + _perres
+    opt = _nofit + _mass
 
     if isinstance(mask, string_types):
         command = [mask, ]
