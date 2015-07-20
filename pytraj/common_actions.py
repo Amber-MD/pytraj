@@ -958,7 +958,7 @@ def rmsd_perres(traj=None,
               top=None,
               range=None,
               perresmask=None,
-              dtype='ndarray',
+              dtype='dataset',
               *args, **kwd):
     """
     Perform rmsfit calculation with `mask`, then calculate nofit rms for residues
