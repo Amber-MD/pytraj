@@ -40,7 +40,7 @@ class TestRadgyr(unittest.TestCase):
 
         arr0 = np.empty(farray.size)
         for i, frame in enumerate(farray):
-            frame.set_top(farray.top)
+            frame.top = farray.top
             #print ("mask of :2@CA", frame[':2@CA'])
             #print (type(frame[':2@CA']))
             arr0[i] = distance(frame[':2@CA'][0], frame[':10@CA'][0])

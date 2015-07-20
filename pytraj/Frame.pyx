@@ -223,6 +223,10 @@ cdef class Frame (object):
     def shape(self):
         return self.buffer2d[:].shape
 
+    @property
+    def n_frames(self):
+        return 1
+
     def __getitem__(self, idx):
         """
         Examples
@@ -233,7 +237,7 @@ cdef class Frame (object):
         >>> f0[0]
         >>> f0[0, 0]
         >>> f0[:,  0]
-        >>> f0.set_top(traj.top)
+        >>> f0.top = traj.top
         >>> f0['@CA']
         >>> atm = traj.top.select("@CB")
         >>> f0[atm]
@@ -1134,11 +1138,11 @@ cdef class Frame (object):
             raise NotImplementedError('mask mut string  or AtomMask object')
         return Frame(self, atm)
 
-    def set_top(self, value):
-        self.top = value
-
-    def get_top(self):
-        return self.top
+    property top:
+        def __get__(self):
+            return self._top
+        def __set__(self, value):
+            self._top = value
 
     def save(self, filename="", top=None, format='unknown', 
              overwrite=False, *args, **kwd):

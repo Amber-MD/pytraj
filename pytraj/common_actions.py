@@ -951,30 +951,33 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_rmsd(traj=None, ref=0,  mask="", mass=False,
-              top=None, dtype='ndarray',
+def calc_rmsd(traj=None,
+              ref=0,
+              mask="",
+              nofit=False,
+              use_mass=False,
+              perres=False,
+              top=None,
+              dtype='ndarray',
               *args, **kwd):
     """calculate rmsd
 
     Parameters
     ----------
     traj : Trajectory-like | List of trajectories | Trajectory or frame_iter
-    ref : Frame | str | int, default=0
+    ref : {Frame, int}, default=0
+        Reference frame or index.
     mask : str or 1D array-like of string or 1D or 2D array-like
         Atom mask/indices
-    top : Topology | str
-        (optional) Topology
+    top : {Topology, str}, default None, optional
     dtype : return data type, default='ndarray'
 
     Examples
     --------
-    >>> from pytraj import io
-    >>> from pytraj.common_actions import calc_rmsd
-    >>> traj = io.load_sample_data("tz2")
-    >>> calc_rmsd(traj, ref=-3) # ref=traj[-3]
-    >>> calc_rmsd(traj, mask=['@CA', '@C', ':3-18@CA'], dtype='dataset')
-    >>> calc_rmsd(traj, ref=traj[0], mask=':3-13')
-    >>> calc_rmsd([traj, traj[-1]], ref=traj[0], mask=':3-13', top=traj.top)
+    >>> import pytraj as pt
+    >>> pt.rmsd(traj, ref=-3) # ref=traj[-3]
+    >>> pt.rmsd(traj, mask=['@CA', '@C', ':3-18@CA'], dtype='dataset')
+    >>> pt.rmsd(traj, ref=traj[0], mask=':3-13')
 
     """
     from pytraj.utils import is_int
@@ -983,6 +986,11 @@ def calc_rmsd(traj=None, ref=0,  mask="", mass=False,
     from pytraj.actions.CpptrajActions import Action_Rmsd
     from pytraj.core.ActionList import ActionList
     import numpy as np
+
+    _nofit = ' nofit ' if nofit else ''
+    _mass = ' mass ' if use_mass else ''
+    _perres = ' perres ' if perres else ''
+    opt = _nofit + _mass + _perres
 
     if isinstance(mask, string_types):
         command = [mask, ]
@@ -1012,7 +1020,8 @@ def calc_rmsd(traj=None, ref=0,  mask="", mass=False,
     dslist = CpptrajDatasetList()
 
     for cm in command:
-        alist.add_action(Action_Rmsd(), cm, top=_top, dslist=dslist)
+        _cm = cm + opt
+        alist.add_action(Action_Rmsd(), _cm, top=_top, dslist=dslist)
 
     alist.do_actions(ref)
     alist.do_actions(traj)

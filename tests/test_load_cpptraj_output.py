@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
         cout = pt.datafiles.load_cpptraj_output(txt)
         print(cout)
 
-        cout = pt.datafiles.load_cpptraj_output(txt, with_state=True)
+        cout = pt.datafiles.load_cpptraj_output(txt, with_traj=True)
         print(cout)
 
 if __name__ == "__main__":

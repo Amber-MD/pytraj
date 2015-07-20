@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
         print(trajiter[atm, :, 0])
 
         f0 = traj[0]
-        f0.set_top(traj.top)
+        f0.top = traj.top
         f0['@CA']
         traj[0, '@CA']
 
