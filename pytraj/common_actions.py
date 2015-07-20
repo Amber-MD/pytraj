@@ -956,6 +956,7 @@ def calc_rmsd(traj=None,
               mask="",
               nofit=False,
               use_mass=False,
+              perres=False,
               top=None,
               dtype='ndarray',
               *args, **kwd):
@@ -988,7 +989,8 @@ def calc_rmsd(traj=None,
 
     _nofit = ' nofit ' if nofit else ''
     _mass = ' mass ' if use_mass else ''
-    opt = _nofit + _mass
+    _perres = ' perres ' if perres else ''
+    opt = _nofit + _mass + _perres
 
     if isinstance(mask, string_types):
         command = [mask, ]
