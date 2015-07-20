@@ -10,14 +10,14 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
-        top = f0.get_top()
+        top = f0.top
         if top:
             print("has top")
         else:
             print("dont have top")
         print(top)
-        f0.set_top(traj.top)
-        top = f0.get_top()
+        f0.top = traj.top
+        top = f0.top
         print(top)
 
         if top:

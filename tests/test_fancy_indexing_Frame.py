@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         atm = traj.top.select("@CA")
         indices = atm.indices
         mask = '@CA'
-        f0.set_top(traj.top)
+        f0.top = traj.top
         aa_eq(f0[mask], f0[atm])
         aa_eq(f0[mask], xyz[indices])
         aa_eq(f0[atm, 0], xyz[indices][0])

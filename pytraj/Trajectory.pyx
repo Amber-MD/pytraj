@@ -537,7 +537,7 @@ cdef class Trajectory (object):
                     frame.py_free_mem = False
                     if isinstance(idx1, string_types):
                         # traj[0, '@CA']
-                        frame.set_top(self.top)
+                        frame.top = self.top
                     # TODO: need to check memory
                     if idxs_size == 2:
                         return frame[idxs[1]]

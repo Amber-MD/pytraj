@@ -2724,7 +2724,7 @@ static char __pyx_k_must_set_Topology_for_frame[] = "must set Topology for frame
 static char __pyx_k_Expected_at_least_d_arguments[] = "Expected at least %d arguments";
 static char __pyx_k_pytraj_utils_check_and_assert[] = "pytraj.utils.check_and_assert";
 static char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
-static char __pyx_k_Examples_from_pytraj_import_io[] = "\n        Examples\n        --------\n        >>> from pytraj import io\n        >>> traj = io.load_sample_data('tz2')\n        >>> f0 = traj[0]\n        >>> f0[0]\n        >>> f0[0, 0]\n        >>> f0[:,  0]\n        >>> f0.set_top(traj.top)\n        >>> f0['@CA']\n        >>> atm = traj.top.select(\"@CB\")\n        >>> f0[atm]\n        >>> f0[atm, 0]\n        ";
+static char __pyx_k_Examples_from_pytraj_import_io[] = "\n        Examples\n        --------\n        >>> from pytraj import io\n        >>> traj = io.load_sample_data('tz2')\n        >>> f0 = traj[0]\n        >>> f0[0]\n        >>> f0[0, 0]\n        >>> f0[:,  0]\n        >>> f0.top = traj.top\n        >>> f0['@CA']\n        >>> atm = traj.top.select(\"@CB\")\n        >>> f0[atm]\n        >>> f0[atm, 0]\n        ";
 static char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
 static char __pyx_k_must_be_list_of_Atom_objects_or[] = "must be list of Atom objects or Topology";
 static char __pyx_k_need_numpy_Use_buffer2d_instead[] = "need numpy. Use `buffer2d` instead";
@@ -5308,8 +5308,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_24swap_atom_array(struct __pyx_o
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
-  int __pyx_v_long_is_signed;
   int __pyx_v_int_is_signed;
+  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
@@ -5412,8 +5412,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_24swap_atom_array(struct __pyx_o
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_int_is_signed = (((int)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
@@ -6558,7 +6558,7 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_34n_frames(CYTHON_UNUSED struct 
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_5Frame_5Frame_37__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_idx); /*proto*/
-static char __pyx_doc_6pytraj_5Frame_5Frame_36__getitem__[] = "\n        Examples\n        --------\n        >>> from pytraj import io\n        >>> traj = io.load_sample_data('tz2')\n        >>> f0 = traj[0]\n        >>> f0[0]\n        >>> f0[0, 0]\n        >>> f0[:,  0]\n        >>> f0.set_top(traj.top)\n        >>> f0['@CA']\n        >>> atm = traj.top.select(\"@CB\")\n        >>> f0[atm]\n        >>> f0[atm, 0]\n        ";
+static char __pyx_doc_6pytraj_5Frame_5Frame_36__getitem__[] = "\n        Examples\n        --------\n        >>> from pytraj import io\n        >>> traj = io.load_sample_data('tz2')\n        >>> f0 = traj[0]\n        >>> f0[0]\n        >>> f0[0, 0]\n        >>> f0[:,  0]\n        >>> f0.top = traj.top\n        >>> f0['@CA']\n        >>> atm = traj.top.select(\"@CB\")\n        >>> f0[atm]\n        >>> f0[atm, 0]\n        ";
 #if CYTHON_COMPILING_IN_CPYTHON
 struct wrapperbase __pyx_wrapperbase_6pytraj_5Frame_5Frame_36__getitem__;
 #endif
@@ -20632,8 +20632,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_182calc_dihedral(struct __pyx_ob
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
-  int __pyx_v_long_is_signed;
   int __pyx_v_int_is_signed;
+  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
@@ -20736,8 +20736,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_182calc_dihedral(struct __pyx_ob
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_int_is_signed = (((int)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
@@ -21981,8 +21981,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_184calc_angle(struct __pyx_obj_6
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
-  int __pyx_v_long_is_signed;
   int __pyx_v_int_is_signed;
+  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
@@ -22085,8 +22085,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_184calc_angle(struct __pyx_obj_6
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_int_is_signed = (((int)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
@@ -23395,8 +23395,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_188_calc_distance(struct __pyx_o
   Py_ssize_t __pyx_v_itemsize;
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
-  int __pyx_v_long_is_signed;
   int __pyx_v_int_is_signed;
+  int __pyx_v_long_is_signed;
   int __pyx_v_short_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
@@ -23499,8 +23499,8 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_188_calc_distance(struct __pyx_o
     __pyx_L11_try_end:;
   }
   __pyx_v_itemsize = -1;
-  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_int_is_signed = (((int)-1) < 0);
+  __pyx_v_long_is_signed = (((long)-1) < 0);
   __pyx_v_short_is_signed = (((short)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
@@ -24169,11 +24169,11 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_222_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_9, __pyx_t_11, __pyx_t_12, __pyx_t_10, __pyx_t_8)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_8)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx0)
+                      #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1) lastprivate(__pyx_v_idx0)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
@@ -24513,11 +24513,11 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_224_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_9, __pyx_t_11, __pyx_t_12, __pyx_t_10, __pyx_t_8)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_8)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1)
+                      #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx0) lastprivate(__pyx_v_idx1)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
@@ -24857,18 +24857,18 @@ static PyObject *__pyx_pf_6pytraj_5Frame_5Frame_226_calc_distance(struct __pyx_o
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_9, __pyx_t_11, __pyx_t_12, __pyx_t_10, __pyx_t_8)
+                  #pragma omp parallel private(__pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_8)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_idx1)
+                      #pragma omp for lastprivate(__pyx_v_idx1) lastprivate(__pyx_v_idx0) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
                       #endif /* _OPENMP */
                       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_7; __pyx_t_6++){
                           {
                               __pyx_v_i = 0 + 1 * __pyx_t_6;
                               /* Initialize private variables to invalid values */
-                              __pyx_v_idx0 = ((int)0xbad0bad0);
                               __pyx_v_idx1 = ((int)0xbad0bad0);
+                              __pyx_v_idx0 = ((int)0xbad0bad0);
 
                               /* "pytraj/Frame.pyx":1230
  *         if parallel:
@@ -41124,15 +41124,19 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     type_name++;
   }
   if (0);
+  else if (__Pyx_StrEq(name, "Py_None")) {
+    PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
+    {__pyx_filename = __pyx_f[3]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L2_error;}
+  }
+  else if (__Pyx_StrEq(name, "indirect_contiguous")) {
+    Py_INCREF(o);
+    Py_DECREF(indirect_contiguous);
+    indirect_contiguous = o;
+  }
   else if (__Pyx_StrEq(name, "indirect")) {
     Py_INCREF(o);
     Py_DECREF(indirect);
     indirect = o;
-  }
-  else if (__Pyx_StrEq(name, "generic")) {
-    Py_INCREF(o);
-    Py_DECREF(generic);
-    generic = o;
   }
   else if (__Pyx_StrEq(name, "contiguous")) {
     Py_INCREF(o);
@@ -41144,14 +41148,10 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     Py_DECREF(strided);
     strided = o;
   }
-  else if (__Pyx_StrEq(name, "indirect_contiguous")) {
+  else if (__Pyx_StrEq(name, "generic")) {
     Py_INCREF(o);
-    Py_DECREF(indirect_contiguous);
-    indirect_contiguous = o;
-  }
-  else if (__Pyx_StrEq(name, "Py_None")) {
-    PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
-    {__pyx_filename = __pyx_f[3]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L2_error;}
+    Py_DECREF(generic);
+    generic = o;
   }
   else {
     if (PyObject_SetAttr(__pyx_m, py_name, o) < 0) goto bad;

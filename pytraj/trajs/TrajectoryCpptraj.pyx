@@ -339,7 +339,7 @@ cdef class TrajectoryCpptraj:
                      self.tmpfarray = frame
                      if isinstance(idx1, string_types):
                          # traj[0, '@CA']
-                         frame.set_top(self.top)
+                         frame.top = self.top
                      return self.tmpfarray[idxs[1:]]
                  elif isinstance(self[idx0], Trajectory):
                      farray = self[idx0]

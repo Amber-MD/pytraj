@@ -237,7 +237,7 @@ cdef class Frame (object):
         >>> f0[0]
         >>> f0[0, 0]
         >>> f0[:,  0]
-        >>> f0.set_top(traj.top)
+        >>> f0.top = traj.top
         >>> f0['@CA']
         >>> atm = traj.top.select("@CB")
         >>> f0[atm]
