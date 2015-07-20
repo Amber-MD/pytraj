@@ -84,7 +84,6 @@ def load_result_from_cpptraj_state(txt, with_traj=False, dtype=None):
 
         for trajin in state.get_trajinlist():
             traj._add_trajin(trajin)
-        print (traj)
 
         if dtype == 'cpptraj_dataset':
             out = [traj, state.datasetlist]

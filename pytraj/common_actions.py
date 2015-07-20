@@ -954,10 +954,10 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
 def rmsd_perres(traj=None,
               ref=0,
               mask="",
-              nofit=False,
               use_mass=False,
               top=None,
               range=None,
+              perresmask=None,
               dtype='ndarray',
               *args, **kwd):
     from pytraj.utils.convert import array_to_cpptraj_range
@@ -968,8 +968,10 @@ def rmsd_perres(traj=None,
             raise ValueError("range must be a string")
     else:
         _range = ''
-    cm = " ".join((mask, 'perres', _range))
-    return calc_rmsd(traj, ref, cm, nofit, use_mass, top, dtype, *args, **kwd)
+    _perresmask = perresmask if perresmask is not None else ''
+    cm = " ".join((mask, 'perres', _range, _perresmask))
+    return calc_rmsd(traj=traj, ref=ref, mask=cm, nofit=False,
+                     use_mass=use_mass, top=top, dtype=dtype, *args, **kwd)
 
 def calc_rmsd(traj=None,
               ref=0,
