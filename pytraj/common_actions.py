@@ -960,6 +960,10 @@ def rmsd_perres(traj=None,
               perresmask=None,
               dtype='ndarray',
               *args, **kwd):
+    """
+    Perform rmsfit calculation with `mask`, then calculate nofit rms for residues
+    in `range` with given `perresmask`
+    """
     from pytraj.utils.convert import array_to_cpptraj_range
     if range is not None:
         if isinstance(range, string_types):
