@@ -402,7 +402,7 @@ def write_parm(filename=None, top=None, format='AMBERPARM'):
     parm.writeparm(filename=filename, top=top, format=format)
 
 
-def load_topology(filename):
+def load_topology(filename, **kwd):
     """
     load Topology from filename or from url
     >>> import pytraj as pt
@@ -411,7 +411,7 @@ def load_topology(filename):
     """
     if filename.startswith('http://') or filename.startswith('https://'):
         import parmed as pmd
-        return load_ParmEd(filename, save_and_reload=False)
+        return load_ParmEd(filename, **kwd)
     else:
         from .Topology import Topology
         """return topology instance from reading filename"""
