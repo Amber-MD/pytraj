@@ -389,7 +389,7 @@ def read_orca_trj(fname):
     regexp = r'\s+\w+' + r'\s+([-.0-9]+)' * 3 + r'\s*\n'
     return np.fromregex(fname, regexp, dtype='f')
 
-def read_gaussian_output(fname, top=None):
+def read_gaussian_output(filename=None, top=None):
     """return a `pytraj.api.Trajectory` object
 
     Parameters
@@ -413,7 +413,7 @@ def read_gaussian_output(fname, top=None):
     from pytraj._get_common_objects import _get_top
 
     _top = _get_top(None, top)
-    gau = cclib.parser.Gaussian(fname)
+    gau = cclib.parser.Gaussian(filename)
     go = gau.parse()
 
     if _top is None:
@@ -422,7 +422,7 @@ def read_gaussian_output(fname, top=None):
         except KeyError:
             raise KeyError("must set AMBERHOME")
 
-        fpath = os.path.abspath(fname)
+        fpath = os.path.abspath(filename)
 
         with goto_temp_folder():
             at = amberhome + "/bin/antechamber"
