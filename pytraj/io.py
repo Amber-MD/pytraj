@@ -72,9 +72,14 @@ def load(*args, **kwd):
             pass
 
     if 'filename' in kwd.keys():
-        ensure_exist(kwd['filename'])
+        filename = kwd['filename']
     else:
-        ensure_exist(args[0])
+        filename = args[0]
+
+    if filename.startswith('http://') or filename.startswith('https://'):
+        return load_ParmEd(filename, as_traj=True, save_and_reload=True)
+    else:
+        ensure_exist(filename)
 
     if len(args) + len(kwd) == 1:
         if len(args) == 1:
