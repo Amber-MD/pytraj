@@ -41,7 +41,7 @@ __all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
            'load_pseudo_parm', 'load_cpptraj_file',
            'load_datafile', 'load_hdf5',
            'load_sample_data',
-           'load_ParmEd', 'load_full_ParmEd',
+           'load_ParmEd',
            'load_mdtraj',
            'load_MDAnalysis', 'load_MDAnalysisIterator',
            'load_topology', 'read_parm', 'write_parm',
@@ -475,22 +475,6 @@ def load_single_frame(frame=None, top=None, index=0):
     return iterload(frame, top)[index]
 
 load_frame = load_single_frame
-
-
-def load_full_ParmEd(parmed_obj):
-    """save and reload ParmEd object to pytraj object"""
-    import os
-    import tempfile
-
-    with goto_temp_folder():
-        name = "mytmptop"
-        if hasattr(parmed_obj, 'write_parm'):
-            parmed_obj.write_parm(name)
-        elif hasattr(parmed_obj, 'write_pdb'):
-            name = name + ".pdb"
-            parmed_obj.write_pdb(name)
-        top = load_topology(name)
-    return top
 
 
 def load_MDAnalysisIterator(u):

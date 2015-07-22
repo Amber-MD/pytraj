@@ -7,14 +7,12 @@ from ..Topology import Topology
 from ..utils.context import goto_temp_folder
 
 
-def load_ParmEd(parmed_obj, restype="top", save_and_reload=True):
+def load_ParmEd(parmed_obj, save_and_reload=True):
     """return pytraj's Topology or Trajectory objects
 
     Parameters
     ---------
     parmed_obj : ParmEd's Structure object
-    restype : str {'top', 'traj'}
-       return type
     save_and_reload: bool, default True
         if True, save `parmed_obj` to mol2 file and reload
         if False, internal convert. Might have bug
@@ -28,71 +26,10 @@ def load_ParmEd(parmed_obj, restype="top", save_and_reload=True):
         # faster
         with goto_temp_folder():
             fname = 'tmppdb.mol2'
-            if parmed_obj.coordinates is None:
-                none_coords = True
-            else:
-                none_coords = False
-
-            if hasattr(parmed_obj, 'write_parm') and none_coords:
-                fname = 'tmpparm.parm7'
-                parmed_obj.write_parm(fname)
-                return Topology(fname)
-            elif hasattr(parmed_obj, 'coordinates') and none_coords:
-                n_atoms = len(parmed_obj.atoms)
-                need_to_reset_coords = True
-                # make fake pdb
-                import numpy as np
-                parmed_obj.coordinates = np.array([0. for _ in range(3 * n_atoms)]
-                                                 ).reshape(n_atoms, 3)
-                parmed_obj.write_pdb(fname)
-                return Topology(fname)
-            else:
-                need_to_reset_coords = False
-
-            parmed_obj.write_pdb(fname)
-
-            if restype == 'top':
-                result = Topology(fname)
-            elif restype == 'traj':
-                if none_coords:
-                    raise ValueError("need coordinates to load to traj")
-                result= Trajectory(fname, fname)
-            else:
-                raise ValueError()
-
-            if need_to_reset_coords:
-                parmed_obj.coordinates = None
-        return result
-
+            parmed_obj.save(fname)
+            return Topology(fname)
     else:
-        ptop = load_pseudo_parm(parmed_obj)
-        if restype.lower() == 'top':
-            return ptop
-        elif restype.lower() == 'traj':
-            if hasattr(parmed_obj, 'coordinates'):
-                coords = parmed_obj.coordinates
-            elif hasattr(parmed_obj, 'coords'):
-                coords = parmed_obj.coords
-            if coords is None:
-                raise ValueError("can not convert to Traj with None-coords")
-            else:
-                fa = Trajectory()
-                fa.top = ptop
-                try:
-                    shape = coords.shape
-                except AttributeError:
-                    import numpy as np
-                    coords = np.asarray(coords)
-                shape = coords.shape
-                if len(shape) in [1, 2]:
-                    coords = coords.reshape(1, fa.top.n_atoms, 3)
-                    shape = coords.shape
-                print(shape)
-                fa._allocate(shape[0], shape[1])
-                fa.update_coordinates(coords)
-                return fa
-        else:
-            raise ValueError("only support `top` or `traj` keyword")
+        return load_pseudo_parm(parmed_obj)
 
 
 def _load_parmed(parm_name):
