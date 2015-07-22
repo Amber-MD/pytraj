@@ -391,31 +391,40 @@ def read_orca_trj(fname):
     regexp = r'\s+\w+' + r'\s+([-.0-9]+)' * 3 + r'\s*\n'
     return np.fromregex(fname, regexp, dtype='f')
 
-def read_gaussian_output(fname):
-    """return a Topology object
-    Use cclib to read coordinates
+def read_gaussian_output(fname, top=None):
+    """return a `pytraj.api.Trajectory` object
+
+    Notes
+    -----
+    require `cclib`
     """
     import pytraj as pt
     import cclib
     from pytraj.api import Trajectory
     from pytraj.utils.context import goto_temp_folder
+    from pytraj._get_common_objects import _get_top
 
-    try:
-        amberhome = os.environ['AMBERHOME']
-    except KeyError:
-        raise KeyError("must set AMBERHOME")
-
+    _top = _get_top(None, top)
     gau = cclib.parser.Gaussian(fname)
     go = gau.parse()
-    fpath = os.path.abspath(fname)
 
-    with goto_temp_folder():
-        at = amberhome + "/bin/antechamber"
-        out = "-i %s -fi gout -o tmp.mol2 -fo mol2 -c resp -j both -at amber" % fpath
-        cm = " ".join((at, out))
-        os.system(cm)
+    if _top is None:
+        try:
+            amberhome = os.environ['AMBERHOME']
+        except KeyError:
+            raise KeyError("must set AMBERHOME")
 
-        return Trajectory(xyz=go.atomcoords, top="tmp.mol2")
+        fpath = os.path.abspath(fname)
+
+        with goto_temp_folder():
+            at = amberhome + "/bin/antechamber"
+            out = "-i %s -fi gout -o tmp.mol2 -fo mol2 -c resp -j both -at amber" % fpath
+            cm = " ".join((at, out))
+            os.system(cm)
+
+            return Trajectory(xyz=go.atomcoords, top="tmp.mol2")
+    else:
+        return Trajectory(xyz=go.atomcoords, top=_top)
 
 def read_to_array(fname):
     import numpy as np
