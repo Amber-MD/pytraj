@@ -14,5 +14,8 @@ class Test(unittest.TestCase):
         traj = pt.load_parmed(url, as_traj=True, save_and_reload=False)
         aa_eq(traj0.xyz, traj.xyz)
 
+        traj1 = pt.load(url)
+        aa_eq(traj1.xyz, traj.xyz)
+
 if __name__ == "__main__":
     unittest.main()

@@ -72,9 +72,14 @@ def load(*args, **kwd):
             pass
 
     if 'filename' in kwd.keys():
-        ensure_exist(kwd['filename'])
+        filename = kwd['filename']
     else:
-        ensure_exist(args[0])
+        filename = args[0]
+
+    if filename.startswith('http://') or filename.startswith('https://'):
+        return load_ParmEd(filename, as_traj=True, save_and_reload=True)
+    else:
+        ensure_exist(filename)
 
     if len(args) + len(kwd) == 1:
         if len(args) == 1:
@@ -402,17 +407,31 @@ def write_parm(filename=None, top=None, format='AMBERPARM'):
     parm.writeparm(filename=filename, top=top, format=format)
 
 
-def read_parm(filename):
-    from .Topology import Topology
-    """return topology instance from reading filename"""
-    #filename = filename.encode("UTF-8")
-    set_error_silent(True)
-    top = Topology(filename)
-    set_error_silent(False)
-    return top
+def load_topology(filename, **kwd):
+    """
+    load Topology from filename or from url
+    >>> import pytraj as pt
+    >>> pt.load_topology("./data/tz2.ortho.parm7")
+    >>> pt.load_topology("http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb")
+    """
+    if filename.startswith('http://') or filename.startswith('https://'):
+        try:
+            import parmed as pmd
+        except ImportError:
+            raise ImportError("require ParmEd. You can install it by: \n"
+            "pip install git+git://github.com/ParmEd/ParmEd")
+        return load_ParmEd(filename, **kwd)
+    else:
+        from .Topology import Topology
+        """return topology instance from reading filename"""
+        #filename = filename.encode("UTF-8")
+        set_error_silent(True)
+        top = Topology(filename)
+        set_error_silent(False)
+        return top
 
 # creat alias
-load_topology = read_parm
+read_parm = load_topology
 
 def _load_url(url):
     """load Topology from url

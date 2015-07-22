@@ -33,7 +33,7 @@ def load_ParmEd(parmed_obj, save_and_reload=True, as_traj=False):
     if save_and_reload:
         # faster
         with goto_temp_folder():
-            fname = 'tmppdb.mol2'
+            fname = 'tmppdb.pdb'
             parmed_obj.save(fname)
             top = Topology(fname)
     else:
