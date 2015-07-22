@@ -60,5 +60,11 @@ class Test(unittest.TestCase):
         from pytraj.tools import grep
         run_docstring(grep)
 
+        print ("load_ParmEd")
+        run_docstring(pt.load_ParmEd)
+
+        print("load Topology")
+        run_docstring(pt.load_topology)
+
 if __name__ == "__main__":
     unittest.main()

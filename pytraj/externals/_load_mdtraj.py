@@ -3,57 +3,43 @@
 from __future__ import absolute_import
 
 
-def load_mdtraj(m_traj, autoconvert=True, top=None):
+def load_mdtraj(m_traj, autoconvert=False, top=None):
     """load_mdtraj traj object
 
     Parameters
-    ---------
+    ----------
     m_traj : Trajectory object from mdtraj 
-    autoconvert : bool, default=True
+    autoconvert : bool, default=False
         convert from "nm" (mdtraj )to "Angstrom" (pytraj)
+    top : pytraj.Topology, default None
+        if `top` is provided, the converting will be much faster
     """
-    from pytraj.core import Box
+    import numpy as np
+    from mdtraj import Trajectory as MDTrajectory
+    from pytraj.api import Trajectory
     from ._load_pseudo_parm import load_pseudo_parm
-    from pytraj.Trajectory import Trajectory
-    from pytraj.utils import has_, require, _import_numpy
-    from pytraj.Frame import Frame
-
-    _, np = _import_numpy()
 
     if autoconvert:
         unit = 10.
     else:
         unit = 1.
-    if not has_("mdtraj"):
-        # we dont need checking `numpy` since mdtraj needs numpy
-        require("mdtraj")
-    else:
-        from mdtraj import Trajectory as MDTrajectory
-        if not isinstance(m_traj, MDTrajectory):
-            raise ValueError("must be mdtraj's Trajectory object")
-        else:
-            if top is not None:
-                print("test")
-                pseudotop = top
-            else:
-                pseudotop = load_pseudo_parm(m_traj.top)
-                if not m_traj.unitcell_lengths is None:
-                    # convert "nm" to "Angstrom"
-                    # only check box in 1st frame
-                    arr = np.append(
-                        unit * m_traj.unitcell_lengths[0], m_traj.unitcell_angles[0])
-                    pseudotop.box = Box(arr.astype(np.float64))
 
-            farray = Trajectory()
-            farray.top = pseudotop
-            for arr0 in m_traj.xyz:
-                frame = Frame(m_traj.n_atoms)
+    if not isinstance(m_traj, MDTrajectory):
+        raise ValueError("must be mdtraj's Trajectory object")
+    else:
+        if top is not None:
+            pseudotop = top
+        else:
+            # make Topology, a bit slow
+            pseudotop = load_pseudo_parm(m_traj.top)
+            if not m_traj.unitcell_lengths is None:
                 # convert "nm" to "Angstrom"
-                # update xyz for frame
-                # make sure to use `float64`
-                # TODO: more type-checking
-                frame[:] = unit * arr0.astype(np.float64)
-                # set box for each Frame
-                frame.box = farray.top.box.copy()
-                farray.append(frame)
-            return farray
+                # only check box in 1st frame
+                arr = np.append(
+                    unit * m_traj.unitcell_lengths[0], m_traj.unitcell_angles[0])
+                pseudotop.box = Box(arr.astype(np.float64))
+
+        traj = Trajectory(xyz=m_traj.xyz, top=pseudotop)
+        traj.unitcells = np.hstack((unit*m_traj.unitcell_lengths,
+                m_traj.unitcell_angles))
+        return traj 

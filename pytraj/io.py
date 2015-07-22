@@ -41,7 +41,7 @@ __all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
            'load_pseudo_parm', 'load_cpptraj_file',
            'load_datafile', 'load_hdf5',
            'load_sample_data',
-           'load_ParmEd', 'load_full_ParmEd',
+           'load_ParmEd',
            'load_mdtraj',
            'load_MDAnalysis', 'load_MDAnalysisIterator',
            'load_topology', 'read_parm', 'write_parm',
@@ -54,7 +54,12 @@ EXTRA_LOAD_METHODS = {'HDF5': load_hdf5, }
 
 
 def load(*args, **kwd):
-    """try loading and returning appropriate values"""
+    """try loading and returning appropriate values
+
+    Notes
+    -----
+    load(filename, top, use_numpy=True) will return `pytraj.api.Trajectory`
+    """
 
     if args and is_frame_iter(args[0]):
         return _load_from_frame_iter(*args, **kwd)
@@ -67,9 +72,18 @@ def load(*args, **kwd):
             pass
 
     if 'filename' in kwd.keys():
-        ensure_exist(kwd['filename'])
+        filename = kwd['filename']
     else:
-        ensure_exist(args[0])
+        filename = args[0]
+
+    if filename.startswith('http://') or filename.startswith('https://'):
+        try:
+            return load_ParmEd(filename, as_traj=True, save_and_reload=True)
+        except ValueError:
+            return load_ParmEd(filename, as_traj=True,
+                    save_and_reload=True, structure=True)
+    else:
+        ensure_exist(filename)
 
     if len(args) + len(kwd) == 1:
         if len(args) == 1:
@@ -94,8 +108,13 @@ def load(*args, **kwd):
         else:
             return top
     else:
-        # load to Trajectory object
-        return load_traj(*args, **kwd)[:]
+        # load to TrajectoryIterator object first
+        traj = load_traj(*args, **kwd)
+        if 'use_numpy' in kwd.keys() and kwd['use_numpy']:
+            from pytraj.api import Trajectory
+            return Trajectory(xyz=traj.xyz, top=traj.top)
+        else:
+            return traj[:]
 
 
 def _load_from_filelist(*args, **kwd):
@@ -392,18 +411,39 @@ def write_parm(filename=None, top=None, format='AMBERPARM'):
     parm.writeparm(filename=filename, top=top, format=format)
 
 
-def read_parm(filename):
-    from .Topology import Topology
-    """return topology instance from reading filename"""
-    #filename = filename.encode("UTF-8")
-    set_error_silent(True)
-    top = Topology(filename)
-    set_error_silent(False)
-    return top
+def load_topology(filename, **kwd):
+    """
+    load Topology from filename or from url
+    >>> import pytraj as pt
+    >>> pt.load_topology("./data/tz2.ortho.parm7")
+    >>> pt.load_topology("http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb")
+    """
+    if filename.startswith('http://') or filename.startswith('https://'):
+        return _load_url(filename)
+    else:
+        from .Topology import Topology
+        """return topology instance from reading filename"""
+        #filename = filename.encode("UTF-8")
+        set_error_silent(True)
+        top = Topology(filename)
+        set_error_silent(False)
+        return top
 
 # creat alias
-load_topology = read_parm
+read_parm = load_topology
 
+def _load_url(url):
+    """load Topology from url
+    """
+    from .Topology import Topology
+
+    txt = urlopen(url).read()
+    fname = "/tmp/tmppdb.pdb"
+    with open(fname, 'w') as fh:
+        if PY3:
+            txt = txt.decode()
+        fh.write(txt)
+    return Topology(fname)
 
 def loadpdb_rcsb(pdbid):
     """load pdb file from rcsb website
@@ -465,22 +505,6 @@ def load_single_frame(frame=None, top=None, index=0):
     return iterload(frame, top)[index]
 
 load_frame = load_single_frame
-
-
-def load_full_ParmEd(parmed_obj):
-    """save and reload ParmEd object to pytraj object"""
-    import os
-    import tempfile
-
-    with goto_temp_folder():
-        name = "mytmptop"
-        if hasattr(parmed_obj, 'write_parm'):
-            parmed_obj.write_parm(name)
-        elif hasattr(parmed_obj, 'write_pdb'):
-            name = name + ".pdb"
-            parmed_obj.write_pdb(name)
-        top = load_topology(name)
-    return top
 
 
 def load_MDAnalysisIterator(u):

@@ -584,6 +584,10 @@ cdef class Topology:
             marray.append(atom.mass)
         return marray
 
+    def charge(self):
+        import numpy as np
+        return np.asarray([x.charge for x in self.atoms])
+
     def indices_bonded_to(self, atom_name):
         """return indices of the number of atoms that each atom bonds to
         Parameters

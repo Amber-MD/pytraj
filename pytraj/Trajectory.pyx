@@ -101,7 +101,10 @@ cdef class Trajectory (object):
             from ._xyz import XYZ
             assert hasattr(xyz, 'dtype')
             if xyz.itemsize != 8:
-                raise ValueError("dtype must be float64")
+                try:
+                    xyz = xyz.astype('f8')
+                except:
+                    raise ValueError("can not cast dtype to f8")
             self._allocate(*xyz.shape[:2])
             if isinstance(xyz, XYZ):
                 # convert to numpy
@@ -534,7 +537,7 @@ cdef class Trajectory (object):
                     frame.py_free_mem = False
                     if isinstance(idx1, string_types):
                         # traj[0, '@CA']
-                        frame.set_top(self.top)
+                        frame.top = self.top
                     # TODO: need to check memory
                     if idxs_size == 2:
                         return frame[idxs[1]]
@@ -1601,3 +1604,7 @@ cdef class Trajectory (object):
     @property
     def unitcells(self):
         return self.box_to_ndarray()
+
+    def to_numpy_traj(self):
+        from pytraj import api
+        return api.Trajectory(self)

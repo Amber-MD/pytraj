@@ -34,15 +34,15 @@ DPDP_trajin = _get_trajin_text(pairlist['DPDP_trajin'])
 tz2_ortho_trajin = _get_trajin_text(pairlist['tz2_ortho_trajin'])
 
 
-def load_result_from_cpptraj_state(txt, with_state=False, dtype=None):
+def load_result_from_cpptraj_state(txt, with_traj=False, dtype=None):
     """load output from cpptraj
 
     Parameters
     ----------
     txt : str
         cpptraj's trajin
-    with_state : bool, default False
-        return CpptrajState or not
+    with_traj: bool, default False
+        return TrajectoryIteratory or not
     dtype : str, return data type
 
     Returns
@@ -54,6 +54,9 @@ def load_result_from_cpptraj_state(txt, with_state=False, dtype=None):
     from pytraj.io import load_cpptraj_file
     from pytraj.datasetlist import DatasetList
     from pytraj import ArgList
+    from pytraj.TrajectoryIterator import TrajectoryIterator
+
+    traj = TrajectoryIterator()
 
     command_list = list(filter(lambda x: x, txt.split("\n")))
 
@@ -77,12 +80,19 @@ def load_result_from_cpptraj_state(txt, with_state=False, dtype=None):
             fh.write(txt)
         state = load_cpptraj_file("tmp.in")
         state.run()
+        traj.top = state.toplist[0]
+
+        for trajin in state.get_trajinlist():
+            traj._add_trajin(trajin)
 
         if dtype == 'cpptraj_dataset':
-            out = [state, state.datasetlist]
+            out = [traj, state.datasetlist]
         else:
-            out = [state, DatasetList(state.datasetlist)]
-        if with_state:
+            out = [traj, DatasetList(state.datasetlist)]
+
+        if with_traj:
+            # avoid segmentation fault
+            traj._tmpobject = state
             return out
         else:
             return out[-1]
@@ -123,11 +133,6 @@ def load_outtraj(txt, top=None):
         state = load_cpptraj_file("tmp.in")
         state.run()
         traj = pt.iterload(filelist[0], top)
-        if traj._estimated_MB > 1000:
-            raise MemoryError(
-                "I don't want to load 1GB data to memory for testing")
-
-        # convert to in-memory Trajectory
-        return traj[:]
+        return traj
 
 load_cpptraj_output = load_result_from_cpptraj_state

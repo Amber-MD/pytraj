@@ -15,6 +15,10 @@ _v = __cpptraj_internal_version__
 if _v < 'V4.2':
     raise RuntimeError("need to have cpptraj version >= v4.2")
 
+if 'BINTRAJ' not in compiled_info():
+    from warnings import warn
+    warn('linking to libcpptraj that were not installed with libnetcdf')
+
 from .tools import find_lib as _find_lib
 
 # check `libcpptraj` and raise ImportError
@@ -76,7 +80,7 @@ from .io import (load, iterload, load_remd, iterload_remd,
                  load_pseudo_parm, load_cpptraj_file,
                  load_datafile, load_hdf5,
                  load_sample_data,
-                 load_ParmEd, load_full_ParmEd,
+                 load_ParmEd,
                  load_mdtraj,
                  load_MDAnalysis, load_MDAnalysisIterator,
                  load_topology, read_parm, write_parm,
@@ -101,7 +105,9 @@ from .analyses import CpptrajAnalyses as allanalyses
 from ._common_actions import calculate
 from . import common_actions
 from . dssp_analysis import calc_dssp
-from . common_actions import (rmsd, search_hbonds,
+from . common_actions import (rmsd,
+                              rmsd_perres,
+                              search_hbonds,
                               calc_rmsd_with_rotation_matrices,
                               calc_multidihedral,
                               autoimage, nastruct,
@@ -112,6 +118,7 @@ from . common_actions import (rmsd, search_hbonds,
                               calc_pairwise_rmsd,
                               calc_atomicfluct,
                               calc_bfactors,
+                              calc_density,
                               get_average_frame,
                               energy_decomposition,
                               native_contacts,
@@ -138,11 +145,13 @@ xcorr = cross_correlation_function
 acorr = auto_correlation_function
 dssp = calc_dssp
 bfactors = calc_bfactors
+density = calc_density
 radgyr = calc_radgyr
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
 get_average_structure = get_average_frame
+load_parmed = load_ParmEd
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (
@@ -167,6 +176,7 @@ from ._shared_methods import _frame_iter_master as frame_iter_master
 from ._set_silent import set_error_silent, set_world_silent
 
 def to_numpy_Trajectory(traj, top, unitcells=None):
+    # TODO: move to `io`?
     from . import api
     import numpy as np
     from ._xyz import XYZ
@@ -183,6 +193,19 @@ def to_numpy_Trajectory(traj, top, unitcells=None):
     if unitcells is not None:
         t.unitcells = unitcells
     return t
+
+def to_mdtraj(traj, top=None):
+    # TODO: move to `io`?
+    from pytraj.utils.context import goto_temp_folder
+    import mdtraj as md
+
+    _top = top if top is not None else traj.top
+    xyz = get_coordinates(traj)
+
+    with goto_temp_folder():
+        _top.save("tmp.prmtop")
+        top = md.load_prmtop("tmp.prmtop")
+        return md.Trajectory(xyz, top)
 
 def set_cpptraj_verbose(cm=True):
     if cm:

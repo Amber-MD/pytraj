@@ -1,5 +1,6 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
+from pytraj.trajs.Trajin cimport Trajin
 from pytraj.externals.six import string_types
 
 
@@ -66,7 +67,7 @@ cdef class CpptrajState:
         # Reason? cpptraj does not have assignment operator for TrajinList class
         # --> ?
 
-        # We used "get_trajlist" as method's name to remind that this will return an instance copy
+        # We used "get_trajinlist" as method's name to remind that this will return an instance copy
         # Should we update other *.pyx files too?
         # so why do we need py_free_mem = False here?
         trajlist.py_free_mem = False
@@ -186,3 +187,14 @@ cdef class CpptrajState:
 
     def write_all_datafiles(self):
         self.thisptr.MasterDataFileWrite()
+
+    def get_trajectory(self):
+        """return TrajectoryIterator
+        """
+        cdef Trajin trajin
+
+        from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
+        traj = TrajectoryCpptraj(top=self.toplist[0])
+        for trajin in self.get_trajinlist():
+            traj._add_trajin(trajin)
+        return traj
