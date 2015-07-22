@@ -13,9 +13,7 @@ class Test(unittest.TestCase):
         # TODO : assert
         traj = pt.tools.read_gaussian_output("./data/gaussian/GF2.log",
                                              "./data/gaussian/GF2.pdb")
-
-        traj2 = pt.tools.read_gaussian_output("./data/gaussian/GF2.log")
-        aa_eq(traj.xyz, traj2.xyz)
+        print (traj)
 
 if __name__ == "__main__":
     unittest.main()
