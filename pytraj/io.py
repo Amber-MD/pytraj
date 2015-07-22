@@ -414,6 +414,18 @@ def read_parm(filename):
 # creat alias
 load_topology = read_parm
 
+def _load_url(url):
+    """load Topology from url
+    """
+    from .Topology import Topology
+
+    txt = urlopen(url).read()
+    fname = "/tmp/tmppdb.pdb"
+    with open(fname, 'w') as fh:
+        if PY3:
+            txt = txt.decode()
+        fh.write(txt)
+    return Topology(fname)
 
 def loadpdb_rcsb(pdbid):
     """load pdb file from rcsb website

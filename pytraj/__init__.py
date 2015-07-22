@@ -151,6 +151,7 @@ molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
 get_average_structure = get_average_frame
+load_parmed = load_ParmEd
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (
