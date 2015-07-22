@@ -7,7 +7,7 @@ from ..Topology import Topology
 from ..utils.context import goto_temp_folder
 
 
-def load_ParmEd(parmed_obj, save_and_reload=True):
+def load_ParmEd(parmed_obj, save_and_reload=True, as_traj=False):
     """return pytraj's Topology or Trajectory objects
 
     Parameters
@@ -16,6 +16,9 @@ def load_ParmEd(parmed_obj, save_and_reload=True):
     save_and_reload: bool, default True
         if True, save `parmed_obj` to mol2 file and reload
         if False, internal convert. Might have bug
+    as_traj: bool, default False
+        if True, return pytraj.api.Trajectory
+        if False, return Topology
 
     >>> import parmed as pmd
     >>> import pytraj as pt
@@ -27,10 +30,17 @@ def load_ParmEd(parmed_obj, save_and_reload=True):
         with goto_temp_folder():
             fname = 'tmppdb.mol2'
             parmed_obj.save(fname)
-            return Topology(fname)
+            top = Topology(fname)
     else:
-        return load_pseudo_parm(parmed_obj)
+        top = load_pseudo_parm(parmed_obj)
 
+    if as_traj:
+        from pytraj import Trajectory
+        coords = parmed_obj.coordinates
+        coords = coords.reshape(1, *coords.shape)
+        return Trajectory(xyz=coords, top=top)
+    else:
+        return top
 
 def _load_parmed(parm_name):
     has_parmed = has_("parmed")
