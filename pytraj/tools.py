@@ -416,3 +416,9 @@ def read_gaussian_output(fname):
         os.system(cm)
 
         return Trajectory(xyz=go.atomcoords, top="tmp.mol2")
+
+def read_to_array(fname):
+    import numpy as np
+    with open(fname, 'r') as fh:
+        arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
+        return np.array(flatten(arr0), dtype='f8')
