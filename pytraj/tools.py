@@ -394,6 +394,16 @@ def read_orca_trj(fname):
 def read_gaussian_output(fname, top=None):
     """return a `pytraj.api.Trajectory` object
 
+    Parameters
+    ----------
+    fname : str, filename
+    top : {str, Topology}, optional, default None
+        pytraj.Topology or a filename or None
+        if None, use `antechamber` to generate mol2 file, need set $AMBERHOME env
+
+    >>> import pytraj as pt
+    >>> pt.tools.read_gaussian_output("gau.out", "mytest.pdb")
+
     Notes
     -----
     require `cclib`
