@@ -77,7 +77,11 @@ def load(*args, **kwd):
         filename = args[0]
 
     if filename.startswith('http://') or filename.startswith('https://'):
-        return load_ParmEd(filename, as_traj=True, save_and_reload=True)
+        try:
+            return load_ParmEd(filename, as_traj=True, save_and_reload=True)
+        except ValueError:
+            return load_ParmEd(filename, as_traj=True,
+                    save_and_reload=True, structure=True)
     else:
         ensure_exist(filename)
 
@@ -415,12 +419,7 @@ def load_topology(filename, **kwd):
     >>> pt.load_topology("http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb")
     """
     if filename.startswith('http://') or filename.startswith('https://'):
-        try:
-            import parmed as pmd
-        except ImportError:
-            raise ImportError("require ParmEd. You can install it by: \n"
-            "pip install git+git://github.com/ParmEd/ParmEd")
-        return load_ParmEd(filename, **kwd)
+        return _load_url(filename)
     else:
         from .Topology import Topology
         """return topology instance from reading filename"""

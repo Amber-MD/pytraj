@@ -504,7 +504,15 @@ def calc_jcoupling(traj=None, mask="", top=None,
 
 def do_translation(traj=None, command="", top=Topology()):
     _noaction_with_TrajectoryIterator(traj)
-    adict['translate'](command, traj, top)
+    if is_array(command):
+        x, y, z = command
+        _x = "x " + str(x)
+        _y = "y " + str(y)
+        _z = "z " + str(z)
+        _command = " ".join((_x, _y, _z))
+    else:
+        _command = command
+    adict['translate'](_command, traj, top)
 
 translate = do_translation
 
