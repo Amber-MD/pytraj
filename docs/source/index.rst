@@ -19,6 +19,7 @@ Contents:
    parallel
    whatsnew
    developer_guide
+   misc
 
 
 Indices and tables
