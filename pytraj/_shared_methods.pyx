@@ -95,7 +95,7 @@ def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
     if stop == -1:
         _end = <int> self.n_frames
     else:
-        _end = stop + 1
+        _end = stop
 
     i = start
     while i < _end:

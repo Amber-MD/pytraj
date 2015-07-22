@@ -344,10 +344,7 @@ class Trajectory(ActionTrajectory):
 
 
     def __call__(self, *args, **kwd):
-        return self._frame_iter(*args, **kwd)
-
-    def frame_iter(self, start=0, stop=-1, stride=1, mask=None):
-        return _frame_iter(self, start, stop, stride, mask)
+        return self.frame_iter(*args, **kwd)
 
     def _load_new_by_scipy(self, filename):
         from scipy import io
@@ -586,3 +583,53 @@ class Trajectory(ActionTrajectory):
 
     def save(self, filename="", fmt='unknown', overwrite=True, *args, **kwd):
         _savetraj(self, filename, fmt, overwrite, *args, **kwd)
+
+    def frame_iter(self, start=0, stop=None, stride=1,
+                   mask=None, autoimage=False, rmsfit=None):
+
+        from pytraj.core.frameiter import FrameIter
+
+        if mask is None:
+            _top = self.top
+        else:
+            _top = self.top._get_new_from_mask(mask)
+
+        if rmsfit is not None:
+            if isinstance(rmsfit, tuple):
+                assert len(rmsfit) <= 2, ("rmsfit must be a tuple of one (frame,) "
+                                         "or two elements (frame, mask)")
+                if len(rmsfit) == 1:
+                    rmsfit = (rmsfit, '*')
+            elif isinstance(rmsfit, int):
+                rmsfit = (rmsfit, '*')
+            else:
+                raise ValueError("rmsfit must be a tuple or an integer")
+
+            if is_int(rmsfit[0]):
+                index = rmsfit[0]
+                rmsfit = ([self[index], rmsfit[1]])
+
+        # check how many frames will be calculated
+        if stop is None or stop >= self.n_frames:
+            stop = self.n_frames
+        elif stop < 0:
+            stop = get_positive_idx(stop, self.n_frames)
+
+        # make sure `range` return iterator
+        n_frames = len(range(start, stop, stride))
+
+        frame_iter_super = self._frame_iter(start, stop, stride)
+
+        return FrameIter(frame_iter_super,
+                         original_top=self.top,
+                         new_top=_top,
+                         start=start,
+                         stop=stop,
+                         stride=stride,
+                         mask=mask,
+                         autoimage=autoimage,
+                         rmsfit=rmsfit,
+                         n_frames=n_frames)
+
+    def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
+        return _frame_iter(self, start, stop, stride, mask)

@@ -1215,7 +1215,7 @@ struct __pyx_obj_6pytraj_5Frame_Frame {
   struct __pyx_vtabstruct_6pytraj_5Frame_Frame *__pyx_vtab;
   Frame *thisptr;
   int py_free_mem;
-  PyObject *top;
+  PyObject *_top;
 };
 
 
@@ -4425,7 +4425,7 @@ static PyObject *__pyx_gb_6pytraj_15_shared_methods_14generator(__pyx_CoroutineO
  *     if stop == -1:
  *         _end = <int> self.n_frames             # <<<<<<<<<<<<<<
  *     else:
- *         _end = stop + 1
+ *         _end = stop
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_n_frames); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -4446,17 +4446,17 @@ static PyObject *__pyx_gb_6pytraj_15_shared_methods_14generator(__pyx_CoroutineO
   /* "pytraj/_shared_methods.pyx":98
  *         _end = <int> self.n_frames
  *     else:
- *         _end = stop + 1             # <<<<<<<<<<<<<<
+ *         _end = stop             # <<<<<<<<<<<<<<
  * 
  *     i = start
  */
   /*else*/ {
-    __pyx_cur_scope->__pyx_v__end = (__pyx_cur_scope->__pyx_v_stop + 1);
+    __pyx_cur_scope->__pyx_v__end = __pyx_cur_scope->__pyx_v_stop;
   }
   __pyx_L4:;
 
   /* "pytraj/_shared_methods.pyx":100
- *         _end = stop + 1
+ *         _end = stop
  * 
  *     i = start             # <<<<<<<<<<<<<<
  *     while i < _end:
