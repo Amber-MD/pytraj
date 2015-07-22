@@ -5,6 +5,7 @@ from ..Trajectory import Trajectory
 from ..Frame import Frame
 from ..Topology import Topology
 from ..utils.context import goto_temp_folder
+from .six import string_types
 
 
 def load_ParmEd(parmed_obj, save_and_reload=True, as_traj=False):
@@ -25,6 +26,10 @@ def load_ParmEd(parmed_obj, save_and_reload=True, as_traj=False):
     >>> p = pmd.download_PDB("1l2y")
     >>> top = pt.load_ParmEd(p, save_and_reload=True) 
     """
+    if isinstance(parmed_obj, string_types):
+        import parmed as pmd
+        parmed_obj = pmd.load_file(parmed_obj)
+
     if save_and_reload:
         # faster
         with goto_temp_folder():
