@@ -260,14 +260,12 @@ def merge_coordinates(iterables):
     """
     return np.vstack((np.array(f.xyz) for f in iterables))
 
-
 def merge_frames(iterables):
-    """merge_coordinates from frames
+    """merge from frames to a single Frame. Order matters.
     """
     from pytraj import Frame
     xyz = np.vstack((np.array(f.xyz) for f in iterables))
     return Frame().append_xyz(xyz)
-
 
 def rmsd_1darray(a1, a2):
     '''rmsd of a1 and a2
@@ -391,34 +389,114 @@ def read_orca_trj(fname):
     regexp = r'\s+\w+' + r'\s+([-.0-9]+)' * 3 + r'\s*\n'
     return np.fromregex(fname, regexp, dtype='f')
 
-def read_gaussian_output(fname):
-    """return a Topology object
-    Use cclib to read coordinates
+def read_gaussian_output(fname, top=None):
+    """return a `pytraj.api.Trajectory` object
+
+    Parameters
+    ----------
+    fname : str, filename
+    top : {str, Topology}, optional, default None
+        pytraj.Topology or a filename or None
+        if None, use `antechamber` to generate mol2 file, need set $AMBERHOME env
+
+    >>> import pytraj as pt
+    >>> pt.tools.read_gaussian_output("gau.out", "mytest.pdb")
+
+    Notes
+    -----
+    require `cclib`
     """
     import pytraj as pt
     import cclib
     from pytraj.api import Trajectory
     from pytraj.utils.context import goto_temp_folder
+    from pytraj._get_common_objects import _get_top
 
-    try:
-        amberhome = os.environ['AMBERHOME']
-    except KeyError:
-        raise KeyError("must set AMBERHOME")
-
+    _top = _get_top(None, top)
     gau = cclib.parser.Gaussian(fname)
     go = gau.parse()
-    fpath = os.path.abspath(fname)
 
-    with goto_temp_folder():
-        at = amberhome + "/bin/antechamber"
-        out = "-i %s -fi gout -o tmp.mol2 -fo mol2 -c resp -j both -at amber" % fpath
-        cm = " ".join((at, out))
-        os.system(cm)
+    if _top is None:
+        try:
+            amberhome = os.environ['AMBERHOME']
+        except KeyError:
+            raise KeyError("must set AMBERHOME")
 
-        return Trajectory(xyz=go.atomcoords, top="tmp.mol2")
+        fpath = os.path.abspath(fname)
+
+        with goto_temp_folder():
+            at = amberhome + "/bin/antechamber"
+            out = "-i %s -fi gout -o tmp.mol2 -fo mol2 -at amber" % fpath
+            cm = " ".join((at, out))
+            os.system(cm)
+
+            return Trajectory(xyz=go.atomcoords, top="tmp.mol2")
+    else:
+        return Trajectory(xyz=go.atomcoords, top=_top)
 
 def read_to_array(fname):
     import numpy as np
     with open(fname, 'r') as fh:
         arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
         return np.array(flatten(arr0), dtype='f8')
+
+def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
+    """
+
+    Examples
+    --------
+       # from two Trajectory or TrajectoryIterator
+       traj3 = merge_trajs(traj1, traj2)
+       assert traj3.n_frames == traj1.n_frames == traj2.n_frames
+       assert traj3.n_atoms == traj1.n_atoms + traj2.n_atoms
+       import numpy as np
+       assert np.any(traj3.xyz, np.vstack(tra1.xyz,  traj2.xyz)) == True
+
+       # from frame_iter for saving memory
+       traj3 = merge_trajs((traj1(0, 10, 2), traj1.top), 
+                           (traj2(100, 110, 2), traj2.top), n_frames=6)
+
+    Notes
+    -----
+    Code might be changed
+    """
+    from pytraj.compat import zip
+    from pytraj import Trajectory
+    import numpy as np
+
+    if isinstance(traj1, (list, tuple)):
+        n_frames_1 = n_frames
+        top1 = traj1[1]
+        _traj1 = traj1[0]
+    else:
+        n_frames_1 = traj1.n_frames
+        top1 = traj1.top
+        _traj1 = traj1
+
+    if isinstance(traj2, (list, tuple)):
+        n_frames_2 = n_frames
+        top2 = traj2[1]  # example: (traj(0, 5), traj.top)
+        _traj2 = traj2[0]
+    else:
+        n_frames_2 = traj2.n_frames
+        top2 = traj2.top
+        _traj2 = traj2
+
+    if n_frames_1 != n_frames_2:
+        raise ValueError("must have the same n_frames")
+
+    traj = Trajectory()
+    traj._allocate(n_frames_1, top1.n_atoms + top2.n_atoms)
+
+    # merge Topology
+    top = top1.copy()
+    if start_new_mol:
+        top.start_new_mol()
+    top.join(top2)
+    traj.top = top
+
+    # update coords
+    for f1, f2, frame in zip(_traj1, _traj2, traj):
+        frame.xyz = np.vstack((f1.xyz, f2.xyz))
+
+    return traj

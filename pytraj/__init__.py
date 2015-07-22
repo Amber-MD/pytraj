@@ -80,7 +80,7 @@ from .io import (load, iterload, load_remd, iterload_remd,
                  load_pseudo_parm, load_cpptraj_file,
                  load_datafile, load_hdf5,
                  load_sample_data,
-                 load_ParmEd, load_full_ParmEd,
+                 load_ParmEd,
                  load_mdtraj,
                  load_MDAnalysis, load_MDAnalysisIterator,
                  load_topology, read_parm, write_parm,
@@ -151,6 +151,7 @@ molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
 get_average_structure = get_average_frame
+load_parmed = load_ParmEd
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (
