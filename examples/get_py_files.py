@@ -15,6 +15,10 @@ for key in remove_list:
 for fname in testlist:
     if "mpi" in fname:
         testlist.remove(fname)
+    else:
+        with open(fname, 'r') as fh:
+            if "# tag: no travis test" in fh.readline():
+                testlist.remove(fname)
 
 for pyfile in testlist:
     line = "python ./%s \n" % pyfile

@@ -8,7 +8,7 @@ from ..utils.context import goto_temp_folder
 from .six import string_types
 
 
-def load_ParmEd(parmed_obj, save_and_reload=True, as_traj=False):
+def load_ParmEd(parmed_obj, save_and_reload=True, as_traj=False, **kwd):
     """return pytraj's Topology or Trajectory objects
 
     Parameters
@@ -28,8 +28,8 @@ def load_ParmEd(parmed_obj, save_and_reload=True, as_traj=False):
     """
     if isinstance(parmed_obj, string_types):
         import parmed as pmd
-        parmed_obj = pmd.load_file(parmed_obj)
-
+        # reserve **kwd for `structure=True`
+        parmed_obj = pmd.load_file(parmed_obj, **kwd)
     if save_and_reload:
         # faster
         with goto_temp_folder():
