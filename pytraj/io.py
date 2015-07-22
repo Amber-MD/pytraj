@@ -410,7 +410,11 @@ def load_topology(filename, **kwd):
     >>> pt.load_topology("http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb")
     """
     if filename.startswith('http://') or filename.startswith('https://'):
-        import parmed as pmd
+        try:
+            import parmed as pmd
+        except ImportError:
+            raise ImportError("require ParmEd. You can install it by: \n"
+            "pip install git+git://github.com/ParmEd/ParmEd")
         return load_ParmEd(filename, **kwd)
     else:
         from .Topology import Topology
