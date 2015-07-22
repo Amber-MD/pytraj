@@ -17,9 +17,9 @@ def find_lib(libname, unique=False):
 
     for p in tmp_path:
         if 'anaconda' in p:
-            paths.append(os.path.join(p.split("anaconda")[0], "anaconda"))
-            paths.append(os.path.join(p.split("anaconda")[0], "anaconda2"))
-            paths.append(os.path.join(p.split("anaconda")[0], "anaconda3"))
+            paths.append(os.path.join(p.split("anaconda")[0], "anaconda", "lib"))
+            paths.append(os.path.join(p.split("anaconda")[0], "anaconda2", "lib"))
+            paths.append(os.path.join(p.split("anaconda")[0], "anaconda3", "lib"))
 
     lib_path_list = []
     key = "lib" + libname + "*"
