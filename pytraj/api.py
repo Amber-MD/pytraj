@@ -64,7 +64,7 @@ class Trajectory(ActionTrajectory):
                     raise ValueError("must have a non-empty Topology")
                 else:
                     assert self.top.n_atoms == xyz.shape[1], "must have the same n_atoms"
-                self._xyz = xyz
+                self._xyz = np.asarray(xyz)
             else:
                 self._xyz = None
         elif hasattr(filename_or_iterable, 'xyz'):

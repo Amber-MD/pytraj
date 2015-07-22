@@ -54,7 +54,12 @@ EXTRA_LOAD_METHODS = {'HDF5': load_hdf5, }
 
 
 def load(*args, **kwd):
-    """try loading and returning appropriate values"""
+    """try loading and returning appropriate values
+
+    Notes
+    -----
+    load(filename, top, use_numpy=True) will return `pytraj.api.Trajectory`
+    """
 
     if args and is_frame_iter(args[0]):
         return _load_from_frame_iter(*args, **kwd)
@@ -94,8 +99,13 @@ def load(*args, **kwd):
         else:
             return top
     else:
-        # load to Trajectory object
-        return load_traj(*args, **kwd)[:]
+        # load to TrajectoryIterator object first
+        traj = load_traj(*args, **kwd)
+        if 'use_numpy' in kwd.keys() and kwd['use_numpy']:
+            from pytraj.api import Trajectory
+            return Trajectory(xyz=traj.xyz, top=traj.top)
+        else:
+            return traj[:]
 
 
 def _load_from_filelist(*args, **kwd):
