@@ -10,9 +10,6 @@ import pytraj.common_actions as pyca
 from pytraj.api import Trajectory
 from pytraj.compat import izip
 
-fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
-traj = Trajectory(mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
-
 
 class Test(unittest.TestCase):
 
@@ -50,7 +47,7 @@ class Test(unittest.TestCase):
 
         # append itself frame_iter
         traj.append(traj.frame_iter(stop=2))
-        assert traj.n_frames == NFrames * 2 + 3
+        assert traj.n_frames == NFrames * 2 + 2
 
         # append _frame_iter_master for itself
         NFrames = traj.n_frames
