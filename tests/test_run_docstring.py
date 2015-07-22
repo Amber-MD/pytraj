@@ -63,5 +63,8 @@ class Test(unittest.TestCase):
         print ("load_ParmEd")
         run_docstring(pt.load_ParmEd)
 
+        print("load Topology")
+        run_docstring(pt.load_topology)
+
 if __name__ == "__main__":
     unittest.main()
