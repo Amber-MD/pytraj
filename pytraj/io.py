@@ -106,7 +106,10 @@ def load(*args, **kwd):
                 except:
                     raise ValueError("don't know how to load file/files")
         else:
-            return top
+            try:
+                return load_traj(filename, top=top)[:]
+            except:
+                raise ValueError("dont know how to load")
     else:
         # load to TrajectoryIterator object first
         traj = load_traj(*args, **kwd)
