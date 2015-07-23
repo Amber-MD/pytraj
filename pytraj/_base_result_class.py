@@ -12,3 +12,9 @@ class BaseAnalysisResult(object):
 
     def grep(self, key):
         return self.__class__(self.dslist.grep(key))
+
+    def __getitem__(self, idx):
+        return self.__class__(self.dslist[idx])
+
+    def __iter__(self):
+        return self.dslist.__iter__()
