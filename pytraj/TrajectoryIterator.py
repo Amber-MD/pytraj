@@ -321,10 +321,6 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                                       autoimage=autoimage,
                                       rmsfit=rmsfit)
 
-    @property
-    def unitcells(self):
-        return self.box_to_ndarray()
-
     def to_numpy_traj(self):
         from pytraj import api
         return api.Trajectory(self)
