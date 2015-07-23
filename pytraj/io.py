@@ -240,8 +240,7 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
         if not isinstance(top, Topology):
             top = Topology(top)
         if top.is_empty():
-            raise ValueError(
-                "can not load file without Topology or empty Topology")
+            top = Topology(filename)
         ts = TrajectoryIterator(top=top)
 
         if 'frame_slice' in kwd.keys():
