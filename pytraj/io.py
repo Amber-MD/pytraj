@@ -106,7 +106,10 @@ def load(*args, **kwd):
                 except:
                     raise ValueError("don't know how to load file/files")
         else:
-            return top
+            try:
+                return load_traj(filename, top=top)[:]
+            except:
+                raise ValueError("dont know how to load")
     else:
         # load to TrajectoryIterator object first
         traj = load_traj(*args, **kwd)
@@ -237,8 +240,7 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
         if not isinstance(top, Topology):
             top = Topology(top)
         if top.is_empty():
-            raise ValueError(
-                "can not load file without Topology or empty Topology")
+            top = Topology(filename)
         ts = TrajectoryIterator(top=top)
 
         if 'frame_slice' in kwd.keys():
