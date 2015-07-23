@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
 
         # test Box
         assert (api_traj.has_box() == True)
-        boxes = traj.box_to_ndarray()
+        boxes = traj.unitcells
         for i, frame in enumerate(api_traj):
             assert (frame.has_box() == True)
             f_blist = frame.box.tolist()

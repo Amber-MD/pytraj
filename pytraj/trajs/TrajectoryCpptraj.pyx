@@ -10,7 +10,7 @@ from ..decorators import memoize # cache
 from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _savetraj, _get_temperature_set
-from .._shared_methods import _box_to_ndarray
+from .._shared_methods import _box
 from ..utils.check_and_assert import _import_numpy, ensure_exist
 from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
@@ -415,8 +415,9 @@ cdef class TrajectoryCpptraj:
     def write(self, *args, **kwd):
         self.save(*args, **kwd)
 
-    def box_to_ndarray(self):
-        return _box_to_ndarray(self)
+    @property
+    def unitcells(self):
+        return _box(self)
 
     def to_mutable_traj(self):
         '''same as self[:] but more explicit'''

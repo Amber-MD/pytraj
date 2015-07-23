@@ -28,7 +28,7 @@ from .trajs.Trajout import Trajout
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._shared_methods import (_savetraj, _get_temperature_set,
                               _xyz, _tolist, _split_and_write_traj)
-from ._shared_methods import my_str_method, _box_to_ndarray
+from ._shared_methods import my_str_method, _box
 from ._xyz import XYZ
 
 from . import common_actions as pyca
@@ -1371,8 +1371,9 @@ cdef class Trajectory (object):
         for i in range(n_frames):
             self.frame_v[i] = new _Frame(n_atoms)
 
-    def box_to_ndarray(self):
-        return _box_to_ndarray(self)
+    @property
+    def unitcells(self):
+        return _box(self)
 
     # math
     def __tmpidiv__(self, value):
@@ -1600,10 +1601,6 @@ cdef class Trajectory (object):
         """esimated MB of data will be loaded to memory
         """
         return self.n_frames * self.n_atoms * 3 * 8 / 1E6
-
-    @property
-    def unitcells(self):
-        return self.box_to_ndarray()
 
     def to_numpy_traj(self):
         from pytraj import api
