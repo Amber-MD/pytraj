@@ -77,7 +77,7 @@ class Test(unittest.TestCase):
         flist = glob("./data/Test_RemdTraj/rem.nc.*")
 
         coords_traj = DataSet_Coords_TRJ()
-        coords_traj.top = io.load(remd_top)
+        coords_traj.top = io.load_topology(remd_top)
         coords_traj.load(flist)
         print(coords_traj)
 

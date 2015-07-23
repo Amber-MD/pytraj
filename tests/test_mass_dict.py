@@ -8,7 +8,7 @@ class Test(unittest.TestCase):
 
     def test_0(self):
         from pytraj.core import mass_atomic_number_dict, mass_element_dict
-        top = mdio.load("./data/tz2.parm7")
+        top = mdio.load_topology("./data/tz2.parm7")
         mass_list = []
 
         for atom in top:

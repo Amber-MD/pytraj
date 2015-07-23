@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         print(a)
 
     def test_bonds(self):
-        top = mdio.load("./data/Tc5b.top")
+        top = mdio.load_topology("./data/Tc5b.top")
         atom = top[20]
         print(atom)
         bonded_indices = atom.bonded_indices()

@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         parm_name = "./data/Tc5b.top"
         traj = mdio.iterload("./data/md1_prod.Tc5b.x",  parm_name)
         print(traj[0].coords[:10])
-        true_top = mdio.load(parm_name)
+        true_top = mdio.load_topology(parm_name)
 
         # load ParmEd
         parm = mdio._load_parmed(parm_name)
