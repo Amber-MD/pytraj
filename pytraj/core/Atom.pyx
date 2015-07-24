@@ -137,10 +137,6 @@ cdef class Atom:
     def molnum(self):
         return self.thisptr.MolNum()
 
-    @property 
-    def chainID(self):
-        return self.thisptr.ChainID()
-
     @property
     def n_bonds(self):
         return self.thisptr.Nbonds()
@@ -152,10 +148,6 @@ cdef class Atom:
     @property
     def mass(self):
         return self.thisptr.Mass()
-
-    @property
-    def polar(self):
-        return self.thisptr.Polar()
 
     def is_bonded_to(self, int idx):
         # TODO : add doc
