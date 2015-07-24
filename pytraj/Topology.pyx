@@ -695,36 +695,18 @@ cdef class Topology:
 
     @property
     def bond_indices(self):
-        """return an iterator of bond indices"""
-        for b in self.bonds:
-            yield b.indices
+        import numpy as np
+        return np.asarray([b.indices for b in self.bonds], dtype=np.int64)
 
     @property
     def angle_indices(self):
-        """return an iterator of bond indices"""
-        for b in self.angles:
-            yield b.indices
+        import numpy as np
+        return np.asarray([b.indices for b in self.angles], dtype=np.int64)
 
     @property
     def dihedral_indices(self):
-        """return an iterator of bond indices"""
-        for b in self.dihedrals:
-            yield b.indices
-
-    @property
-    def _bonds_ndarray(self):
         _, np = _import_numpy()
-        return np.asarray([b for b in self.bond_indices], dtype=np.int64)
-
-    @property
-    def _angles_ndarray(self):
-        _, np = _import_numpy()
-        return np.asarray([b for b in self.angle_indices], dtype=np.int64)
-
-    @property
-    def _dihedrals_ndarray(self):
-        _, np = _import_numpy()
-        return np.asarray([b for b in self.dihedral_indices], dtype=np.int64)
+        return np.asarray([b.indices for b in self.dihedrals], dtype=np.int64)
 
     def vdw_radii(self):
         cdef int n_atoms = self.n_atoms
