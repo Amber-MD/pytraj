@@ -18,7 +18,6 @@ from ._cyutils import get_positive_idx, _int_array1d_like_to_memview
 from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types, PY2
-from .externals._load_pseudo_parm import load_pseudo_parm
 from .TrajectoryIterator import TrajectoryIterator
 from .utils.check_and_assert import (_import_numpy, is_int, is_frame_iter,
                                      file_exist, is_mdtraj, is_pytraj_trajectory,
@@ -73,10 +72,7 @@ cdef class Trajectory (object):
             try:
                 self.top = _get_top(filename, top)
             except:
-                if is_mdtraj(filename):
-                    self.top = load_pseudo_parm(filename.top)
-                else:
-                    raise ValueError()
+                raise ValueError()
             if self.top is None:
                 self.top = Topology()
         else:
