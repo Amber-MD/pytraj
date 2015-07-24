@@ -366,18 +366,17 @@ cdef class Topology:
         set_world_silent(True)
 
     def add_atom(self, Atom atom=Atom(), 
-                 int resid=0, 
-                 resname="", xyz=None):
+                 Residue res=Residue(),
+                 xyz=None):
         """add_atom(Atom atomIn, int o_resnum, NameType resname, double[:] XYZin)"""
         cdef double[:] XYZin
-        cdef NameType restype = NameType(resname)
 
         if xyz is None:
             XYZin = pyarray('d', [0., 0., 0.])
         else:
             XYZin = pyarray('d', xyz)
 
-        self.thisptr.AddTopAtom(atom.thisptr[0], resid, restype.thisptr[0], &XYZin[0])
+        self.thisptr.AddTopAtom(atom.thisptr[0], res.thisptr[0], &XYZin[0])
 
     def start_new_mol(self):
         self.thisptr.StartNewMol()
