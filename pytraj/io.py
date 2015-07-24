@@ -3,7 +3,6 @@ from .externals.six import string_types, PY3
 from .datafiles.load_sample_data import load_sample_data
 from .utils.check_and_assert import ensure_exist, is_frame_iter
 from .utils import goto_temp_folder
-from .externals._load_HDF5 import load_hdf5
 from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datasets.utils import load_datafile
@@ -44,9 +43,6 @@ __all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
            'read_pickle', 'read_json',
            'to_pickle', 'to_json',
            ]
-
-EXTRA_LOAD_METHODS = {'HDF5': load_hdf5, }
-
 
 def load(*args, **kwd):
     """try loading and returning appropriate values
