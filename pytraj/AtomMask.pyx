@@ -148,6 +148,3 @@ cdef class AtomMask(object):
 
     def add_atom_range(self, int begin, int end):
         self.thisptr.AddAtomRange(begin, end)
-
-    def add_mask_at_position(self, AtomMask atm, int pos):
-        self.thisptr.AddMaskAtPosition(atm.thisptr[0], pos)

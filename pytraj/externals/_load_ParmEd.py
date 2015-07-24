@@ -1,6 +1,5 @@
 from pytraj.utils import has_
 from pytraj.warnings import PytrajWarningMissing
-from ._load_pseudo_parm import load_pseudo_parm
 from ..Trajectory import Trajectory
 from ..Frame import Frame
 from ..Topology import Topology

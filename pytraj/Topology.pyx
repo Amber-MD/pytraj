@@ -359,33 +359,21 @@ cdef class Topology:
         self.thisptr.PrintResidueInfo(maskString)
         set_world_silent(True)
 
-    def charge_mass_info(self, maskString, int idtype):
-        set_world_silent(False)
-        maskString = maskString.encode()
-        self.thisptr.PrintChargeMassInfo(maskString, idtype)
-        set_world_silent(True)
+    #def add_atom(self, Atom atom=Atom(), 
+    #             Residue res=Residue(),
+    #             xyz=None):
+    #    """add_atom(Atom atomIn, int o_resnum, NameType resname, double[:] XYZin)"""
+    #    cdef double[:] XYZin
 
-    def add_atom(self, Atom atom=Atom(), 
-                 Residue res=Residue(),
-                 xyz=None):
-        """add_atom(Atom atomIn, int o_resnum, NameType resname, double[:] XYZin)"""
-        cdef double[:] XYZin
+    #    if xyz is None:
+    #        XYZin = pyarray('d', [0., 0., 0.])
+    #    else:
+    #        XYZin = pyarray('d', xyz)
 
-        if xyz is None:
-            XYZin = pyarray('d', [0., 0., 0.])
-        else:
-            XYZin = pyarray('d', xyz)
-
-        self.thisptr.AddTopAtom(atom.thisptr[0], res.thisptr[0], &XYZin[0])
+    #    self.thisptr.AddTopAtom(atom.thisptr[0], res.thisptr[0], &XYZin[0])
 
     def start_new_mol(self):
         self.thisptr.StartNewMol()
-
-    def set_offset(self, double x):
-        self.thisptr.SetOffset(x)
-
-    def set_ipol(self, int id):
-        self.thisptr.SetIpol(id)
 
     @property
     def filename(self):
@@ -767,10 +755,6 @@ cdef class Topology:
     @property
     def total_charge(self):
         return sum([atom.charge for atom in self.atoms])
-
-    def guess_bond(self):
-        # FIXME, TODO: wrong name
-        self.thisptr.CommonSetup(True)
 
     def save(self, filename=None, format='AMBERPARM'):
         from pytraj.parms.ParmFile import ParmFile
