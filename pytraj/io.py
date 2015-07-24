@@ -21,11 +21,6 @@ try:
 except:
     load_ParmEd = None
 
-try:
-    from pytraj.externals._load_pseudo_parm import load_pseudo_parm
-except:
-    load_pseudo_parm = None
-
 # load mdtraj and MDAnalysis
 from .externals._load_mdtraj import load_mdtraj
 from .externals._load_MDAnalysis import load_MDAnalysis
@@ -38,7 +33,7 @@ except ImportError:
 __all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
            '_load_from_filelist', '_iterload_from_filelist',
            'load_pdb_rcsb', 'load_pdb',
-           'load_pseudo_parm', 'load_cpptraj_file',
+           'load_cpptraj_file',
            'load_datafile', 'load_hdf5',
            'load_sample_data',
            'load_ParmEd',
@@ -78,39 +73,12 @@ def load(*args, **kwd):
 
     if filename.startswith('http://') or filename.startswith('https://'):
         try:
-            return load_ParmEd(filename, as_traj=True, save_and_reload=True)
+            return load_ParmEd(filename, as_traj=True)
         except ValueError:
             return load_ParmEd(filename, as_traj=True,
-                    save_and_reload=True, structure=True)
+                   structure=True)
     else:
         ensure_exist(filename)
-
-    if len(args) + len(kwd) == 1:
-        if len(args) == 1:
-            filename = args[0]
-        else:
-            filename = kwd[kwd.keys()[0]]
-        # try to use cpptraj to load Topology
-        top = read_parm(*args, **kwd)
-        if hasattr(top, 'is_empty') and top.is_empty():
-            try:
-                # use ParmEd to load if cpptraj fails
-                import parmed
-                return load_pseudo_parm(parmed.load_file(args[0]))
-            except:
-                try:
-                    # try to predict filetype and use proper loading method
-                    filetype = _guess_filetype(filename)
-                    new_object = EXTRA_LOAD_METHODS[filetype](*args, **kwd)
-                    return new_object
-                except:
-                    raise ValueError("don't know how to load file/files")
-        else:
-            try:
-                return load_traj(filename, top=top)[:]
-            except:
-                raise ValueError("dont know how to load")
-    else:
         # load to TrajectoryIterator object first
         traj = load_traj(*args, **kwd)
         if 'use_numpy' in kwd.keys() and kwd['use_numpy']:
