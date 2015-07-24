@@ -43,12 +43,12 @@ class Test(unittest.TestCase):
         from pytraj.common_actions import nastruct
         fn = "./data/Test_NAstruct/adh026.3.pdb"
         traj = mdio.iterload(fn, fn)
-        dslist = nastruct(traj)
+        dslist = nastruct(traj, dtype='dataset')
         dsize = dslist.size
 
         # dummy loops
         for i in range(100):
-            dslist = nastruct(traj)
+            dslist = nastruct(traj, dtype='dataset')
             assert dslist.size == dsize
         print(dslist.filter("major", mode='aspect'))
 

@@ -2,7 +2,7 @@ import pytraj as pt
 fn = "../tests/data/Test_NAstruct/adh026.3.pdb"
 traj = pt.load(fn, fn)
 
-d = pt.nucleic_acid_analysis(traj)
+d = pt.nucleic_acid_analysis(traj, dtype='dataset')
 print (d)
 
 # get major groove
