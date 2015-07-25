@@ -5,7 +5,6 @@ from pytraj import io as mdio
 from pytraj.common_actions import *
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.testing import aa_eq
-from pytraj.testing import make_fake_traj
 
 
 class Test(unittest.TestCase):
@@ -102,14 +101,6 @@ class Test(unittest.TestCase):
         print("average_cpptraj")
         average_cpptraj(fa)
 
-        from pytraj.testing import make_fake_traj
-        fa = make_fake_traj(100, 10000)
-        print(fa)
-        print("average_pytraj")
-        average_pytraj(fa)
-        print("average_cpptraj")
-        average_cpptraj(fa)
-
 
 def average_cpptraj(fa):
     get_average_frame(fa)
@@ -120,9 +111,3 @@ def average_pytraj(fa):
 
 if __name__ == "__main__":
     unittest.main()
-    #from memory_profiler import memory_usage
-    #from numpy import max
-    #fa = make_fake_traj(10000, 10000)
-    #m_pytraj = max(memory_usage((average_pytraj, (fa,))))
-    #m_cpptraj = max(memory_usage((average_cpptraj, (fa,))))
-    #print (m_cpptraj, m_pytraj)

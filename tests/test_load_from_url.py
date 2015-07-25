@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         url = "http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb"
         traj0 = pt.load_pdb("./data/polyAT.pdb")
-        traj = pt.load_parmed(url, as_traj=True, save_and_reload=False)
+        traj = pt.load_parmed(url, as_traj=True)
         aa_eq(traj0.xyz, traj.xyz)
 
         traj1 = pt.load(url)

@@ -59,34 +59,6 @@ class TestTopology(unittest.TestCase):
             print(atom)
         assert idx + 1 == top.n_atoms
 
-    def test_2(self):
-        from pytraj import load_sample_data
-        # load Ala3
-        traj = load_sample_data()
-        top = traj.top
-        for i in range(top.n_atoms):
-            print(top.trunc_res_atom_name(i))
-
-        for i in range(top.n_residues):
-            print(top.trunc_resname_num(i))
-
-        print(dir(top))
-        print(top.n_atoms)
-        atom = Atom("CA", "CA")
-        restype = NameType("TEST")
-        xyz = np.arange(3, dtype=np.float64)
-        top.add_atom(atom, 4, restype, xyz)
-        assert top.n_atoms == 35
-        top.add_atom(Atom("CBX", "CBX"), 4, restype)
-        assert top.n_atoms == 36
-        assert ("TEST" in top.trunc_res_atom_name(34))
-        print(top.trunc_res_atom_name(34))
-
-        print(top[33])
-        print(top[34])
-        print(top[35])
-        print(top.n_atoms)
-
     def test_select_mask(self):
         top = Topology("./data/Tc5b.top")
         arr0 = top.atom_indices("@CA")

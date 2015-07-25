@@ -36,25 +36,6 @@ def make_random_frame(n_atoms=10000):
     return frame
 
 
-def make_fake_traj(n_frames=100, n_atoms=10000):
-    import numpy as np
-    from pytraj.core import Atom
-    from pytraj import Trajectory
-
-    pseudotop = Topology()
-    pseudotop.start_new_mol()
-    for i in range(n_atoms):
-        aname, atype = "X", "X"
-        charge, mass = 0.0, 1.0
-        atom = Atom(aname, atype, charge, mass)
-        resid = 1
-        resname = "XXX"
-        pseudotop.add_atom(atom=atom, resid=resid, resname=resname)
-    traj = Trajectory(top=pseudotop)
-    traj._allocate(n_frames, n_atoms)
-    traj.update_xyz(np.random.rand(n_frames, n_atoms, 3))
-    return traj
-
 header_doc = '''
 from pytraj import io
 import pytraj.common_actions as pyca

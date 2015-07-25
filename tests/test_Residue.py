@@ -67,11 +67,6 @@ class TestResidue(unittest.TestCase):
         print(res0.last_atom_idx)
         print(res0.n_atoms)
 
-    def test_3(self):
-        res = Residue(0, "WAT", 0)
-        print(res)
-        assert (res.is_solvent() == True)
-
     def test_4(self):
         top = Topology("./data/Tc5b.top")
         for res in top.residuelist:

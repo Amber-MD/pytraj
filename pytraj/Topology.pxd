@@ -112,7 +112,7 @@ cdef extern from "Topology.h":
         inline BoxType _BoxType() const 
         #void SetParmBox(const _Box& bIn)
         void SetParmBox(_Box& bIn)
-        int AddTopAtom(const _Atom&, int, const _NameType&, const double *)
+        int AddTopAtom(_Atom&, _Residue&, double*)
         void AddAngle(int, int, int)
         void AddDihedral(int, int, int, int)
         void StartNewMol() 

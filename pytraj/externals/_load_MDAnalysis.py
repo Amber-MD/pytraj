@@ -15,7 +15,6 @@ def load_MDAnalysis(its_obj, top=None):
     from pytraj.utils import has_, require, _import_numpy
     from pytraj.Trajectory import Trajectory
     from pytraj.exceptions import PytrajRequireObject
-    from ._load_pseudo_parm import load_pseudo_parm
     from ..Frame import Frame
 
     # don't import here since we import load_pseudo_parm in
@@ -34,7 +33,7 @@ def load_MDAnalysis(its_obj, top=None):
 
         # creat pseudotop
         if top is None:
-            pseudotop = load_pseudo_parm(its_obj)
+            raise ValuError("need a Topology or pdb/mol2/...")
         else:
             pseudotop = top
 
