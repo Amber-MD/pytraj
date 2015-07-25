@@ -309,32 +309,35 @@ cdef class Trajectory (object):
     def shape(self):
         return (self.n_frames, self[0].n_atoms, 3)
 
-    @property
-    def xyz(self):
-        """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
-        We can not return a memoryview since Trajectory is a C++ vector of Frame object
+    property xyz:
+        def __get__(self):
+            """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
+            We can not return a memoryview since Trajectory is a C++ vector of Frame object
 
-        Notes
-        -----
-            read-only
-        """
-        cdef bint has_numpy
-        cdef int i
-        cdef int n_frames = self.n_frames
-        cdef int n_atoms = self.n_atoms
-        cdef Frame frame
+            Notes
+            -----
+                read-only
+            """
+            cdef bint has_numpy
+            cdef int i
+            cdef int n_frames = self.n_frames
+            cdef int n_atoms = self.n_atoms
+            cdef Frame frame
 
-        has_numpy, np = _import_numpy()
-        myview = np.empty((n_frames, n_atoms, 3), dtype='f8')
+            has_numpy, np = _import_numpy()
+            myview = np.empty((n_frames, n_atoms, 3), dtype='f8')
 
-        if self.n_atoms == 0:
-            raise NotImplementedError("need to have non-empty Topology")
-        if has_numpy:
-            for i, frame in enumerate(self):
-                myview[i] = frame.buffer2d
-            return XYZ(myview)
-        else:
-            raise NotImplementedError("must have numpy")
+            if self.n_atoms == 0:
+                raise NotImplementedError("need to have non-empty Topology")
+            if has_numpy:
+                for i, frame in enumerate(self):
+                    myview[i] = frame.buffer2d
+                return XYZ(myview)
+            else:
+                raise NotImplementedError("must have numpy")
+
+        def __set__(self, values):
+            self.update_xyz(values)
 
     @property
     def _xyz(self):
@@ -368,11 +371,13 @@ cdef class Trajectory (object):
 
         return np.asarray(memview).reshape(n_frames, n_atoms, 3)
 
-    @property
-    def coordinates(self):
-        """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
-        """
-        return self.xyz
+    property coordinates:
+        def __get__(self):
+            """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
+            """
+            return self.xyz
+        def __set__(self, values):
+            self.update_coordinates(values)
 
     def update_coordinates(self, double[:, :, :] xyz):
         '''update coords from 3D xyz array, dtype=f8'''

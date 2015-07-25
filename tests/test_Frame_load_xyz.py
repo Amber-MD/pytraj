@@ -32,12 +32,13 @@ class Test(unittest.TestCase):
         from mdtraj.testing import get_fn
         import numpy as np
 
-        m_traj = md.load(get_fn('ala_ala_ala.pdb'))
+        fname = get_fn('ala_ala_ala.pdb')
+        m_traj = md.load(fname)
         print(m_traj)
         f0 = Frame()
         f1 = f0.copy()
         f0.append_xyz(m_traj.xyz[0].astype(np.float64))
-        farray = mdio.load_mdtraj(m_traj, autoconvert=False)
+        farray = mdio.load_mdtraj(m_traj, autoconvert=False, top=fname)
         f1 = farray[0]
 
         assert_almost_equal(f0.coords, f1.coords)
