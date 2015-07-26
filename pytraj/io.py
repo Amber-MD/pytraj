@@ -68,11 +68,8 @@ def load(*args, **kwd):
         filename = args[0]
 
     if filename.startswith('http://') or filename.startswith('https://'):
-        try:
-            return load_ParmEd(filename, as_traj=True)
-        except ValueError:
-            return load_ParmEd(filename, as_traj=True,
-                   structure=True)
+        return load_ParmEd(filename, as_traj=True,
+                           structure=True)
     else:
         ensure_exist(filename)
         # load to TrajectoryIterator object first
