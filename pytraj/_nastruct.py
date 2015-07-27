@@ -36,15 +36,17 @@ class nupars(BaseAnalysisResult):
 
 
 def nastruct(traj=None, mask="",
+             resmap=None,
+             hbcut=None,
              ref=None,
              top=None, dtype='nupars',
              *args, **kwd):
     """
     Examples
     --------
-        dslist = nastruct(traj)
-        dslist.filter("major", mode='aspect') # information for major groove
-        print (dslist.get_aspect())
+    >>> import pytraj as pt
+    >>> pt.nastruct(traj0)
+    >>> pt.nastruct(traj1, resmap='AF2:A')
 
     See Also
     --------
@@ -56,12 +58,14 @@ def nastruct(traj=None, mask="",
     from pytraj.array import DataArray
 
     _ref =  _get_reference_from_traj(traj, ref)
+    _resmap= "resmap " + resmap if resmap is not None else ""
+    _hbcut= "hbcut " + str(hbcut) if hbcut is not None else ""
 
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5
         mask = to_cpptraj_atommask(mask)
 
-    command = mask
+    command = " ".join((mask, _resmap, _hbcut))
 
     act = Action_NAstruct()
     dslist = CpptrajDatasetList()
