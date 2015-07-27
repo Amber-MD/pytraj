@@ -1,16 +1,12 @@
 #!/bin/sh
 
-# PYTRAJHOME is the root folder of `pytraj`
 export PYTRAJHOME=`pwd`
-#cd ./Ambertools/dev/cpptraj/
-git clone https://github.com/mojyt/cpptraj
+git clone https://github.com/Amber-MD/cpptraj
 cd cpptraj/
 export CPPTRAJHOME=`pwd`
 cd $CPPTRAJHOME
 mkdir lib
 bash ./configure -nomathlib -shared gnu
-#bash ./configure -nomathlib -shared -amberlib gnu
-#cd $CPPTRAJHOME/src
 make libcpptraj
 cd $PYTRAJHOME
 
