@@ -220,6 +220,12 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          n_frames=n_frames,
                          )
 
+    def iterframe(self, *args, **kwd):
+        return self.frame_iter(*args, **kwd)
+
+    def iterchunk(self, *args, **kwd):
+        return self.chunk_iter(*args, **kwd)
+
     def chunk_iter(self, chunksize=2, start=0, stop=-1,
                    autoimage=False,
                    rmsfit=None,
