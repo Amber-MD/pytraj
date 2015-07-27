@@ -13,7 +13,7 @@ from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
 from pytraj._xyz import XYZ
 
 __all__ = ['_savetraj', '_frame_iter_master', '_xyz', 'my_str_method',
-           '_tolist', '_box_to_ndarray']
+           '_tolist', '_box']
 
 def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd):
     if format == 'unknown':
@@ -162,7 +162,7 @@ def _frame_iter_master(obj):
         except:
             raise PytrajConvertError("can not convert to Frame")
 
-def _box_to_ndarray(self): 
+def _box(self): 
     cdef Frame frame
     cdef int i
 

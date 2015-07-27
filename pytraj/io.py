@@ -3,7 +3,6 @@ from .externals.six import string_types, PY3
 from .datafiles.load_sample_data import load_sample_data
 from .utils.check_and_assert import ensure_exist, is_frame_iter
 from .utils import goto_temp_folder
-from .externals._load_HDF5 import load_hdf5
 from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datasets.utils import load_datafile
@@ -21,11 +20,6 @@ try:
 except:
     load_ParmEd = None
 
-try:
-    from pytraj.externals._load_pseudo_parm import load_pseudo_parm
-except:
-    load_pseudo_parm = None
-
 # load mdtraj and MDAnalysis
 from .externals._load_mdtraj import load_mdtraj
 from .externals._load_MDAnalysis import load_MDAnalysis
@@ -38,7 +32,7 @@ except ImportError:
 __all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
            '_load_from_filelist', '_iterload_from_filelist',
            'load_pdb_rcsb', 'load_pdb',
-           'load_pseudo_parm', 'load_cpptraj_file',
+           'load_cpptraj_file',
            'load_datafile', 'load_hdf5',
            'load_sample_data',
            'load_ParmEd',
@@ -49,9 +43,6 @@ __all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
            'read_pickle', 'read_json',
            'to_pickle', 'to_json',
            ]
-
-EXTRA_LOAD_METHODS = {'HDF5': load_hdf5, }
-
 
 def load(*args, **kwd):
     """try loading and returning appropriate values
@@ -77,37 +68,10 @@ def load(*args, **kwd):
         filename = args[0]
 
     if filename.startswith('http://') or filename.startswith('https://'):
-        try:
-            return load_ParmEd(filename, as_traj=True, save_and_reload=True)
-        except ValueError:
-            return load_ParmEd(filename, as_traj=True,
-                    save_and_reload=True, structure=True)
+        return load_ParmEd(filename, as_traj=True,
+                           structure=True)
     else:
         ensure_exist(filename)
-
-    if len(args) + len(kwd) == 1:
-        if len(args) == 1:
-            filename = args[0]
-        else:
-            filename = kwd[kwd.keys()[0]]
-        # try to use cpptraj to load Topology
-        top = read_parm(*args, **kwd)
-        if hasattr(top, 'is_empty') and top.is_empty():
-            try:
-                # use ParmEd to load if cpptraj fails
-                import parmed
-                return load_pseudo_parm(parmed.load_file(args[0]))
-            except:
-                try:
-                    # try to predict filetype and use proper loading method
-                    filetype = _guess_filetype(filename)
-                    new_object = EXTRA_LOAD_METHODS[filetype](*args, **kwd)
-                    return new_object
-                except:
-                    raise ValueError("don't know how to load file/files")
-        else:
-            return top
-    else:
         # load to TrajectoryIterator object first
         traj = load_traj(*args, **kwd)
         if 'use_numpy' in kwd.keys() and kwd['use_numpy']:
@@ -237,8 +201,7 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
         if not isinstance(top, Topology):
             top = Topology(top)
         if top.is_empty():
-            raise ValueError(
-                "can not load file without Topology or empty Topology")
+            top = Topology(filename)
         ts = TrajectoryIterator(top=top)
 
         if 'frame_slice' in kwd.keys():

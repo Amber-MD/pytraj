@@ -18,7 +18,6 @@ from ._cyutils import get_positive_idx, _int_array1d_like_to_memview
 from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types, PY2
-from .externals._load_pseudo_parm import load_pseudo_parm
 from .TrajectoryIterator import TrajectoryIterator
 from .utils.check_and_assert import (_import_numpy, is_int, is_frame_iter,
                                      file_exist, is_mdtraj, is_pytraj_trajectory,
@@ -28,7 +27,7 @@ from .trajs.Trajout import Trajout
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._shared_methods import (_savetraj, _get_temperature_set,
                               _xyz, _tolist, _split_and_write_traj)
-from ._shared_methods import my_str_method, _box_to_ndarray
+from ._shared_methods import my_str_method, _box
 from ._xyz import XYZ
 
 from . import common_actions as pyca
@@ -73,10 +72,7 @@ cdef class Trajectory (object):
             try:
                 self.top = _get_top(filename, top)
             except:
-                if is_mdtraj(filename):
-                    self.top = load_pseudo_parm(filename.top)
-                else:
-                    raise ValueError()
+                raise ValueError()
             if self.top is None:
                 self.top = Topology()
         else:
@@ -313,32 +309,35 @@ cdef class Trajectory (object):
     def shape(self):
         return (self.n_frames, self[0].n_atoms, 3)
 
-    @property
-    def xyz(self):
-        """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
-        We can not return a memoryview since Trajectory is a C++ vector of Frame object
+    property xyz:
+        def __get__(self):
+            """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
+            We can not return a memoryview since Trajectory is a C++ vector of Frame object
 
-        Notes
-        -----
-            read-only
-        """
-        cdef bint has_numpy
-        cdef int i
-        cdef int n_frames = self.n_frames
-        cdef int n_atoms = self.n_atoms
-        cdef Frame frame
+            Notes
+            -----
+                read-only
+            """
+            cdef bint has_numpy
+            cdef int i
+            cdef int n_frames = self.n_frames
+            cdef int n_atoms = self.n_atoms
+            cdef Frame frame
 
-        has_numpy, np = _import_numpy()
-        myview = np.empty((n_frames, n_atoms, 3), dtype='f8')
+            has_numpy, np = _import_numpy()
+            myview = np.empty((n_frames, n_atoms, 3), dtype='f8')
 
-        if self.n_atoms == 0:
-            raise NotImplementedError("need to have non-empty Topology")
-        if has_numpy:
-            for i, frame in enumerate(self):
-                myview[i] = frame.buffer2d
-            return XYZ(myview)
-        else:
-            raise NotImplementedError("must have numpy")
+            if self.n_atoms == 0:
+                raise NotImplementedError("need to have non-empty Topology")
+            if has_numpy:
+                for i, frame in enumerate(self):
+                    myview[i] = frame.buffer2d
+                return XYZ(myview)
+            else:
+                raise NotImplementedError("must have numpy")
+
+        def __set__(self, values):
+            self.update_xyz(values)
 
     @property
     def _xyz(self):
@@ -372,11 +371,13 @@ cdef class Trajectory (object):
 
         return np.asarray(memview).reshape(n_frames, n_atoms, 3)
 
-    @property
-    def coordinates(self):
-        """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
-        """
-        return self.xyz
+    property coordinates:
+        def __get__(self):
+            """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
+            """
+            return self.xyz
+        def __set__(self, values):
+            self.update_coordinates(values)
 
     def update_coordinates(self, double[:, :, :] xyz):
         '''update coords from 3D xyz array, dtype=f8'''
@@ -1371,8 +1372,9 @@ cdef class Trajectory (object):
         for i in range(n_frames):
             self.frame_v[i] = new _Frame(n_atoms)
 
-    def box_to_ndarray(self):
-        return _box_to_ndarray(self)
+    @property
+    def unitcells(self):
+        return _box(self)
 
     # math
     def __tmpidiv__(self, value):
@@ -1600,10 +1602,6 @@ cdef class Trajectory (object):
         """esimated MB of data will be loaded to memory
         """
         return self.n_frames * self.n_atoms * 3 * 8 / 1E6
-
-    @property
-    def unitcells(self):
-        return self.box_to_ndarray()
 
     def to_numpy_traj(self):
         from pytraj import api

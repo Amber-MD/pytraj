@@ -86,8 +86,8 @@ class Trajectory(ActionTrajectory):
         if hasattr(self._xyz, 'shape'):
             assert self.top.n_atoms == self._xyz.shape[1], "must have the same n_atoms"
 
-        if hasattr(filename_or_iterable, 'box_to_ndarray'):
-            self._boxes = filename_or_iterable.box_to_ndarray()
+        if hasattr(filename_or_iterable, 'unitcells'):
+            self._boxes = filename_or_iterable.unitcells
 
     @property
     def top(self):
@@ -320,10 +320,10 @@ class Trajectory(ActionTrajectory):
             # assume Trajectory-like object
             if self._xyz is None:
                 self._xyz = other.xyz[:]
-                self._boxes = other.box_to_ndarray()
+                self._boxes = other.unitcells
             else:
                 self._xyz = np.vstack((self._xyz, other.xyz))
-                self._boxes = np.vstack((self._boxes, other.box_to_ndarray()))
+                self._boxes = np.vstack((self._boxes, other.unitcells))
         elif is_frame_iter(other):
             for frame in other:
                 self.append(frame)
@@ -513,9 +513,6 @@ class Trajectory(ActionTrajectory):
         for idx, frame in enumerate(self):
             pyca.rotate_dihedral(frame, top=self.top, *args, **kwd)
             self.xyz[idx] = frame.xyz
-
-    def box_to_ndarray(self):
-        return self._boxes
 
     @property
     def unitcells(self):

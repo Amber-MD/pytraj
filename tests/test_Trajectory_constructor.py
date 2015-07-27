@@ -160,7 +160,7 @@ class Test(unittest.TestCase):
         from pytraj import Trajectory
         mtop = md.load_prmtop("./data/Tc5b.top")
         m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", top=mtop)
-        fa = Trajectory(m_traj)
+        fa = Trajectory(m_traj.xyz, top="./data/Tc5b.top")
         aa_eq(fa.xyz, m_traj.xyz)
 
     def test_11(self):

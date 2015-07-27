@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 from array import array
-from itertools import groupby
 from functools import partial
 from pytraj.datasets.DataSetList import DataSetList as DSL
 from pytraj.externals._json import to_json, read_json
@@ -18,6 +17,19 @@ _, np = _import_numpy()
 __all__ = ['load_datafile', 'stack', 'DatasetList',
            'from_pickle', 'from_json']
 
+def _groupby(self, key):
+    # adapted from `toolz` package.
+    # see license in $PYTRAJHOME/licenses/externals/toolz.txt
+    import collections
+    if not callable(key):
+        key = getter(key)
+    d = collections.defaultdict(lambda: self.__class__().append)
+    for item in self:
+        d[key(item)](item)
+    rv = {}
+    for k, v in iteritems(d):
+        rv[k] = v.__self__
+    return rv
 
 def from_pickle(filename):
     dslist = DatasetList()
@@ -691,9 +703,8 @@ class DatasetList(list):
     def tail(self, k):
         return dict((x.legend, x.tail(k)) for x in self)
 
-    def groupby(self, func_or_key, copy=False):
-        return dict((x, from_sequence(y, copy=copy))
-                    for x, y in groupby(self, func_or_key))
+    def groupby(self, func_or_key):
+        return _groupby(self, func_or_key)
 
     def cpptraj_dtypes(self):
         return np.array([x.cpptraj_dtype for x in self])

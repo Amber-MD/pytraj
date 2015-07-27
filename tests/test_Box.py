@@ -71,9 +71,8 @@ class TestBox(unittest.TestCase):
             aa_eq(frame.box.tolist(), [
                   35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
 
-        # test box_to_ndarray
-        arr0 = traj.box_to_ndarray()
-        arr1 = trajiter.box_to_ndarray()
+        arr0 = traj.unitcells
+        arr1 = trajiter.unitcells
 
         for b0, b1, frame in zip(arr0, arr1, trajiter):
             box = frame.box
@@ -98,7 +97,7 @@ class TestBox(unittest.TestCase):
         from pytraj import Trajectory
         traj = Trajectory()
         traj._allocate(10, 10)
-        print(traj.box_to_ndarray())
+        print(traj.unitcells)
 
     def test_assign_box_type(self):
         print("test_assign_box_type")

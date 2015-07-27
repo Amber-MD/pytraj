@@ -33,7 +33,7 @@ class Test(unittest.TestCase):
         import pytraj.api as api
         # test append
         fa = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
-        barr = fa.box_to_ndarray()
+        barr = fa.unitcells
         fa2 = fa.copy()
         fa2.join(fa)
 
@@ -100,7 +100,7 @@ class Test(unittest.TestCase):
         print ('traj', traj)
         traj2.top = traj.top
         traj2.append(traj)
-        traj2.update_box(traj.box_to_ndarray())
+        traj2.update_box(traj.unitcells)
         assert traj.n_frames == trajread.n_frames == traj2.n_frames == 10
 
         print ("print trajecetories")

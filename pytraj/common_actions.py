@@ -33,6 +33,7 @@ from .math.DistRoutines import distance
 from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
+from ._nastruct import nastruct
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
 from . import _long_manual
@@ -1291,41 +1292,6 @@ def native_contacts(traj=None, mask="", top=None, dtype='dataset',
     for d in dslist:
         # exclude ref frame
         d.values = d.values[1:]
-    return _get_data_from_dtype(dslist, dtype=dtype)
-
-
-def nastruct(traj=None, mask="", top=None, dtype='dataset',
-             *args, **kwd):
-    """
-    Examples
-    --------
-        dslist = nastruct(traj)
-        dslist.filter("major", mode='aspect') # information for major groove
-        print (dslist.get_aspect())
-
-    See Also
-    --------
-        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf page 580)
-    """
-    # TODO: doc, rename method, move to seperate module?
-    if not isinstance(mask, string_types):
-        # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_atommask(mask)
-
-    command = mask
-
-    from .actions.CpptrajActions import Action_NAstruct
-    act = Action_NAstruct()
-    dslist = CpptrajDatasetList()
-
-    _top = _get_top(traj, top)
-    act(command, traj, dslist=dslist, top=_top, *args, **kwd)
-
-    # need to update legend to avoid duplicate (same legend with different
-    # aspect)
-    for d in dslist:
-        d.legend = d.legend + "_" + d.aspect
-
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 

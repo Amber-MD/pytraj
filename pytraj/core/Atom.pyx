@@ -47,9 +47,6 @@ cdef class Atom:
         atom.thisptr = new _Atom(self.thisptr[0])
         return atom
 
-    def swap(self, Atom at1, Atom at2):
-        self.thisptr.swap(at1.thisptr[0], at2.thisptr[0])
-
     def bonded_indices(self):
         """get bond indices that `self` bonds to
         """
@@ -61,11 +58,6 @@ cdef class Atom:
             arr0.append(deref(it))
             incr(it)
         return arr0
-
-    #def  excluded_iterator excludedbegin(self):
-    #def  excluded_iterator excludedend(self):
-    def excluded_iter(self):
-        pass
 
     property resnum:
         def __set__(self, int resnumIn):
@@ -145,10 +137,6 @@ cdef class Atom:
     def molnum(self):
         return self.thisptr.MolNum()
 
-    @property 
-    def chainID(self):
-        return self.thisptr.ChainID()
-
     @property
     def n_bonds(self):
         return self.thisptr.Nbonds()
@@ -160,23 +148,6 @@ cdef class Atom:
     @property
     def mass(self):
         return self.thisptr.Mass()
-
-    @property
-    def polar(self):
-        return self.thisptr.Polar()
-
-    @property
-    def screen(self):
-        return self.thisptr.Screen()
-
-    def add_bond(self,int idx):
-        self.thisptr.AddBond(idx)
-
-    def clear_bonds(self):
-        self.thisptr.ClearBonds()
-
-    def sort_bonds(self):
-        self.thisptr.SortBonds()
 
     def is_bonded_to(self, int idx):
         # TODO : add doc

@@ -359,34 +359,21 @@ cdef class Topology:
         self.thisptr.PrintResidueInfo(maskString)
         set_world_silent(True)
 
-    def charge_mass_info(self, maskString, int idtype):
-        set_world_silent(False)
-        maskString = maskString.encode()
-        self.thisptr.PrintChargeMassInfo(maskString, idtype)
-        set_world_silent(True)
+    #def add_atom(self, Atom atom=Atom(), 
+    #             Residue res=Residue(),
+    #             xyz=None):
+    #    """add_atom(Atom atomIn, int o_resnum, NameType resname, double[:] XYZin)"""
+    #    cdef double[:] XYZin
 
-    def add_atom(self, Atom atom=Atom(), 
-                 int resid=0, 
-                 resname="", xyz=None):
-        """add_atom(Atom atomIn, int o_resnum, NameType resname, double[:] XYZin)"""
-        cdef double[:] XYZin
-        cdef NameType restype = NameType(resname)
+    #    if xyz is None:
+    #        XYZin = pyarray('d', [0., 0., 0.])
+    #    else:
+    #        XYZin = pyarray('d', xyz)
 
-        if xyz is None:
-            XYZin = pyarray('d', [0., 0., 0.])
-        else:
-            XYZin = pyarray('d', xyz)
-
-        self.thisptr.AddTopAtom(atom.thisptr[0], resid, restype.thisptr[0], &XYZin[0])
+    #    self.thisptr.AddTopAtom(atom.thisptr[0], res.thisptr[0], &XYZin[0])
 
     def start_new_mol(self):
         self.thisptr.StartNewMol()
-
-    def set_offset(self, double x):
-        self.thisptr.SetOffset(x)
-
-    def set_ipol(self, int id):
-        self.thisptr.SetIpol(id)
 
     @property
     def filename(self):
@@ -696,36 +683,18 @@ cdef class Topology:
 
     @property
     def bond_indices(self):
-        """return an iterator of bond indices"""
-        for b in self.bonds:
-            yield b.indices
+        import numpy as np
+        return np.asarray([b.indices for b in self.bonds], dtype=np.int64)
 
     @property
     def angle_indices(self):
-        """return an iterator of bond indices"""
-        for b in self.angles:
-            yield b.indices
+        import numpy as np
+        return np.asarray([b.indices for b in self.angles], dtype=np.int64)
 
     @property
     def dihedral_indices(self):
-        """return an iterator of bond indices"""
-        for b in self.dihedrals:
-            yield b.indices
-
-    @property
-    def _bonds_ndarray(self):
         _, np = _import_numpy()
-        return np.asarray([b for b in self.bond_indices], dtype=np.int64)
-
-    @property
-    def _angles_ndarray(self):
-        _, np = _import_numpy()
-        return np.asarray([b for b in self.angle_indices], dtype=np.int64)
-
-    @property
-    def _dihedrals_ndarray(self):
-        _, np = _import_numpy()
-        return np.asarray([b for b in self.dihedral_indices], dtype=np.int64)
+        return np.asarray([b.indices for b in self.dihedrals], dtype=np.int64)
 
     def vdw_radii(self):
         cdef int n_atoms = self.n_atoms
@@ -786,10 +755,6 @@ cdef class Topology:
     @property
     def total_charge(self):
         return sum([atom.charge for atom in self.atoms])
-
-    def guess_bond(self):
-        # FIXME, TODO: wrong name
-        self.thisptr.CommonSetup(True)
 
     def save(self, filename=None, format='AMBERPARM'):
         from pytraj.parms.ParmFile import ParmFile

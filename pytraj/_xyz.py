@@ -32,19 +32,19 @@ class XYZ(object):
         raise NotImplementedError("read only")
 
     def __iadd__(self, value):
-        raise NotImplementedError("read only")
+        return self._xyz.__iadd__(value)
 
     def __isub__(self, value):
-        raise NotImplementedError("read only")
+        return self._xyz.__isub__(value)
 
     def __imul__(self, value):
-        raise NotImplementedError("read only")
+        return self._xyz.__imul__(value)
 
     def __idiv__(self, value):
-        raise NotImplementedError("read only")
+        return self._xyz.__idiv__(value)
 
     def __ifloordiv__(self, value):
-        raise NotImplementedError("read only")
+        return self._xyz.__ifloordiv__(value)
 
     def __mul__(self, value):
         return self._xyz.__mul__(value)
