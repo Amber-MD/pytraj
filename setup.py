@@ -75,13 +75,17 @@ else:
     # ./cpptraj/lib
 
     nice_message = """
-    pytraj require development version of cpptraj
+    Trying to dowload and build libcpptraj for you. (5-10 minutes)
+    (check ./cpptraj/ folder after installation)
+
+    To avoid auto-installation
+    --------------------------
     Must set CPPTRAJHOME or installing ./cpptraj/ in current folder.
 
     If you want to manually install `libcpptraj`, you can download cpptraj
     development version from here: https://github.com/mojyt/cpptraj
 
-    (    git clone https://github.com/mojyt/cpptraj
+    (    git clone https://github.com/Amber-MD/cpptraj/
          cd cpptraj
          export CPPTRAJHOME=`pwd`
          ./configure -shared gnu
@@ -91,8 +95,6 @@ else:
     python ./setup.py install
 
     ...
-    but we're trying to dowload and build libcpptraj for you. (5-10 minutes)
-    (check ./cpptraj/ folder after installation)
     """
     print (nice_message)
     sleep(3)
