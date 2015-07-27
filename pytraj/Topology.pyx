@@ -292,12 +292,6 @@ cdef class Topology:
                 namelist.append(self.trunc_res_atom_name(index))
             return namelist
 
-    def atom_mask_name(self, int atom):
-        return self.thisptr.AtomMaskName(atom)
-
-    def trunc_resname_num(self, int res):
-        return self.thisptr.TruncResNameNum(res)
-
     def find_atom_in_residue(self, int res, atname):
         cdef NameType _atomnametype
         if isinstance(atname, string_types):
@@ -359,19 +353,6 @@ cdef class Topology:
         self.thisptr.PrintResidueInfo(maskString)
         set_world_silent(True)
 
-    #def add_atom(self, Atom atom=Atom(), 
-    #             Residue res=Residue(),
-    #             xyz=None):
-    #    """add_atom(Atom atomIn, int o_resnum, NameType resname, double[:] XYZin)"""
-    #    cdef double[:] XYZin
-
-    #    if xyz is None:
-    #        XYZin = pyarray('d', [0., 0., 0.])
-    #    else:
-    #        XYZin = pyarray('d', xyz)
-
-    #    self.thisptr.AddTopAtom(atom.thisptr[0], res.thisptr[0], &XYZin[0])
-
     def start_new_mol(self):
         self.thisptr.StartNewMol()
 
@@ -387,15 +368,6 @@ cdef class Topology:
         cdef FileName filename = FileName()
         filename.thisptr[0] = self.thisptr.OriginalFilename()
         return filename.__str__()
-
-    property parm_index:
-        def __get__(self):
-            return self.thisptr.Pindex()
-
-    property _p_index:
-        # shortcut of parm_index
-        def __get__(self):
-            return self.thisptr.Pindex()
 
     property n_atoms:
         def __get__(self):
@@ -422,25 +394,11 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Nframes()
 
-    property _parm_name:
-        def __get__(self):
-            return self.thisptr.ParmName()
-        def __set__(self, name):
-            # TODO : check
-            self.thisptr.SetParmName(name, FileName().thisptr[0])
-
-    property gb_radii:
-        def __get__(self):
-            return self.thisptr.GBradiiSet()
-
     def set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
         if frame.is_empty():
             return self.thisptr.SetupIntegerMask(atm.thisptr[0])
         else:
             return self.thisptr.SetupIntegerMask(atm.thisptr[0], frame.thisptr[0])
-
-    def _scale_dihedral_k(self, double value):
-        self.thisptr.ScaleDihedralK(value)
 
     property box:
         def __get__(self):
@@ -481,11 +439,6 @@ cdef class Topology:
         else:
             atm = self(mask)
             return self._modify_state_by_mask(atm)
-
-    def _modify_by_map(self, vector[int] m):
-        cdef Topology top = Topology()
-        top.thisptr[0] = deref(self.thisptr.ModifyByMap(m))
-        return top
 
     def strip_atoms(Topology self, mask, copy=False):
         """strip atoms with given mask"""
@@ -542,11 +495,6 @@ cdef class Topology:
         for residue in self.residue_iter():
             s.add(residue.name)
         return s
-
-    def get_parm_coord_info(self):
-        cdef CoordinateInfo coordinfo = CoordinateInfo()
-        coordinfo.thisptr[0] = self.thisptr.ParmCoordInfo()
-        return coordinfo
 
     def join(self, top):
         cdef Topology _top
