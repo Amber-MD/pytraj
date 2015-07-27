@@ -5,6 +5,7 @@ Trajin_Single)
 """
 from __future__ import absolute_import
 import warnings
+import os
 from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from pytraj._action_in_traj import ActionTrajectory
 from pytraj.compat import string_types, range
@@ -108,7 +109,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         else:
             _top = top
 
-        if isinstance(filename, string_types):
+        if isinstance(filename, string_types) and os.path.exists(filename):
             super(TrajectoryIterator, self).load(filename, _top, frame_slice)
             self.frame_slice_list.append(frame_slice)
         elif isinstance(filename, (list, tuple)):
@@ -120,8 +121,14 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                 self.frame_slice_list.append(frame_slice)
                 super(TrajectoryIterator, self).load(
                     fname, _top, frame_slice=fslice)
+        elif isinstance(filename, string_types) and not os.path.exists(filename):
+            from glob import glob
+            flist = sorted(glob(filename))
+            if not flist:
+               raise ValueError("must provie a filename or list of filenames or file pattern")
+            self.load(flist, top=top, frame_slice=frame_slice)
         else:
-            raise ValueError("filename must a a string or a list of strings")
+            raise ValueError("")
 
     @property
     def topology(self):
