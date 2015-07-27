@@ -20,9 +20,6 @@ def test_generator(top):
         pass
         # print mol
 
-    for i in range(304):
-        top.atom_mask_name(i)
-
 top = Topology()
 parm = ParmFile()
 filename = "./data/Tc5b.top"

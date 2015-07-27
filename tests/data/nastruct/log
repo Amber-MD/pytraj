@@ -1,0 +1,146 @@
+
+CPPTRAJ: Trajectory Analysis. V16.00b
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Date/time: 07/27/15  11:52:44
+| Available memory: 3807.43 MB
+
+INPUT: Reading Input from file traj.in
+  [parm rna_a_form_dup.pdb]
+	Reading 'rna_a_form_dup.pdb' as PDB File
+	rna_a_form_dup.pdb: determining bond info from distances.
+Warning: rna_a_form_dup.pdb: Determining default bond distances from element types.
+  [trajin rna_a_form_dup.pdb]
+	Reading 'rna_a_form_dup.pdb' as PDB
+  [nastruct naout na.out]
+    NAstruct: Scanning all NA residues
+	Base pair parameters written to BP.na.out
+	Base pair step parameters written to BPstep.na.out
+	Helical parameters written to Helix.na.out
+	Hydrogen bond cutoff for determining base pairs is 3.50 Angstroms.
+	Base reference axes origin cutoff for determining base pairs is 2.50 Angstroms.
+	Using first frame to determine base pairing.
+	Calculating sugar pucker using Altona & Sundaralingam method.
+---------- RUN BEGIN -------------------------------------------------
+
+PARAMETER FILES:
+ 0: 'rna_a_form_dup.pdb', 250 atoms, 8 res, box: None, 2 mol, 1 frames
+
+INPUT TRAJECTORIES:
+ 0: 'rna_a_form_dup.pdb' is a PDB file, Parm rna_a_form_dup.pdb (reading 1 of 1)
+  Coordinate processing will occur on 1 frames.
+TIME: Run Initialization took 0.0000 seconds.
+
+BEGIN TRAJECTORY PROCESSING:
+.....................................................
+ACTION SETUP FOR PARM 'rna_a_form_dup.pdb' (1 actions):
+  0: [nastruct naout na.out]
+	Set up 8 bases.
+----- rna_a_form_dup.pdb (1-1, 1) -----
+100% Complete.
+
+Read 1 frames and processed 1 frames.
+TIME: Trajectory processing: 0.0057 s
+TIME: Avg. throughput= 175.1620 frames / second.
+
+ACTION OUTPUT:
+	Base pair output file BP.na.out; 1 frames, 4 base pairs.
+	Base pair step output file BPstep.na.out, Helix output file Helix.na.out; 1 frames, 3 base pair steps.
+
+DATASETS:
+  80 data sets:
+	NA_00000[pucker]:1 "1A" (float, pucker(pucker)), size is 1
+	NA_00000[pucker]:8 "8U" (float, pucker(pucker)), size is 1
+	NA_00000[shear]:1 "1A8U" (float), size is 1
+	NA_00000[stretch]:1 "1A8U" (float), size is 1
+	NA_00000[stagger]:1 "1A8U" (float), size is 1
+	NA_00000[buckle]:1 "1A8U" (float), size is 1
+	NA_00000[prop]:1 "1A8U" (float), size is 1
+	NA_00000[open]:1 "1A8U" (float), size is 1
+	NA_00000[hb]:1 "1A8U" (integer), size is 1
+	NA_00000[major]:1 "1A8U" (float), size is 1
+	NA_00000[minor]:1 "1A8U" (float), size is 1
+	NA_00000[pucker]:2 "2A" (float, pucker(pucker)), size is 1
+	NA_00000[pucker]:7 "7U" (float, pucker(pucker)), size is 1
+	NA_00000[shear]:2 "2A7U" (float), size is 1
+	NA_00000[stretch]:2 "2A7U" (float), size is 1
+	NA_00000[stagger]:2 "2A7U" (float), size is 1
+	NA_00000[buckle]:2 "2A7U" (float), size is 1
+	NA_00000[prop]:2 "2A7U" (float), size is 1
+	NA_00000[open]:2 "2A7U" (float), size is 1
+	NA_00000[hb]:2 "2A7U" (integer), size is 1
+	NA_00000[major]:2 "2A7U" (float), size is 1
+	NA_00000[minor]:2 "2A7U" (float), size is 1
+	NA_00000[pucker]:3 "3U" (float, pucker(pucker)), size is 1
+	NA_00000[pucker]:6 "6A" (float, pucker(pucker)), size is 1
+	NA_00000[shear]:3 "3U6A" (float), size is 1
+	NA_00000[stretch]:3 "3U6A" (float), size is 1
+	NA_00000[stagger]:3 "3U6A" (float), size is 1
+	NA_00000[buckle]:3 "3U6A" (float), size is 1
+	NA_00000[prop]:3 "3U6A" (float), size is 1
+	NA_00000[open]:3 "3U6A" (float), size is 1
+	NA_00000[hb]:3 "3U6A" (integer), size is 1
+	NA_00000[major]:3 "3U6A" (float), size is 1
+	NA_00000[minor]:3 "3U6A" (float), size is 1
+	NA_00000[pucker]:4 "4U" (float, pucker(pucker)), size is 1
+	NA_00000[pucker]:5 "5A" (float, pucker(pucker)), size is 1
+	NA_00000[shear]:4 "4U5A" (float), size is 1
+	NA_00000[stretch]:4 "4U5A" (float), size is 1
+	NA_00000[stagger]:4 "4U5A" (float), size is 1
+	NA_00000[buckle]:4 "4U5A" (float), size is 1
+	NA_00000[prop]:4 "4U5A" (float), size is 1
+	NA_00000[open]:4 "4U5A" (float), size is 1
+	NA_00000[hb]:4 "4U5A" (integer), size is 1
+	NA_00000[major]:4 "4U5A" (float), size is 1
+	NA_00000[minor]:4 "4U5A" (float), size is 1
+	NA_00000[shift]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[slide]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[rise]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[tilt]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[roll]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[twist]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[xdisp]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[ydisp]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[hrise]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[incl]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[tip]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[htwist]:1 "1A8U-2A7U" (float), size is 1
+	NA_00000[shift]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[slide]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[rise]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[tilt]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[roll]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[twist]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[xdisp]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[ydisp]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[hrise]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[incl]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[tip]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[htwist]:2 "2A7U-3U6A" (float), size is 1
+	NA_00000[shift]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[slide]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[rise]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[tilt]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[roll]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[twist]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[xdisp]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[ydisp]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[hrise]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[incl]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[tip]:3 "3U6A-4U5A" (float), size is 1
+	NA_00000[htwist]:3 "3U6A-4U5A" (float), size is 1
+
+DATAFILES:
+  BP.na.out (Base Pair)
+  BPstep.na.out (Base Pair Step)
+  Helix.na.out (Helix)
+---------- RUN END ---------------------------------------------------
+TIME: Total execution time: 0.0239 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+
