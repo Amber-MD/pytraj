@@ -125,6 +125,8 @@ def _load_netcdf(filename, top, indices=None, engine='scipy'):
         traj.xyz = data
     else:
         traj.xyz = data[indices]
+    if traj.xyz.itemsize != 8:
+        traj.xyz = traj.xyz.astype('f8')
     traj._append_unitcells((clen, cangle))
     return traj
 

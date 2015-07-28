@@ -161,6 +161,15 @@ class Trajectory(ActionTrajectory):
             self._life_holder = frame
             yield self._life_holder
 
+    def _iter_new_constructor(self):
+        """return a copy of Frame object"""
+
+        for i, xyz in enumerate(self._xyz):
+            frame = Frame(self.n_atoms, xyz, _as_ptr=True)
+            if self._boxes is not None:
+                frame.box = Box(self._boxes[i])
+            yield frame
+
     def __getitem__(self, idx):
         """return a copy of Frame object"""
         if is_int(idx):
