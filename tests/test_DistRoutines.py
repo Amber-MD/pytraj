@@ -2,7 +2,7 @@ import math
 import unittest
 from pytraj.base import *
 from pytraj.math import Vec3
-from pytraj.math.DistRoutines import distance, distance_frames
+from pytraj.math.DistRoutines import distance
 from pytraj.decorators import no_test
 from pytraj import allactions
 
@@ -36,29 +36,6 @@ class Test(unittest.TestCase):
         for i in range(frame0.n_atoms):
             for j in range(i, frame0.n_atoms):
                 distance(frame0.atoms(i), frame0.atoms(j))
-
-    def test_distance_frames(self):
-        traj = Trajectory(filename="./data/md1_prod.Tc5b.x",
-                          top="./data/Tc5b.top")
-        dslist = DataSetList()
-        act = allactions.Action_Distance()
-        act(command="distance :1@CA :2@CA",
-            current_frame=traj,
-            top=traj.top, dslist=dslist)
-        d1 = cast_dataset(dslist[0], dtype="general")
-        print(d1.data[:10])
-
-        frame0 = traj[0]
-        frame0.strip_atoms("!@CA", traj.top)
-        frame1 = traj[1]
-        frame1.strip_atoms("!@CA", traj.top)
-        print("dist_rmsd = ", frame0.dist_rmsd(frame1))
-        distframes = distance_frames(frame0, frame1)
-        print(distframes.__len__())
-        xyz0_0 = frame0.atoms(0)
-        xyz0_1 = frame0.atoms(1)
-
-        assert distance(xyz0_1, xyz0_0) == d1.data[0]
 
 if __name__ == "__main__":
     unittest.main()

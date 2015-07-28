@@ -303,29 +303,6 @@ scalarDict = {
         "UNDEFINED" : UNDEFINEDSCALARTYPE,
 }
 
-# DataSet_2D
-#from DataSet_2D cimport *
-MatrixDict = {
-    #"NO_OP" : NO_OP, 
-    "DIST" : DIST, 
-    "COVAR" : COVAR, 
-    "MWCOVAR" : MWCOVAR, 
-    "CORREL" : CORREL, 
-    "DISTCOVAR" : DISTCOVAR, 
-    "IDEA" : IDEA, 
-    "IRED" : IRED, 
-    "DIHCOVAR" : DIHCOVAR, 
-    #"NMAT" : NMAT, 
-    }
-
-## ClusterSieve
-##from ClusterSieve cimport *
-#SieveDict = {
-#    "NONE" : NONE, 
-#    "REGULAR" : REGULAR, 
-#    "RANDOM" : RANDOM, 
-#    }
-
 # PDBfile
 #from PDBfile cimport *
 PDB_RECTYPEDict = {
@@ -339,27 +316,12 @@ PDB_RECTYPEDict = {
     "UNKNOWN" : UNKNOWNPDBFILE, 
     }
 
-# Action
-##from actions.Action cimport RetDict
-##from actions.Action cimport OK, ERR as A_OK, A_ERR  
-##from actions.Action cimport USEORIGINALFRAME, SUPPRESSCOORDOUTPUT as A_USEORIGINALFRAME, A_SUPPRESSCOORDOUTPUT
-#from actions cimport Action
-
 RetActionDict = {
     "OK" : OKACTION, 
     "ERR" : ERRACTION, 
     "USEORIGINALFRAME" : USEORIGINALFRAME, 
     "SUPPRESSCOORDOUTPUT" : SUPPRESSCOORDOUTPUT, 
     }
-
-# Frame
-# not in cpptraj Frame.h anymore
-##from Frame cimport *
-#CenterModeDict = {
-#    "ORIGIN" : ORIGIN, 
-#    "BOXCTR" : BOXCTR, 
-#    "POINT" : POINT, 
-#    }
 
 # ParmFile
 #from ParmFile cimport *

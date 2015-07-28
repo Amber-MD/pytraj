@@ -25,7 +25,6 @@ class Test(unittest.TestCase):
         print(indices.shape)
         print(len(indices))
 
-        print(mat.mkind)
         print(mat.name)
         print(mat.legend)
 
