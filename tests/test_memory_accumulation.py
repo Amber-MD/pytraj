@@ -9,7 +9,7 @@ from glob import glob
 
 traj0 = pt.load_sample_data('tz2')
 # make fake large trajectory from 10 frames
-for _ in range(14):
+for _ in range(12):
     traj0.load(traj0.filelist)
 
 tlist = [traj0, ]
@@ -86,6 +86,7 @@ for traj in tlist:
         pt.molsurf(traj(stop=-3, stride=2, autoimage=True, rmsfit=0))
 
     func_list = [
+        test_center,
         test_rmsd,
         test_simple_frame_iter,
         test_frame_iter_with_mask,
@@ -94,7 +95,6 @@ for traj in tlist:
         test_translate_regular,
         test_chunk_iter,
         test_autoimage_chunk_iter_0,
-        test_center,
     ]
 
     estimated_MB = traj._estimated_MB
