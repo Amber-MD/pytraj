@@ -23,6 +23,7 @@ cdef extern from "Frame.h" nogil:
         _Frame() 
         #~_Frame() 
         _Frame(int)
+        _Frame(int, double*)
         _Frame(const vector[_Atom]&)
         _Frame(const _Frame&, const _AtomMask&)
         _Frame(const _Frame&)
