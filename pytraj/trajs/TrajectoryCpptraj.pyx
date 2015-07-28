@@ -274,7 +274,7 @@ cdef class TrajectoryCpptraj:
                     farray.append(frame, copy=False)
                 yield farray
 
-    def _np_chunk_iter(self, int chunk=2, int start=0, int stop=-1):
+    def _np_chunk_iter(self, int chunksize=2, int start=0, int stop=-1):
         '''iterately get Frames with start, chunk
         returning Trajectory or Frame instance depend on `chunk` value
         Parameters
@@ -290,6 +290,7 @@ cdef class TrajectoryCpptraj:
         cdef int n_atoms = self.n_atoms
         cdef Frame frame
         cdef double[:, :, :] view
+        cdef int chunk = chunksize
         
         from pytraj.api import Trajectory
         farray = Trajectory()
