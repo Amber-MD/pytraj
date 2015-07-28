@@ -244,6 +244,59 @@ cdef class TrajectoryCpptraj:
                     farray.append(frame, copy=False)
                 yield farray
 
+    def _np_chunk_iter(self, int chunk=2, int start=0, int stop=-1):
+        '''iterately get Frames with start, chunk
+        returning Trajectory or Frame instance depend on `chunk` value
+        Parameters
+        ---------
+        start : int (default = 0)
+        chunk : int (default = 1, return Frame instance). 
+                if `chunk` > 1 : return Trajectory instance
+        copy_top : bool, default=False
+            if False: no Topology copy is done for new (chunk) Trajectory
+        '''
+        cdef int n_chunk, i, j, k, _stop
+        cdef int n_frames = self.n_frames
+        cdef int n_atoms = self.n_atoms
+        cdef Frame frame
+        cdef double[:, :, :] view
+        
+        from pytraj.api import Trajectory
+        farray = Trajectory()
+        farray._allocate(chunk, self.n_atoms)
+        farray.top = self.top.copy()
+        view = farray.xyz[:]
+
+        # check `start`
+        if start < 0 or start >= n_frames:
+            start = 0
+
+        # check `stop`
+        if stop <= 0 or stop >= n_frames:
+            stop = <int> self.size - 1
+
+        if chunk <= 1:
+            raise ValueError("chunk must be >= 2")
+
+        if chunk + start > stop:
+            raise ValueError("start + chunk must be smaller than max frames")
+
+        n_chunk = int((stop- start)/chunk)
+        if ((stop - start) % chunk ) != 0:
+            n_chunk += 1
+
+        # only open and close file once
+        with self:
+            for i in range(n_chunk):
+                if i != n_chunk - 1:
+                    _stop = start + chunk*(i+1)
+                else:
+                    _stop = stop + 1
+                for j, k in zip(range(start + chunk * i,  _stop), range(chunk)):
+                    frame = Frame(n_atoms, view[k], _as_ptr=True)
+                    self.thisptr.GetFrame(j, frame.thisptr[0])
+                yield farray
+
     def __setitem__(self, idx, value):
         raise NotImplementedError("Read only Trajectory. Use Trajectory class for __setitem__")
 
