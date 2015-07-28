@@ -83,7 +83,7 @@ else:
     Must set CPPTRAJHOME or installing ./cpptraj/ in current folder.
 
     If you want to manually install `libcpptraj`, you can download cpptraj
-    development version from here: https://github.com/mojyt/cpptraj
+    development version from here: https://github.com/Amber-MD/cpptraj
 
     (    git clone https://github.com/Amber-MD/cpptraj/
          cd cpptraj
