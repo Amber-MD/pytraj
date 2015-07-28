@@ -85,6 +85,7 @@ for traj in tlist:
         pt.molsurf(traj(stop=-3, stride=2, autoimage=True, rmsfit=0))
 
     func_list = [
+        test_rmsd,
         test_molsurf,
         test_simple_frame_iter,
         test_frame_iter_with_mask,
