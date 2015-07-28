@@ -12,3 +12,7 @@ pt.rmsd(traj, -1, mask='!@H=')
 
 # perform rmsd calculation to last frame, CA atoms
 pt.rmsd(traj, -1, '@CA')
+
+# perform rmsd calculation to stripped-atom reference
+pt.rmsd(traj(mask='@CA'), ref=traj[2:3, '@CA'])
+# `ref=traj[2:3, '@CA']` is equal to `ref=traj[2:3]['@CA'][0]`
