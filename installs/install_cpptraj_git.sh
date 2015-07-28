@@ -2,7 +2,7 @@
 
 # PYTRAJHOME is the root folder of `pytraj`
 export PYTRAJHOME=`pwd`
-git clone https://github.com/mojyt/cpptraj
+git clone https://github.com/Amber-MD/cpptraj
 cd cpptraj/
 export CPPTRAJHOME=`pwd`
 cd $CPPTRAJHOME
