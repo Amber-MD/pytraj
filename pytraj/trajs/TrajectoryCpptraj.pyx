@@ -16,6 +16,7 @@ from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
 from .._get_common_objects import _get_top
 from .Trajout import Trajout
+from ..compat import zip, range
 
 
 cdef class TrajectoryCpptraj:
@@ -126,13 +127,42 @@ cdef class TrajectoryCpptraj:
         cdef int i
         cdef int n_atoms = self.n_atoms
         cdef n_frames = self.n_frames
+
+        # use `frame` as buffer 
         cdef Frame frame = Frame(n_atoms)
 
         for i in range(n_frames):
             # do not create new Frame inside this loop to reduce memory
-            # if not [frame for frame in traj] will return a list of last frame (identical)
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
+
+    def _to_np_traj_fast(self, int start, int stop, int stride):
+        cdef int i = start
+        cdef int n_atoms = self.n_atoms
+        cdef Frame frame
+        cdef double[:, :, :] xyz
+        cdef int j = 0
+        cdef int n_frames = len(range(start, stop, stride))
+
+        from pytraj.api import Trajectory
+        import numpy as np
+        traj = Trajectory()
+        traj._allocate(n_frames, n_atoms)
+        traj.unitcells = np.zeros((n_frames, 6), dtype='f8')
+        # make a copy?
+        traj.top = self.top
+        # view
+        xyz = traj.xyz[:]
+
+        while i < stop:
+            # use `frame` as a pointer pointing to `xyz` memory
+            frame = Frame(n_atoms, xyz[j], _as_ptr=True)
+            # dump coords to xyz array
+            self.thisptr.GetFrame(i, frame.thisptr[0])
+            traj.unitcells[j] = frame.box.to_ndarray()
+            i += stride
+            j += 1
+        return traj
 
     property top:
         def __get__(self):

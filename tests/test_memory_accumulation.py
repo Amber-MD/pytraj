@@ -85,7 +85,6 @@ for traj in tlist:
         pt.molsurf(traj(stop=-3, stride=2, autoimage=True, rmsfit=0))
 
     func_list = [
-        test_molsurf,
         test_simple_frame_iter,
         test_frame_iter_with_mask,
         test_autoimage,
@@ -100,6 +99,5 @@ for traj in tlist:
     estimated_MB = traj._estimated_MB
 
     for func in func_list:
-        mem = max(memory_usage(test))
+        mem = max(memory_usage(func))
         print("%s : %s" % (func.__name__, mem))
-        assert mem < estimated_MB / 10.

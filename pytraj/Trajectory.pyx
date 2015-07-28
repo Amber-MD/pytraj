@@ -18,7 +18,6 @@ from ._cyutils import get_positive_idx, _int_array1d_like_to_memview
 from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types, PY2
-from .TrajectoryIterator import TrajectoryIterator
 from .utils.check_and_assert import (_import_numpy, is_int, is_frame_iter,
                                      file_exist, is_mdtraj, is_pytraj_trajectory,
                                      is_word_in_class_name,
@@ -1032,7 +1031,7 @@ cdef class Trajectory (object):
                 if self.top.n_atoms != ts.top.n_atoms:
                     raise ValueError(msg)
 
-            if isinstance(ts, Trajin_Single) or isinstance(ts, TrajectoryIterator):
+            if isinstance(ts, Trajin_Single) or 'TrajectoryIterator' in ts.__class__.__name__:
                 # alway make a copy
                 if indices is not None:
                     # slow method
