@@ -8,7 +8,7 @@ from glob import glob
 
 traj0 = pt.load_sample_data('tz2')
 # make fake large trajectory from 10 frames
-for _ in range(11):
+for _ in range(14):
     traj0.load(traj0.filelist)
 
 tlist = [traj0, ]
