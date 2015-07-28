@@ -2,8 +2,10 @@
 
 # PYTRAJHOME is the root folder of `pytraj`
 export PYTRAJHOME=`pwd`
-git clone https://github.com/mojyt/cpptraj
+# clone `hainm` for testing new branch
+git clone https://github.com/hainm/cpptraj
 cd cpptraj/
+git checkout Frame_pt_constructor
 export CPPTRAJHOME=`pwd`
 cd $CPPTRAJHOME
 mkdir lib
