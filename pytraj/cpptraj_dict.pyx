@@ -318,12 +318,6 @@ MatrixDict = {
     #"NMAT" : NMAT, 
     }
 
-MatrixKindDict = {
-    "FULL" : FULL, 
-    "HALF" : HALF, 
-    "TRI" : TRI, 
-    }
-
 ## ClusterSieve
 ##from ClusterSieve cimport *
 #SieveDict = {

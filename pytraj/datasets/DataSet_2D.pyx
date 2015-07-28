@@ -1,7 +1,5 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
-from ..cpptraj_dict import MatrixDict, MatrixKindDict, get_key
-
 
 cdef class DataSet_2D (DataSet):
     def __cinit__(self):
@@ -22,11 +20,6 @@ cdef class DataSet_2D (DataSet):
 
     def get_element(self, int x, int y):
         return self.baseptr_1.GetElement(x, y)
-
-    @property
-    def mkind(self):
-        """return matrix kind: full, half or triangle"""
-        return get_key(self.baseptr_1.Kind(), MatrixKindDict)
 
     def allocate_2D(self, size_t x, size_t y):
         self.baseptr_1.Allocate2D(x, y)
