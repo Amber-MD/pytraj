@@ -97,6 +97,33 @@ def load_result_from_cpptraj_state(txt, with_traj=False, dtype=None):
         else:
             return out[-1]
 
+def cpptraj_dry_run(txt):
+    '''for speed comparison
+    '''
+    from pytraj.io import load_cpptraj_file
+    from pytraj import ArgList
+    command_list = list(filter(lambda x: x, txt.split("\n")))
+
+    for idx, line in enumerate(command_list):
+        if 'parm' in line:
+            arglist = ArgList(line)
+            # use absolute path
+            fname = os.path.abspath(arglist.get_string_key('parm'))
+            command_list[idx] = " ".join(('parm', fname))
+
+        if 'trajin' in line:
+            arglist = ArgList(line)
+            # use absolute path
+            fname = os.path.abspath(arglist.get_string_key('trajin'))
+            command_list[idx] = " ".join(('trajin', fname))
+
+    _txt = "\n".join([line for line in command_list])
+
+    with goto_temp_folder():
+        with open("tmp.in", 'w') as fh:
+            fh.write(_txt)
+        state = load_cpptraj_file("tmp.in")
+        state.run()
 
 def load_outtraj(txt, top=None):
     '''
