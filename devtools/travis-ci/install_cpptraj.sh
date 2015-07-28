@@ -1,8 +1,9 @@
 #!/bin/sh
 
 export PYTRAJHOME=`pwd`
-git clone https://github.com/Amber-MD/cpptraj
+git clone https://github.com/hainm/cpptraj
 cd cpptraj/
+git checkout Frame_pt_constructor
 export CPPTRAJHOME=`pwd`
 cd $CPPTRAJHOME
 mkdir lib
