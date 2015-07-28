@@ -1,4 +1,5 @@
-import unittest
+#import unittest # turn off to avoid lengthy non-output
+# that stops travis
 import os
 import pytraj as pt
 from numpy import max
