@@ -630,3 +630,9 @@ class Trajectory(ActionTrajectory):
 
     def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
         return _frame_iter(self, start, stop, stride, mask)
+
+    @property
+    def _estimated_MB(self):
+        """esimated MB of data will be loaded to memory
+        """
+        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 2)
