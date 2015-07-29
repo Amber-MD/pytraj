@@ -79,7 +79,10 @@ class ActionTrajectory(object):
         return self.rmsd(*args, **kwd)
 
     def calc_bfactors(self, *args, **kwd):
-        return pyca.calc_bfactors(*args, **kwd)
+        return pyca.calc_bfactors(self, *args, **kwd)
+
+    def bfactors(self, *args, **kwd):
+        return pyca.calc_bfactors(self, *args, **kwd)
 
     def search_hbonds(self, mask="*", *args, **kwd):
         """return CpptrajDatasetList
