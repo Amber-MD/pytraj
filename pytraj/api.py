@@ -568,8 +568,8 @@ class Trajectory(ActionTrajectory):
             frame.trans_rot_trans(v1, mat, v2)
             self._xyz[idx] = frame.xyz
 
-    def _allocate(self, n_frames, n_atoms):
-        self._xyz = np.empty((n_frames, n_atoms, 3))
+    def _allocate(self, n_frames, n_atoms, dtype='f8'):
+        self._xyz = np.empty((n_frames, n_atoms, 3), dtype=dtype)
 
     def strip_atoms(self, mask):
         atm = self.top.select(mask)
@@ -630,3 +630,9 @@ class Trajectory(ActionTrajectory):
 
     def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
         return _frame_iter(self, start, stop, stride, mask)
+
+    @property
+    def _estimated_MB(self):
+        """esimated MB of data will be loaded to memory
+        """
+        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 2)
