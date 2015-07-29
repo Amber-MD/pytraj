@@ -13,3 +13,6 @@ pt.write_traj('traj_append.nc',
               [traj(0, 3), traj(5, 9)], top=traj.top,
               overwrite=True,
               )
+
+# you can load many files to a single traj and write specific frames too
+#traj = pt.iterload(['remd.x.000', 'remd.x.001', 'remd.x.009'], your_topology_file)
