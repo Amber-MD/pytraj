@@ -136,27 +136,38 @@ cdef class TrajectoryCpptraj:
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 
-    def _to_numpy_traj_fast(self, int start, int stop, int stride, dtype='f8'):
+    def _to_numpy_traj_fast(self, int start, int stop, int stride, mask=None, dtype='f8'):
         cdef int i = start
         cdef int n_atoms = self.n_atoms
         cdef Frame frame
         cdef int j = 0
         cdef int n_frames = len(range(start, stop, stride))
+        cdef AtomMask atm
 
         from pytraj.api import Trajectory
         import numpy as np
 
         traj = Trajectory()
-        traj._allocate(n_frames, n_atoms, dtype=dtype)
         traj.unitcells = np.zeros((n_frames, 6), dtype=dtype)
+
         # make a copy?
-        traj.top = self.top
-        # view
+        if mask is None:
+            atm = AtomMask()
+            traj.top = self.top
+            frame = Frame(n_atoms)
+            traj._allocate(n_frames, n_atoms, dtype=dtype)
+        else:
+            atm = self.top(mask)
+            traj.top = self.top._get_new_from_mask(mask)
+            frame = Frame(atm.n_atoms)
+            traj._allocate(n_frames, atm.n_atoms, dtype=dtype)
         xyz = traj.xyz[:]
 
-        frame = Frame(n_atoms)
         while i < stop:
-            self.thisptr.GetFrame(i, frame.thisptr[0])
+            if mask is None:
+                self.thisptr.GetFrame(i, frame.thisptr[0])
+            else:
+                self.thisptr.GetFrame(i, frame.thisptr[0], atm.thisptr[0])
             if dtype == 'f4':
                 xyz[j] = frame.xyz.astype('f4')
             else:
