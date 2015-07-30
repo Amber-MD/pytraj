@@ -79,9 +79,11 @@ def _get_data_from_dtype(d0, dtype='dataset'):
         elif dtype == 'dataframe':
             if hasattr(d0, 'key'):
                 d0.key = d0.key.replace(':', '_')
+                d0.key = d0.key.replace('-', '_')
             else:
                 for _d in d0:
                     _d.key = _d.key.replace(':', '_')
+                    _d.key = _d.key.replace('-', '_')
             return d0.to_dataframe()
         elif dtype == 'cpptraj_dataset':
             return d0
