@@ -119,6 +119,7 @@ from . common_actions import (rmsd,
                               calc_atomicfluct,
                               calc_bfactors,
                               calc_density,
+                              calc_volume,
                               lifetime,
                               get_average_frame,
                               energy_decomposition,
@@ -147,6 +148,7 @@ acorr = auto_correlation_function
 dssp = calc_dssp
 bfactors = calc_bfactors
 density = calc_density
+volume = calc_volume
 radgyr = calc_radgyr
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
