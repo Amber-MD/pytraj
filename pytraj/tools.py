@@ -502,3 +502,12 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
         frame.xyz = np.vstack((f1.xyz, f2.xyz))
 
     return traj
+
+def isel(traj, func, *args, **kwd):
+    """iterselect frame based on func
+    """
+    for f in traj:
+        if func(f, *args, **kwd):
+            yield f
+        else:
+            pass

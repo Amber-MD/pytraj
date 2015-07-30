@@ -119,6 +119,7 @@ from . common_actions import (rmsd,
                               calc_atomicfluct,
                               calc_bfactors,
                               calc_density,
+                              calc_volume,
                               lifetime,
                               get_average_frame,
                               energy_decomposition,
@@ -147,12 +148,14 @@ acorr = auto_correlation_function
 dssp = calc_dssp
 bfactors = calc_bfactors
 density = calc_density
+volume = calc_volume
 radgyr = calc_radgyr
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
 get_average_structure = get_average_frame
 load_parmed = load_ParmEd
+from_parmed = load_ParmEd
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (

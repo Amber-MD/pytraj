@@ -25,13 +25,19 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
     >>> p = pmd.download_PDB("1l2y")
     >>> top = pt.load_ParmEd(p, save_and_reload=True) 
     """
+    import parmed as pmd
+    from parmed.amber import AmberParm
+
     if isinstance(parmed_obj, string_types):
         import parmed as pmd
         # reserve **kwd for `structure=True`
         parmed_obj = pmd.load_file(parmed_obj, **kwd)
     # faster
     with goto_temp_folder():
-        fname = 'tmppdb.pdb'
+        if isinstance(parmed_obj, AmberParm):
+            fname = 'tmp.parm7'
+        else:
+            fname = 'tmppdb.pdb'
         parmed_obj.save(fname)
         top = Topology(fname)
     if as_traj:

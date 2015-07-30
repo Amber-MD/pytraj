@@ -77,7 +77,8 @@ def nastruct(traj=None, mask="",
     # aspect)
     dslist_py = Dataset()
     for d in dslist:
-        d.legend = d.legend + "_" + d.aspect
+        # for panda's dataframe
+        d.legend = 'nuc_' + d.legend + "_" + d.aspect
         # exclude reference value
         dslist_py.append(DataArray(d))
         dslist_py[-1].values = dslist_py[-1].values[1:]
