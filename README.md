@@ -31,11 +31,9 @@ Install
     * git clone https://github.com/pytraj/pytraj
     * cd pytraj
     * python ./setup.py install
-        * if it's really slow to install? Try building in parallel
-            * python ./setup.py build -faster_build
-            * python ./setup.py install)
-- further: check wiki page [wiki](http://www.github.com/pytraj/pytraj/wiki)
+    * (Note: pytraj will install the most update cpptraj)
 - if you are using `conda`, you can just `conda install -c pytraj pytraj-dev` for Linux system
+- further: check wiki page [wiki](http://www.github.com/pytraj/pytraj/wiki)
 
 How to get started?
 ------------------
