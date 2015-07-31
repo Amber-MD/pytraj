@@ -1,27 +1,32 @@
 import pytraj as pt
+from functools import partial
+from glob import glob
 import sys
 
-trajname = './data/nogit/remd/remd.x.000'
-topname = './data/nogit/remd/myparm.top'
-traj = pt.iterload(trajname, topname)
+top = pt.load_topology('../data/nogit/remd/myparm.top')
+flist = sorted(glob('../data/nogit/remd/remd.x.*')[:40])
 
-n_jobs = int(sys.argv[1])
-
-def worker(i):
-    traj = pt.iterload(trajname, topname)
-    print(pt.radgyr(traj(stop=1000)))
-
-if sys.argv[2] == 'p': 
+if sys.argv[1] == 'parallel': 
     print('parallel')
     from multiprocessing import Pool
 
-    p = Pool(n_jobs)
-    p.map(worker, [_ for _ in range(n_jobs)])
+    def worker(rank, n_cores=4):
+        traj = pt.iterload(flist, top)
+        print("MB = ", traj._estimated_MB)
+        print(traj)
+        print('n_frames = ', pt.calc_radgyr(
+             traj.split_iterators(
+                 n_cores, rank=rank), top=traj.top).shape)
 
-elif sys.argv[2] == 's': 
+    p = Pool(4)
+    p.map(worker, [rank for rank in range(4)])
+
+elif sys.argv[1] == 'serial': 
     print('serial')
-    for i in range(n_jobs):
-        worker(i)
+    traj = pt.iterload(flist, top=top)
+    print("MB = ", traj._estimated_MB)
+    print(traj)
+    print('n_frames = ', pt.calc_radgyr(traj).shape)
 
 else:
     raise ValueError('must have sys.argv[2]')
