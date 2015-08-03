@@ -132,6 +132,8 @@ from . common_actions import (rmsd,
                               rotate,
                               rotate_dihedral,
                               scale,
+                              do_clustering,
+                              clustering_dataset,
                               )
 
 # create alias
@@ -156,6 +158,7 @@ center_of_geometry = calc_center_of_geometry
 get_average_structure = get_average_frame
 load_parmed = load_ParmEd
 from_parmed = load_ParmEd
+clustering = do_clustering
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (
