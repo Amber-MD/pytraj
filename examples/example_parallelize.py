@@ -8,3 +8,7 @@ traj = pt.iterload("../tests/data/tz2.ortho.nc",
 # calculate radgyr for all atoms
 result = pt.pmap(n_cores=4, func=pt.radgyr, traj=traj)
 print(result)
+
+# serial version
+result = pt.radgyr(traj)
+print(result)
