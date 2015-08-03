@@ -575,6 +575,22 @@ def randomize_ions(traj=Frame(), command="", top=Topology()):
     act = adict['randomizeions']
     act(command, traj, top)
 
+def clustering_dataset(array_like, command, dtype='dataset'):
+    '''
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
+    '''
+    from pytraj.analyses.CpptrajAnalyses import Analysis_Clustering
+    dslist = CpptrajDatasetList()
+    dslist.add_set('double', '__array_like')
+    dslist[0].resize(len(array_like))
+    dslist[0].values[:] = array_like
+    act = Analysis_Clustering() 
+    command = 'data __array_like ' + command
+    act(command, dslist=dslist)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 def do_clustering(traj=None, command="", top=None, dtype='dataset',
                   dslist=None, dflist=None):
