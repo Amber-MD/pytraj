@@ -8,7 +8,12 @@ traj = pt.iterload("../tests/data/tz2.ortho.nc",
 print(traj)
 
 # get new trajectory for specific waters (Oxygen atom only)
+# this command will load all water coordinates to memory
 wat_traj = traj[':100-500@O']
+
+# you can use below for lazy-loading
+#wat_traj = traj(mask=':100-500@O')
+# traj(...) will create iterator, like `range(...)` in python
 
 # iterate every frame and do clustering
 for frame in wat_traj:
