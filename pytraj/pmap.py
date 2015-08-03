@@ -11,7 +11,12 @@ def worker(rank, n_cores=None, func=None, filelist=None,
             top=local_traj.top, *args, **kwd))
 
 def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
-    print(traj)
+    '''
+    # TODO: merge the data?
+    Returns
+    -------
+    list of (rank, data)
+    '''
     from multiprocessing import Pool
 
     p = Pool(n_cores)
