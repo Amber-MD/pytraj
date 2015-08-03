@@ -1,26 +1,20 @@
 import pytraj as pt
 
 # use `iterload` to save memory
-traj = pt.load("../tests/data/tz2.ortho.nc",
-               "../tests/data/tz2.ortho.parm7")
+# you can use `load`, which is similiar to `mdtraj`
+traj = pt.iterload("../tests/data/tz2.ortho.nc",
+                   "../tests/data/tz2.ortho.parm7")
+# get some info
 print(traj)
 
-# get new trajectory with only waters
-t0 = traj[':WAT@O']
+# get new trajectory for specific waters (Oxygen atom only)
+wat_traj = traj[':100-500@O']
 
-# make new Topology for Oxygen of WAT
-# you can choose any water number, I randomly chose `1000@O`
-wat_top = traj.top._get_new_from_mask(':1000@O')
+# iterate every frame and do clustering
+for frame in wat_traj:
+    xyz = frame.xyz
+    # clustering for x-coordniates
+    result = pt.clustering_dataset(xyz[:, 0], 'clusters 10')
 
-# for each frame, make a new Trajectory
-# where each water is a Frame
-# get water topology first
-def make_water_traj(frame, top=wat_top):
-    xyz = frame.xyz.reshape(frame.shape[0], 1 , 3)
-    return pt.Trajectory(xyz=xyz, top=top)
-
-print(t0)
-for f in t0:
-    new_traj = make_water_traj(f)
-    print(new_traj)
-    #print(pt.clustering(new_traj))
+    # cluster index for each atom
+    print(result)

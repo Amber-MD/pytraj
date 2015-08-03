@@ -66,5 +66,11 @@ class Test(unittest.TestCase):
         print("load Topology")
         run_docstring(pt.load_topology)
 
+        print("clustering_dataset")
+        from pytraj import clustering_dataset
+        pt.set_cpptraj_verbose()
+        run_docstring(clustering_dataset)
+        pt.set_cpptraj_verbose(False)
+
 if __name__ == "__main__":
     unittest.main()
