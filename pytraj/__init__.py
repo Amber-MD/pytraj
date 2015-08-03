@@ -173,6 +173,9 @@ from . import vector_analysis
 from .misc import info
 from .run_tests import run_tests
 
+# parallel
+from .pmap import pmap
+
 from ._shared_methods import _frame_iter_master as frame_iter_master
 
 # turn off verbose in cpptraj
