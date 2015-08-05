@@ -86,6 +86,18 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             warnings.warn('creating an empty TrajectoryIterator since does not '
                           'have Topology information. Ignore other arguments')
 
+        self.__dict__.update({'top': self.top,
+                              'top_filename': self.top.filename,
+                              'filelist': self.filelist})
+
+    def __setstate__(self, state):
+        self.__dict__ = state.copy()
+        self.top = Topology(state['top_filename'])
+        self.load(state['filelist'], frame_slice=state['frame_slice_list'])
+
+    def __getstate__(self):
+        return self.__dict__
+
     def __iter__(self):
         for frame in super(TrajectoryIterator, self).__iter__():
             # we need to use `copy` to create different frame pointer
