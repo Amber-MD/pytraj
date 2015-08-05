@@ -304,9 +304,6 @@ def calc_mindist(traj=None, command="", top=None, dtype='ndarray', *args, **kwd)
     dslist = CpptrajDatasetList()
 
     if not isinstance(command, string_types):
-        import numpy as np
-        command = np.asarray(command)
-        assert command.ndim == 2, 'must be 2D array'
         command = array2d_to_cpptraj_maskgroup(command)
     _command = "mindist " + command
     _top = _get_top(traj, top)
