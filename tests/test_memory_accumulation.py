@@ -9,7 +9,7 @@ from glob import glob
 
 traj0 = pt.load_sample_data('tz2')
 # make fake large trajectory from 10 frames
-for _ in range(8):
+for _ in range(10):
     traj0.load(traj0.filelist)
 
 tlist = [traj0, ]
@@ -77,7 +77,7 @@ for traj in tlist:
     @profile
     def test_center():
         # OK
-        for idx, f in enumerate(traj):
+        for f in traj:
             pt.center(f, top=traj.top)
 
     @profile
