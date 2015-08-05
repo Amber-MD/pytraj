@@ -299,11 +299,12 @@ def calc_mindist(traj=None, command="", top=None, dtype='ndarray', *args, **kwd)
     >>> pt.mindist(traj, '@CA @H')
     '''
     from pytraj.actions.CpptrajActions import Action_NativeContacts
+    from pytraj.utils.convert import array2d_to_cpptraj_maskgroup
     act = Action_NativeContacts()
     dslist = CpptrajDatasetList()
 
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        command = array2d_to_cpptraj_maskgroup(command)
     _command = "mindist " + command
     _top = _get_top(traj, top)
     act(_command, traj, top=_top, dslist=dslist)

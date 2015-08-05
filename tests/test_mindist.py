@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -29,6 +30,10 @@ class Test(unittest.TestCase):
         print(min_list)
         print(d0.tolist())
         aa_eq(d0.tolist(), min_list)
+
+        d0 = pt.mindist(traj, [[0, 1], [2, 3]])
+        d1 = pt.mindist(traj, '@1,2 @3,4')
+        aa_eq(d0, d1)
 
 if __name__ == "__main__":
     unittest.main()
