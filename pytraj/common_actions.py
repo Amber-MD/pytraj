@@ -1583,3 +1583,12 @@ def rotate_dihedral(traj=None, mask="", top=None):
     act = Action_MakeStructure()
 
     act(command, traj, top=_top)
+
+def make_structure(traj=None, mask="", top=None):
+    from pytraj.actions.CpptrajActions import Action_MakeStructure
+    _noaction_with_TrajectoryIterator(traj)
+    _top = _get_top(traj, top)
+
+    command = mask
+    act = Action_MakeStructure()
+    act(command, traj, top=_top)
