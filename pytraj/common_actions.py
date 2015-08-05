@@ -303,7 +303,11 @@ def calc_mindist(traj=None, command="", top=None, dtype='ndarray', *args, **kwd)
     dslist = CpptrajDatasetList()
 
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        import numpy as np
+        command = np.asarray(command)
+        assert command.ndim == 2, 'must be 2D array'
+        command = ' '.join((to_cpptraj_atommask(command[0]),
+                            to_cpptraj_atommask(command[1])))
     _command = "mindist " + command
     _top = _get_top(traj, top)
     act(_command, traj, top=_top, dslist=dslist)
