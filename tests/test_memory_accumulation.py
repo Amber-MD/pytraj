@@ -9,7 +9,7 @@ from glob import glob
 
 traj0 = pt.load_sample_data('tz2')
 # make fake large trajectory from 10 frames
-for _ in range(12):
+for _ in range(8):
     traj0.load(traj0.filelist)
 
 tlist = [traj0, ]
@@ -77,7 +77,7 @@ for traj in tlist:
     @profile
     def test_center():
         # OK
-        for f in traj:
+        for idx, f in enumerate(traj):
             pt.center(f, top=traj.top)
 
     @profile
@@ -100,5 +100,4 @@ for traj in tlist:
     estimated_MB = traj._estimated_MB
 
     for func in func_list:
-        mem = max(memory_usage(func))
-        print("%s : %s" % (func.__name__, mem))
+        func()
