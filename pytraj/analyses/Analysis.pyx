@@ -69,7 +69,7 @@ cdef class Analysis:
         elif isinstance(top, TopologyList):
             toplist = <TopologyList> top
         else:
-            toplist = top
+            raise EmptyTopologyError("")
 
         if isinstance(command, string_types):
             arglist = ArgList(command)

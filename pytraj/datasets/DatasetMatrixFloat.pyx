@@ -1,6 +1,5 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
-from ..cpptraj_dict import MatrixDict, MatrixKindDict, get_key
 
 cdef class DatasetMatrixFloat (DataSet_2D):
     def __cinit__(self):
@@ -64,10 +63,6 @@ cdef class DatasetMatrixFloat (DataSet_2D):
             for j in range(n_cols):
                 dview[i, j] = self.baseptr_1.GetElement(i, j)
         return np.asarray(dview)
-
-    @property
-    def kind(self):
-        return get_key(self.baseptr_1.Kind(), MatrixKindDict)
 
     def to_cpptraj_sparse_matrix(self):
         """return 1D numpy array, dtype='f8'

@@ -303,35 +303,6 @@ scalarDict = {
         "UNDEFINED" : UNDEFINEDSCALARTYPE,
 }
 
-# DataSet_2D
-#from DataSet_2D cimport *
-MatrixDict = {
-    #"NO_OP" : NO_OP, 
-    "DIST" : DIST, 
-    "COVAR" : COVAR, 
-    "MWCOVAR" : MWCOVAR, 
-    "CORREL" : CORREL, 
-    "DISTCOVAR" : DISTCOVAR, 
-    "IDEA" : IDEA, 
-    "IRED" : IRED, 
-    "DIHCOVAR" : DIHCOVAR, 
-    #"NMAT" : NMAT, 
-    }
-
-MatrixKindDict = {
-    "FULL" : FULL, 
-    "HALF" : HALF, 
-    "TRI" : TRI, 
-    }
-
-## ClusterSieve
-##from ClusterSieve cimport *
-#SieveDict = {
-#    "NONE" : NONE, 
-#    "REGULAR" : REGULAR, 
-#    "RANDOM" : RANDOM, 
-#    }
-
 # PDBfile
 #from PDBfile cimport *
 PDB_RECTYPEDict = {

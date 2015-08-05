@@ -85,6 +85,7 @@ cdef class ActionList:
 
         if isinstance(traj, Frame):
             frame = <Frame> traj
+            frame.py_free_mem = False
             if use_mass:
                 frame.set_frame_mass(self.toplist[0])
             self.thisptr.DoActions(&(frame.thisptr), idx)
