@@ -299,6 +299,7 @@ def calc_mindist(traj=None, command="", top=None, dtype='ndarray', *args, **kwd)
     >>> pt.mindist(traj, '@CA @H')
     '''
     from pytraj.actions.CpptrajActions import Action_NativeContacts
+    from pytraj.utils.convert import array2d_to_cpptraj_maskgroup
     act = Action_NativeContacts()
     dslist = CpptrajDatasetList()
 
@@ -306,8 +307,7 @@ def calc_mindist(traj=None, command="", top=None, dtype='ndarray', *args, **kwd)
         import numpy as np
         command = np.asarray(command)
         assert command.ndim == 2, 'must be 2D array'
-        command = ' '.join((to_cpptraj_atommask(command[0]),
-                            to_cpptraj_atommask(command[1])))
+        command = array2d_to_cpptraj_maskgroup(command)
     _command = "mindist " + command
     _top = _get_top(traj, top)
     act(_command, traj, top=_top, dslist=dslist)

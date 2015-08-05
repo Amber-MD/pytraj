@@ -9,6 +9,18 @@ def array_to_cpptraj_atommask(seq):
 def array_to_cpptraj_residuemask(seq):
     return ':' + array_to_cpptraj_range(seq)
 
+def array2d_to_cpptraj_maskgroup(arr):
+    '''
+    >>> array2d_to_cpptraj_maskgroup([[0, 2], [3, 4]])
+    @1,3 @4,5
+    '''
+    import numpy as np
+    arr = np.asarray(arr)
+    assert arr.ndim == 2, 'must be 2d array-like'
+    a0 = array_to_cpptraj_atommask(arr[0])
+    a1 = array_to_cpptraj_atommask(arr[1])
+    return ' '.join((a0, a1))
+
 def atom_pairs_to_cpptraj_atommask(atom_pairs):
     """
     Notes: not validate yet
