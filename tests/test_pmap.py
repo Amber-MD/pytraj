@@ -4,9 +4,10 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 import pytraj.common_actions as pyca
+from pytraj.tools import flatten
 
 def gather(pmap_out):
-    from pytraj.tools import flatten
+    pmap_out = sorted(pmap_out, key=lambda x: x[0])
     return flatten([x[1] for x in pmap_out])
 
 
@@ -17,18 +18,18 @@ class Test(unittest.TestCase):
 
         # n_cores = 3
         # radgyr
-        func_list = [pt.radgyr, pt.molsurf]
+        func_list = [pt.radgyr, pt.molsurf, pt.rmsd]
+        ref = traj[-3]
+
         for n_cores in [2, 3, 4]:
             for func in func_list:
-                pout = gather(pt.pmap(n_cores, func, traj))
-                print(pout)
-                serial_out = func(traj)
+                if func in [pt.rmsd, ]:
+                    pout = gather(pt.pmap(n_cores, func, traj, ref=ref))
+                    serial_out = flatten(func(traj, ref=ref))
+                else:
+                    pout = gather(pt.pmap(n_cores, func, traj))
+                    serial_out = flatten(func(traj))
                 aa_eq(pout, serial_out)
-
-        # reference
-        ref = traj[0]
-        pout = pt.pmap(4, pt.native_contacts, traj, ref=ref)
-        print(pout)
 
 if __name__ == "__main__":
     unittest.main()
