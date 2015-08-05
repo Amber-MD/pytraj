@@ -72,5 +72,8 @@ class Test(unittest.TestCase):
         run_docstring(clustering_dataset)
         pt.set_cpptraj_verbose(False)
 
+        print('mindist')
+        run_docstring(pt.mindist)
+
 if __name__ == "__main__":
     unittest.main()
