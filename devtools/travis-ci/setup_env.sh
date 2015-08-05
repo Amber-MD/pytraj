@@ -12,6 +12,7 @@ export PATH=$HOME/miniconda/bin:$PATH
 conda install --yes conda-build jinja2 binstar pip
 
 if [ -z "$NO_CYTHON" ]; then
+    python ./scripts/clean_cythonize_files_git.py
     conda create -y -n myenv python=$PYTHON_VERSION \
         numpy cython h5py
 else
