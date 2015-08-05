@@ -553,6 +553,7 @@ autoimage = do_autoimage
 
 
 def get_average_frame(traj=None, command="", top=Topology()):
+    from pytraj.actions.CpptrajActions import Action_Average
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
     if not isinstance(command, string_types):
@@ -561,7 +562,7 @@ def get_average_frame(traj=None, command="", top=Topology()):
     # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
     command += " crdset s1"
 
-    act = adict['average']
+    act = Action_Average()
     act(command, traj, _top, dslist=dslist)
 
     # need to call this method so cpptraj will write
