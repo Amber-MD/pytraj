@@ -291,12 +291,23 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
             return _get_data_from_dtype(py_dslist, dtype)
 
 
-def calc_mindist(traj=None, command="", top=None, *args, **kwd):
+def calc_mindist(traj=None, command="", top=None, dtype='ndarray', *args, **kwd):
+    '''
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> pt.mindist(traj, '@CA @H')
+    '''
+    from pytraj.actions.CpptrajActions import Action_NativeContacts
+    act = Action_NativeContacts()
+    dslist = CpptrajDatasetList()
+
     if not isinstance(command, string_types):
         command = to_cpptraj_atommask(command)
     _command = "mindist " + command
     _top = _get_top(traj, top)
-    return calculate("nativecontacts", traj, _command, top=_top, quick_get=True, *args, **kwd)
+    act(_command, traj, top=_top, dslist=dslist)
+    return _get_data_from_dtype(dslist, dtype=dtype)[-1]
 
 
 def calc_watershell(traj=None, command="", top=Topology()):

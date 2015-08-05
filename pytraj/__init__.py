@@ -120,6 +120,7 @@ from . common_actions import (rmsd,
                               calc_bfactors,
                               calc_density,
                               calc_volume,
+                              calc_mindist,
                               lifetime,
                               get_average_frame,
                               energy_decomposition,
@@ -159,6 +160,7 @@ get_average_structure = get_average_frame
 load_parmed = load_ParmEd
 from_parmed = load_ParmEd
 clustering = do_clustering
+mindist = calc_mindist
 
 from . matrix_analysis import distance_matrix
 from . dihedral_analysis import (

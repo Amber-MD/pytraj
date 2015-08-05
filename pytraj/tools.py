@@ -73,7 +73,7 @@ def split_range(n_chunks, start, stop):
     chunksize = (stop - start) // n_chunks
     for i in range(n_chunks):
         if i < n_chunks - 1:
-            _stop = (i + 1) * chunksize
+            _stop = start + (i + 1) * chunksize
         else:
             _stop = stop
         list_of_tuple.append((start + i * chunksize, _stop))
