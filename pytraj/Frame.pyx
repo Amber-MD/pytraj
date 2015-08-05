@@ -1292,3 +1292,9 @@ cdef class Frame (object):
 
     def as_3darray(self):
         return self.xyz.reshape((1, self.n_atoms, 3))
+
+    def __setstate__(self, state):
+        self.append_xyz(state['coordinates'])
+
+    def __getstate__(self):
+        return {'coordinates' : self.xyz}

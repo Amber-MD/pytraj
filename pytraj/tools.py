@@ -295,6 +295,9 @@ def rmsd(a1, a2, flatten=True):
     ----------
     a1, a2: np.ndarray
     """
+    import numpy as np
+    a1 = np.asarray(a1)
+    a2 = np.asarray(a2)
     if a1.shape != a2.shape and not flatten:
         raise ValueError("must have the same shape")
     return rmsd_1darray(a1.flatten(), a2.flatten())
