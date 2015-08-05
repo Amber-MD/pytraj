@@ -30,6 +30,17 @@ class Test(unittest.TestCase):
                     pout = gather(pt.pmap(n_cores, func, traj))
                     serial_out = flatten(func(traj))
                 aa_eq(pout, serial_out)
+        # search_hbonds
+        a = pt.pmap(4, pt.search_hbonds, traj)
+        pout = pt.tools.flatten([x[1]['total_solute_solute'] for x in a])
+        serial_out = pt.search_hbonds(traj)['total_solute_solute']
+        print(pout, serial_out)
+        aa_eq(pout, serial_out)
+
+        keys = pt.tools.flatten([x[1].keys() for x in a])
+        from pytraj.compat import set
+        print(set(keys))
+
 
 if __name__ == "__main__":
     unittest.main()
