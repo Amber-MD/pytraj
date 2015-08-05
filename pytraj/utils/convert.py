@@ -16,7 +16,7 @@ def array2d_to_cpptraj_maskgroup(arr):
     '''
     import numpy as np
     arr = np.asarray(arr)
-    assert arr.ndim == 2, 'must be 2d array-like'
+    assert arr.shape[0] == 2, 'must be 2d array-like'
     a0 = array_to_cpptraj_atommask(arr[0])
     a1 = array_to_cpptraj_atommask(arr[1])
     return ' '.join((a0, a1))
