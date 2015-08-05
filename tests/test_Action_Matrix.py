@@ -28,7 +28,6 @@ class TestRadgyr(unittest.TestCase):
         print(d1.n_cols, d1.n_rows)
         print(d1.dtype)
         print(d1.ndim)
-        print(d1.mkind)
         print(d1.format)
         # TODO : add assert to make sure reproducing cpptraj output
 
@@ -39,7 +38,6 @@ class TestRadgyr(unittest.TestCase):
         print(d0.n_cols, d0.n_rows)
         print(d0.dtype)
         print(d0.ndim)
-        print(d0.mkind)
         print(d0.format)
 
         assert_almost_equal(d0, d1)

@@ -255,26 +255,6 @@ cdef extern from "DataSet.h":
         IRED "DataSet::IRED"
         DIHCOVAR "DataSet::DIHCOVAR"
         UNDEFINEDSCALARTYPE "DataSet::UNDEFINED"
-    # DataSet_2D.h
-cdef extern from "DataSet_2D.h":
-    ctypedef enum MatrixType "DataSet_2D::MatrixType":
-        NO_OP "DataSet_2D::NO_OP"
-        DIST "DataSet_2D::DIST"
-        COVAR "DataSet_2D::COVAR"
-        MWCOVAR "DataSet_2D::MWCOVAR"
-        CORREL "DataSet_2D::CORREL"
-        DISTCOVAR "DataSet_2D::DISTCOVAR"
-        IDEA "DataSet_2D::IDEA"
-        IRED "DataSet_2D::IRED"
-        DIHCOVAR "DataSet_2D::DIHCOVAR"
-        NMAT "DataSet_2D::NMAT"
-    # DataSet_2D.h
-cdef extern from "DataSet_2D.h":
-    ctypedef enum MatrixKind "DataSet_2D::MatrixKind":
-        FULL "DataSet_2D::FULL"
-        HALF "DataSet_2D::HALF"
-        TRI "DataSet_2D::TRI"
-    # ClusterSieve.h
 cdef extern from "ClusterSieve.h":
     ctypedef enum SieveType "ClusterSieve::SieveType":
         NONESieveType "ClusterSieve::NONE"

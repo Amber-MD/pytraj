@@ -14,9 +14,6 @@ class TestActionList(unittest.TestCase):
         # load traj
         farray = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        # create 'strip' action
-        #stripact = allactions.Action_Strip()
-
         # creat datasetlist to hold distance data
         dsetlist = DataSetList()
         dflist = DataFileList()
@@ -31,7 +28,6 @@ class TestActionList(unittest.TestCase):
         toplist.add_parm(farray.top)
 
         # add two actions: Action_Strip and Action_Distance
-        #alist.add_action(stripact, ArgList("@H*"), toplist, dsetlist, dflist)
         alist.add_action(allactions.Action_Distance(), ArgList(":2@CA :3@CA out ./output/test_df.dat"),
                          toplist, dsetlist, dflist)
         alist.add_action(adict['dihedral'], ":2@CA :3@CA :4@CA :5@CA out ./output/_dih.out",
@@ -64,6 +60,7 @@ class TestActionList(unittest.TestCase):
         print(time() - t0)
 
         # make sure that Action_Strip does its job in stripping
+        print(farray2.size)
 
         # it's time to retrieve the data
         ds = cast_dataset(dsetlist[0], dtype='double')
