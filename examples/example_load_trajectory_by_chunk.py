@@ -6,5 +6,5 @@ traj = pt.iterload("../tests/data/tz2.ortho.nc", "../tests/data/tz2.ortho.parm7"
 
 # iterate trajectory by chunk with autoimage On
 # chunksize = 3
-for chunk in traj.chunk_iter(chunksize=3, autoimage=True):
+for chunk in traj.iterchunk(chunksize=3, autoimage=True):
     print (chunk)
