@@ -27,10 +27,10 @@ def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd
         for idx, frame in enumerate(self):
             trajout.writeframe(idx, frame, self.top)
 
-def _split_and_write_traj(self, n_chunks=None, root_name="trajx", *args, **kwd):
+def _split_and_write_traj(self, n_chunks=None, root_name="trajx", ext='nc', *args, **kwd):
     chunksize = self.n_frames // n_chunks
     for idx, traj in enumerate(self.chunk_iter(chunksize=chunksize)):
-        fname = ".".join((root_name, str(idx), 'nc'))
+        fname = ".".join((root_name, str(idx), ext))
         traj.save(fname, *args, **kwd)
 
 def _get_temperature_set(self):
