@@ -13,6 +13,10 @@ Python 2 and 3 compat
 Use ``six.py`` to write your compat code. `six <http://pythonhosted.org/six/>`
 ``pytraj`` have ``pytraj.compat`` module to have most commonly used methods (example: ``from pytraj.compat import zip``)
 
+Add new method to pytraj
+------------------------
+Chec ``pytraj.common_actions`` for example.
+
 Test your code
 --------------
 New method, new change must have testing code.
@@ -29,10 +33,6 @@ Licence info
 ------------
 ``pytraj`` always welcomes code contribution. It's recommended to put your name in the code you write. However, for the sake of clearness, just put something very short, like ``Copyright (c) 2010-2013 your_first_and_last_name`` and give full details of your contribution, license in ``pytraj/licenses/`` folder.
 
-Use delay import
-----------------
-The overall aim of ``pytraj`` is to make it a stand-alone program, depending only ``libcpptraj``. So to avoid breaking the building/import stuff in ``pytraj``, please use ``pytraj.utils._import`` to import external packages, even with ``numpy`` (``has_np, np = _import("numpy"))``
-
 cython
 ------
 It's recommended to use ``cython`` to write or wrap high performance code. Please don't use ``cimport numpy``, use memoryview instead.
@@ -44,5 +44,3 @@ Read Also
 ---------
 `cpptraj-dev guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.lyx>`
 `pandas contributing guide <http://pandas.pydata.org/pandas-docs/stable/contributing.html>`
-
-
