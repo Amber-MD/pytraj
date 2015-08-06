@@ -3,18 +3,15 @@ import pytraj as pt
 # use iterload for memory saving
 # you can use `load` to load all data to mem too
 
-traj0 = pt.iterload(['../tests/data/nogit/remd/remd.x.000',
-                     '../tests/data/nogit/remd/remd.x.001',
-                     '../tests/data/nogit/remd/remd.x.002',
-                     '../tests/data/nogit/remd/remd.x.003',
-                     '../tests/data/nogit/remd/remd.x.004'],
-                     top='../tests/data/nogit/remd/myparm.parm7')
+traj0 = pt.iterload(['../tests/data/Test_RemdTraj/rem.nc.000',
+                     '../tests/data/Test_RemdTraj/rem.nc.001'],
+                     top='../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7')
 
 print(traj0)
 
 # you can use `*` to load all files too
-traj1  = pt.iterload('../tests/data/nogit/remd/remd.x.*',
-                     top='../tests/data/nogit/remd/myparm.parm7')
+traj1  = pt.iterload('../tests/data/Test_RemdTraj/rem.nc.*',
+                     top='../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7')
 
 print(traj1)
 
