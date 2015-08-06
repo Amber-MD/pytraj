@@ -15,7 +15,7 @@ Use ``six.py`` to write your compat code. `six <http://pythonhosted.org/six/>`
 
 Add new method to pytraj
 ------------------------
-Chec ``pytraj.common_actions`` for example.
+Check ``pytraj.common_actions`` for example.
 
 Test your code
 --------------
