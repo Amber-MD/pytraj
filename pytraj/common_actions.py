@@ -74,7 +74,7 @@ list_of_do = ['do_translation',
 list_of_get = ['get_average_frame']
 
 list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds',
-                    'align_principal_axis', 'pca', 'closest',
+                    'align_principal_axis', 'principal_axes', 'closest',
                     'native_contacts', 'nastruct']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
@@ -1218,7 +1218,7 @@ def calc_rmsd_with_rotation_matrices(
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def align_principal_axis(traj=None, command="*", top=None):
+def align_principal_axis(traj=None, mask="*", top=None):
     # TODO : does not match with cpptraj output
     # rmsd_nofit ~ 0.5 for md1_prod.Tc5b.x, 1st frame
     """
@@ -1226,23 +1226,42 @@ def align_principal_axis(traj=None, command="*", top=None):
     -----
     apply for mutatble traj (Trajectory, Frame)
     """
+    from pytraj.actions.CpptrajActions import Action_Principal
+    _noaction_with_TrajectoryIterator(traj)
+
     if not isinstance(command, string_types):
         command = to_cpptraj_atommask(command)
     _top = _get_top(traj, top)
-    act = adict['principal']
+    act = Action_Principal()
     command += " dorotation"
     act(command, traj, top=_top)
 
 
-def pca(traj=None,
-        command="* dorotation mass",
-        top=None,
-        dtype='dataset', *args, **kwd):
-    """not work yet
+def principal_axes(traj=None,
+                   mask='*',
+                   top=None,
+                   dorotation=False,
+                   mass=True,
+                   dtype='dataset', *args, **kwd):
     """
-    print("not work yet")
+    Returns
+    -------
+    pytraj.DatasetList of matrix with shape=(n_frames, 3, 3) and vector with shape=(n_frames, 3)
+    if `dorotation`, the system will be aligned along principal axes
+    (apply for mutable system)
+    """
     from pytraj.actions.CpptrajActions import Action_Principal
     act = Action_Principal()
+    command = mask
+
+    _dorotation = 'dorotation' if dorotation else ''
+    _mass = 'mass' if mass else ''
+
+    if 'name' not in command:
+        command += ' name pout'
+
+    command = ' '.join((command, _dorotation, _mass))
+    print(command)
 
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
