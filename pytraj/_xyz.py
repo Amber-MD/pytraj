@@ -1,6 +1,4 @@
-
 class XYZ(object):
-
     """Wrapper of numpy array for read-only
     This class is intended to be used with Trajectory-like class
 

@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from . _base_result_class import BaseAnalysisResult
+from ._base_result_class import BaseAnalysisResult
 from ._get_common_objects import _get_data_from_dtype, _get_top
 from .utils import _import_numpy
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
@@ -9,7 +9,6 @@ _, np = _import_numpy()
 
 
 class DSSPAnalysisResult(BaseAnalysisResult):
-
     """
     Notes
     -----
@@ -64,12 +63,10 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         return np.array(self.dslist.grep('res', mode='aspect').keys())
 
     def values_per_frame(self, restype='string'):
-        return np.vstack((self.residues,
-                          self.to_ndarray(restype).T))
+        return np.vstack((self.residues, self.to_ndarray(restype).T))
 
     def values_per_residue(self, restype='string'):
-        return np.vstack((self.residues,
-                          self.to_ndarray(restype).T)).T
+        return np.vstack((self.residues, self.to_ndarray(restype).T)).T
 
 
 def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
@@ -123,8 +120,7 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     Action_DSSP()(command,
                   current_frame=traj,
                   top=_top,
-                  dslist=dslist,
-                  *args, **kwd)
+                  dslist=dslist, *args, **kwd)
 
     # replace legend to something nicer
     for legend, dset in dslist.iteritems():
@@ -138,9 +134,11 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
         # get all dataset from DatSetList if dtype == integer
         arr0 = dslist.grep("integer", mode='dtype').values
         keys = dslist.grep("integer", mode='dtype').keys()
-        return np.array([keys, [to_string_ss(arr) for arr in arr0]], dtype='object')
+        return np.array([keys, [to_string_ss(arr) for arr in arr0]],
+                        dtype='object')
     if dtype == '_dssp_class':
-        return DSSPAnalysisResult(_get_data_from_dtype(dslist, dtype='dataset'))
+        return DSSPAnalysisResult(_get_data_from_dtype(dslist,
+                                                       dtype='dataset'))
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -156,8 +154,10 @@ def to_string_ss(arr0):
     ssdict = dict(zip(range(len_ss), ss))
 
     if np:
+
         def myfunc(key):
             return ssdict[key]
+
         if not isinstance(arr0, dict):
             return np.vectorize(myfunc)(arr0)
         else:

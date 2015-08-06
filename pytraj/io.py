@@ -29,20 +29,32 @@ try:
 except ImportError:
     from urllib import urlopen
 
-__all__ = ['load', 'iterload', 'load_remd', 'iterload_remd',
-           '_load_from_filelist', '_iterload_from_filelist',
-           'load_pdb_rcsb', 'load_pdb',
+__all__ = ['load',
+           'iterload',
+           'load_remd',
+           'iterload_remd',
+           '_load_from_filelist',
+           '_iterload_from_filelist',
+           'load_pdb_rcsb',
+           'load_pdb',
            'load_cpptraj_file',
-           'load_datafile', 'load_hdf5',
+           'load_datafile',
+           'load_hdf5',
            'load_sample_data',
            'load_ParmEd',
            'load_mdtraj',
-           'load_MDAnalysis', 'load_MDAnalysisIterator',
-           'load_topology', 'read_parm', 'write_parm',
-           'save', 'write_traj',
-           'read_pickle', 'read_json',
-           'to_pickle', 'to_json',
-           ]
+           'load_MDAnalysis',
+           'load_MDAnalysisIterator',
+           'load_topology',
+           'read_parm',
+           'write_parm',
+           'save',
+           'write_traj',
+           'read_pickle',
+           'read_json',
+           'to_pickle',
+           'to_json', ]
+
 
 def load(*args, **kwd):
     """try loading and returning appropriate values
@@ -68,8 +80,7 @@ def load(*args, **kwd):
         filename = args[0]
 
     if filename.startswith('http://') or filename.startswith('https://'):
-        return load_ParmEd(filename, as_traj=True,
-                           structure=True)
+        return load_ParmEd(filename, as_traj=True, structure=True)
     else:
         ensure_exist(filename)
         # load to TrajectoryIterator object first
@@ -105,6 +116,7 @@ def iterload(*args, **kwd):
         raise ValueError("do not support iterload with engine=='mdtraj'")
     return load_traj(*args, **kwd)
 
+
 def _load_netcdf(filename, top, indices=None, engine='scipy'):
     from pytraj import api
     traj = api.Trajectory(top=top)
@@ -129,7 +141,9 @@ def _load_netcdf(filename, top, indices=None, engine='scipy'):
     return traj
 
 
-def _iterload_from_filelist(filename=None, top=None, force_load=False, *args, **kwd):
+def _iterload_from_filelist(filename=None,
+                            top=None,
+                            force_load=False, *args, **kwd):
     """return a list of TrajectoryIterator"""
 
     if kwd and 'indices' in kwd.keys():
@@ -163,13 +177,17 @@ def _iterload_from_filelist(filename=None, top=None, force_load=False, *args, **
                 toplist), "toplist must have smaller len"
             last_top = toplist[-1]
             toplist += [
-                last_top for _ in range(len(toplist), len(trajnamelist))]
+                last_top for _ in range(len(toplist), len(trajnamelist))
+            ]
 
     return [load_traj(_filename, _top, *args, **kwd)
             for _filename, _top in zip(trajnamelist, toplist)]
 
 
-def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **kwd):
+def load_traj(filename=None,
+              top=None,
+              indices=None,
+              engine='pytraj', *args, **kwd):
     """load trajectory from filename
     Parameters
     ----------
@@ -284,10 +302,13 @@ def load_remd(filename, top=None, T="300.0"):
     return iterload_remd(filename, top, T)[:]
 
 
-def write_traj(filename="", traj=None, top=None,
-               format='unknown_traj', indices=None,
-               overwrite=False, mode="",
-               *args, **kwd):
+def write_traj(filename="",
+               traj=None,
+               top=None,
+               format='unknown_traj',
+               indices=None,
+               overwrite=False,
+               mode="", *args, **kwd):
     """write Trajectory-like, list of trajs, frames, ... to file/files
 
     Suppot file extensions
@@ -341,9 +362,11 @@ def write_traj(filename="", traj=None, top=None,
     if traj is None or _top is None:
         raise ValueError("Need non-empty traj and top files")
 
-    with Trajout(filename=filename, top=_top, format=format,
-                 overwrite=overwrite, mode=mode,
-                 *args, **kwd) as trajout:
+    with Trajout(filename=filename,
+                 top=_top,
+                 format=format,
+                 overwrite=overwrite,
+                 mode=mode, *args, **kwd) as trajout:
         if isinstance(traj, Frame):
             if indices is not None:
                 raise ValueError("indices does not work with single Frame")
@@ -395,6 +418,7 @@ def load_topology(filename, **kwd):
 # creat alias
 read_parm = load_topology
 
+
 def _load_url(url):
     """load Topology from url
     """
@@ -407,6 +431,7 @@ def _load_url(url):
             txt = txt.decode()
         fh.write(txt)
     return Topology(fname)
+
 
 def loadpdb_rcsb(pdbid):
     """load pdb file from rcsb website
@@ -466,6 +491,7 @@ def load_pdb(pdb_file):
 def load_single_frame(frame=None, top=None, index=0):
     """load a single Frame"""
     return iterload(frame, top)[index]
+
 
 load_frame = load_single_frame
 

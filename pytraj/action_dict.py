@@ -19,7 +19,6 @@ ADICT['secstruct'] = allactions.__dict__['Action_DSSP']
 
 
 class ActionDict:
-
     def __init__(self):
         self.adict = ADICT
         self.action_holder = None

@@ -2,8 +2,11 @@ from __future__ import print_function, absolute_import
 
 from .externals.six import iteritems
 
-supported_types = [x for x in
-                   'mask minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split()]
+supported_types = [
+    x for x in
+    'mask minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split(
+    )
+]
 
 template = '''
 def vector_%s(traj=None, command="", top=None, *args, **kwd):

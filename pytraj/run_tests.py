@@ -90,5 +90,6 @@ def run_tests():
 
     print("OK")
 
+
 if __name__ == '__main__':
     run_tests()
