@@ -20,7 +20,6 @@ def memoize(f):
 def noparallel(f):
     @wraps(f)
     def inner(*args, **kwd):
-        f.is_parallelable = False
         return f(*args, **kwd)
     inner._is_parallelizable = False
     return inner
