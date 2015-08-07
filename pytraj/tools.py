@@ -26,6 +26,7 @@ def iteritems(d, **kw):
     """Return an iterator over the (key, value) pairs of a dictionary."""
     return iter(getattr(d, _iteritems)(**kw))
 
+
 try:
     # PY3
     from functools import reduce
@@ -50,6 +51,7 @@ def _dispatch_value(func):
         else:
             _data = data
         return func(_data, *args, **kwd)
+
     inner.__doc__ = func.__doc__
     return inner
 
@@ -58,6 +60,7 @@ def _not_yet_tested(func):
     @functools.wraps(func)
     def inner(*args, **kwd):
         return func(*args, **kwd)
+
     msg = "This method is not tested. Use it with your own risk"
     inner.__doc__ = "\n".join((func.__doc__, "\n", msg))
     return inner
@@ -262,12 +265,14 @@ def merge_coordinates(iterables):
     """
     return np.vstack((np.array(f.xyz) for f in iterables))
 
+
 def merge_frames(iterables):
     """merge from frames to a single Frame. Order matters.
     """
     from pytraj import Frame
     xyz = np.vstack((np.array(f.xyz) for f in iterables))
     return Frame().append_xyz(xyz)
+
 
 def rmsd_1darray(a1, a2):
     '''rmsd of a1 and a2
@@ -375,6 +380,7 @@ def find_lib(libname, unique=False):
         else:
             return lib_path_list
 
+
 def read_orca_trj(fname):
     """return numpy 2D array
 
@@ -393,6 +399,7 @@ def read_orca_trj(fname):
     import numpy as np
     regexp = r'\s+\w+' + r'\s+([-.0-9]+)' * 3 + r'\s*\n'
     return np.fromregex(fname, regexp, dtype='f')
+
 
 def read_gaussian_output(filename=None, top=None):
     """return a `pytraj.api.Trajectory` object
@@ -439,11 +446,13 @@ def read_gaussian_output(filename=None, top=None):
     else:
         return Trajectory(xyz=go.atomcoords, top=_top)
 
+
 def read_to_array(fname):
     import numpy as np
     with open(fname, 'r') as fh:
         arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
         return np.array(flatten(arr0), dtype='f8')
+
 
 def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     """
@@ -505,6 +514,7 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
         frame.xyz = np.vstack((f1.xyz, f2.xyz))
 
     return traj
+
 
 def isel(traj, func, *args, **kwd):
     """iterselect frame based on func

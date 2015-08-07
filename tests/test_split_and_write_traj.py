@@ -36,5 +36,12 @@ class Test(unittest.TestCase):
         traj4 = pt.iterload(flist, top)
         eq_coords(traj4, traj)
 
+        # dcd ext
+        traj.split_and_write_traj(4, root_name='./output/ts', ext='dcd')
+        flist = sorted(glob("./output/ts.*.dcd"))
+        print(flist)
+        traj4 = pt.iterload(flist, top)
+        eq_coords(traj4, traj)
+
 if __name__ == "__main__":
     unittest.main()

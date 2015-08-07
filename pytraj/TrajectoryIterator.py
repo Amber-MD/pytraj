@@ -14,13 +14,19 @@ from pytraj.Topology import Topology
 from pytraj.utils import is_int
 from pytraj._cyutils import get_positive_idx
 
-
 __all__ = ['TrajectoryIterator', 'split_iterators']
 
 
-def split_iterators(traj, n_chunks=1, start=0, stop=-1, stride=1, mask=None,
-                    autoimage=False, rmsfit=None):
-    return traj.split_iterators(n_chunks, start, stop, stride, mask, autoimage, rmsfit)
+def split_iterators(traj,
+                    n_chunks=1,
+                    start=0,
+                    stop=-1,
+                    stride=1,
+                    mask=None,
+                    autoimage=False,
+                    rmsfit=None):
+    return traj.split_iterators(n_chunks, start, stop, stride, mask, autoimage,
+                                rmsfit)
 
 
 def _make_frame_slices(n_files, original_frame_slice):
@@ -29,8 +35,8 @@ def _make_frame_slices(n_files, original_frame_slice):
     elif isinstance(original_frame_slice, list):
         fs_len = len(original_frame_slice)
         if fs_len < n_files:
-            new_list = original_frame_slice[:] + [(0, -1, 1)
-                                                  for _ in range(fs_len, n_files)]
+            new_list = original_frame_slice[:] + [(
+                0, -1, 1) for _ in range(fs_len, n_files)]
         elif fs_len == n_files:
             new_list = original_frame_slice
         else:
@@ -48,12 +54,12 @@ def _turn_to_list_with_rank(func):
             return list(func(*args, **kwd))
         else:
             return list(func(*args, **kwd))[kwd['rank']]
+
     inner.__doc__ = func.__doc__
     return inner
 
 
 class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
-
     def __init__(self, filename=None, top=None, *args, **kwd):
         self._force_load = False
         # use self.chunk to store `chunk` in chunk_iter
@@ -78,17 +84,21 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
         if filename:
             if self.top.is_empty():
-                raise ValueError('First argument is always a trajectory filename'
-                                 ' or a list of filenames'
-                                 'must have a non-empty Topology')
+                raise ValueError(
+                    'First argument is always a trajectory filename'
+                    ' or a list of filenames'
+                    'must have a non-empty Topology')
             self.load(filename, self.top, *args, **kwd)
         if not top and (args or kwd):
-            warnings.warn('creating an empty TrajectoryIterator since does not '
-                          'have Topology information. Ignore other arguments')
+            warnings.warn(
+                'creating an empty TrajectoryIterator since does not '
+                'have Topology information. Ignore other arguments')
 
-        self.__dict__.update({'top': self.top,
-                              'top_filename': self.top.filename,
-                              'filelist': self.filelist})
+        self.__dict__.update({
+            'top': self.top,
+            'top_filename': self.top.filename,
+            'filelist': self.filelist
+        })
 
     def __setstate__(self, state):
         self.__dict__ = state.copy()
@@ -132,12 +142,15 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             for fname, fslice in zip(filename_list, full_frame_slice):
                 self.frame_slice_list.append(frame_slice)
                 super(TrajectoryIterator, self).load(
-                    fname, _top, frame_slice=fslice)
-        elif isinstance(filename, string_types) and not os.path.exists(filename):
+                    fname, _top,
+                    frame_slice=fslice)
+        elif isinstance(filename,
+                            string_types) and not os.path.exists(filename):
             from glob import glob
             flist = sorted(glob(filename))
             if not flist:
-               raise ValueError("must provie a filename or list of filenames or file pattern")
+                raise ValueError(
+                    "must provie a filename or list of filenames or file pattern")
             self.load(flist, top=top, frame_slice=frame_slice)
         else:
             raise ValueError("")
@@ -168,9 +181,10 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         size_in_MB = self._estimated_MB
         # check if larger than size_limit_in_MB
         if size_in_MB > self._size_limit_in_MB and not self._force_load:
-            raise MemoryError("you are loading %s Mb, larger than size_limit %s Mb. "
-                              "Please increase self._size_limit_in_MB or set self._force_load=True"
-                              % (size_in_MB, self._size_limit_in_MB))
+            raise MemoryError(
+                "you are loading %s Mb, larger than size_limit %s Mb. "
+                "Please increase self._size_limit_in_MB or set self._force_load=True"
+                % (size_in_MB, self._size_limit_in_MB))
         return super(TrajectoryIterator, self).xyz
 
     def iterator_slice(self, start=0, stop=None, stride=None):
@@ -184,8 +198,13 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         from itertools import tee
         return tee(self, n_iters)
 
-    def frame_iter(self, start=0, stop=None, stride=1, mask=None,
-                   autoimage=False, rmsfit=None):
+    def frame_iter(self,
+                   start=0,
+                   stop=None,
+                   stride=1,
+                   mask=None,
+                   autoimage=False,
+                   rmsfit=None):
 
         from .core.frameiter import FrameIter
         if mask is None:
@@ -195,8 +214,9 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):
-                assert len(rmsfit) <= 2, ("rmsfit must be a tuple of one (frame,) "
-                                          "or two elements (frame, mask)")
+                assert len(rmsfit) <= 2, (
+                    "rmsfit must be a tuple of one (frame,) "
+                    "or two elements (frame, mask)")
                 if len(rmsfit) == 1:
                     rmsfit = (rmsfit, '*')
             elif isinstance(rmsfit, int):
@@ -229,8 +249,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          autoimage=autoimage,
                          rmsfit=rmsfit,
                          is_trajiter=True,
-                         n_frames=n_frames,
-                         )
+                         n_frames=n_frames, )
 
     def iterframe(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
@@ -238,7 +257,10 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
     def iterchunk(self, *args, **kwd):
         return self.chunk_iter(*args, **kwd)
 
-    def chunk_iter(self, chunksize=2, start=0, stop=-1,
+    def chunk_iter(self,
+                   chunksize=2,
+                   start=0,
+                   stop=-1,
                    autoimage=False,
                    rmsfit=None,
                    copy_top=False):
@@ -265,8 +287,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             need_align = False
             ref, mask_for_rmsfit = None, None
 
-        for chunk in super(TrajectoryIterator, self).chunk_iter(chunk,
-                                                                start, stop, copy_top):
+        for chunk in super(TrajectoryIterator, self).chunk_iter(
+            chunk, start, stop, copy_top):
             # always perform autoimage before doing fitting
             # chunk is `Trajectory` object, having very fast `autoimage` and
             # `rmsfit` methods
@@ -309,9 +331,14 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         _split_and_write_traj(self, *args, **kwd)
 
     @_turn_to_list_with_rank
-    def split_iterators(self, n_chunks=1, start=0, stop=-1, stride=1,
+    def split_iterators(self,
+                        n_chunks=1,
+                        start=0,
+                        stop=-1,
+                        stride=1,
                         mask=None,
-                        autoimage=False, rmsfit=None, **kwd):
+                        autoimage=False,
+                        rmsfit=None, **kwd):
         """simple splitting `self` to n_chunks FrameIter objects        
 
         Examples
@@ -336,12 +363,19 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             stop = self.n_frames
 
         if n_chunks == 1:
-            yield self(start=start, stop=stop, stride=stride, mask=mask,
-                       autoimage=autoimage, rmsfit=rmsfit)
+            yield self(start=start,
+                       stop=stop,
+                       stride=stride,
+                       mask=mask,
+                       autoimage=autoimage,
+                       rmsfit=rmsfit)
         else:
             for (_start, _stop) in split_range(n_chunks=n_chunks,
-                                               start=start, stop=stop):
-                yield self.frame_iter(start=_start, stop=_stop, stride=stride,
+                                               start=start,
+                                               stop=stop):
+                yield self.frame_iter(start=_start,
+                                      stop=_stop,
+                                      stride=stride,
                                       mask=mask,
                                       autoimage=autoimage,
                                       rmsfit=rmsfit)

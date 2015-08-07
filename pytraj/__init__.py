@@ -31,8 +31,9 @@ try:
 except ImportError:
     if 'linux' in _platform:
         if not _find_lib("cpptraj"):
-            raise ImportError("can not find libcpptraj. Make sure to install it "
-                              "or export LD_LIBRARY_PATH correctly")
+            raise ImportError(
+                "can not find libcpptraj. Make sure to install it "
+                "or export LD_LIBRARY_PATH correctly")
 
 try:
     from .core import Atom, Residue, Molecule
@@ -60,7 +61,7 @@ from functools import partial
 
 from .core import Atom, Residue, Molecule
 from .core.CpptrajState import CpptrajState
-from .import array
+from . import array
 from .Topology import Topology
 from .ArgList import ArgList
 from .AtomMask import AtomMask
@@ -73,22 +74,13 @@ from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from .parms.ParmFile import ParmFile
 from . import io
-from .io import (load, iterload, load_remd, iterload_remd,
-                 _load_from_filelist, _iterload_from_filelist,
-                 _load_from_frame_iter,
-                 load_pdb_rcsb, load_pdb,
-                 load_cpptraj_file,
-                 load_datafile,
-                 load_sample_data,
-                 load_ParmEd,
-                 load_mdtraj,
-                 load_MDAnalysis, load_MDAnalysisIterator,
-                 load_topology, read_parm, write_parm,
-                 get_coordinates,
-                 save, write_traj,
-                 read_pickle, read_json,
-                 to_pickle, to_json,
-                 )
+from .io import (load, iterload, load_remd, iterload_remd, _load_from_filelist,
+                 _iterload_from_filelist, _load_from_frame_iter, load_pdb_rcsb,
+                 load_pdb, load_cpptraj_file, load_datafile, load_sample_data,
+                 load_ParmEd, load_mdtraj, load_MDAnalysis,
+                 load_MDAnalysisIterator, load_topology, read_parm, write_parm,
+                 get_coordinates, save, write_traj, read_pickle, read_json,
+                 to_pickle, to_json, )
 
 load_from_frame_iter = _load_from_frame_iter
 
@@ -104,39 +96,19 @@ from .actions import CpptrajActions as allactions
 from .analyses import CpptrajAnalyses as allanalyses
 from ._common_actions import calculate
 from . import common_actions
-from . dssp_analysis import calc_dssp
-from . common_actions import (rmsd,
-                              rmsd_perres,
-                              search_hbonds,
-                              calc_rmsd_with_rotation_matrices,
-                              calc_multidihedral,
-                              autoimage, nastruct,
-                              calc_angle, calc_dihedral, calc_distance,
-                              calc_center_of_mass, calc_center_of_geometry,
-                              calc_dssp, calc_jcoupling, calc_molsurf,
-                              calc_radgyr, calc_rdf, calc_vector,
-                              calc_pairwise_rmsd,
-                              calc_atomicfluct,
-                              calc_bfactors,
-                              calc_density,
-                              calc_volume,
-                              calc_mindist,
-                              lifetime,
-                              get_average_frame,
-                              energy_decomposition,
-                              native_contacts,
-                              auto_correlation_function,
-                              cross_correlation_function,
-                              timecorr,
-                              center,
-                              translate,
-                              rotate,
-                              rotate_dihedral,
-                              make_structure,
-                              scale,
-                              do_clustering,
-                              clustering_dataset,
-                              )
+from .dssp_analysis import calc_dssp
+from .common_actions import (
+    rmsd, rmsd_perres, search_hbonds, calc_rmsd_with_rotation_matrices,
+    calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
+    calc_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
+    calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
+    calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
+    calc_volume, calc_mindist, lifetime, get_average_frame,
+    energy_decomposition, native_contacts, auto_correlation_function,
+    principal_axes,
+    cross_correlation_function, timecorr, center, translate, rotate,
+    rotate_dihedral, make_structure, scale, do_clustering, clustering_dataset,
+)
 
 # create alias
 distance = calc_distance
@@ -164,14 +136,10 @@ from_parmed = load_ParmEd
 clustering = do_clustering
 mindist = calc_mindist
 
-from . matrix_analysis import distance_matrix
-from . dihedral_analysis import (
-    calc_phi, calc_psi,
-    calc_alpha, calc_beta,
-    calc_omega, calc_chin, calc_chip,
-    calc_delta, calc_epsilon,
-    calc_gamma, calc_zeta,
-    calc_omega,
+from .matrix_analysis import distance_matrix
+from .dihedral_analysis import (
+    calc_phi, calc_psi, calc_alpha, calc_beta, calc_omega, calc_chin,
+    calc_chip, calc_delta, calc_epsilon, calc_gamma, calc_zeta, calc_omega,
     calc_nu1, calc_nu2)
 
 from .action_dict import ActionDict
@@ -195,6 +163,7 @@ from ._shared_methods import _frame_iter_master as frame_iter_master
 # TODO: need to move set_world_silent and set_error_silent to the same file
 from ._set_silent import set_error_silent, set_world_silent
 
+
 def to_numpy_Trajectory(traj, top, unitcells=None):
     # TODO: move to `io`?
     from . import api
@@ -214,6 +183,7 @@ def to_numpy_Trajectory(traj, top, unitcells=None):
         t.unitcells = unitcells
     return t
 
+
 def to_mdtraj(traj, top=None):
     # TODO: move to `io`?
     from pytraj.utils.context import goto_temp_folder
@@ -227,13 +197,16 @@ def to_mdtraj(traj, top=None):
         top = md.load_prmtop("tmp.prmtop")
         return md.Trajectory(xyz, top)
 
+
 def set_cpptraj_verbose(cm=True):
     if cm:
         set_world_silent(False)
     else:
         set_world_silent(True)
 
+
 set_world_silent(True)
+
 
 def show():
     # just delay importing
@@ -242,9 +215,11 @@ def show():
     from matplotlib import pyplot
     pyplot.show()
 
+
 def savefig(fname, *args, **kwd):
     from matplotlib import pyplot
     pyplot.savefig(fname, *args, **kwd)
+
 
 def show_versions():
     """

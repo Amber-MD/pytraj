@@ -5,6 +5,7 @@ from .externals.six import string_types
 from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._get_common_objects import _get_reference_from_traj
 
+
 class nupars(BaseAnalysisResult):
     def summary(self):
         """return numpy 2D-array, shape=(n_aspects, 3).
@@ -35,12 +36,13 @@ class nupars(BaseAnalysisResult):
         return out
 
 
-def nastruct(traj=None, mask="",
+def nastruct(traj=None,
+             mask="",
              resmap=None,
              hbcut=None,
              ref=None,
-             top=None, dtype='nupars',
-             *args, **kwd):
+             top=None,
+             dtype='nupars', *args, **kwd):
     """
     Examples
     --------
@@ -57,9 +59,9 @@ def nastruct(traj=None, mask="",
     from .actions.CpptrajActions import Action_NAstruct
     from pytraj.array import DataArray
 
-    _ref =  _get_reference_from_traj(traj, ref)
-    _resmap= "resmap " + resmap if resmap is not None else ""
-    _hbcut= "hbcut " + str(hbcut) if hbcut is not None else ""
+    _ref = _get_reference_from_traj(traj, ref)
+    _resmap = "resmap " + resmap if resmap is not None else ""
+    _hbcut = "hbcut " + str(hbcut) if hbcut is not None else ""
 
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5

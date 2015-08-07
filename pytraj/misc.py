@@ -17,8 +17,7 @@ try:
 except ImportError:
     file_type_info = None
 
-__all__ = ['to_amber_mask', 'from_legends_to_indices', 'info',
-           'get_atts',]
+__all__ = ['to_amber_mask', 'from_legends_to_indices', 'info', 'get_atts', ]
 
 
 def to_amber_mask(txt, mode=None):

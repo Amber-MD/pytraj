@@ -15,9 +15,8 @@ min.in
 /
 """
 
-def minimize(traj, engine='sander',
-             input=None, top=None):
 
+def minimize(traj, engine='sander', input=None, top=None):
     """
     >>> from pytraj.amber_wrap import minimize
     >>> minimize(traj)
@@ -50,7 +49,9 @@ def minimize(traj, engine='sander',
 
         for frame in traj:
             pt.write_traj("tmp_frame.rst7", frame, top=_top, overwrite=True)
-            os.system("%s -O -p tmp.prmtop -c tmp_frame.rst7.1 -r min.r -i min.in" % (_engine))
+            os.system(
+                "%s -O -p tmp.prmtop -c tmp_frame.rst7.1 -r min.r -i min.in" %
+                (_engine))
             f0 = pt.load("min.r", traj.top)[0]
             # update coords
             frame.xyz[:] = f0.xyz
@@ -63,6 +64,7 @@ x = loadpdb %s
 saveamberparm x tmp.top tmp.crd
 quit
 """
+
 
 def prmtop_from_tleap(fname, leapin=leapin, verbose=False):
     import os
@@ -87,8 +89,9 @@ def prmtop_from_tleap(fname, leapin=leapin, verbose=False):
 
         with open(os.devnull, 'wb') as devnull:
             if not verbose:
-                subprocess.check_call([tleap, ' -f _leap.in'], 
-                    stdout=devnull, stderr=subprocess.STDOUT)
+                subprocess.check_call([tleap, ' -f _leap.in'],
+                                      stdout=devnull,
+                                      stderr=subprocess.STDOUT)
             else:
                 subprocess.check_call([tleap, ' -f _leap.in'])
         return pt.load_topology("tmp.top")

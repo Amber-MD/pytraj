@@ -6,8 +6,13 @@ from .datasets.DataSetList import DataSetList as CpptrajDatasetList
 from ._get_common_objects import _get_top
 
 
-def calculate(action=None, traj=None, command="", top=None,
-              dslist=CpptrajDatasetList(), dtype='dataset', quick_get=False, **kwd):
+def calculate(action=None,
+              traj=None,
+              command="",
+              top=None,
+              dslist=CpptrajDatasetList(),
+              dtype='dataset',
+              quick_get=False, **kwd):
     """ quick way to get data 
     Parameters
     ----------
@@ -37,8 +42,8 @@ def calculate(action=None, traj=None, command="", top=None,
     from pytraj import ActionDict
     adict = ActionDict()
 
-    not_return_list = ['action_autoimage', 'action_translate',
-                       'action_rotate', 'action_scale', 'action_strip']
+    not_return_list = ['action_autoimage', 'action_translate', 'action_rotate',
+                       'action_scale', 'action_strip']
 
     need_print_output = False
     if kwd:

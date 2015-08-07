@@ -20,8 +20,11 @@ __all__ = ['Trajectory']
 
 
 class Trajectory(ActionTrajectory):
-
-    def __init__(self, filename_or_iterable=None, top=None, xyz=None, indices=None):
+    def __init__(self,
+                 filename_or_iterable=None,
+                 top=None,
+                 xyz=None,
+                 indices=None):
         """
         Notes
         -----
@@ -63,7 +66,9 @@ class Trajectory(ActionTrajectory):
                 if self.top.is_empty():
                     raise ValueError("must have a non-empty Topology")
                 else:
-                    assert self.top.n_atoms == xyz.shape[1], "must have the same n_atoms"
+                    assert self.top.n_atoms == xyz.shape[
+                        1
+                    ], "must have the same n_atoms"
                 self._xyz = np.asarray(xyz)
             else:
                 self._xyz = None
@@ -71,11 +76,11 @@ class Trajectory(ActionTrajectory):
             # make sure to use `float64`
             self._xyz = filename_or_iterable.xyz.astype(np.float64)
         elif isinstance(filename_or_iterable, (string_types, list, tuple)):
-                if isinstance(filename_or_iterable, string_types):
-                    self.load(filename_or_iterable)
-                else:
-                    for fname in filename_or_iterable:
-                        self.load(fname)
+            if isinstance(filename_or_iterable, string_types):
+                self.load(filename_or_iterable)
+            else:
+                for fname in filename_or_iterable:
+                    self.load(fname)
 
         elif is_frame_iter(filename_or_iterable):
             for frame in filename_or_iterable:
@@ -84,7 +89,9 @@ class Trajectory(ActionTrajectory):
             self._xyz = np.asarray(filename_or_iterable, dtype='f8')
 
         if hasattr(self._xyz, 'shape'):
-            assert self.top.n_atoms == self._xyz.shape[1], "must have the same n_atoms"
+            assert self.top.n_atoms == self._xyz.shape[
+                1
+            ], "must have the same n_atoms"
 
         if hasattr(filename_or_iterable, 'unitcells'):
             self._boxes = filename_or_iterable.unitcells
@@ -110,8 +117,8 @@ class Trajectory(ActionTrajectory):
 
     def __str__(self):
         clsname = self.__class__.__name__
-        txt = "<pytraj.api.%s with %s frames, %s atoms>" % (clsname, self.n_frames,
-                                                            self.n_atoms)
+        txt = "<pytraj.api.%s with %s frames, %s atoms>" % (
+            clsname, self.n_frames, self.n_atoms)
         return txt
 
     def __repr__(self):
@@ -226,7 +233,7 @@ class Trajectory(ActionTrajectory):
                 self._xyz[idx] = other
         elif idx == '*':
             # update all atoms, use fast version
-            self._xyz[:] = other # xyz
+            self._xyz[:] = other  # xyz
         elif isinstance(idx, AtomMask) or isinstance(idx, string_types):
             if isinstance(idx, AtomMask):
                 atm = idx
@@ -236,7 +243,7 @@ class Trajectory(ActionTrajectory):
                 indices = atm.indices
 
                 for i in range(self.n_frames):
-                    for j, k  in enumerate(indices):
+                    for j, k in enumerate(indices):
                         self.xyz[i, k] = other.xyz[i, j]
             else:
                 view3d = other
@@ -280,7 +287,7 @@ class Trajectory(ActionTrajectory):
     def _append_unitcells(self, box):
         if isinstance(box, tuple):
             clen, cangle = box
-            data = np.hstack((clen, cangle)) 
+            data = np.hstack((clen, cangle))
             if self._boxes is None:
                 self._boxes = np.asarray([data])
             else:
@@ -342,7 +349,6 @@ class Trajectory(ActionTrajectory):
         else:
             ValueError()
 
-
     def __call__(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
 
@@ -353,7 +359,7 @@ class Trajectory(ActionTrajectory):
         fh = io.netcdf_file(filename, mmap=False)
         self.xyz = fh.variables['coordinates'].data
         cell_lengths = fh.variables['cell_lengths'].data
-        cell_angles= fh.variables['cell_angles'].data
+        cell_angles = fh.variables['cell_angles'].data
         self.unitcells = np.hstack((cell_lengths, cell_angles))
 
     def load(self, filename='', top=None, indices=None):
@@ -413,7 +419,7 @@ class Trajectory(ActionTrajectory):
                 list_of_files_or_trajs = filename
                 for fh in list_of_files_or_trajs:
                     if self.warning:
-                        print ("Loading from list/tuple. Ignore `indices`")
+                        print("Loading from list/tuple. Ignore `indices`")
                     # recursive
                     self.load(fh, self.top, indices)
             else:
@@ -422,7 +428,8 @@ class Trajectory(ActionTrajectory):
                     _xyz = filename
                     self.append_xyz(_xyz)
                 except:
-                    raise ValueError("must be a list/tuple of either filenames/Traj/numbers")
+                    raise ValueError(
+                        "must be a list/tuple of either filenames/Traj/numbers")
         elif hasattr(filename, 'n_frames') and not is_mdtraj(filename):
             # load from Traj-like object
             # make temp traj to remind about traj-like
@@ -461,13 +468,14 @@ class Trajectory(ActionTrajectory):
                 _xyz = filename
                 self.append_xyz(_xyz)
             except:
-                raise ValueError("filename must be str, traj-like or numpy array")
+                raise ValueError(
+                    "filename must be str, traj-like or numpy array")
 
         try:
             if self._xyz.shape != self.unitcells.shape:
-                print ("make sure to update traj.unitcells too")
+                print("make sure to update traj.unitcells too")
         except AttributeError:
-                print ("make sure to update traj.unitcells too")
+            print("make sure to update traj.unitcells too")
 
     def has_box(self):
         try:
@@ -581,8 +589,13 @@ class Trajectory(ActionTrajectory):
     def save(self, filename="", fmt='unknown', overwrite=True, *args, **kwd):
         _savetraj(self, filename, fmt, overwrite, *args, **kwd)
 
-    def frame_iter(self, start=0, stop=None, stride=1,
-                   mask=None, autoimage=False, rmsfit=None):
+    def frame_iter(self,
+                   start=0,
+                   stop=None,
+                   stride=1,
+                   mask=None,
+                   autoimage=False,
+                   rmsfit=None):
 
         from pytraj.core.frameiter import FrameIter
 
@@ -593,8 +606,9 @@ class Trajectory(ActionTrajectory):
 
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):
-                assert len(rmsfit) <= 2, ("rmsfit must be a tuple of one (frame,) "
-                                         "or two elements (frame, mask)")
+                assert len(rmsfit) <= 2, (
+                    "rmsfit must be a tuple of one (frame,) "
+                    "or two elements (frame, mask)")
                 if len(rmsfit) == 1:
                     rmsfit = (rmsfit, '*')
             elif isinstance(rmsfit, int):

@@ -9,10 +9,9 @@ from .utils import duplicate_traj, Timer
 from .Topology import Topology
 from .utils.context import goto_temp_folder
 
-__all__ = ['test_if_having', 'no_test', 'local_test',
-           'load_sample_data', 'eq', 'aa_eq', 'is_linux',
-           'make_random_frame', 'duplicate_traj', 'make_fake_traj',
-           'Timer', 'amberhome', 'cpptraj_test_dir',
+__all__ = ['test_if_having', 'no_test', 'local_test', 'load_sample_data', 'eq',
+           'aa_eq', 'is_linux', 'make_random_frame', 'duplicate_traj',
+           'make_fake_traj', 'Timer', 'amberhome', 'cpptraj_test_dir',
            'run_docstring']
 
 try:
@@ -52,6 +51,7 @@ def run_docstring(func):
     if "from pytraj import io" not in func_doct:
         doc = "\n".join((header_doc, doc))
     exec(doc)
+
 
 if __name__ == "__main__":
     print(amberhome)

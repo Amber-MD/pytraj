@@ -1,14 +1,20 @@
 from functools import partial
 
-def worker(rank, n_cores=None, func=None, filelist=None,
+
+def worker(rank,
+           n_cores=None,
+           func=None,
+           filelist=None,
            top=None,
            args=None,
            kwd=None):
     from pytraj import iterload
     local_traj = iterload(filelist, top=top)
     return (rank, func(
-            local_traj.split_iterators(n_cores, rank=rank),
-            top=local_traj.top, *args, **kwd))
+        local_traj.split_iterators(n_cores,
+                                   rank=rank),
+        top=local_traj.top, *args, **kwd))
+
 
 def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     '''
@@ -25,6 +31,7 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
                      func=func,
                      filelist=traj.filelist,
                      top=traj.top.filename,
-                     args=args, kwd=kwd)
+                     args=args,
+                     kwd=kwd)
     result = p.map(pfuncs, [rank for rank in range(n_cores)])
     return result

@@ -4,7 +4,7 @@ from .action_dict import ActionDict
 from .externals.six import string_types
 from .datasets.DataSetList import DataSetList
 from ._get_common_objects import _get_data_from_dtype
-from . _base_result_class import BaseAnalysisResult
+from ._base_result_class import BaseAnalysisResult
 
 adict = ActionDict()
 
@@ -13,7 +13,6 @@ __all__ = ['HbondAnalysisResult', 'search_hbonds', 'search_nointramol_hbonds',
 
 
 class HbondAnalysisResult(BaseAnalysisResult):
-
     """Hold data for HbondAnalysisResult
 
     Examples
@@ -44,7 +43,8 @@ class HbondAnalysisResult(BaseAnalysisResult):
 
     @property
     def donor_aceptor(self):
-        return self.dslist.grep(["solventhb", "solutehb"], mode='aspect').keys()
+        return self.dslist.grep(["solventhb", "solutehb"],
+                                mode='aspect').keys()
 
     def lifetime(self, cut=None):
         """return a dict with keys as donor_aceptor pairs and
@@ -61,6 +61,7 @@ class HbondAnalysisResult(BaseAnalysisResult):
         if cut is None:
             return result_dict
         else:
+
             def func(result_dict, cut=cut):
                 d = {}
                 for k in result_dict.keys():
@@ -71,6 +72,7 @@ class HbondAnalysisResult(BaseAnalysisResult):
                         if result_dict[k] >= cut:
                             d[k] = result_dict[k]
                 return d
+
             return func(result_dict, cut=cut)
 
     def to_amber_mask(self):
@@ -92,8 +94,10 @@ def _update_legend_hbond(_dslist):
             d0.legend = 'total_solute_solute'
 
 
-def search_hbonds_noseries(traj, mask="", dtype='dataset', update_legend=True,
-                           *args, **kwd):
+def search_hbonds_noseries(traj,
+                           mask="",
+                           dtype='dataset',
+                           update_legend=True, *args, **kwd):
     """search hbonds for a given mask
     Parameters
     ----------
@@ -129,11 +133,12 @@ def search_hbonds_noseries(traj, mask="", dtype='dataset', update_legend=True,
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def search_hbonds(traj, mask="", dtype='dataset',
+def search_hbonds(traj,
+                  mask="",
+                  dtype='dataset',
                   solventdonor=None,
                   solventacceptor=None,
-                  update_legend=True,
-                  *args, **kwd):
+                  update_legend=True, *args, **kwd):
     """search hbonds for a given mask
     Parameters
     ----------
@@ -191,9 +196,10 @@ def search_hbonds(traj, mask="", dtype='dataset',
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def search_nointramol_hbonds(traj, mask="solventacceptor :WAT@O solventdonor :WAT",
-                             dtype='dataset', update_legend=True,
-                             *args, **kwd):
+def search_nointramol_hbonds(traj,
+                             mask="solventacceptor :WAT@O solventdonor :WAT",
+                             dtype='dataset',
+                             update_legend=True, *args, **kwd):
     """
     Search hbonds between solute and solvent, ignoring intra-hbond
 

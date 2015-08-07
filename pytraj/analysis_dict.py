@@ -14,7 +14,6 @@ for key in allanalyses.__dict__.keys():
 
 
 class AnalysisDict:
-
     def __init__(self):
         self.analysisdict = ADICT
 

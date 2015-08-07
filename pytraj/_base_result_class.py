@@ -1,9 +1,8 @@
-
 from pytraj.datasetlist import _groupby
 from pytraj.datasetlist import DatasetList
 
-class BaseAnalysisResult(object):
 
+class BaseAnalysisResult(object):
     def __init__(self, dslist=None):
         if dslist is not None:
             self.dslist = dslist
