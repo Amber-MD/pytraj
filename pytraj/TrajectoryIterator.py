@@ -241,7 +241,9 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             frame_iter_super = super(
                 TrajectoryIterator, self).frame_iter(start, stop, stride)
         else:
-            stop = stop
+            stop = None
+            start = None
+            stride = None
             n_frames = len(frame_indices)
             frame_iter_super = super(TrajectoryIterator, self)._iterframe_indices(frame_indices)
 
@@ -256,7 +258,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          rmsfit=rmsfit,
                          is_trajiter=True,
                          n_frames=n_frames,
-                         copy=copy)
+                         copy=copy,
+                         frame_indices=frame_indices)
 
     def iterframe(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)

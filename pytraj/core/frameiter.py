@@ -19,7 +19,8 @@ class FrameIter(object):
                  rmsfit=None,
                  is_trajiter=False,
                  n_frames=None,
-                 copy=True):
+                 copy=True,
+                 frame_indices=None):
         self.top = new_top
         self.original_top = original_top
         self.frame_iter = fi_generator
@@ -33,6 +34,7 @@ class FrameIter(object):
         self.is_trajiter = is_trajiter
         self.n_frames = n_frames
         self.copy = copy
+        self.frame_indices = frame_indices
 
     @property
     def __name__(self):
@@ -40,12 +42,13 @@ class FrameIter(object):
 
     def __str__(self):
         root_msg = '<pytraj.core.frameiter.FrameIter with '
-        root_msg2 = 'start=%s, stop=%s, stride=%s, n_frames=%s \n' % (
+        root_msg2 = 'start=%s, stop=%s, stride=%s, n_frames=%s, \n' % (
             self.start, self.stop, self.stride, self.n_frames)
+        root_msg3 = 'frame_slice=%s \n' % self.frame_indices
 
         more_msg = 'autoimage=%s, rmsfit=%s> \n' % (
             self.autoimage, self.rmsfit)
-        return "".join((root_msg, root_msg2, more_msg))
+        return "".join((root_msg, root_msg2, root_msg3, more_msg))
 
     def __repr__(self):
         return self.__str__()
