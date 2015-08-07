@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -51,6 +50,7 @@ class Test(unittest.TestCase):
         fa[0, 0, 0] = 1.5
         assert fa[0, 0, 0] == 1.5
         assert fa[5, 0, 0] == 1.5
+
 
 if __name__ == "__main__":
     unittest.main()

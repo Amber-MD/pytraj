@@ -19,7 +19,8 @@ def test_load_Amber():
     traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
     u = Universe(traj.top.filename, traj.filename,
-                 format='mdcrd', topology_format='prmtop')
+                 format='mdcrd',
+                 topology_format='prmtop')
     utraj = io.load_MDAnalysis(u)
     aa_eq(np.asarray(utraj.calc_dssp()).flatten(),
           np.asarray(traj.calc_dssp()).flatten())

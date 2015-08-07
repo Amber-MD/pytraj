@@ -25,5 +25,6 @@ def calc_pairwise_rmsd():
         for j, frame_j in enumerate(farray):
             arr[i, j] = frame_i.rmsd(frame_j)
 
+
 if __name__ == "__main__":
     calc_pairwise_rmsd()

@@ -6,7 +6,6 @@ from pytraj import adict
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
@@ -17,6 +16,7 @@ class Test(unittest.TestCase):
         act.process(top)
         newframe = Frame()
         act.do_action(traj, newframe)
+
 
 if __name__ == "__main__":
     unittest.main()

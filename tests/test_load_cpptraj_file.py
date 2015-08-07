@@ -16,7 +16,6 @@ trajout rotated_frame0.x60y120z50.Tc5b.r
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fname = "./tc5b.rotate.in"
@@ -49,6 +48,7 @@ class Test(unittest.TestCase):
         _ctraj = state.get_trajinlist()[0]
         _ctraj.top = traj.top.copy()
         assert _ctraj.n_frames == traj.n_frames
+
 
 if __name__ == "__main__":
     unittest.main()

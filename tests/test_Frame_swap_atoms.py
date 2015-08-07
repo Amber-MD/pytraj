@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -30,6 +29,7 @@ class Test(unittest.TestCase):
         aa_eq(f0saved[12], f0[16])
         aa_eq(f0saved[13], f0[17])
         aa_eq(f0saved[15], f0[18])
+
 
 if __name__ == "__main__":
     unittest.main()

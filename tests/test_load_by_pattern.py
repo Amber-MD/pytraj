@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
 
         # raise if not find files
         self.assertRaises(ValueError,
-                lambda: pt.iterload("./data/xyz_cool*.x", traj0.top))
+                          lambda: pt.iterload("./data/xyz_cool*.x", traj0.top))
 
 
 if __name__ == "__main__":

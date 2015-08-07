@@ -18,7 +18,6 @@ from pytraj.io import load_mdtraj
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("mdtraj")
     def test_0(self):
         traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -63,8 +62,8 @@ class Test(unittest.TestCase):
             aa_eq(d0[:], 10 * dist_m[:][0])
 
             with Timer() as t:
-                d0_2 = np.asarray([f.calc_distance(indices)
-                                   for f in farray]).flatten()
+                d0_2 = np.asarray([f.calc_distance(indices) for f in farray
+                                   ]).flatten()
             print("time for pytraj_2 = %s" % t.time_gap())
             N = 20
             x = d0_2[:N]
@@ -83,7 +82,8 @@ class Test(unittest.TestCase):
         from mdtraj.testing import get_fn
         m_traj = md.load("./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
         true_traj = io.iterload(
-            "./data/tz2.ortho.rst7", top="./data/tz2.ortho.parm7")
+            "./data/tz2.ortho.rst7",
+            top="./data/tz2.ortho.parm7")
         traj = io.load_mdtraj(m_traj)
         print(traj.top.box)
         print(true_traj.top.box)
@@ -110,6 +110,7 @@ class Test(unittest.TestCase):
         t_gro = md.load(get_fn("frame0.gro"))
         traj = io.load_mdtraj(t_gro, autoconvert=False)
         aa_eq(traj.xyz, t_gro.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -11,7 +11,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from itertools import product
         import numpy as np
@@ -34,6 +33,7 @@ class Test(unittest.TestCase):
         d0 = pt.mindist(traj, [[0, 1], [2, 3]])
         d1 = pt.mindist(traj, '@1,2 @3,4')
         aa_eq(d0, d1)
+
 
 if __name__ == "__main__":
     unittest.main()

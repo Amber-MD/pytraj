@@ -55,7 +55,10 @@ def test_0():
             pass
 
     def check_eq(stop, chunk):
-        for c0, c1 in zip(traj.chunk_iter(stop=stop, chunksize=chunk), traj2.chunk_iter(stop=stop, chunksize=chunk)):
+        for c0, c1 in zip(traj.chunk_iter(stop=stop,
+                                          chunksize=chunk),
+                          traj2.chunk_iter(stop=stop,
+                                           chunksize=chunk)):
             aa_eq(c0.xyz, c1.xyz)
 
     print("chunk: trajiter")
@@ -77,6 +80,7 @@ def test_0():
     fa_frame_iter(stop)
 
     # check_eq(stop, chunk) # YES
+
 
 if __name__ == "__main__":
     test_0()

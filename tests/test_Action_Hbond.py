@@ -6,7 +6,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # TODO : add assert
         # TODO : correct casting data type
@@ -14,8 +13,8 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         act = adict['hbond']
         dslist = DataSetList()
-        act(":1-13 solventacceptor :WAT@O solventdonor :WAT series",
-            traj, dslist=dslist)
+        act(":1-13 solventacceptor :WAT@O solventdonor :WAT series", traj,
+            dslist=dslist)
         act.print_output()
         print('dslist size = ', dslist.size)
 
@@ -36,6 +35,7 @@ class Test(unittest.TestCase):
         print(dslist.get_scalar_modes())
         print(dslist.get_scalar_types())
         print(dslist.get_legends())
+
 
 if __name__ == "__main__":
     unittest.main()

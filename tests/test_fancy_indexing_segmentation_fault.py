@@ -8,7 +8,6 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         trajiter = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -37,6 +36,7 @@ class Test(unittest.TestCase):
         f0.top = traj.top
         f0['@CA']
         traj[0, '@CA']
+
 
 if __name__ == "__main__":
     unittest.main()

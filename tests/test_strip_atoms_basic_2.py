@@ -4,7 +4,6 @@ from pytraj import io as mdio
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # Aim: simple test for segfault
         # Why?
@@ -19,6 +18,7 @@ class Test(unittest.TestCase):
         print("start iterating")
         for frame in trajiter:
             frame.strip_atoms('@CA', trajiter.top, update_top=False)
+
 
 if __name__ == "__main__":
     unittest.main()

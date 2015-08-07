@@ -7,7 +7,6 @@ from pytraj.trajs.Trajin_Multi import Trajin_Multi
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = Trajin_Multi()
         traj.top = Topology("./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
@@ -37,6 +36,7 @@ class Test(unittest.TestCase):
         print(traj.top)
         # FIXME: Segmentation fault (core dumped)
         #print (traj[0])
+
 
 if __name__ == "__main__":
     unittest.main()

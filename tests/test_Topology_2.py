@@ -5,7 +5,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
-
     def test_get_iter(self):
         print("test_get_iter")
         top = Topology("./data/DOPC.parm7")
@@ -19,6 +18,7 @@ class Test(unittest.TestCase):
         self.assertRaises(ValueError, lambda: top.join(top))
         top.join(top.copy())
         assert top.n_atoms == 2 * old_natoms
+
 
 if __name__ == "__main__":
     unittest.main()

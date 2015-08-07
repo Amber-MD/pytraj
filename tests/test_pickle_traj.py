@@ -7,13 +7,13 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         pt.io.to_pickle(traj, './output/test.pk')
         t0 = pt.io.read_pickle('./output/test.pk')
         aa_eq(traj.xyz, t0.xyz)
         assert traj.top.n_atoms == t0.top.n_atoms
+
 
 if __name__ == "__main__":
     unittest.main()

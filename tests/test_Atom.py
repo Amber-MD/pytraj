@@ -6,7 +6,6 @@ from pytraj.testing import no_test
 
 
 class Test(unittest.TestCase):
-
     def test_1(self):
         top = Topology("./data/HP36.top")
         a0 = top.atomlist[0]
@@ -36,6 +35,7 @@ class Test(unittest.TestCase):
         pt.Atom()
         # FIXME: segmentation fault
         print(pt.Atom())
+
 
 if __name__ == "__main__":
     unittest.main()

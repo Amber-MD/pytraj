@@ -8,14 +8,14 @@ from pytraj.misc import rmsd as rmsd_2darray
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # TrajectoryIterrator
         # status: failed
         from pytraj.compat import zip
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         pt.write_traj("./output/tz2.autoimage_with_rmsfit.nc",
-                      traj(autoimage=True, rmsfit=(0, '@CA,C,N')),
+                      traj(autoimage=True,
+                           rmsfit=(0, '@CA,C,N')),
                       overwrite=True)
 
         saved_traj = pt.load('data/tz2.autoimage_with_rmsfit.nc', traj.top)
@@ -37,6 +37,7 @@ class Test(unittest.TestCase):
 
         # PASSED
         aa_eq(saved_traj.xyz, traj.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -7,11 +7,11 @@ from pytraj.utils.check_and_assert import file_exist
 
 
 class TestActionList(unittest.TestCase):
-
     def test_run_0(self):
         # load traj
         farray = Trajectory(
-            filename="./data/tz2.truncoct.nc", top="./data/tz2.truncoct.parm7")[:2]
+            filename="./data/tz2.truncoct.nc",
+            top="./data/tz2.truncoct.parm7")[:2]
         fold = farray.copy()
         print("old file: ", fold[0, 0, :])
 
@@ -39,9 +39,11 @@ class TestActionList(unittest.TestCase):
 
         # add two actions: Action_Strip and Action_Distance
         alist.add_action(
-            allactions.Action_Center(), ArgList(":2-11"), top=toplist)
+            allactions.Action_Center(), ArgList(":2-11"),
+            top=toplist)
         alist.add_action(
-            allactions.Action_Image(), ArgList("center familiar com :6"), top=toplist)
+            allactions.Action_Image(), ArgList("center familiar com :6"),
+            top=toplist)
 
         #
         assert alist.n_actions == 2

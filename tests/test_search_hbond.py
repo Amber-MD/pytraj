@@ -73,5 +73,6 @@ class Test(unittest.TestCase):
         assert traj.search_hbonds(update_legend=False).filter(
             "UU").values[0] == expected_n_hbonds
 
+
 if __name__ == "__main__":
     unittest.main()

@@ -8,7 +8,6 @@ from pytraj.datasets.DataSetList import DataSetList
 
 
 class TestOrderParameter(unittest.TestCase):
-
     def test_0(self):
         # TODO : add assert
         # results seem wrong
@@ -33,6 +32,7 @@ class TestOrderParameter(unittest.TestCase):
         print("print out dslist")
         print(dslist.get_legends())
         print(dslist.size)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -8,7 +8,6 @@ from pytraj.decorators import test_if_having
 
 
 class Test(unittest.TestCase):
-
     @Timer()
     @test_if_having("numpy")
     def test_0(self):
@@ -42,6 +41,7 @@ class Test(unittest.TestCase):
         f1 = farray[0]
 
         assert_almost_equal(f0.coords, f1.coords)
+
 
 if __name__ == "__main__":
     unittest.main()

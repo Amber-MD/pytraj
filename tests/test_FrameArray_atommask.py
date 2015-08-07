@@ -5,7 +5,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         print("test Trajectory")
         mask = "@CA"
@@ -80,6 +79,7 @@ class Test(unittest.TestCase):
 
         assert frame0.rmsd(frame1) < 1E-3
         assert frame2.rmsd(frame1) < 1E-3
+
 
 if __name__ == "__main__":
     unittest.main()

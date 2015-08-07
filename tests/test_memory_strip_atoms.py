@@ -12,5 +12,6 @@ def test_0():
     # (there is no @CA anymore)
     # fa._fast_strip_atoms("@CA"))
 
+
 if __name__ == "__main__":
     test_0()

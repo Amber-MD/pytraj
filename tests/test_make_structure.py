@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # TODO: assert
         # https://github.com/Amber-MD/cpptraj/issues/27
@@ -21,8 +20,9 @@ class Test(unittest.TestCase):
         pt.write_traj('./output/test0.pdb', t0, mode='model', overwrite=True)
 
         t1 = traj[:1].copy()
-        pt.make_structure(t1,"chi1:8:N:CA:CB:CG:35")
+        pt.make_structure(t1, "chi1:8:N:CA:CB:CG:35")
         pt.write_traj('./output/test1.pdb', t1, mode='model', overwrite=True)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -11,18 +11,17 @@ from pytraj.common_actions import calc_dssp
 from pytraj.testing import aa_eq
 
 farray = TrajectoryIterator(top=Topology("./data/DPDP.parm7"),
-                            filename='./data/DPDP.nc',
-                            )
+                            filename='./data/DPDP.nc', )
 
 
 class TestRadgyr(unittest.TestCase):
-
     def test_0(self):
         dslist = DataSetList()
         act = adict['dssp']
         dflist = DataFileList()
-        act.read_input(":10-22 out ./output/_test_dssp_DPDP.dat",
-                       farray.top, dslist=dslist, dflist=dflist)
+        act.read_input(":10-22 out ./output/_test_dssp_DPDP.dat", farray.top,
+                       dslist=dslist,
+                       dflist=dflist)
         act.process(farray.top)
 
         for i, frame in enumerate(farray):
@@ -44,8 +43,10 @@ class TestRadgyr(unittest.TestCase):
         dslist = DataSetList()
         dflist = DataFileList()
         adict['dssp'](":10-22 out ./output/_test_dssp_DPDP.dat",
-                      current_frame=farray, top=farray.top,
-                      dslist=dslist, dflist=dflist)
+                      current_frame=farray,
+                      top=farray.top,
+                      dslist=dslist,
+                      dflist=dflist)
         print(dslist.size)
 
         # Secondary structure for each residue in mask for 100 frames
@@ -64,6 +65,7 @@ class TestRadgyr(unittest.TestCase):
         dslist = calc_dssp(traj, "*", dtype='dataset')
         print(dslist)
         print(dslist.get_legends())
+
 
 if __name__ == "__main__":
     unittest.main()

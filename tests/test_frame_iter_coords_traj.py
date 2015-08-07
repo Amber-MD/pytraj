@@ -10,13 +10,13 @@ from pytraj.compat import izip
 
 
 class Test(unittest.TestCase):
-
     @no_test
     def test_0(self):
         print("coords")
         dslist = DataSetList()
         coords = cast_dataset(
-            dslist.add_set("coords", "my_coords", ""), dtype='coords')
+            dslist.add_set("coords", "my_coords", ""),
+            dtype='coords')
         trajin_and_top = ("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         traj = mdio.iterload(*trajin_and_top)
         coords.load(*trajin_and_top)
@@ -53,13 +53,15 @@ class Test(unittest.TestCase):
             print(f0[0, :], f1[0, :])
             assert_almost_equal(f0.coords, f1.coords)
 
-        for f0, f1 in izip(coords.frame_iter(2, 8, 1, "!@CA"), traj(2, 8, 1, '!@CA')):
+        for f0, f1 in izip(coords.frame_iter(2, 8, 1, "!@CA"), traj(2, 8, 1,
+                                                                    '!@CA')):
             print(f0[0, :], f1[0, :])
             assert_almost_equal(f0.coords, f1.coords)
 
         for f0, f1 in izip(coords(mask='!@CA'), traj(mask='!@CA')):
             print(f0[0, :], f1[0, :])
             assert_almost_equal(f0.coords, f1.coords)
+
 
 if __name__ == "__main__":
     unittest.main()

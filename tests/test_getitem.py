@@ -1,5 +1,4 @@
 class Dummy:
-
     def __init__(self):
         self.data = []
 
@@ -8,6 +7,7 @@ class Dummy:
 
     def __getitem__(self, values):
         return self.data[values]
+
 
 if __name__ == '__main__':
     dum = Dummy()

@@ -5,7 +5,6 @@ from pytraj.testing import test_if_having, no_test
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("MDAnalysis")
     def test_0(self):
         # PSF, DCD
@@ -36,6 +35,7 @@ class Test(unittest.TestCase):
 
         for idx, f in enumerate(t):
             print(idx, f)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -4,11 +4,11 @@ import pytraj as pt
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # check segmentation fault
         at = pt.Atom()
         print(at)
+
 
 if __name__ == "__main__":
     unittest.main()

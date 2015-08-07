@@ -5,7 +5,6 @@ from pytraj.Topology import Topology
 
 
 class TestTopologyList(unittest.TestCase):
-
     def test_1(self):
         datadir = "./data/"
         tlist = TopologyList()
@@ -62,6 +61,7 @@ class TestTopologyList(unittest.TestCase):
         tmplist = [Topology(), Topology(), Topology()]
         tlist_2 = TopologyList()
         tlist_2.add_parm_from_pylist(tmplist)
+
 
 if __name__ == "__main__":
     unittest.main()

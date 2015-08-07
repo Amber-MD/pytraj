@@ -5,25 +5,25 @@ from pytraj.TrajectoryIterator import TrajectoryIterator
 
 
 class TestLoadingTime(unittest.TestCase):
-
     def test_0(self):
         def get_time(indices):
             t0 = time()
-            traj = Trajectory(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top",
+            traj = Trajectory(filename="./data/md1_prod.Tc5b.x",
+                              top="./data/Tc5b.top",
                               indices=indices)
             return time() - t0
 
         def get_time_2(indices):
             traj = TrajectoryIterator(
-                filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+                filename="./data/md1_prod.Tc5b.x",
+                top="./data/Tc5b.top")
             t0 = time()
             traj[indices]
             return time() - t0
 
         def get_time_3(indices):
             traj = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x",
-                                      top="./data/Tc5b.top"
-                                      )
+                                      top="./data/Tc5b.top")
             t0 = time()
             traj[indices]
             return time() - t0
@@ -38,7 +38,8 @@ class TestLoadingTime(unittest.TestCase):
         print(get_time_3(slice(0, 5, 1)))
 
         traj = TrajectoryIterator(
-            filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         print(traj[:1])
         print(traj[3:5:2])
         print(traj[6:])
@@ -49,6 +50,7 @@ class TestLoadingTime(unittest.TestCase):
         traj2.join(traj[:1])
         traj2.join(traj[2:5])
         print(traj2)
+
 
 if __name__ == "__main__":
     unittest.main()

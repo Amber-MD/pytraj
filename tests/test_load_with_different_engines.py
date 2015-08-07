@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("MDAnalysis")
     def test_0(self):
         from MDAnalysisTests.datafiles import PSF, DCD
@@ -52,7 +51,9 @@ class Test(unittest.TestCase):
 
         # raise if use engine='mdtraj' for iterload
         self.assertRaises(
-            ValueError, lambda: mdio.iterload(filename, topname, engine='mdtraj'))
+            ValueError,
+            lambda: mdio.iterload(filename, topname, engine='mdtraj'))
+
 
 if __name__ == "__main__":
     unittest.main()

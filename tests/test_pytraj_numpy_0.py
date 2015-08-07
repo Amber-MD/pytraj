@@ -17,7 +17,6 @@ traj = Trajectory(mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top"))
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # test loading
         traj = Trajectory(
@@ -97,14 +96,14 @@ class Test(unittest.TestCase):
         print(trajread.top)
         traj.top = trajread.top.copy()
         traj.load(fnames[0])
-        print ('traj', traj)
+        print('traj', traj)
         traj2.top = traj.top
         traj2.append(traj)
         traj2.update_box(traj.unitcells)
         assert traj.n_frames == trajread.n_frames == traj2.n_frames == 10
 
-        print ("print trajecetories")
-        print (traj, traj2, trajread)
+        print("print trajecetories")
+        print(traj, traj2, trajread)
         for f0, f1, f2 in izip(traj, traj2, trajread):
             assert f0.same_coords_as(f1) == True
             assert f0.same_coords_as(f2) == True
@@ -132,6 +131,7 @@ class Test(unittest.TestCase):
         import numpy as np
         print(traj2[old_n_frames:].xyz.shape)
         #assert np.any(traj2[old_n_frames:].xyz.flatten(), traj.xyz.flatten()) == True
+
 
 if __name__ == "__main__":
     unittest.main()

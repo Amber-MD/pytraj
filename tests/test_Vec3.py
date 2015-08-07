@@ -6,7 +6,6 @@ from pytraj.testing import test_if_having
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         v1 = Vec3(0., 0., 0.)
         print(v1[:])
@@ -30,6 +29,7 @@ class Test(unittest.TestCase):
 
         v2 = Vec3(cv3)
         print(v2)
+
 
 if __name__ == "__main__":
     unittest.main()

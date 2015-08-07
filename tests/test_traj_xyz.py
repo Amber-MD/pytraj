@@ -9,7 +9,6 @@ from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         if has_("numpy"):
@@ -24,6 +23,7 @@ class Test(unittest.TestCase):
             aa_eq(arr0, farray[:, :, :].xyz)
         else:
             print("need numpy. skip test")
+
 
 if __name__ == "__main__":
     unittest.main()

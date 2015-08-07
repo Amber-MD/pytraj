@@ -12,7 +12,6 @@ from pytraj.compat import izip
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # test append
         traj = Trajectory()

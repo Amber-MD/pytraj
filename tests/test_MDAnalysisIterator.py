@@ -11,7 +11,6 @@ from pytraj.compat import zip
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("MDAnalysis")
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -20,7 +19,9 @@ class Test(unittest.TestCase):
             TrajectoryMDAnalysisIterator as MDIterator)
 
         u = Universe(
-            traj.top.filename, traj.filename, format='mdcrd', topology_format='prmtop')
+            traj.top.filename, traj.filename,
+            format='mdcrd',
+            topology_format='prmtop')
         traj_converted = mdio.load_MDAnalysis(u, top=traj.top)
         aa_eq(traj.xyz, traj_converted.xyz)
         aa_eq(traj[0].xyz, traj_converted[0].xyz)

@@ -10,7 +10,6 @@ from pytraj.testing import cpptraj_test_dir, aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         kfile = os.path.join(cpptraj_test_dir, "Test_Jcoupling", "Karplus.txt")
         traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
@@ -18,9 +17,9 @@ class Test(unittest.TestCase):
         command = "kfile %s" % kfile
         dslist = DataSetList()
         dflist = DataFileList()
-        d0 = adict['jcoupling'](command,
-                                frame, traj.top,
-                                dslist=dslist, dflist=dflist)
+        d0 = adict['jcoupling'](command, frame, traj.top,
+                                dslist=dslist,
+                                dflist=dflist)
         print(dslist.size)
         print(dslist[0].data)
         print(dslist[80])

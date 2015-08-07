@@ -5,7 +5,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         FA = traj[:]
@@ -13,8 +12,7 @@ class Test(unittest.TestCase):
         print(traj['@CA'])
         frame0 = traj[0]
         print(hasattr(frame0, 'shape'))
-        aa_eq(frame0[traj.top("@CA")].flatten(),
-              traj['@CA'].xyz.flatten())
+        aa_eq(frame0[traj.top("@CA")].flatten(), traj['@CA'].xyz.flatten())
 
         # slicing with list or array
         indices = [1, 2, 3]
@@ -49,6 +47,7 @@ class Test(unittest.TestCase):
         aa_eq(traj[0, atm, 0], fa[0][atm, 0])
         aa_eq(traj[0, atm, 0], xyz[0][indices][0])
         aa_eq(traj[0, '@CA', 0], xyz[0][indices][0])
+
 
 if __name__ == "__main__":
     unittest.main()

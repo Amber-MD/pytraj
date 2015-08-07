@@ -85,5 +85,6 @@ class Test(unittest.TestCase):
         aa_eq(traj._fast_slice((start, stop, step)).xyz, traj[s].xyz)
         aa_eq(traj[indices].xyz, traj[indices_p].xyz)
 
+
 if __name__ == "__main__":
     unittest.main()

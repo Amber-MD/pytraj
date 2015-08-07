@@ -5,7 +5,6 @@ from pytraj.core.TrajinList import TrajinList
 
 
 class TestTrajinList(unittest.TestCase):
-
     def test_0(self):
         topname = "./data/Tc5b.top"
         trajoutname = "./data/test.x"
@@ -33,8 +32,7 @@ class TestTrajinList(unittest.TestCase):
 
         trajlist2 = TrajinList()
         trajlist2.add_traj("./data/Test_RemdTraj/rem.nc.000",
-                           "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7",
-                           "*")
+                           "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7", "*")
         print(trajlist2.max_frames)
 
     def test_1(self):
@@ -54,6 +52,7 @@ class TestTrajinList(unittest.TestCase):
         for traj in trajlist:
             pass
         print(traj[0].size)
+
 
 if __name__ == "__main__":
     unittest.main()

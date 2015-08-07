@@ -87,12 +87,15 @@ class TestTrajectory(unittest.TestCase):
     #@no_test
     def test_default_load(self):
         farray0 = Trajectory(filename="./data/md1_prod.Tc5b.x",
-                             top=Topology(datadir + "Tc5b.top"), indices=slice(0, 9, 2))
+                             top=Topology(datadir + "Tc5b.top"),
+                             indices=slice(0, 9, 2))
         print(farray0)
         farray1 = Trajectory(filename="./data/md1_prod.Tc5b.x",
-                             top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
+                             top=Topology(datadir + "Tc5b.top"),
+                             indices=list(range(0, 4)))
         farray2 = Trajectory(filename="./data/md1_prod.Tc5b.x",
-                             top=Topology(datadir + "Tc5b.top"), indices=list(range(0, 4)))
+                             top=Topology(datadir + "Tc5b.top"),
+                             indices=list(range(0, 4)))
         farray0.join((farray1, farray2))
         print(farray0)
 
@@ -116,11 +119,15 @@ class TestTrajectory(unittest.TestCase):
         farray.load(filename="./data/md1_prod.Tc5b.x", top=ts.top)
         # add slice
         farray.load(filename="./data/md1_prod.Tc5b.x",
-                    top=ts.top, indices=slice(0, ts.size, 2))
+                    top=ts.top,
+                    indices=slice(0, ts.size, 2))
         farray.load(filename="./data/md1_prod.Tc5b.x",
-                    top=ts.top, indices=slice(0, ts.size, 2))
+                    top=ts.top,
+                    indices=slice(0, ts.size, 2))
         farray.load(
-            filename="./data/md1_prod.Tc5b.x", top=ts.top, indices=(1, 3, 9, 5))
+            filename="./data/md1_prod.Tc5b.x",
+            top=ts.top,
+            indices=(1, 3, 9, 5))
 
         # load list of files
         flist = ["./data/md1_prod.Tc5b.x", "./data/md1_prod.Tc5b.x"]
@@ -212,7 +219,7 @@ class TestTrajectory(unittest.TestCase):
 
         #subfarray[0] /= subfarray[0]
 
-    #@no_test
+        #@no_test
     def test_fancy_indexing(self):
         FARRAYcp = FARRAY.copy()
         FARRAY_sub0 = FARRAYcp[:3]
@@ -333,8 +340,8 @@ class TestTrajectory(unittest.TestCase):
         t = Timer()
         with t:
             farray_cp.strip_atoms("!@CA")
-        print("time for stripping atoms of %s frames is %s" %
-              (N, t.time_gap()))
+        print(
+            "time for stripping atoms of %s frames is %s" % (N, t.time_gap()))
         print(farray_cp.top.n_atoms)
         print(farray_cp[0].coords)
 
@@ -369,6 +376,7 @@ class TestTrajectory(unittest.TestCase):
         print("SPECIALLLLLLLLLLLLLLLLLLLLLLL")
         print(farray_sub)
         #assert farray[N-1].has_same_coords(farray_sub[0])
+
 
 if __name__ == "__main__":
     unittest.main()

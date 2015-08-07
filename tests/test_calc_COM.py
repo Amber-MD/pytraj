@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
@@ -36,6 +35,7 @@ class Test(unittest.TestCase):
 
         assert_almost_equal(
             traj.calc_COG(dtype='ndarray'), traj2.calc_COG(dtype='ndarray'))
+
 
 if __name__ == "__main__":
     unittest.main()

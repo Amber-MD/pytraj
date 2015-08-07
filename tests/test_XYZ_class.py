@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         from pytraj._xyz import XYZ
@@ -39,7 +38,9 @@ class Test(unittest.TestCase):
 
         def try_to_setitem():
             traj.xyz[0, 0, 0] = 1.
+
         self.assertRaises(NotImplementedError, lambda: try_to_setitem())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,7 +8,6 @@ from pytraj.decorators import test_if_having
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         print("test_0")
         traj = mdio.iterload(
@@ -41,6 +40,7 @@ class Test(unittest.TestCase):
             print(d0.to_ndarray())
 
         print(dslist['v2'][0][:])
+
 
 if __name__ == "__main__":
     unittest.main()

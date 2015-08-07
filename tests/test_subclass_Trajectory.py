@@ -11,7 +11,6 @@ from pytraj._action_in_traj import ActionTrajectory
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj import Trajectory
         # Aim: no segmentation fault
@@ -29,6 +28,7 @@ class Test(unittest.TestCase):
         straj[0, 0, 0] = 100.
         assert straj[0, 0, 0] == 100.
         assert traj[0, 0, 0] != 100.
+
 
 if __name__ == "__main__":
     unittest.main()

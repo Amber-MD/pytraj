@@ -52,5 +52,6 @@ class Test(unittest.TestCase):
             assert dslist.size == dsize
         print(dslist.filter("major", mode='aspect'))
 
+
 if __name__ == "__main__":
     unittest.main()

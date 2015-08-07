@@ -8,7 +8,6 @@ from pytraj import allactions
 
 
 class Test(unittest.TestCase):
-
     def test_Vec3_noimage(self):
         arr0 = [0., 0., 1.]
         arr1 = [0., 0., 1.]
@@ -29,13 +28,15 @@ class Test(unittest.TestCase):
 
     def test_distance_from_frame(self):
         traj = Trajectory(
-            filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         frame0 = traj[9]
 
         # print distance(frame0.coords[0:3], frame0.coords[96:99])
         for i in range(frame0.n_atoms):
             for j in range(i, frame0.n_atoms):
                 distance(frame0.atoms(i), frame0.atoms(j))
+
 
 if __name__ == "__main__":
     unittest.main()

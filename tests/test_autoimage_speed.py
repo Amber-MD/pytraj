@@ -11,7 +11,6 @@ from pytraj.externals.six.moves import range
 
 
 class Test(unittest.TestCase):
-
     def test_1(self):
         traj = mdio.iterload(
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
@@ -29,6 +28,7 @@ class Test(unittest.TestCase):
         @Timer()
         def supposed_faster():
             fa2._autoimage_faster()
+
         assert_almost_equal(fa.xyz, fa2.xyz)
 
         normal()
@@ -36,6 +36,7 @@ class Test(unittest.TestCase):
 
         print(fa2, fa)
         # Conclusion: not much faster
+
 
 if __name__ == "__main__":
     pass

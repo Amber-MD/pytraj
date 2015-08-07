@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         from numpy.testing import assert_almost_equal
@@ -19,6 +18,7 @@ class Test(unittest.TestCase):
         assert len(xyz) == traj.n_frames
         assert len(xyz[0]) == traj.n_atoms
         assert_almost_equal(xyz, traj.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

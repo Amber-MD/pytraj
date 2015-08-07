@@ -1,4 +1,3 @@
-
 import unittest
 from time import time
 from pytraj.base import *
@@ -9,7 +8,6 @@ from pytraj.datasets import cast_dataset
 
 
 class TestActionList(unittest.TestCase):
-
     def test_run_0(self):
         # load traj
         farray = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -28,9 +26,11 @@ class TestActionList(unittest.TestCase):
         toplist.add_parm(farray.top)
 
         # add two actions: Action_Strip and Action_Distance
-        alist.add_action(allactions.Action_Distance(), ArgList(":2@CA :3@CA out ./output/test_df.dat"),
+        alist.add_action(allactions.Action_Distance(),
+                         ArgList(":2@CA :3@CA out ./output/test_df.dat"),
                          toplist, dsetlist, dflist)
-        alist.add_action(adict['dihedral'], ":2@CA :3@CA :4@CA :5@CA out ./output/_dih.out",
+        alist.add_action(adict['dihedral'],
+                         ":2@CA :3@CA :4@CA :5@CA out ./output/_dih.out",
                          toplist, dsetlist, dflist)
 
         #
@@ -67,6 +67,7 @@ class TestActionList(unittest.TestCase):
         print(ds[:10])
         print(dir(dflist))
         dflist.write_all_datafiles()
+
 
 if __name__ == "__main__":
     unittest.main()

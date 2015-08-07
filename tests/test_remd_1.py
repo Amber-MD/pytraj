@@ -11,7 +11,6 @@ from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.TrajectoryREMDIterator import TrajectoryREMDIterator
         top = Topology("./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
@@ -37,8 +36,9 @@ class Test(unittest.TestCase):
             assert_almost_equal([T], [300.0, ])
 
         # make sure to reproduce cpptraj output
-        saved_traj = mdio.iterload("data/Test_RemdTraj/temp0.crd.300.00",
-                                   "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
+        saved_traj = mdio.iterload(
+            "data/Test_RemdTraj/temp0.crd.300.00",
+            "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
 
         print(traj.n_frames)
         count = 0
@@ -51,14 +51,14 @@ class Test(unittest.TestCase):
 
         # test methods
         aa_eq(pyca.rmsd(trajiter), saved_traj.calc_rmsd())
-        aa_eq(pyca.calc_COM(trajiter),
-              saved_traj.calc_COM())
-        aa_eq(pyca.calc_COG(trajiter),
-              saved_traj.calc_COG())
+        aa_eq(pyca.calc_COM(trajiter), saved_traj.calc_COM())
+        aa_eq(pyca.calc_COG(trajiter), saved_traj.calc_COG())
 
         import numpy as np
-        assert np.all(pyca.calc_dssp(trajiter, dtype='ndarray')[0] ==
+        assert np.all(pyca.calc_dssp(trajiter,
+                                     dtype='ndarray')[0] ==
                       saved_traj.calc_dssp(dtype='ndarray')[0])
+
 
 if __name__ == "__main__":
     unittest.main()

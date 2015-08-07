@@ -10,7 +10,6 @@ from pytraj.datasets.DataSetList import DataSetList
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         dslist = DataSetList()
         dflist = DataFileList()
@@ -23,6 +22,7 @@ class Test(unittest.TestCase):
         command = """
         crdset my_clustering :2-10 clusters 3 epsilon 4.0 summary ./output/avg.summary.dat nofit
         """
+
         act = Analysis_Clustering()
         act(command=command, top=traj.top, dslist=dslist, dflist=dflist)
         dflist.write_all_datafiles()
@@ -36,10 +36,12 @@ class Test(unittest.TestCase):
         command = """
         :2-10 clusters 3 epsilon 4.0 summary ./output/avg.summary.do_clustering.dat nofit
         """
+
         dslist = do_clustering(traj, command, traj.top)
         print(dslist.to_dict())
 
         dslist = do_clustering(traj, command, traj.top, dtype='ndarray')
+
 
 if __name__ == "__main__":
     unittest.main()

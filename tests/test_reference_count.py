@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class TestReferentCounting(unittest.TestCase):
-
     def test_pyca(self):
         # pyca
         traj = mdio.iterload('./data/md1_prod.Tc5b.x', './data/Tc5b.top')
@@ -57,6 +56,7 @@ class TestReferentCounting(unittest.TestCase):
         # make sure getting not segmentation fault
         print(e.size)
         print(e[0])
+
 
 if __name__ == '__main__':
     unittest.main()

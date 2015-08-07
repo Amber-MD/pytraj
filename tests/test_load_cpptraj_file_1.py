@@ -14,7 +14,6 @@ except:
 
 
 class Test(unittest.TestCase):
-
     @test_if_path_exists(cpptraj_test_dir)
     @test_if_having("pandas")
     def test_0(self):

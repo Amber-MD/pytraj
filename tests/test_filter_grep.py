@@ -4,7 +4,6 @@ from pytraj import io as mdio
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = traj.search_hbonds()
@@ -49,6 +48,7 @@ class Test(unittest.TestCase):
         d2 = d.filter("phi:2+")
         assert sorted(d2.keys()) == sorted(['phi:2', 'phi:20'])
         d3 = d.filter(['phi', 'psi'])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -62,5 +62,6 @@ class TestFrame(unittest.TestCase):
         assert framesub.n_atoms == 20
         print(framesub[19, :])
 
+
 if __name__ == "__main__":
     unittest.main()

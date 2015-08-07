@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
 
         # center of mass
@@ -15,10 +14,10 @@ class Test(unittest.TestCase):
         vector center v0
         timecorr vec1 v0
         """
+
         cpptraj_output = pt.datafiles.load_cpptraj_output(trajin)
 
-        traj = pt.iterload("./data/md1_prod.Tc5b.x",
-                           "./data/Tc5b.top")
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist0 = traj.calc_center_of_mass()
         data = pt.timecorr(dslist0, dslist0)
         aa_eq(data, cpptraj_output[-1].values)
@@ -29,6 +28,7 @@ class Test(unittest.TestCase):
         vector v1 :3 :7
         timecorr vec1 v0 vec2 v1
         """
+
         cpptraj_output = pt.datafiles.load_cpptraj_output(trajin)
 
         dslist0 = pt.calc_vector(traj, [':2 :5', ':3 :7'])
@@ -41,6 +41,7 @@ class Test(unittest.TestCase):
         vector v1 @3,@7,@20 corrplane
         timecorr vec1 v0 vec2 v1
         """
+
         cpptraj_output = pt.datafiles.load_cpptraj_output(trajin)
 
         dslist0 = pt.calc_vector(

@@ -4,7 +4,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal, eq
 
 
 class TestAtomMask(unittest.TestCase):
-
     def test_0(self):
         atm = AtomMask("@CA")
         assert atm.n_atoms == 0
@@ -101,6 +100,7 @@ class TestAtomMask(unittest.TestCase):
         #self.assertRaises(RuntimeError, atm3.invert_mask())
         # TODO: assert fails
         # atm4.invert_mask() # it's ok since we did set max_atoms (1000)
+
 
 if __name__ == "__main__":
     unittest.main()

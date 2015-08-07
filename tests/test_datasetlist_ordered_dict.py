@@ -7,16 +7,17 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = traj.calc_multidihedral()
-        assert np.all(pt.tools.dict_to_ndarray(dslist.to_dict(ordered_dict=True))
-                      == dslist.to_ndarray())
+        assert np.all(
+            pt.tools.dict_to_ndarray(dslist.to_dict(ordered_dict=True)) ==
+            dslist.to_ndarray())
 
         self.assertRaises(NotImplementedError,
                           lambda: pt.tools.dict_to_ndarray(dslist.to_dict()))
+
 
 if __name__ == "__main__":
     unittest.main()

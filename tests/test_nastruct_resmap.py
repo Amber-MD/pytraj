@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         f0 = "./data/nastruct/rna_a_form_dup.pdb"
         f1 = "./data/nastruct/rna_a_form_dup_F2.pdb"
@@ -24,12 +23,15 @@ class Test(unittest.TestCase):
         parm ./data/nastruct/rna_a_form_dup.pdb
         trajin ./data/nastruct/rna_a_form_dup.pdb
         nastruct naout na.out
-        """, dtype='cpptraj_dataset', with_traj=True)
-        print (cout)
+        """,
+                                                dtype='cpptraj_dataset',
+                                                with_traj=True)
+        print(cout)
         aa_eq(traj0.xyz, cout[0].xyz)
 
         expected_result = cout[1]
         print(expected_result.to_ndarray())
+
 
 if __name__ == "__main__":
     unittest.main()

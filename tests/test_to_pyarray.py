@@ -8,7 +8,6 @@ from pytraj.misc import rmsd_1darray
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
@@ -43,6 +42,7 @@ class Test(unittest.TestCase):
             print(d0.to_ndarray())
         except ImportError:
             print("pass `hist` test since don't have matplotlib")
+
 
 if __name__ == "__main__":
     unittest.main()

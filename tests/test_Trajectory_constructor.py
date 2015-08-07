@@ -16,7 +16,6 @@ TRAJ = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 
 class Test(unittest.TestCase):
-
     @Timer()
     def test_0(self):
         print("from TrajectoryIterator")
@@ -176,8 +175,11 @@ class Test(unittest.TestCase):
 
     def test_12_xyz(self):
         traj = TRAJ
-        aa_eq(pt.Trajectory(xyz=traj.xyz, top=traj.top.filename).xyz,
-              pt.Trajectory(xyz=traj.xyz, top=traj.top).xyz)
+        aa_eq(pt.Trajectory(xyz=traj.xyz,
+                            top=traj.top.filename).xyz,
+              pt.Trajectory(xyz=traj.xyz,
+                            top=traj.top).xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

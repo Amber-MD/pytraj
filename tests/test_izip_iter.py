@@ -7,7 +7,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # seriously I need to do this test
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -19,6 +18,7 @@ class Test(unittest.TestCase):
 
         for f0, f1 in izip(traj, trajsaved):
             print(f0[0], f1[0])
+
 
 if __name__ == "__main__":
     unittest.main()

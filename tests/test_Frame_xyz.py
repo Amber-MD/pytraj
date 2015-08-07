@@ -8,7 +8,6 @@ from pytraj.decorators import no_test, test_if_having
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -25,6 +24,7 @@ class Test(unittest.TestCase):
         f1 = Frame()
         f1.append_xyz(farray[0].xyz)
         assert_almost_equal(f1.coords, farray[0].coords)
+
 
 if __name__ == "__main__":
     unittest.main()

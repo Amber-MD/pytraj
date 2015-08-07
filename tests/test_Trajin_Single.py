@@ -17,7 +17,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class TestTrajinSingle(unittest.TestCase):
-
     def test_dummy(self):
 
         ts = Trajin_Single()
@@ -104,10 +103,11 @@ class TestTrajinSingle(unittest.TestCase):
 
         print(arr0.shape)
         print(arr0.shape)
-        frame = Frame(arr0[0].reshape(912,))
+        frame = Frame(arr0[0].reshape(912, ))
         assert frame.size == traj[0].size
         assert frame[:].all() == arr0[0].all()
         print(frame.check_coords_invalid())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -7,18 +7,17 @@ from pytraj.dssp_analysis import to_string_ss
 from pytraj.core.DataFileList import DataFileList
 
 traj = TrajectoryIterator(top=Topology("./data/DPDP.parm7"),
-                          filename='./data/DPDP.nc',
-                          )
+                          filename='./data/DPDP.nc', )
 
 
 class TestRadgyr(unittest.TestCase):
-
     def test_0(self):
         dslist = DataSetList()
         act = adict['dssp']
         dflist = DataFileList()
-        act(":10-22 out ./output/_test_dssp_DPDP.dat",
-            traj, dslist=dslist, dflist=dflist)
+        act(":10-22 out ./output/_test_dssp_DPDP.dat", traj,
+            dslist=dslist,
+            dflist=dflist)
         print(dslist.size)
 
         d0 = dslist[-1]
@@ -40,6 +39,7 @@ class TestRadgyr(unittest.TestCase):
         print(dslist['LYS:17'][:])
         print(dslist['DSSP_00000[Anti]'])
         print(dslist['DSSP_00000[Anti]'][:])
+
 
 if __name__ == "__main__":
     unittest.main()

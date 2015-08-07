@@ -7,12 +7,12 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
         assert f0.as_3darray().shape == (1, f0.n_atoms, 3)
         aa_eq(f0.as_3darray().flatten(), f0.xyz.flatten())
+
 
 if __name__ == "__main__":
     unittest.main()

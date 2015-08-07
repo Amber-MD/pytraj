@@ -15,8 +15,8 @@ class Test(unittest.TestCase):
         act = adict['radial']
         dslist = DataSetList()
         # why need `radial` keyword here?
-        act("radial 0.5 10.0 :5@CD :WAT@O",
-            traj(0, 9), traj.top, dslist=dslist)
+        act("radial 0.5 10.0 :5@CD :WAT@O", traj(0, 9), traj.top,
+            dslist=dslist)
         act.print_output()
         print(dslist.size)
 
@@ -45,6 +45,7 @@ class Test(unittest.TestCase):
             assert_almost_equal(d0[0][:], data)
         except (EnvironmentError, KeyError):
             print("can not find cpptraj test. Skip")
+
 
 if __name__ == "__main__":
     unittest.main()

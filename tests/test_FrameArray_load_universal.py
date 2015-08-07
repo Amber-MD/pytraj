@@ -48,7 +48,6 @@ def test_load(my_traj, ref_traj=None, n_frames=None):
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
@@ -99,14 +98,14 @@ class Test(unittest.TestCase):
         import pytraj.common_actions as pyca
         a_traj = pyca.calc_distance(traj, indices)
 
-        print (a_mdtraj.shape, a_fa_from_mdtraj.shape)
+        print(a_mdtraj.shape, a_fa_from_mdtraj.shape)
 
         for a0, a1 in zip(a_fa_from_mdtraj, a_mdtraj):
-            print ('rmsd = ', pt.tools.rmsd(a0, a1))
+            print('rmsd = ', pt.tools.rmsd(a0, a1))
 
-        aa_eq(a_mdtraj,  a_fa_from_mdtraj)
-        aa_eq(a_mdtraj * 10,  a_traj.T)
-        aa_eq(a_fa_from_mdtraj * 10,  a_traj.T)
+        aa_eq(a_mdtraj, a_fa_from_mdtraj)
+        aa_eq(a_mdtraj * 10, a_traj.T)
+        aa_eq(a_fa_from_mdtraj * 10, a_traj.T)
 
         # load mdtraj with given Topology
         fa2 = Trajectory(m_traj, top=_fa.top)

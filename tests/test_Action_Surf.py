@@ -11,11 +11,11 @@ from pytraj.datasets.DataSetList import DataSetList
 print(dir(Action_Surf()))
 
 farray = Trajectory(
-    top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
+    top=Topology("./data/Tc5b.top"),
+    filename='data/md1_prod.Tc5b.x')
 
 
 class TestSurf(unittest.TestCase):
-
     def test_0(self):
         print("newtop")
 
@@ -39,6 +39,7 @@ class TestSurf(unittest.TestCase):
         act.do_action(farray[0], frame0)
         print(dslist[0][:])
         act.help()
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
         from pytraj.misc import to_amber_mask
@@ -24,6 +23,7 @@ class Test(unittest.TestCase):
         # print(atm.indices)
         print(atm.indices, atm2.indices)
         assert np.all(atm.indices == atm2.indices)
+
 
 if __name__ == "__main__":
     unittest.main()

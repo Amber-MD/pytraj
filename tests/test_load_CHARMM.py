@@ -7,7 +7,6 @@ from pytraj.utils import assert_almost_equal
 
 
 class TestCHARMM(unittest.TestCase):
-
     def test_0(self):
         top = Topology("./data/ala3.psf")
         print(top)
@@ -42,6 +41,7 @@ class TestCHARMM(unittest.TestCase):
         print(trajamber)
         for i in range(traj.size):
             assert_almost_equal(trajamber[i].coords, traj[i].coords)
+
 
 if __name__ == "__main__":
     unittest.main()

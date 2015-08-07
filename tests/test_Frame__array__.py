@@ -5,7 +5,6 @@ from pytraj.utils import eq, aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -16,6 +15,7 @@ class Test(unittest.TestCase):
         arr0[0, 0] = 100.
         aa_eq(arr0.flatten(), arr1.flatten())
         aa_eq(arr0.flatten(), f0.xyz.flatten())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -5,7 +5,6 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj._common_actions import _get_top
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -38,6 +37,7 @@ class Test(unittest.TestCase):
         # get top from chunk_iter
         _top = _get_top(traj.chunk_iter(), None)
         assert _top is None
+
 
 if __name__ == "__main__":
     unittest.main()

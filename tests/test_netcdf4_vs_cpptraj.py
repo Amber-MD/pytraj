@@ -28,6 +28,7 @@ def test_iter_traj():
     for frame in traj:
         pass
 
+
 print("slicing")
 print("netCDF4")
 print(timeit(test_nc, number=5))
@@ -38,7 +39,7 @@ print("itering whole data/traj")
 print("netCDF4")
 print(timeit(test_iter_nc, number=5))
 print("traj")
-print(timeit(test_iter_traj,  number=5))  # >= 2 times faster
+print(timeit(test_iter_traj, number=5))  # >= 2 times faster
 
 ncxyz = c[s]
 pxyz = traj[s].xyz

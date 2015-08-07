@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         esimated_size_in_Mb = traj.n_frames * traj.n_atoms * 3 * 8 / 1E6
@@ -16,6 +15,7 @@ class Test(unittest.TestCase):
 
         traj._force_load = True
         traj.xyz
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,8 +9,7 @@ from pytraj.decorators import no_test
 from pytraj.datasets.DataSetList import DataSetList
 
 farray = TrajectoryIterator(top=Topology("./data/Tc5b.top"),
-                            filename='data/md1_prod.Tc5b.x',
-                            )
+                            filename='data/md1_prod.Tc5b.x', )
 
 
 class TestRadgyr(unittest.TestCase):
@@ -19,8 +18,10 @@ class TestRadgyr(unittest.TestCase):
     def test_0(self):
         dslist = DataSetList()
         act = adict['matrix']
-        act(command="byres @CA", current_frame=farray,
-            top=farray.top, dslist=dslist)
+        act(command="byres @CA",
+            current_frame=farray,
+            top=farray.top,
+            dslist=dslist)
 
         d1 = cast_dataset(dslist[0], dtype="matrix double")
         print(d1.size)
@@ -42,15 +43,18 @@ class TestRadgyr(unittest.TestCase):
 
         assert_almost_equal(d0, d1)
         d2 = adict['distance'](
-            ":2@CA :10@CA", farray, farray.top, quick_get=True)
+            ":2@CA :10@CA", farray, farray.top,
+            quick_get=True)
         print(d2.dtype)
         #assert d2[:] != d0[:]
 
     def test_1(self):
         dslist = DataSetList()
         act = adict['matrix']
-        act(command="byres @CA", current_frame=farray,
-            top=farray.top, dslist=dslist)
+        act(command="byres @CA",
+            current_frame=farray,
+            top=farray.top,
+            dslist=dslist)
         act.print_output()
         d0 = dslist[0]
         print(d0.dtype)
@@ -82,6 +86,7 @@ class TestRadgyr(unittest.TestCase):
             plt.savefig("./output/test_saveplot.png")
         except:
             print("don't have numpy, matplotlib. Ignore")
+
 
 if __name__ == "__main__":
     unittest.main()

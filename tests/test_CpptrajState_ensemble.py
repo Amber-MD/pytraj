@@ -15,8 +15,9 @@ class Test(unittest.TestCase):
         print("read esemble for single temperature")
         state = CpptrajState()
         state.toplist.add_parm("./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
-        state.add_trajin("./data/Test_RemdTraj/rem.nc.000 remdtraj remdtrajtemp 300.0",
-                         is_ensemble=False)
+        state.add_trajin(
+            "./data/Test_RemdTraj/rem.nc.000 remdtraj remdtrajtemp 300.0",
+            is_ensemble=False)
         # state.add_trajin("./data/Test_RemdTraj/rem.nc.000")
 
         state.add_trajout(
@@ -41,8 +42,9 @@ class Test(unittest.TestCase):
         print("read esemble for all temperatures")
         state = CpptrajState()
         state.toplist.add_parm("./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
-        state.add_trajin("./data/Test_RemdTraj/rem.nc.000 remdtraj remdtrajtemp 300.0",
-                         is_ensemble=True)
+        state.add_trajin(
+            "./data/Test_RemdTraj/rem.nc.000 remdtraj remdtrajtemp 300.0",
+            is_ensemble=True)
         # state.add_trajin("./data/Test_RemdTraj/rem.nc.000")
 
         state.add_trajout(
@@ -55,8 +57,9 @@ class Test(unittest.TestCase):
         traj0 = trajlist[0]
         traj0.top = state.toplist[0]
 
-        saved_traj = mdio.iterload("data/Test_RemdTraj/temp0.crd.300.00",
-                                   "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
+        saved_traj = mdio.iterload(
+            "data/Test_RemdTraj/temp0.crd.300.00",
+            "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
 
         # make sure that we DO get 300K traj
         for f0, f1 in izip(traj0, saved_traj):
@@ -94,6 +97,7 @@ class Test(unittest.TestCase):
 
         state.write_all_datafiles()
         state.run()
+
 
 if __name__ == "__main__":
     unittest.main()

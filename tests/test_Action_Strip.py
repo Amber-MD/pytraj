@@ -9,7 +9,8 @@ from pytraj.decorators import no_test
 print(dir(Action_Strip()))
 
 farray = Trajectory(
-    top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
+    top=Topology("./data/Tc5b.top"),
+    filename='data/md1_prod.Tc5b.x')
 
 
 class TestStrip(unittest.TestCase):
@@ -97,6 +98,7 @@ class TestStrip(unittest.TestCase):
         act("!@CA", farray0, farray0.top.copy(), new_frame=tmpframe)
         print(farray0[0].n_atoms)
         print(tmpframe.n_atoms)
+
 
 if __name__ == "__main__":
     unittest.main()

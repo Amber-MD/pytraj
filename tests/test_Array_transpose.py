@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         c = pt.center_of_mass(traj, dtype='dataset')[0]
@@ -17,7 +16,8 @@ class Test(unittest.TestCase):
         # view
         ct.values[0, 0] = 100.
         assert c.values.T[0, 0] == 100.
-        print (c, ct)
+        print(c, ct)
+
 
 if __name__ == "__main__":
     unittest.main()

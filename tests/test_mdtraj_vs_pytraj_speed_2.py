@@ -20,8 +20,11 @@ def chunk_iter_pytraj():
 
 @Timer()
 def chunk_iter_mdtraj():
-    for traj in md.iterload("md_first_100.nc", top="tc5bwat.prmtop", chunksize=10):
+    for traj in md.iterload("md_first_100.nc",
+                            top="tc5bwat.prmtop",
+                            chunksize=10):
         pass
+
 
 frame_iter_pytraj()
 chunk_iter_pytraj()

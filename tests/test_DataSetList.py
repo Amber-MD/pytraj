@@ -5,7 +5,6 @@ from pytraj.core.DataFile import DataFile
 
 
 class TestDataSetList(unittest.TestCase):
-
     def test_1(self):
         dlist = DataSetList()
         dumset = DataSet()
@@ -18,6 +17,7 @@ class TestDataSetList(unittest.TestCase):
     def tearDown(self):
         dfile = DataFile()
         print(dfile.dtype)
+
 
 if __name__ == '__main__':
     unittest.main()

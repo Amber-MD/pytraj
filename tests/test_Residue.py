@@ -6,7 +6,6 @@ from pytraj.core import Residue
 
 
 class TestResidue(unittest.TestCase):
-
     def test_0(self):
         top = Topology("./data/Tc5b.top")
         print(top.residuelist[0].first_atom_idx)
@@ -75,6 +74,7 @@ class TestResidue(unittest.TestCase):
     def test_5(self):
         # check segmentation fault for empty Residue
         print(Residue())
+
 
 if __name__ == '__main__':
     unittest.main()

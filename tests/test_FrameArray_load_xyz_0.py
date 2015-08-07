@@ -9,7 +9,6 @@ from pytraj.decorators import test_if_having
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
@@ -23,6 +22,7 @@ class Test(unittest.TestCase):
         for f0, f1 in izip(farray, traj):
             #print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -7,7 +7,6 @@ from array import array
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
@@ -22,6 +21,7 @@ class Test(unittest.TestCase):
         print(frame0.has_box())
         assert frame0.box.type == 'truncoct'
         assert frame0.box.name == 'Trunc. Oct.'
+
 
 if __name__ == "__main__":
     unittest.main()

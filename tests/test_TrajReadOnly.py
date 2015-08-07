@@ -10,7 +10,6 @@ print("TRAJ.size", TRAJ.size)
 
 
 class TestTrajectory(unittest.TestCase):
-
     def test_slice_basic(self):
         print("test_slice_basic")
         TRAJ2 = Trajectory()
@@ -177,7 +176,8 @@ class TestTrajectory(unittest.TestCase):
         print("rmsd to first = ", farray[0].rmsd(farray[1]))
         arr = np.zeros(farray.size)
         cpptraj_rmsd = np.loadtxt(
-            "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1]
+            "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat",
+            skiprows=1).transpose()[1]
         print(cpptraj_rmsd[:10])
 
         # caculate rmsd to 1st frame
@@ -208,6 +208,7 @@ class TestTrajectory(unittest.TestCase):
         traj.top.summary()
         assert traj.top.n_atoms == 304
         print(traj.top.n_atoms)
+
 
 if __name__ == "__main__":
     unittest.main()

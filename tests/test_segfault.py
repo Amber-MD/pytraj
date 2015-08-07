@@ -6,7 +6,6 @@ from pytraj import io
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 from pytraj.decorators import no_test, test_if_having
 import pytraj.common_actions as pyca
-
 """
 try not to get segmentation fault error (due to whatever freaking reason)
 """
@@ -14,7 +13,6 @@ traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         print("iter")
         from pytraj._shared_methods import _frame_iter_master

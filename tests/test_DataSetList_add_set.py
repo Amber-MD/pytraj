@@ -9,7 +9,6 @@ from pytraj.trajs.Trajin_Single import Trajin_Single
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         dslist = DataSetList()
         dslist0 = DataSetList()
@@ -64,6 +63,7 @@ class Test(unittest.TestCase):
         dslist[0].top = traj.top
         dslist[0].add_trajin(traj)
         assert dslist[0].size == traj.n_frames
+
 
 if __name__ == "__main__":
     unittest.main()

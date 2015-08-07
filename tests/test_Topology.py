@@ -12,7 +12,6 @@ TRAJ = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 
 class TestTopology(unittest.TestCase):
-
     def test_empty_top(self):
         top = Topology()
         print(top.file_path())
@@ -84,6 +83,7 @@ class TestTopology(unittest.TestCase):
 
     def test_charge(self):
         print(TRAJ.top.total_charge)
+
 
 if __name__ == "__main__":
     unittest.main()

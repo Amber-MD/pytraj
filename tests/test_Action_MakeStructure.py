@@ -7,7 +7,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj import set_world_silent
         set_world_silent(False)
@@ -16,6 +15,7 @@ class Test(unittest.TestCase):
         act = adict['makestructure']
         act("alpha:2-19", f0, traj.top)
         f0.save("./output/test_make_structure.pdb", traj.top, overwrite=True)
+
 
 if __name__ == "__main__":
     unittest.main()

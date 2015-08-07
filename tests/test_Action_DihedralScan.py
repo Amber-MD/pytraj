@@ -7,7 +7,6 @@ from pytraj.decorators import test_if_having
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         # TODO: add assertion
@@ -24,6 +23,7 @@ class Test(unittest.TestCase):
         print(d0.tolist())
         print(d0.to_ndarray())
         act.print_output()
+
 
 if __name__ == "__main__":
     unittest.main()

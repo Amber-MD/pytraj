@@ -12,7 +12,6 @@ from pytraj.compat import zip
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         print(traj)
@@ -69,6 +68,7 @@ class Test(unittest.TestCase):
         for f0, f1 in zip(fa3, fa4):
             assert f0.rmsd_nofit(f1) < 1E-7
             print(f0.rmsd_nofit(f1))
+
 
 if __name__ == "__main__":
     unittest.main()

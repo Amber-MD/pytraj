@@ -7,7 +7,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0_0, f0_1 = traj[0].copy(), traj[0].copy()
@@ -41,6 +40,7 @@ class Test(unittest.TestCase):
         # TODO: add keyword `update_frame=True` for updating coords
         assert_almost_equal(arr0, f0[0])
         assert_almost_equal(arr1, f1[0])
+
 
 if __name__ == "__main__":
     unittest.main()

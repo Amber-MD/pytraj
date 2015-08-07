@@ -8,7 +8,6 @@ from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['average']
@@ -108,6 +107,7 @@ def average_cpptraj(fa):
 
 def average_pytraj(fa):
     fa.average()
+
 
 if __name__ == "__main__":
     unittest.main()

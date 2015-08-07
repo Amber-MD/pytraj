@@ -27,7 +27,6 @@ def iter_me(obj, n_frames):
 
 
 class Test(unittest.TestCase):
-
     def test_cpptraj_file(self):
         from pytraj._shared_methods import _frame_iter_master
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -62,7 +61,7 @@ class Test(unittest.TestCase):
         print("iter list/tuple")
         iter_me([traj, fa], 2 * traj.n_frames)
         iter_me((traj, fa), 2 * traj.n_frames)
-        iter_me((traj, (fa[0],)), traj.n_frames + 1)
+        iter_me((traj, (fa[0], )), traj.n_frames + 1)
 
         print("iter frame")
         for frame in _frame_iter_master(traj[0]):
@@ -99,6 +98,7 @@ class Test(unittest.TestCase):
         for f0, f1 in zip(fa, traj):
             print(f0[0, :], f1[0, :])
             assert_almost_equal(f0.coords, f1.coords)
+
 
 if __name__ == "__main__":
     unittest.main()

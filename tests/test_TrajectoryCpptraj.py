@@ -11,7 +11,6 @@ from pytraj.compat import zip
 
 
 class Test(unittest.TestCase):
-
     @no_test
     def test_0(self):
         from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj

@@ -12,7 +12,6 @@ from pytraj.externals.six.moves import range
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         f0 = traj[0]
@@ -93,6 +92,7 @@ class Test(unittest.TestCase):
             @Timer()
             def slice_mdtraj_precalculated_indices():
                 m_traj.atom_slice(indices)
+
             print("slice_mdtraj_precalculated_indices:")
             # ~6 times slower than pytraj's fa['@H,C']
             slice_mdtraj_precalculated_indices()
@@ -118,6 +118,7 @@ class Test(unittest.TestCase):
             mdtraj_remove_solvent()
         else:
             print("does not have mdtraj, skip")
+
 
 if __name__ == "__main__":
     unittest.main()

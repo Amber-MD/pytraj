@@ -15,7 +15,6 @@ def silly_doc_func():
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         print("silly_doc_func")
         run_docstring(silly_doc_func)
@@ -60,7 +59,7 @@ class Test(unittest.TestCase):
         from pytraj.tools import grep
         run_docstring(grep)
 
-        print ("load_ParmEd")
+        print("load_ParmEd")
         run_docstring(pt.load_ParmEd)
 
         print("load Topology")
@@ -74,6 +73,7 @@ class Test(unittest.TestCase):
 
         print('mindist')
         run_docstring(pt.mindist)
+
 
 if __name__ == "__main__":
     unittest.main()

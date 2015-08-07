@@ -15,13 +15,15 @@ class TestIndices(unittest.TestCase):
     def test_0(self):
 
         traj1 = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         print(traj1.size)
         indices = slice(9, 6, -1)
         print(indices.indices(traj1.size))
         traj0 = Trajectory()
         traj0.load(filename="./data/md1_prod.Tc5b.x",
-                   top=Topology("./data/Tc5b.top"), indices=indices)
+                   top=Topology("./data/Tc5b.top"),
+                   indices=indices)
         print(traj0.size)
         # load whole traj
 
@@ -54,7 +56,8 @@ class TestIndices(unittest.TestCase):
 
     def test_array_assigment(self):
         traj1 = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")[:]
+            filename="data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")[:]
         print(traj1[0][10])
         print(traj1[1][10])
 
@@ -74,14 +77,17 @@ class TestIndices(unittest.TestCase):
 
     def test_1(self):
         traj0 = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         traj = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")[:]
+            filename="data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")[:]
         assert traj[0].coords == traj0[0].coords
         print(traj[0].coords[:10])
 
         traj2 = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")[:][:10]
+            filename="data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")[:][:10]
         assert traj2[0].coords == traj0[0].coords
 
         traj.join((traj[:], traj[0:100], traj[9:3:-1]))
@@ -107,7 +113,8 @@ class TestIndices(unittest.TestCase):
 
     def test_join_dummy(self):
         traj0 = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")[:]
+            filename="data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")[:]
         #traj0 += traj0
         traj0.join(traj0[:])
         print(traj0)
@@ -115,15 +122,19 @@ class TestIndices(unittest.TestCase):
     def test_load_indices_from_io(self):
         from pytraj import io as mdio
         traj0 = mdio.load(
-            filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top", indices=(1, 3, 7))
+            filename="data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top",
+            indices=(1, 3, 7))
         trajreadonly = mdio.iterload(
-            filename="data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
 
         assert isinstance(traj0, Trajectory)
         assert_almost_equal(traj0[0].coords, trajreadonly[1].coords)
         assert_almost_equal(traj0[1].coords, trajreadonly[3].coords)
         assert_almost_equal(traj0[2].coords, trajreadonly[7].coords)
         print(traj0)
+
 
 if __name__ == "__main__":
     unittest.main()

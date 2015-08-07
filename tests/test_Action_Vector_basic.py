@@ -8,7 +8,6 @@ from pytraj.decorators import test_if_having
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         from pytraj import calculate
@@ -29,6 +28,7 @@ class Test(unittest.TestCase):
         d0 = calc_vector(traj, "@CA @CB mass")
         print(d0)
         print(d0.tolist())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # test copy
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -45,6 +44,7 @@ class Test(unittest.TestCase):
         dslist5 = dslist.grep("psi", copy=True)
         for d0 in dslist5:
             assert d0 not in dslist
+
 
 if __name__ == "__main__":
     unittest.main()

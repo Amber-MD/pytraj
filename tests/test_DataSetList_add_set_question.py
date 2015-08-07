@@ -35,5 +35,6 @@ class Test(unittest.TestCase):
         print(dslist[0])
         print(dslist.size)  # = 1 (is what I expected)
 
+
 if __name__ == "__main__":
     unittest.main()

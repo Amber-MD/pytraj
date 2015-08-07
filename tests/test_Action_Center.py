@@ -11,7 +11,6 @@ from pytraj.compat import zip
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         fa = traj[:]
@@ -24,6 +23,7 @@ class Test(unittest.TestCase):
             print(f0.rmsd_nofit(f1))
 
         aa_eq(fa[:2].xyz, saved_traj.xyz, decimal=5)
+
 
 if __name__ == "__main__":
     unittest.main()

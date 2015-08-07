@@ -29,7 +29,6 @@ FARRAY = ts[:FRAMENUM]
 
 
 class TestTrajectory(unittest.TestCase):
-
     def test_dummy(self):
         farray = FARRAY.copy()
         print(farray[:])
@@ -57,6 +56,7 @@ class TestTrajectory(unittest.TestCase):
         farray2.join(farray[::-1], farray[:])
         print(farray2)
         print(farray2[0].n_atoms)
+
 
 if __name__ == "__main__":
     unittest.main()

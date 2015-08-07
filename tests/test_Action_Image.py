@@ -9,10 +9,10 @@ from pytraj.testing import aa_eq
 
 
 class TestRadgyr(unittest.TestCase):
-
     def test_0(self):
         farray = Trajectory(
-            filename="./data/tz2.truncoct.nc", top="./data/tz2.truncoct.parm7")[:2]
+            filename="./data/tz2.truncoct.nc",
+            top="./data/tz2.truncoct.parm7")[:2]
         f_old = farray.copy()
         print("old file: ", f_old[0, 0, :])
 
@@ -60,6 +60,7 @@ class TestRadgyr(unittest.TestCase):
             # TODO, FIXME: assert failed
             #aa_eq(f_old[0].coords, fsaved[0].coords)
             #aa_eq(f_old[1].coords, fsaved[1].coords)
+
 
 if __name__ == "__main__":
     unittest.main()

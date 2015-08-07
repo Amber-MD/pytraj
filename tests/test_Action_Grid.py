@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.load_sample_data("tz2")[:]
         traj.autoimage()
@@ -20,8 +19,10 @@ class Test(unittest.TestCase):
 
         # iterator
         d = pyca.calc_grid(
-            traj(), " 20 0.5 20 0.5 20 0.5 :WAT@O", top=traj.top)
+            traj(), " 20 0.5 20 0.5 20 0.5 :WAT@O",
+            top=traj.top)
         print(d[0])
+
 
 if __name__ == "__main__":
     unittest.main()

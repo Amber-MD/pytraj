@@ -7,7 +7,6 @@ from pytraj.utils import Timer
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
@@ -66,9 +65,11 @@ class Test(unittest.TestCase):
         np.random.seed(0)
         indices = np.random.randint(0, 300, size=Nsize * 3).reshape(Nsize, 3)
         indices_dih = np.random.randint(
-            0, 300, size=Nsize * 4).reshape(Nsize, 4)
+            0, 300,
+            size=Nsize * 4).reshape(Nsize, 4)
         indices_dist = np.random.randint(
-            0, 300, size=Nsize * 2).reshape(Nsize, 2)
+            0, 300,
+            size=Nsize * 2).reshape(Nsize, 2)
         print(indices.shape)
 
         with Timer() as t:
@@ -112,6 +113,7 @@ class Test(unittest.TestCase):
             assert abs(dih_0[idx] - d0) < SMALL
             assert abs(ang_0[idx] - d1) < SMALL
             assert abs(dist_0[idx] - d3) < SMALL
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -11,7 +11,6 @@ from pytraj.testing import Timer
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.datasets import DataSet_Coords_TRJ as DTRJ
         from timeit import timeit
@@ -25,12 +24,14 @@ class Test(unittest.TestCase):
         def test_slice_traj(traj, idx):
             def test():
                 traj[idx]
+
             print(timeit(test, number=100))
 
         def test_iter(traj):
             def test():
                 for f in traj:
                     pass
+
             print(timeit(test, number=100))
 
         from pytraj.common_actions import calc_radgyr
@@ -38,6 +39,7 @@ class Test(unittest.TestCase):
         def test_action(traj):
             def test():
                 calc_radgyr(traj)
+
             print(timeit(test, number=100))
 
         print("test_slice_traj")
@@ -57,6 +59,7 @@ class Test(unittest.TestCase):
         test_action(traj)
         print("dtrj")
         test_action(dtrj)
+
 
 if __name__ == "__main__":
     unittest.main()

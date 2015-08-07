@@ -11,7 +11,6 @@ from timeit import timeit
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # Trajectory
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -110,6 +109,7 @@ class Test(unittest.TestCase):
 
         # RESULT: similiar copying times for all 3 methods
         # --> IO is bottle neck for all?
+
 
 if __name__ == "__main__":
     unittest.main()

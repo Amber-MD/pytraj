@@ -6,13 +6,13 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 import pytraj.common_actions as pyca
 from pytraj.tools import flatten
 
+
 def gather(pmap_out):
     pmap_out = sorted(pmap_out, key=lambda x: x[0])
     return flatten([x[1] for x in pmap_out])
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 

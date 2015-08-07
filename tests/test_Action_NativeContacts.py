@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # TODO : assert
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -20,6 +19,7 @@ class Test(unittest.TestCase):
 
         dslist = pyca.native_contacts(traj, top=traj.top)
         print(dslist)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,7 +8,6 @@ from pytraj.decorators import no_test, test_if_having
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("MDAnalysis")
     def test_0(self):
         # TODO: add assert
@@ -23,6 +22,7 @@ class Test(unittest.TestCase):
         print(traj.xyz.shape)
         print(traj.top.atom_names)
         print(traj.top.residue_names)
+
 
 if __name__ == "__main__":
     unittest.main()

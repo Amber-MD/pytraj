@@ -7,7 +7,6 @@ import numpy as np
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[9]
@@ -54,6 +53,7 @@ class Test(unittest.TestCase):
         #
         print(frame0[AtomMask(303)])
         print(dir(AtomMask))
+
 
 if __name__ == "__main__":
     unittest.main()

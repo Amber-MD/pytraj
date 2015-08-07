@@ -10,7 +10,6 @@ from pytraj.testing import no_test
 
 
 class Test(unittest.TestCase):
-
     @no_test
     def test_0(self):
         traj = load_sample_data()
@@ -28,6 +27,7 @@ class Test(unittest.TestCase):
                 print(out)
         else:
             print("does not have matplotlib. skip test")
+
 
 if __name__ == "__main__":
     unittest.main()

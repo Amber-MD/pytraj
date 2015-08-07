@@ -16,7 +16,8 @@ def test_0():
     # 1000), '@CA', traj.top, dtype='ndarray')
     traj = mdio.iterload(
         "data/nogit/tip3p/md.trj", "./data/nogit/tip3p/tc5bwat.top")
-    return pyca.calc_pairwise_rmsd(traj(0, 1000), '@CA', traj.top, dtype='ndarray')
+    return pyca.calc_pairwise_rmsd(traj(0, 1000), '@CA', traj.top,
+                                   dtype='ndarray')
 
 
 @profile
@@ -38,7 +39,10 @@ def test_1():
     traj = mdio.iterload(
         "data/nogit/tip3p/md.trj", "./data/nogit/tip3p/tc5bwat.top")
     new_top = traj.top.strip_atoms("!@CA", copy=True)
-    return pyca.calc_pairwise_rmsd(traj(0, 1000, mask='@CA'), top=new_top, dtype='ndarray')
+    return pyca.calc_pairwise_rmsd(traj(0, 1000,
+                                        mask='@CA'),
+                                   top=new_top,
+                                   dtype='ndarray')
 
 
 @profile
@@ -46,6 +50,7 @@ def test_2():
     s = mdio.load_cpptraj_file("./data/rms2d.in")
     s.run()
     return s.datasetlist
+
 
 if __name__ == "__main__":
     import numpy as np

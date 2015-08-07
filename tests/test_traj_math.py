@@ -7,7 +7,6 @@ from pytraj.utils import Timer
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # math with frame_iter
         trajiter = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -22,7 +21,7 @@ class Test(unittest.TestCase):
         traj = trajiter[:]
         saved_xyz = trajiter.xyz[:].copy()
         traj *= trajiter
-        aa_eq(saved_xyz**2, traj.xyz)
+        aa_eq(saved_xyz ** 2, traj.xyz)
 
     def test_1(self):
         import numpy as np
@@ -88,7 +87,7 @@ class Test(unittest.TestCase):
 
         fa = traj.copy()
         traj *= fa
-        aa_eq(traj.xyz, fa.xyz[:]**2)
+        aa_eq(traj.xyz, fa.xyz[:] ** 2)
 
         @Timer()
         def time_traj(traj, f0=f0):
@@ -130,6 +129,7 @@ class Test(unittest.TestCase):
         test_pytraj_openmp(traj)
         print("test_numpy")
         test_numpy(xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

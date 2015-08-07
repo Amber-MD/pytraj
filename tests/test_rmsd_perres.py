@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.datafiles import load_cpptraj_output, tz2_ortho_trajin
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
@@ -15,6 +14,7 @@ class Test(unittest.TestCase):
         rmsd first @CA perres range 2-7""")
         d = pt.rmsd_perres(traj, ref=0, mask='@CA', range='2-7')
         aa_eq(cout.values, d)
+
 
 if __name__ == "__main__":
     unittest.main()

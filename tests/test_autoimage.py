@@ -10,7 +10,6 @@ from pytraj.compat import izip as zip
 
 
 class Test(unittest.TestCase):
-
     def test_1(self):
         traj = mdio.iterload(
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
@@ -56,7 +55,8 @@ class Test(unittest.TestCase):
         for f0, f1 in zip(traj, fa):
             assert f0.box.type == traj.top.box.type == f1.box.type == 'truncoct'
         m_traj = md.load_netcdf(
-            "./data/tz2.truncoct.nc", top="./data/tz2.truncoct.parm7")
+            "./data/tz2.truncoct.nc",
+            top="./data/tz2.truncoct.parm7")
         # create mutable Trajectory from TrajectoryIterator
         fake_fa = io.load_mdtraj(m_traj)
         for frame in fake_fa:
@@ -107,7 +107,8 @@ class Test(unittest.TestCase):
         traj1 = traj0.to_mutable_trajectory()
         # get new trajectory from traj0
         traj2 = pt._load_from_frame_iter(
-            traj0(autoimage=True, rmsfit=(0, '@CA,C,N')))
+            traj0(autoimage=True,
+                  rmsfit=(0, '@CA,C,N')))
         traj1.autoimage()
         traj1.rmsfit(ref=0, mask='@CA,C,N')
 
