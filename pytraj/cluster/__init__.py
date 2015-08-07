@@ -13,6 +13,7 @@ def kmeans(traj=None,
            mask='*',
            output_op='', *args, **kwd):
 
+    # don't need to _get_top
     _clusters = 'kmeans clusters ' + str(n_clusters)
     _random_point = 'randompoint' if random_point else ''
     _kseed = 'kseed ' + str(kseed)
