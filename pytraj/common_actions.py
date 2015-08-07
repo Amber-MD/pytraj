@@ -89,7 +89,8 @@ action_type = calculate
 def _noaction_with_TrajectoryIterator(trajiter):
     from pytraj import TrajectoryIterator
     if isinstance(trajiter, TrajectoryIterator):
-        raise ValueError("This analysis does not support immutable object")
+        raise ValueError(
+            "This analysis does not support immutable object. Use `pytraj.Trajectory`")
 
 
 def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
@@ -1687,6 +1688,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
 
     act(command, traj, top=_top)
 
+
 def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
     '''
     Examples
@@ -1700,6 +1702,7 @@ def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
 
     command = ':'.join((dihtype, resid, dihtype, deg))
     make_structure(traj, command, top=_top)
+
 
 def make_structure(traj=None, mask="", top=None):
     from pytraj.actions.CpptrajActions import Action_MakeStructure
