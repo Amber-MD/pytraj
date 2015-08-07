@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         with Trajout("./output/test_1",
                      format="PDBFILE",
                      overwrite=True) as trajout:
-            trajout.writeframe(frame=traj[0], top=traj.top)
+            trajout.write(frame=traj[0], top=traj.top)
 
     def test_1(self):
         # TODO: get absolute path so we can use `goto_temp_folder`

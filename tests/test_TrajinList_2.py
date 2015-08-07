@@ -8,7 +8,7 @@ class TrajinList2(list):
         with Trajout(filename=filename, format=format, top=top) as trajout:
             for traj in self:
                 for frame in traj:
-                    trajout.writeframe(0, frame, top)
+                    trajout.write(0, frame, top)
 
 
 class TrajinList:

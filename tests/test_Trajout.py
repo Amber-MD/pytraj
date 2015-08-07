@@ -26,12 +26,12 @@ class TestTrajout(unittest.TestCase):
                      format="AMBERNETCDF",
                      overwrite=True)
         #trajout.open(filename="test.pdb", top=farray.top, format="PDBFILE", mode="pdb")
-        trajout.writeframe(0, frame0, farray.top)
+        trajout.write(0, frame0, farray.top)
         #assert trajout.is_open() == True
 
         # add more frames
         for i in range(5, 8):
-            trajout.writeframe(i, farray[i], farray.top)
+            trajout.write(i, farray[i], farray.top)
 
         #assert trajout.is_open() == True
         trajout.close()
@@ -42,7 +42,7 @@ class TestTrajout(unittest.TestCase):
         with Trajout(filename="./output/test_trajout_withstatement.x",
                      top=farray.top,
                      overwrite=True) as trajout:
-            trajout.writeframe(0, frame0, farray.top)
+            trajout.write(0, frame0, farray.top)
 
         # reload
         #assert trajout.is_open() == False
@@ -72,7 +72,7 @@ class TestTrajout(unittest.TestCase):
                      overwrite=True) as trajout:
             # with Trajout(filename="test_0.pdb", top=farray.top,
             # format="PDBFILE") as trajout:
-            trajout.writeframe(0, frame0, farray.top)
+            trajout.write(0, frame0, farray.top)
 
     #@no_test
     def test_4(self):

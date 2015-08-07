@@ -25,7 +25,7 @@ def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd
     with Trajout(filename=filename, top=self.top, format=format, 
                  overwrite=overwrite, *args, **kwd) as trajout:
         for idx, frame in enumerate(self):
-            trajout.writeframe(idx, frame, self.top)
+            trajout.write(idx, frame, self.top)
 
 def _split_and_write_traj(self, n_chunks=None, root_name="trajx", ext='nc', *args, **kwd):
     chunksize = self.n_frames // n_chunks
