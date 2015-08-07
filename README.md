@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/pytraj/pytraj.svg?branch=master)](https://travis-ci.org/pytraj/pytraj)
+[![Build Status](https://travis-ci.org/Amber-MD/pytraj.svg?branch=master)](https://travis-ci.org/Amber-MD/pytraj)
 [![Binstar Badge](https://binstar.org/pytraj/pytraj-dev/badges/version.svg)](https://binstar.org/pytraj/pytraj-dev/)
 
 PYTRAJ
