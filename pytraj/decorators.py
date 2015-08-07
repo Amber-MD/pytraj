@@ -1,6 +1,7 @@
 from __future__ import print_function, absolute_import
 import os
 import warnings
+from functools import wraps
 
 
 def memoize(f):
@@ -16,6 +17,12 @@ def memoize(f):
 
 # we duplicate code from .utils.check_and_assert here to avoid circular import
 
+def noparallel(f):
+    @wraps(f)
+    def inner(*args, **kwd):
+        return f(*args, **kwd)
+    inner._is_parallelizable = False
+    return inner
 
 def _import(modname):
     """has_numpy, np = _import('numpy')"""

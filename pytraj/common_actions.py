@@ -37,6 +37,7 @@ from ._nastruct import nastruct
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
 from . import _long_manual
+from . decorators import noparallel
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -807,6 +808,7 @@ def calc_atomicfluct(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@noparallel
 def calc_bfactors(traj=None,
                   mask="",
                   byres=True,
@@ -1512,6 +1514,35 @@ def timecorr(vec0, vec1,
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
 
+def crank(data0, data1, mode='distance', dtype='ndarray'):
+    """
+    Parameters
+    ----------
+    data0 : array-like
+    data1 : array-like
+    mode : str, {'distance', 'angle'}
+    dtype : str
+
+    Notes
+    -----
+    Same as `crank` in cpptraj
+    """
+    from pytraj.datasets import DataSetList as CDSL
+    from pytraj.analyses.CpptrajAnalyses import Analysis_CrankShaft
+    import numpy as np
+
+    cdslist = CDSL()
+    cdslist.add_set("double", "d0")
+    cdslist.add_set("double", "d1")
+
+    cdslist[0].from_array_like(np.asarray(data0))
+    cdslist[1].from_array_like(np.asarray(data1))
+
+    act = Analysis_CrankShaft()
+    command = ' '.join((mode, 'd0', 'd1'))
+    act(command, dslist=cdslist)
+    return _get_data_from_dtype(cdslist[2:], dtype=dtype)
+
 def cross_correlation_function(data0, data1, dtype='ndarray'):
     """
     Notes
@@ -1703,6 +1734,7 @@ def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
     command = ':'.join((dihtype, resid, dihtype, deg))
     make_structure(traj, command, top=_top)
 
+set_dihedral = _rotate_dih
 
 def make_structure(traj=None, mask="", top=None):
     from pytraj.actions.CpptrajActions import Action_MakeStructure
