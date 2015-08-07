@@ -1229,6 +1229,8 @@ def align_principal_axis(traj=None, mask="*", top=None):
     from pytraj.actions.CpptrajActions import Action_Principal
     _noaction_with_TrajectoryIterator(traj)
 
+    command = mask
+
     if not isinstance(command, string_types):
         command = to_cpptraj_atommask(command)
     _top = _get_top(traj, top)
