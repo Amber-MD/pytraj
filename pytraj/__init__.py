@@ -108,6 +108,7 @@ from .common_actions import (
     principal_axes,
     cross_correlation_function, timecorr, center, translate, rotate,
     rotate_dihedral, make_structure, scale, do_clustering, clustering_dataset,
+    _rotate_dih,
 )
 
 # create alias

@@ -1687,6 +1687,19 @@ def rotate_dihedral(traj=None, mask="", top=None):
 
     act(command, traj, top=_top)
 
+def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
+    '''
+    Examples
+    >>> pt._rotate_dih(traj, resid='1', dihtype='delta')
+    '''
+    _top = _get_top(traj, top)
+
+    if not isinstance(resid, string_types):
+        resid = str(resid + 1)
+    deg = str(deg)
+
+    command = ':'.join((dihtype, resid, dihtype, deg))
+    make_structure(traj, command, top=_top)
 
 def make_structure(traj=None, mask="", top=None):
     from pytraj.actions.CpptrajActions import Action_MakeStructure
