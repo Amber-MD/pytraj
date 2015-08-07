@@ -86,26 +86,16 @@ cdef class Trajout:
     def close(self):
         self.thisptr.EndTraj()
 
-    def writeframe(self, *args, **kwd):
+    def write(self, *args, **kwd):
         self.write_frame(*args, **kwd)
 
-    def write_frame(self, int idx=0, Frame frame=Frame(), top=Topology()):
+    def write_frame(self, int idx=0, Frame frame=Frame(), *args, **kwd):
         """write trajout for Frame with given Topology
-        Parameters:
+
+        Parameters
         ----------
         frame : Frame instance
-        top : Topology instance
+
+        *args, **kwd: just dummy
         """
-        cdef Topology _top
-        # check Topology
-        if isinstance(top, string_types):
-            top_ = Topology(top)
-        elif isinstance(top, Topology):
-            # assume this is Topology instance
-            top_ = <Topology> top
-        if len(top) == 0:
-            # we use `len` here since we don't know if this is string or 
-            # Topology object
-            raise ValueError("require non-empty topology")
-        #self.thisptr.WriteFrame(idx, top_.thisptr, frame.thisptr[0])
         self.thisptr.WriteFrame(idx, frame.thisptr[0])
