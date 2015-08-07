@@ -4,13 +4,12 @@ import pytraj as pt
 #pt.set_cpptraj_verbose(True)
 
 # use iterload for memory saving
-traj = pt.iterload("../tests/data/md1_prod.Tc5b.x",
-                   "../tests/data/Tc5b.top")
+traj = pt.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
 
 # for example you're only interested in a single Frame
 # let's load it to memory
 frame = traj[1]
-print (frame)
+print(frame)
 
 # now you want to rotate omega dihedral angle for residue 3?
 
@@ -30,8 +29,7 @@ for deg in range(-180, 180, 5):
 # you can use this pdb file to view in VMD without loading
 # prmtop/gro/psf/...
 
-pt.write_traj("./output/test0.pdb", 
-              framelist,
+pt.write_traj("./output/test0.pdb", framelist,
               top=traj.top,
               format='pdb',
               mode='model',

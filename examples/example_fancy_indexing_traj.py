@@ -6,8 +6,8 @@ traj = mdio.load("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")[:]
 print(traj[0, 0, 0])
 
 # get new Trajectory with only CA atoms
-print (traj['@CA'])
+print(traj['@CA'])
 
 # get new Trajectory with only CA with several frames
-print (traj[2:7, '@CA'])
-print (traj[[1, 5, 7, 9], '@CA'])
+print(traj[2:7, '@CA'])
+print(traj[[1, 5, 7, 9], '@CA'])

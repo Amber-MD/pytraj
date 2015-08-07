@@ -7,5 +7,5 @@ parm = "../tests/data/Test_NAstruct/adh026.3.top"
 
 traj = pt.iterload(trajin, parm)
 
-print (pt.calc_chin(traj))
-print (pt.calc_chin(traj, resrange=range(3, 21, 3)))
+print(pt.calc_chin(traj))
+print(pt.calc_chin(traj, resrange=range(3, 21, 3)))

@@ -12,4 +12,4 @@ traj_1_new = traj_1[":1-3@CA :frame"]
 
 # calculate rmsd between 1st frame of traj_1_new and 1st frame of traj_0_new
 # best fit, no mass
-print (traj_1_new[0].rmsd(traj_0_new[0]))
+print(traj_1_new[0].rmsd(traj_0_new[0]))

@@ -5,8 +5,8 @@ from pytraj import allactions
 from pytraj.datasets import cast_dataset
 
 # load traj
-farray = mdio.load(top=Topology("../tests/data/Tc5b.top"), 
-                       filename='../tests/data/md1_prod.Tc5b.x',)
+farray = mdio.load(top=Topology("../tests/data/Tc5b.top"),
+                   filename='../tests/data/md1_prod.Tc5b.x', )
 
 # create dataset to hold data
 dslist = DataSetList()

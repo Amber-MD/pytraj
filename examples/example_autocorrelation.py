@@ -8,4 +8,4 @@ dset = pt.calc_phi(traj, resrange='3-7')
 
 # calcuate autocorrelation function for 1st dataset
 af = pt.acorr(dset[0])
-print (af)
+print(af)

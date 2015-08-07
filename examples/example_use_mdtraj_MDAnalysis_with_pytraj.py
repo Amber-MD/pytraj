@@ -8,8 +8,7 @@ try:
     traj0 = pt.iterload(DCD, PSF, engine='pytraj')
     traj1 = pt.iterload(DCD, PSF, engine='mdanalysis')
     traj2 = pt.load(DCD, PSF, engine='mdtraj')
-    print (traj0, traj1, traj2)
+    print(traj0, traj1, traj2)
 
 except ImportError:
-    print ("ImportError. skip")
-
+    print("ImportError. skip")

@@ -1,8 +1,9 @@
 import pytraj as pt
 
 # use `iterload` to save memory
-traj = pt.iterload("../tests/data/tz2.ortho.nc", "../tests/data/tz2.ortho.parm7")
-print (traj)
+traj = pt.iterload("../tests/data/tz2.ortho.nc",
+                   "../tests/data/tz2.ortho.parm7")
+print(traj)
 
 # perform rmsd calculation to first frame, all atoms
 pt.rmsd(traj, 0)
