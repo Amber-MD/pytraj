@@ -205,7 +205,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                    mask=None,
                    autoimage=False,
                    rmsfit=None,
-                   frame_copy=True):
+                   copy=True):
 
         from .core.frameiter import FrameIter
         if mask is None:
