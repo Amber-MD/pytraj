@@ -18,7 +18,8 @@ class FrameIter(object):
                  mask="", autoimage=False,
                  rmsfit=None,
                  is_trajiter=False,
-                 n_frames=None):
+                 n_frames=None,
+                 copy=True):
         self.top = new_top
         self.original_top = original_top
         self.frame_iter = fi_generator
@@ -31,6 +32,7 @@ class FrameIter(object):
         # use `copy_frame` for TrajectoryIterator
         self.is_trajiter = is_trajiter
         self.n_frames = n_frames
+        self.copy = copy
 
     @property
     def __name__(self):
@@ -77,7 +79,7 @@ class FrameIter(object):
             ref, mask_for_rmsfit = None, None
 
         for frame0 in self.frame_iter:
-            if self.is_trajiter:
+            if self.is_trajiter and self.copy:
                 # use copy for TrajectoryIterator
                 # so [f for f in traj()] will return a list of different 
                 # frames

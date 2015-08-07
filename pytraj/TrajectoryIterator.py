@@ -204,7 +204,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                    stride=1,
                    mask=None,
                    autoimage=False,
-                   rmsfit=None):
+                   rmsfit=None,
+                   frame_copy=True):
 
         from .core.frameiter import FrameIter
         if mask is None:
@@ -249,7 +250,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          autoimage=autoimage,
                          rmsfit=rmsfit,
                          is_trajiter=True,
-                         n_frames=n_frames, )
+                         n_frames=n_frames,
+                         copy=copy)
 
     def iterframe(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
