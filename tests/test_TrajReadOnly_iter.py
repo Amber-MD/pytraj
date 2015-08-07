@@ -5,7 +5,6 @@ max_frame = 999
 
 
 class TestTrajingIter(unittest.TestCase):
-
     def test_iter_0(self):
         from pytraj import TrajectoryIterator
         traj = TrajectoryIterator()
@@ -26,6 +25,7 @@ class TestTrajingIter(unittest.TestCase):
         for frame in traj.frame_iter():
             print(frame)
         print(time() - t0)
+
 
 if __name__ == '__main__':
     unittest.main()

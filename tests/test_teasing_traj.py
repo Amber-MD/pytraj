@@ -57,4 +57,5 @@ def tease_Traj(N=10, ts=ts):
     # backward()
     mix()
 
+
 tease_Traj(1, farray)

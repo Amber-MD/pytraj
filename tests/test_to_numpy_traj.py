@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -15,6 +14,7 @@ class Test(unittest.TestCase):
         ntraj = fa.to_numpy_traj()
         aa_eq(ntraj.xyz, fa.xyz)
         aa_eq(ntraj.xyz, traj.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

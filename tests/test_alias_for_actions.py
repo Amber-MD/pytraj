@@ -6,7 +6,6 @@ from pytraj.common_actions import *
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         for _ in range(2):
@@ -21,9 +20,13 @@ class Test(unittest.TestCase):
     def test_1(self):
         print("test mix traj/frame")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
-        d0 = calc_molsurf(mask="@CA", traj=(
-            traj, traj[:2], traj[:], traj.frame_iter(), traj[0]), dtype='dataset')
+        d0 = calc_molsurf(
+            mask="@CA",
+            traj=(
+                traj, traj[:2], traj[:], traj.frame_iter(), traj[0]),
+            dtype='dataset')
         assert d0[0].size == 33
+
 
 if __name__ == "__main__":
     unittest.main()

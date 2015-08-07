@@ -9,7 +9,6 @@ from pytraj.compat import zip
 
 
 class TestBox(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
@@ -62,14 +61,16 @@ class TestBox(unittest.TestCase):
         traj = mdio.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         trajiter = mdio.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         saved_box = Box(
-            [3.94559740E+01,  4.68215170E+01,  4.04695410E+01, 90., 90., 90.])
+            [3.94559740E+01, 4.68215170E+01, 4.04695410E+01, 90., 90., 90.])
         print(traj.top.box)
         print(trajiter.top.box)
         aa_eq(traj.top.box.tolist(), saved_box.tolist())
         for frame in traj:
             assert frame.box.type == 'ortho'
             aa_eq(frame.box.tolist(), [
-                  35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0], decimal=1)
+                35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0
+            ],
+                  decimal=1)
 
         arr0 = traj.unitcells
         arr1 = trajiter.unitcells
@@ -80,8 +81,8 @@ class TestBox(unittest.TestCase):
             # b2 = frame.box.to_ndarray() # got wrong box in python2 (ok with
             # python3)
             b2 = box.to_ndarray()
-            aa_eq(b0,  b1)
-            aa_eq(b0,  b2)
+            aa_eq(b0, b1)
+            aa_eq(b0, b2)
 
         # test assign Box with list/tuple
         b = Box(saved_box.tolist())
@@ -117,6 +118,7 @@ class TestBox(unittest.TestCase):
         # assert raise if not correctly set type
         def wrong_word(box=box):
             box.type = 'test'
+
         self.assertRaises(ValueError, lambda: wrong_word())
 
         # test update boxtype
@@ -144,6 +146,7 @@ class TestBox(unittest.TestCase):
         assert box.type == 'rhombic'
         box = Box('ortho')
         assert box.type == 'ortho'
+
 
 if __name__ == "__main__":
     unittest.main()

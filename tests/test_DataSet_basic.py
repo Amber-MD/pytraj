@@ -9,7 +9,6 @@ from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj import datasets
         ddict = datasets.__dict__
@@ -63,7 +62,7 @@ class Test(unittest.TestCase):
 
         # shape
         d0 = d[0]
-        assert d0.shape == (d0.size,)
+        assert d0.shape == (d0.size, )
         import numpy as np
         assert np.abs((np.mean(d0.values) - d0.avg())) < 1E-4
         print(np.mean(d0.values))
@@ -96,8 +95,8 @@ class Test(unittest.TestCase):
         # chunk_average
         d3_double = DatasetDouble()
         d3_double.from_array_like(range(10))
-        aa_eq(d3_double.chunk_average(5), np.array(
-            [0.5,  2.5,  4.5,  6.5,  8.5]))
+        aa_eq(d3_double.chunk_average(5), np.array([0.5, 2.5, 4.5, 6.5, 8.5]))
+
 
 if __name__ == "__main__":
     unittest.main()

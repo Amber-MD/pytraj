@@ -4,7 +4,6 @@ from pytraj.testing import test_if_having
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         from numpy.testing import assert_almost_equal as a_equal
@@ -12,7 +11,7 @@ class Test(unittest.TestCase):
         import numpy as np
         nx = ny = nz = 3
         g = Grid(nx, ny, nz)
-        assert g.size == nx**3
+        assert g.size == nx ** 3
         assert g.nx == g.ny == g.nz == nx
 
         value = 1000.
@@ -26,6 +25,7 @@ class Test(unittest.TestCase):
         a_list = g.tolist()
         a_equal(np_arr, a_list)
         print(np.asarray(g.data))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -11,7 +11,6 @@ from pytraj.compat import zip
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj import Trajectory
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -48,6 +47,7 @@ class Test(unittest.TestCase):
         #
         fa3 = traj[:]
         print(fa3)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -14,7 +14,6 @@ traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
         from pytraj.datasetlist import stack as stack
@@ -55,6 +54,7 @@ class Test(unittest.TestCase):
         self.assertRaises(TypeError, lambda: stack((dslist0, dslist2)))
 
         stack((dslist0 for _ in range(3)))
+
 
 if __name__ == "__main__":
     unittest.main()

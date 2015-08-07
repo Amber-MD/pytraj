@@ -7,7 +7,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         flist = glob("./data/Test_RemdTraj/rem.nc.*")
         trajlist = []
@@ -37,6 +36,7 @@ class Test(unittest.TestCase):
             assert_almost_equal(framepy.coords, cpptraj[idx].coords)
 
         print("YES")
+
 
 if __name__ == "__main__":
     unittest.main()

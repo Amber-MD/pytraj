@@ -6,7 +6,6 @@ import numpy as np
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # create Trajectory from Trajing_Single
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
@@ -58,6 +57,7 @@ class Test(unittest.TestCase):
         atm = traj.top("@CA")
         traj[atm]
         traj[:, atm]
+
 
 if __name__ == "__main__":
     unittest.main()

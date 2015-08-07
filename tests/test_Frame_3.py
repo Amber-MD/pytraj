@@ -7,7 +7,6 @@ from array import array
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
@@ -73,6 +72,7 @@ class Test(unittest.TestCase):
         frame1 = frame0.copy()
         frame1 += frame1
         assert 2 * frame0.coords[0] == frame1.coords[0]
+
 
 if __name__ == "__main__":
     unittest.main()

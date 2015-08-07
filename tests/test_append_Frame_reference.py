@@ -44,5 +44,6 @@ class Test(unittest.TestCase):
         t.append(itraj[0].copy())
         aa_eq(t.xyz, itraj.xyz)
 
+
 if __name__ == "__main__":
     unittest.main()

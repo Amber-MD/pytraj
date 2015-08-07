@@ -24,5 +24,6 @@ class Test(unittest.TestCase):
         f0 = fa[2:4].average()
         aa_eq(f_list[1].xyz, f0.xyz)
 
+
 if __name__ == "__main__":
     unittest.main()

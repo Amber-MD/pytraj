@@ -10,7 +10,6 @@ from pytraj.utils import has_
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.common_actions import calc_matrix
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -18,6 +17,7 @@ class Test(unittest.TestCase):
         print(d0)
         assert is_word_in_class_name(d0, 'DatasetList') == True
         print(d0.get_legends())
+
 
 if __name__ == "__main__":
     unittest.main()

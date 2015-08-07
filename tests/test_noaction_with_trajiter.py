@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         self.assertRaises(ValueError, lambda: pyca.translate(traj, '@1 1.0'))
@@ -20,6 +19,7 @@ class Test(unittest.TestCase):
         pyca.rotate(traj2, 'x 1.0')
         pyca.autoimage(traj2)
         pyca.scale(traj2, 'x 0.5')
+
 
 if __name__ == "__main__":
     unittest.main()

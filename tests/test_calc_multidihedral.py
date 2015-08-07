@@ -8,7 +8,6 @@ from pytraj.decorators import no_test, test_if_having
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj import DatasetList
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -25,6 +24,7 @@ class Test(unittest.TestCase):
         d0np = calc_multidihedral(traj, command, dtype='ndarray')
         self.assertIsInstance(d0np, np.ndarray)
         print(d0np)
+
 
 if __name__ == "__main__":
     unittest.main()

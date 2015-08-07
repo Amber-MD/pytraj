@@ -18,15 +18,17 @@ expected_result = np.array("""
   0.079841  0.148065 -0.614839  0.165480  0.906069 -0.775724 -0.783444  0.206985
   0.559558 -0.377967  0.545248 -0.362708  0.050194  0.158582 -0.604041  0.163106
   0.900514 -0.776397 -0.774453  0.205434
-""".split(), dtype='f8')
+""".split(),
+                           dtype='f8')
+
 
 class Test(unittest.TestCase):
-
     def test_0(self):
-         arr = pt.tools.read_to_array("./data/floBF-resp.chg")
-         assert arr.shape == (84, )
-         print (arr)
-         aa_eq(arr, expected_result)
+        arr = pt.tools.read_to_array("./data/floBF-resp.chg")
+        assert arr.shape == (84, )
+        print(arr)
+        aa_eq(arr, expected_result)
+
 
 if __name__ == "__main__":
     unittest.main()

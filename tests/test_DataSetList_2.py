@@ -7,7 +7,6 @@ from pytraj.datasets import cast_dataset
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         dslist = DataSetList()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

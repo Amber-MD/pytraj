@@ -5,7 +5,6 @@ from pytraj import adict
 
 
 class TestRandomizeIons(unittest.TestCase):
-
     def test_0(self):
         # get `traj` instance (Trajectory)
         traj = load(filename="./Test_RandomizeIons/adh206.tip3p.rst7.gz",
@@ -18,11 +17,12 @@ class TestRandomizeIons(unittest.TestCase):
         # randomize ions for frame0
         randomize_ions(traj=frame0,
                        top=traj.top.copy(),
-                       command="@Na+ around :1-16 by 5.0 overlap 3.0",)
+                       command="@Na+ around :1-16 by 5.0 overlap 3.0", )
 
         # make sure to reproduce cpptraj output
-        savedframe = load(filename="./Test_RandomizeIons/random.crd.save",
-                          top="./Test_RandomizeIons/adh206.ff10.tip3p.parm7.gz")[0]
+        savedframe = load(
+            filename="./Test_RandomizeIons/random.crd.save",
+            top="./Test_RandomizeIons/adh206.ff10.tip3p.parm7.gz")[0]
 
         # another way
         adict['randomizeions'](
@@ -44,6 +44,7 @@ class TestRandomizeIons(unittest.TestCase):
         # another way
         _rmsd = frame0.rmsd(fsaved, top=traj.top, mask="@P")
         print(_rmsd)
+
 
 if __name__ == "__main__":
     unittest.main()

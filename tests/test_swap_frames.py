@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from array import array
         list0 = [0, 1]
@@ -34,6 +33,7 @@ class Test(unittest.TestCase):
         fa.swap(list0, list1)
         aa_eq(fa[0].xyz, traj[2].xyz)
         aa_eq(fa[1].xyz, traj[3].xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

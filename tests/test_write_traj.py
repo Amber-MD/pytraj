@@ -9,7 +9,6 @@ from pytraj.utils import goto_temp_folder
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = io.load_sample_data("tz2")[:]
         assert traj.top.box.has_box() == True
@@ -32,6 +31,7 @@ class Test(unittest.TestCase):
             io.write_traj(fname, traj(), top=traj.top, overwrite=True)
             t = io.iterload(fname, traj.top)
             aa_eq(t.xyz, traj.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

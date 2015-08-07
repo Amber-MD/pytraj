@@ -5,7 +5,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         print("test make Frame")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -17,6 +16,7 @@ class Test(unittest.TestCase):
         atm = AtomMask("")
         traj.top.set_integer_mask(atm)
         print(atm.n_atoms)
+
 
 if __name__ == "__main__":
     unittest.main()

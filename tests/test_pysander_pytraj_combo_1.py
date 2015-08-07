@@ -15,7 +15,6 @@ except:
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("sander")
     @test_if_having("parmed")
     def test_0(self):

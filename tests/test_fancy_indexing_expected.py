@@ -10,13 +10,13 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         xyz = traj.xyz[:]
         # x-coords for all atoms
         # should it?
         #aa_eq(traj[:, :, 0], xyz[:, :, 0])
+
 
 if __name__ == "__main__":
     unittest.main()

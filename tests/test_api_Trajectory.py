@@ -12,7 +12,6 @@ from pytraj.compat import zip
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         api_traj = api.Trajectory(traj)
@@ -30,7 +29,6 @@ class Test(unittest.TestCase):
             assert (frame.has_box() == True)
             f_blist = frame.box.tolist()
             aa_eq(f_blist, boxes[i].tolist())
-
 
         # test autoimage
         # make Trajectory from TrajectoryIterator
@@ -51,6 +49,7 @@ class Test(unittest.TestCase):
         # test slicing to get correct Box
         t_api2_sliced = t_api2[:10]
         aa_eq(t_api2_sliced._boxes, t_api2._boxes[:10])
+
 
 if __name__ == "__main__":
     unittest.main()

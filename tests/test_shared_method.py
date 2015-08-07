@@ -8,7 +8,6 @@ from pytraj._shared_methods import _frame_iter
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.trajs.Trajin_Single import Trajin_Single
         traj0 = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -40,6 +39,7 @@ class Test(unittest.TestCase):
         print(coords_traj)
         for frame in _frame_iter(coords_traj, 1, 8, 2, '@CA'):
             print(frame)
+
 
 if __name__ == "__main__":
     unittest.main()

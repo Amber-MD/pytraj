@@ -6,7 +6,6 @@ import numpy as np
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # create Trajectory from Trajing_Single
         # TODO : add more assert
@@ -15,6 +14,7 @@ class Test(unittest.TestCase):
         arr0 = traj[:, :, :]
         print(arr0.shape)
         print(type(arr0))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -62,10 +62,11 @@ class Test(unittest.TestCase):
         # adict['distance'](":2@CA :10@CA", farray3,
         #                  farray3.top, dslist=dslist)
 
-        d0 = adict['distance'](":2@CA :10@CA", farray3,
-                               farray3.top, quick_get=True)
+        d0 = adict['distance'](":2@CA :10@CA", farray3, farray3.top,
+                               quick_get=True)
         print(time() - t0)
         print(d0.size)
+
 
 if __name__ == "__main__":
     unittest.main()

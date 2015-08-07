@@ -30,7 +30,6 @@ FARRAY = ts[:FRAMENUM]
 
 
 class TestTrajectory(unittest.TestCase):
-
     def test_len(self):
         N = 10
         farray = FARRAY[:N].copy()
@@ -108,6 +107,7 @@ class TestTrajectory(unittest.TestCase):
         assert traj["@CA"].shape == (traj.size, traj.top("@CA").n_atoms, 3)
         print(traj[2:4]["@CA"])
         assert traj[2:4]["@CA"].shape == (2, traj.top("@CA").n_atoms, 3)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,7 +8,6 @@ from pytraj.datasets import cast_dataset
 
 
 class Test(unittest.TestCase):
-
     def test_action(self):
         info(adict["pairdist"])
         print()
@@ -19,7 +18,8 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = allactions.Action_Dihedral()
         act.read_input("dihedral :4@C :5@N :5@CA :5@C range360  mass ",
-                       top=traj.top, dslist=dslist)
+                       top=traj.top,
+                       dslist=dslist)
         print(traj.top)
         act.process(top=traj.top)
         print(act.process.__doc__)
@@ -32,6 +32,7 @@ class Test(unittest.TestCase):
 
     def test_action_2(self):
         pass
+
 
 if __name__ == "__main__":
     unittest.main()

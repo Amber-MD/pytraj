@@ -7,13 +7,13 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("mdtraj")
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         traj2 = pt.load_mdtraj(pt.to_mdtraj(traj), autoconvert=False)
-        print (traj[0, 0], traj2[0, 0])
+        print(traj[0, 0], traj2[0, 0])
         aa_eq(traj.xyz, traj2.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

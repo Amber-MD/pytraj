@@ -9,7 +9,6 @@ from pytraj.misc import get_atts
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = DataSetList()
@@ -27,6 +26,7 @@ class Test(unittest.TestCase):
 
         print(mat.name)
         print(mat.legend)
+
 
 if __name__ == "__main__":
     unittest.main()

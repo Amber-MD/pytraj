@@ -8,7 +8,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
@@ -16,6 +15,7 @@ class Test(unittest.TestCase):
         frame = traj[0]
         assert_almost_equal(frame.coords, np.array(frame.tolist()).flatten())
         assert len(frame.tolist()) == frame.n_atoms
+
 
 if __name__ == "__main__":
     unittest.main()

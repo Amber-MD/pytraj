@@ -18,7 +18,6 @@ def eq_np_to_mat(npmat, mymat):
 
 
 class TestMatrix_3x3(unittest.TestCase):
-
     def test_construct(self):
         from pytraj.math import Matrix_3x3 as M
 
@@ -62,7 +61,7 @@ class TestMatrix_3x3(unittest.TestCase):
         print(mat[:])
 
         assert mat[:].shape == (3, 3)
-        assert mat.buffer1d.shape == (9,)
+        assert mat.buffer1d.shape == (9, )
         asmat1 = np.asmatrix(np.arange(9).reshape((3, 3))).astype(np.float64)
         print(asmat1)
         eq_np_to_mat(asmat1, mat)
@@ -94,6 +93,7 @@ class TestMatrix_3x3(unittest.TestCase):
         print((npmat * v1np))
         print((mat * v1).tolist())
         print(mat[0, :])
+
 
 if __name__ == "__main__":
     unittest.main()

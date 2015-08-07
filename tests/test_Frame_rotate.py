@@ -12,7 +12,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
         from pytraj.math import Matrix_3x3
@@ -26,6 +25,7 @@ class Test(unittest.TestCase):
         frame.rotate_with_matrix(mat)
         f0.rotate_with_matrix(mat.as_ndmatrix())
         eq(f0.coords, frame.coords)
+
 
 if __name__ == "__main__":
     unittest.main()

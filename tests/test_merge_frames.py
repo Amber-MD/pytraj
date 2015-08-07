@@ -7,13 +7,13 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
 
         # load 2 frames
         traj = pt.iterload(
-            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top", frame_slice=(0, 2))
+            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top",
+            frame_slice=(0, 2))
 
         # test mutable traj
         big_frame = pt.tools.merge_frames(traj.to_mutable_trajectory())
@@ -34,6 +34,7 @@ class Test(unittest.TestCase):
         big_frame = pt.tools.merge_frames([frame.copy() for frame in traj])
         assert pt.tools.rmsd(big_frame.xyz.flatten(),
                              pt.get_coordinates(traj).flatten()) < 1E-5
+
 
 if __name__ == "__main__":
     unittest.main()

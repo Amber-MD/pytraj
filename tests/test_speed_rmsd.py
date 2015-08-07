@@ -11,7 +11,6 @@ tip3p_dir = "./data/nogit/tip3p/"
 
 
 class Test(unittest.TestCase):
-
     @test_if_path_exists(tip3p_dir)
     def test_0(self):
         # iterload
@@ -33,6 +32,7 @@ class Test(unittest.TestCase):
         has_mdtraj, md = _import("mdtraj")
 
         if has_mdtraj:
+
             @Timer()
             def test_rmsd_mdtraj():
                 fname = tip3p_dir + "/md.trj"
@@ -75,6 +75,7 @@ class Test(unittest.TestCase):
 
         print("test_rmsd_mdtraj")
         test_rmsd_mdtraj()
+
 
 if __name__ == "__main__":
     unittest.main()

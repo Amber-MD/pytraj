@@ -10,7 +10,6 @@ tip3pdir = "./data/nogit/tip3p/"
 
 
 class Test(unittest.TestCase):
-
     @test_if_path_exists(tip3pdir)
     def test_frame_fit(self):
         traj = mdio.iterload(
@@ -52,6 +51,7 @@ class Test(unittest.TestCase):
 
         aa_eq(fa0.xyz, fa1.xyz)
         aa_eq(fa0.xyz, fa2.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

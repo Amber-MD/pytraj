@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # Aim: `cpptraj` use `first` frame as default for some Actions (Action_Rmsd,
         # Action_NativeContacts, ...). We can specify reference by adding reference in
@@ -23,6 +22,7 @@ class Test(unittest.TestCase):
         saved_rmsd = traj.calc_rmsd(5, mask)
         # exclude 1st value for ref (=0.0)
         aa_eq(saved_rmsd, dslist[0].tolist()[1:])
+
 
 if __name__ == "__main__":
     unittest.main()

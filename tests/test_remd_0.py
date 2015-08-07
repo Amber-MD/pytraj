@@ -7,7 +7,6 @@ from pytraj import adict
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         datadir = "./data/Test_RemdTraj/"
         dfiles = sorted(glob(datadir + "rem.nc.*"))
@@ -32,11 +31,13 @@ class Test(unittest.TestCase):
         print(d0.size)
 
         top2 = top.strip_atoms("!@CA", copy=True)
-        d0 = adict['radgyr']("@C*", [traj['@CA :frame'] for traj in trajlist],
-                             top2, quick_get=True)
+        d0 = adict['radgyr']("@C*", [traj['@CA :frame'] for traj in trajlist
+                                     ], top2,
+                             quick_get=True)
         print(d0.size)
         for traj in trajlist:
             print(traj.temperatures)
+
 
 if __name__ == "__main__":
     unittest.main()

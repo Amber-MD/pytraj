@@ -11,7 +11,6 @@ import numpy as np
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         d0 = calculate(adict['distance'], traj, ':2@CA :10@CA')[0]
@@ -20,7 +19,8 @@ class Test(unittest.TestCase):
         print(np.asarray(d0[:]))
 
         cppout = np.loadtxt(
-            "./data/CAres2_CAres10.Tc5b.dat", skiprows=1).transpose()[1]
+            "./data/CAres2_CAres10.Tc5b.dat",
+            skiprows=1).transpose()[1]
         print(cppout[:10])
         assert_almost_equal(d0[:], cppout[:d0.size], decimal=3)
 
@@ -65,6 +65,7 @@ class Test(unittest.TestCase):
         from pytraj.common_actions import calc_distance
         d0 = calc_distance(traj, ":2@CA :10@CA", dtype='dataset')
         assert is_word_in_class_name(d0, 'Dataset')
+
 
 if __name__ == "__main__":
     unittest.main()

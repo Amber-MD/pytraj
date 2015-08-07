@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = io.load_sample_data("tz2")[:]
         mylist = [1, 5, 8]
@@ -26,6 +25,7 @@ class Test(unittest.TestCase):
         assert fa1[0, 0, 0] == fa0[0, 0, 0] == 100.
         assert traj[1, 0, 0] == 100.
         print(fa0[0, 0], fa1[0, 0], traj[1, 0])
+
 
 if __name__ == "__main__":
     unittest.main()

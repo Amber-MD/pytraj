@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         traj.autoimage()
@@ -23,6 +22,7 @@ class Test(unittest.TestCase):
         arr0 = d0.data
         from collections import Counter
         assert Counter(arr0) == d0.count()
+
 
 if __name__ == "__main__":
     unittest.main()

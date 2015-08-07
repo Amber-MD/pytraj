@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     @test_if_path_exists(cpptraj_test_dir)
     def test_0(self):
         import numpy as np
@@ -26,9 +25,10 @@ class Test(unittest.TestCase):
         # https://github.com/mojyt/cpptraj/tree/master/test/Test_Radial/Radial.arg.save
         saved_data_dir = os.path.join(
             cpptraj_test_dir, "Test_Radial", "Radial.agr.save")
-        saved_data = np.loadtxt(saved_data_dir, skiprows=8, usecols=(1,))
+        saved_data = np.loadtxt(saved_data_dir, skiprows=8, usecols=(1, ))
         aa_eq(dslist[0].tolist(), saved_data)
         print(dslist.size)
+
 
 if __name__ == "__main__":
     unittest.main()

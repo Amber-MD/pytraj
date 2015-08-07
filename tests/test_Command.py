@@ -9,13 +9,13 @@ from pytraj.core.CpptrajState import CpptrajState
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         fname = "./tc5b.rotate.in"
         state = Command.get_state(fname)
         print(state)
         print(dir(state))
         print(state.toplist[0])
+
 
 if __name__ == "__main__":
     unittest.main()

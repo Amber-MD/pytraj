@@ -12,7 +12,6 @@ has_np, np = _import_numpy()
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np

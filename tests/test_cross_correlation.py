@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         trajin = pt.datafiles.tc5b_trajin + """
         distance d0 @2 @3
@@ -15,6 +14,7 @@ class Test(unittest.TestCase):
         corr d0 d1 out test.out
         corr d0 out test2.out
         """
+
         cout = pt.datafiles.load_cpptraj_output(trajin)
 
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -33,6 +33,7 @@ class Test(unittest.TestCase):
         # autocorr d0, d0
         pout = pt.common_actions.auto_correlation_function(dslist[0])
         aa_eq(pout, cout[3])
+
 
 if __name__ == "__main__":
     unittest.main()

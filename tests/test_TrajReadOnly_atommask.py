@@ -6,7 +6,6 @@ from pytraj.decorators import test_if_having, no_test
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("numpy")
     def test_0(self):
         print("test TrajectoryIterator")
@@ -51,6 +50,7 @@ class Test(unittest.TestCase):
 
         # check if there is segmentation fault
         print(traj[0])
+
 
 if __name__ == "__main__":
     unittest.main()

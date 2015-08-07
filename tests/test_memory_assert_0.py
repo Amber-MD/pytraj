@@ -18,8 +18,8 @@ MAX_FRAME_MEM = 15.  # MB
 # XYZ_MEM =
 n_frames = 800
 n_atoms = 20000
-print("MAXMEM=%s, MINMEM=%s, MAX_FRAME_MEM=%s" %
-      (MAXMEM, MINMEM, MAX_FRAME_MEM))
+print(
+    "MAXMEM=%s, MINMEM=%s, MAX_FRAME_MEM=%s" % (MAXMEM, MINMEM, MAX_FRAME_MEM))
 
 traj = make_fake_traj(n_frames, n_atoms)
 
@@ -86,6 +86,7 @@ def apply_func(traj):
 def insert_one_frame(copy=False):
     traj.insert(traj[-1], 4, copy=copy)
 
+
 if __name__ == "__main__":
     import numpy as np
     from numpy import max
@@ -94,11 +95,11 @@ if __name__ == "__main__":
     print("single_traj", m)
     real_m_traj = m
 
-    m = max(memory_usage((inline_math_add, (traj,))))
+    m = max(memory_usage((inline_math_add, (traj, ))))
     print('inline_math_add', m - real_m_traj)
     assert (m - real_m_traj) < 2.
 
-    m = max(memory_usage((apply_func, (traj,))))
+    m = max(memory_usage((apply_func, (traj, ))))
     print('apply_func', m - real_m_traj)
 
     m = memory_usage(single_frame)[-1]
@@ -123,10 +124,10 @@ if __name__ == "__main__":
     m = max(memory_usage(make_copy_2_frames)) - real_m_traj
     print('make_copy_2_frames', m)
 
-    m = max(memory_usage((insert_one_frame, (True,)))) - real_m_traj
+    m = max(memory_usage((insert_one_frame, (True, )))) - real_m_traj
     print('insert_one_frame, copy=True', m)
 
-    m = max(memory_usage((insert_one_frame, (False,)))) - real_m_traj
+    m = max(memory_usage((insert_one_frame, (False, )))) - real_m_traj
     print('insert_one_frame', m)
 
     m = max(memory_usage(perform_action_radgyr))

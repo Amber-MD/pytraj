@@ -6,7 +6,6 @@ import numpy as np
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         arr0 = traj[:, :, :]
@@ -15,6 +14,7 @@ class Test(unittest.TestCase):
         arr0[0, 0, 0] = 105.
         print(traj)
         print(traj[0, 0, 0])
+
 
 if __name__ == "__main__":
     unittest.main()

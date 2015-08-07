@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
 
@@ -17,10 +16,11 @@ class Test(unittest.TestCase):
         rms first nofit
         rms first mass
         """)
-        print (cout)
+        print(cout)
 
         aa_eq(pt.rmsd(traj, nofit=True), cout[0])
         aa_eq(pt.rmsd(traj, use_mass=True), cout[1])
+
 
 if __name__ == "__main__":
     unittest.main()

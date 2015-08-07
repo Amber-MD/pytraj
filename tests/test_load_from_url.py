@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         url = "http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb"
         traj0 = pt.load_pdb("./data/polyAT.pdb")
@@ -16,6 +15,7 @@ class Test(unittest.TestCase):
 
         traj1 = pt.load(url)
         aa_eq(traj1.xyz, traj.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

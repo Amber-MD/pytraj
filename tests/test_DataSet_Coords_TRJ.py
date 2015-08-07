@@ -8,11 +8,11 @@ from pytraj import io
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.trajs.Trajin_Single import Trajin_Single
         TRAJ = Trajin_Single(
-            filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         print(TRAJ.size)
         Nframe = TRAJ.size
 

@@ -6,13 +6,14 @@ from pytraj.testing import test_if_having, no_test
 from pytraj.utils import assert_almost_equal
 
 TRAJ = TrajectoryIterator(
-    filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+    filename="./data/md1_prod.Tc5b.x",
+    top="./data/Tc5b.top")
 cpptraj_rmsd = np.loadtxt(
-    "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1]
+    "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat",
+    skiprows=1).transpose()[1]
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         farray = Trajectory()
         farray.top = TRAJ.top
@@ -42,9 +43,11 @@ class Test(unittest.TestCase):
 
     def test_rmsd_with_mask(self):
         TRAJ = TrajectoryIterator(
-            filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         cpptraj_rmsd = np.loadtxt(
-            "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1]
+            "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat",
+            skiprows=1).transpose()[1]
         f0 = TRAJ[0]
         arr0 = np.zeros(TRAJ.size)
         arr1 = np.zeros(TRAJ.size)
@@ -70,7 +73,8 @@ class Test(unittest.TestCase):
         # use `mdtraj` for rerefence values
         import mdtraj as md
         traj = TrajectoryIterator(
-            filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         import pytraj.common_actions as pyca
         m_top = md.load_prmtop("./data/Tc5b.top")
         m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
@@ -142,6 +146,7 @@ class Test(unittest.TestCase):
 
         mask = ['@CA', '@CB', ':3-18@CA,C', [0, 3, 5]]
         self.assertRaises(ValueError, lambda: traj.rmsd(mask=mask))
+
 
 if __name__ == "__main__":
     unittest.main()

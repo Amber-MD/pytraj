@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
         from pytraj import dihedral_analysis as da
@@ -35,6 +34,7 @@ class Test(unittest.TestCase):
         for key in dslist1.keys():
             print(dslist1[key].values)
             aa_eq(dslist1[key].values, arr3[key])
+
 
 if __name__ == "__main__":
     unittest.main()

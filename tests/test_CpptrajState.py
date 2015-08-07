@@ -13,7 +13,6 @@ trajoutname = datadir + "test.x"
 refilename = "./data/Tc5b.nat.crd"
 trajinname = datadir + "md1_prod.Tc5b.x"
 
-
 # creat TrajinList instance
 trajininput = """
 ##parm ./data/Tc5b.top
@@ -25,7 +24,6 @@ argIn = ArgList(trajininput)
 
 
 class TestCpptrajState(unittest.TestCase):
-
     def test_run(self):
         print("test_process_input")
         state2 = CpptrajState()
@@ -36,8 +34,9 @@ class TestCpptrajState(unittest.TestCase):
         # state2.add_reference("./data/Tc5b.nat.crd")
         state2.add_trajout("./output/test.out")
 
-        state2.add_action(allactions.Action_Distance(),
-                          ArgList("distance :2@CA :10@CA out ./output/dist_test.txt"))
+        state2.add_action(
+            allactions.Action_Distance(),
+            ArgList("distance :2@CA :10@CA out ./output/dist_test.txt"))
 
         state2.add_action(
             allactions.Action_Distance(), ArgList("distance :4@CA :10@CA"))
@@ -67,7 +66,8 @@ class TestCpptrajState(unittest.TestCase):
         distaction.read_input(
             ArgList(":2@CA :10@CA"), toplist, dsetlist, dflist, 0)
         boxaction.read_input(
-            ArgList("x 1000. y 1000. alpha 500."), toplist, dsetlist, dflist, 0)
+            ArgList("x 1000. y 1000. alpha 500."), toplist, dsetlist, dflist,
+            0)
         distaction.process(toplist[0])
 
         idx = 0
@@ -76,15 +76,20 @@ class TestCpptrajState(unittest.TestCase):
         frame0 = farray[idx]
         # update Frame instance with new Box info
         boxaction.do_action(frame0)
-        mdio.write_traj(filename="./output/test_withbox.r", traj=frame0,
-                        top=farray.top, format='AMBERRESTART',
+        mdio.write_traj(filename="./output/test_withbox.r",
+                        traj=frame0,
+                        top=farray.top,
+                        format='AMBERRESTART',
                         overwrite=True)
         frame0.set_nobox()
-        mdio.write_traj(filename="./output/test.r", traj=frame0,
-                        top=farray.top, format='AMBERRESTART',
+        mdio.write_traj(filename="./output/test.r",
+                        traj=frame0,
+                        top=farray.top,
+                        format='AMBERRESTART',
                         overwrite=True)
         from pytraj.__cpptraj_version__ import __cpptraj_version__
         print(__cpptraj_version__)
+
 
 if __name__ == "__main__":
     unittest.main()

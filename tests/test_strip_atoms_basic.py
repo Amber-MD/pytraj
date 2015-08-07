@@ -4,7 +4,6 @@ from pytraj import io as mdio
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # Aim: simple test for segfault
         # bugs : if slicing `traj` (iterator), stripping (_fast_strip_atoms)
@@ -25,6 +24,7 @@ class Test(unittest.TestCase):
 
         fa3 = traj._fast_slice(slice(2, 10, 1))
         fa3._fast_strip_atoms('@CA')
+
 
 if __name__ == "__main__":
     unittest.main()

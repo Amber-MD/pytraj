@@ -14,7 +14,6 @@ except:
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         if has_sander_and_parmed:
             traj_fn = "./data/md1_prod.Tc5b.x"
@@ -52,6 +51,7 @@ class Test(unittest.TestCase):
                 sander.cleanup()
         else:
             print("require both sander and parmed. Skip test")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -81,5 +81,6 @@ class Test(unittest.TestCase):
         print("count = %s" % count)
         assert_almost_equal(frame.coords, traj[-1].coords)
 
+
 if __name__ == "__main__":
     unittest.main()

@@ -7,13 +7,13 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.pmap import pmap
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        result= pmap(4, pt.calc_radgyr, traj)
+        result = pmap(4, pt.calc_radgyr, traj)
         print(result)
         print(pt.calc_radgyr(traj))
+
 
 if __name__ == "__main__":
     unittest.main()

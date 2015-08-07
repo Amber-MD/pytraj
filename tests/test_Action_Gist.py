@@ -13,13 +13,13 @@ gist_command = "doorder doeij gridcntr 25.0 31.0 30.0 griddim 41 41 45 gridspacn
 
 
 class Test(unittest.TestCase):
-
     def test_1(self):
         from pytraj import calculate
         traj = mdio.iterload(trajin, parm)
         print(traj)
         dslist = calculate("gist", traj[0], gist_command, top=traj.top)
         print(dslist.get_legends())
+
 
 if __name__ == "__main__":
     unittest.main()

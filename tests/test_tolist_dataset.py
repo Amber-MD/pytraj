@@ -10,7 +10,6 @@ from pytraj.datasets.DataSetList import DataSetList
 
 
 class Test(unittest.TestCase):
-
     @no_test
     def test_0(self):
         print(calculate)
@@ -21,6 +20,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(d0.data, d0.tolist())
 
     @test_if_having("numpy")
+
     #@no_test
     def test_1(self):
         print(calculate)
@@ -55,6 +55,7 @@ class Test(unittest.TestCase):
         assert arr0[0] == 1000
         assert d0[0] == 1000
         assert d0.data[0] == 1000
+
 
 if __name__ == "__main__":
     unittest.main()

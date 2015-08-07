@@ -11,7 +11,6 @@ from pytraj.compat import zip
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
 
         # create TrajectoryIter (readonly)
@@ -55,6 +54,7 @@ class Test(unittest.TestCase):
         assert (facp[0].rmsd(fa[0]) > 1.)
         assert facp[0, 0, 0] == 501.
         assert fa[0, 0, 0] != 501.
+
 
 if __name__ == "__main__":
     unittest.main()

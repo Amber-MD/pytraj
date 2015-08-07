@@ -10,7 +10,6 @@ fname = "./data/tz2.pdb"
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         print("turn-on set_world_silent")
         # just want to test for not printing out cpptraj warning
@@ -31,6 +30,7 @@ class Test(unittest.TestCase):
         pdb = mdio.load_pdb(fname)
         traj = mdio.load(fname, fname)
         eq_coords(pdb, traj)
+
 
 if __name__ == "__main__":
     unittest.main()

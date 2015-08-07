@@ -8,7 +8,6 @@ import numpy as np
 
 
 class TestBugs(unittest.TestCase):
-
     def test_0(self):
         trajcpp = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = trajcpp[:]
@@ -23,6 +22,7 @@ class TestBugs(unittest.TestCase):
         assert farray[0, 0, 0] == 100.10
         farray[0, 0, :] = [100.10, 101.1, 102.1]
         assert_almost_equal(farray[0, 0, :], [100.10, 101.1, 102.1])
+
 
 if __name__ == "__main__":
     unittest.main()

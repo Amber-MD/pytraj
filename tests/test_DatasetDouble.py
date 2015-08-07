@@ -6,7 +6,6 @@ from array import array
 
 
 class TestDataSetDB(unittest.TestCase):
-
     def test_0(self):
         dset0 = DatasetDouble()
 
@@ -50,6 +49,7 @@ class TestDataSetDB(unittest.TestCase):
         arr0[0] = 100
         assert np.asarray(dset0.data[:10])[0] == 100.
         assert dset0.data[0] == 100.
+
 
 if __name__ == "__main__":
     unittest.main()

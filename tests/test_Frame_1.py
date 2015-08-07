@@ -74,11 +74,17 @@ class TestFrame(unittest.TestCase):
         print(mat, v1, v2)
         print(frame2[:10])
         print(mdio.write_traj(
-            "./output/test_0_before.pdb", traj=frame2, top=traj.top, overwrite=True))
+            "./output/test_0_before.pdb",
+            traj=frame2,
+            top=traj.top,
+            overwrite=True))
         frame2.trans_rot_trans(v1, mat, v2)
         print(frame2[:10])
         print(mdio.write_traj(
-            "./output/test_0_afeter.pdb", traj=frame2, top=traj.top, overwrite=True))
+            "./output/test_0_afeter.pdb",
+            traj=frame2,
+            top=traj.top,
+            overwrite=True))
         print(Trajout().help())
 
     #@no_test
@@ -102,7 +108,7 @@ class TestFrame(unittest.TestCase):
         #assert frame.coords == array('d', [x for x in range(300)])
         #assert frame[:] == frame.coords
 
-    #@no_test
+        #@no_test
     def test_buffer1d(self):
         print("+++++start test_buffer1d+++++++")
         print(FRAME.coords)
@@ -141,9 +147,9 @@ class TestFrame(unittest.TestCase):
         # does not work, got "ValueError: ndarray is not contiguous"
         #FRAME[start:stop:strip] = arr_tmp[start:stop:strip]
 
-    #@no_test
+        #@no_test
 
-    #@no_test
+        #@no_test
     def test_indexing(self):
         # create a Frame instance with N_ATOMS atoms
         N_ATOMS = 10
@@ -178,7 +184,8 @@ class TestFrame(unittest.TestCase):
         print(FRAME)
 
         farray = Trajectory(
-            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(1,))
+            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top",
+            indices=(1, ))
         frame0 = farray[0]
         print(frame0)
         atm = AtomMask("@CA")
@@ -196,10 +203,11 @@ class TestFrame(unittest.TestCase):
         # TODO : add assert
         print("test_rmsd_return_mat_vec_vec")
         farray = Trajectory(
-            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0, 1))
+            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top",
+            indices=(0, 1))
         frame0 = farray[0]
         rmsd, mat, v1, v2 = frame0.rmsd(farray[1], get_mvv=True)
-        print(rmsd,  mat, v1, v2)
+        print(rmsd, mat, v1, v2)
         assert abs(rmsd - 10.3964) < 1E-3
         arr1 = np.asarray(frame0.buffer1d)[:3]
         print(frame0.coords[:3])
@@ -299,7 +307,8 @@ class TestFrame(unittest.TestCase):
 
     def test_tranlate(self):
         farray = Trajectory(
-            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=(0, 1))
+            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top",
+            indices=(0, 1))
         f0 = farray[0]
         f1 = f0.copy()
         f2 = f0.copy()
@@ -314,6 +323,7 @@ class TestFrame(unittest.TestCase):
         f2.translate(vec3.to_ndarray())
         assert_almost_equal(f0.coords, f1.coords)
         assert_almost_equal(f0.coords, f2.coords)
+
 
 if __name__ == "__main__":
     unittest.main()

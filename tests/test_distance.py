@@ -14,7 +14,6 @@ import numpy as np
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -45,7 +44,7 @@ class Test(unittest.TestCase):
         xyz_frame = traj.xyz.reshape(traj.n_frames * traj.n_atoms, 3)
         fa = Frame()
         fa.append_xyz(xyz_frame)
-        Nsize = 10**6
+        Nsize = 10 ** 6
         arr = np.random.randint(0, 300, size=Nsize * 2).reshape(Nsize, 2)
 
         @Timer()
@@ -86,6 +85,7 @@ class Test(unittest.TestCase):
         arr2 = pt.distance(traj(stop=1000), [0, 5])
         arr3 = pt.distance(traj(stop=traj.n_frames), [0, 5])
         assert np.all(arr2 == arr3)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -5,7 +5,6 @@ from pytraj import Topology
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         top = Topology("./data/tz2.ortho.parm7")
         box = top.box
@@ -31,6 +30,7 @@ class Test(unittest.TestCase):
         top2.box = box[:]
         aa_eq(top2.box.tolist(), top.box.tolist())
         assert top2.box.type == top.box.type
+
 
 if __name__ == "__main__":
     unittest.main()

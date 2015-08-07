@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.testing import duplicate_traj
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -24,6 +23,7 @@ class Test(unittest.TestCase):
         assert dtraj.n_frames == 2 * traj.n_frames
         aa_eq(dtraj[:n_frames].xyz, traj.xyz)
         aa_eq(dtraj[n_frames:].xyz, traj.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

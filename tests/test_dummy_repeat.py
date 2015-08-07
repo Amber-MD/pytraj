@@ -12,7 +12,6 @@ from pytraj.compat import range
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         print("repeat `calculate`")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -64,6 +63,7 @@ class Test(unittest.TestCase):
             assert sorted(ddcit) == sorted(d)
 
         assert (ddcit.keys().__len__() == 20)
+
 
 if __name__ == "__main__":
     unittest.main()

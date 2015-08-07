@@ -8,10 +8,10 @@ import numpy as np
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         TRAJ0 = TrajectoryIterator(
-            filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         print(TRAJ0.size)
         traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
@@ -45,7 +45,8 @@ class Test(unittest.TestCase):
     def test_1(self):
         "test Action"
         TRAJ0 = TrajectoryIterator(
-            filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
 
@@ -63,7 +64,8 @@ class Test(unittest.TestCase):
         print(d0[:])
 
         d1 = np.loadtxt(
-            "./data/CAres2_CAres10.Tc5b.dat", skiprows=1).transpose()[1]
+            "./data/CAres2_CAres10.Tc5b.dat",
+            skiprows=1).transpose()[1]
         print(d1)
         assert_almost_equal(dslist[0][:], d1)
 
@@ -73,7 +75,8 @@ class Test(unittest.TestCase):
         from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD
         "test cast_dataset"
         TRAJ0 = TrajectoryIterator(
-            filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
 
@@ -84,7 +87,8 @@ class Test(unittest.TestCase):
     def test_3(self):
         # test commond DataSet methods
         TRAJ0 = TrajectoryIterator(
-            filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
         print(TRAJ0.size)
         traj = DataSet_Coords_CRD()
         traj.top = TRAJ0.top.copy()
@@ -112,6 +116,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(traj[-1].coords, traj[0].coords)
 
         assert traj.dtype == 'coords'
+
 
 if __name__ == "__main__":
     unittest.main()

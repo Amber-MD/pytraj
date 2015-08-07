@@ -54,7 +54,8 @@ class Test(unittest.TestCase):
         assert crd_traj.size == traj.size
         act = anadict['rms2d']
         print(dslist[0].name)
-        act("@CA crdset test_traj rmsout ./output/_test_2drms_CRDtest.dat", traj.top,
+        act("@CA crdset test_traj rmsout ./output/_test_2drms_CRDtest.dat",
+            traj.top,
             dslist=dslist,
             dflist=dflist)
         print(act)
@@ -83,6 +84,7 @@ class Test(unittest.TestCase):
         arr = dslist[0].to_ndarray().flatten()
         arr2 = dslist2[0].to_ndarray().flatten()
         assert_almost_equal(arr, arr2)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -7,7 +7,6 @@ from pytraj.utils import _import, flatten_list
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         has_np, np = _import('numpy')
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -29,6 +28,7 @@ class Test(unittest.TestCase):
         # it's time to see the output :D
         print(arr0)
         print(type(arr0))
+
 
 if __name__ == "__main__":
     unittest.main()

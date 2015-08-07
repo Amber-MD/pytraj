@@ -10,13 +10,13 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.misc import get_atts
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print(traj)
         print(get_atts(traj))
         print(traj.search_hbonds().to_dict())
+
 
 if __name__ == "__main__":
     unittest.main()

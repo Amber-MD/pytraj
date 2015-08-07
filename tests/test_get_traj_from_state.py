@@ -7,17 +7,18 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         cout = pt.datafiles.load_cpptraj_output("""
         parm ./data/Tc5b.top
         trajin ./data/md1_prod.Tc5b.x
-        """, with_traj=True)
+        """,
+                                                with_traj=True)
 
         traj2 = cout[0]
         aa_eq(traj.xyz, traj2.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

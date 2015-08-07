@@ -5,7 +5,6 @@ from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         print(traj)
@@ -18,6 +17,7 @@ class Test(unittest.TestCase):
         print("top5: ", top5)
         print(arr0)
         aa_eq(top5, arr0, decimal=3)
+
 
 if __name__ == "__main__":
     unittest.main()

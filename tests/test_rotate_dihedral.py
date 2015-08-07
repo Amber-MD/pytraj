@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
@@ -34,11 +33,12 @@ class Test(unittest.TestCase):
             pt.rotate_dihedral(t0, "3:phi:" + str(deg))
             _deg = pt.calc_phi(t0, '3', dtype='ndarray')[0]
             dih = pt.dihedral(t0, ':2@C :3@N :3@CA :3@C')[0]
-            print (deg, _deg, dih)
+            print(deg, _deg, dih)
             aa_eq(deg, _deg)
             aa_eq(deg, dih)
 
             aa_eq(pt.calc_psi(traj[:1]).values, pt.calc_psi(t0))
+
 
 if __name__ == "__main__":
     unittest.main()

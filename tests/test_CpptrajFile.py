@@ -4,7 +4,6 @@ from pytraj.CpptrajFile import CpptrajFile
 
 
 class TestCpptrajFile(unittest.TestCase):
-
     def test_0(self):
         # test "with" statement
         with CpptrajFile("Tc5b.crd", 'r') as cfile:
@@ -15,6 +14,7 @@ class TestCpptrajFile(unittest.TestCase):
             print(cfile.nextline())
             print(cfile.file_size() / 1000.)
             print(cfile.mode)
+
 
 if __name__ == "__main__":
     unittest.main()

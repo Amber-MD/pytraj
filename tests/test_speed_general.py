@@ -11,7 +11,6 @@ from pytraj.utils import Timer
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -210,6 +209,7 @@ class Test(unittest.TestCase):
         print('pytraj with indices')
         test_pytraj_indices()  # similiar speed (need to run several times)
         aa_eq(f[indices], new_xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

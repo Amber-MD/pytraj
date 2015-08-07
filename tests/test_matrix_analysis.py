@@ -31,7 +31,6 @@ print(command_list)
 
 
 class Test(unittest.TestCase):
-
     @test_if_path_exists(cpptraj_test_dir)
     def test_0(self):
         import numpy as np
@@ -71,7 +70,8 @@ class Test(unittest.TestCase):
             if 'bymask' in command:
                 pass
             else:
-                aa_eq(mat_out.flatten(),  saved_mat.flatten())
+                aa_eq(mat_out.flatten(), saved_mat.flatten())
+
 
 if __name__ == "__main__":
     unittest.main()

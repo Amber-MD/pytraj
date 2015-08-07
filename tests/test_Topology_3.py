@@ -10,7 +10,6 @@ top = traj.top
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         print(list(top.trunc_res_atom_name('@CA')))
         print(list(top.trunc_res_atom_name(0)))
@@ -42,6 +41,7 @@ class Test(unittest.TestCase):
         fname = top._original_filename
         parm = mdio._load_parmed(fname)
         assert parm.__str__() == fname
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     @test_if_path_exists(cpptraj_test_dir)
     def test_0(self):
         # test dir:
@@ -30,8 +29,9 @@ class Test(unittest.TestCase):
         print(fa[4].rmsd(saved_frame))
         aa_eq(fa[4].coords, saved_frame.coords, decimal=1)
 
-        fa2, dslist2 = pyca.closest(traj,
-                                    "10 :2,4 center closestout output/test_closest.out", dtype='dataset')
+        fa2, dslist2 = pyca.closest(
+            traj, "10 :2,4 center closestout output/test_closest.out",
+            dtype='dataset')
 
         # don't need to specify `closestout`
         fa3, dslist3 = pyca.closest(traj, "10 :2,4 center", dtype='dataset')
@@ -42,6 +42,7 @@ class Test(unittest.TestCase):
         fa4, dslist4 = pyca.closest(traj, "10 :2,4 center", dtype='ndarray')
         aa_eq(dslist2.to_ndarray(), dslist4)
         aa_eq(fa2.xyz, fa4.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

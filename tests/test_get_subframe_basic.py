@@ -7,7 +7,6 @@ from array import array
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
@@ -47,6 +46,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(frame2[2, :], frame1[2, :])
         assert_almost_equal(frame1.coords[6:9], frame1[2, :])
         assert_almost_equal(frame2.coords, frame1.coords)
+
 
 if __name__ == "__main__":
     unittest.main()

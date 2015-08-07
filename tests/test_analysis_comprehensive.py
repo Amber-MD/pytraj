@@ -13,7 +13,6 @@ from pytraj.datasets.DataSetList import DataSetList
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # histogram
         # TODO : assert
@@ -27,7 +26,7 @@ class Test(unittest.TestCase):
         print(dmax, dmin)
         act = analdict['hist']
         command = "%s min %s max %s bins %s step 50 out ./output/test.out" % (
-                  d0.name, dmin, dmax, 100)
+            d0.name, dmin, dmax, 100)
         print(command)
         act(command, dslist=dslist)
         print(dslist.get_legends())
@@ -42,6 +41,7 @@ class Test(unittest.TestCase):
         command = "mylovelyname out mydummyoutput.txt"
         act(command, dslist=dslist)
         print(dslist[-1].to_pyarray())
+
 
 if __name__ == "__main__":
     unittest.main()

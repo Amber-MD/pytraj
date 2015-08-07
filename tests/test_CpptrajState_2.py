@@ -5,7 +5,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class TestTrajinList(TrajinList):
-
     def __getitem__(self, idx):
         s = 0
         for traj in self:
@@ -16,7 +15,6 @@ class TestTrajinList(TrajinList):
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         cppstate = CpptrajState()
         cppstate.toplist.add_parm(
@@ -50,6 +48,7 @@ class Test(unittest.TestCase):
         print(traj[0])
         for frame in traj:
             print(frame)
+
 
 if __name__ == "__main__":
     unittest.main()

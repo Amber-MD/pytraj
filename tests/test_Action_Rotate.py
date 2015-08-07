@@ -9,7 +9,6 @@ from pytraj.common_actions import do_rotation
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['rotate']
@@ -106,10 +105,12 @@ class Test(unittest.TestCase):
 
             tgap1 = t1.time_gap
             tgap2 = t2.time_gap
-            print("time for do_rotation: t1 = %s (s), frame.rotate: t2 = %s (s) "
-                  % (t1.time_gap, t2.time_gap))
+            print(
+                "time for do_rotation: t1 = %s (s), frame.rotate: t2 = %s (s) "
+                % (t1.time_gap, t2.time_gap))
             print("speed up using do_rotation vs frame.rotate = %s" %
                   (tgap2 / tgap1))
+
 
 if __name__ == "__main__":
     unittest.main()

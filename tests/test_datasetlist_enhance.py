@@ -10,12 +10,10 @@ import pytraj.common_actions as pyca
 import numpy as np
 from numpy.testing import assert_almost_equal as aa_eq
 from pytraj.datasets.DataSetList import DataSetList
-
 """enhance DataSetList by using numpy"""
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ds = traj.search_hbonds()
@@ -48,6 +46,7 @@ class Test(unittest.TestCase):
         print("test split")
         print(ds0)
         print(ds0.split(3))
+
 
 if __name__ == "__main__":
     unittest.main()

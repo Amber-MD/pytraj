@@ -19,7 +19,6 @@ command = " ".join(["mass out ./output/test_density.dat", delta, masks])
 
 
 class Test(unittest.TestCase):
-
     @test_if_path_exists(test_density_dir)
     def test_0(self):
         from pytraj.common_actions import calculate
@@ -55,6 +54,7 @@ class Test(unittest.TestCase):
         command = 'mass delta 0.25 ":PC@P31" ":PC@N31" ":PC@C2" ":PC | :OL | :OL2"'
         dslist = pyca.calc_density(traj, command)
         print(dslist)
+
 
 if __name__ == "__main__":
     unittest.main()

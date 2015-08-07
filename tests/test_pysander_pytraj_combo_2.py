@@ -15,7 +15,6 @@ except:
 
 
 class Test(unittest.TestCase):
-
     @test_if_having("pandas")
     def test_0(self):
         if has_sander_and_parmed:
@@ -35,6 +34,7 @@ class Test(unittest.TestCase):
             print(pd.DataFrame(e_dict))
         else:
             print("require both sander and parmed. Skip test")
+
 
 if __name__ == "__main__":
     unittest.main()

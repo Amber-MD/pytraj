@@ -10,7 +10,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa0 = traj.copy()
@@ -29,6 +28,7 @@ class Test(unittest.TestCase):
         fa1[0, 0, 0] = 1000.
         assert fa1[0, 0, 0] == 1000.
         assert fa0[SIZE, 0, 0] == 1000.
+
 
 if __name__ == "__main__":
     unittest.main()

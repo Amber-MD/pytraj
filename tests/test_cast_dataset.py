@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         print(db.is_empty())
         # print dir(db)
 
-    #@no_test
+        #@no_test
     def test_add_trajin(self):
         dset_traj = DataSet_Coords_TRJ()
         dset_traj.top = Topology("data/Tc5b.top")
@@ -45,6 +45,7 @@ class Test(unittest.TestCase):
         dslist._add_copy_of_set(db)
         print(dslist[0])
         assert isinstance(dslist[0], DataSet_Coords_TRJ)
+
 
 if __name__ == "__main__":
     unittest.main()

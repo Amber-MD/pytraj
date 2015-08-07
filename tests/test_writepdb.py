@@ -8,17 +8,24 @@ from pytraj.utils import goto_temp_folder
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj import set_world_silent
         set_world_silent(False)
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         mdio.write_traj(
-            "test_1.pdb", traj[0], top=traj.top, format='CHARMMDCD', overwrite=True)
+            "test_1.pdb", traj[0],
+            top=traj.top,
+            format='CHARMMDCD',
+            overwrite=True)
         mdio.write_traj(
-            "test_1.dcd", traj[0], top=traj.top, format='CHARMMDCD', overwrite=True)
+            "test_1.dcd", traj[0],
+            top=traj.top,
+            format='CHARMMDCD',
+            overwrite=True)
 
-        with Trajout("./output/test_1", format="PDBFILE", overwrite=True) as trajout:
+        with Trajout("./output/test_1",
+                     format="PDBFILE",
+                     overwrite=True) as trajout:
             trajout.writeframe(frame=traj[0], top=traj.top)
 
     def test_1(self):
@@ -61,6 +68,7 @@ class Test(unittest.TestCase):
         traj.save(basename, overwrite=True, mode='model')
         traj3 = mdio.load(basename, traj.top)
         aa_eq(traj.xyz, traj3.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -6,7 +6,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj import adict
@@ -19,8 +18,10 @@ class Test(unittest.TestCase):
         act = adict['matrix']
         print(act)
 
-        act("", current_frame=(
-            traj, traj(1, 5, 1), traj.chunk_iter(chunksize=2)), top=traj.top)
+        act("",
+            current_frame=(
+                traj, traj(1, 5, 1), traj.chunk_iter(chunksize=2)),
+            top=traj.top)
         print(act.n_frames)
         assert act.n_frames == 24
 
@@ -30,6 +31,7 @@ class Test(unittest.TestCase):
 
         act("@CA", traj.chunk_iter(), traj.top)
         assert act.n_frames == 53
+
 
 if __name__ == "__main__":
     unittest.main()

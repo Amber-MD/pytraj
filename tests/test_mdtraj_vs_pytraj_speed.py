@@ -54,12 +54,12 @@ def Run(func, msg, n_times=50, test_load=False):
 
 
 class Test(unittest.TestCase):
-
     @no_test
     @test_if_having("mdtraj")
     def test_load(self):
         def load(test_load=True):
             pass
+
         Run(load, "test_load_traj: text file")
 
     @test_if_having("mdtraj")
@@ -67,40 +67,48 @@ class Test(unittest.TestCase):
         def iter_traj(traj):
             for frame in traj:
                 pass
+
         Run(iter_traj, "iter_traj")
 
     @test_if_having("mdtraj")
     def test_1(self):
         def get_xyz(traj):
             traj.xyz
+
         Run(get_xyz, "get_xyz")
 
     @test_if_having("mdtraj")
     def test_2(self):
         def tolist(traj):
             traj.xyz.tolist()
+
         Run(tolist, "tolist")
 
     @test_if_having("mdtraj")
     def test_3(self):
         def save_nc(traj):
             traj.save("./output/x_speed.nc")
+
         Run(save_nc, "save .nc")
 
         def save_xtc(traj):
             traj.save("./output/x_speed.xtc")
+
         Run(save_xtc, "save .xtc")
 
         def save_xyz(traj):
             traj.save("./output/x_speed.xyz")
+
         Run(save_xyz, "save .xyz")
 
         def save_dcd(traj):
             traj.save("./output/x_speed.dcd")
+
         Run(save_dcd, "save .dcd")
 
         def save_binpos(traj):
             traj.save("./output/x_speed.binpos")
+
         Run(save_binpos, "save .binpos")
 
     @test_if_having("mdtraj")

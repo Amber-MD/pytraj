@@ -16,7 +16,6 @@ rms reference @CA savematrices
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.utils.context import goto_temp_folder
         fname = os.path.abspath("data/md1_prod.Tc5b.x")
@@ -38,12 +37,15 @@ class Test(unittest.TestCase):
             # pytraj output
             dslist1 = pt.rmsd_with_rotation_matrices(traj, '@CA', ref=ref)
             dslist2 = pt.rmsd_with_rotation_matrices(
-                traj, '@CA', ref=ref, dtype='dict')
+                traj, '@CA',
+                ref=ref,
+                dtype='dict')
 
             assert (pt.tools.rmsd_1darray(dslist0[0].values.flatten(),
                                           dslist1[0].values.flatten())) < 1E-6
             assert (pt.tools.rmsd_1darray(dslist0[1].values.flatten(),
                                           dslist1[1].values.flatten())) < 1E-6
+
 
 if __name__ == "__main__":
     unittest.main()

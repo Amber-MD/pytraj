@@ -98,5 +98,6 @@ def main():
     # try to _allocate memory
     fa1._allocate(traj.n_frames / 10, traj.n_atoms)
 
+
 if __name__ == "__main__":
     main()

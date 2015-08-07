@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
         for _ in range(5):
@@ -20,27 +19,30 @@ class Test(unittest.TestCase):
             self.assertRaises(NotImplementedError, lambda: traj[:][[True, 2]])
 
             assert len(traj[[True, False]]) == 1
-            assert pt.tools.rmsd(traj[[True, False]].xyz,
-                                 traj[0].xyz, flatten=True) < 1E-6
+            assert pt.tools.rmsd(traj[[True, False]].xyz, traj[0].xyz,
+                                 flatten=True) < 1E-6
 
             brr = np.random.randint(0, 2, traj.n_frames) > 0
             arr = np.arange(traj.n_frames)[brr]
             print(arr)
             assert pt.tools.rmsd(
-                traj[arr].xyz, traj[brr].xyz, flatten=True) < 1E-6
+                traj[arr].xyz, traj[brr].xyz,
+                flatten=True) < 1E-6
 
             # Trajectory (mutable)
             traj = pt.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
             assert len(traj[[True, False]]) == 1
-            assert pt.tools.rmsd(traj[[True, False]].xyz,
-                                 traj[0].xyz, flatten=True) < 1E-6
+            assert pt.tools.rmsd(traj[[True, False]].xyz, traj[0].xyz,
+                                 flatten=True) < 1E-6
 
             brr = np.random.randint(0, 2, traj.n_frames) > 0
             arr = np.arange(traj.n_frames)[brr]
             print(arr)
             assert pt.tools.rmsd(
-                traj[arr].xyz, traj[brr].xyz, flatten=True) < 1E-6
+                traj[arr].xyz, traj[brr].xyz,
+                flatten=True) < 1E-6
+
 
 if __name__ == "__main__":
     unittest.main()

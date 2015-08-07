@@ -75,5 +75,6 @@ class Test(unittest.TestCase):
         # FIXME : segmentation fault, need to check cpptraj code
         ftraj.search_hbonds()
 
+
 if __name__ == "__main__":
     unittest.main()

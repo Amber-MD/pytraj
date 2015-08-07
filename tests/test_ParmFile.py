@@ -20,6 +20,7 @@ def test_generator(top):
         pass
         # print mol
 
+
 top = Topology()
 parm = ParmFile()
 filename = "./data/Tc5b.top"
@@ -29,12 +30,13 @@ parm.help()
 
 
 class TestParmFile(unittest.TestCase):
-
     def test_readpdb(self):
         print("test_readpdb +++++++++++++++++++++++++++++++")
         traj0 = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         mdio.write_traj(filename="./output/test_0_after.pdb",
-                        traj=traj0[0], top=traj0.top, overwrite=True)
+                        traj=traj0[0],
+                        top=traj0.top,
+                        overwrite=True)
         pdbtop = mdio.read_parm("./output/test_0_after.pdb")
         assert pdbtop.n_atoms == 304
         print(pdbtop.n_atoms)
@@ -88,7 +90,7 @@ class TestParmFile(unittest.TestCase):
         #assert top2.n_atoms == 304
         # test_generator(top2)
 
-    #@not_yet_supported
+        #@not_yet_supported
     def test_write_mol2(self):
         top2 = Topology()
         parm.writeparm(top=top, filename="output/test.mol2")
@@ -96,13 +98,14 @@ class TestParmFile(unittest.TestCase):
         #assert top2.n_atoms == 304
         # test_generator(top2)
 
-    #@not_yet_supported
+        #@not_yet_supported
     def test_write_TINKER(self):
         top2 = Topology()
         parm.writeparm(top=top, filename="output/test.arc")
         #parm.readparm(filename="output/test.arc", top=top2)
         #assert top2.n_atoms == 304
         # test_generator(top2)
+
 
 if __name__ == "__main__":
     unittest.main()

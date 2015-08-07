@@ -7,7 +7,8 @@ from pytraj import io as mdio
 from pytraj.testing import aa_eq
 
 farray = Trajectory(
-    "data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
+    "data/md1_prod.Tc5b.x", "./data/Tc5b.top",
+    indices=list(range(10)))
 
 
 class TestTrajout(unittest.TestCase):
@@ -15,12 +16,15 @@ class TestTrajout(unittest.TestCase):
 
     def test_0(self):
         farray = Trajectory(
-            "data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
+            "data/md1_prod.Tc5b.x", "./data/Tc5b.top",
+            indices=list(range(10)))
         frame0 = farray[0]
         trajout = Trajout()
         #trajout.open(filename="test.x", top=farray.top, format="AMBERTRAJ")
-        trajout.open(filename="./output/test.x", top=farray.top,
-                     format="AMBERNETCDF", overwrite=True)
+        trajout.open(filename="./output/test.x",
+                     top=farray.top,
+                     format="AMBERNETCDF",
+                     overwrite=True)
         #trajout.open(filename="test.pdb", top=farray.top, format="PDBFILE", mode="pdb")
         trajout.writeframe(0, frame0, farray.top)
         #assert trajout.is_open() == True
@@ -35,7 +39,9 @@ class TestTrajout(unittest.TestCase):
     #@no_test
     def test_1_with_statement(self):
         frame0 = farray[0]
-        with Trajout(filename="./output/test_trajout_withstatement.x", top=farray.top, overwrite=True) as trajout:
+        with Trajout(filename="./output/test_trajout_withstatement.x",
+                     top=farray.top,
+                     overwrite=True) as trajout:
             trajout.writeframe(0, frame0, farray.top)
 
         # reload
@@ -60,7 +66,10 @@ class TestTrajout(unittest.TestCase):
     #@no_test
     def test_3_write_PDBFILE(self):
         frame0 = farray[0]
-        with Trajout(filename="./output/test_0.pdb", top=farray.top, format="PDBFILE", overwrite=True) as trajout:
+        with Trajout(filename="./output/test_0.pdb",
+                     top=farray.top,
+                     format="PDBFILE",
+                     overwrite=True) as trajout:
             # with Trajout(filename="test_0.pdb", top=farray.top,
             # format="PDBFILE") as trajout:
             trajout.writeframe(0, frame0, farray.top)
@@ -69,11 +78,14 @@ class TestTrajout(unittest.TestCase):
     def test_4(self):
         """test write Trajectory"""
         farray = Trajectory(
-            "data/md1_prod.Tc5b.x", "./data/Tc5b.top", indices=list(range(10)))
+            "data/md1_prod.Tc5b.x", "./data/Tc5b.top",
+            indices=list(range(10)))
         write_traj(
-            "./output/test_write_output.x", farray, farray.top, overwrite=True)
-        write_traj("./output/test_pdb_1.dummyext",
-                   farray[0], farray.top, overwrite=True, format='pdb')
+            "./output/test_write_output.x", farray, farray.top,
+            overwrite=True)
+        write_traj("./output/test_pdb_1.dummyext", farray[0], farray.top,
+                   overwrite=True,
+                   format='pdb')
 
         # test 'save'
         print(farray)
@@ -89,6 +101,7 @@ class TestTrajout(unittest.TestCase):
     def test_5(self):
         farray = Trajectory("./output/test_0.pdb", "./data/Tc5b.top")[0]
         print(farray.n_atoms)
+
 
 if __name__ == "__main__":
     unittest.main()

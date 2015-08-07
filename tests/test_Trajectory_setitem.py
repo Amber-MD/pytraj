@@ -11,7 +11,6 @@ from pytraj import AtomMask
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -71,20 +70,25 @@ class Test(unittest.TestCase):
         # try to raise ValueError if mistmach
         def dtype_mismatch():
             fa[0] = xyz[0].astype('f4')
+
         self.assertRaises(ValueError, lambda: dtype_mismatch())
 
         def shape_mismatch():
             fa[0] = xyz
+
         self.assertRaises(ValueError, lambda: shape_mismatch())
 
         def shape_mismatch2():
             fa[0] = Frame()
+
         self.assertRaises(ValueError, lambda: shape_mismatch2())
 
         # assign to None
         def None_value():
             fa[0] = None
+
         self.assertRaises(ValueError, lambda: None_value())
+
 
 if __name__ == "__main__":
     unittest.main()

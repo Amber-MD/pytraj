@@ -11,7 +11,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -23,6 +22,7 @@ class Test(unittest.TestCase):
         mynp = traj.calc_COG(dtype='ndarray')  # default = 'dataset'
         assert is_in_class_name(mynp, 'ndarray')
         aa_eq(np.asarray(mylist).flatten(), mynp.flatten())
+
 
 if __name__ == "__main__":
     unittest.main()
