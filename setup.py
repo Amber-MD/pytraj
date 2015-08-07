@@ -210,7 +210,7 @@ packages = [
         'pytraj.math',
         'pytraj.core',
         'pytraj.parallel',
-        #'pytraj.clusters',
+        'pytraj.cluster',
         ]
 
 pylen = len('pytraj') + 1
@@ -223,7 +223,7 @@ package_match = (sorted(packages) == sorted(setup_for_amber.packages))
 datalist_match = (sorted(datalist) == sorted(setup_for_amber.datalist))
 
 if not package_match:
-    sys.stderr.write("packages mistmatch\n")
+    sys.stderr.write("packages mistmatch. Make sure to update ./scripts/setup_for_amber.py\n")
     sys.exit(1)
 
 if not datalist_match:
@@ -235,7 +235,7 @@ def build_func(my_ext):
         version=pytraj_version,
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
-        url="https://github.com/pytraj/pytraj",
+        url="https://github.com/Amber-MD/pytraj",
         packages=packages,
         description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
         license = "BSD License",
@@ -245,7 +245,6 @@ def build_func(my_ext):
                     'Operating System :: MacOS',
                     'Intended Audience :: Science/Research',
                     'License :: OSI Approved :: BSD License',
-                    'Programming Language :: Python :: 2.6'
                     'Programming Language :: Python :: 2.7',
                     'Programming Language :: Python :: 3.3',
                     'Programming Language :: Python :: 3.4',

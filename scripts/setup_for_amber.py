@@ -203,7 +203,7 @@ packages = [
         'pytraj.math',
         'pytraj.core',
         'pytraj.parallel',
-        #'pytraj.clusters',
+        'pytraj.cluster',
         ]
 
 pylen = len('pytraj') + 1
