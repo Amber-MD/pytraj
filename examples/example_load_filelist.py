@@ -5,13 +5,13 @@ import pytraj as pt
 
 traj0 = pt.iterload(['../tests/data/Test_RemdTraj/rem.nc.000',
                      '../tests/data/Test_RemdTraj/rem.nc.001'],
-                     top='../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7')
+                    top='../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7')
 
 print(traj0)
 
 # you can use `*` to load all files too
-traj1  = pt.iterload('../tests/data/Test_RemdTraj/rem.nc.*',
-                     top='../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7')
+traj1 = pt.iterload('../tests/data/Test_RemdTraj/rem.nc.*',
+                    top='../tests/data/Test_RemdTraj/ala2.99sb.mbondi2.parm7')
 
 print(traj1)
 

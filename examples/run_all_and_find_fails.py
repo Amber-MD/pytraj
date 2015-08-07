@@ -17,20 +17,24 @@ with open("log", 'w') as log_file:
 
         # run tests
         if PY3:
-            call(['sh','.//TestListTravis_py3.sh'], stdout = file_out, stderr = log_file)
+            call(['sh', './/TestListTravis_py3.sh'],
+                 stdout=file_out,
+                 stderr=log_file)
         else:
-            call(['sh','.//TestListTravis.sh'], stdout = file_out, stderr = log_file)
+            call(['sh', './/TestListTravis.sh'],
+                 stdout=file_out,
+                 stderr=log_file)
 
 with open("log", 'r') as log_file:
     i_fails = 0
     for line in log_file.readlines():
         if "File" in line:
             i_fails += 1
-            print (line)
+            print(line)
 
-print ("%s FAILs" % i_fails)
-print ("fail files: \n")
+print("%s FAILs" % i_fails)
+print("fail files: \n")
 os.system("grep File log")
 
-if i_fails  >= 1:
+if i_fails >= 1:
     sys.exit(1)

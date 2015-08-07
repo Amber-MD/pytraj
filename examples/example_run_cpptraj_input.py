@@ -14,4 +14,4 @@ matrix dist
 """
 
 cout = load_cpptraj_output(trajin)
-print (cout)
+print(cout)

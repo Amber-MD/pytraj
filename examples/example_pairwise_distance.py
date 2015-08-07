@@ -4,8 +4,10 @@ import numpy as np
 from pytraj.base import *
 from pytraj.common_actions import distance
 
+
 def calc_pairwise_distance():
-    traj = TrajectoryIterator(filename="../tests/data/md1_prod.Tc5b.x", top="../tests/data/Tc5b.top")
+    traj = TrajectoryIterator(filename="../tests/data/md1_prod.Tc5b.x",
+                              top="../tests/data/Tc5b.top")
 
     # extract 11th frame (index start from 0)
     frame0 = traj[9]
@@ -25,6 +27,7 @@ def calc_pairwise_distance():
     # plot distance matrix
     #plt.imshow(arr)
     #plt.savefig("./output/dist_mat_0.png")
+
 
 if __name__ == "__main__":
     from time import time

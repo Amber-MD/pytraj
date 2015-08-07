@@ -6,4 +6,4 @@ traj = pt.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
 # get z coordinates of CA atoms
 # Note: very slow for large trajectory( GB or TB)
 
-print (traj['@CA'].xyz[:, :, 2])
+print(traj['@CA'].xyz[:, :, 2])

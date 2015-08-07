@@ -4,7 +4,8 @@ try:
     import mdtraj as md
 
     # load mdtraj object
-    m_traj = md.load_netcdf('../tests/data/tz2.ortho.nc', '../tests/data/tz2.ortho.parm7')
+    m_traj = md.load_netcdf('../tests/data/tz2.ortho.nc',
+                            '../tests/data/tz2.ortho.parm7')
     print(m_traj)
 
     # convert to pytraj object
