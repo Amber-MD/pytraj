@@ -22,6 +22,7 @@ class Test(unittest.TestCase):
 
             aa_eq(pt.calc_psi(traj[:1]).values, pt.calc_psi(t0))
 
+
     def test_1(self):
         # different from test_0 a bit in `mask`
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -38,6 +39,15 @@ class Test(unittest.TestCase):
             aa_eq(deg, dih)
 
             aa_eq(pt.calc_psi(traj[:1]).values, pt.calc_psi(t0))
+
+    def test_2(self):
+        traj = pt.iterload("./data/Tc5b.nat.crd", "./data/Tc5b.top")
+        t0 = traj[:1]
+        pt._rotate_dih(t0, resid='4', dihtype='phi', deg=120)
+        dih = pt.calc_phi(t0, resrange='4').values[0]
+        assert abs(dih - 120) < 1E-3
+        print(dih)
+        t0.save('test.pdb', mode='model', overwrite=True)
 
 
 if __name__ == "__main__":
