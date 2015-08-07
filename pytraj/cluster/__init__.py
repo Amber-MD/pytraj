@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from pytraj._get_common_objects import _get_top, _get_data_from_dtype
 
+
 def kmeans(traj=None,
            n_clusters=10,
            random_point=True,
@@ -10,8 +11,7 @@ def kmeans(traj=None,
            dtype='dataset',
            distance_metric='rms',
            mask='*',
-           output_op='',
-           *args, **kwd):
+           output_op='', *args, **kwd):
 
     _clusters = 'kmeans clusters ' + str(n_clusters)
     _random_point = 'randompoint' if random_point else ''
@@ -20,13 +20,12 @@ def kmeans(traj=None,
     _distance_metric = distance_metric
     _mask = mask
     _output = output_op
-    command = ' '.join((_clusters, _random_point, _kseed, _maxit, _distance_metric, _mask, _output))
+    command = ' '.join((_clusters, _random_point, _kseed, _maxit,
+                        _distance_metric, _mask, _output))
     return _cluster(traj, command, top=top, dtype=dtype, *args, **kwd)
 
-def _cluster(traj=None,
-            command="",
-            top=None,
-            dtype='dataset', *args, **kwd):
+
+def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
     Parameters
     ---------
