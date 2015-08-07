@@ -24,6 +24,8 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     list of (rank, data)
     '''
     from multiprocessing import Pool
+    if hasattr(func, '_is_parallelizable') and not func._is_parallelizable:
+        raise ValueError("this method does not support parallel")
 
     p = Pool(n_cores)
     pfuncs = partial(worker,

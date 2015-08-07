@@ -37,6 +37,7 @@ from ._nastruct import nastruct
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
 from . import _long_manual
+from . decorators import noparallel
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -807,6 +808,7 @@ def calc_atomicfluct(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@noparallel
 def calc_bfactors(traj=None,
                   mask="",
                   byres=True,

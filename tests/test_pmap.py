@@ -41,6 +41,13 @@ class Test(unittest.TestCase):
         from pytraj.compat import set
         print(set(keys))
 
+        # raise if a given method does not support pmap
+        def need_to_raise(traj=traj):
+            pt.pmap(2, pt.bfactors, traj)
+        self.assertRaises(ValueError, lambda : need_to_raise())
+
+        #need_to_raise()
+
 
 if __name__ == "__main__":
     unittest.main()
