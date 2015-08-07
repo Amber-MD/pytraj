@@ -370,7 +370,7 @@ def write_traj(filename="",
         if isinstance(traj, Frame):
             if indices is not None:
                 raise ValueError("indices does not work with single Frame")
-            trajout.writeframe(0, traj, _top)
+            trajout.write(0, traj, _top)
         else:
             if isinstance(traj, string_types):
                 traj2 = iterload(traj, _top)
@@ -382,11 +382,11 @@ def write_traj(filename="",
                     raise NotImplementedError(
                         "must be Trajectory or TrajectoryIterator instance")
                 for idx in indices:
-                    trajout.writeframe(idx, traj2[idx], _top)
+                    trajout.write(idx, traj2[idx], _top)
 
             else:
                 for idx, frame in enumerate(_frame_iter_master(traj2)):
-                    trajout.writeframe(idx, frame, _top)
+                    trajout.write(idx, frame, _top)
 
 
 def write_parm(filename=None, top=None, format='AMBERPARM'):

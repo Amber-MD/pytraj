@@ -1157,7 +1157,7 @@ cdef class Frame (object):
             format= format.upper() + "_TRAJ"
         with Trajout(filename=filename, top=top, format=format, 
                      overwrite=overwrite, *args, **kwd) as trajout:
-            trajout.writeframe(0, self, top)
+            trajout.write(0, self, top)
 
     def calc_dihedral(self, cython.integral[:, :] int_arr):
         """return python array of dih angle for four atoms with indices idx1-4

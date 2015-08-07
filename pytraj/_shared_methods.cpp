@@ -2166,6 +2166,7 @@ static char __pyx_k_start[] = "start";
 static char __pyx_k_throw[] = "throw";
 static char __pyx_k_trajx[] = "trajx";
 static char __pyx_k_upper[] = "upper";
+static char __pyx_k_write[] = "write";
 static char __pyx_k_boxarr[] = "boxarr";
 static char __pyx_k_encode[] = "encode";
 static char __pyx_k_format[] = "format";
@@ -2213,7 +2214,6 @@ static char __pyx_k_chunk_iter[] = "chunk_iter";
 static char __pyx_k_frame_iter[] = "_frame_iter";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static char __pyx_k_to_ndarray[] = "to_ndarray";
-static char __pyx_k_writeframe[] = "writeframe";
 static char __pyx_k_MemoryError[] = "MemoryError";
 static char __pyx_k_pytraj__xyz[] = "pytraj._xyz";
 static char __pyx_k_import_numpy[] = "_import_numpy";
@@ -2438,7 +2438,7 @@ static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
 static PyObject *__pyx_n_s_unknown;
 static PyObject *__pyx_n_s_unpack;
 static PyObject *__pyx_n_s_upper;
-static PyObject *__pyx_n_s_writeframe;
+static PyObject *__pyx_n_s_write;
 static PyObject *__pyx_n_s_xyz;
 static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_format, PyObject *__pyx_v_overwrite, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static PyObject *__pyx_pf_6pytraj_15_shared_methods_2_split_and_write_traj(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_n_chunks, PyObject *__pyx_v_root_name, PyObject *__pyx_v_ext, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
@@ -2782,7 +2782,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
  *     with Trajout(filename=filename, top=self.top, format=format,
  *                  overwrite=overwrite, *args, **kwd) as trajout:             # <<<<<<<<<<<<<<
  *         for idx, frame in enumerate(self):
- *             trajout.writeframe(idx, frame, self.top)
+ *             trajout.write(idx, frame, self.top)
  */
     __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
@@ -2806,7 +2806,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
  *     with Trajout(filename=filename, top=self.top, format=format,
  *                  overwrite=overwrite, *args, **kwd) as trajout:             # <<<<<<<<<<<<<<
  *         for idx, frame in enumerate(self):
- *             trajout.writeframe(idx, frame, self.top)
+ *             trajout.write(idx, frame, self.top)
  */
     if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_overwrite, __pyx_v_overwrite) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_2 = __pyx_t_4;
@@ -2863,7 +2863,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
  *     with Trajout(filename=filename, top=self.top, format=format,
  *                  overwrite=overwrite, *args, **kwd) as trajout:
  *         for idx, frame in enumerate(self):             # <<<<<<<<<<<<<<
- *             trajout.writeframe(idx, frame, self.top)
+ *             trajout.write(idx, frame, self.top)
  * 
  */
           __Pyx_INCREF(__pyx_int_0);
@@ -2920,11 +2920,11 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
             /* "pytraj/_shared_methods.pyx":28
  *                  overwrite=overwrite, *args, **kwd) as trajout:
  *         for idx, frame in enumerate(self):
- *             trajout.writeframe(idx, frame, self.top)             # <<<<<<<<<<<<<<
+ *             trajout.write(idx, frame, self.top)             # <<<<<<<<<<<<<<
  * 
  * def _split_and_write_traj(self, n_chunks=None, root_name="trajx", ext='nc', *args, **kwd):
  */
-            __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_trajout, __pyx_n_s_writeframe); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L8_error;}
+            __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_trajout, __pyx_n_s_write); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L8_error;}
             __Pyx_GOTREF(__pyx_t_5);
             __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_top); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L8_error;}
             __Pyx_GOTREF(__pyx_t_12);
@@ -2964,7 +2964,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
  *     with Trajout(filename=filename, top=self.top, format=format,
  *                  overwrite=overwrite, *args, **kwd) as trajout:
  *         for idx, frame in enumerate(self):             # <<<<<<<<<<<<<<
- *             trajout.writeframe(idx, frame, self.top)
+ *             trajout.write(idx, frame, self.top)
  * 
  */
           }
@@ -3087,7 +3087,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods__savetraj(CYTHON_UNUSED PyOb
 }
 
 /* "pytraj/_shared_methods.pyx":30
- *             trajout.writeframe(idx, frame, self.top)
+ *             trajout.write(idx, frame, self.top)
  * 
  * def _split_and_write_traj(self, n_chunks=None, root_name="trajx", ext='nc', *args, **kwd):             # <<<<<<<<<<<<<<
  *     chunksize = self.n_frames // n_chunks
@@ -3371,7 +3371,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_2_split_and_write_traj(CYTHO
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pytraj/_shared_methods.pyx":30
- *             trajout.writeframe(idx, frame, self.top)
+ *             trajout.write(idx, frame, self.top)
  * 
  * def _split_and_write_traj(self, n_chunks=None, root_name="trajx", ext='nc', *args, **kwd):             # <<<<<<<<<<<<<<
  *     chunksize = self.n_frames // n_chunks
@@ -18925,7 +18925,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_unknown, __pyx_k_unknown, sizeof(__pyx_k_unknown), 0, 0, 1, 1},
   {&__pyx_n_s_unpack, __pyx_k_unpack, sizeof(__pyx_k_unpack), 0, 0, 1, 1},
   {&__pyx_n_s_upper, __pyx_k_upper, sizeof(__pyx_k_upper), 0, 0, 1, 1},
-  {&__pyx_n_s_writeframe, __pyx_k_writeframe, sizeof(__pyx_k_writeframe), 0, 0, 1, 1},
+  {&__pyx_n_s_write, __pyx_k_write, sizeof(__pyx_k_write), 0, 0, 1, 1},
   {&__pyx_n_s_xyz, __pyx_k_xyz, sizeof(__pyx_k_xyz), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
@@ -19172,7 +19172,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(4, 0, 9, 0, CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_u1_haichit_pytraj_git_hainm_pyt, __pyx_n_s_savetraj, 18, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "pytraj/_shared_methods.pyx":30
- *             trajout.writeframe(idx, frame, self.top)
+ *             trajout.write(idx, frame, self.top)
  * 
  * def _split_and_write_traj(self, n_chunks=None, root_name="trajx", ext='nc', *args, **kwd):             # <<<<<<<<<<<<<<
  *     chunksize = self.n_frames // n_chunks
@@ -19715,7 +19715,7 @@ PyMODINIT_FUNC PyInit__shared_methods(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pytraj/_shared_methods.pyx":30
- *             trajout.writeframe(idx, frame, self.top)
+ *             trajout.write(idx, frame, self.top)
  * 
  * def _split_and_write_traj(self, n_chunks=None, root_name="trajx", ext='nc', *args, **kwd):             # <<<<<<<<<<<<<<
  *     chunksize = self.n_frames // n_chunks
