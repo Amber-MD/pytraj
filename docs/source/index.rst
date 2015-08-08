@@ -6,10 +6,10 @@
 Welcome to pytraj's documentation!
 ==================================
 
-Contents:
+**Contents**
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    installation
    basic_examples
@@ -22,10 +22,13 @@ Contents:
    misc
 
 
-Indices and tables
-==================
+**Contact**
+
+* For bug reports, feature requests, code discussion ... please use the `GitHub issue tracker <https://github.com/Amber-MD/pytraj/issues>`_
+* For scientific discussion please send email to `amber@ambermd.org <http://ambermd.org/#correspondence>`_
+
+**Indices and tables**
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

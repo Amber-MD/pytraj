@@ -7,6 +7,8 @@ Installation
     cd pytraj
     python ./setup.py install
 
+or
+
 .. code-block:: bash
 
     conda install -c pytraj pytraj-dev --force
