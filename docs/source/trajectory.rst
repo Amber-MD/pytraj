@@ -14,10 +14,3 @@ Trajectory
       >>> pt.rmsd(traj, ref=0, mask='@CA')
       array([  1.94667955e-07,   2.54596866e+00,   4.22333034e+00, ...,
                4.97189564e+00,   5.53947712e+00,   4.83201237e+00])
-
-
-.. toctree::
-   :maxdepth: 2
-
-   slice
-   load_file
