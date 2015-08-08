@@ -22,3 +22,22 @@ pytraj is able to detect single file (mol2, pdb) to load as TrajectoryIterator t
 
     >>> pt.iterload('my_pdb.pdb') 
     >>> pt.iterload('your_mol2.mol2') 
+
+
+TrajectoryIterator is something like `range <https://docs.python.org/3/library/stdtypes.html#range>`_ in python3 or `xrange` in python2
+
+.. code-block:: python
+
+    >>> for i in range(0, 8, 2): print(i)
+    ...
+    0
+    2
+    4
+    6
+    >>> for f in traj(0, 8, 2): print(f)
+    ...
+    <Frame with 223 atoms>
+    <Frame with 223 atoms>
+    <Frame with 223 atoms>
+    <Frame with 223 atoms>
+
