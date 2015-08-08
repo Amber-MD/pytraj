@@ -24,6 +24,8 @@ Currently, all testing codes are in ``pytraj/tests/`` folder. We can use ``cp te
 
 The script ``./run_all_and_find_fails.py`` only look for file starting with ``test_`` and having key word ``unittest``. Check ``tests/get_unittest_files.py`` for further detail.
 
+We're really happy to accept PR to update test, using `nosetests <https://nose.readthedocs.org/en/latest/>`_, `pytest <http://pytest.org/latest/>`_ or whatever reasonable.
+
 External codes
 --------------
 Try to put all external codes (``six.py``, ...) in ``pytraj/externals/`` folder.
