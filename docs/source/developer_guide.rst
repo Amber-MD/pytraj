@@ -10,8 +10,7 @@ Try to read `numpy doc <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOC
 
 Python 2 and 3 compat
 ---------------------
-Use ``six.py`` to write your compat code. `six <http://pythonhosted.org/six/>`_
-``pytraj`` have ``pytraj.compat`` module to have most commonly used methods (example: ``from pytraj.compat import zip``)
+Use `six <http://pythonhosted.org/six/>`_ to write your compat code. 
 
 Add new method to pytraj
 ------------------------
