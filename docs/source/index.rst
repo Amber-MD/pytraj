@@ -13,7 +13,7 @@ Contents:
 
    installation
    basic_examples
-   trajectories
+   trajectory
    atom_selection
    faq
    parallel

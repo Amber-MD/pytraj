@@ -2230,7 +2230,6 @@ static char __pyx_k_dtype_is_object[] = "dtype_is_object";
 static char __pyx_k_must_have_numpy[] = "must have numpy";
 static char __pyx_k_frame_iter_master[] = "_frame_iter_master";
 static char __pyx_k_pytraj_exceptions[] = "pytraj.exceptions";
-static char __pyx_k_s_with_s_frames_s[] = "<%s with %s frames: %s>\n           ";
 static char __pyx_k_PytrajConvertError[] = "PytrajConvertError";
 static char __pyx_k_PytrajMemviewError[] = "PytrajMemviewError";
 static char __pyx_k_strided_and_direct[] = "<strided and direct>";
@@ -2239,6 +2238,7 @@ static char __pyx_k_get_temperature_set[] = "_get_temperature_set";
 static char __pyx_k_add_selected_indices[] = "add_selected_indices";
 static char __pyx_k_pytraj_externals_six[] = "pytraj.externals.six";
 static char __pyx_k_pytraj_trajs_Trajout[] = "pytraj.trajs.Trajout";
+static char __pyx_k_s_s_frames_include_s[] = "<%s, %s frames, include:\n%s>\n           ";
 static char __pyx_k_split_and_write_traj[] = "_split_and_write_traj";
 static char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
 static char __pyx_k_contiguous_and_direct[] = "<contiguous and direct>";
@@ -2397,7 +2397,7 @@ static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_reshape;
 static PyObject *__pyx_n_s_root_name;
-static PyObject *__pyx_kp_s_s_with_s_frames_s;
+static PyObject *__pyx_kp_s_s_s_frames_include_s;
 static PyObject *__pyx_n_s_save;
 static PyObject *__pyx_n_s_savetraj;
 static PyObject *__pyx_n_s_self;
@@ -4115,7 +4115,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_10my_str_method(CYTHON_UNUSE
  * def my_str_method(self):
  *     name = "pytraj." + self.__class__.__name__             # <<<<<<<<<<<<<<
  *     top_str = self.top.__str__()
- *     tmps = """<%s with %s frames: %s>
+ *     tmps = """<%s, %s frames, include:\n%s>
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_class); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -4132,7 +4132,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_10my_str_method(CYTHON_UNUSE
  * def my_str_method(self):
  *     name = "pytraj." + self.__class__.__name__
  *     top_str = self.top.__str__()             # <<<<<<<<<<<<<<
- *     tmps = """<%s with %s frames: %s>
+ *     tmps = """<%s, %s frames, include:\n%s>
  *            """ % (
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_top); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4162,7 +4162,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_10my_str_method(CYTHON_UNUSE
   __pyx_t_1 = 0;
 
   /* "pytraj/_shared_methods.pyx":75
- *     tmps = """<%s with %s frames: %s>
+ *     tmps = """<%s, %s frames, include:\n%s>
  *            """ % (
  *             name, self.size, top_str,             # <<<<<<<<<<<<<<
  *             )
@@ -4184,12 +4184,12 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_10my_str_method(CYTHON_UNUSE
 
   /* "pytraj/_shared_methods.pyx":74
  *     top_str = self.top.__str__()
- *     tmps = """<%s with %s frames: %s>
+ *     tmps = """<%s, %s frames, include:\n%s>
  *            """ % (             # <<<<<<<<<<<<<<
  *             name, self.size, top_str,
  *             )
  */
-  __pyx_t_1 = __Pyx_PyString_Format(__pyx_kp_s_s_with_s_frames_s, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyString_Format(__pyx_kp_s_s_s_frames_include_s, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_tmps = ((PyObject*)__pyx_t_1);
@@ -18884,7 +18884,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_reshape, __pyx_k_reshape, sizeof(__pyx_k_reshape), 0, 0, 1, 1},
   {&__pyx_n_s_root_name, __pyx_k_root_name, sizeof(__pyx_k_root_name), 0, 0, 1, 1},
-  {&__pyx_kp_s_s_with_s_frames_s, __pyx_k_s_with_s_frames_s, sizeof(__pyx_k_s_with_s_frames_s), 0, 0, 1, 0},
+  {&__pyx_kp_s_s_s_frames_include_s, __pyx_k_s_s_frames_include_s, sizeof(__pyx_k_s_s_frames_include_s), 0, 0, 1, 0},
   {&__pyx_n_s_save, __pyx_k_save, sizeof(__pyx_k_save), 0, 0, 1, 1},
   {&__pyx_n_s_savetraj, __pyx_k_savetraj, sizeof(__pyx_k_savetraj), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},

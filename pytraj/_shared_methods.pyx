@@ -70,7 +70,7 @@ def _tolist(self):
 def my_str_method(self):
     name = "pytraj." + self.__class__.__name__
     top_str = self.top.__str__()
-    tmps = """<%s with %s frames: %s>
+    tmps = """<%s, %s frames, include:\n%s>
            """ % (
             name, self.size, top_str,
             )
