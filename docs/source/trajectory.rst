@@ -2,7 +2,7 @@ Trajectory
 ============
 
 
-``TrajectoryIterator`` is work-horse of ``pytraj``. This class offers out-of-core data store with easiness to load data to memory. 
+TrajectoryIterator is work-horse of pytraj. This class offers out-of-core data store with easiness to load data to memory. 
 
 .. code-block:: python
 
@@ -16,6 +16,9 @@ Trajectory
              4.97189564e+00,   5.53947712e+00,   4.83201237e+00])
 
 
-pytraj is able to detect single file (mol2, pdb) to load as `TrajectoryIterator` too. ::
+pytraj is able to detect single file (mol2, pdb) to load as TrajectoryIterator too.
+
+.. code-block:: python
+
     >>> pt.iterload('my_pdb.pdb') 
     >>> pt.iterload('your_mol2.mol2') 
