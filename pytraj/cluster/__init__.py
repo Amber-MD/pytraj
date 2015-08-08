@@ -7,11 +7,12 @@ def kmeans(traj=None,
            random_point=True,
            kseed=1,
            maxit=100,
-           top=None,
-           dtype='dataset',
            distance_metric='rms',
            mask='*',
-           output_op='', *args, **kwd):
+           top=None,
+           output_op='',
+           dtype='dataset',
+           *args, **kwd):
 
     # don't need to _get_top
     _clusters = 'kmeans clusters ' + str(n_clusters)
