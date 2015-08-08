@@ -9,6 +9,7 @@ Installation
     
     .. code-block:: bash
 
+--------------------
 .. code-block:: bash
 
     conda install -c pytraj pytraj-dev --force
