@@ -4,13 +4,13 @@ Developer guide for pytraj
 
 Python style guide
 ------------------
-Try to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`
+Try to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_
 
-Try to read `numpy doc <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`
+Try to read `numpy doc <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`_
 
 Python 2 and 3 compat
 ---------------------
-Use ``six.py`` to write your compat code. `six <http://pythonhosted.org/six/>`
+Use ``six.py`` to write your compat code. `six <http://pythonhosted.org/six/>`_
 ``pytraj`` have ``pytraj.compat`` module to have most commonly used methods (example: ``from pytraj.compat import zip``)
 
 Add new method to pytraj
@@ -35,12 +35,12 @@ Licence info
 
 cython
 ------
-It's recommended to use ``cython`` to write or wrap high performance code. Please don't use ``cimport numpy``, use memoryview instead.
-`memoryview <http://docs.cython.org/src/userguide/memoryviews.html>`.
+It's recommended to use ``cython`` to write or wrap high performance code. Please don't use ``cimport numpy``, use `memoryview <http://docs.cython.org/src/userguide/memoryviews.html>`_ instead
 
 Since ``pytraj`` will be bundled with AmberTools in Amber, it's important that we should commit cythonized file too. The main idea is that user only need C++ compiler and ``cpptraj``, nothing else.
 
 Read Also
 ---------
-`cpptraj-dev guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.lyx>`
-`pandas contributing guide <http://pandas.pydata.org/pandas-docs/stable/contributing.html>`
+`cpptraj-dev guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.lyx>`_
+
+`pandas contributing guide <http://pandas.pydata.org/pandas-docs/stable/contributing.html>`_
