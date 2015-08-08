@@ -185,6 +185,14 @@ cdef class TrajectoryCpptraj:
         def __set__(self, Topology other):
             self.thisptr.SetTopology(other.thisptr[0])
 
+    def _iterframe_indices(self, frame_indices):
+        cdef int i
+        cdef Frame frame = Frame(self.n_atoms)
+
+        for i in frame_indices:
+            self.thisptr.GetFrame(i, frame.thisptr[0])
+            yield frame
+
     def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         '''iterately get Frames with start, stop, stride 
         Parameters

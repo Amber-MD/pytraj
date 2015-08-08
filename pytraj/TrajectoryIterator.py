@@ -204,7 +204,9 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                    stride=1,
                    mask=None,
                    autoimage=False,
-                   rmsfit=None):
+                   rmsfit=None,
+                   copy=True,
+                   frame_indices=None):
 
         from .core.frameiter import FrameIter
         if mask is None:
@@ -218,7 +220,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                     "rmsfit must be a tuple of one (frame,) "
                     "or two elements (frame, mask)")
                 if len(rmsfit) == 1:
-                    rmsfit = (rmsfit, '*')
+                    rmsfit = (rmsfit[0], '*')
             elif isinstance(rmsfit, int):
                 rmsfit = (rmsfit, '*')
             else:
@@ -229,15 +231,21 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                 rmsfit = ([self[index], rmsfit[1]])
 
         # check how many frames will be calculated
-        if stop is None or stop >= self.n_frames:
-            stop = self.n_frames
-        elif stop < 0:
-            stop = get_positive_idx(stop, self.n_frames)
-
-        n_frames = len(range(start, stop, stride))
-
-        frame_iter_super = super(
-            TrajectoryIterator, self).frame_iter(start, stop, stride)
+        if frame_indices is None:
+            # only check if does not have frame_indices
+            if stop is None or stop >= self.n_frames:
+                stop = self.n_frames
+            elif stop < 0:
+                stop = get_positive_idx(stop, self.n_frames)
+            n_frames = len(range(start, stop, stride))
+            frame_iter_super = super(
+                TrajectoryIterator, self).frame_iter(start, stop, stride)
+        else:
+            stop = None
+            start = None
+            stride = None
+            n_frames = len(frame_indices)
+            frame_iter_super = super(TrajectoryIterator, self)._iterframe_indices(frame_indices)
 
         return FrameIter(frame_iter_super,
                          original_top=self.top,
@@ -249,7 +257,9 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          autoimage=autoimage,
                          rmsfit=rmsfit,
                          is_trajiter=True,
-                         n_frames=n_frames, )
+                         n_frames=n_frames,
+                         copy=copy,
+                         frame_indices=frame_indices)
 
     def iterframe(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
