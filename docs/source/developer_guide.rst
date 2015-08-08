@@ -11,6 +11,7 @@ Try to read `numpy doc <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOC
 Python 2 and 3 compat
 ---------------------
 Use `six <http://pythonhosted.org/six/>`_ to write your compat code. 
+We put all common stuff in `pytraj.compat <https://github.com/Amber-MD/pytraj/blob/master/pytraj/compat.py>`_
 
 Add new method to pytraj
 ------------------------
@@ -20,7 +21,11 @@ Test your code
 --------------
 New method, new change must have testing code.
 
-Currently, all testing codes are in ``pytraj/tests/`` folder. We can use ``cp template_unittest.py test_new_method_name_example.py``. To run all tests, ``python ./run_all_and_find_fails.py``. To run tests having specific keywords ``python ./run_tests_with_keyword.py your_key_word``. Outputs from test scripts are saved to ``output.txt`` and error status is saved to ``log`` file.
+Currently, all testing codes are in ``pytraj/tests/`` folder. 
+We can use ``cp template_unittest.py test_new_method_name_example.py``. 
+To run all tests, ``python ./run_all_and_find_fails.py``. 
+To run tests having specific keywords ``python ./run_tests_with_keyword.py your_key_word``. 
+Outputs from test scripts are saved to ``output.txt`` and error status is saved to ``log`` file.
 
 The script ``./run_all_and_find_fails.py`` only look for file starting with ``test_`` and having key word ``unittest``. Check ``tests/get_unittest_files.py`` for further detail.
 
