@@ -14,10 +14,11 @@ Welcome to pytraj's documentation!
    installation
    basic_examples
    trajectory
+   analysis
    atom_selection
-   faq
    parallel
    whatsnew
+   faq
    developer_guide
    misc
 
