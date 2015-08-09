@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developer guide for pytraj &mdash; pytraj 0.1.2.dev5 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.2.dev5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="index.html" />
+    <link rel="next" title="Misc" href="misc.html" />
+    <link rel="prev" title="What’s new?" href="whatsnew.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="misc.html" title="Misc"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="whatsnew.html" title="What’s new?"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="developer-guide-for-pytraj">
+<h1>Developer guide for pytraj<a class="headerlink" href="#developer-guide-for-pytraj" title="Permalink to this headline">¶</a></h1>
+<p>(draft)</p>
+<div class="section" id="python-style-guide">
+<h2>Python style guide<a class="headerlink" href="#python-style-guide" title="Permalink to this headline">¶</a></h2>
+<p>Try to follow <a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">PEP8</a></p>
+<p>Try to read <a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt">numpy doc</a></p>
+</div>
+<div class="section" id="python-2-and-3-compat">
+<h2>Python 2 and 3 compat<a class="headerlink" href="#python-2-and-3-compat" title="Permalink to this headline">¶</a></h2>
+<p>Use <a class="reference external" href="http://pythonhosted.org/six/">six</a> to write your compat code.
+We put all common stuff in <a class="reference external" href="https://github.com/Amber-MD/pytraj/blob/master/pytraj/compat.py">pytraj.compat</a></p>
+</div>
+<div class="section" id="add-new-method-to-pytraj">
+<h2>Add new method to pytraj<a class="headerlink" href="#add-new-method-to-pytraj" title="Permalink to this headline">¶</a></h2>
+<p>Check <code class="docutils literal"><span class="pre">pytraj.common_actions</span></code> for example.</p>
+</div>
+<div class="section" id="test-your-code">
+<h2>Test your code<a class="headerlink" href="#test-your-code" title="Permalink to this headline">¶</a></h2>
+<p>New method, new change must have testing code.</p>
+<p>Currently, all testing codes are in <code class="docutils literal"><span class="pre">pytraj/tests/</span></code> folder.
+We can use <code class="docutils literal"><span class="pre">cp</span> <span class="pre">template_unittest.py</span> <span class="pre">test_new_method_name_example.py</span></code>.
+To run all tests, <code class="docutils literal"><span class="pre">python</span> <span class="pre">./run_all_and_find_fails.py</span></code>.
+To run tests having specific keywords <code class="docutils literal"><span class="pre">python</span> <span class="pre">./run_tests_with_keyword.py</span> <span class="pre">your_key_word</span></code>.
+Outputs from test scripts are saved to <code class="docutils literal"><span class="pre">output.txt</span></code> and error status is saved to <code class="docutils literal"><span class="pre">log</span></code> file.</p>
+<p>The script <code class="docutils literal"><span class="pre">./run_all_and_find_fails.py</span></code> only look for file starting with <code class="docutils literal"><span class="pre">test_</span></code> and having key word <code class="docutils literal"><span class="pre">unittest</span></code>. Check <code class="docutils literal"><span class="pre">tests/get_unittest_files.py</span></code> for further detail.</p>
+<p>We&#8217;re really happy to accept PR to update test, using <a class="reference external" href="https://nose.readthedocs.org/en/latest/">nosetests</a>, <a class="reference external" href="http://pytest.org/latest/">pytest</a> or whatever reasonable.</p>
+</div>
+<div class="section" id="external-codes">
+<h2>External codes<a class="headerlink" href="#external-codes" title="Permalink to this headline">¶</a></h2>
+<p>Try to put all external codes (<code class="docutils literal"><span class="pre">six.py</span></code>, ...) in <code class="docutils literal"><span class="pre">pytraj/externals/</span></code> folder.</p>
+</div>
+<div class="section" id="licence-info">
+<h2>Licence info<a class="headerlink" href="#licence-info" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">pytraj</span></code> always welcomes code contribution. It&#8217;s recommended to put your name in the code you write. However, for the sake of clearness, just put something very short, like <code class="docutils literal"><span class="pre">Copyright</span> <span class="pre">(c)</span> <span class="pre">2010-2013</span> <span class="pre">your_first_and_last_name</span></code> and give full details of your contribution, license in <code class="docutils literal"><span class="pre">pytraj/licenses/</span></code> folder.</p>
+</div>
+<div class="section" id="cython">
+<h2>cython<a class="headerlink" href="#cython" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s recommended to use <code class="docutils literal"><span class="pre">cython</span></code> to write or wrap high performance code. Please don&#8217;t use <code class="docutils literal"><span class="pre">cimport</span> <span class="pre">numpy</span></code>, use <a class="reference external" href="http://docs.cython.org/src/userguide/memoryviews.html">memoryview</a> instead</p>
+<p>Since <code class="docutils literal"><span class="pre">pytraj</span></code> will be bundled with AmberTools in Amber, it&#8217;s important that we should commit cythonized file too. The main idea is that user only need C++ compiler and <code class="docutils literal"><span class="pre">cpptraj</span></code>, nothing else.</p>
+</div>
+<div class="section" id="read-also">
+<h2>Read Also<a class="headerlink" href="#read-also" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.lyx">cpptraj-dev guide</a></p>
+<p><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/contributing.html">pandas contributing guide</a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developer guide for pytraj</a><ul>
+<li><a class="reference internal" href="#python-style-guide">Python style guide</a></li>
+<li><a class="reference internal" href="#python-2-and-3-compat">Python 2 and 3 compat</a></li>
+<li><a class="reference internal" href="#add-new-method-to-pytraj">Add new method to pytraj</a></li>
+<li><a class="reference internal" href="#test-your-code">Test your code</a></li>
+<li><a class="reference internal" href="#external-codes">External codes</a></li>
+<li><a class="reference internal" href="#licence-info">Licence info</a></li>
+<li><a class="reference internal" href="#cython">cython</a></li>
+<li><a class="reference internal" href="#read-also">Read Also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="whatsnew.html"
+                        title="previous chapter">What&#8217;s new?</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="misc.html"
+                        title="next chapter">Misc</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/developer_guide.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="misc.html" title="Misc"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="whatsnew.html" title="What’s new?"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Hai Nguyen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
