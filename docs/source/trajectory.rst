@@ -35,8 +35,8 @@ eytraj is able to detect single file (mol2, pdb) to load as TrajectoryIterator t
     >>> pt.iterload('your_mol2.mol2') 
 
 
-TrajectoryIterator is something like `range <https://docs.python.org/3/library/stdtypes.html#range>`_ in python3 or
-`xrange <https://docs.python.org/2/library/functions.html#xrange>`_ in python2
+TrajectoryIterator is something like `range(start, stop[, step]) <https://docs.python.org/3/library/stdtypes.html#range>`_ in python3 or
+`xrange(start, stop[, step]) <https://docs.python.org/2/library/functions.html#xrange>`_ in python2
 
 .. code-block:: python
 
@@ -53,7 +53,7 @@ TrajectoryIterator is something like `range <https://docs.python.org/3/library/s
     <Frame with 223 atoms>
     <Frame with 223 atoms>
 
-However, TrajectoryIterator is much more than ``range`` or ``xrange``, you can slice atoms:
+However, TrajectoryIterator is much more than that, you can slice atoms:
 
 .. code-block:: python
 
@@ -64,13 +64,11 @@ However, TrajectoryIterator is much more than ``range`` or ``xrange``, you can s
     <Frame with 12 atoms>
     <Frame with 12 atoms>
 
-You can load a chunk of data into memory:
+To load all frames to memory at once, use `[]` notation:
 
 .. code-block:: python
-
-    >>> traj[1:3, '!@H=']
-    <pytraj.Trajectory, 2 frames, include:
-    <Topology: 117 atoms, 13 residues, 1 mols, 124 bonds, non-PBC>>
+    
+    >>> traj[0:8:2, '@CA']
 
 How to perform analysis with TrajectoryIterator? It's very simple. For example, if you want to calculate
 rmsd to 3rd frame (index starts from 0) for all atoms, just:
