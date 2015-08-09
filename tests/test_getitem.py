@@ -8,6 +8,7 @@ class Dummy:
     def __getitem__(self, values):
         return self.data[values]
 
+
 if __name__ == '__main__':
     dum = Dummy()
     for i in range(100):

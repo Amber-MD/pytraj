@@ -1,5 +1,4 @@
 # distutils: language = c++
-from pytraj.Dimension cimport _Dimension, Dimension, DimIdxType
 from libcpp.string cimport string
 
 
@@ -17,10 +16,9 @@ cdef extern from "DataSet.h":
         #_DataSet& operator =(const _DataSet&)
         void SetWidth(int)
         void SetPrecision(int, int)
-        int SetupSet(const string&, int, const string&)
+        int SetupSet(const string&, int, const string&, int)
         void SetLegend(const string& lIn)
         void SetScalar(scalarMode mIn)
-        void SetDim(DimIdxType i, const _Dimension& d)
         inline void SetScalar(scalarMode, scalarType)
         int SetDataSetFormat(bint)
         bint Matches(const string&, int, const string&) const 
@@ -35,15 +33,16 @@ cdef extern from "DataSet.h":
         scalarMode ScalarMode() const 
         scalarType ScalarType() const 
         size_t Ndim() const 
-        #_Dimension& Dim(DimIdxType i)
-        _Dimension& Dim(int i)
-        #const _Dimension& Dim(int i) const 
         inline bint operator< (const _DataSet&) const 
         const char * DataFormat() const 
         scalarMode ModeFromKeyword(const string&)
         scalarType TypeFromKeyword(const string&, scalarMode&)
         scalarType TypeFromKeyword(const string&, const scalarMode&)
+        size_t Size()
 
+        # virtual
+        #void Add( size_t, const void*  )
 
 cdef class DataSet:
     cdef _DataSet* baseptr0
+    cdef public object _base

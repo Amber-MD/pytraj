@@ -1,11 +1,10 @@
 # distutils: language = c++
 
-from pytraj.datasets.DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
-from pytraj.datasets.DataSet cimport _DataSet, DataSet
-from pytraj.datasets.DataSet_1D cimport _DataSet_1D, DataSet_1D
-from pytraj.Frame cimport _Frame, Frame
-from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
-from pytraj.AtomMask cimport _AtomMask, AtomMask
+from .DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
+from .DataSet cimport _DataSet, DataSet
+from .DataSet_1D cimport _DataSet_1D, DataSet_1D
+from ..Frame cimport _Frame, Frame
+from ..AtomMask cimport _AtomMask, AtomMask
 
 
 cdef extern from "DataSet_Coords_CRD.h": 
@@ -20,7 +19,6 @@ cdef extern from "DataSet_Coords_CRD.h":
         void Add(size_t, const void *)
         double Dval(size_t)const 
         double Xcrd(size_t idx)const 
-        void WriteBuffer(_CpptrajFile &, size_t)const 
         inline void AddFrame(const _Frame& fIn)
         inline void GetFrame(int idx, _Frame & fIn)
         inline void GetFrame(int idx, _Frame & fIn, const _AtomMask& mIn)

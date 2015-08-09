@@ -1,3 +1,5 @@
+License from ClusCo package (code written by Michal Jamroz)
+
 		    GNU GENERAL PUBLIC LICENSE
 		       Version 2, June 1991
 

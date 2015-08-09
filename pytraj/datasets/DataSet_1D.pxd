@@ -1,6 +1,5 @@
 # distutils: language = c++
-from pytraj.datasets.DataSet cimport _DataSet, DataSet
-from pytraj.CpptrajFile cimport _CpptrajFile, CpptrajFile
+from .DataSet cimport _DataSet, DataSet
 
 
 cdef extern from "DataSet_1D.h": 
@@ -10,7 +9,6 @@ cdef extern from "DataSet_1D.h":
         # virtual methods
         #virtual ~_DataSet_1D() 
         int Allocate1D(size_t)
-        void WriteBuffer(_CpptrajFile&, size_t) const
         double Dval(size_t) const
         double Xcrd(size_t) const
         # end virtual methods

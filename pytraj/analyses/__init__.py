@@ -1,13 +1,11 @@
 """"""
 from __future__ import absolute_import
 from glob import glob
-from pytraj.analyses.allanalyses import *
-from pytraj.analyses import allanalyses
+from pytraj.analyses import CpptrajAnalyses
 
-# get analysislist from `allanalyses module`
 analysislist = []
-for act in allanalyses.__dict__.keys():
+for act in CpptrajAnalyses.__dict__.keys():
     if 'Analysis' in act:
         analysislist.append(act)
 
-__all__ = analysislist + ['allanalyses', ]
+__all__ = analysislist

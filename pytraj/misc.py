@@ -2,235 +2,181 @@
 randomizeions, strip atoms, ..."""
 
 from __future__ import print_function, absolute_import
-from pytraj.Topology import Topology
-from .TopologyList import TopologyList
-from .ArgList import ArgList
-from pytraj.Frame import Frame
-#from pytraj.Trajin_Single import Trajin_Single
-from pytraj.FrameArray import FrameArray
-from pytraj.actions import allactions
-from pytraj import adict
-from pytraj.DataSetList import DataSetList
+import os
+from glob import glob
+from pytraj.Trajectory import Trajectory
+from pytraj._set_silent import set_world_silent
+from pytraj.compat import set
+from pytraj.tools import rmsd, rmsd_1darray
 
 # external
 from pytraj.externals.six import string_types
 
-__all__ = ['strip', 'fit', 'get_subframe', 'randomize_ions']
+try:
+    from pytraj.externals.magic import from_file as file_type_info
+except ImportError:
+    file_type_info = None
 
-def strip(arg, mask):
-    """
-    TODO: can not modify oldtop, Python to pass it as value
-    TODO: validate
-    Modify top and farray
+__all__ = ['to_amber_mask', 'from_legends_to_indices', 'info', 'get_atts', ]
 
-    Strip atoms
-    Parameters
-    ---------
-    Topology instance, or Frame instance, or Trajin_Single instance
 
-    Out:
-    ----
-    Return : None
-    """
-    if isinstance(arg, Topology):
-        top = arg.copy()
-    elif isinstance(arg, FrameArray):
-        top = arg.top.copy()
-
-    toplist = TopologyList()
-    toplist.add_parm(top)
-
-    stripact = allactions.Action_Strip()
-    stripact.read_input(ArgList("strip " + mask), toplist)
-    stripact.process(toplist[0], top)
-
-    if isinstance(arg, FrameArray):
-        for i in range(arg.size):
-            tmp = arg[i]
-            stripact.do_action(tmp, i)
-            arg[i] = tmp
-        # need to update arg.top
-        arg.top = top.copy()
-
-    if isinstance(arg, Topology):
-        return top.copy()
-
-def fit(frame, ref=None):
-    """fit Frame intance to reference Frame
+def to_amber_mask(txt, mode=None):
+    import re
+    """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'
 
     Parameters
-    ---------
-    frame : Frame instance
-    ref : reference Frame (default = None)
+    ----------
+    txt : str | list/tuple of string | array-like of integer
+    mode : str, default=None
+        if mode='int_to_str': convert integer array to Amber mask
+            (good for converting indices to atom mask string to be used with cpptraj)
+
+    Examples
+    --------
+        to_amber_mask('ASP_16@OD1-ARG_18@N-H') # get ':16@OD1 :18@H'
+        to_amber_mask(range(0, 10, 3), mode='int_to_str') # return `@1,4,7`
     """
-    if not ref:
-        raise ValueError("missing reference Frame")
+
+    if mode is None:
+        if isinstance(txt, string_types):
+            txt = txt.replace("_", ":")
+            return " ".join(re.findall(r"(:\d+@\w+)", txt))
+        elif isinstance(txt, (list, tuple)):
+            # list is mutable
+            txt_copied = txt[:]
+            for i, _txt in enumerate(txt):
+                txt_copied[i] = to_amber_mask(_txt)
+            return txt_copied
+        else:
+            raise NotImplementedError()
+    elif mode == 'int_to_str':
+        # need to add +1 since cpptraj's mask uses starting index of 1
+        my_long_str = ",".join(str(i + 1) for i in txt)
+        return "@" + my_long_str
     else:
-        # TODO : fitting
-        pass
-
-def get_subframe(frame=None, mask=None, top=None, atommask=None):
-    # TODO : move to `io.py`
-    return frame.get_subframe(mask=mask, top=top, atommask=atommask)
+        raise NotImplementedError()
 
 
-def randomize_ions(frame=Frame(), top=Topology(), command=""):
-    """randomize_ions for given Frame with Topology
-    Return : None
+def array_to_cpptraj_atommask(arr):
+    return to_amber_mask(arr, mode='int_to_str')
+
+
+def from_legends_to_indices(legends, top):
+    """return somethine like "ASP_16@OD1-ARG_18@N-H" to list of indices
+
     Parameters
-    ---------
-    frame : Frame instance, default=Frame()
-        frame coords will be modified
-
-    top : Topology instance, default=Topology()
-
-    >>> from pytraj.misc import randomize_ions
-    >>> randomize_ions(frame, top, command="randomizeions @Na+ around :1-16 by 5.0 overlap 3.0")
+    ----------
+    legends : str
+    top : Topology
     """
-    act = allactions.Action_RandomizeIons()
-    act.master(command=command,
-               current_top=top,
-               current_frame=frame,
-               )
+    mask_list = to_amber_mask(legends)
+    index_list = []
+    for m in mask_list:
+        index_list.append(top(m).indices)
+    return index_list
 
-def action_help(action=None):
-    # where should we put this method? putting here seems not really reasonable
-    from pytraj import allactions
 
-    actlist = []
+def info(obj=None):
+    """get `help` for obj
+    Useful for Actions and Analyses
 
-    for key in allactions.__dict__.keys():
-        if "Action_" in key:
-            act = key.split("Action_")[1]
-            actlist.append(act)
+    Since we use `set_worl_silent` to turn-off cpptraj' stdout, we need 
+    to turn on to use cpptraj's help methods
+    """
+    from pytraj import adict, analdict
+    adict_keys = adict.keys()
+    anal_keys = analdict.keys()
 
-    if action is None:
-        print ("give the name of Action to get help")
-        print ("action_help('RadGyr')")
-        print (actlist)
+    if obj is None:
+        print("action's keys", adict_keys)
+        print("analysis' keys", anal_keys)
     else:
-        actname = "Action_" + action
-        act = allactions.__dict__[actname]()
-        act.help()
+        if isinstance(obj, string_types):
+            if obj in adict.keys():
+                # make Action object
+                _obj = adict[obj]
+            elif obj in analdict.keys():
+                # make Analysis object
+                _obj = analdict[obj]
+            else:
+                raise ValueError("keyword must be an Action or Analysis")
+        else:
+            # assume `obj` hasattr `help`
+            _obj = obj
 
-def get_action_dict():
-    actdict = {}
-    for key in allactions.__dict__.keys():
-        if "Action_" in key:
-            act = key.split("Action_")[1]
-            # add Action classes
-            actdict[act] = allactions.__dict__["Action_" + act]
-    return actdict
+        if hasattr(_obj, 'help'):
+            set_world_silent(False)
+            _obj.help()
+            set_world_silent(True)
+        elif hasattr(_obj, 'info'):
+            set_world_silent(False)
+            _obj.info()
+            set_world_silent(True)
+        elif 'calc_' in _obj.__name__:
+            key = _obj.__name__.split("_")[-1]
+            set_world_silent(False)
+            adict[key].help()
+            set_world_silent(True)
+        elif hasattr(_obj, '__doc__'):
+            print(_obj.__doc__)
+        else:
+            raise ValueError("object does not have `help` method")
 
-# add action_dict
-action_dict = get_action_dict()
 
 def show_code(func, get_txt=False):
     """show code of func or module"""
     import inspect
     txt = inspect.getsource(func)
     if not get_txt:
-        print (txt)
+        print(txt)
     else:
         return txt
 
-def calculate(action=None, command=None, traj=None, top=None, **kwd):
-    # TODO : should write universal help's method
-    """
-    quick way to get data
-    Parameters:
-    action : Action object or str, default=None
-    command : str, default=None
-    traj : Trajectory object (FrameArray, TrajReadOnly, ...) or list, tuple of traj object
-    top : topology
 
-    Use `calculate(ahelp=True)` or `calculate(ahelp='action name')` for help
+def get_atts(obj):
+    """get methods and atts from obj but excluding special methods __"""
+    atts_dict = dir(obj)
+    return [a for a in atts_dict if not a.startswith("__")]
 
-    """
-    from pytraj import adict
-    if action is None and command is None and traj is None and top is None:
-        if not kwd:
-            #
-            #print (calculate.__doc__)
-            print ()
-            print (adict.keys())
-            print ()
-            print ("use calculate(key=action_name) for help")
-        else:
-            adict[kwd['key'].lower()].help()
+
+def find_libcpptraj(**kwd):
+    return find_library('cpptraj', **kwd)
+
+
+def find_library(libname, unique=False):
+    """return a list of all library files"""
+    paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
+    lib_path_list = []
+    key = "lib" + libname + "*"
+
+    for path in paths:
+        path = path.strip()
+        fnamelist = glob(os.path.join(path, key))
+        for fname in fnamelist:
+            if os.path.isfile(fname):
+                lib_path_list.append(fname)
+
+    if not lib_path_list:
+        return None
     else:
-        if top is None:
-            try:
-               top = traj.top
-            except:
-                # list, tuple of traj objects
-                top = traj[0].top
-        if traj is None:
-            raise ValueError("must have trajectory object")
-        if isinstance(action, string_types):
-            # convert to action
-            act = adict[action]
+        if unique:
+            return set(lib_path_list)
         else:
-            act = action
-        return act(command, traj, top, quick_get=True)
-
-def to_string_ss(arr0):
-    """
-    arr0 : ndarray
-    """
-    ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
-    len_ss = len(ss)
-    ssdict = dict(zip(range(len_ss), ss))
-    return map(lambda idx: ssdict[idx], arr0)
-
-def calc_dssp(command="", traj=None, dtype='int'):
-    dslist = DataSetList()
-    adict['dssp'](command, 
-                  current_frame=traj, current_top=traj.top, 
-                  dslist=dslist)
-    dtype = dtype.upper()
-    arr0 = dslist.get_dataset(dtype="integer")
-    if dtype in ['INT', 'INTERGER']:
-        return arr0
-    elif dtype in ['STRING', 'STR']:
-        shape = arr0.shape
-        tmplist = [[x for x in to_string_ss(arr)] for arr in arr0]
-        return tmplist
-    else:
-        raise NotImplementedError("dtype = integer, int, string, str")
-
-def simple_plot(d0, *args, **kwd):
-    # TODO : return object so we can update axis, label, ..
-    from pytraj import _import
-
-    has_plot, plt = _import('matplotlib.pyplot')
-    if not has_plot:
-        raise RuntimeError("require matplotlib installed")
-    fig = plt.pyplot.plot(range(d0.size), d0[:], *args, **kwd)
-    plt.pyplot.show()
+            return lib_path_list
 
 
-def frame_iter(self, start=0, stop=-1, stride=1):
-    """iterately get Frames with start, stop, stride 
-    Parameters
-    ---------
-    start : int (default = 0)
-    chunk : int (default = 1)
-    stop : int (default = max_frames - 1)
-    """
-    frame = Frame(self.top.n_atoms)
-    if stop == -1 or stop >= self.n_frames:
-        stop = self.n_frames - 1
-
-    i = start
-    # use `with self` in case needed to open/close file
-    with self:
-        while i <= stop:
-            if hasattr(self, 'read_traj_frame'):
-                # cpptraj Traj-like object
-                self.read_traj_frame(i, frame)
-            else:
-                # FrameArray object
-                frame = self[i]
-            yield frame
-            i += stride
+def split_range(n_chunks, start, stop):
+    '''
+    >>> from pytraj.misc import split_range
+    >>> split_range(3, 0, 10)
+    [(0, 3), (3, 6), (6, 10)]
+    '''
+    list_of_tuple = []
+    chunksize = (stop - start) // n_chunks
+    for i in range(n_chunks):
+        if i < n_chunks - 1:
+            _stop = (i + 1) * chunksize
+        else:
+            _stop = stop
+        list_of_tuple.append((start + i * chunksize, _stop))
+    return list_of_tuple

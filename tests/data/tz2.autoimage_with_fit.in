@@ -1,0 +1,5 @@
+parm tz2.ortho.parm7
+trajin tz2.ortho.nc
+autoimage
+rms first @CA,C,N
+trajout tz2.autoimage_with_rmsfit_2nd_try.nc

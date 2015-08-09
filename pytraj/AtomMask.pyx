@@ -3,19 +3,29 @@ from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarrary
+from cpython cimport array
 from pytraj.decorators import deprecated
+from pytraj._set_silent import set_world_silent
+from pytraj.externals.six import string_types
+from pytraj.utils import is_array, is_int
+from pytraj._cyutils import _int_array1d_like_to_memview
+from pytraj.compat import range
 
-# FIXME : property does not work properly
-
+__all__ = ['AtomMask']
 
 cdef class AtomMask(object):
-    # TODO : rename methods, add doc
     def __cinit__(self, *args):
         cdef int begin_atom, end_atom, atom_num
         cdef string maskstring
         cdef AtomMask rhs_atm
+        cdef vector[int] v_int
+        cdef int i, max_atoms
+
         if not args:
             self.thisptr = new _AtomMask()
+        elif is_array(args[0]) or isinstance(args[0], (list, tuple, range)):
+            self.thisptr = new _AtomMask()
+            self.add_selected_indices(args[0])
         else:
             if len(args) == 1:
                 if isinstance(args[0], int):
@@ -24,13 +34,20 @@ cdef class AtomMask(object):
                 elif isinstance(args[0], AtomMask):
                     rhs_atm = args[0]
                     self.thisptr = new _AtomMask(rhs_atm.thisptr[0])
-                else:
+                elif isinstance(args[0], string_types):
                     # string_types
                     maskstring = args[0].encode("UTF-8")
                     self.thisptr = new _AtomMask(maskstring)
             elif len(args) == 2:
-                begin_atom, end_atom = args
-                self.thisptr = new _AtomMask(begin_atom, end_atom)
+                if is_int(args[0]) and is_int(args[1]):
+                    begin_atom, end_atom = args
+                    self.thisptr = new _AtomMask(begin_atom, end_atom)
+                else:
+                    # array-like with max_atoms
+                    for i in args[0]:
+                        v_int.push_back(i)
+                    max_atoms = args[1]
+                    self.thisptr = new _AtomMask(v_int, max_atoms)
             else:
                 # TODO: better Error
                 raise NotImplementedError()
@@ -40,7 +57,26 @@ cdef class AtomMask(object):
             del self.thisptr
 
     def selected_indices(self):
-        return pyarrary('i', self.thisptr.Selected())
+        return self.indices
+
+    @property
+    def indices(self):
+        import numpy as np
+        return np.asarray(self.thisptr.Selected())
+
+    @property
+    def _indices_view(self):
+        cdef vector[int] v = self.thisptr.Selected()
+        cdef pyarrary a_empty = pyarrary('i', [])
+        cdef int size = v.size()
+        cdef pyarrary arr0 = array.clone(a_empty, size, zero=True) 
+        cdef int[:] myview = arr0
+        cdef int i 
+
+        for i in range(size):
+            myview[i] = v[i]
+
+        return myview
 
     def __iter__(self):
         cdef cppvector[int].const_iterator it
@@ -49,9 +85,6 @@ cdef class AtomMask(object):
         while it != self.thisptr.end():
             yield deref(it)
             incr(it)
-
-    def back(self):
-        return self.thisptr.back()
 
     @property
     @deprecated
@@ -62,8 +95,6 @@ cdef class AtomMask(object):
         def __get__(self):
             """the number of selected atoms based on mask"""
             return self.thisptr.Nselected()
-        def __set__(self, int value):
-            self.thisptr.SetNatom(value)
 
     def __getitem__(self, int idx):
         return self.thisptr.index_opr(idx)
@@ -79,31 +110,37 @@ cdef class AtomMask(object):
         t = self.thisptr.MaskExpression()
         return t.decode()
 
-    def mask_string_was_set(self):
-        return self.thisptr.MaskStringSet()
-
     def is_empty(self):
         return self.thisptr.None()
-
-    def is_char_mask(self):
-        return self.thisptr.IsCharMask()
-
-    def reset_mask(self):
-        self.thisptr.ResetMask()
-
-    def clear_selected(self):
-        self.thisptr.ClearSelected()
 
     def invert_mask(self):
         self.thisptr.InvertMask()
 
-    def num_atoms_in_common(self, AtomMask other_mask):
-        return self.thisptr.NumAtomsInCommon(other_mask.thisptr[0])
+    def add_selected_indices(self, arr0):
+        """add atom index without sorting
 
-    def add_selected_atom(self,int i):
-        self.thisptr.AddSelectedAtom(i)
+        See Also
+        --------
+        add_atom
+        """
+        cdef int[:] int_view
+        cdef int i
+
+        # try casting to memview
+        if not is_array(arr0):
+            int_view = _int_array1d_like_to_memview(arr0)
+        else:
+            try:
+                int_view = arr0
+            except:
+                # numpy compat
+                int_view = arr0.astype('i4')
+
+        for i in range(int_view.shape[0]):
+            self.thisptr.AddSelectedAtom(int_view[i])
 
     def add_atom(self,int atom_num):
+        """add atom index and sort"""
         self.thisptr.AddAtom(atom_num)
 
     def add_atoms(self, vector[int] v):
@@ -111,42 +148,3 @@ cdef class AtomMask(object):
 
     def add_atom_range(self, int begin, int end):
         self.thisptr.AddAtomRange(begin, end)
-
-    def add_mask_at_position(self, AtomMask atm, int pos):
-        self.thisptr.AddMaskAtPosition(atm.thisptr[0], pos)
-
-    def print_mask_atoms(self, mask):
-        mask = mask.encode()
-        self.thisptr.PrintMaskAtoms(mask)
-
-    def setup_int_mask(self, char *charmask, int natom, int debug=0):
-        self.thisptr.SetupIntMask(charmask, natom, debug)
-
-    def setup_char_mask(self, char* charmask, int natom, int debug=0):
-        self.thisptr.SetupCharMask(charmask, natom, debug)
-
-    def atoms_in_char_mask(self, *args):
-        cdef atomid, begin, end
-        if len(args) == 1:
-            atomid = args[0]
-            return self.thisptr.AtomInCharMask(atomid)
-        elif len(args) == 2:
-            begin, end = args
-            return self.thisptr.AtomsInCharMask(begin, end)
-
-    def convert_to_char_mask(self):
-        return self.thisptr.ConvertToCharMask()
-
-    def convert_to_int_mask(self):
-        return self.thisptr.ConvertToIntMask()
-
-    def mask_info(self):
-        self.thisptr.MaskInfo()
-
-    def brief_mask_info(self):
-        self.thisptr.BriefMaskInfo()
-
-    # Not yet support
-    #def  token_iterator begintoken(self):
-    #def  token_iterator endtoken(self):
-

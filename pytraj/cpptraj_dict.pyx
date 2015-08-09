@@ -254,12 +254,14 @@ DataTypeDict = {
         "MATRIX_DBL" : MATRIX_DBL, 
         "MATRIX_FLT" : MATRIX_FLT,
         "COORDS" : COORDS, 
+        "REF_FRAME" : REF_FRAME, 
         "VECTOR" : VECTOR,
         "MODES" : MODES,
         "GRID_FLT" : GRID_FLT,
         "REMLOG" : REMLOGDATATYPE, 
         "XYMESH" : XYMESH, 
         "TRAJ" : TRAJ, 
+        "MAT3x3" : MAT3X3, 
     }
 
     # DataSet.h
@@ -272,6 +274,7 @@ scalarModeDict = {
         "M_RMS" : M_RMS,
         "UNKNOWN_MODE" : UNKNOWN_MODE,
 }
+
     # DataSet.h
 scalarDict = {
         "ALPHA" : ALPHA,
@@ -289,37 +292,16 @@ scalarDict = {
         "PCHI" : PCHI,
         "OMEGA" : OMEGA,
         "NOE" : NOE,
+        "DIST" : DIST,
+        "COVAR" : COVAR,
+        "MWCOVAR" : MWCOVAR,
+        "CORREL" : CORREL,
+        "DISTCOVAR" : DISTCOVAR,
+        "IDEA" : IDEA,
+        "IRED" : IRED,
+        "DIHCOVAR" : DIHCOVAR,
         "UNDEFINED" : UNDEFINEDSCALARTYPE,
 }
-
-# DataSet_2D
-#from DataSet_2D cimport *
-MatrixDict = {
-    "NO_OP" : NO_OP, 
-    "DIST" : DIST, 
-    "COVAR" : COVAR, 
-    "MWCOVAR" : MWCOVAR, 
-    "CORREL" : CORREL, 
-    "DISTCOVAR" : DISTCOVAR, 
-    "IDEA" : IDEA, 
-    "IRED" : IRED, 
-    "DIHCOVAR" : DIHCOVAR, 
-    "NMAT" : NMAT, 
-    }
-
-MatrixKindDict = {
-    "FULL" : FULL, 
-    "HALF" : HALF, 
-    "TRI" : TRI, 
-    }
-
-## ClusterSieve
-##from ClusterSieve cimport *
-#SieveDict = {
-#    "NONE" : NONE, 
-#    "REGULAR" : REGULAR, 
-#    "RANDOM" : RANDOM, 
-#    }
 
 # PDBfile
 #from PDBfile cimport *
@@ -396,12 +378,12 @@ GridModeDict = {
 
 # Trajin_Multi
 #from Trajin_Multi cimport *
-TargetDict = {
-    "NONE" : NONETARGETTYPE, 
-    "TEMP" : TEMP, 
-    "INDICES" : INDICES, 
-    "CRDIDX" : CRDIDX, 
-    }
+#TargetDict = {
+#    "NONE" : NONETARGETTYPE, 
+#    "TEMP" : TEMP, 
+#    "INDICES" : INDICES, 
+#    "CRDIDX" : CRDIDX, 
+#    }
 
 # TrajinList
 #from TrajinList cimport *

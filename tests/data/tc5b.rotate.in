@@ -1,0 +1,3 @@
+trajin md1_prod.Tc5b.x 1
+rotate x 60 y 120 z 50 @CA
+trajout rotated_frame0.x60y120z50.Tc5b.r

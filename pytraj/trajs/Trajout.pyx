@@ -10,13 +10,13 @@ cdef class Trajout:
     Parameters :
     filename: str
 
-    fmt : str, optional, default='AMBERTRAJ'
+    format: str, optional, default='AMBERTRAJ'
         output format: %s 
 
-    if `fmt` is not provided, Trajout will decide format based on extension.
-    if not `fmt` and no extension, default format = AMBERTRAJ
+    if `format` is not provided, Trajout will decide format based on extension.
+    if not `format` and no extension, default format = AMBERTRAJ
 
-    So the priority is fmt > extension > default
+    So the priority is format> extension > default
         
     """
     def __cinit__(self, *args, **kwd):
@@ -39,13 +39,8 @@ cdef class Trajout:
         print "TrajFormat"
         print TrajFormatDict.keys()
 
-    #@property
-    #def formats(self):
-    #    """return a list of possible format to be used with self.open"""
-    #    return TrajFormatDict.keys()
-        
-    def open(self, filename='', top=Topology(), fmt='UNKNOWN_TRAJ', 
-             more_args=None, overwrite=False):
+    def open(self, filename='', top=Topology(), format='unknown_traj', 
+             mode=None, overwrite=False):
         cdef ArgList arglist
         cdef Topology top_ 
 
@@ -66,58 +61,41 @@ cdef class Trajout:
         local_dict = TrajFormatDict.copy()
         local_dict.get("", "")
         # make upper case in case user uses lower ones
-        fmt = fmt.upper()
+        format= format.upper()
 
-        if fmt == "PDB" or fmt == "MOL2":
+        if format == "PDB" or format == "MOL2":
             # add 'FILE' the end
             # 'PDBFILE' 'MOL2FILE'
-            fmt += 'FILE'
+            format += 'FILE'
 
-        #filename = filename.encode("UTF-8")
-        if more_args:
-            if isinstance(more_args, string_types):
-                inputstring = more_args
+        if mode:
+            if isinstance(mode, string_types):
+                inputstring = mode
                 arglist = <ArgList> ArgList(inputstring) 
-            elif isinstance(more_args, ArgList):
-                arglist = <ArgList> more_args
+            elif isinstance(mode, ArgList):
+                arglist = <ArgList> mode
             else:
                 raise ValueError()
-            #self.thisptr.InitTrajWrite(filename.encode("UTF-8"), arglist.thisptr[0], top_.thisptr, local_dict[fmt])
-            self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr, local_dict[fmt])
+            self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr, local_dict[format])
         else:
-            self.thisptr.InitTrajWrite(filename, top_.thisptr, local_dict[fmt])
+            self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr, local_dict[format])
+
+        # real open
+        self.thisptr.SetupTrajWrite(top_.thisptr)
 
     def close(self):
         self.thisptr.EndTraj()
 
-    def writeframe(self, *args, **kwd):
+    def write(self, *args, **kwd):
         self.write_frame(*args, **kwd)
 
-    def write_frame(self, int idx=0, Frame frame=Frame(), top=Topology()):
+    def write_frame(self, int idx=0, Frame frame=Frame(), *args, **kwd):
         """write trajout for Frame with given Topology
-        Parameters:
+
+        Parameters
         ----------
         frame : Frame instance
-        top : Topology instance
+
+        *args, **kwd: just dummy
         """
-        cdef Topology _top
-        # check Topology
-        if isinstance(top, string_types):
-            top_ = Topology(top)
-        elif isinstance(top, Topology):
-            # assume this is Topology instance
-            top_ = <Topology> top
-        if len(top) == 0:
-            # we use `len` here since we don't know if this is string or 
-            # Topology object
-            raise ValueError("require non-empty topology")
-        self.thisptr.WriteFrame(idx, top_.thisptr, frame.thisptr[0])
-
-    def print_info(self, int idx):
-        self.thisptr.PrintInfo(idx)
-
-    def is_open(self):
-        return self.thisptr.TrajIsOpen()
-
-    def nframes_processed(self):
-        return self.thisptr.NumFramesProcessed()
+        self.thisptr.WriteFrame(idx, frame.thisptr[0])

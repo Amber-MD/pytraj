@@ -1,19 +1,16 @@
 # distutils: language = c++
-#from pytraj.trajs.TrajectoryFile cimport *
 from libcpp.string cimport string
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj.Frame cimport _Frame, Frame
-from pytraj.Box cimport _Box, Box
-from pytraj.trajs.TrajectoryIO cimport _TrajectoryIO, TrajectoryIO
-from pytraj.trajs.TrajectoryFile cimport _TrajectoryFile, TrajectoryFile
 from pytraj.Topology cimport _Topology, Topology
-
+from pytraj.core.FileName cimport _FileName, FileName
+from pytraj.core.Box cimport _Box, Box
+from pytraj.core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 
 cdef extern from "Trajin.h": 
-    cdef cppclass _Trajin "Trajin" (_TrajectoryFile):
+    cdef cppclass _Trajin "Trajin" nogil:
         _Trajin()        
 
-        #virtual ~_Trajin() 
         # star virtual methods
         int SetupTrajRead(const string&, _ArgList&, _Topology *)
         int ReadTrajFrame(int, _Frame&)
@@ -30,7 +27,6 @@ cdef extern from "Trajin.h":
         inline void UpdateCounters() 
         inline int GetNextFrame(_Frame &)
         inline void SetTotalFrames(int)
-        int SetupTrajIO(const string&, _TrajectoryIO &, _ArgList &)
         int CheckBoxInfo(const char *, _Box &, const _Box&)const 
         int setupFrameInfo() 
         void PrepareForRead(bint)
@@ -44,11 +40,16 @@ cdef extern from "Trajin.h":
         int NumFramesProcessed() const 
         bint IsEnsemble() const 
         void SetEnsemble(bint b)
+        _CoordinateInfo TrajCoordInfo()
 
-cdef class Trajin (TrajectoryFile):
-    #( baseptr0 is from TrajectoryFile
-    # create tmpfarray to hold sub FrameArray
-    # traj[0:10][0] will give wrong answer
+        void SetTrajFileName(const string&, bint)
+        int SetTrajParm(_Topology *)
+        _Topology * TrajParm ()const 
+        const _FileName & TrajFilename ()const 
+
+cdef class Trajin:
     cdef object tmpfarray
     cdef _Trajin* baseptr_1
     cdef public bint debug
+    cdef Topology _top
+    cdef public object _tmpobj

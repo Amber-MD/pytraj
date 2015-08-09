@@ -1,16 +1,19 @@
 # distutils: language = c++
 # TODO : add more methods
+from __future__ import absolute_import
 from pytraj.cpp_vector cimport vector as cppvector
-from pytraj.Atom cimport _Atom, Atom
-from pytraj.Residue cimport _Residue, Residue
-from pytraj.Molecule cimport _Molecule, Molecule
-from pytraj.ParameterTypes cimport *
+
+from pytraj.core.Atom cimport _Atom, Atom
+from pytraj.core.Residue cimport _Residue, Residue
+from pytraj.core.Molecule cimport _Molecule, Molecule
+from pytraj.core.ParameterTypes cimport *
+from pytraj.core.Box cimport _Box, Box, BoxType
+from pytraj.core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
+from pytraj.core.FileName cimport _FileName, FileName
+from pytraj.core.NameType cimport _NameType, NameType
+
 from pytraj.AtomMask cimport _AtomMask, AtomMask
 from pytraj.Frame cimport _Frame, Frame
-from pytraj.FileName cimport _FileName, FileName
-from pytraj.NameType cimport _NameType, NameType
-from pytraj.Box cimport _Box, Box, BoxType
-from pytraj.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator
@@ -18,7 +21,7 @@ ctypedef cppvector[_Molecule].const_iterator mol_iterator
 #ctypedef cppvector[set[AtomicElementType]] BP_mapType
 
 cdef extern from "Topology.h": 
-    cdef cppclass _Topology "Topology":
+    cdef cppclass _Topology "Topology" nogil:
         _Topology() 
         void SetOffset(double oIn)
         void SetDebug(int dIn)
@@ -90,7 +93,7 @@ cdef extern from "Topology.h":
         string AtomMaskName(int atom) const 
         string TruncResNameNum(int) const 
         int FindAtomInResidue(int, const _NameType&) const 
-        int FindResidueMaxNatom() const 
+        #int FindResidueMaxNatom() const 
         int SoluteAtoms() const 
         int SetSolvent(const string&)
         void Summary() const 
@@ -105,10 +108,13 @@ cdef extern from "Topology.h":
         void PrintBonds(const BondArray&, _AtomMask&, int&) const
         void PrintAngles(const AngleArray&, const _AtomMask&, int&) const
         void PrintDihedrals(const DihedralArray&, const _AtomMask&, int&) const
-        inline const _Box& Parm_Box() const 
+        inline const _Box& ParmBox() const 
         inline BoxType _BoxType() const 
-        void SetParmBox(const _Box& bIn)
-        int AddTopAtom(const _Atom&, int, const _NameType&, const double *)
+        #void SetParmBox(const _Box& bIn)
+        void SetParmBox(_Box& bIn)
+        int AddTopAtom(_Atom&, _Residue&, double*)
+        void AddAngle(int, int, int)
+        void AddDihedral(int, int, int, int)
         void StartNewMol() 
         int CommonSetup(bint)
         int SetAmberExtra(const vector[double]&, const vector[_NameType]&, const vector[int]&, const vector[int]&)
@@ -123,6 +129,7 @@ cdef extern from "Topology.h":
         int AppendTop(const _Topology &)
         # add more
         _CoordinateInfo& ParmCoordInfo() const
+        double GetVDWradius(int) except +
 
 cdef class Topology:
     cdef _Topology* thisptr

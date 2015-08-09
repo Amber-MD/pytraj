@@ -1,0 +1,8 @@
+parm Tc5b.top
+#trajin md1_prod.Tc5b.x
+#average avg.Tc5b.pdb pdb
+#trajin md1_prod.Tc5b.x 2 8 2
+#average avg.Tc5b.frame_2_to_8_skip_2.pdb pdb
+trajin md1_prod.Tc5b.x 2 8 2
+average @CA avg.Tc5b.frame_2_to_8_skip_2.CA.pdb pdb
+run

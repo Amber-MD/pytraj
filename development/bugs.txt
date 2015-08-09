@@ -1,6 +1,0 @@
-* traj += traj
-    * solution: traj += traj[:]
-* act.do_action(traj.chunk_iter()) does not properly work (no frame action is perfomed)
-    * solution: use list or tuple (why this works?)
-          act.do_action([traj.chunk_iter()])
-

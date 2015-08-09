@@ -2,11 +2,11 @@ import unittest
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj import allactions
-from pytraj.cast_dataset import cast_dataset
+from pytraj.datasets import cast_dataset
 
 # load traj
-farray = mdio.load(top=Topology("../tests/data/Tc5b.top"), 
-                       filename='../tests/data/md1_prod.Tc5b.x',)
+farray = mdio.load(top=Topology("../tests/data/Tc5b.top"),
+                   filename='../tests/data/md1_prod.Tc5b.x', )
 
 # create dataset to hold data
 dslist = DataSetList()
@@ -20,7 +20,7 @@ act.process(farray.top)
 
 # do calculation for each frame. rad of gyr is appended to dslist
 for i, frame in enumerate(farray):
-    act.do_action(i, frame)
+    act.do_action(frame)
 
 # get dataset.
 d1 = cast_dataset(dslist[0], dtype="general")

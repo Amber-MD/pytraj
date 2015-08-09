@@ -1,0 +1,13 @@
+* get wrong result for `my_dict = pyca.search_hbonds(traj).to_dict()`
+    * Why? object lifetime is not handle correctly
+    * Fix: try using `my_dict = pyca.search_hbonds(traj, dtype='dict')
+* calling the same Action twice will get segmentation fault
+    act = adict['hbond']
+    act("", traj)
+    act("series", traj)
+* if we keep calling the same method, such as "calc_radgyr" many times, the
+ timing is slower (might be memory problem)
+* traj += traj --> segfault: FIXED
+    * see ./tests/test_iadd.py
+* act.do_action(traj.chunk_iter()) does not properly work (no frame action is perfomed): FIXED
+    * see ./tests/test_adict.py

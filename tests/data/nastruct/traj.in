@@ -1,0 +1,3 @@
+parm rna_a_form_dup.pdb
+trajin rna_a_form_dup.pdb
+nastruct naout na.out

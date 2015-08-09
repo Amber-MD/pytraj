@@ -1,37 +1,28 @@
 """
 import baseclasses for pytraj
 """
+from __future__ import absolute_import
 # TODO : make this file shorter
-from pytraj.Atom import Atom
-from pytraj.Frame import Frame
-from pytraj.FrameArray import FrameArray
-from pytraj.FrameArray2 import FrameArray2 
-from pytraj.Topology import Topology
-from pytraj.ArgList import ArgList
-from pytraj.AtomMask import AtomMask
-from pytraj.CpptrajState import CpptrajState
-from pytraj.TrajReadOnly import TrajReadOnly
-from pytraj.trajs.Trajout import Trajout
-from pytraj.TrajinList import TrajinList
-from pytraj.TopologyList import TopologyList
-from pytraj.DataFileList import DataFileList
-from pytraj.DataSetList import DataSetList
-from pytraj.ActionList import ActionList
-from pytraj.cast_dataset import cast_dataset
-from pytraj import cpptraj_dict
+from .datasets.cast_dataset import cast_dataset
+from .Frame import Frame
+from .core.Atom import Atom
+from .core.TrajinList import TrajinList
+from .core.TopologyList import TopologyList
+from .core.DataFileList import DataFileList
+from .core.ActionList import ActionList
+from .core.CpptrajState import CpptrajState
 
+from .datasets.DataSetList import DataSetList
+from .AtomMask import AtomMask
+from .Trajectory import Trajectory
+from .Topology import Topology
+from .ArgList import ArgList
+from .TrajectoryIterator import TrajectoryIterator
+from .trajs.Trajout import Trajout
+from . import cpptraj_dict
 
-
-# `Trajectory` is alias of `FrameArray`
-__all__ = ['Atom',
-           'Topology', 'TopologyList', 
-           'Frame', 'FrameArray', 
-           'AtomMask', 
-           'ArgList', 'CpptrajState', 
-           'TrajReadOnly', 
-           'DataSetList', 'DataFileList', 
-           'ActionList',
-           'Trajout', 'TrajinList',
-           'FrameArray2',
-           'cast_dataset',
-           'cpptraj_dict']
+# `Trajectory` is alias of `Trajectory`
+__all__ = ['Atom', 'Topology', 'TopologyList', 'Frame', 'Trajectory',
+           'AtomMask', 'ArgList', 'CpptrajState', 'TrajectoryIterator',
+           'DataSetList', 'DataFileList', 'ActionList', 'Trajout',
+           'TrajinList', 'cast_dataset', 'cpptraj_dict']

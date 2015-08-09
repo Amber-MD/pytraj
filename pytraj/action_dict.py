@@ -1,5 +1,5 @@
 from __future__ import print_function
-from pytraj.actions import allactions
+from pytraj.actions import CpptrajActions as allactions
 
 ADICT = {}
 
@@ -16,6 +16,7 @@ ADICT['surf_lcpo'] = allactions.__dict__['Action_Surf']
 ADICT['secstruct'] = allactions.__dict__['Action_DSSP']
 
 # make another dict to convert something like 'MolSurf' to 'molsurf'
+
 
 class ActionDict:
     def __init__(self):

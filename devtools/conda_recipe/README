@@ -1,0 +1,48 @@
+It's suggested to use conda (from www.continuum.io) for package installing/managing.
+After spending few days stuck with building/uploading to binstar, it turns out to be very easy
+but tricky to work with conda/binstar
+
+This is my note about this process.
+
+1. Create your channel. For example, this is pytraj channel https://binstar.org/pytraj
+    + In this pytraj channel, libcpptraj and pytraj packages will be hosted
+    + To install package with conda, just simply type: conda install -c pytraj libcpptraj
+    (where `-c pytraj` specify `pytraj` channel; `libcpptraj` is the library I want to install
+    in my computer)
+
+2. Building your package and uploading to binstar
+    + create folder with whatever name you like (commonly named `conda_recipe`)
+    + create at least two files: meta.yaml and build.sh
+        + meta.yaml: give conda sufficient info to install/upload your package.
+                     (example: `source` shows the source of your package to build. 
+                               `requirements` shows the requirement package to build/run ...
+                                    (for example, to build `pytraj`, I added prebuilt `libcpptraj` to meta.yaml
+
+        + build.sh: tell conda the rule to build your package
+    + build: `conda build dir_to_your_folder_having_conda_recipe`
+    + upload: 
+        + `binstar login` (you need to provide username and password)
+        + binstar upload your_built_package
+
+3. Possible failures:
+I've tried uploading libcpptraj and pytraj to binstar but got very general error. Even Google cann't help
+finding the solution. (man, should update more detail error)
+
+It turned out that I need to provide the package version (might be `summary`, ...) in meta.yaml.
+After trials and errors, I was able to nicely upload/download/install libcpptraj and pytraj for my Linux machine.
+Installing pytraj with conda just takes less than 30 seconds. (LOL, this makes sense since I just built 
+and uploaded to binstar)
+
+4. How to remove package in binstar
+`binstar remove pytraj/pytraj` 
+(where first `pytraj` word is my channel's name, second `pytraj` word is the package's name)
+
+
+5. Example for building/uploading/installing pytraj. Supposed you are in this current folder with README file
++ `conda build ./libcpptraj`
++ (at the end, conda suggested to upload, just copy and paste the link to terminal and hit Enter)
++ `conda build ./pytraj`
++ (at the end, conda suggested to upload, just copy and paste the link to terminal and hit Enter)
++ testing installing
+    + `conda install -c pytraj libcpptraj`
+    + `conda install -c pytraj pytraj`

@@ -1,6 +1,9 @@
-from pytraj import *
+from pytraj import Trajectory, io
+import pytraj as pt
 
-traj = FrameArray(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
-traj2 = io.load('./data/DPDP.nc', "./data/DPDP.parm7")
+traj = Trajectory(filename="./data/md1_prod.Tc5b.x", top="./data/Tc5b.top")
+traj2 = io.iterload('./data/DPDP.nc', "./data/DPDP.parm7")
 top = traj.top
-frame0 = traj[0]
+frame = traj[0]
+
+dslist = traj.calc_multidihedral()

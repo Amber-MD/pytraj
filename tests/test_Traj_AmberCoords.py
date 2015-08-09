@@ -1,1 +1,1 @@
-from pytraj.Traj_AmberCoord import Traj_AmberCoord
+from pytraj.Traj_AmberCoords import Traj_AmberCoords

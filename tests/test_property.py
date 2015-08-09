@@ -1,4 +1,4 @@
-class A (object):
+class A(object):
     def __init__(self, x):
         self._x = x
 
@@ -9,6 +9,7 @@ class A (object):
     @x.setter
     def x(self, value):
         self._x = value
+
 
 if __name__ == "__main__":
     a = A(3)

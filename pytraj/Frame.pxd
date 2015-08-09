@@ -1,18 +1,19 @@
 # distutils: language = c++
+#from __future__ import absolute_import
 from libcpp.vector cimport vector
 from libcpp.string cimport string
-from pytraj.Atom cimport _Atom, Atom
-from pytraj.AtomMask cimport _AtomMask, AtomMask
-from pytraj.Box cimport _Box, Box, BoxType
-from pytraj.Topology cimport _Topology, Topology
-from pytraj.Vec3 cimport _Vec3, Vec3
-from pytraj.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
-from pytraj.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
+from .math.Vec3 cimport _Vec3, Vec3
+from .math.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
+from .core.Atom cimport _Atom, Atom
+from .core.Box cimport _Box, Box, BoxType
+from .Topology cimport _Topology, Topology
+from .core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
+from .AtomMask cimport _AtomMask, AtomMask
 
 ctypedef vector[float] CRDtype
 ctypedef vector[double] Darray
 
-cdef extern from "Frame.h": 
+cdef extern from "Frame.h" nogil: 
     # Frame.h
     ctypedef enum CenterMode "Frame::CenterMode":
         ORIGIN "Frame::ORIGIN"
@@ -43,11 +44,13 @@ cdef extern from "Frame.h":
         int size() const 
         int NrepDims() const 
         double Temperature() const 
+        double Time()
         const double * XYZ(int atnum) const 
         const double * CRD(int idx) const 
         const double * VXYZ(int atnum) const 
         double Mass(int atnum) const 
-        const _Box& BoxCrd() const 
+        #const _Box& BoxCrd() const 
+        _Box& BoxCrd() const 
         inline double * xAddress() 
         inline double * vAddress() 
         inline double * bAddress() 
@@ -59,10 +62,15 @@ cdef extern from "Frame.h":
         #inline const double * tAddress() const 
         inline const int * iAddress() const 
         inline void SetBoxAngles(const double *)
+        # Set box alpha, beta, and gamma
+        # Set temperature
+        void SetTemperature(double tIn)
+        # Set time
+        void SetTime(double tIn)
         int SetupFrame(int)
         int SetupFrameM(const vector[_Atom]&)
         int SetupFrameXM(const vector[double]&, const vector[double]&)
-        int SetupFrameV(const vector[_Atom]&, const _CoordinateInfo&)
+        int SetupFrameV(const vector[_Atom]&, _CoordinateInfo&)
         int SetupFrameFromMask(const _AtomMask&, const vector[_Atom]&)
         void SetCoordinates(const _Frame&, const _AtomMask&)
         void SetCoordinates(const _Frame&)
@@ -114,10 +122,12 @@ cdef extern from "Frame.h":
 cdef class Frame:
     cdef _Frame* thisptr
     cdef public bint py_free_mem
-    cdef void _strip_atoms(Frame self, Topology top, string m, bint update_top, bint has_box)
+    cdef void _strip_atoms(Frame self, Topology top, AtomMask atm, bint update_top, bint has_box)
     cdef _update_atoms(self, int[:], double[:], int)
     # create and object as alias to Topology instance
-    cdef object top
+    cdef object _top
+    cdef void _append_xyz_1d(self, double[:] xyz)
+    cdef void _append_xyz_2d(self, double[:, :] xyz)
 
 cdef inline int get_positive_idx(idx, size):
     # TODO : do we need this method?

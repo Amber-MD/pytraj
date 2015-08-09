@@ -11,6 +11,7 @@ cdef extern from "AtomMask.h":
         _AtomMask(const string&)
         _AtomMask(int, int)
         _AtomMask(int)
+        _AtomMask(vector[int], int)
         _AtomMask(const _AtomMask &)
         #_AtomMask & operator =(const _AtomMask &)
         const vector [int]& Selected()const 
@@ -26,7 +27,7 @@ cdef extern from "AtomMask.h":
         bint IsCharMask()const 
         void ResetMask()
         void ClearSelected()
-        void InvertMask()
+        void InvertMask() except +
         int NumAtomsInCommon(const _AtomMask&)
         void AddSelectedAtom(int i)
         void AddAtom(int)

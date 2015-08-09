@@ -3,13 +3,14 @@ import unittest
 import numpy as np
 from pytraj.base import *
 
-ts = TrajReadOnly()
+ts = TrajectoryIterator()
 ts.top = Topology("./data/Tc5b.top")
 mdx = "./data/md1_prod.Tc5b.x"
 ts.load(mdx)
 print(ts.size)
 farray = ts[:]
 print(farray.size)
+
 
 def tease_Traj(N=10, ts=ts):
     def forward():
@@ -49,11 +50,12 @@ def tease_Traj(N=10, ts=ts):
     def mix():
         for i in range(N):
             print(ts[-2:-8:-1][0])
-            ts[0:9:1][0] += ts[0:9:1][0] 
+            ts[0:9:1][0] += ts[0:9:1][0]
             print(ts)
 
-    #forward()
-    #backward()
+    # forward()
+    # backward()
     mix()
+
 
 tease_Traj(1, farray)

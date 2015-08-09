@@ -1,0 +1,4 @@
+parm tz2.ortho.parm7
+trajin tz2.ortho.nc
+autoimage
+trajout tz2.autoimage.nc

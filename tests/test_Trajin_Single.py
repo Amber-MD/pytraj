@@ -3,18 +3,18 @@ from copy import copy
 import unittest
 import numpy as np
 from pytraj.Frame import Frame
-from pytraj.FrameArray import FrameArray
-from pytraj.actions.Action_Rmsd import Action_Rmsd
-from pytraj.Trajin_Single import Trajin_Single
+from pytraj.Trajectory import Trajectory
+from pytraj.actions.CpptrajActions import Action_Rmsd
+from pytraj.trajs.Trajin_Single import Trajin_Single
 from pytraj.trajs.Trajin import Trajin
 from pytraj.ArgList import ArgList
 from pytraj.Topology import Topology
-from pytraj.TopologyList import TopologyList
+from pytraj.core.TopologyList import TopologyList
 #from pytraj.ReferenceFrame import ReferenceFrame
-from pytraj.Energy import Energy_Amber
 from pytraj.AtomMask import AtomMask
 
 from pytraj.utils.check_and_assert import assert_almost_equal
+
 
 class TestTrajinSingle(unittest.TestCase):
     def test_dummy(self):
@@ -26,34 +26,34 @@ class TestTrajinSingle(unittest.TestCase):
         refilename = "./data/Tc5b.nat.crd"
         mdx = "./data/md1_prod.Tc5b.x"
         ts = Trajin_Single()
-        
+
         top = Topology(topname)
         trajin = """
         """
-        
+
         ts.load(mdx, top)
         frame = Frame(ts.top.n_atoms)
-        #ts.begin_traj()
+        # ts.begin_traj()
         with ts:
-            ts.read_traj_frame(100, frame)
+            ts._read_traj_frame(100, frame)
             print(frame)
-        
+
         # bug: results are not the same between
         # ts[0, 0, 0] and ts[0][0, 0]
-        #print ts[0, 0, 0]
-        #print ts[0, 0, 0:2][0]
-        #print ts[:, :, :]
-        #print "ts[0, 0, 0]", ts[0, 0, 0]
+        # print ts[0, 0, 0]
+        # print ts[0, 0, 0:2][0]
+        # print ts[:, :, :]
+        # print "ts[0, 0, 0]", ts[0, 0, 0]
         #assert ts[0, 0, 0] == ts[0][0, 0]
         frame0 = ts[0]
         assert ts[0][0, 0] == frame0[0, 0]
 
     def test_indexing(self):
         traj = Trajin_Single("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        #print traj[0][0, :]
-        #print traj[0, 0, :]
-        #print traj[0, :, :][0]
-        #print traj[0][0, :]
+        # print traj[0][0, :]
+        # print traj[0, 0, :]
+        # print traj[0, :, :][0]
+        # print traj[0][0, :]
         print(type(traj[:][0, 0]))
         print(type(traj[0][0, :]))
         print(traj[:][0, 0])
@@ -74,15 +74,14 @@ class TestTrajinSingle(unittest.TestCase):
             print(x)
         for x in traj[0][0, :]:
             print(x)
-        print("TODO : wrong result")
 
-        assert_almost_equal (arr0, arr1)
-        # create FrameArray instance
+        assert_almost_equal(arr0, arr1)
+        # create Trajectory instance
         traj2 = traj[:]
-        assert_almost_equal (traj2[0][0, :], traj2[:][0, 0])
-        assert_almost_equal (traj2[0][0, :], traj2[:][0, 0])
-        assert_almost_equal (traj2[0][0, :], traj2[:][0, 0])
-        assert_almost_equal (traj2[0][0, :], traj2[:][0, 0])
+        assert_almost_equal(traj2[0][0, :], traj2[:][0, 0])
+        assert_almost_equal(traj2[0][0, :], traj2[:][0, 0])
+        assert_almost_equal(traj2[0][0, :], traj2[:][0, 0])
+        assert_almost_equal(traj2[0][0, :], traj2[:][0, 0])
 
         print(traj2[0][0, :] == traj2[:][0, 0])
         print(traj2[0][0, :] == traj2[:][0, 0])
@@ -104,10 +103,11 @@ class TestTrajinSingle(unittest.TestCase):
 
         print(arr0.shape)
         print(arr0.shape)
-        frame = Frame(arr0[0].reshape(912,))
+        frame = Frame(arr0[0].reshape(912, ))
         assert frame.size == traj[0].size
         assert frame[:].all() == arr0[0].all()
         print(frame.check_coords_invalid())
+
 
 if __name__ == "__main__":
     unittest.main()

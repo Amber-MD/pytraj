@@ -1,0 +1,24 @@
+package:
+  name: pytraj-dev
+  version: !!str 0.1.2.dev
+
+source:
+  git_url: https://github.com/pytraj/pytraj.git
+  git_tag: master
+
+requirements:
+  build:
+    - python
+    - cython
+    - libcpptraj
+  run:
+    - python
+    - libcpptraj
+    - matplotlib
+    - seaborn
+    - numpy
+
+about:
+  home: http://github.com/pytraj/pytraj
+  license: BSD
+  summary: Python wrapper for cpptraj - a package for data analysis of MD simulations

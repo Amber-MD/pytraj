@@ -117,13 +117,16 @@ cdef class ArgList:
         return self.thisptr.CommandIs(cm)
     
     def get_string_next(self):
-        return self.thisptr.GetStringNext()
+        key = self.thisptr.GetStringNext()
+        return key.decode()
 
-    def get_string_key(self, char* c):
-        return self.thisptr.GetStringKey(c)
+    def get_string_key(self, c):
+        key = self.thisptr.GetStringKey(c.encode())
+        return key.decode()
 
     def get_mask_next(self):
-        return self.thisptr.GetMaskNext()
+        mask = self.thisptr.GetMaskNext()
+        return mask.decode()
 
     def get_next_tag(self):
         return self.thisptr.getNextTag()
@@ -143,16 +146,5 @@ cdef class ArgList:
     def has_key(self, char* key):
         return self.thisptr.hasKey(key)
 
-    def contains(self, char* key):
-        return self.thisptr.Contains(key)
-
-    # those methods exist in ArgList.h but don't in ArgList.cpp 
-    # in cpptraj
-    #def ValidInteger(self, int idx):
-    #    return self.thisptr.ValidInteger(idx)
-
-    #def IntegerAt(self, int idx):
-    #    return self.thisptr.IntegerAt(idx)
-
-    #def ValidDouble(self, int idx):
-    #    return self.thisptr.ValidDouble(idx)
+    def contains(self, key):
+        return self.thisptr.Contains(key.encode())

@@ -51,8 +51,8 @@ cdef class ParmFile:
             arglist = <ArgList> args[0]
             self.thisptr.ReadTopology(_top.thisptr[0], filename, arglist.thisptr[0], debug)
 
-    def write_prefix_topology(self, Topology top=Topology(), prefix="default", fmt=""):
-        """write_prefix_topology(Topology Top, string prefix, fmt="AMBER")
+    def write_prefix_topology(self, Topology top=Topology(), prefix="default", format=""):
+        """write_prefix_topology(Topology Top, string prefix, format="AMBER")
         TODO : automatically get ParmFormatDict for this doc
         ParmFormatDict = {
             "AMBER" : AMBERPARM,
@@ -71,11 +71,11 @@ cdef class ParmFile:
 
         prefix = prefix.encode()
         
-        if fmt.empty():
+        if format.empty():
             parmtype = UNKNOWN_PARM
         else:
             try:
-                parmtype = ParmFormatDict[fmt]
+                parmtype = ParmFormatDict[format]
             except:
                 print "supported keywords: ", self.formats
         # TODO : combine with write_topology
@@ -84,9 +84,9 @@ cdef class ParmFile:
             print "Not supported or failed to write"
 
     def writeparm(self, Topology top=Topology(), filename="default.top", 
-                  ArgList arglist=ArgList(), fmt=""):
+                  ArgList arglist=ArgList(), format=""):
         """writeparm(Topology top=top, string filename="default.top", 
-                     ArgList arglist=ArgList(), string fmt="AMBER")")
+                     ArgList arglist=ArgList(), string format="AMBER")")
         TODO : automatically get ParmFormatDict for this doc
         ParmFormatDict = {
             "AMBER" : AMBERPARM,
@@ -100,16 +100,16 @@ cdef class ParmFile:
         """
         cdef int debug = 0
         cdef int err
-        # change `fmt` to upper
+        # change `for` to upper
         cdef ParmFormatType parmtype 
         filename = filename.encode()
         
-        if fmt == "":
+        if format== "":
             parmtype = UNKNOWN_PARM
         else:
             try:
-                fmt = fmt.upper()
-                parmtype = ParmFormatDict[fmt]
+                format= format.upper()
+                parmtype = ParmFormatDict[format]
             except:
                 print "supported keywords: ", self.formats
 

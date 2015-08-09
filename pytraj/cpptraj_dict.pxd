@@ -219,6 +219,8 @@ cdef extern from "DataSet.h":
         REMLOGDATATYPE "DataSet::REMLOG"
         XYMESH "DataSet::XYMESH"
         TRAJ "DataSet::TRAJ"
+        REF_FRAME "DataSet::REF_FRAME"
+        MAT3X3 "DataSet::MAT3X3"
     # DataSet.h
     ctypedef enum scalarMode "DataSet::scalarMode":
         M_DISTANCE "DataSet::M_DISTANCE"
@@ -244,27 +246,15 @@ cdef extern from "DataSet.h":
         PCHI "DataSet::PCHI"
         OMEGA "DataSet::OMEGA"
         NOE "DataSet::NOE"
+        DIST "DataSet::DIST"
+        COVAR "DataSet::COVAR"
+        MWCOVAR "DataSet::MWCOVAR"
+        CORREL "DataSet::CORREL"
+        DISTCOVAR "DataSet::DISTCOVAR"
+        IDEA "DataSet::IDEA"
+        IRED "DataSet::IRED"
+        DIHCOVAR "DataSet::DIHCOVAR"
         UNDEFINEDSCALARTYPE "DataSet::UNDEFINED"
-    # DataSet_2D.h
-cdef extern from "DataSet_2D.h":
-    ctypedef enum MatrixType "DataSet_2D::MatrixType":
-        NO_OP "DataSet_2D::NO_OP"
-        DIST "DataSet_2D::DIST"
-        COVAR "DataSet_2D::COVAR"
-        MWCOVAR "DataSet_2D::MWCOVAR"
-        CORREL "DataSet_2D::CORREL"
-        DISTCOVAR "DataSet_2D::DISTCOVAR"
-        IDEA "DataSet_2D::IDEA"
-        IRED "DataSet_2D::IRED"
-        DIHCOVAR "DataSet_2D::DIHCOVAR"
-        NMAT "DataSet_2D::NMAT"
-    # DataSet_2D.h
-cdef extern from "DataSet_2D.h":
-    ctypedef enum MatrixKind "DataSet_2D::MatrixKind":
-        FULL "DataSet_2D::FULL"
-        HALF "DataSet_2D::HALF"
-        TRI "DataSet_2D::TRI"
-    # ClusterSieve.h
 cdef extern from "ClusterSieve.h":
     ctypedef enum SieveType "ClusterSieve::SieveType":
         NONESieveType "ClusterSieve::NONE"

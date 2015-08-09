@@ -1,18 +1,21 @@
 import unittest
 from pytraj.base import *
-from pytraj.actions.Action_Strip import Action_Strip
+from pytraj.actions.CpptrajActions import Action_Strip
 from pytraj import allactions
 from pytraj.actions import Action
-from pytraj.misc import strip
-from pytraj.TrajReadOnly import TrajReadOnly
+from pytraj.TrajectoryIterator import TrajectoryIterator
 from pytraj.decorators import no_test
 
 print(dir(Action_Strip()))
 
-farray = FrameArray(top=Topology("./data/Tc5b.top"), filename='data/md1_prod.Tc5b.x')
+farray = Trajectory(
+    top=Topology("./data/Tc5b.top"),
+    filename='data/md1_prod.Tc5b.x')
+
 
 class TestStrip(unittest.TestCase):
     #@no_test
+
     def test_master(self):
         top = Topology("./data/Tc5b.top")
         newtop = top.copy()
@@ -25,22 +28,22 @@ class TestStrip(unittest.TestCase):
             current_frame = farray[i]
             newframe = Frame()
             dslist = DataSetList()
-            act.master(command="strip !@CA", 
-                       current_top=top, 
-                       dslist=dslist,
-                       current_frame=frame0, 
-                       new_frame=newframe, 
-                       new_top=newtop)
+            act(command="strip !@CA",
+                top=top,
+                dslist=dslist,
+                current_frame=frame0,
+                new_frame=newframe,
+                new_top=newtop)
 
-            act_surf.master(command="@CA", 
-                       current_top=top, 
-                       dslist=dslist,
-                       current_frame=farray)
+            act_surf(command="@CA",
+                     top=top,
+                     dslist=dslist,
+                     current_frame=farray)
 
-            act_surf.master(command="@H=", 
-                       current_top=top, 
-                       dslist=dslist,
-                       current_frame=farray)
+            act_surf(command="@H=",
+                     top=top,
+                     dslist=dslist,
+                     current_frame=farray)
 
         print(newtop)
         print(newframe)
@@ -58,12 +61,12 @@ class TestStrip(unittest.TestCase):
         farray0 = farray.copy()
         newtop = farray0.top.copy()
         oldtop = farray0.top
-        
+
         toplist = TopologyList()
         toplist.add_parm(newtop)
         dslist = DataSetList()
         dflist = DataFileList()
-        
+
         stripact = Action_Strip()
         #stripact.read_input("strip !@CA", toplist)
         stripact.read_input("strip !@CA", oldtop)
@@ -89,12 +92,13 @@ class TestStrip(unittest.TestCase):
         farray0 = farray.copy()
         act = adict['strip']
         tmpframe = Frame()
-        newf = FrameArray()
+        newf = Trajectory()
         newf.top = farray0.top.strip_atoms("!@CA", copy=True)
 
         act("!@CA", farray0, farray0.top.copy(), new_frame=tmpframe)
-        print (farray0[0].n_atoms)
-        print (tmpframe.n_atoms)
+        print(farray0[0].n_atoms)
+        print(tmpframe.n_atoms)
+
 
 if __name__ == "__main__":
     unittest.main()

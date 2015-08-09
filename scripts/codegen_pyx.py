@@ -4,11 +4,12 @@
 # cppframe['methods']['public'][12]['name']
 import os
 import CppHeaderParser
-from .util import print_blank_line, Line_codegen
-from .util import find_class
+from util import print_blank_line, Line_codegen
+from util import find_class
 import sys
 
-cpptrajsrc = os.environ['CPPTRAJHOME'] + "/src/"
+cpptrajsrc = os.environ['AMBERHOME'] + "/AmberTools/src/cpptraj/src/"
+#cpptrajsrc = os.environ['CPPTRAJHOME'] + "/src/"
 file = cpptrajsrc + sys.argv[1]
 #try:
 #    # virtual or not?

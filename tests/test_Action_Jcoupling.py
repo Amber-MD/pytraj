@@ -1,29 +1,41 @@
 import os
+import unittest
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj import adict
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj import DataSetList, DataFileList
+from pytraj.core.DataFileList import DataFileList
+from pytraj.datasets.DataSetList import DataSetList
+from pytraj.testing import cpptraj_test_dir, aa_eq
+
 
 class Test(unittest.TestCase):
     def test_0(self):
-        try:
-            os.environ['AMBERHOME']
-            has_amberhome = True
-        except:
-            has_amberhome = False
-        if has_amberhome:
-            print ("has_amberhome, doing calculation")
-            traj = mdio.load("./data/tz2.nc", "./data/tz2.parm7")
-            frame = traj[0]
-            dslist = DataSetList()
-            dflist = DataFileList()
-            d0 = adict['jcoupling']("out ./output/test_jcoupling.out",
-                                   frame, traj.top, 
-                                   dslist=dslist, dflist=dflist)
-            print (dslist[0])
-            print (dslist[80])
-            dflist.write_all_datafiles()
+        kfile = os.path.join(cpptraj_test_dir, "Test_Jcoupling", "Karplus.txt")
+        traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        frame = traj[0]
+        command = "kfile %s" % kfile
+        dslist = DataSetList()
+        dflist = DataFileList()
+        d0 = adict['jcoupling'](command, frame, traj.top,
+                                dslist=dslist,
+                                dflist=dflist)
+        print(dslist.size)
+        print(dslist[0].data)
+        print(dslist[80])
+        print(dslist.get_legends())
+        print(dslist['LYS:8_C-CA-CB-HB2'][:])
+
+        # another way, and assert
+        dslist = DataSetList()
+        from pytraj.common_actions import calc_jcoupling
+        print(command)
+        d0 = calc_jcoupling(traj, command)
+        d1 = calc_jcoupling(traj, kfile=kfile)
+        print("d0", d0)
+        print("d1", d1)
+        aa_eq(d0.values, d1.values)
+
 
 if __name__ == "__main__":
     unittest.main()

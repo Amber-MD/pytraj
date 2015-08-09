@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 def print_blank_line(num):
     for i in range(num):
-        print()
+        print("")
 
 def _to_lower_case(word):
     """convert function name from C/C++ to Python style
