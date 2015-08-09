@@ -1,8 +1,13 @@
 Trajectory
-============
+==========
 
 
-TrajectoryIterator is work-horse of pytraj. This class offers out-of-core data store with easiness to load data to memory. 
+pytraj has two trajectory holder: 
+     * an immutable `TrajectoryIterator` (work-horse of pytraj).
+       This class offers out-of-core data store with easiness to load data to memory. 
+     * a mutable `Trajectory`. This class hold in-memory data.
+
+Why are there two objects? `See our rationale here <design_trajectory>`_
 
 
 .. toctree::
