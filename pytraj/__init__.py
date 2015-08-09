@@ -120,6 +120,7 @@ jcoupling = calc_jcoupling
 nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
 rmsd_with_rotation_matrices = calc_rmsd_with_rotation_matrices
+pairwise_rmsd = calc_pairwise_rmsd
 multidihedral = calc_multidihedral
 xcorr = cross_correlation_function
 acorr = auto_correlation_function
