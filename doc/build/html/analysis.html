@@ -55,10 +55,18 @@
             
   <div class="section" id="analysis">
 <h1>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul class="simple">
-</ul>
+<dl class="function">
+<dt id="pytraj.bfactors">
+<code class="descclassname">pytraj.</code><code class="descname">bfactors</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>byres=True</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.bfactors" title="Permalink to this definition">¶</a></dt>
+<dd><p>if dtype is &#8216;ndarray&#8217; (default), return a numpy array
+with shape=(n_atoms/n_residues, 2) ([atom_or_residue_idx, value])</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_bfactors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">byres</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
 </div>
+<p>Amber15 manual: <a class="reference external" href="http://ambermd.org/doc12/Amber15.pdf">http://ambermd.org/doc12/Amber15.pdf</a> (page 557)</p>
+</dd></dl>
+
 </div>
 
 
