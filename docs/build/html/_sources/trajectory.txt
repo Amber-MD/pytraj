@@ -9,12 +9,6 @@ pytraj has two trajectory holder:
 
 Why are there two objects? `See our rationale here <design_trajectory>`_
 
-
-.. toctree::
-   :maxdepth: 1
-
-   atom_selection
-
 .. code-block:: python
 
     >>> import pytraj as pt

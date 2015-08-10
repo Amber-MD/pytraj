@@ -59,24 +59,10 @@
 <div class="section" id="examples-adapted-from-parmed-s-website">
 <h2><strong>Examples adapted from parmed&#8217;s website</strong><a class="headerlink" href="#examples-adapted-from-parmed-s-website" title="Permalink to this headline">¶</a></h2>
 <p>Load trajectory
-.. code-block:: python</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;./tz2.ortho.parm7&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span>
-<span class="go">&lt;pytraj.TrajectoryIterator, 10 frames, include:</span>
-<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, 5300 bonds, PBC with box type = ortho&gt;&gt;</span>
-</pre></div>
-</div>
-<p><em>Residue selections</em>
-.. code-block:: python</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[</span><span class="s">&#39;:1,3,6-10&#39;</span><span class="p">]</span> <span class="c"># Select residues 1, 3, 6, 7, 8, 9, and 10</span>
-<span class="go">&lt;pytraj.Trajectory, 10 frames, include:</span>
-<span class="go">&lt;Topology: 108 atoms, 7 residues, 3 mols, 107 bonds, PBC with box type = ortho&gt;&gt;</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[</span><span class="s">&#39;:ALA,LYS,10&#39;</span><span class="p">]</span>  <span class="c"># Select all residues with names ALA or LYS, and residue 10</span>
-<span class="go">&lt;pytraj.Trajectory, 10 frames, include:</span>
-<span class="go">&lt;Topology: 58 atoms, 3 residues, 3 mols, 55 bonds, PBC with box type = ortho&gt;&gt;</span>
+.. ipython:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;./tz2.ortho.parm7&#39;</span><span class="p">)</span>
+<span class="n">traj</span>
 </pre></div>
 </div>
 </div>
