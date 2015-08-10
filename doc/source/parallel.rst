@@ -1,5 +1,5 @@
 Parallel calculation
-====================
+--------------------
 
 .. code-block:: python
 

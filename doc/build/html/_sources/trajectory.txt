@@ -2,12 +2,15 @@ Trajectory
 ==========
 
 
-pytraj has two trajectory holder: 
+pytraj has two trajectory holder
+--------------------------------
      * an immutable `TrajectoryIterator` (work-horse of pytraj).
        This class offers out-of-core data store with easiness to load data to memory. 
      * a mutable `Trajectory`. This class hold in-memory data.
 
-Why are there two objects? `See our rationale here <design_trajectory>`_
+Why are there two objects?
+-------------------------
+`See our rationale here <design_trajectory>`_
 
 .. code-block:: python
 
@@ -21,7 +24,7 @@ Why are there two objects? `See our rationale here <design_trajectory>`_
              4.97189564e+00,   5.53947712e+00,   4.83201237e+00])
 
 
-eytraj is able to detect single file (mol2, pdb) to load as TrajectoryIterator too.
+pytraj is able to detect single file (mol2, pdb) to load as TrajectoryIterator.
 
 .. code-block:: python
 

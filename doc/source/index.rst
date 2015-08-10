@@ -26,7 +26,7 @@ Welcome to pytraj's documentation - nothing to see yet!
 **Contact**
 
 * For bug reports, feature requests, code discussion ... please use the `GitHub issue tracker <https://github.com/Amber-MD/pytraj/issues>`_
-* For scientific discussion please send email to `amber@ambermd.org <http://ambermd.org/#correspondence>`_
+* For scientific discussion please send email to `amber <http://ambermd.org/#correspondence>`_
 
 **Indices and tables**
 
