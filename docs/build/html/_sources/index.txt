@@ -15,7 +15,7 @@ Welcome to pytraj's documentation - nothing to see yet!
    basic_examples
    trajectory
    analysis
-   atom_selection
+   atom_mask_selection
    parallel
    whatsnew
    faq
