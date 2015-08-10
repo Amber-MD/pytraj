@@ -2,9 +2,8 @@ Analysis
 ========
 
 
-.. toctree::
-   :maxdepth: 2
-   analysis_dssp
-   analysis_hbond
-
 .. autofunction:: pytraj.bfactors 
+.. autofunction:: pytraj.rmsd
+.. autofunction:: pytraj.radgyr
+.. autofunction:: pytraj.molsurf
+.. automodule:: pytraj.vector_analysis

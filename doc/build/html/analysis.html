@@ -39,6 +39,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="atom_mask_selection.html" title="Atom mask selection"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -67,7 +70,39 @@ with shape=(n_atoms/n_residues, 2) ([atom_or_residue_idx, value])</p>
 <p>Amber15 manual: <a class="reference external" href="http://ambermd.org/doc12/Amber15.pdf">http://ambermd.org/doc12/Amber15.pdf</a> (page 557)</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="pytraj.rmsd">
+<code class="descclassname">pytraj.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>use_mass=False</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate rmsd</p>
+<p>traj : Trajectory-like | List of trajectories | Trajectory or frame_iter
+ref : {Frame, int}, default=0</p>
+<blockquote>
+<div>Reference frame or index.</div></blockquote>
+<dl class="docutils">
+<dt>mask <span class="classifier-delimiter">:</span> <span class="classifier">str or 1D array-like of string or 1D or 2D array-like</span></dt>
+<dd>Atom mask/indices</dd>
+</dl>
+<p>top : {Topology, str}, default None, optional
+dtype : return data type, default=&#8217;ndarray&#8217;</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span> <span class="c"># ref=traj[-3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="s">&#39;@C&#39;</span><span class="p">,</span> <span class="s">&#39;:3-18@CA&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:3-13&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.radgyr">
+<code class="descclassname">pytraj.</code><code class="descname">radgyr</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>nomax=True</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.radgyr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pytraj.molsurf">
+<code class="descclassname">pytraj.</code><code class="descname">molsurf</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.molsurf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-pytraj.vector_analysis"></span></div>
 
 
           </div>
