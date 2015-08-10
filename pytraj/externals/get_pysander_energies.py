@@ -2,10 +2,12 @@ from pytraj.externals.six import string_types
 from pytraj._shared_methods import _frame_iter_master
 from pytraj._get_common_objects import _get_top, _get_data_from_dtype
 from pytraj.compat import range
+from pytraj.decorators import noparallel
 
 __all__ = ['get_pysander_energies']
 
 
+@noparallel
 def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_options=None,
                           mode=None, top=None, dtype='dict', verbose=True):
     # TODO: change method's name?
