@@ -62,12 +62,11 @@ cdef class Topology:
         else:
             box_txt = "non-PBC"
          
-        tmp = "<%s: %s atoms, %s residues, %s mols, %s bonds, %s>" % (
+        tmp = "<%s: %s atoms, %s residues, %s mols, %s>" % (
                 self.__class__.__name__,
                 self.n_atoms,
                 self.n_residues,
                 self.n_mols,
-                list(self.bonds).__len__(),
                 box_txt)
         return tmp
 
