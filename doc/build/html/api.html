@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API reference &mdash; pytraj 0.1.2.dev5 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.2.dev5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="index.html" />
+    <link rel="prev" title="Misc" href="misc.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="misc.html" title="Misc"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api-reference">
+<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="class">
+<h2>class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pytraj.TrajectoryIterator">
+<em class="property">class </em><code class="descclassname">pytraj.</code><code class="descname">TrajectoryIterator</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pytraj.TrajectoryIterator.chunk_iter">
+<code class="descname">chunk_iter</code><span class="sig-paren">(</span><em>chunksize=2</em>, <em>start=0</em>, <em>stop=-1</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>copy_top=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.chunk_iter" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>chunk <span class="classifier-delimiter">:</span> <span class="classifier">int, default=2</span></dt>
+<dd>size of each chunk. Notes: final chunk&#8217;s size might be changed</dd>
+</dl>
+<p>start : int, default=0 (first frame)
+stop : int, default=-1 (last frame)
+autoimage : bool, default=False
+rmsfit : None | tuple/list of (reference frame, mask)</p>
+<blockquote>
+<div>for chunk in trajiter.chunk_iter(100, autoimage=True, rmsfit=(ref0, <a class="reference external" href="mailto:'&#37;&#52;&#48;CA">'<span>&#64;</span>CA</a>&#8216;))</div></blockquote>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.TrajectoryIterator.coordinates">
+<code class="descname">coordinates</code><a class="headerlink" href="#pytraj.TrajectoryIterator.coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>return 3D numpy.ndarray, same as <cite>TrajectoryIterator.xyz</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.TrajectoryIterator.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Very simple</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.TrajectoryIterator.filename">
+<code class="descname">filename</code><a class="headerlink" href="#pytraj.TrajectoryIterator.filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>return 1st filename in filelist. For testing only</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.TrajectoryIterator.iterator_slice">
+<code class="descname">iterator_slice</code><span class="sig-paren">(</span><em>start=0</em>, <em>stop=None</em>, <em>stride=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.iterator_slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>iterator slice</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.TrajectoryIterator.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>frame_slice=(0</em>, <em>-1</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load trajectory/trajectories from filename/filenames
+with a single frame_slice or a list of frame_slice</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.TrajectoryIterator.split_iterators">
+<code class="descname">split_iterators</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.split_iterators" title="Permalink to this definition">¶</a></dt>
+<dd><p>simple splitting <cite>self</cite> to n_chunks FrameIter objects</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">split_iterators</span><span class="p">(</span><span class="n">n_chunks</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">))</span>
+<span class="go">[&lt;pytraj.core.frameiter.FrameIter with start=0, stop=2, stride=1</span>
+<span class="go"> autoimage=False, rmsfit=None&gt; ,</span>
+<span class="go"> &lt;pytraj.core.frameiter.FrameIter with start=2, stop=4, stride=1</span>
+<span class="go"> autoimage=False, rmsfit=None&gt; ,</span>
+<span class="go"> &lt;pytraj.core.frameiter.FrameIter with start=4, stop=6, stride=1</span>
+<span class="go"> autoimage=False, rmsfit=None&gt; ,</span>
+<span class="go"> &lt;pytraj.core.frameiter.FrameIter with start=6, stop=10, stride=1</span>
+<span class="go"> autoimage=False, rmsfit=None&gt; ]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.TrajectoryIterator.topology">
+<code class="descname">topology</code><a class="headerlink" href="#pytraj.TrajectoryIterator.topology" title="Permalink to this definition">¶</a></dt>
+<dd><p>traditional name for Topology file</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.Trajectory">
+<em class="property">class </em><code class="descclassname">pytraj.</code><code class="descname">Trajectory</code><a class="headerlink" href="#pytraj.Trajectory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="pytraj.Topology">
+<em class="property">class </em><code class="descclassname">pytraj.</code><code class="descname">Topology</code><a class="headerlink" href="#pytraj.Topology" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="pytraj.Frame">
+<em class="property">class </em><code class="descclassname">pytraj.</code><code class="descname">Frame</code><a class="headerlink" href="#pytraj.Frame" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>n_atoms <span class="classifier-delimiter">:</span> <span class="classifier">int, default=0 </span></dt>
+<dd>create a new Frame with n_atoms</dd>
+<dt>frame <span class="classifier-delimiter">:</span> <span class="classifier">a Frame, default=None</span></dt>
+<dd>make a copy from <cite>frame</cite></dd>
+<dt>atommask <span class="classifier-delimiter">:</span> <span class="classifier">AtomMask, default=None</span></dt>
+<dd>make a copy from <cite>frame</cite> with atommask</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">from_ndarray</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="mi">304</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">append_xyz</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module">
+<h2>module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pytraj.iterload">
+<code class="descclassname">pytraj.</code><code class="descname">iterload</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.iterload" title="Permalink to this definition">¶</a></dt>
+<dd><p>return TrajectoryIterator object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.load">
+<code class="descclassname">pytraj.</code><code class="descname">load</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>try loading and returning appropriate values</p>
+<p>load(filename, top, use_numpy=True) will return <cite>pytraj.api.Trajectory</cite></p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API reference</a><ul>
+<li><a class="reference internal" href="#class">class</a></li>
+<li><a class="reference internal" href="#module">module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="misc.html"
+                        title="previous chapter">Misc</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Hai Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="_sources/api.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>
