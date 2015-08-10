@@ -21,6 +21,7 @@ Welcome to pytraj's documentation - nothing to see yet!
    faq
    developer_guide
    misc
+   api
 
 
 **Contact**
