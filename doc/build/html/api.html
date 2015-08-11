@@ -944,10 +944,12 @@ with a single frame_slice or a list of frame_slice</p>
 <code class="descclassname">pytraj.</code><code class="descname">iterload</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.iterload" title="Permalink to this definition">¶</a></dt>
 <dd><p>return TrajectoryIterator object</p>
 <p class="rubric">Examples</p>
-<p>import pytraj as pt
-traj0 = pt.iterload(&#8216;./test.pdb&#8217;)
-traj1 = pt.iterload(&#8216;remd.x.*&#8217;, &#8216;my_parm.parm7&#8217;)
-traj2 = pt.iterload([&#8216;remd.x.000&#8217;, &#8216;remd.x.010&#8217;], &#8216;my_parm.parm7&#8217;)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./test.pdb&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj1</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;remd.x.*&#39;</span><span class="p">,</span> <span class="s">&#39;my_parm.parm7&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;remd.x.000&#39;</span><span class="p">,</span> <span class="s">&#39;remd.x.010&#39;</span><span class="p">],</span> <span class="s">&#39;my_parm.parm7&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -957,9 +959,9 @@ traj2 = pt.iterload([&#8216;remd.x.000&#8217;, &#8216;remd.x.010&#8217;], &#8216
 <p class="rubric">Notes</p>
 <p>load(filename, top, use_numpy=True) will return <cite>pytraj.api.Trajectory</cite></p>
 <p class="rubric">Examples</p>
-<p>import pytraj as pt
-traj0 = pt.load(&#8216;test.pdb&#8217;)
-traj1 = pt.load(&#8216;md.nc&#8217;, &#8216;tc5b.parm7&#8217;)</p>
+<p>&gt;&gt;&gt;&gt; import pytraj as pt
+&gt;&gt;&gt;&gt; traj0 = pt.load(&#8216;test.pdb&#8217;)
+&gt;&gt;&gt;&gt; traj1 = pt.load(&#8216;md.nc&#8217;, &#8216;tc5b.parm7&#8217;)</p>
 </dd></dl>
 
 </div>
