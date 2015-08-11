@@ -955,6 +955,7 @@ def calc_pairwise_rmsd(traj=None,
                        dtype='ndarray',
                        mat_type='full', *args, **kwd):
     """return  CpptrajDatasetList object
+
     Parameters
     ----------
     traj : Trajectory-like, iterable object
@@ -963,56 +964,57 @@ def calc_pairwise_rmsd(traj=None,
     top : Topology, optional, default=None
     *args, **kwd: optional (dtype='dataset' | 'pyarray' | 'ndarray' | 'list')
 
-    Examples:
-        1. 
-        # memory saving
-        # * Create TrajectoryIterator to load only one Frame at a time
-        traj = mdio.iterload("data/nogit/tip3p/md.trj", 
-                            "./data/nogit/tip3p/tc5bwat.top")
-        # we will load stripped-atom frames into memory only
-        new_top = traj.top.strip_atoms("!@CA", copy=True)
+    Examples
+    --------
+        >>> # 1.
+        >>> # memory saving
+        >>> # * Create TrajectoryIterator to load only one Frame at a time
+        >>> traj = mdio.iterload("data/nogit/tip3p/md.trj", 
+        >>>                     "./data/nogit/tip3p/tc5bwat.top")
+        >>> # we will load stripped-atom frames into memory only
+        >>> new_top = traj.top.strip_atoms("!@CA", copy=True)
 
-        # passing `frame_iter` to `calc_pairwise_rmsd`
-        # traj(0, 1000, mask='@CA') is equal to
-        #     traj.frame_iter(start=0, stop=1000, mask='@CA')
+        >>> # passing `frame_iter` to `calc_pairwise_rmsd`
+        >>> # traj(0, 1000, mask='@CA') is equal to
+        >>> #     traj.frame_iter(start=0, stop=1000, mask='@CA')
 
-        import pytraj.common_actions as pyca
-        pyca.calc_pairwise_rmsd(traj(0, 1000, mask='@CA'), 
-                                       top=new_top, dtype='ndarray')
+        >>> import pytraj.common_actions as pyca
+        >>> pyca.calc_pairwise_rmsd(traj(0, 1000, mask='@CA'), 
+        >>>                                top=new_top, dtype='ndarray')
 
-        2. 
-        # calculate pairwise rmsd for all frames using CA atoms
-        dslist = calc_pairwise_rmsd(traj, "@CA")
-        dslist.to_ndarray()
-        dslist.tolist()
+        >>> # 2. 
+        >>> # calculate pairwise rmsd for all frames using CA atoms
+        >>> dslist = calc_pairwise_rmsd(traj, "@CA")
+        >>> dslist.to_ndarray()
+        >>> dslist.tolist()
 
-        3.
-        # calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)
-        # convert to numpy array
-        arr_np = calc_pairwise_rmsd(traj, "@CA dme", dtype='ndarray')
+        >>> # 3.
+        >>> # calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)
+        >>> # convert to numpy array
+        >>> arr_np = calc_pairwise_rmsd(traj, "@CA dme", dtype='ndarray')
 
-        4.
-        # calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD
-        # convert to numpy array
-        arr_np = calc_pairwise_rmsd(traj, "@CA nofit", dtype='ndarray')
+        >>> # 4.
+        >>> # calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD
+        >>> # convert to numpy array
+        >>> arr_np = calc_pairwise_rmsd(traj, "@CA nofit", dtype='ndarray')
 
-        5.
-        # calculate pairwise rmsd for all frames using CA atoms
-        # use symmetry-corrected RMSD, convert to numpy array
-        arr_np = calc_pairwise_rmsd(traj, "@CA srmsd", dtype='ndarray')
+        >>> # 5.
+        >>> # calculate pairwise rmsd for all frames using CA atoms
+        >>> # use symmetry-corrected RMSD, convert to numpy array
+        >>> arr_np = calc_pairwise_rmsd(traj, "@CA srmsd", dtype='ndarray')
 
     Notes
     -----
-    * Same as `Analysis_Rms2d` in cpptraj (Amber15 manual, page 613)
-    * Support `openmp`: require install `libcpptraj` with `openmp` flag
-    * Memory: this calculation will make a copy of `traj`, it's better to use
-        TrajectoryIterator
-    * Command from cpptraj
-        [<name>] [<mask>] [out <filename>]
-        [dme | nofit | srmsd] [mass]
-    * See full details
-        from pytraj import info
-        info("rms2d")
+        * Same as `Analysis_Rms2d` in cpptraj (Amber15 manual, page 613)
+        * Support `openmp`: require install `libcpptraj` with `openmp` flag
+        * Memory: this calculation will make a copy of `traj`, it's better to use
+            TrajectoryIterator
+        * Command from cpptraj
+            [<name>] [<mask>] [out <filename>]
+            [dme | nofit | srmsd] [mass]
+        * See full details
+            from pytraj import info
+            info("rms2d")
     """
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
@@ -1721,9 +1723,13 @@ def rotate_dihedral(traj=None, mask="", top=None):
     """
     Examples
     --------
-    >>> import pytraj asp t
-    >>> pt.rotate_dihedral(traj, "3:phi:120") # rotate phi of res 3 by to 120 deg
-    >>> pt.rotate_dihedral(traj, "1:O4':C1':N9:C4:120")
+    >>> import pytraj as pt
+    >>> pt.rotate_dihedral(traj, "3:phi:120") # rotate phi of res 3 to 120 deg
+    >>> pt.rotate_dihedral(traj, "1:O4':C1':N9:C4:120") # rotate dihedral with given mask
+
+    Notes
+    -----
+    Syntax and method's name might be changed
     """
     _noaction_with_TrajectoryIterator(traj)
     _top = _get_top(traj, top)
