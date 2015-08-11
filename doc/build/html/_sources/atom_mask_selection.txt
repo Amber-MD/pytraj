@@ -5,11 +5,24 @@ check `parmed's doc <http://parmed.github.io/ParmEd/html/amber.html#amber-mask-s
 
 **Examples adapted from parmed's website**
 -----------------------------------------
+*Note* the comments are from `parmed's website`
 
-Load trajectory
-
-.. ipython::
+.. ipython:: python
 
     import pytraj as pt
-    traj = pt.iterload('./tz2.ortho.nc', './tz2.ortho.parm7')
-    traj
+    traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
+    print(traj)
+
+    traj.top.residue_names
+    list(traj.top.atom_names)[:20]
+
+    # Residue selections
+    traj[':1,3,6-10']  # Select residues 1, 3, 6, 7, 8, 9, and 10
+    traj[':ALA,LYS,10']  # Select all residues with names ALA or LYS, and residue 10
+
+    # Atom selections
+    traj['@1-100,150-160'] #  Select the first 100 atoms as well as the 11 atoms 150-160
+    traj['@CA,C,10-15'] # Select all atoms whose names are CA or C, and 6 atoms 10-15
+
+    # Logical operators
+    traj['(:1-100)&(@CA)'] # Selects atoms named CA in the first 100 residues
