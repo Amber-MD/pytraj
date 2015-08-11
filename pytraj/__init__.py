@@ -104,6 +104,7 @@ from .common_actions import (
     calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
     calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
     calc_volume, calc_mindist, lifetime, get_average_frame,
+    _dihedral_res,
     energy_decomposition, native_contacts, auto_correlation_function,
     principal_axes,
     cross_correlation_function, timecorr, center, translate, rotate,

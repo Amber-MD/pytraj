@@ -239,6 +239,25 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
             return _get_data_from_dtype(py_dslist, dtype)
 
 
+def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
+    '''calculate dihedral within a single residue. For internal use only.
+
+    Parameters
+    ----------
+    traj
+    mask : tuple of strings
+    resid
+    dtype
+    '''
+    
+    if is_int(resid):
+        resid = str(resid + 1)
+    else:
+        resid = resid
+    m = ' :%s@' % resid
+    command = m + m.join(mask)
+    return calc_dihedral(traj=traj, mask=command, top=top, dtype=dtype)
+
 def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """calculate dihedral
 
