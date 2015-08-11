@@ -1,6 +1,12 @@
 Trajectory
 ==========
 
+.. ipython:: python
+    :suppress:
+
+    import numpy as np
+    np.set_printoptions(precision=4, suppress=True)
+
 
 pytraj has two trajectory holder
 --------------------------------
