@@ -14,6 +14,9 @@ Welcome to pytraj's documentation - nothing to see yet!
     data = pt.rmsd(traj, ref=0, mask='@CA')
     print(data)
 
+**Overview**
+``pytraj`` is a Python front-end of popular ``cpptraj`` package. Its aim is to expose
+``cpptraj``'s funtions to Python's ecosystem. Enjoy.
 
 **Contents**
 
