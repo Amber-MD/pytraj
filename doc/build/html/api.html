@@ -943,6 +943,11 @@ with a single frame_slice or a list of frame_slice</p>
 <dt id="pytraj.iterload">
 <code class="descclassname">pytraj.</code><code class="descname">iterload</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.iterload" title="Permalink to this definition">¶</a></dt>
 <dd><p>return TrajectoryIterator object</p>
+<p class="rubric">Examples</p>
+<p>import pytraj as pt
+traj0 = pt.iterload(&#8216;./test.pdb&#8217;)
+traj1 = pt.iterload(&#8216;remd.x.*&#8217;, &#8216;my_parm.parm7&#8217;)
+traj2 = pt.iterload([&#8216;remd.x.000&#8217;, &#8216;remd.x.010&#8217;], &#8216;my_parm.parm7&#8217;)</p>
 </dd></dl>
 
 <dl class="function">
@@ -951,6 +956,10 @@ with a single frame_slice or a list of frame_slice</p>
 <dd><p>try loading and returning appropriate values</p>
 <p class="rubric">Notes</p>
 <p>load(filename, top, use_numpy=True) will return <cite>pytraj.api.Trajectory</cite></p>
+<p class="rubric">Examples</p>
+<p>import pytraj as pt
+traj0 = pt.load(&#8216;test.pdb&#8217;)
+traj1 = pt.load(&#8216;md.nc&#8217;, &#8216;tc5b.parm7&#8217;)</p>
 </dd></dl>
 
 </div>
