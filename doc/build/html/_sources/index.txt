@@ -6,6 +6,15 @@
 Welcome to pytraj's documentation - nothing to see yet!
 =======================================================
 
+.. ipython:: python
+
+    import pytraj as pt
+    traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
+    print(traj)
+    data = pt.rmsd(traj, ref=0, mask='@CA')
+    print(data)
+
+
 **Contents**
 
 .. toctree::
@@ -21,6 +30,7 @@ Welcome to pytraj's documentation - nothing to see yet!
    faq
    developer_guide
    misc
+   cookbook
    api
 
 

@@ -54,7 +54,34 @@
             
   <div class="section" id="basic-examples">
 <h1>Basic examples<a class="headerlink" href="#basic-examples" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://github.com/Amber-MD/pytraj/tree/master/examples">More examples</a></p>
+<div class="section" id="dssp-analysis">
+<h2>DSSP analysis<a class="headerlink" href="#dssp-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">pdb</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&quot;1l2y&quot;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">result</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
+
+<span class="gp">In [4]: </span><span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="go">[[&#39;ASN:1&#39; &#39;LEU:2&#39; &#39;TYR:3&#39; ..., &#39;PRO:18&#39; &#39;PRO:19&#39; &#39;SER:20&#39;]</span>
+<span class="go"> [array([&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;], </span>
+<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
+<span class="go">  array([&#39;H&#39;, &#39;T&#39;, &#39;0&#39;, ..., &#39;H&#39;, &#39;0&#39;, &#39;T&#39;], </span>
+<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
+<span class="go">  array([&#39;H&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;H&#39;, &#39;H&#39;], </span>
+<span class="go">      dtype=&#39;&lt;U1&#39;) ...,</span>
+<span class="go">  array([&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;], </span>
+<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
+<span class="go">  array([&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;], </span>
+<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
+<span class="go">  array([&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;], </span>
+<span class="go">      dtype=&#39;&lt;U1&#39;)]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2><a class="reference external" href="https://github.com/Amber-MD/pytraj/tree/master/examples">More examples</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
@@ -63,6 +90,15 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Basic examples</a><ul>
+<li><a class="reference internal" href="#dssp-analysis">DSSP analysis</a></li>
+<li><a class="reference internal" href="#id1">More examples</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="installation.html"
                         title="previous chapter">Installation</a></p>
