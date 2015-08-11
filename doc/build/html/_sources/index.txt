@@ -15,7 +15,8 @@ Welcome to pytraj's documentation - nothing to see yet!
     print(data)
 
 **Overview**
-``pytraj`` is a Python front-end of popular ``cpptraj`` package. Its aim is to expose
+
+``pytraj`` is a Python front-end of the popular ``cpptraj`` package. Its aim is to expose
 ``cpptraj``'s funtions to Python's ecosystem. Enjoy.
 
 **Contents**
@@ -41,6 +42,8 @@ Welcome to pytraj's documentation - nothing to see yet!
 
 * For bug reports, feature requests, code discussion ... please use the `GitHub issue tracker <https://github.com/Amber-MD/pytraj/issues>`_
 * For scientific discussion please send email to `amber <http://ambermd.org/#correspondence>`_
+* For things that directly related to ``cpptraj``, please open `issue here
+  <https://github.com/Amber-MD/cpptraj/issues>`_
 
 **Indices and tables**
 
