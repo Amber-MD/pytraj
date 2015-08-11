@@ -50,22 +50,6 @@
             
   <div class="section" id="welcome-to-pytraj-s-documentation-nothing-to-see-yet">
 <h1>Welcome to pytraj&#8217;s documentation - nothing to see yet!<a class="headerlink" href="#welcome-to-pytraj-s-documentation-nothing-to-see-yet" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-
-<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
-
-<span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-<span class="go">&lt;pytraj.TrajectoryIterator, 10 frames, include:</span>
-<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;&gt;</span>
-<span class="go">           </span>
-
-<span class="gp">In [4]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
-
-<span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[ 0.          0.26412388  0.38596881  0.26882031  0.26192277  0.45762002</span>
-<span class="go">  0.45645516  0.44428977  0.43628622  0.44746086]</span>
-</pre></div>
-</div>
 <p><strong>Overview</strong></p>
 <p><code class="docutils literal"><span class="pre">pytraj</span></code> is a Python front-end of the popular <code class="docutils literal"><span class="pre">cpptraj</span></code> package. Its aim is to expose
 <code class="docutils literal"><span class="pre">cpptraj</span></code>&#8216;s funtions to Python&#8217;s ecosystem. Enjoy.</p>
@@ -86,6 +70,23 @@
 <li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 </ul>
+</div>
+<p><strong>Simple code</strong></p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="go">&lt;pytraj.TrajectoryIterator, 10 frames, include:</span>
+<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [4]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+
+<span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">[ 0.          0.26412388  0.38596881  0.26882031  0.26192277  0.45762002</span>
+<span class="go">  0.45645516  0.44428977  0.43628622  0.44746086]</span>
+</pre></div>
 </div>
 <p><strong>Contact</strong></p>
 <ul class="simple">
