@@ -3,6 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. ipython:: python
+    :suppress:
+
+    import numpy as np
+    np.set_printoptions(precision=4, suppress=True)
+
 Welcome to pytraj's documentation - nothing to see yet!
 =======================================================
 
