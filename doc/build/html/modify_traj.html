@@ -110,7 +110,9 @@
 <dl class="function">
 <dt id="pytraj.rotate_dihedral">
 <code class="descclassname">pytraj.</code><code class="descname">rotate_dihedral</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate_dihedral" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Examples</p>
+<dd><p class="rubric">Notes</p>
+<p>Syntax and method&#8217;s name might be changed</p>
+<p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">rotate_dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;3:phi:120&quot;</span><span class="p">)</span> <span class="c"># rotate phi of res 3 to 120 deg</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">rotate_dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;1:O4&#39;:C1&#39;:N9:C4:120&quot;</span><span class="p">)</span> <span class="c"># rotate dihedral with given mask</span>

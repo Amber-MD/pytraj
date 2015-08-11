@@ -6,14 +6,6 @@
 Welcome to pytraj's documentation - nothing to see yet!
 =======================================================
 
-.. ipython:: python
-
-    import pytraj as pt
-    traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
-    print(traj)
-    data = pt.rmsd(traj, ref=0, mask='@CA')
-    print(data)
-
 **Overview**
 
 ``pytraj`` is a Python front-end of the popular ``cpptraj`` package. Its aim is to expose
@@ -38,6 +30,16 @@ Welcome to pytraj's documentation - nothing to see yet!
    cookbook
    api
 
+
+**Simple code**
+
+.. ipython:: python
+
+    import pytraj as pt
+    traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
+    print(traj)
+    data = pt.rmsd(traj, ref=0, mask='@CA')
+    print(data)
 
 **Contact**
 
