@@ -79,6 +79,31 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="hbond-analysis">
+<h2>hbond analysis<a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
+
+<span class="gp">In [6]: </span><span class="n">hbonds</span>
+<span class="gr">Out[6]: </span>
+<span class="go">&lt;pytraj.DatasetList with 32 datasets&gt;</span>
+<span class="go">total_solute_solute</span>
+<span class="go">[6 7 8 ..., 7 6 6]</span>
+
+<span class="go">ASN1_O-GLN5_N-H</span>
+<span class="go">[1 0 0 ..., 0 0 0]</span>
+
+<span class="go">ARG16_O-TRP6_NE1-HE1</span>
+<span class="go">[1 1 1 ..., 1 1 1]</span>
+<span class="go">...</span>
+
+<span class="go">ASP9_OD2-SER14_OG-HG</span>
+<span class="go">[0 0 0 ..., 0 0 0]</span>
+
+<span class="go">ASP9_OD2-ARG16_NH1-HH11</span>
+<span class="go">[0 0 0 ..., 0 0 0]</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="id1">
 <h2><a class="reference external" href="https://github.com/Amber-MD/pytraj/tree/master/examples">More examples</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -94,6 +119,7 @@
   <ul>
 <li><a class="reference internal" href="#">Basic examples</a><ul>
 <li><a class="reference internal" href="#dssp-analysis">DSSP analysis</a></li>
+<li><a class="reference internal" href="#hbond-analysis">hbond analysis</a></li>
 <li><a class="reference internal" href="#id1">More examples</a></li>
 </ul>
 </li>

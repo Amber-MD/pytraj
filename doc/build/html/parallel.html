@@ -54,12 +54,16 @@
             
   <div class="section" id="parallel-calculation">
 <h1>Parallel calculation<a class="headerlink" href="#parallel-calculation" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
-<span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span> <span class="mf">18.91114428</span><span class="p">,</span>  <span class="mf">18.93654996</span><span class="p">])),</span>
- <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span> <span class="mf">18.84969884</span><span class="p">,</span>  <span class="mf">18.90449256</span><span class="p">])),</span>
- <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span> <span class="mf">18.8568644</span> <span class="p">,</span>  <span class="mf">18.88917208</span><span class="p">])),</span>
- <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span> <span class="mf">18.9430491</span> <span class="p">,</span>  <span class="mf">18.88878079</span><span class="p">,</span>  <span class="mf">18.91669565</span><span class="p">,</span>  <span class="mf">18.87069722</span><span class="p">]))]</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">)</span>
+<span class="gr">Out[3]: </span>
+<span class="go">[(0, array([ 18.91114428,  18.93654996])),</span>
+<span class="go"> (1, array([ 18.84969884,  18.90449256])),</span>
+<span class="go"> (2, array([ 18.8568644 ,  18.88917208])),</span>
+<span class="go"> (3, array([ 18.9430491 ,  18.88878079,  18.91669565,  18.87069722]))]</span>
 </pre></div>
 </div>
 </div>
