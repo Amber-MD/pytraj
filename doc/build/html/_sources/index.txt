@@ -28,6 +28,7 @@ Welcome to pytraj's documentation - nothing to see yet!
    basic_examples
    trajectory
    analysis
+   modify_traj
    atom_mask_selection
    parallel
    whatsnew
