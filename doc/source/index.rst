@@ -25,6 +25,7 @@ Welcome to pytraj's documentation - nothing to see yet!
    installation
    basic_examples
    trajectory
+   design_trajectory
    analysis
    modify_traj
    atom_mask_selection
