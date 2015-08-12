@@ -13,6 +13,7 @@ This example is adapted from `mdtraj <http://mdtraj.org/latest/examples/clusteri
 .. ipython:: python
 
     from __future__ import print_function
+    %matplotlib inline
     import matplotlib
     import pytraj as pt
 
