@@ -55,7 +55,7 @@
 <h1>Tutorials adapted from <code class="docutils literal"><span class="pre">mdtraj</span></code><a class="headerlink" href="#tutorials-adapted-from-mdtraj" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="clustering-with-scipy">
 <h2>Clustering with scipy<a class="headerlink" href="#clustering-with-scipy" title="Permalink to this headline">¶</a></h2>
-<p>This example is adapted from <a class="reference external" href="http://mdtraj.org/latest/examples/clustering.html">mdtraj</a></p>
+<p>original link: <a class="reference external" href="http://mdtraj.org/latest/examples/clustering.html">mdtraj</a></p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="gp">In [2]: </span><span class="kn">import</span> <span class="nn">matplotlib</span>
@@ -79,8 +79,8 @@
 
 <span class="c"># calculate pairwise rmsd with `autoimage=True`</span>
 <span class="c"># generally we only need to cluster a subset of atoms.</span>
-<span class="c"># in this example, we chose &#39;CA&#39; atoms</span>
-<span class="gp">In [9]: </span><span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+<span class="c"># cluster for &#39;CA&#39; atoms</span>
+<span class="gp">In [9]: </span><span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
 
 <span class="c"># use `scipy` to perform clustering</span>
 <span class="gp">In [10]: </span><span class="n">linkage</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">ward</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
@@ -114,6 +114,47 @@
 <span class="go">  [27.5, 27.5, 73.75, 73.75]],</span>
 <span class="go"> &#39;ivl&#39;: [&#39;0&#39;, &#39;1&#39;, &#39;4&#39;, &#39;5&#39;, &#39;2&#39;, &#39;3&#39;, &#39;9&#39;, &#39;8&#39;, &#39;6&#39;, &#39;7&#39;],</span>
 <span class="go"> &#39;leaves&#39;: [0, 1, 4, 5, 2, 3, 9, 8, 6, 7]}</span>
+
+<span class="c"># cluster for all atoms but H</span>
+<span class="gp">In [12]: </span><span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;!@H=&#39;</span><span class="p">)</span>
+
+<span class="gp">In [13]: </span><span class="n">linkage</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">ward</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+
+<span class="gp">In [14]: </span><span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">linkage</span><span class="p">,</span> <span class="n">no_labels</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">count_sort</span><span class="o">=</span><span class="s">&#39;descendent&#39;</span><span class="p">)</span>
+<span class="gr">Out[14]: </span>
+<span class="go">{&#39;color_list&#39;: [&#39;g&#39;, &#39;g&#39;, &#39;g&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;b&#39;],</span>
+<span class="go"> &#39;dcoord&#39;: [[0.0, 11.015126180418427, 11.015126180418427, 0.0],</span>
+<span class="go">  [0.0, 12.503495440653827, 12.503495440653827, 0.0],</span>
+<span class="go">  [11.015126180418427,</span>
+<span class="go">   15.983731198660253,</span>
+<span class="go">   15.983731198660253,</span>
+<span class="go">   12.503495440653827],</span>
+<span class="go">  [0.0, 12.556535672913144, 12.556535672913144, 0.0],</span>
+<span class="go">  [0.0, 12.477019683401881, 12.477019683401881, 0.0],</span>
+<span class="go">  [0.0, 12.590904848568961, 12.590904848568961, 0.0],</span>
+<span class="go">  [12.477019683401881,</span>
+<span class="go">   16.738151708009262,</span>
+<span class="go">   16.738151708009262,</span>
+<span class="go">   12.590904848568961],</span>
+<span class="go">  [12.556535672913144,</span>
+<span class="go">   20.697243431431655,</span>
+<span class="go">   20.697243431431655,</span>
+<span class="go">   16.738151708009262],</span>
+<span class="go">  [15.983731198660253,</span>
+<span class="go">   30.476188285369169,</span>
+<span class="go">   30.476188285369169,</span>
+<span class="go">   20.697243431431655]],</span>
+<span class="go"> &#39;icoord&#39;: [[5.0, 5.0, 15.0, 15.0],</span>
+<span class="go">  [25.0, 25.0, 35.0, 35.0],</span>
+<span class="go">  [10.0, 10.0, 30.0, 30.0],</span>
+<span class="go">  [45.0, 45.0, 55.0, 55.0],</span>
+<span class="go">  [65.0, 65.0, 75.0, 75.0],</span>
+<span class="go">  [85.0, 85.0, 95.0, 95.0],</span>
+<span class="go">  [70.0, 70.0, 90.0, 90.0],</span>
+<span class="go">  [50.0, 50.0, 80.0, 80.0],</span>
+<span class="go">  [20.0, 20.0, 65.0, 65.0]],</span>
+<span class="go"> &#39;ivl&#39;: [&#39;8&#39;, &#39;9&#39;, &#39;6&#39;, &#39;7&#39;, &#39;4&#39;, &#39;5&#39;, &#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;],</span>
+<span class="go"> &#39;leaves&#39;: [8, 9, 6, 7, 4, 5, 0, 1, 2, 3]}</span>
 </pre></div>
 </div>
 </div>

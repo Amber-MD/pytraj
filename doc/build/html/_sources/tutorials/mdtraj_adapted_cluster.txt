@@ -8,7 +8,7 @@ Tutorials adapted from ``mdtraj``
 Clustering with scipy
 ---------------------
 
-This example is adapted from `mdtraj <http://mdtraj.org/latest/examples/clustering.html>`_
+original link: `mdtraj <http://mdtraj.org/latest/examples/clustering.html>`_
 
 .. ipython:: python
 
@@ -27,11 +27,17 @@ This example is adapted from `mdtraj <http://mdtraj.org/latest/examples/clusteri
     
     # calculate pairwise rmsd with `autoimage=True`
     # generally we only need to cluster a subset of atoms.
-    # in this example, we chose 'CA' atoms
+    # cluster for 'CA' atoms
     
-    distances = pt.pairwise_rmsd(traj(mask='@CA', autoimage=True))
+    distances = pt.pairwise_rmsd(traj(autoimage=True), mask='@CA')
 
     # use `scipy` to perform clustering
     linkage = scipy.cluster.hierarchy.ward(distances)
 
+    scipy.cluster.hierarchy.dendrogram(linkage, no_labels=True, count_sort='descendent')
+
+    # cluster for all atoms but H
+    
+    distances = pt.pairwise_rmsd(traj(autoimage=True), mask='!@H=')
+    linkage = scipy.cluster.hierarchy.ward(distances)
     scipy.cluster.hierarchy.dendrogram(linkage, no_labels=True, count_sort='descendent')
