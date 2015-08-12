@@ -60,6 +60,8 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
     from array import array as pyarray
     from collections import defaultdict
     from pytraj.misc import get_atts
+    import numpy as np
+
     try:
         import sander
         # support AmberParm only?
@@ -129,6 +131,9 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
             new_dict[key] = ddict[key]
     else:
         new_dict = ddict
+
+    for key in new_dict.keys():
+        new_dict[key] = np.asarray(new_dict[key])
 
     if dtype == 'dict':
         return new_dict
