@@ -49,6 +49,7 @@ extensions = ['sphinx.ext.autodoc',
               'ipython_sphinxext.ipython_directive',
               'ipython_sphinxext.ipython_console_highlighting',
               'sphinx.ext.intersphinx',
+              'matplotlib.sphinxext.plot_directive',
               #'sphinx.ext.coverage',
               'sphinx.ext.pngmath',
               'sphinx.ext.ifconfig',
@@ -61,6 +62,17 @@ extensions = ['sphinx.ext.autodoc',
 #    'sphinx.ext.autosummary',
 #    'sphinx.ext.ifconfig',
 #]
+
+autodoc_default_flags = ['members', 'inherited-members']
+
+# adapted from `mdtraj`
+html_context = {
+    'github_user': 'amber-md',
+    'display_github': True,
+    'github_repo': 'pytraj',
+    'github_version': 'master',
+    'conf_py_path': '/docs/',
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

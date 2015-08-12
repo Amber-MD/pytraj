@@ -29,6 +29,7 @@ Welcome to pytraj's documentation - nothing to see yet!
    modify_traj
    atom_mask_selection
    parallel
+   tutorials
    whatsnew
    faq
    developer_guide
