@@ -58,61 +58,62 @@
 <p>This example is adapted from <a class="reference external" href="http://mdtraj.org/latest/examples/clustering.html">mdtraj</a></p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<span class="gp">In [2]: </span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="gp">   ...:</span> <span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="gp">   ...:</span> <span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">   ...:</span> 
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">NotImplementedError                       Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-2-e27d371d6baa&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 get_ipython().magic(&#39;matplotlib inline&#39;)</span>
+<span class="gp">In [2]: </span><span class="kn">import</span> <span class="nn">matplotlib</span>
 
-<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/interactiveshell.py in magic(self, arg_s)</span>
-<span class="go">   2305         magic_name, _, magic_arg_s = arg_s.partition(&#39; &#39;)</span>
-<span class="go">   2306         magic_name = magic_name.lstrip(prefilter.ESC_MAGIC)</span>
-<span class="go">-&gt; 2307         return self.run_line_magic(magic_name, magic_arg_s)</span>
-<span class="go">   2308 </span>
-<span class="go">   2309     #-------------------------------------------------------------------------</span>
+<span class="gp">In [3]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/interactiveshell.py in run_line_magic(self, magic_name, line)</span>
-<span class="go">   2226                 kwargs[&#39;local_ns&#39;] = sys._getframe(stack_depth).f_locals</span>
-<span class="go">   2227             with self.builtin_trap:</span>
-<span class="go">-&gt; 2228                 result = fn(*args,**kwargs)</span>
-<span class="go">   2229             return result</span>
-<span class="go">   2230 </span>
+<span class="gp">In [4]: </span><span class="kn">import</span> <span class="nn">scipy</span>
 
-<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/magics/pylab.py in matplotlib(self, line)</span>
+<span class="gp">In [5]: </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
-<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/magic.py in &lt;lambda&gt;(f, *a, **k)</span>
-<span class="go">    191     # but it&#39;s overkill for just that one bit of state.</span>
-<span class="go">    192     def magic_deco(arg):</span>
-<span class="go">--&gt; 193         call = lambda f, *a, **k: f(*a, **k)</span>
-<span class="go">    194 </span>
-<span class="go">    195         if callable(arg):</span>
+<span class="gp">In [6]: </span><span class="kn">import</span> <span class="nn">scipy.cluster.hierarchy</span>
 
-<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/magics/pylab.py in matplotlib(self, line)</span>
-<span class="go">     86         &quot;&quot;&quot;</span>
-<span class="go">     87         args = magic_arguments.parse_argstring(self.matplotlib, line)</span>
-<span class="go">---&gt; 88         gui, backend = self.shell.enable_matplotlib(args.gui)</span>
-<span class="go">     89         self._show_matplotlib_backend(args.gui, backend)</span>
-<span class="go">     90 </span>
+<span class="c"># load data</span>
+<span class="gp">In [7]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
 
-<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/interactiveshell.py in enable_matplotlib(self, gui)</span>
-<span class="go">   3104         # Now we must activate the gui pylab wants to use, and fix %run to take</span>
-<span class="go">   3105         # plot updates into account</span>
-<span class="go">-&gt; 3106         self.enable_gui(gui)</span>
-<span class="go">   3107         self.magics_manager.registry[&#39;ExecutionMagics&#39;].default_runner = \</span>
-<span class="go">   3108             pt.mpl_runner(self.safe_execfile)</span>
+<span class="gp">In [8]: </span><span class="n">traj</span>
+<span class="gr">Out[8]: </span>
+<span class="go">&lt;pytraj.TrajectoryIterator, 10 frames, include:</span>
+<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;&gt;</span>
+<span class="go">           </span>
 
-<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/interactiveshell.py in enable_gui(self, gui)</span>
-<span class="go">   3063 </span>
-<span class="go">   3064     def enable_gui(self, gui=None):</span>
-<span class="go">-&gt; 3065         raise NotImplementedError(&#39;Implement enable_gui in a subclass&#39;)</span>
-<span class="go">   3066     </span>
-<span class="go">   3067     def enable_matplotlib(self, gui=None):</span>
+<span class="c"># calculate pairwise rmsd with `autoimage=True`</span>
+<span class="c"># generally we only need to cluster a subset of atoms.</span>
+<span class="c"># in this example, we chose &#39;CA&#39; atoms</span>
+<span class="gp">In [9]: </span><span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 
-<span class="go">NotImplementedError: Implement enable_gui in a subclass</span>
+<span class="c"># use `scipy` to perform clustering</span>
+<span class="gp">In [10]: </span><span class="n">linkage</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">ward</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
 
+<span class="gp">In [11]: </span><span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">linkage</span><span class="p">,</span> <span class="n">no_labels</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">count_sort</span><span class="o">=</span><span class="s">&#39;descendent&#39;</span><span class="p">)</span>
+<span class="gr">Out[11]: </span>
+<span class="go">{&#39;color_list&#39;: [&#39;g&#39;, &#39;g&#39;, &#39;g&#39;, &#39;g&#39;, &#39;g&#39;, &#39;r&#39;, &#39;r&#39;, &#39;r&#39;, &#39;b&#39;],</span>
+<span class="go"> &#39;dcoord&#39;: [[0.0, 0.33694108733557554, 0.33694108733557554, 0.0],</span>
+<span class="go">  [0.0, 0.49414095638547001, 0.49414095638547001, 0.33694108733557554],</span>
+<span class="go">  [0.0, 0.4076463692785936, 0.4076463692785936, 0.0],</span>
+<span class="go">  [0.0, 0.62786523756398904, 0.62786523756398904, 0.4076463692785936],</span>
+<span class="go">  [0.49414095638547001,</span>
+<span class="go">   0.65234297774986771,</span>
+<span class="go">   0.65234297774986771,</span>
+<span class="go">   0.62786523756398904],</span>
+<span class="go">  [0.0, 0.25450352531374804, 0.25450352531374804, 0.0],</span>
+<span class="go">  [0.0, 0.40251747523850995, 0.40251747523850995, 0.25450352531374804],</span>
+<span class="go">  [0.0, 0.70967820532632153, 0.70967820532632153, 0.40251747523850995],</span>
+<span class="go">  [0.65234297774986771,</span>
+<span class="go">   1.0468325126738738,</span>
+<span class="go">   1.0468325126738738,</span>
+<span class="go">   0.70967820532632153]],</span>
+<span class="go"> &#39;icoord&#39;: [[15.0, 15.0, 25.0, 25.0],</span>
+<span class="go">  [5.0, 5.0, 20.0, 20.0],</span>
+<span class="go">  [45.0, 45.0, 55.0, 55.0],</span>
+<span class="go">  [35.0, 35.0, 50.0, 50.0],</span>
+<span class="go">  [12.5, 12.5, 42.5, 42.5],</span>
+<span class="go">  [85.0, 85.0, 95.0, 95.0],</span>
+<span class="go">  [75.0, 75.0, 90.0, 90.0],</span>
+<span class="go">  [65.0, 65.0, 82.5, 82.5],</span>
+<span class="go">  [27.5, 27.5, 73.75, 73.75]],</span>
+<span class="go"> &#39;ivl&#39;: [&#39;0&#39;, &#39;1&#39;, &#39;4&#39;, &#39;5&#39;, &#39;2&#39;, &#39;3&#39;, &#39;9&#39;, &#39;8&#39;, &#39;6&#39;, &#39;7&#39;],</span>
+<span class="go"> &#39;leaves&#39;: [0, 1, 4, 5, 2, 3, 9, 8, 6, 7]}</span>
 </pre></div>
 </div>
 </div>
