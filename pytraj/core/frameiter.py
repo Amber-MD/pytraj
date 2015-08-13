@@ -53,6 +53,29 @@ class FrameIter(object):
     def __repr__(self):
         return self.__str__()
 
+    def save(self, filename='', format='unknown_traj', 
+            overwrite=False,
+            mode='',
+            *args, **kwd):
+        '''save to different file format.
+
+        Notes
+        -----
+        FrameIter will be exhausted since this is an iterator.
+
+        Examples
+        --------
+        >>> fi = traj(2, 8, 2, mask='@CA')
+        >>> fi.save('test.nc', overwrite=True)
+        >>> # short version
+        >>> traj(2, 8, 2, mask='@CA').save('test.nc')
+        '''
+        from pytraj.io import write_traj
+        write_traj(filename=filename, traj=self, top=self.top,
+                   format=format, indices=None,
+                   overwrite=overwrite, mode=mode,
+                   *args, **kwd)
+
     def __iter__(self):
         if self.autoimage:
             from pytraj.actions.CpptrajActions import Action_AutoImage

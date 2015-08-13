@@ -121,16 +121,6 @@ cdef class Topology:
     def __getitem__(self, idx):
         """
         return Atom instance
-
-        TODO : return either atoms or residues 
-
-                Example : 
-                    self['atom'], self['residue'] 
-                        return list of Atom instances or Residue instances
-
-                    self[0] 
-                        return 0-th Atom instance
-        END TODO
         """
 
         cdef Atom atom 
@@ -261,6 +251,7 @@ cdef class Topology:
         """set reference frame for distance-based atommask selection
 
         Examples
+        --------
             top.set_reference_frame(frame)
             top.select(":3 < :5.0") # select all atoms within 5.0 A to residue 3
         """

@@ -544,8 +544,8 @@ def calc_jcoupling(traj=None,
                    kfile=None,
                    dtype='dataset', *args, **kwd):
     """
-    Paramters
-    ---------
+    Parameters
+    ----------
     traj : any things that make `frame_iter_master` returning Frame object
     command : str, default ""
         cpptraj's command/mask
@@ -767,10 +767,6 @@ def calc_multidihedral(traj=None,
     >>> pt.calc_multidihedral(traj)
     >>> pt.multidihedral(traj, resrange=range(8))
     >>> pt.multidihedral(traj, range360=True)
-
-    See Also
-    -------
-        Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 579)
     """
     if resrange and 'resrange' not in command:
         if is_int(resrange):
@@ -843,10 +839,6 @@ def calc_bfactors(traj=None,
     --------
     >>> import pytraj as pt
     >>> pt.calc_bfactors(traj, byres=True)
-
-    See also
-    --------
-    Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 557)
     """
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
@@ -1002,19 +994,6 @@ def calc_pairwise_rmsd(traj=None,
         >>> # calculate pairwise rmsd for all frames using CA atoms
         >>> # use symmetry-corrected RMSD, convert to numpy array
         >>> arr_np = calc_pairwise_rmsd(traj, "@CA srmsd", dtype='ndarray')
-
-    Notes
-    -----
-        * Same as `Analysis_Rms2d` in cpptraj (Amber15 manual, page 613)
-        * Support `openmp`: require install `libcpptraj` with `openmp` flag
-        * Memory: this calculation will make a copy of `traj`, it's better to use
-            TrajectoryIterator
-        * Command from cpptraj
-            [<name>] [<mask>] [out <filename>]
-            [dme | nofit | srmsd] [mass]
-        * See full details
-            from pytraj import info
-            info("rms2d")
     """
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
@@ -1330,35 +1309,6 @@ def closest(traj=None, command=None, top=None, *args, **kwd):
             cpptraj only save data to CpptrajDatasetList if `closestout` is specified (check example)
         if dtype != 'dataset': return only new_traj
 
-    cpptraj command
-    ---------------
-    (from Amber15 manual, page 547: http://ambermd.org/doc12/Amber15.pdf)
-    <# to keep> <mask> [noimage] [first | oxygen] [center]
-    [closestout <filename>] [name <setname>] [outprefix <parmprefix>]
-
-    where:
-        <mask> Mask of atoms to search for closest waters around.
-        [noimage] Do not perform imaging; only recommended if trajectory has previously
-        been imaged.
-        [first | oxygen] Calculate distances between all atoms in <mask> and the first atom
-        of solvent only (recommended for standard water models as it will increase
-        speed of calculation).
-        [center] Search for waters closest to center of <mask> instead of each atom in
-        <mask>.
-        [closestout <filename>] Write information on the closest solvent molecules to
-        <filename>.
-        [outprefix <prefix>] Write corresponding topology to file with name prefix
-        <prefix>.
-        DataSet Aspects:
-        [Frame] Frame number.
-        [Mol] Original solvent molecule number.
-        [Dist] Solvent molecule distance in Angstrom.
-        [FirstAtm] First atom number of original solvent molecule.
-
-    Similar to the strip command, but modify coordinate frame and topology by keeping only the specified number of
-    closest solvent molecules to the region specified by the given mask. Solvent molecules can be determined
-    automatically by cpptraj (by default residues named WAT, HOH, or TIP3).
-
     Examples
     --------
     >>> from pytraj import io
@@ -1461,9 +1411,6 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     Examples
     --------
         dslist = calc_grid(traj)
-    See Also
-    --------
-        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf)
     """
     # TODO: doc, rename method, move to seperate module?
     from .actions.CpptrajActions import Action_Grid
@@ -1704,11 +1651,6 @@ def center(traj=None, mask="", top=None):
     >>> pt.center(traj, '@CA origin') # center at origin, use @CA
     >>> pt.center(traj, 'mass') # center to box center, use mass weighted.
     >>> pt.center(traj, ':1 mass') # residue 1, use mass weighted.
-
-    See Also
-    --------
-        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 546)
-
     """
     _noaction_with_TrajectoryIterator(traj)
     _top = _get_top(traj, top)

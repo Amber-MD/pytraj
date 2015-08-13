@@ -49,10 +49,6 @@ def nastruct(traj=None,
     >>> import pytraj as pt
     >>> pt.nastruct(traj0)
     >>> pt.nastruct(traj1, resmap='AF2:A')
-
-    See Also
-    --------
-        Amber15 manual (http://ambermd.org/doc12/Amber15.pdf page 580)
     """
     from pytraj.datasets.DataSetList import DataSetList as CpptrajDatasetList
     from pytraj.datasetlist import DatasetList as Dataset

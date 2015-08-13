@@ -38,7 +38,9 @@ def _import(modname):
 
 def has_(lib):
     """check if having `lib` library
-    Example:
+
+    Examples
+    --------
     >>> has_("numpy")
     """
     return _import(lib)[0]

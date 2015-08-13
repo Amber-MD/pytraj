@@ -1116,12 +1116,14 @@ cdef class Trajectory (object):
 
     def _fast_strip_atoms(self, mask=None, bint update_top=True, bint has_box=False):
         """
-        Paramters
-        ---------
+
+        Parameters
+        ----------
         mask : str
         update_top : bool, default=True
             'True' : automatically update Topology
         has_box : bool, default=False (does not work with `True` yet)
+
         Notes
         -----
         * Known bug: 
@@ -1347,11 +1349,6 @@ cdef class Trajectory (object):
         Notes
         -----
             if using 'mass', make sure to `set_frame_mass` before calling `center`
-
-        See Also
-        --------
-            Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 546)
-
         """
         from pytraj.actions.CpptrajActions import Action_Center
         act = Action_Center()

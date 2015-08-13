@@ -218,8 +218,8 @@ class DatasetList(list):
 
     def hist(self, plot=True, show=True, *args, **kwd):
         """
-        Paramters
-        ---------
+        Parameters
+        ----------
         plot : bool, default False
             if False, return a dictionary of 2D numpy array
             if True, return a dictionary of matplotlib object

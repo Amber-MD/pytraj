@@ -330,22 +330,6 @@ def write_traj(filename="",
     >>> io.write_traj("test.dcd", traj)
     >>> # set nobox for trajout
     >>> io.write_traj("test.nc", traj, mode='nobox')
-
-    See Also
-    --------
-    Amber15 manual (http://ambermd.org/doc12/Amber15.pdf, page 542)
-
-    Excerpt from this manual
-    -----------------------
-    Options for pdb format:
-    [model | multi] [dumpq | parse | vdw] [chainid <ID>]
-    [pdbres] [pdbatom] [pdbv3] [teradvance]
-
-    Options for mol2 format:
-    [single | multi]
-
-    Options for SQM input format:
-    [charge <c>]
     """
     from .Frame import Frame
     from .trajs.Trajout import Trajout
