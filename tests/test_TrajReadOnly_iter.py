@@ -1,8 +1,6 @@
 import unittest
 from pytraj.base import *
 
-max_frame = 999
-
 
 class TestTrajingIter(unittest.TestCase):
     def test_iter_0(self):

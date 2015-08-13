@@ -687,8 +687,9 @@ cdef class Frame (object):
 
     def set_coords(self, Frame frame, *args):
         """set coords for Frame with given mask
-        Paramters:
-        ---------
+
+        Parameters
+        ----------
         frame : Frame object
         atmask : AtomMask object (optional)
         """

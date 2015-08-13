@@ -67,7 +67,10 @@ def _not_yet_tested(func):
 
 
 def split_range(n_chunks, start, stop):
-    '''
+    '''split a given range to n_chunks
+
+    Examples
+    --------
     >>> from pytraj.misc import split_range
     >>> split_range(3, 0, 10)
     [(0, 3), (3, 6), (6, 10)]
@@ -93,6 +96,7 @@ def split(data, n_chunks_or_array):
 
 
 def chunk_average(self, n_chunk, restype='same'):
+    '''average by chunk'''
     import numpy as np
     from pytraj.array import DataArray
 
@@ -105,13 +109,9 @@ def chunk_average(self, n_chunk, restype='same'):
         return data
 
 
-@_not_yet_tested
 def moving_average(data, n):
     # http://stackoverflow.com/questions/11352047/finding-moving-average-from-data-points-in-python
-    """
-    Note
-    ----
-    not assert yet
+    """moving average
     """
     window = np.ones(int(n)) / float(n)
     new_data = np.convolve(data, window, 'same')
@@ -127,8 +127,7 @@ def pipe(obj, func, *args, **kwargs):
     # copied from pandas PR
     # https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py
     # see license in pytraj/license/
-    """
-    Apply a function to a obj either by
+    """Apply a function to a obj either by
     passing the obj as the first argument
     to the function or, in the case that
     the func is a tuple, interpret the first
@@ -171,7 +170,10 @@ def compose(*funcs):
 
 
 def grep(self, key):
-    """
+    """grep key
+
+    Examples
+    --------
     >>> import pytraj as pt
     >>> dslist = pt.calc_multidihedral(traj) 
     >>> pt.tools.grep(dslist, 'psi') 
@@ -185,13 +187,12 @@ def grep(self, key):
 
 def flatten(x):
     # http://kogs-www.informatik.uni-hamburg.de/~meine/python_tricks
-    """flatten(sequence) -> list
-
-    Returns a single, flat list which contains all elements retrieved
+    """Returns a single, flat list which contains all elements retrieved
     from the sequence and all recursively contained sub-sequences
     (iterables).
 
-    Examples:
+    Examples
+    --------
     >>> [1, 2, [3,4], (5,6)]
     [1, 2, [3, 4], (5, 6)]
     >>> flatten([[[1,2,3], (42,None)], [4,5], [6], 7, MyVector(8,9,10)])
@@ -208,7 +209,8 @@ def flatten(x):
 
 
 def n_grams(a, n, asarray=False):
-    """
+    """n_grams
+
     Parameters
     ----------
     a : sequence
@@ -232,7 +234,10 @@ def n_grams(a, n, asarray=False):
 
 
 def dict_to_ndarray(dict_of_array):
-    """
+    """convert OrderedDict to numpy array
+
+    Examples
+    --------
     >>> import pytraj as pt
     >>> dslist = traj.search_hbonds()
     >>> dict_of_array = dslist.to_dict(use_numpy=True)
@@ -247,7 +252,7 @@ def dict_to_ndarray(dict_of_array):
 
 
 def concat_dict(iterables):
-    """
+    """concat dict
     """
     new_dict = {}
     for i, d in enumerate(iterables):
@@ -293,12 +298,13 @@ def rmsd_1darray(a1, a2):
 
 
 def rmsd(a1, a2, flatten=True):
-    """
-    rmsd for two array with the same shape
+    """rmsd for two array with the same shape
 
     Parameters
     ----------
     a1, a2: np.ndarray
+    flatten : bool, default True
+        if True: always flatten two input arrays
     """
     import numpy as np
     a1 = np.asarray(a1)
@@ -321,6 +327,7 @@ def mean_and_error(a1, a2):
 
 
 def get_parmed_info(its_obj, att):
+    '''for getting info from parmed.Struture'''
     import numpy as np
     return np.asarray([getattr(atom, att) for atom in its_obj.atoms])
 
@@ -383,16 +390,6 @@ def find_lib(libname, unique=False):
 
 def read_orca_trj(fname):
     """return numpy 2D array
-
-    Examples
-    --------
-
-    20
-    Coordinates from ORCA-job test3 E -384.457081946094
-    C      -0.000000     -0.000001      1.435895
-    C       1.216191     -0.000002      0.697727
-    ...
-
     """
     # http://stackoverflow.com/questions/14645789/
     #numpy-reading-file-with-filtering-lines-on-the-fly
@@ -411,12 +408,12 @@ def read_gaussian_output(filename=None, top=None):
         pytraj.Topology or a filename or None
         if None, use `antechamber` to generate mol2 file, need set $AMBERHOME env
 
+    Requires
+    --------
+    cclib (``pip install cclib``)
+
     >>> import pytraj as pt
     >>> pt.tools.read_gaussian_output("gau.out", "mytest.pdb")
-
-    Notes
-    -----
-    require `cclib`
     """
     import pytraj as pt
     import cclib
@@ -448,6 +445,7 @@ def read_gaussian_output(filename=None, top=None):
 
 
 def read_to_array(fname):
+    '''read text from file to numpy array'''
     import numpy as np
     with open(fname, 'r') as fh:
         arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
@@ -459,15 +457,15 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     Examples
     --------
-       # from two Trajectory or TrajectoryIterator
-       traj3 = merge_trajs(traj1, traj2)
-       assert traj3.n_frames == traj1.n_frames == traj2.n_frames
-       assert traj3.n_atoms == traj1.n_atoms + traj2.n_atoms
-       import numpy as np
-       assert np.any(traj3.xyz, np.vstack(tra1.xyz,  traj2.xyz)) == True
+       >>> # from two Trajectory or TrajectoryIterator
+       >>> traj3 = merge_trajs(traj1, traj2)
+       >>> assert traj3.n_frames == traj1.n_frames == traj2.n_frames
+       >>> assert traj3.n_atoms == traj1.n_atoms + traj2.n_atoms
+       >>> import numpy as np
+       >>> assert np.any(traj3.xyz, np.vstack(tra1.xyz,  traj2.xyz)) == True
 
-       # from frame_iter for saving memory
-       traj3 = merge_trajs((traj1(0, 10, 2), traj1.top), 
+       >>> # from frame_iter for saving memory
+       >>> traj3 = merge_trajs((traj1(0, 10, 2), traj1.top), 
                            (traj2(100, 110, 2), traj2.top), n_frames=6)
 
     Notes
@@ -517,7 +515,7 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
 
 def isel(traj, func, *args, **kwd):
-    """iterselect frame based on func
+    """iter-select frame based on func
     """
     for f in traj:
         if func(f, *args, **kwd):

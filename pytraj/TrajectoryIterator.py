@@ -61,6 +61,18 @@ def _turn_to_list_with_rank(func):
 
 class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
     def __init__(self, filename=None, top=None, *args, **kwd):
+        '''out-of-core trajectory holder.
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.TrajectoryIterator('./traj.nc', 'input.parm7')
+
+        >>> # user should always use :method:`pytraj.iterload` to load TrajectoryIterator
+        >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7')
+        >>> # load another trajectory
+        >>> traj.load('./remd.x.003')
+        '''
         self._force_load = False
         # use self.chunk to store `chunk` in chunk_iter
         # to deallocate memory
@@ -115,7 +127,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             yield frame.copy()
 
     def copy(self):
-        """Very simple"""
+        """Very simple copy"""
         other = self.__class__()
         other.top = self.top.copy()
         other.load(self.filelist)
@@ -207,6 +219,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                    rmsfit=None,
                    copy=True,
                    frame_indices=None):
+        '''same as :method:`pytraj.TrajectoryIterator.iterframe`'''
 
         from .core.frameiter import FrameIter
         if mask is None:
@@ -262,9 +275,22 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          frame_indices=frame_indices)
 
     def iterframe(self, *args, **kwd):
+        '''create frame iterator
+
+        Examples
+        --------
+        >>> for frame in traj(): print(f) # iterate all frames
+
+        # iterate 0-th frame to 10-th frame, skip every 2 frames, only take coords for CA
+        # atoms.
+        # note: like `range(0, 10, 2)
+        >>> for frame in traj(0, 10, 2, mask='@CA'): print(f)
+
+        '''
         return self.frame_iter(*args, **kwd)
 
     def iterchunk(self, *args, **kwd):
+        '''iterate traj by a chunk'''
         return self.chunk_iter(*args, **kwd)
 
     def chunk_iter(self,
@@ -322,22 +348,23 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
     @property
     def shape(self):
+        '''(n_frames, n_atoms, 3)'''
         return (self.n_frames, self.n_atoms, 3)
 
     def is_empty(self):
+        '''check n_frames = 0 or not'''
         return self.n_frames == 0
 
-    @property
-    def max_frames(self):
-        return self.n_frames
-
     def tolist(self):
+        '''convert coords to 3d list. For testing only'''
         return _tolist(self)
 
     def to_mutable_trajectory(self):
+        '''convert to in-memory :class:`pytraj.Trajectory`'''
         return self[:]
 
     def split_and_write_traj(self, *args, **kwd):
+        '''split traj to n_chunks and write to disk'''
         _split_and_write_traj(self, *args, **kwd)
 
     @_turn_to_list_with_rank
@@ -356,14 +383,6 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> list(traj.split_iterators(n_chunks=4, mask='@CA'))
-        [<pytraj.core.frameiter.FrameIter with start=0, stop=2, stride=1
-         autoimage=False, rmsfit=None> ,
-         <pytraj.core.frameiter.FrameIter with start=2, stop=4, stride=1
-         autoimage=False, rmsfit=None> ,
-         <pytraj.core.frameiter.FrameIter with start=4, stop=6, stride=1
-         autoimage=False, rmsfit=None> ,
-         <pytraj.core.frameiter.FrameIter with start=6, stop=10, stride=1
-         autoimage=False, rmsfit=None> ]
         """
         from pytraj.tools import split_range
 
@@ -391,5 +410,6 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                                       rmsfit=rmsfit)
 
     def to_numpy_traj(self):
+        '''experimental traj class. API might be changed'''
         from pytraj import api
         return api.Trajectory(self)

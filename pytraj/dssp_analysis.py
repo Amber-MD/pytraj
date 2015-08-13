@@ -91,7 +91,9 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
     Notes
     -----
+    ========= ======  ========= ======================
     Character Integer DSSP_Char SS_type
+    ========= ======= ========= ======================
     0         0       ' '       None
     b         1       'E'       Parallel Beta-sheet
     B         2       'B'       Anti-parallel Beta-sheet
@@ -100,10 +102,6 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     I         5       'I'       Pi (3-14) helix
     T         6       'T'       Turn
     S         7       'S'       Bend
-
-    See Also
-    --------
-    Amber15 manual: http://ambermd.org/doc12/Amber15.pdf (page 588)
     """
     from pytraj.datasets.DataSetList import DataSetList as CpptrajDatasetList
     from pytraj.actions.CpptrajActions import Action_DSSP
