@@ -1,11 +1,11 @@
 Modify trajectory
 =================
 
-*Note*: only apply to mutable pytraj.Trajectory class
+.. currentmodule:: pytraj
 
-.. autofunction:: pytraj.rmsd
-.. autofunction:: pytraj.translate
-.. autofunction:: pytraj.scale
-.. autofunction:: pytraj.autoimage
-.. autofunction:: pytraj.rotate
-.. autofunction:: pytraj.rotate_dihedral
+.. autofunction:: rmsd
+.. autofunction:: translate
+.. autofunction:: scale
+.. autofunction:: autoimage
+.. autofunction:: rotate
+.. autofunction:: rotate_dihedral

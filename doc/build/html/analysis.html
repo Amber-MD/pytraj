@@ -35,6 +35,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="nucleic_acid.html" title="Nucleic Acid Analysis"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -72,10 +75,6 @@
 </tr>
 </tbody>
 </table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">Amber15</span></code></p>
-</div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_bfactors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">byres</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -134,33 +133,6 @@
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<ul>
-<li><p class="first">Same as <cite>Analysis_Rms2d</cite> in cpptraj (Amber15 manual, page 613)</p>
-</li>
-<li><p class="first">Support <cite>openmp</cite>: require install <cite>libcpptraj</cite> with <cite>openmp</cite> flag</p>
-</li>
-<li><dl class="first docutils">
-<dt>Memory: this calculation will make a copy of <cite>traj</cite>, it&#8217;s better to use</dt>
-<dd><p class="first last">TrajectoryIterator</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Command from cpptraj</dt>
-<dd><p class="first last">[&lt;name&gt;] [&lt;mask&gt;] [out &lt;filename&gt;]
-[dme | nofit | srmsd] [mass]</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>See full details</dt>
-<dd><p class="first last">from pytraj import info
-info(&#8220;rms2d&#8221;)</p>
-</dd>
-</dl>
-</li>
-</ul>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># 1.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># memory saving</span>
@@ -262,6 +234,9 @@ info(&#8220;rms2d&#8221;)</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="nucleic_acid.html" title="Nucleic Acid Analysis"
              >next</a> |</li>

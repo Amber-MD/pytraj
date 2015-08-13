@@ -17,7 +17,7 @@ Examples
     import pytraj as pt
     traj = pt.iterload('data/adh026.3.pdb')
     traj
-    traj.top.atomnames
+    traj.top.atom_names
     na = pt.nastruct(traj)
     na
     na.summary()
