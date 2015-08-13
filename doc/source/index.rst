@@ -24,13 +24,14 @@ Welcome to pytraj's documentation - nothing to see yet!
 
    installation
    basic_examples
+   tutorials/index
    trajectory
    design_trajectory
+   read_and_write
    analysis
    modify_traj
    atom_mask_selection
    parallel
-   tutorials/index
    whatsnew
    faq
    developer_guide
