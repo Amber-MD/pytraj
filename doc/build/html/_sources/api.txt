@@ -1,7 +1,4 @@
-API reference (boring stuff, not for regular users)
-===================================================
+API reference
+=============
 
-.. toctree::
-
-   :maxdepth: 3
-   ../_api/generated/modules
+(coming soon)

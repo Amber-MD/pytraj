@@ -12,9 +12,9 @@ Trajectory
 
 pytraj has two trajectory holder
 --------------------------------
-     * an immutable :class:`TrajectoryIterator` (work-horse of pytraj).
+     * an immutable `TrajectoryIterator` (work-horse of pytraj).
        This class offers out-of-core data store with easiness to load data to memory. 
-     * a mutable :class:`Trajectory`. This class hold in-memory data.
+     * a mutable `Trajectory`. This class hold in-memory data.
 
 Why are there two objects?
 -------------------------
