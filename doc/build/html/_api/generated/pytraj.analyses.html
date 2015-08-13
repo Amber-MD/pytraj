@@ -1,0 +1,2065 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.analyses package &mdash; pytraj 0.1.2.dev5 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.2.dev5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pytraj-analyses-package">
+<h1>pytraj.analyses package<a class="headerlink" href="#pytraj-analyses-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pytraj.analyses.Analysis">
+<span id="pytraj-analyses-analysis-module"></span><h2>pytraj.analyses.Analysis module<a class="headerlink" href="#module-pytraj.analyses.Analysis" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pytraj.analyses.Analysis.Analysis">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.Analysis.</code><code class="descname">Analysis</code><a class="headerlink" href="#pytraj.analyses.Analysis.Analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<blockquote>
+<div>The abstract base class that all other actions inherit. 
+By convention actions have 3 main phases: init, Setup, and DoAnalysis.
+Init is used to initialize the action, make sure that all arguments
+for the action are correct, and add any DataSets/DataFiles which will
+be used by the action. Setup will set up the action for a specific
+Topology file. DoAnalysis will perform the action on a given frame.
+A fourth function, Print, is for any additional calculations or output 
+the action may require once all frames are processed.</div></blockquote>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.Analysis.Analysis.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.Analysis.Analysis.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.Analysis.Analysis.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.Analysis.Analysis.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pytraj.analyses.CpptrajAnalyses">
+<span id="pytraj-analyses-cpptrajanalyses-module"></span><h2>pytraj.analyses.CpptrajAnalyses module<a class="headerlink" href="#module-pytraj.analyses.CpptrajAnalyses" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_AmdBias</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_AutoCorr</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Average">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Average</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Average" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Average.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Average.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Average.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Average.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Average.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Average.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Average.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Average.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Average.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Average.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Average.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Average.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Clustering">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Clustering</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Clustering" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Corr">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Corr</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Corr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Corr.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Corr.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Corr.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Corr.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Corr.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Corr.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Corr.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Corr.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Corr.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Corr.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Corr.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Corr.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_CrankShaft</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_CrdFluct</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_CrossCorr</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Divergence">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Divergence</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Divergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_FFT">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_FFT</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_FFT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_FFT.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_FFT.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_FFT.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_FFT.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_FFT.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_FFT.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_FFT.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_FFT.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_FFT.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_FFT.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_FFT.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_FFT.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Hist">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Hist</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Hist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Hist.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Hist.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Hist.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Hist.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Hist.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Hist.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Hist.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Hist.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Hist.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Hist.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Hist.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Hist.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_IRED">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_IRED</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_IRED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_IRED.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_IRED.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_IRED.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_IRED.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_IRED.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_IRED.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_IRED.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_IRED.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_IRED.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_IRED.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_IRED.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_IRED.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Integrate">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Integrate</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Integrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_KDE">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_KDE</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_KDE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_KDE.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_KDE.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_KDE.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_KDE.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_KDE.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_KDE.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_KDE.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_KDE.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_KDE.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_KDE.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_KDE.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_KDE.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Lifetime</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Matrix">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Matrix</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_MeltCurve</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Modes">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Modes</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Modes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Modes.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Modes.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Modes.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Modes.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Modes.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Modes.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Modes.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Modes.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Modes.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Modes.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Modes.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Modes.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_MultiHist</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Overlap">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Overlap</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Overlap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Regression">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Regression</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Regression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Regression.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Regression.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Regression.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Regression.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Regression.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Regression.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Regression.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Regression.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Regression.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Regression.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Regression.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Regression.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RemLog">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_RemLog</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RemLog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Rms2d</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_RmsAvgCorr</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_RunningAvg</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Spline">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Spline</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Spline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Spline.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Spline.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Spline.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Spline.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Spline.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Spline.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Spline.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Spline.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Spline.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Spline.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Spline.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Spline.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Statistics">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Statistics</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Statistics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_Timecorr</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath">
+<em class="property">class </em><code class="descclassname">pytraj.analyses.CpptrajAnalyses.</code><code class="descname">Analysis_VectorMath</code><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.analyses.Analysis.Analysis" title="pytraj.analyses.Analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">pytraj.analyses.Analysis.Analysis</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.alloc" title="pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.alloc"><code class="xref py py-obj docutils literal"><span class="pre">alloc</span></code></a>(self)</td>
+<td>return a function-pointer object to be used with AnalysisList class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.help" title="pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.help"><code class="xref py py-obj docutils literal"><span class="pre">help</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.alloc">
+<code class="descname">alloc</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a function-pointer object to be used with AnalysisList class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.do_analysis">
+<code class="descname">do_analysis</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.do_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.read_input">
+<code class="descname">read_input</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em>, <em>top=&lt;???&gt;</em>, <em>DataSetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.read_input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>Type of actions, mask, ... (Get help: Analysis_Clustering().help())</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology or TopologyList instance, default=TopologyList()</p>
+<p><strong>dslist</strong> : DataSetList instance, default=DataSetList()</p>
+<p><strong>dflist</strong> : DataFileList instance, default=DataFileList()</p>
+<p><strong>debug</strong> : int, default=0</p>
+<blockquote class="last">
+<div><p>debug option from cpptraj. (Do we need this?)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pytraj.analyses"></span></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">pytraj.analyses package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-pytraj.analyses.Analysis">pytraj.analyses.Analysis module</a></li>
+<li><a class="reference internal" href="#module-pytraj.analyses.CpptrajAnalyses">pytraj.analyses.CpptrajAnalyses module</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_api/generated/pytraj.analyses.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Hai Nguyen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

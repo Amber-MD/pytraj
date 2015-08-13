@@ -1,8 +1,7 @@
-API reference
-=============
+API reference (boring stuff, not for regular users)
+===================================================
 
-module
-------
-.. currentmodule:: pytraj
-.. autofunction:: iterload
-.. autofunction:: load
+.. toctree::
+
+   :maxdepth: 3
+   ../_api/generated/modules

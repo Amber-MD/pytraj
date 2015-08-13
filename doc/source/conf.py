@@ -55,6 +55,8 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.ifconfig',
               ]
 
+extensions.append('notebook_sphinxext')
+
 #extensions = [
 #    'sphinx.ext.autodoc',
 #    'sphinx.ext.intersphinx',

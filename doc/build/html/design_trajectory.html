@@ -23,7 +23,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="index.html" /> 
+    <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="index.html" />
+    <link rel="next" title="Analysis" href="analysis.html" />
+    <link rel="prev" title="Trajectory" href="trajectory.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,6 +37,12 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="analysis.html" title="Analysis"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="trajectory.html" title="Trajectory"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -48,11 +56,11 @@
 <h1>Trajectory design<a class="headerlink" href="#trajectory-design" title="Permalink to this headline">¶</a></h1>
 <p><strong>Why does pytraj have two Trajectory classes?</strong></p>
 <p>Regular MD simulation usually produce GB to TB data. So loading all the data
-to memory is not really a good choice. So we first design <cite>TrajectoryIterator</cite>
+to memory is not really a good choice. So we first design <a class="reference internal" href="_api/generated/pytraj.html#module-pytraj.TrajectoryIterator" title="pytraj.TrajectoryIterator"><code class="xref py py-class docutils literal"><span class="pre">TrajectoryIterator</span></code></a>
 as an out-of-core trajetory holder (same as <cite>cpptraj</cite>).</p>
 <p>But sometimes we need to load a small chunk of data to memory for fast
 calculation, for structure editting (rotate dihedral, ...), we need 2nd
-trajectory class to hold the in-memory data.</p>
+<a class="reference internal" href="_api/generated/pytraj.html#module-pytraj.Trajectory" title="pytraj.Trajectory"><code class="xref py py-class docutils literal"><span class="pre">Trajectory</span></code></a> class to hold the in-memory data.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;./tz2.ortho.parm7&#39;</span><span class="p">)</span> <span class="c"># out-of-core</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span>
@@ -64,9 +72,8 @@ trajectory class to hold the in-memory data.</p>
 <span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, PBC with box type = ortho&gt;&gt;</span>
 </pre></div>
 </div>
-<p><cite>pytraj.TrajectoryIterator</cite> is out-of-core trajectory class (immutable) while
-<cite>pytraj.Trajectory</cite> is in-memory trajectory class (mutable). You can perform most of
-analysis with those two.</p>
+<p>You can perform most of analysis with those two. Note that any actions modifying
+coordinates don&#8217;t apply to <a class="reference internal" href="_api/generated/pytraj.html#module-pytraj.TrajectoryIterator" title="pytraj.TrajectoryIterator"><code class="xref py py-class docutils literal"><span class="pre">TrajectoryIterator</span></code></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
 <span class="n">mem_traj</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">mem_traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -81,6 +88,12 @@ analysis with those two.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="trajectory.html"
+                        title="previous chapter">Trajectory</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="analysis.html"
+                        title="next chapter">Analysis</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -114,6 +127,12 @@ analysis with those two.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="analysis.html" title="Analysis"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="trajectory.html" title="Trajectory"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
       </ul>
     </div>

@@ -1,15 +1,17 @@
 Trajectory design
 =================
 
+.. currentmodule:: pytraj
+
 **Why does pytraj have two Trajectory classes?**
 
 Regular MD simulation usually produce GB to TB data. So loading all the data
-to memory is not really a good choice. So we first design `TrajectoryIterator`
+to memory is not really a good choice. So we first design :class:`TrajectoryIterator`
 as an out-of-core trajetory holder (same as `cpptraj`).
 
 But sometimes we need to load a small chunk of data to memory for fast
 calculation, for structure editting (rotate dihedral, ...), we need 2nd
-trajectory class to hold the in-memory data.
+:class:`Trajectory` class to hold the in-memory data.
 
 .. code-block:: python 
 
@@ -23,9 +25,8 @@ trajectory class to hold the in-memory data.
     <pytraj.Trajectory, 3 frames, include:
     <Topology: 12 atoms, 12 residues, 12 mols, PBC with box type = ortho>>
 
-`pytraj.TrajectoryIterator` is out-of-core trajectory class (immutable) while
-`pytraj.Trajectory` is in-memory trajectory class (mutable). You can perform most of
-analysis with those two.
+You can perform most of analysis with those two. Note that any actions modifying
+coordinates don't apply to :class:`TrajectoryIterator`
 
 .. code-block:: python
     

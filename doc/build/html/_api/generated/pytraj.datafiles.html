@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.datafiles package &mdash; pytraj 0.1.2.dev5 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.2.dev5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pytraj-datafiles-package">
+<h1>pytraj.datafiles package<a class="headerlink" href="#pytraj-datafiles-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pytraj.datafiles.Ala3.html">pytraj.datafiles.Ala3 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pytraj.datafiles.Ala3.html#module-pytraj.datafiles.Ala3">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pytraj.datafiles.tz2.html">pytraj.datafiles.tz2 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pytraj.datafiles.tz2.html#module-pytraj.datafiles.tz2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pytraj.datafiles.load_cpptraj_file">
+<span id="pytraj-datafiles-load-cpptraj-file-module"></span><h2>pytraj.datafiles.load_cpptraj_file module<a class="headerlink" href="#module-pytraj.datafiles.load_cpptraj_file" title="Permalink to this headline">¶</a></h2>
+<p>for compatibility with cpptraj
+&gt;&gt;&gt; from pytraj import load_cpptraj_file
+&gt;&gt;&gt; state = load_cpptraj_file(trajin_file)
+&gt;&gt;&gt; isinstance(state, CpptrajState)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># state object hold all information like TopologyList, DataSetList,</span>
+<span class="go">TrajinList, ...</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="pytraj.datafiles.load_cpptraj_file.load_cpptraj_file">
+<code class="descclassname">pytraj.datafiles.load_cpptraj_file.</code><code class="descname">load_cpptraj_file</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.datafiles.load_cpptraj_file.load_cpptraj_file" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fname</strong> : str, name of cpptraj input file</p>
+<blockquote class="last">
+<div><p>(&#8220;cpptraj -i input.txt&#8221; &#8211;&gt; fname = &#8220;input.txt&#8221;)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pytraj.datafiles.load_sample_data">
+<span id="pytraj-datafiles-load-sample-data-module"></span><h2>pytraj.datafiles.load_sample_data module<a class="headerlink" href="#module-pytraj.datafiles.load_sample_data" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pytraj.datafiles.load_sample_data.load_sample_data">
+<code class="descclassname">pytraj.datafiles.load_sample_data.</code><code class="descname">load_sample_data</code><span class="sig-paren">(</span><em>data_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.datafiles.load_sample_data.load_sample_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return TrajectoryIterator instance for Ala3 or tz2 data</p>
+<p class="rubric">Notes</p>
+<dl class="docutils">
+<dt>tz2 dataset <span class="classifier-delimiter">:</span> <span class="classifier">$AMBERHOME/AmberTools/test/cpptraj/</span></dt>
+<dd>explicit water, ortho box</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pytraj.datafiles">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pytraj.datafiles" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">pytraj.datafiles package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-pytraj.datafiles.load_cpptraj_file">pytraj.datafiles.load_cpptraj_file module</a></li>
+<li><a class="reference internal" href="#module-pytraj.datafiles.load_sample_data">pytraj.datafiles.load_sample_data module</a></li>
+<li><a class="reference internal" href="#module-pytraj.datafiles">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_api/generated/pytraj.datafiles.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Hai Nguyen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
