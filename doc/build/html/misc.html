@@ -65,6 +65,269 @@
 <span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span> <span class="c"># same as plt.plot(data[0], data[1])</span>
 </pre></div>
 </div>
+<span class="target" id="module-pytraj.tools"></span><p>seperate module, only use stdlib
+If want to use external package, import it inside the function</p>
+<dl class="function">
+<dt id="pytraj.tools.chunk_average">
+<code class="descclassname">pytraj.tools.</code><code class="descname">chunk_average</code><span class="sig-paren">(</span><em>self</em>, <em>n_chunk</em>, <em>restype='same'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.chunk_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>average by chunk</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.compose">
+<code class="descclassname">pytraj.tools.</code><code class="descname">compose</code><span class="sig-paren">(</span><em>*funcs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.compose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compose 2 or more callables</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">func</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">calc_radgyr</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">func</span><span class="p">(</span><span class="s">&quot;./data/md1_prod.Tc5b.x&quot;</span><span class="p">,</span> <span class="s">&quot;./data/Tc5b.top&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.concat_dict">
+<code class="descclassname">pytraj.tools.</code><code class="descname">concat_dict</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.concat_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>concat dict</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.dict_to_ndarray">
+<code class="descclassname">pytraj.tools.</code><code class="descname">dict_to_ndarray</code><span class="sig-paren">(</span><em>dict_of_array</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.dict_to_ndarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert OrderedDict to numpy array</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_of_array</span> <span class="o">=</span> <span class="n">dslist</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">use_numpy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">dict_to_ndarray</span><span class="p">(</span><span class="n">dict_of_array</span><span class="p">)</span> <span class="o">==</span> <span class="n">dslist</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.find_lib">
+<code class="descclassname">pytraj.tools.</code><code class="descname">find_lib</code><span class="sig-paren">(</span><em>libname</em>, <em>unique=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.find_lib" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of all library files</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.flatten">
+<code class="descclassname">pytraj.tools.</code><code class="descname">flatten</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a single, flat list which contains all elements retrieved
+from the sequence and all recursively contained sub-sequences
+(iterables).</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)]</span>
+<span class="go">[1, 2, [3, 4], (5, 6)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flatten</span><span class="p">([[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">(</span><span class="mi">42</span><span class="p">,</span><span class="bp">None</span><span class="p">)],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="mi">7</span><span class="p">,</span> <span class="n">MyVector</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">)])</span>
+<span class="go">[1, 2, 3, 42, None, 4, 5, 6, 7, 8, 9, 10]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.get_parmed_info">
+<code class="descclassname">pytraj.tools.</code><code class="descname">get_parmed_info</code><span class="sig-paren">(</span><em>its_obj</em>, <em>att</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.get_parmed_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>for getting info from parmed.Struture</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.grep">
+<code class="descclassname">pytraj.tools.</code><code class="descname">grep</code><span class="sig-paren">(</span><em>self</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.grep" title="Permalink to this definition">¶</a></dt>
+<dd><p>grep key</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">grep</span><span class="p">(</span><span class="n">dslist</span><span class="p">,</span> <span class="s">&#39;psi&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.isel">
+<code class="descclassname">pytraj.tools.</code><code class="descname">isel</code><span class="sig-paren">(</span><em>traj</em>, <em>func</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.isel" title="Permalink to this definition">¶</a></dt>
+<dd><p>iter-select frame based on func</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.iteritems">
+<code class="descclassname">pytraj.tools.</code><code class="descname">iteritems</code><span class="sig-paren">(</span><em>d</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.iteritems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over the (key, value) pairs of a dictionary.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.mean_and_error">
+<code class="descclassname">pytraj.tools.</code><code class="descname">mean_and_error</code><span class="sig-paren">(</span><em>a1</em>, <em>a2</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.mean_and_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate mean and error from two 1D array-like</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.merge_coordinates">
+<code class="descclassname">pytraj.tools.</code><code class="descname">merge_coordinates</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.merge_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>merge_coordinates from frames</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.merge_frames">
+<code class="descclassname">pytraj.tools.</code><code class="descname">merge_frames</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.merge_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>merge from frames to a single Frame. Order matters.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.merge_trajs">
+<code class="descclassname">pytraj.tools.</code><code class="descname">merge_trajs</code><span class="sig-paren">(</span><em>traj1</em>, <em>traj2</em>, <em>start_new_mol=True</em>, <em>n_frames=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.merge_trajs" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Notes</p>
+<p>Code might be changed</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from two Trajectory or TrajectoryIterator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">merge_trajs</span><span class="p">(</span><span class="n">traj1</span><span class="p">,</span> <span class="n">traj2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">traj3</span><span class="o">.</span><span class="n">n_frames</span> <span class="o">==</span> <span class="n">traj1</span><span class="o">.</span><span class="n">n_frames</span> <span class="o">==</span> <span class="n">traj2</span><span class="o">.</span><span class="n">n_frames</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">traj3</span><span class="o">.</span><span class="n">n_atoms</span> <span class="o">==</span> <span class="n">traj1</span><span class="o">.</span><span class="n">n_atoms</span> <span class="o">+</span> <span class="n">traj2</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">traj3</span><span class="o">.</span><span class="n">xyz</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">tra1</span><span class="o">.</span><span class="n">xyz</span><span class="p">,</span>  <span class="n">traj2</span><span class="o">.</span><span class="n">xyz</span><span class="p">))</span> <span class="o">==</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from frame_iter for saving memory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">merge_trajs</span><span class="p">((</span><span class="n">traj1</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">traj1</span><span class="o">.</span><span class="n">top</span><span class="p">),</span> 
+<span class="go">                    (traj2(100, 110, 2), traj2.top), n_frames=6)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.moving_average">
+<code class="descclassname">pytraj.tools.</code><code class="descname">moving_average</code><span class="sig-paren">(</span><em>data</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.moving_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>moving average</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.n_grams">
+<code class="descclassname">pytraj.tools.</code><code class="descname">n_grams</code><span class="sig-paren">(</span><em>a</em>, <em>n</em>, <em>asarray=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.n_grams" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>a</strong> : sequence</p>
+<p><strong>n</strong> : number of elements</p>
+<p><strong>asarray</strong> : bool, default False</p>
+<blockquote class="last">
+<div><p>if False: return an iterator
+if True: return a numpy array</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.pipe">
+<code class="descclassname">pytraj.tools.</code><code class="descname">pipe</code><span class="sig-paren">(</span><em>obj</em>, <em>func</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.pipe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a function to a obj either by
+passing the obj as the first argument
+to the function or, in the case that
+the func is a tuple, interpret the first
+element of the tuple as a function and
+pass the obj to that function as a keyword
+arguemnt whose key is the value of the
+second element of the tuple</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.read_gaussian_output">
+<code class="descclassname">pytraj.tools.</code><code class="descname">read_gaussian_output</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.read_gaussian_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a <cite>pytraj.api.Trajectory</cite> object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fname</strong> : str, filename</p>
+<p><strong>top</strong> : {str, Topology}, optional, default None</p>
+<blockquote class="last">
+<div><p>pytraj.Topology or a filename or None
+if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME env</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.read_orca_trj">
+<code class="descclassname">pytraj.tools.</code><code class="descname">read_orca_trj</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.read_orca_trj" title="Permalink to this definition">¶</a></dt>
+<dd><p>return numpy 2D array</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.read_to_array">
+<code class="descclassname">pytraj.tools.</code><code class="descname">read_to_array</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.read_to_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>read text from file to numpy array</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.rmsd">
+<code class="descclassname">pytraj.tools.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>a1</em>, <em>a2</em>, <em>flatten=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.rmsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>rmsd for two array with the same shape</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>a1, a2: np.ndarray</strong></p>
+<p><strong>flatten</strong> : bool, default True</p>
+<blockquote class="last">
+<div><p>if True: always flatten two input arrays</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.rmsd_1darray">
+<code class="descclassname">pytraj.tools.</code><code class="descname">rmsd_1darray</code><span class="sig-paren">(</span><em>a1</em>, <em>a2</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.rmsd_1darray" title="Permalink to this definition">¶</a></dt>
+<dd><p>rmsd of a1 and a2</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.split">
+<code class="descclassname">pytraj.tools.</code><code class="descname">split</code><span class="sig-paren">(</span><em>data</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>split <cite>self.data</cite> to n_chunks</p>
+<p>Notes : require numpy (same as <cite>array_split</cite>)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.split_parmed_by_residues">
+<code class="descclassname">pytraj.tools.</code><code class="descname">split_parmed_by_residues</code><span class="sig-paren">(</span><em>struct</em>, <em>start=0</em>, <em>stop=-1</em>, <em>stride=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.split_parmed_by_residues" title="Permalink to this definition">¶</a></dt>
+<dd><p>split <cite>ParmEd</cite>&#8216;s Structure into different residue</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.split_range">
+<code class="descclassname">pytraj.tools.</code><code class="descname">split_range</code><span class="sig-paren">(</span><em>n_chunks</em>, <em>start</em>, <em>stop</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.split_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>split a given range to n_chunks</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.misc</span> <span class="kn">import</span> <span class="n">split_range</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">split_range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">[(0, 3), (3, 6), (6, 10)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.tools.split_traj_by_residues">
+<code class="descclassname">pytraj.tools.</code><code class="descname">split_traj_by_residues</code><span class="sig-paren">(</span><em>traj</em>, <em>start=0</em>, <em>stop=-1</em>, <em>stride=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.split_traj_by_residues" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a generator</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">split_traj_by_residues</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 
 
