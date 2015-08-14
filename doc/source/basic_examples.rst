@@ -1,3 +1,5 @@
+.. _basic_examples:
+
 Basic examples
 ==============
 
@@ -12,12 +14,13 @@ DSSP analysis
     print(result)
 
 hbond analysis
--------------
+--------------
 
 .. ipython:: python
  
    hbonds = pt.search_hbonds(pdb)
    hbonds
 
-`More examples <https://github.com/Amber-MD/pytraj/tree/master/examples>`_
---------------------------------------------------------------------------
+More examples
+-------------
+`check our github page <https://github.com/Amber-MD/pytraj/tree/master/examples>`_
