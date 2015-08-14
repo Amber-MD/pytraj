@@ -9,4 +9,3 @@ Modify trajectory
 .. autofunction:: autoimage
 .. autofunction:: rotate
 .. autofunction:: rotate_dihedral
-.. autofunction:: pytraj.TrajectoryIterator.iterchunk
