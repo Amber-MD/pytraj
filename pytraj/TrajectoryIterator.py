@@ -190,6 +190,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
     @property
     def xyz(self):
+        '''return 3D array of coordinates'''
         size_in_MB = self._estimated_MB
         # check if larger than size_limit_in_MB
         if size_in_MB > self._size_limit_in_MB and not self._force_load:
@@ -210,7 +211,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         from itertools import tee
         return tee(self, n_iters)
 
-    def frame_iter(self,
+    def frame_iter (self,
                    start=0,
                    stop=None,
                    stride=1,
@@ -219,7 +220,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                    rmsfit=None,
                    copy=True,
                    frame_indices=None):
-        '''same as :method:`pytraj.TrajectoryIterator.iterframe`'''
+        ''''''
 
         from .core.frameiter import FrameIter
         if mask is None:
@@ -275,25 +276,16 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          frame_indices=frame_indices)
 
     def iterframe(self, *args, **kwd):
-        '''create frame iterator
-
-        Examples
-        --------
-        >>> for frame in traj(): print(f) # iterate all frames
-
-        # iterate 0-th frame to 10-th frame, skip every 2 frames, only take coords for CA
-        # atoms.
-        # note: like `range(0, 10, 2)
-        >>> for frame in traj(0, 10, 2, mask='@CA'): print(f)
-
+        '''create frame iterator. same as frameiter
         '''
         return self.frame_iter(*args, **kwd)
 
     def iterchunk(self, *args, **kwd):
-        '''iterate traj by a chunk'''
+        '''iterate traj by a chunk (alias of iterchunk)
+        '''
         return self.chunk_iter(*args, **kwd)
 
-    def chunk_iter(self,
+    def chunk_iter (self,
                    chunksize=2,
                    start=0,
                    stop=-1,
