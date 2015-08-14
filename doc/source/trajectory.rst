@@ -12,7 +12,7 @@ Trajectory
 
 Overview
 --------
-     * an immutable :ref:`_trajectoryiterator` (work-horse of pytraj).
+     * an immutable :ref:`trajectoryiterator` (work-horse of pytraj).
        This class offers out-of-core data store with easiness to load data to memory. 
      * a mutable `Trajectory`. This class hold in-memory data.
 
