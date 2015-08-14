@@ -47,7 +47,7 @@ However, TrajectoryIterator is much more than that, you can slice atoms:
 
 .. ipython:: python
 
-    for f in traj(0, 8, 2, mask='@CA'): print(f)
+    for f in traj(0, 8, 2, mask='@CA'): print(f, f.xyz[0])
 
 To load all frames to memory at once, use ``[]`` notation:
 
