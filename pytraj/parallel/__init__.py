@@ -1,13 +1,16 @@
 from .map import map
 from pytraj.tools import concat_dict
+from .pjob import PJob
 
-try:
-    from mpi4py import MPI
-    comm = MPI.COMM_WORLD
-    rank = comm.rank
-    size = comm.size
-except ImportError:
-    comm = rank = size = None
+def get_comm_size_rank():
+    try:
+        from mpi4py import MPI
+        comm = MPI.COMM_WORLD
+        rank = comm.rank
+        size = comm.size
+        return comm, size, rank
+    except ImportError:
+        comm = rank = size = None
 
 
 def gather(name='data', clients=None, restype='ndarray'):

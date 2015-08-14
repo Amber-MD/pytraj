@@ -13,6 +13,15 @@ def kmeans(traj=None,
            output_op='',
            dtype='dataset',
            *args, **kwd):
+    '''
+
+    Examples
+    --------
+    >>> from pytraj.cluster import kmeans
+    >>> kmeans(traj)
+    >>> kmeans(traj, n_clusters=5)
+    >>> kmeans(traj, n_clusters=5, mask'='@CA')
+    '''
 
     # don't need to _get_top
     _clusters = 'kmeans clusters ' + str(n_clusters)
