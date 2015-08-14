@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.TrajectoryIterator module &mdash; pytraj 0.1.2.dev5 documentation</title>
+    <title>pytraj.TrajectoryIterator &mdash; pytraj 0.1.2.dev5 documentation</title>
     
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -44,8 +44,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="pytraj-trajectoryiterator-module">
-<span id="trajectoryiterator"></span><h1>pytraj.TrajectoryIterator module<a class="headerlink" href="#pytraj-trajectoryiterator-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="pytraj-trajectoryiterator">
+<span id="trajectoryiterator"></span><h1>pytraj.TrajectoryIterator<a class="headerlink" href="#pytraj-trajectoryiterator" title="Permalink to this headline">¶</a></h1>
 <dl class="method">
 <dt id="pytraj.TrajectoryIterator.load">
 <code class="descclassname">TrajectoryIterator.</code><code class="descname">load</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>frame_slice=(0</em>, <em>-1</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.load" title="Permalink to this definition">¶</a></dt>
@@ -55,30 +55,14 @@ with a single frame_slice or a list of frame_slice</p>
 
 <dl class="method">
 <dt id="pytraj.TrajectoryIterator.iterframe">
-<code class="descclassname">TrajectoryIterator.</code><code class="descname">iterframe</code><span class="sig-paren">(</span><em>start=0</em>, <em>stop=None</em>, <em>stride=1</em>, <em>mask=None</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>copy=True</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.iterframe" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">TrajectoryIterator.</code><code class="descname">iterframe</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.iterframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>create frame iterator. same as frameiter</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pytraj.TrajectoryIterator.iterchunk">
-<code class="descclassname">TrajectoryIterator.</code><code class="descname">iterchunk</code><span class="sig-paren">(</span><em>chunksize=2</em>, <em>start=0</em>, <em>stop=-1</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>copy_top=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.iterchunk" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>chunk</strong> : int, default=2</p>
-<blockquote>
-<div><p>size of each chunk. Notes: final chunk&#8217;s size might be changed</p>
-</div></blockquote>
-<p><strong>start</strong> : int, default=0 (first frame)</p>
-<p><strong>stop</strong> : int, default=-1 (last frame)</p>
-<p><strong>autoimage</strong> : bool, default=False</p>
-<p class="last"><strong>rmsfit</strong> : None | tuple/list of (reference frame, mask)</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<p>for chunk in trajiter.chunk_iter(100, autoimage=True, rmsfit=(ref0, <a class="reference external" href="mailto:'&#37;&#52;&#48;CA">'<span>&#64;</span>CA</a>&#8216;))</p>
+<code class="descclassname">TrajectoryIterator.</code><code class="descname">iterchunk</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.iterchunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>iterate traj by a chunk (alias of iterchunk)</p>
 </dd></dl>
 
 <dl class="method">

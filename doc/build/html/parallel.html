@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="index.html" />
-    <link rel="next" title="Tutorials" href="tutorials/index.html" />
+    <link rel="next" title="What’s new?" href="whatsnew.html" />
     <link rel="prev" title="Atom mask selection" href="atom_mask_selection.html" /> 
   </head>
   <body role="document">
@@ -38,7 +38,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="tutorials/index.html" title="Tutorials"
+          <a href="whatsnew.html" title="What’s new?"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="atom_mask_selection.html" title="Atom mask selection"
@@ -53,7 +53,14 @@
           <div class="body" role="main">
             
   <div class="section" id="parallel-calculation">
-<h1>Parallel calculation<a class="headerlink" href="#parallel-calculation" title="Permalink to this headline">¶</a></h1>
+<span id="parallel"></span><h1>Parallel calculation<a class="headerlink" href="#parallel-calculation" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">pytraj</span></code> support different types of parallel computing.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">pytraj</span></code> use <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html">python multiprocessing</a>, so users don&#8217;t need to install extra package.</p>
+</div>
+<div class="section" id="single-action-with-single-trajectory">
+<h2>single action with single trajectory<a class="headerlink" href="#single-action-with-single-trajectory" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
@@ -67,6 +74,27 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="multiple-actions-with-multiple-trajectories">
+<h2>multiple actions with multiple trajectories<a class="headerlink" href="#multiple-actions-with-multiple-trajectories" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="kn">from</span> <span class="nn">pytraj.parallel</span> <span class="kn">import</span> <span class="n">PJob</span>
+
+<span class="gp">In [5]: </span><span class="n">tasklist</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="gp">In [6]: </span><span class="n">tasklist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">))</span>
+
+<span class="gp">In [7]: </span><span class="n">tasklist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">))</span>
+
+<span class="c"># perform each action on each CPUs (total 2 CPUs)</span>
+<span class="gp">In [8]: </span><span class="n">pjob</span> <span class="o">=</span> <span class="n">PJob</span><span class="p">(</span><span class="n">tasklist</span><span class="p">)</span>
+
+<span class="gp">In [9]: </span><span class="k">print</span><span class="p">(</span><span class="n">pjob</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
+<span class="go">[(0, array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
+<span class="go">        18.943 ,  18.8888,  18.9167,  18.8707])), (1, array([ 458.5141,  459.6478,  456.5469,  467.7294,  462.4591,  458.7033,</span>
+<span class="go">        454.4051,  455.1502,  468.7057,  456.0059]))]</span>
+</pre></div>
+</div>
+</div>
+</div>
 
 
           </div>
@@ -74,12 +102,21 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Parallel calculation</a><ul>
+<li><a class="reference internal" href="#single-action-with-single-trajectory">single action with single trajectory</a></li>
+<li><a class="reference internal" href="#multiple-actions-with-multiple-trajectories">multiple actions with multiple trajectories</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="atom_mask_selection.html"
                         title="previous chapter">Atom mask selection</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="tutorials/index.html"
-                        title="next chapter">Tutorials</a></p>
+  <p class="topless"><a href="whatsnew.html"
+                        title="next chapter">What&#8217;s new?</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -114,7 +151,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="tutorials/index.html" title="Tutorials"
+          <a href="whatsnew.html" title="What’s new?"
              >next</a> |</li>
         <li class="right" >
           <a href="atom_mask_selection.html" title="Atom mask selection"

@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="index.html" />
     <link rel="next" title="Analysis" href="analysis.html" />
-    <link rel="prev" title="Trajectory design" href="design_trajectory.html" /> 
+    <link rel="prev" title="Trajectory" href="trajectory.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,10 +35,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="analysis.html" title="Analysis"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="design_trajectory.html" title="Trajectory design"
+          <a href="trajectory.html" title="Trajectory"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
       </ul>
@@ -50,22 +53,42 @@
           <div class="body" role="main">
             
   <div class="section" id="read-and-write">
-<h1>Read and write<a class="headerlink" href="#read-and-write" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Read and write<a class="headerlink" href="#read-and-write" title="Permalink to this headline">¶</a></h1>
 <p>(coming soon)</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># read amber format</span>
-<span class="gp">In [1]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
+<span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="gp">In [2]: </span><span class="n">traj</span>
-<span class="gr">Out[2]: </span>
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">traj</span>
+<span class="gr">Out[3]: </span>
 <span class="go">&lt;pytraj.TrajectoryIterator, 10 frames, include:</span>
 <span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;&gt;</span>
 <span class="go">           </span>
 
 <span class="c"># write to CHARMM dcd format</span>
-<span class="gp">In [3]: </span><span class="n">traj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;test.dcd&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">traj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;test.dcd&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="c"># write more than two trajs</span>
-<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;test2.dcd&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">traj</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">traj</span><span class="p">[</span><span class="mi">5</span><span class="p">:]],</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;test2.dcd&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">traj</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">traj</span><span class="p">[</span><span class="mi">5</span><span class="p">:]],</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="_api/trajectoryiterator.html#trajectoryiterator"><span>pytraj.TrajectoryIterator</span></a> is able to load a list of files, even the total size does not fit into
+memory</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">ls</span> <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.*</span>
+<span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">000</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">003</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">006</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">00</span><span class="mi">9</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">012</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">015</span>
+<span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">001</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">004</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">007</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">010</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">013</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">016</span>
+<span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">002</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">005</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">00</span><span class="mi">8</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">011</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">014</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">017</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;remd.x.*&#39;</span><span class="p">,</span> <span class="s">&#39;myparm.parm7&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">traj</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="o">&lt;</span><span class="n">pytraj</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">,</span> <span class="mi">40000</span> <span class="n">frames</span><span class="p">,</span> <span class="n">include</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">17443</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">5666</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">5634</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">truncoct</span><span class="o">&gt;&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">traj</span><span class="o">.</span><span class="n">_estimated_MB</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mf">15969.54345703125</span>
 </pre></div>
 </div>
 </div>
@@ -77,8 +100,8 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="design_trajectory.html"
-                        title="previous chapter">Trajectory design</a></p>
+  <p class="topless"><a href="trajectory.html"
+                        title="previous chapter">Trajectory</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="analysis.html"
                         title="next chapter">Analysis</a></p>
@@ -113,10 +136,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="analysis.html" title="Analysis"
              >next</a> |</li>
         <li class="right" >
-          <a href="design_trajectory.html" title="Trajectory design"
+          <a href="trajectory.html" title="Trajectory"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
       </ul>
