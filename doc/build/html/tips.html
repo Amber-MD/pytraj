@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Cookbook &mdash; pytraj 0.1.2.dev5 documentation</title>
+    <title>Tips &mdash; pytraj 0.1.2.dev5 documentation</title>
     
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,8 +24,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="index.html" />
-    <link rel="next" title="Tips" href="tips.html" />
-    <link rel="prev" title="Misc" href="misc.html" /> 
+    <link rel="up" title="Cookbook" href="cookbook.html" />
+    <link rel="next" title="API reference" href="api.html" />
+    <link rel="prev" title="Cookbook" href="cookbook.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -38,12 +39,13 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="tips.html" title="Tips"
+          <a href="api.html" title="API reference"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="misc.html" title="Misc"
+          <a href="cookbook.html" title="Cookbook"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="cookbook.html" accesskey="U">Cookbook</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -52,12 +54,28 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="cookbook">
-<span id="id1"></span><h1>Cookbook<a class="headerlink" href="#cookbook" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a></li>
+  <div class="section" id="tips">
+<span id="id1"></span><h1>Tips<a class="headerlink" href="#tips" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>turn on cpptraj&#8217;s verbose</li>
 </ul>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">traj</span>
+<span class="gr">Out[3]: </span>
+<span class="go">&lt;pytraj.TrajectoryIterator, 101 frames, include:</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">set_cpptraj_verbose</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@C,N,O,H&#39;</span><span class="p">)</span>
+<span class="gr">Out[5]: </span>
+<span class="go">array([ 8.07043673,  7.98768339,  8.51659688, ...,  6.48010632,</span>
+<span class="go">        6.31018946,  6.67753352])</span>
+</pre></div>
 </div>
 </div>
 
@@ -68,15 +86,15 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="misc.html"
-                        title="previous chapter">Misc</a></p>
+  <p class="topless"><a href="cookbook.html"
+                        title="previous chapter">Cookbook</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="tips.html"
-                        title="next chapter">Tips</a></p>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">API reference</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/cookbook.txt"
+      <li><a href="_sources/tips.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -107,12 +125,13 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="tips.html" title="Tips"
+          <a href="api.html" title="API reference"
              >next</a> |</li>
         <li class="right" >
-          <a href="misc.html" title="Misc"
+          <a href="cookbook.html" title="Cookbook"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="cookbook.html" >Cookbook</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

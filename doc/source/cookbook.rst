@@ -1,3 +1,8 @@
+.. _cookbook:
+
 Cookbook
 ========
-tips
+
+.. toctree::
+    
+    tips

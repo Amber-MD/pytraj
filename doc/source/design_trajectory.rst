@@ -1,9 +1,18 @@
+.. _design_trajectory:
+
 Trajectory design
 =================
 
+.. ipython:: python
+    :suppress:
+
+    import pytraj as pt
+    traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+
 .. currentmodule:: pytraj
 
-**Why does pytraj have two Trajectory classes?**
+Why does pytraj have two Trajectory classes?
+--------------------------------------------
 
 Regular MD simulation usually produce GB to TB data. So loading all the data
 to memory is not really a good choice. So we first design `TrajectoryIterator`
@@ -33,5 +42,18 @@ coordinates don't apply to `TrajectoryIterator`
     pt.rmsd(traj, ref=0, mask='@CA')
     mem_traj = traj[[1, 3, 5], '@CA']
     pt.rmsd(mem_traj, ref=0) 
+
+Advantages of TrajectoryIterator
+--------------------------------
+
+* immutable (like python's tuple)
+* use very little RAM
+* still randomly access frame/frames
+.. ipython:: python
+    
+    traj
+    traj[0]
+    traj[[0, 3, 88]]
+    traj[0:40:2]
 
 (to be continued)

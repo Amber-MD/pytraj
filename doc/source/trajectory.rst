@@ -18,7 +18,7 @@ Overview
 
 Why are there two trajectory classes?
 -------------------------------------
-`See our rationale here <design_trajectory>`_
+See our rationale here :ref:`design_trajectory`
 
 .. ipython:: python
 
@@ -29,7 +29,7 @@ Why are there two trajectory classes?
 
 pytraj is able to detect single file (mol2, pdb) to load as TrajectoryIterator.
 
-.. :: python
+::
 
     >>> pt.iterload('my_pdb.pdb') 
     >>> pt.iterload('your_mol2.mol2') 
