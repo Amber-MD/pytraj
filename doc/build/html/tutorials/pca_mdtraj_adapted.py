@@ -17,7 +17,7 @@ from sklearn.decomposition import PCA
 # we use `load` method to load all data to memory. This is good for small data size.
 # use `pytraj.iterload` for out-of-core traj.
 
-traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+traj = pt.load('data/tz2.nc', 'data/tz2.parm7')
 traj
 
 
