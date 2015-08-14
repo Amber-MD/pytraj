@@ -15,7 +15,7 @@ import scipy.cluster.hierarchy
 # In[5]:
 
 # load data
-traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
+traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
 traj
 
 
