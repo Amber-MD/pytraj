@@ -3,7 +3,6 @@ Analysis
 
 .. toctree::
 
-    :maxdepth: 1
     nucleic_acid
 
 .. autofunction:: pytraj.bfactors 

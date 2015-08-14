@@ -9,8 +9,8 @@
     import numpy as np
     np.set_printoptions(precision=4, suppress=True)
 
-Welcome to pytraj's documentation - nothing to see yet!
-=======================================================
+Welcome to pytraj's documentation - not completed yet
+=====================================================
 
 **Overview**
 
@@ -26,7 +26,6 @@ Welcome to pytraj's documentation - nothing to see yet!
    basic_examples
    tutorials/index
    trajectory
-   design_trajectory
    read_and_write
    analysis
    modify_traj

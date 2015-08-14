@@ -1,7 +1,7 @@
 .. _trajectoryiterator:
 
-pytraj.TrajectoryIterator module
-================================
+pytraj.TrajectoryIterator
+=========================
 
 .. currentmodule:: pytraj
 .. automethod:: TrajectoryIterator.load
