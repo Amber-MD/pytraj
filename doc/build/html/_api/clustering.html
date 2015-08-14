@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorials &mdash; pytraj 0.1.2.dev5 documentation</title>
+    <title>Cluster Analysis &mdash; pytraj 0.1.2.dev5 documentation</title>
     
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,9 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="../index.html" />
-    <link rel="next" title="Tutorials adapted from mdtraj" href="mdtraj_adapted_cluster.html" />
-    <link rel="prev" title="Basic examples" href="../basic_examples.html" /> 
+    <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="../index.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -37,12 +35,6 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="mdtraj_adapted_cluster.html" title="Tutorials adapted from mdtraj"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="../basic_examples.html" title="Basic examples"
-             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -52,13 +44,21 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="tutorials">
-<h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="mdtraj_adapted_cluster.html">Tutorials adapted from <code class="docutils literal"><span class="pre">mdtraj</span></code></a></li>
-</ul>
+  <div class="section" id="cluster-analysis">
+<span id="clustering"></span><h1>Cluster Analysis<a class="headerlink" href="#cluster-analysis" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="pytraj.cluster.kmeans">
+<code class="descclassname">pytraj.cluster.</code><code class="descname">kmeans</code><span class="sig-paren">(</span><em>traj=None</em>, <em>n_clusters=10</em>, <em>random_point=True</em>, <em>kseed=1</em>, <em>maxit=100</em>, <em>distance_metric='rms'</em>, <em>mask='*'</em>, <em>top=None</em>, <em>output_op=''</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.cluster.kmeans" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.cluster</span> <span class="kn">import</span> <span class="n">kmeans</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mask</span><span class="s">&#39;=&#39;</span><span class="nd">@CA</span><span class="s">&#39;)</span>
+</pre></div>
 </div>
+</dd></dl>
+
+<hr class="docutils" />
 </div>
 
 
@@ -67,16 +67,10 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="../basic_examples.html"
-                        title="previous chapter">Basic examples</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="mdtraj_adapted_cluster.html"
-                        title="next chapter">Tutorials adapted from <code class="docutils literal"><span class="pre">mdtraj</span></code></a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/tutorials/index.txt"
+      <li><a href="../_sources/_api/clustering.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -106,12 +100,6 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="mdtraj_adapted_cluster.html" title="Tutorials adapted from mdtraj"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="../basic_examples.html" title="Basic examples"
-             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
       </ul>
     </div>
