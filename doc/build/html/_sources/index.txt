@@ -40,6 +40,7 @@ Welcome to pytraj's documentation - not completed yet
 
 
 **Simple code**
+(`longer version <simple_code_extended>`_)
 
 .. ipython:: python
 
