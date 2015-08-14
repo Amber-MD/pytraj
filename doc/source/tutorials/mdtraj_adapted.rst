@@ -12,3 +12,13 @@ Original tutorial is from `here <http://mdtraj.org/latest/examples/clustering.ht
 
 .. notebook:: data/clustering_mdtraj_adapted.ipynb
    :skip_exceptions:
+
+Principal component analysis with sklearn
+-----------------------------------------
+
+Original tutorial is from `here <http://mdtraj.org/latest/examples/pca.html>`_
+
+.. note:: cpptraj (then pytraj) has PCA analysis. Doc is coming soon.
+
+.. notebook:: data/pca_mdtraj_adapted.ipynb
+   :skip_exceptions:
