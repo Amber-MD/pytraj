@@ -117,8 +117,10 @@ def _frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
         i += stride
 
 def _frame_iter_master(obj):
-    """try to return frame iterator object
+    """try to return a frame iterator
 
+    Parameters
+    ----------
     obj : could be Trajectory, TrajectoryIterator, TrajinList, frame_iter object
           could be a list of trajs, ...
 
