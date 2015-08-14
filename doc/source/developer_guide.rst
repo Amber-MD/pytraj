@@ -17,15 +17,47 @@ Add new method to pytraj
 ------------------------
 Check ``pytraj.common_actions`` for example.
 
+Write your code for pytraj's parallel pmap
+------------------------------------------
+
+.. code-block:: python
+ 
+    def new_method(traj, ...):
+        #  make sure to use frame iterator like below
+        for frame in traj:
+            do_something_cool_with_frame
+        return something_you_want
+
+    # that's it. Now you can plug your method to ``pytraj.pmap``
+    from pytraj import pmap
+    pmap(n_cores=4, func=new_method, traj=traj, ...)
+
+if you don't want to write code for `pmap`, just tag it with `noparallel` decorator
+
+.. code-block:: python
+    
+    from pytraj.decorators import noparallel
+
+    @noparallel
+    def new_method(...):
+        ...
+
 Test your code
 --------------
 New method, new change must have testing code.
 
-Currently, all testing codes are in ``pytraj/tests/`` folder. 
-We can use ``cp template_unittest.py test_new_method_name_example.py``. 
-To run all tests, ``python ./run_all_and_find_fails.py``. 
-To run tests having specific keywords ``python ./run_tests_with_keyword.py your_key_word``. 
-Outputs from test scripts are saved to ``output.txt`` and error status is saved to ``log`` file.
+Currently, all testing codes are in **pytraj/tests/** folder. 
+
+.. code-block:: bash
+
+    # We can use
+    $ cp template_unittest.py test_new_method_name_example.py
+    # To run all tests
+    $ python ./run_all_and_find_fails.py
+    # To run tests having specific keywords 
+    $ python ./run_tests_with_keyword.py your_key_word
+
+Outputs from test scripts are saved to **output.txt** and error status is saved to **log** file.
 
 The script ``./run_all_and_find_fails.py`` only look for file starting with ``test_`` and having key word ``unittest``. Check ``tests/get_unittest_files.py`` for further detail.
 
@@ -41,6 +73,16 @@ Licence info
 
 Build doc
 ---------
+
+.. note:: make sure to install pytraj, cpptraj, numpy, ipython
+
+.. code-block:: bash
+    
+    $ git clone https://github.com/Amber-MD/pytraj
+    $ cd pytraj
+    $ git checkout gh-pages
+    $ cd doc
+    $ make html
 
 cython
 ------

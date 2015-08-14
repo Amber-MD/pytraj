@@ -69,14 +69,41 @@ We put all common stuff in <a class="reference external" href="https://github.co
 <h2>Add new method to pytraj<a class="headerlink" href="#add-new-method-to-pytraj" title="Permalink to this headline">¶</a></h2>
 <p>Check <code class="docutils literal"><span class="pre">pytraj.common_actions</span></code> for example.</p>
 </div>
+<div class="section" id="write-your-code-for-pytraj-s-parallel-pmap">
+<h2>Write your code for pytraj&#8217;s parallel pmap<a class="headerlink" href="#write-your-code-for-pytraj-s-parallel-pmap" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">new_method</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+    <span class="c">#  make sure to use frame iterator like below</span>
+    <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+        <span class="n">do_something_cool_with_frame</span>
+    <span class="k">return</span> <span class="n">something_you_want</span>
+
+<span class="c"># that&#39;s it. Now you can plug your method to ``pytraj.pmap``</span>
+<span class="kn">from</span> <span class="nn">pytraj</span> <span class="kn">import</span> <span class="n">pmap</span>
+<span class="n">pmap</span><span class="p">(</span><span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">new_method</span><span class="p">,</span> <span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>if you don&#8217;t want to write code for <cite>pmap</cite>, just tag it with <cite>noparallel</cite> decorator</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pytraj.decorators</span> <span class="kn">import</span> <span class="n">noparallel</span>
+
+<span class="nd">@noparallel</span>
+<span class="k">def</span> <span class="nf">new_method</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="test-your-code">
 <h2>Test your code<a class="headerlink" href="#test-your-code" title="Permalink to this headline">¶</a></h2>
 <p>New method, new change must have testing code.</p>
-<p>Currently, all testing codes are in <code class="docutils literal"><span class="pre">pytraj/tests/</span></code> folder.
-We can use <code class="docutils literal"><span class="pre">cp</span> <span class="pre">template_unittest.py</span> <span class="pre">test_new_method_name_example.py</span></code>.
-To run all tests, <code class="docutils literal"><span class="pre">python</span> <span class="pre">./run_all_and_find_fails.py</span></code>.
-To run tests having specific keywords <code class="docutils literal"><span class="pre">python</span> <span class="pre">./run_tests_with_keyword.py</span> <span class="pre">your_key_word</span></code>.
-Outputs from test scripts are saved to <code class="docutils literal"><span class="pre">output.txt</span></code> and error status is saved to <code class="docutils literal"><span class="pre">log</span></code> file.</p>
+<p>Currently, all testing codes are in <strong>pytraj/tests/</strong> folder.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># We can use</span>
+<span class="nv">$ </span>cp template_unittest.py test_new_method_name_example.py
+<span class="c"># To run all tests</span>
+<span class="nv">$ </span>python ./run_all_and_find_fails.py
+<span class="c"># To run tests having specific keywords</span>
+<span class="nv">$ </span>python ./run_tests_with_keyword.py your_key_word
+</pre></div>
+</div>
+<p>Outputs from test scripts are saved to <strong>output.txt</strong> and error status is saved to <strong>log</strong> file.</p>
 <p>The script <code class="docutils literal"><span class="pre">./run_all_and_find_fails.py</span></code> only look for file starting with <code class="docutils literal"><span class="pre">test_</span></code> and having key word <code class="docutils literal"><span class="pre">unittest</span></code>. Check <code class="docutils literal"><span class="pre">tests/get_unittest_files.py</span></code> for further detail.</p>
 <p>We&#8217;re really happy to accept PR to update test, using <a class="reference external" href="https://nose.readthedocs.org/en/latest/">nosetests</a>, <a class="reference external" href="http://pytest.org/latest/">pytest</a> or whatever reasonable.</p>
 </div>
@@ -90,6 +117,17 @@ Outputs from test scripts are saved to <code class="docutils literal"><span clas
 </div>
 <div class="section" id="build-doc">
 <h2>Build doc<a class="headerlink" href="#build-doc" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">make sure to install pytraj, cpptraj, numpy, ipython</p>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/Amber-MD/pytraj
+<span class="nv">$ </span><span class="nb">cd </span>pytraj
+<span class="nv">$ </span>git checkout gh-pages
+<span class="nv">$ </span><span class="nb">cd </span>doc
+<span class="nv">$ </span>make html
+</pre></div>
+</div>
 </div>
 <div class="section" id="cython">
 <h2>cython<a class="headerlink" href="#cython" title="Permalink to this headline">¶</a></h2>
@@ -115,6 +153,7 @@ Outputs from test scripts are saved to <code class="docutils literal"><span clas
 <li><a class="reference internal" href="#python-style-guide">Python style guide</a></li>
 <li><a class="reference internal" href="#python-2-and-3-compat">Python 2 and 3 compat</a></li>
 <li><a class="reference internal" href="#add-new-method-to-pytraj">Add new method to pytraj</a></li>
+<li><a class="reference internal" href="#write-your-code-for-pytraj-s-parallel-pmap">Write your code for pytraj&#8217;s parallel pmap</a></li>
 <li><a class="reference internal" href="#test-your-code">Test your code</a></li>
 <li><a class="reference internal" href="#external-codes">External codes</a></li>
 <li><a class="reference internal" href="#licence-info">Licence info</a></li>
