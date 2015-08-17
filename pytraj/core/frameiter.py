@@ -38,6 +38,8 @@ class FrameIter(object):
 
     @property
     def __name__(self):
+        '''for inspecting
+        '''
         return "FrameIter"
 
     def __str__(self):
@@ -52,6 +54,21 @@ class FrameIter(object):
 
     def __repr__(self):
         return self.__str__()
+
+    @property
+    def xyz(self):
+        '''get coordinates with memory efficiency
+
+        Notes
+        -----
+        iterator will be exhausted.
+        '''
+        import numpy as np
+        xyz = np.empty((self.n_frames, self.top.n_atoms, 3), dtype='f8')
+
+        for idx, frame in enumerate(self):
+            xyz[idx] = frame.xyz
+        return xyz
 
     def save(self, filename='', format='unknown_traj', 
             overwrite=False,
