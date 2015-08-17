@@ -641,10 +641,11 @@ def randomize_ions(traj=Frame(), command="", top=Topology()):
     top : Topology instance, default=Topology()
 
     """
+    from pytraj.actions.CpptrajActions import Action_RandomizeIons
     if not isinstance(command, string_types):
         command = to_cpptraj_atommask(command)
     _noaction_with_TrajectoryIterator(traj)
-    act = adict['randomizeions']
+    act = Action_RandomizeIons()
     act(command, traj, top)
 
 
