@@ -74,9 +74,6 @@ class Test(unittest.TestCase):
         print('mindist')
         run_docstring(pt.mindist)
 
-        from pytraj.cluster import kmeans
-        run_docstring(kmeans)
-
 
 if __name__ == "__main__":
     unittest.main()

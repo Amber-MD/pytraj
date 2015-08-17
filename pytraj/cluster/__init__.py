@@ -24,7 +24,7 @@ def kmeans(traj=None,
     >>> from pytraj.cluster import kmeans
     >>> kmeans(traj)
     >>> kmeans(traj, n_clusters=5)
-    >>> kmeans(traj, n_clusters=5, mask='@CA')
+    >>> kmeans(traj, n_clusters=5, mask'='@CA')
     '''
 
     # don't need to _get_top
