@@ -381,7 +381,7 @@ class Trajectory(ActionTrajectory):
                 # use scipy to guess netcdf
                 from scipy import io
                 fh = io.netcdf_file(filename, mmap=False)
-                self.append_xyz(fh.variables['coordinates'].data)
+                self.append_xyz(fh.variables['coordinates'].data.astype('f8'))
             except (ImportError, TypeError):
                 from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
                 ts = TrajectoryCpptraj()
