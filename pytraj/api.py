@@ -2,7 +2,6 @@ from __future__ import absolute_import
 from .utils import _import_numpy
 from .core.Box import Box
 from .Frame import Frame
-from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from .utils.check_and_assert import is_int, is_frame_iter, is_mdtraj
 from .utils.check_and_assert import is_word_in_class_name
 from .externals.six import string_types
@@ -10,7 +9,6 @@ from .externals.six.moves import range
 from .AtomMask import AtomMask
 # need to move this method to more correct module
 from ._get_common_objects import _get_top
-from ._action_in_traj import ActionTrajectory
 from .Topology import Topology
 from ._shared_methods import _savetraj, _frame_iter_master, _frame_iter
 from ._fast_iter import _fastiter
@@ -389,8 +387,8 @@ class Trajectory(object):
                 fh = io.netcdf_file(filename, mmap=False)
                 self.append_xyz(fh.variables['coordinates'].data.astype('f8'))
             except (ImportError, TypeError):
-                from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
-                ts = TrajectoryCpptraj()
+                from pytraj.TrajectoryIterator import TrajectoryIterator
+                ts = TrajectoryIterator()
                 ts.top = self.top.copy()
                 ts.load(filename)
                 if indices is None:

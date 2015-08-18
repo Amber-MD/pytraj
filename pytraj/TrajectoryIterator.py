@@ -6,13 +6,13 @@ Trajin_Single)
 from __future__ import absolute_import
 import warnings
 import os
-from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
-from pytraj._action_in_traj import ActionTrajectory
-from pytraj.compat import string_types, range
-from pytraj._shared_methods import _tolist, _split_and_write_traj
-from pytraj.Topology import Topology
-from pytraj.utils import is_int
-from pytraj._cyutils import get_positive_idx
+from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
+from ._action_in_traj import ActionTrajectory
+from .compat import string_types, range
+from ._shared_methods import _tolist, _split_and_write_traj
+from .Topology import Topology
+from .utils import is_int
+from ._cyutils import get_positive_idx
 
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
