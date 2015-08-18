@@ -109,18 +109,18 @@ def _get_reference_from_traj(traj, ref):
     from pytraj.utils import is_int
     if is_int(ref):
         try:
-            return traj[ref]
+            return traj[ref].copy()
         except IndexError:
             raise IndexError("%s does not support indexing" % traj.__str__())
     elif ref is None:
         try:
-            return traj[0]
+            return traj[0].copy()
         except IndexError:
             raise IndexError("%s does not support indexing" % traj.__str__())
     elif isinstance(ref, string_types):
         raise ValueError("must a an integer or a Frame")
     elif 'Trajectory' in ref.__class__.__name__:
         assert ref.n_frames == 1, "only support 1-frame Trajectory as reference"
-        return ref[0]
+        return ref[0].copy()
     else:
         return ref

@@ -3,8 +3,8 @@ from memory_profiler import profile
 
 @profile
 def test():
-    fname = '../data/nogit/remd/remd.x.000'
-    topname = '../data/nogit/remd/myparm.parm7'
+    fname = 'data/nogit/remd/remd.x.000'
+    topname = 'data/nogit/remd/myparm.parm7'
     traj = pt.api.Trajectory(fname, top=topname)
     print(traj.xyz.dtype)
 
@@ -16,4 +16,14 @@ def test():
     pt.rmsd(traj, mask='@CA')
     pt.multidihedral(traj)
 
-test()
+@profile
+def test_fastiter():
+    fname = 'data/nogit/remd/remd.x.000'
+    topname = 'data/nogit/remd/myparm.parm7'
+    t0 = pt.load(fname, topname)
+    traj = pt.api.Trajectory(t0)
+    for f in traj:
+        print(f.box)
+
+#test()
+test_fastiter()

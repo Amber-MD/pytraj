@@ -13,13 +13,14 @@ from ._get_common_objects import _get_top
 from ._action_in_traj import ActionTrajectory
 from .Topology import Topology
 from ._shared_methods import _savetraj, _frame_iter_master, _frame_iter
+from ._fast_iter import _fastiter
 
 _, np = _import_numpy()
 
 __all__ = ['Trajectory']
 
 
-class Trajectory(ActionTrajectory):
+class Trajectory(object):
 
     def __init__(self, filename_or_iterable=None, top=None, xyz=None, indices=None):
         """
@@ -153,11 +154,16 @@ class Trajectory(ActionTrajectory):
     def __iter__(self):
         """return a Frame view"""
 
-        for i, xyz in enumerate(self._xyz):
-            frame = Frame(self.n_atoms, xyz, _as_ptr=True)
-            if self._boxes is not None:
+        if self._boxes is None:
+            for frame in _fastiter(self, self.n_atoms):
+                yield frame
+        else:
+            for i, frame in enumerate(self._fastiter()):
                 frame.box = Box(self._boxes[i])
-            yield frame
+                yield frame
+
+    def _fastiter(self):
+        return _fastiter(self, self.n_atoms)
 
     def __getitem__(self, idx):
         """return a copy of Frame object"""
@@ -561,9 +567,11 @@ class Trajectory(ActionTrajectory):
             raise ValueError("mask must be string or AtomMask object")
 
         for idx, frame in enumerate(self):
+            print(frame)
             _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
+            print(frame, mat, v1, v2)
             frame.trans_rot_trans(v1, mat, v2)
-            self._xyz[idx] = frame.xyz
+            #self._xyz[idx] = frame.xyz
 
     def _allocate(self, n_frames, n_atoms):
         self._xyz = np.empty((n_frames, n_atoms, 3))

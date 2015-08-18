@@ -60,5 +60,8 @@ class Test(unittest.TestCase):
         except ImportError:
             pass
 
+        # test rmsfit
+        api_t0.rmsfit(0)
+
 if __name__ == "__main__":
     unittest.main()
