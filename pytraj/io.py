@@ -198,7 +198,7 @@ def load_traj(filename=None, top=None, indices=None, engine='pytraj', *args, **k
     if engine == 'pytraj':
         from .Topology import Topology
         from .TrajectoryIterator import TrajectoryIterator
-        from .Trajectory import Trajectory
+        from .api import Trajectory
 
         if not isinstance(top, Topology):
             top = Topology(top)

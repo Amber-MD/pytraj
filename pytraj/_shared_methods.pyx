@@ -2,7 +2,7 @@
 #
 cimport cython
 from pytraj.Frame cimport _Frame, Frame
-from pytraj.Trajectory cimport Trajectory
+from pytraj.trajs.Trajectory cimport Trajectory
 from pytraj.AtomMask cimport AtomMask
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types

@@ -101,6 +101,11 @@ class Trajectory(object):
     def xyz(self):
         return self._xyz
 
+    def reverse(self):
+        self._xyz = self._xyz[::-1]
+        if self._boxes is not None:
+            self._boxes = self._boxes[::-1]
+
     @xyz.setter
     def xyz(self, values):
         if self.shape[1]:

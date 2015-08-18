@@ -1,6 +1,6 @@
 # distutils: language = c++
 from ..api import Trajectory
-from ..Trajectory cimport Trajectory as _Trajectory
+from ..trajs.Trajectory cimport Trajectory as _Trajectory
 from ..AtomMask cimport AtomMask
 from ..Topology cimport Topology
 
