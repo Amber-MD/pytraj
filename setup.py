@@ -123,6 +123,7 @@ extra_compile_args=['-O0', '-ggdb']
 extra_link_args=['-O0', '-ggdb']
 
 openmp_str = "openmp"
+print(sys.argv)
 if openmp_str in sys.argv:
     # python ./setup.py build openmp
     # make sure to update Makefile in $AMBERHOME/AmberTools/src
@@ -142,7 +143,7 @@ try  "python ./setup.py build faster_build
 then "python ./setup.py install" 
 """
 
-faster_build_str = "faster_build"
+faster_build_str = "faster"
 if faster_build_str in sys.argv:
     # try using multiple cores
     faster_build = True
