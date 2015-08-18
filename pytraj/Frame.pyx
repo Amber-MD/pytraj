@@ -121,11 +121,10 @@ cdef class Frame (object):
                 else:
                     raise ValueError()
             else:
+                # create Frame as a view.
                 natom = args[0]
                 view = args[1]
                 self.thisptr = new _Frame(natom, &view[0, 0])
-
-        #self.py_free_mem = not _as_ptr
 
     def __dealloc__(self):
         if self.py_free_mem and self.thisptr:

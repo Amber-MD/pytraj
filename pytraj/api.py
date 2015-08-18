@@ -151,18 +151,7 @@ class Trajectory(ActionTrajectory):
         return n_frames
 
     def __iter__(self):
-        """return a copy of Frame object"""
-
-        for i in range(self._xyz.shape[0]):
-            frame = Frame(self.n_atoms)
-            frame[:] = self._xyz[i]
-            if self._boxes is not None:
-                frame.box = Box(self._boxes[i])
-            self._life_holder = frame
-            yield self._life_holder
-
-    def _iter_new_constructor(self):
-        """return a copy of Frame object"""
+        """return a Frame view"""
 
         for i, xyz in enumerate(self._xyz):
             frame = Frame(self.n_atoms, xyz, _as_ptr=True)
@@ -173,10 +162,9 @@ class Trajectory(ActionTrajectory):
     def __getitem__(self, idx):
         """return a copy of Frame object"""
         if is_int(idx):
-            # return a single Frame
+            # return a single Frame as a view
             arr0 = self._xyz[idx]
-            frame = Frame(self.n_atoms)
-            frame[:] = arr0
+            frame = Frame(self.n_atoms, arr0, _as_ptr=True)
             if self._boxes is not None:
                 frame.box = Box(self._boxes[idx])
             self._life_holder = frame

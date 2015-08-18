@@ -122,7 +122,7 @@ for p in pxd_include_dirs:
 extra_compile_args=['-O0', '-ggdb']
 extra_link_args=['-O0', '-ggdb']
 
-openmp_str = "-openmp"
+openmp_str = "openmp"
 if openmp_str in sys.argv:
     # python ./setup.py build openmp
     # make sure to update Makefile in $AMBERHOME/AmberTools/src
@@ -138,11 +138,11 @@ if with_openmp:
 
 KeyErrorTXT = """
 Can not use -faster_build with `install`,
-try  "python ./setup.py build -faster_build
+try  "python ./setup.py build faster_build
 then "python ./setup.py install" 
 """
 
-faster_build_str = "-faster_build"
+faster_build_str = "faster_build"
 if faster_build_str in sys.argv:
     # try using multiple cores
     faster_build = True
@@ -277,6 +277,7 @@ if __name__ == "__main__":
     else:
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
+        print('number of available cpus = %s' % n_cpus)
         num_each = int(len(ext_modules)/n_cpus)
 
         sub_ext_modules_list = []
