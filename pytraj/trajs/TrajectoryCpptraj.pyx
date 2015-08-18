@@ -1,5 +1,6 @@
 # distutils: language = c++
-from ..Trajectory cimport Trajectory
+from ..api import Trajectory
+from ..Trajectory cimport Trajectory as _Trajectory
 from ..AtomMask cimport AtomMask
 from ..Topology cimport Topology
 
@@ -231,7 +232,7 @@ cdef class TrajectoryCpptraj:
         cdef int n_chunk, i, j, _stop
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms
-        cdef Trajectory farray
+        cdef _Trajectory farray
         cdef Frame frame
 
         # check `start`
@@ -335,7 +336,6 @@ cdef class TrajectoryCpptraj:
          # allocate frame for storing data
          cdef Frame frame0
          cdef Frame frame = Frame(self.top.n_atoms)
-         cdef Trajectory farray
          cdef int start, stop, step
          cdef int i
          cdef int idx_1, idx_2
@@ -354,59 +354,21 @@ cdef class TrajectoryCpptraj:
              self.tmpfarray = _farray
              # hold _farray in self.tmpfarray to avoid memory lost
              return self.tmpfarray
-
          elif isinstance(idxs, string_types):
              # mimic API of MDtraj
-             if idxs == 'coordinates':
-                 return self[:, :, :]
-             elif idxs == 'topology':
-                 return self.top
-             else:
-                 # return array with given mask
-                 # traj[':@CA']
-                 # traj[':@CA :frame']
-                 # use `mask` to avoid confusion
-                 mask = idxs
-                 try:
-                     return self[self.top(mask)]
-                 except:
-                     txt = "not supported keyword `%s`" % idxs
-                     raise NotImplementedError(txt)
-
+             # return array with given mask
+             # traj[':@CA']
+             # traj[':@CA :frame']
+             # use `mask` to avoid confusion
+             mask = idxs
+             try:
+                 return self[self.top(mask)]
+             except:
+                 txt = "not supported keyword `%s`" % idxs
+                 raise NotImplementedError(txt)
          elif isinstance(idxs, slice):
-             # idxs is slice
-             farray = Trajectory()
-             # NOTE: MUST make a copy self.top
-             # if NOT: double-free memory when using `_fast_strip_atoms`
-             #farray.top = self.top
-             farray.top = self.top.copy()
-     
-             # check comment in Trajectory class with __getitem__ method
-             start, stop, step = idxs.indices(self.size)
-     
-             with self:
-                 if start > stop and (step < 0):
-                     # traj[:-1:-3]
-                     is_reversed = True
-                     # see comment in Trajectory (__getitem__)
-                     start, stop = stop + 1, start + 1
-                     step *= -1
-                 else:
-                     is_reversed = False
-     
-                 for frame in self.frame_iter(start, stop, step):
-                     # add '-1' to stop 
-                     # in `frame_iter`, we include `stop`
-                     # but for slicing, python does not include stop
-                     # always use `copy=True` since we are taking frames from 
-                     # read-only Trajectory, no memview
-                     farray.append(frame, copy=True)
-     
-                 if is_reversed:
-                     # reverse vector if using negative index slice
-                     # traj[:-1:-3]
-                     farray.reverse()
-             return farray
+             start, stop, stride = idxs.indices(self.n_frames)
+             return self._to_np_traj_fast(start, stop, stride)
          else:
              # not is a slice
              if idxs == ():
@@ -454,7 +416,10 @@ cdef class TrajectoryCpptraj:
                          if idxs[i] == True:
                              farray.append(self[i], copy=True)
                  else:
-                      farray.get_frames(from_traj=self, indices=idxs, update_top=True)
+                     # TODO: make it fast
+                     farray.top = self.top
+                     for i in idxs:
+                         farray.append(self[i])
 
                  self.tmpfarray = farray
                  return self.tmpfarray
@@ -475,7 +440,7 @@ cdef class TrajectoryCpptraj:
         cdef int start, stop, step
         cdef int count
         cdef int n_atoms = self.n_atoms
-        cdef Trajectory farray = Trajectory(check_top=False)
+        cdef _Trajectory farray = _Trajectory(check_top=False)
         cdef _Frame* _frame_ptr
 
         # NOTE: MUST make a copy self.top
@@ -503,19 +468,11 @@ cdef class TrajectoryCpptraj:
     def unitcells(self):
         return _box(self)
 
-    def to_mutable_traj(self):
-        '''same as self[:] but more explicit'''
-        return self[:]
-
     @property
     def xyz(self):
         '''return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
         '''
-        # xyz = traj.xyz[:]
-        # xyz += 1.
-        # print (xyz[0, 0])
-        # print (traj.xyz[0, 0])
         return _xyz(self)
 
     @property

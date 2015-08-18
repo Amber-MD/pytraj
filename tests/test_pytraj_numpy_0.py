@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
 from pytraj.base import *
 from pytraj import adict
@@ -53,8 +54,8 @@ class Test(unittest.TestCase):
         assert count == traj.n_frames
 
     def test_calc(self):
-        arr0 = fa.calc_radgyr()
-        arr1 = traj.calc_radgyr()
+        arr0 = pt.radgyr(fa)
+        arr1 = pt.radgyr(traj)
         assert_almost_equal(arr0, arr1)
 
     def test_frame_iter(self):
@@ -97,6 +98,7 @@ class Test(unittest.TestCase):
         print(trajread.top)
         traj.top = trajread.top.copy()
         traj.load(fnames[0])
+        traj.xyz = traj.xyz.astype('f8')
         print ('traj', traj)
         traj2.top = traj.top
         traj2.append(traj)
@@ -104,7 +106,7 @@ class Test(unittest.TestCase):
         assert traj.n_frames == trajread.n_frames == traj2.n_frames == 10
 
         print ("print trajecetories")
-        print (traj, traj2, trajread)
+        print (type(traj.xyz), type(traj2.xyz), trajread)
         for f0, f1, f2 in izip(traj, traj2, trajread):
             assert f0.same_coords_as(f1) == True
             assert f0.same_coords_as(f2) == True

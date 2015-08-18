@@ -499,20 +499,12 @@ class Trajectory(object):
 
             for idx, frame in enumerate(self):
                 act.do_action(frame)
-                self._xyz[idx] = frame.xyz[:]
 
     def rotate(self, *args, **kwd):
         import pytraj.common_actions as pyca
 
         for idx, frame in enumerate(self):
             pyca.rotate(frame, top=self.top, *args, **kwd)
-            self.xyz[idx] = frame.xyz
-
-    def rotate_dihedral(self, *args, **kwd):
-        import pytraj.common_actions as pyca
-
-        for idx, frame in enumerate(self):
-            pyca.rotate_dihedral(frame, top=self.top, *args, **kwd)
             self.xyz[idx] = frame.xyz
 
     @property
@@ -569,7 +561,6 @@ class Trajectory(object):
             _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
             print(frame, mat, v1, v2)
             frame.trans_rot_trans(v1, mat, v2)
-            #self._xyz[idx] = frame.xyz
 
     def _allocate(self, n_frames, n_atoms):
         self._xyz = np.empty((n_frames, n_atoms, 3))
@@ -583,6 +574,9 @@ class Trajectory(object):
 
     def save(self, filename="", fmt='unknown', overwrite=True, *args, **kwd):
         _savetraj(self, filename, fmt, overwrite, *args, **kwd)
+
+    def iterframe(self, *args, **kwd):
+        return self.frame_iter(*args, **kwd)
 
     def frame_iter(self, start=0, stop=None, stride=1,
                    mask=None, autoimage=False, rmsfit=None):
