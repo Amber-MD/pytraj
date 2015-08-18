@@ -38,5 +38,27 @@ class Test(unittest.TestCase):
         f0.xyz[0, 0] = 200.
         assert api_t0.xyz[0, 0, 0] == 200.
 
+        # translate
+        # make a new copy
+        api_t0 = pt.api.Trajectory(traj)
+        t0 = traj[:]
+        print(api_t0.xyz[-1, 0])
+        pt.translate(api_t0, 'x 1.2')
+        print(api_t0.xyz[-1, 0])
+        pt.translate(t0, 'x 1.2')
+        aa_eq(api_t0.xyz, t0.xyz)
+
+        try:
+            import mdtraj as md
+            print(md.rmsd(api_t0, api_t0, 0))
+            print(api_t0.xyz[-1, 0])
+            print(t0.xyz[-1, 0])
+            pt.rmsd(t0, 0)
+            pt.rmsd(api_t0, 0)
+            print(api_t0.xyz[-1, 0])
+            print(t0.xyz[-1, 0])
+        except ImportError:
+            pass
+
 if __name__ == "__main__":
     unittest.main()
