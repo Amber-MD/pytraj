@@ -142,7 +142,7 @@ cdef class Topology:
         elif isinstance(idx, string_types):
             # return atom object iterator with given mask
             # self(idx) return AtomMask object
-            alist = [self[i] for i in self(idx)._indices_view]
+            return self._get_new_from_mask(idx)
         elif isinstance(idx, AtomMask):
             atm = <AtomMask> idx
             # return atom object iterator with given mask
