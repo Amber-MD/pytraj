@@ -52,7 +52,7 @@ def _turn_to_list_with_rank(func):
     return inner
 
 
-class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
+class TrajectoryIterator(TrajectoryCpptraj):
 
     def __init__(self, filename=None, top=None, *args, **kwd):
         self._force_load = False
