@@ -488,4 +488,5 @@ cdef class TrajectoryCpptraj:
 
     @property
     def filelist(self):
+        '''return a list of input filenames. Order does matter'''
         return self._filelist
