@@ -196,9 +196,9 @@ cdef class Topology:
 
         Examples
         --------
+        >>> import pytraj as pt
         >>> atm = traj.top.select("@CA")
-        >>> # get new Trajectory with new mask
-        >>> print (traj[atm])
+        >>> pt.rmsd(traj, mask=atm)
 
         Notes
         -----

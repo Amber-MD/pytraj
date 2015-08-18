@@ -2587,7 +2587,7 @@ static char __pyx_k_pytraj_utils_check_and_assert[] = "pytraj.utils.check_and_as
 static char __pyx_k_s_s_atoms_s_residues_s_mols_s[] = "<%s: %s atoms, %s residues, %s mols, %s>";
 static char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
-static char __pyx_k_return_AtomMask_object_Examples[] = "return AtomMask object\n\n        Examples\n        --------\n        >>> atm = traj.top.select(\"@CA\")\n        >>> # get new Trajectory with new mask\n        >>> print (traj[atm])\n\n        Notes\n        -----\n            support openmp for distance-based atommask selction\n        ";
+static char __pyx_k_return_AtomMask_object_Examples[] = "return AtomMask object\n\n        Examples\n        --------\n        >>> import pytraj as pt\n        >>> atm = traj.top.select(\"@CA\")\n        >>> pt.rmsd(traj, mask=atm)\n\n        Notes\n        -----\n            support openmp for distance-based atommask selction\n        ";
 static char __pyx_k_support_only_Topology_object_or[] = "support only Topology object or top filename";
 static char __pyx_k_u1_haichit_pytraj_git_pytraj_py[] = "/u1/haichit/pytraj_git/pytraj/pytraj/Topology.pyx";
 static char __pyx_k_All_dimensions_preceding_dimensi[] = "All dimensions preceding dimension %d must be indexed and not sliced";
@@ -5537,7 +5537,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_28mols(struct __pyx_obj_6p
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_31select(PyObject *__pyx_v_self, PyObject *__pyx_v_mask); /*proto*/
-static char __pyx_doc_6pytraj_8Topology_8Topology_30select[] = "Topology.select(self, mask)\nreturn AtomMask object\n\n        Examples\n        --------\n        >>> atm = traj.top.select(\"@CA\")\n        >>> # get new Trajectory with new mask\n        >>> print (traj[atm])\n\n        Notes\n        -----\n            support openmp for distance-based atommask selction\n        ";
+static char __pyx_doc_6pytraj_8Topology_8Topology_30select[] = "Topology.select(self, mask)\nreturn AtomMask object\n\n        Examples\n        --------\n        >>> import pytraj as pt\n        >>> atm = traj.top.select(\"@CA\")\n        >>> pt.rmsd(traj, mask=atm)\n\n        Notes\n        -----\n            support openmp for distance-based atommask selction\n        ";
 static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_31select(PyObject *__pyx_v_self, PyObject *__pyx_v_mask) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations

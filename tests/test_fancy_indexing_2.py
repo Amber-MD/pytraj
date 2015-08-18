@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj.to_mutable_trajectory()
         xyz = traj.xyz[:]
-        atm = traj.top.select("@CA")
+        atm = traj.top("@CA")
         indices = atm.indices
 
         aa_eq(fa[0, atm], fa[0][atm])
