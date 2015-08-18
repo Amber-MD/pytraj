@@ -635,6 +635,7 @@ cdef class Topology:
         _, np = _import_numpy()
         return np.asarray([b.indices for b in self.dihedrals], dtype=np.int64)
 
+    @property
     def vdw_radii(self):
         import numpy as np
         cdef int n_atoms = self.n_atoms
