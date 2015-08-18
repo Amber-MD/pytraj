@@ -204,7 +204,7 @@ cdef class Topology:
         -----
             support openmp for distance-based atommask selction
         """
-        return self(mask)
+        return self(mask).indices
 
     def atom_iter(self):
         cdef Atom atom
@@ -509,6 +509,7 @@ cdef class Topology:
             marray.append(atom.mass)
         return marray
 
+    @property
     def charge(self):
         import numpy as np
         return np.asarray([x.charge for x in self.atoms])
