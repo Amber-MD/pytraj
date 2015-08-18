@@ -636,6 +636,7 @@ cdef class Topology:
         return np.asarray([b.indices for b in self.dihedrals], dtype=np.int64)
 
     def vdw_radii(self):
+        import numpy as np
         cdef int n_atoms = self.n_atoms
         cdef int i
         cdef pyarray arr = pyarray_master.clone(pyarray('d', []), 
@@ -648,7 +649,7 @@ cdef class Topology:
 
         for i in range(n_atoms):
             d_view[i] = self.thisptr.GetVDWradius(i)
-        return arr
+        return np.asarray(arr)
 
     def to_dataframe(self):
         cdef:
