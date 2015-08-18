@@ -11,6 +11,7 @@ from .AtomMask import AtomMask
 from ._get_common_objects import _get_top
 from .Topology import Topology
 from ._shared_methods import _savetraj, _frame_iter_master, _frame_iter
+from ._shared_methods import my_str_method
 from ._fast_iter import _fastiter
 
 _, np = _import_numpy()
@@ -108,10 +109,7 @@ class Trajectory(object):
         self._xyz = values
 
     def __str__(self):
-        clsname = self.__class__.__name__
-        txt = "<pytraj.api.%s with %s frames, %s atoms>" % (clsname, self.n_frames,
-                                                            self.n_atoms)
-        return txt
+        return my_str_method(self)
 
     def __repr__(self):
         return self.__str__()
@@ -265,13 +263,11 @@ class Trajectory(object):
         return self_cp
 
     def append_xyz(self, xyz):
+        '''append 3D numpy array
+        '''
         # make sure 3D
-        if xyz.ndim == 2:
-            _xyz = np.asarray([xyz])
-        elif xyz.ndim == 3:
-            _xyz = xyz
-        else:
-            raise ValueError("shape mismatch")
+        if xyz.ndim != 3:
+            raise ValueError("ndim must be 3")
 
         if self.shape == (None, None, 3):
             self._xyz = _xyz

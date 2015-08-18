@@ -6,31 +6,31 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cython.parallel cimport prange, parallel
 from libc.string cimport memcpy
-from .Topology cimport Topology
-from .AtomMask cimport AtomMask
-from .Frame cimport Frame
-from .trajs.Trajin cimport Trajin
-from .math.Matrix_3x3 cimport Matrix_3x3
-from .cpp_algorithm cimport iter_swap
+from ..Topology cimport Topology
+from ..AtomMask cimport AtomMask
+from ..Frame cimport Frame
+from ..trajs.Trajin cimport Trajin
+from ..math.Matrix_3x3 cimport Matrix_3x3
+from ..cpp_algorithm cimport iter_swap
 
 # python level
-from ._cyutils import get_positive_idx, _int_array1d_like_to_memview
-from ._set_silent import set_error_silent
-from .trajs.Trajin_Single import Trajin_Single
-from .externals.six import string_types, PY2
-from .utils.check_and_assert import (_import_numpy, is_int, is_frame_iter,
+from .._cyutils import get_positive_idx, _int_array1d_like_to_memview
+from .._set_silent import set_error_silent
+from ..trajs.Trajin_Single import Trajin_Single
+from ..externals.six import string_types, PY2
+from ..utils.check_and_assert import (_import_numpy, is_int, is_frame_iter,
                                      file_exist, is_mdtraj, is_pytraj_trajectory,
                                      is_word_in_class_name,
                                      is_array, is_range)
-from .trajs.Trajout import Trajout
-from ._get_common_objects import _get_top, _get_data_from_dtype
-from ._shared_methods import (_savetraj, _get_temperature_set,
+from ..trajs.Trajout import Trajout
+from .._get_common_objects import _get_top, _get_data_from_dtype
+from .._shared_methods import (_savetraj, _get_temperature_set,
                               _xyz, _tolist, _split_and_write_traj)
-from ._shared_methods import my_str_method, _box
-from ._xyz import XYZ
+from .._shared_methods import my_str_method, _box
+from .._xyz import XYZ
 
-from . import common_actions as pyca
-from .hbonds import search_hbonds
+from .. import common_actions as pyca
+from ..hbonds import search_hbonds
 
 __all__ = ['Trajectory']
 
