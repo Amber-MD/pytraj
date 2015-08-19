@@ -63,6 +63,40 @@
 </ul>
 </div>
 <dl class="function">
+<dt id="pytraj.dssp">
+<code class="descclassname">pytraj.</code><code class="descname">dssp</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.dssp" title="Permalink to this definition">¶</a></dt>
+<dd><p>return dssp profile for frame/traj</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<p><strong>traj</strong> : {Trajectory, Frame, mix of them}</p>
+<p><strong>dtype</strong> : str {&#8216;dataset&#8217;, &#8216;ndarray&#8217;, &#8216;dict&#8217;, &#8216;dataframe&#8217;, &#8216;_dssp_class&#8217;}, default &#8216;ndarray&#8217;</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">(try it)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>0         0       &#8216; &#8216;       None
+b         1       &#8216;E&#8217;       Parallel Beta-sheet
+B         2       &#8216;B&#8217;       Anti-parallel Beta-sheet
+G         3       &#8216;G&#8217;       3-10 helix
+H         4       &#8216;H&#8217;       Alpha helix
+I         5       &#8216;I&#8217;       Pi (3-14) helix
+T         6       &#8216;T&#8217;       Turn
+S         7       &#8216;S&#8217;       Bend</p>
+<p class="rubric">Examples</p>
+<p>calc_dssp(traj, &#8221;:2-10&#8221;, dtype=&#8217;ndarray&#8217;)
+calc_dssp(traj, &#8221;:2-10&#8221;, dtype=&#8217;dict&#8217;)
+calc_dssp(traj, &#8221;:2-10&#8221;, dtype=&#8217;dataframe&#8217;)
+calc_dssp(traj, &#8221;:2-10&#8221;, dtype=&#8217;dataset&#8217;)</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pytraj.bfactors">
 <code class="descclassname">pytraj.</code><code class="descname">bfactors</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>byres=True</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.bfactors" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
