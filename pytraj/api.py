@@ -144,6 +144,10 @@ class Trajectory(object):
             n_frames = 0
         return n_frames
 
+    @property
+    def size(self):
+        return self.n_frames
+
     def __iter__(self):
         """return a Frame view"""
 
