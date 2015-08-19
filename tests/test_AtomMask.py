@@ -83,7 +83,7 @@ class TestAtomMask(unittest.TestCase):
         from pytraj import AtomMask
         # test constructor from list/array/python array
         top = Topology("./data/DOPC.parm7")
-        indices = top.select(":WAT").indices
+        indices = top.select(":WAT")
 
         atm1 = AtomMask(indices)
         atm2 = AtomMask(list(indices))

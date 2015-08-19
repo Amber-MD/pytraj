@@ -38,6 +38,8 @@ class FrameIter(object):
 
     @property
     def __name__(self):
+        '''for inspecting
+        '''
         return "FrameIter"
 
     def __str__(self):

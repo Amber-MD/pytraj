@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
         xyz = f0.xyz
 
         # mask, AtomMask
-        atm = traj.top.select("@CA")
+        atm = traj.top("@CA")
         indices = atm.indices
         mask = '@CA'
         f0.top = traj.top

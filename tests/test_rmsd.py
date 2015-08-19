@@ -142,7 +142,7 @@ class Test(unittest.TestCase):
         arr = traj.rmsd(mask=mask)
         for idx, m in enumerate(mask):
             aa_eq(arr[idx], traj.rmsd(mask=m))
-            aa_eq(arr[idx], traj.rmsd(mask=traj.top.select(m).indices))
+            aa_eq(arr[idx], traj.rmsd(mask=traj.top.select(m)))
 
         mask = ['@CA', '@CB', ':3-18@CA,C', [0, 3, 5]]
         self.assertRaises(ValueError, lambda: traj.rmsd(mask=mask))

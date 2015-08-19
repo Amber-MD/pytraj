@@ -142,7 +142,7 @@ cdef class Topology:
         elif isinstance(idx, string_types):
             # return atom object iterator with given mask
             # self(idx) return AtomMask object
-            alist = [self[i] for i in self(idx)._indices_view]
+            return self._get_new_from_mask(idx)
         elif isinstance(idx, AtomMask):
             atm = <AtomMask> idx
             # return atom object iterator with given mask
@@ -196,15 +196,15 @@ cdef class Topology:
 
         Examples
         --------
+        >>> import pytraj as pt
         >>> atm = traj.top.select("@CA")
-        >>> # get new Trajectory with new mask
-        >>> print (traj[atm])
+        >>> pt.rmsd(traj, mask=atm)
 
         Notes
         -----
             support openmp for distance-based atommask selction
         """
-        return self(mask)
+        return self(mask).indices
 
     def atom_iter(self):
         cdef Atom atom
@@ -509,6 +509,7 @@ cdef class Topology:
             marray.append(atom.mass)
         return marray
 
+    @property
     def charge(self):
         import numpy as np
         return np.asarray([x.charge for x in self.atoms])
@@ -634,7 +635,9 @@ cdef class Topology:
         _, np = _import_numpy()
         return np.asarray([b.indices for b in self.dihedrals], dtype=np.int64)
 
+    @property
     def vdw_radii(self):
+        import numpy as np
         cdef int n_atoms = self.n_atoms
         cdef int i
         cdef pyarray arr = pyarray_master.clone(pyarray('d', []), 
@@ -647,7 +650,7 @@ cdef class Topology:
 
         for i in range(n_atoms):
             d_view[i] = self.thisptr.GetVDWradius(i)
-        return arr
+        return np.asarray(arr)
 
     def to_dataframe(self):
         cdef:

@@ -85,7 +85,15 @@ for traj in tlist:
         # OK
         pt.molsurf(traj(stop=-3, stride=2, autoimage=True, rmsfit=0))
 
+    @profile
+    def test_iter_frame_indices():
+        print('test_iter_frame_indices')
+        for idx, f in enumerate(traj(frame_indices=range(0, traj.n_frames, 3))):
+            pass
+        print(idx)
+
     func_list = [
+        test_iter_frame_indices,
         test_center,
         test_rmsd,
         test_simple_frame_iter,

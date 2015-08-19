@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
 
         # test for last frame
         top.set_reference_frame(traj[-1])
-        indices = top.select(":3@CA <:3.0").indices
+        indices = top.select(":3@CA <:3.0")
 
         saved_indices = np.loadtxt(
             "./data/mask.tz2.dat",
