@@ -137,14 +137,6 @@ class Trajectory(object):
         return self.top.n_atoms
 
     @property
-    def ndim(self):
-        return 3
-
-    @property
-    def size(self):
-        return self.n_frames
-
-    @property
     def n_frames(self):
         try:
             n_frames = self._xyz.shape[0]
@@ -346,7 +338,7 @@ class Trajectory(object):
 
 
     def __call__(self, *args, **kwd):
-        return self.frame_iter(*args, **kwd)
+        return self.iterframe(*args, **kwd)
 
     def _load_new_by_scipy(self, filename):
         from scipy import io
@@ -452,7 +444,7 @@ class Trajectory(object):
             # iterate all datasets and get anything having frame_iter
             dslist = filename
             for _d0 in dslist:
-                if hasattr(_d0, 'frame_iter'):
+                if hasattr(_d0, 'frame_iter') or hasattr(_d0, 'iterframe'):
                     _d0.top = self.top.copy()
                     # don't let _d0 free memory since we use Topology 'view'
                     for frame in _d0.frame_iter():
@@ -516,9 +508,6 @@ class Trajectory(object):
     def unitcells(self, values):
         self._boxes = values
 
-    def update_box(self, box_arr):
-        self._boxes = box_arr
-
     def rmsfit(self, ref=None, mask="*"):
         """do the fitting to reference Frame by rotation and translation
         Parameters
@@ -564,22 +553,29 @@ class Trajectory(object):
             frame.trans_rot_trans(v1, mat, v2)
 
     def _allocate(self, n_frames, n_atoms):
+        '''allocate (n_frames, n_atoms, 3) coordinates
+        '''
         self._xyz = np.empty((n_frames, n_atoms, 3))
 
-    def strip_atoms(self, mask):
-        atm = self.top.select(mask)
+    def strip(self, mask):
+        '''strip atoms with given mask
+
+        Examples
+        --------
+        >>> traj.strip('!@CA') # keep only CA atoms
+        '''
+        # AtomMask
+        atm = self.top(mask)
         atm.invert_mask()
         self.top.strip_atoms(mask)
+
         if self._xyz is not None:
             self._xyz = self._xyz[:, atm.indices]
 
-    def save(self, filename="", fmt='unknown', overwrite=True, *args, **kwd):
-        _savetraj(self, filename, fmt, overwrite, *args, **kwd)
+    def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
+        _savetraj(self, filename, format, overwrite, *args, **kwd)
 
-    def iterframe(self, *args, **kwd):
-        return self.frame_iter(*args, **kwd)
-
-    def frame_iter(self, start=0, stop=None, stride=1,
+    def iterframe(self, start=0, stop=None, stride=1,
                    mask=None, autoimage=False, rmsfit=None):
 
         from pytraj.core.frameiter import FrameIter
@@ -625,6 +621,3 @@ class Trajectory(object):
                          autoimage=autoimage,
                          rmsfit=rmsfit,
                          n_frames=n_frames)
-
-    def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
-        return _frame_iter(self, start, stop, stride, mask)
