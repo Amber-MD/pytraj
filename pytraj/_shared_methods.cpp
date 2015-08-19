@@ -3656,7 +3656,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_6_xyz(CYTHON_UNUSED PyObject
  *     if has_numpy:
  *         for i, frame in enumerate(self):             # <<<<<<<<<<<<<<
  *             myview[i] = frame.buffer2d
- *         return XYZ(myview)
+ *         return myview
  */
     __pyx_t_2 = 0;
     if (likely(PyList_CheckExact(__pyx_v_self)) || PyTuple_CheckExact(__pyx_v_self)) {
@@ -3708,7 +3708,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_6_xyz(CYTHON_UNUSED PyObject
  *     if has_numpy:
  *         for i, frame in enumerate(self):
  *             myview[i] = frame.buffer2d             # <<<<<<<<<<<<<<
- *         return XYZ(myview)
+ *         return myview
  *     else:
  */
       __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_frame), __pyx_n_s_buffer2d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3721,7 +3721,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_6_xyz(CYTHON_UNUSED PyObject
  *     if has_numpy:
  *         for i, frame in enumerate(self):             # <<<<<<<<<<<<<<
  *             myview[i] = frame.buffer2d
- *         return XYZ(myview)
+ *         return myview
  */
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -3729,40 +3729,13 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_6_xyz(CYTHON_UNUSED PyObject
     /* "pytraj/_shared_methods.pyx":61
  *         for i, frame in enumerate(self):
  *             myview[i] = frame.buffer2d
- *         return XYZ(myview)             # <<<<<<<<<<<<<<
+ *         return myview             # <<<<<<<<<<<<<<
  *     else:
  *         raise NotImplementedError("must have numpy")
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_XYZ); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = NULL;
-    if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_3)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_3);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-      }
-    }
-    if (!__pyx_t_3) {
-      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_myview); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_5);
-    } else {
-      __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3); __pyx_t_3 = NULL;
-      __Pyx_INCREF(__pyx_v_myview);
-      __Pyx_GIVEREF(__pyx_v_myview);
-      PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_v_myview);
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    }
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_r = __pyx_t_5;
-    __pyx_t_5 = 0;
+    __Pyx_INCREF(__pyx_v_myview);
+    __pyx_r = __pyx_v_myview;
     goto __pyx_L0;
 
     /* "pytraj/_shared_methods.pyx":58
@@ -3775,7 +3748,7 @@ static PyObject *__pyx_pf_6pytraj_15_shared_methods_6_xyz(CYTHON_UNUSED PyObject
   }
 
   /* "pytraj/_shared_methods.pyx":63
- *         return XYZ(myview)
+ *         return myview
  *     else:
  *         raise NotImplementedError("must have numpy")             # <<<<<<<<<<<<<<
  * 
@@ -18878,7 +18851,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__4);
 
   /* "pytraj/_shared_methods.pyx":63
- *         return XYZ(myview)
+ *         return myview
  *     else:
  *         raise NotImplementedError("must have numpy")             # <<<<<<<<<<<<<<
  * 

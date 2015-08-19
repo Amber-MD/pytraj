@@ -58,7 +58,7 @@ def _xyz(self):
     if has_numpy:
         for i, frame in enumerate(self):
             myview[i] = frame.buffer2d
-        return XYZ(myview)
+        return myview
     else:
         raise NotImplementedError("must have numpy")
 
