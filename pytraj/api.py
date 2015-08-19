@@ -1,5 +1,6 @@
 from __future__ import absolute_import
-from .utils import _import_numpy
+
+import numpy as np
 from .core.Box import Box
 from .Frame import Frame
 from .utils.check_and_assert import is_int, is_frame_iter, is_mdtraj
@@ -14,7 +15,6 @@ from ._shared_methods import _savetraj, _frame_iter_master, _frame_iter
 from ._shared_methods import my_str_method
 from ._fast_iter import _fastiter
 
-_, np = _import_numpy()
 
 __all__ = ['Trajectory']
 
