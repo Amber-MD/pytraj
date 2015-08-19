@@ -97,14 +97,14 @@ class Trajectory(object):
     def top(self, value):
         self._top = value.copy()
 
-    @property
-    def xyz(self):
-        return self._xyz
-
     def reverse(self):
         self._xyz = self._xyz[::-1]
         if self._boxes is not None:
             self._boxes = self._boxes[::-1]
+
+    @property
+    def xyz(self):
+        return self._xyz
 
     @xyz.setter
     def xyz(self, values):
@@ -181,13 +181,6 @@ class Trajectory(object):
 
     def __getitem__(self, idx):
         """return a view or copy of Frame object based on input index
-        
-        Notes
-        -----
-
-        >>> traj[0] # return a Frame view
-        >>> traj['@CA'] # return a new copy of traj with only CA atoms
-        >>> traj[[2, 4, 5]] # return a trajectory view for frame 2, 4, 5
         """
         if is_int(idx):
             # return a single Frame as a view
@@ -203,6 +196,7 @@ class Trajectory(object):
             arr0 = None
 
             if isinstance(idx, (string_types, AtomMask)):
+                # return a copy
                 # traj['@CA']
                 if isinstance(idx, string_types):
                     atm = self.top(idx)
@@ -221,9 +215,11 @@ class Trajectory(object):
                 if self._boxes is not None:
                     traj._boxes = self._boxes
             elif not isinstance(idx, tuple):
+                # might return a view or a copy
+                # based on numpy array rule
                 # traj.xyz[idx]
                 traj.top = self.top
-                traj.xyz = self._xyz[idx]
+                traj._xyz = self._xyz[idx]
                 if self._boxes is not None:
                     traj._boxes = self._boxes[idx]
             else:
@@ -245,14 +241,18 @@ class Trajectory(object):
         if other is None:
             raise ValueError("why bothering assign None?")
         if is_int(idx):
+            # traj[1] = frame
             if hasattr(other, 'xyz'):
                 self._xyz[idx] = other.xyz
             else:
                 self._xyz[idx] = other
         elif idx == '*':
+            # traj.xyz = xyz
             # update all atoms, use fast version
             self._xyz[:] = other # xyz
         elif isinstance(idx, AtomMask) or isinstance(idx, string_types):
+            # update xyz for mask
+            # traj['@CA'] = xyz
             if isinstance(idx, AtomMask):
                 atm = idx
             else:
@@ -277,6 +277,8 @@ class Trajectory(object):
             self._xyz[idx] = other
 
     def __iadd__(self, other):
+        '''use with care. not for regular user
+        '''
         if hasattr(other, 'xyz'):
             self._xyz.__iadd__(other.xyz)
         else:
@@ -284,6 +286,8 @@ class Trajectory(object):
         return self
 
     def __add__(self, other):
+        '''use with care. not for regular user
+        '''
         self_cp = self.copy()
         self_cp.__iadd__(other)
         return self_cp
@@ -317,9 +321,15 @@ class Trajectory(object):
     def append(self, other):
         """other: xyz, Frame, Trajectory, ...
 
+        Examples
+        --------
+        >>> f0 = traj0[0]
+        >>> traj1.append(f0)
+
         Notes
-        ----
-        Can not append TrajectoryIterator object since we use Trajectory in TrajectoryIterator class
+        -----
+        Can not append TrajectoryIterator object
+        since we use Trajectory in TrajectoryIterator class
         """
         if isinstance(other, Frame):
             arr0 = other.xyz.reshape((1, other.n_atoms, 3))
@@ -356,8 +366,10 @@ class Trajectory(object):
                 self.append(frame)
 
     def join(self, other):
+        ''''''
         if isinstance(other, Trajectory):
             self.append_xyz(other.xyz)
+            self._append_unitcells(other.unitcells)
         elif isinstance(other, (list, tuple)):
             # assume a list or tuple of Trajectory
             for farray in other:
