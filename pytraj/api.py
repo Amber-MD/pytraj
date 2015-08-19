@@ -127,6 +127,8 @@ class Trajectory(object):
 
     @property
     def shape(self):
+        '''(n_frames, n_atoms, 3)
+        '''
         try:
             return self._xyz.shape
         except:
@@ -134,10 +136,14 @@ class Trajectory(object):
 
     @property
     def n_atoms(self):
+        '''n_atoms
+        '''
         return self.top.n_atoms
 
     @property
     def n_frames(self):
+        '''n_frames
+        '''
         try:
             n_frames = self._xyz.shape[0]
         except (AttributeError, IndexError):
@@ -146,10 +152,21 @@ class Trajectory(object):
 
     @property
     def size(self):
+        '''alias of Trajectory.n_frames
+        '''
         return self.n_frames
 
     def __iter__(self):
-        """return a Frame view"""
+        """return a Frame view of coordinates
+
+        Notes
+        -----
+        update frame view will update Trajectory.xyz too
+
+        Examples
+        --------
+        >>> for frame in traj: print(frame)
+        """
 
         if self._boxes is None:
             for frame in _fastiter(self, self.n_atoms):
@@ -163,7 +180,15 @@ class Trajectory(object):
         return _fastiter(self, self.n_atoms)
 
     def __getitem__(self, idx):
-        """return a copy of Frame object"""
+        """return a view or copy of Frame object based on input index
+        
+        Notes
+        -----
+
+        >>> traj[0] # return a Frame view
+        >>> traj['@CA'] # return a new copy of traj with only CA atoms
+        >>> traj[[2, 4, 5]] # return a trajectory view for frame 2, 4, 5
+        """
         if is_int(idx):
             # return a single Frame as a view
             arr0 = self._xyz[idx]
