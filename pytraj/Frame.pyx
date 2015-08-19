@@ -88,6 +88,7 @@ cdef class Frame (object):
         cdef double[:, ::1] view
 
         self.py_free_mem = True
+        self._as_view = False
 
         if not args:
             self.thisptr = new _Frame()
@@ -124,6 +125,7 @@ cdef class Frame (object):
                 # create Frame as a view.
                 natom = args[0]
                 view = args[1]
+                self._as_view = True
                 self.thisptr = new _Frame(natom, &view[0, 0])
 
     def __dealloc__(self):
@@ -655,7 +657,7 @@ cdef class Frame (object):
             self.thisptr.SetupFrame(atomnum)
 
     def set_frame_mass(self, Topology top):
-        return self.thisptr.SetupFrameM(top.thisptr.Atoms())
+        return self.thisptr.SetMass(top.thisptr.Atoms())
 
     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
         return self.thisptr.SetupFrameXM(Xin, massIn)

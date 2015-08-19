@@ -10,6 +10,8 @@ def _fastiter(self, int n_atoms):
     cdef Frame frame = Frame()
     cdef _Frame* _frame
 
+    frame._as_view = True
+
     for i in range(n_frames):
         _frame = new _Frame(n_atoms, &view[i, 0, 0])
         frame.thisptr = _frame

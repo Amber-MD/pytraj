@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
 
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(pt.rmsd(traj, mask='@CA'))
+        standard_rmsd = pt.rmsd(traj, mask='@CA')
 
         def test_rmsd(input_traj):
             from pytraj.actions.CpptrajActions import Action_Rmsd
@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
 
             for frame in input_traj:
                 act.do_action(frame)
-            print(dslist.values)
+            return (dslist.values)
 
         def test_rmsd_actlist(input_traj):
             from pytraj.actions.CpptrajActions import Action_Rmsd
@@ -36,16 +36,20 @@ class Test(unittest.TestCase):
 
             for frame in input_traj:
                 alist.do_actions(frame)
-            print(dslist.values)
+            return (dslist.values)
 
 
-        test_rmsd(traj)
-        test_rmsd(traj[:])
-        test_rmsd_actlist(traj)
-        test_rmsd_actlist(traj[:])
-        #t0 = traj[:]
-        #test_rmsd_actlist(t0)
-        #print(t0.xyz)
+        rmsd0 = test_rmsd(traj)
+        rmsd1 = test_rmsd(traj[:])
+        rmsd2 = test_rmsd_actlist(traj)
+        rmsd3 = test_rmsd_actlist(traj[:])
+        t0 = traj[:]
+        rmsd4 = test_rmsd_actlist(t0)
+        aa_eq(standard_rmsd, rmsd0)
+        aa_eq(standard_rmsd, rmsd1)
+        aa_eq(standard_rmsd, rmsd2)
+        aa_eq(standard_rmsd, rmsd3)
+        aa_eq(standard_rmsd, rmsd4)
 
 if __name__ == "__main__":
     unittest.main()
