@@ -74,26 +74,29 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
     Parameters
     ----------
-    command : str
+    mask: str
     traj : {Trajectory, Frame, mix of them}
-    dtype : str {'dataset', 'ndarray', 'dict', 'dataframe', '_dssp_class'}, default 'ndarray'
+    dtype : str {'ndarray', 'dataset', 'dict', 'dataframe', '_dssp_class'}, default 'ndarray'
+        return data type, for regular user, just use default one (ndarray)
 
     Returns
     -------
-    (try it)
+    numpy.ndarray, shape=(n_residues + 1,) (array of residue names and DSSP characters)
 
     Examples
     --------
-        calc_dssp(traj, ":2-10", dtype='ndarray')
-        calc_dssp(traj, ":2-10", dtype='dict')
-        calc_dssp(traj, ":2-10", dtype='dataframe')
-        calc_dssp(traj, ":2-10", dtype='dataset')
+    >>> import pytraj as pt
+    >>> d = pt.dssp(traj, ":2-10", dtype='ndarray')
+    >>> print(d)
+    >>> pt.dssp(traj, ":2-10", dtype='dict')
+    >>> pt.dssp(traj, ":2-10", dtype='dataframe')
+    >>> pt.dssp(traj, ":2-10", dtype='dataset')
 
     Notes
     -----
-    ========= ======  ========= ======================
+    ========= ======= ========= =======================
     Character Integer DSSP_Char SS_type
-    ========= ======= ========= ======================
+    ========= ======= ========= =======================
     0         0       ' '       None
     b         1       'E'       Parallel Beta-sheet
     B         2       'B'       Anti-parallel Beta-sheet
@@ -102,6 +105,7 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     I         5       'I'       Pi (3-14) helix
     T         6       'T'       Turn
     S         7       'S'       Bend
+    ========= ======= ========= =======================
     """
     from pytraj.datasets.DataSetList import DataSetList as CpptrajDatasetList
     from pytraj.actions.CpptrajActions import Action_DSSP

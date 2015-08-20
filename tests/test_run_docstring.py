@@ -77,6 +77,8 @@ class Test(unittest.TestCase):
         from pytraj.cluster import kmeans
         run_docstring(kmeans)
 
+        run_docstring(pt.dssp)
+
 
 if __name__ == "__main__":
     unittest.main()
