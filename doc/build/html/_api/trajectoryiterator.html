@@ -44,53 +44,33 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="pytraj-trajectoryiterator">
-<span id="trajectoryiterator"></span><h1>pytraj.TrajectoryIterator<a class="headerlink" href="#pytraj-trajectoryiterator" title="Permalink to this headline">¶</a></h1>
-<dl class="method">
-<dt id="pytraj.TrajectoryIterator.load">
-<code class="descclassname">TrajectoryIterator.</code><code class="descname">load</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>frame_slice=(0</em>, <em>-1</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>load trajectory/trajectories from filename/filenames
-with a single frame_slice or a list of frame_slice</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytraj.TrajectoryIterator.iterframe">
-<code class="descclassname">TrajectoryIterator.</code><code class="descname">iterframe</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.iterframe" title="Permalink to this definition">¶</a></dt>
-<dd><p>create frame iterator. same as frameiter</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytraj.TrajectoryIterator.iterchunk">
-<code class="descclassname">TrajectoryIterator.</code><code class="descname">iterchunk</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.iterchunk" title="Permalink to this definition">¶</a></dt>
-<dd><p>iterate traj by a chunk (alias of iterchunk)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytraj.TrajectoryIterator.average">
-<code class="descclassname">TrajectoryIterator.</code><code class="descname">average</code><span class="sig-paren">(</span><em>mask=''</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.TrajectoryIterator.average" title="Permalink to this definition">¶</a></dt>
-<dd><p>return Frame</p>
-</dd></dl>
-
+  <div class="section" id="module-pytraj.TrajectoryIterator">
+<span id="pytraj-trajectoryiterator"></span><span id="trajectoryiterator"></span><h1>pytraj.TrajectoryIterator<a class="headerlink" href="#module-pytraj.TrajectoryIterator" title="Permalink to this headline">¶</a></h1>
+<p>out-of-core TrajectoryIterator</p>
+<p>load
+iterframe
+iterchunk
+average</p>
 <dl class="attribute">
-<dt id="pytraj.TrajectoryIterator.xyz">
-<code class="descclassname">TrajectoryIterator.</code><code class="descname">xyz</code><a class="headerlink" href="#pytraj.TrajectoryIterator.xyz" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.TrajectoryIterator.TrajectoryIterator.xyz">
+<code class="descclassname">TrajectoryIterator.</code><code class="descname">xyz</code><a class="headerlink" href="#pytraj.TrajectoryIterator.TrajectoryIterator.xyz" title="Permalink to this definition">¶</a></dt>
 <dd><p>return 3D array of coordinates</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.TrajectoryIterator.filelist">
-<code class="descclassname">TrajectoryIterator.</code><code class="descname">filelist</code><a class="headerlink" href="#pytraj.TrajectoryIterator.filelist" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.TrajectoryIterator.TrajectoryIterator.filelist">
+<code class="descclassname">TrajectoryIterator.</code><code class="descname">filelist</code><a class="headerlink" href="#pytraj.TrajectoryIterator.TrajectoryIterator.filelist" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a list of input filenames. Order does matter</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.TrajectoryIterator.unitcells">
-<code class="descclassname">TrajectoryIterator.</code><code class="descname">unitcells</code><a class="headerlink" href="#pytraj.TrajectoryIterator.unitcells" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.TrajectoryIterator.TrajectoryIterator.unitcells">
+<code class="descclassname">TrajectoryIterator.</code><code class="descname">unitcells</code><a class="headerlink" href="#pytraj.TrajectoryIterator.TrajectoryIterator.unitcells" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.TrajectoryIterator.top">
-<code class="descclassname">TrajectoryIterator.</code><code class="descname">top</code><a class="headerlink" href="#pytraj.TrajectoryIterator.top" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.TrajectoryIterator.TrajectoryIterator.top">
+<code class="descclassname">TrajectoryIterator.</code><code class="descname">top</code><a class="headerlink" href="#pytraj.TrajectoryIterator.TrajectoryIterator.top" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
