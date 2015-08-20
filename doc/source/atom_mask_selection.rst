@@ -41,6 +41,12 @@ for detail explanation.
     # get last frame
     traj[-1]
 
+    # strip all atoms but CA
+    traj['@CA']
+
+    # take coords for 1st residues
+    traj[':1'].xyz
+
     # get frames 1, 3, 7 with only CA atoms
     traj[[1, 3, 7], '@CA']
 
@@ -52,5 +58,11 @@ for detail explanation.
 .. ipython:: python
 
     traj(0, 8, 2)
-    for frame in traj(0, 8, 2): print(frame)
+    for frame in traj(0, 8, 2): print(frame.xyz[0])
+
+    # iterating with autoimage
+    for frame in traj(0, 8, 2, autoimage=True): print(frame.xyz[0])
+
+    # iterating with rmsfit to first frame
+    for frame in traj(0, 8, 2, rmsfit=0): print(frame.xyz[0])
     
