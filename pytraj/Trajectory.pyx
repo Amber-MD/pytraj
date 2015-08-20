@@ -18,7 +18,6 @@ from ._cyutils import get_positive_idx, _int_array1d_like_to_memview
 from ._set_silent import set_error_silent
 from .trajs.Trajin_Single import Trajin_Single
 from .externals.six import string_types, PY2
-from .TrajectoryIterator import TrajectoryIterator
 from .utils.check_and_assert import (_import_numpy, is_int, is_frame_iter,
                                      file_exist, is_mdtraj, is_pytraj_trajectory,
                                      is_word_in_class_name,
@@ -28,7 +27,6 @@ from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._shared_methods import (_savetraj, _get_temperature_set,
                               _xyz, _tolist, _split_and_write_traj)
 from ._shared_methods import my_str_method, _box
-from ._xyz import XYZ
 
 from . import common_actions as pyca
 from .hbonds import search_hbonds
@@ -94,7 +92,6 @@ cdef class Trajectory (object):
             self.load(filename, self.top, indices)
         elif xyz is not None:
             import numpy as np
-            from ._xyz import XYZ
             assert hasattr(xyz, 'dtype')
             if xyz.itemsize != 8:
                 try:
@@ -102,11 +99,7 @@ cdef class Trajectory (object):
                 except:
                     raise ValueError("can not cast dtype to f8")
             self._allocate(*xyz.shape[:2])
-            if isinstance(xyz, XYZ):
-                # convert to numpy
-                self.update_coordinates(xyz[:])
-            else:
-                self.update_coordinates(xyz)
+            self.update_coordinates(xyz)
         else:
             pass
 
@@ -332,7 +325,7 @@ cdef class Trajectory (object):
             if has_numpy:
                 for i, frame in enumerate(self):
                     myview[i] = frame.buffer2d
-                return XYZ(myview)
+                return myview
             else:
                 raise NotImplementedError("must have numpy")
 
@@ -1014,10 +1007,11 @@ cdef class Trajectory (object):
         ----
         Have not support indices yet. Get max_frames from trajetory
         """
-        
         cdef int i
         cdef int start, stop, step
         cdef Frame frame
+
+        from pytraj import TrajectoryIterator
 
         msg = """Trajectory.top.n_atoms should be equal to Trajin_Single.top.n_atoms 
                or set update_top=True"""

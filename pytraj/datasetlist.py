@@ -5,7 +5,6 @@ from pytraj.datasets.DataSetList import DataSetList as DSL
 from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import _import_numpy, _import_pandas, is_int, is_array, is_generator
-from pytraj._xyz import XYZ
 from pytraj.compat import string_types, callable
 from pytraj.core.DataFile import DataFile
 from pytraj.ArgList import ArgList
@@ -455,10 +454,8 @@ class DatasetList(list):
     @property
     def values(self):
         """return read-only ndarray"""
-        from pytraj._xyz import XYZ
-        # read-only
         try:
-            return XYZ(self.to_ndarray())
+            return self.to_ndarray()
         except:
             raise ValueError("don't know how to cast to numpy array")
 
