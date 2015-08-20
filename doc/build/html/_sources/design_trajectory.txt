@@ -48,7 +48,9 @@ Advantages of TrajectoryIterator
 
 * immutable (like python's tuple)
 * use very little RAM
-* still randomly access frame/frames
+* still have random access to frame/frames
+* easy to `parallelize <parallel>`_
+
 .. ipython:: python
     
     traj
