@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj.testing import run_docstring
 import pytraj.common_actions as pyca
 from pytraj.base import *
@@ -77,7 +78,8 @@ class Test(unittest.TestCase):
         from pytraj.cluster import kmeans
         run_docstring(kmeans)
 
-        run_docstring(pt.dssp)
+        for func in [pt.dssp, pt.radgyr, pt.molsurf,]:
+            run_docstring(func)
 
 
 if __name__ == "__main__":
