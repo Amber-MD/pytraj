@@ -1,7 +1,4 @@
-"""This is a thin wrapper of Trajin_Single
-We need to sub-class Trajin_Single to use Trajectory
-(we called Trajin_Single from Trajectory, so we can not call Trajectory back from 
-Trajin_Single)
+"""out-of-core TrajectoryIterator
 """
 from __future__ import absolute_import
 import warnings
@@ -211,7 +208,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         from itertools import tee
         return tee(self, n_iters)
 
-    def frame_iter (self,
+    def frame_iter(self,
                    start=0,
                    stop=None,
                    stride=1,
@@ -259,7 +256,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             start = None
             stride = None
             n_frames = len(frame_indices)
-            frame_iter_super = super(TrajectoryIterator, self)._iterframe_indices(frame_indices)
+            frame_iter_super = super(TrajectoryIterator,
+                                     self)._iterframe_indices(frame_indices)
 
         return FrameIter(frame_iter_super,
                          original_top=self.top,
@@ -285,7 +283,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         '''
         return self.chunk_iter(*args, **kwd)
 
-    def chunk_iter (self,
+    def chunk_iter(self,
                    chunksize=2,
                    start=0,
                    stop=-1,

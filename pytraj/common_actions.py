@@ -37,7 +37,7 @@ from ._nastruct import nastruct
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
 from . import _long_manual
-from . decorators import noparallel
+from .decorators import noparallel
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -249,7 +249,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     resid
     dtype
     '''
-    
+
     if is_int(resid):
         resid = str(resid + 1)
     else:
@@ -257,6 +257,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     m = ' :%s@' % resid
     command = m + m.join(mask)
     return calc_dihedral(traj=traj, mask=command, top=top, dtype=dtype)
+
 
 def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """calculate dihedral
@@ -1517,6 +1518,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
+
 def cross_correlation_function(data0, data1, dtype='ndarray'):
     """
     Notes
@@ -1707,7 +1709,9 @@ def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
     command = ':'.join((dihtype, resid, dihtype, deg))
     make_structure(traj, command, top=_top)
 
+
 set_dihedral = _rotate_dih
+
 
 def make_structure(traj=None, mask="", top=None):
     from pytraj.actions.CpptrajActions import Action_MakeStructure
