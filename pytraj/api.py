@@ -13,7 +13,7 @@ from ._get_common_objects import _get_top
 from .Topology import Topology
 from ._shared_methods import _savetraj, _frame_iter_master, _frame_iter
 from ._shared_methods import my_str_method
-from ._fast_iter import _fastiter
+from ._fast_iter import _fastiter, _fastiter_ptr
 
 
 __all__ = ['Trajectory']
@@ -178,6 +178,9 @@ class Trajectory(object):
 
     def _fastiter(self):
         return _fastiter(self, self.n_atoms)
+
+    def _fastiter_ptr(self):
+        return _fastiter_ptr(self, self.n_atoms)
 
     def __getitem__(self, idx):
         """return a view or copy of Frame object based on input index

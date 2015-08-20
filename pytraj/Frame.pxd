@@ -76,6 +76,7 @@ cdef extern from "Frame.h" nogil:
         void SetCoordinates(const _Frame&, const _AtomMask&)
         void SetCoordinates(const _Frame&)
         void SetFrame(const _Frame&, const _AtomMask&)
+        void SetXptr(double* ptr)
         int SetMass(const vector[_Atom]&)
         void SetCoordinatesByMap(const _Frame&, const vector[int]&)
         void StripUnmapped_Atoms(const _Frame&, const vector[int]&)

@@ -20,10 +20,13 @@ def test():
 def test_fastiter():
     fname = 'data/nogit/remd/remd.x.000'
     topname = 'data/nogit/remd/myparm.parm7'
-    t0 = pt.load(fname, topname)
-    traj = pt.api.Trajectory(t0)
+    traj = pt.load(fname, topname)
+
     for f in traj:
-        print(f.box)
+        pass
+
+    for f in traj._fastiter_ptr():
+        pass
 
 #test()
 test_fastiter()
