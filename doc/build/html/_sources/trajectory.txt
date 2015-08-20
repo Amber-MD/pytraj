@@ -20,6 +20,9 @@ Why are there two trajectory classes?
 -------------------------------------
 See our rationale here :ref:`design_trajectory`
 
+Try it
+------
+
 .. ipython:: python
 
     import pytraj as pt
