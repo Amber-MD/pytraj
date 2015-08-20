@@ -124,6 +124,20 @@ class _OrderedDict(OrderedDict):
 
 
 class DatasetList(list):
+    '''similiar to python's list but the data is labeled.
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> dslist = pt.multidihedral(traj, 'phi psi', dtype='dataset')
+    >>> print(dslist)
+    >>> print(dslist[0])
+    >>> print(dslist[::2])
+    >>> print(dslist[1::2])
+    >>> print(dslist.values) # return raw numpy array
+    >>> print(dslist.keys)
+    '''
+
     def __init__(self, dslist=None, copy=False):
         if dslist:
             if isinstance(dslist, dict):
