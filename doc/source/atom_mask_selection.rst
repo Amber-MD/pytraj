@@ -29,9 +29,9 @@ for detail explanation.
     traj['(:1-100)&(@CA)'] # Selects atoms named CA in the first 100 residues
 
 **Trajecotry slicinge**
-----------------------=
+-----------------------
 
-.. note:: `[ ]` slicing notation will load frames into memory
+.. note:: use `[ ]` slicing notation will load frames into memory
 
 .. ipython:: python
     
@@ -47,7 +47,7 @@ for detail explanation.
     # skip every 2 frames
     traj[::2]
 
-.. note:: `( )` notation to create frame iterator
+.. note:: use `( )` notation to create frame iterator
 
 .. ipython:: python
 
