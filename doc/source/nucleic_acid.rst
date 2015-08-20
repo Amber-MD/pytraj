@@ -1,3 +1,5 @@
+.. _nucleic_acid:
+
 Nucleic Acid Analysis
 =====================
 
