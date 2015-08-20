@@ -416,6 +416,13 @@ def calc_radgyr(traj=None,
                 top=None,
                 nomax=True,
                 dtype='ndarray', *args, **kwd):
+    '''calc radgyr
+
+    Examples
+    --------
+    >>> pt.radgyr(traj, '@CA')
+    >>> pt.radgyr(traj, '!:WAT', nomax=False)
+    '''
 
     from pytraj.actions.CpptrajActions import Action_Radgyr
 
@@ -434,6 +441,13 @@ def calc_radgyr(traj=None,
 
 
 def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+    '''calc molsurf
+
+    Examples
+    --------
+    >>> pt.molsurf(traj, '@CA')
+    >>> pt.molsurf(traj, '!:WAT')
+    '''
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
     command = mask
