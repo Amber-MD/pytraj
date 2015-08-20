@@ -28,7 +28,7 @@ for detail explanation.
     # Logical operators
     traj['(:1-100)&(@CA)'] # Selects atoms named CA in the first 100 residues
 
-**Trajectory slicinge**
+**Trajectory slicing**
 -----------------------
 
 .. note:: use `[ ]` slicing notation will load frames into memory
