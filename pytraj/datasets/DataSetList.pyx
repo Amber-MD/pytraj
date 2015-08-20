@@ -412,10 +412,9 @@ cdef class DataSetList:
     @property
     def values(self):
         """return read-only ndarray"""
-        from pytraj._xyz import XYZ
         # read-only
         try:
-            return XYZ(self.to_ndarray())
+            return self.to_ndarray()
         except ValueError:
             raise ValueError("don't know how to cast to numpy array"
                              "try `tolist`, `to_dict`")

@@ -10,7 +10,6 @@ from pytraj.compat import set
 from pytraj.utils import _import_numpy
 from pytraj.exceptions import PytrajMemviewError, PytrajConvertError
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
-from pytraj._xyz import XYZ
 
 __all__ = ['_savetraj', '_frame_iter_master', '_xyz', 'my_str_method',
            '_tolist', '_box']
@@ -58,7 +57,7 @@ def _xyz(self):
     if has_numpy:
         for i, frame in enumerate(self):
             myview[i] = frame.buffer2d
-        return XYZ(myview)
+        return myview
     else:
         raise NotImplementedError("must have numpy")
 

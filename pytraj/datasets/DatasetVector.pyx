@@ -2,7 +2,6 @@
 
 from cython.view cimport array as cyarray
 from pytraj.utils import _import
-from pytraj._xyz import XYZ
 
 
 cdef class DatasetVector (DataSet_1D):
@@ -103,4 +102,4 @@ cdef class DatasetVector (DataSet_1D):
 
     @property
     def values(self):
-        return XYZ(self.to_ndarray())
+        return self.to_ndarray()

@@ -37,7 +37,7 @@ from ._nastruct import nastruct
 from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
 from . import _long_manual
-from . decorators import noparallel
+from .decorators import noparallel
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -249,7 +249,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     resid
     dtype
     '''
-    
+
     if is_int(resid):
         resid = str(resid + 1)
     else:
@@ -257,6 +257,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     m = ' :%s@' % resid
     command = m + m.join(mask)
     return calc_dihedral(traj=traj, mask=command, top=top, dtype=dtype)
+
 
 def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """calculate dihedral
@@ -947,54 +948,59 @@ def calc_pairwise_rmsd(traj=None,
                        top=None,
                        dtype='ndarray',
                        mat_type='full', *args, **kwd):
-    """return  CpptrajDatasetList object
+    """return 2D numpy array
 
     Parameters
     ----------
     traj : Trajectory-like, iterable object
-    command : mask (default=all atom) + extra command
+    mask : mask (default=all atom) + extra command
         See `Notes` below for further info
     top : Topology, optional, default=None
-    *args, **kwd: optional (dtype='dataset' | 'pyarray' | 'ndarray' | 'list')
+    dtype: ndarray
+    mat_type : return matrix type, default 'full'
+    *args, **kwd: optional (for advanced user)
 
     Examples
     --------
-        >>> # 1.
-        >>> # memory saving
-        >>> # * Create TrajectoryIterator to load only one Frame at a time
-        >>> traj = mdio.iterload("data/nogit/tip3p/md.trj", 
-        >>>                     "./data/nogit/tip3p/tc5bwat.top")
-        >>> # we will load stripped-atom frames into memory only
-        >>> new_top = traj.top.strip_atoms("!@CA", copy=True)
+    >>> # memory saving
+    >>> # * Create TrajectoryIterator to load only one Frame at a time
+    >>> traj = mdio.iterload("data/nogit/tip3p/md.trj", 
+    >>>                     "./data/nogit/tip3p/tc5bwat.top")
+    >>> # we will load stripped-atom frames into memory only
+    >>> new_top = traj.top.strip_atoms("!@CA", copy=True)
 
-        >>> # passing `frame_iter` to `calc_pairwise_rmsd`
-        >>> # traj(0, 1000, mask='@CA') is equal to
-        >>> #     traj.frame_iter(start=0, stop=1000, mask='@CA')
+    >>> # passing `frame_iter` to `calc_pairwise_rmsd`
+    >>> # traj(0, 1000, mask='@CA') is equal to
+    >>> #     traj.frame_iter(start=0, stop=1000, mask='@CA')
 
-        >>> import pytraj.common_actions as pyca
-        >>> pyca.calc_pairwise_rmsd(traj(0, 1000, mask='@CA'), 
-        >>>                                top=new_top, dtype='ndarray')
+    >>> import pytraj.common_actions as pyca
+    >>> pyca.calc_pairwise_rmsd(traj(0, 1000, mask='@CA'), 
+    >>>                                top=new_top, dtype='ndarray')
 
-        >>> # 2. 
-        >>> # calculate pairwise rmsd for all frames using CA atoms
-        >>> dslist = calc_pairwise_rmsd(traj, "@CA")
-        >>> dslist.to_ndarray()
-        >>> dslist.tolist()
+    >>> # calculate pairwise rmsd for all frames using CA atoms
+    >>> dslist = calc_pairwise_rmsd(traj, "@CA")
+    >>> dslist.to_ndarray()
+    >>> dslist.tolist()
 
-        >>> # 3.
-        >>> # calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)
-        >>> # convert to numpy array
-        >>> arr_np = calc_pairwise_rmsd(traj, "@CA dme", dtype='ndarray')
+    >>> # calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)
+    >>> # convert to numpy array
+    >>> arr_np = calc_pairwise_rmsd(traj, "@CA dme", dtype='ndarray')
 
-        >>> # 4.
-        >>> # calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD
-        >>> # convert to numpy array
-        >>> arr_np = calc_pairwise_rmsd(traj, "@CA nofit", dtype='ndarray')
+    >>> # calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD
+    >>> # convert to numpy array
+    >>> arr_np = calc_pairwise_rmsd(traj, "@CA nofit", dtype='ndarray')
 
-        >>> # 5.
-        >>> # calculate pairwise rmsd for all frames using CA atoms
-        >>> # use symmetry-corrected RMSD, convert to numpy array
-        >>> arr_np = calc_pairwise_rmsd(traj, "@CA srmsd", dtype='ndarray')
+    >>> # calculate pairwise rmsd for all frames using CA atoms
+    >>> # use symmetry-corrected RMSD, convert to numpy array
+    >>> arr_np = calc_pairwise_rmsd(traj, "@CA srmsd", dtype='ndarray')
+
+    Notes
+    -----
+    This calculation is memory consumming. It's better to use pytraj.TrajectoryIterator
+    (pytraj.iterload(...))
+    It's better to use `pytraj.pairwise_rmsd(traj(mask='@CA'))` than
+    `pytraj.pairwise_rmsd(traj, mask='@CA')
+
     """
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
@@ -1512,6 +1518,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
+
 def cross_correlation_function(data0, data1, dtype='ndarray'):
     """
     Notes
@@ -1702,7 +1709,9 @@ def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
     command = ':'.join((dihtype, resid, dihtype, deg))
     make_structure(traj, command, top=_top)
 
+
 set_dihedral = _rotate_dih
+
 
 def make_structure(traj=None, mask="", top=None):
     from pytraj.actions.CpptrajActions import Action_MakeStructure

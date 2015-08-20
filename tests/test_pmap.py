@@ -46,6 +46,11 @@ class Test(unittest.TestCase):
             pt.pmap(2, pt.bfactors, traj)
         self.assertRaises(ValueError, lambda : need_to_raise())
 
+        # raise if a traj is not TrajectoryIterator
+        def need_to_raise_2(traj=traj):
+            pt.pmap(2, pt.bfactors, traj[:])
+        self.assertRaises(ValueError, lambda : need_to_raise_2())
+
         #need_to_raise()
 
 
