@@ -732,45 +732,53 @@ def do_clustering(traj=None,
 
 
 def calc_multidihedral(traj=None,
-                       command="",
-                       dtype='dataset',
-                       dihedral_types=None,
+                       dhtypes=None,
                        resrange=None,
                        define_new_type=None,
                        range360=False,
+                       dtype='dataset',
                        top=None, *args, **kwd):
     """perform dihedral search
+
     Parameters
     ----------
-    command : str, cpptraj command 
     traj : Trajectory-like object
+    dhtypes : dihedral type, default None
+        if None, calculate all supported dihedrals
     resrange : str | array-like
-        residue range for searching
+        residue range for searching. If `resrange` is string, use index starting with 1
+        (cpptraj convertion)
+        if `resrange` is array-like, use index starting from 0 (python convention)
     define_new_type : str
         define new type for searching
     range360 : bool, default False
         if True: use 0-360
     top : Topology | str, optional
         only need to have 'top' if can not find it in `traj`
-    *arg and **kwd: additional arguments
+    *arg and **kwd: additional arguments (for advanced users)
 
 
     Returns
     -------
-    Dictionary of array or dataset or ndarray or list or pyarray (based on `dtype`)
+    pytraj.DatasetList (use `values` attribute to get raw `numpy` array)
 
     Notes
     -----
-        legends show residue number in 1-based index
+        Dataset lables show residue number in 1-based index
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.calc_multidihedral(traj)
+    >>> pt.multidihedral(traj)
+    >>> pt.multidihedral(traj, 'phi psi')
     >>> pt.multidihedral(traj, resrange=range(8))
     >>> pt.multidihedral(traj, range360=True)
+    >>> pt.multidihedral(traj, resrange='1,3,5')
+    >>> pt.multidihedral(traj, dhtypes='phi psi')
+    >>> pt.multidihedral(traj, dhtypes='phi psi', resrange='3-7')
+    >>> pt.multidihedral(traj, dhtypes='phi psi', resrange=[3, 4, 8])
     """
-    if resrange and 'resrange' not in command:
+    if resrange:
         if is_int(resrange):
             resrange = [resrange, ]
         if isinstance(resrange, string_types):
@@ -782,8 +790,8 @@ def calc_multidihedral(traj=None,
     else:
         _resrange = " "
 
-    if dihedral_types:
-        d_types = str(dihedral_types)
+    if dhtypes:
+        d_types = str(dhtypes)
     else:
         d_types = " "
 
@@ -797,7 +805,7 @@ def calc_multidihedral(traj=None,
     else:
         _range360 = ''
 
-    _command = " ".join((command, d_types, _resrange, dh_types, _range360))
+    _command = " ".join((d_types, _resrange, dh_types, _range360))
 
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
