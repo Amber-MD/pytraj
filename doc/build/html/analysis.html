@@ -72,7 +72,6 @@
 <li><a class="reference internal" href="#autoimage">autoimage</a></li>
 <li><a class="reference internal" href="#jcoupling">jcoupling</a></li>
 <li><a class="reference internal" href="#density">density</a></li>
-<li><a class="reference internal" href="#vector">vector</a></li>
 <li><a class="reference internal" href="#volume">volume</a></li>
 <li><a class="reference internal" href="#minimum-distance">minimum_distance</a></li>
 <li><a class="reference internal" href="#lifetime">lifetime</a></li>
@@ -415,54 +414,31 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 <span class="target" id="search-hbonds"></span><dl class="function">
 <dt id="pytraj.search_hbonds">
 <code class="descclassname">pytraj.</code><code class="descname">search_hbonds</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>dtype='dataset'</em>, <em>solventdonor=None</em>, <em>solventacceptor=None</em>, <em>update_legend=True</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.search_hbonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>search hbonds for a given mask
-Parameters
-&#8212;&#8212;&#8212;-
-traj : {Trajectory-like object, frame_iter object, list of traj}
-mask : str</p>
-<blockquote>
-<div>Amber atom mask</div></blockquote>
-<p>dtype : str {&#8216;list&#8217;, &#8216;pyarray&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;}, default=&#8217;dataset&#8217;
-<a href="#id3"><span class="problematic" id="id4">*</span></a>args, <a href="#id5"><span class="problematic" id="id6">**</span></a>kwd: optional</p>
+<dd><p>search hbonds for a given mask</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>out</strong> : DataSetList | pyarray | ndarray | list | dict (depend on &#8216;dtype&#8217;)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : {Trajectory-like object, frame_iter object, list of traj}</p>
+<p><strong>mask</strong> : str</p>
+<blockquote>
+<div><p>Amber atom mask</p>
+</div></blockquote>
+<p><strong>dtype</strong> : str {&#8216;list&#8217;, &#8216;pyarray&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;}, default=&#8217;dataset&#8217;</p>
+<p><strong>*args, **kwd: optional</strong></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : pytraj.DatasetList</p>
+</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><code class="xref py py-obj docutils literal"><span class="pre">http</span></code></dt>
-<dd>//ambermd.org/doc12/Amber15.pdf (page 575)</dd>
-</dl>
-</div>
 <p class="rubric">Examples</p>
-<ul>
-<li><p class="first">The syntax was adapted from <a class="reference external" href="http://ambermd.org/doc12/Amber15.pdf">http://ambermd.org/doc12/Amber15.pdf</a> (page 575)</p>
-</li>
-<li><p class="first">The explaniation in &#8221; &#8221; is direct excerpt from this manual</p>
-</li>
-<li><dl class="first docutils">
-<dt>&#8220;search for all hydrogen bonds within residues 1-22&#8221;</dt>
-<dd><p class="first last">dslist = search_hbonds(traj, &#8221;:1-22&#8221;)</p>
-</dd>
-</dl>
-</li>
-<li><p class="first">&#8220;search for all hydrogen bonds within residues 1-22, specifying output files&#8221;</p>
-<blockquote>
-<div><p>dslist = search_hbonds(traj, &#8221;:1-22 out nhb.dat avgout avghb.dat&#8221;, dflist=dflist)
-dflist.write_all_datafile()</p>
-</div></blockquote>
-</li>
-<li><p class="first">&#8220;search for all hydrogen bonds formed between donors in residue 1 and acceptors in residue 2&#8221;</p>
-<blockquote>
-<div><p>dslist = search_hbonds(traj, &#8220;donormask :1 acceptormask :2&#8221;, dtype=&#8217;ndarray&#8217;))</p>
-</div></blockquote>
-</li>
-</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solventdonor</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solventacceptor</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <span class="target" id="jcoupling"></span><dl class="function">
