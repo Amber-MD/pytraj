@@ -23,10 +23,11 @@ Welcome to pytraj's documentation - not completed yet
    :maxdepth: 1
 
    installation
+   trajectory
+   topology
+   read_and_write
    basic_examples
    tutorials/index
-   trajectory
-   read_and_write
    analysis
    modify_traj
    atom_mask_selection

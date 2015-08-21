@@ -65,6 +65,16 @@
 <p>Use <a class="reference external" href="http://pythonhosted.org/six/">six</a> to write your compat code.
 We put all common stuff in <a class="reference external" href="https://github.com/Amber-MD/pytraj/blob/master/pytraj/compat.py">pytraj.compat</a></p>
 </div>
+<div class="section" id="install">
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<p>To speed up installation, please do consider using python multithreading. Just follow
+below</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python ./setup.py build faster
+<span class="nv">$ </span>python ./setup.py install
+<span class="c"># if not see faster building, Ctrl-C and retry</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="add-new-method-to-pytraj">
 <h2>Add new method to pytraj<a class="headerlink" href="#add-new-method-to-pytraj" title="Permalink to this headline">¶</a></h2>
 <p>Check <code class="docutils literal"><span class="pre">pytraj.common_actions</span></code> for example.</p>
@@ -152,6 +162,7 @@ We put all common stuff in <a class="reference external" href="https://github.co
 <li><a class="reference internal" href="#">Developer guide for pytraj</a><ul>
 <li><a class="reference internal" href="#python-style-guide">Python style guide</a></li>
 <li><a class="reference internal" href="#python-2-and-3-compat">Python 2 and 3 compat</a></li>
+<li><a class="reference internal" href="#install">Install</a></li>
 <li><a class="reference internal" href="#add-new-method-to-pytraj">Add new method to pytraj</a></li>
 <li><a class="reference internal" href="#write-your-code-for-pytraj-s-parallel-pmap">Write your code for pytraj&#8217;s parallel pmap</a></li>
 <li><a class="reference internal" href="#test-your-code">Test your code</a></li>
