@@ -45,7 +45,7 @@ Analysis
 .. _rmsd:
 .. autofunction:: pytraj.rmsd
 
-.. _rmsd_peres:
+.. _rmsd_perres:
 .. autofunction:: pytraj.rmsd_perres
 
 .. _pairwise_rmsd:
@@ -79,7 +79,7 @@ Analysis
 .. autofunction:: pytraj.jcoupling
 
 .. _density:
-.. autofunction:: pytraj.jcoupling
+.. autofunction:: pytraj.density
 
 .. _vector:
 .. autofunction:: pytraj.vector

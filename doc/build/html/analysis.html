@@ -59,7 +59,7 @@
 <li><a class="reference internal" href="#angles">angles</a></li>
 <li><a class="reference internal" href="#dihedrals">dihedrals</a></li>
 <li><a class="reference internal" href="#rmsd">rmsd</a></li>
-<li><a href="#id7"><span class="problematic" id="id8">rmsd_perres_</span></a></li>
+<li><a class="reference internal" href="#rmsd-perres">rmsd_perres</a></li>
 <li><a class="reference internal" href="#pairwise-rmsd">pairwise_rmsd</a></li>
 <li><a class="reference internal" href="#radgyr">radgyr</a></li>
 <li><a class="reference internal" href="#molsurf">molsurf</a></li>
@@ -140,7 +140,7 @@ command : str | int_2d numpy array</p>
 </div>
 </dd></dl>
 
-<span class="target" id="rmsd-peres"></span><dl class="function">
+<span class="target" id="rmsd-perres"></span><dl class="function">
 <dt id="pytraj.rmsd_perres">
 <code class="descclassname">pytraj.</code><code class="descname">rmsd_perres</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>use_mass=False</em>, <em>top=None</em>, <em>range=None</em>, <em>perresmask=None</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd_perres" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform rmsfit calculation with <cite>mask</cite>, then calculate nofit rms for residues
@@ -490,28 +490,9 @@ dflist.write_all_datafile()</p>
 </dd></dl>
 
 <span class="target" id="density"></span><dl class="function">
-<dt>
-<code class="descclassname">pytraj.</code><code class="descname">jcoupling</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>kfile=None</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : any things that make <cite>frame_iter_master</cite> returning Frame object</p>
-<p><strong>command</strong> : str, default &#8220;&#8221;</p>
-<blockquote>
-<div><p>cpptraj&#8217;s command/mask</p>
-</div></blockquote>
-<p><strong>kfile</strong> : str, default None, optional</p>
-<blockquote>
-<div><p>Dir for Karplus file. If &#8220;None&#8221;, use $AMBERHOME dir</p>
-</div></blockquote>
-<p><strong>dtype</strong> : str, {&#8216;dataset&#8217;, ...}, default &#8216;dataset&#8217;</p>
-<p class="last"><strong>*args, **kwd: optional</strong></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dt id="pytraj.density">
+<code class="descclassname">pytraj.</code><code class="descname">density</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.density" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <span class="target" id="volume"></span><dl class="function">
 <dt id="pytraj.volume">
