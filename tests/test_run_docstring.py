@@ -78,7 +78,8 @@ class Test(unittest.TestCase):
         from pytraj.cluster import kmeans
         run_docstring(kmeans)
 
-        for func in [pt.dssp, pt.radgyr, pt.molsurf,]:
+        for func in [pt.dssp, pt.radgyr, pt.molsurf,
+                     pt.search_hbonds,]:
             run_docstring(func)
 
 

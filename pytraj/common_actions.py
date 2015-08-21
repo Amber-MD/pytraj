@@ -944,7 +944,11 @@ def _calc_vector_center(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
+def calc_center_of_mass(traj=None, mask=None, top=None, dtype='ndarray', *args, **kwd):
+    return _calc_vector_center(traj=traj, command=mask, top=top, use_mass=True,
+            dtype=dtype)
+
+calc_COM = calc_center_of_mass
 
 
 def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
@@ -1022,6 +1026,8 @@ def calc_pairwise_rmsd(traj=None,
     (pytraj.iterload(...))
     It's better to use `pytraj.pairwise_rmsd(traj(mask='@CA'))` than
     `pytraj.pairwise_rmsd(traj, mask='@CA')
+
+    Install **libcpptraj** with openmp to benifit from parallel
 
     """
     if not isinstance(mask, string_types):

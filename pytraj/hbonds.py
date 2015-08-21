@@ -99,6 +99,7 @@ def search_hbonds_noseries(traj,
                            dtype='dataset',
                            update_legend=True, *args, **kwd):
     """search hbonds for a given mask
+
     Parameters
     ----------
     traj : {Trajectory-like object, frame_iter object, list of traj}
@@ -109,8 +110,10 @@ def search_hbonds_noseries(traj,
 
     Returns
     -------
-    out : DataSetList | pyarray | ndarray | list | dict (depend on 'dtype')
+    out : pytraj.DatasetList (similiar to Python list with labeled array)
 
+    See Also
+    --------
     http://ambermd.org/doc12/Amber15.pdf (page 575)
     """
 
@@ -140,6 +143,7 @@ def search_hbonds(traj,
                   solventacceptor=None,
                   update_legend=True, *args, **kwd):
     """search hbonds for a given mask
+
     Parameters
     ----------
     traj : {Trajectory-like object, frame_iter object, list of traj}
@@ -150,28 +154,13 @@ def search_hbonds(traj,
 
     Returns
     -------
-    out : DataSetList | pyarray | ndarray | list | dict (depend on 'dtype')
+    out : pytraj.DatasetList
 
     Examples
     --------
-    * The syntax was adapted from http://ambermd.org/doc12/Amber15.pdf (page 575)
-    * The explaniation in " " is direct excerpt from this manual
-
-    * "search for all hydrogen bonds within residues 1-22"
-        dslist = search_hbonds(traj, ":1-22")
-
-    * "search for all hydrogen bonds within residues 1-22, specifying output files"
-
-        dslist = search_hbonds(traj, ":1-22 out nhb.dat avgout avghb.dat", dflist=dflist)
-        dflist.write_all_datafile()
-
-    * "search for all hydrogen bonds formed between donors in residue 1 and acceptors in residue 2" 
-
-        dslist = search_hbonds(traj, "donormask :1 acceptormask :2", dtype='ndarray'))
-
-    See Also
-    --------
-    http://ambermd.org/doc12/Amber15.pdf (page 575)
+    >>> import pytraj as pt
+    >>> pt.search_hbonds(traj)
+    >>> pt.search_hbonds(traj, solventdonor=':WAT@O', solventacceptor=':WAT')
     """
     s_donor = "solventdonor " + str(solventdonor) if solventdonor else ""
     s_acceptor = "solventacceptor " + \
