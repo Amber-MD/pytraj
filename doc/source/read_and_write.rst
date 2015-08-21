@@ -1,5 +1,7 @@
 .. _read_and_write:
 
+.. toctree::
+
 Read and write
 ==============
 
@@ -37,3 +39,7 @@ memory
     
     In [4]: traj._estimated_MB
     Out[4]: 15969.54345703125
+
+Write pdb file
+==============
+(coming soon)
