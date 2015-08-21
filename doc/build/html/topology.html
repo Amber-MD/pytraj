@@ -56,16 +56,16 @@
 <span id="id1"></span><h1>Topology<a class="headerlink" href="#topology" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="load-topology">
 <h2>Load topology<a class="headerlink" href="#load-topology" title="Permalink to this headline">¶</a></h2>
-<p>From <cite>iterload</cite>
-.. code-block:: python</p>
-<blockquote>
-<div>import pytraj as pt
-traj = pt.iterload(&#8216;traj.nc&#8217;, &#8216;2KOC.parm7&#8217;)
-top = traj.top</div></blockquote>
-<p>From <cite>load_topology</cite>
-.. code-block:: python</p>
-<blockquote>
-<div>top = pt.load_topology(&#8216;2KOC.parm7&#8217;)</div></blockquote>
+<p>From <strong>iterload</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2KOC.parm7&#39;</span><span class="p">)</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
+</pre></div>
+</div>
+<p>From <strong>load_topology</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;2KOC.parm7&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="supported-file-format">
 <h2>Supported file format<a class="headerlink" href="#supported-file-format" title="Permalink to this headline">¶</a></h2>
