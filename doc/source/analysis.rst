@@ -20,7 +20,6 @@ Analysis
 - autoimage_
 - jcoupling_ 
 - density_
-- vector_
 - volume_
 - minimum_distance_
 - lifetime_
@@ -80,9 +79,6 @@ Analysis
 
 .. _density:
 .. autofunction:: pytraj.density
-
-.. _vector:
-.. autofunction:: pytraj.vector
 
 .. _volume:
 .. autofunction:: pytraj.volume
