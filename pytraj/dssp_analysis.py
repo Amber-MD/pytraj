@@ -89,7 +89,6 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> d = pt.dssp(traj, ":2-10", dtype='ndarray')
     >>> print(d)
     >>> pt.dssp(traj, ":2-10", dtype='dict')
-    >>> pt.dssp(traj, ":2-10", dtype='dataframe')
     >>> pt.dssp(traj, ":2-10", dtype='dataset')
 
     Notes
