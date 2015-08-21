@@ -26,6 +26,7 @@ Supported file format
 ---------------------
 (table was adapted from Amber15 manual)
 
+========== ========= =================
 Format     Extension Notes
 ========== ========= =================
 Amber      parm7     Write/Read
