@@ -30,6 +30,7 @@ Supported file formats
     pt.load_topology('2koc.very_very_long_ext')
 
 (table was adapted from Amber15 manual)
+
 ========== ========= =================
 Format     Extension Notes
 ========== ========= =================
