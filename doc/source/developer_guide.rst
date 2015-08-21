@@ -13,6 +13,17 @@ Python 2 and 3 compat
 Use `six <http://pythonhosted.org/six/>`_ to write your compat code. 
 We put all common stuff in `pytraj.compat <https://github.com/Amber-MD/pytraj/blob/master/pytraj/compat.py>`_
 
+Install
+-------
+To speed up installation, please do consider using python multithreading. Just follow
+below
+
+.. code-block:: bash
+
+    $ python ./setup.py build faster
+    $ python ./setup.py install
+    # if not see faster building, Ctrl-C and retry
+
 Add new method to pytraj
 ------------------------
 Check ``pytraj.common_actions`` for example.
