@@ -15,14 +15,13 @@ We put all common stuff in `pytraj.compat <https://github.com/Amber-MD/pytraj/bl
 
 Install
 -------
-To speed up installation, please do consider using python multithreading. Just follow
-below
+To speed up installation, please try to build in parallel.
 
 .. code-block:: bash
 
     $ python ./setup.py build faster
     $ python ./setup.py install
-    # if not see faster building, Ctrl-C and retry
+    # if not see faster building or use only 1 core, use Ctrl-C and retry
 
 Add new method to pytraj
 ------------------------
