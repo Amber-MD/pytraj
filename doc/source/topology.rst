@@ -6,18 +6,23 @@ Topology
 Load topology
 -------------
 
-From `iterload`
+From **iterload**
+
 .. code-block:: python
+
     import pytraj as pt
     traj = pt.iterload('traj.nc', '2KOC.parm7')
     top = traj.top
 
-From `load_topology`
+From **load_topology**
+
 .. code-block:: python
+
     top = pt.load_topology('2KOC.parm7')
 
 Supported file format
 ---------------------
+
 .. todo:: add table
 
 Topology editing
