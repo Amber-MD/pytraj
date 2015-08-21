@@ -22,10 +22,14 @@ From **load_topology**
 
     top = pt.load_topology('2KOC.parm7')
 
-Supported file format
----------------------
-(table was adapted from Amber15 manual)
+Supported file formats
+----------------------
 
+.. note:: cpptraj/pytraj (and parmed) recognizes file by its content, not by extention. So it's 'legal' to use ::
+
+    pt.load_topology('2koc.very_very_long_ext')
+
+(table was adapted from Amber15 manual)
 ========== ========= =================
 Format     Extension Notes
 ========== ========= =================
@@ -38,10 +42,15 @@ SDF        sdf       Read Only
 Tinker ARC arc       Read Only
 ========== ========= =================
 
-.. todo:: add table
-
 Topology editing
 ----------------
 
-* slicing a Topology
-* save to different format
+* slicing a Topology ::
+
+    top = pt.load_topology('2koc.pdb')
+    top['@CA']
+
+* save to different format ::
+
+    top = pt.load_topology('2koc.parm7')
+    top.save('test.mol2')

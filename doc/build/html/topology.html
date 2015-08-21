@@ -71,58 +71,41 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="supported-file-format">
-<h2>Supported file format<a class="headerlink" href="#supported-file-format" title="Permalink to this headline">¶</a></h2>
-<p>(table was adapted from Amber15 manual)</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="28%" />
-<col width="25%" />
-<col width="47%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Format</th>
-<th class="head">Extension</th>
-<th class="head">Notes</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>Amber</td>
-<td>parm7</td>
-<td>Write/Read</td>
-</tr>
-<tr class="row-odd"><td>PDB</td>
-<td>pdb</td>
-<td>Read Only</td>
-</tr>
-<tr class="row-even"><td>Mol2</td>
-<td>mol2</td>
-<td>Read Only</td>
-</tr>
-<tr class="row-odd"><td>CIF</td>
-<td>cif</td>
-<td>Read Only</td>
-</tr>
-<tr class="row-even"><td>Charmm PSF</td>
-<td>psf</td>
-<td>Limited PSF Write</td>
-</tr>
-<tr class="row-odd"><td>SDF</td>
-<td>sdf</td>
-<td>Read Only</td>
-</tr>
-<tr class="row-even"><td>Tinker ARC</td>
-<td>arc</td>
-<td>Read Only</td>
-</tr>
-</tbody>
-</table>
+<div class="section" id="supported-file-formats">
+<h2>Supported file formats<a class="headerlink" href="#supported-file-formats" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>cpptraj/pytraj (and parmed) recognizes file by its content, not by extention. So it&#8217;s &#8216;legal&#8217; to use</p>
+<p class="last">pt.load_topology(&#8216;2koc.very_very_long_ext&#8217;)</p>
+</div>
+<p>(table was adapted from Amber15 manual)
+========== ========= =================
+Format     Extension Notes
+========== ========= =================
+Amber      parm7     Write/Read
+PDB        pdb       Read Only
+Mol2       mol2      Read Only
+CIF        cif       Read Only
+Charmm PSF psf       Limited PSF Write
+SDF        sdf       Read Only
+Tinker ARC arc       Read Only
+========== ========= =================</p>
 </div>
 <div class="section" id="topology-editing">
 <h2>Topology editing<a class="headerlink" href="#topology-editing" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>slicing a Topology</li>
-<li>save to different format</li>
+<ul>
+<li><p class="first">slicing a Topology</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;2koc.pdb&#39;</span><span class="p">)</span>
+<span class="n">top</span><span class="p">[</span><span class="s">&#39;@CA&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">save to different format</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span>
+<span class="n">top</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;test.mol2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
 </ul>
 </div>
 </div>
@@ -137,7 +120,7 @@
   <ul>
 <li><a class="reference internal" href="#">Topology</a><ul>
 <li><a class="reference internal" href="#load-topology">Load topology</a></li>
-<li><a class="reference internal" href="#supported-file-format">Supported file format</a></li>
+<li><a class="reference internal" href="#supported-file-formats">Supported file formats</a></li>
 <li><a class="reference internal" href="#topology-editing">Topology editing</a></li>
 </ul>
 </li>
