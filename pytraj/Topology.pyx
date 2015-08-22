@@ -174,22 +174,7 @@ cdef class Topology:
         return atm
 
     def __iter__(self):
-        return self.atom_iter()
-
-    @property
-    def atoms(self):
-        """atoms iterator, meant to be kept the same as
-        other packages (ParmEd, mdtraj, ...)
-        """
-        return self.atom_iter()
-
-    @property
-    def residues(self):
-        return self.residue_iter()
-
-    @property
-    def mols(self):
-        return self.mol_iter()
+        return self.atoms
 
     def select(self, mask):
         """return AtomMask object
@@ -206,7 +191,8 @@ cdef class Topology:
         """
         return self(mask).indices
 
-    def atom_iter(self):
+    @property
+    def atoms(self):
         cdef Atom atom
         cdef atom_iterator it
 
@@ -217,7 +203,8 @@ cdef class Topology:
             yield atom
             incr(it)
 
-    def residue_iter(self):
+    @property
+    def residues(self):
         cdef Residue res
         cdef res_iterator it
         it = self.thisptr.ResStart()
@@ -228,7 +215,8 @@ cdef class Topology:
             yield res
             incr(it)
         
-    def mol_iter(self):
+    @property
+    def mols(self):
         cdef Molecule mol
         cdef mol_iterator it
         it = self.thisptr.MolStart()
@@ -257,10 +245,10 @@ cdef class Topology:
         """
         self.thisptr.SetReferenceCoords(frame.thisptr[0])
 
-    def file_path(self):
+    def _file_path(self):
         return self.thisptr.c_str()
 
-    def trunc_res_atom_name(self, id_or_mask):
+    def _trunc_res_atom_name(self, id_or_mask):
         """return str or list iterator of str with format like "TYR_3@CA"
         Parameters
         ---------
@@ -282,7 +270,7 @@ cdef class Topology:
                 namelist.append(self.trunc_res_atom_name(index))
             return namelist
 
-    def find_atom_in_residue(self, int res, atname):
+    def _find_atom_in_residue(self, int res, atname):
         cdef NameType _atomnametype
         if isinstance(atname, string_types):
             _atomnametype = NameType(atname)
@@ -307,37 +295,37 @@ cdef class Topology:
         self.thisptr.Summary()
         set_world_silent(True)
 
-    def atom_info(self, maskString="*"):
+    def _atom_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintAtomInfo(maskString)
         set_world_silent(True)
 
-    def bond_info(self, maskString="*"):
+    def _bond_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintBondInfo(maskString)
         set_world_silent(True)
     
-    def angle_info(self, maskString="*"):
+    def _angle_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintAngleInfo(maskString)
         set_world_silent(True)
 
-    def dihedral_info(self, maskString="*"):
+    def _dihedral_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintDihedralInfo(maskString)
         set_world_silent(True)
 
-    def molecule_info(self, maskString="*"):
+    def _molecule_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintMoleculeInfo(maskString)
         set_world_silent(True)
 
-    def residue_info(self, maskString="*"):
+    def _residue_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintResidueInfo(maskString)
@@ -363,11 +351,6 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Natom()
 
-    property n_res:
-        # shortcut
-        def __get__(self):
-            return self.n_residues
-
     property n_residues:
         def __get__(self):
             return self.thisptr.Nres()
@@ -384,7 +367,7 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Nframes()
 
-    def set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
+    def _set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
         if frame.is_empty():
             return self.thisptr.SetupIntegerMask(atm.thisptr[0])
         else:
@@ -473,7 +456,7 @@ cdef class Topology:
         """return unique atom name in Topology
         """
         s = set()
-        for atom in self.atom_iter():
+        for atom in self.atoms:
             s.add(atom.name)
         return s
 
@@ -505,7 +488,7 @@ cdef class Topology:
         cdef pyarray marray = pyarray('d', [])
         cdef Atom atom
 
-        for atom in self.atom_iter():
+        for atom in self.atoms:
             marray.append(atom.mass)
         return marray
 
