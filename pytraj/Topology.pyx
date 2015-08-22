@@ -280,7 +280,7 @@ cdef class Topology:
         elif isinstance(id_or_mask, string_types):
             atm = self(id_or_mask)
             for index in atm.selected_indices():
-                namelist.append(self.trunc_res_atom_name(index))
+                namelist.append(self._trunc_res_atom_name(index))
             return namelist
 
     def _find_atom_in_residue(self, int res, atname):

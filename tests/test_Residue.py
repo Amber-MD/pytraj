@@ -29,7 +29,7 @@ class TestResidue(unittest.TestCase):
         top = tl.get_parm(1)
 
         print("get 1st residue")
-        res1 = next(top.residue_iter())
+        res1 = next(top.residues)
 
         # get residue's name
         print(res1)
@@ -48,8 +48,8 @@ class TestResidue(unittest.TestCase):
         #    print res
 
         # test iterator
-        gen = top.residue_iter()
-        for idx, res in enumerate(top.residue_iter()):
+        gen = top.residues
+        for idx, res in enumerate(top.residues):
             print(res.name)
             print(res.n_atoms)
             if idx == 10:

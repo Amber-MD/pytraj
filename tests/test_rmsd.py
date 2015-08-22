@@ -24,10 +24,10 @@ class Test(unittest.TestCase):
             frame.strip_atoms(mask="!@CA", top=TRAJ.top.copy())
             farray.append(frame.copy())
         assert i == TRAJ.size == TRAJ.n_frames
-        assert frame.size == TRAJ.top.n_res * 3
+        assert frame.size == TRAJ.top.n_residues * 3
         farray.top.strip_atoms("!@CA")
         print("farray.top.n_atoms= ", farray.top.n_atoms)
-        assert farray.top.n_atoms == TRAJ.top.n_res
+        assert farray.top.n_atoms == TRAJ.top.n_residues
         farray.top.summary()
         assert farray.size == TRAJ.n_frames
         print("rmsd to first = ", farray[0].rmsd(farray[1]))

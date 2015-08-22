@@ -5,9 +5,13 @@ from pytraj.datasetlist import DatasetList
 class BaseAnalysisResult(object):
     def __init__(self, dslist=None):
         if dslist is not None:
-            self.dslist = dslist
+            self._dslist = dslist
         else:
-            self.dslist = DatasetList()
+            self._dslist = DatasetList()
+
+    @property
+    def dataset(self):
+        return self._dslist
 
     def to_ndarray(self):
         return self.dslist.to_ndarray()
