@@ -14,26 +14,26 @@ class BaseAnalysisResult(object):
         return self._dslist
 
     def to_ndarray(self):
-        return self.dslist.to_ndarray()
+        return self._dslist.to_ndarray()
 
     def to_dict(self):
-        return self.dslist.to_dict()
+        return self._dslist.to_dict()
 
     def grep(self, key):
-        return self.dslist.grep(key)
+        return self._dslist.grep(key)
 
     def __getitem__(self, idx):
-        return self.__class__(self.dslist[idx])
+        return self.__class__(self._dslist[idx])
 
     def __iter__(self):
-        return self.dslist.__iter__()
+        return self._dslist.__iter__()
 
     def groupby(self, key):
         return _groupby(self, key)
 
     def append(self, value):
-        self.dslist.append(value)
+        self._dslist.append(value)
 
     @property
     def values(self):
-        return self.dslist.values
+        return self._dslist.values

@@ -24,10 +24,10 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         dtype : str, {'int', 'string'}
         """
         if dtype == 'string':
-            return to_string_ss(self.dslist.filter(
+            return to_string_ss(self.dataset.filter(
                 lambda x: 'int' in x.dtype.name).to_dict())
         elif dtype == 'int':
-            return self.dslist.filter(
+            return self.dataset.filter(
                 lambda x: 'int' in x.dtype.name).to_dict()
         else:
             raise NotImplementedError()
@@ -40,10 +40,10 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         dtype : str, {'string', 'int'}
         """
         if dtype == 'string':
-            return to_string_ss(self.dslist.filter(
+            return to_string_ss(self.dataset.filter(
                 lambda x: 'int' in x.dtype.name).to_ndarray())
         elif dtype == 'int':
-            return self.dslist.filter(
+            return self.dataset.filter(
                 lambda x: 'int' in x.dtype.name).to_ndarray()
         else:
             raise NotImplementedError()
@@ -56,11 +56,11 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         Return a `pytraj.datasetlist.DatasetList` object having average value
         for each frame for each type of secondary structure
         """
-        return self.dslist.grep("avg")
+        return self.dataset.grep("avg")
 
     @property
     def residues(self):
-        return np.array(self.dslist.grep('res', mode='aspect').keys())
+        return np.array(self.dataset.grep('res', mode='aspect').keys())
 
     def values_per_frame(self, restype='string'):
         return np.vstack((self.residues, self.to_ndarray(restype).T))
