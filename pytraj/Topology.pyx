@@ -465,7 +465,7 @@ cdef class Topology:
         """return unique residue names in Topology
         """
         s = set()
-        for residue in self.residue_iter():
+        for residue in self.residues:
             s.add(residue.name)
         return s
 
@@ -684,3 +684,9 @@ cdef class Topology:
         from pytraj.parms.ParmFile import ParmFile
         parm = ParmFile()
         parm.writeparm(filename=filename, top=self, format=format)
+
+    def set_solvent(self, mask):
+        '''set ``mask`` as solvent
+        '''
+        mask = mask.encode()
+        self.thisptr.SetSolvent(mask)
