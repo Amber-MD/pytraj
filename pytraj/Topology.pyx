@@ -677,7 +677,7 @@ cdef class Topology:
         return nb
 
     @property
-    def total_charge(self):
+    def _total_charge(self):
         return sum([atom.charge for atom in self.atoms])
 
     def save(self, filename=None, format='AMBERPARM'):

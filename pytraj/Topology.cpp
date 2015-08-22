@@ -2517,7 +2517,7 @@ static char __pyx_k_indices_view[] = "_indices_view";
 static char __pyx_k_moleculelist[] = "moleculelist";
 static char __pyx_k_pytraj_utils[] = "pytraj.utils";
 static char __pyx_k_string_types[] = "string_types";
-static char __pyx_k_total_charge[] = "total_charge";
+static char __pyx_k_total_charge[] = "_total_charge";
 static char __pyx_k_Topology_mols[] = "Topology.mols";
 static char __pyx_k_add_dihedrals[] = "add_dihedrals";
 static char __pyx_k_angle_indices[] = "angle_indices";
@@ -2913,7 +2913,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_124vdw_radii(struct __pyx_
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_126to_dataframe(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_128to_parmed(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_130NonbondParmType(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_132total_charge(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_132_total_charge(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_134save(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, PyObject *__pyx_v_filename, PyObject *__pyx_v_format); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_136set_solvent(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self, PyObject *__pyx_v_mask); /* proto */
 static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_11py_free_mem___get__(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self); /* proto */
@@ -11567,8 +11567,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_103add_bonds(struct __pyx_
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
   int __pyx_v_short_is_signed;
-  int __pyx_v_int_is_signed;
   int __pyx_v_long_is_signed;
+  int __pyx_v_int_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -11671,8 +11671,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_103add_bonds(struct __pyx_
   }
   __pyx_v_itemsize = -1;
   __pyx_v_short_is_signed = (((short)-1) < 0);
-  __pyx_v_int_is_signed = (((int)-1) < 0);
   __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_int_is_signed = (((int)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 521; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -12792,8 +12792,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_105add_angles(struct __pyx
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
   int __pyx_v_short_is_signed;
-  int __pyx_v_int_is_signed;
   int __pyx_v_long_is_signed;
+  int __pyx_v_int_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -12896,8 +12896,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_105add_angles(struct __pyx
   }
   __pyx_v_itemsize = -1;
   __pyx_v_short_is_signed = (((short)-1) < 0);
-  __pyx_v_int_is_signed = (((int)-1) < 0);
   __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_int_is_signed = (((int)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 536; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -14059,8 +14059,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_107add_dihedrals(struct __
   int __pyx_v_dtype_signed;
   char __pyx_v_kind;
   int __pyx_v_short_is_signed;
-  int __pyx_v_int_is_signed;
   int __pyx_v_long_is_signed;
+  int __pyx_v_int_is_signed;
   PyObject *__pyx_v_arg = NULL;
   PyObject *__pyx_v_dtype = NULL;
   PyObject *__pyx_v_arg_base = NULL;
@@ -14163,8 +14163,8 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_107add_dihedrals(struct __
   }
   __pyx_v_itemsize = -1;
   __pyx_v_short_is_signed = (((short)-1) < 0);
-  __pyx_v_int_is_signed = (((int)-1) < 0);
   __pyx_v_long_is_signed = (((long)-1) < 0);
+  __pyx_v_int_is_signed = (((int)-1) < 0);
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 551; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17612,26 +17612,26 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_130NonbondParmType(struct 
 /* "pytraj/Topology.pyx":680
  * 
  *     @property
- *     def total_charge(self):             # <<<<<<<<<<<<<<
+ *     def _total_charge(self):             # <<<<<<<<<<<<<<
  *         return sum([atom.charge for atom in self.atoms])
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_133total_charge(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8Topology_8Topology_132total_charge[] = "Topology.total_charge(self)";
-static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_133total_charge(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_133_total_charge(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8Topology_8Topology_132_total_charge[] = "Topology._total_charge(self)";
+static PyObject *__pyx_pw_6pytraj_8Topology_8Topology_133_total_charge(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("total_charge (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_132total_charge(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("_total_charge (wrapper)", 0);
+  __pyx_r = __pyx_pf_6pytraj_8Topology_8Topology_132_total_charge(((struct __pyx_obj_6pytraj_8Topology_Topology *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_132total_charge(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_132_total_charge(struct __pyx_obj_6pytraj_8Topology_Topology *__pyx_v_self) {
   PyObject *__pyx_v_atom = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -17643,11 +17643,11 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_132total_charge(struct __p
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("total_charge", 0);
+  __Pyx_RefNannySetupContext("_total_charge", 0);
 
   /* "pytraj/Topology.pyx":681
  *     @property
- *     def total_charge(self):
+ *     def _total_charge(self):
  *         return sum([atom.charge for atom in self.atoms])             # <<<<<<<<<<<<<<
  * 
  *     def save(self, filename=None, format='AMBERPARM'):
@@ -17720,7 +17720,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_132total_charge(struct __p
   /* "pytraj/Topology.pyx":680
  * 
  *     @property
- *     def total_charge(self):             # <<<<<<<<<<<<<<
+ *     def _total_charge(self):             # <<<<<<<<<<<<<<
  *         return sum([atom.charge for atom in self.atoms])
  * 
  */
@@ -17730,7 +17730,7 @@ static PyObject *__pyx_pf_6pytraj_8Topology_8Topology_132total_charge(struct __p
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("pytraj.Topology.Topology.total_charge", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pytraj.Topology.Topology._total_charge", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_atom);
@@ -30859,7 +30859,7 @@ static PyMethodDef __pyx_methods_6pytraj_8Topology_Topology[] = {
   {"to_dataframe", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_127to_dataframe, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_126to_dataframe},
   {"to_parmed", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_129to_parmed, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_128to_parmed},
   {"NonbondParmType", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_131NonbondParmType, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_130NonbondParmType},
-  {"total_charge", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_133total_charge, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_132total_charge},
+  {"_total_charge", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_133_total_charge, METH_NOARGS, __pyx_doc_6pytraj_8Topology_8Topology_132_total_charge},
   {"save", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_135save, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pytraj_8Topology_8Topology_134save},
   {"set_solvent", (PyCFunction)__pyx_pw_6pytraj_8Topology_8Topology_137set_solvent, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_136set_solvent},
   {"__pyx_fuse_0add_bonds", (PyCFunction)__pyx_fuse_0__pyx_pw_6pytraj_8Topology_8Topology_139add_bonds, METH_O, __pyx_doc_6pytraj_8Topology_8Topology_103add_bonds},
@@ -34285,7 +34285,7 @@ PyMODINIT_FUNC PyInit_Topology(void)
   /* "pytraj/Topology.pyx":680
  * 
  *     @property
- *     def total_charge(self):             # <<<<<<<<<<<<<<
+ *     def _total_charge(self):             # <<<<<<<<<<<<<<
  *         return sum([atom.charge for atom in self.atoms])
  * 
  */
@@ -34296,7 +34296,7 @@ PyMODINIT_FUNC PyInit_Topology(void)
  *         return nb
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def total_charge(self):
+ *     def _total_charge(self):
  *         return sum([atom.charge for atom in self.atoms])
  */
   __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 679; __pyx_clineno = __LINE__; goto __pyx_L1_error;}

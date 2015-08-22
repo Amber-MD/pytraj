@@ -82,7 +82,7 @@ class TestTopology(unittest.TestCase):
         assert len(top) == top.n_atoms
 
     def test_charge(self):
-        print(TRAJ.top.total_charge)
+        print(TRAJ.top.charge.sum())
 
 
 if __name__ == "__main__":
