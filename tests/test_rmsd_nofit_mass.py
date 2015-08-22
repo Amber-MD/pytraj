@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
         print(cout)
 
         aa_eq(pt.rmsd(traj, nofit=True), cout[0])
-        aa_eq(pt.rmsd(traj, use_mass=True), cout[1])
+        aa_eq(pt.rmsd(traj, mass=True), cout[1])
 
 
 if __name__ == "__main__":

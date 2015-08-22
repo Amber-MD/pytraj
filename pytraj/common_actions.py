@@ -922,15 +922,17 @@ def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 def _calc_vector_center(traj=None,
                         command="",
                         top=None,
-                        use_mass=False,
+                        mass=False,
                         dtype='ndarray'):
+    from pytraj.actions.CpptrajActions import Action_Vector
     _top = _get_top(traj, top)
 
     dslist = CpptrajDatasetList()
     dslist.set_py_free_mem(False)  # need this to avoid segmentation fault
-    act = adict['vector']
+    act = Action_Vector()
     command = "center " + command
-    if use_mass:
+
+    if mass:
         command += " mass"
 
     act.read_input(command=command, top=_top, dslist=dslist)
@@ -938,14 +940,14 @@ def _calc_vector_center(traj=None,
 
     for frame in _frame_iter_master(traj):
         # set Frame masses
-        if use_mass:
+        if mass:
             frame.set_frame_mass(_top)
         act.do_action(frame)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_center_of_mass(traj=None, mask=None, top=None, dtype='ndarray', *args, **kwd):
-    return _calc_vector_center(traj=traj, command=mask, top=top, use_mass=True,
+def calc_center_of_mass(traj=None, mask='', top=None, dtype='ndarray', *args, **kwd):
+    return _calc_vector_center(traj=traj, command=mask, top=top, mass=True,
             dtype=dtype)
 
 calc_COM = calc_center_of_mass
@@ -1107,7 +1109,7 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
 def rmsd_perres(traj=None,
                 ref=0,
                 mask="",
-                use_mass=False,
+                mass=False,
                 top=None,
                 range=None,
                 perresmask=None,
@@ -1130,7 +1132,7 @@ def rmsd_perres(traj=None,
                      ref=ref,
                      mask=cm,
                      nofit=False,
-                     use_mass=use_mass,
+                     mass=mass,
                      top=top,
                      dtype=dtype, *args, **kwd)
 
@@ -1139,7 +1141,7 @@ def calc_rmsd(traj=None,
               ref=0,
               mask="",
               nofit=False,
-              use_mass=False,
+              mass=False,
               top=None,
               dtype='ndarray', *args, **kwd):
     """calculate rmsd
@@ -1170,7 +1172,7 @@ def calc_rmsd(traj=None,
     import numpy as np
 
     _nofit = ' nofit ' if nofit else ''
-    _mass = ' mass ' if use_mass else ''
+    _mass = ' mass ' if mass else ''
     opt = _nofit + _mass
 
     if isinstance(mask, string_types):
@@ -1355,6 +1357,7 @@ def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
         if restype == 'trajectory', return a new ``pytraj.Trajectory``
         if restype == 'dataset': return a tuple (new_traj, datasetlist)
         if restype == 'iterator': return a tuple of (Frame iterator, new Topology),  good for memory saving
+        if restype == 'all': return (Trajectory, DatasetList)
     top : Topology-like object, default=None, optional
 
     Returns
@@ -1409,12 +1412,15 @@ def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
     if dtype == 'iterator':
         return (fiter, new_top)
     else:
-        if dtype == 'trajectory':
+        if dtype in ['trajectory', 'all']:
             fa = Trajectory()
             fa.top = new_top.copy()
             for new_frame in fiter:
                 fa.append(new_frame.copy())
-            return fa
+            if dtype == 'trajectory':
+                return fa
+            elif dtype == 'all':
+                return fa, dslist
         else:
             for new_frame in fiter:
                 # just let cpptraj dump data to DatasetList

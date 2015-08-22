@@ -15,6 +15,7 @@ class Test(unittest.TestCase):
         traj = pt.iterload(fname, ftop)
 
         # naive
+        print(pt.calc_center_of_mass(list(traj.split_iterators(4))))
         assert np.all(pt.calc_center_of_mass(list(traj.split_iterators(4))) ==
                       pt.calc_center_of_mass(traj))
 
