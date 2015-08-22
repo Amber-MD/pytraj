@@ -948,9 +948,16 @@ def _calc_vector_center(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_center_of_mass(traj=None, mask='', top=None, dtype='ndarray', *args, **kwd):
-    return _calc_vector_center(traj=traj, command=mask, top=top, mass=True,
-            dtype=dtype)
+def calc_center_of_mass(traj=None,
+                        mask='',
+                        top=None,
+                        dtype='ndarray', *args, **kwd):
+    return _calc_vector_center(traj=traj,
+                               command=mask,
+                               top=top,
+                               mass=True,
+                               dtype=dtype)
+
 
 calc_COM = calc_center_of_mass
 
@@ -1348,6 +1355,7 @@ def _closest_iter(act, traj):
         act.do_action(frame, new_frame)
         yield new_frame
 
+
 def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
     """return either a new Trajectory or a frame iterator. Keep only ``n_solvents`` closest to mask
 
@@ -1429,6 +1437,7 @@ def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
                 pass
             new_dslist = _get_data_from_dtype(dslist, dtype=dtype)
             return new_dslist
+
 
 def native_contacts(traj=None,
                     mask="",

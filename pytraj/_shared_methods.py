@@ -12,26 +12,38 @@ from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
 __all__ = ['_savetraj', '_frame_iter_master', '_xyz', 'my_str_method',
            '_tolist', '_box']
 
-def _savetraj(self, filename="", format='unknown', overwrite=False, *args, **kwd):
+
+def _savetraj(self,
+              filename="",
+              format='unknown',
+              overwrite=False, *args, **kwd):
     if format == 'unknown':
         # convert to "UNKNOWN_TRAJ"
         format = format.upper() + "_TRAJ"
     else:
         format = format.upper()
 
-    with Trajout(filename=filename, top=self.top, format=format, 
+    with Trajout(filename=filename,
+                 top=self.top,
+                 format=format,
                  overwrite=overwrite, *args, **kwd) as trajout:
         for idx, frame in enumerate(self):
             trajout.write(idx, frame, self.top)
 
-def _split_and_write_traj(self, n_chunks=None, root_name="trajx", ext='nc', *args, **kwd):
+
+def _split_and_write_traj(self,
+                          n_chunks=None,
+                          root_name="trajx",
+                          ext='nc', *args, **kwd):
     chunksize = self.n_frames // n_chunks
     for idx, traj in enumerate(self.chunk_iter(chunksize=chunksize)):
         fname = ".".join((root_name, str(idx), ext))
         traj.save(fname, *args, **kwd)
 
+
 def _get_temperature_set(self):
-    return set(self.temperatures) 
+    return set(self.temperatures)
+
 
 def _xyz(self):
     """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
@@ -53,19 +65,21 @@ def _xyz(self):
         myview[i] = frame.buffer2d
     return myview
 
+
 def _tolist(self):
     """return flatten list for traj-like object"""
     from itertools import chain
     return [frame.tolist() for frame in self]
+
 
 def my_str_method(self):
     name = "pytraj." + self.__class__.__name__
     top_str = self.top.__str__()
     tmps = """<%s, %s frames, include:\n%s>
            """ % (
-            name, self.size, top_str,
-            )
+        name, self.size, top_str, )
     return tmps
+
 
 def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
     """iterately get Frames with start, stop, stride 
@@ -101,6 +115,7 @@ def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
             yield frame
         i += stride
 
+
 def _frame_iter_master(obj):
     """try to return a frame iterator
 
@@ -122,7 +137,8 @@ def _frame_iter_master(obj):
     >>>     assert isinstance(frame, Frame) == True
     """
 
-    is_frame_iter_but_not_master = (is_frame_iter(obj) and not obj.__name__ is '_frame_iter_master')
+    is_frame_iter_but_not_master = (is_frame_iter(obj) and not obj.__name__ is
+                                    '_frame_iter_master')
     if isinstance(obj, Frame):
         yield obj
     elif hasattr(obj, 'n_frames') or is_frame_iter_but_not_master:
@@ -146,9 +162,11 @@ def _frame_iter_master(obj):
         except:
             raise ValueError("can not convert to Frame")
 
-def _box(self): 
+
+def _box(self):
     import numpy as np
-    boxarr = np.empty(self.n_frames * 6, dtype=np.float64).reshape(self.n_frames, 6)
+    boxarr = np.empty(self.n_frames * 6,
+                      dtype=np.float64).reshape(self.n_frames, 6)
 
     # Note: tried `enumerate` but got wrong result.
     # --> use old fashion
@@ -157,6 +175,7 @@ def _box(self):
         boxarr[i] = frame.box.to_ndarray()
         i += 1
     return boxarr
+
 
 if __name__ == '__main__':
     import doctest

@@ -539,6 +539,7 @@ def isel(traj, func, *args, **kwd):
         else:
             pass
 
+
 def filter(iterable, func):
     '''return a list
     '''
