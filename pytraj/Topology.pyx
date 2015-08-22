@@ -119,8 +119,18 @@ cdef class Topology:
             self.thisptr[0] = other.thisptr[0]
 
     def __getitem__(self, idx):
-        """
-        return Atom instance
+        """return an Atom, a list of Atom or a new Topology
+
+        Returns
+        -------
+        an Atom if idx is an integer
+        a new Topology if idx a string mask
+        other cases: a list of Atoms
+
+        Examples
+        --------
+        In [31]: top[0]
+        Out[31]: <N-atom, resnum=0, n_bonds=4>
         """
 
         cdef Atom atom 
@@ -367,7 +377,7 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Nframes()
 
-    def _set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
+    def set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
         if frame.is_empty():
             return self.thisptr.SetupIntegerMask(atm.thisptr[0])
         else:

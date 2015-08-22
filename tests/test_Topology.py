@@ -14,11 +14,9 @@ TRAJ = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 class TestTopology(unittest.TestCase):
     def test_empty_top(self):
         top = Topology()
-        print(top.file_path())
         assert top.is_empty() == True
         filename = "./data/Tc5b.top"
         top = Topology(filename)
-        print(top.file_path())
         assert top.is_empty() == False
 
     def test_1(self):
@@ -29,29 +27,29 @@ class TestTopology(unittest.TestCase):
         #top2 = top.modify_state_by_mask(AtomMask("!@CA"))
         #
         top.summary()
-        top.atom_info("@CA")
+        top._atom_info("@CA")
 
         print("test strip_atoms: strip all but CA")
         top.strip_atoms("!@CA")
         assert top.n_atoms == 20
         top.summary()
-        top.atom_info("@CA")
-        top.atom_info("@H")
+        top._atom_info("@CA")
+        top._atom_info("@H")
 
         print("test Parm_Amber for write")
         #Parm_Amber().write_parm("test_write.top", top)
         # top.write_parm("test_write2.top")
 
         print("test atom_iterator")
-        for atom in top.atom_iter():
+        for atom in top.atoms:
             print(atom)
 
         print("test res_iterator")
-        for res in top.residue_iter():
+        for res in top.residues:
             pass
 
         print("test mol_iterator")
-        for mol in top.mol_iter():
+        for mol in top.mols:
             pass
 
         for idx, atom in enumerate(top.atoms):
