@@ -2,7 +2,6 @@
 from __future__ import absolute_import
 from cython.view cimport array as cyarray
 from ..utils import _import_numpy 
-from ..exceptions import PytrajError
 
 cdef class DatasetGridFloat(DataSet_3D):
     def __cinit__(self):
@@ -65,7 +64,7 @@ cdef class DatasetGridFloat(DataSet_3D):
         # copy=True: is a dummy argument to be consistent with DataSet_1D
         has_np, np = _import_numpy()
         if not has_np:
-            raise PytrajError("need numpy")
+            raise ImportError('require numpy')
         else:
             return np.array(self.data[:])
 

@@ -2,7 +2,6 @@
 from __future__ import absolute_import
 from cython.view cimport array as cyarray
 from ..utils import _import_numpy 
-from ..exceptions import PytrajError
 
 
 cdef class Grid:
@@ -69,7 +68,7 @@ cdef class Grid:
     def to_ndarray(self):
         has_np, np = _import_numpy()
         if not has_np:
-            raise PytrajError("need numpy")
+            raise ImportError("need numpy")
         else:
             return np.asarray(self.data[:], dtype=np.float32)
 

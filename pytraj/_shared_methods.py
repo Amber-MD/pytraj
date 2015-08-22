@@ -7,7 +7,6 @@ from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
 from pytraj.compat import set
 from pytraj.utils import _import_numpy
-from pytraj.exceptions import PytrajMemviewError, PytrajConvertError
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
 
 __all__ = ['_savetraj', '_frame_iter_master', '_xyz', 'my_str_method',

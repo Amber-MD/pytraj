@@ -3,6 +3,7 @@
 #from __future__ import absolute_import, division
 # turn off `division` for automatically casting
 from __future__ import absolute_import
+import math
 cimport cython
 from libc.math cimport sqrt
 from cython cimport view
@@ -12,16 +13,12 @@ from cython.parallel import prange
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
 from libc.string cimport memcpy
-from cpython.buffer cimport Py_buffer
-import math
-from pytraj.decorators import for_testing, iter_warning
-from pytraj.decorators import name_will_be_changed
+
 from pytraj.utils.check_and_assert import _import_numpy
 from pytraj.utils.check_and_assert import is_int
 from pytraj.ArgList import ArgList
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
-from pytraj.exceptions import *
 
 DEF RADDEG       =   57.29577951308232
 
@@ -33,14 +30,7 @@ cdef extern from "DistRoutines.h" nogil:
     double DIST2_NoImage(double*, double*)
 
 
-# TODO : reogarnize memory view, there are too many ways to assess
-# need to finalize
-
 __all__ = ['Frame']
-
-def check_instance(inst, clsname):
-    if not isinstance(inst, clsname):
-        raise ValueError("Must be instance of %s") % clsname.__name__
 
 cdef class Frame (object):
     """
@@ -423,7 +413,6 @@ cdef class Frame (object):
         # debug
         #print "from calling buffer1d: py_free_mem = ", self.py_free_mem
         # end debug
-        #"name_will_be_changed, this is for development"
         def _buffer(N):
             cdef double* ptr = self.thisptr.xAddress()
             cdef view.array my_arr
@@ -886,7 +875,7 @@ cdef class Frame (object):
             self.thisptr.Translate(vec3.thisptr[0], firstAtom, lastAtom)
         elif len(args) == 2:
             vec3, atom = args
-            check_instance(vec3, Vec3)
+            assert isinstance(vec3, Vec3), 'must be Vec3'
             self.thisptr.Translate(vec3.thisptr[0], atom)
         elif len(args) == 1:
             self.thisptr.Translate(vec3.thisptr[0])
@@ -1251,11 +1240,8 @@ cdef class Frame (object):
 
     def to_ndarray(self):
         """return a ndarray as a view of self.buffer2d"""
-        has_np, np = _import_numpy()
-        if has_np:
-            return np.asarray(self.buffer2d)
-        else:
-            raise PytrajNumpyError()
+        import numpy as np
+        return np.asarray(self.buffer2d)
 
     @classmethod
     def from_ndarray(cls, xyz):
