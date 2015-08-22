@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
 from pytraj.base import *
 from pytraj import adict
@@ -7,6 +8,8 @@ from pytraj.utils import eq, aa_eq
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
+
+pt.set_cpptraj_verbose()
 
 
 class Test(unittest.TestCase):
@@ -21,7 +24,7 @@ class Test(unittest.TestCase):
         print(traj.top)
         # use "info("closest") to see its doc (from pytraj import info;
         # info("closest"))
-        fa = pyca.closest(traj, "10 :2,4 center")
+        fa = pyca.closest(traj, ":2,4 center", n_solvents=100)
         pdb_file = cpptraj_test_dir + "/Test_Closest/center.closest.pdb.save"
         saved_frame = mdio.iterload(pdb_file, pdb_file)[0]
 
@@ -30,19 +33,8 @@ class Test(unittest.TestCase):
         aa_eq(fa[4].coords, saved_frame.coords, decimal=1)
 
         fa2, dslist2 = pyca.closest(
-            traj, "10 :2,4 center closestout output/test_closest.out",
-            dtype='dataset')
-
-        # don't need to specify `closestout`
-        fa3, dslist3 = pyca.closest(traj, "10 :2,4 center", dtype='dataset')
-        aa_eq(dslist2.to_ndarray(), dslist3.to_ndarray())
-        aa_eq(fa2.xyz, fa3.xyz)
-
-        # dtype = 'ndarray'
-        fa4, dslist4 = pyca.closest(traj, "10 :2,4 center", dtype='ndarray')
-        aa_eq(dslist2.to_ndarray(), dslist4)
-        aa_eq(fa2.xyz, fa4.xyz)
-
+            traj, mask=":2,4 center", n_solvents=15,
+            restype='all')
 
 if __name__ == "__main__":
     unittest.main()

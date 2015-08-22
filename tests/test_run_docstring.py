@@ -78,7 +78,9 @@ class Test(unittest.TestCase):
         from pytraj.cluster import kmeans
         run_docstring(kmeans)
 
-        for func in [pt.dssp, pt.radgyr, pt.molsurf,]:
+        pt.set_cpptraj_verbose()
+        for func in [pt.dssp, pt.radgyr, pt.molsurf,
+                     pt.search_hbonds, pt.closest]:
             run_docstring(func)
 
 

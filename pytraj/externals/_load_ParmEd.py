@@ -1,5 +1,4 @@
 from pytraj.utils import has_
-from pytraj.warnings import PytrajWarningMissing
 from ..Trajectory import Trajectory
 from ..Frame import Frame
 from ..Topology import Topology
@@ -49,15 +48,8 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
         return top
 
 def _load_parmed(parm_name):
-    has_parmed = has_("parmed")
-    if has_parmed:
-        from parmed import load_file
-        return load_file(parm_name)
-    else:
-        if not has_parmed:
-            PytrajWarningMissing("`parmed`")
-        return None
-
+    from parmed import load_file
+    return load_file(parm_name)
 
 def to_ParmEd(pytraj_top):
     # TODO: exten to gromacs, charmm too

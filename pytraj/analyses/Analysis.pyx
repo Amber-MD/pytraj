@@ -3,7 +3,6 @@ from pytraj.cpptraj_dict cimport RetTypeAna, OKANALYSIS, ERRANALYSIS
 from pytraj.externals.six import PY3
 from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
-from pytraj.exceptions import *
 
 cdef extern from "Analysis.h":
     ctypedef enum RetType "Analysis::RetType":
@@ -69,7 +68,7 @@ cdef class Analysis:
         elif isinstance(top, TopologyList):
             toplist = <TopologyList> top
         else:
-            raise EmptyTopologyError("")
+            raise ValueError('Topology must not be empty')
 
         if isinstance(command, string_types):
             arglist = ArgList(command)

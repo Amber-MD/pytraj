@@ -1,6 +1,9 @@
 cimport cython
 from cython cimport view
 
+__all__ = ['_fast_count', 'get_positive_idx', '_int_array1d_like_to_memview',
+           '_int_array2d_like_to_memview', ]
+
 def _fast_count(cython.integral[:] values, int target):
     cdef int i
     cdef int count = 0

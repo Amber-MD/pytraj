@@ -24,12 +24,12 @@ class nupars(BaseAnalysisResult):
         """
         import numpy as np
 
-        aspects = self.dslist.aspects()
+        aspects = self._dslist.aspects()
 
         out = np.empty((len(aspects), 3), dtype='object')
 
         for idx, ap in enumerate(aspects):
-            d0 = self.dslist.grep(ap, mode='aspect')
+            d0 = self._dslist.grep(ap, mode='aspect')
             d0_mean = d0.mean()[1].mean()
             d0_std = d0.mean()[1].std()
             out[idx] = np.array([ap, d0_mean, d0_std])

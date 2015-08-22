@@ -15,7 +15,6 @@ from ..utils.check_and_assert import is_word_in_class_name
 from ..externals.six import string_types
 from ..compat import set
 from ..utils import is_int
-from ..exceptions import *
 from ..core.DataFile import DataFile
 from ..ArgList import ArgList
 
@@ -396,7 +395,7 @@ cdef class DataSetList:
         try:
             return [d0.tolist() for d0 in self]
         except:
-            raise PytrajConvertError("dont know how to convert to list")
+            raise ValueError("dont know how to convert to list")
 
     def to_dict(self, use_numpy=False):
         """return a dict object with key=legend, value=list"""
@@ -407,7 +406,7 @@ cdef class DataSetList:
             else:
                 return dict((d0.legend, d0.tolist()) for d0 in self)
         except:
-            raise PytrajConvertError("don't know tho to convert to dict")
+            raise ValueError("don't know tho to convert to dict")
 
     @property
     def values(self):
@@ -433,7 +432,7 @@ cdef class DataSetList:
                     # more than one set
                     return np.asarray([d0.to_ndarray(copy=True) for d0 in self])
             except:
-                raise PytrajConvertError("don't know how to convert to ndarray")
+                raise ValueError("don't know how to convert to ndarray")
         else:
             raise ImportError("don't have numpy, "
                               "try `tolist`, `to_dict`")
@@ -553,7 +552,7 @@ cdef class DataSetList:
                 d.legend = d.legend.replace(":", "_")
                 fname = "pytraj_datafile_" + d.legend + ".txt"
             else:
-                fname = filenames[i]
+                fname = filenames[idx]
             df.add_dataset(fname, d)
         df.write_all_datafiles()
 

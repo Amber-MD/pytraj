@@ -130,7 +130,7 @@ class FrameIter(object):
                         atm = AtomMask()
                         atm.add_selected_indices(mask)
                     except TypeError:
-                        raise PytrajMemviewError()
+                        raise TypeError('')
                 frame2 = Frame(atm.n_atoms)
                 frame2.set_coords(frame, atm)
 

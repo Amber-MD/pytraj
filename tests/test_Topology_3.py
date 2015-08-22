@@ -11,16 +11,16 @@ top = traj.top
 
 class Test(unittest.TestCase):
     def test_0(self):
-        print(list(top.trunc_res_atom_name('@CA')))
-        print(list(top.trunc_res_atom_name(0)))
-        print(list(top.trunc_res_atom_name('@C')))
+        print(list(top._trunc_res_atom_name('@CA')))
+        print(list(top._trunc_res_atom_name(0)))
+        print(list(top._trunc_res_atom_name('@C')))
         print()
-        print(list(top.trunc_res_atom_name(':2-14@C,H,N,O')))
+        print(list(top._trunc_res_atom_name(':2-14@C,H,N,O')))
 
     def test_1(self):
         print("find_atom_in_residue")
         name = "CA  "
-        print(top.find_atom_in_residue(3, name))
+        print(top._find_atom_in_residue(3, name))
         print(top[58].name == name)
 
     def test_2(self):

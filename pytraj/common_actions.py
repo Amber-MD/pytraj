@@ -647,13 +647,15 @@ def get_average_frame(traj=None, command="", top=Topology()):
 
 def randomize_ions(traj=Frame(), command="", top=Topology()):
     """randomize_ions for given Frame with Topology
-    Return : None
-    Parameters
-    ---------
-    traj : Frame instance, default=Frame()
-        frame coords will be modified
 
-    top : Topology instance, default=Topology()
+    Parameters
+    ----------
+    traj : Trajectory-like or a Frame
+    top : Topology, optional (only needed if ``traj`` does not have it)
+
+    Notes
+    -----
+    ``traj`` must be mutable since this method inplace update coordinate
 
     """
     from pytraj.actions.CpptrajActions import Action_RandomizeIons
@@ -922,15 +924,17 @@ def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 def _calc_vector_center(traj=None,
                         command="",
                         top=None,
-                        use_mass=False,
+                        mass=False,
                         dtype='ndarray'):
+    from pytraj.actions.CpptrajActions import Action_Vector
     _top = _get_top(traj, top)
 
     dslist = CpptrajDatasetList()
     dslist.set_py_free_mem(False)  # need this to avoid segmentation fault
-    act = adict['vector']
+    act = Action_Vector()
     command = "center " + command
-    if use_mass:
+
+    if mass:
         command += " mass"
 
     act.read_input(command=command, top=_top, dslist=dslist)
@@ -938,13 +942,24 @@ def _calc_vector_center(traj=None,
 
     for frame in _frame_iter_master(traj):
         # set Frame masses
-        if use_mass:
+        if mass:
             frame.set_frame_mass(_top)
         act.do_action(frame)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-calc_COM = calc_center_of_mass = partial(_calc_vector_center, use_mass=True)
+def calc_center_of_mass(traj=None,
+                        mask='',
+                        top=None,
+                        dtype='ndarray', *args, **kwd):
+    return _calc_vector_center(traj=traj,
+                               command=mask,
+                               top=top,
+                               mass=True,
+                               dtype=dtype)
+
+
+calc_COM = calc_center_of_mass
 
 
 def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
@@ -1022,6 +1037,8 @@ def calc_pairwise_rmsd(traj=None,
     (pytraj.iterload(...))
     It's better to use `pytraj.pairwise_rmsd(traj(mask='@CA'))` than
     `pytraj.pairwise_rmsd(traj, mask='@CA')
+
+    Install **libcpptraj** with openmp to benifit from parallel
 
     """
     if not isinstance(mask, string_types):
@@ -1101,7 +1118,7 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
 def rmsd_perres(traj=None,
                 ref=0,
                 mask="",
-                use_mass=False,
+                mass=False,
                 top=None,
                 range=None,
                 perresmask=None,
@@ -1124,7 +1141,7 @@ def rmsd_perres(traj=None,
                      ref=ref,
                      mask=cm,
                      nofit=False,
-                     use_mass=use_mass,
+                     mass=mass,
                      top=top,
                      dtype=dtype, *args, **kwd)
 
@@ -1133,7 +1150,7 @@ def calc_rmsd(traj=None,
               ref=0,
               mask="",
               nofit=False,
-              use_mass=False,
+              mass=False,
               top=None,
               dtype='ndarray', *args, **kwd):
     """calculate rmsd
@@ -1164,7 +1181,7 @@ def calc_rmsd(traj=None,
     import numpy as np
 
     _nofit = ' nofit ' if nofit else ''
-    _mass = ' mass ' if use_mass else ''
+    _mass = ' mass ' if mass else ''
     opt = _nofit + _mass
 
     if isinstance(mask, string_types):
@@ -1324,69 +1341,102 @@ def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def closest(traj=None, command=None, top=None, *args, **kwd):
-    """
+def _closest_iter(act, traj):
+    '''
     Parameters
     ----------
-    traj : Trajectory-like | list of Trajectory-like/frames | frame_iter | chunk_iter
-        traj could be anything as long as _frame_iter_master(traj) returns Frame
-    command : str
-        cpptraj command (below)
+    act : Action object
+    traj : Trajectory-like
+    '''
+
+    for frame in _frame_iter_master(traj):
+        new_frame = Frame()
+        new_frame.py_free_mem = False  # cpptraj will do
+        act.do_action(frame, new_frame)
+        yield new_frame
+
+
+def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
+    """return either a new Trajectory or a frame iterator. Keep only ``n_solvents`` closest to mask
+
+    Parameters
+    ----------
+    traj : Trajectory-like | list of Trajectory-like/frames | frame iterator | chunk iterator
+    mask: str, default '*' (all solute atoms)
+    restype : str, {'trajectory', 'dataset', 'iterator'}, default 'trajectory'
+        if restype == 'trajectory', return a new ``pytraj.Trajectory``
+        if restype == 'dataset': return a tuple (new_traj, datasetlist)
+        if restype == 'iterator': return a tuple of (Frame iterator, new Topology),  good for memory saving
+        if restype == 'all': return (Trajectory, DatasetList)
     top : Topology-like object, default=None, optional
-    *args, **kwd: more arguments
-        if dtype == 'dataset': return a tuple (new_traj, datasetlist)
-            cpptraj only save data to CpptrajDatasetList if `closestout` is specified (check example)
-        if dtype != 'dataset': return only new_traj
+
+    Returns
+    -------
+    out : (check above)
 
     Examples
     --------
-    >>> from pytraj import io
-    >>> traj = io.load_sample_data ('tz2')
-    >>> import pytraj.common_actions as pyca
-    >>> # obtain new traj, keeping only closest 100 waters 
+    # obtain new traj, keeping only closest 100 waters 
     >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
-    >>> t = pyca.closest (traj, "100 :1-13 first")
-    >>> # get new traj and get new CpptrajDatasetList object to store more information
-    >>> # (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
-    >>> new_traj, dslist = pyca.closest (traj, "100 :1-13 first closestout test.out", dtype='dataset')
-    >>> new_traj, dslist = pyca.closest (traj, "100 :1-13 first closestout test.out", dtype='dataframe')
+    >>> t = pt.closest(traj, mask='@CA', n_solvents=10)
+
+    # only get meta data for frames, solvent without getting new Trajectory
+    # (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
+    >>> dslist = pt.closest(traj, n_solvents=100, mask=':1-13', restype='dataset')
+
+    # getting a frame iterator for lazy evaluation
+    >>> fiter = pt.closest(traj, n_solvents=20, restype='iterator')
+    >>> for frame in fiter: print(frame) 
+
     """
 
     from .actions.CpptrajActions import Action_Closest
     from pytraj.Trajectory import Trajectory
     dslist = CpptrajDatasetList()
-    if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
 
-    if 'dtype' in kwd.keys():
-        dtype = kwd['dtype']
-    else:
-        dtype = None
+    if n_solvents == 0:
+        raise ValueError('must specify the number of solvents')
+
+    if not isinstance(mask, string_types):
+        mask = to_cpptraj_atommask(command)
+
+    command = str(n_solvents) + ' ' + mask
+
+    dtype = restype
 
     act = Action_Closest()
-    fa = Trajectory()
 
     _top = _get_top(traj, top)
     new_top = Topology()
     new_top.py_free_mem = False  # cpptraj will do
-    if dtype and 'closestout' not in command:
+
+    if dtype not in ['trajectory', 'iterator']:
         # trick cpptraj to dump data to CpptrajDatasetList too
         command = command + " closestout tmp_pytraj_closestout.out"
+
     act.read_input(command, _top, dslist=dslist)
     act.process(_top, new_top)
 
-    fa.top = new_top.copy()
-    for frame in _frame_iter_master(traj):
-        new_frame = Frame()
-        new_frame.py_free_mem = False  # cpptraj will do
-        act.do_action(frame, new_frame)
-        fa.append(new_frame.copy())
+    fiter = _closest_iter(act, traj)
 
-    if dtype:
-        new_dslist = _get_data_from_dtype(dslist, dtype=dtype)
-        return (fa, new_dslist)
+    if dtype == 'iterator':
+        return (fiter, new_top)
     else:
-        return fa
+        if dtype in ['trajectory', 'all']:
+            fa = Trajectory()
+            fa.top = new_top.copy()
+            for new_frame in fiter:
+                fa.append(new_frame.copy())
+            if dtype == 'trajectory':
+                return fa
+            elif dtype == 'all':
+                return fa, dslist
+        else:
+            for new_frame in fiter:
+                # just let cpptraj dump data to DatasetList
+                pass
+            new_dslist = _get_data_from_dtype(dslist, dtype=dtype)
+            return new_dslist
 
 
 def native_contacts(traj=None,

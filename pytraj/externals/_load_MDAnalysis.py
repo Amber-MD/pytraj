@@ -14,7 +14,6 @@ def load_MDAnalysis(its_obj, top=None):
     """
     from pytraj.utils import has_, require, _import_numpy
     from pytraj.Trajectory import Trajectory
-    from pytraj.exceptions import PytrajRequireObject
     from ..Frame import Frame
 
     # don't import here since we import load_pseudo_parm in
@@ -29,7 +28,7 @@ def load_MDAnalysis(its_obj, top=None):
     else:
         from MDAnalysis import Universe
         if not isinstance(its_obj, Universe):
-            raise PytrajRequireObject("Universe")
+            raise ValuError("must be a Universe")
 
         # creat pseudotop
         if top is None:

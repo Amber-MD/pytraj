@@ -6,17 +6,17 @@ from pytraj import io as mdio
 
 
 def test_generator(top):
-    for atom in top.atom_iter():
+    for atom in top.atoms:
         pass
         # print atom
 
     print("\nres_iterator for top")
-    for res in top.residue_iter():
+    for res in top.residues:
         pass
         # print res
 
     print("\nmol_iterator for top")
-    for mol in top.mol_iter():
+    for mol in top.mols:
         pass
         # print mol
 

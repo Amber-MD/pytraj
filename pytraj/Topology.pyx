@@ -119,8 +119,18 @@ cdef class Topology:
             self.thisptr[0] = other.thisptr[0]
 
     def __getitem__(self, idx):
-        """
-        return Atom instance
+        """return an Atom, a list of Atom or a new Topology
+
+        Returns
+        -------
+        an Atom if idx is an integer
+        a new Topology if idx a string mask
+        other cases: a list of Atoms
+
+        Examples
+        --------
+        In [31]: top[0]
+        Out[31]: <N-atom, resnum=0, n_bonds=4>
         """
 
         cdef Atom atom 
@@ -157,6 +167,9 @@ cdef class Topology:
         elif isinstance(idx, Residue):
             res = idx
             return self[res.first_atom_idx : res.last_atom_idx]
+        elif isinstance(idx, Molecule):
+            mol = idx
+            return self[mol.begin_atom: mol.end_atom]
         else:
             raise NotImplementedError("")
         if len(alist) == 1:
@@ -174,22 +187,7 @@ cdef class Topology:
         return atm
 
     def __iter__(self):
-        return self.atom_iter()
-
-    @property
-    def atoms(self):
-        """atoms iterator, meant to be kept the same as
-        other packages (ParmEd, mdtraj, ...)
-        """
-        return self.atom_iter()
-
-    @property
-    def residues(self):
-        return self.residue_iter()
-
-    @property
-    def mols(self):
-        return self.mol_iter()
+        return self.atoms
 
     def select(self, mask):
         """return AtomMask object
@@ -206,7 +204,8 @@ cdef class Topology:
         """
         return self(mask).indices
 
-    def atom_iter(self):
+    @property
+    def atoms(self):
         cdef Atom atom
         cdef atom_iterator it
 
@@ -217,7 +216,8 @@ cdef class Topology:
             yield atom
             incr(it)
 
-    def residue_iter(self):
+    @property
+    def residues(self):
         cdef Residue res
         cdef res_iterator it
         it = self.thisptr.ResStart()
@@ -228,7 +228,8 @@ cdef class Topology:
             yield res
             incr(it)
         
-    def mol_iter(self):
+    @property
+    def mols(self):
         cdef Molecule mol
         cdef mol_iterator it
         it = self.thisptr.MolStart()
@@ -257,10 +258,10 @@ cdef class Topology:
         """
         self.thisptr.SetReferenceCoords(frame.thisptr[0])
 
-    def file_path(self):
+    def _file_path(self):
         return self.thisptr.c_str()
 
-    def trunc_res_atom_name(self, id_or_mask):
+    def _trunc_res_atom_name(self, id_or_mask):
         """return str or list iterator of str with format like "TYR_3@CA"
         Parameters
         ---------
@@ -279,10 +280,10 @@ cdef class Topology:
         elif isinstance(id_or_mask, string_types):
             atm = self(id_or_mask)
             for index in atm.selected_indices():
-                namelist.append(self.trunc_res_atom_name(index))
+                namelist.append(self._trunc_res_atom_name(index))
             return namelist
 
-    def find_atom_in_residue(self, int res, atname):
+    def _find_atom_in_residue(self, int res, atname):
         cdef NameType _atomnametype
         if isinstance(atname, string_types):
             _atomnametype = NameType(atname)
@@ -307,37 +308,37 @@ cdef class Topology:
         self.thisptr.Summary()
         set_world_silent(True)
 
-    def atom_info(self, maskString="*"):
+    def _atom_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintAtomInfo(maskString)
         set_world_silent(True)
 
-    def bond_info(self, maskString="*"):
+    def _bond_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintBondInfo(maskString)
         set_world_silent(True)
     
-    def angle_info(self, maskString="*"):
+    def _angle_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintAngleInfo(maskString)
         set_world_silent(True)
 
-    def dihedral_info(self, maskString="*"):
+    def _dihedral_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintDihedralInfo(maskString)
         set_world_silent(True)
 
-    def molecule_info(self, maskString="*"):
+    def _molecule_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintMoleculeInfo(maskString)
         set_world_silent(True)
 
-    def residue_info(self, maskString="*"):
+    def _residue_info(self, maskString="*"):
         set_world_silent(False)
         maskString = maskString.encode()
         self.thisptr.PrintResidueInfo(maskString)
@@ -362,11 +363,6 @@ cdef class Topology:
     property n_atoms:
         def __get__(self):
             return self.thisptr.Natom()
-
-    property n_res:
-        # shortcut
-        def __get__(self):
-            return self.n_residues
 
     property n_residues:
         def __get__(self):
@@ -473,7 +469,7 @@ cdef class Topology:
         """return unique atom name in Topology
         """
         s = set()
-        for atom in self.atom_iter():
+        for atom in self.atoms:
             s.add(atom.name)
         return s
 
@@ -482,7 +478,7 @@ cdef class Topology:
         """return unique residue names in Topology
         """
         s = set()
-        for residue in self.residue_iter():
+        for residue in self.residues:
             s.add(residue.name)
         return s
 
@@ -498,6 +494,7 @@ cdef class Topology:
             raise ValueError("support only Topology object or top filename")
 
         self.thisptr.AppendTop(_top.thisptr[0])
+        return self
 
     @property
     def mass(self):
@@ -505,7 +502,7 @@ cdef class Topology:
         cdef pyarray marray = pyarray('d', [])
         cdef Atom atom
 
-        for atom in self.atom_iter():
+        for atom in self.atoms:
             marray.append(atom.mass)
         return marray
 
@@ -694,10 +691,16 @@ cdef class Topology:
         return nb
 
     @property
-    def total_charge(self):
+    def _total_charge(self):
         return sum([atom.charge for atom in self.atoms])
 
     def save(self, filename=None, format='AMBERPARM'):
         from pytraj.parms.ParmFile import ParmFile
         parm = ParmFile()
         parm.writeparm(filename=filename, top=self, format=format)
+
+    def set_solvent(self, mask):
+        '''set ``mask`` as solvent
+        '''
+        mask = mask.encode()
+        self.thisptr.SetSolvent(mask)
