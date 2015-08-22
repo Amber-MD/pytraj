@@ -647,13 +647,15 @@ def get_average_frame(traj=None, command="", top=Topology()):
 
 def randomize_ions(traj=Frame(), command="", top=Topology()):
     """randomize_ions for given Frame with Topology
-    Return : None
-    Parameters
-    ---------
-    traj : Frame instance, default=Frame()
-        frame coords will be modified
 
-    top : Topology instance, default=Topology()
+    Parameters
+    ----------
+    traj : Trajectory-like or a Frame
+    top : Topology, optional (only needed if ``traj`` does not have it)
+
+    Notes
+    -----
+    ``traj`` must be mutable since this method inplace update coordinate
 
     """
     from pytraj.actions.CpptrajActions import Action_RandomizeIons
