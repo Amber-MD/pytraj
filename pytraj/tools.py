@@ -522,3 +522,12 @@ def isel(traj, func, *args, **kwd):
             yield f
         else:
             pass
+
+def filter(iterable, func):
+    '''return a list
+
+    Requires
+    --------
+    toolz
+    '''
+    return list(filter(func, iterable))

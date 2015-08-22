@@ -107,7 +107,7 @@ from .common_actions import (
     energy_decomposition, native_contacts, auto_correlation_function,
     principal_axes, cross_correlation_function, timecorr, center, translate,
     rotate, rotate_dihedral, make_structure, scale, do_clustering,
-    clustering_dataset, _rotate_dih, randomize_ions, crank, )
+    clustering_dataset, _rotate_dih, randomize_ions, crank, closest)
 
 # create alias
 distance = calc_distance
