@@ -1,8 +1,10 @@
 """seperate module, only use stdlib
 If want to use external package, import it inside the function
+
+This module stores all useful functions that does not fit to anywhere else.
 """
 from __future__ import absolute_import
-import sys
+import sys as _sys
 import os
 from glob import glob
 from itertools import islice, groupby
@@ -11,8 +13,8 @@ from collections import OrderedDict
 
 # string_types, PY2, PY3, iteritems were copied from six.py
 # see license in $PYTRAJHOME/license/externals/
-PY2 = sys.version_info[0] == 2
-PY3 = sys.version_info[0] == 3
+PY2 = _sys.version_info[0] == 2
+PY3 = _sys.version_info[0] == 3
 
 if PY3:
     _iteritems = "items"
@@ -110,8 +112,11 @@ def chunk_average(self, n_chunk, restype='same'):
 
 
 def moving_average(data, n):
-    # http://stackoverflow.com/questions/11352047/finding-moving-average-from-data-points-in-python
     """moving average
+
+    Notes
+    -----
+    from `stackoverflow <http://stackoverflow.com/questions/11352047/finding-moving-average-from-data-points-in-python>`_
     """
     window = np.ones(int(n)) / float(n)
     new_data = np.convolve(data, window, 'same')
@@ -124,10 +129,11 @@ def moving_average(data, n):
 
 
 def pipe(obj, func, *args, **kwargs):
-    # copied from pandas PR
-    # https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py
-    # see license in pytraj/license/
-    """Apply a function to a obj either by
+    """Notes: copied from pandas PR
+    https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py
+    see license in pytraj/license/
+
+    Apply a function to a obj either by
     passing the obj as the first argument
     to the function or, in the case that
     the func is a tuple, interpret the first
@@ -155,9 +161,11 @@ def _compose2(f, g):
 
 
 def compose(*funcs):
-    # copied from pandas (added pytraj's example)
-    # see license in pytraj/license/
-    """Compose 2 or more callables
+    """
+    Notes: copied from pandas (added pytraj's example)
+    see license in pytraj/license/
+
+    Compose 2 or more callables
 
     Examples
     --------
@@ -186,10 +194,13 @@ def grep(self, key):
 
 
 def flatten(x):
-    # http://kogs-www.informatik.uni-hamburg.de/~meine/python_tricks
     """Returns a single, flat list which contains all elements retrieved
     from the sequence and all recursively contained sub-sequences
     (iterables).
+
+    Notes
+    -----
+    from: http://kogs-www.informatik.uni-hamburg.de/~meine/python_tricks
 
     Examples
     --------
@@ -218,10 +229,11 @@ def n_grams(a, n, asarray=False):
     asarray : bool, default False
         if False: return an iterator
         if True: return a numpy array
+
+    Notes
+    -----
+    adapted from: http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html
     """
-    # adapted from:
-    # http://sahandsaba.com/
-    # thirty-python-language-features-and-tricks-you-may-not-know.html
 
     z = (islice(a, i, None) for i in range(n))
     it = zip(*z)
@@ -305,6 +317,10 @@ def rmsd(a1, a2, flatten=True):
     a1, a2: np.ndarray
     flatten : bool, default True
         if True: always flatten two input arrays
+
+    Notes
+    -----
+    This method is different from ``pytraj.rmsd``
     """
     import numpy as np
     a1 = np.asarray(a1)
@@ -525,9 +541,5 @@ def isel(traj, func, *args, **kwd):
 
 def filter(iterable, func):
     '''return a list
-
-    Requires
-    --------
-    toolz
     '''
     return list(filter(func, iterable))

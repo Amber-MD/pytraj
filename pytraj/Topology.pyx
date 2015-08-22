@@ -494,6 +494,7 @@ cdef class Topology:
             raise ValueError("support only Topology object or top filename")
 
         self.thisptr.AppendTop(_top.thisptr[0])
+        return self
 
     @property
     def mass(self):
