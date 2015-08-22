@@ -167,6 +167,9 @@ cdef class Topology:
         elif isinstance(idx, Residue):
             res = idx
             return self[res.first_atom_idx : res.last_atom_idx]
+        elif isinstance(idx, Molecule):
+            mol = idx
+            return self[mol.begin_atom: mol.end_atom]
         else:
             raise NotImplementedError("")
         if len(alist) == 1:
