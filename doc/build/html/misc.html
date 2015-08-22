@@ -61,6 +61,7 @@
 </div>
 <span class="target" id="module-pytraj.tools"></span><p>seperate module, only use stdlib
 If want to use external package, import it inside the function</p>
+<p>This module stores all useful functions that does not fit to anywhere else.</p>
 <dl class="function">
 <dt id="pytraj.tools.chunk_average">
 <code class="descclassname">pytraj.tools.</code><code class="descname">chunk_average</code><span class="sig-paren">(</span><em>self</em>, <em>n_chunk</em>, <em>restype='same'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.chunk_average" title="Permalink to this definition">¶</a></dt>
@@ -70,7 +71,9 @@ If want to use external package, import it inside the function</p>
 <dl class="function">
 <dt id="pytraj.tools.compose">
 <code class="descclassname">pytraj.tools.</code><code class="descname">compose</code><span class="sig-paren">(</span><em>*funcs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.compose" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compose 2 or more callables</p>
+<dd><p>Notes: copied from pandas (added pytraj&#8217;s example)
+see license in pytraj/license/</p>
+<p>Compose 2 or more callables</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">func</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">calc_radgyr</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">)</span>
@@ -117,6 +120,8 @@ If want to use external package, import it inside the function</p>
 <dd><p>Returns a single, flat list which contains all elements retrieved
 from the sequence and all recursively contained sub-sequences
 (iterables).</p>
+<p class="rubric">Notes</p>
+<p>from: <a class="reference external" href="http://kogs-www.informatik.uni-hamburg.de/~meine/python_tricks">http://kogs-www.informatik.uni-hamburg.de/~meine/python_tricks</a></p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)]</span>
 <span class="go">[1, 2, [3, 4], (5, 6)]</span>
@@ -199,6 +204,8 @@ from the sequence and all recursively contained sub-sequences
 <dt id="pytraj.tools.moving_average">
 <code class="descclassname">pytraj.tools.</code><code class="descname">moving_average</code><span class="sig-paren">(</span><em>data</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.moving_average" title="Permalink to this definition">¶</a></dt>
 <dd><p>moving average</p>
+<p class="rubric">Notes</p>
+<p>from <a class="reference external" href="http://stackoverflow.com/questions/11352047/finding-moving-average-from-data-points-in-python">stackoverflow</a></p>
 </dd></dl>
 
 <dl class="function">
@@ -219,12 +226,17 @@ if True: return a numpy array</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Notes</p>
+<p>adapted from: <a class="reference external" href="http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html">http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html</a></p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.tools.pipe">
 <code class="descclassname">pytraj.tools.</code><code class="descname">pipe</code><span class="sig-paren">(</span><em>obj</em>, <em>func</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.pipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply a function to a obj either by
+<dd><p>Notes: copied from pandas PR
+<a class="reference external" href="https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py">https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py</a>
+see license in pytraj/license/</p>
+<p>Apply a function to a obj either by
 passing the obj as the first argument
 to the function or, in the case that
 the func is a tuple, interpret the first
@@ -283,6 +295,8 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 </tr>
 </tbody>
 </table>
+<p class="rubric">Notes</p>
+<p>This method is different from <code class="docutils literal"><span class="pre">pytraj.rmsd</span></code></p>
 </dd></dl>
 
 <dl class="function">

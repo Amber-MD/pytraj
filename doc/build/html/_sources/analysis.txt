@@ -1,6 +1,13 @@
 Analysis
 ========
 
+.. ipython:: python
+    :suppress:
+
+    import numpy as np
+    import pytraj as pt
+    traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
+
 .. todo: make a script to write
 
 - distances_
@@ -50,6 +57,9 @@ Analysis
 
 .. _pairwise_rmsd:
 .. autofunction:: pytraj.pairwise_rmsd
+
+.. ipython:: python
+    pt.pairwise_rmsd(traj, '@CA')
 
 .. _dssp:
 .. autofunction:: pytraj.dssp
