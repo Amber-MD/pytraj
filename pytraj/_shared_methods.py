@@ -95,7 +95,7 @@ def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
                     atm.add_selected_indices(mask)
                 except TypeError:
                     raise 'TypeError'
-            frame2 = Frame(frame. atm)
+            frame2 = Frame(frame, atm)
             yield frame2
         else:
             yield frame
