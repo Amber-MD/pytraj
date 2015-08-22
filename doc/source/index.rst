@@ -22,6 +22,7 @@ Welcome to pytraj's documentation - not completed yet
 .. toctree::
    :maxdepth: 1
 
+   overview
    installation
    trajectory
    topology
