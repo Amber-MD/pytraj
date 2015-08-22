@@ -81,6 +81,7 @@
 <li><a class="reference internal" href="#timecorr">timecorr</a></li>
 <li><a class="reference internal" href="#randomize-ions">randomize_ions</a></li>
 <li><a class="reference internal" href="#crank">crank</a></li>
+<li><a class="reference internal" href="#closest">closest</a></li>
 <li><a class="reference internal" href="nucleic_acid.html#nucleic-acid"><span>Nucleic Acid Analysis</span></a></li>
 </ul>
 <span class="target" id="distances"></span><dl class="function">
@@ -578,6 +579,42 @@ traj : Frame instance, default=Frame()</p>
 <dt id="pytraj.autoimage">
 <code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=&lt;Topology: 0 atoms</em>, <em>0 residues</em>, <em>0 mols</em>, <em>non-PBC&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<span class="target" id="closest"></span><dl class="function">
+<dt id="pytraj.closest">
+<code class="descclassname">pytraj.</code><code class="descname">closest</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>n_solvents=0</em>, <em>restype='trajectory'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.closest" title="Permalink to this definition">¶</a></dt>
+<dd><p>return either a new Trajectory or a frame iterator. Keep only <code class="docutils literal"><span class="pre">n_solvents</span></code> closest to mask</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like | list of Trajectory-like/frames | frame iterator | chunk iterator</p>
+<p><strong>mask: str, default &#8216;*&#8217; (all solute atoms)</strong></p>
+<p><strong>restype</strong> : str, {&#8216;trajectory&#8217;, &#8216;dataset&#8217;, &#8216;iterator&#8217;}, default &#8216;trajectory&#8217;</p>
+<blockquote>
+<div><p>if restype == &#8216;trajectory&#8217;, return a new <code class="docutils literal"><span class="pre">pytraj.Trajectory</span></code>
+if restype == &#8216;dataset&#8217;: return a tuple (new_traj, datasetlist)
+if restype == &#8216;iterator&#8217;: return a tuple of (Frame iterator, new Topology),  good for memory saving</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology-like object, default=None, optional</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : (check above)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p># obtain new traj, keeping only closest 100 waters 
+&gt;&gt;&gt; # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
+&gt;&gt;&gt; t = pt.closest(traj, <a class="reference external" href="mailto:mask='&#37;&#52;&#48;CA">mask='<span>&#64;</span>CA</a>&#8216;, n_solvents=10)</p>
+<p># only get meta data for frames, solvent without getting new Trajectory
+# (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
+&gt;&gt;&gt; dslist = pt.closest(traj, n_solvents=100, mask=&#8217;:1-13&#8217;, restype=&#8217;dataset&#8217;)</p>
+<p># getting a frame iterator for lazy evaluation
+&gt;&gt;&gt; fiter = pt.closest(traj, n_solvents=20, restype=&#8217;iterator&#8217;)
+&gt;&gt;&gt; for frame in fiter: print(frame)</p>
+</dd></dl>
 
 </div>
 

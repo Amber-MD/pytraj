@@ -29,6 +29,7 @@ Analysis
 - timecorr_
 - randomize_ions_
 - crank_
+- closest_
 - :ref:`nucleic_acid`
 
 
@@ -109,3 +110,6 @@ Analysis
 
 .. _autoimage:
 .. autofunction:: pytraj.autoimage
+
+.. _closest:
+.. autofunction:: pytraj.closest
