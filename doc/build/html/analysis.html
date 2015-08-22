@@ -110,7 +110,7 @@ command : str | int_2d numpy array</p>
 
 <span class="target" id="rmsd"></span><dl class="function">
 <dt id="pytraj.rmsd">
-<code class="descclassname">pytraj.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>use_mass=False</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate rmsd</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -142,7 +142,7 @@ command : str | int_2d numpy array</p>
 
 <span class="target" id="rmsd-perres"></span><dl class="function">
 <dt id="pytraj.rmsd_perres">
-<code class="descclassname">pytraj.</code><code class="descname">rmsd_perres</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>use_mass=False</em>, <em>top=None</em>, <em>range=None</em>, <em>perresmask=None</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd_perres" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rmsd_perres</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>mass=False</em>, <em>top=None</em>, <em>range=None</em>, <em>perresmask=None</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd_perres" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform rmsfit calculation with <cite>mask</cite>, then calculate nofit rms for residues
 in <cite>range</cite> with given <cite>perresmask</cite></p>
 </dd></dl>
@@ -404,7 +404,7 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 
 <span class="target" id="center-of-mass"></span><dl class="function">
 <dt id="pytraj.center_of_mass">
-<code class="descclassname">pytraj.</code><code class="descname">center_of_mass</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.center_of_mass" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">center_of_mass</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.center_of_mass" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="center-of-geometry"></span><dl class="function">
@@ -546,14 +546,19 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 <span class="target" id="randomize-ions"></span><dl class="function">
 <dt id="pytraj.randomize_ions">
 <code class="descclassname">pytraj.</code><code class="descname">randomize_ions</code><span class="sig-paren">(</span><em>traj=&lt;Frame with 0 atoms&gt;</em>, <em>command=''</em>, <em>top=&lt;Topology: 0 atoms</em>, <em>0 residues</em>, <em>0 mols</em>, <em>non-PBC&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.randomize_ions" title="Permalink to this definition">¶</a></dt>
-<dd><p>randomize_ions for given Frame with Topology
-Return : None
-Parameters
-&#8212;&#8212;&#8212;
-traj : Frame instance, default=Frame()</p>
-<blockquote>
-<div>frame coords will be modified</div></blockquote>
-<p>top : Topology instance, default=Topology()</p>
+<dd><p>randomize_ions for given Frame with Topology</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or a Frame</p>
+<p class="last"><strong>top</strong> : Topology, optional (only needed if <code class="docutils literal"><span class="pre">traj</span></code> does not have it)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal"><span class="pre">traj</span></code> must be mutable since this method inplace update coordinate</p>
 </dd></dl>
 
 <span class="target" id="crank"></span><dl class="function">
@@ -594,7 +599,8 @@ traj : Frame instance, default=Frame()</p>
 <blockquote>
 <div><p>if restype == &#8216;trajectory&#8217;, return a new <code class="docutils literal"><span class="pre">pytraj.Trajectory</span></code>
 if restype == &#8216;dataset&#8217;: return a tuple (new_traj, datasetlist)
-if restype == &#8216;iterator&#8217;: return a tuple of (Frame iterator, new Topology),  good for memory saving</p>
+if restype == &#8216;iterator&#8217;: return a tuple of (Frame iterator, new Topology),  good for memory saving
+if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 </div></blockquote>
 <p><strong>top</strong> : Topology-like object, default=None, optional</p>
 </td>
