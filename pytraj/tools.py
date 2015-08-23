@@ -10,6 +10,8 @@ from glob import glob
 from itertools import islice, groupby
 import functools
 from collections import OrderedDict
+from pytraj.utils.converf import (array_to_cpptraj_atommask,
+                                  array_to_cpptraj_residuemask)
 
 # string_types, PY2, PY3, iteritems were copied from six.py
 # see license in $PYTRAJHOME/license/externals/
