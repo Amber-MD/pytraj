@@ -150,7 +150,7 @@ in <cite>range</cite> with given <cite>perresmask</cite></p>
 
 <span class="target" id="pairwise-rmsd"></span><dl class="function">
 <dt id="pytraj.pairwise_rmsd">
-<code class="descclassname">pytraj.</code><code class="descname">pairwise_rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">pairwise_rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>return 2D numpy array</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -161,6 +161,7 @@ in <cite>range</cite> with given <cite>perresmask</cite></p>
 <blockquote>
 <div><p>See <cite>Notes</cite> below for further info</p>
 </div></blockquote>
+<p><strong>metric</strong> : {&#8216;rms&#8217;, &#8216;dme&#8217;, &#8216;srmsd&#8217;, &#8216;nofit&#8217;}</p>
 <p><strong>top</strong> : Topology, optional, default=None</p>
 <p><strong>dtype: ndarray</strong></p>
 <p><strong>mat_type</strong> : return matrix type, default &#8216;full&#8217;</p>
@@ -170,49 +171,28 @@ in <cite>range</cite> with given <cite>perresmask</cite></p>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>This calculation is memory consumming. It&#8217;s better to use pytraj.TrajectoryIterator
-(pytraj.iterload(...))
-It&#8217;s better to use <cite>pytraj.pairwise_rmsd(traj(mask=&#8217;&#64;CA&#8217;))</cite> than
-<a href="#id1"><span class="problematic" id="id2">`</span></a>pytraj.pairwise_rmsd(traj, <a class="reference external" href="mailto:mask='&#37;&#52;&#48;CA">mask='<span>&#64;</span>CA</a>&#8216;)</p>
+<p>This calculation is memory consumming. It&#8217;s better to use <strong>pytraj.TrajectoryIterator</strong>
+(<strong>pytraj.iterload(...)</strong>)</p>
+<p>It&#8217;s better to use <cite>**pytraj.pairwise_rmsd(traj(mask=&#8217;&#64;CA&#8217;))**</cite> than
+<cite>**pytraj.pairwise_rmsd(traj, mask=&#8217;&#64;CA&#8217;)**</cite>.</p>
 <p>Install <strong>libcpptraj</strong> with openmp to benifit from parallel</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># memory saving</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># * Create TrajectoryIterator to load only one Frame at a time</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">mdio</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&quot;data/nogit/tip3p/md.trj&quot;</span><span class="p">,</span> 
-<span class="gp">&gt;&gt;&gt; </span>                    <span class="s">&quot;./data/nogit/tip3p/tc5bwat.top&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># we will load stripped-atom frames into memory only</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="s">&quot;!@CA&quot;</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># passing `frame_iter` to `calc_pairwise_rmsd`</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># traj(0, 1000, mask=&#39;@CA&#39;) is equal to</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c">#     traj.frame_iter(start=0, stop=1000, mask=&#39;@CA&#39;)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj.common_actions</span> <span class="kn">as</span> <span class="nn">pyca</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pyca</span><span class="o">.</span><span class="n">calc_pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">),</span> 
-<span class="gp">&gt;&gt;&gt; </span>                               <span class="n">top</span><span class="o">=</span><span class="n">new_top</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate pairwise rmsd for all frames using CA atoms</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">calc_pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span><span class="o">.</span><span class="n">to_ndarray</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># convert to numpy array</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">calc_pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA dme&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&quot;dme&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># convert to numpy array</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">calc_pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA nofit&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&quot;nofit&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate pairwise rmsd for all frames using CA atoms</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># use symmetry-corrected RMSD, convert to numpy array</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">calc_pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA srmsd&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&quot;srmsd&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
