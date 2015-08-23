@@ -10,9 +10,9 @@ Analysis
 
 .. todo: make a script to write
 
-- distances_
-- angles_
-- dihedrals_ 
+- distance_
+- angle_
+- dihedral_ 
 - rmsd_
 - rmsd_perres_
 - pairwise_rmsd_ 
@@ -41,13 +41,13 @@ Analysis
 - :ref:`nucleic_acid`
 
 
-.. _distances:
+.. _distance:
 .. autofunction:: pytraj.distance
 
-.. _angles:
+.. _angle:
 .. autofunction:: pytraj.angle
 
-.. _dihedrals:
+.. _dihedral:
 .. autofunction:: pytraj.dihedral
 
 .. _rmsd:
