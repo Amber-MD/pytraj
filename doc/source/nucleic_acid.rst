@@ -22,5 +22,5 @@ Examples
     traj.top.atom_names
     na = pt.nastruct(traj)
     na
-    na.summary()
+    na.mean_and_std()
     na.values
