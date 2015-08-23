@@ -25,3 +25,4 @@ Overview
 
    + `check installation <installation>`_
    + do some :ref:`tutorials`
+   + get reference by :ref:`genindex`
