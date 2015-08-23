@@ -82,6 +82,7 @@
 <li><a class="reference internal" href="#randomize-ions">randomize_ions</a></li>
 <li><a class="reference internal" href="#crank">crank</a></li>
 <li><a class="reference internal" href="#closest">closest</a></li>
+<li><a class="reference internal" href="#search-neighbors">search_neighbors</a></li>
 <li><a class="reference internal" href="nucleic_acid.html#nucleic-acid"><span>Nucleic Acid Analysis</span></a></li>
 </ul>
 <span class="target" id="distances"></span><dl class="function">
@@ -620,6 +621,27 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 <p># getting a frame iterator for lazy evaluation
 &gt;&gt;&gt; fiter = pt.closest(traj, n_solvents=20, restype=&#8217;iterator&#8217;)
 &gt;&gt;&gt; for frame in fiter: print(frame)</p>
+</dd></dl>
+
+<span class="target" id="search-neighbors"></span><dl class="function">
+<dt id="pytraj.search_neighbors">
+<code class="descclassname">pytraj.</code><code class="descname">search_neighbors</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>cutoff=''</em>, <em>dtype='dataset'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.search_neighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>search neighbors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><span class="xref std std-ref">pytraj.DatasetList</span>, is a list of atom index arrays for each frame.</p>
+<p class="last">Those arrays might not have the same lenghth</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:5&#39;</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="s">&quot;&lt;5.0&quot;</span><span class="p">)</span> <span class="c"># around residue 5 with 5.0 cutoff</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="s">&quot;&gt;10.0&quot;</span><span class="p">)</span> <span class="c"># around atom 3, 7, 8, larger than 10.0 Angstrom</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>

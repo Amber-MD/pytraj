@@ -37,6 +37,7 @@ Analysis
 - randomize_ions_
 - crank_
 - closest_
+- search_neighbors_
 - :ref:`nucleic_acid`
 
 
@@ -123,3 +124,6 @@ Analysis
 
 .. _closest:
 .. autofunction:: pytraj.closest
+
+.. _search_neighbors:
+.. autofunction:: pytraj.search_neighbors
