@@ -23,4 +23,3 @@ Examples
     na = pt.nastruct(traj)
     na
     na.mean_and_std()
-    na.to_dict()
