@@ -15,13 +15,13 @@ def _array_to_cpptraj_range(seq):
     # use "i+1" since cpptraj use 1-based index for mask
     return ",".join((str(i+1) for i in seq))
 
-def array_to_cpptraj_atommask(seq):
+def array_to_atommask(seq):
     '''
     [1, 3, 4] --> @2,4,5
     '''
     return '@' + _array_to_cpptraj_range(seq)
 
-def array_to_cpptraj_residuemask(seq):
+def array_to_residuemask(seq):
     '''[1, 3, 4] --> :2,4,5'''
     return ':' + _array_to_cpptraj_range(seq)
 
