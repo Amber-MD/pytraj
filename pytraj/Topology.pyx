@@ -77,6 +77,14 @@ cdef class Topology:
         return self.n_atoms
 
     def __add__(self, Topology other):
+        '''order matters
+
+        Examples
+        --------
+        >>> top0 = pt.load_topology('t0.parm7')
+        >>> top1 = pt.load_topology('t1.parm7')
+        >>> top2 = top0 + top1
+        '''
         new_top = self.copy()
         new_top.join(other)
         return new_top

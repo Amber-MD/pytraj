@@ -17,6 +17,13 @@ def silly_doc_func():
 
 class Test(unittest.TestCase):
     def test_0(self):
+        for func in [pt.dssp, pt.radgyr, pt.molsurf,
+                     pt.search_hbonds, pt.closest,
+                     pt.search_neighbors,
+                     pt.pairwise_rmsd,
+                     ]:
+            run_docstring(func)
+
         print("silly_doc_func")
         run_docstring(silly_doc_func)
 
@@ -77,11 +84,6 @@ class Test(unittest.TestCase):
 
         from pytraj.cluster import kmeans
         run_docstring(kmeans)
-
-        pt.set_cpptraj_verbose()
-        for func in [pt.dssp, pt.radgyr, pt.molsurf,
-                     pt.search_hbonds, pt.closest]:
-            run_docstring(func)
 
 
 if __name__ == "__main__":

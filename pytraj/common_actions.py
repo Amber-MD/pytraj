@@ -982,6 +982,7 @@ calc_COG = calc_center_of_geometry
 
 def calc_pairwise_rmsd(traj=None,
                        mask="",
+                       metric='rms',
                        top=None,
                        dtype='ndarray',
                        mat_type='full', *args, **kwd):
@@ -992,6 +993,7 @@ def calc_pairwise_rmsd(traj=None,
     traj : Trajectory-like, iterable object
     mask : mask (default=all atom) + extra command
         See `Notes` below for further info
+    metric : {'rms', 'dme', 'srmsd', 'nofit'}
     top : Topology, optional, default=None
     dtype: ndarray
     mat_type : return matrix type, default 'full'
@@ -999,52 +1001,34 @@ def calc_pairwise_rmsd(traj=None,
 
     Examples
     --------
-    >>> # memory saving
-    >>> # * Create TrajectoryIterator to load only one Frame at a time
-    >>> traj = mdio.iterload("data/nogit/tip3p/md.trj", 
-    >>>                     "./data/nogit/tip3p/tc5bwat.top")
-    >>> # we will load stripped-atom frames into memory only
-    >>> new_top = traj.top.strip_atoms("!@CA", copy=True)
-
-    >>> # passing `frame_iter` to `calc_pairwise_rmsd`
-    >>> # traj(0, 1000, mask='@CA') is equal to
-    >>> #     traj.frame_iter(start=0, stop=1000, mask='@CA')
-
-    >>> import pytraj.common_actions as pyca
-    >>> pyca.calc_pairwise_rmsd(traj(0, 1000, mask='@CA'), 
-    >>>                                top=new_top, dtype='ndarray')
-
-    >>> # calculate pairwise rmsd for all frames using CA atoms
-    >>> dslist = calc_pairwise_rmsd(traj, "@CA")
-    >>> dslist.to_ndarray()
-    >>> dslist.tolist()
+    >>> pt.pairwise_rmsd(traj(0, 1000, mask='@CA'))
 
     >>> # calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)
     >>> # convert to numpy array
-    >>> arr_np = calc_pairwise_rmsd(traj, "@CA dme", dtype='ndarray')
+    >>> arr_np = pt.pairwise_rmsd(traj, "@CA", metric="dme", dtype='ndarray')
 
     >>> # calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD
     >>> # convert to numpy array
-    >>> arr_np = calc_pairwise_rmsd(traj, "@CA nofit", dtype='ndarray')
+    >>> arr_np = pt.pairwise_rmsd(traj, "@CA", metric="nofit", dtype='ndarray')
 
     >>> # calculate pairwise rmsd for all frames using CA atoms
     >>> # use symmetry-corrected RMSD, convert to numpy array
-    >>> arr_np = calc_pairwise_rmsd(traj, "@CA srmsd", dtype='ndarray')
+    >>> arr_np = pt.pairwise_rmsd(traj, "@CA", metric="srmsd", dtype='ndarray')
 
     Notes
     -----
-    This calculation is memory consumming. It's better to use pytraj.TrajectoryIterator
-    (pytraj.iterload(...))
-    It's better to use `pytraj.pairwise_rmsd(traj(mask='@CA'))` than
-    `pytraj.pairwise_rmsd(traj, mask='@CA')
+    This calculation is memory consumming. It's better to use **pytraj.TrajectoryIterator**
+    (**pytraj.iterload(...)**)
+
+    It's better to use `**pytraj.pairwise_rmsd(traj(mask='@CA'))**` than
+    `**pytraj.pairwise_rmsd(traj, mask='@CA')**`.
 
     Install **libcpptraj** with openmp to benifit from parallel
-
     """
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
 
-    command = mask
+    command = ' '.join((mask, metric))
 
     from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
     act = Analysis_Rms2d()
@@ -1658,22 +1642,39 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def find_neighborlist(traj=None,
+def search_neighbors(traj=None,
                       mask='',
                       cutoff='',
                       dtype='dataset',
                       top=None):
-    """Note: not validate yet
+    """search neighbors
 
-    >>> pt.common_actions.find_neighborlist(traj, ':5 <:5.0')
-    >>> pt.common_actions.find_neighborlist(traj, ':5', cutoff="<:5.0")
-    >>> pt.common_actions.find_neighborlist(traj, [3, 7, 8], cutoff=">:10.0")
+    Returns
+    -------
+    :ref:`pytraj.DatasetList`, is a list of atom index arrays for each frame.
+    Those arrays might not have the same lenghth
+
+    Note
+    ----
+    not validate yet
+
+    Examples
+    --------
+    >>> pt.search_neighbors(traj, mask=':5', cutoff="<5.0") # around residue 5 with 5.0 cutoff
+    >>> pt.search_neighbors(traj, [3, 7, 8], cutoff=">10.0") # around atom 3, 7, 8, larger than 10.0 Angstrom
     """
     from pytraj.datasetlist import DatasetList
     import numpy as np
 
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
+
+    if '>' in cutoff:
+        cutoff = '>:' + cutoff.split('>')[-1]
+    elif '<' in cutoff:
+        cutoff = '<:' + cutoff.split('<')[-1]
+    else:
+        raise ValueError('must correctly specify cutoff: using > or <')
 
     mask = " ".join((mask, cutoff))
 
@@ -1682,7 +1683,7 @@ def find_neighborlist(traj=None,
     _top = _get_top(traj, top)
     for idx, frame in enumerate(_frame_iter_master(traj)):
         _top.set_reference_frame(frame)
-        dslist.append({str(idx): np.asarray(_top.select(mask).indices)})
+        dslist.append({str(idx): np.asarray(_top.select(mask))})
     return _get_data_from_dtype(dslist, dtype)
 
 
