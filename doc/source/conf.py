@@ -42,7 +42,7 @@ sys.path.extend([
 # ones.
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.autosummary',
-              #'sphinx.ext.doctest',
+              'sphinx.ext.doctest',
               'sphinx.ext.extlinks',
               'sphinx.ext.todo',
               'numpydoc', # used to parse numpy-style docstrings for autodoc
