@@ -80,7 +80,9 @@ class Test(unittest.TestCase):
 
         pt.set_cpptraj_verbose()
         for func in [pt.dssp, pt.radgyr, pt.molsurf,
-                     pt.search_hbonds, pt.closest]:
+                     pt.search_hbonds, pt.closest,
+                     pt.search_neighbors,
+                     ]:
             run_docstring(func)
 
 

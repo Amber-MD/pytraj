@@ -1658,22 +1658,39 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def find_neighborlist(traj=None,
+def search_neighbors(traj=None,
                       mask='',
                       cutoff='',
                       dtype='dataset',
                       top=None):
-    """Note: not validate yet
+    """search neighbors
 
-    >>> pt.common_actions.find_neighborlist(traj, ':5 <:5.0')
-    >>> pt.common_actions.find_neighborlist(traj, ':5', cutoff="<:5.0")
-    >>> pt.common_actions.find_neighborlist(traj, [3, 7, 8], cutoff=">:10.0")
+    Returns
+    -------
+    :ref:`pytraj.DatasetList`, is a list of atom index arrays for each frame.
+    Those arrays might not have the same lenghth
+
+    Note
+    ----
+    not validate yet
+
+    Examples
+    --------
+    >>> pt.search_neighbors(traj, mask=':5', cutoff="<5.0") # around residue 5 with 5.0 cutoff
+    >>> pt.search_neighbors(traj, [3, 7, 8], cutoff=">10.0") # around atom 3, 7, 8, larger than 10.0 Angstrom
     """
     from pytraj.datasetlist import DatasetList
     import numpy as np
 
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
+
+    if '>' in cutoff:
+        cutoff = '>:' + cutoff.split('>')[-1]
+    elif '<' in cutoff:
+        cutoff = '<:' + cutoff.split('<')[-1]
+    else:
+        raise ValueError('must correctly specify cutoff: using > or <')
 
     mask = " ".join((mask, cutoff))
 
@@ -1682,7 +1699,7 @@ def find_neighborlist(traj=None,
     _top = _get_top(traj, top)
     for idx, frame in enumerate(_frame_iter_master(traj)):
         _top.set_reference_frame(frame)
-        dslist.append({str(idx): np.asarray(_top.select(mask).indices)})
+        dslist.append({str(idx): np.asarray(_top.select(mask))})
     return _get_data_from_dtype(dslist, dtype)
 
 
