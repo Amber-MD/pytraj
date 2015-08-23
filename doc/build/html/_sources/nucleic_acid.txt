@@ -19,8 +19,8 @@ Examples
     import pytraj as pt
     traj = pt.iterload('data/adh026.3.pdb')
     traj
-    traj.top.atom_names
+    traj.top.residue_names
     na = pt.nastruct(traj)
     na
     na.mean_and_std()
-    na.values
+    na.to_dict()
