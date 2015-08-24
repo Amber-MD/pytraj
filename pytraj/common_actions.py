@@ -458,8 +458,7 @@ def calc_watershell(traj=None, solute_mask=None,
     Examples
     --------
     >>> pt.watershell(traj, solute_mask='!:WAT')
-    >>> pt.watershell(traj, solvent_mask=':WAT')
-    >>> pt.watershell(traj, solvent_mask=':WAT', lower=5.0, upper=10.)
+    >>> pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
     from pytraj.actions.CpptrajActions import Action_Watershell
     _top = _get_top(traj, top)
