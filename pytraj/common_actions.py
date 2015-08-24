@@ -429,10 +429,18 @@ def calc_mindist(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)[-1]
 
 
-def calc_watershell(traj=None, command="", top=Topology()):
-    """return a CpptrajDatasetList object having the number of water 
-    in 1st and 2nd water shell for each frame
-    >>> d0 = calc_watershell(":WAT", traj)
+def calc_watershell(traj=None, mask="", dtype='dataset', top=None):
+    """return 1st and 2nd water shell for each frame
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : solute mask
+    dtype : return type, defaul 'dataset'
+    top : Topology, optional
+
+    Examples
+    --------
+    >>> d0 = pt.watershell(traj, '!:WAT')
     >>> # get 1st shell
     >>> d0_0 = d0[0]
     >>> print (d0_0[:])
@@ -440,16 +448,17 @@ def calc_watershell(traj=None, command="", top=Topology()):
     >>> d0_1 = d0[1]
     >>> print (d0_1[:])
     """
+    from pytraj.actions.CpptrajActions import Action_Watershell
     _top = _get_top(traj, top)
+    command = mask
     if not isinstance(command, string_types):
         command = to_cpptraj_atommask(command)
     if not 'out' in command:
         # current Watershell action require specifying output
-        #
         command += ' out .tmp'
     dslist = CpptrajDatasetList()
-    adict['watershell'](command, traj, _top, dslist=dslist)
-    return dslist
+    Action_Watershell()(command, traj, _top, dslist=dslist)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 
 def calc_radial(traj=None, command="", top=Topology()):
@@ -1448,18 +1457,17 @@ def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
 
     Examples
     --------
-    # obtain new traj, keeping only closest 100 waters 
+    >>> # obtain new traj, keeping only closest 100 waters 
     >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
     >>> t = pt.closest(traj, mask='@CA', n_solvents=10)
 
-    # only get meta data for frames, solvent without getting new Trajectory
-    # (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
+    >>> # only get meta data for frames, solvent without getting new Trajectory
+    >>> # (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
     >>> dslist = pt.closest(traj, n_solvents=100, mask=':1-13', restype='dataset')
 
-    # getting a frame iterator for lazy evaluation
+    >>> # getting a frame iterator for lazy evaluation
     >>> fiter = pt.closest(traj, n_solvents=20, restype='iterator')
     >>> for frame in fiter: print(frame) 
-
     """
 
     from .actions.CpptrajActions import Action_Closest
@@ -1513,16 +1521,25 @@ def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
 
 def native_contacts(traj=None,
                     mask="",
-                    top=None,
                     dtype='dataset',
                     ref=0,
                     distance=7.0,
                     noimage=False,
                     include_solvent=False,
-                    byres=False, *args, **kwd):
+                    byres=False,
+                    top=None,
+                    *args, **kwd):
     """
+    Examples
+    --------
+    >>> # use 1st frame as reference, don't need specify ref Frame
+    >>> pt.native_contacts(traj)
+
+    >>> # explicitly specify reference, specify distance cutoff
+    >>> pt.native_contacts(traj, ref=ref, distance=8.0)
+
     Notes
-    ----
+    -----
     if `ref` is None: first number in result corresponds to reference
     Not assert to cpptraj's output yet
     """
@@ -1559,9 +1576,6 @@ def native_contacts(traj=None,
 
 def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
-    Examples
-    --------
-        dslist = calc_grid(traj)
     """
     # TODO: doc, rename method, move to seperate module?
     from .actions.CpptrajActions import Action_Grid

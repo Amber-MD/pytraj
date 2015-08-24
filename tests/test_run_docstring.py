@@ -17,7 +17,7 @@ def silly_doc_func():
 
 class Test(unittest.TestCase):
     def test_0(self):
-        for func in [pt.distance, pt.angle, pt.dihedral,
+        for func in [pt.watershell, pt.distance, pt.angle, pt.dihedral,
                      pt.dssp, pt.radgyr, pt.molsurf,
                      pt.search_hbonds, pt.closest,
                      pt.search_neighbors,
