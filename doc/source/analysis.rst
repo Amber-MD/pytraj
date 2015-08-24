@@ -47,6 +47,8 @@ Analysis
 - search_neighbors_
 - watershell_
 - :ref:`nucleic_acid`
+- :ref:`vector_analysis`
+- :ref:`matrix_analysis`
 
 
 .. _distance:
