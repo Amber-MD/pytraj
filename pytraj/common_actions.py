@@ -660,8 +660,19 @@ def calc_jcoupling(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
-def do_translation(traj=None, command="", top=Topology()):
+def do_translation(traj=None, command="", top=None):
+    '''
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # load to mutable trajectory by `load` method
+    >>> traj = pt.load('traj.nc', 'myparm.parm7')
+    >>> pt.translate(traj, '@CA x 120.')
+    '''
+    from pytraj.actions.CpptrajActions import Action_Translate
+
     _noaction_with_TrajectoryIterator(traj)
+
     if is_array(command):
         x, y, z = command
         _x = "x " + str(x)
@@ -670,29 +681,31 @@ def do_translation(traj=None, command="", top=Topology()):
         _command = " ".join((_x, _y, _z))
     else:
         _command = command
-    adict['translate'](_command, traj, top)
+    Action_Translate()(_command, traj, top)
 
 
 translate = do_translation
 
 
-def do_scaling(traj=None, command="", top=Topology()):
+def do_scaling(traj=None, command="", top=None):
+    from pytraj.actions.CpptrajActions import Action_Scale
     _noaction_with_TrajectoryIterator(traj)
-    adict['translate'](command, traj, top)
+    Action_Scale()(command, traj, top)
 
 
 scale = do_scaling
 
 
-def do_rotation(traj=None, command="", top=Topology()):
+def do_rotation(traj=None, command="", top=None):
+    from pytraj.actions.CpptrajActions import Action_Rotate
     _noaction_with_TrajectoryIterator(traj)
-    adict['rotate'](command, traj, top)
+    Action_Rotate()(command, traj, top)
 
 
 rotate = do_rotation
 
 
-def do_autoimage(traj=None, command="", top=Topology()):
+def do_autoimage(traj=None, command="", top=None):
     _noaction_with_TrajectoryIterator(traj)
     from pytraj.actions.CpptrajActions import Action_AutoImage
     Action_AutoImage()(command, traj, top)
@@ -701,7 +714,7 @@ def do_autoimage(traj=None, command="", top=Topology()):
 autoimage = do_autoimage
 
 
-def get_average_frame(traj=None, command="", top=Topology()):
+def get_average_frame(traj=None, command="", top=None):
     from pytraj.actions.CpptrajActions import Action_Average
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
@@ -720,7 +733,7 @@ def get_average_frame(traj=None, command="", top=Topology()):
     return dslist[0].get_frame()
 
 
-def randomize_ions(traj=Frame(), command="", top=Topology()):
+def randomize_ions(traj=None, command="", top=None):
     """randomize_ions for given Frame with Topology
 
     Parameters
