@@ -42,28 +42,14 @@ def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args,
     """
     Parameters
     ----------
-    traj : Trajectory-like or anything that makes _frame_iter_master(traj) return Frame
+    traj : Trajectory-like
     command : cpptraj command
-    top : {str, Topology}, optional, default None
+    top : Topology, optional, default None
     mat_type : str, {'full', 'half', 'cpptraj'}, default 'full'
         if 'full': 2D full matrix
         if 'half': triangular matrix
         if 'cpptraj': 1D array
     *args, **kwd: more arguments
-
-    Examples
-    --------
-    >>> from pytraj import matrix_analysis as ma
-    >>> from pytraj import io
-    >>> traj = io.load_sample_data('tz2')
-    >>> ma.distcovar_matrix(traj, '@CA')
-    >>> dslist = ma.mw_covariance_matrix(traj, '@CA')
-    >>> #print (dslist) 
-
-    See Also
-    --------
-    default_key_dict
-    _shared_methods._frame_iter_master
 
     cpptraj compat mode
     -------------------

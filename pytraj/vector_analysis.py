@@ -13,7 +13,7 @@ def vector_%s(traj=None, command="", top=None, *args, **kwd):
     """
     Parameters
     ----------
-    traj : Trajectory-like or anything that makes _frame_iter_master(traj) return Frame
+    traj : Trajectory-like
     command : cpptraj command
     top : {str, Topology}, optional, default None
     *args, **kwd: more arguments
