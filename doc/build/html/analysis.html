@@ -89,6 +89,8 @@
 <li><a class="reference internal" href="#search-neighbors">search_neighbors</a></li>
 <li><a class="reference internal" href="#watershell">watershell</a></li>
 <li><a class="reference internal" href="nucleic_acid.html#nucleic-acid"><span>Nucleic Acid Analysis</span></a></li>
+<li><a class="reference internal" href="vector_analysis.html#vector-analysis"><span>Vector Analysis</span></a></li>
+<li><a class="reference internal" href="matrix_analysis.html#matrix-analysis"><span>Matrix Analysis</span></a></li>
 </ul>
 <span class="target" id="distance"></span><dl class="function">
 <dt id="pytraj.distance">
@@ -774,8 +776,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 <p>This method is not validated with cpptraj&#8217;s output yet</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solute_mask</span><span class="o">=</span><span class="s">&#39;!:WAT&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solvent_mask</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solvent_mask</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solute_mask</span><span class="o">=</span><span class="s">&#39;!:WAT&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
