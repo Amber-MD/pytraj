@@ -10,6 +10,11 @@ Analysis
 
 .. todo: make a script to write
 
+.. seealso::
+
+    `Methods that modify Trajectory coordinates <modify_traj>`_
+
+
 - distance_
 - angle_
 - dihedral_ 
