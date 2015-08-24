@@ -1459,7 +1459,7 @@ def _closest_iter(act, traj):
         new_frame = Frame()
         new_frame.py_free_mem = False  # cpptraj will do
         act.do_action(frame, new_frame)
-        yield new_frame
+        yield new_frame.copy()
 
 
 def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
@@ -1525,7 +1525,7 @@ def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
     fiter = _closest_iter(act, traj)
 
     if dtype == 'iterator':
-        return (fiter, new_top)
+        return (fiter, new_top.copy())
     else:
         if dtype in ['trajectory', 'all']:
             fa = Trajectory()

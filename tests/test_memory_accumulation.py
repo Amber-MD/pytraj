@@ -28,6 +28,12 @@ for traj in tlist:
             pass
 
     @profile
+    def test_closest():
+        print('test_closest')
+        for frame in pt.closest(traj(0, 100), n_solvents=10, restype='iterator')[0]:
+            pass
+
+    @profile
     def test_chunk_iter(chunksize=100):
         # OK
         for chunk in traj.chunk_iter(chunksize=chunksize):
@@ -93,6 +99,7 @@ for traj in tlist:
         print(idx)
 
     func_list = [
+        test_closest,
         test_iter_frame_indices,
         test_center,
         test_rmsd,
