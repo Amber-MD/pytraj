@@ -53,7 +53,7 @@
           <div class="body" role="main">
             
   <div class="section" id="analysis">
-<h1>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h1>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference external" href="modify_traj">Methods that modify Trajectory coordinates</a></p>
@@ -87,6 +87,7 @@
 <li><a class="reference internal" href="#crank">crank</a></li>
 <li><a class="reference internal" href="#closest">closest</a></li>
 <li><a class="reference internal" href="#search-neighbors">search_neighbors</a></li>
+<li><a class="reference internal" href="#watershell">watershell</a></li>
 <li><a class="reference internal" href="nucleic_acid.html#nucleic-acid"><span>Nucleic Acid Analysis</span></a></li>
 </ul>
 <span class="target" id="distance"></span><dl class="function">
@@ -635,7 +636,7 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 
 <span class="target" id="randomize-ions"></span><dl class="function">
 <dt id="pytraj.randomize_ions">
-<code class="descclassname">pytraj.</code><code class="descname">randomize_ions</code><span class="sig-paren">(</span><em>traj=&lt;Frame with 0 atoms&gt;</em>, <em>command=''</em>, <em>top=&lt;Topology: 0 atoms</em>, <em>0 residues</em>, <em>0 mols</em>, <em>non-PBC&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.randomize_ions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">randomize_ions</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.randomize_ions" title="Permalink to this definition">¶</a></dt>
 <dd><p>randomize_ions for given Frame with Topology</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -672,7 +673,7 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 
 <span class="target" id="autoimage"></span><dl class="function">
 <dt id="pytraj.autoimage">
-<code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=&lt;Topology: 0 atoms</em>, <em>0 residues</em>, <em>0 mols</em>, <em>non-PBC&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="closest"></span><dl class="function">
@@ -701,15 +702,21 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<p># obtain new traj, keeping only closest 100 waters 
-&gt;&gt;&gt; # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
-&gt;&gt;&gt; t = pt.closest(traj, <a class="reference external" href="mailto:mask='&#37;&#52;&#48;CA">mask='<span>&#64;</span>CA</a>&#8216;, n_solvents=10)</p>
-<p># only get meta data for frames, solvent without getting new Trajectory
-# (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
-&gt;&gt;&gt; dslist = pt.closest(traj, n_solvents=100, mask=&#8217;:1-13&#8217;, restype=&#8217;dataset&#8217;)</p>
-<p># getting a frame iterator for lazy evaluation
-&gt;&gt;&gt; fiter = pt.closest(traj, n_solvents=20, restype=&#8217;iterator&#8217;)
-&gt;&gt;&gt; for frame in fiter: print(frame)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># obtain new traj, keeping only closest 100 waters </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># to residues 1 to 13 (index starts from 1) by distance to the first atom of water</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">closest</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">n_solvents</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># only get meta data for frames, solvent without getting new Trajectory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">closest</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_solvents</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:1-13&#39;</span><span class="p">,</span> <span class="n">restype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># getting a frame iterator for lazy evaluation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fiter</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">closest</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_solvents</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">restype</span><span class="o">=</span><span class="s">&#39;iterator&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">fiter</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> 
+</pre></div>
+</div>
 </dd></dl>
 
 <span class="target" id="search-neighbors"></span><dl class="function">
@@ -729,6 +736,46 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:5&#39;</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="s">&quot;&lt;5.0&quot;</span><span class="p">)</span> <span class="c"># around residue 5 with 5.0 cutoff</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="s">&quot;&gt;10.0&quot;</span><span class="p">)</span> <span class="c"># around atom 3, 7, 8, larger than 10.0 Angstrom</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<span class="target" id="watershell"></span><dl class="function">
+<dt id="pytraj.watershell">
+<code class="descclassname">pytraj.</code><code class="descname">watershell</code><span class="sig-paren">(</span><em>traj=None</em>, <em>solute_mask=None</em>, <em>solvent_mask=':WAT'</em>, <em>lower=3.4</em>, <em>upper=5.0</em>, <em>image=True</em>, <em>dtype='dataset'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.watershell" title="Permalink to this definition">¶</a></dt>
+<dd><p>(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
+(defined by &lt;lower cut&gt; (default 3.4 Ang.) and &lt;upper cut&gt; (default 5.0 Ang.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>solute_mask: solute mask</strong></p>
+<p><strong>solvent_mask: solvent mask</strong></p>
+<p><strong>lower</strong> : double, default 3.4</p>
+<blockquote>
+<div><p>lower cut distance</p>
+</div></blockquote>
+<p><strong>upper</strong> : double, default 5.0</p>
+<blockquote>
+<div><p>upper cut distance</p>
+</div></blockquote>
+<p><strong>image</strong> : bool, defaul True</p>
+<blockquote>
+<div><p>do autoimage if True</p>
+</div></blockquote>
+<p><strong>dtype</strong> : return type, defaul &#8216;dataset&#8217;</p>
+<p class="last"><strong>top</strong> : Topology, optional</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is not validated with cpptraj&#8217;s output yet</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solute_mask</span><span class="o">=</span><span class="s">&#39;!:WAT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solvent_mask</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solvent_mask</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

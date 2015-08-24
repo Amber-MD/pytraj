@@ -1,3 +1,5 @@
+.. _analysis:
+
 Analysis
 ========
 
@@ -43,6 +45,7 @@ Analysis
 - crank_
 - closest_
 - search_neighbors_
+- watershell_
 - :ref:`nucleic_acid`
 
 
@@ -132,3 +135,6 @@ Analysis
 
 .. _search_neighbors:
 .. autofunction:: pytraj.search_neighbors
+
+.. _watershell:
+.. autofunction:: pytraj.watershell
