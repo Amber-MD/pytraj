@@ -116,6 +116,11 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> # calculate distance between two residues, using amber mask
     >>> pt.distance(traj, ':1 :10')
 
+    >>> # calculate multiple distances between two residues, using amber mask
+    >>> # distance between residue 1 and 10, distance between residue 3 and 20 
+    >>> # (when using atom string mask, index starts from 1)
+    >>> pt.distance(traj, [':1 :10', ':3 :20'])
+
     >>> # calculate distance for a series of atoms, using array for atom mask
     >>> # distance between atom 1 and 5, distance between atom 4 and 10 (index starts from 0)
     >>> pt.distance(traj, [[1, 5], [4, 10]])
@@ -186,10 +191,35 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
 
 def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    """calculate angle
+    """calculate angle between two maskes
 
-    Notes:
-    command : str | int_2d numpy array
+    Parameters
+    ----------
+    traj : Trajectory-like, list of Trajectory, list of Frames
+    mask : str or array
+    top : Topology, optional
+    dtype : return type, defaul 'ndarray'
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # calculate angle for three atoms, using amber mask
+    >>> pt.angle(traj, '@1 @3 @10')
+
+    >>> # calculate angle for three groups of atoms, using amber mask
+    >>> pt.angle(traj, '@1,37,8 @2,4,6 @5,20')
+
+    >>> # calculate angle between three residues, using amber mask
+    >>> pt.angle(traj, ':1 :10 :20')
+
+    >>> # calculate multiple angles between three residues, using amber mask
+    >>> # angle between residue 1, 10, 20, angle between residue 3, 20, 30
+    >>> # (when using atom string mask, index starts from 1)
+    >>> pt.angle(traj, [':1 :10 :20', ':3 :20 :30'])
+
+    >>> # calculate angle for a series of atoms, using array for atom mask
+    >>> # angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)
+    >>> pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
     """
     import numpy as np
     from pytraj.datasetlist import from_dict
