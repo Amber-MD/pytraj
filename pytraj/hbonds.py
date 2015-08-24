@@ -91,7 +91,7 @@ def _update_legend_hbond(_dslist):
 
     for d0 in _dslist:
         if d0.legend == 'HB00000[UU]':
-            d0.legend = 'total_solute_solute'
+            d0.legend = 'total_solute_hbonds'
 
 
 def search_hbonds_noseries(traj,
@@ -146,7 +146,7 @@ def search_hbonds(traj,
 
     Parameters
     ----------
-    traj : {Trajectory-like object, frame_iter object, list of traj}
+    traj : {Trajectory-like, list of frames, list of Trajectory-like}
     mask : str 
         Amber atom mask
     dtype : str {'list', 'pyarray', 'dataset', 'ndarray'}, default='dataset'
@@ -162,12 +162,13 @@ def search_hbonds(traj,
     >>> pt.search_hbonds(traj)
     >>> pt.search_hbonds(traj, solventdonor=':WAT@O', solventacceptor=':WAT')
     """
+    from pytraj.actions.CpptrajActions import Action_Hbond
+    dslist = DataSetList()
+    act = Action_Hbond()
+
     s_donor = "solventdonor " + str(solventdonor) if solventdonor else ""
     s_acceptor = "solventacceptor " + \
         str(solventacceptor) if solventacceptor else ""
-
-    dslist = DataSetList()
-    act = adict['hbond']
 
     command = " ".join(("series", mask, s_donor, s_acceptor))
     act(command, traj, dslist=dslist, *args, **kwd)
@@ -202,15 +203,17 @@ def search_nointramol_hbonds(traj,
 
     Examples
     --------
-    >>> pyca.search_nointramol_hbonds(traj)
-    >>> pyca.search_nointramol_hbonds([traj, traj2], top=traj.top)
+    >>> import pytraj as pt
+    >>> pt.search_nointramol_hbonds(traj)
+    >>> pt.search_nointramol_hbonds([traj, traj2], top=traj.top)
 
     See Also
     --------
        search_hbonds
     """
+    from pytraj.actions.CpptrajActions import Action_Hbond
     dslist = DataSetList()
-    act = adict['hbond']
+    act = Action_Hbond()
     command = "series nointramol " + mask
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()

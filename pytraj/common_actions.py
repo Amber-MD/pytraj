@@ -95,10 +95,30 @@ def _noaction_with_TrajectoryIterator(trajiter):
 
 
 def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    """calculate distance
+    """calculate distance between two maskes
 
-    Notes:
-    command : str | list of strings | 2d numpy array of integers
+    Parameters
+    ----------
+    traj : Trajectory-like, list of Trajectory, list of Frames
+    mask : str or array
+    top : Topology, optional
+    dtype : return type, defaul 'ndarray'
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # calculate distance for two atoms, using amber mask
+    >>> pt.distance(traj, '@1 @3')
+
+    >>> # calculate distance for two groups of atoms, using amber mask
+    >>> pt.distance(traj, '@1,37,8 @2,4,6')
+
+    >>> # calculate distance between two residues, using amber mask
+    >>> pt.distance(traj, ':1 :10')
+
+    >>> # calculate distance for a series of atoms, using array for atom mask
+    >>> # distance between atom 1 and 5, distance between atom 4 and 10 (index starts from 0)
+    >>> pt.distance(traj, [[1, 5], [4, 10]])
     """
     import numpy as np
     ensure_not_none_or_string(traj)
