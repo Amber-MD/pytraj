@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>hbond tutorial &mdash; pytraj 0.1.2.dev5 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.2.dev5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="../index.html" />
+    <link rel="up" title="Tutorials" href="index.html" />
+    <link rel="next" title="Analysis" href="../analysis.html" />
+    <link rel="prev" title="phi and psi plotting" href="plot_phipsi_trpcage.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../analysis.html" title="Analysis"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="plot_phipsi_trpcage.html" title="phi and psi plotting"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Tutorials</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="hbond-tutorial">
+<span id="id1"></span><h1>hbond tutorial<a class="headerlink" href="#hbond-tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="ipynotebook" id="notebook-container">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># load data</span>
+<span class="c"># pdb file from: http://www.rcsb.org/pdb/explore/explore.do?pdbId=1l2y</span>
+
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;1L2Y.pdb&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;1L2Y.pdb&#39;</span><span class="p">)</span>
+<span class="n">traj</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pytraj.TrajectoryIterator, 38 frames, include:
+&lt;Topology: 304 atoms, 20 residues, 1 mols, non-PBC&gt;&gt;
+           </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># search hbonds for all residues</span>
+<span class="c"># dump data to `dataset` (similiar to python&#39;list and dict)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<span class="c"># 0: no hbond</span>
+<span class="c"># 1: there is hbond</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;pytraj.DatasetList with 32 datasets&gt;
+total_solute_hbonds
+[6 7 8 ..., 7 6 6]
+
+ASN1_O-GLN5_N-H
+[1 0 0 ..., 0 0 0]
+
+ARG16_O-TRP6_NE1-HE1
+[1 1 1 ..., 1 1 1]
+...
+
+ASP9_OD2-SER14_OG-HG
+[0 0 0 ..., 0 0 0]
+
+ASP9_OD2-ARG16_NH1-HH11
+[0 0 0 ..., 0 0 0]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># get total solute hbonds</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">&#39;total_solute_hbonds&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;pytraj.array.DataArray: size=38, key=total_solute_hbonds, dtype=int32, ndim=1&gt; 
+values:
+[6 7 8 ..., 7 6 6]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># take data for specific hbond</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">&#39;ARG16_O-TRP6_NE1-HE1&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;pytraj.array.DataArray: size=38, key=ARG16_O-TRP6_NE1-HE1, dtype=int32, ndim=1&gt; 
+values:
+[1 1 1 ..., 1 1 1]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># take hbond for only ASP9</span>
+<span class="n">glu5</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s">&#39;ASP9&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">glu5</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&apos;ASP9_O-SER14_OG-HG&apos;, &apos;ASP9_OD2-ARG16_NH1-HH12&apos;, &apos;ASP9_OD2-ARG16_NH2-HH22&apos;, &apos;ASP9_OD2-ARG16_NE-HE&apos;, &apos;ASP9_OD1-LYS8_NZ-HZ1&apos;, &apos;ASP9_OD2-ARG16_NH2-HH21&apos;, &apos;ASP9_OD1-SER14_OG-HG&apos;, &apos;GLN5_O-ASP9_N-H&apos;, &apos;ASP9_OD2-SER14_OG-HG&apos;, &apos;ASP9_OD2-ARG16_NH1-HH11&apos;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">glu5_val</span> <span class="o">=</span> <span class="n">glu5</span><span class="o">.</span><span class="n">values</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">glu5_val</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;total hbonds for GLU5 per frame&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">glu5_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">glu5_val</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">glu5_total</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[1 1 1 ..., 0 0 0]
+ [0 1 0 ..., 0 0 0]
+ [0 1 0 ..., 0 0 0]
+ ..., 
+ [0 0 0 ..., 0 0 0]
+ [0 0 0 ..., 0 0 0]
+ [0 0 0 ..., 0 0 0]]
+total hbonds for GLU5 per frame
+[1 3 1 ..., 0 0 0]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># plot</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">glu5_total</span><span class="p">,</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaabdb1b38&gt;]</pre>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+xFCXpIL8H6HURSEX02M3AAAAAElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># get usage</span>
+<span class="n">help</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Help on function search_hbonds in module pytraj.hbonds:
+
+search_hbonds(traj, mask=&apos;&apos;, dtype=&apos;dataset&apos;, solventdonor=None, solventacceptor=None, update_legend=True, *args, **kwd)
+    search hbonds for a given mask
+    
+    Parameters
+    ----------
+    traj : {Trajectory-like, list of frames, list of Trajectory-like}
+    mask : str 
+        Amber atom mask
+    dtype : str {&apos;list&apos;, &apos;pyarray&apos;, &apos;dataset&apos;, &apos;ndarray&apos;}, default=&apos;dataset&apos;
+    *args, **kwd: optional
+    
+    Returns
+    -------
+    out : pytraj.DatasetList
+    
+    Examples
+    --------
+    &gt;&gt;&gt; import pytraj as pt
+    &gt;&gt;&gt; pt.search_hbonds(traj)
+    &gt;&gt;&gt; pt.search_hbonds(traj, solventdonor=&apos;:WAT@O&apos;, solventacceptor=&apos;:WAT&apos;)
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div><p>(<a class="reference external" href="hbonds_tutorial.ipynb">hbonds_tutorial.ipynb</a>; <a class="reference external" href="hbonds_tutorial_evaluated.ipynb">hbonds_tutorial_evaluated.ipynb</a>; <a class="reference external" href="hbonds_tutorial.py">hbonds_tutorial.py</a>)</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="plot_phipsi_trpcage.html"
+                        title="previous chapter">phi and psi plotting</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../analysis.html"
+                        title="next chapter">Analysis</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorials/hbonds.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../analysis.html" title="Analysis"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="plot_phipsi_trpcage.html" title="phi and psi plotting"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Tutorials</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Hai Nguyen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
