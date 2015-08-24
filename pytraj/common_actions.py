@@ -429,33 +429,57 @@ def calc_mindist(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)[-1]
 
 
-def calc_watershell(traj=None, mask="", dtype='dataset', top=None):
-    """return 1st and 2nd water shell for each frame
+def calc_watershell(traj=None, solute_mask=None,
+                    solvent_mask=':WAT',
+                    lower=3.4, upper=5.0,
+                    image=True,
+                    dtype='dataset', top=None):
+    """(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
+    (defined by <lower cut> (default 3.4 Ang.) and <upper cut> (default 5.0 Ang.)
+
+    Notes
+    -----
+    This method is not validated with cpptraj's output yet
+
     Parameters
     ----------
     traj : Trajectory-like
-    mask : solute mask
+    solute_mask: solute mask
+    solvent_mask: solvent mask
+    lower : double, default 3.4
+        lower cut distance
+    upper : double, default 5.0
+        upper cut distance
+    image : bool, defaul True
+        do autoimage if True
     dtype : return type, defaul 'dataset'
     top : Topology, optional
 
     Examples
     --------
-    >>> d0 = pt.watershell(traj, '!:WAT')
-    >>> # get 1st shell
-    >>> d0_0 = d0[0]
-    >>> print (d0_0[:])
-    >>> # get 2nd shell
-    >>> d0_1 = d0[1]
-    >>> print (d0_1[:])
+    >>> pt.watershell(traj, solute_mask='!:WAT')
+    >>> pt.watershell(traj, solvent_mask=':WAT')
+    >>> pt.watershell(traj, solvent_mask=':WAT', lower=5.0, upper=10.)
     """
     from pytraj.actions.CpptrajActions import Action_Watershell
     _top = _get_top(traj, top)
-    command = mask
+    _solutemask = solute_mask if solute_mask is not None else ''
+
+    if _solutemask in [None, '']:
+        raise ValueError('must provide solute mask')
+
+    _solventmask = solvent_mask if solvent_mask is not None else ''
+    _noimage= 'noimage' if not image else ''
+
+    _lower = 'lower ' + str(lower)
+    _upper = 'upper ' + str(upper)
+    command = ' '.join((_solutemask, _lower, _upper, _noimage, _solventmask))
+
     if not isinstance(command, string_types):
         command = to_cpptraj_atommask(command)
     if not 'out' in command:
         # current Watershell action require specifying output
-        command += ' out .tmp'
+        command += ' out tmp.tmp'
     dslist = CpptrajDatasetList()
     Action_Watershell()(command, traj, _top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
