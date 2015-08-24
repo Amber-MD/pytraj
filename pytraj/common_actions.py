@@ -95,10 +95,35 @@ def _noaction_with_TrajectoryIterator(trajiter):
 
 
 def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    """calculate distance
+    """calculate distance between two maskes
 
-    Notes:
-    command : str | list of strings | 2d numpy array of integers
+    Parameters
+    ----------
+    traj : Trajectory-like, list of Trajectory, list of Frames
+    mask : str or array
+    top : Topology, optional
+    dtype : return type, defaul 'ndarray'
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # calculate distance for two atoms, using amber mask
+    >>> pt.distance(traj, '@1 @3')
+
+    >>> # calculate distance for two groups of atoms, using amber mask
+    >>> pt.distance(traj, '@1,37,8 @2,4,6')
+
+    >>> # calculate distance between two residues, using amber mask
+    >>> pt.distance(traj, ':1 :10')
+
+    >>> # calculate multiple distances between two residues, using amber mask
+    >>> # distance between residue 1 and 10, distance between residue 3 and 20 
+    >>> # (when using atom string mask, index starts from 1)
+    >>> pt.distance(traj, [':1 :10', ':3 :20'])
+
+    >>> # calculate distance for a series of atoms, using array for atom mask
+    >>> # distance between atom 1 and 5, distance between atom 4 and 10 (index starts from 0)
+    >>> pt.distance(traj, [[1, 5], [4, 10]])
     """
     import numpy as np
     ensure_not_none_or_string(traj)
@@ -166,10 +191,35 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
 
 def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    """calculate angle
+    """calculate angle between two maskes
 
-    Notes:
-    command : str | int_2d numpy array
+    Parameters
+    ----------
+    traj : Trajectory-like, list of Trajectory, list of Frames
+    mask : str or array
+    top : Topology, optional
+    dtype : return type, defaul 'ndarray'
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # calculate angle for three atoms, using amber mask
+    >>> pt.angle(traj, '@1 @3 @10')
+
+    >>> # calculate angle for three groups of atoms, using amber mask
+    >>> pt.angle(traj, '@1,37,8 @2,4,6 @5,20')
+
+    >>> # calculate angle between three residues, using amber mask
+    >>> pt.angle(traj, ':1 :10 :20')
+
+    >>> # calculate multiple angles between three residues, using amber mask
+    >>> # angle between residue 1, 10, 20, angle between residue 3, 20, 30
+    >>> # (when using atom string mask, index starts from 1)
+    >>> pt.angle(traj, [':1 :10 :20', ':3 :20 :30'])
+
+    >>> # calculate angle for a series of atoms, using array for atom mask
+    >>> # angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)
+    >>> pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
     """
     import numpy as np
     from pytraj.datasetlist import from_dict
@@ -260,10 +310,35 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
 
 
 def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    """calculate dihedral
+    """calculate dihedral angle between two maskes
 
-    Notes:
-    command : str | int_2d numpy array
+    Parameters
+    ----------
+    traj : Trajectory-like, list of Trajectory, list of Frames
+    mask : str or array
+    top : Topology, optional
+    dtype : return type, defaul 'ndarray'
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # calculate dihedral angle for four atoms, using amber mask
+    >>> pt.dihedral(traj, '@1 @3 @10 @20')
+
+    >>> # calculate dihedral angle for four groups of atoms, using amber mask
+    >>> pt.dihedral(traj, '@1,37,8 @2,4,6 @5,20 @21,22')
+
+    >>> # calculate dihedral angle for four residues, using amber mask
+    >>> pt.dihedral(traj, ':1 :10 :20 :22')
+
+    >>> # calculate multiple dihedral angles for four residues, using amber mask
+    >>> # angle for residue 1, 10, 20, 30; angle between residue 3, 20, 30, 40
+    >>> # (when using atom string mask, index starts from 1)
+    >>> pt.dihedral(traj, [':1 :10 :20 :30', ':3 :20 :30 :40'])
+
+    >>> # calculate dihedral angle for a series of atoms, using array for atom mask
+    >>> # dihedral angle for atom 1, 5, 8, 10, dihedral for atom 4, 10, 20, 30 (index starts from 0)
+    >>> pt.dihedral(traj, [[1, 5, 8, 10], [4, 10, 20, 30]])
     """
     import numpy as np
     ensure_not_none_or_string(traj)
@@ -354,27 +429,59 @@ def calc_mindist(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)[-1]
 
 
-def calc_watershell(traj=None, command="", top=Topology()):
-    """return a CpptrajDatasetList object having the number of water 
-    in 1st and 2nd water shell for each frame
-    >>> d0 = calc_watershell(":WAT", traj)
-    >>> # get 1st shell
-    >>> d0_0 = d0[0]
-    >>> print (d0_0[:])
-    >>> # get 2nd shell
-    >>> d0_1 = d0[1]
-    >>> print (d0_1[:])
+def calc_watershell(traj=None, solute_mask=None,
+                    solvent_mask=':WAT',
+                    lower=3.4, upper=5.0,
+                    image=True,
+                    dtype='dataset', top=None):
+    """(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
+    (defined by <lower cut> (default 3.4 Ang.) and <upper cut> (default 5.0 Ang.)
+
+    Notes
+    -----
+    This method is not validated with cpptraj's output yet
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    solute_mask: solute mask
+    solvent_mask: solvent mask
+    lower : double, default 3.4
+        lower cut distance
+    upper : double, default 5.0
+        upper cut distance
+    image : bool, defaul True
+        do autoimage if True
+    dtype : return type, defaul 'dataset'
+    top : Topology, optional
+
+    Examples
+    --------
+    >>> pt.watershell(traj, solute_mask='!:WAT')
+    >>> pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
+    from pytraj.actions.CpptrajActions import Action_Watershell
     _top = _get_top(traj, top)
+    _solutemask = solute_mask if solute_mask is not None else ''
+
+    if _solutemask in [None, '']:
+        raise ValueError('must provide solute mask')
+
+    _solventmask = solvent_mask if solvent_mask is not None else ''
+    _noimage= 'noimage' if not image else ''
+
+    _lower = 'lower ' + str(lower)
+    _upper = 'upper ' + str(upper)
+    command = ' '.join((_solutemask, _lower, _upper, _noimage, _solventmask))
+
     if not isinstance(command, string_types):
         command = to_cpptraj_atommask(command)
     if not 'out' in command:
         # current Watershell action require specifying output
-        #
-        command += ' out .tmp'
+        command += ' out tmp.tmp'
     dslist = CpptrajDatasetList()
-    adict['watershell'](command, traj, _top, dslist=dslist)
-    return dslist
+    Action_Watershell()(command, traj, _top, dslist=dslist)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 
 def calc_radial(traj=None, command="", top=Topology()):
@@ -585,8 +692,21 @@ def calc_jcoupling(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
-def do_translation(traj=None, command="", top=Topology()):
+def do_translation(traj=None, command="", top=None):
+    '''
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # load to mutable trajectory by `load` method
+    >>> traj = pt.load('traj.nc', 'myparm.parm7')
+    >>> pt.translate(traj, '@CA x 120.')
+    '''
+    from pytraj.actions.CpptrajActions import Action_Translate
+
     _noaction_with_TrajectoryIterator(traj)
+
+    _top = _get_top(traj, top)
+
     if is_array(command):
         x, y, z = command
         _x = "x " + str(x)
@@ -595,38 +715,40 @@ def do_translation(traj=None, command="", top=Topology()):
         _command = " ".join((_x, _y, _z))
     else:
         _command = command
-    adict['translate'](_command, traj, top)
+    Action_Translate()(_command, traj, top=_top)
 
 
 translate = do_translation
 
 
-def do_scaling(traj=None, command="", top=Topology()):
+def do_scaling(traj=None, command="", top=None):
+    from pytraj.actions.CpptrajActions import Action_Scale
     _noaction_with_TrajectoryIterator(traj)
-    adict['translate'](command, traj, top)
-
+    _top = _get_top(traj, top)
+    Action_Scale()(command, traj, top=_top)
 
 scale = do_scaling
 
-
-def do_rotation(traj=None, command="", top=Topology()):
+def do_rotation(traj=None, command="", top=None):
+    from pytraj.actions.CpptrajActions import Action_Rotate
+    _top = _get_top(traj, top)
     _noaction_with_TrajectoryIterator(traj)
-    adict['rotate'](command, traj, top)
+    Action_Rotate()(command, traj, top=_top)
 
 
 rotate = do_rotation
 
 
-def do_autoimage(traj=None, command="", top=Topology()):
+def do_autoimage(traj=None, command="", top=None):
     _noaction_with_TrajectoryIterator(traj)
+    _top = _get_top(traj, top)
     from pytraj.actions.CpptrajActions import Action_AutoImage
-    Action_AutoImage()(command, traj, top)
-
+    Action_AutoImage()(command, traj, top=_top)
 
 autoimage = do_autoimage
 
 
-def get_average_frame(traj=None, command="", top=Topology()):
+def get_average_frame(traj=None, command="", top=None):
     from pytraj.actions.CpptrajActions import Action_Average
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
@@ -645,7 +767,7 @@ def get_average_frame(traj=None, command="", top=Topology()):
     return dslist[0].get_frame()
 
 
-def randomize_ions(traj=Frame(), command="", top=Topology()):
+def randomize_ions(traj=None, command="", top=None):
     """randomize_ions for given Frame with Topology
 
     Parameters
@@ -1337,7 +1459,7 @@ def _closest_iter(act, traj):
         new_frame = Frame()
         new_frame.py_free_mem = False  # cpptraj will do
         act.do_action(frame, new_frame)
-        yield new_frame
+        yield new_frame.copy()
 
 
 def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
@@ -1360,18 +1482,17 @@ def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
 
     Examples
     --------
-    # obtain new traj, keeping only closest 100 waters 
+    >>> # obtain new traj, keeping only closest 100 waters 
     >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
     >>> t = pt.closest(traj, mask='@CA', n_solvents=10)
 
-    # only get meta data for frames, solvent without getting new Trajectory
-    # (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
+    >>> # only get meta data for frames, solvent without getting new Trajectory
+    >>> # (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
     >>> dslist = pt.closest(traj, n_solvents=100, mask=':1-13', restype='dataset')
 
-    # getting a frame iterator for lazy evaluation
+    >>> # getting a frame iterator for lazy evaluation
     >>> fiter = pt.closest(traj, n_solvents=20, restype='iterator')
     >>> for frame in fiter: print(frame) 
-
     """
 
     from .actions.CpptrajActions import Action_Closest
@@ -1404,7 +1525,7 @@ def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
     fiter = _closest_iter(act, traj)
 
     if dtype == 'iterator':
-        return (fiter, new_top)
+        return (fiter, new_top.copy())
     else:
         if dtype in ['trajectory', 'all']:
             fa = Trajectory()
@@ -1425,16 +1546,25 @@ def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
 
 def native_contacts(traj=None,
                     mask="",
-                    top=None,
                     dtype='dataset',
                     ref=0,
                     distance=7.0,
                     noimage=False,
                     include_solvent=False,
-                    byres=False, *args, **kwd):
+                    byres=False,
+                    top=None,
+                    *args, **kwd):
     """
+    Examples
+    --------
+    >>> # use 1st frame as reference, don't need specify ref Frame
+    >>> pt.native_contacts(traj)
+
+    >>> # explicitly specify reference, specify distance cutoff
+    >>> pt.native_contacts(traj, ref=ref, distance=8.0)
+
     Notes
-    ----
+    -----
     if `ref` is None: first number in result corresponds to reference
     Not assert to cpptraj's output yet
     """
@@ -1471,9 +1601,6 @@ def native_contacts(traj=None,
 
 def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
-    Examples
-    --------
-        dslist = calc_grid(traj)
     """
     # TODO: doc, rename method, move to seperate module?
     from .actions.CpptrajActions import Action_Grid

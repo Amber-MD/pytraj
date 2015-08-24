@@ -103,12 +103,14 @@ from .common_actions import (
     calc_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
     calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
     calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
+    calc_watershell,
     calc_volume, calc_mindist, lifetime, get_average_frame, _dihedral_res,
     energy_decomposition, native_contacts, auto_correlation_function,
     principal_axes, cross_correlation_function, timecorr, center, translate,
     rotate, rotate_dihedral, make_structure, scale, do_clustering,
     clustering_dataset, _rotate_dih, randomize_ions, crank, closest,
-    search_neighbors)
+    search_neighbors,
+    )
 
 # create alias
 distance = calc_distance
@@ -130,6 +132,7 @@ radgyr = calc_radgyr
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
+watershell = calc_watershell
 get_average_structure = get_average_frame
 average_frame = get_average_frame
 load_parmed = load_ParmEd

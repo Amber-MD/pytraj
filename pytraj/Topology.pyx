@@ -76,6 +76,14 @@ cdef class Topology:
     def __len__(self):
         return self.n_atoms
 
+    def __mul__(self, int n_times):
+        cdef int i
+        t = self.copy()
+
+        for i in range(n_times-1):
+            t.join(self.copy())
+        return t
+
     def __add__(self, Topology other):
         '''order matters
 

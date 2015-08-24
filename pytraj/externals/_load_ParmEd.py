@@ -36,7 +36,7 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
         if isinstance(parmed_obj, AmberParm):
             fname = 'tmp.parm7'
         else:
-            fname = 'tmppdb.pdb'
+            fname = 'tmppdb.psf'
         parmed_obj.save(fname)
         top = Topology(fname)
     if as_traj:

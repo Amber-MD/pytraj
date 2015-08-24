@@ -7,20 +7,11 @@ from ._get_common_objects import _get_reference_from_traj
 
 
 class nupars(BaseAnalysisResult):
-    def summary(self):
-        """return numpy 2D-array, shape=(n_aspects, 3).
-        Each sub-array is [aspect_name, mean, std]
-
-        Examples
-        --------
-        >>> d.summary()
-        [['shear' '-0.034849288128316405' '0.333683347834']
-         ['minor' '13.385222816467286' '0.0661943612623']
-         ['slide' '-1.6436443726221721' '0.226245717793']
-         ..., 
-         ['twist' '30.922476874457466' '1.85829981963']
-         ['htwist' '32.23108376397027' '1.64625014029']
-         ['hb' '2.5300000000000002' '0.483838816136']]
+    '''class holding data for nucleic acid.
+    Just use ``mean_and_std`` to get mean and std of each component (major groove, ...)
+    '''
+    def mean_and_std(self):
+        """return a dict
         """
         import numpy as np
 
@@ -28,12 +19,13 @@ class nupars(BaseAnalysisResult):
 
         out = np.empty((len(aspects), 3), dtype='object')
 
+        d = {}
         for idx, ap in enumerate(aspects):
             d0 = self._dslist.grep(ap, mode='aspect')
             d0_mean = d0.mean()[1].mean()
             d0_std = d0.mean()[1].std()
-            out[idx] = np.array([ap, d0_mean, d0_std])
-        return out
+            d[ap] = np.array([d0_mean, d0_std], dtype='f8')
+        return d
 
 
 def nastruct(traj=None,
