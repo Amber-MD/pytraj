@@ -53,8 +53,16 @@
           <div class="body" role="main">
             
   <div class="section" id="modify-trajectory">
-<h1>Modify trajectory<a class="headerlink" href="#modify-trajectory" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<span id="id1"></span><h1>Modify trajectory<a class="headerlink" href="#modify-trajectory" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="#rmsd">rmsd</a></li>
+<li><a class="reference internal" href="#translate">translate</a></li>
+<li><a class="reference internal" href="#scale">scale</a></li>
+<li><a class="reference internal" href="#autoimage">autoimage</a></li>
+<li><a class="reference internal" href="#rotate">rotate</a></li>
+<li><a class="reference internal" href="#rotate-dihedral">rotate_dihedral</a></li>
+</ul>
+<span class="target" id="rmsd"></span><dl class="function">
 <dt id="pytraj.rmsd">
 <code class="descclassname">pytraj.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate rmsd</p>
@@ -86,27 +94,34 @@
 </div>
 </dd></dl>
 
-<dl class="function">
+<span class="target" id="translate"></span><dl class="function">
 <dt id="pytraj.translate">
-<code class="descclassname">pytraj.</code><code class="descname">translate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=&lt;Topology: 0 atoms</em>, <em>0 residues</em>, <em>0 mols</em>, <em>non-PBC&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.translate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">pytraj.</code><code class="descname">translate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load to mutable trajectory by `load` method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;myparm.parm7&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA x 120.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
-<dl class="function">
+<span class="target" id="scale"></span><dl class="function">
 <dt id="pytraj.scale">
-<code class="descclassname">pytraj.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=&lt;Topology: 0 atoms</em>, <em>0 residues</em>, <em>0 mols</em>, <em>non-PBC&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.scale" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.scale" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
+<span class="target" id="autoimage"></span><dl class="function">
 <dt id="pytraj.autoimage">
-<code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=&lt;Topology: 0 atoms</em>, <em>0 residues</em>, <em>0 mols</em>, <em>non-PBC&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
+<span class="target" id="rotate"></span><dl class="function">
 <dt id="pytraj.rotate">
-<code class="descclassname">pytraj.</code><code class="descname">rotate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=&lt;Topology: 0 atoms</em>, <em>0 residues</em>, <em>0 mols</em>, <em>non-PBC&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rotate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
+<span class="target" id="rotate-dihedral"></span><dl class="function">
 <dt id="pytraj.rotate_dihedral">
 <code class="descclassname">pytraj.</code><code class="descname">rotate_dihedral</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate_dihedral" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Notes</p>
