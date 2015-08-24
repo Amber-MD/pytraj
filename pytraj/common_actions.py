@@ -310,10 +310,35 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
 
 
 def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    """calculate dihedral
+    """calculate dihedral angle between two maskes
 
-    Notes:
-    command : str | int_2d numpy array
+    Parameters
+    ----------
+    traj : Trajectory-like, list of Trajectory, list of Frames
+    mask : str or array
+    top : Topology, optional
+    dtype : return type, defaul 'ndarray'
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # calculate dihedral angle for four atoms, using amber mask
+    >>> pt.dihedral(traj, '@1 @3 @10 @20')
+
+    >>> # calculate dihedral angle for four groups of atoms, using amber mask
+    >>> pt.dihedral(traj, '@1,37,8 @2,4,6 @5,20 @21,22')
+
+    >>> # calculate dihedral angle for four residues, using amber mask
+    >>> pt.dihedral(traj, ':1 :10 :20 :22')
+
+    >>> # calculate multiple dihedral angles for four residues, using amber mask
+    >>> # angle for residue 1, 10, 20, 30; angle between residue 3, 20, 30, 40
+    >>> # (when using atom string mask, index starts from 1)
+    >>> pt.dihedral(traj, [':1 :10 :20 :30', ':3 :20 :30 :40'])
+
+    >>> # calculate dihedral angle for a series of atoms, using array for atom mask
+    >>> # dihedral angle for atom 1, 5, 8, 10, dihedral for atom 4, 10, 20, 30 (index starts from 0)
+    >>> pt.dihedral(traj, [[1, 5, 8, 10], [4, 10, 20, 30]])
     """
     import numpy as np
     ensure_not_none_or_string(traj)
