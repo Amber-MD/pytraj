@@ -705,6 +705,8 @@ def do_translation(traj=None, command="", top=None):
 
     _noaction_with_TrajectoryIterator(traj)
 
+    _top = _get_top(traj, top)
+
     if is_array(command):
         x, y, z = command
         _x = "x " + str(x)
@@ -713,7 +715,7 @@ def do_translation(traj=None, command="", top=None):
         _command = " ".join((_x, _y, _z))
     else:
         _command = command
-    Action_Translate()(_command, traj, top)
+    Action_Translate()(_command, traj, top=_top)
 
 
 translate = do_translation
@@ -722,16 +724,16 @@ translate = do_translation
 def do_scaling(traj=None, command="", top=None):
     from pytraj.actions.CpptrajActions import Action_Scale
     _noaction_with_TrajectoryIterator(traj)
-    Action_Scale()(command, traj, top)
-
+    _top = _get_top(traj, top)
+    Action_Scale()(command, traj, top=_top)
 
 scale = do_scaling
 
-
 def do_rotation(traj=None, command="", top=None):
     from pytraj.actions.CpptrajActions import Action_Rotate
+    _top = _get_top(traj, top)
     _noaction_with_TrajectoryIterator(traj)
-    Action_Rotate()(command, traj, top)
+    Action_Rotate()(command, traj, top=_top)
 
 
 rotate = do_rotation
@@ -739,9 +741,9 @@ rotate = do_rotation
 
 def do_autoimage(traj=None, command="", top=None):
     _noaction_with_TrajectoryIterator(traj)
+    _top = _get_top(traj, top)
     from pytraj.actions.CpptrajActions import Action_AutoImage
-    Action_AutoImage()(command, traj, top)
-
+    Action_AutoImage()(command, traj, top=_top)
 
 autoimage = do_autoimage
 
