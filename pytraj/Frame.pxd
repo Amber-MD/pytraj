@@ -63,6 +63,7 @@ cdef extern from "Frame.h" nogil:
         #inline const double * tAddress() const 
         inline const int * iAddress() const 
         inline void SetBoxAngles(const double *)
+        void SetBox(const _Box&)
         # Set box alpha, beta, and gamma
         # Set temperature
         void SetTemperature(double tIn)

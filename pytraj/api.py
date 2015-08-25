@@ -13,7 +13,7 @@ from ._get_common_objects import _get_top
 from .Topology import Topology
 from ._shared_methods import _savetraj, _frame_iter_master, _frame_iter
 from ._shared_methods import my_str_method
-from ._fastiter_frame import _fastiter_ptr
+from ._fast_iterframe import _fast_iterptr, _fast_iterptr_withbox
 
 
 __all__ = ['Trajectory']
@@ -168,15 +168,10 @@ class Trajectory(object):
         >>> for frame in traj: print(frame)
         """
 
-        fi = _fastiter_ptr(self.xyz, self.n_atoms)
-
         if self._boxes is None:
-            for frame in fi:
-                yield frame
+            return _fast_iterptr(self.xyz, self.n_atoms)
         else:
-            for i, frame in enumerate(fi):
-                frame.box = Box(self._boxes[i])
-                yield frame
+            return _fast_iterptr_withbox(self.xyz, self._boxes, self.n_atoms)
 
     def __getitem__(self, idx):
         """return a view or copy of Frame object based on input index
