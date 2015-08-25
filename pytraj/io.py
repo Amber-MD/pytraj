@@ -59,6 +59,13 @@ __all__ = ['load',
 def load(*args, **kwd):
     """try loading and returning appropriate values
 
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load('traj.nc', '2koc.parm7')
+    >>> traj = pt.load('traj.mol2')
+    >>> traj = pt.load('traj.pdb')
+
     Notes
     -----
     load(filename, top, use_numpy=True) will return `pytraj.api.Trajectory`
@@ -108,6 +115,13 @@ def _load_from_filelist(*args, **kwd):
 
 def iterload(*args, **kwd):
     """return TrajectoryIterator object
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.iterload('traj.nc', '2koc.parm7')
+    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7')
+    >>> traj = pt.iterload('./traj*.nc', '2koc.parm7')
     """
     if kwd and 'indices' in kwd.keys():
         raise ValueError(
@@ -305,7 +319,7 @@ def load_remd(filename, top=None, T="300.0"):
 def write_traj(filename="",
                traj=None,
                top=None,
-               format='unknown_traj',
+               format=None,
                indices=None,
                overwrite=False,
                mode="", *args, **kwd):
@@ -319,21 +333,25 @@ def write_traj(filename="",
 
     Examples
     --------
-    >>> from pytraj import io
+    >>> import pytraj as pt
     >>> traj = io.load_sample_data()
-    >>> io.write_traj("t.nc", traj) # write to amber netcdf file
+    >>> pt.write_traj("t.nc", traj, overwrite=True) # write to amber netcdf file
+
     >>> # write to multi pdb files (t.pdb.1, t.pdb.2, ...)
-    >>> io.write_traj("t.pdb", traj, overwrite=True, mode='multi')
+    >>> pt.write_traj("t.pdb", traj, overwrite=True, mode='multi')
+
     >>> # write all frames to single pdb file and each frame is seperated by "MODEL" word
-    >>> io.write_traj("t.pdb", traj, overwrite=True, mode='model')
+    >>> pt.write_traj("t.pdb", traj, overwrite=True, mode='model')
+
     >>> # write to DCD file
-    >>> io.write_traj("test.dcd", traj)
-    >>> # set nobox for trajout
-    >>> io.write_traj("test.nc", traj, mode='nobox')
+    >>> pt.write_traj("test.dcd", traj, overwrite=True)
     """
     from .Frame import Frame
     from .trajs.Trajout import Trajout
 
+    if format is in [None, '']:
+        # use cpptraj default format (amber)
+        format = 'unknown_traj'
     if format.upper() == 'UNKNOWN':
         format = format.upper() + "_TRAJ"
     else:
