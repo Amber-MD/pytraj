@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import numpy as np
+import itertools
 from .core.Box import Box
 from .Frame import Frame
 from .utils.check_and_assert import is_int, is_frame_iter, is_mdtraj
@@ -174,9 +175,31 @@ class Trajectory(object):
             return _fast_iterptr_withbox(self.xyz, self._boxes, self.n_atoms)
 
     def __getitem__(self, idx):
-        """return a view or copy of Frame object based on input index
+        """return a view or copy of coordinates (follow numpy's rule)
+
+        Examples
+        --------
+        >>> # create mutable trajectory from TrajectoryIterator
+        >>> t0 = traj[:]
+        >>> print(t0)
+
+        >>> # get a Frame view
+        >>> t0[2]
+
+        >>> # get a Trajetory view
+        >>> t0[0:8:2]
+
+        >>> # get a copy of Trajetory
+        >>> t0[[0, 4, 6]]
+
+        >>> # get a copy, keep only CA atoms
+        >>> t0['@CA']
+
+        >>> # get a copy, keep only CA atoms for 3 frames
+        >>> t0[:3, '@CA']
         """
         if is_int(idx):
+            # traj[0]
             # return a single Frame as a view
             arr0 = self._xyz[idx]
             frame = Frame(self.n_atoms, arr0, _as_ptr=True)
@@ -235,12 +258,15 @@ class Trajectory(object):
         if other is None:
             raise ValueError("why bothering assign None?")
         if is_int(idx):
-            # traj[1] = frame
             if hasattr(other, 'xyz'):
+                # traj[1] = frame
                 self._xyz[idx] = other.xyz
             else:
+                # traj[1] = xyz
+                # check shape?
                 self._xyz[idx] = other
         elif idx == '*':
+            # why need this?
             # traj.xyz = xyz
             # update all atoms, use fast version
             self._xyz[:] = other # xyz
@@ -267,6 +293,7 @@ class Trajectory(object):
                 for i in range(view3d.shape[0]):
                     self._xyz[:, int_view] = view3d[:]
         else:
+            # really need this?
             # example: self[0, 0, 0] = 100.
             self._xyz[idx] = other
 
@@ -644,7 +671,7 @@ class Trajectory(object):
         # make sure `range` return iterator
         n_frames = len(range(start, stop, stride))
 
-        frame_iter_super = self._frame_iter(start, stop, stride)
+        frame_iter_super = itertools.islice(self, start, stop, step)
 
         return FrameIter(frame_iter_super,
                          original_top=self.top,

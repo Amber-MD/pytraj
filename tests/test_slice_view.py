@@ -37,24 +37,12 @@ class Test(unittest.TestCase):
         assert fa[2, 0, 0] == 200.
         aa_eq(fa1.xyz, fa[2:8:2].xyz)
 
-        # sub-Trajectory view 2
-        mylist = [1, 5, 8]
-        fa2 = Trajectory()
-        fa2.top = fa.top
-        for index in mylist:
-            fa2.append(fa[index], copy=False)
-        aa_eq(fa2.xyz, fa[[1, 5, 8]].xyz)
-        fa2[0, 0] = 500.
-        assert fa2[0, 0, 0] == 500.
-        assert fa[1, 0, 0] == 500.
-        aa_eq(fa2.xyz, fa[[1, 5, 8]].xyz)
-
         # make sure we can make a copy
         facp = fa.copy()
-        facp[0, 0, 0] = 501.
-        assert (facp[0].rmsd(fa[0]) > 1.)
-        assert facp[0, 0, 0] == 501.
-        assert fa[0, 0, 0] != 501.
+        facp.xyz[0, 0, 0] = 501.
+        print(facp.xyz[0, 0, 0])
+        assert facp.xyz[0, 0, 0] == 501.
+        assert fa.xyz[0, 0, 0] != 501.
 
 if __name__ == "__main__":
     unittest.main()
