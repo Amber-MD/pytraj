@@ -6,6 +6,8 @@ Trajin_Single)
 from __future__ import absolute_import
 import warnings
 import os
+import numpy as np
+
 from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from ._action_in_traj import ActionTrajectory
 from .compat import string_types, range
@@ -337,3 +339,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
     def to_numpy_traj(self):
         from pytraj import api
         return api.Trajectory(self)
+
+    @property
+    def temperatures(self):
+        return np.array([frame.temperature for frame in self])

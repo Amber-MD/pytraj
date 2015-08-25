@@ -283,7 +283,9 @@ def iterload_remd(filename, top=None, T="300.0"):
 
 
 def load_remd(filename, top=None, T="300.0"):
-    return iterload_remd(filename, top, T)[:]
+    from pytraj import Trajectory
+    itertraj = iterload_remd(filename, top, T)
+    return Trajectory(itertraj, top=itertraj.top)
 
 
 def write_traj(filename="", traj=None, top=None,

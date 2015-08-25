@@ -34,9 +34,6 @@ class Test(unittest.TestCase):
         top2 = top.strip_atoms("!@CA", copy=True)
         d0 = adict['radgyr']("@C*", [traj['@CA :frame'] for traj in trajlist],
                              top2, quick_get=True)
-        print(d0.size)
-        for traj in trajlist:
-            print(traj.temperatures)
 
 if __name__ == "__main__":
     unittest.main()

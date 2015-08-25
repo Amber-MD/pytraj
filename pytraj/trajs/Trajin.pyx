@@ -517,7 +517,7 @@ cdef class Trajin:
         cinfo.thisptr[0] = self.baseptr_1.TrajCoordInfo()
         return cinfo
 
-    @memoize
+    @property
     def unitcells(self):
         return _box(self)
 
