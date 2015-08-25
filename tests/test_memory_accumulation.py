@@ -34,6 +34,12 @@ for traj in tlist:
             pass
 
     @profile
+    def test_strip_atoms(chunksize=100):
+        print("test_strip_atoms")
+        for chunk in traj.iterchunk(chunksize=100):
+            chunk._fast_strip_atoms(':WAT')
+
+    @profile
     def test_chunk_iter(chunksize=100):
         # OK
         for chunk in traj.chunk_iter(chunksize=chunksize):
@@ -99,6 +105,7 @@ for traj in tlist:
         print(idx)
 
     func_list = [
+        test_strip_atoms,
         test_closest,
         test_iter_frame_indices,
         test_center,

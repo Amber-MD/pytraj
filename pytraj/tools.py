@@ -302,8 +302,23 @@ def merge_frames(iterables):
     """
     from pytraj import Frame
     xyz = np.vstack((np.array(f.xyz) for f in iterables))
-    return Frame().append_xyz(xyz)
+    frame = Frame()
+    frame.append_xyz(xyz)
+    return frame
 
+def merge_frame_from_trajs(trajlist):
+    """
+    Examples
+    --------
+    >>> from frame in pt.tools.merge_frame_from_trajs((traj0, traj1, traj2)):
+    >>>     print(frame)
+    """
+    from pytraj import Frame
+
+    if not isinstance(trajlist, (list, tuple)):
+        raise ValueError('input must be a list or tuple of trajectories')
+    for iterables in zip(*trajlist):
+        yield merge_frames(iterables)
 
 def rmsd_1darray(a1, a2):
     '''rmsd of a1 and a2

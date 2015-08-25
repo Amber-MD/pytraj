@@ -1462,7 +1462,7 @@ def _closest_iter(act, traj):
         yield new_frame.copy()
 
 
-def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
+def closest(traj=None, mask='*', solvent_mask=None, n_solvents=10, restype='trajectory', top=None):
     """return either a new Trajectory or a frame iterator. Keep only ``n_solvents`` closest to mask
 
     Parameters
@@ -1512,6 +1512,11 @@ def closest(traj=None, mask='*', n_solvents=0, restype='trajectory', top=None):
     act = Action_Closest()
 
     _top = _get_top(traj, top)
+
+    if solvent_mask is not None:
+        _top = _top.copy()
+        _top.set_solvent(solvent_mask)
+
     new_top = Topology()
     new_top.py_free_mem = False  # cpptraj will do
 
