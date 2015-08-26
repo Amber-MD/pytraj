@@ -19,9 +19,6 @@ class Test(unittest.TestCase):
         fa.set_frame_mass()
         fa.center(":1 mass")
 
-        for f0, f1 in zip(fa[:2], saved_traj):
-            #print(f0.rmsd_nofit(f1))
-
         aa_eq(fa[:2].xyz, saved_traj.xyz, decimal=5)
 
 
