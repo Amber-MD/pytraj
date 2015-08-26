@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
 from pytraj.base import *
 from pytraj import adict
@@ -34,7 +35,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(d2.to_ndarray().flatten(), saved_d0.flatten())
 
         assert_almost_equal(
-            traj.calc_COG(dtype='ndarray'), traj2.calc_COG(dtype='ndarray'))
+            pt.center_of_geometry(traj, dtype='ndarray'), pt.center_of_geometry(traj2, dtype='ndarray'))
 
 
 if __name__ == "__main__":

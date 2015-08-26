@@ -19,16 +19,16 @@ class Test(unittest.TestCase):
         fa = traj[:]
         mask = ':1@CA :14@CB'
         d0 = pyca.calc_distance(traj, mask)
-        d1 = traj.calc_distance(mask)
-        d2 = fa.calc_distance(mask)
+        d1 = pt.distance(traj, mask)
+        d2 = pt.calc_distance(fa, mask)
 
         aa_eq(d0, d1)
         aa_eq(d0, d2)
 
         Nsize = 12
         arr = np.random.randint(0, 300, size=Nsize * 2).reshape(Nsize, 2)
-        d3 = fa.calc_distance(arr)
-        d4 = traj.calc_distance(arr)
+        d3 = pt.calc_distance(fa, arr)
+        d4 = pt.distance(traj, arr)
         d5 = pyca.calc_distance(traj, arr)
         d6 = pyca.calc_distance(fa, arr)
         d7 = pyca.calc_distance([fa, traj], arr, n_frames=2 * fa.n_frames)
@@ -49,17 +49,17 @@ class Test(unittest.TestCase):
 
         @Timer()
         def no_openmp():
-            fa.calc_distance(arr, parallel=False)
+            pt.calc_distance(fa, arr, parallel=False)
 
         @Timer()
         def with_openmp():
-            fa.calc_distance(arr, parallel=True)
+            pt.calc_distance(fa, arr, parallel=True)
 
         no_openmp()
         with_openmp()
 
-        d_no_omp = fa.calc_distance(arr, parallel=False)
-        d_with_omp = fa.calc_distance(arr, parallel=True)
+        d_no_omp = pt.calc_distance(fa, arr, parallel=False)
+        d_with_omp = pt.calc_distance(fa, arr, parallel=True)
         aa_eq(d_no_omp, d_with_omp)
 
     def test_2(self):

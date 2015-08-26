@@ -1,4 +1,5 @@
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import io as mdio
 import numpy as np
@@ -61,8 +62,8 @@ class Test(unittest.TestCase):
         print(arr0[:10])
         print(arr1[:10])
 
-        arr2 = TRAJ.calc_rmsd(mask=mask, ref=f0)
-        arr3 = TRAJ.calc_rmsd(mask=mask, ref=0)
+        arr2 = pt.rmsd(TRAJ, mask=mask, ref=f0)
+        arr3 = pt.rmsd(TRAJ, mask=mask, ref=0)
         np.testing.assert_almost_equal(arr0, cpptraj_rmsd, decimal=3)
         np.testing.assert_almost_equal(arr1, cpptraj_rmsd, decimal=3)
         np.testing.assert_almost_equal(arr2, cpptraj_rmsd, decimal=3)
@@ -81,17 +82,17 @@ class Test(unittest.TestCase):
         m_traj.xyz = m_traj.xyz * 10  # convert `nm` to `Angstrom` unit
 
         print("rmsd to first, all atoms")
-        arr0 = traj.calc_rmsd(0)
-        arr1 = traj.calc_rmsd(ref=0)
-        arr2 = traj.calc_rmsd()
+        arr0 = pt.rmsd(traj, 0)
+        arr1 = pt.rmsd(traj, ref=0)
+        arr2 = pt.rmsd(traj, )
         a_md0 = md.rmsd(m_traj, m_traj, 0)
         assert_almost_equal(arr0, arr1)
         assert_almost_equal(arr0, arr2)
         assert_almost_equal(arr0, a_md0)
 
         print("rmsd to last frame, all atoms")
-        arr0 = traj.calc_rmsd(ref=-1)
-        arr1 = traj.calc_rmsd(ref=-1)
+        arr0 = pt.rmsd(traj, ref=-1)
+        arr1 = pt.rmsd(traj, ref=-1)
         a_md = md.rmsd(m_traj, m_traj, -1)
         assert_almost_equal(arr0, arr1)
         assert_almost_equal(arr0, a_md)
@@ -99,10 +100,10 @@ class Test(unittest.TestCase):
         print("rmsd with mask and indices")
         mask = ":3-18@CA,C"
         atm = traj.top(mask)
-        arr0 = traj.calc_rmsd(ref=-1, mask=mask)
-        arr1 = traj.calc_rmsd(mask=atm.indices, ref=-1)
-        arr2 = traj.calc_rmsd(mask=list(atm.indices), ref=-1)
-        arr3 = traj.calc_rmsd(mask=tuple(atm.indices), ref=-1)
+        arr0 = pt.rmsd(traj, ref=-1, mask=mask)
+        arr1 = pt.rmsd(traj, mask=atm.indices, ref=-1)
+        arr2 = pt.rmsd(traj, mask=list(atm.indices), ref=-1)
+        arr3 = pt.rmsd(traj, mask=tuple(atm.indices), ref=-1)
         a_md = md.rmsd(m_traj, m_traj, -1, atm.indices)
         print('arr0', arr0, 'a_md', a_md)
         assert_almost_equal(arr0, a_md)
@@ -112,10 +113,10 @@ class Test(unittest.TestCase):
 
         from pytraj import Trajectory
         fa = Trajectory(traj)
-        arr0 = fa.calc_rmsd(ref=-1, mask=mask)
-        arr1 = fa.calc_rmsd(mask=atm.indices, ref=-1)
-        arr2 = fa.calc_rmsd(mask=list(atm.indices), ref=-1)
-        arr3 = fa.calc_rmsd(mask=tuple(atm.indices), ref=-1)
+        arr0 = pt.rmsd(fa, ref=-1, mask=mask)
+        arr1 = pt.rmsd(fa, mask=atm.indices, ref=-1)
+        arr2 = pt.rmsd(fa, mask=list(atm.indices), ref=-1)
+        arr3 = pt.rmsd(fa, mask=tuple(atm.indices), ref=-1)
         a_md = md.rmsd(m_traj, m_traj, -1, atm.indices)
         assert_almost_equal(arr0, a_md)
         assert_almost_equal(arr1, a_md)
@@ -127,7 +128,7 @@ class Test(unittest.TestCase):
         fa = Trajectory(traj)
         mask = "!@H="
         atm = fa.top(mask)
-        arr0 = fa.calc_rmsd(ref=4, mask=mask)
+        arr0 = pt.rmsd(fa, ref=4, mask=mask)
         a_md = md.rmsd(m_traj, m_traj, 4, atm.indices)
         print('mode=cpptraj', arr0[1:])
         print(a_md)
@@ -139,13 +140,13 @@ class Test(unittest.TestCase):
         aa_eq = assert_almost_equal
         traj = TRAJ.copy()
         mask = ['@CA', '@CB', ':3-18@CA,C']
-        arr = traj.rmsd(mask=mask)
+        arr = pt.rmsd(traj, mask=mask)
         for idx, m in enumerate(mask):
-            aa_eq(arr[idx], traj.rmsd(mask=m))
-            aa_eq(arr[idx], traj.rmsd(mask=traj.top.select(m)))
+            aa_eq(arr[idx], pt.rmsd(traj, mask=m))
+            aa_eq(arr[idx], pt.rmsd(traj, mask=traj.top.select(m)))
 
         mask = ['@CA', '@CB', ':3-18@CA,C', [0, 3, 5]]
-        self.assertRaises(ValueError, lambda: traj.rmsd(mask=mask))
+        self.assertRaises(ValueError, lambda: pt.rmsd(traj, mask=mask))
 
 
 if __name__ == "__main__":

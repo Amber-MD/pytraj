@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj import DatasetList, analdict
 from pytraj import adict
 from pytraj import io as mdio
@@ -18,7 +19,7 @@ class Test(unittest.TestCase):
 
         # make sure not getting segmentation fault
         v0 = pyca.calc_vector(traj, "@CA @N,C,O")
-        v1 = traj.calc_vector("@CA @N,C,O")
+        v1 = pt.calc_vector(traj, "@CA @N,C,O")
 
         # timecorr
         # http://ambermd.org/doc12/Amber15.pdf, page #619

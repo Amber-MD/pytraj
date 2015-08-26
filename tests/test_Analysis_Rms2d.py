@@ -1,4 +1,5 @@
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -80,7 +81,7 @@ class Test(unittest.TestCase):
         assert (dslist[0].values.flatten().tolist().__len__() == 100)
         assert (dslist[0].to_ndarray().__len__() == 10)
 
-        dslist2 = traj.calc_pairwise_rmsd("@CA", dtype='dataset')
+        dslist2 = pt.pairwise_rmsd(traj, "@CA", dtype='dataset')
         arr = dslist[0].to_ndarray().flatten()
         arr2 = dslist2[0].to_ndarray().flatten()
         assert_almost_equal(arr, arr2)
