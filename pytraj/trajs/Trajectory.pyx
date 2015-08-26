@@ -27,7 +27,6 @@ from .._get_common_objects import _get_top, _get_data_from_dtype
 from .._shared_methods import (_savetraj, _get_temperature_set,
                               _xyz, _tolist, _split_and_write_traj)
 from .._shared_methods import my_str_method, _box
-from .._xyz import XYZ
 
 from .. import common_actions as pyca
 from ..hbonds import search_hbonds

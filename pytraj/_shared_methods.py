@@ -1,7 +1,6 @@
 # distutils: language = c++
 #
 from pytraj.Frame import Frame
-from pytraj.Trajectory import Trajectory
 from pytraj.AtomMask import AtomMask
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types

@@ -20,7 +20,7 @@ from ._fast_iterframe import _fast_iterptr, _fast_iterptr_withbox
 __all__ = ['Trajectory']
 
 
-class Trajectory(ActionTrajectory):
+class Trajectory(object):
     def __init__(self,
                  filename_or_iterable=None,
                  top=None,

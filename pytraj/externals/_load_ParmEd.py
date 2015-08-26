@@ -1,6 +1,4 @@
 from pytraj.utils import has_
-from pytraj.warnings import PytrajWarningMissing
-from ..api import Trajectory
 from ..Frame import Frame
 from ..Topology import Topology
 from ..utils.context import goto_temp_folder
