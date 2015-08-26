@@ -13,24 +13,14 @@ class TestBox(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame0.box_crd()
-        #print(frame0.box)
         frame0.boxview[:] = pyarray('d', [0.0, 1.0, 2.0, 3.0, 4.0, 6.])
-        #print(frame0.box)
-        #print(frame0.box.type)
         frame0.set_nobox()
-        #print(frame0.box)
 
-    def test_help(self):
-        #print(Box.all_box_types())
 
     def test_1(self):
         box = Box()
         box.set_trunc_oct()
-        #print(box)
-        #print(box.type)
         box.set_nobox()
-        #print(box)
-        #print(box.type)
 
         dummy = 100.
         box.data[0] = dummy
@@ -43,7 +33,6 @@ class TestBox(unittest.TestCase):
         box = Box()
         arr0 = np.arange(6).astype(np.float64)
         box.data[:] = arr0
-        #print(box.tolist())
 
         for idx, x in enumerate(arr0):
             assert box.data[idx] == x
