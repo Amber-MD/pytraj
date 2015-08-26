@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         cout = pt.datafiles.load_cpptraj_output(trajin)
 
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = traj.calc_distance(['@2 @3', '@4, @7'])
+        dslist = pt.calc_distance(traj, ['@2 @3', '@4, @7'])
 
         pout = pt.common_actions.cross_correlation_function(
             dslist[0], dslist[1])
