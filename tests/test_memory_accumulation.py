@@ -37,7 +37,7 @@ for traj in tlist:
     def test_strip_atoms(chunksize=100):
         print("test_strip_atoms")
         for chunk in traj.iterchunk(chunksize=100):
-            chunk._fast_strip_atoms(':WAT')
+            chunk.strip_atoms(':WAT')
 
     @profile
     def test_chunk_iter(chunksize=100):
@@ -105,14 +105,11 @@ for traj in tlist:
         print(idx)
 
     func_list = [
-<<<<<<< HEAD
         test_strip_atoms,
         test_closest,
         test_iter_frame_indices,
         test_center,
         test_rmsd,
-=======
->>>>>>> Frame_pt_constructor
         test_simple_frame_iter,
         test_frame_iter_with_mask,
         test_autoimage,
@@ -125,9 +122,5 @@ for traj in tlist:
     estimated_MB = traj._estimated_MB
 
     for func in func_list:
-<<<<<<< HEAD
-        func()
-=======
         mem = max(memory_usage(func))
         print("%s : %s" % (func.__name__, mem))
->>>>>>> Frame_pt_constructor
