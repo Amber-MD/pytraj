@@ -36,6 +36,7 @@ class Test(unittest.TestCase):
             arr0 = dstack_dict[key]
             arr1 = d12_dict[key]
             if np.any(arr0 == arr1) == False:
+                pass
                 #print(arr0, arr1)
 
         arr1 = ds1.to_ndarray()

@@ -12,6 +12,7 @@ class Test(unittest.TestCase):
         for i, f0 in enumerate(traj):
             for j, x in enumerate(f0.coords):
                 if np.abs(x - 5.707) < 1E-3:
+                    pass
                     #print("catch index index %s in %s-frame" % (j, i))
 
         #print(traj[0, 0])
@@ -19,9 +20,11 @@ class Test(unittest.TestCase):
 
         #print(traj)
         for frame in traj.frame_iter():
+            pass
             #print(frame[0])
 
         for frame0 in farray.frame_iter():
+            pass
             #print(frame0[0])
 
         i = 0

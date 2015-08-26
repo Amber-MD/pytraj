@@ -26,6 +26,7 @@ class Test(unittest.TestCase):
             for out in outfit:
                 #print(out)
         else:
+            pass
             #print("does not have matplotlib. skip test")
 
 

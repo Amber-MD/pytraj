@@ -29,6 +29,7 @@ class Test(unittest.TestCase):
                 #print(ene.gb)
                 sander.cleanup()
         else:
+            pass
             #print("require both sander and parmed. Skip test")
 
     def test_1(self):
@@ -50,6 +51,7 @@ class Test(unittest.TestCase):
                 #print(ene.gb)
                 sander.cleanup()
         else:
+            pass
             #print("require both sander and parmed. Skip test")
 
 

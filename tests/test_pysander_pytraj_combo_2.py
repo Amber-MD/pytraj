@@ -33,6 +33,7 @@ class Test(unittest.TestCase):
             e_dict = get_pysander_energies(parm=parm, traj=traj, igb=8)
             #print(pd.DataFrame(e_dict))
         else:
+            pass
             #print("require both sander and parmed. Skip test")
 
 

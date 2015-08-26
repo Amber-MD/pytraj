@@ -614,9 +614,7 @@ class Trajectory(object):
             raise ValueError("mask must be string or AtomMask object")
 
         for idx, frame in enumerate(self):
-            print(frame)
             _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
-            print(frame, mat, v1, v2)
             frame.trans_rot_trans(v1, mat, v2)
 
     def _allocate(self, n_frames, n_atoms):
@@ -640,7 +638,8 @@ class Trajectory(object):
         self.top.strip_atoms(mask)
 
         if self._xyz is not None:
-            self._xyz = self._xyz[:, atm.indices]
+            # need to copy to make contigous memory block
+            self._xyz = self._xyz[:, atm.indices].copy()
 
     def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
         _savetraj(self, filename, format, overwrite, *args, **kwd)

@@ -72,6 +72,7 @@ class Test(unittest.TestCase):
             aa_eq(x, y)
 
         else:
+            pass
             #print("does not have mdtraj and/or pytables")
             #print("skip test")
 

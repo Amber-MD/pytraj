@@ -26,12 +26,6 @@ class Test(unittest.TestCase):
         fa0.strip_atoms('!@CA')
         assert fa0[0].n_atoms == NATOM
         fa1 = traj[:]
-        fa1._fast_strip_atoms('!@CA')
-        assert fa1[0].n_atoms == NATOM
-        # raise ValueError if maks is None
-        self.assertRaises(ValueError, lambda: fa1._fast_strip_atoms())
-
-        aa_eq(fa0.xyz, fa1.xyz)
 
         #fa3 = traj[:]
         fa3 = traj._fast_slice(slice(2, 100, 10))
@@ -117,6 +111,7 @@ class Test(unittest.TestCase):
             #print("mdtraj_remove_solvent")
             mdtraj_remove_solvent()
         else:
+            pass
             #print("does not have mdtraj, skip")
 
 

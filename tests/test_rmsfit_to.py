@@ -58,6 +58,7 @@ class Test(unittest.TestCase):
 
         #print("test trajsaved coords")
         for _f1 in trajsaved:
+            pass
             #print(_f1[0])
         #print("END test trajsaved coords")
 
