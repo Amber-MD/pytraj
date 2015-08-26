@@ -57,18 +57,5 @@ class TestActionList(unittest.TestCase):
             farray2.append(frame0)
         print(time() - t0)
 
-<<<<<<< HEAD
-        # make sure that Action_Strip does its job in stripping
-        print(farray2.size)
-
-        # it's time to retrieve the data
-        ds = cast_dataset(dsetlist[0], dtype='double')
-        print(ds[:10])
-        print(dir(dflist))
-        dflist.write_all_datafiles()
-
-
-=======
->>>>>>> Frame_pt_constructor
 if __name__ == "__main__":
     unittest.main()
