@@ -20,15 +20,12 @@ class Test(unittest.TestCase):
         d0 = pyca.calc_COM(traj, dtype='dataset')
         d1 = pyca.calc_center_of_mass(traj, dtype='dataset')
         d2 = pyca.calc_center_of_mass(traj2, dtype='dataset')
-        #print(d0)
         arr = d0.to_ndarray()
-        #print(arr)
 
         for frame in traj:
-            #print(frame.center_of_geometry(traj.top("*")).tolist())
+            pass
 
         saved_d0 = np.loadtxt("./data/vec.out", skiprows=1, usecols=(1, 2, 3))
-        #print(saved_d0)
 
         assert_almost_equal(arr.flatten(), saved_d0.flatten())
         assert_almost_equal(d1.to_ndarray().flatten(), saved_d0.flatten())

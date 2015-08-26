@@ -9,7 +9,6 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         frame = traj[0]
-        #print(frame[0, :])
 
         for arr0 in frame:
             arr0[0] = 0.0
@@ -18,13 +17,11 @@ class Test(unittest.TestCase):
         for i in range(frame.n_atoms):
             assert (frame[i, 0]) == 0.0
 
-        #print("test frame_iter")
         for f0 in frame.frame_iter():
-            #print(f0)
+            pass
 
-        #print("test frame_iter")
         for f0 in frame.frame_iter():
-            #print(f0)
+            pass
 
         for frame in traj.frame_iter():
             pass

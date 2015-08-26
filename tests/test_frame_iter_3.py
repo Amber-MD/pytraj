@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         assert i == 7
 
         for i, frame in enumerate(traj.frame_iter(start=7, stop=8)):
-            #print(frame)
+            pass
 
         assert i == 0
 
@@ -33,27 +33,18 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['distance']
         dslist = DataSetList()
-        #d0 = act(":2@CA :10@CA", (traj.frame_iter(stop=5),), traj.top, quick_get=True)
         act.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
         act.process(traj.top)
-        #print(list(traj.frame_iter()))
-        #print(list(traj.chunk_iter(4)))
 
         for frame in traj.frame_iter(stop=5):
             act.do_action(frame)
-        #print(dslist.size)
-        #print(dslist[0][:])
 
         dslist = DataSetList()
         act2 = adict['distance']
         act2.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
         act2.process(traj.top)
         act2.do_action(traj.frame_iter(stop=5))
-        #print(act2.n_frames)
-        #print(dslist.size)
-        #print(dslist[0].size)
         assert act2.n_frames == 5
-        #print(dslist[0][:])
 
 
 if __name__ == "__main__":
