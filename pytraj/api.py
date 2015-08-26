@@ -234,10 +234,12 @@ class Trajectory(object):
                 else:
                     traj.top = self.top
                     arr0 = self._xyz[idx]
-                traj.append(arr0)
+                # make copy to create contigous memory block
+                traj._xyz = arr0.copy()
 
                 if self._boxes is not None:
-                    traj._boxes = self._boxes
+                    # always make a copy in this case
+                    traj._boxes = self._boxes.copy()
             elif not isinstance(idx, tuple):
                 # might return a view or a copy
                 # based on numpy array rule
