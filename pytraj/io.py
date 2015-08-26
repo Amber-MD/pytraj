@@ -353,7 +353,7 @@ def write_traj(filename="",
     from .Frame import Frame
     from .trajs.Trajout import Trajout
 
-    if format is in [None, '']:
+    if format in [None, '']:
         # use cpptraj default format (amber)
         format = 'unknown_traj'
     if format.upper() == 'UNKNOWN':
