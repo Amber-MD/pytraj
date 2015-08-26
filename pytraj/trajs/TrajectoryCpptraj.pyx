@@ -1,4 +1,5 @@
 # distutils: language = c++
+import numpy as np
 from ..api import Trajectory
 from ..trajs.Trajectory cimport Trajectory as _Trajectory
 from ..AtomMask cimport AtomMask
@@ -19,6 +20,28 @@ from .._get_common_objects import _get_top
 from .Trajout import Trajout
 from ..compat import zip, range
 
+def _split_range(int chunksize, int start, int stop):
+    '''split a given range to n_chunks
+
+    Examples
+    --------
+    >>> from pytraj.misc import split_range
+    >>> split_range(3, 0, 10)
+    [(0, 3), (3, 6), (6, 10)]
+    '''
+    cdef int n_chunks, i, _stop
+
+    n_chunks = (stop - start)//chunksize
+
+    if ((stop - start) % chunksize ) != 0:
+        n_chunks += 1
+
+    for i in range(n_chunks):
+        if i < n_chunks - 1:
+            _stop = start + (i + 1) * chunksize
+        else:
+            _stop = stop
+        yield start + i * chunksize, _stop
 
 cdef class TrajectoryCpptraj:
     def __cinit__(self):
@@ -229,7 +252,7 @@ cdef class TrajectoryCpptraj:
     def chunk_iter(self, *args, **kwd):
         return self.iterchunk(*args, **kwd)
 
-    def iterchunk(self, int chunk=2, int start=0, int stop=-1):
+    def iterchunk(self, int chunksize=2, int start=0, int stop=-1):
         '''iterately get Frames with start, chunk
         returning Trajectory or Frame instance depend on `chunk` value
         Parameters
@@ -240,10 +263,11 @@ cdef class TrajectoryCpptraj:
         copy_top : bool, default=False
             if False: no Topology copy is done for new (chunk) Trajectory
         '''
-        cdef int n_chunk, i, j, _stop
+        cdef int i, j, _stop
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms
         cdef Frame frame
+        cdef int _tmp_start, _tmp_stop, real_n_frames
 
         # check `start`
         if start < 0 or start >= n_frames:
@@ -251,36 +275,30 @@ cdef class TrajectoryCpptraj:
 
         # check `stop`
         if stop <= 0 or stop >= n_frames:
-            stop = <int> self.size - 1
+            stop = <int> self.size
 
-        if chunk <= 1:
+        if chunksize <= 1:
             raise ValueError("chunk must be >= 2")
 
-        if chunk + start > stop:
+        if chunksize + start > stop:
             raise ValueError("start + chunk must be smaller than max frames")
-
-        n_chunk = int((stop- start)/chunk)
-        if ((stop - start) % chunk ) != 0:
-            n_chunk += 1
 
         # only open and close file once
         with self:
-            for i in range(n_chunk):
+            for (_tmp_start, _tmp_stop) in _split_range(chunksize, start, stop):
                 # always create new Trajectory
                 farray = Trajectory()
                 farray.top = self.top.copy()
+                real_n_frames = len(range(_tmp_start, _tmp_stop))
+                farray._allocate(real_n_frames, farray.top.n_atoms)
+                farray._boxes = np.empty((real_n_frames, 6), dtype='f8')
 
-                if i != n_chunk - 1:
-                    _stop = start + chunk*(i+1)
-                else:
-                    _stop = stop + 1
-
-                for j in range(start + chunk * i,  _stop):
-                    frame = Frame(n_atoms)
-                    self.thisptr.GetFrame(j, frame.thisptr[0])
-                    farray.append(frame)
+                for idx, frame in enumerate(self.iterframe(start=_tmp_start,
+                    stop=_tmp_stop)):
+                    farray._xyz[idx] = frame.xyz
+                    farray._boxes[idx] = frame.box.data
                 yield farray
-
+                    
     def __setitem__(self, idx, value):
         raise NotImplementedError("Read only Trajectory. Use Trajectory class for __setitem__")
 

@@ -73,6 +73,10 @@ class Test(unittest.TestCase):
             [traj.chunk_iter(), traj.chunk_iter(), traj[0]], '@CA @CB',
             top=traj.top)
 
+        rmsd0 = pt.rmsd(traj.iterchunk(3), ref=traj[-1], top=traj.top)
+        rmsd1 = pt.rmsd(traj, ref=-1)
+        assert_almost_equal(rmsd0, rmsd1)
+
 
 if __name__ == "__main__":
     unittest.main()

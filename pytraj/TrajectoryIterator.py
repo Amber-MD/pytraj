@@ -282,11 +282,11 @@ class TrajectoryIterator(TrajectoryCpptraj):
         return self.frame_iter(*args, **kwd)
 
     def iterchunk(self,
-                   chunksize=2,
-                   start=0,
-                   stop=-1,
-                   autoimage=False,
-                   rmsfit=None):
+                  chunksize=2,
+                  start=0,
+                  stop=-1,
+                  autoimage=False,
+                  rmsfit=None):
         """
         Parameters
         ----------
@@ -301,8 +301,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
         --------
             for chunk in trajiter.chunk_iter(100, autoimage=True, rmsfit=(ref0, '@CA'))
         """
-        chunk = chunksize
-
         if rmsfit is not None:
             ref, mask_for_rmsfit = rmsfit
             need_align = True
@@ -311,7 +309,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             ref, mask_for_rmsfit = None, None
 
         for chunk in super(TrajectoryIterator, self).iterchunk(
-                chunk, start, stop):
+                chunksize, start, stop):
             # always perform autoimage before doing fitting
             # chunk is `Trajectory` object, having very fast `autoimage` and
             # `rmsfit` methods
