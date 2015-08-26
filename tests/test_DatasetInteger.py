@@ -10,14 +10,14 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ds = DatasetInteger()
-        print(ds.dtype)
+        #print(ds.dtype)
 
         for i in range(100):
             ds.append(i)
 
         assert ds.size == 100
-        print(ds[:])
-        print(dir(ds))
+        #print(ds[:])
+        #print(dir(ds))
         ds2 = DatasetInteger()
 
         ds2.append(ds)  # copy from ds

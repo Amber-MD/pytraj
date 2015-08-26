@@ -18,11 +18,11 @@ class Test(unittest.TestCase):
         for i in range(3):
             fa.join([fa.copy(), fa.copy()])
 
-        print(fa.xyz[0, :10])
+        #print(fa.xyz[0, :10])
         xyz = fa.xyz / 10.
         fa.update_xyz(xyz)
         aa_eq(xyz, fa.xyz)
-        print(fa.xyz[0, :10], xyz[0, :10])
+        #print(fa.xyz[0, :10], xyz[0, :10])
 
         # try to build Trajectory from scratch
         fa2 = Trajectory()
@@ -46,9 +46,9 @@ class Test(unittest.TestCase):
         def update_pytraj():
             fa2.update_xyz(xyz)
 
-        print("numpy")
+        #print("numpy")
         update_np()
-        print("pytraj")
+        #print("pytraj")
         update_pytraj()
 
         xyz0[:] = xyz

@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
 
         t0 = pt.api.Trajectory(traj)
         for f in t0._fastiter():
-            print(f)
+            #print(f)
 
 if __name__ == "__main__":
     unittest.main()

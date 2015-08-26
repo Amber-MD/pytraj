@@ -21,12 +21,12 @@ class Test(unittest.TestCase):
         if has_("matplotlib"):
             from pytraj.plotting import plot_matrix
             outfit = plot_matrix(dslist[0])
-            print(outfit)
+            #print(outfit)
             assert isinstance(outfit, tuple)
             for out in outfit:
-                print(out)
+                #print(out)
         else:
-            print("does not have matplotlib. skip test")
+            #print("does not have matplotlib. skip test")
 
 
 if __name__ == "__main__":

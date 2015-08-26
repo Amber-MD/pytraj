@@ -12,19 +12,19 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ds = dslist.add_set_aspect('INTEGER', 'frame_idx', 'frame_idx')
         ds0 = cast_dataset(ds, 'INTEGER')
-        print(dir(ds0))
+        #print(dir(ds0))
 
         dslist2 = DataSetList()
         act = adict['distance']
         act(":2@CA :10@CA", traj, dslist=dslist2)
-        print(dslist2.get_legends())
+        #print(dslist2.get_legends())
         assert (dslist2['Dis_00000'].size == 10)
 
         # getting a list of legends
         dslist3 = pt.search_hbonds(traj,)
 
         legends = [dslist3[5].legend, dslist3[4].legend]
-        print(dslist3[legends])
+        #print(dslist3[legends])
 
 
 if __name__ == "__main__":

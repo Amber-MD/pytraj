@@ -14,21 +14,21 @@ class Test(unittest.TestCase):
         frame.set_frame_from_mask("@CA", traj.top)
         assert frame.size == 60
         assert frame.n_atoms == 20
-        print(frame.n_atoms)
-        print(frame.size)
-        print(frame[:].shape)
-        print(frame[0])
-        print(dir(frame))
+        #print(frame.n_atoms)
+        #print(frame.size)
+        #print(frame[:].shape)
+        #print(frame[0])
+        #print(dir(frame))
         frame.zero_coords()
-        print(frame[0])
+        #print(frame[0])
         arr0 = np.asarray([[100, 200, 3], ], dtype=np.float64)
         frame.append_xyz(arr0)
-        print("frame from test_0")
+        #print("frame from test_0")
         assert_almost_equal(frame[-1], arr0[0], decimal=4)
-        # print frame.t_address()
+        # #print frame.t_address()
 
     def test_indexing_AtomMask(self):
-        print("test_indexing_AtomMask")
+        #print("test_indexing_AtomMask")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         atm = AtomMask("@CA")
         traj.top.set_integer_mask(atm)
@@ -51,8 +51,8 @@ class Test(unittest.TestCase):
         npassert(arr0_0, arr0_3, decimal=5)
 
         #
-        print(frame0[AtomMask(303)])
-        print(dir(AtomMask))
+        #print(frame0[AtomMask(303)])
+        #print(dir(AtomMask))
 
 
 if __name__ == "__main__":

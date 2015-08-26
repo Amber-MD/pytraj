@@ -21,13 +21,13 @@ class Test(unittest.TestCase):
         i1 = top("@CB").indices
         combinations = np.array(list(product(i0, i1)))
         d1 = pt.calc_distance(traj, combinations).T
-        print(d1.shape)
+        #print(d1.shape)
 
         min_list = []
         for arr0 in d1:
             min_list.append(np.min(arr0))
-        print(min_list)
-        print(d0.tolist())
+        #print(min_list)
+        #print(d0.tolist())
         aa_eq(d0.tolist(), min_list)
 
         d0 = pt.mindist(traj, [[0, 1], [2, 3]])

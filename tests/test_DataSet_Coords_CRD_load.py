@@ -9,7 +9,7 @@ from pytraj.datasets.DataSet_Coords_CRD import DataSet_Coords_CRD
 
 class Test(unittest.TestCase):
     def test_0(self):
-        print("load TrajectoryIterator")
+        #print("load TrajectoryIterator")
         coords = DataSet_Coords_CRD()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         coords.top = traj.top
@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         assert coords.size == traj.size
 
     def test_1(self):
-        print("load Trajectory")
+        #print("load Trajectory")
         coords = DataSet_Coords_CRD()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
@@ -26,14 +26,14 @@ class Test(unittest.TestCase):
         assert coords.size == traj.size
 
     def test_2(self):
-        print("load string (filenames)")
+        #print("load string (filenames)")
         coords = DataSet_Coords_CRD()
         coords.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         assert coords.size == traj.size
 
     def test_3(self):
-        print("load frame_iter")
+        #print("load frame_iter")
         coords = DataSet_Coords_CRD()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         coords.load(traj(2, 8, 2), traj.top)

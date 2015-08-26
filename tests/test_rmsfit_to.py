@@ -11,13 +11,13 @@ class Test(unittest.TestCase):
         f0 = traj[0]
         f1 = traj[1]
 
-        print(f0[0], f1[0])
+        #print(f0[0], f1[0])
         f0.rmsd(f1)
-        print(f0[0], f1[0])
+        #print(f0[0], f1[0])
 
-        print("test_frame_fit: after fit_to")
+        #print("test_frame_fit: after fit_to")
         f1.rmsfit(f0)
-        print(f0[0], f1[0])
+        #print(f0[0], f1[0])
 
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -37,29 +37,29 @@ class Test(unittest.TestCase):
 
         # make sure that rmsd_nofit after do fitting is equal to rmsd (with
         # fit)
-        print(rmsd_1, rmsd_1_nofit)
+        #print(rmsd_1, rmsd_1_nofit)
         assert rmsd_1 - rmsd_1_nofit < 1E-3
 
-        print("test farray.fit_to")
+        #print("test farray.fit_to")
         farray.rmsfit(f0)
-        print(farray[1].rmsd_nofit(f0))
-        print(farray[1].rmsd(f0))
+        #print(farray[1].rmsd_nofit(f0))
+        #print(farray[1].rmsd(f0))
         assert rmsd_1 - farray[1].rmsd_nofit(f0) < 1E-3
-        print(farray.rmsfit)
+        #print(farray.rmsfit)
 
     def test_1(self):
-        print("compare to cpptraj")
+        #print("compare to cpptraj")
 
         # load frames to immutable traj
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj[0, 0])
+        #print(traj[0, 0])
         trajsaved = mdio.iterload(
             "./data/fit_to_1stframe.Tc5b.x", "./data/Tc5b.top")
 
-        print("test trajsaved coords")
+        #print("test trajsaved coords")
         for _f1 in trajsaved:
-            print(_f1[0])
-        print("END test trajsaved coords")
+            #print(_f1[0])
+        #print("END test trajsaved coords")
 
         f0saved = traj[0].copy()
         first = traj[0].copy()
@@ -68,19 +68,19 @@ class Test(unittest.TestCase):
         farray = traj[:]
 
         assert_almost_equal(farray[0].coords, first.coords)
-        print(farray)
-        print("before fitting")
-        print(farray[0, 0])
+        #print(farray)
+        #print("before fitting")
+        #print(farray[0, 0])
         farray.rmsfit(first, "*")
-        print("after fitting")
-        print(farray[0, 0])
+        #print("after fitting")
+        #print(farray[0, 0])
 
-        print("make sure to reproduce cpptraj output")
+        #print("make sure to reproduce cpptraj output")
         for i, _f0 in enumerate(farray):
             _f1 = trajsaved[i]
-            print(_f0[0], _f1[0])
+            #print(_f0[0], _f1[0])
             assert_almost_equal(_f0.coords, _f1.coords)
-        print("END")
+        #print("END")
 
 
 if __name__ == "__main__":

@@ -23,8 +23,8 @@ class Test(unittest.TestCase):
         aa_eq(fa0[:SIZE].xyz, traj.xyz)
 
         # memview
-        print(fa0)
-        print(fa0[SIZE])
+        #print(fa0)
+        #print(fa0[SIZE])
         fa1[0, 0, 0] = 1000.
         assert fa1[0, 0, 0] == 1000.
         assert fa0[SIZE, 0, 0] == 1000.

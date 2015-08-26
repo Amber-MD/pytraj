@@ -12,11 +12,11 @@ class Test(unittest.TestCase):
         f1 = traj[1]
         act = adict['distrmsd']
         d0 = act('@CA', traj[:2], quick_get=True)
-        print(d0[:])
+        #print(d0[:])
         atommask = traj.top("@CA")
-        print(f0.dist_rmsd(f1, traj.top('@CA')))
+        #print(f0.dist_rmsd(f1, traj.top('@CA')))
         assert f0.dist_rmsd(f1, traj.top('@CA')) == d0[1]
-        print(f0.rmsd(f1, atommask))
+        #print(f0.rmsd(f1, atommask))
 
 
 if __name__ == "__main__":

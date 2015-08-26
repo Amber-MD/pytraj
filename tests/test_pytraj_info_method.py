@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
 
         from pytraj import info
         info("matrix")
-        print("")
+        #print("")
         info(adict['rmsd'])
 
 

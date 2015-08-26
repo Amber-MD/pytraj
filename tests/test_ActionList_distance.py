@@ -38,9 +38,9 @@ class Test(unittest.TestCase):
         dslist3_0 = pt.calc_distance(traj, mask_list[0])
         dslist3_1 = pt.calc_distance(traj, mask_list[1])
 
-        print(dslist)
-        print(dslist3_0)
-        print(dslist3_1)
+        #print(dslist)
+        #print(dslist3_0)
+        #print(dslist3_1)
 
         aa_eq(dslist3_0, dslist[0])
         aa_eq(dslist3_1, dslist[1])

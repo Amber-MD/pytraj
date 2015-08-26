@@ -11,18 +11,18 @@ class Test(unittest.TestCase):
         f0 = traj[0]
         top = f0.top
         if top:
-            print("has top")
+            #print("has top")
         else:
-            print("dont have top")
-        print(top)
+            #print("dont have top")
+        #print(top)
         f0.top = traj.top
         top = f0.top
-        print(top)
+        #print(top)
 
         if top:
-            print("has top")
+            #print("has top")
         else:
-            print("dont have top")
+            #print("dont have top")
 
 
 if __name__ == "__main__":

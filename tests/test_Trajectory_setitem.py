@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
         fa0[0] = xyz[0]  # fa[0] return a Frame
         aa_eq(fa0[0].xyz, xyz[0])
         # try to assign a Frame
-        print(fa0, fa)
+        #print(fa0, fa)
         fa0[0] = fa[0]
         aa_eq(fa0[0].xyz, fa[0].xyz)
 

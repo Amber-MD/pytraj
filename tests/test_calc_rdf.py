@@ -19,15 +19,15 @@ class Test(unittest.TestCase):
         # calc_rdf with  spacing=0.5, max=10.0, solute mask=":5@CD
         # solvent mask = ":WAT@O"
         dslist = pyca.calc_rdf(traj, "0.5 10.0 :5@CD :WAT@O")
-        print(dslist.size)
-        print(dslist[0].tolist())
+        #print(dslist.size)
+        #print(dslist[0].tolist())
         # you can find the test here too:
         # https://github.com/mojyt/cpptraj/tree/master/test/Test_Radial/Radial.arg.save
         saved_data_dir = os.path.join(
             cpptraj_test_dir, "Test_Radial", "Radial.agr.save")
         saved_data = np.loadtxt(saved_data_dir, skiprows=8, usecols=(1, ))
         aa_eq(dslist[0].tolist(), saved_data)
-        print(dslist.size)
+        #print(dslist.size)
 
 
 if __name__ == "__main__":

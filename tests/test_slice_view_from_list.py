@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
         fa0[0, 0] = [100., 101., 102.]
         assert fa1[0, 0, 0] == fa0[0, 0, 0] == 100.
         assert traj[1, 0, 0] == 100.
-        print(fa0[0, 0], fa1[0, 0], traj[1, 0])
+        #print(fa0[0, 0], fa1[0, 0], traj[1, 0])
 
 
 if __name__ == "__main__":

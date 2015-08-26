@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
             flist, "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7",
             force_load=True)
         for t in tlist:
-            print(t.filename)
+            #print(t.filename)
 
 
 if __name__ == "__main__":

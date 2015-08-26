@@ -12,14 +12,14 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/tz2.crd", "./data/tz2.parm7")[:]
         # NOT SURE CORRECTLY YET
         # FIXME: Segmentation fault (core dumped)
-        #print (d0)
+        ##print (d0)
         act = adict['pairdist']
         dslist = DataSetList()
         act('mask "*" mask2 "*" delta 0.1 out ./output/pairdist.dat', traj,
             dslist=dslist)
-        # act.print_output()
-        print(dslist.size)
-        #print (dslist[0])
+        # act.#print_output()
+        #print(dslist.size)
+        ##print (dslist[0])
 
 
 if __name__ == "__main__":

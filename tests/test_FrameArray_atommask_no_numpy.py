@@ -26,8 +26,8 @@ class Test(unittest.TestCase):
             assert_almost_equal(flatten_list(arr0[idx]), frame.coords)
 
         # it's time to see the output :D
-        print(arr0)
-        print(type(arr0))
+        #print(arr0)
+        #print(type(arr0))
 
 
 if __name__ == "__main__":

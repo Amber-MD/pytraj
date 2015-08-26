@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
         normal()
         supposed_faster()
 
-        print(fa2, fa)
+        #print(fa2, fa)
         # Conclusion: not much faster
 
 

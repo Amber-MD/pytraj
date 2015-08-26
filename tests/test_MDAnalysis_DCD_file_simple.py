@@ -15,11 +15,11 @@ class Test(unittest.TestCase):
         t = mdio.load_MDAnalysisIterator(u)
 
         for idx, f in enumerate(t):
-            print(idx, f)
+            #print(idx, f)
 
         # hanged out if use iteration again
         for idx, f in enumerate(t):
-            print(idx, f)
+            #print(idx, f)
 
     @test_if_having("MDAnalysis")
     def test_1(self):
@@ -31,10 +31,10 @@ class Test(unittest.TestCase):
         t = mdio.load_MDAnalysisIterator(u)
 
         for idx, f in enumerate(t):
-            print(idx, f)
+            #print(idx, f)
 
         for idx, f in enumerate(t):
-            print(idx, f)
+            #print(idx, f)
 
 
 if __name__ == "__main__":

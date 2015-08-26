@@ -13,24 +13,24 @@ class TestBox(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame0.box_crd()
-        print(frame0.box)
+        #print(frame0.box)
         frame0.boxview[:] = pyarray('d', [0.0, 1.0, 2.0, 3.0, 4.0, 6.])
-        print(frame0.box)
-        print(frame0.box.type)
+        #print(frame0.box)
+        #print(frame0.box.type)
         frame0.set_nobox()
-        print(frame0.box)
+        #print(frame0.box)
 
     def test_help(self):
-        print(Box.all_box_types())
+        #print(Box.all_box_types())
 
     def test_1(self):
         box = Box()
         box.set_trunc_oct()
-        print(box)
-        print(box.type)
+        #print(box)
+        #print(box.type)
         box.set_nobox()
-        print(box)
-        print(box.type)
+        #print(box)
+        #print(box.type)
 
         dummy = 100.
         box.data[0] = dummy
@@ -43,7 +43,7 @@ class TestBox(unittest.TestCase):
         box = Box()
         arr0 = np.arange(6).astype(np.float64)
         box.data[:] = arr0
-        print(box.tolist())
+        #print(box.tolist())
 
         for idx, x in enumerate(arr0):
             assert box.data[idx] == x
@@ -62,8 +62,8 @@ class TestBox(unittest.TestCase):
         trajiter = mdio.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         saved_box = Box(
             [3.94559740E+01, 4.68215170E+01, 4.04695410E+01, 90., 90., 90.])
-        print(traj.top.box)
-        print(trajiter.top.box)
+        #print(traj.top.box)
+        #print(trajiter.top.box)
         aa_eq(traj.top.box.tolist(), saved_box.tolist())
         for frame in traj:
             assert frame.box.type == 'ortho'
@@ -98,10 +98,10 @@ class TestBox(unittest.TestCase):
         from pytraj import Trajectory
         traj = Trajectory()
         traj._allocate(10, 10)
-        print(traj.unitcells)
+        #print(traj.unitcells)
 
     def test_assign_box_type(self):
-        print("test_assign_box_type")
+        #print("test_assign_box_type")
         box = Box()
         assert box.type == 'nobox'
         box.type = 'ortho'
@@ -112,8 +112,8 @@ class TestBox(unittest.TestCase):
 
         box.type = 'rhombic'
         assert box.type == 'rhombic'
-        print("rhombic box?")
-        print(box)
+        #print("rhombic box?")
+        #print(box)
 
         # assert raise if not correctly set type
         def wrong_word(box=box):

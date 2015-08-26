@@ -32,8 +32,8 @@ class TestActionList(unittest.TestCase):
                          toplist, dsetlist, dflist)
 
         #
-        print("test setup_actions")
-        print(alist.n_actions)
+        #print("test setup_actions")
+        #print(alist.n_actions)
 
         # do checking
         alist.process(toplist[0])
@@ -55,7 +55,7 @@ class TestActionList(unittest.TestCase):
             # we need to keep the modified frame in farray2
             # farray2.append(frame)
             farray2.append(frame0)
-        print(time() - t0)
+        #print(time() - t0)
 
 if __name__ == "__main__":
     unittest.main()

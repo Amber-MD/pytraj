@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
 
         import numpy as np
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        print(traj.top)
+        #print(traj.top)
         # use "info("closest") to see its doc (from pytraj import info;
         # info("closest"))
         fa = pyca.closest(traj, ":2,4 center", n_solvents=100)
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
         saved_frame = mdio.iterload(pdb_file, pdb_file)[0]
 
         # cpptraj did test for 5-th frame (index starts from 1)
-        print(fa[4].rmsd(saved_frame))
+        #print(fa[4].rmsd(saved_frame))
         aa_eq(fa[4].coords, saved_frame.coords, decimal=1)
 
         fa2, dslist2 = pyca.closest(

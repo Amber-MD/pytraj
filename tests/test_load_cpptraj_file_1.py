@@ -23,8 +23,8 @@ class Test(unittest.TestCase):
         state = mdio.load_cpptraj_file(trajin_file)
         state.run()
         dslist = state.datasetlist
-        print(dslist.get_legends())
-        print(dslist.to_dataframe())
+        #print(dslist.get_legends())
+        #print(dslist.to_dataframe())
 
 
 if __name__ == "__main__":

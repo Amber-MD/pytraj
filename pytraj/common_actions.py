@@ -14,6 +14,7 @@ adict = ActionDict()
 from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
+from pytraj.api import Trajectory
 from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj
@@ -1496,7 +1497,6 @@ def closest(traj=None, mask='*', solvent_mask=None, n_solvents=10, restype='traj
     """
 
     from .actions.CpptrajActions import Action_Closest
-    from pytraj.Trajectory import Trajectory
     dslist = CpptrajDatasetList()
 
     if n_solvents == 0:

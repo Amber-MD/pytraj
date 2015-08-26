@@ -23,8 +23,8 @@ class Test(unittest.TestCase):
             f.write(text)
         state = Command.get_state(fname)
         assert (state.is_empty() == False)
-        print(state)
-        print(dir(state))
+        #print(state)
+        #print(dir(state))
         assert (state.toplist[0].n_atoms == traj.top.n_atoms)
         _ctraj = state.get_trajinlist()[0]
         _ctraj.top = traj.top.copy()
@@ -42,8 +42,8 @@ class Test(unittest.TestCase):
             f.write(text)
         state = mdio.load_cpptraj_file(fname)
         assert (state.is_empty() == False)
-        print(state)
-        print(dir(state))
+        #print(state)
+        #print(dir(state))
         assert (state.toplist[0].n_atoms == traj.top.n_atoms)
         _ctraj = state.get_trajinlist()[0]
         _ctraj.top = traj.top.copy()

@@ -10,7 +10,7 @@ class TestActionList(unittest.TestCase):
     def test_run_0(self):
         # load traj
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         dslist = DataSetList()
         dflist = DataFileList()
 
@@ -37,21 +37,21 @@ class TestActionList(unittest.TestCase):
                           traj.frame_iter()])
         Nframes = 1 + 1 + traj.n_frames + 9 + traj.n_frames
         dflist.write_all_datafiles()
-        print(dslist.size)
-        print(dslist[0][:])
-        print(dslist[1][:])
-        print(dslist.get_dataset(dtype='integer'))
+        #print(dslist.size)
+        #print(dslist[0][:])
+        #print(dslist[1][:])
+        #print(dslist.get_dataset(dtype='integer'))
         traj2 = mdio.iterload("./output/test_trajout.nc", traj.top)
-        print(traj.n_frames)
-        print('test_trajout.nc has %s frames' % traj2.n_frames)
-        print(traj2[0].n_atoms)
-        print(traj2.n_frames)
+        #print(traj.n_frames)
+        #print('test_trajout.nc has %s frames' % traj2.n_frames)
+        #print(traj2[0].n_atoms)
+        #print(traj2.n_frames)
         assert traj2.n_frames == Nframes
 
     def test_run_1(self):
         # load traj
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         dslist = DataSetList()
         dflist = DataFileList()
 
@@ -67,7 +67,7 @@ class TestActionList(unittest.TestCase):
     def test_run_1(self):
         # load traj
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         dslist = DataSetList()
         dflist = DataFileList()
 

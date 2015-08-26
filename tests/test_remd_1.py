@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
 
         # load all traj and extract frames having 300.0 K
         traj = mdio.load_remd("./data/Test_RemdTraj/rem.nc.000", top, "300.0")
-        print(traj)
+        #print(traj)
         trajiter = mdio.iterload_remd(
             "./data/Test_RemdTraj/rem.nc.000", top, "300.0")
         assert isinstance(traj, Trajectory)
@@ -30,9 +30,9 @@ class Test(unittest.TestCase):
         # turn off this for a while
         #assert isinstance(trajiter[:], Trajectory)
 
-        print(traj)
-        print(trajiter)
-        print(traj, traj.top, traj.n_frames)
+        #print(traj)
+        #print(trajiter)
+        #print(traj, traj.top, traj.n_frames)
 
         # make sure to get 300.0 K for all frames
         for T in trajiter.temperatures:
@@ -43,9 +43,9 @@ class Test(unittest.TestCase):
             "data/Test_RemdTraj/temp0.crd.300.00",
             "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
 
-        print(traj.n_frames)
+        #print(traj.n_frames)
         count = 0
-        print('box is None?', traj.unitcells is None, traj.unitcells, type(traj))
+        #print('box is None?', traj.unitcells is None, traj.unitcells, type(traj))
         def test_iter(t):
             for _ in t: pass
         test_iter(traj)

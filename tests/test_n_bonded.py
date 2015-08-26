@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
 
-        print(top.indices_bonded_to("H"))
+        #print(top.indices_bonded_to("H"))
 
 
 if __name__ == "__main__":

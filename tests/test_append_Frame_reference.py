@@ -12,21 +12,21 @@ class Test(unittest.TestCase):
         from pytraj import Trajectory
         traj = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         trajiter = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         t = Trajectory()
         t.top = traj.top.copy()
         t.append(traj[0], copy=False)
-        print(t)
+        #print(t)
         #frame = t[0]
         frame = t[0]
-        print(frame.n_atoms)
-        print(frame[0])
+        #print(frame.n_atoms)
+        #print(frame[0])
 
         my_number = [1000. for _ in range(3)]
         t[0, 0] = my_number
         aa_eq(t[0, 0], my_number)
         aa_eq(traj[0, 0], my_number)
-        print(traj[0, 0], t[0, 0])
+        #print(traj[0, 0], t[0, 0])
 
     def test_1(self):
         from pytraj import Trajectory

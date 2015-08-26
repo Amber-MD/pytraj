@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         frame = traj[0]
         frame.top = traj.top
 
-        # print 2D array for CA atoms
+        # #print 2D array for CA atoms
         arr0 = frame['@CA']
         # flat list
         arr1 = [item for sublist in arr0 for item in sublist]
@@ -20,8 +20,8 @@ class Test(unittest.TestCase):
         topCA = traj.top.copy()
         topCA.strip_atoms("!@CA")
         trajCA = mdio.iterload("./data/stripAllButCA.Tc5b.x", topCA)
-        print(arr1)
-        print(trajCA[0].coords)
+        #print(arr1)
+        #print(trajCA[0].coords)
         assert_almost_equal(arr1, trajCA[0].coords)
 
 

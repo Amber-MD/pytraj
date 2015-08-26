@@ -21,12 +21,18 @@ with open("log", 'w') as log_file:
                 fh1.write(txt)
 
         # run tests
+        #if PY3:
+        #    call(['sh', './/TestListTravis_py3.sh'],
+        #         stdout=file_out, stderr=log_file)
+        #else:
+        #    call(['sh', './/TestListTravis.sh'],
+        #         stdout=file_out, stderr=log_file)
+
+        # verbose
         if PY3:
-            call(['sh', './/TestListTravis_py3.sh'],
-                 stdout=file_out, stderr=log_file)
+            call(['sh', './/TestListTravis_py3.sh'])
         else:
-            call(['sh', './/TestListTravis.sh'],
-                 stdout=file_out, stderr=log_file)
+            call(['sh', './/TestListTravis.sh'])
 
 with open("log", 'r') as log_file, open("log2.sh", 'w') as log2:
     i_fails = 0  # only count files failed the assert

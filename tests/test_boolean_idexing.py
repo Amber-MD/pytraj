@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
 
             brr = np.random.randint(0, 2, traj.n_frames) > 0
             arr = np.arange(traj.n_frames)[brr]
-            print(arr)
+            #print(arr)
             assert pt.tools.rmsd(
                 traj[arr].xyz, traj[brr].xyz,
                 flatten=True) < 1E-6
@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
 
             brr = np.random.randint(0, 2, traj.n_frames) > 0
             arr = np.arange(traj.n_frames)[brr]
-            print(arr)
+            #print(arr)
             assert pt.tools.rmsd(
                 traj[arr].xyz, traj[brr].xyz,
                 flatten=True) < 1E-6

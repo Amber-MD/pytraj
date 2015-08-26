@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
                 pass
 
             fa = FA("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-            print(fa)
+            #print(fa)
 
         self.assertRaises(TypeError, lambda: test_class())
 

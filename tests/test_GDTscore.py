@@ -24,8 +24,8 @@ class Test(unittest.TestCase):
             mask="@CA",
             top=traj.top,
             score=score)
-        print(tmscore)
-        print(tmscore[8])
+        #print(tmscore)
+        #print(tmscore[8])
         # 0.38941: from TMalign
         assert_almost_equal([tmscore[8], ], [0.38941, ], decimal=2)
 

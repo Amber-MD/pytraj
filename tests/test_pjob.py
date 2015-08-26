@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
 
         job = PJob([(pt.radgyr, traj), (pt.molsurf, traj)])
         results = job.compute()
-        print(results)
+        #print(results)
 
         aa_eq(pt.radgyr(traj), results[0][1])
         aa_eq(pt.molsurf(traj), results[1][1])

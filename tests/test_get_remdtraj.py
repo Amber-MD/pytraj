@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         Tset = set([])
         f4922 = Trajectory()
         f4922.resize(trajlist[0].n_frames)
-        print(f4922.n_frames)
+        #print(f4922.n_frames)
         f4922.top = trajlist[0].top.copy()
 
         for traj in trajlist:
@@ -25,8 +25,8 @@ class Test(unittest.TestCase):
                 if frame.temperature == 492.2:
                     f4922[idx] = frame
 
-        print(f4922.temperatures)
-        print(f4922[0, 0, :])
+        #print(f4922.temperatures)
+        #print(f4922[0, 0, :])
 
         # make sure we reproduce cpptraj output
         cpptraj = mdio.iterload(
@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
         for idx, framepy in enumerate(f4922):
             assert_almost_equal(framepy.coords, cpptraj[idx].coords)
 
-        print("YES")
+        #print("YES")
 
 
 if __name__ == "__main__":

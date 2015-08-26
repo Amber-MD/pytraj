@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         for chunk in fa.chunk_iter(chunksize=2):
             f_list.append(chunk.average())
 
-        print(f_list)
+        #print(f_list)
         f0 = fa[:2].average()
         aa_eq(f_list[0].xyz, f0.xyz)
 

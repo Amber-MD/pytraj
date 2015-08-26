@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
         tc = TrajectoryCpptraj()
         tc.top = traj.top
         tc.load(traj.filename, traj.top)
-        print(tc)
+        #print(tc)
         assert traj.n_frames == tc.n_frames
         assert traj.top.n_atoms == tc.top.n_atoms
 
@@ -70,7 +70,7 @@ class Test(unittest.TestCase):
         aa_eq(tc[20].xyz, traj[0].xyz)
         aa_eq(tc[21].xyz, traj[2].xyz)
         aa_eq(tc[22].xyz, traj[4].xyz)
-        print('filelist', tc.filelist)
+        #print('filelist', tc.filelist)
 
     def test_load_from_list(self):
         # NOTE: not supported anymore.
@@ -82,7 +82,7 @@ class Test(unittest.TestCase):
         #tc = TrajectoryCpptraj()
         #tc.top = mdio.load_topology(top)
         #tc.load(flist, frame_slice=(0, -1, 1))
-        #print (tc)
+        ##print (tc)
         pass
 
 

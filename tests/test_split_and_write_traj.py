@@ -22,23 +22,23 @@ class Test(unittest.TestCase):
             # reload
             from glob import glob
             flist = sorted(glob("trajx*"))
-            print(flist)
+            #print(flist)
             traj3 = pt.iterload(flist, top)
             aa_eq(traj2.xyz, traj3.xyz)
-            print(traj2.rmsd())
-            print(traj3.rmsd())
+            #print(traj2.rmsd())
+            #print(traj3.rmsd())
 
         # test TrajectoryIterator object
         traj.split_and_write_traj(n_chunks=4, root_name='./output/trajiterx')
         flist = sorted(glob("./output/trajiterx*"))
-        print(flist)
+        #print(flist)
         traj4 = pt.iterload(flist, top)
         eq_coords(traj4, traj)
 
         # dcd ext
         traj.split_and_write_traj(4, root_name='./output/ts', ext='dcd')
         flist = sorted(glob("./output/ts.*.dcd"))
-        print(flist)
+        #print(flist)
         traj4 = pt.iterload(flist, top)
         eq_coords(traj4, traj)
 

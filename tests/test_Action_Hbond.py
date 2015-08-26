@@ -15,26 +15,26 @@ class Test(unittest.TestCase):
         dslist = DataSetList()
         act(":1-13 solventacceptor :WAT@O solventdonor :WAT series", traj,
             dslist=dslist)
-        act.print_output()
-        print('dslist size = ', dslist.size)
+        act.#print_output()
+        #print('dslist size = ', dslist.size)
 
         for d0 in dslist:
             if d0.dtype == 'integer':
-                print(d0[:])
-            print(d0.name, d0)
+                #print(d0[:])
+            #print(d0.name, d0)
 
         for i in range(d0.size):
-            print(i)
+            #print(i)
         act.help()
 
         d3 = dslist[3]
-        print(d3)
-        print([d3[i] for i in range(d3.size)])
-        print(dslist.get_dtypes())
-        print(dslist.get_aspects())
-        print(dslist.get_scalar_modes())
-        print(dslist.get_scalar_types())
-        print(dslist.get_legends())
+        #print(d3)
+        #print([d3[i] for i in range(d3.size)])
+        #print(dslist.get_dtypes())
+        #print(dslist.get_aspects())
+        #print(dslist.get_scalar_modes())
+        #print(dslist.get_scalar_types())
+        #print(dslist.get_legends())
 
 
 if __name__ == "__main__":

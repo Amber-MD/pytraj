@@ -19,11 +19,11 @@ class Test(unittest.TestCase):
         # assert
         saved_frame = mdio.iterload(
             "./data/Tc5b.principal_dorotation.rst7", traj.top)[0]
-        print(saved_frame[0])
-        print(frame[0])
-        print(f0[0])
+        #print(saved_frame[0])
+        #print(frame[0])
+        #print(f0[0])
         assert (frame.rmsd_nofit(saved_frame)) < 0.15
-        print(f0.rmsd_nofit(saved_frame))
+        #print(f0.rmsd_nofit(saved_frame))
 
 
 if __name__ == "__main__":

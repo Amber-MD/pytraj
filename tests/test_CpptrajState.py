@@ -25,7 +25,7 @@ argIn = ArgList(trajininput)
 
 class TestCpptrajState(unittest.TestCase):
     def test_run(self):
-        print("test_process_input")
+        #print("test_process_input")
         state2 = CpptrajState()
         toplist = state2.toplist
         toplist.add_parm("./data/Tc5b.top")
@@ -43,14 +43,14 @@ class TestCpptrajState(unittest.TestCase):
         state2.add_action(adict['distance'], ArgList("distance :4@CA :10@CA"))
 
         # state2.framelist.set_active_ref(0)
-        print("test framelist.list()")
+        #print("test framelist.list()")
         state2.run()
         dslist = state2.datasetlist
         d0 = dslist[0]
-        print("d0 is empty? ", d0.is_empty())
+        #print("d0 is empty? ", d0.is_empty())
         d1 = cast_dataset(d0, dtype="general")
-        print("d1 is empty? ", d1.is_empty())
-        print(d1.data[0:10])
+        #print("d1 is empty? ", d1.is_empty())
+        #print(d1.data[0:10])
 
     def test_action(self):
         distaction = allactions.Action_Distance()
@@ -88,7 +88,7 @@ class TestCpptrajState(unittest.TestCase):
                         format='AMBERRESTART',
                         overwrite=True)
         from pytraj.__cpptraj_version__ import __cpptraj_version__
-        print(__cpptraj_version__)
+        #print(__cpptraj_version__)
 
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
         from pytraj import TrajectoryIterator
         # normal constructor
         traj = TrajectoryIterator("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         n_frame0 = 10
         assert traj.n_frames == n_frame0
 
@@ -17,11 +17,11 @@ class Test(unittest.TestCase):
         N = 3
         traj = TrajectoryIterator(["./data/md1_prod.Tc5b.x" for _ in range(N)],
                                   "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         assert traj.n_frames == n_frame0 * N
 
         traj = TrajectoryIterator("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         n_frame0 = 10
         assert traj.n_frames == n_frame0
 
@@ -29,14 +29,14 @@ class Test(unittest.TestCase):
         traj = TrajectoryIterator(["./data/md1_prod.Tc5b.x" for _ in range(N)
                                    ], "./data/Tc5b.top",
                                   frame_slice=[(0, 5), (3, 8)])
-        print(traj)
+        #print(traj)
         assert traj.n_frames == 20
 
         # a list of files with frame_slice argument but not using `frame_slice
         # = `
         traj = TrajectoryIterator(["./data/md1_prod.Tc5b.x" for _ in range(N)],
                                   "./data/Tc5b.top", [(0, 5), (3, 8)])
-        print(traj)
+        #print(traj)
         assert traj.n_frames == 20
 
         # dummy constructor without Topology. need to catch ValueError
@@ -48,7 +48,7 @@ class Test(unittest.TestCase):
         traj = TrajectoryIterator(top="./data/Tc5b.top")
         assert not traj.top.is_empty()
         assert traj.top.n_atoms == 304
-        print(traj.top)
+        #print(traj.top)
 
         # dummy constructor with one arg but don't know what it is
         # raise ValueError
@@ -65,7 +65,7 @@ class Test(unittest.TestCase):
         import pytraj as pt
 
         traj = pt.io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         n_frame0 = 10
         assert traj.n_frames == n_frame0
 
@@ -73,11 +73,11 @@ class Test(unittest.TestCase):
         N = 3
         traj = pt.io.iterload(["./data/md1_prod.Tc5b.x" for _ in range(N)],
                               "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         assert traj.n_frames == n_frame0 * N
 
         traj = pt.io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         n_frame0 = 10
         assert traj.n_frames == n_frame0
 
@@ -85,7 +85,7 @@ class Test(unittest.TestCase):
         traj = pt.io.iterload(["./data/md1_prod.Tc5b.x" for _ in range(N)
                                ], "./data/Tc5b.top",
                               frame_slice=[(0, 5), (3, 8)])
-        print(traj)
+        #print(traj)
         assert traj.n_frames == 20
 
         # a list of files with frame_slice argument but not using `frame_slice

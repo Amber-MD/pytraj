@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
 
         aa_eq(saved_traj.xyz, p_traj.xyz)
         for f1, f2 in zip(p_traj, saved_traj):
-            print(rmsd_2darray(f1.xyz, f2.xyz))
+            #print(rmsd_2darray(f1.xyz, f2.xyz))
 
     def test_1(self):
         # Trajectory (mutable)

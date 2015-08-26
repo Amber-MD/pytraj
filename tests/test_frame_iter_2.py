@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         act2.process(traj.top)
         act2.do_action(traj.chunk_iter())
         assert act2.n_frames == 10
-        print(dslist[0][:])
+        #print(dslist[0][:])
 
 
 if __name__ == "__main__":

@@ -10,37 +10,37 @@ class Test(unittest.TestCase):
     def test_0(self):
         dslist = DataSetList()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj.top)
+        #print(traj.top)
         ds = dslist.add_set_aspect('INTEGER', 'frame_idx', 'frame_idx')
         ds0 = cast_dataset(ds, 'INTEGER')
-        print(dir(ds0))
+        #print(dir(ds0))
 
         for i in range(100):
             ds0.append(i)
 
-        print(dslist[0].size)
-        print(dslist[0][:])
-        print(dslist[0].aspect)
+        #print(dslist[0].size)
+        #print(dslist[0][:])
+        #print(dslist[0].aspect)
         dslist2 = DataSetList()
         act = adict['distance']
         act(":2@CA :10@CA", traj, dslist=dslist2)
-        print(dslist2[0].aspect)
+        #print(dslist2[0].aspect)
 
-        print("get_xyz methods")
-        print(dslist2.get_legends())
-        print(dslist2.get_aspects())
-        print(dslist2.get_scalar_modes())
-        print(dslist2.get_scalar_types())
-        print(dslist2.get_dtypes())
+        #print("get_xyz methods")
+        #print(dslist2.get_legends())
+        #print(dslist2.get_aspects())
+        #print(dslist2.get_scalar_modes())
+        #print(dslist2.get_scalar_types())
+        #print(dslist2.get_dtypes())
 
         for d0 in dslist2:
-            print(d0.legend)
-            print(d0.aspect)
-            print(d0.scalar_mode)
-            print(d0.scalar_type)
+            #print(d0.legend)
+            #print(d0.aspect)
+            #print(d0.scalar_mode)
+            #print(d0.scalar_type)
 
         dslist3 = traj.search_hbonds()
-        print(dslist3[:5].values)
+        #print(dslist3[:5].values)
         dslist3[:5].savetxt("./output/test_dslist_savetxt.txt",
                             labels="\t".join("test" for _ in range(5)))
 

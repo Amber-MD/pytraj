@@ -15,10 +15,10 @@ class Test(unittest.TestCase):
     def test_0(self):
         #pt.set_cpptraj_verbose()
         cout = pt.datafiles.load_cpptraj_output(txt)
-        print(cout)
+        #print(cout)
 
         cout = pt.datafiles.load_cpptraj_output(txt, with_traj=True)
-        print(cout)
+        #print(cout)
 
 
 if __name__ == "__main__":

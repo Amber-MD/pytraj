@@ -16,23 +16,23 @@ class Test(unittest.TestCase):
         act.do_action(f0)
         newf = Frame()
         act.do_action(f0, newf)
-        print(f0)
-        print(newf)
-        print(newf[1])
+        #print(f0)
+        #print(newf)
+        #print(newf[1])
         act.do_action(traj, newf)
         flast = traj[-1]
         flast.strip_atoms("!@CA", traj.top)
-        print(newf)
-        print(newf[1])
-        print(flast[1])
+        #print(newf)
+        #print(newf[1])
+        #print(flast[1])
 
         newf = Frame()
         act2 = adict['strip']
         act2("!@CA", f0cp, traj.top, new_frame=newf)
         assert newf.size == 60
-        print(newf.size)
-        print(newf)
-        print(newf[1])
+        #print(newf.size)
+        #print(newf)
+        #print(newf[1])
 
     def test_1(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

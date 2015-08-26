@@ -9,9 +9,9 @@ class TestSubFrame(unittest.TestCase):
         farray = Trajectory(
             "./data/md1_prod.Tc5b.x", "./data/Tc5b.top",
             indices=(9, 5))
-        print(farray)
+        #print(farray)
         f0 = farray[0]
-        print(f0)
+        #print(f0)
         f1sub = f0.get_subframe("@CA", farray.top)
         f1sub_ = f0.get_subframe(farray.top('@CA'))
         assert f1sub.n_atoms == 20
@@ -32,13 +32,13 @@ class TestSubFrame(unittest.TestCase):
         for frame in farray:
             farray2.append(frame.get_subframe("@CA", farray.top))
 
-        print(farray2.size)
+        #print(farray2.size)
         # not yet implemented
         #farray2[0, 0, 0] = 100.
         farray2[0][0, 0] = 100.
         assert farray2[0, 0, 0] == 100.
         assert farray[0, 0, 0] != 100.
-        print(farray[0].atoms(0))
+        #print(farray[0].atoms(0))
 
         f1sub = farray[0].get_subframe("@CA", farray.top)
         assert f1sub.n_atoms == 20

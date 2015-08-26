@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         # view
         ct.values[0, 0] = 100.
         assert c.values.T[0, 0] == 100.
-        print(c, ct)
+        #print(c, ct)
 
 
 if __name__ == "__main__":

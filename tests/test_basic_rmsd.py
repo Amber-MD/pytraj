@@ -12,18 +12,18 @@ class Test(unittest.TestCase):
         f0_0, f0_1 = traj[0].copy(), traj[0].copy()
 
         f1_0 = traj[1].copy()
-        print("before tran_rot_tran: f0_0 and f0_1 must have the same coords")
-        print(f0_0[0])
-        print(f0_1[0])
+        #print("before tran_rot_tran: f0_0 and f0_1 must have the same coords")
+        #print(f0_0[0])
+        #print(f0_1[0])
         rmsd, mat, v1, v2 = f0_0.rmsd(f1_0, get_mvv=True)
         # f0_0 coords were updated  too
-        print(rmsd, mat, v1, v2)
+        #print(rmsd, mat, v1, v2)
 
-        print("after trans_rot_trans")
+        #print("after trans_rot_trans")
         f0_1.trans_rot_trans(v1, mat, v2)
-        print(f0_0[0])
-        print(f0_1[0])
-        print(
+        #print(f0_0[0])
+        #print(f0_1[0])
+        #print(
             "f0_0 and f0_1 have different coords. Am I missing anything here?")
 
     def test_1(self):

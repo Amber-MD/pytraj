@@ -19,8 +19,8 @@ class Test(unittest.TestCase):
         # copy=True
         fa.insert(fa2[0], 7, copy=True)
         assert fa.size == fa2.size + 1
-        print(fa[7, 0])
-        print(fa2[0, 0])
+        #print(fa[7, 0])
+        #print(fa2[0, 0])
         assert fa[7].rmsd_nofit(fa2[0]) == 0.
         assert not fa2[0] in fa
 
@@ -30,8 +30,8 @@ class Test(unittest.TestCase):
         fa3 = traj[:]
         fa.insert(fa2[0], 7, copy=False)
         assert fa.size == fa2.size + 1
-        print(fa[7, 0])
-        print(fa2[0, 0])
+        #print(fa[7, 0])
+        #print(fa2[0, 0])
         assert fa[7].rmsd_nofit(fa2[0]) == 0.
         assert fa2[0] in fa
 

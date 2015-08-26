@@ -27,17 +27,17 @@ class TestRadgyr(unittest.TestCase):
         for i, frame in enumerate(farray):
             act.do_action(frame)
 
-        print(dslist.size)
+        #print(dslist.size)
         dflist.write_all_datafiles()
 
-        print(dslist.size)
+        #print(dslist.size)
         for dset in dslist:
-            print(dset.dtype)
+            #print(dset.dtype)
 
         arr1 = dslist.get_dataset(dtype='float')
         arr0 = dslist.get_dataset(dtype='integer')
-        print(arr0[0].__len__())
-        print(arr0[0])
+        #print(arr0[0].__len__())
+        #print(arr0[0])
 
     def test_1(self):
         dslist = DataSetList()
@@ -47,7 +47,7 @@ class TestRadgyr(unittest.TestCase):
                       top=farray.top,
                       dslist=dslist,
                       dflist=dflist)
-        print(dslist.size)
+        #print(dslist.size)
 
         # Secondary structure for each residue in mask for 100 frames
 
@@ -63,8 +63,8 @@ class TestRadgyr(unittest.TestCase):
     def test_5(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = calc_dssp(traj, "*", dtype='dataset')
-        print(dslist)
-        print(dslist.get_legends())
+        #print(dslist)
+        #print(dslist.get_legends())
 
 
 if __name__ == "__main__":

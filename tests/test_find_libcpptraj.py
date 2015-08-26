@@ -5,8 +5,8 @@ import unittest
 
 p = find_libcpptraj()
 
-print(p)
+#print(p)
 plib = cdll.LoadLibrary(p[-1])
-print(plib)
-print(find_libcpptraj(unique=True))
-print(find_library('netcdf', unique=True))
+#print(plib)
+#print(find_libcpptraj(unique=True))
+#print(find_library('netcdf', unique=True))

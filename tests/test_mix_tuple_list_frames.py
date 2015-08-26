@@ -27,7 +27,7 @@ def main():
     boring_list = [traj[0], traj[1], traj, traj(1, 6, 2),
                    traj.chunk_iter(chunksize=4)]
     count_frames(boring_list)
-    print('final count = %s' % count)
+    #print('final count = %s' % count)
 
 
 if __name__ == "__main__":

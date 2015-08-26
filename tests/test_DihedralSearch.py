@@ -11,10 +11,10 @@ class Test(unittest.TestCase):
         act = adict['dihedralscan']
         dslist = DataSetList()
         act("phi :2-19 psi :2-19", traj, dslist=dslist)
-        print(act.n_frames)
-        print(dslist.size)
-        print(dslist[0])
-        print(dslist[0][:])
+        #print(act.n_frames)
+        #print(dslist.size)
+        #print(dslist[0])
+        #print(dslist[0][:])
 
 
 if __name__ == "__main__":

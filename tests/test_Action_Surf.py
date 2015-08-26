@@ -8,7 +8,7 @@ from pytraj.datasets import cast_dataset
 from pytraj import adict
 from pytraj.datasets.DataSetList import DataSetList
 
-print(dir(Action_Surf()))
+#print(dir(Action_Surf()))
 
 farray = Trajectory(
     top=Topology("./data/Tc5b.top"),
@@ -17,14 +17,14 @@ farray = Trajectory(
 
 class TestSurf(unittest.TestCase):
     def test_0(self):
-        print("newtop")
+        #print("newtop")
 
         farray0 = farray.copy()
         newtop = farray0.top.copy()
         oldtop = farray0.top
 
         d0 = calc_molsurf(farray[0], "@CA", farray.top)
-        print(d0[:])
+        #print(d0[:])
         adict['molsurf'].help()
 
         toplist = TopologyList()
@@ -37,7 +37,7 @@ class TestSurf(unittest.TestCase):
         act.process(oldtop, newtop)
         frame0 = Frame(farray.top.n_atoms)
         act.do_action(farray[0], frame0)
-        print(dslist[0][:])
+        #print(dslist[0][:])
         act.help()
 
 

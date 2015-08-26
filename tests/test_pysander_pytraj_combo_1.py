@@ -45,17 +45,17 @@ class Test(unittest.TestCase):
             dslist = DataSetList()
             act = adict['energy']
             act("", traj, dslist=dslist)
-            print(dslist['ENE_00000[bond]'][:])
+            #print(dslist['ENE_00000[bond]'][:])
 
             # to DataFrame
             try:
                 import pandas as pd
-                print(dslist.to_dataframe())
+                #print(dslist.to_dataframe())
             except ImportError:
-                print("does not have pandas. skip")
+                #print("does not have pandas. skip")
 
         else:
-            print("require both sander and parmed. Skip test")
+            #print("require both sander and parmed. Skip test")
 
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
         dslist = DataSetList()
         dflist = DataFileList()
         dist = dslist.add_set('double', "myname", "dis_")
-        print(scalarModeDict.keys())
+        #print(scalarModeDict.keys())
         dist.set_scalar('m_distance')
 
 

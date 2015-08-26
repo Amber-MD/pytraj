@@ -35,17 +35,17 @@ class Test(unittest.TestCase):
         aa_eq(2 * arr0, newarr)
 
     def test_1(self):
-        print("test __array__")
+        #print("test __array__")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ds = pt.search_hbonds(traj)
         ds0 = ds[0]
-        print(ds0)
+        #print(ds0)
         assert np.mean(ds0.values) == ds0.avg()
         assert np.sum(ds0) == np.sum(ds0.data)
 
-        print("test split")
-        print(ds0)
-        print(ds0.split(3))
+        #print("test split")
+        #print(ds0)
+        #print(ds0.split(3))
 
 
 if __name__ == "__main__":

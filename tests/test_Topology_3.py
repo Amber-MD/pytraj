@@ -11,20 +11,20 @@ top = traj.top
 
 class Test(unittest.TestCase):
     def test_0(self):
-        print(list(top._trunc_res_atom_name('@CA')))
-        print(list(top._trunc_res_atom_name(0)))
-        print(list(top._trunc_res_atom_name('@C')))
-        print()
-        print(list(top._trunc_res_atom_name(':2-14@C,H,N,O')))
+        #print(list(top._trunc_res_atom_name('@CA')))
+        #print(list(top._trunc_res_atom_name(0)))
+        #print(list(top._trunc_res_atom_name('@C')))
+        #print()
+        #print(list(top._trunc_res_atom_name(':2-14@C,H,N,O')))
 
     def test_1(self):
-        print("find_atom_in_residue")
+        #print("find_atom_in_residue")
         name = "CA  "
-        print(top._find_atom_in_residue(3, name))
-        print(top[58].name == name)
+        #print(top._find_atom_in_residue(3, name))
+        #print(top[58].name == name)
 
     def test_2(self):
-        print("test top[indices]")
+        #print("test top[indices]")
         indices = top("@CA").indices
         indices_s = top.select("@CA").indices
         assert indices_s == indices
@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
 
     @test_if_having("parmed")
     def test_2(self):
-        print("test _original_filename")
+        #print("test _original_filename")
         fname = top._original_filename
         parm = mdio._load_parmed(fname)
         assert parm.__str__() == fname

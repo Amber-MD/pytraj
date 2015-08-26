@@ -20,25 +20,25 @@ class TestAtomMask(unittest.TestCase):
         assert top3.n_atoms == top.n_atoms - 20
 
     def test_1(self):
-        print("test_1")
+        #print("test_1")
         atm = AtomMask(10)
         assert atm.n_atoms == 1
 
     def test_3_indexing(self):
-        print("test_indexing")
+        #print("test_indexing")
         top = Topology("./data/Tc5b.top")
         atm = AtomMask("@CA")
         top.set_integer_mask(atm)
-        print(atm[0])
+        #print(atm[0])
 
         for i in atm:
-            print(i)
+            #print(i)
 
-        print(dir(atm))
+        #print(dir(atm))
 
     def test_4(self):
         from array import array
-        print("add array")
+        #print("add array")
         atm = AtomMask()
         indices = array('i', range(100))
         atm.add_selected_indices(indices)
@@ -51,8 +51,8 @@ class TestAtomMask(unittest.TestCase):
 
         # test range
         r100 = range(100)
-        print(len(r100))
-        print(r100[50])
+        #print(len(r100))
+        #print(r100[50])
         atm3 = AtomMask(range(100))
         assert_almost_equal(indices, atm3.indices)
 
@@ -63,19 +63,19 @@ class TestAtomMask(unittest.TestCase):
         t0 = time()
         indices = top(":WAT").indices
         gap_0 = time() - t0
-        print("time to call indices = %s (s)" % gap_0)
+        #print("time to call indices = %s (s)" % gap_0)
 
         t0 = time()
         _indices_view = top(":WAT")._indices_view
         gap_1 = time() - t0
-        print("time to call indices = %s (s)" % gap_1)
+        #print("time to call indices = %s (s)" % gap_1)
 
-        print("speed up when using memview = %s" % (gap_0 / gap_1))
+        #print("speed up when using memview = %s" % (gap_0 / gap_1))
         count = 0
         for i, j in zip(indices, _indices_view):
             if not i == j:
                 count += 1
-                print(i, j)
+                #print(i, j)
         assert count == 0
 
     def test_6_speed(self):

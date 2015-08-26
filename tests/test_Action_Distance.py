@@ -26,8 +26,8 @@ class TestDistance(unittest.TestCase):
 
         d1 = cast_dataset(dslist[0], dtype="general")
         d2 = cast_dataset(dslist2[0], dtype="general")
-        print(d1.data[:10])
-        print(d2.data[:10])
+        #print(d1.data[:10])
+        #print(d2.data[:10])
 
 
 if __name__ == "__main__":

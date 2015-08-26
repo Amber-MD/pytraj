@@ -31,9 +31,9 @@ class Test(unittest.TestCase):
             parm = top_fn
 
             e_dict = get_pysander_energies(parm=parm, traj=traj, igb=8)
-            print(pd.DataFrame(e_dict))
+            #print(pd.DataFrame(e_dict))
         else:
-            print("require both sander and parmed. Skip test")
+            #print("require both sander and parmed. Skip test")
 
 
 if __name__ == "__main__":

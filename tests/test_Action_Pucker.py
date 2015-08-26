@@ -10,9 +10,9 @@ class Test(unittest.TestCase):
     def test_0(self):
         pt.set_cpptraj_verbose()
         traj = pt.load_pdb("./data/Test_NAstruct/adh026.3.pdb")
-        print(traj.top.n_residues)
+        #print(traj.top.n_residues)
         d = pt.common_actions.pucker(traj, resrange=range(3, 7))
-        print(d)
+        #print(d)
 
 
 if __name__ == "__main__":

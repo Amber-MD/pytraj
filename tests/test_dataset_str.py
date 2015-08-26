@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = pt.search_hbonds(traj,)
         mystr = dslist[0].__str__()
-        print(mystr)
+        #print(mystr)
 
 
 if __name__ == "__main__":

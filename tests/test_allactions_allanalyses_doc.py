@@ -10,7 +10,7 @@ from pytraj.datasets import cast_dataset
 class Test(unittest.TestCase):
     def test_action(self):
         info(adict["pairdist"])
-        print()
+        #print()
         info(adict["dihedral"])
 
         dslist = DataSetList()
@@ -20,15 +20,15 @@ class Test(unittest.TestCase):
         act.read_input("dihedral :4@C :5@N :5@CA :5@C range360  mass ",
                        top=traj.top,
                        dslist=dslist)
-        print(traj.top)
+        #print(traj.top)
         act.process(top=traj.top)
-        print(act.process.__doc__)
+        #print(act.process.__doc__)
 
         for i, frame in enumerate(traj):
             act.do_action(frame)
 
         d0 = cast_dataset(dslist[0])
-        print(d0[:10])
+        #print(d0[:10])
 
     def test_action_2(self):
         pass

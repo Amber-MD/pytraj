@@ -30,7 +30,7 @@ tlist.add_traj(fname)
 
 @Timer()
 def test_load(my_traj, ref_traj=None, n_frames=None):
-    print()
+    #print()
     if ref_traj is None:
         ref_traj = traj
 
@@ -51,25 +51,25 @@ class Test(unittest.TestCase):
     @test_if_having("numpy")
     def test_0(self):
         import numpy as np
-        print("load from TrajectoryIterator")
+        #print("load from TrajectoryIterator")
         test_load(traj)
-        print("load from Trajectory")
+        #print("load from Trajectory")
         test_load(farray)
-        print(" load from frame_iter, TrajectoryIterator")
+        #print(" load from frame_iter, TrajectoryIterator")
         test_load(traj())
-        print(" load from frame_iter, Trajectory")
+        #print(" load from frame_iter, Trajectory")
         test_load(farray())
-        print(" load from file")
+        #print(" load from file")
         test_load(fname)
-        print(" load from a list of files")
+        #print(" load from a list of files")
         test_load([fname for _ in range(10)], n_frames=traj.n_frames * 10)
-        print(" load from TrajectoryIterator")
+        #print(" load from TrajectoryIterator")
         test_load(traj)
-        print(" load from DataSet Coords")
+        #print(" load from DataSet Coords")
         test_load(dslist[0])
-        #print (" load from DataSet Traj, sometimes got segmentation fault")
+        ##print (" load from DataSet Traj, sometimes got segmentation fault")
         # test_load(dslist[1])
-        print(" load from ndarray")
+        #print(" load from ndarray")
         test_load(traj.xyz)
         test_load(traj.xyz.tolist())
 
@@ -82,8 +82,8 @@ class Test(unittest.TestCase):
 
         m_top = md.load_prmtop(topname)
         m_traj = md.load_mdcrd(fname, m_top)
-        print(m_traj.xyz[0, 0, 0])
-        print(traj[0, 0, 0])
+        #print(m_traj.xyz[0, 0, 0])
+        #print(traj[0, 0, 0])
         indices = np.empty((20, 2), dtype=np.int64)
         indices[:, 0] = traj.top("@CA").selected_indices()[:20]
         indices[:, 1] = traj.top("@H*").selected_indices()[:20]
@@ -98,10 +98,10 @@ class Test(unittest.TestCase):
         import pytraj.common_actions as pyca
         a_traj = pyca.calc_distance(traj, indices)
 
-        print(a_mdtraj.shape, a_fa_from_mdtraj.shape)
+        #print(a_mdtraj.shape, a_fa_from_mdtraj.shape)
 
         for a0, a1 in zip(a_fa_from_mdtraj, a_mdtraj):
-            print('rmsd = ', pt.tools.rmsd(a0, a1))
+            #print('rmsd = ', pt.tools.rmsd(a0, a1))
 
         aa_eq(a_mdtraj, a_fa_from_mdtraj)
         aa_eq(a_mdtraj * 10, a_traj.T)
@@ -115,9 +115,9 @@ class Test(unittest.TestCase):
     def test_2(self):
         # turn off this test since getting 2/3 chances of segmentation fault
         # Don't know why
-        print("test loading DataSetList")
+        #print("test loading DataSetList")
         _dslist = dslist
-        print(dslist)
+        #print(dslist)
         ref_traj = Trajectory()
         ref_traj.top = traj.top.copy()
         ref_traj.load(traj)

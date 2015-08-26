@@ -14,18 +14,18 @@ class Test(unittest.TestCase):
         dslist = DataSetList()
         act = adict['pairwise']
         act("@CA", traj, dslist=dslist)
-        print(dslist.size)
+        #print(dslist.size)
 
         for ds in dslist:
             if hasattr(ds, 'mkind'):
-                print(ds.name, ds.dtype, ds.mkind)
+                #print(ds.name, ds.dtype, ds.mkind)
             else:
-                print(ds.name, ds.dtype)
+                #print(ds.name, ds.dtype)
 
-        print(dslist.get_legends())
+        #print(dslist.get_legends())
         d0 = dslist['PW_00000[EMAP]']
-        print(d0)
-        print(d0.size)
+        #print(d0)
+        #print(d0.size)
 
         has_pylab, _ = _import("matplotlib")
         if has_pylab:
@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
             from matplotlib import pyplot
             pyplot.show()
         else:
-            print("need matplotlib. Skip this test")
+            #print("need matplotlib. Skip this test")
 
 
 if __name__ == "__main__":

@@ -53,7 +53,7 @@ class Test(unittest.TestCase):
         # range
         arr = _int_array1d_like_to_memview(range(100))
         assert (list(arr)) == list(range(100))
-        print(list(arr))
+        #print(list(arr))
 
 
 if __name__ == "__main__":

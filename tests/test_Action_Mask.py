@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
         dslist = DataSetList()
         dflist = DataFileList()
         act('mask "(:5 <:3.0) & :WAT"', traj, dslist=dslist, dflist=dflist)
-        print(dslist.size)
+        #print(dslist.size)
         # dflist.write_all_datafiles()
 
 

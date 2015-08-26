@@ -14,10 +14,10 @@ class Test(unittest.TestCase):
             "./data/fit_to_1stframe.Tc5b.x", "./data/Tc5b.top")
 
         for frame in trajsaved:
-            print(frame[0])
+            #print(frame[0])
 
         for f0, f1 in izip(traj, trajsaved):
-            print(f0[0], f1[0])
+            #print(f0[0], f1[0])
 
 
 if __name__ == "__main__":

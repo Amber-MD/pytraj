@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         d0 = dslist[0]
         assert d0 in dslist
         d0cp = d0.copy()
-        print(d0cp)
+        #print(d0cp)
         assert d0cp not in dslist
 
 

@@ -14,9 +14,9 @@ class Test(unittest.TestCase):
         from pytraj.common_actions import calc_matrix
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         d0 = calc_matrix(traj, "@CA", dtype='dataset')
-        print(d0)
+        #print(d0)
         assert is_word_in_class_name(d0, 'DatasetList') == True
-        print(d0.get_legends())
+        #print(d0.get_legends())
 
 
 if __name__ == "__main__":

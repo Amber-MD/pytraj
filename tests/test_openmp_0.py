@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
                 traj.top,
                 dslist=dslist,
                 dflist=dflist)
-        print("time gap = %s" % t.time_gap())
+        #print("time gap = %s" % t.time_gap())
         dflist.write_all_datafiles()
 
         # make sure to reproduce cpptraj to avoif false-impression :D

@@ -18,11 +18,11 @@ class Test(unittest.TestCase):
         # test slice
         fa0 = traj[:]
         for f0, f1 in zip(fa0, traj):
-            print(f0.rmsd(f1))
-        print(fa0)
+            #print(f0.rmsd(f1))
+        #print(fa0)
         try:
             from rmsd import rmsd
-            print("rmsd: ", rmsd(fa0.xyz.flatten(), traj.xyz.flatten()))
+            #print("rmsd: ", rmsd(fa0.xyz.flatten(), traj.xyz.flatten()))
         except:
             pass
 
@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
 
         for frame in traj:
             fa.append(frame.copy())
-        print(fa)
+        #print(fa)
         assert (fa.n_frames == traj.n_frames)
         assert (fa.top.n_atoms == traj.top.n_atoms)
 
@@ -46,7 +46,7 @@ class Test(unittest.TestCase):
 
         #
         fa3 = traj[:]
-        print(fa3)
+        #print(fa3)
 
 
 if __name__ == "__main__":

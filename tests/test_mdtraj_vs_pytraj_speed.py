@@ -9,11 +9,11 @@ from pytraj.decorators import test_if_having, no_test
 from pytraj.utils import Timer
 from pytraj.__version__ import __version__ as pytraj_version
 
-print(pytraj_version)
+#print(pytraj_version)
 
 if has_("mdtraj"):
     import mdtraj as md
-    print("mtrajd version = %s" % md.version.full_version)
+    #print("mtrajd version = %s" % md.version.full_version)
     # use Trajectory (in memory for comparison)
     traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
     #traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -22,7 +22,7 @@ if has_("mdtraj"):
 
 
 def Run(func, msg, n_times=50, test_load=False):
-    print(msg)
+    #print(msg)
     my_ratio = 0
     for _ in range(n_times):
         if not test_load:
@@ -48,9 +48,9 @@ def Run(func, msg, n_times=50, test_load=False):
             time_1 = t1.time_gap()
             assert_almost_equal(fa.xyz, f_mdtraj.xyz)
             my_ratio += time_1 / time_0
-    print("pytraj (speed up) vs mdtraj = %s" % (my_ratio / n_times))
-    print("mdtraj (speed up) vs pytraj = %s" % (1. / (my_ratio / n_times)))
-    print()
+    #print("pytraj (speed up) vs mdtraj = %s" % (my_ratio / n_times))
+    #print("mdtraj (speed up) vs pytraj = %s" % (1. / (my_ratio / n_times)))
+    #print()
 
 
 class Test(unittest.TestCase):
@@ -117,7 +117,7 @@ class Test(unittest.TestCase):
         m_top = md.load_prmtop("./data/Tc5b.top")
         m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
 
-        print("get xyz for each frame")
+        #print("get xyz for each frame")
         m_f = m_traj[0]
         p_f = traj[0]
 
@@ -141,8 +141,8 @@ class Test(unittest.TestCase):
 
             ratio = t0.time_gap() / t1.time_gap()
             my_ratio += ratio
-        print("pytraj (speed up) vs mdtraj = %s" % (my_ratio / n_times))
-        print("mdtraj (speed up) vs pytraj = %s" % (1. / (my_ratio / n_times)))
+        #print("pytraj (speed up) vs mdtraj = %s" % (my_ratio / n_times))
+        #print("mdtraj (speed up) vs pytraj = %s" % (1. / (my_ratio / n_times)))
 
 
 if __name__ == "__main__":

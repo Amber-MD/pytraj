@@ -8,17 +8,17 @@ from pytraj import io as mdio
 def test_generator(top):
     for atom in top.atoms:
         pass
-        # print atom
+        # #print atom
 
-    print("\nres_iterator for top")
+    #print("\nres_iterator for top")
     for res in top.residues:
         pass
-        # print res
+        # #print res
 
-    print("\nmol_iterator for top")
+    #print("\nmol_iterator for top")
     for mol in top.mols:
         pass
-        # print mol
+        # #print mol
 
 
 top = Topology()
@@ -31,7 +31,7 @@ parm.help()
 
 class TestParmFile(unittest.TestCase):
     def test_readpdb(self):
-        print("test_readpdb +++++++++++++++++++++++++++++++")
+        #print("test_readpdb +++++++++++++++++++++++++++++++")
         traj0 = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         mdio.write_traj(filename="./output/test_0_after.pdb",
                         traj=traj0[0],
@@ -39,10 +39,10 @@ class TestParmFile(unittest.TestCase):
                         overwrite=True)
         pdbtop = mdio.read_parm("./output/test_0_after.pdb")
         assert pdbtop.n_atoms == 304
-        print(pdbtop.n_atoms)
+        #print(pdbtop.n_atoms)
         top2 = pdbtop.copy()
         top2.strip_atoms("!@CA")
-        print(top2.n_atoms)
+        #print(top2.n_atoms)
         assert top2.n_atoms == 20
 
         # make sure that making Topology instance from pdb file is FINE
@@ -55,20 +55,20 @@ class TestParmFile(unittest.TestCase):
     def test_0(self):
         top = Topology()
         parm = ParmFile()
-        print(parm.formats())
+        #print(parm.formats())
 
         filename = "./data/Tc5b.top"
 
-        print("Read topology file and dump to 'top'")
+        #print("Read topology file and dump to 'top'")
         parm.readparm(filename, top)
         assert top.n_atoms == 304
 
-        print("\natom_iterator for top")
+        #print("\natom_iterator for top")
 
-        print(parm.filename())
+        #print(parm.filename())
 
     def test_write_CHARMMPSF(self):
-        print("write parm for CHARMM")
+        #print("write parm for CHARMM")
         parm.writeparm(top=top, filename="output/test.psf", format="CHARMMPSF")
         top2 = Topology()
         parm.readparm(filename="output/test.psf", top=top2)

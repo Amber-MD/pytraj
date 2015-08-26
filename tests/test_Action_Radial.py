@@ -17,20 +17,20 @@ class Test(unittest.TestCase):
         # why need `radial` keyword here?
         act("radial 0.5 10.0 :5@CD :WAT@O", traj(0, 9), traj.top,
             dslist=dslist)
-        act.print_output()
-        print(dslist.size)
+        act.#print_output()
+        #print(dslist.size)
 
-        print(dslist[0].size)
-        print(dslist[0][:])
+        #print(dslist[0].size)
+        #print(dslist[0][:])
 
     def test_1(self):
         from pytraj.common_actions import calc_radial
         traj = mdio.iterload(
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         d0 = calc_radial(traj(0, 9), "0.5 10.0 :5@CD :WAT@O", top=traj.top)
-        print(d0)
-        print(d0.size)
-        print(d0[0][:])
+        #print(d0)
+        #print(d0.size)
+        #print(d0[0][:])
 
         # assert
         try:
@@ -39,12 +39,12 @@ class Test(unittest.TestCase):
             amberhome = os.environ['AMBERHOME']
             saved_data_dir = amberhome + \
                 "/AmberTools/test/cpptraj/Test_Radial/cRadial.agr.save"
-            print(saved_data_dir)
+            #print(saved_data_dir)
             data = np.loadtxt(saved_data_dir, skiprows=8).transpose()[1]
-            print(data)
+            #print(data)
             assert_almost_equal(d0[0][:], data)
         except (EnvironmentError, KeyError):
-            print("can not find cpptraj test. Skip")
+            #print("can not find cpptraj test. Skip")
 
 
 if __name__ == "__main__":

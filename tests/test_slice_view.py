@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
         # make sure we can make a copy
         facp = fa.copy()
         facp.xyz[0, 0, 0] = 501.
-        print(facp.xyz[0, 0, 0])
+        #print(facp.xyz[0, 0, 0])
         assert facp.xyz[0, 0, 0] == 501.
         assert fa.xyz[0, 0, 0] != 501.
 

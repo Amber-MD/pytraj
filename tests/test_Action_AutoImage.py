@@ -21,10 +21,10 @@ class Test(unittest.TestCase):
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         f0 = traj[0]
         f0cp = f0.copy()
-        print(f0.same_coords_as(f0cp))
+        #print(f0.same_coords_as(f0cp))
         assert f0.same_coords_as(f0cp) == True
         adict['autoimage']("", f0, traj.top)
-        print(f0.same_coords_as(f0cp))
+        #print(f0.same_coords_as(f0cp))
         assert f0.same_coords_as(f0cp) == False
 
         fsaved = mdio.iterload("./data/tz2.truncoct.autoiamge.save.r",
@@ -38,10 +38,10 @@ class Test(unittest.TestCase):
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         f0 = traj[0]
         f0cp = f0.copy()
-        print(f0.same_coords_as(f0cp))
+        #print(f0.same_coords_as(f0cp))
         assert f0.same_coords_as(f0cp) == True
         do_autoimage(traj=f0, top=traj.top)
-        print(f0.same_coords_as(f0cp))
+        #print(f0.same_coords_as(f0cp))
         assert f0.same_coords_as(f0cp) == False
 
         fsaved = mdio.iterload("./data/tz2.truncoct.autoiamge.save.r",

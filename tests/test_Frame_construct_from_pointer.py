@@ -10,18 +10,18 @@ class Test(unittest.TestCase):
 
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
 
         for xyz0 in traj.xyz:
             frame = pt.Frame(traj.n_atoms, xyz0, _as_ptr=True)
             aa_eq(frame.xyz, xyz0)
-            print(frame.xyz[0, 0])
+            #print(frame.xyz[0, 0])
 
     def test_1(self):
-        print('api.Trajectory iterating')
+        #print('api.Trajectory iterating')
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         api_t0 = pt.api.Trajectory(traj)
-        print(api_t0)
+        #print(api_t0)
 
         # __iter__
         for f in api_t0:
@@ -42,21 +42,21 @@ class Test(unittest.TestCase):
         # make a new copy
         api_t0 = pt.api.Trajectory(traj)
         t0 = traj[:]
-        print(api_t0.xyz[-1, 0])
+        #print(api_t0.xyz[-1, 0])
         pt.translate(api_t0, 'x 1.2')
-        print(api_t0.xyz[-1, 0])
+        #print(api_t0.xyz[-1, 0])
         pt.translate(t0, 'x 1.2')
         aa_eq(api_t0.xyz, t0.xyz)
 
         try:
             import mdtraj as md
-            print(md.rmsd(api_t0, api_t0, 0))
-            print(api_t0.xyz[-1, 0])
-            print(t0.xyz[-1, 0])
+            #print(md.rmsd(api_t0, api_t0, 0))
+            #print(api_t0.xyz[-1, 0])
+            #print(t0.xyz[-1, 0])
             pt.rmsd(t0, 0)
             pt.rmsd(api_t0, 0)
-            print(api_t0.xyz[-1, 0])
-            print(t0.xyz[-1, 0])
+            #print(api_t0.xyz[-1, 0])
+            #print(t0.xyz[-1, 0])
         except ImportError:
             pass
 

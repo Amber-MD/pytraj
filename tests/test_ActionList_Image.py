@@ -13,7 +13,7 @@ class TestActionList(unittest.TestCase):
             filename="./data/tz2.truncoct.nc",
             top="./data/tz2.truncoct.parm7")[:2]
         fold = farray.copy()
-        print("old file: ", fold[0, 0, :])
+        #print("old file: ", fold[0, 0, :])
 
         act = allactions.Action_Image()
         ptrajin = """                                                     
@@ -70,7 +70,7 @@ class TestActionList(unittest.TestCase):
             farray2.append(frame0)
 
         # make sure that Action_Strip does its job in stripping
-        print(farray2.size)
+        #print(farray2.size)
         assert farray2.n_frames == farray.n_frames
 
         fsaved = mdio.iterload("./CpptrajTest/Test_Image/image4.crd.save",
@@ -78,13 +78,13 @@ class TestActionList(unittest.TestCase):
         assert fsaved.size == 2
         # make sure that pytraj reproduce cpptraj outputo
         # TODO : not yet. double-check
-        print(fsaved[0].same_coords_as(farray2[0]))
-        print(farray[0].same_coords_as(farray2[0]))
-        print(fsaved[0, 0, :])
-        print(farray[0, 0, :])
-        print(farray2[0, 0, :])
-        print(fold[0].same_coords_as(farray2[0]))
-        print(fsaved[0].rmsd(farray2[0]))
+        #print(fsaved[0].same_coords_as(farray2[0]))
+        #print(farray[0].same_coords_as(farray2[0]))
+        #print(fsaved[0, 0, :])
+        #print(farray[0, 0, :])
+        #print(farray2[0, 0, :])
+        #print(fold[0].same_coords_as(farray2[0]))
+        #print(fsaved[0].rmsd(farray2[0]))
 
 
 if __name__ == "__main__":

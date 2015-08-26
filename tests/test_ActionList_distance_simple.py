@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         """
 
         cout = pt.datafiles.load_cpptraj_output(trajin)
-        print("cout", cout)
+        #print("cout", cout)
 
         mask_list = ('@CB @CA', '@CA @H')
         dslist = pt.calc_distance(traj, mask_list)
@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
         # compare to cpptraj output
         aa_eq(dslist.flatten(), cout.values.flatten())
 
-        print("@CB @CA", pt.calc_distance(traj, "@CB @CA"))
+        #print("@CB @CA", pt.calc_distance(traj, "@CB @CA"))
 
         dslist3_0 = pt.calc_distance(traj, mask_list[0])
         dslist3_1 = pt.calc_distance(traj, mask_list[1])

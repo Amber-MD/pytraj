@@ -27,7 +27,7 @@ matrix distcovar :1-4@CA out mtest.13.dat
 
 # return a list of non-blank lines
 command_list = list(filter(lambda x: x, cpptraj_trajin.split("\n")))
-print(command_list)
+#print(command_list)
 
 
 class Test(unittest.TestCase):
@@ -58,9 +58,9 @@ class Test(unittest.TestCase):
             func = ma.__dict__[new_dict[act_key]]
             # get command
             command = line.split(act_key)[1]
-            print(line)
-            print("command = %s, func = %s" % (command, func))
-            print("saved file dir = '%s'" % saved_file_name)
+            #print(line)
+            #print("command = %s, func = %s" % (command, func))
+            #print("saved file dir = '%s'" % saved_file_name)
             mat_out = func(traj, command, dtype='ndarray')
 
             if 'byres' in command:

@@ -15,11 +15,11 @@ class Test(unittest.TestCase):
         act("phi psi resrange 6-9 out ./output/test_muldih.dat", traj[:2],
             dslist=dslist,
             dflist=dflist)
-        act.print_output()
-        print(dslist.get_legends())
-        print(dslist['phi:6'])
+        act.#print_output()
+        #print(dslist.get_legends())
+        #print(dslist['phi:6'])
         d0 = dslist['phi:6']
-        print(d0[:])
+        #print(d0[:])
 
 
 if __name__ == "__main__":

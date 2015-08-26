@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
             self.assertRaises(ImportError, lambda: test())
         else:
             df = traj.top.to_dataframe()
-            print(df.__str__())
+            #print(df.__str__())
 
 
 if __name__ == "__main__":

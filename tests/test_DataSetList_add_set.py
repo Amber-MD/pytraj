@@ -24,8 +24,8 @@ class Test(unittest.TestCase):
         dtraj = DataSet_Coords_TRJ()
         dtraj.top = traj.top.copy()
         dtraj.add_trajin(traj)
-        print(dtraj)
-        print('dtraj.dtype = ', dtraj.dtype)
+        #print(dtraj)
+        #print('dtraj.dtype = ', dtraj.dtype)
         assert dtraj.size == traj.size
 
         # add dtraj to dslist0
@@ -37,10 +37,10 @@ class Test(unittest.TestCase):
 
         # need to give topology
         dtrajback.top = dtraj.top
-        print(dtrajback.size)
+        #print(dtrajback.size)
 
         for d in dslist0:
-            print(d)
+            #print(d)
 
     def test_1(self):
         # FIXME: can not add coords_traj
@@ -57,8 +57,8 @@ class Test(unittest.TestCase):
     def test_2(self):
         dslist = DataSetList()
         dslist.add_set("traj", "my_name", "__my_default_name__")
-        print(dslist.size)
-        print(dslist[0].size)
+        #print(dslist.size)
+        #print(dslist[0].size)
         traj = Trajin_Single("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist[0].top = traj.top
         dslist[0].add_trajin(traj)

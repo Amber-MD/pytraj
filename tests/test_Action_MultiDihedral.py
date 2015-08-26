@@ -16,25 +16,25 @@ class Test(unittest.TestCase):
             traj[:2],
             dslist=dslist,
             dflist=dflist)
-        act.print_output()
+        act.#print_output()
 
-        print(dslist.size)
+        #print(dslist.size)
         for d0 in dslist:
-            print("d0.size, d0.dtype, d0.name: ", d0.size, d0.dtype, d0.name)
-            print("d0.scalar_type, d0.scalar_mode: ", d0.scalar_type,
+            #print("d0.size, d0.dtype, d0.name: ", d0.size, d0.dtype, d0.name)
+            #print("d0.scalar_type, d0.scalar_mode: ", d0.scalar_type,
                   d0.scalar_mode)
-            print("d0.aspect, d0.legend: ", d0.aspect, d0.legend)
-            print("d0.idx, d0.name, d0.ndim: ", d0.idx, d0.name, d0.ndim)
+            #print("d0.aspect, d0.legend: ", d0.aspect, d0.legend)
+            #print("d0.idx, d0.name, d0.ndim: ", d0.idx, d0.name, d0.ndim)
             d0.info()
 
-        print(dir(d0))
-        print(d0._is_torsion_array())
+        #print(dir(d0))
+        #print(d0._is_torsion_array())
 
-        print(dslist.get_dtypes())
-        print(dslist.get_aspects())
-        print(dslist.get_scalar_modes())
-        print(dslist.get_scalar_types())
-        print(dslist.get_legends())
+        #print(dslist.get_dtypes())
+        #print(dslist.get_aspects())
+        #print(dslist.get_scalar_modes())
+        #print(dslist.get_scalar_types())
+        #print(dslist.get_legends())
 
 
 if __name__ == "__main__":

@@ -14,8 +14,8 @@ class Test(unittest.TestCase):
             top=traj.top,
             overwrite=True)
         fnew = mdio.iterload("./output/test_saveFrame.pdb", traj.top)[0]
-        print(frame0.coords[:20])
-        print(fnew.coords[:20])
+        #print(frame0.coords[:20])
+        #print(fnew.coords[:20])
         assert_almost_equal(frame0.coords, fnew.coords)
 
 

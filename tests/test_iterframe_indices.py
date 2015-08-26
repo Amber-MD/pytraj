@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         d1 = pt.radgyr(traj[indices])
 
         aa_eq(d0, d1)
-        print(d0)
+        #print(d0)
 
 if __name__ == "__main__":
     unittest.main()

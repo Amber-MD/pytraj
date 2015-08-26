@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
         traj_saved.join([trajiter[:] for _ in range(200)], copy=False)
 
         traj = traj_saved.copy()
-        print(traj)
+        #print(traj)
         xyz = traj.xyz[:]
         xyz0 = xyz[0].copy()
 
@@ -105,9 +105,9 @@ class Test(unittest.TestCase):
             xyz -= 1.
             xyz += xyz0
 
-        print("time_traj")
+        #print("time_traj")
         time_traj(traj)
-        print("time_np")
+        #print("time_np")
         time_np(xyz)
 
     def test_2(self):
@@ -125,9 +125,9 @@ class Test(unittest.TestCase):
         def test_numpy(xyz):
             xyz += xyz
 
-        print("test_pytraj_openmp")
+        #print("test_pytraj_openmp")
         test_pytraj_openmp(traj)
-        print("test_numpy")
+        #print("test_numpy")
         test_numpy(xyz)
 
 

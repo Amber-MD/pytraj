@@ -9,9 +9,9 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         FA = traj[:]
 
-        print(traj['@CA'])
+        #print(traj['@CA'])
         frame0 = traj[0]
-        print(hasattr(frame0, 'shape'))
+        #print(hasattr(frame0, 'shape'))
         aa_eq(frame0[traj.top("@CA")].flatten(), traj['@CA'].xyz.flatten())
 
         # slicing with list or array

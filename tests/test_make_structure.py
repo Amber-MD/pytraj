@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
         # https://github.com/Amber-MD/cpptraj/issues/27
         # load only 1st frame
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
 
         #  pply polyproline II dihedral to residues 1-13
         t0 = traj[:1].copy()

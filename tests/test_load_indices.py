@@ -17,32 +17,32 @@ class TestIndices(unittest.TestCase):
         traj1 = TrajectoryIterator(
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")
-        print(traj1.size)
+        #print(traj1.size)
         indices = slice(9, 6, -1)
-        print(indices.indices(traj1.size))
+        #print(indices.indices(traj1.size))
         traj0 = Trajectory()
         traj0.load(filename="./data/md1_prod.Tc5b.x",
                    top=Topology("./data/Tc5b.top"),
                    indices=indices)
-        print(traj0.size)
+        #print(traj0.size)
         # load whole traj
 
         # check if loading correctly
         # if 'True': wrong indexing
         # we actually sorted indices before reading
-        print(traj0[0][:10])
+        #print(traj0[0][:10])
         # traj0[0] must has the same coords as [traj1[100]]
         assert traj0[0].same_coords_as(traj1[9]) == True
         assert traj0[1].same_coords_as(traj1[8]) == True
         assert traj0[2].same_coords_as(traj1[7]) == True
 
-        print(traj0[0])
+        #print(traj0[0])
         assert traj0[0].rmsd(traj1[9]) < 1E-4
 
         rmsdlist = []
         ref = traj1[0].copy()
         for frame in traj1:
-            # print frame
+            # #print frame
             rmsdlist.append(frame.rmsd(ref))
 
         nparr = np.array(rmsdlist)
@@ -58,22 +58,22 @@ class TestIndices(unittest.TestCase):
         traj1 = TrajectoryIterator(
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")[:]
-        print(traj1[0][10])
-        print(traj1[1][10])
+        #print(traj1[0][10])
+        #print(traj1[1][10])
 
         # assign traj1[0]
         traj1[0] = traj1[1].copy()
         # make sure the assignment happed correctly
         assert traj1[0].same_coords_as(traj1[1]) == True
 
-        print("update traj1[0] and make sure this does not affect traj[100]")
+        #print("update traj1[0] and make sure this does not affect traj[100]")
         traj1[0][10, 0] = 1000000.
         assert traj1[0][10, 0] == traj1[0, 10, 0] == 1000000.
         assert (traj1[0].same_coords_as(traj1[1])) == False
         assert traj1[0, 10, 0] != traj1[1, 10, 0]
 
-        print(traj1[0][:11])
-        print(traj1[1][:11])
+        #print(traj1[0][:11])
+        #print(traj1[1][:11])
 
     def test_1(self):
         traj0 = TrajectoryIterator(
@@ -83,7 +83,7 @@ class TestIndices(unittest.TestCase):
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")[:]
         assert traj[0].coords == traj0[0].coords
-        print(traj[0].coords[:10])
+        #print(traj[0].coords[:10])
 
         traj2 = TrajectoryIterator(
             filename="data/md1_prod.Tc5b.x",
@@ -106,9 +106,9 @@ class TestIndices(unittest.TestCase):
         # why here? lazy to make another file
         top = Topology("./data/Tc5b.top")
         top2 = top
-        print(top2 == top)
-        print(top2)
-        print(top)
+        #print(top2 == top)
+        #print(top2)
+        #print(top)
         del top
 
     def test_join_dummy(self):
@@ -117,7 +117,7 @@ class TestIndices(unittest.TestCase):
             top="./data/Tc5b.top")[:]
         #traj0 += traj0
         traj0.join(traj0[:])
-        print(traj0)
+        #print(traj0)
 
     def test_load_indices_from_io(self):
         from pytraj import io as mdio
@@ -133,7 +133,7 @@ class TestIndices(unittest.TestCase):
         assert_almost_equal(traj0[0].coords, trajreadonly[1].coords)
         assert_almost_equal(traj0[1].coords, trajreadonly[3].coords)
         assert_almost_equal(traj0[2].coords, trajreadonly[7].coords)
-        print(traj0)
+        #print(traj0)
 
 
 if __name__ == "__main__":

@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
 
         # make sure we get correct mass
         aa_eq(f0.mass, traj.top.mass)
-        print(f0.mass)
+        #print(f0.mass)
 
 
 if __name__ == "__main__":
