@@ -328,9 +328,9 @@ class Trajectory(object):
             raise ValueError("ndim must be 3")
 
         if self.shape == (None, None, 3):
-            self._xyz = _xyz
+            self._xyz = xyz
         else:
-            self._xyz = np.vstack((self._xyz, _xyz))
+            self._xyz = np.vstack((self._xyz, xyz))
 
     def _append_unitcells(self, box):
         if isinstance(box, tuple):
@@ -394,14 +394,9 @@ class Trajectory(object):
                 self.append(frame)
 
     def join(self, other):
-        ''''''
         if isinstance(other, Trajectory):
             self.append_xyz(other.xyz)
             self._append_unitcells(other.unitcells)
-        elif isinstance(other, (list, tuple)):
-            # assume a list or tuple of Trajectory
-            for farray in other:
-                self.join(farray)
         else:
             ValueError()
 
@@ -627,6 +622,9 @@ class Trajectory(object):
         '''
         self._xyz = np.empty((n_frames, n_atoms, 3))
 
+    def strip_atoms(self, mask):
+        self.strip(mask)
+
     def strip(self, mask):
         '''strip atoms with given mask
 
@@ -644,6 +642,9 @@ class Trajectory(object):
 
     def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
         _savetraj(self, filename, format, overwrite, *args, **kwd)
+
+    def iterframe(self, *args, **kwd):
+        return self.frame_iter(*args, **kwd)
 
     def frame_iter(self,
                    start=0,
@@ -681,11 +682,13 @@ class Trajectory(object):
             stop = self.n_frames
         elif stop < 0:
             stop = get_positive_idx(stop, self.n_frames)
+        else:
+            stop = stop
 
         # make sure `range` return iterator
         n_frames = len(range(start, stop, stride))
 
-        frame_iter_super = itertools.islice(self, start, stop, step)
+        frame_iter_super = itertools.islice(self, start, stop, stride)
 
         return FrameIter(frame_iter_super,
                          original_top=self.top,
@@ -717,3 +720,6 @@ class Trajectory(object):
             # todo: avoid copying
             traj.append(f)
         return traj
+
+    def __len__(self):
+        return self.n_frames

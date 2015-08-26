@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -17,16 +18,16 @@ class Test(unittest.TestCase):
         fa = traj[:]
         mask = ':1@CA :14@CB :15CA'
         d0 = pyca.calc_angle(traj, mask, dtype='dataset').to_ndarray()
-        d1 = traj.calc_angle(mask)
-        d2 = fa.calc_angle(mask)
+        d1 = pt.angle(traj, mask)
+        d2 = pt.angle(fa, mask)
 
         aa_eq(d0, d1)
         aa_eq(d0, d2)
 
         Nsize = 10
         arr = np.random.randint(0, 300, size=Nsize * 3).reshape(Nsize, 3)
-        d3 = fa.calc_angle(arr)
-        d4 = traj.calc_angle(arr)
+        d3 = pt.angle(fa, arr)
+        d4 = pt.angle(traj, arr)
         d5 = pyca.calc_angle(traj, arr)
         d6 = pyca.calc_angle(fa, arr)
         d7 = pyca.calc_angle([fa, traj], arr, n_frames=2 * fa.n_frames)

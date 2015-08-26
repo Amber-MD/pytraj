@@ -16,7 +16,7 @@ from pytraj.datasets.DataSetList import DataSetList
 class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        ds = traj.search_hbonds()
+        ds = pt.search_hbonds(traj)
         arr0 = ds.to_ndarray()
         aa_eq(arr0.mean(1), ds.mean()[1])
         aa_eq(arr0.sum(1), ds.sum()[1])
@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         print("test __array__")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        ds = traj.search_hbonds()
+        ds = pt.search_hbonds(traj)
         ds0 = ds[0]
         print(ds0)
         assert np.mean(ds0.values) == ds0.avg()

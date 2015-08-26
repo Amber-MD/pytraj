@@ -14,7 +14,7 @@ from pytraj.compat import zip
 class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        api_traj = api.Trajectory(traj)
+        api_traj = traj[:]
 
         # test xyz
         aa_eq(api_traj.xyz, traj.xyz)
@@ -33,22 +33,12 @@ class Test(unittest.TestCase):
         # test autoimage
         # make Trajectory from TrajectoryIterator
         fa = traj[:]
-        t_api2 = api.Trajectory(fa)
-        t_api2.autoimage()
         fa.autoimage()
         saved_traj = mdio.iterload(
             "./data/tz2.autoimage.nc", "./data/tz2.ortho.parm7")
-        for f1, f2 in zip(fa, t_api2):
-            aa_eq(f1.box.tolist(), f2.box.tolist())
-            print(f1.rmsd(f2))
-        aa_eq(t_api2.xyz, fa.xyz, decimal=1)
 
         # make sure to reproduce cpptraj's output too
         aa_eq(saved_traj.xyz, fa.xyz)
-
-        # test slicing to get correct Box
-        t_api2_sliced = t_api2[:10]
-        aa_eq(t_api2_sliced._boxes, t_api2._boxes[:10])
 
 
 if __name__ == "__main__":
