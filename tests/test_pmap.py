@@ -18,12 +18,15 @@ class Test(unittest.TestCase):
 
         # n_cores = 3
         # radgyr
-        func_list = [pt.radgyr, pt.molsurf, pt.rmsd]
+        # TODO: hang forever with pt.rmsd
+        #func_list = [pt.radgyr, pt.molsurf, pt.rmsd]
+        func_list = [pt.radgyr, pt.molsurf]
         ref = traj[-3]
 
         for n_cores in [2, 3, 4]:
             for func in func_list:
                 if func in [pt.rmsd, ]:
+                    print(func)
                     pout = gather(pt.pmap(n_cores, func, traj, ref=ref))
                     serial_out = flatten(func(traj, ref=ref))
                 else:

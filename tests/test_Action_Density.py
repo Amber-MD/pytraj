@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
         act = adict['density']
         dslist = DataSetList()
         act(command, farray, dslist=dslist)
-        act.#print_output()
+        act.print_output()
         #print(dslist.size)
 
     @test_if_path_exists(test_density_dir)
