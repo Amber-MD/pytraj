@@ -1,8 +1,9 @@
 from __future__ import absolute_import
-from .utils import _import_numpy
+
+import numpy as np
+import itertools
 from .core.Box import Box
 from .Frame import Frame
-from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from .utils.check_and_assert import is_int, is_frame_iter, is_mdtraj
 from .utils.check_and_assert import is_word_in_class_name
 from .externals.six import string_types
@@ -10,11 +11,11 @@ from .externals.six.moves import range
 from .AtomMask import AtomMask
 # need to move this method to more correct module
 from ._get_common_objects import _get_top
-from ._action_in_traj import ActionTrajectory
 from .Topology import Topology
 from ._shared_methods import _savetraj, _frame_iter_master, _frame_iter
+from ._shared_methods import my_str_method
+from ._fast_iterframe import _fast_iterptr, _fast_iterptr_withbox
 
-_, np = _import_numpy()
 
 __all__ = ['Trajectory']
 
@@ -104,6 +105,11 @@ class Trajectory(ActionTrajectory):
     def top(self, value):
         self._top = value.copy()
 
+    def reverse(self):
+        self._xyz = self._xyz[::-1]
+        if self._boxes is not None:
+            self._boxes = self._boxes[::-1]
+
     @property
     def xyz(self):
         return self._xyz
@@ -116,10 +122,7 @@ class Trajectory(ActionTrajectory):
         self._xyz = values
 
     def __str__(self):
-        clsname = self.__class__.__name__
-        txt = "<pytraj.api.%s with %s frames, %s atoms>" % (
-            clsname, self.n_frames, self.n_atoms)
-        return txt
+        return my_str_method(self)
 
     def __repr__(self):
         return self.__str__()
@@ -132,6 +135,8 @@ class Trajectory(ActionTrajectory):
 
     @property
     def shape(self):
+        '''(n_frames, n_atoms, 3)
+        '''
         try:
             return self._xyz.shape
         except:
@@ -139,42 +144,72 @@ class Trajectory(ActionTrajectory):
 
     @property
     def n_atoms(self):
+        '''n_atoms
+        '''
         return self.top.n_atoms
 
     @property
-    def ndim(self):
-        return 3
-
-    @property
-    def size(self):
-        return self.n_frames
-
-    @property
     def n_frames(self):
+        '''n_frames
+        '''
         try:
             n_frames = self._xyz.shape[0]
         except (AttributeError, IndexError):
             n_frames = 0
         return n_frames
 
-    def __iter__(self):
-        """return a copy of Frame object"""
+    @property
+    def size(self):
+        '''alias of Trajectory.n_frames
+        '''
+        return self.n_frames
 
-        for i in range(self._xyz.shape[0]):
-            frame = Frame(self.n_atoms)
-            frame[:] = self._xyz[i]
-            if self._boxes is not None:
-                frame.box = Box(self._boxes[i])
-            self._life_holder = frame
-            yield self._life_holder
+    def __iter__(self):
+        """return a Frame view of coordinates
+
+        Notes
+        -----
+        update frame view will update Trajectory.xyz too
+
+        Examples
+        --------
+        >>> for frame in traj: print(frame)
+        """
+
+        if self._boxes is None:
+            return _fast_iterptr(self.xyz, self.n_atoms)
+        else:
+            return _fast_iterptr_withbox(self.xyz, self._boxes, self.n_atoms)
 
     def __getitem__(self, idx):
-        """return a copy of Frame object"""
+        """return a view or copy of coordinates (follow numpy's rule)
+
+        Examples
+        --------
+        >>> # create mutable trajectory from TrajectoryIterator
+        >>> t0 = traj[:]
+        >>> print(t0)
+
+        >>> # get a Frame view
+        >>> t0[2]
+
+        >>> # get a Trajetory view
+        >>> t0[0:8:2]
+
+        >>> # get a copy of Trajetory
+        >>> t0[[0, 4, 6]]
+
+        >>> # get a copy, keep only CA atoms
+        >>> t0['@CA']
+
+        >>> # get a copy, keep only CA atoms for 3 frames
+        >>> t0[:3, '@CA']
+        """
         if is_int(idx):
-            # return a single Frame
+            # traj[0]
+            # return a single Frame as a view
             arr0 = self._xyz[idx]
-            frame = Frame(self.n_atoms)
-            frame[:] = arr0
+            frame = Frame(self.n_atoms, arr0, _as_ptr=True)
             if self._boxes is not None:
                 frame.box = Box(self._boxes[idx])
             self._life_holder = frame
@@ -185,6 +220,7 @@ class Trajectory(ActionTrajectory):
             arr0 = None
 
             if isinstance(idx, (string_types, AtomMask)):
+                # return a copy
                 # traj['@CA']
                 if isinstance(idx, string_types):
                     atm = self.top(idx)
@@ -203,9 +239,11 @@ class Trajectory(ActionTrajectory):
                 if self._boxes is not None:
                     traj._boxes = self._boxes
             elif not isinstance(idx, tuple):
+                # might return a view or a copy
+                # based on numpy array rule
                 # traj.xyz[idx]
                 traj.top = self.top
-                traj.xyz = self._xyz[idx]
+                traj._xyz = self._xyz[idx]
                 if self._boxes is not None:
                     traj._boxes = self._boxes[idx]
             else:
@@ -228,13 +266,20 @@ class Trajectory(ActionTrajectory):
             raise ValueError("why bothering assign None?")
         if is_int(idx):
             if hasattr(other, 'xyz'):
+                # traj[1] = frame
                 self._xyz[idx] = other.xyz
             else:
+                # traj[1] = xyz
+                # check shape?
                 self._xyz[idx] = other
         elif idx == '*':
+            # why need this?
+            # traj.xyz = xyz
             # update all atoms, use fast version
             self._xyz[:] = other  # xyz
         elif isinstance(idx, AtomMask) or isinstance(idx, string_types):
+            # update xyz for mask
+            # traj['@CA'] = xyz
             if isinstance(idx, AtomMask):
                 atm = idx
             else:
@@ -255,10 +300,13 @@ class Trajectory(ActionTrajectory):
                 for i in range(view3d.shape[0]):
                     self._xyz[:, int_view] = view3d[:]
         else:
+            # really need this?
             # example: self[0, 0, 0] = 100.
             self._xyz[idx] = other
 
     def __iadd__(self, other):
+        '''use with care. not for regular user
+        '''
         if hasattr(other, 'xyz'):
             self._xyz.__iadd__(other.xyz)
         else:
@@ -266,18 +314,18 @@ class Trajectory(ActionTrajectory):
         return self
 
     def __add__(self, other):
+        '''use with care. not for regular user
+        '''
         self_cp = self.copy()
         self_cp.__iadd__(other)
         return self_cp
 
     def append_xyz(self, xyz):
+        '''append 3D numpy array
+        '''
         # make sure 3D
-        if xyz.ndim == 2:
-            _xyz = np.asarray([xyz])
-        elif xyz.ndim == 3:
-            _xyz = xyz
-        else:
-            raise ValueError("shape mismatch")
+        if xyz.ndim != 3:
+            raise ValueError("ndim must be 3")
 
         if self.shape == (None, None, 3):
             self._xyz = _xyz
@@ -301,9 +349,15 @@ class Trajectory(ActionTrajectory):
     def append(self, other):
         """other: xyz, Frame, Trajectory, ...
 
+        Examples
+        --------
+        >>> f0 = traj0[0]
+        >>> traj1.append(f0)
+
         Notes
-        ----
-        Can not append TrajectoryIterator object since we use Trajectory in TrajectoryIterator class
+        -----
+        Can not append TrajectoryIterator object
+        since we use Trajectory in TrajectoryIterator class
         """
         if isinstance(other, Frame):
             arr0 = other.xyz.reshape((1, other.n_atoms, 3))
@@ -340,8 +394,10 @@ class Trajectory(ActionTrajectory):
                 self.append(frame)
 
     def join(self, other):
+        ''''''
         if isinstance(other, Trajectory):
             self.append_xyz(other.xyz)
+            self._append_unitcells(other.unitcells)
         elif isinstance(other, (list, tuple)):
             # assume a list or tuple of Trajectory
             for farray in other:
@@ -350,7 +406,7 @@ class Trajectory(ActionTrajectory):
             ValueError()
 
     def __call__(self, *args, **kwd):
-        return self.frame_iter(*args, **kwd)
+        return self.iterframe(*args, **kwd)
 
     def _load_new_by_scipy(self, filename):
         from scipy import io
@@ -390,10 +446,10 @@ class Trajectory(ActionTrajectory):
                 # use scipy to guess netcdf
                 from scipy import io
                 fh = io.netcdf_file(filename, mmap=False)
-                self.append_xyz(fh.variables['coordinates'].data)
+                self.append_xyz(fh.variables['coordinates'].data.astype('f8'))
             except (ImportError, TypeError):
-                from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
-                ts = TrajectoryCpptraj()
+                from pytraj.TrajectoryIterator import TrajectoryIterator
+                ts = TrajectoryIterator()
                 ts.top = self.top.copy()
                 ts.load(filename)
                 if indices is None:
@@ -457,7 +513,7 @@ class Trajectory(ActionTrajectory):
             # iterate all datasets and get anything having frame_iter
             dslist = filename
             for _d0 in dslist:
-                if hasattr(_d0, 'frame_iter'):
+                if hasattr(_d0, 'frame_iter') or hasattr(_d0, 'iterframe'):
                     _d0.top = self.top.copy()
                     # don't let _d0 free memory since we use Topology 'view'
                     for frame in _d0.frame_iter():
@@ -506,20 +562,12 @@ class Trajectory(ActionTrajectory):
 
             for idx, frame in enumerate(self):
                 act.do_action(frame)
-                self._xyz[idx] = frame.xyz[:]
 
     def rotate(self, *args, **kwd):
         import pytraj.common_actions as pyca
 
         for idx, frame in enumerate(self):
             pyca.rotate(frame, top=self.top, *args, **kwd)
-            self.xyz[idx] = frame.xyz
-
-    def rotate_dihedral(self, *args, **kwd):
-        import pytraj.common_actions as pyca
-
-        for idx, frame in enumerate(self):
-            pyca.rotate_dihedral(frame, top=self.top, *args, **kwd)
             self.xyz[idx] = frame.xyz
 
     @property
@@ -529,9 +577,6 @@ class Trajectory(ActionTrajectory):
     @unitcells.setter
     def unitcells(self, values):
         self._boxes = values
-
-    def update_box(self, box_arr):
-        self._boxes = box_arr
 
     def rmsfit(self, ref=None, mask="*"):
         """do the fitting to reference Frame by rotation and translation
@@ -572,22 +617,33 @@ class Trajectory(ActionTrajectory):
             raise ValueError("mask must be string or AtomMask object")
 
         for idx, frame in enumerate(self):
+            print(frame)
             _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
+            print(frame, mat, v1, v2)
             frame.trans_rot_trans(v1, mat, v2)
-            self._xyz[idx] = frame.xyz
 
-    def _allocate(self, n_frames, n_atoms, dtype='f8'):
-        self._xyz = np.empty((n_frames, n_atoms, 3), dtype=dtype)
+    def _allocate(self, n_frames, n_atoms):
+        '''allocate (n_frames, n_atoms, 3) coordinates
+        '''
+        self._xyz = np.empty((n_frames, n_atoms, 3))
 
-    def strip_atoms(self, mask):
-        atm = self.top.select(mask)
+    def strip(self, mask):
+        '''strip atoms with given mask
+
+        Examples
+        --------
+        >>> traj.strip('!@CA') # keep only CA atoms
+        '''
+        # AtomMask
+        atm = self.top(mask)
         atm.invert_mask()
         self.top.strip_atoms(mask)
+
         if self._xyz is not None:
             self._xyz = self._xyz[:, atm.indices]
 
-    def save(self, filename="", fmt='unknown', overwrite=True, *args, **kwd):
-        _savetraj(self, filename, fmt, overwrite, *args, **kwd)
+    def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
+        _savetraj(self, filename, format, overwrite, *args, **kwd)
 
     def frame_iter(self,
                    start=0,
@@ -629,7 +685,7 @@ class Trajectory(ActionTrajectory):
         # make sure `range` return iterator
         n_frames = len(range(start, stop, stride))
 
-        frame_iter_super = self._frame_iter(start, stop, stride)
+        frame_iter_super = itertools.islice(self, start, stop, step)
 
         return FrameIter(frame_iter_super,
                          original_top=self.top,

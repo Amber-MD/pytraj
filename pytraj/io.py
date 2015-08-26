@@ -151,6 +151,8 @@ def _load_netcdf(filename, top, indices=None, engine='scipy'):
         traj.xyz = data
     else:
         traj.xyz = data[indices]
+    if traj.xyz.itemsize != 8:
+        traj.xyz = traj.xyz.astype('f8')
     traj._append_unitcells((clen, cangle))
     return traj
 
@@ -228,7 +230,7 @@ def load_traj(filename=None,
     if engine == 'pytraj':
         from .Topology import Topology
         from .TrajectoryIterator import TrajectoryIterator
-        from .Trajectory import Trajectory
+        from .api import Trajectory
 
         if not isinstance(top, Topology):
             top = Topology(top)
@@ -313,7 +315,9 @@ def iterload_remd(filename, top=None, T="300.0"):
 
 
 def load_remd(filename, top=None, T="300.0"):
-    return iterload_remd(filename, top, T)[:]
+    from pytraj import Trajectory
+    itertraj = iterload_remd(filename, top, T)
+    return Trajectory(itertraj, top=itertraj.top)
 
 
 def write_traj(filename="",

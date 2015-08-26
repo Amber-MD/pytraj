@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         aa_eq(farray.xyz, t0api.xyz)
 
         # rotate_dihedral
-        t0api.rotate_dihedral('3:phi:120')
+        pt.rotate_dihedral(t0api, '3:phi:120')
         pt.rotate_dihedral(farray, '3:phi:120')
         aa_eq(farray.xyz, t0api.xyz)
 

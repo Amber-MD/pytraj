@@ -67,7 +67,7 @@ from .ArgList import ArgList
 from .AtomMask import AtomMask
 from .math import Vec3
 from .Frame import Frame
-from .Trajectory import Trajectory
+from .api import Trajectory
 from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset

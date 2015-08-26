@@ -4,7 +4,6 @@ from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
 from pytraj.utils import is_generator
 from pytraj.utils.check_and_assert import is_pytraj_trajectory
-from pytraj.datasets.cast_dataset import cast_dataset
 from pytraj._shared_methods import _frame_iter_master
 
 
@@ -198,21 +197,7 @@ cdef class Action:
         # we get the last dataset from dslist
         # (if we call self.run() several times, the result will be dumped to dslist)
         # FIXME: add all dtype in cpptraj so we don't need to specify them
-        if quick_get:
-            idx = dslist.size - 1
-            if hasattr(dslist[idx], 'dtype'):
-                dtype = dslist[idx].dtype.upper()
-                if dtype in ['DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER',
-                             'MATRIX_FLT', 'VECTOR']:
-                    d0 = cast_dataset(dslist[idx], dtype=dtype)
-                    return d0
-                else:
-                    # return what?
-                    return None
-            else:
-                raise RuntimeError("don't know how to cast dataset")
-        else:
-            return dslist
+        return dslist
 
     def reset_counter(self):
         self.n_frames = 0

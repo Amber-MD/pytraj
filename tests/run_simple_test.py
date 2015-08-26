@@ -1,5 +1,6 @@
 import unittest
 from pytraj import *
+import pytraj as pt
 from pytraj.parms import *
 from pytraj.trajs import *
 from pytraj.datasets import *
@@ -53,7 +54,7 @@ class Test(unittest.TestCase):
         Residue()
         Atom()
         Frame()
-        Trajectory()
+        pt.trajs.Trajectory.Trajectory()
         TrajectoryIterator()
         core.TrajinList.TrajinList()
 

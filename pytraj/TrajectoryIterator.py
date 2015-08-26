@@ -3,13 +3,15 @@
 from __future__ import absolute_import
 import warnings
 import os
-from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
-from pytraj._action_in_traj import ActionTrajectory
-from pytraj.compat import string_types, range
-from pytraj._shared_methods import _tolist, _split_and_write_traj
-from pytraj.Topology import Topology
-from pytraj.utils import is_int
-from pytraj._cyutils import get_positive_idx
+import numpy as np
+
+from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
+from ._action_in_traj import ActionTrajectory
+from .compat import string_types, range
+from ._shared_methods import _tolist, _split_and_write_traj
+from .Topology import Topology
+from .utils import is_int
+from ._cyutils import get_positive_idx
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
 
@@ -56,7 +58,8 @@ def _turn_to_list_with_rank(func):
     return inner
 
 
-class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
+class TrajectoryIterator(TrajectoryCpptraj):
+
     def __init__(self, filename=None, top=None, *args, **kwd):
         '''out-of-core trajectory holder.
 
@@ -403,3 +406,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         '''experimental traj class. API might be changed'''
         from pytraj import api
         return api.Trajectory(self)
+
+    @property
+    def temperatures(self):
+        return np.array([frame.temperature for frame in self])

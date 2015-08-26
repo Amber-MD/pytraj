@@ -25,9 +25,7 @@ class TestActionList(unittest.TestCase):
         # add parm
         toplist.add_parm(farray.top)
 
-        # add two actions: Action_Strip and Action_Distance
-        alist.add_action(allactions.Action_Distance(),
-                         ArgList(":2@CA :3@CA out ./output/test_df.dat"),
+        alist.add_action(allactions.Action_Distance(), ArgList(":2@CA :3@CA out ./output/test_df.dat"),
                          toplist, dsetlist, dflist)
         alist.add_action(adict['dihedral'],
                          ":2@CA :3@CA :4@CA :5@CA out ./output/_dih.out",
@@ -59,6 +57,7 @@ class TestActionList(unittest.TestCase):
             farray2.append(frame0)
         print(time() - t0)
 
+<<<<<<< HEAD
         # make sure that Action_Strip does its job in stripping
         print(farray2.size)
 
@@ -69,5 +68,7 @@ class TestActionList(unittest.TestCase):
         dflist.write_all_datafiles()
 
 
+=======
+>>>>>>> Frame_pt_constructor
 if __name__ == "__main__":
     unittest.main()
