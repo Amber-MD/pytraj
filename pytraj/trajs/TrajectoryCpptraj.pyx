@@ -226,7 +226,10 @@ cdef class TrajectoryCpptraj:
                 yield frame
                 i += stride
 
-    def chunk_iter(self, int chunk=2, int start=0, int stop=-1, bint copy_top=False):
+    def chunk_iter(self, *args, **kwd):
+        return self.iterchunk(*args, **kwd)
+
+    def iterchunk(self, int chunk=2, int start=0, int stop=-1):
         '''iterately get Frames with start, chunk
         returning Trajectory or Frame instance depend on `chunk` value
         Parameters
@@ -240,7 +243,6 @@ cdef class TrajectoryCpptraj:
         cdef int n_chunk, i, j, _stop
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms
-        cdef _Trajectory farray
         cdef Frame frame
 
         # check `start`
@@ -265,12 +267,8 @@ cdef class TrajectoryCpptraj:
         with self:
             for i in range(n_chunk):
                 # always create new Trajectory
-                farray = Trajectory(check_top=False)
-                if copy_top:
-                    farray.top = self.top.copy()
-                else:
-                    farray.top = self.top
-                    farray.top.py_free_mem = False # let `self` do it
+                farray = Trajectory()
+                farray.top = self.top.copy()
 
                 if i != n_chunk - 1:
                     _stop = start + chunk*(i+1)
@@ -280,7 +278,7 @@ cdef class TrajectoryCpptraj:
                 for j in range(start + chunk * i,  _stop):
                     frame = Frame(n_atoms)
                     self.thisptr.GetFrame(j, frame.thisptr[0])
-                    farray.append(frame, copy=False)
+                    farray.append(frame)
                 yield farray
 
     def __setitem__(self, idx, value):

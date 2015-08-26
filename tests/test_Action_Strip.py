@@ -1,4 +1,4 @@
-import unittest
+import unittest; import pytraj as pt
 from pytraj.base import *
 from pytraj.actions.CpptrajActions import Action_Strip
 from pytraj import allactions

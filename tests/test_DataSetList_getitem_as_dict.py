@@ -1,4 +1,4 @@
-import unittest
+import unittest; import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
         assert (dslist2['Dis_00000'].size == 10)
 
         # getting a list of legends
-        dslist3 = traj.search_hbonds()
+        dslist3 = pt.search_hbonds(traj,)
 
         legends = [dslist3[5].legend, dslist3[4].legend]
         print(dslist3[legends])

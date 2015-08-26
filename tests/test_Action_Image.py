@@ -1,4 +1,4 @@
-import unittest
+import unittest; import pytraj as pt
 from pytraj import adict
 from pytraj import allactions, Trajectory
 from pytraj.datasets import cast_dataset

@@ -1,4 +1,4 @@
-import unittest
+import unittest; import pytraj as pt
 from time import time
 from pytraj.base import *
 from pytraj import io as mdio

@@ -22,7 +22,7 @@ __all__ = ['Trajectory']
 
 class Trajectory(object):
     def __init__(self,
-                 filename_or_iterable=None,
+                 filename=None,
                  top=None,
                  xyz=None,
                  indices=None):
@@ -50,7 +50,7 @@ class Trajectory(object):
         >>> traj['@CA'].xyz[:, :, 0]
 
         """
-        self._top = _get_top(filename_or_iterable, top)
+        self._top = _get_top(filename, top)
 
         if self._top is None:
             self._top = Topology()
@@ -62,7 +62,7 @@ class Trajectory(object):
         self._life_holder = None
         self._frame_holder = None
 
-        if filename_or_iterable is None or filename_or_iterable == "":
+        if filename is None or filename == "":
             if xyz is not None:
                 if self.top.is_empty():
                     raise ValueError("must have a non-empty Topology")
@@ -73,29 +73,29 @@ class Trajectory(object):
                 self._xyz = np.asarray(xyz)
             else:
                 self._xyz = None
-        elif hasattr(filename_or_iterable, 'xyz'):
+        elif hasattr(filename, 'xyz'):
             # make sure to use `float64`
-            self._xyz = filename_or_iterable.xyz.astype(np.float64)
-        elif isinstance(filename_or_iterable, (string_types, list, tuple)):
-            if isinstance(filename_or_iterable, string_types):
-                self.load(filename_or_iterable)
+            self._xyz = filename.xyz.astype(np.float64)
+        elif isinstance(filename, (string_types, list, tuple)):
+            if isinstance(filename, string_types):
+                self.load(filename)
             else:
-                for fname in filename_or_iterable:
+                for fname in filename:
                     self.load(fname)
 
-        elif is_frame_iter(filename_or_iterable):
-            for frame in filename_or_iterable:
+        elif is_frame_iter(filename):
+            for frame in filename:
                 self.append(frame.xyz[:])
         else:
-            self._xyz = np.asarray(filename_or_iterable, dtype='f8')
+            self._xyz = np.asarray(filename, dtype='f8')
 
         if hasattr(self._xyz, 'shape'):
             assert self.top.n_atoms == self._xyz.shape[
                 1
             ], "must have the same n_atoms"
 
-        if hasattr(filename_or_iterable, 'unitcells'):
-            self._boxes = filename_or_iterable.unitcells
+        if hasattr(filename, 'unitcells'):
+            self._boxes = filename.unitcells
 
     @property
     def top(self):
@@ -723,3 +723,11 @@ class Trajectory(object):
 
     def __len__(self):
         return self.n_frames
+
+    def __del__(self):
+        self._xyz = None
+        self._boxes = None
+
+    def _apply(self, func):
+        for x in self.xyz:
+            x = func(x)

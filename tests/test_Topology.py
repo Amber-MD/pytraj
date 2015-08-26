@@ -1,6 +1,6 @@
 import os
 import numpy as np
-import unittest
+import unittest; import pytraj as pt
 from pytraj.Topology import Topology
 from pytraj.AtomMask import AtomMask
 from pytraj.core.FileName import FileName

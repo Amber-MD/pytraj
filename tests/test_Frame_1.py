@@ -1,4 +1,4 @@
-import unittest
+import unittest; import pytraj as pt
 from array import array
 import numpy as np
 from pytraj.utils.check_and_assert import assert_almost_equal

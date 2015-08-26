@@ -1,4 +1,4 @@
-import unittest
+import unittest; import pytraj as pt
 from pytraj.base import *
 from pytraj.decorators import no_test
 from pytraj.datasets.DataSet_Coords_TRJ import DataSet_Coords_TRJ

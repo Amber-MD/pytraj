@@ -1,6 +1,6 @@
 import os
 from copy import copy
-import unittest
+import unittest; import pytraj as pt
 import numpy as np
 from pytraj.Frame import Frame
 from pytraj.Trajectory import Trajectory

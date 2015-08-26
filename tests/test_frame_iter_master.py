@@ -1,4 +1,4 @@
-import unittest
+import unittest; import pytraj as pt
 import sys
 from pytraj.base import *
 from pytraj import Frame

@@ -1,5 +1,5 @@
 from __future__ import print_function
-import unittest
+import unittest; import pytraj as pt
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal

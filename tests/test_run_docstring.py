@@ -1,5 +1,5 @@
 from __future__ import print_function
-import unittest
+import unittest; import pytraj as pt
 import pytraj as pt
 from pytraj.testing import run_docstring
 import pytraj.common_actions as pyca
