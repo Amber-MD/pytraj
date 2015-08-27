@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
 
         #print(fa.xyz[0, :10])
         xyz = fa.xyz / 10.
-        fa.update_xyz(xyz)
+        fa.xyz = xyz
         aa_eq(xyz, fa.xyz)
         #print(fa.xyz[0, :10], xyz[0, :10])
 
@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
         fa2 = Trajectory()
         fa2.top = fa.top
         fa2._allocate(fa.n_frames, fa.n_atoms)
-        fa2.update_xyz(fa.xyz[:])
+        fa2.xyz = fa.xyz[:]
         aa_eq(fa2.xyz, fa.xyz)
 
         # try to build Trajectory from scratch
@@ -37,23 +37,6 @@ class Test(unittest.TestCase):
 
         # timing
         xyz0 = np.empty((fa.n_frames, fa.n_atoms, 3))
-
-        @Timer()
-        def update_np():
-            xyz0[:] = xyz
-
-        @Timer()
-        def update_pytraj():
-            fa2.update_xyz(xyz)
-
-        #print("numpy")
-        update_np()
-        #print("pytraj")
-        update_pytraj()
-
-        xyz0[:] = xyz
-        fa2.update_xyz(xyz)
-        aa_eq(fa2.xyz, xyz0)
 
 
 if __name__ == "__main__":

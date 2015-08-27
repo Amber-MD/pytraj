@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         assert isinstance(traj0, TrajectoryIterator)
 
         # Trajectory object
-        traj1 = traj0.to_mutable_trajectory()
+        traj1 = traj0[:]
         assert isinstance(traj1, Trajectory)
 
         # check same coords

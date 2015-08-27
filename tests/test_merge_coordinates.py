@@ -32,10 +32,7 @@ class Test(unittest.TestCase):
         assert r0 == 0.
 
         coords = pt.tools.merge_coordinates([f.copy() for f in traj])
-        #print(coords.shape)
-        #print(traj.xyz.shape)
         r0 = pt.misc.rmsd(coords, pt.get_coordinates(traj), True)
-        #print(r0)
         assert r0 == 0.
 
     def test_1(self):
@@ -48,11 +45,11 @@ class Test(unittest.TestCase):
             frame_slice=(0, 2))
 
         # test mutable traj
-        coords = pt.tools.merge_frames(traj.to_mutable_trajectory()).xyz
+        coords = pt.tools.merge_frames(traj[:]).xyz
         r0 = pt.misc.rmsd(coords, pt.get_coordinates(traj), True)
         assert r0 == 0.
 
-        #, True) test immutable traj
+        # test immutable traj
         assert np.any(pt.tools.merge_frames(traj).xyz.flatten() ==
                       pt.get_coordinates(traj).flatten())
 
@@ -70,9 +67,9 @@ class Test(unittest.TestCase):
         assert np.any(pt.tools.merge_frames(traj()).xyz.flatten() ==
                       pt.get_coordinates(traj()).flatten())
 
-        # frame_iter: CA atoms
-        assert np.any(pt.tools.merge_frames(traj(mask='@CA')).xyz.flatten() ==
-                      pt.get_coordinates(traj(mask='@CA')).flatten())
+        ## frame_iter: CA atoms
+        #assert np.any(pt.tools.merge_frames(traj(mask='@CA')).xyz.flatten() ==
+        #              pt.get_coordinates(traj(mask='@CA')).flatten())
 
 
 if __name__ == "__main__":
