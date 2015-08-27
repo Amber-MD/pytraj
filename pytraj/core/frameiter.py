@@ -36,6 +36,9 @@ class FrameIter(object):
         self.copy = copy
         self.frame_indices = frame_indices
 
+    def __len__(self):
+        return self.n_frames
+
     @property
     def __name__(self):
         '''for inspecting
