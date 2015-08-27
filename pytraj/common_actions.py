@@ -1274,20 +1274,30 @@ def calc_rmsd(traj=None,
 
     Parameters
     ----------
-    traj : Trajectory-like | List of trajectories | Trajectory or frame_iter
-    ref : {Frame, int}, default=0
+    traj : Trajectory-like
+    ref : {Frame, int}, default=0 (first frame)
         Reference frame or index.
     mask : str or 1D array-like of string or 1D or 2D array-like
         Atom mask/indices
+    nofit : bool, default False
+        if False, perform fitting (rotation and translation).
+        if ``traj`` is mutable, its coordinates will be updated
+        if True, not fitting.
     top : {Topology, str}, default None, optional
     dtype : return data type, default='ndarray'
+
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.rmsd(traj, ref=-3) # ref=traj[-3]
+    >>> # all atoms, do fitting, using ref=traj[-3]
+    >>> pt.rmsd(traj, ref=-3)
+
+    >>> # rmsd for 3 maskes, do fitting, using ref=traj[0] (defaul)
     >>> pt.rmsd(traj, mask=['@CA', '@C', ':3-18@CA'], dtype='dataset')
-    >>> pt.rmsd(traj, ref=traj[0], mask=':3-13')
+
+    >>> # rmsd to first frame, use mass ':3-13' but do not perorm fitting
+    >>> pt.rmsd(traj, ref=traj[0], mask=':3-13', notfit=True)
 
     """
     from pytraj.utils import is_int

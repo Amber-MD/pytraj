@@ -12,7 +12,7 @@ from .AtomMask import AtomMask
 # need to move this method to more correct module
 from ._get_common_objects import _get_top
 from .Topology import Topology
-from ._shared_methods import _savetraj, _frame_iter_master, _frame_iter
+from ._shared_methods import _savetraj, _frame_iter_master
 from ._shared_methods import my_str_method
 from ._fast_iterframe import _fast_iterptr, _fast_iterptr_withbox
 
@@ -437,30 +437,21 @@ class Trajectory(object):
 
         # always use self.top
         if isinstance(filename, string_types):
-            # load from single filename
-            # we don't use UTF-8 here since ts.load(filename) does this job
-            #filename = filename.encode("UTF-8")
-            try:
-                # use scipy to guess netcdf
-                from scipy import io
-                fh = io.netcdf_file(filename, mmap=False)
-                self.append_xyz(fh.variables['coordinates'].data.astype('f8'))
-            except (ImportError, TypeError):
-                from pytraj.TrajectoryIterator import TrajectoryIterator
-                ts = TrajectoryIterator()
-                ts.top = self.top.copy()
-                ts.load(filename)
-                if indices is None:
-                    self.append_xyz(ts.xyz)
-                elif isinstance(indices, slice):
-                    self.append_xyz(ts[indices].xyz)
-                else:
-                    # indices is tuple, list, ...
-                    # we loop all traj frames and extract frame-ith in indices 
-                    # TODO : check negative indexing?
-                    # increase size of vector
-                    for idx in indices:
-                        self.append_xyz(ts[idx].xyz)
+            from pytraj.TrajectoryIterator import TrajectoryIterator
+            ts = TrajectoryIterator()
+            ts.top = self.top.copy()
+            ts.load(filename)
+            if indices is None:
+                self.append_xyz(ts.xyz)
+            elif isinstance(indices, slice):
+                self.append_xyz(ts[indices].xyz)
+            else:
+                # indices is tuple, list, ...
+                # we loop all traj frames and extract frame-ith in indices 
+                # TODO : check negative indexing?
+                # increase size of vector
+                for idx in indices:
+                    self.append_xyz(ts[idx].xyz)
         elif isinstance(filename, Frame):
             self.append(filename)
         elif isinstance(filename, (list, tuple)):
@@ -484,7 +475,7 @@ class Trajectory(object):
                 except:
                     raise ValueError(
                         "must be a list/tuple of either filenames/Traj/numbers")
-        elif hasattr(filename, 'n_frames') and not is_mdtraj(filename):
+        elif hasattr(filename, 'n_frames'):
             # load from Traj-like object
             # make temp traj to remind about traj-like
             traj = filename
@@ -501,21 +492,6 @@ class Trajectory(object):
             _frame_iter = filename
             for frame in _frame_iter:
                 self.append(frame)
-        elif is_mdtraj(filename):
-            _traj = filename
-            # add "10 *" since mdtraj use 'nm' while pytraj use 'Angstrom'
-            # keep original coorsd, don't cast
-            self.append_xyz(_traj.xyz)
-        elif is_word_in_class_name(filename, 'DataSetList'):
-            # load DataSetList
-            # iterate all datasets and get anything having frame_iter
-            dslist = filename
-            for _d0 in dslist:
-                if hasattr(_d0, 'frame_iter') or hasattr(_d0, 'iterframe'):
-                    _d0.top = self.top.copy()
-                    # don't let _d0 free memory since we use Topology 'view'
-                    for frame in _d0.frame_iter():
-                        self.append(frame)
         else:
             try:
                 # load from array
@@ -703,9 +679,6 @@ class Trajectory(object):
                          rmsfit=rmsfit,
                          n_frames=n_frames)
 
-    def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
-        return _frame_iter(self, start, stop, stride, mask)
-
     @property
     def _estimated_MB(self):
         """esimated MB of data will be loaded to memory
@@ -713,16 +686,43 @@ class Trajectory(object):
         return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 2)
 
     @classmethod
-    def from_iterable(cls, iterables, top=None):
-        if top is None:
-            raise ValueError("require a Topology")
-        traj = cls()
-        traj.top = top
-        for f in iterables:
-            # todo: avoid copying
-            traj.append(f)
-        return traj
-
+    def from_iterable(cls, iterables, top=None, n_frames=None):
+        '''
+        >>> itertraj = pt.iterload('traj.nc', 'parm.top')
+        >>> pt.Trajectory.from_iterable(itertraj(3, 8, 2))
+        '''
+        if top is None or top.is_empty():
+            if hasattr(iterables, 'top'):
+                top = iterables.top
+            else:
+                raise ValueError("must provide non-empty Topology")
+    
+        fa = Trajectory()
+        fa.top = top
+    
+        if n_frames is not None:
+            _n_frames = n_frames
+        elif hasattr(iterables, 'n_frames'):
+            _n_frames = iterables.n_frames
+        else:
+            try:
+                _n_frames = len(iterables)
+            except:
+                _n_frames = None
+    
+        if _n_frames is None:
+            for frame in iterables:
+                # slow
+                fa.append(frame)
+        else:
+            # faster
+            fa._allocate(_n_frames, fa.top.n_atoms)
+            fa._boxes = np.empty((_n_frames, 6), dtype='f8')
+            for idx, frame in enumerate(iterables):
+                fa._xyz[idx] = frame.xyz
+                fa._boxes[idx] = frame.box.data
+        return fa
+    
     def __len__(self):
         return self.n_frames
 

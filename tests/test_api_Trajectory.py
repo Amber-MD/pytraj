@@ -1,19 +1,14 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
-from pytraj.base import *
-from pytraj import adict
-from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
-from pytraj.decorators import no_test, test_if_having, test_if_path_exists
-from pytraj.testing import cpptraj_test_dir
-import pytraj.common_actions as pyca
 from pytraj import api
 from pytraj.compat import zip
 
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         api_traj = traj[:]
 
         # test xyz
@@ -34,11 +29,15 @@ class Test(unittest.TestCase):
         # make Trajectory from TrajectoryIterator
         fa = traj[:]
         fa.autoimage()
-        saved_traj = mdio.iterload(
+        saved_traj = pt.iterload(
             "./data/tz2.autoimage.nc", "./data/tz2.ortho.parm7")
 
         # make sure to reproduce cpptraj's output too
         aa_eq(saved_traj.xyz, fa.xyz)
+
+    def testFromIterable(self):
+        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        aa_eq(pt.api.Trajectory.from_iterable(traj).xyz, traj.xyz)
 
 
 if __name__ == "__main__":

@@ -269,16 +269,11 @@ def load_traj(filename=None,
             "support only {'pytraj', 'mdanlaysis', 'mdtraj'} engines")
 
 
-def _load_from_frame_iter(traj_frame_iter, top=None):
+def _load_from_frame_iter(iterables, top=None, n_frames=None):
+    '''
+    '''
     from .api import Trajectory
-    if top is None or top.is_empty():
-        if hasattr(traj_frame_iter, 'top'):
-            top = traj_frame_iter.top
-        else:
-            raise ValueError("must provide non-empty Topology")
-    fa = Trajectory(traj_frame_iter, top=top)
-    return fa
-
+    return Trajectory.from_iterable(iterables, top, n_frames)
 
 def iterload_remd(filename, top=None, T="300.0"):
     """Load remd trajectory for single temperature.
