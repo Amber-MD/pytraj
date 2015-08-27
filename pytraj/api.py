@@ -16,16 +16,11 @@ from ._shared_methods import _savetraj, _frame_iter_master
 from ._shared_methods import my_str_method
 from ._fast_iterframe import _fast_iterptr, _fast_iterptr_withbox
 
-
 __all__ = ['Trajectory']
 
 
 class Trajectory(object):
-    def __init__(self,
-                 filename=None,
-                 top=None,
-                 xyz=None,
-                 indices=None):
+    def __init__(self, filename=None, top=None, xyz=None, indices=None):
         """
         Notes
         -----
@@ -252,8 +247,8 @@ class Trajectory(object):
                 # is a tuple
                 if len(idx) == 1:
                     traj = self[idx[0]]
-                elif len(idx) == 2 and is_int(idx[0]) and isinstance(idx[1],
-                        string_types):
+                elif len(idx) == 2 and is_int(idx[0]) and isinstance(
+                        idx[1], string_types):
                     # traj[0, '@CA']: return a stripped Frame
                     frame = self[idx[0]].copy()
                     # make AtomMask object
@@ -630,7 +625,10 @@ class Trajectory(object):
             # need to copy to make contigous memory block
             self._xyz = self._xyz[:, atm.indices].copy()
 
-    def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
+    def save(self,
+             filename="",
+             format='unknown',
+             overwrite=True, *args, **kwd):
         _savetraj(self, filename, format, overwrite, *args, **kwd)
 
     def iterframe(self, *args, **kwd):
@@ -708,10 +706,10 @@ class Trajectory(object):
                 top = iterables.top
             else:
                 raise ValueError("must provide non-empty Topology")
-    
+
         fa = Trajectory()
         fa.top = top
-    
+
         if n_frames is not None:
             _n_frames = n_frames
         elif hasattr(iterables, 'n_frames'):
@@ -721,7 +719,7 @@ class Trajectory(object):
                 _n_frames = len(iterables)
             except:
                 _n_frames = None
-    
+
         if _n_frames is None:
             for frame in iterables:
                 # slow
@@ -734,7 +732,7 @@ class Trajectory(object):
                 fa._xyz[idx] = frame.xyz
                 fa._boxes[idx] = frame.box.data
         return fa
-    
+
     def __len__(self):
         return self.n_frames
 

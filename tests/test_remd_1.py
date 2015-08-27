@@ -45,9 +45,12 @@ class Test(unittest.TestCase):
 
         #print(traj.n_frames)
         count = 0
+
         #print('box is None?', traj.unitcells is None, traj.unitcells, type(traj))
         def test_iter(t):
-            for _ in t: pass
+            for _ in t:
+                pass
+
         test_iter(traj)
         #test_iter(trajiter)
         #test_iter(saved_traj)
@@ -60,14 +63,13 @@ class Test(unittest.TestCase):
 
         # test methods
         aa_eq(pt.rmsd(trajiter), pt.rmsd(saved_traj))
-        aa_eq(pyca.calc_COM(trajiter),
-              pt.center_of_mass(saved_traj))
-        aa_eq(pyca.calc_COG(trajiter),
-              pt.center_of_geometry(saved_traj))
+        aa_eq(pyca.calc_COM(trajiter), pt.center_of_mass(saved_traj))
+        aa_eq(pyca.calc_COG(trajiter), pt.center_of_geometry(saved_traj))
 
         import numpy as np
-        assert np.all(pyca.calc_dssp(trajiter, dtype='ndarray')[0] ==
-                      pt.dssp(saved_traj)[0])
+        assert np.all(
+            pyca.calc_dssp(trajiter,
+                           dtype='ndarray')[0] == pt.dssp(saved_traj)[0])
 
 
 if __name__ == "__main__":

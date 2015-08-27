@@ -33,6 +33,5 @@ class Test(unittest.TestCase):
             assert_almost_equal(framepy.coords, cpptraj[idx].coords)
 
 
-
 if __name__ == "__main__":
     unittest.main()

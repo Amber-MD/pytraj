@@ -40,7 +40,7 @@ class TestRadgyr(unittest.TestCase):
                     n_anals += 1
                     #print(analdict[key])
                     #print(key)
-            #print("n_actions = %s, n_anals = %s" % (n_actions, n_anals))
+                    #print("n_actions = %s, n_anals = %s" % (n_actions, n_anals))
 
         test_all()
 

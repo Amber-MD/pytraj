@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/Test_NAstruct/adh026.3.pdb")
         d = pt.calc_delta(traj, resrange='1').values
@@ -17,6 +16,7 @@ class Test(unittest.TestCase):
 
         aa_eq(d, d1)
         aa_eq(d, d2)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -15,5 +15,6 @@ class Test(unittest.TestCase):
             ['ASP_16@OD1-ARG_18@N-H', 'ASP_16@OD1-ARG_18@N-H'
              ]) == saved_mask_list
 
+
 if __name__ == "__main__":
     unittest.main()

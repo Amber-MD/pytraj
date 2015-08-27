@@ -1,4 +1,5 @@
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 from pytraj.common_actions import calc_molsurf
 from pytraj.base import *
 from pytraj.actions.CpptrajActions import Action_Surf

@@ -1,4 +1,5 @@
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
@@ -28,16 +29,16 @@ class Test(unittest.TestCase):
         #print(traj[-1, 0])
         #print(count)
 
-    #@no_test
+        #@no_test
     def test_1(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         count = 0
         for farray in traj.chunk_iter(chunksize=4):
             count += 1
             #print(farray)
-        #print("count = %s" % count)
+            #print("count = %s" % count)
 
-    #@no_test
+            #@no_test
     def test_2(self):
         from pytraj import frame_iter_master as frame_iter
         #print("test frame_iter for both pytraj/cpptraj Traj objects")

@@ -22,7 +22,6 @@ class Test(unittest.TestCase):
 
             aa_eq(pt.calc_psi(traj[:1]).values, pt.calc_psi(t0))
 
-
     def test_1(self):
         # different from test_0 a bit in `mask`
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

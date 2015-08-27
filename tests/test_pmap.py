@@ -42,17 +42,20 @@ class Test(unittest.TestCase):
 
         keys = pt.tools.flatten([x[1].keys() for x in a])
         from pytraj.compat import set
+
         #print(set(keys))
 
         # raise if a given method does not support pmap
         def need_to_raise(traj=traj):
             pt.pmap(2, pt.bfactors, traj)
-        self.assertRaises(ValueError, lambda : need_to_raise())
+
+        self.assertRaises(ValueError, lambda: need_to_raise())
 
         # raise if a traj is not TrajectoryIterator
         def need_to_raise_2(traj=traj):
             pt.pmap(2, pt.bfactors, traj[:])
-        self.assertRaises(ValueError, lambda : need_to_raise_2())
+
+        self.assertRaises(ValueError, lambda: need_to_raise_2())
 
         #need_to_raise()
 

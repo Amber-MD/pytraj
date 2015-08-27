@@ -275,6 +275,7 @@ def _load_from_frame_iter(iterables, top=None, n_frames=None):
     from .api import Trajectory
     return Trajectory.from_iterable(iterables, top, n_frames)
 
+
 def iterload_remd(filename, top=None, T="300.0"):
     """Load remd trajectory for single temperature.
     Example: Suppose you have replica trajectoris remd.x.00{1-4}. 
@@ -520,4 +521,5 @@ def get_coordinates(iterables):
         return iterables.xyz[:]
     else:
         # try to iterate to get coordinates
-        return np.array([frame.xyz.copy() for frame in _frame_iter_master(iterables)])
+        return np.array([frame.xyz.copy()
+                         for frame in _frame_iter_master(iterables)])

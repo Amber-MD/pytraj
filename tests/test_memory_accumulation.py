@@ -30,7 +30,9 @@ for traj in tlist:
     @profile
     def test_closest():
         print('test_closest')
-        for frame in pt.closest(traj(0, 100), n_solvents=10, restype='iterator')[0]:
+        for frame in pt.closest(traj(0, 100),
+                                n_solvents=10,
+                                restype='iterator')[0]:
             pass
 
     @profile
@@ -100,7 +102,8 @@ for traj in tlist:
     @profile
     def test_iter_frame_indices():
         print('test_iter_frame_indices')
-        for idx, f in enumerate(traj(frame_indices=range(0, traj.n_frames, 3))):
+        for idx, f in enumerate(traj(
+            frame_indices=range(0, traj.n_frames, 3))):
             pass
         print(idx)
 

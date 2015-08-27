@@ -16,5 +16,6 @@ class Test(unittest.TestCase):
         cout = pt.datafiles.load_cpptraj_output(txt)
         cout = pt.datafiles.load_cpptraj_output(txt, with_traj=True)
 
+
 if __name__ == "__main__":
     unittest.main()

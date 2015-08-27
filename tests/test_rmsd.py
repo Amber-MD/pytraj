@@ -1,4 +1,5 @@
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 import pytraj as pt
 from pytraj.base import *
 from pytraj import io as mdio

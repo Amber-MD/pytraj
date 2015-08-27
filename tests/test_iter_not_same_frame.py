@@ -1,5 +1,6 @@
 from __future__ import print_function
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
@@ -13,23 +14,21 @@ class Test(unittest.TestCase):
         # TrajectoryIterator
         # assert will fail since we only allow to load a single
         # frame at a time to memory. Use frame_iter instead.
-        aa_eq(pt.molsurf([f for f in traj],
-                              top=traj.top), pt.molsurf(traj))
+        aa_eq(pt.molsurf([f for f in traj], top=traj.top), pt.molsurf(traj))
 
         # frame_iter
-        aa_eq(pt.molsurf([f for f in traj()],
-                              top=traj.top), pt.molsurf(traj))
+        aa_eq(pt.molsurf([f for f in traj()], top=traj.top), pt.molsurf(traj))
 
         # chunk_iter: need to explicitly copy
         # aa_eq(pt.molsurf([f for f in traj.chunk_iter(3)], top=traj.top),
         #       pt.molsurf(traj))
 
         aa_eq(pt.molsurf([f.copy() for f in traj.chunk_iter(3)],
-                              top=traj.top), pt.molsurf(traj))
+                         top=traj.top), pt.molsurf(traj))
 
         # split_iterators
         aa_eq(pt.molsurf([f for f in traj.split_iterators(3)],
-                              top=traj.top), pt.molsurf(traj))
+                         top=traj.top), pt.molsurf(traj))
 
         # Trajectory
         #print(pt.molsurf(traj))

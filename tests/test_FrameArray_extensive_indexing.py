@@ -1,6 +1,7 @@
 import os
 from time import time
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 import numpy as np
 from pytraj.base import *
 from load_traj import load

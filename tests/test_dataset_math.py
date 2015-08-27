@@ -1,5 +1,6 @@
 from __future__ import print_function
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -12,7 +13,7 @@ import pytraj.common_actions as pyca
 class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = pt.search_hbonds(traj,)
+        dslist = pt.search_hbonds(traj, )
         #print(dslist)
 
         # +=

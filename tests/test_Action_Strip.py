@@ -1,4 +1,5 @@
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj.actions.CpptrajActions import Action_Strip
 from pytraj import allactions
@@ -55,7 +56,7 @@ class TestStrip(unittest.TestCase):
         #print(dcast.size)
         #print(dcast[:20])
 
-    #@no_test
+        #@no_test
     def test_0(self):
         #print("newtop")
         farray0 = farray.copy()

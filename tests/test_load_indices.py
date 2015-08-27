@@ -1,4 +1,5 @@
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 import numpy as np
 from array import array
 from pytraj.base import *
@@ -20,8 +21,8 @@ class TestIndices(unittest.TestCase):
         indices = slice(9, 6, -1)
 
         traj0 = pt.load(filename="./data/md1_prod.Tc5b.x",
-                   top=Topology("./data/Tc5b.top"),
-                   indices=indices)
+                        top=Topology("./data/Tc5b.top"),
+                        indices=indices)
 
         assert traj0[0].same_coords_as(traj1[9]) == True
         assert traj0[1].same_coords_as(traj1[8]) == True
@@ -39,8 +40,8 @@ class TestIndices(unittest.TestCase):
         # make sure we don't suport other indices
         traj2 = Trajectory()
         traj2 = pt.load(filename="./data/md1_prod.Tc5b.x",
-                   top=Topology("./data/Tc5b.top"),
-                   indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
+                        top=Topology("./data/Tc5b.top"),
+                        indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
         assert traj2[-1].coords == traj1[4].coords
 
     def test_array_assigment(self):
@@ -57,7 +58,6 @@ class TestIndices(unittest.TestCase):
         assert traj1[0][10, 0] == traj1[0, 10, 0] == 1000000.
         assert (traj1[0].same_coords_as(traj1[1])) == False
         assert traj1[0, 10, 0] != traj1[1, 10, 0]
-
 
     def test_1(self):
         traj0 = TrajectoryIterator(

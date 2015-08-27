@@ -430,11 +430,14 @@ def calc_mindist(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)[-1]
 
 
-def calc_watershell(traj=None, solute_mask=None,
+def calc_watershell(traj=None,
+                    solute_mask=None,
                     solvent_mask=':WAT',
-                    lower=3.4, upper=5.0,
+                    lower=3.4,
+                    upper=5.0,
                     image=True,
-                    dtype='dataset', top=None):
+                    dtype='dataset',
+                    top=None):
     """(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
     (defined by <lower cut> (default 3.4 Ang.) and <upper cut> (default 5.0 Ang.)
 
@@ -469,7 +472,7 @@ def calc_watershell(traj=None, solute_mask=None,
         raise ValueError('must provide solute mask')
 
     _solventmask = solvent_mask if solvent_mask is not None else ''
-    _noimage= 'noimage' if not image else ''
+    _noimage = 'noimage' if not image else ''
 
     _lower = 'lower ' + str(lower)
     _upper = 'upper ' + str(upper)
@@ -728,7 +731,9 @@ def do_scaling(traj=None, command="", top=None):
     _top = _get_top(traj, top)
     Action_Scale()(command, traj, top=_top)
 
+
 scale = do_scaling
+
 
 def do_rotation(traj=None, command="", top=None):
     from pytraj.actions.CpptrajActions import Action_Rotate
@@ -745,6 +750,7 @@ def do_autoimage(traj=None, command="", top=None):
     _top = _get_top(traj, top)
     from pytraj.actions.CpptrajActions import Action_AutoImage
     Action_AutoImage()(command, traj, top=_top)
+
 
 autoimage = do_autoimage
 
@@ -1483,7 +1489,12 @@ def _closest_iter(act, traj):
         yield new_frame.copy()
 
 
-def closest(traj=None, mask='*', solvent_mask=None, n_solvents=10, restype='trajectory', top=None):
+def closest(traj=None,
+            mask='*',
+            solvent_mask=None,
+            n_solvents=10,
+            restype='trajectory',
+            top=None):
     """return either a new Trajectory or a frame iterator. Keep only ``n_solvents`` closest to mask
 
     Parameters
@@ -1577,8 +1588,7 @@ def native_contacts(traj=None,
                     noimage=False,
                     include_solvent=False,
                     byres=False,
-                    top=None,
-                    *args, **kwd):
+                    top=None, *args, **kwd):
     """
     Examples
     --------
@@ -1794,11 +1804,7 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def search_neighbors(traj=None,
-                      mask='',
-                      cutoff='',
-                      dtype='dataset',
-                      top=None):
+def search_neighbors(traj=None, mask='', cutoff='', dtype='dataset', top=None):
     """search neighbors
 
     Returns

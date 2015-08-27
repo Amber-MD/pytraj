@@ -71,8 +71,9 @@ class Test(unittest.TestCase):
         dslist0 = pt.search_hbonds(traj, update_legend=False)
         expected_n_hbonds = 6
         assert dslist0.filter("UU").values[0] == expected_n_hbonds
-        assert pt.search_hbonds(traj, update_legend=False).filter(
-            "UU").values[0] == expected_n_hbonds
+        assert pt.search_hbonds(traj,
+                                update_legend=False).filter(
+                                    "UU").values[0] == expected_n_hbonds
 
 
 if __name__ == "__main__":

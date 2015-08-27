@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         #print(traj[:])
         #print(traj[:3])
 
-    #@no_test
+        #@no_test
     @test_if_having("numpy")
     def test_1(self):
         # why Trajectory is here? because I am lazy to move

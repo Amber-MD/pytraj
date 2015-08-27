@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         #print(traj)
@@ -62,6 +61,7 @@ class Test(unittest.TestCase):
 
         # test rmsfit
         api_t0.rmsfit(0)
+
 
 if __name__ == "__main__":
     unittest.main()

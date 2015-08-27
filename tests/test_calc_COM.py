@@ -1,6 +1,7 @@
 from __future__ import print_function
 import pytraj as pt
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -32,7 +33,10 @@ class Test(unittest.TestCase):
         assert_almost_equal(d2.to_ndarray().flatten(), saved_d0.flatten())
 
         assert_almost_equal(
-            pt.center_of_geometry(traj, dtype='ndarray'), pt.center_of_geometry(traj2, dtype='ndarray'))
+            pt.center_of_geometry(traj,
+                                  dtype='ndarray'),
+            pt.center_of_geometry(traj2,
+                                  dtype='ndarray'))
 
 
 if __name__ == "__main__":

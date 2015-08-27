@@ -18,6 +18,7 @@ class Test(unittest.TestCase):
         dtrj = DTRJ()
         dtrj.top = traj.top.copy()
         dtrj.load(traj.filename)
+
         #print(traj, dtrj)
 
         #@Timer()
@@ -42,8 +43,9 @@ class Test(unittest.TestCase):
 
             #print(timeit(test, number=100))
 
-        #print("test_slice_traj")
-        #print("traj")
+            #print("test_slice_traj")
+            #print("traj")
+
         test_slice_traj(traj, 9)
         #print("dtrj")
         test_slice_traj(dtrj, 9)

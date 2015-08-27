@@ -13,5 +13,6 @@ class Test(unittest.TestCase):
         fa.center(":1 mass")
         aa_eq(fa[:2].xyz, saved_traj.xyz, decimal=5)
 
+
 if __name__ == "__main__":
     unittest.main()

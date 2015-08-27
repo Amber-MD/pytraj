@@ -1,6 +1,7 @@
 import os
 import numpy as np
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 from pytraj.Topology import Topology
 from pytraj.AtomMask import AtomMask
 from pytraj.core.FileName import FileName
@@ -56,6 +57,7 @@ class TestTopology(unittest.TestCase):
         traj = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         top = traj.top
         assert len(top) == top.n_atoms
+
 
 if __name__ == "__main__":
     unittest.main()

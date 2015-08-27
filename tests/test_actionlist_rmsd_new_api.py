@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         standard_rmsd = pt.rmsd(traj, mask='@CA')
@@ -32,12 +31,13 @@ class Test(unittest.TestCase):
             alist = ActionList()
             dslist = DataSetList()
             act = Action_Rmsd()
-            alist.add_action(act, 'first @CA', top=input_traj.top, dslist=dslist)
+            alist.add_action(act, 'first @CA',
+                             top=input_traj.top,
+                             dslist=dslist)
 
             for frame in input_traj:
                 alist.do_actions(frame)
             return (dslist.values)
-
 
         rmsd0 = test_rmsd(traj)
         rmsd1 = test_rmsd(traj[:])
@@ -50,6 +50,7 @@ class Test(unittest.TestCase):
         aa_eq(standard_rmsd, rmsd2)
         aa_eq(standard_rmsd, rmsd3)
         aa_eq(standard_rmsd, rmsd4)
+
 
 if __name__ == "__main__":
     unittest.main()

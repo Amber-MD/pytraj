@@ -1,4 +1,5 @@
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 import numpy as np
 from pytraj.base import *
 from pytraj.decorators import no_test
@@ -18,7 +19,6 @@ class TestTrajectory(unittest.TestCase):
         TRAJ2.load("./data/md1_prod.Tc5b.x")
         fsub = TRAJ2[2:10]
         fsub[0][0] = 100.
-
 
     def test_indexing_0(self):
         TRAJ2 = TrajectoryIterator()

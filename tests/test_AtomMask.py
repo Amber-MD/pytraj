@@ -29,7 +29,6 @@ class TestAtomMask(unittest.TestCase):
         top.set_integer_mask(atm)
         #print(atm[0])
 
-
     def test_4(self):
         from array import array
         atm = AtomMask()

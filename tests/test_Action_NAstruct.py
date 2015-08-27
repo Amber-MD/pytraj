@@ -30,8 +30,6 @@ class Test(unittest.TestCase):
         import numpy as np
         dsmall = np.asarray(dsmall)
 
-
-
     def test_1(self):
         from pytraj.common_actions import nastruct
         fn = "./data/Test_NAstruct/adh026.3.pdb"

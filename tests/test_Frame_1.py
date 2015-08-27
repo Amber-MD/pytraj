@@ -1,4 +1,5 @@
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 from array import array
 import numpy as np
 from pytraj.utils.check_and_assert import assert_almost_equal
@@ -156,7 +157,7 @@ class TestFrame(unittest.TestCase):
         #print(arr1)
         #print(frame0[:3])
 
-    #@no_test
+        #@no_test
     def test_long(self):
         N_ATOMS = 10
         # create frame instance with 10 atoms

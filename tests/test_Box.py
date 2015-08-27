@@ -16,7 +16,6 @@ class TestBox(unittest.TestCase):
         frame0.boxview[:] = pyarray('d', [0.0, 1.0, 2.0, 3.0, 4.0, 6.])
         frame0.set_nobox()
 
-
     def test_1(self):
         box = Box()
         box.set_trunc_oct()
@@ -101,6 +100,7 @@ class TestBox(unittest.TestCase):
 
         box.type = 'rhombic'
         assert box.type == 'rhombic'
+
         #print("rhombic box?")
         #print(box)
 

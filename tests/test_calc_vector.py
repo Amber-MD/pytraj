@@ -1,5 +1,6 @@
 from __future__ import print_function
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 import pytraj as pt
 from pytraj import DatasetList, analdict
 from pytraj import adict

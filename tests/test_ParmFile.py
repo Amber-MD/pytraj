@@ -10,12 +10,12 @@ def test_generator(top):
         pass
         # #print atom
 
-    #print("\nres_iterator for top")
+        #print("\nres_iterator for top")
     for res in top.residues:
         pass
         # #print res
 
-    #print("\nmol_iterator for top")
+        #print("\nmol_iterator for top")
     for mol in top.mols:
         pass
         # #print mol

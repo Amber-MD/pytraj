@@ -7,18 +7,18 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         t0 = traj[:]
         indices = range(3)
-        
+
         d0 = pt.radgyr(traj._iterframe_indices(indices), top=traj.top)
         d1 = pt.radgyr(traj[indices])
 
         aa_eq(d0, d1)
         #print(d0)
+
 
 if __name__ == "__main__":
     unittest.main()

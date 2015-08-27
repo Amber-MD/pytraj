@@ -25,7 +25,8 @@ class TestActionList(unittest.TestCase):
         # add parm
         toplist.add_parm(farray.top)
 
-        alist.add_action(allactions.Action_Distance(), ArgList(":2@CA :3@CA out ./output/test_df.dat"),
+        alist.add_action(allactions.Action_Distance(),
+                         ArgList(":2@CA :3@CA out ./output/test_df.dat"),
                          toplist, dsetlist, dflist)
         alist.add_action(adict['dihedral'],
                          ":2@CA :3@CA :4@CA :5@CA out ./output/_dih.out",
@@ -56,6 +57,7 @@ class TestActionList(unittest.TestCase):
             # farray2.append(frame)
             farray2.append(frame0)
         #print(time() - t0)
+
 
 if __name__ == "__main__":
     unittest.main()

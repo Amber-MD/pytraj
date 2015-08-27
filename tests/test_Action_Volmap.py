@@ -38,7 +38,6 @@ class Test(unittest.TestCase):
         mylist = d1.tolist()
         myview = d1.data
 
-
     def test_1(self):
         from pytraj.common_actions import calc_volmap
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")

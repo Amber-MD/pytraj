@@ -1,5 +1,6 @@
 from __future__ import print_function
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 import sys
 from pytraj.base import *
 from pytraj import adict
@@ -36,7 +37,7 @@ class TestReferentCounting(unittest.TestCase):
     def test_traj_search_hbonds(self):
         traj = mdio.iterload('./data/md1_prod.Tc5b.x', './data/Tc5b.top')
         # traj.search_hbonds
-        d = pt.search_hbonds(traj,)
+        d = pt.search_hbonds(traj, )
 
         assert sys.getrefcount(d) == 2
         sys.getrefcount(d) == 2
@@ -49,9 +50,9 @@ class TestReferentCounting(unittest.TestCase):
         del junk
         assert sys.getrefcount(d) == 2
 
-        pt.search_hbonds(traj,).filter('SER')
-        pt.search_hbonds(traj,).filter('SER').filter("SER")
-        e = pt.search_hbonds(traj,).filter(
+        pt.search_hbonds(traj, ).filter('SER')
+        pt.search_hbonds(traj, ).filter('SER').filter("SER")
+        e = pt.search_hbonds(traj, ).filter(
             'SER').filter("SER").filter("").filter("")
         # make sure getting not segmentation fault
         #print(e.size)

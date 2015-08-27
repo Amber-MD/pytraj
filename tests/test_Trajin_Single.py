@@ -1,6 +1,7 @@
 import os
 from copy import copy
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 import numpy as np
 from pytraj.Frame import Frame
 from pytraj import Trajectory
@@ -38,13 +39,13 @@ class TestTrajinSingle(unittest.TestCase):
             ts._read_traj_frame(100, frame)
             #print(frame)
 
-        # bug: results are not the same between
-        # ts[0, 0, 0] and ts[0][0, 0]
-        # #print ts[0, 0, 0]
-        # #print ts[0, 0, 0:2][0]
-        # #print ts[:, :, :]
-        # #print "ts[0, 0, 0]", ts[0, 0, 0]
-        #assert ts[0, 0, 0] == ts[0][0, 0]
+            # bug: results are not the same between
+            # ts[0, 0, 0] and ts[0][0, 0]
+            # #print ts[0, 0, 0]
+            # #print ts[0, 0, 0:2][0]
+            # #print ts[:, :, :]
+            # #print "ts[0, 0, 0]", ts[0, 0, 0]
+            #assert ts[0, 0, 0] == ts[0][0, 0]
         frame0 = ts[0]
         assert ts[0][0, 0] == frame0[0, 0]
 

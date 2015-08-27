@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
             assert_almost_equal(f0.coords, f1.coords)
             #print(f0.rmsd(f1))
 
-        # test TrajectoryIterator with indices as mask
+            # test TrajectoryIterator with indices as mask
         indices = traj.top("@CA").selected_indices()
         for idx, f0 in enumerate(traj(mask=indices)):
             f1 = traj0_CA[idx]
@@ -32,14 +32,14 @@ class Test(unittest.TestCase):
             assert_almost_equal(f0.coords, f1.coords)
             #print(f0.rmsd(f1))
 
-        # test Trajectory
+            # test Trajectory
         for idx, f0 in enumerate(farray(mask='@CA')):
             f1 = traj0_CA[idx]
             #print(idx, f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
             #print(f0.rmsd(f1))
 
-        # test Trajectory with indices
+            # test Trajectory with indices
         for idx, f0 in enumerate(farray(mask=indices)):
             f1 = traj0_CA[idx]
             #print(idx, f0, f1)

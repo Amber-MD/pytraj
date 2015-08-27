@@ -7,7 +7,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
@@ -20,6 +19,7 @@ class Test(unittest.TestCase):
         # change after setting mass
         #print(f0.xyz)
         aa_eq(f0.xyz, traj[0].xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

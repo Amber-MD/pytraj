@@ -1,6 +1,7 @@
 from __future__ import print_function
 import pytraj as pt
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -29,8 +30,11 @@ class Test(unittest.TestCase):
         aa_eq(fa[4].coords, saved_frame.coords, decimal=1)
 
         fa2, dslist2 = pyca.closest(
-            traj, mask=":2,4 center", n_solvents=15,
+            traj,
+            mask=":2,4 center",
+            n_solvents=15,
             restype='all')
+
 
 if __name__ == "__main__":
     unittest.main()

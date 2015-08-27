@@ -68,7 +68,6 @@ class Test(unittest.TestCase):
         for f1, f2 in izip(farray_cp1, farray_cp2):
             assert f1.rmsd(f2) < 1E-3
 
-
     def test_2(self):
         if os.path.exists("./data/NuG2/test.x.000"):
             # do local test (not in travis) due to big file

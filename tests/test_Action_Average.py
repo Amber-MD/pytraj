@@ -42,7 +42,6 @@ class Test(unittest.TestCase):
         # test iter CA
         frame5 = get_average_frame(traj(1, 8, 2), '@CA', top=traj.top)
 
-
         # TODO: add cpptraj output here. For some reasons, I can not use 'average' with
         # @CA mask in cpptraj.
         #f5_saved = mdio.iterload("./data/avg.Tc5b.frame_2_to_8_skip_2.CA.pdb", traj.top)[0]

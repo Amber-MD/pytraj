@@ -6,6 +6,7 @@ def load(filename, shape=()):
     arr = np.loadtxt(filename, skiprows=1).flatten().reshape(shape)
     return arr
 
+
 if __name__ == "__main__":
     arr = load("./data/stripAllButCA.Tc5b.x", (10, 60))
     print(arr[0])

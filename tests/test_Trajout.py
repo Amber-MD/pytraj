@@ -1,4 +1,5 @@
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 import numpy as np
 from pytraj.base import *
 from pytraj.decorators import no_test
@@ -55,7 +56,7 @@ class TestTrajout(unittest.TestCase):
 
         #print(Trajout().formats)
 
-    #@no_test
+        #@no_test
     def test_2(self):
         """test open file writen from test_0"""
         farray = Trajectory()
@@ -63,7 +64,7 @@ class TestTrajout(unittest.TestCase):
         farray.load("./output/test.x")
         #print(farray.size)
 
-    #@no_test
+        #@no_test
     def test_3_write_PDBFILE(self):
         frame0 = farray[0]
         with Trajout(filename="./output/test_0.pdb",

@@ -1,5 +1,6 @@
 from __future__ import print_function
-import unittest; import pytraj as pt
+import unittest
+import pytraj as pt
 import pytraj as pt
 from pytraj.testing import run_docstring
 import pytraj.common_actions as pyca
@@ -15,12 +16,17 @@ def silly_doc_func():
 
 class Test(unittest.TestCase):
     def test_0(self):
-        for func in [pt.watershell, pt.distance, pt.angle, pt.dihedral,
-                     pt.dssp, pt.radgyr, pt.molsurf,
-                     pt.search_hbonds, pt.closest,
+        for func in [pt.watershell,
+                     pt.distance,
+                     pt.angle,
+                     pt.dihedral,
+                     pt.dssp,
+                     pt.radgyr,
+                     pt.molsurf,
+                     pt.search_hbonds,
+                     pt.closest,
                      pt.search_neighbors,
-                     pt.pairwise_rmsd,
-                     ]:
+                     pt.pairwise_rmsd, ]:
             run_docstring(func)
 
         run_docstring(silly_doc_func)

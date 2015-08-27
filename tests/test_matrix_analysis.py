@@ -27,6 +27,7 @@ matrix distcovar :1-4@CA out mtest.13.dat
 
 # return a list of non-blank lines
 command_list = list(filter(lambda x: x, cpptraj_trajin.split("\n")))
+
 #print(command_list)
 
 
