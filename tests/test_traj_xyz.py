@@ -15,14 +15,13 @@ class Test(unittest.TestCase):
             import numpy as np
             from numpy.testing import assert_almost_equal
             arr0 = traj.xyz
-            #print(arr0.shape)
             aa_eq(arr0, traj[:, :, :].xyz)
 
             # create Trajectory
             farray = traj[:]
             aa_eq(arr0, farray[:, :, :].xyz)
         else:
-            #print("need numpy. skip test")
+            pass
 
 
 if __name__ == "__main__":
