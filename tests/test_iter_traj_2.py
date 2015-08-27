@@ -77,7 +77,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(frame.coords, traj[6].coords)
 
         count = 0
-        for frame in traj[:].frame_iter():
+        for frame in traj[:].iterframe():
             count += 1
         #print("count = %s" % count)
         assert_almost_equal(frame.coords, traj[-1].coords)
