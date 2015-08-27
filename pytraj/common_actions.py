@@ -25,7 +25,6 @@ from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_atommask
 from .externals.six import string_types
 from .Frame import Frame
-#from .Trajectory import Trajectory
 from .AtomMask import AtomMask
 from .Topology import Topology
 from .datasets.DataSetList import DataSetList as CpptrajDatasetList
@@ -39,6 +38,7 @@ from ._shared_methods import _frame_iter_master
 from .externals.get_pysander_energies import get_pysander_energies
 from . import _long_manual
 from .decorators import noparallel
+#from .TrajectoryIterator import  TrajectoryIterator
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -1109,6 +1109,7 @@ def calc_pairwise_rmsd(traj=None,
                        top=None,
                        dtype='ndarray',
                        mat_type='full', *args, **kwd):
+    # TODO: segmentation fault for api.Trajectory if not copying
     """return 2D numpy array
 
     Parameters
@@ -1154,6 +1155,8 @@ def calc_pairwise_rmsd(traj=None,
     command = ' '.join((mask, metric))
 
     from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
+    from pytraj import TrajectoryIterator, Trajectory
+
     act = Analysis_Rms2d()
 
     dslist = CpptrajDatasetList()
@@ -1164,9 +1167,16 @@ def calc_pairwise_rmsd(traj=None,
     # need " " (space) before crdset too
     command = command + " crdset mylovelypairwisermsd rmsout mycrazyoutput"
 
+    if isinstance(traj, Trajectory):
+        will_be_copied = True
+    else:
+        will_be_copied = False
     # upload Frame to crdset
     for frame in _frame_iter_master(traj):
-        dslist[0].append(frame)
+        if will_be_copied:
+            dslist[0].append(frame.copy())
+        else:
+            dslist[0].append(frame)
 
     act(command, _top, dslist=dslist, *args, **kwd)
     # remove dataset coords to free memory

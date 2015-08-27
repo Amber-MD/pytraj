@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
 from pytraj.base import *
 from pytraj import adict
@@ -67,10 +68,10 @@ class Test(unittest.TestCase):
     def test_2(self):
         # test memory error
         traj = mdio.load("./data/Tc5b.crd", "./data/Tc5b.top")
-        dslist0 = traj.search_hbonds(update_legend=False)
+        dslist0 = pt.search_hbonds(traj, update_legend=False)
         expected_n_hbonds = 6
         assert dslist0.filter("UU").values[0] == expected_n_hbonds
-        assert traj.search_hbonds(update_legend=False).filter(
+        assert pt.search_hbonds(traj, update_legend=False).filter(
             "UU").values[0] == expected_n_hbonds
 
 

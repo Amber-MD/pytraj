@@ -402,3 +402,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
     @property
     def temperatures(self):
         return np.array([frame.temperature for frame in self])
+
+    def iselect(self, frame_indices):
+        return self._iterframe_indices(frame_indices)

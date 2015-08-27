@@ -269,7 +269,7 @@ def load_traj(filename=None,
 
 
 def _load_from_frame_iter(traj_frame_iter, top=None):
-    from .Trajectory import Trajectory
+    from .api import Trajectory
     if top is None or top.is_empty():
         if hasattr(traj_frame_iter, 'top'):
             top = traj_frame_iter.top
