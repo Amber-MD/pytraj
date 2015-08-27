@@ -136,8 +136,8 @@ def _frame_iter_master(obj):
     >>>     assert isinstance(frame, Frame) == True
     """
 
-    is_frame_iter_but_not_master = (is_frame_iter(obj) and not obj.__name__ is
-                                    '_frame_iter_master')
+    is_frame_iter_but_not_master = (
+        is_frame_iter(obj) and not obj.__name__ is '_frame_iter_master')
     if isinstance(obj, Frame):
         yield obj
     elif hasattr(obj, 'n_frames') or is_frame_iter_but_not_master:

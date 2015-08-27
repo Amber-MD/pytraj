@@ -59,7 +59,6 @@ def _turn_to_list_with_rank(func):
 
 
 class TrajectoryIterator(TrajectoryCpptraj):
-
     def __init__(self, filename=None, top=None, *args, **kwd):
         '''out-of-core trajectory holder.
 
@@ -309,7 +308,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             ref, mask_for_rmsfit = None, None
 
         for chunk in super(TrajectoryIterator, self).iterchunk(
-                chunksize, start, stop):
+            chunksize, start, stop):
             # always perform autoimage before doing fitting
             # chunk is `Trajectory` object, having very fast `autoimage` and
             # `rmsfit` methods
