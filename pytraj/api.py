@@ -631,9 +631,6 @@ class Trajectory(object):
              overwrite=True, *args, **kwd):
         _savetraj(self, filename, format, overwrite, *args, **kwd)
 
-    def frame_iter(self, *args, **kwd):
-        return self.frame_iter(*args, **kwd)
-
     def iterframe(self,
                   start=0,
                   stop=None,

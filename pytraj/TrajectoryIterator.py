@@ -73,10 +73,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
         >>> traj.load('./remd.x.003')
         '''
         self._force_load = False
-        # use self.chunk to store `chunk` in chunk_iter
+        # use self.chunk to store `chunk` in iterchunk
         # to deallocate memory
         self.chunk = None
-        # same as self.chunk but for frame_iter
+        # same as self.chunk but for iterframe
         self.frame = None
         # only allow to load <= 1000 Mb
         self._size_limit_in_MB = 1000
@@ -210,15 +210,15 @@ class TrajectoryIterator(TrajectoryCpptraj):
         from itertools import tee
         return tee(self, n_iters)
 
-    def frame_iter(self,
-                   start=0,
-                   stop=None,
-                   stride=1,
-                   mask=None,
-                   autoimage=False,
-                   rmsfit=None,
-                   copy=True,
-                   frame_indices=None):
+    def iterframe(self,
+                  start=0,
+                  stop=None,
+                  stride=1,
+                  mask=None,
+                  autoimage=False,
+                  rmsfit=None,
+                  copy=True,
+                  frame_indices=None):
         ''''''
 
         from .core.frameiter import FrameIter
@@ -252,7 +252,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 stop = get_positive_idx(stop, self.n_frames)
             n_frames = len(range(start, stop, stride))
             frame_iter_super = super(
-                TrajectoryIterator, self).frame_iter(start, stop, stride)
+                TrajectoryIterator, self).iterframe(start, stop, stride)
         else:
             stop = None
             start = None
@@ -275,11 +275,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
                          copy=copy,
                          frame_indices=frame_indices)
 
-    def iterframe(self, *args, **kwd):
-        '''create frame iterator. same as frameiter
-        '''
-        return self.frame_iter(*args, **kwd)
-
     def iterchunk(self,
                   chunksize=2,
                   start=0,
@@ -298,7 +293,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
         Examples
         --------
-            for chunk in trajiter.chunk_iter(100, autoimage=True, rmsfit=(ref0, '@CA'))
+            for chunk in trajiter.iterchunk(100, autoimage=True, rmsfit=(ref0, '@CA'))
         """
         if rmsfit is not None:
             ref, mask_for_rmsfit = rmsfit
@@ -386,12 +381,12 @@ class TrajectoryIterator(TrajectoryCpptraj):
             for (_start, _stop) in split_range(n_chunks=n_chunks,
                                                start=start,
                                                stop=stop):
-                yield self.frame_iter(start=_start,
-                                      stop=_stop,
-                                      stride=stride,
-                                      mask=mask,
-                                      autoimage=autoimage,
-                                      rmsfit=rmsfit)
+                yield self.iterframe(start=_start,
+                                     stop=_stop,
+                                     stride=stride,
+                                     mask=mask,
+                                     autoimage=autoimage,
+                                     rmsfit=rmsfit)
 
     def to_numpy_traj(self):
         '''experimental traj class. API might be changed'''

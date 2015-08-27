@@ -143,7 +143,7 @@ cdef class TrajectoryCpptraj:
         return self.__str__()
 
     def __call__(self, *args, **kwd):
-        return self.frame_iter(*args, **kwd)
+        return self.iterframe(*args, **kwd)
 
     def __iter__(self):
         '''iterately getting Frame instance
@@ -227,7 +227,7 @@ cdef class TrajectoryCpptraj:
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 
-    def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
+    def iterframe(self, int start=0, int stop=-1, int stride=1, mask=None):
         '''iterately get Frames with start, stop, stride 
         Parameters
         ---------
@@ -271,9 +271,6 @@ cdef class TrajectoryCpptraj:
                     self.thisptr.GetFrame(i, frame.thisptr[0], atm.thisptr[0])
                 yield frame
                 i += stride
-
-    def chunk_iter(self, *args, **kwd):
-        return self.iterchunk(*args, **kwd)
 
     def iterchunk(self, int chunksize=2, int start=0, int stop=-1):
         '''iterately get Frames with start, chunk
