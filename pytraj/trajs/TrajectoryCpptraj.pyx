@@ -160,7 +160,7 @@ cdef class TrajectoryCpptraj:
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 
-    def _to_np_traj_fast(self, int start, int stop, int stride):
+    def _to_nptraj_by_slice(self, int start, int stop, int stride):
         cdef int i, j
         cdef int n_atoms = self.n_atoms
         cdef Frame frame
@@ -184,6 +184,31 @@ cdef class TrajectoryCpptraj:
             traj.unitcells[j] = frame.box.data
             i += stride
             j += 1
+        return traj
+
+    def _to_nptraj_by_indices(self, indices):
+        '''indices is iterable that has __len__
+        '''
+        cdef int i, j
+        cdef int n_atoms = self.n_atoms
+        cdef Frame frame
+        cdef double[:, :, :] xyz
+        cdef int n_frames = len(indices)
+
+        traj = Trajectory()
+        traj._allocate(n_frames, n_atoms)
+        traj.unitcells = np.zeros((n_frames, 6), dtype='f8')
+        traj.top = self.top
+        xyz = traj.xyz[:]
+
+        frame = Frame(n_atoms, xyz[0], _as_ptr=True)
+        for j, i in enumerate(indices):
+            # use `frame` as a pointer pointing to `xyz` memory
+            # dump coords to xyz array
+            frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
+            # copy coordinates of `self[i]` to j-th frame in `traj`
+            self.thisptr.GetFrame(i, frame.thisptr[0])
+            traj.unitcells[j] = frame.box.data
         return traj
 
     property top:
@@ -313,6 +338,8 @@ cdef class TrajectoryCpptraj:
          cdef idxs_size
      
          if isinstance(idxs, AtomMask):
+             # atm = top('@CA')
+             # traj[atm]
              atom_mask_obj = <AtomMask> idxs
              _farray = Trajectory()
              _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
@@ -324,7 +351,7 @@ cdef class TrajectoryCpptraj:
              return self.tmpfarray
          elif isinstance(idxs, string_types):
              # return array with given mask
-             # traj[':@CA']
+             # traj['@CA']
              mask = idxs
              try:
                  return self[self.top(mask)]
@@ -333,7 +360,8 @@ cdef class TrajectoryCpptraj:
                  raise NotImplementedError(txt)
          elif isinstance(idxs, slice):
              start, stop, stride = idxs.indices(self.n_frames)
-             return self._to_np_traj_fast(start, stop, stride)
+             self.tmpfarray = self._to_nptraj_by_indices(range(start, stop, stride))
+             return self.tmpfarray
          else:
              # not is a slice
              if idxs == ():
@@ -366,30 +394,15 @@ cdef class TrajectoryCpptraj:
                          except:
                              raise NotImplementedError()
              elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                 farray = Trajectory()
-
-                 if isinstance(idxs, list):
-                     if isinstance(idxs[0], bool):
-                         if any(not isinstance(x, bool) for x in idxs):
-                             raise NotImplementedError("can not mix boolean with other type")
-                         idxs = np.array(idxs, dtype=bool)
-
-                 # turn of for now
-                 #if hasattr(idxs, 'dtype') and idxs.dtype.name == 'bool':
-                 #    farray.top = self.top
-                 #    for i in range(idxs.shape[0]):
-                 #        if idxs[i] == True:
-                 #            farray.append(self[i])
-                 else:
-                     # TODO: make it fast
-                     farray.top = self.top
-                     for i in idxs:
-                         farray.append(self[i])
-
-                 self.tmpfarray = farray
+                 # traj[[2, 6, 3]]
+                 # support indexing that having 'len'
+                 if any(isinstance(x, bool) for x in idxs):
+                     raise NotImplementedError("do not support bool indexing")
+                 self.tmpfarray = self._to_nptraj_by_indices(idxs)
                  return self.tmpfarray
 
              else:
+                 # traj[8]
                  # assuming that `idxs` is integer
                  idx_1 = <int> get_positive_idx(idxs, self.size)
                  # raise index out of range

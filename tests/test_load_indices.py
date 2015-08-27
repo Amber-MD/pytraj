@@ -18,17 +18,11 @@ class TestIndices(unittest.TestCase):
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")
         indices = slice(9, 6, -1)
-        traj0 = Trajectory()
-        traj0.load(filename="./data/md1_prod.Tc5b.x",
+
+        traj0 = pt.load(filename="./data/md1_prod.Tc5b.x",
                    top=Topology("./data/Tc5b.top"),
                    indices=indices)
-        # load whole traj
 
-        # check if loading correctly
-        # if 'True': wrong indexing
-        # we actually sorted indices before reading
-        # traj0[0] must has the same coords as [traj1[100]]
-        print(traj0)
         assert traj0[0].same_coords_as(traj1[9]) == True
         assert traj0[1].same_coords_as(traj1[8]) == True
         assert traj0[2].same_coords_as(traj1[7]) == True
@@ -44,7 +38,7 @@ class TestIndices(unittest.TestCase):
 
         # make sure we don't suport other indices
         traj2 = Trajectory()
-        traj2.load(filename="./data/md1_prod.Tc5b.x",
+        traj2 = pt.load(filename="./data/md1_prod.Tc5b.x",
                    top=Topology("./data/Tc5b.top"),
                    indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
         assert traj2[-1].coords == traj1[4].coords

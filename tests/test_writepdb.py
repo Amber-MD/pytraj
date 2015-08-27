@@ -41,8 +41,7 @@ class Test(unittest.TestCase):
             traj.save(basename, overwrite=True, mode="multi")
             for i in range(10):
                 fname = basename + "." + str(i + 1)  # cpptraj use `1`
-                #print(fname)
-                frame = mdio.load(fname, traj.top)[0]
+                frame = mdio.iterload(fname, traj.top)[0]
                 aa_eq(frame.xyz, traj[i].xyz)
 
         # multiple pdb in multiple files, using `mdio.write_traj`
@@ -52,7 +51,7 @@ class Test(unittest.TestCase):
             for i in range(10):
                 fname = basename + "." + str(i + 1)  # cpptraj use `1`
                 #print(fname)
-                frame = mdio.load(fname, traj.top)[0]
+                frame = pt.iterload(fname, traj.top)[0]
                 aa_eq(frame.xyz, traj[i].xyz)
 
         # multiple pdb in SINGLE file

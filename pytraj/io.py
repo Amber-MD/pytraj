@@ -207,6 +207,7 @@ def load_traj(filename=None,
               indices=None,
               engine='pytraj', *args, **kwd):
     """load trajectory from filename
+
     Parameters
     ----------
     filename : str
@@ -246,11 +247,9 @@ def load_traj(filename=None,
             ts.load(filename)
 
         if indices is not None:
-            farray = Trajectory()
-            farray.top = top.copy()
-            for i in indices:
-                farray.append(ts[i])
-            return farray
+            if isinstance(indices, tuple):
+                indices = list(indices)
+            return ts[indices]
         elif is_frame_iter(filename):
             return _load_from_frame_iter(filename, top)
         else:

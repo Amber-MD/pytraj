@@ -14,9 +14,6 @@ class Test(unittest.TestCase):
         assert to_amber_mask(
             ['ASP_16@OD1-ARG_18@N-H', 'ASP_16@OD1-ARG_18@N-H'
              ]) == saved_mask_list
-        #print(
-            to_amber_mask(['ASP_16@OD1-ARG_18@N-H', 'ASP_16@OD1-ARG_18@N-H']))
-
 
 if __name__ == "__main__":
     unittest.main()
