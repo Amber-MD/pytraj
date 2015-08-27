@@ -20,10 +20,12 @@ class Test(unittest.TestCase):
         assert isinstance(traj1, Trajectory)
 
         # check same coords
+        ref = traj0[0]
+
         for f0, f1 in zip(traj0(autoimage=True,
-                                rmsfit=(3, '@CA,C,N')),
+                                rmsfit=(ref, '@CA,C,N')),
                           traj1(autoimage=True,
-                                rmsfit=(3, '@CA,C,N'))):
+                                rmsfit=(ref, '@CA,C,N'))):
             assert f0.same_coords_as(f1)
             assert f0.rmsd_nofit(f1) == 0.
 

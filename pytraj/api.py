@@ -631,16 +631,16 @@ class Trajectory(object):
              overwrite=True, *args, **kwd):
         _savetraj(self, filename, format, overwrite, *args, **kwd)
 
-    def iterframe(self, *args, **kwd):
+    def frame_iter(self, *args, **kwd):
         return self.frame_iter(*args, **kwd)
 
-    def frame_iter(self,
-                   start=0,
-                   stop=None,
-                   stride=1,
-                   mask=None,
-                   autoimage=False,
-                   rmsfit=None):
+    def iterframe(self,
+                  start=0,
+                  stop=None,
+                  stride=1,
+                  mask=None,
+                  autoimage=False,
+                  rmsfit=None):
 
         from pytraj.core.frameiter import FrameIter
 
@@ -676,7 +676,7 @@ class Trajectory(object):
         # make sure `range` return iterator
         n_frames = len(range(start, stop, stride))
 
-        frame_iter_super = itertools.islice(self, start, stop, stride)
+        frame_iter_super = itertools.islice(self.__iter__(), start, stop, stride)
 
         return FrameIter(frame_iter_super,
                          original_top=self.top,

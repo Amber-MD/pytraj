@@ -1,4 +1,5 @@
 import unittest
+import pytraj as pt
 from pytraj import io as mdio
 from pytraj import Trajectory
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
@@ -47,8 +48,6 @@ class Test(unittest.TestCase):
         aa_eq(traj[0, atm, 0], fa[0][atm, 0])
         aa_eq(traj[0, atm, 0], xyz[0][indices][0])
         aa_eq(traj[0, '@CA', 0], xyz[0][indices][0])
-
-        aa_eq(fa[0, '@CA'].xyz, fa['@CA'][0].xyz)
 
 
 if __name__ == "__main__":

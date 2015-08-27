@@ -4,6 +4,8 @@ import numpy as np
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.compat import zip
+from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
@@ -28,12 +30,16 @@ class Test(unittest.TestCase):
 
         assert_almost_equal(traj[-1].coords, frame0.coords)
 
-        for frame0 in farray.iterframe(2, 8, 4):
-            pass
+        start, stop, step = 2, 8, 4
+        indices = list(range(start, stop, step))
+
+        for idx, frame0, f in zip(indices, farray.iterframe(start, stop, step), traj[indices]):
+            aa_eq(frame0.xyz, f.xyz)
+        print(frame0.xyz, traj[6].xyz)
         assert_almost_equal(traj[6].coords, frame0.coords)
 
         for frame0 in farray.iterframe(start=2, stride=4, stop=8):
-            pass
+            frame0.xyz
         assert_almost_equal(traj[6].coords, frame0.coords)
 
         for frame0 in farray.iterframe(start=2, stride=2):
