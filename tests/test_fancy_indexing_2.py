@@ -48,6 +48,8 @@ class Test(unittest.TestCase):
         aa_eq(traj[0, atm, 0], xyz[0][indices][0])
         aa_eq(traj[0, '@CA', 0], xyz[0][indices][0])
 
+        aa_eq(fa[0, '@CA'].xyz, fa['@CA'][0].xyz)
+
 
 if __name__ == "__main__":
     unittest.main()
