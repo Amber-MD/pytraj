@@ -16,7 +16,6 @@ class Test(unittest.TestCase):
         fa = traj[:]
         # load 2 frames
         saved_traj = mdio.load("./data/tz2.center_mass.nc", traj.top)
-        fa.set_frame_mass()
         fa.center(":1 mass")
 
         aa_eq(fa[:2].xyz, saved_traj.xyz, decimal=5)

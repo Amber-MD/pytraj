@@ -1,16 +1,15 @@
 import unittest
+import pytraj as pt
 from time import time
-from pytraj.base import *
 from pytraj import allactions
-from pytraj import io as mdio
 from pytraj import adict
+from pytraj.base import *
 
 
 class TestActionList(unittest.TestCase):
     def test_run_0(self):
         # load traj
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        #print(traj)
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = DataSetList()
         dflist = DataFileList()
 
@@ -32,26 +31,17 @@ class TestActionList(unittest.TestCase):
         # does not work with `strip` (output traj have the same n_atoms as originl traj)
         #alist.add_action("strip", "!CA", traj.top)
         alist.add_action("outtraj", "./output/test_trajout.nc", traj.top)
-        alist.do_actions([traj[0], traj[1], traj, traj.chunk_iter(chunksize=4,
+        alist.do_actions([traj[[0, 1]], traj, traj.chunk_iter(chunksize=4,
                                                                   stop=8),
                           traj.frame_iter()])
-        Nframes = 1 + 1 + traj.n_frames + 9 + traj.n_frames
+        Nframes = 1 + 1 + traj.n_frames + 8 + traj.n_frames
         dflist.write_all_datafiles()
-        #print(dslist.size)
-        #print(dslist[0][:])
-        #print(dslist[1][:])
-        #print(dslist.get_dataset(dtype='integer'))
-        traj2 = mdio.iterload("./output/test_trajout.nc", traj.top)
-        #print(traj.n_frames)
-        #print('test_trajout.nc has %s frames' % traj2.n_frames)
-        #print(traj2[0].n_atoms)
-        #print(traj2.n_frames)
+        traj2 = pt.iterload("./output/test_trajout.nc", traj.top)
         assert traj2.n_frames == Nframes
 
     def test_run_1(self):
         # load traj
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        #print(traj)
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = DataSetList()
         dflist = DataFileList()
 
@@ -66,8 +56,7 @@ class TestActionList(unittest.TestCase):
 
     def test_run_1(self):
         # load traj
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        #print(traj)
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = DataSetList()
         dflist = DataFileList()
 
