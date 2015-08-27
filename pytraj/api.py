@@ -398,7 +398,8 @@ class Trajectory(object):
     def join(self, other):
         if isinstance(other, Trajectory):
             self.append_xyz(other.xyz)
-            self._append_unitcells(other.unitcells)
+            if self.unitcells is not None and other.unitcells is not None:
+                self._append_unitcells(other.unitcells)
         else:
             ValueError()
 

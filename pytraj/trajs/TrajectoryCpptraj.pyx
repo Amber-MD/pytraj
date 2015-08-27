@@ -161,29 +161,27 @@ cdef class TrajectoryCpptraj:
             yield frame
 
     def _to_np_traj_fast(self, int start, int stop, int stride):
-        cdef int i = start
+        cdef int i, j
         cdef int n_atoms = self.n_atoms
         cdef Frame frame
         cdef double[:, :, :] xyz
-        cdef int j = 0
         cdef int n_frames = len(range(start, stop, stride))
 
-        from pytraj.api import Trajectory
-        import numpy as np
         traj = Trajectory()
         traj._allocate(n_frames, n_atoms)
         traj.unitcells = np.zeros((n_frames, 6), dtype='f8')
-        # make a copy?
         traj.top = self.top
-        # view
         xyz = traj.xyz[:]
 
+        frame = Frame(n_atoms, xyz[0], _as_ptr=True)
+        i = start
+        j = 0
         while i < stop:
             # use `frame` as a pointer pointing to `xyz` memory
-            frame = Frame(n_atoms, xyz[j], _as_ptr=True)
             # dump coords to xyz array
+            frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
             self.thisptr.GetFrame(i, frame.thisptr[0])
-            traj.unitcells[j] = frame.box.to_ndarray()
+            traj.unitcells[j] = frame.box.data
             i += stride
             j += 1
         return traj
@@ -325,11 +323,8 @@ cdef class TrajectoryCpptraj:
              # hold _farray in self.tmpfarray to avoid memory lost
              return self.tmpfarray
          elif isinstance(idxs, string_types):
-             # mimic API of MDtraj
              # return array with given mask
              # traj[':@CA']
-             # traj[':@CA :frame']
-             # use `mask` to avoid confusion
              mask = idxs
              try:
                  return self[self.top(mask)]
@@ -377,14 +372,14 @@ cdef class TrajectoryCpptraj:
                      if isinstance(idxs[0], bool):
                          if any(not isinstance(x, bool) for x in idxs):
                              raise NotImplementedError("can not mix boolean with other type")
-                         import numpy as np
                          idxs = np.array(idxs, dtype=bool)
 
-                 if hasattr(idxs, 'dtype') and idxs.dtype.name == 'bool':
-                     farray.top = self.top
-                     for i in range(idxs.shape[0]):
-                         if idxs[i] == True:
-                             farray.append(self[i], copy=True)
+                 # turn of for now
+                 #if hasattr(idxs, 'dtype') and idxs.dtype.name == 'bool':
+                 #    farray.top = self.top
+                 #    for i in range(idxs.shape[0]):
+                 #        if idxs[i] == True:
+                 #            farray.append(self[i])
                  else:
                      # TODO: make it fast
                      farray.top = self.top

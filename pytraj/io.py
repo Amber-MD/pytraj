@@ -1,4 +1,6 @@
 from __future__ import absolute_import
+import numpy as np
+
 from .externals.six import string_types, PY3
 from .datafiles.load_sample_data import load_sample_data
 from .utils.check_and_assert import ensure_exist, is_frame_iter
@@ -511,18 +513,17 @@ save = write_traj
 save_traj = write_traj
 
 
-def get_coordinates(an_object, top=None):
-    '''return 3D-ndarray coordinates of `an_object`
+def get_coordinates(iterables):
+    '''return 3D-ndarray coordinates of `iterables`, shape=(n_frames, n_atoms, 3)
+
     Parameters
     ----------
-    an_object : could be anything having Frame info
+    iterables : could be anything having Frame info
         a Trajectory, TrajectoryIterator,
         a frame_iter, FrameIter, ...
-    top : optional Topology if `an_object` does not have this information
-
-        This method is designed to load coordinates with minimum memory requirement
     '''
-    if hasattr(an_object, 'xyz'):
-        return an_object.xyz[:]
-    elif is_frame_iter(an_object):
-        return _load_from_frame_iter(an_object, top=top).xyz[:]
+    if hasattr(iterables, 'xyz'):
+        return iterables.xyz[:]
+    else:
+        # try to iterate to get coordinates
+        return np.array([frame.xyz.copy() for frame in _frame_iter_master(iterables)])
