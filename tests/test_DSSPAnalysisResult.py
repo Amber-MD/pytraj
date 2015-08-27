@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         import numpy as np
         # just want to test if no error raised
         p = pt.load_pdb_rcsb("1l2y")
-        d = p.calc_dssp(dtype='_dssp_class')
+        d = pt.dssp(p, dtype='_dssp_class')
         d.average()
         d.to_ndarray()
         d.to_ndarray('string')
