@@ -35,7 +35,7 @@ def _split_and_write_traj(self,
                           root_name="trajx",
                           ext='nc', *args, **kwd):
     chunksize = self.n_frames // n_chunks
-    for idx, traj in enumerate(self.chunk_iter(chunksize=chunksize)):
+    for idx, traj in enumerate(self.iterchunk(chunksize=chunksize)):
         fname = ".".join((root_name, str(idx), ext))
         traj.save(fname, *args, **kwd)
 
@@ -132,7 +132,7 @@ def _frame_iter_master(obj):
     >>> for frame in _frame_iter_master(traj): assert isinstance(frame, Frame) == True
     >>> for frame in _frame_iter_master([traj,]): assert isinstance(frame, Frame) == True
     >>> for frame in _frame_iter_master([traj, traj[0]]): assert isinstance(frame, Frame) == True
-    >>> for frame in _frame_iter_master([traj.frame_iter(), traj.chunk_iter()]): 
+    >>> for frame in _frame_iter_master([traj.iterframe(), traj.iterchunk()]): 
     >>>     assert isinstance(frame, Frame) == True
     """
 
@@ -146,7 +146,7 @@ def _frame_iter_master(obj):
             yield frame
     else:
         try:
-            # list, tuple, TrajinList, chunk_iter
+            # list, tuple, TrajinList, iterchunk
             for traj_obj in obj:
                 if isinstance(traj_obj, Frame):
                     frame = traj_obj

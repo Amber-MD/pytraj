@@ -165,6 +165,8 @@ class Trajectory(object):
         Notes
         -----
         update frame view will update Trajectory.xyz too
+        if want to use listcomp, need to make copy for every frame
+        >>> [frame.copy() for frame in traj]
 
         Examples
         --------
@@ -214,6 +216,9 @@ class Trajectory(object):
 
         >>> # get a copy, keep only CA atoms for 3 frames
         >>> t0[:3, '@CA']
+
+        >>> # get a new stripped Frame
+        >>> t0[0, '@CA']
         """
         if is_int(idx):
             # traj[0]

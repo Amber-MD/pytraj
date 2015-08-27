@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
         assert traj.n_frames == t.n_frames * 2 + 1
 
         # append frame_iter
-        traj.append(t.frame_iter())
+        traj.append(t.iterframe())
         assert traj.n_frames == t.n_frames * 3 + 1
 
         # append _frame_iter_master
