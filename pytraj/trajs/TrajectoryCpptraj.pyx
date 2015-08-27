@@ -377,6 +377,7 @@ cdef class TrajectoryCpptraj:
                          # traj[0, '@CA']
                          atm = self.top(idx1)
                          self.tmpfarray = Frame(frame, atm)
+                         return self.tmpfarray
                      else:
                          frame.top = self.top
                          return self.tmpfarray[idxs[1:]]
