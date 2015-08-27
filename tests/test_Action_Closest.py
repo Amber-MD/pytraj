@@ -9,8 +9,6 @@ from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 
-pt.set_cpptraj_verbose()
-
 
 class Test(unittest.TestCase):
     @test_if_path_exists(cpptraj_test_dir)
@@ -21,7 +19,6 @@ class Test(unittest.TestCase):
 
         import numpy as np
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        #print(traj.top)
         # use "info("closest") to see its doc (from pytraj import info;
         # info("closest"))
         fa = pyca.closest(traj, ":2,4 center", n_solvents=100)
@@ -29,7 +26,6 @@ class Test(unittest.TestCase):
         saved_frame = mdio.iterload(pdb_file, pdb_file)[0]
 
         # cpptraj did test for 5-th frame (index starts from 1)
-        #print(fa[4].rmsd(saved_frame))
         aa_eq(fa[4].coords, saved_frame.coords, decimal=1)
 
         fa2, dslist2 = pyca.closest(

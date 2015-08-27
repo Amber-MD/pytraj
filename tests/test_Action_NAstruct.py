@@ -13,31 +13,24 @@ class Test(unittest.TestCase):
     def test_0(self):
         fn = "./data/Test_NAstruct/adh026.3.pdb"
         traj = mdio.iterload(fn, fn)
-        #print(traj)
 
         dslist = DataSetList()
         act = adict['nastruct']
         act("", traj, dslist=dslist)
-        act.#print_output()
-        #print(dslist.size)
+        act.print_output()
 
         d0 = dslist[0]
+
         for d0 in dslist:
-            #print(d0)
+            pass
 
         dsmall = dslist.get_dataset(dtype='float')
         ds_int = dslist.get_dataset(dtype='integer')
 
         import numpy as np
         dsmall = np.asarray(dsmall)
-        #print(dsmall.shape)
 
-        #print(dslist.get_legends())
-        #print(dslist['2G15C-3G14C'][:])
-        #print(dslist['1G16C'])
-        #print('traj.n_frames = %s' % traj.n_frames)
 
-        #print(ds_int)
 
     def test_1(self):
         from pytraj.common_actions import nastruct
@@ -50,7 +43,6 @@ class Test(unittest.TestCase):
         for i in range(100):
             dslist = nastruct(traj, dtype='dataset')
             assert dslist.size == dsize
-        #print(dslist.filter("major", mode='aspect'))
 
 
 if __name__ == "__main__":
