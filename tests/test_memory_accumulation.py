@@ -42,9 +42,9 @@ for traj in tlist:
             chunk.strip_atoms(':WAT')
 
     @profile
-    def test_chunk_iter(chunksize=100):
+    def test_iterchunk(chunksize=100):
         # OK
-        for chunk in traj.chunk_iter(chunksize=chunksize):
+        for chunk in traj.iterchunk(chunksize=chunksize):
             pass
 
     @profile
@@ -66,9 +66,9 @@ for traj in tlist:
             pass
 
     @profile
-    def test_autoimage_chunk_iter_0(chunksize=100):
+    def test_autoimage_iterchunk_0(chunksize=100):
         # OK
-        for chunk in traj.chunk_iter(chunksize=chunksize):
+        for chunk in traj.iterchunk(chunksize=chunksize):
             chunk.autoimage()
 
     @profile
@@ -118,8 +118,8 @@ for traj in tlist:
         test_autoimage,
         test_autoimage_regular,
         test_translate_regular,
-        test_chunk_iter,
-        test_autoimage_chunk_iter_0,
+        test_iterchunk,
+        test_autoimage_iterchunk_0,
     ]
 
     estimated_MB = traj._estimated_MB
