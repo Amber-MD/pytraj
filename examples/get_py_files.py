@@ -8,6 +8,7 @@ testlist = glob("*.py")
 # remove ./run_all_and_find_fails.py to avoid infinite loops
 remove_list = ['run_all_and_find_fails.py', 'get_py_files.py',
                'example_calculate_chi_angle.py',
+               'example_randomize_ions.py',
                'example_load_file_from_url.py']
 
 for key in remove_list:
