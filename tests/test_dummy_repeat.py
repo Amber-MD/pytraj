@@ -1,6 +1,7 @@
 """This file is dedicated for repeating the same command, actions ...
 to make sure there is no segmentation fault, no memory error"""
 from __future__ import print_function
+import pytraj as pt
 import unittest
 from pytraj.base import *
 from pytraj import adict
@@ -55,7 +56,7 @@ class Test(unittest.TestCase):
     def test_3(self):
         #print("repeat to_dict")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        d0 = traj.search_hbonds(dtype='dataset')
+        d0 = pt.search_hbonds(traj, dtype='dataset')
         ddcit = d0.to_dict()
 
         for i in range(100):
