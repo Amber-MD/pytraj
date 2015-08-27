@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
 
         # frame_iter
         for frame in traj(autoimage=True):
-            fa2.append(frame, copy=True)
+            fa2.append(frame)
 
         aa_eq(fa1.xyz, fa2.xyz)
 
@@ -40,7 +40,7 @@ class Test(unittest.TestCase):
         fa4.top = fa3.top.copy()
 
         for frame in traj(mask='@CA', autoimage=True):
-            fa4.append(frame, copy=True)
+            fa4.append(frame)
 
         #print(fa3, fa4)
         #print(fa3.top, fa4.top)
@@ -61,7 +61,7 @@ class Test(unittest.TestCase):
 
         ref1 = traj[5].copy()
         for frame in traj(mask='@CA', autoimage=True, rmsfit=(ref1, '@CB')):
-            fa4.append(frame, copy=True)
+            fa4.append(frame)
 
         #print(fa3, fa4)
         aa_eq(fa3.xyz, fa4.xyz)

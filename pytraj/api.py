@@ -252,6 +252,15 @@ class Trajectory(object):
                 # is a tuple
                 if len(idx) == 1:
                     traj = self[idx[0]]
+                elif len(idx) == 2 and is_int(idx[0]) and isinstance(idx[1],
+                        string_types):
+                    # traj[0, '@CA']: return a stripped Frame
+                    frame = self[idx[0]].copy()
+                    # make AtomMask object
+                    atm = self.top(idx[1])
+                    # create new Frame with AtomMask
+                    self._life_holder = Frame(frame, atm)
+                    return self._life_holder
                 else:
                     self._life_holder = self[idx[0]]
                     if isinstance(self._life_holder, Frame):
