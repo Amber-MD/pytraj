@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         d0 = calc_molsurf(
             mask="@CA",
             traj=(
-                traj, traj[:2], traj[:], traj.frame_iter(), traj[0]),
+                traj, traj[:2], traj[:], traj.iterframe(), traj[0]),
             dtype='dataset')
         assert d0[0].size == 33
 

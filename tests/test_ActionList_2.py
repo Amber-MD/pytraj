@@ -33,7 +33,7 @@ class TestActionList(unittest.TestCase):
         alist.add_action("outtraj", "./output/test_trajout.nc", traj.top)
         alist.do_actions([traj[[0, 1]], traj, traj.chunk_iter(chunksize=4,
                                                                   stop=8),
-                          traj.frame_iter()])
+                          traj.iterframe()])
         Nframes = 1 + 1 + traj.n_frames + 8 + traj.n_frames
         dflist.write_all_datafiles()
         traj2 = pt.iterload("./output/test_trajout.nc", traj.top)
@@ -50,7 +50,7 @@ class TestActionList(unittest.TestCase):
         alist.add_action(adict['distance'],
                          ":2@CA :10@CA out ./output/_dist.out", traj.top,
                          dslist, dflist)
-        alist.do_actions(traj.frame_iter())
+        alist.do_actions(traj.iterframe())
         assert dslist.size == 1
         assert dslist[0].size == traj.size
 

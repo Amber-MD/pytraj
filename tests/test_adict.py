@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         #print(act.n_frames)
         assert act.n_frames == 24
 
-        act("@CA", (traj, traj(1, 5, 1), traj.frame_iter(stride=2)), traj.top)
+        act("@CA", (traj, traj(1, 5, 1), traj.iterframe(stride=2)), traj.top)
         #print(act.n_frames)
         assert act.n_frames == 43
 

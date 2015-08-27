@@ -9,22 +9,22 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        for i, frame in enumerate(traj.frame_iter(1, 6, 2)):
+        for i, frame in enumerate(traj.iterframe(1, 6, 2)):
             pass
 
         assert i == 2
 
-        for i, frame in enumerate(traj.frame_iter(1, 5, 1)):
+        for i, frame in enumerate(traj.iterframe(1, 5, 1)):
             pass
 
         assert i == 3
 
-        for i, frame in enumerate(traj.frame_iter(stop=8)):
+        for i, frame in enumerate(traj.iterframe(stop=8)):
             pass
 
         assert i == 7
 
-        for i, frame in enumerate(traj.frame_iter(start=7, stop=8)):
+        for i, frame in enumerate(traj.iterframe(start=7, stop=8)):
             pass
 
         assert i == 0
@@ -36,14 +36,14 @@ class Test(unittest.TestCase):
         act.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
         act.process(traj.top)
 
-        for frame in traj.frame_iter(stop=5):
+        for frame in traj.iterframe(stop=5):
             act.do_action(frame)
 
         dslist = DataSetList()
         act2 = adict['distance']
         act2.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
         act2.process(traj.top)
-        act2.do_action(traj.frame_iter(stop=5))
+        act2.do_action(traj.iterframe(stop=5))
         assert act2.n_frames == 5
 
 

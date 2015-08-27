@@ -63,13 +63,13 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         count = 0
-        for frame in traj.frame_iter():
+        for frame in traj.iterframe():
             count += 1
         #print("count = %s" % count)
         assert_almost_equal(frame.coords, traj[-1].coords)
 
         count = 0
-        for frame in traj.frame_iter(2, 8, 2):
+        for frame in traj.iterframe(2, 8, 2):
             count += 1
         #print("count = %s" % count)
         assert count == 3

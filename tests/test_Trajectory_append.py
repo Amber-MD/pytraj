@@ -45,7 +45,7 @@ class Test(unittest.TestCase):
         assert traj.n_frames == NFrames * 2
 
         # append itself frame_iter
-        traj.append(traj.frame_iter(stop=2))
+        traj.append(traj.iterframe(stop=2))
         assert traj.n_frames == NFrames * 2 + 2
 
         # append _frame_iter_master for itself
