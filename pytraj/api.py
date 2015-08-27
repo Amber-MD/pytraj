@@ -170,11 +170,26 @@ class Trajectory(object):
         --------
         >>> for frame in traj: print(frame)
         """
+        indices = range(self.n_frames)
+        return self._iterframe_indices(indices)
+
+    def _iterframe_indices(self, indices):
+        """return a Frame view of coordinates
+
+        Notes
+        -----
+        update frame view will update Trajectory.xyz too
+
+        Examples
+        --------
+        >>> for frame in traj: print(frame)
+        """
 
         if self._boxes is None:
-            return _fast_iterptr(self.xyz, self.n_atoms)
+            return _fast_iterptr(self.xyz, self.n_atoms, indices)
         else:
-            return _fast_iterptr_withbox(self.xyz, self._boxes, self.n_atoms)
+            return _fast_iterptr_withbox(self.xyz, self._boxes, self.n_atoms,
+                    indices)
 
     def __getitem__(self, idx):
         """return a view or copy of coordinates (follow numpy's rule)
@@ -637,6 +652,7 @@ class Trajectory(object):
                   stride=1,
                   mask=None,
                   autoimage=False,
+                  frame_indices=None,
                   rmsfit=None):
 
         from pytraj.core.frameiter import FrameIter
@@ -663,17 +679,24 @@ class Trajectory(object):
                 rmsfit = ([self[index], rmsfit[1]])
 
         # check how many frames will be calculated
-        if stop is None or stop >= self.n_frames:
-            stop = self.n_frames
-        elif stop < 0:
-            stop = get_positive_idx(stop, self.n_frames)
+        if frame_indices is None:
+            if stop is None or stop >= self.n_frames:
+                stop = self.n_frames
+            elif stop < 0:
+                stop = get_positive_idx(stop, self.n_frames)
+            else:
+                stop = stop
+
+            # make sure `range` return iterator
+            indices = range(start, stop, stride)
+            n_frames = len(indices)
         else:
-            stop = stop
+            # frame_indices is not None
+            start, stop, stride = None, None, None
+            n_frames = len(frame_indices)
+            indices = frame_indices
 
-        # make sure `range` return iterator
-        n_frames = len(range(start, stop, stride))
-
-        frame_iter_super = itertools.islice(self.__iter__(), start, stop, stride)
+        frame_iter_super = self._iterframe_indices(indices)
 
         return FrameIter(frame_iter_super,
                          original_top=self.top,
