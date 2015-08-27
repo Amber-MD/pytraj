@@ -25,27 +25,21 @@ class Test(unittest.TestCase):
         # creat mutable Trajectory
         traj = mdio.iterload("./data/DOPC.rst7", "./data/DOPC.parm7")
         farray = traj[:]
-        #print(farray)
 
         # centering
         f0 = farray[0].copy()
-        #print(f0.tolist()[:10])
         center = adict['center']
         center('":PC | :OL | :OL2" origin', farray)
         f0 = farray[0].copy()
-        #print(f0.tolist()[:10])
 
         # do action
         act = adict['density']
         dslist = DataSetList()
         act(command, farray, dslist=dslist)
         act.print_output()
-        #print(dslist.size)
 
     @test_if_path_exists(test_density_dir)
     def test_1(self):
-        from pytraj import set_world_silent
-        set_world_silent(False)
         import pytraj.common_actions as pyca
         from pytraj.common_actions import calculate
         traj = mdio.iterload("./data/DOPC.rst7", "./data/DOPC.parm7")
@@ -53,7 +47,6 @@ class Test(unittest.TestCase):
         fa.center('":PC | :OL | :OL2" origin')
         command = 'mass delta 0.25 ":PC@P31" ":PC@N31" ":PC@C2" ":PC | :OL | :OL2"'
         dslist = pyca.calc_density(traj, command)
-        #print(dslist)
 
 
 if __name__ == "__main__":
