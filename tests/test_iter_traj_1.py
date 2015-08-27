@@ -35,11 +35,6 @@ class Test(unittest.TestCase):
 
         for idx, frame0, f in zip(indices, farray.iterframe(start, stop, step), traj[indices]):
             aa_eq(frame0.xyz, f.xyz)
-        print(frame0.xyz, traj[6].xyz)
-        assert_almost_equal(traj[6].coords, frame0.coords)
-
-        for frame0 in farray.iterframe(start=2, stride=4, stop=8):
-            frame0.xyz
         assert_almost_equal(traj[6].coords, frame0.coords)
 
         for frame0 in farray.iterframe(start=2, stride=2):
@@ -135,7 +130,7 @@ class Test(unittest.TestCase):
             pass
         assert frame.n_atoms == traj[0].n_atoms
 
-    def test_2(self):
+    def testIterWithMask(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         for frame in farray(mask='@CA'):

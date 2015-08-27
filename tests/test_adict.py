@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
 
         act("",
             current_frame=(
-                traj, traj(1, 5, 1), traj.chunk_iter(chunksize=2)),
+                traj, traj(1, 5, 1), traj.iterchunk(chunksize=2)),
             top=traj.top)
         #print(act.n_frames)
         assert act.n_frames == 24
@@ -30,7 +30,7 @@ class Test(unittest.TestCase):
         #print(act.n_frames)
         assert act.n_frames == 43
 
-        act("@CA", traj.chunk_iter(), traj.top)
+        act("@CA", traj.iterchunk(), traj.top)
         assert act.n_frames == 53
 
 

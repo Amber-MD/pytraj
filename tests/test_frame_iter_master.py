@@ -77,14 +77,14 @@ class Test(unittest.TestCase):
 
         #print("iter chunk_iter")
         i = 0
-        for frame in _frame_iter_master(traj.chunk_iter()):
+        for frame in _frame_iter_master(traj.iterchunk()):
             i += 1
             assert isinstance(frame, Frame)
         assert i == traj.n_frames
 
         #print("list of chunk_iter")
         i = 0
-        for frame in _frame_iter_master([traj.chunk_iter(), ]):
+        for frame in _frame_iter_master([traj.iterchunk(), ]):
             i += 1
             assert isinstance(frame, Frame)
         assert i == traj.n_frames

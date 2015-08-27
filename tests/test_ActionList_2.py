@@ -31,7 +31,7 @@ class TestActionList(unittest.TestCase):
         # does not work with `strip` (output traj have the same n_atoms as originl traj)
         #alist.add_action("strip", "!CA", traj.top)
         alist.add_action("outtraj", "./output/test_trajout.nc", traj.top)
-        alist.do_actions([traj[[0, 1]], traj, traj.chunk_iter(chunksize=4,
+        alist.do_actions([traj[[0, 1]], traj, traj.iterchunk(chunksize=4,
                                                               stop=8),
                           traj.iterframe()])
         Nframes = 1 + 1 + traj.n_frames + 8 + traj.n_frames
@@ -65,7 +65,7 @@ class TestActionList(unittest.TestCase):
         alist.add_action(adict['distance'],
                          ":2@CA :10@CA out ./output/_dist.out", traj.top,
                          dslist, dflist)
-        alist.do_actions([traj.chunk_iter()])
+        alist.do_actions([traj.iterchunk()])
         assert dslist.size == 1
         assert dslist[0].size == traj.size
 

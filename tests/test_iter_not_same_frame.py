@@ -20,10 +20,10 @@ class Test(unittest.TestCase):
         aa_eq(pt.molsurf([f for f in traj()], top=traj.top), pt.molsurf(traj))
 
         # chunk_iter: need to explicitly copy
-        # aa_eq(pt.molsurf([f for f in traj.chunk_iter(3)], top=traj.top),
+        # aa_eq(pt.molsurf([f for f in traj.iterchunk(3)], top=traj.top),
         #       pt.molsurf(traj))
 
-        aa_eq(pt.molsurf([f.copy() for f in traj.chunk_iter(3)],
+        aa_eq(pt.molsurf([f.copy() for f in traj.iterchunk(3)],
                          top=traj.top), pt.molsurf(traj))
 
         # split_iterators
