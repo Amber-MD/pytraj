@@ -209,6 +209,27 @@ def set_cpptraj_verbose(cm=True):
 
 set_world_silent(True)
 
+def iterframe(traj, *args, **kwd):
+    """
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> for frame in pt.iterframe(traj, 0, 8, 2): print(frame)
+    >>> for frame in pt.iterframe(traj, 0, 8, 2, mask='@CA'): print(frame)
+    """
+    return traj.iterframe(*args, **kwd)
+
+def iterchunk(traj, *args, **kwd):
+    """
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> for chunk in pt.iterchunk(traj, 4): print(chunk)
+    >>> for chunk in pt.iterframe(traj, 4, mask='@CA'): print(chunk)
+    """
+    return traj.iterchunk(*args, **kwd)
 
 def show():
     # just delay importing

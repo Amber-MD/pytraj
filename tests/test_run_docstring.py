@@ -16,7 +16,9 @@ def silly_doc_func():
 
 class Test(unittest.TestCase):
     def test_0(self):
-        for func in [pt.watershell,
+        for func in [pt.iterframe,
+                     pt.iterchunk,
+                     pt.watershell,
                      pt.distance,
                      pt.angle,
                      pt.dihedral,

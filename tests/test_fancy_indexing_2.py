@@ -47,7 +47,6 @@ class Test(unittest.TestCase):
         aa_eq(traj[0, atm], fa[0][atm])
         aa_eq(traj[0, atm, 0], fa[0][atm, 0])
         aa_eq(traj[0, atm, 0], xyz[0][indices][0])
-        aa_eq(traj[0, '@CA', 0], xyz[0][indices][0])
 
 
 if __name__ == "__main__":
