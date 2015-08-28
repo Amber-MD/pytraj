@@ -2,7 +2,7 @@ language: python
 env:
     matrix:
         - PYTHON_VERSION=3.4 
-        - PYTHON_VERSION=3.5
+        #- PYTHON_VERSION=3.5 # no good cython from conda yet?
 
 before_install:
     - sudo apt-get install libnetcdf-dev
