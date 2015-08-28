@@ -27,14 +27,8 @@ class TestTopology(unittest.TestCase):
         top = Topology(filename)
         #top2 = top.modify_state_by_mask(AtomMask("!@CA"))
         #
-        top.summary()
-        top._atom_info("@CA")
-
         top.strip_atoms("!@CA")
         assert top.n_atoms == 20
-        top.summary()
-        top._atom_info("@CA")
-        top._atom_info("@H")
 
         for atom in top.atoms:
             pass
@@ -58,6 +52,14 @@ class TestTopology(unittest.TestCase):
         top = traj.top
         assert len(top) == top.n_atoms
 
+    def testLoadFromParmEd(self):
+        import parmed as pmd
+        fname = './data/Tc5b.top'
+
+        orig_top = pt.load_topology(fname)
+        parm = pmd.load_file('./data/Tc5b.top')
+        top = pt.load_topology(parm)
+        assert top.n_atoms == orig_top.n_atoms
 
 if __name__ == "__main__":
     unittest.main()

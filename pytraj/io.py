@@ -400,23 +400,37 @@ def write_parm(filename=None, top=None, format='AMBERPARM'):
     parm.writeparm(filename=filename, top=top, format=format)
 
 
-def load_topology(filename, **kwd):
-    """
-    load Topology from filename or from url
+def load_topology(filename):
+    """load Topology from a filename or from url or from ParmEd object
+
+    Examples
+    --------
     >>> import pytraj as pt
+    >>> # from a filename
     >>> pt.load_topology("./data/tz2.ortho.parm7")
+
+    >>> # from url
     >>> pt.load_topology("http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb")
+
+    >>> # from ParmEd object
+    >>> import parmed as pmd
+    >>> parm = pmd.load_file('./test.mol2')
+    >>> top = pt.load_topology(parm)
     """
-    if filename.startswith('http://') or filename.startswith('https://'):
-        return _load_url(filename)
+    if isinstance(filename, string_types):
+        if filename.startswith('http://') or filename.startswith('https://'):
+            return _load_url(filename)
+        else:
+            from .Topology import Topology
+            """return topology instance from reading filename"""
+            #filename = filename.encode("UTF-8")
+            set_error_silent(True)
+            top = Topology(filename)
+            set_error_silent(False)
+            return top
     else:
-        from .Topology import Topology
-        """return topology instance from reading filename"""
-        #filename = filename.encode("UTF-8")
-        set_error_silent(True)
-        top = Topology(filename)
-        set_error_silent(False)
-        return top
+        # try to load ParmED
+        return load_ParmEd(filename)
 
 # creat alias
 read_parm = load_topology
