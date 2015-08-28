@@ -125,9 +125,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
             # so [frame for frame in traj] will return a list of different ones
             yield frame.copy()
 
-    def __getitem__(self, idx):
-        return super(TrajectoryIterator, self).__getitem__(idx)
-
     def copy(self):
         """Very simple copy"""
         other = self.__class__()
