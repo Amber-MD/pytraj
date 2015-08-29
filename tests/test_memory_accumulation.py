@@ -19,7 +19,7 @@ if os.path.exists("./data/nogit/remd/myparm.parm7"):
 
 for traj in tlist:
     print(traj)
-    print(traj._estimated_MB)
+    print(traj._estimated_GB)
 
     @profile
     def test():
@@ -122,7 +122,7 @@ for traj in tlist:
         test_autoimage_iterchunk_0,
     ]
 
-    estimated_MB = traj._estimated_MB
+    estimated_MB = traj._estimated_GB
 
     for func in func_list:
         mem = max(memory_usage(func))

@@ -643,7 +643,7 @@ cdef class Frame (object):
             self.thisptr.SetupFrame(atomnum)
 
     def set_frame_mass(self, Topology top):
-        return self.thisptr.SetMass(top.thisptr.Atoms())
+        self.thisptr.SetMass(top.thisptr.Atoms())
 
     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
         return self.thisptr.SetupFrameXM(Xin, massIn)

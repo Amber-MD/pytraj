@@ -182,10 +182,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
         return self.xyz
 
     @property
-    def _estimated_MB(self):
+    def _estimated_GB(self):
         """esimated MB of data will be loaded to memory
         """
-        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 2)
+        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3)
 
     @property
     def xyz(self):
