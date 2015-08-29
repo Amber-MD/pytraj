@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Matrix Analysis &mdash; pytraj 0.1.2.dev6 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.2.dev6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev6 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="matrix-analysis">
+<span id="id1"></span><h1>Matrix Analysis<a class="headerlink" href="#matrix-analysis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pytraj</span> <span class="kn">import</span> <span class="n">matrix_analysis</span> <span class="k">as</span> <span class="n">ma</span>
+<span class="n">ma</span><span class="o">.</span><span class="n">distance_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="n">ma</span><span class="o">.</span><span class="n">idea_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="n">ma</span><span class="o">.</span><span class="n">correlation_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-pytraj.matrix_analysis">
+<span id="doc"></span><h2>doc<a class="headerlink" href="#module-pytraj.matrix_analysis" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pytraj.matrix_analysis.distance_matrix">
+<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">distance_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.distance_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : cpptraj command</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
+<blockquote>
+<div><p>if &#8216;full&#8217;: 2D full matrix
+if &#8216;half&#8217;: triangular matrix
+if &#8216;cpptraj&#8217;: 1D array</p>
+</div></blockquote>
+<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.matrix_analysis.correlation_matrix">
+<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">correlation_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.correlation_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : cpptraj command</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
+<blockquote>
+<div><p>if &#8216;full&#8217;: 2D full matrix
+if &#8216;half&#8217;: triangular matrix
+if &#8216;cpptraj&#8217;: 1D array</p>
+</div></blockquote>
+<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.matrix_analysis.coord_covariance_matrix">
+<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">coord_covariance_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.coord_covariance_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : cpptraj command</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
+<blockquote>
+<div><p>if &#8216;full&#8217;: 2D full matrix
+if &#8216;half&#8217;: triangular matrix
+if &#8216;cpptraj&#8217;: 1D array</p>
+</div></blockquote>
+<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.matrix_analysis.mw_covariance_matrix">
+<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">mw_covariance_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.mw_covariance_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : cpptraj command</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
+<blockquote>
+<div><p>if &#8216;full&#8217;: 2D full matrix
+if &#8216;half&#8217;: triangular matrix
+if &#8216;cpptraj&#8217;: 1D array</p>
+</div></blockquote>
+<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.matrix_analysis.distcovar_matrix">
+<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">distcovar_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.distcovar_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : cpptraj command</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
+<blockquote>
+<div><p>if &#8216;full&#8217;: 2D full matrix
+if &#8216;half&#8217;: triangular matrix
+if &#8216;cpptraj&#8217;: 1D array</p>
+</div></blockquote>
+<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.matrix_analysis.idea_matrix">
+<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">idea_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.idea_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : cpptraj command</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
+<blockquote>
+<div><p>if &#8216;full&#8217;: 2D full matrix
+if &#8216;half&#8217;: triangular matrix
+if &#8216;cpptraj&#8217;: 1D array</p>
+</div></blockquote>
+<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Matrix Analysis</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#module-pytraj.matrix_analysis">doc</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/matrix_analysis.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Hai Nguyen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

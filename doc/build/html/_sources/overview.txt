@@ -15,11 +15,16 @@ Overview
    + `support parallel processing <parallel>`_
    + `able to handle many files at the same time <read_and_write>`_
    + `able to handle very large trajectory <design_trajectory>`_
-   + simple (hopefully) usage ::
+   + simple (and fast) calculation
 
       import pytraj as pt
       traj = pt.iterload('traj.nc', 'my_parm.top')
       pt.radgyr(traj)
+
+   + include many cpptraj features
+       + automatic file detection by its **content**
+       + smart ``autoimage`` function for PBC simulation.
+       + ... (to be filled soon) 
 
 #. How to get started
 
