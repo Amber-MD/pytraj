@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Developer guide for pytraj &mdash; pytraj 0.1.2.dev5 documentation</title>
+    <title>Developer guide for pytraj &mdash; pytraj 0.1.2.dev6 documentation</title>
     
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev5',
+        VERSION:     '0.1.2.dev6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,12 +23,12 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev5 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev6 documentation" href="index.html" />
     <link rel="next" title="Misc" href="misc.html" />
     <link rel="prev" title="Frequently Asked Questions" href="faq.html" /> 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +43,14 @@
         <li class="right" >
           <a href="faq.html" title="Frequently Asked Questions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="developer-guide-for-pytraj">
 <h1>Developer guide for pytraj<a class="headerlink" href="#developer-guide-for-pytraj" title="Permalink to this headline">¶</a></h1>
@@ -76,7 +76,7 @@ We put all common stuff in <a class="reference external" href="https://github.co
 </div>
 <div class="section" id="add-new-method-to-pytraj">
 <h2>Add new method to pytraj<a class="headerlink" href="#add-new-method-to-pytraj" title="Permalink to this headline">¶</a></h2>
-<p>Check <code class="docutils literal"><span class="pre">pytraj.common_actions</span></code> for example.</p>
+<p>Check <tt class="docutils literal"><span class="pre">pytraj.common_actions</span></tt> for example.</p>
 </div>
 <div class="section" id="write-your-code-for-pytraj-s-parallel-pmap">
 <h2>Write your code for pytraj&#8217;s parallel pmap<a class="headerlink" href="#write-your-code-for-pytraj-s-parallel-pmap" title="Permalink to this headline">¶</a></h2>
@@ -113,16 +113,16 @@ We put all common stuff in <a class="reference external" href="https://github.co
 </pre></div>
 </div>
 <p>Outputs from test scripts are saved to <strong>output.txt</strong> and error status is saved to <strong>log</strong> file.</p>
-<p>The script <code class="docutils literal"><span class="pre">./run_all_and_find_fails.py</span></code> only look for file starting with <code class="docutils literal"><span class="pre">test_</span></code> and having key word <code class="docutils literal"><span class="pre">unittest</span></code>. Check <code class="docutils literal"><span class="pre">tests/get_unittest_files.py</span></code> for further detail.</p>
+<p>The script <tt class="docutils literal"><span class="pre">./run_all_and_find_fails.py</span></tt> only look for file starting with <tt class="docutils literal"><span class="pre">test_</span></tt> and having key word <tt class="docutils literal"><span class="pre">unittest</span></tt>. Check <tt class="docutils literal"><span class="pre">tests/get_unittest_files.py</span></tt> for further detail.</p>
 <p>We&#8217;re really happy to accept PR to update test, using <a class="reference external" href="https://nose.readthedocs.org/en/latest/">nosetests</a>, <a class="reference external" href="http://pytest.org/latest/">pytest</a> or whatever reasonable.</p>
 </div>
 <div class="section" id="external-codes">
 <h2>External codes<a class="headerlink" href="#external-codes" title="Permalink to this headline">¶</a></h2>
-<p>Try to put all external codes (<code class="docutils literal"><span class="pre">six.py</span></code>, ...) in <code class="docutils literal"><span class="pre">pytraj/externals/</span></code> folder.</p>
+<p>Try to put all external codes (<tt class="docutils literal"><span class="pre">six.py</span></tt>, ...) in <tt class="docutils literal"><span class="pre">pytraj/externals/</span></tt> folder.</p>
 </div>
 <div class="section" id="licence-info">
 <h2>Licence info<a class="headerlink" href="#licence-info" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">pytraj</span></code> always welcomes code contribution. It&#8217;s recommended to put your name in the code you write. However, for the sake of clearness, just put something very short, like <code class="docutils literal"><span class="pre">Copyright</span> <span class="pre">(c)</span> <span class="pre">2010-2013</span> <span class="pre">your_first_and_last_name</span></code> and give full details of your contribution, license in <code class="docutils literal"><span class="pre">pytraj/licenses/</span></code> folder.</p>
+<p><tt class="docutils literal"><span class="pre">pytraj</span></tt> always welcomes code contribution. It&#8217;s recommended to put your name in the code you write. However, for the sake of clearness, just put something very short, like <tt class="docutils literal"><span class="pre">Copyright</span> <span class="pre">(c)</span> <span class="pre">2010-2013</span> <span class="pre">your_first_and_last_name</span></tt> and give full details of your contribution, license in <tt class="docutils literal"><span class="pre">pytraj/licenses/</span></tt> folder.</p>
 </div>
 <div class="section" id="build-doc">
 <h2>Build doc<a class="headerlink" href="#build-doc" title="Permalink to this headline">¶</a></h2>
@@ -140,8 +140,8 @@ We put all common stuff in <a class="reference external" href="https://github.co
 </div>
 <div class="section" id="cython">
 <h2>cython<a class="headerlink" href="#cython" title="Permalink to this headline">¶</a></h2>
-<p>It&#8217;s recommended to use <code class="docutils literal"><span class="pre">cython</span></code> to write or wrap high performance code. Please don&#8217;t use <code class="docutils literal"><span class="pre">cimport</span> <span class="pre">numpy</span></code>, use <a class="reference external" href="http://docs.cython.org/src/userguide/memoryviews.html">memoryview</a> instead</p>
-<p>Since <code class="docutils literal"><span class="pre">pytraj</span></code> will be bundled with AmberTools in Amber, it&#8217;s important that we should commit cythonized file too. The main idea is that user only need C++ compiler and <code class="docutils literal"><span class="pre">cpptraj</span></code>, nothing else.</p>
+<p>It&#8217;s recommended to use <tt class="docutils literal"><span class="pre">cython</span></tt> to write or wrap high performance code. Please don&#8217;t use <tt class="docutils literal"><span class="pre">cimport</span> <span class="pre">numpy</span></tt>, use <a class="reference external" href="http://docs.cython.org/src/userguide/memoryviews.html">memoryview</a> instead</p>
+<p>Since <tt class="docutils literal"><span class="pre">pytraj</span></tt> will be bundled with AmberTools in Amber, it&#8217;s important that we should commit cythonized file too. The main idea is that user only need C++ compiler and <tt class="docutils literal"><span class="pre">cpptraj</span></tt>, nothing else.</p>
 </div>
 <div class="section" id="read-also">
 <h2>Read Also<a class="headerlink" href="#read-also" title="Permalink to this headline">¶</a></h2>
@@ -154,7 +154,7 @@ We put all common stuff in <a class="reference external" href="https://github.co
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -180,14 +180,12 @@ We put all common stuff in <a class="reference external" href="https://github.co
   <h4>Next topic</h4>
   <p class="topless"><a href="misc.html"
                         title="next chapter">Misc</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/developer_guide.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/developer_guide.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -204,7 +202,7 @@ We put all common stuff in <a class="reference external" href="https://github.co
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -219,12 +217,12 @@ We put all common stuff in <a class="reference external" href="https://github.co
         <li class="right" >
           <a href="faq.html" title="Frequently Asked Questions"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev5 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
+    <div class="footer">
         &copy; Copyright 2015, Hai Nguyen.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

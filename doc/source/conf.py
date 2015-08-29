@@ -147,7 +147,8 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 #html_theme = 'sphinxdoc'
 #html_theme = 'nature'
-html_theme = 'classic'
+#html_theme = 'classic'
+html_theme = 'default'
 #html_theme = 'alabaster'
 #html_theme = 'msmb_theme'
 

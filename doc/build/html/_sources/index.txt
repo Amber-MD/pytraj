@@ -52,6 +52,9 @@ Welcome to pytraj's documentation - not completed yet
     data = pt.rmsd(traj, ref=0, mask='@CA')
     print(data)
 
+**Contributors**
+`A list of contributors <https://github.com/Amber-MD/pytraj/blob/master/contributors/pytraj.rst>`_
+
 **Contact**
 
 * For bug reports, feature requests, code discussion ... please use the `GitHub issue tracker <https://github.com/Amber-MD/pytraj/issues>`_

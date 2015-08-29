@@ -1,6 +1,13 @@
 Installation
 ============
 
+Requires
+--------
+`numpy <numpy.org>`_
+
+Try it
+------
+
 ``pytraj`` is stil in alpha phase, you should install from ``github``::
 
     git clone https://github.com/Amber-MD/pytraj
@@ -10,3 +17,13 @@ Installation
 or from ``conda``::
 
     conda install -c pytraj pytraj-dev --force
+
+install anaconda for all python packages
+----------------------------------------
+
+we highly recommend to install anaconda that has all good python packages (``numpy``, ``sklearn``, ``pandas``, ...). Anaconda is totally free.
+
++ go to `its website <http://continuum.io/downloads#py34>`_, choose your platform and
+  python version. It's better to pick up Python3
++ download file: For our case, we download ``Anaconda3-2.1.0-Linux-x86_64.sh`` file
++ just run ``bash Anaconda3-2.1.0-Linux-x86_64.sh`` and follow instruction. That's it.
