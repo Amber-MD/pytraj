@@ -22,6 +22,11 @@ for traj in tlist:
     print(traj._estimated_GB)
 
     @profile
+    def test_write():
+        pt.write_traj('test.nc', traj, indices=range(10000), overwrite=True)
+        print(pt.iterload('./test.nc', traj.top))
+
+    @profile
     def test():
         # OK: no memory problem
         for frame in traj:
@@ -108,6 +113,7 @@ for traj in tlist:
         print(idx)
 
     func_list = [
+        test_write,
         test_strip_atoms,
         test_closest,
         test_iter_frame_indices,
@@ -122,7 +128,7 @@ for traj in tlist:
         test_autoimage_iterchunk_0,
     ]
 
-    estimated_MB = traj._estimated_GB
+    estimated_GB = traj._estimated_GB
 
     for func in func_list:
         mem = max(memory_usage(func))
