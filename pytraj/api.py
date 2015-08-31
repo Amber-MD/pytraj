@@ -114,6 +114,8 @@ class Trajectory(object):
         if self.shape[1]:
             if self.n_atoms != values.shape[1]:
                 raise ValueError("must have the same number of atoms")
+        if not values.flags['C_CONTIGUOUS']:
+            raise TypeError('must be C_CONTIGUOUS')
         self._xyz = values
 
     def __str__(self):
