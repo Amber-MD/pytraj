@@ -8,7 +8,7 @@ from pytraj.compat import set
 from pytraj.utils import _import_numpy
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
 
-__all__ = ['_savetraj', '_frame_iter_master', '_xyz', 'my_str_method',
+__all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method',
            '_tolist', '_box']
 
 
@@ -115,29 +115,32 @@ def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
         i += stride
 
 
-def _frame_iter_master(obj):
+def iterframe_master(obj):
     """try to return a frame iterator
 
     Parameters
     ----------
-    obj : could be Trajectory, TrajectoryIterator, TrajinList, frame_iter object
-          could be a list of trajs, ...
+    obj : Trajectory or TrajectoryIterator or FrameIter or a list of frames, or a list of
+    Trajectory
 
     Examples
     --------
-    >>> from pytraj import io
-    >>> from pytraj import Frame
-    >>> traj = io.load_sample_data('tz2')
-    >>> from pytraj._shared_methods import _frame_iter_master
-    >>> for frame in _frame_iter_master(traj): assert isinstance(frame, Frame) == True
-    >>> for frame in _frame_iter_master([traj,]): assert isinstance(frame, Frame) == True
-    >>> for frame in _frame_iter_master([traj, traj[0]]): assert isinstance(frame, Frame) == True
-    >>> for frame in _frame_iter_master([traj.iterframe(), traj.iterchunk()]): 
-    >>>     assert isinstance(frame, Frame) == True
+    >>> from pytraj import iterframe_master
+    >>> # create frame itrator from a TrajectoryIterator
+    >>> for frame in iterframe_master(traj): pass
+
+    >>> # create frame itrator from a list of trajs
+    >>> for frame in iterframe_master([traj, traj]): pass
+
+    >>> # create frame iterator from a list of traj and frame
+    >>> for frame in iterframe_master([traj, traj[0]]): pass
+
+    >>> # create frame iterator from a list of frame iterator and chunk iterator
+    >>> for frame in iterframe_master([traj.iterframe(), traj.iterchunk()]): pass
     """
 
     is_frame_iter_but_not_master = (
-        is_frame_iter(obj) and not obj.__name__ is '_frame_iter_master')
+        is_frame_iter(obj) and not obj.__name__ is 'iterframe_master')
     if isinstance(obj, Frame):
         yield obj
     elif hasattr(obj, 'n_frames') or is_frame_iter_but_not_master:

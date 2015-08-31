@@ -34,9 +34,9 @@ class Test(unittest.TestCase):
         traj.append(t.iterframe())
         assert traj.n_frames == t.n_frames * 3 + 1
 
-        # append _frame_iter_master
-        from pytraj._shared_methods import _frame_iter_master
-        traj.append(_frame_iter_master(t))
+        # append iterframe_master
+        from pytraj._shared_methods import iterframe_master
+        traj.append(iterframe_master(t))
         assert traj.n_frames == t.n_frames * 4 + 1
 
         # append itself
@@ -48,15 +48,15 @@ class Test(unittest.TestCase):
         traj.append(traj.iterframe(stop=2))
         assert traj.n_frames == NFrames * 2 + 2
 
-        # append _frame_iter_master for itself
+        # append iterframe_master for itself
         NFrames = traj.n_frames
-        traj.append(_frame_iter_master(traj))
+        traj.append(iterframe_master(traj))
         assert traj.n_frames == NFrames * 2
 
-        # append _frame_iter_master for itself + other
+        # append iterframe_master for itself + other
         n0 = traj.n_frames
         n1 = t.n_frames
-        traj.append(_frame_iter_master([traj, t]))
+        traj.append(iterframe_master([traj, t]))
         assert traj.n_frames == 2 * n0 + n1
 
 

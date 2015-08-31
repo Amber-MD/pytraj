@@ -4,7 +4,7 @@ from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
 from pytraj.utils import is_generator
 from pytraj.utils.check_and_assert import is_pytraj_trajectory
-from pytraj._shared_methods import _frame_iter_master
+from pytraj._shared_methods import iterframe_master
 
 
 cdef class Action:
@@ -147,7 +147,7 @@ cdef class Action:
             self.baseptr.DoAction(self.n_frames, frame.thisptr, &(new_frame.thisptr))
             self.n_frames += 1
         else:
-            for frame in _frame_iter_master(current_frame):
+            for frame in iterframe_master(current_frame):
                 self.do_action(frame, new_frame)
 
     @makesureABC("Action")

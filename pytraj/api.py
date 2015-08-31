@@ -12,7 +12,7 @@ from .AtomMask import AtomMask
 # need to move this method to more correct module
 from ._get_common_objects import _get_top
 from .Topology import Topology
-from ._shared_methods import _savetraj, _frame_iter_master
+from ._shared_methods import _savetraj, iterframe_master
 from ._shared_methods import my_str_method
 from ._fast_iterframe import _fast_iterptr, _fast_iterptr_withbox
 
@@ -418,7 +418,7 @@ class Trajectory(object):
                 self.append(frame)
         else:
             # try to iterate to get Frame
-            for frame in _frame_iter_master(other):
+            for frame in iterframe_master(other):
                 self.append(frame)
 
     def join(self, other):

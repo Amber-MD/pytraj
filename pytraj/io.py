@@ -9,7 +9,7 @@ from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datasets.utils import load_datafile
 from .datafiles.load_cpptraj_file import load_cpptraj_file
-from ._shared_methods import _frame_iter_master, _split_and_write_traj as split_and_write_traj
+from ._shared_methods import iterframe_master, _split_and_write_traj as split_and_write_traj
 from ._set_silent import set_error_silent
 from ._guess_filetype import _guess_filetype
 from ._get_common_objects import _get_top
@@ -388,7 +388,7 @@ def write_traj(filename="",
                     trajout.write(idx, frame, _top)
 
             else:
-                for idx, frame in enumerate(_frame_iter_master(traj2)):
+                for idx, frame in enumerate(iterframe_master(traj2)):
                     trajout.write(idx, frame, _top)
 
 
@@ -536,4 +536,4 @@ def get_coordinates(iterables):
     else:
         # try to iterate to get coordinates
         return np.array([frame.xyz.copy()
-                         for frame in _frame_iter_master(iterables)])
+                         for frame in iterframe_master(iterables)])

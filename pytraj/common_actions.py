@@ -34,7 +34,7 @@ from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
-from ._shared_methods import _frame_iter_master
+from ._shared_methods import iterframe_master
 from .externals.get_pysander_energies import get_pysander_energies
 from . import _long_manual
 from .decorators import noparallel
@@ -155,7 +155,7 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
         arr = np.empty([n_frames, len(int_2darr)])
 
-        for idx, frame in enumerate(_frame_iter_master(traj)):
+        for idx, frame in enumerate(iterframe_master(traj)):
             arr[idx] = frame.calc_distance(int_2darr)
 
         arr = arr.T
@@ -279,7 +279,7 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
         else:
             n_frames = kwd['n_frames']
         arr = np.empty([n_frames, len(int_2darr)])
-        for idx, frame in enumerate(_frame_iter_master(traj)):
+        for idx, frame in enumerate(iterframe_master(traj)):
             arr[idx] = frame.calc_angle(int_2darr)
 
         arr = arr.T
@@ -395,7 +395,7 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
         else:
             n_frames = kwd['n_frames']
         arr = np.empty([n_frames, len(int_2darr)])
-        for idx, frame in enumerate(_frame_iter_master(traj)):
+        for idx, frame in enumerate(iterframe_master(traj)):
             arr[idx] = frame.calc_dihedral(int_2darr)
 
         arr = arr.T
@@ -1069,7 +1069,7 @@ def _calc_vector_center(traj=None,
     act.read_input(command=command, top=_top, dslist=dslist)
     act.process(_top)
 
-    for frame in _frame_iter_master(traj):
+    for frame in iterframe_master(traj):
         # set Frame masses
         if mass:
             frame.set_frame_mass(_top)
@@ -1101,7 +1101,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
     dslist = CpptrajDatasetList()
     dslist.add_set("vector")
 
-    for frame in _frame_iter_master(traj):
+    for frame in iterframe_master(traj):
         dslist[0].append(frame.center_of_geometry(atom_mask_obj))
     return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -1178,7 +1178,7 @@ def calc_pairwise_rmsd(traj=None,
     else:
         will_be_copied = False
     # upload Frame to crdset
-    for frame in _frame_iter_master(traj):
+    for frame in iterframe_master(traj):
         if will_be_copied:
             dslist[0].append(frame.copy())
         else:
@@ -1482,7 +1482,7 @@ def _closest_iter(act, traj):
     traj : Trajectory-like
     '''
 
-    for frame in _frame_iter_master(traj):
+    for frame in iterframe_master(traj):
         new_frame = Frame()
         new_frame.py_free_mem = False  # cpptraj will do
         act.do_action(frame, new_frame)
@@ -1839,7 +1839,7 @@ def search_neighbors(traj=None, mask='', cutoff='', dtype='dataset', top=None):
     dslist = DatasetList()
 
     _top = _get_top(traj, top)
-    for idx, frame in enumerate(_frame_iter_master(traj)):
+    for idx, frame in enumerate(iterframe_master(traj)):
         _top.set_reference_frame(frame)
         dslist.append({str(idx): np.asarray(_top.select(mask))})
     return _get_data_from_dtype(dslist, dtype)

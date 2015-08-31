@@ -20,8 +20,8 @@ trajout rotated_frame0.x60y120z50.Tc5b.r
 
 
 def iter_me(obj, n_frames):
-    from pytraj._shared_methods import _frame_iter_master
-    it = _frame_iter_master(obj)
+    from pytraj._shared_methods import iterframe_master
+    it = iterframe_master(obj)
     for idx, frame in enumerate(it):
         pass
     assert idx + 1 == n_frames
@@ -29,7 +29,7 @@ def iter_me(obj, n_frames):
 
 class Test(unittest.TestCase):
     def test_cpptraj_file(self):
-        from pytraj._shared_methods import _frame_iter_master
+        from pytraj._shared_methods import iterframe_master
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fname = "./tc5b.rotate.in"
         with open(fname, 'w') as f:
@@ -38,12 +38,12 @@ class Test(unittest.TestCase):
         #print(state)
         trajinlist = state.get_trajinlist()
 
-        for idx, frame in enumerate(_frame_iter_master(trajinlist)):
+        for idx, frame in enumerate(iterframe_master(trajinlist)):
             pass
         assert idx + 1 == traj.n_frames
 
     def test_0(self):
-        from pytraj._shared_methods import _frame_iter_master
+        from pytraj._shared_methods import iterframe_master
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
 
@@ -65,32 +65,32 @@ class Test(unittest.TestCase):
         iter_me((traj, (fa[0], )), traj.n_frames + 1)
 
         #print("iter frame")
-        for frame in _frame_iter_master(traj[0]):
+        for frame in iterframe_master(traj[0]):
             assert frame.n_atoms == traj.top.n_atoms
 
         #print("iter frame")
         i = 0
-        for frame in _frame_iter_master([traj, traj[:1]]):
+        for frame in iterframe_master([traj, traj[:1]]):
             i += 1
             assert frame.n_atoms == traj.top.n_atoms
         assert i == traj.n_frames + 1
 
         #print("iter chunk_iter")
         i = 0
-        for frame in _frame_iter_master(traj.iterchunk()):
+        for frame in iterframe_master(traj.iterchunk()):
             i += 1
             assert isinstance(frame, Frame)
         assert i == traj.n_frames
 
         #print("list of chunk_iter")
         i = 0
-        for frame in _frame_iter_master([traj.iterchunk(), ]):
+        for frame in iterframe_master([traj.iterchunk(), ]):
             i += 1
             assert isinstance(frame, Frame)
         assert i == traj.n_frames
 
     def test_assert(self):
-        from pytraj._shared_methods import _frame_iter_master as _it_f
+        from pytraj._shared_methods import iterframe_master as _it_f
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = Trajectory()
         fa.top = traj.top.copy()

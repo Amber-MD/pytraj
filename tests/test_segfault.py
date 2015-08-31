@@ -15,8 +15,8 @@ traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 class Test(unittest.TestCase):
     def test_0(self):
         #print("iter")
-        from pytraj._shared_methods import _frame_iter_master
-        it = _frame_iter_master(traj)
+        from pytraj._shared_methods import iterframe_master
+        it = iterframe_master(traj)
 
         for idx, frame in enumerate(it):
             pass

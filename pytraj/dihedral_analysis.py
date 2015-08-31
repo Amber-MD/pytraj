@@ -26,7 +26,7 @@ def calc_%s(traj=None, resrange="",
     """
     Parameters
     ----------
-    traj : Trajectory-like or anything that makes _frame_iter_master(traj) return Frame
+    traj : Trajectory-like or anything that makes iterframe_master(traj) return Frame
     resrange : string or iterable, cpptraj resrange, default ""
         if resrange is a string, use index of 1-based
         if resrange is a python sequence (range, list, array, ...),

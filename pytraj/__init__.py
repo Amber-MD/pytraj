@@ -159,7 +159,7 @@ from .run_tests import run_tests
 # parallel
 from .pmap import pmap
 
-from ._shared_methods import _frame_iter_master as frame_iter_master
+from ._shared_methods import iterframe_master
 
 # turn off verbose in cpptraj
 # TODO: need to move set_world_silent and set_error_silent to the same file

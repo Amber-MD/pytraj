@@ -33,7 +33,7 @@ class Test(unittest.TestCase):
 
         run_docstring(silly_doc_func)
 
-        from pytraj._shared_methods import _frame_iter_master as fi
+        from pytraj._shared_methods import iterframe_master as fi
         run_docstring(fi)
 
         from pytraj import matrix_analysis as ma

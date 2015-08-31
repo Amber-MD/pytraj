@@ -1,5 +1,5 @@
 from pytraj.externals.six import string_types
-from pytraj._shared_methods import _frame_iter_master
+from pytraj._shared_methods import iterframe_master
 from pytraj._get_common_objects import _get_top, _get_data_from_dtype
 from pytraj.compat import range
 from pytraj.decorators import noparallel
@@ -113,7 +113,7 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         has_box = False
 
     with sander.setup(_parm, coords, box, inp, qmmm_options):
-        for frame in _frame_iter_master(traj):
+        for frame in iterframe_master(traj):
             if has_box:
                 sander.set_box(*frame.box.tolist())
             sander.set_positions(frame.coords)
