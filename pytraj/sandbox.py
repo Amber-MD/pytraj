@@ -6,3 +6,9 @@ def take(traj, indices):
 
 def itake(traj, indices):
     return traj.iterframe(frame_indices=indices)
+
+def get_top(traj):
+    return traj.top
+
+def set_top(traj, top):
+    traj.top = top
