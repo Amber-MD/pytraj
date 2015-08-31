@@ -93,24 +93,5 @@ class TestPyCpptrajIO(unittest.TestCase):
         assert traj.size == len(indices)
         assert traj.top.n_atoms == 304
 
-    def test_load_and_save_2(self):
-        #print("test_load_and_save_2")
-        trajname = "./data/md1_prod.Tc5b.x"
-
-        indices = list(range(2, 4)) + [3, 7, 9, 8]
-        mdio.write_traj(filename="./output/test_io_saved_2.nc",
-                        traj=trajname,
-                        top="./data/Tc5b.top",
-                        indices=indices,
-                        overwrite=True)
-
-        # check frames
-        traj = mdio.iterload(
-            filename="./output/test_io_saved_2.nc",
-            top="./data/Tc5b.top")
-        assert traj.size == len(indices)
-        assert traj.top.n_atoms == 304
-
-
 if __name__ == "__main__":
     unittest.main()

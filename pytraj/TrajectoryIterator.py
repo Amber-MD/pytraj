@@ -190,7 +190,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
     @property
     def xyz(self):
         '''return 3D array of coordinates'''
-        size_in_MB = self._estimated_MB
+        size_in_MB = self._estimated_GB
         # check if larger than size_limit_in_MB
         if size_in_MB > self._size_limit_in_MB and not self._force_load:
             raise MemoryError(
