@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+'''
+pt.pdb_extract traj.nc prmtop test.pdb
+
+Notes: output filename must has ext of '.pdb'
+'''
+
+import sys
+import pytraj as pt
+
+if len(sys.argv) == 4:
+    fname, top_name, new_file = sys.argv[1:]
+    index = 0
+elif len(sys.argv) == 5:
+    fname, top_name, new_file = sys.argv[1:]
+    index = int(sys.argv[4])
+
+traj = pt.iterload(fname, top_name)
+pt.write_traj(new_file, traj[index], top=traj.top, mode='TER')
