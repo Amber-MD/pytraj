@@ -217,7 +217,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                   mask=None,
                   autoimage=False,
                   rmsfit=None,
-                  copy=True,
+                  copy=False,
                   frame_indices=None):
         ''''''
 

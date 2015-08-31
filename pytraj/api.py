@@ -660,7 +660,8 @@ class Trajectory(object):
                   mask=None,
                   autoimage=False,
                   frame_indices=None,
-                  rmsfit=None):
+                  rmsfit=None,
+                  copy=False):
 
         from pytraj.core.frameiter import FrameIter
 
@@ -714,7 +715,8 @@ class Trajectory(object):
                          mask=mask,
                          autoimage=autoimage,
                          rmsfit=rmsfit,
-                         n_frames=n_frames)
+                         n_frames=n_frames,
+                         copy=copy)
 
     @property
     def _estimated_MB(self):

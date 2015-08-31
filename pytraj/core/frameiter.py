@@ -92,8 +92,8 @@ class FrameIter(object):
             self.start, self.stop, self.stride, self.n_frames)
         root_msg3 = 'frame_indices=%s \n' % self.frame_indices
 
-        more_msg = 'autoimage=%s, rmsfit=%s> \n' % (
-            self.autoimage, self.rmsfit)
+        more_msg = 'autoimage=%s, rmsfit=%s, copy=%s> \n' % (
+            self.autoimage, self.rmsfit, self.copy)
         return "".join((root_msg, root_msg2, root_msg3, more_msg))
 
     def __repr__(self):
