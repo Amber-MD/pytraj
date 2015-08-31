@@ -49,7 +49,7 @@ class FrameIter(object):
         root_msg = '<pytraj.core.frameiter.FrameIter with '
         root_msg2 = 'start=%s, stop=%s, stride=%s, n_frames=%s, \n' % (
             self.start, self.stop, self.stride, self.n_frames)
-        root_msg3 = 'frame_slice=%s \n' % self.frame_indices
+        root_msg3 = 'frame_indices=%s \n' % self.frame_indices
 
         more_msg = 'autoimage=%s, rmsfit=%s> \n' % (
             self.autoimage, self.rmsfit)
