@@ -8,7 +8,7 @@
     
     <title>Basic examples &mdash; pytraj 0.1.2.dev6 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -25,10 +25,10 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev6 documentation" href="index.html" />
     <link rel="next" title="Tutorials" href="tutorials/index.html" />
-    <link rel="prev" title="Read and write" href="read_and_write.html" /> 
+    <link rel="prev" title="Read and Write" href="read_and_write.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -41,21 +41,32 @@
           <a href="tutorials/index.html" title="Tutorials"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="read_and_write.html" title="Read and write"
+          <a href="read_and_write.html" title="Read and Write"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="basic-examples">
-<span id="id1"></span><h1>Basic examples<a class="headerlink" href="#basic-examples" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">Basic examples</a><a class="headerlink" href="#basic-examples" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#basic-examples" id="id2">Basic examples</a><ul>
+<li><a class="reference internal" href="#dssp-analysis" id="id3">DSSP analysis</a></li>
+<li><a class="reference internal" href="#hbond-analysis" id="id4">hbond analysis</a></li>
+<li><a class="reference internal" href="#more-examples" id="id5">More examples</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section" id="dssp-analysis">
-<h2>DSSP analysis<a class="headerlink" href="#dssp-analysis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">DSSP analysis</a><a class="headerlink" href="#dssp-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">pdb</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&quot;1l2y&quot;</span><span class="p">)</span>
@@ -80,7 +91,7 @@
 </div>
 </div>
 <div class="section" id="hbond-analysis">
-<h2>hbond analysis<a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">hbond analysis</a><a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
 
 <span class="gp">In [6]: </span><span class="n">hbonds</span>
@@ -105,7 +116,7 @@
 </div>
 </div>
 <div class="section" id="more-examples">
-<h2>More examples<a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">More examples</a><a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/Amber-MD/pytraj/tree/master/examples">check our github page</a></p>
 </div>
 </div>
@@ -114,7 +125,7 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -128,16 +139,18 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="read_and_write.html"
-                        title="previous chapter">Read and write</a></p>
+                        title="previous chapter">Read and Write</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="tutorials/index.html"
                         title="next chapter">Tutorials</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/basic_examples.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/basic_examples.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -154,7 +167,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -167,14 +180,14 @@
           <a href="tutorials/index.html" title="Tutorials"
              >next</a> |</li>
         <li class="right" >
-          <a href="read_and_write.html" title="Read and write"
+          <a href="read_and_write.html" title="Read and Write"
              >previous</a> |</li>
-        <li><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Hai Nguyen.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

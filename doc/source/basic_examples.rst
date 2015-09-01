@@ -3,6 +3,8 @@
 Basic examples
 ==============
 
+.. contents::
+
 DSSP analysis
 -------------
 

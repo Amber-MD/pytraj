@@ -1,5 +1,5 @@
-Atom mask selection and trajectory slicing
-==========================================
+Atom mask selection
+===================
 
 check `parmed's doc <http://parmed.github.io/ParmEd/html/amber.html#amber-mask-syntax>`_
 for detail explanation.
@@ -28,41 +28,3 @@ for detail explanation.
     # Logical operators
     traj['(:1-100)&(@CA)'] # Selects atoms named CA in the first 100 residues
 
-**Trajectory slicing**
------------------------
-
-.. note:: use `[ ]` slicing notation will load frames into memory
-
-.. ipython:: python
-    
-    # get 1st frame
-    traj[0]
-
-    # get last frame
-    traj[-1]
-
-    # strip all atoms but CA
-    traj['@CA']
-
-    # take coords for 1st residues
-    traj[':1'].xyz
-
-    # get frames 1, 3, 7 with only CA atoms
-    traj[[1, 3, 7], '@CA']
-
-    # skip every 2 frames
-    traj[::2]
-
-.. note:: use `( )` notation to create frame iterator
-
-.. ipython:: python
-
-    traj(0, 8, 2)
-    for frame in traj(0, 8, 2): print(frame.xyz[0])
-
-    # iterating with autoimage
-    for frame in traj(0, 8, 2, autoimage=True): print(frame.xyz[0])
-
-    # iterating with rmsfit to first frame
-    for frame in traj(0, 8, 2, rmsfit=0): print(frame.xyz[0])
-    
