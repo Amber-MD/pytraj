@@ -131,3 +131,9 @@ def _get_reference_from_traj(traj, ref):
         return ref[0]
     else:
         return ref
+
+def _get_iter_indices_with_traj(traj, frame_indices=None):
+    if frame_indices is None:
+        return traj
+    else:
+        return traj.iterframe(frame_indices=frame_indices)

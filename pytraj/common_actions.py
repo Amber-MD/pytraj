@@ -17,7 +17,7 @@ analdict = AnalysisDict()
 from pytraj.api import Trajectory
 from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
-from ._get_common_objects import _get_reference_from_traj
+from ._get_common_objects import _get_reference_from_traj, _get_iter_indices_with_traj
 from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .utils import is_int
@@ -526,6 +526,7 @@ def calc_radgyr(traj=None,
                 mask="",
                 top=None,
                 nomax=True,
+                frame_indices=None,
                 dtype='ndarray', *args, **kwd):
     '''calc radgyr
 
@@ -533,9 +534,11 @@ def calc_radgyr(traj=None,
     --------
     >>> pt.radgyr(traj, '@CA')
     >>> pt.radgyr(traj, '!:WAT', nomax=False)
+    >>> pt.radgyr(traj, '@CA', frame_indices=[2, 4, 6])
     '''
 
     from pytraj.actions.CpptrajActions import Action_Radgyr
+    _traj_iter = _get_iter_indices_with_traj(traj, frame_indices=frame_indices)
 
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
@@ -547,7 +550,7 @@ def calc_radgyr(traj=None,
 
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(command, _traj_iter, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
 

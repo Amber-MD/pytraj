@@ -15,9 +15,10 @@ class Test(unittest.TestCase):
 
         d0 = pt.radgyr(traj._iterframe_indices(indices), top=traj.top)
         d1 = pt.radgyr(traj[indices])
+        d2 = pt.radgyr(traj, frame_indices=indices)
 
         aa_eq(d0, d1)
-        #print(d0)
+        aa_eq(d0, d2)
 
 
 if __name__ == "__main__":

@@ -7,6 +7,7 @@ from pytraj.externals.six import string_types
 from pytraj.compat import set
 from pytraj.utils import _import_numpy
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
+from pytraj.core.frameiter import FrameIter
 
 __all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method',
            '_tolist', '_box']
@@ -143,6 +144,9 @@ def iterframe_master(obj):
         is_frame_iter(obj) and not obj.__name__ is 'iterframe_master')
     if isinstance(obj, Frame):
         yield obj
+    elif isinstance(obj, FrameIter):
+        for frame in obj:
+            yield frame
     elif hasattr(obj, 'n_frames') or is_frame_iter_but_not_master:
         # traj-like or frame_iter or _frame_iter
         for frame in obj:
