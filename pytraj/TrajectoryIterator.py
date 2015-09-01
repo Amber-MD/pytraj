@@ -120,10 +120,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
         return self.__dict__
 
     def __iter__(self):
+        '''do not make a frame copy here
+        '''
         for frame in super(TrajectoryIterator, self).__iter__():
-            # we need to use `copy` to create different frame pointer
-            # so [frame for frame in traj] will return a list of different ones
-            yield frame.copy()
+            yield frame
 
     def copy(self):
         """Very simple copy"""

@@ -5,7 +5,7 @@ from pytraj.base import *
 from pytraj import Frame
 from pytraj import adict
 from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 from pytraj.core.Command import Command
 from pytraj.core.CpptrajState import CpptrajState
 from pytraj.decorators import no_test
@@ -92,13 +92,23 @@ class Test(unittest.TestCase):
     def test_assert(self):
         from pytraj._shared_methods import iterframe_master as _it_f
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        fa = Trajectory()
-        fa.top = traj.top.copy()
-        fa.load(_it_f(traj))
+        fa = Trajectory.from_iterable(_it_f(traj), top=traj.top)
 
         for f0, f1 in zip(fa, traj):
             #print(f0[0, :], f1[0, :])
-            assert_almost_equal(f0.coords, f1.coords)
+            aa_eq(f0.coords, f1.coords)
+
+    def testTrajectorView(self):
+        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        # make mutable traj
+        t0 = traj[:]
+        t1 = traj[:]
+        indices = [2, 4, 6]
+        # iter frame to return a view
+        for f in t0.iterframe(frame_indices=indices):
+            f.xyz += 1.0
+        aa_eq(t0.xyz[indices], traj[indices].xyz + 1.)
+        aa_eq(t1.xyz[indices], traj[indices].xyz)
 
 
 if __name__ == "__main__":
