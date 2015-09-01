@@ -64,8 +64,6 @@ class Test(unittest.TestCase):
 
         run_docstring(pt.load_ParmEd)
 
-        run_docstring(pt.load_topology)
-
         from pytraj import clustering_dataset
         run_docstring(clustering_dataset)
         run_docstring(pt.mindist)
