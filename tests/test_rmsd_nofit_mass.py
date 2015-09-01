@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         rms first nofit
         rms first mass
         """)
-        print(cout)
+        #print(cout)
 
         aa_eq(pt.rmsd(traj, nofit=True), cout[0])
         aa_eq(pt.rmsd(traj, mass=True), cout[1])

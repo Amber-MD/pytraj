@@ -1,7 +1,6 @@
 # distutils: language = c++
 from cpython.array cimport array as pyarray
 
-
 cdef class DataSet_2D (DataSet):
     def __cinit__(self):
         # since DataSet_2D inherits from DataSet, make sure two pointers pointing 

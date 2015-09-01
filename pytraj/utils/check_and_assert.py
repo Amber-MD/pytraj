@@ -133,7 +133,13 @@ def is_chunk_iter(iter_obj):
     Trajectory.frame_iter
     Trajin.frame_iter
     """
-    if iter_obj.__class__.__name__ == 'generator' and 'chunk_iter' in iter_obj.__name__:
+    try:
+        name = iter_obj.__name__
+    except AttributeError:
+        return False
+
+    if iter_obj.__class__.__name__ == 'generator' and ('chunk_iter' in name or 'iterchunk'
+            in name):
         return True
     else:
         return False
@@ -144,6 +150,7 @@ def is_int(num):
     isinstance(nu, (int, long)) does not work with numpy.int64, so we use numbers.Integral
     """
     return isinstance(num, numbers.Integral)
+
 
 def is_number(num):
     return isinstance(num, numbers.Number)
@@ -166,12 +173,12 @@ def assert_almost_equal(arr0, arr1, decimal=3):
     '''numpy-like assert'''
 
     if is_number(arr0):
-        arr0 = [arr0,]
+        arr0 = [arr0, ]
     if is_number(arr1):
-        arr1 = [arr1,]
+        arr1 = [arr1, ]
 
     almost_equal = True
-    SMALL = 10**(-decimal)
+    SMALL = 10 ** (-decimal)
 
     if hasattr(arr0, 'flatten') and hasattr(arr1, 'flatten'):
         _arr0 = arr0.flatten()
@@ -245,6 +252,7 @@ def require(libname):
     if not has_lib:
         txt = "require %s lib" % libname
         raise ImportError(txt)
+
 
 if __name__ == "__main__":
     import numpy as np

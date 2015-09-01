@@ -42,11 +42,11 @@ class Test(unittest.TestCase):
             # cpptraj use 1st frame as default reference
             act("@CA,C,N,O", [_f00, fa1], top=fa1.top)
 
-        print("mode_pytraj_rms")
+        #print("mode_pytraj_rms")
         mode_pytraj_rms()
-        print("mode_cpptraj_rms")
+        #print("mode_cpptraj_rms")
         mode_cpptraj_rms()
-        print("direct cpptraj")
+        #print("direct cpptraj")
         cpptraj_rms()
 
         aa_eq(fa0.xyz, fa1.xyz)

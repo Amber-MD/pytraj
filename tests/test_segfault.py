@@ -14,13 +14,13 @@ traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 class Test(unittest.TestCase):
     def test_0(self):
-        print("iter")
-        from pytraj._shared_methods import _frame_iter_master
-        it = _frame_iter_master(traj)
+        #print("iter")
+        from pytraj._shared_methods import iterframe_master
+        it = iterframe_master(traj)
 
         for idx, frame in enumerate(it):
             pass
-            # print ("segmentation fault if uncommenting #traj")
+            # #print ("segmentation fault if uncommenting #traj")
             # Status: don't need to fix since "it" and "traj" share the same iterator
             # traj[idx]
 
@@ -29,21 +29,21 @@ class Test(unittest.TestCase):
             fa[idx]
 
     def test_1(self):
-        print("calling search_hbonds several times")
+        #print("calling search_hbonds several times")
         import pytraj.common_actions as pyca
         pyca.search_hbonds(traj)
         pyca.search_hbonds(traj, 'series')
         pyca.search_hbonds(traj, 'series, nointramol')
 
     def test_2(self):
-        print("DataSetList lifetime")
+        #print("DataSetList lifetime")
         #d = pyca.search_hbonds(traj)
         d = pyca.search_hbonds(traj).filter("SER")
         d2 = pyca.search_hbonds(traj).filter("SER").to_ndarray()
-        print(d.size)
-        print(d.keys())
-        print(d)
-        print(d2)
+        #print(d.size)
+        #print(d.keys())
+        #print(d)
+        #print(d2)
 
     def test_3_vdw_radii_topology(self):
         top = io.load_pdb("./data/tz2.pdb").top
@@ -56,7 +56,7 @@ class Test(unittest.TestCase):
 
         for idx, (f0, f1) in enumerate(zip(traj, traj)):
             f0.rmsd(f1)
-        print(idx)
+        #print(idx)
         #assert idx == traj.n_frames
 
     def test_indexing_nonrefernce_DSL(self):
@@ -64,21 +64,21 @@ class Test(unittest.TestCase):
         from pytraj.hbonds import search_hbonds
 
         # segmentation fault
-        print(da.calc_phi(traj)[0])
-        print(search_hbonds(traj)[0])
+        #print(da.calc_phi(traj)[0])
+        #print(search_hbonds(traj)[0])
         # new DSL
-        print(search_hbonds(traj)[:][:][:][:][0])
-        print(search_hbonds(traj)[:3][2][:][:][0])
+        #print(search_hbonds(traj)[:][:][:][:][0])
+        #print(search_hbonds(traj)[:3][2][:][:][0])
         d0_dummy = search_hbonds(traj)[:][:][:][:][0]
         d0 = search_hbonds(traj)[0]
         aa_eq(d0_dummy.to_ndarray(), d0.to_ndarray())
         # filter
-        print(search_hbonds(traj)[0:4].filter("").filter(""))
+        #print(search_hbonds(traj)[0:4].filter("").filter(""))
 
         dslist = da.calc_phi(traj)
         x = dslist[0]
-        print(x)
-        print(da.calc_phi(traj, dtype='dict'))
+        #print(x)
+        #print(da.calc_phi(traj, dtype='dict'))
 
 
 if __name__ == "__main__":

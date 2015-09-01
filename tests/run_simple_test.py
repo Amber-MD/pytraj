@@ -1,5 +1,6 @@
 import unittest
 from pytraj import *
+import pytraj as pt
 from pytraj.parms import *
 from pytraj.trajs import *
 from pytraj.datasets import *
@@ -7,7 +8,6 @@ from pytraj.common_actions import *
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj import run_tests
         run_tests()
@@ -53,7 +53,7 @@ class Test(unittest.TestCase):
         Residue()
         Atom()
         Frame()
-        Trajectory()
+        pt.trajs.Trajectory.Trajectory()
         TrajectoryIterator()
         core.TrajinList.TrajinList()
 
@@ -67,6 +67,7 @@ class Test(unittest.TestCase):
         for key in keys:
             if isinstance(cdict[key], dict):
                 assert cdict[key].keys() is not None
+
 
 if __name__ == "__main__":
     unittest.main()

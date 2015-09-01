@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
             fname = "traj_nobox.nc"
             io.write_traj(fname, traj, mode='nobox')
             t = io.load(fname, traj.top)
-            print(t)
+            #print(t)
             # FIXME: assert failed
             #assert t[0].has_box() == False
             #assert t.top.box.has_box() == False

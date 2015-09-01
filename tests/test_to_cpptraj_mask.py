@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
                        mask=range(0, 7, 2)).flatten(),
                   func(traj,
                        mask="@1,3,5,7").flatten())
-            print('%s: OK' % func.__name__)
+            #print('%s: OK' % func.__name__)
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ from . import TrajinList
 from ..externals.six import string_types
 from ..action_dict import ActionDict
 from .._get_common_objects import _get_arglist
-from .._shared_methods import _frame_iter_master
+from .._shared_methods import iterframe_master
 
 cdef class ActionList:
     def __cinit__(self):
@@ -89,7 +89,7 @@ cdef class ActionList:
                 frame.set_frame_mass(self.toplist[0])
             self.thisptr.DoActions(&(frame.thisptr), idx)
         else:
-            for i, frame in enumerate( _frame_iter_master(traj)):
+            for i, frame in enumerate( iterframe_master(traj)):
                 self.do_actions(frame, i) 
 
     def is_empty(self):

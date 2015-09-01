@@ -1,5 +1,7 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -17,16 +19,16 @@ class Test(unittest.TestCase):
         fa = traj[:]
         mask = ':1@CA :14@CB :15CA :16@H'
         d0 = pyca.calc_dihedral(traj, mask, dtype='dataset').to_ndarray()
-        d1 = traj.calc_dihedral(mask)
-        d2 = fa.calc_dihedral(mask)
+        d1 = pt.dihedral(traj, mask)
+        d2 = pt.calc_dihedral(fa, mask)
 
         aa_eq(d0, d1)
         aa_eq(d0, d2)
 
         Nsize = 10
         arr = np.random.randint(0, 300, size=Nsize * 4).reshape(Nsize, 4)
-        d3 = fa.calc_dihedral(arr)
-        d4 = traj.calc_dihedral(arr)
+        d3 = pt.calc_dihedral(fa, arr)
+        d4 = pt.dihedral(traj, arr)
         d5 = pyca.calc_dihedral(traj, arr)
         d6 = pyca.calc_dihedral(fa, arr)
         d7 = pyca.calc_dihedral([fa, traj], arr, n_frames=2 * fa.n_frames)
@@ -35,7 +37,7 @@ class Test(unittest.TestCase):
         aa_eq(d3, d6)
         aa_eq(d3.T, d7.T[:fa.n_frames])
         aa_eq(d3.T, d7.T[fa.n_frames:])
-        print(d3)
+        #print(d3)
 
 
 if __name__ == "__main__":

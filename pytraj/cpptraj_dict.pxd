@@ -255,12 +255,6 @@ cdef extern from "DataSet.h":
         IRED "DataSet::IRED"
         DIHCOVAR "DataSet::DIHCOVAR"
         UNDEFINEDSCALARTYPE "DataSet::UNDEFINED"
-cdef extern from "ClusterSieve.h":
-    ctypedef enum SieveType "ClusterSieve::SieveType":
-        NONESieveType "ClusterSieve::NONE"
-        REGULAR "ClusterSieve::REGULAR"
-        RANDOM "ClusterSieve::RANDOM"
-    # Dimension.h
 cdef extern from "Dimension.h":
     ctypedef enum DimIdxType "Dimension::DimIdxType":
         X "Dimension::X"

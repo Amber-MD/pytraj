@@ -14,9 +14,10 @@ adict = ActionDict()
 from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
+from pytraj.api import Trajectory
 from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
-from ._get_common_objects import _get_reference_from_traj
+from ._get_common_objects import _get_reference_from_traj, _get_iter_indices_with_traj
 from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .utils import is_int
@@ -24,7 +25,6 @@ from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_atommask
 from .externals.six import string_types
 from .Frame import Frame
-#from .Trajectory import Trajectory
 from .AtomMask import AtomMask
 from .Topology import Topology
 from .datasets.DataSetList import DataSetList as CpptrajDatasetList
@@ -34,10 +34,11 @@ from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
-from ._shared_methods import _frame_iter_master
+from ._shared_methods import iterframe_master
 from .externals.get_pysander_energies import get_pysander_energies
 from . import _long_manual
 from .decorators import noparallel
+#from .TrajectoryIterator import  TrajectoryIterator
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -154,7 +155,7 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
         arr = np.empty([n_frames, len(int_2darr)])
 
-        for idx, frame in enumerate(_frame_iter_master(traj)):
+        for idx, frame in enumerate(iterframe_master(traj)):
             arr[idx] = frame.calc_distance(int_2darr)
 
         arr = arr.T
@@ -278,7 +279,7 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
         else:
             n_frames = kwd['n_frames']
         arr = np.empty([n_frames, len(int_2darr)])
-        for idx, frame in enumerate(_frame_iter_master(traj)):
+        for idx, frame in enumerate(iterframe_master(traj)):
             arr[idx] = frame.calc_angle(int_2darr)
 
         arr = arr.T
@@ -394,7 +395,7 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
         else:
             n_frames = kwd['n_frames']
         arr = np.empty([n_frames, len(int_2darr)])
-        for idx, frame in enumerate(_frame_iter_master(traj)):
+        for idx, frame in enumerate(iterframe_master(traj)):
             arr[idx] = frame.calc_dihedral(int_2darr)
 
         arr = arr.T
@@ -429,11 +430,14 @@ def calc_mindist(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)[-1]
 
 
-def calc_watershell(traj=None, solute_mask=None,
+def calc_watershell(traj=None,
+                    solute_mask=None,
                     solvent_mask=':WAT',
-                    lower=3.4, upper=5.0,
+                    lower=3.4,
+                    upper=5.0,
                     image=True,
-                    dtype='dataset', top=None):
+                    dtype='dataset',
+                    top=None):
     """(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
     (defined by <lower cut> (default 3.4 Ang.) and <upper cut> (default 5.0 Ang.)
 
@@ -468,7 +472,7 @@ def calc_watershell(traj=None, solute_mask=None,
         raise ValueError('must provide solute mask')
 
     _solventmask = solvent_mask if solvent_mask is not None else ''
-    _noimage= 'noimage' if not image else ''
+    _noimage = 'noimage' if not image else ''
 
     _lower = 'lower ' + str(lower)
     _upper = 'upper ' + str(upper)
@@ -522,6 +526,7 @@ def calc_radgyr(traj=None,
                 mask="",
                 top=None,
                 nomax=True,
+                frame_indices=None,
                 dtype='ndarray', *args, **kwd):
     '''calc radgyr
 
@@ -529,9 +534,11 @@ def calc_radgyr(traj=None,
     --------
     >>> pt.radgyr(traj, '@CA')
     >>> pt.radgyr(traj, '!:WAT', nomax=False)
+    >>> pt.radgyr(traj, '@CA', frame_indices=[2, 4, 6])
     '''
 
     from pytraj.actions.CpptrajActions import Action_Radgyr
+    _traj_iter = _get_iter_indices_with_traj(traj, frame_indices=frame_indices)
 
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
@@ -543,7 +550,7 @@ def calc_radgyr(traj=None,
 
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(command, _traj_iter, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -727,7 +734,9 @@ def do_scaling(traj=None, command="", top=None):
     _top = _get_top(traj, top)
     Action_Scale()(command, traj, top=_top)
 
+
 scale = do_scaling
+
 
 def do_rotation(traj=None, command="", top=None):
     from pytraj.actions.CpptrajActions import Action_Rotate
@@ -744,6 +753,7 @@ def do_autoimage(traj=None, command="", top=None):
     _top = _get_top(traj, top)
     from pytraj.actions.CpptrajActions import Action_AutoImage
     Action_AutoImage()(command, traj, top=_top)
+
 
 autoimage = do_autoimage
 
@@ -1062,7 +1072,7 @@ def _calc_vector_center(traj=None,
     act.read_input(command=command, top=_top, dslist=dslist)
     act.process(_top)
 
-    for frame in _frame_iter_master(traj):
+    for frame in iterframe_master(traj):
         # set Frame masses
         if mass:
             frame.set_frame_mass(_top)
@@ -1094,7 +1104,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
     dslist = CpptrajDatasetList()
     dslist.add_set("vector")
 
-    for frame in _frame_iter_master(traj):
+    for frame in iterframe_master(traj):
         dslist[0].append(frame.center_of_geometry(atom_mask_obj))
     return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -1108,6 +1118,7 @@ def calc_pairwise_rmsd(traj=None,
                        top=None,
                        dtype='ndarray',
                        mat_type='full', *args, **kwd):
+    # TODO: segmentation fault for api.Trajectory if not copying
     """return 2D numpy array
 
     Parameters
@@ -1153,6 +1164,8 @@ def calc_pairwise_rmsd(traj=None,
     command = ' '.join((mask, metric))
 
     from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
+    from pytraj import TrajectoryIterator, Trajectory
+
     act = Analysis_Rms2d()
 
     dslist = CpptrajDatasetList()
@@ -1163,9 +1176,16 @@ def calc_pairwise_rmsd(traj=None,
     # need " " (space) before crdset too
     command = command + " crdset mylovelypairwisermsd rmsout mycrazyoutput"
 
+    if isinstance(traj, Trajectory):
+        will_be_copied = True
+    else:
+        will_be_copied = False
     # upload Frame to crdset
-    for frame in _frame_iter_master(traj):
-        dslist[0].append(frame)
+    for frame in iterframe_master(traj):
+        if will_be_copied:
+            dslist[0].append(frame.copy())
+        else:
+            dslist[0].append(frame)
 
     act(command, _top, dslist=dslist, *args, **kwd)
     # remove dataset coords to free memory
@@ -1263,20 +1283,30 @@ def calc_rmsd(traj=None,
 
     Parameters
     ----------
-    traj : Trajectory-like | List of trajectories | Trajectory or frame_iter
-    ref : {Frame, int}, default=0
+    traj : Trajectory-like
+    ref : {Frame, int}, default=0 (first frame)
         Reference frame or index.
     mask : str or 1D array-like of string or 1D or 2D array-like
         Atom mask/indices
+    nofit : bool, default False
+        if False, perform fitting (rotation and translation).
+        if ``traj`` is mutable, its coordinates will be updated
+        if True, not fitting.
     top : {Topology, str}, default None, optional
     dtype : return data type, default='ndarray'
+
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.rmsd(traj, ref=-3) # ref=traj[-3]
+    >>> # all atoms, do fitting, using ref=traj[-3]
+    >>> pt.rmsd(traj, ref=-3)
+
+    >>> # rmsd for 3 maskes, do fitting, using ref=traj[0] (defaul)
     >>> pt.rmsd(traj, mask=['@CA', '@C', ':3-18@CA'], dtype='dataset')
-    >>> pt.rmsd(traj, ref=traj[0], mask=':3-13')
+
+    >>> # rmsd to first frame, use mass ':3-13' but do not perorm fitting
+    >>> pt.rmsd(traj, ref=traj[0], mask=':3-13', notfit=True)
 
     """
     from pytraj.utils import is_int
@@ -1455,14 +1485,19 @@ def _closest_iter(act, traj):
     traj : Trajectory-like
     '''
 
-    for frame in _frame_iter_master(traj):
+    for frame in iterframe_master(traj):
         new_frame = Frame()
         new_frame.py_free_mem = False  # cpptraj will do
         act.do_action(frame, new_frame)
         yield new_frame.copy()
 
 
-def closest(traj=None, mask='*', solvent_mask=None, n_solvents=10, restype='trajectory', top=None):
+def closest(traj=None,
+            mask='*',
+            solvent_mask=None,
+            n_solvents=10,
+            restype='trajectory',
+            top=None):
     """return either a new Trajectory or a frame iterator. Keep only ``n_solvents`` closest to mask
 
     Parameters
@@ -1496,7 +1531,6 @@ def closest(traj=None, mask='*', solvent_mask=None, n_solvents=10, restype='traj
     """
 
     from .actions.CpptrajActions import Action_Closest
-    from pytraj.Trajectory import Trajectory
     dslist = CpptrajDatasetList()
 
     if n_solvents == 0:
@@ -1557,8 +1591,7 @@ def native_contacts(traj=None,
                     noimage=False,
                     include_solvent=False,
                     byres=False,
-                    top=None,
-                    *args, **kwd):
+                    top=None, *args, **kwd):
     """
     Examples
     --------
@@ -1774,11 +1807,7 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def search_neighbors(traj=None,
-                      mask='',
-                      cutoff='',
-                      dtype='dataset',
-                      top=None):
+def search_neighbors(traj=None, mask='', cutoff='', dtype='dataset', top=None):
     """search neighbors
 
     Returns
@@ -1813,7 +1842,7 @@ def search_neighbors(traj=None,
     dslist = DatasetList()
 
     _top = _get_top(traj, top)
-    for idx, frame in enumerate(_frame_iter_master(traj)):
+    for idx, frame in enumerate(iterframe_master(traj)):
         _top.set_reference_frame(frame)
         dslist.append({str(idx): np.asarray(_top.select(mask))})
     return _get_data_from_dtype(dslist, dtype)

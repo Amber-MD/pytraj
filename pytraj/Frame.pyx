@@ -13,7 +13,6 @@ from cython.parallel import prange
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
 from libc.string cimport memcpy
-
 from pytraj.utils.check_and_assert import _import_numpy
 from pytraj.utils.check_and_assert import is_int
 from pytraj.ArgList import ArgList
@@ -28,7 +27,6 @@ cdef extern from "TorsionRoutines.h" nogil:
 
 cdef extern from "DistRoutines.h" nogil:
     double DIST2_NoImage(double*, double*)
-
 
 __all__ = ['Frame']
 
@@ -51,7 +49,7 @@ cdef class Frame (object):
     >>> frame.append_xyz(xyz)
     >>> frame2 = pt.Frame(frame)
     """
-    def __cinit__(self, *args):
+    def __cinit__(self, *args, _as_ptr=False):
         # Should I include topology in Frame?
         # May by not: memory
         # Include topology in Trajectory instance? 
@@ -74,39 +72,48 @@ cdef class Frame (object):
         cdef list atlist
         cdef int natom, natom3
         cdef int i
+        cdef double[:, ::1] view
 
         self.py_free_mem = True
+        self._as_view = False
 
         if not args:
             self.thisptr = new _Frame()
         else:
-            if len(args) == 2:
-                frame, atmask = args
-                self.thisptr = new _Frame(frame.thisptr[0], atmask.thisptr[0])
-            elif len(args) == 1:
-                _, _np = _import_numpy()
-                # copy Frame
-                if isinstance(args[0], Frame):
-                    frame = args[0]
-                    self.thisptr = new _Frame(frame.thisptr[0])
-                # creat a new Frame instance with natom
-                elif isinstance(args[0], int):
-                    natom = <int> args[0]
-                    self.thisptr = new _Frame(natom)
-                elif isinstance(args[0], (list, tuple, pyarray, _np.ndarray)):
-                    # TODO : specify all things similar to list or array
-                    natom3 = <int> len(args[0])
-                    self.thisptr = new _Frame(natom3/3)
-                    for i in range(natom3):
-                        self.set_from_crd(pyarray('d', args[0]))
+            if not _as_ptr:
+                if len(args) == 2:
+                    frame, atmask = args
+                    self.thisptr = new _Frame(frame.thisptr[0], atmask.thisptr[0])
+                elif len(args) == 1:
+                    _, _np = _import_numpy()
+                    # copy Frame
+                    if isinstance(args[0], Frame):
+                        frame = args[0]
+                        self.thisptr = new _Frame(frame.thisptr[0])
+                    # creat a new Frame instance with natom
+                    elif isinstance(args[0], int):
+                        natom = <int> args[0]
+                        self.thisptr = new _Frame(natom)
+                    elif isinstance(args[0], (list, tuple, pyarray, _np.ndarray)):
+                        # TODO : specify all things similar to list or array
+                        natom3 = <int> len(args[0])
+                        self.thisptr = new _Frame(natom3/3)
+                        for i in range(natom3):
+                            self.set_from_crd(pyarray('d', args[0]))
+                    else:
+                        # Create Frame from list of atom mask
+                        atlist = args[0]
+                        for at in atlist:
+                            vt.push_back(at.thisptr[0])
+                        self.thisptr = new _Frame(vt)
                 else:
-                    # Create Frame from list of atom mask
-                    atlist = args[0]
-                    for at in atlist:
-                        vt.push_back(at.thisptr[0])
-                    self.thisptr = new _Frame(vt)
+                    raise ValueError()
             else:
-                raise ValueError()
+                # create Frame as a view.
+                natom = args[0]
+                view = args[1]
+                self._as_view = True
+                self.thisptr = new _Frame(natom, &view[0, 0])
 
     def __dealloc__(self):
         if self.py_free_mem and self.thisptr:
@@ -636,7 +643,7 @@ cdef class Frame (object):
             self.thisptr.SetupFrame(atomnum)
 
     def set_frame_mass(self, Topology top):
-        return self.thisptr.SetupFrameM(top.thisptr.Atoms())
+        self.thisptr.SetMass(top.thisptr.Atoms())
 
     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
         return self.thisptr.SetupFrameXM(Xin, massIn)

@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
         traj = io.iterload("./data/Test_RemdTraj/rem.nc.000", topn)
 
         # based on existing T
-        print(traj.temperatures)
+        #print(traj.temperatures)
 
 
 if __name__ == "__main__":

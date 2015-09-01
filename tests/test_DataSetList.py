@@ -9,14 +9,14 @@ class TestDataSetList(unittest.TestCase):
         dlist = DataSetList()
         dumset = DataSet()
         assert len(dlist) == 0
-        print(dlist.size)
+        #print(dlist.size)
 
         # make sure raising ValueError when index is out of range
         self.assertRaises(ValueError, lambda: dlist[0])
 
     def tearDown(self):
         dfile = DataFile()
-        print(dfile.dtype)
+        #print(dfile.dtype)
 
 
 if __name__ == '__main__':

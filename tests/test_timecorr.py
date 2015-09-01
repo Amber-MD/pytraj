@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 import pytraj.common_actions as pyca
@@ -18,7 +19,7 @@ class Test(unittest.TestCase):
         cpptraj_output = pt.datafiles.load_cpptraj_output(trajin)
 
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist0 = traj.calc_center_of_mass()
+        dslist0 = pt.center_of_mass(traj)
         data = pt.timecorr(dslist0, dslist0)
         aa_eq(data, cpptraj_output[-1].values)
 

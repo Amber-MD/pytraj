@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         mods = dir(datasets)
 
         dlist = [dset for dset in mods if 'DataSet' in dset]
-        print(dlist)
+        #print(dlist)
 
 
 if __name__ == "__main__":

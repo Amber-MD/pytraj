@@ -7,7 +7,6 @@ from pytraj.tools import PY2
 
 
 class Test(unittest.TestCase):
-
     @unittest.skipIf(PY2, 'only work python3')
     def test_0(self):
         from pytraj.parallel import PJob
@@ -15,10 +14,11 @@ class Test(unittest.TestCase):
 
         job = PJob([(pt.radgyr, traj), (pt.molsurf, traj)])
         results = job.compute()
-        print(results)
+        #print(results)
 
         aa_eq(pt.radgyr(traj), results[0][1])
         aa_eq(pt.molsurf(traj), results[1][1])
+
 
 if __name__ == "__main__":
     unittest.main()

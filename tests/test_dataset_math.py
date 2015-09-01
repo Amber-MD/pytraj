@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -12,8 +13,8 @@ import pytraj.common_actions as pyca
 class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = traj.search_hbonds()
-        print(dslist)
+        dslist = pt.search_hbonds(traj, )
+        #print(dslist)
 
         # +=
         d0 = dslist[0]
@@ -24,7 +25,7 @@ class Test(unittest.TestCase):
         # +
         arr0 = d0.copy().values
         d1 = d0 + 1.
-        print(d1.tolist())
+        #print(d1.tolist())
         aa_eq(d1, arr0 + 1)
 
         # += for DataSetList
@@ -41,16 +42,16 @@ class Test(unittest.TestCase):
         arr0 = dslist[0].to_ndarray().copy()
         # dslist[0] /= 2. # fail in PY3 because dslist[0] is DataSet_integer
         dslist[0] /= 2
-        print(dslist[0].tolist())
-        print(arr0 / 2)
-        print(arr0 / 2.)
+        #print(dslist[0].tolist())
+        #print(arr0 / 2)
+        #print(arr0 / 2.)
         aa_eq(dslist[0].tolist(), arr0 / 2.)
 
         d = dslist[0] * 2 + 1
-        print(d.tolist())
+        #print(d.tolist())
 
         d = dslist[0] * 2 + 1
-        print(d.tolist())
+        #print(d.tolist())
 
 
 if __name__ == "__main__":

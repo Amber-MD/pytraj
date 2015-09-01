@@ -10,20 +10,20 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         for _ in range(2):
             traj.join(traj[:])
-        print(calc_dihedral(mask=":2@CA :3@CA :10@CA :11@CA", traj=traj)[:])
-        print(calc_distance(mask=":2@CA :3@CA", traj=traj)[:])
-        print(calc_angle(mask=":2@CA :3@CA :10@CA", traj=traj)[:])
-        print(calc_radgyr(mask="@CA", traj=traj)[:])
-        print(calc_molsurf(mask="@CA", traj=traj)[:])
-        print(type(calc_molsurf(mask="@CA", traj=traj)[:]))
+        #print(calc_dihedral(mask=":2@CA :3@CA :10@CA :11@CA", traj=traj)[:])
+        #print(calc_distance(mask=":2@CA :3@CA", traj=traj)[:])
+        #print(calc_angle(mask=":2@CA :3@CA :10@CA", traj=traj)[:])
+        #print(calc_radgyr(mask="@CA", traj=traj)[:])
+        #print(calc_molsurf(mask="@CA", traj=traj)[:])
+        #print(type(calc_molsurf(mask="@CA", traj=traj)[:]))
 
     def test_1(self):
-        print("test mix traj/frame")
+        #print("test mix traj/frame")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         d0 = calc_molsurf(
             mask="@CA",
             traj=(
-                traj, traj[:2], traj[:], traj.frame_iter(), traj[0]),
+                traj, traj[:2], traj[:], traj.iterframe(), traj[0]),
             dtype='dataset')
         assert d0[0].size == 33
 

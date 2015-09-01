@@ -21,8 +21,8 @@ class Test(unittest.TestCase):
         ds1 = _ds1.filter('LYS')
         _ds2 = pyca.calc_dssp(traj[5:], dtype='dataset')
         ds2 = _ds2.filter('LYS')
-        print(ds2.keys(), ds1.keys())
-        print(ds1.to_ndarray(), ds2.to_ndarray())
+        #print(ds2.keys(), ds1.keys())
+        #print(ds1.to_ndarray(), ds2.to_ndarray())
 
         dstack = stack((ds1, ds2))
         _d12 = pyca.calc_dssp(traj, dtype='dataset')
@@ -36,13 +36,14 @@ class Test(unittest.TestCase):
             arr0 = dstack_dict[key]
             arr1 = d12_dict[key]
             if np.any(arr0 == arr1) == False:
-                print(arr0, arr1)
+                pass
+                #print(arr0, arr1)
 
         arr1 = ds1.to_ndarray()
         arr2 = ds2.to_ndarray()
         arrstack = dstack.to_ndarray()
         arr12 = d12.to_ndarray()
-        print(arr1, arr2, arrstack, arr12)
+        #print(arr1, arr2, arrstack, arr12)
 
         aa_eq(arrstack.flatten(), arr12.flatten())
 

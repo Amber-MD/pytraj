@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
 
         # wrapper of "AddSet(DataSet*)
         dslist.add_existing_set(dset_traj)
-        print(dslist.size)  # = 0, but I expected "=1"
+        #print(dslist.size)  # = 0, but I expected "=1"
 
     def test_1(self):
         dset_traj = DatasetMatrixDouble()
@@ -25,15 +25,15 @@ class Test(unittest.TestCase):
 
         # wrapper of "AddSet(DataSet*)
         dslist.add_existing_set(dset_traj)
-        print(dslist.size)  # = 0, but I expected "=1"
+        #print(dslist.size)  # = 0, but I expected "=1"
 
     def test_2(self):
         dslist = DataSetList()
 
         # wrapper of "AddSet(DataType, name, default_name)"
         dslist.add_set("coords", "name", "funny_name")
-        print(dslist[0])
-        print(dslist.size)  # = 1 (is what I expected)
+        #print(dslist[0])
+        #print(dslist.size)  # = 1 (is what I expected)
 
 
 if __name__ == "__main__":

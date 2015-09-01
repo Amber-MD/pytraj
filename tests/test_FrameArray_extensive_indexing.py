@@ -1,6 +1,7 @@
 import os
 from time import time
 import unittest
+import pytraj as pt
 import numpy as np
 from pytraj.base import *
 from load_traj import load
@@ -45,23 +46,23 @@ class TestTrajectory(unittest.TestCase):
 
         #assert farray[5:1:-1][0].same_coords_as(farray[5]) == True
         # segment fault if using below expression
-        # print farray[5:1:-1][0].coords[:10]
+        # #print farray[5:1:-1][0].coords[:10]
 
         # need to create a temp farray
         subfarray = farray[5:1:-1]
-        print(subfarray)
+        #print(subfarray)
         assert subfarray[0].same_coords_as(farray[5]) == True
         assert old_coords_5_10 == farray[5].coords[:10]
-        print(subfarray[0].coords[:10])
-        print(farray[5].coords[:10])
+        #print(subfarray[0].coords[:10])
+        #print(farray[5].coords[:10])
 
         f_last = farray[-3:-1][-1]
-        print("***********XXXXXXXXXXXXX*")
-        print(f_last)
-        # print f_last.coords[:10]
-        # print farray[-1].coords[:10]
-        # print farray[-2].coords[:10]
-        # print farray[-3].coords[:10]
+        #print("***********XXXXXXXXXXXXX*")
+        #print(f_last)
+        # #print f_last.coords[:10]
+        # #print farray[-1].coords[:10]
+        # #print farray[-2].coords[:10]
+        # #print farray[-3].coords[:10]
         #assert f_last.same_coords_as(farray[-2]) == True
 
     def test_len_TrajectoryIterator(self):
@@ -80,32 +81,32 @@ class TestTrajectory(unittest.TestCase):
 
         #assert farray[5:1:-1][0].same_coords_as(farray[5]) == True
         # segment fault if using below expression
-        # print farray[5:1:-1][0].coords[:10]
+        # #print farray[5:1:-1][0].coords[:10]
 
         # need to create a temp farray
         subfarray = farray[5:1:-1]
-        print(subfarray)
+        #print(subfarray)
         assert subfarray[0].same_coords_as(farray[5]) == True
         assert old_coords_5_10 == farray[5].coords[:10]
-        print(subfarray[0].coords[:10])
-        print(farray[5].coords[:10])
+        #print(subfarray[0].coords[:10])
+        #print(farray[5].coords[:10])
 
     def test_mask_indexing_0(self):
         # Trajectory
         traj = ts[:]
-        print(type(traj["@CA"]))
-        print(traj["@CA"].shape)
+        #print(type(traj["@CA"]))
+        #print(traj["@CA"].shape)
         assert traj["@CA"].shape == (traj.size, traj.top("@CA").n_atoms, 3)
-        print(traj[2:4]["@CA"])
+        #print(traj[2:4]["@CA"])
         assert traj[2:4]["@CA"].shape == (2, traj.top("@CA").n_atoms, 3)
 
     def test_mask_indexing(self):
         # Trajin_Single
         traj = ts
-        print(type(traj["@CA"]))
-        print(traj["@CA"].shape)
+        #print(type(traj["@CA"]))
+        #print(traj["@CA"].shape)
         assert traj["@CA"].shape == (traj.size, traj.top("@CA").n_atoms, 3)
-        print(traj[2:4]["@CA"])
+        #print(traj[2:4]["@CA"])
         assert traj[2:4]["@CA"].shape == (2, traj.top("@CA").n_atoms, 3)
 
 

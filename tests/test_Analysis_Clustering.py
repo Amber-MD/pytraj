@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         import numpy as np
-        print("use common_actions")
+        #print("use common_actions")
         from pytraj.common_actions import do_clustering
 
         traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
         """
 
         dslist = do_clustering(traj, command, traj.top)
-        print(dslist.to_dict())
+        #print(dslist.to_dict())
 
         dslist = do_clustering(traj, command, traj.top, dtype='ndarray')
 

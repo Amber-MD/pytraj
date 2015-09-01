@@ -11,15 +11,18 @@ from itertools import islice, groupby
 import functools
 from collections import OrderedDict
 
+
 def _array_to_cpptraj_range(seq):
     # use "i+1" since cpptraj use 1-based index for mask
-    return ",".join((str(i+1) for i in seq))
+    return ",".join((str(i + 1) for i in seq))
+
 
 def array_to_atommask(seq):
     '''
     [1, 3, 4] --> @2,4,5
     '''
     return '@' + _array_to_cpptraj_range(seq)
+
 
 def array_to_residuemask(seq):
     '''[1, 3, 4] --> :2,4,5'''
@@ -306,6 +309,7 @@ def merge_frames(iterables):
     frame.append_xyz(xyz)
     return frame
 
+
 def merge_frame_from_trajs(trajlist):
     """
     Examples
@@ -319,6 +323,7 @@ def merge_frame_from_trajs(trajlist):
         raise ValueError('input must be a list or tuple of trajectories')
     for iterables in zip(*trajlist):
         yield merge_frames(iterables)
+
 
 def rmsd_1darray(a1, a2):
     '''rmsd of a1 and a2
@@ -568,8 +573,25 @@ def isel(traj, func, *args, **kwd):
         else:
             pass
 
-
 def filter(iterable, func):
     '''return a list
     '''
     return list(filter(func, iterable))
+
+def as_2darray(traj):
+    '''reshape traj.xyz to 2d array, shape=(n_frames, n_atoms * 3)
+
+    Notes
+    -----
+    if ``traj`` is mutable, this method return a view of its coordinates.
+    '''
+    return traj.xyz.reshape(traj.n_frames, traj.n_atoms * 3)
+
+def as_3darray(xyz):
+    '''reshape xyz to 3d array, shape=(n_frames, n_atoms, 3)
+    '''
+    shape = xyz.shape
+    if len(shape) != 2:
+        raise ValueError('shape must be 2')
+    new_shape = (shape[0], int(shape[1]/3), 3)
+    return xyz.reshape(new_shape)

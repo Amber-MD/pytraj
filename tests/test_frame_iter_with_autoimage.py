@@ -1,6 +1,7 @@
 from __future__ import print_function
 import pytraj as pt
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -14,7 +15,7 @@ from pytraj.compat import zip
 class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        print(traj)
+        #print(traj)
 
         fa1 = traj[:]
 
@@ -27,7 +28,7 @@ class Test(unittest.TestCase):
 
         # frame_iter
         for frame in traj(autoimage=True):
-            fa2.append(frame, copy=True)
+            fa2.append(frame)
 
         aa_eq(fa1.xyz, fa2.xyz)
 
@@ -40,11 +41,11 @@ class Test(unittest.TestCase):
         fa4.top = fa3.top.copy()
 
         for frame in traj(mask='@CA', autoimage=True):
-            fa4.append(frame, copy=True)
+            fa4.append(frame)
 
-        print(fa3, fa4)
-        print(fa3.top, fa4.top)
-        print(fa3.shape, fa4.shape)
+        #print(fa3, fa4)
+        #print(fa3.top, fa4.top)
+        #print(fa3.shape, fa4.shape)
         aa_eq(fa3.xyz, fa4.xyz)
 
         # frame_iter with mask and autoimage, and rmsfit
@@ -61,13 +62,13 @@ class Test(unittest.TestCase):
 
         ref1 = traj[5].copy()
         for frame in traj(mask='@CA', autoimage=True, rmsfit=(ref1, '@CB')):
-            fa4.append(frame, copy=True)
+            fa4.append(frame)
 
-        print(fa3, fa4)
+        #print(fa3, fa4)
         aa_eq(fa3.xyz, fa4.xyz)
         for f0, f1 in zip(fa3, fa4):
             assert f0.rmsd_nofit(f1) < 1E-7
-            print(f0.rmsd_nofit(f1))
+            #print(f0.rmsd_nofit(f1))
 
 
 if __name__ == "__main__":

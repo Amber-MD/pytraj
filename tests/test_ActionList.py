@@ -25,7 +25,6 @@ class TestActionList(unittest.TestCase):
         # add parm
         toplist.add_parm(farray.top)
 
-        # add two actions: Action_Strip and Action_Distance
         alist.add_action(allactions.Action_Distance(),
                          ArgList(":2@CA :3@CA out ./output/test_df.dat"),
                          toplist, dsetlist, dflist)
@@ -34,8 +33,8 @@ class TestActionList(unittest.TestCase):
                          toplist, dsetlist, dflist)
 
         #
-        print("test setup_actions")
-        print(alist.n_actions)
+        #print("test setup_actions")
+        #print(alist.n_actions)
 
         # do checking
         alist.process(toplist[0])
@@ -57,16 +56,7 @@ class TestActionList(unittest.TestCase):
             # we need to keep the modified frame in farray2
             # farray2.append(frame)
             farray2.append(frame0)
-        print(time() - t0)
-
-        # make sure that Action_Strip does its job in stripping
-        print(farray2.size)
-
-        # it's time to retrieve the data
-        ds = cast_dataset(dsetlist[0], dtype='double')
-        print(ds[:10])
-        print(dir(dflist))
-        dflist.write_all_datafiles()
+        #print(time() - t0)
 
 
 if __name__ == "__main__":

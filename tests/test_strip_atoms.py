@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -20,30 +21,20 @@ class Test(unittest.TestCase):
         atm0.invert_mask()
         NATOM = atm0.n_atoms
         assert f0.n_atoms == NATOM
-        print(f0)
 
         fa0 = traj[:]
         fa0.strip_atoms('!@CA')
         assert fa0[0].n_atoms == NATOM
         fa1 = traj[:]
-        fa1._fast_strip_atoms('!@CA')
-        assert fa1[0].n_atoms == NATOM
-        # raise ValueError if maks is None
-        self.assertRaises(ValueError, lambda: fa1._fast_strip_atoms())
-
-        aa_eq(fa0.xyz, fa1.xyz)
 
         #fa3 = traj[:]
         fa3 = traj._fast_slice(slice(2, 100, 10))
-        print(traj)
-        #print (fa3)
         for i in range(10):
             fa3.join(fa3.copy())
 
         saved_fa3 = fa3.copy()
 
         fa4 = fa3.copy()
-        print(fa3, fa4)
 
         @Timer()
         def normal_strip():
@@ -60,11 +51,8 @@ class Test(unittest.TestCase):
             # as fast as _fast_strip_atoms
             fa5["@H,C"]
 
-        print("normal_strip")
         normal_strip()
-        print("fast_strip_atoms")
         fast_strip_atoms()
-        print("fancy_indexing")
         fancy_indexing()
         _fa5 = fa5['@H,C']
         aa_eq(fa3.xyz, fa4.xyz)
@@ -93,7 +81,6 @@ class Test(unittest.TestCase):
             def slice_mdtraj_precalculated_indices():
                 m_traj.atom_slice(indices)
 
-            print("slice_mdtraj_precalculated_indices:")
             # ~6 times slower than pytraj's fa['@H,C']
             slice_mdtraj_precalculated_indices()
 
@@ -112,12 +99,10 @@ class Test(unittest.TestCase):
             m_new = m_traj.remove_solvent()
             aa_eq(fa5new.xyz, m_new.xyz)
 
-            print("pytraj_strip_wat")
             pytraj_strip_wat()
-            print("mdtraj_remove_solvent")
             mdtraj_remove_solvent()
         else:
-            print("does not have mdtraj, skip")
+            pass
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
@@ -24,61 +25,61 @@ class Test(unittest.TestCase):
             if i > stop:
                 traj.end_traj()
 
-        print(traj[stop, 0])
-        print(traj[-1, 0])
-        print(count)
+        #print(traj[stop, 0])
+        #print(traj[-1, 0])
+        #print(count)
 
-    #@no_test
+        #@no_test
     def test_1(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         count = 0
-        for farray in traj.chunk_iter(chunksize=4):
+        for farray in traj.iterchunk(chunksize=4):
             count += 1
-            print(farray)
-        print("count = %s" % count)
+            #print(farray)
+            #print("count = %s" % count)
 
-    #@no_test
+            #@no_test
     def test_2(self):
-        from pytraj import frame_iter_master as frame_iter
-        print("test frame_iter for both pytraj/cpptraj Traj objects")
+        from pytraj import iterframe_master as frame_iter
+        #print("test frame_iter for both pytraj/cpptraj Traj objects")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
-        print(traj.n_frames)
+        #print(traj.n_frames)
         count = 0
         for frame in frame_iter(traj):
             count += 1
-        print("count = %s" % count)
+        #print("count = %s" % count)
         assert_almost_equal(frame.coords, traj[-1].coords)
 
         count = 0
         for frame in frame_iter(farray):
             count += 1
-        print("count = %s" % count)
+        #print("count = %s" % count)
         assert_almost_equal(frame.coords, traj[-1].coords)
 
     #@no_test
     def test_3(self):
-        from pytraj import frame_iter_master as frame_iter
-        print("test frame_iter for both pytraj/cpptraj Traj objects")
+        from pytraj import iterframe_master as frame_iter
+        #print("test frame_iter for both pytraj/cpptraj Traj objects")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         count = 0
-        for frame in traj.frame_iter():
+        for frame in traj.iterframe():
             count += 1
-        print("count = %s" % count)
+        #print("count = %s" % count)
         assert_almost_equal(frame.coords, traj[-1].coords)
 
         count = 0
-        for frame in traj.frame_iter(2, 8, 2):
+        for frame in traj.iterframe(2, 8, 2):
             count += 1
-        print("count = %s" % count)
+        #print("count = %s" % count)
         assert count == 3
         assert_almost_equal(frame.coords, traj[6].coords)
 
         count = 0
-        for frame in traj[:].frame_iter():
+        for frame in traj[:].iterframe():
             count += 1
-        print("count = %s" % count)
+        #print("count = %s" % count)
         assert_almost_equal(frame.coords, traj[-1].coords)
 
 

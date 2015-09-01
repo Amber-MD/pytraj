@@ -27,7 +27,7 @@ class TestTrajinList(unittest.TestCase):
         trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "4 9 2")
         trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "5 7")
         trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "1 last")
-        print(trajlist[0].n_frames)
+        #print(trajlist[0].n_frames)
 
         trajlist2 = TrajinList()
         trajlist2.add_traj("./data/Test_RemdTraj/rem.nc.000",
@@ -42,13 +42,13 @@ class TestTrajinList(unittest.TestCase):
         trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "4 9 2")
         trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "5 7")
         trajlist.add_traj("./data/md1_prod.Tc5b.x", top, "1 last")
-        print(trajlist[0].n_frames)
+        #print(trajlist[0].n_frames)
 
         trajlist.top = top.copy()
-        print(trajlist.top)
+        #print(trajlist.top)
         for traj in trajlist:
             pass
-        print(traj[0].size)
+        #print(traj[0].size)
 
 
 if __name__ == "__main__":

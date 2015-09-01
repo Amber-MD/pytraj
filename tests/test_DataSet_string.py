@@ -10,8 +10,8 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         d0 = DatasetString()
-        print(d0)
-        print(d0.dtype)
+        #print(d0)
+        #print(d0.dtype)
 
 
 if __name__ == "__main__":

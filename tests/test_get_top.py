@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
         assert _top is not None
 
         # get top from chunk_iter
-        _top = _get_top(traj.chunk_iter(), None)
+        _top = _get_top(traj.iterchunk(), None)
         assert _top is None
 
 

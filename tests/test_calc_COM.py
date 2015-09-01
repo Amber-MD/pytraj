@@ -1,5 +1,7 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -19,22 +21,22 @@ class Test(unittest.TestCase):
         d0 = pyca.calc_COM(traj, dtype='dataset')
         d1 = pyca.calc_center_of_mass(traj, dtype='dataset')
         d2 = pyca.calc_center_of_mass(traj2, dtype='dataset')
-        print(d0)
         arr = d0.to_ndarray()
-        print(arr)
 
         for frame in traj:
-            print(frame.center_of_geometry(traj.top("*")).tolist())
+            pass
 
         saved_d0 = np.loadtxt("./data/vec.out", skiprows=1, usecols=(1, 2, 3))
-        print(saved_d0)
 
         assert_almost_equal(arr.flatten(), saved_d0.flatten())
         assert_almost_equal(d1.to_ndarray().flatten(), saved_d0.flatten())
         assert_almost_equal(d2.to_ndarray().flatten(), saved_d0.flatten())
 
         assert_almost_equal(
-            traj.calc_COG(dtype='ndarray'), traj2.calc_COG(dtype='ndarray'))
+            pt.center_of_geometry(traj,
+                                  dtype='ndarray'),
+            pt.center_of_geometry(traj2,
+                                  dtype='ndarray'))
 
 
 if __name__ == "__main__":

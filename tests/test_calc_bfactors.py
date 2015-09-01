@@ -9,10 +9,9 @@ from pytraj.testing import cpptraj_test_dir
 
 class Test(unittest.TestCase):
     def test_0(self):
-        pt.set_world_silent(False)
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         iter_options = {'start': 9, 'stop': 30, 'stride': 2}
-        print(traj(**iter_options))
+        #print(traj(**iter_options))
 
         bfactors = pt.calc_bfactors(traj(**iter_options))
         s_fname = "/".join((cpptraj_test_dir, "Test_AtomicFluct",

@@ -19,7 +19,12 @@ if os.path.exists("./data/nogit/remd/myparm.parm7"):
 
 for traj in tlist:
     print(traj)
-    print(traj._estimated_MB)
+    print(traj._estimated_GB)
+
+    @profile
+    def test_write():
+        pt.write_traj('test.nc', traj, indices=range(10000), overwrite=True)
+        print(pt.iterload('./test.nc', traj.top))
 
     @profile
     def test():
@@ -30,19 +35,21 @@ for traj in tlist:
     @profile
     def test_closest():
         print('test_closest')
-        for frame in pt.closest(traj(0, 100), n_solvents=10, restype='iterator')[0]:
+        for frame in pt.closest(traj(0, 100),
+                                n_solvents=10,
+                                restype='iterator')[0]:
             pass
 
     @profile
     def test_strip_atoms(chunksize=100):
         print("test_strip_atoms")
         for chunk in traj.iterchunk(chunksize=100):
-            chunk._fast_strip_atoms(':WAT')
+            chunk.strip_atoms(':WAT')
 
     @profile
-    def test_chunk_iter(chunksize=100):
+    def test_iterchunk(chunksize=100):
         # OK
-        for chunk in traj.chunk_iter(chunksize=chunksize):
+        for chunk in traj.iterchunk(chunksize=chunksize):
             pass
 
     @profile
@@ -64,9 +71,9 @@ for traj in tlist:
             pass
 
     @profile
-    def test_autoimage_chunk_iter_0(chunksize=100):
+    def test_autoimage_iterchunk_0(chunksize=100):
         # OK
-        for chunk in traj.chunk_iter(chunksize=chunksize):
+        for chunk in traj.iterchunk(chunksize=chunksize):
             chunk.autoimage()
 
     @profile
@@ -100,11 +107,13 @@ for traj in tlist:
     @profile
     def test_iter_frame_indices():
         print('test_iter_frame_indices')
-        for idx, f in enumerate(traj(frame_indices=range(0, traj.n_frames, 3))):
+        for idx, f in enumerate(traj(
+            frame_indices=range(0, traj.n_frames, 3))):
             pass
         print(idx)
 
     func_list = [
+        test_write,
         test_strip_atoms,
         test_closest,
         test_iter_frame_indices,
@@ -115,11 +124,12 @@ for traj in tlist:
         test_autoimage,
         test_autoimage_regular,
         test_translate_regular,
-        test_chunk_iter,
-        test_autoimage_chunk_iter_0,
+        test_iterchunk,
+        test_autoimage_iterchunk_0,
     ]
 
-    estimated_MB = traj._estimated_MB
+    estimated_GB = traj._estimated_GB
 
     for func in func_list:
-        func()
+        mem = max(memory_usage(func))
+        print("%s : %s" % (func.__name__, mem))

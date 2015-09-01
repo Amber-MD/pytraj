@@ -1,7 +1,7 @@
 from pytraj import io
 from pytraj.utils import Timer
 import pytraj.common_actions as pyca
-from pytraj._shared_methods import _frame_iter_master
+from pytraj._shared_methods import iterframe_master
 import numpy as np
 from numpy.testing import assert_almost_equal as aa_equal
 
@@ -18,6 +18,7 @@ print("not using frame_iter")
 def test_time():
     return pyca.calc_pairwise_rmsd(trajlist, '@CA', traj.top)
 
+
 dslist = test_time()
 
 print("not using frame_iter")
@@ -32,8 +33,8 @@ new_top = traj.top.strip_atoms('!@CA', copy=True)
 def test_time_iter():
     # we already specify mask in frame_iter
     # and need to specify top too
-    return pyca.calc_pairwise_rmsd(traj_iter_list,
-                                   top=new_top)
+    return pyca.calc_pairwise_rmsd(traj_iter_list, top=new_top)
+
 
 dslist_iter = test_time_iter()
 

@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -13,14 +14,14 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print("creat Trajectory from 3D array")
+        #print("creat Trajectory from 3D array")
         farray = Trajectory()
         farray.top = traj.top.copy()
         arr0 = traj.xyz
-        print(arr0.shape)
+        #print(arr0.shape)
         farray.append_xyz(arr0)
         for f0, f1 in izip(farray, traj):
-            #print (f0, f1)
+            ##print (f0, f1)
             assert_almost_equal(f0.coords, f1.coords)
 
 

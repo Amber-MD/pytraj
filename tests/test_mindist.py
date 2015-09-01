@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
@@ -20,14 +21,14 @@ class Test(unittest.TestCase):
         i0 = top("@CA").indices
         i1 = top("@CB").indices
         combinations = np.array(list(product(i0, i1)))
-        d1 = traj.calc_distance(combinations).T
-        print(d1.shape)
+        d1 = pt.calc_distance(traj, combinations).T
+        #print(d1.shape)
 
         min_list = []
         for arr0 in d1:
             min_list.append(np.min(arr0))
-        print(min_list)
-        print(d0.tolist())
+        #print(min_list)
+        #print(d0.tolist())
         aa_eq(d0.tolist(), min_list)
 
         d0 = pt.mindist(traj, [[0, 1], [2, 3]])

@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
         aa_eq(traj.xyz, traj2.xyz)
         aa_eq(traj.xyz, traj3.xyz)
 
-        print(pyca.calc_COM(traj2).to_ndarray())
+        #print(pyca.calc_COM(traj2).to_ndarray())
 
     @test_if_having("MDAnalysis")
     @test_if_having("mdtraj")
@@ -47,7 +47,7 @@ class Test(unittest.TestCase):
         assert isinstance(traj2, Trajectory) == True
         aa_eq(traj.xyz, traj2.xyz)
 
-        print(pyca.calc_COM(traj2).to_ndarray())
+        #print(pyca.calc_COM(traj2).to_ndarray())
 
         # raise if use engine='mdtraj' for iterload
         self.assertRaises(

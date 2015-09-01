@@ -12,12 +12,12 @@ class Test(unittest.TestCase):
         f1 = "./data/nastruct/rna_a_form_dup_F2.pdb"
         traj0 = pt.iterload(f0)
         traj1 = pt.iterload(f1)
-        print(traj0)
+        #print(traj0)
 
         a0 = pt.nastruct(traj0)
         a1 = pt.nastruct(traj1, resmap='AF2:A')
         aa_eq(a0.values, a1.values)
-        print(len(a0.values))
+        #print(len(a0.values))
 
         cout = pt.datafiles.load_cpptraj_output("""
         parm ./data/nastruct/rna_a_form_dup.pdb
@@ -26,11 +26,11 @@ class Test(unittest.TestCase):
         """,
                                                 dtype='cpptraj_dataset',
                                                 with_traj=True)
-        print(cout)
+        #print(cout)
         aa_eq(traj0.xyz, cout[0].xyz)
 
         expected_result = cout[1]
-        print(expected_result.to_ndarray())
+        #print(expected_result.to_ndarray())
 
 
 if __name__ == "__main__":

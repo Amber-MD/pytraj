@@ -13,8 +13,8 @@ class Test(unittest.TestCase):
         act = adict['areapermol']
         dslist = DataSetList()
         act("", traj, dslist=dslist)
-        print(dslist.size)
-        print(dslist[0][:])
+        #print(dslist.size)
+        #print(dslist[0][:])
 
 
 if __name__ == "__main__":

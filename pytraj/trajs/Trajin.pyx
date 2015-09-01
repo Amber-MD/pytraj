@@ -4,7 +4,7 @@ import os
 cimport cython
 from cython.parallel cimport prange
 from cpython.array cimport array as pyarray
-from ..Trajectory cimport Trajectory
+from .Trajectory cimport Trajectory
 from ..AtomMask cimport AtomMask
 
 from .._cyutils import get_positive_idx
@@ -517,7 +517,7 @@ cdef class Trajin:
         cinfo.thisptr[0] = self.baseptr_1.TrajCoordInfo()
         return cinfo
 
-    @memoize
+    @property
     def unitcells(self):
         return _box(self)
 

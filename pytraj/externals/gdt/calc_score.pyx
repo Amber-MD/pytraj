@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from cpython.array cimport array as pyarray
 from .gdt cimport _gdt, sshort
 from ... _get_common_objects import _get_top, _get_data_from_dtype
-from ... _shared_methods import _frame_iter_master
+from ... _shared_methods import iterframe_master
 from ... Frame cimport Frame
 
 def calc_score(traj, top=None, ref=None, mask="*", 
@@ -51,7 +51,7 @@ def calc_score(traj, top=None, ref=None, mask="*",
     _ref = Frame(ref, atm)
     n_atoms_new = _ref.n_atoms
 
-    for frame in _frame_iter_master(traj):
+    for frame in iterframe_master(traj):
         _frame = Frame(frame, atm)
         result = _gdt(_ref.thisptr.xAddress(), _frame.thisptr.xAddress(), 
                      1, n_atoms_new, int_score)[0]

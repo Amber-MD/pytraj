@@ -3,13 +3,15 @@
 from __future__ import absolute_import
 import warnings
 import os
-from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
-from pytraj._action_in_traj import ActionTrajectory
-from pytraj.compat import string_types, range
-from pytraj._shared_methods import _tolist, _split_and_write_traj
-from pytraj.Topology import Topology
-from pytraj.utils import is_int
-from pytraj._cyutils import get_positive_idx
+import numpy as np
+
+from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
+from ._action_in_traj import ActionTrajectory
+from .compat import string_types, range
+from ._shared_methods import _tolist, _split_and_write_traj
+from .Topology import Topology
+from .utils import is_int
+from ._cyutils import get_positive_idx
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
 
@@ -56,7 +58,7 @@ def _turn_to_list_with_rank(func):
     return inner
 
 
-class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
+class TrajectoryIterator(TrajectoryCpptraj):
     def __init__(self, filename=None, top=None, *args, **kwd):
         '''out-of-core trajectory holder.
 
@@ -71,10 +73,10 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         >>> traj.load('./remd.x.003')
         '''
         self._force_load = False
-        # use self.chunk to store `chunk` in chunk_iter
+        # use self.chunk to store `chunk` in iterchunk
         # to deallocate memory
         self.chunk = None
-        # same as self.chunk but for frame_iter
+        # same as self.chunk but for iterframe
         self.frame = None
         # only allow to load <= 1000 Mb
         self._size_limit_in_MB = 1000
@@ -118,10 +120,10 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         return self.__dict__
 
     def __iter__(self):
+        '''do not make a frame copy here
+        '''
         for frame in super(TrajectoryIterator, self).__iter__():
-            # we need to use `copy` to create different frame pointer
-            # so [frame for frame in traj] will return a list of different ones
-            yield frame.copy()
+            yield frame
 
     def copy(self):
         """Very simple copy"""
@@ -180,15 +182,15 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         return self.xyz
 
     @property
-    def _estimated_MB(self):
+    def _estimated_GB(self):
         """esimated MB of data will be loaded to memory
         """
-        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 2)
+        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3)
 
     @property
     def xyz(self):
         '''return 3D array of coordinates'''
-        size_in_MB = self._estimated_MB
+        size_in_MB = self._estimated_GB
         # check if larger than size_limit_in_MB
         if size_in_MB > self._size_limit_in_MB and not self._force_load:
             raise MemoryError(
@@ -208,15 +210,15 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
         from itertools import tee
         return tee(self, n_iters)
 
-    def frame_iter(self,
-                   start=0,
-                   stop=None,
-                   stride=1,
-                   mask=None,
-                   autoimage=False,
-                   rmsfit=None,
-                   copy=True,
-                   frame_indices=None):
+    def iterframe(self,
+                  start=0,
+                  stop=None,
+                  stride=1,
+                  mask=None,
+                  autoimage=False,
+                  rmsfit=None,
+                  copy=False,
+                  frame_indices=None):
         ''''''
 
         from .core.frameiter import FrameIter
@@ -250,7 +252,7 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                 stop = get_positive_idx(stop, self.n_frames)
             n_frames = len(range(start, stop, stride))
             frame_iter_super = super(
-                TrajectoryIterator, self).frame_iter(start, stop, stride)
+                TrajectoryIterator, self).iterframe(start, stop, stride)
         else:
             stop = None
             start = None
@@ -273,23 +275,12 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
                          copy=copy,
                          frame_indices=frame_indices)
 
-    def iterframe(self, *args, **kwd):
-        '''create frame iterator. same as frameiter
-        '''
-        return self.frame_iter(*args, **kwd)
-
-    def iterchunk(self, *args, **kwd):
-        '''iterate traj by a chunk (alias of iterchunk)
-        '''
-        return self.chunk_iter(*args, **kwd)
-
-    def chunk_iter(self,
-                   chunksize=2,
-                   start=0,
-                   stop=-1,
-                   autoimage=False,
-                   rmsfit=None,
-                   copy_top=False):
+    def iterchunk(self,
+                  chunksize=2,
+                  start=0,
+                  stop=-1,
+                  autoimage=False,
+                  rmsfit=None):
         """
         Parameters
         ----------
@@ -302,10 +293,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
 
         Examples
         --------
-            for chunk in trajiter.chunk_iter(100, autoimage=True, rmsfit=(ref0, '@CA'))
+            for chunk in trajiter.iterchunk(100, autoimage=True, rmsfit=(ref0, '@CA'))
         """
-        chunk = chunksize
-
         if rmsfit is not None:
             ref, mask_for_rmsfit = rmsfit
             need_align = True
@@ -313,8 +302,8 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             need_align = False
             ref, mask_for_rmsfit = None, None
 
-        for chunk in super(TrajectoryIterator, self).chunk_iter(
-            chunk, start, stop, copy_top):
+        for chunk in super(TrajectoryIterator, self).iterchunk(
+            chunksize, start, stop):
             # always perform autoimage before doing fitting
             # chunk is `Trajectory` object, having very fast `autoimage` and
             # `rmsfit` methods
@@ -392,14 +381,21 @@ class TrajectoryIterator(TrajectoryCpptraj, ActionTrajectory):
             for (_start, _stop) in split_range(n_chunks=n_chunks,
                                                start=start,
                                                stop=stop):
-                yield self.frame_iter(start=_start,
-                                      stop=_stop,
-                                      stride=stride,
-                                      mask=mask,
-                                      autoimage=autoimage,
-                                      rmsfit=rmsfit)
+                yield self.iterframe(start=_start,
+                                     stop=_stop,
+                                     stride=stride,
+                                     mask=mask,
+                                     autoimage=autoimage,
+                                     rmsfit=rmsfit)
 
     def to_numpy_traj(self):
         '''experimental traj class. API might be changed'''
         from pytraj import api
         return api.Trajectory(self)
+
+    @property
+    def temperatures(self):
+        return np.array([frame.temperature for frame in self])
+
+    def iselect(self, frame_indices):
+        return self._iterframe_indices(frame_indices)

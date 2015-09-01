@@ -6,12 +6,12 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 class Test(unittest.TestCase):
     def test_get_iter(self):
-        print("test_get_iter")
+        #print("test_get_iter")
         top = Topology("./data/DOPC.parm7")
         s = [atom.name for atom in top[":PC@H*"]]
         atom0 = top[":PC@H*"][0]
-        print(dir(atom0))
-        print(atom0.resnum)
+        #print(dir(atom0))
+        #print(atom0.resnum)
 
         # test join
         old_natoms = top.n_atoms

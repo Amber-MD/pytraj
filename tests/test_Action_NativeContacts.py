@@ -15,10 +15,10 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ref = mdio.load("data/Tc5b.nat.crd", traj.top)
         dslist = pyca.native_contacts(traj, top=traj.top, ref=ref)
-        print(dslist)
+        #print(dslist)
 
         dslist = pyca.native_contacts(traj, top=traj.top)
-        print(dslist)
+        #print(dslist)
 
 
 if __name__ == "__main__":

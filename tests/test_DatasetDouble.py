@@ -22,8 +22,8 @@ class TestDataSetDB(unittest.TestCase):
         # assign to numpy array
         dset0.data = np.arange(1000)
         assert dset0.size == 1000
-        print(dset0.size)
-        print(dset0.dtype)
+        #print(dset0.size)
+        #print(dset0.dtype)
         assert dset0[999] == 999.
 
         # test append dset
@@ -42,7 +42,7 @@ class TestDataSetDB(unittest.TestCase):
 
         # update elements
         dset0.data[:10] = np.empty(10, dtype=np.float64)
-        print(np.asarray(dset0.data[:10]))
+        #print(np.asarray(dset0.data[:10]))
         dset0.data[0] = 1000.
         assert np.asarray(dset0.data[:10])[0] == 1000.
         arr0 = np.asarray(dset0.data)

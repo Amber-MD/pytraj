@@ -1,20 +1,15 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
-from pytraj.base import *
-from pytraj import adict
-from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
-from pytraj.decorators import no_test, test_if_having, test_if_path_exists
-from pytraj.testing import cpptraj_test_dir
-import pytraj.common_actions as pyca
 from pytraj import api
 from pytraj.compat import zip
 
 
 class Test(unittest.TestCase):
     def test_0(self):
-        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        api_traj = api.Trajectory(traj)
+        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        api_traj = traj[:]
 
         # test xyz
         aa_eq(api_traj.xyz, traj.xyz)
@@ -33,22 +28,16 @@ class Test(unittest.TestCase):
         # test autoimage
         # make Trajectory from TrajectoryIterator
         fa = traj[:]
-        t_api2 = api.Trajectory(fa)
-        t_api2.autoimage()
         fa.autoimage()
-        saved_traj = mdio.iterload(
+        saved_traj = pt.iterload(
             "./data/tz2.autoimage.nc", "./data/tz2.ortho.parm7")
-        for f1, f2 in zip(fa, t_api2):
-            aa_eq(f1.box.tolist(), f2.box.tolist())
-            print(f1.rmsd(f2))
-        aa_eq(t_api2.xyz, fa.xyz, decimal=1)
 
         # make sure to reproduce cpptraj's output too
         aa_eq(saved_traj.xyz, fa.xyz)
 
-        # test slicing to get correct Box
-        t_api2_sliced = t_api2[:10]
-        aa_eq(t_api2_sliced._boxes, t_api2._boxes[:10])
+    def testFromIterable(self):
+        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        aa_eq(pt.api.Trajectory.from_iterable(traj).xyz, traj.xyz)
 
 
 if __name__ == "__main__":

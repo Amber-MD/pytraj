@@ -20,18 +20,18 @@ class Test(unittest.TestCase):
         dslist = DataSetList()
         calculate("distance", traj, "@CA @CB mylovelyname", dslist=dslist)
         d0 = dslist[0]
-        print(d0.to_pyarray())
+        #print(d0.to_pyarray())
         dmax = d0.max()
         dmin = d0.min()
-        print(dmax, dmin)
+        #print(dmax, dmin)
         act = analdict['hist']
         command = "%s min %s max %s bins %s step 50 out ./output/test.out" % (
             d0.name, dmin, dmax, 100)
-        print(command)
+        #print(command)
         act(command, dslist=dslist)
-        print(dslist.get_legends())
-        print(dslist[1])
-        print(dslist[1].tolist())
+        #print(dslist.get_legends())
+        #print(dslist[1])
+        #print(dslist[1].tolist())
 
     def test_1(self):
         # Corr
@@ -40,7 +40,7 @@ class Test(unittest.TestCase):
         act = analdict['corr']
         command = "mylovelyname out mydummyoutput.txt"
         act(command, dslist=dslist)
-        print(dslist[-1].to_pyarray())
+        #print(dslist[-1].to_pyarray())
 
 
 if __name__ == "__main__":

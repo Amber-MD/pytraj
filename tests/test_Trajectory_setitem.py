@@ -63,15 +63,9 @@ class Test(unittest.TestCase):
         fa0[0] = xyz[0]  # fa[0] return a Frame
         aa_eq(fa0[0].xyz, xyz[0])
         # try to assign a Frame
-        print(fa0, fa)
+        #print(fa0, fa)
         fa0[0] = fa[0]
         aa_eq(fa0[0].xyz, fa[0].xyz)
-
-        # try to raise ValueError if mistmach
-        def dtype_mismatch():
-            fa[0] = xyz[0].astype('f4')
-
-        self.assertRaises(ValueError, lambda: dtype_mismatch())
 
         def shape_mismatch():
             fa[0] = xyz

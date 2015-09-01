@@ -23,19 +23,19 @@ class Test(unittest.TestCase):
         traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         if has_("mdtraj") and has_("tables"):
-            print("Testing mdtraj and pytraj")
+            #print("Testing mdtraj and pytraj")
             import mdtraj as md
             import mdtraj.testing
             traj_filename = mdtraj.testing.get_fn('frame0.h5')
             m_traj = md.load(traj_filename)
             farray = load_mdtraj(m_traj)
-            print(farray.top)
+            #print(farray.top)
             assert isinstance(farray.top, Topology) == True
             # need to set empty Box to match mdtraj's results. ack
             farray.top.box = farray.top.box.__class__()
-            print(farray)
-            print(farray[0, 0])
-            print(farray[0].n_atoms)
+            #print(farray)
+            #print(farray[0, 0])
+            #print(farray[0].n_atoms)
 
             # start assertion
             assert farray.top.n_atoms == m_traj.top.n_atoms
@@ -46,34 +46,35 @@ class Test(unittest.TestCase):
 
             with Timer() as t:
                 d0 = common_actions.calc_distance(farray, "@1 @21")
-            print("time for pytraj_0 = %s" % t.time_gap())
+            #print("time for pytraj_0 = %s" % t.time_gap())
 
             act = adict['distance']
             dslist = DataSetList()
             with Timer() as t:
                 act("@1 @21", farray, dslist=dslist)
-            print("time for pytraj_1= %s" % t.time_gap())
+            #print("time for pytraj_1= %s" % t.time_gap())
 
             indices = np.array([[0, 20], ])
             with Timer() as t:
                 dist_m = md.compute_distances(m_traj, indices, periodic=False)
-            print("time for mdtraj = %s" % t.time_gap())
+            #print("time for mdtraj = %s" % t.time_gap())
             # convert from "nm" to "angstrom"
             aa_eq(d0[:], 10 * dist_m[:][0])
 
             with Timer() as t:
                 d0_2 = np.asarray([f.calc_distance(indices) for f in farray
                                    ]).flatten()
-            print("time for pytraj_2 = %s" % t.time_gap())
+            #print("time for pytraj_2 = %s" % t.time_gap())
             N = 20
             x = d0_2[:N]
             y = d0[:N]
-            #print (x, y)
+            ##print (x, y)
             aa_eq(x, y)
 
         else:
-            print("does not have mdtraj and/or pytables")
-            print("skip test")
+            pass
+            #print("does not have mdtraj and/or pytables")
+            #print("skip test")
 
     @test_if_having("mdtraj")
     def test_1(self):
@@ -85,8 +86,8 @@ class Test(unittest.TestCase):
             "./data/tz2.ortho.rst7",
             top="./data/tz2.ortho.parm7")
         traj = io.load_mdtraj(m_traj)
-        print(traj.top.box)
-        print(true_traj.top.box)
+        #print(traj.top.box)
+        #print(true_traj.top.box)
         assert traj.n_atoms == m_traj.n_atoms == true_traj.n_atoms
 
         count = 0
@@ -97,8 +98,8 @@ class Test(unittest.TestCase):
         assert count == traj.n_frames == true_traj.n_frames
 
         traj2 = io.load_mdtraj(m_traj, False)
-        print(traj[0, 0], true_traj[0, 0], traj2[0, 0])
-        print(m_traj.xyz[0, 0])
+        #print(traj[0, 0], true_traj[0, 0], traj2[0, 0])
+        #print(m_traj.xyz[0, 0])
         aa_eq(traj2.xyz, m_traj.xyz, decimal=3)
         aa_eq(traj.xyz, 10 * m_traj.xyz, decimal=3)
 

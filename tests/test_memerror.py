@@ -32,15 +32,15 @@ class TestRadgyr(unittest.TestCase):
             for key in adict.keys():
                 if key not in failed_action_list:
                     n_actions += 1
-                    print(adict[key])
-                    print(key)
+                    #print(adict[key])
+                    #print(key)
 
             for key in analdict.keys():
                 if key not in failed_anal_list:
                     n_anals += 1
-                    print(analdict[key])
-                    print(key)
-            print("n_actions = %s, n_anals = %s" % (n_actions, n_anals))
+                    #print(analdict[key])
+                    #print(key)
+                    #print("n_actions = %s, n_anals = %s" % (n_actions, n_anals))
 
         test_all()
 

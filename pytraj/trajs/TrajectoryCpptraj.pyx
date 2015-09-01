@@ -1,5 +1,7 @@
 # distutils: language = c++
-from ..Trajectory cimport Trajectory
+import numpy as np
+from ..api import Trajectory
+from ..trajs.Trajectory cimport Trajectory as _Trajectory
 from ..AtomMask cimport AtomMask
 from ..Topology cimport Topology
 
@@ -18,6 +20,28 @@ from .._get_common_objects import _get_top
 from .Trajout import Trajout
 from ..compat import zip, range
 
+def _split_range(int chunksize, int start, int stop):
+    '''split a given range to n_chunks
+
+    Examples
+    --------
+    >>> from pytraj.misc import split_range
+    >>> split_range(3, 0, 10)
+    [(0, 3), (3, 6), (6, 10)]
+    '''
+    cdef int n_chunks, i, _stop
+
+    n_chunks = (stop - start)//chunksize
+
+    if ((stop - start) % chunksize ) != 0:
+        n_chunks += 1
+
+    for i in range(n_chunks):
+        if i < n_chunks - 1:
+            _stop = start + (i + 1) * chunksize
+        else:
+            _stop = stop
+        yield start + i * chunksize, _stop
 
 cdef class TrajectoryCpptraj:
     def __cinit__(self):
@@ -119,7 +143,7 @@ cdef class TrajectoryCpptraj:
         return self.__str__()
 
     def __call__(self, *args, **kwd):
-        return self.frame_iter(*args, **kwd)
+        return self.iterframe(*args, **kwd)
 
     def __iter__(self):
         '''iterately getting Frame instance
@@ -136,45 +160,55 @@ cdef class TrajectoryCpptraj:
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 
-    def _to_numpy_traj_fast(self, int start, int stop, int stride, mask=None, dtype='f8'):
-        cdef int i = start
+    def _to_nptraj_by_slice(self, int start, int stop, int stride):
+        cdef int i, j
         cdef int n_atoms = self.n_atoms
         cdef Frame frame
-        cdef int j = 0
+        cdef double[:, :, :] xyz
         cdef int n_frames = len(range(start, stop, stride))
-        cdef AtomMask atm
-
-        from pytraj.api import Trajectory
-        import numpy as np
 
         traj = Trajectory()
-        traj.unitcells = np.zeros((n_frames, 6), dtype=dtype)
-
-        # make a copy?
-        if mask is None:
-            atm = AtomMask()
-            traj.top = self.top
-            frame = Frame(n_atoms)
-            traj._allocate(n_frames, n_atoms, dtype=dtype)
-        else:
-            atm = self.top(mask)
-            traj.top = self.top._get_new_from_mask(mask)
-            frame = Frame(atm.n_atoms)
-            traj._allocate(n_frames, atm.n_atoms, dtype=dtype)
+        traj._allocate(n_frames, n_atoms)
+        traj.unitcells = np.zeros((n_frames, 6), dtype='f8')
+        traj.top = self.top
         xyz = traj.xyz[:]
 
+        frame = Frame(n_atoms, xyz[0], _as_ptr=True)
+        i = start
+        j = 0
         while i < stop:
-            if mask is None:
-                self.thisptr.GetFrame(i, frame.thisptr[0])
-            else:
-                self.thisptr.GetFrame(i, frame.thisptr[0], atm.thisptr[0])
-            if dtype == 'f4':
-                xyz[j] = frame.xyz.astype('f4')
-            else:
-                xyz[j] = frame.xyz
-            traj.unitcells[j] = frame.box.to_ndarray()
+            # use `frame` as a pointer pointing to `xyz` memory
+            # dump coords to xyz array
+            frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
+            self.thisptr.GetFrame(i, frame.thisptr[0])
+            traj.unitcells[j] = frame.box.data
             i += stride
             j += 1
+        return traj
+
+    def _to_nptraj_by_indices(self, indices):
+        '''indices is iterable that has __len__
+        '''
+        cdef int i, j
+        cdef int n_atoms = self.n_atoms
+        cdef Frame frame
+        cdef double[:, :, :] xyz
+        cdef int n_frames = len(indices)
+
+        traj = Trajectory()
+        traj._allocate(n_frames, n_atoms)
+        traj.unitcells = np.zeros((n_frames, 6), dtype='f8')
+        traj.top = self.top
+        xyz = traj.xyz[:]
+
+        frame = Frame(n_atoms, xyz[0], _as_ptr=True)
+        for j, i in enumerate(indices):
+            # use `frame` as a pointer pointing to `xyz` memory
+            # dump coords to xyz array
+            frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
+            # copy coordinates of `self[i]` to j-th frame in `traj`
+            self.thisptr.GetFrame(i, frame.thisptr[0])
+            traj.unitcells[j] = frame.box.data
         return traj
 
     property top:
@@ -193,7 +227,7 @@ cdef class TrajectoryCpptraj:
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 
-    def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
+    def iterframe(self, int start=0, int stop=-1, int stride=1, mask=None):
         '''iterately get Frames with start, stop, stride 
         Parameters
         ---------
@@ -238,7 +272,7 @@ cdef class TrajectoryCpptraj:
                 yield frame
                 i += stride
 
-    def chunk_iter(self, int chunk=2, int start=0, int stop=-1, bint copy_top=False):
+    def iterchunk(self, int chunksize=2, int start=0, int stop=-1):
         '''iterately get Frames with start, chunk
         returning Trajectory or Frame instance depend on `chunk` value
         Parameters
@@ -249,11 +283,11 @@ cdef class TrajectoryCpptraj:
         copy_top : bool, default=False
             if False: no Topology copy is done for new (chunk) Trajectory
         '''
-        cdef int n_chunk, i, j, _stop
+        cdef int i, j, _stop
         cdef int n_frames = self.n_frames
         cdef int n_atoms = self.n_atoms
-        cdef Trajectory farray
         cdef Frame frame
+        cdef int _tmp_start, _tmp_stop, real_n_frames
 
         # check `start`
         if start < 0 or start >= n_frames:
@@ -261,41 +295,30 @@ cdef class TrajectoryCpptraj:
 
         # check `stop`
         if stop <= 0 or stop >= n_frames:
-            stop = <int> self.size - 1
+            stop = <int> self.size
 
-        if chunk <= 1:
+        if chunksize <= 1:
             raise ValueError("chunk must be >= 2")
 
-        if chunk + start > stop:
+        if chunksize + start > stop:
             raise ValueError("start + chunk must be smaller than max frames")
-
-        n_chunk = int((stop- start)/chunk)
-        if ((stop - start) % chunk ) != 0:
-            n_chunk += 1
 
         # only open and close file once
         with self:
-            for i in range(n_chunk):
+            for (_tmp_start, _tmp_stop) in _split_range(chunksize, start, stop):
                 # always create new Trajectory
-                farray = Trajectory(check_top=False)
-                if copy_top:
-                    farray.top = self.top.copy()
-                else:
-                    farray.top = self.top
-                    farray.top.py_free_mem = False # let `self` do it
+                farray = Trajectory()
+                farray.top = self.top.copy()
+                real_n_frames = len(range(_tmp_start, _tmp_stop))
+                farray._allocate(real_n_frames, farray.top.n_atoms)
+                farray._boxes = np.empty((real_n_frames, 6), dtype='f8')
 
-                if i != n_chunk - 1:
-                    _stop = start + chunk*(i+1)
-                else:
-                    _stop = stop + 1
-
-                for j in range(start + chunk * i,  _stop):
-                    frame = Frame(n_atoms)
-                    self.thisptr.GetFrame(j, frame.thisptr[0])
-                    farray.append(frame, copy=False)
+                for idx, frame in enumerate(self.iterframe(start=_tmp_start,
+                    stop=_tmp_stop)):
+                    farray._xyz[idx] = frame.xyz
+                    farray._boxes[idx] = frame.box.data
                 yield farray
-
-
+                    
     def __setitem__(self, idx, value):
         raise NotImplementedError("Read only Trajectory. Use Trajectory class for __setitem__")
 
@@ -303,7 +326,6 @@ cdef class TrajectoryCpptraj:
          # allocate frame for storing data
          cdef Frame frame0
          cdef Frame frame = Frame(self.top.n_atoms)
-         cdef Trajectory farray
          cdef int start, stop, step
          cdef int i
          cdef int idx_1, idx_2
@@ -313,6 +335,8 @@ cdef class TrajectoryCpptraj:
          cdef idxs_size
      
          if isinstance(idxs, AtomMask):
+             # atm = top('@CA')
+             # traj[atm]
              atom_mask_obj = <AtomMask> idxs
              _farray = Trajectory()
              _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
@@ -322,59 +346,19 @@ cdef class TrajectoryCpptraj:
              self.tmpfarray = _farray
              # hold _farray in self.tmpfarray to avoid memory lost
              return self.tmpfarray
-
          elif isinstance(idxs, string_types):
-             # mimic API of MDtraj
-             if idxs == 'coordinates':
-                 return self[:, :, :]
-             elif idxs == 'topology':
-                 return self.top
-             else:
-                 # return array with given mask
-                 # traj[':@CA']
-                 # traj[':@CA :frame']
-                 # use `mask` to avoid confusion
-                 mask = idxs
-                 try:
-                     return self[self.top(mask)]
-                 except:
-                     txt = "not supported keyword `%s`" % idxs
-                     raise NotImplementedError(txt)
-
+             # return array with given mask
+             # traj['@CA']
+             mask = idxs
+             try:
+                 return self[self.top(mask)]
+             except:
+                 txt = "not supported keyword `%s`" % idxs
+                 raise NotImplementedError(txt)
          elif isinstance(idxs, slice):
-             # idxs is slice
-             farray = Trajectory()
-             # NOTE: MUST make a copy self.top
-             # if NOT: double-free memory when using `_fast_strip_atoms`
-             #farray.top = self.top
-             farray.top = self.top.copy()
-     
-             # check comment in Trajectory class with __getitem__ method
-             start, stop, step = idxs.indices(self.size)
-     
-             with self:
-                 if start > stop and (step < 0):
-                     # traj[:-1:-3]
-                     is_reversed = True
-                     # see comment in Trajectory (__getitem__)
-                     start, stop = stop + 1, start + 1
-                     step *= -1
-                 else:
-                     is_reversed = False
-     
-                 for frame in self.frame_iter(start, stop, step):
-                     # add '-1' to stop 
-                     # in `frame_iter`, we include `stop`
-                     # but for slicing, python does not include stop
-                     # always use `copy=True` since we are taking frames from 
-                     # read-only Trajectory, no memview
-                     farray.append(frame, copy=True)
-     
-                 if is_reversed:
-                     # reverse vector if using negative index slice
-                     # traj[:-1:-3]
-                     farray.reverse()
-             return farray
+             start, stop, stride = idxs.indices(self.n_frames)
+             self.tmpfarray = self._to_nptraj_by_indices(range(start, stop, stride))
+             return self.tmpfarray
          else:
              # not is a slice
              if idxs == ():
@@ -391,8 +375,12 @@ cdef class TrajectoryCpptraj:
                      self.tmpfarray = frame
                      if isinstance(idx1, string_types):
                          # traj[0, '@CA']
+                         atm = self.top(idx1)
+                         self.tmpfarray = Frame(frame, atm)
+                         return self.tmpfarray
+                     else:
                          frame.top = self.top
-                     return self.tmpfarray[idxs[1:]]
+                         return self.tmpfarray[idxs[1:]]
                  elif isinstance(self[idx0], Trajectory):
                      farray = self[idx0]
                      self.tmpfarray = farray
@@ -407,27 +395,15 @@ cdef class TrajectoryCpptraj:
                          except:
                              raise NotImplementedError()
              elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                 farray = Trajectory()
-
-                 if isinstance(idxs, list):
-                     if isinstance(idxs[0], bool):
-                         if any(not isinstance(x, bool) for x in idxs):
-                             raise NotImplementedError("can not mix boolean with other type")
-                         import numpy as np
-                         idxs = np.array(idxs, dtype=bool)
-
-                 if hasattr(idxs, 'dtype') and idxs.dtype.name == 'bool':
-                     farray.top = self.top
-                     for i in range(idxs.shape[0]):
-                         if idxs[i] == True:
-                             farray.append(self[i], copy=True)
-                 else:
-                      farray.get_frames(from_traj=self, indices=idxs, update_top=True)
-
-                 self.tmpfarray = farray
+                 # traj[[2, 6, 3]]
+                 # support indexing that having 'len'
+                 if any(isinstance(x, bool) for x in idxs):
+                     raise NotImplementedError("do not support bool indexing")
+                 self.tmpfarray = self._to_nptraj_by_indices(idxs)
                  return self.tmpfarray
 
              else:
+                 # traj[8]
                  # assuming that `idxs` is integer
                  idx_1 = <int> get_positive_idx(idxs, self.size)
                  # raise index out of range
@@ -443,7 +419,7 @@ cdef class TrajectoryCpptraj:
         cdef int start, stop, step
         cdef int count
         cdef int n_atoms = self.n_atoms
-        cdef Trajectory farray = Trajectory(check_top=False)
+        cdef _Trajectory farray = _Trajectory(check_top=False)
         cdef _Frame* _frame_ptr
 
         # NOTE: MUST make a copy self.top
@@ -471,19 +447,11 @@ cdef class TrajectoryCpptraj:
     def unitcells(self):
         return _box(self)
 
-    def to_mutable_traj(self):
-        '''same as self[:] but more explicit'''
-        return self[:]
-
     @property
     def xyz(self):
         '''return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
         '''
-        # xyz = traj.xyz[:]
-        # xyz += 1.
-        # print (xyz[0, 0])
-        # print (traj.xyz[0, 0])
         return _xyz(self)
 
     @property

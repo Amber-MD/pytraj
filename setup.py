@@ -138,7 +138,7 @@ if with_openmp:
 
 KeyErrorTXT = """
 Can not use -faster_build with `install`,
-try  "python ./setup.py build -faster_build
+try  "python ./setup.py build faster_build
 then "python ./setup.py install" 
 """
 
@@ -276,6 +276,7 @@ if __name__ == "__main__":
     else:
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
+        print('number of available cpus = %s' % n_cpus)
         num_each = int(len(ext_modules)/n_cpus)
 
         sub_ext_modules_list = []

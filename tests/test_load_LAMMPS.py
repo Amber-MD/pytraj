@@ -17,11 +17,11 @@ class Test(unittest.TestCase):
 
         # load to pytraj
         traj = mdio.load_MDAnalysis(u)
-        print(traj)
-        print(traj.top)
-        print(traj.xyz.shape)
-        print(traj.top.atom_names)
-        print(traj.top.residue_names)
+        #print(traj)
+        #print(traj.top)
+        #print(traj.xyz.shape)
+        #print(traj.top.atom_names)
+        #print(traj.top.residue_names)
 
 
 if __name__ == "__main__":

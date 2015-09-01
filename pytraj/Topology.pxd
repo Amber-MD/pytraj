@@ -48,16 +48,16 @@ cdef extern from "Topology.h":
         const string& ParmName() const 
         const _FileName& OriginalFilename() const 
         const string& GBradiiSet() const 
-        bint NoRefCoords() const 
-        int FinalSoluteRes() const 
-        const char * c_str() const 
-        atom_iterator begin() const 
-        atom_iterator end() const 
-        const _Atom& index_opr "operator[]"(int idx) const 
-        const vector[_Atom]& Atoms() const 
-        inline res_iterator ResStart() const 
-        inline res_iterator ResEnd() const 
-        const _Residue& Res(int idx) const 
+        bint NoRefCoords()
+        int FinalSoluteRes()
+        const char * c_str()
+        atom_iterator begin()
+        atom_iterator end()
+        const _Atom& index_opr "operator[]"(int idx)
+        const vector[_Atom]& Atoms()
+        inline res_iterator ResStart()
+        inline res_iterator ResEnd()
+        const _Residue& Res(int idx)
         _Residue& SetRes(int idx)
         inline mol_iterator MolStart() const 
         inline mol_iterator MolEnd() const 

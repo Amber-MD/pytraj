@@ -9,10 +9,10 @@ class TestPyCpptrajIO(unittest.TestCase):
             filename="./data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")[:10]
         indices = list(range(2, 3, 5)) + [3, 8, 9, 8]
-        print(indices)
+        #print(indices)
 
         # for i in indices:
-        #    print traj[i]
+        #    #print traj[i]
 
         mdio.write_traj(filename="./output/test_io_saved_.x",
                         traj=traj,

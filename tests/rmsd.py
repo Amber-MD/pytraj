@@ -11,8 +11,9 @@ def rmsd(a1, a2):
     if alen != len(a2):
         print("two array must have the same length")
         sys.exit()
-    tmp = sum((a1 - a2)**2)
+    tmp = sum((a1 - a2) ** 2)
     return sqrt(tmp / alen)
+
 
 if __name__ == '__main__':
     a1, a2 = sys.argv[1:3]

@@ -1,4 +1,6 @@
 from __future__ import absolute_import
+import numpy as np
+
 from .externals.six import string_types, PY3
 from .datafiles.load_sample_data import load_sample_data
 from .utils.check_and_assert import ensure_exist, is_frame_iter
@@ -7,7 +9,7 @@ from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datasets.utils import load_datafile
 from .datafiles.load_cpptraj_file import load_cpptraj_file
-from ._shared_methods import _frame_iter_master
+from ._shared_methods import iterframe_master, _split_and_write_traj as split_and_write_traj
 from ._set_silent import set_error_silent
 from ._guess_filetype import _guess_filetype
 from ._get_common_objects import _get_top
@@ -59,6 +61,13 @@ __all__ = ['load',
 def load(*args, **kwd):
     """try loading and returning appropriate values
 
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load('traj.nc', '2koc.parm7')
+    >>> traj = pt.load('traj.mol2')
+    >>> traj = pt.load('traj.pdb')
+
     Notes
     -----
     load(filename, top, use_numpy=True) will return `pytraj.api.Trajectory`
@@ -108,6 +117,13 @@ def _load_from_filelist(*args, **kwd):
 
 def iterload(*args, **kwd):
     """return TrajectoryIterator object
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.iterload('traj.nc', '2koc.parm7')
+    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7')
+    >>> traj = pt.iterload('./traj*.nc', '2koc.parm7')
     """
     if kwd and 'indices' in kwd.keys():
         raise ValueError(
@@ -137,6 +153,8 @@ def _load_netcdf(filename, top, indices=None, engine='scipy'):
         traj.xyz = data
     else:
         traj.xyz = data[indices]
+    if traj.xyz.itemsize != 8:
+        traj.xyz = traj.xyz.astype('f8')
     traj._append_unitcells((clen, cangle))
     return traj
 
@@ -189,6 +207,7 @@ def load_traj(filename=None,
               indices=None,
               engine='pytraj', *args, **kwd):
     """load trajectory from filename
+
     Parameters
     ----------
     filename : str
@@ -214,7 +233,7 @@ def load_traj(filename=None,
     if engine == 'pytraj':
         from .Topology import Topology
         from .TrajectoryIterator import TrajectoryIterator
-        from .Trajectory import Trajectory
+        from .api import Trajectory
 
         if not isinstance(top, Topology):
             top = Topology(top)
@@ -228,11 +247,9 @@ def load_traj(filename=None,
             ts.load(filename)
 
         if indices is not None:
-            farray = Trajectory()
-            farray.top = top.copy()
-            for i in indices:
-                farray.append(ts[i])
-            return farray
+            if isinstance(indices, tuple):
+                indices = list(indices)
+            return ts[indices]
         elif is_frame_iter(filename):
             return _load_from_frame_iter(filename, top)
         else:
@@ -252,15 +269,11 @@ def load_traj(filename=None,
             "support only {'pytraj', 'mdanlaysis', 'mdtraj'} engines")
 
 
-def _load_from_frame_iter(traj_frame_iter, top=None):
-    from .Trajectory import Trajectory
-    if top is None or top.is_empty():
-        if hasattr(traj_frame_iter, 'top'):
-            top = traj_frame_iter.top
-        else:
-            raise ValueError("must provide non-empty Topology")
-    fa = Trajectory(traj_frame_iter, top=top)
-    return fa
+def _load_from_frame_iter(iterables, top=None, n_frames=None):
+    '''
+    '''
+    from .api import Trajectory
+    return Trajectory.from_iterable(iterables, top, n_frames)
 
 
 def iterload_remd(filename, top=None, T="300.0"):
@@ -299,13 +312,15 @@ def iterload_remd(filename, top=None, T="300.0"):
 
 
 def load_remd(filename, top=None, T="300.0"):
-    return iterload_remd(filename, top, T)[:]
+    from pytraj import Trajectory
+    itertraj = iterload_remd(filename, top, T)
+    return Trajectory(itertraj, top=itertraj.top)
 
 
 def write_traj(filename="",
                traj=None,
                top=None,
-               format='unknown_traj',
+               format=None,
                indices=None,
                overwrite=False,
                mode="", *args, **kwd):
@@ -319,21 +334,25 @@ def write_traj(filename="",
 
     Examples
     --------
-    >>> from pytraj import io
+    >>> import pytraj as pt
     >>> traj = io.load_sample_data()
-    >>> io.write_traj("t.nc", traj) # write to amber netcdf file
+    >>> pt.write_traj("t.nc", traj, overwrite=True) # write to amber netcdf file
+
     >>> # write to multi pdb files (t.pdb.1, t.pdb.2, ...)
-    >>> io.write_traj("t.pdb", traj, overwrite=True, mode='multi')
+    >>> pt.write_traj("t.pdb", traj, overwrite=True, mode='multi')
+
     >>> # write all frames to single pdb file and each frame is seperated by "MODEL" word
-    >>> io.write_traj("t.pdb", traj, overwrite=True, mode='model')
+    >>> pt.write_traj("t.pdb", traj, overwrite=True, mode='model')
+
     >>> # write to DCD file
-    >>> io.write_traj("test.dcd", traj)
-    >>> # set nobox for trajout
-    >>> io.write_traj("test.nc", traj, mode='nobox')
+    >>> pt.write_traj("test.dcd", traj, overwrite=True)
     """
     from .Frame import Frame
     from .trajs.Trajout import Trajout
 
+    if format in [None, '']:
+        # use cpptraj default format (amber)
+        format = 'unknown_traj'
     if format.upper() == 'UNKNOWN':
         format = format.upper() + "_TRAJ"
     else:
@@ -354,7 +373,7 @@ def write_traj(filename="",
         if isinstance(traj, Frame):
             if indices is not None:
                 raise ValueError("indices does not work with single Frame")
-            trajout.write(0, traj, _top)
+            trajout.write(0, traj)
         else:
             if isinstance(traj, string_types):
                 traj2 = iterload(traj, _top)
@@ -362,15 +381,15 @@ def write_traj(filename="",
                 traj2 = traj
 
             if indices is not None:
-                if isinstance(traj2, (list, tuple)):
+                if isinstance(traj2, (list, tuple, Frame)):
                     raise NotImplementedError(
                         "must be Trajectory or TrajectoryIterator instance")
-                for idx in indices:
-                    trajout.write(idx, traj2[idx], _top)
+                for idx, frame in enumerate(traj.iterframe(frame_indices=indices)):
+                    trajout.write(idx, frame)
 
             else:
-                for idx, frame in enumerate(_frame_iter_master(traj2)):
-                    trajout.write(idx, frame, _top)
+                for idx, frame in enumerate(iterframe_master(traj2)):
+                    trajout.write(idx, frame)
 
 
 def write_parm(filename=None, top=None, format='AMBERPARM'):
@@ -381,23 +400,37 @@ def write_parm(filename=None, top=None, format='AMBERPARM'):
     parm.writeparm(filename=filename, top=top, format=format)
 
 
-def load_topology(filename, **kwd):
-    """
-    load Topology from filename or from url
+def load_topology(filename):
+    """load Topology from a filename or from url or from ParmEd object
+
+    Examples
+    --------
     >>> import pytraj as pt
+    >>> # from a filename
     >>> pt.load_topology("./data/tz2.ortho.parm7")
+
+    >>> # from url
     >>> pt.load_topology("http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb")
+
+    >>> # from ParmEd object
+    >>> import parmed as pmd
+    >>> parm = pmd.load_file('data/m2-c1_f3.mol2')
+    >>> top = pt.load_topology(parm)
     """
-    if filename.startswith('http://') or filename.startswith('https://'):
-        return _load_url(filename)
+    if isinstance(filename, string_types):
+        if filename.startswith('http://') or filename.startswith('https://'):
+            return _load_url(filename)
+        else:
+            from .Topology import Topology
+            """return topology instance from reading filename"""
+            #filename = filename.encode("UTF-8")
+            set_error_silent(True)
+            top = Topology(filename)
+            set_error_silent(False)
+            return top
     else:
-        from .Topology import Topology
-        """return topology instance from reading filename"""
-        #filename = filename.encode("UTF-8")
-        set_error_silent(True)
-        top = Topology(filename)
-        set_error_silent(False)
-        return top
+        # try to load ParmED
+        return load_ParmEd(filename)
 
 # creat alias
 read_parm = load_topology
@@ -489,18 +522,18 @@ save = write_traj
 save_traj = write_traj
 
 
-def get_coordinates(an_object, top=None):
-    '''return 3D-ndarray coordinates of `an_object`
+def get_coordinates(iterables):
+    '''return 3D-ndarray coordinates of `iterables`, shape=(n_frames, n_atoms, 3)
+
     Parameters
     ----------
-    an_object : could be anything having Frame info
+    iterables : could be anything having Frame info
         a Trajectory, TrajectoryIterator,
         a frame_iter, FrameIter, ...
-    top : optional Topology if `an_object` does not have this information
-
-        This method is designed to load coordinates with minimum memory requirement
     '''
-    if hasattr(an_object, 'xyz'):
-        return an_object.xyz[:]
-    elif is_frame_iter(an_object):
-        return _load_from_frame_iter(an_object, top=top).xyz[:]
+    if hasattr(iterables, 'xyz'):
+        return iterables.xyz[:]
+    else:
+        # try to iterate to get coordinates
+        return np.array([frame.xyz.copy()
+                         for frame in iterframe_master(iterables)])

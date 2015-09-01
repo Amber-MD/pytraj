@@ -23,6 +23,7 @@ cdef extern from "Frame.h" nogil:
         _Frame() 
         #~_Frame() 
         _Frame(int)
+        _Frame(int, double*)
         _Frame(const vector[_Atom]&)
         _Frame(const _Frame&, const _AtomMask&)
         _Frame(const _Frame&)
@@ -62,6 +63,7 @@ cdef extern from "Frame.h" nogil:
         #inline const double * tAddress() const 
         inline const int * iAddress() const 
         inline void SetBoxAngles(const double *)
+        void SetBox(const _Box&)
         # Set box alpha, beta, and gamma
         # Set temperature
         void SetTemperature(double tIn)
@@ -75,6 +77,8 @@ cdef extern from "Frame.h" nogil:
         void SetCoordinates(const _Frame&, const _AtomMask&)
         void SetCoordinates(const _Frame&)
         void SetFrame(const _Frame&, const _AtomMask&)
+        int SetXptr "SetCoordinates"(int natoms, double* ptr)
+        void SetMass(const vector[_Atom]&)
         void SetCoordinatesByMap(const _Frame&, const vector[int]&)
         void StripUnmapped_Atoms(const _Frame&, const vector[int]&)
         void ModifyByMap(const _Frame&, const vector[int]&)
@@ -126,6 +130,7 @@ cdef class Frame:
     cdef _update_atoms(self, int[:], double[:], int)
     # create and object as alias to Topology instance
     cdef object _top
+    cdef public object _as_view
     cdef void _append_xyz_1d(self, double[:] xyz)
     cdef void _append_xyz_2d(self, double[:, :] xyz)
 

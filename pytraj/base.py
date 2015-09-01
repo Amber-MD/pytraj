@@ -14,7 +14,7 @@ from .core.CpptrajState import CpptrajState
 
 from .datasets.DataSetList import DataSetList
 from .AtomMask import AtomMask
-from .Trajectory import Trajectory
+from .api import Trajectory
 from .Topology import Topology
 from .ArgList import ArgList
 from .TrajectoryIterator import TrajectoryIterator

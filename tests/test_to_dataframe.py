@@ -15,16 +15,16 @@ class Test(unittest.TestCase):
         act = adict['multidihedral']
         dslist = DataSetList()
         act("phi", traj, dslist=dslist)
-        print(dslist)
-        print(dslist.get_legends())
-        print(dslist['phi:5'][:].shape)
+        #print(dslist)
+        #print(dslist.get_legends())
+        #print(dslist['phi:5'][:].shape)
 
-        print("has_pandas")
+        #print("has_pandas")
         dframe = dslist.to_dataframe()
-        print(dframe)
+        #print(dframe)
 
         # frame.to_dataframe
-        print(traj[0].to_dataframe(traj.top))
+        #print(traj[0].to_dataframe(traj.top))
 
         #
         self.assertRaises(

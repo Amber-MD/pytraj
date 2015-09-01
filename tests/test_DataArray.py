@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         dslist = CpptrajDSL()
         pt.adict['multidihedral']("", traj, top=traj.top, dslist=dslist)
         da = pt.array.DataArray(dslist[0])
-        print(da)
+        #print(da)
 
         # test copy
         assert da.copy().values is not da.values

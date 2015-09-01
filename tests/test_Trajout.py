@@ -1,4 +1,5 @@
 import unittest
+import pytraj as pt
 import numpy as np
 from pytraj.base import *
 from pytraj.decorators import no_test
@@ -49,21 +50,21 @@ class TestTrajout(unittest.TestCase):
         farray2 = Trajectory(
             "./output/test_trajout_withstatement.x", "./data/Tc5b.top")
         frame0_new = farray2[0]
-        print(frame0_new.coords[:10])
-        print(frame0.coords[:10])
-        print(farray2.size)
+        #print(frame0_new.coords[:10])
+        #print(frame0.coords[:10])
+        #print(farray2.size)
 
-        print(Trajout().formats)
+        #print(Trajout().formats)
 
-    #@no_test
+        #@no_test
     def test_2(self):
         """test open file writen from test_0"""
         farray = Trajectory()
         farray.top = Topology('./data/Tc5b.top')
         farray.load("./output/test.x")
-        print(farray.size)
+        #print(farray.size)
 
-    #@no_test
+        #@no_test
     def test_3_write_PDBFILE(self):
         frame0 = farray[0]
         with Trajout(filename="./output/test_0.pdb",
@@ -88,7 +89,7 @@ class TestTrajout(unittest.TestCase):
                    format='pdb')
 
         # test 'save'
-        print(farray)
+        #print(farray)
         farray.save("./output/test_write_output_save_method.x", overwrite=True)
 
         # reproduce result?
@@ -100,7 +101,7 @@ class TestTrajout(unittest.TestCase):
     #@no_test
     def test_5(self):
         farray = Trajectory("./output/test_0.pdb", "./data/Tc5b.top")[0]
-        print(farray.n_atoms)
+        #print(farray.n_atoms)
 
 
 if __name__ == "__main__":

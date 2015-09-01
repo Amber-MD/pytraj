@@ -10,6 +10,7 @@ class nupars(BaseAnalysisResult):
     '''class holding data for nucleic acid.
     Just use ``mean_and_std`` to get mean and std of each component (major groove, ...)
     '''
+
     def mean_and_std(self):
         """return a dict
         """

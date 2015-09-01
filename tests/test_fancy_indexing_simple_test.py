@@ -10,10 +10,10 @@ class Test(unittest.TestCase):
         # create Trajectory from Trajing_Single
         # TODO : add more assert
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        print(traj)
+        #print(traj)
         arr0 = traj[:, :, :]
-        print(arr0.shape)
-        print(type(arr0))
+        #print(arr0.shape)
+        #print(type(arr0))
 
 
 if __name__ == "__main__":

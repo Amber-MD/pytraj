@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 import pytraj.common_actions as pyca
@@ -32,10 +33,10 @@ class Test(unittest.TestCase):
         assert r0 == 0.
 
         coords = pt.tools.merge_coordinates([f.copy() for f in traj])
-        print(coords.shape)
-        print(traj.xyz.shape)
+        #print(coords.shape)
+        #print(traj.xyz.shape)
         r0 = pt.misc.rmsd(coords, pt.get_coordinates(traj), True)
-        print(r0)
+        #print(r0)
         assert r0 == 0.
 
     def test_1(self):

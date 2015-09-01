@@ -13,11 +13,11 @@ class Test(unittest.TestCase):
 
         mlist = []
         for atom in top:
-            #print (atom.mass)
+            ##print (atom.mass)
             mlist.append(atom.mass)
         mlist = array('d', mlist)
 
-        print(top.mass)
+        #print(top.mass)
         assert_almost_equal(top.mass, mlist)
 
 

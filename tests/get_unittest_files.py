@@ -1,6 +1,5 @@
 from glob import glob
 
-
 lines = []
 testlist = glob("test_*.py") + glob('./cluster/test_*.py')
 base_line = "import unittest"
@@ -15,6 +14,7 @@ for pyfile in testlist:
             if not base_line + " # pragma no_test" in txt and not "#" + base_line in txt:
                 line0 = "echo ./%s \n" % pyfile
                 line = "python ./%s \n" % pyfile
+                #print(pyfile)
                 lines.append(line0)
                 lines.append(line)
 
