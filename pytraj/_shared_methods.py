@@ -9,8 +9,8 @@ from pytraj.utils import _import_numpy
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
 from pytraj.core.frameiter import FrameIter
 
-__all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method',
-           '_tolist', '_box']
+__all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method', '_tolist',
+           '_box']
 
 
 def _savetraj(self,

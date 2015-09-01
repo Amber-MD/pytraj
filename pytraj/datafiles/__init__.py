@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 import os
-from .. TrajectoryIterator import TrajectoryIterator
-from .. utils.context import goto_temp_folder
+from ..TrajectoryIterator import TrajectoryIterator
+from ..utils.context import goto_temp_folder
 
 __all__ = ['Ala3_crd', 'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7']
 
@@ -28,6 +28,7 @@ def _get_trajin_text(alist, template=trajin_template):
     fname = os.path.abspath(alist[0])
     topname = os.path.abspath(alist[1])
     return trajin_template % (topname, fname)
+
 
 tc5b_trajin = _get_trajin_text(pairlist['tc5b_trajin'])
 DPDP_trajin = _get_trajin_text(pairlist['DPDP_trajin'])
@@ -97,6 +98,7 @@ def load_result_from_cpptraj_state(txt, with_traj=False, dtype=None):
         else:
             return out[-1]
 
+
 def cpptraj_dry_run(txt):
     '''for speed comparison
     '''
@@ -124,6 +126,7 @@ def cpptraj_dry_run(txt):
             fh.write(_txt)
         state = load_cpptraj_file("tmp.in")
         state.run()
+
 
 def load_outtraj(txt, top=None):
     '''
@@ -161,5 +164,6 @@ def load_outtraj(txt, top=None):
         state.run()
         traj = pt.iterload(filelist[0], top)
         return traj
+
 
 load_cpptraj_output = load_result_from_cpptraj_state

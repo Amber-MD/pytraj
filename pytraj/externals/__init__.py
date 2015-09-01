@@ -13,7 +13,10 @@ from ._load_MDAnalysis import load_MDAnalysis
 from ._load_mdtraj import load_mdtraj
 from ._load_ParmEd import load_ParmEd
 
-__all__ = ['read_pickle', 'read_json',
-           'to_pickle', 'to_json',
-           'load_MDAnalysis', 'load_mdtraj',
-           'load_ParmEd',]
+__all__ = ['read_pickle',
+           'read_json',
+           'to_pickle',
+           'to_json',
+           'load_MDAnalysis',
+           'load_mdtraj',
+           'load_ParmEd', ]

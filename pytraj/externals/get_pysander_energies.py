@@ -11,9 +11,17 @@ def _default_func():
     from array import array
     return array('d', [])
 
+
 #@noparallel
-def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_options=None,
-                          mode=None, top=None, dtype='dict', verbose=True):
+def get_pysander_energies(traj=None,
+                          parm=None,
+                          igb=8,
+                          input_options=None,
+                          qmmm_options=None,
+                          mode=None,
+                          top=None,
+                          dtype='dict',
+                          verbose=True):
     # TODO: change method's name?
     """"
     Parameters
@@ -85,7 +93,7 @@ def get_pysander_energies(traj=None, parm=None, igb=8, input_options=None, qmmm_
         try:
             # try to load from file by taking _top.filename
             if verbose:
-                print ("can not find `Structure` from parmed, loading %s")
+                print("can not find `Structure` from parmed, loading %s")
             _parm = _top.filename
         except AttributeError:
             raise ValueError("parm must be AmberParm object in ParmEd")

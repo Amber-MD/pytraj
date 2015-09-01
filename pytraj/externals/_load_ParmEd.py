@@ -46,9 +46,11 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
     else:
         return top
 
+
 def _load_parmed(parm_name):
     from parmed import load_file
     return load_file(parm_name)
+
 
 def to_ParmEd(pytraj_top):
     # TODO: exten to gromacs, charmm too

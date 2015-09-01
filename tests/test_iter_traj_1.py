@@ -33,7 +33,8 @@ class Test(unittest.TestCase):
         start, stop, step = 2, 8, 4
         indices = list(range(start, stop, step))
 
-        for idx, frame0, f in zip(indices, farray.iterframe(start, stop, step), traj[indices]):
+        for idx, frame0, f in zip(indices, farray.iterframe(start, stop, step),
+                                  traj[indices]):
             aa_eq(frame0.xyz, f.xyz)
         assert_almost_equal(traj[6].coords, frame0.coords)
 

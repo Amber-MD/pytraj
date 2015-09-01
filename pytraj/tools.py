@@ -573,10 +573,12 @@ def isel(traj, func, *args, **kwd):
         else:
             pass
 
+
 def filter(iterable, func):
     '''return a list
     '''
     return list(filter(func, iterable))
+
 
 def as_2darray(traj):
     '''reshape traj.xyz to 2d array, shape=(n_frames, n_atoms * 3)
@@ -587,11 +589,12 @@ def as_2darray(traj):
     '''
     return traj.xyz.reshape(traj.n_frames, traj.n_atoms * 3)
 
+
 def as_3darray(xyz):
     '''reshape xyz to 3d array, shape=(n_frames, n_atoms, 3)
     '''
     shape = xyz.shape
     if len(shape) != 2:
         raise ValueError('shape must be 2')
-    new_shape = (shape[0], int(shape[1]/3), 3)
+    new_shape = (shape[0], int(shape[1] / 3), 3)
     return xyz.reshape(new_shape)

@@ -209,6 +209,7 @@ def set_cpptraj_verbose(cm=True):
 
 set_world_silent(True)
 
+
 def iterframe(traj, *args, **kwd):
     """
 
@@ -220,6 +221,7 @@ def iterframe(traj, *args, **kwd):
     """
     return traj.iterframe(*args, **kwd)
 
+
 def iterchunk(traj, *args, **kwd):
     """
 
@@ -230,6 +232,7 @@ def iterchunk(traj, *args, **kwd):
     >>> for chunk in pt.iterframe(traj, 4, mask='@CA'): print(chunk)
     """
     return traj.iterchunk(*args, **kwd)
+
 
 def show():
     # just delay importing

@@ -3,7 +3,9 @@ from pytraj.utils import _import_numpy
 has_np, np = _import_numpy()
 
 
-def map(comm, calc_method, traj_or_list, command, root=0, dtype='ndarray', *args, **kwd):
+def map(comm, calc_method, traj_or_list, command,
+        root=0,
+        dtype='ndarray', *args, **kwd):
     """
 
     # creat file

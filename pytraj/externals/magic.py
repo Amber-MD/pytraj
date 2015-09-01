@@ -34,14 +34,17 @@ class MagicException(Exception):
 
 
 class Magic:
-
     """
     Magic is a wrapper around the libmagic C library.
 
     """
 
-    def __init__(self, mime=False, magic_file=None, mime_encoding=False,
-                 keep_going=False, uncompress=False):
+    def __init__(self,
+                 mime=False,
+                 magic_file=None,
+                 mime_encoding=False,
+                 keep_going=False,
+                 uncompress=False):
         """
         Create a new libmagic wrapper.
 
@@ -100,10 +103,11 @@ class Magic:
 
     def _thread_check(self):
         if self.thread != threading.currentThread():
-            raise Exception('attempting to use libmagic on multiple threads will '
-                            'end in SEGV.  Prefer to use the module functions '
-                            'from_file or from_buffer, or carefully manage direct '
-                            'use of the Magic class')
+            raise Exception(
+                'attempting to use libmagic on multiple threads will '
+                'end in SEGV.  Prefer to use the module functions '
+                'from_file or from_buffer, or carefully manage direct '
+                'use of the Magic class')
 
     def __del__(self):
         # no _thread_check here because there can be no other
@@ -169,13 +173,14 @@ if dll:
 
 if not libmagic or not libmagic._name:
     windows_dlls = ['magic1.dll', 'cygmagic-1.dll']
-    platform_to_lib = {'darwin': ['/opt/local/lib/libmagic.dylib',
-                                  '/usr/local/lib/libmagic.dylib'] +
-                       # Assumes there will only be one version installed
-                       glob.glob(
-        '/usr/local/Cellar/libmagic/*/lib/libmagic.dylib'),
+    platform_to_lib = {
+        'darwin':
+        ['/opt/local/lib/libmagic.dylib', '/usr/local/lib/libmagic.dylib'] +  # Assumes there will only be one version installed
+        glob.glob(
+            '/usr/local/Cellar/libmagic/*/lib/libmagic.dylib'),
         'win32': windows_dlls,
-        'cygwin': windows_dlls}
+        'cygwin': windows_dlls
+    }
     for dll in platform_to_lib.get(sys.platform, []):
         try:
             libmagic = ctypes.CDLL(dll)
@@ -223,6 +228,7 @@ def coerce_filename(filename):
     else:
         return filename
 
+
 magic_open = libmagic.magic_open
 magic_open.restype = magic_t
 magic_open.argtypes = [c_int]
@@ -248,6 +254,7 @@ _magic_file.errcheck = errorcheck_null
 def magic_file(cookie, filename):
     return _magic_file(cookie, coerce_filename(filename))
 
+
 _magic_buffer = libmagic.magic_buffer
 _magic_buffer.restype = c_char_p
 _magic_buffer.argtypes = [magic_t, c_void_p, c_size_t]
@@ -267,6 +274,7 @@ _magic_load.errcheck = errorcheck_negative_one
 def magic_load(cookie, filename):
     return _magic_load(cookie, coerce_filename(filename))
 
+
 magic_setflags = libmagic.magic_setflags
 magic_setflags.restype = c_int
 magic_setflags.argtypes = [magic_t, c_int]
@@ -278,7 +286,6 @@ magic_check.argtypes = [magic_t, c_char_p]
 magic_compile = libmagic.magic_compile
 magic_compile.restype = c_int
 magic_compile.argtypes = [magic_t, c_char_p]
-
 
 MAGIC_NONE = 0x000000  # No flags
 

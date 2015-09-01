@@ -384,7 +384,8 @@ def write_traj(filename="",
                 if isinstance(traj2, (list, tuple, Frame)):
                     raise NotImplementedError(
                         "must be Trajectory or TrajectoryIterator instance")
-                for idx, frame in enumerate(traj.iterframe(frame_indices=indices)):
+                for idx, frame in enumerate(traj.iterframe(
+                    frame_indices=indices)):
                     trajout.write(idx, frame)
 
             else:

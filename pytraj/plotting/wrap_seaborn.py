@@ -1,4 +1,3 @@
-
 def joinplot(data, x='', y='', show=True, **kwd):
     """require seaborn, pandas
 
@@ -14,7 +13,7 @@ def joinplot(data, x='', y='', show=True, **kwd):
     if not y:
         y = data[1].key
 
-    ax = sb.jointplot(x=x, y=y, data=data.to_dataframe(), **kwd) 
+    ax = sb.jointplot(x=x, y=y, data=data.to_dataframe(), **kwd)
     if show:
         plt.show()
     return ax

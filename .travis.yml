@@ -2,7 +2,7 @@ language: python
 env:
     matrix:
         - PYTHON_VERSION=3.4 
-        #- PYTHON_VERSION=3.5 # no good cython from conda yet?
+        - PYTHON_VERSION=2.7
 
 before_install:
     - sudo apt-get install libnetcdf-dev
@@ -10,7 +10,6 @@ before_install:
     - sudo apt-get install -qq libz-dev libbz2-dev
 
 install:
-    #- export CPPTRAJHOME=`pwd`"/cpptraj/"
     - source devtools/travis-ci/setup_env.sh 
     - python ./setup.py install
 

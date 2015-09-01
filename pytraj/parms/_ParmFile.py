@@ -5,6 +5,5 @@ from pytraj.parms.ParmFile import ParmFile
 
 
 class TMPParmFile(ParmFile):
-
     def __init__(self, *args, **kwd):
         pass

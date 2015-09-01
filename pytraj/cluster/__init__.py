@@ -11,8 +11,7 @@ def kmeans(traj=None,
            mask='*',
            top=None,
            output_op='',
-           dtype='ndarray',
-           *args, **kwd):
+           dtype='ndarray', *args, **kwd):
     '''perform clustering and return cluster index for each frame
 
     Returns

@@ -93,5 +93,6 @@ class TestPyCpptrajIO(unittest.TestCase):
         assert traj.size == len(indices)
         assert traj.top.n_atoms == 304
 
+
 if __name__ == "__main__":
     unittest.main()
