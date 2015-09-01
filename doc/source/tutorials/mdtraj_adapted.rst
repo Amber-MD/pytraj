@@ -1,7 +1,7 @@
 .. _mdtraj_adapted:
 
-Tutorials adapted from ``mdtraj``
-================================
+Tutorials adapted from MDtraj
+=============================
 
 Clustering with scipy
 ---------------------
