@@ -1,6 +1,8 @@
 Trajectory
 ==========
 
+.. contents::
+
 .. currentmodule:: pytraj
 
 .. ipython:: python
@@ -78,3 +80,7 @@ How to get raw coordinates?
     >>> traj.xyz
     >>> traj[[1, 3, 5]].xyz
 
+See also
+--------
+
+`trajectory_slice`

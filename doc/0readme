@@ -1,0 +1,7 @@
+1. sphinxext was copied from pandas.
+#add README here
+
+2. Need
++ numpy
++ matplotlib
++ jupyter (conda install jupyter)

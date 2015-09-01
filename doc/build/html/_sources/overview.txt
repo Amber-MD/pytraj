@@ -13,7 +13,7 @@ Overview
 
    + `support many types of analysis <analysis>`_
    + `support parallel processing <parallel>`_
-   + `able to handle many files at the same time <read_and_write>`_
+   + `able to handle many files at the same time <process_many_files>`_
    + `able to handle very large trajectory <design_trajectory>`_
    + simple (and fast) calculation
 

@@ -8,7 +8,7 @@
     
     <title>Modify trajectory &mdash; pytraj 0.1.2.dev6 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -27,8 +27,8 @@
     <link rel="next" title="Atom mask selection and trajectory slicing" href="atom_mask_selection.html" />
     <link rel="prev" title="Analysis" href="analysis.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -43,14 +43,14 @@
         <li class="right" >
           <a href="analysis.html" title="Analysis"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="modify-trajectory">
 <span id="id1"></span><h1>Modify trajectory<a class="headerlink" href="#modify-trajectory" title="Permalink to this headline">¶</a></h1>
@@ -64,7 +64,7 @@
 </ul>
 <span class="target" id="rmsd"></span><dl class="function">
 <dt id="pytraj.rmsd">
-<tt class="descclassname">pytraj.</tt><tt class="descname">rmsd</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate rmsd</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -82,7 +82,7 @@
 <p><strong>nofit</strong> : bool, default False</p>
 <blockquote>
 <div><p>if False, perform fitting (rotation and translation).
-if <tt class="docutils literal"><span class="pre">traj</span></tt> is mutable, its coordinates will be updated
+if <code class="docutils literal"><span class="pre">traj</span></code> is mutable, its coordinates will be updated
 if True, not fitting.</p>
 </div></blockquote>
 <p><strong>top</strong> : {Topology, str}, default None, optional</p>
@@ -109,7 +109,7 @@ if True, not fitting.</p>
 
 <span class="target" id="translate"></span><dl class="function">
 <dt id="pytraj.translate">
-<tt class="descclassname">pytraj.</tt><tt class="descname">translate</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.translate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">translate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.translate" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># load to mutable trajectory by `load` method</span>
@@ -121,22 +121,22 @@ if True, not fitting.</p>
 
 <span class="target" id="scale"></span><dl class="function">
 <dt id="pytraj.scale">
-<tt class="descclassname">pytraj.</tt><tt class="descname">scale</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.scale" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.scale" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="autoimage"></span><dl class="function">
 <dt id="pytraj.autoimage">
-<tt class="descclassname">pytraj.</tt><tt class="descname">autoimage</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="rotate"></span><dl class="function">
 <dt id="pytraj.rotate">
-<tt class="descclassname">pytraj.</tt><tt class="descname">rotate</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.rotate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rotate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="rotate-dihedral"></span><dl class="function">
 <dt id="pytraj.rotate_dihedral">
-<tt class="descclassname">pytraj.</tt><tt class="descname">rotate_dihedral</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.rotate_dihedral" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rotate_dihedral</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate_dihedral" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Notes</p>
 <p>Syntax and method&#8217;s name might be changed</p>
 <p class="rubric">Examples</p>
@@ -153,7 +153,7 @@ if True, not fitting.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="analysis.html"
@@ -161,12 +161,14 @@ if True, not fitting.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="atom_mask_selection.html"
                         title="next chapter">Atom mask selection and trajectory slicing</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/modify_traj.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/modify_traj.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -183,7 +185,7 @@ if True, not fitting.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -198,12 +200,12 @@ if True, not fitting.</p>
         <li class="right" >
           <a href="analysis.html" title="Analysis"
              >previous</a> |</li>
-        <li><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Hai Nguyen.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

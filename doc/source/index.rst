@@ -32,6 +32,7 @@ Welcome to pytraj's documentation - not completed yet
    analysis
    modify_traj
    atom_mask_selection
+   trajectory_slice
    parallel
    whatsnew
    faq

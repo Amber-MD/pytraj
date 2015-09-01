@@ -1,11 +1,12 @@
 .. _read_and_write:
 
-.. toctree::
-
-Read and write
+Read and Write
 ==============
 
-(coming soon)
+.. contents::
+
+Read
+----
 
 .. ipython:: python
     
@@ -14,14 +15,7 @@ Read and write
     traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
     traj
 
-    # write to CHARMM dcd format
-    traj.save('test.dcd', overwrite=True)
-
-    # write more than two trajs
-    pt.write_traj('test2.dcd', [traj[:3], traj[5:]], top=traj.top, overwrite=True)
-
-:ref:`trajectoryiterator` is able to load a list of files, even the total size does not fit into 
-memory
+Load many files at once
 
 .. code-block:: python
 
@@ -39,3 +33,15 @@ memory
     
     In [4]: traj._estimated_MB
     Out[4]: 15969.54345703125
+
+
+Write
+-----
+
+.. ipython:: python
+
+    # write to CHARMM dcd format
+    pt.write_traj('test.dcd', traj, overwrite=True)
+
+    # write with given frames
+    pt.write_traj('test2.dcd', traj, indices=[0, 3, 7, 9], overwrite=True)
