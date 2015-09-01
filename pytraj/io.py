@@ -414,7 +414,7 @@ def load_topology(filename):
 
     >>> # from ParmEd object
     >>> import parmed as pmd
-    >>> parm = pmd.load_file('./test.mol2')
+    >>> parm = pmd.load_file('idata/m2-c1_f3.mol2')
     >>> top = pt.load_topology(parm)
     """
     if isinstance(filename, string_types):
