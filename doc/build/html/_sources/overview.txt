@@ -25,6 +25,7 @@ Overview
        + automatic file detection by its **content**
        + smart ``autoimage`` function for PBC simulation.
        + ... (to be filled soon) 
+   + `able to be used in other langues, such as Julia <julia>`_
 
 #. How to get started
 
