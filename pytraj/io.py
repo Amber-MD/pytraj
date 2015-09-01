@@ -373,7 +373,7 @@ def write_traj(filename="",
         if isinstance(traj, Frame):
             if indices is not None:
                 raise ValueError("indices does not work with single Frame")
-            trajout.write(0, traj, _top)
+            trajout.write(0, traj)
         else:
             if isinstance(traj, string_types):
                 traj2 = iterload(traj, _top)
@@ -385,11 +385,11 @@ def write_traj(filename="",
                     raise NotImplementedError(
                         "must be Trajectory or TrajectoryIterator instance")
                 for idx, frame in enumerate(traj.iterframe(frame_indices=indices)):
-                    trajout.write(idx, frame, _top)
+                    trajout.write(idx, frame)
 
             else:
                 for idx, frame in enumerate(iterframe_master(traj2)):
-                    trajout.write(idx, frame, _top)
+                    trajout.write(idx, frame)
 
 
 def write_parm(filename=None, top=None, format='AMBERPARM'):
@@ -414,7 +414,7 @@ def load_topology(filename):
 
     >>> # from ParmEd object
     >>> import parmed as pmd
-    >>> parm = pmd.load_file('idata/m2-c1_f3.mol2')
+    >>> parm = pmd.load_file('data/m2-c1_f3.mol2')
     >>> top = pt.load_topology(parm)
     """
     if isinstance(filename, string_types):
