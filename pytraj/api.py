@@ -293,7 +293,7 @@ class Trajectory(object):
         if other is None:
             raise ValueError("why bothering assign None?")
         if is_int(idx):
-            if hasattr(other, 'xyz'):
+            if hasattr(other, 'xyz') or isinstance(other, Frame):
                 # traj[1] = frame
                 self._xyz[idx] = other.xyz
             else:
