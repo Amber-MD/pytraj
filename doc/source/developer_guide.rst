@@ -102,6 +102,6 @@ Since ``pytraj`` will be bundled with AmberTools in Amber, it's important that w
 
 Read Also
 ---------
-`cpptraj-dev guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.lyx>`_
+`cpptraj-dev guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.pdf>`_
 
 `pandas contributing guide <http://pandas.pydata.org/pandas-docs/stable/contributing.html>`_
