@@ -193,7 +193,7 @@ class Trajectory(object):
             return _fast_iterptr(self.xyz, self.n_atoms, indices)
         else:
             return _fast_iterptr_withbox(self.xyz, self._boxes, self.n_atoms,
-                    indices)
+                                         indices)
 
     def __getitem__(self, idx):
         """return a view or copy of coordinates (follow numpy's rule)

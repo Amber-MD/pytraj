@@ -3,8 +3,7 @@
 try:
     from matplotlib.pyplot import rc
 
-    font = {'family': 'serif',
-            'size': '14'}
+    font = {'family': 'serif', 'size': '14'}
     rc('font', **font)
 except ImportError:
     font = None

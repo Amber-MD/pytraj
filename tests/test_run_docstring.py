@@ -26,7 +26,6 @@ class Test(unittest.TestCase):
         from pytraj import clustering_dataset
         from pytraj.cluster import kmeans
 
-
         for func in [pt.iterframe,
                      pt.iterchunk,
                      pt.multidihedral,
@@ -41,16 +40,17 @@ class Test(unittest.TestCase):
                      pt.search_hbonds,
                      pt.closest,
                      pt.search_neighbors,
-                     pt.pairwise_rmsd, 
+                     pt.pairwise_rmsd,
                      silly_doc_func,
-                     fi, split_range,
+                     fi,
+                     split_range,
                      Frame.__getitem__,
                      Topology.select,
                      grep,
                      pt.load_ParmEd,
                      clustering_dataset,
                      pt.mindist,
-                     kmeans,]:
+                     kmeans, ]:
             run_docstring(func)
 
         func_names = ma.default_key_dict.keys()
@@ -60,6 +60,7 @@ class Test(unittest.TestCase):
         func_names = da.supported_dihedral_types
         for key in func_names:
             run_docstring(da.__dict__['calc_' + key])
+
 
 if __name__ == "__main__":
     unittest.main()

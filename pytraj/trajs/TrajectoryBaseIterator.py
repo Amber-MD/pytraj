@@ -2,9 +2,9 @@ from __future__ import absolute_import
 from abc import ABCMeta, abstractmethod
 from pytraj.externals.six import add_metaclass
 
+
 @add_metaclass(ABCMeta)
 class TrajectoryBaseIterator(object):
-
     @abstractmethod
     def __init__(self, filename=None, top=None):
         self._filename = filename

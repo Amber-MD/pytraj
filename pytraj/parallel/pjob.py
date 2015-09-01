@@ -1,4 +1,3 @@
-
 class PJob(object):
     def __init__(self, tasklist):
         self.tasklist = tasklist
@@ -12,7 +11,7 @@ class PJob(object):
         '''
         '''
         from multiprocessing import Pool
-    
+
         n_cores = len(self.tasklist)
         p = Pool(len(self.tasklist))
 

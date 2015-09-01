@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 import os
-from .. TrajectoryIterator import TrajectoryIterator
+from ..TrajectoryIterator import TrajectoryIterator
 
 
 def load_sample_data(data_name=None):

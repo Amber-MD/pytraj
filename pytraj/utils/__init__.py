@@ -10,7 +10,7 @@ from .list_misc import flatten_list
 from .Timer import Timer
 from .context import goto_temp_folder
 from ..compat import range
-from .import convert
+from . import convert
 
 # add amberhome
 from .amber_test import amberhome, cpptraj_test_dir, has_amberhome
@@ -27,6 +27,7 @@ def duplicate_traj(orig_traj, n_times):
             # Trajectory
             traj.join(traj.copy())
     return traj
+
 
 def join_mask(m, res=None):
     """ join_mask(('CA', 'CB'), res='1') return ':1@CA :1@CB'

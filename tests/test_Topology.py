@@ -61,5 +61,6 @@ class TestTopology(unittest.TestCase):
         top = pt.load_topology(parm)
         assert top.n_atoms == orig_top.n_atoms
 
+
 if __name__ == "__main__":
     unittest.main()

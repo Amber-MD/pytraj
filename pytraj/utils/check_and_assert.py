@@ -138,8 +138,8 @@ def is_chunk_iter(iter_obj):
     except AttributeError:
         return False
 
-    if iter_obj.__class__.__name__ == 'generator' and ('chunk_iter' in name or 'iterchunk'
-            in name):
+    if iter_obj.__class__.__name__ == 'generator' and (
+            'chunk_iter' in name or 'iterchunk' in name):
         return True
     else:
         return False

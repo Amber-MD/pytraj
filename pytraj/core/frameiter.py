@@ -5,7 +5,6 @@ from pytraj.Frame import Frame
 
 
 class FrameIter(object):
-
     """
     internal class
     create this class to hold all iterating information
@@ -51,8 +50,12 @@ class FrameIter(object):
 
     def __init__(self, fi_generator,
                  original_top=None,
-                 new_top=None, start=0, stop=-1, stride=1,
-                 mask="", autoimage=False,
+                 new_top=None,
+                 start=0,
+                 stop=-1,
+                 stride=1,
+                 mask="",
+                 autoimage=False,
                  rmsfit=None,
                  is_trajiter=False,
                  n_frames=None,
@@ -99,10 +102,11 @@ class FrameIter(object):
     def __repr__(self):
         return self.__str__()
 
-    def save(self, filename='', format='unknown_traj', 
-            overwrite=False,
-            mode='',
-            *args, **kwd):
+    def save(self,
+             filename='',
+             format='unknown_traj',
+             overwrite=False,
+             mode='', *args, **kwd):
         '''save to different file format.
 
         Notes
@@ -117,10 +121,13 @@ class FrameIter(object):
         >>> traj(2, 8, 2, mask='@CA').save('test.nc')
         '''
         from pytraj.io import write_traj
-        write_traj(filename=filename, traj=self, top=self.top,
-                   format=format, indices=None,
-                   overwrite=overwrite, mode=mode,
-                   *args, **kwd)
+        write_traj(filename=filename,
+                   traj=self,
+                   top=self.top,
+                   format=format,
+                   indices=None,
+                   overwrite=overwrite,
+                   mode=mode, *args, **kwd)
 
     def __iter__(self):
         if self.autoimage:

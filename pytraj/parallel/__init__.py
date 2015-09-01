@@ -2,6 +2,7 @@ from .map import map
 from pytraj.tools import concat_dict
 from .pjob import PJob
 
+
 def get_comm_size_rank():
     try:
         from mpi4py import MPI
