@@ -11,7 +11,7 @@ def worker(rank,
     from pytraj import iterload
     local_traj = iterload(filelist, top=top)
     return (rank, func(
-        local_traj.split_iterators(n_cores,
+        local_traj._split_iterators(n_cores,
                                    rank=rank),
         top=local_traj.top, *args, **kwd))
 
