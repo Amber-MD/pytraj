@@ -122,6 +122,12 @@ for p in pxd_include_dirs:
 extra_compile_args=['-O0', '-ggdb']
 extra_link_args=['-O0', '-ggdb']
 
+if len(sys.argv) == 2 and sys.argv[1] == 'install':
+    print(len(sys.argv))
+    do_install = True
+else:
+    do_install = False
+
 openmp_str = "openmp"
 if openmp_str in sys.argv:
     # python ./setup.py build openmp
@@ -272,7 +278,8 @@ def remind_ld_lib_path(build_tag, libdir):
 if __name__ == "__main__":
     if not faster_build:
         build_tag = build_func(ext_modules)
-        remind_ld_lib_path(build_tag, libdir)
+        if do_install:
+            remind_ld_lib_path(build_tag, libdir)
     else:
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
