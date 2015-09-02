@@ -213,38 +213,23 @@ TrajFormatDict = {
     "AMBERNETCDF" : AMBERNETCDF, 
     "AMBERRESTARTNC" : AMBERRESTARTNC, 
     "PDBFILE" : PDBFILE, 
+    "PDB" : PDBFILE, 
     "MOL2FILE" : MOL2FILE, 
+    "MOL2" : MOL2FILE, 
     "CIF" : CIF, 
     "CHARMMDCD" : CHARMMDCD, 
+    "DCD" : CHARMMDCD, 
     "GMXTRX" : GMXTRX, 
+    "TRX" : GMXTRX, 
     "BINPOS" : BINPOS, 
     "AMBERRESTART" : AMBERRESTART, 
     "AMBERTRAJ" : AMBERTRAJ, 
     "SQM" : SQM, 
     "SDF" : SDF, 
     "CONFLIB" : CONFLIB, 
-    "UNKNOWN_TRAJ" : UNKNOWN_TRAJ, 
+    "DEFAULT" : UNKNOWN_TRAJ, # AMBERTRAJ
     }
 
-# NetcdfFile
-##from NetcdfFile cimport *
-#NCTYPEDict = {
-#    "NC_UNKNOWN" : NC_UNKNOWN, 
-#    "NC_AMBERTRAJ" : NC_AMBERTRAJ, 
-#    "NC_AMBERRESTART" : NC_AMBERRESTART, 
-#    }
-# Dimension
-##from Dimension cimport *
-#DimIdxDict = {
-#    "X" : X, 
-#    "Y" : Y, 
-#    "Z" : Z, 
-#    }
-
-# DataSet.h
-##from DataSet cimport *
-#from .DataSet cimport (UNKNOWN_DATA, DOUBLE, FLOAT, INTEGER, STRING, MATRIX_DBL, MATRIX_FLT,
-#                       COORDS, VECTOR, MODES, GRID_FLT, REMLOG, XYMESH, TRAJ)
 DataTypeDict = {
         "UNKNOWN_DATA " : UNKNOWN_DATASET,  
         "DOUBLE" : DOUBLE, 

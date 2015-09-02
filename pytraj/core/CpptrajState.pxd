@@ -9,7 +9,6 @@ from .ActionList cimport _ActionList, ActionList
 from ._FunctPtr cimport FunctPtr
 from .DataFile cimport _DataFile, DataFile
 from .FileName cimport _FileName, FileName
-from .TrajinList cimport _TrajinList, TrajinList
 
 from ..ArgList cimport _ArgList, ArgList
 from ..datasets.DataSetList cimport _DataSetList, DataSetList
@@ -29,9 +28,8 @@ cdef extern from "CpptrajState.h":
         int AddTrajin(_ArgList &, bint)
         int AddTrajin(const string&)
         int RunAnalyses()
-        _TrajinList& InputTrajList()const 
-        inline int AddTrajout(const _ArgList&)
-        inline int AddTrajout(const string&)
+        inline int AddTrajout "AddOutputTrajectory" (const _ArgList&)
+        inline int AddTrajout "AddOutputTrajectory" (const string&)
         int AddReference(const string&, _ArgList &)
         inline int AddReference(const string&)
         inline int AddAction(DispatchAllocatorType, _ArgList &)

@@ -35,15 +35,13 @@ DPDP_trajin = _get_trajin_text(pairlist['DPDP_trajin'])
 tz2_ortho_trajin = _get_trajin_text(pairlist['tz2_ortho_trajin'])
 
 
-def load_result_from_cpptraj_state(txt, with_traj=False, dtype=None):
+def load_result_from_cpptraj_state(txt, dtype=None):
     """load output from cpptraj
 
     Parameters
     ----------
     txt : str
         cpptraj's trajin
-    with_traj: bool, default False
-        return TrajectoryIteratory or not
     dtype : str, return data type
 
     Returns
@@ -55,9 +53,6 @@ def load_result_from_cpptraj_state(txt, with_traj=False, dtype=None):
     from pytraj.io import load_cpptraj_file
     from pytraj.datasetlist import DatasetList
     from pytraj import ArgList
-    from pytraj.TrajectoryIterator import TrajectoryIterator
-
-    traj = TrajectoryIterator()
 
     command_list = list(filter(lambda x: x, txt.split("\n")))
 
@@ -81,23 +76,12 @@ def load_result_from_cpptraj_state(txt, with_traj=False, dtype=None):
             fh.write(txt)
         state = load_cpptraj_file("tmp.in")
         state.run()
-        traj.top = state.toplist[0]
-
-        for trajin in state.get_trajinlist():
-            traj._add_trajin(trajin)
 
         if dtype == 'cpptraj_dataset':
-            out = [traj, state.datasetlist]
+            out = state.datasetlist
         else:
-            out = [traj, DatasetList(state.datasetlist)]
-
-        if with_traj:
-            # avoid segmentation fault
-            traj._tmpobject = state
-            return out
-        else:
-            return out[-1]
-
+            out = DatasetList(state.datasetlist)
+        return out
 
 def cpptraj_dry_run(txt):
     '''for speed comparison

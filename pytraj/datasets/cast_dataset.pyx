@@ -18,7 +18,7 @@ from .DataSet cimport DataSet, _DataSet
 from .DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
 from .DataSet_Coords_REF cimport _DataSet_Coords_REF, DataSet_Coords_REF
 from .DataSet_Coords_CRD cimport _DataSet_Coords_CRD, DataSet_Coords_CRD
-from .DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
+#from .DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
 
 def cast_dataset(dsetin=None, dtype='general'):
     """create memoryview for DataSet instance. 
@@ -50,7 +50,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DatasetGridFloat newset_gridflt
     cdef DataSet_Coords_REF newset_coords_ref
     cdef DataSet_Coords_CRD newset_coords_crd
-    cdef DataSet_Coords_TRJ newset_coords_trj
+#    cdef DataSet_Coords_TRJ newset_coords_trj
 
     if not isinstance(dsetin, DataSet):
         dset = <DataSet> dsetin.alloc()
@@ -185,15 +185,15 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_coords_crd.thisptr = <_DataSet_Coords_CRD*> dset.baseptr0
         return newset_coords_crd
 
-    elif dtype in ['COORDS_TRJ', 'TRJ', 'TRAJ', 'COORDS_TRAJ']:
-        newset_coords_trj = DataSet_Coords_TRJ()
-        # since we introduce memory view, we let cpptraj free memory
-        newset_coords_trj.py_free_mem = False
-        newset_coords_trj.baseptr0 = dset.baseptr0
-        # make sure other pointers pointing to the same address
-        newset_coords_trj.baseptr_1 = <_DataSet_Coords*> dset.baseptr0
-        newset_coords_trj.thisptr = <_DataSet_Coords_TRJ*> dset.baseptr0
-        return newset_coords_trj
+#    elif dtype in ['COORDS_TRJ', 'TRJ', 'TRAJ', 'COORDS_TRAJ']:
+#        newset_coords_trj = DataSet_Coords_TRJ()
+#        # since we introduce memory view, we let cpptraj free memory
+#        newset_coords_trj.py_free_mem = False
+#        newset_coords_trj.baseptr0 = dset.baseptr0
+#        # make sure other pointers pointing to the same address
+#        newset_coords_trj.baseptr_1 = <_DataSet_Coords*> dset.baseptr0
+#        newset_coords_trj.thisptr = <_DataSet_Coords_TRJ*> dset.baseptr0
+#        return newset_coords_trj
 
     elif dtype in ['COORDS_REF_FRAME', 'REF_FRAME', 'REFFRAME', 'REF', 'REFERENCE']:
         newset_coords_ref = DataSet_Coords_REF()

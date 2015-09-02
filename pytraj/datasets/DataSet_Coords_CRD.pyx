@@ -1,9 +1,8 @@
 # distutils: language = c++
 
-from ..trajs.Trajin_Single cimport Trajin_Single
+from ..trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from ..Topology cimport Topology
 from ..externals.six import string_types
-
 
 cdef class DataSet_Coords_CRD (DataSet_Coords):
     def __cinit__(self):
@@ -26,7 +25,6 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
 
     def load(self, filename_or_traj, top=Topology(), copy_top=False, copy=True):
         cdef Topology tmp_top
-        cdef Trajin_Single trajin_single
         cdef Frame frame
 
         if isinstance(top, string_types):
@@ -46,7 +44,8 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
                 self.top = top
 
         if isinstance(filename_or_traj, string_types):
-            trajin_single = Trajin_Single(filename_or_traj, tmp_top)
+            trajin_single = TrajectoryCpptraj()
+            trajin_single.load(filename_or_traj, tmp_top)
             for frame in trajin_single:
                 self.append(frame.copy()) # always copy
         else:

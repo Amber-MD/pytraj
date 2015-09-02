@@ -1,7 +1,6 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
 
-from . import TrajinList
 from ..externals.six import string_types
 from ..action_dict import ActionDict
 from .._get_common_objects import _get_arglist
