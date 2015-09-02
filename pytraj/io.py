@@ -326,6 +326,20 @@ def write_traj(filename="",
                mode="", *args, **kwd):
     """write Trajectory-like, list of trajs, frames, ... to file/files
 
+    Parameters
+    ----------
+    filename : str
+    traj : Trajectory-like or iterator that produces Frame
+    top : Topology, optional, default: None
+    format : str, values: None, ambernetcdf, amberrestartnc, pdb, mol2, cif, dcd, trx,
+             binpos, amberrestart, ambertraj, sqm, sdf, conflib, default
+        Trajectory format. If None, detect format based on extension
+    indices: array-like or iterator that produces integer, default: None
+        If not None, only write output for given frame indices
+    overwrite: bool, default: False
+    mode : str, additional keywords for format='pdb' or extention='.pdb'. See examples.
+        
+
     Suppot file extensions
     ----------------------
     .crd, .nc, .rst7, .ncrst, .dcd, .pdb, .mol2, .binpos, .trr, .sqm
@@ -352,11 +366,8 @@ def write_traj(filename="",
 
     if format in [None, '']:
         # use cpptraj default format (amber)
-        format = 'unknown_traj'
-    if format.upper() == 'UNKNOWN':
-        format = format.upper() + "_TRAJ"
-    else:
-        format = format.upper()
+        format = 'default'
+    format = format.upper()
 
     _top = _get_top(traj, top)
     if _top is None:

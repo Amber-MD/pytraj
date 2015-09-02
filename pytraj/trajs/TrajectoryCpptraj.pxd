@@ -7,7 +7,7 @@ from ..ArgList cimport _ArgList, ArgList
 from ..AtomMask cimport _AtomMask, AtomMask
 
 
-cdef extern from "DataSet_Coords_TRJ.h": 
+cdef extern from "DataSet_Coords_TRJ.h" nogil: 
     cdef cppclass _TrajectoryCpptraj "DataSet_Coords_TRJ":
         _TrajectoryCpptraj() 
         int AddSingleTrajin(const string&, _ArgList&, _Topology *)
