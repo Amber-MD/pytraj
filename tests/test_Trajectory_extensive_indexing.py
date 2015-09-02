@@ -4,7 +4,6 @@ import unittest
 import pytraj as pt
 import numpy as np
 from pytraj.base import *
-from load_traj import load
 from pytraj.decorators import no_test
 
 ts = TrajectoryIterator()

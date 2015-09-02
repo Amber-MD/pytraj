@@ -17,4 +17,3 @@ from .DatasetMatrix3x3 import DatasetMatrix3x3
 from .DataSet_Coords import DataSet_Coords
 from .DataSet_Coords_REF import DataSet_Coords_REF
 from .DataSet_Coords_CRD import DataSet_Coords_CRD
-from .DataSet_Coords_TRJ import DataSet_Coords_TRJ

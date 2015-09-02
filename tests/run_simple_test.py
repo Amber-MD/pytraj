@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import unittest
 from pytraj import *
 import pytraj as pt
@@ -44,7 +46,6 @@ class Test(unittest.TestCase):
         DataSet_Coords()
         DataSet_Coords_REF()
         DataSet_Coords_CRD()
-        DataSet_Coords_TRJ()
 
     def test_4(self):
         print("try to make structure-related objects")
@@ -53,9 +54,7 @@ class Test(unittest.TestCase):
         Residue()
         Atom()
         Frame()
-        pt.trajs.Trajectory.Trajectory()
         TrajectoryIterator()
-        core.TrajinList.TrajinList()
 
     def test_5(self):
         print("other stuff. throw all tests don't belong anywhere else here")

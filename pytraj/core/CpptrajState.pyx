@@ -1,6 +1,5 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
-from pytraj.trajs.Trajin cimport Trajin
 from pytraj.externals.six import string_types
 
 
@@ -56,32 +55,6 @@ cdef class CpptrajState:
 
     def run_analyses(self):
         return self.thisptr.RunAnalyses()
-
-    def get_trajinlist(self, assign_top=True):
-        """Return a copy of CpptrajState's TrajinList instance"""
-        cdef TrajinList trajlist = TrajinList()
-
-        # we need to let Cython know that cpptraj will free memory 
-        # if I don't use this flag, the program will get segmentfault
-        # Maybe Cython will try free memory of trajlist.thisptr twice? 
-        # Reason? cpptraj does not have assignment operator for TrajinList class
-        # --> ?
-
-        # We used "get_trajinlist" as method's name to remind that this will return an instance copy
-        # Should we update other *.pyx files too?
-        # so why do we need py_free_mem = False here?
-        trajlist.py_free_mem = False
-        
-        if self.thisptr:
-            trajlist.thisptr[0] = self.thisptr.InputTrajList()
-
-            # does not work when using address (const)
-            #trajlist.thisptr = &(self.thisptr.InputTrajList())
-            if assign_top:
-                trajlist.top = self.toplist[0].copy()
-            return trajlist
-        else:
-            raise MemoryError("")
 
     def add_trajout(self, arg):
         """add trajout file
@@ -187,14 +160,3 @@ cdef class CpptrajState:
 
     def write_all_datafiles(self):
         self.thisptr.MasterDataFileWrite()
-
-    def get_trajectory(self):
-        """return TrajectoryIterator
-        """
-        cdef Trajin trajin
-
-        from pytraj.trajs.TrajectoryCpptraj import TrajectoryCpptraj
-        traj = TrajectoryCpptraj(top=self.toplist[0])
-        for trajin in self.get_trajinlist():
-            traj._add_trajin(trajin)
-        return traj

@@ -3,7 +3,6 @@
 from .._shared_methods import _frame_iter
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import my_str_method
-from ..trajs.Trajectory cimport Trajectory
 from ..utils import _import_numpy, _import
 
 from .._cyutils import get_positive_idx
@@ -13,7 +12,6 @@ cdef class DataSet_Coords(DataSet):
         # abstract class, dont' create new object here
         #pass
         # make sure that two pointers pointing to the same address
-        # behave like `Trajectory`
         self.baseptr0 = <_DataSet*> self.baseptr_1
         self._top = Topology()
 
@@ -51,55 +49,15 @@ cdef class DataSet_Coords(DataSet):
             self.baseptr_1.GetFrame(i, frame.thisptr[0])
             yield frame
 
-    def __getitem__(self, idxs):
-        # TODO : same as Trajin class
-        # should combine or inherit or ?
-        # return either a Frame instance or Trajectory instance
-        # use self.tmpfarray to hold Frame or Trajectory object
-
+    def __getitem__(self, idx):
         cdef Frame frame
-        cdef Trajectory farray
-        cdef int start, stop, step
-        cdef int i
-        cdef int idx_1
-
         frame = self.allocate_frame()
-
         frame.py_free_mem = True
 
         if self.size == 0:
             raise ValueError("Your Trajectory is empty, how can I index it?")
-        if not isinstance(idxs, slice):
-            idx_1 = get_positive_idx(idxs, self.size)
-            # raise index out of range
-            if idxs != 0 and idx_1 == 0:
-                # need to check if array has only 1 element. 
-                # arr[0] is  arr[-1]
-                if idxs != -1:
-                    raise ValueError("index is out of range")
-            self.baseptr_1.GetFrame(idx_1, frame.thisptr[0])
-            self.tmpfarray = frame
-        else:
-            # creat a subset array of `Trajectory`
-            farray = Trajectory()
-            farray.top = self.top
-            if idxs.step == None:
-                step = 1
-            else:
-                step = idxs.step
-            if idxs.stop == None:
-                stop = self.size
-            else:
-                stop = idxs.stop
-            if idxs.start == None:
-                start = 0
-            else:
-                start = idxs.start
-
-            for i in range(start, stop, step):
-                # turn `copy` to `False` to have memoryview
-                farray.append(self[i], copy=False)
-            self.tmpfarray = farray
+        self.baseptr_1.GetFrame(idx, frame.thisptr[0])
+        self.tmpfarray = frame
         return self.tmpfarray
 
     def __setitem__(self, int idx, Frame other):
