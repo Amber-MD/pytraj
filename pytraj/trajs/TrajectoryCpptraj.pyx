@@ -116,10 +116,6 @@ cdef class TrajectoryCpptraj:
         self.top = saved_top
         self.load(*args, **kwd)
 
-    def _add_trajin(self, Trajin trajin):
-        '''add memoryview for input trajin'''
-        self.thisptr.AddInputTraj(trajin.baseptr_1)
-
     def __len__(self):
         return self.n_frames
 

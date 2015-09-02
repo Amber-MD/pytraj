@@ -9,7 +9,6 @@ from libc.string cimport memcpy
 from ..Topology cimport Topology
 from ..AtomMask cimport AtomMask
 from ..Frame cimport Frame
-from ..trajs.Trajin cimport Trajin
 from ..math.Matrix_3x3 cimport Matrix_3x3
 from ..cpp_algorithm cimport iter_swap
 
@@ -151,7 +150,6 @@ cdef class Trajectory (object):
         #cdef Trajin_Single ts
         cdef int idx
         cdef Frame frame
-        cdef Trajin trajin
 
         if top is not None:
             if self.top.is_empty():
