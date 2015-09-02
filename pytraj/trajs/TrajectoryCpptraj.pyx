@@ -1,7 +1,6 @@
 # distutils: language = c++
 import numpy as np
 from ..api import Trajectory
-from ..trajs.Trajectory cimport Trajectory as _Trajectory
 from ..AtomMask cimport AtomMask
 from ..Topology cimport Topology
 
@@ -410,28 +409,6 @@ cdef class TrajectoryCpptraj:
                      self.thisptr.GetFrame(idx_1, frame.thisptr[0])
                  self.tmpfarray = frame
                  return self.tmpfarray
-
-    def _fast_slice(self, slice my_slice):
-        cdef int start, stop, step
-        cdef int count
-        cdef int n_atoms = self.n_atoms
-        cdef _Trajectory farray = _Trajectory(check_top=False)
-        cdef _Frame* _frame_ptr
-
-        # NOTE: MUST make a copy self.top
-        # if NOT: double-free memory when using `_fast_strip_atoms`
-        #farray.top = self.top
-        farray.top = self.top.copy()
-
-        start, stop, step  = my_slice.indices(self.size)
-        count = start
-        with self:
-            while count < stop:
-                _frame_ptr = new _Frame(n_atoms)
-                self.thisptr.GetFrame(count, _frame_ptr[0])
-                farray.frame_v.push_back(_frame_ptr)
-                count += step
-        return farray
 
     def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
         _savetraj(self, filename, format, overwrite, *args, **kwd)

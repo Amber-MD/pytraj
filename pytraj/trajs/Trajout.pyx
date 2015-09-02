@@ -76,9 +76,9 @@ cdef class Trajout:
                 arglist = <ArgList> mode
             else:
                 raise ValueError()
-            self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr, local_dict[format])
+            self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr)
         else:
-            self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr, local_dict[format])
+            self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr)
 
         # real open
         self.thisptr.SetupTrajWrite(top_.thisptr)

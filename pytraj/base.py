@@ -6,13 +6,12 @@ from __future__ import absolute_import
 from .datasets.cast_dataset import cast_dataset
 from .Frame import Frame
 from .core.Atom import Atom
-from .core.TrajinList import TrajinList
 from .core.TopologyList import TopologyList
 from .core.DataFileList import DataFileList
 from .core.ActionList import ActionList
 from .core.CpptrajState import CpptrajState
-
 from .datasets.DataSetList import DataSetList
+
 from .AtomMask import AtomMask
 from .api import Trajectory
 from .Topology import Topology
@@ -25,4 +24,4 @@ from . import cpptraj_dict
 __all__ = ['Atom', 'Topology', 'TopologyList', 'Frame', 'Trajectory',
            'AtomMask', 'ArgList', 'CpptrajState', 'TrajectoryIterator',
            'DataSetList', 'DataFileList', 'ActionList', 'Trajout',
-           'TrajinList', 'cast_dataset', 'cpptraj_dict']
+           'cast_dataset', 'cpptraj_dict']
