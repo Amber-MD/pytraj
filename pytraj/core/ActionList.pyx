@@ -97,10 +97,3 @@ cdef class ActionList:
     @property
     def n_actions(self):
         return self.thisptr.Naction()
-
-    def _action_alloc(self, int i):
-        cdef FunctPtr func = FunctPtr()
-        if i >= self.n_actions:
-            raise IndexError("index must be < " + str(self.n_actions)) 
-        func.ptr = self.thisptr.ActionAlloc(i)
-        return func

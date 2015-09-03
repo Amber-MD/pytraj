@@ -6,10 +6,6 @@ from pytraj.utils.check_and_assert import is_int
 
 cdef class TopologyList:
     def __cinit__(self, py_free_mem=True):
-        # py_free_mem is a flag to tell pytraj should free memory or let
-        # cpptraj does
-        # check ./CpptrajState.pyx
-
         cdef string filename
         self.thisptr = new _TopologyList()
         self.py_free_mem = py_free_mem
@@ -17,12 +13,6 @@ cdef class TopologyList:
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
-
-    def clear(self):
-        self.thisptr.Clear()
-
-    def set_debug(self, int id):
-        self.thisptr.SetDebug(id)
 
     def __getitem__(self, int idx):
         """return a reference of topology instance in TopologyList with index idx
@@ -40,18 +30,6 @@ cdef class TopologyList:
         cdef _Topology* topptr
         topptr = self.thisptr.GetParm(idx)
         topptr[0] = other.thisptr[0]
-
-    #def __iter__(TopologyList self):
-    #    cdef Topology top
-    #    cdef int idx
-
-    #    for i in range(self.size):
-    #        top = self[idx]
-    #        yield top
-
-    #@property
-    #def size(self):
-    #    return self.thisptr.Size()
 
     def get_parm(self, arg):
         # TODO: checkbound
@@ -84,18 +62,6 @@ cdef class TopologyList:
             #top.thisptr[0] = deref(self.thisptr.GetParm(argIn.thisptr[0]))
         return top
 
-    def add_parm_from_pylist(self, list listin):
-        cdef Topology top
-        for top in listin:
-            self.add_parm(top)
-
-    def get_parm_by_index(self, ArgList argIn):
-        """TODO: what is the difference between get_parm_by_index and  get_parm?"""
-        cdef Topology top = Topology()
-        top.py_free_mem = False
-        top.thisptr = self.thisptr.GetParmByIndex(argIn.thisptr[0])
-        return top
-
     def add_parm(self, *args):
         """Add parm file from file or from arglist or from Topology instance
         Input:
@@ -123,6 +89,3 @@ cdef class TopologyList:
         elif len(args) == 2:
             filename, arglist = args
             self.thisptr.AddParmFile(filename, arglist.thisptr[0])
-        
-    def info(self):
-        self.thisptr.List()

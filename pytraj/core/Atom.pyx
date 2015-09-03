@@ -75,13 +75,6 @@ cdef class Atom:
         def __get__(self):
             return self.thisptr.Charge()
     
-    property gb_radius:
-        # Do we need this?
-        def __set__(self,double rin):
-            self.thisptr.SetGBradius(rin)
-        def __get__(self):
-            return self.thisptr.GBRadius()
-
     def no_mol(self):
         return self.thisptr.NoMol()
 
@@ -107,11 +100,6 @@ cdef class Atom:
     @property
     def atomic_number(self):
         return self.thisptr.AtomicNumber()
-
-    @property
-    def element_short_name(self):
-        """why method name is not short at all? :D"""
-        return self.thisptr.ElementName()
 
     def nametype(self):
         # TODO : do we need this method?
@@ -142,10 +130,6 @@ cdef class Atom:
         return self.thisptr.Nbonds()
 
     @property
-    def n_excluded(self):
-        return self.thisptr.Nexcluded()
-
-    @property
     def mass(self):
         return self.thisptr.Mass()
 
@@ -166,9 +150,4 @@ cdef class Atom:
         id1 = id1.upper()
         id2 = id2.upper()
         return _Atom.GetBondLength(AtomicElementDict[id1], 
-                                          AtomicElementDict[id2])
-
-    @classmethod
-    def get_all_atomic_elements(cls):
-        """return a list of all atomic_elements, class method"""
-        return AtomicElementDict.keys()
+                                   AtomicElementDict[id2])
