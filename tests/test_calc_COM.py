@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         import numpy as np
 
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        traj2 = traj.to_mutable_trajectory()
+        traj2 = traj[:]
         d0 = pyca.calc_COM(traj, dtype='dataset')
         d1 = pyca.calc_center_of_mass(traj, dtype='dataset')
         d2 = pyca.calc_center_of_mass(traj2, dtype='dataset')

@@ -51,8 +51,8 @@ class TestActionList(unittest.TestCase):
                          ":2@CA :10@CA out ./output/_dist.out", traj.top,
                          dslist, dflist)
         alist.do_actions(traj.iterframe())
-        assert dslist.size == 1
-        assert dslist[0].size == traj.size
+        assert dslist.n_frames == 1
+        assert dslist[0].n_frames == traj.n_frames
 
     def test_run_1(self):
         # load traj
@@ -66,8 +66,8 @@ class TestActionList(unittest.TestCase):
                          ":2@CA :10@CA out ./output/_dist.out", traj.top,
                          dslist, dflist)
         alist.do_actions([traj.iterchunk()])
-        assert dslist.size == 1
-        assert dslist[0].size == traj.size
+        assert len(dslist) == 1
+        assert dslist[0].size == traj.n_frames
 
 
 if __name__ == "__main__":

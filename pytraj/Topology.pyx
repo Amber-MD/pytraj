@@ -114,6 +114,7 @@ cdef class Topology:
         >>> top.load("./data/HP36.top")
         >>> # why not using "top = Topology("./data/HP36.top")"?
         """
+        del self.thisptr
         self = Topology(filename)
 
     def copy(self, *args):
@@ -256,14 +257,6 @@ cdef class Topology:
             yield mol
             incr(it)
 
-    def _get_residue(self, int idx):
-        cdef Residue res = Residue()
-        res.thisptr[0] = self.thisptr.Res(idx)
-        return res
-
-    def _set_parm_name(self, string title, FileName filename):
-        self.thisptr.SetParmName(title, filename.thisptr[0])
-
     def set_reference_frame(self, Frame frame):
         """set reference frame for distance-based atommask selection
 
@@ -273,31 +266,6 @@ cdef class Topology:
             top.select(":3 < :5.0") # select all atoms within 5.0 A to residue 3
         """
         self.thisptr.SetReferenceCoords(frame.thisptr[0])
-
-    def _file_path(self):
-        return self.thisptr.c_str()
-
-    def _trunc_res_atom_name(self, id_or_mask):
-        """return str or list iterator of str with format like "TYR_3@CA"
-        Parameters
-        ---------
-        id_or_mask : int or str (no default)
-            int : return single str for atom with specific ID
-            str : return a list iterator of str for atoms with given mask
-
-        """
-        cdef int index 
-        cdef AtomMask atm
-        cdef list namelist = []
-
-        if is_int(id_or_mask):
-            index = <int> id_or_mask
-            return self.thisptr.TruncResAtomName(index)
-        elif isinstance(id_or_mask, string_types):
-            atm = self(id_or_mask)
-            for index in atm.selected_indices():
-                namelist.append(self._trunc_res_atom_name(index))
-            return namelist
 
     def _find_atom_in_residue(self, int res, atname):
         cdef NameType _atomnametype
@@ -322,42 +290,6 @@ cdef class Topology:
     def summary(self):
         set_world_silent(False)
         self.thisptr.Summary()
-        set_world_silent(True)
-
-    def _atom_info(self, maskString="*"):
-        set_world_silent(False)
-        maskString = maskString.encode()
-        self.thisptr.PrintAtomInfo(maskString)
-        set_world_silent(True)
-
-    def _bond_info(self, maskString="*"):
-        set_world_silent(False)
-        maskString = maskString.encode()
-        self.thisptr.PrintBondInfo(maskString)
-        set_world_silent(True)
-    
-    def _angle_info(self, maskString="*"):
-        set_world_silent(False)
-        maskString = maskString.encode()
-        self.thisptr.PrintAngleInfo(maskString)
-        set_world_silent(True)
-
-    def _dihedral_info(self, maskString="*"):
-        set_world_silent(False)
-        maskString = maskString.encode()
-        self.thisptr.PrintDihedralInfo(maskString)
-        set_world_silent(True)
-
-    def _molecule_info(self, maskString="*"):
-        set_world_silent(False)
-        maskString = maskString.encode()
-        self.thisptr.PrintMoleculeInfo(maskString)
-        set_world_silent(True)
-
-    def _residue_info(self, maskString="*"):
-        set_world_silent(False)
-        maskString = maskString.encode()
-        self.thisptr.PrintResidueInfo(maskString)
         set_world_silent(True)
 
     def start_new_mol(self):

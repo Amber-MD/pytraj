@@ -29,19 +29,13 @@ class TestRadgyr(unittest.TestCase):
             "./data/CAres2_CAres10.Tc5b.dat",
             skiprows=1).transpose()[1]
 
-        #print(d0.data[:10])
-        #print(d1.data[:10])
-        #print(d0_0[:10])
-        #print(d1_0[:10])
 
         assert (rmsd(d1.data[:10], d1_0)) < 1E-3
         assert (rmsd(d0.data[:10], d0_0)) < 1E-3
 
-        arr0 = np.empty(farray.size)
+        arr0 = np.empty(farray.n_frames)
         for i, frame in enumerate(farray):
             frame.top = farray.top
-            ##print ("mask of :2@CA", frame[':2@CA'])
-            ##print (type(frame[':2@CA']))
             arr0[i] = distance(frame[':2@CA'][0], frame[':10@CA'][0])
 
         assert (rmsd(d1_0, arr0)) < 1E-3

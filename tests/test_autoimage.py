@@ -82,7 +82,7 @@ class Test(unittest.TestCase):
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
 
         # test autoimage
-        traj1 = traj0.to_mutable_trajectory()
+        traj1 = traj0[:]
         xyz0 = pt.get_coordinates(traj0(autoimage=True))
         traj1.autoimage()
         xyz1 = traj1.xyz
@@ -91,7 +91,7 @@ class Test(unittest.TestCase):
 
         # rmsfit
         # reset traj1
-        traj1 = traj0.to_mutable_trajectory()
+        traj1 = traj0[:]
         # get new trajectory from traj0
         traj2 = pt._load_from_frame_iter(traj0(rmsfit=(0, '@CA,C,N')))
         traj1.rmsfit(ref=0, mask='@CA,C,N')
@@ -104,7 +104,7 @@ class Test(unittest.TestCase):
 
         # combine autoimage with rmsfit
         # reset traj1
-        traj1 = traj0.to_mutable_trajectory()
+        traj1 = traj0[:]
         # get new trajectory from traj0
         traj2 = pt._load_from_frame_iter(
             traj0(autoimage=True,

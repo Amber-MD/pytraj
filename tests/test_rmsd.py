@@ -25,19 +25,19 @@ class Test(unittest.TestCase):
             i += 1
             frame.strip_atoms(mask="!@CA", top=TRAJ.top.copy())
             farray.append(frame.copy())
-        assert i == TRAJ.size == TRAJ.n_frames
+        assert i == TRAJ.n_frames== TRAJ.n_frames
         assert frame.size == TRAJ.top.n_residues * 3
         farray.top.strip_atoms("!@CA")
         #print("farray.top.n_atoms= ", farray.top.n_atoms)
         assert farray.top.n_atoms == TRAJ.top.n_residues
         farray.top.summary()
-        assert farray.size == TRAJ.n_frames
+        assert farray.n_frames == TRAJ.n_frames
         #print("rmsd to first = ", farray[0].rmsd(farray[1]))
-        arr = np.zeros(farray.size)
+        arr = np.zeros(farray.n_frames)
         #print(cpptraj_rmsd[:10])
 
         # caculate rmsd to 1st frame
-        for i in range(farray.size):
+        for i in range(farray.n_frames):
             arr[i] = farray[0].rmsd(farray[i])
         #print(arr[:10])
         np.testing.assert_almost_equal(arr, cpptraj_rmsd, decimal=3)
@@ -51,8 +51,8 @@ class Test(unittest.TestCase):
             "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat",
             skiprows=1).transpose()[1]
         f0 = TRAJ[0]
-        arr0 = np.zeros(TRAJ.size)
-        arr1 = np.zeros(TRAJ.size)
+        arr0 = np.zeros(TRAJ.n_frames)
+        arr1 = np.zeros(TRAJ.n_frames)
         mask = "@CA"
         atm = AtomMask(mask)
         TRAJ.top.set_integer_mask(atm)

@@ -54,40 +54,6 @@ cdef class ArgList:
     def __dealloc__(self):
         del self.thisptr
 
-    def __iter__(self):
-        cdef cppvector[string].const_iterator it
-        it = self.thisptr.begin()
-        while it != self.thisptr.end():
-            yield deref(it)
-            incr(it)
-
-    @classmethod
-    def copy(cls, ArgList rhs):
-        cdef ArgList arglist = ArgList()
-        #del arglist.thisptr
-        arglist.thisptr = new _ArgList(rhs.thisptr[0])
-        return arglist
-
-    def __getitem__(ArgList self, idx):
-        return self.thisptr[0][idx]
-
-    def clear_list(self):
-        self.thisptr.ClearList()
-
-    def set_list(self, string inputString, char* separator):
-        return self.thisptr.SetList(inputString, separator)
-    
-    def remaining_args(self):
-        cdef ArgList remain = ArgList()
-        remain.thisptr[0] = self.thisptr.RemainingArgs()
-        return remain
-
-    def add_arg(self, string minput):
-        self.thisptr.AddArg(minput)
-
-    def list(self):
-        return self.thisptr.List()
-
     @property
     def n_args(self):
         return self.thisptr.Nargs()
@@ -95,28 +61,10 @@ cdef class ArgList:
     def is_empty(self):
         return self.thisptr.empty()
 
-    def arg_line(self):
-        return self.thisptr.ArgLine()
-
-    def mark_arg(self, int arg):
-        self.thisptr.MarkArg(arg)
-
-    def check_for_more_args(self):
-        return self.thisptr.CheckForMoreArgs()
-
-    def print_list(self):
-        self.thisptr.PrintList()
-
-    def print_debug(self):
-        self.thisptr.PrintDebug()
-
-    def remove_first_arg(self):
-        self.thisptr.RemoveFirstArg()
-
     def command_is(self, char* cm):
         return self.thisptr.CommandIs(cm)
     
-    def get_string_next(self):
+    def get_next_string(self):
         key = self.thisptr.GetStringNext()
         return key.decode()
 
@@ -124,7 +72,7 @@ cdef class ArgList:
         key = self.thisptr.GetStringKey(c.encode())
         return key.decode()
 
-    def get_mask_next(self):
+    def get_next_mask(self):
         mask = self.thisptr.GetMaskNext()
         return mask.decode()
 
@@ -145,6 +93,3 @@ cdef class ArgList:
 
     def has_key(self, char* key):
         return self.thisptr.hasKey(key)
-
-    def contains(self, key):
-        return self.thisptr.Contains(key.encode())

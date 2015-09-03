@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         # load
         fanew = mdio.iterload(fname, fa.top)
         fanew2 = mdio.iterload(fname2, fa.top)
-        assert fanew.size == fa.size == fanew2.size
+        assert fanew.n_frames == fa.n_frames == fanew2.n_frames
 
         for idx, f0 in enumerate(fa):
             f0new = fanew[idx]

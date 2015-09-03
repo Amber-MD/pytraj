@@ -26,13 +26,13 @@ class Test(unittest.TestCase):
         for frame in traj.iterframe():
             pass
 
-        for frame in traj.iterframe(stop=traj.size - 5):
+        for frame in traj.iterframe(stop=traj.n_frames - 5):
             pass
 
-        for frame in traj.iterframe(start=5, stop=traj.size - 2):
+        for frame in traj.iterframe(start=5, stop=traj.n_frames - 2):
             pass
 
-        for frame in traj.iterframe(start=1, stop=traj.size - 2, stride=2):
+        for frame in traj.iterframe(start=1, stop=traj.n_frames - 2, stride=2):
             pass
 
 

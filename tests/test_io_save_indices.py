@@ -9,10 +9,6 @@ class TestPyCpptrajIO(unittest.TestCase):
             filename="./data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")[:10]
         indices = list(range(2, 3, 5)) + [3, 8, 9, 8]
-        #print(indices)
-
-        # for i in indices:
-        #    #print traj[i]
 
         mdio.write_traj(filename="./output/test_io_saved_.x",
                         traj=traj,
@@ -24,7 +20,7 @@ class TestPyCpptrajIO(unittest.TestCase):
         traj2 = mdio.iterload(
             filename="./output/test_io_saved_.x",
             top="./data/Tc5b.top")
-        assert traj2.size == len(indices)
+        assert traj2.n_frames == len(indices)
 
 
 if __name__ == "__main__":

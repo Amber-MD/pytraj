@@ -82,10 +82,6 @@ class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator, ActionTrajectory):
         return self._traj_holder.numframes
 
     @property
-    def size(self):
-        return self.n_frames
-
-    @property
     def n_atoms(self):
         return self._traj_holder.numatoms
 

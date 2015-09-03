@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
             # get function
             act_key = arg.get_string_key("matrix")
             slist = arg.get_string_key('out').split(".")
-            mask = arg.get_mask_next()
+            mask = arg.get_next_mask()
             fname = ".".join((slist[0], slist[-1], slist[1]))
             # get correct name
             saved_file_name = matrix_test_dir + fname + ".save"

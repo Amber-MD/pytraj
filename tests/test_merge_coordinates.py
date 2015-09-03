@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
             frame_slice=(0, 2))
 
         # test mutable traj
-        coords = pt.tools.merge_coordinates(traj.to_mutable_trajectory())
+        coords = pt.tools.merge_coordinates(traj[:])
         r0 = pt.misc.rmsd(coords, pt.get_coordinates(traj), True)
         assert r0 == 0.
 

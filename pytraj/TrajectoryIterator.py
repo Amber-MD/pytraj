@@ -8,7 +8,6 @@ import numpy as np
 from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from ._action_in_traj import ActionTrajectory
 from .compat import string_types, range
-from ._shared_methods import _tolist, _split_and_write_traj
 from .Topology import Topology
 from .utils import is_int
 from ._cyutils import get_positive_idx
@@ -24,7 +23,7 @@ def split_iterators(traj,
                     mask=None,
                     autoimage=False,
                     rmsfit=None):
-    return traj.split_iterators(n_chunks, start, stop, stride, mask, autoimage,
+    return traj._split_iterators(n_chunks, start, stop, stride, mask, autoimage,
                                 rmsfit)
 
 
@@ -199,14 +198,14 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 % (size_in_MB, self._size_limit_in_MB))
         return super(TrajectoryIterator, self).xyz
 
-    def iterator_slice(self, start=0, stop=None, stride=None):
+    def _iterator_slice(self, start=0, stop=None, stride=None):
         """iterator slice"""
         from itertools import islice
         if stop is None:
             stop = self.n_frames
         return islice(self, start, stop, stride)
 
-    def make_independent_iterators(self, n_iters):
+    def _make_independent_iterators(self, n_iters):
         from itertools import tee
         return tee(self, n_iters)
 
@@ -334,20 +333,8 @@ class TrajectoryIterator(TrajectoryCpptraj):
         '''check n_frames = 0 or not'''
         return self.n_frames == 0
 
-    def tolist(self):
-        '''convert coords to 3d list. For testing only'''
-        return _tolist(self)
-
-    def to_mutable_trajectory(self):
-        '''convert to in-memory :class:`pytraj.Trajectory`'''
-        return self[:]
-
-    def split_and_write_traj(self, *args, **kwd):
-        '''split traj to n_chunks and write to disk'''
-        _split_and_write_traj(self, *args, **kwd)
-
     @_turn_to_list_with_rank
-    def split_iterators(self,
+    def _split_iterators(self,
                         n_chunks=1,
                         start=0,
                         stop=-1,
@@ -388,14 +375,9 @@ class TrajectoryIterator(TrajectoryCpptraj):
                                      autoimage=autoimage,
                                      rmsfit=rmsfit)
 
-    def to_numpy_traj(self):
-        '''experimental traj class. API might be changed'''
-        from pytraj import api
-        return api.Trajectory(self)
-
     @property
     def temperatures(self):
         return np.array([frame.temperature for frame in self])
 
-    def iselect(self, frame_indices):
+    def _iselect(self, frame_indices):
         return self._iterframe_indices(frame_indices)

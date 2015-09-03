@@ -98,10 +98,6 @@ cdef class TrajectoryCpptraj:
 
     @property
     def n_frames(self):
-        return self.size
-
-    @property
-    def size(self):
         return self.thisptr.Size()
 
     @property
@@ -209,7 +205,7 @@ cdef class TrajectoryCpptraj:
 
         # check `stop`
         if stop <= 0 or stop >= n_frames:
-            stop = <int> self.size
+            stop = <int> self.n_frames
 
         if chunksize <= 1:
             raise ValueError("chunk must be >= 2")
@@ -319,7 +315,7 @@ cdef class TrajectoryCpptraj:
              else:
                  # traj[8]
                  # assuming that `idxs` is integer
-                 idx_1 = <int> get_positive_idx(idxs, self.size)
+                 idx_1 = <int> get_positive_idx(idxs, self.n_frames)
                  # raise index out of range
                  if idxs != 0 and idx_1 == 0:
                      raise ValueError("index is out of range")

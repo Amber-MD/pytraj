@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
         # test loading
         traj2 = mdio.iterload("./output/test_savedtrajlist.x", traj.top)
         #print(traj2.size)
-        Nsize = int(traj2.size / 4)
+        Nsize = int(traj2.n_frames/ 4)
         traj0_new = traj2[:Nsize]
 
         for frame0, frame0_new in zip(traj0, traj0_new):

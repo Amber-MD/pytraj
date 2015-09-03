@@ -598,3 +598,13 @@ def as_3darray(xyz):
         raise ValueError('shape must be 2')
     new_shape = (shape[0], int(shape[1] / 3), 3)
     return xyz.reshape(new_shape)
+
+def split_and_write_traj(self,
+                         n_chunks=None,
+                         root_name="trajx",
+                         ext='nc', *args, **kwd):
+
+    chunksize = self.n_frames // n_chunks
+    for idx, traj in enumerate(self.iterchunk(chunksize=chunksize)):
+        fname = ".".join((root_name, str(idx), ext))
+        traj.save(fname, *args, **kwd)
