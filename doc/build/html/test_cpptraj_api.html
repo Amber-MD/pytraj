@@ -60,6 +60,10 @@
 </pre></div>
 </div>
 <p>Upate <code class="docutils literal"><span class="pre">./installs/install_cpptraj_git.sh</span></code> file</p>
+<div class="highlight-python"><div class="highlight"><pre>1. change &quot;git clone https://github.com/Amber-MD/cpptraj&quot; to &quot;git clone https://github.com/drroe/cpptraj&quot;
+2. add &quot;git checkout new_traj_api&quot; to that file
+</pre></div>
+</div>
 <p>It&#8217;s time to push to github so travis can automatically test (will take about 12 minutes)</p>
 <div class="highlight-bash"><div class="highlight"><pre>git add ./installs/install_cpptraj_git.sh
 git commit -m <span class="s1">&#39;pytraj: trick to run&#39;</span>
