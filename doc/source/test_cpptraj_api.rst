@@ -3,7 +3,7 @@
 Testing cpptraj API change with pytraj
 --------------------------------------
 
-* clone ``pytraj`` repo if you have not done yet
+clone ``pytraj`` repo if you have not done yet
 
 .. code-block:: bash
 
@@ -19,6 +19,7 @@ Testing cpptraj API change with pytraj
     $ # just need to update ./installs/install_cpptraj_git.sh file
 
 Upate ``./installs/install_cpptraj_git.sh`` file
+
 .. code-block::
 
     1. change "git clone https://github.com/Amber-MD/cpptraj" to "git clone https://github.com/drroe/cpptraj"

@@ -46,9 +46,7 @@
             
   <div class="section" id="testing-cpptraj-api-change-with-pytraj">
 <span id="test-cpptraj-api"></span><h1>Testing cpptraj API change with pytraj<a class="headerlink" href="#testing-cpptraj-api-change-with-pytraj" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li>clone <code class="docutils literal"><span class="pre">pytraj</span></code> repo if you have not done yet</li>
-</ul>
+<p>clone <code class="docutils literal"><span class="pre">pytraj</span></code> repo if you have not done yet</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/Amber-MD/pytraj
 <span class="nv">$ </span><span class="c"># as usual, make a name for original repo. We often use ``upstream``</span>
 <span class="nv">$ </span><span class="nb">cd </span>pytraj
@@ -61,12 +59,7 @@
 <span class="nv">$ </span><span class="c"># just need to update ./installs/install_cpptraj_git.sh file</span>
 </pre></div>
 </div>
-<p>Upate <code class="docutils literal"><span class="pre">./installs/install_cpptraj_git.sh</span></code> file
-.. code-block:</p>
-<div class="highlight-python"><div class="highlight"><pre>1. change &quot;git clone https://github.com/Amber-MD/cpptraj&quot; to &quot;git clone https://github.com/drroe/cpptraj&quot;
-2. add &quot;git checkout new_traj_api&quot; to that file
-</pre></div>
-</div>
+<p>Upate <code class="docutils literal"><span class="pre">./installs/install_cpptraj_git.sh</span></code> file</p>
 <p>It&#8217;s time to push to github so travis can automatically test (will take about 12 minutes)</p>
 <div class="highlight-bash"><div class="highlight"><pre>git add ./installs/install_cpptraj_git.sh
 git commit -m <span class="s1">&#39;pytraj: trick to run&#39;</span>
