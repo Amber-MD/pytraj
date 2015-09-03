@@ -22,7 +22,18 @@ def elemwise(op, self, other=None):
 
 
 class DataArray(object):
-    """place holder for all cpptraj' output
+    """place holder for all cpptraj' output.
+
+    Examples
+    --------
+    >>> from pytraj.array import DataArray
+    >>> arr0 = DataArray([0, 2, 4])
+    >>> arr1 = DataArray({'x' : [0, 2, 4]})
+    >>> print(arr1)
+    <pytraj.array.DataArray: size=3, key=x, dtype=int64, ndim=1> 
+    values:
+    [0 2 4]
+    >>> print(arr1.values)
     """
 
     def __init__(self, dset=None, copy=True):

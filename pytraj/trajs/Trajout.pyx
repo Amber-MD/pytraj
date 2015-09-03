@@ -7,15 +7,14 @@ from pytraj.utils.check_and_assert import file_exist
 cdef class Trajout:
     formats = TrajFormatDict.keys()
     """Writing output
-    Parameters :
-    filename: str
 
+    Parameters
+    ----------
+    filename: str
     format: str, optional, default='AMBERTRAJ'
         output format: %s 
-
-    if `format` is not provided, Trajout will decide format based on extension.
-    if not `format` and no extension, default format = AMBERTRAJ
-
+        if `format` is not provided, Trajout will decide format based on extension.
+        if not `format` and no extension, default format = AMBERTRAJ
     So the priority is format> extension > default
         
     """
@@ -39,8 +38,9 @@ cdef class Trajout:
         print "TrajFormat"
         print TrajFormatDict.keys()
 
-    def open(self, filename='', top=Topology(), format='unknown_traj', 
+    def open(self, filename='', top=Topology(), format='default', 
              mode=None, overwrite=False):
+
         cdef ArgList arglist
         cdef Topology top_ 
 
@@ -76,9 +76,9 @@ cdef class Trajout:
                 arglist = <ArgList> mode
             else:
                 raise ValueError()
-            self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr, local_dict[format])
+            self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr)
         else:
-            self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr, local_dict[format])
+            self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr)
 
         # real open
         self.thisptr.SetupTrajWrite(top_.thisptr)

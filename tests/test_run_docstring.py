@@ -25,8 +25,10 @@ class Test(unittest.TestCase):
         from pytraj.tools import grep
         from pytraj import clustering_dataset
         from pytraj.cluster import kmeans
+        from pytraj.array import DataArray
 
-        for func in [pt.iterframe,
+        for func in [DataArray,
+                     pt.iterframe,
                      pt.iterchunk,
                      pt.multidihedral,
                      pt.rmsd,

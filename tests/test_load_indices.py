@@ -7,9 +7,6 @@ from pytraj.io import load
 from pytraj.decorators import no_test
 from pytraj.utils.check_and_assert import assert_almost_equal
 
-from load_traj import load as npload
-
-
 class TestIndices(unittest.TestCase):
     #@no_test
 

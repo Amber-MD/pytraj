@@ -58,7 +58,6 @@ def run_tests():
     DataSet_Coords()
     DataSet_Coords_REF()
     DataSet_Coords_CRD()
-    DataSet_Coords_TRJ()
 
     print("try to make structure-related objects")
     Topology()
@@ -69,10 +68,7 @@ def run_tests():
     Frame()
 
     print("try to create Trajectory-like objects")
-    Trajectory()
     TrajectoryIterator()
-    TrajectoryREMDIterator.TrajectoryREMDIterator()
-    TrajinList.TrajinList()
     api.Trajectory()
 
     print("other stuff. throw all tests don't belong anywhere else here")

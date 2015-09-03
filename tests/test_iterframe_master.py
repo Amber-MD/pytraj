@@ -35,12 +35,6 @@ class Test(unittest.TestCase):
         with open(fname, 'w') as f:
             f.write(text)
         state = mdio.load_cpptraj_file(fname)
-        #print(state)
-        trajinlist = state.get_trajinlist()
-
-        for idx, frame in enumerate(iterframe_master(trajinlist)):
-            pass
-        assert idx + 1 == traj.n_frames
 
     def test_0(self):
         from pytraj._shared_methods import iterframe_master
