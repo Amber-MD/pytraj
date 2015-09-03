@@ -82,8 +82,7 @@
 <span class="gp">In [9]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
 <span class="gp">In [10]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
-<span class="go">   7.62039157]</span>
+<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
 </pre></div>
 </div>
 <p>However, <code class="docutils literal"><span class="pre">pytraj</span></code> offer shorter (and easy?) way to do</p>
@@ -95,8 +94,7 @@
 
 <span class="c"># that&#39;s it</span>
 <span class="gp">In [13]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
-<span class="go">   7.62039157]</span>
+<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">pytraj</span></code> will auto-allocate <code class="docutils literal"><span class="pre">data</span></code> too</p>
@@ -106,8 +104,7 @@
 <span class="gp">In [15]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">trajlist</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">trajlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
 
 <span class="gp">In [16]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
-<span class="go">   7.62039157]</span>
+<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
 </pre></div>
 </div>
 </div>

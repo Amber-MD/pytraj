@@ -71,12 +71,12 @@
 </li>
 <li><p class="first"><a class="reference external" href="design_trajectory">able to handle very large trajectory</a></p>
 </li>
-<li><p class="first">simple (and fast) calculation</p>
-<blockquote>
-<div><p>import pytraj as pt
-traj = pt.iterload(&#8216;traj.nc&#8217;, &#8216;my_parm.top&#8217;)
-pt.radgyr(traj)</p>
-</div></blockquote>
+<li><p class="first">simple (and fast) calculation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;my_parm.top&#39;</span><span class="p">)</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+</div>
 </li>
 <li><dl class="first docutils">
 <dt>include many cpptraj features</dt>

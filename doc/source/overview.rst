@@ -15,7 +15,7 @@ Overview
    + `support parallel processing <parallel>`_
    + `able to handle many files at the same time <process_many_files>`_
    + `able to handle very large trajectory <design_trajectory>`_
-   + simple (and fast) calculation
+   + simple (and fast) calculation::
 
       import pytraj as pt
       traj = pt.iterload('traj.nc', 'my_parm.top')
