@@ -18,9 +18,7 @@ clone ``pytraj`` repo if you have not done yet
     $ # update travis install to point to your ``cpptraj`` new branch (for example ``new_traj_api``)
     $ # just need to update ./installs/install_cpptraj_git.sh file
 
-Upate ``./installs/install_cpptraj_git.sh`` file
-
-.. code-block::
+Upate ``./installs/install_cpptraj_git.sh`` file ::
 
     1. change "git clone https://github.com/Amber-MD/cpptraj" to "git clone https://github.com/drroe/cpptraj"
     2. add "git checkout new_traj_api" to that file
