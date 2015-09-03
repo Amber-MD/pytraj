@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from abc import ABCMeta, abstractmethod
 from pytraj.externals.six import add_metaclass
+from pytraj._shared_methods import my_str_method
 
 
 @add_metaclass(ABCMeta)
@@ -36,10 +37,6 @@ class TrajectoryBaseIterator(object):
     @abstractmethod
     def n_frames(self):
         pass
-
-    @property
-    def size(self):
-        return self.n_frames
 
     @property
     @abstractmethod

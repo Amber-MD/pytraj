@@ -12,10 +12,8 @@ cdef extern from "DataSet_Coords_TRJ.h" nogil:
         _TrajectoryCpptraj() 
         int AddSingleTrajin(const string&, _ArgList&, _Topology *)
         size_t Size() const 
-        void SetCRD(int idx, const _Frame& fIn)
         void GetFrame(int idx, _Frame& fIn)
         void GetFrame(int idx, _Frame& fIn, const _AtomMask& mIn)
-        int UpdateTrjFrames(int max_frames)
         void SetTopology(const _Topology&)
         inline const _Topology& Top() const 
 
