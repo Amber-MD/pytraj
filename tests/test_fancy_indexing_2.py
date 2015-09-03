@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         # AtomMask
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        fa = traj.to_mutable_trajectory()
+        fa = traj[:]
         xyz = traj.xyz[:]
         atm = traj.top("@CA")
         indices = atm.indices

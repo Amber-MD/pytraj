@@ -78,7 +78,7 @@ class Test(unittest.TestCase):
         assert np.all(arr2 == arr3)
 
         # Trajectory
-        traj = traj.to_mutable_trajectory()
+        traj = traj[:]
         arr = pt.distance(traj(stop=4), [0, 5])
         arr1 = pt.distance(traj(stop=4), [0, 5], n_frames=4)
         assert np.all(arr == arr1)

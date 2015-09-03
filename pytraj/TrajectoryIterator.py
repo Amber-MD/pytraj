@@ -8,7 +8,6 @@ import numpy as np
 from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from ._action_in_traj import ActionTrajectory
 from .compat import string_types, range
-from ._shared_methods import _tolist, _split_and_write_traj
 from .Topology import Topology
 from .utils import is_int
 from ._cyutils import get_positive_idx
@@ -24,7 +23,7 @@ def split_iterators(traj,
                     mask=None,
                     autoimage=False,
                     rmsfit=None):
-    return traj.split_iterators(n_chunks, start, stop, stride, mask, autoimage,
+    return traj._split_iterators(n_chunks, start, stop, stride, mask, autoimage,
                                 rmsfit)
 
 
@@ -333,10 +332,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
     def is_empty(self):
         '''check n_frames = 0 or not'''
         return self.n_frames == 0
-
-    def _split_and_write_traj(self, *args, **kwd):
-        '''split traj to n_chunks and write to disk'''
-        _split_and_write_traj(self, *args, **kwd)
 
     @_turn_to_list_with_rank
     def _split_iterators(self,

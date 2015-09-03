@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
             frame_slice=(0, 2))
 
         # test mutable traj
-        big_frame = pt.tools.merge_frames(traj.to_mutable_trajectory())
+        big_frame = pt.tools.merge_frames(traj[:])
         assert pt.tools.rmsd(big_frame.xyz.flatten(),
                              pt.get_coordinates(traj).flatten()) < 1E-5
 

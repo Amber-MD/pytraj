@@ -16,22 +16,22 @@ class Test(unittest.TestCase):
 
         # naive
         #print(pt.calc_center_of_mass(list(traj.split_iterators(4))))
-        assert np.all(pt.calc_center_of_mass(list(traj.split_iterators(4))) ==
-                      pt.calc_center_of_mass(traj))
+        assert np.all(pt.center_of_mass(list(traj._split_iterators(4))) ==
+                      pt.center_of_mass(traj))
 
         # with mask
         assert np.all(
-            pt.calc_center_of_mass(list(traj.split_iterators(4,
+            pt.calc_center_of_mass(list(traj._split_iterators(4,
                                                              mask='@CA'))) ==
             pt.calc_center_of_mass(traj, '@CA'))
 
         # with mask and rmsfit
         ilist = list(
-            traj.split_iterators(n_chunks=4,
+            traj._split_iterators(n_chunks=4,
                                  mask='!@H=',
                                  rmsfit=(traj[0], '@CA')))
-        arr0 = pt.calc_center_of_mass(ilist)
-        arr1 = pt.calc_center_of_mass(traj(rmsfit=(traj[0], '@CA')), '!@H=')
+        arr0 = pt.center_of_mass(ilist)
+        arr1 = pt.center_of_mass(traj(rmsfit=(traj[0], '@CA')), '!@H=')
         aa_eq(arr0, arr1)
 
 
