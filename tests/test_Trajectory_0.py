@@ -25,7 +25,7 @@ class TestTrajectory(unittest.TestCase):
         TRAJ2.top = Topology("./data/Tc5b.top")
         TRAJ2.load("./data/md1_prod.Tc5b.x")
         farray = TRAJ2[[0, 9, 1]]
-        assert farray.size == 3
+        assert farray.n_frames == 3
         assert TRAJ2[0].atoms(0) == farray[0].atoms(0)
         assert TRAJ2[9].atoms(0) == farray[1].atoms(0)
         assert TRAJ2[1].atoms(0) == farray[2].atoms(0)
@@ -64,19 +64,19 @@ class TestTrajectory(unittest.TestCase):
             i += 1
             frame.strip_atoms(top=TRAJ.top.copy(), mask="!@CA")
             farray.append(frame.copy())
-        assert i == TRAJ.size == TRAJ.n_frames
+        assert i == TRAJ.n_frames == TRAJ.n_frames
         assert frame.size == TRAJ.top.n_residues * 3
         farray.top.strip_atoms("!@CA")
         assert farray.top.n_atoms == TRAJ.top.n_residues
         farray.top.summary()
-        assert farray.size == TRAJ.n_frames
-        arr = np.zeros(farray.size)
+        assert farray.n_frames == TRAJ.n_frames
+        arr = np.zeros(farray.n_frames)
         cpptraj_rmsd = np.loadtxt(
             "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat",
             skiprows=1).transpose()[1]
 
         # caculate rmsd to 1st frame
-        for i in range(farray.size):
+        for i in range(farray.n_frames):
             arr[i] = farray[0].rmsd(farray[i])
         np.testing.assert_almost_equal(arr[:10], cpptraj_rmsd[:10], decimal=3)
 
