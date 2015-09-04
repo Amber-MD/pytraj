@@ -1117,7 +1117,7 @@ def calc_pairwise_rmsd(traj=None,
                        metric='rms',
                        top=None,
                        dtype='ndarray',
-                       mat_type='full', *args, **kwd):
+                       mat_type='full'):
     """calculate pairwise rmsd with different metrics.
 
     Parameters
@@ -1165,8 +1165,6 @@ def calc_pairwise_rmsd(traj=None,
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
 
-    command = ' '.join((mask, metric))
-
     from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
     from pytraj import TrajectoryIterator, Trajectory
 
@@ -1178,12 +1176,23 @@ def calc_pairwise_rmsd(traj=None,
     dslist[0].top = _top
     # need to set "rmsout" to trick cpptraj not giving error
     # need " " (space) before crdset too
+
+    if isinstance(traj, (Trajectory, TrajectoryIterator)):
+        is_traj_like = True
+        fi = traj.iterframe(mask=mask)
+        command = metric
+        dslist[0].top = fi.top
+        _top = fi.top
+    else:
+        is_traj_like = False
+        fi = iterframe_master(traj)
+        command = ' '.join((mask, metric))
     command = command + " crdset _tmp rmsout mycrazyoutput"
 
-    for frame in iterframe_master(traj):
+    for frame in fi:
         dslist[0].append(frame)
 
-    act(command, _top, dslist=dslist, *args, **kwd)
+    act(command, _top, dslist=dslist)
     # remove dataset coords to free memory
     dslist.remove_set(dslist[0])
 

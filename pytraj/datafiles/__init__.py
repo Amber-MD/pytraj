@@ -46,8 +46,8 @@ def load_result_from_cpptraj_state(txt, dtype=None):
 
     Returns
     -------
-    if with_state=False: return DatasetList
-    if with_state=True: return [CpptrajState, DatasetList]
+    if dtype is 'state', return CpptrajState
+    if dtype is 'ndarray', return ndarray and so on
 
     """
     from pytraj.io import load_cpptraj_file
@@ -77,8 +77,8 @@ def load_result_from_cpptraj_state(txt, dtype=None):
         state = load_cpptraj_file("tmp.in")
         state.run()
 
-        if dtype == 'cpptraj_dataset':
-            out = state.datasetlist
+        if dtype == 'state':
+            out = state
         else:
             out = DatasetList(state.datasetlist)
         return out
