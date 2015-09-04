@@ -17,6 +17,11 @@ Welcome to pytraj's documentation - not completed yet
 ``pytraj`` is a Python front-end of the popular ``cpptraj`` package. Its aim is to expose
 ``cpptraj``'s funtions to Python's ecosystem. Enjoy.
 
+.. image:: images/abstract_fig.png
+    :alt: should have something here
+    width: 50%
+    :align: right
+
 **Contents**
 
 .. toctree::
