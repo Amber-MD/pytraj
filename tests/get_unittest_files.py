@@ -7,7 +7,8 @@ base_line = "import unittest"
 # make a list of test cases
 testlist = glob("test_*.py")
 for folder in ['cluster', 'test_frames', 'test_trajs', 'test_topology',
-               'test_memory_usage', 'test_iterators',]:
+               'test_memory_usage', 'test_iterators',
+               'test_load',]:
     testlist += glob(os.path.join(folder, 'test_*.py'))
 
 for pyfile in testlist:
