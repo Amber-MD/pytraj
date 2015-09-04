@@ -4,8 +4,8 @@ import numpy as np
 from pytraj import Trajectory
 from pytraj.testing import aa_eq
 
-class Test0(unittest.TestCase):
-    def test_0(self):
+class TestSlicingTrajectory(unittest.TestCase):
+    def test_array_like(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         FA = traj[:]
 
@@ -32,7 +32,7 @@ class Test0(unittest.TestCase):
         aa_eq(fa4[1].coords, traj[2].coords)
         aa_eq(fa4[0].coords, traj[1].coords)
 
-    def test_1(self):
+    def test_atommask(self):
         # AtomMask
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
