@@ -23,7 +23,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev7 documentation" href="index.html" /> 
+    <link rel="top" title="pytraj 0.1.2.dev7 documentation" href="index.html" />
+    <link rel="up" title="Cookbook" href="cookbook.html" />
+    <link rel="next" title="API reference" href="api.html" />
+    <link rel="prev" title="Tips" href="tips.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,7 +38,14 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev7 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="api.html" title="API reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tips.html" title="Tips"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev7 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="cookbook.html" accesskey="U">Cookbook</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -62,20 +72,21 @@
 </pre></div>
 </div>
 <p>Register to load all frames</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">ptraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">   ...:</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
-<span class="gp">   ...:</span> <span class="n">traj</span>
-<span class="gp">   ...:</span> 
-<span class="go">  File &quot;&lt;ipython-input-4-ec229d863b68&gt;&quot;, line 1</span>
-<span class="go">    import pytraj as ptraj as pt</span>
-<span class="go">                            ^</span>
-<span class="go">SyntaxError: invalid syntax</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 
-<span class="gr">Out[6]: </span>
+<span class="gp">In [5]: </span><span class="n">traj</span>
+<span class="gr">Out[5]: </span>
 <span class="go">&lt;pytraj.TrajectoryIterator, 101 frames, include:</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
 <span class="go">           </span>
 
+<span class="c"># since we register to load all frames, if we just need up to 50-th frame</span>
+<span class="c"># we juse ( ) notation</span>
+<span class="gp">In [6]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">):</span> <span class="k">pass</span>
+
+<span class="c"># print the last frame</span>
+<span class="gp">In [7]: </span><span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -86,6 +97,12 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tips.html"
+                        title="previous chapter">Tips</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">API reference</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -119,7 +136,14 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev7 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="api.html" title="API reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tips.html" title="Tips"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev7 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="cookbook.html" >Cookbook</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
