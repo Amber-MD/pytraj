@@ -47,4 +47,5 @@ def do_clustering():
                                                   range(n_clusters))):
             trajout.write_frame(idx, frame)
 
+
 do_clustering()
