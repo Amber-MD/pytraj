@@ -1,6 +1,7 @@
 Developer guide for pytraj
 ==========================
-(draft)
+
+.. contents::
 
 Python style guide
 ------------------

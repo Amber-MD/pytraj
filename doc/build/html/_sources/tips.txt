@@ -3,6 +3,10 @@
 Tips
 ====
 
+.. contents::
+
+:ref:`tips_iterload`_
+
 .. _process_many_files:
 
 process many files
