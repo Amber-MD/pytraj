@@ -39,13 +39,6 @@ def _get_arglist(arg):
 
 def _get_data_from_dtype(d0, dtype='dataset'):
     from pytraj.datasets.DataSet import DataSet
-    try:
-        import numpy as np
-        has_np = True
-    except ImportError:
-        has_np = False
-        if dtype != 'cpptraj_dataset':
-            raise ImportError("require numpy. use `dtype='cpptraj_dataset'`")
 
     if dtype is None or dtype == 'dataset':
         pass

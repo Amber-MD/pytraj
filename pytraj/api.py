@@ -1,11 +1,9 @@
 from __future__ import absolute_import
 
 import numpy as np
-import itertools
 from .core.Box import Box
 from .Frame import Frame
-from .utils.check_and_assert import is_int, is_frame_iter, is_mdtraj
-from .utils.check_and_assert import is_word_in_class_name
+from .utils.check_and_assert import is_int, is_frame_iter
 from .externals.six import string_types
 from .externals.six.moves import range
 from .AtomMask import AtomMask

@@ -1318,7 +1318,7 @@ def calc_rmsd(traj=None,
     else:
         try:
             cmd = np.asarray(mask)
-        except ValueError as e:
+        except ValueError:
             raise ValueError("don't mix different types")
         dname = cmd.dtype.name
         if 'str' in dname:
@@ -1462,7 +1462,7 @@ def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     command = mask
 
     dslist = CpptrajDatasetList()
-    act = adict['atomiccorr']
+    act = Action_AtomicCorr()
     act("out mytempfile.out " + command, traj,
         top=_top,
         dslist=dslist, *args, **kwd)
@@ -1530,7 +1530,7 @@ def closest(traj=None,
         raise ValueError('must specify the number of solvents')
 
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(command)
+        mask = to_cpptraj_atommask(mask)
 
     command = str(n_solvents) + ' ' + mask
 
@@ -1844,7 +1844,6 @@ def pucker(traj=None,
     """Note: not validate yet
 
     """
-    from pytraj.datasetlist import DatasetList
     from pytraj.datasets import DataSetList as CDL
     from pytraj.actions.CpptrajActions import Action_Pucker
     from pytraj.compat import range
@@ -1863,7 +1862,7 @@ def pucker(traj=None,
         act = Action_Pucker()
         command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
         name = "pucker_res" + str(res + 1)
-        command = " ".join((name, command, _range360, method, geom, _offset))
+        command = " ".join((name, command, _range360, method, geom, amp, _offset))
         act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
     return _get_data_from_dtype(cdslist, dtype)
 

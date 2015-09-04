@@ -1,8 +1,6 @@
-from pytraj.externals.six import string_types
 from pytraj._shared_methods import iterframe_master
 from pytraj._get_common_objects import _get_top, _get_data_from_dtype
 from pytraj.compat import range
-from pytraj.decorators import noparallel
 
 __all__ = ['get_pysander_energies']
 
@@ -12,7 +10,6 @@ def _default_func():
     return array('d', [])
 
 
-#@noparallel
 def get_pysander_energies(traj=None,
                           parm=None,
                           igb=8,
@@ -65,18 +62,14 @@ def get_pysander_energies(traj=None,
         parm = pmd.load_file("myfile.prmtop")
         energy_decomposition(traj, parm=parm, igb=5)
     """
-    from array import array as pyarray
     from collections import defaultdict
     from pytraj.misc import get_atts
     import numpy as np
 
     try:
         import sander
-        # support AmberParm only?
-        from parmed import Structure
     except ImportError:
-        raise ImportError(
-            "need both `pysander` and `parmed` installed. Check Ambertools15")
+        raise ImportError("need both `pysander` installed. Check Ambertools15")
 
     ddict = defaultdict(_default_func)
 
