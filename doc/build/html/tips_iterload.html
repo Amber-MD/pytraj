@@ -51,15 +51,11 @@
 <p class="last">when calling <code class="docutils literal"><span class="pre">iterload</span></code>, no data is loaded to memory if not needed.</p>
 </div>
 <p>Register to load up to 50-th frame and skip every 2 frames</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">ptraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">   ...:</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="gp">   ...:</span> <span class="n">traj</span>
-<span class="gp">   ...:</span> 
-<span class="go">  File &quot;&lt;ipython-input-1-ec229d863b68&gt;&quot;, line 1</span>
-<span class="go">    import pytraj as ptraj as pt</span>
-<span class="go">                            ^</span>
-<span class="go">SyntaxError: invalid syntax</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="gp">In [3]: </span><span class="n">traj</span>
 <span class="gr">Out[3]: </span>
 <span class="go">&lt;pytraj.TrajectoryIterator, 25 frames, include:</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
