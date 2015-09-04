@@ -3,10 +3,9 @@
 from __future__ import absolute_import
 import warnings
 import os
+from glob import glob
 import numpy as np
-
 from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
-from ._action_in_traj import ActionTrajectory
 from .compat import string_types, range
 from .Topology import Topology
 from .utils import is_int
@@ -78,7 +77,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         # same as self.chunk but for iterframe
         self.frame = None
         # only allow to load <= 1000 Mb
-        self._size_limit_in_MB = 1000
+        self._size_limit_in_GB = 1
         super(TrajectoryIterator, self).__init__()
 
         if not top:
@@ -156,7 +155,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
                     frame_slice=fslice)
         elif isinstance(filename,
                             string_types) and not os.path.exists(filename):
-            from glob import glob
             flist = sorted(glob(filename))
             if not flist:
                 raise ValueError(
@@ -182,20 +180,20 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
     @property
     def _estimated_GB(self):
-        """esimated MB of data will be loaded to memory
+        """esimated GB of data will be loaded to memory
         """
         return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3)
 
     @property
     def xyz(self):
         '''return 3D array of coordinates'''
-        size_in_MB = self._estimated_GB
-        # check if larger than size_limit_in_MB
-        if size_in_MB > self._size_limit_in_MB and not self._force_load:
+        size_in_GB = self._estimated_GB
+        # check if larger than size_limit_in_GB
+        if size_in_GB > self._size_limit_in_GB and not self._force_load:
             raise MemoryError(
                 "you are loading %s Mb, larger than size_limit %s Mb. "
-                "Please increase self._size_limit_in_MB or set self._force_load=True"
-                % (size_in_MB, self._size_limit_in_MB))
+                "Please increase self._size_limit_in_GB or set self._force_load=True"
+                % (size_in_GB, self._size_limit_in_GB))
         return super(TrajectoryIterator, self).xyz
 
     def _iterator_slice(self, start=0, stop=None, stride=None):
@@ -341,7 +339,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                         stride=1,
                         mask=None,
                         autoimage=False,
-                        rmsfit=None, **kwd):
+                        rmsfit=None):
         """simple splitting `self` to n_chunks FrameIter objects        
 
         Examples

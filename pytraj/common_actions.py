@@ -5,8 +5,8 @@
 """
 from __future__ import absolute_import
 import os
+import numpy as np
 from array import array
-from functools import partial
 
 from pytraj.action_dict import ActionDict
 adict = ActionDict()
@@ -25,18 +25,15 @@ from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_atommask
 from .externals.six import string_types
 from .Frame import Frame
-from .AtomMask import AtomMask
 from .Topology import Topology
 from .datasets.DataSetList import DataSetList as CpptrajDatasetList
 from .core.DataFileList import DataFileList
-from .math.DistRoutines import distance
 from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
 from ._shared_methods import iterframe_master
 from .externals.get_pysander_energies import get_pysander_energies
-from . import _long_manual
 from .decorators import noparallel
 #from .TrajectoryIterator import  TrajectoryIterator
 
@@ -126,7 +123,6 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> # distance between atom 1 and 5, distance between atom 4 and 10 (index starts from 0)
     >>> pt.distance(traj, [[1, 5], [4, 10]])
     """
-    import numpy as np
     ensure_not_none_or_string(traj)
     command = mask
 
@@ -222,7 +218,6 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> # angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)
     >>> pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
     """
-    import numpy as np
     from pytraj.datasetlist import from_dict
     command = mask
 
@@ -341,7 +336,6 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> # dihedral angle for atom 1, 5, 8, 10, dihedral for atom 4, 10, 20, 30 (index starts from 0)
     >>> pt.dihedral(traj, [[1, 5, 8, 10], [4, 10, 20, 30]])
     """
-    import numpy as np
     ensure_not_none_or_string(traj)
     command = mask
 
@@ -812,7 +806,6 @@ def clustering_dataset(array_like, command=''):
     >>> data = pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
     >>> print(data)
     '''
-    import numpy as np
     from pytraj.analyses.CpptrajAnalyses import Analysis_Clustering
 
     dslist = CpptrajDatasetList()
@@ -1239,7 +1232,6 @@ def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
 
     Default = array of 0.0
     """
-    from array import array as pyarray
     _top = _get_top(traj, top)
     dslist = calculate('temperature', traj, command, _top)
     return _get_data_from_dtype(dslist, dtype)
@@ -1257,7 +1249,6 @@ def rmsd_perres(traj=None,
     Perform rmsfit calculation with `mask`, then calculate nofit rms for residues
     in `range` with given `perresmask`
     """
-    from pytraj.utils.convert import array_to_cpptraj_range
     if range is not None:
         if isinstance(range, string_types):
             _range = 'range %s ' % range
@@ -1315,10 +1306,8 @@ def calc_rmsd(traj=None,
     """
     from pytraj.utils import is_int
     from array import array as pyarray
-    from pytraj.datasets import DatasetDouble
     from pytraj.actions.CpptrajActions import Action_Rmsd
     from pytraj.core.ActionList import ActionList
-    import numpy as np
 
     _nofit = ' nofit ' if nofit else ''
     _mass = ' mass ' if mass else ''
@@ -1658,9 +1647,6 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-calc_grid.__doc__ = _long_manual.__grid__
-
-
 def check_structure(traj=None, command="", top=None, *args, **kwd):
     """
     Examples
@@ -1692,9 +1678,7 @@ def timecorr(vec0, vec1,
     tcorr : float, default 10000.
     norm : bool, default False
     """
-    from pytraj.datasets import DataSetList as CDSL, DatasetVector
-    from pytraj.math import Vec3
-    import numpy as np
+    from pytraj.datasets import DataSetList as CDSL
     act = analdict['timecorr']
 
     cdslist = CDSL()
@@ -1729,7 +1713,6 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     """
     from pytraj.datasets import DataSetList as CDSL
     from pytraj.analyses.CpptrajAnalyses import Analysis_CrankShaft
-    import numpy as np
 
     cdslist = CDSL()
     cdslist.add_set("double", "d0")
@@ -1751,7 +1734,6 @@ def cross_correlation_function(data0, data1, dtype='ndarray'):
     Same as `corr` in cpptraj
     """
     from pytraj.datasets import DataSetList as CDSL
-    import numpy as np
 
     cdslist = CDSL()
     cdslist.add_set("double", "d0")
@@ -1772,7 +1754,6 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     Same as `autocorr` in cpptraj
     """
     from pytraj.datasets import DataSetList as CDSL
-    import numpy as np
 
     _nocovar = " " if covar else " nocovar"
 
@@ -1795,7 +1776,6 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     """
     from pytraj.datasets import DataSetList as CDSL
     from pytraj.analyses.CpptrajAnalyses import Analysis_Lifetime
-    import numpy as np
 
     cdslist = CDSL()
     if 'int' in data.dtype.name:
@@ -1829,7 +1809,6 @@ def search_neighbors(traj=None, mask='', cutoff='', dtype='dataset', top=None):
     >>> pt.search_neighbors(traj, [3, 7, 8], cutoff=">10.0") # around atom 3, 7, 8, larger than 10.0 Angstrom
     """
     from pytraj.datasetlist import DatasetList
-    import numpy as np
 
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
