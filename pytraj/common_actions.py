@@ -1117,19 +1117,25 @@ def calc_pairwise_rmsd(traj=None,
                        metric='rms',
                        top=None,
                        dtype='ndarray',
-                       mat_type='full', *args, **kwd):
-    # TODO: segmentation fault for api.Trajectory if not copying
-    """return 2D numpy array
+                       mat_type='full'):
+    """calculate pairwise rmsd with different metrics.
 
     Parameters
     ----------
-    traj : Trajectory-like, iterable object
-    mask : mask (default=all atom) + extra command
-        See `Notes` below for further info
+    traj : Trajectory-like or iterable object
+    mask : mask
+        if mask is "", use all atoms
     metric : {'rms', 'dme', 'srmsd', 'nofit'}
+        if 'rms', perform rms fit 
+        if 'dme', use distance RMSD
+        if 'srmsd', use symmetry-corrected RMSD 
+        if 'nofit', perform rmsd without fitting
     top : Topology, optional, default=None
     dtype: ndarray
-    mat_type : return matrix type, default 'full'
+        return type
+    mat_type : 2D or 1D ndarray, depending on value
+        if 'full': return 2D array, shape=(n_frames, n_frames)
+        if 'cpptraj': return 1D array, shape=(n_frames*(n_frames-1)/2, )
     *args, **kwd: optional (for advanced user)
 
     Examples
@@ -1150,18 +1156,14 @@ def calc_pairwise_rmsd(traj=None,
 
     Notes
     -----
-    This calculation is memory consumming. It's better to use **pytraj.TrajectoryIterator**
-    (**pytraj.iterload(...)**)
+    This calculation is memory consumming. It's better to use out-of-core ``pytraj.TrajectoryIterator``
 
-    It's better to use `**pytraj.pairwise_rmsd(traj(mask='@CA'))**` than
-    `**pytraj.pairwise_rmsd(traj, mask='@CA')**`.
+    It's better to use ``pytraj.pairwise_rmsd(traj(mask='@CA'))`` than ``pytraj.pairwise_rmsd(traj, mask='@CA')``
 
-    Install **libcpptraj** with openmp to benifit from parallel
+    Install ``libcpptraj`` with ``openmp`` to get benifit from parallel
     """
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
-
-    command = ' '.join((mask, metric))
 
     from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
     from pytraj import TrajectoryIterator, Trajectory
@@ -1169,25 +1171,27 @@ def calc_pairwise_rmsd(traj=None,
     act = Analysis_Rms2d()
 
     dslist = CpptrajDatasetList()
-    dslist.add_set("coords", "mylovelypairwisermsd")
-    _top = _get_top(traj, top)
-    dslist[0].top = _top
+    dslist.add_set("coords", "_tmp")
     # need to set "rmsout" to trick cpptraj not giving error
     # need " " (space) before crdset too
-    command = command + " crdset mylovelypairwisermsd rmsout mycrazyoutput"
 
-    if isinstance(traj, Trajectory):
-        will_be_copied = True
+    if isinstance(traj, (Trajectory, TrajectoryIterator)):
+        fi = traj.iterframe(mask=mask)
+        command = metric
+        dslist[0].top = fi.top
+        _top = fi.top
     else:
-        will_be_copied = False
-    # upload Frame to crdset
-    for frame in iterframe_master(traj):
-        if will_be_copied:
-            dslist[0].append(frame.copy())
-        else:
-            dslist[0].append(frame)
+        fi = iterframe_master(traj)
+        command = ' '.join((mask, metric))
+        _top = _get_top(traj, top)
+        dslist[0].top = _top
 
-    act(command, _top, dslist=dslist, *args, **kwd)
+    command = command + " crdset _tmp rmsout mycrazyoutput"
+
+    for frame in fi:
+        dslist[0].append(frame)
+
+    act(command, _top, dslist=dslist)
     # remove dataset coords to free memory
     dslist.remove_set(dslist[0])
 

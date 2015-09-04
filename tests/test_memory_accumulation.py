@@ -22,6 +22,10 @@ for traj in tlist:
     print(traj._estimated_GB)
 
     @profile
+    def test_pairwise_rmsd():
+        pt.pairwise_rmsd(traj(stop=1000), mask='@CA')
+
+    @profile
     def test_write():
         pt.write_traj('test.nc', traj, indices=range(10000), overwrite=True)
         print(pt.iterload('./test.nc', traj.top))
@@ -113,6 +117,7 @@ for traj in tlist:
         print(idx)
 
     func_list = [
+        test_pairwise_rmsd,
         test_write,
         test_strip_atoms,
         test_closest,
