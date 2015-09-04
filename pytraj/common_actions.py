@@ -1178,13 +1178,11 @@ def calc_pairwise_rmsd(traj=None,
     # need " " (space) before crdset too
 
     if isinstance(traj, (Trajectory, TrajectoryIterator)):
-        is_traj_like = True
         fi = traj.iterframe(mask=mask)
         command = metric
         dslist[0].top = fi.top
         _top = fi.top
     else:
-        is_traj_like = False
         fi = iterframe_master(traj)
         command = ' '.join((mask, metric))
     command = command + " crdset _tmp rmsout mycrazyoutput"
