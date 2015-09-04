@@ -45,17 +45,6 @@ def _make_frame_slices(n_files, original_frame_slice):
             "must be a tuple of integer values or a list of tuple of integer values")
 
 
-def _turn_to_list_with_rank(func):
-    def inner(*args, **kwd):
-        if 'rank' not in kwd:
-            return list(func(*args, **kwd))
-        else:
-            return list(func(*args, **kwd))[kwd['rank']]
-
-    inner.__doc__ = func.__doc__
-    return inner
-
-
 class TrajectoryIterator(TrajectoryCpptraj):
     def __init__(self, filename=None, top=None, *args, **kwd):
         '''out-of-core trajectory holder.
@@ -331,7 +320,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
         '''check n_frames = 0 or not'''
         return self.n_frames == 0
 
-    @_turn_to_list_with_rank
     def _split_iterators(self,
                         n_chunks=1,
                         start=0,
@@ -339,8 +327,9 @@ class TrajectoryIterator(TrajectoryCpptraj):
                         stride=1,
                         mask=None,
                         autoimage=False,
-                        rmsfit=None):
-        """simple splitting `self` to n_chunks FrameIter objects        
+                        rmsfit=None,
+                        rank=0):
+        """simple splitting `self` to n_chunks FrameIter objects
 
         Examples
         --------
@@ -356,22 +345,22 @@ class TrajectoryIterator(TrajectoryCpptraj):
             stop = self.n_frames
 
         if n_chunks == 1:
-            yield self(start=start,
+            return self(start=start,
                        stop=stop,
                        stride=stride,
                        mask=mask,
                        autoimage=autoimage,
                        rmsfit=rmsfit)
         else:
-            for (_start, _stop) in split_range(n_chunks=n_chunks,
+            _start, _stop = split_range(n_chunks=n_chunks,
                                                start=start,
-                                               stop=stop):
-                yield self.iterframe(start=_start,
-                                     stop=_stop,
-                                     stride=stride,
-                                     mask=mask,
-                                     autoimage=autoimage,
-                                     rmsfit=rmsfit)
+                                               stop=stop)[rank]
+            return self.iterframe(start=_start,
+                                  stop=_stop,
+                                  stride=stride,
+                                  mask=mask,
+                                  autoimage=autoimage,
+                                  rmsfit=rmsfit)
 
     @property
     def temperatures(self):
