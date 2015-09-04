@@ -2,6 +2,7 @@ from glob import glob
 
 lines = []
 testlist = glob("test_*.py") + glob('./cluster/test_*.py')
+testlist = glob('./test_frames/test_*.py')
 base_line = "import unittest"
 
 for pyfile in testlist:
