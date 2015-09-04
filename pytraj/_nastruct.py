@@ -18,8 +18,6 @@ class nupars(BaseAnalysisResult):
 
         aspects = self._dslist.aspects()
 
-        out = np.empty((len(aspects), 3), dtype='object')
-
         d = {}
         for idx, ap in enumerate(aspects):
             d0 = self._dslist.grep(ap, mode='aspect')

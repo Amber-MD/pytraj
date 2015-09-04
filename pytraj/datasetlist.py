@@ -218,17 +218,6 @@ class DatasetList(list):
             _d['idx'] = d.idx
         return ddict
 
-    def to_dataframe(self, engine='pandas'):
-        if engine == 'pandas':
-            try:
-                import pandas as pd
-                return pd.DataFrame(self.to_dict(use_numpy=True))
-            except ImportError:
-                raise ImportError("must have pandas")
-        else:
-            raise NotImplementedError(
-                "currently support only pandas' DataFrame")
-
     def hist(self, plot=True, show=True, *args, **kwd):
         """
         Parameters
@@ -246,13 +235,6 @@ class DatasetList(list):
             from pytraj.plotting import show
             show()
         return hist_dict
-
-    def count(self):
-        from collections import Counter
-        return dict((d0.legend, Counter(d0.values)) for d0 in self)
-
-    def chunk_average(self, n_chunks):
-        return dict((d0.legend, d0.chunk_average(n_chunks)) for d0 in self)
 
     def dtypes(self):
         return self.get_dtypes()
@@ -502,16 +484,10 @@ class DatasetList(list):
         --------
         pandas
         """
+        import pandas
         dict = _OrderedDict
-        _, pandas = _import_pandas()
         my_dict = dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
-
-    def apply(self, func):
-        for d in self:
-            arr = np.asarray(d.data)
-            arr[:] = func(arr)
-        return self
 
     def mean(self, *args, **kwd):
         dict = _OrderedDict
@@ -558,8 +534,6 @@ class DatasetList(list):
         return dict((x.legend, np.cumsum(x.values)) for x in self).values
 
     def mean_with_error(self, other):
-        dict = _OrderedDict
-
         ddict = defaultdict(tuple)
         for key, dset in self.iteritems():
             ddict[key] = dset.mean_with_error(other[key])
