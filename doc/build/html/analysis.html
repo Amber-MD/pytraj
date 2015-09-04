@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Analysis &mdash; pytraj 0.1.2.dev6 documentation</title>
+    <title>Analysis &mdash; pytraj 0.1.2.dev7 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev6',
+        VERSION:     '0.1.2.dev7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev6 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev7 documentation" href="index.html" />
     <link rel="next" title="Modify trajectory" href="modify_traj.html" />
     <link rel="prev" title="hbond tutorial" href="tutorials/hbonds.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="tutorials/hbonds.html" title="hbond tutorial"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev7 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -275,32 +275,43 @@ in <cite>range</cite> with given <cite>perresmask</cite></p>
 
 <span class="target" id="pairwise-rmsd"></span><dl class="function">
 <dt id="pytraj.pairwise_rmsd">
-<code class="descclassname">pytraj.</code><code class="descname">pairwise_rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
-<dd><p>return 2D numpy array</p>
+<code class="descclassname">pytraj.</code><code class="descname">pairwise_rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate pairwise rmsd with different metrics.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, iterable object</p>
-<p><strong>mask</strong> : mask (default=all atom) + extra command</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable object</p>
+<p><strong>mask</strong> : mask</p>
 <blockquote>
-<div><p>See <cite>Notes</cite> below for further info</p>
+<div><p>if mask is &#8220;&#8221;, use all atoms</p>
 </div></blockquote>
 <p><strong>metric</strong> : {&#8216;rms&#8217;, &#8216;dme&#8217;, &#8216;srmsd&#8217;, &#8216;nofit&#8217;}</p>
+<blockquote>
+<div><p>if &#8216;rms&#8217;, perform rms fit 
+if &#8216;dme&#8217;, use distance RMSD
+if &#8216;srmsd&#8217;, use symmetry-corrected RMSD 
+if &#8216;nofit&#8217;, perform rmsd without fitting</p>
+</div></blockquote>
 <p><strong>top</strong> : Topology, optional, default=None</p>
 <p><strong>dtype: ndarray</strong></p>
-<p><strong>mat_type</strong> : return matrix type, default &#8216;full&#8217;</p>
+<blockquote>
+<div><p>return type</p>
+</div></blockquote>
+<p><strong>mat_type</strong> : 2D or 1D ndarray, depending on value</p>
+<blockquote>
+<div><p>if &#8216;full&#8217;: return 2D array, shape=(n_frames, n_frames)
+if &#8216;cpptraj&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
+</div></blockquote>
 <p class="last"><strong>*args, **kwd: optional (for advanced user)</strong></p>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>This calculation is memory consumming. It&#8217;s better to use <strong>pytraj.TrajectoryIterator</strong>
-(<strong>pytraj.iterload(...)</strong>)</p>
-<p>It&#8217;s better to use <cite>**pytraj.pairwise_rmsd(traj(mask=&#8217;&#64;CA&#8217;))**</cite> than
-<cite>**pytraj.pairwise_rmsd(traj, mask=&#8217;&#64;CA&#8217;)**</cite>.</p>
-<p>Install <strong>libcpptraj</strong> with openmp to benifit from parallel</p>
+<p>This calculation is memory consumming. It&#8217;s better to use out-of-core <code class="docutils literal"><span class="pre">pytraj.TrajectoryIterator</span></code></p>
+<p>It&#8217;s better to use <code class="docutils literal"><span class="pre">pytraj.pairwise_rmsd(traj(mask='&#64;CA'))</span></code> than <code class="docutils literal"><span class="pre">pytraj.pairwise_rmsd(traj,</span> <span class="pre">mask='&#64;CA')</span></code></p>
+<p>Install <code class="docutils literal"><span class="pre">libcpptraj</span></code> with <code class="docutils literal"><span class="pre">openmp</span></code> to get benifit from parallel</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">))</span>
 </pre></div>
@@ -848,7 +859,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
         <li class="right" >
           <a href="tutorials/hbonds.html" title="hbond tutorial"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pytraj 0.1.2.dev7 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
