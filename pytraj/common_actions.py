@@ -1172,8 +1172,6 @@ def calc_pairwise_rmsd(traj=None,
 
     dslist = CpptrajDatasetList()
     dslist.add_set("coords", "_tmp")
-    _top = _get_top(traj, top)
-    dslist[0].top = _top
     # need to set "rmsout" to trick cpptraj not giving error
     # need " " (space) before crdset too
 
@@ -1185,6 +1183,9 @@ def calc_pairwise_rmsd(traj=None,
     else:
         fi = iterframe_master(traj)
         command = ' '.join((mask, metric))
+        _top = _get_top(traj, top)
+        dslist[0].top = _top
+
     command = command + " crdset _tmp rmsout mycrazyoutput"
 
     for frame in fi:
