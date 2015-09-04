@@ -8,7 +8,6 @@ from pytraj.base import *
 from pytraj.math import Vec3
 from pytraj import io as mdio
 from pytraj.decorators import no_test
-from rmsd import rmsd as arr_rmsd
 
 SMALL = 1E-6
 
