@@ -36,7 +36,7 @@ def load_mdtraj(m_traj, autoconvert=False, top=None):
             raise ValueError("need Topology or pdb, mol2, ... files")
         traj = Trajectory(xyz=m_traj.xyz.astype('f8'), top=pseudotop)
 
-        if m_traj.unitcell_lengths and m_traj.unitcell_angles:
+        if m_traj.unitcell_lengths is not None and m_traj.unitcell_angles is not None: 
             traj.unitcells = np.hstack((unit * m_traj.unitcell_lengths,
-                                        m_traj.unitcell_angles))
+                                        m_traj.unitcell_angles)).astype('f8')
         return traj
