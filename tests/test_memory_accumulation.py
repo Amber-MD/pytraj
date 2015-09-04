@@ -23,7 +23,7 @@ for traj in tlist:
 
     @profile
     def test_pairwise_rmsd():
-        pt.pairwise_rmsd(traj, mask='@CA')
+        pt.pairwise_rmsd(traj(stop=1000), mask='@CA')
 
     @profile
     def test_write():
