@@ -19,8 +19,8 @@ Register to load all frames
 
     traj = pt.iterload('tz2.nc', 'tz2.parm7')
     traj
-    # since we register to load all frames, if we just need up to 50-th frame
-    # we juse ( ) notation
+    # since we registered to load all frames, if we only need up to 50-th frame for our
+    # calculation, we can use ( ) notation
     for frame in traj(0, 50): pass
     # print the last frame
     print(frame)

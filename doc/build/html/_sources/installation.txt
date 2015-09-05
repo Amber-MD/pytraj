@@ -4,6 +4,7 @@ Installation
 Requires
 --------
 `numpy <http://www.numpy.org/>`_
+`cython <http://cython.org/>`_
 
 How?
 ----

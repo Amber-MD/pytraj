@@ -3,6 +3,8 @@
 Tutorials adapted from MDtraj
 =============================
 
+.. contents::
+
 Clustering with scipy
 ---------------------
 
