@@ -134,6 +134,8 @@ Read Also
 ---------
 `cpptraj-dev guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.pdf>`_
 
-`Test cpptraj api change with pytraj on travis <test_cpptraj_api>`_
+`test cpptraj api change with pytraj on travis <test_cpptraj_api>`_
 
-`pandas contributing guide <http://pandas.pydata.org/pandas-docs/stable/contributing.html>`_
+`sklearn developer guide <http://scikit-learn.org/stable/developers/>`_
+
+`pandas developer guide <http://pandas.pydata.org/pandas-docs/stable/contributing.html>`_
