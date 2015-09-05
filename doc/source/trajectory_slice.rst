@@ -37,7 +37,7 @@ Use ``[ ]``
 
     # get frame 2 to 8, skip every 2, reverse from last to begin
     # strip water
-    traj[8:2:-1, '!:WAT']
+    traj[8:2:-2, '!:WAT']
 
     # skip every 2 frames
     traj[::2]
