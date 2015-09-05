@@ -140,13 +140,33 @@
 <span id="clustering"></span><h1>Cluster Analysis<a class="headerlink" href="#cluster-analysis" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pytraj.cluster.kmeans">
-<code class="descclassname">pytraj.cluster.</code><code class="descname">kmeans</code><span class="sig-paren">(</span><em>traj=None</em>, <em>n_clusters=10</em>, <em>random_point=True</em>, <em>kseed=1</em>, <em>maxit=100</em>, <em>distance_metric='rms'</em>, <em>mask='*'</em>, <em>top=None</em>, <em>output_op=''</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.cluster.kmeans" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.cluster.</code><code class="descname">kmeans</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>n_clusters=10</em>, <em>random_point=True</em>, <em>kseed=1</em>, <em>maxit=100</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>output_op=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.cluster.kmeans" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform clustering and return cluster index for each frame</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">1D numpy array</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces Frame</p>
+<p><strong>mask</strong> : str, default: * (all atoms)</p>
+<p><strong>n_clusters: int, default: 10</strong></p>
+<p><strong>random_point</strong> : bool, default: True</p>
+<p><strong>maxit</strong> : int, default: 100</p>
+<blockquote>
+<div><p>max iterations</p>
+</div></blockquote>
+<p><strong>metric</strong> : str, {&#8216;rms&#8217;, &#8216;dme&#8217;}</p>
+<blockquote>
+<div><p>distance metric</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology, optional, default: None</p>
+<blockquote>
+<div><p>only need to provide this Topology if <code class="docutils literal"><span class="pre">traj</span></code> does not have one</p>
+</div></blockquote>
+<p><strong>output_op</strong> : option to save data to files. Not working yet.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1D numpy array of frame indices</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -155,11 +175,12 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">kseed</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&#39;dme&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
-<hr class="docutils" />
 </div>
 
 
