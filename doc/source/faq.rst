@@ -23,9 +23,13 @@ The difference between ``traj[1:11:2]`` and ``traj(1, 11, 2)``?
 ---------------------------------------------------------------
 
 ``traj[1:11:2]`` returns a new ``pytraj.Trajectory`` while ``traj(1, 11, 2)`` returns a
-FrameIterator for lazy loading. You can use both for analysis::
+FrameIterator for lazy loading. You can use both for analysis.
 
+.. ipython:: python
+
+    traj[1:11:2]
     pt.radgyr(traj[1:11:2])
+    traj(1, 11, 2)
     pt.radgyr(traj(1, 11, 2))
 
 It's too slow to convert Frame.xyz to numpy array, about 3 us for only 10 atom-Frame
