@@ -36,7 +36,7 @@ How to get started
 
    + `check installation <installation>`_
    + do some :ref:`tutorials`
-   + get reference by :ref:`genindex`
+   + `check a list of things pytraj/cpptraj can do <analysis>`_
 
 Contributors
 ------------
@@ -48,7 +48,7 @@ Citations
 
 if you would like to acknowledge our works, please do consider citing both ``cpptraj`` and ``pytraj`` papers ::
 
-    cpptraj : PTRAJ and CPPTRAJ : Software for Processing and Analysis of Molecular Dynamics Trajectory Data
+    PTRAJ and CPPTRAJ : Software for Processing and Analysis of Molecular Dynamics Trajectory Data
     Daniel R. Roe and Thomas E. Cheatham, III
     Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095 
     
