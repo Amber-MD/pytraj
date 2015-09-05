@@ -3,13 +3,17 @@
 Overview
 ========
 
+.. contents::
+
 **pytraj** is a Python front-end package of the popular `cpptraj <http://pubs.acs.org/doi/abs/10.1021/ct400341p>`_ program.
 
-#. Why bother using **pytraj**? 
+Why bother using **pytraj**? 
+----------------------------
 
     If you want to extend cpptraj's functionanity to Python eco-system such as `numpy <http://www.numpy.org/>`_, `scipy <http://www.scipy.org/>`_, `pandas <http://pandas.pydata.org/>`_, `sklearn <http://scikit-learn.org/stable/>`_ and many more. Check some examples `here <tutorials/mdtraj_adapted>`_
 
-#. What does **pytraj** offer? 
+What does **pytraj** offer? 
+---------------------------
 
    + `support many types of analysis <analysis>`_
    + `support parallel processing <parallel>`_
@@ -27,8 +31,25 @@ Overview
        + ... (to be filled soon) 
    + `able to be used in other langues, such as Julia <julia>`_
 
-#. How to get started
+How to get started
+------------------
 
    + `check installation <installation>`_
    + do some :ref:`tutorials`
    + get reference by :ref:`genindex`
+
+Contributors
+------------
+
+`A list of contributors <https://github.com/Amber-MD/pytraj/blob/master/contributors/pytraj.rst>`_
+
+Citations
+---------
+
+if you would like to acknowledge our works, please do consider cite both ``cpptraj`` and ``pytraj`` papers
+
+* cpptraj : PTRAJ and CPPTRAJ : Software for Processing and Analysis of Molecular Dynamics Trajectory Data
+Daniel R. Roe and Thomas E. Cheatham, III
+Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095 
+
+*  pytraj (https://github.com/Amber-MD/pytraj), Hai Nguyen,  et al. (2015) (in preperation)

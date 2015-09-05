@@ -18,8 +18,7 @@ Welcome to pytraj's documentation - not completed yet
 ``cpptraj``'s funtions to Python's ecosystem. Enjoy.
 
 .. image:: images/abstract_fig.png
-    :alt: should have something here
-    width: 50%
+    :width: 50%
     :align: right
 
 **Contents**
@@ -57,9 +56,6 @@ Welcome to pytraj's documentation - not completed yet
     print(traj)
     data = pt.rmsd(traj, ref=0, mask='@CA')
     print(data)
-
-**Contributors**
-`A list of contributors <https://github.com/Amber-MD/pytraj/blob/master/contributors/pytraj.rst>`_
 
 **Contact**
 
