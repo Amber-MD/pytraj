@@ -33,6 +33,9 @@ Atom mask selection for ``Trajectory``
 Atom mask selection for ``pytraj.Topology``
 -------------------------------------------
 
+Get atom_indices
+~~~~~~~~~~~~~~~~
+
 .. ipython:: python
     
     top = traj.top
@@ -45,3 +48,19 @@ Atom mask selection for ``pytraj.Topology``
     top.select(':ALA,LYS,10')
     top.select('@1-100,150-160')
     top.select('(:1-100)&(@CA)')
+    # select based on distance, need to set reference frame
+    top.set_reference_frame(traj[0])
+    # pick all atoms around residue 1, distance cutoff < 5.0 Angstrom
+    top.select(':1 <:5.0')
+
+Get new ``Topology``
+~~~~~~~~~~~~~~~~~~~~
+
+.. ipython:: python
+
+    top[':1,3,6-10']
+    top[':ALA,LYS,10']
+    top['@1-100,150-160']
+    top['(:1-100)&(@CA)']
+    top[':1 <:5.0']
+    
