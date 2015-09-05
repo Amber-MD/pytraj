@@ -194,37 +194,27 @@ immutable Python&#8217;s tuple.</p>
 <h2><a class="toc-backref" href="#id4">The difference between <code class="docutils literal"><span class="pre">traj[1:11:2]</span></code> and <code class="docutils literal"><span class="pre">traj(1,</span> <span class="pre">11,</span> <span class="pre">2)</span></code>?</a><a class="headerlink" href="#the-difference-between-traj-1-11-2-and-traj-1-11-2" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">traj[1:11:2]</span></code> returns a new <code class="docutils literal"><span class="pre">pytraj.Trajectory</span></code> while <code class="docutils literal"><span class="pre">traj(1,</span> <span class="pre">11,</span> <span class="pre">2)</span></code> returns a
 FrameIterator for lazy loading. You can use both for analysis.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-1-f1000ec99881&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 traj[1:11:2]</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="go">NameError: name &#39;traj&#39; is not defined</span>
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 
-<span class="gp">In [2]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
-<span class="go">                                                                                                                                                                                                                                                                 ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-2-cc9bbf231f22&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 pt.radgyr(traj[1:11:2])</span>
+<span class="gp">In [3]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="gr">Out[3]: </span>
+<span class="go">&lt;pytraj.Trajectory, 5 frames, include:</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
+<span class="go">           </span>
 
-<span class="go">NameError: name &#39;pt&#39; is not defined</span>
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+<span class="go">                                                                                                                 Out[4]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
 
-<span class="gp">In [3]: </span><span class="n">traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-3-22e5af459407&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 traj(1, 11, 2)</span>
+<span class="gp">In [5]: </span><span class="n">traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                                  Out[5]: </span>
+<span class="go">&lt;FrameIter with start=1, stop=11, stride=2, n_frames=5, </span>
+<span class="go">frame_indices=None </span>
+<span class="go">autoimage=False, rmsfit=None, copy=False&gt; </span>
 
-<span class="go">NameError: name &#39;traj&#39; is not defined</span>
-
-<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-4-a290399da666&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 pt.radgyr(traj(1, 11, 2))</span>
-
-<span class="go">NameError: name &#39;pt&#39; is not defined</span>
+<span class="gp">In [6]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                   Out[6]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
 </pre></div>
 </div>
 </div>
@@ -236,18 +226,18 @@ extra data copying.</p>
 </div>
 <div class="section" id="what-s-the-idiom-to-load-data-to-memory-for-specific-atoms">
 <h2><a class="toc-backref" href="#id6">What&#8217;s the idiom to load data to memory for specific atoms?</a><a class="headerlink" href="#what-s-the-idiom-to-load-data-to-memory-for-specific-atoms" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="gp">In [6]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<span class="gp">In [8]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 
-<span class="gp">In [7]: </span><span class="n">traj</span>
-<span class="gr">Out[7]: </span>
+<span class="gp">In [9]: </span><span class="n">traj</span>
+<span class="gr">Out[9]: </span>
 <span class="go">&lt;pytraj.TrajectoryIterator, 101 frames, include:</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
 <span class="go">           </span>
 
-<span class="gp">In [8]: </span><span class="n">traj</span><span class="p">[:</span><span class="mi">8</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
-<span class="go">                                                                                                                           Out[8]: </span>
+<span class="gp">In [10]: </span><span class="n">traj</span><span class="p">[:</span><span class="mi">8</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
+<span class="go">                                                                                                                           Out[10]: </span>
 <span class="go">&lt;pytraj.Trajectory, 8 frames, include:</span>
 <span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;&gt;</span>
 </pre></div>

@@ -27,6 +27,8 @@ FrameIterator for lazy loading. You can use both for analysis.
 
 .. ipython:: python
 
+    import pytraj as pt
+    traj = pt.iterload('tz2.nc', 'tz2.parm7')
     traj[1:11:2]
     pt.radgyr(traj[1:11:2])
     traj(1, 11, 2)
