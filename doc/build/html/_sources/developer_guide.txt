@@ -3,6 +3,14 @@ Developer guide for pytraj
 
 .. contents::
 
+General philosophy
+------------------
+
+Try your best to follow instruction below. If you have questions, do not hesitate to ask. Don't be afraid that your
+code does not look right or pretty. We can discuss by openning an `issue <https://github.com/Amber-MD/pytraj/issues>`_
+
+If having any suggestions, open an issue too.
+
 Our github repo
 ---------------
 
@@ -26,6 +34,8 @@ Python style guide
 Try to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_
 
 Try to read `numpy doc <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`_
+
+I (Hai) often use `yapf <https://github.com/google/yapf>`_ to format my code.
 
 Python 2 and 3 compat
 ---------------------
