@@ -3,10 +3,10 @@
 Trajectory slicing
 ==================
 
-.. note:: use `[ ]` slicing notation will load all given frames into memory at once
-.. note:: use `( )` notation to create frame iterator, load only a single frame to memory if needed
+.. contents::
 
-Use ``[ ]``
+use `[ ]` slicing notation will load all given frames into memory at once
+-------------------------------------------------------------------------
 
 .. ipython:: python
 
@@ -37,12 +37,14 @@ Use ``[ ]``
 
     # get frame 2 to 8, skip every 2, reverse from last to begin
     # strip water
-    traj[8:2:-1, '!:WAT']
+    traj[8:2:-2, '!:WAT']
 
     # skip every 2 frames
     traj[::2]
 
-Use ``( )``
+
+use `( )` notation to create frame iterator, load only a single frame to memory if needed
+-----------------------------------------------------------------------------------------
 
 .. ipython:: python
 
