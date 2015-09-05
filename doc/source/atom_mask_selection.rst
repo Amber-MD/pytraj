@@ -3,12 +3,9 @@ Atom mask selection
 
 .. contents::
 
-check `parmed's doc <http://parmed.github.io/ParmEd/html/amber.html#amber-mask-syntax>`_
-for detail explanation.
+.. note:: check `parmed's doc <http://parmed.github.io/ParmEd/html/amber.html#amber-mask-syntax>`_ for detail explanation.
 
-**Examples adapted from parmed's website**
-------------------------------------------
-.. note:: the comments are from `parmed's doc`
+.. note:: Examples adapted from parmed's website and the comments are from `parmed's doc`
 
 Atom mask selection for ``Trajectory``
 --------------------------------------
