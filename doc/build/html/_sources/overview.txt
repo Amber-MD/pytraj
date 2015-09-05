@@ -35,6 +35,7 @@ How to get started
 ------------------
 
 + `check installation <installation>`_
++ `learn in 5 minutes <five_minutes>`_
 + do some :ref:`tutorials`
 + `check a list of things pytraj/cpptraj can do <analysis>`_
 
