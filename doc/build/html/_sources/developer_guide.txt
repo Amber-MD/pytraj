@@ -3,6 +3,24 @@ Developer guide for pytraj
 
 .. contents::
 
+Our github repo
+---------------
+
+How to contribute code?
+
+Please read general instruction about git control in `pandas website
+<http://pandas.pydata.org/pandas-docs/stable/contributing.html#version-control-git-and-github>`_
+
+Our git repo is here:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/Amber-MD/pytraj/
+    $ cd pytraj
+    $ git branch a_new_feature_or_whatever_name
+    $ git checkout a_new_feature_or_whatever_name
+    $ # do any work on this branch and make pull request
+
 Python style guide
 ------------------
 Try to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_

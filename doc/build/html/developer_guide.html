@@ -58,33 +58,47 @@
 <p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#developer-guide-for-pytraj" id="id1">Developer guide for pytraj</a><ul>
-<li><a class="reference internal" href="#python-style-guide" id="id2">Python style guide</a></li>
-<li><a class="reference internal" href="#python-2-and-3-compat" id="id3">Python 2 and 3 compat</a></li>
-<li><a class="reference internal" href="#install" id="id4">Install</a></li>
-<li><a class="reference internal" href="#add-new-method-to-pytraj" id="id5">Add new method to pytraj</a></li>
-<li><a class="reference internal" href="#write-your-code-for-pytraj-s-parallel-pmap" id="id6">Write your code for pytraj&#8217;s parallel pmap</a></li>
-<li><a class="reference internal" href="#test-your-code" id="id7">Test your code</a></li>
-<li><a class="reference internal" href="#external-codes" id="id8">External codes</a></li>
-<li><a class="reference internal" href="#licence-info" id="id9">Licence info</a></li>
-<li><a class="reference internal" href="#build-doc" id="id10">Build doc</a></li>
-<li><a class="reference internal" href="#cython" id="id11">cython</a></li>
-<li><a class="reference internal" href="#read-also" id="id12">Read Also</a></li>
+<li><a class="reference internal" href="#our-github-repo" id="id2">Our github repo</a></li>
+<li><a class="reference internal" href="#python-style-guide" id="id3">Python style guide</a></li>
+<li><a class="reference internal" href="#python-2-and-3-compat" id="id4">Python 2 and 3 compat</a></li>
+<li><a class="reference internal" href="#install" id="id5">Install</a></li>
+<li><a class="reference internal" href="#add-new-method-to-pytraj" id="id6">Add new method to pytraj</a></li>
+<li><a class="reference internal" href="#write-your-code-for-pytraj-s-parallel-pmap" id="id7">Write your code for pytraj&#8217;s parallel pmap</a></li>
+<li><a class="reference internal" href="#test-your-code" id="id8">Test your code</a></li>
+<li><a class="reference internal" href="#external-codes" id="id9">External codes</a></li>
+<li><a class="reference internal" href="#licence-info" id="id10">Licence info</a></li>
+<li><a class="reference internal" href="#build-doc" id="id11">Build doc</a></li>
+<li><a class="reference internal" href="#cython" id="id12">cython</a></li>
+<li><a class="reference internal" href="#read-also" id="id13">Read Also</a></li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="our-github-repo">
+<h2><a class="toc-backref" href="#id2">Our github repo</a><a class="headerlink" href="#our-github-repo" title="Permalink to this headline">¶</a></h2>
+<p>How to contribute code?</p>
+<p>Please read general instruction about git control in <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/contributing.html#version-control-git-and-github">pandas website</a></p>
+<p>Our git repo is here:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/Amber-MD/pytraj/
+<span class="nv">$ </span><span class="nb">cd </span>pytraj
+<span class="nv">$ </span>git branch a_new_feature_or_whatever_name
+<span class="nv">$ </span>git checkout a_new_feature_or_whatever_name
+<span class="nv">$ </span><span class="c"># do any work on this branch and make pull request</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="python-style-guide">
-<h2><a class="toc-backref" href="#id2">Python style guide</a><a class="headerlink" href="#python-style-guide" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Python style guide</a><a class="headerlink" href="#python-style-guide" title="Permalink to this headline">¶</a></h2>
 <p>Try to follow <a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">PEP8</a></p>
 <p>Try to read <a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt">numpy doc</a></p>
 </div>
 <div class="section" id="python-2-and-3-compat">
-<h2><a class="toc-backref" href="#id3">Python 2 and 3 compat</a><a class="headerlink" href="#python-2-and-3-compat" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Python 2 and 3 compat</a><a class="headerlink" href="#python-2-and-3-compat" title="Permalink to this headline">¶</a></h2>
 <p>Use <a class="reference external" href="http://pythonhosted.org/six/">six</a> to write your compat code.
 We put all common stuff in <a class="reference external" href="https://github.com/Amber-MD/pytraj/blob/master/pytraj/compat.py">pytraj.compat</a></p>
 </div>
 <div class="section" id="install">
-<h2><a class="toc-backref" href="#id4">Install</a><a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Install</a><a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <p>To speed up installation, please try to build in parallel.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python ./setup.py build faster
 <span class="nv">$ </span>python ./setup.py install
@@ -93,11 +107,11 @@ We put all common stuff in <a class="reference external" href="https://github.co
 </div>
 </div>
 <div class="section" id="add-new-method-to-pytraj">
-<h2><a class="toc-backref" href="#id5">Add new method to pytraj</a><a class="headerlink" href="#add-new-method-to-pytraj" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Add new method to pytraj</a><a class="headerlink" href="#add-new-method-to-pytraj" title="Permalink to this headline">¶</a></h2>
 <p>Check <code class="docutils literal"><span class="pre">pytraj.common_actions</span></code> for example.</p>
 </div>
 <div class="section" id="write-your-code-for-pytraj-s-parallel-pmap">
-<h2><a class="toc-backref" href="#id6">Write your code for pytraj&#8217;s parallel pmap</a><a class="headerlink" href="#write-your-code-for-pytraj-s-parallel-pmap" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Write your code for pytraj&#8217;s parallel pmap</a><a class="headerlink" href="#write-your-code-for-pytraj-s-parallel-pmap" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">new_method</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
     <span class="c">#  make sure to use frame iterator like below</span>
     <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
@@ -119,7 +133,7 @@ We put all common stuff in <a class="reference external" href="https://github.co
 </div>
 </div>
 <div class="section" id="test-your-code">
-<h2><a class="toc-backref" href="#id7">Test your code</a><a class="headerlink" href="#test-your-code" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Test your code</a><a class="headerlink" href="#test-your-code" title="Permalink to this headline">¶</a></h2>
 <p>New method, new change must have testing code.</p>
 <p>Currently, all testing codes are in <strong>pytraj/tests/</strong> folder.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="c"># We can use</span>
@@ -135,15 +149,15 @@ We put all common stuff in <a class="reference external" href="https://github.co
 <p>We&#8217;re really happy to accept PR to update test, using <a class="reference external" href="https://nose.readthedocs.org/en/latest/">nosetests</a>, <a class="reference external" href="http://pytest.org/latest/">pytest</a> or whatever reasonable.</p>
 </div>
 <div class="section" id="external-codes">
-<h2><a class="toc-backref" href="#id8">External codes</a><a class="headerlink" href="#external-codes" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">External codes</a><a class="headerlink" href="#external-codes" title="Permalink to this headline">¶</a></h2>
 <p>Try to put all external codes (<code class="docutils literal"><span class="pre">six.py</span></code>, ...) in <code class="docutils literal"><span class="pre">pytraj/externals/</span></code> folder.</p>
 </div>
 <div class="section" id="licence-info">
-<h2><a class="toc-backref" href="#id9">Licence info</a><a class="headerlink" href="#licence-info" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Licence info</a><a class="headerlink" href="#licence-info" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">pytraj</span></code> always welcomes code contribution. It&#8217;s recommended to put your name in the code you write. However, for the sake of clearness, just put something very short, like <code class="docutils literal"><span class="pre">Copyright</span> <span class="pre">(c)</span> <span class="pre">2010-2013</span> <span class="pre">your_first_and_last_name</span></code> and give full details of your contribution, license in <code class="docutils literal"><span class="pre">pytraj/licenses/</span></code> folder.</p>
 </div>
 <div class="section" id="build-doc">
-<h2><a class="toc-backref" href="#id10">Build doc</a><a class="headerlink" href="#build-doc" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">Build doc</a><a class="headerlink" href="#build-doc" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">make sure to install pytraj, cpptraj, numpy, ipython</p>
@@ -157,12 +171,12 @@ We put all common stuff in <a class="reference external" href="https://github.co
 </div>
 </div>
 <div class="section" id="cython">
-<h2><a class="toc-backref" href="#id11">cython</a><a class="headerlink" href="#cython" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">cython</a><a class="headerlink" href="#cython" title="Permalink to this headline">¶</a></h2>
 <p>It&#8217;s recommended to use <code class="docutils literal"><span class="pre">cython</span></code> to write or wrap high performance code. Please don&#8217;t use <code class="docutils literal"><span class="pre">cimport</span> <span class="pre">numpy</span></code>, use <a class="reference external" href="http://docs.cython.org/src/userguide/memoryviews.html">memoryview</a> instead</p>
 <p>Since <code class="docutils literal"><span class="pre">pytraj</span></code> will be bundled with AmberTools in Amber, it&#8217;s important that we should commit cythonized file too. The main idea is that user only need C++ compiler and <code class="docutils literal"><span class="pre">cpptraj</span></code>, nothing else.</p>
 </div>
 <div class="section" id="read-also">
-<h2><a class="toc-backref" href="#id12">Read Also</a><a class="headerlink" href="#read-also" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Read Also</a><a class="headerlink" href="#read-also" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.pdf">cpptraj-dev guide</a></p>
 <p><a class="reference external" href="test_cpptraj_api">Test cpptraj api change with pytraj on travis</a></p>
 <p><a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/contributing.html">pandas contributing guide</a></p>
@@ -178,6 +192,7 @@ We put all common stuff in <a class="reference external" href="https://github.co
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Developer guide for pytraj</a><ul>
+<li><a class="reference internal" href="#our-github-repo">Our github repo</a></li>
 <li><a class="reference internal" href="#python-style-guide">Python style guide</a></li>
 <li><a class="reference internal" href="#python-2-and-3-compat">Python 2 and 3 compat</a></li>
 <li><a class="reference internal" href="#install">Install</a></li>
