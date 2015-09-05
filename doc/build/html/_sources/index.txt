@@ -18,8 +18,8 @@ Welcome to pytraj's documentation - not completed yet
 ``cpptraj``'s funtions to Python's ecosystem. Enjoy.
 
 .. image:: images/abstract_fig.png
-    :width: 50%
-    :align: right
+    :width: 30%
+    :align: center
 
 **Contents**
 
