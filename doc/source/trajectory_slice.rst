@@ -5,7 +5,7 @@ Trajectory slicing
 
 .. contents::
 
-use `[ ]` slicing notation will load all given frames into memory at once
+use `[ ]` slicing notation to load all given frames into memory at once
 -------------------------------------------------------------------------
 
 .. ipython:: python
