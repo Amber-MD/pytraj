@@ -7,6 +7,12 @@ from .utils.check_and_assert import is_frame_iter, is_chunk_iter
 from .datasetlist import DatasetList as DSL
 from pytraj.datasets.base import DataSet
 
+def _load_Topology(filename):
+    from pytraj.pamrs.ParmFile import ParmFile
+    top = Topology()
+    parm = ParmFile()
+    parm.readparm(filename, top)
+    return top
 
 def _get_top(traj, top):
     if isinstance(top, string_types):

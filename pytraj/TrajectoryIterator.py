@@ -12,13 +12,7 @@ from .Topology import Topology
 from .utils import is_int
 from ._cyutils import get_positive_idx
 from .frameiter import FrameIter
-from .parms.ParmFile import ParmFile
-
-def _load_Topology(filename):
-    top = Topology()
-    parm = ParmFile()
-    parm.readparm(filename, top)
-    return top
+from ._get_common_objects import _load_Topology
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
 
