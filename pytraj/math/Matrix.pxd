@@ -1,5 +1,4 @@
 # distutil: language = c++
-#from pytraj.ArrayIterator cimport *
 
 cdef extern from "Matrix.h":
     cdef cppclass _Matrix "Matrix" [T]:
@@ -18,7 +17,3 @@ cdef extern from "Matrix.h":
         const T* Ptr()
         T* Ptr()
         size_t CalcIndex(int, int)
-        #Cython has not yet support nested ctypedef
-        #ctypedef ArrayIterator[T] iterator
-        #ArrayIterator[T] begin()
-        #ArrayIterator[T] end()

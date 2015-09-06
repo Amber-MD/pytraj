@@ -1,16 +1,13 @@
 # cython: c_string_type=unicode, c_string_encoding=utf8
 from __future__ import print_function
 cimport cython
-from cython.operator cimport dereference as deref
-from cython.operator cimport preincrement as incr
+from cython.operator cimport dereference as deref, preincrement as incr
 from libcpp.string cimport string
 from cpython.array cimport array as pyarray
 from cpython cimport array as pyarray_master
 from pytraj._set_silent import set_world_silent # turn on and off cpptraj's stdout
-#from pytraj.TopologyList cimport TopologyList
 
-from pytraj.decorators import name_will_be_changed
-from pytraj.utils.check_and_assert import _import_numpy
+import numpy as np
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.parms._ParmFile import TMPParmFile
 from pytraj.externals.six import PY3, PY2, string_types, binary_type
@@ -458,7 +455,6 @@ cdef class Topology:
 
     @property
     def charge(self):
-        import numpy as np
         return np.asarray([x.charge for x in self.atoms])
 
     def indices_bonded_to(self, atom_name):
@@ -569,22 +565,18 @@ cdef class Topology:
 
     @property
     def bond_indices(self):
-        import numpy as np
         return np.asarray([b.indices for b in self.bonds], dtype=np.int64)
 
     @property
     def angle_indices(self):
-        import numpy as np
         return np.asarray([b.indices for b in self.angles], dtype=np.int64)
 
     @property
     def dihedral_indices(self):
-        _, np = _import_numpy()
         return np.asarray([b.indices for b in self.dihedrals], dtype=np.int64)
 
     @property
     def vdw_radii(self):
-        import numpy as np
         cdef int n_atoms = self.n_atoms
         cdef int i
         cdef pyarray arr = pyarray_master.clone(pyarray('d', []), 
@@ -600,15 +592,13 @@ cdef class Topology:
         return np.asarray(arr)
 
     def to_dataframe(self):
+        import pandas as pd
         cdef:
             int n_atoms = self.n_atoms
             int idx
             Atom atom
 
-        from pytraj.utils import _import_pandas
-        _, pd = _import_pandas()
         if pd:
-            _, np = _import_numpy()
             labels = ['resnum', 'resname', 'atomname', 'atomic_number', 'mass']
             mass_arr = np.array(self.mass)
             resnum_arr = np.empty(n_atoms, dtype='i')
