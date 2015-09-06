@@ -12,6 +12,5 @@ traj = pt.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
 # prmtop/gro/psf/...
 
 pt.write_traj("./output/test.pdb", traj,
-              format='pdb',
               mode='model',
               overwrite=True)
