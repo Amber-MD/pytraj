@@ -1,4 +1,5 @@
 from ..Topology import Topology
+from .._get_common_objets import _load_Topology
 from ..utils.context import goto_temp_folder
 from .six import string_types
 
@@ -35,7 +36,7 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
         else:
             fname = 'tmppdb.psf'
         parmed_obj.save(fname)
-        top = Topology(fname)
+        top = _load_Topology(fname)
     if as_traj:
         from pytraj import Trajectory
         coords = parmed_obj.coordinates
