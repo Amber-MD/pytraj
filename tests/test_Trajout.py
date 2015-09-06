@@ -21,14 +21,10 @@ class TestTrajout(unittest.TestCase):
             indices=list(range(10)))
         frame0 = farray[0]
         trajout = Trajout()
-        #trajout.open(filename="test.x", top=farray.top, format="AMBERTRAJ")
         trajout.open(filename="./output/test.x",
                      top=farray.top,
-                     format="AMBERNETCDF",
                      overwrite=True)
-        #trajout.open(filename="test.pdb", top=farray.top, format="PDBFILE", mode="pdb")
         trajout.write(0, frame0, farray.top)
-        #assert trajout.is_open() == True
 
         # add more frames
         for i in range(5, 8):
@@ -37,7 +33,6 @@ class TestTrajout(unittest.TestCase):
         #assert trajout.is_open() == True
         trajout.close()
 
-    #@no_test
     def test_1_with_statement(self):
         frame0 = farray[0]
         with Trajout(filename="./output/test_trajout_withstatement.x",
@@ -46,17 +41,10 @@ class TestTrajout(unittest.TestCase):
             trajout.write(0, frame0, farray.top)
 
         # reload
-        #assert trajout.is_open() == False
         farray2 = Trajectory(
             "./output/test_trajout_withstatement.x", "./data/Tc5b.top")
         frame0_new = farray2[0]
-        #print(frame0_new.coords[:10])
-        #print(frame0.coords[:10])
-        #print(farray2.size)
 
-        #print(Trajout().formats)
-
-        #@no_test
     def test_2(self):
         """test open file writen from test_0"""
         farray = Trajectory()
@@ -69,10 +57,7 @@ class TestTrajout(unittest.TestCase):
         frame0 = farray[0]
         with Trajout(filename="./output/test_0.pdb",
                      top=farray.top,
-                     format="PDBFILE",
                      overwrite=True) as trajout:
-            # with Trajout(filename="test_0.pdb", top=farray.top,
-            # format="PDBFILE") as trajout:
             trajout.write(0, frame0, farray.top)
 
     #@no_test
@@ -85,8 +70,7 @@ class TestTrajout(unittest.TestCase):
             "./output/test_write_output.x", farray, farray.top,
             overwrite=True)
         write_traj("./output/test_pdb_1.dummyext", farray[0], farray.top,
-                   overwrite=True,
-                   format='pdb')
+                   overwrite=True)
 
         # test 'save'
         #print(farray)
