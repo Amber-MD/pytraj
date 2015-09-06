@@ -4,7 +4,6 @@ from ..Topology cimport _Topology, Topology
 from ..ArgList cimport _ArgList, ArgList
 from ..Frame cimport _Frame, Frame
 from ..AtomMask cimport _AtomMask, AtomMask
-from ..core.FileName cimport _FileName, FileName
 from .DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
 from .DataSet cimport _DataSet, DataSet
 from .DataSet_1D cimport _DataSet_1D, DataSet_1D
@@ -33,7 +32,6 @@ cdef extern from "DataSet_Coords_REF.h":
         int StripRef(const string&)
         int StripRef(const _AtomMask&)
         const _Frame& RefFrame() const 
-        const _FileName& _FrameFilename() const 
         int RefIndex() const 
 
 cdef class DataSet_Coords_REF (DataSet_Coords):
