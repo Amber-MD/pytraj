@@ -31,7 +31,6 @@ for deg in range(-180, 180, 5):
 
 pt.write_traj("./output/test0.pdb", framelist,
               top=traj.top,
-              format='pdb',
               mode='model',
               overwrite=True)
 

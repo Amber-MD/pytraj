@@ -14,16 +14,13 @@ class Test(unittest.TestCase):
         mdio.write_traj(
             "test_1.pdb", traj[0],
             top=traj.top,
-            format='CHARMMDCD',
             overwrite=True)
         mdio.write_traj(
             "test_1.dcd", traj[0],
             top=traj.top,
-            format='CHARMMDCD',
             overwrite=True)
 
         with Trajout("./output/test_1",
-                     format="PDBFILE",
                      overwrite=True) as trajout:
             trajout.write(frame=traj[0], top=traj.top)
 

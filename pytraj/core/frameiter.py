@@ -104,7 +104,6 @@ class FrameIter(object):
 
     def save(self,
              filename='',
-             format='unknown_traj',
              overwrite=False,
              mode='', *args, **kwd):
         '''save to different file format.
@@ -124,7 +123,6 @@ class FrameIter(object):
         write_traj(filename=filename,
                    traj=self,
                    top=self.top,
-                   format=format,
                    indices=None,
                    overwrite=overwrite,
                    mode=mode, *args, **kwd)
