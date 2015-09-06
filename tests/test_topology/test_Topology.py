@@ -4,10 +4,8 @@ import unittest
 import pytraj as pt
 from pytraj.Topology import Topology
 from pytraj.AtomMask import AtomMask
-from pytraj.core.FileName import FileName
 from pytraj.base import *
 from pytraj.decorators import no_test
-from pytraj.core.NameType import NameType
 
 TRAJ = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
