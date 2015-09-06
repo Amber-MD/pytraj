@@ -45,3 +45,5 @@ Write
 
     # write with given frames
     pt.write_traj('test2.dcd', traj, indices=[0, 3, 7, 9], overwrite=True)
+
+.. autofunction:: pytraj.write_traj

@@ -38,7 +38,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -202,6 +202,91 @@
 <span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;test2.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<dl class="function">
+<dt id="pytraj.write_traj">
+<tt class="descclassname">pytraj.</tt><tt class="descname">write_traj</tt><big>(</big><em>filename=''</em>, <em>traj=None</em>, <em>top=None</em>, <em>indices=None</em>, <em>overwrite=False</em>, <em>mode=''</em><big>)</big><a class="headerlink" href="#pytraj.write_traj" title="Permalink to this definition">¶</a></dt>
+<dd><p>write Trajectory-like or iterable object to trajectory file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<p><strong>traj</strong> : Trajectory-like or iterator that produces Frame</p>
+<p><strong>top</strong> : Topology, optional, default: None</p>
+<p><strong>indices: array-like or iterator that produces integer, default: None</strong></p>
+<blockquote>
+<div><p>If not None, only write output for given frame indices</p>
+</div></blockquote>
+<p><strong>overwrite: bool, default: False</strong></p>
+<p class="last"><strong>mode</strong> : str, additional keywords for extention=&#8217;.pdb&#8217;. See examples.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="68%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Format</th>
+<th class="head">Extension</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Amber Trajectory</td>
+<td>.crd</td>
+</tr>
+<tr class="row-odd"><td>Amber NetCDF</td>
+<td>.nc</td>
+</tr>
+<tr class="row-even"><td>Amber Restart</td>
+<td>.rst7</td>
+</tr>
+<tr class="row-odd"><td>Amber NetCDF</td>
+<td>.ncrst</td>
+</tr>
+<tr class="row-even"><td>Charmm DCD</td>
+<td>.dcd</td>
+</tr>
+<tr class="row-odd"><td>PDB</td>
+<td>.pdb</td>
+</tr>
+<tr class="row-even"><td>Mol2</td>
+<td>.mol2</td>
+</tr>
+<tr class="row-odd"><td>Scripps</td>
+<td>.binpos</td>
+</tr>
+<tr class="row-even"><td>Gromacs</td>
+<td>.trr</td>
+</tr>
+<tr class="row-odd"><td>SQM Input</td>
+<td>.sqm</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;t.nc&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c"># write to amber netcdf file</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to multi pdb files (t.pdb.1, t.pdb.2, ...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;multi&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write all frames to single pdb file and each frame is seperated by &quot;MODEL&quot; word</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;model&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to DCD file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;test.dcd&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 </div>
 
@@ -218,7 +303,7 @@
     </p>
     <p>
         &copy; Copyright 2015, Hai Nguyen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
 </footer>
