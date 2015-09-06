@@ -1,6 +1,7 @@
 .. _five_minutes:
 
-5 minute learning
+Five minute learning
+====================
 
 .. ipython:: python
 
