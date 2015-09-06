@@ -27,7 +27,6 @@ cdef extern from "DataSet_3D.h":
 cdef class DataSet_3D (DataSet):
     cdef _DataSet_3D* baseptr_1
 # distutils: language = c++
-from __future__ import absolute_import
 from .DataSet cimport _DataSet, DataSet
 from .DataSet_3D cimport _DataSet_3D, DataSet_3D
 from ..math.Grid cimport _Grid
