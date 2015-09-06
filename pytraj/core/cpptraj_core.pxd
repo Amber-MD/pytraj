@@ -1,4 +1,8 @@
 # distutil: language = c++
+from libcpp.string cimport string
+from pytraj.core.Box cimport _Box, Box
+from posix.unistd cimport off_t
+from libcpp.string cimport string
 
 ctypedef _BaseIOtype* (*AllocatorType)()
 ctypedef void (*HelpType)()
@@ -11,7 +15,6 @@ cdef extern from "BaseIOtype.h":
 
 cdef class BaseIOtype:
     cdef _BaseIOtype* baseptr0
-# distutil: language = c++
 
 ctypedef _DispatchObject* (*DispatchAllocatorType)()
 cdef extern from "DispatchObject.h":
@@ -20,9 +23,6 @@ cdef extern from "DispatchObject.h":
 
 cdef class DispatchObject:
     cdef _DispatchObject* thisptr
-# distutils: language = c++
-from .DispatchObject cimport DispatchAllocatorType 
-from .BaseIOtype cimport AllocatorType
 
 # dummy class to hold function pointer
 cdef class FunctPtr:
@@ -30,8 +30,6 @@ cdef class FunctPtr:
     # used for BaseIOtype
     cdef AllocatorType allocptr
 # distutils: language = c++
-
-from libcpp.string cimport string
 
 cdef extern from "FileName.h":
     cdef cppclass _FileName "FileName":
@@ -53,8 +51,6 @@ cdef extern from "FileName.h":
 
 cdef class FileName:
     cdef _FileName* thisptr
-# distutils: language = c++
-from pytraj.core.Box cimport _Box, Box
 
 cdef extern from "CoordinateInfo.h": 
     cdef cppclass _CoordinateInfo "CoordinateInfo":
@@ -76,11 +72,6 @@ cdef class CoordinateInfo:
     cdef _CoordinateInfo* thisptr
 
 # distutil: language = c++
-
-from posix.unistd cimport off_t
-from libcpp.string cimport string
-from .FileName cimport *
-#from pytraj.FileIO  cimport *
 
 cdef extern from "CpptrajFile.h":
     ctypedef enum AccessType "CpptrajFile::AccessType":
@@ -128,8 +119,6 @@ cdef extern from "CpptrajFile.h":
 cdef class CpptrajFile:
     cdef _CpptrajFile* thisptr
 # distutil: language = c++
-
-from libcpp.string cimport string
 
 cdef extern from "NameType.h":
     cdef cppclass _NameType "NameType":

@@ -1,9 +1,8 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from pytraj.core.DispatchObject cimport _DispatchObject, DispatchObject
-from pytraj.core.DataFileList cimport _DataFileList, DataFileList
+from pytraj.core.cpptraj_core cimport (_DispatchObject, DispatchObject,  FunctPtr)
+from pytraj.core.DataFileList cimport  _DataFileList, DataFileList
 from pytraj.core.TopologyList cimport _TopologyList, TopologyList
-from pytraj.core._FunctPtr cimport FunctPtr
 from pytraj.ArgList cimport _ArgList, ArgList
 from pytraj.datasets.DataSetList cimport _DataSetList, DataSetList
 from pytraj.Topology cimport _Topology, Topology

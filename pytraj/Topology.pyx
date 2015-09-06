@@ -304,6 +304,8 @@ cdef class Topology:
 
     @property
     def _original_filename(self):
+        '''NOTE: do not delete me
+        '''
         cdef FileName filename = FileName()
         filename.thisptr[0] = self.thisptr.OriginalFilename()
         return filename.__str__()

@@ -1,24 +1,21 @@
 # distutils: language = c++
-# TODO : add more methods
+
 from __future__ import absolute_import
 from pytraj.cpp_vector cimport vector as cppvector
 
 from pytraj.core.Atom cimport _Atom, Atom
 from pytraj.core.Residue cimport _Residue, Residue
 from pytraj.core.Molecule cimport _Molecule, Molecule
-from pytraj.core.ParameterTypes cimport *
 from pytraj.core.Box cimport _Box, Box, BoxType
-from pytraj.core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
-from pytraj.core.FileName cimport _FileName, FileName
-from pytraj.core.NameType cimport _NameType, NameType
-
+from pytraj.core.ParameterTypes cimport *
+from pytraj.core.cpptraj_core cimport (_CoordinateInfo, CoordinateInfo, 
+        _FileName, FileName, _NameType, NameType)
 from pytraj.AtomMask cimport _AtomMask, AtomMask
 from pytraj.Frame cimport _Frame, Frame
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator
 ctypedef cppvector[_Molecule].const_iterator mol_iterator
-#ctypedef cppvector[set[AtomicElementType]] BP_mapType
 
 cdef extern from "Topology.h": 
     cdef cppclass _Topology "Topology" nogil:

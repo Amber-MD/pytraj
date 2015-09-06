@@ -1,10 +1,9 @@
 # distutil: language = c++
 
 from libcpp.string cimport string
-from .DispatchObject cimport _DispatchObject, DispatchObject, DispatchAllocatorType
+from .cpptraj_core cimport _DispatchObject, DispatchObject, DispatchAllocatorType, FunctPtr
 from .TopologyList cimport _TopologyList, TopologyList
 from .DataFileList cimport _DataFileList, DataFileList
-from ._FunctPtr cimport FunctPtr
 from ..Topology cimport _Topology, Topology
 from ..AtomMask cimport _AtomMask, AtomMask
 from ..Frame cimport _Frame, Frame

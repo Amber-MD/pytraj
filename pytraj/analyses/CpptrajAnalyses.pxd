@@ -1,7 +1,6 @@
 # distutils: language = c++
 from pytraj.analyses.Analysis cimport _Analysis, Analysis, RetType
-from pytraj.core.DispatchObject cimport _DispatchObject, DispatchObject
-from pytraj.core._FunctPtr cimport FunctPtr
+from pytraj.core.cpptraj_core cimport _DispatchObject, DispatchObject, FunctPtr
 
 
 cdef extern from "Analysis_AmdBias.h": 

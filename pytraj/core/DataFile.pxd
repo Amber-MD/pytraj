@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 from libcpp.string cimport string
 from ..ArgList cimport _ArgList, ArgList
-from .FileName cimport _FileName, FileName
+from .cpptraj_core cimport _FileName, FileName
 
 # for some reasons, I need to use absolute path here
 from pytraj.datasets.DataSet cimport _DataSet, DataSet

@@ -2,13 +2,12 @@
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 
-from .DispatchObject cimport DispatchAllocatorType
+from .cpptraj_core cimport DispatchAllocatorType, FunctPtr, _FileName, FileName
 from .TopologyList cimport _TopologyList, TopologyList
 from .DataFileList cimport _DataFileList, DataFileList
-from .ActionList cimport _ActionList, ActionList
-from ._FunctPtr cimport FunctPtr
 from .DataFile cimport _DataFile, DataFile
-from .FileName cimport _FileName, FileName
+from .ActionList cimport _ActionList, ActionList
+from .DataFile cimport _DataFile, DataFile
 
 from ..ArgList cimport _ArgList, ArgList
 from ..datasets.DataSetList cimport _DataSetList, DataSetList

@@ -7,7 +7,7 @@ from .math.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
 from .core.Atom cimport _Atom, Atom
 from .core.Box cimport _Box, Box, BoxType
 from .Topology cimport _Topology, Topology
-from .core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
+from .core.cpptraj_core cimport _CoordinateInfo, CoordinateInfo
 from .AtomMask cimport _AtomMask, AtomMask
 
 ctypedef vector[float] CRDtype

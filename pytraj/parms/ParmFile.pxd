@@ -1,6 +1,6 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from ..core.FileName cimport _FileName, FileName
+from ..core.cpptraj_core cimport _FileName, FileName
 from ..Topology cimport _Topology, Topology
 from ..ArgList cimport _ArgList, ArgList
 

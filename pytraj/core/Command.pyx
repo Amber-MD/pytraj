@@ -1,9 +1,8 @@
 # distutils: language = c++
 from __future__ import absolute_import
-from .CpptrajState cimport *
-from ..ArgList cimport *
-from .DispatchObject cimport *
-from ._FunctPtr cimport FunctPtr
+from libcpp.string cimport string
+from .CpptrajState cimport _CpptrajState, CpptrajState
+from ..ArgList cimport ArgList
 
 
 cdef extern from "Command.h": 

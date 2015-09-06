@@ -1,5 +1,8 @@
 # distutils: language = c++
 
+# TODO: add __all__
+__all__ = []
+
 cdef class BaseIOtype:
     def __cinit__(self):
         pass
