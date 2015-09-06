@@ -232,7 +232,7 @@ class DatasetList(list):
 
         if show:
             # only show once
-            from pytraj.plotting import show
+            from pytraj.plot import show
             show()
         return hist_dict
 
