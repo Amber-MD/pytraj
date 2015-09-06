@@ -10,7 +10,7 @@ from pytraj.core.DataFileList import DataFileList
 from pytraj.common_actions import calc_dssp
 from pytraj.testing import aa_eq
 
-farray = TrajectoryIterator(top=Topology("./data/DPDP.parm7"),
+farray = TrajectoryIterator(top=pt.load_topology("./data/DPDP.parm7"),
                             filename='./data/DPDP.nc', )
 
 

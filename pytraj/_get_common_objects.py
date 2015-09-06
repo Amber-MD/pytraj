@@ -8,7 +8,7 @@ from .datasetlist import DatasetList as DSL
 from pytraj.datasets.base import DataSet
 
 def _load_Topology(filename):
-    from pytraj.pamrs.ParmFile import ParmFile
+    from pytraj.parms.ParmFile import ParmFile
     top = Topology()
     parm = ParmFile()
     parm.readparm(filename, top)
@@ -16,7 +16,7 @@ def _load_Topology(filename):
 
 def _get_top(traj, top):
     if isinstance(top, string_types):
-        _top = Topology(top)
+        _top = _load_Topology(top)
     elif top is None:
         if hasattr(traj, 'top'):
             _top = traj.top

@@ -432,18 +432,10 @@ cdef class Topology:
             s.add(residue.name)
         return s
 
-    def join(self, top):
-        cdef Topology _top
-        if isinstance(top, Topology):
-            _top = top
-            if _top == self:
-                raise ValueError("can not join yourself, use copy() method")
-        elif isinstance(top, string_types):
-            _top = Topology(top)
-        else:
-            raise ValueError("support only Topology object or top filename")
-
-        self.thisptr.AppendTop(_top.thisptr[0])
+    def join(self, Topology top):
+        if top is self:
+            raise ValueError('must not be your self')
+        self.thisptr.AppendTop(top.thisptr[0])
         return self
 
     @property

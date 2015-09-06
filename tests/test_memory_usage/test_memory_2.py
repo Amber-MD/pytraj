@@ -4,7 +4,7 @@ import numpy as np
 from pytraj.base import *
 
 TRAJ = TrajectoryIterator()
-TRAJ.top = Topology("./data/Tc5b.top")
+TRAJ.top = pt.load_topology("./data/Tc5b.top")
 TRAJ.load("./data/md1_prod.Tc5b.x")
 
 #@profile
