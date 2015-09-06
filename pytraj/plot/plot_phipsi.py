@@ -1,4 +1,6 @@
-def plot_phipsi(phi, psi, ptype='pmf'):
+from matplotlib import pyplot as plt
+
+def plot_phipsi(phi, psi, mark='ro'):
     """2D plot phi/psi
     Parameters
     ----------
@@ -9,4 +11,4 @@ def plot_phipsi(phi, psi, ptype='pmf'):
     ptype : str, default='pmf' (2D free energy)
         plot type ('pmf', ...)
     """
-    raise NotImplementedError("not yet")
+    plt.plot(phi, psi, mark)

@@ -24,13 +24,31 @@ import matplotlib
 matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image
 """
 
-
 def show_config():
     """show good ipython config"""
     return _pylab_config
 
-
 def polar(data, *args, **kwd):
     ax = plt.subplot(111, polar=True)
     ax.plot(data, *args, **kwd)
+    return ax
+
+def plot(x='', y='', data=None, *args, **kwd):
+    from matplotlib import pyplot as plt
+    try:
+        import seaborn as sb
+        sb.set()
+    except ImportError:
+        pass
+    ax = plt.subplot(111)
+    if x == '':
+        xd = data
+    else:
+        xd = data[x]
+
+    if y != '':
+        yd = data[y]
+        ax.plot(xd, yd, *args, **kwd)
+    else:
+        ax.plot(xd, *args, **kwd)
     return ax

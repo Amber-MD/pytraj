@@ -208,6 +208,7 @@ def set_cpptraj_verbose(cm=True):
 
 
 set_world_silent(True)
+_verbose = set_cpptraj_verbose
 
 
 def iterframe(traj, *args, **kwd):
