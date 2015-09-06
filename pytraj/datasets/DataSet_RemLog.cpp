@@ -468,16 +468,16 @@ static const char *__pyx_filename;
 
 static const char *__pyx_f[] = {
   "pytraj/datasets/DataSet_RemLog.pyx",
-  "pytraj/datasets/DataSet.pxd",
+  "pytraj/datasets/base.pxd",
 };
 
 /*--- Type declarations ---*/
-struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet;
+struct __pyx_obj_6pytraj_8datasets_4base_DataSet;
 struct __pyx_obj_6pytraj_8datasets_14DataSet_RemLog_DataSet_RemLog;
 struct __pyx_obj_6pytraj_8datasets_14DataSet_RemLog_ReplicaFrame;
 
 /* "pytraj/datasets/DataSet_RemLog.pxd":6
- * from .DataSet cimport *
+ * from .base cimport _DataSet, DataSet
  * 
  * ctypedef map[double, int] TmapType             # <<<<<<<<<<<<<<
  * cdef extern from "DataSet_RemLog.h":
@@ -485,14 +485,14 @@ struct __pyx_obj_6pytraj_8datasets_14DataSet_RemLog_ReplicaFrame;
  */
 typedef std::map<double,int>  __pyx_t_6pytraj_8datasets_14DataSet_RemLog_TmapType;
 
-/* "DataSet.pxd":46
+/* "base.pxd":46
  *         #void Add( size_t, const void*  )
  * 
  * cdef class DataSet:             # <<<<<<<<<<<<<<
  *     cdef _DataSet* baseptr0
  *     cdef public object _base
  */
-struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet {
+struct __pyx_obj_6pytraj_8datasets_4base_DataSet {
   PyObject_HEAD
   DataSet *baseptr0;
   PyObject *_base;
@@ -682,8 +682,8 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libcpp.string' */
 
-/* Module declarations from 'pytraj.datasets.DataSet' */
-static PyTypeObject *__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = 0;
+/* Module declarations from 'pytraj.datasets.base' */
+static PyTypeObject *__pyx_ptype_6pytraj_8datasets_4base_DataSet = 0;
 
 /* Module declarations from 'pytraj.datasets.DataSet_RemLog' */
 static PyTypeObject *__pyx_ptype_6pytraj_8datasets_14DataSet_RemLog_DataSet_RemLog = 0;
@@ -1236,7 +1236,7 @@ PyMODINIT_FUNC PyInit_DataSet_RemLog(void)
   if (PyObject_SetAttrString(__pyx_m, "ReplicaFrame", (PyObject *)&__pyx_type_6pytraj_8datasets_14DataSet_RemLog_ReplicaFrame) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_6pytraj_8datasets_14DataSet_RemLog_ReplicaFrame = &__pyx_type_6pytraj_8datasets_14DataSet_RemLog_ReplicaFrame;
   /*--- Type import code ---*/
-  __pyx_ptype_6pytraj_8datasets_7DataSet_DataSet = __Pyx_ImportType("pytraj.datasets.DataSet", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_7DataSet_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_7DataSet_DataSet)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_6pytraj_8datasets_4base_DataSet = __Pyx_ImportType("pytraj.datasets.base", "DataSet", sizeof(struct __pyx_obj_6pytraj_8datasets_4base_DataSet), 1); if (unlikely(!__pyx_ptype_6pytraj_8datasets_4base_DataSet)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/

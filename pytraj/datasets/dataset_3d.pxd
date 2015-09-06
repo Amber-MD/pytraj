@@ -1,6 +1,10 @@
 # distutils: language = c++
-from .DataSet cimport _DataSet, DataSet, DataType
+from .base cimport _DataSet, DataSet, DataType
 from ..math.Vec3 cimport _Vec3, Vec3
+from .base cimport _DataSet, DataSet
+from ..math.Grid cimport _Grid
+from ..math.Vec3 cimport _Vec3, Vec3
+
 
 
 cdef extern from "DataSet_3D.h": 
@@ -26,12 +30,6 @@ cdef extern from "DataSet_3D.h":
 
 cdef class DataSet_3D (DataSet):
     cdef _DataSet_3D* baseptr_1
-# distutils: language = c++
-from .DataSet cimport _DataSet, DataSet
-from .DataSet_3D cimport _DataSet_3D, DataSet_3D
-from ..math.Grid cimport _Grid
-from ..math.Vec3 cimport _Vec3, Vec3
-
 
 cdef extern from "DataSet_GridFlt.h": 
     cdef cppclass _DatasetGridFloat "DataSet_GridFlt" (_DataSet_3D):

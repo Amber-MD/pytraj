@@ -4,8 +4,11 @@ from .._shared_methods import _frame_iter
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import my_str_method
 from ..utils import _import_numpy, _import
-
 from .._cyutils import get_positive_idx
+from ..trajs.TrajectoryCpptraj import TrajectoryCpptraj
+from ..Topology cimport Topology
+from ..externals.six import string_types
+
 
 cdef class DataSet_Coords(DataSet):
     def __cinit__(self):
@@ -119,11 +122,6 @@ cdef class DataSet_Coords(DataSet):
 
     def to_dataframe(self):
         raise NotImplementedError()
-# distutils: language = c++
-
-from ..trajs.TrajectoryCpptraj import TrajectoryCpptraj
-from ..Topology cimport Topology
-from ..externals.six import string_types
 
 cdef class DataSet_Coords_CRD (DataSet_Coords):
     def __cinit__(self):

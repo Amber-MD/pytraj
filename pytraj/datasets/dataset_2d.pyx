@@ -1,5 +1,7 @@
 # distutils: language = c++
+from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarray
+
 
 cdef class DataSet_2D (DataSet):
     def __cinit__(self):
@@ -35,10 +37,6 @@ cdef class DataSet_2D (DataSet):
 
     def to_dataframe(self):
         raise NotImplementedError("must overwrite in subclass")
-# distutils: language = c++
-from cython.operator cimport dereference as deref
-from cython.operator cimport preincrement as incr
-from cpython.array cimport array as pyarray
 
 cdef class DatasetMatrixDouble (DataSet_2D):
     def __cinit__(self):
@@ -136,8 +134,6 @@ cdef class DatasetMatrixDouble (DataSet_2D):
 
         hm[np.triu_indices(self.n_rows, 1)] = mt[mt !=0]
         return hm
-# distutils: language = c++
-from cpython.array cimport array as pyarray
 
 cdef class DatasetMatrixFloat (DataSet_2D):
     def __cinit__(self):

@@ -1,18 +1,15 @@
 # distutils: language = c++
-from __future__ import absolute_import
-
-from .datset_1d cimport (DataSet_1D, _DataSet_1D, DatasetInteger, _DatasetInteger,
-                          DatasetString, _DatasetString, DatasetDouble, _DatasetDouble)
-from .dataSet_2d cimport (DataSet_2D, _DataSet_2D, DatasetMatrixDouble
+from .dataset_1d cimport (DataSet_1D, _DataSet_1D, DatasetInteger, _DatasetInteger,
+                          _DatasetFloat, DatasetFloat, DatasetDouble, _DatasetDouble,
+                          DatasetString, _DatasetString, _DatasetVector, DatasetVector)
+from .dataset_2d cimport (DataSet_2D, _DataSet_2D, DatasetMatrixDouble,
                           _DatasetMatrixDouble, DatasetMatrixFloat, _DatasetMatrixFloat)
-from .dataSet_3d cimport DataSet_3D, _DataSet_3D, 
+from .dataset_3d cimport DataSet_3D, _DataSet_3D, DatasetGridFloat, _DatasetGridFloat
 from .DataSet_Mesh cimport DataSet_Mesh, _DataSet_Mesh
-from .DatasetVector cimport _DatasetVector, DatasetVector
 from .DatasetMatrix3x3 cimport _DatasetMatrix3x3, DatasetMatrix3x3
-from .DatasetGridFloat cimport DatasetGridFloat, _DatasetGridFloat
 from .base cimport DataSet, _DataSet
 from .dataset_coords cimport (_DataSet_Coords, DataSet_Coords, _DataSet_Coords_REF, 
-                              DataSet_Coords_REF, _DataSet_Coords_CRD, DataSet_Coords_CRD
+                              DataSet_Coords_REF, _DataSet_Coords_CRD, DataSet_Coords_CRD)
 
 def cast_dataset(dsetin=None, dtype='general'):
     """create memoryview for DataSet instance. 

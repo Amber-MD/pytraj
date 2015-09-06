@@ -5,8 +5,8 @@ from ..ArgList cimport _ArgList, ArgList
 from .cpptraj_core cimport _FileName, FileName
 
 # for some reasons, I need to use absolute path here
-from pytraj.datasets.DataSet cimport _DataSet, DataSet
-from pytraj.datasets.DataSetList cimport _DataSetList, DataSetList
+from ..datasets.base cimport _DataSet, DataSet
+from ..datasets.DataSetList cimport _DataSetList, DataSetList
 
 
 cdef extern from "DataFile.h": 

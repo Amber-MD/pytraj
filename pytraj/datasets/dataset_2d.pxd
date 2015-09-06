@@ -1,6 +1,9 @@
 # distutils: language = c++
 from __future__ import absolute_import
-from .DataSet cimport _DataSet, DataSet, DataType
+from libcpp.vector cimport vector
+from .base cimport _DataSet, DataSet, DataType
+from ..math.Matrix cimport *
+from .dataset_2d cimport _DataSet_2D, DataSet_2D
 
 
 cdef extern from "DataSet_2D.h": 
@@ -29,10 +32,7 @@ cdef extern from "DataSet_2D.h":
 
 cdef class DataSet_2D (DataSet):
     cdef _DataSet_2D* baseptr_1
-# distutils: language = c++
-from libcpp.vector cimport vector
-from .DataSet_2D cimport *
-from ..math.Matrix cimport *
+
 
 #ctypedef Matrix[double].iterator iterator
 ctypedef vector[double] Darray
@@ -78,13 +78,6 @@ cdef class DatasetMatrixDouble (DataSet_2D):
     cdef _DatasetMatrixDouble* thisptr
     cdef bint py_free_mem
 
-# distutils: language = c++
-from libcpp.vector cimport vector
-from .DataSet_2D cimport *
-from ..math.Matrix cimport *
-
-#ctypedef Matrix[double].iterator iterator
-ctypedef vector[double] Darray
 
 cdef extern from "DataSet_MatrixFlt.h": 
     cdef cppclass _DatasetMatrixFloat  "DataSet_MatrixFlt" (_DataSet_2D):

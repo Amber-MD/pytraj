@@ -6,6 +6,7 @@ from cython.operator cimport preincrement as incr
 from cpython.array cimport array
 
 # python level
+import numpy as np
 from .._cyutils import get_positive_idx
 from collections import defaultdict
 from .cast_dataset import cast_dataset
@@ -22,7 +23,6 @@ from pytraj.cpptraj_dict import DataTypeDict
 
 __all__ = ['DataSetList']
 
-_, np = _import_numpy()
 
 cdef class DataSetList:
     """

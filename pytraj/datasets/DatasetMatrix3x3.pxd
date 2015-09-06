@@ -1,6 +1,6 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
-from .DataSet cimport _DataSet, DataSet
+from .base cimport _DataSet, DataSet
 from .dataset_1d cimport _DataSet_1D, DataSet_1D
 from ..math.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
 

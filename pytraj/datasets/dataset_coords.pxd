@@ -1,9 +1,10 @@
 # distutils: language = c++
+from libcpp.string  cimport string
+from .base cimport _DataSet, DataSet
+from ..Frame cimport _Frame, Frame
 from ..Topology cimport _Topology, Topology
-from .DataSet_1D cimport _DataSet_1D, DataSet_1D
-from .DataSet cimport _DataSet, DataSet, DataType
-from pytraj.Frame cimport _Frame, Frame
-from pytraj.AtomMask cimport _AtomMask, AtomMask
+from ..AtomMask cimport _AtomMask, AtomMask
+from ..ArgList cimport _ArgList, ArgList
 
 
 cdef extern from "DataSet_Coords.h": 
@@ -35,13 +36,6 @@ cdef class DataSet_Coords (DataSet):
     cdef object tmpfarray
 # distutils: language = c++
 
-from .DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
-from .DataSet cimport _DataSet, DataSet
-from .DataSet_1D cimport _DataSet_1D, DataSet_1D
-from ..Frame cimport _Frame, Frame
-from ..AtomMask cimport _AtomMask, AtomMask
-
-
 cdef extern from "DataSet_Coords_CRD.h": 
     cdef cppclass _DataSet_Coords_CRD "DataSet_Coords_CRD" (_DataSet_Coords):
         _DataSet_Coords_CRD() 
@@ -62,17 +56,6 @@ cdef extern from "DataSet_Coords_CRD.h":
 
 cdef class DataSet_Coords_CRD (DataSet_Coords):
     cdef _DataSet_Coords_CRD* thisptr
-# distutils: language = c++
-from libcpp.string cimport string
-from ..Topology cimport _Topology, Topology
-from ..ArgList cimport _ArgList, ArgList
-from ..Frame cimport _Frame, Frame
-from ..AtomMask cimport _AtomMask, AtomMask
-from .DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
-from .DataSet cimport _DataSet, DataSet
-from .DataSet_1D cimport _DataSet_1D, DataSet_1D
-
-
 cdef extern from "DataSet_Coords_REF.h": 
     cdef cppclass _DataSet_Coords_REF "DataSet_Coords_REF" (_DataSet_Coords):
         _DataSet_Coords_REF() 

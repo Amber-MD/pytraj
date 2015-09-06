@@ -1,5 +1,10 @@
 # distutils: language = c++
-from .DataSet cimport _DataSet, DataSet
+from libcpp.vector cimport vector
+from libcpp.string cimport string 
+from .base cimport _DataSet, DataSet
+from .dataset_1d cimport _DataSet_1D, DataSet_1D
+from ..math.Grid cimport _Grid
+from ..math.Vec3 cimport _Vec3, Vec3
 
 
 cdef extern from "DataSet_1D.h": 
@@ -25,11 +30,6 @@ cdef class DataSet_1D (DataSet):
     # baseptr0 is from DataSet
     cdef _DataSet_1D* baseptr_1
 # distutils: language = c++
-from libcpp.vector cimport vector
-from .DataSet cimport _DataSet, DataSet
-from .DataSet_1D cimport _DataSet_1D, DataSet_1D
-
-
 cdef extern from "DataSet_double.h": 
     cdef cppclass _DatasetDouble "DataSet_double" (_DataSet_1D):
         _DatasetDouble() 
@@ -59,11 +59,6 @@ cdef extern from "DataSet_double.h":
 cdef class DatasetDouble (DataSet_1D):
     cdef _DatasetDouble* thisptr
     cdef bint py_free_mem 
-# distutils: language = c++
-from libcpp.vector cimport vector
-from .DataSet cimport _DataSet, DataSet
-from .DataSet_1D cimport _DataSet_1D, DataSet_1D
-
 
 cdef extern from "DataSet_float.h": 
     cdef cppclass _DatasetFloat "DataSet_float" (_DataSet_1D):
@@ -78,12 +73,6 @@ cdef extern from "DataSet_float.h":
 cdef class DatasetFloat (DataSet_1D):
     cdef _DatasetFloat* thisptr
     cdef bint py_free_mem 
-
-# distutils: language = c++
-from libcpp.vector cimport vector
-from .DataSet cimport _DataSet, DataSet
-from .DataSet_1D cimport _DataSet_1D, DataSet_1D
-
 
 cdef extern from "DataSet_integer.h": 
     cdef cppclass _DatasetInteger "DataSet_integer" (_DataSet_1D):
@@ -101,12 +90,6 @@ cdef class DatasetInteger (DataSet_1D):
     cdef _DatasetInteger* thisptr
     cdef bint py_free_mem 
 
-# distutils: language = c++
-from libcpp.string cimport string
-from .DataSet cimport _DataSet, DataSet
-from .DataSet_1D cimport _DataSet_1D, DataSet_1D
-
-
 cdef extern from "DataSet_string.h": 
     cdef cppclass _DatasetString "DataSet_string" (_DataSet_1D):
         _DatasetString()
@@ -119,13 +102,6 @@ cdef extern from "DataSet_string.h":
 cdef class DatasetString(DataSet_1D):
     cdef _DatasetString* thisptr
     cdef bint py_free_mem
-# distutils: language = c++
-from libcpp.vector cimport vector
-from .DataSet cimport _DataSet, DataSet
-from .DataSet_1D cimport _DataSet_1D, DataSet_1D
-from ..math.Grid cimport _Grid
-from ..math.Vec3 cimport _Vec3, Vec3
-
 
 cdef extern from "DataSet_Vector.h": 
     cdef cppclass _DatasetVector "DataSet_Vector" (_DataSet_1D):

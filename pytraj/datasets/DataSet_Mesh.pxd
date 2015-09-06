@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
-from .DataSet_1D cimport _DataSet_1D, DataSet_1D
-from .DataSet cimport _DataSet, DataSet
+from .dataset_1d cimport _DataSet_1D, DataSet_1D
+from .base cimport _DataSet, DataSet
 
 
 cdef extern from "DataSet_Mesh.h": 
