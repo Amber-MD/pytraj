@@ -5,6 +5,7 @@ from .ArgList import ArgList
 from .utils import _import
 from .utils.check_and_assert import is_frame_iter, is_chunk_iter
 from .datasetlist import DatasetList as DSL
+from pytraj.datasets.base import DataSet
 
 
 def _get_top(traj, top):
@@ -38,7 +39,6 @@ def _get_arglist(arg):
 
 
 def _get_data_from_dtype(d0, dtype='dataset'):
-    from pytraj.datasets.DataSet import DataSet
 
     if dtype is None or dtype == 'dataset':
         pass
