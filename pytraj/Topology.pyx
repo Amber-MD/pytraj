@@ -1,5 +1,6 @@
 # cython: c_string_type=unicode, c_string_encoding=utf8
-from __future__ import print_function
+from __future__ import print_function, absolute_import
+import sys
 cimport cython
 from cython.operator cimport dereference as deref, preincrement as incr
 from libcpp.string cimport string
@@ -9,9 +10,15 @@ from pytraj._set_silent import set_world_silent # turn on and off cpptraj's stdo
 
 import numpy as np
 from pytraj.utils.check_and_assert import is_int, is_array
-from pytraj.parms._ParmFile import TMPParmFile
-from pytraj.externals.six import PY3, PY2, string_types, binary_type
 from pytraj.compat import set
+
+PY2 = sys.version_info[0] == 2
+PY3 = sys.version_info[0] == 3
+
+if PY3:
+    string_types = str
+else:
+    string_types = basestring
 
 __all__ = ['Topology']
 
@@ -36,15 +43,11 @@ cdef class Topology:
             pass
         else:
             if len(args) == 1:
-                if isinstance(args[0], string_types):
-                    filename = args[0].encode()
-                    pf = TMPParmFile()
-                    tp = Topology()
-                    pf.readparm(filename, tp)
-                    self.thisptr[0] = tp.thisptr[0]
-                elif isinstance(args[0], Topology):
+                if isinstance(args[0], Topology):
                     tp = args[0]
                     self.thisptr[0] =  tp.thisptr[0]
+                else:
+                    raise ValueError()
             else:
                 raise ValueError()
 

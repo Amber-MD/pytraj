@@ -6,11 +6,19 @@ import os
 from glob import glob
 import numpy as np
 from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
-from .compat import string_types, range
+from .externals.six import string_types
+from .externals.six.moves import range
 from .Topology import Topology
 from .utils import is_int
 from ._cyutils import get_positive_idx
 from .frameiter import FrameIter
+from .parms.ParmFile import ParmFile
+
+def _load_Topology(filename):
+    top = Topology()
+    parm = ParmFile()
+    parm.readparm(filename, top)
+    return top
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
 
@@ -73,7 +81,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         if not top:
             self.top = Topology()
         elif isinstance(top, string_types):
-            self.top = Topology(top)
+            self.top = _load_Topology(top)
         elif isinstance(top, Topology):
             self.top = top.copy()
         else:
@@ -144,7 +152,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                     fname, _top,
                     frame_slice=fslice)
         elif isinstance(filename,
-                            string_types) and not os.path.exists(filename):
+                        string_types) and not os.path.exists(filename):
             flist = sorted(glob(filename))
             if not flist:
                 raise ValueError(

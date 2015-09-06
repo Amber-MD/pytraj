@@ -427,15 +427,16 @@ def load_topology(filename):
     >>> parm = pmd.load_file('data/m2-c1_f3.mol2')
     >>> top = pt.load_topology(parm)
     """
+    from pytraj.parms.ParmFile import ParmFile
+    top = Topology()
+
     if isinstance(filename, string_types):
         if filename.startswith('http://') or filename.startswith('https://'):
             return _load_url(filename)
         else:
-            from .Topology import Topology
-            """return topology instance from reading filename"""
-            #filename = filename.encode("UTF-8")
+            parm = ParmFile()
             set_error_silent(True)
-            top = Topology(filename)
+            parm.readparm(filename=filename, top=top)
             set_error_silent(False)
             return top
     else:

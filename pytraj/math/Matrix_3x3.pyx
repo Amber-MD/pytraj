@@ -4,7 +4,7 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from libcpp.vector cimport vector
 from cpython.array cimport array as pyarray
-from pytraj.utils.check_and_assert import _import_numpy, is_int, is_range
+from ..utils.check_and_assert import _import_numpy, is_int, is_range
 """
 In [1]: from Matrix_3x3 import Matrix_3x3 as M3x3
 In [2]: import numpy as np
