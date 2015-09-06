@@ -322,8 +322,8 @@ def write_traj(filename="",
                top=None,
                indices=None,
                overwrite=False,
-               mode="", *args, **kwd):
-    """write Trajectory-like, list of trajs, frames, ... to file/files
+               mode=""):
+    """write Trajectory-like or iterable object to trajectory file
 
     Parameters
     ----------
@@ -335,9 +335,9 @@ def write_traj(filename="",
     overwrite: bool, default: False
     mode : str, additional keywords for extention='.pdb'. See examples.
         
-
-    Suppot file extensions
-    ----------------------
+    Notes
+    -----
+    ===================  =========
     Format               Extension
     ===================  =========
     Amber Trajectory     .crd
@@ -351,7 +351,6 @@ def write_traj(filename="",
     Gromacs              .trr
     SQM Input            .sqm
     ===================  =========
-
 
     Examples
     --------
@@ -381,7 +380,7 @@ def write_traj(filename="",
     with Trajout(filename=filename,
                  top=_top,
                  overwrite=overwrite,
-                 mode=mode, *args, **kwd) as trajout:
+                 mode=mode) as trajout:
         if isinstance(traj, Frame):
             if indices is not None:
                 raise ValueError("indices does not work with single Frame")
@@ -396,8 +395,7 @@ def write_traj(filename="",
                 if isinstance(traj2, (list, tuple, Frame)):
                     raise NotImplementedError(
                         "must be Trajectory or TrajectoryIterator instance")
-                for idx, frame in enumerate(traj.iterframe(
-                    frame_indices=indices)):
+                for idx, frame in enumerate(traj.iterframe(frame_indices=indices)):
                     trajout.write(idx, frame)
 
             else:
@@ -522,9 +520,7 @@ def load_single_frame(frame=None, top=None, index=0):
     """load a single Frame"""
     return iterload(frame, top)[index]
 
-
 load_frame = load_single_frame
-
 
 def load_MDAnalysisIterator(u):
     from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
