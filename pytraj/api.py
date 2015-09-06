@@ -13,6 +13,7 @@ from .Topology import Topology
 from ._shared_methods import _savetraj, iterframe_master
 from ._shared_methods import my_str_method
 from ._fast_iterframe import _fast_iterptr, _fast_iterptr_withbox
+from .frameiter import FrameIter
 
 __all__ = ['Trajectory']
 
@@ -661,7 +662,6 @@ class Trajectory(object):
                   rmsfit=None,
                   copy=False):
 
-        from pytraj.core.frameiter import FrameIter
 
         if mask is None:
             _top = self.top

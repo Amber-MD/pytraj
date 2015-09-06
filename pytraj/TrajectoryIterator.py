@@ -10,6 +10,7 @@ from .compat import string_types, range
 from .Topology import Topology
 from .utils import is_int
 from ._cyutils import get_positive_idx
+from .frameiter import FrameIter
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
 
@@ -207,7 +208,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
                   frame_indices=None):
         ''''''
 
-        from .core.frameiter import FrameIter
         if mask is None:
             _top = self.top
         else:
