@@ -38,7 +38,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -99,10 +99,10 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Atom mask selection</a><ul>
-<li><a class="reference internal" href="#atom-mask-selection-for-trajectory">Atom mask selection for <code class="docutils literal"><span class="pre">Trajectory</span></code></a></li>
-<li><a class="reference internal" href="#atom-mask-selection-for-pytraj-topology">Atom mask selection for <code class="docutils literal"><span class="pre">pytraj.Topology</span></code></a><ul>
+<li><a class="reference internal" href="#atom-mask-selection-for-trajectory">Atom mask selection for <tt class="docutils literal"><span class="pre">Trajectory</span></tt></a></li>
+<li><a class="reference internal" href="#atom-mask-selection-for-pytraj-topology">Atom mask selection for <tt class="docutils literal"><span class="pre">pytraj.Topology</span></tt></a><ul>
 <li><a class="reference internal" href="#get-atom-indices">Get atom_indices</a></li>
-<li><a class="reference internal" href="#get-new-topology">Get new <code class="docutils literal"><span class="pre">Topology</span></code></a></li>
+<li><a class="reference internal" href="#get-new-topology">Get new <tt class="docutils literal"><span class="pre">Topology</span></tt></a></li>
 </ul>
 </li>
 </ul>
@@ -160,10 +160,10 @@
 <p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#atom-mask-selection" id="id1">Atom mask selection</a><ul>
-<li><a class="reference internal" href="#atom-mask-selection-for-trajectory" id="id2">Atom mask selection for <code class="docutils literal"><span class="pre">Trajectory</span></code></a></li>
-<li><a class="reference internal" href="#atom-mask-selection-for-pytraj-topology" id="id3">Atom mask selection for <code class="docutils literal"><span class="pre">pytraj.Topology</span></code></a><ul>
+<li><a class="reference internal" href="#atom-mask-selection-for-trajectory" id="id2">Atom mask selection for <tt class="docutils literal"><span class="pre">Trajectory</span></tt></a></li>
+<li><a class="reference internal" href="#atom-mask-selection-for-pytraj-topology" id="id3">Atom mask selection for <tt class="docutils literal"><span class="pre">pytraj.Topology</span></tt></a><ul>
 <li><a class="reference internal" href="#get-atom-indices" id="id4">Get atom_indices</a></li>
-<li><a class="reference internal" href="#get-new-topology" id="id5">Get new <code class="docutils literal"><span class="pre">Topology</span></code></a></li>
+<li><a class="reference internal" href="#get-new-topology" id="id5">Get new <tt class="docutils literal"><span class="pre">Topology</span></tt></a></li>
 </ul>
 </li>
 </ul>
@@ -179,7 +179,7 @@
 <p class="last">Examples adapted from parmed&#8217;s website and the comments are from <cite>parmed&#8217;s doc</cite></p>
 </div>
 <div class="section" id="atom-mask-selection-for-trajectory">
-<h2><a class="toc-backref" href="#id2">Atom mask selection for <code class="docutils literal"><span class="pre">Trajectory</span></code></a><a class="headerlink" href="#atom-mask-selection-for-trajectory" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">Atom mask selection for <tt class="docutils literal"><span class="pre">Trajectory</span></tt></a><a class="headerlink" href="#atom-mask-selection-for-trajectory" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
@@ -194,26 +194,26 @@
 
 <span class="gp">In [5]: </span><span class="nb">list</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">atom_names</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
 <span class="go">                                                                                                                                                                                                                          Out[5]: </span>
-<span class="go">[&#39;ND2 &#39;,</span>
-<span class="go"> &#39;H2  &#39;,</span>
-<span class="go"> &#39;CE2 &#39;,</span>
-<span class="go"> &#39;CA  &#39;,</span>
-<span class="go"> &#39;CE3 &#39;,</span>
-<span class="go"> &#39;HE3 &#39;,</span>
-<span class="go"> &#39;OD1 &#39;,</span>
-<span class="go"> &#39;HB  &#39;,</span>
-<span class="go"> &#39;HG23&#39;,</span>
-<span class="go"> &#39;HA3 &#39;,</span>
-<span class="go"> &#39;HZ3 &#39;,</span>
-<span class="go"> &#39;HG2 &#39;,</span>
-<span class="go"> &#39;HB3 &#39;,</span>
-<span class="go"> &#39;OE1 &#39;,</span>
-<span class="go"> &#39;HB2 &#39;,</span>
-<span class="go"> &#39;CB  &#39;,</span>
-<span class="go"> &#39;HN1 &#39;,</span>
-<span class="go"> &#39;H1  &#39;,</span>
+<span class="go">[&#39;CA  &#39;,</span>
 <span class="go"> &#39;HG1 &#39;,</span>
-<span class="go"> &#39;HE1 &#39;]</span>
+<span class="go"> &#39;CD  &#39;,</span>
+<span class="go"> &#39;HE1 &#39;,</span>
+<span class="go"> &#39;H3  &#39;,</span>
+<span class="go"> &#39;HN1 &#39;,</span>
+<span class="go"> &#39;OE2 &#39;,</span>
+<span class="go"> &#39;ND2 &#39;,</span>
+<span class="go"> &#39;HH2 &#39;,</span>
+<span class="go"> &#39;OG1 &#39;,</span>
+<span class="go"> &#39;CD1 &#39;,</span>
+<span class="go"> &#39;H2  &#39;,</span>
+<span class="go"> &#39;CD2 &#39;,</span>
+<span class="go"> &#39;HA  &#39;,</span>
+<span class="go"> &#39;HG2 &#39;,</span>
+<span class="go"> &#39;N   &#39;,</span>
+<span class="go"> &#39;NZ  &#39;,</span>
+<span class="go"> &#39;CE2 &#39;,</span>
+<span class="go"> &#39;CB  &#39;,</span>
+<span class="go"> &#39;HZ3 &#39;]</span>
 
 <span class="c"># Residue selections</span>
 <span class="gp">In [6]: </span><span class="n">traj</span><span class="p">[</span><span class="s">&#39;:1,3,6-10&#39;</span><span class="p">]</span>  <span class="c"># Select residues 1, 3, 6, 7, 8, 9, and 10</span>
@@ -250,7 +250,7 @@
 </div>
 </div>
 <div class="section" id="atom-mask-selection-for-pytraj-topology">
-<h2><a class="toc-backref" href="#id3">Atom mask selection for <code class="docutils literal"><span class="pre">pytraj.Topology</span></code></a><a class="headerlink" href="#atom-mask-selection-for-pytraj-topology" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Atom mask selection for <tt class="docutils literal"><span class="pre">pytraj.Topology</span></tt></a><a class="headerlink" href="#atom-mask-selection-for-pytraj-topology" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="get-atom-indices">
 <h3><a class="toc-backref" href="#id4">Get atom_indices</a><a class="headerlink" href="#get-atom-indices" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
@@ -283,7 +283,7 @@
 </div>
 </div>
 <div class="section" id="get-new-topology">
-<h3><a class="toc-backref" href="#id5">Get new <code class="docutils literal"><span class="pre">Topology</span></code></a><a class="headerlink" href="#get-new-topology" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5">Get new <tt class="docutils literal"><span class="pre">Topology</span></tt></a><a class="headerlink" href="#get-new-topology" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [19]: </span><span class="n">top</span><span class="p">[</span><span class="s">&#39;:1,3,6-10&#39;</span><span class="p">]</span>
 <span class="gr">Out[19]: </span><span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">108</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">7</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">3</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">ortho</span><span class="o">&gt;</span>
 
@@ -317,7 +317,7 @@
     </p>
     <p>
         &copy; Copyright 2015, Hai Nguyen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
 </footer>
