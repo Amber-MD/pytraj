@@ -1,5 +1,7 @@
 # distutils: language = c++
 
+from .CpptrajState cimport _CpptrajState, CpptrajState
+
 # TODO: add __all__
 __all__ = []
 
@@ -295,3 +297,27 @@ cdef class NameType:
 
     def __str__(self):
         return (self.thisptr.opr_star()).decode()
+
+
+cdef extern from "Command.h": 
+    ctypedef enum RetType "Command::RetType":
+        pass
+    cdef cppclass _Command "Command":
+        @staticmethod
+        RetType ProcessInput(_CpptrajState&, const string&)
+
+cdef class Command:
+    cdef _Command* thisptr
+
+    def __cinit__(self):
+        self.thisptr = new _Command()
+
+    def __dealloc__(self):
+        del self.thisptr
+
+    @classmethod
+    def get_state(cls, trajin_text):
+        cdef CpptrajState cppstate = CpptrajState()
+        trajin_text = trajin_text.encode()
+        _Command.ProcessInput(cppstate.thisptr[0], trajin_text)
+        return cppstate
