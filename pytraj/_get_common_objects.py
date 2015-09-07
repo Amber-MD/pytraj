@@ -2,7 +2,6 @@ from __future__ import absolute_import
 
 # do not import anything else here.
 from .externals.six import string_types
-from .utils.check_and_assert import is_frame_iter, is_chunk_iter
 
 def _load_Topology(filename):
     from pytraj import Topology
@@ -18,8 +17,6 @@ def _get_top(traj, top):
     elif top is None:
         if hasattr(traj, 'top'):
             _top = traj.top
-        elif is_frame_iter(traj) or is_chunk_iter(traj):
-            _top = None
         else:
             # list, tuple of traj objects
             try:
