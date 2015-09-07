@@ -1,8 +1,10 @@
 import unittest
 import numpy as np
+import pytraj as pt
+from pytraj import TrajectoryIterator
+from pytraj.base import DataSetList, DataFileList
 from numpy.testing import assert_allclose
 from pytraj import io as mdio
-from pytraj.base import *
 from pytraj import allactions
 from pytraj.datasets import cast_dataset
 from pytraj import adict

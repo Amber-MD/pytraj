@@ -235,9 +235,9 @@ def load_traj(filename=None,
         from .TrajectoryIterator import TrajectoryIterator
         from .api import Trajectory
 
-        if not isinstance(top, Topology):
+        if isinstance(top, string_types):
             top = load_topology(top)
-        if top.is_empty():
+        if top is None or top.is_empty():
             top = load_topology(filename)
         ts = TrajectoryIterator(top=top)
 

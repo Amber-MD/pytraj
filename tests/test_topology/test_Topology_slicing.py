@@ -1,13 +1,13 @@
 from __future__ import print_function
 import unittest
-from pytraj import io as mdio
+from pytraj import io as pt
 from pytraj.compat import izip
 from pytraj.core import Atom
 
 
 class Test(unittest.TestCase):
     def test_0(self):
-        top = mdio.load_topology("./data/Tc5b.top")
+        top = pt.load_topology("./data/Tc5b.top")
 
         # number
         assert isinstance(top[0], Atom)

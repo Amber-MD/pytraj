@@ -103,7 +103,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
     def __setstate__(self, state):
         self.__dict__ = state.copy()
-        self.top = Topology(state['top_filename'])
+        self.top = _load_Topology(state['top_filename'])
         self.load(state['filelist'], frame_slice=state['frame_slice_list'])
 
     def __getstate__(self):
