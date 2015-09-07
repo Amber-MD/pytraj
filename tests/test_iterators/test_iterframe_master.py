@@ -7,7 +7,7 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.testing import aa_eq
 from pytraj.core.cpptraj_core import Command
-from pytraj.core.CpptrajState import CpptrajState
+from pytraj.core.cpptraj_core import CpptrajState
 from pytraj.decorators import no_test
 from pytraj.compat import izip as zip
 
