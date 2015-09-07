@@ -9,7 +9,7 @@ from .core.Atom import Atom
 from .core.TopologyList import TopologyList
 from .core.DataFileList import DataFileList
 from .core.ActionList import ActionList
-from .core.CpptrajState import CpptrajState
+from .core.cpptraj_core import CpptrajState
 from .datasets.DataSetList import DataSetList
 
 from .core.cpptraj_core import AtomMask

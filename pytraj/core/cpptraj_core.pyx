@@ -463,3 +463,256 @@ cdef class Command:
         trajin_text = trajin_text.encode()
         _Command.ProcessInput(cppstate.thisptr[0], trajin_text)
         return cppstate
+
+cdef class CpptrajState:
+    """
+    CpptrajState hold instances of:
+    + TopologyList
+    + DataSetList (having output data)
+    + DataFileList
+
+    """
+    def __cinit__(self):
+        self.thisptr = new _CpptrajState()
+        self.toplist = TopologyList(py_free_mem=False)
+        self.datafilelist = DataFileList(py_free_mem=False)
+        self.datasetlist = DataSetList(py_free_mem=False)
+
+        # cpptraj will take care of memory deallocating from self.thisptr.PFL(FL, DSL, DFL)
+        # We don't free memory again 
+        # (example: self.toplist.thisptr and self.thisptr.PFL() point to the same address)
+        # create memory view
+        self.toplist.thisptr = self.thisptr.PFL()
+        self.datasetlist.thisptr = self.thisptr.DSL()
+        self.datafilelist.thisptr = self.thisptr.DFL()
+
+    def __dealloc__(self):
+        if self.thisptr is not NULL:
+            del self.thisptr
+    
+    def is_empty(self):
+        return self.thisptr.EmptyState()
+
+    def add_trajin(self, arg_or_filename, is_ensemble=None):
+        # TODO: add trajector instance?
+        cdef string filename
+        cdef ArgList argIn
+        
+        if is_ensemble is not None:
+            # reading ensemble
+            if isinstance(arg_or_filename, ArgList):
+                argIn = arg_or_filename
+            elif isinstance(arg_or_filename, string_types):
+                argIn = ArgList(arg_or_filename)
+            else:
+                raise ValueError("")
+            self.thisptr.AddTrajin(argIn.thisptr[0], is_ensemble)
+        elif isinstance(arg_or_filename, string_types):
+            # reading single file
+            filename = arg_or_filename.encode()
+            self.thisptr.AddTrajin(filename)
+        else:
+            raise NotImplementedError()
+
+    def run_analyses(self):
+        return self.thisptr.RunAnalyses()
+
+    def add_trajout(self, arg):
+        """add trajout file
+        
+        Parameters
+        ---------
+        arg : str or ArgList object
+        """
+        cdef string filename
+        cdef ArgList arglist
+
+        if isinstance(arg, ArgList):
+            arglist = arg
+            return self.thisptr.AddTrajout(arglist.thisptr[0])
+        elif isinstance(arg, string_types):
+            filename = arg.encode()
+            return self.thisptr.AddTrajout(filename)
+        else:
+            raise NotImplementedError()
+
+    def add_reference(self, *args):
+        """
+        Parameters
+        ---------
+        filename : str
+        arg : ArgList object, optional
+        """
+        cdef string name
+        cdef ArgList arglist
+
+        if len(args) == 1:
+            if isinstance(args[0], string_types):
+                name =  args[0].encode(0)
+                self.thisptr.AddReference(name)
+            else:
+                raise NotImplementedError()
+        elif len(args) == 2:
+                name =  args[0].encode(0)
+                if isinstance(args[1], string_types):
+                    arglist = ArgList(args[1])
+                else:
+                    arglist = <ArgList> args[1]
+                self.thisptr.AddReference(name, arglist.thisptr[0])
+        else:
+            raise NotImplementedError()
+
+    def add_action(self, actobj, arglist):
+        """
+        Parameters
+        ---------
+        actobj : Action object or str
+        arglist : ArgList object or str
+        """
+        # need to explicit casting to FunctPtr because self.thisptr.AddAction need to know type 
+        # of variables
+        cdef FunctPtr alloc_funct
+        cdef ArgList _arglist 
+
+        if isinstance(actobj, string_types):
+            # if actobj is string, make Action object
+            # then cast to FunctPtr
+            from pytraj.action_dict import ADICT
+            alloc_funct = ADICT[actobj]().alloc()
+        else:
+            alloc_funct = <FunctPtr> actobj.alloc()
+
+        if isinstance(arglist, string_types):
+            _arglist = ArgList(arglist)
+        elif isinstance(arglist, ArgList):
+            _arglist = arglist
+        else:
+            raise ValueError("must be string or ArgList object")
+
+        return self.thisptr.AddAction(alloc_funct.ptr, _arglist.thisptr[0])
+
+    def add_analysis(self, obj, ArgList arglist):
+        """temp doc: add_analysis(self, obj, ArgList arglist)
+        obj :: Action or Analysis instance
+        """
+        cdef ArgList _arglist 
+        cdef FunctPtr alloc_funct = <FunctPtr> obj.alloc()
+
+        if isinstance(arglist, string_types):
+            _arglist = ArgList(arglist)
+        elif isinstance(arglist, ArgList):
+            _arglist = arglist
+        else:
+            raise ValueError("must be string or ArgList object")
+
+        return self.thisptr.AddAnalysis(alloc_funct.ptr, _arglist.thisptr[0])
+
+    def list_all(self, ArgList arglist):
+        return self.thisptr.ListAll(arglist.thisptr[0])
+
+    def clear_list(self, arglist='all'):
+        return self.thisptr.ClearList(ArgList(arglist).thisptr[0])
+
+    def remove_dataset(self, ArgList alist):
+        return self.thisptr.RemoveDataSet(alist.thisptr[0])
+
+    def run(self):
+        return self.thisptr.Run()
+
+    def write_all_datafiles(self):
+        self.thisptr.MasterDataFileWrite()
+# distutils: language = c++
+
+from cpp_vector cimport vector as cppvector
+from cython.operator cimport dereference as deref
+from cython.operator cimport preincrement as incr
+from pytraj.externals.six import string_types
+
+cdef class ArgList:
+    """
+    Original doc from cpptraj:
+    ========================
+    Class: ArgList
+        Hold a list of string arguments and keeps track of their usage.
+        Can be set from an input line using SetList(), with arguments separated 
+        by a specified delimiter, or arguments can be added one-by-one with AddArg.
+        Arguments can be accessed with the various getX routines,
+        where X is specific to certain types, e.g. getNextDouble returns
+        the next double, getNextMask returns an atom mask expression (i.e.
+        it has :, @, % characters etc). All of the getX routines (along with
+        the hasKey routine) mark the argument they access as used, so that
+        subsequent calls with these functions will not return the same
+        argument over and over. 
+
+    pytraj doc:
+    =============
+    change cpptraj method's name to python style's name
+    (hasKey --> has_key)
+    """
+    
+    def __cinit__(self, *args):
+        # TODO: need to read cpptraj code for construtor
+        cdef string  sinput
+        cdef char* sep
+        cdef ArgList rhs
+
+        if not args:
+            self.thisptr = new _ArgList()
+        else:
+            if len(args) == 1:
+                if isinstance(args[0], ArgList):
+                    rhs = args[0]
+                    self.thisptr = new _ArgList(rhs.thisptr[0])
+                elif isinstance(args[0], string_types):
+                    sinput = args[0].encode("UTF-8")
+                    self.thisptr = new _ArgList(sinput)
+                else:
+                    raise ValueError()
+            elif len(args) == 2:
+                sinput, sep = args
+                self.thisptr = new _ArgList(sinput, sep)
+            else:
+                raise ValueError()
+
+    def __dealloc__(self):
+        del self.thisptr
+
+    @property
+    def n_args(self):
+        return self.thisptr.Nargs()
+
+    def is_empty(self):
+        return self.thisptr.empty()
+
+    def command_is(self, char* cm):
+        return self.thisptr.CommandIs(cm)
+    
+    def get_next_string(self):
+        key = self.thisptr.GetStringNext()
+        return key.decode()
+
+    def get_string_key(self, c):
+        key = self.thisptr.GetStringKey(c.encode())
+        return key.decode()
+
+    def get_next_mask(self):
+        mask = self.thisptr.GetMaskNext()
+        return mask.decode()
+
+    def get_next_tag(self):
+        return self.thisptr.getNextTag()
+
+    def get_next_integer(self, defint):
+        return self.thisptr.getNextInteger(defint)
+
+    def get_next_double(self, double defd):
+        return self.thisptr.getNextDouble(defd)
+
+    def get_key_int(self, char* key, int defint):
+        return self.thisptr.getKeyInt(key, defint)
+
+    def get_key_double(self, char* key, double defd):
+        return self.thisptr.getKeyDouble(key, defd)
+
+    def has_key(self, char* key):
+        return self.thisptr.hasKey(key)

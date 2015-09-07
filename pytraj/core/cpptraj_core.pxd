@@ -4,6 +4,15 @@ from .Box cimport _Box, Box
 from posix.unistd cimport off_t
 from libcpp.vector cimport vector
 from ..cpp_vector cimport vector as cppvector
+from libcpp.vector cimport vector
+from libcpp.string cimport string
+
+from .TopologyList cimport _TopologyList, TopologyList
+from .DataFileList cimport _DataFileList, DataFileList
+from .DataFile cimport _DataFile, DataFile
+from .ActionList cimport _ActionList, ActionList
+from .DataFile cimport _DataFile, DataFile
+from ..datasets.DataSetList cimport _DataSetList, DataSetList
 
 
 cdef extern from "AtomMask.h": 
@@ -195,3 +204,85 @@ cdef extern from "NameType.h":
 
 cdef class NameType:
         cdef _NameType* thisptr
+
+cdef extern from "CpptrajState.h": 
+    cdef cppclass _CpptrajState "CpptrajState":
+        _CpptrajState()
+        _TopologyList * PFL()
+        _DataSetList * DSL()
+        _DataFileList * DFL()
+        void SetNoExitOnError()
+        void SetNoProgress()
+        void SetActionSilence(bint b)
+        bint ExitOnError()const 
+        bint EmptyState()const 
+        int AddTrajin(_ArgList &, bint)
+        int AddTrajin(const string&)
+        int RunAnalyses()
+        inline int AddTrajout "AddOutputTrajectory" (const _ArgList&)
+        inline int AddTrajout "AddOutputTrajectory" (const string&)
+        int AddReference(const string&, _ArgList &)
+        inline int AddReference(const string&)
+        inline int AddAction(DispatchAllocatorType, _ArgList &)
+        inline int AddAnalysis(DispatchAllocatorType, _ArgList &)
+        int WorldSize()
+        int ListAll(_ArgList &)const 
+        int SetListDebug(_ArgList &)
+        int ClearList(_ArgList &)
+        int RemoveDataSet(_ArgList &)
+        int TrajLength(const string&, const vector[string]&)
+        int Run()
+        void MasterDataFileWrite()
+
+cdef class CpptrajState:
+    cdef _CpptrajState* thisptr
+    cdef public TopologyList toplist
+    cdef public DataFileList datafilelist
+    cdef public DataSetList datasetlist
+# distutils: language = c++
+from libcpp.string cimport string
+from libcpp.vector cimport vector
+from pytraj.cpp_vector cimport vector as cppvector
+
+cdef extern from "ArgList.h": 
+    cdef cppclass _ArgList "ArgList":
+        _ArgList() 
+        _ArgList(const char *)
+        _ArgList(const string&)
+        _ArgList(const string&, const char *)
+        _ArgList(const _ArgList&)
+        #_ArgList& operator =(const _ArgList&)
+        const string& operator[](int) const 
+        const vector[string]& List() const 
+        cppvector[string].const_iterator begin() const 
+        cppvector[string].const_iterator end() const 
+        int Nargs() const 
+        bint empty() const 
+        const char * ArgLine() const 
+        void ClearList() 
+        int SetList(const string&, const char *)
+        _ArgList RemainingArgs() 
+        void AddArg(const string&)
+        void MarkArg(int)
+        bint CheckForMoreArgs() const 
+        void PrintList() const 
+        void PrintDebug() const 
+        void RemoveFirstArg() 
+        const char * Command() const 
+        bint CommandIs(const char *) const 
+        const string& GetStringNext() 
+        const string& GetMaskNext() 
+        const string& getNextTag() 
+        bint ValidInteger(int) const 
+        int IntegerAt(int) const 
+        bint ValidDouble(int) const 
+        int getNextInteger(int)
+        double getNextDouble(double)
+        const string& GetStringKey(const char *)
+        int getKeyInt(const char *, int)
+        double getKeyDouble(const char *, double)
+        bint hasKey(const char *)
+        bint Contains(const char *) const 
+
+cdef class ArgList:
+    cdef _ArgList* thisptr
