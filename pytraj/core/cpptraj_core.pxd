@@ -1,18 +1,42 @@
 # distutil: language = c++
 from libcpp.string cimport string
-from .Box cimport _Box, Box
 from posix.unistd cimport off_t
 from libcpp.vector cimport vector
 from ..cpp_vector cimport vector as cppvector
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 
+from .Box cimport _Box, Box
 from .TopologyList cimport _TopologyList, TopologyList
-from .DataFileList cimport _DataFileList, DataFileList
-from .DataFile cimport _DataFile, DataFile
-from .ActionList cimport _ActionList, ActionList
+from .datafiles cimport _DataFileList, DataFileList, _DataFile, DataFile
 from .DataFile cimport _DataFile, DataFile
 from ..datasets.DataSetList cimport _DataSetList, DataSetList
+
+ctypedef _BaseIOtype* (*AllocatorType)()
+ctypedef void (*HelpType)()
+
+cdef extern from "BaseIOtype.h":
+    #ctypedef _BaseIOtype* (*AllocatorType)()
+    #ctypedef void (*HelpType)()
+    cdef cppclass _BaseIOtype "BaseIOtype":
+        pass
+
+cdef class BaseIOtype:
+    cdef _BaseIOtype* baseptr0
+
+ctypedef _DispatchObject* (*DispatchAllocatorType)()
+cdef extern from "DispatchObject.h":
+    cdef cppclass _DispatchObject "DispatchObject":
+        pass
+
+cdef class DispatchObject:
+    cdef _DispatchObject* thisptr
+
+# dummy class to hold function pointer
+cdef class FunctPtr:
+    cdef DispatchAllocatorType ptr
+    # used for BaseIOtype
+    cdef AllocatorType allocptr
 
 
 cdef extern from "AtomMask.h": 
@@ -66,32 +90,6 @@ cdef extern from "AtomMask.h":
 cdef class AtomMask:
     cdef _AtomMask* thisptr
 
-ctypedef _BaseIOtype* (*AllocatorType)()
-ctypedef void (*HelpType)()
-
-cdef extern from "BaseIOtype.h":
-    #ctypedef _BaseIOtype* (*AllocatorType)()
-    #ctypedef void (*HelpType)()
-    cdef cppclass _BaseIOtype "BaseIOtype":
-        pass
-
-cdef class BaseIOtype:
-    cdef _BaseIOtype* baseptr0
-
-ctypedef _DispatchObject* (*DispatchAllocatorType)()
-cdef extern from "DispatchObject.h":
-    cdef cppclass _DispatchObject "DispatchObject":
-        pass
-
-cdef class DispatchObject:
-    cdef _DispatchObject* thisptr
-
-# dummy class to hold function pointer
-cdef class FunctPtr:
-    cdef DispatchAllocatorType ptr
-    # used for BaseIOtype
-    cdef AllocatorType allocptr
-# distutils: language = c++
 
 cdef extern from "FileName.h":
     cdef cppclass _FileName "FileName":

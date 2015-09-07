@@ -1,13 +1,14 @@
 # distutils: language = c++
-from .CpptrajState cimport _CpptrajState, CpptrajState
 from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
-from cpython.array cimport array as pyarrary
+from cpython.array cimport array as pyarray
 from cpython cimport array
-from ..externals.six import string_types
+
 from ..utils import is_array, is_int
 from .._cyutils import _int_array1d_like_to_memview
+
+from ..externals.six import string_types
 from ..externals.six.moves import range
 
 
@@ -65,9 +66,9 @@ cdef class AtomMask(object):
     @property
     def _indices_view(self):
         cdef vector[int] v = self.thisptr.Selected()
-        cdef pyarrary a_empty = pyarrary('i', [])
+        cdef pyarray a_empty = pyarray('i', [])
         cdef int size = v.size()
-        cdef pyarrary arr0 = array.clone(a_empty, size, zero=True) 
+        cdef pyarray arr0 = array.clone(a_empty, size, zero=True) 
         cdef int[:] myview = arr0
         cdef int i 
 
