@@ -7,11 +7,12 @@ from .utils.check_and_assert import is_int, is_frame_iter
 from .externals.six import string_types
 from .externals.six.moves import range
 from .AtomMask import AtomMask
-# need to move this method to more correct module
-from ._get_common_objects import _get_top
+
+# use absolute import here
+from pytraj._get_common_objects import _get_top
+
 from .Topology import Topology
-from ._shared_methods import _savetraj, iterframe_master
-from ._shared_methods import my_str_method
+from ._shared_methods import _savetraj, iterframe_master, my_str_method
 from ._fast_iterframe import _fast_iterptr, _fast_iterptr_withbox
 from .frameiter import FrameIter
 
