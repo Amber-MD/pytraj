@@ -8,7 +8,7 @@ from pytraj import io as mdio
 from pytraj import allactions
 from pytraj.datasets import cast_dataset
 from pytraj import adict
-from pytraj.core.DataFileList import DataFileList
+from pytraj.datafiles.datafiles import DataFileList
 from pytraj.common_actions import calc_dssp
 from pytraj.testing import aa_eq
 

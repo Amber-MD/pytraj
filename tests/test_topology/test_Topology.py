@@ -3,7 +3,7 @@ import numpy as np
 import unittest
 import pytraj as pt
 from pytraj.Topology import Topology
-from pytraj.AtomMask import AtomMask
+from pytraj.core.cpptraj_core import AtomMask
 from pytraj.base import *
 from pytraj.decorators import no_test
 
