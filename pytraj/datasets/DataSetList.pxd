@@ -3,7 +3,7 @@ from libcpp.string cimport string
 
 # seriously I need to use absolute import here
 from pytraj.datasets.base cimport _DataSet, DataSet, DataType
-from ..cpp_vector cimport vector as cppvector
+from libcpp.vector cimport vector as cppvector
 
 ctypedef cppvector[_DataSet*] DataListType
 ctypedef cppvector[_DataSet*].const_iterator const_iterator

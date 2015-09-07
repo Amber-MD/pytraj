@@ -1,17 +1,15 @@
 # distutils: language = c++
 
-from __future__ import absolute_import
-from pytraj.cpp_vector cimport vector as cppvector
-
-from pytraj.core.Atom cimport _Atom, Atom
-from pytraj.core.Residue cimport _Residue, Residue
-from pytraj.core.Molecule cimport _Molecule, Molecule
-from pytraj.core.Box cimport _Box, Box, BoxType
-from pytraj.core.ParameterTypes cimport *
-from pytraj.core.cpptraj_core cimport (_CoordinateInfo, CoordinateInfo,
-                                       _FileName, FileName, _NameType, NameType)
-from pytraj.core.cpptraj_core cimport _AtomMask, AtomMask
-from pytraj.Frame cimport _Frame, Frame
+from .cpp_vector cimport vector as cppvector
+from .core.Atom cimport _Atom, Atom
+from .core.Residue cimport _Residue, Residue
+from .core.Molecule cimport _Molecule, Molecule
+from .core.Box cimport _Box, Box, BoxType
+from .core.ParameterTypes cimport *
+from .core.cpptraj_core cimport (_CoordinateInfo, CoordinateInfo,
+                                 _FileName, FileName, _NameType, NameType)
+from .core.cpptraj_core cimport _AtomMask, AtomMask
+from .Frame cimport _Frame, Frame
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator

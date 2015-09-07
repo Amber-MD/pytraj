@@ -1,10 +1,9 @@
 # distutil: language = c++
+from __future__ import absolute_import
+
 from libcpp.string cimport string
 from posix.unistd cimport off_t
-from libcpp.vector cimport vector
-from ..cpp_vector cimport vector as cppvector
-from libcpp.vector cimport vector
-from libcpp.string cimport string
+from .cpp_vector cimport vector
 
 from .Box cimport _Box, Box
 from .TopologyList cimport _TopologyList, TopologyList
@@ -48,8 +47,8 @@ cdef extern from "AtomMask.h":
         _AtomMask(const _AtomMask &)
         #_AtomMask & operator =(const _AtomMask &)
         const vector [int]& Selected()const 
-        cppvector[int].const_iterator begin()const 
-        cppvector[int].const_iterator end()const 
+        vector[int].const_iterator begin()const 
+        vector[int].const_iterator end()const 
         int back()const 
         int Nselected()const 
         const int & index_opr "operator[]"(int idx)const 
@@ -236,10 +235,6 @@ cdef class CpptrajState:
     cdef public TopologyList toplist
     cdef public DataFileList datafilelist
     cdef public DataSetList datasetlist
-# distutils: language = c++
-from libcpp.string cimport string
-from libcpp.vector cimport vector
-from pytraj.cpp_vector cimport vector as cppvector
 
 cdef extern from "ArgList.h": 
     cdef cppclass _ArgList "ArgList":
@@ -251,8 +246,8 @@ cdef extern from "ArgList.h":
         #_ArgList& operator =(const _ArgList&)
         const string& operator[](int) const 
         const vector[string]& List() const 
-        cppvector[string].const_iterator begin() const 
-        cppvector[string].const_iterator end() const 
+        vector[string].const_iterator begin() const 
+        vector[string].const_iterator end() const 
         int Nargs() const 
         bint empty() const 
         const char * ArgLine() const 

@@ -1,5 +1,5 @@
 # distutils: language = c++
-from libcpp.vector cimport vector
+import numpy as np
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarray
@@ -7,9 +7,12 @@ from cpython cimport array
 
 from ..utils import is_array, is_int
 from .._cyutils import _int_array1d_like_to_memview
-
 from ..externals.six import string_types
 from ..externals.six.moves import range
+from pytraj.externals.six import string_types
+from pytraj.cpptraj_dict import AccessDict
+from pytraj import cpptraj_dict
+
 
 
 cdef class AtomMask(object):
@@ -60,7 +63,6 @@ cdef class AtomMask(object):
 
     @property
     def indices(self):
-        import numpy as np
         return np.asarray(self.thisptr.Selected())
 
     @property
@@ -78,7 +80,7 @@ cdef class AtomMask(object):
         return myview
 
     def __iter__(self):
-        cdef cppvector[int].const_iterator it
+        cdef vector[int].const_iterator it
         it = self.thisptr.begin()
 
         while it != self.thisptr.end():
@@ -221,9 +223,6 @@ cdef class CoordinateInfo:
     def has_replica_dims(self):
         return self.thisptr.HasReplicaDims()
 
-from pytraj.cpptraj_dict import AccessDict
-from pytraj import cpptraj_dict
-
 cdef class CpptrajFile:
     """
     Original cpptraj doc:
@@ -356,8 +355,6 @@ cdef class CpptrajFile:
 
     def file_size(self):
         return self.thisptr.FileSize()
-
-from pytraj.externals.six import string_types
 
 
 cdef class NameType:
@@ -623,11 +620,6 @@ cdef class CpptrajState:
     def write_all_datafiles(self):
         self.thisptr.MasterDataFileWrite()
 # distutils: language = c++
-
-from cpp_vector cimport vector as cppvector
-from cython.operator cimport dereference as deref
-from cython.operator cimport preincrement as incr
-from pytraj.externals.six import string_types
 
 cdef class ArgList:
     """
