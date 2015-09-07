@@ -1,12 +1,10 @@
 # distutils: language = c++
-from cpython.array cimport array as pyarray
+import numpy as np
 from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 
-from ..utils.check_and_assert import _import_numpy
 
-# should we use numpy rather reinvent the wheel?
 cdef class Vec3:
     def __cinit__(self, *args):
         cdef Vec3 vec
@@ -169,13 +167,10 @@ cdef class Vec3:
         return vec
 
     def __getitem__(self, idx):
-        # either return ndarray or memovryview
-        return self.buffer1d[idx]
+        return self.values[idx]
 
     def __setitem__(self, idx, value):
-        if isinstance(value, (list, tuple)):
-            value = pyarray('d', value)
-        self.buffer1d[idx] = value
+        self.values[idx] = value
 
     def is_zeros(self):
         return self.thisptr.IsZero()
@@ -191,11 +186,7 @@ cdef class Vec3:
 
     def to_ndarray(self):
         """return a ndarray view of Vec3"""
-        has_np, np = _import_numpy()
-        if has_np:
-            return np.asarray(self.buffer1d[:])
-        else:
-            raise ImportError("need numpy")
+        return np.asarray(self.buffer1d[:])
 
     @property
     def values(self):
