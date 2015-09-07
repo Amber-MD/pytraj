@@ -17,7 +17,7 @@ from ..utils.check_and_assert import is_word_in_class_name
 from ..utils.check_and_assert import is_array, is_range
 from .._get_common_objects import _get_top
 from .Trajout import Trajout
-from ..compat import zip, range
+from ..externals.six.moves import zip, range
 
 def _split_range(int chunksize, int start, int stop):
     '''split a given range to n_chunks
