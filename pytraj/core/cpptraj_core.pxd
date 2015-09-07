@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 from libcpp.string cimport string
 from posix.unistd cimport off_t
-from .cpp_vector cimport vector
+from ..cpp_vector cimport vector
 
 from .Box cimport _Box, Box
 from .TopologyList cimport _TopologyList, TopologyList
