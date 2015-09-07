@@ -3,7 +3,7 @@
 from libcpp.string cimport string
 from .cpptraj_core cimport _DispatchObject, DispatchObject, DispatchAllocatorType, FunctPtr
 from .TopologyList cimport _TopologyList, TopologyList
-from .DataFileList cimport _DataFileList, DataFileList
+from ..datafiles.datafiles cimport _DataFileList, DataFileList
 from ..Topology cimport _Topology, Topology
 from ..Frame cimport _Frame, Frame
 from .cpptraj_core cimport _ArgList, ArgList, _AtomMask, AtomMask

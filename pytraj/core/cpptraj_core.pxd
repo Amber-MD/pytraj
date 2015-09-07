@@ -8,8 +8,7 @@ from libcpp.string cimport string
 
 from .Box cimport _Box, Box
 from .TopologyList cimport _TopologyList, TopologyList
-from .datafiles cimport _DataFileList, DataFileList, _DataFile, DataFile
-from .DataFile cimport _DataFile, DataFile
+from ..datafiles.datafiles cimport _DataFileList, DataFileList, _DataFile, DataFile
 from ..datasets.DataSetList cimport _DataSetList, DataSetList
 
 ctypedef _BaseIOtype* (*AllocatorType)()
