@@ -13,7 +13,7 @@ cdef extern from "DataSet_Coords_TRJ.h" nogil:
         int AddSingleTrajin(const string&, _ArgList&, _Topology *)
         size_t Size() const 
         void GetFrame(int idx, _Frame& fIn)
-        void GetFrame(int idx, _Frame& fIn, const _AtomMask& mIn)
+        void GetFrame(int idx, _Frame& fIn, _AtomMask& mIn)
         void SetTopology(const _Topology&)
         inline const _Topology& Top() const 
 
