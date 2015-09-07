@@ -2,6 +2,7 @@ from __future__ import absolute_import
 import os
 from ..TrajectoryIterator import TrajectoryIterator
 from ..utils.context import goto_temp_folder
+from .datafiles import DataFile, DataFileList
 
 __all__ = ['Ala3_crd', 'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7']
 
