@@ -64,7 +64,7 @@ from .core.CpptrajState import CpptrajState
 from . import array
 from .Topology import Topology
 from .ArgList import ArgList
-from .AtomMask import AtomMask
+from .core.cpptraj_core import AtomMask
 from .math import Vec3
 from .Frame import Frame
 from .api import Trajectory

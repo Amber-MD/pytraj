@@ -12,7 +12,7 @@ from .core.ActionList import ActionList
 from .core.CpptrajState import CpptrajState
 from .datasets.DataSetList import DataSetList
 
-from .AtomMask import AtomMask
+from .core.cpptraj_core import AtomMask
 from .api import Trajectory
 from .Topology import Topology
 from .ArgList import ArgList

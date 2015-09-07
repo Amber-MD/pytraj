@@ -4,7 +4,7 @@ from libcpp.string cimport string
 from ..Frame cimport _Frame, Frame
 from ..Topology cimport _Topology, Topology
 from ..ArgList cimport _ArgList, ArgList
-from ..AtomMask cimport _AtomMask, AtomMask
+from ..core.cpptraj_core cimport _AtomMask, AtomMask
 
 
 cdef extern from "DataSet_Coords_TRJ.h" nogil: 
