@@ -3,8 +3,7 @@ from __future__ import division
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
 from ..decorators import makesureABC, require_having
-from ..core.DataFileList import DataFileList
-from ..core.DataFile import DataFile
+from ..datafiles.datafiles import DataFileList, DataFile
 from ..utils import _import_numpy
 
 _, np = _import_numpy()

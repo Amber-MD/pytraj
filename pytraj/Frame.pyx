@@ -15,7 +15,7 @@ from libcpp.vector cimport vector
 from libc.string cimport memcpy
 from pytraj.utils.check_and_assert import _import_numpy
 from pytraj.utils.check_and_assert import is_int
-from pytraj.ArgList import ArgList
+from pytraj.core.cpptraj_core import ArgList
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
 

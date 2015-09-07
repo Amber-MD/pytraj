@@ -16,8 +16,8 @@ from ..utils.check_and_assert import is_word_in_class_name
 from ..externals.six import string_types
 from ..compat import set
 from ..utils import is_int
-from ..core.DataFile import DataFile
-from ..ArgList import ArgList
+from ..datafiles.datafiles import DataFile
+from ..core.cpptraj_core import ArgList
 
 from pytraj.cpptraj_dict import DataTypeDict
 

@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from pytraj.AtomMask import AtomMask
+from pytraj.core.cpptraj_core import AtomMask
 from pytraj.externals.six import string_types
 from pytraj.Frame import Frame
 
