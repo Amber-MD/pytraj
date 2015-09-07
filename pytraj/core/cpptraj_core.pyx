@@ -13,7 +13,10 @@ from pytraj.externals.six import string_types
 from pytraj.cpptraj_dict import AccessDict
 from pytraj import cpptraj_dict
 
-
+__all__ = ['AtomMask', 'BaseIOtype', 'DispatchObject',
+           'FunctPtr', 'FileName', 'CoordinateInfo',
+           'CpptrajFile', 'NameType', 'Command',
+           'CpptrajState', 'ArgList',]
 
 cdef class AtomMask(object):
     def __cinit__(self, *args):
