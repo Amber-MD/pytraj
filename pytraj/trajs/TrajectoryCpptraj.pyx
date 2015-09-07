@@ -1,7 +1,7 @@
 # distutils: language = c++
 import numpy as np
 from ..api import Trajectory
-from ..AtomMask cimport AtomMask
+from ..core.cpptraj_core cimport AtomMask
 from ..Topology cimport Topology
 
 import os

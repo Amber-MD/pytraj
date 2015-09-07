@@ -1,9 +1,9 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from pytraj.Frame cimport _Frame, Frame
-from pytraj.ArgList cimport _ArgList, ArgList
-from pytraj.Topology cimport _Topology, Topology
-from pytraj.cpptraj_dict cimport TrajFormatType
+from ..Frame cimport _Frame, Frame
+from ..core.cpptraj_core cimport _ArgList, ArgList
+from ..Topology cimport _Topology, Topology
+from ..cpptraj_dict cimport TrajFormatType
 
 
 cdef extern from "TrajoutList.h": 
