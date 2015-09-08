@@ -28,7 +28,6 @@ from .Frame import Frame
 from .Topology import Topology
 from .datasets.DataSetList import DataSetList as CpptrajDatasetList
 from .datafiles import DataFileList
-from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
@@ -44,7 +43,6 @@ list_of_cal = ['calc_distance',
                'calc_molsurf',
                'calc_distrmsd',
                'calc_volume',
-               'calc_protein_score',
                'calc_dssp',
                'calc_matrix',
                'calc_jcoupling',
@@ -78,7 +76,6 @@ list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds',
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
-calc_protein_score = calc_score
 calc_energies = get_pysander_energies
 energy_decomposition = get_pysander_energies
 

@@ -6,9 +6,9 @@ from sys import platform as _platform
 import os
 
 # checking cpptraj version first
-from .__cpptraj_version__ import info as compiled_info
-from .__cpptraj_version__ import __cpptraj_version__
-from .__cpptraj_version__ import __cpptraj_internal_version__
+from .cpp_options import info as compiled_info
+from .cpp_options import __cpptraj_version__
+from .cpp_options import __cpptraj_internal_version__
 
 _v = __cpptraj_internal_version__
 # TODO: follow python's rule
@@ -160,7 +160,7 @@ from ._shared_methods import iterframe_master
 
 # turn off verbose in cpptraj
 # TODO: need to move set_world_silent and set_error_silent to the same file
-from ._set_silent import set_error_silent, set_world_silent
+from .cpp_options import set_error_silent, set_world_silent
 
 
 def to_numpy_Trajectory(traj, top, unitcells=None):
