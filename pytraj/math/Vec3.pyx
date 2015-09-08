@@ -193,7 +193,7 @@ cdef class Vec3:
         """return numpy array as memoryview of Vec3"""
         return self.to_ndarray()
 
-    @property
-    def buffer1d(self):
-        cdef double[:] arr = <double[:3]> self.thisptr.Dptr()
-        return  arr
+    property buffer1d:
+        def __get__(self):
+            cdef double[:] arr = <double[:3]> self.thisptr.Dptr()
+            return  arr

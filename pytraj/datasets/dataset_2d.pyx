@@ -153,10 +153,6 @@ cdef class DatasetMatrixFloat (DataSet_2D):
         dset.baseptr0 = _DatasetMatrixFloat.Alloc()
         return dset
 
-    #@property
-    #def mass(self):
-    #    return self.thisptr.Mass()
-
     def get_full_matrix(self):
         """return python array with length = n_rows*n_cols"""
         cdef int nr = self.n_rows
