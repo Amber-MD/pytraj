@@ -33,6 +33,8 @@ from ._nastruct import nastruct
 from ._shared_methods import iterframe_master
 from .externals.get_pysander_energies import get_pysander_energies
 from .decorators import noparallel
+from .actions import CpptrajActions
+from .analyses import CpptrajAnalyses
 #from .TrajectoryIterator import  TrajectoryIterator
 
 list_of_cal = ['calc_distance',
@@ -213,6 +215,9 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
     """
     from pytraj.datasetlist import from_dict
+    dslist = CpptrajDatasetList()
+    act = CpptrajActions.Action_Angle()
+
     command = mask
 
     ensure_not_none_or_string(traj)
@@ -230,11 +235,8 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
             except:
                 pass
             # cpptraj mask for action
-            dset = calculate(
-                "angle", traj, command,
-                top=_top,
-                quick_get=True, *args, **kwd)
-            return _get_data_from_dtype(dset, dtype)
+            act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+            return _get_data_from_dtype(dslist, dtype)
 
         elif isinstance(command, (list, tuple)):
             list_of_commands = command
@@ -330,6 +332,9 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> # dihedral angle for atom 1, 5, 8, 10, dihedral for atom 4, 10, 20, 30 (index starts from 0)
     >>> pt.dihedral(traj, [[1, 5, 8, 10], [4, 10, 20, 30]])
     """
+    act = CpptrajActions.Action_Dihedral()
+    dslist = CpptrajDatasetList()
+
     ensure_not_none_or_string(traj)
     command = mask
 
@@ -346,11 +351,8 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
             except:
                 pass
             # cpptraj mask for action
-            dset = calculate(
-                "dihedral", traj, command,
-                top=_top,
-                quick_get=True, *args, **kwd)
-            return _get_data_from_dtype(dset, dtype)
+            act(command, traj, top=_top, dslist=dslist)
+            return _get_data_from_dtype(dslist, dtype)
 
         elif isinstance(command, (list, tuple)):
             list_of_commands = command
