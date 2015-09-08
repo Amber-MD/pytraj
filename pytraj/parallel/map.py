@@ -1,7 +1,4 @@
-from pytraj.utils import _import_numpy
-
-has_np, np = _import_numpy()
-
+import numpy as np
 
 def map(comm, calc_method, traj_or_list, command,
         root=0,

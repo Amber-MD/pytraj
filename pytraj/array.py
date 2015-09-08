@@ -1,9 +1,7 @@
 from __future__ import absolute_import
 import operator
-from pytraj.utils import _import_numpy
+import numpy as np
 from pytraj._cyutils import _fast_count
-
-np = _import_numpy()[-1]
 
 
 def elemwise(op, self, other=None):
@@ -97,7 +95,6 @@ class DataArray(object):
 
     @values.setter
     def values(self, new_values):
-        import numpy as np
         self._values = np.asarray(new_values)
 
     def __iter__(self):
@@ -227,7 +224,6 @@ class DataArray(object):
             if False, return `2D numpy array`
         """
         if not plot:
-            import numpy as np
             return np.histogram(self.values)
         else:
             try:
@@ -252,7 +248,6 @@ class DataArray(object):
         ----
         Need to over-write this method for subclass if needed.
         """
-        from pytraj.utils import _import
         try:
             from matplotlib import pyplot as plt
             ax = plt.subplot(111)
@@ -273,7 +268,6 @@ class DataArray(object):
         return chunk_average(self, n_chunk)
 
     def std(self, *args, **kwd):
-        import numpy as np
         return np.std(self.values, *args, **kwd)
 
     def topk(self, k):
@@ -303,7 +297,6 @@ class DataArray(object):
         >>> d0 = traj.calc_radgyr(dtype='dataset')[0]
         >>> d0.filter(lambda x : 105. < x < 200.)
         """
-        import numpy as np
         return np.array(list(filter(func, self.values)))
 
     def _normalize(self):

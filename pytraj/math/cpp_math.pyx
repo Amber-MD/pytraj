@@ -13,9 +13,8 @@ from ..Frame cimport Frame, _Frame
 from ..core.Box cimport _Box, Box
 
 import numpy as np
-from ..utils import _import_numpy 
-from ..utils.check_and_assert import _import_numpy, is_int, is_range
 
+__all__ = ['Grid', 'Matrix_3x3', 'distance_', 'torsion',]
 
 cdef class Grid:
     def __cinit__(self, *args):
@@ -79,34 +78,11 @@ cdef class Grid:
             return myview
 
     def to_ndarray(self):
-        has_np, np = _import_numpy()
-        if not has_np:
-            raise ImportError("need numpy")
-        else:
-            return np.asarray(self.data[:], dtype=np.float32)
+        return np.asarray(self.data[:], dtype=np.float32)
 
     def tolist(self):
         return [[list(x) for x in y] for y in self.data]
-# distutils: language = c++
 
-"""
-In [1]: from Matrix_3x3 import Matrix_3x3 as M3x3
-In [2]: import numpy as np
-In [3]: x = np.arange(9).astype(float)
-In [4]: m = M3x3(x)
-In [5]: m.Print("3x3 matrix m: ")
-    3x3 matrix m: 
-       0.0000   1.0000   2.0000
-       3.0000   4.0000   5.0000
-       6.0000   7.0000   8.0000
-In [6]: y = np.array([100.,]).astype(float)
-In [7]: n = M3x3(y)
-In [8]: n.Print("3x3 matrix n: ")
-    3x3 matrix n: 
-     100.0000 100.0000 100.0000
-     100.0000 100.0000 100.0000
-     100.0000 100.0000 100.0000
-"""
 
 cdef class Matrix_3x3:
     def __cinit__(self, Xin=None):
@@ -307,7 +283,6 @@ cdef class Matrix_3x3:
         return [list(x) for x in self.buffer2d[:]]
 
     def to_ndarray(self, copy=True):
-        import numpy as np
         if copy:
             return np.array(self.buffer2d)
         else:
@@ -318,12 +293,8 @@ cdef class Matrix_3x3:
 
     def to_ndmatrix(self):
         """convert to numpy matrix as a memory view. No data copy is made"""
-        try:
-            _, np = _import_numpy()
-            mat = np.asmatrix(self.buffer2d[:])
-            return mat
-        except:
-            raise ImportError("Must have numpy installed")
+        mat = np.asmatrix(self.buffer2d[:])
+        return mat
 
     property buffer2d:
         def __get__(self):
@@ -527,7 +498,6 @@ cdef class Vec3:
         def __get__(self):
             cdef double[:] arr = <double[:3]> self.thisptr.Dptr()
             return  arr
-# distutil: language = c++
 
 cdef extern from "DistRoutines.h" nogil:
     ctypedef enum ImagingType:
@@ -546,7 +516,6 @@ cdef extern from "DistRoutines.h" nogil:
 
 
 def distance_(double[:, :, :] p):
-   import numpy as np
    cdef double[:] out = np.empty(p.shape[0])
    cdef int i
 
@@ -615,7 +584,6 @@ cdef extern from "TorsionRoutines.h" nogil:
     double C_CalcAngle "CalcAngle" (const double*, const double*, const double*)
 
 def torsion(double[:, :, :] p):
-   import numpy as np
    cdef double[:] out = np.empty(p.shape[0])
    cdef int i
 
@@ -628,7 +596,6 @@ def torsion(double[:, :, :] p):
    return np.asarray(out)
 
 def angle(double[:, :, :] p):
-   import numpy as np
    cdef double[:] out = np.empty(p.shape[0])
    cdef int i
 

@@ -1,7 +1,5 @@
 from __future__ import absolute_import
-from pytraj.datasets.DatasetMatrixDouble import DatasetMatrixDouble
-from ..utils import _import_numpy
-from .base import plt, np
+from .base import plt
 
 
 def plot_matrix(dset, show=False, *args, **kwd):

@@ -18,7 +18,7 @@ from pytraj.api import Trajectory
 from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj, _get_iter_indices_with_traj
-from .utils import _import_numpy, is_array, ensure_not_none_or_string
+from .utils import is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_atommask
@@ -222,7 +222,6 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
     ensure_not_none_or_string(traj)
 
-    _, np = _import_numpy()
     _top = _get_top(traj, top)
     cm_arr = np.asarray(command)
 
@@ -338,7 +337,6 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     ensure_not_none_or_string(traj)
     command = mask
 
-    _, np = _import_numpy()
     _top = _get_top(traj, top)
     cm_arr = np.asarray(command)
 

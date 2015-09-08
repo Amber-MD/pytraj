@@ -1,22 +1,18 @@
 # distutils: language = c++
+import os
 import numpy as np
 from ..api import Trajectory
 from ..core.cpptraj_core cimport AtomMask
 from ..Topology cimport Topology
 
-import os
 from .._cyutils import get_positive_idx
 from pytraj.externals.six import string_types, PY2
-from ..decorators import memoize # cache
 from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _savetraj, _get_temperature_set
 from .._shared_methods import _box
-from ..utils.check_and_assert import _import_numpy, ensure_exist
-from ..utils.check_and_assert import is_word_in_class_name
+from ..utils.check_and_assert import ensure_exist
 from ..utils.check_and_assert import is_array, is_range
-from .._get_common_objects import _get_top
-from .Trajout import Trajout
 from ..externals.six.moves import zip, range
 
 def _split_range(int chunksize, int start, int stop):
