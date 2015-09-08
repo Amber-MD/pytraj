@@ -280,7 +280,7 @@ cdef class Topology:
             return list(self.atoms)
 
     property residuelist:
-        def residuelist(self):
+        def __get__(self):
             return list(self.residues)
 
     property moleculelist:
