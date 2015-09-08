@@ -135,7 +135,7 @@ For some unknow reasons, I (Hai) got segmentation fault if import numpy in the t
 
 Read Also
 ---------
-`cpptraj-dev guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.pdf>`_
+`cpptraj developer guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.pdf>`_
 
 `test cpptraj api change with pytraj on travis <test_cpptraj_api>`_
 
