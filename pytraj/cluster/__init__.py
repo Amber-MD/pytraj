@@ -3,20 +3,33 @@ from pytraj._get_common_objects import _get_top, _get_data_from_dtype
 
 
 def kmeans(traj=None,
+           mask='*',
            n_clusters=10,
            random_point=True,
            kseed=1,
            maxit=100,
-           distance_metric='rms',
-           mask='*',
+           metric='rms',
            top=None,
-           output_op='',
-           dtype='ndarray', *args, **kwd):
+           output_op=''):
     '''perform clustering and return cluster index for each frame
+
+    Parameters
+    ----------
+    traj : Trajectory-like or iterable that produces Frame
+    mask : str, default: * (all atoms)
+    n_clusters: int, default: 10
+    random_point : bool, default: True
+    maxit : int, default: 100
+        max iterations
+    metric : str, {'rms', 'dme'}
+        distance metric
+    top : Topology, optional, default: None
+        only need to provide this Topology if ``traj`` does not have one
+    output_op : option to save data to files. Not working yet.
 
     Returns
     -------
-    1D numpy array
+    1D numpy array of frame indices
 
     Examples
     --------
@@ -24,6 +37,8 @@ def kmeans(traj=None,
     >>> kmeans(traj)
     >>> kmeans(traj, n_clusters=5)
     >>> kmeans(traj, n_clusters=5, mask='@CA')
+    >>> kmeans(traj, n_clusters=5, mask='@CA')
+    >>> kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='dme')
     '''
 
     # don't need to _get_top
@@ -31,12 +46,12 @@ def kmeans(traj=None,
     _random_point = 'randompoint' if random_point else ''
     _kseed = 'kseed ' + str(kseed)
     _maxit = str(maxit)
-    _distance_metric = distance_metric
+    _metric = metric
     _mask = mask
     _output = output_op
     command = ' '.join((_clusters, _random_point, _kseed, _maxit,
-                        _distance_metric, _mask, _output))
-    return _cluster(traj, command, top=top, dtype=dtype, *args, **kwd)
+                        _metric, _mask, _output))
+    return _cluster(traj, command, top=top, dtype='ndarray')
 
 
 def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):

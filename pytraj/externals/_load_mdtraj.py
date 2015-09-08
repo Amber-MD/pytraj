@@ -1,6 +1,7 @@
 """Load mdtraj traj object
 """
 from __future__ import absolute_import
+from .._get_common_objects import _load_Topology
 
 
 def load_mdtraj(m_traj, autoconvert=False, top=None):
@@ -29,7 +30,7 @@ def load_mdtraj(m_traj, autoconvert=False, top=None):
         raise ValueError("must be mdtraj's Trajectory object")
     else:
         if isinstance(top, string_types):
-            pseudotop = Topology(top)
+            pseudotop = _load_Topology(top)
         else:
             pseudotop = top
         if pseudotop is None:

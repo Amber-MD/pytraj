@@ -1,4 +1,5 @@
 import unittest
+import pytraj as pt
 from array import array
 from pytraj.base import *
 from pytraj import io as mdio
@@ -8,7 +9,7 @@ from pytraj.utils import assert_almost_equal
 
 class TestCHARMM(unittest.TestCase):
     def test_0(self):
-        top = Topology("./data/ala3.psf")
+        top = pt.load_topology("./data/ala3.psf")
         top.summary()
         reslit = top.residuelist
         atm = AtomMask("@CA")

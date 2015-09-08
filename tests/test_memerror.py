@@ -1,4 +1,5 @@
 from __future__ import print_function
+import pytraj as pt
 import unittest
 from pytraj.decorators import no_test
 from pytraj.base import *
@@ -8,14 +9,11 @@ from pytraj import adict, analdict
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.decorators import no_test
 
-farray = TrajectoryIterator(top=Topology("./data/Tc5b.top"),
+farray = TrajectoryIterator(top=pt.load_topology("./data/Tc5b.top"),
                             filename='data/md1_prod.Tc5b.x', )
 
 
 class TestRadgyr(unittest.TestCase):
-    # uncomment #@no_test for turning-on testing
-    #@no_test
-
     def test_0(self):
         # just want to go over the list of cpptraj Action
         # and try to create Action object.

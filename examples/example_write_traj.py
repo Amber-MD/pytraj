@@ -9,7 +9,6 @@ subtraj = traj[:10]
 mdio.write_traj(filename="./output/subtraj_0_CHARMM.dcd",
                 traj=subtraj,
                 top=traj.top,
-                format="CHARMMDCD",
                 overwrite=True)
 
 # make sure we can load the traj,

@@ -12,7 +12,7 @@ from pytraj.datasets.DataSetList import DataSetList
 #print(dir(Action_Surf()))
 
 farray = Trajectory(
-    top=Topology("./data/Tc5b.top"),
+    top=pt.load_topology("./data/Tc5b.top"),
     filename='data/md1_prod.Tc5b.x')
 
 

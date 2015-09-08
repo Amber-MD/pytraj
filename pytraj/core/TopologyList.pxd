@@ -1,7 +1,7 @@
 # distutil: language = c++
 from libcpp.string cimport string
-from pytraj.Topology cimport _Topology, Topology
-from pytraj.ArgList cimport _ArgList, ArgList
+from ..Topology cimport _Topology, Topology
+from ..core.cpptraj_core cimport _ArgList, ArgList
 
 cdef extern from "TopologyList.h":
     cdef cppclass _TopologyList "TopologyList":

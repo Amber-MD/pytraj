@@ -3,8 +3,13 @@ from cython.operator cimport dereference as deref
 
 from ..externals.six import string_types
 from ..action_dict import ActionDict
-from .._get_common_objects import _get_arglist
 from .._shared_methods import iterframe_master
+
+def _get_arglist(arg):
+    if isinstance(arg, ArgList):
+        return arg
+    else:
+        return ArgList(arg)
 
 cdef class ActionList:
     def __cinit__(self):

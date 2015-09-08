@@ -11,7 +11,6 @@ class TestPyCpptrajIO(unittest.TestCase):
         mdio.write_traj(filename="./output/test_0.binpos",
                         traj=traj,
                         top="./data/Tc5b.top",
-                        format="BINPOS",
                         overwrite=True)
 
         savedtraj = mdio.iterload("./output/test_0.binpos", traj.top)
@@ -66,7 +65,6 @@ class TestPyCpptrajIO(unittest.TestCase):
         mdio.write_traj(filename="./output/test_io_saved.pdb",
                         traj=traj,
                         top="./data/Tc5b.top",
-                        format='pdbfile',
                         indices=indices,
                         overwrite=True)
 

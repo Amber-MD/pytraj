@@ -11,9 +11,9 @@ from .datasets.utils import load_datafile
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
 from ._set_silent import set_error_silent
-from ._guess_filetype import _guess_filetype
 from ._get_common_objects import _get_top
 from .compat import zip
+from .Topology import Topology
 
 load_cpptraj_datafile = load_datafile
 
@@ -235,10 +235,10 @@ def load_traj(filename=None,
         from .TrajectoryIterator import TrajectoryIterator
         from .api import Trajectory
 
-        if not isinstance(top, Topology):
-            top = Topology(top)
-        if top.is_empty():
-            top = Topology(filename)
+        if isinstance(top, string_types):
+            top = load_topology(top)
+        if top is None or top.is_empty():
+            top = load_topology(filename)
         ts = TrajectoryIterator(top=top)
 
         if 'frame_slice' in kwd.keys():
@@ -320,31 +320,37 @@ def load_remd(filename, top=None, T="300.0"):
 def write_traj(filename="",
                traj=None,
                top=None,
-               format=None,
                indices=None,
                overwrite=False,
-               mode="", *args, **kwd):
-    """write Trajectory-like, list of trajs, frames, ... to file/files
+               mode=""):
+    """write Trajectory-like or iterable object to trajectory file
 
     Parameters
     ----------
     filename : str
     traj : Trajectory-like or iterator that produces Frame
     top : Topology, optional, default: None
-    format : str, values: None, ambernetcdf, amberrestartnc, pdb, mol2, cif, dcd, trx,
-             binpos, amberrestart, ambertraj, sqm, sdf, conflib, default
-        Trajectory format. If None, detect format based on extension
     indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
     overwrite: bool, default: False
-    mode : str, additional keywords for format='pdb' or extention='.pdb'. See examples.
+    mode : str, additional keywords for extention='.pdb'. See examples.
         
-
-    Suppot file extensions
-    ----------------------
-    .crd, .nc, .rst7, .ncrst, .dcd, .pdb, .mol2, .binpos, .trr, .sqm
-    if extension or format is not specify correctly, 
-    cpptraj will use Amber Trajectory format (.crd)
+    Notes
+    -----
+    ===================  =========
+    Format               Extension
+    ===================  =========
+    Amber Trajectory     .crd
+    Amber NetCDF         .nc
+    Amber Restart        .rst7
+    Amber NetCDF         .ncrst
+    Charmm DCD           .dcd
+    PDB                  .pdb
+    Mol2                 .mol2
+    Scripps              .binpos
+    Gromacs              .trr
+    SQM Input            .sqm
+    ===================  =========
 
     Examples
     --------
@@ -364,11 +370,6 @@ def write_traj(filename="",
     from .Frame import Frame
     from .trajs.Trajout import Trajout
 
-    if format in [None, '']:
-        # use cpptraj default format (amber)
-        format = 'default'
-    format = format.upper()
-
     _top = _get_top(traj, top)
     if _top is None:
         raise ValueError("must provide Topology")
@@ -378,9 +379,8 @@ def write_traj(filename="",
 
     with Trajout(filename=filename,
                  top=_top,
-                 format=format,
                  overwrite=overwrite,
-                 mode=mode, *args, **kwd) as trajout:
+                 mode=mode) as trajout:
         if isinstance(traj, Frame):
             if indices is not None:
                 raise ValueError("indices does not work with single Frame")
@@ -395,8 +395,7 @@ def write_traj(filename="",
                 if isinstance(traj2, (list, tuple, Frame)):
                     raise NotImplementedError(
                         "must be Trajectory or TrajectoryIterator instance")
-                for idx, frame in enumerate(traj.iterframe(
-                    frame_indices=indices)):
+                for idx, frame in enumerate(traj.iterframe(frame_indices=indices)):
                     trajout.write(idx, frame)
 
             else:
@@ -429,15 +428,16 @@ def load_topology(filename):
     >>> parm = pmd.load_file('data/m2-c1_f3.mol2')
     >>> top = pt.load_topology(parm)
     """
+    from pytraj.parms.ParmFile import ParmFile
+    top = Topology()
+
     if isinstance(filename, string_types):
         if filename.startswith('http://') or filename.startswith('https://'):
             return _load_url(filename)
         else:
-            from .Topology import Topology
-            """return topology instance from reading filename"""
-            #filename = filename.encode("UTF-8")
+            parm = ParmFile()
             set_error_silent(True)
-            top = Topology(filename)
+            parm.readparm(filename=filename, top=top)
             set_error_silent(False)
             return top
     else:
@@ -459,7 +459,7 @@ def _load_url(url):
         if PY3:
             txt = txt.decode()
         fh.write(txt)
-    return Topology(fname)
+    return load_topology(fname)
 
 
 def loadpdb_rcsb(pdbid):
@@ -521,9 +521,7 @@ def load_single_frame(frame=None, top=None, index=0):
     """load a single Frame"""
     return iterload(frame, top)[index]
 
-
 load_frame = load_single_frame
-
 
 def load_MDAnalysisIterator(u):
     from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator

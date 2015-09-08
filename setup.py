@@ -212,11 +212,12 @@ packages = [
         'pytraj.datafiles',
         'pytraj.datafiles.Ala3',
         'pytraj.datafiles.tz2',
-        'pytraj.plotting',
+        'pytraj.plot',
         'pytraj.math',
         'pytraj.core',
         'pytraj.parallel',
         'pytraj.cluster',
+        'pytraj.sandbox',
         ]
 
 pylen = len('pytraj') + 1

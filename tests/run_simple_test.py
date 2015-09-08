@@ -10,6 +10,10 @@ from pytraj.common_actions import *
 
 
 class Test(unittest.TestCase):
+    def test_loading(self):
+        traj = pt.load_sample_data()
+        traj[:]
+
     def test_0(self):
         from pytraj import run_tests
         run_tests()

@@ -27,7 +27,7 @@ from .externals.six import string_types
 from .Frame import Frame
 from .Topology import Topology
 from .datasets.DataSetList import DataSetList as CpptrajDatasetList
-from .core.DataFileList import DataFileList
+from .datafiles import DataFileList
 from .externals.gdt.calc_score import calc_score
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp

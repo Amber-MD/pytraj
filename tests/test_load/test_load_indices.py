@@ -18,7 +18,7 @@ class TestIndices(unittest.TestCase):
         indices = slice(9, 6, -1)
 
         traj0 = pt.load(filename="./data/md1_prod.Tc5b.x",
-                        top=Topology("./data/Tc5b.top"),
+                        top=pt.load_topology("./data/Tc5b.top"),
                         indices=indices)
 
         assert traj0[0].same_coords_as(traj1[9]) == True
@@ -37,7 +37,7 @@ class TestIndices(unittest.TestCase):
         # make sure we don't suport other indices
         traj2 = Trajectory()
         traj2 = pt.load(filename="./data/md1_prod.Tc5b.x",
-                        top=Topology("./data/Tc5b.top"),
+                        top=pt.load_topology("./data/Tc5b.top"),
                         indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
         assert traj2[-1].coords == traj1[4].coords
 
@@ -84,7 +84,7 @@ class TestIndices(unittest.TestCase):
 
     def test_del_top(self):
         # why here? lazy to make another file
-        top = Topology("./data/Tc5b.top")
+        top = pt.load_topology("./data/Tc5b.top")
         top2 = top
         del top
 
