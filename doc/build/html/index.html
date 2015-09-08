@@ -37,7 +37,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -144,8 +144,8 @@
   <div class="section" id="welcome-to-pytraj-s-documentation-not-completed-yet">
 <h1>Welcome to pytraj&#8217;s documentation - not completed yet<a class="headerlink" href="#welcome-to-pytraj-s-documentation-not-completed-yet" title="Permalink to this headline">¶</a></h1>
 <p><strong>Overview</strong></p>
-<p><tt class="docutils literal"><span class="pre">pytraj</span></tt> is a Python front-end of the popular <tt class="docutils literal"><span class="pre">cpptraj</span></tt> package. Its aim is to expose
-<tt class="docutils literal"><span class="pre">cpptraj</span></tt>&#8216;s funtions to Python&#8217;s ecosystem. Enjoy.</p>
+<p><code class="docutils literal"><span class="pre">pytraj</span></code> is a Python front-end of the popular <code class="docutils literal"><span class="pre">cpptraj</span></code> package. Its aim is to expose
+<code class="docutils literal"><span class="pre">cpptraj</span></code>&#8216;s funtions to Python&#8217;s ecosystem. Enjoy.</p>
 <p><strong>Contents</strong></p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -176,6 +176,9 @@
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
 
 <span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="go">hello from Top</span>
+<span class="go">PBC with box type = ortho</span>
+<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
 <span class="go">&lt;pytraj.TrajectoryIterator, 10 frames, include:</span>
 <span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;&gt;</span>
 <span class="go">           </span>
@@ -191,13 +194,13 @@
 <ul class="simple">
 <li>For bug reports, feature requests, code discussion ... please use the <a class="reference external" href="https://github.com/Amber-MD/pytraj/issues">GitHub issue tracker</a></li>
 <li>For scientific discussion please send email to <a class="reference external" href="http://ambermd.org/#correspondence">amber</a></li>
-<li>For things that directly related to <tt class="docutils literal"><span class="pre">cpptraj</span></tt>, please open <a class="reference external" href="https://github.com/Amber-MD/cpptraj/issues">issue here</a></li>
+<li>For things that directly related to <code class="docutils literal"><span class="pre">cpptraj</span></code>, please open <a class="reference external" href="https://github.com/Amber-MD/cpptraj/issues">issue here</a></li>
 </ul>
 <p><strong>Indices and tables</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
 </ul>
 </div>
 
@@ -214,7 +217,7 @@
     </p>
     <p>
         &copy; Copyright 2015, Hai Nguyen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

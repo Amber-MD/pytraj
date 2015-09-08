@@ -42,6 +42,8 @@ Python 2 and 3 compat
 Use `six <http://pythonhosted.org/six/>`_ to write your compat code. 
 We put all common stuff in `pytraj.compat <https://github.com/Amber-MD/pytraj/blob/master/pytraj/compat.py>`_
 
+.. notes:: currently, I (Hai) are only working on Python3.
+
 Install
 -------
 To speed up installation, please try to build in parallel.
@@ -113,7 +115,7 @@ Licence info
 Build doc
 ---------
 
-.. note:: make sure to install pytraj, cpptraj, numpy, ipython
+.. note:: make sure to install pytraj, cpptraj, numpy, ipython, matplotlib. Install `sphinx-bootstrap-theme too <https://github.com/ryan-roemer/sphinx-bootstrap-theme>`_
 
 .. code-block:: bash
     

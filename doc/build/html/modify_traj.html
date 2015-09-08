@@ -38,7 +38,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -158,7 +158,7 @@
 </ul>
 <span class="target" id="rmsd"></span><dl class="function">
 <dt id="pytraj.rmsd">
-<tt class="descclassname">pytraj.</tt><tt class="descname">rmsd</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate rmsd</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -176,7 +176,7 @@
 <p><strong>nofit</strong> : bool, default False</p>
 <blockquote>
 <div><p>if False, perform fitting (rotation and translation).
-if <tt class="docutils literal"><span class="pre">traj</span></tt> is mutable, its coordinates will be updated
+if <code class="docutils literal"><span class="pre">traj</span></code> is mutable, its coordinates will be updated
 if True, not fitting.</p>
 </div></blockquote>
 <p><strong>top</strong> : {Topology, str}, default None, optional</p>
@@ -203,7 +203,7 @@ if True, not fitting.</p>
 
 <span class="target" id="translate"></span><dl class="function">
 <dt id="pytraj.translate">
-<tt class="descclassname">pytraj.</tt><tt class="descname">translate</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.translate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">translate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.translate" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># load to mutable trajectory by `load` method</span>
@@ -215,22 +215,22 @@ if True, not fitting.</p>
 
 <span class="target" id="scale"></span><dl class="function">
 <dt id="pytraj.scale">
-<tt class="descclassname">pytraj.</tt><tt class="descname">scale</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.scale" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.scale" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="autoimage"></span><dl class="function">
 <dt id="pytraj.autoimage">
-<tt class="descclassname">pytraj.</tt><tt class="descname">autoimage</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="rotate"></span><dl class="function">
 <dt id="pytraj.rotate">
-<tt class="descclassname">pytraj.</tt><tt class="descname">rotate</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.rotate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rotate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="rotate-dihedral"></span><dl class="function">
 <dt id="pytraj.rotate_dihedral">
-<tt class="descclassname">pytraj.</tt><tt class="descname">rotate_dihedral</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.rotate_dihedral" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rotate_dihedral</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate_dihedral" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Notes</p>
 <p>Syntax and method&#8217;s name might be changed</p>
 <p class="rubric">Examples</p>
@@ -256,7 +256,7 @@ if True, not fitting.</p>
     </p>
     <p>
         &copy; Copyright 2015, Hai Nguyen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>
