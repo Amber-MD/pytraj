@@ -10,7 +10,7 @@ from .externals._json import to_json, read_json
 from .datasets.utils import load_datafile
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
-from ._set_silent import set_error_silent
+from .cpp_options import set_error_silent
 from ._get_common_objects import _get_top
 from .compat import zip
 from .Topology import Topology

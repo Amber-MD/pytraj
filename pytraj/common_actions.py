@@ -18,7 +18,6 @@ from pytraj.api import Trajectory
 from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj, _get_iter_indices_with_traj
-from ._common_actions import calculate
 from .utils import _import_numpy, is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
@@ -78,8 +77,6 @@ __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
 calc_energies = get_pysander_energies
 energy_decomposition = get_pysander_energies
-
-action_type = calculate
 
 
 def _noaction_with_TrajectoryIterator(trajiter):

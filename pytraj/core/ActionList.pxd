@@ -2,9 +2,8 @@
 
 from libcpp.string cimport string
 from .cpptraj_core cimport _DispatchObject, DispatchObject, DispatchAllocatorType, FunctPtr
-from .TopologyList cimport _TopologyList, TopologyList
 from ..datafiles.datafiles cimport _DataFileList, DataFileList
-from ..Topology cimport _Topology, Topology
+from ..Topology cimport _Topology, Topology, _TopologyList, TopologyList
 from ..Frame cimport _Frame, Frame
 from .cpptraj_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 from ..datasets.DataSetList cimport _DataSetList, DataSetList

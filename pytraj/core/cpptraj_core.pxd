@@ -6,7 +6,7 @@ from posix.unistd cimport off_t
 from ..cpp_vector cimport vector
 
 from .Box cimport _Box, Box
-from .TopologyList cimport _TopologyList, TopologyList
+from pytraj.Topology cimport _TopologyList, TopologyList
 from ..datafiles.datafiles cimport _DataFileList, DataFileList, _DataFile, DataFile
 from ..datasets.DataSetList cimport _DataSetList, DataSetList
 
