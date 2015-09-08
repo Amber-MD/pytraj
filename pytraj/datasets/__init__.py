@@ -1,8 +1,7 @@
 from __future__ import absolute_import
 from .DataSetList import DataSetList
 from .cast_dataset import cast_dataset
-from .base import DataSet
-from .cpp_datasets import DataSet_1D
+from .cpp_datasets import DataSet, DataSet_1D
 from .cpp_datasets import DatasetDouble, DatasetFloat, DatasetInteger, DatasetString, DatasetVector
 from .cpp_datasets import DataSet_2D, DatasetMatrixDouble, DatasetMatrixFloat
 from .cpp_datasets import DatasetGridFloat

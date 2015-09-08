@@ -1,13 +1,58 @@
 # distutils: language = c++
 from __future__ import absolute_import
-from libcpp.map cimport map
+from libcpp.map cimport map as cmap
 from libcpp.vector cimport vector
 from libcpp.string cimport string 
 from ..math.cpp_math cimport _Grid, _Vec3, Vec3, _Matrix_3x3, Matrix_3x3, _Matrix
-from .base cimport _DataSet, DataSet, DataType
 from ..Frame cimport _Frame, Frame
 from ..Topology cimport _Topology, Topology
 from ..core.cpptraj_core cimport _ArgList, ArgList, _AtomMask, AtomMask
+
+
+cdef extern from "DataSet.h": 
+    ctypedef enum DataType "DataSet::DataType":
+        pass
+    ctypedef enum scalarMode "DataSet::scalarMode":
+        pass
+    ctypedef enum scalarType "DataSet::scalarType":
+        pass
+    cdef cppclass _DataSet "DataSet":
+        _DataSet() 
+        _DataSet(DataType, int, int, int)
+        _DataSet(const _DataSet&)
+        #_DataSet& operator =(const _DataSet&)
+        void SetWidth(int)
+        void SetPrecision(int, int)
+        int SetupSet(const string&, int, const string&, int)
+        void SetLegend(const string& lIn)
+        void SetScalar(scalarMode mIn)
+        inline void SetScalar(scalarMode, scalarType)
+        int SetDataSetFormat(bint)
+        bint Matches(const string&, int, const string&) const 
+        void ScalarDescription() const 
+        bint Empty() const 
+        const string& Legend() const 
+        const string& Name() const 
+        int Idx() const 
+        const string& Aspect() const 
+        int ColumnWidth() const 
+        DataType Type() const 
+        scalarMode ScalarMode() const 
+        scalarType ScalarType() const 
+        size_t Ndim() const 
+        inline bint operator< (const _DataSet&) const 
+        const char * DataFormat() const 
+        scalarMode ModeFromKeyword(const string&)
+        scalarType TypeFromKeyword(const string&, scalarMode&)
+        scalarType TypeFromKeyword(const string&, const scalarMode&)
+        size_t Size()
+
+        # virtual
+        #void Add( size_t, const void*  )
+
+cdef class DataSet:
+    cdef _DataSet* baseptr0
+    cdef public object _base
 
 
 cdef extern from "DataSet_1D.h": 
@@ -305,7 +350,7 @@ cdef extern from "DataSet_Modes.h":
 cdef class DataSet_Modes (DataSet):
     cdef _DataSet_Modes* thisptr
 
-ctypedef map[double, int] TmapType
+ctypedef cmap[double, int] TcmapType
 cdef extern from "DataSet_RemLog.h": 
     cdef cppclass _DataSet_RemLog "DataSet_RemLog":
         _DataSet_RemLog() 
@@ -324,7 +369,7 @@ cdef extern from "DataSet_RemLog.h":
 
     cdef cppclass _ReplicaFrame "DataSet_RemLog::ReplicaFrame":
         _Replica_Frame() 
-        int SetTremdFrame(const char *, const TmapType&)
+        int SetTremdFrame(const char *, const TcmapType&)
         int SetHremdFrame(const char *, const vector[int]&)
         int ReplicaIdx() const 
         int PartnerIdx() const 
