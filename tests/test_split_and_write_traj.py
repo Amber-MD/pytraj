@@ -19,14 +19,12 @@ class Test(unittest.TestCase):
         # test TrajectoryIterator object
         pt.tools.split_and_write_traj(traj, n_chunks=4, root_name='./output/trajiterx')
         flist = sorted(glob("./output/trajiterx*"))
-        #print(flist)
         traj4 = pt.iterload(flist, top)
         eq_coords(traj4, traj)
 
         # dcd ext
         pt.tools.split_and_write_traj(traj, 4, root_name='./output/ts', ext='dcd')
         flist = sorted(glob("./output/ts.*.dcd"))
-        #print(flist)
         traj4 = pt.iterload(flist, top)
         eq_coords(traj4, traj)
 

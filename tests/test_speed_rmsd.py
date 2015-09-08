@@ -1,4 +1,3 @@
-from __future__ import print_function
 import unittest
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
@@ -41,12 +40,9 @@ class Test(unittest.TestCase):
                 m_traj = md.load_netcdf(fname, top=mtop)
                 md.rmsd(m_traj, m_traj, 10)
 
-        print("test_rmsd_pytraj_mode")
         test_rmsd_pytraj_mode()
-        print("test_rmsd_cpptraj_mode")
         test_rmsd_cpptraj_mode()
         if has_mdtraj:
-            print("test_rmsd_mdtraj")
             test_rmsd_mdtraj()
 
     @test_if_having("mdtraj")
@@ -56,13 +52,11 @@ class Test(unittest.TestCase):
         fname = tip3p_dir + "/md.trj"
         topname = tip3p_dir + "/tc5bwat.top"
         traj = mdio.load(fname, topname, indices=range(1000))
-        print(traj)
 
         @Timer()
         def test_rmsd_cpptraj_mode():
             traj.rmsd(ref=10, mode='cpptraj')
 
-        print("test_rmsd_cpptraj_mode")
         test_rmsd_cpptraj_mode()
         del traj
 
@@ -73,7 +67,6 @@ class Test(unittest.TestCase):
         def test_rmsd_mdtraj():
             md.rmsd(m_traj, m_traj, 10)
 
-        print("test_rmsd_mdtraj")
         test_rmsd_mdtraj()
 
 

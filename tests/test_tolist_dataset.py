@@ -12,7 +12,6 @@ from pytraj.datasets.DataSetList import DataSetList
 class Test(unittest.TestCase):
     @no_test
     def test_0(self):
-        #print(calculate)
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = calculate(traj, "distance", ":2@CA :10@CA")
         d0 = dslist[0]
@@ -23,9 +22,7 @@ class Test(unittest.TestCase):
 
     #@no_test
     def test_1(self):
-        #print(calculate)
         import numpy as np
-        #print("test dataset double")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = calculate("distance", traj, ":2@CA :10@CA")
         d0 = dslist[0]
@@ -41,9 +38,7 @@ class Test(unittest.TestCase):
 
     @test_if_having("numpy")
     def test_2(self):
-        #print(calculate)
         import numpy as np
-        #print("test dataset int")
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         d0 = calculate("dssp", traj, ":2-4")['TYR:3']
         assert isinstance(d0.to_ndarray(), np.ndarray)
