@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 
-from ..datasets.base cimport _DataSet, DataSet
+from ..datasets.cpp_datasets cimport _DataSet, DataSet
 from ..core.cpptraj_core cimport _ArgList, ArgList, _ArgList, ArgList, _FileName, FileName
 from ..datasets.DataSetList cimport _DataSetList, DataSetList
 
