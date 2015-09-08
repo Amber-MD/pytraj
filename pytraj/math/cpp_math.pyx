@@ -1,7 +1,20 @@
 # distutils: language = c++
 from __future__ import absolute_import
 from cython.view cimport array as cyarray
+from cython.operator cimport dereference as deref
+from cython.operator cimport preincrement as incr
+from libcpp.vector cimport vector
+from cpython.array cimport array as pyarray
+from libc.math cimport sqrt
+from libcpp.string cimport string
+from cpython.array cimport array
+
+from ..Frame cimport Frame, _Frame
+from ..core.Box cimport _Box, Box
+
+import numpy as np
 from ..utils import _import_numpy 
+from ..utils.check_and_assert import _import_numpy, is_int, is_range
 
 
 cdef class Grid:
@@ -76,11 +89,6 @@ cdef class Grid:
         return [[list(x) for x in y] for y in self.data]
 # distutils: language = c++
 
-from cython.operator cimport dereference as deref
-from cython.operator cimport preincrement as incr
-from libcpp.vector cimport vector
-from cpython.array cimport array as pyarray
-from ..utils.check_and_assert import _import_numpy, is_int, is_range
 """
 In [1]: from Matrix_3x3 import Matrix_3x3 as M3x3
 In [2]: import numpy as np
@@ -326,12 +334,6 @@ cdef class Matrix_3x3:
         def __get__(self):
             cdef double[:] arr0 = <double[:9]> self.thisptr.Dptr()
             return arr0
-# distutils: language = c++
-import numpy as np
-from libcpp.vector cimport vector
-from cython.operator cimport dereference as deref
-from cython.operator cimport preincrement as incr
-
 
 cdef class Vec3:
     def __cinit__(self, *args):
@@ -526,14 +528,6 @@ cdef class Vec3:
             cdef double[:] arr = <double[:3]> self.thisptr.Dptr()
             return  arr
 # distutil: language = c++
-
-from ..core.Box cimport _Box, Box
-from pytraj.math.Vec3 cimport _Vec3, Vec3
-from pytraj.math.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
-from libc.math cimport sqrt
-from libcpp.string cimport string
-from cpython.array cimport array
-from ..Frame cimport Frame, _Frame
 
 cdef extern from "DistRoutines.h" nogil:
     ctypedef enum ImagingType:
