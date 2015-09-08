@@ -36,7 +36,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -140,7 +140,7 @@
 <span id="clustering"></span><h1>Cluster Analysis<a class="headerlink" href="#cluster-analysis" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pytraj.cluster.kmeans">
-<tt class="descclassname">pytraj.cluster.</tt><tt class="descname">kmeans</tt><big>(</big><em>traj=None</em>, <em>mask='*'</em>, <em>n_clusters=10</em>, <em>random_point=True</em>, <em>kseed=1</em>, <em>maxit=100</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>output_op=''</em><big>)</big><a class="headerlink" href="#pytraj.cluster.kmeans" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.cluster.</code><code class="descname">kmeans</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>n_clusters=10</em>, <em>random_point=True</em>, <em>kseed=1</em>, <em>maxit=100</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>output_op=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.cluster.kmeans" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform clustering and return cluster index for each frame</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -160,7 +160,7 @@
 </div></blockquote>
 <p><strong>top</strong> : Topology, optional, default: None</p>
 <blockquote>
-<div><p>only need to provide this Topology if <tt class="docutils literal"><span class="pre">traj</span></tt> does not have one</p>
+<div><p>only need to provide this Topology if <code class="docutils literal"><span class="pre">traj</span></code> does not have one</p>
 </div></blockquote>
 <p><strong>output_op</strong> : option to save data to files. Not working yet.</p>
 </td>
@@ -196,7 +196,7 @@
     </p>
     <p>
         &copy; Copyright 2015, Hai Nguyen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>
