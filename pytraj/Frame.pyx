@@ -428,7 +428,7 @@ cdef class Frame (object):
              return _buffer(self.size)
 
     property buffer2d:
-        def buffer2d(self):
+        def __get__(self):
             """return memory view for Frame coordinates but reshape
             (just like self._buffer3 = self.buffer.reshape())
             TODO : rename?
