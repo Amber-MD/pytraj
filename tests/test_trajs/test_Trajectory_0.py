@@ -68,7 +68,6 @@ class TestTrajectory(unittest.TestCase):
         assert frame.size == TRAJ.top.n_residues * 3
         farray.top.strip_atoms("!@CA")
         assert farray.top.n_atoms == TRAJ.top.n_residues
-        farray.top.summary()
         assert farray.n_frames == TRAJ.n_frames
         arr = np.zeros(farray.n_frames)
         cpptraj_rmsd = np.loadtxt(
@@ -91,8 +90,6 @@ class TestTrajectory(unittest.TestCase):
         traj = TrajectoryIterator()
 
         traj.load("./data/md1_prod.Tc5b.x", pt.load_topology("./data/Tc5b.top"))
-
-        traj.top.summary()
         assert traj.top.n_atoms == 304
 
 

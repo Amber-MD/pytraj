@@ -56,13 +56,11 @@ cdef class Topology:
             del self.thisptr
 
     def __str__(self):
-        print('hello from Top')
         box = self.box
         if box.has_box():
             box_txt = "PBC with box type = %s" % box.type
         else:
             box_txt = "non-PBC"
-        print(box_txt)
          
         tmp = "<%s: %s atoms, %s residues, %s mols, %s>" % (
                 self.__class__.__name__,
@@ -70,7 +68,6 @@ cdef class Topology:
                 self.n_residues,
                 self.n_mols,
                 box_txt)
-        print(tmp)
         return tmp
 
     def __repr__(self):
@@ -607,7 +604,7 @@ cdef class Topology:
             for idx, atom in enumerate(self.atoms):
                 # TODO: make faster?
                 resnum_arr[idx] = atom.resnum
-                resname_arr[idx] = self._get_residue(atom.resnum).name
+                resname_arr[idx] = self.residuelist[atom.resnum].name
                 atomname_arr[idx] = atom.name
                 atomicnumber_arr[idx] = atom.atomic_number
 

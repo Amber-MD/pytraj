@@ -28,7 +28,6 @@ class Test(unittest.TestCase):
         assert frame.size == TRAJ.top.n_residues * 3
         farray.top.strip_atoms("!@CA")
         assert farray.top.n_atoms == TRAJ.top.n_residues
-        farray.top.summary()
         assert farray.n_frames == TRAJ.n_frames
         arr = np.zeros(farray.n_frames)
 
