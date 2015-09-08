@@ -62,7 +62,7 @@ from functools import partial
 from .core import Atom, Residue, Molecule
 from .core.cpptraj_core import CpptrajState, ArgList, AtomMask
 from . import array
-from .Topology import Topology
+from .Topology import Topology, ParmFile
 from .math import Vec3
 from .Frame import Frame
 from .api import Trajectory
@@ -70,7 +70,6 @@ from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
-from .parms.ParmFile import ParmFile
 from . import io
 from .io import (load, iterload, load_remd, iterload_remd, _load_from_filelist,
                  _iterload_from_filelist, _load_from_frame_iter, load_pdb_rcsb,

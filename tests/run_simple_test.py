@@ -3,7 +3,6 @@
 import unittest
 from pytraj import *
 import pytraj as pt
-from pytraj.parms import *
 from pytraj.trajs import *
 from pytraj.datasets import *
 from pytraj.common_actions import *

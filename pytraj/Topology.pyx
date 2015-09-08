@@ -689,14 +689,14 @@ cdef class ParmFile:
                 format= format.upper()
                 parmtype = ParmFormatDict[format]
             except:
-                print "supported keywords: ", self.formats
+                raise ValueError("supported keywords: ", self.formats)
 
         if top.is_empty():
             raise ValueError("empty topology")
 
         err = self.thisptr.WriteTopology(top.thisptr[0], filename, arglist.thisptr[0], parmtype, debug)
         if err == 1:
-            print "Not supported or failed to write"
+            raise ValueError("Not supported or failed to write")
 
     def filename(self):
         cdef FileName filename = FileName()

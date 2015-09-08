@@ -14,7 +14,6 @@ from pytraj._set_silent import set_world_silent
 from pytraj import api
 
 from pytraj import *
-from pytraj.parms import *
 from pytraj.datasets import *
 from pytraj.common_actions import *
 from pytraj.actions import CpptrajActions
