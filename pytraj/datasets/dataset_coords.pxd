@@ -3,8 +3,7 @@ from libcpp.string  cimport string
 from .base cimport _DataSet, DataSet
 from ..Frame cimport _Frame, Frame
 from ..Topology cimport _Topology, Topology
-from ..AtomMask cimport _AtomMask, AtomMask
-from ..ArgList cimport _ArgList, ArgList
+from ..core.cpptraj_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 
 
 cdef extern from "DataSet_Coords.h": 

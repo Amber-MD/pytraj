@@ -13,6 +13,7 @@ from ._shared_methods import iterframe_master
 from ._set_silent import set_error_silent
 from ._get_common_objects import _get_top
 from .compat import zip
+from .Topology import Topology
 
 load_cpptraj_datafile = load_datafile
 
@@ -234,10 +235,10 @@ def load_traj(filename=None,
         from .TrajectoryIterator import TrajectoryIterator
         from .api import Trajectory
 
-        if not isinstance(top, Topology):
-            top = Topology(top)
-        if top.is_empty():
-            top = Topology(filename)
+        if isinstance(top, string_types):
+            top = load_topology(top)
+        if top is None or top.is_empty():
+            top = load_topology(filename)
         ts = TrajectoryIterator(top=top)
 
         if 'frame_slice' in kwd.keys():
@@ -458,7 +459,7 @@ def _load_url(url):
         if PY3:
             txt = txt.decode()
         fh.write(txt)
-    return Topology(fname)
+    return load_topology(fname)
 
 
 def loadpdb_rcsb(pdbid):

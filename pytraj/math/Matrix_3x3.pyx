@@ -241,12 +241,12 @@ cdef class Matrix_3x3:
         except:
             raise ImportError("Must have numpy installed")
 
-    @property
-    def buffer2d(self):
-        cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()
-        return arr0
+    property buffer2d:
+        def __get__(self):
+            cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()
+            return arr0
 
-    @property
-    def buffer1d(self):
-        cdef double[:] arr0 = <double[:9]> self.thisptr.Dptr()
-        return arr0
+    property buffer1d:
+        def __get__(self):
+            cdef double[:] arr0 = <double[:9]> self.thisptr.Dptr()
+            return arr0

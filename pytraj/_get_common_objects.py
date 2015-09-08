@@ -1,14 +1,11 @@
 from __future__ import absolute_import
+
+# do not import anything else here.
 from .externals.six import string_types
-from .Topology import Topology
-from .ArgList import ArgList
-from .utils import _import
-from .utils.check_and_assert import is_frame_iter, is_chunk_iter
-from .datasetlist import DatasetList as DSL
-from pytraj.datasets.base import DataSet
 
 def _load_Topology(filename):
-    from pytraj.pamrs.ParmFile import ParmFile
+    from pytraj import Topology
+    from pytraj.parms.ParmFile import ParmFile
     top = Topology()
     parm = ParmFile()
     parm.readparm(filename, top)
@@ -16,12 +13,10 @@ def _load_Topology(filename):
 
 def _get_top(traj, top):
     if isinstance(top, string_types):
-        _top = Topology(top)
+        _top = _load_Topology(top)
     elif top is None:
         if hasattr(traj, 'top'):
             _top = traj.top
-        elif is_frame_iter(traj) or is_chunk_iter(traj):
-            _top = None
         else:
             # list, tuple of traj objects
             try:
@@ -37,14 +32,9 @@ def _get_top(traj, top):
     return _top
 
 
-def _get_arglist(arg):
-    if isinstance(arg, ArgList):
-        return arg
-    else:
-        return ArgList(arg)
-
-
 def _get_data_from_dtype(d0, dtype='dataset'):
+    from pytraj.datasets.base import DataSet
+    from pytraj.datasetlist import DatasetList as DSL
 
     if dtype is None or dtype == 'dataset':
         pass

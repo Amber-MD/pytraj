@@ -1,21 +1,34 @@
 # distutils: language = c++
 
-from __future__ import absolute_import
-from pytraj.cpp_vector cimport vector as cppvector
-
-from pytraj.core.Atom cimport _Atom, Atom
-from pytraj.core.Residue cimport _Residue, Residue
-from pytraj.core.Molecule cimport _Molecule, Molecule
-from pytraj.core.Box cimport _Box, Box, BoxType
-from pytraj.core.ParameterTypes cimport *
-from pytraj.core.cpptraj_core cimport (_CoordinateInfo, CoordinateInfo,
-                                       _FileName, FileName, _NameType, NameType)
-from pytraj.AtomMask cimport _AtomMask, AtomMask
-from pytraj.Frame cimport _Frame, Frame
+from .cpp_vector cimport vector as cppvector
+from .core.Atom cimport _Atom, Atom
+from .core.Residue cimport _Residue, Residue
+from .core.Molecule cimport _Molecule, Molecule
+from .core.Box cimport _Box, Box, BoxType
+from .core.ParameterTypes cimport *
+from .core.cpptraj_core cimport (_FileName, FileName, _NameType, NameType)
+from .core.cpptraj_core cimport _AtomMask, AtomMask
+from .Frame cimport _Frame, Frame
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator
 ctypedef cppvector[_Molecule].const_iterator mol_iterator
+
+cdef extern from "CoordinateInfo.h": 
+    cdef cppclass _CoordinateInfo "CoordinateInfo":
+        _CoordinateInfo() 
+        _CoordinateInfo(const _Box& b, bint v, bint t, bint m)
+        bint HasBox() const 
+        const _Box& TrajBox() const 
+        bint HasVel() const 
+        bint HasTemp() const 
+        bint HasTime() const 
+        bint HasForce() const 
+        bint HasReplicaDims() const 
+        void SetTime(bint m)
+        void SetTemperature(bint t)
+        void SetVelocity(bint v)
+        void SetBox(const _Box& b)
 
 cdef extern from "Topology.h": 
     cdef cppclass _Topology "Topology" nogil:

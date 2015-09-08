@@ -3,7 +3,7 @@ import numpy as np
 import unittest
 import pytraj as pt
 from pytraj.Topology import Topology
-from pytraj.AtomMask import AtomMask
+from pytraj.core.cpptraj_core import AtomMask
 from pytraj.base import *
 from pytraj.decorators import no_test
 
@@ -15,14 +15,14 @@ class TestTopology(unittest.TestCase):
         top = Topology()
         assert top.is_empty() == True
         filename = "./data/Tc5b.top"
-        top = Topology(filename)
+        top = pt.load_topology(filename)
         assert top.is_empty() == False
 
     def test_1(self):
         datadir = "./data/"
         filename = "./data/Tc5b.top"
 
-        top = Topology(filename)
+        top = pt.load_topology(filename)
         #top2 = top.modify_state_by_mask(AtomMask("!@CA"))
         #
         top.strip_atoms("!@CA")
@@ -42,7 +42,7 @@ class TestTopology(unittest.TestCase):
         assert idx + 1 == top.n_atoms
 
     def test_select_mask(self):
-        top = Topology("./data/Tc5b.top")
+        top = pt.load_topology("./data/Tc5b.top")
         arr0 = top.atom_indices("@CA")
 
     def test_len(self):

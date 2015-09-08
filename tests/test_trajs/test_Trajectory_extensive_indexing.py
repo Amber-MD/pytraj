@@ -13,7 +13,7 @@ refilename = "./data/Tc5b.nat.crd"
 mdx = "./data/md1_prod.Tc5b.x"
 ts = TrajectoryIterator()
 
-top = Topology(topname)
+top = pt.load_topology(topname)
 trajin = """
 """
 

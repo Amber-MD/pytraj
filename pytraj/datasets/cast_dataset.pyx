@@ -5,7 +5,7 @@ from .dataset_1d cimport (DataSet_1D, _DataSet_1D, DatasetInteger, _DatasetInteg
 from .dataset_2d cimport (DataSet_2D, _DataSet_2D, DatasetMatrixDouble,
                           _DatasetMatrixDouble, DatasetMatrixFloat, _DatasetMatrixFloat)
 from .dataset_3d cimport DataSet_3D, _DataSet_3D, DatasetGridFloat, _DatasetGridFloat
-from .DataSet_Mesh cimport DataSet_Mesh, _DataSet_Mesh
+from .DatasetMesh cimport DatasetMesh, _DatasetMesh
 from .DatasetMatrix3x3 cimport _DatasetMatrix3x3, DatasetMatrix3x3
 from .base cimport DataSet, _DataSet
 from .dataset_coords cimport (_DataSet_Coords, DataSet_Coords, _DataSet_Coords_REF, 
@@ -33,7 +33,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DatasetFloat newset_float
     cdef DatasetInteger newset_integer
     cdef DatasetString newset_string
-    cdef DataSet_Mesh newset_mesh
+    cdef DatasetMesh newset_mesh
     cdef DatasetVector newset_vector
     cdef DatasetMatrix3x3 newset_matrix3x3
     cdef DatasetMatrixDouble newset_matrixdbl
@@ -105,13 +105,13 @@ def cast_dataset(dsetin=None, dtype='general'):
         return newset_string
 
     elif dtype in ['XYMESH']: 
-        newset_mesh = DataSet_Mesh()
+        newset_mesh = DatasetMesh()
         # since we introduce memory view, we let cpptraj free memory
         newset_mesh.py_free_mem = False
         newset_mesh.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_mesh.baseptr_1 = <_DataSet_1D*> dset.baseptr0
-        newset_mesh.thisptr = <_DataSet_Mesh*> dset.baseptr0
+        newset_mesh.thisptr = <_DatasetMesh*> dset.baseptr0
         return newset_mesh
 
     elif dtype in ['VECTOR']: 

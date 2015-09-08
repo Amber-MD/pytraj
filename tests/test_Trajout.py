@@ -48,7 +48,7 @@ class TestTrajout(unittest.TestCase):
     def test_2(self):
         """test open file writen from test_0"""
         farray = Trajectory()
-        farray.top = Topology('./data/Tc5b.top')
+        farray.top = pt.load_topology('./data/Tc5b.top')
         farray.load("./output/test.x")
         #print(farray.size)
 
