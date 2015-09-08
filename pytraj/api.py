@@ -626,7 +626,7 @@ class Trajectory(object):
     def _allocate(self, n_frames, n_atoms):
         '''allocate (n_frames, n_atoms, 3) coordinates
         '''
-        self._xyz = np.empty((n_frames, n_atoms, 3))
+        self._xyz = np.zeros((n_frames, n_atoms, 3), dtype='f8')
 
     def strip_atoms(self, mask):
         self.strip(mask)
