@@ -3,8 +3,9 @@ Installation
 
 Requires
 --------
-`numpy <http://www.numpy.org/>`_
-`cython <http://cython.org/>`_
++ Python 3.
++ `numpy <http://www.numpy.org/>`_
++ `cython <http://cython.org/>`_
 
 How?
 ----
