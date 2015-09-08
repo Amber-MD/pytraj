@@ -3,7 +3,6 @@ from pytraj.base import *
 from pytraj.core import *
 from pytraj.math import *
 from pytraj.externals import *
-from pytraj.plotting import *
 from pytraj.trajs import *
 from pytraj.hbonds import *
 from pytraj import io as mdio

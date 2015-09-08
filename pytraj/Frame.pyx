@@ -15,7 +15,7 @@ from libcpp.vector cimport vector
 from libc.string cimport memcpy
 from pytraj.utils.check_and_assert import _import_numpy
 from pytraj.utils.check_and_assert import is_int
-from pytraj.ArgList import ArgList
+from pytraj.core.cpptraj_core import ArgList
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types
 
@@ -222,13 +222,13 @@ cdef class Frame (object):
     def is_(self, Frame other):
         return self.thisptr == other.thisptr
 
-    @property
-    def shape(self):
-        return self.buffer2d[:].shape
+    property shape:
+        def __get__(self):
+            return self.buffer2d[:].shape
 
-    @property
-    def n_frames(self):
-        return 1
+    property n_frames:
+        def __get__(self):
+            return 1
 
     def __getitem__(self, idx):
         """
@@ -412,36 +412,36 @@ cdef class Frame (object):
     def __len__(self):
         return self.size
 
-    @property
-    def buffer1d(self):
-        """return memory view for Frame coordinates
-        TODO : rename?
-        """
-        # debug
-        #print "from calling buffer1d: py_free_mem = ", self.py_free_mem
-        # end debug
-        def _buffer(N):
-            cdef double* ptr = self.thisptr.xAddress()
-            cdef view.array my_arr
-            my_arr = <double[:N]> ptr
-            return my_arr
-        return _buffer(self.size)
+    property buffer1d:
+         def __get__(self):
+             """return memory view for Frame coordinates
+             TODO : rename?
+             """
+             # debug
+             #print "from calling buffer1d: py_free_mem = ", self.py_free_mem
+             # end debug
+             def _buffer(N):
+                 cdef double* ptr = self.thisptr.xAddress()
+                 cdef view.array my_arr
+                 my_arr = <double[:N]> ptr
+                 return my_arr
+             return _buffer(self.size)
 
-    @property
-    def buffer2d(self):
-        """return memory view for Frame coordinates but reshape
-        (just like self._buffer3 = self.buffer.reshape())
-        TODO : rename?
-        """
-        # debug
-        #print "from calling buffer: py_free_mem = ", self.py_free_mem
-        # end debug
-        def _buffer(N):
-            cdef double* ptr = self.thisptr.xAddress()
-            cdef view.array my_arr
-            my_arr = <double[:N, :3]> ptr
-            return my_arr
-        return _buffer(self.n_atoms)
+    property buffer2d:
+        def __get__(self):
+            """return memory view for Frame coordinates but reshape
+            (just like self._buffer3 = self.buffer.reshape())
+            TODO : rename?
+            """
+            # debug
+            #print "from calling buffer: py_free_mem = ", self.py_free_mem
+            # end debug
+            def _buffer(N):
+                cdef double* ptr = self.thisptr.xAddress()
+                cdef view.array my_arr
+                my_arr = <double[:N, :3]> ptr
+                return my_arr
+            return _buffer(self.n_atoms)
 
     property xyz:
         def __get__(self):
@@ -462,18 +462,14 @@ cdef class Frame (object):
     def has_vel(self):
         return self.thisptr.HasVelocity()
 
-    @property
-    def n_atoms(self):
-       return self.thisptr.Natom()
+    property n_atoms:
+        def __get__(self):
+           return self.thisptr.Natom()
 
-    @property
-    def size(self):
-        """don't change the name of this method"""
-        return self.thisptr.size()
-
-    @property
-    def n_repdims(self):
-        return self.thisptr.NrepDims()
+    property size:
+        def __get__(self):
+            """don't change the name of this method"""
+            return self.thisptr.size()
 
     property temperature:
         def __get__(self):
@@ -541,28 +537,28 @@ cdef class Frame (object):
         arr.append(self.thisptr.XYZ(atomnum)[2])
         return arr
 
-    @property
-    def coordinates(self):
-        return self.xyz
+    property coordinates:
+        def __get__(self):
+            return self.xyz
 
-    @property
-    def coords(self):
-        """
-        return 1D-coords (copy) of Frame
-        Notes
-        -----
-        same as `Frame.coords`. We use `coordinates` to be the same as in
-        `parmed`
-        """
-        cdef pyarray arr = cparray.clone(pyarray('d', []), 
-                            self.n_atoms*3, zero=False)
-        cdef int i
-        cdef double* ptr = self.thisptr.xAddress()
-        cdef int natom3 = 3 * self.thisptr.Natom()
+    property coords:
+        def __get__(self):
+            """
+            return 1D-coords (copy) of Frame
+            Notes
+            -----
+            same as `Frame.coords`. We use `coordinates` to be the same as in
+            `parmed`
+            """
+            cdef pyarray arr = cparray.clone(pyarray('d', []), 
+                                self.n_atoms*3, zero=False)
+            cdef int i
+            cdef double* ptr = self.thisptr.xAddress()
+            cdef int natom3 = 3 * self.thisptr.Natom()
 
-        for i in range(natom3):
-            arr[i] = ptr[i]
-        return arr
+            for i in range(natom3):
+                arr[i] = ptr[i]
+            return arr
 
     def v_xyz(self, int atnum):
         """return a copy of velocity"""
@@ -574,15 +570,15 @@ cdef class Frame (object):
         arr.append(self.thisptr.VXYZ(atnum)[2])
         return arr
 
-    @property
-    def mass(self):
-        """return mass array"""
-        cdef pyarray arr = pyarray('d', [])
-        cdef int i
+    property mass:
+         def __get__(self):
+             """return mass array"""
+             cdef pyarray arr = pyarray('d', [])
+             cdef int i
 
-        for i in range(self.thisptr.Natom()):
-            arr.append(self.thisptr.Mass(i))
-        return arr
+             for i in range(self.thisptr.Natom()):
+                 arr.append(self.thisptr.Mass(i))
+             return arr
 
     def set_nobox(self):
         self.boxview[:] = pyarray('d', [0. for _ in range(6)])
@@ -610,13 +606,13 @@ cdef class Frame (object):
     def has_box(self):
         return self.box.has_box()
 
-    @property
-    def boxview(self):
-        """return a memoryview of box array"""
-        cdef double* ptr = self.thisptr.bAddress()
-        cdef view.array my_arr
-        my_arr = <double[:6]> ptr
-        return my_arr
+    property boxview:
+        def __get__(self):
+            """return a memoryview of box array"""
+            cdef double* ptr = self.thisptr.bAddress()
+            cdef view.array my_arr
+            my_arr = <double[:6]> ptr
+            return my_arr
 
     def _t_address(self):
         # cpptraj: return double*

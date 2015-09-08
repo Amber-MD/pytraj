@@ -1,13 +1,12 @@
 # distutils: language = c++
 #
 from pytraj.Frame import Frame
-from pytraj.AtomMask import AtomMask
+from pytraj.core.cpptraj_core import AtomMask
 from pytraj.trajs.Trajout import Trajout
-from pytraj.externals.six import string_types
-from pytraj.compat import set
+from pytraj.externals.six import string_types, set
 from pytraj.utils import _import_numpy
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
-from pytraj.core.frameiter import FrameIter
+from pytraj.frameiter import FrameIter
 
 __all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method', '_tolist',
            '_box']

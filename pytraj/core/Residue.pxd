@@ -1,5 +1,5 @@
 # distutils: language = c++
-from pytraj.core.NameType cimport _NameType, NameType
+from pytraj.core.cpptraj_core cimport _NameType, NameType
 
 cdef extern from "Residue.h": 
     cdef cppclass _Residue "Residue":

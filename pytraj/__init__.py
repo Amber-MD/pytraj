@@ -60,11 +60,9 @@ from . import options
 from functools import partial
 
 from .core import Atom, Residue, Molecule
-from .core.CpptrajState import CpptrajState
+from .core.cpptraj_core import CpptrajState, ArgList, AtomMask
 from . import array
 from .Topology import Topology
-from .ArgList import ArgList
-from .AtomMask import AtomMask
 from .math import Vec3
 from .Frame import Frame
 from .api import Trajectory
@@ -208,6 +206,7 @@ def set_cpptraj_verbose(cm=True):
 
 
 set_world_silent(True)
+_verbose = set_cpptraj_verbose
 
 
 def iterframe(traj, *args, **kwd):
@@ -220,6 +219,8 @@ def iterframe(traj, *args, **kwd):
     >>> for frame in pt.iterframe(traj, 0, 8, 2, mask='@CA'): print(frame)
     """
     return traj.iterframe(*args, **kwd)
+
+from ._fast_iterframe import _fast_iterptr as iterframe_from_array
 
 
 def iterchunk(traj, *args, **kwd):

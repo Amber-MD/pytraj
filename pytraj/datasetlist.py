@@ -6,8 +6,8 @@ from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import _import_numpy, _import_pandas, is_int, is_array, is_generator
 from pytraj.compat import string_types, callable
-from pytraj.core.DataFile import DataFile
-from pytraj.ArgList import ArgList
+from pytraj.datafiles import DataFile
+from pytraj.core.cpptraj_core import ArgList
 from pytraj.compat import map, iteritems
 from pytraj.array import DataArray
 
@@ -232,7 +232,7 @@ class DatasetList(list):
 
         if show:
             # only show once
-            from pytraj.plotting import show
+            from pytraj.plot import show
             show()
         return hist_dict
 

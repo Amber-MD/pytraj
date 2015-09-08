@@ -1,14 +1,12 @@
 # distutil: language = c++
 
 from libcpp.string cimport string
-from .DispatchObject cimport _DispatchObject, DispatchObject, DispatchAllocatorType
+from .cpptraj_core cimport _DispatchObject, DispatchObject, DispatchAllocatorType, FunctPtr
 from .TopologyList cimport _TopologyList, TopologyList
-from .DataFileList cimport _DataFileList, DataFileList
-from ._FunctPtr cimport FunctPtr
+from ..datafiles.datafiles cimport _DataFileList, DataFileList
 from ..Topology cimport _Topology, Topology
-from ..AtomMask cimport _AtomMask, AtomMask
 from ..Frame cimport _Frame, Frame
-from ..ArgList cimport _ArgList, ArgList
+from .cpptraj_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 from ..datasets.DataSetList cimport _DataSetList, DataSetList
 
 cdef extern from "ActionList.h":

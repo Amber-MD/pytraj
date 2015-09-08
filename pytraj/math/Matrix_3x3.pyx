@@ -4,7 +4,7 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from libcpp.vector cimport vector
 from cpython.array cimport array as pyarray
-from pytraj.utils.check_and_assert import _import_numpy, is_int, is_range
+from ..utils.check_and_assert import _import_numpy, is_int, is_range
 """
 In [1]: from Matrix_3x3 import Matrix_3x3 as M3x3
 In [2]: import numpy as np
@@ -241,12 +241,12 @@ cdef class Matrix_3x3:
         except:
             raise ImportError("Must have numpy installed")
 
-    @property
-    def buffer2d(self):
-        cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()
-        return arr0
+    property buffer2d:
+        def __get__(self):
+            cdef double[:, :] arr0 = <double[:3, :3]> self.thisptr.Dptr()
+            return arr0
 
-    @property
-    def buffer1d(self):
-        cdef double[:] arr0 = <double[:9]> self.thisptr.Dptr()
-        return arr0
+    property buffer1d:
+        def __get__(self):
+            cdef double[:] arr0 = <double[:9]> self.thisptr.Dptr()
+            return arr0

@@ -11,9 +11,9 @@ from .datasets.utils import load_datafile
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
 from ._set_silent import set_error_silent
-from ._guess_filetype import _guess_filetype
 from ._get_common_objects import _get_top
 from .compat import zip
+from .Topology import Topology
 
 load_cpptraj_datafile = load_datafile
 
@@ -235,10 +235,10 @@ def load_traj(filename=None,
         from .TrajectoryIterator import TrajectoryIterator
         from .api import Trajectory
 
-        if not isinstance(top, Topology):
-            top = Topology(top)
-        if top.is_empty():
-            top = Topology(filename)
+        if isinstance(top, string_types):
+            top = load_topology(top)
+        if top is None or top.is_empty():
+            top = load_topology(filename)
         ts = TrajectoryIterator(top=top)
 
         if 'frame_slice' in kwd.keys():
@@ -428,15 +428,16 @@ def load_topology(filename):
     >>> parm = pmd.load_file('data/m2-c1_f3.mol2')
     >>> top = pt.load_topology(parm)
     """
+    from pytraj.parms.ParmFile import ParmFile
+    top = Topology()
+
     if isinstance(filename, string_types):
         if filename.startswith('http://') or filename.startswith('https://'):
             return _load_url(filename)
         else:
-            from .Topology import Topology
-            """return topology instance from reading filename"""
-            #filename = filename.encode("UTF-8")
+            parm = ParmFile()
             set_error_silent(True)
-            top = Topology(filename)
+            parm.readparm(filename=filename, top=top)
             set_error_silent(False)
             return top
     else:
@@ -458,7 +459,7 @@ def _load_url(url):
         if PY3:
             txt = txt.decode()
         fh.write(txt)
-    return Topology(fname)
+    return load_topology(fname)
 
 
 def loadpdb_rcsb(pdbid):
