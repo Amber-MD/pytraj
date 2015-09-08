@@ -125,9 +125,10 @@ Build doc
 
 cython
 ------
-It's recommended to use ``cython`` to write or wrap high performance code. Please don't use ``cimport numpy``, use `memoryview <http://docs.cython.org/src/userguide/memoryviews.html>`_ instead
-
+We recommended to use ``cython`` to write or wrap high performance code. Please don't use ``cimport numpy``, use `memoryview <http://docs.cython.org/src/userguide/memoryviews.html>`_ instead
 Since ``pytraj`` will be bundled with AmberTools in Amber, it's important that we should commit cythonized file too. The main idea is that user only need C++ compiler and ``cpptraj``, nothing else.
+
+For some unknow reasons, I (Hai) got segmentation fault if import numpy in the top of the module  when working with ``*.pyx`` file. It's better to import numpy locally (inside each method).
 
 
 Read Also
