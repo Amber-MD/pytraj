@@ -3,6 +3,7 @@ Installation
 
 Requires
 --------
+<<<<<<< HEAD
 `numpy <http://www.numpy.org/>`_
 `cython <http://cython.org/>`_
 ``python 3``
