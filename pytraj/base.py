@@ -6,7 +6,7 @@ from __future__ import absolute_import
 from .datasets.cast_dataset import cast_dataset
 from .Frame import Frame
 from .core.Atom import Atom
-from .core.TopologyList import TopologyList
+from .Topology import TopologyList
 from .datafiles.datafiles import DataFileList
 from .core.ActionList import ActionList
 from .core.cpptraj_core import CpptrajState
