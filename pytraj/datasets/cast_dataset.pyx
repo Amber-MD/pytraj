@@ -1,6 +1,5 @@
 # distutils: language = c++
-from .base cimport DataSet, _DataSet
-from .cpp_datasets cimport (DataSet_1D, _DataSet_1D, DatasetInteger, _DatasetInteger,
+from .cpp_datasets cimport (_DataSet, DataSet, DataSet_1D, _DataSet_1D, DatasetInteger, _DatasetInteger,
                           _DatasetFloat, DatasetFloat, DatasetDouble, _DatasetDouble,
                           DatasetString, _DatasetString, _DatasetVector, DatasetVector,
                           DataSet_2D, _DataSet_2D, DatasetMatrixDouble,
