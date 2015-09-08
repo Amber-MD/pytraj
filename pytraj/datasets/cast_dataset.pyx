@@ -1,15 +1,14 @@
 # distutils: language = c++
-from .dataset_1d cimport (DataSet_1D, _DataSet_1D, DatasetInteger, _DatasetInteger,
-                          _DatasetFloat, DatasetFloat, DatasetDouble, _DatasetDouble,
-                          DatasetString, _DatasetString, _DatasetVector, DatasetVector)
-from .dataset_2d cimport (DataSet_2D, _DataSet_2D, DatasetMatrixDouble,
-                          _DatasetMatrixDouble, DatasetMatrixFloat, _DatasetMatrixFloat)
-from .dataset_3d cimport DataSet_3D, _DataSet_3D, DatasetGridFloat, _DatasetGridFloat
-from .DatasetMesh cimport DatasetMesh, _DatasetMesh
-from .DatasetMatrix3x3 cimport _DatasetMatrix3x3, DatasetMatrix3x3
 from .base cimport DataSet, _DataSet
-from .dataset_coords cimport (_DataSet_Coords, DataSet_Coords, _DataSet_Coords_REF, 
-                              DataSet_Coords_REF, _DataSet_Coords_CRD, DataSet_Coords_CRD)
+from .cpp_datasets cimport (DataSet_1D, _DataSet_1D, DatasetInteger, _DatasetInteger,
+                          _DatasetFloat, DatasetFloat, DatasetDouble, _DatasetDouble,
+                          DatasetString, _DatasetString, _DatasetVector, DatasetVector,
+                          DataSet_2D, _DataSet_2D, DatasetMatrixDouble,
+                          _DatasetMatrixDouble, DatasetMatrixFloat, _DatasetMatrixFloat,
+                          DataSet_3D, _DataSet_3D, DatasetGridFloat, _DatasetGridFloat,
+                          DatasetMesh, _DatasetMesh, _DatasetMatrix3x3, DatasetMatrix3x3,
+                          _DataSet_Coords, DataSet_Coords, _DataSet_Coords_REF, 
+                          DataSet_Coords_REF, _DataSet_Coords_CRD, DataSet_Coords_CRD)
 
 def cast_dataset(dsetin=None, dtype='general'):
     """create memoryview for DataSet instance. 

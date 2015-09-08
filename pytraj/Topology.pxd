@@ -9,6 +9,10 @@ from .core.ParameterTypes cimport *
 from .core.cpptraj_core cimport (_FileName, FileName, _NameType, NameType)
 from .core.cpptraj_core cimport _AtomMask, AtomMask
 from .Frame cimport _Frame, Frame
+from libcpp.string cimport string
+from ..core.cpptraj_core cimport _FileName, FileName
+from ..core.cpptraj_core cimport _ArgList, ArgList
+
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator
@@ -144,3 +148,24 @@ cdef extern from "Topology.h":
 cdef class Topology:
     cdef _Topology* thisptr
     cdef public bint py_free_mem
+
+cdef extern from "ParmFile.h": 
+    ctypedef enum ParmFormatType "ParmFile::ParmFormatType":
+        pass
+        UNKNOWN_PARM "ParmFile::UNKNOWN_PARM"
+    cdef cppclass _ParmFile "ParmFile":
+        @staticmethod
+        void ReadOptions() 
+        @staticmethod
+        void WriteOptions() 
+        _ParmFile() 
+        int ReadTopology(_Topology&, const string&, const _ArgList&, int)
+        int ReadTopology(_Topology& t, const string& n, int d)
+        int WritePrefixTopology(const _Topology&, const string&, ParmFormatType, int)
+        int WriteTopology(const _Topology&, const string&, const _ArgList&, ParmFormatType, int)
+        int WriteTopology(const _Topology& t, const string& n, ParmFormatType f, int d)
+        const _FileName ParmFilename() 
+
+
+cdef class ParmFile:
+    cdef _ParmFile* thisptr

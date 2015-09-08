@@ -1,7 +1,3 @@
 """"""
 from __future__ import absolute_import
-from .Vec3 import Vec3
-from .Matrix_3x3 import Matrix_3x3
-from .Grid import Grid
-from .torsion_routines import torsion, angle
-from .distance_routines import distance_ as distance
+from .cpp_math import Vec3, Matrix_3x3, Grid, torsion, angle, distance_ as distance

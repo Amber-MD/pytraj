@@ -405,7 +405,7 @@ def write_traj(filename="",
 
 def write_parm(filename=None, top=None, format='AMBERPARM'):
     # TODO : add *args
-    from pytraj.parms.ParmFile import ParmFile
+    from pytraj.Topology import ParmFile
     #filename = filename.encode("UTF-8")
     parm = ParmFile()
     parm.writeparm(filename=filename, top=top, format=format)
@@ -428,7 +428,7 @@ def load_topology(filename):
     >>> parm = pmd.load_file('data/m2-c1_f3.mol2')
     >>> top = pt.load_topology(parm)
     """
-    from pytraj.parms.ParmFile import ParmFile
+    from pytraj.Topology import ParmFile
     top = Topology()
 
     if isinstance(filename, string_types):

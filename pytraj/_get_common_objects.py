@@ -4,8 +4,7 @@ from __future__ import absolute_import
 from .externals.six import string_types
 
 def _load_Topology(filename):
-    from pytraj import Topology
-    from pytraj.parms.ParmFile import ParmFile
+    from pytraj import Topology, ParmFile
     top = Topology()
     parm = ParmFile()
     parm.readparm(filename, top)

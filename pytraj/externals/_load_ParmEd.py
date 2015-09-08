@@ -56,7 +56,7 @@ def to_ParmEd(pytraj_top):
     # need to change extension
     """convert to ParmEd object"""
     from pytraj.utils.context import goto_temp_folder
-    from pytraj.parms.ParmFile import ParmFile
+    from pytraj.Topology import ParmFile
     import parmed as chem
 
     # I am not a fan of saving/loading again but this might be best choice
