@@ -252,7 +252,6 @@ def build_func(my_ext):
                     'Operating System :: MacOS',
                     'Intended Audience :: Science/Research',
                     'License :: OSI Approved :: BSD License',
-                    'Programming Language :: Python :: 2.7',
                     'Programming Language :: Python :: 3.3',
                     'Programming Language :: Python :: 3.4',
                     'Programming Language :: Cython',
