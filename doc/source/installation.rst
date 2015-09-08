@@ -5,6 +5,7 @@ Requires
 --------
 `numpy <http://www.numpy.org/>`_
 `cython <http://cython.org/>`_
+``python 3``
 
 How?
 ----
