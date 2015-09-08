@@ -206,8 +206,6 @@ packages = [
         'pytraj.analyses',
         'pytraj.datasets',
         'pytraj.externals',
-        'pytraj.externals.gdt',
-        'pytraj.parms',
         'pytraj.trajs',
         'pytraj.datafiles',
         'pytraj.datafiles.Ala3',

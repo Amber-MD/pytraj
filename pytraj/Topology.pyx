@@ -649,23 +649,6 @@ cdef class ParmFile:
         del self.thisptr
 
     @classmethod
-    def help(cls):
-        print "read_options"
-        cls.read_options()
-
-        print
-        print "write_options"
-        cls.write_options()
-
-    @classmethod
-    def read_options(cls):
-        _ParmFile.ReadOptions()
-
-    @classmethod
-    def write_options(cls):
-        _ParmFile.WriteOptions()
-
-    @classmethod
     def formats(cls):
         """return a list of supported parm formats"""
         return ParmFormatDict.keys()
@@ -691,53 +674,8 @@ cdef class ParmFile:
             arglist = <ArgList> args[0]
             self.thisptr.ReadTopology(_top.thisptr[0], filename, arglist.thisptr[0], debug)
 
-    def write_prefix_topology(self, Topology top=Topology(), prefix="default", format=""):
-        """write_prefix_topology(Topology Top, string prefix, format="AMBER")
-        TODO : automatically get ParmFormatDict for this doc
-        ParmFormatDict = {
-            "AMBER" : AMBERPARM,
-            "PDB" : PDBFILE,
-            "MOL2" : MOL2FILE,
-            "CHARMMPSF" : CHARMMPSF,
-            "CIF" : CIFFILE,
-            "SDF" : SDFFILE,
-            "UNKNOWN" : UNKNOWN_PARM,
-                         }
-        TODO : do we need this method?
-        """
-        cdef int debug = 0
-        cdef int err  
-        cdef ParmFormatType parmtype 
-
-        prefix = prefix.encode()
-        
-        if format.empty():
-            parmtype = UNKNOWN_PARM
-        else:
-            try:
-                parmtype = ParmFormatDict[format]
-            except:
-                print "supported keywords: ", self.formats
-        # TODO : combine with write_topology
-        err = self.thisptr.WritePrefixTopology(top.thisptr[0], prefix, parmtype, debug)
-        if err == 1:
-            print "Not supported or failed to write"
-
     def writeparm(self, Topology top=Topology(), filename="default.top", 
                   ArgList arglist=ArgList(), format=""):
-        """writeparm(Topology top=top, string filename="default.top", 
-                     ArgList arglist=ArgList(), string format="AMBER")")
-        TODO : automatically get ParmFormatDict for this doc
-        ParmFormatDict = {
-            "AMBER" : AMBERPARM,
-            "PDB" : PDBFILE,
-            "MOL2" : MOL2FILE,
-            "CHARMMPSF" : CHARMMPSF,
-            "CIF" : CIFFILE,
-            "SDF" : SDFFILE,
-            "UNKNOWN" : UNKNOWN_PARM,
-                         }
-        """
         cdef int debug = 0
         cdef int err
         # change `for` to upper

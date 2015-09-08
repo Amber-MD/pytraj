@@ -1,6 +1,5 @@
 # distutils: language = c++
-from ..math.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
-from ..math.Vec3 cimport _Vec3, Vec3
+from ..math.cpp_math cimport _Matrix_3x3, Matrix_3x3, _Vec3, Vec3
 from ..cpp_vector cimport vector
 
 

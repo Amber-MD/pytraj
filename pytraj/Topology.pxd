@@ -10,8 +10,8 @@ from .core.cpptraj_core cimport (_FileName, FileName, _NameType, NameType)
 from .core.cpptraj_core cimport _AtomMask, AtomMask
 from .Frame cimport _Frame, Frame
 from libcpp.string cimport string
-from ..core.cpptraj_core cimport _FileName, FileName
-from ..core.cpptraj_core cimport _ArgList, ArgList
+from .core.cpptraj_core cimport _FileName, FileName
+from .core.cpptraj_core cimport _ArgList, ArgList
 
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
