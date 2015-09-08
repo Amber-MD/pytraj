@@ -56,11 +56,13 @@ cdef class Topology:
             del self.thisptr
 
     def __str__(self):
+        print('hello from Top')
         box = self.box
         if box.has_box():
             box_txt = "PBC with box type = %s" % box.type
         else:
             box_txt = "non-PBC"
+        print(box_txt)
          
         tmp = "<%s: %s atoms, %s residues, %s mols, %s>" % (
                 self.__class__.__name__,
@@ -68,6 +70,7 @@ cdef class Topology:
                 self.n_residues,
                 self.n_mols,
                 box_txt)
+        print(tmp)
         return tmp
 
     def __repr__(self):

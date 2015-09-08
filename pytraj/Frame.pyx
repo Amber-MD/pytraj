@@ -2,6 +2,9 @@
 
 #from __future__ import absolute_import, division
 # turn off `division` for automatically casting
+# NOTE: need to import numpy locally in some methods to avoid error + segfault (hell
+# knows, cython 0.23.1)
+# 
 from __future__ import absolute_import
 import math
 cimport cython
@@ -13,7 +16,6 @@ from cython.parallel import prange
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
 from libc.string cimport memcpy
-from pytraj.utils.check_and_assert import _import_numpy
 from pytraj.utils.check_and_assert import is_int
 from pytraj.core.cpptraj_core import ArgList
 from pytraj.trajs.Trajout import Trajout
@@ -64,6 +66,7 @@ cdef class Frame (object):
         >>> # create a copy of frame with atommask
         >>> frame3 = Frame(frame1, atm_instance)
         """
+        import numpy as np
         cdef Frame frame
         cdef AtomMask atmask
         cdef vector[_Atom] vt
@@ -85,7 +88,6 @@ cdef class Frame (object):
                     frame, atmask = args
                     self.thisptr = new _Frame(frame.thisptr[0], atmask.thisptr[0])
                 elif len(args) == 1:
-                    _, _np = _import_numpy()
                     # copy Frame
                     if isinstance(args[0], Frame):
                         frame = args[0]
@@ -94,7 +96,7 @@ cdef class Frame (object):
                     elif isinstance(args[0], int):
                         natom = <int> args[0]
                         self.thisptr = new _Frame(natom)
-                    elif isinstance(args[0], (list, tuple, pyarray, _np.ndarray)):
+                    elif isinstance(args[0], (list, tuple, pyarray, np.ndarray)):
                         # TODO : specify all things similar to list or array
                         natom3 = <int> len(args[0])
                         self.thisptr = new _Frame(natom3/3)
@@ -224,7 +226,7 @@ cdef class Frame (object):
 
     property shape:
         def __get__(self):
-            return self.buffer2d[:].shape
+            return self.xyz.shape
 
     property n_frames:
         def __get__(self):
@@ -252,31 +254,15 @@ cdef class Frame (object):
         cdef int i, j
         cdef int[:] int_view
 
-        has_numpy, np = _import_numpy()
         if isinstance(idx, pyarray):
-            if not has_numpy:
-                # create memoryview
-                int_view = idx
-                new_size = int_view.shape[0]
-                cy_arr = cython.view.array(shape=(new_size, 3), 
-                         itemsize=sizeof(double), format='d')
-                for i in range(new_size):
-                    # get index for `self`
-                    j = int_view[i]
-                    cy_arr[i] = self[j]
-                return cy_arr
-            else:
-                return self.xyz[idx]
+            return self.xyz[idx]
         elif isinstance(idx, AtomMask):
             # return a sub-array copy with indices got from 
             # idx.selected_indices()
             # TODO : add doc
             if idx.n_atoms == 0:
                 raise ValueError("emtpy mask")
-            if not has_numpy:
-                return self[idx.indices]
-            else:
-                return self.xyz[idx.indices]
+            return self.xyz[idx.indices]
         elif isinstance(idx, tuple) and isinstance(idx[0], AtomMask):
             # (AtomMask, )
             if len(idx) == 1:
@@ -313,14 +299,9 @@ cdef class Frame (object):
             else:
                 raise NotImplementedError()
         else:
-            if has_numpy:
-                return self.xyz[idx]
-            else:
-                return self.buffer2d[idx]
+            return self.xyz[idx]
 
     def __setitem__(self, idx, value):
-        has_np, np = _import_numpy()
-
         if isinstance(idx, AtomMask):
             self.xyz[idx.indices] = value
         elif isinstance(value, string_types):
@@ -333,14 +314,10 @@ cdef class Frame (object):
             self.xyz[idx] = value
 
     def __iter__(self):
+        import numpy as np
         cdef int i
-
-        has_numpy, np = _import_numpy()
         for i in range(self.n_atoms):
-            if has_numpy:
-                yield np.asarray(self.buffer2d[i])
-            else:
-                yield self.buffer2d[i]
+            yield np.asarray(self.buffer2d[i])
 
     def __array__(self):
         """
@@ -348,7 +325,7 @@ cdef class Frame (object):
 
         (== (arr0 = np.asarray(frame[:])))
         """
-        _, np = _import_numpy()
+        import numpy as np
         cdef double* ptr = self.thisptr.xAddress()
         return np.asarray(<double[:self.thisptr.Natom(), :3]> ptr, dtype='f8')
 
@@ -446,11 +423,9 @@ cdef class Frame (object):
     property xyz:
         def __get__(self):
             """return numpy array as a view of Frame xyz coords"""
-            has_np, np = _import_numpy()
-            if has_np:
-                return np.asarray(self.buffer2d)
-            else:
-                raise NotImplementedError("need numpy. Use `buffer2d` instead")
+            import numpy as np
+            return np.asarray(self.buffer2d)
+
         def __set__(self, value):
             if not hasattr(value, 'shape') and value.shape != self.shape:
                 raise ValueError("shape mismatch")
@@ -895,12 +870,10 @@ cdef class Frame (object):
         mat : Matrix-like, shape=(3,3)
             3x3 matrix (pytraj or numpy)
         """
+        import numpy as np
         cdef AtomMask atm
         cdef Matrix_3x3 _mat
 
-        has_numpy, np = _import_numpy()
-        if not has_numpy:
-            assert isinstance(mat, Matrix_3x3)
         if isinstance(mat, np.matrix) or isinstance(mat, np.ndarray):
             _mat = Matrix_3x3(mat)
         else:
@@ -1253,10 +1226,9 @@ cdef class Frame (object):
         return Frame().append_xyz(xyz)
 
     def to_dataframe(self, top=None):
-        from pytraj.utils import _import_pandas
-        _, pd = _import_pandas()
+        import pandas as pd
+        import numpy as np
         if pd:
-            _, np = _import_numpy()
             if top is None:
                 labels = list('xyzm')
                 arr = np.vstack((self.xyz.T, self.mass)).T

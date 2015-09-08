@@ -1,11 +1,11 @@
 # distutils: language = c++
 from __future__ import absolute_import
+import numpy as np
 from cython cimport view
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarray
 from pytraj.cpptraj_dict import BoxTypeDict, get_key
-from pytraj.utils import _import_numpy
 from pytraj.math.Matrix_3x3 cimport Matrix_3x3
 from pytraj.externals.six import string_types
 
@@ -211,7 +211,7 @@ cdef class Box(object):
         return vec
 
     def tolist(self):
-        return list(self._get_data()[:])
+        return list([x for x in self.data])
 
     @property
     def values(self):
@@ -219,9 +219,5 @@ cdef class Box(object):
         return self.to_ndarray()
 
     def to_ndarray(self):
-        has_np, np = _import_numpy()
-        if not has_np:
-            raise ImportError("need numpy")
-        else:
-            return np.asarray(self._get_data()[:])
+        return np.asarray(self._get_data()[:])
 
