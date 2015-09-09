@@ -17,7 +17,7 @@ What does **pytraj** offer?
 
 + `support many types of analysis <analysis>`_
 + `support parallel processing <parallel>`_
-+ `able to handle many files at the same time <process_many_files>`_
++ :ref:`able to handle many files at the same time <process_many_files>`
 + `able to handle very large trajectory <design_trajectory>`_
 + simple (and fast) calculation::
 

@@ -115,7 +115,7 @@ Licence info
 Build doc
 ---------
 
-.. note:: make sure to install pytraj, cpptraj, numpy, ipython, matplotlib. Install `sphinx-bootstrap-theme too <https://github.com/ryan-roemer/sphinx-bootstrap-theme>`_
+.. note:: make sure to install pytraj, cpptraj, numpy, ipython, matplotlib, memory_profiler, psutil. Install `sphinx-bootstrap-theme too <https://github.com/ryan-roemer/sphinx-bootstrap-theme>`_
 
 .. code-block:: bash
     

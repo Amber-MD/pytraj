@@ -56,7 +56,12 @@ If memory is critical, do not load all frames into memory.
 .. ipython:: python
 
     # do this (only a single frame will be loaded to memory)
-    %memit pt.radgyr(traj, frame_indices=[0, 200, 300, 301])
+    pt.radgyr(traj(frame_indices=[0, 200, 300, 301]))
 
     # rather doing (all 4 frames will be loaded to memory)
-    %memit pt.radgyr(traj[[0, 200, 300, 301]])
+    pt.radgyr(traj[[0, 200, 300, 301]])
+
+    traj(frame_indices=[0, 200, 300, 301])
+    traj[[0, 200, 300, 301]]
+
+See also: :ref:`trajectory_slice`
