@@ -16,11 +16,11 @@ cdef extern from "DataSet.h":
         pass
     ctypedef enum scalarType "DataSet::scalarType":
         pass
-    cdef cppclass _DataSet "DataSet":
-        _DataSet() 
-        _DataSet(DataType, int, int, int)
-        _DataSet(const _DataSet&)
-        #_DataSet& operator =(const _DataSet&)
+    cdef cppclass _Dataset "DataSet":
+        _Dataset() 
+        _Dataset(DataType, int, int, int)
+        _Dataset(const _Dataset&)
+        #_Dataset& operator =(const Dataset&)
         void SetWidth(int)
         void SetPrecision(int, int)
         int SetupSet(const string&, int, const string&, int)
@@ -40,7 +40,7 @@ cdef extern from "DataSet.h":
         scalarMode ScalarMode() const 
         scalarType ScalarType() const 
         size_t Ndim() const 
-        inline bint operator< (const _DataSet&) const 
+        inline bint operator< (const _Dataset&) const 
         const char * DataFormat() const 
         scalarMode ModeFromKeyword(const string&)
         scalarType TypeFromKeyword(const string&, scalarMode&)
@@ -50,17 +50,17 @@ cdef extern from "DataSet.h":
         # virtual
         #void Add( size_t, const void*  )
 
-cdef class DataSet:
-    cdef _DataSet* baseptr0
+cdef class Dataset:
+    cdef _Dataset* baseptr0
     cdef public object _base
 
 
 cdef extern from "DataSet_1D.h": 
-    cdef cppclass _DataSet_1D "DataSet_1D" (_DataSet):
-        _DataSet_1D() 
-        _DataSet_1D(_DataSet)
+    cdef cppclass _Dataset1D "DataSet_1D" (_Dataset):
+        _Dataset1D() 
+        _Dataset1D(Dataset)
         # virtual methods
-        #virtual ~_DataSet_1D() 
+        #virtual ~_Dataset1D() 
         int Allocate1D(size_t)
         double Dval(size_t) const
         double Xcrd(size_t) const
@@ -70,19 +70,19 @@ cdef extern from "DataSet_1D.h":
         double Avg(double& sd) const 
         double Min() const 
         double Max() const 
-        int CrossCorr(const _DataSet_1D&, _DataSet_1D&, int, bint, bint) const 
-        double CorrCoeff(const _DataSet_1D&) const 
+        int CrossCorr(const _Dataset1D&, _Dataset1D&, int, bint, bint) const 
+        double CorrCoeff(const _Dataset1D&) const 
 
 
-cdef class DataSet_1D (DataSet):
-    # baseptr0 is from DataSet
-    cdef _DataSet_1D* baseptr_1
+cdef class Dataset1D (Dataset):
+    # baseptr0 is from Dataset
+    cdef _Dataset1D* baseptr_1
 # distutils: language = c++
 cdef extern from "DataSet_double.h": 
-    cdef cppclass _DatasetDouble "DataSet_double" (_DataSet_1D):
+    cdef cppclass _DatasetDouble "DataSet_double" (_Dataset1D):
         _DatasetDouble() 
         @staticmethod
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         double& operator[](size_t idx)
         double& index_opr "operator[]"(size_t idx)
         const vector[double]& Data() const 
@@ -104,29 +104,29 @@ cdef extern from "DataSet_double.h":
         void ShiftTorsions(double, double)
 
 
-cdef class DatasetDouble (DataSet_1D):
+cdef class DatasetDouble (Dataset1D):
     cdef _DatasetDouble* thisptr
     cdef bint py_free_mem 
 
 cdef extern from "DataSet_float.h": 
-    cdef cppclass _DatasetFloat "DataSet_float" (_DataSet_1D):
+    cdef cppclass _DatasetFloat "DataSet_float" (_Dataset1D):
         _DatasetFloat() 
         @staticmethod
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         float& operator[](size_t idx)
         float& index_opr "operator[]"(size_t idx)
         int Size()
         void Resize(size_t)
 
-cdef class DatasetFloat (DataSet_1D):
+cdef class DatasetFloat (Dataset1D):
     cdef _DatasetFloat* thisptr
     cdef bint py_free_mem 
 
 cdef extern from "DataSet_integer.h": 
-    cdef cppclass _DatasetInteger "DataSet_integer" (_DataSet_1D):
+    cdef cppclass _DatasetInteger "DataSet_integer" (_Dataset1D):
         _DatasetInteger() 
         @staticmethod
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         int& operator[](size_t idx)
         int& index_opr "operator[]"(size_t idx)
         void AddElement(int i)
@@ -134,27 +134,27 @@ cdef extern from "DataSet_integer.h":
         void Resize(size_t)
         void Add( size_t, const void* )
 
-cdef class DatasetInteger (DataSet_1D):
+cdef class DatasetInteger (Dataset1D):
     cdef _DatasetInteger* thisptr
     cdef bint py_free_mem 
 
 cdef extern from "DataSet_string.h": 
-    cdef cppclass _DatasetString "DataSet_string" (_DataSet_1D):
+    cdef cppclass _DatasetString "DataSet_string" (_Dataset1D):
         _DatasetString()
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         string& index_opr "operator[]"(size_t idx)
         void AddElement(const string& s)
         void Resize(size_t sizeIn)
         int Size()
 
-cdef class DatasetString(DataSet_1D):
+cdef class DatasetString(Dataset1D):
     cdef _DatasetString* thisptr
     cdef bint py_free_mem
 
 cdef extern from "DataSet_Vector.h": 
-    cdef cppclass _DatasetVector "DataSet_Vector" (_DataSet_1D):
+    cdef cppclass _DatasetVector "DataSet_Vector" (_Dataset1D):
         _DatasetVector() 
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         void SetIred() 
         bint IsIred() const 
         void reset() 
@@ -175,7 +175,7 @@ cdef extern from "DataSet_Vector.h":
         double SphericalHarmonicsNorm(int)
 
 
-cdef class DatasetVector (DataSet_1D):
+cdef class DatasetVector (Dataset1D):
     cdef _DatasetVector* thisptr
     cdef bint py_free_mem
 
@@ -186,9 +186,9 @@ cdef extern from "DataSet_2D.h":
         pass
     ctypedef enum MatrixKind "DataSet_2D::MatrixKind":
         pass
-    cdef cppclass _DataSet_2D "DataSet_2D" (_DataSet):
-        _DataSet_2D() 
-        _DataSet_2D(DataType tIn, int wIn, int pIn)
+    cdef cppclass _Dataset2D "DataSet_2D" (_Dataset):
+        _Dataset2D() 
+        _Dataset2D(DataType tIn, int wIn, int pIn)
         # virtual methods
         int Allocate2D(size_t, size_t) 
         int AllocateHalf(size_t) 
@@ -204,19 +204,19 @@ cdef extern from "DataSet_2D.h":
         const char * MatrixTypeString(MatrixType m)
         const char * MatrixOutputString(MatrixType m)
 
-cdef class DataSet_2D (DataSet):
-    cdef _DataSet_2D* baseptr_1
+cdef class Dataset2D (Dataset):
+    cdef _Dataset2D* baseptr_1
 
 
 #ctypedef Matrix[double].iterator iterator
 ctypedef vector[double] Darray
 
 cdef extern from "DataSet_MatrixDbl.h": 
-    cdef cppclass _DatasetMatrixDouble "DataSet_MatrixDbl" (_DataSet_2D):
+    cdef cppclass _DatasetMatrixDouble "DataSet_MatrixDbl" (_Dataset2D):
         _DatasetMatrixDouble() 
         double& index_opr "operator[]"(size_t idx)
         @staticmethod
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         size_t Size() const 
         int Sync() 
         void Info() const 
@@ -229,7 +229,7 @@ cdef extern from "DataSet_MatrixDbl.h":
         size_t Ncols() const 
         #double * MatrixArray() const # not implemented
         MatrixKind Kind() const 
-        # make alias to avoid naming conflict with DataSet (DataType)
+        # make alias to avoid naming conflict with Dataset (DataType)
         MatrixType matType "Type"() const 
         unsigned int Nsnapshots() const 
         void IncrementSnapshots() 
@@ -248,28 +248,28 @@ cdef extern from "DataSet_MatrixDbl.h":
         const Darray& Mass() const 
 
 
-cdef class DatasetMatrixDouble (DataSet_2D):
+cdef class DatasetMatrixDouble (Dataset2D):
     cdef _DatasetMatrixDouble* thisptr
     cdef bint py_free_mem
 
 
 cdef extern from "DataSet_MatrixFlt.h": 
-    cdef cppclass _DatasetMatrixFloat  "DataSet_MatrixFlt" (_DataSet_2D):
-        _DataSet_MatrixFlt() 
+    cdef cppclass _DatasetMatrixFloat  "DataSet_MatrixFlt" (_Dataset2D):
+        _DatasetMatrixFlt() 
         float& index_opr "operator[]" (size_t idx)
         @staticmethod
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
 
 
-cdef class DatasetMatrixFloat(DataSet_2D):
+cdef class DatasetMatrixFloat(Dataset2D):
     cdef _DatasetMatrixFloat * thisptr
     cdef bint py_free_mem
 
 
 cdef extern from "DataSet_3D.h": 
-    cdef cppclass _DataSet_3D "DataSet_3D" (_DataSet):
-        _DataSet_3D() 
-        _DataSet_3D(DataType tIn, int wIn, int pIn)
+    cdef cppclass _Dataset3D "DataSet_3D" (_Dataset):
+        _Dataset3D() 
+        _Dataset3D(DataType tIn, int wIn, int pIn)
         void Add(size_t, const void *)
         int Allocate_N_O_D(size_t, size_t, size_t, const _Vec3&, const _Vec3&)
         int Allocate_N_C_D(size_t, size_t, size_t, const _Vec3&, const _Vec3&)
@@ -287,14 +287,14 @@ cdef extern from "DataSet_3D.h":
         inline _Vec3 BinCorner(int, int, int)
         inline _Vec3 BinCenter(int, int, int)
 
-cdef class DataSet_3D (DataSet):
-    cdef _DataSet_3D* baseptr_1
+cdef class Dataset3D (Dataset):
+    cdef _Dataset3D* baseptr_1
 
 cdef extern from "DataSet_GridFlt.h": 
-    cdef cppclass _DatasetGridFloat "DataSet_GridFlt" (_DataSet_3D):
+    cdef cppclass _DatasetGridFloat "DataSet_GridFlt" (_Dataset3D):
         _DatasetGridFloat()
         float& index_opr "operator[]"(size_t idx)
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         const _Grid[float]& InternalGrid() const 
         size_t Size() const 
         int Sync() 
@@ -314,14 +314,14 @@ cdef extern from "DataSet_GridFlt.h":
         float GridVal(int x, int y, int z) const 
         long int CalcIndex(int i, int j, int k) const 
 
-cdef class DatasetGridFloat (DataSet_3D):
+cdef class DatasetGridFloat (Dataset3D):
     cdef _DatasetGridFloat* thisptr
     cdef public bint py_free_mem
 
 cdef extern from "DataSet_Modes.h": 
-    cdef cppclass _DataSet_Modes "DataSet_Modes" (_DataSet):
-        _DataSet_Modes() 
-        _DataSet * Alloc() 
+    cdef cppclass _DatasetModes "DataSet_Modes" (_Dataset):
+        _DatasetModes() 
+        _Dataset * Alloc() 
         size_t Size() const 
         int Sync() 
         void Info() const 
@@ -332,9 +332,9 @@ cdef extern from "DataSet_Modes.h":
         double * Avg_FramePtr() 
         const double * Avg_FramePtr() const 
         void AllocateAvgCoords(int n)
-        void SetAvgCoords(const _DataSet_2D&)
+        void SetAvgCoords(const _Dataset2D&)
         int SetModes(bint, int, int, const double *, const double *)
-        int CalcEigen(const _DataSet_2D&, int)
+        int CalcEigen(const _Dataset2D&, int)
         void PrintModes() 
         int EigvalToFreq(double)
         int MassWtEigvect(Darray&)
@@ -347,14 +347,14 @@ cdef extern from "DataSet_Modes.h":
         #MatrixType Type() const 
         bint IsReduced() const 
 
-cdef class DataSet_Modes (DataSet):
-    cdef _DataSet_Modes* thisptr
+cdef class DatasetModes (Dataset):
+    cdef _DatasetModes* thisptr
 
 ctypedef cmap[double, int] TcmapType
 cdef extern from "DataSet_RemLog.h": 
-    cdef cppclass _DataSet_RemLog "DataSet_RemLog":
-        _DataSet_RemLog() 
-        _DataSet * Alloc() 
+    cdef cppclass _DatasetRemLog "DataSet_RemLog":
+        _DatasetRemLog() 
+        _Dataset * Alloc() 
         void AllocateReplicas(int)
         void AddRepFrame(int rep, const _ReplicaFrame& frm)
         const _ReplicaFrame& RepFrame(int exch, int rep) const 
@@ -380,8 +380,8 @@ cdef extern from "DataSet_RemLog.h":
         double PE_X2() const 
 
 
-cdef class DataSet_RemLog:
-    cdef _DataSet_RemLog* thisptr
+cdef class DatasetRemLog:
+    cdef _DatasetRemLog* thisptr
 
 cdef class ReplicaFrame:
     cdef _ReplicaFrame* thisptr
@@ -390,10 +390,10 @@ cdef class ReplicaFrame:
 
 cdef extern from "DataSet_Mat3x3.h": 
     ctypedef vector[_Matrix_3x3].iterator mat_iterator
-    cdef cppclass _DatasetMatrix3x3 "DataSet_Mat3x3" (_DataSet_1D):
+    cdef cppclass _DatasetMatrix3x3 "DataSet_Mat3x3" (_Dataset1D):
         _DatasetMatrix3x3()
         @staticmethod
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         bint Empty()
         void AddMat3x3(_Matrix_3x3)
         mat_iterator begin()
@@ -401,16 +401,16 @@ cdef extern from "DataSet_Mat3x3.h":
         _Matrix_3x3& operator[](int i)
 
 
-cdef class DatasetMatrix3x3(DataSet_1D):
+cdef class DatasetMatrix3x3(Dataset1D):
     cdef _DatasetMatrix3x3* thisptr
     cdef bint py_free_mem 
 
 
 cdef extern from "DataSet_Mesh.h": 
-    cdef cppclass _DatasetMesh "DataSet_Mesh" (_DataSet_1D):
+    cdef cppclass _DatasetMesh "DataSet_Mesh" (_Dataset1D):
         _DatasetMesh()
         _DatasetMesh(int, double, double)
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         size_t Size() const 
         int Sync() 
         void Info() const 
@@ -422,23 +422,23 @@ cdef extern from "DataSet_Mesh.h":
         double X(int i) const 
         double Y(int i) const 
         void CalculateMeshX(int, double, double)
-        int SetMeshXY(const _DataSet_1D&)
+        int SetMeshXY(const _Dataset1D&)
         double Integrate_Trapezoid(_DatasetMesh&) const 
         double Integrate_Trapezoid() const 
         int SetSplinedMeshY(const vector[double]&, const vector[double]&)
-        int SetSplinedMesh(const _DataSet_1D&)
+        int SetSplinedMesh(const _Dataset1D&)
         int LinearRegression(double&, double&, double&, bint) const 
 
-cdef class DatasetMesh(DataSet_1D):
+cdef class DatasetMesh(Dataset1D):
     cdef _DatasetMesh* thisptr
     cdef public bint py_free_mem
 
 
 cdef extern from "DataSet_Coords.h": 
-    cdef cppclass _DataSet_Coords "DataSet_Coords" (_DataSet):
-        _DataSet_Coords() 
-        _DataSet_Coords(DataType)
-        #virtual ~_DataSet_Coords() 
+    cdef cppclass _DatasetCoords "DataSet_Coords" (_Dataset):
+        _DatasetCoords() 
+        _DatasetCoords(DataType)
+        #virtual ~_DatasetCoords() 
         _Frame AllocateFrame() const 
         
         # virtual methods
@@ -452,9 +452,9 @@ cdef extern from "DataSet_Coords.h":
         inline const _Topology& Top() const 
 
 
-cdef class DataSet_Coords (DataSet):
-    # DataSet has baseptr0
-    cdef _DataSet_Coords* baseptr_1
+cdef class DatasetCoords (Dataset):
+    # Dataset has baseptr0
+    cdef _DatasetCoords* baseptr_1
     cdef Topology _top
     cdef bint py_free_mem
 
@@ -464,10 +464,10 @@ cdef class DataSet_Coords (DataSet):
 # distutils: language = c++
 
 cdef extern from "DataSet_Coords_CRD.h": 
-    cdef cppclass _DataSet_Coords_CRD "DataSet_Coords_CRD" (_DataSet_Coords):
-        _DataSet_Coords_CRD() 
+    cdef cppclass _DatasetCoordsCRD "DataSet_Coords_CRD" (_DatasetCoords):
+        _DatasetCoordsCRD() 
         @staticmethod
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         size_t Size() const 
         int Sync() 
         void Info() const 
@@ -481,32 +481,25 @@ cdef extern from "DataSet_Coords_CRD.h":
         inline void SetCRD(int idx, const _Frame& fIn)
 
 
-cdef class DataSet_Coords_CRD (DataSet_Coords):
-    cdef _DataSet_Coords_CRD* thisptr
+cdef class DatasetCoordsCRD (DatasetCoords):
+    cdef _DatasetCoordsCRD* thisptr
+
 cdef extern from "DataSet_Coords_REF.h": 
-    cdef cppclass _DataSet_Coords_REF "DataSet_Coords_REF" (_DataSet_Coords):
-        _DataSet_Coords_REF() 
+    cdef cppclass _DatasetCoordsRef "DataSet_Coords_REF" (_DatasetCoords):
+        _DatasetCoordsRef() 
 
         # turn off those methods since they are in parent class
         @staticmethod
-        _DataSet * Alloc() 
+        _Dataset * Alloc() 
         size_t Size() const 
-        #int Sync() 
-        #void Info() const 
-        #void Add(size_t, const void *)
-        #int AllocateCoords(size_t)
-        #inline void AddFrame(const _Frame& fIn)
-        #inline void GetFrame(int idx, _Frame& fIn)
-        #inline void GetFrame(int idx, _Frame& fIn, const _AtomMask& mIn)
-        #inline void SetCRD(int idx, const _Frame& fIn)
 
         int LoadRef(const string&, const _Topology&, int)
         int SetupRef_Frame(const string&, const string&, const _Topology&, _ArgList&, int)
-        int SetupRef_Frame(_DataSet_Coords *, const string&, int, int)
+        int SetupRef_Frame(_DatasetCoords *, const string&, int, int)
         int StripRef(const string&)
         int StripRef(const _AtomMask&)
         const _Frame& RefFrame() const 
         int RefIndex() const 
 
-cdef class DataSet_Coords_REF (DataSet_Coords):
-    cdef _DataSet_Coords_REF* thisptr
+cdef class DatasetCoordsRef (DatasetCoords):
+    cdef _DatasetCoordsRef* thisptr

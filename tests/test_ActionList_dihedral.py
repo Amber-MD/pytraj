@@ -12,10 +12,10 @@ import pytraj.common_actions as pyca
 class Test(unittest.TestCase):
     def test_0(self):
         from pytraj.core.ActionList import ActionList
-        from pytraj.datasets.DataSetList import DataSetList
+        from pytraj.datasets.DatasetList import DatasetList
         from pytraj.actions import CpptrajActions as CA
 
-        dslist = DataSetList()
+        dslist = DatasetList()
         actlist = ActionList()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         mask_list = ['@CB @CA @N @H', '@CA @H @N @H=']

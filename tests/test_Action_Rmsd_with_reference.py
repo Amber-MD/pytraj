@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['rmsd']
-        dslist = DataSetList()
+        dslist = DatasetList()
         act(":3-18@CA reftraj ./data/Tc5b.crd ./data/Tc5b.top", traj,
             dslist=dslist)
         d0 = dslist[0]

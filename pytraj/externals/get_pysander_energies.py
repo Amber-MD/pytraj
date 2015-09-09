@@ -139,9 +139,9 @@ def get_pysander_energies(traj=None,
     if dtype == 'dict':
         return new_dict
     else:
-        from pytraj.datasets.DataSetList import DataSetList
+        from pytraj.datasets.DatasetList import DatasetList
 
-        dslist = DataSetList()
+        dslist = DatasetList()
         size = new_dict['tot'].__len__()
         for key in new_dict.keys():
             dslist.add_set('double')

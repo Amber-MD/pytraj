@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
                 adict[key]
 
     def test_2(self):
-        DataSetList()
+        DatasetList()
         print("try to make all analysis objects")
         from pytraj import analdict
         failed_list = []
@@ -46,9 +46,9 @@ class Test(unittest.TestCase):
         DatasetMatrixDouble()
         DatasetMatrixFloat()
         DatasetVector()
-        DataSet_Coords()
-        DataSet_Coords_REF()
-        DataSet_Coords_CRD()
+        DatasetCoords()
+        DatasetCoordsRef()
+        DatasetCoordsCRD()
 
     def test_4(self):
         print("try to make structure-related objects")

@@ -25,7 +25,7 @@ class TestActionList(unittest.TestCase):
         stripact = allactions.Action_Strip()
 
         # creat datasetlist to hold distance data
-        dsetlist = DataSetList()
+        dsetlist = DatasetList()
         dflist = DataFileList()
 
         # creat ActionList to hold actions

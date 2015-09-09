@@ -34,7 +34,7 @@ def run_tests():
         if key not in failed_list:
             adict[key]
 
-    DataSetList()
+    DatasetList()
     print("try to make all analysis objects")
     from pytraj import analdict
     failed_list = []
@@ -53,9 +53,9 @@ def run_tests():
     DatasetMatrixFloat()
     DatasetVector()
     DatasetMatrix3x3()
-    DataSet_Coords()
-    DataSet_Coords_REF()
-    DataSet_Coords_CRD()
+    DatasetCoords()
+    DatasetCoordsRef()
+    DatasetCoordsCRD()
 
     print("try to make structure-related objects")
     Topology()

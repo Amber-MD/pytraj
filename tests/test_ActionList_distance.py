@@ -16,10 +16,10 @@ mask_list = ('@CB @CA', '@CA @H')
 class Test(unittest.TestCase):
     def test_0(self):
         from pytraj.core.ActionList import ActionList
-        from pytraj.datasets.DataSetList import DataSetList
+        from pytraj.datasets.DatasetList import DatasetList
         from pytraj.actions import CpptrajActions as CA
 
-        dslist = DataSetList()
+        dslist = DatasetList()
         actlist = ActionList()
 
         for mask in mask_list:

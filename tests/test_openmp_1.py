@@ -4,7 +4,7 @@ from pytraj import set_world_silent
 from pytraj.utils import Timer
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.datasets import DataSet_Coords_CRD
+from pytraj.datasets import DatasetCoordsCRD
 from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
 
 
@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         # export OMP_NUM_THREADS=8
         # python ./test_openmp_0.py
 
-        dslist = DataSetList()
+        dslist = DatasetList()
         dflist = DataFileList()
 
         trajin = "./data/md1_prod.Tc5b.x"

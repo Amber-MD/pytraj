@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj import TrajectoryIterator
-from pytraj.base import DataSetList, DataFileList
+from pytraj.base import DatasetList, DataFileList
 from numpy.testing import assert_allclose
 from pytraj import io as mdio
 from pytraj import allactions
@@ -18,7 +18,7 @@ farray = TrajectoryIterator(top=pt.load_topology("./data/DPDP.parm7"),
 
 class TestRadgyr(unittest.TestCase):
     def test_0(self):
-        dslist = DataSetList()
+        dslist = DatasetList()
         act = adict['dssp']
         dflist = DataFileList()
         act.read_input(":10-22 out ./output/_test_dssp_DPDP.dat", farray.top,
@@ -35,7 +35,7 @@ class TestRadgyr(unittest.TestCase):
         arr0 = dslist.get_dataset(dtype='integer')
 
     def test_1(self):
-        dslist = DataSetList()
+        dslist = DatasetList()
         dflist = DataFileList()
         adict['dssp'](":10-22 out ./output/_test_dssp_DPDP.dat",
                       current_frame=farray,

@@ -13,8 +13,8 @@ class TestActionListRMSD(unittest.TestCase):
 
         def test_rmsd(input_traj):
             from pytraj.actions.CpptrajActions import Action_Rmsd
-            from pytraj.datasets import DataSetList
-            dslist = DataSetList()
+            from pytraj.datasets import DatasetList
+            dslist = DatasetList()
             act = Action_Rmsd()
             act.read_input('first @CA', top=input_traj.top, dslist=dslist)
             act.process(input_traj.top)
@@ -26,10 +26,10 @@ class TestActionListRMSD(unittest.TestCase):
         def test_rmsd_actlist(input_traj):
             from pytraj.actions.CpptrajActions import Action_Rmsd
             from pytraj.core.ActionList import ActionList
-            from pytraj.datasets import DataSetList
+            from pytraj.datasets import DatasetList
 
             alist = ActionList()
-            dslist = DataSetList()
+            dslist = DatasetList()
             act = Action_Rmsd()
             alist.add_action(act, 'first @CA',
                              top=input_traj.top,

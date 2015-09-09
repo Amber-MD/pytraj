@@ -45,7 +45,7 @@ cdef class Analysis:
     @makesureABC("Analysis")
     def read_input(self, command='', 
                    top=TopologyList(),
-                   DataSetList dslist=DataSetList(), 
+                   DatasetList dslist=DatasetList(), 
                    DataFileList dflist=DataFileList()):
         """
         Parameters
@@ -53,7 +53,7 @@ cdef class Analysis:
         command : str
             Type of actions, mask, ... (Get help: Analysis_Clustering().help())
         top : Topology or TopologyList instance, default=TopologyList()
-        dslist : DataSetList instance, default=DataSetList()
+        dslist : DatasetList instance, default=DatasetList()
         dflist : DataFileList instance, default=DataFileList()
         debug : int, default=0
             debug option from cpptraj. (Do we need this?)

@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from array import array
 import numpy as np
 from functools import partial
-from pytraj.datasets.DataSetList import DataSetList as DSL
+from pytraj.datasets.DatasetList import DatasetList as DSL
 from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import _import_pandas, is_int, is_array, is_generator

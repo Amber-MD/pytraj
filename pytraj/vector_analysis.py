@@ -20,7 +20,7 @@ def vector_%s(traj=None, command="", top=None, *args, **kwd):
     """
     from ._get_common_objects import _get_top, _get_data_from_dtype
     from ._get_common_objects import _get_list_of_commands
-    from .datasets.DataSetList import DataSetList
+    from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_Vector
     from .core.ActionList import ActionList
 
@@ -31,7 +31,7 @@ def vector_%s(traj=None, command="", top=None, *args, **kwd):
         dtype = None
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = CpptrajDatasetList()
     template_command = ' %s '
 
     list_of_commands = _get_list_of_commands(command)

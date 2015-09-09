@@ -59,7 +59,7 @@ def calc_%s(traj=None, resrange="",
     --------
     """
 
-    from .datasets.DataSetList import DataSetList
+    from .datasets.DatasetList import DatasetList
     from .actions.CpptrajActions import Action_MultiDihedral
     from ._get_common_objects import _get_top, _get_data_from_dtype
     from .compat import string_types
@@ -83,7 +83,7 @@ def calc_%s(traj=None, resrange="",
         _resrange = ""
 
     _top = _get_top(traj, top)
-    dslist = DataSetList()
+    dslist = DatasetList()
     template_command = '%s '
     template_command = " ".join((template_command, _resrange, _range360))
 

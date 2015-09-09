@@ -10,7 +10,7 @@ class TestActionList(unittest.TestCase):
     def test_run_0(self):
         # load traj
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = DataSetList()
+        dslist = DatasetList()
         dflist = DataFileList()
 
         # creat ActionList to hold actions
@@ -42,7 +42,7 @@ class TestActionList(unittest.TestCase):
     def test_run_1(self):
         # load traj
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = DataSetList()
+        dslist = DatasetList()
         dflist = DataFileList()
 
         # creat ActionList to hold actions
@@ -57,7 +57,7 @@ class TestActionList(unittest.TestCase):
     def test_run_1(self):
         # load traj
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = DataSetList()
+        dslist = DatasetList()
         dflist = DataFileList()
 
         # creat ActionList to hold actions

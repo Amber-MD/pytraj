@@ -2,6 +2,7 @@ from __future__ import print_function
 from pytraj import io as mdio
 import pytraj.common_actions as pyca
 from pytraj.testing import aa_eq
+from memory_profiler import profile
 
 
 @profile
@@ -63,7 +64,7 @@ if __name__ == "__main__":
     dslist = test_2()
 
     # assert
-    from pytraj import DataSetList as DSL
+    from pytraj import DatasetList as DSL
     ds = DSL()
     ds.read_data("./output/test_rms2d.save.dat")
     aa_eq(ds.to_ndarray(), arr1)

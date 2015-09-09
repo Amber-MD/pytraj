@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload(".//data/tz2.truncoct.nc",
                              ".//data/tz2.truncoct.parm7")
-        dslist = DataSetList()
+        dslist = DatasetList()
         dflist = DataFileList()
         adict['watershell'](current_frame=traj,
                             command="!:WAT out ./output/_ws.agr",

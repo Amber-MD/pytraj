@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         fn = "./data/Test_NAstruct/adh026.3.pdb"
         traj = mdio.iterload(fn, fn)
 
-        dslist = DataSetList()
+        dslist = DatasetList()
         act = adict['nastruct']
         act("", traj, dslist=dslist)
         act.print_output()

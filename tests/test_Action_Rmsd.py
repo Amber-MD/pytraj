@@ -11,12 +11,12 @@ class Test(unittest.TestCase):
         ref = mdio.iterload("./data/Tc5b.crd", "./data/Tc5b.top")[0]
         traj.top.set_reference_coord(ref)
         act = adict['rmsd']
-        dslist = DataSetList()
+        dslist = DatasetList()
         act("rms reference :3-18@CA", traj, dslist=dslist)
         print((dslist[0][:]))
 
         act = adict['rmsd']
-        dslist = DataSetList()
+        dslist = DatasetList()
         act("rms first :3-18@CA", traj, dslist=dslist)
         print((dslist[0][:]))
 

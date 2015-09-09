@@ -1,4 +1,5 @@
 # distutils: language = c++
+
 from __future__ import division
 from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
@@ -24,18 +25,18 @@ from ..externals.six import string_types
 
 _, np = _import_numpy()
 
-cdef class DataSet:
+cdef class Dataset:
     __cpptraj_dataset__ = None
     """
     Original doc from cpptraj
     -------------------------
-    Class: DataSet
-        Base class that all DataSet types will inherit.
-        DataSets are given certain attributes to make DataSet selection easier; 
+    Class: Dataset
+        Base class that all Dataset types will inherit.
+        Datasets are given certain attributes to make Dataset selection easier; 
         these are name, index, and aspect. Name is typically associated with the
-        action that creates the DataSet, e.g. RMSD or distance. Index is used
+        action that creates the Dataset, e.g. RMSD or distance. Index is used
         when and action outputs subsets of data, e.g. with RMSD it is possible to 
-        output per-residue RMSD, where the DataSet index corresponds to the residue
+        output per-residue RMSD, where the Dataset index corresponds to the residue
         number. Aspect is used to further subdivide output data type; e.g. with 
         nucleic acid analysis each base pair (divided by index) has shear,
         stagger etc calculated.
@@ -49,7 +50,7 @@ cdef class DataSet:
     def __cinit__(self):
         pass
         # don't create instance for this abstract class
-        #self.baseptr0 = new _DataSet()
+        #self.baseptr0 = new _Dataset()
 
     def __dealloc__(self):
         pass
@@ -73,13 +74,13 @@ cdef class DataSet:
         return self.__str__()
 
     def __iter__(self):
-        raise NotImplementedError("Must over-write DataSet data attr")
+        raise NotImplementedError("Must over-write Dataset data attr")
 
     def __getitem__(self, idx):
-        raise NotImplementedError("Must over-write DataSet data attr")
+        raise NotImplementedError("Must over-write Dataset data attr")
 
     def __setitem__(self, idx, value):
-        raise NotImplementedError("Must over-write DataSet data attr")
+        raise NotImplementedError("Must over-write Dataset data attr")
 
 
     def __array__(self):
@@ -88,7 +89,7 @@ cdef class DataSet:
 
         Examples
         -------
-            d = DataSet_integer()
+            d = Dataset_integer()
             d.resize(200)
             d.data[:] = np.arange(200)
             np.mean(d)
@@ -204,9 +205,6 @@ cdef class DataSet:
             scalar_type = scalar_type.upper()
             self.baseptr0.SetScalar(scalarModeDict[scalar_mode], scalarDict[scalar_type])
 
-    def set_format(self, bint leftAlignIn):
-        return self.baseptr0.SetDataSetFormat(leftAlignIn)
-
     def set_name_aspect_index_ensemble_num(self, name, aspect, idx, num):
         self.baseptr0.SetupSet(name.encode(), idx, aspect.encode(), num)
 
@@ -270,7 +268,7 @@ cdef class DataSet:
     def ndim(self):
         return self.baseptr0.Ndim()
 
-    def __richcmp__(DataSet self, DataSet other, opt):
+    def __richcmp__(Dataset self, Dataset other, opt):
         if opt == 0:
             # operator "<"
             return self.baseptr0[0] < other.baseptr0[0]
@@ -287,13 +285,13 @@ cdef class DataSet:
         """return 1D python array of `self`
         ABC method, must override
         """
-        raise NotImplementedError("Must over-write DataSet data attr")
+        raise NotImplementedError("Must over-write Dataset data attr")
 
     property _npdata:
         def __get__(self):
             """return memoryview as numpy array for self.data"""
             # NOTE: overwrite by using `raise NotImplementedError`
-            # for some DataSet subclasses not returning a `view`
+            # for some Dataset subclasses not returning a `view`
             _, np = _import_numpy()
             return np.asarray(self.data)
         def __set__(self, value):
@@ -428,7 +426,7 @@ cdef class DataSet:
     def tail(self, k=20):
         return self.values[-k:]
 
-    def is_(self, DataSet other):
+    def is_(self, Dataset other):
         return self.baseptr0 == other.baseptr0
 
     def filter(self, func):
@@ -443,18 +441,18 @@ cdef class DataSet:
         return np.array(list(filter(func, self.values)))
 
 
-cdef class DataSet_1D (DataSet):
+cdef class Dataset1D (Dataset):
     def __cinit__(self, *args):
-        cdef DataSet dset
+        cdef Dataset dset
         # make sure two pointers pointing to the same address
-        self.baseptr_1 = <_DataSet_1D*> self.baseptr0
+        self.baseptr_1 = <_Dataset1D*> self.baseptr0
 
     def __dealloc__(self):
         pass
 
     def __str__(self):
         _, np = _import_numpy()
-        basic_str = super(DataSet_1D, self).__str__() + "\n"
+        basic_str = super(Dataset1D, self).__str__() + "\n"
         if np:
             my_str = basic_str + "values: \n" + self.values.__str__()
         else:
@@ -477,9 +475,9 @@ cdef class DataSet_1D (DataSet):
         we need to recast after each pointer assignment
         """
         if idx == 0:
-            self.baseptr_1 = <_DataSet_1D*> self.baseptr0
+            self.baseptr_1 = <_Dataset1D*> self.baseptr0
         elif idx == 1:
-            self.baseptr0 = <_DataSet*> self.baseptr_1
+            self.baseptr0 = <_Dataset*> self.baseptr_1
         else:
             raise ValueError("idx must be 0 or 1")
 
@@ -510,7 +508,7 @@ cdef class DataSet_1D (DataSet):
         import numpy as np
         return np.mean(self.values, *args, **kwd)
 
-    def mean_with_error(self, DataSet other):
+    def mean_with_error(self, Dataset other):
         m0 = self.mean()
         m1 = other.mean() 
         return ((m0 + m1)/2., abs(m0 - m1)/2.)
@@ -521,12 +519,12 @@ cdef class DataSet_1D (DataSet):
     def max(self, *args, **kwd):
         return self.baseptr_1.Max()
 
-    def cross_corr(self, DataSet_1D D2, DataSet_1D Ct, int lagmaxIn, 
+    def cross_corr(self, Dataset1D D2, Dataset1D Ct, int lagmaxIn, 
                 bint calccovar, bint usefft):
         return self.baseptr_1.CrossCorr(D2.baseptr_1[0], Ct.baseptr_1[0], 
                 lagmaxIn, calccovar, usefft)
 
-    def corr_coeff(self, DataSet_1D other):
+    def corr_coeff(self, Dataset1D other):
         return self.baseptr_1.CorrCoeff(other.baseptr_1[0])
 
     # below are copied from `dask` package: New BSD
@@ -607,12 +605,12 @@ def elemwise(op, self, other=None):
         return op(self.values)
 
 
-cdef class DatasetDouble (DataSet_1D):
+cdef class DatasetDouble (Dataset1D):
     def __cinit__(self, *args):
         # TODO : Use only one pointer? 
-        self.baseptr0 = <_DataSet*> new _DatasetDouble()
+        self.baseptr0 = <_Dataset*> new _DatasetDouble()
         # make sure 3 pointers pointing to the same address?
-        self.baseptr_1 = <_DataSet_1D*> self.baseptr0
+        self.baseptr_1 = <_Dataset1D*> self.baseptr0
         self.thisptr = <_DatasetDouble*> self.baseptr0
 
         # let Python/Cython free memory
@@ -626,12 +624,6 @@ cdef class DatasetDouble (DataSet_1D):
         if self.py_free_mem:
             del self.thisptr
 
-
-    def alloc(self):
-        '''return a memoryview as DataSet instane'''
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.Alloc()
-        return dset
 
     def __getitem__(self, idx):
         #return self.thisptr.index_opr(idx)
@@ -699,10 +691,10 @@ cdef class DatasetDouble (DataSet_1D):
                 v.push_back(<double> x)
             self.thisptr.assign_opr(v)
 
-cdef class DatasetFloat (DataSet_1D):
+cdef class DatasetFloat (Dataset1D):
     def __cinit__(self):
-        self.baseptr0 = <_DataSet*> new _DatasetFloat()
-        self.baseptr_1 = <_DataSet_1D*> self.baseptr0
+        self.baseptr0 = <_Dataset*> new _DatasetFloat()
+        self.baseptr_1 = <_Dataset1D*> self.baseptr0
         self.thisptr = <_DatasetFloat*> self.baseptr0
 
         # let Python/Cython free memory
@@ -712,11 +704,6 @@ cdef class DatasetFloat (DataSet_1D):
         if self.py_free_mem:
             del self.thisptr
 
-    def alloc(self):
-        '''return a memoryview as DataSet instane'''
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.Alloc()
-        return dset
 
     def __getitem__(self, idx):
         return self.data[idx]
@@ -759,12 +746,12 @@ cdef class DatasetFloat (DataSet_1D):
             self[i] = ds[j]
             j += 1
 
-cdef class DatasetInteger (DataSet_1D):
+cdef class DatasetInteger (Dataset1D):
     def __cinit__(self):
         # TODO : Use only one pointer? 
-        self.baseptr0 = <_DataSet*> new _DatasetInteger()
+        self.baseptr0 = <_Dataset*> new _DatasetInteger()
         # make sure 3 pointers pointing to the same address?
-        self.baseptr_1 = <_DataSet_1D*> self.baseptr0
+        self.baseptr_1 = <_Dataset1D*> self.baseptr0
         self.thisptr = <_DatasetInteger*> self.baseptr0
 
         # let Python/Cython free memory
@@ -773,12 +760,6 @@ cdef class DatasetInteger (DataSet_1D):
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
-
-    def alloc(self):
-        '''return a memoryview as DataSet instane'''
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.Alloc()
-        return dset
 
     def __getitem__(self, idx):
         #return self.thisptr.index_opr(idx)
@@ -881,11 +862,11 @@ cdef class DatasetInteger (DataSet_1D):
             self.data[:] = data
 
 
-cdef class DatasetString (DataSet_1D):
+cdef class DatasetString (Dataset1D):
     def __cinit__(self):
-        self.baseptr0 = <_DataSet*> new _DatasetString()
+        self.baseptr0 = <_Dataset*> new _DatasetString()
         # make sure 3 pointers pointing to the same address?
-        self.baseptr_1 = <_DataSet_1D*> self.baseptr0
+        self.baseptr_1 = <_Dataset1D*> self.baseptr0
         self.thisptr = <_DatasetString*> self.baseptr0
 
         # let Python/Cython free memory
@@ -894,12 +875,6 @@ cdef class DatasetString (DataSet_1D):
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
-
-    def alloc(self):
-        '''return a memoryview as DataSet instane'''
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.Alloc()
-        return dset
 
     def __getitem__(self, int idx):
         return self.thisptr.index_opr(idx)
@@ -929,12 +904,12 @@ cdef class DatasetString (DataSet_1D):
         return arr0
 
 
-cdef class DatasetVector (DataSet_1D):
+cdef class DatasetVector (Dataset1D):
     def __cinit__(self):
         self.py_free_mem = True
         self.thisptr = new _DatasetVector()
-        self.baseptr0 = <_DataSet*> self.thisptr
-        self.baseptr_1= <_DataSet_1D*> self.thisptr
+        self.baseptr0 = <_Dataset*> self.thisptr
+        self.baseptr_1= <_Dataset1D*> self.thisptr
 
     def __dealloc__(self):
         if self.py_free_mem:
@@ -943,11 +918,6 @@ cdef class DatasetVector (DataSet_1D):
     @property
     def shape(self):
         return (self.size, 3)
-
-    def alloc(self):
-        cdef DataSet d0 = DataSet()
-        d0.baseptr0 = self.thisptr.Alloc()
-        return d0
 
     def __getitem__(self, idx):
         """return memoryview for Vec3. No data is copied.
@@ -990,7 +960,7 @@ cdef class DatasetVector (DataSet_1D):
     def to_ndarray(self, copy=True):
         # rewrite to make fast copy
         # use `copy=True` as dummy argument to be 
-        # consistent with DataSet_1D
+        # consistent with Dataset1D
         import numpy as np
         cdef int i
         cdef int size = self.size
@@ -1029,11 +999,11 @@ cdef class DatasetVector (DataSet_1D):
     def values(self):
         return self.to_ndarray()
 
-cdef class DataSet_2D (DataSet):
+cdef class Dataset2D (Dataset):
     def __cinit__(self):
-        # since DataSet_2D inherits from DataSet, make sure two pointers pointing 
+        # since Dataset2D inherits from Dataset, make sure two pointers pointing 
         # to the same address
-        self.baseptr_1 = <_DataSet_2D*> self.baseptr0
+        self.baseptr_1 = <_Dataset2D*> self.baseptr0
 
     def __dealloc__(self):
         pass
@@ -1064,11 +1034,11 @@ cdef class DataSet_2D (DataSet):
     def to_dataframe(self):
         raise NotImplementedError("must overwrite in subclass")
 
-cdef class DatasetMatrixDouble (DataSet_2D):
+cdef class DatasetMatrixDouble (Dataset2D):
     def __cinit__(self):
         self.thisptr = new _DatasetMatrixDouble()
-        self.baseptr_1 = <_DataSet_2D*> self.thisptr
-        self.baseptr0 = <_DataSet*> self.thisptr
+        self.baseptr_1 = <_Dataset2D*> self.thisptr
+        self.baseptr0 = <_Dataset*> self.thisptr
 
     def __dealloc__(self):
         if self.py_free_mem:
@@ -1080,11 +1050,6 @@ cdef class DatasetMatrixDouble (DataSet_2D):
     def __iter__(self):
         for value in self.data:
             yield value
-
-    def alloc(self):
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = _DatasetMatrixDouble.Alloc()
-        return dset
 
     @property
     def n_snapshots(self):
@@ -1130,7 +1095,7 @@ cdef class DatasetMatrixDouble (DataSet_2D):
         return self.to_ndarray()
 
     def to_ndarray(self, copy=True):
-        """use copy=True to be the same as DataSet_1D"""
+        """use copy=True to be the same as Dataset1D"""
         import numpy as np
         cdef int n_rows = self.n_rows
         cdef int n_cols = self.n_cols
@@ -1161,11 +1126,11 @@ cdef class DatasetMatrixDouble (DataSet_2D):
         hm[np.triu_indices(self.n_rows, 1)] = mt[mt !=0]
         return hm
 
-cdef class DatasetMatrixFloat (DataSet_2D):
+cdef class DatasetMatrixFloat (Dataset2D):
     def __cinit__(self):
         self.thisptr = new _DatasetMatrixFloat()
-        self.baseptr_1 = <_DataSet_2D*> self.thisptr
-        self.baseptr0 = <_DataSet*> self.thisptr
+        self.baseptr_1 = <_Dataset2D*> self.thisptr
+        self.baseptr0 = <_Dataset*> self.thisptr
 
     def __dealloc__(self):
         if self.py_free_mem:
@@ -1173,11 +1138,6 @@ cdef class DatasetMatrixFloat (DataSet_2D):
 
     def __getitem__(self, idx):
         return self.data[idx]
-
-    def alloc(self):
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = _DatasetMatrixFloat.Alloc()
-        return dset
 
     def get_full_matrix(self):
         """return python array with length = n_rows*n_cols"""
@@ -1197,7 +1157,7 @@ cdef class DatasetMatrixFloat (DataSet_2D):
         return self.get_full_matrix()
 
     def to_ndarray(self, copy=True):
-        # use copy=True to be consistent with DataSet_1D
+        # use copy=True to be consistent with Dataset1D
         from pytraj.utils import _import_numpy
         _, np = _import_numpy()
         if np:
@@ -1208,7 +1168,7 @@ cdef class DatasetMatrixFloat (DataSet_2D):
             raise ImportError("require numpy")
 
     def to_ndarray(self, copy=True):
-        """use copy=True to be the same as DataSet_1D"""
+        """use copy=True to be the same as Dataset1D"""
         import numpy as np
         cdef int n_rows = self.n_rows
         cdef int n_cols = self.n_cols
@@ -1240,18 +1200,18 @@ cdef class DatasetMatrixFloat (DataSet_2D):
         return hm
 
 
-cdef class DataSet_3D (DataSet):
+cdef class Dataset3D (Dataset):
     def __cinit__(self):
-        self.baseptr_1 = <_DataSet_3D*> self.baseptr0
+        self.baseptr_1 = <_Dataset3D*> self.baseptr0
 
     def __dealloc__(self):
         # since this is ABC, don't __dealloc__ here
         pass
 
-cdef class DatasetGridFloat(DataSet_3D):
+cdef class DatasetGridFloat(Dataset3D):
     def __cinit__(self):
-        self.baseptr0 = <_DataSet*> new _DatasetGridFloat()
-        self.baseptr_1 = <_DataSet_3D*> self.baseptr0
+        self.baseptr0 = <_Dataset*> new _DatasetGridFloat()
+        self.baseptr_1 = <_Dataset3D*> self.baseptr0
         self.thisptr = <_DatasetGridFloat*> self.baseptr0
         self.py_free_mem = True
 
@@ -1261,7 +1221,7 @@ cdef class DatasetGridFloat(DataSet_3D):
 
     def __str__(self):
         _, np = _import_numpy()
-        basic_str = super(DataSet_3D, self).__str__() + "\n"
+        basic_str = super(Dataset3D, self).__str__() + "\n"
         if np:
             my_str = basic_str + "values: " + self.values.__str__()
         else:
@@ -1306,7 +1266,7 @@ cdef class DatasetGridFloat(DataSet_3D):
         return <float[:nx, :ny, :nz]> ptr
 
     def to_ndarray(self, copy=True):
-        # copy=True: is a dummy argument to be consistent with DataSet_1D
+        # copy=True: is a dummy argument to be consistent with Dataset1D
         has_np, np = _import_numpy()
         if not has_np:
             raise ImportError('require numpy')
@@ -1315,23 +1275,14 @@ cdef class DatasetGridFloat(DataSet_3D):
 
     def tolist(self):
         return [[list(x) for x in y] for y in self.data]
-# distutils: language = c++
 
-
-cdef class DataSet_Modes (DataSet):
+cdef class DatasetModes (Dataset):
     def __cinit__(self):
-        self.thisptr = new _DataSet_Modes()
-        self.baseptr0 = <_DataSet*> self.thisptr
+        self.thisptr = new _DatasetModes()
+        self.baseptr0 = <_Dataset*> self.thisptr
 
     def __dealloc__(self):
         del self.thisptr
-
-    def alloc(self):
-        '''return a memoryview as DataSet instane'''
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.Alloc()
-        return dset
-
 
     def nmodes(self):
         return self.thisptr.Nmodes()
@@ -1342,39 +1293,14 @@ cdef class DataSet_Modes (DataSet):
     def is_reduced(self):
         return self.thisptr.IsReduced()
 
-# distutils: language = c++
 
-
-cdef class DataSet_RemLog:
+cdef class DatasetRemLog:
     def __cinit__(self):
-        self.thisptr = new _DataSet_RemLog()
+        self.thisptr = new _DatasetRemLog()
 
     def __dealloc__(self):
         del self.thisptr
 
-    #def DataSet_RemLog(self):
-
-    #def DataSet * Alloc(self):
-
-    #def void AllocateReplicas(self,int):
-
-    #def void AddRepFrame(self,int rep, ReplicaFrame frm):
-
-    #def  ReplicaFrame RepFrame(self,int exch, int rep):
-
-    #def int NumExchange(self):
-
-    #def bint ValidEnsemble(self):
-
-    #def void TrimLastExchange(self):
-
-    #def size_t Size(self):
-
-    #def int Sync(self):
-
-    #def void Info(self):
-
-    #def void Add(self,size_t, void *):
 
 cdef class ReplicaFrame:
     def __cinit__(self):
@@ -1383,12 +1309,12 @@ cdef class ReplicaFrame:
     def __dealloc__(self):
         del self.thisptr
 
-cdef class DatasetMatrix3x3 (DataSet_1D):
+cdef class DatasetMatrix3x3 (Dataset1D):
     def __cinit__(self):
         # TODO : Use only one pointer? 
-        self.baseptr0 = <_DataSet*> new _DatasetMatrix3x3()
+        self.baseptr0 = <_Dataset*> new _DatasetMatrix3x3()
         # make sure 3 pointers pointing to the same address?
-        self.baseptr_1 = <_DataSet_1D*> self.baseptr0
+        self.baseptr_1 = <_Dataset1D*> self.baseptr0
         self.thisptr = <_DatasetMatrix3x3*> self.baseptr0
 
         # let Python/Cython free memory
@@ -1397,12 +1323,6 @@ cdef class DatasetMatrix3x3 (DataSet_1D):
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
-
-    def alloc(self):
-        '''return a memoryview as DataSet instane'''
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.Alloc()
-        return dset
 
     def __getitem__(self, int idx):
         if self.size <= 0:
@@ -1447,11 +1367,11 @@ cdef class DatasetMatrix3x3 (DataSet_1D):
         except ValueError:
             return np.array([], dtype='f8')
         
-cdef class DatasetMesh (DataSet_1D):
+cdef class DatasetMesh (Dataset1D):
     def __cinit__(self):
-        self.baseptr0 = <_DataSet*> new _DatasetMesh()
+        self.baseptr0 = <_Dataset*> new _DatasetMesh()
         # make sure 3 pointers pointing to the same address?
-        self.baseptr_1 = <_DataSet_1D*> self.baseptr0
+        self.baseptr_1 = <_Dataset1D*> self.baseptr0
         self.thisptr = <_DatasetMesh*> self.baseptr0
 
         # let Python/Cython free memory
@@ -1461,12 +1381,6 @@ cdef class DatasetMesh (DataSet_1D):
         if self.py_free_mem:
             del self.thisptr
 
-    def alloc(self):
-        '''return a memoryview as DataSet instane'''
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = self.thisptr.Alloc()
-        return dset
-
     def tolist(self):
         """return 2D list with format [index, value]
         """
@@ -1475,17 +1389,17 @@ cdef class DatasetMesh (DataSet_1D):
         return [[int(self._xcrd(i)-1), self._d_val(i)] for i in range(self.size)]
 
     def to_ndarray(self, copy=True):
-        """use copy=True to make consistent with DataSet_1D
+        """use copy=True to make consistent with Dataset1D
         """
         _, np = _import_numpy()
         return np.array(self.tolist())
 
-cdef class DataSet_Coords(DataSet):
+cdef class DatasetCoords(Dataset):
     def __cinit__(self):
         # abstract class, dont' create new object here
         #pass
         # make sure that two pointers pointing to the same address
-        self.baseptr0 = <_DataSet*> self.baseptr_1
+        self.baseptr0 = <_Dataset*> self.baseptr_1
         self._top = Topology()
 
     def __dealloc__(self):
@@ -1593,11 +1507,11 @@ cdef class DataSet_Coords(DataSet):
     def to_dataframe(self):
         raise NotImplementedError()
 
-cdef class DataSet_Coords_CRD (DataSet_Coords):
+cdef class DatasetCoordsCRD (DatasetCoords):
     def __cinit__(self):
-        self.thisptr = new _DataSet_Coords_CRD()
-        self.baseptr0 = <_DataSet*> self.thisptr
-        self.baseptr_1 = <_DataSet_Coords*> self.thisptr
+        self.thisptr = new _DatasetCoordsCRD()
+        self.baseptr0 = <_Dataset*> self.thisptr
+        self.baseptr_1 = <_DatasetCoords*> self.thisptr
 
         # let python frees memory
         self.py_free_mem = True
@@ -1605,12 +1519,6 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
-
-    @classmethod
-    def alloc(self):
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = _DataSet_Coords_CRD.Alloc()
-        return dset
 
     def load(self, filename_or_traj, top=Topology(), copy_top=False, copy=True):
         cdef Topology tmp_top
@@ -1644,14 +1552,12 @@ cdef class DataSet_Coords_CRD (DataSet_Coords):
                     self.append(frame.copy())
                 else:
                     self.append(frame)
-# distutils: language = c++
 
-
-cdef class DataSet_Coords_REF (DataSet_Coords):
+cdef class DatasetCoordsRef (DatasetCoords):
     def __cinit__(self):
-        self.thisptr = new _DataSet_Coords_REF()
-        self.baseptr0 = <_DataSet*> self.thisptr
-        self.baseptr_1 = <_DataSet_Coords*> self.thisptr
+        self.thisptr = new _DatasetCoordsRef()
+        self.baseptr0 = <_Dataset*> self.thisptr
+        self.baseptr_1 = <_DatasetCoords*> self.thisptr
 
         # let python frees memory
         self.py_free_mem = True
@@ -1659,16 +1565,6 @@ cdef class DataSet_Coords_REF (DataSet_Coords):
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
-
-    @classmethod
-    def alloc(self):
-        cdef DataSet dset = DataSet()
-        dset.baseptr0 = _DataSet_Coords_REF.Alloc()
-        return dset
-
-    #@property
-    #def size(self):
-    #    return self.thisptr.Size()
 
     def get_frame(self):
         cdef Frame frame = Frame()

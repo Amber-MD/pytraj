@@ -9,7 +9,7 @@ from pytraj.cpptraj_dict import scalarDict, scalarModeDict
 
 class Test(unittest.TestCase):
     def test_0(self):
-        dslist = DataSetList()
+        dslist = DatasetList()
         dflist = DataFileList()
         dist = dslist.add_set('double', "myname", "dis_")
         #print(scalarModeDict.keys())

@@ -2,6 +2,7 @@ from __future__ import absolute_import
 import operator
 import numpy as np
 from pytraj._cyutils import _fast_count
+from pytraj.datasets import Dataset
 
 
 def elemwise(op, self, other=None):
@@ -38,7 +39,7 @@ class DataArray(object):
         """
         Parameters
         ----------
-        dset : Cpptraj's DataSet or a Dict
+        dset : Cpptraj's Dataset or a Dict
 
         Examples
         --------
@@ -68,8 +69,7 @@ class DataArray(object):
             if hasattr(dset, 'cpptraj_dtype'):
                 self.cpptraj_dtype = dset.cpptraj_dtype
             else:
-                from pytraj.datasets import DataSet
-                if isinstance(dset, DataSet):
+                if isinstance(dset, Dataset):
                     self.cpptraj_dtype = dset.dtype
                 else:
                     self.cpptraj_dtype = None

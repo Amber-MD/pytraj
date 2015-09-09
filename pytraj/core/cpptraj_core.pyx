@@ -469,7 +469,7 @@ cdef class CpptrajState:
     """
     CpptrajState hold instances of:
     + TopologyList
-    + DataSetList (having output data)
+    + DatasetList (having output data)
     + DataFileList
 
     """
@@ -477,7 +477,7 @@ cdef class CpptrajState:
         self.thisptr = new _CpptrajState()
         self.toplist = TopologyList(py_free_mem=False)
         self.datafilelist = DataFileList(py_free_mem=False)
-        self.datasetlist = DataSetList(py_free_mem=False)
+        self.datasetlist = DatasetList(py_free_mem=False)
 
         # cpptraj will take care of memory deallocating from self.thisptr.PFL(FL, DSL, DFL)
         # We don't free memory again 
@@ -613,9 +613,6 @@ cdef class CpptrajState:
 
     def clear_list(self, arglist='all'):
         return self.thisptr.ClearList(ArgList(arglist).thisptr[0])
-
-    def remove_dataset(self, ArgList alist):
-        return self.thisptr.RemoveDataSet(alist.thisptr[0])
 
     def run(self):
         return self.thisptr.Run()

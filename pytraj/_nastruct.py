@@ -41,7 +41,7 @@ def nastruct(traj=None,
     >>> pt.nastruct(traj0)
     >>> pt.nastruct(traj1, resmap='AF2:A')
     """
-    from pytraj.datasets.DataSetList import DataSetList as CpptrajDatasetList
+    from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
     from pytraj.datasetlist import DatasetList as Dataset
     from .actions.CpptrajActions import Action_NAstruct
     from pytraj.array import DataArray

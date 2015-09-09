@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
     #@no_test
 
     def test_0(self):
-        dslist = DataSetList()
+        dslist = DatasetList()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         calc_distance = adict['distance']

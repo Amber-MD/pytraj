@@ -10,7 +10,7 @@ from .Topology import TopologyList
 from .datafiles.datafiles import DataFileList
 from .core.ActionList import ActionList
 from .core.cpptraj_core import CpptrajState
-from .datasets.DataSetList import DataSetList
+from .datasets.DatasetList import DatasetList
 
 from .core.cpptraj_core import AtomMask
 from .api import Trajectory
@@ -23,5 +23,5 @@ from . import cpptraj_dict
 # `Trajectory` is alias of `Trajectory`
 __all__ = ['Atom', 'Topology', 'TopologyList', 'Frame', 'Trajectory',
            'AtomMask', 'ArgList', 'CpptrajState', 'TrajectoryIterator',
-           'DataSetList', 'DataFileList', 'ActionList', 'Trajout',
+           'DatasetList', 'DataFileList', 'ActionList', 'Trajout',
            'cast_dataset', 'cpptraj_dict']
