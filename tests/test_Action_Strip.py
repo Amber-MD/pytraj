@@ -3,7 +3,6 @@ import pytraj as pt
 from pytraj.base import *
 from pytraj.actions.CpptrajActions import Action_Strip
 from pytraj import allactions
-from pytraj.actions import Action
 from pytraj.TrajectoryIterator import TrajectoryIterator
 from pytraj.decorators import no_test
 
