@@ -218,7 +218,7 @@ def iterframe(traj, *args, **kwd):
     """
     return traj.iterframe(*args, **kwd)
 
-from ._fast_iterframe import _fast_iterptr as iterframe_from_array
+from ._cyutils import _fast_iterptr as iterframe_from_array
 
 
 def iterchunk(traj, *args, **kwd):

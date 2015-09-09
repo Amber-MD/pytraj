@@ -13,7 +13,7 @@ from pytraj._get_common_objects import _get_top
 
 from .Topology import Topology
 from ._shared_methods import _savetraj, iterframe_master, my_str_method
-from ._fast_iterframe import _fast_iterptr, _fast_iterptr_withbox
+from ._cyutils import _fast_iterptr, _fast_iterptr_withbox
 from .frameiter import FrameIter
 
 __all__ = ['Trajectory']
