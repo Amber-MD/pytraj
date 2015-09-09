@@ -58,3 +58,42 @@ cdef extern from "Atom.h":
 
 cdef class Atom:
     cdef _Atom* thisptr
+# distutils: language = c++
+from pytraj.core.cpptraj_core cimport _NameType, NameType
+
+cdef extern from "Residue.h": 
+    cdef cppclass _Residue "Residue":
+        _Residue()
+        _Residue(int onum, const _NameType& resname, int first_AtomIn)
+        inline void SetLastAtom(int i)
+        inline void SetOriginalNum(int i)
+        inline int FirstAtom() const 
+        inline int LastAtom() const 
+        inline int OriginalResNum() const 
+        inline const char * c_str() const 
+        inline const _NameType& Name() const 
+        inline int NumAtoms() const 
+        inline bint NameIsSolvent() const 
+
+cdef class Residue:
+    cdef _Residue* thisptr
+
+#void  distutils: language = c++
+
+
+cdef extern from "Molecule.h": 
+    cdef cppclass _Molecule "Molecule":
+        _Molecule()
+        _Molecule(int begin, int end)
+        void SetFirst(int begin)
+        void SetLast(int last)
+        void SetSolvent() 
+        void SetNoSolvent() 
+        inline int BeginAtom() const 
+        inline int EndAtom() const 
+        inline bint IsSolvent() const 
+        inline int NumAtoms() const 
+
+cdef class Molecule:
+    cdef _Molecule* thisptr
+
