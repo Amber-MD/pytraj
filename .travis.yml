@@ -3,11 +3,17 @@ env:
     matrix:
         - PYTHON_VERSION=3.4 
         - PYTHON_VERSION=3.3
-
-before_install:
-    - sudo apt-get install libnetcdf-dev
-    - sudo apt-get install gfortran
-    - sudo apt-get install -qq libz-dev libbz2-dev
+sudo: false
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+      - g++
+      - gfortran
+      - libz-dev
+      - libbz2-dev
+      - libnetcdf-dev
 
 install:
     - source devtools/travis-ci/setup_env.sh 
