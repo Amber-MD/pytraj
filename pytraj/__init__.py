@@ -6,9 +6,9 @@ from sys import platform as _platform
 import os
 
 # checking cpptraj version first
-from .__cpptraj_version__ import info as compiled_info
-from .__cpptraj_version__ import __cpptraj_version__
-from .__cpptraj_version__ import __cpptraj_internal_version__
+from .cpp_options import info as compiled_info
+from .cpp_options import __cpptraj_version__
+from .cpp_options import __cpptraj_internal_version__
 
 _v = __cpptraj_internal_version__
 # TODO: follow python's rule
@@ -60,11 +60,9 @@ from . import options
 from functools import partial
 
 from .core import Atom, Residue, Molecule
-from .core.CpptrajState import CpptrajState
+from .core.cpptraj_core import CpptrajState, ArgList, AtomMask
 from . import array
-from .Topology import Topology
-from .ArgList import ArgList
-from .AtomMask import AtomMask
+from .Topology import Topology, ParmFile
 from .math import Vec3
 from .Frame import Frame
 from .api import Trajectory
@@ -72,7 +70,6 @@ from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
-from .parms.ParmFile import ParmFile
 from . import io
 from .io import (load, iterload, load_remd, iterload_remd, _load_from_filelist,
                  _iterload_from_filelist, _load_from_frame_iter, load_pdb_rcsb,
@@ -94,7 +91,6 @@ from . import tools
 # actions and analyses
 from .actions import CpptrajActions as allactions
 from .analyses import CpptrajAnalyses as allanalyses
-from ._common_actions import calculate
 from . import common_actions
 from .dssp_analysis import calc_dssp
 from .common_actions import (
@@ -163,7 +159,7 @@ from ._shared_methods import iterframe_master
 
 # turn off verbose in cpptraj
 # TODO: need to move set_world_silent and set_error_silent to the same file
-from ._set_silent import set_error_silent, set_world_silent
+from .cpp_options import set_error_silent, set_world_silent
 
 
 def to_numpy_Trajectory(traj, top, unitcells=None):
@@ -208,6 +204,7 @@ def set_cpptraj_verbose(cm=True):
 
 
 set_world_silent(True)
+_verbose = set_cpptraj_verbose
 
 
 def iterframe(traj, *args, **kwd):
@@ -220,6 +217,8 @@ def iterframe(traj, *args, **kwd):
     >>> for frame in pt.iterframe(traj, 0, 8, 2, mask='@CA'): print(frame)
     """
     return traj.iterframe(*args, **kwd)
+
+from ._fast_iterframe import _fast_iterptr as iterframe_from_array
 
 
 def iterchunk(traj, *args, **kwd):

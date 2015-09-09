@@ -9,7 +9,7 @@ from .check_and_assert import ensure_not_none_or_string
 from .list_misc import flatten_list
 from .Timer import Timer
 from .context import goto_temp_folder
-from ..compat import range
+from ..externals.six.moves import range
 from . import convert
 
 # add amberhome

@@ -1,24 +1,35 @@
 # distutils: language = c++
-# TODO : add more methods
-from __future__ import absolute_import
-from pytraj.cpp_vector cimport vector as cppvector
 
-from pytraj.core.Atom cimport _Atom, Atom
-from pytraj.core.Residue cimport _Residue, Residue
-from pytraj.core.Molecule cimport _Molecule, Molecule
-from pytraj.core.ParameterTypes cimport *
-from pytraj.core.Box cimport _Box, Box, BoxType
-from pytraj.core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
-from pytraj.core.FileName cimport _FileName, FileName
-from pytraj.core.NameType cimport _NameType, NameType
+from .cpp_vector cimport vector as cppvector
+from .core.brick cimport _Atom, Atom, _Residue, Residue, _Molecule, Molecule
+from .core.Box cimport _Box, Box, BoxType
+from .core.ParameterTypes cimport *
+from .core.cpptraj_core cimport (_FileName, FileName, _NameType, NameType)
+from .core.cpptraj_core cimport _AtomMask, AtomMask
+from .Frame cimport _Frame, Frame
+from libcpp.string cimport string
+from .core.cpptraj_core cimport _FileName, FileName, _ArgList, ArgList
 
-from pytraj.AtomMask cimport _AtomMask, AtomMask
-from pytraj.Frame cimport _Frame, Frame
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator
 ctypedef cppvector[_Molecule].const_iterator mol_iterator
-#ctypedef cppvector[set[AtomicElementType]] BP_mapType
+
+cdef extern from "CoordinateInfo.h": 
+    cdef cppclass _CoordinateInfo "CoordinateInfo":
+        _CoordinateInfo() 
+        _CoordinateInfo(const _Box& b, bint v, bint t, bint m)
+        bint HasBox() const 
+        const _Box& TrajBox() const 
+        bint HasVel() const 
+        bint HasTemp() const 
+        bint HasTime() const 
+        bint HasForce() const 
+        bint HasReplicaDims() const 
+        void SetTime(bint m)
+        void SetTemperature(bint t)
+        void SetVelocity(bint v)
+        void SetBox(const _Box& b)
 
 cdef extern from "Topology.h": 
     cdef cppclass _Topology "Topology" nogil:
@@ -134,3 +145,42 @@ cdef extern from "Topology.h":
 cdef class Topology:
     cdef _Topology* thisptr
     cdef public bint py_free_mem
+
+cdef extern from "ParmFile.h": 
+    ctypedef enum ParmFormatType "ParmFile::ParmFormatType":
+        pass
+        UNKNOWN_PARM "ParmFile::UNKNOWN_PARM"
+    cdef cppclass _ParmFile "ParmFile":
+        @staticmethod
+        void ReadOptions() 
+        @staticmethod
+        void WriteOptions() 
+        _ParmFile() 
+        int ReadTopology(_Topology&, const string&, const _ArgList&, int)
+        int ReadTopology(_Topology& t, const string& n, int d)
+        int WritePrefixTopology(const _Topology&, const string&, ParmFormatType, int)
+        int WriteTopology(const _Topology&, const string&, const _ArgList&, ParmFormatType, int)
+        int WriteTopology(const _Topology& t, const string& n, ParmFormatType f, int d)
+        const _FileName ParmFilename() 
+
+
+cdef class ParmFile:
+    cdef _ParmFile* thisptr
+
+cdef extern from "TopologyList.h":
+    cdef cppclass _TopologyList "TopologyList":
+        const char* ParmArgs
+        TopologyList()
+        void Clear()
+        void SetDebug(int)
+        _Topology* GetParm(int) 
+        _Topology* GetParmByIndex(_ArgList&) 
+        _Topology* GetParm(_ArgList&) 
+        int AddParmFile(string&)
+        int AddParmFile(string&, _ArgList&)
+        void AddParm(_Topology * pIn)
+        void List()
+
+cdef class TopologyList:
+    cdef _TopologyList* thisptr
+    cdef bint py_free_mem

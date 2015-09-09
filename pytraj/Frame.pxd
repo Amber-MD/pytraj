@@ -2,13 +2,11 @@
 #from __future__ import absolute_import
 from libcpp.vector cimport vector
 from libcpp.string cimport string
-from .math.Vec3 cimport _Vec3, Vec3
-from .math.Matrix_3x3 cimport _Matrix_3x3, Matrix_3x3
-from .core.Atom cimport _Atom, Atom
+from .math.cpp_math cimport _Vec3, Vec3, _Matrix_3x3, Matrix_3x3
+from .core.brick cimport _Atom, Atom
 from .core.Box cimport _Box, Box, BoxType
 from .Topology cimport _Topology, Topology
-from .core.CoordinateInfo cimport _CoordinateInfo, CoordinateInfo
-from .AtomMask cimport _AtomMask, AtomMask
+from .core.cpptraj_core cimport _CoordinateInfo, CoordinateInfo, _AtomMask, AtomMask
 
 ctypedef vector[float] CRDtype
 ctypedef vector[double] Darray

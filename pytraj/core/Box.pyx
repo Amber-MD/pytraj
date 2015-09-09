@@ -1,16 +1,16 @@
 # distutils: language = c++
 from __future__ import absolute_import
+import numpy as np
 from cython cimport view
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarray
+
 from pytraj.cpptraj_dict import BoxTypeDict, get_key
-from pytraj.utils import _import_numpy
-from pytraj.math.Matrix_3x3 cimport Matrix_3x3
 from pytraj.externals.six import string_types
 
 
-cdef class Box:
+cdef class Box(object):
     def __cinit__(self, *args):
         cdef double[:] boxIn 
         cdef Box rhs
@@ -54,18 +54,27 @@ cdef class Box:
     def __repr__(self):
         return self.__str__()
 
+    property data:
+        def __get__(self):
+            """memoryview for box array"""
+            return <double[:6]> self.thisptr.boxPtr()
+
+    def _get_data(self):
+        """memoryview for box array"""
+        return <double[:6]> self.thisptr.boxPtr()
+
     def __dealloc__(self):
         del self.thisptr
 
     def __getitem__(self, idx):
         """add fancy indexing?"""
-        return self.data[idx]
+        return self._get_data()[idx]
 
     def __setitem__(self, idx, value):
         self.data[idx] = value
 
     def __iter__(self):
-        for x in self.data:
+        for x in self._get_data():
             yield x
 
     @classmethod
@@ -85,7 +94,7 @@ cdef class Box:
         >>> print (box.type)
         ortho
         """
-        self.set_box_from_array(self.data)
+        self.set_box_from_array(self._get_data())
 
     @property
     def name(self):
@@ -148,7 +157,7 @@ cdef class Box:
             # need to update all info so cpptraj will `SetBoxType` (private method)
             # sounds dummy to set your box to yourself to do this trick :D
             # should update cpptraj code
-            self.set_box_from_array(self.data)
+            self.set_box_from_array(self._get_data())
 
     property x:
         def __get__(self):
@@ -201,15 +210,8 @@ cdef class Box:
         vec.thisptr[0] = self.thisptr.Lengths()
         return vec
 
-    @property
-    def data(self):
-        """memoryview for box array"""
-        cdef double[:] arr0
-        arr0 = <double[:6]> self.thisptr.boxPtr()
-        return arr0
-
     def tolist(self):
-        return list(self.data[:])
+        return list([x for x in self.data])
 
     @property
     def values(self):
@@ -217,8 +219,5 @@ cdef class Box:
         return self.to_ndarray()
 
     def to_ndarray(self):
-        has_np, np = _import_numpy()
-        if not has_np:
-            raise ImportError("need numpy")
-        else:
-            return np.asarray(self.data[:])
+        return np.asarray(self._get_data()[:])
+

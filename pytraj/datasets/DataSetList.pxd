@@ -2,7 +2,7 @@
 from libcpp.string cimport string
 
 # seriously I need to use absolute import here
-from pytraj.datasets.DataSet cimport _DataSet, DataSet, DataType
+from pytraj.datasets.cpp_datasets cimport _DataSet, DataSet, DataType
 from ..cpp_vector cimport vector as cppvector
 
 ctypedef cppvector[_DataSet*] DataListType

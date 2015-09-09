@@ -1,24 +1,13 @@
 # distutils: language = c++
-from __future__ import absolute_import
-
-from .DataSet_1D cimport DataSet_1D, _DataSet_1D
-from .DataSet_2D cimport DataSet_2D, _DataSet_2D
-from .DataSet_3D cimport DataSet_3D, _DataSet_3D
-from .DatasetDouble cimport DatasetDouble, _DatasetDouble
-from .DatasetFloat cimport DatasetFloat, _DatasetFloat
-from .DatasetInteger cimport DatasetInteger, _DatasetInteger
-from .DatasetString cimport DatasetString, _DatasetString
-from .DataSet_Mesh cimport DataSet_Mesh, _DataSet_Mesh
-from .DatasetVector cimport _DatasetVector, DatasetVector
-from .DatasetMatrix3x3 cimport _DatasetMatrix3x3, DatasetMatrix3x3
-from .DatasetMatrixDouble cimport DatasetMatrixDouble, _DatasetMatrixDouble
-from .DatasetMatrixFloat cimport DatasetMatrixFloat, _DatasetMatrixFloat
-from .DatasetGridFloat cimport DatasetGridFloat, _DatasetGridFloat
-from .DataSet cimport DataSet, _DataSet
-from .DataSet_Coords cimport _DataSet_Coords, DataSet_Coords
-from .DataSet_Coords_REF cimport _DataSet_Coords_REF, DataSet_Coords_REF
-from .DataSet_Coords_CRD cimport _DataSet_Coords_CRD, DataSet_Coords_CRD
-#from .DataSet_Coords_TRJ cimport _DataSet_Coords_TRJ, DataSet_Coords_TRJ
+from .cpp_datasets cimport (_DataSet, DataSet, DataSet_1D, _DataSet_1D, DatasetInteger, _DatasetInteger,
+                          _DatasetFloat, DatasetFloat, DatasetDouble, _DatasetDouble,
+                          DatasetString, _DatasetString, _DatasetVector, DatasetVector,
+                          DataSet_2D, _DataSet_2D, DatasetMatrixDouble,
+                          _DatasetMatrixDouble, DatasetMatrixFloat, _DatasetMatrixFloat,
+                          DataSet_3D, _DataSet_3D, DatasetGridFloat, _DatasetGridFloat,
+                          DatasetMesh, _DatasetMesh, _DatasetMatrix3x3, DatasetMatrix3x3,
+                          _DataSet_Coords, DataSet_Coords, _DataSet_Coords_REF, 
+                          DataSet_Coords_REF, _DataSet_Coords_CRD, DataSet_Coords_CRD)
 
 def cast_dataset(dsetin=None, dtype='general'):
     """create memoryview for DataSet instance. 
@@ -42,7 +31,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DatasetFloat newset_float
     cdef DatasetInteger newset_integer
     cdef DatasetString newset_string
-    cdef DataSet_Mesh newset_mesh
+    cdef DatasetMesh newset_mesh
     cdef DatasetVector newset_vector
     cdef DatasetMatrix3x3 newset_matrix3x3
     cdef DatasetMatrixDouble newset_matrixdbl
@@ -114,13 +103,13 @@ def cast_dataset(dsetin=None, dtype='general'):
         return newset_string
 
     elif dtype in ['XYMESH']: 
-        newset_mesh = DataSet_Mesh()
+        newset_mesh = DatasetMesh()
         # since we introduce memory view, we let cpptraj free memory
         newset_mesh.py_free_mem = False
         newset_mesh.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_mesh.baseptr_1 = <_DataSet_1D*> dset.baseptr0
-        newset_mesh.thisptr = <_DataSet_Mesh*> dset.baseptr0
+        newset_mesh.thisptr = <_DatasetMesh*> dset.baseptr0
         return newset_mesh
 
     elif dtype in ['VECTOR']: 

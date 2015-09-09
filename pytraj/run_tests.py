@@ -3,7 +3,6 @@ from pytraj.base import *
 from pytraj.core import *
 from pytraj.math import *
 from pytraj.externals import *
-from pytraj.plotting import *
 from pytraj.trajs import *
 from pytraj.hbonds import *
 from pytraj import io as mdio
@@ -11,11 +10,10 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from .datafiles.load_sample_data import load_sample_data
 from pytraj import adict
 from pytraj.misc import info
-from pytraj._set_silent import set_world_silent
+from pytraj.cpp_options import set_world_silent
 from pytraj import api
 
 from pytraj import *
-from pytraj.parms import *
 from pytraj.datasets import *
 from pytraj.common_actions import *
 from pytraj.actions import CpptrajActions

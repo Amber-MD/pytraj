@@ -5,14 +5,14 @@ from pytraj.base import *
 from pytraj.decorators import no_test
 
 TRAJ = TrajectoryIterator()
-TRAJ.top = Topology("./data/Tc5b.top")
+TRAJ.top = pt.load_topology("./data/Tc5b.top")
 TRAJ.load("./data/md1_prod.Tc5b.x")
 
 
 class TestTrajectory(unittest.TestCase):
     def test_slice_basic(self):
         TRAJ2 = Trajectory()
-        TRAJ2.top = Topology("./data/Tc5b.top")
+        TRAJ2.top = pt.load_topology("./data/Tc5b.top")
         TRAJ2.load("./data/md1_prod.Tc5b.x")
         TRAJ2.load("./data/md1_prod.Tc5b.x")
         TRAJ2.load("./data/md1_prod.Tc5b.x")
@@ -22,7 +22,7 @@ class TestTrajectory(unittest.TestCase):
 
     def test_indexing_0(self):
         TRAJ2 = TrajectoryIterator()
-        TRAJ2.top = Topology("./data/Tc5b.top")
+        TRAJ2.top = pt.load_topology("./data/Tc5b.top")
         TRAJ2.load("./data/md1_prod.Tc5b.x")
         farray = TRAJ2[[0, 9, 1]]
         assert farray.n_frames == 3
@@ -42,7 +42,7 @@ class TestTrajectory(unittest.TestCase):
 
     def test_indexing_1(self):
         TRAJ2 = TrajectoryIterator()
-        TRAJ2.top = Topology("./data/Tc5b.top")
+        TRAJ2.top = pt.load_topology("./data/Tc5b.top")
         TRAJ2.load("./data/md1_prod.Tc5b.x")
         self.assertRaises(ValueError, lambda: TRAJ2[10407])
         assert TRAJ2[0] != TRAJ2[9]
@@ -51,7 +51,7 @@ class TestTrajectory(unittest.TestCase):
 
     def test_iter_basic(self):
         TRAJ = TrajectoryIterator()
-        TRAJ.top = Topology("./data/Tc5b.top")
+        TRAJ.top = pt.load_topology("./data/Tc5b.top")
         TRAJ.load("./data/md1_prod.Tc5b.x")
         for frame in TRAJ:
             pass
@@ -68,7 +68,6 @@ class TestTrajectory(unittest.TestCase):
         assert frame.size == TRAJ.top.n_residues * 3
         farray.top.strip_atoms("!@CA")
         assert farray.top.n_atoms == TRAJ.top.n_residues
-        farray.top.summary()
         assert farray.n_frames == TRAJ.n_frames
         arr = np.zeros(farray.n_frames)
         cpptraj_rmsd = np.loadtxt(
@@ -83,16 +82,14 @@ class TestTrajectory(unittest.TestCase):
     def test_trj_top(self):
         traj = TrajectoryIterator()
         assert traj.top.is_empty() == True
-        traj.top = Topology("./data/Tc5b.top")
+        traj.top = pt.load_topology("./data/Tc5b.top")
         assert traj.top.is_empty() == False
         traj.load("./data/md1_prod.Tc5b.x")
 
     def test_1(self):
         traj = TrajectoryIterator()
 
-        traj.load("./data/md1_prod.Tc5b.x", Topology("./data/Tc5b.top"))
-
-        traj.top.summary()
+        traj.load("./data/md1_prod.Tc5b.x", pt.load_topology("./data/Tc5b.top"))
         assert traj.top.n_atoms == 304
 
 

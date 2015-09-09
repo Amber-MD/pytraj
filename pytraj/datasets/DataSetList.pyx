@@ -6,23 +6,23 @@ from cython.operator cimport preincrement as incr
 from cpython.array cimport array
 
 # python level
+import numpy as np
+from collections import defaultdict
+
 from .._cyutils import get_positive_idx
 from collections import defaultdict
 from .cast_dataset import cast_dataset
-from ..utils.check_and_assert import _import, is_array
-from ..utils.check_and_assert import _import_numpy, _import_pandas
-from ..utils.check_and_assert import is_word_in_class_name
+from ..utils.check_and_assert import is_array
 from ..externals.six import string_types
 from ..compat import set
 from ..utils import is_int
-from ..core.DataFile import DataFile
-from ..ArgList import ArgList
+from ..datafiles.datafiles import DataFile
+from ..core.cpptraj_core import ArgList
 
 from pytraj.cpptraj_dict import DataTypeDict
 
 __all__ = ['DataSetList']
 
-_, np = _import_numpy()
 
 cdef class DataSetList:
     """
@@ -423,19 +423,14 @@ cdef class DataSetList:
         Notes: require numpy
         """
         # make sure to use copy=True to avoid memory error for memoryview
-        has_np, np = _import("numpy")
-        if has_np:
-            try:
-                if self.size == 1:
-                    return self[0].to_ndarray(copy=True)
-                else:
-                    # more than one set
-                    return np.asarray([d0.to_ndarray(copy=True) for d0 in self])
-            except:
-                raise ValueError("don't know how to convert to ndarray")
-        else:
-            raise ImportError("don't have numpy, "
-                              "try `tolist`, `to_dict`")
+        try:
+            if self.size == 1:
+                return self[0].to_ndarray(copy=True)
+            else:
+                # more than one set
+                return np.asarray([d0.to_ndarray(copy=True) for d0 in self])
+        except:
+            raise ValueError("don't know how to convert to ndarray")
 
     def to_dataframe(self):
         """return pandas' DataFrame
@@ -507,7 +502,6 @@ cdef class DataSetList:
         """
         Notes: require numpy
         """
-        _, np = _import_numpy()
         if not legend:
             return np.sum(self.to_ndarray(), axis=axis)
         else:
@@ -520,7 +514,6 @@ cdef class DataSetList:
         return np.cumsum(self.to_ndarray(), axis=axis)
 
     def mean_with_error(self, other):
-        from collections import defaultdict
 
         ddict = defaultdict(tuple)
         for key, dset in self.iteritems():
@@ -536,11 +529,8 @@ cdef class DataSetList:
 
     # pandas related
     def describe(self):
-        _, pd = _import_pandas()
-        if not pd:
-            raise ImportError("require pandas")
-        else:
-            return self.to_dataframe().describe()
+        import pandas as pd
+        return self.to_dataframe().describe()
 
     def write_all_datafiles(self, filenames=None):
         from pytraj.core.DataFileList import DataFileList
@@ -560,7 +550,6 @@ cdef class DataSetList:
         """just like `numpy.savetxt`
         Notes: require numpy
         """
-        import numpy as np
         if labels is None:
             headers = "\t".join([d.legend for d in self])
             headers = "frame\t" + headers

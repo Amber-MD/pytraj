@@ -35,7 +35,6 @@ class Test(unittest.TestCase):
 
         aa_eq(dslist3_0, dslist[0].to_ndarray())
         aa_eq(dslist3_1, dslist[1].to_ndarray())
-        #print(dslist2)
 
 
 if __name__ == "__main__":

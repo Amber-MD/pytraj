@@ -18,8 +18,7 @@ from pytraj.api import Trajectory
 from ._get_common_objects import _get_top, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj, _get_iter_indices_with_traj
-from ._common_actions import calculate
-from .utils import _import_numpy, is_array, ensure_not_none_or_string
+from .utils import is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_atommask
@@ -27,14 +26,15 @@ from .externals.six import string_types
 from .Frame import Frame
 from .Topology import Topology
 from .datasets.DataSetList import DataSetList as CpptrajDatasetList
-from .core.DataFileList import DataFileList
-from .externals.gdt.calc_score import calc_score
+from .datafiles import DataFileList
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
 from ._shared_methods import iterframe_master
 from .externals.get_pysander_energies import get_pysander_energies
 from .decorators import noparallel
+from .actions import CpptrajActions
+from .analyses import CpptrajAnalyses
 #from .TrajectoryIterator import  TrajectoryIterator
 
 list_of_cal = ['calc_distance',
@@ -44,7 +44,6 @@ list_of_cal = ['calc_distance',
                'calc_molsurf',
                'calc_distrmsd',
                'calc_volume',
-               'calc_protein_score',
                'calc_dssp',
                'calc_matrix',
                'calc_jcoupling',
@@ -78,11 +77,8 @@ list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds',
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
-calc_protein_score = calc_score
 calc_energies = get_pysander_energies
 energy_decomposition = get_pysander_energies
-
-action_type = calculate
 
 
 def _noaction_with_TrajectoryIterator(trajiter):
@@ -219,11 +215,13 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
     """
     from pytraj.datasetlist import from_dict
+    dslist = CpptrajDatasetList()
+    act = CpptrajActions.Action_Angle()
+
     command = mask
 
     ensure_not_none_or_string(traj)
 
-    _, np = _import_numpy()
     _top = _get_top(traj, top)
     cm_arr = np.asarray(command)
 
@@ -236,11 +234,8 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
             except:
                 pass
             # cpptraj mask for action
-            dset = calculate(
-                "angle", traj, command,
-                top=_top,
-                quick_get=True, *args, **kwd)
-            return _get_data_from_dtype(dset, dtype)
+            act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+            return _get_data_from_dtype(dslist, dtype)
 
         elif isinstance(command, (list, tuple)):
             list_of_commands = command
@@ -336,10 +331,12 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> # dihedral angle for atom 1, 5, 8, 10, dihedral for atom 4, 10, 20, 30 (index starts from 0)
     >>> pt.dihedral(traj, [[1, 5, 8, 10], [4, 10, 20, 30]])
     """
+    act = CpptrajActions.Action_Dihedral()
+    dslist = CpptrajDatasetList()
+
     ensure_not_none_or_string(traj)
     command = mask
 
-    _, np = _import_numpy()
     _top = _get_top(traj, top)
     cm_arr = np.asarray(command)
 
@@ -352,11 +349,8 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
             except:
                 pass
             # cpptraj mask for action
-            dset = calculate(
-                "dihedral", traj, command,
-                top=_top,
-                quick_get=True, *args, **kwd)
-            return _get_data_from_dtype(dset, dtype)
+            act(command, traj, top=_top, dslist=dslist)
+            return _get_data_from_dtype(dslist, dtype)
 
         elif isinstance(command, (list, tuple)):
             list_of_commands = command

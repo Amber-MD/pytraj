@@ -38,8 +38,6 @@ def test_time_iter():
 
 dslist_iter = test_time_iter()
 
-#print (dslist.size)
-#print (dslist_iter.size)
 #arr = dslist[0].to_ndarray().flatten()
 #arr_iter = dslist_iter[0].to_ndarray().flatten()
 #aa_equal(arr, arr_iter)

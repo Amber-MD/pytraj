@@ -1,5 +1,33 @@
 # distutils: language = c++
-from pytraj.actions.Action cimport _Action, Action, FunctPtr, _DispatchObject
+from libcpp.string cimport string
+from ..core.cpptraj_core cimport (_DispatchObject, DispatchObject,  FunctPtr)
+from ..datafiles.datafiles cimport  _DataFileList, DataFileList
+from ..Topology cimport _TopologyList, TopologyList, _Topology, Topology
+from ..core.cpptraj_core cimport _ArgList, ArgList
+from ..datasets.DataSetList cimport _DataSetList, DataSetList
+from ..Frame cimport _Frame, Frame
+
+
+cdef extern from "Action.h": 
+    # Action.h
+    ctypedef enum RetType "Action::RetType":
+        OK "Action::OK"
+        ERR "Action::ERR"
+        USEORIGINALFRAME "Action::USEORIGINALFRAME"
+        SUPPRESSCOORDOUTPUT "Action::SUPPRESSCOORDOUTPUT"
+    cdef cppclass _Action "Action":
+        #virtual ~_Action() 
+        #RetType Init(_ArgList&, _TopologyList *, _FrameList *, _DataSetList *, _DataFileList *, int)
+        RetType Init(_ArgList&, _TopologyList *, _DataSetList *, _DataFileList *, int)
+        RetType Setup(_Topology *, _Topology * *)
+        RetType DoAction(int, _Frame *, _Frame * *)
+        void Print() 
+
+
+cdef class Action:
+    cdef _Action* baseptr
+    cdef public int n_frames
+# distutils: language = c++
 
 cdef extern from "Action_Angle.h": 
     cdef cppclass _Action_Angle "Action_Angle" (_Action):
@@ -28,12 +56,10 @@ cdef extern from "Action_AtomMap.h":
         _Action_AtomMap() 
         _DispatchObject * Alloc() 
         void Help() 
-        #~_Action_AtomMap() 
 
 
 cdef class Action_AtomMap (Action):
     cdef _Action_AtomMap* thisptr
-
 
 
 cdef extern from "Action_AtomicCorr.h": 
@@ -76,7 +102,6 @@ cdef extern from "Action_Average.h":
         _Action_Average() 
         _DispatchObject * Alloc() 
         void Help() 
-        #~_Action_Average() 
 
 
 cdef class Action_Average (Action):
@@ -159,7 +184,6 @@ cdef extern from "Action_Closest.h":
         _Action_Closest() 
         _DispatchObject * Alloc() 
         void Help() 
-        #~_Action_Closest() 
 
 
 cdef class Action_Closest (Action):
@@ -182,7 +206,6 @@ cdef extern from "Action_Contacts.h":
         _Action_Contacts() 
         _DispatchObject * Alloc() 
         void Help() 
-        #~_Action_Contacts() 
 
 
 cdef class Action_Contacts (Action):
@@ -262,7 +285,6 @@ cdef class Action_Dihedral(Action):
 cdef extern from "Action_DihedralScan.h": 
     cdef cppclass _Action_DihedralScan "Action_DihedralScan" (_Action):
         _Action_DihedralScan() 
-        #~_Action_DihedralScan() 
         _DispatchObject * Alloc() 
         void Help() 
 
@@ -332,7 +354,6 @@ cdef class Action_FilterByData (Action):
 cdef extern from "Action_FixAtomOrder.h": 
     cdef cppclass _Action_FixAtomOrder "Action_FixAtomOrder" (_Action):
         _Action_Fix_AtomOrder() 
-        #~_Action_Fix_AtomOrder() 
         _DispatchObject * Alloc() 
         void Help() 
 
@@ -393,7 +414,6 @@ cdef extern from "Action_Image.h":
         _Action_Image() 
         _DispatchObject * Alloc() 
         void Help() 
-        #~_Action_Image() 
 
 
 cdef class Action_Image (Action):
@@ -404,20 +424,17 @@ cdef class Action_Image (Action):
 cdef extern from "Action_Jcoupling.h": 
     cdef cppclass _Action_Jcoupling "Action_Jcoupling" (_Action):
         _Action_Jcoupling() 
-        #~_Action_Jcoupling() 
         _DispatchObject * Alloc() 
         void Help() 
 
 
 cdef class Action_Jcoupling (Action):
     cdef _Action_Jcoupling* thisptr
-#from Trajout cimport *
 
 
 cdef extern from "Action_LESsplit.h": 
     cdef cppclass _Action_LESsplit "Action_LESsplit" (_Action):
         _Action_LESsplit() 
-        #~_Action_LESsplit() 
         _DispatchObject * Alloc() 
         void Help() 
 
@@ -425,7 +442,6 @@ cdef extern from "Action_LESsplit.h":
 cdef class Action_LESsplit (Action):
     cdef _Action_LESsplit* thisptr
 
-#from ImagedAction cimport *
 
 
 cdef extern from "Action_LIE.h": 
@@ -438,7 +454,6 @@ cdef extern from "Action_LIE.h":
 cdef class Action_LIE (Action):
     cdef _Action_LIE* thisptr
 
-#from DihedralSearch cimport *
 
 
 cdef extern from "Action_MakeStructure.h": 
@@ -484,7 +499,6 @@ cdef extern from "Action_MinImage.h":
 cdef class Action_MinImage (Action):
     cdef _Action_MinImage* thisptr
 
-#from molsurf cimport *
 
 
 cdef extern from "Action_Molsurf.h": 
@@ -492,13 +506,11 @@ cdef extern from "Action_Molsurf.h":
         _Action_Molsurf() 
         _DispatchObject * Alloc() 
         void Help() 
-        #~_Action_Molsurf() 
 
 
 cdef class Action_Molsurf (Action):
     cdef _Action_Molsurf* thisptr
 
-#from DihedralSearch cimport *
 
 
 cdef extern from "Action_MultiDihedral.h": 
@@ -523,15 +535,11 @@ cdef extern from "Action_MultiVector.h":
 cdef class Action_MultiVector (Action):
     cdef _Action_MultiVector* thisptr
 
-#from AxisType cimport *
-#from Range cimport *
-#from DataSet_1D cimport *
 
 
 cdef extern from "Action_NAstruct.h": 
     cdef cppclass _Action_NAstruct "Action_NAstruct" (_Action):
         _Action_NAstruct() 
-        #~_Action_NAstruct() 
         _DispatchObject * Alloc() 
         void Help() 
 
@@ -550,9 +558,6 @@ cdef extern from "Action_NMRrst.h":
 
 cdef class Action_NMRrst (Action):
     cdef _Action_NMRrst* thisptr
-#from ImagedAction cimport *
-#from DataSet_MatrixDbl cimport *
-#from DataSet_integer cimport *
 
 
 cdef extern from "Action_NativeContacts.h": 
@@ -578,8 +583,6 @@ cdef extern from "Action_NativeContacts.h":
 
 cdef class Action_NativeContacts (Action):
     cdef _Action_NativeContacts* thisptr
-#from ImagedAction cimport *
-#from OnlineVarT cimport *
 
 
 cdef extern from "Action_OrderParameter.h": 
@@ -592,8 +595,6 @@ cdef extern from "Action_OrderParameter.h":
 cdef class Action_OrderParameter (Action):
     cdef _Action_OrderParameter* thisptr
 
-#from Trajout cimport *
-#from DataSet_1D cimport *
 
 
 cdef extern from "Action_Outtraj.h": 
@@ -606,8 +607,6 @@ cdef extern from "Action_Outtraj.h":
 cdef class Action_Outtraj (Action):
     cdef _Action_Outtraj* thisptr
 
-#from ImagedAction cimport *
-#from OnlineVarT cimport *
 
 
 cdef extern from "Action_PairDist.h": 
@@ -620,8 +619,6 @@ cdef extern from "Action_PairDist.h":
 cdef class Action_PairDist (Action):
     cdef _Action_PairDist* thisptr
 
-#from PDBfile cimport *
-#from DataSet_MatrixDbl cimport *
 
 
 cdef extern from "Action_Pairwise.h": 
@@ -645,9 +642,6 @@ cdef extern from "Action_Principal.h":
 cdef class Action_Principal (Action):
     cdef _Action_Principal* thisptr
 
-#from ..DataSet_Modes cimport *
-#from .ActionFrameCounter cimport *
-#from ..Array1D cimport *
 
 
 cdef extern from "Action_Projection.h": 
@@ -684,13 +678,11 @@ cdef extern from "Action_Radgyr.h":
 cdef class Action_Radgyr (Action):
     cdef _Action_Radgyr* thisptr
 
-#from ImagedAction cimport *
 
 
 cdef extern from "Action_Radial.h": 
     cdef cppclass _Action_Radial "Action_Radial" (_Action):
         _Action_Radial() 
-        #~_Action_Radial() 
         _DispatchObject * Alloc() 
         void Help() 
 
@@ -698,7 +690,6 @@ cdef extern from "Action_Radial.h":
 cdef class Action_Radial (Action):
     cdef _Action_Radial* thisptr
 
-#from ..ImagedAction cimport *
 
 
 cdef extern from "Action_RandomizeIons.h": 
@@ -781,7 +772,6 @@ cdef extern from "Action_Scale.h":
 cdef class Action_Scale (Action):
     cdef _Action_Scale* thisptr
 
-#from Random cimport *
 
 
 cdef extern from "Action_SetVelocity.h": 
@@ -794,8 +784,6 @@ cdef extern from "Action_SetVelocity.h":
 cdef class Action_SetVelocity (Action):
     cdef _Action_SetVelocity* thisptr
 
-#from ImagedAction cimport *
-#from Vec3 cimport *
 
 
 cdef extern from "Action_Spam.h": 
@@ -815,7 +803,6 @@ cdef extern from "Action_Strip.h":
         _Action_Strip() 
         _DispatchObject * Alloc() 
         void Help() 
-        #~_Action_Strip() 
 
 
     cdef cppclass _Action_Unstrip "Action_Unstrip" (_Action):
@@ -842,8 +829,6 @@ cdef extern from "Action_Surf.h":
 cdef class Action_Surf (Action):
     cdef _Action_Surf* thisptr
 
-#from ReferenceAction cimport *
-#from SymmetricRmsdCalc cimport *
 
 
 cdef extern from "Action_SymmetricRmsd.h": 
@@ -880,7 +865,6 @@ cdef extern from "Action_Translate.h":
 cdef class Action_Translate (Action):
     cdef _Action_Translate* thisptr
 
-#from ImageTypes cimport *
 
 
 cdef extern from "Action_Unwrap.h": 
@@ -893,13 +877,11 @@ cdef extern from "Action_Unwrap.h":
 cdef class Action_Unwrap (Action):
     cdef _Action_Unwrap* thisptr
 
-#from ..DataSet_Vector cimport *
 
 
 cdef extern from "Action_Vector.h": 
     cdef cppclass _Action_Vector "Action_Vector" (_Action):
         _Action_Vector() 
-        #~_Action_Vector() 
         _DispatchObject * Alloc() 
         void Help() 
 
@@ -907,7 +889,6 @@ cdef extern from "Action_Vector.h":
 cdef class Action_Vector (Action):
     cdef _Action_Vector* thisptr
 
-#from DataSet_Vector cimport *
 
 
 cdef extern from "Action_VelocityAutoCorr.h": 
@@ -920,7 +901,6 @@ cdef extern from "Action_VelocityAutoCorr.h":
 cdef class Action_VelocityAutoCorr (Action):
     cdef _Action_VelocityAutoCorr* thisptr
 
-#from DataSet_GridFlt cimport *
 
 
 cdef extern from "Action_Volmap.h": 
@@ -949,7 +929,6 @@ cdef class Action_Volume (Action):
 cdef extern from "Action_Watershell.h": 
     cdef cppclass _Action_Watershell "Action_Watershell" (_Action):
         _Action_Watershell() 
-        #~_Action_Watershell() 
         _DispatchObject * Alloc() 
         void Help() 
 

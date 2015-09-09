@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+import numpy as np
 
 
 def load_MDAnalysis(its_obj, top=None):
@@ -12,7 +13,8 @@ def load_MDAnalysis(its_obj, top=None):
     --------
     load_MDAnalysisIterator
     """
-    from pytraj.utils import has_, require, _import_numpy
+
+    from MDAnalysis import Universe
     from pytraj.Trajectory import Trajectory
     from ..Frame import Frame
 
@@ -21,33 +23,27 @@ def load_MDAnalysis(its_obj, top=None):
     #from ..trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
 
     # MDAnalysis needs numpy. So we always have numpy when using this
-    _, np = _import_numpy()
+    if not isinstance(its_obj, Universe):
+        raise ValuError("must be a Universe")
 
-    if not has_("MDAnalysis"):
-        require("MDAnalysis")
+    # creat pseudotop
+    if top is None:
+        raise ValuError("need a Topology or pdb/mol2/...")
     else:
-        from MDAnalysis import Universe
-        if not isinstance(its_obj, Universe):
-            raise ValuError("must be a Universe")
+        pseudotop = top
 
-        # creat pseudotop
-        if top is None:
-            raise ValuError("need a Topology or pdb/mol2/...")
-        else:
-            pseudotop = top
+    # creat atom group
+    ag = its_obj.atoms
 
-        # creat atom group
-        ag = its_obj.atoms
-
-        farray = Trajectory()
-        farray.top = pseudotop
-        for _ in its_obj.trajectory:
-            frame = Frame(farray.top.n_atoms)
-            # set box for each Frame
-            frame.boxview[:] = farray.top.box[:]
-            # load xyz coords, let numpy do automatically casting
-            frame.xyz[:] = ag.positions
-            # we don't need to make copy=True since we already created
-            # frame and `farray` can 'keep' it
-            farray.append(frame, copy=False)
-        return farray
+    farray = Trajectory()
+    farray.top = pseudotop
+    for _ in its_obj.trajectory:
+        frame = Frame(farray.top.n_atoms)
+        # set box for each Frame
+        frame.boxview[:] = farray.top.box[:]
+        # load xyz coords, let numpy do automatically casting
+        frame.xyz[:] = ag.positions
+        # we don't need to make copy=True since we already created
+        # frame and `farray` can 'keep' it
+        farray.append(frame, copy=False)
+    return farray

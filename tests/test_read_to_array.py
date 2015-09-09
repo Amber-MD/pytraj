@@ -26,7 +26,6 @@ class Test(unittest.TestCase):
     def test_0(self):
         arr = pt.tools.read_to_array("./data/floBF-resp.chg")
         assert arr.shape == (84, )
-        #print(arr)
         aa_eq(arr, expected_result)
 
 

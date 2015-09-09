@@ -1,11 +1,9 @@
 from __future__ import absolute_import
+import numpy as np
 from ._base_result_class import BaseAnalysisResult
 from ._get_common_objects import _get_data_from_dtype, _get_top
-from .utils import _import_numpy
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
 from pytraj.compat import string_types
-
-_, np = _import_numpy()
 
 
 class DSSPAnalysisResult(BaseAnalysisResult):
@@ -108,7 +106,6 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """
     from pytraj.datasets.DataSetList import DataSetList as CpptrajDatasetList
     from pytraj.actions.CpptrajActions import Action_DSSP
-    _, np = _import_numpy()
 
     if not isinstance(mask, string_types):
         mask = to_cpptraj_mask(mask)
@@ -148,7 +145,6 @@ def to_string_ss(arr0):
     """
     arr0 : {ndarray, dict of ndarray}
     """
-    _, np = _import_numpy()
     #ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
     ss = ["0", "b", "B", "G", "H", "I", "T", "S"]
     len_ss = len(ss)

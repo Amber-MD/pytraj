@@ -17,13 +17,20 @@ class Test(unittest.TestCase):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
-        mask = ':1@CA :14@CB :15CA :16@H'
+        mask = ':2@CA :14@CA :15@CA :16@CA'
+        txt = '''
+        parm ./data/Tc5b.top
+        trajin ./data/md1_prod.Tc5b.x
+        dihedral %s
+        ''' % mask
         d0 = pyca.calc_dihedral(traj, mask, dtype='dataset').to_ndarray()
         d1 = pt.dihedral(traj, mask)
         d2 = pt.calc_dihedral(fa, mask)
+        dcpp = pt.datafiles.load_cpptraj_output(txt)
 
         aa_eq(d0, d1)
         aa_eq(d0, d2)
+        aa_eq(d0, dcpp[0])
 
         Nsize = 10
         arr = np.random.randint(0, 300, size=Nsize * 4).reshape(Nsize, 4)
@@ -37,7 +44,6 @@ class Test(unittest.TestCase):
         aa_eq(d3, d6)
         aa_eq(d3.T, d7.T[:fa.n_frames])
         aa_eq(d3.T, d7.T[fa.n_frames:])
-        #print(d3)
 
 
 if __name__ == "__main__":

@@ -1,23 +1,19 @@
 # distutils: language = c++
+import os
 import numpy as np
 from ..api import Trajectory
-from ..AtomMask cimport AtomMask
+from ..core.cpptraj_core cimport AtomMask
 from ..Topology cimport Topology
 
-import os
 from .._cyutils import get_positive_idx
-from pytraj.externals.six import string_types
-from ..decorators import memoize # cache
+from pytraj.externals.six import string_types, PY2
 from .._shared_methods import my_str_method
 from .._shared_methods import _xyz, _tolist
 from .._shared_methods import _savetraj, _get_temperature_set
 from .._shared_methods import _box
-from ..utils.check_and_assert import _import_numpy, ensure_exist
-from ..utils.check_and_assert import is_word_in_class_name
+from ..utils.check_and_assert import ensure_exist
 from ..utils.check_and_assert import is_array, is_range
-from .._get_common_objects import _get_top
-from .Trajout import Trajout
-from ..compat import zip, range
+from ..externals.six.moves import zip, range
 
 def _split_range(int chunksize, int start, int stop):
     '''split a given range to n_chunks
@@ -226,7 +222,7 @@ cdef class TrajectoryCpptraj:
                 for idx, frame in enumerate(self.iterframe(start=_tmp_start,
                     stop=_tmp_stop)):
                     farray._xyz[idx] = frame.xyz
-                    farray._boxes[idx] = frame.box.data
+                    farray._boxes[idx] = frame.box._get_data()
                 yield farray
                     
     def __setitem__(self, idx, value):
@@ -362,11 +358,11 @@ cdef class TrajectoryCpptraj:
         cdef int i, j
         cdef int n_atoms = self.n_atoms
         cdef Frame frame
-        cdef double[:, :, :] xyz
+        cdef double[:, :, ::1] xyz
         cdef int n_frames = len(range(start, stop, stride))
 
         traj = Trajectory()
-        traj._allocate(n_frames, n_atoms)
+        traj.xyz = np.zeros((n_frames, n_atoms, 3), dtype='f8')
         traj.unitcells = np.zeros((n_frames, 6), dtype='f8')
         traj.top = self.top
         xyz = traj.xyz[:]
@@ -379,7 +375,7 @@ cdef class TrajectoryCpptraj:
             # dump coords to xyz array
             frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
             self.thisptr.GetFrame(i, frame.thisptr[0])
-            traj.unitcells[j] = frame.box.data
+            traj.unitcells[j] = frame.box._get_data()
             i += stride
             j += 1
         return traj
@@ -397,7 +393,7 @@ cdef class TrajectoryCpptraj:
         traj._allocate(n_frames, n_atoms)
         traj.unitcells = np.zeros((n_frames, 6), dtype='f8')
         traj.top = self.top
-        xyz = traj.xyz[:]
+        xyz = traj.xyz
 
         frame = Frame(n_atoms, xyz[0], _as_ptr=True)
         for j, i in enumerate(indices):
@@ -406,7 +402,7 @@ cdef class TrajectoryCpptraj:
             frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
             # copy coordinates of `self[i]` to j-th frame in `traj`
             self.thisptr.GetFrame(i, frame.thisptr[0])
-            traj.unitcells[j] = frame.box.data
+            traj.unitcells[j] = frame.box._get_data()
         return traj
 
     def _iterframe_indices(self, frame_indices):

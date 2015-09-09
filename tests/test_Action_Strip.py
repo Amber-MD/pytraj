@@ -3,13 +3,12 @@ import pytraj as pt
 from pytraj.base import *
 from pytraj.actions.CpptrajActions import Action_Strip
 from pytraj import allactions
-from pytraj.actions import Action
 from pytraj.TrajectoryIterator import TrajectoryIterator
 from pytraj.decorators import no_test
 
 
 farray = Trajectory(
-    top=Topology("./data/Tc5b.top"),
+    top=pt.load_topology("./data/Tc5b.top"),
     filename='data/md1_prod.Tc5b.x')
 
 
@@ -17,7 +16,7 @@ class TestStrip(unittest.TestCase):
     #@no_test
 
     def test_master(self):
-        top = Topology("./data/Tc5b.top")
+        top = pt.load_topology("./data/Tc5b.top")
         newtop = top.copy()
         frame0 = farray[0].copy()
         newframe = Frame()

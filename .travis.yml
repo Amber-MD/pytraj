@@ -2,7 +2,7 @@ language: python
 env:
     matrix:
         - PYTHON_VERSION=3.4 
-        - PYTHON_VERSION=2.7
+        - PYTHON_VERSION=3.3
 
 before_install:
     - sudo apt-get install libnetcdf-dev

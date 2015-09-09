@@ -6,10 +6,13 @@ import os
 from glob import glob
 import numpy as np
 from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
-from .compat import string_types, range
+from .externals.six import string_types
+from .externals.six.moves import range
 from .Topology import Topology
 from .utils import is_int
 from ._cyutils import get_positive_idx
+from .frameiter import FrameIter
+from ._get_common_objects import _load_Topology
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
 
@@ -72,7 +75,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         if not top:
             self.top = Topology()
         elif isinstance(top, string_types):
-            self.top = Topology(top)
+            self.top = _load_Topology(top)
         elif isinstance(top, Topology):
             self.top = top.copy()
         else:
@@ -100,7 +103,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
     def __setstate__(self, state):
         self.__dict__ = state.copy()
-        self.top = Topology(state['top_filename'])
+        self.top = _load_Topology(state['top_filename'])
         self.load(state['filelist'], frame_slice=state['frame_slice_list'])
 
     def __getstate__(self):
@@ -143,7 +146,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                     fname, _top,
                     frame_slice=fslice)
         elif isinstance(filename,
-                            string_types) and not os.path.exists(filename):
+                        string_types) and not os.path.exists(filename):
             flist = sorted(glob(filename))
             if not flist:
                 raise ValueError(
@@ -207,7 +210,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
                   frame_indices=None):
         ''''''
 
-        from .core.frameiter import FrameIter
         if mask is None:
             _top = self.top
         else:

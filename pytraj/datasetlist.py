@@ -1,17 +1,16 @@
 from __future__ import absolute_import
 from array import array
+import numpy as np
 from functools import partial
 from pytraj.datasets.DataSetList import DataSetList as DSL
 from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
-from pytraj.utils import _import_numpy, _import_pandas, is_int, is_array, is_generator
+from pytraj.utils import _import_pandas, is_int, is_array, is_generator
 from pytraj.compat import string_types, callable
-from pytraj.core.DataFile import DataFile
-from pytraj.ArgList import ArgList
+from pytraj.datafiles import DataFile
+from pytraj.core.cpptraj_core import ArgList
 from pytraj.compat import map, iteritems
 from pytraj.array import DataArray
-
-_, np = _import_numpy()
 
 __all__ = ['load_datafile', 'stack', 'DatasetList', 'from_pickle', 'from_json']
 
@@ -232,7 +231,7 @@ class DatasetList(list):
 
         if show:
             # only show once
-            from pytraj.plotting import show
+            from pytraj.plot import show
             show()
         return hist_dict
 
@@ -459,23 +458,19 @@ class DatasetList(list):
         """
         Notes: require numpy
         """
-        has_np, np = _import_numpy()
-        if has_np:
-            try:
-                if self.size == 1:
-                    arr = self[0].values
-                else:
-                    # more than one set
-                    arr = np.asarray([d0.values for d0 in self])
-                if not with_key:
-                    return arr
-                else:
-                    key_arr = np.array([d.key for d in self])
-                    return np.array([key_arr, arr.T])
-            except:
-                raise ValueError("don't know how to convert to ndarray")
-        else:
-            raise ImportError("don't have numpy")
+        try:
+            if self.size == 1:
+                arr = self[0].values
+            else:
+                # more than one set
+                arr = np.asarray([d0.values for d0 in self])
+            if not with_key:
+                return arr
+            else:
+                key_arr = np.array([d.key for d in self])
+                return np.array([key_arr, arr.T])
+        except:
+            raise ValueError("don't know how to convert to ndarray")
 
     def to_dataframe(self):
         """return pandas' DataFrame
@@ -552,17 +547,13 @@ class DatasetList(list):
 
     # pandas related
     def describe(self):
-        _, pd = _import_pandas()
-        if not pd:
-            raise ImportError("require pandas")
-        else:
-            return self.to_dataframe().describe()
+        import pandas as pd
+        return self.to_dataframe().describe()
 
     def savetxt(self, filename='dslist_default_name.txt', labels=None):
         """just like `numpy.savetxt`
         Notes: require numpy
         """
-        import numpy as np
         if labels is None:
             headers = "\t".join([d.legend for d in self])
             headers = "frame\t" + headers
