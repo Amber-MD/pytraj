@@ -5,7 +5,7 @@ from __future__ import absolute_import
 # TODO : make this file shorter
 from .datasets.cast_dataset import cast_dataset
 from .Frame import Frame
-from .core.Atom import Atom
+from .core.brick import Atom
 from .Topology import TopologyList
 from .datafiles.datafiles import DataFileList
 from .core.ActionList import ActionList
