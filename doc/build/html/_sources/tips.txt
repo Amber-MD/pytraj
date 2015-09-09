@@ -53,10 +53,10 @@ memory saving
 
 If memory is critical, do not load all frames into memory.
 
-.. code-block:: python
+.. ipython:: python
 
     # do this (only a single frame will be loaded to memory)
-    pt.radgyr(traj, frame_indices=[0, 200, 300, 301])
+    %memit pt.radgyr(traj, frame_indices=[0, 200, 300, 301])
 
     # rather doing (all 4 frames will be loaded to memory)
-    pt.radgyr(traj[[0, 200, 300, 301]])
+    %memit pt.radgyr(traj[[0, 200, 300, 301]])

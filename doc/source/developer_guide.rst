@@ -42,7 +42,7 @@ Python 2 and 3 compat
 Use `six <http://pythonhosted.org/six/>`_ to write your compat code. 
 We put all common stuff in `pytraj.compat <https://github.com/Amber-MD/pytraj/blob/master/pytraj/compat.py>`_
 
-.. notes:: currently, I (Hai) are only working on Python3.
+.. note:: currently, I (Hai) are only working on Python3.
 
 Install
 -------

@@ -57,4 +57,4 @@ if you would like to acknowledge our works, please do consider citing both ``cpp
 
     pytraj (https://github.com/Amber-MD/pytraj), Hai Nguyen,  et al. (2015) (in preperation)
 
-.. notes:: list of authors in ``pytraj`` is not complete. We will fill it soon.
+.. note:: list of authors in ``pytraj`` is not complete. We will fill it soon.
