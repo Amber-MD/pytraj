@@ -41,7 +41,7 @@ class Test(unittest.TestCase):
         farray3.join((farray3[:], farray3[:], farray3[:]))
         t0 = time()
 
-        dslist = DataSetList()
+        dslist = DatasetList()
         for f0 in farray3:
             assert f0.n_atoms == farray3.top.n_atoms
         # adict['distance'](":2@CA :10@CA", farray3,

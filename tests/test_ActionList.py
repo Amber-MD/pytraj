@@ -13,7 +13,7 @@ class TestActionList(unittest.TestCase):
         farray = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         # creat datasetlist to hold distance data
-        dsetlist = DataSetList()
+        dsetlist = DatasetList()
         dflist = DataFileList()
 
         # creat ActionList to hold actions

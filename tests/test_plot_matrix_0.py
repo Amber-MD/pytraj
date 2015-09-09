@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = load_sample_data()
         act = adict['matrix']
-        dslist = DataSetList()
+        dslist = DatasetList()
 
         # all atom distance matrix
         act("", traj, dslist=dslist)

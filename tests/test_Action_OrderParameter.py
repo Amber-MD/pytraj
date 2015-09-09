@@ -4,7 +4,7 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.datasets.DataSetList import DataSetList
+from pytraj.datasets.DatasetList import DatasetList
 
 
 class TestOrderParameter(unittest.TestCase):
@@ -27,7 +27,7 @@ class TestOrderParameter(unittest.TestCase):
         '''
 
         act = adict['orderparameter']
-        dslist = DataSetList()
+        dslist = DatasetList()
         act(command, traj, dslist=dslist)
         #print("#print out dslist")
         #print(dslist.get_legends())

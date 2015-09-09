@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['average']
-        dslist = DataSetList()
+        dslist = DatasetList()
         act("* crdset s1", traj, dslist=dslist)
         d0 = dslist[0]
 

@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         # export OMP_NUM_THREADS=8
         # python ./test_openmp_0.py
 
-        dslist = DataSetList()
+        dslist = DatasetList()
         dflist = DataFileList()
 
         trajin = "./data/md1_prod.Tc5b.x"

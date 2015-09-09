@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
         #print(d1.tolist())
         aa_eq(d1, arr0 + 1)
 
-        # += for DataSetList
+        # += for DatasetList
         arr0 = dslist[0].copy().values
         dslist[0].values += 2
         aa_eq(dslist[0].tolist(), arr0 + 2)

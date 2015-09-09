@@ -33,14 +33,14 @@ class Test(unittest.TestCase):
     def test_1(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['distance']
-        dslist = DataSetList()
+        dslist = DatasetList()
         act.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
         act.process(traj.top)
 
         for frame in traj.iterframe(stop=5):
             act.do_action(frame)
 
-        dslist = DataSetList()
+        dslist = DatasetList()
         act2 = adict['distance']
         act2.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
         act2.process(traj.top)

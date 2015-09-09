@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         act = adict['dihedralscan']
-        dslist = DataSetList()
+        dslist = DatasetList()
         act("phi :2-19 psi :2-19", traj, dslist=dslist)
         #print(act.n_frames)
         #print(dslist.size)

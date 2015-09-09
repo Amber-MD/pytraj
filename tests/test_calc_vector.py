@@ -8,7 +8,7 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
-from pytraj.datasets.DataSetList import DataSetList
+from pytraj.datasets.DatasetList import DatasetList
 
 
 class Test(unittest.TestCase):
@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
             traj, "v2 @18,@19,@20 corrplane",
             dtype='vector')
         act = analdict['timecorr']
-        dslist = DataSetList()
+        dslist = DatasetList()
         dslist.add_existing_set(vec2)
 
         # don't let python free memory for this `dslist`

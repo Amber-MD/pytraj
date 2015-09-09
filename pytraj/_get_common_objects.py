@@ -32,7 +32,7 @@ def _get_top(traj, top):
 
 
 def _get_data_from_dtype(d0, dtype='dataset'):
-    from pytraj.datasets import DataSet
+    from pytraj.datasets import Dataset
     from pytraj.datasetlist import DatasetList as DSL
 
     if dtype is None or dtype == 'dataset':
@@ -48,7 +48,7 @@ def _get_data_from_dtype(d0, dtype='dataset'):
     else:
         dtype = dtype.lower()
         if dtype == 'dataset':
-            if isinstance(d0, DataSet):
+            if isinstance(d0, Dataset):
                 return d0
             else:
                 return DSL(d0)
