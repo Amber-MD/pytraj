@@ -6,7 +6,7 @@ from ..datafiles.datafiles cimport _DataFileList, DataFileList
 from ..Topology cimport _Topology, Topology, _TopologyList, TopologyList
 from ..Frame cimport _Frame, Frame
 from .cpptraj_core cimport _ArgList, ArgList, _AtomMask, AtomMask
-from ..datasets.DataSetList cimport _DataSetList, DataSetList
+from ..datasets.DatasetList cimport _DatasetList, DatasetList
 
 cdef extern from "ActionList.h":
     cdef cppclass _ActionList "ActionList":
@@ -16,7 +16,7 @@ cdef extern from "ActionList.h":
         int Debug()
         int AddAction(DispatchAllocatorType, _ArgList&,
                       _TopologyList*, 
-                      _DataSetList*, _DataFileList*)
+                      _DatasetList*, _DataFileList*)
         int SetupActions(_Topology**)
         bint DoActions(_Frame **, int)
         void Print()

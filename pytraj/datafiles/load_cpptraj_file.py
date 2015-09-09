@@ -4,7 +4,7 @@ for compatibility with cpptraj
 >>> state = load_cpptraj_file(trajin_file)
 >>> isinstance(state, CpptrajState)
 
->>> # state object hold all information like TopologyList, DataSetList,
+>>> # state object hold all information like TopologyList, DatasetList,
 TrajinList, ...
 """
 from __future__ import absolute_import

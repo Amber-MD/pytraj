@@ -25,7 +25,7 @@ from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_atommask
 from .externals.six import string_types
 from .Frame import Frame
 from .Topology import Topology
-from .datasets.DataSetList import DataSetList as CpptrajDatasetList
+from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
@@ -1020,7 +1020,6 @@ def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> pyca.calc_vector(traj, "boxcenter").tolist()
     >>> pyca.calc_vector(traj, "box").tolist()
     """
-    from pytraj.datasets.DataSetList import DataSetList as CpptrajDatasetList
     from pytraj.actions.CpptrajActions import Action_Vector
     from pytraj.core.ActionList import ActionList
 
@@ -1672,10 +1671,9 @@ def timecorr(vec0, vec1,
     tcorr : float, default 10000.
     norm : bool, default False
     """
-    from pytraj.datasets import DataSetList as CDSL
     act = analdict['timecorr']
 
-    cdslist = CDSL()
+    cdslist = CpptrajDatasetList()
 
     cdslist.add_set("vector", "_vec0")
     cdslist.add_set("vector", "_vec1")
@@ -1705,10 +1703,9 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     -----
     Same as `crank` in cpptraj
     """
-    from pytraj.datasets import DataSetList as CDSL
     from pytraj.analyses.CpptrajAnalyses import Analysis_CrankShaft
 
-    cdslist = CDSL()
+    cdslist = CpptrajDatasetList()
     cdslist.add_set("double", "d0")
     cdslist.add_set("double", "d1")
 
@@ -1727,9 +1724,8 @@ def cross_correlation_function(data0, data1, dtype='ndarray'):
     -----
     Same as `corr` in cpptraj
     """
-    from pytraj.datasets import DataSetList as CDSL
 
-    cdslist = CDSL()
+    cdslist = CpptrajDatasetList()
     cdslist.add_set("double", "d0")
     cdslist.add_set("double", "d1")
 
@@ -1747,11 +1743,10 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     -----
     Same as `autocorr` in cpptraj
     """
-    from pytraj.datasets import DataSetList as CDSL
 
     _nocovar = " " if covar else " nocovar"
 
-    cdslist = CDSL()
+    cdslist = CpptrajDatasetList()
     cdslist.add_set("double", "d0")
 
     cdslist[0].from_array_like(np.asarray(data))
@@ -1768,10 +1763,9 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     -----
     Same as `autocorr` in cpptraj
     """
-    from pytraj.datasets import DataSetList as CDSL
     from pytraj.analyses.CpptrajAnalyses import Analysis_Lifetime
 
-    cdslist = CDSL()
+    cdslist = CpptrajDatasetList()
     if 'int' in data.dtype.name:
         cdslist.add_set("integer", "d0")
     else:
@@ -1838,7 +1832,6 @@ def pucker(traj=None,
     """Note: not validate yet
 
     """
-    from pytraj.datasets import DataSetList as CDL
     from pytraj.actions.CpptrajActions import Action_Pucker
     from pytraj.compat import range
 
@@ -1851,7 +1844,7 @@ def pucker(traj=None,
     amp = "amplitude" if amplitude else ""
     _offset = "offset " + str(offset) if offset else ""
 
-    cdslist = CDL()
+    cdslist = CpptrajDatasetList()
     for res in resrange:
         act = Action_Pucker()
         command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))

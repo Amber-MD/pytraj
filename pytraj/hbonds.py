@@ -2,7 +2,7 @@ from __future__ import absolute_import, print_function, division
 
 from .action_dict import ActionDict
 from .externals.six import string_types
-from .datasets.DataSetList import DataSetList
+from .datasets.DatasetList import DatasetList
 from ._get_common_objects import _get_data_from_dtype
 from ._base_result_class import BaseAnalysisResult
 
@@ -117,7 +117,7 @@ def search_hbonds_noseries(traj,
     http://ambermd.org/doc12/Amber15.pdf (page 575)
     """
 
-    dslist = DataSetList()
+    dslist = DatasetList()
     act = adict['hbond']
 
     command = mask
@@ -163,7 +163,7 @@ def search_hbonds(traj,
     >>> pt.search_hbonds(traj, solventdonor=':WAT@O', solventacceptor=':WAT')
     """
     from pytraj.actions.CpptrajActions import Action_Hbond
-    dslist = DataSetList()
+    dslist = DatasetList()
     act = Action_Hbond()
 
     s_donor = "solventdonor " + str(solventdonor) if solventdonor else ""
@@ -212,7 +212,7 @@ def search_nointramol_hbonds(traj,
        search_hbonds
     """
     from pytraj.actions.CpptrajActions import Action_Hbond
-    dslist = DataSetList()
+    dslist = DatasetList()
     act = Action_Hbond()
     command = "series nointramol " + mask
     act(command, traj, dslist=dslist, *args, **kwd)

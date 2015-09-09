@@ -21,12 +21,12 @@ from ..core.cpptraj_core import ArgList
 
 from pytraj.cpptraj_dict import DataTypeDict
 
-__all__ = ['DataSetList']
+__all__ = ['DatasetList']
 
 
-cdef class DataSetList:
+cdef class DatasetList:
     """
-    DataSetList holds data from cpptraj
+    DatasetList holds data from cpptraj
 
     Notes
     -----
@@ -38,9 +38,9 @@ cdef class DataSetList:
         # py_free_mem is a flag to tell pytraj should free memory or let 
         # cpptraj does
         # check ./CpptrajState.pyx
-        self.thisptr = new _DataSetList()
+        self.thisptr = new _DatasetList()
         self.py_free_mem = py_free_mem
-        # Not all DataSetLists own their own data (if it's a MemoryView) for
+        # Not all DatasetLists own their own data (if it's a MemoryView) for
         # instance, so this allows us to keep references to parent objects to
         # prevent them from getting GCed while their memory is still being used.
         self._parent_lists = []
@@ -50,24 +50,24 @@ cdef class DataSetList:
             del self.thisptr
 
     def __str__(self):
-        safe_msg = "<pytraj.DataSetList with %s datasets>" % self.size
+        safe_msg = "<pytraj.DatasetList with %s datasets>" % self.size
         if self.size == 0:
             return safe_msg
-        msg = "<pytraj.datasets.DataSetList - %s datasets>" % self.size
+        msg = "<pytraj.datasets.DatasetList - %s datasets>" % self.size
         return msg
 
     def __repr__(self):
         return self.__str__()
 
-    def __contains__(self, DataSet other):
-        cdef DataSet d0
+    def __contains__(self, Dataset other):
+        cdef Dataset d0
         for d0 in self:
             if d0.baseptr0 == other.baseptr0:
                 return True
         return False
 
     def copy(self):
-        cdef DataSetList dnew = DataSetList()
+        cdef DatasetList dnew = DatasetList()
         for d in self:
             dnew._add_copy_of_set(d)
         return dnew
@@ -78,24 +78,24 @@ cdef class DataSetList:
     def clear(self):
         self.thisptr.Clear()
 
-    def __iadd__(self, DataSetList other):
+    def __iadd__(self, DatasetList other):
         self.thisptr.addequal(other.thisptr[0])
         return self
 
     def __iter__(self):
         cdef const_iterator it
-        cdef DataSet dset
+        cdef Dataset dset
         it = self.thisptr.begin()
 
         while it != self.thisptr.end():
-            dset = DataSet()
+            dset = Dataset()
             dset.baseptr0 = deref(it)
             yield cast_dataset(dset, dtype=dset.dtype)
             incr(it)
 
     def __len__(self):
         cdef const_iterator it
-        cdef DataSet dset
+        cdef Dataset dset
         cdef int i
         it = self.thisptr.begin()
 
@@ -118,15 +118,15 @@ cdef class DataSetList:
     def ensemble_num(self):
         return self.thisptr.EnsembleNum()
 
-    def remove_set(self, DataSet dset):
+    def remove_set(self, Dataset dset):
         self.thisptr.RemoveSet(dset.baseptr0)
 
     def __getitem__(self, idx):
-        """return a DataSet instance
+        """return a Dataset instance
         Memory view is applied (which mean this new insance is just alias of self[idx])
         Should we use a copy instead?
         """
-        cdef DataSet dset = DataSet()
+        cdef Dataset dset = Dataset()
         cdef int start, stop, step
         cdef object _idx # _idx can be 'int' or 'string'
 
@@ -185,20 +185,20 @@ cdef class DataSetList:
         self.thisptr.SetPrecisionOfDataSets(nameIn, widthIn, precisionIn)
 
     def get_reference_frame(self, name):
-        cdef DataSet dset = DataSet()
+        cdef Dataset dset = Dataset()
         # return a view of dataset
         dset.baseptr0 = self.thisptr.GetReferenceFrame(name.encode())
         return dset
 
     def get_dataset(self, idx=None, name=None, dtype=None):
         """
-        return DataSet instance
+        return Dataset instance
         Input:
         =====
         name :: str, optional
         idx :: integer, optional
         """
-        cdef DataSet dset = DataSet()
+        cdef Dataset dset = Dataset()
 
         if name is not None and idx is not None:
             raise ValueError("name and idx must not be set at the same time")
@@ -223,15 +223,15 @@ cdef class DataSetList:
 
     def get_multiple_sets(self, string s):
         """TODO: double-check cpptraj"""
-        cdef DataSetList dlist = DataSetList()
+        cdef DatasetList dlist = DatasetList()
         dlist.thisptr[0] = self.thisptr.GetMultipleSets(s)
         return dlist
 
     def add_set(self, dtype=None, name="", default_name=""):
-        """create new (empty) DataSet and add to `self`
+        """create new (empty) Dataset and add to `self`
         this is for internal use
         """
-        cdef DataSet dset = DataSet()
+        cdef Dataset dset = Dataset()
         if dtype is None:
             raise ValueError("dtype must not be None")
         dtype = dtype.upper()
@@ -240,20 +240,20 @@ cdef class DataSetList:
         dset.baseptr0 = self.thisptr.AddSet(DataTypeDict[dtype], name, default_name)
         return dset
 
-    def add_existing_set(self, DataSet ds):
+    def add_existing_set(self, Dataset ds):
         self.thisptr.AddSet(ds.baseptr0)
         
     def add_setidx(self, DataType inType, string nameIn, int idx):
-        cdef DataSet dset = DataSet()
+        cdef Dataset dset = Dataset()
         dset.baseptr0 = self.thisptr.AddSetIdx(inType, nameIn, idx)
         if not dset.baseptr0:
             raise MemoryError("Can not initialize pointer")
         return dset
 
-    def _add_copy_of_set(self, DataSet dset):
+    def _add_copy_of_set(self, Dataset dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
 
-    def add_copy_of_set(self, DataSet dset):
+    def add_copy_of_set(self, Dataset dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
 
     def add_set_aspect(self, dtype, name=None, aspect=None):
@@ -265,7 +265,7 @@ cdef class DataSetList:
         name_1 : str
         name_2 : str
         """
-        cdef DataSet ds = DataSet()
+        cdef Dataset ds = Dataset()
         if aspect is None:
             aspect = name
         ds.baseptr0 = self.thisptr.AddSetAspect(DataTypeDict[dtype.upper()], 
@@ -274,12 +274,12 @@ cdef class DataSetList:
 
     def find_coords_set(self, name):
         name = name.encode()
-        cdef DataSet dset = DataSet()
+        cdef Dataset dset = Dataset()
         dset.baseptr0 = self.thisptr.FindCoordsSet(name)
         return dset
 
     def find_set_of_type(self, filename, dtype):
-        cdef DataSet dset = DataSet()
+        cdef Dataset dset = Dataset()
 
         dtype = dtype.upper()
         dset.baseptr0 = self.thisptr.FindSetOfType(filename.encode(), DataTypeDict[dtype])
@@ -356,7 +356,7 @@ cdef class DataSetList:
             raise NotImplementedError("func must be a string or callable")
 
     def grep(self, key, mode='legend'):
-        """"return a new DataSetList object as a view of `self`
+        """"return a new DatasetList object as a view of `self`
 
         Parameters
         ----------
@@ -451,14 +451,14 @@ cdef class DataSetList:
         self.py_free_mem = value
 
     def _base_dataset_iter(self):
-        """return a list of baseclass DataSet"""
+        """return a list of baseclass Dataset"""
         cdef const_iterator it
-        cdef DataSet dset
+        cdef Dataset dset
         it = self.thisptr.begin()
 
 
         while it != self.thisptr.end():
-            dset = DataSet()
+            dset = Dataset()
             dset.baseptr0 = deref(it)
             yield dset
             incr(it)

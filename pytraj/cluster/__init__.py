@@ -77,7 +77,7 @@ def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
 
     """
     from pytraj.analyses.CpptrajAnalyses import Analysis_Clustering
-    from pytraj.datasets.DataSetList import DataSetList as CpptrajDatasetList
+    from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
     _top = _get_top(traj, top)
     ana = Analysis_Clustering()
     # need to creat `dslist` here so that every time `do_clustering` is called,

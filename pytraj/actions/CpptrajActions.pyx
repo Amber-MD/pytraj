@@ -51,7 +51,7 @@ cdef class Action:
         """
         >>> from pytraj import *
         >>> traj = io.load("../tz2.nc", "../tz2.parm7")
-        >>> dslist = DataSetList.DataSetList()
+        >>> dslist = DatasetList.DatasetList()
         >>> adict['jcoupling']("outfile Jcoupling.dat kfile Karplus.txt", traj[0], traj.top, dslist=dslist)
         """
         return self._master(*args, **kwd)
@@ -59,7 +59,7 @@ cdef class Action:
     @makesureABC("Action")
     def read_input(self, command='', 
                    top=TopologyList(),
-                   DataSetList dslist=DataSetList(), 
+                   DatasetList dslist=DatasetList(), 
                    DataFileList dflist=DataFileList(), 
                    int debug=0):
         """
@@ -69,7 +69,7 @@ cdef class Action:
             Type of actions, mask, ... (Get help: Action_Box().help())
         top : Topology or TopologyList instance, default=TopologyList()
         #flist : FrameList instance, default=FrameList()
-        dslist : DataSetList instance, default=DataSetList()
+        dslist : DatasetList instance, default=DatasetList()
         dflist : DataFileList instance, default=DataFileList()
         debug : int, default=0
             debug option from cpptraj. (Do we need this?)
@@ -168,7 +168,7 @@ cdef class Action:
     def _master(self, command='',
                   current_frame=Frame(),
                   top=Topology(),
-                  dslist=DataSetList(), 
+                  dslist=DatasetList(), 
                   dflist=DataFileList(), 
                   new_top=Topology(),
                   new_frame=Frame(),

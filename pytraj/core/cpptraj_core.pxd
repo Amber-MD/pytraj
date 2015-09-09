@@ -8,7 +8,7 @@ from ..cpp_vector cimport vector
 from .Box cimport _Box, Box
 from pytraj.Topology cimport _TopologyList, TopologyList
 from ..datafiles.datafiles cimport _DataFileList, DataFileList, _DataFile, DataFile
-from ..datasets.DataSetList cimport _DataSetList, DataSetList
+from ..datasets.DatasetList cimport _DatasetList, DatasetList
 
 ctypedef _BaseIOtype* (*AllocatorType)()
 ctypedef void (*HelpType)()
@@ -205,7 +205,7 @@ cdef extern from "CpptrajState.h":
     cdef cppclass _CpptrajState "CpptrajState":
         _CpptrajState()
         _TopologyList * PFL()
-        _DataSetList * DSL()
+        _DatasetList * DSL()
         _DataFileList * DFL()
         void SetNoExitOnError()
         void SetNoProgress()
@@ -225,7 +225,7 @@ cdef extern from "CpptrajState.h":
         int ListAll(_ArgList &)const 
         int SetListDebug(_ArgList &)
         int ClearList(_ArgList &)
-        int RemoveDataSet(_ArgList &)
+        int RemoveDataset(_ArgList &)
         int TrajLength(const string&, const vector[string]&)
         int Run()
         void MasterDataFileWrite()
@@ -234,7 +234,7 @@ cdef class CpptrajState:
     cdef _CpptrajState* thisptr
     cdef public TopologyList toplist
     cdef public DataFileList datafilelist
-    cdef public DataSetList datasetlist
+    cdef public DatasetList datasetlist
 
 cdef extern from "ArgList.h": 
     cdef cppclass _ArgList "ArgList":

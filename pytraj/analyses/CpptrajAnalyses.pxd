@@ -4,7 +4,7 @@ from ..core.cpptraj_core cimport (_DispatchObject, DispatchObject,  FunctPtr)
 from ..datafiles.datafiles cimport  _DataFileList, DataFileList
 from ..Topology cimport _TopologyList, TopologyList, _Topology, Topology
 from ..core.cpptraj_core cimport _ArgList, ArgList
-from ..datasets.DataSetList cimport _DataSetList, DataSetList
+from ..datasets.DatasetList cimport _DatasetList, DatasetList
 from ..Frame cimport _Frame, Frame
 
 
@@ -14,7 +14,7 @@ cdef extern from "Analysis.h":
         pass
     cdef cppclass _Analysis "Analysis":
         #virtual ~_Analysis() 
-        RetType Setup(_ArgList&, _DataSetList *, _TopologyList *, _DataFileList *, int)
+        RetType Setup(_ArgList&, _DatasetList *, _TopologyList *, _DataFileList *, int)
         RetType Analyze()
 
 

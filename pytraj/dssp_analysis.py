@@ -104,7 +104,7 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     S         7       'S'       Bend
     ========= ======= ========= =======================
     """
-    from pytraj.datasets.DataSetList import DataSetList as CpptrajDatasetList
+    from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
     from pytraj.actions.CpptrajActions import Action_DSSP
 
     if not isinstance(mask, string_types):

@@ -26,7 +26,7 @@ cdef class ActionList:
     def add_action(self, action="", 
                          command="", 
                          top=None, 
-                         DataSetList dslist=DataSetList(), 
+                         DatasetList dslist=DatasetList(), 
                          DataFileList dflist=DataFileList(),
                          check_status=False):
         """
@@ -37,7 +37,7 @@ cdef class ActionList:
         action : str or Action object
         command : str or ArgList object
         top : str | Topology | TopologyList
-        dslist : DataSetList 
+        dslist : DatasetList 
         dflist : DataFileList
         check_status : bool, default=False
             return status of Action (0 or 1) if "True"
