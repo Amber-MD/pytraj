@@ -18,6 +18,13 @@ How?
     cd pytraj
     python ./setup.py install
 
+or from ``conda`` (a bit outdated compared to github)::
+
+    conda install -c pytraj pytraj-dev --force
+
+Depend on your machine, the fresh installation (``libcpptraj`` + ``pytraj``) could take 2 to 4 minutes.
+
+
 Troubleshooting
 ---------------
 
@@ -34,11 +41,7 @@ But if you are new to Python and got ``permission denied`` error, try to install
     # if you do this, make sure to add ``your_favorite_dir`` to $PYTHONPATH 
     export PYTHONPATH=your_favorite_dir:$PYTHONPATH
 
-or from ``conda`` (a bit outdated compared to github)::
-
-    conda install -c pytraj pytraj-dev --force
-
-Depend on your machine, the fresh installation (``libcpptraj`` + ``pytraj``) could take 2 to 4 minutes.
+If you want to see further options, check ``python setup.py install --help``
 
 install anaconda for all python packages
 ----------------------------------------
