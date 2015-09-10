@@ -153,30 +153,18 @@ cdef extern from "DataSet_Vector.h":
     cdef cppclass _DatasetVector "DataSet_Vector" (_Dataset1D):
         _DatasetVector() 
         _Dataset * Alloc() 
-        void SetIred() 
-        bint IsIred() const 
-        void reset() 
         void Resize(size_t s)
         void Resize(size_t s, const _Vec3& v)
         bint Empty() const 
-        #const _Vec3& operator[](int i) const 
         _Vec3& index_opr "operator[]" (int i)
         const _Vec3& OXYZ(int i) const 
         void ReserveVecs(size_t n)
         void AddVxyz(const _Vec3& v)
         void AddVxyz(const _Vec3& v, const _Vec3& c)
-        #const_iterator begin() const 
-        #const_iterator end() const 
-        const _Vec3& Back() const 
-        int CalcSphericalHarmonics(int)
-        #const _ComplexArray& SphericalHarmonics(int) const 
-        double SphericalHarmonicsNorm(int)
-
 
 cdef class DatasetVector (Dataset1D):
     cdef _DatasetVector* thisptr
     cdef bint py_free_mem
-
 
 cdef extern from "DataSet_2D.h": 
     # DataSet_2D.h
@@ -269,9 +257,6 @@ cdef extern from "DataSet_3D.h":
         _Dataset3D() 
         _Dataset3D(DataType tIn, int wIn, int pIn)
         void Add(size_t, const void *)
-        int Allocate_N_O_D(size_t, size_t, size_t, const _Vec3&, const _Vec3&)
-        int Allocate_N_C_D(size_t, size_t, size_t, const _Vec3&, const _Vec3&)
-        int Allocate_X_C_D(const _Vec3&, const _Vec3&, const _Vec3&)
         inline bint CalcBins(double, double, double, int&, int&, int&) const 
         inline double DX() const 
         inline double DY() const 
@@ -282,8 +267,6 @@ cdef extern from "DataSet_3D.h":
         inline double MX() const 
         inline double MY() const 
         inline double MZ() const 
-        inline _Vec3 BinCorner(int, int, int)
-        inline _Vec3 BinCenter(int, int, int)
 
 cdef class Dataset3D (Dataset):
     cdef _Dataset3D* baseptr_1
@@ -295,8 +278,6 @@ cdef extern from "DataSet_GridFlt.h":
         _Dataset * Alloc() 
         const _Grid[float]& InternalGrid() const 
         size_t Size() const 
-        int Sync() 
-        void Info() const 
         int Allocate3D(size_t x, size_t y, size_t z)
         double GetElement(int x, int y, int z) const 
         void SetElement(int x, int y, int z, float v)
@@ -304,11 +285,6 @@ cdef extern from "DataSet_GridFlt.h":
         size_t NX() const 
         size_t NY() const 
         size_t NZ() const 
-        #iterator begin() 
-        #iterator end() 
-        inline long int Increment(const _Vec3&, float)
-        inline long int Increment(const double *, float)
-        inline long int Increment(int, int, int, float)
         float GridVal(int x, int y, int z) const 
         long int CalcIndex(int i, int j, int k) const 
 
