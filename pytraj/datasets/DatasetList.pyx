@@ -91,7 +91,10 @@ cdef class DatasetList:
         while it != self.thisptr.end():
             dset = Dataset()
             dset.baseptr0 = deref(it)
-            yield cast_dataset(dset, dtype=dset.dtype)
+            try:
+                yield cast_dataset(dset, dtype=dset.dtype)
+            except NotImplementedError:
+                yield dset
             incr(it)
 
     def __len__(self):
@@ -295,7 +298,7 @@ cdef class DatasetList:
     def get_legends(self):
         """return a list"""
         tmp_list = []
-        for d0 in self:
+        for d0 in self._base_dataset_iter():
             tmp_list.append(d0.legend)
         return tmp_list
 
@@ -305,7 +308,7 @@ cdef class DatasetList:
         """
 
         tmp_list = []
-        for d0 in self:
+        for d0 in self._base_dataset_iter():
             tmp_list.append(d0.aspect)
         if is_set:
             return set(tmp_list)
@@ -315,21 +318,21 @@ cdef class DatasetList:
     def get_scalar_types(self):
         """return a list"""
         tmp_list = []
-        for d0 in self:
+        for d0 in self._base_dataset_iter():
             tmp_list.append(d0.scalar_type)
         return tmp_list
 
     def get_scalar_modes(self):
         """return a list"""
         tmp_list = []
-        for d0 in self:
+        for d0 in self._base_dataset_iter():
             tmp_list.append(d0.scalar_mode)
         return tmp_list
 
     def get_dtypes(self):
         """return a list"""
         tmp_list = []
-        for d0 in self:
+        for d0 in self._base_dataset_iter():
             tmp_list.append(d0.dtype)
         return tmp_list
 
@@ -377,7 +380,7 @@ cdef class DatasetList:
 
         # dont free mem here
         dtmp.set_py_free_mem(False)
-        for d0 in self:
+        for d0 in self._base_dataset_iter():
             att = getattr(d0, mode)
             if isinstance(key, string_types):
                 if re.search(key, att):
