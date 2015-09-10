@@ -39,7 +39,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -189,11 +189,10 @@
 <span class="gp">In [9]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
 <span class="gp">In [10]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
-<span class="go">   7.62039157]</span>
+<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
 </pre></div>
 </div>
-<p>However, <tt class="docutils literal"><span class="pre">pytraj</span></tt> offer shorter (and easy?) way to do</p>
+<p>However, <code class="docutils literal"><span class="pre">pytraj</span></code> offer shorter (and easy?) way to do</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># load all files into a single TrajectoryIterator</span>
 <span class="gp">In [11]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./tz2.*.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 
@@ -202,19 +201,17 @@
 
 <span class="c"># that&#39;s it</span>
 <span class="gp">In [13]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
-<span class="go">   7.62039157]</span>
+<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">pytraj</span></tt> will auto-allocate <tt class="docutils literal"><span class="pre">data</span></tt> too</p>
+<p><code class="docutils literal"><span class="pre">pytraj</span></code> will auto-allocate <code class="docutils literal"><span class="pre">data</span></code> too</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [14]: </span><span class="k">print</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trajlist</span><span class="p">])</span>
 <span class="go">[&#39;tz2.0.nc&#39;, &#39;tz2.1.nc&#39;, &#39;tz2.2.nc&#39;, &#39;tz2.3.nc&#39;]</span>
 
 <span class="gp">In [15]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">trajlist</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">trajlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
 
 <span class="gp">In [16]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
-<span class="go">   7.62039157]</span>
+<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
 </pre></div>
 </div>
 </div>
@@ -223,25 +220,25 @@
 <p>If memory is critical, do not load all frames into memory.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># do this (only a single frame will be loaded to memory)</span>
 <span class="gp">In [17]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]))</span>
-<span class="gr">Out[17]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">9.4451051</span> <span class="p">,</span>  <span class="mf">7.43238185</span><span class="p">,</span>  <span class="mf">7.48343543</span><span class="p">,</span>  <span class="mf">7.43238185</span><span class="p">])</span>
+<span class="gr">Out[17]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">9.4451</span><span class="p">,</span>  <span class="mf">7.4324</span><span class="p">,</span>  <span class="mf">7.4834</span><span class="p">,</span>  <span class="mf">7.4324</span><span class="p">])</span>
 
 <span class="c"># rather doing (all 4 frames will be loaded to memory)</span>
 <span class="gp">In [18]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]])</span>
-<span class="go">                                                                     Out[18]: array([ 9.4451051 ,  7.43238185,  7.48343543,  7.43238185])</span>
+<span class="go">                                                     Out[18]: array([ 9.4451,  7.4324,  7.4834,  7.4324])</span>
 
 <span class="gp">In [19]: </span><span class="n">traj</span><span class="p">(</span><span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">])</span>
-<span class="go">                                                                                                                                          Out[19]: </span>
+<span class="go">                                                                                                          Out[19]: </span>
 <span class="go">&lt;FrameIter with start=None, stop=None, stride=None, n_frames=4, </span>
 <span class="go">frame_indices=[0, 200, 300, 301] </span>
 <span class="go">autoimage=False, rmsfit=None, copy=False&gt; </span>
 
 <span class="gp">In [20]: </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]]</span>
-<span class="go">                                                                                                                                                                                                                                                                                                  Out[20]: </span>
+<span class="go">                                                                                                                                                                                                                                                                  Out[20]: </span>
 <span class="go">&lt;pytraj.Trajectory, 4 frames, include:</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
 </pre></div>
 </div>
-<p>See also: <a class="reference internal" href="trajectory_slice.html#trajectory-slice"><em>Trajectory slicing</em></a></p>
+<p>See also: <a class="reference internal" href="trajectory_slice.html#trajectory-slice"><span>Trajectory slicing</span></a></p>
 </div>
 </div>
 
@@ -258,7 +255,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

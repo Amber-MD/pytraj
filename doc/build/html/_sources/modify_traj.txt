@@ -4,16 +4,21 @@ Modify trajectory
 =================
 
 - rmsd_
+- center_
 - translate_
 - scale_
 - autoimage_
 - rotate_
 - rotate_dihedral_
+- replicate_cell_ 
 
 .. currentmodule:: pytraj
 
 .. _rmsd:
 .. autofunction:: rmsd
+
+.. _center:
+.. autofunction:: center
 
 .. _translate:
 .. autofunction:: translate
@@ -29,3 +34,6 @@ Modify trajectory
 
 .. _rotate_dihedral:
 .. autofunction:: rotate_dihedral
+
+.. _replicate_cell:
+.. autofunction:: replicate_cell
