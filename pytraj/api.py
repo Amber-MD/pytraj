@@ -13,7 +13,7 @@ from pytraj._get_common_objects import _get_top
 
 from .Topology import Topology
 from ._shared_methods import _savetraj, iterframe_master, my_str_method
-from ._fast_iterframe import _fast_iterptr, _fast_iterptr_withbox
+from ._cyutils import _fast_iterptr, _fast_iterptr_withbox
 from .frameiter import FrameIter
 
 __all__ = ['Trajectory']
@@ -538,20 +538,6 @@ class Trajectory(object):
             return self.top.has_box()
         except:
             return False
-
-    def center(self, mask="", *args, **kwd):
-        '''
-        '''
-        from pytraj.actions.CpptrajActions import Action_Center as Action
-
-        act = Action()
-        act.read_input(mask, top=self.top)
-        act.process(self.top)
-
-        for idx, frame in enumerate(self):
-            frame.set_frame_mass(self.top)
-            act.do_action(frame)
-            self._xyz[idx] = frame.xyz[:]
 
     def autoimage(self):
         from pytraj.actions.CpptrajActions import Action_AutoImage

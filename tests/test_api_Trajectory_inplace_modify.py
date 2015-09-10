@@ -19,11 +19,6 @@ class Test(unittest.TestCase):
         t0api.autoimage()
         aa_eq(farray.xyz, t0api.xyz)
 
-        # center
-        pt.center(farray)
-        t0api.center()
-        aa_eq(farray.xyz, t0api.xyz)
-
         # rotate_dihedral
         pt.rotate_dihedral(t0api, '3:phi:120')
         pt.rotate_dihedral(farray, '3:phi:120')

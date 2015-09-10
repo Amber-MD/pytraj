@@ -104,7 +104,7 @@ from .common_actions import (
     auto_correlation_function, principal_axes, cross_correlation_function,
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
-    crank, closest, search_neighbors, )
+    crank, closest, search_neighbors, replicate_cell)
 
 # create alias
 distance = calc_distance
@@ -218,7 +218,7 @@ def iterframe(traj, *args, **kwd):
     """
     return traj.iterframe(*args, **kwd)
 
-from ._fast_iterframe import _fast_iterptr as iterframe_from_array
+from ._cyutils import _fast_iterptr as iterframe_from_array
 
 
 def iterchunk(traj, *args, **kwd):

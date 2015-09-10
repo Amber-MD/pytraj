@@ -9,28 +9,12 @@ from cython.operator cimport dereference as deref
 
 
 cdef class Action:
-    """
-    Original cpptraj doc:
-    ====================
-        The abstract base class that all other actions inherit. 
-        By convention actions have 3 main phases: init, Setup, and DoAction.
-        Init is used to initialize the action, make sure that all arguments
-        for the action are correct, and add any DataSets/DataFiles which will
-        be used by the action. Setup will set up the action for a specific
-        Topology file. DoAction will perform the action on a given frame.
-        A fourth function, Print, is for any additional calculations or output 
-        the action may require once all frames are processed.
-
-    pytraj doc:
-    =============
-    Add new action: add to pytraj/actions/ folder 
-                    then update action in pytraj/actions/allactions
-                    (TODO : allactions.py might be changed)
-    """
+    '''interface to Cpptraj's Action
+    '''
     def __cinit__(self):
         # don't directly create instance of this ABC class.
         self.n_frames = 0
-        #self.baseptr = new _Action()
+        self.top_is_processed = False
 
     def __dealloc__(self):
         # should I del pointer here or in subclass? 
@@ -83,6 +67,7 @@ cdef class Action:
             toplist.add_parm(top)
         elif isinstance(top, TopologyList):
             toplist = <TopologyList> top
+        self.toplist = toplist
 
         if isinstance(command, string_types):
             #command = command.encode("UTF-8")
@@ -117,11 +102,11 @@ cdef class Action:
             # store in new_top, then __dealloc__ (from cpptraj)
             # we need to see py_free_mem to False
             new_top.py_free_mem = False
+        self.top_is_processed = True
         return self.baseptr.Setup(top.thisptr, &(new_top.thisptr))
 
     @makesureABC("Action")
-    def do_action(self, current_frame=None, Frame new_frame=Frame(), 
-            update_mass=True, Topology top=Topology()):
+    def do_action(self, current_frame=None, Frame new_frame=Frame(), update_mass=True):
         """
         Perform action on Frame. 
         Parameters:
@@ -143,8 +128,8 @@ cdef class Action:
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame
             # make sure to update frame mass
-            if update_mass and not top.is_empty():
-                frame.set_frame_mass(top)
+            if update_mass:
+                frame.set_frame_mass(self.toplist[0])
             self.baseptr.DoAction(self.n_frames, frame.thisptr, &(new_frame.thisptr))
             self.n_frames += 1
         else:
@@ -192,17 +177,11 @@ cdef class Action:
                         dflist=dflist, debug=debug)
 
         self.process(top=_top, new_top=new_top)
-        self.do_action(current_frame, new_frame, update_mass=update_mass, top=_top)
-
-        # currently support only dtype = 'DOUBLE', 'MATRIX_DBL', 'STRING', 'FLOAT', 'INTEGER'
-        # we get the last dataset from dslist
-        # (if we call self.run() several times, the result will be dumped to dslist)
-        # FIXME: add all dtype in cpptraj so we don't need to specify them
+        self.do_action(current_frame, new_frame, update_mass=update_mass)
         return dslist
 
     def reset_counter(self):
         self.n_frames = 0
-# distutils: language = c++
 
 
 cdef class Action_Angle (Action):
