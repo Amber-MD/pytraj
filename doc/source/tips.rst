@@ -65,3 +65,10 @@ If memory is critical, do not load all frames into memory.
     traj[[0, 200, 300, 301]]
 
 See also: :ref:`trajectory_slice`
+
+convert trajectory
+------------------
+
+.. ipython::
+    
+    pt.iterload('traj.nc', 'prmtop').save('traj.dcd')
