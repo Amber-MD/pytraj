@@ -22,19 +22,13 @@ __all__ = ['Trajectory']
 class Trajectory(object):
     def __init__(self, filename=None, top=None, xyz=None, indices=None):
         """
-        Notes
-        -----
-        This class is not very well-tested (comparead to pytraj.Trajectory and 
-        pytraj.TrajectoryIterator classes).
 
-        Use it with your own risk. It's just a simple numpy wrapping (like mdtraj).
-        I myself do not use this much since it requires extra copying to Frame class.
-        However, if you like numpy and fancy indexing, you should definitely use this.
-        This is good for any cpptraj calculation without changing coordinates.
+        Attributes
+        ----------
+        xyz :  (TBF)
 
-        For `pytraj.Trajectory` and `pytraj.TrajectoryIterator`, any time calling `xyz` attribute,
-        a copy of xyz coordinates will be returned but this class return a memmoryview.
-        
+        unitcells : (TBF)
+
         Examples
         --------
         >>> import pytraj as pt
