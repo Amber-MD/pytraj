@@ -51,13 +51,16 @@ class TestTopology(unittest.TestCase):
         assert len(top) == top.n_atoms
 
     def testLoadFromParmEd(self):
-        import parmed as pmd
-        fname = './data/Tc5b.top'
+        try:
+            import parmed as pmd
+            fname = './data/Tc5b.top'
 
-        orig_top = pt.load_topology(fname)
-        parm = pmd.load_file('./data/Tc5b.top')
-        top = pt.load_topology(parm)
-        assert top.n_atoms == orig_top.n_atoms
+            orig_top = pt.load_topology(fname)
+            parm = pmd.load_file('./data/Tc5b.top')
+            top = pt.load_topology(parm)
+            assert top.n_atoms == orig_top.n_atoms
+        except ImportError:
+            pass
 
 
 if __name__ == "__main__":

@@ -26,34 +26,43 @@ class Test(unittest.TestCase):
         from pytraj import clustering_dataset
         from pytraj.cluster import kmeans
         from pytraj.array import DataArray
+        try:
+            import parmed
+            has_parmed = True
+        except ImportError:
+            has_parmed = False
 
-        for func in [DataArray,
-                     pt.iterframe,
-                     pt.iterchunk,
-                     pt.multidihedral,
-                     pt.rmsd,
-                     pt.watershell,
-                     pt.distance,
-                     pt.angle,
-                     pt.dihedral,
-                     pt.dssp,
-                     pt.radgyr,
-                     pt.molsurf,
-                     pt.search_hbonds,
-                     pt.closest,
-                     pt.search_neighbors,
-                     pt.pairwise_rmsd,
-                     pt.center,
-                     silly_doc_func,
-                     fi,
-                     split_range,
-                     Frame.__getitem__,
-                     Topology.select,
-                     grep,
-                     pt.load_ParmEd,
-                     clustering_dataset,
-                     pt.mindist,
-                     kmeans, ]:
+        funclist =  [DataArray,
+                    pt.iterframe,
+                    pt.iterchunk,
+                    pt.multidihedral,
+                    pt.rmsd,
+                    pt.watershell,
+                    pt.distance,
+                    pt.angle,
+                    pt.dihedral,
+                    pt.dssp,
+                    pt.radgyr,
+                    pt.molsurf,
+                    pt.search_hbonds,
+                    pt.closest,
+                    pt.search_neighbors,
+                    pt.pairwise_rmsd,
+                    pt.center,
+                    silly_doc_func,
+                    fi,
+                    split_range,
+                    Frame.__getitem__,
+                    Topology.select,
+                    grep,
+                    clustering_dataset,
+                    pt.mindist,
+                    kmeans, ]
+
+        if has_parmed:
+            funclist.append(pt.load_parmed)
+
+        for func in funclist:
             run_docstring(func)
 
         func_names = ma.default_key_dict.keys()
