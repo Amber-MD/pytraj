@@ -8,6 +8,7 @@ from .cpp_datasets cimport (_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInt
                           DatasetMesh, _DatasetMesh, _DatasetMatrix3x3, DatasetMatrix3x3,
                           _DatasetCoords, DatasetCoords, _DatasetCoordsRef, 
                           DatasetCoordsRef, _DatasetCoordsCRD, DatasetCoordsCRD)
+from ..trajs.TrajectoryCpptraj cimport TrajectoryCpptraj, _TrajectoryCpptraj
 
 def cast_dataset(dsetin=None, dtype='general'):
     """create memoryview for Dataset instance. 
@@ -39,7 +40,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DatasetGridFloat newset_gridflt
     cdef DatasetCoordsRef newset_coords_ref
     cdef DatasetCoordsCRD newset_coords_crd
-#    cdef DatasetCoords_TRJ newset_coords_trj
+#    cdef TrajectoryCpptraj newset_coords_trj
 
     if not isinstance(dsetin, Dataset):
         dset = <Dataset> dsetin.alloc()
@@ -174,15 +175,13 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_coords_crd.thisptr = <_DatasetCoordsCRD*> dset.baseptr0
         return newset_coords_crd
 
-#    elif dtype in ['COORDS_TRJ', 'TRJ', 'TRAJ', 'COORDS_TRAJ']:
-#        newset_coords_trj = DatasetCoords_TRJ()
-#        # since we introduce memory view, we let cpptraj free memory
-#        newset_coords_trj.py_free_mem = False
-#        newset_coords_trj.baseptr0 = dset.baseptr0
-#        # make sure other pointers pointing to the same address
-#        newset_coords_trj.baseptr_1 = <_DatasetCoords*> dset.baseptr0
-#        newset_coords_trj.thisptr = <_DatasetCoords_TRJ*> dset.baseptr0
-#        return newset_coords_trj
+    elif dtype in ['COORDS_TRJ', 'TRJ', 'TRAJ', 'COORDS_TRAJ']:
+        newset_coords_trj = TrajectoryCpptraj()
+        # since we introduce memory view, we let cpptraj free memory
+        #newset_coords_trj.py_free_mem = False
+        # make sure other pointers pointing to the same address
+        newset_coords_trj.thisptr = <_TrajectoryCpptraj*> dset.baseptr0
+        return newset_coords_trj
 
     elif dtype in ['COORDS_REF_FRAME', 'REF_FRAME', 'REFFRAME', 'REF', 'REFERENCE']:
         newset_coords_ref = DatasetCoordsRef()

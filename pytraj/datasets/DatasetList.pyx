@@ -4,6 +4,7 @@ from __future__ import absolute_import
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array
+from ..trajs.TrajectoryCpptraj cimport TrajectoryCpptraj
 
 # python level
 import numpy as np
@@ -252,6 +253,9 @@ cdef class DatasetList:
 
     def _add_copy_of_set(self, Dataset dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
+
+    def _add_traj(self, TrajectoryCpptraj traj):
+        self.thisptr.AddCopyOfSet(<_Dataset*> traj.thisptr)
 
     def add_copy_of_set(self, Dataset dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
