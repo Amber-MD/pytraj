@@ -101,6 +101,7 @@
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#requires">Requires</a></li>
 <li><a class="reference internal" href="#how">How?</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 <li><a class="reference internal" href="#install-anaconda-for-all-python-packages">install anaconda for all python packages</a></li>
 </ul>
 </li>
@@ -167,7 +168,21 @@ cd pytraj
 python ./setup.py install
 </pre></div>
 </div>
-<p>or from <code class="docutils literal"><span class="pre">conda</span></code>:</p>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> is standard process to install a new Python package.
+But if you are new to Python and got <code class="docutils literal"><span class="pre">permission</span> <span class="pre">denied</span></code> error, try to install <code class="docutils literal"><span class="pre">pytraj</span></code> in your home folder.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># install pytraj in $HOME/.local</span>
+python ./setup.py install --user
+
+<span class="c"># or install pytraj in ``your_favorite_dir``</span>
+python ./setup.py install --prefix<span class="o">=</span>your_favorite_dir
+<span class="c"># if you do this, make sure to add ``your_favorite_dir`` to $PYTHONPATH</span>
+<span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>your_favorite_dir:<span class="nv">$PYTHONPATH</span>
+</pre></div>
+</div>
+<p>or from <code class="docutils literal"><span class="pre">conda</span></code> (a bit outdated compared to github):</p>
 <div class="highlight-python"><div class="highlight"><pre>conda install -c pytraj pytraj-dev --force
 </pre></div>
 </div>

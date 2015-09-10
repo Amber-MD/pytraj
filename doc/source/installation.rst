@@ -18,7 +18,23 @@ How?
     cd pytraj
     python ./setup.py install
 
-or from ``conda``::
+Troubleshooting
+---------------
+
+``python setup.py install`` is standard process to install a new Python package.
+But if you are new to Python and got ``permission denied`` error, try to install ``pytraj`` in your home folder.
+
+.. code-block:: bash
+    
+    # install pytraj in $HOME/.local
+    python ./setup.py install --user
+
+    # or install pytraj in ``your_favorite_dir``
+    python ./setup.py install --prefix=your_favorite_dir
+    # if you do this, make sure to add ``your_favorite_dir`` to $PYTHONPATH 
+    export PYTHONPATH=your_favorite_dir:$PYTHONPATH
+
+or from ``conda`` (a bit outdated compared to github)::
 
     conda install -c pytraj pytraj-dev --force
 
