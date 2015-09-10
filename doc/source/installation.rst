@@ -1,6 +1,8 @@
 Installation
 ============
 
+.. contents::
+
 Requires
 --------
 `numpy <http://www.numpy.org/>`_
