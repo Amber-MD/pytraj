@@ -9,29 +9,27 @@ from ..Topology cimport _Topology, Topology
 from ..core.cpptraj_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 
 
+cdef extern from "MetaData.h": 
+    ctypedef enum scalarMode "MetaData::scalarMode":
+        pass
+    ctypedef enum scalarType "MetaData::scalarType":
+        pass
+
 cdef extern from "DataSet.h": 
     ctypedef enum DataType "DataSet::DataType":
-        pass
-    ctypedef enum scalarMode "DataSet::scalarMode":
-        pass
-    ctypedef enum scalarType "DataSet::scalarType":
         pass
     cdef cppclass _Dataset "DataSet":
         _Dataset() 
         _Dataset(DataType, int, int, int)
         _Dataset(const _Dataset&)
         #_Dataset& operator =(const Dataset&)
-        void SetWidth(int)
-        void SetPrecision(int, int)
         int SetupSet(const string&, int, const string&, int)
         void SetLegend(const string& lIn)
-        void SetScalar(scalarMode mIn)
-        inline void SetScalar(scalarMode, scalarType)
         int SetDataSetFormat(bint)
         bint Matches(const string&, int, const string&) const 
         void ScalarDescription() const 
         bint Empty() const 
-        const string& Legend() const 
+        const string& Legend 'legend'()
         const string& Name() const 
         int Idx() const 
         const string& Aspect() const 
@@ -61,7 +59,7 @@ cdef extern from "DataSet_1D.h":
         _Dataset1D(Dataset)
         # virtual methods
         #virtual ~_Dataset1D() 
-        int Allocate1D(size_t)
+        int Allocate1D "Allocate"(size_t)
         double Dval(size_t) const
         double Xcrd(size_t) const
         # end virtual methods

@@ -4,6 +4,9 @@ import sys
 import CppHeaderParser
 from util import find_class
 
+'''python ./codegen_enum.py dict
+'''
+
 CPPTRAJSRC = os.environ['CPPTRAJHOME'] + "/src/"
 def create_enum_of_dict(fname, mode='', cpptrajsrc=CPPTRAJSRC):
     #cpptrajsrc = os.environ['AMBERHOME'] + "AmberTools/src/cpptraj/src/"
@@ -23,9 +26,11 @@ def create_enum_of_dict(fname, mode='', cpptrajsrc=CPPTRAJSRC):
     
     # make assumption that there's only one class in header file
     classname = list(cpp.classes.keys())[0]
+    print(cpp.classes[classname]['enums'])
     if cpp.classes[classname]['enums']['public']:
+        print(classname)
         for enumlist in cpp.classes[classname]['enums']['public']:
-            print(tmpindent + "# %s" % fname)
+            print("\n")
             if make_dict:
                 print("from %s cimport *" % fname)
             else:

@@ -101,85 +101,6 @@ cdef class Dataset:
         except:
             raise NotImplementedError("don't know how to cast to ndarray")
 
-    def __add__(self, value):
-        dnew = self.copy()
-        dnew.__iadd__(value)
-        return dnew
-
-    def __iadd__(self, value):
-        if hasattr(value, '_npdata'):
-            self._npdata += value._npdata
-        else:
-            self._npdata += value
-        return self
-
-    def __sub__(self, value):
-        dnew = self.copy()
-        dnew.__isub__(value)
-        return dnew
-
-    def __isub__(self, value):
-        if hasattr(value, '_npdata'):
-            self._npdata -= value._npdata
-        else:
-            self._npdata -= value
-        return self
-
-    def __mul__(self, value):
-        dnew = self.copy()
-        dnew.__imul__(value)
-        return dnew
-
-    def __imul__(self, value):
-        if hasattr(value, '_npdata'):
-            self._npdata *= value._npdata
-        else:
-            self._npdata *= value
-        return self
-
-    def __div__(self, value):
-        dnew = self.copy()
-        dnew.__imul__(value)
-        return dnew
-
-    def __idiv__(self, value):
-        if hasattr(value, '_npdata'):
-            self._npdata /= value._npdata
-        else:
-            self._npdata /= value
-        return self
-
-    def __itruediv__(self, value):
-        if hasattr(value, '_npdata'):
-            self._npdata /= value._npdata
-        else:
-            self._npdata /= value
-        return self
-
-    def copy(self):
-        cdef int i
-        cdef int size = self.size
-
-        new_ds = self.__class__()
-        new_ds.legend = self.legend
-        new_ds.set_scalar(self.scalar_mode, self.scalar_type)
-        new_ds.set_name_aspect_index_ensemble_num(self.name,
-                                                  self.aspect,
-                                                  self.idx,
-                                                  0)
-        try:
-            try:
-                new_ds.resize(self.size)
-                new_ds.data[:] = self.data
-            except:
-                # try to make copy (Vector, ...)
-                # slower
-                for i in range(size):
-                    new_ds.append(self[i])
-            return new_ds
-        except:
-            raise TypeError("don't know how to copy %s" % self.class_name)
-
     @property
     def class_name(self):
         return self.__class__.__name__
@@ -188,31 +109,8 @@ cdef class Dataset:
     def size(self):
         return self.baseptr0.Size()
 
-    def set_width(self, int width):
-        self.baseptr0.SetWidth(width)
-
-    def set_precision(self, int width , int precision):
-        self.baseptr0.SetPrecision(width, precision)
-
     def set_legend(self, legend):
         self.baseptr0.SetLegend(legend.encode())
-
-    def set_scalar(self,scalar_mode, scalar_type=None):
-        scalar_mode = scalar_mode.upper()
-        if scalar_type is None:
-            self.baseptr0.SetScalar(scalarModeDict[scalar_mode])
-        else:
-            scalar_type = scalar_type.upper()
-            self.baseptr0.SetScalar(scalarModeDict[scalar_mode], scalarDict[scalar_type])
-
-    def set_name_aspect_index_ensemble_num(self, name, aspect, idx, num):
-        self.baseptr0.SetupSet(name.encode(), idx, aspect.encode(), num)
-
-    def scalar_descr(self):
-        from pytraj import set_worl_silent
-        set_worl_silent(False)
-        self.baseptr0.ScalarDescription()
-        set_worl_silent(True)
 
     def is_empty(self):
         return self.baseptr0.Empty()
@@ -233,71 +131,11 @@ cdef class Dataset:
             self.baseptr0.SetLegend(legend.encode())
     
     @property
-    def name(self):
-        cdef string t
-        t = self.baseptr0.Name()
-        return t.decode()
-
-    @property
-    def idx(self):
-        return self.baseptr0.Idx()
-    
-    @property
-    def aspect(self):
-        aspect = self.baseptr0.Aspect()
-        return aspect.decode()
-
-    @property
-    def column_width(self):
-        return self.baseptr0.ColumnWidth()
-    
-    @property
-    def dtype(self):
-        """Using `dtype` keyword since this is commond term"""
-        return get_key(self.baseptr0.Type(), DataTypeDict).lower()
-
-    @property
-    def scalar_mode(self):
-        return get_key(self.baseptr0.ScalarMode(), scalarModeDict).lower()
-
-    @property
-    def scalar_type(self):
-        return get_key(self.baseptr0.ScalarType(), scalarDict).lower()
-
-    @property 
-    def ndim(self):
-        return self.baseptr0.Ndim()
-
-    def __richcmp__(Dataset self, Dataset other, opt):
-        if opt == 0:
-            # operator "<"
-            return self.baseptr0[0] < other.baseptr0[0]
-        else:
-            raise NotImplemented()
-
-    @property
-    def format(self):
-        my_format = self.baseptr0.DataFormat().decode()
-        return my_format.strip()
-
-    @property
     def data(self):
         """return 1D python array of `self`
         ABC method, must override
         """
         raise NotImplementedError("Must over-write Dataset data attr")
-
-    property _npdata:
-        def __get__(self):
-            """return memoryview as numpy array for self.data"""
-            # NOTE: overwrite by using `raise NotImplementedError`
-            # for some Dataset subclasses not returning a `view`
-            _, np = _import_numpy()
-            return np.asarray(self.data)
-        def __set__(self, value):
-            _, np = _import_numpy()
-            arr = np.asarray(self.data)
-            arr[:] = value
 
     def tolist(self):
         return list(self.data)
@@ -367,18 +205,6 @@ cdef class Dataset:
         """
         return np.array_split(self.to_ndarray(), n_chunks_or_array)
 
-    def write_to_cpptraj_format(self, filename):
-        dflist = DataFileList()
-        d = dflist.add_datafile(filename)
-        d.add_dataset(self)
-        d.write_data()
-
-    def save(self, filename, format='cpptraj'):
-        '''TODO: pickle, json'''
-        if format == 'cpptraj':
-            self.write_to_cpptraj_format(filename)
-        else:
-            raise NotImplementedError("not yet, stay tuned")
 
     def plot(self, show=False, *args, **kwd):
         """return matplotlib object
@@ -988,12 +814,6 @@ cdef class DatasetVector (Dataset1D):
         Not sure what else we should return
         """
         return self.__iter__()
-
-    def is_ired(self):
-        return self.thisptr.IsIred()
-
-    def set_ired(self):
-        self.thisptr.SetIred()
 
     @property
     def values(self):
