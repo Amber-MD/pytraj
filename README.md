@@ -29,13 +29,13 @@ Install
     - libnetcdf (highly recommended)
     - pandas (if you want to use DataFrame) 
     - matplotlib (if you want to plot)
-- easiest and less headache:
-    * git clone https://github.com/pytraj/pytraj
+- easiest:
+    * git clone https://github.com/amber-md/pytraj
     * cd pytraj
     * python ./setup.py install
     * (Note: pytraj will install the most update cpptraj)
 - if you are using `conda`, you can just `conda install -c pytraj pytraj-dev` for Linux system
-- further: check wiki page [wiki](http://www.github.com/pytraj/pytraj/wiki)
+- get trouble? : [check our webpage](http://amber-md.github.io/pytraj/doc/build/html/installation.html)
 
 How to get started?
 ------------------
