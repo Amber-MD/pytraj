@@ -539,20 +539,6 @@ class Trajectory(object):
         except:
             return False
 
-    def center(self, mask="", *args, **kwd):
-        '''
-        '''
-        from pytraj.actions.CpptrajActions import Action_Center as Action
-
-        act = Action()
-        act.read_input(mask, top=self.top)
-        act.process(self.top)
-
-        for idx, frame in enumerate(self):
-            frame.set_frame_mass(self.top)
-            act.do_action(frame)
-            self._xyz[idx] = frame.xyz[:]
-
     def autoimage(self):
         from pytraj.actions.CpptrajActions import Action_AutoImage
 

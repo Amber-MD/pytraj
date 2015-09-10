@@ -27,7 +27,8 @@ cdef extern from "Action.h":
 cdef class Action:
     cdef _Action* baseptr
     cdef public int n_frames
-# distutils: language = c++
+    cdef bint top_is_processed
+    cdef object toplist
 
 cdef extern from "Action_Angle.h": 
     cdef cppclass _Action_Angle "Action_Angle" (_Action):

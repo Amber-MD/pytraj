@@ -43,6 +43,7 @@ class Test(unittest.TestCase):
                      pt.closest,
                      pt.search_neighbors,
                      pt.pairwise_rmsd,
+                     pt.center,
                      silly_doc_func,
                      fi,
                      split_range,

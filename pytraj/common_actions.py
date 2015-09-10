@@ -1,8 +1,3 @@
-"""having common actions such as rmsd, fitting, ...
->>> from pytraj.common_actions import calc_rmsd
->>> from pytraj.common_actions import translate
-# TODO : use __all__
-"""
 from __future__ import absolute_import
 import os
 import numpy as np
@@ -35,7 +30,6 @@ from .externals.get_pysander_energies import get_pysander_energies
 from .decorators import noparallel
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
-#from .TrajectoryIterator import  TrajectoryIterator
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -1854,20 +1848,46 @@ def pucker(traj=None,
     return _get_data_from_dtype(cdslist, dtype)
 
 
-def center(traj=None, mask="", top=None):
-    """
+def center(traj=None, mask="", center='box', mass=False, top=None):
+    """(cpptraj) Move all atoms so that the center of the atoms in ``mask`` is centered at the speciﬁed location, box center,
+    coordinate origin
+
+    Parameters
+    ----------
+    traj : Trajectory-like or Frame iterator
+    mask : str, mask
+    center : str, {'box', 'origin'}
+    mass : bool, default: False
+        if True, use mass weighted
+    top : Topology, optional, default: None
+
     Examples
     --------
-    >>> pt.center(traj) # all atoms, center to box center (x/2, y/2, z/2)
-    >>> pt.center(traj, '@CA origin') # center at origin, use @CA
-    >>> pt.center(traj, 'mass') # center to box center, use mass weighted.
-    >>> pt.center(traj, ':1 mass') # residue 1, use mass weighted.
+    >>> traj = traj[:]
+    >>> # all atoms, center to box center (x/2, y/2, z/2)
+    >>> pt.center(traj)
+
+    >>> # center at origin, use @CA 
+    >>> pt.center(traj, '@CA', center='origin')
+
+    >>> # center to box center, use mass weighted
+    >>> pt.center(traj, mass=True)
+    >>> pt.center(traj, ':1', mass=True)
+
+    See also
+    --------
+    pytraj.translate
     """
+    if center.lower() not in ['box', 'origin']:
+        raise ValueError('center must be box or origin')
+    _center = '' if center == 'box' else center
+    _mass = 'mass' if mass else ''
+    command = ' '.join((mask, _center, _mass))
     _noaction_with_TrajectoryIterator(traj)
     _top = _get_top(traj, top)
-    from pytraj.actions.CpptrajActions import Action_Center
-    act = Action_Center()
-    act(mask, traj, top=_top)
+
+    act = CpptrajActions.Action_Center()
+    act(command, traj, top=_top)
 
 
 def rotate_dihedral(traj=None, mask="", top=None):
@@ -1897,6 +1917,41 @@ def rotate_dihedral(traj=None, mask="", top=None):
 
     act(command, traj, top=_top)
 
+def replicate_cell(traj=None, mask="", direction='all', top=None):
+    '''create a trajectory where the unit cell is replicated in 1 or
+    more direction (up to 27)
+
+    Parameters
+    ----------
+    traj : Trajectory-like or Frame iterator
+    mask : str, default: ""
+        if default, using all atoms
+        else: given mask
+    direction: {'all', 'dir'}
+        if 'all', replicate cell once in all possible directions
+        if 'dir', need to specify the direction with format 'dir <XYZ>', where each X (Y, Z)
+        is either 0, 1 or -1 (see example below)
+    top : Topology, optional, default: None
+
+    Returns
+    -------
+    traj : pytraj.Trajectory
+
+    Examples
+    --------
+    >>> pt.replicate_cell(traj, direction='all')
+    >>> pt.replicate_cell(traj, direction='dir 001 dir 111')
+    >>> pt.replicate_cell(traj, direction='dir 001 dir 1-10')
+    '''
+    _top = _get_top(traj, top)
+    command =  ' '.join(('name tmp_cell', direction, mask))
+
+    act = CpptrajActions.Action_ReplicateCell()
+    dslist = CpptrajDatasetList()
+    act(command, traj, top=_top, dslist=dslist)
+    traj = Trajectory(xyz=dslist[0].xyz, top=dslist[0].top)
+
+    return traj
 
 def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
     '''
