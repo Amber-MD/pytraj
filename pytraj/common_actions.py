@@ -1370,8 +1370,7 @@ def calc_rmsd_with_rotation_matrices(
     ref = _get_reference_from_traj(traj, ref)
 
     _top = _get_top(traj, top)
-    from pytraj.actions.CpptrajActions import Action_Rmsd
-    act = Action_Rmsd()
+    act = CpptrajActions.Action_Rmsd()
     dslist = CpptrajDatasetList()
     act(command + " savematrices", [ref, traj], top=_top, dslist=dslist)
 

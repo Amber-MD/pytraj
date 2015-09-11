@@ -376,12 +376,8 @@ cdef extern from "DataSet_Mesh.h":
         _DatasetMesh(int, double, double)
         _Dataset * Alloc() 
         size_t Size() const 
-        int Sync() 
-        void Info() const 
-        int Allocate1D(size_t)
+        int Allocate(SizeArray)
         void Add(size_t, const void *)
-        double Dval(size_t idx) const 
-        double Xcrd(size_t idx) const 
         inline void AddXY(double, double)
         double X(int i) const 
         double Y(int i) const 

@@ -39,8 +39,6 @@ class Test(unittest.TestCase):
 
         test_time()
 
-        dflist.write_all_datafiles()
-
         # make sure to reproduce cpptraj to avoif false-impression :D
         import numpy as np
         matout = dslist[-1].get_full_matrix()
