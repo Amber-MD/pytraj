@@ -312,7 +312,8 @@ cdef class Dataset1D (Dataset):
             raise ValueError("idx must be 0 or 1")
 
     def allocate_1D(self, size_t size):
-        return self.baseptr_1.Allocate([size,])
+        cdef vector[size_t] v = [size,]
+        return self.baseptr_1.Allocate(v)
 
     def from_array_like(self, array_like):
         """
@@ -668,11 +669,11 @@ cdef class DatasetInteger (Dataset1D):
             return myview
 
         def __set__(self, data):
-            cdef vector[int] v
-            cdef int x
             cdef size_t size = len(data)
+            cdef vector[size_t] v = [size,]
+            cdef int x
 
-            self.baseptr_1.Allocate([size,])
+            self.baseptr_1.Allocate(v)
             self.data[:] = data
 
 
@@ -827,7 +828,8 @@ cdef class Dataset2D (Dataset):
         return self.baseptr_1.GetElement(x, y)
 
     def allocate_2D(self, size_t x, size_t y):
-        self.baseptr_1.Allocate([x, y])
+        cdef vector[size_t] v = [x, y]
+        self.baseptr_1.Allocate(v)
 
     def allocate_half(self, size_t x):
         self.baseptr_1.AllocateHalf(x)
