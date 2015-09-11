@@ -60,12 +60,36 @@ cdef class Dataset:
 
     property name:
         def __get__(self):
-            cdef 
-            return self.
+            name = self.baseptr0.Meta().Name()
+            return name.decode()
+
+    property aspect:
+        def __get__(self):
+            aspect = self.baseptr0.Meta().Aspect()
+            return aspect.decode()
+
+    property legend:
+        def __get__(self):
+            legend = self.baseptr0.Meta().Legend()
+            return legend.decode()
+        def __set__(self, legend):
+            cdef string s = legend.encode()
+            self.baseptr0.SetLegend(s)
+
+    property key:
+        # retire self.legend?
+        def __get__(self):
+            return self.legend
+        def __set__(self, legend):
+            self.legend = legend
+    
+
+    property dtype:
+        def __get__(self):
+            return get_key(self.baseptr0.Type(), DataTypeDict).lower()
 
     def __str__(self):
         cname = self.class_name
-        dname = self.name
         dformat = self.format
         size = self.size
         legend = self.legend
@@ -114,27 +138,6 @@ cdef class Dataset:
     def size(self):
         return self.baseptr0.Size()
 
-    def set_legend(self, legend):
-        self.baseptr0.SetLegend(legend.encode())
-
-    def is_empty(self):
-        return self.baseptr0.Empty()
-
-    property legend:
-        def __get__(self):
-            legend = self.baseptr0.Legend()
-            return legend.decode()
-        def __set__(self, legend):
-            self.baseptr0.SetLegend(legend.encode())
-
-    property key:
-        # retire self.legend?
-        def __get__(self):
-            legend = self.baseptr0.Legend()
-            return legend.decode()
-        def __set__(self, legend):
-            self.baseptr0.SetLegend(legend.encode())
-    
     @property
     def data(self):
         """return 1D python array of `self`

@@ -32,11 +32,12 @@ cdef extern from "DataSet.h":
         _Dataset(DataType, int, int, int)
         _Dataset(const _Dataset&)
         #_Dataset& operator =(const Dataset&)
-        const string& Legend 'legend'()
         const string& Name() const 
+        void SetLegend(string)
         DataType Type() const 
         size_t Ndim() const 
         size_t Size()
+        _MetaData& Meta()
 
 cdef class Dataset:
     cdef _Dataset* baseptr0
