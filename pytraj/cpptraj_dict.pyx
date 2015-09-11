@@ -1,6 +1,4 @@
-# distutils: language = c++
-
-# need to check if cpptraj updates new enum values
+# distutils: language = c+
 
 def get_key(value, dict Dict):
     """return the first key having Dict[key] == value"""
@@ -8,59 +6,25 @@ def get_key(value, dict Dict):
         if v == value:
             return key
 
-# Below are dictionary for cpptraj files/types, ...
-# Traj_PDBfile
-#from Traj_PDBfile cimport *
 PDBWRITEMODEDict = {
-    "NONE" : NONEPDBWRITEMODE, 
+    "NONE" : NONE,
     "SINGLE" : SINGLE, 
     "MODEL" : MODEL, 
-    "MULTI" : MULTIPDB, 
-    }
-# CpptrajFile
-#from CpptrajFile cimport *
-AccessDict = {
-    "READ" : READ, 
-    "WRITE" : WRITE, 
-    "APPEND" : APPEND, 
-    "UPDATE" : UPDATE, 
+    "MULTI" : MULTI, 
     }
 
-CompressDict = {
-    "NO_COMPRESSION" : NO_COMPRESSION, 
-    "GZIP" : GZIP, 
-    "BZIP2" : BZIP2, 
-    "ZIP" : ZIP, 
-    }
+ParmFormatDict = {
+        "AMBERPARM" : AMBERPARM,
+        "PDBFILE" : PDBFILEPARM,
+        "MOL2FILE" : MOL2FILEPARM,
+        "CHARMMPSF" : CHARMMPSF,
+        "CIFFILE" : CIFFILE,
+        "GMXTOP" : GMXTOP,
+        "SDFFILE" : SDFFILE,
+        "TINKER" : TINKERPARM,
+        "UNKNOWN_PARM" : UNKNOWN_PARM,
+}
 
-FileDict = {
-    "UNKNOWN_TYPE" : UNKNOWN_TYPE, 
-    "STANDARD" : STANDARD, 
-    "GZIPFILE" : GZIPFILE, 
-    "BZIP2FILE" : BZIP2FILE, 
-    "ZIPFILE" : ZIPFILE, 
-    "MPIFILE" : MPIFILE, 
-    }
-
-# MaskToken
-#from MaskToken cimport *
-MaskTokenDict = {
-    "OP_NONE" : OP_NONE, 
-    "ResNum" : ResNum, 
-    "ResName" : ResName, 
-    "AtomNum" : AtomNum, 
-    "AtomName" : AtomName, 
-    "AtomType" : AtomType, 
-    "AtomElement" : AtomElement, 
-    "SelectAll" : SelectAll, 
-    "OP_AND" : OP_AND, 
-    "OP_OR" : OP_OR, 
-    "OP_NEG" : OP_NEG, 
-    "OP_DIST" : OP_DIST, 
-    }
-
-# Atom
-#from Atom cimport *
 AtomicElementDict = {
     "UNKNOWN_ELEMENT" : UNKNOWN_ELEMENT, 
     "HYDROGEN" : HYDROGEN, 
@@ -140,65 +104,13 @@ AtomicElementDict = {
     "EXTRAPT" : EXTRAPT, 
     }
 
-# Traj_Mol2File
-#from Traj_Mol2File cimport *
 MOL2WRITEMODEDict = {
-    "NONE" : NONEMOL2WRITEMODE, 
-    "SINGLE" : SINGLEMol2File, 
+    "NONE" : NONE,
+    "SINGLE" : SINGLE,
     "MOL" : MOL, 
-    "MULTI" : MULTIMOL2, 
+    "MULTI" : MULTI,
     }
 
-# DataFile
-#from DataFile cimport *
-DataFormatDict = {
-    "DATAFILE" : DATAFILE, 
-    "XMGRACE" : XMGRACE, 
-    "GNUPLOT" : GNUPLOT, 
-    "XPLOR" : XPLOR, 
-    "OPENDX" : OPENDX, 
-    "REMLOG" : REMLOGDATAFILE, 
-    "MDOUT" : MDOUT, 
-    "EVECS" : EVECS, 
-    "UNKNOWN_DATA" : UNKNOWN_DATAFORMAT, 
-    }
-# Analysis_Hist
-##from Analysis_Hist.Analysis_Hist cimport *
-#NormModeDict = {
-#    "NO_NORM" : NO_NORM, 
-#    "NORM_SUM" : NORM_SUM, 
-#    "NORM_INT" : NORM_INT, 
-#    }
-
-# Cluster_HierAgglo
-#from Cluster_HierAgglo cimport *
-LINKAGETYPEDict = {
-    "SINGLELINK" : SINGLELINK, 
-    "AVERAGELINK" : AVERAGELINK, 
-    "COMPLETELINK" : COMPLETELINK, 
-    }
-
-# Mol2File
-#from Mol2File cimport *
-TRIPOSTAGDict = {
-    "MOLECULE" : MOLECULE, 
-    "ATOM" : ATOMMOL2, 
-    "BOND" : BOND, 
-    "SUBSTRUCT" : SUBSTRUCT, 
-    }
-
-# ReplicaDimArray
-#from ReplicaDimArray cimport *
-RemDimDict = {
-    "UNKNOWN" : UNKNOWNREPDIM, 
-    "TEMPERATURE" : TEMPERATURE, 
-    "PARTIAL" : PARTIAL, 
-    "HAMILTONIAN" : HAMILTONIAN, 
-    "PH" : PH, 
-    }
-
-# Box
-#from Box cimport *
 BoxTypeDict = {
     "NOBOX" : NOBOX, 
     "ORTHO" : ORTHO, 
@@ -207,8 +119,6 @@ BoxTypeDict = {
     "NONORTHO" : NONORTHO, 
     }
 
-# TrajectoryFile
-#from TrajectoryFile cimport *
 TrajFormatDict = {
     "AMBERNETCDF" : AMBERNETCDF, 
     "AMBERRESTARTNC" : AMBERRESTARTNC, 
@@ -227,7 +137,6 @@ TrajFormatDict = {
     "SQM" : SQM, 
     "SDF" : SDF, 
     "CONFLIB" : CONFLIB, 
-    "DEFAULT" : UNKNOWN_TRAJ, # AMBERTRAJ
     }
 
 DataTypeDict = {
@@ -249,123 +158,7 @@ DataTypeDict = {
         "MAT3x3" : MAT3X3, 
     }
 
-    # DataSet.h
-    # DataSet.h
-scalarModeDict = {
-        "M_DISTANCE" : M_DISTANCE,
-        "M_ANGLE" : M_ANGLE,
-        "M_TORSION" : M_TORSION,
-        "M_PUCKER" : M_PUCKER,
-        "M_RMS" : M_RMS,
-        "UNKNOWN_MODE" : UNKNOWN_MODE,
-}
-
-    # DataSet.h
-scalarDict = {
-        "ALPHA" : ALPHA,
-        "BETA" : BETA,
-        "GAMMA" : GAMMA,
-        "DELTA" : DELTA,
-        "EPSILON" : EPSILON,
-        "ZETA" : ZETA,
-        "PUCKER" : PUCKER,
-        "CHI" : CHI,
-        "H1P" : H1P,
-        "C2P" : C2P,
-        "PHI" : PHI,
-        "PSI" : PSI,
-        "PCHI" : PCHI,
-        "OMEGA" : OMEGA,
-        "NOE" : NOE,
-        "DIST" : DIST,
-        "COVAR" : COVAR,
-        "MWCOVAR" : MWCOVAR,
-        "CORREL" : CORREL,
-        "DISTCOVAR" : DISTCOVAR,
-        "IDEA" : IDEA,
-        "IRED" : IRED,
-        "DIHCOVAR" : DIHCOVAR,
-        "UNDEFINED" : UNDEFINEDSCALARTYPE,
-}
-
-# PDBfile
-#from PDBfile cimport *
-PDB_RECTYPEDict = {
-    "ATOM" : ATOMPDB, 
-    "HETATM" : HETATM, 
-    "CRYST1" : CRYST1, 
-    "TER" : TER, 
-    "END" : END, 
-    "ANISOU" : ANISOU, 
-    "END_OF_FILE" : END_OF_FILE, 
-    "UNKNOWN" : UNKNOWNPDBFILE, 
-    }
-
 RetActionDict = {
     "OK" : OKACTION, 
     "ERR" : ERRACTION, 
-    "USEORIGINALFRAME" : USEORIGINALFRAME, 
-    "SUPPRESSCOORDOUTPUT" : SUPPRESSCOORDOUTPUT, 
     }
-
-# ParmFile
-#from ParmFile cimport *
-ParmFormatDict = {
-        "AMBERPARM" : AMBERPARM,
-        "PDBFILE" : PDBFILEPARM,
-        "MOL2FILE" : MOL2FILEPARM,
-        "CHARMMPSF" : CHARMMPSF,
-        "CIFFILE" : CIFFILE,
-        "GMXTOP" : GMXTOP,
-        "SDFFILE" : SDFFILE,
-        "TINKER" : TINKERPARM,
-        "UNKNOWN_PARM" : UNKNOWN_PARM,
-}
-
-# ClusterList
-#from ClusterList cimport *
-DistModeDict = {
-    "USE_FRAMES" : USE_FRAMES, 
-    "USE_FILE" : USE_FILE, 
-    }
-
-# ClusterList
-#from ClusterList cimport *
-DistMetricDict = {
-    "RMS" : RMS, 
-    "DME" : DME, 
-    "SRMSD" : SRMSD, 
-    "DATA" : DATA, 
-    }
-# GridAction
-##from GridAction cimport *
-GridModeDict = {
-    "ORIGIN" : ORIGIN, 
-    "BOX" : BOX, 
-    "MASKCENTER" : MASKCENTER, 
-    "SPECIFIEDCENTER" : SPECIFIEDCENTER, 
-    }
-
-# Trajin_Multi
-#from Trajin_Multi cimport *
-#TargetDict = {
-#    "NONE" : NONETARGETTYPE, 
-#    "TEMP" : TEMP, 
-#    "INDICES" : INDICES, 
-#    "CRDIDX" : CRDIDX, 
-#    }
-
-# TrajinList
-#from TrajinList cimport *
-TrajModeDict = {
-    "UNDEFINED" : UNDEFINEDTRAJINLIST, 
-    "NORMAL" : NORMAL, 
-    "ENSEMBLE" : ENSEMBLE, 
-    }
-
-# Analysis
-###from Analysis cimport *
-#RetAnalysisDict = {
-#    "OK" : OKANALYSIS, 
-#    "ERR" : ERRANALYSIS, 
-#    }

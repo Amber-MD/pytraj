@@ -7,15 +7,12 @@ from .utils.check_and_assert import ensure_exist, is_frame_iter
 from .utils import goto_temp_folder
 from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
-from .datasets.utils import load_datafile
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
 from .cpp_options import set_error_silent
 from ._get_common_objects import _get_top
 from .compat import zip
 from .Topology import Topology
-
-load_cpptraj_datafile = load_datafile
 
 try:
     from .externals._load_ParmEd import load_ParmEd, _load_parmed

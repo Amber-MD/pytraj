@@ -2,7 +2,7 @@
 
 from __future__ import division
 from cpython.array cimport array as pyarray
-from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
+from ..cpptraj_dict import DataTypeDict, get_key
 from ..decorators import makesureABC, require_having
 from ..datafiles.datafiles import DataFileList, DataFile
 from ..utils import _import_numpy
@@ -58,15 +58,40 @@ cdef class Dataset:
         #if self.baseptr0 != NULL:
         #    del self.baseptr0
 
+    property name:
+        def __get__(self):
+            name = self.baseptr0.Meta().Name()
+            return name.decode()
+
+    property aspect:
+        def __get__(self):
+            aspect = self.baseptr0.Meta().Aspect()
+            return aspect.decode()
+
+    property legend:
+        def __get__(self):
+            legend = self.baseptr0.Meta().Legend()
+            return legend.decode()
+        def __set__(self, legend):
+            cdef string s = legend.encode()
+            self.baseptr0.SetLegend(s)
+
+    property key:
+        # retire self.legend?
+        def __get__(self):
+            return self.legend
+        def __set__(self, legend):
+            self.legend = legend
+    
+
+    property dtype:
+        def __get__(self):
+            return get_key(self.baseptr0.Type(), DataTypeDict).lower()
+
     def __str__(self):
         cname = self.class_name
-        dname = self.name
-        dformat = self.format
         size = self.size
         legend = self.legend
-        aspect = self.aspect
-        dtype = self.dtype
-
         msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(cname, size, legend)
         return msg0
 
@@ -101,85 +126,6 @@ cdef class Dataset:
         except:
             raise NotImplementedError("don't know how to cast to ndarray")
 
-    def __add__(self, value):
-        dnew = self.copy()
-        dnew.__iadd__(value)
-        return dnew
-
-    def __iadd__(self, value):
-        if hasattr(value, '_npdata'):
-            self._npdata += value._npdata
-        else:
-            self._npdata += value
-        return self
-
-    def __sub__(self, value):
-        dnew = self.copy()
-        dnew.__isub__(value)
-        return dnew
-
-    def __isub__(self, value):
-        if hasattr(value, '_npdata'):
-            self._npdata -= value._npdata
-        else:
-            self._npdata -= value
-        return self
-
-    def __mul__(self, value):
-        dnew = self.copy()
-        dnew.__imul__(value)
-        return dnew
-
-    def __imul__(self, value):
-        if hasattr(value, '_npdata'):
-            self._npdata *= value._npdata
-        else:
-            self._npdata *= value
-        return self
-
-    def __div__(self, value):
-        dnew = self.copy()
-        dnew.__imul__(value)
-        return dnew
-
-    def __idiv__(self, value):
-        if hasattr(value, '_npdata'):
-            self._npdata /= value._npdata
-        else:
-            self._npdata /= value
-        return self
-
-    def __itruediv__(self, value):
-        if hasattr(value, '_npdata'):
-            self._npdata /= value._npdata
-        else:
-            self._npdata /= value
-        return self
-
-    def copy(self):
-        cdef int i
-        cdef int size = self.size
-
-        new_ds = self.__class__()
-        new_ds.legend = self.legend
-        new_ds.set_scalar(self.scalar_mode, self.scalar_type)
-        new_ds.set_name_aspect_index_ensemble_num(self.name,
-                                                  self.aspect,
-                                                  self.idx,
-                                                  0)
-        try:
-            try:
-                new_ds.resize(self.size)
-                new_ds.data[:] = self.data
-            except:
-                # try to make copy (Vector, ...)
-                # slower
-                for i in range(size):
-                    new_ds.append(self[i])
-            return new_ds
-        except:
-            raise TypeError("don't know how to copy %s" % self.class_name)
-
     @property
     def class_name(self):
         return self.__class__.__name__
@@ -188,116 +134,12 @@ cdef class Dataset:
     def size(self):
         return self.baseptr0.Size()
 
-    def set_width(self, int width):
-        self.baseptr0.SetWidth(width)
-
-    def set_precision(self, int width , int precision):
-        self.baseptr0.SetPrecision(width, precision)
-
-    def set_legend(self, legend):
-        self.baseptr0.SetLegend(legend.encode())
-
-    def set_scalar(self,scalar_mode, scalar_type=None):
-        scalar_mode = scalar_mode.upper()
-        if scalar_type is None:
-            self.baseptr0.SetScalar(scalarModeDict[scalar_mode])
-        else:
-            scalar_type = scalar_type.upper()
-            self.baseptr0.SetScalar(scalarModeDict[scalar_mode], scalarDict[scalar_type])
-
-    def set_name_aspect_index_ensemble_num(self, name, aspect, idx, num):
-        self.baseptr0.SetupSet(name.encode(), idx, aspect.encode(), num)
-
-    def scalar_descr(self):
-        from pytraj import set_worl_silent
-        set_worl_silent(False)
-        self.baseptr0.ScalarDescription()
-        set_worl_silent(True)
-
-    def is_empty(self):
-        return self.baseptr0.Empty()
-
-    property legend:
-        def __get__(self):
-            legend = self.baseptr0.Legend()
-            return legend.decode()
-        def __set__(self, legend):
-            self.baseptr0.SetLegend(legend.encode())
-
-    property key:
-        # retire self.legend?
-        def __get__(self):
-            legend = self.baseptr0.Legend()
-            return legend.decode()
-        def __set__(self, legend):
-            self.baseptr0.SetLegend(legend.encode())
-    
-    @property
-    def name(self):
-        cdef string t
-        t = self.baseptr0.Name()
-        return t.decode()
-
-    @property
-    def idx(self):
-        return self.baseptr0.Idx()
-    
-    @property
-    def aspect(self):
-        aspect = self.baseptr0.Aspect()
-        return aspect.decode()
-
-    @property
-    def column_width(self):
-        return self.baseptr0.ColumnWidth()
-    
-    @property
-    def dtype(self):
-        """Using `dtype` keyword since this is commond term"""
-        return get_key(self.baseptr0.Type(), DataTypeDict).lower()
-
-    @property
-    def scalar_mode(self):
-        return get_key(self.baseptr0.ScalarMode(), scalarModeDict).lower()
-
-    @property
-    def scalar_type(self):
-        return get_key(self.baseptr0.ScalarType(), scalarDict).lower()
-
-    @property 
-    def ndim(self):
-        return self.baseptr0.Ndim()
-
-    def __richcmp__(Dataset self, Dataset other, opt):
-        if opt == 0:
-            # operator "<"
-            return self.baseptr0[0] < other.baseptr0[0]
-        else:
-            raise NotImplemented()
-
-    @property
-    def format(self):
-        my_format = self.baseptr0.DataFormat().decode()
-        return my_format.strip()
-
     @property
     def data(self):
         """return 1D python array of `self`
         ABC method, must override
         """
         raise NotImplementedError("Must over-write Dataset data attr")
-
-    property _npdata:
-        def __get__(self):
-            """return memoryview as numpy array for self.data"""
-            # NOTE: overwrite by using `raise NotImplementedError`
-            # for some Dataset subclasses not returning a `view`
-            _, np = _import_numpy()
-            return np.asarray(self.data)
-        def __set__(self, value):
-            _, np = _import_numpy()
-            arr = np.asarray(self.data)
-            arr[:] = value
 
     def tolist(self):
         return list(self.data)
@@ -367,18 +209,6 @@ cdef class Dataset:
         """
         return np.array_split(self.to_ndarray(), n_chunks_or_array)
 
-    def write_to_cpptraj_format(self, filename):
-        dflist = DataFileList()
-        d = dflist.add_datafile(filename)
-        d.add_dataset(self)
-        d.write_data()
-
-    def save(self, filename, format='cpptraj'):
-        '''TODO: pickle, json'''
-        if format == 'cpptraj':
-            self.write_to_cpptraj_format(filename)
-        else:
-            raise NotImplementedError("not yet, stay tuned")
 
     def plot(self, show=False, *args, **kwd):
         """return matplotlib object
@@ -481,17 +311,8 @@ cdef class Dataset1D (Dataset):
         else:
             raise ValueError("idx must be 0 or 1")
 
-    def allocate_1D(self, size_t sizet):
-        return self.baseptr_1.Allocate1D(sizet)
-
-    def _d_val(self, size_t sizet):
-        return self.baseptr_1.Dval(sizet)
-
-    def _xcrd(self, size_t sizet):
-        return self.baseptr_1.Xcrd(sizet)
-
-    def _is_torsion_array(self):
-        return self.baseptr_1.IsTorsionArray()
+    def allocate_1D(self, size_t size):
+        return self.baseptr_1.Allocate([size,])
 
     def from_array_like(self, array_like):
         """
@@ -657,16 +478,9 @@ cdef class DatasetDouble (Dataset1D):
         cdef double elm
         cdef size_t idx_
 
-        if isinstance(dset, DatasetDouble):
-            if idx is not None:
-                raise ValueError("can not use id with DatasetDouble instance")
-            dset_ = dset
-            self.thisptr.Append(dset_.thisptr[0])
-        else:
-            # try to add a `double` elm
-            elm = dset
-            idx_ = <size_t> idx
-            self.thisptr.Add(idx_, <void*> (&elm))
+        elm = dset
+        idx_ = <size_t> idx
+        self.thisptr.Add(idx_, <void*> (&elm))
 
     property data:
         def __get__(self):
@@ -858,7 +672,7 @@ cdef class DatasetInteger (Dataset1D):
             cdef int x
             cdef size_t size = len(data)
 
-            self.baseptr_1.Allocate1D(size)
+            self.baseptr_1.Allocate([size,])
             self.data[:] = data
 
 
@@ -989,12 +803,6 @@ cdef class DatasetVector (Dataset1D):
         """
         return self.__iter__()
 
-    def is_ired(self):
-        return self.thisptr.IsIred()
-
-    def set_ired(self):
-        self.thisptr.SetIred()
-
     @property
     def values(self):
         return self.to_ndarray()
@@ -1020,7 +828,7 @@ cdef class Dataset2D (Dataset):
         return self.baseptr_1.GetElement(x, y)
 
     def allocate_2D(self, size_t x, size_t y):
-        self.baseptr_1.Allocate2D(x, y)
+        self.baseptr_1.Allocate([x, y])
 
     def allocate_half(self, size_t x):
         self.baseptr_1.AllocateHalf(x)
@@ -1386,7 +1194,8 @@ cdef class DatasetMesh (Dataset1D):
         """
         # xcrd is for cpptraj's output which use index starting of 1
         # we need to subtract "1"
-        return [[int(self._xcrd(i)-1), self._d_val(i)] for i in range(self.size)]
+        cdef size_t i
+        return [[int(self.thisptr.Xcrd(i)-1), self.thisptr.Dval(i)] for i in range(self.size)]
 
     def to_ndarray(self, copy=True):
         """use copy=True to make consistent with Dataset1D

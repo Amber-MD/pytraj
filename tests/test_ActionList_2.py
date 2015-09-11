@@ -35,7 +35,6 @@ class TestActionList(unittest.TestCase):
                                                              stop=8),
                           traj.iterframe()])
         Nframes = 1 + 1 + traj.n_frames + 8 + traj.n_frames
-        dflist.write_all_datafiles()
         traj2 = pt.iterload("./output/test_trajout.nc", traj.top)
         assert traj2.n_frames == Nframes
 
