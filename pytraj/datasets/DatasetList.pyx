@@ -179,20 +179,8 @@ cdef class DatasetList:
         else:
             self[idx]._npdata[:] = value
 
-    def set_ensemble_num(self,int i):
-        self.thisptr.SetEnsembleNum(i)
-
     def allocate_sets(self,long int i):
         self.thisptr.AllocateSets(i)
-
-    def set_precision_of_data_sets(self, string nameIn, int widthIn, int precisionIn):
-        self.thisptr.SetPrecisionOfDataSets(nameIn, widthIn, precisionIn)
-
-    def get_reference_frame(self, name):
-        cdef Dataset dset = Dataset()
-        # return a view of dataset
-        dset.baseptr0 = self.thisptr.GetReferenceFrame(name.encode())
-        return dset
 
     def get_dataset(self, idx=None, name=None, dtype=None):
         """
@@ -246,13 +234,6 @@ cdef class DatasetList:
 
     def add_existing_set(self, Dataset ds):
         self.thisptr.AddSet(ds.baseptr0)
-        
-    def add_setidx(self, DataType inType, string nameIn, int idx):
-        cdef Dataset dset = Dataset()
-        dset.baseptr0 = self.thisptr.AddSetIdx(inType, nameIn, idx)
-        if not dset.baseptr0:
-            raise MemoryError("Can not initialize pointer")
-        return dset
 
     def _add_copy_of_set(self, Dataset dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
@@ -262,22 +243,6 @@ cdef class DatasetList:
 
     def add_copy_of_set(self, Dataset dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
-
-    def add_set_aspect(self, dtype, name=None, aspect=None):
-        """add new dataset
-        Paramters
-        --------
-        dtype : str
-            DataType
-        name_1 : str
-        name_2 : str
-        """
-        cdef Dataset ds = Dataset()
-        if aspect is None:
-            aspect = name
-        ds.baseptr0 = self.thisptr.AddSetAspect(DataTypeDict[dtype.upper()], 
-                                                name.encode(), aspect.encode())
-        return ds
 
     def find_coords_set(self, name):
         name = name.encode()

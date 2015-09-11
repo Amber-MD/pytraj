@@ -9,6 +9,8 @@ from ..Topology cimport _Topology, Topology
 from ..core.cpptraj_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 
 
+ctypedef vector[size_t] SizeArray
+
 cdef extern from "MetaData.h": 
     ctypedef enum scalarMode "MetaData::scalarMode":
         pass
@@ -59,7 +61,7 @@ cdef extern from "DataSet_1D.h":
         _Dataset1D(Dataset)
         # virtual methods
         #virtual ~_Dataset1D() 
-        int Allocate1D "Allocate"(size_t)
+        int Allocate (SizeArray)
         double Dval(size_t) const
         double Xcrd(size_t) const
         # end virtual methods
@@ -90,7 +92,7 @@ cdef extern from "DataSet_double.h":
         size_t Size()
         int Sync() 
         void Info() const 
-        int Allocate1D(size_t)
+        int Allocate(SizeArray)
         void Add(size_t, const void *)
         double Dval(size_t idx) const 
         double Xcrd(size_t idx) const 
@@ -176,7 +178,7 @@ cdef extern from "DataSet_2D.h":
         _Dataset2D() 
         _Dataset2D(DataType tIn, int wIn, int pIn)
         # virtual methods
-        int Allocate2D(size_t, size_t) 
+        int Allocate(SizeArray)
         int AllocateHalf(size_t) 
         int AllocateTriangle(size_t) 
         double GetElement(size_t, size_t) const  
@@ -206,10 +208,9 @@ cdef extern from "DataSet_MatrixDbl.h":
         size_t Size() const 
         int Sync() 
         void Info() const 
-        int Allocate2D(size_t x, size_t y)
+        int Allocate(SizeArray)
         int AllocateHalf(size_t x)
         int AllocateTriangle(size_t x)
-        #void Write2D(_CpptrajFile&, int, int) const 
         double GetElement(size_t x, size_t y) const 
         size_t Nrows() const 
         size_t Ncols() const 

@@ -307,17 +307,8 @@ cdef class Dataset1D (Dataset):
         else:
             raise ValueError("idx must be 0 or 1")
 
-    def allocate_1D(self, size_t sizet):
-        return self.baseptr_1.Allocate1D(sizet)
-
-    def _d_val(self, size_t sizet):
-        return self.baseptr_1.Dval(sizet)
-
-    def _xcrd(self, size_t sizet):
-        return self.baseptr_1.Xcrd(sizet)
-
-    def _is_torsion_array(self):
-        return self.baseptr_1.IsTorsionArray()
+    def allocate_1D(self, size_t size):
+        return self.baseptr_1.Allocate([size,])
 
     def from_array_like(self, array_like):
         """
@@ -483,16 +474,9 @@ cdef class DatasetDouble (Dataset1D):
         cdef double elm
         cdef size_t idx_
 
-        if isinstance(dset, DatasetDouble):
-            if idx is not None:
-                raise ValueError("can not use id with DatasetDouble instance")
-            dset_ = dset
-            self.thisptr.Append(dset_.thisptr[0])
-        else:
-            # try to add a `double` elm
-            elm = dset
-            idx_ = <size_t> idx
-            self.thisptr.Add(idx_, <void*> (&elm))
+        elm = dset
+        idx_ = <size_t> idx
+        self.thisptr.Add(idx_, <void*> (&elm))
 
     property data:
         def __get__(self):
@@ -684,7 +668,7 @@ cdef class DatasetInteger (Dataset1D):
             cdef int x
             cdef size_t size = len(data)
 
-            self.baseptr_1.Allocate1D(size)
+            self.baseptr_1.Allocate([size,])
             self.data[:] = data
 
 
@@ -840,7 +824,7 @@ cdef class Dataset2D (Dataset):
         return self.baseptr_1.GetElement(x, y)
 
     def allocate_2D(self, size_t x, size_t y):
-        self.baseptr_1.Allocate2D(x, y)
+        self.baseptr_1.Allocate([x, y])
 
     def allocate_half(self, size_t x):
         self.baseptr_1.AllocateHalf(x)

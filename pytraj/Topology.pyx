@@ -11,7 +11,6 @@ from pytraj.cpp_options import set_world_silent # turn on and off cpptraj's stdo
 import numpy as np
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.compat import set
-from pytraj.cpptraj_dict import ParmFormatDict
 from pytraj.externals.six import PY2, PY3, string_types
 from pytraj.utils.check_and_assert import is_int
 
@@ -649,11 +648,6 @@ cdef class ParmFile:
 
     def __dealloc__(self):
         del self.thisptr
-
-    @classmethod
-    def formats(cls):
-        """return a list of supported parm formats"""
-        return ParmFormatDict.keys()
 
     def readparm(self, filename="", top=Topology(), *args):
         """readparm(Topology top=Topology(), string filename="", "*args)

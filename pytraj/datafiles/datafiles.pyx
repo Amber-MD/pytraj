@@ -1,9 +1,5 @@
 # distutils: language = c++
 
-from pytraj.cpptraj_dict import DataFormatDict, get_key
-from pytraj.externals.six import string_types
-from cython.operator cimport dereference as deref
-
 
 cdef class DataFile:
     def __cinit__(self, py_free_mem=True):

@@ -10,7 +10,6 @@ from .._cyutils import _int_array1d_like_to_memview
 from ..externals.six import string_types
 from ..externals.six.moves import range
 from pytraj.externals.six import string_types
-from pytraj.cpptraj_dict import AccessDict
 from pytraj import cpptraj_dict
 
 __all__ = ['AtomMask', 'BaseIOtype', 'DispatchObject',
@@ -339,11 +338,6 @@ cdef class CpptrajFile:
     def nextline(self):
         # return char*
         return self.thisptr.NextLine()
-
-    @property
-    def mode(self):
-        key = cpptraj_dict.get_key(self.thisptr.Access(), AccessDict)
-        return key.lower()
 
     def compression(self):
         return self.thisptr.Compression()
