@@ -35,7 +35,6 @@ class Test(unittest.TestCase):
                 traj.top,
                 dslist=dslist,
                 dflist=dflist)
-        dflist.write_all_datafiles()
 
         # make sure to reproduce cpptraj to avoif false-impression :D
         import numpy as np

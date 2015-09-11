@@ -1,61 +1,21 @@
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj import TrajectoryIterator
-from pytraj.base import DatasetList, DataFileList
-from numpy.testing import assert_allclose
-from pytraj import io as mdio
-from pytraj import allactions
-from pytraj.datasets import cast_dataset
-from pytraj import adict
-from pytraj.datafiles.datafiles import DataFileList
-from pytraj.common_actions import calc_dssp
 from pytraj.testing import aa_eq
 
-farray = TrajectoryIterator(top=pt.load_topology("./data/DPDP.parm7"),
-                            filename='./data/DPDP.nc', )
 
 
-class TestRadgyr(unittest.TestCase):
+class TestDSSP(unittest.TestCase):
     def test_0(self):
-        dslist = DatasetList()
-        act = adict['dssp']
-        dflist = DataFileList()
-        act.read_input(":10-22 out ./output/_test_dssp_DPDP.dat", farray.top,
-                       dslist=dslist,
-                       dflist=dflist)
-        act.process(farray.top)
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        data = pt.dssp(traj, "*", dtype='cpptraj_dataset')
+        data_int = np.array([d0.values for d0 in data if d0.dtype == 'integer'], dtype='i4')
+        print(data_int)
 
-        for i, frame in enumerate(farray):
-            act.do_action(frame)
-
-        dflist.write_all_datafiles()
-
-        arr1 = dslist.get_dataset(dtype='float')
-        arr0 = dslist.get_dataset(dtype='integer')
-
-    def test_1(self):
-        dslist = DatasetList()
-        dflist = DataFileList()
-        adict['dssp'](":10-22 out ./output/_test_dssp_DPDP.dat",
-                      current_frame=farray,
-                      top=farray.top,
-                      dslist=dslist,
-                      dflist=dflist)
-        # Secondary structure for each residue in mask for 100 frames
-
-    def test_4(self):
-        # add assert
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        py_d = calc_dssp(traj, "*", dtype='dataset')
         # load cpptraj output
-        cpp_d = mdio.load_datafile("./data/dssp.Tc5b.dat")
-        for key in cpp_d.keys():
-            aa_eq(py_d[key].to_ndarray(), cpp_d[key].to_ndarray())
-
-    def test_5(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = calc_dssp(traj, "*", dtype='dataset')
+        cpp_data = np.loadtxt("./data/dssp.Tc5b.dat", skiprows=1).transpose()[1:]
+        print(cpp_data)
+        aa_eq(data_int.flatten(), cpp_data.flatten())
 
 
 if __name__ == "__main__":

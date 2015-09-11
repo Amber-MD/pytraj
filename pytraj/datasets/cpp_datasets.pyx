@@ -90,12 +90,8 @@ cdef class Dataset:
 
     def __str__(self):
         cname = self.class_name
-        dformat = self.format
         size = self.size
         legend = self.legend
-        aspect = self.aspect
-        dtype = self.dtype
-
         msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(cname, size, legend)
         return msg0
 
