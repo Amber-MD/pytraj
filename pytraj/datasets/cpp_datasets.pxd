@@ -12,10 +12,6 @@ from ..core.cpptraj_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 ctypedef vector[size_t] SizeArray
 
 cdef extern from "MetaData.h": 
-    ctypedef enum scalarMode "MetaData::scalarMode":
-        pass
-    ctypedef enum scalarType "MetaData::scalarType":
-        pass
     cdef cppclass _MetaData "MetaData":
         string& Name()
         string& Aspect()

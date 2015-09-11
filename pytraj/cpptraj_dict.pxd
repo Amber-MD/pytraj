@@ -160,42 +160,6 @@ cdef extern from "DataSet.h":
         REF_FRAME "DataSet::REF_FRAME"
         MAT3X3 "DataSet::MAT3X3"
 
-cdef extern from "MetaData.h": 
-    ctypedef enum scalarMode "MetaData::scalarMode":
-        M_DISTANCE "MetaData::M_DISTANCE"
-        M_ANGLE "MetaData::M_ANGLE"
-        M_TORSION "MetaData::M_TORSION"
-        M_PUCKER "MetaData::M_PUCKER"
-        M_RMS "MetaData::M_RMS"
-        UNKNOWN_MODE "MetaData::UNKNOWN_MODE"
-    # MetaData.h
-    ctypedef enum scalarType "MetaData::scalarType":
-        ALPHA "MetaData::ALPHA"
-        BETA "MetaData::BETA"
-        GAMMA "MetaData::GAMMA"
-        DELTA "MetaData::DELTA"
-        EPSILON "MetaData::EPSILON"
-        ZETA "MetaData::ZETA"
-        PUCKER "MetaData::PUCKER"
-        CHIN "MetaData::CHIN"
-        CHIP "MetaData::CHIP"
-        H1P "MetaData::H1P"
-        C2P "MetaData::C2P"
-        PHI "MetaData::PHI"
-        PSI "MetaData::PSI"
-        OMEGA "MetaData::OMEGA"
-        NOE "MetaData::NOE"
-        DIST "MetaData::DIST"
-        COVAR "MetaData::COVAR"
-        MWCOVAR "MetaData::MWCOVAR"
-        CORREL "MetaData::CORREL"
-        DISTCOVAR "MetaData::DISTCOVAR"
-        IDEA "MetaData::IDEA"
-        IREDVEC "MetaData::IREDVEC"
-        IREDMAT "MetaData::IREDMAT"
-        DIHCOVAR "MetaData::DIHCOVAR"
-        UNDEFINED "MetaData::UNDEFINED"
-
 cdef extern from "Action.h":
     ctypedef enum RetTypeAct "Action::RetType":
         OKACTION "Action::OK"

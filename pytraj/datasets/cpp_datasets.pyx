@@ -2,7 +2,7 @@
 
 from __future__ import division
 from cpython.array cimport array as pyarray
-from ..cpptraj_dict import DataTypeDict, scalarDict, scalarModeDict, get_key
+from ..cpptraj_dict import DataTypeDict, get_key
 from ..decorators import makesureABC, require_having
 from ..datafiles.datafiles import DataFileList, DataFile
 from ..utils import _import_numpy

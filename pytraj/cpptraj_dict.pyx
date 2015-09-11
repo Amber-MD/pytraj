@@ -158,43 +158,6 @@ DataTypeDict = {
         "MAT3x3" : MAT3X3, 
     }
 
-scalarModeDict = {
-        "M_DISTANCE" : M_DISTANCE,
-        "M_ANGLE" : M_ANGLE,
-        "M_TORSION" : M_TORSION,
-        "M_PUCKER" : M_PUCKER,
-        "M_RMS" : M_RMS,
-        "UNKNOWN_MODE" : UNKNOWN_MODE,
-}
-
-scalarDict = {
-        "ALPHA" : ALPHA,
-        "BETA" : BETA,
-        "GAMMA" : GAMMA,
-        "DELTA" : DELTA,
-        "EPSILON" : EPSILON,
-        "ZETA" : ZETA,
-        "PUCKER" : PUCKER,
-        "CHIP" : CHIP,
-        "CHIN" : CHIN,
-        "H1P" : H1P,
-        "C2P" : C2P,
-        "PHI" : PHI,
-        "PSI" : PSI,
-        "OMEGA" : OMEGA,
-        "NOE" : NOE,
-        "DIST" : DIST,
-        "COVAR" : COVAR,
-        "MWCOVAR" : MWCOVAR,
-        "CORREL" : CORREL,
-        "DISTCOVAR" : DISTCOVAR,
-        "IDEA" : IDEA,
-        "IREDVEC" : IREDVEC,
-        "IREDMAT" : IREDMAT,
-        "DIHCOVAR" : DIHCOVAR,
-        "UNDEFINED" : UNDEFINED,
-}
-
 RetActionDict = {
     "OK" : OKACTION, 
     "ERR" : ERRACTION, 
