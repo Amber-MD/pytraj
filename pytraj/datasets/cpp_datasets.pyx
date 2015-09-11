@@ -58,6 +58,11 @@ cdef class Dataset:
         #if self.baseptr0 != NULL:
         #    del self.baseptr0
 
+    property name:
+        def __get__(self):
+            cdef 
+            return self.
+
     def __str__(self):
         cname = self.class_name
         dname = self.name

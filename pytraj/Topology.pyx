@@ -13,6 +13,7 @@ from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.compat import set
 from pytraj.externals.six import PY2, PY3, string_types
 from pytraj.utils.check_and_assert import is_int
+from pytraj.cpptraj_dict import ParmFormatDict
 
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3

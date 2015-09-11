@@ -13,6 +13,18 @@ PDBWRITEMODEDict = {
     "MULTI" : MULTI, 
     }
 
+ParmFormatDict = {
+        "AMBERPARM" : AMBERPARM,
+        "PDBFILE" : PDBFILEPARM,
+        "MOL2FILE" : MOL2FILEPARM,
+        "CHARMMPSF" : CHARMMPSF,
+        "CIFFILE" : CIFFILE,
+        "GMXTOP" : GMXTOP,
+        "SDFFILE" : SDFFILE,
+        "TINKER" : TINKERPARM,
+        "UNKNOWN_PARM" : UNKNOWN_PARM,
+}
+
 AtomicElementDict = {
     "UNKNOWN_ELEMENT" : UNKNOWN_ELEMENT, 
     "HYDROGEN" : HYDROGEN, 

@@ -16,6 +16,13 @@ cdef extern from "MetaData.h":
         pass
     ctypedef enum scalarType "MetaData::scalarType":
         pass
+    cdef cppclass _MetaData "MetaData":
+        string& Name()
+        string& Aspect()
+        string& Legend()
+        void SetName(string & n)
+        void SetAspect(string& a)
+        void SetLegend(string& l)
 
 cdef extern from "DataSet.h": 
     ctypedef enum DataType "DataSet::DataType":
@@ -25,30 +32,11 @@ cdef extern from "DataSet.h":
         _Dataset(DataType, int, int, int)
         _Dataset(const _Dataset&)
         #_Dataset& operator =(const Dataset&)
-        int SetupSet(const string&, int, const string&, int)
-        void SetLegend(const string& lIn)
-        int SetDataSetFormat(bint)
-        bint Matches(const string&, int, const string&) const 
-        void ScalarDescription() const 
-        bint Empty() const 
         const string& Legend 'legend'()
         const string& Name() const 
-        int Idx() const 
-        const string& Aspect() const 
-        int ColumnWidth() const 
         DataType Type() const 
-        scalarMode ScalarMode() const 
-        scalarType ScalarType() const 
         size_t Ndim() const 
-        inline bint operator< (const _Dataset&) const 
-        const char * DataFormat() const 
-        scalarMode ModeFromKeyword(const string&)
-        scalarType TypeFromKeyword(const string&, scalarMode&)
-        scalarType TypeFromKeyword(const string&, const scalarMode&)
         size_t Size()
-
-        # virtual
-        #void Add( size_t, const void*  )
 
 cdef class Dataset:
     cdef _Dataset* baseptr0

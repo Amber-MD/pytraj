@@ -6,6 +6,20 @@ cdef extern from "Traj_PDBfile.h":
         MODEL "Traj_PDBfile::MODEL"
         MULTI "Traj_PDBfile::MULTI"
 
+cdef extern from "ParmFile.h":
+    ctypedef enum ParmFormatType "ParmFile::ParmFormatType":
+        AMBERPARM "ParmFile::AMBERPARM"
+        PDBFILEPARM "ParmFile::PDBFILE"
+        MOL2FILEPARM "ParmFile::MOL2FILE"
+        CHARMMPSF "ParmFile::CHARMMPSF"
+        CIFFILE "ParmFile::CIFFILE"
+        GMXTOP "ParmFile::GMXTOP"
+        SDFFILE "ParmFile::SDFFILE"
+        # change name to avoid conflict
+        TINKERPARM "ParmFile::TINKER"
+        UNKNOWN_PARM "ParmFile::UNKNOWN_PARM"
+
+
 cdef extern from "Atom.h":
     ctypedef enum AtomicElementType "Atom::AtomicElementType":
         UNKNOWN_ELEMENT "Atom::UNKNOWN_ELEMENT"
