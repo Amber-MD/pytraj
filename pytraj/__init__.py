@@ -94,7 +94,7 @@ from .analyses import CpptrajAnalyses as allanalyses
 from . import common_actions
 from .dssp_analysis import calc_dssp
 from .common_actions import (
-    rmsd, rmsd_perres, search_hbonds, calc_rmsd_with_rotation_matrices,
+    rmsd, rmsd_perres, search_hbonds,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
     calc_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
     calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
@@ -113,7 +113,6 @@ dihedral = calc_dihedral
 jcoupling = calc_jcoupling
 nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
-rmsd_with_rotation_matrices = calc_rmsd_with_rotation_matrices
 pairwise_rmsd = calc_pairwise_rmsd
 multidihedral = calc_multidihedral
 xcorr = cross_correlation_function
