@@ -119,7 +119,6 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_vector.py_free_mem = False
         newset_vector.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
-        newset_vector.baseptr_1 = <_Dataset1D*> dset.baseptr0
         newset_vector.thisptr = <_DatasetVector*> dset.baseptr0
         return newset_vector
 
@@ -129,7 +128,6 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_matrix3x3.py_free_mem = False
         newset_matrix3x3.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
-        newset_matrix3x3.baseptr_1 = <_Dataset1D*> dset.baseptr0
         newset_matrix3x3.thisptr = <_DatasetMatrix3x3*> dset.baseptr0
         return newset_matrix3x3
 
