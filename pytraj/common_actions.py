@@ -1346,42 +1346,6 @@ def calc_rmsd(traj=None,
 # alias for `calc_rmsd`
 rmsd = calc_rmsd
 
-
-def calc_rmsd_with_rotation_matrices(
-    traj=None,
-    mask="",
-    ref=None,
-    top=None,
-    dtype='dataset', *args, **kwd):
-
-    ref = _get_reference_from_traj(traj, ref)
-
-    if not isinstance(mask, string_types):
-        # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_atommask(mask)
-
-    command = mask
-
-    if not isinstance(command, string_types):
-        raise ValueError("only support string mask/command in mode=cpptraj")
-    if dtype in ['ndarray', 'pyarray']:
-        raise ValueError("does not support ndarray/pyarray here")
-
-    ref = _get_reference_from_traj(traj, ref)
-
-    _top = _get_top(traj, top)
-    act = CpptrajActions.Action_Rmsd()
-    dslist = CpptrajDatasetList()
-    act(command + " savematrices", [ref, traj], top=_top, dslist=dslist)
-
-    # skip reference frame
-    from pytraj.datasetlist import DatasetList
-    dslist = DatasetList(dslist)
-    dslist[0].values = dslist[0].values[1:]
-    dslist[1].values = dslist[1].values[1:]
-    return _get_data_from_dtype(dslist, dtype=dtype)
-
-
 def align_principal_axis(traj=None, mask="*", top=None):
     # TODO : does not match with cpptraj output
     # rmsd_nofit ~ 0.5 for md1_prod.Tc5b.x, 1st frame
