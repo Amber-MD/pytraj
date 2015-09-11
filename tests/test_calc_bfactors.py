@@ -1,9 +1,8 @@
 from __future__ import print_function
 import unittest
+import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.decorators import no_test, test_if_having, test_if_path_exists
-import pytraj.common_actions as pyca
 from pytraj.testing import cpptraj_test_dir
 
 
@@ -16,7 +15,7 @@ class Test(unittest.TestCase):
         bfactors = pt.calc_bfactors(traj(**iter_options))
         s_fname = "/".join((cpptraj_test_dir, "Test_AtomicFluct",
                             "fluct.4.dat.save"))
-        saved_bfactors = pt.io.load_cpptraj_datafile(s_fname)[1].values
+        saved_bfactors = np.loadtxt(s_fname).T[1]
 
         aa_eq(saved_bfactors, bfactors.T[1])
 
