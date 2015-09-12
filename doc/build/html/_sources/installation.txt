@@ -7,7 +7,7 @@ Requires
 --------
 `numpy <http://www.numpy.org/>`_
 
-`cython <http://cython.org/>`_
+`cython <http://cython.org/>`_, version >= 0.23
 
 ``python 3``
 
