@@ -1890,7 +1890,7 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
     mask : str, default: ""
         if default, using all atoms
         else: given mask
-    direction: {'all', 'dir'}
+    direction: {'all', 'dir'} or list/tuple of <XYZ> (below)
         if 'all', replicate cell once in all possible directions
         if 'dir', need to specify the direction with format 'dir <XYZ>', where each X (Y, Z)
         is either 0, 1 or -1 (see example below)
@@ -1905,9 +1905,18 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
     >>> pt.replicate_cell(traj, direction='all')
     >>> pt.replicate_cell(traj, direction='dir 001 dir 111')
     >>> pt.replicate_cell(traj, direction='dir 001 dir 1-10')
+    >>> pt.replicate_cell(traj, direction='dir 001 dir 1-10')
+    >>> pt.replicate_cell(traj, direction=('001', '0-10'))
     '''
     _top = _get_top(traj, top)
-    command =  ' '.join(('name tmp_cell', direction, mask))
+    if isinstance(direction, string_types):
+        _direction  = direction
+    elif isinstance(direction, (list, tuple)):
+        # example: direction = ('001, '0-10') 
+        _direction = 'dir ' + ' dir '.join(direction)
+    else:
+        raise ValueError('only support ``direction`` as a string or list/tuple of strings')
+    command =  ' '.join(('name tmp_cell', _direction, mask))
 
     act = CpptrajActions.Action_ReplicateCell()
     dslist = CpptrajDatasetList()

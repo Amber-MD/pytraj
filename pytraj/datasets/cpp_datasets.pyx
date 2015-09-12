@@ -312,7 +312,8 @@ cdef class Dataset1D (Dataset):
             raise ValueError("idx must be 0 or 1")
 
     def allocate_1D(self, size_t size):
-        return self.baseptr_1.Allocate([size,])
+        cdef vector[size_t] v = [size,]
+        return self.baseptr_1.Allocate(v)
 
     def from_array_like(self, array_like):
         """
@@ -668,11 +669,11 @@ cdef class DatasetInteger (Dataset1D):
             return myview
 
         def __set__(self, data):
-            cdef vector[int] v
-            cdef int x
             cdef size_t size = len(data)
+            cdef vector[size_t] v = [size,]
+            cdef int x
 
-            self.baseptr_1.Allocate([size,])
+            self.baseptr_1.Allocate(v)
             self.data[:] = data
 
 
@@ -718,12 +719,11 @@ cdef class DatasetString (Dataset1D):
         return arr0
 
 
-cdef class DatasetVector (Dataset1D):
+cdef class DatasetVector (Dataset):
     def __cinit__(self):
         self.py_free_mem = True
         self.thisptr = new _DatasetVector()
         self.baseptr0 = <_Dataset*> self.thisptr
-        self.baseptr_1= <_Dataset1D*> self.thisptr
 
     def __dealloc__(self):
         if self.py_free_mem:
@@ -828,7 +828,8 @@ cdef class Dataset2D (Dataset):
         return self.baseptr_1.GetElement(x, y)
 
     def allocate_2D(self, size_t x, size_t y):
-        self.baseptr_1.Allocate([x, y])
+        cdef vector[size_t] v = [x, y]
+        self.baseptr_1.Allocate(v)
 
     def allocate_half(self, size_t x):
         self.baseptr_1.AllocateHalf(x)
@@ -1117,12 +1118,11 @@ cdef class ReplicaFrame:
     def __dealloc__(self):
         del self.thisptr
 
-cdef class DatasetMatrix3x3 (Dataset1D):
+cdef class DatasetMatrix3x3 (Dataset):
     def __cinit__(self):
         # TODO : Use only one pointer? 
         self.baseptr0 = <_Dataset*> new _DatasetMatrix3x3()
         # make sure 3 pointers pointing to the same address?
-        self.baseptr_1 = <_Dataset1D*> self.baseptr0
         self.thisptr = <_DatasetMatrix3x3*> self.baseptr0
 
         # let Python/Cython free memory

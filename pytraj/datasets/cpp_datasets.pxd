@@ -137,7 +137,7 @@ cdef class DatasetString(Dataset1D):
     cdef bint py_free_mem
 
 cdef extern from "DataSet_Vector.h": 
-    cdef cppclass _DatasetVector "DataSet_Vector" (_Dataset1D):
+    cdef cppclass _DatasetVector "DataSet_Vector" (_Dataset):
         _DatasetVector() 
         _Dataset * Alloc() 
         void Resize(size_t s)
@@ -149,7 +149,7 @@ cdef extern from "DataSet_Vector.h":
         void AddVxyz(const _Vec3& v)
         void AddVxyz(const _Vec3& v, const _Vec3& c)
 
-cdef class DatasetVector (Dataset1D):
+cdef class DatasetVector (Dataset):
     cdef _DatasetVector* thisptr
     cdef bint py_free_mem
 
@@ -350,7 +350,7 @@ cdef class ReplicaFrame:
 
 cdef extern from "DataSet_Mat3x3.h": 
     ctypedef vector[_Matrix_3x3].iterator mat_iterator
-    cdef cppclass _DatasetMatrix3x3 "DataSet_Mat3x3" (_Dataset1D):
+    cdef cppclass _DatasetMatrix3x3 "DataSet_Mat3x3" (_Dataset):
         _DatasetMatrix3x3()
         @staticmethod
         _Dataset * Alloc() 
@@ -361,7 +361,7 @@ cdef extern from "DataSet_Mat3x3.h":
         _Matrix_3x3& operator[](int i)
 
 
-cdef class DatasetMatrix3x3(Dataset1D):
+cdef class DatasetMatrix3x3(Dataset):
     cdef _DatasetMatrix3x3* thisptr
     cdef bint py_free_mem 
 

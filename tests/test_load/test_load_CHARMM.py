@@ -4,13 +4,12 @@ from array import array
 from pytraj.base import *
 from pytraj import io as mdio
 import numpy as np
-from pytraj.utils import assert_almost_equal
+from pytraj.testing import aa_eq
 
 
 class TestCHARMM(unittest.TestCase):
     def test_0(self):
         top = pt.load_topology("./data/ala3.psf")
-        top.summary()
         reslit = top.residuelist
         atm = AtomMask("@CA")
         top.set_integer_mask(atm)
@@ -27,7 +26,7 @@ class TestCHARMM(unittest.TestCase):
         trajamber = mdio.iterload("./output/_save_charmm_to_amber.x",
                                   "./data/ala3.psf")
         for i in range(traj.n_frames):
-            assert_almost_equal(trajamber[i].coords, traj[i].coords)
+            aa_eq(trajamber[i].coords, traj[i].coords)
 
 
 if __name__ == "__main__":
