@@ -1,4 +1,6 @@
 import sys
+import subprocess
+from subprocess import CalledProcessError
 from glob import glob
 from itertools import chain
 # import ./scripts
@@ -23,6 +25,17 @@ pytraj_version = read("pytraj/__version__.py").split("=")[-1]
 pytraj_version = pytraj_version.replace('"', '', 10)
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
+
+if len(sys.argv) == 2 and sys.argv[1] == 'install':
+    do_install = True
+else:
+    do_install = False
+
+if len(sys.argv) == 2 and sys.argv[1] == 'build':
+    do_build = True
+else:
+    do_build= False
+
 
 # check/install Cython
 cmdclass = {}
@@ -96,13 +109,17 @@ else:
 
     ...
     """
-    print (nice_message)
-    sleep(3)
-    os.system("sh ./installs/install_cpptraj_git.sh")
+    if do_install or do_build:
+        print (nice_message)
+        sleep(3)
+        try:
+            subprocess.check_call(['sh', './installs/install_cpptraj_git.sh'])
+        except CalledProcessError:
+            sys.stderr.write('can not install libcpptraj, you need to install it manually \n')
+            sys.exit(1)
     cpptraj_dir = os.path.join(rootname, "cpptraj")
     cpptraj_include = os.path.join(cpptraj_dir, 'src')
     libdir =  os.path.join(cpptraj_dir, 'lib')
-    #sys.exit(0)
 
 # get *.pyx files
 pxd_include_dirs = [
@@ -119,14 +136,15 @@ for p in pxd_include_dirs:
     pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx') if '.pyx' in ext])
 
 # check command line
-extra_compile_args=['-O0', '-ggdb']
-extra_link_args=['-O0', '-ggdb']
+extra_compile_args=['-O0',]
+extra_link_args=['-O0',]
 
-if len(sys.argv) == 2 and sys.argv[1] == 'install':
-    print(len(sys.argv))
-    do_install = True
-else:
-    do_install = False
+list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
+if not list_of_libcpptraj:
+    if do_install or do_build:
+        raise RuntimeError('can not find libcpptraj in $CPPTRAJHOME/lib or ./cpptraj/lib folder. '
+                           'You need to install ``libcpptraj`` manually. '
+                           )
 
 openmp_str = "openmp"
 if openmp_str in sys.argv:
