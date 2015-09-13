@@ -24,6 +24,7 @@ addons:
 install:
     - source devtools/travis-ci/setup_env.sh 
     - conda config --add channels https://conda.binstar.org/ambermd
+    - conda config --add channels https://conda.binstar.org/pytraj
     - conda build devtools/conda-recipe/pytraj
     - source devtools/travis-ci/after_sucess.sh
 
