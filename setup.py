@@ -141,19 +141,27 @@ extra_link_args=['-O0',]
 
 list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
 if not list_of_libcpptraj:
+    if has_cpptrajhome:
+        sys.stderr.write('$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
+                'There are two solutions: \n'
+                '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
+                '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
+        sys.exit(0)
     if do_install or do_build:
         if has_cpptraj_in_current_folder:
             print('can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
             sleep(3)
             try:
                 subprocess.check_call(['sh', './installs/install_cpptraj_current_folder.sh'])
+                cpptraj_include = os.path.join(cpptraj_dir, 'src')
             except CalledProcessError:
                 sys.stderr.write('can not install libcpptraj, you need to install it manually \n')
                 sys.exit(0)
         else:
-            raise RuntimeError('can not find libcpptraj in $CPPTRAJHOME/lib. '
+            sys.stderr.write('can not find libcpptraj in $CPPTRAJHOME/lib. '
                            'You need to install ``libcpptraj`` manually. '
                            )
+            sys.exit(0)
 
 openmp_str = "openmp"
 if openmp_str in sys.argv:

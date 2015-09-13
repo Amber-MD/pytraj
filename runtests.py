@@ -8,12 +8,17 @@ my_script = sys.argv[0]
 
 try:
     verbose = sys.argv[1] in ['-verbose', 'verbose', '-v']
+except:
+    verbose = False
+
+try:
     need_help = sys.argv[1] in ['help', '-help', '--help']
+except:
+    need_help = False
+try:
     do_simple_test = sys.argv[1] in ['simple', 'minimal', '-simple',
                                      '-minimal', 'sim']
 except:
-    verbose = False
-    need_help = False
     do_simple_test = False
 
 if need_help:
@@ -31,8 +36,10 @@ if do_simple_test:
     sys.exit(0)
 
 if verbose:
-    os.system("python -m unittest")
+    os.system('python get_unittest_files.py')
+    os.system('sh TestListTravis.sh')
 else:
+    print('quite run')
     os.system("python ./run_all_and_find_fails.py")
 
 print("end testing")
