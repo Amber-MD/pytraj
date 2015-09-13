@@ -27,9 +27,10 @@ install:
     - conda build devtools/conda-recipe/pytraj
 
 script:
+    - source devtools/travis-ci/after_sucess.sh
     - git clone https://github.com/Amber-MD/cpptraj
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
-    - conda install pytraj-dev libcpptraj -c pytraj --force --yes
+    - conda install pytraj-dev libcpptraj -c ambermd --force --yes
     - cd ./tests
     - python ./run_simple_test.py
       #- python ./run_all_and_find_fails.py
@@ -39,7 +40,7 @@ script:
 
 after_success:
   - echo "after_success"
-  - source devtools/travis-ci/after_sucess.sh
+    #- source devtools/travis-ci/after_sucess.sh
 
 notifications:
   email: false
