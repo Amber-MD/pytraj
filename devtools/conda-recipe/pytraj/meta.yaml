@@ -7,14 +7,16 @@ requirements:
     - python
     - cython
     - libcpptraj
+    - libnetcdf
   run:
     - python
     - libcpptraj
+    - libnetcdf
     - matplotlib
     - seaborn
     - numpy
 
 about:
-  home: http://github.com/pytraj/pytraj
+  home: http://github.com/amber-md/pytraj
   license: BSD
   summary: Python wrapper for cpptraj - a package for data analysis of MD simulations

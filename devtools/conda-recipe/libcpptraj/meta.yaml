@@ -17,6 +17,6 @@ requirements:
     - bzip2
 
 about:
-    home: http://ambermd.org/
+    home: https://github.com/amber-md/cpptraj/
     license: GNU
     summary: libcpptraj for pytraj
