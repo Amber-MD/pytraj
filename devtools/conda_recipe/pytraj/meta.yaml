@@ -3,7 +3,7 @@ package:
   version: !!str 0.1.2.dev
 
 source:
-  git_url: https://github.com/pytraj/pytraj.git
+  git_url: https://github.com/amber-md/pytraj.git
   git_tag: master
 
 requirements:

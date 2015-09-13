@@ -10,6 +10,7 @@ bash $MINICONDA -b
 
 export PATH=$HOME/miniconda/bin:$PATH
 conda install --yes conda-build jinja2 binstar pip
+conda config --add channels http://conda.binstar.org/pytraj/
 
 if [ -z "$NO_CYTHON" ]; then
     if [ $PYTHON_VERSION = '3.4' ]; then
