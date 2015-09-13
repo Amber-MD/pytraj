@@ -116,7 +116,7 @@ else:
             subprocess.check_call(['sh', './installs/install_cpptraj_git.sh'])
         except CalledProcessError:
             sys.stderr.write('can not install libcpptraj, you need to install it manually \n')
-            sys.exit(1)
+            sys.exit(0)
     cpptraj_dir = os.path.join(rootname, "cpptraj")
     cpptraj_include = os.path.join(cpptraj_dir, 'src')
     libdir =  os.path.join(cpptraj_dir, 'lib')
@@ -142,7 +142,16 @@ extra_link_args=['-O0',]
 list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
 if not list_of_libcpptraj:
     if do_install or do_build:
-        raise RuntimeError('can not find libcpptraj in $CPPTRAJHOME/lib or ./cpptraj/lib folder. '
+        if has_cpptraj_in_current_folder:
+            print('can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
+            sleep(3)
+            try:
+                subprocess.check_call(['sh', './installs/install_cpptraj_current_folder.sh'])
+            except CalledProcessError:
+                sys.stderr.write('can not install libcpptraj, you need to install it manually \n')
+                sys.exit(0)
+        else:
+            raise RuntimeError('can not find libcpptraj in $CPPTRAJHOME/lib. '
                            'You need to install ``libcpptraj`` manually. '
                            )
 
@@ -247,11 +256,11 @@ datalist_match = (sorted(datalist) == sorted(setup_for_amber.datalist))
 
 if not package_match:
     sys.stderr.write("packages mistmatch. Make sure to update ./scripts/setup_for_amber.py\n")
-    sys.exit(1)
+    sys.exit(0)
 
 if not datalist_match:
     sys.stderr.write("datalist mistmatch\n")
-    sys.exit(1)
+    sys.exit(0)
     
 def build_func(my_ext):
     return setup(name="pytraj",
