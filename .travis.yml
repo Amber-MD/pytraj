@@ -5,8 +5,8 @@ env:
         - PYTHON_VERSION=3.3
         - PYTHON_VERSION=3.4 
     global:
-        # encrypted ANACONDA_TOKEN 
-        - secure: am-858c73cc-0ae9-42b4-b731-f25a2e4400ef
+        # encrypted TRAVIS_TO_ANACONDA
+        - secure: am-5aca48e7-ab34-4c4d-8240-54c098cb964c
 
 
 sudo: false
