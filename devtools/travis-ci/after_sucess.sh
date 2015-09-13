@@ -8,7 +8,7 @@ if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then
 fi
 
 
-if [[ "$TRAVIS_BRANCH" != "master" ]]; then
+if [[ "$TRAVIS_BRANCH" != "setup" ]]; then
     echo "No deployment on BRANCH='$TRAVIS_BRANCH'"; exit 0
 fi
 
