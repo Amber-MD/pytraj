@@ -23,11 +23,12 @@ addons:
 
 install:
     - source devtools/travis-ci/setup_env.sh 
-    - conda config --add channels https://conda.binstar.org/pytraj
+    - conda config --add channels https://conda.binstar.org/ambermd
     - conda build devtools/conda-recipe/pytraj
+    - source devtools/travis-ci/after_sucess.sh
 
 script:
-    - source devtools/travis-ci/after_sucess.sh
+    #- source devtools/travis-ci/after_sucess.sh
     - git clone https://github.com/Amber-MD/cpptraj
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - conda install pytraj-dev libcpptraj -c ambermd --force --yes

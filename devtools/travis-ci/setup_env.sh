@@ -9,7 +9,7 @@ fi
 bash $MINICONDA -b
 
 export PATH=$HOME/miniconda/bin:$PATH
-conda install --yes conda-build jinja2 binstar pip anaconda-client anaconda
+conda install --yes conda-build jinja2 binstar pip anaconda-client
 conda config --add channels http://conda.binstar.org/ambermd/
 
 if [ -z "$NO_CYTHON" ]; then
