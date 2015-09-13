@@ -1,8 +1,14 @@
 language: python
 env:
     matrix:
-        - PYTHON_VERSION=3.4 
+        - PYTHON_VERSION=2.7
         - PYTHON_VERSION=3.3
+        - PYTHON_VERSION=3.4 
+    global:
+        # encrypted ANACONDA_TOKEN 
+        - secure: am-858c73cc-0ae9-42b4-b731-f25a2e4400ef
+
+
 sudo: false
 addons:
   apt:
@@ -17,20 +23,23 @@ addons:
 
 install:
     - source devtools/travis-ci/setup_env.sh 
-    #- python ./setup.py install
-
-script:
     - conda config --add channels https://conda.binstar.org/pytraj
     - conda build devtools/conda-recipe/pytraj
+
+script:
+    - git clone https://github.com/Amber-MD/cpptraj
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
-    - export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:$LD_LIBRARY_PATH
+    - conda install pytraj-dev -c pytraj --force
     - cd ./tests
-    - python -c 'import pytraj'
     - python ./run_simple_test.py
-    - python ./run_all_and_find_fails.py
-    - python ./test_memory_accumulation.py
-    - cd ../examples
-    - python ./run_all_and_find_fails.py
+      #- python ./run_all_and_find_fails.py
+      #- python ./test_memory_accumulation.py
+      #- cd ../examples
+      #- python ./run_all_and_find_fails.py
+
+after_success:
+  - echo "after_success"
+  - source devtools/travis-ci/after_sucess.sh
 
 notifications:
   email: false
