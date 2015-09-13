@@ -143,7 +143,7 @@ list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
 if not list_of_libcpptraj:
     if do_install or do_build:
         if has_cpptraj_in_current_folder:
-            print('can not find libcpptraj, trying to reinstall it to ./cpptraj/lib/ \n')
+            print('can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
             sleep(3)
             try:
                 subprocess.check_call(['sh', './installs/install_cpptraj_current_folder.sh'])
