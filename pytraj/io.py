@@ -9,6 +9,7 @@ from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
+from ._cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
 from ._get_common_objects import _get_top
 from .compat import zip
@@ -242,7 +243,7 @@ def load_remd(filename, top=None, T="300.0"):
 def write_traj(filename="",
                traj=None,
                top=None,
-               indices=None,
+               frame_indices=None,
                overwrite=False,
                mode=""):
     """write Trajectory-like or iterable object to trajectory file
@@ -250,9 +251,9 @@ def write_traj(filename="",
     Parameters
     ----------
     filename : str
-    traj : Trajectory-like or iterator that produces Frame
+    traj : Trajectory-like or iterator that produces Frame or 3D ndarray with shape=(n_frames, n_atoms, 3)
     top : Topology, optional, default: None
-    indices: array-like or iterator that produces integer, default: None
+    frame_indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
     overwrite: bool, default: False
     mode : str, additional keywords for extention='.pdb'. See examples.
@@ -288,6 +289,11 @@ def write_traj(filename="",
 
     >>> # write to DCD file
     >>> pt.write_traj("test.dcd", traj, overwrite=True)
+
+    >>> # write to netcdf file from 3D numpy array, need to provide Topology
+    >>> xyz = traj.xyz
+    >>> top = traj.top
+    >>> pt.write_traj("test_xyz.nc", xyz, top=traj.top, overwrite=True)
     """
     from .Frame import Frame
     from .trajs.Trajout import Trajout
@@ -299,31 +305,45 @@ def write_traj(filename="",
     if traj is None or _top is None:
         raise ValueError("Need non-empty traj and top files")
 
-    with Trajout(filename=filename,
-                 top=_top,
-                 overwrite=overwrite,
-                 mode=mode) as trajout:
-        if isinstance(traj, Frame):
-            if indices is not None:
-                raise ValueError("indices does not work with single Frame")
-            trajout.write(0, traj)
-        else:
-            if isinstance(traj, string_types):
-                traj2 = iterload(traj, _top)
+    if not isinstance(traj, np.ndarray):
+        with Trajout(filename=filename,
+                     top=_top,
+                     overwrite=overwrite,
+                     mode=mode) as trajout:
+            if isinstance(traj, Frame):
+                if frame_indices is not None:
+                    raise ValueError("frame indices does not work with single Frame")
+                trajout.write(0, traj)
             else:
-                traj2 = traj
+                if isinstance(traj, string_types):
+                    traj2 = iterload(traj, _top)
+                else:
+                    traj2 = traj
 
-            if indices is not None:
-                if isinstance(traj2, (list, tuple, Frame)):
-                    raise NotImplementedError(
-                        "must be Trajectory or TrajectoryIterator instance")
-                for idx, frame in enumerate(traj.iterframe(frame_indices=indices)):
-                    trajout.write(idx, frame)
+                if frame_indices is not None:
+                    if isinstance(traj2, (list, tuple, Frame)):
+                        raise NotImplementedError(
+                            "must be Trajectory or TrajectoryIterator instance")
+                    for idx, frame in enumerate(traj.iterframe(frame_indices=frame_indices)):
+                        trajout.write(idx, frame)
 
-            else:
-                for idx, frame in enumerate(iterframe_master(traj2)):
-                    trajout.write(idx, frame)
+                else:
+                    for idx, frame in enumerate(iterframe_master(traj2)):
+                        trajout.write(idx, frame)
+    else:
+        # is ndarray, shape=(n_frames, n_atoms, 3)
+        # create frame iterator
+        xyz = traj
+        _frame_indices = range(xyz.shape[0]) if frame_indices is None else frame_indices
+        fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices)
 
+        with Trajout(filename=filename,
+                     top=_top,
+                     overwrite=overwrite,
+                     mode=mode) as trajout:
+
+            for idx, frame in enumerate(fi):
+                trajout.write(idx, frame)
 
 def write_parm(filename=None, top=None, format='AMBERPARM'):
     # TODO : add *args
