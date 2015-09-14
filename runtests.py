@@ -24,8 +24,8 @@ except:
 if need_help:
     print("Usage:")
     print("    short testing: python %s simple" % my_script)
-    print("    verbose run: python %s verbose" % my_script)
-    print("    quiet run: python %s" % my_script)
+    print("    verbose run (long): python %s verbose" % my_script)
+    print("    quiet run (long): python %s" % my_script)
     sys.exit(0)
 
 print("start testing. Go to ./tests folder")
