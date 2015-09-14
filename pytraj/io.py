@@ -56,18 +56,22 @@ __all__ = ['load',
 
 
 def load(*args, **kwd):
-    """try loading and returning appropriate values
+    """try loading and returning appropriate values. See example below.
 
     Examples
     --------
     >>> import pytraj as pt
+    >>> # load netcdf file with given amber parm file
     >>> traj = pt.load('traj.nc', '2koc.parm7')
-    >>> traj = pt.load('traj.mol2')
-    >>> traj = pt.load('traj.pdb')
 
-    Notes
-    -----
-    load(filename, top, use_numpy=True) will return `pytraj.api.Trajectory`
+    >>> # load netcdf file with given amber parm file
+    >>> traj = pt.load('traj.nc', '2koc.parm7')
+
+    >>> # load mol2 file
+    >>> traj = pt.load('traj.mol2')
+
+    >>> # load pdb file
+    >>> traj = pt.load('traj.pdb')
     """
 
     if args and is_frame_iter(args[0]):
@@ -115,14 +119,19 @@ def iterload(*args, **kwd):
     --------
     >>> import pytraj as pt
     >>> traj = pt.iterload('traj.nc', '2koc.parm7')
+
+    >>> # load from a list of files
     >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7')
+
+    >>> # load all files with given pattern
     >>> traj = pt.iterload('./traj*.nc', '2koc.parm7')
+
+    >>> # load from a list of files with given frame stride
+    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10, 2),]*2)
     """
-    if kwd and 'indices' in kwd.keys():
+    if kwd and 'frame_indices' in kwd.keys():
         raise ValueError(
             "do not support indices for TrajectoryIterator loading")
-    if kwd and 'engine' in kwd.keys() and kwd['engine'] == 'mdtraj':
-        raise ValueError("do not support iterload with engine=='mdtraj'")
     return load_traj(*args, **kwd)
 
 
@@ -216,9 +225,8 @@ def load_traj(filename=None,
     TrajectoryIterator : if frame_indices is None
     Trajectory : if there is indices
     """
-    from .Topology import Topology
-    from .TrajectoryIterator import TrajectoryIterator
-    from .api import Trajectory
+    from pytraj import Trajectory
+    from pytraj import TrajectoryIterator
 
     if isinstance(top, string_types):
         top = load_topology(top)

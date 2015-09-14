@@ -10,11 +10,15 @@ from pytraj.datasets import *
 from pytraj.common_actions import *
 
 
-class Test(unittest.TestCase):
+class TestRunnable(unittest.TestCase):
     def test_loading(self):
-        traj = pt.load_sample_data()
+        traj = pt.load_sample_data('tz2')
         traj[:]
         traj[:3]
+
+        # load from a list of files
+        fname = traj.filename
+        t0 = pt.iterload([fname, fname], traj.top, frame_slice=[(0, 8, 2),]*2)
 
     def test_import(self):
         from pytraj import run_tests
@@ -74,7 +78,7 @@ class Test(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    from pytraj import show_versions
+    show_versions()
+    print('')
     unittest.main()
-    print("OK")
-    from pytraj.__version__ import __version__
-    print(___version__)
