@@ -1206,16 +1206,16 @@ def rmsd_perres(traj=None,
                 mask="",
                 mass=False,
                 top=None,
-                range=None,
+                resrange=None,
                 perresmask=None,
-                dtype='dataset', *args, **kwd):
+                dtype='dataset'):
     """
-    Perform rmsfit calculation with `mask`, then calculate nofit rms for residues
-    in `range` with given `perresmask`
+    superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues
+    in `resrange` with given `perresmask`
     """
-    if range is not None:
-        if isinstance(range, string_types):
-            _range = 'range %s ' % range
+    if resrange is not None:
+        if isinstance(resrange, string_types):
+            _range = 'range %s ' % resrange
         else:
             raise ValueError("range must be a string")
     else:
@@ -1228,7 +1228,7 @@ def rmsd_perres(traj=None,
                      nofit=False,
                      mass=mass,
                      top=top,
-                     dtype=dtype, *args, **kwd)
+                     dtype=dtype)
 
 
 def calc_rmsd(traj=None,

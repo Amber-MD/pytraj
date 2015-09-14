@@ -111,7 +111,7 @@ class TestRMSDPerRes(unittest.TestCase):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         cout = load_cpptraj_output(tz2_ortho_trajin + """
         rmsd first @CA perres range 2-7""")
-        d = pt.rmsd_perres(traj, ref=0, mask='@CA', range='2-7')
+        d = pt.rmsd_perres(traj, ref=0, mask='@CA', resrange='2-7')
         aa_eq(cout.values, d)
 
 
