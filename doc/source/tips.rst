@@ -46,7 +46,28 @@ However, ``pytraj`` offer shorter (and easy?) way to do
     print([t.filename.split('/')[-1] for t in trajlist])
     data = pt.radgyr(trajlist, top=trajlist[0].top)
     print(data)
-    
+
+load from a list of files with frame stride
+-------------------------------------------
+
+Supposed you have a list of 5 (or whatever), you just want to load from frame 1 to 100,
+and skip every 10 frames. Below is convention ``cpptraj`` input.
+
+.. code-block:: bash
+
+    parm 2koc.parm7
+    trajin traj0.nc 1 100 10
+    trajin traj1.nc 1 100 10
+    trajin traj2.nc 1 100 10
+    trajin traj3.nc 1 100 10
+    trajin traj4.nc 1 100 10
+
+In ``pytraj``, you can specify ``frame_slice``
+
+.. ipython::
+
+    import pytraj as pt
+    pt.iterload('traj*.nc', top='2koc.parm7', frame_slice=[(0, 100, 10),]*5)
 
 memory saving
 -------------
