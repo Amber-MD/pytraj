@@ -13,7 +13,7 @@ class TestPyCpptrajIO(unittest.TestCase):
         mdio.write_traj(filename="./output/test_io_saved_.x",
                         traj=traj,
                         top="./data/Tc5b.top",
-                        indices=indices,
+                        frame_indices=indices,
                         overwrite=True)
 
         # check frames
