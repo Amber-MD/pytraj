@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 import pytraj as pt
 from sklearn.cluster import k_means
-from pytraj._fast_iterframe import _fast_iterptr
-from memory_profiler import profile
+from pytraj import iterframe_from_array
+import numpy as np
 
-
-@profile
 def do_clustering():
+    # set random seed for reproducibility
+    np.random.seed(1)
+
     traj = pt.iterload('GAAC3.5000frames.nc', 'GAAC.topo')
     n_frames = 50
 
@@ -33,19 +34,19 @@ def do_clustering():
                    return_n_iter=False)
 
     x0 = data[0]
+    print('cluster index: ', data[1].tolist())
 
     # write output, dump all frames to a single pdb file, each snapshot is seperated by
     # 'MODEL' keyword. good for visualizing in VMD.
 
-    with pt.Trajout('tes.pdb',
+    with pt.Trajout('output.pdb',
                     mode='model',
                     top=t0.top,
                     overwrite=True) as trajout:
         x = x0.reshape(n_clusters, t0.n_atoms, 3)
         # to avoid extra copying, we use _fast_iterptr (for advanced users)
-        for idx, frame in enumerate(_fast_iterptr(x, t0.n_atoms,
+        for idx, frame in enumerate(pt.iterframe_from_array(x, t0.n_atoms,
                                                   range(n_clusters))):
             trajout.write_frame(idx, frame)
-
 
 do_clustering()
