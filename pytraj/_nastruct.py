@@ -6,27 +6,6 @@ from ._get_common_objects import _get_top, _get_data_from_dtype
 from ._get_common_objects import _get_reference_from_traj
 
 
-class nupars(BaseAnalysisResult):
-    '''class holding data for nucleic acid.
-    Just use ``mean_and_std`` to get mean and std of each component (major groove, ...)
-    '''
-
-    def mean_and_std(self):
-        """return a dict
-        """
-        import numpy as np
-
-        aspects = self._dslist.aspects()
-
-        d = {}
-        for idx, ap in enumerate(aspects):
-            d0 = self._dslist.grep(ap, mode='aspect')
-            d0_mean = d0.mean()[1].mean()
-            d0_std = d0.mean()[1].std()
-            d[ap] = np.array([d0_mean, d0_std], dtype='f8')
-        return d
-
-
 def nastruct(traj=None,
              mask="",
              resmap=None,
@@ -75,3 +54,24 @@ def nastruct(traj=None,
         return nupars(_get_data_from_dtype(dslist, dtype='dataset'))
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
+
+
+class nupars(BaseAnalysisResult):
+    '''class holding data for nucleic acid.
+    Just use ``mean_and_std`` to get mean and std of each component (major groove, ...)
+    '''
+
+    def mean_and_std(self):
+        """return a dict
+        """
+        import numpy as np
+
+        aspects = self._dslist.aspects()
+
+        d = {}
+        for idx, ap in enumerate(aspects):
+            d0 = self._dslist.grep(ap, mode='aspect')
+            d0_mean = d0.mean()[1].mean()
+            d0_std = d0.mean()[1].std()
+            d[ap] = np.array([d0_mean, d0_std], dtype='f8')
+        return d
