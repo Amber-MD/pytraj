@@ -50,8 +50,8 @@ However, ``pytraj`` offer shorter (and easy?) way to do
 load from a list of files with frame stride
 -------------------------------------------
 
-Supposed you have a list of 5 (or whatever), you just want to load from frame 1 to 100,
-and skip every 10 frames. Below is convention ``cpptraj`` input.
+Supposed you have a list of 5 (or whatever) trajectories, you only want to load those files 1st to 100-th frames
+and skip every 10 frames. Below is a convention ``cpptraj`` input.
 
 .. code-block:: bash
 
@@ -64,10 +64,12 @@ and skip every 10 frames. Below is convention ``cpptraj`` input.
 
 In ``pytraj``, you can specify ``frame_slice``
 
-.. ipython::
+.. code-block:: python
 
     import pytraj as pt
     pt.iterload('traj*.nc', top='2koc.parm7', frame_slice=[(0, 100, 10),]*5)
+
+    # [(0, 100, 10),]*5 is equal to [(0, 100, 10), (0, 100, 10),(0, 100, 10),(0, 100, 10),(0, 100, 10),]
 
 memory saving
 -------------
