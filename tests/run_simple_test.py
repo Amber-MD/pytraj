@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+'''Aim: just make sure pytraj runnable.
+'''
 
 import unittest
 from pytraj import *
@@ -12,22 +14,22 @@ class Test(unittest.TestCase):
     def test_loading(self):
         traj = pt.load_sample_data()
         traj[:]
+        traj[:3]
 
-    def test_0(self):
+    def test_import(self):
         from pytraj import run_tests
         run_tests()
 
-    def test_1(self):
+    def test_create_actions(self):
         print("try to make all action objects")
         from pytraj import adict
-        #failed_list = ['createreservoir',]
         failed_list = []
 
         for key in adict.keys():
             if key not in failed_list:
                 adict[key]
 
-    def test_2(self):
+    def test_create_analysis(self):
         DatasetList()
         print("try to make all analysis objects")
         from pytraj import analdict
@@ -37,7 +39,7 @@ class Test(unittest.TestCase):
             if key not in failed_list:
                 analdict[key]
 
-    def test_3(self):
+    def test_Dataset(self):
         print("try to make all dataset stuff")
         DatasetDouble()
         DatasetFloat()
@@ -50,7 +52,7 @@ class Test(unittest.TestCase):
         DatasetCoordsRef()
         DatasetCoordsCRD()
 
-    def test_4(self):
+    def test_geometry(self):
         print("try to make structure-related objects")
         Topology()
         Molecule()
@@ -59,7 +61,7 @@ class Test(unittest.TestCase):
         Frame()
         TrajectoryIterator()
 
-    def test_5(self):
+    def test_other(self):
         print("other stuff. throw all tests don't belong anywhere else here")
         from pytraj import cpptraj_dict
         from pytraj.misc import get_atts
