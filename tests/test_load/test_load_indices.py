@@ -15,11 +15,11 @@ class TestIndices(unittest.TestCase):
         traj1 = TrajectoryIterator(
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")
-        indices = slice(9, 6, -1)
+        frame_indices = slice(9, 6, -1)
 
         traj0 = pt.load(filename="./data/md1_prod.Tc5b.x",
                         top=pt.load_topology("./data/Tc5b.top"),
-                        indices=indices)
+                        frame_indices=frame_indices)
 
         assert traj0[0].same_coords_as(traj1[9]) == True
         assert traj0[1].same_coords_as(traj1[8]) == True
@@ -34,11 +34,11 @@ class TestIndices(unittest.TestCase):
 
         nparr = np.array(rmsdlist)
 
-        # make sure we don't suport other indices
+        # make sure we don't suport other frame_indices
         traj2 = Trajectory()
         traj2 = pt.load(filename="./data/md1_prod.Tc5b.x",
                         top=pt.load_topology("./data/Tc5b.top"),
-                        indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
+                        frame_indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
         assert traj2[-1].coords == traj1[4].coords
 
     def test_array_assigment(self):
@@ -95,12 +95,12 @@ class TestIndices(unittest.TestCase):
         #traj0 += traj0
         traj0.join(traj0[:])
 
-    def test_load_indices_from_io(self):
+    def test_load_frame_indices_from_io(self):
         from pytraj import io as mdio
         traj0 = mdio.load(
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top",
-            indices=(1, 3, 7))
+            frame_indices=(1, 3, 7))
         trajreadonly = mdio.iterload(
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")

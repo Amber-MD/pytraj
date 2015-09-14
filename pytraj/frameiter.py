@@ -123,7 +123,7 @@ class FrameIter(object):
         write_traj(filename=filename,
                    traj=self,
                    top=self.top,
-                   indices=None,
+                   frame_indices=None,
                    overwrite=overwrite,
                    mode=mode, *args, **kwd)
 
