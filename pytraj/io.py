@@ -91,11 +91,7 @@ def load(*args, **kwd):
         ensure_exist(filename)
         # load to TrajectoryIterator object first
         traj = load_traj(*args, **kwd)
-        if 'use_numpy' in kwd.keys() and kwd['use_numpy']:
-            from pytraj.api import Trajectory
-            return Trajectory(xyz=traj.xyz, top=traj.top)
-        else:
-            return traj[:]
+        return traj[:]
 
 
 def _load_from_filelist(*args, **kwd):
@@ -201,15 +197,15 @@ def _iterload_from_filelist(filename=None,
 
 def load_traj(filename=None,
               top=None,
-              indices=None,
-              engine='pytraj', *args, **kwd):
+              frame_indices=None,
+              *args, **kwd):
     """load trajectory from filename
 
     Parameters
     ----------
     filename : str
     top : {str, Topology}
-    indices : {None, list, array ...}
+    frame_indices : {None, list, array ...}
     engine : str, {'pytraj', 'mdanalysis'}, default 'pytraj'
         if 'pytraj', use pytraj for iterload (return `TrajectoryIterator`)
         if 'mdanalysis', use this package (return `TrajectoryMDAnalysisIterator`)
@@ -217,53 +213,32 @@ def load_traj(filename=None,
 
     Returns
     -------
-    TrajectoryIterator : if indices is None and engine='pytraj'
-    or 
+    TrajectoryIterator : if frame_indices is None
     Trajectory : if there is indices
-    or TrajectoryMDAnalysisIterator if engine='mdanalysis'
     """
-    if 'frame_slice' in kwd.keys() and not engine == 'pytraj':
-        raise KeyError("only support frame_slice in engine mode = 'pytraj'")
+    from .Topology import Topology
+    from .TrajectoryIterator import TrajectoryIterator
+    from .api import Trajectory
 
-    engine = engine.lower()
+    if isinstance(top, string_types):
+        top = load_topology(top)
+    if top is None or top.is_empty():
+        top = load_topology(filename)
+    ts = TrajectoryIterator(top=top)
 
-    if engine == 'pytraj':
-        from .Topology import Topology
-        from .TrajectoryIterator import TrajectoryIterator
-        from .api import Trajectory
-
-        if isinstance(top, string_types):
-            top = load_topology(top)
-        if top is None or top.is_empty():
-            top = load_topology(filename)
-        ts = TrajectoryIterator(top=top)
-
-        if 'frame_slice' in kwd.keys():
-            ts.load(filename, frame_slice=kwd['frame_slice'])
-        else:
-            ts.load(filename)
-
-        if indices is not None:
-            if isinstance(indices, tuple):
-                indices = list(indices)
-            return ts[indices]
-        elif is_frame_iter(filename):
-            return _load_from_frame_iter(filename, top)
-        else:
-            return ts
-    elif engine == 'mdanalysis':
-        from MDAnalysis import Universe as U
-        if top is None:
-            top = filename
-        return load_MDAnalysisIterator(U(top, filename, *args, **kwd))
-    elif engine == 'mdtraj':
-        import mdtraj as md
-        if top is None:
-            top = filename
-        return load_mdtraj(md.load(filename, top=top, *args, **kwd))
+    if 'frame_slice' in kwd.keys():
+        ts.load(filename, frame_slice=kwd['frame_slice'])
     else:
-        raise NotImplementedError(
-            "support only {'pytraj', 'mdanlaysis', 'mdtraj'} engines")
+        ts.load(filename)
+
+    if frame_indices is not None:
+        if isinstance(frame_indices, tuple):
+            indices = list(indices)
+        return ts[indices]
+    elif is_frame_iter(filename):
+        return _load_from_frame_iter(filename, top)
+    else:
+        return ts
 
 
 def _load_from_frame_iter(iterables, top=None, n_frames=None):

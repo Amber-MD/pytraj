@@ -6,7 +6,6 @@ from pytraj.decorators import no_test
 
 class TestPyCpptrajIO(unittest.TestCase):
     def test_save_traj_from_file(self):
-        Trajout().help()
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:5]
         mdio.write_traj(filename="./output/test_0.binpos",
                         traj=traj,
