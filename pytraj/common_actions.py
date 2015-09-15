@@ -637,7 +637,7 @@ def calc_rdf(traj=None, command="", top=None, dtype='dataset', frame_indices=Non
     return _get_data_from_dtype(dslist, dtype)
 
 @noparallel
-def _calc_pairdist(traj=None, mask="*", mask2=None, delta=0.1, dtype='ndarray', top=None):
+def calc_pairdist(traj=None, mask="*", mask2=None, delta=0.1, dtype='ndarray', top=None):
     # TODO: can not load datafile. update cpptraj code?
 
     with goto_temp_folder():
@@ -654,9 +654,7 @@ def _calc_pairdist(traj=None, mask="*", mask2=None, delta=0.1, dtype='ndarray', 
         dflist = DataFileList()
         act(command, traj, top=_top, dslist=dslist, dflist=dflist)
         act.print_output()
-        #dflist.write_all_datafiles()
-        os.system('cat tmp_pairdist.txt')
-        return np.loadtxt('tmp_pairdist.txt', comments='#').transpose()
+        return _get_data_from_dtype(dslist, dtype=dtype)
 
 pairdist = calc_pairdist
 
