@@ -37,7 +37,6 @@ list_of_cal = ['calc_distance',
                'calc_radgyr',
                'calc_angle',
                'calc_molsurf',
-               'calc_distrmsd',
                'calc_volume',
                'calc_dssp',
                'calc_matrix',
@@ -48,6 +47,7 @@ list_of_cal = ['calc_distance',
                'calc_multivector',
                'calc_volmap',
                'calc_rdf',
+               'calc_pairdist',
                'calc_multidihedral',
                'calc_atomicfluct',
                'calc_COM',
@@ -552,20 +552,6 @@ def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_distrmsd(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
-
-    command = mask
-
-    act = CpptrajActions.Action_DistRmsd()
-
-    _top = _get_top(traj, top)
-    dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
-    return _get_data_from_dtype(dslist, dtype)
-
-
 def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
@@ -636,6 +622,29 @@ def calc_rdf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     act.print_output()
     return _get_data_from_dtype(dslist, dtype)
+
+@noparallel
+def calc_pairdist(traj=None, mask="*", mask2=None, delta=0.1, dtype='ndarray', top=None):
+
+    act = CpptrajActions.Action_PairDist()
+    _mask = 'mask ' + mask
+    _mask2 = '' if mask2 is None else 'mask2 ' + mask2
+    command = ' '.join((_mask, _mask2))
+    if not isinstance(command, string_types):
+        command = to_cpptraj_atommask(command)
+
+    command = command + ' delta ' + str(delta) + ' out tmp_pairdist.txt'
+    _top = _get_top(traj, top)
+    dslist = CpptrajDatasetList()
+    dflist = DataFileList()
+    act(command, traj, top=_top, dslist=dslist, dflist=dflist)
+
+    with goto_temp_folder():
+        print(os.getcwd())
+        dflist.write_all_datafiles()
+        return np.loadtxt('tmp_pairdist.txt', comments='#').transpose()
+
+pairdist = calc_pairdist
 
 
 def calc_jcoupling(traj=None,
@@ -1167,7 +1176,6 @@ def calc_density(traj=None,
     # NOTE: trick cpptraj to write to file first and the reload
 
     with goto_temp_folder():
-
         def _calc_density(traj, command, *args, **kwd):
             # TODO: update this method if cpptraj save data to
             # CpptrajDatasetList
@@ -1322,13 +1330,13 @@ def calc_rmsd(traj=None,
 # alias for `calc_rmsd`
 rmsd = calc_rmsd
 
-def distance_rmsd(traj=None, ref=None, mask='', top=None, dtype='ndarray'):
+def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
     '''compute distance rmsd between traj and reference
 
     Parameters
     ----------
     traj : Trajectory-like or iterator that produces Frame
-    ref : {None, int, Frame}, default None (1st frame)
+    ref : {int, Frame}, default 0 (1st Frame) 
     mask : str
     top : Topology or str, optional, default None
     dtype : return dtype, default 'ndarray'
@@ -1352,10 +1360,15 @@ def distance_rmsd(traj=None, ref=None, mask='', top=None, dtype='ndarray'):
     command = mask
 
     act = CpptrajActions.Action_DistRmsd()
-    act.read_input(command, dslist=dslist, top=_top)
-    act.do_action(_ref)
-    act.do_action(traj)
+    act(command, [_ref, traj], top=_top, dslist=dslist)
+
+    # exclude ref value
+    for d in dslist:
+        d.data = d.data[1:]
     return _get_data_from_dtype(dslist, dtype=dtype)
+
+# alias
+distance_rmsd = calc_distance_rmsd
 
 def align_principal_axis(traj=None, mask="*", top=None):
     # TODO : does not match with cpptraj output
