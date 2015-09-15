@@ -83,4 +83,4 @@ How to get raw coordinates?
 See also
 --------
 
-`trajectory slice <trajectory_slice>`_
+`Fancy indexing <trajectory_slice>`_
