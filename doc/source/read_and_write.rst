@@ -14,18 +14,15 @@ Most commmon usage: load a single file with all frame
     
     # read amber format
     import pytraj as pt
-    traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
+    traj = pt.iterload('tz2.ortho.nc', 'tz2.ortho.parm7')
     traj
 
 Most commmon usage: load a single file with frame stride
 
-.. ipython:: python
+.. code-block:: python
     
-    # read amber format
-    import pytraj as pt
     # load only frame 0, 2, 4, 6 (python use 0-based index and skip final index)
-    traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7', frame_slice=[(0, 8, 2),])
-    traj
+    traj = pt.iterload('tz2.nc', 'tz2.parm7', frame_slice=[(0, 8, 2),])
 
 Load many files at once
 
