@@ -56,6 +56,15 @@ Example: load 1000 frames from two trajectories (500 each), skip every two frame
     <pytraj.TrajectoryIterator, 1000 frames, include:
     <Topology: 17443 atoms, 5666 residues, 5634 mols, PBC with box type = truncoct>>
 
+which is similiar to ``cpptraj`` input:
+
+.. code-block:: bash
+
+    parm myparm.parm7
+    trajin remd.x.000 1 1000 2
+    trajin remd.x.001 1 1000 2
+
+.. note:: cpptraj uses 1-based index for input while ``pytraj`` used 0-based index.
 
 
 Write

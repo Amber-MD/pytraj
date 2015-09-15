@@ -38,7 +38,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -77,7 +77,7 @@
 <li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Trajectory slicing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
@@ -170,26 +170,26 @@
 <h2><a class="toc-backref" href="#id2">Requires</a><a class="headerlink" href="#requires" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="http://www.numpy.org/">numpy</a></p>
 <p><a class="reference external" href="http://cython.org/">cython</a>, version &gt;= 0.23</p>
-<p><tt class="docutils literal"><span class="pre">python</span> <span class="pre">3</span></tt></p>
+<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">3</span></code></p>
 </div>
 <div class="section" id="how">
 <h2><a class="toc-backref" href="#id3">How?</a><a class="headerlink" href="#how" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">pytraj</span></tt> is stil in alpha phase, you should install from <tt class="docutils literal"><span class="pre">github</span></tt>:</p>
+<p><code class="docutils literal"><span class="pre">pytraj</span></code> is stil in alpha phase, you should install from <code class="docutils literal"><span class="pre">github</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/Amber-MD/pytraj
 cd pytraj
 python ./setup.py install
 </pre></div>
 </div>
-<p>or from <tt class="docutils literal"><span class="pre">conda</span></tt> (a bit outdated compared to github):</p>
+<p>or from <code class="docutils literal"><span class="pre">conda</span></code> (a bit outdated compared to github):</p>
 <div class="highlight-python"><div class="highlight"><pre>conda install -c pytraj pytraj-dev --force
 </pre></div>
 </div>
-<p>Depend on your machine, the fresh installation (<tt class="docutils literal"><span class="pre">libcpptraj</span></tt> + <tt class="docutils literal"><span class="pre">pytraj</span></tt>) could take 2 to 4 minutes.</p>
+<p>Depend on your machine, the fresh installation (<code class="docutils literal"><span class="pre">libcpptraj</span></code> + <code class="docutils literal"><span class="pre">pytraj</span></code>) could take 2 to 4 minutes.</p>
 </div>
 <div class="section" id="troubleshooting">
 <h2><a class="toc-backref" href="#id4">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> is standard process to install a new Python package.
-But if you are new to Python and got <tt class="docutils literal"><span class="pre">permission</span> <span class="pre">denied</span></tt> error, try to install <tt class="docutils literal"><span class="pre">pytraj</span></tt> in your home folder.</p>
+<p><code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> is standard process to install a new Python package.
+But if you are new to Python and got <code class="docutils literal"><span class="pre">permission</span> <span class="pre">denied</span></code> error, try to install <code class="docutils literal"><span class="pre">pytraj</span></code> in your home folder.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="c"># install pytraj in $HOME/.local</span>
 python ./setup.py install --user
 
@@ -199,17 +199,17 @@ python ./setup.py install --prefix<span class="o">=</span>your_favorite_dir
 <span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>your_favorite_dir:<span class="nv">$PYTHONPATH</span>
 </pre></div>
 </div>
-<p>If you want to see further options, check <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span> <span class="pre">--help</span></tt></p>
+<p>If you want to see further options, check <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span> <span class="pre">--help</span></code></p>
 </div>
 <div class="section" id="install-anaconda-for-all-python-packages">
 <h2><a class="toc-backref" href="#id5">install anaconda for all python packages</a><a class="headerlink" href="#install-anaconda-for-all-python-packages" title="Permalink to this headline">¶</a></h2>
-<p>we highly recommend to install anaconda that has all good python packages (<tt class="docutils literal"><span class="pre">cython</span></tt>, <tt class="docutils literal"><span class="pre">numpy</span></tt>, <tt class="docutils literal"><span class="pre">sklearn</span></tt>, <tt class="docutils literal"><span class="pre">pandas</span></tt>, ...). Anaconda is totally free.</p>
+<p>we highly recommend to install anaconda that has all good python packages (<code class="docutils literal"><span class="pre">cython</span></code>, <code class="docutils literal"><span class="pre">numpy</span></code>, <code class="docutils literal"><span class="pre">sklearn</span></code>, <code class="docutils literal"><span class="pre">pandas</span></code>, ...). Anaconda is totally free.</p>
 <ul class="simple">
 <li>go to <a class="reference external" href="http://continuum.io/downloads#py34">its website</a>, choose your platform and
 python version. It&#8217;s better to pick up Python3</li>
-<li>download file: For example, we downloaded <tt class="docutils literal"><span class="pre">Anaconda3-2.1.0-Linux-x86_64.sh</span></tt> (Python3
+<li>download file: For example, we downloaded <code class="docutils literal"><span class="pre">Anaconda3-2.1.0-Linux-x86_64.sh</span></code> (Python3
 version)</li>
-<li>just run <tt class="docutils literal"><span class="pre">bash</span> <span class="pre">Anaconda3-2.1.0-Linux-x86_64.sh</span></tt> and follow instruction. That&#8217;s it, you have a Python eco-system here.</li>
+<li>just run <code class="docutils literal"><span class="pre">bash</span> <span class="pre">Anaconda3-2.1.0-Linux-x86_64.sh</span></code> and follow instruction. That&#8217;s it, you have a Python eco-system here.</li>
 </ul>
 </div>
 </div>
@@ -227,7 +227,7 @@ version)</li>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

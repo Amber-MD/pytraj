@@ -36,7 +36,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -75,7 +75,7 @@
 <li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Trajectory slicing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
@@ -155,7 +155,7 @@
 <span id="doc"></span><h2>doc<a class="headerlink" href="#module-pytraj.matrix_analysis" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pytraj.matrix_analysis.distance_matrix">
-<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">distance_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.distance_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.matrix_analysis.</code><code class="descname">distance_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.matrix_analysis.distance_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -178,7 +178,7 @@ if &#8216;cpptraj&#8217;: 1D array</p>
 
 <dl class="function">
 <dt id="pytraj.matrix_analysis.correlation_matrix">
-<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">correlation_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.correlation_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.matrix_analysis.</code><code class="descname">correlation_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.matrix_analysis.correlation_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -201,7 +201,7 @@ if &#8216;cpptraj&#8217;: 1D array</p>
 
 <dl class="function">
 <dt id="pytraj.matrix_analysis.coord_covariance_matrix">
-<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">coord_covariance_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.coord_covariance_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.matrix_analysis.</code><code class="descname">coord_covariance_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.matrix_analysis.coord_covariance_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -224,7 +224,7 @@ if &#8216;cpptraj&#8217;: 1D array</p>
 
 <dl class="function">
 <dt id="pytraj.matrix_analysis.mw_covariance_matrix">
-<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">mw_covariance_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.mw_covariance_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.matrix_analysis.</code><code class="descname">mw_covariance_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.matrix_analysis.mw_covariance_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -247,7 +247,7 @@ if &#8216;cpptraj&#8217;: 1D array</p>
 
 <dl class="function">
 <dt id="pytraj.matrix_analysis.distcovar_matrix">
-<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">distcovar_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.distcovar_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.matrix_analysis.</code><code class="descname">distcovar_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.matrix_analysis.distcovar_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -270,7 +270,7 @@ if &#8216;cpptraj&#8217;: 1D array</p>
 
 <dl class="function">
 <dt id="pytraj.matrix_analysis.idea_matrix">
-<tt class="descclassname">pytraj.matrix_analysis.</tt><tt class="descname">idea_matrix</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.matrix_analysis.idea_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.matrix_analysis.</code><code class="descname">idea_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.matrix_analysis.idea_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -307,7 +307,7 @@ if &#8216;cpptraj&#8217;: 1D array</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

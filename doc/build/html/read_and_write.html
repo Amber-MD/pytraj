@@ -38,7 +38,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -208,6 +208,16 @@
 <span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">17443</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">5666</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">5634</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">truncoct</span><span class="o">&gt;&gt;</span>
 </pre></div>
 </div>
+<p>which is similiar to <code class="docutils literal"><span class="pre">cpptraj</span></code> input:</p>
+<div class="highlight-bash"><div class="highlight"><pre>parm myparm.parm7
+trajin remd.x.000 <span class="m">1</span> <span class="m">1000</span> 2
+trajin remd.x.001 <span class="m">1</span> <span class="m">1000</span> 2
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">cpptraj uses 1-based index for input while <code class="docutils literal"><span class="pre">pytraj</span></code> used 0-based index.</p>
+</div>
 </div>
 <div class="section" id="write">
 <h2><a class="toc-backref" href="#id4">Write</a><a class="headerlink" href="#write" title="Permalink to this headline">¶</a></h2>
@@ -220,7 +230,7 @@
 </div>
 <dl class="function">
 <dt id="pytraj.write_traj">
-<tt class="descclassname">pytraj.</tt><tt class="descname">write_traj</tt><big>(</big><em>filename=''</em>, <em>traj=None</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>mode=''</em><big>)</big><a class="headerlink" href="#pytraj.write_traj" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">write_traj</code><span class="sig-paren">(</span><em>filename=''</em>, <em>traj=None</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>mode=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.write_traj" title="Permalink to this definition">¶</a></dt>
 <dd><p>write Trajectory-like or iterable object to trajectory file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -325,7 +335,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>
