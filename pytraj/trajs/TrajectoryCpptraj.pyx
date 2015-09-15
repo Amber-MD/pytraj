@@ -83,6 +83,8 @@ cdef class TrajectoryCpptraj:
         arg = " ".join((str(start), str(stop), str(stride)))
 
         if isinstance(filename, string_types):
+            # use absolute path so we can go to different folder
+            filename = os.path.abspath(filename)
             _arglist = ArgList(arg)
             self.thisptr.AddSingleTrajin(filename.encode(), _arglist.thisptr[0], tmp_top.thisptr)
             self._filelist.append(os.path.abspath(filename))

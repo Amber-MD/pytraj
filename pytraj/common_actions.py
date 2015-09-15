@@ -475,7 +475,7 @@ def calc_watershell(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_radial(traj=None, command="", frame_indices=None, top=None)
+def calc_radial(traj=None, command="", frame_indices=None, top=None):
     '''Action_Radial require calling Print() to get output. We make change here'''
     traj = _get_fiterator(traj, frame_indices)
     act = adict['radial']
