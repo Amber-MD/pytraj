@@ -17,8 +17,9 @@ class Test(unittest.TestCase):
         drmsd drms_fit out drmsd.dat
         '''
         cpp_data = pt.datafiles.load_cpptraj_output(txt)
+        print(pt.distance_rmsd(traj))
 
-        # distance_rmsd
+        ## distance_rmsd
         data_drmsd = pt.distance_rmsd(traj)
         aa_eq(data_drmsd, cpp_data[0])
 
@@ -30,6 +31,7 @@ class Test(unittest.TestCase):
 
         # drmsd with rmsfit
         aa_eq(cpp_data[3], pt.distance_rmsd(traj(rmsfit=0), ref=traj[0]))
+
 
 if __name__ == "__main__":
     unittest.main()
