@@ -4,7 +4,6 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from matplotlib import pyplot as plt
 import numpy as np
 
 
