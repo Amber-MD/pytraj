@@ -56,8 +56,14 @@ class Test(unittest.TestCase):
 
         assert_almost_equal(farray[0].coords, first.coords)
         farray.rmsfit(first, "*")
+        farray2 = traj[:]
+        farray2.superpose(first, "*")
 
         for i, _f0 in enumerate(farray):
+            _f1 = trajsaved[i]
+            assert_almost_equal(_f0.coords, _f1.coords)
+
+        for i, _f0 in enumerate(farray2):
             _f1 = trajsaved[i]
             assert_almost_equal(_f0.coords, _f1.coords)
 
