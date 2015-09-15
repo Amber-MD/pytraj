@@ -637,24 +637,25 @@ def calc_rdf(traj=None, command="", top=None, dtype='dataset', frame_indices=Non
     return _get_data_from_dtype(dslist, dtype)
 
 @noparallel
-def calc_pairdist(traj=None, mask="*", mask2=None, delta=0.1, dtype='ndarray', top=None):
-
-    act = CpptrajActions.Action_PairDist()
-    _mask = 'mask ' + mask
-    _mask2 = '' if mask2 is None else 'mask2 ' + mask2
-    command = ' '.join((_mask, _mask2))
-    if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
-
-    command = command + ' delta ' + str(delta) + ' out tmp_pairdist.txt'
-    _top = _get_top(traj, top)
-    dslist = CpptrajDatasetList()
-    dflist = DataFileList()
-    act(command, traj, top=_top, dslist=dslist, dflist=dflist)
+def _calc_pairdist(traj=None, mask="*", mask2=None, delta=0.1, dtype='ndarray', top=None):
+    # TODO: can not load datafile. update cpptraj code?
 
     with goto_temp_folder():
-        print(os.getcwd())
-        dflist.write_all_datafiles()
+        act = CpptrajActions.Action_PairDist()
+        _mask = 'mask ' + mask
+        _mask2 = '' if mask2 is None else 'mask2 ' + mask2
+        command = ' '.join((_mask, _mask2))
+        if not isinstance(command, string_types):
+            command = to_cpptraj_atommask(command)
+
+        command = command + ' delta ' + str(delta) + ' out tmp_pairdist.txt'
+        _top = _get_top(traj, top)
+        dslist = CpptrajDatasetList()
+        dflist = DataFileList()
+        act(command, traj, top=_top, dslist=dslist, dflist=dflist)
+        act.print_output()
+        #dflist.write_all_datafiles()
+        os.system('cat tmp_pairdist.txt')
         return np.loadtxt('tmp_pairdist.txt', comments='#').transpose()
 
 pairdist = calc_pairdist
