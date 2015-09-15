@@ -77,7 +77,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Trajectory slicing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
@@ -188,7 +188,7 @@
 </ul>
 <span class="target" id="distance"></span><dl class="function">
 <dt id="pytraj.distance">
-<tt class="descclassname">pytraj.</tt><tt class="descname">distance</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.distance" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">distance</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.distance" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate distance between two maskes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -231,7 +231,7 @@
 
 <span class="target" id="angle"></span><dl class="function">
 <dt id="pytraj.angle">
-<tt class="descclassname">pytraj.</tt><tt class="descname">angle</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.angle" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">angle</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.angle" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate angle between two maskes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -274,7 +274,7 @@
 
 <span class="target" id="dihedral"></span><dl class="function">
 <dt id="pytraj.dihedral">
-<tt class="descclassname">pytraj.</tt><tt class="descname">dihedral</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.dihedral" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">dihedral</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.dihedral" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate dihedral angle between two maskes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -362,9 +362,9 @@ if True, not fitting.</p>
 
 <span class="target" id="rmsd-perres"></span><dl class="function">
 <dt id="pytraj.rmsd_perres">
-<tt class="descclassname">pytraj.</tt><tt class="descname">rmsd_perres</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>mass=False</em>, <em>top=None</em>, <em>range=None</em>, <em>perresmask=None</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.rmsd_perres" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform rmsfit calculation with <cite>mask</cite>, then calculate nofit rms for residues
-in <cite>range</cite> with given <cite>perresmask</cite></p>
+<tt class="descclassname">pytraj.</tt><tt class="descname">rmsd_perres</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>mass=False</em>, <em>top=None</em>, <em>resrange=None</em>, <em>perresmask=None</em>, <em>dtype='dataset'</em><big>)</big><a class="headerlink" href="#pytraj.rmsd_perres" title="Permalink to this definition">¶</a></dt>
+<dd><p>superpose <tt class="docutils literal"><span class="pre">traj</span></tt> to <tt class="docutils literal"><span class="pre">ref</span></tt> with <cite>mask</cite>, then calculate nofit rms for residues
+in <cite>resrange</cite> with given <cite>perresmask</cite></p>
 </dd></dl>
 
 <span class="target" id="pairwise-rmsd"></span><dl class="function">
@@ -605,7 +605,7 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 
 <span class="target" id="molsurf"></span><dl class="function">
 <dt id="pytraj.molsurf">
-<tt class="descclassname">pytraj.</tt><tt class="descname">molsurf</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.molsurf" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">molsurf</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.molsurf" title="Permalink to this definition">¶</a></dt>
 <dd><p>calc molsurf</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
@@ -690,7 +690,7 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 
 <span class="target" id="minimum-distance"></span><dl class="function">
 <dt id="pytraj.mindist">
-<tt class="descclassname">pytraj.</tt><tt class="descname">mindist</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.mindist" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">mindist</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.mindist" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">mindist</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA @H&#39;</span><span class="p">)</span>
@@ -863,7 +863,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 
 <span class="target" id="watershell"></span><dl class="function">
 <dt id="pytraj.watershell">
-<tt class="descclassname">pytraj.</tt><tt class="descname">watershell</tt><big>(</big><em>traj=None</em>, <em>solute_mask=None</em>, <em>solvent_mask=':WAT'</em>, <em>lower=3.4</em>, <em>upper=5.0</em>, <em>image=True</em>, <em>dtype='dataset'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.watershell" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">watershell</tt><big>(</big><em>traj=None</em>, <em>solute_mask=None</em>, <em>solvent_mask=':WAT'</em>, <em>lower=3.4</em>, <em>upper=5.0</em>, <em>image=True</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.watershell" title="Permalink to this definition">¶</a></dt>
 <dd><p>(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
 (defined by &lt;lower cut&gt; (default 3.4 Ang.) and &lt;upper cut&gt; (default 5.0 Ang.)</p>
 <table class="docutils field-list" frame="void" rules="none">
