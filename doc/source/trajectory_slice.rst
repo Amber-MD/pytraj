@@ -1,12 +1,12 @@
 .. _trajectory_slice:
 
-Trajectory slicing
-==================
+Fancy indexing of trajectory
+============================
 
 .. contents::
 
 use `[ ]` slicing notation to load all given frames into memory at once
--------------------------------------------------------------------------
+-----------------------------------------------------------------------
 
 .. ipython:: python
 
