@@ -561,6 +561,26 @@ class Trajectory(object):
     def unitcells(self, values):
         self._boxes = values
 
+    def superpose(self, ref=None, mask="*"):
+        """do the fitting to reference Frame by rotation and translation
+
+        Parameters
+        ----------
+        ref : {Frame, int}, default=None (first Frame)
+            Reference
+        mask : str or AtomMask object, default='*' (fit all atoms)
+
+        Examples
+        --------
+            traj.rmsfit(0) # fit to 1st frame
+            traj.rmsfit('last', '@CA') # fit to last frame using @CA atoms
+
+        Notes
+        -----
+        alias of `rmsfit`
+        """
+        self.rmsfit(ref=ref, mask=mask)
+
     def rmsfit(self, ref=None, mask="*"):
         """do the fitting to reference Frame by rotation and translation
         Parameters

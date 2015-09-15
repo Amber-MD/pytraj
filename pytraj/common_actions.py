@@ -1206,16 +1206,16 @@ def rmsd_perres(traj=None,
                 mask="",
                 mass=False,
                 top=None,
-                range=None,
+                resrange=None,
                 perresmask=None,
-                dtype='dataset', *args, **kwd):
+                dtype='dataset'):
     """
-    Perform rmsfit calculation with `mask`, then calculate nofit rms for residues
-    in `range` with given `perresmask`
+    superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues
+    in `resrange` with given `perresmask`
     """
-    if range is not None:
-        if isinstance(range, string_types):
-            _range = 'range %s ' % range
+    if resrange is not None:
+        if isinstance(resrange, string_types):
+            _range = 'range %s ' % resrange
         else:
             raise ValueError("range must be a string")
     else:
@@ -1228,7 +1228,7 @@ def rmsd_perres(traj=None,
                      nofit=False,
                      mass=mass,
                      top=top,
-                     dtype=dtype, *args, **kwd)
+                     dtype=dtype)
 
 
 def calc_rmsd(traj=None,
@@ -1321,6 +1321,41 @@ def calc_rmsd(traj=None,
 
 # alias for `calc_rmsd`
 rmsd = calc_rmsd
+
+def distance_rmsd(traj=None, ref=None, mask='', top=None, dtype='ndarray'):
+    '''compute distance rmsd between traj and reference
+
+    Parameters
+    ----------
+    traj : Trajectory-like or iterator that produces Frame
+    ref : {None, int, Frame}, default None (1st frame)
+    mask : str
+    top : Topology or str, optional, default None
+    dtype : return dtype, default 'ndarray'
+
+    Returns
+    -------
+    1D ndarray if dtype is 'ndarray' (default)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # compute distance_rmsd to last frame
+    >>> pt.distance_rmsd(traj, ref=-1)
+
+    >>> # compute distance_rmsd to first frame with mask = '@CA'
+    >>> pt.distance_rmsd(traj, ref=0, mask='@CA')
+    '''
+    _top = _get_top(traj, top)
+    _ref = _get_reference_from_traj(traj, ref)
+    dslist = CpptrajDatasetList()
+    command = mask
+
+    act = CpptrajActions.Action_DistRmsd()
+    act.read_input(command, dslist=dslist, top=_top)
+    act.do_action(_ref)
+    act.do_action(traj)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 def align_principal_axis(traj=None, mask="*", top=None):
     # TODO : does not match with cpptraj output
