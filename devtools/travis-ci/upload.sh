@@ -13,5 +13,5 @@ if [[ "$TRAVIS_BRANCH" != "setup" ]]; then
 fi
 
 
-anaconda -t $TEST upload --force -u ambermd -p pytraj-dev $HOME/miniconda/conda-bld/linux-64/pytraj-dev-*
+anaconda -t $TEST upload --force -u ambermd -p pytraj-dev $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* || exit 1
 #binstar -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p pytraj-dev $HOME/miniconda/conda-bld/linux-64/pytraj-dev-*
