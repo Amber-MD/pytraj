@@ -6,11 +6,11 @@ requirements:
   build:
     - python
     - cython
-    - libcpptraj
+    - libcpptraj-dev
     - libnetcdf
   run:
     - python
-    - libcpptraj
+    - libcpptraj-dev
     - libnetcdf
     - matplotlib
     - seaborn

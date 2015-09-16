@@ -8,7 +8,7 @@ if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then
 fi
 
 
-if [[ "$TRAVIS_BRANCH" != "libcpptraj_conda" ]]; then
+if [[ "$TRAVIS_BRANCH" != "master" ]]; then
     echo "No deployment on BRANCH='$TRAVIS_BRANCH'"; exit 0
 fi
 
