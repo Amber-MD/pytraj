@@ -29,7 +29,7 @@ To update via ``conda``
 
     conda update -c ambermd pytraj-dev libcpptraj-dev
 
-.. note:: if you don't want to read why you should install conda, just copy and paste below script to your terminal (for Linux).
+If you don't want to read why you should install conda, just copy and paste below script to your terminal (for Linux). For Mac user, you need to follow ``conda`` website.
 
 .. code-block:: bash
 
@@ -54,7 +54,7 @@ Troubleshooting
 ``python setup.py install`` is standard process to install a new Python package.
 But if you are new to Python and got ``permission denied`` error, try to install ``pytraj`` in your home folder.
 
-.Using . code-block:: bash
+.. code-block:: bash
     
     # install pytraj in $HOME/.local
     python ./setup.py install --user

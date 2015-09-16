@@ -192,10 +192,7 @@
 <div class="highlight-bash"><div class="highlight"><pre>conda update -c ambermd pytraj-dev libcpptraj-dev
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">if you don&#8217;t want to read why you should install conda, just copy and paste below script to your terminal (for Linux).</p>
-</div>
+<p>If you don&#8217;t want to read why you should install conda, just copy and paste below script to your terminal (for Linux). For Mac user, you need to follow <tt class="docutils literal"><span class="pre">conda</span></tt> website.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 <span class="nv">$ </span>sh Miniconda3-latest-Linux-x86_64.sh
 </pre></div>
@@ -216,15 +213,15 @@ python ./setup.py install
 <h2><a class="toc-backref" href="#id6">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p><tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> is standard process to install a new Python package.
 But if you are new to Python and got <tt class="docutils literal"><span class="pre">permission</span> <span class="pre">denied</span></tt> error, try to install <tt class="docutils literal"><span class="pre">pytraj</span></tt> in your home folder.</p>
-<p>.Using . code-block:: bash</p>
-<blockquote>
-<div><p># install pytraj in $HOME/.local
-python ./setup.py install &#8211;user</p>
-<p># or install pytraj in <tt class="docutils literal"><span class="pre">your_favorite_dir</span></tt>
-python ./setup.py install &#8211;prefix=your_favorite_dir
-# if you do this, make sure to add <tt class="docutils literal"><span class="pre">your_favorite_dir</span></tt> to $PYTHONPATH
-export PYTHONPATH=your_favorite_dir:$PYTHONPATH</p>
-</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># install pytraj in $HOME/.local</span>
+python ./setup.py install --user
+
+<span class="c"># or install pytraj in ``your_favorite_dir``</span>
+python ./setup.py install --prefix<span class="o">=</span>your_favorite_dir
+<span class="c"># if you do this, make sure to add ``your_favorite_dir`` to $PYTHONPATH</span>
+<span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>your_favorite_dir:<span class="nv">$PYTHONPATH</span>
+</pre></div>
+</div>
 <p>If you want to see further options, check <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span> <span class="pre">--help</span></tt></p>
 </div>
 <div class="section" id="install-anaconda-for-all-python-packages">
