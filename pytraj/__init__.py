@@ -3,6 +3,7 @@ pytraj
 """
 from __future__ import absolute_import
 from sys import platform as _platform
+import sys
 import os
 
 # checking cpptraj version first
@@ -249,6 +250,8 @@ def savefig(fname, *args, **kwd):
 def show_versions():
     """
     """
+    print(sys.version)
+    print('')
     print("pytraj version = ", version)
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)
