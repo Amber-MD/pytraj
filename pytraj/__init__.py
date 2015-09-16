@@ -3,6 +3,7 @@ pytraj
 """
 from __future__ import absolute_import
 from sys import platform as _platform
+import sys
 import os
 
 # checking cpptraj version first
@@ -96,7 +97,7 @@ from .common_actions import (
     rmsd, rmsd_perres, distance_rmsd, search_hbonds,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
     calc_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
-    calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_pairdist, calc_vector,
+    calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
     calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
     calc_watershell, calc_volume, calc_mindist, lifetime, get_average_frame,
     _dihedral_res, energy_decomposition, native_contacts,
@@ -122,7 +123,7 @@ density = calc_density
 volume = calc_volume
 radgyr = calc_radgyr
 rdf = calc_rdf,
-pairdist = calc_pairdist
+#pairdist = calc_pairdist
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
@@ -249,6 +250,8 @@ def savefig(fname, *args, **kwd):
 def show_versions():
     """
     """
+    print(sys.version)
+    print('')
     print("pytraj version = ", version)
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)

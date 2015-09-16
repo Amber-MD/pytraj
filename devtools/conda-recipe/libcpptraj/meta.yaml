@@ -1,9 +1,9 @@
 package:
-  name: libcpptraj
-  version: 4.2.1
+  name: libcpptraj-dev
+  version: 4.2.4
 
 source:
-  git_url: https://github.com/mojyt/cpptraj/
+  git_url: https://github.com/amber-md/cpptraj.git
   git_tag: master
 
 requirements:
@@ -17,6 +17,6 @@ requirements:
     - bzip2
 
 about:
-    home: http://ambermd.org/
+    home: https://github.com/amber-md/cpptraj/
     license: GNU
-    summary: libcpptraj for pytraj
+    summary: libcpptraj

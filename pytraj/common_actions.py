@@ -83,7 +83,7 @@ def _noaction_with_TrajectoryIterator(trajiter):
             "This analysis does not support immutable object. Use `pytraj.Trajectory`")
 
 
-def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+def calc_distance(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None, *args, **kwd):
     """calculate distance between two maskes
 
     Parameters
@@ -117,6 +117,7 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     ensure_not_none_or_string(traj)
     command = mask
 
+    traj = _get_fiterator(traj, frame_indices)
     _top = _get_top(traj, top)
 
     cm_arr = np.asarray(command)
@@ -176,7 +177,7 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
             "a numpy 2D array")
 
 
-def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+def calc_angle(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None, *args, **kwd):
     """calculate angle between two maskes
 
     Parameters
@@ -215,6 +216,7 @@ def calc_angle(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
     ensure_not_none_or_string(traj)
 
+    traj = _get_fiterator(traj, frame_indices)
     _top = _get_top(traj, top)
     cm_arr = np.asarray(command)
 
@@ -292,7 +294,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     return calc_dihedral(traj=traj, mask=command, top=top, dtype=dtype)
 
 
-def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None, *args, **kwd):
     """calculate dihedral angle between two maskes
 
     Parameters
@@ -329,6 +331,7 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     ensure_not_none_or_string(traj)
     command = mask
 
+    traj = _get_fiterator(traj, frame_indices)
     _top = _get_top(traj, top)
     cm_arr = np.asarray(command)
 
@@ -390,7 +393,7 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 def calc_mindist(traj=None,
                  command="",
                  top=None,
-                 dtype='ndarray', *args, **kwd):
+                 dtype='ndarray', frame_indices=None, *args, **kwd):
     '''
     Examples
     --------
@@ -399,12 +402,14 @@ def calc_mindist(traj=None,
     '''
     from pytraj.actions.CpptrajActions import Action_NativeContacts
     from pytraj.utils.convert import array2d_to_cpptraj_maskgroup
+    traj = _get_fiterator(traj, frame_indices)
     act = Action_NativeContacts()
     dslist = CpptrajDatasetList()
 
     if not isinstance(command, string_types):
         command = array2d_to_cpptraj_maskgroup(command)
     _command = "mindist " + command
+    traj = _get_fiterator(traj, frame_indices)
     _top = _get_top(traj, top)
     act(_command, traj, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)[-1]
@@ -417,6 +422,7 @@ def calc_watershell(traj=None,
                     upper=5.0,
                     image=True,
                     dtype='dataset',
+                    frame_indices=None,
                     top=None):
     """(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
     (defined by <lower cut> (default 3.4 Ang.) and <upper cut> (default 5.0 Ang.)
@@ -445,6 +451,7 @@ def calc_watershell(traj=None,
     >>> pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
     from pytraj.actions.CpptrajActions import Action_Watershell
+    traj = _get_fiterator(traj, frame_indices)
     _top = _get_top(traj, top)
     _solutemask = solute_mask if solute_mask is not None else ''
 
@@ -468,8 +475,9 @@ def calc_watershell(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_radial(traj=None, command="", top=Topology()):
+def calc_radial(traj=None, command="", frame_indices=None, top=None):
     '''Action_Radial require calling Print() to get output. We make change here'''
+    traj = _get_fiterator(traj, frame_indices)
     act = adict['radial']
     # add `radial` keyword to command (need to check `why`?)
     if not isinstance(command, string_types):
@@ -532,7 +540,7 @@ def calc_radgyr(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None, *args, **kwd):
     '''calc molsurf
 
     Examples
@@ -540,6 +548,7 @@ def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> pt.molsurf(traj, '@CA')
     >>> pt.molsurf(traj, '!:WAT')
     '''
+    traj = _get_fiterator(traj, frame_indices)
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
     command = mask
@@ -595,7 +604,10 @@ def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 def calc_linear_interaction_energy(traj=None,
                                    mask="",
                                    top=None,
-                                   dtype='dataset', *args, **kwd):
+                                   dtype='dataset',
+                                   frame_indices=None,
+                                   *args, **kwd):
+    traj = _get_fiterator(traj, frame_indices)
     if not isinstance(mask, string_types):
         mask = to_cpptraj_atommask(mask)
 
@@ -611,7 +623,8 @@ def calc_linear_interaction_energy(traj=None,
 calc_LIE = calc_linear_interaction_energy
 
 
-def calc_rdf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_rdf(traj=None, command="", top=None, dtype='dataset', frame_indices=None, *args, **kwd):
+    traj = _get_fiterator(traj, frame_indices)
     act = CpptrajActions.Action_Radial()
     if not isinstance(command, string_types):
         command = to_cpptraj_atommask(command)
@@ -625,24 +638,23 @@ def calc_rdf(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
 
 @noparallel
 def calc_pairdist(traj=None, mask="*", mask2=None, delta=0.1, dtype='ndarray', top=None):
-
-    act = CpptrajActions.Action_PairDist()
-    _mask = 'mask ' + mask
-    _mask2 = '' if mask2 is None else 'mask2 ' + mask2
-    command = ' '.join((_mask, _mask2))
-    if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
-
-    command = command + ' delta ' + str(delta) + ' out tmp_pairdist.txt'
-    _top = _get_top(traj, top)
-    dslist = CpptrajDatasetList()
-    dflist = DataFileList()
-    act(command, traj, top=_top, dslist=dslist, dflist=dflist)
+    # TODO: can not load datafile. update cpptraj code?
 
     with goto_temp_folder():
-        print(os.getcwd())
-        dflist.write_all_datafiles()
-        return np.loadtxt('tmp_pairdist.txt', comments='#').transpose()
+        act = CpptrajActions.Action_PairDist()
+        _mask = 'mask ' + mask
+        _mask2 = '' if mask2 is None else 'mask2 ' + mask2
+        command = ' '.join((_mask, _mask2))
+        if not isinstance(command, string_types):
+            command = to_cpptraj_atommask(command)
+
+        command = command + ' delta ' + str(delta) + ' out tmp_pairdist.txt'
+        _top = _get_top(traj, top)
+        dslist = CpptrajDatasetList()
+        dflist = DataFileList()
+        act(command, traj, top=_top, dslist=dslist, dflist=dflist)
+        act.print_output()
+        return _get_data_from_dtype(dslist, dtype=dtype)
 
 pairdist = calc_pairdist
 
@@ -1829,8 +1841,7 @@ def pucker(traj=None,
 
 
 def center(traj=None, mask="", center='box', mass=False, top=None):
-    """(cpptraj) Move all atoms so that the center of the atoms in ``mask`` is centered at the speciﬁed location, box center,
-    coordinate origin
+    """center
 
     Parameters
     ----------
