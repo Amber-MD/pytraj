@@ -4,7 +4,7 @@ env:
         - PYTHON_VERSION=3.4 
     global:
         # encrypted TRAVIS_TO_ANACONDA
-        secure: "ZnHBpMazgzzsgc/wYa9Tcljvl+RaQLzp2jOglJiyT+vXp7h6GuatP/+glNfEahxnvMtFDLgHFh2iHGcIJ1w4Y1bVtf+5T3Wog8TeP4jvEyk32u/EdyjoV0z7ZzhjhIJ6VQOdUFuRB6uoOnGiB/MMihu4fp/2eyLFHw7RGQt1v74="
+        - secure: "ZnHBpMazgzzsgc/wYa9Tcljvl+RaQLzp2jOglJiyT+vXp7h6GuatP/+glNfEahxnvMtFDLgHFh2iHGcIJ1w4Y1bVtf+5T3Wog8TeP4jvEyk32u/EdyjoV0z7ZzhjhIJ6VQOdUFuRB6uoOnGiB/MMihu4fp/2eyLFHw7RGQt1v74="
 
 sudo: false
 addons:
