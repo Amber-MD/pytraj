@@ -39,7 +39,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -196,7 +196,7 @@
 <span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
 </pre></div>
 </div>
-<p>However, <code class="docutils literal"><span class="pre">pytraj</span></code> offer shorter (and easy?) way to do</p>
+<p>However, <tt class="docutils literal"><span class="pre">pytraj</span></tt> offer shorter (and easy?) way to do</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># load all files into a single TrajectoryIterator</span>
 <span class="gp">In [11]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./tz2.*.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 
@@ -208,7 +208,7 @@
 <span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">pytraj</span></code> will auto-allocate <code class="docutils literal"><span class="pre">data</span></code> too</p>
+<p><tt class="docutils literal"><span class="pre">pytraj</span></tt> will auto-allocate <tt class="docutils literal"><span class="pre">data</span></tt> too</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [14]: </span><span class="k">print</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trajlist</span><span class="p">])</span>
 <span class="go">[&#39;tz2.0.nc&#39;, &#39;tz2.1.nc&#39;, &#39;tz2.2.nc&#39;, &#39;tz2.3.nc&#39;]</span>
 
@@ -222,7 +222,7 @@
 <div class="section" id="load-from-a-list-of-files-with-frame-stride">
 <h2><a class="toc-backref" href="#id5">load from a list of files with frame stride</a><a class="headerlink" href="#load-from-a-list-of-files-with-frame-stride" title="Permalink to this headline">¶</a></h2>
 <p>Supposed you have a list of 5 (or whatever) trajectories, you only want to load those files 1st to 100-th frames
-and skip every 10 frames. Below is a convention <code class="docutils literal"><span class="pre">cpptraj</span></code> input.</p>
+and skip every 10 frames. Below is a convention <tt class="docutils literal"><span class="pre">cpptraj</span></tt> input.</p>
 <div class="highlight-bash"><div class="highlight"><pre>parm 2koc.parm7
 trajin traj0.nc <span class="m">1</span> <span class="m">100</span> 10
 trajin traj1.nc <span class="m">1</span> <span class="m">100</span> 10
@@ -231,7 +231,7 @@ trajin traj3.nc <span class="m">1</span> <span class="m">100</span> 10
 trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 </pre></div>
 </div>
-<p>In <code class="docutils literal"><span class="pre">pytraj</span></code>, you can specify <code class="docutils literal"><span class="pre">frame_slice</span></code></p>
+<p>In <tt class="docutils literal"><span class="pre">pytraj</span></tt>, you can specify <tt class="docutils literal"><span class="pre">frame_slice</span></tt></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj*.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">),]</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
 
@@ -262,7 +262,7 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
 </pre></div>
 </div>
-<p>See also: <a class="reference internal" href="trajectory_slice.html#trajectory-slice"><span>Fancy indexing of trajectory</span></a></p>
+<p>See also: <a class="reference internal" href="trajectory_slice.html#trajectory-slice"><em>Fancy indexing of trajectory</em></a></p>
 </div>
 <div class="section" id="convert-trajectory">
 <h2><a class="toc-backref" href="#id7">convert trajectory</a><a class="headerlink" href="#convert-trajectory" title="Permalink to this headline">¶</a></h2>
@@ -282,7 +282,7 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
 </footer>

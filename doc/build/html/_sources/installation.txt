@@ -14,17 +14,33 @@ Requires
 How?
 ----
 
-``pytraj`` is stil in alpha phase, you should install from ``github``::
+We higly recommend install ``pytraj`` by `conda <http://conda.pydata.org/docs/intro.html>`_
+
+.. code-block:: bash
+
+    conda install -c ambermd pytraj-dev
+
+To update via ``conda``
+
+.. code-block:: bash
+
+    conda update -c ambermd pytraj-dev libcpptraj-dev
+
+.. note:: if you don't want to read why you should install conda, just copy and paste below script to your terminal (for Linux).
+
+.. code-block:: bash
+
+    $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    $ sh Miniconda3-latest-Linux-x86_64.sh
+
+
+Alternatively, user can install ``pytraj`` from ``github``::
 
     git clone https://github.com/Amber-MD/pytraj
     cd pytraj
     python ./setup.py install
 
-or from ``conda`` (a bit outdated compared to github)::
-
-    conda install -c pytraj pytraj-dev --force
-
-Depend on your machine, the fresh installation (``libcpptraj`` + ``pytraj``) could take 2 to 4 minutes.
+Depend on your machine, the fresh installation (``libcpptraj`` + ``pytraj``) could take 30' to 4 minutes.
 
 
 Troubleshooting
