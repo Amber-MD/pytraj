@@ -23,13 +23,13 @@ install:
     - conda config --add channels https://conda.binstar.org/ambermd
     - conda config --add channels https://conda.binstar.org/pytraj
     - conda build devtools/conda-recipe/pytraj
-    - conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-*
+    - conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* --yes
 
 script:
     - git clone https://github.com/Amber-MD/cpptraj
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - conda install libcpptraj -c pytraj --force --yes
-    - conda install libnetcdf
+    - conda install libnetcdf --yes
     - cd ./tests
     - python ./run_simple_test.py
       #- python ./run_all_and_find_fails.py
