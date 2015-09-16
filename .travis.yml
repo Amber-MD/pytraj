@@ -19,7 +19,7 @@ addons:
       - libnetcdf-dev
 
 install:
-    - sources 0.sh
+    - source 0.sh
     - source devtools/travis-ci/setup_env.sh 
     - conda config --add channels https://conda.binstar.org/ambermd
     - conda config --add channels https://conda.binstar.org/pytraj
