@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/Amber-MD/pytraj.svg?branch=master)](https://travis-ci.org/Amber-MD/pytraj)
-[![Binstar Badge](https://binstar.org/pytraj/pytraj-dev/badges/version.svg)](https://binstar.org/pytraj/pytraj-dev/)
+[![Binstar Badge](https://binstar.org/ambermd/pytraj-dev/badges/version.svg)](https://binstar.org/ambermd/pytraj-dev/)
 
 PYTRAJ
 ------
@@ -54,6 +54,7 @@ How to get started?
     >>> traj['@CA'].xyz
 
     ```
+- check out website: [http://amber-md.github.io/pytraj] (http://amber-md.github.io/pytraj)
 
 Question/Suggestion?
 --------------------
