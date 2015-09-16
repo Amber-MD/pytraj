@@ -299,9 +299,9 @@ cdef extern from "DataSet_Modes.h":
         int EigvalToFreq(double)
         int MassWtEigvect(Darray&)
         int ReduceVectors() 
-        double Eigenvalue(int i) const 
-        const double * Eigenvectors() const 
-        const double * Eigenvector(int i) const 
+        double Eigenvalue(int i)
+        double * Eigenvectors()
+        double * Eigenvector(int i)
         int Nmodes() const 
         int VectorSize() const 
         #MatrixType Type() const 
@@ -309,6 +309,7 @@ cdef extern from "DataSet_Modes.h":
 
 cdef class DatasetModes (Dataset):
     cdef _DatasetModes* thisptr
+    cdef public bint py_free_mem
 
 ctypedef cmap[double, int] TcmapType
 cdef extern from "DataSet_RemLog.h": 

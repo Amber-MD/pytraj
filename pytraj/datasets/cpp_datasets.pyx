@@ -1058,13 +1058,15 @@ cdef class DatasetGridFloat(Dataset3D):
     def tolist(self):
         return [[list(x) for x in y] for y in self.data]
 
-cdef class DatasetModes (Dataset):
+cdef class DatasetModes(Dataset):
     def __cinit__(self):
+        self.py_free_mem = True
         self.thisptr = new _DatasetModes()
         self.baseptr0 = <_Dataset*> self.thisptr
 
     def __dealloc__(self):
-        del self.thisptr
+        if self.thisptr and self.py_free_mem:
+            del self.thisptr
 
     def nmodes(self):
         return self.thisptr.Nmodes()
@@ -1074,6 +1076,18 @@ cdef class DatasetModes (Dataset):
 
     def is_reduced(self):
         return self.thisptr.IsReduced()
+
+    property eigenvalues:
+        def __get__(self):
+            cdef int i
+            return np.array([self.thisptr.Eigenvalue(i) for i in
+                range(self.thisptr.Nmodes())])
+
+    property eigenvectors:
+        def __get__(self):
+            cdef const double * ptr = self.thisptr.Eigenvectors()
+            cdef int n_modes = self.thisptr.Nmodes()
+            return np.array([ptr[i] for i in range(self.thisptr.Nmodes()*3)]).reshape(n_modes, 3)
 
 
 cdef class DatasetRemLog:
