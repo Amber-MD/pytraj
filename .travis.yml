@@ -31,13 +31,14 @@ script:
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - conda install libcpptraj -c pytraj --force --yes
     - conda install libnetcdf --yes
-    - cd ./tests
-    - python ./run_simple_test.py
+    - python ./rutests.py simple
+    #- cd ./tests
+    #- python ./run_simple_test.py
     #- python ./run_all_and_find_fails.py
     #- python ./test_memory_accumulation.py
     #- cd ../examples
     #- python ./run_all_and_find_fails.py
-    - cd ../ # go back to pytraj home.
+    #- cd ../ # go back to pytraj home.
 
 after_success:
   - echo "after_success"

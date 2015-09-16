@@ -18,7 +18,7 @@ source activate myenv
 conda install --yes anaconda-client
 
 # install other packages here
-pip install git+git://github.com/ParmEd/ParmEd
-pip install memory_profiler
-pip install psutil
-pip install cclib
+#pip install git+git://github.com/ParmEd/ParmEd
+#pip install memory_profiler
+#pip install psutil
+#pip install cclib
