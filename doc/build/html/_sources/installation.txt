@@ -14,6 +14,9 @@ Requires
 How?
 ----
 
+from conda
+~~~~~~~~~~
+
 We higly recommend install ``pytraj`` by `conda <http://conda.pydata.org/docs/intro.html>`_
 
 .. code-block:: bash
@@ -34,6 +37,8 @@ To update via ``conda``
     $ sh Miniconda3-latest-Linux-x86_64.sh
 
 
+From source
+~~~~~~~~~~~
 Alternatively, user can install ``pytraj`` from ``github``::
 
     git clone https://github.com/Amber-MD/pytraj
