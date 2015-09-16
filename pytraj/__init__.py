@@ -71,8 +71,7 @@ from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from . import io
-from .io import (load, iterload, load_remd, iterload_remd, _load_from_filelist,
-                 _iterload_from_filelist, _load_from_frame_iter, load_pdb_rcsb,
+from .io import (load, iterload, load_remd, iterload_remd, _load_from_frame_iter, load_pdb_rcsb,
                  load_pdb, load_cpptraj_file, load_sample_data,
                  load_ParmEd, load_mdtraj, load_MDAnalysis,
                  load_MDAnalysisIterator, load_topology, read_parm, write_parm,
@@ -94,7 +93,7 @@ from .analyses import CpptrajAnalyses as allanalyses
 from . import common_actions
 from .dssp_analysis import calc_dssp
 from .common_actions import (
-    rmsd, rmsd_perres, search_hbonds,
+    rmsd, rmsd_perres, distance_rmsd, search_hbonds,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
     calc_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
     calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
@@ -122,6 +121,8 @@ bfactors = calc_bfactors
 density = calc_density
 volume = calc_volume
 radgyr = calc_radgyr
+rdf = calc_rdf,
+#pairdist = calc_pairdist
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry

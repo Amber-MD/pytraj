@@ -1,14 +1,10 @@
 language: python
 env:
     matrix:
-        - PYTHON_VERSION=2.7
-        - PYTHON_VERSION=3.3
         - PYTHON_VERSION=3.4 
     global:
         # encrypted TRAVIS_TO_ANACONDA
-        - secure: am-5aca48e7-ab34-4c4d-8240-54c098cb964c
-
-
+        - secure: 
 sudo: false
 addons:
   apt:

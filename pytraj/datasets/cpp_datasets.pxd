@@ -375,8 +375,8 @@ cdef extern from "DataSet_Mesh.h":
         int Allocate(SizeArray)
         void Add(size_t, const void *)
         inline void AddXY(double, double)
-        double X(int i) const 
-        double Y(int i) const 
+        double X(int i)
+        double Y(int i)
         void CalculateMeshX(int, double, double)
         int SetMeshXY(const _Dataset1D&)
         double Integrate_Trapezoid(_DatasetMesh&) const 

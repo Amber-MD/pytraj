@@ -5,7 +5,6 @@ from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, get_key
 from ..decorators import makesureABC, require_having
 from ..datafiles.datafiles import DataFileList, DataFile
-from ..utils import _import_numpy
 
 import operator
 from cython.operator cimport preincrement as incr, dereference as deref
@@ -13,7 +12,7 @@ from cpython.array cimport array as pyarray
 from cython.view cimport array as cyarray
 
 # python level
-from pytraj.utils import _import_numpy, _import
+import numpy as np
 from ..utils import is_int
 from .._shared_methods import _frame_iter
 from .._shared_methods import _xyz, _tolist
@@ -23,7 +22,6 @@ from ..trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from ..Topology cimport Topology
 from ..externals.six import string_types
 
-_, np = _import_numpy()
 
 cdef class Dataset:
     __cpptraj_dataset__ = None
@@ -119,8 +117,6 @@ cdef class Dataset:
             d.data[:] = np.arange(200)
             np.mean(d)
         """
-        from pytraj.utils import _import_numpy
-        _, np = _import_numpy()
         try:
             return np.asarray(self.data)
         except:
@@ -162,17 +158,11 @@ cdef class Dataset:
 
     def to_ndarray(self, copy=False):
         """return ndarray view of self.data"""
-        from pytraj.utils import _import_numpy
-        has_np, np = _import_numpy()
-        if has_np:
-            if not copy:
-                return np.asarray(self.data)
-            else:
-                # make copy
-                return np.array(self.data)
+        if not copy:
+            return np.asarray(self.data)
         else:
-            raise ImportError("require numpy. Use `tolist` or `to_pyarray`"
-                              " or `to_dict` to access data")
+            # make copy
+            return np.array(self.data)
 
     def to_dict(self, use_numpy=False):
         if np and use_numpy:
@@ -216,15 +206,11 @@ cdef class Dataset:
         ----
         Need to over-write this method for subclass if needed.
         """
-        from pytraj.utils import _import
-        _, plt = _import("matplotlib.pyplot")
-        try:
-            ax = plt.pyplot.plot(self.data, *args, **kwd)
-            if show:
-                plt.pyplot.show()
-            return ax
-        except ImportError:
-            raise ImportError("require matplotlib")
+        from matplotlib import pyplot as plt
+        ax = plt.plot(self.data, *args, **kwd)
+        if show:
+            plt.show()
+        return ax
 
     def chunk_average(self, n_chunk):
         import numpy as np
@@ -281,7 +267,6 @@ cdef class Dataset1D (Dataset):
         pass
 
     def __str__(self):
-        _, np = _import_numpy()
         basic_str = super(Dataset1D, self).__str__() + "\n"
         if np:
             my_str = basic_str + "values: \n" + self.values.__str__()
@@ -791,10 +776,8 @@ cdef class DatasetVector (Dataset):
         return np.array(dview)
 
     def to_dataframe(self):
-        from pytraj.utils import _import
-        _, pd = _import("pandas")
-        if pd:
-            return pd.DataFrame(self.to_ndarray(), columns=list('xyz'))
+        import pandas as pd
+        return pd.DataFrame(self.to_ndarray(), columns=list('xyz'))
 
     @property
     def data(self):
@@ -967,14 +950,9 @@ cdef class DatasetMatrixFloat (Dataset2D):
 
     def to_ndarray(self, copy=True):
         # use copy=True to be consistent with Dataset1D
-        from pytraj.utils import _import_numpy
-        _, np = _import_numpy()
-        if np:
-            arr = np.array(self.get_full_matrix()).reshape(
+        arr = np.array(self.get_full_matrix()).reshape(
                              self.n_rows, self.n_cols)
-            return arr
-        else:
-            raise ImportError("require numpy")
+        return arr
 
     def to_ndarray(self, copy=True):
         """use copy=True to be the same as Dataset1D"""
@@ -1029,7 +1007,6 @@ cdef class DatasetGridFloat(Dataset3D):
             del self.thisptr
 
     def __str__(self):
-        _, np = _import_numpy()
         basic_str = super(Dataset3D, self).__str__() + "\n"
         if np:
             my_str = basic_str + "values: " + self.values.__str__()
@@ -1076,11 +1053,7 @@ cdef class DatasetGridFloat(Dataset3D):
 
     def to_ndarray(self, copy=True):
         # copy=True: is a dummy argument to be consistent with Dataset1D
-        has_np, np = _import_numpy()
-        if not has_np:
-            raise ImportError('require numpy')
-        else:
-            return np.array(self.data[:])
+        return np.array(self.data[:])
 
     def tolist(self):
         return [[list(x) for x in y] for y in self.data]
@@ -1195,12 +1168,11 @@ cdef class DatasetMesh (Dataset1D):
         # xcrd is for cpptraj's output which use index starting of 1
         # we need to subtract "1"
         cdef size_t i
-        return [[int(self.thisptr.Xcrd(i)-1), self.thisptr.Dval(i)] for i in range(self.size)]
+        return [[self.thisptr.X(i), self.thisptr.Y(i)] for i in range(self.size)]
 
     def to_ndarray(self, copy=True):
         """use copy=True to make consistent with Dataset1D
         """
-        _, np = _import_numpy()
         return np.array(self.tolist())
 
 cdef class DatasetCoords(Dataset):
@@ -1299,7 +1271,6 @@ cdef class DatasetCoords(Dataset):
         """
         cdef Frame frame
         cdef int i
-        _, np = _import_numpy()
         n_frames = self.n_frames 
         n_atoms = self.top.n_atoms
         arr = np.empty((n_frames, n_atoms, 3))

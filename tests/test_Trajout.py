@@ -7,18 +7,18 @@ from pytraj.io import write_traj
 from pytraj import io as mdio
 from pytraj.testing import aa_eq
 
-farray = Trajectory(
+farray = pt.load(
     "data/md1_prod.Tc5b.x", "./data/Tc5b.top",
-    indices=list(range(10)))
+    frame_indices=list(range(10)))
 
 
 class TestTrajout(unittest.TestCase):
     #@no_test
 
     def test_0(self):
-        farray = Trajectory(
+        farray = pt.load(
             "data/md1_prod.Tc5b.x", "./data/Tc5b.top",
-            indices=list(range(10)))
+            frame_indices=list(range(10)))
         frame0 = farray[0]
         trajout = Trajout()
         trajout.open(filename="./output/test.x",
@@ -63,9 +63,9 @@ class TestTrajout(unittest.TestCase):
     #@no_test
     def test_4(self):
         """test write Trajectory"""
-        farray = Trajectory(
+        farray = pt.load(
             "data/md1_prod.Tc5b.x", "./data/Tc5b.top",
-            indices=list(range(10)))
+            frame_indices=list(range(10)))
         write_traj(
             "./output/test_write_output.x", farray, farray.top,
             overwrite=True)

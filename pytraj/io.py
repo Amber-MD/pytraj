@@ -9,6 +9,7 @@ from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
+from ._cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
 from ._get_common_objects import _get_top
 from .compat import zip
@@ -32,8 +33,6 @@ __all__ = ['load',
            'iterload',
            'load_remd',
            'iterload_remd',
-           '_load_from_filelist',
-           '_iterload_from_filelist',
            'load_pdb_rcsb',
            'load_pdb',
            'load_cpptraj_file',
@@ -56,18 +55,22 @@ __all__ = ['load',
 
 
 def load(*args, **kwd):
-    """try loading and returning appropriate values
+    """try loading and returning appropriate values. See example below.
 
     Examples
     --------
     >>> import pytraj as pt
+    >>> # load netcdf file with given amber parm file
     >>> traj = pt.load('traj.nc', '2koc.parm7')
-    >>> traj = pt.load('traj.mol2')
-    >>> traj = pt.load('traj.pdb')
 
-    Notes
-    -----
-    load(filename, top, use_numpy=True) will return `pytraj.api.Trajectory`
+    >>> # load netcdf file with given amber parm file
+    >>> traj = pt.load('traj.nc', '2koc.parm7')
+
+    >>> # load mol2 file
+    >>> traj = pt.load('traj.mol2')
+
+    >>> # load pdb file
+    >>> traj = pt.load('traj.pdb')
     """
 
     if args and is_frame_iter(args[0]):
@@ -91,25 +94,7 @@ def load(*args, **kwd):
         ensure_exist(filename)
         # load to TrajectoryIterator object first
         traj = load_traj(*args, **kwd)
-        if 'use_numpy' in kwd.keys() and kwd['use_numpy']:
-            from pytraj.api import Trajectory
-            return Trajectory(xyz=traj.xyz, top=traj.top)
-        else:
-            return traj[:]
-
-
-def _load_from_filelist(*args, **kwd):
-    """return a list of Trajectory"""
-    args_less = args[1:]
-    if isinstance(args[0], (list, tuple)):
-        mylist = args[0]
-    elif isinstance(args[0], string_types):
-        # "remd.x.*"
-        from glob import glob
-        mylist = sorted(glob(args[0]))
-    else:
-        raise ValueError()
-    return [load_traj(filename, *args_less, **kwd)[:] for filename in mylist]
+        return traj[:]
 
 
 def iterload(*args, **kwd):
@@ -119,14 +104,19 @@ def iterload(*args, **kwd):
     --------
     >>> import pytraj as pt
     >>> traj = pt.iterload('traj.nc', '2koc.parm7')
+
+    >>> # load from a list of files
     >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7')
+
+    >>> # load all files with given pattern
     >>> traj = pt.iterload('./traj*.nc', '2koc.parm7')
+
+    >>> # load from a list of files with given frame stride
+    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10, 2),]*2)
     """
-    if kwd and 'indices' in kwd.keys():
+    if kwd and 'frame_indices' in kwd.keys():
         raise ValueError(
             "do not support indices for TrajectoryIterator loading")
-    if kwd and 'engine' in kwd.keys() and kwd['engine'] == 'mdtraj':
-        raise ValueError("do not support iterload with engine=='mdtraj'")
     return load_traj(*args, **kwd)
 
 
@@ -156,60 +146,18 @@ def _load_netcdf(filename, top, indices=None, engine='scipy'):
     return traj
 
 
-def _iterload_from_filelist(filename=None,
-                            top=None,
-                            force_load=False, *args, **kwd):
-    """return a list of TrajectoryIterator"""
-
-    if kwd and 'indices' in kwd.keys():
-        raise ValueError(
-            "do not support indices for TrajectoryIterator loading")
-
-    if isinstance(filename, (list, tuple)):
-        trajnamelist = filename
-    elif isinstance(filename, string_types):
-        # "remd.x.*"
-        from glob import glob
-        trajnamelist = sorted(glob(filename))
-    else:
-        raise ValueError()
-
-    if isinstance(top, (list, tuple)):
-        toplist = top
-    elif isinstance(top, string_types):
-        # "remd.x.*"
-        from glob import glob
-        toplist = sorted(glob(top))
-    else:
-        raise ValueError()
-
-    if len(trajnamelist) != len(toplist):
-        if not force_load:
-            raise ValueError(
-                "len of filename list is not equal to len of toplist")
-        else:
-            assert len(trajnamelist) > len(
-                toplist), "toplist must have smaller len"
-            last_top = toplist[-1]
-            toplist += [
-                last_top for _ in range(len(toplist), len(trajnamelist))
-            ]
-
-    return [load_traj(_filename, _top, *args, **kwd)
-            for _filename, _top in zip(trajnamelist, toplist)]
-
 
 def load_traj(filename=None,
               top=None,
-              indices=None,
-              engine='pytraj', *args, **kwd):
+              frame_indices=None,
+              *args, **kwd):
     """load trajectory from filename
 
     Parameters
     ----------
     filename : str
     top : {str, Topology}
-    indices : {None, list, array ...}
+    frame_indices : {None, list, array ...}
     engine : str, {'pytraj', 'mdanalysis'}, default 'pytraj'
         if 'pytraj', use pytraj for iterload (return `TrajectoryIterator`)
         if 'mdanalysis', use this package (return `TrajectoryMDAnalysisIterator`)
@@ -217,53 +165,31 @@ def load_traj(filename=None,
 
     Returns
     -------
-    TrajectoryIterator : if indices is None and engine='pytraj'
-    or 
+    TrajectoryIterator : if frame_indices is None
     Trajectory : if there is indices
-    or TrajectoryMDAnalysisIterator if engine='mdanalysis'
     """
-    if 'frame_slice' in kwd.keys() and not engine == 'pytraj':
-        raise KeyError("only support frame_slice in engine mode = 'pytraj'")
+    from pytraj import Trajectory
+    from pytraj import TrajectoryIterator
 
-    engine = engine.lower()
+    if isinstance(top, string_types):
+        top = load_topology(top)
+    if top is None or top.is_empty():
+        top = load_topology(filename)
+    ts = TrajectoryIterator(top=top)
 
-    if engine == 'pytraj':
-        from .Topology import Topology
-        from .TrajectoryIterator import TrajectoryIterator
-        from .api import Trajectory
-
-        if isinstance(top, string_types):
-            top = load_topology(top)
-        if top is None or top.is_empty():
-            top = load_topology(filename)
-        ts = TrajectoryIterator(top=top)
-
-        if 'frame_slice' in kwd.keys():
-            ts.load(filename, frame_slice=kwd['frame_slice'])
-        else:
-            ts.load(filename)
-
-        if indices is not None:
-            if isinstance(indices, tuple):
-                indices = list(indices)
-            return ts[indices]
-        elif is_frame_iter(filename):
-            return _load_from_frame_iter(filename, top)
-        else:
-            return ts
-    elif engine == 'mdanalysis':
-        from MDAnalysis import Universe as U
-        if top is None:
-            top = filename
-        return load_MDAnalysisIterator(U(top, filename, *args, **kwd))
-    elif engine == 'mdtraj':
-        import mdtraj as md
-        if top is None:
-            top = filename
-        return load_mdtraj(md.load(filename, top=top, *args, **kwd))
+    if 'frame_slice' in kwd.keys():
+        ts.load(filename, frame_slice=kwd['frame_slice'])
     else:
-        raise NotImplementedError(
-            "support only {'pytraj', 'mdanlaysis', 'mdtraj'} engines")
+        ts.load(filename)
+
+    if frame_indices is not None:
+        if isinstance(frame_indices, tuple):
+            frame_indices = list(frame_indices)
+        return ts[frame_indices]
+    elif is_frame_iter(filename):
+        return _load_from_frame_iter(filename, top)
+    else:
+        return ts
 
 
 def _load_from_frame_iter(iterables, top=None, n_frames=None):
@@ -317,7 +243,7 @@ def load_remd(filename, top=None, T="300.0"):
 def write_traj(filename="",
                traj=None,
                top=None,
-               indices=None,
+               frame_indices=None,
                overwrite=False,
                mode=""):
     """write Trajectory-like or iterable object to trajectory file
@@ -325,9 +251,9 @@ def write_traj(filename="",
     Parameters
     ----------
     filename : str
-    traj : Trajectory-like or iterator that produces Frame
+    traj : Trajectory-like or iterator that produces Frame or 3D ndarray with shape=(n_frames, n_atoms, 3)
     top : Topology, optional, default: None
-    indices: array-like or iterator that produces integer, default: None
+    frame_indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
     overwrite: bool, default: False
     mode : str, additional keywords for extention='.pdb'. See examples.
@@ -363,6 +289,11 @@ def write_traj(filename="",
 
     >>> # write to DCD file
     >>> pt.write_traj("test.dcd", traj, overwrite=True)
+
+    >>> # write to netcdf file from 3D numpy array, need to provide Topology
+    >>> xyz = traj.xyz
+    >>> top = traj.top
+    >>> pt.write_traj("test_xyz.nc", xyz, top=traj.top, overwrite=True)
     """
     from .Frame import Frame
     from .trajs.Trajout import Trajout
@@ -374,31 +305,45 @@ def write_traj(filename="",
     if traj is None or _top is None:
         raise ValueError("Need non-empty traj and top files")
 
-    with Trajout(filename=filename,
-                 top=_top,
-                 overwrite=overwrite,
-                 mode=mode) as trajout:
-        if isinstance(traj, Frame):
-            if indices is not None:
-                raise ValueError("indices does not work with single Frame")
-            trajout.write(0, traj)
-        else:
-            if isinstance(traj, string_types):
-                traj2 = iterload(traj, _top)
+    if not isinstance(traj, np.ndarray):
+        with Trajout(filename=filename,
+                     top=_top,
+                     overwrite=overwrite,
+                     mode=mode) as trajout:
+            if isinstance(traj, Frame):
+                if frame_indices is not None:
+                    raise ValueError("frame indices does not work with single Frame")
+                trajout.write(0, traj)
             else:
-                traj2 = traj
+                if isinstance(traj, string_types):
+                    traj2 = iterload(traj, _top)
+                else:
+                    traj2 = traj
 
-            if indices is not None:
-                if isinstance(traj2, (list, tuple, Frame)):
-                    raise NotImplementedError(
-                        "must be Trajectory or TrajectoryIterator instance")
-                for idx, frame in enumerate(traj.iterframe(frame_indices=indices)):
-                    trajout.write(idx, frame)
+                if frame_indices is not None:
+                    if isinstance(traj2, (list, tuple, Frame)):
+                        raise NotImplementedError(
+                            "must be Trajectory or TrajectoryIterator instance")
+                    for idx, frame in enumerate(traj.iterframe(frame_indices=frame_indices)):
+                        trajout.write(idx, frame)
 
-            else:
-                for idx, frame in enumerate(iterframe_master(traj2)):
-                    trajout.write(idx, frame)
+                else:
+                    for idx, frame in enumerate(iterframe_master(traj2)):
+                        trajout.write(idx, frame)
+    else:
+        # is ndarray, shape=(n_frames, n_atoms, 3)
+        # create frame iterator
+        xyz = traj
+        _frame_indices = range(xyz.shape[0]) if frame_indices is None else frame_indices
+        fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices)
 
+        with Trajout(filename=filename,
+                     top=_top,
+                     overwrite=overwrite,
+                     mode=mode) as trajout:
+
+            for idx, frame in enumerate(fi):
+                trajout.write(idx, frame)
 
 def write_parm(filename=None, top=None, format='AMBERPARM'):
     # TODO : add *args
