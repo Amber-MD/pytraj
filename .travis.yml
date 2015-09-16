@@ -22,6 +22,7 @@ install:
     - source devtools/travis-ci/setup_env.sh 
     - conda config --add channels https://conda.binstar.org/ambermd
     - conda config --add channels https://conda.binstar.org/pytraj
+    - python --version
     - conda build devtools/conda-recipe/pytraj
     - conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* --yes
 
