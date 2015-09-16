@@ -12,5 +12,5 @@ if [[ "$TRAVIS_BRANCH" != "setup" ]]; then
     echo "No deployment on BRANCH='$TRAVIS_BRANCH'"; exit 0
 fi
 
-
+echo 'TRAVIS_TO_ANACONDA token: $TRAVIS_TO_ANACONDA'
 anaconda -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p pytraj-dev $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* || exit 1

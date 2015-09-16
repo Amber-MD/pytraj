@@ -19,6 +19,7 @@ addons:
       - libnetcdf-dev
 
 install:
+    - echo 'TRAVIS_TO_ANACONDA token: $TRAVIS_TO_ANACONDA'
     - source devtools/travis-ci/setup_env.sh 
     - conda config --add channels https://conda.binstar.org/ambermd
     - conda config --add channels https://conda.binstar.org/pytraj
