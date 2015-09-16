@@ -1,48 +1,35 @@
 language: python
 env:
-    matrix:
-        - PYTHON_VERSION=3.4 
-    global:
-        # encrypted TRAVIS_TO_ANACONDA
-        - secure: "ZnHBpMazgzzsgc/wYa9Tcljvl+RaQLzp2jOglJiyT+vXp7h6GuatP/+glNfEahxnvMtFDLgHFh2iHGcIJ1w4Y1bVtf+5T3Wog8TeP4jvEyk32u/EdyjoV0z7ZzhjhIJ6VQOdUFuRB6uoOnGiB/MMihu4fp/2eyLFHw7RGQt1v74="
-
+  matrix:
+  - PYTHON_VERSION=3.4
+  global:
+    secure: Ni6zPQoElJkQJNvYp/RD/AUFsDrZRGfujqy3IziFu/Rp06dl1ha3UCfhvdnftBhMzNZmR2cNJdq9dmCqmIQ4lD3KjiXS8h9klcpkKmSwTAtv9ZTnQjHGV16i7u4o651pQNqj1jNz8gR6zYTJbtr2ullQ0lA5X5aW+BgUP5lAais=
 sudo: false
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-      - g++
-      - gfortran
-      - libz-dev
-      - libbz2-dev
-      - libnetcdf-dev
-
+    - g++
+    - gfortran
+    - libz-dev
+    - libbz2-dev
+    - libnetcdf-dev
 install:
-    - source 0.sh
-    - source devtools/travis-ci/setup_env.sh 
-    - conda config --add channels https://conda.binstar.org/ambermd
-    - conda config --add channels https://conda.binstar.org/pytraj
-    - python --version
-    - conda build --py $PYTHON_VERSION devtools/conda-recipe/pytraj
-    - conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* --yes
-
+- source 0.sh
+- source devtools/travis-ci/setup_env.sh
+- conda config --add channels https://conda.binstar.org/ambermd
+- conda config --add channels https://conda.binstar.org/pytraj
+- python --version
+- conda build --py $PYTHON_VERSION devtools/conda-recipe/pytraj
+- conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* --yes
 script:
-    - git clone https://github.com/Amber-MD/cpptraj
-    - export CPPTRAJHOME=`pwd`"/cpptraj/"
-    - conda install libcpptraj -c pytraj --force --yes
-    - conda install libnetcdf --yes
-    #- cd ./tests
-    #- python ./run_simple_test.py
-    #- python ./run_all_and_find_fails.py
-    #- python ./test_memory_accumulation.py
-    #- cd ../examples
-    #- python ./run_all_and_find_fails.py
-    #- cd ../ # go back to pytraj home.
-
+- git clone https://github.com/Amber-MD/cpptraj
+- export CPPTRAJHOME=`pwd`"/cpptraj/"
+- conda install libcpptraj -c pytraj --force --yes
+- conda install libnetcdf --yes
 after_success:
-  - echo "after_success"
-  - source devtools/travis-ci/upload.sh
-
+- echo "after_success"
+- source devtools/travis-ci/upload.sh
 notifications:
   email: false
