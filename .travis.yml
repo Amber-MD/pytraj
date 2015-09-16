@@ -1,9 +1,6 @@
 language: python
 env:
-  matrix:
-  - PYTHON_VERSION=3.4
-  global:
-    secure: Ni6zPQoElJkQJNvYp/RD/AUFsDrZRGfujqy3IziFu/Rp06dl1ha3UCfhvdnftBhMzNZmR2cNJdq9dmCqmIQ4lD3KjiXS8h9klcpkKmSwTAtv9ZTnQjHGV16i7u4o651pQNqj1jNz8gR6zYTJbtr2ullQ0lA5X5aW+BgUP5lAais=
+  secure: JLFg6mbavHoSfqApsTUnE39ZtrEuv76UUsBwMJy3b8lp1s6dBwmbmEBm9VYb4wttCSKOd3BcuRd4lo5+Oxp25tKvLLg86P0PE6/cjn7vz3RAQ/qQhbEBUEV0nJkuKMCFpQPu8LGPY2oiRyPr4OGwfWdLzgYolMAxWtS6cCqAyPk=
 sudo: false
 addons:
   apt:
