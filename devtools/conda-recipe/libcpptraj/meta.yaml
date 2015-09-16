@@ -1,5 +1,5 @@
 package:
-  name: libcpptraj
+  name: libcpptraj-dev
   version: 4.2.4
 
 source:
@@ -19,4 +19,4 @@ requirements:
 about:
     home: https://github.com/amber-md/cpptraj/
     license: GNU
-    summary: libcpptraj for pytraj
+    summary: libcpptraj
