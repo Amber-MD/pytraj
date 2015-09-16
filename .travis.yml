@@ -37,6 +37,7 @@ script:
     #- python ./test_memory_accumulation.py
     #- cd ../examples
     #- python ./run_all_and_find_fails.py
+    - cd ../ # go back to pytraj home.
 
 after_success:
   - echo "after_success"
