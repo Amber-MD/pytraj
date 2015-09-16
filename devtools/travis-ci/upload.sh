@@ -8,9 +8,9 @@ if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then
 fi
 
 
-if [[ "$TRAVIS_BRANCH" != "master" ]]; then
+if [[ "$TRAVIS_BRANCH" != "libcpptraj_conda" ]]; then
     echo "No deployment on BRANCH='$TRAVIS_BRANCH'"; exit 0
 fi
 
-echo 'TRAVIS_TO_ANACONDA token: $TRAVIS_TO_ANACONDA'
 anaconda -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p pytraj-dev $HOME/miniconda/conda-bld/linux-64/pytraj-dev-*
+anaconda -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p libcpptraj-dev $HOME/miniconda/conda-bld/linux-64/libcpptraj-dev-*
