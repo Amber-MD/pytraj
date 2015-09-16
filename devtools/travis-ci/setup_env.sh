@@ -9,22 +9,16 @@ fi
 bash $MINICONDA -b
 
 export PATH=$HOME/miniconda/bin:$PATH
-conda install --yes conda-build jinja2 binstar pip
+conda install --yes conda-build jinja2 anaconda-client pip
+conda config --add channels http://conda.binstar.org/ambermd/
 
-if [ -z "$NO_CYTHON" ]; then
-    if [ $PYTHON_VERSION = '3.4' ]; then
-        python ./scripts/clean_cythonize_files_git.py
-    fi
-    conda create -y -n myenv python=$PYTHON_VERSION \
-        numpy cython h5py
-else
-    conda create -y -n myenv python=$PYTHON_VERSION numpy h5py
-fi
+conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py
 
 source activate myenv
+conda install --yes anaconda-client
 
 # install other packages here
-pip install git+git://github.com/ParmEd/ParmEd
-pip install memory_profiler
-pip install psutil
-pip install cclib
+#pip install git+git://github.com/ParmEd/ParmEd
+#pip install memory_profiler
+#pip install psutil
+#pip install cclib

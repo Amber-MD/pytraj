@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
-import unittest
+import unittest # pragma no_test
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 import numpy as np

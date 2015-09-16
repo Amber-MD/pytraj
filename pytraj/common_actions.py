@@ -1841,8 +1841,7 @@ def pucker(traj=None,
 
 
 def center(traj=None, mask="", center='box', mass=False, top=None):
-    """(cpptraj) Move all atoms so that the center of the atoms in ``mask`` is centered at the speciﬁed location, box center,
-    coordinate origin
+    """center
 
     Parameters
     ----------

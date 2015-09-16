@@ -1,29 +1,41 @@
 language: python
+
 env:
-    matrix:
-        - PYTHON_VERSION=2.7
-        - PYTHON_VERSION=3.3
-        - PYTHON_VERSION=3.4 
-        - PYTHON_VERSION=3.5
+  matrix:
+    - PYTHON_VERSION=2.7
+    - PYTHON_VERSION=3.3
+    - PYTHON_VERSION=3.4
+    - PYTHON_VERSION=3.5
+  global:
+    - secure: JLFg6mbavHoSfqApsTUnE39ZtrEuv76UUsBwMJy3b8lp1s6dBwmbmEBm9VYb4wttCSKOd3BcuRd4lo5+Oxp25tKvLLg86P0PE6/cjn7vz3RAQ/qQhbEBUEV0nJkuKMCFpQPu8LGPY2oiRyPr4OGwfWdLzgYolMAxWtS6cCqAyPk=
+
 sudo: false
+
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-      - g++
-      - gfortran
-      - libz-dev
-      - libbz2-dev
-      - libnetcdf-dev
+    - g++
+    - gfortran
+    - libz-dev
+    - libbz2-dev
+    - libnetcdf-dev
 
 install:
-    - source devtools/travis-ci/setup_env.sh 
-    - python ./setup.py install
+    - source devtools/travis-ci/setup_env.sh
+    - conda config --add channels https://conda.binstar.org/ambermd
+    - conda config --add channels https://conda.binstar.org/pytraj
+    - python --version
+    - conda build --py $PYTHON_VERSION devtools/conda-recipe/pytraj
+    - conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* --yes
 
 script:
+    - git clone https://github.com/Amber-MD/cpptraj
+    - export PYTRAJHOME=`pwd`
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
-    - export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:$LD_LIBRARY_PATH
+    - conda install libcpptraj -c pytraj --force --yes
+    - conda install libnetcdf --yes
     - cd ./tests
     - python -c 'import pytraj'
     - python ./run_simple_test.py
@@ -31,6 +43,11 @@ script:
     - python ./test_memory_accumulation.py
     - cd ../examples
     - python ./run_all_and_find_fails.py
+    - cd $PYTRAJHOME
+
+after_success:
+    - echo "after_success"
+    - source devtools/travis-ci/upload.sh
 
 notifications:
   email: false

@@ -26,6 +26,38 @@ pytraj_version = pytraj_version.replace('"', '', 10)
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 
+openmp_str = "openmp"
+if openmp_str in sys.argv:
+    # python ./setup.py build openmp
+    # make sure to update Makefile in $AMBERHOME/AmberTools/src
+    # if changing '-openmp' to something else
+    with_openmp = True
+    sys.argv.remove(openmp_str)
+else:
+    with_openmp = False 
+
+faster_build_str = "faster"
+
+KeyErrorTXT = """
+Can not use -faster_build with `install`,
+try  "python ./setup.py build faster_build
+then "python ./setup.py install" 
+"""
+
+if faster_build_str in sys.argv:
+    # try using multiple cores
+    faster_build = True
+    sys.argv.remove(faster_build_str)
+    if "install" in sys.argv:
+        sys.stderr.write(KeyErrorTXT)
+        sys.exit(0)
+    if 'build' not in sys.argv:
+        sys.stderr.write('faster must come with build')
+        sys.exit(0)
+else:
+    faster_build = False
+
+
 if len(sys.argv) == 2 and sys.argv[1] == 'install':
     do_install = True
 else:
@@ -36,20 +68,22 @@ if len(sys.argv) == 2 and sys.argv[1] == 'build':
 else:
     do_build= False
 
-
-# check/install Cython
+# require cython version >= 0.23 for now.
 cmdclass = {}
 try:
+    import Cython
     from Cython.Distutils import build_ext
     from Cython.Build import cythonize
     has_cython = True
     cmdclass['build_ext'] = build_ext
+    if Cython.__version__ < '0.23':
+        raise ImportError
 except ImportError:
-    has_cython = False
-    from distutils.command.build_ext import build_ext 
-    cmdclass['build_ext'] = build_ext
-    #sys.stderr.write('You must have Cython installed to install pytraj\n')
-    #sys.exit(0)
+    #has_cython = False
+    #from distutils.command.build_ext import build_ext 
+    #cmdclass['build_ext'] = build_ext
+    sys.stderr.write('Building from source requires cython >= 0.23 \n')
+    sys.exit(0)
 
 # check AMBERHOME
 try:
@@ -163,36 +197,10 @@ if not list_of_libcpptraj:
                            )
             sys.exit(0)
 
-openmp_str = "openmp"
-if openmp_str in sys.argv:
-    # python ./setup.py build openmp
-    # make sure to update Makefile in $AMBERHOME/AmberTools/src
-    # if changing '-openmp' to something else
-    with_openmp = True
-    sys.argv.remove(openmp_str)
-else:
-    with_openmp = False 
-
 if with_openmp:
     extra_compile_args.append("-fopenmp")
     extra_link_args.append("-fopenmp")
 
-KeyErrorTXT = """
-Can not use -faster_build with `install`,
-try  "python ./setup.py build faster_build
-then "python ./setup.py install" 
-"""
-
-faster_build_str = "faster"
-if faster_build_str in sys.argv:
-    # try using multiple cores
-    faster_build = True
-    sys.argv.remove(faster_build_str)
-    if "install" in sys.argv:
-        sys.stderr.write(KeyErrorTXT)
-        sys.exit(0)
-else:
-    faster_build = False
 
 # since we added "INSTALLTYPE" after setup.py file, we need
 # to remove it if having one
