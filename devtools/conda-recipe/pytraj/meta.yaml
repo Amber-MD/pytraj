@@ -12,8 +12,6 @@ requirements:
     - python
     - libcpptraj-dev
     - libnetcdf
-    - matplotlib
-    - seaborn
     - numpy
 
 about:
