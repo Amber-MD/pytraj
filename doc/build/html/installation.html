@@ -102,7 +102,7 @@
 <li><a class="reference internal" href="#requires">Requires</a></li>
 <li><a class="reference internal" href="#how">How?</a><ul>
 <li><a class="reference internal" href="#from-conda">from conda</a></li>
-<li><a class="reference internal" href="#from-source">From source</a></li>
+<li><a class="reference internal" href="#from-source">from source</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
@@ -165,7 +165,7 @@
 <li><a class="reference internal" href="#requires" id="id2">Requires</a></li>
 <li><a class="reference internal" href="#how" id="id3">How?</a><ul>
 <li><a class="reference internal" href="#from-conda" id="id4">from conda</a></li>
-<li><a class="reference internal" href="#from-source" id="id5">From source</a></li>
+<li><a class="reference internal" href="#from-source" id="id5">from source</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#troubleshooting" id="id6">Troubleshooting</a></li>
@@ -202,7 +202,7 @@
 </div>
 </div>
 <div class="section" id="from-source">
-<h3><a class="toc-backref" href="#id5">From source</a><a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5">from source</a><a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h3>
 <p>Alternatively, user can install <tt class="docutils literal"><span class="pre">pytraj</span></tt> from <tt class="docutils literal"><span class="pre">github</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/Amber-MD/pytraj
 cd pytraj
@@ -216,15 +216,15 @@ python ./setup.py install
 <h2><a class="toc-backref" href="#id6">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p><tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> is standard process to install a new Python package.
 But if you are new to Python and got <tt class="docutils literal"><span class="pre">permission</span> <span class="pre">denied</span></tt> error, try to install <tt class="docutils literal"><span class="pre">pytraj</span></tt> in your home folder.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="c"># install pytraj in $HOME/.local</span>
-python ./setup.py install --user
-
-<span class="c"># or install pytraj in ``your_favorite_dir``</span>
-python ./setup.py install --prefix<span class="o">=</span>your_favorite_dir
-<span class="c"># if you do this, make sure to add ``your_favorite_dir`` to $PYTHONPATH</span>
-<span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>your_favorite_dir:<span class="nv">$PYTHONPATH</span>
-</pre></div>
-</div>
+<p>.Using . code-block:: bash</p>
+<blockquote>
+<div><p># install pytraj in $HOME/.local
+python ./setup.py install &#8211;user</p>
+<p># or install pytraj in <tt class="docutils literal"><span class="pre">your_favorite_dir</span></tt>
+python ./setup.py install &#8211;prefix=your_favorite_dir
+# if you do this, make sure to add <tt class="docutils literal"><span class="pre">your_favorite_dir</span></tt> to $PYTHONPATH
+export PYTHONPATH=your_favorite_dir:$PYTHONPATH</p>
+</div></blockquote>
 <p>If you want to see further options, check <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span> <span class="pre">--help</span></tt></p>
 </div>
 <div class="section" id="install-anaconda-for-all-python-packages">

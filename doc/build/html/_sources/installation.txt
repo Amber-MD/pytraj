@@ -37,7 +37,7 @@ To update via ``conda``
     $ sh Miniconda3-latest-Linux-x86_64.sh
 
 
-From source
+from source
 ~~~~~~~~~~~
 Alternatively, user can install ``pytraj`` from ``github``::
 
@@ -54,7 +54,7 @@ Troubleshooting
 ``python setup.py install`` is standard process to install a new Python package.
 But if you are new to Python and got ``permission denied`` error, try to install ``pytraj`` in your home folder.
 
-.. code-block:: bash
+.Using . code-block:: bash
     
     # install pytraj in $HOME/.local
     python ./setup.py install --user
