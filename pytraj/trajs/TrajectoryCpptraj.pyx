@@ -63,7 +63,10 @@ cdef class TrajectoryCpptraj:
         # convert pytraj frame_slice to cpptraj's understandable format (str)
         # need to increase start, stop by +1 since cpptraj use +1 for cpptraj.in
         if not isinstance(frame_slice, tuple):
-            raise ValueError("frame_slice must be a tuple")
+            if isinstance(frame_slice, list) and isinstance(frame_slice[0], tuple):
+                frame_slice = frame_slice[0]
+            else:
+                raise ValueError("frame_slice must be a tuple or a list of tuple")
         if len(frame_slice) == 1:
             start = frame_slice[0]
             stop = -1
