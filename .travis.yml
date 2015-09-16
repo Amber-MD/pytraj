@@ -31,7 +31,6 @@ script:
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - conda install libcpptraj -c pytraj --force --yes
     - conda install libnetcdf --yes
-    - python ./rutests.py simple
     #- cd ./tests
     #- python ./run_simple_test.py
     #- python ./run_all_and_find_fails.py
