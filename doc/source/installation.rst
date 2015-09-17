@@ -23,7 +23,7 @@ We higly recommend install ``pytraj`` by `conda <http://conda.pydata.org/docs/in
 
 .. code-block:: bash
 
-    conda install -c ambermd pytraj-dev
+    conda install -c ambermd pytraj-dev libcpptraj-dev
 
 This takes only less than 30 seconds.
 
@@ -77,6 +77,16 @@ if you install ``pytraj`` via github and want to update ``cpptraj``
     $ cd cpptraj
     $ git pull
     $ make libcpptraj
+
+Uninstall
+---------
+
+from conda
+~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ conda remove pytraj-dev libcpptraj-dev
     
 
 Troubleshooting
