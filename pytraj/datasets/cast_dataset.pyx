@@ -5,6 +5,7 @@ from .cpp_datasets cimport (_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInt
                           Dataset2D, _Dataset2D, DatasetMatrixDouble,
                           _DatasetMatrixDouble, DatasetMatrixFloat, _DatasetMatrixFloat,
                           Dataset3D, _Dataset3D, DatasetGridFloat, _DatasetGridFloat,
+                          _DatasetModes, DatasetModes,
                           DatasetMesh, _DatasetMesh, _DatasetMatrix3x3, DatasetMatrix3x3,
                           _DatasetCoords, DatasetCoords, _DatasetCoordsRef, 
                           DatasetCoordsRef, _DatasetCoordsCRD, DatasetCoordsCRD)
@@ -32,6 +33,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DatasetFloat newset_float
     cdef DatasetInteger newset_integer
     cdef DatasetString newset_string
+    cdef DatasetModes newset_modes
     cdef DatasetMesh newset_mesh
     cdef DatasetVector newset_vector
     cdef DatasetMatrix3x3 newset_matrix3x3
@@ -112,6 +114,15 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_mesh.baseptr_1 = <_Dataset1D*> dset.baseptr0
         newset_mesh.thisptr = <_DatasetMesh*> dset.baseptr0
         return newset_mesh
+
+    elif dtype in ['MODES']: 
+        newset_modes = DatasetModes()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_modes.py_free_mem = False
+        newset_modes.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_modes.thisptr = <_DatasetModes*> dset.baseptr0
+        return newset_modes
 
     elif dtype in ['VECTOR']: 
         newset_vector = DatasetVector()
