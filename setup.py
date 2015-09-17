@@ -122,7 +122,7 @@ else:
     # ./cpptraj/lib
 
     nice_message = """
-    Trying to dowload and build libcpptraj for you. (5-10 minutes)
+    We're trying to dowload and build libcpptraj for you. (5-10 minutes)
     (check ./cpptraj/ folder after installation)
 
     To avoid auto-installation
@@ -311,7 +311,10 @@ def remind_ld_lib_path(build_tag, libdir):
         print ("")
         print (batman)
         libdir = os.path.abspath(libdir)
-        print ("make sure to add %s to your LD_LIBRARY_PATH" % libdir)
+        print ('make sure to add %s to your LD_LIBRARY_PATH \n\n'
+               'example: export LD_LIBRARY_PATH=%s:$LD_LIBRARY_PATH\n\n'
+               'try simple test: python ./runtests.py simple\n\n'
+                % (libdir, libdir))
         print ("")
     else:
         print ("not able to install pytraj")
