@@ -16,7 +16,7 @@ http://amber-md.github.io/pytraj
     * It supports more than 100 types of analyses in [cpptraj] (http://ambermd.org/doc12/Amber15.pdf)
     * It has clean Python/Cython syntax
     * It has been extensively tested (>10K lines of testing code)
-    * It's portable: you only need to install "libcpptraj" and optional numpy
+    * It's portable: you only need to install "libcpptraj" and numpy
 - Note: `pytraj` is still in its infancy and its API might be rapidly changed. But it's not hurt to try :).
 
 
@@ -33,28 +33,35 @@ Install
     * git clone https://github.com/amber-md/pytraj
     * cd pytraj
     * python ./setup.py install
-    * (Note: pytraj will install the most update cpptraj)
-- if you are using `conda`, you can just `conda install -c pytraj pytraj-dev` for Linux system
-- get trouble? : [check our webpage](http://amber-md.github.io/pytraj/doc/build/html/installation.html)
+    * (Note: pytraj will install the most updated cpptraj)
+- if you are using `conda`, you can just `conda install -c ambermd pytraj-dev libcpptraj-dev` for Linux system
+- getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/doc/build/html/installation.html)
 
 How to get started?
 ------------------
 - examples: 
 
     ```python
-    >>> import pytraj as pt
-    >>> traj = pt.iterload("data.nc", "top.parm7")
-    >>> pt.rmsd(traj, ref=0, mask='@CA')
-    >>> pt.distance(traj, [[0, 2], [3, 7]])
-    >>> pt.bfactors(traj, '@CA', byres=True, dtype='dataset').plot()
-    >>> pt.energy_decomposition(traj, igb=8, parm="./top.parm7")['dihedral']
-    >>> pt.dssp(traj, ':2-16')
-    >>> pt.calc_phi(traj, resrange=range(2, 8, 2))
-    >>> pt.rotate_dihedral(traj, '3:phi:120')
-    >>> traj['@CA'].xyz
+    import pytraj as pt
+    traj = pt.iterload("data.nc", "top.parm7")
+    pt.rmsd(traj, ref=0, mask='@CA')
+
+    pt.distance(traj, [[0, 2], [3, 7]])
+
+    pt.bfactors(traj, '@CA', byres=True, dtype='dataset').plot()
+
+    pt.energy_decomposition(traj, igb=8, parm="./top.parm7")['dihedral']
+
+    pt.dssp(traj, ':2-16')
+
+    pt.calc_phi(traj, resrange=range(2, 8, 2))
+
+    pt.rotate_dihedral(traj, '3:phi:120')
+
+    traj['@CA'].xyz
 
     ```
-- check out website: [http://amber-md.github.io/pytraj] (http://amber-md.github.io/pytraj)
+- check our website: [http://amber-md.github.io/pytraj] (http://amber-md.github.io/pytraj)
 
 Question/Suggestion?
 --------------------
