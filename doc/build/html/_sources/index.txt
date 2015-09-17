@@ -41,6 +41,8 @@ Welcome to pytraj's documentation - not completed yet
    cookbook
    api
 
+:ref:`contributors_and_citations`
+
 
 **Simple code**
 (`longer version <simple_code_extended>`_)

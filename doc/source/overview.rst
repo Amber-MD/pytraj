@@ -39,6 +39,8 @@ How to get started
 + do some :ref:`tutorials`
 + `check a list of things pytraj/cpptraj can do <analysis>`_
 
+.. _contributors_and_citations:
+
 Contributors
 ------------
 
