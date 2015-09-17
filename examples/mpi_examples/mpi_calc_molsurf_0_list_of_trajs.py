@@ -20,12 +20,14 @@ top = io.load(parm_name)
 trajlist = []
 for i in range(comm.size):
     ext = "00" + str(i)
-    traj_name = root_dir + "/remd.x." + ext # 000, 001, 002
+    traj_name = root_dir + "/remd.x." + ext  # 000, 001, 002
     trajlist.append(io.iterload(traj_name, top))
 
 # mapping different traj to N cores
 # need to provide `comm`
-total_arr = pymap(comm, pyca.calc_molsurf, trajlist, "@CA", top=top, dtype='ndarray')
+total_arr = pymap(comm, pyca.calc_molsurf, trajlist, "@CA",
+                  top=top,
+                  dtype='ndarray')
 
 # gathering the data to root=0
 #if comm.rank == 0:
@@ -39,7 +41,7 @@ if comm.rank == 0:
     t0 = np.asarray(total_arr[:-1]).flatten()
     t1 = np.asarray(total_arr[-1]).flatten()
     t = np.append(t0, t1)
-    print ('total array len: ', t.shape[0])
+    print('total array len: ', t.shape[0])
 
     # assert to serial values
     #t2 = pyca.calc_molsurf(trajlist, "@CA", dtype='ndarray')

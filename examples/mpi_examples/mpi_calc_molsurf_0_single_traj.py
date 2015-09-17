@@ -33,7 +33,7 @@ if comm.rank == 0:
     t0 = np.asarray(total_arr[:-1]).flatten()
     t1 = np.asarray(total_arr[-1]).flatten()
     t = np.append(t0, t1)
-    print ('total array len: ', t.shape[0])
+    print('total array len: ', t.shape[0])
 
     # assert to serial values
     #t2 = pyca.calc_molsurf(traj, "@CA", dtype='ndarray')

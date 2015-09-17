@@ -10,4 +10,4 @@ parm_name = root_dir + "myparm.top"
 
 traj = io.load(traj_name, parm_name)
 arr = pyca.calc_molsurf(traj, "@CA")
-print (arr[:10])
+print(arr[:10])

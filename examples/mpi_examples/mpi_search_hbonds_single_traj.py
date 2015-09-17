@@ -23,7 +23,10 @@ traj = io.iterload(traj_name, parm_name)
 # need to provide `comm`
 # save `total_arr` to rank=0
 # others: total_arr = None
-total_arr = pymap(comm, pyca.search_hbonds, traj, "", dtype='dict', top=traj.top, root=0)
+total_arr = pymap(comm, pyca.search_hbonds, traj, "",
+                  dtype='dict',
+                  top=traj.top,
+                  root=0)
 
 if comm.rank != 0:
     assert total_arr is None
