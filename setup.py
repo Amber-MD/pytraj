@@ -18,8 +18,10 @@ from random import shuffle
 import time
 from time import sleep
 
+
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 
 pytraj_version = read("pytraj/__version__.py").split("=")[-1]
 pytraj_version = pytraj_version.replace('"', '', 10)
@@ -34,7 +36,7 @@ if openmp_str in sys.argv:
     with_openmp = True
     sys.argv.remove(openmp_str)
 else:
-    with_openmp = False 
+    with_openmp = False
 
 faster_build_str = "faster"
 
@@ -57,7 +59,6 @@ if faster_build_str in sys.argv:
 else:
     faster_build = False
 
-
 if len(sys.argv) == 2 and sys.argv[1] == 'install':
     do_install = True
 else:
@@ -66,7 +67,7 @@ else:
 if len(sys.argv) == 2 and sys.argv[1] == 'build':
     do_build = True
 else:
-    do_build= False
+    do_build = False
 
 # require cython version >= 0.23 for now.
 cmdclass = {}
@@ -132,75 +133,77 @@ else:
     If you want to manually install `libcpptraj`, you can download cpptraj
     development version from here: https://github.com/Amber-MD/cpptraj
 
-    (    git clone https://github.com/Amber-MD/cpptraj/
-         cd cpptraj
-         export CPPTRAJHOME=`pwd`
-         ./configure -shared gnu
-         make libcpptraj    )
+    $ git clone https://github.com/Amber-MD/cpptraj/
+    $ cd cpptraj
+    $ export CPPTRAJHOME=`pwd`
+    $ ./configure -shared gnu
+    $ make libcpptraj
 
     and then go back to pytraj folder:
-    python ./setup.py install
-
+    python setup.py install
     ...
     """
+
     if do_install or do_build:
-        print (nice_message)
+        print(nice_message)
         sleep(3)
         try:
             subprocess.check_call(['sh', './installs/install_cpptraj_git.sh'])
         except CalledProcessError:
-            sys.stderr.write('can not install libcpptraj, you need to install it manually \n')
+            sys.stderr.write(
+                'can not install libcpptraj, you need to install it manually \n')
             sys.exit(0)
     cpptraj_dir = os.path.join(rootname, "cpptraj")
     cpptraj_include = os.path.join(cpptraj_dir, 'src')
-    libdir =  os.path.join(cpptraj_dir, 'lib')
+    libdir = os.path.join(cpptraj_dir, 'lib')
 
 # get *.pyx files
 pxd_include_dirs = [
-        directory for directory, dirs, files in os.walk('pytraj')
-        if '__init__.pyx' in files or '__init__.pxd' in files
-        or '__init__.py' in files
-        ]
+    directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
+    in files or '__init__.pxd' in files or '__init__.py' in files
+]
 
-pxd_include_patterns = [ 
-        p + '/*.pxd' for p in pxd_include_dirs ]
+pxd_include_patterns = [p + '/*.pxd' for p in pxd_include_dirs]
 
 pyxfiles = []
 for p in pxd_include_dirs:
-    pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx') if '.pyx' in ext])
+    pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
+                     if '.pyx' in ext])
 
 # check command line
-extra_compile_args=['-O0',]
-extra_link_args=['-O0',]
+extra_compile_args = ['-O0', ]
+extra_link_args = ['-O0', ]
 
 list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
 if not list_of_libcpptraj:
     if has_cpptrajhome:
-        sys.stderr.write('$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
-                'There are two solutions: \n'
-                '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
-                '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
+        sys.stderr.write(
+            '$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
+            'There are two solutions: \n'
+            '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
+            '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
         sys.exit(0)
     if do_install or do_build:
         if has_cpptraj_in_current_folder:
-            print('can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
+            print(
+                'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
             sleep(3)
             try:
-                subprocess.check_call(['sh', './installs/install_cpptraj_current_folder.sh'])
+                subprocess.check_call(
+                    ['sh', './installs/install_cpptraj_current_folder.sh'])
                 cpptraj_include = os.path.join(cpptraj_dir, 'src')
             except CalledProcessError:
-                sys.stderr.write('can not install libcpptraj, you need to install it manually \n')
+                sys.stderr.write(
+                    'can not install libcpptraj, you need to install it manually \n')
                 sys.exit(0)
         else:
             sys.stderr.write('can not find libcpptraj in $CPPTRAJHOME/lib. '
-                           'You need to install ``libcpptraj`` manually. '
-                           )
+                             'You need to install ``libcpptraj`` manually. ')
             sys.exit(0)
 
 if with_openmp:
     extra_compile_args.append("-fopenmp")
     extra_link_args.append("-fopenmp")
-
 
 # since we added "INSTALLTYPE" after setup.py file, we need
 # to remove it if having one
@@ -224,100 +227,103 @@ for ext_name in pyxfiles:
 
     sources = [pyxfile]
     extmod = Extension(ext_name,
-                    sources=sources,
-                    libraries=['cpptraj'],
-                    language='c++',
-                    library_dirs=[libdir,],
-                    include_dirs=[cpptraj_include, pytraj_home],
-                    extra_compile_args=extra_compile_args,
-                    extra_link_args=extra_link_args)
+                       sources=sources,
+                       libraries=['cpptraj'],
+                       language='c++',
+                       library_dirs=[libdir, ],
+                       include_dirs=[cpptraj_include, pytraj_home],
+                       extra_compile_args=extra_compile_args,
+                       extra_link_args=extra_link_args)
 
     extmod.cython_directives = {
-            'embedsignature':True,
-            'boundscheck': False,
-            'wraparound':False,
-            }
+        'embedsignature': True,
+        'boundscheck': False,
+        'wraparound': False,
+    }
     ext_modules.append(extmod)
 
 #shuffle(ext_modules)
 
 setup_args = {}
 packages = [
-        'pytraj',
-        'pytraj.utils',
-        'pytraj.actions',
-        'pytraj.analyses',
-        'pytraj.datasets',
-        'pytraj.externals',
-        'pytraj.trajs',
-        'pytraj.datafiles',
-        'pytraj.datafiles.Ala3',
-        'pytraj.datafiles.tz2',
-        'pytraj.plot',
-        'pytraj.math',
-        'pytraj.core',
-        'pytraj.parallel',
-        'pytraj.cluster',
-        'pytraj.sandbox',
-        ]
+    'pytraj',
+    'pytraj.utils',
+    'pytraj.actions',
+    'pytraj.analyses',
+    'pytraj.datasets',
+    'pytraj.externals',
+    'pytraj.trajs',
+    'pytraj.datafiles',
+    'pytraj.datafiles.Ala3',
+    'pytraj.datafiles.tz2',
+    'pytraj.plot',
+    'pytraj.math',
+    'pytraj.core',
+    'pytraj.parallel',
+    'pytraj.cluster',
+    'pytraj.sandbox',
+]
 
 pylen = len('pytraj') + 1
 pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
 sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*"]
-datalist = pxdlist +  sample_data
+datalist = pxdlist + sample_data
 
 # compare to "setup_for_amber" script
 package_match = (sorted(packages) == sorted(setup_for_amber.packages))
 datalist_match = (sorted(datalist) == sorted(setup_for_amber.datalist))
 
 if not package_match:
-    sys.stderr.write("packages mistmatch. Make sure to update ./scripts/setup_for_amber.py\n")
+    sys.stderr.write(
+        "packages mistmatch. Make sure to update ./scripts/setup_for_amber.py\n")
     sys.exit(0)
 
 if not datalist_match:
     sys.stderr.write("datalist mistmatch\n")
     sys.exit(0)
-    
+
+
 def build_func(my_ext):
-    return setup(name="pytraj",
+    return setup(
+        name="pytraj",
         version=pytraj_version,
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/Amber-MD/pytraj",
         packages=packages,
-        description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
-        license = "BSD License",
+        description=
+        """Python API for cpptraj: a data analysis package for biomolecular simulation""",
+        license="BSD License",
         classifiers=[
-                    'Development Status :: 4 - Beta',
-                    'Operating System :: Unix',
-                    'Operating System :: MacOS',
-                    'Intended Audience :: Science/Research',
-                    'License :: OSI Approved :: BSD License',
-                    'Programming Language :: Python :: 3.3',
-                    'Programming Language :: Python :: 3.4',
-                    'Programming Language :: Cython',
-                    'Programming Language :: C',
-                    'Programming Language :: C++',
-                    'Topic :: Scientific/Engineering'],
-        ext_modules = my_ext,
-        package_data = {'pytraj' : datalist},
-        cmdclass = cmdclass,
-        )
+            'Development Status :: 4 - Beta', 'Operating System :: Unix',
+            'Operating System :: MacOS',
+            'Intended Audience :: Science/Research',
+            'License :: OSI Approved :: BSD License',
+            'Programming Language :: Python :: 3.3',
+            'Programming Language :: Python :: 3.4',
+            'Programming Language :: Cython', 'Programming Language :: C',
+            'Programming Language :: C++', 'Topic :: Scientific/Engineering'
+        ],
+        ext_modules=my_ext,
+        package_data={'pytraj': datalist},
+        cmdclass=cmdclass, )
+
 
 def remind_ld_lib_path(build_tag, libdir):
     if build_tag:
         from scripts.acsii_art import batman
-        print ("")
-        print ("")
-        print (batman)
+        print("")
+        print("")
+        print(batman)
         libdir = os.path.abspath(libdir)
-        print ('make sure to add %s to your LD_LIBRARY_PATH \n\n'
-               'example: export LD_LIBRARY_PATH=%s:$LD_LIBRARY_PATH\n\n'
-               'try simple test: python ./runtests.py simple\n\n'
-                % (libdir, libdir))
-        print ("")
+        print('make sure to add %s to your LD_LIBRARY_PATH \n\n'
+              'example: export LD_LIBRARY_PATH=%s:$LD_LIBRARY_PATH\n\n'
+              'try simple test: python ./runtests.py simple\n\n' %
+              (libdir, libdir))
+        print("")
     else:
-        print ("not able to install pytraj")
+        print("not able to install pytraj")
+
 
 if __name__ == "__main__":
     if not faster_build:
@@ -328,15 +334,16 @@ if __name__ == "__main__":
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
         print('number of available cpus = %s' % n_cpus)
-        num_each = int(len(ext_modules)/n_cpus)
+        num_each = int(len(ext_modules) / n_cpus)
 
         sub_ext_modules_list = []
         # there is idiom to do this but I am too lazy to think
         for i in range(n_cpus):
-            if i != n_cpus-1:
-                sub_ext_modules_list.append(ext_modules[i*num_each:num_each*(i+1)])
+            if i != n_cpus - 1:
+                sub_ext_modules_list.append(
+                    ext_modules[i * num_each:num_each * (i + 1)])
             else:
-                sub_ext_modules_list.append(ext_modules[num_each*i:])
+                sub_ext_modules_list.append(ext_modules[num_each * i:])
 
         from multiprocessing import Pool
         pool = Pool(n_cpus)
