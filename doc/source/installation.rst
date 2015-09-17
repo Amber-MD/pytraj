@@ -5,14 +5,16 @@ Installation
 
 Requires
 --------
+if you install ``pytraj`` via ``conda``, conda will automatically install those libraries for you.
+
 `numpy <http://www.numpy.org/>`_
 
 `cython <http://cython.org/>`_, version >= 0.23
 
-``python 3``
+``python 2.7, 3.4, 3.5``
 
-How?
-----
+Install
+-------
 
 from conda
 ~~~~~~~~~~
@@ -23,13 +25,10 @@ We higly recommend install ``pytraj`` by `conda <http://conda.pydata.org/docs/in
 
     conda install -c ambermd pytraj-dev
 
-To update via ``conda``
+This takes only less than 30 seconds.
 
-.. code-block:: bash
-
-    conda update -c ambermd pytraj-dev libcpptraj-dev
-
-If you don't want to read why you should install conda, just copy and paste below script to your terminal (for Linux). For Mac user, you need to follow ``conda`` website.
+If you don't want to read long description about installing conda, just copy and paste below script to your terminal (for Linux).
+For Mac user, you need to follow ``conda`` website.
 
 .. code-block:: bash
 
@@ -37,16 +36,48 @@ If you don't want to read why you should install conda, just copy and paste belo
     $ sh Miniconda3-latest-Linux-x86_64.sh
 
 
-from source
-~~~~~~~~~~~
-Alternatively, user can install ``pytraj`` from ``github``::
+from source code
+~~~~~~~~~~~~~~~~
+
+Alternatively, user can install ``pytraj`` from source code in `github``::
 
     git clone https://github.com/Amber-MD/pytraj
     cd pytraj
     python ./setup.py install
 
-Depend on your machine, the fresh installation (``libcpptraj`` + ``pytraj``) could take 30' to 4 minutes.
+Depend on your machine, the fresh installation (``libcpptraj`` + ``pytraj``) could take 2 to 4 minutes.
 
+Update pytraj
+-------------
+
+from conda
+~~~~~~~~~~
+If you install ``pytraj`` by conda, you can update it easily
+
+.. code-block:: bash
+
+    conda update -c ambermd pytraj-dev libcpptraj-dev
+
+from github 
+~~~~~~~~~~~
+
+if you install from source code and want to update the development code in github, try to
+follow below.
+
+.. code-block:: bash
+    
+    $ # make sure to go to pytraj folder (which has README.md, ./tests ...)
+    $ git pull
+    $ python ./setup.py install
+
+if you install ``pytraj`` via github and want to update ``cpptraj``
+
+.. code-block:: bash
+
+    $ cd cpptraj
+    $ git pull
+    $ make libcpptraj
+    
 
 Troubleshooting
 ---------------
