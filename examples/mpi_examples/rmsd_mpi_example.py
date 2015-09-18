@@ -17,11 +17,11 @@ rank = comm.rank
 size = comm.size
 
 root_dir = "../../tests/data/nogit/remd/"
-fname = root_dir + "/remd.x.00" + str(rank) # 000, 001, 002, 003 ...
+fname = root_dir + "/remd.x.00" + str(rank)  # 000, 001, 002, 003 ...
 top_name = root_dir + "myparm.top"
 
 traj = io.load(fname, top_name)
-n_atoms =  traj.top.n_atoms
+n_atoms = traj.top.n_atoms
 n_frames = traj.n_frames
 
 if rank == 0:
@@ -41,9 +41,11 @@ if rank != 0:
 
 _ref = ref.copy()
 
+
 def rmsd_mpi(traj, _ref):
     arr0 = pyca.calc_rmsd("@CA", traj, traj.top, _ref)
     return arr0
+
 
 arr0 = rmsd_mpi(traj, _ref)
 

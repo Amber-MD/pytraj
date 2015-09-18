@@ -4,13 +4,21 @@ import sys
 import os
 import time
 
+# from: http://www.oocities.org/
+art = r'''
+          oOOOOOo
+         ,|    oO
+        //|     |
+        \\|     |
+          `-----`
+'''
+
 my_script = sys.argv[0]
 
 try:
     verbose = sys.argv[1] in ['-verbose', 'verbose', '-v']
 except:
     verbose = False
-
 try:
     need_help = sys.argv[1] in ['help', '-help', '--help']
 except:
@@ -33,8 +41,9 @@ os.chdir("./tests/")
 
 if do_simple_test:
     os.system("python ./run_simple_test.py")
+    print('\nHAPPY COMPUTING')
+    print(art)
     sys.exit(0)
-
 if verbose:
     os.system('python get_unittest_files.py')
     os.system('sh TestListTravis.sh')
@@ -42,4 +51,5 @@ else:
     print('quite run')
     os.system("python ./run_all_and_find_fails.py")
 
-print("end testing")
+print('\nHAPPY COMPUTING')
+print(art)

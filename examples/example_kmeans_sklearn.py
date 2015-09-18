@@ -4,6 +4,7 @@ from sklearn.cluster import k_means
 from pytraj import iterframe_from_array
 import numpy as np
 
+
 def do_clustering():
     # set random seed for reproducibility
     np.random.seed(1)
@@ -41,6 +42,10 @@ def do_clustering():
     # 'MODEL' keyword. good for visualizing in VMD.
     # first, need to create a frame iterator for ``pytraj.write_traj``
     frame_iter = pt.iterframe_from_array(x0, t0.n_atoms, range(n_clusters))
-    pt.write_traj('output.pdb', frame_iter, top=t0.top, mode='model', overwrite=True)
+    pt.write_traj('output.pdb', frame_iter,
+                  top=t0.top,
+                  mode='model',
+                  overwrite=True)
+
 
 do_clustering()

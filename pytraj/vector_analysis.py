@@ -9,7 +9,7 @@ supported_types = [
 ]
 
 template = '''
-def vector_%s(traj=None, command="", top=None, *args, **kwd):
+def vector_%s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     """
     Parameters
     ----------
@@ -18,19 +18,14 @@ def vector_%s(traj=None, command="", top=None, *args, **kwd):
     top : {str, Topology}, optional, default None
     *args, **kwd: more arguments
     """
-    from ._get_common_objects import _get_top, _get_data_from_dtype
+    from ._get_common_objects import _get_top, _get_data_from_dtype, _get_fiterator
     from ._get_common_objects import _get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_Vector
     from .core.ActionList import ActionList
 
-    if 'dtype' in kwd.keys():
-        dtype = kwd['dtype']
-        del kwd['dtype']
-    else:
-        dtype = None
-
-    _top = _get_top(traj, top)
+    fi = _get_fiterator(traj, frame_indices)
+    _top = _get_top(fi, top)
     dslist = CpptrajDatasetList()
     template_command = ' %s '
 
@@ -40,8 +35,8 @@ def vector_%s(traj=None, command="", top=None, *args, **kwd):
     for command in list_of_commands:
         act = Action_Vector()
         _command = command + template_command
-        actlist.add_action(act, _command, _top, dslist=dslist, *args, **kwd)
-    actlist.do_actions(traj)
+        actlist.add_action(act, _command, _top, dslist=dslist)
+    actlist.do_actions(fi)
     return _get_data_from_dtype(dslist, dtype=dtype)
 '''
 

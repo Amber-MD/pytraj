@@ -26,7 +26,6 @@ class Trajectory(object):
         Attributes
         ----------
         xyz :  (TBF)
-
         unitcells : (TBF)
 
         Examples
@@ -148,12 +147,6 @@ class Trajectory(object):
         except (AttributeError, IndexError):
             n_frames = 0
         return n_frames
-
-    @property
-    def size(self):
-        '''alias of Trajectory.n_frames
-        '''
-        return self.n_frames
 
     def __iter__(self):
         """return a Frame view of coordinates

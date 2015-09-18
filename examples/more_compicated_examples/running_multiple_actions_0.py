@@ -5,9 +5,11 @@ from pytraj import allactions
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 
+
 def run_0():
     # load traj
-    farray = mdio.load("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
+    farray = mdio.load("../tests/data/md1_prod.Tc5b.x",
+                       "../tests/data/Tc5b.top")
 
     # create 'strip' action
     stripact = allactions.Action_Strip()
@@ -28,12 +30,14 @@ def run_0():
 
     # add actions: Action_Strip, Action_Distance and Action_Rmsd
     alist.add_action(stripact, ArgList("@H*"), toplist, dsetlist, dflist)
-    alist.add_action(allactions.Action_Distance(), ArgList(":2@CA :3@CA out ./output/_distance.dat"), 
+    alist.add_action(allactions.Action_Distance(),
+                     ArgList(":2@CA :3@CA out ./output/_distance.dat"),
                      toplist, dsetlist, dflist)
-    alist.add_action(allactions.Action_Rmsd(), ArgList("rms first @CA out ./output/_rmsd.dat"), 
-                     toplist, dsetlist, dflist)
+    alist.add_action(allactions.Action_Rmsd(),
+                     ArgList("rms first @CA out ./output/_rmsd.dat"), toplist,
+                     dsetlist, dflist)
 
-    # 
+    #
     print("test setup_actions")
     print("number of actions = ", alist.n_actions)
 
@@ -79,21 +83,22 @@ def run_0():
     print(ds0[:10])
     print(ds1[:10])
 
-
     # reproduce cpptraj's output?
     import numpy as np
-    rmsdcpp = np.loadtxt("../tests/data/rmsd_to_firstFrame_CA_allres.Tc5b.dat", skiprows=1).transpose()[1][:10]
+    rmsdcpp = np.loadtxt("../tests/data/rmsd_to_firstFrame_CA_allres.Tc5b.dat",
+                         skiprows=1).transpose()[1][:10]
     # YES
     assert_almost_equal(rmsdcpp, ds1[:10])
 
     # write output for rmsd and distance (stored in dflist)
     # datatfile: ./_rmsd.dat, _distance.dat
     dflist.write_all_datafiles()
-    print(dir(dflist)) 
+    print(dir(dflist))
 
     # add more
     # FIXME : "Command terminated" error
     #dflist.add_dataset("./output/dfout_0.dat", ds0)
+
 
 if __name__ == "__main__":
     run_0()
