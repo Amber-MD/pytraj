@@ -1007,14 +1007,14 @@ def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
     Examples
     ------
-    >>> import pytraj.common_actions as pyca
-    >>> pyca.calc_vector(traj, "@CA @CB").tolist()
-    >>> pyca.calc_vector(traj, "", traj).tolist()
-    >>> pyca.calc_vector(traj, "principal z").to_ndarray()
-    >>> pyca.calc_vector(traj, "principal x").to_ndarray()
-    >>> pyca.calc_vector(traj, "ucellx").tolist()
-    >>> pyca.calc_vector(traj, "boxcenter").tolist()
-    >>> pyca.calc_vector(traj, "box").tolist()
+    >>> import pytraj as pt
+    >>> pt.calc_vector(traj, "@CA @CB")
+    >>> pt.calc_vector(traj, [("@CA @CB"),])
+    >>> pt.calc_vector(traj, "principal z")
+    >>> pt.calc_vector(traj, "principal x")
+    >>> pt.calc_vector(traj, "ucellx")
+    >>> pt.calc_vector(traj, "boxcenter")
+    >>> pt.calc_vector(traj, "box")
     """
     from pytraj.core.ActionList import ActionList
 
