@@ -1210,14 +1210,19 @@ def calc_density(traj=None,
         return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_temperatures(traj=None, command="", top=None, dtype='ndarray'):
+def calc_temperatures(traj=None, command="", frame_indices=None, top=None, dtype='ndarray'):
     """return 1D python array of temperatures (from velocity) in traj
     if `frame` keyword is specified cpptraj/pytraj will take existing T
 
     Default = array of 0.0
     """
     _top = _get_top(traj, top)
-    dslist = calculate('temperature', traj, command, _top)
+    dslist = CpptrajDatasetList()
+
+    fi = _get_fiterator(traj, frame_indices)
+    act = CpptrajActions.Action_Temperature()
+    act(command, fi, dslist=dslist, top=_top)
+
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -1256,8 +1261,9 @@ def calc_rmsd(traj=None,
               mask="",
               nofit=False,
               mass=False,
+              frame_indices=None,
               top=None,
-              dtype='ndarray', *args, **kwd):
+              dtype='ndarray'):
     """calculate rmsd
 
     Parameters
@@ -1319,6 +1325,7 @@ def calc_rmsd(traj=None,
     _top = _get_top(traj, top)
 
     ref = _get_reference_from_traj(traj, ref)
+    fi = _get_fiterator(traj, frame_indices)
 
     alist = ActionList()
     dslist = CpptrajDatasetList()
@@ -1328,7 +1335,7 @@ def calc_rmsd(traj=None,
         alist.add_action(CpptrajActions.Action_Rmsd(), _cm, top=_top, dslist=dslist)
 
     alist.do_actions(ref)
-    alist.do_actions(traj)
+    alist.do_actions(fi)
 
     if dtype == 'pyarray':
         return pyarray('d', dslist[0].data)[1:]
