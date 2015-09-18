@@ -63,11 +63,9 @@ class TrajectoryIterator(TrajectoryCpptraj):
         >>> traj.load('./remd.x.003')
         '''
         self._force_load = False
-        # use self.chunk to store `chunk` in iterchunk
+        # use self._chunk to store `chunk` in iterchunk
         # to deallocate memory
-        self.chunk = None
-        # same as self.chunk but for iterframe
-        self.frame = None
+        self._chunk = None
         # only allow to load <= 1000 Mb
         self._size_limit_in_GB = 1
         super(TrajectoryIterator, self).__init__()
@@ -301,11 +299,11 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 chunk.rmsfit(ref, mask_for_rmsfit)
             # free memory
             # if not, memory will be quicly accumulated.
-            if self.chunk:
-                self.chunk.__del__()
+            if self._chunk:
+                self._chunk.__del__()
 
-            self.chunk = chunk
-            yield self.chunk
+            self._chunk = chunk
+            yield self._chunk
 
     @property
     def filename(self):
@@ -317,10 +315,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
     def shape(self):
         '''(n_frames, n_atoms, 3)'''
         return (self.n_frames, self.n_atoms, 3)
-
-    def is_empty(self):
-        '''check n_frames = 0 or not'''
-        return self.n_frames == 0
 
     def _split_iterators(self,
                         n_chunks=1,
