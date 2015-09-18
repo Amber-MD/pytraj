@@ -125,10 +125,8 @@ cdef class TrajectoryCpptraj:
         # use `frame` as buffer 
         cdef Frame frame = Frame()
 
-        # deallocate old ptr
-        #del frame.thisptr
+        #del frame.thisptr # do not do this.
         frame.thisptr[0] = self.thisptr.AllocateFrame()
-        print(frame)
 
         for i in range(n_frames):
             # do not create new Frame inside this loop to reduce memory
@@ -382,18 +380,30 @@ cdef class TrajectoryCpptraj:
         traj.top = self.top
         xyz = traj.xyz
 
-        #frame = Frame(n_atoms, xyz[0], _as_ptr=True)
-        frame = Frame()
-        frame.thisptr[0] = self.thisptr.AllocateFrame()
-        for j, i in enumerate(indices):
-            # use `frame` as a pointer pointing to `xyz` memory
-            # dump coords to xyz array
-            # frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
-            # copy coordinates of `self[i]` to j-th frame in `traj`
-            self.thisptr.GetFrame(i, frame.thisptr[0])
-            traj.xyz[j] = frame.xyz
-            traj.unitcells[j] = frame.box._get_data()
-        return traj
+        if not self.thisptr.CoordsInfo().HasVel():
+            # faster
+            frame = Frame(n_atoms, xyz[0], _as_ptr=True)
+            for j, i in enumerate(indices):
+                # use `frame` as a pointer pointing to `xyz` memory
+                # dump coords to xyz array
+                frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
+                # copy coordinates of `self[i]` to j-th frame in `traj`
+                self.thisptr.GetFrame(i, frame.thisptr[0])
+                traj.unitcells[j] = frame.box._get_data()
+            return traj
+
+        else:
+            # slower
+            frame = Frame()
+            frame.thisptr[0] = self.thisptr.AllocateFrame()
+            for j, i in enumerate(indices):
+                # use `frame` as a pointer pointing to `xyz` memory
+                # dump coords to xyz array
+                # copy coordinates of `self[i]` to j-th frame in `traj`
+                self.thisptr.GetFrame(i, frame.thisptr[0])
+                traj.xyz[j] = frame.xyz
+                traj.unitcells[j] = frame.box._get_data()
+            return traj
 
     def _iterframe_indices(self, frame_indices):
         cdef int i
