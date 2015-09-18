@@ -59,6 +59,10 @@ if faster_build_str in sys.argv:
 else:
     faster_build = False
 
+if sys.argv[1:] == ['install', 'update']:
+    do_install = True
+    sys.argv.remove('update')
+
 if len(sys.argv) == 2 and sys.argv[1] == 'install':
     do_install = True
 else:
