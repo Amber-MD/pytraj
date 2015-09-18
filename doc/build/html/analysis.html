@@ -644,12 +644,17 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 <p class="rubric">Notes</p>
 <p>It&#8217;s faster to calculate with a list of commands.
 For example, if you need to perform 3 calculations for &#8216;ucellx&#8217;, &#8216;boxcenter&#8217;, &#8216;box&#8217;
-&gt;&gt;&gt; pt.calc_vector(traj, &#8220;ucellx&#8221;)
-&gt;&gt;&gt; pt.calc_vector(traj, &#8220;boxcenter&#8221;)
-&gt;&gt;&gt; pt.calc_vector(traj, &#8220;box&#8221;)</p>
-<p>You should use a list of commands for faster calculation.
-&gt;&gt;&gt; comlist = [&#8216;ucellx&#8217;, &#8216;boxcenter&#8217;, &#8216;box&#8217;]
-&gt;&gt;&gt; pt.calc_vector(traj, comlist)</p>
+like below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;ucellx&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;boxcenter&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;box&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You should use a list of commands for faster calculation.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">comlist</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;ucellx&#39;</span><span class="p">,</span> <span class="s">&#39;boxcenter&#39;</span><span class="p">,</span> <span class="s">&#39;box&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">comlist</span><span class="p">)</span>
+</pre></div>
+</div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA @CB&quot;</span><span class="p">)</span>
