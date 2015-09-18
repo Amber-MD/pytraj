@@ -14,7 +14,8 @@ default_key_dict = {
     'coord_covariance_matrix': 'covar',
     'mw_covariance_matrix': 'mwcovar',
     'distcovar_matrix': 'distcovar',
-    'idea_matrix': 'idea'
+    'idea_matrix': 'idea',
+    'ired_matrix': 'ired'
 }
 
 __cpptrajdoc__ = """
