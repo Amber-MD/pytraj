@@ -123,7 +123,12 @@ cdef class TrajectoryCpptraj:
         cdef n_frames = self.n_frames
 
         # use `frame` as buffer 
-        cdef Frame frame = Frame(n_atoms)
+        cdef Frame frame = Frame()
+
+        # deallocate old ptr
+        #del frame.thisptr
+        frame.thisptr[0] = self.thisptr.AllocateFrame()
+        print(frame)
 
         for i in range(n_frames):
             # do not create new Frame inside this loop to reduce memory
@@ -237,7 +242,7 @@ cdef class TrajectoryCpptraj:
     def __getitem__(self, idxs):
          # allocate frame for storing data
          cdef Frame frame0
-         cdef Frame frame = Frame(self.top.n_atoms)
+         cdef Frame frame = Frame()
          cdef int start, stop, step
          cdef int i
          cdef int idx_1, idx_2
@@ -245,6 +250,8 @@ cdef class TrajectoryCpptraj:
          cdef list tmplist
          cdef AtomMask atom_mask_obj
          cdef idxs_size
+
+         frame.thisptr[0] = self.thisptr.AllocateFrame()
      
          if isinstance(idxs, AtomMask):
              # atm = top('@CA')
@@ -360,32 +367,6 @@ cdef class TrajectoryCpptraj:
         if self.thisptr:
             del self.thisptr
 
-    def _to_nptraj_by_slice(self, int start, int stop, int stride):
-        cdef int i, j
-        cdef int n_atoms = self.n_atoms
-        cdef Frame frame
-        cdef double[:, :, ::1] xyz
-        cdef int n_frames = len(range(start, stop, stride))
-
-        traj = Trajectory()
-        traj.xyz = np.zeros((n_frames, n_atoms, 3), dtype='f8')
-        traj.unitcells = np.zeros((n_frames, 6), dtype='f8')
-        traj.top = self.top
-        xyz = traj.xyz[:]
-
-        frame = Frame(n_atoms, xyz[0], _as_ptr=True)
-        i = start
-        j = 0
-        while i < stop:
-            # use `frame` as a pointer pointing to `xyz` memory
-            # dump coords to xyz array
-            frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
-            self.thisptr.GetFrame(i, frame.thisptr[0])
-            traj.unitcells[j] = frame.box._get_data()
-            i += stride
-            j += 1
-        return traj
-
     def _to_nptraj_by_indices(self, indices):
         '''indices is iterable that has __len__
         '''
@@ -401,13 +382,16 @@ cdef class TrajectoryCpptraj:
         traj.top = self.top
         xyz = traj.xyz
 
-        frame = Frame(n_atoms, xyz[0], _as_ptr=True)
+        #frame = Frame(n_atoms, xyz[0], _as_ptr=True)
+        frame = Frame()
+        frame.thisptr[0] = self.thisptr.AllocateFrame()
         for j, i in enumerate(indices):
             # use `frame` as a pointer pointing to `xyz` memory
             # dump coords to xyz array
-            frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
+            # frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
             # copy coordinates of `self[i]` to j-th frame in `traj`
             self.thisptr.GetFrame(i, frame.thisptr[0])
+            traj.xyz[j] = frame.xyz
             traj.unitcells[j] = frame.box._get_data()
         return traj
 
