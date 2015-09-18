@@ -160,7 +160,7 @@
 </ul>
 <span class="target" id="rmsd"></span><dl class="function">
 <dt id="pytraj.rmsd">
-<tt class="descclassname">pytraj.</tt><tt class="descname">rmsd</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">rmsd</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><big>)</big><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate rmsd</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -198,7 +198,7 @@ if True, not fitting.</p>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># rmsd to first frame, use mass &#39;:3-13&#39; but do not perorm fitting</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:3-13&#39;</span><span class="p">,</span> <span class="n">notfit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:3-13&#39;</span><span class="p">,</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
