@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from __future__ import print_function
 import unittest
 import pytraj as pt
@@ -26,6 +28,8 @@ class Test(unittest.TestCase):
         from pytraj import clustering_dataset
         from pytraj.cluster import kmeans
         from pytraj.array import DataArray
+        from pytraj import vector_analysis as va
+
         try:
             import parmed
             has_parmed = True
@@ -35,6 +39,9 @@ class Test(unittest.TestCase):
         funclist =  [DataArray,
                     pt.iterframe,
                     pt.iterchunk,
+                    pt.calc_vector,
+                    va.vector_mask,
+                    pt.select_atoms,
                     pt.multidihedral,
                     pt.rmsd,
                     pt.watershell,

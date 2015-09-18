@@ -24,6 +24,14 @@ def array_to_atommask(seq):
     return '@' + _array_to_cpptraj_range(seq)
 
 
+def array_to_atommask_2_groups(seq):
+    '''
+    [1, 3] --> @1 @3
+    [1, 3, 4] --> @1 @3 @4
+    '''
+    return ' '.join('@' + str(i+1) for i in seq)
+
+
 def array_to_residuemask(seq):
     '''[1, 3, 4] --> :2,4,5'''
     return ':' + _array_to_cpptraj_range(seq)

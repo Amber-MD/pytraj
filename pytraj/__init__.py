@@ -233,6 +233,16 @@ def iterchunk(traj, *args, **kwd):
     """
     return traj.iterchunk(*args, **kwd)
 
+def select_atoms(topology, mask):
+    '''return atom indices
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> atom_indices = pt.select_atoms(traj.top, '@CA')
+    array([  4,  15,  39, ..., 159, 173, 197])
+    '''
+    return topology.select(mask)
 
 def show():
     # just delay importing

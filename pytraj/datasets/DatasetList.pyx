@@ -328,7 +328,7 @@ cdef class DatasetList:
             raise NotImplementedError("func must be a string or callable")
 
     def grep(self, key, mode='legend'):
-        """"return a new DatasetList object as a view of `self`
+        """"return a new DatasetList object as a view of `self`. This method is mostly used for testing.
 
         Parameters
         ----------
