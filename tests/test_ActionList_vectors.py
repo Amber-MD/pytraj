@@ -14,6 +14,7 @@ class Test(unittest.TestCase):
         from pytraj.core.ActionList import ActionList
         from pytraj.datasets.DatasetList import DatasetList
         from pytraj.actions import CpptrajActions as CA
+        from pytraj.vector_analysis import vector_mask
 
         dslist = DatasetList()
         actlist = ActionList()
@@ -27,14 +28,19 @@ class Test(unittest.TestCase):
         actlist.do_actions(traj)
 
         dslist2 = pyca.calc_vector(traj, mask_list)
+        dslist4 = vector_mask(traj, mask_list)
 
         dslist3_0 = pyca.calc_vector(traj, mask_list[0])
         dslist3_1 = pyca.calc_vector(traj, mask_list[1])
+
         aa_eq(dslist3_0, dslist2[0])
         aa_eq(dslist3_1, dslist2[1])
 
-        aa_eq(dslist3_0, dslist[0].to_ndarray())
-        aa_eq(dslist3_1, dslist[1].to_ndarray())
+        aa_eq(dslist3_0, dslist4[0])
+        aa_eq(dslist3_1, dslist4[1])
+
+        aa_eq(dslist3_0, dslist[0].values)
+        aa_eq(dslist3_1, dslist[1].values)
 
 
 if __name__ == "__main__":
