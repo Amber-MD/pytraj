@@ -1025,11 +1025,14 @@ def calc_vector(traj=None, command="", frame_indices=None, dtype='ndarray', top=
     -----
     It's faster to calculate with a list of commands.
     For example, if you need to perform 3 calculations for 'ucellx', 'boxcenter', 'box'
+    like below:
+
     >>> pt.calc_vector(traj, "ucellx")
     >>> pt.calc_vector(traj, "boxcenter")
     >>> pt.calc_vector(traj, "box")
 
     You should use a list of commands for faster calculation.
+
     >>> comlist = ['ucellx', 'boxcenter', 'box']
     >>> pt.calc_vector(traj, comlist)
     """

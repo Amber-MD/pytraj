@@ -136,7 +136,8 @@ cdef class TrajectoryCpptraj:
             return self._top
 
         def __set__(self, Topology other):
-            self.thisptr.SetTopology(other.thisptr[0])
+            #self.thisptr.SetTopology(other.thisptr[0])
+            self.thisptr.CoordsSetup(other.thisptr[0], self.thisptr.CoordsInfo())
 
     def iterframe(self, int start=0, int stop=-1, int stride=1, mask=None):
         '''iterately get Frames with start, stop, stride 
@@ -418,3 +419,24 @@ cdef class TrajectoryCpptraj:
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 
+    property _coordinateinfo:
+        def __get__(self):
+            cdef CoordinateInfo cinfo
+
+            cinfo = self.thisptr.CoordsInfo()
+            return {'has_velocity': cinfo.HasVel(),
+                    'has_temperature': cinfo.HasTemp(),
+                    'has_time': cinfo.HasTime(),
+                    'has_force': cinfo.HasForce(),
+                    'has_box': cinfo.HasBox(),
+                    'has_replcica_dims': cinfo.HasReplicaDims()}
+
+        def __set__(self, value):
+            '''value is a dict
+            '''
+            cdef CoordinateInfo cinfo = CoordinateInfo()
+            cinfo.SetTime(<bint> value['has_time'])
+            cinfo.SetVelocity(<bint> value['has_velocity'])
+            cinfo.SetTemperature(<bint> value['has_temperature'])
+            cinfo.SetBox(self.thisptr.Top().ParmBox())
+            self.thisptr.CoordsSetup(self.thisptr.Top(), cinfo)
