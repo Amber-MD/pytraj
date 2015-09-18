@@ -36,7 +36,7 @@ def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=Non
     Examples
     --------
     >>> # calcualte N-H vector
-    >>> import pytraj as pt
+    >>> from pytraj import vector_analysis as va
     >>> import numpy as np
     >>> n_indices = pt.select_atoms(traj.top, '@N')
     >>> h_indices = n_indices + 1

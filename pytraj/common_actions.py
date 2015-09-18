@@ -1291,7 +1291,7 @@ def calc_rmsd(traj=None,
     >>> pt.rmsd(traj, mask=['@CA', '@C', ':3-18@CA'], dtype='dataset')
 
     >>> # rmsd to first frame, use mass ':3-13' but do not perorm fitting
-    >>> pt.rmsd(traj, ref=traj[0], mask=':3-13', notfit=True)
+    >>> pt.rmsd(traj, ref=traj[0], mask=':3-13', nofit=True)
 
     """
     from pytraj.utils import is_int
