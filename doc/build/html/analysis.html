@@ -161,6 +161,7 @@
 <li><a class="reference internal" href="#pairwise-rmsd">pairwise_rmsd</a></li>
 <li><a class="reference internal" href="#radgyr">radgyr</a></li>
 <li><a class="reference internal" href="#molsurf">molsurf</a></li>
+<li><a class="reference internal" href="#calc-vector">calc_vector</a></li>
 <li><a class="reference internal" href="#center-of-mass">center_of_mass</a></li>
 <li><a class="reference internal" href="#center-of-geometry">center_of_geometry</a></li>
 <li><a class="reference internal" href="#dssp">dssp</a></li>
@@ -610,6 +611,45 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!:WAT&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<span class="target" id="calc-vector"></span><dl class="function">
+<dt id="pytraj.calc_vector">
+<tt class="descclassname">pytraj.</tt><tt class="descname">calc_vector</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.calc_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform vector calculation. See example below. Same as &#8216;vector&#8217; command in cpptraj.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces <tt class="xref py py-class docutils literal"><span class="pre">pytraj.Frame</span></tt></p>
+<p><strong>command</strong> : str or a list of strings, cpptraj command</p>
+<p><strong>frame_indices</strong> : array-like, optional, default None</p>
+<blockquote>
+<div><p>only perform calculation for given frame indices</p>
+</div></blockquote>
+<p><strong>dtype</strong> : output&#8217;s dtype, default &#8216;ndarray&#8217;</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : numpy ndarray, shape (n_frames, 3) if command is a string</p>
+<blockquote class="last">
+<div><p>numpy ndarray, shape (n_vectors, n_frames, 3) if command is a list of strings</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA @CB&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[(</span><span class="s">&quot;@CA @CB&quot;</span><span class="p">),])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;principal z&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;principal x&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;ucellx&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;boxcenter&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;box&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
