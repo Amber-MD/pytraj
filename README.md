@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/Amber-MD/pytraj.svg?branch=master)](https://travis-ci.org/Amber-MD/pytraj)
 [![Binstar Badge](https://binstar.org/ambermd/pytraj-dev/badges/version.svg)](https://binstar.org/ambermd/pytraj-dev/)
+[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/repo/amber-md/pytraj)
 
 PYTRAJ
 ------
