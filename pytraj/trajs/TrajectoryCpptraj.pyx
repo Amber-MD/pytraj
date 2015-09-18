@@ -163,8 +163,8 @@ cdef class TrajectoryCpptraj:
         else:
             _end = stop
 
-        del frame.thisptr
         if mask is not None:
+        #    del frame.thisptr
             if isinstance(mask, string_types):
                 atm = self.top(mask)
             else:
@@ -173,9 +173,11 @@ cdef class TrajectoryCpptraj:
                     atm.add_selected_indices(mask)
                 except TypeError:
                     raise TypeError("dont know how to cast to memoryview")
-            frame.thisptr = new _Frame(<int>atm.n_atoms)
-        else:
-            frame.thisptr = new _Frame(n_atoms)
+        #    frame.thisptr = new _Frame(<int>atm.n_atoms)
+        #else:
+        #    frame.thisptr[0] = self.thisptr.AllocateFrame()
+
+        frame.thisptr[0] = self.thisptr.AllocateFrame()
 
         with self:
             i = start
@@ -407,7 +409,9 @@ cdef class TrajectoryCpptraj:
 
     def _iterframe_indices(self, frame_indices):
         cdef int i
-        cdef Frame frame = Frame(self.n_atoms)
+        cdef Frame frame = Frame()
+
+        frame.thisptr[0] = self.thisptr.AllocateFrame()
 
         for i in frame_indices:
             self.thisptr.GetFrame(i, frame.thisptr[0])

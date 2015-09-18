@@ -93,10 +93,10 @@ class FrameIter(object):
         root_msg = '<FrameIter with '
         root_msg2 = 'start=%s, stop=%s, stride=%s, n_frames=%s, \n' % (
             self.start, self.stop, self.stride, self.n_frames)
-        root_msg3 = 'frame_indices=%s \n' % self.frame_indices
+        root_msg3 = 'frame_indices=%s, \n' % self.frame_indices
 
-        more_msg = 'autoimage=%s, rmsfit=%s, copy=%s> \n' % (
-            self.autoimage, self.rmsfit, self.copy)
+        more_msg = 'mask=%s, autoimage=%s, rmsfit=%s, copy=%s> \n' % (
+            self.mask, self.autoimage, self.rmsfit, self.copy)
         return "".join((root_msg, root_msg2, root_msg3, more_msg))
 
     def __repr__(self):
@@ -180,9 +180,7 @@ class FrameIter(object):
                         atm.add_selected_indices(mask)
                     except TypeError:
                         raise TypeError('')
-                frame2 = Frame(atm.n_atoms)
-                frame2.set_coords(frame, atm)
-
+                frame2 = Frame(frame, atm)
                 yield frame2
             else:
                 yield frame
