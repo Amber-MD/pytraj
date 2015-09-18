@@ -25,6 +25,7 @@ Analysis
 - pairwise_rmsd_ 
 - radgyr_ 
 - molsurf_ 
+- calc_vector_ 
 - center_of_mass_
 - center_of_geometry_
 - dssp_ 
@@ -86,6 +87,9 @@ Analysis
 
 .. _molsurf:
 .. autofunction:: pytraj.molsurf
+
+.. _calc_vector:
+.. autofunction:: pytraj.calc_vector
 
 .. _center_of_mass:
 .. autofunction:: pytraj.center_of_mass
