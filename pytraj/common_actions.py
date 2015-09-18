@@ -1021,8 +1021,8 @@ def calc_vector(traj=None, command="", frame_indices=None, dtype='ndarray', top=
     >>> pt.calc_vector(traj, "boxcenter")
     >>> pt.calc_vector(traj, "box")
 
-    Performance notes
-    -----------------
+    Notes
+    -----
     It's faster to calculate with a list of commands.
     For example, if you need to perform 3 calculations for 'ucellx', 'boxcenter', 'box'
     >>> pt.calc_vector(traj, "ucellx")
