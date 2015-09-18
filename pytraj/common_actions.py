@@ -993,20 +993,25 @@ def calc_bfactors(traj=None,
                             dtype=dtype, *args, **kwd)
 
 
-def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    """perform dihedral search
+def calc_vector(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
+    """perform vector calculation. See example below. Same as 'vector' command in cpptraj.
+
     Parameters
     ----------
-    command : str, cpptraj command 
-    traj : Trajectory-like object
-    *arg and **kwd: additional arguments
+    traj : Trajectory-like or iterable that produces :class:`pytraj.Frame`
+    command : str or a list of strings, cpptraj command 
+    frame_indices : array-like, optional, default None
+        only perform calculation for given frame indices
+    dtype : output's dtype, default 'ndarray'
+    top : Topology, optional, default None
 
     Returns
     -------
-    DataSet_Vector object
+    out : numpy ndarray, shape (n_frames, 3) if command is a string
+          numpy ndarray, shape (n_vectors, n_frames, 3) if command is a list of strings
 
     Examples
-    ------
+    --------
     >>> import pytraj as pt
     >>> pt.calc_vector(traj, "@CA @CB")
     >>> pt.calc_vector(traj, [("@CA @CB"),])
@@ -1015,23 +1020,35 @@ def calc_vector(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     >>> pt.calc_vector(traj, "ucellx")
     >>> pt.calc_vector(traj, "boxcenter")
     >>> pt.calc_vector(traj, "box")
+
+    Notes
+    -----
+    It's faster to calculate with a list of commands.
+    For example, if you need to perform 3 calculations for 'ucellx', 'boxcenter', 'box'
+    like below:
+
+    >>> pt.calc_vector(traj, "ucellx")
+    >>> pt.calc_vector(traj, "boxcenter")
+    >>> pt.calc_vector(traj, "box")
+
+    You should use a list of commands for faster calculation.
+
+    >>> comlist = ['ucellx', 'boxcenter', 'box']
+    >>> pt.calc_vector(traj, comlist)
     """
     from pytraj.core.ActionList import ActionList
 
     dslist = CpptrajDatasetList()
     _top = _get_top(traj, top)
-    list_of_commands = _get_list_of_commands(mask)
+    list_of_commands = _get_list_of_commands(command)
     actlist = ActionList()
 
     for command in list_of_commands:
         act = CpptrajActions.Action_Vector()
-        actlist.add_action(act, command, _top, dslist=dslist, *args, **kwd)
+        actlist.add_action(act, command, _top, dslist=dslist)
     actlist.do_actions(traj)
 
-    if dtype == 'vector':
-        return dslist[-1]
-    else:
-        return _get_data_from_dtype(dslist, dtype=dtype)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 
 def _calc_vector_center(traj=None,

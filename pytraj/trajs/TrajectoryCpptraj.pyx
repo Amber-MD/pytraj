@@ -123,7 +123,10 @@ cdef class TrajectoryCpptraj:
         cdef n_frames = self.n_frames
 
         # use `frame` as buffer 
-        cdef Frame frame = Frame(n_atoms)
+        cdef Frame frame = Frame()
+
+        #del frame.thisptr # do not do this.
+        frame.thisptr[0] = self.thisptr.AllocateFrame()
 
         for i in range(n_frames):
             # do not create new Frame inside this loop to reduce memory
@@ -136,7 +139,8 @@ cdef class TrajectoryCpptraj:
             return self._top
 
         def __set__(self, Topology other):
-            self.thisptr.SetTopology(other.thisptr[0])
+            #self.thisptr.SetTopology(other.thisptr[0])
+            self.thisptr.CoordsSetup(other.thisptr[0], self.thisptr.CoordsInfo())
 
     def iterframe(self, int start=0, int stop=-1, int stride=1, mask=None):
         '''iterately get Frames with start, stop, stride 
@@ -159,8 +163,8 @@ cdef class TrajectoryCpptraj:
         else:
             _end = stop
 
-        del frame.thisptr
         if mask is not None:
+        #    del frame.thisptr
             if isinstance(mask, string_types):
                 atm = self.top(mask)
             else:
@@ -169,9 +173,11 @@ cdef class TrajectoryCpptraj:
                     atm.add_selected_indices(mask)
                 except TypeError:
                     raise TypeError("dont know how to cast to memoryview")
-            frame.thisptr = new _Frame(<int>atm.n_atoms)
-        else:
-            frame.thisptr = new _Frame(n_atoms)
+        #    frame.thisptr = new _Frame(<int>atm.n_atoms)
+        #else:
+        #    frame.thisptr[0] = self.thisptr.AllocateFrame()
+
+        frame.thisptr[0] = self.thisptr.AllocateFrame()
 
         with self:
             i = start
@@ -236,7 +242,7 @@ cdef class TrajectoryCpptraj:
     def __getitem__(self, idxs):
          # allocate frame for storing data
          cdef Frame frame0
-         cdef Frame frame = Frame(self.top.n_atoms)
+         cdef Frame frame = Frame()
          cdef int start, stop, step
          cdef int i
          cdef int idx_1, idx_2
@@ -244,6 +250,8 @@ cdef class TrajectoryCpptraj:
          cdef list tmplist
          cdef AtomMask atom_mask_obj
          cdef idxs_size
+
+         frame.thisptr[0] = self.thisptr.AllocateFrame()
      
          if isinstance(idxs, AtomMask):
              # atm = top('@CA')
@@ -359,32 +367,6 @@ cdef class TrajectoryCpptraj:
         if self.thisptr:
             del self.thisptr
 
-    def _to_nptraj_by_slice(self, int start, int stop, int stride):
-        cdef int i, j
-        cdef int n_atoms = self.n_atoms
-        cdef Frame frame
-        cdef double[:, :, ::1] xyz
-        cdef int n_frames = len(range(start, stop, stride))
-
-        traj = Trajectory()
-        traj.xyz = np.zeros((n_frames, n_atoms, 3), dtype='f8')
-        traj.unitcells = np.zeros((n_frames, 6), dtype='f8')
-        traj.top = self.top
-        xyz = traj.xyz[:]
-
-        frame = Frame(n_atoms, xyz[0], _as_ptr=True)
-        i = start
-        j = 0
-        while i < stop:
-            # use `frame` as a pointer pointing to `xyz` memory
-            # dump coords to xyz array
-            frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
-            self.thisptr.GetFrame(i, frame.thisptr[0])
-            traj.unitcells[j] = frame.box._get_data()
-            i += stride
-            j += 1
-        return traj
-
     def _to_nptraj_by_indices(self, indices):
         '''indices is iterable that has __len__
         '''
@@ -400,21 +382,59 @@ cdef class TrajectoryCpptraj:
         traj.top = self.top
         xyz = traj.xyz
 
-        frame = Frame(n_atoms, xyz[0], _as_ptr=True)
-        for j, i in enumerate(indices):
-            # use `frame` as a pointer pointing to `xyz` memory
-            # dump coords to xyz array
-            frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
-            # copy coordinates of `self[i]` to j-th frame in `traj`
-            self.thisptr.GetFrame(i, frame.thisptr[0])
-            traj.unitcells[j] = frame.box._get_data()
-        return traj
+        if not self.thisptr.CoordsInfo().HasVel():
+            # faster
+            frame = Frame(n_atoms, xyz[0], _as_ptr=True)
+            for j, i in enumerate(indices):
+                # use `frame` as a pointer pointing to `xyz` memory
+                # dump coords to xyz array
+                frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
+                # copy coordinates of `self[i]` to j-th frame in `traj`
+                self.thisptr.GetFrame(i, frame.thisptr[0])
+                traj.unitcells[j] = frame.box._get_data()
+            return traj
+
+        else:
+            # slower
+            frame = Frame()
+            frame.thisptr[0] = self.thisptr.AllocateFrame()
+            for j, i in enumerate(indices):
+                # use `frame` as a pointer pointing to `xyz` memory
+                # dump coords to xyz array
+                # copy coordinates of `self[i]` to j-th frame in `traj`
+                self.thisptr.GetFrame(i, frame.thisptr[0])
+                traj.xyz[j] = frame.xyz
+                traj.unitcells[j] = frame.box._get_data()
+            return traj
 
     def _iterframe_indices(self, frame_indices):
         cdef int i
-        cdef Frame frame = Frame(self.n_atoms)
+        cdef Frame frame = Frame()
+
+        frame.thisptr[0] = self.thisptr.AllocateFrame()
 
         for i in frame_indices:
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 
+    property _coordinateinfo:
+        def __get__(self):
+            cdef CoordinateInfo cinfo
+
+            cinfo = self.thisptr.CoordsInfo()
+            return {'has_velocity': cinfo.HasVel(),
+                    'has_temperature': cinfo.HasTemp(),
+                    'has_time': cinfo.HasTime(),
+                    'has_force': cinfo.HasForce(),
+                    'has_box': cinfo.HasBox(),
+                    'has_replcica_dims': cinfo.HasReplicaDims()}
+
+        def __set__(self, value):
+            '''value is a dict
+            '''
+            cdef CoordinateInfo cinfo = CoordinateInfo()
+            cinfo.SetTime(<bint> value['has_time'])
+            cinfo.SetVelocity(<bint> value['has_velocity'])
+            cinfo.SetTemperature(<bint> value['has_temperature'])
+            cinfo.SetBox(self.thisptr.Top().ParmBox())
+            self.thisptr.CoordsSetup(self.thisptr.Top(), cinfo)

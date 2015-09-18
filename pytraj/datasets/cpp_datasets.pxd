@@ -7,6 +7,7 @@ from ..math.cpp_math cimport _Grid, _Vec3, Vec3, _Matrix_3x3, Matrix_3x3, _Matri
 from ..Frame cimport _Frame, Frame
 from ..Topology cimport _Topology, Topology
 from ..core.cpptraj_core cimport _ArgList, ArgList, _AtomMask, AtomMask
+from ..core.coordinfo cimport CoordinateInfo
 
 
 ctypedef vector[size_t] SizeArray
@@ -405,8 +406,10 @@ cdef extern from "DataSet_Coords.h":
         void GetFrame(int, _Frame&, const _AtomMask&) 
         # end virtual methods
 
-        void SetTopology(const _Topology&)
+        #void SetTopology(const _Topology&)
         inline const _Topology& Top() const 
+        void CoordsSetup(const _Topology&, const CoordinateInfo &)
+        const CoordinateInfo& CoordsInfo()
 
 
 cdef class DatasetCoords (Dataset):

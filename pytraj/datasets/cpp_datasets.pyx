@@ -1266,7 +1266,8 @@ cdef class DatasetCoords(Dataset):
             return self._top
 
         def __set__(self, Topology other):
-            self.baseptr_1.SetTopology(other.thisptr[0])
+            #self.baseptr_1.SetTopology(other.thisptr[0])
+            self.baseptr_1.CoordsSetup(other.thisptr[0], self.baseptr_1.CoordsInfo())
 
     def add_frame(self, Frame frame):
         self.baseptr_1.AddFrame(frame.thisptr[0])

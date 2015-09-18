@@ -5,6 +5,7 @@ from ..Frame cimport _Frame, Frame
 from ..Topology cimport _Topology, Topology
 from ..datasets.cpp_datasets cimport _DatasetCoords
 from ..core.cpptraj_core cimport _AtomMask, AtomMask, _ArgList, ArgList
+from ..core.coordinfo cimport CoordinateInfo
 
 
 cdef extern from "DataSet_Coords_TRJ.h" nogil: 
@@ -14,9 +15,10 @@ cdef extern from "DataSet_Coords_TRJ.h" nogil:
         size_t Size() const 
         void GetFrame(int idx, _Frame& fIn)
         void GetFrame(int idx, _Frame& fIn, _AtomMask& mIn)
-        void SetTopology(const _Topology&)
-        inline const _Topology& Top() const 
-
+        void CoordsSetup(const _Topology&, const CoordinateInfo &)
+        const _Topology& Top() const 
+        const CoordinateInfo& CoordsInfo()
+        _Frame AllocateFrame()
 
 cdef class TrajectoryCpptraj:
     cdef Topology _top
