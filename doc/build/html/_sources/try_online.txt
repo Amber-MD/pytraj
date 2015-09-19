@@ -1,5 +1,5 @@
-Run pytraj online without installation
-======================================
+Run pytraj online
+=================
 
 Thanks to `mybinder.org <http://mybinder.org>`_, users can try pytraj/cpptraj online without bothering install anything.
 
