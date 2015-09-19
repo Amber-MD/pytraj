@@ -68,6 +68,7 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="try_online.html">Run pytraj online</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
@@ -153,10 +154,7 @@
   <div class="section" id="parallel-calculation">
 <span id="parallel"></span><h1>Parallel calculation<a class="headerlink" href="#parallel-calculation" title="Permalink to this headline">¶</a></h1>
 <p><tt class="docutils literal"><span class="pre">pytraj</span></tt> support different types of parallel computing.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><tt class="docutils literal"><span class="pre">pytraj</span></tt> use <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html">python multiprocessing</a>, so users don&#8217;t need to install extra package.</p>
-</div>
+<p><tt class="docutils literal"><span class="pre">pytraj</span></tt> use <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html">python multiprocessing</a>, so users don&#8217;t need to install extra package.</p>
 <div class="section" id="single-action-with-single-trajectory">
 <h2>single action with single trajectory<a class="headerlink" href="#single-action-with-single-trajectory" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -174,6 +172,7 @@
 </div>
 <div class="section" id="multiple-actions-with-multiple-trajectories">
 <h2>multiple actions with multiple trajectories<a class="headerlink" href="#multiple-actions-with-multiple-trajectories" title="Permalink to this headline">¶</a></h2>
+<p>Only works with Python 3.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="kn">from</span> <span class="nn">pytraj.parallel</span> <span class="kn">import</span> <span class="n">PJob</span>
 
 <span class="gp">In [5]: </span><span class="n">tasklist</span> <span class="o">=</span> <span class="p">[]</span>

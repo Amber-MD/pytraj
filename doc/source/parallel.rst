@@ -5,7 +5,7 @@ Parallel calculation
 
 ``pytraj`` support different types of parallel computing.
 
-.. note:: ``pytraj`` use `python multiprocessing <https://docs.python.org/3/library/multiprocessing.html>`_, so users don't need to install extra package.
+``pytraj`` use `python multiprocessing <https://docs.python.org/3/library/multiprocessing.html>`_, so users don't need to install extra package.
 
 .. ipython:: python
     :suppress:
@@ -25,6 +25,9 @@ single action with single trajectory
 
 multiple actions with multiple trajectories
 -------------------------------------------
+
+Only works with Python 3.
+
 .. ipython:: python
     
     from pytraj.parallel import PJob
