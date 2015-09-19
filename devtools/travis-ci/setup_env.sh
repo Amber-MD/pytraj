@@ -9,6 +9,7 @@ fi
 bash $MINICONDA -b
 
 export PATH=$HOME/miniconda/bin:$PATH
+conda update conda --yes
 conda install --yes conda-build jinja2 anaconda-client pip
 conda config --add channels http://conda.binstar.org/ambermd/
 

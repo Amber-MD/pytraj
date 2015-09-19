@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
-import unittest # pragma no_test
+import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 import numpy as np
@@ -15,12 +15,19 @@ class TestPairDist(unittest.TestCase):
         data0 = data[0].T
         data1 = data[1].T
 
-        cpp_data = np.loadtxt('./data/Pr.tz2.dat').transpose()
+        txt = '''
+        parm ./data/tz2.parm7
+        trajin ./data/tz2.crd
+        pairdist out test.out mask "*" delta 0.1
+        '''
+        cpp_data = pt.datafiles.load_cpptraj_output(txt).values
+        cpp_distance, cpp_Pr = cpp_data[0].T
+        _, cpp_std = cpp_data[1].T
 
-        aa_eq(data0[0], cpp_data[0]) # distance
-        aa_eq(data1[0], cpp_data[0]) # distance
-        aa_eq(data0[1], cpp_data[1], decimal=2) # Pr
-        aa_eq(data1[1], cpp_data[2], decimal=2) # std
+        aa_eq(data0[0], cpp_distance) # distance
+        aa_eq(data1[0], cpp_distance) # distance
+        aa_eq(data0[1], cpp_Pr, decimal=2) # Pr
+        aa_eq(data1[1], cpp_std, decimal=2) # std
 
 if __name__ == "__main__":
     unittest.main()
