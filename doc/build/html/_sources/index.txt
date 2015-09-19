@@ -23,6 +23,7 @@ Welcome to pytraj's documentation - not completed yet
    :maxdepth: 1
 
    overview
+   try_online
    installation
    trajectory
    topology
