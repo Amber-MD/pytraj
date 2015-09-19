@@ -1,12 +1,8 @@
 Run pytraj online without installation
 ======================================
 
-Thanks to `mybinder.org <mybinder.org>`_, users can try pytraj/cpptraj online without bothering install anything.
+Thanks to `http://mybinder.org <mybinder.org>`_, users can try pytraj/cpptraj online without bothering install anything.
 
-.. raw:: html
+Click `notebook-pytraj <http://mybinder.org/repo/hainm/notebook-pytraj>`_ to try pytraj.
 
-    <iframe src="http://mybinder.org/repo/hainm/notebook-pytraj"></iframe>
-
-`notebook-pytraj <http://mybinder.org/repo/hainm/notebook-pytraj>`_
-
-.. note:: User might want to click 'Cell' --> 'RunAll' to restart the loading.
+.. note:: you need to click 'Cell' --> 'RunAll' to restart the loading.
