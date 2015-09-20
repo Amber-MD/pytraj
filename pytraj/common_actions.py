@@ -17,7 +17,7 @@ from pytraj.core.ActionList import ActionList
 from .utils import is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
-from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_atommask
+from .utils.convert import array_to_cpptraj_atommask as array_to_cpptraj_atommask
 from .externals.six import string_types
 from .Frame import Frame
 from .Topology import Topology
@@ -466,7 +466,7 @@ def calc_watershell(traj=None,
     command = ' '.join((_solutemask, _lower, _upper, _noimage, _solventmask))
 
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        command = array_to_cpptraj_atommask(command)
     if not 'out' in command:
         # current Watershell action require specifying output
         command += ' out tmp.tmp'
@@ -481,7 +481,7 @@ def calc_radial(traj=None, command="", frame_indices=None, top=None):
     act = adict['radial']
     # add `radial` keyword to command (need to check `why`?)
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        command = array_to_cpptraj_atommask(command)
     command = 'radial ' + command
     dslist = CpptrajDatasetList()
     if not top.is_empty():
@@ -500,7 +500,7 @@ def calc_matrix(traj=None,
                 dtype='ndarray', *args, **kwd):
     from pytraj.actions.CpptrajActions import Action_Matrix
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        command = array_to_cpptraj_atommask(command)
     act = Action_Matrix()
 
     _top = _get_top(traj, top)
@@ -527,7 +527,7 @@ def calc_radgyr(traj=None,
     _traj_iter = _get_fiterator(traj, frame_indices=frame_indices)
 
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     _nomax = 'nomax' if nomax else ""
     command = " ".join((mask, _nomax))
@@ -550,7 +550,7 @@ def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', frame_indices=No
     '''
     traj = _get_fiterator(traj, frame_indices)
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
     command = mask
 
     act = CpptrajActions.Action_Molsurf()
@@ -563,7 +563,7 @@ def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', frame_indices=No
 
 def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -589,7 +589,7 @@ def calc_multivector(traj=None,
 
 def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -609,7 +609,7 @@ def calc_linear_interaction_energy(traj=None,
                                    *args, **kwd):
     traj = _get_fiterator(traj, frame_indices)
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     command = mask
     act = CpptrajActions.Action_LIE()
@@ -627,7 +627,7 @@ def calc_rdf(traj=None, command="", top=None, dtype='dataset', frame_indices=Non
     traj = _get_fiterator(traj, frame_indices)
     act = CpptrajActions.Action_Radial()
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        command = array_to_cpptraj_atommask(command)
 
     command = "pytraj_tmp_output.agr " + command
     _top = _get_top(traj, top)
@@ -646,7 +646,7 @@ def calc_pairdist(traj=None, mask="*", mask2=None, delta=0.1, dtype='ndarray', t
         _mask2 = '' if mask2 is None else 'mask2 ' + mask2
         command = ' '.join((_mask, _mask2))
         if not isinstance(command, string_types):
-            command = to_cpptraj_atommask(command)
+            command = array_to_cpptraj_atommask(command)
 
         command = command + ' delta ' + str(delta) + ' out tmp_pairdist.txt'
         _top = _get_top(traj, top)
@@ -676,7 +676,7 @@ def calc_jcoupling(traj=None,
     *args, **kwd: optional
     """
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
     command = mask
 
     act = CpptrajActions.Action_Jcoupling()
@@ -748,7 +748,7 @@ def get_average_frame(traj=None, command="", top=None):
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        command = array_to_cpptraj_atommask(command)
 
     # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
     command += " crdset s1"
@@ -761,6 +761,42 @@ def get_average_frame(traj=None, command="", top=None):
 
     return dslist[0].get_frame()
 
+mean_structure = get_average_frame
+
+def get_velocity(traj, mask=None, frame_indices=None):
+    '''get velocity for specify frames with given mask
+
+    Parameters
+    ----------
+    traj : Trajectory-like or iterable that produces Frame
+    mask : str, default None (use all atoms), optional
+        atom mask
+    frame_indices : iterable that produces integer, default None, optional
+        if not None, only get velocity for given frame indices
+
+    Return
+    ------
+    out : 3D numpy array, shape (n_frames, n_atoms, 3)
+    '''
+    if mask is None:
+        atm_indices = None
+    else:
+        if not isinstance(mask, string_types):
+            # array-like
+            atm_indices = mask
+        else:
+            atm_indices = traj.top.select(mask)
+
+    fi = traj.iterframe(frame_indices=frame_indices)
+    n_atoms = traj.n_atoms if mask is None else len(atm_indices)
+    n_frames = fi.n_frames
+
+    data = np.empty((n_frames, n_atoms, 3), dtype='f8')
+    for idx, frame in enumerate(fi):
+        if not frame.has_velocity():
+            raise ValueError('frame does not have velocity')
+        data[idx] = frame.velocity if mask is None else frame.velocity[atm_indices]
+    return data
 
 def randomize_ions(traj=None, command="", top=None):
     """randomize_ions for given Frame with Topology
@@ -776,7 +812,7 @@ def randomize_ions(traj=None, command="", top=None):
 
     """
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        command = array_to_cpptraj_atommask(command)
     _noaction_with_TrajectoryIterator(traj)
     act = CpptrajActions.Action_RandomizeIons()
     act(command, traj, top)
@@ -950,7 +986,7 @@ def calc_atomicfluct(traj=None,
                      top=None,
                      dtype='dataset', *args, **kwd):
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -982,7 +1018,7 @@ def calc_bfactors(traj=None,
     >>> pt.calc_bfactors(traj, byres=True)
     """
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     byres_text = "byres" if byres else ""
 
@@ -1095,7 +1131,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
     _top = _get_top(traj, top)
 
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        command = array_to_cpptraj_atommask(command)
 
     atom_mask_obj = _top(command)
     dslist = CpptrajDatasetList()
@@ -1160,7 +1196,7 @@ def calc_pairwise_rmsd(traj=None,
     Install ``libcpptraj`` with ``openmp`` to get benifit from parallel
     """
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
     from pytraj import TrajectoryIterator, Trajectory
@@ -1419,7 +1455,7 @@ def align_principal_axis(traj=None, mask="*", top=None):
     command = mask
 
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        command = array_to_cpptraj_atommask(command)
     _top = _get_top(traj, top)
     act = CpptrajActions.Action_Principal()
     command += " dorotation"
@@ -1464,7 +1500,7 @@ def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -1536,7 +1572,7 @@ def closest(traj=None,
         raise ValueError('must specify the number of solvents')
 
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     command = str(n_solvents) + ' ' + mask
 
@@ -1611,7 +1647,7 @@ def native_contacts(traj=None,
 
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     command = mask
 
@@ -1641,7 +1677,7 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
     # TODO: doc, rename method, move to seperate module?
     if not isinstance(command, string_types):
-        command = to_cpptraj_atommask(command)
+        command = array_to_cpptraj_atommask(command)
     act = CpptrajActions.Action_Grid()
     dslist = CpptrajDatasetList()
 
@@ -1810,7 +1846,7 @@ def search_neighbors(traj=None, mask='', cutoff='', dtype='dataset', top=None):
     from pytraj.datasetlist import DatasetList
 
     if not isinstance(mask, string_types):
-        mask = to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
 
     if '>' in cutoff:
         cutoff = '>:' + cutoff.split('>')[-1]

@@ -16,6 +16,8 @@ from cython.parallel import prange
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
 from libc.string cimport memcpy
+
+import numpy as np
 from pytraj.utils.check_and_assert import is_int
 from pytraj.core.cpptraj_core import ArgList
 from pytraj.trajs.Trajout import Trajout
@@ -430,11 +432,18 @@ cdef class Frame (object):
             if not hasattr(value, 'shape') and value.shape != self.shape:
                 raise ValueError("shape mismatch")
             self.xyz[:] = value
+
+    property velocity:
+        def __get__(self):
+            """
+            """
+            cdef int n_atoms = self.n_atoms
+            return np.asarray(<double[:n_atoms, :3]> self.thisptr.vAddress())
         
     def is_empty(self):
         return self.thisptr.empty()
 
-    def has_vel(self):
+    def has_velocity(self):
         return self.thisptr.HasVelocity()
 
     property n_atoms:
@@ -563,9 +572,6 @@ cdef class Frame (object):
         box.thisptr[0] = self.thisptr.BoxCrd()
         return box.tolist()
 
-    def v_address(self):
-        return <double[:self.thisptr.Natom(), :3]> self.thisptr.vAddress()
-
     property box:
         def __get__(self):
             cdef Box box = Box()
@@ -588,14 +594,6 @@ cdef class Frame (object):
             cdef view.array my_arr
             my_arr = <double[:6]> ptr
             return my_arr
-
-    def _t_address(self):
-        # cpptraj: return double*
-        raise NotImplementedError()
-
-    def _i_address(self):
-        # cpptraj: return int*
-        raise NotImplementedError()
 
     def set_box_angles(self, double[:] ain):
         self.thisptr.SetBoxAngles(&ain[0])
