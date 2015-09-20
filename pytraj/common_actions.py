@@ -744,17 +744,23 @@ def do_autoimage(traj=None, command="", top=None):
 autoimage = do_autoimage
 
 
-def get_average_frame(traj=None, command="", top=None):
+def get_average_frame(traj=None, mask="", frame_indices=None, top=None):
+    '''get mean structure for a given mask and given frame_indices
+    '''
     _top = _get_top(traj, top)
-    dslist = CpptrajDatasetList()
-    if not isinstance(command, string_types):
-        command = array_to_cpptraj_atommask(command)
+    fi = _get_fiterator(traj, frame_indices)
 
-    # add "crdset s1" to trick cpptraj dumpt coords to DatSetList
+    dslist = CpptrajDatasetList()
+    if not isinstance(mask, string_types):
+        command = array_to_cpptraj_atommask(mask)
+    else:
+        command = mask
+
+    # add "crdset s1" to trick cpptraj dump coords to DatSetList
     command += " crdset s1"
 
     act = CpptrajActions.Action_Average()
-    act(command, traj, _top, dslist=dslist)
+    act(command, fi, _top, dslist=dslist)
 
     # need to call this method so cpptraj will write
     act.print_output()
