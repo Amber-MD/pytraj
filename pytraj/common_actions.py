@@ -1373,9 +1373,9 @@ def calc_rmsd(traj=None,
             command = cmd
         elif 'int' in dname or 'object' in dname:
             if cmd.ndim == 1 and 'object' not in dname:
-                command = [to_cpptraj_atommask(mask), ]
+                command = [array_to_cpptraj_atommask(mask), ]
             elif cmd.ndim == 2 or 'object' in dname:
-                command = [to_cpptraj_atommask(x) for x in mask]
+                command = [array_to_cpptraj_atommask(x) for x in mask]
             else:
                 raise ValueError("only support array with ndim=1,2")
         else:
