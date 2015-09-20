@@ -1,11 +1,12 @@
 import unittest
 import numpy as np
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
-from pytraj import io as pt
 from pytraj.common_actions import *
 from pytraj.testing import aa_eq
 from pytraj.common_actions import get_average_frame
+from pytraj import Trajectory
 
 
 class TestAverageFrame(unittest.TestCase):
@@ -50,6 +51,12 @@ class TestAverageFrame(unittest.TestCase):
         xyz_0= pt.get_coordinates(traj(1, 8, 2))
         xyz_1= np.array([frame.xyz.copy() for frame in traj.iterframe(frame_indices=range(1, 8, 2))])
         aa_eq(xyz_0, xyz_1)
+
+        # test as traj
+        out_traj = get_average_frame(traj, mask='@CA', frame_indices=[0, 3, 7], restype='traj')
+        assert isinstance(out_traj, Trajectory), 'must be Trajectory'
+        aa_eq(out_traj.xyz, frame6.xyz)
+
 
     def test_1(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

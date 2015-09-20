@@ -744,20 +744,29 @@ def do_autoimage(traj=None, command="", top=None):
 autoimage = do_autoimage
 
 
-def get_average_frame(traj=None, mask="", frame_indices=None, top=None):
+def get_average_frame(traj, mask='', frame_indices=None, restype='frame', top=None):
     '''get mean structure for a given mask and given frame_indices
+
+    Parameters
+    ----------
+    traj : Trajectory-like or iterable that produces Frame
+    mask : None or str, default None (all atoms)
+    frame_indices : iterable that produces integer, default None, optional
+        frame indices
+    restype: str, {'frame', 'traj'}, defaul 'frame'
+        return type, either Frame (does not have Topology information) or 'traj'
     '''
     _top = _get_top(traj, top)
     fi = _get_fiterator(traj, frame_indices)
 
     dslist = CpptrajDatasetList()
     if not isinstance(mask, string_types):
-        command = array_to_cpptraj_atommask(mask)
+        mask = array_to_cpptraj_atommask(mask)
     else:
-        command = mask
+        mask = mask
 
     # add "crdset s1" to trick cpptraj dump coords to DatSetList
-    command += " crdset s1"
+    command = mask + " crdset s1"
 
     act = CpptrajActions.Action_Average()
     act(command, fi, _top, dslist=dslist)
@@ -765,7 +774,12 @@ def get_average_frame(traj=None, mask="", frame_indices=None, top=None):
     # need to call this method so cpptraj will write
     act.print_output()
 
-    return dslist[0].get_frame()
+    frame = dslist[0].get_frame()
+    if restype.lower() == 'frame':
+        return frame
+    elif restype.lower() == 'traj':
+        new_top = _top if mask is '' else _top[mask]
+        return Trajectory(xyz=frame.as_3darray().copy(), top=new_top)
 
 mean_structure = get_average_frame
 
