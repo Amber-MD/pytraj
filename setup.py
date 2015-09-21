@@ -22,6 +22,14 @@ from time import sleep
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+if sys.platform == 'darwin':
+    # copied from ParmEd
+    # You *need* to use clang and clang++ for extensions on a Mac;
+    # Anaconda does annoying stuff that breaks this, since their distutils
+    # automatically tries to use "gcc", which would conflict with the MacPorts
+    # gcc... sigh.
+    os.environ['CXX'] = 'clang++'
+    os.environ['CC'] = 'clang'
 
 pytraj_version = read("pytraj/__version__.py").split("=")[-1]
 pytraj_version = pytraj_version.replace('"', '', 10)
