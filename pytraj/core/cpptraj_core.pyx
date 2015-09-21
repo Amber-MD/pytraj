@@ -493,6 +493,16 @@ cdef class CpptrajState:
     def __dealloc__(self):
         if self.thisptr is not NULL:
             del self.thisptr
+
+    def __str__(self):
+        return 'CpptrajState, include:\n' + '<datasetlist: {0} datasets>'.format(len(self.data))
+
+    property data:
+        def __get__(self):
+            return self.datasetlist
+
+    def __repr__(self):
+        return str(self)
     
     def is_empty(self):
         return self.thisptr.EmptyState()
