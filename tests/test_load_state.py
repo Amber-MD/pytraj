@@ -26,6 +26,17 @@ class TestState(unittest.TestCase):
             aa_eq(r0, dslist[1])
             assert len(dslist[0]) == traj.n_frames 
 
+    def test_raise_if_not_trajiter(self):
+        traj = pt.iterload('data/tz2.nc', './data/tz2.parm7')
+        t0 = traj[:]
+
+        text = '''
+        rms @CA
+        radgyr @CA nomax
+        '''
+       
+        self.assertRaises(ValueError, lambda: load_batch(t0, text))
+
 
 if __name__ == "__main__":
     unittest.main()
