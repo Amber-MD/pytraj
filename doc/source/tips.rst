@@ -92,6 +92,7 @@ See also: :ref:`trajectory_slice`
 convert trajectory
 ------------------
 
-.. ipython::
+.. ipython:: python
     
-    pt.iterload('traj.nc', 'prmtop').save('traj.dcd')
+    # convert Amber netcdf to Charmm dcd file.
+    pt.iterload('traj.nc', 'prmtop').save('traj.dcd', overwrite=True)

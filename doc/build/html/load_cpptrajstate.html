@@ -179,41 +179,50 @@ molsurf
 <span class="gp">   ...:</span><span class="s"> molsurf @CA&#39;&#39;&#39;</span>
 <span class="gp">   ...:</span> 
 
-<span class="gp">In [5]: </span><span class="n">text</span>
-<span class="gr">Out[5]: </span><span class="s">&#39;</span><span class="se">\n</span><span class="s">autoimage</span><span class="se">\n</span><span class="s">rms first @CA</span><span class="se">\n</span><span class="s">radgyr @H,C,N,O</span><span class="se">\n</span><span class="s">molsurf @CA&#39;</span>
-
 <span class="c"># load CpptrajState</span>
-<span class="gp">In [6]: </span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
 
 <span class="c"># performa calculation</span>
-<span class="gp">In [7]: </span><span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="gr">Out[7]: </span><span class="mi">0</span>
+<span class="gp">In [6]: </span><span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gr">Out[6]: </span><span class="mi">0</span>
 
-<span class="gp">In [8]: </span><span class="n">state</span>
-<span class="go">          Out[8]: </span>
+<span class="gp">In [7]: </span><span class="n">state</span>
+<span class="go">          Out[7]: </span>
 <span class="go">CpptrajState, include:</span>
 <span class="go">&lt;datasetlist: 4 datasets&gt;</span>
 
 <span class="c"># get some data</span>
-<span class="gp">In [9]: </span><span class="n">state</span><span class="o">.</span><span class="n">datasetlist</span>
-<span class="go">                                                                    Out[9]: &lt;pytraj.datasets.DatasetList - 4 datasets&gt;</span>
+<span class="gp">In [8]: </span><span class="n">state</span><span class="o">.</span><span class="n">datasetlist</span>
+<span class="go">                                                                    Out[8]: &lt;pytraj.datasets.DatasetList - 4 datasets&gt;</span>
 
-<span class="gp">In [10]: </span><span class="n">state</span><span class="o">.</span><span class="n">datasetlist</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="go">                                                                                                                       Out[10]: [&#39;RMSD_00000&#39;, &#39;RoG_00001&#39;, &#39;RoG_00001[Max]&#39;, &#39;MSURF_00003&#39;]</span>
+<span class="gp">In [9]: </span><span class="n">state</span><span class="o">.</span><span class="n">datasetlist</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">                                                                                                                       Out[9]: [&#39;RMSD_00000&#39;, &#39;RoG_00001&#39;, &#39;RoG_00001[Max]&#39;, &#39;MSURF_00003&#39;]</span>
 
-<span class="gp">In [11]: </span><span class="n">state</span><span class="o">.</span><span class="n">datasetlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">                                                                                                                                                                                             Out[11]: </span>
+<span class="gp">In [10]: </span><span class="n">state</span><span class="o">.</span><span class="n">datasetlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">                                                                                                                                                                                            Out[10]: </span>
 <span class="go">&lt;pytraj.datasets.DatasetDouble: size=10, key=RMSD_00000&gt; </span>
 <span class="go">values: </span>
 <span class="go">[ 0.          0.26412388  0.38596881  0.26882031  0.26192277  0.45762002</span>
 <span class="go">  0.45645516  0.44428977  0.43628622  0.44746086]</span>
 
-<span class="gp">In [12]: </span><span class="n">state</span><span class="o">.</span><span class="n">datasetlist</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                     Out[12]: </span>
+<span class="gp">In [11]: </span><span class="n">state</span><span class="o">.</span><span class="n">datasetlist</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                    Out[11]: </span>
 <span class="go">&lt;pytraj.datasets.DatasetDouble: size=10, key=MSURF_00003&gt; </span>
 <span class="go">values: </span>
 <span class="go">[ 458.51409637  459.64784573  456.54690793  467.72939574  462.45908781</span>
 <span class="go">  458.70327554  454.40514806  455.15015576  468.70566447  456.0058624 ]</span>
+
+<span class="c"># convert data to regular numpy array</span>
+<span class="gp">In [12]: </span><span class="n">state</span><span class="o">.</span><span class="n">datasetlist</span><span class="o">.</span><span class="n">values</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Out[12]: </span>
+<span class="go">array([[  0.00000000e+00,   2.64123879e-01,   3.85968812e-01, ...,</span>
+<span class="go">          4.44289769e-01,   4.36286217e-01,   4.47460859e-01],</span>
+<span class="go">       [  1.90047815e+01,   1.90322003e+01,   1.89463184e+01, ...,</span>
+<span class="go">          1.89903146e+01,   1.90095375e+01,   1.89635749e+01],</span>
+<span class="go">       [  3.15329452e+01,   3.09565129e+01,   3.17007626e+01, ...,</span>
+<span class="go">          3.18097388e+01,   3.22554345e+01,   3.05382727e+01],</span>
+<span class="go">       [  4.58514096e+02,   4.59647846e+02,   4.56546908e+02, ...,</span>
+<span class="go">          4.55150156e+02,   4.68705664e+02,   4.56005862e+02]])</span>
 </pre></div>
 </div>
 </div>

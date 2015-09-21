@@ -26,7 +26,6 @@ you can create a 'CpptrajState'
     rms first @CA
     radgyr @H,C,N,O
     molsurf @CA'''
-    text
     # load CpptrajState
     state = pt.load_batch(traj, text)
     # performa calculation
@@ -37,3 +36,5 @@ you can create a 'CpptrajState'
     state.datasetlist.keys()
     state.datasetlist[0]
     state.datasetlist[-1]
+    # convert data to regular numpy array
+    state.datasetlist.values
