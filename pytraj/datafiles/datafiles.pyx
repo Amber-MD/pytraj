@@ -57,6 +57,8 @@ def load_batch(traj, txt):
         start, stop, stride = frame_slice
         if stop == -1:
             _stop  = 'last'
+        elif stop < -1:
+            raise RuntimeError('does not support negative stop for load_batch (except -1 (last))')
         else:
             _stop = stop
         txt0 += 'trajin {0} {1} {2} {3}'.format(fname, str(start), str(_stop), str(stride))
