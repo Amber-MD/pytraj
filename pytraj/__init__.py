@@ -83,6 +83,7 @@ load_from_frame_iter = _load_from_frame_iter
 
 # dataset stuff
 from .datafiles.load_sample_data import load_sample_data
+from .datafiles.datafiles import load_batch
 from .datasetlist import DatasetList
 
 # tool
