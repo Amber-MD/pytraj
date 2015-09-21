@@ -3,6 +3,12 @@
 Fancy indexing of trajectory
 ============================
 
+try ``pytraj`` online:
+
+.. image:: http://mybinder.org/badge.svg
+   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
+
 .. contents::
 
 use `[ ]` slicing notation to load all given frames into memory at once

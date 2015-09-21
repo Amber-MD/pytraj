@@ -152,6 +152,8 @@
       
   <div class="section" id="fancy-indexing-of-trajectory">
 <span id="trajectory-slice"></span><h1><a class="toc-backref" href="#id1">Fancy indexing of trajectory</a><a class="headerlink" href="#fancy-indexing-of-trajectory" title="Permalink to this headline">¶</a></h1>
+<p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
@@ -237,32 +239,32 @@
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [13]: </span><span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gr">Out[13]: </span>
 <span class="go">&lt;FrameIter with start=0, stop=8, stride=2, n_frames=4, </span>
-<span class="go">frame_indices=None </span>
-<span class="go">autoimage=False, rmsfit=None, copy=False&gt; </span>
+<span class="go">frame_indices=None, </span>
+<span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
 
 <span class="gp">In [14]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
-<span class="go">                                                                                                                                 &lt;Frame with 5293 atoms&gt;</span>
+<span class="go">                                                                                                                                             &lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 
 <span class="c"># iterating with autoimage</span>
 <span class="gp">In [15]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                 &lt;Frame with 5293 atoms&gt;</span>
+<span class="go">                                                                                                                                                                                                                                             &lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 
 <span class="c"># iterating with rmsfit to first frame</span>
 <span class="gp">In [16]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                 &lt;Frame with 5293 atoms&gt;</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                             &lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 
 <span class="c"># iterating all frames and keep only CA atoms</span>
 <span class="gp">In [17]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                 &lt;Frame with 12 atoms&gt;</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;Frame with 12 atoms&gt;</span>
 <span class="go">&lt;Frame with 12 atoms&gt;</span>
 <span class="go">&lt;Frame with 12 atoms&gt;</span>
 <span class="go">&lt;Frame with 12 atoms&gt;</span>
@@ -275,7 +277,7 @@
 
 <span class="c"># iterating all frames and strip waters</span>
 <span class="gp">In [18]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="s">&#39;!:WAT&#39;</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;Frame with 220 atoms&gt;</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         &lt;Frame with 220 atoms&gt;</span>
 <span class="go">&lt;Frame with 220 atoms&gt;</span>
 <span class="go">&lt;Frame with 220 atoms&gt;</span>
 <span class="go">&lt;Frame with 220 atoms&gt;</span>

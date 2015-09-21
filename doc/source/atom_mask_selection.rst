@@ -1,6 +1,11 @@
 Atom mask selection
 ===================
 
+try ``pytraj`` online:
+
+.. image:: http://mybinder.org/badge.svg
+   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
 .. contents::
 
 .. note:: Section describing ``Amber mask syntax`` is direct excerpt from `parmed's website <http://parmed.github.io/ParmEd/html/amber.html#amber-mask-syntax>`_
