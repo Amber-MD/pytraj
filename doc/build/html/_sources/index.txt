@@ -12,6 +12,11 @@
 Welcome to pytraj's documentation - not completed yet
 =====================================================
 
+try ``pytraj`` online:
+
+.. image:: http://mybinder.org/badge.svg
+   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
 **Overview**
 
 ``pytraj`` is a Python front-end of the popular ``cpptraj`` package. Its aim is to expose
@@ -23,7 +28,6 @@ Welcome to pytraj's documentation - not completed yet
    :maxdepth: 1
 
    overview
-   try_online
    installation
    trajectory
    topology
