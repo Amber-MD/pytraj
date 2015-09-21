@@ -3,6 +3,12 @@
 Parallel calculation
 ====================
 
+try ``pytraj`` online:
+
+.. image:: http://mybinder.org/badge.svg
+   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
+
 ``pytraj`` support different types of parallel computing.
 
 ``pytraj`` use `python multiprocessing <https://docs.python.org/3/library/multiprocessing.html>`_, so users don't need to install extra package.

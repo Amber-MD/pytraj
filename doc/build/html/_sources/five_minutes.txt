@@ -3,6 +3,12 @@
 Five minute learning
 ====================
 
+try ``pytraj`` online:
+
+.. image:: http://mybinder.org/badge.svg
+   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
+
 .. ipython:: python
 
     # load pytraj

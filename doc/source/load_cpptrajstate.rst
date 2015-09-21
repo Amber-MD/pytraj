@@ -3,6 +3,12 @@
 Run cpptraj's batch
 ===================
 
+try ``pytraj`` online:
+
+.. image:: http://mybinder.org/badge.svg
+   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
+
 if you want to run cpptraj's batch mode like below::
 
     parm tz2.ortho.parm7
