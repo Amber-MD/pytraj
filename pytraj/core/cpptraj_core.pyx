@@ -442,6 +442,8 @@ cdef extern from "Command.h":
     cdef cppclass _Command "Command":
         @staticmethod
         RetType ProcessInput(_CpptrajState&, const string&)
+        @staticmethod
+        RetType Dispatch(_CpptrajState&, const string&)
 
 cdef class Command:
     cdef _Command* thisptr
@@ -457,6 +459,13 @@ cdef class Command:
         cdef CpptrajState cppstate = CpptrajState()
         trajin_text = trajin_text.encode()
         _Command.ProcessInput(cppstate.thisptr[0], trajin_text)
+        return cppstate
+
+    @classmethod
+    def get_state_from_string(cls, txt):
+        cdef CpptrajState cppstate = CpptrajState()
+        trajin_text = txt.encode()
+        _Command.Dispatch(cppstate.thisptr[0], trajin_text)
         return cppstate
 
 cdef class CpptrajState:
