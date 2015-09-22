@@ -152,9 +152,9 @@ cdef class Dataset:
             msg = "not implemented for %s" % self.__class__.__name__
             raise NotImplementedError(msg)
 
-    @property
-    def values(self):
-        return self.to_ndarray()
+    property values:
+        def __get__(self):
+            return self.to_ndarray()
 
     def to_ndarray(self, copy=False):
         """return ndarray view of self.data"""
@@ -468,6 +468,12 @@ cdef class DatasetDouble (Dataset1D):
         idx_ = <size_t> idx
         self.thisptr.Add(idx_, <void*> (&elm))
 
+    property values:
+        def __get__(self):
+            return self.to_ndarray()
+        def __set__(self, values):
+            self.data = values
+
     property data:
         def __get__(self):
             """return memoryview of data array
@@ -704,7 +710,7 @@ cdef class DatasetString (Dataset1D):
         return arr0
 
 
-cdef class DatasetVector (Dataset):
+cdef class DatasetVector(Dataset):
     def __cinit__(self):
         self.py_free_mem = True
         self.thisptr = new _DatasetVector()
@@ -738,18 +744,23 @@ cdef class DatasetVector (Dataset):
     def append(self, Vec3 vec):
         self.thisptr.AddVxyz(vec.thisptr[0])
 
-    def from_array_like(self, double[:, :] arr):
-        cdef int i
-        cdef double[:] xyz
-        cdef _Vec3 _vec
+    property values:
+        def __get__(self):
+            return self.to_ndarray()
 
-        if arr.shape[1] != 3:
-            raise ValueError("must have shape = (n_frames, 3))")
+        def __set__(self, values):
+            cdef int i
+            cdef double[:] xyz
+            cdef _Vec3 _vec
+            cdef double[:, ::1] arr = values
 
-        for i in range(arr.shape[0]):
-            xyz = arr[i]
-            _vec.Assign(&xyz[0])
-            self.thisptr.AddVxyz(_vec)
+            if arr.shape[1] != 3:
+                raise ValueError("must have shape = (n_frames, 3))")
+
+            for i in range(arr.shape[0]):
+                xyz = arr[i]
+                _vec.Assign(&xyz[0])
+                self.thisptr.AddVxyz(_vec)
 
     def tolist(self):
         # overwrite
@@ -786,9 +797,6 @@ cdef class DatasetVector (Dataset):
         """
         return self.__iter__()
 
-    @property
-    def values(self):
-        return self.to_ndarray()
 
 cdef class Dataset2D (Dataset):
     def __cinit__(self):
@@ -1314,6 +1322,13 @@ cdef class DatasetCoordsCRD (DatasetCoords):
     def __dealloc__(self):
         if self.py_free_mem:
             del self.thisptr
+
+    property values:
+        def __set__(self, traj):
+            cdef Frame frame
+
+            for frame in traj:
+                self.baseptr_1.AddFrame(frame.thisptr[0])
 
     def load(self, filename_or_traj, top=Topology(), copy_top=False, copy=True):
         cdef Topology tmp_top

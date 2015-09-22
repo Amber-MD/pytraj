@@ -50,7 +50,7 @@ def load_batch(traj, txt):
                          'use pytraj.iterload(...)')
 
     txt0 = '''
-    parm %s
+    parm %s\n
     ''' % traj.top.filename
 
     for fname, frame_slice in zip(traj.filelist, traj.frame_slice_list):
@@ -61,9 +61,10 @@ def load_batch(traj, txt):
             raise RuntimeError('does not support negative stop for load_batch (except -1 (last))')
         else:
             _stop = stop
-        txt0 += 'trajin {0} {1} {2} {3}'.format(fname, str(start), str(_stop), str(stride))
+        txt0 += 'trajin {0} {1} {2} {3}\n'.format(fname, str(start), str(_stop), str(stride))
 
-    lines = (txt0 + txt).lstrip().rstrip().split('\n')
+    lines = txt0.split('\n') + txt.lstrip().rstrip().split('\n')
     for line in lines:
-        _Command.Dispatch(state.thisptr[0], line.encode())
+        if line:
+            _Command.Dispatch(state.thisptr[0], line.encode())
     return state

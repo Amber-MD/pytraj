@@ -2,7 +2,7 @@ from __future__ import print_function
 from pytraj import io as mdio
 from pytraj import Frame
 from pytraj.compat import range
-# require`pip install memory_profiler`
+from memory_profiler import profile
 
 
 @profile
