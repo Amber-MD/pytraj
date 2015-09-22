@@ -22,6 +22,11 @@ try ``pytraj`` online:
 ``pytraj`` is a Python front-end of the popular ``cpptraj`` package. Its aim is to expose
 ``cpptraj``'s funtions to Python's ecosystem. Enjoy.
 
+try ``pytraj`` online:
+
+.. image:: images/PCA_heart.png
+   :target: tutorials
+
 **Contents**
 
 .. toctree::
