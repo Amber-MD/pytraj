@@ -2,6 +2,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.base import *
+from pytraj.utils import has_
 from pytraj.testing import aa_eq
 from pytraj import Trajectory, TrajectoryIterator
 
@@ -35,6 +36,7 @@ class TestSimpleRMSD(unittest.TestCase):
         aa_eq(arr2, cpptraj_rmsd, decimal=3)
         aa_eq(arr3, cpptraj_rmsd, decimal=3)
 
+    @unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
     def test_ComparetoMDtraj(self):
         # use `mdtraj` for rerefence values
         import mdtraj as md

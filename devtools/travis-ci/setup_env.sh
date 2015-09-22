@@ -12,8 +12,13 @@ export PATH=$HOME/miniconda/bin:$PATH
 conda update conda --yes
 conda install --yes conda-build jinja2 anaconda-client pip
 conda config --add channels http://conda.binstar.org/ambermd/
+conda config --add channels http://conda.binstar.org/omnia
 
-conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py
+if [[ PYTHON_VERSION == '3.5']]; then
+    conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py 
+else
+    conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py mdtraj
+fi
 
 source activate myenv
 conda install --yes anaconda-client
