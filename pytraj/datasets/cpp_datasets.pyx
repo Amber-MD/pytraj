@@ -431,7 +431,6 @@ cdef class DatasetDouble (Dataset1D):
         if self.py_free_mem:
             del self.thisptr
 
-
     def __getitem__(self, idx):
         #return self.thisptr.index_opr(idx)
         # use self.data so we can use fancy indexing
@@ -510,7 +509,6 @@ cdef class DatasetFloat (Dataset1D):
         if self.py_free_mem:
             del self.thisptr
 
-
     def __getitem__(self, idx):
         return self.data[idx]
 
@@ -524,6 +522,10 @@ cdef class DatasetFloat (Dataset1D):
 
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
+
+    property values:
+        def __set__(self, values):
+            self.data = values
 
     property data:
         def __get__(self):
@@ -540,7 +542,9 @@ cdef class DatasetFloat (Dataset1D):
             return myview
 
         def __set__(self, data):
-            raise NotImplementedError()
+            cdef float x
+            for x in data:
+                self.thisptr.AddElement(x)
 
     def append(self, ds):
         cdef int new_size = self.size + ds.size

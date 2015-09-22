@@ -89,12 +89,31 @@ class TestVectorAnalysisModule(unittest.TestCase):
         state.run()
         cpp_data = state.datasetlist
         cpp_vectors = cpp_data.grep('vector', mode='dtype').values
+        cpp_matired = cpp_data.grep('matrix', mode='dtype')['matired']
+        #print(cpp_matired.values)
 
         # assert between pytraj's data_vec and cpptraj's cpp_vectors
         aa_eq(data_vec, cpp_vectors)
 
         # from a 2D array of integers
         aa_eq(data_vec_2, cpp_vectors)
+
+        # test ired vector with ired matrix
+        # open file
+
+        with open('data/ired_reduced.in', 'r') as fh:
+            text = ''.join(fh.readlines())
+        state2 = pt.load_batch(traj, text)
+        state2.run()
+
+        data = pt.common_actions.calc_ired_matrix(traj, nh_indices, order=2)
+        data_vec_3 = data[:-1] 
+        assert len(data_vec_3) == 126, 'must have 126 vectors'
+        matired = data[-1].values
+        # TODO: know why?? 
+        matired /= matired[0, 0]
+        aa_eq(data_vec_3, cpp_vectors)
+        assert pt.tools.rmsd(matired.flatten(), cpp_matired.values) < 1E-6, 'matired'
 
 if __name__ == "__main__":
     unittest.main()
