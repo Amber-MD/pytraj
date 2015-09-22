@@ -17,15 +17,11 @@ try ``pytraj`` online:
 .. image:: http://mybinder.org/badge.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
+
 **Overview**
 
 ``pytraj`` is a Python front-end of the popular ``cpptraj`` package. Its aim is to expose
 ``cpptraj``'s funtions to Python's ecosystem. Enjoy.
-
-try ``pytraj`` online:
-
-.. image:: images/PCA_heart.png
-   :target: tutorials
 
 **Contents**
 
@@ -52,6 +48,11 @@ try ``pytraj`` online:
    api
 
 :ref:`contributors_and_citations`
+
+try ``pytraj`` online:
+
+.. image:: images/PCA_heart.png
+   :target: tutorials/mdtraj_adapted.rst
 
 
 **Simple code**
