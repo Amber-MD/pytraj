@@ -3,12 +3,14 @@ import unittest
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
+from pytraj.utils import has_
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
+    @unittest.skipIf(not has_('MDAnalysis'), 'does not have mdanalysis')
     def test_0(self):
         from MDAnalysisTests.datafiles import PSF, DCD
         from pytraj import TrajectoryIterator, Trajectory
@@ -26,7 +28,8 @@ class Test(unittest.TestCase):
 
         #print(pyca.calc_COM(traj2).to_ndarray())
 
-    def test_0(self):
+    @unittest.skipIf(not has_('MDAnalysis'), 'does not have mdanalysis')
+    def test_mdanalysis(self):
         from MDAnalysisTests.datafiles import PSF, DCD
         from pytraj import Trajectory
         from pytraj import TrajectoryIterator
