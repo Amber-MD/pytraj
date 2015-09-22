@@ -6,7 +6,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.Frame import Frame
 from pytraj.base import *
 from pytraj import io as mdio
-from pytraj.decorators import no_test
 
 SMALL = 1E-6
 
@@ -18,8 +17,6 @@ FRAME_orig = FRAME.copy()
 
 
 class TestFrame(unittest.TestCase):
-    # @no_test
-
     def test_fit(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         trajnew = mdio.iterload(

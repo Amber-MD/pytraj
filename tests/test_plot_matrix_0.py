@@ -6,11 +6,9 @@ from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj import load_sample_data
 from pytraj.utils import has_
-from pytraj.testing import no_test
 
 
 class Test(unittest.TestCase):
-    @no_test
     def test_0(self):
         traj = load_sample_data()
         act = adict['matrix']

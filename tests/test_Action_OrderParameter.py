@@ -11,7 +11,7 @@ class TestOrderParameter(unittest.TestCase):
     def test_0(self):
         # TODO : add assert
         # results seem wrong
-        #print("test")
+
         traj = mdio.iterload('./data/DOPC.rst7', './data/DOPC.parm7')
 
         command = '''lipiorder out ./output/sn2_dir.dat z scd
@@ -29,10 +29,6 @@ class TestOrderParameter(unittest.TestCase):
         act = adict['orderparameter']
         dslist = DatasetList()
         act(command, traj, dslist=dslist)
-        #print("#print out dslist")
-        #print(dslist.get_legends())
-        #print(dslist.size)
-
 
 if __name__ == '__main__':
     unittest.main()

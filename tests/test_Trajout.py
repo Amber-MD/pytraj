@@ -2,7 +2,6 @@ import unittest
 import pytraj as pt
 import numpy as np
 from pytraj.base import *
-from pytraj.decorators import no_test
 from pytraj.io import write_traj
 from pytraj import io as mdio
 from pytraj.testing import aa_eq
@@ -13,7 +12,6 @@ farray = pt.load(
 
 
 class TestTrajout(unittest.TestCase):
-    #@no_test
 
     def test_0(self):
         farray = pt.load(
@@ -52,7 +50,6 @@ class TestTrajout(unittest.TestCase):
         farray.load("./output/test.x")
         #print(farray.size)
 
-        #@no_test
     def test_3_write_PDBFILE(self):
         frame0 = farray[0]
         with Trajout(filename="./output/test_0.pdb",
@@ -60,7 +57,6 @@ class TestTrajout(unittest.TestCase):
                      overwrite=True) as trajout:
             trajout.write(0, frame0, farray.top)
 
-    #@no_test
     def test_4(self):
         """test write Trajectory"""
         farray = pt.load(
@@ -82,7 +78,6 @@ class TestTrajout(unittest.TestCase):
             "./output/test_write_output_save_method.x", "./data/Tc5b.top")
         aa_eq(f0[:, :, :].xyz, f1[:, :, :].xyz)
 
-    #@no_test
     def test_5(self):
         farray = Trajectory("./output/test_0.pdb", "./data/Tc5b.top")[0]
         #print(farray.n_atoms)

@@ -6,15 +6,12 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
-from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 from pytraj.externals.six import iteritems as items
 from pytraj.compat import izip as zip
 
 
 class Test(unittest.TestCase):
-    #@no_test
-
     def test_0(self):
         from pytraj.hbonds import search_hbonds, search_nointramol_hbonds
         traj = mdio.iterload("./data/DPDP.nc", "./data/DPDP.parm7")

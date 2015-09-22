@@ -7,7 +7,6 @@ from pytraj.Frame import Frame
 from pytraj.base import *
 from pytraj.math import Vec3
 from pytraj import io as mdio
-from pytraj.decorators import no_test
 
 SMALL = 1E-6
 
@@ -19,7 +18,6 @@ FRAME_orig = FRAME.copy()
 
 
 class TestFrame(unittest.TestCase):
-    #@no_test
 
     def test_fit(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -42,7 +40,6 @@ class TestFrame(unittest.TestCase):
         assert frame1.rmsd(frame1new) < 1E-3
         assert frame1new.rmsd(frame1, top=trajnew.top, mask="@CA") < 1E-3
 
-    #@no_test
     def test_strip_atoms(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
@@ -59,7 +56,6 @@ class TestFrame(unittest.TestCase):
         _, mat, v1, v2 = frame2.rmsd(frame3, get_mvv=True)
         frame2.trans_rot_trans(v1, mat, v2)
 
-    #@no_test
     def test_create_frame(self):
         frame = Frame(list(range(300)))
         assert frame.size == 300
@@ -79,7 +75,6 @@ class TestFrame(unittest.TestCase):
         #assert frame.coords == array('d', [x for x in range(300)])
         #assert frame[:] == frame.coords
 
-        #@no_test
     def test_buffer1d(self):
         FRAME.buffer1d[0] = 199.
         assert FRAME[0, 0] == FRAME.buffer1d[0] == FRAME.coords[0]
@@ -103,9 +98,7 @@ class TestFrame(unittest.TestCase):
         # does not work, got "ValueError: ndarray is not contiguous"
         #FRAME[start:stop:strip] = arr_tmp[start:stop:strip]
 
-        #@no_test
 
-        #@no_test
     def test_indexing(self):
         # create a Frame instance with N_ATOMS atoms
         N_ATOMS = 10
@@ -125,7 +118,6 @@ class TestFrame(unittest.TestCase):
         frame[0, 0] = 100.
         assert frame[0, 0] == 100.
 
-    #@no_test
     def test_other_stuff(self):
 
         farray = Trajectory(
@@ -140,7 +132,6 @@ class TestFrame(unittest.TestCase):
         assert frame1.coords == frame2.coords == frame3.coords
         frame4 = frame0.get_subframe("!@CA", farray.top)
 
-    #@no_test
     def test_rmsd_return_mat_vec_vec(self):
         # TODO : add assert
         farray = Trajectory(
@@ -156,7 +147,6 @@ class TestFrame(unittest.TestCase):
         #print(arr1)
         #print(frame0[:3])
 
-        #@no_test
     def test_long(self):
         N_ATOMS = 10
         # create frame instance with 10 atoms

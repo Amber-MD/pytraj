@@ -4,7 +4,6 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
-from pytraj.decorators import no_test, test_if_having
 import pytraj.common_actions as pyca
 """
 try not to get segmentation fault error (due to whatever freaking reason)

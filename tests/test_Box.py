@@ -3,7 +3,6 @@ from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.core import Box
 from array import array as pyarray
-from pytraj.decorators import test_if_having
 from pytraj.testing import eq, aa_eq
 from pytraj.compat import zip
 
@@ -26,7 +25,6 @@ class TestBox(unittest.TestCase):
         assert box.data[0] == dummy
         assert box.tolist()[0] == dummy
 
-    @test_if_having("numpy")
     def test_2(self):
         import numpy as np
         box = Box()

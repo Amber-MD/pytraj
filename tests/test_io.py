@@ -1,7 +1,6 @@
 import unittest
 from pytraj.base import *
 import pytraj.io as mdio
-from pytraj.decorators import no_test
 
 
 class TestPyCpptrajIO(unittest.TestCase):

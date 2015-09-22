@@ -5,7 +5,6 @@ import pytraj as pt
 from pytraj.Topology import Topology
 from pytraj.core.cpptraj_core import AtomMask
 from pytraj.base import *
-from pytraj.decorators import no_test
 
 TRAJ = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 

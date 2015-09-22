@@ -514,12 +514,6 @@ class Trajectory(object):
                 raise ValueError(
                     "filename must be str, traj-like or numpy array")
 
-        try:
-            if self._xyz.shape != self.unitcells.shape:
-                print("make sure to update traj.unitcells too")
-        except AttributeError:
-            print("make sure to update traj.unitcells too")
-
     def has_box(self):
         try:
             return self.top.has_box()

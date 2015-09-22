@@ -6,7 +6,6 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.decorators import no_test, test_if_having
 import pytraj.common_actions as pyca
 
 

@@ -4,7 +4,6 @@ from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.math import Matrix_3x3
-from pytraj.decorators import no_test, test_if_having
 from numpy.testing import assert_almost_equal as aa_eq_np
 
 
@@ -52,7 +51,6 @@ class TestMatrix_3x3(unittest.TestCase):
         m01 = m0 * m1
         aa_eq_np(m01.to_ndmatrix(), mnp01)
 
-    @test_if_having("numpy")
     def test_0(self):
         import numpy as np
         mat = Matrix_3x3(list(range(9)))

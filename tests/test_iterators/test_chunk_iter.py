@@ -5,12 +5,10 @@ from pytraj.base import *
 from pytraj.common_actions import calc_distance
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal, is_generator
-from pytraj.decorators import no_test
 import numpy as np
 
 
 class Test(unittest.TestCase):
-    #@no_test
 
     def test_0(self):
         dslist = DatasetList()

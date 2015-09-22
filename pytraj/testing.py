@@ -11,7 +11,7 @@ from .utils.context import goto_temp_folder
 
 __all__ = ['test_if_having', 'no_test', 'local_test', 'load_sample_data', 'eq',
            'aa_eq', 'is_linux', 'make_random_frame', 'duplicate_traj',
-           'make_fake_traj', 'Timer', 'amberhome', 'cpptraj_test_dir',
+           'Timer', 'amberhome', 'cpptraj_test_dir',
            'run_docstring']
 
 try:

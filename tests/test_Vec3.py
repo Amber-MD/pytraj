@@ -2,7 +2,6 @@ from pytraj.math import Vec3
 #from pytraj import DistRoutines as dist
 import numpy as np
 import unittest
-from pytraj.testing import test_if_having
 
 
 class Test(unittest.TestCase):
@@ -20,7 +19,6 @@ class Test(unittest.TestCase):
         mat = Matrix_3x3(list(range(9)))
         #print(mat * v1)
 
-    @test_if_having("parmed")
     def test_1(self):
         l = [1., 2., 3.]
         v1 = Vec3(l)

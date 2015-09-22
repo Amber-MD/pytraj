@@ -4,7 +4,6 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
-from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir, duplicate_traj
 import pytraj.common_actions as pyca
 
@@ -28,11 +27,8 @@ matrix distcovar :1-4@CA out mtest.13.dat
 # return a list of non-blank lines
 command_list = list(filter(lambda x: x, cpptraj_trajin.split("\n")))
 
-#print(command_list)
-
 
 class Test(unittest.TestCase):
-    @test_if_path_exists(cpptraj_test_dir)
     def test_0(self):
         import numpy as np
         from pytraj import ArgList
