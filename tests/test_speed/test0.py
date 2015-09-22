@@ -1,9 +1,8 @@
-from pytraj.testing import make_fake_traj, Timer, duplicate_traj
+from pytraj.testing import Timer, duplicate_traj
 import pytraj.common_actions as pyca
 import pytraj.io as io
 from pytraj.misc import merge_trajs
 
-#traj = make_fake_traj(10, 200000)
 traj0 = io.load_sample_data('tz2') [:]
 traj = traj0.copy()
 

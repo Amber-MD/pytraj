@@ -1,10 +1,8 @@
 from __future__ import print_function
 import unittest
-from pytraj.testing import test_if_having
 
 
 class Test(unittest.TestCase):
-    @test_if_having("numpy")
     def test_0(self):
         from numpy.testing import assert_almost_equal as a_equal
         from pytraj.math import Grid

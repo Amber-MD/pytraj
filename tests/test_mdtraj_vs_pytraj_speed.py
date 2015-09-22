@@ -5,7 +5,6 @@ from pytraj import adict
 from pytraj import io as mdio
 from numpy.testing import assert_almost_equal
 from pytraj.utils import has_
-from pytraj.decorators import test_if_having, no_test
 from pytraj.utils import Timer
 from pytraj.__version__ import __version__ as pytraj_version
 
@@ -54,15 +53,12 @@ def Run(func, msg, n_times=50, test_load=False):
 
 
 class Test(unittest.TestCase):
-    @no_test
-    @test_if_having("mdtraj")
     def test_load(self):
         def load(test_load=True):
             pass
 
         Run(load, "test_load_traj: text file")
 
-    @test_if_having("mdtraj")
     def test_0(self):
         def iter_traj(traj):
             for frame in traj:
@@ -70,21 +66,18 @@ class Test(unittest.TestCase):
 
         Run(iter_traj, "iter_traj")
 
-    @test_if_having("mdtraj")
     def test_1(self):
         def get_xyz(traj):
             traj.xyz
 
         Run(get_xyz, "get_xyz")
 
-    @test_if_having("mdtraj")
     def test_2(self):
         def tolist(traj):
             traj.xyz.tolist()
 
         Run(tolist, "tolist")
 
-    @test_if_having("mdtraj")
     def test_3(self):
         def save_nc(traj):
             traj.save("./output/x_speed.nc")
@@ -111,7 +104,6 @@ class Test(unittest.TestCase):
 
         Run(save_binpos, "save .binpos")
 
-    @test_if_having("mdtraj")
     def test_5(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
         m_top = md.load_prmtop("./data/Tc5b.top")

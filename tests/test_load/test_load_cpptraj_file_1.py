@@ -4,7 +4,6 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 from pytraj.testing import cpptraj_test_dir
 
 try:
@@ -15,7 +14,6 @@ except:
 
 class Test(unittest.TestCase):
     @test_if_path_exists(cpptraj_test_dir)
-    @test_if_having("pandas")
     def test_0(self):
         import os
         trajin_file = "./data/ptraj_comp.in"

@@ -4,7 +4,6 @@ import numpy as np
 from array import array
 from pytraj.base import *
 from pytraj.io import load
-from pytraj.decorators import no_test
 from pytraj.utils.check_and_assert import assert_almost_equal
 
 class TestIndices(unittest.TestCase):

@@ -2,7 +2,6 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.decorators import no_test, test_if_having, test_if_path_exists
 import pytraj.common_actions as pyca
 from pytraj.utils import has_
 from pytraj.testing import amberhome

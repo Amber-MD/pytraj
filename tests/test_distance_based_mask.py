@@ -1,12 +1,10 @@
 from __future__ import print_function
 import unittest
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.testing import test_if_having
 from pytraj import io as mdio
 
 
 class Test(unittest.TestCase):
-    @test_if_having("numpy")
     def test_0(self):
         import numpy as np
         traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
