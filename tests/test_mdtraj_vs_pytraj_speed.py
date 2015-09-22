@@ -8,12 +8,9 @@ from pytraj.utils import has_
 from pytraj.utils import Timer
 from pytraj.__version__ import __version__ as pytraj_version
 
-#print(pytraj_version)
 
 if has_("mdtraj"):
     import mdtraj as md
-    #print("mtrajd version = %s" % md.version.full_version)
-    # use Trajectory (in memory for comparison)
     traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
     #traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
     m_top = md.load_prmtop("./data/Tc5b.top")
@@ -47,12 +44,9 @@ def Run(func, msg, n_times=50, test_load=False):
             time_1 = t1.time_gap()
             assert_almost_equal(fa.xyz, f_mdtraj.xyz)
             my_ratio += time_1 / time_0
-    #print("pytraj (speed up) vs mdtraj = %s" % (my_ratio / n_times))
-    #print("mdtraj (speed up) vs pytraj = %s" % (1. / (my_ratio / n_times)))
-    #print()
 
-
-class Test(unittest.TestCase):
+@unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
+class TestSpeed(unittest.TestCase):
     def test_load(self):
         def load(test_load=True):
             pass
