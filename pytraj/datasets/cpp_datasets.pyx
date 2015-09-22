@@ -738,18 +738,19 @@ cdef class DatasetVector (Dataset):
     def append(self, Vec3 vec):
         self.thisptr.AddVxyz(vec.thisptr[0])
 
-    def from_array_like(self, double[:, :] arr):
-        cdef int i
-        cdef double[:] xyz
-        cdef _Vec3 _vec
+    property values:
+        def __set__(self, double[:, ::1] arr):
+            cdef int i
+            cdef double[:] xyz
+            cdef _Vec3 _vec
 
-        if arr.shape[1] != 3:
-            raise ValueError("must have shape = (n_frames, 3))")
+            if arr.shape[1] != 3:
+                raise ValueError("must have shape = (n_frames, 3))")
 
-        for i in range(arr.shape[0]):
-            xyz = arr[i]
-            _vec.Assign(&xyz[0])
-            self.thisptr.AddVxyz(_vec)
+            for i in range(arr.shape[0]):
+                xyz = arr[i]
+                _vec.Assign(&xyz[0])
+                self.thisptr.AddVxyz(_vec)
 
     def tolist(self):
         # overwrite

@@ -1,8 +1,13 @@
+"""this file has commonly used actions such as rmsd calculation, 
+randomizeions, strip atoms, ..."""
+
 from __future__ import print_function, absolute_import
 import os
 from glob import glob
+from pytraj.api import Trajectory
 from pytraj.cpp_options import set_world_silent
 from pytraj.compat import set
+from pytraj.tools import rmsd, rmsd_1darray
 
 # external
 from pytraj.externals.six import string_types
@@ -11,6 +16,49 @@ try:
     from pytraj.externals.magic import from_file as file_type_info
 except ImportError:
     file_type_info = None
+
+__all__ = ['to_amber_mask', 'from_legends_to_indices', 'info', 'get_atts', ]
+
+
+def to_amber_mask(txt, mode=None):
+    import re
+    """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'
+
+    Parameters
+    ----------
+    txt : str | list/tuple of string | array-like of integer
+    mode : str, default=None
+        if mode='int_to_str': convert integer array to Amber mask
+            (good for converting indices to atom mask string to be used with cpptraj)
+
+    Examples
+    --------
+        to_amber_mask('ASP_16@OD1-ARG_18@N-H') # get ':16@OD1 :18@H'
+        to_amber_mask(range(0, 10, 3), mode='int_to_str') # return `@1,4,7`
+    """
+
+    if mode is None:
+        if isinstance(txt, string_types):
+            txt = txt.replace("_", ":")
+            return " ".join(re.findall(r"(:\d+@\w+)", txt))
+        elif isinstance(txt, (list, tuple)):
+            # list is mutable
+            txt_copied = txt[:]
+            for i, _txt in enumerate(txt):
+                txt_copied[i] = to_amber_mask(_txt)
+            return txt_copied
+        else:
+            raise NotImplementedError()
+    elif mode == 'int_to_str':
+        # need to add +1 since cpptraj's mask uses starting index of 1
+        my_long_str = ",".join(str(i + 1) for i in txt)
+        return "@" + my_long_str
+    else:
+        raise NotImplementedError()
+
+
+def array_to_cpptraj_atommask(arr):
+    return to_amber_mask(arr, mode='int_to_str')
 
 
 def from_legends_to_indices(legends, top):
@@ -116,3 +164,19 @@ def find_library(libname, unique=False):
         else:
             return lib_path_list
 
+
+def split_range(n_chunks, start, stop):
+    '''
+    >>> from pytraj.misc import split_range
+    >>> split_range(3, 0, 10)
+    [(0, 3), (3, 6), (6, 10)]
+    '''
+    list_of_tuple = []
+    chunksize = (stop - start) // n_chunks
+    for i in range(n_chunks):
+        if i < n_chunks - 1:
+            _stop = (i + 1) * chunksize
+        else:
+            _stop = stop
+        list_of_tuple.append((start + i * chunksize, _stop))
+    return list_of_tuple
