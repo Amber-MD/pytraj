@@ -52,19 +52,8 @@ try ``pytraj`` online:
 try ``pytraj`` online:
 
 .. image:: images/PCA_heart.png
-   :target: tutorials/mdtraj_adapted.rst
+   :target: tutorials/mdtraj_adapted
 
-
-**Simple code**
-(`longer version <simple_code_extended>`_)
-
-.. ipython:: python
-
-    import pytraj as pt
-    traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
-    print(traj)
-    data = pt.rmsd(traj, ref=0, mask='@CA')
-    print(data)
 
 **Contact**
 
