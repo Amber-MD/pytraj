@@ -9,8 +9,8 @@
     import numpy as np
     np.set_printoptions(precision=4, suppress=True)
 
-Welcome to pytraj's documentation - not completed yet
-=====================================================
+Welcome
+=======
 
 try ``pytraj`` online:
 
