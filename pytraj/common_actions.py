@@ -393,7 +393,7 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', frame_indices=N
 def calc_mindist(traj=None,
                  command="",
                  top=None,
-                 dtype='ndarray', frame_indices=None, *args, **kwd):
+                 dtype='ndarray', frame_indices=None):
     '''
     Examples
     --------
@@ -402,6 +402,7 @@ def calc_mindist(traj=None,
     '''
     from pytraj.actions.CpptrajActions import Action_NativeContacts
     from pytraj.utils.convert import array2d_to_cpptraj_maskgroup
+
     traj = _get_fiterator(traj, frame_indices)
     act = Action_NativeContacts()
     dslist = CpptrajDatasetList()
@@ -413,6 +414,70 @@ def calc_mindist(traj=None,
     _top = _get_top(traj, top)
     act(_command, traj, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)[-1]
+
+
+def _calc_diffusion(traj=None,
+                 mask="*",
+                 dimension='xyz',
+                 time=1.0,
+                 mask2=None,
+                 lower=0.01,
+                 upper=3.5,
+                 distance=False,
+                 com=False,
+                 frame_indices=None,
+                 top=None,
+                 dtype='ndarray'):
+    '''calcualte diffusion for selected atoms
+
+    Parameters
+    ----------
+    traj : Trajectory-like or iterable that produces Frame
+    mask : str, defaul '*' (all atoms)
+    mask2 : str, 2nd mask, optional
+    time : time step (ps)
+    ...
+    '''
+    traj = _get_fiterator(traj, frame_indices)
+    _top = _get_top(traj, top)
+
+    if not isinstance(mask, string_types):
+        mask = array_to_cpptraj_atommask(mask)
+    else:
+        mask = mask
+
+    _mask = 'mask ' + mask
+    if mask2 is None:
+        _mask2 = ''
+    else:
+        if not isinstance(mask2, string_types):
+            mask2 = array_to_cpptraj_atommask(mask2)
+        else:
+            mask2 = mask2
+        _mask2 = 'mask2 ' + mask2
+
+    _time = 'time ' + str(time)
+    _lower = 'lower ' + str(lower)
+    _upper = 'upper ' + str(upper)
+    _distances = 'distances' if distance else ''
+    _com = 'com' if com else ''
+    dirlist = ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz']
+
+    if dimension not in ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz']:
+        raise ValueError('direction must be in {0}'.format(str(dirlist)))
+    else:
+        _dimention = dimension
+
+    act = CpptrajActions.Action_STFC_Diffusion()
+    dslist = CpptrajDatasetList()
+
+    command = ' '.join((_mask, _time, _mask2, _lower, _upper, _distances, _com,
+        _dimention))
+
+    print(command)
+    act(command, traj, top=_top, dslist=dslist)
+
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 
 def calc_watershell(traj=None,
