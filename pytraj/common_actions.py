@@ -1484,16 +1484,24 @@ def align_principal_axis(traj=None, mask="*", top=None):
 
 def principal_axes(traj=None,
                    mask='*',
-                   top=None,
                    dorotation=False,
                    mass=True,
-                   dtype='dataset', *args, **kwd):
-    """
+                   top=None):
+
+    """calculate eigenvalues and eigenvectors
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default '*' (all atoms)
+    mass: bool, defaul True
+    if `dorotation`, the system will be aligned along principal axes (apply for mutable system)
+    top : Topology, optional
+
     Returns
     -------
-    pytraj.DatasetList of matrix with shape=(n_frames, 3, 3) and vector with shape=(n_frames, 3)
-    if `dorotation`, the system will be aligned along principal axes
-    (apply for mutable system)
+    out_0 : numpy array, shape=(n_frames, 3, 3), corresponding eigenvectors
+    out_1: numpy array with shape=(n_frames, 3), eigenvalues
     """
     act = CpptrajActions.Action_Principal()
     command = mask
@@ -1505,12 +1513,11 @@ def principal_axes(traj=None,
         command += ' name pout'
 
     command = ' '.join((command, _dorotation, _mass))
-    print(command)
 
     _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, traj, _top, dslist=dslist, *args, **kwd)
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    act(command, traj, _top, dslist=dslist)
+    return (dslist[0].values, dslist[1].values)
 
 
 def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
