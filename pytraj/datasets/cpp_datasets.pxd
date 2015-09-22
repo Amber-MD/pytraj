@@ -99,6 +99,7 @@ cdef extern from "DataSet_float.h":
         _DatasetFloat() 
         @staticmethod
         _Dataset * Alloc() 
+        void AddElement(float d)
         float& operator[](size_t idx)
         float& index_opr "operator[]"(size_t idx)
         int Size()

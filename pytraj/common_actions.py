@@ -75,6 +75,12 @@ __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 calc_energies = get_pysander_energies
 energy_decomposition = get_pysander_energies
 
+def _2darray_to_atommask_groups(seq):
+    '''[[0, 3], [4, 7]] turns to ['@1 @4', '@5 @8']
+    '''
+    for arr in seq:
+        # example: arr = [0, 3]; turns ot '@1 @4'
+        yield '@' + str(arr[0]+1) + ' @' +  str(arr[1]+1)
 
 def _noaction_with_TrajectoryIterator(trajiter):
     from pytraj import TrajectoryIterator
@@ -1162,12 +1168,58 @@ def calc_vector(traj=None, command="", frame_indices=None, dtype='ndarray', top=
     dslist = CpptrajDatasetList()
     _top = _get_top(traj, top)
     list_of_commands = _get_list_of_commands(command)
+    fi = _get_fiterator(traj, frame_indices)
     actlist = ActionList()
 
     for command in list_of_commands:
         act = CpptrajActions.Action_Vector()
         actlist.add_action(act, command, _top, dslist=dslist)
-    actlist.do_actions(traj)
+    actlist.do_actions(fi)
+
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+def calc_ired_matrix(traj=None, mask="", frame_indices=None, order=2, dtype='dataset', top=None):
+    """perform vector calculation and then calculate ired matrix
+
+    Parameters
+    ----------
+    traj : Trajectory-like or iterable that produces :class:`pytraj.Frame`
+    mask : str or a list of strings
+    frame_indices : array-like, optional, default None
+        only perform calculation for given frame indices
+    order : default 2 
+    dtype : output's dtype, default 'ndarray'
+    top : Topology, optional, default None
+
+    Returns
+    -------
+    ...
+    """
+    dslist = CpptrajDatasetList()
+    _top = _get_top(traj, top)
+    fi = _get_fiterator(traj, frame_indices)
+
+    cm_arr = np.asarray(mask)
+
+    if cm_arr.dtype.kind != 'i':
+        list_of_commands = _get_list_of_commands(mask)
+    else:
+        if cm_arr.ndim != 2:
+            raise ValueError('if mask is a numpy.ndarray, it must have ndim = 2')
+        list_of_commands = _2darray_to_atommask_groups(cm_arr)
+
+    actlist = ActionList()
+
+    for command in list_of_commands:
+        # tag ired vector 
+        command += ' ired '
+        act = CpptrajActions.Action_Vector()
+        actlist.add_action(act, command, _top, dslist=dslist)
+
+    act_matired = CpptrajActions.Action_Matrix()
+    ired_cm = 'ired order ' + str(order)
+    actlist.add_action(act_matired, ired_cm, _top, dslist=dslist) 
+    actlist.do_actions(fi)
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
