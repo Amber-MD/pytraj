@@ -8,8 +8,7 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 
 
-class Test(unittest.TestCase):
-    @test_if_path_exists(cpptraj_test_dir)
+class TestRDF(unittest.TestCase):
     def test_0(self):
         import numpy as np
         import os

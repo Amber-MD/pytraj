@@ -27,11 +27,8 @@ matrix distcovar :1-4@CA out mtest.13.dat
 # return a list of non-blank lines
 command_list = list(filter(lambda x: x, cpptraj_trajin.split("\n")))
 
-#print(command_list)
-
 
 class Test(unittest.TestCase):
-    @test_if_path_exists(cpptraj_test_dir)
     def test_0(self):
         import numpy as np
         from pytraj import ArgList
