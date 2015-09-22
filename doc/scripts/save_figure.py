@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 
 from matplotlib.pyplot import rc
-font = {'family': 'serif', 'size': '14'}
+font = {'family': 'serif', 'size': '20'}
 rc('font', **font)
 
 
@@ -46,7 +46,7 @@ print(reduced_cartesian.shape)
 # In[19]:
 
 plt.figure()
-plt.scatter(reduced_cartesian[:, 0], reduced_cartesian[:,1], marker='x',
+plt.scatter(reduced_cartesian[:, 0], reduced_cartesian[:,1], marker='o', s=30,
         c=range(traj.n_frames))
 plt.xlabel('PC1')
 plt.ylabel('PC2')
