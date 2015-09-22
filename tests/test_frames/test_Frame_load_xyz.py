@@ -5,10 +5,11 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import assert_almost_equal, Timer
+from pytraj.utils import has_
 
 
+@unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
 class Test(unittest.TestCase):
-    @Timer()
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = Frame()
@@ -21,7 +22,6 @@ class Test(unittest.TestCase):
         #print(traj[0].xyz.shape)
         assert_almost_equal(frame.buffer1d, traj[0].xyz.flatten())
 
-    @Timer()
     def test_1(self):
         from mdtraj.formats import psf
         import mdtraj as md
