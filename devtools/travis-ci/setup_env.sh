@@ -14,7 +14,7 @@ conda install --yes conda-build jinja2 anaconda-client pip
 conda config --add channels http://conda.binstar.org/ambermd/
 conda config --add channels http://conda.binstar.org/omnia
 
-if [[ $PYTHON_VERSION != '3.5']]; then
+if [[ $PYTHON_VERSION != '3.5' ]]; then
     conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py mdtraj
 else
     conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py 
