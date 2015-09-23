@@ -29,6 +29,10 @@ class TestRDF(unittest.TestCase):
                       maximum=10.0,
                       solute_mask=':5@CD')
 
+        data01 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
+                      maximum=10.0,
+                      solute_mask=':5@CD')
+
         data1 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
                       maximum=10.0,
                       center_solvent=True,
@@ -49,6 +53,9 @@ class TestRDF(unittest.TestCase):
         aa_eq(data1, state.data[1], decimal=7)
         aa_eq(data2, state.data[2], decimal=7)
         aa_eq(data3, state.data[3], decimal=7)
+
+        # default solvent mask :WAT@O
+        aa_eq(data01, state.data[0], decimal=7)
 
 if __name__ == "__main__":
     unittest.main()
