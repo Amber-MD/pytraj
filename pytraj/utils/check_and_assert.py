@@ -186,6 +186,8 @@ def assert_almost_equal(arr0, arr1, decimal=3):
     else:
         _arr0 = arr0
         _arr1 = arr1
+    assert len(_arr0) == len(_arr1), 'two arrays must have the same length'
+
     for x, y in zip(_arr0, _arr1):
         if abs(x - y) > SMALL:
             almost_equal = False

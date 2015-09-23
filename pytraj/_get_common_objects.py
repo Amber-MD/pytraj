@@ -10,7 +10,7 @@ def _load_Topology(filename):
     parm.readparm(filename, top)
     return top
 
-def _get_top(traj, top):
+def _get_topology(traj, top):
     if isinstance(top, string_types):
         _top = _load_Topology(top)
     elif top is None:

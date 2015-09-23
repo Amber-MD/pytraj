@@ -12,14 +12,17 @@ class TestRDF(unittest.TestCase):
         traj = pt.iterload(
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
 
-        dslist = pt.rdf(traj, "0.5 10.0 :5@CD :WAT@O")
+        data = pt.rdf(traj, "0.5 10.0 :5@CD :WAT@O")
 
         saved_data_dir = os.path.join(
             cpptraj_test_dir, "Test_Radial", "Radial.agr.save")
         saved_data = np.loadtxt(saved_data_dir, skiprows=8, usecols=(1, ))
 
-        aa_eq(dslist[0], saved_data)
-        print(dslist[0])
+        print(data)
+        aa_eq(data, saved_data)
+        from matplotlib import pyplot as plt
+        plt.plot(data)
+        plt.show()
 
 if __name__ == "__main__":
     unittest.main()
