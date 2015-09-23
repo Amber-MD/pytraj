@@ -16,7 +16,7 @@ ctypedef cppvector[_Residue].const_iterator res_iterator
 ctypedef cppvector[_Molecule].const_iterator mol_iterator
 
 cdef extern from "CoordinateInfo.h": 
-    cdef cppclass _CoordinateInfo "CoordinateInfo":
+    cdef cppclass _CoordinateInfo "CoordinateInfo" nogil:
         _CoordinateInfo() 
         _CoordinateInfo(const _Box& b, bint v, bint t, bint m)
         bint HasBox() const 
@@ -150,7 +150,7 @@ cdef extern from "ParmFile.h":
     ctypedef enum ParmFormatType "ParmFile::ParmFormatType":
         pass
         UNKNOWN_PARM "ParmFile::UNKNOWN_PARM"
-    cdef cppclass _ParmFile "ParmFile":
+    cdef cppclass _ParmFile "ParmFile" nogil:
         @staticmethod
         void ReadOptions() 
         @staticmethod
@@ -168,7 +168,7 @@ cdef class ParmFile:
     cdef _ParmFile* thisptr
 
 cdef extern from "TopologyList.h":
-    cdef cppclass _TopologyList "TopologyList":
+    cdef cppclass _TopologyList "TopologyList" nogil:
         const char* ParmArgs
         TopologyList()
         void Clear()
