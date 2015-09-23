@@ -610,6 +610,27 @@ def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', frame_indices=No
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
+def calc_rotation_matrix(traj=None, ref=0, mask="", frame_indices=None, top=None):
+    '''
+    Returns
+    -------
+    out : numpy array, shape (n_frames, 3, 3)
+    '''
+    traj = _get_fiterator(traj, frame_indices)
+    _top = _get_topology(traj, top)
+    dslist = CpptrajDatasetList()
+    ref = _get_reference_from_traj(traj, ref)
+
+    if not isinstance(mask, string_types):
+        mask = array_to_cpptraj_atommask(mask)
+    command = ' '.join(('tmp', mask, 'savematrices'))
+
+    act = CpptrajActions.Action_Rmsd()
+    act(command, [ref, traj], top=_top, dslist=dslist)
+    mat = dslist[-1].values
+    # exclude data for reference
+    return mat[1:]
+
 
 def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     if not isinstance(mask, string_types):

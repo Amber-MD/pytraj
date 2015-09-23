@@ -99,6 +99,7 @@ from .common_actions import (
     calc_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
     calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
     calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
+    calc_rotation_matrix,
     calc_watershell, calc_volume, calc_mindist, lifetime, get_average_frame,
     get_velocity,
     _dihedral_res, energy_decomposition, native_contacts,
