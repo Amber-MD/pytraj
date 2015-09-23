@@ -698,7 +698,7 @@ def calc_rdf(traj=None, solvent_mask=None, bin_spacing=None, maximum=None,
     image : bool, default True, optional
         if False, do not image distance
     density : float, default 0.033456 molecules / A^3, optional
-    volume : determin density for normalization from average volume of input frames
+    volume : determine density for normalization from average volume of input frames
     center_solvent : bool, default False, optional
         if True, calculate RDF from geometric center of atoms in solvent_mask to all atoms in solute_mask
     center_solute : bool, default False, optional
