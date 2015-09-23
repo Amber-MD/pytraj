@@ -61,7 +61,7 @@ def calc_%s(traj=None, resrange="",
 
     from .datasets.DatasetList import DatasetList
     from .actions.CpptrajActions import Action_MultiDihedral
-    from ._get_common_objects import _get_top, _get_data_from_dtype
+    from ._get_common_objects import _get_topology, _get_data_from_dtype
     from .compat import string_types
     from .utils import is_int
 
@@ -82,7 +82,7 @@ def calc_%s(traj=None, resrange="",
     else:
         _resrange = ""
 
-    _top = _get_top(traj, top)
+    _top = _get_topology(traj, top)
     dslist = DatasetList()
     template_command = '%s '
     template_command = " ".join((template_command, _resrange, _range360))

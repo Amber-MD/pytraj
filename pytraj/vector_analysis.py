@@ -48,14 +48,14 @@ def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=Non
     >>> # compute vectors for specific frame indices (0, 4)
     >>> data_vec = va.vector_mask(traj, n_h_pairs, frame_indices=[0, 4], dtype='ndarray')
     """
-    from ._get_common_objects import _get_top, _get_data_from_dtype, _get_fiterator
+    from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_fiterator
     from ._get_common_objects import _get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_Vector
     from .core.ActionList import ActionList
 
     fi = _get_fiterator(traj, frame_indices)
-    _top = _get_top(fi, top)
+    _top = _get_topology(fi, top)
     dslist = CpptrajDatasetList()
     template_command = ' mask '
 
@@ -86,14 +86,14 @@ def vector_%s(traj=None, command="", frame_indices=None, dtype='ndarray', top=No
     top : {str, Topology}, optional, default None
     *args, **kwd: more arguments
     """
-    from ._get_common_objects import _get_top, _get_data_from_dtype, _get_fiterator
+    from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_fiterator
     from ._get_common_objects import _get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_Vector
     from .core.ActionList import ActionList
 
     fi = _get_fiterator(traj, frame_indices)
-    _top = _get_top(fi, top)
+    _top = _get_topology(fi, top)
     dslist = CpptrajDatasetList()
     template_command = ' %s '
 

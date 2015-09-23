@@ -673,7 +673,7 @@ def calc_linear_interaction_energy(traj=None,
 calc_LIE = calc_linear_interaction_energy
 
 
-def calc_rdf(traj=None, solvent_mask=None,
+def calc_rdf(traj=None, solvent_mask=':WAT@O',
         bin_spacing=0.5, maximum=10.,
         solute_mask='',
         image=True,
@@ -712,7 +712,24 @@ def calc_rdf(traj=None, solvent_mask=None,
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.rdf(traj, solvent_mask=':WAT', bin_spacing=0.2, maximum=50)
+    >>> data0 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
+    >>>               maximum=10.0,
+    >>>               solute_mask=':5@CD')
+
+    >>> data1 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
+    >>>               maximum=10.0,
+    >>>               center_solvent=True,
+    >>>               solute_mask=':5')
+
+    >>> data2 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
+    >>>               maximum=10.0,
+    >>>               center_solute=True,
+    >>>               solute_mask=':5')
+
+    >>> data3 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
+    >>>               maximum=20.0,
+    >>>               center_solute=False,
+    >>>               solute_mask=':3')
 
     Notes
     -----

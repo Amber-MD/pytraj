@@ -1,11 +1,8 @@
 from __future__ import print_function
 import unittest
-from pytraj.base import *
-from pytraj import adict
-from pytraj import io as mdio
+import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.testing import cpptraj_test_dir, duplicate_traj
-import pytraj.common_actions as pyca
+from pytraj.testing import cpptraj_test_dir
 
 cpptraj_trajin = """
 matrix dist @CA out mtest.0.dat byres
@@ -27,9 +24,8 @@ matrix distcovar :1-4@CA out mtest.13.dat
 # return a list of non-blank lines
 command_list = list(filter(lambda x: x, cpptraj_trajin.split("\n")))
 
-
-class Test(unittest.TestCase):
-    def test_0(self):
+class TestMatrixConprehensive(unittest.TestCase):
+    def test_matrix(self):
         import numpy as np
         from pytraj import ArgList
         from pytraj import matrix_analysis as ma
@@ -40,9 +36,10 @@ class Test(unittest.TestCase):
         matrix_test_dir = cpptraj_test_dir + "/Test_Matrix/"
         top_file = matrix_test_dir + "/1rrb_vac.prmtop"
         crd_file = matrix_test_dir + "/1rrb_vac.mdcrd"
-        traj = mdio.iterload(crd_file, top_file)
+        traj = pt.iterload(crd_file, top_file)
 
         for line in command_list:
+            print(line)
             arg = ArgList(line)
             # get function
             act_key = arg.get_string_key("matrix")
@@ -55,9 +52,6 @@ class Test(unittest.TestCase):
             func = ma.__dict__[new_dict[act_key]]
             # get command
             command = line.split(act_key)[1]
-            #print(line)
-            #print("command = %s, func = %s" % (command, func))
-            #print("saved file dir = '%s'" % saved_file_name)
             mat_out = func(traj, command, dtype='ndarray')
 
             if 'byres' in command:
@@ -67,6 +61,8 @@ class Test(unittest.TestCase):
             if 'bymask' in command:
                 pass
             else:
+                print(len(mat_out.flatten()))
+                print(len(saved_mat.flatten()))
                 aa_eq(mat_out.flatten(), saved_mat.flatten())
 
 

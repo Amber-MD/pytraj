@@ -62,10 +62,10 @@ def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args,
     'idea_matrix' : 'idea'}
     """
     from .actions.CpptrajActions import Action_Matrix
-    from ._get_common_objects import _get_top, _get_data_from_dtype
+    from ._get_common_objects import _get_topology, _get_data_from_dtype
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 
-    _top = _get_top(traj, top)
+    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
     template_command = '%s '
     template_command += command 
