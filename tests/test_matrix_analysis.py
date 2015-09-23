@@ -5,7 +5,7 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 
-cpptraj_trajin = """
+not_byres = '''
 matrix correl @N @C out mtest.4.dat
 matrix correl @CA out mtest.9.dat
 matrix covar @N @C out mtest.5.dat
@@ -14,22 +14,21 @@ matrix mwcovar @N @C out mtest.6.dat
 matrix mwcovar @CA out mtest.11.dat
 matrix idea @CA out mtest.8.dat
 matrix distcovar :1-4@CA out mtest.13.dat
-"""
-
-matdist = '''
 matrix dist @N @C out mtest.12.dat
 matrix dist @CA out mtest.7.dat
 matrix dist @N @CA out mtest.3.dat bymask
 matrix dist @CA out mtest.2.dat bymask
+'''
+
+byres_cm = '''
 matrix dist @CA out mtest.0.dat byres
 matrix dist @N @CA out mtest.1.dat byres
 '''
 
-all_commands = ''.join((cpptraj_trajin, matdist))
+all_commands = not_byres + byres_cm
 
 # return a list of non-blank lines
 command_list = list(filter(lambda x: x, all_commands.split("\n")))
-print(len(command_list))
 
 class TestMatrixConprehensive(unittest.TestCase):
     def test_matrix(self):
@@ -48,6 +47,12 @@ class TestMatrixConprehensive(unittest.TestCase):
         state = pt.load_batch(traj, all_commands) 
         state.run()
 
+        state_byres = pt.load_batch(traj, byres_cm)
+        state_byres.run()
+
+        byres_matlist = []
+
+        # no byres keyword
         for idx, line in enumerate(command_list):
             arg = ArgList(line)
             # get function
@@ -61,15 +66,18 @@ class TestMatrixConprehensive(unittest.TestCase):
             # get command
             command = line.split(act_key)[1]
             matout = func(traj, command, dtype='ndarray')
-            print(idx, command, func, matout.shape)
 
             # cpptraj output has only 3 digits after decimal
-            try:
+            if 'byres' not in command:
                 aa_eq(matout.flatten(), state.data[idx].values)
-            except AssertionError:
-                print(matout, state.data[idx].values)
+            else:
+                # save data for asserting later
+                byres_matlist.append(matout)
 
-
+        byres_arr = np.array(byres_matlist, dtype='f8')
+        # only take byres datasets
+        saved_matbyres = state_byres.data[[1, 3]].values
+        aa_eq(byres_arr, saved_matbyres)
 
 if __name__ == "__main__":
     unittest.main()

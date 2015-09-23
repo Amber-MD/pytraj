@@ -521,7 +521,8 @@ cdef class CpptrajState:
             raise NotImplementedError()
 
     def run_analyses(self):
-        return self.thisptr.RunAnalyses()
+        self.thisptr.RunAnalyses()
+        return self
 
     def add_trajout(self, arg):
         """add trajout file
@@ -620,7 +621,8 @@ cdef class CpptrajState:
         return self.thisptr.ClearList(ArgList(arglist).thisptr[0])
 
     def run(self):
-        return self.thisptr.Run()
+        self.thisptr.Run()
+        return self
 
     def write_all_datafiles(self):
         self.thisptr.MasterDataFileWrite()
