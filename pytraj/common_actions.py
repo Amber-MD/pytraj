@@ -806,10 +806,12 @@ rotate = do_rotation
 
 
 def do_autoimage(traj=None, command="", top=None):
+    '''perform autoimage and return the coordinate-updated traj
+    '''
     _noaction_with_TrajectoryIterator(traj)
     _top = _get_top(traj, top)
     CpptrajActions.Action_AutoImage()(command, traj, top=_top)
-
+    return traj
 
 autoimage = do_autoimage
 
@@ -2067,6 +2069,10 @@ def center(traj=None, mask="", center='box', mass=False, top=None):
     >>> pt.center(traj, mass=True)
     >>> pt.center(traj, ':1', mass=True)
 
+    Returns
+    -------
+    updated traj
+
     See also
     --------
     pytraj.translate
@@ -2081,7 +2087,7 @@ def center(traj=None, mask="", center='box', mass=False, top=None):
 
     act = CpptrajActions.Action_Center()
     act(command, traj, top=_top)
-
+    return traj
 
 def rotate_dihedral(traj=None, mask="", top=None):
     # change to pt.rotate_dihedral(traj, res=0, 
@@ -2092,6 +2098,10 @@ def rotate_dihedral(traj=None, mask="", top=None):
     >>> import pytraj as pt
     >>> pt.rotate_dihedral(traj, "3:phi:120") # rotate phi of res 3 to 120 deg
     >>> pt.rotate_dihedral(traj, "1:O4':C1':N9:C4:120") # rotate dihedral with given mask
+
+    Returns
+    -------
+    updated traj
 
     Notes
     -----
@@ -2108,6 +2118,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
     act = CpptrajActions.Action_MakeStructure()
 
     act(command, traj, top=_top)
+    return traj
 
 def replicate_cell(traj=None, mask="", direction='all', top=None):
     '''create a trajectory where the unit cell is replicated in 1 or
@@ -2158,6 +2169,10 @@ def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
     '''
     Examples
     >>> pt._rotate_dih(traj, resid='1', dihtype='delta')
+
+    Returns
+    -------
+    updated traj
     '''
     _top = _get_top(traj, top)
 
@@ -2167,6 +2182,7 @@ def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
 
     command = ':'.join((dihtype, resid, dihtype, deg))
     make_structure(traj, command, top=_top)
+    return traj
 
 
 set_dihedral = _rotate_dih
