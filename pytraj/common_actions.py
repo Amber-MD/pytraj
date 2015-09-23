@@ -41,7 +41,6 @@ list_of_cal = ['calc_distance',
                'calc_dssp',
                'calc_matrix',
                'calc_jcoupling',
-               'calc_radial',
                'calc_watershell',
                'calc_vector',
                'calc_multivector',
@@ -545,25 +544,6 @@ def calc_watershell(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_radial(traj=None, command="", frame_indices=None, top=None):
-    '''Action_Radial require calling Print() to get output. We make change here'''
-    traj = _get_fiterator(traj, frame_indices)
-    act = adict['radial']
-    # add `radial` keyword to command (need to check `why`?)
-    if not isinstance(command, string_types):
-        command = array_to_cpptraj_atommask(command)
-    command = 'radial ' + command
-    dslist = CpptrajDatasetList()
-    if not top.is_empty():
-        act(command, traj, top, dslist=dslist)
-    else:
-        act(command, traj, dslist=dslist)
-
-    # dump data to dslist.
-    act.print_output()
-    return dslist
-
-
 def calc_matrix(traj=None,
                 command="",
                 top=None,
@@ -693,17 +673,36 @@ def calc_linear_interaction_energy(traj=None,
 calc_LIE = calc_linear_interaction_energy
 
 
-def calc_rdf(traj=None, command="", top=None, dtype='dataset', frame_indices=None, *args, **kwd):
+def calc_rdf(traj=None, command="", dtype='ndarray', frame_indices=None, top=None):
+    '''calculat radial distribtion function
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    command: str
+    dtype : str, default 'ndarray', optional
+    frame_indices : array-like, default None, optional
+    top : Topology, default None, optional
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> pt.rdf(traj)
+    '''
+
     traj = _get_fiterator(traj, frame_indices)
+    _top = _get_top(traj, top)
+
     act = CpptrajActions.Action_Radial()
+
     if not isinstance(command, string_types):
         command = array_to_cpptraj_atommask(command)
 
     command = "pytraj_tmp_output.agr " + command
-    _top = _get_top(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=_top, dslist=dslist)
     act.print_output()
+
     return _get_data_from_dtype(dslist, dtype)
 
 @noparallel
