@@ -61,11 +61,11 @@ class Test(unittest.TestCase):
 
         for i, _f0 in enumerate(farray):
             _f1 = trajsaved[i]
-            assert_almost_equal(_f0.coords, _f1.coords)
+            assert_almost_equal(_f0.coords, _f1.coords, decimal=3)
 
         for i, _f0 in enumerate(farray2):
             _f1 = trajsaved[i]
-            assert_almost_equal(_f0.coords, _f1.coords)
+            assert_almost_equal(_f0.coords, _f1.coords, decimal=3)
 
 
 if __name__ == "__main__":
