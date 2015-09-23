@@ -865,6 +865,9 @@ cdef class DatasetMatrixDouble (Dataset2D):
     def add_element(self, double d):
         return self.thisptr.AddElement(d)
 
+    def append(self, double d):
+        return self.thisptr.AddElement(d)
+
     def set_element(self,size_t x, size_t y, double d):
         self.thisptr.SetElement(x, y, d)
 
