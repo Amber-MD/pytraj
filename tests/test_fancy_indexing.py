@@ -9,9 +9,6 @@ class TestSlicingTrajectory(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         FA = traj[:]
 
-        frame0 = traj[0]
-        aa_eq(frame0[traj.top("@CA")].flatten(), traj['@CA'].xyz.flatten())
-
         # slicing with list or array
         indices = [1, 2, 3]
         fa = traj[indices]

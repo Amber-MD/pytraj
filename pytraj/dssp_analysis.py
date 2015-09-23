@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 import numpy as np
 from ._base_result_class import BaseAnalysisResult
-from ._get_common_objects import _get_data_from_dtype, _get_top
+from ._get_common_objects import _get_data_from_dtype, _get_topology
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
 from pytraj.compat import string_types
 
@@ -112,7 +112,7 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
 
     command = mask
 
-    _top = _get_top(traj, top)
+    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
 
     Action_DSSP()(command,

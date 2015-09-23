@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from pytraj._get_common_objects import _get_top, _get_data_from_dtype
+from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
 
 
 def kmeans(traj=None,
@@ -41,7 +41,7 @@ def kmeans(traj=None,
     >>> kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='dme')
     '''
 
-    # don't need to _get_top
+    # don't need to _get_topology
     _clusters = 'kmeans clusters ' + str(n_clusters)
     _random_point = 'randompoint' if random_point else ''
     _kseed = 'kseed ' + str(kseed)
@@ -78,7 +78,7 @@ def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
     from pytraj.analyses.CpptrajAnalyses import Analysis_Clustering
     from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
-    _top = _get_top(traj, top)
+    _top = _get_topology(traj, top)
     ana = Analysis_Clustering()
     # need to creat `dslist` here so that every time `do_clustering` is called,
     # we will get a fresh one (or will get segfault)

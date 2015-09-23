@@ -13,6 +13,15 @@ from ..datasets.DatasetList cimport _DatasetList, DatasetList
 ctypedef _BaseIOtype* (*AllocatorType)()
 ctypedef void (*HelpType)()
 
+cdef extern from "Command.h": 
+    ctypedef enum RetType "Command::RetType":
+        pass
+    cdef cppclass _Command "Command":
+        @staticmethod
+        RetType ProcessInput(_CpptrajState&, const string&)
+        @staticmethod
+        RetType Dispatch(_CpptrajState&, const string&)
+
 cdef extern from "BaseIOtype.h":
     #ctypedef _BaseIOtype* (*AllocatorType)()
     #ctypedef void (*HelpType)()

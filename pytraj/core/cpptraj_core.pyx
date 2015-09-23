@@ -12,7 +12,7 @@ from ..externals.six.moves import range
 from pytraj.externals.six import string_types
 from pytraj import cpptraj_dict
 
-__all__ = ['AtomMask', 'BaseIOtype', 'DispatchObject',
+__all__ = ['command_dispatch', 'AtomMask', 'BaseIOtype', 'DispatchObject',
            'FunctPtr', 'FileName', 'CoordinateInfo',
            'CpptrajFile', 'NameType', 'Command',
            'CpptrajState', 'ArgList',]
@@ -436,14 +436,6 @@ cdef class NameType:
         return (self.thisptr.opr_star()).decode()
 
 
-cdef extern from "Command.h": 
-    ctypedef enum RetType "Command::RetType":
-        pass
-    cdef cppclass _Command "Command":
-        @staticmethod
-        RetType ProcessInput(_CpptrajState&, const string&)
-        @staticmethod
-        RetType Dispatch(_CpptrajState&, const string&)
 
 cdef class Command:
     cdef _Command* thisptr
@@ -529,7 +521,8 @@ cdef class CpptrajState:
             raise NotImplementedError()
 
     def run_analyses(self):
-        return self.thisptr.RunAnalyses()
+        self.thisptr.RunAnalyses()
+        return self
 
     def add_trajout(self, arg):
         """add trajout file
@@ -628,11 +621,45 @@ cdef class CpptrajState:
         return self.thisptr.ClearList(ArgList(arglist).thisptr[0])
 
     def run(self):
-        return self.thisptr.Run()
+        self.thisptr.Run()
+        return self
 
     def write_all_datafiles(self):
         self.thisptr.MasterDataFileWrite()
-# distutils: language = c++
+
+
+def _load_batch(traj, txt):
+    cdef CpptrajState state
+    state = CpptrajState()
+
+    txt0 = '''
+    parm %s\n
+    ''' % traj.top.filename
+
+    for fname, frame_slice in zip(traj.filelist, traj.frame_slice_list):
+        if len(frame_slice) == 3:
+            start, stop, stride = frame_slice
+        elif len(frame_slice) == 2:
+            start, stop = frame_slice
+            stride = 1
+        else:
+            raise ValueError('invalid frame_slice')
+        if stop == -1:
+            _stop  = 'last'
+        elif stop < -1:
+            raise RuntimeError('does not support negative stop for load_batch (except -1 (last))')
+        else:
+            _stop = stop
+        txt0 += 'trajin {0} {1} {2} {3}\n'.format(fname, str(start), str(_stop), str(stride))
+
+    lines = txt0.split('\n') + txt.split('\n')
+
+    for line in lines:
+        line = line.rstrip().lstrip().strip('\n')
+        if line:
+            _Command.Dispatch(state.thisptr[0], line.encode())
+    return state
+
 
 cdef class ArgList:
     """

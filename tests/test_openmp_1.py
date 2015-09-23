@@ -47,7 +47,7 @@ class Test(unittest.TestCase):
                          skiprows=1,
                          usecols=range(1, dslist[0].size + 1))
         cpp_save = tmp.flatten()
-        assert_almost_equal(cpp_save, matout)
+        assert_almost_equal(cpp_save, matout, decimal=3)
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 from ._base_result_class import BaseAnalysisResult
 from .externals.six import string_types
-from ._get_common_objects import _get_top, _get_data_from_dtype
+from ._get_common_objects import _get_topology, _get_data_from_dtype
 from ._get_common_objects import _get_reference_from_traj
 
 
@@ -38,7 +38,7 @@ def nastruct(traj=None,
     act = Action_NAstruct()
     dslist = CpptrajDatasetList()
 
-    _top = _get_top(traj, top)
+    _top = _get_topology(traj, top)
     act(command, [_ref, traj], dslist=dslist, top=_top, *args, **kwd)
 
     # need to update legend to avoid duplicate (same legend with different

@@ -417,6 +417,12 @@ cdef class TrajectoryCpptraj:
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 
+    @property
+    def metadata(self):
+        '''return a dict of general information 
+        '''
+        return self._coordinateinfo
+
     property _coordinateinfo:
         def __get__(self):
             cdef CoordinateInfo cinfo
@@ -427,7 +433,10 @@ cdef class TrajectoryCpptraj:
                     'has_time': cinfo.HasTime(),
                     'has_force': cinfo.HasForce(),
                     'has_box': cinfo.HasBox(),
-                    'has_replcica_dims': cinfo.HasReplicaDims()}
+                    'has_replcica_dims': cinfo.HasReplicaDims(),
+                    'n_frames': self.n_frames,
+                    'n_atoms': self.n_atoms,
+                    'box_type': self.top.box.type}
 
         def __set__(self, value):
             '''value is a dict

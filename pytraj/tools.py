@@ -477,9 +477,9 @@ def read_gaussian_output(filename=None, top=None):
     import cclib
     from pytraj.api import Trajectory
     from pytraj.utils.context import goto_temp_folder
-    from pytraj._get_common_objects import _get_top
+    from pytraj._get_common_objects import _get_topology
 
-    _top = _get_top(None, top)
+    _top = _get_topology(None, top)
     gau = cclib.parser.Gaussian(filename)
     go = gau.parse()
 

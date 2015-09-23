@@ -1,12 +1,6 @@
 from __future__ import print_function, absolute_import
 from .externals.six import iteritems
 
-__all__ = ['distance_matrix',
-           'correlation_matrix',
-           'coord_covariance_matrix',
-           'mw_covariance_matrix',
-           'distcovar_matrix',
-           'idea_matrix', ]
 
 default_key_dict = {
     'distance_matrix': 'dist',
@@ -18,24 +12,21 @@ default_key_dict = {
     'ired_matrix': 'ired'
 }
 
+__all__ = list(default_key_dict.keys())
+
 __cpptrajdoc__ = """
     cpptraj manual
     --------------
-          [out <filename>] [start <start>] [stop <stop>] [offset <offset>]
-          [name <name>] [ byatom | byres [mass] | bymask [mass] ]
-          [ ired [order <#>] ]
-          [ {distcovar | idea} <mask1> ]
-          [ {dist | correl | covar | mwcovar} <mask1> [<mask2>] ]
-          [ dihcovar dihedrals <dataset arg> ]
     Calculate a matrix of the specified type from input coordinates.
-      dist: Distance matrix (default).
-      correl: Correlation matrix (aka dynamic cross correlation).
-      covar: Coordinate covariance matrix.
-      mwcovar: Mass-weighted coordinate covariance matrix.
-      distcovar: Distance covariance matrix.
-      idea: Isotropically Distributed Ensemble Analysis matrix.
-      ired: Isotropic Reorientational Eigenmode Dynamics matrix.
-      dihcovar: Dihedral covariance matrix.
+
+    + dist: Distance matrix (default).
+    + correl: Correlation matrix (aka dynamic cross correlation).
+    + covar: Coordinate covariance matrix.
+    + mwcovar: Mass-weighted coordinate covariance matrix.
+    + distcovar: Distance covariance matrix.
+    + idea: Isotropically Distributed Ensemble Analysis matrix.
+    + ired: Isotropic Reorientational Eigenmode Dynamics matrix.
+    + dihcovar: Dihedral covariance matrix.
 """
 
 template = '''
@@ -62,10 +53,10 @@ def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args,
     'idea_matrix' : 'idea'}
     """
     from .actions.CpptrajActions import Action_Matrix
-    from ._get_common_objects import _get_top, _get_data_from_dtype
+    from ._get_common_objects import _get_topology, _get_data_from_dtype
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 
-    _top = _get_top(traj, top)
+    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
     template_command = '%s '
     template_command += command 

@@ -11,7 +11,7 @@ from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
 from ._cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
-from ._get_common_objects import _get_top
+from ._get_common_objects import _get_topology
 from .compat import zip
 from .Topology import Topology
 
@@ -298,7 +298,7 @@ def write_traj(filename="",
     from .Frame import Frame
     from .trajs.Trajout import Trajout
 
-    _top = _get_top(traj, top)
+    _top = _get_topology(traj, top)
     if _top is None:
         raise ValueError("must provide Topology")
 

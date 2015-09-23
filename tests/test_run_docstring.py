@@ -40,6 +40,7 @@ class Test(unittest.TestCase):
                     pt.iterframe,
                     pt.iterchunk,
                     pt.calc_vector,
+                    pt.rdf,
                     va.vector_mask,
                     pt.select_atoms,
                     pt.multidihedral,

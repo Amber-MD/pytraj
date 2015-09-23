@@ -1,5 +1,5 @@
 from pytraj._shared_methods import iterframe_master
-from pytraj._get_common_objects import _get_top, _get_data_from_dtype
+from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
 from pytraj.compat import range
 
 __all__ = ['get_pysander_energies']
@@ -73,7 +73,7 @@ def get_pysander_energies(traj=None,
 
     ddict = defaultdict(_default_func)
 
-    _top = _get_top(traj, top)
+    _top = _get_topology(traj, top)
 
     if input_options is None:
         inp = sander.gas_input(igb)

@@ -9,7 +9,7 @@ from .externals.six.moves import range
 from .core.cpptraj_core import AtomMask
 
 # use absolute import here
-from pytraj._get_common_objects import _get_top
+from pytraj._get_common_objects import _get_topology
 
 from .Topology import Topology
 from ._shared_methods import _savetraj, iterframe_master, my_str_method
@@ -38,7 +38,7 @@ class Trajectory(object):
         >>> traj['@CA'].xyz[:, :, 0]
 
         """
-        self._top = _get_top(filename, top)
+        self._top = _get_topology(filename, top)
 
         if self._top is None:
             self._top = Topology()
@@ -521,6 +521,12 @@ class Trajectory(object):
             return False
 
     def autoimage(self):
+        '''perform autoimage
+
+        Return
+        -------
+        self
+        '''
         from pytraj.actions.CpptrajActions import Action_AutoImage
 
         if not self.has_box():
@@ -532,8 +538,15 @@ class Trajectory(object):
 
             for idx, frame in enumerate(self):
                 act.do_action(frame)
+        return self
 
     def rotate(self, *args, **kwd):
+        '''do rotation
+
+        Returns
+        -------
+        self
+        '''
         import pytraj.common_actions as pyca
 
         for idx, frame in enumerate(self):
@@ -562,11 +575,15 @@ class Trajectory(object):
             traj.rmsfit(0) # fit to 1st frame
             traj.rmsfit('last', '@CA') # fit to last frame using @CA atoms
 
+        Returns
+        -------
+        self
+
         Notes
         -----
         alias of `rmsfit`
         """
-        self.rmsfit(ref=ref, mask=mask)
+        return self.rmsfit(ref=ref, mask=mask)
 
     def rmsfit(self, ref=None, mask="*"):
         """do the fitting to reference Frame by rotation and translation
@@ -575,6 +592,10 @@ class Trajectory(object):
         ref : {Frame object, int, str}, default=None 
             Reference
         mask : str or AtomMask object, default='*' (fit all atoms)
+
+        Returns
+        -------
+        self
 
         Examples
         --------
@@ -609,6 +630,7 @@ class Trajectory(object):
         for idx, frame in enumerate(self):
             _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
             frame.trans_rot_trans(v1, mat, v2)
+        return self
 
     def _allocate(self, n_frames, n_atoms):
         '''allocate (n_frames, n_atoms, 3) coordinates
@@ -616,7 +638,7 @@ class Trajectory(object):
         self._xyz = np.zeros((n_frames, n_atoms, 3), dtype='f8')
 
     def strip_atoms(self, mask):
-        self.strip(mask)
+        return self.strip(mask)
 
     def strip(self, mask):
         '''strip atoms with given mask
@@ -633,6 +655,7 @@ class Trajectory(object):
         if self._xyz is not None:
             # need to copy to make contigous memory block
             self._xyz = self._xyz[:, atm.indices].copy()
+        return self
 
     def save(self,
              filename="",

@@ -169,8 +169,10 @@ def ensure_not_none_or_string(obj):
         raise ValueError(msg)
 
 
-def assert_almost_equal(arr0, arr1, decimal=3):
-    '''numpy-like assert'''
+def assert_almost_equal(arr0, arr1, decimal=4):
+    '''numpy-like assert,
+    use default decimal=4 to match cpptraj's output
+    '''
 
     if is_number(arr0):
         arr0 = [arr0, ]
@@ -186,6 +188,8 @@ def assert_almost_equal(arr0, arr1, decimal=3):
     else:
         _arr0 = arr0
         _arr1 = arr1
+    assert len(_arr0) == len(_arr1), 'two arrays must have the same length'
+
     for x, y in zip(_arr0, _arr1):
         if abs(x - y) > SMALL:
             almost_equal = False
