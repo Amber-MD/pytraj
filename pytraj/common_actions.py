@@ -682,7 +682,7 @@ def calc_rdf(traj=None, solvent_mask=None, bin_spacing=None, maximum=None,
         intramol=True,
         frame_indices=None,
         dtype='ndarray', top=None):
-    '''calculat radial distribtion function. Doc was adapter lightly from cpptraj doc
+    '''calculat radial distribtion function. Doc was adapted lightly from cpptraj doc
 
     Parameters
     ----------
