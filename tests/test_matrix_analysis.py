@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from __future__ import print_function
 import unittest
 import pytraj as pt
@@ -5,24 +6,30 @@ from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 cpptraj_trajin = """
-matrix dist @CA out mtest.0.dat byres
-matrix dist @N @CA out mtest.1.dat byres
-matrix dist @CA out mtest.2.dat bymask
-matrix dist @N @CA out mtest.3.dat bymask
 matrix correl @N @C out mtest.4.dat
-matrix covar @N @C out mtest.5.dat
-matrix mwcovar @N @C out mtest.6.dat
-matrix dist @CA out mtest.7.dat
-matrix idea @CA out mtest.8.dat
 matrix correl @CA out mtest.9.dat
+matrix covar @N @C out mtest.5.dat
 matrix covar @CA out mtest.10.dat
+matrix mwcovar @N @C out mtest.6.dat
 matrix mwcovar @CA out mtest.11.dat
-matrix dist @N @C out mtest.12.dat
+matrix idea @CA out mtest.8.dat
 matrix distcovar :1-4@CA out mtest.13.dat
 """
 
+matdist = '''
+matrix dist @N @C out mtest.12.dat
+matrix dist @CA out mtest.7.dat
+matrix dist @N @CA out mtest.3.dat bymask
+matrix dist @CA out mtest.2.dat bymask
+matrix dist @CA out mtest.0.dat byres
+matrix dist @N @CA out mtest.1.dat byres
+'''
+
+all_commands = ''.join((cpptraj_trajin, matdist))
+
 # return a list of non-blank lines
-command_list = list(filter(lambda x: x, cpptraj_trajin.split("\n")))
+command_list = list(filter(lambda x: x, all_commands.split("\n")))
+print(len(command_list))
 
 class TestMatrixConprehensive(unittest.TestCase):
     def test_matrix(self):
@@ -38,8 +45,10 @@ class TestMatrixConprehensive(unittest.TestCase):
         crd_file = matrix_test_dir + "/1rrb_vac.mdcrd"
         traj = pt.iterload(crd_file, top_file)
 
-        for line in command_list:
-            print(line)
+        state = pt.load_batch(traj, all_commands) 
+        state.run()
+
+        for idx, line in enumerate(command_list):
             arg = ArgList(line)
             # get function
             act_key = arg.get_string_key("matrix")
@@ -47,23 +56,19 @@ class TestMatrixConprehensive(unittest.TestCase):
             mask = arg.get_next_mask()
             fname = ".".join((slist[0], slist[-1], slist[1]))
             # get correct name
-            saved_file_name = matrix_test_dir + fname + ".save"
-            saved_mat = np.loadtxt(saved_file_name).transpose()
             func = ma.__dict__[new_dict[act_key]]
+
             # get command
             command = line.split(act_key)[1]
-            mat_out = func(traj, command, dtype='ndarray')
+            matout = func(traj, command, dtype='ndarray')
+            print(idx, command, func, matout.shape)
 
-            if 'byres' in command:
-                # TODO: simplify
-                mat_out = mat_out[0]
+            # cpptraj output has only 3 digits after decimal
+            try:
+                aa_eq(matout.flatten(), state.data[idx].values)
+            except AssertionError:
+                print(matout, state.data[idx].values)
 
-            if 'bymask' in command:
-                pass
-            else:
-                print(len(mat_out.flatten()))
-                print(len(saved_mat.flatten()))
-                aa_eq(mat_out.flatten(), saved_mat.flatten())
 
 
 if __name__ == "__main__":

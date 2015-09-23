@@ -15,13 +15,13 @@ class Test(unittest.TestCase):
 
         # all atoms
         fa = mdio.load(traj(0, 5), traj.top)
-        fa2 = traj[:6]
+        fa2 = traj[:5]
         aa_eq(fa.xyz, fa2.xyz)
 
         # strip atoms
         new_top = traj.top.strip_atoms("!@CA", copy=True)
         fa = mdio.load(traj(0, 5, mask='@CA'), top=new_top)
-        fa2 = traj[:6, '@CA']
+        fa2 = traj[:5, '@CA']
         aa_eq(fa.xyz, fa2.xyz)
 
 
