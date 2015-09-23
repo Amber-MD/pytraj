@@ -169,7 +169,7 @@ def ensure_not_none_or_string(obj):
         raise ValueError(msg)
 
 
-def assert_almost_equal(arr0, arr1, decimal=3):
+def assert_almost_equal(arr0, arr1, decimal=5):
     '''numpy-like assert'''
 
     if is_number(arr0):

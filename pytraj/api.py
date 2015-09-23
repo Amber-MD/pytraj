@@ -9,7 +9,7 @@ from .externals.six.moves import range
 from .core.cpptraj_core import AtomMask
 
 # use absolute import here
-from pytraj._get_common_objects import _get_top
+from pytraj._get_common_objects import _get_topology
 
 from .Topology import Topology
 from ._shared_methods import _savetraj, iterframe_master, my_str_method
@@ -38,7 +38,7 @@ class Trajectory(object):
         >>> traj['@CA'].xyz[:, :, 0]
 
         """
-        self._top = _get_top(filename, top)
+        self._top = _get_topology(filename, top)
 
         if self._top is None:
             self._top = Topology()

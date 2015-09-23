@@ -61,7 +61,7 @@ from . import options
 from functools import partial
 
 from .core import Atom, Residue, Molecule
-from .core.cpptraj_core import CpptrajState, ArgList, AtomMask
+from .core.cpptraj_core import CpptrajState, ArgList, AtomMask, _load_batch
 from . import array
 from .Topology import Topology, ParmFile
 from .math import Vec3
@@ -83,7 +83,6 @@ load_from_frame_iter = _load_from_frame_iter
 
 # dataset stuff
 from .datafiles.load_sample_data import load_sample_data
-from .datafiles.datafiles import load_batch
 from .datasetlist import DatasetList
 
 # tool
@@ -164,6 +163,11 @@ from ._shared_methods import iterframe_master
 # TODO: need to move set_world_silent and set_error_silent to the same file
 from .cpp_options import set_error_silent, set_world_silent
 
+
+def load_batch(traj, txt):
+    if not isinstance(traj, TrajectoryIterator):
+        raise ValueError('only support TrajectoryIterator')
+    return _load_batch(traj, txt)
 
 def to_numpy_Trajectory(traj, top, unitcells=None):
     # TODO: move to `io`?

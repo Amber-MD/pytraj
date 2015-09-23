@@ -673,7 +673,8 @@ def calc_linear_interaction_energy(traj=None,
 calc_LIE = calc_linear_interaction_energy
 
 
-def calc_rdf(traj=None, solvent_mask=None, bin_spacing=None, maximum=None,
+def calc_rdf(traj=None, solvent_mask=None,
+        bin_spacing=0.5, maximum=10.,
         solute_mask='',
         image=True,
         density=0.033456,
@@ -688,11 +689,10 @@ def calc_rdf(traj=None, solvent_mask=None, bin_spacing=None, maximum=None,
     ----------
     traj : Trajectory-like, require
     solvent_mask : solvent mask, default None, required
-    bin_spacing : float, default None, required
+    bin_spacing : float, default 0.5, optional
         bin spacing
-    maximum : float, default None, required
+    maximum : float, default 10., optional
         max bin value
-
     solute_mask: str, default None, optional
         if specified, calculate RDF of all atoms in solvent_mask to each atom in solute_mask
     image : bool, default True, optional
@@ -740,12 +740,14 @@ def calc_rdf(traj=None, solvent_mask=None, bin_spacing=None, maximum=None,
     _center2 = 'center2' if center_solute else ''
     _nointramol = 'nointramol' if not intramol else ''
 
-    command = ' '.join(("pytraj_tmp_output.agr ",
-                        _spacing, _maximum, _solventmask,
-                        _solutemask, _noimage, _density,
+    # order does matters
+    # the order between _solventmask and _solutemask is swapped compared
+    # to cpptraj's doc (to get correct result)
+    command = ' '.join(("pytraj_tmp_output.agr",
+                        _spacing, _maximum, _solutemask,
+                        _solventmask, _noimage, _density,
                         _center1, _center2, _nointramol))
 
-    print(command)
     dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist)
     act.print_output()
