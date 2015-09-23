@@ -1,6 +1,6 @@
 #!/bin/sh
 
-bash ./configure -shared -nomathlib --with-netcdf=$PREFIX gnu
+bash ./configure -shared -nomathlib --with-netcdf=$PREFIX -openmp gnu
 make libcpptraj
 
 mkdir -p $PREFIX/lib/cpptraj/lib/
