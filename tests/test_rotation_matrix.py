@@ -23,6 +23,7 @@ class TestRotationMatrix(unittest.TestCase):
         avg = pt.mean_structure(traj)
         mat = pt.calc_rotation_matrix(traj, ref=avg, mask='@CA,C,N,O')
         assert mat.shape == (traj.n_frames, 3, 3), 'mat shape'
+        print(mat, saved_mat)
         aa_eq(mat.flatten(), saved_mat.flatten())
 
 

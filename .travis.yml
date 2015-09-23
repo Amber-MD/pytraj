@@ -39,11 +39,12 @@ script:
     - cd ./tests
     - python -c 'import pytraj'
     - python ./run_simple_test.py
-    - python ./run_all_and_find_fails.py
+    - python ./test_rotation_matrix.py
+    #- python ./run_all_and_find_fails.py
     #- python ./test_memory_accumulation.py
-    - cd ../examples
-    - python ./run_all_and_find_fails.py
-    - cd $PYTRAJHOME
+    #- cd ../examples
+    #- python ./run_all_and_find_fails.py
+    #- cd $PYTRAJHOME
 
 after_success:
     - echo "after_success"
