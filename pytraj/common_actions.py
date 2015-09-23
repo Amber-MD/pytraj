@@ -632,6 +632,7 @@ def calc_molsurf(traj=None,
 def calc_rotation_matrix(traj=None,
                          ref=0,
                          mask="",
+                         mass=False,
                          frame_indices=None,
                          top=None):
     '''
@@ -644,9 +645,11 @@ def calc_rotation_matrix(traj=None,
     dslist = CpptrajDatasetList()
     ref = _get_reference_from_traj(traj, ref)
 
+    _mass = 'mass' if mass else ''
+
     if not isinstance(mask, string_types):
         mask = array_to_cpptraj_atommask(mask)
-    command = ' '.join(('tmp', mask, 'savematrices'))
+    command = ' '.join(('tmp', mask, 'savematrices', _mass))
 
     act = CpptrajActions.Action_Rmsd()
     act(command, [ref, traj], top=_top, dslist=dslist)
