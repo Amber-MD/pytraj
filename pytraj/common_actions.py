@@ -694,11 +694,11 @@ def calc_rdf(traj=None, solvent_mask=None, bin_spacing=None, maximum=None,
         max bin value
 
     solute_mask: str, default None, optional
-        if specified, calculate RDF of all atoms in solvent_mask to each atom in solute_mask (cpptraj doc)
+        if specified, calculate RDF of all atoms in solvent_mask to each atom in solute_mask
     image : bool, default True, optional
         if False, do not image distance
     density : float, default 0.033456 molecules / A^3, optional
-    volume : determin density for normalization from average volume of input frames (cpptraj doc)
+    volume : determin density for normalization from average volume of input frames
     center_solvent : bool, default False, optional
         if True, calculate RDF from geometric center of atoms in solvent_mask to all atoms in solute_mask
     center_solute : bool, default False, optional
@@ -716,7 +716,7 @@ def calc_rdf(traj=None, solvent_mask=None, bin_spacing=None, maximum=None,
 
     Notes
     -----
-    install pytraj and libcpptraj with openmp to speed up calculation
+    install ``pytraj`` and ``libcpptraj`` with openmp to speed up calculation
     '''
 
     traj = _get_fiterator(traj, frame_indices)
