@@ -20,7 +20,7 @@ class TestRegular(unittest.TestCase):
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
                                "./data/tz2.truncoct.parm7")[0]
-        aa_eq(fsaved.coords, f0.coords)
+        aa_eq(fsaved.coords, f0.coords, decimal=3)
 
     def test_2(self):
         from pytraj.common_actions import do_autoimage
@@ -37,7 +37,7 @@ class TestRegular(unittest.TestCase):
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
                                "./data/tz2.truncoct.parm7")[0]
-        aa_eq(fsaved.coords, f0.coords)
+        aa_eq(fsaved.coords, f0.coords, decimal=3)
 
     def test_4(self):
         # combined with get_coordinates

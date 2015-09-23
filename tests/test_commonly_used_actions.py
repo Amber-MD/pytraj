@@ -29,7 +29,7 @@ class TestAutoImage(unittest.TestCase):
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
                                "./data/tz2.truncoct.parm7")[0]
-        aa_eq(fsaved.coords, f0.coords)
+        aa_eq(fsaved.coords, f0.coords, decimal=3)
 
     def test_2(self):
         from pytraj.common_actions import do_autoimage
@@ -38,15 +38,13 @@ class TestAutoImage(unittest.TestCase):
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         f0 = traj[0]
         f0cp = f0.copy()
-        #print(f0.same_coords_as(f0cp))
         assert f0.same_coords_as(f0cp) == True
         do_autoimage(traj=f0, top=traj.top)
-        #print(f0.same_coords_as(f0cp))
         assert f0.same_coords_as(f0cp) == False
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
                                "./data/tz2.truncoct.parm7")[0]
-        aa_eq(fsaved.coords, f0.coords)
+        aa_eq(fsaved.coords, f0.coords, decimal=3)
 
 
 class TestGeometry(unittest.TestCase):

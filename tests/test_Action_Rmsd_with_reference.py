@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         #print(first10_rmsd)
 
         # make sure to reprofuce cpptraj
-        assert_almost_equal(d0[:], first10_rmsd)
+        assert_almost_equal(d0[:], first10_rmsd, decimal=3)
 
 
 if __name__ == "__main__":
