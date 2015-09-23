@@ -11,6 +11,7 @@ def has_pycuda():
     except ImportError:
         return False
 
+
 print(has_pycuda())
 
 if not has_pycuda():
@@ -32,7 +33,6 @@ try:
 except:
     pass
 
-
 if has_pycuda():
     import pycuda.gpuarray as gpuarray
     import pycuda.driver as drv
@@ -53,6 +53,7 @@ class TestGPUArray(unittest.TestCase):
         assert isinstance(a_gpu, gpuarray.GPUArray) == True
         assert_almost_equal(a_cpu, traj[0].coords)
         assert isinstance(a_cpu, np.ndarray) == True
+
 
 if __name__ == "__main__":
     unittest.main()

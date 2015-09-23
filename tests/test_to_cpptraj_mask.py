@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
                  pt.calc_atomicfluct,
                  pt.bfactors,
                  #pt.calc_rmsd_with_rotation_matrices,
-                 pt.calc_pairwise_rmsd,]
+                 pt.calc_pairwise_rmsd, ]
         for func in flist:
             aa_eq(func(traj,
                        mask=range(7)).flatten(),
@@ -26,6 +26,7 @@ class Test(unittest.TestCase):
                        mask=range(0, 7, 2)).flatten(),
                   func(traj,
                        mask="@1,3,5,7").flatten())
+
 
 if __name__ == "__main__":
     unittest.main()

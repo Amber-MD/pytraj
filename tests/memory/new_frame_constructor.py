@@ -1,6 +1,7 @@
 import pytraj as pt
 from memory_profiler import profile
 
+
 @profile
 def test():
     fname = 'data/nogit/remd/remd.x.000'
@@ -15,6 +16,7 @@ def test():
     pt.molsurf(traj, '@CA')
     pt.rmsd(traj, mask='@CA')
     pt.multidihedral(traj)
+
 
 @profile
 def test_fastiter():

@@ -4,6 +4,7 @@ import numpy as np
 from pytraj import Trajectory
 from pytraj.testing import aa_eq
 
+
 class TestSlicingTrajectory(unittest.TestCase):
     def test_array_like(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -42,6 +43,7 @@ class TestSlicingTrajectory(unittest.TestCase):
         aa_eq(traj[0, atm, 0], fa[0][atm, 0])
         aa_eq(traj[0, atm, 0], xyz[0][indices][0])
 
+
 class Test1(unittest.TestCase):
     def test_0(self):
         # create Trajectory from Trajing_Single
@@ -68,6 +70,7 @@ class Test1(unittest.TestCase):
         atm = traj.top("@CA")
         traj[atm]
         traj[:, atm]
+
 
 class TestSegmentationFault(unittest.TestCase):
     def test_0(self):

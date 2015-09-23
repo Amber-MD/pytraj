@@ -11,7 +11,6 @@ def assert_close(x, y, tol=1E-4):
 
 
 class Test(unittest.TestCase):
-
     def test_2(self):
         # compare to saved test: GB
         import os
@@ -27,7 +26,9 @@ class Test(unittest.TestCase):
             options.saltcon = 0.2
             options.gbsa = 1
             edict = pyca.energy_decomposition(
-                traj=traj, input_options=options, parm=topfile)
+                traj=traj,
+                input_options=options,
+                parm=topfile)
             print(edict)
             assert_close(edict['bond'][0], 631.8993, tol=3E-4)
             assert_close(edict['angle'][0], 898.2543, tol=3E-4)
@@ -36,16 +37,31 @@ class Test(unittest.TestCase):
 
             # dummy test to make sure `energy_decomposition` can work with list
             edict2 = pyca.energy_decomposition(
-                traj=[traj, ], input_options=options, parm=topfile, top=traj.top)
+                traj=[traj, ],
+                input_options=options,
+                parm=topfile,
+                top=traj.top)
             edict3 = pyca.energy_decomposition(
-                traj=traj(), input_options=options, parm=topfile, top=traj.top)
+                traj=traj(),
+                input_options=options,
+                parm=topfile,
+                top=traj.top)
             edict4 = pyca.energy_decomposition(
-                traj=[traj[:5], traj[5:]], input_options=options, parm=topfile, top=traj.top)
+                traj=[traj[:5], traj[5:]],
+                input_options=options,
+                parm=topfile,
+                top=traj.top)
             edict5 = pyca.energy_decomposition(
-                traj=[traj[:5], traj(start=5)], input_options=options, parm=topfile, top=traj.top)
+                traj=[traj[:5], traj(start=5)],
+                input_options=options,
+                parm=topfile,
+                top=traj.top)
             # test dtype
-            dslist = pyca.energy_decomposition(traj=[traj, ], input_options=options,
-                                               parm=topfile, top=traj.top, dtype='dataset')
+            dslist = pyca.energy_decomposition(traj=[traj, ],
+                                               input_options=options,
+                                               parm=topfile,
+                                               top=traj.top,
+                                               dtype='dataset')
             assert edict == edict2
             assert edict == edict3
             assert edict == edict4
@@ -96,7 +112,9 @@ class Test(unittest.TestCase):
             qmmm_options.adjust_q = 0
 
             edict = pyca.energy_decomposition(
-                traj=traj, input_options=options, qmmm_options=qmmm_options)
+                traj=traj,
+                input_options=options,
+                qmmm_options=qmmm_options)
             assert_close(edict['bond'][0], 0.0016, tol=3E-4)
             assert_close(edict['vdw'][0], 0.1908, tol=3E-4)
             assert_close(edict['vdw_14'][0], 3.7051, tol=3E-4)
@@ -134,7 +152,9 @@ class Test(unittest.TestCase):
             qmmm_options.qmmm_int = 5
 
             edict = pyca.energy_decomposition(
-                traj=traj, input_options=options, qmmm_options=qmmm_options)
+                traj=traj,
+                input_options=options,
+                qmmm_options=qmmm_options)
             assert_close(edict['bond'][0], 605.7349, tol=3E-4)
             assert_close(edict['vdw_14'][0], 0.0000, tol=3E-4)
             assert_close(edict['elec_14'][0], 0.0000, tol=3E-4)
@@ -156,11 +176,14 @@ class Test(unittest.TestCase):
             options = sander.gas_input(8)
             options.cut = 9999.0
             edict = pyca.energy_decomposition(
-                traj=traj, input_options=options, parm=topfile)
+                traj=traj,
+                input_options=options,
+                parm=topfile)
             assert_close(edict['gb'][0], -2287.6880, tol=3E-4)
             assert_close(edict['gb'][0], -2287.6880, tol=3E-4)
             assert_close(edict['elec'][0], -1659.5740, tol=3E-4)
             assert_close(edict['vdw'][0], 384.2512, tol=3E-4)
+
 
 if __name__ == "__main__":
     unittest.main()

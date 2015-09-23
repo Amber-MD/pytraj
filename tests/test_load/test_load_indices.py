@@ -6,6 +6,7 @@ from pytraj.base import *
 from pytraj.io import load
 from pytraj.utils.check_and_assert import assert_almost_equal
 
+
 class TestIndices(unittest.TestCase):
     def test_0(self):
 
@@ -33,9 +34,10 @@ class TestIndices(unittest.TestCase):
 
         # make sure we don't suport other frame_indices
         traj2 = Trajectory()
-        traj2 = pt.load(filename="./data/md1_prod.Tc5b.x",
-                        top=pt.load_topology("./data/Tc5b.top"),
-                        frame_indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
+        traj2 = pt.load(
+            filename="./data/md1_prod.Tc5b.x",
+            top=pt.load_topology("./data/Tc5b.top"),
+            frame_indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
         assert traj2[-1].coords == traj1[4].coords
 
     def test_array_assigment(self):

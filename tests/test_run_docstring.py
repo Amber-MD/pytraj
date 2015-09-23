@@ -36,7 +36,7 @@ class Test(unittest.TestCase):
         except ImportError:
             has_parmed = False
 
-        funclist =  [DataArray,
+        funclist = [DataArray,
                     pt.iterframe,
                     pt.iterchunk,
                     pt.calc_vector,

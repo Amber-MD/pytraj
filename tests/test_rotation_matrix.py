@@ -8,10 +8,11 @@ from pytraj.utils import eq, aa_eq
 class TestRotationMatrix(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
-        cm_avg= '''
+        cm_avg = '''
         average avg.pdb
         run
         '''
+
         pt.load_batch(self.traj, cm_avg).run()
 
     def test_nomass(self):
@@ -46,7 +47,10 @@ class TestRotationMatrix(unittest.TestCase):
 
         # pytraj output
         avg = pt.mean_structure(traj)
-        mat = pt.calc_rotation_matrix(traj, ref=avg, mask='@CA,C,N,O', mass=True)
+        mat = pt.calc_rotation_matrix(traj,
+                                      ref=avg,
+                                      mask='@CA,C,N,O',
+                                      mass=True)
         assert mat.shape == (traj.n_frames, 3, 3), 'mat shape'
         aa_eq(mat.flatten(), saved_mat.flatten())
 

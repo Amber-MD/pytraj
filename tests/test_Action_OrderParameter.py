@@ -30,5 +30,6 @@ class TestOrderParameter(unittest.TestCase):
         dslist = DatasetList()
         act(command, traj, dslist=dslist)
 
+
 if __name__ == '__main__':
     unittest.main()

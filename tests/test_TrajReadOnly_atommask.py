@@ -34,5 +34,6 @@ class Test(unittest.TestCase):
         assert_almost_equal(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
         assert_almost_equal(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
 
+
 if __name__ == "__main__":
     unittest.main()

@@ -7,7 +7,8 @@ from pytraj.utils import eq, aa_eq
 
 class TestVelocity(unittest.TestCase):
     def test_mask(self):
-        traj = pt.iterload("./data/issue807/trunc.nc", "data/issue807/system.prmtop")
+        traj = pt.iterload("./data/issue807/trunc.nc",
+                           "data/issue807/system.prmtop")
 
         f = traj[0]
 

@@ -19,7 +19,7 @@ class TestRegular(unittest.TestCase):
         assert f0.same_coords_as(f0cp) == False
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
-                               "./data/tz2.truncoct.parm7")[0]
+                             "./data/tz2.truncoct.parm7")[0]
         aa_eq(fsaved.coords, f0.coords, decimal=3)
 
     def test_2(self):
@@ -36,7 +36,7 @@ class TestRegular(unittest.TestCase):
         assert f0.same_coords_as(f0cp) == False
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
-                               "./data/tz2.truncoct.parm7")[0]
+                             "./data/tz2.truncoct.parm7")[0]
         aa_eq(fsaved.coords, f0.coords, decimal=3)
 
     def test_4(self):

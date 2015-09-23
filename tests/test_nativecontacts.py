@@ -11,6 +11,7 @@ class Test(unittest.TestCase):
         txt = pt.datafiles.tc5b_trajin + '''
         nativecontacts
         '''
+
         dslist = pt.native_contacts(traj, top=traj.top)
         cpp = pt.datafiles.load_cpptraj_output(txt)
         aa_eq(dslist.values, cpp.values)

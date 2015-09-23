@@ -6,10 +6,10 @@ from pytraj.utils import has_
 from pytraj.testing import aa_eq
 from pytraj import Trajectory, TrajectoryIterator
 
+
 class TestSimpleRMSD(unittest.TestCase):
     def setUp(self):
-        self.traj = pt.iterload("./data/md1_prod.Tc5b.x",
-                                "./data/Tc5b.top")
+        self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
     def test_rmsd_with_mask(self):
         TRAJ = pt.iterload(
@@ -105,6 +105,7 @@ class TestSimpleRMSD(unittest.TestCase):
         mask = ['@CA', '@CB', ':3-18@CA,C', [0, 3, 5]]
         self.assertRaises(ValueError, lambda: pt.rmsd(traj, mask=mask))
 
+
 class TestRMSDPerRes(unittest.TestCase):
     def test_0(self):
         from pytraj.datafiles import load_cpptraj_output, tz2_ortho_trajin
@@ -139,7 +140,8 @@ class TestPairwiseRMSD(unittest.TestCase):
         trajin ./data/md1_prod.Tc5b.x
         rms2d @CA metric_holder rmsout tmp.out
         '''
-        for func in funclist: 
+
+        for func in funclist:
             traj = func("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
             for metric in ['rms', 'nofit', 'dme']:
                 d0 = pt.pairwise_rmsd(traj(mask='@CA'), metric=metric)
