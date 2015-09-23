@@ -480,7 +480,6 @@ def _calc_diffusion(traj=None,
     command = ' '.join((_mask, _time, _mask2, _lower, _upper, _distances, _com,
         _dimention))
 
-    print(command)
     act(command, traj, top=_top, dslist=dslist)
 
     return _get_data_from_dtype(dslist, dtype=dtype)
