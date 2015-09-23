@@ -12,6 +12,7 @@ class TestReplicateCell(unittest.TestCase):
         trajin ./data/tz2.ortho.nc
         replicatecell name test all
         '''
+
         t0 = pt.replicate_cell(traj, direction='all')
         cpp_out = pt.datafiles.load_cpptraj_output(txt, dtype='state')
         saved_t0 = cpp_out.datasetlist[0]

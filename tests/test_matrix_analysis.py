@@ -30,6 +30,7 @@ all_commands = not_byres + byres_cm
 # return a list of non-blank lines
 command_list = list(filter(lambda x: x, all_commands.split("\n")))
 
+
 class TestMatrixConprehensive(unittest.TestCase):
     def test_matrix(self):
         import numpy as np
@@ -44,7 +45,7 @@ class TestMatrixConprehensive(unittest.TestCase):
         crd_file = matrix_test_dir + "/1rrb_vac.mdcrd"
         traj = pt.iterload(crd_file, top_file)
 
-        state = pt.load_batch(traj, all_commands) 
+        state = pt.load_batch(traj, all_commands)
         state.run()
 
         state_byres = pt.load_batch(traj, byres_cm)
@@ -78,6 +79,7 @@ class TestMatrixConprehensive(unittest.TestCase):
         # only take byres datasets
         saved_matbyres = state_byres.data[[1, 3]].values
         aa_eq(byres_arr, saved_matbyres)
+
 
 if __name__ == "__main__":
     unittest.main()

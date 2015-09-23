@@ -49,8 +49,10 @@ class TestVectorAnalysisModule(unittest.TestCase):
         '''test mask as a list of strings or as a 2D array of integers
         '''
         from pytraj.tools import array_to_atommask_2_groups
-        parm_dir = os.path.join(cpptraj_test_dir, 'Test_IRED', '1IEE_A_prot.prmtop')
-        trajin_dir = os.path.join(cpptraj_test_dir, 'Test_IRED', '1IEE_A_test.mdcrd')
+        parm_dir = os.path.join(cpptraj_test_dir, 'Test_IRED',
+                                '1IEE_A_prot.prmtop')
+        trajin_dir = os.path.join(cpptraj_test_dir, 'Test_IRED',
+                                  '1IEE_A_test.mdcrd')
         traj = pt.iterload(trajin_dir, parm_dir)
 
         # get a list of mask from cpptraj input
@@ -66,7 +68,7 @@ class TestVectorAnalysisModule(unittest.TestCase):
                     # example: vector v100 @1541 ired @1542
                     sline = line.split()
                     mask = ' '.join((sline[2], sline[4]))
-                    n_indices_cpp.append(int(sline[2][1:])-1)
+                    n_indices_cpp.append(int(sline[2][1:]) - 1)
                     maskes.append(mask)
 
         h_indices_cpp = [i + 1 for i in n_indices_cpp]
@@ -107,13 +109,15 @@ class TestVectorAnalysisModule(unittest.TestCase):
         state2.run()
 
         data = pt.common_actions.calc_ired_matrix(traj, nh_indices, order=2)
-        data_vec_3 = data[:-1] 
+        data_vec_3 = data[:-1]
         assert len(data_vec_3) == 126, 'must have 126 vectors'
         matired = data[-1].values
-        # TODO: know why?? 
+        # TODO: know why??
         matired /= matired[0, 0]
         aa_eq(data_vec_3, cpp_vectors)
-        assert pt.tools.rmsd(matired.flatten(), cpp_matired.values) < 1E-6, 'matired'
+        assert pt.tools.rmsd(matired.flatten(),
+                             cpp_matired.values) < 1E-6, 'matired'
+
 
 if __name__ == "__main__":
     unittest.main()

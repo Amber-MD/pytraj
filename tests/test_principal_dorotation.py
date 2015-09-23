@@ -20,5 +20,6 @@ class Test(unittest.TestCase):
             "./data/Tc5b.principal_dorotation.rst7", traj.top)[0]
         assert (frame.rmsd_nofit(saved_frame)) < 0.15
 
+
 if __name__ == "__main__":
     unittest.main()

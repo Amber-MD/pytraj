@@ -11,7 +11,10 @@ class TestPairDist(unittest.TestCase):
     def test_general(self):
         traj = pt.iterload("./data/tz2.crd", "./data/tz2.parm7")
 
-        data = pt.common_actions.calc_pairdist(traj, delta=0.1, mask='*', dtype='dataset')
+        data = pt.common_actions.calc_pairdist(traj,
+                                               delta=0.1,
+                                               mask='*',
+                                               dtype='dataset')
         data0 = data[0].T
         data1 = data[1].T
 
@@ -20,14 +23,16 @@ class TestPairDist(unittest.TestCase):
         trajin ./data/tz2.crd
         pairdist out test.out mask "*" delta 0.1
         '''
+
         cpp_data = pt.datafiles.load_cpptraj_output(txt).values
         cpp_distance, cpp_Pr = cpp_data[0].T
         _, cpp_std = cpp_data[1].T
 
-        aa_eq(data0[0], cpp_distance) # distance
-        aa_eq(data1[0], cpp_distance) # distance
-        aa_eq(data0[1], cpp_Pr, decimal=2) # Pr
-        aa_eq(data1[1], cpp_std, decimal=2) # std
+        aa_eq(data0[0], cpp_distance)  # distance
+        aa_eq(data1[0], cpp_distance)  # distance
+        aa_eq(data0[1], cpp_Pr, decimal=2)  # Pr
+        aa_eq(data1[1], cpp_std, decimal=2)  # std
+
 
 if __name__ == "__main__":
     unittest.main()

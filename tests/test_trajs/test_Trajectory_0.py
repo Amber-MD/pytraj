@@ -88,7 +88,8 @@ class TestTrajectory(unittest.TestCase):
     def test_1(self):
         traj = TrajectoryIterator()
 
-        traj.load("./data/md1_prod.Tc5b.x", pt.load_topology("./data/Tc5b.top"))
+        traj.load("./data/md1_prod.Tc5b.x", pt.load_topology(
+            "./data/Tc5b.top"))
         assert traj.top.n_atoms == 304
 
 

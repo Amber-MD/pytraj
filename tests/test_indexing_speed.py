@@ -18,6 +18,7 @@ traj = TrajectoryIterator(
     top="./data/Tc5b.top")
 N = traj.n_frames
 
+
 class TestSpeed(unittest.TestCase):
     def test_0(self):
         #f0 = traj[-3:-1][0]

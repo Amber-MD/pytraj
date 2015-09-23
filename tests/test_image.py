@@ -30,7 +30,6 @@ class TestRadgyr(unittest.TestCase):
 
         act.do_action(farray)
 
-
         if file_exist("./CpptrajTest/Test_Image/image4.crd.save"):
             fnew = mdio.iterload("./CpptrajTest/Test_Image/image4.crd.save",
                                  "./data/tz2.truncoct.parm7")

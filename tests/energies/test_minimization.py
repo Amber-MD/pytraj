@@ -15,27 +15,29 @@ except ImportError:
 
 
 class TestMin(unittest.TestCase):
-
     @unittest.skipIf(not has_sander, 'does not have sander. skip')
     def test_0(self):
         if os.path.exists(amberhome):
             from pytraj.amber_wrap import minimize
 
-            traj = pt.iterload("./data/Ala3/Ala3.crd",
-                      "./data/Ala3/Ala3.top")
+            traj = pt.iterload("./data/Ala3/Ala3.crd", "./data/Ala3/Ala3.top")
             t0 = traj[:1]
 
             if has_("sander"):
-                print ('egb: ', pt.energy_decomposition(t0, igb=8, verbose=False)['gb'])
+                print('egb: ', pt.energy_decomposition(t0,
+                                                       igb=8,
+                                                       verbose=False)['gb'])
 
-            print (pt.rmsd(traj, ref=t0[0], mask='!@H='))
+            print(pt.rmsd(traj, ref=t0[0], mask='!@H='))
             minimize(t0)
-            print (pt.rmsd(traj, ref=t0[0], mask='!@H='))
+            print(pt.rmsd(traj, ref=t0[0], mask='!@H='))
 
             self.assertRaises(ValueError, lambda: minimize(traj))
 
             if has_("sander"):
-                print ('egb: ', pt.energy_decomposition(t0, igb=8, verbose=False)['gb'])
+                print('egb: ', pt.energy_decomposition(t0,
+                                                       igb=8,
+                                                       verbose=False)['gb'])
 
             # load saved file
             saved_coords = pt.load("./data/Ala3/min/min.r", traj.top).xyz

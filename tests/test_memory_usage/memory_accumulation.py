@@ -27,7 +27,9 @@ for traj in tlist:
 
     @profile
     def test_write():
-        pt.write_traj('test.nc', traj, frame_indices=range(10000), overwrite=True)
+        pt.write_traj('test.nc', traj,
+                      frame_indices=range(10000),
+                      overwrite=True)
         print(pt.iterload('./test.nc', traj.top))
 
     @profile

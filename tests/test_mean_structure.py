@@ -40,15 +40,19 @@ class TestAverageFrame(unittest.TestCase):
         frame6 = mean_structure(traj, mask='@CA', frame_indices=[0, 3, 7])
         aa_eq(frame5.xyz, frame6.xyz, decimal=3)
 
-        xyz_0= pt.get_coordinates(traj(1, 8, 2))
-        xyz_1= np.array([frame.xyz.copy() for frame in traj.iterframe(frame_indices=range(1, 8, 2))])
+        xyz_0 = pt.get_coordinates(traj(1, 8, 2))
+        xyz_1 = np.array(
+            [frame.xyz.copy()
+             for frame in traj.iterframe(frame_indices=range(1, 8, 2))])
         aa_eq(xyz_0, xyz_1, decimal=3)
 
         # test as traj
-        out_traj = mean_structure(traj, mask='@CA', frame_indices=[0, 3, 7], restype='traj')
+        out_traj = mean_structure(traj,
+                                  mask='@CA',
+                                  frame_indices=[0, 3, 7],
+                                  restype='traj')
         assert isinstance(out_traj, Trajectory), 'must be Trajectory'
         aa_eq(out_traj.xyz, frame6.xyz, decimal=3)
-
 
     def test_1(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

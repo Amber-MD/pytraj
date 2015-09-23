@@ -6,7 +6,6 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
-
     def test_1(self):
         import parmed as pmd
         import sander
@@ -24,7 +23,8 @@ class Test(unittest.TestCase):
                 p.remake_parm()
                 with sander.setup(p, coords, None, inp):
                     ene, frc = sander.energy_forces()
-                    print (ene.bond, ene.dihedral)
+                    print(ene.bond, ene.dihedral)
+
 
 if __name__ == "__main__":
     unittest.main()

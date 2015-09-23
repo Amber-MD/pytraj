@@ -28,7 +28,7 @@ class TestAutoImage(unittest.TestCase):
         assert f0.same_coords_as(f0cp) == False
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
-                               "./data/tz2.truncoct.parm7")[0]
+                             "./data/tz2.truncoct.parm7")[0]
         aa_eq(fsaved.coords, f0.coords, decimal=3)
 
     def test_2(self):
@@ -43,7 +43,7 @@ class TestAutoImage(unittest.TestCase):
         assert f0.same_coords_as(f0cp) == False
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
-                               "./data/tz2.truncoct.parm7")[0]
+                             "./data/tz2.truncoct.parm7")[0]
         aa_eq(fsaved.coords, f0.coords, decimal=3)
 
 
@@ -60,7 +60,7 @@ class TestGeometry(unittest.TestCase):
         '''
 
         data = pt.datafiles.load_cpptraj_output(txt)
-        for mask, out  in zip(['@CA', '', '!@H='], data):
+        for mask, out in zip(['@CA', '', '!@H='], data):
             aa_eq(pt.radgyr(traj, mask), out)
 
 

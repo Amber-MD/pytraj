@@ -18,7 +18,6 @@ FRAME_orig = FRAME.copy()
 
 
 class TestFrame(unittest.TestCase):
-
     def test_fit(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         trajnew = mdio.iterload(
@@ -97,7 +96,6 @@ class TestFrame(unittest.TestCase):
 
         # does not work, got "ValueError: ndarray is not contiguous"
         #FRAME[start:stop:strip] = arr_tmp[start:stop:strip]
-
 
     def test_indexing(self):
         # create a Frame instance with N_ATOMS atoms

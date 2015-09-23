@@ -11,7 +11,8 @@ from pytraj.testing import cpptraj_test_dir
 class TestRDF(unittest.TestCase):
     def test_rdf(self):
         traj = pt.iterload(
-            "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7", frame_slice=(0, 10))
+            "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7",
+            frame_slice=(0, 10))
 
         command = '''
         radial Radial.agr 0.5 10.0 :5@CD :WAT@O
@@ -24,36 +25,48 @@ class TestRDF(unittest.TestCase):
         # get data directly from cpptraj
         state = pt.load_batch(traj, command)
         state.run()
-        
+
         # get data from pytraj
-        data0 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
-                      maximum=10.0,
-                      solute_mask=':5@CD')
+        data0 = pt.rdf(traj,
+                       solvent_mask=':WAT@O',
+                       bin_spacing=0.5,
+                       maximum=10.0,
+                       solute_mask=':5@CD')
 
-        data01 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
-                      maximum=10.0,
-                      solute_mask=':5@CD')
+        data01 = pt.rdf(traj,
+                        solvent_mask=':WAT@O',
+                        bin_spacing=0.5,
+                        maximum=10.0,
+                        solute_mask=':5@CD')
 
-        data1 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
-                      maximum=10.0,
-                      center_solvent=True,
-                      solute_mask=':5')
+        data1 = pt.rdf(traj,
+                       solvent_mask=':WAT@O',
+                       bin_spacing=0.5,
+                       maximum=10.0,
+                       center_solvent=True,
+                       solute_mask=':5')
 
-        data2 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
-                      maximum=10.0,
-                      center_solute=True,
-                      solute_mask=':5')
+        data2 = pt.rdf(traj,
+                       solvent_mask=':WAT@O',
+                       bin_spacing=0.5,
+                       maximum=10.0,
+                       center_solute=True,
+                       solute_mask=':5')
 
-        data3 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
-                      maximum=20.0,
-                      center_solute=False,
-                      solute_mask=':3')
+        data3 = pt.rdf(traj,
+                       solvent_mask=':WAT@O',
+                       bin_spacing=0.5,
+                       maximum=20.0,
+                       center_solute=False,
+                       solute_mask=':3')
 
-        data4 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
-                      maximum=20.0,
-                      center_solute=False,
-                      image=False,
-                      solute_mask=':3')
+        data4 = pt.rdf(traj,
+                       solvent_mask=':WAT@O',
+                       bin_spacing=0.5,
+                       maximum=20.0,
+                       center_solute=False,
+                       image=False,
+                       solute_mask=':3')
 
         # do assertion
         aa_eq(data0, state.data[0], decimal=7)
@@ -64,6 +77,7 @@ class TestRDF(unittest.TestCase):
 
         # default solvent mask :WAT@O
         aa_eq(data01, state.data[0], decimal=7)
+
 
 if __name__ == "__main__":
     unittest.main()
