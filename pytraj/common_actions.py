@@ -74,12 +74,14 @@ __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 calc_energies = get_pysander_energies
 energy_decomposition = get_pysander_energies
 
+
 def _2darray_to_atommask_groups(seq):
     '''[[0, 3], [4, 7]] turns to ['@1 @4', '@5 @8']
     '''
     for arr in seq:
         # example: arr = [0, 3]; turns ot '@1 @4'
-        yield '@' + str(arr[0]+1) + ' @' +  str(arr[1]+1)
+        yield '@' + str(arr[0] + 1) + ' @' + str(arr[1] + 1)
+
 
 def _noaction_with_TrajectoryIterator(trajiter):
     from pytraj import TrajectoryIterator
@@ -88,7 +90,11 @@ def _noaction_with_TrajectoryIterator(trajiter):
             "This analysis does not support immutable object. Use `pytraj.Trajectory`")
 
 
-def calc_distance(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None, *args, **kwd):
+def calc_distance(traj=None,
+                  mask="",
+                  top=None,
+                  dtype='ndarray',
+                  frame_indices=None, *args, **kwd):
     """calculate distance between two maskes
 
     Parameters
@@ -165,7 +171,6 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', frame_indices=N
         else:
             list_of_commands = command
 
-
         dslist = CpptrajDatasetList()
         actlist = ActionList()
 
@@ -182,7 +187,11 @@ def calc_distance(traj=None, mask="", top=None, dtype='ndarray', frame_indices=N
             "a numpy 2D array")
 
 
-def calc_angle(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None, *args, **kwd):
+def calc_angle(traj=None,
+               mask="",
+               top=None,
+               dtype='ndarray',
+               frame_indices=None, *args, **kwd):
     """calculate angle between two maskes
 
     Parameters
@@ -299,7 +308,11 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     return calc_dihedral(traj=traj, mask=command, top=top, dtype=dtype)
 
 
-def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None, *args, **kwd):
+def calc_dihedral(traj=None,
+                  mask="",
+                  top=None,
+                  dtype='ndarray',
+                  frame_indices=None, *args, **kwd):
     """calculate dihedral angle between two maskes
 
     Parameters
@@ -398,7 +411,8 @@ def calc_dihedral(traj=None, mask="", top=None, dtype='ndarray', frame_indices=N
 def calc_mindist(traj=None,
                  command="",
                  top=None,
-                 dtype='ndarray', frame_indices=None):
+                 dtype='ndarray',
+                 frame_indices=None):
     '''
     Examples
     --------
@@ -422,17 +436,17 @@ def calc_mindist(traj=None,
 
 
 def _calc_diffusion(traj=None,
-                 mask="*",
-                 dimension='xyz',
-                 time=1.0,
-                 mask2=None,
-                 lower=0.01,
-                 upper=3.5,
-                 distance=False,
-                 com=False,
-                 frame_indices=None,
-                 top=None,
-                 dtype='ndarray'):
+                    mask="*",
+                    dimension='xyz',
+                    time=1.0,
+                    mask2=None,
+                    lower=0.01,
+                    upper=3.5,
+                    distance=False,
+                    com=False,
+                    frame_indices=None,
+                    top=None,
+                    dtype='ndarray'):
     '''calcualte diffusion for selected atoms
 
     Parameters
@@ -477,7 +491,7 @@ def _calc_diffusion(traj=None,
     dslist = CpptrajDatasetList()
 
     command = ' '.join((_mask, _time, _mask2, _lower, _upper, _distances, _com,
-        _dimention))
+                        _dimention))
 
     act(command, traj, top=_top, dslist=dslist)
 
@@ -590,7 +604,11 @@ def calc_radgyr(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None, *args, **kwd):
+def calc_molsurf(traj=None,
+                 mask="",
+                 top=None,
+                 dtype='ndarray',
+                 frame_indices=None, *args, **kwd):
     '''calc molsurf
 
     Examples
@@ -610,7 +628,12 @@ def calc_molsurf(traj=None, mask="", top=None, dtype='ndarray', frame_indices=No
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
-def calc_rotation_matrix(traj=None, ref=0, mask="", frame_indices=None, top=None):
+
+def calc_rotation_matrix(traj=None,
+                         ref=0,
+                         mask="",
+                         frame_indices=None,
+                         top=None):
     '''
     Returns
     -------
@@ -676,8 +699,7 @@ def calc_linear_interaction_energy(traj=None,
                                    mask="",
                                    top=None,
                                    dtype='dataset',
-                                   frame_indices=None,
-                                   *args, **kwd):
+                                   frame_indices=None, *args, **kwd):
     traj = _get_fiterator(traj, frame_indices)
     if not isinstance(mask, string_types):
         mask = array_to_cpptraj_atommask(mask)
@@ -694,16 +716,19 @@ def calc_linear_interaction_energy(traj=None,
 calc_LIE = calc_linear_interaction_energy
 
 
-def calc_rdf(traj=None, solvent_mask=':WAT@O',
-        bin_spacing=0.5, maximum=10.,
-        solute_mask='',
-        image=True,
-        density=0.033456,
-        center_solvent=False,
-        center_solute=False,
-        intramol=True,
-        frame_indices=None,
-        dtype='ndarray', top=None):
+def calc_rdf(traj=None,
+             solvent_mask=':WAT@O',
+             bin_spacing=0.5,
+             maximum=10.,
+             solute_mask='',
+             image=True,
+             density=0.033456,
+             center_solvent=False,
+             center_solute=False,
+             intramol=True,
+             frame_indices=None,
+             dtype='ndarray',
+             top=None):
     '''calculat radial distribtion function. Doc was adapted lightly from cpptraj doc
 
     Parameters
@@ -781,9 +806,8 @@ def calc_rdf(traj=None, solvent_mask=':WAT@O',
     # order does matters
     # the order between _solventmask and _solutemask is swapped compared
     # to cpptraj's doc (to get correct result)
-    command = ' '.join(("pytraj_tmp_output.agr",
-                        _spacing, _maximum, _solutemask,
-                        _solventmask, _noimage, _density,
+    command = ' '.join(("pytraj_tmp_output.agr", _spacing, _maximum,
+                        _solutemask, _solventmask, _noimage, _density,
                         _center1, _center2, _nointramol))
 
     dslist = CpptrajDatasetList()
@@ -792,8 +816,14 @@ def calc_rdf(traj=None, solvent_mask=':WAT@O',
 
     return _get_data_from_dtype(dslist, dtype)
 
+
 @noparallel
-def calc_pairdist(traj=None, mask="*", mask2=None, delta=0.1, dtype='ndarray', top=None):
+def calc_pairdist(traj=None,
+                  mask="*",
+                  mask2=None,
+                  delta=0.1,
+                  dtype='ndarray',
+                  top=None):
     # TODO: can not load datafile. update cpptraj code?
 
     with goto_temp_folder():
@@ -811,6 +841,7 @@ def calc_pairdist(traj=None, mask="*", mask2=None, delta=0.1, dtype='ndarray', t
         act(command, traj, top=_top, dslist=dslist, dflist=dflist)
         act.print_output()
         return _get_data_from_dtype(dslist, dtype=dtype)
+
 
 pairdist = calc_pairdist
 
@@ -899,10 +930,15 @@ def do_autoimage(traj=None, command="", top=None):
     CpptrajActions.Action_AutoImage()(command, traj, top=_top)
     return traj
 
+
 autoimage = do_autoimage
 
 
-def get_average_frame(traj, mask='', frame_indices=None, restype='frame', top=None):
+def get_average_frame(traj,
+                      mask='',
+                      frame_indices=None,
+                      restype='frame',
+                      top=None):
     '''get mean structure for a given mask and given frame_indices
 
     Parameters
@@ -939,7 +975,9 @@ def get_average_frame(traj, mask='', frame_indices=None, restype='frame', top=No
         new_top = _top if mask is '' else _top[mask]
         return Trajectory(xyz=frame.as_3darray().copy(), top=new_top)
 
+
 mean_structure = get_average_frame
+
 
 def get_velocity(traj, mask=None, frame_indices=None):
     '''get velocity for specify frames with given mask
@@ -973,8 +1011,11 @@ def get_velocity(traj, mask=None, frame_indices=None):
     for idx, frame in enumerate(fi):
         if not frame.has_velocity():
             raise ValueError('frame does not have velocity')
-        data[idx] = frame.velocity if mask is None else frame.velocity[atm_indices]
+        data[idx
+             ] = frame.velocity if mask is None else frame.velocity[atm_indices
+                                                                       ]
     return data
+
 
 def randomize_ions(traj=None, command="", top=None):
     """randomize_ions for given Frame with Topology
@@ -1207,7 +1248,11 @@ def calc_bfactors(traj=None,
                             dtype=dtype, *args, **kwd)
 
 
-def calc_vector(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
+def calc_vector(traj=None,
+                command="",
+                frame_indices=None,
+                dtype='ndarray',
+                top=None):
     """perform vector calculation. See example below. Same as 'vector' command in cpptraj.
 
     Parameters
@@ -1265,7 +1310,13 @@ def calc_vector(traj=None, command="", frame_indices=None, dtype='ndarray', top=
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def calc_ired_matrix(traj=None, mask="", frame_indices=None, order=2, dtype='dataset', top=None):
+
+def calc_ired_matrix(traj=None,
+                     mask="",
+                     frame_indices=None,
+                     order=2,
+                     dtype='dataset',
+                     top=None):
     """perform vector calculation and then calculate ired matrix
 
     Parameters
@@ -1292,20 +1343,21 @@ def calc_ired_matrix(traj=None, mask="", frame_indices=None, order=2, dtype='dat
         list_of_commands = _get_list_of_commands(mask)
     else:
         if cm_arr.ndim != 2:
-            raise ValueError('if mask is a numpy.ndarray, it must have ndim = 2')
+            raise ValueError(
+                'if mask is a numpy.ndarray, it must have ndim = 2')
         list_of_commands = _2darray_to_atommask_groups(cm_arr)
 
     actlist = ActionList()
 
     for command in list_of_commands:
-        # tag ired vector 
+        # tag ired vector
         command += ' ired '
         act = CpptrajActions.Action_Vector()
         actlist.add_action(act, command, _top, dslist=dslist)
 
     act_matired = CpptrajActions.Action_Matrix()
     ired_cm = 'ired order ' + str(order)
-    actlist.add_action(act_matired, ired_cm, _top, dslist=dslist) 
+    actlist.add_action(act_matired, ired_cm, _top, dslist=dslist)
     actlist.do_actions(fi)
 
     return _get_data_from_dtype(dslist, dtype=dtype)
@@ -1464,6 +1516,7 @@ def calc_density(traj=None,
     # NOTE: trick cpptraj to write to file first and the reload
 
     with goto_temp_folder():
+
         def _calc_density(traj, command, *args, **kwd):
             # TODO: update this method if cpptraj save data to
             # CpptrajDatasetList
@@ -1486,7 +1539,11 @@ def calc_density(traj=None,
         return _get_data_from_dtype(dslist, dtype)
 
 
-def calc_temperatures(traj=None, command="", frame_indices=None, top=None, dtype='ndarray'):
+def calc_temperatures(traj=None,
+                      command="",
+                      frame_indices=None,
+                      top=None,
+                      dtype='ndarray'):
     """return 1D python array of temperatures (from velocity) in traj
     if `frame` keyword is specified cpptraj/pytraj will take existing T
 
@@ -1608,7 +1665,9 @@ def calc_rmsd(traj=None,
 
     for cm in command:
         _cm = cm + opt
-        alist.add_action(CpptrajActions.Action_Rmsd(), _cm, top=_top, dslist=dslist)
+        alist.add_action(CpptrajActions.Action_Rmsd(), _cm,
+                         top=_top,
+                         dslist=dslist)
 
     alist.do_actions(ref)
     alist.do_actions(fi)
@@ -1624,6 +1683,7 @@ def calc_rmsd(traj=None,
 
 # alias for `calc_rmsd`
 rmsd = calc_rmsd
+
 
 def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
     '''compute distance rmsd between traj and reference
@@ -1665,6 +1725,7 @@ def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
 # alias
 distance_rmsd = calc_distance_rmsd
 
+
 def align_principal_axis(traj=None, mask="*", top=None):
     # TODO : does not match with cpptraj output
     # rmsd_nofit ~ 0.5 for md1_prod.Tc5b.x, 1st frame
@@ -1685,12 +1746,7 @@ def align_principal_axis(traj=None, mask="*", top=None):
     act(command, traj, top=_top)
 
 
-def principal_axes(traj=None,
-                   mask='*',
-                   dorotation=False,
-                   mass=True,
-                   top=None):
-
+def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
     """calculate eigenvalues and eigenvectors
 
     Parameters
@@ -2125,7 +2181,8 @@ def pucker(traj=None,
         act = CpptrajActions.Action_Pucker()
         command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
         name = "pucker_res" + str(res + 1)
-        command = " ".join((name, command, _range360, method, geom, amp, _offset))
+        command = " ".join(
+            (name, command, _range360, method, geom, amp, _offset))
         act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
     return _get_data_from_dtype(cdslist, dtype)
 
@@ -2175,6 +2232,7 @@ def center(traj=None, mask="", center='box', mass=False, top=None):
     act(command, traj, top=_top)
     return traj
 
+
 def rotate_dihedral(traj=None, mask="", top=None):
     # change to pt.rotate_dihedral(traj, res=0, 
     #              mask=("O4'", "C1'", "N9", "C4"), deg=120)?
@@ -2206,6 +2264,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
     act(command, traj, top=_top)
     return traj
 
+
 def replicate_cell(traj=None, mask="", direction='all', top=None):
     '''create a trajectory where the unit cell is replicated in 1 or
     more direction (up to 27)
@@ -2236,13 +2295,14 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
     '''
     _top = _get_topology(traj, top)
     if isinstance(direction, string_types):
-        _direction  = direction
+        _direction = direction
     elif isinstance(direction, (list, tuple)):
-        # example: direction = ('001, '0-10') 
+        # example: direction = ('001, '0-10')
         _direction = 'dir ' + ' dir '.join(direction)
     else:
-        raise ValueError('only support ``direction`` as a string or list/tuple of strings')
-    command =  ' '.join(('name tmp_cell', _direction, mask))
+        raise ValueError(
+            'only support ``direction`` as a string or list/tuple of strings')
+    command = ' '.join(('name tmp_cell', _direction, mask))
 
     act = CpptrajActions.Action_ReplicateCell()
     dslist = CpptrajDatasetList()
@@ -2250,6 +2310,7 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
     traj = Trajectory(xyz=dslist[0].xyz, top=dslist[0].top)
 
     return traj
+
 
 def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
     '''
