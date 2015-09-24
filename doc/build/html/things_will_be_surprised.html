@@ -162,20 +162,20 @@
 
 <span class="c"># coords of 1st and last frames are the same</span>
 <span class="gp">In [4]: </span><span class="k">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">[  2.31780962e-310   2.31780958e-310   0.00000000e+000]</span>
+<span class="go">[ 0.  0.  0.]</span>
 
 <span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">                                                        [  2.31780962e-310   2.31780958e-310   0.00000000e+000]</span>
+<span class="go">              [ 0.  0.  0.]</span>
 
 <span class="c"># need to explicitly copy</span>
 <span class="gp">In [6]: </span><span class="n">xyz</span> <span class="o">=</span> <span class="p">[</span><span class="n">frame</span><span class="o">.</span><span class="n">xyz</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">]</span>
 
 <span class="c"># coords of 1st and last frames are the same</span>
 <span class="gp">In [7]: </span><span class="k">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">[-1.88900006  9.1590004   7.56899977]</span>
+<span class="go">[-1.889  9.159  7.569]</span>
 
 <span class="gp">In [8]: </span><span class="k">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">                                      [ 4.46600008  8.80099964  1.88999999]</span>
+<span class="go">                       [ 4.466  8.801  1.89 ]</span>
 </pre></div>
 </div>
 </div>

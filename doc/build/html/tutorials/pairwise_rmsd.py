@@ -25,7 +25,6 @@ mat
 get_ipython().magic('matplotlib inline')
 get_ipython().magic("config InlineBackend.figure_format = 'retina'")
 import matplotlib
-matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi']
 
 fig, asp, axi, = plot_matrix(mat)
 fig.colorbar(axi, ax=asp)
