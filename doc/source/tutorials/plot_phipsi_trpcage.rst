@@ -1,7 +1,8 @@
 .. _plot_phipsi_trpcage:
 
-phi and psi plotting
---------------------
+
+Ramachandran plot
+-----------------
 
 try ``pytraj`` online:
 
