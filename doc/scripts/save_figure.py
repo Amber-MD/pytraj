@@ -47,9 +47,9 @@ print(reduced_cartesian.shape)
 
 plt.figure()
 plt.scatter(reduced_cartesian[:, 0], reduced_cartesian[:,1], marker='o', s=30,
-        c=range(traj.n_frames))
+        c=range(traj.n_frames), alpha=0.5)
 plt.xlabel('PC1')
 plt.ylabel('PC2')
 cbar = plt.colorbar()
 cbar.set_label('frame #')
-plt.savefig('PCA_heart.png')
+plt.savefig('source/images/PCA_heart.png')
