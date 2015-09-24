@@ -16,4 +16,5 @@ try ``pytraj`` online:
     tut_pairwise_rmsd
     plot_phipsi_trpcage
     hbonds
+    load_pdb_rcsb
     mdtraj_adapted
