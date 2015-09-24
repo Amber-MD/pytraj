@@ -44,7 +44,7 @@ class TestDistanceBasedMask(unittest.TestCase):
         all_pairs_larger = list(product(ca_indices, indices_larger))
         distances = pt.tools.flatten(pt.distance(ref, all_pairs_larger))
         for dist in distances:
-            assert dist > 5.0, 'all distances must be smaller than 5.0 Angstrom'
+            assert dist > 5.0, 'all distances must be large than 5.0 Angstrom'
 
 
 if __name__ == "__main__":
