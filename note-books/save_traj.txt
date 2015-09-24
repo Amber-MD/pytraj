@@ -1,2 +1,0 @@
-traj.save("./test.x")
-traj[:100:10].save("./test.x")

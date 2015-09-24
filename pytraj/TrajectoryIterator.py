@@ -243,7 +243,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
             stop = None
             start = None
             stride = None
-            n_frames = len(frame_indices)
+            try:
+                 n_frames = len(frame_indices)
+            except TypeError:
+                n_frames = None
             frame_iter_super = super(TrajectoryIterator,
                                      self)._iterframe_indices(frame_indices)
 
