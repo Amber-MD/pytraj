@@ -1,3 +1,4 @@
+from itertools import chain
 import pytraj as pt
 import os
 
@@ -9,7 +10,9 @@ traj = pt.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
 # you can use traj[0:3], traj[5:9] but this does not save memory
 # traj(0,3) like `range` in python3 or `xrange` in python2
 
-pt.write_traj('traj_append.nc', [traj(0, 3), traj(5, 9)],
+pt.write_traj('traj_append.nc', 
+              traj=traj,
+              frame_indices=chain(range(0, 3), range(5, 9)),
               top=traj.top,
               overwrite=True, )
 
