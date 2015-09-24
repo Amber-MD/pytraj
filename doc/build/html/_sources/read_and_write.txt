@@ -78,4 +78,7 @@ Write
     # write with given frames
     pt.write_traj('test2.dcd', traj, frame_indices=[0, 3, 7, 9], overwrite=True)
 
+Supported file formats
+----------------------
+
 .. autofunction:: pytraj.write_traj
