@@ -96,7 +96,7 @@ from .dssp_analysis import calc_dssp
 from .common_actions import (
     rmsd, rmsd_perres, distance_rmsd, search_hbonds,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
-    calc_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
+    calc_distance, calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
     calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
     calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
     calc_rotation_matrix,
@@ -110,6 +110,7 @@ from .common_actions import (
 
 # create alias
 distance = calc_distance
+pairwise_distance = calc_pairwise_distance
 angle = calc_angle
 dihedral = calc_dihedral
 jcoupling = calc_jcoupling

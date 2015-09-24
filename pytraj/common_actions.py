@@ -196,11 +196,32 @@ def calc_distance(traj=None,
             "a numpy 2D array")
 
 def calc_pairwise_distance(traj=None,
-                  mask="",
+                  mask_1='',
+                  mask_2='',
                   top=None,
                   dtype='ndarray',
                   frame_indices=None):
-    pass
+    '''calculate pairwise distance between atoms in mask_1 and atoms in mask_2
+
+    Parameters
+    ----------
+    traj : Trajectory-like or iterable that produces Frame
+    mask_1: string or 1D array-like
+    mask_2: string or 1D array-like
+    ...
+
+    Returns
+    -------
+    numpy array, shape (n_pairs, n_frames)
+    '''
+    from itertools import product
+
+    _top = _get_topology(traj, top)
+    indices_1 = _top.select(mask_1) if isinstance(mask_1, string_types) else mask_1 
+    indices_2 = _top.select(mask_2) if isinstance(mask_2, string_types) else mask_2 
+    arr = np.array(list(product(indices_1, indices_2)))
+    return calc_distance(traj, mask=arr, dtype=dtype, top=_top,
+            frame_indices=frame_indices)
 
 def calc_angle(traj=None,
                mask="",
