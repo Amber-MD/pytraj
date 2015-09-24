@@ -23,6 +23,7 @@ from .Frame import Frame
 from .Topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
+from .datasetlist import DatasetList
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
@@ -92,17 +93,27 @@ def _noaction_with_TrajectoryIterator(trajiter):
 
 def calc_distance(traj=None,
                   mask="",
-                  top=None,
+                  frame_indices=None,
                   dtype='ndarray',
-                  frame_indices=None, *args, **kwd):
+                  top=None,
+                  n_frames=None):
+
     """calculate distance between two maskes
 
     Parameters
     ----------
     traj : Trajectory-like, list of Trajectory, list of Frames
-    mask : str or array
+    mask : str or a list of string or a 2D array-like of integers
+    frame_indices : array-like, optional, default None
     top : Topology, optional
-    dtype : return type, defaul 'ndarray'
+    dtype : return type, default 'ndarray'
+    n_frames : int, optional, default None
+        only need to provide n_frames if ``traj`` does not have this info
+
+    Returns
+    -------
+    1D ndarray if mask is a string
+    2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array
 
     Examples
     --------
@@ -144,13 +155,11 @@ def calc_distance(traj=None,
         if int_2darr.shape[1] != 2:
             raise ValueError("require int-array with shape=(n_atoms, 2)")
 
-        if 'n_frames' not in kwd.keys():
+        if n_frames is None:
             try:
                 n_frames = traj.n_frames
             except:
                 raise ValueError("require specifying n_frames")
-        else:
-            n_frames = kwd['n_frames']
 
         arr = np.empty([n_frames, len(int_2darr)])
 
@@ -177,7 +186,7 @@ def calc_distance(traj=None,
         for cm in list_of_commands:
             actlist.add_action(
                 CpptrajActions.Action_Distance(), cm, _top,
-                dslist=dslist, *args, **kwd)
+                dslist=dslist)
         actlist.do_actions(traj)
         return _get_data_from_dtype(dslist, dtype)
 
@@ -186,6 +195,33 @@ def calc_distance(traj=None,
             "command must be a string, a list/tuple of strings, or "
             "a numpy 2D array")
 
+def calc_pairwise_distance(traj=None,
+                  mask_1='',
+                  mask_2='',
+                  top=None,
+                  dtype='ndarray',
+                  frame_indices=None):
+    '''calculate pairwise distance between atoms in mask_1 and atoms in mask_2
+
+    Parameters
+    ----------
+    traj : Trajectory-like or iterable that produces Frame
+    mask_1: string or 1D array-like
+    mask_2: string or 1D array-like
+    ...
+
+    Returns
+    -------
+    numpy array, shape (n_pairs, n_frames)
+    '''
+    from itertools import product
+
+    _top = _get_topology(traj, top)
+    indices_1 = _top.select(mask_1) if isinstance(mask_1, string_types) else mask_1 
+    indices_2 = _top.select(mask_2) if isinstance(mask_2, string_types) else mask_2 
+    arr = np.array(list(product(indices_1, indices_2)))
+    return calc_distance(traj, mask=arr, dtype=dtype, top=_top,
+            frame_indices=frame_indices)
 
 def calc_angle(traj=None,
                mask="",
@@ -200,6 +236,11 @@ def calc_angle(traj=None,
     mask : str or array
     top : Topology, optional
     dtype : return type, defaul 'ndarray'
+
+    Returns
+    -------
+    1D ndarray if mask is a string
+    2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array
 
     Examples
     --------
@@ -321,6 +362,11 @@ def calc_dihedral(traj=None,
     mask : str or array
     top : Topology, optional
     dtype : return type, defaul 'ndarray'
+
+    Returns
+    -------
+    1D ndarray if mask is a string
+    2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array
 
     Examples
     --------
@@ -2115,7 +2161,7 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def search_neighbors(traj=None, mask='', cutoff='', dtype='dataset', top=None):
+def search_neighbors(traj=None, mask='', frame_indices=None, dtype='dataset', top=None):
     """search neighbors
 
     Returns
@@ -2129,27 +2175,14 @@ def search_neighbors(traj=None, mask='', cutoff='', dtype='dataset', top=None):
 
     Examples
     --------
-    >>> pt.search_neighbors(traj, mask=':5', cutoff="<5.0") # around residue 5 with 5.0 cutoff
-    >>> pt.search_neighbors(traj, [3, 7, 8], cutoff=">10.0") # around atom 3, 7, 8, larger than 10.0 Angstrom
+    >>> pt.search_neighbors(traj, ':5<@5.0') # around residue 5 with 5.0 cutoff
     """
-    from pytraj.datasetlist import DatasetList
-
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-
-    if '>' in cutoff:
-        cutoff = '>:' + cutoff.split('>')[-1]
-    elif '<' in cutoff:
-        cutoff = '<:' + cutoff.split('<')[-1]
-    else:
-        raise ValueError('must correctly specify cutoff: using > or <')
-
-    mask = " ".join((mask, cutoff))
-
     dslist = DatasetList()
 
     _top = _get_topology(traj, top)
-    for idx, frame in enumerate(iterframe_master(traj)):
+    fi = _get_fiterator(traj, frame_indices)
+
+    for idx, frame in enumerate(iterframe_master(fi)):
         _top.set_reference_frame(frame)
         dslist.append({str(idx): np.asarray(_top.select(mask))})
     return _get_data_from_dtype(dslist, dtype)
