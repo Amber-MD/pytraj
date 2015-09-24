@@ -38,30 +38,6 @@ class Test(unittest.TestCase):
         aa_eq(d3.T, d7.T[:fa.n_frames])
         aa_eq(d3.T, d7.T[fa.n_frames:])
 
-    def test_1(self):
-        import numpy as np
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        xyz_frame = traj.xyz.reshape(traj.n_frames * traj.n_atoms, 3)
-        fa = Frame()
-        fa.append_xyz(xyz_frame)
-        Nsize = 10 ** 6
-        arr = np.random.randint(0, 300, size=Nsize * 2).reshape(Nsize, 2)
-
-        @Timer()
-        def no_openmp():
-            pt.calc_distance(fa, arr, parallel=False)
-
-        @Timer()
-        def with_openmp():
-            pt.calc_distance(fa, arr, parallel=True)
-
-        no_openmp()
-        with_openmp()
-
-        d_no_omp = pt.calc_distance(fa, arr, parallel=False)
-        d_with_omp = pt.calc_distance(fa, arr, parallel=True)
-        aa_eq(d_no_omp, d_with_omp)
-
     def test_2(self):
         # calculate distance without specifying n_frames
         # TrajectoryIterator

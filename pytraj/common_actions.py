@@ -93,17 +93,22 @@ def _noaction_with_TrajectoryIterator(trajiter):
 
 def calc_distance(traj=None,
                   mask="",
-                  top=None,
+                  frame_indices=None,
                   dtype='ndarray',
-                  frame_indices=None, *args, **kwd):
+                  top=None,
+                  n_frames=None):
+
     """calculate distance between two maskes
 
     Parameters
     ----------
     traj : Trajectory-like, list of Trajectory, list of Frames
     mask : str or a list of string or a 2D array-like of integers
+    frame_indices : array-like, optional, default None
     top : Topology, optional
     dtype : return type, default 'ndarray'
+    n_frames : int, optional, default None
+        only need to provide n_frames if ``traj`` does not have this info
 
     Returns
     -------
@@ -150,13 +155,11 @@ def calc_distance(traj=None,
         if int_2darr.shape[1] != 2:
             raise ValueError("require int-array with shape=(n_atoms, 2)")
 
-        if 'n_frames' not in kwd.keys():
+        if n_frames is None:
             try:
                 n_frames = traj.n_frames
             except:
                 raise ValueError("require specifying n_frames")
-        else:
-            n_frames = kwd['n_frames']
 
         arr = np.empty([n_frames, len(int_2darr)])
 
@@ -183,7 +186,7 @@ def calc_distance(traj=None,
         for cm in list_of_commands:
             actlist.add_action(
                 CpptrajActions.Action_Distance(), cm, _top,
-                dslist=dslist, *args, **kwd)
+                dslist=dslist)
         actlist.do_actions(traj)
         return _get_data_from_dtype(dslist, dtype)
 
@@ -192,6 +195,12 @@ def calc_distance(traj=None,
             "command must be a string, a list/tuple of strings, or "
             "a numpy 2D array")
 
+def calc_pairwise_distance(traj=None,
+                  mask="",
+                  top=None,
+                  dtype='ndarray',
+                  frame_indices=None):
+    pass
 
 def calc_angle(traj=None,
                mask="",
