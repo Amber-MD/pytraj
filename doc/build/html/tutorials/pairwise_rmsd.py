@@ -11,7 +11,7 @@ from pytraj.plot import plot_matrix
 
 # In[2]:
 
-traj = pt.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
+traj = pt.iterload("tz2.nc", "tz2.parm7")
 
 
 # In[3]:
