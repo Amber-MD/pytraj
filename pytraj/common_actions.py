@@ -1961,7 +1961,8 @@ def native_contacts(traj=None,
                     noimage=False,
                     include_solvent=False,
                     byres=False,
-                    top=None, *args, **kwd):
+                    frame_indices=None,
+                    top=None):
     """
     Examples
     --------
@@ -1970,23 +1971,17 @@ def native_contacts(traj=None,
 
     >>> # explicitly specify reference, specify distance cutoff
     >>> pt.native_contacts(traj, ref=ref, distance=8.0)
-
-    Notes
-    -----
-    if `ref` is None: first number in result corresponds to reference
-    Not assert to cpptraj's output yet
     """
-    from .actions.CpptrajActions import Action_NativeContacts
-    act = Action_NativeContacts()
+    _top = _get_topology(traj, top)
+    ref = _get_reference_from_traj(traj, ref)
+    fi = _get_fiterator(traj, frame_indices)
+    act = CpptrajActions.Action_NativeContacts()
     dslist = CpptrajDatasetList()
 
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5
         mask = array_to_cpptraj_atommask(mask)
-
     command = mask
-
-    ref = _get_reference_from_traj(traj, ref)
 
     _distance = str(distance)
     _noimage = "noimage" if noimage else ""
@@ -1996,10 +1991,8 @@ def native_contacts(traj=None,
     _command = " ".join((command, _distance, _noimage, _includesolvent, _byres
                          ))
 
-    _top = _get_topology(traj, top)
-    act(_command, [ref, traj], top=_top, dslist=dslist, *args, **kwd)
+    act(_command, [ref, fi], top=_top, dslist=dslist)
 
-    from pytraj.datasetlist import DatasetList
     dslist = DatasetList(dslist)
     for d in dslist:
         # exclude ref frame
