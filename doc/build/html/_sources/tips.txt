@@ -78,13 +78,13 @@ If memory is critical, do not load all frames into memory.
 
 .. ipython:: python
 
-    # do this (only a single frame will be loaded to memory)
-    pt.radgyr(traj(frame_indices=[0, 200, 300, 301]))
+    # DO this (only a single frame will be loaded to memory)
+    pt.radgyr(traj, frame_indices=[0, 200, 300, 301])
 
-    # rather doing (all 4 frames will be loaded to memory)
+    # DON'T do this if you want to save memory (all 4 frames will be loaded to memory)
     pt.radgyr(traj[[0, 200, 300, 301]])
 
-    traj(frame_indices=[0, 200, 300, 301])
+    pt.iterframe(traj, frame_indices=[0, 200, 300, 301])
     traj[[0, 200, 300, 301]]
 
 See also: :ref:`trajectory_slice`
@@ -92,7 +92,7 @@ See also: :ref:`trajectory_slice`
 convert trajectory
 ------------------
 
-.. ipython:: python
+.. code-block:: python
     
     # convert Amber netcdf to Charmm dcd file.
     pt.iterload('traj.nc', 'prmtop').save('traj.dcd', overwrite=True)
