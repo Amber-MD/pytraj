@@ -100,9 +100,14 @@ def calc_distance(traj=None,
     Parameters
     ----------
     traj : Trajectory-like, list of Trajectory, list of Frames
-    mask : str or array
+    mask : str or a list of string or a 2D array-like of integers
     top : Topology, optional
-    dtype : return type, defaul 'ndarray'
+    dtype : return type, default 'ndarray'
+
+    Returns
+    -------
+    1D ndarray if mask is a string
+    2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array
 
     Examples
     --------
@@ -200,6 +205,11 @@ def calc_angle(traj=None,
     mask : str or array
     top : Topology, optional
     dtype : return type, defaul 'ndarray'
+
+    Returns
+    -------
+    1D ndarray if mask is a string
+    2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array
 
     Examples
     --------
@@ -321,6 +331,11 @@ def calc_dihedral(traj=None,
     mask : str or array
     top : Topology, optional
     dtype : return type, defaul 'ndarray'
+
+    Returns
+    -------
+    1D ndarray if mask is a string
+    2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array
 
     Examples
     --------
