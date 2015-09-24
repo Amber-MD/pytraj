@@ -12,7 +12,8 @@ try ``pytraj`` online:
 .. toctree::
     :maxdepth: 2
 
-    mdtraj_adapted
+    basic_examples
+    tut_pairwise_rmsd
     plot_phipsi_trpcage
     hbonds
-    tut_pairwise_rmsd
+    mdtraj_adapted

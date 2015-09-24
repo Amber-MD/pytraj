@@ -33,7 +33,6 @@ try ``pytraj`` online:
    trajectory
    topology
    read_and_write
-   basic_examples
    tutorials/index
    analysis
    modify_traj
