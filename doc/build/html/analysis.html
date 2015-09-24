@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev8 documentation" href="index.html" />
     <link rel="next" title="Modify trajectory" href="modify_traj.html" />
-    <link rel="prev" title="hbond tutorial" href="tutorials/hbonds.html" />
+    <link rel="prev" title="Pairwise RMSD" href="tutorials/tut_pairwise_rmsd.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -68,7 +68,6 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="try_online.html">Run pytraj online</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
@@ -109,7 +108,7 @@
               
                 
   <li>
-    <a href="tutorials/hbonds.html" title="Previous Chapter: hbond tutorial"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; hbond tutorial</span>
+    <a href="tutorials/tut_pairwise_rmsd.html" title="Previous Chapter: Pairwise RMSD"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Pairwise RMSD</span>
     </a>
   </li>
   <li>
@@ -192,16 +191,25 @@
 </ul>
 <span class="target" id="distance"></span><dl class="function">
 <dt id="pytraj.distance">
-<tt class="descclassname">pytraj.</tt><tt class="descname">distance</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.distance" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">distance</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em>, <em>n_frames=None</em><big>)</big><a class="headerlink" href="#pytraj.distance" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate distance between two maskes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, list of Trajectory, list of Frames</p>
-<p><strong>mask</strong> : str or array</p>
+<p><strong>mask</strong> : str or a list of string or a 2D array-like of integers</p>
+<p><strong>frame_indices</strong> : array-like, optional, default None</p>
 <p><strong>top</strong> : Topology, optional</p>
-<p class="last"><strong>dtype</strong> : return type, defaul &#8216;ndarray&#8217;</p>
+<p><strong>dtype</strong> : return type, default &#8216;ndarray&#8217;</p>
+<p><strong>n_frames</strong> : int, optional, default None</p>
+<blockquote>
+<div><p>only need to provide n_frames if <tt class="docutils literal"><span class="pre">traj</span></tt> does not have this info</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">1D ndarray if mask is a string</p>
+<p class="last">2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array</p>
 </td>
 </tr>
 </tbody>
@@ -244,7 +252,11 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, list of Trajectory, list of Frames</p>
 <p><strong>mask</strong> : str or array</p>
 <p><strong>top</strong> : Topology, optional</p>
-<p class="last"><strong>dtype</strong> : return type, defaul &#8216;ndarray&#8217;</p>
+<p><strong>dtype</strong> : return type, defaul &#8216;ndarray&#8217;</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">1D ndarray if mask is a string</p>
+<p class="last">2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array</p>
 </td>
 </tr>
 </tbody>
@@ -287,7 +299,11 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, list of Trajectory, list of Frames</p>
 <p><strong>mask</strong> : str or array</p>
 <p><strong>top</strong> : Topology, optional</p>
-<p class="last"><strong>dtype</strong> : return type, defaul &#8216;ndarray&#8217;</p>
+<p><strong>dtype</strong> : return type, defaul &#8216;ndarray&#8217;</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">1D ndarray if mask is a string</p>
+<p class="last">2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array</p>
 </td>
 </tr>
 </tbody>
@@ -747,7 +763,7 @@ like below:</p>
 
 <span class="target" id="minimum-distance"></span><dl class="function">
 <dt id="pytraj.mindist">
-<tt class="descclassname">pytraj.</tt><tt class="descname">mindist</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.mindist" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">mindist</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.mindist" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">mindist</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA @H&#39;</span><span class="p">)</span>
@@ -798,14 +814,21 @@ like below:</p>
 
 <span class="target" id="principal-axes"></span><dl class="function">
 <dt id="pytraj.principal_axes">
-<tt class="descclassname">pytraj.</tt><tt class="descname">principal_axes</tt><big>(</big><em>traj=None</em>, <em>mask='*'</em>, <em>top=None</em>, <em>dorotation=False</em>, <em>mass=True</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.principal_axes" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<tt class="descclassname">pytraj.</tt><tt class="descname">principal_axes</tt><big>(</big><em>traj=None</em>, <em>mask='*'</em>, <em>dorotation=False</em>, <em>mass=True</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.principal_axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate eigenvalues and eigenvectors</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">pytraj.DatasetList of matrix with shape=(n_frames, 3, 3) and vector with shape=(n_frames, 3)</p>
-<p>if <cite>dorotation</cite>, the system will be aligned along principal axes</p>
-<p class="last">(apply for mutable system)</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : str, default &#8216;*&#8217; (all atoms)</p>
+<p><strong>mass: bool, defaul True</strong></p>
+<p><strong>if `dorotation`, the system will be aligned along principal axes (apply for mutable system)</strong></p>
+<p><strong>top</strong> : Topology, optional</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out_0</strong> : numpy array, shape=(n_frames, 3, 3), corresponding eigenvectors</p>
+<p class="last">out_1: numpy array with shape=(n_frames, 3), eigenvalues</p>
 </td>
 </tr>
 </tbody>
@@ -852,7 +875,8 @@ like below:</p>
 <span class="target" id="autoimage"></span><dl class="function">
 <dt id="pytraj.autoimage">
 <tt class="descclassname">pytraj.</tt><tt class="descname">autoimage</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>perform autoimage and return the coordinate-updated traj</p>
+</dd></dl>
 
 <span class="target" id="closest"></span><dl class="function">
 <dt id="pytraj.closest">
@@ -899,7 +923,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 
 <span class="target" id="search-neighbors"></span><dl class="function">
 <dt id="pytraj.search_neighbors">
-<tt class="descclassname">pytraj.</tt><tt class="descname">search_neighbors</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>cutoff=''</em>, <em>dtype='dataset'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.search_neighbors" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">search_neighbors</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='dataset'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.search_neighbors" title="Permalink to this definition">¶</a></dt>
 <dd><p>search neighbors</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -912,8 +936,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:5&#39;</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="s">&quot;&lt;5.0&quot;</span><span class="p">)</span> <span class="c"># around residue 5 with 5.0 cutoff</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="s">&quot;&gt;10.0&quot;</span><span class="p">)</span> <span class="c"># around atom 3, 7, 8, larger than 10.0 Angstrom</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5&lt;@5.0&#39;</span><span class="p">)</span> <span class="c"># around residue 5 with 5.0 cutoff</span>
 </pre></div>
 </div>
 </dd></dl>

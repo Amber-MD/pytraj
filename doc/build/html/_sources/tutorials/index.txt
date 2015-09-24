@@ -15,3 +15,4 @@ try ``pytraj`` online:
     mdtraj_adapted
     plot_phipsi_trpcage
     hbonds
+    tut_pairwise_rmsd
