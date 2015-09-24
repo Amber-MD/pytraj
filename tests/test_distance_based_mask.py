@@ -4,13 +4,12 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.testing import aa_eq
-from pytraj import io as mdio
 from itertools import product
 
 
 class TestDistanceBasedMask(unittest.TestCase):
-    def test_smaller(self):
-        traj = mdio.iterload("./data/tz2.nc", "./data/tz2.parm7")
+    def test_atom_distance(self):
+        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         top = traj.top
 
         ref = traj[0]
@@ -26,9 +25,11 @@ class TestDistanceBasedMask(unittest.TestCase):
             skiprows=1,
             usecols=(1, ))
 
+        neighbors_smaller = pt.search_neighbors(traj, mask=':3@CA <@5.0', frame_indices=[0,])
         # subtract by '1' since cpptraj uses "1" as starting index for output
         saved_indices = saved_indices - 1
         aa_eq(indices, saved_indices)
+        aa_eq(neighbors_smaller, indices)
 
         # re-calculate the distance
         ca_indices = pt.select_atoms(traj.top, ':3@CA')
@@ -45,6 +46,24 @@ class TestDistanceBasedMask(unittest.TestCase):
         distances = pt.tools.flatten(pt.distance(ref, all_pairs_larger))
         for dist in distances:
             assert dist > 5.0, 'all distances must be large than 5.0 Angstrom'
+
+        # search_neighbors
+        neighbors_larger = pt.search_neighbors(traj, mask=':3@CA >@5.0', frame_indices=[0,])
+        aa_eq(neighbors_larger, indices_larger)
+
+    def test_residue_distance(self):
+        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        top = traj.top
+
+        ref = traj[0]
+        top.set_reference_frame(ref)
+        ref.top = top
+
+        indices_smaler = pt.select_atoms(top, ':3@CA <:5.0')
+        ca_indices = pt.select_atoms(traj.top, ':3@CA')
+        all_pairs_smaller = list(product(ca_indices, indices_smaler))
+
+        distances = pt.tools.flatten(pt.distance(ref, all_pairs_smaller))
 
 
 if __name__ == "__main__":

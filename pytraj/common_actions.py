@@ -23,6 +23,7 @@ from .Frame import Frame
 from .Topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
+from .datasetlist import DatasetList
 from .hbonds import search_hbonds, search_nointramol_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
@@ -2130,7 +2131,7 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def search_neighbors(traj=None, mask='', cutoff='', dtype='dataset', top=None):
+def search_neighbors(traj=None, mask='', frame_indices=None, dtype='dataset', top=None):
     """search neighbors
 
     Returns
@@ -2144,27 +2145,14 @@ def search_neighbors(traj=None, mask='', cutoff='', dtype='dataset', top=None):
 
     Examples
     --------
-    >>> pt.search_neighbors(traj, mask=':5', cutoff="<5.0") # around residue 5 with 5.0 cutoff
-    >>> pt.search_neighbors(traj, [3, 7, 8], cutoff=">10.0") # around atom 3, 7, 8, larger than 10.0 Angstrom
+    >>> pt.search_neighbors(traj, ':5<@5.0') # around residue 5 with 5.0 cutoff
     """
-    from pytraj.datasetlist import DatasetList
-
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-
-    if '>' in cutoff:
-        cutoff = '>:' + cutoff.split('>')[-1]
-    elif '<' in cutoff:
-        cutoff = '<:' + cutoff.split('<')[-1]
-    else:
-        raise ValueError('must correctly specify cutoff: using > or <')
-
-    mask = " ".join((mask, cutoff))
-
     dslist = DatasetList()
 
     _top = _get_topology(traj, top)
-    for idx, frame in enumerate(iterframe_master(traj)):
+    fi = _get_fiterator(traj, frame_indices)
+
+    for idx, frame in enumerate(iterframe_master(fi)):
         _top.set_reference_frame(frame)
         dslist.append({str(idx): np.asarray(_top.select(mask))})
     return _get_data_from_dtype(dslist, dtype)
