@@ -1,4 +1,4 @@
-parm ../../../test/cpptraj/Test_Comprehensive/compound.prmtop
+parm ../cpptraj/test/Test_Comprehensive/compound.prmtop
 # system: 7mer peptide in a box of
 # periodic water (1577 Waters)
 
@@ -7,7 +7,7 @@ parm ../../../test/cpptraj/Test_Comprehensive/compound.prmtop
 # 100 total snapshots
 # consider each one 
 
-trajin ../../../test/cpptraj/Test_Comprehensive/trajectory.mdcrd 1 100 1
+trajin ../cpptraj/test/Test_Comprehensive/trajectory.mdcrd 1 100 1
 
 #  first calculate some things that don't depend on
 #  the position of the solute in the box
