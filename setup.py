@@ -1,23 +1,27 @@
+import os
 import sys
+import time
+from time import sleep
 import subprocess
 from subprocess import CalledProcessError
+from random import shuffle
+from distutils.core import setup, Command
+from distutils.extension import Extension
+import distutils.ccompiler
+from functools import partial
 from glob import glob
 from itertools import chain
+
 # import ./scripts
 from scripts import setup_for_amber
+from scripts.basesetup import parallelCCompile
+
+# monkey-patch
+distutils.ccompiler.CCompiler.compile=partial(parallelCCompile, n_cores=4)
 
 if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
-
-import os
-from distutils.core import setup, Command
-from distutils import ccompiler
-from distutils.extension import Extension
-from random import shuffle
-import time
-from time import sleep
-
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -110,61 +114,69 @@ except KeyError:
 
 has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
 
-if has_cpptrajhome:
-    # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
-    cpptraj_dir = cpptrajhome
-    cpptraj_include = cpptraj_dir + "/src/"
-    libdir = cpptrajhome + "/lib/"
-elif has_cpptraj_in_current_folder:
-    cpptraj_dir = os.path.abspath("./cpptraj/")
-    cpptraj_include = cpptraj_dir + "/src/"
-    libdir = cpptraj_dir + "/lib/"
-# turn off using AMBERHOME since pytraj uses cpptraj-dev
-#elif has_amberhome:
-#    # use libcpptraj and header files in AMBERHOME
-#    cpptraj_dir = amberhome + "/AmberTools/src/cpptraj/"
-#    cpptraj_include = cpptraj_dir + "/src/"
-#    libdir = amberhome + "/lib/"
+# check if has environment variables
+CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
+CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
+
+if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
+    cpptraj_include = CPPTRAJ_HEADERDIR
+    libdir = CPPTRAJ_LIBDIR
 else:
-    # use libcpptraj and header files in PYTRAJHOME
-    # ./cpptraj/src
-    # ./cpptraj/lib
-
-    nice_message = """
-    We're trying to dowload and build libcpptraj for you. (5-10 minutes)
-    (check ./cpptraj/ folder after installation)
-
-    To avoid auto-installation
-    --------------------------
-    Must set CPPTRAJHOME or installing ./cpptraj/ in current folder.
-
-    If you want to manually install `libcpptraj`, you can download cpptraj
-    development version from here: https://github.com/Amber-MD/cpptraj
-
-    $ git clone https://github.com/Amber-MD/cpptraj/
-    $ cd cpptraj
-    $ export CPPTRAJHOME=`pwd`
-    $ ./configure -shared gnu
-    $ make libcpptraj
-
-    and then go back to pytraj folder:
-    python setup.py install
-    ...
-    """
-
-    if do_install or do_build:
-        print(nice_message)
-        sleep(3)
-        try:
-            subprocess.check_call(['sh', './installs/install_cpptraj_git.sh'])
-        except CalledProcessError:
-            sys.stderr.write(
-                'can not install libcpptraj, you need to install it manually \n')
-            sys.exit(0)
-    cpptraj_dir = os.path.join(rootname, "cpptraj")
-    cpptraj_include = os.path.join(cpptraj_dir, 'src')
-    libdir = os.path.join(cpptraj_dir, 'lib')
-
+    if has_cpptrajhome:
+        # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
+        cpptraj_dir = cpptrajhome
+        cpptraj_include = cpptraj_dir + "/src/"
+        libdir = cpptrajhome + "/lib/"
+    elif has_cpptraj_in_current_folder:
+        cpptraj_dir = os.path.abspath("./cpptraj/")
+        cpptraj_include = cpptraj_dir + "/src/"
+        libdir = cpptraj_dir + "/lib/"
+    # turn off using AMBERHOME since pytraj uses cpptraj-dev
+    #elif has_amberhome:
+    #    # use libcpptraj and header files in AMBERHOME
+    #    cpptraj_dir = amberhome + "/AmberTools/src/cpptraj/"
+    #    cpptraj_include = cpptraj_dir + "/src/"
+    #    libdir = amberhome + "/lib/"
+    else:
+        # use libcpptraj and header files in PYTRAJHOME
+        # ./cpptraj/src
+        # ./cpptraj/lib
+    
+        nice_message = """
+        We're trying to dowload and build libcpptraj for you. (5-10 minutes)
+        (check ./cpptraj/ folder after installation)
+    
+        To avoid auto-installation
+        --------------------------
+        Must set CPPTRAJHOME or installing ./cpptraj/ in current folder.
+    
+        If you want to manually install `libcpptraj`, you can download cpptraj
+        development version from here: https://github.com/Amber-MD/cpptraj
+    
+        $ git clone https://github.com/Amber-MD/cpptraj/
+        $ cd cpptraj
+        $ export CPPTRAJHOME=`pwd`
+        $ ./configure -shared gnu
+        $ make libcpptraj
+    
+        and then go back to pytraj folder:
+        python setup.py install
+        ...
+        """
+    
+        if do_install or do_build:
+            print(nice_message)
+            sleep(3)
+            try:
+                subprocess.check_call(['sh', './installs/install_cpptraj_git.sh'])
+            except CalledProcessError:
+                sys.stderr.write(
+                    'can not install libcpptraj, you need to install it manually \n')
+                sys.exit(0)
+        cpptraj_dir = os.path.join(rootname, "cpptraj")
+        cpptraj_include = os.path.join(cpptraj_dir, 'src')
+        libdir = os.path.join(cpptraj_dir, 'lib')
+    
 # get *.pyx files
 pxd_include_dirs = [
     directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
@@ -338,10 +350,10 @@ if __name__ == "__main__":
         build_tag = build_func(ext_modules)
         if do_install:
             remind_ld_lib_path(build_tag, libdir)
+        print(libdir, cpptraj_include)
     else:
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
-        print('number of available cpus = %s' % n_cpus)
         num_each = int(len(ext_modules) / n_cpus)
 
         sub_ext_modules_list = []
