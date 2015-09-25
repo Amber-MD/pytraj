@@ -4,7 +4,7 @@ traj = pt.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
 top = traj.top
 
 # get indices of CA atoms
-print(top.select("@CA"))
+print(pt.select_atoms(top, "@CA"))
 
 # see how many H atoms
-print(top.select("@H="))
+print(pt.select_atoms(top, "@H="))
