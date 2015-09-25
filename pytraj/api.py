@@ -585,7 +585,7 @@ class Trajectory(object):
         """
         return self.superpose(*args, **kwd)
 
-    def superpose(self, ref=None, mask="*", frame_indices=None, mass=True):
+    def superpose(self, ref=None, mask="*", frame_indices=None, mass=False):
         """do the fitting to reference Frame by rotation and translation
         Parameters
         ----------

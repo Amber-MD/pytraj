@@ -76,9 +76,9 @@ class TestBasic(unittest.TestCase):
         farray = traj[:]
 
         aa_eq(farray[0].coords, first.coords)
-        farray.rmsfit(first, "*")
+        farray.rmsfit(first, "*", mass=False)
         farray2 = traj[:]
-        farray2.superpose(first, "*")
+        farray2.superpose(first, "*", mass=False)
 
         for i, _f0 in enumerate(farray):
             _f1 = trajsaved[i]

@@ -8,7 +8,6 @@ import pytraj.common_actions as pyca
 class Test(unittest.TestCase):
     def test_0(self):
         from pytraj import cluster
-        pt.set_cpptraj_verbose()
 
         kmeans = cluster.kmeans
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -17,7 +16,7 @@ class Test(unittest.TestCase):
                       n_clusters=10,
                       kseed=2,
                       random_point=True,
-                      distance_metric='rms',
+                      metric='rms',
                       mask='@CA')
 
 
