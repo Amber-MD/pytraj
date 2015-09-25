@@ -283,6 +283,11 @@ class TrajectoryIterator(TrajectoryCpptraj):
         Examples
         --------
             for chunk in trajiter.iterchunk(100, autoimage=True, rmsfit=(ref0, '@CA'))
+
+        Notes
+        -----
+        if using 'autoimage` with reference frame for rms-fit, make sure to `autoimage`
+        ref first
         """
         if rmsfit is not None:
             ref, mask_for_rmsfit = rmsfit
@@ -299,7 +304,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             if autoimage:
                 chunk.autoimage()
             if need_align:
-                chunk.rmsfit(ref, mask_for_rmsfit)
+                chunk.superpose(ref=ref, mask=mask_for_rmsfit)
             # free memory
             # if not, memory will be quicly accumulated.
             if self._chunk:

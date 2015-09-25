@@ -1,63 +1,92 @@
-# no unittest (and no travis test)
 from __future__ import print_function
-from pytraj import io as mdio
+import unittest
+import pytraj as pt
+from pytraj.utils.context import goto_temp_folder
 from pytraj.utils import eq, aa_eq
 from pytraj.utils import Timer
-from pytraj._shared_methods import _frame_iter
 from pytraj.compat import zip
 
 
-def test_0():
-    traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-    traj_saved = mdio.iterload("./data/tz2.autoimage_with_rmsfit.nc", traj.top)
-    fa = traj[:]
-    ref0 = fa[0].copy()
-    ref1 = fa[0].copy()
-    mask = '@H='
+class Test_iterchunk_autoimage(unittest.TestCase):
+    def setUp(self):
+        self.traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        self.mask = '@C,N,CA,O'
 
-    # test autoimage
-    for chunk in traj.chunk_iter(chunksize=2, autoimage=True):
-        pass
-    fa0 = fa.copy()
-    fa0.autoimage()
-    aa_eq(chunk.xyz, fa0[-2:].xyz)
+    def test_only_autoimage(self):
+        traj = self.traj.copy()
+        fa = traj[:]
+        ref00 = traj[0]
+        ref01 = ref00.copy()
 
-    # test rmsfit
-    for chunk in traj.chunk_iter(chunksize=2, rmsfit=(ref0, mask)):
-        pass
-    fa0 = fa.copy()
-    fa0.rmsfit(ref0, mask)
-    aa_eq(chunk.xyz, fa0[-2:].xyz)
+        # test autoimage
+        for chunk in traj.iterchunk(chunksize=2, autoimage=True):
+            pass
+        fa0 = traj[-2:]
+        fa0.autoimage()
+        aa_eq(chunk.xyz, fa0.xyz)
 
-    # test rmsfit and autoimage
-    for chunk in traj.chunk_iter(chunksize=2,
-                                 rmsfit=(ref0, mask),
-                                 autoimage=True):
-        pass
+    def test_only_rmsfit(self):
+        traj = self.traj.copy()
+        fa = traj[:]
+        ref00 = traj[0]
 
-    fa0 = fa.copy()
-    fa0.autoimage()
-    fa0.rmsfit(ref0, mask)
-    aa_eq(chunk.xyz, fa0[-2:].xyz)
-    print(traj[-2:].xyz[0, 0], chunk.xyz[0, 0], fa0[-2:].xyz[0, 0])
+        # test rmsfit
+        ref00 = traj[0]
+        for chunk in traj.iterchunk(chunksize=2, rmsfit=(ref00, self.mask)):
+            pass
 
-    # assert to cpptraj: need to set mass
-    fa1 = fa.copy()
-    for frame in fa1:
-        frame.set_frame_mass(fa1.top)
-    fa1.autoimage()
-    fa1.rmsfit(ref0, mask)
-    print(traj_saved[-2:].xyz[0, 0], fa1[-2:].xyz[0, 0])
-    # FIXME: assert failed
-    #aa_eq(fa1.xyz, traj_saved[-2:].xyz)
-    for f0, f1 in zip(traj_saved, fa1):
-        print(f0.rmsd_nofit(f1), f0.rmsd(f1))
+        fa0 = traj[-2:]
+        ref00 = traj[0]
+        fa0.rmsfit(ref00, self.mask)
+        aa_eq(chunk.xyz, fa0.xyz)
 
-    fa_saved = traj_saved['!:WAT']
-    fa1_nowat = fa1['!:WAT']
-    # FIXME: assert failed
-    #aa_eq(fa_saved.xyz, fa1_nowat.xyz)
+    def test_rmsfit_with_autoimage(self):
+        traj = self.traj.copy()
+
+        # test rmsfit and autoimage
+        ref0 = traj[0]
+        # need to autoimage reference frame first
+        pt.autoimage(ref0, top=traj.top)
+        for chunk in traj.iterchunk(chunksize=2,
+                                    rmsfit=(ref0, self.mask),
+                                    autoimage=True):
+            pass
+
+        fa0 = traj[-2:]
+        fa0.autoimage()
+        ref01 = traj[0]
+        pt.autoimage(ref01, top=traj.top)
+        fa0.rmsfit(ref=ref01, mask=self.mask)
+        aa_eq(chunk.xyz, fa0.xyz[-2:])
+
+    def test_rmsfit_with_autoimage_compared_to_cpptraj(self):
+        # assert to cpptraj: need to set mass
+        traj = self.traj.copy()
+
+        txt = '''
+        parm {0}
+        trajin {1}
+        autoimage
+        rms first {2} mass
+        trajout tmp.nc
+        '''.format(traj.top.filename, traj.filename, self.mask)
+
+        with goto_temp_folder():
+            state = pt.datafiles.load_cpptraj_output(txt, dtype='state')
+            state.run()
+            # need to load to memory (not iterload)
+            saved_traj = pt.load('tmp.nc', traj.top)
+
+        fa1 = traj[:]
+        fa1.autoimage()
+        pt.superpose(fa1, ref=0, mask=self.mask, mass=True)
+
+        aa_eq(fa1.xyz, saved_traj.xyz)
+
+        fa_saved_nowat = saved_traj['!:WAT']
+        fa1_nowat = fa1['!:WAT']
+        aa_eq(fa_saved_nowat.xyz, fa1_nowat.xyz)
 
 
 if __name__ == "__main__":
-    test_0()
+    unittest.main()

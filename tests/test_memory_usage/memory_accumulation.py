@@ -9,7 +9,7 @@ from glob import glob
 
 traj0 = pt.load_sample_data('tz2')
 # make fake large trajectory from 10 frames
-for _ in range(10):
+for _ in range(9):
     traj0.load(traj0.filelist)
 
 tlist = [traj0, ]
@@ -17,7 +17,7 @@ if os.path.exists("./data/nogit/remd/myparm.parm7"):
     tlist.append(pt.iterload(glob("./data/nogit/remd/remd.x.*")[:10],
                              "./data/nogit/remd/myparm.parm7"))
 
-for traj in tlist:
+for traj in tlist[:1]:
     print(traj)
     print(traj._estimated_GB)
 
@@ -119,20 +119,21 @@ for traj in tlist:
         print(idx)
 
     func_list = [
-        test_pairwise_rmsd,
-        test_write,
-        test_strip_atoms,
-        test_closest,
-        test_iter_frame_indices,
-        test_center,
-        test_rmsd,
-        test_simple_frame_iter,
-        test_frame_iter_with_mask,
-        test_autoimage,
-        test_autoimage_regular,
-        test_translate_regular,
         test_iterchunk,
-        test_autoimage_iterchunk_0,
+        #test_pairwise_rmsd,
+        #test_write,
+        #test_strip_atoms,
+        #test_closest,
+        #test_iter_frame_indices,
+        #test_center,
+        #test_rmsd,
+        #test_simple_frame_iter,
+        #test_frame_iter_with_mask,
+        #test_autoimage,
+        #test_autoimage_regular,
+        #test_translate_regular,
+        #test_iterchunk,
+        #test_autoimage_iterchunk_0,
     ]
 
     estimated_GB = traj._estimated_GB

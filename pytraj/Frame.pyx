@@ -923,14 +923,14 @@ cdef class Frame (object):
 
     def rmsd(self, Frame frame, AtomMask atommask=None, 
              mask=None, top=None,
-             bint use_mass=False, get_mvv=False):
-        # TODO : use_mass does not work properly
+             bint mass=False, get_mvv=False):
+        # TODO : mass does not work properly
         """Calculate rmsd betwen two frames
-        rmsd(Frame frame, bint use_mass=False, get_mvv=False):
+        rmsd(Frame frame, bint mass=False, get_mvv=False):
         Parameters:
         ----------
         frame : Frame instance
-        use_mass : bool, default = False
+        mass : bool, default = False
         get_mvv : bool
             if True: return rmsd, Matrix_3x3, Vec3, Vec3
             if False: return rmsd
@@ -953,41 +953,41 @@ cdef class Frame (object):
             new_ref = Frame(frame)
 
         if not get_mvv:
-            return new_self.thisptr.RMSD(new_ref.thisptr[0], use_mass)
+            return new_self.thisptr.RMSD(new_ref.thisptr[0], mass)
         else:
             m3 = Matrix_3x3()
             v1, v2 = Vec3(), Vec3()
             rmsd_ = new_self.thisptr.RMSD(new_ref.thisptr[0], m3.thisptr[0], 
-                                          v1.thisptr[0], v2.thisptr[0], use_mass)
+                                          v1.thisptr[0], v2.thisptr[0], mass)
             return rmsd_, m3, v1, v2
 
-    def rmsd_centered_ref(self, Frame ref, bint use_mass=False, *args):
+    def rmsd_centered_ref(self, Frame ref, bint mass=False, *args):
         """Calculate rmsd betwen two frames
         Parameters:
         ----------
         frame : Frame instance
-        use_mass : bool, default = False
+        mass : bool, default = False
         *args :  optional, 2 args (Matrix_3x3 instance, Vec3 instance)
         """
         cdef Matrix_3x3 mat 
         cdef Vec3 v
 
         if not args:
-            return self.thisptr.RMSD_CenteredRef(ref.thisptr[0], use_mass)
+            return self.thisptr.RMSD_CenteredRef(ref.thisptr[0], mass)
         else:
             mat, v = args
             assert isinstance(mat, Matrix_3x3) == True
             assert isinstance(v, Vec3) == True
-            return self.thisptr.RMSD_CenteredRef(ref.thisptr[0], mat.thisptr[0], v.thisptr[0], use_mass)
+            return self.thisptr.RMSD_CenteredRef(ref.thisptr[0], mat.thisptr[0], v.thisptr[0], mass)
 
-    def rmsd_nofit(self, Frame frame, bint use_mass=False):
+    def rmsd_nofit(self, Frame frame, bint mass=False):
         """Calculate rmsd betwen two frames without fitting
         Parameters:
         ----------
         frame : Frame instance
-        use_mass : bool, default = False
+        mass : bool, default = False
         """
-        return self.thisptr.RMSD_NoFit(frame.thisptr[0], use_mass)
+        return self.thisptr.RMSD_NoFit(frame.thisptr[0], mass)
 
     def dist_rmsd(self, Frame frame, atommask=None):
         """Calculate dist_rmsd betwen two frames

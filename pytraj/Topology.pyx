@@ -1,5 +1,6 @@
 # cython: c_string_type=unicode, c_string_encoding=utf8
 from __future__ import print_function, absolute_import
+import os
 import sys
 cimport cython
 from cython.operator cimport dereference as deref, preincrement as incr
@@ -697,9 +698,8 @@ cdef class ParmFile:
 
     def filename(self):
         cdef FileName filename = FileName()
-        #del filename.thisptr
         filename.thisptr[0] = self.thisptr.ParmFilename()
-        return filename
+        return os.path.abspath(filename)
 
 cdef class TopologyList:
     def __cinit__(self, py_free_mem=True):
