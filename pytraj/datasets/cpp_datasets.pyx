@@ -152,12 +152,12 @@ cdef class Dataset:
             raise NotImplementedError(msg)
 
     property values:
-        '''return a copy
+        '''return a copy or non-copy, depending on data
         '''
         def __set__(self, values):
             self.data = values
         def __get__(self):
-            return np.array(self.data)
+            return np.asarray(self.data)
 
     def to_ndarray(self, copy=False):
         """return ndarray view of self.data"""
@@ -745,7 +745,23 @@ cdef class DatasetVector(Dataset):
 
     property data:
         def __get__(self):
-            return self.to_ndarray()
+            # use `copy=True` as dummy argument to be 
+            # consistent with Dataset1D
+            cdef int i
+            cdef int size = self.size
+            cdef _Vec3 _vec3
+            #cdef double[:, :] dview = cyarray(shape=(size, 3), 
+            #        itemsize=sizeof(double), format="d")
+            arr = np.empty((size, 3), dtype='f8')
+            cdef double[:, ::1] dview = arr
+
+            # copy data to arr by dview
+            for i in range(size):
+                _vec3 = self.thisptr.index_opr(i)
+                dview[i, 0] = _vec3.Dptr()[0]
+                dview[i, 1] = _vec3.Dptr()[1]
+                dview[i, 2] = _vec3.Dptr()[2]
+            return arr
 
         def __set__(self, values):
             cdef int i
@@ -756,6 +772,7 @@ cdef class DatasetVector(Dataset):
             if arr.shape[1] != 3:
                 raise ValueError("must have shape = (n_frames, 3))")
 
+            self.resize(0)
             for i in range(arr.shape[0]):
                 xyz = arr[i]
                 _vec.Assign(&xyz[0])
@@ -767,34 +784,11 @@ cdef class DatasetVector(Dataset):
         return [x.tolist() for x in self.data]
 
     def to_ndarray(self, copy=True):
-        # rewrite to make fast copy
-        # use `copy=True` as dummy argument to be 
-        # consistent with Dataset1D
-        import numpy as np
-        cdef int i
-        cdef int size = self.size
-        cdef _Vec3 _vec3
-        #cdef double[:, :] dview = np.empty((size, 3), dtype='f8')
-        cdef double[:, :] dview = cyarray(shape=(size, 3), 
-                itemsize=sizeof(double), format="d")
-
-        for i in range(size):
-            _vec3 = self.thisptr.index_opr(i)
-            dview[i, 0] = _vec3.Dptr()[0]
-            dview[i, 1] = _vec3.Dptr()[1]
-            dview[i, 2] = _vec3.Dptr()[2]
-        return np.array(dview)
+        return np.asarray(self.data)
 
     def to_dataframe(self):
         import pandas as pd
         return pd.DataFrame(self.to_ndarray(), columns=list('xyz'))
-
-    @property
-    def data(self):
-        """return self.__iter__
-        Not sure what else we should return
-        """
-        return self.__iter__()
 
 
 cdef class Dataset2D (Dataset):
@@ -1326,46 +1320,12 @@ cdef class DatasetCoordsCRD (DatasetCoords):
         if self.py_free_mem:
             del self.thisptr
 
-    property values:
-        # overwrite Dataset
-        def __set__(self, traj):
-            cdef Frame frame
+    def load(self, filename):
+        trajin = TrajectoryCpptraj()
+        trajin.load(filename, self.top)
 
-            for frame in traj:
-                self.baseptr_1.AddFrame(frame.thisptr[0])
-
-    def load(self, filename_or_traj, top=Topology(), copy_top=False, copy=True):
-        cdef Topology tmp_top
-        cdef Frame frame
-
-        if isinstance(top, string_types):
-            self.top = top = Topology(top)
-
-        if top.is_empty():
-            if not self.top.is_empty():
-                tmp_top = self.top
-            else:
-                raise ValueError("need to have non-empty topology file")
-        else:
-            tmp_top = top
-            # update self.top too
-            if copy_top == True:
-                self.top = top.copy()
-            else:
-                self.top = top
-
-        if isinstance(filename_or_traj, string_types):
-            trajin_single = TrajectoryCpptraj()
-            trajin_single.load(filename_or_traj, tmp_top)
-            for frame in trajin_single:
-                self.append(frame.copy()) # always copy
-        else:
-            # assume that we can iterate over filename_or_traj to get Frame object
-            for frame in filename_or_traj:
-                if copy:
-                    self.append(frame.copy())
-                else:
-                    self.append(frame)
+        for frame in trajin:
+            self.append(frame.copy())
 
 cdef class DatasetCoordsRef (DatasetCoords):
     def __cinit__(self):

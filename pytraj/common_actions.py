@@ -1550,7 +1550,8 @@ def calc_pairwise_rmsd(traj=None,
 
     command = command + " crdset _tmp rmsout mycrazyoutput"
 
-    dslist[0].values = fi
+    for frame in fi:
+        dslist[0].append(frame)
 
     act(command, _top, dslist=dslist)
     # remove dataset coords to free memory
@@ -1744,7 +1745,7 @@ def calc_rmsd(traj=None,
 
     dnew = DatasetList(dslist)
     for d in dnew:
-        d.values = d.values[1:]
+        d.data = d.values[1:]
     return _get_data_from_dtype(dnew, dtype=dtype)
 
 # alias for `calc_rmsd`
@@ -2013,7 +2014,7 @@ def native_contacts(traj=None,
     dslist = DatasetList(dslist)
     for d in dslist:
         # exclude ref frame
-        d.values = d.values[1:]
+        d.data = d.values[1:]
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
@@ -2069,8 +2070,8 @@ def timecorr(vec0, vec1,
 
     cdslist.add_set("vector", "_vec0")
     cdslist.add_set("vector", "_vec1")
-    cdslist[0].values = np.asarray(vec0).astype('f8')
-    cdslist[1].values = np.asarray(vec1).astype('f8')
+    cdslist[0].data = np.asarray(vec0).astype('f8')
+    cdslist[1].data = np.asarray(vec1).astype('f8')
 
     _order = "order " + str(order)
     _tstep = "tstep " + str(timestep)
@@ -2101,8 +2102,8 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     cdslist.add_set("double", "d0")
     cdslist.add_set("double", "d1")
 
-    cdslist[0].values = np.asarray(data0)
-    cdslist[1].values = np.asarray(data1)
+    cdslist[0].data = np.asarray(data0)
+    cdslist[1].data  = np.asarray(data1)
 
     act = Analysis_CrankShaft()
     command = ' '.join((mode, 'd0', 'd1'))
@@ -2121,8 +2122,8 @@ def cross_correlation_function(data0, data1, dtype='ndarray'):
     cdslist.add_set("double", "d0")
     cdslist.add_set("double", "d1")
 
-    cdslist[0].values = np.asarray(data0)
-    cdslist[1].values = np.asarray(data1)
+    cdslist[0].data = np.asarray(data0)
+    cdslist[1].data = np.asarray(data1)
 
     act = analdict['corr']
     act("d0 d1 out _tmp.out", dslist=cdslist)
@@ -2141,7 +2142,7 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     cdslist = CpptrajDatasetList()
     cdslist.add_set("double", "d0")
 
-    cdslist[0].values = np.asarray(data)
+    cdslist[0].data = np.asarray(data)
 
     act = analdict['autocorr']
     command = "d0 out _tmp.out" + _nocovar
@@ -2163,7 +2164,7 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     else:
         cdslist.add_set("double", "d0")
 
-    cdslist[0].values = np.asarray(data)
+    cdslist[0].data = np.asarray(data)
 
     act = Analysis_Lifetime()
     command = " ".join((command, "d0"))
