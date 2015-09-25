@@ -628,29 +628,34 @@ cdef class CpptrajState:
         self.thisptr.MasterDataFileWrite()
 
 
-def _load_batch(traj, txt):
+def _load_batch(txt, traj=None):
     cdef CpptrajState state
     state = CpptrajState()
 
-    txt0 = '''
-    parm %s\n
-    ''' % traj.top.filename
+    if traj is not None:
+        txt0 = '''
+        parm %s\n
+        ''' % traj.top.filename
 
-    for fname, frame_slice in zip(traj.filelist, traj.frame_slice_list):
-        if len(frame_slice) == 3:
-            start, stop, stride = frame_slice
-        elif len(frame_slice) == 2:
-            start, stop = frame_slice
-            stride = 1
-        else:
-            raise ValueError('invalid frame_slice')
-        if stop == -1:
-            _stop  = 'last'
-        elif stop < -1:
-            raise RuntimeError('does not support negative stop for load_batch (except -1 (last))')
-        else:
-            _stop = stop
-        txt0 += 'trajin {0} {1} {2} {3}\n'.format(fname, str(start), str(_stop), str(stride))
+        for fname, frame_slice in zip(traj.filelist, traj.frame_slice_list):
+            if len(frame_slice) == 3:
+                start, stop, stride = frame_slice
+            elif len(frame_slice) == 2:
+                start, stop = frame_slice
+                stride = 1
+            else:
+                raise ValueError('invalid frame_slice')
+            if stop == -1:
+                _stop  = 'last'
+            elif stop < -1:
+                raise RuntimeError('does not support negative stop for load_batch (except -1 (last))')
+            else:
+                _stop = stop
+            # add 1 to start since cpptraj ise 1-based index for trajin
+            start = start + 1
+            txt0 += 'trajin {0} {1} {2} {3}\n'.format(fname, str(start), str(_stop), str(stride))
+    else:
+        txt0 = '\n'
 
     lines = txt0.split('\n') + txt.split('\n')
 

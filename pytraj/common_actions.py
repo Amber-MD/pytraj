@@ -1612,11 +1612,12 @@ def rmsd_perres(traj=None,
                 ref=0,
                 mask="",
                 mass=False,
-                top=None,
                 resrange=None,
                 perres_mask=None,
                 perres_center=False,
                 perres_invert=False,
+                frame_indices=None,
+                top=None,
                 dtype='dataset'):
     """superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues 
     in `resrange` with given `perresmask`
@@ -1645,6 +1646,7 @@ def rmsd_perres(traj=None,
                      mask=cm,
                      nofit=False,
                      mass=mass,
+                     frame_indices=frame_indices,
                      top=top,
                      dtype=dtype)
 

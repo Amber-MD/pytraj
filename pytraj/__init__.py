@@ -171,7 +171,7 @@ from .cpp_options import set_error_silent, set_world_silent
 def load_batch(traj, txt):
     if not isinstance(traj, TrajectoryIterator):
         raise ValueError('only support TrajectoryIterator')
-    return _load_batch(traj, txt)
+    return _load_batch(txt, traj=traj)
 
 def to_numpy_Trajectory(traj, top, unitcells=None):
     # TODO: move to `io`?

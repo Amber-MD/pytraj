@@ -36,7 +36,7 @@ DPDP_trajin = _get_trajin_text(pairlist['DPDP_trajin'])
 tz2_ortho_trajin = _get_trajin_text(pairlist['tz2_ortho_trajin'])
 
 
-def load_result_from_cpptraj_state(txt, dtype=None):
+def load_cpptraj_output(txt, dtype=None):
     """load output from cpptraj
 
     Parameters
@@ -51,7 +51,7 @@ def load_result_from_cpptraj_state(txt, dtype=None):
     if dtype is 'ndarray', return ndarray and so on
 
     """
-    from pytraj.io import load_cpptraj_file
+    from pytraj.core.cpptraj_core import _load_batch
     from pytraj.datasetlist import DatasetList
     from pytraj import ArgList
 
@@ -71,18 +71,15 @@ def load_result_from_cpptraj_state(txt, dtype=None):
             command_list[idx] = " ".join(('trajin', fname))
 
     txt = "\n".join([line for line in command_list])
+    state = _load_batch(txt, traj=None)
 
-    with goto_temp_folder():
-        with open("tmp.in", 'w') as fh:
-            fh.write(txt)
-        state = load_cpptraj_file("tmp.in")
-        state.run()
+    state.run()
 
-        if dtype == 'state':
-            out = state
-        else:
-            out = DatasetList(state.datasetlist)
-        return out
+    if dtype == 'state':
+        out = state
+    else:
+        out = DatasetList(state.datasetlist)
+    return out
 
 def cpptraj_dry_run(txt):
     '''for speed comparison
@@ -149,6 +146,3 @@ def load_outtraj(txt, top=None):
         state.run()
         traj = pt.iterload(filelist[0], top)
         return traj
-
-
-load_cpptraj_output = load_result_from_cpptraj_state

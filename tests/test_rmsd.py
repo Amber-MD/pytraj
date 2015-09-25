@@ -122,7 +122,6 @@ class TestRMSDPerRes(unittest.TestCase):
         aa_eq(cout.values, d)
 
     def test_reference(self):
-        from pytraj.datafiles import load_cpptraj_output, tz2_ortho_trajin
         traj = pt.iterload("./data/tz2.truncoct.nc", "data/tz2.truncoct.parm7")
         txt = '''
         reference data/tz2.truncoct.nc 2 2
@@ -135,6 +134,26 @@ class TestRMSDPerRes(unittest.TestCase):
         rmsd0 = pt.rmsd(traj, ref=1, mask=':2-11')
         rmsdperres = pt.rmsd_perres(traj, ref=1, mask=':2-11', perres_mask='*',
                 resrange='1', perres_center=True)
+        aa_eq(rmsd0, state.data[1])
+        aa_eq(rmsdperres[1], state.data[2].values)
+
+    def test_frame_indices(self):
+        traj = pt.iterload("data/tz2.truncoct.nc", "data/tz2.truncoct.parm7")
+        traj2 = pt.iterload("data/tz2.truncoct.nc", "data/tz2.truncoct.parm7",
+                frame_slice=(2, 8))
+
+        txt = '''
+        reference ./data/tz2.truncoct.nc 2 2
+        rmsd :2-11 refindex 0 perres perresout center.agr range 1 perrescenter
+        '''
+        #pt._verbose()
+        state = pt.load_batch(traj2, txt)
+        state.run()
+
+        frame_indices = range(2, 8)
+        rmsd0 = pt.rmsd(traj, ref=1, mask=':2-11', frame_indices=frame_indices)
+        rmsdperres = pt.rmsd_perres(traj, ref=1, mask=':2-11', perres_mask='*',
+                resrange='1', perres_center=True, frame_indices=frame_indices)
         aa_eq(rmsd0, state.data[1])
         aa_eq(rmsdperres[1], state.data[2].values)
 
