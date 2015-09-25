@@ -926,7 +926,7 @@ def calc_jcoupling(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
-def do_translation(traj=None, command="", top=None):
+def do_translation(traj=None, command="", frame_indices=None, top=None):
     '''
     Examples
     --------
@@ -938,6 +938,7 @@ def do_translation(traj=None, command="", top=None):
     _noaction_with_TrajectoryIterator(traj)
 
     _top = _get_topology(traj, top)
+    fi = _get_fiterator(traj, frame_indices)
 
     if is_array(command):
         x, y, z = command
@@ -947,36 +948,39 @@ def do_translation(traj=None, command="", top=None):
         _command = " ".join((_x, _y, _z))
     else:
         _command = command
-    CpptrajActions.Action_Translate()(_command, traj, top=_top)
+    CpptrajActions.Action_Translate()(_command, fi, top=_top)
 
 
 translate = do_translation
 
 
-def do_scaling(traj=None, command="", top=None):
+def do_scaling(traj=None, command="", frame_indices=None, top=None):
     _noaction_with_TrajectoryIterator(traj)
     _top = _get_topology(traj, top)
-    CpptrajActions.Action_Scale()(command, traj, top=_top)
+    fi = _get_fiterator(traj, frame_indices)
+    CpptrajActions.Action_Scale()(command, fi, top=_top)
 
 
 scale = do_scaling
 
 
-def do_rotation(traj=None, command="", top=None):
+def do_rotation(traj=None, command="", frame_indices=None, top=None):
     _top = _get_topology(traj, top)
     _noaction_with_TrajectoryIterator(traj)
-    CpptrajActions.Action_Rotate()(command, traj, top=_top)
-
+    fi = _get_fiterator(traj, frame_indices)
+    CpptrajActions.Action_Rotate()(command, fi, top=_top)
 
 rotate = do_rotation
 
 
-def do_autoimage(traj=None, command="", top=None):
+def do_autoimage(traj=None, command="", frame_indices=None, top=None):
     '''perform autoimage and return the coordinate-updated traj
     '''
     _noaction_with_TrajectoryIterator(traj)
     _top = _get_topology(traj, top)
-    CpptrajActions.Action_AutoImage()(command, traj, top=_top)
+    fi = _get_fiterator(traj, frame_indices)
+
+    CpptrajActions.Action_AutoImage()(command, fi, top=_top)
     return traj
 
 
