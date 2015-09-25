@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Matrix Analysis &mdash; pytraj 0.1.2.dev8 documentation</title>
+    <title>General concept &mdash; pytraj 0.1.2.dev8 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -95,11 +95,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Matrix Analysis</a><ul>
-<li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#doc">doc</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">General concept</a></li>
 </ul>
 </ul>
 </li>
@@ -115,7 +111,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="_sources/matrix_analysis.txt"
+  <a href="_sources/general_concept.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -139,19 +135,48 @@
   <div class="row">
     <div class="col-md-12">
       
-  <div class="section" id="matrix-analysis">
-<span id="id1"></span><h1>Matrix Analysis<a class="headerlink" href="#matrix-analysis" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pytraj</span> <span class="kn">import</span> <span class="n">matrix_analysis</span> <span class="k">as</span> <span class="n">ma</span>
-<span class="n">ma</span><span class="o">.</span><span class="n">distance_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
-<span class="n">ma</span><span class="o">.</span><span class="n">idea_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
-<span class="n">ma</span><span class="o">.</span><span class="n">correlation_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+  <div class="section" id="general-concept">
+<span id="id1"></span><h1>General concept<a class="headerlink" href="#general-concept" title="Permalink to this headline">¶</a></h1>
+<p>In most case, to use <tt class="docutils literal"><span class="pre">pytraj</span></tt>, you just need to rember this format</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">methodname</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="doc">
-<h2>doc<a class="headerlink" href="#doc" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">traj</span></tt> can be a Trajectory-like (having 3D coordinates and a Topology) or it can be
+any iterable object that produces <tt class="xref py py-class docutils literal"><span class="pre">pytraj.Frame</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ref</span></tt> can be a single Frame (conformation) or a Trajectory. If it&#8217;s a Trajectory,
+first conformation is always picked up.</li>
+<li><tt class="docutils literal"><span class="pre">mask</span></tt> follows Amber mask syntax (eg. :<a class="reference external" href="mailto:3-18&#37;&#52;&#48;CA">3-18<span>&#64;</span>CA</a>) or an atom index array (eg. [0, 3,
+5]). If <tt class="docutils literal"><span class="pre">mask</span></tt> is a string (amber mask), the index is 1-based (counting from 1) and</li>
+</ul>
+<blockquote>
+<div>if <tt class="docutils literal"><span class="pre">mass</span></tt> is an array-like, the index is 0-based (counting from 0).</div></blockquote>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">frame_indices</span></tt> is given frame indices for calculation. It&#8217;s optional. If no
+<tt class="docutils literal"><span class="pre">frame_indices</span></tt> is prodided, the calculation will be performed for whole trajectory</li>
+</ul>
+<p>Real world example</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># calculate radius of gyration for whole trajectory, all atoms</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+
+<span class="c"># calculate radius of gyration for whole trajectory, @CA atoms</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+
+<span class="c"># calculate radius of gyration for whole trajectory, for atom indices of [0, 3, 5, 100]</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+
+<span class="c"># calculate radius of gyration for whole trajectory, all atoms, only for 0, 7, and</span>
+<span class="mi">8</span><span class="o">-</span><span class="n">th</span> <span class="n">frames</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+
+<span class="c"># calculat rmsd with reference as 0-th frame, all atoms</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c"># calculat rmsd with reference as 0-th frame, backbone heavy atoms</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maks</span><span class="o">=</span><span class="s">&#39;@C,CA,N,O)</span>
+</pre></div>
 </div>
 </div>
 

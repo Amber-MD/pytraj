@@ -96,3 +96,15 @@ convert trajectory
     
     # convert Amber netcdf to Charmm dcd file.
     pt.iterload('traj.nc', 'prmtop').save('traj.dcd', overwrite=True)
+ 
+read cpptraj manual
+-------------------
+
+This does not work with ipython-notebook but it's still good for interactive ipython
+
+.. code-block:: python
+
+    In [106]: import pytraj as pt
+    In [107]: pt.info('radgyr')
+            [<name>] [<mask1>] [out <filename>] [mass] [nomax] [tensor]
+              Calculate radius of gyration of atoms in <mask>

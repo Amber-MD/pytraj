@@ -381,9 +381,23 @@ if True, not fitting.</p>
 
 <span class="target" id="rmsd-perres"></span><dl class="function">
 <dt id="pytraj.rmsd_perres">
-<tt class="descclassname">pytraj.</tt><tt class="descname">rmsd_perres</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>mass=False</em>, <em>top=None</em>, <em>resrange=None</em>, <em>perresmask=None</em>, <em>dtype='dataset'</em><big>)</big><a class="headerlink" href="#pytraj.rmsd_perres" title="Permalink to this definition">¶</a></dt>
-<dd><p>superpose <tt class="docutils literal"><span class="pre">traj</span></tt> to <tt class="docutils literal"><span class="pre">ref</span></tt> with <cite>mask</cite>, then calculate nofit rms for residues
+<tt class="descclassname">pytraj.</tt><tt class="descname">rmsd_perres</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>mass=False</em>, <em>resrange=None</em>, <em>perres_mask=None</em>, <em>perres_center=False</em>, <em>perres_invert=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='dataset'</em><big>)</big><a class="headerlink" href="#pytraj.rmsd_perres" title="Permalink to this definition">¶</a></dt>
+<dd><p>superpose <tt class="docutils literal"><span class="pre">traj</span></tt> to <tt class="docutils literal"><span class="pre">ref</span></tt> with <cite>mask</cite>, then calculate nofit rms for residues 
 in <cite>resrange</cite> with given <cite>perresmask</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : pytraj.DatasetList, shape=(1+n_residues, n_frames)</p>
+<blockquote class="last">
+<div><p>out[0]: regular rmsd
+out[1:]: perres rmsd for all given residues
+<cite>out.values</cite> will return corresponding numpy array</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <span class="target" id="pairwise-rmsd"></span><dl class="function">
@@ -698,7 +712,7 @@ like below:</p>
 
 <span class="target" id="search-hbonds"></span><dl class="function">
 <dt id="pytraj.search_hbonds">
-<tt class="descclassname">pytraj.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>dtype='dataset'</em>, <em>solventdonor=None</em>, <em>solventacceptor=None</em>, <em>update_legend=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.search_hbonds" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>dtype='dataset'</em>, <em>solventdonor=None</em>, <em>solventacceptor=None</em>, <em>update_key=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.search_hbonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>search hbonds for a given mask</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -873,7 +887,7 @@ like below:</p>
 
 <span class="target" id="autoimage"></span><dl class="function">
 <dt id="pytraj.autoimage">
-<tt class="descclassname">pytraj.</tt><tt class="descname">autoimage</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">autoimage</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform autoimage and return the coordinate-updated traj</p>
 </dd></dl>
 
