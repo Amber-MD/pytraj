@@ -17,12 +17,10 @@ In most case, to use ``pytraj``, you just need to rember this format
 * ``ref`` can be a single Frame (conformation) or a Trajectory. If it's a Trajectory,
   first conformation is always picked up.
 
-* ``mask`` follows Amber mask syntax (eg. :3-18@CA) or an atom index array (eg. [0, 3,
-  5]). If ``mask`` is a string (amber mask), the index is 1-based (counting from 1) and 
+* ``mask`` follows Amber mask syntax (eg. :3-18@CA) or an atom index array (eg. [0, 3, 5]). If ``mask`` is a string (amber mask), the index is 1-based (counting from 1) and 
  if ``mass`` is an array-like, the index is 0-based (counting from 0). 
 
-* ``frame_indices`` is given frame indices for calculation. It's optional. If no
-  ``frame_indices`` is prodided, the calculation will be performed for whole trajectory
+* ``frame_indices`` is frame indices for calculation. It's optional. If no ``frame_indices`` is provided, the calculation will be performed for whole trajectory
 
 Real world example
 
@@ -45,4 +43,4 @@ Real world example
     pt.rmsd(traj, ref=0)
 
     # calculat rmsd with reference as 0-th frame, backbone heavy atoms
-    pt.rmsd(traj, ref=0, maks='@C,CA,N,O)
+    pt.rmsd(traj, ref=0, mask='@C,CA,N,O)

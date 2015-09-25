@@ -148,14 +148,12 @@
 any iterable object that produces <tt class="xref py py-class docutils literal"><span class="pre">pytraj.Frame</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">ref</span></tt> can be a single Frame (conformation) or a Trajectory. If it&#8217;s a Trajectory,
 first conformation is always picked up.</li>
-<li><tt class="docutils literal"><span class="pre">mask</span></tt> follows Amber mask syntax (eg. :<a class="reference external" href="mailto:3-18&#37;&#52;&#48;CA">3-18<span>&#64;</span>CA</a>) or an atom index array (eg. [0, 3,
-5]). If <tt class="docutils literal"><span class="pre">mask</span></tt> is a string (amber mask), the index is 1-based (counting from 1) and</li>
+<li><tt class="docutils literal"><span class="pre">mask</span></tt> follows Amber mask syntax (eg. :<a class="reference external" href="mailto:3-18&#37;&#52;&#48;CA">3-18<span>&#64;</span>CA</a>) or an atom index array (eg. [0, 3, 5]). If <tt class="docutils literal"><span class="pre">mask</span></tt> is a string (amber mask), the index is 1-based (counting from 1) and</li>
 </ul>
 <blockquote>
 <div>if <tt class="docutils literal"><span class="pre">mass</span></tt> is an array-like, the index is 0-based (counting from 0).</div></blockquote>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">frame_indices</span></tt> is given frame indices for calculation. It&#8217;s optional. If no
-<tt class="docutils literal"><span class="pre">frame_indices</span></tt> is prodided, the calculation will be performed for whole trajectory</li>
+<li><tt class="docutils literal"><span class="pre">frame_indices</span></tt> is frame indices for calculation. It&#8217;s optional. If no <tt class="docutils literal"><span class="pre">frame_indices</span></tt> is provided, the calculation will be performed for whole trajectory</li>
 </ul>
 <p>Real world example</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># calculate radius of gyration for whole trajectory, all atoms</span>
@@ -175,7 +173,7 @@ first conformation is always picked up.</li>
 <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c"># calculat rmsd with reference as 0-th frame, backbone heavy atoms</span>
-<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maks</span><span class="o">=</span><span class="s">&#39;@C,CA,N,O)</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@C,CA,N,O)</span>
 </pre></div>
 </div>
 </div>
