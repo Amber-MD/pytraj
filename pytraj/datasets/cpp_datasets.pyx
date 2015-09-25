@@ -132,8 +132,7 @@ cdef class Dataset:
 
     @property
     def data(self):
-        """return 1D python array of `self`
-        ABC method, must override
+        """mostly memoryview
         """
         raise NotImplementedError("Must over-write Dataset data attr")
 
@@ -153,8 +152,12 @@ cdef class Dataset:
             raise NotImplementedError(msg)
 
     property values:
+        '''return a copy
+        '''
+        def __set__(self, values):
+            self.data = values
         def __get__(self):
-            return self.to_ndarray()
+            return np.array(self.data)
 
     def to_ndarray(self, copy=False):
         """return ndarray view of self.data"""
@@ -467,12 +470,6 @@ cdef class DatasetDouble (Dataset1D):
         idx_ = <size_t> idx
         self.thisptr.Add(idx_, <void*> (&elm))
 
-    property values:
-        def __get__(self):
-            return self.to_ndarray()
-        def __set__(self, values):
-            self.data = values
-
     property data:
         def __get__(self):
             """return memoryview of data array
@@ -523,10 +520,6 @@ cdef class DatasetFloat (Dataset1D):
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
 
-    property values:
-        def __set__(self, values):
-            self.data = values
-
     property data:
         def __get__(self):
             """return memoryview of data array
@@ -543,6 +536,7 @@ cdef class DatasetFloat (Dataset1D):
 
         def __set__(self, data):
             cdef float x
+            self.resize(0)
             for x in data:
                 self.thisptr.AddElement(x)
 
@@ -649,9 +643,6 @@ cdef class DatasetInteger (Dataset1D):
     def _add(self, int idx, int value):
         self.thisptr.Add(idx, &value)
 
-    property values:
-        def __set__(self, values):
-            self.data = values
 
     property data:
         def __get__(self):
@@ -752,7 +743,7 @@ cdef class DatasetVector(Dataset):
     def append(self, Vec3 vec):
         self.thisptr.AddVxyz(vec.thisptr[0])
 
-    property values:
+    property data:
         def __get__(self):
             return self.to_ndarray()
 
@@ -1336,6 +1327,7 @@ cdef class DatasetCoordsCRD (DatasetCoords):
             del self.thisptr
 
     property values:
+        # overwrite Dataset
         def __set__(self, traj):
             cdef Frame frame
 
