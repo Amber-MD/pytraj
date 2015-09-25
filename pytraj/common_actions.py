@@ -1975,7 +1975,7 @@ def native_contacts(traj=None,
                     dtype='dataset',
                     ref=0,
                     distance=7.0,
-                    noimage=False,
+                    image=True,
                     include_solvent=False,
                     byres=False,
                     frame_indices=None,
@@ -2001,7 +2001,7 @@ def native_contacts(traj=None,
     command = mask
 
     _distance = str(distance)
-    _noimage = "noimage" if noimage else ""
+    _noimage = "noimage" if not image else ""
     _includesolvent = "includesolvent" if include_solvent else ""
     _byres = "byresidue" if byres else ""
 
