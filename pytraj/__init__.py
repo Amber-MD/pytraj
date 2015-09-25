@@ -138,7 +138,9 @@ from_parmed = load_ParmEd
 clustering = do_clustering
 mindist = calc_mindist
 
-from .matrix_analysis import distance_matrix
+from .matrix import dist
+distance_matrix = dist
+
 from .dihedral_analysis import (
     calc_phi, calc_psi, calc_alpha, calc_beta, calc_omega, calc_chin,
     calc_chip, calc_delta, calc_epsilon, calc_gamma, calc_zeta, calc_omega,
@@ -148,7 +150,7 @@ from .action_dict import ActionDict
 from .analysis_dict import AnalysisDict
 adict = ActionDict()
 analdict = AnalysisDict()
-from . import matrix_analysis
+from . import matrix
 from . import dihedral_analysis
 from . import vector_analysis
 

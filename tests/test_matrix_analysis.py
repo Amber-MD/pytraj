@@ -35,10 +35,8 @@ class TestMatrixConprehensive(unittest.TestCase):
     def test_matrix(self):
         import numpy as np
         from pytraj import ArgList
-        from pytraj import matrix_analysis as ma
+        from pytraj import matrix as ma
         from pytraj.externals.six import iteritems
-
-        new_dict = dict((v, k) for k, v in iteritems(ma.default_key_dict))
 
         matrix_test_dir = cpptraj_test_dir + "/Test_Matrix/"
         top_file = matrix_test_dir + "/1rrb_vac.prmtop"
@@ -62,7 +60,7 @@ class TestMatrixConprehensive(unittest.TestCase):
             mask = arg.get_next_mask()
             fname = ".".join((slist[0], slist[-1], slist[1]))
             # get correct name
-            func = ma.__dict__[new_dict[act_key]]
+            func = ma.__dict__[act_key]
 
             # get command
             command = line.split(act_key)[1]

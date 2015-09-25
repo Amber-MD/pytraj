@@ -19,7 +19,7 @@ def silly_doc_func():
 class Test(unittest.TestCase):
     def test_0(self):
         from pytraj._shared_methods import iterframe_master as fi
-        from pytraj import matrix_analysis as ma
+        from pytraj import matrix as ma
         from pytraj import dihedral_analysis as da
         from pytraj import Trajectory
         from pytraj import Frame
@@ -73,7 +73,7 @@ class Test(unittest.TestCase):
         for func in funclist:
             run_docstring(func)
 
-        func_names = ma.default_key_dict.keys()
+        func_names = ma.mat_keys
         for key in func_names:
             run_docstring(ma.__dict__[key])
 

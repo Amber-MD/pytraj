@@ -1,27 +1,22 @@
 from __future__ import print_function
 import unittest
+import numpy as np
 import pytraj as pt
-from pytraj.base import *
-from pytraj import adict
-from pytraj import io as mdio
+from pytraj import Frame
 from pytraj.utils import assert_almost_equal, Timer
 from pytraj.utils import has_
 
 
-@unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
 class Test(unittest.TestCase):
-    def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+    def test_xyz(self):
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = Frame()
         frame.append_xyz(traj[0].xyz)
-        #print(frame.coords[:10])
-        #print(traj[0].coords[:10])
         assert_almost_equal(frame.coords, traj[0].coords)
         assert_almost_equal(frame.xyz.flatten(), traj[0].xyz.flatten())
-        #print(frame.buffer2d.shape)
-        #print(traj[0].xyz.shape)
-        assert_almost_equal(frame.buffer1d, traj[0].xyz.flatten())
+        assert_almost_equal(np.array(frame.buffer1d), traj[0].xyz.flatten())
 
+    @unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
     def test_1(self):
         from mdtraj.formats import psf
         import mdtraj as md
@@ -34,7 +29,7 @@ class Test(unittest.TestCase):
         f0 = Frame()
         f1 = f0.copy()
         f0.append_xyz(m_traj.xyz[0].astype(np.float64))
-        farray = mdio.load_mdtraj(m_traj, autoconvert=False, top=fname)
+        farray = pt.load_mdtraj(m_traj, autoconvert=False, top=fname)
         f1 = farray[0]
 
         assert_almost_equal(f0.coords, f1.coords)

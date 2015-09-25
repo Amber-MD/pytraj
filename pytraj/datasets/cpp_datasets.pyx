@@ -66,20 +66,20 @@ cdef class Dataset:
             aspect = self.baseptr0.Meta().Aspect()
             return aspect.decode()
 
-    property legend:
+    property _legend:
         def __get__(self):
-            legend = self.baseptr0.Meta().Legend()
-            return legend.decode()
-        def __set__(self, legend):
-            cdef string s = legend.encode()
+            _legend = self.baseptr0.Meta().Legend()
+            return _legend.decode()
+        def __set__(self, _legend):
+            cdef string s = _legend.encode()
             self.baseptr0.SetLegend(s)
 
     property key:
-        # retire self.legend?
+        # retire self._legend?
         def __get__(self):
-            return self.legend
-        def __set__(self, legend):
-            self.legend = legend
+            return self._legend
+        def __set__(self, _legend):
+            self._legend = _legend
     
 
     property dtype:
@@ -87,10 +87,10 @@ cdef class Dataset:
             return get_key(self.baseptr0.Type(), DataTypeDict).lower()
 
     def __str__(self):
-        cname = self.class_name
+        cname = self._class_name
         size = self.size
-        legend = self.legend
-        msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(cname, size, legend)
+        _legend = self._legend
+        msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(cname, size, _legend)
         return msg0
 
     def __repr__(self):
@@ -123,7 +123,7 @@ cdef class Dataset:
             raise NotImplementedError("don't know how to cast to ndarray")
 
     @property
-    def class_name(self):
+    def _class_name(self):
         return self.__class__.__name__
 
     @property
@@ -166,12 +166,12 @@ cdef class Dataset:
 
     def to_dict(self, use_numpy=False):
         if np and use_numpy:
-            return {self.legend : self.values}
+            return {self._legend : self.values}
         if not np and use_numpy:
             raise ImportError("require numpy. Set `use_numpy=False`")
-        return {self.legend : self.tolist()}
+        return {self._legend : self.tolist()}
 
-    def hist(self, plot=True, show=True, *args, **kwd):
+    def _hist(self, plot=True, show=True, *args, **kwd):
         """
         Parameters
         ----------
@@ -192,7 +192,7 @@ cdef class Dataset:
             except ImportError:
                 raise ImportError("require matplotlib")
 
-    def split(self, n_chunks_or_array):
+    def _split(self, n_chunks_or_array):
         """split `self.data` to n_chunks
 
         Notes : require numpy (same as `array_split`)
@@ -200,7 +200,7 @@ cdef class Dataset:
         return np.array_split(self.to_ndarray(), n_chunks_or_array)
 
 
-    def plot(self, show=False, *args, **kwd):
+    def _plot(self, show=False, *args, **kwd):
         """return matplotlib object
         Notes
         ----
@@ -212,18 +212,18 @@ cdef class Dataset:
             plt.show()
         return ax
 
-    def chunk_average(self, n_chunk):
+    def _chunk_average(self, n_chunk):
         import numpy as np
         return np.array(list(map(np.mean, self.split(n_chunk))))
 
-    def std(self, *args, **kwd):
+    def _std(self, *args, **kwd):
         import numpy as np
         return np.std(self.values, *args, **kwd)
 
-    def sum(self, *args, **kwd):
+    def _sum(self, *args, **kwd):
         return np.sum(self.values, *args, **kwd)
 
-    def topk(self, k):
+    def _topk(self, k):
         """pick top k max-values
         Returns
         -------
@@ -233,19 +233,19 @@ cdef class Dataset:
         """
         return sorted(self.values, reverse=True)[:k]
 
-    def head(self, k=20, restype='ndarray'):
+    def _head(self, k=20, restype='ndarray'):
         if restype == 'ndarray':
             return self.values[:k]
         elif restype == 'list':
             return self.tolist()[:k]
 
-    def tail(self, k=20):
+    def _tail(self, k=20):
         return self.values[-k:]
 
     def is_(self, Dataset other):
         return self.baseptr0 == other.baseptr0
 
-    def filter(self, func):
+    def _filter(self, func):
         """return a numpy array with all elements that satisfy `func`
 
         Example
@@ -1086,10 +1086,11 @@ cdef class DatasetModes(Dataset):
     def nmodes(self):
         return self.thisptr.Nmodes()
 
-    def vector_size(self):
+    @property
+    def vsize(self):
         return self.thisptr.VectorSize()
 
-    def is_reduced(self):
+    def _is_reduced(self):
         return self.thisptr.IsReduced()
 
     property eigenvalues:

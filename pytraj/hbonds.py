@@ -82,22 +82,22 @@ class HbondAnalysisResult(BaseAnalysisResult):
         raise NotImplementedError("not yet")
 
 
-def _update_legend_hbond(_dslist):
+def _update_key_hbond(_dslist):
 
     # SER_20@O-SER_20@OG-HG --> SER20_O-SER20_OG-HG
     for d0 in _dslist:
-        d0.legend = d0.legend.replace("_", "")
-        d0.legend = d0.legend.replace("@", "_")
+        d0.key = d0.key.replace("_", "")
+        d0.key = d0.key.replace("@", "_")
 
     for d0 in _dslist:
-        if d0.legend == 'HB00000[UU]':
-            d0.legend = 'total_solute_hbonds'
+        if d0.key == 'HB00000[UU]':
+            d0.key = 'total_solute_hbonds'
 
 
 def search_hbonds_noseries(traj,
                            mask="",
                            dtype='dataset',
-                           update_legend=True, *args, **kwd):
+                           update_key=True, *args, **kwd):
     """search hbonds for a given mask
 
     Parameters
@@ -126,8 +126,8 @@ def search_hbonds_noseries(traj,
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
 
-    if update_legend:
-        _update_legend_hbond(dslist)
+    if update_key:
+        _update_key_hbond(dslist)
 
     if dtype == 'dataframe':
         # return DataFrame.T to have better visual effect
@@ -141,7 +141,7 @@ def search_hbonds(traj,
                   dtype='dataset',
                   solventdonor=None,
                   solventacceptor=None,
-                  update_legend=True, *args, **kwd):
+                  update_key=True, *args, **kwd):
     """search hbonds for a given mask
 
     Parameters
@@ -174,8 +174,8 @@ def search_hbonds(traj,
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
 
-    if update_legend:
-        _update_legend_hbond(dslist)
+    if update_key:
+        _update_key_hbond(dslist)
     if dtype == 'dataframe':
         # return DataFrame.T to have better visual effect
         return dslist.to_dataframe().T
@@ -189,7 +189,7 @@ def search_hbonds(traj,
 def search_nointramol_hbonds(traj,
                              mask="solventacceptor :WAT@O solventdonor :WAT",
                              dtype='dataset',
-                             update_legend=True, *args, **kwd):
+                             update_key=True, *args, **kwd):
     """
     Search hbonds between solute and solvent, ignoring intra-hbond
 
@@ -218,8 +218,8 @@ def search_nointramol_hbonds(traj,
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()
 
-    if update_legend:
-        _update_legend_hbond(dslist)
+    if update_key:
+        _update_key_hbond(dslist)
     if dtype == 'hbond_class':
         return HbondAnalysisResult(dslist)
     else:
