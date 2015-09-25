@@ -1614,11 +1614,19 @@ def rmsd_perres(traj=None,
                 mass=False,
                 top=None,
                 resrange=None,
-                perresmask=None,
+                perres_mask=None,
+                perres_center=False,
+                perres_invert=False,
                 dtype='dataset'):
-    """
-    superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues
+    """superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues 
     in `resrange` with given `perresmask`
+
+    Returns
+    -------
+    out : pytraj.DatasetList, shape=(1+n_residues, n_frames)
+        out[0]: regular rmsd
+        out[1:]: perres rmsd for all given residues
+        `out.values` will return corresponding numpy array
     """
     if resrange is not None:
         if isinstance(resrange, string_types):
@@ -1627,8 +1635,11 @@ def rmsd_perres(traj=None,
             raise ValueError("range must be a string")
     else:
         _range = ''
-    _perresmask = perresmask if perresmask is not None else ''
-    cm = " ".join((mask, 'perres', _range, _perresmask))
+    _perresmask = 'perresmask ' + perres_mask if perres_mask is not None else ''
+    _perrestcenter  = 'perrescenter' if perres_center else ''
+    _perrestinvert  = 'perresinvert' if perres_invert else ''
+
+    cm = " ".join((mask, 'perres', _range, _perresmask, _perrestcenter, _perrestinvert))
     return calc_rmsd(traj=traj,
                      ref=ref,
                      mask=cm,
@@ -1714,6 +1725,10 @@ def calc_rmsd(traj=None,
 
     for cm in command:
         _cm = cm + opt
+        if 'savematrices' in _cm:
+            if dtype not in ['dataset', 'cpptraj_dataset']:
+                raise ValueError('if savematrices, dtype must be "dataset"')
+            _cm = 'RMDSset '+ _cm
         alist.add_action(CpptrajActions.Action_Rmsd(), _cm,
                          top=_top,
                          dslist=dslist)
@@ -1721,14 +1736,10 @@ def calc_rmsd(traj=None,
     alist.do_actions(ref)
     alist.do_actions(fi)
 
-    if dtype == 'pyarray':
-        return pyarray('d', dslist[0].data)[1:]
-    else:
-        from pytraj.datasetlist import DatasetList
-        dnew = DatasetList(dslist)
-        for d in dnew:
-            d.values = d.values[1:]
-        return _get_data_from_dtype(dnew, dtype=dtype)
+    dnew = DatasetList(dslist)
+    for d in dnew:
+        d.values = d.values[1:]
+    return _get_data_from_dtype(dnew, dtype=dtype)
 
 # alias for `calc_rmsd`
 rmsd = calc_rmsd
