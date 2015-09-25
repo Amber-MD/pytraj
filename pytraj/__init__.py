@@ -106,7 +106,8 @@ from .common_actions import (
     auto_correlation_function, principal_axes, cross_correlation_function,
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
-    crank, closest, search_neighbors, replicate_cell)
+    crank, closest, search_neighbors, replicate_cell,
+    )
 
 # create alias
 distance = calc_distance
@@ -172,6 +173,9 @@ def load_batch(traj, txt):
     if not isinstance(traj, TrajectoryIterator):
         raise ValueError('only support TrajectoryIterator')
     return _load_batch(txt, traj=traj)
+
+def superpose(traj, *args, **kwd):
+    traj.superpose(*args, **kwd)
 
 def to_numpy_Trajectory(traj, top, unitcells=None):
     # TODO: move to `io`?

@@ -561,7 +561,7 @@ class Trajectory(object):
     def unitcells(self, values):
         self._boxes = values
 
-    def superpose(self, ref=None, mask="*"):
+    def rmsfit(self, *args, **kwd):
         """do the fitting to reference Frame by rotation and translation
 
         Parameters
@@ -583,15 +583,17 @@ class Trajectory(object):
         -----
         alias of `rmsfit`
         """
-        return self.rmsfit(ref=ref, mask=mask)
+        return self.superpose(*args, **kwd)
 
-    def rmsfit(self, ref=None, mask="*"):
+    def superpose(self, ref=None, mask="*", frame_indices=None):
         """do the fitting to reference Frame by rotation and translation
         Parameters
         ----------
         ref : {Frame object, int, str}, default=None 
             Reference
         mask : str or AtomMask object, default='*' (fit all atoms)
+        frame_indices : array-like, default None, optional
+            if not None, only do fitting for specific frames
 
         Returns
         -------
@@ -627,7 +629,9 @@ class Trajectory(object):
         else:
             raise ValueError("mask must be string or AtomMask object")
 
-        for idx, frame in enumerate(self):
+        fi = self if frame_indices is not None else self.iterframe(frame_indices=frame_indices)
+
+        for idx, frame in enumerate(fi):
             _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True)
             frame.trans_rot_trans(v1, mat, v2)
         return self

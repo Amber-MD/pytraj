@@ -1,13 +1,13 @@
+#!/usr/bin/env python
 import unittest
-from pytraj.base import *
+import pytraj as pt
 from pytraj import adict
-from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 
 
 class TestBasic(unittest.TestCase):
     def test_frame_fit(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
         f1 = traj[1]
 
@@ -15,29 +15,29 @@ class TestBasic(unittest.TestCase):
         arr1 = list(f1[0])
 
         f0.rmsd(f1)
-        assert_almost_equal(arr0, f0[0])
-        assert_almost_equal(arr1, f1[0])
+        aa_eq(arr0, f0[0])
+        aa_eq(arr1, f1[0])
 
         f1.rmsfit(f0)
 
         # expect reference `f0` coords are not changed
-        assert_almost_equal(arr0, f0[0])
+        aa_eq(arr0, f0[0])
 
-        trajsaved = mdio.iterload(
+        trajsaved = pt.iterload(
             "./data/fit_to_1stframe.Tc5b.x", "./data/Tc5b.top")
         f1saved = trajsaved[1]
 
         # make sure we reproduce cpptraj output
-        assert_almost_equal(f1.coords, f1saved.coords, decimal=3)
+        aa_eq(f1.coords, f1saved.coords, decimal=3)
 
         farray = traj[:]
         farray.rmsfit(traj[0])
-        assert_almost_equal(farray[1].coords, f1saved.coords, decimal=3)
+        aa_eq(farray[1].coords, f1saved.coords, decimal=3)
 
         farray.rmsfit('first')
 
     def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         f0 = traj[0]
         f0saved = f0.copy()
@@ -62,8 +62,8 @@ class TestBasic(unittest.TestCase):
     def test_1(self):
 
         # load frames to immutable traj
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajsaved = mdio.iterload(
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        trajsaved = pt.iterload(
             "./data/fit_to_1stframe.Tc5b.x", "./data/Tc5b.top")
 
         for _f1 in trajsaved:
@@ -75,19 +75,47 @@ class TestBasic(unittest.TestCase):
         # make mutable traj
         farray = traj[:]
 
-        assert_almost_equal(farray[0].coords, first.coords)
+        aa_eq(farray[0].coords, first.coords)
         farray.rmsfit(first, "*")
         farray2 = traj[:]
         farray2.superpose(first, "*")
 
         for i, _f0 in enumerate(farray):
             _f1 = trajsaved[i]
-            assert_almost_equal(_f0.coords, _f1.coords, decimal=3)
+            aa_eq(_f0.coords, _f1.coords, decimal=3)
 
         for i, _f0 in enumerate(farray2):
             _f1 = trajsaved[i]
-            assert_almost_equal(_f0.coords, _f1.coords, decimal=3)
+            aa_eq(_f0.coords, _f1.coords, decimal=3)
 
+    def test_frame_indices(self):
+        # load frames to immutable traj
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        # convert to numpy traj
+
+        frame_indices = [0, 3, 5]
+
+        t00 = traj[:]
+        t01 = traj[:]
+        t10 = traj[frame_indices]
+        t11 = traj[frame_indices]
+        aa_eq(t00[frame_indices].xyz, t11.xyz)
+
+        ref = traj[-1]
+        t00.superpose(ref=ref, frame_indices=frame_indices)
+
+        ref = traj[-1]
+        pt.superpose(t01, ref=ref, frame_indices=frame_indices)
+
+        ref = traj[-1]
+        t10.superpose(ref=ref)
+
+        ref = traj[-1]
+        pt.superpose(t11, ref=ref, frame_indices=frame_indices)
+
+        aa_eq(t00.xyz, t01.xyz)
+        aa_eq(t10.xyz, t11.xyz)
+        aa_eq(t00[frame_indices].xyz, t10.xyz)
 
 if __name__ == "__main__":
     unittest.main()
