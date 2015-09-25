@@ -14,10 +14,6 @@ from itertools import chain
 
 # import ./scripts
 from scripts import setup_for_amber
-from scripts.basesetup import parallelCCompile
-
-# monkey-patch
-distutils.ccompiler.CCompiler.compile=partial(parallelCCompile, n_cores=4)
 
 if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')

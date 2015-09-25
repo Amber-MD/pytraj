@@ -9,7 +9,7 @@ def parallelCCompile(self, sources,
                      extra_preargs=None,
                      extra_postargs=None,
                      depends=None,
-                     n_cores=4):
+                     N_CORES=4):
     '''monkey-patch for parallel compilation
     http://stackoverflow.com/questions/11013851/speeding-up-build-process-with-distutils
     '''
@@ -29,6 +29,6 @@ def parallelCCompile(self, sources,
         self._compile(obj, src, ext, cc_args, extra_postargs, pp_opts)
 
     # convert to list, imap is evaluated on-demand
-    list(multiprocessing.pool.ThreadPool(n_cores).imap(_single_compile,
+    list(multiprocessing.pool.ThreadPool(N_CORES).imap(_single_compile,
                                                        objects))
     return objects
