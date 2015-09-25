@@ -147,7 +147,7 @@ cdef class DatasetList:
         elif isinstance(idx, string_types):
              # return a list of datasets having idx as legend
              for d0 in self:
-                 if d0.legend.upper() == idx.upper():
+                 if d0.key.upper() == idx.upper():
                      d0._base = self
                      return d0
         elif isinstance(idx, slice):
@@ -264,7 +264,7 @@ cdef class DatasetList:
         """return a list"""
         tmp_list = []
         for d0 in self._base_dataset_iter():
-            tmp_list.append(d0.legend)
+            tmp_list.append(d0.key)
         return tmp_list
 
     def get_aspects(self, is_set=True):
@@ -327,14 +327,14 @@ cdef class DatasetList:
         else:
             raise NotImplementedError("func must be a string or callable")
 
-    def grep(self, key, mode='legend'):
+    def grep(self, key, mode='key'):
         """"return a new DatasetList object as a view of `self`. This method is mostly used for testing.
 
         Parameters
         ----------
         key : str or list
             keyword for searching
-        mode: str, default='legend'
+        mode: str, default='key'
             mode = 'legend' | 'name' | 'dtype' | 'aspect'
         """
         import re
@@ -374,9 +374,9 @@ cdef class DatasetList:
         from collections import OrderedDict as dict
         try:
             if use_numpy:
-                return dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
+                return dict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
             else:
-                return dict((d0.legend, d0.tolist()) for d0 in self)
+                return dict((d0.key, d0.tolist()) for d0 in self)
         except:
             raise ValueError("don't know tho to convert to dict")
 
@@ -413,7 +413,7 @@ cdef class DatasetList:
         """
         import pandas
         from collections import OrderedDict
-        my_dict = OrderedDict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
+        my_dict = OrderedDict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
 
     def set_py_free_mem(self, bint value):
@@ -470,14 +470,14 @@ cdef class DatasetList:
             arr.append(d.max())
         return arr
 
-    def sum(self, legend=None, axis=1):
+    def sum(self, key=None, axis=1):
         """
         Notes: require numpy
         """
-        if not legend:
+        if not key:
             return np.sum(self.to_ndarray(), axis=axis)
         else:
-            return self.groupby(legend).sum(axis=axis)
+            return self.groupby(key).sum(axis=axis)
 
     def cumsum(self, axis=1):
         """Return the cumulative sum of the elements along a given axis.
@@ -493,7 +493,7 @@ cdef class DatasetList:
         return ddict
 
     def count(self, number=None):
-        return dict((d0.legend, d0.count(number)) for d0 in self)
+        return dict((d0.key, d0.count(number)) for d0 in self)
 
     def read_data(self, filename, arg=""):
         df = DataFile()
@@ -511,8 +511,8 @@ cdef class DatasetList:
         for idx, d in enumerate(self):
             if filenames is None:
                 # make default name
-                d.legend = d.legend.replace(":", "_")
-                fname = "pytraj_datafile_" + d.legend + ".txt"
+                d.key= d.key.replace(":", "_")
+                fname = "pytraj_datafile_" + d.key + ".txt"
             else:
                 fname = filenames[idx]
             df.add_dataset(fname, d)
@@ -523,7 +523,7 @@ cdef class DatasetList:
         Notes: require numpy
         """
         if labels is None:
-            headers = "\t".join([d.legend for d in self])
+            headers = "\t".join([d.key for d in self])
             headers = "frame\t" + headers
         else:
             headers = "frame\t" + labels

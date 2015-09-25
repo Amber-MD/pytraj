@@ -41,12 +41,12 @@ def nastruct(traj=None,
     _top = _get_topology(traj, top)
     act(command, [_ref, traj], dslist=dslist, top=_top, *args, **kwd)
 
-    # need to update legend to avoid duplicate (same legend with different
+    # need to update key to avoid duplicate (same key with different
     # aspect)
     dslist_py = Dataset()
     for d in dslist:
         # for panda's dataframe
-        d.legend = 'nuc_' + d.legend + "_" + d.aspect
+        d.key = 'nuc_' + d.key + "_" + d.aspect
         # exclude reference value
         dslist_py.append(DataArray(d))
         dslist_py[-1].values = dslist_py[-1].values[1:]

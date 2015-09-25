@@ -120,12 +120,12 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
                   top=_top,
                   dslist=dslist, *args, **kwd)
 
-    # replace legend to something nicer
-    for legend, dset in dslist.iteritems():
-        if 'DSSP' in legend:
-            legend = legend.replace("DSSP_00000[", "")
-            legend = legend.replace("]", "_avg")
-            dset.legend = legend.lower()
+    # replace key to something nicer
+    for key, dset in dslist.iteritems():
+        if 'DSSP' in key:
+            key = key.replace("DSSP_00000[", "")
+            key = key.replace("]", "_avg")
+            dset.key = key.lower()
     dtype = dtype.lower()
 
     if dtype == 'ndarray':

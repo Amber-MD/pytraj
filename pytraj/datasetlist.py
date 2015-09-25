@@ -187,13 +187,13 @@ class DatasetList(list):
         except KeyError:
             ordered_keys = ddict.keys()
 
-        for legend in ordered_keys:
-            d = ddict[legend]
+        for key in ordered_keys:
+            d = ddict[key]
             da.values = np.array(d['values'])
             da.aspect = d['aspect']
             da.name = d['name']
             da.idx = d['idx']
-            da.legend = legend
+            da.key = key
             da.cpptraj_dtype = d['cpptraj_dtype']
             self.append(da)
         return self
@@ -204,9 +204,9 @@ class DatasetList(list):
         ddict = {}
         ddict['ordered_keys'] = []
         for d in self:
-            ddict['ordered_keys'].append(d.legend)
-            ddict[d.legend] = {}
-            _d = ddict[d.legend]
+            ddict['ordered_keys'].append(d.key)
+            ddict[d.key] = {}
+            _d = ddict[d.key]
             if use_numpy:
                 _d['values'] = d.values
             else:
@@ -226,7 +226,7 @@ class DatasetList(list):
             if True, return a dictionary of matplotlib object
         """
         hist_dict = dict(map(
-            lambda x: (x.legend, x.hist(plot=plot, show=False, *args, **kwd)),
+            lambda x: (x.key, x.hist(plot=plot, show=False, *args, **kwd)),
             self))
 
         if show:
@@ -308,7 +308,7 @@ class DatasetList(list):
             return super(DatasetList, self).__getitem__(idx)
         elif isinstance(idx, string_types):
             for d0 in self:
-                if d0.legend.upper() == idx.upper():
+                if d0.key.upper() == idx.upper():
                     d0._base = self
                     return d0
         elif isinstance(idx, slice):
@@ -329,11 +329,11 @@ class DatasetList(list):
         else:
             raise ValueError()
 
-    def get_legends(self):
+    def keys(self):
         """return a list"""
         tmp_list = []
         for d0 in self:
-            tmp_list.append(d0.legend)
+            tmp_list.append(d0.key)
         return tmp_list
 
     def get_aspects(self, is_set=True):
@@ -370,9 +370,6 @@ class DatasetList(list):
             tmp_list.append(d0.dtype)
         return tmp_list
 
-    def keys(self):
-        return self.get_legends()
-
     def iteritems(self):
         for key in self.keys():
             yield key, self[key]
@@ -398,15 +395,15 @@ class DatasetList(list):
         else:
             raise NotImplementedError("func must be a string or callable")
 
-    def grep(self, key, mode='legend', copy=False):
+    def grep(self, key, mode='key', copy=False):
         """"return a new DatasetList object as a view of `self`
 
         Parameters
         ----------
         key : str or list
             keyword for searching
-        mode: str, default='legend'
-            mode = 'legend' | 'name' | 'dtype' | 'aspect'
+        mode: str, default='key'
+            mode = 'key' | 'name' | 'dtype' | 'aspect'
         """
         import re
 
@@ -436,15 +433,15 @@ class DatasetList(list):
             raise NotImplementedError("dont know how to convert to list")
 
     def to_dict(self, use_numpy=True, ordered_dict=False):
-        """return a dict object with key=legend, value=list"""
+        """return a dict object with key=key, value=list"""
         _dict = dict
         if ordered_dict:
             # use OrderedDict
             _dict = _OrderedDict
         if use_numpy:
-            return _dict((d0.legend, d0.to_ndarray()) for d0 in self)
+            return _dict((d0.key, d0.to_ndarray()) for d0 in self)
         else:
-            return _dict((d0.legend, d0.tolist()) for d0 in self)
+            return _dict((d0.key, d0.tolist()) for d0 in self)
 
     @property
     def values(self):
@@ -481,7 +478,7 @@ class DatasetList(list):
         """
         import pandas
         dict = _OrderedDict
-        my_dict = dict((d0.legend, d0.to_ndarray(copy=True)) for d0 in self)
+        my_dict = dict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
 
     def mean(self, *args, **kwd):
@@ -504,11 +501,11 @@ class DatasetList(list):
 
     def min(self, *args, **kwd):
         dict = _OrderedDict
-        return dict((x.legend, x.min()) for x in self).values
+        return dict((x.key, x.min()) for x in self).values
 
     def max(self, *args, **kwd):
         dict = _OrderedDict
-        return dict((x.legend, x.max()) for x in self).values
+        return dict((x.key, x.max()) for x in self).values
 
     def sum(self, restype='dict'):
         """
@@ -516,9 +513,9 @@ class DatasetList(list):
         """
         dict = _OrderedDict
         if restype == 'dict':
-            return dict((x.legend, x.sum()) for x in self).values
+            return dict((x.key, x.sum()) for x in self).values
         elif restype == 'ndarray':
-            return np.array([self.keys(), dict((x.legend, x.sum())
+            return np.array([self.keys(), dict((x.key, x.sum())
                                                for x in self).to_ndarray()]).T
 
     def cumsum(self, axis=1):
@@ -526,7 +523,7 @@ class DatasetList(list):
         (from numpy doc)
         """
         dict = _OrderedDict
-        return dict((x.legend, np.cumsum(x.values)) for x in self).values
+        return dict((x.key, np.cumsum(x.values)) for x in self).values
 
     def mean_with_error(self, other):
         ddict = defaultdict(tuple)
@@ -536,7 +533,7 @@ class DatasetList(list):
 
     def count(self, number=None):
         dict = _OrderedDict
-        return dict((d0.legend, d0.count(number)) for d0 in self)
+        return dict((d0.key, d0.count(number)) for d0 in self)
 
     def read_data(self, filename, arg=""):
         df = DataFile()
@@ -555,7 +552,7 @@ class DatasetList(list):
         Notes: require numpy
         """
         if labels is None:
-            headers = "\t".join([d.legend for d in self])
+            headers = "\t".join([d.key for d in self])
             headers = "frame\t" + headers
         else:
             headers = "frame\t" + labels
@@ -571,7 +568,7 @@ class DatasetList(list):
              use_seaborn=True,
              x=None,
              y=None,
-             legends=[],
+             keys=[],
              autoset=True,
              xlim=None,
              ylim=None, *args, **kwd):
@@ -581,7 +578,7 @@ class DatasetList(list):
         >>> dslist[['psi:7', 'phi:7']].plot(show=True)
         """
         if autoset:
-            legends = self.keys() if not legends else legends
+            keys = self.keys() if not keys else keys
 
         if use_seaborn:
             try:
@@ -593,7 +590,7 @@ class DatasetList(list):
             from matplotlib import pyplot as plt
             ax = plt.subplot(111)
             for idx, d0 in enumerate(self):
-                lb = legends[idx] if legends else None
+                lb = keys[idx] if keys else None
                 if lb:
                     if d0.ndim == 2:
                         ax.plot(d0[0], d0[1], label=lb, *args, **kwd)
@@ -614,8 +611,8 @@ class DatasetList(list):
             if ylim:
                 ax.set_ylim(ylim)
 
-            if legends:
-                plt.legend()
+            if keys:
+                plt.key()
 
             if show:
                 plt.show()
@@ -634,7 +631,7 @@ class DatasetList(list):
         def check_key(self, key):
             for k0 in self.keys():
                 if k0 == key:
-                    raise KeyError("must have different legend")
+                    raise KeyError("must have different key")
 
         if hasattr(dset, 'key'):
             check_key(self, dset.key)
@@ -648,7 +645,7 @@ class DatasetList(list):
 
     def remove(self, dset):
         for idx, d in enumerate(self):
-            if dset.legend == d.legend:
+            if dset.key == d.key:
                 # do not work with
                 # super(DatasetList, self).remove(d)
                 # TypeError: 'NotImplementedType' object is not callable
@@ -665,20 +662,20 @@ class DatasetList(list):
         return self
 
     def chunk_average(self, n_chunks):
-        return dict(map(lambda x: (x.legend, x.chunk_average(n_chunks)), self))
+        return dict(map(lambda x: (x.key, x.chunk_average(n_chunks)), self))
 
     def topk(self, k):
-        return dict((x.legend, x.topk(k)) for x in self)
+        return dict((x.key, x.topk(k)) for x in self)
 
     def lowk(self, k):
         from heapq import nsmallest
-        return dict((x.legend, list(nsmallest(k, x))) for x in self)
+        return dict((x.key, list(nsmallest(k, x))) for x in self)
 
     def head(self, k):
-        return dict((x.legend, x.head(k, restype='list')) for x in self)
+        return dict((x.key, x.head(k, restype='list')) for x in self)
 
     def tail(self, k):
-        return dict((x.legend, x.tail(k)) for x in self)
+        return dict((x.key, x.tail(k)) for x in self)
 
     def groupby(self, func_or_key):
         return _groupby(self, func_or_key)

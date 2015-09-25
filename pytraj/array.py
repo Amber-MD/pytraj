@@ -60,7 +60,7 @@ class DataArray(object):
             self.scalar_type = 'unknown'
             self.cpptraj_dtype = None
         else:
-            self.legend = getattr(dset, 'legend', "")
+            self.key= getattr(dset, 'key', "")
             self.name = getattr(dset, 'name', "")
             self.aspect = getattr(dset, 'aspect', 'unknown')
             self.idx = getattr(dset, 'idx', 0)
@@ -124,14 +124,6 @@ class DataArray(object):
 
     def astype(self, t):
         self._values = self._values.astype(t)
-
-    @property
-    def key(self):
-        return self.legend
-
-    @key.setter
-    def key(self, new_key):
-        self.legend = new_key
 
     @property
     def data(self):
