@@ -5,7 +5,7 @@ from pytraj.utils import eq, aa_eq
 import pytraj.common_actions as pyca
 
 
-class Test(unittest.TestCase):
+class TestAutoImageAndRotateDihedral(unittest.TestCase):
     def test_0(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         farray = traj[:]
@@ -27,17 +27,7 @@ class Test(unittest.TestCase):
               for _ in range(t0api.n_frames)])
 
 
-if __name__ == "__main__":
-    unittest.main()
-from __future__ import print_function
-import pytraj as pt
-import unittest
-from pytraj.utils import eq, aa_eq
-from pytraj import api
-from pytraj.compat import zip
-
-
-class Test(unittest.TestCase):
+class TestNoName(unittest.TestCase):
     def test_0(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         api_traj = traj[:]
