@@ -1745,7 +1745,7 @@ def calc_rmsd(traj=None,
 
     dnew = DatasetList(dslist)
     for d in dnew:
-        d.data = d.values[1:]
+        d.values= d.values[1:]
     return _get_data_from_dtype(dnew, dtype=dtype)
 
 # alias for `calc_rmsd`

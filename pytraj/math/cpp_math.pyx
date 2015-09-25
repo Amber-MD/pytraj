@@ -306,6 +306,9 @@ cdef class Matrix_3x3:
             cdef double[:] arr0 = <double[:9]> self.thisptr.Dptr()
             return arr0
 
+    def __array__(self):
+        return np.asarray(self.buffer2d)
+
 cdef class Vec3:
     def __cinit__(self, *args):
         cdef Vec3 vec

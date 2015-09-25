@@ -1158,14 +1158,14 @@ cdef class DatasetMatrix3x3 (Dataset):
         """slow"""
         return pyarray('d', self.to_ndarray().flatten())
 
+    property data:
+        def __get__(self):
+            return np.array([np.array(x) for x in self])
+
     def to_ndarray(self, copy=True):
         """return a copy
         """
-        import numpy as np
-        try:
-            return np.array([x.to_ndarray(copy=copy) for x in self])
-        except ValueError:
-            return np.array([], dtype='f8')
+        return np.asarray(self.data)
         
 cdef class DatasetMesh (Dataset1D):
     def __cinit__(self):
@@ -1189,10 +1189,22 @@ cdef class DatasetMesh (Dataset1D):
         cdef size_t i
         return [[self.thisptr.X(i), self.thisptr.Y(i)] for i in range(self.size)]
 
+    property data:
+        def __get__(self):
+            arr = np.empty((self.size, 2), dtype='f8')
+            cdef double[:, ::1] dview = arr
+            cdef int i
+            cdef int size = self.size
+
+            # fill data for arr by using its dview
+            for i in range(size):
+                dview[i, 0], dview[i, 1] = self.thisptr.X(i), self.thisptr.Y(i)
+            return arr
+
     def to_ndarray(self, copy=True):
         """use copy=True to make consistent with Dataset1D
         """
-        return np.array(self.tolist())
+        return np.asarray(self.data)
 
 cdef class DatasetCoords(Dataset):
     def __cinit__(self):
