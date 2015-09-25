@@ -1,18 +1,18 @@
 import unittest
-from pytraj.base import *
-from pytraj import io as mdio
+import numpy as np
+import pytraj as pt
+from pytraj import Frame
 from pytraj.core import Box
-from array import array as pyarray
 from pytraj.testing import eq, aa_eq
 from pytraj.compat import zip
 
 
 class TestBox(unittest.TestCase):
     def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame0.box_crd()
-        frame0.boxview[:] = pyarray('d', [0.0, 1.0, 2.0, 3.0, 4.0, 6.])
+        frame0.boxview[:] = np.array([0.0, 1.0, 2.0, 3.0, 4.0, 6.])
         frame0.set_nobox()
 
     def test_1(self):
@@ -44,8 +44,8 @@ class TestBox(unittest.TestCase):
         eq(f2.box.tolist(), box.tolist())
 
     def test_real_box(self):
-        traj = mdio.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
-        trajiter = mdio.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        trajiter = pt.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         saved_box = Box(
             [3.94559740E+01, 4.68215170E+01, 4.04695410E+01, 90., 90., 90.])
         #print(traj.top.box)

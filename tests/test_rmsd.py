@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import unittest
 import numpy as np
 import pytraj as pt
@@ -105,9 +106,14 @@ class TestSimpleRMSD(unittest.TestCase):
         mask = ['@CA', '@CB', ':3-18@CA,C', [0, 3, 5]]
         self.assertRaises(ValueError, lambda: pt.rmsd(traj, mask=mask))
 
+    def test_raise_savematrices_if_not_dataset(self):
+        traj = self.traj.copy()
+        self.assertRaises(ValueError, lambda: pt.rmsd(traj, mask='@CA savematrices',
+            dtype='ndarray'))
+
 
 class TestRMSDPerRes(unittest.TestCase):
-    def test_0(self):
+    def test_noreference(self):
         from pytraj.datafiles import load_cpptraj_output, tz2_ortho_trajin
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         cout = load_cpptraj_output(tz2_ortho_trajin + """
@@ -115,6 +121,22 @@ class TestRMSDPerRes(unittest.TestCase):
         d = pt.rmsd_perres(traj, ref=0, mask='@CA', resrange='2-7')
         aa_eq(cout.values, d)
 
+    def test_reference(self):
+        from pytraj.datafiles import load_cpptraj_output, tz2_ortho_trajin
+        traj = pt.iterload("./data/tz2.truncoct.nc", "data/tz2.truncoct.parm7")
+        txt = '''
+        reference data/tz2.truncoct.nc 2 2
+        rmsd :2-11 refindex 0 perres perresout center.agr range 1 perrescenter
+        '''
+        state = pt.load_batch(traj, txt).run()
+        # state.data has 3 datasets: ref, rmsd, rmsd perres
+
+        # cpptraj use 2nd reference
+        rmsd0 = pt.rmsd(traj, ref=1, mask=':2-11')
+        rmsdperres = pt.rmsd_perres(traj, ref=1, mask=':2-11', perres_mask='*',
+                resrange='1', perres_center=True)
+        aa_eq(rmsd0, state.data[1])
+        aa_eq(rmsdperres[1], state.data[2].values)
 
 class TestRMSDnofit(unittest.TestCase):
     def test_0(self):
