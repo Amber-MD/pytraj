@@ -2,17 +2,17 @@ from __future__ import print_function, absolute_import
 from .externals.six import iteritems
 
 
-default_key_dict = {
-    'distance_matrix': 'dist',
-    'correlation_matrix': 'correl',
-    'coord_covariance_matrix': 'covar',
-    'mw_covariance_matrix': 'mwcovar',
-    'distcovar_matrix': 'distcovar',
-    'idea_matrix': 'idea',
-    'ired_matrix': 'ired'
+mat_keys = {
+    'dist',
+    'correl',
+    'covar',
+    'mwcovar',
+    'distcovar',
+    'idea',
+    'dihcovar',
 }
 
-__all__ = list(default_key_dict.keys())
+__all__ = mat_keys
 
 __cpptrajdoc__ = """
     cpptraj manual
@@ -25,7 +25,6 @@ __cpptrajdoc__ = """
     + mwcovar: Mass-weighted coordinate covariance matrix.
     + distcovar: Distance covariance matrix.
     + idea: Isotropically Distributed Ensemble Analysis matrix.
-    + ired: Isotropic Reorientational Eigenmode Dynamics matrix.
     + dihcovar: Dihedral covariance matrix.
 """
 
@@ -79,10 +78,10 @@ def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args,
         return _get_data_from_dtype(dslist, dtype=dtype)
 '''
 
-for k, v in iteritems(default_key_dict):
-    my_func_str = template % (k, v)
+for k in mat_keys:
+    my_func_str = template % (k, k)
     g_dict = globals()
     exec(my_func_str)
     g_dict[k].__doc__ += __cpptrajdoc__
 
-del k, v
+del k
