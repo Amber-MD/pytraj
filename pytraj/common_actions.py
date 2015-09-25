@@ -2010,8 +2010,9 @@ def native_contacts(traj=None,
 
     act(_command, [ref, fi], top=_top, dslist=dslist)
 
-    dslist = DatasetList(dslist)
+    #dslist = DatasetList(dslist)
     for d in dslist:
+        print(d)
         # exclude ref frame
         d.values = d.values[1:]
     return _get_data_from_dtype(dslist, dtype=dtype)

@@ -649,6 +649,10 @@ cdef class DatasetInteger (Dataset1D):
     def _add(self, int idx, int value):
         self.thisptr.Add(idx, &value)
 
+    property values:
+        def __set__(self, values):
+            self.data = values
+
     property data:
         def __get__(self):
             """return memoryview of data array
