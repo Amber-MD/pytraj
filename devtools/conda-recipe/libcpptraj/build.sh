@@ -3,10 +3,8 @@
 bash ./configure -shared -nomathlib --with-netcdf=$PREFIX -openmp gnu
 make libcpptraj
 
-mkdir -p $PREFIX/lib/cpptraj/lib/
-mkdir -p $PREFIX/lib/cpptraj/src/
+mkdir -p $PREFIX/include/cpptraj/
 
-cp lib/libcpptraj* $PREFIX/lib/cpptraj/lib/
 cp lib/libcpptraj* $PREFIX/lib/
 
-cp src/*.h $PREFIX/lib/cpptraj/src/
+cp src/*.h $PREFIX/include/cpptraj/
