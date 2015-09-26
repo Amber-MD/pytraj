@@ -48,8 +48,8 @@ class Test(unittest.TestCase):
             frame_slice=(0, 2))
 
         # test mutable traj
-        coords = pt.tools.merge_frames(traj[:]).xyz
-        r0 = pt.misc.rmsd(coords, pt.get_coordinates(traj), True)
+        frame = pt.tools.merge_frames(traj[:])
+        r0 = pt.misc.rmsd(frame.xyz, pt.get_coordinates(traj), True)
         assert r0 == 0.
 
         #, True) test immutable traj
