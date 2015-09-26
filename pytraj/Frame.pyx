@@ -1179,6 +1179,7 @@ cdef class Frame (object):
         # has wrong number of arguments
         return self._calc_distance(arr, parallel)
 
+    @cython.boundscheck(False)
     def _calc_distance(self, cython.integral [:, :] int_arr, bint parallel):
         """return python array of distance for two atoms with indices idx0, idx1
         Parameters

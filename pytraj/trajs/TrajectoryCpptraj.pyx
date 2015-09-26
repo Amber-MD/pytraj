@@ -377,6 +377,10 @@ cdef class TrajectoryCpptraj:
         cdef int n_frames = len(indices)
 
         traj = Trajectory()
+        traj.top = self.top
+        if n_frames == 0:
+            # return empty traj
+            return traj
         traj._allocate(n_frames, n_atoms)
         traj.unitcells = np.zeros((n_frames, 6), dtype='f8')
         traj.top = self.top

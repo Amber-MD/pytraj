@@ -305,14 +305,14 @@ def concat_dict(iterables):
 def merge_coordinates(iterables):
     """merge_coordinates from frames
     """
-    return np.vstack((np.array(f.xyz) for f in iterables))
+    return np.vstack((f.xyz.copy() for f in iterables))
 
 
 def merge_frames(iterables):
     """merge from frames to a single Frame. Order matters.
     """
     from pytraj import Frame
-    xyz = np.vstack((np.array(f.xyz) for f in iterables))
+    xyz = np.vstack((f.xyz.copy() for f in iterables))
     frame = Frame()
     frame.append_xyz(xyz)
     return frame
