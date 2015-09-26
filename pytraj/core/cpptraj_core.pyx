@@ -460,6 +460,10 @@ cdef class Command:
         _Command.Dispatch(cppstate.thisptr[0], trajin_text)
         return cppstate
 
+    @classmethod
+    def dispatch(cls, CpptrajState state, line):
+        _Command.Dispatch(state.thisptr[0], line.encode())
+
 cdef class CpptrajState:
     """
     CpptrajState hold instances of:
