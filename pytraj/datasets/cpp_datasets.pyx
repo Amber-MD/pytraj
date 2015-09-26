@@ -885,10 +885,22 @@ cdef class DatasetMatrixDouble (Dataset2D):
                 arr0.append(self.baseptr_1.GetElement(i, j))
         return arr0
 
-    @property
-    def data(self):
-        """return 1D python array of matrix' data"""
-        return self.to_ndarray()
+    property data:
+        def __get__(self):
+            """return 1D python array of matrix' data"""
+            return self.to_ndarray()
+    def set_data(self, values, size):
+        cdef double[:, ::1] dview = values
+        cdef unsigned int i, j
+        cdef size_t X, Y
+        X, Y = dview.shape[0], dview.shape[1]
+        cdef vector[size_t] vec = [X, Y]
+
+        (<_Dataset2D*> self.thisptr).AllocateHalf(size)
+
+        for i in range(X):
+            for j in range(Y):
+                self.thisptr.SetElement(i, j, dview[i, j])
 
     def to_ndarray(self, copy=True):
         """use copy=True to be the same as Dataset1D"""
