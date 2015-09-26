@@ -12,9 +12,6 @@ from functools import partial
 from glob import glob
 from itertools import chain
 
-# import ./scripts
-from scripts import setup_for_amber
-
 N_CORES = int(os.environ.get('NUM_THREADS', 4))
 
 def parallelCCompile(self, sources, 
@@ -314,19 +311,6 @@ pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
 sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*"]
 datalist = pxdlist + sample_data
 
-# compare to "setup_for_amber" script
-package_match = (sorted(packages) == sorted(setup_for_amber.packages))
-datalist_match = (sorted(datalist) == sorted(setup_for_amber.datalist))
-
-if not package_match:
-    sys.stderr.write(
-        "packages mistmatch. Make sure to update ./scripts/setup_for_amber.py\n")
-    sys.exit(0)
-
-if not datalist_match:
-    sys.stderr.write("datalist mistmatch\n")
-    sys.exit(0)
-
 
 def build_func(my_ext):
     return setup(
@@ -375,7 +359,6 @@ if __name__ == "__main__":
         build_tag = build_func(ext_modules)
         if do_install:
             remind_ld_lib_path(build_tag, libdir)
-        print(libdir, cpptraj_include)
     else:
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
