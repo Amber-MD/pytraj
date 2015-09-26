@@ -2014,7 +2014,7 @@ def native_contacts(traj=None,
     dslist = DatasetList(dslist)
     for d in dslist:
         # exclude ref frame
-        d.data = d.values[1:]
+        d.values = d.values[1:]
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
