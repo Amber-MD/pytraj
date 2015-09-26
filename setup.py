@@ -14,34 +14,46 @@ from itertools import chain
 
 N_CORES = int(os.environ.get('NUM_THREADS', 4))
 
-def parallelCCompile(self, sources, 
-                     output_dir=None, macros=None, 
-                     include_dirs=None, debug=0, 
-                     extra_preargs=None, extra_postargs=None, depends=None):
+
+def parallelCCompile(self, sources,
+                     output_dir=None,
+                     macros=None,
+                     include_dirs=None,
+                     debug=0,
+                     extra_preargs=None,
+                     extra_postargs=None,
+                     depends=None):
     # monkey-patch for parallel compilation
     # see: http://stackoverflow.com/questions/11013851/speeding-up-build-process-with-distutils
     # those lines are copied from distutils.ccompiler.CCompiler directly
-    macros, objects, extra_postargs, pp_opts, build =  self._setup_compile(output_dir, macros, include_dirs, sources, depends, extra_postargs)
+    macros, objects, extra_postargs, pp_opts, build = self._setup_compile(
+        output_dir, macros, include_dirs, sources, depends, extra_postargs)
     cc_args = self._get_cc_args(pp_opts, debug, extra_preargs)
     # parallel code
-    N=N_CORES # number of parallel compilations
+    N = N_CORES  # number of parallel compilations
     import multiprocessing.pool
+
     def _single_compile(obj):
-        try: src, ext = build[obj]
-        except KeyError: return
+        try:
+            src, ext = build[obj]
+        except KeyError:
+            return
         self._compile(obj, src, ext, cc_args, extra_postargs, pp_opts)
     # convert to list, imap is evaluated on-demand
-    list(multiprocessing.pool.ThreadPool(N).imap(_single_compile,objects))
+    list(multiprocessing.pool.ThreadPool(N).imap(_single_compile, objects))
     return objects
 
-distutils.ccompiler.CCompiler.compile=parallelCCompile
+
+distutils.ccompiler.CCompiler.compile = parallelCCompile
 
 if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
 
+
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 
 if sys.platform == 'darwin':
     # copied from ParmEd
@@ -158,7 +170,7 @@ else:
         # use libcpptraj and header files in PYTRAJHOME
         # ./cpptraj/src
         # ./cpptraj/lib
-    
+
         nice_message = """
         We're trying to dowload and build libcpptraj for you. (5-10 minutes)
         (check ./cpptraj/ folder after installation)
@@ -180,12 +192,13 @@ else:
         python setup.py install
         ...
         """
-    
+
         if do_install or do_build:
             print(nice_message)
             sleep(3)
             try:
-                subprocess.check_call(['sh', './installs/install_cpptraj_git.sh'])
+                subprocess.check_call(['sh',
+                                       './installs/install_cpptraj_git.sh'])
             except CalledProcessError:
                 sys.stderr.write(
                     'can not install libcpptraj, you need to install it manually \n')
@@ -193,8 +206,8 @@ else:
         cpptraj_dir = os.path.join(rootname, "cpptraj")
         cpptraj_include = os.path.join(cpptraj_dir, 'src')
         libdir = os.path.join(cpptraj_dir, 'lib')
-    
-# get *.pyx files
+
+    # get *.pyx files
 pxd_include_dirs = [
     directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
     in files or '__init__.pxd' in files or '__init__.py' in files
@@ -253,8 +266,7 @@ except ValueError:
 # pre-cythonize files in parallel
 cythonize(
     [pfile + '.pyx' for pfile in pyxfiles],
-    nthreads=int(os.environ.get('NUM_THREADS', 8)),
-    )
+    nthreads=int(os.environ.get('NUM_THREADS', 8)), )
 
 ext_modules = []
 for ext_name in pyxfiles:
