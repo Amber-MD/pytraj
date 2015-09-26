@@ -132,8 +132,7 @@ cdef class Dataset:
 
     @property
     def data(self):
-        """return 1D python array of `self`
-        ABC method, must override
+        """mostly memoryview
         """
         raise NotImplementedError("Must over-write Dataset data attr")
 
@@ -153,8 +152,12 @@ cdef class Dataset:
             raise NotImplementedError(msg)
 
     property values:
+        '''return a copy or non-copy, depending on data
+        '''
+        def __set__(self, values):
+            self.data = values
         def __get__(self):
-            return self.to_ndarray()
+            return np.asarray(self.data)
 
     def to_ndarray(self, copy=False):
         """return ndarray view of self.data"""
@@ -467,12 +470,6 @@ cdef class DatasetDouble (Dataset1D):
         idx_ = <size_t> idx
         self.thisptr.Add(idx_, <void*> (&elm))
 
-    property values:
-        def __get__(self):
-            return self.to_ndarray()
-        def __set__(self, values):
-            self.data = values
-
     property data:
         def __get__(self):
             """return memoryview of data array
@@ -523,10 +520,6 @@ cdef class DatasetFloat (Dataset1D):
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
 
-    property values:
-        def __set__(self, values):
-            self.data = values
-
     property data:
         def __get__(self):
             """return memoryview of data array
@@ -543,6 +536,7 @@ cdef class DatasetFloat (Dataset1D):
 
         def __set__(self, data):
             cdef float x
+            self.resize(0)
             for x in data:
                 self.thisptr.AddElement(x)
 
@@ -649,6 +643,7 @@ cdef class DatasetInteger (Dataset1D):
     def _add(self, int idx, int value):
         self.thisptr.Add(idx, &value)
 
+
     property data:
         def __get__(self):
             """return memoryview of data array
@@ -748,9 +743,25 @@ cdef class DatasetVector(Dataset):
     def append(self, Vec3 vec):
         self.thisptr.AddVxyz(vec.thisptr[0])
 
-    property values:
+    property data:
         def __get__(self):
-            return self.to_ndarray()
+            # use `copy=True` as dummy argument to be 
+            # consistent with Dataset1D
+            cdef int i
+            cdef int size = self.size
+            cdef _Vec3 _vec3
+            #cdef double[:, :] dview = cyarray(shape=(size, 3), 
+            #        itemsize=sizeof(double), format="d")
+            arr = np.empty((size, 3), dtype='f8')
+            cdef double[:, ::1] dview = arr
+
+            # copy data to arr by dview
+            for i in range(size):
+                _vec3 = self.thisptr.index_opr(i)
+                dview[i, 0] = _vec3.Dptr()[0]
+                dview[i, 1] = _vec3.Dptr()[1]
+                dview[i, 2] = _vec3.Dptr()[2]
+            return arr
 
         def __set__(self, values):
             cdef int i
@@ -761,6 +772,7 @@ cdef class DatasetVector(Dataset):
             if arr.shape[1] != 3:
                 raise ValueError("must have shape = (n_frames, 3))")
 
+            self.resize(0)
             for i in range(arr.shape[0]):
                 xyz = arr[i]
                 _vec.Assign(&xyz[0])
@@ -772,34 +784,11 @@ cdef class DatasetVector(Dataset):
         return [x.tolist() for x in self.data]
 
     def to_ndarray(self, copy=True):
-        # rewrite to make fast copy
-        # use `copy=True` as dummy argument to be 
-        # consistent with Dataset1D
-        import numpy as np
-        cdef int i
-        cdef int size = self.size
-        cdef _Vec3 _vec3
-        #cdef double[:, :] dview = np.empty((size, 3), dtype='f8')
-        cdef double[:, :] dview = cyarray(shape=(size, 3), 
-                itemsize=sizeof(double), format="d")
-
-        for i in range(size):
-            _vec3 = self.thisptr.index_opr(i)
-            dview[i, 0] = _vec3.Dptr()[0]
-            dview[i, 1] = _vec3.Dptr()[1]
-            dview[i, 2] = _vec3.Dptr()[2]
-        return np.array(dview)
+        return np.asarray(self.data)
 
     def to_dataframe(self):
         import pandas as pd
         return pd.DataFrame(self.to_ndarray(), columns=list('xyz'))
-
-    @property
-    def data(self):
-        """return self.__iter__
-        Not sure what else we should return
-        """
-        return self.__iter__()
 
 
 cdef class Dataset2D (Dataset):
@@ -1169,14 +1158,14 @@ cdef class DatasetMatrix3x3 (Dataset):
         """slow"""
         return pyarray('d', self.to_ndarray().flatten())
 
+    property data:
+        def __get__(self):
+            return np.array([np.array(x) for x in self])
+
     def to_ndarray(self, copy=True):
         """return a copy
         """
-        import numpy as np
-        try:
-            return np.array([x.to_ndarray(copy=copy) for x in self])
-        except ValueError:
-            return np.array([], dtype='f8')
+        return np.asarray(self.data)
         
 cdef class DatasetMesh (Dataset1D):
     def __cinit__(self):
@@ -1200,10 +1189,22 @@ cdef class DatasetMesh (Dataset1D):
         cdef size_t i
         return [[self.thisptr.X(i), self.thisptr.Y(i)] for i in range(self.size)]
 
+    property data:
+        def __get__(self):
+            arr = np.empty((self.size, 2), dtype='f8')
+            cdef double[:, ::1] dview = arr
+            cdef int i
+            cdef int size = self.size
+
+            # fill data for arr by using its dview
+            for i in range(size):
+                dview[i, 0], dview[i, 1] = self.thisptr.X(i), self.thisptr.Y(i)
+            return arr
+
     def to_ndarray(self, copy=True):
         """use copy=True to make consistent with Dataset1D
         """
-        return np.array(self.tolist())
+        return np.asarray(self.data)
 
 cdef class DatasetCoords(Dataset):
     def __cinit__(self):
@@ -1331,45 +1332,12 @@ cdef class DatasetCoordsCRD (DatasetCoords):
         if self.py_free_mem:
             del self.thisptr
 
-    property values:
-        def __set__(self, traj):
-            cdef Frame frame
+    def load(self, filename):
+        trajin = TrajectoryCpptraj()
+        trajin.load(filename, self.top)
 
-            for frame in traj:
-                self.baseptr_1.AddFrame(frame.thisptr[0])
-
-    def load(self, filename_or_traj, top=Topology(), copy_top=False, copy=True):
-        cdef Topology tmp_top
-        cdef Frame frame
-
-        if isinstance(top, string_types):
-            self.top = top = Topology(top)
-
-        if top.is_empty():
-            if not self.top.is_empty():
-                tmp_top = self.top
-            else:
-                raise ValueError("need to have non-empty topology file")
-        else:
-            tmp_top = top
-            # update self.top too
-            if copy_top == True:
-                self.top = top.copy()
-            else:
-                self.top = top
-
-        if isinstance(filename_or_traj, string_types):
-            trajin_single = TrajectoryCpptraj()
-            trajin_single.load(filename_or_traj, tmp_top)
-            for frame in trajin_single:
-                self.append(frame.copy()) # always copy
-        else:
-            # assume that we can iterate over filename_or_traj to get Frame object
-            for frame in filename_or_traj:
-                if copy:
-                    self.append(frame.copy())
-                else:
-                    self.append(frame)
+        for frame in trajin:
+            self.append(frame.copy())
 
 cdef class DatasetCoordsRef (DatasetCoords):
     def __cinit__(self):

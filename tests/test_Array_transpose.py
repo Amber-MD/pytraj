@@ -9,6 +9,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         c = pt.center_of_mass(traj, dtype='dataset')[0]
+        print(c)
         ct = c.T
         aa_eq(ct.values, c.values.T)
 

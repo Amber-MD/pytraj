@@ -13,9 +13,9 @@ class Test(unittest.TestCase):
         '''
 
         dslist = pt.native_contacts(traj, top=traj.top)
+        dslist1 = pt.native_contacts(traj, top=traj.top, ref=-1)
         cpp = pt.datafiles.load_cpptraj_output(txt)
         aa_eq(dslist.values, cpp.values)
-
 
 if __name__ == "__main__":
     unittest.main()
