@@ -43,6 +43,7 @@ cdef class TrajectoryCpptraj:
         self.thisptr = new _TrajectoryCpptraj()
         self._top = Topology()
         self._filelist = []
+        self.py_free_mem = True
 
     def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         '''
@@ -276,7 +277,7 @@ cdef class TrajectoryCpptraj:
                  raise NotImplementedError(txt)
          elif isinstance(idxs, slice):
              start, stop, stride = idxs.indices(self.n_frames)
-             self.tmpfarray = self._to_nptraj_by_indices(range(start, stop, stride))
+             self.tmpfarray = self._load_traj_by_indices(range(start, stop, stride))
              return self.tmpfarray
          else:
              # not is a slice
@@ -318,7 +319,7 @@ cdef class TrajectoryCpptraj:
                  # support indexing that having 'len'
                  if any(isinstance(x, bool) for x in idxs):
                      raise NotImplementedError("do not support bool indexing")
-                 self.tmpfarray = self._to_nptraj_by_indices(idxs)
+                 self.tmpfarray = self._load_traj_by_indices(idxs)
                  return self.tmpfarray
 
              else:
@@ -364,10 +365,10 @@ cdef class TrajectoryCpptraj:
         pass
 
     def __dealloc__(self):
-        if self.thisptr:
+        if self.thisptr and self.py_free_mem:
             del self.thisptr
 
-    def _to_nptraj_by_indices(self, indices):
+    def _load_traj_by_indices(self, indices):
         '''indices is iterable that has __len__
         '''
         cdef int i, j
