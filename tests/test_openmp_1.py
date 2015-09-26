@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         dslist.add_set("coords", "test_traj", "my_default_name")
         dslist[0].top = traj.top
         for i in range(45):
-            dslist[0].load(traj)
+            dslist[0].load(traj.filename)
         act = Analysis_Rms2d()
 
         @Timer()
