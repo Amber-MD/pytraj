@@ -224,7 +224,7 @@ cdef extern from "DataSet_MatrixDbl.h":
 
 cdef class DatasetMatrixDouble (Dataset2D):
     cdef _DatasetMatrixDouble* thisptr
-    cdef bint py_free_mem
+    cdef public bint py_free_mem
 
 
 cdef extern from "DataSet_MatrixFlt.h": 

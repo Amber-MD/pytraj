@@ -9,6 +9,7 @@ from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from .externals.six import string_types
 from .externals.six.moves import range
 from .Topology import Topology
+from .Frame import Frame
 from .utils import is_int
 from ._cyutils import get_positive_idx
 from .frameiter import FrameIter
@@ -220,7 +221,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                     "or two elements (frame, mask)")
                 if len(rmsfit) == 1:
                     rmsfit = (rmsfit[0], '*')
-            elif isinstance(rmsfit, int):
+            elif isinstance(rmsfit, int) or isinstance(rmsfit, Frame):
                 rmsfit = (rmsfit, '*')
             else:
                 raise ValueError("rmsfit must be a tuple or an integer")

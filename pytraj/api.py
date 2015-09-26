@@ -694,7 +694,7 @@ class Trajectory(object):
                     "or two elements (frame, mask)")
                 if len(rmsfit) == 1:
                     rmsfit = (rmsfit, '*')
-            elif isinstance(rmsfit, int):
+            elif isinstance(rmsfit, int) or isinstance(rmsfit, Frame):
                 rmsfit = (rmsfit, '*')
             else:
                 raise ValueError("rmsfit must be a tuple or an integer")
