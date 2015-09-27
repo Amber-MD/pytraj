@@ -544,9 +544,3 @@ cdef class DatasetList:
 
     def _parent_lists_free(self):
         self._parent_lists_free = []
-
-    def to_pyarray(self):
-        if self.size > 1:
-            return [d.to_pyarray() for d in self]
-        else:
-            return self[0].to_pyarray()

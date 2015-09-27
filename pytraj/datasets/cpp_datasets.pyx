@@ -1,7 +1,6 @@
 # distutils: language = c++
 
 from __future__ import division
-from cpython.array cimport array as pyarray
 from ..cpptraj_dict import DataTypeDict, get_key
 from ..decorators import makesureABC, require_having
 from ..datafiles.datafiles import DataFileList, DataFile
@@ -138,18 +137,6 @@ cdef class Dataset:
 
     def tolist(self):
         return list(self.data)
-
-    def to_pyarray(self):
-        type_dict = {'float' : 'f',
-                     'double' : 'd',
-                     'integer' : 'i',
-                     'string' : 's',
-                    }
-        try:
-            return pyarray(type_dict[self.dtype], self.data)
-        except:
-            msg = "not implemented for %s" % self.__class__.__name__
-            raise NotImplementedError(msg)
 
     property values:
         '''return a copy or non-copy, depending on data
@@ -567,16 +554,14 @@ cdef class DatasetInteger (Dataset1D):
 
     def __getitem__(self, idx):
         #return self.thisptr.index_opr(idx)
-        cdef pyarray arr0 = pyarray('i', [])
         cdef int i
 
         if is_int(idx):
             return self.thisptr.index_opr(idx)
         elif isinstance(idx, slice):
             if idx == slice(None):
-                for i in range(self.size):
-                    arr0.append(self.thisptr.index_opr(i))
-                return arr0
+                return np.array([self.thisptr.index_opr(i) 
+                                 for i in range(self.size)])
             else:
                 raise NotImplementedError("only support slice(None)")
         else:
@@ -703,10 +688,6 @@ cdef class DatasetString (Dataset1D):
 
     def tolist(self):
         return self.data
-
-    def to_pyarray(self):
-        cdef pyarray arr0 = pyarray('u', self.tolist())
-        return arr0
 
 
 cdef class DatasetVector(Dataset):
@@ -889,6 +870,7 @@ cdef class DatasetMatrixDouble (Dataset2D):
         def __get__(self):
             """return 1D python array of matrix' data"""
             return self.to_ndarray()
+
     def set_data(self, values, size):
         cdef double[:, ::1] dview = values
         cdef unsigned int i, j
@@ -1166,10 +1148,6 @@ cdef class DatasetMatrix3x3 (Dataset):
     def tolist(self):
         return self.to_ndarray().tolist()
 
-    def to_pyarray(self):
-        """slow"""
-        return pyarray('d', self.to_ndarray().flatten())
-
     property data:
         def __get__(self):
             return np.array([np.array(x) for x in self])
@@ -1372,9 +1350,9 @@ cdef class DatasetCoordsRef (DatasetCoords):
     @property
     def values(self):
         """"""
-        return self[0].to_ndarray()
+        return self.data
 
     @property
     def data(self):
         """"""
-        return self.values
+        return self.get_frame().xyz

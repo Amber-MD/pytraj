@@ -4,7 +4,6 @@ from cython.view cimport array as cyarray
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from libcpp.vector cimport vector
-from cpython.array cimport array as pyarray
 from libc.math cimport sqrt
 from libcpp.string cimport string
 from cpython.array cimport array
@@ -105,7 +104,7 @@ cdef class Matrix_3x3:
         else:
             if len(Xin) == 9:
                 # 1D
-                X = pyarray('d', Xin)
+                X = np.asarray(Xin, dtype='f8')
             elif len(Xin) == 3:
                 # 2D: 3x3
                 _flat_list = []
@@ -114,7 +113,7 @@ cdef class Matrix_3x3:
                 for x in Xin:
                     for x0 in x:
                         _flat_list.append(x0)
-                X = pyarray('d', _flat_list)
+                X = np.asarray(_flat_list, dtype='f8')
             if X.shape[0] == 9:
                 #Takes array of 9, row-major
                 self.thisptr = new _Matrix_3x3(&X[0])

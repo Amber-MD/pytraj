@@ -105,7 +105,7 @@ def search_hbonds_noseries(traj,
     traj : {Trajectory-like object, frame_iter object, list of traj}
     mask : str 
         Amber atom mask
-    dtype : str {'list', 'pyarray', 'dataset', 'ndarray'}, default='dataset'
+    dtype : str {'dataset', 'ndarray'}, default='dataset'
     *args, **kwd: optional
 
     Returns

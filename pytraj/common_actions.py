@@ -1695,7 +1695,6 @@ def calc_rmsd(traj=None,
 
     """
     from pytraj.utils import is_int
-    from array import array as pyarray
     from pytraj.core.ActionList import ActionList
 
     _nofit = ' nofit ' if nofit else ''
