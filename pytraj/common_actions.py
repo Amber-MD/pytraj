@@ -2076,7 +2076,7 @@ def check_structure(traj=None, command="", top=None, *args, **kwd):
 
 def timecorr(vec0, vec1,
              order=2,
-             timestep=1.,
+             tstep=1.,
              tcorr=10000.,
              norm=False,
              dtype='ndarray'):
@@ -2087,7 +2087,7 @@ def timecorr(vec0, vec1,
     vec0 : 2D array-like, shape=(n_frames, 3)
     vec1 : 2D array-like, shape=(n_frames, 3)
     order : int, default 2
-    timestep : float, default 1.
+    tstep : float, default 1.
     tcorr : float, default 10000.
     norm : bool, default False
     """
@@ -2101,7 +2101,7 @@ def timecorr(vec0, vec1,
     cdslist[1].data = np.asarray(vec1).astype('f8')
 
     _order = "order " + str(order)
-    _tstep = "tstep " + str(timestep)
+    _tstep = "tstep " + str(tstep)
     _tcorr = "tcorr " + str(tcorr)
     _norm = "norm" if norm else ""
     command = " ".join(

@@ -26,11 +26,18 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''
 
 class TestCpptrajDataset(unittest.TestCase):
+    def setUp(self):
+        self.state = pt.datafiles.load_cpptraj_state(txt)
+        self.state.run()
+
+    def test_call_values(self):
+        for d in self.state.data:
+            d.values
+
     def test_dataset_coords_ref(self):
         traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
         avg_frame = pt.mean_structure(traj(rmsfit=(0, '!@H=')))
-        state = pt.datafiles.load_cpptraj_state(txt)
-        state.run()
+        state = self.state
 
         # need to loop several times to make sure this does not fail
         # due to memory free
