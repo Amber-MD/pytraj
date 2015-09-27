@@ -4,7 +4,6 @@ import numpy as np
 from cython cimport view
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
-from cpython.array cimport array as pyarray
 
 from pytraj.cpptraj_dict import BoxTypeDict, get_key
 from pytraj.externals.six import string_types
@@ -34,8 +33,7 @@ cdef class Box(object):
                     # if args[0] has buffer interface
                     boxIn = args[0]
                 except:
-                    # try to create pyarray
-                    boxIn = pyarray('d', [item for item in args[0]])
+                    boxIn = np.array([item for item in args[0]], dtype='f8')
                 self.thisptr = new _Box(&boxIn[0])
         else: 
             raise ValueError("")
@@ -106,8 +104,7 @@ cdef class Box(object):
     def set_box_from_array(self, boxIn):
         # try to cast array-like to python array
         # list, tuple are ok too
-        cdef pyarray arr0 = pyarray('d', boxIn)
-        cdef double[:] myview = arr0
+        cdef double[:] myview = np.asarray(boxIn, dtype='f8')
         
         self.thisptr.SetBox(&myview[0])
 

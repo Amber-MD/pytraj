@@ -184,13 +184,6 @@ class DataArray(object):
     def to_dict(self):
         return {self.key: self.values}
 
-    def to_pyarray(self):
-        from array import array
-        if 'int' in self.dtype.name:
-            return array('i', self.values.flatten())
-        else:
-            return array('d', self.values.flatten())
-
     def count(self, value=None):
         """
         Parameters

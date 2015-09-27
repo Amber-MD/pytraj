@@ -669,7 +669,7 @@ def _load_batch(txt, traj=None):
 
     for line in lines:
         line = line.rstrip().lstrip().strip('\n')
-        if line:
+        if line and not line.startswith('#'):
             _Command.Dispatch(state.thisptr[0], line.encode())
     return state
 
