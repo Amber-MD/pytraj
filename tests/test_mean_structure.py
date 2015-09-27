@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import unittest
 import numpy as np
 import pytraj as pt
@@ -74,10 +75,23 @@ class TestAverageFrame(unittest.TestCase):
         # 3rd frame
         # assign traj again
         t0 = traj[:]
-
         pt.autoimage(t0).superpose(ref=3)
         avg_0 = pt.mean_structure(t0, '@CA')
         avg_1= pt.mean_structure(traj(autoimage=True, rmsfit=3), '@CA')
+        avg_2= pt.mean_structure(traj, autoimage=True, rmsfit=3, mask='@CA')
+        aa_eq(avg_0.xyz, avg_1.xyz)
+        aa_eq(avg_0.xyz, avg_2.xyz)
+
+        # 3rd frame, frame_indices
+        # assign traj again
+        frame_indices = [0, 8, 5]
+        t0 = traj[frame_indices]
+        t0.autoimage().superpose(ref=-1)
+        avg_0 = pt.mean_structure(t0, '@CA')
+
+        # use ref=5 which correspond to original index
+        avg_1= pt.mean_structure(traj, autoimage=True, rmsfit=5, mask='@CA',
+                frame_indices=frame_indices)
         aa_eq(avg_0.xyz, avg_1.xyz)
 
 if __name__ == "__main__":
