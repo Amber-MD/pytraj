@@ -48,6 +48,7 @@ class TestCpptrajDataset(unittest.TestCase):
             aa_eq(avg_frame.xyz, cpp_ref.values)
             aa_eq(avg_frame.xyz, cpp_ref.data)
 
+    @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
     def test_DatasetModes(self):
         state = self.state
         modes = state.data['MyEvecs']
