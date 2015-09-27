@@ -264,9 +264,17 @@ except ValueError:
     pass
 
 # pre-cythonize files in parallel
+cython_directives = {
+        'embedsignature': True,
+        'boundscheck': False,
+        'wraparound': False,
+    }
+
 cythonize(
     [pfile + '.pyx' for pfile in pyxfiles],
-    nthreads=int(os.environ.get('NUM_THREADS', 8)), )
+    nthreads=int(os.environ.get('NUM_THREADS', 8)),
+    compiler_directives=cython_directives,
+    )
 
 ext_modules = []
 for ext_name in pyxfiles:
@@ -289,12 +297,6 @@ for ext_name in pyxfiles:
                        include_dirs=[cpptraj_include, pytraj_home],
                        extra_compile_args=extra_compile_args,
                        extra_link_args=extra_link_args)
-
-    extmod.cython_directives = {
-        'embedsignature': True,
-        'boundscheck': False,
-        'wraparound': False,
-    }
     ext_modules.append(extmod)
 
 #shuffle(ext_modules)
