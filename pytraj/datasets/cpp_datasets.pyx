@@ -1066,6 +1066,14 @@ cdef class DatasetModes(Dataset):
         if self.thisptr and self.py_free_mem:
             del self.thisptr
 
+    property data:
+        def __get__(self):
+            return self
+
+    property values:
+        def __get__(self):
+            return self.data
+
     def nmodes(self):
         return self.thisptr.Nmodes()
 
@@ -1328,6 +1336,14 @@ cdef class DatasetCoordsCRD (DatasetCoords):
 
         for frame in trajin:
             self.append(frame.copy())
+
+    property data:
+        def __get__(self):
+            return self
+
+    property values:
+        def __get__(self):
+            return self.data
 
 cdef class DatasetCoordsRef (DatasetCoords):
     def __cinit__(self):

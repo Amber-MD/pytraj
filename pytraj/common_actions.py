@@ -991,6 +991,8 @@ def mean_structure(traj,
                    mask='',
                    frame_indices=None,
                    restype='frame',
+                   autoimage=False,
+                   rmsfit=None,
                    top=None):
     '''get mean structure for a given mask and given frame_indices
 
@@ -1002,6 +1004,10 @@ def mean_structure(traj,
         frame indices
     restype: str, {'frame', 'traj'}, default 'frame'
         return type, either Frame (does not have Topology information) or 'traj'
+    autoimage : bool, default False
+        if True, performa autoimage
+    rmsfit : object, {Frame, int, tuple, None}, default None
+        if rmsfit is not None, perform rms fit to reference.
 
     Examples
     --------
@@ -1017,9 +1023,16 @@ def mean_structure(traj,
 
     >>> # get average structure but do autoimage and rmsfit to 1st Frame.
     >>> pt.mean_structure(traj(autoimage=True, rmsfit=0, frame_indices=[0, 5, 6]))
+
+    Notes
+    -----
+    if autoimage=True and having rmsfit, perform autoimage first and do rmsfit
     '''
     _top = _get_topology(traj, top)
-    fi = _get_fiterator(traj, frame_indices)
+    try:
+        fi = traj.iterframe(autoimage=autoimage, rmsfit=rmsfit, frame_indices=frame_indices)
+    except AttributeError:
+        fi = _get_fiterator(traj, frame_indices)
 
     dslist = CpptrajDatasetList()
     if not isinstance(mask, string_types):
@@ -2063,7 +2076,7 @@ def check_structure(traj=None, command="", top=None, *args, **kwd):
 
 def timecorr(vec0, vec1,
              order=2,
-             timestep=1.,
+             tstep=1.,
              tcorr=10000.,
              norm=False,
              dtype='ndarray'):
@@ -2074,7 +2087,7 @@ def timecorr(vec0, vec1,
     vec0 : 2D array-like, shape=(n_frames, 3)
     vec1 : 2D array-like, shape=(n_frames, 3)
     order : int, default 2
-    timestep : float, default 1.
+    tstep : float, default 1.
     tcorr : float, default 10000.
     norm : bool, default False
     """
@@ -2088,7 +2101,7 @@ def timecorr(vec0, vec1,
     cdslist[1].data = np.asarray(vec1).astype('f8')
 
     _order = "order " + str(order)
-    _tstep = "tstep " + str(timestep)
+    _tstep = "tstep " + str(tstep)
     _tcorr = "tcorr " + str(tcorr)
     _norm = "norm" if norm else ""
     command = " ".join(
