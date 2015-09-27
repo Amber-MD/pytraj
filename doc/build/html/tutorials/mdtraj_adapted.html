@@ -198,7 +198,7 @@
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="c"># load data</span>
-<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.parm7&#39;</span><span class="p">)</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 <span class="n">traj</span>
 </pre></div>
 
@@ -252,40 +252,78 @@
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansired">---------------------------------------------------------------------------</span>
-<span class="ansired">ValueError</span>                                Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-3-6bfc6efa4ea6&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      7</span> <span class="ansiyellow"></span>
-<span class="ansigreen">      8</span> <span class="ansired"># use &#96;scipy&#96; to perform clustering</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 9</span><span class="ansiyellow"> </span>linkage <span class="ansiyellow">=</span> scipy<span class="ansiyellow">.</span>cluster<span class="ansiyellow">.</span>hierarchy<span class="ansiyellow">.</span>ward<span class="ansiyellow">(</span>distances<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">     10</span> <span class="ansiyellow"></span>
-<span class="ansigreen">     11</span> scipy<span class="ansiyellow">.</span>cluster<span class="ansiyellow">.</span>hierarchy<span class="ansiyellow">.</span>dendrogram<span class="ansiyellow">(</span>linkage<span class="ansiyellow">,</span> no_labels<span class="ansiyellow">=</span><span class="ansigreen">True</span><span class="ansiyellow">,</span> count_sort<span class="ansiyellow">=</span><span class="ansiblue">&apos;descendent&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
 
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.4/site-packages/scipy/cluster/hierarchy.py</span> in <span class="ansicyan">ward</span><span class="ansiblue">(y)</span>
-<span class="ansigreen">    463</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    464</span>     &quot;&quot;&quot;
-<span class="ansigreen">--&gt; 465</span><span class="ansiyellow">     </span><span class="ansigreen">return</span> linkage<span class="ansiyellow">(</span>y<span class="ansiyellow">,</span> method<span class="ansiyellow">=</span><span class="ansiblue">&apos;ward&apos;</span><span class="ansiyellow">,</span> metric<span class="ansiyellow">=</span><span class="ansiblue">&apos;euclidean&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    466</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    467</span> <span class="ansiyellow"></span>
 
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.4/site-packages/scipy/cluster/hierarchy.py</span> in <span class="ansicyan">linkage</span><span class="ansiblue">(y, method, metric)</span>
-<span class="ansigreen">    623</span>     s <span class="ansiyellow">=</span> y<span class="ansiyellow">.</span>shape<span class="ansiyellow"></span>
-<span class="ansigreen">    624</span>     <span class="ansigreen">if</span> len<span class="ansiyellow">(</span>s<span class="ansiyellow">)</span> <span class="ansiyellow">==</span> <span class="ansicyan">1</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 625</span><span class="ansiyellow">         </span>distance<span class="ansiyellow">.</span>is_valid_y<span class="ansiyellow">(</span>y<span class="ansiyellow">,</span> throw<span class="ansiyellow">=</span><span class="ansigreen">True</span><span class="ansiyellow">,</span> name<span class="ansiyellow">=</span><span class="ansiblue">&apos;y&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    626</span>         d <span class="ansiyellow">=</span> distance<span class="ansiyellow">.</span>num_obs_y<span class="ansiyellow">(</span>y<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    627</span>         <span class="ansigreen">if</span> method <span class="ansigreen">not</span> <span class="ansigreen">in</span> _cpy_non_euclid_methods<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.4/site-packages/scipy/spatial/distance.py</span> in <span class="ansicyan">is_valid_y</span><span class="ansiblue">(y, warning, throw, name)</span>
-<span class="ansigreen">   1659</span>                                   <span class="ansiblue">&apos;\&apos;%s\&apos; must be a binomial coefficient, i.e.&apos;</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1660</span>                                   <span class="ansiblue">&apos;there must be a k such that &apos;</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1661</span><span class="ansiyellow">                                   &apos;(k \choose 2)=n)!&apos;) % name)
-</span><span class="ansigreen">   1662</span>             <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1663</span>                 raise ValueError(&apos;Length n of condensed distance matrix must &apos;
-
-<span class="ansired">ValueError</span>: Length n of condensed distance matrix &apos;y&apos; must be a binomial coefficient, i.e.there must be a k such that (k \choose 2)=n)!</pre>
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAADyCAYAAABQ405lAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
+AAALEgAACxIB0t1+/AAADfNJREFUeJzt3V/IZPddx/H3166l+Af6DNVtstYmYENYKDQXXQSFjigh
+3iS5Sqs3i5ZSKP7Bq+564T65SwSliFSQpmUFu3ZBDInQNknJYK8SK1YD29UGXMjWZEV2ivYikLRf
+L56ZdTI7f86cOfPnu8/7BQ+cOc85v/M7/z7nd35zZiYyE0lSXT+26wpIktZjkEtScQa5JBVnkEtS
+cQa5JBVnkEtScSd2sdCI8JlHSWohM2N63MIgj4gPAH8F/CyQwF9m5p9FRA/4CvBB4BrwWGZ+fzTP
+eeC3gR8Cv5eZz82pTPs1kaRjKOK2DD8avyhQI+L9wPsz89sR8VPAPwGPAr8F/Hdm/nFEfBY4yMxz
+EXEa+DLwUeAU8AJwX2b+aKrcNMglaTURMbNFvrCPPDPfyMxvj4Z/AHyHo4B+GLg4muwiR+EO8Ahw
+KTPfysxrwKvAmU7WQJI0U+M3OyPiHuAB4CXgZGbeGP3rBnByNHw3cH1ituscBb8kaUMavdk56lb5
+W+D3M/N/J/tpMjOXvHk583+Hh4e3hvv9Pv1+v0lVJOnYGAwGDAaDpdMt7CMHiIgfB/4e+Gpmfm40
+7irQz8w3IuIu4MXMvD8izgFk5hOj6b4GXMjMl6bKtI9cklbUqo88jpreTwFXxiE+8gxwdjR8Fnh6
+YvwnIuLdEXEv8CHg5XUrL0mab9lTK78M/APwr/x/F8l5jsL5MvDz3P744R9y9Pjh2xx1xXx9Rrm2
+yCVpRfNa5Eu7VjZUGYNcklY0L8h38snO6no9GA53XQtpuw4O4ObNXddCs9gibyECCldfasXjfvda
+vdkpSdp/BrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQ
+S1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1Jx
+BrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxBrkk
+FWeQS1JxBrkkFWeQS1JxBrkkFWeQS1JxS4M8Ir4YETci4pWJcYcRcT0i/nn09+sT/zsfEd+NiKsR
+8eCmKi5JOtKkRf4l4KGpcQn8aWY+MPr7KkBEnAY+DpwezfP5iLDVL0kbtDRkM/ObwHDGv2LGuEeA
+S5n5VmZeA14FzqxVQ0nSQuu0ln83Iv4lIp6KiPeOxt0NXJ+Y5jpwao1lSJKWaBvkfwHcC3wEeB34
+kwXTZstlSJIaONFmpsz8r/FwRHwBeHb08nvAByYm/bnRuNscHh7eGu73+/T7/TZVkaQ71mAwYDAY
+LJ0uMpc3mCPiHuDZzPzw6PVdmfn6aPgPgI9m5m+O3uz8Mkf94qeAF4BfyKmFRMT0qFIioHD1pVY8
+7ncvIsjM296fXNoij4hLwMeA90XEa8AFoB8RH+Go2+Q/gE8DZOaViLgMXAHeBj5TOrElqYBGLfLO
+F2qLXCrH43735rXIfcZbkoozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWp
+OINckoozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpOINc
+koozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpOINckooz
+yCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpuKVBHhFfjIgb
+EfHKxLheRDwfEf8eEc9FxHsn/nc+Ir4bEVcj4sFNVVySdKRJi/xLwENT484Bz2fmfcA3Rq+JiNPA
+x4HTo3k+HxG2+iVpg5aGbGZ+ExhOjX4YuDgavgg8Ohp+BLiUmW9l5jXgVeBMN1WVJM3StrV8MjNv
+jIZvACdHw3cD1yemuw6carkMSVIDJ9YtIDMzInLRJLNGHh4e3hru9/v0+/11qyJJd5TBYMBgMFg6
+XWQuyuDRRBH3AM9m5odHr68C/cx8IyLuAl7MzPsj4hxAZj4xmu5rwIXMfGmqvGyy3H0VAYWrL7Xi
+cb97EUFmxvT4tl0rzwBnR8Nngacnxn8iIt4dEfcCHwJebrkMSVIDS7tWIuIS8DHgfRHxGvBHwBPA
+5Yj4JHANeAwgM69ExGXgCvA28JnSTW9JKqBR10rnC7VrRSrH4373uu5akSTtibWfWpE0R68Hw+mP
+YNR1gQsQj++6Gt05OICbN3ddi07YtdKCt5hqxANlvxXcP3atSNIdyiCXpOIMckkqziCXpOIMckkq
+ziCXpOIMckkqziCXpOIMckkqziCXpOIMckkqziCXpOIMckkqziCXpOIMckkqziCXpOIMckkqziCX
+pOIMckkqziCXpOIMckkqziCXpOIMckkqziCXpOIMckkqziCXpOIMckkqziCXpOIMckkqziCXpOIM
+ckkqziCXpOIMckkqziCXpOIMckkqziCXpOIMckkqziCXpOIMckkqziCXpOIMckkqziCXpOJOrDNz
+RFwD/gf4IfBWZp6JiB7wFeCDwDXgscz8/pr1lCTNsW6LPIF+Zj6QmWdG484Bz2fmfcA3Rq8lSRvS
+RddKTL1+GLg4Gr4IPNrBMiRJc3TRIn8hIr4VEZ8ajTuZmTdGwzeAk2suQ5K0wFp95MAvZebrEfEz
+wPMRcXXyn5mZEZGzZjw8PLw13O/36ff7a1ZFku4sg8GAwWCwdLrInJmzK4uIC8APgE9x1G/+RkTc
+BbyYmfdPTZtdLXcXIqBw9bUtHij7reD+iQgyc7o7u33XSkT8RET89Gj4J4EHgVeAZ4Czo8nOAk+3
+XYYkabl1ulZOAn8XEeNy/jozn4uIbwGXI+KTjB4/XLuWkqS5OutaWWmhdq3oOPBA2W8F90/nXSuS
+pP1gkEtScQa5JBVnkEtScQa5JBVnkEtScQa5JBVnkEtScQa5JBVnkEtScQa5JBVnkEtScQa5JBVn
+kEtScQa5JBVnkEtScQa5JBVnkEtScev8ZqckbU+vB8Nht2XGbb+a1t7BAdy82V15K/A3O1so+FN/
+2gUPlG7t+/bcQv3m/WZnySDvPdlj+GbHV+ZVvHgBfuXxnS3+4D0H3Pzsbq78WsG+B081u9iem7gL
+GGvRgr+jgjweD/LC8T1Bjvv6b80mT+Kmdni7vnd2EeSbXGaLsucFuX3k0jzD4e5b1F324eqO5VMr
+klScQS5JxRnkklScQS5JxRnkklScQS5JxRnk0jb0ekePEq76B+3m6/V2u77aKp8jl7Zh28+k+/z5
+/lj0wbJZ+6nFh8AMcknapFUv4i0uwnatSFJxBrkkFWfXyhZ1+a2N8fh+9IH6TYzS7hnkWzR8c9jZ
+txbuyzcg7ssFRTrO7FqRxqYfEQQf5zsOFj0aCiUe77RFLo0terrAx/k2r8n3v8/bD+t8b3ubR0P3
+7HgwyDvUpA98XlfErvqau+i3X7d7xX52Aes9a7/pYJ11kRkvs4sf/5guf8WyDfIOrdMHvqu+5i77
+7duyn32BdX6lqE24+YtEs236bm1e+Q3L3osgb9MqXOXkt8WnreuqBecnQmua1cLe4EVyL4J8061C
+W3y7scoFusk+KnVBtr99c+bdpUxv113eXcza/xvc73sR5F1ZFBz71jd9HHR9gfaC3IFdvaHYtC5N
+7lqa3qUcowvmzoJ8OnTHJ+k6wdomOHYZDvO2ARzPC8w6bxbDHbLNFoXb2Laf0JhXj3VVv2uZ3FeL
+uk6aTreGnQX5vNA9Tq2uRReeWdthnYvfqncrbUNxnYvTui34jRw70ychbPaWvUnQbivkll1U9vWN
+0ab7bN19O72v5u2XptNNGz+r3iD8NxLkEfEQ8DngXcAXMvPJZfNMBkAXrfOqJrdD78neO9Z/nYvf
+qiHZNhRXvTitY9bFqdVdzeQJ3eu984TZcl/nTLsK1Ol1n67HcLjdYG8avE332eR047LH6zRZ7gqB
+urKmx96SY67zII+IdwF/Dvwa8D3gHyPimcz8zqL5ZgXAohN/XgtzWety2ck/a55FFrVA55UzfdGa
+nGZyO6yy/tPlrGKVbTnW1UV2nbuMWcfMZHnDN4fNtssKJ8xa2t5iL2ulL6vzms8oL6zHZNmTwb6s
+7HnhuGgbNQ3eNha1mjd5fHRU9iZa5GeAVzPzGkBE/A3wCLAwyCctapXOCp1ZJ+rkd5FMBtL0yT85
+3awQWLacJuUtCuvp+jXV9MLX9bYczzN8czizvPH08y6ei+4yWoXwlFnlTe7LtS5Aq9yyj6eZF0ST
+Zaxbl1llLVrudAjOmqepts8/zwuwrrsrttA/vQ828V0rp4DXJl5fH41rbHwy5oW8LWgm/3fwnoNb
+48Yhso7JsoFbw+NljQOh6bIWrUeXek/2bgXVdP263pZNy5v8X9PtMK8+0+s0ub5N67qovMbG4ZF5
+FAjjcdPfuzE5XdMP84y/72M8vGy64fCoDuPljEOtyXIn69d0nsmLU5P6jafd9XeTTK7rKvujmE20
+yLf26YWm3RDVlrWqrlv4+7B+i9apTV272EbvLLDj2+2m5W2rG6jtcqen20Vdj6HIjj81FhG/CBxm
+5kOj1+eBH02+4RkRu//+VUkqKDNvuypuIshPAP8G/Crwn8DLwG8se7NTktRO510rmfl2RPwO8HWO
+Hj98yhCXpM3pvEUuSdoufyFIkoozyCWpOINckoozyCWpOINckoozyCWpOINckoozyCWpuP8Dqa5N
+GJhzxBUAAAAASUVORK5CYII=
+"
+>
 </div>
+
 </div>
 
 </div>
@@ -314,40 +352,79 @@
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansired">---------------------------------------------------------------------------</span>
-<span class="ansired">ValueError</span>                                Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-4-fcbf8ef90a45&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      2</span> <span class="ansiyellow"></span>
-<span class="ansigreen">      3</span> distances <span class="ansiyellow">=</span> pt<span class="ansiyellow">.</span>pairwise_rmsd<span class="ansiyellow">(</span>traj<span class="ansiyellow">(</span>autoimage<span class="ansiyellow">=</span><span class="ansigreen">True</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> mask<span class="ansiyellow">=</span><span class="ansiblue">&apos;!@H=&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 4</span><span class="ansiyellow"> </span>linkage <span class="ansiyellow">=</span> scipy<span class="ansiyellow">.</span>cluster<span class="ansiyellow">.</span>hierarchy<span class="ansiyellow">.</span>ward<span class="ansiyellow">(</span>distances<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">      5</span> scipy<span class="ansiyellow">.</span>cluster<span class="ansiyellow">.</span>hierarchy<span class="ansiyellow">.</span>dendrogram<span class="ansiyellow">(</span>linkage<span class="ansiyellow">,</span> no_labels<span class="ansiyellow">=</span><span class="ansigreen">True</span><span class="ansiyellow">,</span> count_sort<span class="ansiyellow">=</span><span class="ansiblue">&apos;descendent&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">      6</span> <span class="ansigreen">None</span><span class="ansiyellow"></span>
 
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.4/site-packages/scipy/cluster/hierarchy.py</span> in <span class="ansicyan">ward</span><span class="ansiblue">(y)</span>
-<span class="ansigreen">    463</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    464</span>     &quot;&quot;&quot;
-<span class="ansigreen">--&gt; 465</span><span class="ansiyellow">     </span><span class="ansigreen">return</span> linkage<span class="ansiyellow">(</span>y<span class="ansiyellow">,</span> method<span class="ansiyellow">=</span><span class="ansiblue">&apos;ward&apos;</span><span class="ansiyellow">,</span> metric<span class="ansiyellow">=</span><span class="ansiblue">&apos;euclidean&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    466</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    467</span> <span class="ansiyellow"></span>
 
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.4/site-packages/scipy/cluster/hierarchy.py</span> in <span class="ansicyan">linkage</span><span class="ansiblue">(y, method, metric)</span>
-<span class="ansigreen">    623</span>     s <span class="ansiyellow">=</span> y<span class="ansiyellow">.</span>shape<span class="ansiyellow"></span>
-<span class="ansigreen">    624</span>     <span class="ansigreen">if</span> len<span class="ansiyellow">(</span>s<span class="ansiyellow">)</span> <span class="ansiyellow">==</span> <span class="ansicyan">1</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 625</span><span class="ansiyellow">         </span>distance<span class="ansiyellow">.</span>is_valid_y<span class="ansiyellow">(</span>y<span class="ansiyellow">,</span> throw<span class="ansiyellow">=</span><span class="ansigreen">True</span><span class="ansiyellow">,</span> name<span class="ansiyellow">=</span><span class="ansiblue">&apos;y&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    626</span>         d <span class="ansiyellow">=</span> distance<span class="ansiyellow">.</span>num_obs_y<span class="ansiyellow">(</span>y<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    627</span>         <span class="ansigreen">if</span> method <span class="ansigreen">not</span> <span class="ansigreen">in</span> _cpy_non_euclid_methods<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.4/site-packages/scipy/spatial/distance.py</span> in <span class="ansicyan">is_valid_y</span><span class="ansiblue">(y, warning, throw, name)</span>
-<span class="ansigreen">   1659</span>                                   <span class="ansiblue">&apos;\&apos;%s\&apos; must be a binomial coefficient, i.e.&apos;</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1660</span>                                   <span class="ansiblue">&apos;there must be a k such that &apos;</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1661</span><span class="ansiyellow">                                   &apos;(k \choose 2)=n)!&apos;) % name)
-</span><span class="ansigreen">   1662</span>             <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1663</span>                 raise ValueError(&apos;Length n of condensed distance matrix must &apos;
-
-<span class="ansired">ValueError</span>: Length n of condensed distance matrix &apos;y&apos; must be a binomial coefficient, i.e.there must be a k such that (k \choose 2)=n)!</pre>
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+OQAk93/9X6y6eGMZ6gAAAABJRU5ErkJggg==
+"
+>
 </div>
+
 </div>
 
 </div>
@@ -3740,7 +3817,7 @@ AAAAADDI33oaO0ojgBmBAwAAAAAAMBOWEnK+jsr9hQAAAABJRU5ErkJggg==
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x2aaaabf68ef0&gt;</pre>
+<pre>&lt;matplotlib.text.Text at 0x2aaaaaadaba8&gt;</pre>
 </div>
 
 </div>

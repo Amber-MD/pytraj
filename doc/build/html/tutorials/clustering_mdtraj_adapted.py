@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[4]:
+# In[1]:
 
 from __future__ import print_function
 get_ipython().magic('matplotlib inline')
@@ -12,14 +12,14 @@ import scipy
 import scipy.cluster.hierarchy
 
 
-# In[5]:
+# In[2]:
 
 # load data
-traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+traj = pt.iterload('tz2.nc', 'tz2.parm7')
 traj
 
 
-# In[6]:
+# In[3]:
 
 
 # calculate pairwise rmsd with `autoimage=True`
@@ -35,7 +35,7 @@ scipy.cluster.hierarchy.dendrogram(linkage, no_labels=True, count_sort='descende
 None
 
 
-# In[8]:
+# In[4]:
 
 # cluster for all atoms but H
 
