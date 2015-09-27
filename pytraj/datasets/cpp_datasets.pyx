@@ -1345,7 +1345,9 @@ cdef class DatasetCoordsRef (DatasetCoords):
     def get_frame(self):
         cdef Frame frame = Frame()
         frame.thisptr[0] = self.thisptr.RefFrame()
-        return frame
+        # use self._base to avoid eager memory-free
+        self._base = frame
+        return self._base
 
     @property
     def values(self):
