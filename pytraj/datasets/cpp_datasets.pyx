@@ -859,12 +859,12 @@ cdef class DatasetMatrixDouble (Dataset2D):
         cdef int nr = self.n_rows
         cdef int nc = self.n_cols 
         cdef int i, j
-        cdef pyarray arr0 = pyarray('d', [])
+        cdef double[:, ::1] arr = np.empty((nr, nc), dtype='f8')
 
         for i in range(nr):
             for j in range(nc):
-                arr0.append(self.baseptr_1.GetElement(i, j))
-        return arr0
+                arr[i, j] = self.baseptr_1.GetElement(i, j)
+        return np.asarray(arr)
 
     property data:
         def __get__(self):
@@ -930,20 +930,18 @@ cdef class DatasetMatrixFloat (Dataset2D):
         return self.data[idx]
 
     def get_full_matrix(self):
-        """return python array with length = n_rows*n_cols"""
         cdef int nr = self.n_rows
         cdef int nc = self.n_cols 
         cdef int i, j
-        cdef pyarray arr0 = pyarray('f', [])
+        cdef float[:, ::1] arr = np.empty((nr, nc), dtype='f4')
 
         for i in range(nr):
             for j in range(nc):
-                arr0.append(self.baseptr_1.GetElement(i, j))
-        return arr0
+                arr[i, j] = self.baseptr_1.GetElement(i, j)
+        return np.asarray(arr)
 
     @property
     def data(self):
-        """return 1D python array of matrix' data"""
         return self.get_full_matrix()
 
     def to_ndarray(self, copy=True):
