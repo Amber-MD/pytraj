@@ -2416,3 +2416,44 @@ def make_structure(traj=None, mask="", top=None):
     command = mask
     act = CpptrajActions.Action_MakeStructure()
     act(command, traj, top=_top)
+
+
+def _analyze_modes(data, mode='', beg=1, end=50, bose=False, factor=1.0, maskp=None,
+        trajout='', pcmin=None, pcmax=None, tmode=None):
+    # TODO: not finished yet
+    '''Perform analysis on calculated Eigenmodes
+
+    Parameters
+    ----------
+    data : 
+    mode : str, {'fluct', 'displ', 'corr', 'eigenval', 'trajout', 'rmsip'}
+        - fluct:    RMS fluctations from normal modes
+        - displ:    Displacement of cartesian coordinates along normal mode directions
+        - corr:     Calculate dipole-dipole correlation functions.
+        - eigenval: Calculate eigenvalue fractions.
+        - trajout:  Calculate pseudo-trajectory along given mode.
+        - rmsip:    Root mean square inner product.
+    
+    beg : int
+    end : int
+    bose : bool, optional
+    factor : optional 
+    maskp : a string or list of strings, optional
+    trajout : output filename, optional
+    '''
+    pass
+
+def _calc_projection(traj, beg=1, end=2, mask='', dtype='dataset', top=None):
+    # TODO: not done yet
+    act = CpptrajActions.Action_Projection()
+    dslist = CpptrajDatasetList()
+    fi = _get_fiterator(traj, frame_indices)
+    _top = _get_topology(traj, top)
+
+    _beg = 'beg ' + str(beg)
+    _end = 'end ' + str(end)
+    _mask = mask
+    _evecs = 'evecs tmp_evecs'
+    command = ' '.join((_evecs, _beg, _end, _mask)) 
+    act(command, fi, top=_top, dslist=dslist)
+    return _get_data_from_dtype(dslist, dtype=dtype)

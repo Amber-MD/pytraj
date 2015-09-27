@@ -13,6 +13,8 @@ from ..core.coordinfo cimport CoordinateInfo
 ctypedef vector[size_t] SizeArray
 
 cdef extern from "MetaData.h": 
+    ctypedef enum scalarType "MetaData::scalarType":
+        pass
     cdef cppclass _MetaData "MetaData":
         string& Name()
         string& Aspect()
@@ -20,6 +22,7 @@ cdef extern from "MetaData.h":
         void SetName(string & n)
         void SetAspect(string& a)
         void SetLegend(string& l)
+        void SetScalarType(scalarType s)
 
 cdef extern from "DataSet.h": 
     ctypedef enum DataType "DataSet::DataType":

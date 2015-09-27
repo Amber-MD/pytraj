@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import unittest
+import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
@@ -47,6 +48,18 @@ class TestCpptrajDataset(unittest.TestCase):
             aa_eq(avg_frame.xyz, cpp_ref.values)
             aa_eq(avg_frame.xyz, cpp_ref.data)
 
+    @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
+    def test_DatasetModes(self):
+        state = self.state
+        modes = state.data['MyEvecs']
+        mat = state.data['MyMatrix'].values
+        np_eg = np.linalg.eigh(mat)
+
+        # make sure eigenvalues from cpptraj are the same as ones in numpy
+        # we calculated only 2 eigenvalues
+        aa_eq(sorted(modes.eigenvalues), np_eg[0][-2:])
+        aa_eq(modes.eigenvectors[0], np_eg[1][:, -1])
+        aa_eq(modes.eigenvectors[1], np_eg[1][:, -2])
 
 if __name__ == "__main__":
     unittest.main()

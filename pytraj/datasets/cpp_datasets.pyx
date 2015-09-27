@@ -859,12 +859,12 @@ cdef class DatasetMatrixDouble (Dataset2D):
         cdef int nr = self.n_rows
         cdef int nc = self.n_cols 
         cdef int i, j
-        cdef pyarray arr0 = pyarray('d', [])
+        cdef double[:, ::1] arr = np.empty((nr, nc), dtype='f8')
 
         for i in range(nr):
             for j in range(nc):
-                arr0.append(self.baseptr_1.GetElement(i, j))
-        return arr0
+                arr[i, j] = self.baseptr_1.GetElement(i, j)
+        return np.asarray(arr)
 
     property data:
         def __get__(self):
@@ -930,20 +930,18 @@ cdef class DatasetMatrixFloat (Dataset2D):
         return self.data[idx]
 
     def get_full_matrix(self):
-        """return python array with length = n_rows*n_cols"""
         cdef int nr = self.n_rows
         cdef int nc = self.n_cols 
         cdef int i, j
-        cdef pyarray arr0 = pyarray('f', [])
+        cdef float[:, ::1] arr = np.empty((nr, nc), dtype='f4')
 
         for i in range(nr):
             for j in range(nc):
-                arr0.append(self.baseptr_1.GetElement(i, j))
-        return arr0
+                arr[i, j] = self.baseptr_1.GetElement(i, j)
+        return np.asarray(arr)
 
     @property
     def data(self):
-        """return 1D python array of matrix' data"""
         return self.get_full_matrix()
 
     def to_ndarray(self, copy=True):
@@ -1077,6 +1075,9 @@ cdef class DatasetModes(Dataset):
     def nmodes(self):
         return self.thisptr.Nmodes()
 
+    def eigval_to_freq(self, x):
+        return self.thisptr.EigvalToFreq(<double> x)
+
     @property
     def vsize(self):
         return self.thisptr.VectorSize()
@@ -1094,7 +1095,10 @@ cdef class DatasetModes(Dataset):
         def __get__(self):
             cdef const double * ptr = self.thisptr.Eigenvectors()
             cdef int n_modes = self.thisptr.Nmodes()
-            return np.array([ptr[i] for i in range(self.thisptr.Nmodes()*3)]).reshape(n_modes, 3)
+            cdef int vsize = self.vsize
+
+            return np.array([ptr[i] for i in
+                range(n_modes*vsize)]).reshape(n_modes, vsize)
 
 
 cdef class DatasetRemLog:
