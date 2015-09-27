@@ -1077,6 +1077,9 @@ cdef class DatasetModes(Dataset):
     def nmodes(self):
         return self.thisptr.Nmodes()
 
+    def eigval_to_freq(self, x):
+        return self.thisptr.EigvalToFreq(<double> x)
+
     @property
     def vsize(self):
         return self.thisptr.VectorSize()
@@ -1094,7 +1097,10 @@ cdef class DatasetModes(Dataset):
         def __get__(self):
             cdef const double * ptr = self.thisptr.Eigenvectors()
             cdef int n_modes = self.thisptr.Nmodes()
-            return np.array([ptr[i] for i in range(self.thisptr.Nmodes()*3)]).reshape(n_modes, 3)
+            cdef int vsize = self.vsize
+
+            return np.array([ptr[i] for i in
+                range(n_modes*vsize)]).reshape(n_modes, vsize)
 
 
 cdef class DatasetRemLog:
