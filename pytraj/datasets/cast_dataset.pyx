@@ -187,7 +187,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['COORDS_TRJ', 'TRJ', 'TRAJ', 'COORDS_TRAJ']:
         newset_coords_trj = TrajectoryCpptraj()
         # since we introduce memory view, we let cpptraj free memory
-        #newset_coords_trj.py_free_mem = False
+        newset_coords_trj.py_free_mem = False
         # make sure other pointers pointing to the same address
         newset_coords_trj.thisptr = <_TrajectoryCpptraj*> dset.baseptr0
         return newset_coords_trj

@@ -238,8 +238,13 @@ cdef class DatasetList:
     def _add_copy_of_set(self, Dataset dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)
 
-    def _add_traj(self, TrajectoryCpptraj traj):
-        self.thisptr.AddCopyOfSet(<_Dataset*> traj.thisptr)
+    def _add_traj(self, TrajectoryCpptraj traj, name='_traj'):
+        cdef _MetaData metadata
+        metadata.SetName(name.encode())
+        traj.py_free_mem = False
+        (<_Dataset*> traj.thisptr).SetMeta(metadata)
+        #self.thisptr.AddCopyOfSet(<_Dataset*> traj.thisptr)
+        self.thisptr.AddSet(<_Dataset*> traj.thisptr)
 
     def add_copy_of_set(self, Dataset dset):
         self.thisptr.AddCopyOfSet(dset.baseptr0)

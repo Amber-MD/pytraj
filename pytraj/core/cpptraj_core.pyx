@@ -496,6 +496,10 @@ cdef class CpptrajState:
     property data:
         def __get__(self):
             return self.datasetlist
+        def __set__(self, DatasetList dslist):
+            # do not del memory. don't know why got double-free mem if doing so.
+            #del self.datasetlist.thisptr
+            self.datasetlist.thisptr = dslist.thisptr
 
     def __repr__(self):
         return str(self)

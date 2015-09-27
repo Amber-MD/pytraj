@@ -35,6 +35,7 @@ cdef extern from "DataSet.h":
         size_t Ndim() const 
         size_t Size()
         _MetaData& Meta()
+        int SetMeta(_MetaData&)
 
 cdef class Dataset:
     cdef _Dataset* baseptr0
