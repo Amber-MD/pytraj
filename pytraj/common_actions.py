@@ -987,11 +987,11 @@ def do_autoimage(traj=None, command="", frame_indices=None, top=None):
 autoimage = do_autoimage
 
 
-def get_average_frame(traj,
-                      mask='',
-                      frame_indices=None,
-                      restype='frame',
-                      top=None):
+def mean_structure(traj,
+                   mask='',
+                   frame_indices=None,
+                   restype='frame',
+                   top=None):
     '''get mean structure for a given mask and given frame_indices
 
     Parameters
@@ -1000,8 +1000,23 @@ def get_average_frame(traj,
     mask : None or str, default None (all atoms)
     frame_indices : iterable that produces integer, default None, optional
         frame indices
-    restype: str, {'frame', 'traj'}, defaul 'frame'
+    restype: str, {'frame', 'traj'}, default 'frame'
         return type, either Frame (does not have Topology information) or 'traj'
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> print('get average structure from whole traj, all atoms')
+    >>> pt.mean_structure(traj)
+
+    >>> print("get average structure from several frames, '@CA' atoms")
+    >>> pt.mean_structure(traj, '@CA', frame_indices=range(2, 8, 2))
+
+    >>> print('get average structure but do autoimage and rmsfit to 1st Frame.')
+    >>> pt.mean_structure(traj(autoimage=True, rmsfit=0))
+
+    >>> # get average structure but do autoimage and rmsfit to 1st Frame.
+    >>> pt.mean_structure(traj(autoimage=True, rmsfit=0, frame_indices=[0, 5, 6]))
     '''
     _top = _get_topology(traj, top)
     fi = _get_fiterator(traj, frame_indices)
@@ -1029,7 +1044,7 @@ def get_average_frame(traj,
         return Trajectory(xyz=frame.as_3darray().copy(), top=new_top)
 
 
-mean_structure = get_average_frame
+get_average_frame = mean_structure
 
 
 def get_velocity(traj, mask=None, frame_indices=None):

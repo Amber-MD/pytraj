@@ -5,18 +5,17 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj.common_actions import *
 from pytraj.testing import aa_eq
-from pytraj.common_actions import mean_structure
 from pytraj import Trajectory
+from pytraj import mean_structure
 
 
 class TestAverageFrame(unittest.TestCase):
-    def test_0(self):
+    def test_comprehensive(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         # make sure we DO reproducing cpptraj output
         f_saved = pt.iterload("./data/avg.Tc5b.pdb", traj.top)[0]
 
         # shorter
-        from pytraj.common_actions import mean_structure
         #frame2 = mean_structure("", traj, traj.top)
         frame2 = mean_structure(traj)
         aa_eq(frame2.coords, f_saved.coords, decimal=3)
@@ -54,12 +53,32 @@ class TestAverageFrame(unittest.TestCase):
         assert isinstance(out_traj, Trajectory), 'must be Trajectory'
         aa_eq(out_traj.xyz, frame6.xyz, decimal=3)
 
-    def test_1(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        fa = traj[:]
-        f0 = mean_structure(fa, "@CA")
-        f1 = mean_structure(fa, "@CA")
+    def test_autoimage(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        t0 = traj[:]
 
+        t0.autoimage()
+        avg_0 = pt.mean_structure(t0, '@CA')
+        avg_1= pt.mean_structure(traj(autoimage=True), '@CA')
+        aa_eq(avg_0.xyz, avg_1.xyz)
+
+    def test_autoimage_with_rmsfit(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        t0 = traj[:]
+
+        pt.autoimage(t0).superpose()
+        avg_0 = pt.mean_structure(t0, '@CA')
+        avg_1= pt.mean_structure(traj(autoimage=True, rmsfit=0), '@CA')
+        aa_eq(avg_0.xyz, avg_1.xyz)
+
+        # 3rd frame
+        # assign traj again
+        t0 = traj[:]
+
+        pt.autoimage(t0).superpose(ref=3)
+        avg_0 = pt.mean_structure(t0, '@CA')
+        avg_1= pt.mean_structure(traj(autoimage=True, rmsfit=3), '@CA')
+        aa_eq(avg_0.xyz, avg_1.xyz)
 
 if __name__ == "__main__":
     unittest.main()
