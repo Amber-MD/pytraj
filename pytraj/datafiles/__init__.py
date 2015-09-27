@@ -4,7 +4,8 @@ from ..TrajectoryIterator import TrajectoryIterator
 from ..utils.context import goto_temp_folder
 from .datafiles import DataFile, DataFileList
 
-__all__ = ['Ala3_crd', 'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7']
+__all__ = ['load_cpptraj_state', 'load_cpptraj_file', 'load_cpptraj_output',
+           'Ala3_crd', 'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7']
 
 mydir = os.path.dirname(os.path.abspath(__file__))
 
@@ -81,6 +82,24 @@ def load_cpptraj_output(txt, dtype=None):
         out = DatasetList(state.datasetlist)
     return out
 
+def load_cpptraj_state(txt):
+    """load text to CpptrajState
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> state  = pt.datafiles.load_cpptraj_state('''
+                               parm 2koc.parm7
+                               trajin md.nc
+                               autoimage
+                               center origin
+                               rms
+    '''
+    state.run()
+    print(state.data)
+    """
+    return load_cpptraj_output(txt, dtype='state')
+
 def cpptraj_dry_run(txt):
     '''for speed comparison
     '''
@@ -108,7 +127,6 @@ def cpptraj_dry_run(txt):
             fh.write(_txt)
         state = load_cpptraj_file("tmp.in")
         state.run()
-
 
 def load_outtraj(txt, top=None):
     '''
