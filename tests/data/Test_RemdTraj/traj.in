@@ -1,0 +1,3 @@
+parm  data/Test_RemdTraj/ala2.99sb.mbondi2.parm7
+trajin data/Test_RemdTraj/rem.nc.000 remdtraj remdtrajtemp 300.
+distance @10 @20

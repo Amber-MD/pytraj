@@ -665,11 +665,10 @@ def _load_batch(txt, traj=None):
     else:
         txt0 = '\n'
 
-    lines = txt0.split('\n') + txt.split('\n')
+    lines = [line.lstrip().rstrip() for line in (txt0 + txt).split('\n') if line.strip() != '']
 
-    for line in lines:
-        line = line.rstrip().lstrip().strip('\n')
-        if line and not line.startswith('#'):
+    for idx, line in enumerate(lines):
+        if not line.startswith('#'):
             _Command.Dispatch(state.thisptr[0], line.encode())
     return state
 

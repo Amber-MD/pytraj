@@ -68,8 +68,10 @@ def load_cpptraj_output(txt, dtype=None):
         if 'trajin' in line:
             arglist = ArgList(line)
             # use absolute path
-            fname = os.path.abspath(arglist.get_string_key('trajin'))
-            command_list[idx] = " ".join(('trajin', fname))
+            relative_fname = arglist.get_string_key('trajin')
+            the_rest_of_line =  ' '.join(line.split(relative_fname)[1:])
+            fname = os.path.abspath(relative_fname)
+            command_list[idx] = " ".join(('trajin', fname, the_rest_of_line))
 
     txt = "\n".join([line for line in command_list])
     state = _load_batch(txt, traj=None)
