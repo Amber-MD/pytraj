@@ -138,6 +138,8 @@ load_parmed = load_ParmEd
 from_parmed = load_ParmEd
 clustering = do_clustering
 mindist = calc_mindist
+# compat with cpptraj
+nativecontacts = native_contacts
 
 from .matrix import dist
 distance_matrix = dist
