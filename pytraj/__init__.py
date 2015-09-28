@@ -62,6 +62,8 @@ from functools import partial
 
 from .core import Atom, Residue, Molecule
 from .core.cpptraj_core import CpptrajState, ArgList, AtomMask, _load_batch
+from .core.cpptraj_core import Command
+dispatch = Command.dispatch
 from . import array
 from .Topology import Topology, ParmFile
 from .math import Vec3
