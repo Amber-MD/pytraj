@@ -84,6 +84,10 @@ class FrameIter(object):
         return self._n_frames
 
     @property
+    def n_atoms(self):
+        return self.top.n_atoms
+
+    @property
     def __name__(self):
         '''for inspecting
         '''

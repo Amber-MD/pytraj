@@ -530,7 +530,7 @@ class Trajectory(object):
         from pytraj.actions.CpptrajActions import Action_AutoImage
 
         if not self.has_box():
-            raise ValueError("must have a box")
+            raise ValueError("can not find unitcells info")
         else:
             act = Action_AutoImage()
             act.read_input("", top=self.top)
@@ -736,10 +736,10 @@ class Trajectory(object):
                          copy=copy)
 
     @property
-    def _estimated_MB(self):
-        """esimated MB of data will be loaded to memory
+    def _estimated_GB(self):
+        """esimated GB of data will be loaded to memory
         """
-        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 2)
+        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3)
 
     @classmethod
     def from_iterable(cls, iterables, top=None, n_frames=None):

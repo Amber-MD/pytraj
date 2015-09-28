@@ -62,6 +62,8 @@ from functools import partial
 
 from .core import Atom, Residue, Molecule
 from .core.cpptraj_core import CpptrajState, ArgList, AtomMask, _load_batch
+from .core.cpptraj_core import Command
+dispatch = Command.dispatch
 from . import array
 from .Topology import Topology, ParmFile
 from .math import Vec3
@@ -83,7 +85,11 @@ load_from_frame_iter = _load_from_frame_iter
 
 # dataset stuff
 from .datafiles.load_sample_data import load_sample_data
+from .datafiles import load_cpptraj_state
 from .datasetlist import DatasetList
+
+# alias
+load_cpptrajstate = load_cpptraj_state
 
 # tool
 from . import tools

@@ -11,9 +11,11 @@ from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
 from ._cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
-from ._get_common_objects import _get_topology
+from ._get_common_objects import _get_topology, _get_fiterator
 from .compat import zip
 from .Topology import Topology
+from .api import Trajectory
+from .TrajectoryIterator import TrajectoryIterator
 
 try:
     from .externals._load_ParmEd import load_ParmEd, _load_parmed
@@ -146,11 +148,7 @@ def _load_netcdf(filename, top, indices=None, engine='scipy'):
     return traj
 
 
-
-def load_traj(filename=None,
-              top=None,
-              frame_indices=None,
-              *args, **kwd):
+def load_traj(filename=None, top=None, frame_indices=None, *args, **kwd):
     """load trajectory from filename
 
     Parameters
@@ -168,9 +166,6 @@ def load_traj(filename=None,
     TrajectoryIterator : if frame_indices is None
     Trajectory : if there is indices
     """
-    from pytraj import Trajectory
-    from pytraj import TrajectoryIterator
-
     if isinstance(top, string_types):
         top = load_topology(top)
     if top is None or top.is_empty():
@@ -312,7 +307,8 @@ def write_traj(filename="",
                      mode=mode) as trajout:
             if isinstance(traj, Frame):
                 if frame_indices is not None:
-                    raise ValueError("frame indices does not work with single Frame")
+                    raise ValueError(
+                        "frame indices does not work with single Frame")
                 trajout.write(0, traj)
             else:
                 if isinstance(traj, string_types):
@@ -324,7 +320,8 @@ def write_traj(filename="",
                     if isinstance(traj2, (list, tuple, Frame)):
                         raise NotImplementedError(
                             "must be Trajectory or TrajectoryIterator instance")
-                    for idx, frame in enumerate(traj.iterframe(frame_indices=frame_indices)):
+                    for idx, frame in enumerate(traj.iterframe(
+                        frame_indices=frame_indices)):
                         trajout.write(idx, frame)
 
                 else:
@@ -334,7 +331,8 @@ def write_traj(filename="",
         # is ndarray, shape=(n_frames, n_atoms, 3)
         # create frame iterator
         xyz = traj
-        _frame_indices = range(xyz.shape[0]) if frame_indices is None else frame_indices
+        _frame_indices = range(
+            xyz.shape[0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices)
 
         with Trajout(filename=filename,
@@ -344,6 +342,7 @@ def write_traj(filename="",
 
             for idx, frame in enumerate(fi):
                 trajout.write(idx, frame)
+
 
 def write_parm(filename=None, top=None, format='AMBERPARM'):
     # TODO : add *args
@@ -463,7 +462,9 @@ def load_single_frame(frame=None, top=None, index=0):
     """load a single Frame"""
     return iterload(frame, top)[index]
 
+
 load_frame = load_single_frame
+
 
 def load_MDAnalysisIterator(u):
     from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
@@ -474,18 +475,48 @@ save = write_traj
 save_traj = write_traj
 
 
-def get_coordinates(iterables):
-    '''return 3D-ndarray coordinates of `iterables`, shape=(n_frames, n_atoms, 3)
+def get_coordinates(iterables,
+                    autoimage=None,
+                    rmsfit=None,
+                    mask=None,
+                    frame_indices=None):
+    '''return 3D-ndarray coordinates of `iterables`, shape=(n_frames, n_atoms, 3). This method is more memory
+    efficient if use need to perform autoimage and rms fit to reference before loading all coordinates
+    from disk.
 
     Parameters
     ----------
     iterables : could be anything having Frame info
         a Trajectory, TrajectoryIterator,
         a frame_iter, FrameIter, ...
+
+    Notes
+    -----
+    if using both ``autoimage`` and ``rmsfit``, autoimage will be always processed before doing rmsfit.
     '''
-    if hasattr(iterables, 'xyz'):
-        return iterables.xyz[:]
+    has_any_iter_options = any(
+        x is not None for x in (autoimage, rmsfit, mask, frame_indices))
+    # try to iterate to get coordinates
+    if isinstance(iterables, (Trajectory, TrajectoryIterator)):
+        fi = iterables.iterframe(autoimage=autoimage,
+                                 rmsfit=rmsfit,
+                                 mask=mask,
+                                 frame_indices=frame_indices)
     else:
-        # try to iterate to get coordinates
+        if has_any_iter_options:
+            raise ValueError(
+                'only support autoimage, rmsfit or mask for Trajectory and TrajectoryIterator')
+        fi = iterframe_master(iterables)
+    if hasattr(fi, 'n_frames') and hasattr(fi, 'n_atoms'):
+        # faster
+        shape = (fi.n_frames, fi.n_atoms, 3)
+        arr = np.empty(shape, dtype='f8')
+        for idx, frame in enumerate(fi):
+            # real calculation
+            arr[idx] = frame.xyz
+        return arr
+    else:
+        # slower
         return np.array([frame.xyz.copy()
-                         for frame in iterframe_master(iterables)])
+                         for frame in iterframe_master(iterables)],
+                        dtype='f8')
