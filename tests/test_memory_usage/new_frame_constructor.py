@@ -1,4 +1,5 @@
 import pytraj as pt
+from pytraj.testing import Timer
 from memory_profiler import profile
 
 
@@ -18,17 +19,15 @@ def test():
     pt.multidihedral(traj)
 
 
-@profile
-def test_fastiter():
-    fname = 'data/nogit/remd/remd.x.000'
-    topname = 'data/nogit/remd/myparm.parm7'
-    traj = pt.load(fname, topname)
-
+@Timer()
+def test_fastiter(traj):
     for f in traj:
         pass
 
-    for f in traj._fastiter_ptr():
-        pass
-
 #test()
-test_fastiter()
+
+fname = 'data/nogit/remd/remd.x.000'
+topname = 'data/nogit/remd/myparm.parm7'
+traj = pt.load(fname, topname)
+print(traj)
+test_fastiter(traj)
