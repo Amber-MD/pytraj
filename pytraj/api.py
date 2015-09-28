@@ -530,7 +530,7 @@ class Trajectory(object):
         from pytraj.actions.CpptrajActions import Action_AutoImage
 
         if not self.has_box():
-            raise ValueError("must have a box")
+            raise ValueError("can not find unitcells info")
         else:
             act = Action_AutoImage()
             act.read_input("", top=self.top)
