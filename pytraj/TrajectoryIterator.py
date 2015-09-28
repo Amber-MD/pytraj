@@ -67,7 +67,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         # use self._chunk to store `chunk` in iterchunk
         # to deallocate memory
         self._chunk = None
-        # only allow to load <= 1000 Mb
+        # only allow to load <= 1 GB
         self._size_limit_in_GB = 1
         super(TrajectoryIterator, self).__init__()
 
@@ -182,7 +182,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         # check if larger than size_limit_in_GB
         if size_in_GB > self._size_limit_in_GB and not self._force_load:
             raise MemoryError(
-                "you are loading %s Mb, larger than size_limit %s Mb. "
+                "you are loading %s GB, larger than size_limit %s GB. "
                 "Please increase self._size_limit_in_GB or set self._force_load=True"
                 % (size_in_GB, self._size_limit_in_GB))
         return super(TrajectoryIterator, self).xyz

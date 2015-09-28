@@ -100,7 +100,8 @@ def load_cpptraj_state(txt):
     state.run()
     print(state.data)
     """
-    return load_cpptraj_output(txt, dtype='state')
+    from pytraj.core.cpptraj_core import _load_batch
+    return _load_batch(txt, traj=None)
 
 def cpptraj_dry_run(txt):
     '''for speed comparison

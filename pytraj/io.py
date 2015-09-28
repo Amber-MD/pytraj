@@ -496,30 +496,27 @@ def get_coordinates(iterables,
     '''
     has_any_iter_options = any(
         x is not None for x in (autoimage, rmsfit, mask, frame_indices))
-    if hasattr(iterables, 'xyz') and not has_any_iter_options:
-        return iterables.xyz[:]
+    # try to iterate to get coordinates
+    if isinstance(iterables, (Trajectory, TrajectoryIterator)):
+        fi = iterables.iterframe(autoimage=autoimage,
+                                 rmsfit=rmsfit,
+                                 mask=mask,
+                                 frame_indices=frame_indices)
     else:
-        # try to iterate to get coordinates
-        if isinstance(iterables, (Trajectory, TrajectoryIterator)):
-            fi = iterables.iterframe(autoimage=autoimage,
-                                     rmsfit=rmsfit,
-                                     mask=mask,
-                                     frame_indices=frame_indices)
-        else:
-            if has_any_iter_options:
-                raise ValueError(
-                    'only support autoimage, rmsfit or mask for Trajectory and TrajectoryIterator')
-            fi = iterframe_master(iterables)
-        if hasattr(fi, 'n_frames') and hasattr(fi, 'n_atoms'):
-            # faster
-            shape = (fi.n_frames, fi.n_atoms, 3)
-            arr = np.empty(shape, dtype='f8')
-            for idx, frame in enumerate(fi):
-                # real calculation
-                arr[idx] = frame.xyz
-            return arr
-        else:
-            # slower
-            return np.array([frame.xyz.copy()
-                             for frame in iterframe_master(iterables)],
-                            dtype='f8')
+        if has_any_iter_options:
+            raise ValueError(
+                'only support autoimage, rmsfit or mask for Trajectory and TrajectoryIterator')
+        fi = iterframe_master(iterables)
+    if hasattr(fi, 'n_frames') and hasattr(fi, 'n_atoms'):
+        # faster
+        shape = (fi.n_frames, fi.n_atoms, 3)
+        arr = np.empty(shape, dtype='f8')
+        for idx, frame in enumerate(fi):
+            # real calculation
+            arr[idx] = frame.xyz
+        return arr
+    else:
+        # slower
+        return np.array([frame.xyz.copy()
+                         for frame in iterframe_master(iterables)],
+                        dtype='f8')
