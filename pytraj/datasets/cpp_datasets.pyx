@@ -1242,11 +1242,12 @@ cdef class DatasetCoords(Dataset):
         """iterately getting Frame instance
         TODO : get memoryview or copy?
         """
-        cdef int i 
+        cdef unsigned int i 
+        cdef unsigned int size = self.size
         cdef Frame frame
         frame = self.allocate_frame()
 
-        for i in range(self.size):
+        for i in range(size):
             self.baseptr_1.GetFrame(i, frame.thisptr[0])
             yield frame
 
