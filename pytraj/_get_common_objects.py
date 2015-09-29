@@ -37,10 +37,10 @@ def _get_data_from_dtype(d0, dtype='dataset'):
 
     if dtype is None or dtype == 'dataset':
         pass
-        if hasattr(d0, 'set_py_free_mem'):
-            d0.set_py_free_mem(False)
-        elif hasattr(d0, 'py_free_mem'):
-            d0.py_free_mem = False
+        if hasattr(d0, 'set__own_memory'):
+            d0.set__own_memory(False)
+        elif hasattr(d0, '_own_memory'):
+            d0._own_memory = False
     if dtype is None:
         return DSL(d0)
     elif not isinstance(dtype, string_types):

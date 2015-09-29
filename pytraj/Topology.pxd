@@ -144,7 +144,7 @@ cdef extern from "Topology.h":
 
 cdef class Topology:
     cdef _Topology* thisptr
-    cdef public bint py_free_mem
+    cdef public bint _own_memory
 
 cdef extern from "ParmFile.h": 
     ctypedef enum ParmFormatType "ParmFile::ParmFormatType":
@@ -183,4 +183,4 @@ cdef extern from "TopologyList.h":
 
 cdef class TopologyList:
     cdef _TopologyList* thisptr
-    cdef bint py_free_mem
+    cdef bint _own_memory

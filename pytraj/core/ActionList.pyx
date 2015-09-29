@@ -76,7 +76,7 @@ cdef class ActionList:
 
     def process(self, Topology top):
         # let cpptraj free mem
-        top.py_free_mem = False
+        top._own_memory = False
         self.thisptr.SetupActions(&(top.thisptr))
         self.top_is_processed = True
 

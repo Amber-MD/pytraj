@@ -474,9 +474,9 @@ cdef class CpptrajState:
     """
     def __cinit__(self):
         self.thisptr = new _CpptrajState()
-        self.toplist = TopologyList(py_free_mem=False)
-        self.datafilelist = DataFileList(py_free_mem=False)
-        self.datasetlist = DatasetList(py_free_mem=False)
+        self.toplist = TopologyList(_own_memory=False)
+        self.datafilelist = DataFileList(_own_memory=False)
+        self.datasetlist = DatasetList(_own_memory=False)
 
         # cpptraj will take care of memory deallocating from self.thisptr.PFL(FL, DSL, DFL)
         # We don't free memory again 

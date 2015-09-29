@@ -68,7 +68,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['GENERAL', 'DOUBLE']: 
         newset_double = DatasetDouble()
         # since we introduce memory view, we let cpptraj free memory
-        newset_double.py_free_mem = False
+        newset_double._own_memory = False
         newset_double.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_double.baseptr_1 = <_Dataset1D*> dset.baseptr0
@@ -78,7 +78,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['FLOAT']: 
         newset_float = DatasetFloat()
         # since we introduce memory view, we let cpptraj free memory
-        newset_float.py_free_mem = False
+        newset_float._own_memory = False
         newset_float.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_float.baseptr_1 = <_Dataset1D*> dset.baseptr0
@@ -88,7 +88,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['INTEGER']: 
         newset_integer = DatasetInteger()
         # since we introduce memory view, we let cpptraj free memory
-        newset_integer.py_free_mem = False
+        newset_integer._own_memory = False
         newset_integer.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_integer.baseptr_1 = <_Dataset1D*> dset.baseptr0
@@ -98,7 +98,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['STRING']: 
         newset_string = DatasetString()
         # since we introduce memory view, we let cpptraj free memory
-        newset_string.py_free_mem = False
+        newset_string._own_memory = False
         newset_string.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_string.baseptr_1 = <_Dataset1D*> dset.baseptr0
@@ -108,7 +108,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['XYMESH']: 
         newset_mesh = DatasetMesh()
         # since we introduce memory view, we let cpptraj free memory
-        newset_mesh.py_free_mem = False
+        newset_mesh._own_memory = False
         newset_mesh.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_mesh.baseptr_1 = <_Dataset1D*> dset.baseptr0
@@ -118,7 +118,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['MODES']: 
         newset_modes = DatasetModes()
         # since we introduce memory view, we let cpptraj free memory
-        newset_modes.py_free_mem = False
+        newset_modes._own_memory = False
         newset_modes.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_modes.thisptr = <_DatasetModes*> dset.baseptr0
@@ -127,7 +127,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['VECTOR']: 
         newset_vector = DatasetVector()
         # since we introduce memory view, we let cpptraj free memory
-        newset_vector.py_free_mem = False
+        newset_vector._own_memory = False
         newset_vector.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_vector.thisptr = <_DatasetVector*> dset.baseptr0
@@ -136,7 +136,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['MAT3X3']:
         newset_matrix3x3 = DatasetMatrix3x3()
         # since we introduce memory view, we let cpptraj free memory
-        newset_matrix3x3.py_free_mem = False
+        newset_matrix3x3._own_memory = False
         newset_matrix3x3.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_matrix3x3.thisptr = <_DatasetMatrix3x3*> dset.baseptr0
@@ -145,7 +145,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['MATRIX_DBL', 'MATRIX_DOUBLE', 'MATRIX DOUBLE']:
         newset_matrixdbl = DatasetMatrixDouble()
         # since we introduce memory view, we let cpptraj free memory
-        newset_matrixdbl.py_free_mem = False
+        newset_matrixdbl._own_memory = False
         newset_matrixdbl.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_matrixdbl.baseptr_1 = <_Dataset2D*> dset.baseptr0
@@ -155,7 +155,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['MATRIX_FLT', 'MATRIX_FLOAT', 'MATRIX FLOAT']:
         newset_matrixflt = DatasetMatrixFloat()
         # since we introduce memory view, we let cpptraj free memory
-        newset_matrixflt.py_free_mem = False
+        newset_matrixflt._own_memory = False
         newset_matrixflt.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_matrixflt.baseptr_1 = <_Dataset2D*> dset.baseptr0
@@ -165,7 +165,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['GRID_FLT', 'GRID_FLOAT', 'GRID FLOAT']:
         newset_gridflt = DatasetGridFloat()
         # since we introduce memory view, we let cpptraj free memory
-        newset_gridflt.py_free_mem = False
+        newset_gridflt._own_memory = False
         newset_gridflt.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_gridflt.baseptr_1 = <_Dataset3D*> dset.baseptr0
@@ -177,7 +177,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         # get '0' size when casting back from Dataset
         newset_coords_crd = DatasetCoordsCRD()
         # since we introduce memory view, we let cpptraj free memory
-        newset_coords_crd.py_free_mem = False
+        newset_coords_crd._own_memory = False
         newset_coords_crd.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_coords_crd.baseptr_1 = <_DatasetCoords*> dset.baseptr0
@@ -187,7 +187,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['COORDS_TRJ', 'TRJ', 'TRAJ', 'COORDS_TRAJ']:
         newset_coords_trj = TrajectoryCpptraj()
         # since we introduce memory view, we let cpptraj free memory
-        newset_coords_trj.py_free_mem = False
+        newset_coords_trj._own_memory = False
         # make sure other pointers pointing to the same address
         newset_coords_trj.thisptr = <_TrajectoryCpptraj*> dset.baseptr0
         return newset_coords_trj
@@ -195,7 +195,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     elif dtype in ['COORDS_REF_FRAME', 'REF_FRAME', 'REFFRAME', 'REF', 'REFERENCE']:
         newset_coords_ref = DatasetCoordsRef()
         # since we introduce memory view, we let cpptraj free memory
-        newset_coords_ref.py_free_mem = False
+        newset_coords_ref._own_memory = False
         newset_coords_ref.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_coords_ref.baseptr_1 = <_DatasetCoords*> dset.baseptr0

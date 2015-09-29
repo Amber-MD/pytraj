@@ -41,9 +41,9 @@ class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator):
             for _ in self._traj_holder:
                 if i == idx:
                     frame = Frame(self.n_atoms)
-                    # for some reasons, need to set py_free_mem=Fale
+                    # for some reasons, need to set _own_memory=Fale
                     # to keep Frame's lifetime
-                    frame.py_free_mem = False
+                    frame._own_memory = False
                     frame.xyz[:] = atom_groups.positions
                     return frame  # break the loop
                 i += 1
