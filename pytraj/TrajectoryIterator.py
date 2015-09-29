@@ -14,6 +14,7 @@ from .utils import is_int
 from ._cyutils import get_positive_idx
 from .frameiter import FrameIter
 from ._get_common_objects import _load_Topology
+from .utils import split_range
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
 
@@ -115,11 +116,13 @@ class TrajectoryIterator(TrajectoryCpptraj):
             yield frame
 
     def copy(self):
-        """Very simple copy"""
+        '''return a deep copy
+        '''
         other = self.__class__()
         other.top = self.top.copy()
-        other.load(self.filelist)
 
+        for fname, frame_slice in zip(self.filelist, self.frame_slice_list):
+            other.load(fname, frame_slice=frame_slice)
         return other
 
     def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
@@ -342,7 +345,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
         >>> traj = pt.load_sample_data('tz2')
         >>> list(traj.split_iterators(n_chunks=4, mask='@CA'))
         """
-        from pytraj.tools import split_range
 
         assert 0 <= start <= self.n_frames, "0 <= start <= self.n_frames"
 

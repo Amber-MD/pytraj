@@ -93,26 +93,6 @@ def _not_yet_tested(func):
     return inner
 
 
-def split_range(n_chunks, start, stop):
-    '''split a given range to n_chunks
-
-    Examples
-    --------
-    >>> from pytraj.misc import split_range
-    >>> split_range(3, 0, 10)
-    [(0, 3), (3, 6), (6, 10)]
-    '''
-    list_of_tuple = []
-    chunksize = (stop - start) // n_chunks
-    for i in range(n_chunks):
-        if i < n_chunks - 1:
-            _stop = start + (i + 1) * chunksize
-        else:
-            _stop = stop
-        list_of_tuple.append((start + i * chunksize, _stop))
-    return list_of_tuple
-
-
 @_dispatch_value
 def split(data, n_chunks_or_array):
     """split `self.data` to n_chunks

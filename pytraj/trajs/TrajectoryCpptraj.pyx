@@ -20,8 +20,7 @@ def _split_range(int chunksize, int start, int stop):
 
     Examples
     --------
-    >>> from pytraj.misc import split_range
-    >>> split_range(3, 0, 10)
+    >>> _split_range(3, 0, 10)
     [(0, 3), (3, 6), (6, 10)]
     '''
     cdef int n_chunks, i, _stop

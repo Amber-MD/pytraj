@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         from pytraj import dihedral_analysis as da
         from pytraj import Trajectory
         from pytraj import Frame
-        from pytraj.misc import split_range
+        from pytraj.utils import split_range
         from pytraj.tools import grep
         from pytraj import clustering_dataset
         from pytraj.cluster import kmeans
