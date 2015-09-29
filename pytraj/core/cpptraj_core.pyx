@@ -436,7 +436,6 @@ cdef class NameType:
         return (self.thisptr.opr_star()).decode()
 
 
-
 cdef class Command:
     cdef _Command* thisptr
 
@@ -463,6 +462,7 @@ cdef class Command:
     @classmethod
     def dispatch(cls, CpptrajState state, line):
         _Command.Dispatch(state.thisptr[0], line.encode())
+
 
 cdef class CpptrajState:
     """
@@ -622,10 +622,10 @@ cdef class CpptrajState:
 
         return self.thisptr.AddAnalysis(alloc_funct.ptr, _arglist.thisptr[0])
 
-    def list_all(self, ArgList arglist):
+    def _list_all(self, ArgList arglist):
         return self.thisptr.ListAll(arglist.thisptr[0])
 
-    def clear_list(self, arglist='all'):
+    def _clear_list(self, arglist='all'):
         return self.thisptr.ClearList(ArgList(arglist).thisptr[0])
 
     def run(self):
@@ -637,13 +637,20 @@ cdef class CpptrajState:
 
 
 def _load_batch(txt, traj=None):
+    '''return CpptrajState.
+
+    txt can be text or list of command strings
+    '''
     cdef CpptrajState state
     state = CpptrajState()
 
+    if isinstance(txt, (list, tuple)):
+        lines = txt
+    else:
+        lines = [line.lstrip().rstrip() for line in txt.split('\n') if line.strip() != '']
+
     if traj is not None:
-        txt0 = '''
-        parm %s\n
-        ''' % traj.top.filename
+        lines_0 = ['parm %s' % traj.top.filename]
 
         for fname, frame_slice in zip(traj.filelist, traj.frame_slice_list):
             if len(frame_slice) == 3:
@@ -661,11 +668,12 @@ def _load_batch(txt, traj=None):
                 _stop = stop
             # add 1 to start since cpptraj ise 1-based index for trajin
             start = start + 1
-            txt0 += 'trajin {0} {1} {2} {3}\n'.format(fname, str(start), str(_stop), str(stride))
-    else:
-        txt0 = '\n'
+            lines_0.append('trajin {0} {1} {2} {3}\n'.format(fname, str(start), str(_stop), str(stride)))
 
-    lines = [line.lstrip().rstrip() for line in (txt0 + txt).split('\n') if line.strip() != '']
+        # add parm, trajin to lines
+        lines = lines_0 + lines
+    else:
+        lines = lines
 
     for idx, line in enumerate(lines):
         if not line.startswith('#'):

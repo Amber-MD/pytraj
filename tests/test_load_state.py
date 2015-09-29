@@ -12,6 +12,7 @@ class TestState(unittest.TestCase):
             traj = pt.iterload('data/tz2.nc', './data/tz2.parm7',
                                frame_slice=frame_slice)
 
+            # load from text
             text = '''
             rms @CA
             radgyr @CA nomax
@@ -19,12 +20,24 @@ class TestState(unittest.TestCase):
             s = load_batch(traj, text)
             s.run()
 
-            dslist = s.datasetlist
             rmsd0 = pt.rmsd(traj, 0, '@CA')
             r0 = pt.radgyr(traj, '@CA')
-            aa_eq(rmsd0, dslist[0])
-            aa_eq(r0, dslist[1])
-            assert len(dslist[0]) == traj.n_frames
+            aa_eq(rmsd0, s.data[0])
+            aa_eq(r0, s.data[1])
+            assert len(s.data[0]) == traj.n_frames
+
+            # load from list
+            lines = ['rms @CA',
+                     '  radgyr @CA nomax']
+
+            s = load_batch(traj, lines)
+            s.run()
+
+            rmsd0 = pt.rmsd(traj, 0, '@CA')
+            r0 = pt.radgyr(traj, '@CA')
+            aa_eq(rmsd0, s.data[0])
+            aa_eq(r0, s.data[1])
+            assert len(s.data[0]) == traj.n_frames
 
     def test_raise_if_not_trajiter(self):
         traj = pt.iterload('data/tz2.nc', './data/tz2.parm7')
