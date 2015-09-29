@@ -390,3 +390,5 @@ if __name__ == "__main__":
         from multiprocessing import Pool
         pool = Pool(n_cpus)
         pool.map(build_func, sub_ext_modules_list)
+        p.close()
+        p.join()
