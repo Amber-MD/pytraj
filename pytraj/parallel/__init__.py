@@ -1,6 +1,7 @@
 from .map import map
 from pytraj.tools import concat_dict
 from .pjob import PJob
+from functools import partial
 
 
 def get_comm_size_rank():
@@ -71,3 +72,13 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
         return (rank, state.data[1:].to_dict())
     elif dtype == 'state':
         return state
+
+def _load_batch_pmap(n_cores=4, traj=None, lines=[], dtype='dict'):
+    from multiprocessing import Pool
+
+    pfuncs = partial(_worker_state, n_cores=n_cores, traj=traj, dtype=dtype, lines=lines)
+    pool = Pool(n_cores)
+    data = pool.map(pfuncs, range(n_cores))
+    pool.close()
+    pool.join()
+    return data

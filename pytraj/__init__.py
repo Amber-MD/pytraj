@@ -169,6 +169,7 @@ from .run_tests import run_tests
 
 # parallel
 from .pmap import pmap
+from .parallel import _load_batch_pmap
 
 from ._shared_methods import iterframe_master
 
