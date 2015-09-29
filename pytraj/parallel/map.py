@@ -1,4 +1,5 @@
 import numpy as np
+from pytraj.utils import split_range
 
 def map(comm, calc_method, traj_or_list, command,
         root=0,
@@ -29,15 +30,8 @@ def map(comm, calc_method, traj_or_list, command,
         # split traj_or_list into n_cores
         fa_chunk = traj_or_list[rank]
     else:
-        # split single traj into n_cores
-        traj = traj_or_list
-        chunk = traj.n_frames // size
-
-        if rank == size - 1:
-            fa_chunk = traj(start=rank * chunk)
-        else:
-            fa_chunk = traj(start=rank * chunk, stop=(rank + 1) * chunk - 1)
-
+        start, stop = split_range(size, 0, traj_or_list.n_frames)[rank]
+        fa_chunk = traj_or_list(start=start, stop=stop) 
     dslist = calc_method(fa_chunk, command, dtype=dtype, *args, **kwd)
     total = comm.gather(dslist, root=root)
     return total

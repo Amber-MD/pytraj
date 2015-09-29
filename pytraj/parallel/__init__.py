@@ -1,6 +1,7 @@
 from .map import map
 from pytraj.tools import concat_dict
 from .pjob import PJob
+from functools import partial
 
 
 def get_comm_size_rank():
@@ -71,3 +72,25 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
         return (rank, state.data[1:].to_dict())
     elif dtype == 'state':
         return state
+
+def _load_batch_pmap(n_cores=4, traj=None, lines=[], dtype='dict', root=0, mode='multiprocessing'):
+    '''mpi or multiprocessing
+    '''
+    if mode == 'multiprocessing':
+        from multiprocessing import Pool
+        pfuncs = partial(_worker_state, n_cores=n_cores, traj=traj, dtype=dtype, lines=lines)
+        pool = Pool(n_cores)
+        data = pool.map(pfuncs, range(n_cores))
+        pool.close()
+        pool.join()
+        return data
+    elif mode == 'mpi':
+        from mpi4py import MPI
+        comm = MPI.COMM_WORLD
+        size = comm.size
+        rank = comm.rank
+        data_chunk = _worker_state(rank, n_cores=size, traj=traj, lines=lines, dtype=dtype)
+        data = comm.gather(data_chunk, root=root)
+        return data
+    else:
+        raise ValueError('only support multiprocessing or mpi')

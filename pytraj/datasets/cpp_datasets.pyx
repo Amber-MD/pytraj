@@ -1304,14 +1304,22 @@ cdef class DatasetCoords(Dataset):
         We can not return a memoryview since Trajectory is a C++ vector of Frame object
         """
         cdef Frame frame
-        cdef int i
+        cdef int i, n_frames, n_atoms
+        cdef double[:, :, ::1] xyz
+
         n_frames = self.n_frames 
         n_atoms = self.top.n_atoms
-        arr = np.empty((n_frames, n_atoms, 3))
+        xyz = np.empty((n_frames, n_atoms, 3), dtype='f8')
+
+        frame = Frame(n_atoms, xyz[0], _as_ptr=True)
 
         for i in range(n_frames):
-            arr[i] = self[i].xyz
-        return arr
+            # use `frame` as a pointer pointing to `xyz` memory
+            # dump coords to xyz array
+            frame.thisptr.SetXptr(n_atoms, &xyz[i, 0, 0])
+            # copy coordinates of `self[i]` to j-th frame in `traj`
+            self.baseptr_1.GetFrame(i, frame.thisptr[0])
+        return np.asarray(xyz)
 
     def tolist(self):
         """return flatten list for traj-like object"""
