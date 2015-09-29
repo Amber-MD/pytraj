@@ -96,7 +96,7 @@ cdef extern from "DataSet_double.h":
 
 cdef class DatasetDouble (Dataset1D):
     cdef _DatasetDouble* thisptr
-    cdef bint py_free_mem 
+    cdef bint _own_memory 
 
 cdef extern from "DataSet_float.h": 
     cdef cppclass _DatasetFloat "DataSet_float" (_Dataset1D):
@@ -111,7 +111,7 @@ cdef extern from "DataSet_float.h":
 
 cdef class DatasetFloat (Dataset1D):
     cdef _DatasetFloat* thisptr
-    cdef bint py_free_mem 
+    cdef bint _own_memory 
 
 cdef extern from "DataSet_integer.h": 
     cdef cppclass _DatasetInteger "DataSet_integer" (_Dataset1D):
@@ -127,7 +127,7 @@ cdef extern from "DataSet_integer.h":
 
 cdef class DatasetInteger (Dataset1D):
     cdef _DatasetInteger* thisptr
-    cdef bint py_free_mem 
+    cdef bint _own_memory 
 
 cdef extern from "DataSet_string.h": 
     cdef cppclass _DatasetString "DataSet_string" (_Dataset1D):
@@ -140,7 +140,7 @@ cdef extern from "DataSet_string.h":
 
 cdef class DatasetString(Dataset1D):
     cdef _DatasetString* thisptr
-    cdef bint py_free_mem
+    cdef bint _own_memory
 
 cdef extern from "DataSet_Vector.h": 
     cdef cppclass _DatasetVector "DataSet_Vector" (_Dataset):
@@ -157,7 +157,7 @@ cdef extern from "DataSet_Vector.h":
 
 cdef class DatasetVector (Dataset):
     cdef _DatasetVector* thisptr
-    cdef bint py_free_mem
+    cdef bint _own_memory
 
 cdef extern from "DataSet_2D.h": 
     # DataSet_2D.h
@@ -228,7 +228,7 @@ cdef extern from "DataSet_MatrixDbl.h":
 
 cdef class DatasetMatrixDouble (Dataset2D):
     cdef _DatasetMatrixDouble* thisptr
-    cdef public bint py_free_mem
+    cdef public bint _own_memory
 
 
 cdef extern from "DataSet_MatrixFlt.h": 
@@ -241,7 +241,7 @@ cdef extern from "DataSet_MatrixFlt.h":
 
 cdef class DatasetMatrixFloat(Dataset2D):
     cdef _DatasetMatrixFloat * thisptr
-    cdef bint py_free_mem
+    cdef bint _own_memory
 
 
 cdef extern from "DataSet_3D.h": 
@@ -282,7 +282,7 @@ cdef extern from "DataSet_GridFlt.h":
 
 cdef class DatasetGridFloat (Dataset3D):
     cdef _DatasetGridFloat* thisptr
-    cdef public bint py_free_mem
+    cdef public bint _own_memory
 
 cdef extern from "DataSet_Modes.h": 
     cdef cppclass _DatasetModes "DataSet_Modes" (_Dataset):
@@ -315,7 +315,7 @@ cdef extern from "DataSet_Modes.h":
 
 cdef class DatasetModes (Dataset):
     cdef _DatasetModes* thisptr
-    cdef public bint py_free_mem
+    cdef public bint _own_memory
 
 ctypedef cmap[double, int] TcmapType
 cdef extern from "DataSet_RemLog.h": 
@@ -370,7 +370,7 @@ cdef extern from "DataSet_Mat3x3.h":
 
 cdef class DatasetMatrix3x3(Dataset):
     cdef _DatasetMatrix3x3* thisptr
-    cdef bint py_free_mem 
+    cdef bint _own_memory 
 
 
 cdef extern from "DataSet_Mesh.h": 
@@ -394,7 +394,7 @@ cdef extern from "DataSet_Mesh.h":
 
 cdef class DatasetMesh(Dataset1D):
     cdef _DatasetMesh* thisptr
-    cdef public bint py_free_mem
+    cdef public bint _own_memory
 
 
 cdef extern from "DataSet_Coords.h": 
@@ -421,7 +421,7 @@ cdef class DatasetCoords (Dataset):
     # Dataset has baseptr0
     cdef _DatasetCoords* baseptr_1
     cdef Topology _top
-    cdef bint py_free_mem
+    cdef bint _own_memory
 
     # use tmpfarray object to hold Frame or Trajectory 
     # (if we want to use dset[0][0] correctly)

@@ -1452,7 +1452,7 @@ def _calc_vector_center(traj=None,
     _top = _get_topology(traj, top)
 
     dslist = CpptrajDatasetList()
-    dslist.set_py_free_mem(False)  # need this to avoid segmentation fault
+    dslist.set__own_memory(False)  # need this to avoid segmentation fault
     act = CpptrajActions.Action_Vector()
     command = "center " + command
 
@@ -1903,7 +1903,7 @@ def _closest_iter(act, traj):
 
     for frame in iterframe_master(traj):
         new_frame = Frame()
-        new_frame.py_free_mem = False  # cpptraj will do
+        new_frame._own_memory = False  # cpptraj will do
         act.do_action(frame, new_frame)
         yield new_frame.copy()
 
@@ -1967,7 +1967,7 @@ def closest(traj=None,
         _top.set_solvent(solvent_mask)
 
     new_top = Topology()
-    new_top.py_free_mem = False  # cpptraj will do
+    new_top._own_memory = False  # cpptraj will do
 
     if dtype not in ['trajectory', 'iterator']:
         # trick cpptraj to dump data to CpptrajDatasetList too

@@ -79,7 +79,7 @@ cdef class Frame (object):
         cdef int i
         cdef double[:, ::1] view
 
-        self.py_free_mem = True
+        self._own_memory = True
         self._as_view = False
 
         if not args:
@@ -120,7 +120,7 @@ cdef class Frame (object):
                 self.thisptr = new _Frame(natom, &view[0, 0])
 
     def __dealloc__(self):
-        if self.py_free_mem and self.thisptr:
+        if self._own_memory and self.thisptr:
             del self.thisptr
 
     def __del__(self):
@@ -397,7 +397,7 @@ cdef class Frame (object):
              TODO : rename?
              """
              # debug
-             #print "from calling buffer1d: py_free_mem = ", self.py_free_mem
+             #print "from calling buffer1d: _own_memory = ", self._own_memory
              # end debug
              def _buffer(N):
                  cdef double* ptr = self.thisptr.xAddress()
@@ -413,7 +413,7 @@ cdef class Frame (object):
             TODO : rename?
             """
             # debug
-            #print "from calling buffer: py_free_mem = ", self.py_free_mem
+            #print "from calling buffer: _own_memory = ", self._own_memory
             # end debug
             def _buffer(N):
                 cdef double* ptr = self.thisptr.xAddress()
@@ -1042,7 +1042,7 @@ cdef class Frame (object):
         # (Frame, Topology) to control cpptraj' objects' lifetime.
 
         cdef Topology newtop = Topology()
-        newtop.py_free_mem = False
+        newtop._own_memory = False
         cdef Frame tmpframe = Frame() 
 
         del tmpframe.thisptr

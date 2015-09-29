@@ -45,7 +45,7 @@ cdef extern from "DataFile.h":
 
 cdef class DataFile:
     cdef _DataFile* thisptr
-    cdef bint py_free_mem
+    cdef bint _own_memory
 
 
 cdef extern from "DataFileList.h": 
@@ -70,4 +70,4 @@ cdef extern from "DataFileList.h":
 
 cdef class DataFileList:
     cdef _DataFileList* thisptr
-    cdef bint py_free_mem
+    cdef bint _own_memory

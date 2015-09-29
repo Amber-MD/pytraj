@@ -100,8 +100,8 @@ cdef class Action:
         if "Strip" in self.__class__.__name__:
             # since `Action_Strip` will copy a modified version of `top` and 
             # store in new_top, then __dealloc__ (from cpptraj)
-            # we need to see py_free_mem to False
-            new_top.py_free_mem = False
+            # we need to see _own_memory to False
+            new_top._own_memory = False
         self.top_is_processed = True
         return self.baseptr.Setup(top.thisptr, &(new_top.thisptr))
 
@@ -123,7 +123,7 @@ cdef class Action:
 
         if self.__class__.__name__ == 'Action_Strip':
             # let cpptraj do its job for this special action
-            new_frame.py_free_mem = False
+            new_frame._own_memory = False
 
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame

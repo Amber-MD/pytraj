@@ -49,5 +49,5 @@ cdef extern from "DataSetList.h":
 
 cdef class DatasetList:
     cdef _DatasetList* thisptr
-    cdef bint py_free_mem
+    cdef bint _own_memory
     cdef list _parent_lists

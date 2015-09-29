@@ -36,10 +36,10 @@ cdef class Topology:
         cdef string filename
         self.thisptr = new _Topology()
 
-        # I dont make default py_free_mem (True) in __cinit__ since
+        # I dont make default _own_memory (True) in __cinit__ since
         # when passing something like top = Topology(filename), Python/Cython
-        # would think "filename" is value of py_free_mem
-        self.py_free_mem = True
+        # would think "filename" is value of _own_memory
+        self._own_memory = True
 
         if not args:
             #print "there is no args" # for debug
@@ -56,7 +56,7 @@ cdef class Topology:
                 raise ValueError()
 
     def __dealloc__(self):
-        if self.py_free_mem and self.thisptr:
+        if self._own_memory and self.thisptr:
             del self.thisptr
 
     def __str__(self):
@@ -702,13 +702,13 @@ cdef class ParmFile:
         return os.path.abspath(filename)
 
 cdef class TopologyList:
-    def __cinit__(self, py_free_mem=True):
+    def __cinit__(self, _own_memory=True):
         cdef string filename
         self.thisptr = new _TopologyList()
-        self.py_free_mem = py_free_mem
+        self._own_memory = _own_memory
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def __getitem__(self, int idx):
@@ -743,7 +743,7 @@ cdef class TopologyList:
 
         # since we pass C++ pointer to top.thisptr, we let cpptraj take care of 
         # freeing memory
-        top.py_free_mem = False
+        top._own_memory = False
 
         if is_int(arg):
             num = arg
@@ -778,7 +778,7 @@ cdef class TopologyList:
                 top = args[0]
                 # let cpptraj frees memory since we pass a pointer
                 newtop = top.copy()
-                newtop.py_free_mem = False
+                newtop._own_memory = False
                 self.thisptr.AddParm(newtop.thisptr)
             else:
                 filename = args[0].encode()

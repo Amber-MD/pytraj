@@ -313,7 +313,7 @@ cdef class Vec3:
         cdef Vec3 vec
         cdef double x, y, z
         
-        self.py_free_mem = True
+        self._own_memory = True
         if not args:
             self.thisptr = new _Vec3()
         else:
@@ -329,7 +329,7 @@ cdef class Vec3:
                     self.set_vec(*args)
 
     def __dealloc__(self):
-        if self.thisptr is not NULL and self.py_free_mem:
+        if self.thisptr is not NULL and self._own_memory:
             del self.thisptr
 
     def __str__(self):

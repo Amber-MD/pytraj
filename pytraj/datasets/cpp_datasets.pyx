@@ -80,7 +80,6 @@ cdef class Dataset:
         def __set__(self, _legend):
             self._legend = _legend
     
-
     property dtype:
         def __get__(self):
             return get_key(self.baseptr0.Type(), DataTypeDict).lower()
@@ -103,7 +102,6 @@ cdef class Dataset:
 
     def __setitem__(self, idx, value):
         raise NotImplementedError("Must over-write Dataset data attr")
-
 
     def __array__(self):
         """
@@ -411,14 +409,14 @@ cdef class DatasetDouble (Dataset1D):
         self.thisptr = <_DatasetDouble*> self.baseptr0
 
         # let Python/Cython free memory
-        self.py_free_mem = True
+        self._own_memory = True
 
         if args:
             if isinstance(args[0], list):
                 self.data = args[0]
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def __getitem__(self, idx):
@@ -487,10 +485,10 @@ cdef class DatasetFloat (Dataset1D):
         self.thisptr = <_DatasetFloat*> self.baseptr0
 
         # let Python/Cython free memory
-        self.py_free_mem = True
+        self._own_memory = True
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def __getitem__(self, idx):
@@ -546,10 +544,10 @@ cdef class DatasetInteger (Dataset1D):
         self.thisptr = <_DatasetInteger*> self.baseptr0
 
         # let Python/Cython free memory
-        self.py_free_mem = True
+        self._own_memory = True
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def __getitem__(self, idx):
@@ -660,10 +658,10 @@ cdef class DatasetString (Dataset1D):
         self.thisptr = <_DatasetString*> self.baseptr0
 
         # let Python/Cython free memory
-        self.py_free_mem = True
+        self._own_memory = True
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def __getitem__(self, int idx):
@@ -692,12 +690,12 @@ cdef class DatasetString (Dataset1D):
 
 cdef class DatasetVector(Dataset):
     def __cinit__(self):
-        self.py_free_mem = True
+        self._own_memory = True
         self.thisptr = new _DatasetVector()
         self.baseptr0 = <_Dataset*> self.thisptr
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     @property
@@ -710,7 +708,7 @@ cdef class DatasetVector(Dataset):
         cdef Vec3 vec = Vec3()
         if idx == -1:
             idx = self.size - 1
-        vec.py_free_mem = False
+        vec._own_memory = False
         vec.thisptr = &(self.thisptr.index_opr(idx))
         return vec
 
@@ -815,7 +813,7 @@ cdef class DatasetMatrixDouble (Dataset2D):
         self.baseptr0 = <_Dataset*> self.thisptr
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def __getitem__(self, idx):
@@ -923,7 +921,7 @@ cdef class DatasetMatrixFloat (Dataset2D):
         self.baseptr0 = <_Dataset*> self.thisptr
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def __getitem__(self, idx):
@@ -996,10 +994,10 @@ cdef class DatasetGridFloat(Dataset3D):
         self.baseptr0 = <_Dataset*> new _DatasetGridFloat()
         self.baseptr_1 = <_Dataset3D*> self.baseptr0
         self.thisptr = <_DatasetGridFloat*> self.baseptr0
-        self.py_free_mem = True
+        self._own_memory = True
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def __str__(self):
@@ -1056,12 +1054,12 @@ cdef class DatasetGridFloat(Dataset3D):
 
 cdef class DatasetModes(Dataset):
     def __cinit__(self):
-        self.py_free_mem = True
+        self._own_memory = True
         self.thisptr = new _DatasetModes()
         self.baseptr0 = <_Dataset*> self.thisptr
 
     def __dealloc__(self):
-        if self.thisptr and self.py_free_mem:
+        if self.thisptr and self._own_memory:
             del self.thisptr
 
     property data:
@@ -1072,14 +1070,15 @@ cdef class DatasetModes(Dataset):
         def __get__(self):
             return self.data
 
-    def nmodes(self):
-        return self.thisptr.Nmodes()
+    property n_modes:
+        def __get__(self):
+            return self.thisptr.Nmodes()
 
     def eigval_to_freq(self, x):
         return self.thisptr.EigvalToFreq(<double> x)
 
     @property
-    def vsize(self):
+    def vector_size(self):
         return self.thisptr.VectorSize()
 
     def _is_reduced(self):
@@ -1124,10 +1123,10 @@ cdef class DatasetMatrix3x3 (Dataset):
         self.thisptr = <_DatasetMatrix3x3*> self.baseptr0
 
         # let Python/Cython free memory
-        self.py_free_mem = True
+        self._own_memory = True
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def __getitem__(self, int idx):
@@ -1177,10 +1176,10 @@ cdef class DatasetMesh (Dataset1D):
         self.thisptr = <_DatasetMesh*> self.baseptr0
 
         # let Python/Cython free memory
-        self.py_free_mem = True
+        self._own_memory = True
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def tolist(self):
@@ -1254,7 +1253,7 @@ cdef class DatasetCoords(Dataset):
     def __getitem__(self, idx):
         cdef Frame frame
         frame = self.allocate_frame()
-        frame.py_free_mem = True
+        frame._own_memory = True
 
         if self.size == 0:
             raise ValueError("Your Trajectory is empty, how can I index it?")
@@ -1329,10 +1328,10 @@ cdef class DatasetCoordsCRD (DatasetCoords):
         self.baseptr_1 = <_DatasetCoords*> self.thisptr
 
         # let python frees memory
-        self.py_free_mem = True
+        self._own_memory = True
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def load(self, filename):
@@ -1357,10 +1356,10 @@ cdef class DatasetCoordsRef (DatasetCoords):
         self.baseptr_1 = <_DatasetCoords*> self.thisptr
 
         # let python frees memory
-        self.py_free_mem = True
+        self._own_memory = True
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def get_frame(self):

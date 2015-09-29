@@ -35,19 +35,19 @@ cdef class DatasetList:
         * describe
         * to_dataframe
     """
-    def __cinit__(self, py_free_mem=True):
-        # py_free_mem is a flag to tell pytraj should free memory or let 
+    def __cinit__(self, _own_memory=True):
+        # _own_memory is a flag to tell pytraj should free memory or let 
         # cpptraj does
         # check ./CpptrajState.pyx
         self.thisptr = new _DatasetList()
-        self.py_free_mem = py_free_mem
+        self._own_memory = _own_memory
         # Not all DatasetLists own their own data (if it's a MemoryView) for
         # instance, so this allows us to keep references to parent objects to
         # prevent them from getting GCed while their memory is still being used.
         self._parent_lists = []
 
     def __dealloc__(self):
-        if self.py_free_mem:
+        if self._own_memory:
             del self.thisptr
 
     def __str__(self):
@@ -154,14 +154,14 @@ cdef class DatasetList:
             # return new view of `self`
             start, stop, step = idx.indices(self.size)
             new_dslist = self.__class__()
-            new_dslist.set_py_free_mem(False)
+            new_dslist.set__own_memory(False)
             for _idx in range(start, stop, step):
                 new_dslist.add_existing_set(self[_idx])
             new_dslist._parent_lists_append(self)
             return new_dslist
         elif is_array(idx) or isinstance(idx, list):
             new_dslist = self.__class__()
-            new_dslist.set_py_free_mem(False)
+            new_dslist.set__own_memory(False)
             for _idx in idx: 
                 new_dslist.add_existing_set(self[_idx])
             new_dslist._parent_lists_append(self)
@@ -241,7 +241,7 @@ cdef class DatasetList:
     def _add_traj(self, TrajectoryCpptraj traj, name='_traj'):
         cdef _MetaData metadata
         metadata.SetName(name.encode())
-        traj.py_free_mem = False
+        traj._own_memory = False
         (<_Dataset*> traj.thisptr).SetMeta(metadata)
         #self.thisptr.AddCopyOfSet(<_Dataset*> traj.thisptr)
         self.thisptr.AddSet(<_Dataset*> traj.thisptr)
@@ -349,7 +349,7 @@ cdef class DatasetList:
         dtmp = self.__class__()
 
         # dont free mem here
-        dtmp.set_py_free_mem(False)
+        dtmp.set__own_memory(False)
         for d0 in self._base_dataset_iter():
             att = getattr(d0, mode)
             if isinstance(key, string_types):
@@ -421,11 +421,11 @@ cdef class DatasetList:
         my_dict = OrderedDict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
 
-    def set_py_free_mem(self, bint value):
-        # we only expose py_free_mem in cython (not pure python)
+    def set__own_memory(self, bint value):
+        # we only expose _own_memory in cython (not pure python)
         # we don't want to change *.pxd signature files since this 
         # requires recompiling *pyx codes
-        self.py_free_mem = value
+        self._own_memory = value
 
     def _base_dataset_iter(self):
         """return a list of baseclass Dataset"""

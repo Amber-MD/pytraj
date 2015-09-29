@@ -42,7 +42,7 @@ cdef class TrajectoryCpptraj:
         self.thisptr = new _TrajectoryCpptraj()
         self._top = Topology()
         self._filelist = []
-        self.py_free_mem = True
+        self._own_memory = True
 
     def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         '''
@@ -364,7 +364,7 @@ cdef class TrajectoryCpptraj:
         pass
 
     def __dealloc__(self):
-        if self.thisptr and self.py_free_mem:
+        if self.thisptr and self._own_memory:
             del self.thisptr
 
     def _load_traj_by_indices(self, indices):
