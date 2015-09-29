@@ -26,6 +26,7 @@ runanalysis diagmatrix MyMatrix vecs 2 name MyEvecs
 crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''
 
+@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
 class TestCpptrajDataset(unittest.TestCase):
     def setUp(self):
         self.state = pt.datafiles.load_cpptraj_state(txt)
@@ -48,7 +49,6 @@ class TestCpptrajDataset(unittest.TestCase):
             aa_eq(avg_frame.xyz, cpp_ref.values)
             aa_eq(avg_frame.xyz, cpp_ref.data)
 
-    @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
     def test_DatasetModes(self):
         state = self.state
         modes = state.data['MyEvecs']
