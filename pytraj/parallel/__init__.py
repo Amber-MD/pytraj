@@ -50,7 +50,8 @@ def gather(name='data', clients=None, restype='ndarray'):
 def _worker_state(n_cores, rank, traj, lines):
     # need to make a copy if lines since python's list is dangerous
     # it's easy to mess up with mutable list
-    my_lines = lines.copy()
+    # do not use lines.copy() since this is not available in py2.7
+    my_lines = [line for line in lines]
     from pytraj.utils import split_range
     from pytraj.core.cpptraj_core import _load_batch
 
