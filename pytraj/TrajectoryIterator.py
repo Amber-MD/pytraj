@@ -115,11 +115,13 @@ class TrajectoryIterator(TrajectoryCpptraj):
             yield frame
 
     def copy(self):
-        """Very simple copy"""
+        '''return a deep copy
+        '''
         other = self.__class__()
         other.top = self.top.copy()
-        other.load(self.filelist)
 
+        for fname, frame_slice in zip(self.filelist, self.frame_slice_list):
+            other.load(fname, frame_slice=frame_slice)
         return other
 
     def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
