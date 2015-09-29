@@ -41,4 +41,5 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
                      args=args,
                      kwd=kwd)
     result = p.map(pfuncs, [rank for rank in range(n_cores)])
+    p.close()
     return result

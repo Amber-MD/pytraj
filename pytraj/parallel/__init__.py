@@ -47,7 +47,7 @@ def gather(name='data', clients=None, restype='ndarray'):
         raise ValueError("must be ndarray | dataset | dict")
 
 
-def _worker_state(n_cores, rank, traj, lines):
+def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
     # need to make a copy if lines since python's list is dangerous
     # it's easy to mess up with mutable list
     # do not use lines.copy() since this is not available in py2.7
@@ -58,6 +58,7 @@ def _worker_state(n_cores, rank, traj, lines):
     mylist = split_range(n_cores, 0, traj.n_frames)[rank]
     start, stop = mylist
     crdframes_string = 'crdframes ' + ','.join((str(start+1), str(stop)))
+
     for idx, line in enumerate(my_lines):
         if not line.lstrip().startswith('reference'):
             my_lines[idx] = ' '.join(('crdaction traj', line, crdframes_string))
@@ -66,4 +67,7 @@ def _worker_state(n_cores, rank, traj, lines):
 
     state = _load_batch(my_lines, traj)
     state.run()
-    return (rank, state.data[1:].to_dict())
+    if dtype == 'dict':
+        return (rank, state.data[1:].to_dict())
+    elif dtype == 'state':
+        return state

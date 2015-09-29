@@ -21,12 +21,21 @@ __all__ = ['Trajectory']
 
 class Trajectory(object):
     def __init__(self, filename=None, top=None, xyz=None, indices=None):
-        """
+        """very simple  in-memory Trajectory. It has only information about 3D coordinates
+        and unitcells (no time, no velocity, no mass, not force, ...)
 
         Attributes
         ----------
-        xyz :  (TBF)
-        unitcells : (TBF)
+        xyz :  3D coordinates, dtype=np.float64, shape (n_frames, n_atoms, 3)
+        unitcells : 2D unitcells, dtype=float64, shape (n_frames, 6)
+
+        Methods
+        -------
+        __iter__ : iterable
+        __getitem__ : slicing
+        superpose : superpose to reference
+        autoimage : autoimage
+        iterframe : advanced iterator
 
         Examples
         --------
