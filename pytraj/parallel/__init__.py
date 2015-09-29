@@ -45,3 +45,24 @@ def gather(name='data', clients=None, restype='ndarray'):
         return concat_dict((x[name] for x in clients))
     else:
         raise ValueError("must be ndarray | dataset | dict")
+
+
+def _worker_state(n_cores, rank, traj, lines):
+    # need to make a copy if lines since python's list is dangerous
+    # it's easy to mess up with mutable list
+    # do not use lines.copy() since this is not available in py2.7
+    my_lines = [line for line in lines]
+    from pytraj.utils import split_range
+    from pytraj.core.cpptraj_core import _load_batch
+
+    mylist = split_range(n_cores, 0, traj.n_frames)[rank]
+    start, stop = mylist
+    crdframes_string = 'crdframes ' + ','.join((str(start+1), str(stop)))
+    for idx, line in enumerate(my_lines):
+        my_lines[idx] = ' '.join(('crdaction traj', line, crdframes_string))
+
+    my_lines = ['loadtraj name traj',] + my_lines
+
+    state = _load_batch(my_lines, traj)
+    state.run()
+    return (rank, state.data[1:].to_dict())

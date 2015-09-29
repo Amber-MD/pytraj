@@ -14,7 +14,7 @@ class TestAtomMask(unittest.TestCase):
         top2 = top._modify_state_by_mask(atm)
         assert top2.n_atoms == 20
         for atom in top2:
-            assert atom.name == 'CA  '
+            assert atom.name == 'CA'
 
         atm.invert_mask()
         top3 = top._modify_state_by_mask(atm)

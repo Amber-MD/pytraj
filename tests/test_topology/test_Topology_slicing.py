@@ -20,7 +20,7 @@ class Test(unittest.TestCase):
         indices = atm.indices
         for a1, a2, a3, a4 in izip(top['@CA'], top[atm], top[indices],
                                    top[list(indices)]):
-            assert a1.name == a2.name == a3.name == a4.name == 'CA  '
+            assert a1.name == a2.name == a3.name == a4.name == 'CA'
 
         # check len
         assert top[:].__len__() == top.n_atoms
