@@ -113,6 +113,15 @@ But if you are new to Python and got ``permission denied`` error, try to install
 
 If you want to see further options, check ``python setup.py install --help``
 
+install ipython and its notebook for interactive data exploration
+-----------------------------------------------------------------
+
+`ipython <http://ipython.org/>`_ and its notebook is great program for interactive exloration of MD data.
+Curious about how the notebook looks like? check out our `pairwise rmsd tutorial <http://amber-md.github.io/pytraj/doc/build/html/tutorials/tut_pairwise_rmsd.html>`_
+
+If you are using ``anaconda``, just type ``ipython notebook``. If you have not haved ipython and its notebook, try ``conda install ipython``
+For further instruction and information about ``ipython-notebook``, please check its website.
+
 install anaconda for all python packages
 ----------------------------------------
 
