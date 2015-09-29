@@ -163,20 +163,3 @@ def find_library(libname, unique=False):
             return set(lib_path_list)
         else:
             return lib_path_list
-
-
-def split_range(n_chunks, start, stop):
-    '''
-    >>> from pytraj.misc import split_range
-    >>> split_range(3, 0, 10)
-    [(0, 3), (3, 6), (6, 10)]
-    '''
-    list_of_tuple = []
-    chunksize = (stop - start) // n_chunks
-    for i in range(n_chunks):
-        if i < n_chunks - 1:
-            _stop = (i + 1) * chunksize
-        else:
-            _stop = stop
-        list_of_tuple.append((start + i * chunksize, _stop))
-    return list_of_tuple
