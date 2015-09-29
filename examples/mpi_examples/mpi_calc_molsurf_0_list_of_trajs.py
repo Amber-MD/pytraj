@@ -13,7 +13,7 @@ comm = MPI.COMM_WORLD
 
 # split remd.x.000 to N cores and do calc_molsurf in parallel
 root_dir = "../../tests/data/nogit/remd/"
-parm_name = root_dir + "myparm.top"
+parm_name = root_dir + "tc5bwat.top"
 top = io.load(parm_name)
 
 # load to TrajectoryIterator
