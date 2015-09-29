@@ -109,7 +109,8 @@ cdef class Atom:
 
     @property
     def name(self):
-        return self.thisptr.c_str().decode('UTF-8')
+        name = self.thisptr.c_str().decode('UTF-8')
+        return name.rstrip()
 
     @property
     def type(self):
@@ -212,8 +213,9 @@ cdef class Residue:
 
     @property
     def name(self):
-        return self.thisptr.c_str().decode('UTF-8')
-# distutils: language = c++
+        name = self.thisptr.c_str().decode('UTF-8')
+        return name.rstrip()
+
 
 cdef class Molecule:
     def __cinit__(self, *args):
