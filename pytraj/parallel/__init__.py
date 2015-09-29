@@ -59,7 +59,8 @@ def _worker_state(n_cores, rank, traj, lines):
     start, stop = mylist
     crdframes_string = 'crdframes ' + ','.join((str(start+1), str(stop)))
     for idx, line in enumerate(my_lines):
-        my_lines[idx] = ' '.join(('crdaction traj', line, crdframes_string))
+        if not line.lstrip().startswith('reference'):
+            my_lines[idx] = ' '.join(('crdaction traj', line, crdframes_string))
 
     my_lines = ['loadtraj name traj',] + my_lines
 
