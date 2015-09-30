@@ -169,9 +169,12 @@
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># read amber format</span>
 <span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="gp">In [1]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.ortho.parm7&#39;</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.ortho.parm7&#39;</span><span class="p">)</span>
 
-<span class="gp">In [1]: </span><span class="n">traj</span>
+<span class="gp">In [3]: </span><span class="n">traj</span>
+<span class="gr">Out[3]: </span>
+<span class="go">&lt;pytraj.TrajectoryIterator, 10 frames, include:</span>
+<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;&gt;</span>
 </pre></div>
 </div>
 <p>Most commmon usage: load a single file with frame stride</p>
@@ -220,10 +223,10 @@ trajin remd.x.001 <span class="m">1</span> <span class="m">1000</span> 2
 <div class="section" id="write">
 <h2><a class="toc-backref" href="#id4">Write</a><a class="headerlink" href="#write" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># write to CHARMM dcd format</span>
-<span class="gp">In [1]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;test.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;test.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="c"># write with given frames</span>
-<span class="gp">In [1]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;test2.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;test2.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
