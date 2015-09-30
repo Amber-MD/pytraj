@@ -1,8 +1,7 @@
 from __future__ import print_function, absolute_import
-import numpy as np
-from .externals.six import iteritems
+import numpy as _np
 
-supported_types = [
+_supported_types = [
     x for x in
     'minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split()]
 
@@ -59,7 +58,7 @@ def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=Non
     dslist = CpptrajDatasetList()
     template_command = ' mask '
 
-    cm_arr = np.asarray(mask)
+    cm_arr = _np.asarray(mask)
     if cm_arr.dtype.kind != 'i':
         list_of_commands = _get_list_of_commands(mask)
     else:
@@ -76,7 +75,7 @@ def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=Non
     actlist.do_actions(fi)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-template = '''
+_template = '''
 def vector_%s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     """
     Parameters
@@ -108,9 +107,8 @@ def vector_%s(traj=None, command="", frame_indices=None, dtype='ndarray', top=No
     return _get_data_from_dtype(dslist, dtype=dtype)
 '''
 
-for key in supported_types:
-    my_func_str = template % (key, key)
-    g_dict = globals()
-    exec(my_func_str)
+for _key in _supported_types:
+    _my_func_str = _template % (_key, _key)
+    exec(_my_func_str)
 
-del key
+del _key
