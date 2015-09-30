@@ -105,10 +105,9 @@ def load(filename, top=None, frame_indices=None, mask=None):
     if is_frame_iter(filename):
         return _load_from_frame_iter(*args, **kwd)
 
-    if filename.startswith('http://') or filename.startswith('https://'):
+    if isinstance(filename, string_types) and filename.startswith('http://') or filename.startswith('https://'):
         return load_ParmEd(filename, as_traj=True, structure=True)
     else:
-        ensure_exist(filename)
         # load to TrajectoryIterator object first
         traj = load_traj(filename, top)
 
