@@ -16,7 +16,6 @@ class Test(unittest.TestCase):
 
         # make sure that frame's coords does not 
         # change after setting mass
-        #print(f0.xyz)
         aa_eq(f0.xyz, traj[0].xyz)
 
 

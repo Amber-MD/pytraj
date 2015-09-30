@@ -30,8 +30,6 @@ class TestReferentCounting(unittest.TestCase):
         e = pyca.search_hbonds(traj).filter(
             'SER').filter("SER").filter("").filter("")
         # make sure getting not segmentation fault
-        #print(e.size)
-        #print(e[0])
 
     def test_traj_search_hbonds(self):
         traj = mdio.iterload('./data/md1_prod.Tc5b.x', './data/Tc5b.top')
@@ -54,8 +52,6 @@ class TestReferentCounting(unittest.TestCase):
         e = pt.search_hbonds(traj, ).filter(
             'SER').filter("SER").filter("").filter("")
         # make sure getting not segmentation fault
-        #print(e.size)
-        #print(e[0])
 
 
 if __name__ == '__main__':

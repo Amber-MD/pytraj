@@ -12,12 +12,9 @@ class TestDSSP(unittest.TestCase):
         data_int = np.array([d0.values for d0 in data
                              if d0.dtype == 'integer'],
                             dtype='i4')
-        print(data_int)
-
         # load cpptraj output
         cpp_data = np.loadtxt("./data/dssp.Tc5b.dat",
                               skiprows=1).transpose()[1:]
-        print(cpp_data)
         aa_eq(data_int.flatten(), cpp_data.flatten())
 
 

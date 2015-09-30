@@ -92,7 +92,6 @@ class TestVectorAnalysisModule(unittest.TestCase):
         cpp_data = state.datasetlist
         cpp_vectors = cpp_data.grep('vector', mode='dtype').values
         cpp_matired = cpp_data.grep('matrix', mode='dtype')['matired']
-        #print(cpp_matired.values)
 
         # assert between pytraj's data_vec and cpptraj's cpp_vectors
         aa_eq(data_vec, cpp_vectors)

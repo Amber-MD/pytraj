@@ -47,7 +47,6 @@ class TestTrajout(unittest.TestCase):
         farray = Trajectory()
         farray.top = pt.load_topology('./data/Tc5b.top')
         farray.load("./output/test.x")
-        #print(farray.size)
 
     def test_3_write_PDBFILE(self):
         frame0 = farray[0]
@@ -68,7 +67,6 @@ class TestTrajout(unittest.TestCase):
                    overwrite=True)
 
         # test 'save'
-        #print(farray)
         farray.save("./output/test_write_output_save_method.x", overwrite=True)
 
         # reproduce result?
@@ -79,7 +77,6 @@ class TestTrajout(unittest.TestCase):
 
     def test_5(self):
         farray = Trajectory("./output/test_0.pdb", "./data/Tc5b.top")[0]
-        #print(farray.n_atoms)
 
 
 if __name__ == "__main__":

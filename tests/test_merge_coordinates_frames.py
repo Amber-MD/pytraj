@@ -32,10 +32,7 @@ class Test(unittest.TestCase):
         assert r0 == 0.
 
         coords = pt.tools.merge_coordinates([f.copy() for f in traj])
-        #print(coords.shape)
-        #print(traj.xyz.shape)
         r0 = pt.misc.rmsd(coords, pt.get_coordinates(traj), True)
-        #print(r0)
         assert r0 == 0.
 
     def test_1(self):
