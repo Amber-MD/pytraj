@@ -61,3 +61,17 @@ if you would like to acknowledge our works, please do consider citing both ``cpp
     pytraj (https://github.com/Amber-MD/pytraj), Hai Nguyen,  et al. (2015) (in preperation)
 
 .. note:: list of authors in ``pytraj`` is not complete. We will fill it soon.
+
+
+Contact
+-------
+
+We always welcome your contribution, including (but not limited to) adding new code, bug report,
+suggestion about website, doc, ... or anything that comes up. Feel free to contact us.
+Even you do not like ``pytraj`` or some of its features, just tell us so we can make it
+better. Cheers.
+
+* For bug reports, feature requests, code discussion ... please use the `GitHub issue tracker <https://github.com/Amber-MD/pytraj/issues>`_
+* For scientific discussion please send email to `amber <http://ambermd.org/#correspondence>`_
+* For things that directly related to ``cpptraj``, please open `issue here
+  <https://github.com/Amber-MD/cpptraj/issues>`_

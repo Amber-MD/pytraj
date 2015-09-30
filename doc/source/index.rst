@@ -46,20 +46,12 @@ try ``pytraj`` online:
    cookbook
    api
 
-:ref:`contributors_and_citations`
+`Contributors :ref:contributors_and_citations`_
 
 try ``pytraj`` online:
 
 .. image:: images/PCA_heart.png
    :target: tutorials/mdtraj_adapted
-
-
-**Contact**
-
-* For bug reports, feature requests, code discussion ... please use the `GitHub issue tracker <https://github.com/Amber-MD/pytraj/issues>`_
-* For scientific discussion please send email to `amber <http://ambermd.org/#correspondence>`_
-* For things that directly related to ``cpptraj``, please open `issue here
-  <https://github.com/Amber-MD/cpptraj/issues>`_
 
 **Indices and tables**
 
