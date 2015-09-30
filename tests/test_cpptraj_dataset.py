@@ -4,6 +4,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+from pytraj.datasets import cpp_datasets
 
 # used for loading cpptraj state
 txt = '''
@@ -27,10 +28,11 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''
 
 @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
-class TestCpptrajDataset(unittest.TestCase):
+class TestCpptrajDatasetWithMathLib(unittest.TestCase):
     def setUp(self):
         self.state = pt.datafiles.load_cpptraj_state(txt)
         self.state.run()
+        self.traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
 
     def test_call_values(self):
         for d in self.state.data:
@@ -44,10 +46,8 @@ class TestCpptrajDataset(unittest.TestCase):
         # need to loop several times to make sure this does not fail
         # due to memory free
         for _ in range(20):
-            cpp_ref = state.data['AVG']
+            cpp_ref = state.data['AVG'].get_frame()
             aa_eq(avg_frame.xyz, cpp_ref.xyz)
-            aa_eq(avg_frame.xyz, cpp_ref.values)
-            aa_eq(avg_frame.xyz, cpp_ref.data)
 
     def test_DatasetModes(self):
         state = self.state
@@ -60,6 +60,19 @@ class TestCpptrajDataset(unittest.TestCase):
         aa_eq(sorted(modes.eigenvalues), np_eg[0][-2:])
         aa_eq(modes.eigenvectors[0], np_eg[1][:, -1])
         aa_eq(modes.eigenvectors[1], np_eg[1][:, -2])
+
+class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
+    def setUp(self):
+        self.traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+
+    def test_DatasetMatrix3x3(self):
+        # test _append_from_array
+        mat0 = pt.calc_rotation_matrix(self.traj, ref=0)
+
+        shape2d = (mat0.shape[0], mat0.shape[1] * mat0.shape[2])
+        dmat3x3 = cpp_datasets.DatasetMatrix3x3()
+        dmat3x3._append_from_array(mat0.reshape(shape2d))
+        aa_eq(mat0, dmat3x3.values)
 
 if __name__ == "__main__":
     unittest.main()

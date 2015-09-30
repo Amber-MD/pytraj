@@ -1094,7 +1094,7 @@ cdef class DatasetModes(Dataset):
         def __get__(self):
             cdef const double * ptr = self.thisptr.Eigenvectors()
             cdef int n_modes = self.thisptr.Nmodes()
-            cdef int vsize = self.vsize
+            cdef int vsize = self.vector_size
 
             return np.array([ptr[i] for i in
                 range(n_modes*vsize)]).reshape(n_modes, vsize)
@@ -1167,6 +1167,13 @@ cdef class DatasetMatrix3x3 (Dataset):
         """return a copy
         """
         return np.asarray(self.data)
+
+    def _append_from_array(self, double[:, ::1] arr):
+        cdef _Matrix_3x3 mat
+        cdef unsigned int i
+        for i in range(arr.shape[0]):
+            mat = _Matrix_3x3(&arr[i, 0])
+            self.thisptr.AddMat3x3(mat)
         
 cdef class DatasetMesh (Dataset1D):
     def __cinit__(self):
