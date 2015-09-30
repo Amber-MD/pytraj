@@ -46,7 +46,7 @@ try ``pytraj`` online:
    cookbook
    api
 
-`Contributors :ref:contributors_and_citations`_
+`Contributors <https://github.com/Amber-MD/pytraj/blob/master/contributors/pytraj.rst>`_
 
 try ``pytraj`` online:
 
