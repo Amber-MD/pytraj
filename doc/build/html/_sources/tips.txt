@@ -33,7 +33,8 @@ However, ``pytraj`` offer shorter (and easy?) way to do
 .. ipython:: python
     
     # load all files into a single TrajectoryIterator
-    traj = pt.iterload('./tz2.*.nc', 'tz2.parm7')
+    filelist = ['tz2.0.nc', 'tz2.1.nc', 'tz2.2.nc']
+    traj = pt.iterload(filelist, 'tz2.parm7')
     # perform calculation
     data = pt.radgyr(traj)
     # that's it
@@ -74,10 +75,10 @@ In ``pytraj``, you can specify ``frame_slice``
 load specific frame numbers to memory
 -------------------------------------
 
-.. ipython:: python
+.. ipython::
 
     import pytraj as pt
-    frame_indices = [2, 4, 7, 51, 99, 53]
+    frame_indices = [2, 4, 7, 51, 53]
     # use ``load`` to load those frames to memory
     traj0 = pt.load('tz2.nc', 'tz2.parm7', frame_indices=frame_indices)
     traj0
@@ -85,6 +86,13 @@ load specific frame numbers to memory
     # only loadd coordinates for specific atoms
     traj1 = pt.load('tz2.nc', 'tz2.parm7', frame_indices=frame_indices, mask='@CA')
     traj1
+
+    # or use ``iterload``
+    frame_indices = [2, 4, 7, 51, 53]
+    traj = pt.iterload('tz2.nc', 'tz2.parm7')
+    traj
+    traj[frame_indices, '@CA']
+
 
 memory saving
 -------------
