@@ -1169,11 +1169,10 @@ cdef class DatasetMatrix3x3 (Dataset):
         return np.asarray(self.data)
 
     def _append_from_array(self, double[:, ::1] arr):
-        cdef _Matrix_3x3 mat
         cdef unsigned int i
+
         for i in range(arr.shape[0]):
-            mat = _Matrix_3x3(&arr[i, 0])
-            self.thisptr.AddMat3x3(mat)
+            self.thisptr.AddMat3x3(_Matrix_3x3(&arr[i, 0]))
         
 cdef class DatasetMesh (Dataset1D):
     def __cinit__(self):
@@ -1194,15 +1193,15 @@ cdef class DatasetMesh (Dataset1D):
         """
         # xcrd is for cpptraj's output which use index starting of 1
         # we need to subtract "1"
-        cdef size_t i
+        cdef unsigned int i
         return [[self.thisptr.X(i), self.thisptr.Y(i)] for i in range(self.size)]
 
     property data:
         def __get__(self):
             arr = np.empty((self.size, 2), dtype='f8')
             cdef double[:, ::1] dview = arr
-            cdef int i
-            cdef int size = self.size
+            cdef unsigned int i
+            cdef unsigned int size = self.size
 
             # fill data for arr by using its dview
             for i in range(size):
