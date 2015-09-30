@@ -90,6 +90,8 @@ def _load_batch_pmap(n_cores=4, traj=None, lines=[], dtype='dict', root=0, mode=
         size = comm.size
         rank = comm.rank
         data_chunk = _worker_state(rank, n_cores=size, traj=traj, lines=lines, dtype=dtype)
+        # it's ok to use python level `gather` method since we only do this once
+        # only gather data to root, other cores get None
         data = comm.gather(data_chunk, root=root)
         return data
     else:
