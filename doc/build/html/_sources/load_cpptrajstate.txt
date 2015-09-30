@@ -3,6 +3,8 @@
 Run cpptraj's batch
 ===================
 
+.. note:: syntax might be changed in future
+
 This tutorial is for those who love running cpptraj in batch mode.
 
 try ``pytraj`` online:
@@ -51,8 +53,8 @@ Create state with existing ``TrajectoryIterator`` class
     state.data.values
 
 
-Create state without ``Trajectory`` class
------------------------------------------
+Create state without ``TrajectoryIterator`` class
+-------------------------------------------------
 
 .. ipython:: python
     
@@ -61,35 +63,28 @@ Create state without ``Trajectory`` class
     # load parm and trajin
     parm tz2.parm7
     trajin tz2.nc
-
     # dihedral calculation, label each dataset ('phi', 'psi', 'omega')
     dihedral phi :1@C  :2@N  :2@CA :2@C
     dihedral psi   :1@N  :1@CA :1@C  :2@N
     dihedral omega   :1@CA :1@C  :2@N  :2@CA
-
     # distance, label the dataset as 'end_to_end'
     distance end_to_end :1@N :7@N
     rms first :1-1584
-
     # strip H atoms
     strip !@H=
     # save the strip coords to dataset
     createcrd name my_crd
     '''
-
     import pytraj as pt
     state = pt.load_cpptraj_state(text)
-
     # need to explicit call run
     state.run()
     state
-
     # All datasts are stored in ``state.data``
     state.data
-
     # if you already label your Dataset, you can access to them by using dict-like acessing
     # get Dataset with label `end_to_end` (distance)
     state.data['end_to_end']
-
     # get raw values (usually numpy array)
     state.data['end_to_end'].values
+
