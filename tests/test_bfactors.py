@@ -6,11 +6,10 @@ from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 
-class Test(unittest.TestCase):
-    def test_0(self):
+class TestAtomicFluct(unittest.TestCase):
+    def test_bfactors(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         iter_options = {'start': 9, 'stop': 30, 'stride': 2}
-        #print(traj(**iter_options))
 
         bfactors = pt.calc_bfactors(traj(**iter_options))
         s_fname = "/".join((cpptraj_test_dir, "Test_AtomicFluct",
@@ -21,6 +20,24 @@ class Test(unittest.TestCase):
 
         b2 = pt.calc_bfactors(traj(**iter_options), dtype='dataset')
         assert b2[0].key == 'B-factors'
+
+    def test_RMSF(self):
+        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+
+        state = pt.load_batch(traj, '''
+        rms first
+        average crdset MyAvg
+        run
+        rms ref MyAvg
+        atomicfluct out fluct.agr''')
+        state.run()
+
+        t0 = traj[:]
+        pt.superpose(t0, ref=0)
+        avg = pt.mean_structure(t0)
+        pt.superpose(t0, ref=avg)
+        data = pt.rmsf(t0)
+        aa_eq(data, state.data[-1].values)
 
 
 if __name__ == "__main__":

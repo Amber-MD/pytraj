@@ -124,6 +124,7 @@ dihedral = calc_dihedral
 jcoupling = calc_jcoupling
 nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
+rmsf = calc_atomicfluct
 pairwise_rmsd = calc_pairwise_rmsd
 multidihedral = calc_multidihedral
 xcorr = cross_correlation_function
@@ -163,7 +164,7 @@ adict = ActionDict()
 analdict = AnalysisDict()
 from . import matrix
 from . import dihedral_analysis
-from . import vector_analysis
+from . import vector
 
 # others
 from .misc import info

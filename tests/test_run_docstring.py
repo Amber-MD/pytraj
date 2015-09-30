@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
         from pytraj import clustering_dataset
         from pytraj.cluster import kmeans
         from pytraj.array import DataArray
-        from pytraj import vector_analysis as va
+        from pytraj import vector as va
 
         try:
             import parmed

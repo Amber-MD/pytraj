@@ -2057,7 +2057,8 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     # cpptraj require output
     command = "tmp_pytraj_grid_output.txt " + command
     _top = _get_topology(traj, top)
-    act(command, traj, dslist=dslist, top=_top, *args, **kwd)
+    with goto_temp_folder():
+         act(command, traj, dslist=dslist, top=_top, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
