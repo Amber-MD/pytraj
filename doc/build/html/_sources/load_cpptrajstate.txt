@@ -12,6 +12,12 @@ try ``pytraj`` online:
 .. image:: http://mybinder.org/badge.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
+.. ipython:: python
+    :suppress:
+
+    import numpy as np
+    np.set_printoptions(precision=4, suppress=True)
+
 
 if you want to run cpptraj's batch mode like below::
 
@@ -74,8 +80,7 @@ Create state without ``TrajectoryIterator`` class
     state = pt.load_cpptraj_state(text)
     # need to explicit call run
     state.run()
-    state
-    # All datasts are stored in ``state.data``
+    # All datasets are stored in ``state.data``
     state.data
     # if you already label your Dataset, you can access to them by using dict-like acessing
     # get Dataset with label `end_to_end` (distance)
