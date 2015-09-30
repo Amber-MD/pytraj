@@ -155,69 +155,22 @@
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/adh026.3.pdb&#39;</span><span class="p">)</span>
+<span class="gp">In [1]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/adh026.3.pdb&#39;</span><span class="p">)</span>
 
-<span class="gp">In [3]: </span><span class="n">traj</span>
-<span class="gr">Out[3]: </span>
-<span class="go">&lt;pytraj.TrajectoryIterator, 3 frames, include:</span>
-<span class="go">&lt;Topology: 518 atoms, 16 residues, 2 mols, non-PBC&gt;&gt;</span>
-<span class="go">           </span>
+<span class="gp">In [1]: </span><span class="n">traj</span>
 
 <span class="c"># check unique residue names</span>
-<span class="gp">In [4]: </span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residue_names</span>
-<span class="go">                                                                                                                         Out[4]: {&#39;C   &#39;, &#39;C3  &#39;, &#39;G   &#39;, &#39;G5  &#39;}</span>
+<span class="gp">In [1]: </span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residue_names</span>
 
-<span class="gp">In [5]: </span><span class="n">na</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">In [1]: </span><span class="n">na</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
-<span class="gp">In [6]: </span><span class="n">na</span>
-<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">pytraj</span><span class="o">.</span><span class="n">_nastruct</span><span class="o">.</span><span class="n">nupars</span> <span class="n">at</span> <span class="mh">0x2aaac77180f0</span><span class="o">&gt;</span>
+<span class="gp">In [1]: </span><span class="n">na</span>
 
 <span class="c"># get mean and std for each analysis (major groove width, minor, ...)</span>
-<span class="gp">In [7]: </span><span class="n">na</span><span class="o">.</span><span class="n">mean_and_std</span><span class="p">()</span>
-<span class="go">                                                    Out[7]: </span>
-<span class="go">{&#39;buckle&#39;: array([ 4.0651,  3.9482]),</span>
-<span class="go"> &#39;hb&#39;: array([ 3.,  0.]),</span>
-<span class="go"> &#39;hrise&#39;: array([ 2.8936,  0.3488]),</span>
-<span class="go"> &#39;htwist&#39;: array([ 32.27  ,   3.3556]),</span>
-<span class="go"> &#39;incl&#39;: array([ 8.0433,  5.0863]),</span>
-<span class="go"> &#39;major&#39;: array([ 14.3334,   8.2904]),</span>
-<span class="go"> &#39;minor&#39;: array([ 13.4197,   0.0879]),</span>
-<span class="go"> &#39;open&#39;: array([ 0.4737,  1.6744]),</span>
-<span class="go"> &#39;prop&#39;: array([-7.4238,  3.2766]),</span>
-<span class="go"> &#39;pucker&#39;: array([ 88.2101,  86.9064]),</span>
-<span class="go"> &#39;rise&#39;: array([ 3.0773,  0.3246]),</span>
-<span class="go"> &#39;roll&#39;: array([ 4.2747,  2.7859]),</span>
-<span class="go"> &#39;shear&#39;: array([ 0.0149,  0.2576]),</span>
-<span class="go"> &#39;shift&#39;: array([-0.1378,  0.3619]),</span>
-<span class="go"> &#39;slide&#39;: array([-2.0613,  0.3823]),</span>
-<span class="go"> &#39;stagger&#39;: array([ 0.1147,  0.1484]),</span>
-<span class="go"> &#39;stretch&#39;: array([-0.0693,  0.0905]),</span>
-<span class="go"> &#39;tilt&#39;: array([-1.6865,  3.1276]),</span>
-<span class="go"> &#39;tip&#39;: array([ 3.7061,  6.9681]),</span>
-<span class="go"> &#39;twist&#39;: array([ 31.7873,   3.6566]),</span>
-<span class="go"> &#39;xdisp&#39;: array([-4.5739,  1.4992]),</span>
-<span class="go"> &#39;ydisp&#39;: array([-0.1541,  0.6661]),</span>
-<span class="go"> &#39;zp&#39;: array([ 2.5676,  0.2015])}</span>
+<span class="gp">In [1]: </span><span class="n">na</span><span class="o">.</span><span class="n">mean_and_std</span><span class="p">()</span>
 
 <span class="c"># get raw data for major groove</span>
-<span class="gp">In [8]: </span><span class="n">na</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="s">&#39;major&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Out[8]: </span>
-<span class="go">&lt;pytraj.DatasetList with 8 datasets&gt;</span>
-<span class="go">nuc_1G16C_major</span>
-<span class="go">[ 0.  0.  0.  0.]</span>
-
-<span class="go">nuc_2G15C_major</span>
-<span class="go">[ 18.6001  18.6001  18.8287  18.1682]</span>
-
-<span class="go">nuc_3G14C_major</span>
-<span class="go">[ 18.7782  18.7782  19.0935  18.7745]</span>
-<span class="go">...</span>
-
-<span class="go">nuc_7C10G_major</span>
-<span class="go">[ 18.7894  18.7894  18.8978  18.3882]</span>
-
-<span class="go">nuc_8C9G_major</span>
-<span class="go">[ 0.  0.  0.  0.]</span>
+<span class="gp">In [1]: </span><span class="n">na</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="s">&#39;major&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

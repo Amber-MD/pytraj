@@ -3,6 +3,8 @@
 Run cpptraj's batch
 ===================
 
+This tutorial is for those who love running cpptraj in batch mode.
+
 try ``pytraj`` online:
 
 .. image:: http://mybinder.org/badge.svg
@@ -19,6 +21,9 @@ if you want to run cpptraj's batch mode like below::
     molsurf 
 
 you can create a 'CpptrajState'
+
+Create state with existing ``TrajectoryIterator`` class
+-------------------------------------------------------
 
 .. ipython:: python
 
@@ -38,9 +43,53 @@ you can create a 'CpptrajState'
     state.run()
     state
     # get some data
-    state.datasetlist
-    state.datasetlist.keys()
-    state.datasetlist[0]
-    state.datasetlist[-1]
+    state.data
+    state.data.keys()
+    state.data[0]
+    state.data[-1]
     # convert data to regular numpy array
-    state.datasetlist.values
+    state.data.values
+
+
+Create state without ``Trajectory`` class
+-----------------------------------------
+
+.. ipython:: python
+    
+    # suppose you have 
+    text = '''
+    # load parm and trajin
+    parm tz2.parm7
+    trajin tz2.nc
+
+    # dihedral calculation, label each dataset ('phi', 'psi', 'omega')
+    dihedral phi :1@C  :2@N  :2@CA :2@C
+    dihedral psi   :1@N  :1@CA :1@C  :2@N
+    dihedral omega   :1@CA :1@C  :2@N  :2@CA
+
+    # distance, label the dataset as 'end_to_end'
+    distance end_to_end :1@N :7@N
+    rms first :1-1584
+
+    # strip H atoms
+    strip !@H=
+    # save the strip coords to dataset
+    createcrd name my_crd
+    '''
+
+    import pytraj as pt
+    state = pt.load_cpptraj_state(text)
+
+    # need to explicit call run
+    state.run()
+    state
+
+    # All datasts are stored in ``state.data``
+    state.data
+
+    # if you already label your Dataset, you can access to them by using dict-like acessing
+    # get Dataset with label `end_to_end` (distance)
+    state.data['end_to_end']
+
+    # get raw values (usually numpy array)
+    state.data['end_to_end'].values

@@ -9,7 +9,7 @@ Vector Analysis
     import numpy as np
     np.set_printoptions(precision=4, suppress=True)
 
-.. automodule:: pytraj.vector_analysis
+.. automodule:: pytraj.vector
 
 Examples
 --------

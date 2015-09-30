@@ -22,4 +22,4 @@ Examples
 doc
 ---
 
-.. automodule:: pytraj.matrix_analysis
+.. automodule:: pytraj.matrix
