@@ -3,14 +3,12 @@
 Run cpptraj's batch
 ===================
 
-.. note:: syntax might be changed in future
-
-This tutorial is for those who love running cpptraj in batch mode.
-
-try ``pytraj`` online:
+This tutorial is for those who love running cpptraj in batch mode. Try it online:
 
 .. image:: http://mybinder.org/badge.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
+.. note:: This tutorial is for advanced users and the syntax might be changed in future.
 
 .. ipython:: python
     :suppress:
@@ -91,3 +89,5 @@ Create state without ``TrajectoryIterator`` class
     # get `mycrd`
     state.data['mycrd']
 
+    for dataset in state.data:
+        print(dataset)

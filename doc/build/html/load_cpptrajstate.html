@@ -152,13 +152,12 @@
       
   <div class="section" id="run-cpptraj-s-batch">
 <span id="load-cpptrajstate"></span><h1>Run cpptraj&#8217;s batch<a class="headerlink" href="#run-cpptraj-s-batch" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial is for those who love running cpptraj in batch mode. Try it online:</p>
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">syntax might be changed in future</p>
+<p class="last">This tutorial is for advanced users and the syntax might be changed in future.</p>
 </div>
-<p>This tutorial is for those who love running cpptraj in batch mode.</p>
-<p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
-<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
 <p>if you want to run cpptraj&#8217;s batch mode like below:</p>
 <div class="highlight-python"><div class="highlight"><pre>parm tz2.ortho.parm7
 trajin tz2.ortho.nc
@@ -284,6 +283,28 @@ molsurf
 <span class="c"># get `mycrd`</span>
 <span class="gp">In [20]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;mycrd&#39;</span><span class="p">]</span>
 <span class="go">                                                                                                                                                                                                                                                                                                                                            Out[20]: </span>
+<span class="go">&lt;pytraj.DatasetCoordsCRD, 101 frames, include:</span>
+<span class="go">&lt;Topology: 106 atoms, 13 residues, 106 mols, non-PBC&gt;&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [21]: </span><span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                        &lt;pytraj.datasets.DatasetDouble: size=101, key=phi&gt; </span>
+<span class="go">values: </span>
+<span class="go">[-52.7812 -40.6208 -51.2155 ..., -88.9455 -87.1766 -77.0983]</span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=psi&gt; </span>
+<span class="go">values: </span>
+<span class="go">[ -86.6975  -91.16    -67.9374 ...,  152.833   167.2929  146.5218]</span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=omega&gt; </span>
+<span class="go">values: </span>
+<span class="go">[-170.5559  177.8609  160.5306 ..., -176.3324 -165.9239  167.2618]</span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=end_to_end&gt; </span>
+<span class="go">values: </span>
+<span class="go">[ 15.0506   7.8035   5.8305 ...,  14.829   12.6534  13.3292]</span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=RMSD_00004&gt; </span>
+<span class="go">values: </span>
+<span class="go">[ 0.      4.0162  6.4142 ...,  8.275   8.1941  7.7792]</span>
 <span class="go">&lt;pytraj.DatasetCoordsCRD, 101 frames, include:</span>
 <span class="go">&lt;Topology: 106 atoms, 13 residues, 106 mols, non-PBC&gt;&gt;</span>
 </pre></div>
