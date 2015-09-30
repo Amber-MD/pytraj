@@ -163,7 +163,7 @@ adict = ActionDict()
 analdict = AnalysisDict()
 from . import matrix
 from . import dihedral_analysis
-from . import vector_analysis
+from . import vector
 
 # others
 from .misc import info

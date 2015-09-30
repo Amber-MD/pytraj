@@ -6,7 +6,7 @@ import os
 import numpy as np
 import pytraj as pt
 from pytraj import analdict
-from pytraj import vector_analysis as va
+from pytraj import vector as va
 from pytraj import adict
 from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
