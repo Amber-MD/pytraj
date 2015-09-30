@@ -2457,3 +2457,38 @@ def _calc_projection(traj, beg=1, end=2, mask='', dtype='dataset', top=None):
     command = ' '.join((_evecs, _beg, _end, _mask)) 
     act(command, fi, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
+
+
+def calc_atomiccorr(traj, mask, cut=None, min_spacing=None, byres=False, frame_indices=None, dtype='ndarray', top=None):
+    '''Calculate average correlations between the motion of atoms in mask. Doc is adapted from cpptraj doc.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : atom mask
+    cut : {None, float}, default None
+        if not None, only print correlations with absolute value greater than cut
+    min_spacing : {None, float}, default None 
+        if not None, only calculate correlations for motion vectors spaced min_spacing apart
+    byres : bool, default False
+        if False, compute atomic motion vetor
+        if True, Calculate motion vectors for entire residues (selected atoms in residues only).
+    '''
+    fi = _get_fiterator(traj, frame_indices)
+    _top = _get_topology(traj, top)
+
+    _mask = 'out tmp.dat ' + mask
+    _cut = 'cut ' + str(cut) if cut is not None else ''
+    _min_spacing = 'min ' + str(min_spacing) if min_spacing is not None else ''
+    _byres = 'byres' if byres else 'byatom'
+    command = ' '.join((_mask, _cut, _min_spacing, _byres))
+
+    act = CpptrajActions.Action_AtomicCorr()
+    dslist = CpptrajDatasetList()
+
+    with goto_temp_folder():
+        act(command, traj, top=_top, dslist=dslist)
+        # need to print_output for this Action
+        act.print_output()
+
+    return _get_data_from_dtype(dslist, dtype=dtype)

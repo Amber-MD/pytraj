@@ -15,4 +15,4 @@ state = pt.load_batch(traj, '''
         molsurf @CA
         ''')
 state.run()
-print(state.data.values)
+#print(state.data.values)
