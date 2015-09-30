@@ -360,3 +360,13 @@ cdef extern from "Analysis_VectorMath.h":
 
 cdef class Analysis_VectorMath (Analysis):
     cdef _Analysis_VectorMath* thisptr
+
+
+cdef extern from "Analysis_Rotdif.h": 
+    cdef cppclass _Analysis_Rotdif "Analysis_Rotdif" (_Analysis) nogil:
+        _Analysis_Rotdif() 
+        _DispatchObject * Alloc() 
+        void Help()
+
+cdef class Analysis_Rotdif(Analysis):
+    cdef _Analysis_Rotdif* thisptr

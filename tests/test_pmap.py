@@ -36,13 +36,11 @@ class Test(unittest.TestCase):
         a = pt.pmap(4, pt.search_hbonds, traj)
         pout = pt.tools.flatten([x[1]['total_solute_hbonds'] for x in a])
         serial_out = pt.search_hbonds(traj)['total_solute_hbonds']
-        #print(pout, serial_out)
         aa_eq(pout, serial_out)
 
         keys = pt.tools.flatten([x[1].keys() for x in a])
         from pytraj.compat import set
 
-        #print(set(keys))
 
         # raise if a given method does not support pmap
         def need_to_raise(traj=traj):

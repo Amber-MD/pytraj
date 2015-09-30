@@ -32,7 +32,6 @@ class Test(unittest.TestCase):
             pt.rotate_dihedral(t0, "3:phi:" + str(deg))
             _deg = pt.calc_phi(t0, '3', dtype='ndarray')[0]
             dih = pt.dihedral(t0, ':2@C :3@N :3@CA :3@C')[0]
-            #print(deg, _deg, dih)
             aa_eq(deg, _deg)
             aa_eq(deg, dih)
 
@@ -44,7 +43,6 @@ class Test(unittest.TestCase):
         pt._rotate_dih(t0, resid='4', dihtype='phi', deg=120)
         dih = pt.calc_phi(t0, resrange='4').values[0]
         assert abs(dih - 120) < 1E-3
-        #print(dih)
         t0.save('test.pdb', mode='model', overwrite=True)
 
 
