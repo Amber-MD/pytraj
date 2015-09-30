@@ -1,5 +1,7 @@
 .. _load_cpptrajstate:
 
+.. contents::
+
 Run cpptraj's batch
 ===================
 
