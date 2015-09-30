@@ -2,13 +2,14 @@ import unittest
 import pytraj as pt
 import numpy as np
 from array import array
+import pytraj as pt
 from pytraj.base import *
 from pytraj.io import load
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 
 
 class TestIndices(unittest.TestCase):
-    def test_0(self):
+    def test_slice(self):
 
         traj1 = TrajectoryIterator(
             filename="data/md1_prod.Tc5b.x",
@@ -95,19 +96,29 @@ class TestIndices(unittest.TestCase):
         traj0.join(traj0[:])
 
     def test_load_frame_indices_from_io(self):
-        from pytraj import io as mdio
-        traj0 = mdio.load(
+        traj0 = pt.load(
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top",
             frame_indices=(1, 3, 7))
-        trajreadonly = mdio.iterload(
+        trajCA = pt.load(
+            filename="data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top",
+            frame_indices=(1, 3, 7),
+            mask='@CA')
+        trajreadonly = pt.iterload(
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")
+        trajCA_10frames = trajreadonly['@CA']
 
         assert isinstance(traj0, Trajectory)
-        assert_almost_equal(traj0[0].coords, trajreadonly[1].coords)
-        assert_almost_equal(traj0[1].coords, trajreadonly[3].coords)
-        assert_almost_equal(traj0[2].coords, trajreadonly[7].coords)
+        aa_eq(traj0[0].coords, trajreadonly[1].coords)
+        aa_eq(traj0[1].coords, trajreadonly[3].coords)
+        aa_eq(traj0[2].coords, trajreadonly[7].coords)
+
+        # @CA
+        aa_eq(trajCA[0].coords, trajCA_10frames[1].coords)
+        aa_eq(trajCA[1].coords, trajCA_10frames[3].coords)
+        aa_eq(trajCA[2].coords, trajCA_10frames[7].coords)
 
 
 if __name__ == "__main__":
