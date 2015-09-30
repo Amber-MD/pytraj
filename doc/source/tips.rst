@@ -71,6 +71,21 @@ In ``pytraj``, you can specify ``frame_slice``
 
     # [(0, 100, 10),]*5 is equal to [(0, 100, 10), (0, 100, 10),(0, 100, 10),(0, 100, 10),(0, 100, 10),]
 
+load specific frame numbers to memory
+-------------------------------------
+
+.. ipython:: python
+
+    import pytraj as pt
+    frame_indices = [2, 4, 7, 51, 99, 53]
+    # use ``load`` to load those frames to memory
+    traj0 = pt.load('tz2.nc', 'tz2.parm7', frame_indices=frame_indices)
+    traj0
+
+    # only loadd coordinates for specific atoms
+    traj1 = pt.load('tz2.nc', 'tz2.parm7', frame_indices=frame_indices, mask='@CA')
+    traj1
+
 memory saving
 -------------
 
