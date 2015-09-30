@@ -56,8 +56,26 @@ __all__ = ['load',
            'to_json', ]
 
 
-def load(*args, **kwd):
+def load(filename, top=None, frame_indices=None, mask=None):
     """try loading and returning appropriate values. See example below.
+
+    Parameters
+    ----------
+    filename : str, Trajectory filename
+    top : Topology filename or a Topology
+    frame_indices : {None, array_like}, default None
+        only load frames with given number given in frame_indices
+    mask : {str, None}, default None
+        if None: load coordinates for all atoms
+        if string, load coordinates for given atom mask 
+
+    Returns
+    -------
+    pytraj.Trajectory
+
+    Notes
+    -----
+    For further slicing options, see pytraj.TrajectoryIterator (created by ``pytraj.iterload``)
 
     Examples
     --------
@@ -73,30 +91,43 @@ def load(*args, **kwd):
 
     >>> # load pdb file
     >>> traj = pt.load('traj.pdb')
+
+    >>> # load given frame numbers
+    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=[0, 3, 5, 12, 20])
+    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=[0, 3, 5, 12, 20], mask='!@H=')
+
+    >>> # load with frame slice
+    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=slice(0, 10, 2))
+    >>> # which is equal to:
+    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=range(0, 10, 2))
     """
 
-    if args and is_frame_iter(args[0]):
+    if is_frame_iter(filename):
         return _load_from_frame_iter(*args, **kwd)
-
-    if kwd:
-        try:
-            if is_frame_iter(kwd['filename']):
-                return _load_from_frame_iter(*args, **kwd)
-        except:
-            pass
-
-    if 'filename' in kwd.keys():
-        filename = kwd['filename']
-    else:
-        filename = args[0]
 
     if filename.startswith('http://') or filename.startswith('https://'):
         return load_ParmEd(filename, as_traj=True, structure=True)
     else:
         ensure_exist(filename)
         # load to TrajectoryIterator object first
-        traj = load_traj(*args, **kwd)
-        return traj[:]
+        traj = load_traj(filename, top)
+
+        # do the slicing and other thinkgs if needed.
+        if isinstance(frame_indices, tuple):
+            frame_indices = list(frame_indices)
+        if frame_indices is None and mask is None:
+            # load all
+            return traj[:]
+        elif frame_indices is None and mask is not None:
+            # load all frames with given mask
+            # eg: traj['@CA']
+            return traj[mask]
+        elif frame_indices is not None and mask is None:
+            # eg. traj[[0, 3, 7]]
+            return traj[frame_indices]
+        else:
+            # eg. traj[[0, 3, 7], '@CA']
+            return traj[frame_indices, mask]
 
 
 def iterload(*args, **kwd):
