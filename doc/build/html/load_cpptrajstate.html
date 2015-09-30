@@ -243,30 +243,57 @@ molsurf
 <h2>Create state without <tt class="docutils literal"><span class="pre">TrajectoryIterator</span></tt> class<a class="headerlink" href="#create-state-without-trajectoryiterator-class" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># suppose you have</span>
 <span class="gp">In [13]: </span><span class="n">text</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="gp">   ....:</span><span class="s"> parm tz2.parm7</span>
+<span class="gp">   ....:</span><span class="s"> trajin tz2.nc</span>
+<span class="gp">   ....:</span><span class="s"> dihedral phi :1@C  :2@N  :2@CA :2@C</span>
+<span class="gp">   ....:</span><span class="s"> dihedral psi   :1@N  :1@CA :1@C  :2@N</span>
+<span class="gp">   ....:</span><span class="s"> dihedral omega   :1@CA :1@C  :2@N  :2@CA</span>
+<span class="gp">   ....:</span><span class="s"> distance end_to_end :1@N :7@N</span>
+<span class="gp">   ....:</span><span class="s"> rms first :1-1584</span>
+<span class="gp">   ....:</span><span class="s"> strip !@H=</span>
+<span class="gp">   ....:</span><span class="s"> createcrd mycrd</span>
+<span class="gp">   ....:</span><span class="s"> &#39;&#39;&#39;</span>
+<span class="gp">   ....:</span> 
 
-<span class="c"># load parm and trajin</span>
-<span class="c"># dihedral calculation, label each dataset (&#39;phi&#39;, &#39;psi&#39;, &#39;omega&#39;)</span>
-<span class="c"># distance, label the dataset as &#39;end_to_end&#39;</span>
-<span class="c"># strip H atoms</span>
-<span class="c"># save the strip coords to dataset</span>
-<span class="gp">In [13]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">In [14]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="gp">In [13]: </span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_cpptraj_state</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="gp">In [15]: </span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_cpptraj_state</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 
 <span class="c"># need to explicit call run</span>
-<span class="gp">In [13]: </span><span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">In [16]: </span><span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gr">Out[16]: </span>
+<span class="go">CpptrajState, include:</span>
+<span class="go">&lt;datasetlist: 6 datasets&gt;</span>
 
-<span class="gp">In [13]: </span><span class="n">state</span>
+<span class="gp">In [17]: </span><span class="n">state</span>
+<span class="go">                                                           Out[17]: </span>
+<span class="go">CpptrajState, include:</span>
+<span class="go">&lt;datasetlist: 6 datasets&gt;</span>
 
 <span class="c"># All datasts are stored in ``state.data``</span>
-<span class="gp">In [13]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span>
+<span class="gp">In [18]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span>
+<span class="go">                                                                                                                      Out[18]: &lt;pytraj.datasets.DatasetList - 6 datasets&gt;</span>
 
 <span class="c"># if you already label your Dataset, you can access to them by using dict-like acessing</span>
 <span class="c"># get Dataset with label `end_to_end` (distance)</span>
-<span class="gp">In [13]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;end_to_end&#39;</span><span class="p">]</span>
+<span class="gp">In [19]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;end_to_end&#39;</span><span class="p">]</span>
+<span class="go">                                                                                                                                                                          Out[19]: </span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=end_to_end&gt; </span>
+<span class="go">values: </span>
+<span class="go">[ 15.0506473    7.80348337   5.83052443 ...,  14.82903001  12.65340423</span>
+<span class="go">  13.32915181]</span>
 
 <span class="c"># get raw values (usually numpy array)</span>
-<span class="gp">In [13]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;end_to_end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">In [20]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;end_to_end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                              Out[20]: </span>
+<span class="go">array([ 15.0506473 ,   7.80348337,   5.83052443, ...,  14.82903001,</span>
+<span class="go">        12.65340423,  13.32915181])</span>
+
+<span class="c"># get `mycrd`</span>
+<span class="gp">In [21]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;mycrd&#39;</span><span class="p">]</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                Out[21]: </span>
+<span class="go">&lt;pytraj.DatasetCoordsCRD, 101 frames, include:</span>
+<span class="go">&lt;Topology: 106 atoms, 13 residues, 106 mols, non-PBC&gt;&gt;</span>
 </pre></div>
 </div>
 </div>

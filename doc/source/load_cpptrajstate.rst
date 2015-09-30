@@ -60,20 +60,15 @@ Create state without ``TrajectoryIterator`` class
     
     # suppose you have 
     text = '''
-    # load parm and trajin
     parm tz2.parm7
     trajin tz2.nc
-    # dihedral calculation, label each dataset ('phi', 'psi', 'omega')
     dihedral phi :1@C  :2@N  :2@CA :2@C
     dihedral psi   :1@N  :1@CA :1@C  :2@N
     dihedral omega   :1@CA :1@C  :2@N  :2@CA
-    # distance, label the dataset as 'end_to_end'
     distance end_to_end :1@N :7@N
     rms first :1-1584
-    # strip H atoms
     strip !@H=
-    # save the strip coords to dataset
-    createcrd name my_crd
+    createcrd mycrd
     '''
     import pytraj as pt
     state = pt.load_cpptraj_state(text)
@@ -87,4 +82,7 @@ Create state without ``TrajectoryIterator`` class
     state.data['end_to_end']
     # get raw values (usually numpy array)
     state.data['end_to_end'].values
+
+    # get `mycrd`
+    state.data['mycrd']
 
