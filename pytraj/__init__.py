@@ -107,6 +107,7 @@ from .common_actions import (
     calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
     calc_rotation_matrix,
     calc_watershell, calc_volume, calc_mindist, lifetime, get_average_frame,
+    calc_atomiccorr,
     get_velocity,
     _dihedral_res, energy_decomposition, native_contacts,
     auto_correlation_function, principal_axes, cross_correlation_function,
@@ -133,6 +134,7 @@ density = calc_density
 volume = calc_volume
 radgyr = calc_radgyr
 rdf = calc_rdf
+atomiccorr = calc_atomiccorr
 #pairdist = calc_pairdist
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
