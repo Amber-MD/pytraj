@@ -75,7 +75,7 @@ In ``pytraj``, you can specify ``frame_slice``
 load specific frame numbers to memory
 -------------------------------------
 
-.. ipython::
+.. ipython:: python
 
     import pytraj as pt
     frame_indices = [2, 4, 7, 51, 53]
@@ -89,9 +89,9 @@ load specific frame numbers to memory
 
     # or use ``iterload``
     frame_indices = [2, 4, 7, 51, 53]
-    traj = pt.iterload('tz2.nc', 'tz2.parm7')
-    traj
-    traj[frame_indices, '@CA']
+    traj2 = pt.iterload('tz2.nc', 'tz2.parm7')
+    traj2
+    traj2[frame_indices, '@CA']
 
 
 memory saving
