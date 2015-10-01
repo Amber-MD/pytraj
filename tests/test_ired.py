@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 from __future__ import print_function
+import os
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.testing import eq, aa_eq, cpptraj_test_dir
 from pytraj.compat import zip
 from pytraj.common_actions import ired
 
@@ -186,7 +187,11 @@ class TestIred(unittest.TestCase):
         aa_eq(np.abs(evecs[:, ::-1].T), np.abs(cpp_eigenvectors), decimal=4)
         #pt._verbose()
         data = ired(state_vecs, modes=(cpp_eigenvalues, cpp_eigenvectors))
-        print(data)
+        order_s2 = data['IRED_00127[S2]']
+
+        # load cpptraj's output and compare to pytraj' values for S2 order paramters
+        cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
+        aa_eq(order_s2, cpp_order_s2, decimal=5)
 
 
 if __name__ == "__main__":
