@@ -142,6 +142,8 @@ txt = '''
 
 class TestIred(unittest.TestCase):
     # TODO: how can I get order paramters?
+
+    @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
     def test_ired(self):
         state = pt.load_cpptraj_state(txt)
         state.run()
