@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
         from pytraj.testing import amberhome
 
         if amberhome:
-            from pytraj.amber_wrap import prmtop_from_tleap
+            from pytraj.amber_wrapper import prmtop_from_tleap
             t0 = prmtop_from_tleap('./data/tz2.pdb')
             t1 = pt.load_topology('./data/tz2.pdb')
             print(t0, t1)
