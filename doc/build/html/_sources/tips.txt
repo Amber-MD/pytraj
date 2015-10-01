@@ -136,6 +136,7 @@ code to load the data back. However, you can use ``pytraj.to_pickle`` nad
     pt.to_pickle(data, 'my_data.pk')
     # load the data's state back for further analysis
     pt.read_pickle('my_data.pk')
+    # note: do not read_pickle from files that don't belong to you. It's not secure.
  
 read cpptraj manual
 -------------------
