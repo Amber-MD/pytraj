@@ -119,6 +119,23 @@ convert trajectory
     
     # convert Amber netcdf to Charmm dcd file.
     pt.iterload('traj.nc', 'prmtop').save('traj.dcd', overwrite=True)
+
+pickle data
+-----------
+
+Sometimes you need to perform very long analysis (hours), you need to save the output to
+disk to do further analysis. You have options to save data to different files and write
+code to load the data back. However, you can use ``pytraj.to_pickle`` nad
+``pytraj.read_pickle`` to save the state of data. Check the example:
+
+.. ipython:: python
+
+    traj3 = pt.load_pdb_rcsb('1l2y')
+    data = pt.dssp(traj, ':3-7')
+    data
+    pt.to_pickle(data, 'my_data.pk')
+    # load the data's state back for further analysis
+    pt.read_pickle('my_data.pk')
  
 read cpptraj manual
 -------------------
