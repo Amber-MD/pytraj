@@ -5,6 +5,7 @@ import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.compat import zip
+from pytraj.common_actions import ired
 
 txt = '''
  parm ../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop
@@ -183,6 +184,9 @@ class TestIred(unittest.TestCase):
         # Bottom line is that eigenvector sign doesn't matter.
 
         aa_eq(np.abs(evecs[:, ::-1].T), np.abs(cpp_eigenvectors), decimal=4)
+        #pt._verbose()
+        data = ired(state_vecs, modes=(cpp_eigenvalues, cpp_eigenvectors))
+        print(data)
 
 
 if __name__ == "__main__":

@@ -23,6 +23,7 @@ cdef extern from "MetaData.h":
         void SetAspect(string& a)
         void SetLegend(string& l)
         void SetScalarType(scalarType s)
+        scalarType ScalarType()
 
 cdef extern from "DataSet.h": 
     ctypedef enum DataType "DataSet::DataType":

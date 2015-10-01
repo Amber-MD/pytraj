@@ -1391,6 +1391,44 @@ def calc_vector(traj=None,
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
+def ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, tstep=1.0, tcorr=10000., norm=False, drct=False, dtype='cpptraj_dataset'):
+    '''perform isotropic reorientational Eigenmode dynamics analysis
+
+    Parameters
+    ----------
+    iredvec : shape=(n_vectors, n_frames)
+    modes : tuple of (eigenvalues, eigenvectors)
+    '''
+
+    _freq = 'relax freq ' + str(relax_freq) if NHbond else ''
+    _NHdist = str(NHdist) if NHbond else ''
+    _order = str(order)
+    _tstep = str(tstep)
+    _tcorr = str(tcorr)
+    _norm = 'norm' if norm else ''
+    _drct = 'drct' if drct else ''
+    _modes = 'modes mymodes'
+    if NHbond:
+        command = ' '.join((_freq, _NHdist, _modes, _order, _tstep, _tcorr, _norm, _drct))
+    else:
+        command = ' '.join((_modes, _order, _tstep, _tcorr, _norm, _drct))
+    act = CpptrajAnalyses.Analysis_IRED()
+    dslist = CpptrajDatasetList()
+    # create DatasetVector
+    for idx, dvec in enumerate(iredvec):
+        name = 'ired_' + str(idx)
+        dslist.add_set('vector', name)
+        dslist[-1].scalar_type = 'iredvec'
+        dslist[-1].data = np.asarray(dvec, dtype='f8')
+
+    # add data to DatasetModes
+    dslist.add_set('modes', 'mymodes')
+    is_reduced = False # ? 
+    eigenvalues, eigenvectors = modes
+    dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1], eigenvalues, eigenvectors.flatten())
+
+    act(command, dslist=dslist)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_ired_matrix(traj=None,
                      mask="",
