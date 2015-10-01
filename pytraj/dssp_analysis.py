@@ -134,10 +134,11 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
     command = mask
 
     _top = _get_topology(traj, top)
+    fi = _get_fiterator(traj, frame_indices)
     dslist = CpptrajDatasetList()
 
     Action_DSSP()(command,
-                  current_frame=traj,
+                  fi,
                   top=_top,
                   dslist=dslist)
 
