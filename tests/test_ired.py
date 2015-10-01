@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 from __future__ import print_function
+import os
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.testing import eq, aa_eq, cpptraj_test_dir
 from pytraj.compat import zip
+from pytraj.common_actions import ired
 
 txt = '''
  parm ../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop
@@ -145,7 +147,7 @@ class TestIred(unittest.TestCase):
     # TODO: how can I get order paramters?
 
     @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
-    def test_ired(self):
+    def test_ired_need_lapack_cpptraj(self):
         state = pt.load_cpptraj_state(txt)
         state.run()
         xyz = state.data['CRD1'].xyz
@@ -183,6 +185,48 @@ class TestIred(unittest.TestCase):
         # Bottom line is that eigenvector sign doesn't matter.
 
         aa_eq(np.abs(evecs[:, ::-1].T), np.abs(cpp_eigenvectors), decimal=4)
+        #pt._verbose()
+        data = ired(state_vecs, modes=(cpp_eigenvalues, cpp_eigenvectors))
+        order_s2 = data['IRED_00127[S2]']
+
+        # load cpptraj's output and compare to pytraj' values for S2 order paramters
+        cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
+        aa_eq(order_s2, cpp_order_s2, decimal=5)
+
+    def test_ired_lapack_in_numpy(self):
+        parmfile =  '../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop'
+        trajfile = '../cpptraj/test/Test_IRED/1IEE_A_test.mdcrd'
+
+        # load to TrajectoryIterator
+        traj = pt.iterload(trajfile, parmfile)
+
+        # create N-H vectors
+        h_indices = pt.select_atoms(traj.top, '@H')
+        n_indices = pt.select_atoms(traj.top, '@H') - 1
+        nh_indices = list(zip(n_indices, h_indices))
+
+        # compute N-H vectors and ired matrix
+        vecs_and_mat = pt.calc_ired_matrix(traj, mask=nh_indices, order=2)
+        state_vecs = vecs_and_mat[:-1].values
+        mat_ired = vecs_and_mat[-1]
+        mat_ired /= mat_ired[0, 0]
+
+        # get eigenvalues and eigvenvectors
+        evals, evecs = np.linalg.eigh(mat_ired)
+
+        # need to sort a numpy array bit to match to cpptraj's order
+        evals = evals[::-1]
+        evecs = evecs[:, ::-1].T
+
+        data = ired(state_vecs, modes=(evals, evecs))
+        order_s2_v0 = data['IRED_00127[S2]']
+        # make sure the S2 values is 1st array
+        order_s2_v1 = data[0]
+
+        # load cpptraj's output and compare to pytraj' values for S2 order paramters
+        cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
+        aa_eq(order_s2_v0, cpp_order_s2, decimal=5)
+        aa_eq(order_s2_v1, cpp_order_s2, decimal=5)
 
 
 if __name__ == "__main__":

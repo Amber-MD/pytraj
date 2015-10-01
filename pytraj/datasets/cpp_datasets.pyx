@@ -1,7 +1,7 @@
 # distutils: language = c++
 
 from __future__ import division
-from ..cpptraj_dict import DataTypeDict, get_key
+from ..cpptraj_dict import DataTypeDict, ScalarTypeDict, get_key
 from ..decorators import makesureABC, require_having
 from ..datafiles.datafiles import DataFileList, DataFile
 
@@ -132,6 +132,17 @@ cdef class Dataset:
         """mostly memoryview
         """
         raise NotImplementedError("Must over-write Dataset data attr")
+
+    property scalar_type:
+        def __set__(self, stype):
+            '''
+            '''
+            cdef _MetaData meta = self.baseptr0.Meta()
+            meta.SetScalarType(ScalarTypeDict[stype.upper()])
+            self.baseptr0.SetMeta(meta)
+
+        def __get__(self):
+            return get_key(self.baseptr0.Meta().ScalarType(), ScalarTypeDict)
 
     def tolist(self):
         return list(self.data)
@@ -1083,6 +1094,15 @@ cdef class DatasetModes(Dataset):
 
     def _is_reduced(self):
         return self.thisptr.IsReduced()
+
+    def _set_modes(self, bint is_reduced, int n_modes, int vsize, double[:] eigenvalues, double[:] eigenvectors):
+        '''
+        Notes
+        -----
+        eigenvectors is 1D array, make sure to reshape if yours is 2D
+        '''
+        self.thisptr.SetModes(is_reduced, n_modes, vsize, &eigenvalues[0], &eigenvectors[0])
+
 
     property eigenvalues:
         def __get__(self):

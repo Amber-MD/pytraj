@@ -6,6 +6,38 @@ cdef extern from "Traj_PDBfile.h":
         MODEL "Traj_PDBfile::MODEL"
         MULTI "Traj_PDBfile::MULTI"
 
+
+cdef extern from "MetaData.h":
+    ctypedef enum scalarType "MetaData::scalarType":
+        ALPHA "MetaData::ALPHA"
+        BETA "MetaData::BETA"
+        GAMMA "MetaData::GAMMA"
+        DELTA "MetaData::DELTA"
+        EPSILON "MetaData::EPSILON"
+        ZETA "MetaData::ZETA"
+        NU1 "MetaData::NU1"
+        NU2 "MetaData::NU2"
+        H1P "MetaData::H1P"
+        C2P "MetaData::C2P"
+        CHIN "MetaData::CHIN"
+        PHI "MetaData::PHI"
+        PSI "MetaData::PSI"
+        CHIP "MetaData::CHIP"
+        OMEGA "MetaData::OMEGA"
+        PUCKER "MetaData::PUCKER"
+        NOE "MetaData::NOE"
+        DIST "MetaData::DIST"
+        COVAR "MetaData::COVAR"
+        MWCOVAR "MetaData::MWCOVAR"
+        CORREL "MetaData::CORREL"
+        DISTCOVAR "MetaData::DISTCOVAR"
+        IDEA "MetaData::IDEA"
+        IREDMAT "MetaData::IREDMAT"
+        DIHCOVAR "MetaData::DIHCOVAR"
+        IREDVEC "MetaData::IREDVEC"
+        UNDEFINED "MetaData::UNDEFINED"
+
+
 cdef extern from "ParmFile.h":
     ctypedef enum ParmFormatType "ParmFile::ParmFormatType":
         AMBERPARM "ParmFile::AMBERPARM"

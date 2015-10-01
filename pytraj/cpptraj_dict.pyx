@@ -6,6 +6,36 @@ def get_key(value, dict Dict):
         if v == value:
             return key
 
+ScalarTypeDict = {
+    "ALPHA" : ALPHA,
+    "BETA" : BETA,
+    "GAMMA" : GAMMA,
+    "DELTA" : DELTA,
+    "EPSILON" : EPSILON,
+    "ZETA" : ZETA,
+    "NU1" : NU1,
+    "NU2" : NU2,
+    "H1P" : H1P,
+    "C2P" : C2P,
+    "CHIN" : CHIN,
+    "PHI" : PHI,
+    "PSI" : PSI,
+    "CHIP" : CHIP,
+    "OMEGA" : OMEGA,
+    "PUCKER" : PUCKER,
+    "NOE" : NOE,
+    "DIST" : DIST,
+    "COVAR" : COVAR,
+    "MWCOVAR" : MWCOVAR,
+    "CORREL" : CORREL,
+    "DISTCOVAR" : DISTCOVAR,
+    "IDEA" : IDEA,
+    "IREDMAT" : IREDMAT,
+    "DIHCOVAR" : DIHCOVAR,
+    "IREDVEC" : IREDVEC,
+    "UNDEFINED" : UNDEFINED,
+    }
+
 PDBWRITEMODEDict = {
     "NONE" : NONE,
     "SINGLE" : SINGLE, 

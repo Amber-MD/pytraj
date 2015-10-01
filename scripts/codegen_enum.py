@@ -25,7 +25,9 @@ def create_enum_of_dict(fname, mode='', cpptrajsrc=CPPTRAJSRC):
         make_dict = False
     
     # make assumption that there's only one class in header file
-    classname = list(cpp.classes.keys())[0]
+    #classname = list(cpp.classes.keys())[0]
+    # use -1 for MetaData, else 0
+    classname = list(cpp.classes.keys())[-1]
     print(cpp.classes[classname]['enums'])
     if cpp.classes[classname]['enums']['public']:
         print(classname)
@@ -56,6 +58,6 @@ if __name__ == '__main__':
     fname = sys.argv[1]
     try:
         mode = sys.argv[2]
-    except:
+    except IndexError:
         mode = ""
     create_enum_of_dict(fname, mode=mode)
