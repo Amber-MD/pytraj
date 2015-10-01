@@ -1428,6 +1428,10 @@ def ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, ts
     dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1], eigenvalues, eigenvectors.flatten())
 
     act(command, dslist=dslist)
+    # remove input datasets to free memory
+    # all DatasetVectors + 1 DatasetModes
+    for d in dslist[:idx+2]:
+        dslist.remove_set(d)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_ired_matrix(traj=None,
