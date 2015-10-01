@@ -21,7 +21,7 @@ class TestActionList(unittest.TestCase):
         distance @CA @H
         """
 
-        cout = pt.datafiles.load_cpptraj_output(trajin)
+        cout = pt.datafiles.load_cpptraj_output(trajin)[1:]
 
         mask_list = ('@CB @CA', '@CA @H')
         dslist = pt.calc_distance(traj, mask_list)

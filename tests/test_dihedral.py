@@ -25,11 +25,13 @@ class Test(unittest.TestCase):
         d0 = pyca.calc_dihedral(traj, mask, dtype='dataset').to_ndarray()
         d1 = pt.dihedral(traj, mask)
         d2 = pt.calc_dihedral(fa, mask)
-        dcpp = pt.datafiles.load_cpptraj_output(txt)
+        state = pt.load_cpptraj_state(txt)
+        state.run()
+        dcpp = state.data[1:].values
 
         aa_eq(d0, d1)
         aa_eq(d0, d2)
-        aa_eq(d0, dcpp[0])
+        aa_eq(d0, dcpp)
 
         Nsize = 10
         arr = np.random.randint(0, 300, size=Nsize * 4).reshape(Nsize, 4)

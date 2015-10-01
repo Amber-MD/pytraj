@@ -153,7 +153,7 @@ class TestIred(unittest.TestCase):
         xyz = state.data['CRD1'].xyz
         top = state.data['CRD1'].top
         traj = pt.Trajectory(xyz=xyz, top=top)
-        state_vecs = state.data[:-3].values
+        state_vecs = state.data[1:-3].values
 
         h_indices = pt.select_atoms(traj.top, '@H')
         n_indices = pt.select_atoms(traj.top, '@H') - 1

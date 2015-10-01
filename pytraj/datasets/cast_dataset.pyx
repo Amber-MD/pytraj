@@ -8,7 +8,8 @@ from .cpp_datasets cimport (_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInt
                           _DatasetModes, DatasetModes,
                           DatasetMesh, _DatasetMesh, _DatasetMatrix3x3, DatasetMatrix3x3,
                           _DatasetCoords, DatasetCoords, _DatasetCoordsRef, 
-                          DatasetCoordsRef, _DatasetCoordsCRD, DatasetCoordsCRD)
+                          DatasetCoordsRef, _DatasetCoordsCRD, DatasetCoordsCRD,
+                          DatasetTopology, _DatasetTopology)
 from ..trajs.TrajectoryCpptraj cimport TrajectoryCpptraj, _TrajectoryCpptraj
 
 def cast_dataset(dsetin=None, dtype='general'):
@@ -42,6 +43,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DatasetGridFloat newset_gridflt
     cdef DatasetCoordsRef newset_coords_ref
     cdef DatasetCoordsCRD newset_coords_crd
+    cdef DatasetTopology newset_topology
 #    cdef TrajectoryCpptraj newset_coords_trj
 
     if not isinstance(dsetin, Dataset):
@@ -201,5 +203,11 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_coords_ref.baseptr_1 = <_DatasetCoords*> dset.baseptr0
         newset_coords_ref.thisptr = <_DatasetCoordsRef*> dset.baseptr0
         return newset_coords_ref
+    elif dtype in ['TOPOLOGY']:
+        newset_topology = DatasetTopology()
+        newset_topology._own_memory = False
+        newset_topology.baseptr0 = dset.baseptr0
+        newset_topology.thisptr = <_DatasetTopology*> dset.baseptr0
+        return newset_topology
     else:
         raise NotImplementedError("")

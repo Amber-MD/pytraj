@@ -463,7 +463,7 @@ cdef class DatasetCoordsRef (DatasetCoords):
 cdef extern from "DataSet_Topology.h":
     cdef cppclass _DatasetTopology "DataSet_Topology" (_Dataset):
         _DatasetTopology()
-        _DataSet * Alloc()
+        _Dataset * Alloc()
         size_t Size() const
         int LoadTopFromFile(const _ArgList&, int)
         void SetTop(const _Topology& t)
@@ -473,6 +473,6 @@ cdef extern from "DataSet_Topology.h":
         const _Topology& Top() const
 
 
-cdef class DataSet_Topology (Dataset):
+cdef class DatasetTopology (Dataset):
     cdef _DatasetTopology* thisptr
     cdef bint _own_memory

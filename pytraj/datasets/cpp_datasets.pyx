@@ -451,9 +451,6 @@ cdef class DatasetDouble (Dataset1D):
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
 
-    def info(self):
-        self.thisptr.Info()
-
     def xcrd(self, size_t idx):
         raise NotImplementedError()
 
@@ -1415,7 +1412,7 @@ cdef class DatasetCoordsRef (DatasetCoords):
 
 cdef class DatasetTopology(Dataset):
     def __cinit__(self):
-        self.thisptr = new _DatasetTopology)
+        self.thisptr = new _DatasetTopology()
         self.baseptr0 = <_Dataset*> self.thisptr
 
         # let python frees memory
@@ -1425,9 +1422,11 @@ cdef class DatasetTopology(Dataset):
         if self._own_memory:
             del self.thisptr
 
-    property top:
+    property _top:
         def __get__(self):
-            pass
+            cdef Topology top = Topology()
+            top.thisptr[0] = self.thisptr.Top()
+            return top
         def __set__(self, Topology top):
             self.thisptr.SetTop(top.thisptr[0])
 
@@ -1439,4 +1438,4 @@ cdef class DatasetTopology(Dataset):
     @property
     def data(self):
         """"""
-        return self.top
+        return self._top

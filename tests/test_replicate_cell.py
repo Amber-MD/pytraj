@@ -14,8 +14,9 @@ class TestReplicateCell(unittest.TestCase):
         '''
 
         t0 = pt.replicate_cell(traj, direction='all')
-        cpp_out = pt.datafiles.load_cpptraj_output(txt, dtype='state')
-        saved_t0 = cpp_out.datasetlist[0]
+        state = pt.load_cpptraj_state(txt)
+        state.run()
+        saved_t0 = state.data[1]
         aa_eq(saved_t0.xyz, t0.xyz)
 
     def test_vs_list_tuple(self):

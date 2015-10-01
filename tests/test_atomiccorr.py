@@ -13,7 +13,7 @@ class TestAtomicCorr(unittest.TestCase):
         ''')
         state.run()
 
-        data = pt.atomiccorr(traj, ':1-13', byres=True)
+        data = pt.atomiccorr(traj, ':1-13', byres=True)[1:]
         aa_eq(data, state.data[0].values)
 
 

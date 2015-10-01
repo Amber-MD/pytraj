@@ -24,7 +24,7 @@ class TestPairDist(unittest.TestCase):
         pairdist out test.out mask "*" delta 0.1
         '''
 
-        cpp_data = pt.datafiles.load_cpptraj_output(txt).values
+        cpp_data = pt.datafiles.load_cpptraj_output(txt)[1:].values
         cpp_distance, cpp_Pr = cpp_data[0].T
         _, cpp_std = cpp_data[1].T
 

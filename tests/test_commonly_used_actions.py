@@ -59,7 +59,8 @@ class TestGeometry(unittest.TestCase):
         radgyr !@H= nomax
         '''
 
-        data = pt.datafiles.load_cpptraj_output(txt)
+        # exclude DatasetTopology
+        data = pt.datafiles.load_cpptraj_output(txt)[1:]
         for mask, out in zip(['@CA', '', '!@H='], data):
             aa_eq(pt.radgyr(traj, mask), out)
 

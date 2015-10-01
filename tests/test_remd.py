@@ -17,10 +17,17 @@ class TestREMDTemperature(unittest.TestCase):
 
         state_from_file = pt.load_cpptraj_file(input_file)
         state_from_file.run()
+        # remove DatasetTopology
+        data = state_from_file.data
+        data.remove_set(data[0])
+
         data_0 = state_from_file.data.values
+
 
         state_from_text = pt.datafiles.load_cpptraj_state(text)
         state_from_text.run()
+        data = state_from_text.data
+        data.remove_set(data[0])
         data_1 = state_from_text.data.values
         aa_eq(data_0, data_1)
 

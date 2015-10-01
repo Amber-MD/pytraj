@@ -22,7 +22,7 @@ class TestCrdFrames(unittest.TestCase):
         state.run()
 
         rmsd_0 = pt.rmsd(traj, ref=0, frame_indices=range(10))
-        rmsd_crdframes = state.data[1].values
+        rmsd_crdframes = state.data[2].values
         aa_eq(rmsd_0, rmsd_crdframes)
 
         traj2 = traj.copy()
@@ -31,7 +31,7 @@ class TestCrdFrames(unittest.TestCase):
         assert traj2.n_frames == 2 * traj.n_frames, 'n_frames must be doubled after reload'
 
         rmsd_1 = pt.rmsd(traj2, ref=0, frame_indices=range(0, 30, 2))
-        rmsd_crdframes = state.data[2].values
+        rmsd_crdframes = state.data[3].values
         aa_eq(rmsd_1, rmsd_crdframes)
 
 if __name__ == "__main__":
