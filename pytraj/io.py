@@ -539,7 +539,8 @@ def get_coordinates(iterables,
         fi = iterframe_master(iterables)
     if hasattr(fi, 'n_frames') and hasattr(fi, 'n_atoms'):
         # faster
-        shape = (fi.n_frames, fi.n_atoms, 3)
+        n_frames = fi.n_frames
+        shape = (n_frames, fi.n_atoms, 3)
         arr = np.empty(shape, dtype='f8')
         for idx, frame in enumerate(fi):
             # real calculation

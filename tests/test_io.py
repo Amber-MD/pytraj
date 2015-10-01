@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import unittest
 import pytraj as pt
 from pytraj import Topology, Trajectory, TrajectoryIterator
@@ -100,6 +101,8 @@ class TestIO(unittest.TestCase):
         pt.autoimage(ref, top=traj.top)
         xyz = pt.get_coordinates(traj, frame_indices=[0, 5], autoimage=True, rmsfit=ref)
         aa_eq(traj[[0, 5]].autoimage().superpose(ref).xyz, xyz)
+
+        xyz = pt.get_coordinates(traj, frame_indices=range(3), autoimage=True, rmsfit=ref)
 
     def test_get_coordinates_trajecotory(self):
         '''mutable pytraj.Trajectory
