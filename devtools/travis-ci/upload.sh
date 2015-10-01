@@ -13,4 +13,8 @@ if [[ "$TRAVIS_BRANCH" != "master" ]]; then
 fi
 
 anaconda -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p pytraj-dev $HOME/miniconda/conda-bld/linux-64/pytraj-dev-*
-anaconda -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p libcpptraj-dev $HOME/miniconda/conda-bld/linux-64/libcpptraj-dev-*
+
+# only need to update one version for libcpptraj
+if [[ "$PYTHON_VERSION" = "3.4" ]]; then
+    anaconda -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p libcpptraj-dev $HOME/miniconda/conda-bld/linux-64/libcpptraj-dev-*
+fi
