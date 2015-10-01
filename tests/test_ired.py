@@ -225,8 +225,8 @@ class TestIred(unittest.TestCase):
 
         # load cpptraj's output and compare to pytraj' values for S2 order paramters
         cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
-        aa_eq(order_s2_v0, cpp_order_s2, decimal=5)
-        aa_eq(order_s2_v1, cpp_order_s2, decimal=5)
+        aa_eq(order_s2_v0, cpp_order_s2, decimal=4)
+        aa_eq(order_s2_v1, cpp_order_s2, decimal=4)
 
 
 if __name__ == "__main__":
