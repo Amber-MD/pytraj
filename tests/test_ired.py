@@ -6,7 +6,7 @@ import numpy as np
 import pytraj as pt
 from pytraj.testing import eq, aa_eq, cpptraj_test_dir
 from pytraj.compat import zip
-from pytraj.common_actions import ired
+from pytraj.common_actions import _ired
 
 txt = '''
  parm ../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop
@@ -186,7 +186,7 @@ class TestIred(unittest.TestCase):
 
         aa_eq(np.abs(evecs[:, ::-1].T), np.abs(cpp_eigenvectors), decimal=4)
         #pt._verbose()
-        data = ired(state_vecs, modes=(cpp_eigenvalues, cpp_eigenvectors))
+        data = _ired(state_vecs, modes=(cpp_eigenvalues, cpp_eigenvectors))
         order_s2 = data['IRED_00127[S2]']
 
         # load cpptraj's output and compare to pytraj' values for S2 order paramters
@@ -218,7 +218,7 @@ class TestIred(unittest.TestCase):
         evals = evals[::-1]
         evecs = evecs[:, ::-1].T
 
-        data = ired(state_vecs, modes=(evals, evecs))
+        data = _ired(state_vecs, modes=(evals, evecs))
         order_s2_v0 = data['IRED_00127[S2]']
         # make sure the S2 values is 1st array
         order_s2_v1 = data[0]
