@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Analysis &mdash; pytraj 0.1.2.dev8 documentation</title>
+    <title>Analysis &mdash; pytraj 0.1.2.dev9 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev8',
+        VERSION:     '0.1.2.dev9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev8 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev9 documentation" href="index.html" />
     <link rel="next" title="Modify trajectory" href="modify_traj.html" />
     <link rel="prev" title="Tutorials adapted from MDtraj" href="tutorials/mdtraj_adapted.html" />
 <meta charset='utf-8'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev8</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev9</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -462,21 +462,41 @@ if &#8216;cpptraj&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 
 <span class="target" id="dssp"></span><dl class="function">
 <dt id="pytraj.dssp">
-<tt class="descclassname">pytraj.</tt><tt class="descname">dssp</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.dssp" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">dssp</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.dssp" title="Permalink to this definition">¶</a></dt>
 <dd><p>return dssp profile for frame/traj</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mask: str</strong></p>
-<p><strong>traj</strong> : {Trajectory, Frame, mix of them}</p>
-<p><strong>dtype</strong> : str {&#8216;ndarray&#8217;, &#8216;dataset&#8217;, &#8216;dict&#8217;, &#8216;dataframe&#8217;, &#8216;_dssp_class&#8217;}, default &#8216;ndarray&#8217;</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask: str</strong></p>
 <blockquote>
-<div><p>return data type, for regular user, just use default one (ndarray)</p>
+<div><p>atom mask</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : {None, array-like}, default None, optional</p>
+<blockquote>
+<div><p>specify frame numbers for calculation.
+if None, do all frames</p>
+</div></blockquote>
+<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
+<blockquote>
+<div><p>return data type, for regular user, just use default one (ndarray).
+use dtype=&#8217;dataset&#8217; if wanting to get secondary structure in integer format</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">numpy.ndarray, shape=(n_residues + 1,) (array of residue names and DSSP characters)</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out_0: ndarray, shape=(n_residues,)</p>
+<blockquote>
+<div><p>residue names</p>
+</div></blockquote>
+<p>out_1: ndarray, shape=(n_residues, n_frames)</p>
+<blockquote>
+<div><p>DSSP for each residue</p>
+</div></blockquote>
+<p><strong>out_2</strong> : pytraj.DatasetList</p>
+<blockquote class="last">
+<div><p>average value for each secondary structure type</p>
+</div></blockquote>
 </td>
 </tr>
 </tbody>
@@ -541,10 +561,20 @@ if &#8216;cpptraj&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;:2-10&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;:2-10&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;:2-10&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;:2-10&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span>
+<span class="go">array([&#39;LEU:2&#39;, &#39;TYR:3&#39;, &#39;ILE:4&#39;, &#39;GLN:5&#39;, &#39;TRP:6&#39;, &#39;LEU:7&#39;, &#39;LYS:8&#39;,</span>
+<span class="go">       &#39;ASP:9&#39;, &#39;GLY:10&#39;],</span>
+<span class="go">      dtype=&#39;&lt;U6&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span>
+<span class="go">array([[&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;H&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;H&#39;, &#39;H&#39;],</span>
+<span class="go">       [&#39;H&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;H&#39;, &#39;H&#39;],</span>
+<span class="go">       ...,</span>
+<span class="go">       [&#39;H&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;H&#39;, &#39;H&#39;],</span>
+<span class="go">       [&#39;T&#39;, &#39;T&#39;, &#39;T&#39;, ..., &#39;T&#39;, &#39;H&#39;, &#39;T&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]],</span>
+<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
 </pre></div>
 </div>
 </dd></dl>

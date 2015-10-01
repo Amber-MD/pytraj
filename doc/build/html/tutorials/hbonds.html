@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>hbond tutorial &mdash; pytraj 0.1.2.dev8 documentation</title>
+    <title>hbond tutorial &mdash; pytraj 0.1.2.dev9 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev8',
+        VERSION:     '0.1.2.dev9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,10 +29,10 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev8 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev9 documentation" href="../index.html" />
     <link rel="up" title="Tutorials" href="index.html" />
-    <link rel="next" title="Pairwise RMSD" href="tut_pairwise_rmsd.html" />
-    <link rel="prev" title="phi and psi plotting" href="plot_phipsi_trpcage.html" />
+    <link rel="next" title="Fetch pdb" href="load_pdb_rcsb.html" />
+    <link rel="prev" title="Ramachandran plot" href="plot_phipsi_trpcage.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev8</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev9</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -73,7 +73,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basic_examples.html">Basic examples</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
@@ -109,11 +108,11 @@
               
                 
   <li>
-    <a href="plot_phipsi_trpcage.html" title="Previous Chapter: phi and psi plotting"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; phi and psi p...</span>
+    <a href="plot_phipsi_trpcage.html" title="Previous Chapter: Ramachandran plot"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Ramachandran ...</span>
     </a>
   </li>
   <li>
-    <a href="tut_pairwise_rmsd.html" title="Next Chapter: Pairwise RMSD"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Pairwise RMSD &raquo;</span>
+    <a href="load_pdb_rcsb.html" title="Next Chapter: Fetch pdb"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Fetch pdb &raquo;</span>
     </a>
   </li>
               
@@ -391,7 +390,7 @@ total hbonds for GLU5 per frame
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaabf2fef0&gt;]</pre>
+<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaabf9dcc0&gt;]</pre>
 </div>
 
 </div>
@@ -516,7 +515,7 @@ wsBjCAAAAABJRU5ErkJggg==
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Help on function search_hbonds in module pytraj.hbonds:
 
-search_hbonds(traj, mask=&apos;&apos;, dtype=&apos;dataset&apos;, solventdonor=None, solventacceptor=None, update_legend=True, *args, **kwd)
+search_hbonds(traj, mask=&apos;&apos;, dtype=&apos;dataset&apos;, solventdonor=None, solventacceptor=None, update_key=True, *args, **kwd)
     search hbonds for a given mask
     
     Parameters

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Basic examples &mdash; pytraj 0.1.2.dev8 documentation</title>
+    <title>Basic examples &mdash; pytraj 0.1.2.dev9 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev8',
+        VERSION:     '0.1.2.dev9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev8 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev9 documentation" href="../index.html" />
     <link rel="up" title="Tutorials" href="index.html" />
     <link rel="next" title="Pairwise RMSD" href="tut_pairwise_rmsd.html" />
     <link rel="prev" title="Tutorials" href="index.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev8</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev9</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -175,19 +175,30 @@
 <span class="gp">In [3]: </span><span class="n">result</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
 
 <span class="gp">In [4]: </span><span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-<span class="go">[[&#39;ASN:1&#39; &#39;LEU:2&#39; &#39;TYR:3&#39; ..., &#39;PRO:18&#39; &#39;PRO:19&#39; &#39;SER:20&#39;]</span>
-<span class="go"> [array([&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;], </span>
-<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
-<span class="go">  array([&#39;H&#39;, &#39;T&#39;, &#39;0&#39;, ..., &#39;H&#39;, &#39;0&#39;, &#39;T&#39;], </span>
-<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
-<span class="go">  array([&#39;H&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;H&#39;, &#39;H&#39;], </span>
-<span class="go">      dtype=&#39;&lt;U1&#39;) ...,</span>
-<span class="go">  array([&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;], </span>
-<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
-<span class="go">  array([&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;], </span>
-<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
-<span class="go">  array([&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;], </span>
-<span class="go">      dtype=&#39;&lt;U1&#39;)]]</span>
+<span class="go">(array([&#39;ASN:1&#39;, &#39;LEU:2&#39;, &#39;TYR:3&#39;, ..., &#39;PRO:18&#39;, &#39;PRO:19&#39;, &#39;SER:20&#39;], </span>
+<span class="go">      dtype=&#39;&lt;U6&#39;), array([[&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;H&#39;, &#39;T&#39;, &#39;0&#39;, ..., &#39;H&#39;, &#39;0&#39;, &#39;T&#39;],</span>
+<span class="go">       [&#39;H&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;H&#39;, &#39;H&#39;],</span>
+<span class="go">       ..., </span>
+<span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
+<span class="go">      dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
+<span class="go">none_avg</span>
+<span class="go">[ 0.3   0.25  0.35 ...,  0.3   0.3   0.3 ]</span>
+
+<span class="go">para_avg</span>
+<span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
+
+<span class="go">anti_avg</span>
+<span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
+<span class="go">...</span>
+
+<span class="go">turn_avg</span>
+<span class="go">[ 0.1   0.15  0.1  ...,  0.1   0.05  0.15]</span>
+
+<span class="go">bend_avg</span>
+<span class="go">[ 0.05  0.1   0.05 ...,  0.05  0.1   0.05])</span>
 </pre></div>
 </div>
 </div>
