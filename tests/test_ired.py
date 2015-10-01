@@ -140,6 +140,7 @@ txt = '''
  createcrd CRD1
 '''
 
+
 class TestIred(unittest.TestCase):
     # TODO: how can I get order paramters?
 
@@ -151,29 +152,38 @@ class TestIred(unittest.TestCase):
         top = state.data['CRD1'].top
         traj = pt.Trajectory(xyz=xyz, top=top)
         state_vecs = state.data[:-3].values
-        
+
         h_indices = pt.select_atoms(traj.top, '@H')
         n_indices = pt.select_atoms(traj.top, '@H') - 1
         nh_indices = list(zip(n_indices, h_indices))
         mat_ired = pt.calc_ired_matrix(traj, mask=nh_indices, order=2)[-1]
         mat_ired /= mat_ired[0, 0]
-        
-        # make sure to reproduce cpptraj output
+
+        # matired: make sure to reproduce cpptraj output
         aa_eq(mat_ired, state.data['matired'].values)
-        
+
         # get modes
         modes = state.data[-2]
         cpp_eigenvalues = modes.eigenvalues
         cpp_eigenvectors = modes.eigenvectors
         evals, evecs = np.linalg.eigh(mat_ired)
-        
-        # need to sort a bit 
+
+        # need to sort a bit
         evals = evals[::-1]
+        # cpptraj's eigvenvalues
         aa_eq(evals, cpp_eigenvalues)
 
-        # FIXME: not aa_eq for some values
-        # Why?
-        #aa_eq(evecs[:, ::-1].T, cpp_eigenvectors)
+        # cpptraj's eigvenvectors
+        # use absolute values to avoid flipped sign
+        # from Dan Roe
+        # In practice, the "sign" of an eigenvector depends on the math library used to calculate it. 
+        # This is in fact why the modes command displacement test is disabled for cpptraj. 
+        # I bet if you use a different math library (e.g. use your system BLAS/LAPACK instead of the one bundled with Amber
+        # or vice versa) you will get different signs.
+        # Bottom line is that eigenvector sign doesn't matter.
+
+        aa_eq(np.abs(evecs[:, ::-1].T), np.abs(cpp_eigenvectors), decimal=4)
+
 
 if __name__ == "__main__":
     unittest.main()
