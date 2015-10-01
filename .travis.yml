@@ -45,7 +45,9 @@ script:
 
 after_success:
     - echo "after_success"
-    - source devtools/travis-ci/upload.sh
+    - source devtools/travis-ci/upload.sh 
+    # just try to install
+    - conda install -c ambermd pytraj-dev libcpptraj-dev --yes
 
 notifications:
   email: false
