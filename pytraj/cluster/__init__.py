@@ -53,6 +53,60 @@ def kmeans(traj=None,
                         _metric, _mask, _output))
     return _cluster(traj, command, top=top, dtype='ndarray')
 
+def _dbscan(traj=None,
+           mask='*',
+           minpoints=None,
+           epsilon=0.,
+           sievetoframe=False,
+           random_sieveseed=1,
+           kdist=None,
+           kfile=None,
+           sieve=1,
+           metric='rms',
+           top=None,
+           output_op=''):
+    '''perform clustering and return cluster index for each frame
+
+    Parameters
+    ----------
+    traj : Trajectory-like or iterable that produces Frame
+    mask : str, default: * (all atoms)
+    n_clusters: int, default: 10
+    random_point : bool, default: True
+    maxit : int, default: 100
+        max iterations
+    metric : str, {'rms', 'dme'}
+        distance metric
+    top : Topology, optional, default: None
+        only need to provide this Topology if ``traj`` does not have one
+    output_op : option to save data to files. Not working yet.
+
+    Returns
+    -------
+    1D numpy array of frame indices
+
+    Examples
+    --------
+    >>> from pytraj.cluster import dbscan
+    >>> dbscan(traj)
+    '''
+
+    # don't need to _get_topology
+    _top = _get_topology(traj, top)
+    _clusters = 'dbscan minpoints ' + str(minpoints)
+    _mask = mask
+    _epsilon = 'epsilon ' + str(epsilon)
+    _sievetoframe = 'sievetoframe' if sievetoframe else ''
+    _kdist = 'kdist' + str(kdist) if kdist is not None else ''
+    _kfile = kfile if kfile is not None else ''
+    _sieve = 'sieve ' + str(sieve)
+    _metric = metric
+    _random_sieveseed = 'random ' + str(random_sieveseed)
+    _output = output_op
+    command = ' '.join((_clusters, _epsilon, _sievetoframe, _kdist, _sieve,
+                        _metric, _random_sieveseed, _mask, _output))
+    return _cluster(traj, command, top=_top, dtype='ndarray')
+
 
 def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """

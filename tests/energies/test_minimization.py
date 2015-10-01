@@ -18,7 +18,7 @@ class TestMin(unittest.TestCase):
     @unittest.skipIf(not has_sander, 'does not have sander. skip')
     def test_0(self):
         if os.path.exists(amberhome):
-            from pytraj.amber_wrap import minimize
+            from pytraj.amber_wrapper import minimize
 
             traj = pt.iterload("./data/Ala3/Ala3.crd", "./data/Ala3/Ala3.top")
             t0 = traj[:1]

@@ -1,9 +1,10 @@
 from __future__ import absolute_import
 import numpy as np
 from ._base_result_class import BaseAnalysisResult
-from ._get_common_objects import _get_data_from_dtype, _get_topology
+from ._get_common_objects import _get_data_from_dtype, _get_topology, _get_fiterator
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
 from pytraj.compat import string_types
+from pytraj import DatasetList
 
 
 class DSSPAnalysisResult(BaseAnalysisResult):
@@ -22,7 +23,7 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         dtype : str, {'int', 'string'}
         """
         if dtype == 'string':
-            return to_string_ss(self.dataset.filter(
+            return _to_string_secondary_structure(self.dataset.filter(
                 lambda x: 'int' in x.dtype.name).to_dict())
         elif dtype == 'int':
             return self.dataset.filter(
@@ -38,7 +39,7 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         dtype : str, {'string', 'int'}
         """
         if dtype == 'string':
-            return to_string_ss(self.dataset.filter(
+            return _to_string_secondary_structure(self.dataset.filter(
                 lambda x: 'int' in x.dtype.name).to_ndarray())
         elif dtype == 'int':
             return self.dataset.filter(
@@ -67,27 +68,47 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         return np.vstack((self.residues, self.to_ndarray(restype).T)).T
 
 
-def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None):
     """return dssp profile for frame/traj
 
     Parameters
     ----------
+    traj : Trajectory-like
     mask: str
-    traj : {Trajectory, Frame, mix of them}
-    dtype : str {'ndarray', 'dataset', 'dict', 'dataframe', '_dssp_class'}, default 'ndarray'
-        return data type, for regular user, just use default one (ndarray)
+        atom mask
+    frame_indices : {None, array-like}, default None, optional
+        specify frame numbers for calculation.
+        if None, do all frames
+    dtype : str, default 'ndarray'
+        return data type, for regular user, just use default one (ndarray).
+        use dtype='dataset' if wanting to get secondary structure in integer format
 
     Returns
     -------
-    numpy.ndarray, shape=(n_residues + 1,) (array of residue names and DSSP characters)
+    out_0: ndarray, shape=(n_residues,)
+        residue names
+    out_1: ndarray, shape=(n_residues, n_frames)
+        DSSP for each residue
+    out_2 : pytraj.DatasetList
+        average value for each secondary structure type
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> d = pt.dssp(traj, ":2-10", dtype='ndarray')
-    >>> print(d)
-    >>> pt.dssp(traj, ":2-10", dtype='dict')
-    >>> pt.dssp(traj, ":2-10", dtype='dataset')
+    >>> residues, ss, _ = pt.dssp(traj, ":2-10")
+    >>> residues
+    array(['LEU:2', 'TYR:3', 'ILE:4', 'GLN:5', 'TRP:6', 'LEU:7', 'LYS:8',
+           'ASP:9', 'GLY:10'],
+          dtype='<U6')
+    >>> ss
+    array([['0', '0', '0', ..., '0', '0', '0'],
+           ['H', 'H', 'H', ..., 'H', 'H', 'H'],
+           ['H', 'H', 'H', ..., 'H', 'H', 'H'],
+           ...,
+           ['H', 'H', 'H', ..., 'H', 'H', 'H'],
+           ['T', 'T', 'T', ..., 'T', 'H', 'T'],
+           ['0', '0', '0', ..., '0', '0', '0']],
+          dtype='<U1')
 
     Notes
     -----
@@ -113,12 +134,13 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     command = mask
 
     _top = _get_topology(traj, top)
+    fi = _get_fiterator(traj, frame_indices)
     dslist = CpptrajDatasetList()
 
     Action_DSSP()(command,
-                  current_frame=traj,
+                  fi,
                   top=_top,
-                  dslist=dslist, *args, **kwd)
+                  dslist=dslist)
 
     # replace key to something nicer
     for key, dset in dslist.iteritems():
@@ -132,8 +154,9 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
         # get all dataset from DatSetList if dtype == integer
         arr0 = dslist.grep("integer", mode='dtype').values
         keys = dslist.grep("integer", mode='dtype').keys()
-        return np.array([keys, [to_string_ss(arr) for arr in arr0]],
-                        dtype='object')
+        avg_dict = DatasetList(dslist.grep('_avg'))
+        return np.asarray(keys), np.asarray([_to_string_secondary_structure(arr) for arr
+            in arr0]), avg_dict
     if dtype == '_dssp_class':
         return DSSPAnalysisResult(_get_data_from_dtype(dslist,
                                                        dtype='dataset'))
@@ -141,7 +164,7 @@ def calc_dssp(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def to_string_ss(arr0):
+def _to_string_secondary_structure(arr0):
     """
     arr0 : {ndarray, dict of ndarray}
     """
@@ -150,17 +173,12 @@ def to_string_ss(arr0):
     len_ss = len(ss)
     ssdict = dict(zip(range(len_ss), ss))
 
-    if np:
+    myfunc = lambda key: ssdict[key]
 
-        def myfunc(key):
-            return ssdict[key]
-
-        if not isinstance(arr0, dict):
-            return np.vectorize(myfunc)(arr0)
-        else:
-            new_dict = {}
-            for key in arr0.keys():
-                new_dict[key] = to_string_ss(arr0[key])
-            return new_dict
+    if not isinstance(arr0, dict):
+        return np.vectorize(myfunc)(arr0)
     else:
-        raise ImportError("require numpy")
+        new_dict = {}
+        for key in arr0.keys():
+            new_dict[key] = _to_string_secondary_structure(arr0[key])
+        return new_dict
