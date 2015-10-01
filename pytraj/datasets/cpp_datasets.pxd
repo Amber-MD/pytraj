@@ -81,8 +81,6 @@ cdef extern from "DataSet_double.h":
         void AddElement(double d)
         void Resize(size_t sizeIn)
         size_t Size()
-        int Sync() 
-        void Info() const 
         int Allocate(SizeArray)
         void Add(size_t, const void *)
         double Dval(size_t idx) const 
@@ -198,8 +196,6 @@ cdef extern from "DataSet_MatrixDbl.h":
         @staticmethod
         _Dataset * Alloc() 
         size_t Size() const 
-        int Sync() 
-        void Info() const 
         int Allocate(SizeArray)
         int AllocateHalf(size_t x)
         int AllocateTriangle(size_t x)
@@ -290,8 +286,6 @@ cdef extern from "DataSet_Modes.h":
         _DatasetModes() 
         _Dataset * Alloc() 
         size_t Size() const 
-        int Sync() 
-        void Info() const 
         void Add(size_t, const void *)
         const Darray& AvgCrd() const 
         const Darray& Mass() const 
@@ -330,8 +324,6 @@ cdef extern from "DataSet_RemLog.h":
         bint ValidEnsemble() const 
         void TrimLastExchange() 
         size_t Size() const 
-        int Sync() 
-        void Info() const 
         void Add(size_t, const void *)
 
 
@@ -435,8 +427,6 @@ cdef extern from "DataSet_Coords_CRD.h":
         @staticmethod
         _Dataset * Alloc() 
         size_t Size() const 
-        int Sync() 
-        void Info() const 
         int Allocate1D(size_t)
         void Add(size_t, const void *)
         double Dval(size_t)const 
@@ -469,3 +459,20 @@ cdef extern from "DataSet_Coords_REF.h":
 
 cdef class DatasetCoordsRef (DatasetCoords):
     cdef _DatasetCoordsRef* thisptr
+
+cdef extern from "DataSet_Topology.h":
+    cdef cppclass _DatasetTopology "DataSet_Topology" (_Dataset):
+        _DatasetTopology()
+        _DataSet * Alloc()
+        size_t Size() const
+        int LoadTopFromFile(const _ArgList&, int)
+        void SetTop(const _Topology& t)
+        int StripTop(const string&)
+        void SetPindex(int p)
+        _Topology * TopPtr()
+        const _Topology& Top() const
+
+
+cdef class DataSet_Topology (Dataset):
+    cdef _DatasetTopology* thisptr
+    cdef bint _own_memory

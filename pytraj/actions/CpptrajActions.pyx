@@ -42,7 +42,7 @@ cdef class Action:
 
     @makesureABC("Action")
     def read_input(self, command='', 
-                   top=TopologyList(),
+                   top=Topology(),
                    DatasetList dslist=DatasetList(), 
                    DataFileList dflist=DataFileList(), 
                    int debug=0):
@@ -51,23 +51,16 @@ cdef class Action:
         ----------
         command : str
             Type of actions, mask, ... (Get help: Action_Box().help())
-        top : Topology or TopologyList instance, default=TopologyList()
-        #flist : FrameList instance, default=FrameList()
+        top : Topology
         dslist : DatasetList instance, default=DatasetList()
         dflist : DataFileList instance, default=DataFileList()
         debug : int, default=0
             debug option from cpptraj. (Do we need this?)
         """
         cdef ArgList arglist
-        cdef TopologyList toplist
         cdef RetType i_fail
 
-        if isinstance(top, Topology):
-            toplist = TopologyList()
-            toplist.add_parm(top)
-        elif isinstance(top, TopologyList):
-            toplist = <TopologyList> top
-        self.toplist = toplist
+        self.top = top
 
         if isinstance(command, string_types):
             #command = command.encode("UTF-8")
@@ -75,7 +68,7 @@ cdef class Action:
         elif isinstance(command, ArgList):
             arglist = <ArgList> command
 
-        i_fail = self.baseptr.Init(arglist.thisptr[0], toplist.thisptr, 
+        i_fail = self.baseptr.Init(arglist.thisptr[0],
                        dslist.thisptr, dflist.thisptr,
                        debug)
 
@@ -129,7 +122,7 @@ cdef class Action:
             frame = <Frame> current_frame
             # make sure to update frame mass
             if update_mass:
-                frame.set_frame_mass(self.toplist[0])
+                frame.set_frame_mass(self.top)
             self.baseptr.DoAction(self.n_frames, frame.thisptr, &(new_frame.thisptr))
             self.n_frames += 1
         else:

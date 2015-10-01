@@ -4,7 +4,6 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj import adict, allactions
-from pytraj.Topology import TopologyList
 from pytraj import ArgList, Trajectory, Frame
 from pytraj.utils import eq, aa_eq
 from pytraj.actions import CpptrajActions as CA
@@ -57,25 +56,21 @@ class TestActionList(unittest.TestCase):
         # creat ActionList to hold actions
         alist = ActionList()
 
-        # creat TopologyList
-        toplist = TopologyList()
-
-        # add parm
-        toplist.add_parm(farray.top)
+        top = farray.top
 
         # add two actions: Action_Strip and Action_Distance
         alist.add_action(
             allactions.Action_Center(), ArgList(":2-11"),
-            top=toplist)
+            top=top)
         alist.add_action(
             allactions.Action_Image(), ArgList("center familiar com :6"),
-            top=toplist)
+            top=top)
 
         #
         assert alist.n_actions == 2
 
         # do checking
-        alist.process(toplist[0])
+        alist.process(top)
 
         farray2 = Trajectory()
         frame0 = Frame()

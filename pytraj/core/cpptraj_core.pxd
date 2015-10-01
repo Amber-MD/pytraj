@@ -6,7 +6,6 @@ from posix.unistd cimport off_t
 from ..cpp_vector cimport vector
 
 from .Box cimport _Box, Box
-from pytraj.Topology cimport _TopologyList, TopologyList
 from ..datafiles.datafiles cimport _DataFileList, DataFileList, _DataFile, DataFile
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
 
@@ -213,7 +212,6 @@ cdef class NameType:
 cdef extern from "CpptrajState.h": 
     cdef cppclass _CpptrajState "CpptrajState":
         _CpptrajState()
-        _TopologyList * PFL()
         _DatasetList * DSL()
         _DataFileList * DFL()
         void SetNoExitOnError()
@@ -241,7 +239,6 @@ cdef extern from "CpptrajState.h":
 
 cdef class CpptrajState:
     cdef _CpptrajState* thisptr
-    cdef public TopologyList toplist
     cdef public DataFileList datafilelist
     cdef public DatasetList datasetlist
 

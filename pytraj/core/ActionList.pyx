@@ -52,20 +52,13 @@ cdef class ActionList:
             _action = action
 
         cdef FunctPtr func = <FunctPtr> _action.alloc()
-        cdef TopologyList toplist
         cdef ArgList _arglist
 
-        if isinstance(top, Topology):
-            toplist = TopologyList()
-            toplist.add_parm(top)
-        elif isinstance(top, TopologyList):
-            toplist = top
-        self.toplist = toplist
+        self.top = top
         # add function pointer: How?
 
         _arglist = _get_arglist(command)
         status = self.thisptr.AddAction(func.ptr, _arglist.thisptr[0], 
-                                        toplist.thisptr,
                                         dslist.thisptr, dflist.thisptr)
 
         if check_status:
@@ -85,12 +78,12 @@ cdef class ActionList:
         cdef int i
 
         if not self.top_is_processed:
-            self.process(self.toplist[0])
+            self.process(self.top)
 
         if isinstance(traj, Frame):
             frame = <Frame> traj
             if use_mass:
-                frame.set_frame_mass(self.toplist[0])
+                frame.set_frame_mass(self.top)
             self.thisptr.DoActions(&(frame.thisptr), idx)
         else:
             for i, frame in enumerate( iterframe_master(traj)):

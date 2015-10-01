@@ -44,7 +44,7 @@ cdef class Analysis:
 
     @makesureABC("Analysis")
     def read_input(self, command='', 
-                   top=TopologyList(),
+                   top=Topology(),
                    DatasetList dslist=DatasetList(), 
                    DataFileList dflist=DataFileList()):
         """
@@ -59,17 +59,11 @@ cdef class Analysis:
             debug option from cpptraj. (Do we need this?)
         """
         cdef ArgList arglist
-        cdef TopologyList toplist
+        cdef Topology toplist
         cdef debug = 0
         cdef RetType STATUS
 
-        if isinstance(top, Topology) or isinstance(top, string_types):
-            toplist = TopologyList()
-            toplist.add_parm(top)
-        elif isinstance(top, TopologyList):
-            toplist = <TopologyList> top
-        else:
-            raise ValueError('Topology must not be empty')
+        toplist = top
 
         if isinstance(command, string_types):
             arglist = ArgList(command)
@@ -80,7 +74,6 @@ cdef class Analysis:
 
         STATUS = self.baseptr.Setup(arglist.thisptr[0], 
                        dslist.thisptr, 
-                       toplist.thisptr,
                        dflist.thisptr,
                        debug)
         if STATUS == ERRANALYSIS:

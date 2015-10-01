@@ -1412,3 +1412,31 @@ cdef class DatasetCoordsRef (DatasetCoords):
     def data(self):
         """"""
         return self.get_frame().xyz
+
+cdef class DatasetTopology(Dataset):
+    def __cinit__(self):
+        self.thisptr = new _DatasetTopology)
+        self.baseptr0 = <_Dataset*> self.thisptr
+
+        # let python frees memory
+        self._own_memory = True
+
+    def __dealloc__(self):
+        if self._own_memory:
+            del self.thisptr
+
+    property top:
+        def __get__(self):
+            pass
+        def __set__(self, Topology top):
+            self.thisptr.SetTop(top.thisptr[0])
+
+    @property
+    def values(self):
+        """"""
+        return self.data
+
+    @property
+    def data(self):
+        """"""
+        return self.top
