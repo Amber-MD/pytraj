@@ -48,10 +48,8 @@ try ``pytraj`` online:
 
 `Contributors <https://github.com/Amber-MD/pytraj/blob/master/contributors/pytraj.rst>`_
 
-try ``pytraj`` online:
-
 .. image:: images/PCA_heart.png
-   :target: tutorials/mdtraj_adapted
+   :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
 **Indices and tables**
 
