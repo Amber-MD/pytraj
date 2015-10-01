@@ -1,7 +1,7 @@
 .. _hbond_tutorial:
 
-hbond tutorial
-==============
+Hbond tutorial (advanced)
+=========================
 
 try ``pytraj`` online:
 

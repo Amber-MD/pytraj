@@ -20,7 +20,7 @@ DSSP analysis
     result = pt.dssp(pdb)
     print(result)
 
-hbond analysis
+Hbond analysis
 --------------
 
 .. ipython:: python

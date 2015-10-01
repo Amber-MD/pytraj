@@ -100,7 +100,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Basic examples</a><ul>
 <li><a class="reference internal" href="#dssp-analysis">DSSP analysis</a></li>
-<li><a class="reference internal" href="#hbond-analysis">hbond analysis</a></li>
+<li><a class="reference internal" href="#hbond-analysis">Hbond analysis</a></li>
 <li><a class="reference internal" href="#more-examples">More examples</a></li>
 </ul>
 </li>
@@ -160,7 +160,7 @@
 <ul class="simple">
 <li><a class="reference internal" href="#basic-examples" id="id2">Basic examples</a><ul>
 <li><a class="reference internal" href="#dssp-analysis" id="id3">DSSP analysis</a></li>
-<li><a class="reference internal" href="#hbond-analysis" id="id4">hbond analysis</a></li>
+<li><a class="reference internal" href="#hbond-analysis" id="id4">Hbond analysis</a></li>
 <li><a class="reference internal" href="#more-examples" id="id5">More examples</a></li>
 </ul>
 </li>
@@ -185,7 +185,8 @@
 <span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
 <span class="go">      dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
-<span class="go">[ 0.3   0.25  0.35 ...,  0.3   0.3   0.3 ]</span>
+<span class="go">[ 0.30000001  0.25        0.34999999 ...,  0.30000001  0.30000001</span>
+<span class="go">  0.30000001]</span>
 
 <span class="go">para_avg</span>
 <span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
@@ -195,7 +196,7 @@
 <span class="go">...</span>
 
 <span class="go">turn_avg</span>
-<span class="go">[ 0.1   0.15  0.1  ...,  0.1   0.05  0.15]</span>
+<span class="go">[ 0.1         0.15000001  0.1        ...,  0.1         0.05        0.15000001]</span>
 
 <span class="go">bend_avg</span>
 <span class="go">[ 0.05  0.1   0.05 ...,  0.05  0.1   0.05])</span>
@@ -203,7 +204,7 @@
 </div>
 </div>
 <div class="section" id="hbond-analysis">
-<h2><a class="toc-backref" href="#id4">hbond analysis</a><a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Hbond analysis</a><a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
 
 <span class="gp">In [6]: </span><span class="n">hbonds</span>
