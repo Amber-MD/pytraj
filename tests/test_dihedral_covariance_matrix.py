@@ -3,6 +3,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+from pytraj.common_actions import _projection
 
 
 class TestDihedralCovarianceMatrix(unittest.TestCase):
@@ -27,6 +28,10 @@ class TestDihedralCovarianceMatrix(unittest.TestCase):
         '''
         state = pt.load_cpptraj_state(txt)
         state.run()
+
+        modes = state.data['DIHMODES']
+        # need to provide all dihedrals too?
+        # data = _projection(traj, '* beg 1 end 4', (modes.eigenvalues, modes.eigenvectors), scalar_type='covar')
 
 
 if __name__ == "__main__":
