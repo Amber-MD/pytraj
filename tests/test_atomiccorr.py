@@ -14,7 +14,7 @@ class TestAtomicCorr(unittest.TestCase):
         state.run()
 
         data = pt.atomiccorr(traj, ':1-13', byres=True)
-        aa_eq(data, state.data[0].values)
+        aa_eq(data, state.data[1].values)
 
 
 if __name__ == "__main__":

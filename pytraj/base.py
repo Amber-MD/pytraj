@@ -6,7 +6,6 @@ from __future__ import absolute_import
 from .datasets.cast_dataset import cast_dataset
 from .Frame import Frame
 from .core.brick import Atom
-from .Topology import TopologyList
 from .datafiles.datafiles import DataFileList
 from .core.ActionList import ActionList
 from .core.cpptraj_core import CpptrajState
@@ -21,7 +20,7 @@ from .trajs.Trajout import Trajout
 from . import cpptraj_dict
 
 # `Trajectory` is alias of `Trajectory`
-__all__ = ['Atom', 'Topology', 'TopologyList', 'Frame', 'Trajectory',
+__all__ = ['Atom', 'Topology', 'Frame', 'Trajectory',
            'AtomMask', 'ArgList', 'CpptrajState', 'TrajectoryIterator',
            'DatasetList', 'DataFileList', 'ActionList', 'Trajout',
            'cast_dataset', 'cpptraj_dict']

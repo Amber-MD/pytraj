@@ -186,6 +186,7 @@ DataTypeDict = {
         "XYMESH" : XYMESH, 
         "TRAJ" : TRAJ, 
         "MAT3X3" : MAT3X3, 
+        "TOPOLOGY" : TOPOLOGY,
     }
 
 RetActionDict = {

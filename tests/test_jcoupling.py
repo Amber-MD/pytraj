@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         trajin data/tz2.nc
         jcoupling kfile %s
         ''' % kfile
-        cpptraj_out = pt.datafiles.load_cpptraj_output(txt)
+        cpptraj_out = pt.datafiles.load_cpptraj_output(txt)[1:]
         aa_eq(d1.values, cpptraj_out.values)
 
 

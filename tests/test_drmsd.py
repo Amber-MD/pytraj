@@ -17,8 +17,9 @@ class Test(unittest.TestCase):
         drmsd drms_fit out drmsd.dat
         '''
 
-        cpp_data = pt.datafiles.load_cpptraj_output(txt)
-        print(pt.distance_rmsd(traj))
+        state = pt.load_cpptraj_state(txt)
+        state.run()
+        cpp_data = state.data[1:]
 
         ## distance_rmsd
         data_drmsd = pt.distance_rmsd(traj)

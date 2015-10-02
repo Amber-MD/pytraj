@@ -191,6 +191,7 @@ cdef extern from "DataSet.h":
         TRAJ "DataSet::TRAJ"
         REF_FRAME "DataSet::REF_FRAME"
         MAT3X3 "DataSet::MAT3X3"
+        TOPOLOGY "DataSet::TOPOLOGY"
 
 cdef extern from "Action.h":
     ctypedef enum RetTypeAct "Action::RetType":

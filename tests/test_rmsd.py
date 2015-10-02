@@ -119,7 +119,7 @@ class TestRMSDPerRes(unittest.TestCase):
         cout = load_cpptraj_output(tz2_ortho_trajin + """
         rmsd first @CA perres range 2-7""")
         d = pt.rmsd_perres(traj, ref=0, mask='@CA', resrange='2-7')
-        aa_eq(cout.values, d)
+        aa_eq(cout[1:].values, d)
 
     def test_reference(self):
         traj = pt.iterload("./data/tz2.truncoct.nc", "data/tz2.truncoct.parm7")
@@ -134,8 +134,8 @@ class TestRMSDPerRes(unittest.TestCase):
         rmsd0 = pt.rmsd(traj, ref=1, mask=':2-11')
         rmsdperres = pt.rmsd_perres(traj, ref=1, mask=':2-11', perres_mask='*',
                 resrange='1', perres_center=True)
-        aa_eq(rmsd0, state.data[1])
-        aa_eq(rmsdperres[1], state.data[2].values)
+        aa_eq(rmsd0, state.data[2])
+        aa_eq(rmsdperres[1], state.data[3].values)
 
     def test_frame_indices(self):
         traj = pt.iterload("data/tz2.truncoct.nc", "data/tz2.truncoct.parm7")
@@ -154,8 +154,8 @@ class TestRMSDPerRes(unittest.TestCase):
         rmsd0 = pt.rmsd(traj, ref=1, mask=':2-11', frame_indices=frame_indices)
         rmsdperres = pt.rmsd_perres(traj, ref=1, mask=':2-11', perres_mask='*',
                 resrange='1', perres_center=True, frame_indices=frame_indices)
-        aa_eq(rmsd0, state.data[1])
-        aa_eq(rmsdperres[1], state.data[2].values)
+        aa_eq(rmsd0, state.data[2])
+        aa_eq(rmsdperres[1], state.data[3].values)
 
 class TestRMSDnofit(unittest.TestCase):
     def test_0(self):
@@ -167,8 +167,8 @@ class TestRMSDnofit(unittest.TestCase):
         rms first nofit
         rms first mass
         """)
-        aa_eq(pt.rmsd(traj, nofit=True), cout[0])
-        aa_eq(pt.rmsd(traj, mass=True), cout[1])
+        aa_eq(pt.rmsd(traj, nofit=True), cout[1])
+        aa_eq(pt.rmsd(traj, mass=True), cout[2])
 
 
 class TestPairwiseRMSD(unittest.TestCase):

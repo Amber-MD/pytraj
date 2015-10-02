@@ -2,7 +2,7 @@
 from libcpp.string cimport string
 from ..core.cpptraj_core cimport (_DispatchObject, DispatchObject,  FunctPtr)
 from ..datafiles.datafiles cimport  _DataFileList, DataFileList
-from ..Topology cimport _TopologyList, TopologyList, _Topology, Topology
+from ..Topology cimport _Topology, Topology
 from ..core.cpptraj_core cimport _ArgList, ArgList
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
 from ..Frame cimport _Frame, Frame
@@ -16,9 +16,7 @@ cdef extern from "Action.h":
         USEORIGINALFRAME "Action::USEORIGINALFRAME"
         SUPPRESSCOORDOUTPUT "Action::SUPPRESSCOORDOUTPUT"
     cdef cppclass _Action "Action" nogil:
-        #virtual ~_Action() 
-        #RetType Init(_ArgList&, _TopologyList *, _FrameList *, _DatasetList *, _DataFileList *, int)
-        RetType Init(_ArgList&, _TopologyList *, _DatasetList *, _DataFileList *, int)
+        RetType Init(_ArgList&, _DatasetList *, _DataFileList *, int)
         RetType Setup(_Topology *, _Topology * *)
         RetType DoAction(int, _Frame *, _Frame * *)
         void Print() 
@@ -28,7 +26,7 @@ cdef class Action:
     cdef _Action* baseptr
     cdef public int n_frames
     cdef bint top_is_processed
-    cdef object toplist
+    cdef object top
 
 cdef extern from "Action_Angle.h": 
     cdef cppclass _Action_Angle "Action_Angle" (_Action) nogil:

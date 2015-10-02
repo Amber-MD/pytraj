@@ -3,9 +3,6 @@ for compatibility with cpptraj
 >>> from pytraj import load_cpptraj_file
 >>> state = load_cpptraj_file(trajin_file)
 >>> isinstance(state, CpptrajState)
-
->>> # state object hold all information like TopologyList, DatasetList,
-TrajinList, ...
 """
 from __future__ import absolute_import
 from ..core.cpptraj_core import Command

@@ -458,9 +458,6 @@ cdef class DatasetDouble (Dataset1D):
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
 
-    def info(self):
-        self.thisptr.Info()
-
     def xcrd(self, size_t idx):
         raise NotImplementedError()
 
@@ -1419,3 +1416,38 @@ cdef class DatasetCoordsRef (DatasetCoords):
     def data(self):
         """"""
         return self.get_frame().xyz
+    
+    property xyz:
+        def __get__(self):
+            return self.data
+
+
+cdef class DatasetTopology(Dataset):
+    def __cinit__(self):
+        self.thisptr = new _DatasetTopology()
+        self.baseptr0 = <_Dataset*> self.thisptr
+
+        # let python frees memory
+        self._own_memory = True
+
+    def __dealloc__(self):
+        if self._own_memory:
+            del self.thisptr
+
+    property _top:
+        def __get__(self):
+            cdef Topology top = Topology()
+            top.thisptr[0] = self.thisptr.Top()
+            return top
+        def __set__(self, Topology top):
+            self.thisptr.SetTop(top.thisptr[0])
+
+    @property
+    def values(self):
+        """"""
+        return self.data
+
+    @property
+    def data(self):
+        """"""
+        return self._top

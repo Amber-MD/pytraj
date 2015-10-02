@@ -69,7 +69,8 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
     state = _load_batch(my_lines, traj)
     state.run()
     if dtype == 'dict':
-        return (rank, state.data[1:].to_dict())
+        # exclude DatasetTopology and TrajectoryCpptraj
+        return (rank, state.data[2:].to_dict())
     elif dtype == 'state':
         return state
 

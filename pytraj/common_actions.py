@@ -1391,7 +1391,7 @@ def calc_vector(traj=None,
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, tstep=1.0, tcorr=10000., norm=False, drct=False, dtype='cpptraj_dataset'):
+def _ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, tstep=1.0, tcorr=10000., norm=False, drct=False, dtype='cpptraj_dataset'):
     '''perform isotropic reorientational Eigenmode dynamics analysis
 
     Parameters
@@ -2042,6 +2042,7 @@ def closest(traj=None,
 
 def native_contacts(traj=None,
                     mask="",
+                    mask2="",
                     dtype='dataset',
                     ref=0,
                     distance=7.0,
@@ -2068,7 +2069,10 @@ def native_contacts(traj=None,
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5
         mask = array_to_cpptraj_atommask(mask)
-    command = mask
+    if not isinstance(mask2, string_types):
+        # [1, 3, 5] to "@1,3,5
+        mask2 = array_to_cpptraj_atommask(mask2)
+    command = ' '.join((mask, mask2))
 
     _distance = str(distance)
     _noimage = "noimage" if not image else ""
@@ -2586,4 +2590,39 @@ def _rotdif(arr, nvecs=1000, rvecin=None, rseed=80531, order=2, ncorr=-1, tol=1E
 
 
     act(command, dslist=dslist)
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+def _grid(traj, mask, grid_spacing, offset=1, frame_indices=None, dtype='ndarray', top=None):
+    # TODO: what's about calc_grid?
+    '''make grid for atom in mask
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    grid_spacing : array-like, shape=(3,)
+        grid spacing in X/Y/Z directions
+    offset : int, optional
+        bin offset, number of bins to add to each direction to grid
+    dtype : str, default 'ndarray'
+        output data type
+    '''
+    if len(grid_spacing) != 3:
+        raise ValueError('must have grid_spacing with len=3')
+
+    _top = _get_topology(traj, top)
+    fi = _get_fiterator(traj, frame_indices)
+    act = CpptrajActions.Action_Bounds()
+    dslist = CpptrajDatasetList()
+    dx, dy, dz = grid_spacing
+    _dx = 'dx ' + str(dx) if dx > 0. else ''
+    _dy = 'dy ' + str(dy) if dy > 0. else ''
+    _dz = 'dz ' + str(dz) if dz > 0. else ''
+    _offset = 'offset ' + str(offset)
+    command =  ' '.join((mask, 'out tmp_bounds.dat', _dx, _dy, _dz, 'name grid_', _offset))
+
+    with goto_temp_folder():
+        act(command, fi, top=_top, dslist=dslist)
+    act.print_output()
+
     return _get_data_from_dtype(dslist, dtype=dtype)

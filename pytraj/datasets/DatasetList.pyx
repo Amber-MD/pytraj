@@ -125,6 +125,9 @@ cdef class DatasetList:
     def remove_set(self, Dataset dset):
         self.thisptr.RemoveSet(dset.baseptr0)
 
+    def _pop(self, int i):
+        self.remove_set(self[i])
+
     def __getitem__(self, idx):
         """return a Dataset instance
         Memory view is applied (which mean this new insance is just alias of self[idx])

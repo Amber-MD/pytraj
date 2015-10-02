@@ -166,21 +166,3 @@ cdef extern from "ParmFile.h":
 
 cdef class ParmFile:
     cdef _ParmFile* thisptr
-
-cdef extern from "TopologyList.h":
-    cdef cppclass _TopologyList "TopologyList" nogil:
-        const char* ParmArgs
-        TopologyList()
-        void Clear()
-        void SetDebug(int)
-        _Topology* GetParm(int) 
-        _Topology* GetParmByIndex(_ArgList&) 
-        _Topology* GetParm(_ArgList&) 
-        int AddParmFile(string&)
-        int AddParmFile(string&, _ArgList&)
-        void AddParm(_Topology * pIn)
-        void List()
-
-cdef class TopologyList:
-    cdef _TopologyList* thisptr
-    cdef bint _own_memory

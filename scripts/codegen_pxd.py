@@ -7,8 +7,8 @@ from util import print_blank_line, Line_codegen
 from util import find_class
 import sys
 
-cpptrajsrc = os.environ['AMBERHOME'] + "/AmberTools/src/cpptraj/src/"
-#cpptrajsrc = os.environ['CPPTRAJHOME'] + "/src/"
+#cpptrajsrc = os.environ['AMBERHOME'] + "/AmberTools/src/cpptraj/src/"
+cpptrajsrc = os.environ['CPPTRAJHOME'] + "/src/"
 filename = cpptrajsrc + sys.argv[1]
 short_filename = filename.split("/")[-1]
 indent = " " * 4

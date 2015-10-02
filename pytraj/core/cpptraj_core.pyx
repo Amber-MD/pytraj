@@ -467,14 +467,12 @@ cdef class Command:
 cdef class CpptrajState:
     """
     CpptrajState hold instances of:
-    + TopologyList
     + DatasetList (having output data)
     + DataFileList
 
     """
     def __cinit__(self):
         self.thisptr = new _CpptrajState()
-        self.toplist = TopologyList(_own_memory=False)
         self.datafilelist = DataFileList(_own_memory=False)
         self.datasetlist = DatasetList(_own_memory=False)
 
@@ -482,7 +480,6 @@ cdef class CpptrajState:
         # We don't free memory again 
         # (example: self.toplist.thisptr and self.thisptr.PFL() point to the same address)
         # create memory view
-        self.toplist.thisptr = self.thisptr.PFL()
         self.datasetlist.thisptr = self.thisptr.DSL()
         self.datafilelist.thisptr = self.thisptr.DFL()
 
