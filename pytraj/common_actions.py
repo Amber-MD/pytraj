@@ -2042,6 +2042,7 @@ def closest(traj=None,
 
 def native_contacts(traj=None,
                     mask="",
+                    mask2="",
                     dtype='dataset',
                     ref=0,
                     distance=7.0,
@@ -2068,7 +2069,10 @@ def native_contacts(traj=None,
     if not isinstance(mask, string_types):
         # [1, 3, 5] to "@1,3,5
         mask = array_to_cpptraj_atommask(mask)
-    command = mask
+    if not isinstance(mask2, string_types):
+        # [1, 3, 5] to "@1,3,5
+        mask2 = array_to_cpptraj_atommask(mask2)
+    command = ' '.join((mask, mask2))
 
     _distance = str(distance)
     _noimage = "noimage" if not image else ""
