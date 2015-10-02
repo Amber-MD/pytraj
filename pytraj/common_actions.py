@@ -2486,18 +2486,22 @@ def _analyze_modes(data, mode='', beg=1, end=50, bose=False, factor=1.0, maskp=N
     '''
     pass
 
-def _calc_projection(traj, beg=1, end=2, mask='', dtype='dataset', top=None):
+def _projection(traj, mask, modes, scalar_type, frame_indices=None, dtype='dataset', top=None):
     # TODO: not done yet
     act = CpptrajActions.Action_Projection()
     dslist = CpptrajDatasetList()
     fi = _get_fiterator(traj, frame_indices)
     _top = _get_topology(traj, top)
 
-    _beg = 'beg ' + str(beg)
-    _end = 'end ' + str(end)
+    dslist.add_set('modes', 'tmp_evecs')
+    is_reduced = False
+    eigenvalues, eigenvectors = modes
+    dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1], eigenvalues, eigenvectors.flatten())
+    dslist[-1].scalar_type = scalar_type
+    print(dslist[0])
     _mask = mask
     _evecs = 'evecs tmp_evecs'
-    command = ' '.join((_evecs, _beg, _end, _mask)) 
+    command = ' '.join((_evecs, _mask)) 
     act(command, fi, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
 

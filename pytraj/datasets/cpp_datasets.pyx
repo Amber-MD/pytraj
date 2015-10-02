@@ -138,6 +138,13 @@ cdef class Dataset:
             '''
             '''
             cdef _MetaData meta = self.baseptr0.Meta()
+            cdef scalarType st
+
+            try:
+                st = ScalarTypeDict[stype.upper()]
+            except KeyError:
+                raise KeyError(ScalarTypeDict.keys())
+
             meta.SetScalarType(ScalarTypeDict[stype.upper()])
             self.baseptr0.SetMeta(meta)
 
