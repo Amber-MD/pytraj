@@ -65,7 +65,6 @@ class TestGridAction(unittest.TestCase):
         '''
         state = pt.load_cpptraj_state(txt)
         state.run()
-        #print(state.data['MyGrid'])
 
 
 if __name__ == "__main__":

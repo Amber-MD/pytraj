@@ -1419,3 +1419,7 @@ cdef class DatasetCoordsRef (DatasetCoords):
     def data(self):
         """"""
         return self.get_frame().xyz
+    
+    property xyz:
+        def __get__(self):
+            return self.data
