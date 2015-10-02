@@ -138,6 +138,13 @@ cdef class Dataset:
             '''
             '''
             cdef _MetaData meta = self.baseptr0.Meta()
+            cdef scalarType st
+
+            try:
+                st = ScalarTypeDict[stype.upper()]
+            except KeyError:
+                raise KeyError(ScalarTypeDict.keys())
+
             meta.SetScalarType(ScalarTypeDict[stype.upper()])
             self.baseptr0.SetMeta(meta)
 
@@ -1409,6 +1416,11 @@ cdef class DatasetCoordsRef (DatasetCoords):
     def data(self):
         """"""
         return self.get_frame().xyz
+    
+    property xyz:
+        def __get__(self):
+            return self.data
+
 
 cdef class DatasetTopology(Dataset):
     def __cinit__(self):

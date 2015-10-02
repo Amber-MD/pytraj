@@ -2486,18 +2486,22 @@ def _analyze_modes(data, mode='', beg=1, end=50, bose=False, factor=1.0, maskp=N
     '''
     pass
 
-def _calc_projection(traj, beg=1, end=2, mask='', dtype='dataset', top=None):
+def _projection(traj, mask, modes, scalar_type, frame_indices=None, dtype='dataset', top=None):
     # TODO: not done yet
     act = CpptrajActions.Action_Projection()
     dslist = CpptrajDatasetList()
     fi = _get_fiterator(traj, frame_indices)
     _top = _get_topology(traj, top)
 
-    _beg = 'beg ' + str(beg)
-    _end = 'end ' + str(end)
+    dslist.add_set('modes', 'tmp_evecs')
+    is_reduced = False
+    eigenvalues, eigenvectors = modes
+    dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1], eigenvalues, eigenvectors.flatten())
+    dslist[-1].scalar_type = scalar_type
+    print(dslist[0])
     _mask = mask
     _evecs = 'evecs tmp_evecs'
-    command = ' '.join((_evecs, _beg, _end, _mask)) 
+    command = ' '.join((_evecs, _mask)) 
     act(command, fi, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -2582,4 +2586,39 @@ def _rotdif(arr, nvecs=1000, rvecin=None, rseed=80531, order=2, ncorr=-1, tol=1E
 
 
     act(command, dslist=dslist)
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+def _grid(traj, mask, grid_spacing, offset=1, frame_indices=None, dtype='ndarray', top=None):
+    # TODO: what's about calc_grid?
+    '''make grid for atom in mask
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, atom mask
+    grid_spacing : array-like, shape=(3,)
+        grid spacing in X/Y/Z directions
+    offset : int, optional
+        bin offset, number of bins to add to each direction to grid
+    dtype : str, default 'ndarray'
+        output data type
+    '''
+    if len(grid_spacing) != 3:
+        raise ValueError('must have grid_spacing with len=3')
+
+    _top = _get_topology(traj, top)
+    fi = _get_fiterator(traj, frame_indices)
+    act = CpptrajActions.Action_Bounds()
+    dslist = CpptrajDatasetList()
+    dx, dy, dz = grid_spacing
+    _dx = 'dx ' + str(dx) if dx > 0. else ''
+    _dy = 'dy ' + str(dy) if dy > 0. else ''
+    _dz = 'dz ' + str(dz) if dz > 0. else ''
+    _offset = 'offset ' + str(offset)
+    command =  ' '.join((mask, 'out tmp_bounds.dat', _dx, _dy, _dz, 'name grid_', _offset))
+
+    with goto_temp_folder():
+        act(command, fi, top=_top, dslist=dslist)
+    act.print_output()
+
     return _get_data_from_dtype(dslist, dtype=dtype)
