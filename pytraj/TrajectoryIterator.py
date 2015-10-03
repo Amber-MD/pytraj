@@ -28,7 +28,7 @@ def split_iterators(traj,
                     autoimage=False,
                     rmsfit=None):
     return traj._split_iterators(n_chunks, start, stop, stride, mask, autoimage,
-                                rmsfit)
+                                rmsfit, rank=-1)
 
 
 def _make_frame_slices(n_files, original_frame_slice):
@@ -359,15 +359,28 @@ class TrajectoryIterator(TrajectoryCpptraj):
                        autoimage=autoimage,
                        rmsfit=rmsfit)
         else:
-            _start, _stop = split_range(n_chunks=n_chunks,
-                                               start=start,
-                                               stop=stop)[rank]
-            return self.iterframe(start=_start,
-                                  stop=_stop,
-                                  stride=stride,
-                                  mask=mask,
-                                  autoimage=autoimage,
-                                  rmsfit=rmsfit)
+            if rank >= 0:
+                _start, _stop = split_range(n_chunks=n_chunks,
+                                                   start=start,
+                                                   stop=stop)[rank]
+                return self.iterframe(start=_start,
+                                      stop=_stop,
+                                      stride=stride,
+                                      mask=mask,
+                                      autoimage=autoimage,
+                                      rmsfit=rmsfit)
+            else:
+                list_of_iterators = []
+                for (_start, _stop) in split_range(n_chunks=n_chunks,
+                                            start=start,
+                                            stop=stop):
+                    list_of_iterators.append(self.iterframe(start=_start,
+                                      stop=_stop,
+                                      stride=stride,
+                                      mask=mask,
+                                      autoimage=autoimage,
+                                      rmsfit=rmsfit))
+                return list_of_iterators
 
     @property
     def temperatures(self):

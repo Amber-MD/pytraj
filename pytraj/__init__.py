@@ -69,7 +69,7 @@ from .Topology import Topology, ParmFile
 from .math import Vec3
 from .Frame import Frame
 from .api import Trajectory
-from .TrajectoryIterator import TrajectoryIterator
+from .TrajectoryIterator import TrajectoryIterator, split_iterators as isplit
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
