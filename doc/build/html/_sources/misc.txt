@@ -6,11 +6,11 @@ try ``pytraj`` online:
 .. image:: http://mybinder.org/badge.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
-
-**plotting**::
-
-    from pytraj import plot
-    plot(0, 1, data=data) # same as plt.plot(data[0], data[1])
+.. container:: custom-index
+    
+    .. raw:: html
+    
+        <script type="text/javascript" src='_static/cindex.js'></script>
 
 .. automodule:: pytraj.tools
     :members:
