@@ -27,9 +27,15 @@ try ``pytraj`` online:
     
         <script type="text/javascript" src='_static/cindex.js'></script>
 
-- :ref:`nucleic_acid`
-- :ref:`vector_analysis`
-- :ref:`matrix_analysis`
+.. container:: submodule-index
+
+    .. rubric:: Submodules
+
+    .. toctree::
+
+        nucleic_acid
+        vector_analysis
+        matrix_analysis
 
 .. _distance:
 .. autofunction:: pytraj.distance
