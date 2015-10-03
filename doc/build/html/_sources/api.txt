@@ -10,6 +10,11 @@ API reference
         <script type="text/javascript" src='_static/cindex.js'></script>
 
 .. automodule:: pytraj
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
+
 .. automodule:: pytraj.common_actions
 .. autoclass:: pytraj.TrajectoryIterator
 .. autoclass:: pytraj.Trajectory
