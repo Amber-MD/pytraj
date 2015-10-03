@@ -2079,15 +2079,14 @@ def native_contacts(traj=None,
     _includesolvent = "includesolvent" if include_solvent else ""
     _byres = "byresidue" if byres else ""
 
-    _command = " ".join((command, _distance, _noimage, _includesolvent, _byres
+    _command = " ".join(('ref myframe', command, _distance, _noimage, _includesolvent, _byres
                          ))
+    dslist.add_set('ref_frame', 'myframe')
+    dslist[0].add_frame(ref)
+    dslist[0].top = _top
+    act(_command, fi, top=_top, dslist=dslist)
+    dslist._pop(0)
 
-    act(_command, [ref, fi], top=_top, dslist=dslist)
-
-    dslist = DatasetList(dslist)
-    for d in dslist:
-        # exclude ref frame
-        d.values = d.values[1:]
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
