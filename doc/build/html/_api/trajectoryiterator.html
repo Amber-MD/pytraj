@@ -95,7 +95,9 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">pytraj.TrajectoryIterator</a></li>
+<li><a class="reference internal" href="#">pytraj.TrajectoryIterator</a><ul>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -135,35 +137,197 @@
   <div class="row">
     <div class="col-md-12">
       
-  <div class="section" id="module-pytraj.TrajectoryIterator">
-<span id="pytraj-trajectoryiterator"></span><span id="trajectoryiterator"></span><h1>pytraj.TrajectoryIterator<a class="headerlink" href="#module-pytraj.TrajectoryIterator" title="Permalink to this headline">¶</a></h1>
-<p>out-of-core TrajectoryIterator</p>
-<p>load
-iterframe
-iterchunk
-average</p>
+  <div class="section" id="pytraj-trajectoryiterator">
+<span id="trajectoryiterator"></span><h1>pytraj.TrajectoryIterator<a class="headerlink" href="#pytraj-trajectoryiterator" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pytraj.TrajectoryIterator">
+<em class="property">class </em><tt class="descclassname">pytraj.</tt><tt class="descname">TrajectoryIterator</tt><big>(</big><em>filename=None</em>, <em>top=None</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.TrajectoryIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">coordinates</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">filelist</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">filename</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">metadata</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">n_frames</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">shape</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">temperatures</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">top</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">topology</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">unitcells</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">xyz</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">__call__</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="http://docs.python.org/library/copy.html#module-copy" title="(in Python v2.7)"><tt class="xref py py-obj docutils literal"><span class="pre">copy</span></tt></a></td>
+<td>Generic (shallow and deep) copying operations.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">iterchunk</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">iterframe</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">load</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">write</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <dl class="attribute">
-<dt id="pytraj.TrajectoryIterator.TrajectoryIterator.xyz">
-<tt class="descclassname">TrajectoryIterator.</tt><tt class="descname">xyz</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.TrajectoryIterator.xyz" title="Permalink to this definition">¶</a></dt>
-<dd><p>return 3D array of coordinates</p>
+<dt id="pytraj.TrajectoryIterator.coordinates">
+<tt class="descname">coordinates</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>return 3D numpy.ndarray, same as <cite>TrajectoryIterator.xyz</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.TrajectoryIterator.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.TrajectoryIterator.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a deep copy</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.TrajectoryIterator.TrajectoryIterator.filelist">
-<tt class="descclassname">TrajectoryIterator.</tt><tt class="descname">filelist</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.TrajectoryIterator.filelist" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.TrajectoryIterator.filelist">
+<tt class="descname">filelist</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.filelist" title="Permalink to this definition">¶</a></dt>
 <dd><p>TrajectoryCpptraj.filelist(self)
 return a list of input filenames. Order does matter</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.TrajectoryIterator.TrajectoryIterator.unitcells">
-<tt class="descclassname">TrajectoryIterator.</tt><tt class="descname">unitcells</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.TrajectoryIterator.unitcells" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.TrajectoryIterator.filename">
+<tt class="descname">filename</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>return 1st filename in filelist. For testing only</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.TrajectoryIterator.iterchunk">
+<tt class="descname">iterchunk</tt><big>(</big><em>chunksize=2</em>, <em>start=0</em>, <em>stop=-1</em>, <em>autoimage=False</em>, <em>rmsfit=None</em><big>)</big><a class="headerlink" href="#pytraj.TrajectoryIterator.iterchunk" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>chunk</strong> : int, default=2</p>
+<blockquote>
+<div><p>size of each chunk. Notes: final chunk&#8217;s size might be changed</p>
+</div></blockquote>
+<p><strong>start</strong> : int, default=0 (first frame)</p>
+<p><strong>stop</strong> : int, default=-1 (last frame)</p>
+<p><strong>autoimage</strong> : bool, default=False</p>
+<p class="last"><strong>rmsfit</strong> : None | tuple/list of (reference frame, mask)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>if using &#8216;autoimage` with reference frame for rms-fit, make sure to <cite>autoimage</cite>
+ref first</p>
+<p class="rubric">Examples</p>
+<p>for chunk in trajiter.iterchunk(100, autoimage=True, rmsfit=(ref0, <a class="reference external" href="mailto:'&#37;&#52;&#48;CA">'<span>&#64;</span>CA</a>&#8216;))</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.TrajectoryIterator.load">
+<tt class="descname">load</tt><big>(</big><em>filename=None</em>, <em>top=None</em>, <em>frame_slice=(0</em>, <em>-1</em>, <em>1)</em><big>)</big><a class="headerlink" href="#pytraj.TrajectoryIterator.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load trajectory/trajectories from filename/filenames
+with a single frame_slice or a list of frame_slice</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.TrajectoryIterator.metadata">
+<tt class="descname">metadata</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>TrajectoryCpptraj.metadata(self)
+return a dict of general information</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.TrajectoryIterator.n_atoms">
+<tt class="descname">n_atoms</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.n_atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>TrajectoryCpptraj.n_atoms(self)
+used for frame_iter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.TrajectoryIterator.n_frames">
+<tt class="descname">n_frames</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.n_frames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.TrajectoryIterator.save">
+<tt class="descname">save</tt><big>(</big><em>self</em>, <em>filename=''</em>, <em>format='unknown'</em>, <em>overwrite=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.TrajectoryIterator.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.TrajectoryIterator.TrajectoryIterator.top">
-<tt class="descclassname">TrajectoryIterator.</tt><tt class="descname">top</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.TrajectoryIterator.top" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.TrajectoryIterator.shape">
+<tt class="descname">shape</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>(n_frames, n_atoms, 3)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.TrajectoryIterator.topology">
+<tt class="descname">topology</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.topology" title="Permalink to this definition">¶</a></dt>
+<dd><p>traditional name for Topology file</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.TrajectoryIterator.unitcells">
+<tt class="descname">unitcells</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.unitcells" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.TrajectoryIterator.write">
+<tt class="descname">write</tt><big>(</big><em>self</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.TrajectoryIterator.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.TrajectoryIterator.xyz">
+<tt class="descname">xyz</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.xyz" title="Permalink to this definition">¶</a></dt>
+<dd><p>return 3D array of coordinates</p>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 

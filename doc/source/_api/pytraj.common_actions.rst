@@ -1,3 +1,4 @@
+.. _pytraj.commmon_actions:
 
 .. automodule:: pytraj.common_actions
     :members:
