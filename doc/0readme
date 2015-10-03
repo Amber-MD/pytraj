@@ -2,6 +2,8 @@
 #add README here
 
 2. Need
++ sphinx: I am using v1.2.3
 + numpy
 + matplotlib
 + jupyter (conda install jupyter)
++ sphinx_bootstrap_theme: I am using v0.4.7
