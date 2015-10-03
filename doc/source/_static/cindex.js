@@ -1,3 +1,5 @@
+// from pymunk: http://pymunk.readthedocs.org/en/latest/_static/pymunk.js
+
 $(function (){
     var createList = function(selector){
 
