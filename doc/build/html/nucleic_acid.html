@@ -233,7 +233,7 @@
 <span class="gp">In [5]: </span><span class="n">na</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
 <span class="gp">In [6]: </span><span class="n">na</span>
-<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;tip&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">,</span> <span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;shear&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;zp&#39;</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;tip&#39;</span><span class="p">,</span> <span class="s">&#39;shear&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">,</span> <span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">,</span> <span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;zp&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">]</span><span class="o">&gt;</span>
 
 <span class="c"># get values for major groove width</span>
 <span class="gp">In [7]: </span><span class="n">na</span><span class="o">.</span><span class="n">major</span>
@@ -359,26 +359,6 @@
 <span class="go">    ^</span>
 <span class="go">SyntaxError: invalid syntax</span>
 
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">KeyError                                  Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-15-7fd150168843&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 pt.to_pickle(na, &#39;na_.pk&#39;)</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/pytraj/externals/_pickle.py in to_pickle(obj, path)</span>
-<span class="go">     22     &quot;&quot;&quot;</span>
-<span class="go">     23     with open(path, &#39;wb&#39;) as f:</span>
-<span class="go">---&gt; 24         pkl.dump(obj, f, protocol=pkl.HIGHEST_PROTOCOL)</span>
-<span class="go">     25 </span>
-<span class="go">     26 </span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/pytraj/_nastruct.py in __getattr__(self, aspect)</span>
-<span class="go">    131         &#39;&#39;&#39;</span>
-<span class="go">    132         # data is a list of DataArray</span>
-<span class="go">--&gt; 133         data = self._dict[aspect]</span>
-<span class="go">    134         arr = np.empty((len(data), len(data[0])), dtype=&#39;f8&#39;)</span>
-<span class="go">    135 </span>
-
-<span class="go">KeyError: &#39;__getstate__&#39;</span>
 
 </pre></div>
 </div>

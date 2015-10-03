@@ -12,5 +12,5 @@ try ``pytraj`` online:
 .. toctree::
     :maxdepth: 1
 
-     pytraj.common_actions
-     trajectoryiterator
+    pytraj.common_actions
+    trajectoryiterator
