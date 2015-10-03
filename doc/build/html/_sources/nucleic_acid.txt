@@ -31,3 +31,14 @@ Examples
     # get values for several parameters
     for key in ['minor', 'twist', 'incl']:
         print(na[key])
+
+    # get some statistics (syntax might be changed in future)
+    import numpy as np
+    # get mean
+    na._summary(np.mean)
+
+    # get std
+    na._summary(np.std)
+
+    # only interested in some parameters?
+    na._summary(np.mean, keys=['major', 'minor', 'twist']
