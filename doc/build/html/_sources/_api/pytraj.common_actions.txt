@@ -7,7 +7,7 @@ pytraj.common_actions
     
     .. raw:: html
     
-        <script type="text/javascript" src='_static/cindex.js'></script>
+        <script type="text/javascript" src='../_static/cindex.js'></script>
 
 .. automodule:: pytraj.common_actions
     :members:
