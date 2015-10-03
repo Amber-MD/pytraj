@@ -27,6 +27,8 @@ try ``pytraj`` online:
     
         <script type="text/javascript" src='_static/cindex.js'></script>
 
+.. contents::
+
 - :ref:`nucleic_acid`
 - :ref:`vector_analysis`
 - :ref:`matrix_analysis`
