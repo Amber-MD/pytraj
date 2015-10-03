@@ -9,10 +9,9 @@ API reference
     
         <script type="text/javascript" src='_static/cindex.js'></script>
 
-.. automodule:: pytraj
+
+.. automodule:: pytraj.common_actions
     :members:
     :undoc-members:
     :show-inheritance:
     :inherited-members:
-
-.. automodule:: pytraj.common_actions

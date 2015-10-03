@@ -44,4 +44,4 @@ Examples
     na._summary(np.mean, keys=['major', 'minor', 'twist'])
 
     # explain keywords
-    na._explain()
+    print(na._explain())
