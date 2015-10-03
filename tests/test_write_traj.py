@@ -1,10 +1,9 @@
 from __future__ import print_function
 import unittest
+from glob import glob
 import pytraj as pt
-from pytraj.base import *
-from pytraj import io
-from pytraj.utils import eq, aa_eq
-from pytraj.testing import cpptraj_test_dir, duplicate_traj
+from pytraj.testing import eq, aa_eq
+from pytraj.testing import cpptraj_test_dir
 from pytraj.utils import goto_temp_folder
 
 
@@ -38,6 +37,30 @@ class TestWriteTraj(unittest.TestCase):
         pt.write_traj(fname, xyz, top=self.traj.top, overwrite=True)
         t0 = pt.iterload(fname, top=self.traj.top)
         aa_eq(self.traj.xyz, t0.xyz)
+
+
+    def test_split_and_write_traj(self):
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        # duplcate
+        traj.load(traj.filename)
+        assert traj.n_frames == 20
+        top = traj.top
+
+        # test TrajectoryIterator object
+        pt.tools.split_and_write_traj(traj,
+                                      n_chunks=4,
+                                      root_name='./output/trajiterx')
+        flist = sorted(glob("./output/trajiterx*"))
+        traj4 = pt.iterload(flist, top)
+        aa_eq(traj4.xyz, traj.xyz)
+
+        # dcd ext
+        pt.tools.split_and_write_traj(traj, 4,
+                                      root_name='./output/ts',
+                                      ext='dcd')
+        flist = sorted(glob("./output/ts.*.dcd"))
+        traj4 = pt.iterload(flist, top)
+        aa_eq(traj4.xyz, traj.xyz)
 
 
 if __name__ == "__main__":
