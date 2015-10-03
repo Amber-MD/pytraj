@@ -319,7 +319,7 @@ cdef class Frame (object):
         import numpy as np
         cdef int i
         for i in range(self.n_atoms):
-            yield np.asarray(self.buffer2d[i])
+            yield np.asarray(self._buffer2d[i])
 
     def __array__(self):
         """
@@ -406,7 +406,7 @@ cdef class Frame (object):
                  return my_arr
              return _buffer(self.size)
 
-    property buffer2d:
+    property _buffer2d:
         def __get__(self):
             """return memory view for Frame coordinates but reshape
             (just like self._buffer3 = self.buffer.reshape())
@@ -426,7 +426,7 @@ cdef class Frame (object):
         def __get__(self):
             """return numpy array as a view of Frame xyz coords"""
             import numpy as np
-            return np.asarray(self.buffer2d)
+            return np.asarray(self._buffer2d)
 
         def __set__(self, value):
             if not hasattr(value, 'shape') and value.shape != self.shape:
@@ -1214,9 +1214,9 @@ cdef class Frame (object):
         return [list(x) for x in self]
 
     def to_ndarray(self):
-        """return a ndarray as a view of self.buffer2d"""
+        """return a ndarray as a view of self._buffer2d"""
         import numpy as np
-        return np.asarray(self.buffer2d)
+        return np.asarray(self._buffer2d)
 
     @classmethod
     def from_ndarray(cls, xyz):

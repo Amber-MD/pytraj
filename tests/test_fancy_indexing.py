@@ -63,8 +63,8 @@ class Test1(unittest.TestCase):
         #  got ~0.0 value
         aa_eq(traj[:, 0, 0], np.asarray(traj[0][0]))
 
-        for i in range(traj[0].buffer2d.shape[0]):
-            aa_eq(traj[:, :, 0][i], traj[0].buffer2d[i])
+        for i in range(traj[0]._buffer2d.shape[0]):
+            aa_eq(traj[:, :, 0][i], traj[0]._buffer2d[i])
 
         # slicing with mask
         atm = traj.top("@CA")
