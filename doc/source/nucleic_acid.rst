@@ -41,4 +41,4 @@ Examples
     na._summary(np.std)
 
     # only interested in some parameters?
-    na._summary(np.mean, keys=['major', 'minor', 'twist']
+    na._summary(np.mean, keys=['major', 'minor', 'twist'])
