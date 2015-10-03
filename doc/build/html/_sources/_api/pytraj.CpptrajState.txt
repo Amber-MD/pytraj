@@ -1,4 +1,4 @@
-.. _pytraj.trajectory:
+.. _pytraj.cpptrajstate:
 
 pytraj.CpptrajState
 ===================
