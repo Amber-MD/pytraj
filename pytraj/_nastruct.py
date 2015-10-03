@@ -206,3 +206,9 @@ class nupars(object):
         [tip] Helical tip.
         [htwist] Helical twist.
         '''
+
+    def __setstate__(self, state):
+        self._dict = state
+
+    def __getstate__(self):
+        return self._dict

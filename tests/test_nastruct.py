@@ -33,7 +33,12 @@ class TestNastruct(unittest.TestCase):
         data._summary(np.mean, keys=['major', 'twist'], indices=[1,])
         data._summary(np.std, indices=[1,])
 
-        print(data._explain())
+        # pickle
+        pt.to_pickle(data, 'data/na.pk')
+        na2 = pt.read_pickle('data/na.pk')
+
+        for key in data.keys():
+            aa_eq(data[key][1], na2[key][1])
 
 if __name__ == "__main__":
     unittest.main()
