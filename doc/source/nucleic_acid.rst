@@ -46,8 +46,7 @@ Longer Examples
     # explain keywords
     print(na._explain())
 
-    # if we have long analysis, we can temporarily save ``na`` to disk by
-    ``pytraj.to_pickle`` and load back later.
+    # if we have long analysis, we can temporarily save ``na`` to disk by `pytraj.to_pickle`` and load back later.
     pt.to_pickle(na, 'na_.pk')
 
     # load back pickle object
