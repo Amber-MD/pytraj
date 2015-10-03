@@ -42,3 +42,6 @@ Examples
 
     # only interested in some parameters?
     na._summary(np.mean, keys=['major', 'minor', 'twist'])
+
+    # explain keywords
+    na._explain()

@@ -153,17 +153,25 @@
 <span id="nucleic-acid"></span><h1>Nucleic Acid Analysis<a class="headerlink" href="#nucleic-acid-analysis" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pytraj.nastruct">
-<tt class="descclassname">pytraj.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>resmap=None</em>, <em>hbcut=None</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.nastruct" title="Permalink to this definition">¶</a></dt>
-<dd><p>compute nucleic acid parameters.</p>
+<tt class="descclassname">pytraj.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>resrange=None</em>, <em>resmap=None</em>, <em>hbcut=3.5</em>, <em>frame_indices=None</em>, <em>pucker_method='altona'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.nastruct" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute nucleic acid parameters. (adapted from cpptraj doc)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
 <p><strong>ref</strong> : {Frame, int}, default 0 (first frame)</p>
-<p><strong>mask</strong> : atom mask</p>
+<p><strong>resrange</strong> : None, str or array-like of integers</p>
 <p><strong>resmap</strong> : residue map, example: &#8216;AF2:A&#8217;</p>
-<p><strong>hbcut</strong> : float</p>
+<p><strong>hbcut</strong> : float, default=3.5 Angstrong</p>
+<blockquote>
+<div><p>Distance cutoff for determining basepair hbond</p>
+</div></blockquote>
+<p><strong>pucker_method</strong> : str, {&#8216;altona&#8217;, &#8216;cremer&#8217;}, default &#8216;altona&#8217;</p>
+<blockquote>
+<div><p>&#8216;altona&#8217; : Use method of Altona &amp; Sundaralingam to calculate sugar pucker
+&#8216;cremer&#8217; : Use method of Cremer and Pople to calculate sugar pucker&#8217;</p>
+</div></blockquote>
 <p><strong>frame_indices</strong> : array-like, default None (all frames)</p>
 </td>
 </tr>
@@ -225,7 +233,7 @@
 <span class="gp">In [5]: </span><span class="n">na</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
 <span class="gp">In [6]: </span><span class="n">na</span>
-<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;tip&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;shear&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;zp&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;zp&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;tip&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;shear&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">,</span> <span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">]</span><span class="o">&gt;</span>
 
 <span class="c"># get values for major groove width</span>
 <span class="gp">In [7]: </span><span class="n">na</span><span class="o">.</span><span class="n">major</span>
@@ -312,6 +320,10 @@
 <span class="go">{&#39;major&#39;: array([ 14.3673,  14.3188,  14.28  ]),</span>
 <span class="go"> &#39;minor&#39;: array([ 13.3908,  13.4372,  13.4598]),</span>
 <span class="go"> &#39;twist&#39;: array([ 31.8104,  30.5342,  31.0631])}</span>
+
+<span class="c"># explain keywords</span>
+<span class="gp">In [13]: </span><span class="n">na</span><span class="o">.</span><span class="n">_explain</span><span class="p">()</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Out[13]: &#39;\n        [shear] Base pair shear.\n        [stretch] Base pair stretch.\n        [stagger] Base pair stagger.\n        [buckle] Base pair buckle.\n        [prop] Base pair propeller.\n        [open] Base pair opening.\n        [hb] Number of hydrogen bonds between bases in base pair.\n        [pucker] Base sugar pucker.\n        [major] Rough estimate of major groove width, calculated between P atoms of each\n        base.\n        [minor] Rough estimate of minor groove width, calculated between O4 atoms of\n        each base.\n        [shift] Base pair step shift.\n        [slide] Base pair step slide.\n        [rise] Base pair step rise.\n        [title] Base pair step tilt.\n        [roll] Base pair step roll.\n        [twist] Base pair step twist.\n        [xdisp] Helical X displacement.\n        [ydisp] Helical Y displacement.\n        [hrise] Helical rise.\n        [incl] Helical inclination.\n        [tip] Helical tip.\n        [htwist] Helical twist.\n        &#39;</span>
 </pre></div>
 </div>
 </div>
