@@ -146,9 +146,9 @@ class nupars(object):
     def __dir__(self):
         '''for autocompletion in ipython
         '''
-        return self.keys()
+        return self.keys() + ['_summary',]
 
-    def _summary(self, op, keys=None, indices=None):
+    def _summary(self, ops, keys=None, indices=None):
         '''
         Parameters
         op : numpy method
@@ -161,11 +161,19 @@ class nupars(object):
         '''
         _keys = keys if keys is not None else self.keys()
 
-        sumdict = {}
-        for k in _keys:
-            values = self[k][1]
-            if indices is None:
-                sumdict[k] = op(values, axis=1)
-            else:
-                sumdict[k] = op(values[indices], axis=1)
-        return sumdict
+        sumlist = []
+        ops = [ops, ] if not isinstance(ops, (list, tuple)) else ops
+
+        for op in ops: 
+            sumdict = {}
+            for k in _keys:
+                values = self[k][1]
+                if indices is None:
+                    sumdict[k] = op(values, axis=1)
+                else:
+                    sumdict[k] = op(values[indices], axis=1)
+            sumlist.append(sumdict)
+        if len(ops) == 1:
+            return sumlist[0]
+        else:
+            return sumlist
