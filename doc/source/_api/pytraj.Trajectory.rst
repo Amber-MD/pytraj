@@ -7,6 +7,6 @@ pytraj.Trajectory
     
     .. raw:: html
     
-        <script type="text/javascript" src='_static/cindex.js'></script>
+        <script type="text/javascript" src='../_static/cindex.js'></script>
 
 .. autoclass:: pytraj.Trajectory
