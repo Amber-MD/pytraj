@@ -142,7 +142,59 @@
       
   <div class="section" id="api-reference">
 <h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
-<p>(coming soon)</p>
+<div class="custom-index container">
+<script type="text/javascript" src='_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj"></span><p>pytraj</p>
+<dl class="function">
+<dt id="pytraj.dispatch">
+<tt class="descclassname">pytraj.</tt><tt class="descname">dispatch</tt><big>(</big><em>type cls</em>, <em>CpptrajState state</em>, <em>line</em><big>)</big><a class="headerlink" href="#pytraj.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pytraj.iterchunk">
+<tt class="descclassname">pytraj.</tt><tt class="descname">iterchunk</tt><big>(</big><em>traj</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.iterchunk" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterchunk</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.iterframe">
+<tt class="descclassname">pytraj.</tt><tt class="descname">iterframe</tt><big>(</big><em>traj</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.iterframe" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.select_atoms">
+<tt class="descclassname">pytraj.</tt><tt class="descname">select_atoms</tt><big>(</big><em>topology</em>, <em>mask</em><big>)</big><a class="headerlink" href="#pytraj.select_atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>return atom indices</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atom_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="go">array([  4,  15,  39, ..., 159, 173, 197])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.show">
+<tt class="descclassname">pytraj.</tt><tt class="descname">show</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>show plot</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.show_versions">
+<tt class="descclassname">pytraj.</tt><tt class="descname">show_versions</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.show_versions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 
 
