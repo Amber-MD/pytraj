@@ -139,6 +139,7 @@
  | <a href="#D"><strong>D</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
  | <a href="#K"><strong>K</strong></a>
@@ -153,6 +154,7 @@
  | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  | <a href="#X"><strong>X</strong></a>
+ | <a href="#Z"><strong>Z</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -160,6 +162,22 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="analysis.html#pytraj.acorr">acorr() (in module pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Topology.add_angles">add_angles (pytraj.Topology attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Topology.add_bonds">add_bonds (pytraj.Topology attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.add_by_mask">add_by_mask() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Topology.add_dihedrals">add_dihedrals (pytraj.Topology attribute)</a>
   </dt>
 
       
@@ -171,6 +189,26 @@
   </dt>
 
       
+  <dt><a href="api.html#pytraj.Trajectory.append">append() (pytraj.Trajectory method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.append_vec3">append_vec3() (pytraj.Frame method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Frame.append_xyz">append_xyz() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Trajectory.append_xyz">(pytraj.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="misc.html#pytraj.tools.array_to_atommask">array_to_atommask() (in module pytraj.tools)</a>
   </dt>
 
@@ -178,8 +216,6 @@
   <dt><a href="misc.html#pytraj.tools.array_to_atommask_2_groups">array_to_atommask_2_groups() (in module pytraj.tools)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="misc.html#pytraj.tools.array_to_residuemask">array_to_residuemask() (in module pytraj.tools)</a>
   </dt>
@@ -192,10 +228,30 @@
   <dt><a href="misc.html#pytraj.tools.as_3darray">as_3darray() (in module pytraj.tools)</a>
   </dt>
 
-      
-  <dt><a href="analysis.html#pytraj.autoimage">autoimage() (in module pytraj)</a>, <a href="modify_traj.html#pytraj.autoimage">[1]</a>
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Frame.as_3darray">(pytraj.Frame method)</a>
   </dt>
 
+      </dl></dd>
+      
+  <dt><a href="api.html#pytraj.Topology.atom_indices">atom_indices() (pytraj.Topology method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.atoms">atoms() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="modify_traj.html#pytraj.autoimage">autoimage() (in module pytraj)</a>, <a href="analysis.html#pytraj.autoimage">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Trajectory.autoimage">(pytraj.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -207,13 +263,27 @@
   </dt>
 
   </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Frame.box_crd">box_crd() (pytraj.Frame method)</a>
+  </dt>
+
+  </dl></td>
 </tr></table>
 
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="api.html#pytraj.Frame.calc_angle">calc_angle (pytraj.Frame attribute)</a>
+  </dt>
+
+      
   <dt><a href="api.html#pytraj.common_actions.calc_angle">calc_angle() (in module pytraj.common_actions)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.calc_dihedral">calc_dihedral (pytraj.Frame attribute)</a>
   </dt>
 
       
@@ -224,12 +294,22 @@
   <dt><a href="api.html#pytraj.common_actions.calc_distance">calc_distance() (in module pytraj.common_actions)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Frame.calc_distance">(pytraj.Frame method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="api.html#pytraj.common_actions.calc_dssp">calc_dssp() (in module pytraj.common_actions)</a>
   </dt>
 
       
   <dt><a href="api.html#pytraj.common_actions.calc_grid">calc_grid() (in module pytraj.common_actions)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.calc_inertia">calc_inertia() (pytraj.Frame method)</a>
   </dt>
 
       
@@ -257,11 +337,13 @@
   </dt>
 
       
+  <dt><a href="api.html#pytraj.Frame.calc_temperature">calc_temperature() (pytraj.Frame method)</a>
+  </dt>
+
+      
   <dt><a href="api.html#pytraj.common_actions.calc_temperatures">calc_temperatures() (in module pytraj.common_actions)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="analysis.html#pytraj.calc_vector">calc_vector() (in module pytraj)</a>
   </dt>
@@ -272,6 +354,8 @@
   </dt>
 
       </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api.html#pytraj.common_actions.calc_watershell">calc_watershell() (in module pytraj.common_actions)</a>
   </dt>
@@ -284,12 +368,36 @@
   <dt><a href="analysis.html#pytraj.center_of_geometry">center_of_geometry() (in module pytraj)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Frame.center_of_geometry">(pytraj.Frame method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="analysis.html#pytraj.center_of_mass">center_of_mass() (in module pytraj)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Frame.center_of_mass">(pytraj.Frame method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="api.html#pytraj.Frame.center_on_origin">center_on_origin() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.check_coords_invalid">check_coords_invalid() (pytraj.Frame method)</a>
+  </dt>
+
       
   <dt><a href="misc.html#pytraj.tools.chunk_average">chunk_average() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.clear_atoms">clear_atoms() (pytraj.Frame method)</a>
   </dt>
 
       
@@ -311,11 +419,33 @@
   </dt>
 
       
+  <dt><a href="api.html#pytraj.TrajectoryIterator.coordinates">coordinates (pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.copy">copy() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Topology.copy">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="api.html#pytraj.TrajectoryIterator.copy">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="matrix_analysis.html#pytraj.matrix.correl">correl() (in module pytraj.matrix)</a>
   </dt>
 
       
   <dt><a href="matrix_analysis.html#pytraj.matrix.covar">covar() (in module pytraj.matrix)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.datasets.cpp_datasets">cpp_datasets (in module pytraj.datasets)</a>
   </dt>
 
       
@@ -352,6 +482,10 @@
   <dt><a href="matrix_analysis.html#pytraj.matrix.dist">dist() (in module pytraj.matrix)</a>
   </dt>
 
+      
+  <dt><a href="api.html#pytraj.Frame.dist_rmsd">dist_rmsd() (pytraj.Frame method)</a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -360,6 +494,10 @@
 
       
   <dt><a href="matrix_analysis.html#pytraj.matrix.distcovar">distcovar() (in module pytraj.matrix)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.divide">divide() (pytraj.Frame method)</a>
   </dt>
 
       
@@ -385,21 +523,47 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="_api/trajectoryiterator.html#pytraj.TrajectoryIterator.TrajectoryIterator.filelist">filelist (pytraj.TrajectoryIterator.TrajectoryIterator attribute)</a>
+  <dt><a href="api.html#pytraj.TrajectoryIterator.filelist">filelist (pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/trajectoryiterator.html#pytraj.TrajectoryIterator.TrajectoryIterator.filelist">(pytraj.TrajectoryIterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="api.html#pytraj.TrajectoryIterator.filename">filename (pytraj.TrajectoryIterator attribute)</a>
   </dt>
 
       
   <dt><a href="misc.html#pytraj.tools.filter">filter() (in module pytraj.tools)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="misc.html#pytraj.tools.find_lib">find_lib() (in module pytraj.tools)</a>
   </dt>
 
       
   <dt><a href="misc.html#pytraj.tools.flatten">flatten() (in module pytraj.tools)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Frame">Frame (class in pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.frame_iter">frame_iter() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Trajectory.from_iterable">from_iterable() (pytraj.Trajectory class method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.from_ndarray">from_ndarray() (pytraj.Frame method)</a>
   </dt>
 
   </dl></td>
@@ -419,7 +583,33 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="api.html#pytraj.Frame.get_subframe">get_subframe() (pytraj.Frame method)</a>
+  </dt>
+
+      
   <dt><a href="misc.html#pytraj.tools.grep">grep() (in module pytraj.tools)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Frame.has_box">has_box() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Topology.has_box">(pytraj.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Frame.has_velocity">has_velocity() (pytraj.Frame method)</a>
   </dt>
 
   </dl></td>
@@ -433,6 +623,30 @@
   </dt>
 
       
+  <dt><a href="api.html#pytraj.Topology.indices_bonded_to">indices_bonded_to() (pytraj.Topology method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.info">info() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.is_">is_() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.is_empty">is_empty() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Topology.is_empty">(pytraj.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
   <dt><a href="misc.html#pytraj.tools.isel">isel() (in module pytraj.tools)</a>
   </dt>
 
@@ -440,8 +654,12 @@
   <dt><a href="api.html#pytraj.iterchunk">iterchunk() (in module pytraj)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.TrajectoryIterator.iterchunk">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="api.html#pytraj.iterframe">iterframe() (in module pytraj)</a>
   </dt>
@@ -458,6 +676,12 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="analysis.html#pytraj.jcoupling">jcoupling() (in module pytraj)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Topology.join">join() (pytraj.Topology method)</a>
   </dt>
 
   </dl></td>
@@ -480,6 +704,18 @@
   <dt><a href="analysis.html#pytraj.lifetime">lifetime() (in module pytraj)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Topology.load">load() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.TrajectoryIterator.load">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -504,6 +740,10 @@
 
       
   <dt><a href="misc.html#pytraj.tools.merge_trajs">merge_trajs() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.TrajectoryIterator.metadata">metadata (pytraj.TrajectoryIterator attribute)</a>
   </dt>
 
   </dl></td>
@@ -535,6 +775,26 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="api.html#pytraj.Trajectory.n_atoms">n_atoms (pytraj.Trajectory attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.TrajectoryIterator.n_atoms">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="api.html#pytraj.Trajectory.n_frames">n_frames (pytraj.Trajectory attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.TrajectoryIterator.n_frames">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="misc.html#pytraj.tools.n_grams">n_grams() (in module pytraj.tools)</a>
   </dt>
 
@@ -552,6 +812,14 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="api.html#pytraj.common_actions.native_contacts">native_contacts() (in module pytraj.common_actions)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.neg_translate">neg_translate() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Topology.NonbondParmType">NonbondParmType() (pytraj.Topology method)</a>
   </dt>
 
   </dl></td>
@@ -634,10 +902,8 @@
   <dt><a href="modify_traj.html#pytraj.replicate_cell">replicate_cell() (in module pytraj)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="analysis.html#pytraj.rmsd">rmsd() (in module pytraj)</a>, <a href="modify_traj.html#pytraj.rmsd">[1]</a>
+  <dt><a href="modify_traj.html#pytraj.rmsd">rmsd() (in module pytraj)</a>, <a href="analysis.html#pytraj.rmsd">[1]</a>
   </dt>
 
       <dd><dl>
@@ -645,9 +911,23 @@
   <dt><a href="misc.html#pytraj.tools.rmsd">(in module pytraj.tools)</a>
   </dt>
 
+        
+  <dt><a href="api.html#pytraj.Frame.rmsd">(pytraj.Frame method)</a>
+  </dt>
+
       </dl></dd>
       
   <dt><a href="misc.html#pytraj.tools.rmsd_1darray">rmsd_1darray() (in module pytraj.tools)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Frame.rmsd_centered_ref">rmsd_centered_ref() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.rmsd_nofit">rmsd_nofit() (pytraj.Frame method)</a>
   </dt>
 
       
@@ -655,11 +935,35 @@
   </dt>
 
       
+  <dt><a href="api.html#pytraj.Frame.rmsfit">rmsfit() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Trajectory.rmsfit">(pytraj.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="modify_traj.html#pytraj.rotate">rotate() (in module pytraj)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Frame.rotate">(pytraj.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="api.html#pytraj.Trajectory.rotate">(pytraj.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="modify_traj.html#pytraj.rotate_dihedral">rotate_dihedral() (in module pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.rotate_with_matrix">rotate_with_matrix() (pytraj.Frame method)</a>
   </dt>
 
   </dl></td>
@@ -669,9 +973,33 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="api.html#pytraj.Frame.same_coords_as">same_coords_as() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.save">save() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Topology.save">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="api.html#pytraj.TrajectoryIterator.save">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="modify_traj.html#pytraj.scale">scale() (in module pytraj)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Frame.scale">(pytraj.Frame method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="analysis.html#pytraj.search_hbonds">search_hbonds() (in module pytraj)</a>
   </dt>
@@ -691,11 +1019,87 @@
   </dt>
 
       
+  <dt><a href="api.html#pytraj.Topology.select">select() (pytraj.Topology method)</a>
+  </dt>
+
+      
   <dt><a href="api.html#pytraj.select_atoms">select_atoms() (in module pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_axis_of_rotation">set_axis_of_rotation() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_box_angles">set_box_angles() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_coords">set_coords() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_coords_by_map">set_coords_by_map() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_frame">set_frame() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_frame_from_mask">set_frame_from_mask() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_frame_mass">set_frame_mass() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_frame_v">set_frame_v() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_frame_x_m">set_frame_x_m() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_from_crd">set_from_crd() (pytraj.Frame method)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Topology.set_integer_mask">set_integer_mask() (pytraj.Topology method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.set_nobox">set_nobox() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Topology.set_nobox">(pytraj.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="api.html#pytraj.Topology.set_reference_frame">set_reference_frame() (pytraj.Topology method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Topology.set_solvent">set_solvent() (pytraj.Topology method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Trajectory.shape">shape (pytraj.Trajectory attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.TrajectoryIterator.shape">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="api.html#pytraj.show">show() (in module pytraj)</a>
   </dt>
@@ -716,6 +1120,40 @@
   <dt><a href="misc.html#pytraj.tools.split_traj_by_residues">split_traj_by_residues() (in module pytraj.tools)</a>
   </dt>
 
+      
+  <dt><a href="api.html#pytraj.Topology.start_new_mol">start_new_mol() (pytraj.Topology method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Trajectory.strip">strip() (pytraj.Trajectory method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.strip_atoms">strip_atoms() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Topology.strip_atoms">(pytraj.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="api.html#pytraj.Topology.summary">summary() (pytraj.Topology method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Trajectory.superpose">superpose() (pytraj.Trajectory method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.swap_atom_array">swap_atom_array (pytraj.Frame attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.swap_atoms">swap_atoms() (pytraj.Frame method)</a>
+  </dt>
+
   </dl></td>
 </tr></table>
 
@@ -727,15 +1165,63 @@
   </dt>
 
       
+  <dt><a href="api.html#pytraj.Frame.to_dataframe">to_dataframe() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Topology.to_dataframe">(pytraj.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="api.html#pytraj.Frame.to_ndarray">to_ndarray() (pytraj.Frame method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Topology.to_parmed">to_parmed() (pytraj.Topology method)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.tolist">tolist() (pytraj.Frame method)</a>
+  </dt>
+
+      
   <dt><a href="_api/trajectoryiterator.html#pytraj.TrajectoryIterator.TrajectoryIterator.top">top (pytraj.TrajectoryIterator.TrajectoryIterator attribute)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="api.html#pytraj.Topology">Topology (class in pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.TrajectoryIterator.topology">topology (pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Trajectory">Trajectory (class in pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.TrajectoryIterator">TrajectoryIterator (class in pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="api.html#pytraj.Frame.trans_rot_trans">trans_rot_trans() (pytraj.Frame method)</a>
+  </dt>
+
+      
   <dt><a href="modify_traj.html#pytraj.translate">translate() (in module pytraj)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="api.html#pytraj.Frame.translate">(pytraj.Frame method)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -743,7 +1229,23 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="_api/trajectoryiterator.html#pytraj.TrajectoryIterator.TrajectoryIterator.unitcells">unitcells (pytraj.TrajectoryIterator.TrajectoryIterator attribute)</a>
+  <dt><a href="api.html#pytraj.TrajectoryIterator.unitcells">unitcells (pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/trajectoryiterator.html#pytraj.TrajectoryIterator.TrajectoryIterator.unitcells">(pytraj.TrajectoryIterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="api.html#pytraj.Frame.update_atom">update_atom() (pytraj.Frame method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Frame.update_atoms">update_atoms() (pytraj.Frame method)</a>
   </dt>
 
   </dl></td>
@@ -752,6 +1254,10 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Frame.v_xyz">v_xyz() (pytraj.Frame method)</a>
+  </dt>
+
       
   <dt><a href="vector_analysis.html#pytraj.vector.vector_box">vector_box() (in module pytraj.vector)</a>
   </dt>
@@ -812,6 +1318,10 @@
   <dt><a href="analysis.html#pytraj.watershell">watershell() (in module pytraj)</a>
   </dt>
 
+      
+  <dt><a href="api.html#pytraj.TrajectoryIterator.write">write() (pytraj.TrajectoryIterator method)</a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -831,7 +1341,23 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="_api/trajectoryiterator.html#pytraj.TrajectoryIterator.TrajectoryIterator.xyz">xyz (pytraj.TrajectoryIterator.TrajectoryIterator attribute)</a>
+  <dt><a href="api.html#pytraj.TrajectoryIterator.xyz">xyz (pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/trajectoryiterator.html#pytraj.TrajectoryIterator.TrajectoryIterator.xyz">(pytraj.TrajectoryIterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="Z">Z</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="api.html#pytraj.Frame.zero_coords">zero_coords() (pytraj.Frame method)</a>
   </dt>
 
   </dl></td>
