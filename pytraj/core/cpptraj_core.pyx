@@ -466,9 +466,29 @@ cdef class Command:
 
 cdef class CpptrajState:
     """
-    CpptrajState hold instances of:
-    + DatasetList (having output data)
-    + DataFileList
+    CpptrajState hold all data per cpptraj run. This class is for internal use. 
+    Check example
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> text = '''
+    parm tz2.parm7
+    trajin tz2.nc
+    rms
+    distance :2 :3
+    '''
+    >>> state = pt.load_cpptraj_state(text)
+    >>> state.run()
+    CpptrajState, include:
+    <datasetlist: 3 datasets>
+    >>> print(state.data[1])
+    <pytraj.datasets.DatasetDouble: size=101, key=RMSD_00001>
+    values:
+    [  2.43182129e-07   4.01623189e+00   6.41421043e+00 ...,   8.27504991e+00
+       8.19405473e+00   7.77917637e+00]
+    >>> print(state.data.keys())
+    ['tz2.parm7', 'RMSD_00001', 'Dis_00002']
 
     """
     def __cinit__(self):
@@ -504,7 +524,7 @@ cdef class CpptrajState:
     def is_empty(self):
         return self.thisptr.EmptyState()
 
-    def add_trajin(self, arg_or_filename, is_ensemble=None):
+    def _add_trajin(self, arg_or_filename, is_ensemble=None):
         # TODO: add trajector instance?
         cdef string filename
         cdef ArgList argIn
@@ -525,11 +545,11 @@ cdef class CpptrajState:
         else:
             raise NotImplementedError()
 
-    def run_analyses(self):
+    def _run_analyses(self):
         self.thisptr.RunAnalyses()
         return self
 
-    def add_trajout(self, arg):
+    def _add_trajout(self, arg):
         """add trajout file
         
         Parameters
@@ -548,7 +568,7 @@ cdef class CpptrajState:
         else:
             raise NotImplementedError()
 
-    def add_reference(self, *args):
+    def _add_reference(self, *args):
         """
         Parameters
         ---------
@@ -574,7 +594,7 @@ cdef class CpptrajState:
         else:
             raise NotImplementedError()
 
-    def add_action(self, actobj, arglist):
+    def _add_action(self, actobj, arglist):
         """
         Parameters
         ---------
@@ -603,7 +623,7 @@ cdef class CpptrajState:
 
         return self.thisptr.AddAction(alloc_funct.ptr, _arglist.thisptr[0])
 
-    def add_analysis(self, obj, ArgList arglist):
+    def _add_analysis(self, obj, ArgList arglist):
         """temp doc: add_analysis(self, obj, ArgList arglist)
         obj :: Action or Analysis instance
         """
@@ -629,7 +649,7 @@ cdef class CpptrajState:
         self.thisptr.Run()
         return self
 
-    def write_all_datafiles(self):
+    def _write_all_datafiles(self):
         self.thisptr.MasterDataFileWrite()
 
 

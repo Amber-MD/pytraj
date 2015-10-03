@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
-        arr0 = np.asarray(f0.buffer2d)
+        arr0 = np.asarray(f0._buffer2d)
         arr1 = np.asarray(f0)
         aa_eq(arr0.flatten(), arr1.flatten())
         arr0[0, 0] = 100.
