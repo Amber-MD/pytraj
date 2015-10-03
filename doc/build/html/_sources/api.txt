@@ -16,9 +16,3 @@ API reference
     :inherited-members:
 
 .. automodule:: pytraj.common_actions
-.. autoclass:: pytraj.TrajectoryIterator
-.. autoclass:: pytraj.Trajectory
-.. autoclass:: pytraj.Topology
-.. autoclass:: pytraj.Frame
-.. autoclass:: pytraj.CpptrajState
-.. automodule:: pytraj.datasets.cpp_datasets
