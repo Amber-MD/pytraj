@@ -210,7 +210,12 @@ class TrajectoryIterator(TrajectoryCpptraj):
                   rmsfit=None,
                   copy=False,
                   frame_indices=None):
-        ''''''
+        '''
+        Examples
+        --------
+        >>> for frame in traj.iterframe(0, 8, 2): print(frame)
+        >>> for frame in traj.iterframe(0, 8, 2, autoimage=True)
+        '''
 
         if mask is None:
             _top = self.top
@@ -274,7 +279,8 @@ class TrajectoryIterator(TrajectoryCpptraj):
                   stop=-1,
                   autoimage=False,
                   rmsfit=None):
-        """
+        """iterate trajectory by chunk
+
         Parameters
         ----------
         chunk : int, default=2
@@ -286,7 +292,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
         Examples
         --------
-            for chunk in trajiter.iterchunk(100, autoimage=True, rmsfit=(ref0, '@CA'))
+        >>> for chunk in trajiter.iterchunk(100, autoimage=True, rmsfit=(ref0, '@CA'))
 
         Notes
         -----

@@ -335,13 +335,21 @@ cdef class TrajectoryCpptraj:
                  return self.tmpfarray
 
     def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
-        _savetraj(self, filename, format, overwrite, *args, **kwd)
+        '''conivinent method to save Trajectory
 
-    def write(self, *args, **kwd):
-        self.save(*args, **kwd)
+        Examples
+        --------
+        >>> # save to DCD file
+        >>> traj.save('traj.dcd')
+        >>> # save to AMBER netcdf file
+        >>> traj.save('traj.nc')
+        '''
+        _savetraj(self, filename, format, overwrite, *args, **kwd)
 
     @property
     def unitcells(self):
+        '''return unitcells (Box) with shape=(n_frames, 6)
+        '''
         return _box(self)
 
     @property
@@ -424,6 +432,19 @@ cdef class TrajectoryCpptraj:
     @property
     def metadata(self):
         '''return a dict of general information 
+
+        Examples
+        --------
+        >>> traj.metadata
+        {'box_type': 'ortho',
+         'has_box': True,
+         'has_force': False,
+         'has_replcica_dims': False,
+         'has_temperature': False,
+         'has_time': True,
+         'has_velocity': False,
+         'n_atoms': 5293,
+         'n_frames': 10}
         '''
         return self._coordinateinfo
 
