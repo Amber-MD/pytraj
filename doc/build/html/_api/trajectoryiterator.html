@@ -30,6 +30,8 @@
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev10 documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+    <link rel="prev" title="pytraj.common_actions" href="pytraj.common_actions.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -64,7 +66,7 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
@@ -81,7 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
 </ul>
 </ul>
 </li>
@@ -106,6 +108,10 @@
             
               
                 
+  <li>
+    <a href="pytraj.common_actions.html" title="Previous Chapter: pytraj.common_actions"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; pytraj.common...</span>
+    </a>
+  </li>
               
             
             
@@ -212,9 +218,6 @@
 <tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">write</span></tt></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 <dl class="attribute">
@@ -245,7 +248,8 @@ return a list of input filenames. Order does matter</p>
 <dl class="method">
 <dt id="pytraj.TrajectoryIterator.iterchunk">
 <tt class="descname">iterchunk</tt><big>(</big><em>chunksize=2</em>, <em>start=0</em>, <em>stop=-1</em>, <em>autoimage=False</em>, <em>rmsfit=None</em><big>)</big><a class="headerlink" href="#pytraj.TrajectoryIterator.iterchunk" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><p>iterate trajectory by chunk</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -265,7 +269,19 @@ return a list of input filenames. Order does matter</p>
 <p>if using &#8216;autoimage` with reference frame for rms-fit, make sure to <cite>autoimage</cite>
 ref first</p>
 <p class="rubric">Examples</p>
-<p>for chunk in trajiter.iterchunk(100, autoimage=True, rmsfit=(ref0, <a class="reference external" href="mailto:'&#37;&#52;&#48;CA">'<span>&#64;</span>CA</a>&#8216;))</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">trajiter</span><span class="o">.</span><span class="n">iterchunk</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="p">(</span><span class="n">ref0</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.TrajectoryIterator.iterframe">
+<tt class="descname">iterframe</tt><big>(</big><em>start=0</em>, <em>stop=None</em>, <em>stride=1</em>, <em>mask=None</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>copy=False</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.TrajectoryIterator.iterframe" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -280,6 +296,19 @@ with a single frame_slice or a list of frame_slice</p>
 <tt class="descname">metadata</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>TrajectoryCpptraj.metadata(self)
 return a dict of general information</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">metadata</span>
+<span class="go">{&#39;box_type&#39;: &#39;ortho&#39;,</span>
+<span class="go"> &#39;has_box&#39;: True,</span>
+<span class="go"> &#39;has_force&#39;: False,</span>
+<span class="go"> &#39;has_replcica_dims&#39;: False,</span>
+<span class="go"> &#39;has_temperature&#39;: False,</span>
+<span class="go"> &#39;has_time&#39;: True,</span>
+<span class="go"> &#39;has_velocity&#39;: False,</span>
+<span class="go"> &#39;n_atoms&#39;: 5293,</span>
+<span class="go"> &#39;n_frames&#39;: 10}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -297,7 +326,15 @@ used for frame_iter</p>
 <dl class="method">
 <dt id="pytraj.TrajectoryIterator.save">
 <tt class="descname">save</tt><big>(</big><em>self</em>, <em>filename=''</em>, <em>format='unknown'</em>, <em>overwrite=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.TrajectoryIterator.save" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>conivinent method to save Trajectory</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># save to DCD file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;traj.dcd&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># save to AMBER netcdf file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.TrajectoryIterator.shape">
@@ -314,11 +351,6 @@ used for frame_iter</p>
 <dl class="attribute">
 <dt id="pytraj.TrajectoryIterator.unitcells">
 <tt class="descname">unitcells</tt><a class="headerlink" href="#pytraj.TrajectoryIterator.unitcells" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.TrajectoryIterator.write">
-<tt class="descname">write</tt><big>(</big><em>self</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.TrajectoryIterator.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
