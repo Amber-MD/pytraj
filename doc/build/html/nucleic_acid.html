@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nucleic Acid Analysis &mdash; pytraj 0.1.2.dev9 documentation</title>
+    <title>Nucleic Acid Analysis &mdash; pytraj 0.1.2.dev10 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev9',
+        VERSION:     '0.1.2.dev10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev9 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev10 documentation" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -49,7 +49,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev9</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev10</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -142,11 +142,36 @@
 <span id="nucleic-acid"></span><h1>Nucleic Acid Analysis<a class="headerlink" href="#nucleic-acid-analysis" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pytraj.nastruct">
-<tt class="descclassname">pytraj.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>resmap=None</em>, <em>hbcut=None</em>, <em>ref=None</em>, <em>top=None</em>, <em>dtype='nupars'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.nastruct" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Examples</p>
+<tt class="descclassname">pytraj.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>resmap=None</em>, <em>hbcut=None</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.nastruct" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute nucleic acid parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>ref</strong> : {Frame, int}, default 0 (first frame)</p>
+<p><strong>mask</strong> : atom mask</p>
+<p><strong>resmap</strong> : residue map, example: &#8216;AF2:A&#8217;</p>
+<p><strong>hbcut</strong> : float</p>
+<p><strong>frame_indices</strong> : array-like, default None (all frames)</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : nupars object. One can assess different values (major groove width, xdips values</p>
+<p class="last">...) by accessing its attribute. See example below.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj1</span><span class="p">,</span> <span class="n">resmap</span><span class="o">=</span><span class="s">&#39;AF2:A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="go">[&#39;buckle&#39;, &#39;minor&#39;, &#39;major&#39;, &#39;xdisp&#39;, &#39;stagger&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># get minor groove width values for each pairs for each snapshot</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># data.minor is a tuple, first value is a list of basepairs, seconda value is </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># numpy array, shape=(n_frames, n_pairs)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">minor</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -170,54 +195,29 @@
 <span class="gp">In [5]: </span><span class="n">na</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
 <span class="gp">In [6]: </span><span class="n">na</span>
-<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">pytraj</span><span class="o">.</span><span class="n">_nastruct</span><span class="o">.</span><span class="n">nupars</span> <span class="n">at</span> <span class="mh">0x2aaace7dacc0</span><span class="o">&gt;</span>
+<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;tip&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;zp&#39;</span><span class="p">,</span> <span class="s">&#39;shear&#39;</span><span class="p">]</span><span class="o">&gt;</span>
 
-<span class="c"># get mean and std for each analysis (major groove width, minor, ...)</span>
-<span class="gp">In [7]: </span><span class="n">na</span><span class="o">.</span><span class="n">mean_and_std</span><span class="p">()</span>
-<span class="go">                                                    Out[7]: </span>
-<span class="go">{&#39;buckle&#39;: array([ 4.0651,  3.9482]),</span>
-<span class="go"> &#39;hb&#39;: array([ 3.,  0.]),</span>
-<span class="go"> &#39;hrise&#39;: array([ 2.8936,  0.3488]),</span>
-<span class="go"> &#39;htwist&#39;: array([ 32.27  ,   3.3556]),</span>
-<span class="go"> &#39;incl&#39;: array([ 8.0433,  5.0863]),</span>
-<span class="go"> &#39;major&#39;: array([ 14.3334,   8.2904]),</span>
-<span class="go"> &#39;minor&#39;: array([ 13.4197,   0.0879]),</span>
-<span class="go"> &#39;open&#39;: array([ 0.4737,  1.6744]),</span>
-<span class="go"> &#39;prop&#39;: array([-7.4238,  3.2766]),</span>
-<span class="go"> &#39;pucker&#39;: array([ 88.2101,  86.9064]),</span>
-<span class="go"> &#39;rise&#39;: array([ 3.0773,  0.3246]),</span>
-<span class="go"> &#39;roll&#39;: array([ 4.2747,  2.7859]),</span>
-<span class="go"> &#39;shear&#39;: array([ 0.0149,  0.2576]),</span>
-<span class="go"> &#39;shift&#39;: array([-0.1378,  0.3619]),</span>
-<span class="go"> &#39;slide&#39;: array([-2.0613,  0.3823]),</span>
-<span class="go"> &#39;stagger&#39;: array([ 0.1147,  0.1484]),</span>
-<span class="go"> &#39;stretch&#39;: array([-0.0693,  0.0905]),</span>
-<span class="go"> &#39;tilt&#39;: array([-1.6865,  3.1276]),</span>
-<span class="go"> &#39;tip&#39;: array([ 3.7061,  6.9681]),</span>
-<span class="go"> &#39;twist&#39;: array([ 31.7873,   3.6566]),</span>
-<span class="go"> &#39;xdisp&#39;: array([-4.5739,  1.4992]),</span>
-<span class="go"> &#39;ydisp&#39;: array([-0.1541,  0.6661]),</span>
-<span class="go"> &#39;zp&#39;: array([ 2.5676,  0.2015])}</span>
+<span class="c"># get values for major groove width</span>
+<span class="gp">In [7]: </span><span class="n">na</span><span class="o">.</span><span class="n">major</span>
+<span class="go">                                                                                                                                                                                                                                  Out[7]: </span>
+<span class="go">([&#39;1G16C&#39;, &#39;2G15C&#39;, &#39;3G14C&#39;, &#39;4C13G&#39;, &#39;5G12C&#39;, &#39;6C11G&#39;, &#39;7C10G&#39;, &#39;8C9G&#39;],</span>
+<span class="go"> array([[  0.    ,  18.6001,  18.7782, ...,  18.4594,  18.7894,   0.    ],</span>
+<span class="go">        [  0.    ,  18.8287,  19.0935, ...,  18.8669,  18.8978,   0.    ],</span>
+<span class="go">        [  0.    ,  18.1682,  18.7745, ...,  19.156 ,  18.3882,   0.    ]]))</span>
 
-<span class="c"># get raw data for major groove</span>
-<span class="gp">In [8]: </span><span class="n">na</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="s">&#39;major&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Out[8]: </span>
-<span class="go">&lt;pytraj.DatasetList with 8 datasets&gt;</span>
-<span class="go">nuc_1G16C_major</span>
-<span class="go">[ 0.  0.  0.  0.]</span>
-
-<span class="go">nuc_2G15C_major</span>
-<span class="go">[ 18.6001  18.6001  18.8287  18.1682]</span>
-
-<span class="go">nuc_3G14C_major</span>
-<span class="go">[ 18.7782  18.7782  19.0935  18.7745]</span>
-<span class="go">...</span>
-
-<span class="go">nuc_7C10G_major</span>
-<span class="go">[ 18.7894  18.7894  18.8978  18.3882]</span>
-
-<span class="go">nuc_8C9G_major</span>
-<span class="go">[ 0.  0.  0.  0.]</span>
+<span class="c"># get values for several parameters</span>
+<span class="gp">In [8]: </span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">]:</span>
+<span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">na</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+<span class="gp">   ...:</span> 
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ([&#39;1G16C&#39;, &#39;2G15C&#39;, &#39;3G14C&#39;, &#39;4C13G&#39;, &#39;5G12C&#39;, &#39;6C11G&#39;, &#39;7C10G&#39;, &#39;8C9G&#39;], array([[ 13.3293,  13.4034,  13.5716, ...,  13.2666,  13.4305,  13.4557],</span>
+<span class="go">       [ 13.32  ,  13.4592,  13.6325, ...,  13.2707,  13.4274,  13.5345],</span>
+<span class="go">       [ 13.3409,  13.5378,  13.5706, ...,  13.2902,  13.3854,  13.461 ]]))</span>
+<span class="go">([&#39;1G16C-2G15C&#39;, &#39;2G15C-3G14C&#39;, &#39;3G14C-4C13G&#39;, &#39;4C13G-5G12C&#39;, &#39;5G12C-6C11G&#39;, &#39;6C11G-7C10G&#39;, &#39;7C10G-8C9G&#39;], array([[ 34.7777,  33.9816,  30.1865, ...,  35.1461,  33.9628,  33.1306],</span>
+<span class="go">       [ 33.3918,  32.6848,  28.3639, ...,  36.5977,  30.2083,  26.4873],</span>
+<span class="go">       [ 36.2067,  32.5896,  27.4771, ...,  33.4284,  30.9005,  33.7372]]))</span>
+<span class="go">([&#39;1G16C-2G15C&#39;, &#39;2G15C-3G14C&#39;, &#39;3G14C-4C13G&#39;, &#39;4C13G-5G12C&#39;, &#39;5G12C-6C11G&#39;, &#39;6C11G-7C10G&#39;, &#39;7C10G-8C9G&#39;], array([[ 15.1276,   5.5395,  10.4794, ...,   1.663 ,  -8.9116,  12.9009],</span>
+<span class="go">       [  0.8921,  18.6342,   3.6122, ...,  -8.3858,  19.0858,   5.6582],</span>
+<span class="go">       [  3.5335,  14.6935,  11.2296, ...,  10.8699,  -3.0495,  21.6089]]))</span>
 </pre></div>
 </div>
 </div>

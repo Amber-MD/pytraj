@@ -3,7 +3,7 @@
 Tutorials adapted from ``mdtraj``
 ================================
 
-.. content:: Table
+.. contents:: Table
 
 Clustering with scipy
 ---------------------

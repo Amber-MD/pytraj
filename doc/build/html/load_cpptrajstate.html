@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Run cpptraj’s batch &mdash; pytraj 0.1.2.dev9 documentation</title>
+    <title>Run cpptraj’s batch &mdash; pytraj 0.1.2.dev10 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev9',
+        VERSION:     '0.1.2.dev10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev9 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev10 documentation" href="index.html" />
     <link rel="up" title="Cookbook" href="cookbook.html" />
     <link rel="next" title="Weird things in pytraj" href="things_will_be_surprised.html" />
     <link rel="prev" title="Tips for out-of-core loading" href="tips_iterload.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev9</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev10</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -206,45 +206,45 @@ molsurf
 <span class="gp">In [6]: </span><span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gr">Out[6]: </span>
 <span class="go">CpptrajState, include:</span>
-<span class="go">&lt;datasetlist: 4 datasets&gt;</span>
+<span class="go">&lt;datasetlist: 5 datasets&gt;</span>
 
 <span class="gp">In [7]: </span><span class="n">state</span>
 <span class="go">                                                          Out[7]: </span>
 <span class="go">CpptrajState, include:</span>
-<span class="go">&lt;datasetlist: 4 datasets&gt;</span>
+<span class="go">&lt;datasetlist: 5 datasets&gt;</span>
 
 <span class="c"># get some data</span>
 <span class="gp">In [8]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span>
-<span class="go">                                                                                                                    Out[8]: &lt;pytraj.datasets.DatasetList - 4 datasets&gt;</span>
+<span class="go">                                                                                                                    Out[8]: &lt;pytraj.datasets.DatasetList - 5 datasets&gt;</span>
 
 <span class="gp">In [9]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="go">                                                                                                                                                                       Out[9]: [&#39;RMSD_00000&#39;, &#39;RoG_00001&#39;, &#39;RoG_00001[Max]&#39;, &#39;MSURF_00003&#39;]</span>
+<span class="go">                                                                                                                                                                       Out[9]: [&#39;tz2.ortho.parm7&#39;, &#39;RMSD_00001&#39;, &#39;RoG_00002&#39;, &#39;RoG_00002[Max]&#39;, &#39;MSURF_00004&#39;]</span>
 
 <span class="gp">In [10]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">                                                                                                                                                                                                                                            Out[10]: </span>
-<span class="go">&lt;pytraj.datasets.DatasetDouble: size=10, key=RMSD_00000&gt; </span>
-<span class="go">values: </span>
-<span class="go">[ 0.      0.2641  0.386   0.2688  0.2619  0.4576  0.4565  0.4443  0.4363</span>
-<span class="go">  0.4475]</span>
+<span class="go">                                                                                                                                                                                                                                                               Out[10]: &lt;pytraj.datasets.DatasetTopology: size=5293, key=tz2.ortho.parm7&gt; </span>
 
 <span class="gp">In [11]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                            Out[11]: </span>
-<span class="go">&lt;pytraj.datasets.DatasetDouble: size=10, key=MSURF_00003&gt; </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                           Out[11]: </span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=10, key=MSURF_00004&gt; </span>
 <span class="go">values: </span>
 <span class="go">[ 458.5141  459.6478  456.5469  467.7294  462.4591  458.7033  454.4051</span>
 <span class="go">  455.1502  468.7057  456.0059]</span>
 
 <span class="c"># convert data to regular numpy array</span>
 <span class="gp">In [12]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Out[12]: </span>
-<span class="go">array([[   0.    ,    0.2641,    0.386 , ...,    0.4443,    0.4363,</span>
-<span class="go">           0.4475],</span>
-<span class="go">       [  19.0048,   19.0322,   18.9463, ...,   18.9903,   19.0095,</span>
-<span class="go">          18.9636],</span>
-<span class="go">       [  31.5329,   30.9565,   31.7008, ...,   31.8097,   32.2554,</span>
-<span class="go">          30.5383],</span>
-<span class="go">       [ 458.5141,  459.6478,  456.5469, ...,  455.1502,  468.7057,</span>
-<span class="go">         456.0059]])</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Out[12]: </span>
+<span class="go">array([ array([&lt;N-atom, resnum=0, n_bonds=4&gt;, &lt;H1-atom, resnum=0, n_bonds=1&gt;,</span>
+<span class="go">       &lt;H2-atom, resnum=0, n_bonds=1&gt;, ...,</span>
+<span class="go">       &lt;O-atom, resnum=1703, n_bonds=2&gt;, &lt;H1-atom, resnum=1703, n_bonds=2&gt;,</span>
+<span class="go">       &lt;H2-atom, resnum=1703, n_bonds=2&gt;], dtype=object),</span>
+<span class="go">       array([ 0.    ,  0.2641,  0.386 ,  0.2688,  0.2619,  0.4576,  0.4565,</span>
+<span class="go">        0.4443,  0.4363,  0.4475]),</span>
+<span class="go">       array([ 19.0048,  19.0322,  18.9463,  19.0041,  18.953 ,  18.9814,</span>
+<span class="go">        19.0307,  18.9903,  19.0095,  18.9636]),</span>
+<span class="go">       array([ 31.5329,  30.9565,  31.7008,  31.9417,  31.712 ,  31.662 ,</span>
+<span class="go">        31.515 ,  31.8097,  32.2554,  30.5383]),</span>
+<span class="go">       array([ 458.5141,  459.6478,  456.5469,  467.7294,  462.4591,  458.7033,</span>
+<span class="go">        454.4051,  455.1502,  468.7057,  456.0059])], dtype=object)</span>
 </pre></div>
 </div>
 </div>
@@ -272,11 +272,11 @@ molsurf
 <span class="gp">In [16]: </span><span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gr">Out[16]: </span>
 <span class="go">CpptrajState, include:</span>
-<span class="go">&lt;datasetlist: 6 datasets&gt;</span>
+<span class="go">&lt;datasetlist: 7 datasets&gt;</span>
 
 <span class="c"># All datasets are stored in ``state.data``</span>
 <span class="gp">In [17]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span>
-<span class="go">                                                           Out[17]: &lt;pytraj.datasets.DatasetList - 6 datasets&gt;</span>
+<span class="go">                                                           Out[17]: &lt;pytraj.datasets.DatasetList - 7 datasets&gt;</span>
 
 <span class="c"># if you already label your Dataset, you can access to them by using dict-like acessing</span>
 <span class="c"># get Dataset with label `end_to_end` (distance)</span>
@@ -300,7 +300,8 @@ molsurf
 <span class="gp">In [21]: </span><span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
 <span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 <span class="gp">   ....:</span> 
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                        &lt;pytraj.datasets.DatasetDouble: size=101, key=phi&gt; </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                        &lt;pytraj.datasets.DatasetTopology: size=223, key=tz2.parm7&gt; </span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=phi&gt; </span>
 <span class="go">values: </span>
 <span class="go">[-52.7812 -40.6208 -51.2155 ..., -88.9455 -87.1766 -77.0983]</span>
 <span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=psi&gt; </span>
@@ -312,7 +313,7 @@ molsurf
 <span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=end_to_end&gt; </span>
 <span class="go">values: </span>
 <span class="go">[ 15.0506   7.8035   5.8305 ...,  14.829   12.6534  13.3292]</span>
-<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=RMSD_00004&gt; </span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=RMSD_00005&gt; </span>
 <span class="go">values: </span>
 <span class="go">[ 0.      4.0162  6.4142 ...,  8.275   8.1941  7.7792]</span>
 <span class="go">&lt;pytraj.DatasetCoordsCRD, 101 frames, include:</span>

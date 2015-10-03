@@ -25,8 +25,9 @@ Examples
     na = pt.nastruct(traj)
     na
 
-    # get mean and std for each analysis (major groove width, minor, ...)
-    na.mean_and_std()
+    # get values for major groove width
+    na.major
 
-    # get raw data for major groove
-    na.dataset.filter(lambda x : 'major' in x.key)
+    # get values for several parameters
+    for key in ['minor', 'twist', 'incl']:
+        print(na[key])
