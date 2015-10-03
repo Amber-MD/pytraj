@@ -2,14 +2,18 @@ import pytraj as pt
 fn = "../tests/data/Test_NAstruct/adh026.3.pdb"
 traj = pt.load(fn, fn)
 
-d = pt.nucleic_acid_analysis(traj, dtype='dataset')
+d = pt.nastruct(traj)
 print(d)
 
 # get major groove
-print(d.grep("major"))
+print(d.major)
 
-# get major groove mean
-print(d.grep("major").mean())
+# get minor groove
+print(d.minor)
+print(d.minor[1].mean(axis=0))
 
-# get bot major and minir grooves
-print(d.grep(['major', 'minor']).mean())
+# get inclination
+print(d.incl)
+
+# get all supported keys
+print(d.keys())
