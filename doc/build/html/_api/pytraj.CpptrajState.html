@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>API &mdash; pytraj 0.1.2.dev10 documentation</title>
+    <title>pytraj.Trajectory &mdash; pytraj 0.1.2.dev10 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -30,9 +30,7 @@
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev10 documentation" href="../index.html" />
-    <link rel="up" title="API reference" href="../api.html" />
-    <link rel="next" title="pytraj.common_actions" href="pytraj.common_actions.html" />
-    <link rel="prev" title="API reference" href="../api.html" />
+    <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -98,7 +96,9 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">API</a></li>
+<li><a class="reference internal" href="#">pytraj.Trajectory</a><ul>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -107,14 +107,6 @@
             
               
                 
-  <li>
-    <a href="../api.html" title="Previous Chapter: API reference"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; API reference</span>
-    </a>
-  </li>
-  <li>
-    <a href="pytraj.common_actions.html" title="Next Chapter: pytraj.common_actions"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.common... &raquo;</span>
-    </a>
-  </li>
               
             
             
@@ -122,7 +114,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/_api/index.txt"
+  <a href="../_sources/_api/pytraj.CpptrajState.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -146,18 +138,91 @@
   <div class="row">
     <div class="col-md-12">
       
-  <div class="section" id="api">
-<span id="tutorials"></span><h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
-<p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
-<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="pytraj.common_actions.html">pytraj.common_actions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trajectoryiterator.html">pytraj.TrajectoryIterator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pytraj.Trajectory.html">pytraj.Trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pytraj.CpptrajState.html">pytraj.Trajectory</a></li>
-</ul>
+  <div class="section" id="pytraj-trajectory">
+<span id="id1"></span><h1>pytraj.Trajectory<a class="headerlink" href="#pytraj-trajectory" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pytraj.CpptrajState">
+<em class="property">class </em><tt class="descclassname">pytraj.</tt><tt class="descname">CpptrajState</tt><a class="headerlink" href="#pytraj.CpptrajState" title="Permalink to this definition">¶</a></dt>
+<dd><p>CpptrajState hold all data per cpptraj run. This class is for internal use. 
+Check example</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="go">parm tz2.parm7</span>
+<span class="go">trajin tz2.nc</span>
+<span class="go">rms</span>
+<span class="go">distance :2 :3</span>
+<span class="go">&#39;&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_cpptraj_state</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">CpptrajState, include:</span>
+<span class="go">&lt;datasetlist: 3 datasets&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=RMSD_00001&gt;</span>
+<span class="go">values:</span>
+<span class="go">[  2.43182129e-07   4.01623189e+00   6.41421043e+00 ...,   8.27504991e+00</span>
+<span class="go">   8.19405473e+00   7.77917637e+00]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;tz2.parm7&#39;, &#39;RMSD_00001&#39;, &#39;Dis_00002&#39;]</span>
+</pre></div>
 </div>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">data</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">datafilelist</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">datasetlist</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">is_empty</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">run</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pytraj.CpptrajState.datafilelist">
+<tt class="descname">datafilelist</tt><a class="headerlink" href="#pytraj.CpptrajState.datafilelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>datafilelist: pytraj.datafiles.datafiles.DataFileList</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.CpptrajState.datasetlist">
+<tt class="descname">datasetlist</tt><a class="headerlink" href="#pytraj.CpptrajState.datasetlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>datasetlist: pytraj.datasets.DatasetList.DatasetList</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.CpptrajState.is_empty">
+<tt class="descname">is_empty</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.CpptrajState.run">
+<tt class="descname">run</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 

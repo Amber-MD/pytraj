@@ -14,3 +14,5 @@ try ``pytraj`` online:
 
     pytraj.common_actions
     trajectoryiterator
+    pytraj.Trajectory
+    pytraj.CpptrajState
