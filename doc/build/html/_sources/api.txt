@@ -1,6 +1,7 @@
 API reference
 =============
 
+.. note:: syntax might be changed in future
 
 .. container:: custom-index
     
@@ -9,3 +10,4 @@ API reference
         <script type="text/javascript" src='_static/cindex.js'></script>
 
 .. automodule:: pytraj
+.. automodule:: pytraj.common_actions
