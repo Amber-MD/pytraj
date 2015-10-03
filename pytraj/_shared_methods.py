@@ -52,7 +52,7 @@ def _xyz(self):
     if self.n_atoms == 0:
         raise NotImplementedError("need to have non-empty Topology")
     for i, frame in enumerate(self):
-        myview[i] = frame.buffer2d
+        myview[i] = frame._buffer2d
     return myview
 
 
