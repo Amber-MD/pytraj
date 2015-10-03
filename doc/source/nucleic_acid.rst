@@ -45,3 +45,12 @@ Longer Examples
 
     # explain keywords
     print(na._explain())
+
+    # if we have long analysis, we can temporarily save ``na`` to disk by
+    ``pytraj.to_pickle`` and load back later.
+    pt.to_pickle(na, 'na_.pk')
+
+    # load back pickle object
+    na2 = pt.read_pickle('na_.pk')
+    na2
+    na2._summary(np.mean, ['major', 'twist'])
