@@ -27,41 +27,9 @@ try ``pytraj`` online:
     
         <script type="text/javascript" src='_static/cindex.js'></script>
 
-
-- distance_
-- angle_
-- dihedral_ 
-- rmsd_
-- rmsd_perres_
-- pairwise_rmsd_ 
-- radgyr_ 
-- molsurf_ 
-- calc_vector_ 
-- center_of_mass_
-- center_of_geometry_
-- dssp_ 
-- multidihedral_ 
-- bfactors_ 
-- search_hbonds_
-- autoimage_
-- jcoupling_ 
-- density_
-- volume_
-- minimum_distance_
-- lifetime_
-- auto_correlation_function_
-- principal_axes_
-- cross_correlation_function_
-- timecorr_
-- randomize_ions_
-- crank_
-- closest_
-- search_neighbors_
-- watershell_
 - :ref:`nucleic_acid`
 - :ref:`vector_analysis`
 - :ref:`matrix_analysis`
-
 
 .. _distance:
 .. autofunction:: pytraj.distance
