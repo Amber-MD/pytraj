@@ -15,4 +15,5 @@ API reference
 .. autoclass:: pytraj.Trajectory
 .. autoclass:: pytraj.Topology
 .. autoclass:: pytraj.Frame
-.. autoclass:: pytraj.datasets.cpp_datasets
+.. autoclass:: pytraj.CpptrajState
+.. automodule:: pytraj.datasets.cpp_datasets

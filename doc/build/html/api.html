@@ -1895,12 +1895,6 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 <tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">boxview</span></tt></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">buffer1d</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">buffer2d</span></tt></td>
-<td></td>
-</tr>
 <tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">coordinates</span></tt></td>
 <td></td>
 </tr>
@@ -1949,22 +1943,19 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 <tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_by_mask</span></tt>(self,&nbsp;Frame&nbsp;frame,&nbsp;AtomMask&nbsp;atmask)</td>
 <td>Increment atoms in <cite>self</cite> by selected atoms from <cite>frame</cite></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">append_vec3</span></tt>(self,&nbsp;Vec3&nbsp;vec)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">append_xyz</span></tt>(self,&nbsp;__Pyx_memviewslice&nbsp;xyz)</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">append_xyz</span></tt>(self,&nbsp;__Pyx_memviewslice&nbsp;xyz)</td>
 <td>append 3D array and return itself</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">as_3darray</span></tt>(self)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">as_3darray</span></tt>(self)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">atoms</span></tt>(self,&nbsp;int&nbsp;atomnum)</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">atoms</span></tt>(self,&nbsp;int&nbsp;atomnum)</td>
 <td>return xyz coordinates of idx-th atom</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">box_crd</span></tt>(self)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">box_crd</span></tt>(self)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">calc_angle</span></tt>(signatures,&nbsp;args,&nbsp;kwargs,&nbsp;...)</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">calc_angle</span></tt>(signatures,&nbsp;args,&nbsp;kwargs,&nbsp;...)</td>
 <td><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1975,7 +1966,7 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 </table>
 </td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">calc_dihedral</span></tt>(signatures,&nbsp;args,&nbsp;kwargs,&nbsp;...)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">calc_dihedral</span></tt>(signatures,&nbsp;args,&nbsp;kwargs,&nbsp;...)</td>
 <td><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1986,28 +1977,25 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 </table>
 </td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">calc_distance</span></tt>(self,&nbsp;arr[,&nbsp;parallel])</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">calc_distance</span></tt>(self,&nbsp;arr[,&nbsp;parallel])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">calc_inertia</span></tt>(self,&nbsp;AtomMask&nbsp;atm,&nbsp;...)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">calc_inertia</span></tt>(self,&nbsp;AtomMask&nbsp;atm,&nbsp;...)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">calc_temperature</span></tt>(self,&nbsp;AtomMask&nbsp;mask,&nbsp;...)</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">calc_temperature</span></tt>(self,&nbsp;AtomMask&nbsp;mask,&nbsp;...)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">center_of_geometry</span></tt>(self,&nbsp;AtomMask&nbsp;atmask)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">center_of_geometry</span></tt>(self,&nbsp;AtomMask&nbsp;atmask)</td>
 <td>return Vec3</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">center_of_mass</span></tt>(self,&nbsp;AtomMask&nbsp;atmask)</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">center_of_mass</span></tt>(self,&nbsp;AtomMask&nbsp;atmask)</td>
 <td>return Vec3</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">center_on_origin</span></tt>(self,&nbsp;bool&nbsp;useMassIn)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">center_on_origin</span></tt>(self,&nbsp;bool&nbsp;useMassIn)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">check_coords_invalid</span></tt>(self)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">clear_atoms</span></tt>(self)</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">check_coords_invalid</span></tt>(self)</td>
 <td></td>
 </tr>
 <tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">copy</span></tt>(self)</td>
@@ -2034,34 +2022,31 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 <tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">has_velocity</span></tt>(self)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">info</span></tt>(self,&nbsp;char&nbsp;*msg=)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">is_</span></tt>(self,&nbsp;Frame&nbsp;other)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">is_</span></tt>(self,&nbsp;Frame&nbsp;other)</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">is_empty</span></tt>(self)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">is_empty</span></tt>(self)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">neg_translate</span></tt>(self,&nbsp;Vec3&nbsp;vec)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">neg_translate</span></tt>(self,&nbsp;Vec3&nbsp;vec)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">rmsd</span></tt>(self,&nbsp;Frame&nbsp;frame,&nbsp;AtomMask&nbsp;atommask=None)</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">rmsd</span></tt>(self,&nbsp;Frame&nbsp;frame,&nbsp;AtomMask&nbsp;atommask=None)</td>
 <td>Calculate rmsd betwen two frames</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">rmsd_centered_ref</span></tt>(self,&nbsp;Frame&nbsp;ref,&nbsp;...)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">rmsd_centered_ref</span></tt>(self,&nbsp;Frame&nbsp;ref,&nbsp;...)</td>
 <td>Calculate rmsd betwen two frames</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">rmsd_nofit</span></tt>(self,&nbsp;Frame&nbsp;frame,&nbsp;bool&nbsp;mass=False)</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">rmsd_nofit</span></tt>(self,&nbsp;Frame&nbsp;frame,&nbsp;bool&nbsp;mass=False)</td>
 <td>Calculate rmsd betwen two frames without fitting</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></tt>(self[,&nbsp;ref])</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></tt>(self[,&nbsp;ref])</td>
 <td>do the fitting to reference Frame by rotation and translation</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">rotate</span></tt>(self,&nbsp;int&nbsp;x=0,&nbsp;int&nbsp;y=0,&nbsp;int&nbsp;z=0[,&nbsp;...])</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">rotate</span></tt>(self,&nbsp;int&nbsp;x=0,&nbsp;int&nbsp;y=0,&nbsp;int&nbsp;z=0[,&nbsp;...])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">rotate_with_matrix</span></tt>(self,&nbsp;mat,&nbsp;*args)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">rotate_with_matrix</span></tt>(self,&nbsp;mat,&nbsp;*args)</td>
 <td><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2071,9 +2056,6 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 </tbody>
 </table>
 </td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">same_coords_as</span></tt>(self,&nbsp;Frame&nbsp;other)</td>
-<td>check if two frames having the same coords</td>
 </tr>
 <tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt>(self[,&nbsp;filename,&nbsp;top,&nbsp;format,&nbsp;overwrite])</td>
 <td></td>
@@ -2108,16 +2090,13 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 <tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">set_frame_x_m</span></tt>(self,&nbsp;vector[double]&nbsp;Xin,&nbsp;...)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">set_from_crd</span></tt>(self,&nbsp;CRDtype&nbsp;farray,&nbsp;*args)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">set_nobox</span></tt>(self)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">set_nobox</span></tt>(self)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">strip_atoms</span></tt>(self[,&nbsp;mask])</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">strip_atoms</span></tt>(self[,&nbsp;mask])</td>
 <td>Return:</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">swap_atom_array</span></tt>(signatures,&nbsp;args,&nbsp;kwargs,&nbsp;...)</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">swap_atom_array</span></tt>(signatures,&nbsp;args,&nbsp;kwargs,&nbsp;...)</td>
 <td><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2128,7 +2107,7 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 </table>
 </td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">swap_atoms</span></tt>(self,&nbsp;int&nbsp;atom1,&nbsp;int&nbsp;atom2)</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">swap_atoms</span></tt>(self,&nbsp;int&nbsp;atom1,&nbsp;int&nbsp;atom2)</td>
 <td><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2139,14 +2118,11 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 </table>
 </td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">to_dataframe</span></tt>(self[,&nbsp;top])</td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">to_dataframe</span></tt>(self[,&nbsp;top])</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">to_ndarray</span></tt>(self)</td>
-<td>return a ndarray as a view of self.buffer2d</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">tolist</span></tt>(self)</td>
-<td>return a list of 2D coords</td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">to_ndarray</span></tt>(self)</td>
+<td>return a ndarray as a view of self._buffer2d</td>
 </tr>
 <tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">trans_rot_trans</span></tt>(self,&nbsp;Vec3&nbsp;vec3,&nbsp;...)</td>
 <td></td>
@@ -2173,11 +2149,6 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 <tt class="descname">add_by_mask</tt><big>(</big><em>self</em>, <em>Frame frame</em>, <em>AtomMask atmask</em><big>)</big><a class="headerlink" href="#pytraj.Frame.add_by_mask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increment atoms in <cite>self</cite> by selected atoms from <cite>frame</cite></p>
 </dd></dl>
-
-<dl class="method">
-<dt id="pytraj.Frame.append_vec3">
-<tt class="descname">append_vec3</tt><big>(</big><em>self</em>, <em>Vec3 vec</em><big>)</big><a class="headerlink" href="#pytraj.Frame.append_vec3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.Frame.append_xyz">
@@ -2265,11 +2236,6 @@ top.select(&#8221;:3 &lt; :5.0&#8221;) # select all atoms within 5.0 A to residu
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.Frame.clear_atoms">
-<tt class="descname">clear_atoms</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.Frame.clear_atoms" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="pytraj.Frame.copy">
 <tt class="descname">copy</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.Frame.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a copy</p>
@@ -2313,11 +2279,6 @@ frame : Frame instance</p>
 <dl class="method">
 <dt id="pytraj.Frame.has_velocity">
 <tt class="descname">has_velocity</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.Frame.has_velocity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.Frame.info">
-<tt class="descname">info</tt><big>(</big><em>self</em>, <em>char *msg=''</em><big>)</big><a class="headerlink" href="#pytraj.Frame.info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -2401,12 +2362,6 @@ TODO : add assert test</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.Frame.same_coords_as">
-<tt class="descname">same_coords_as</tt><big>(</big><em>self</em>, <em>Frame other</em><big>)</big><a class="headerlink" href="#pytraj.Frame.same_coords_as" title="Permalink to this definition">¶</a></dt>
-<dd><p>check if two frames having the same coords</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="pytraj.Frame.save">
 <tt class="descname">save</tt><big>(</big><em>self</em>, <em>filename=''</em>, <em>top=None</em>, <em>format='unknown'</em>, <em>overwrite=False</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.Frame.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2474,11 +2429,6 @@ TODO : add assert test</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.Frame.set_from_crd">
-<tt class="descname">set_from_crd</tt><big>(</big><em>self</em>, <em>CRDtype farray</em>, <em>*args</em><big>)</big><a class="headerlink" href="#pytraj.Frame.set_from_crd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="pytraj.Frame.set_nobox">
 <tt class="descname">set_nobox</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.Frame.set_nobox" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2534,13 +2484,7 @@ copy : bint, default=False</p>
 <dl class="method">
 <dt id="pytraj.Frame.to_ndarray">
 <tt class="descname">to_ndarray</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.Frame.to_ndarray" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a ndarray as a view of self.buffer2d</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytraj.Frame.tolist">
-<tt class="descname">tolist</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.Frame.tolist" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a list of 2D coords</p>
+<dd><p>return a ndarray as a view of self._buffer2d</p>
 </dd></dl>
 
 <dl class="method">
@@ -2584,11 +2528,137 @@ or (Vec3)</p>
 
 </dd></dl>
 
-<dl class="attribute">
-<dt id="pytraj.datasets.cpp_datasets">
-<tt class="descclassname">pytraj.datasets.</tt><tt class="descname">cpp_datasets</tt><a class="headerlink" href="#pytraj.datasets.cpp_datasets" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#pytraj.datasets.cpp_datasets" title="pytraj.datasets.cpp_datasets"><tt class="xref py py-class docutils literal"><span class="pre">pytraj.datasets.cpp_datasets</span></tt></a></p>
+<dl class="class">
+<dt id="pytraj.CpptrajState">
+<em class="property">class </em><tt class="descclassname">pytraj.</tt><tt class="descname">CpptrajState</tt><a class="headerlink" href="#pytraj.CpptrajState" title="Permalink to this definition">¶</a></dt>
+<dd><p>CpptrajState hold instances of:
++ DatasetList (having output data)
++ DataFileList</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">data</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">datafilelist</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">datasetlist</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_action</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_analysis</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_reference</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_trajin</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_trajout</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">is_empty</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">run</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">run_analyses</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">write_all_datafiles</span></tt></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.CpptrajState.add_action">
+<tt class="descname">add_action</tt><big>(</big><em>self</em>, <em>actobj</em>, <em>arglist</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.add_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>actobj : Action object or str
+arglist : ArgList object or str</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="pytraj.CpptrajState.add_analysis">
+<tt class="descname">add_analysis</tt><big>(</big><em>self</em>, <em>obj</em>, <em>ArgList arglist</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.add_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>temp doc: add_analysis(self, obj, ArgList arglist)
+obj :: Action or Analysis instance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.CpptrajState.add_reference">
+<tt class="descname">add_reference</tt><big>(</big><em>self</em>, <em>*args</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.add_reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>filename : str
+arg : ArgList object, optional</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.CpptrajState.add_trajin">
+<tt class="descname">add_trajin</tt><big>(</big><em>self</em>, <em>arg_or_filename</em>, <em>is_ensemble=None</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.add_trajin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.CpptrajState.add_trajout">
+<tt class="descname">add_trajout</tt><big>(</big><em>self</em>, <em>arg</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.add_trajout" title="Permalink to this definition">¶</a></dt>
+<dd><p>add trajout file</p>
+<p>arg : str or ArgList object</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.CpptrajState.datafilelist">
+<tt class="descname">datafilelist</tt><a class="headerlink" href="#pytraj.CpptrajState.datafilelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>datafilelist: pytraj.datafiles.datafiles.DataFileList</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.CpptrajState.datasetlist">
+<tt class="descname">datasetlist</tt><a class="headerlink" href="#pytraj.CpptrajState.datasetlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>datasetlist: pytraj.datasets.DatasetList.DatasetList</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.CpptrajState.is_empty">
+<tt class="descname">is_empty</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.CpptrajState.run">
+<tt class="descname">run</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.CpptrajState.run_analyses">
+<tt class="descname">run_analyses</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.run_analyses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.CpptrajState.write_all_datafiles">
+<tt class="descname">write_all_datafiles</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.CpptrajState.write_all_datafiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pytraj.datasets.cpp_datasets"></span><dl class="function">
+<dt id="pytraj.datasets.cpp_datasets.elemwise">
+<tt class="descclassname">pytraj.datasets.cpp_datasets.</tt><tt class="descname">elemwise</tt><big>(</big><em>op</em>, <em>self</em>, <em>other=None</em><big>)</big><a class="headerlink" href="#pytraj.datasets.cpp_datasets.elemwise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 
