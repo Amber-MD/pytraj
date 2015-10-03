@@ -21,6 +21,12 @@ try ``pytraj`` online:
 
     `Methods that modify Trajectory coordinates <modify_traj>`_
 
+.. container:: custom-index
+    
+    .. raw:: html
+    
+        <script type="text/javascript" src='_static/cindex.js'></script>
+
 
 - distance_
 - angle_
