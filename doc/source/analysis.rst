@@ -21,12 +21,6 @@ try ``pytraj`` online:
 
     `Methods that modify Trajectory coordinates <modify_traj>`_
 
-.. container:: custom-index
-    
-    .. raw:: html
-    
-        <script type="text/javascript" src='_static/cindex.js'></script>
-
 .. container:: submodule-index
 
     .. rubric:: Submodules
@@ -36,6 +30,13 @@ try ``pytraj`` online:
         nucleic_acid
         vector_analysis
         matrix_analysis
+
+
+.. container:: custom-index
+    
+    .. raw:: html
+    
+        <script type="text/javascript" src='_static/cindex.js'></script>
 
 .. _distance:
 .. autofunction:: pytraj.distance
