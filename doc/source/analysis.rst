@@ -26,10 +26,11 @@ try ``pytraj`` online:
     .. rubric:: Submodules
 
     .. toctree::
+       :maxdepth: 1
 
-        nucleic_acid
-        vector_analysis
-        matrix_analysis
+       nucleic_acid
+       vector_analysis
+       matrix_analysis
 
 
 .. container:: custom-index

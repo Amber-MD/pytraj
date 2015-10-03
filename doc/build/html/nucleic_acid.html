@@ -99,7 +99,7 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Nucleic Acid Analysis</a><ul>
-<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#longer-examples">Longer Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -214,8 +214,8 @@
 </div>
 </dd></dl>
 
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="longer-examples">
+<h2>Longer Examples<a class="headerlink" href="#longer-examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/adh026.3.pdb&#39;</span><span class="p">)</span>
@@ -233,7 +233,7 @@
 <span class="gp">In [5]: </span><span class="n">na</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
 <span class="gp">In [6]: </span><span class="n">na</span>
-<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;shear&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;zp&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">,</span> <span class="s">&#39;tip&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">,</span> <span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;shear&#39;</span><span class="p">,</span> <span class="s">&#39;zp&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;tip&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">]</span><span class="o">&gt;</span>
 
 <span class="c"># get values for major groove width</span>
 <span class="gp">In [7]: </span><span class="n">na</span><span class="o">.</span><span class="n">major</span>

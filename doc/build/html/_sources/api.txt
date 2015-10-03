@@ -9,9 +9,8 @@ API reference
     
         <script type="text/javascript" src='_static/cindex.js'></script>
 
+.. toctree::
+   :maxdepth: 2
 
-.. automodule:: pytraj.common_actions
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
+   _api/index
+
