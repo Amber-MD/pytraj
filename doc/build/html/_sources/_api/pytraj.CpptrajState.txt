@@ -1,7 +1,7 @@
 .. _pytraj.trajectory:
 
-pytraj.Trajectory
-=================
+pytraj.CpptrajState
+===================
 
 .. container:: custom-index
     
