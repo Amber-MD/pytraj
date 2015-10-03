@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# <span style="color:blue; font-family:Georgia; font-size:3em;"> **Calculate pairwise RMSD for trajectory and plot** </span>
+# <span style="color:blue; font-family:Georgia; font-size:3em;"> Calculate pairwise RMSD for trajectory and plot </span>
 
 # In[1]:
 

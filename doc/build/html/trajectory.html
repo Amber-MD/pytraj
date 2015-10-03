@@ -169,13 +169,14 @@
 </div>
 <div class="section" id="overview">
 <h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><ul class="simple">
-<li>an immutable <a class="reference internal" href="_api/trajectoryiterator.html#trajectoryiterator"><em>pytraj.TrajectoryIterator</em></a> (work-horse of pytraj).
-This class offers out-of-core data store with easiness to load data to memory.</li>
-<li>a mutable <cite>Trajectory</cite>. This class hold in-memory data.</li>
+<p>There are two types of trajecoties in <tt class="docutils literal"><span class="pre">pytraj</span></tt>.</p>
+<ul class="simple">
+<li>an immutable <a class="reference internal" href="_api/trajectoryiterator.html#pytraj.TrajectoryIterator" title="pytraj.TrajectoryIterator"><tt class="xref py py-class docutils literal"><span class="pre">pytraj.TrajectoryIterator</span></tt></a> (work-horse of pytraj).</li>
 </ul>
-</div></blockquote>
+<p>This class offers out-of-core data store with easiness to load data to memory.</p>
+<ul class="simple">
+<li>a mutable <a class="reference internal" href="_api/pytraj.Trajectory.html#pytraj.Trajectory" title="pytraj.Trajectory"><tt class="xref py py-class docutils literal"><span class="pre">pytraj.Trajectory</span></tt></a>. This class hold in-memory data. It is suitable for loading a chunk of snapshots.</li>
+</ul>
 </div>
 <div class="section" id="why-are-there-two-trajectory-classes">
 <h2><a class="toc-backref" href="#id3">Why are there two trajectory classes?</a><a class="headerlink" href="#why-are-there-two-trajectory-classes" title="Permalink to this headline">¶</a></h2>

@@ -19,12 +19,17 @@ try ``pytraj`` online:
 
 Overview
 --------
-     * an immutable :ref:`trajectoryiterator` (work-horse of pytraj).
-       This class offers out-of-core data store with easiness to load data to memory. 
-     * a mutable `Trajectory`. This class hold in-memory data.
+
+There are two types of trajecoties in ``pytraj``.
+
+- an immutable :class:`pytraj.TrajectoryIterator` (work-horse of pytraj).
+This class offers out-of-core data store with easiness to load data to memory. 
+
+- a mutable :class:`pytraj.Trajectory`. This class hold in-memory data. It is suitable for loading a chunk of snapshots.
 
 Why are there two trajectory classes?
 -------------------------------------
+
 See our rationale here :ref:`design_trajectory`
 
 Try it
