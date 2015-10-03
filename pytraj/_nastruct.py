@@ -4,7 +4,7 @@ from __future__ import absolute_import
 import numpy as np
 from ._base_result_class import BaseAnalysisResult
 from .externals.six import string_types
-from ._get_common_objects import _get_topology, _get_data_from_dtype
+from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_resrange
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
 from pytraj.externals.six import iteritems
 
@@ -26,20 +26,25 @@ def _group(self, key):
 
 def nastruct(traj=None,
              ref=0,
-             mask="",
+             resrange=None,
              resmap=None,
-             hbcut=None,
+             hbcut=3.5,
              frame_indices=None,
+             pucker_method='altona',
              top=None):
-    """compute nucleic acid parameters.
+    """compute nucleic acid parameters. (adapted from cpptraj doc)
 
     Parameters
     ----------
     traj : Trajectory-like
     ref : {Frame, int}, default 0 (first frame)
-    mask : atom mask
+    resrange : None, str or array-like of integers
     resmap : residue map, example: 'AF2:A'
-    hbcut : float
+    hbcut : float, default=3.5 Angstrong
+        Distance cutoff for determining basepair hbond
+    pucker_method : str, {'altona', 'cremer'}, default 'altona'
+        'altona' : Use method of Altona & Sundaralingam to calculate sugar pucker
+        'cremer' : Use method of Cremer and Pople to calculate sugar pucker'
     frame_indices : array-like, default None (all frames)
 
     Returns
@@ -80,30 +85,24 @@ def nastruct(traj=None,
     from .actions.CpptrajActions import Action_NAstruct
     from pytraj.array import DataArray
 
+    _resrange = _get_resrange(resrange)
+
     fi = _get_fiterator(traj, frame_indices)
     _ref = _get_reference_from_traj(traj, ref)
     _top = _get_topology(traj, top)
     _resmap = "resmap " + resmap if resmap is not None else ""
     _hbcut = "hbcut " + str(hbcut) if hbcut is not None else ""
+    _pucker_method = pucker_method
 
-    if not isinstance(mask, string_types):
-        # [1, 3, 5] to "@1,3,5
-        mask = to_cpptraj_atommask(mask)
-
-    command = " ".join((mask, _resmap, _hbcut))
+    command = " ".join((_resrange, _resmap, _hbcut, _pucker_method))
 
     act = Action_NAstruct()
     dslist = CpptrajDatasetList()
 
     act(command, [_ref, fi], dslist=dslist, top=_top)
 
-    # need to update key to avoid duplicate (same key with different
-    # aspect)
     dslist_py = []
     for d in dslist:
-        # for panda's dataframe
-        #d.key = 'nuc_' + d.key + "_" + d.aspect
-        # exclude reference value
         dslist_py.append(DataArray(d))
         dslist_py[-1].values = dslist_py[-1].values[1:]
     return nupars(_group(dslist_py, lambda x : x.aspect))
@@ -177,3 +176,33 @@ class nupars(object):
             return sumlist[0]
         else:
             return sumlist
+
+    def _explain(self):
+        '''copied from cpptraj doc
+        '''
+        return '''
+        [shear] Base pair shear.
+        [stretch] Base pair stretch.
+        [stagger] Base pair stagger.
+        [buckle] Base pair buckle.
+        [prop] Base pair propeller.
+        [open] Base pair opening.
+        [hb] Number of hydrogen bonds between bases in base pair.
+        [pucker] Base sugar pucker.
+        [major] Rough estimate of major groove width, calculated between P atoms of each
+        base.
+        [minor] Rough estimate of minor groove width, calculated between O4 atoms of
+        each base.
+        [shift] Base pair step shift.
+        [slide] Base pair step slide.
+        [rise] Base pair step rise.
+        [title] Base pair step tilt.
+        [roll] Base pair step roll.
+        [twist] Base pair step twist.
+        [xdisp] Helical X displacement.
+        [ydisp] Helical Y displacement.
+        [hrise] Helical rise.
+        [incl] Helical inclination.
+        [tip] Helical tip.
+        [htwist] Helical twist.
+        '''

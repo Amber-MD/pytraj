@@ -11,6 +11,7 @@ class TestNastruct(unittest.TestCase):
         traj = pt.iterload(fn, fn)
         data= pt.nastruct(traj)
 
+        # default
         text = '''
         parm "./data/Test_NAstruct/adh026.3.pdb"
         trajin "./data/Test_NAstruct/adh026.3.pdb"
@@ -32,6 +33,7 @@ class TestNastruct(unittest.TestCase):
         data._summary(np.mean, keys=['major', 'twist'], indices=[1,])
         data._summary(np.std, indices=[1,])
 
+        print(data._explain())
 
 if __name__ == "__main__":
     unittest.main()

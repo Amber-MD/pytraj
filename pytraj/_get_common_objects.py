@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 # do not import anything else here.
-from .externals.six import string_types
+from pytraj.externals.six import string_types
 
 def _load_Topology(filename):
     from pytraj import Topology, ParmFile
@@ -125,3 +125,31 @@ def _get_fiterator(traj, frame_indices=None):
         if not isinstance(traj, (Trajectory, TrajectoryIterator)):
             raise ValueError('only support frame_indices for TrajectoryIterator or Trajectory')
         return traj.iterframe(frame_indices=frame_indices)
+
+def _get_resrange(resrange):
+    '''return resrange as a string
+
+    Examples
+    --------
+    >>> _get_resrange('1-3')
+    'resrange 1-3'
+    >>> _get_resrange(range(3))
+    'resrange 1,2,3'
+    >>> _get_resrange([2, 5, 7])
+    'resrange 3,6,8'
+    >>> _get_resrange(None)
+    ''
+    '''
+    from pytraj.utils import convert, is_int
+
+    if resrange is not None:
+        if is_int(resrange):
+            resrange = [resrange, ]
+        if isinstance(resrange, string_types):
+            _resrange = "resrange " + resrange
+        else:
+            _resrange = convert.array_to_cpptraj_range(resrange)
+            _resrange = "resrange " + str(_resrange)
+    else:
+        _resrange = ""
+    return _resrange
