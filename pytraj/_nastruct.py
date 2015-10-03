@@ -55,29 +55,26 @@ def nastruct(traj=None,
     >>> data.keys()[:5]
     ['buckle', 'minor', 'major', 'xdisp', 'stagger']
     >>> # get minor groove width values for each pairs for each snapshot
-    >>> # data.minor is a tuple, first value is a list of basepairs, seconda value is 
-    >>> # numpy array, shape=(n_pairs, n_frames)
-    >>> data.minor
-    (['1G16C', '2G15C', '3G14C', '4C13G', '5G12C', '6C11G', '7C10G', '8C9G'],
-    array([[ 13.32927036,  13.32002068,  13.34087658],
-           [ 13.403409  ,  13.45918751,  13.53778553],
-           [ 13.57159901,  13.63253593,  13.57062435],
-           ...,
-           [ 13.26655865,  13.27066231,  13.29017353],
-           [ 13.43054485,  13.42743683,  13.38542843],
-           [ 13.4557209 ,  13.53450871,  13.46101475]]))
+    >>> # data.minor is a tuple, first value is a list of basepairs, seconda value is
+    >>> # numpy array, shape=(n_frames, n_pairs)
 
-    >>> # create a numpy array
-    >>> np.array([s.minor[0], s.minor[1].T])
-    array([['1G16C', '2G15C', '3G14C', '4C13G', '5G12C', '6C11G', '7C10G', '8C9G'],
-           array([[ 13.32927036,  13.403409  ,  13.57159901, ...,  13.26655865,
+    >>> data.minor
+    (['1G16C', '2G15C', '3G14C', '4C13G', '5G12C', '6C11G', '7C10G', '8C9G'], 
+     array([[ 13.32927036,  13.403409  ,  13.57159901, ...,  13.26655865,
              13.43054485,  13.4557209 ],
            [ 13.32002068,  13.45918751,  13.63253593, ...,  13.27066231,
              13.42743683,  13.53450871],
            [ 13.34087658,  13.53778553,  13.57062435, ...,  13.29017353,
-             13.38542843,  13.46101475]])], dtype=object)
-    
-    
+             13.38542843,  13.46101475]]))
+
+    >>> data.twist
+    (['1G16C-2G15C', '2G15C-3G14C', '3G14C-4C13G', '4C13G-5G12C', '5G12C-6C11G', '6C11G-7C10G', '7C10G-8C9G'], 
+    array([[ 34.77773666,  33.98158646,  30.18647003, ...,  35.14608765,
+             33.9628334 ,  33.13056946],
+           [ 33.39176178,  32.68476105,  28.36385536, ...,  36.59774399,
+             30.20827484,  26.48732948],
+           [ 36.20665359,  32.58955002,  27.47707367, ...,  33.42843246,
+             30.90047073,  33.73724365]]))
     """
     from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_NAstruct
@@ -141,7 +138,7 @@ class nupars(object):
         for idx, arr0 in enumerate(data):
             keylist.append(arr0.key)
             arr[idx] = arr0.values
-        return keylist, arr
+        return keylist, arr.T
 
     def keys(self):
         return list(self._dict)
