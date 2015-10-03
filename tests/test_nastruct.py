@@ -26,6 +26,12 @@ class TestNastruct(unittest.TestCase):
             cpp_data = cpp_data.T
             aa_eq(data[key][1], cpp_data)
 
+        # TODO: assert
+        data._summary(np.mean, indices=None)
+        data._summary(np.mean, indices=[1,])
+        data._summary(np.mean, keys=['major', 'twist'], indices=[1,])
+        data._summary(np.std, indices=[1,])
+
 
 if __name__ == "__main__":
     unittest.main()

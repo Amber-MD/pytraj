@@ -147,3 +147,25 @@ class nupars(object):
         '''for autocompletion in ipython
         '''
         return self.keys()
+
+    def _summary(self, op, keys=None, indices=None):
+        '''
+        Parameters
+        op : numpy method
+        keys: optional
+        indices : optional
+
+        Examples
+        --------
+        self._summary(np.mean, indices=range(2, 8))
+        '''
+        _keys = keys if keys is not None else self.keys()
+
+        sumdict = {}
+        for k in _keys:
+            values = self[k][1]
+            if indices is None:
+                sumdict[k] = op(values, axis=1)
+            else:
+                sumdict[k] = op(values[indices], axis=1)
+        return sumdict
