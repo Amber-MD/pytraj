@@ -6,9 +6,7 @@
 # require: matplotlib, seaborn, pytraj
 # how? "conda install matplotib seaborn"
 
-# add some notebook configs to make prettier plot.
 get_ipython().magic('matplotlib inline')
-get_ipython().magic("config InlineBackend.figure_format = 'retina'")
 
 # add matplotlib and seaborn package
 # http://matplotlib.org/
