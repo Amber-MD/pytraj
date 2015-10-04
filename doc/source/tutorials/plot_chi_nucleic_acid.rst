@@ -11,4 +11,5 @@ Nucleic acid torsion angle distribution
 
 .. image:: ../images/chi_nucleic_analysis.png
 
+.. raw:: html
 .. include:: ./chi_nucleic_analysis.html
