@@ -66,6 +66,7 @@ Welcome
 
 **Indices and tables**
 
+* `fork and contribute<https://github.com/Amber-MD/pytraj>`_
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
