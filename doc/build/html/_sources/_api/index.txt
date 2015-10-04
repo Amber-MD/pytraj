@@ -9,6 +9,7 @@ try ``pytraj`` online:
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
 
+.. autosummary::
 .. toctree::
     :maxdepth: 1
 
