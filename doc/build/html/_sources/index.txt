@@ -23,7 +23,16 @@ try ``pytraj`` online:
 ``pytraj`` is a Python front-end of the popular ``cpptraj`` package. Its aim is to expose
 ``cpptraj``'s funtions to Python's ecosystem. Enjoy.
 
-**Contents**
+.. raw:: html
+
+   </div>
+   <div class="col-md-3">
+   <h2>Overview</h2>
+
+.. toctree::
+   :maxdepth: 2
+
+   overview
 
 .. raw:: html
 
@@ -34,7 +43,6 @@ try ``pytraj`` online:
 .. toctree::
    :maxdepth: 1
 
-   overview
    installation
    trajectory
    topology
@@ -58,10 +66,11 @@ try ``pytraj`` online:
 
    </div>
    <div class="col-md-3">
-   <h2>Features</h2>
+   <h2>Try pytraj online</h2>
 
 .. image:: images/PCA_heart.png
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
 
 **Indices and tables**
 
