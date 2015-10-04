@@ -16,4 +16,4 @@ try ``pytraj`` online:
     trajectoryiterator
     pytraj.Trajectory
     pytraj.CpptrajState
-    pytraj.frameiter.FrameIter
+    pytraj.FrameIter
