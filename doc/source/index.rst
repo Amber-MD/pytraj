@@ -62,7 +62,6 @@ Welcome
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
 |
-|
 
 **Indices and tables**
 
