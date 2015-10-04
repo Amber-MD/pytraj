@@ -14,3 +14,4 @@ try ``pytraj`` online:
     plot_correlation_matrix
     tut_pairwise_rmsd
     plot_phipsi_trpcage
+    plot_rmsd_radgyr_correlation
