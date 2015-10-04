@@ -652,9 +652,11 @@ def calc_radgyr(traj=None,
 
 def calc_molsurf(traj=None,
                  mask="",
-                 top=None,
+                 probe=1.4,
+                 offset=0.0,
                  dtype='ndarray',
-                 frame_indices=None, *args, **kwd):
+                 frame_indices=None,
+                 top=None):
     '''calc molsurf
 
     Examples
@@ -662,16 +664,19 @@ def calc_molsurf(traj=None,
     >>> pt.molsurf(traj, '@CA')
     >>> pt.molsurf(traj, '!:WAT')
     '''
-    traj = _get_fiterator(traj, frame_indices)
+    fi = _get_fiterator(traj, frame_indices)
+    _probe = 'probe ' + str(probe)
+    _offset = 'offset ' + str(offset) if offset != 0. else ''
+
     if not isinstance(mask, string_types):
         mask = array_to_cpptraj_atommask(mask)
-    command = mask
+    command = ' '.join((mask, _probe, _offset))
 
     act = CpptrajActions.Action_Molsurf()
 
     _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(command, fi, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype)
 
 
