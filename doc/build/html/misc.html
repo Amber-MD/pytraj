@@ -449,13 +449,13 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 
 <dl class="function">
 <dt id="pytraj.tools.split_parmed_by_residues">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">split_parmed_by_residues</tt><big>(</big><em>struct</em>, <em>start=0</em>, <em>stop=-1</em>, <em>stride=1</em><big>)</big><a class="headerlink" href="#pytraj.tools.split_parmed_by_residues" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.tools.</tt><tt class="descname">split_parmed_by_residues</tt><big>(</big><em>struct</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em><big>)</big><a class="headerlink" href="#pytraj.tools.split_parmed_by_residues" title="Permalink to this definition">¶</a></dt>
 <dd><p>split <cite>ParmEd</cite>&#8216;s Structure into different residue</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.tools.split_traj_by_residues">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">split_traj_by_residues</tt><big>(</big><em>traj</em>, <em>start=0</em>, <em>stop=-1</em>, <em>stride=1</em><big>)</big><a class="headerlink" href="#pytraj.tools.split_traj_by_residues" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.tools.</tt><tt class="descname">split_traj_by_residues</tt><big>(</big><em>traj</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em><big>)</big><a class="headerlink" href="#pytraj.tools.split_traj_by_residues" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a generator</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">split_traj_by_residues</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
