@@ -143,7 +143,7 @@ def iterload(*args, **kwd):
     >>> # load all files with given pattern
     >>> traj = pt.iterload('./traj*.nc', '2koc.parm7')
 
-    >>> # load from a list of files with given frame stride
+    >>> # load from a list of files with given frame step
     >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10, 2),]*2)
     """
     if kwd and 'frame_indices' in kwd.keys():

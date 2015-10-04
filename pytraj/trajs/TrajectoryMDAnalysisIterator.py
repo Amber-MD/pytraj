@@ -51,7 +51,7 @@ class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator):
             fa = Trajectory()
             fa.top = self.top
             atom_groups = self._ext_holder.atoms
-            start, stop, stride = idx.indices(self.n_frames)
+            start, stop, step = idx.indices(self.n_frames)
 
             try:
                 # if MDAnalysis object support slicing
@@ -65,7 +65,7 @@ class TrajectoryMDAnalysisIterator(TrajectoryBaseIterator):
                 count = start
                 while count < stop:
                     fa.append(self[count], copy=False)
-                    count += stride
+                    count += step
                 return fa
         else:
             raise NotImplementedError()

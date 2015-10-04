@@ -13,11 +13,11 @@ class FrameIter(object):
     ----------
     top : new Topology
     original_top : original Topology
-    start, stop, stride : int
+    start, stop, step : int
     mask : str, defaul ""
         only take atom with given mask
     frame_indices : iterable, default: None
-        if frame_indices is not None: ignore (start, stop, stride)
+        if frame_indices is not None: ignore (start, stop, step)
     autoimage : bool, default: False
         if autoimage, perform autoimage
     rmsfit : int or a tuple, defaul False
@@ -31,19 +31,19 @@ class FrameIter(object):
 
     Examples
     --------
-    >>> # create FrameIter with start, stop, stride = 0, 8, 2
+    >>> # create FrameIter with start, stop, step = 0, 8, 2
     >>> # autoimage=False, rmsfit=False
     >>> traj.iterframe(0, 8, 2)
 
-    >>> # create FrameIter with start, stop, stride = 2, 8, 1
+    >>> # create FrameIter with start, stop, step = 2, 8, 1
     >>> # autoimage=False, rmsfit=False
     >>> traj.iterframe(2, 8)
 
-    >>> # create FrameIter with start, stop, stride = 2, 8, 1
+    >>> # create FrameIter with start, stop, step = 2, 8, 1
     >>> # autoimage=False, rmsfit=False, mask='@CA'
     >>> traj.iterframe(2, 8, mask='@CA')
 
-    >>> # create FrameIter with start, stop, stride = 2, 8, 1
+    >>> # create FrameIter with start, stop, step = 2, 8, 1
     >>> # autoimage=True, rmsfit=False, mask='@CA'
     >>> traj.iterframe(2, 8, autoimage=True, mask='@CA')
     """
@@ -53,7 +53,7 @@ class FrameIter(object):
                  new_top=None,
                  start=0,
                  stop=-1,
-                 stride=1,
+                 step=1,
                  mask="",
                  autoimage=False,
                  rmsfit=None,
@@ -66,7 +66,7 @@ class FrameIter(object):
         self.frame_iter = fi_generator
         self.start = start
         self.stop = stop
-        self.stride = stride
+        self.step = step
         self.mask = mask
         self.autoimage = autoimage
         self.rmsfit = rmsfit
@@ -95,8 +95,8 @@ class FrameIter(object):
 
     def __str__(self):
         root_msg = '<FrameIter with '
-        root_msg2 = 'start=%s, stop=%s, stride=%s, n_frames=%s, \n' % (
-            self.start, self.stop, self.stride, self.n_frames)
+        root_msg2 = 'start=%s, stop=%s, step=%s, n_frames=%s, \n' % (
+            self.start, self.stop, self.step, self.n_frames)
         root_msg3 = 'frame_indices=%s, \n' % self.frame_indices
 
         more_msg = 'mask=%s, autoimage=%s, rmsfit=%s, copy=%s> \n' % (

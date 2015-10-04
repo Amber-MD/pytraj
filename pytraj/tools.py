@@ -370,7 +370,7 @@ def get_parmed_info(its_obj, att):
     return np.asarray([getattr(atom, att) for atom in its_obj.atoms])
 
 
-def split_parmed_by_residues(struct, start=0, stop=-1, stride=1):
+def split_parmed_by_residues(struct, start=0, stop=-1, step=1):
     '''split `ParmEd`'s Structure into different residue
     '''
     from pytraj.compat import range
@@ -378,13 +378,13 @@ def split_parmed_by_residues(struct, start=0, stop=-1, stride=1):
 
     _stop = get_positive_idx(stop, len(struct.residues))
 
-    for i in range(start, _stop, stride):
+    for i in range(start, _stop, step):
         j = ':' + str(i + 1)
         # example: traj[':3']
         yield struct[j]
 
 
-def split_traj_by_residues(traj, start=0, stop=-1, stride=1):
+def split_traj_by_residues(traj, start=0, stop=-1, step=1):
     '''return a generator
 
     Examples
@@ -398,7 +398,7 @@ def split_traj_by_residues(traj, start=0, stop=-1, stride=1):
 
     _stop = get_positive_idx(stop, traj.top.n_residues)
 
-    for i in range(start, _stop, stride):
+    for i in range(start, _stop, step):
         j = ':' + str(i + 1)
         # example: traj[':3']
         yield traj[j]

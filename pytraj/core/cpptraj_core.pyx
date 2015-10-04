@@ -671,10 +671,10 @@ def _load_batch(txt, traj=None):
 
         for fname, frame_slice in zip(traj.filelist, traj.frame_slice_list):
             if len(frame_slice) == 3:
-                start, stop, stride = frame_slice
+                start, stop, step = frame_slice
             elif len(frame_slice) == 2:
                 start, stop = frame_slice
-                stride = 1
+                step = 1
             else:
                 raise ValueError('invalid frame_slice')
             if stop == -1:
@@ -685,7 +685,7 @@ def _load_batch(txt, traj=None):
                 _stop = stop
             # add 1 to start since cpptraj ise 1-based index for trajin
             start = start + 1
-            lines_0.append('trajin {0} {1} {2} {3}\n'.format(fname, str(start), str(_stop), str(stride)))
+            lines_0.append('trajin {0} {1} {2} {3}\n'.format(fname, str(start), str(_stop), str(step)))
 
         # add parm, trajin to lines
         lines = lines_0 + lines
