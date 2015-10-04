@@ -5,8 +5,9 @@
 import numpy as np
 from mpi4py import MPI
 from pytraj.parallel import map as pymap
-from pytraj import io
-import pytraj.common_actions as pyca
+
+# load pytraj
+import pytraj as pt
 
 comm = MPI.COMM_WORLD
 # end. you are free to update anything below here
@@ -17,19 +18,17 @@ traj_name = root_dir + "/tz2.ortho.nc"
 parm_name = root_dir + "/tz2.ortho.parm7"
 
 # load to TrajectoryIterator
-traj = io.iterload(traj_name, parm_name)
+traj = pt.iterload(traj_name, parm_name)
 
 # mapping different chunk of `traj` in N cores
 # need to provide `comm`
 # save `total_arr` to rank=0
 # others: total_arr = None
-total_arr = pymap(comm, pyca.search_hbonds, traj, "",
-                  dtype='dict',
-                  top=traj.top,
-                  root=0)
+total_arr = pymap(comm, pt.search_hbonds, traj, ':1-13',
+                  dtype='dict')
 
 if comm.rank != 0:
     assert total_arr is None
 
 if comm.rank == 0:
-    io.to_pickle(total_arr, 'output/test_dict_pickle.pk')
+    pt.to_pickle(total_arr, 'output/hbond_data.pk')
