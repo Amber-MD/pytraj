@@ -174,7 +174,7 @@ html_theme_options = {
     # as "amelia" or "cosmo".
     #
     # Note that this is served off CDN, so won't be available offline.
-    'bootswatch_theme': "Spacelab",
+    'bootswatch_theme': "spacelab",
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
