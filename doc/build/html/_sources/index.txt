@@ -69,6 +69,8 @@ try ``pytraj`` online:
 .. image:: images/PCA_heart.png
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
+|
+|
 
 **Indices and tables**
 
