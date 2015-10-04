@@ -9,4 +9,5 @@ pytraj.Trajectory
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
+.. autosummary::
 .. autoclass:: pytraj.Trajectory
