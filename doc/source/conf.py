@@ -15,20 +15,25 @@
 
 import sys
 import os
-import sphinx_bootstrap_theme
-import alabaster
 
-html_theme_path = [alabaster.get_path()]
-extensions = ['alabaster']
-html_theme = 'alabaster'
-html_sidebars = {
-    '**': [
-        'about.html',
-        'navigation.html',
-        'relations.html',
-        'searchbox.html',
-    ]
-}
+# sphinx_bootstrap_theme
+import sphinx_bootstrap_theme
+html_theme = 'bootstrap'
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+
+# alabaster theme
+#import alabaster
+#html_theme_path = [alabaster.get_path()]
+#extensions = ['alabaster']
+#html_theme = 'alabaster'
+#html_sidebars = {
+#    '**': [
+#        'about.html',
+#        'navigation.html',
+#        'relations.html',
+#        'searchbox.html',
+#    ]
+#}
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -155,11 +160,9 @@ pygments_style = 'sphinx'
 #html_theme = 'nature'
 #html_theme = 'classic'
 #html_theme = 'default'
-html_theme = 'alabaster'
+#html_theme = 'alabaster'
 #html_theme = 'msmb_theme'
 
-#html_theme = 'bootstrap'
-#html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
