@@ -12,3 +12,5 @@ try ``pytraj`` online:
     :maxdepth: 1
 
     plot_correlation_matrix
+    tut_pairwise_rmsd
+    plot_phipsi_trpcage
