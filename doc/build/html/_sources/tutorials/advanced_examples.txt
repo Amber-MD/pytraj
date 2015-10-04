@@ -1,7 +1,7 @@
 .. _plot_tutorials:
 
-Plots
-=====
+Advanced examples
+=================
 
 try ``pytraj`` online:
 
