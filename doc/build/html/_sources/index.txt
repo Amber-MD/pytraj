@@ -60,8 +60,6 @@ try ``pytraj`` online:
    cookbook
    api
 
-`Contributors <https://github.com/Amber-MD/pytraj/blob/master/contributors/pytraj.rst>`_
-
 .. raw:: html
 
    </div>
