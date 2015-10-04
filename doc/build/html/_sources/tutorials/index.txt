@@ -13,6 +13,7 @@ try ``pytraj`` online:
     :maxdepth: 2
 
     basic_examples
+    plot
     tut_pairwise_rmsd
     plot_phipsi_trpcage
     hbonds

@@ -5,5 +5,9 @@
 + sphinx: I am using v1.2.3
 + numpy
 + matplotlib
++ seaborn: v0.0.6
 + jupyter (conda install jupyter)
 + sphinx_bootstrap_theme: I am using v0.4.7
+
+Most above packages can be installed via conda
+    example: conda install matplotlib seaborn numpy jupyter
