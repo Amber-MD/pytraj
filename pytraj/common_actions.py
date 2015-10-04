@@ -1151,9 +1151,10 @@ def do_clustering(traj=None,
                   dtype='dataset',
                   dslist=None,
                   dflist=None):
-    """
+    """perform clustering. (outdated)
+
     Parameters
-    ---------
+    ----------
     traj : Trajectory-like | list of Trajectory-like | frame or chunk iterator
     command : cpptraj command
     top : Topology, optional
@@ -1165,7 +1166,7 @@ def do_clustering(traj=None,
 
     Examples
     --------
-        do_clustering(traj, "kmeans clusters 50 @CA")
+    >>> do_clustering(traj, "kmeans clusters 50 @CA")
 
     Returns
     -------
