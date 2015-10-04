@@ -13,7 +13,7 @@ try ``pytraj`` online:
     :maxdepth: 2
 
     basic_examples
-    plot
-    hbonds
     load_pdb_rcsb
+    plot
     mdtraj_adapted
+    advanced_examples

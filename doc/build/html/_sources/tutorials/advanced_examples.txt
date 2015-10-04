@@ -1,6 +1,6 @@
-.. _hbond_tutorial:
+.. _plot_tutorials:
 
-Hbond
+Plots
 =====
 
 try ``pytraj`` online:
@@ -8,5 +8,7 @@ try ``pytraj`` online:
 .. image:: http://mybinder.org/badge.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
-.. notebook:: data/hbonds_tutorial.ipynb
-   :skip_exceptions:
+.. toctree::
+    :maxdepth: 1
+
+    hbonds
