@@ -15,3 +15,4 @@ try ``pytraj`` online:
     tut_pairwise_rmsd
     plot_phipsi_trpcage
     plot_rmsd_radgyr_correlation
+    plot_chi_nucleic_acid
