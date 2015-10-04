@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Hbond tutorial (advanced) &mdash; pytraj 0.1.2.dev10 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.2.dev10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev10 documentation" href="../index.html" />
+    <link rel="up" title="Tutorials" href="index.html" />
+    <link rel="next" title="Fetch pdb" href="load_pdb_rcsb.html" />
+    <link rel="prev" title="Ramachandran plot" href="plot_phipsi_trpcage.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev10</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Hbond tutorial (advanced)</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="plot_phipsi_trpcage.html" title="Previous Chapter: Ramachandran plot"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Ramachandran ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="load_pdb_rcsb.html" title="Next Chapter: Fetch pdb"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Fetch pdb &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/tutorials/hbonds.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="hbond-tutorial-advanced">
+<span id="hbond-tutorial"></span><h1>Hbond tutorial (advanced)<a class="headerlink" href="#hbond-tutorial-advanced" title="Permalink to this headline">¶</a></h1>
+<p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
+<div class="ipynotebook" id="notebook-container">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># load data</span>
+<span class="c"># pdb file from: http://www.rcsb.org/pdb/explore/explore.do?pdbId=1l2y</span>
+
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;1L2Y.pdb&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;1L2Y.pdb&#39;</span><span class="p">)</span>
+<span class="n">traj</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pytraj.TrajectoryIterator, 38 frames, include:
+&lt;Topology: 304 atoms, 20 residues, 1 mols, non-PBC&gt;&gt;
+           </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># search hbonds for all residues</span>
+<span class="c"># dump data to `dataset` (similiar to python&#39;list and dict)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<span class="c"># 0: no hbond</span>
+<span class="c"># 1: there is hbond</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;pytraj.DatasetList with 32 datasets&gt;
+total_solute_hbonds
+[6 7 8 ..., 7 6 6]
+
+ASN1_O-GLN5_N-H
+[1 0 0 ..., 0 0 0]
+
+ARG16_O-TRP6_NE1-HE1
+[1 1 1 ..., 1 1 1]
+...
+
+ASP9_OD2-SER14_OG-HG
+[0 0 0 ..., 0 0 0]
+
+ASP9_OD2-ARG16_NH1-HH11
+[0 0 0 ..., 0 0 0]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># get total solute hbonds</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">&#39;total_solute_hbonds&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;pytraj.array.DataArray: size=38, key=total_solute_hbonds, dtype=int32, ndim=1&gt; 
+values:
+[6 7 8 ..., 7 6 6]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># take data for specific hbond</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">&#39;ARG16_O-TRP6_NE1-HE1&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;pytraj.array.DataArray: size=38, key=ARG16_O-TRP6_NE1-HE1, dtype=int32, ndim=1&gt; 
+values:
+[1 1 1 ..., 1 1 1]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># take hbond for only ASP9</span>
+<span class="n">glu5</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s">&#39;ASP9&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">glu5</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&apos;ASP9_O-SER14_OG-HG&apos;, &apos;ASP9_OD2-ARG16_NH1-HH12&apos;, &apos;ASP9_OD2-ARG16_NH2-HH22&apos;, &apos;ASP9_OD2-ARG16_NE-HE&apos;, &apos;ASP9_OD1-LYS8_NZ-HZ1&apos;, &apos;ASP9_OD2-ARG16_NH2-HH21&apos;, &apos;ASP9_OD1-SER14_OG-HG&apos;, &apos;GLN5_O-ASP9_N-H&apos;, &apos;ASP9_OD2-SER14_OG-HG&apos;, &apos;ASP9_OD2-ARG16_NH1-HH11&apos;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">glu5_val</span> <span class="o">=</span> <span class="n">glu5</span><span class="o">.</span><span class="n">values</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">glu5_val</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;total hbonds for GLU5 per frame&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">glu5_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">glu5_val</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">glu5_total</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[1 1 1 ..., 0 0 0]
+ [0 1 0 ..., 0 0 0]
+ [0 1 0 ..., 0 0 0]
+ ..., 
+ [0 0 0 ..., 0 0 0]
+ [0 0 0 ..., 0 0 0]
+ [0 0 0 ..., 0 0 0]]
+total hbonds for GLU5 per frame
+[1 3 1 ..., 0 0 0]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># plot</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">glu5_total</span><span class="p">,</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaabfa1f98&gt;]</pre>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+S+1vHbN5wHMstM5+tfsCH/Y12umn3+16WZU6m73eQ33Y7+9Bv4YWWse4vtbH8f5t1m+ou3FMe7ZX
+SpqLiDXF+hclvRIR/9w05huS6hFxW7F+UNIl0TL9YrvzhQAAHUWEy47tNaf+c0nn2F4u6TeSPinp
+ypYxOyRdI+m24pvA71sDvd+iAACD6RrqEXHc9jWSfiRpkaSbIuKA7auL/dsi4g7ba20/IekPkq4a
+edUAgLa6Tr8AAE4tI3+itMzDS1Vg+9e2H7S91/ZPJ13PPNvfsn3Y9kNN286wfZftX9q+0/bpk6yx
+qKldnXO2ny56utf2mknWWNQ0bfse24/Yftj2bLG9Uj3tUmdlemp7ie09tvfZftT2V4rtVetlpzor
+08tmthcV9dxerPfVz5HeqRcPLz0m6aOSDkn6maQrI+JA1wMnwPav1PhRzOcmXUsz238q6UVJt0TE
+e4ttX5X0PxHx1eIb5R9HxD9VsM7Nkl6IiH+dZG3NbL9N0tsiYp/tt0j6haRPqDFtWJmedqnzL1Wh
+ntp+c0QcsT0l6X5J/6jGsyuV6WWXOj+iCvVynu1/kHS+pLdGxPp+v95Hfad+4uGliHhJ0vzDS1VV
+uQ9zI+I+Sb9r2Xziga/iz0+Mtag2OtQpVaynEfFMROwrll9U40G6s1SxnnapU6pQTyPiSLH4RjU+
+d/udKtZLqWOdUoV6KUm2l0laK+mberW2vvo56lA/S9JTTetP69U3ZtWEpLtt/9z230y6mB6an9g9
+LGnpJIvpYUPxO4FumvQ/w1sVP9W1QtIeVbinTXX+pNhUmZ7afoPtfWr07J6IeEQV7GWHOqUK9bLw
+b5I+L+mVpm199XPUoX4qfQr7oYhYIekySX9fTCdU3vzDCZOuo4MbJb1L0vsk/VbSv0y2nFcVUxo/
+kHRtRLzQvK9KPS3q/L4adb6oivU0Il6JiPdJWibpYtsfbtlfiV62qbOmivXS9sckPRsRe9XhXxBl
++jnqUD8kabppfVqNu/XKiYjfFn/+t6T/UGPqqKoOF3Ousv12Sc9OuJ62IuLZpqfivqmK9NT2aWoE
++nciYnuxuXI9barz1vk6q9rTiHhe0i415oIr18t5TXV+oIK9vFDS+uLzve9K+jPb31Gf/Rx1qJ94
+eMn2G9V4eGnHiK/ZN9tvtv3WYvmPJK2S9FD3oyZqh6TPFMufkbS9y9iJKd6A8/5cFeipbUu6SdKj
+EfG1pl2V6mmnOqvUU9tnzk9Z2H6TpEsl7VX1etm2zvmgLEz8/RkRGyNiOiLeJekKST+OiL9Sv/3s
+53cKDPJSYzrjMUlPSPriqK83YI3vkrSveD1cpTrV+I79G0n/p8bnE1dJOkON37HzS0l3Sjq9gnX+
+taRbJD0oaX/xRlxagTovUmO+cp8aAbRXjV8tXamedqjzsir1VNJ7JT1Q1PigpM8X26vWy051VqaX
+bWq+RNKOQfrJw0cAkAj/nR0AJEKoA0AihDoAJEKoA0AihDoAJEKoA0AihDoAJEKoA0Ai/w996kme
+wsBjCAAAAABJRU5ErkJggg==
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># get usage</span>
+<span class="n">help</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Help on function search_hbonds in module pytraj.hbonds:
+
+search_hbonds(traj, mask=&apos;&apos;, dtype=&apos;dataset&apos;, solventdonor=None, solventacceptor=None, update_key=True, *args, **kwd)
+    search hbonds for a given mask
+    
+    Parameters
+    ----------
+    traj : {Trajectory-like, list of frames, list of Trajectory-like}
+    mask : str 
+        Amber atom mask
+    dtype : str {&apos;list&apos;, &apos;pyarray&apos;, &apos;dataset&apos;, &apos;ndarray&apos;}, default=&apos;dataset&apos;
+    *args, **kwd: optional
+    
+    Returns
+    -------
+    out : pytraj.DatasetList
+    
+    Examples
+    --------
+    &gt;&gt;&gt; import pytraj as pt
+    &gt;&gt;&gt; pt.search_hbonds(traj)
+    &gt;&gt;&gt; pt.search_hbonds(traj, solventdonor=&apos;:WAT@O&apos;, solventacceptor=&apos;:WAT&apos;)
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div><p>(<a class="reference external" href="hbonds_tutorial.ipynb">hbonds_tutorial.ipynb</a>; <a class="reference external" href="hbonds_tutorial_evaluated.ipynb">hbonds_tutorial_evaluated.ipynb</a>; <a class="reference external" href="hbonds_tutorial.py">hbonds_tutorial.py</a>)</p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Oct 03, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
