@@ -645,7 +645,7 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 
 <span class="target" id="molsurf"></span><dl class="function">
 <dt id="pytraj.molsurf">
-<tt class="descclassname">pytraj.</tt><tt class="descname">molsurf</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.molsurf" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">molsurf</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>probe=1.4</em>, <em>offset=0.0</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.molsurf" title="Permalink to this definition">¶</a></dt>
 <dd><p>calc molsurf</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
@@ -1015,7 +1015,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 03, 2015.<br/>
+      Last updated on Oct 04, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

@@ -25,6 +25,12 @@ try ``pytraj`` online:
 
 **Contents**
 
+.. raw:: html
+
+   </div>
+   <div class="col-md-3">
+   <h2>Documentation</h2>
+
 .. toctree::
    :maxdepth: 1
 
@@ -47,6 +53,12 @@ try ``pytraj`` online:
    api
 
 `Contributors <https://github.com/Amber-MD/pytraj/blob/master/contributors/pytraj.rst>`_
+
+.. raw:: html
+
+   </div>
+   <div class="col-md-3">
+   <h2>Features</h2>
 
 .. image:: images/PCA_heart.png
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
