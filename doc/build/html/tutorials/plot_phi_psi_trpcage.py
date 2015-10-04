@@ -58,3 +58,34 @@ plt.ylabel('psi')
 plt.grid()
 plt.scatter(phi, psi, alpha=0.5, c=colors)
 
+
+# ### Aim 2: plot phi/psi for Ala residue
+
+# In[5]:
+
+traj = pt.iterload('ala3.dcd', 'ala3.psf')
+print([res.name for res in traj.top.residues])
+
+
+# In[6]:
+
+traj
+
+
+# In[7]:
+
+# only plot for residue 2 (python uses 0-based index)
+phi, psi = pt.multidihedral(traj, resrange=[1,], dhtypes='psi phi')
+phi, psi
+
+
+# In[8]:
+
+from matplotlib import pyplot as plt
+import seaborn as snb
+
+
+# In[9]:
+
+snb.jointplot(phi, psi, kind='scatter', stat_func=None)
+
