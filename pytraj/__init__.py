@@ -294,3 +294,8 @@ def show_versions():
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)
     print("cpptraj compiled flag = ", compiled_info())
+
+def _get_pytraj_path():
+    '''Return pytraj path'''
+    cur_dir = os.path.abspath(os.path.dirname(__file__))
+    return cur_dir
