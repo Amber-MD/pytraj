@@ -124,6 +124,8 @@ class _OrderedDict(OrderedDict):
 
 class DatasetList(list):
     '''similiar to python's list but the data is labeled.
+    Think as a dict-like and list-like object. This class is suitable for small
+    datasets. For high performance, user should use pandas' DataFrame.
 
     Examples
     --------
@@ -135,6 +137,8 @@ class DatasetList(list):
     >>> print(dslist[1::2])
     >>> print(dslist.values) # return raw numpy array
     >>> print(dslist.keys)
+    >>> # dict-like
+    >>> dslist['phi_2']
     '''
 
     def __init__(self, dslist=None, copy=False):

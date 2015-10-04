@@ -683,7 +683,7 @@ class Trajectory(object):
     def iterframe(self,
                   start=0,
                   stop=None,
-                  stride=1,
+                  step=1,
                   mask=None,
                   autoimage=False,
                   frame_indices=None,
@@ -722,11 +722,11 @@ class Trajectory(object):
                 stop = stop
 
             # make sure `range` return iterator
-            indices = range(start, stop, stride)
+            indices = range(start, stop, step)
             n_frames = len(indices)
         else:
             # frame_indices is not None
-            start, stop, stride = None, None, None
+            start, stop, step = None, None, None
             n_frames = len(frame_indices)
             indices = frame_indices
 
@@ -737,7 +737,7 @@ class Trajectory(object):
                          new_top=_top,
                          start=start,
                          stop=stop,
-                         stride=stride,
+                         step=step,
                          mask=mask,
                          autoimage=autoimage,
                          rmsfit=rmsfit,

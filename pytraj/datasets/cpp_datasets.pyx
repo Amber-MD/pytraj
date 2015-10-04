@@ -1301,8 +1301,8 @@ cdef class DatasetCoords(Dataset):
                 raise ValueError("index is out of range")
         self.baseptr_1.SetCRD(idx, other.thisptr[0])
 
-    def frame_iter(self, int start=0, int stop=-1, int stride=1, mask=None):
-        return _frame_iter(self, start, stop, stride, mask)
+    def frame_iter(self, int start=0, int stop=-1, int step=1, mask=None):
+        return _frame_iter(self, start, stop, step, mask)
 
     def allocate_frame(self):
         cdef Frame frame = Frame()

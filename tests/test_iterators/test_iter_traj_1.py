@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
             pass
 
         i = 0
-        for frame0 in farray.iterframe(start=0, stride=1):
+        for frame0 in farray.iterframe(start=0, step=1):
             i += 1
 
         assert_almost_equal(traj[-1].coords, frame0.coords)
@@ -38,19 +38,19 @@ class Test(unittest.TestCase):
             aa_eq(frame0.xyz, f.xyz)
         assert_almost_equal(traj[6].coords, frame0.coords)
 
-        for frame0 in farray.iterframe(start=2, stride=2):
+        for frame0 in farray.iterframe(start=2, step=2):
             pass
         assert_almost_equal(traj[8].coords, frame0.coords)
 
         arr0 = traj[6][0]
-        for frame0 in traj.iterframe(start=2, stride=4, stop=8):
+        for frame0 in traj.iterframe(start=2, step=4, stop=8):
             pass
 
-        for frame0 in traj.iterframe(start=2, stride=4, stop=8):
+        for frame0 in traj.iterframe(start=2, step=4, stop=8):
             pass
         assert_almost_equal(traj[6].coords, frame0.coords)
 
-        for frame0 in traj.iterframe(start=2, stride=2):
+        for frame0 in traj.iterframe(start=2, step=2):
             pass
         assert_almost_equal(traj[8].coords, frame0.coords)
 

@@ -23,11 +23,11 @@ def split_iterators(traj,
                     n_chunks=1,
                     start=0,
                     stop=-1,
-                    stride=1,
+                    step=1,
                     mask=None,
                     autoimage=False,
                     rmsfit=None):
-    return traj._split_iterators(n_chunks, start, stop, stride, mask, autoimage,
+    return traj._split_iterators(n_chunks, start, stop, step, mask, autoimage,
                                 rmsfit, rank=-1)
 
 
@@ -190,12 +190,12 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 % (size_in_GB, self._size_limit_in_GB))
         return super(TrajectoryIterator, self).xyz
 
-    def _iterator_slice(self, start=0, stop=None, stride=None):
+    def _iterator_slice(self, start=0, stop=None, step=None):
         """iterator slice"""
         from itertools import islice
         if stop is None:
             stop = self.n_frames
-        return islice(self, start, stop, stride)
+        return islice(self, start, stop, step)
 
     def _make_independent_iterators(self, n_iters):
         from itertools import tee
@@ -204,7 +204,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
     def iterframe(self,
                   start=0,
                   stop=None,
-                  stride=1,
+                  step=1,
                   mask=None,
                   autoimage=False,
                   rmsfit=None,
@@ -245,13 +245,13 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 stop = self.n_frames
             elif stop < 0:
                 stop = get_positive_idx(stop, self.n_frames)
-            n_frames = len(range(start, stop, stride))
+            n_frames = len(range(start, stop, step))
             frame_iter_super = super(
-                TrajectoryIterator, self).iterframe(start, stop, stride)
+                TrajectoryIterator, self).iterframe(start, stop, step)
         else:
             stop = None
             start = None
-            stride = None
+            step = None
             try:
                  n_frames = len(frame_indices)
             except TypeError:
@@ -264,7 +264,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                          new_top=_top,
                          start=start,
                          stop=stop,
-                         stride=stride,
+                         step=step,
                          mask=mask,
                          autoimage=autoimage,
                          rmsfit=rmsfit,
@@ -338,7 +338,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                         n_chunks=1,
                         start=0,
                         stop=-1,
-                        stride=1,
+                        step=1,
                         mask=None,
                         autoimage=False,
                         rmsfit=None,
@@ -360,7 +360,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         if n_chunks == 1:
             return self(start=start,
                        stop=stop,
-                       stride=stride,
+                       step=step,
                        mask=mask,
                        autoimage=autoimage,
                        rmsfit=rmsfit)
@@ -371,7 +371,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                                                    stop=stop)[rank]
                 return self.iterframe(start=_start,
                                       stop=_stop,
-                                      stride=stride,
+                                      step=step,
                                       mask=mask,
                                       autoimage=autoimage,
                                       rmsfit=rmsfit)
@@ -382,7 +382,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                                             stop=stop):
                     list_of_iterators.append(self.iterframe(start=_start,
                                       stop=_stop,
-                                      stride=stride,
+                                      step=step,
                                       mask=mask,
                                       autoimage=autoimage,
                                       rmsfit=rmsfit))

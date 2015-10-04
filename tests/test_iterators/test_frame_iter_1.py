@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         for frame in traj.iterframe(start=5, stop=traj.n_frames - 2):
             pass
 
-        for frame in traj.iterframe(start=1, stop=traj.n_frames - 2, stride=2):
+        for frame in traj.iterframe(start=1, stop=traj.n_frames - 2, step=2):
             pass
 
 

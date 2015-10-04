@@ -70,20 +70,20 @@ cdef class TrajectoryCpptraj:
         if len(frame_slice) == 1:
             start = frame_slice[0]
             stop = -1
-            stride = 1
+            step = 1
         elif len(frame_slice) == 2:
-            # no stride info
+            # no step info
             start, stop = frame_slice
-            stride = 1
+            step = 1
         elif len(frame_slice) == 3:
-            start, stop, stride = frame_slice
+            start, stop, step = frame_slice
         else:
             raise ValueError()
 
         start += 1
         # don't increase stop by +1
         # slice(0, 10, None) --> python does not take last `10`
-        arg = " ".join((str(start), str(stop), str(stride)))
+        arg = " ".join((str(start), str(stop), str(step)))
 
         if isinstance(filename, string_types):
             # use absolute path so we can go to different folder
@@ -142,13 +142,13 @@ cdef class TrajectoryCpptraj:
             #self.thisptr.SetTopology(other.thisptr[0])
             self.thisptr.CoordsSetup(other.thisptr[0], self.thisptr.CoordsInfo())
 
-    def iterframe(self, int start=0, int stop=-1, int stride=1, mask=None):
-        '''iterately get Frames with start, stop, stride 
+    def iterframe(self, int start=0, int stop=-1, int step=1, mask=None):
+        '''iterately get Frames with start, stop, step 
         Parameters
         ---------
         start : int (default = 0)
         stop : int (default = max_frames)
-        stride : int
+        step : int
         mask : str or array of interger
         '''
         cdef int i
@@ -187,7 +187,7 @@ cdef class TrajectoryCpptraj:
                 else:
                     self.thisptr.GetFrame(i, frame.thisptr[0], atm.thisptr[0])
                 yield frame
-                i += stride
+                i += step
 
     def iterchunk(self, int chunksize=2, int start=0, int stop=-1):
         '''iterately get Frames with start, chunk
@@ -275,8 +275,8 @@ cdef class TrajectoryCpptraj:
                  txt = "not supported keyword `%s`" % idxs
                  raise NotImplementedError(txt)
          elif isinstance(idxs, slice):
-             start, stop, stride = idxs.indices(self.n_frames)
-             self.tmpfarray = self._load_traj_by_indices(range(start, stop, stride))
+             start, stop, step = idxs.indices(self.n_frames)
+             self.tmpfarray = self._load_traj_by_indices(range(start, stop, step))
              return self.tmpfarray
          else:
              # not is a slice

@@ -71,13 +71,13 @@ def my_str_method(self):
     return tmps
 
 
-def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
-    """iterately get Frames with start, stop, stride 
+def _frame_iter(self, start=0, stop=-1, step=1, mask=None):
+    """iterately get Frames with start, stop, step 
     Parameters
     ---------
     start : int (default = 0)
     stop : int (default = max_frames - 1)
-    stride : int
+    step : int
     mask : str or array of interger
     """
     frame = Frame(self.n_atoms)
@@ -103,7 +103,7 @@ def _frame_iter(self, start=0, stop=-1, stride=1, mask=None):
             yield frame2
         else:
             yield frame
-        i += stride
+        i += step
 
 
 def iterframe_master(obj):
