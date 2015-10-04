@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# # **Aim**
+# # **Aim 1**
 # 
 # + download pdb file
 # + calculate phi/psi for specific residue
@@ -11,9 +11,9 @@
 
 # do some configs to get better plot
 get_ipython().magic('matplotlib inline')
-get_ipython().magic("config InlineBackend.figure_format = 'retina'")
+#%config InlineBackend.figure_format = 'retina'
 import matplotlib
-matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image
+#matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image
 from matplotlib import pyplot as plt
 import numpy as np
 import pytraj as pt
@@ -59,7 +59,7 @@ plt.grid()
 plt.scatter(phi, psi, alpha=0.5, c=colors)
 
 
-# ### Aim 2: plot phi/psi for Ala residue
+# # Aim 2: plot phi/psi for Ala residue
 
 # In[5]:
 
@@ -88,4 +88,5 @@ import seaborn as snb
 # In[9]:
 
 snb.jointplot(phi, psi, kind='scatter', stat_func=None)
+#plt.savefig('phipsi_ala3.png')
 
