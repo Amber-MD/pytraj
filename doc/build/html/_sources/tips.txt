@@ -93,6 +93,15 @@ load specific frame numbers to memory
     traj2
     traj2[frame_indices, '@CA']
 
+merge multiple trajectories to a single file
+--------------------------------------------
+
+.. ipython:: python
+
+    import pytraj as pt
+    # load multiple files
+    traj = pt.iterload(['tz2.0.nc', 'tz2.1.nc', 'tz2.2.nc'], top='tz2.parm7')
+    traj.save('tz2_combined.nc', overwrite=True)
 
 memory saving
 -------------
