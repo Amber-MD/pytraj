@@ -37,7 +37,7 @@ mat = matrix.covar(traj, '@CA')
 mat
 
 
-# In[4]:
+# In[5]:
 
 # adapted from: https://stanford.edu/~mwaskom/software/seaborn/examples/many_pairwise_correlations.html
 # Set up the matplotlib figure
@@ -50,4 +50,5 @@ cmap = sns.diverging_palette(220, 10, as_cmap=True)
 sns.heatmap(mat, cmap=cmap, vmax=.3,
             square=True, xticklabels=5, yticklabels=5,
             linewidths=.5, cbar_kws={"shrink": .5}, ax=ax)
+#plt.savefig('matrix_covar.png')
 

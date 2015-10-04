@@ -9,5 +9,7 @@ try ``pytraj`` online:
 Plot correlation matrix
 -----------------------
 
+.. image:: ../images/matrix_covar.png
+
 .. notebook:: data/plot_correlation_matrix.ipynb
    :skip_exceptions:
