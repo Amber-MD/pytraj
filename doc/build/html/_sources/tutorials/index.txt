@@ -10,7 +10,7 @@ try ``pytraj`` online:
 
 |
 
-If you miss any Python package, try using `conda install package_name`::
+If you miss any Python package, try to use ``conda``, example::
 
      conda install seaborn
 
