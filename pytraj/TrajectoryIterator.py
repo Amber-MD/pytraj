@@ -116,7 +116,8 @@ class TrajectoryIterator(TrajectoryCpptraj):
             yield frame
 
     def copy(self):
-        '''return a deep copy
+        '''return a deep copy. Use this method with care since the copied traj just reuse
+        the filenames
         '''
         other = self.__class__()
         other.top = self.top.copy()

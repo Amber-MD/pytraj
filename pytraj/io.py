@@ -23,8 +23,8 @@ except:
     load_ParmEd = None
 
 # load mdtraj and MDAnalysis
-from .externals._load_mdtraj import load_mdtraj
-from .externals._load_MDAnalysis import load_MDAnalysis
+from .externals._load_mdtraj import load_mdtraj as _load_mdtraj
+from .externals._load_MDAnalysis import load_MDAnalysis as _load_MDAnalysis
 
 try:
     from urllib.request import urlopen
@@ -42,9 +42,6 @@ __all__ = ['load',
            'load_hdf5',
            'load_sample_data',
            'load_ParmEd',
-           'load_mdtraj',
-           'load_MDAnalysis',
-           'load_MDAnalysisIterator',
            'load_topology',
            'read_parm',
            'write_parm',
@@ -186,9 +183,6 @@ def load_traj(filename=None, top=None, frame_indices=None, *args, **kwd):
     filename : str
     top : {str, Topology}
     frame_indices : {None, list, array ...}
-    engine : str, {'pytraj', 'mdanalysis'}, default 'pytraj'
-        if 'pytraj', use pytraj for iterload (return `TrajectoryIterator`)
-        if 'mdanalysis', use this package (return `TrajectoryMDAnalysisIterator`)
     *args, **kwd: additional arguments, depending on `engine`
 
     Returns
@@ -225,45 +219,54 @@ def _load_from_frame_iter(iterables, top=None, n_frames=None):
 
 
 def iterload_remd(filename, top=None, T="300.0"):
-    """Load remd trajectory for single temperature.
+    """Load temperature remd trajectory for single temperature.
     Example: Suppose you have replica trajectoris remd.x.00{1-4}. 
-    You want to load and extract only frames at 300 K, use this "load_remd" method
+    You want to load and extract only frames at 300 K, use this method
 
     Parameters
     ----------
     filename : str
-    top : {str, Topology objecd}
-    T : {int, float, str}, defaul="300.0"
+    top : {str, Topology}
+    T : {float, str}, default=300.0
 
     Returns
-    ------
-    TrajectoryIterator object
+    -------
+    pytraj.traj.TrajectoryCpptraj
+
+    Notes
+    -----
+
     """
-    from pytraj import CpptrajState
+    from pytraj.core.cpptraj_core import CpptrajState, Command
+    dispatch = Command.dispatch
 
     state = CpptrajState()
+
     # add keyword 'remdtraj' to trick cpptraj
-    trajin = filename + ' remdtraj remdtrajtemp ' + str(T)
-    state.toplist.add_parm(top)
+    trajin = ' '.join(('trajin', filename, 'remdtraj remdtrajtemp', str(T)))
+    if isinstance(top, string_types):
+        top = read_parm(top)
+    else:
+        top = top
+    state.data.add_set('topology', 'remdtop')
+    # set topology
+    state.data['remdtop']._top = top
 
-    # load trajin, add "is_ensemble = False" to trick cpptraj
-    # is_ensemble has 3 values: None, False and True
-    state.add_trajin(trajin, is_ensemble=False)
-    tlist = state.get_trajinlist()
-    # get TrajectoryREMDIterator
-    traj = tlist._getitem_remd(0)
-    traj.top = state.toplist[0].copy()
+    # load trajin
+    dispatch(state, trajin)
+    dispatch(state, 'loadtraj name remdtraj')
 
-    # use _tmpobj to hold CpptrajState(). If not, cpptraj will free memory
-    traj._tmpobj = state
+    #state.data.remove_set(state.data['remdtop'])
+    traj = state.data[-1]
+
+    # assign state to traj to avoid memory free
+    traj._base = state
     return traj
 
 
 def load_remd(filename, top=None, T="300.0"):
     from pytraj import Trajectory
-    itertraj = iterload_remd(filename, top, T)
-    return Trajectory(itertraj, top=itertraj.top)
-
+    return iterload_remd(filename, top, T)[:]
 
 def write_traj(filename="",
                traj=None,
@@ -495,10 +498,6 @@ def load_single_frame(frame=None, top=None, index=0):
 
 load_frame = load_single_frame
 
-
-def load_MDAnalysisIterator(u):
-    from .trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
-    return TrajectoryMDAnalysisIterator(u)
 
 # creat alias
 save = write_traj

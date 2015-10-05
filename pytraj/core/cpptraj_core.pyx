@@ -568,32 +568,6 @@ cdef class CpptrajState:
         else:
             raise NotImplementedError()
 
-    def _add_reference(self, *args):
-        """
-        Parameters
-        ---------
-        filename : str
-        arg : ArgList object, optional
-        """
-        cdef string name
-        cdef ArgList arglist
-
-        if len(args) == 1:
-            if isinstance(args[0], string_types):
-                name =  args[0].encode(0)
-                self.thisptr.AddReference(name)
-            else:
-                raise NotImplementedError()
-        elif len(args) == 2:
-                name =  args[0].encode(0)
-                if isinstance(args[1], string_types):
-                    arglist = ArgList(args[1])
-                else:
-                    arglist = <ArgList> args[1]
-                self.thisptr.AddReference(name, arglist.thisptr[0])
-        else:
-            raise NotImplementedError()
-
     def _add_action(self, actobj, arglist):
         """
         Parameters
@@ -638,12 +612,6 @@ cdef class CpptrajState:
             raise ValueError("must be string or ArgList object")
 
         return self.thisptr.AddAnalysis(alloc_funct.ptr, _arglist.thisptr[0])
-
-    def _list_all(self, ArgList arglist):
-        return self.thisptr.ListAll(arglist.thisptr[0])
-
-    def _clear_list(self, arglist='all'):
-        return self.thisptr.ClearList(ArgList(arglist).thisptr[0])
 
     def run(self):
         self.thisptr.Run()

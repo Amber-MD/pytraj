@@ -6,6 +6,13 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestREMDTemperature(unittest.TestCase):
+    def setUp(self):
+        self.trajin_text = '''
+        parm  data/Test_RemdTraj/ala2.99sb.mbondi2.parm7
+        trajin data/Test_RemdTraj/rem.nc.000 remdtraj remdtrajtemp 300.
+        distance @10 @20
+        '''
+
     def test_load_cpptraj_state_from_text(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         text = '''
@@ -31,6 +38,16 @@ class TestREMDTemperature(unittest.TestCase):
         data_1 = state_from_text.data.values
         aa_eq(data_0, data_1)
 
+    def test_iterload_remd(self):
+        traj  = pt.iterload_remd("data/Test_RemdTraj/rem.nc.000",
+                "data/Test_RemdTraj/ala2.99sb.mbondi2.parm7", T=300.0)
+        for frame in traj:
+            assert frame.temperature == 300.0, 'frame temperature must be 300.0 K'
+        dist = pt.distance(traj, '@10 @20')
+
+        state = pt.load_cpptraj_state(self.trajin_text)
+        state.run()
+        aa_eq(dist, state.data[-1])
 
 if __name__ == "__main__":
     unittest.main()
