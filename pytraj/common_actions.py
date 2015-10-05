@@ -1440,7 +1440,7 @@ def _ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, t
         dslist.remove_set(d)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def calc_ired_matrix(traj=None,
+def ired_vector_and_matrix(traj=None,
                      mask="",
                      frame_indices=None,
                      order=2,

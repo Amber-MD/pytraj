@@ -74,5 +74,19 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         dmat3x3._append_from_array(mat0.reshape(shape2d))
         aa_eq(mat0, dmat3x3.values)
 
+    def test_DatasetMatrixDouble(self):
+        from pytraj import matrix
+
+        for op in [matrix.dist, matrix.covar]:
+            orig_mat = op(self.traj, '!@H=', dtype='cpptraj_dataset')[0]
+            shape = orig_mat.values.shape
+            cpp_mat = orig_mat._to_cpptraj_sparse_matrix()
+            assert orig_mat.kind == 'half', 'must be half matrix'
+
+            new_mat = orig_mat.__class__()
+            new_mat._set_data_half_matrix(cpp_mat, shape[0])
+            assert new_mat.kind == 'half', 'new_mat must be half matrix'
+            aa_eq(orig_mat.values, new_mat.values)
+
 if __name__ == "__main__":
     unittest.main()

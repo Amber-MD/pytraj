@@ -794,6 +794,15 @@ cdef class Dataset2D (Dataset):
     def __dealloc__(self):
         pass
 
+    property kind:
+        def __get__(Dataset2D self):
+            '''
+            '''
+            cdef int i = <int> self.baseptr_1.Kind()
+
+            kind_dict = {0: 'full', 1: 'half', 2: 'tri'}
+            return kind_dict[i]
+
     @property
     def n_rows(self):
         return self.baseptr_1.Nrows()
@@ -884,18 +893,15 @@ cdef class DatasetMatrixDouble (Dataset2D):
             """return 1D python array of matrix' data"""
             return self.to_ndarray()
 
-    def set_data(self, values, size):
-        cdef double[:, ::1] dview = values
-        cdef unsigned int i, j
-        cdef size_t X, Y
-        X, Y = dview.shape[0], dview.shape[1]
-        cdef vector[size_t] vec = [X, Y]
+    def _set_data_half_matrix(self, values, size_t size):
+        '''only support half matrix
+        '''
+        cdef double x
 
         (<_Dataset2D*> self.thisptr).AllocateHalf(size)
 
-        for i in range(X):
-            for j in range(Y):
-                self.thisptr.SetElement(i, j, dview[i, j])
+        for x in values:
+            self.thisptr.AddElement(x)
 
     def to_ndarray(self, copy=True):
         """use copy=True to be the same as Dataset1D"""
@@ -910,7 +916,7 @@ cdef class DatasetMatrixDouble (Dataset2D):
                 dview[i, j] = self.baseptr_1.GetElement(i, j)
         return np.asarray(dview)
 
-    def to_cpptraj_sparse_matrix(self):
+    def _to_cpptraj_sparse_matrix(self):
         """return 1D numpy array, dtype='f8'
         """
         import numpy as np
@@ -924,7 +930,7 @@ cdef class DatasetMatrixDouble (Dataset2D):
     def to_half_matrix(self):
         import numpy as np
         hm = np.zeros((self.n_rows, self.n_cols)) 
-        mt = self.to_cpptraj_sparse_matrix()
+        mt = self._to_cpptraj_sparse_matrix()
 
         hm[np.triu_indices(self.n_rows, 1)] = mt[mt !=0]
         return hm
@@ -976,7 +982,7 @@ cdef class DatasetMatrixFloat (Dataset2D):
                 dview[i, j] = self.baseptr_1.GetElement(i, j)
         return np.asarray(dview)
 
-    def to_cpptraj_sparse_matrix(self):
+    def _to_cpptraj_sparse_matrix(self):
         """return 1D numpy array, dtype='f8'
         """
         import numpy as np
@@ -990,7 +996,7 @@ cdef class DatasetMatrixFloat (Dataset2D):
     def to_half_matrix(self):
         import numpy as np
         hm = np.zeros((self.n_rows, self.n_cols)) 
-        mt = self.to_cpptraj_sparse_matrix()
+        mt = self._to_cpptraj_sparse_matrix()
 
         hm[np.triu_indices(self.n_rows, 1)] = mt[mt !=0]
         return hm

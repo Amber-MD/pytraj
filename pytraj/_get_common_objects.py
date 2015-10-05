@@ -91,7 +91,7 @@ def _get_matrix_from_dataset(dset, mat_type='full'):
     elif mat_type == 'half':
         return dset.to_half_matrix()
     elif mat_type == 'cpptraj':
-        return dset.to_cpptraj_sparse_matrix()
+        return dset._to_cpptraj_sparse_matrix()
     else:
         raise ValueError()
 
