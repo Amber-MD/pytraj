@@ -10,10 +10,7 @@ try ``pytraj`` online:
 
 |
 
-.. contents::
+.. toctree::
+    :maxdepth: 2
 
-Interface with mdtraj
----------------------
-
-.. raw:: html
-    :file: ./interface_with_mdtraj.html
+    interface_with_mdtraj_
