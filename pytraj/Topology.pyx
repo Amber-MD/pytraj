@@ -650,7 +650,7 @@ cdef class ParmFile:
     def __dealloc__(self):
         del self.thisptr
 
-    def readparm(self, filename="", top=Topology(), *args):
+    def readparm(self, filename="", top=Topology(), args='readbox'):
         """readparm(Topology top=Topology(), string filename="", "*args)
         Return : None (update `top`)
 
@@ -668,7 +668,10 @@ cdef class ParmFile:
         if not args:
             self.thisptr.ReadTopology(_top.thisptr[0], filename, debug)
         else:
-            arglist = <ArgList> args[0]
+            if isinstance(args, string_types):
+                arglist = ArgList(args)
+            else:
+                arglist = <ArgList> args
             self.thisptr.ReadTopology(_top.thisptr[0], filename, arglist.thisptr[0], debug)
 
     def writeparm(self, Topology top=Topology(), filename="default.top", 
