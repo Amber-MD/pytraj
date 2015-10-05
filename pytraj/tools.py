@@ -7,10 +7,22 @@ from __future__ import absolute_import
 import sys as _sys
 import os
 from glob import glob
-from itertools import islice, groupby
+from itertools import islice
 import functools
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
+def groupby(key, self):
+    # adapted from `toolz` package.
+    # see license in $PYTRAJHOME/licenses/externals/toolz.txt
+    if not callable(key):
+        key = getter(key)
+    d = defaultdict(lambda: self.__class__().append)
+    for item in self:
+        d[key(item)](item)
+    rv = {}
+    for k, v in iteritems(d):
+        rv[k] = v.__self__
+    return rv
 
 def _array_to_cpptraj_range(seq):
     # use "i+1" since cpptraj use 1-based index for mask
