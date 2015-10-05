@@ -38,11 +38,13 @@ print("")
 print('rg_data', rg_data)
 
 
-# In[8]:
+# In[3]:
 
 # plot the correlation
 # adapted from: 
 
 #sns.jointplot(rmsd_data, rg_data, kind="hex", color="#4CB391")
 sns.jointplot(rmsd_data, rg_data, color="#31a354")
+
+#plt.savefig('plot_rmsd_radgyr_correlation.png')
 

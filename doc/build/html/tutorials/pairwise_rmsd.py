@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# <span style="color:blue; font-family:Georgia; font-size:3em;"> Calculate pairwise RMSD for trajectory and plot </span>
+# # Calculate pairwise RMSD for trajectory and plot
 
 # In[1]:
 
@@ -28,4 +28,7 @@ import matplotlib
 
 fig, asp, axi, = plot_matrix(mat)
 fig.colorbar(axi, ax=asp)
+
+# from matplotlib import pyplot as plt
+# plt.savefig('plot_pairwise_rmsd.png')
 

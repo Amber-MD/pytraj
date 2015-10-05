@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev10 documentation" href="../index.html" />
     <link rel="up" title="Plots" href="plot.html" />
-    <link rel="next" title="Hbond tutorial (advanced)" href="hbonds.html" />
+    <link rel="next" title="Nucleic acid torsion angle distribution" href="plot_chi_nucleic_acid.html" />
     <link rel="prev" title="Ramachandran plot" href="plot_phipsi_trpcage.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -114,7 +114,7 @@
     </a>
   </li>
   <li>
-    <a href="hbonds.html" title="Next Chapter: Hbond tutorial (advanced)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Hbond tutoria... &raquo;</span>
+    <a href="plot_chi_nucleic_acid.html" title="Next Chapter: Nucleic acid torsion angle distribution"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Nucleic acid ... &raquo;</span>
     </a>
   </li>
               
@@ -150,8 +150,12 @@
       
   <p id="plot-rmsd-radgyr-correlation">try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
 <a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <div class="section" id="plot-rmsd-and-radgyr-correlation">
 <h1>Plot rmsd and radgyr correlation<a class="headerlink" href="#plot-rmsd-and-radgyr-correlation" title="Permalink to this headline">¶</a></h1>
+<img alt="../_images/plot_rmsd_radgyr_correlation.png" src="../_images/plot_rmsd_radgyr_correlation.png" />
 <div class="ipynotebook" id="notebook-container">
 
 <div class="cell border-box-sizing code_cell rendered">
@@ -253,6 +257,8 @@ rg_data [  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185
 
 <span class="c">#sns.jointplot(rmsd_data, rg_data, kind=&quot;hex&quot;, color=&quot;#4CB391&quot;)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">rmsd_data</span><span class="p">,</span> <span class="n">rg_data</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&quot;#31a354&quot;</span><span class="p">)</span>
+
+<span class="c">#plt.savefig(&#39;plot_rmsd_radgyr_correlation.png&#39;)</span>
 </pre></div>
 
 </div>
@@ -267,7 +273,7 @@ rg_data [  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;seaborn.axisgrid.JointGrid at 0x2aaad50f9128&gt;</pre>
+<pre>&lt;seaborn.axisgrid.JointGrid at 0x2aaad5232898&gt;</pre>
 </div>
 
 </div>
@@ -511,7 +517,7 @@ IQnDZQAAAABJRU5ErkJggg==
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 04, 2015.<br/>
+      Last updated on Oct 05, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
