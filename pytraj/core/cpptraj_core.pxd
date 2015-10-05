@@ -214,11 +214,6 @@ cdef extern from "CpptrajState.h":
         _CpptrajState()
         _DatasetList * DSL()
         _DataFileList * DFL()
-        void SetNoExitOnError()
-        void SetNoProgress()
-        void SetActionSilence(bint b)
-        bint ExitOnError()const 
-        bint EmptyState()const 
         int AddTrajin(_ArgList &, bint)
         int AddTrajin(const string&)
         int RunAnalyses()
@@ -228,14 +223,10 @@ cdef extern from "CpptrajState.h":
         inline int AddReference(const string&)
         inline int AddAction(DispatchAllocatorType, _ArgList &)
         inline int AddAnalysis(DispatchAllocatorType, _ArgList &)
-        int WorldSize()
-        int ListAll(_ArgList &)const 
-        int SetListDebug(_ArgList &)
-        int ClearList(_ArgList &)
-        int RemoveDataset(_ArgList &)
         int TrajLength(const string&, const vector[string]&)
         int Run()
         void MasterDataFileWrite()
+        bint EmptyState()
 
 cdef class CpptrajState:
     cdef _CpptrajState* thisptr

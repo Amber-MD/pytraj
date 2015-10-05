@@ -76,8 +76,8 @@ from .datasetlist import DatasetList as Dataset
 from . import io
 from .io import (load, iterload, load_remd, iterload_remd, _load_from_frame_iter, load_pdb_rcsb,
                  load_pdb, load_cpptraj_file, load_sample_data,
-                 load_ParmEd, load_mdtraj, load_MDAnalysis,
-                 load_MDAnalysisIterator, load_topology, read_parm, write_parm,
+                 load_ParmEd,
+                 load_topology, read_parm, write_parm,
                  get_coordinates, save, write_traj, read_pickle, read_json,
                  to_pickle, to_json, )
 
