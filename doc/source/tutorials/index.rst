@@ -9,7 +9,11 @@ try ``pytraj`` online:
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
 |
-|
+
+If you miss any Python package, try using `conda install package_name`::
+
+     conda install seaborn
+
 
 .. toctree::
     :maxdepth: 2
