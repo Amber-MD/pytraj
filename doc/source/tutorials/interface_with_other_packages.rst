@@ -1,0 +1,20 @@
+.. _basic_examples:
+
+Interface with other packages
+=============================
+
+try ``pytraj`` online:
+
+.. image:: http://mybinder.org/badge.svg
+   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
+|
+
+.. contents::
+
+Interface with mdtraj
+---------------------
+
+.. raw:: html
+ 
+    :file: ./interface_with_mdtraj.html

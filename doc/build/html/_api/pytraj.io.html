@@ -237,19 +237,19 @@ if string, load coordinates for given atom mask</p>
 <dl class="function">
 <dt id="pytraj.io.iterload_remd">
 <tt class="descclassname">pytraj.io.</tt><tt class="descname">iterload_remd</tt><big>(</big><em>filename</em>, <em>top=None</em>, <em>T='300.0'</em><big>)</big><a class="headerlink" href="#pytraj.io.iterload_remd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load remd trajectory for single temperature.
+<dd><p>Load temperature remd trajectory for single temperature.
 Example: Suppose you have replica trajectoris remd.x.00{1-4}. 
-You want to load and extract only frames at 300 K, use this &#8220;load_remd&#8221; method</p>
+You want to load and extract only frames at 300 K, use this method</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
-<p><strong>top</strong> : {str, Topology objecd}</p>
-<p><strong>T</strong> : {int, float, str}, defaul=&#8221;300.0&#8221;</p>
-<p><strong>Returns</strong></p>
-<p><strong>&#8212;&#8212;</strong></p>
-<p class="last"><strong>TrajectoryIterator object</strong></p>
+<p><strong>top</strong> : {str, Topology}</p>
+<p><strong>T</strong> : {float, str}, default=300.0</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pytraj.traj.TrajectoryCpptraj</p>
 </td>
 </tr>
 </tbody>
@@ -327,46 +327,6 @@ if False, return Topology</dd>
 </pre></div>
 </div>
 </dd></dl>
-
-<dl class="function">
-<dt id="pytraj.io.load_mdtraj">
-<tt class="descclassname">pytraj.io.</tt><tt class="descname">load_mdtraj</tt><big>(</big><em>m_traj</em>, <em>autoconvert=False</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.io.load_mdtraj" title="Permalink to this definition">¶</a></dt>
-<dd><p>load_mdtraj traj object</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m_traj</strong> : Trajectory object from mdtraj</p>
-<p><strong>autoconvert</strong> : bool, default=False</p>
-<blockquote>
-<div><p>convert from &#8220;nm&#8221; (mdtraj )to &#8220;Angstrom&#8221; (pytraj)</p>
-</div></blockquote>
-<p><strong>top</strong> : pytraj.Topology, default None</p>
-<blockquote class="last">
-<div><p>if <cite>top</cite> is provided, the converting will be much faster</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.io.load_MDAnalysis">
-<tt class="descclassname">pytraj.io.</tt><tt class="descname">load_MDAnalysis</tt><big>(</big><em>its_obj</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.io.load_MDAnalysis" title="Permalink to this definition">¶</a></dt>
-<dd><p>load MDAnalysis&#8217; Universe object to pytra&#8217;s traj object</p>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pytraj.io.load_MDAnalysisIterator" title="pytraj.io.load_MDAnalysisIterator"><tt class="xref py py-obj docutils literal"><span class="pre">load_MDAnalysisIterator</span></tt></a></p>
-</div>
-<p class="rubric">Notes</p>
-<p>All coords will be loaded</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.io.load_MDAnalysisIterator">
-<tt class="descclassname">pytraj.io.</tt><tt class="descname">load_MDAnalysisIterator</tt><big>(</big><em>u</em><big>)</big><a class="headerlink" href="#pytraj.io.load_MDAnalysisIterator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.io.load_topology">

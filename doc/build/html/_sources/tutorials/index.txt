@@ -18,4 +18,5 @@ try ``pytraj`` online:
     load_pdb_rcsb
     plot
     mdtraj_adapted
+    interface_with_other_packages.rst
     advanced_examples
