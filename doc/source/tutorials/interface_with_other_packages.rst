@@ -1,4 +1,4 @@
-.. _basic_examples:
+.. _interface_with_other_packages:
 
 Interface with other packages
 =============================
@@ -16,5 +16,4 @@ Interface with mdtraj
 ---------------------
 
 .. raw:: html
- 
     :file: ./interface_with_mdtraj.html
