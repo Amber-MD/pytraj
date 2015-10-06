@@ -580,14 +580,25 @@ def filter(iterable, func):
     return list(filter(func, iterable))
 
 
-def as_2darray(traj):
+def as_2darray(traj_or_xyz):
     '''reshape traj.xyz to 2d array, shape=(n_frames, n_atoms * 3)
 
     Notes
     -----
     if ``traj`` is mutable, this method return a view of its coordinates.
     '''
-    return traj.xyz.reshape(traj.n_frames, traj.n_atoms * 3)
+    import numpy as np
+
+    if hasattr(traj_or_xyz, 'xyz'):
+        traj = traj_or_xyz
+        # Trajectory-like
+        return traj.xyz.reshape(traj.n_frames, traj.n_atoms * 3)
+    else:
+        # array-like, assume 3D
+        xyz = np.asarray(traj_or_xyz)
+        assert xyz.ndim == 3, 'xyz must has ndim=3'
+        shape = xyz.shape
+        return xyz.reshape(shape[0], shape[1] * shape[2])
 
 
 def as_3darray(xyz):
